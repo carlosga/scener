@@ -63,10 +63,10 @@ void RendererWindow::Open()
         throw std::runtime_error("glfwInit failed");
     }
 
-    GraphicsDevice          graphicsDevice = this->renderer.GetGraphicsDevice();
-    PresentationParameters  params         = graphicsDevice.GetPresentationParameters();
-    UInt32                  profile        = static_cast<UInt32>(graphicsDevice.GetGraphicsProfile());
-    UInt32                  displayMode    = GLFW_WINDOW;
+    GraphicsDevice         graphicsDevice = this->renderer.GetGraphicsDevice();
+    PresentationParameters params         = graphicsDevice.GetPresentationParameters();
+    UInt32                 profile        = static_cast<UInt32>(graphicsDevice.GetGraphicsProfile());
+    UInt32                 displayMode    = GLFW_WINDOW;
     
     if (this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen())
     {

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef ANGLE_HPP
-#define	ANGLE_HPP
+#define ANGLE_HPP
 
 #include "Core/Core.hpp"
 
@@ -48,4 +48,4 @@ namespace SceneR
     }
 }
 
-#endif	/* ANGLE_HPP */
+#endif  /* ANGLE_HPP */

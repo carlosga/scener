@@ -122,7 +122,7 @@ void ShaderProgram::SetValue(const std::wstring& parameterName, const Vector3& v
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
-	this->SetValue(location, vector3);
+    this->SetValue(location, vector3);
 }
 
 void ShaderProgram::SetValue(const Int32& location, const Vector3& vector3) const
@@ -136,7 +136,7 @@ void ShaderProgram::SetValue(const std::wstring& parameterName, const Vector4& v
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
-	this->SetValue(location, vector4);
+    this->SetValue(location, vector4);
 }
 
 void ShaderProgram::SetValue(const Int32& location, const Vector4& vector4) const
@@ -150,7 +150,7 @@ void ShaderProgram::SetValue(const std::wstring& parameterName, const Single& va
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
-	this->SetValue(location, value);
+    this->SetValue(location, value);
 }
 
 void ShaderProgram::SetValue(const Int32& location, const Single& value) const

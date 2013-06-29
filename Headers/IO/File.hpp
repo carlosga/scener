@@ -61,4 +61,4 @@ namespace SceneR
     }
 }
 
-#endif /* FILE_HPP */
+#endif  /* FILE_HPP */

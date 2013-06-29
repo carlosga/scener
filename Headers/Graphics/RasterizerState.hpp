@@ -37,7 +37,7 @@ namespace SceneR
              */
             RasterizerState(GraphicsDevice& graphicsDevice);
 
-		public:
+        public:
             /**
              * Specifies the conditions for culling or removing triangles. The default value is CullMode.CounterClockwise.
              */
@@ -122,4 +122,4 @@ namespace SceneR
     }
 }
 
-#endif /* RASTERIZERSTATE_HPP */
+#endif  /* RASTERIZERSTATE_HPP */

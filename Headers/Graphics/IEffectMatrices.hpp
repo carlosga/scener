@@ -21,53 +21,53 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * Defines the transformation matrices for the current effect.
-		 */
-		class IEffectMatrices
-		{
-		public:
-		    /**
-		     * Release all resource being used by the current IIEffectMatrices instance
-		     */
-		    virtual ~IEffectMatrices()
-		    {
-		    };
+    namespace Graphics
+    {
+        /**
+         * Defines the transformation matrices for the current effect.
+         */
+        class IEffectMatrices
+        {
+        public:
+            /**
+             * Release all resource being used by the current IIEffectMatrices instance
+             */
+            virtual ~IEffectMatrices()
+            {
+            };
 
-		public:
-		    /**
-		     * Gets the projection matrix in the current effect.
-		     */
-			virtual const SceneR::Core::Matrix& GetProjection() const = 0;
+        public:
+            /**
+             * Gets the projection matrix in the current effect.
+             */
+            virtual const SceneR::Core::Matrix& GetProjection() const = 0;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-			virtual void SetProjection(const SceneR::Core::Matrix& projection) = 0;
+            virtual void SetProjection(const SceneR::Core::Matrix& projection) = 0;
 
-			/**
-			 * Gets the view matrix in the current effect.
-			 */
-			virtual const SceneR::Core::Matrix& GetView() const = 0;
+            /**
+             * Gets the view matrix in the current effect.
+             */
+            virtual const SceneR::Core::Matrix& GetView() const = 0;
 
-			/**
-			 * Sets the view matrix in the current effect.
-			 */
-			virtual void SetView(const SceneR::Core::Matrix& view) = 0;
+            /**
+             * Sets the view matrix in the current effect.
+             */
+            virtual void SetView(const SceneR::Core::Matrix& view) = 0;
 
-			/**
-			 * Gets the world matrix in the current effect.
-			 */
-			virtual const SceneR::Core::Matrix& GetWorld() const = 0;
+            /**
+             * Gets the world matrix in the current effect.
+             */
+            virtual const SceneR::Core::Matrix& GetWorld() const = 0;
 
             /**
              * Sets the world matrix in the current effect.
              */
             virtual void SetWorld(const SceneR::Core::Matrix& world) = 0;
-		};
-	};
+        };
+    };
 }
 
-#endif // IEFFECTMATRICES_HPP
+#endif  /* IEFFECTMATRICES_HPP */

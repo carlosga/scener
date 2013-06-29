@@ -68,4 +68,4 @@ namespace SceneR
     }
 }
 
-#endif /* VERTEXDECLARATION_HPP */
+#endif  /* VERTEXDECLARATION_HPP */

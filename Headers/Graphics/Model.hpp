@@ -27,61 +27,65 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
-		 */
-		class Model
-		{
-		public:
-			/**
-			 * Initializes a new instance of the Model class.
-			 */
-			Model();
-			
-		public:
+    namespace Graphics
+    {
+        /**
+         * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
+         */
+        class Model
+        {
+        public:
             /**
-             * Render a model after applying the matrix transformations.
+             * Initializes a new instance of the Model class.
+             */
+            Model();
+            
+        public:
+            /**
+             * Render a model after applying the given matrix transformations.
+             *
+             * @param world the world matrix
+             * @param view the view matrix
+             * @param projection the projection matrix
              */
             void Draw(const SceneR::Core::Matrix& world,
                       const SceneR::Core::Matrix& view,
                       const SceneR::Core::Matrix& projection);
 
-			/**
-			 * Gets the root bone for the current model.
-			 */
-			const std::shared_ptr<ModelBone> Root() const;
-			
-			/**
-			 * Gets the collection of bones associated to the current model
-			 */
-			const std::vector<std::shared_ptr<ModelBone>>& Bones() const;
-			
-			/**
-			 * Gets a collection of ModelMesh objects which composes the current model.
-			 */
-			const std::vector<std::shared_ptr<ModelMesh>>& Meshes() const;
+            /**
+             * Gets the root bone for the current model.
+             */
+            const std::shared_ptr<ModelBone> Root() const;
+            
+            /**
+             * Gets the collection of bones associated to the current model
+             */
+            const std::vector<std::shared_ptr<ModelBone>>& Bones() const;
+            
+            /**
+             * Gets a collection of ModelMesh objects which composes the current model.
+             */
+            const std::vector<std::shared_ptr<ModelMesh>>& Meshes() const;
 
-			/**
-			 * Gets the model tag
-			 */
-			const std::wstring& GetTag() const;
+            /**
+             * Gets the model tag
+             */
+            const std::wstring& GetTag() const;
 
             /**
              * Sets the model tag
              */
             void SetTag(const std::wstring& tag);
 
-		private:
-			std::vector<std::shared_ptr<ModelBone>> bones;
-			std::vector<std::shared_ptr<ModelMesh>> meshes;
-			std::shared_ptr<ModelBone> 			    root;
-			std::wstring                            tag;
-			
-			friend class SceneR::Content::ModelReader;
-		};
-	}
+        private:
+            std::vector<std::shared_ptr<ModelBone>> bones;
+            std::vector<std::shared_ptr<ModelMesh>> meshes;
+            std::shared_ptr<ModelBone>              root;
+            std::wstring                            tag;
+            
+            friend class SceneR::Content::ModelReader;
+        };
+    }
 }
 
-#endif 	// MODEL_HPP
+#endif  /* MODEL_HPP */

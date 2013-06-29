@@ -70,4 +70,4 @@ namespace SceneR
     }
 }
 
-#endif  // VERTEXPOSITIONNORMALTEXTURE_HPP
+#endif  /* VERTEXPOSITIONNORMALTEXTURE_HPP */

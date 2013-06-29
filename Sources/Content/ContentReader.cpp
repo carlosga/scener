@@ -59,6 +59,7 @@ wchar_t ContentReader::ReadChar()
 {
     wchar_t buffer = this->ReadByte();
 
+    // http://xbox.create.msdn.com/en-US/sample/xnb_format
     // Decode UTF-8.
     if (buffer & 0x80)
     {

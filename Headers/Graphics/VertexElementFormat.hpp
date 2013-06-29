@@ -44,4 +44,4 @@ namespace SceneR
     }
 }
 
-#endif /* VERTEXELEMENTFORMAT_HPP */
+#endif  /* VERTEXELEMENTFORMAT_HPP */

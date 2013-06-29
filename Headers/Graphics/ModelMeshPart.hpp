@@ -27,85 +27,83 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-	    /**
-		 * Represents a batch of geometry information to submit to the graphics device during rendering. 
-		 * Each ModelMeshPart is a subdivision of a ModelMesh object. 
-		 * The ModelMesh class is split into multiple ModelMeshPart objects, typically based on material information.
-		 */
-		class ModelMeshPart 
-		{
-		public:
-			/**
-			 * Initializes a new instance of the ModelMeshPart class.
-			 */
-			ModelMeshPart();
-			
-		public:
-			/**
-			 * Gets or sets the material Effect for this mesh part.
-			 */
-			std::shared_ptr<Effect> GetEffect() const;
+    namespace Graphics
+    {
+        /**
+         * Represents a a subdivision of a ModelMesh object.
+         */
+        class ModelMeshPart 
+        {
+        public:
+            /**
+             * Initializes a new instance of the ModelMeshPart class.
+             */
+            ModelMeshPart();
+            
+        public:
+            /**
+             * Gets or sets the material Effect for this mesh part.
+             */
+            std::shared_ptr<Effect> GetEffect() const;
 
             /**
              * Gets or sets the material Effect for this mesh part.
              */
             void SetEffect(std::shared_ptr<Effect> effect);
 
-			/**
-			 * Gets the index buffer for this mesh part.
-			 */
+            /**
+             * Gets the index buffer for this mesh part.
+             */
             std::shared_ptr<IndexBuffer> GetIndexBuffer();
-			
-			/**
-			 * Gets the number of vertices used during a draw call.
-			 */
-			const Int32& GetVertexCount() const;
-			
-			/**
-			 * Gets the number of primitives to render.
-			 */
-			const Int32& GetPrimitiveCount() const;
-			
-			/**
-			 * Gets the location in the index array at which to start reading vertices.
-			 */ 
-			const Int32& GetStartIndex() const;
-			
-			/**
-			 * Gets the model mesh part tag
-			 */
-			const std::wstring& GetTag() const;
+            
+            /**
+             * Gets the number of vertices used during a draw call.
+             */
+            const Int32& GetVertexCount() const;
+            
+            /**
+             * Gets the number of primitives to render.
+             */
+            const Int32& GetPrimitiveCount() const;
+            
+            /**
+             * Gets the location in the index array at which to start reading vertices.
+             */ 
+            const Int32& GetStartIndex() const;
+            
+            /**
+             * Gets the model mesh part tag
+             */
+            const std::wstring& GetTag() const;
 
             /**
              * Sets the model mesh part tag
              */
             void SetTag(const std::wstring tag);
 
-			/**
-			 * Gets the vertex buffer for this mesh part.
-			 */
+            /**
+             * Gets the vertex buffer for this mesh part.
+             */
             std::shared_ptr<VertexBuffer> GetVertexBuffer();
-			
-			/**
-			 * Gets the offset (in vertices) from the top of vertex buffer.
-			 */
-			const Int32& GetVertexOffset() const;
-			
-		private:
-			std::shared_ptr<Effect>       effect;
-			std::shared_ptr<IndexBuffer>  indexBuffer;
-			Int32 		                  vertexCount;
-			Int32 		                  primitiveCount;
-			Int32		                  startIndex;
-			std::wstring                  tag;
-			std::shared_ptr<VertexBuffer> vertexBuffer;
-			Int32		                  vertexOffset;
+            
+            /**
+             * Gets the offset (in vertices) from the top of vertex buffer.
+             */
+            const Int32& GetVertexOffset() const;
+            
+        private:
+            std::shared_ptr<Effect>       effect;
+            std::shared_ptr<IndexBuffer>  indexBuffer;
+            Int32                         vertexCount;
+            Int32                         primitiveCount;
+            Int32                         startIndex;
+            std::wstring                  tag;
+            std::shared_ptr<VertexBuffer> vertexBuffer;
+            Int32                         vertexOffset;
 
             friend class SceneR::Content::ModelReader;
-		};
-	}
+        };
+    }
 }
 
-#endif	// MODELMESHPART_HPP
+#endif  /* MODELMESHPART_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef SHADERPROGRAM_HPP
-#define	SHADERPROGRAM_HPP
+#define SHADERPROGRAM_HPP
 
 #include <memory>
 #include <string>
@@ -63,7 +63,7 @@ namespace SceneR
             void Deactivate() const;
 
             /**
-             * Gets the stage name
+             * Gets the shader program name
              */
             const std::wstring& Name() const;
 
@@ -92,4 +92,4 @@ namespace SceneR
     }
 }
 
-#endif	/* SHADERPROGRAM_HPP */
+#endif  /* SHADERPROGRAM_HPP */

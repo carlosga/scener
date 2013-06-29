@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef POINTLIGHTBASE_HPP
-#define	POINTLIGHTBASE_HPP
+#define POINTLIGHTBASE_HPP
 
 #include "Core/Color.hpp"
 #include "Core/Vector3.hpp"
@@ -121,7 +121,7 @@ namespace SceneR
              */
             virtual ~PointLightBase() = default;
 
-		protected:
+        protected:
             SceneR::Core::Vector3 position;
             Single                range;
             Single                constantAttenuation;
@@ -131,4 +131,4 @@ namespace SceneR
     }
 }
 
-#endif	/* POINTLIGHTBASE_HPP */
+#endif  /* POINTLIGHTBASE_HPP */

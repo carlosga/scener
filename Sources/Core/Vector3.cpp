@@ -35,26 +35,26 @@ const Vector3 Vector3::Up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 
 Vector3 Vector3::Lerp(const Vector3& value1,
- 			          const Vector3& value2,
- 			          const Single&  amount)
+                      const Vector3& value2,
+                      const Single&  amount)
 {
-	// Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
-	
-	assert(amount >= 0.0f && amount < 1.0f);
-	
-	return (value1 + (value2 - value1) * amount);
+    // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
+    
+    assert(amount >= 0.0f && amount < 1.0f);
+    
+    return (value1 + (value2 - value1) * amount);
 }
 
 Vector3 Vector3::SmoothStep(const Vector3& value1,
-						    const Vector3& value2,
-						    const Single&  amount)
+                            const Vector3& value2,
+                            const Single&  amount)
 {
-	// Necesario implementar Hermite y Clamp. Ver MathHelper de XNA
+    // Necesario implementar Hermite y Clamp. Ver MathHelper de XNA
     throw std::runtime_error("Not  implemented");
 }
 
 Vector3::Vector3()
-	: Vector3(0.0f, 0.0f, 0.0f)
+    : Vector3(0.0f, 0.0f, 0.0f)
 {
 }
 
@@ -92,19 +92,19 @@ const Single Vector3::LengthSquared() const
 
 const Single Vector3::Length() const
 {
-	// The modulus or magnitude of a vector is simply its length. 
-	// This can easily be found using Pythagorean Theorem with the vector components. 
-	//
-	// The modulus is written like:
-	// a = |a|
-	//
-	// Given:
-	// a = xi + yj + zk
-	//
-	// Then:
-	//
-	// |a| = sqrt(x^2 + y^2 + z^2)
-	
+    // The modulus or magnitude of a vector is simply its length. 
+    // This can easily be found using Pythagorean Theorem with the vector components. 
+    //
+    // The modulus is written like:
+    // a = |a|
+    //
+    // Given:
+    // a = xi + yj + zk
+    //
+    // Then:
+    //
+    // |a| = sqrt(x^2 + y^2 + z^2)
+    
     return std::sqrt(this->LengthSquared());
 }
 
@@ -115,8 +115,8 @@ void Vector3::Negate()
 
 const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
 {
-	// The vector cross product in expanded form can be defined as:
-	// a x b = (y1z2 - z1y2)i - (x1z2 - z1x2)j + (x1y2 - y1x2)k
+    // The vector cross product in expanded form can be defined as:
+    // a x b = (y1z2 - z1y2)i - (x1z2 - z1x2)j + (x1y2 - y1x2)k
 
     Single x = (this->yCoordinate * vectorb.Z()) - (vectorb.Y() * this->zCoordinate);
     Single y = (this->zCoordinate * vectorb.X()) - (vectorb.Z() * this->xCoordinate);
@@ -127,12 +127,12 @@ const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
 
 const Single Vector3::DotProduct(const Vector3& vectorb) const
 {
-	// The definition of the scalar (dot) product is:
-	// a · b = |a||b|cosθ
-	//
-	// The scalar product can also be written in terms of Cartesian components as:
-	// a · b = x1x2 + y1y2 + z1z2
-	
+    // The definition of the scalar (dot) product is:
+    // a · b = |a||b|cosθ
+    //
+    // The scalar product can also be written in terms of Cartesian components as:
+    // a · b = x1x2 + y1y2 + z1z2
+    
     Vector3 dotProduct = *this * vectorb;
     
     return (dotProduct.X() + dotProduct.Y() + dotProduct.Z());
@@ -148,14 +148,14 @@ const Single Vector3::AngleBetween(const Vector3& vectorb) const
             
 void Vector3::Normalize()
 {
-	// To find the unit vector of another vector, we use the modulus operator 
-	// and scalar multiplication like so:
-	// b = a / |a|
-	//
-	// Where |a| is the modulus of a
+    // To find the unit vector of another vector, we use the modulus operator 
+    // and scalar multiplication like so:
+    // b = a / |a|
+    //
+    // Where |a| is the modulus of a
     (*this /= this->Length());
 }       
-	
+    
 Single& Vector3::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 3);
@@ -179,7 +179,7 @@ Vector3& Vector3::operator=(const Vector3 &vector)
         this->zCoordinate = vector.Z();
     }
 
-	return *this;
+    return *this;
 }
 
 bool Vector3::operator==(const Vector3 &vector) const
@@ -269,16 +269,16 @@ const Vector3 Vector3::operator*(const Single &value) const
 const Vector3 Vector3::operator*(const Matrix &matrix) const 
 {
     Single x = (this->xCoordinate * matrix.M11())
-			 + (this->yCoordinate * matrix.M21())
-			 + (this->zCoordinate * matrix.M31());
+             + (this->yCoordinate * matrix.M21())
+             + (this->zCoordinate * matrix.M31());
 
     Single y = (this->xCoordinate * matrix.M12())
-			 + (this->yCoordinate * matrix.M22())
-			 + (this->zCoordinate * matrix.M32());
+             + (this->yCoordinate * matrix.M22())
+             + (this->zCoordinate * matrix.M32());
 
     Single z = (this->xCoordinate * matrix.M13())
-			 + (this->yCoordinate * matrix.M23())
-			 + (this->zCoordinate * matrix.M33());
+             + (this->yCoordinate * matrix.M23())
+             + (this->zCoordinate * matrix.M33());
                     
     return Vector3(x, y, z);
 }

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef POINTLIGHT_HPP
-#define	POINTLIGHT_HPP
+#define POINTLIGHT_HPP
 
 #include "Core/Color.hpp"
 #include "Core/Vector3.hpp"
@@ -53,5 +53,5 @@ namespace SceneR
     }
 }
 
-#endif	/* POINTLIGHT_HPP */
+#endif  /* POINTLIGHT_HPP */
 

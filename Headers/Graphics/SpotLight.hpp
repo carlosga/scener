@@ -15,18 +15,18 @@
 //-------------------------------------------------------------------------------
 
 #ifndef SPOTLIGHT_HPP
-#define	SPOTLIGHT_HPP
+#define SPOTLIGHT_HPP
 
 #include "Core/Core.hpp"
 #include "Graphics/PointLightBase.hpp"
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		class SpotLight : public PointLightBase
-		{
-		public:
+    namespace Graphics
+    {
+        class SpotLight : public PointLightBase
+        {
+        public:
             /**
              * Initializes a new instance of the SpotLight class at the origin.
              */
@@ -46,8 +46,8 @@ namespace SceneR
                       const SceneR::Core::Vector3& direction,
                       const Single&                falloffAngle,
                       const Single&                falloffExponent);
-					  
-		public:
+                      
+        public:
             /**
              * Gets a Vector3D that specifies the direction in which the SpotLight projects its light.
              * @return the Vector3D that specifies the direction in which the SpotLight projects its light.
@@ -73,7 +73,7 @@ namespace SceneR
             Single                falloffAngle;
             Single                falloffExponent;
         };
-	}
+    }
 }
 
-#endif	/* SPOTLIGHT_HPP */
+#endif  /* SPOTLIGHT_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CONTENTTYPEREADER_HPP
-#define	CONTENTTYPEREADER_HPP
+#define CONTENTTYPEREADER_HPP
 
 #include <memory>
 #include "Content/ContentType.hpp"
@@ -52,4 +52,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CONTENTTYPEREADER_HPP */
+#endif  /* CONTENTTYPEREADER_HPP */

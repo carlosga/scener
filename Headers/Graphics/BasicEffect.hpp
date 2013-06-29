@@ -309,4 +309,4 @@ namespace SceneR
     }
 }
 
-#endif // BASICEFFECT_HPP
+#endif  /* BASICEFFECT_HPP */

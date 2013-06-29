@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CONTENTLOADEXCEPTION_HPP
-#define	CONTENTLOADEXCEPTION_HPP
+#define CONTENTLOADEXCEPTION_HPP
 
 #include <stdexcept>
 #include <string>
@@ -30,7 +30,6 @@ namespace SceneR
         class ContentLoadException : std::exception
         {
         public:
-
             /**
              * Initializes a new instance of the ContentLoadException class with the given message
              * @param m
@@ -48,7 +47,6 @@ namespace SceneR
             };
 
         public:
-
             /**
              * Gets the message that describes the error.
              * @return  the message describing the error.
@@ -64,4 +62,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CONTENTLOADEXCEPTION_HPP */
+#endif  /* CONTENTLOADEXCEPTION_HPP */

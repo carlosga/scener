@@ -59,26 +59,26 @@ void Effect::End()
     this->shaderProgram->Deactivate();
 }
 
-const EffectParameter& Effect::AddEffectParameter(const std::wstring& 		  name, 
-										          const EffectParameterClass& parameterClass,
-										          const EffectParameterType&  parameterType)
+const EffectParameter& Effect::AddEffectParameter(const std::wstring&         name,
+                                                  const EffectParameterClass& parameterClass,
+                                                  const EffectParameterType&  parameterType)
 {
-	EffectParameter newParameter(name, parameterClass, parameterType, this->shaderProgram);
-	
-	this->parameters.push_back(newParameter);
-	
-	return this->GetEffectParameter(name);
+    EffectParameter newParameter(name, parameterClass, parameterType, this->shaderProgram);
+    
+    this->parameters.push_back(newParameter);
+    
+    return this->GetEffectParameter(name);
 }
 
 const EffectParameter& Effect::GetEffectParameter(const std::wstring& name) const
 {
-	for (const auto& effectParameter : this->parameters)
-	{
-		if (effectParameter.Name() == name)
-		{
-			return effectParameter;
-		}
-	}
-	
-	throw std::runtime_error("Invalid parameter name");
+    for (const auto& effectParameter : this->parameters)
+    {
+        if (effectParameter.Name() == name)
+        {
+            return effectParameter;
+        }
+    }
+    
+    throw std::runtime_error("Invalid parameter name");
 }

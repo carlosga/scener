@@ -52,6 +52,4 @@ namespace SceneR
     }
 }
 
-
-
 #endif /* SHADERTYPE_HPP */

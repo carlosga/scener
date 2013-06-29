@@ -147,140 +147,139 @@ void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
     this->UnbindVertexBuffer();
 }
 
-// Namespaces needed to get the specialization compiling fine on gcc 4.7
 template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionColor>& data)
 {
-	VertexDeclaration vDecl      = VertexPositionColor::GetVertexDeclaration();
-	size_t            index      = 0;
-	size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    VertexDeclaration vDecl      = VertexPositionColor::GetVertexDeclaration();
+    size_t            index      = 0;
+    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
 
-	// Create the data buffer
-	Single buffer[bufferSize];
+    // Create the data buffer
+    Single buffer[bufferSize];
 
-	// Fill the data buffer with vertex data
-	// Raw processing there should be a better way to serialize vertex data
-	for (const auto& vertex : data)
-	{
-		const Vector3& position = vertex.GetPosition();
-		const Color&   color    = vertex.GetColor();
+    // Fill the data buffer with vertex data
+    // Raw processing there should be a better way to serialize vertex data
+    for (const auto& vertex : data)
+    {
+        const Vector3& position = vertex.GetPosition();
+        const Color&   color    = vertex.GetColor();
 
-		// process position components
-		for (int i = 0; i < 3; i++)
-		{
-			buffer[index++] = position[i];
-		}
+        // process position components
+        for (int i = 0; i < 3; i++)
+        {
+            buffer[index++] = position[i];
+        }
 
-		// process color components
-		for (int i = 0; i < 4; i++)
-		{
-			buffer[index++] = color[i];
-		}
-	}
+        // process color components
+        for (int i = 0; i < 4; i++)
+        {
+            buffer[index++] = color[i];
+        }
+    }
 
-	this->BindVertexBuffer();
+    this->BindVertexBuffer();
 
-	glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-				 bufferSize * sizeof(Single),
-				 &buffer,
-				 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
+    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
+                 bufferSize * sizeof(Single),
+                 &buffer,
+                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
 
-	this->UnbindVertexBuffer();
-	this->DeclareVertexFormat(VertexPositionColor::GetVertexDeclaration());
+    this->UnbindVertexBuffer();
+    this->DeclareVertexFormat(VertexPositionColor::GetVertexDeclaration());
  }
 
 template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionColorTexture>& data)
 {
-	VertexDeclaration vDecl      = VertexPositionColorTexture::GetVertexDeclaration();
-	size_t            index      = 0;
-	size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    VertexDeclaration vDecl      = VertexPositionColorTexture::GetVertexDeclaration();
+    size_t            index      = 0;
+    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
 
-	// Create the data buffer
-	Single buffer[bufferSize];
+    // Create the data buffer
+    Single buffer[bufferSize];
 
-	// Fill the data buffer with vertex data
-	// Raw processing there should be a better way to serialize vertex data
-	for (const auto& vertex : data)
-	{
-		const Vector3& position = vertex.GetPosition();
-		const Color&   color    = vertex.GetColor();
-		const Vector2& tcoord   = vertex.GetTextureCoordinate();
+    // Fill the data buffer with vertex data
+    // Raw processing there should be a better way to serialize vertex data
+    for (const auto& vertex : data)
+    {
+        const Vector3& position = vertex.GetPosition();
+        const Color&   color    = vertex.GetColor();
+        const Vector2& tcoord   = vertex.GetTextureCoordinate();
 
-		// process position components
-		for (int i = 0; i < 3; i++)
-		{
-			buffer[index++] = position[i];
-		}
+        // process position components
+        for (int i = 0; i < 3; i++)
+        {
+            buffer[index++] = position[i];
+        }
 
-		// process color components
-		for (int i = 0; i < 4; i++)
-		{
-			buffer[index++] = color[i];
-		}
+        // process color components
+        for (int i = 0; i < 4; i++)
+        {
+            buffer[index++] = color[i];
+        }
 
-		// process texture components
-		for (int i = 0; i < 2; i++)
-		{
-			buffer[index++] = tcoord[i];
-		}
-	}
+        // process texture components
+        for (int i = 0; i < 2; i++)
+        {
+            buffer[index++] = tcoord[i];
+        }
+    }
 
-	this->BindVertexBuffer();
+    this->BindVertexBuffer();
 
-	glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-				 bufferSize * sizeof(Single),
-				 &buffer,
-				 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
+    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
+                 bufferSize * sizeof(Single),
+                 &buffer,
+                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
 
-	this->UnbindVertexBuffer();
-	this->DeclareVertexFormat(vDecl);
+    this->UnbindVertexBuffer();
+    this->DeclareVertexFormat(vDecl);
 }
 
 template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
 {
-	VertexDeclaration vDecl      = VertexPositionNormalTexture::GetVertexDeclaration();
-	size_t            index      = 0;
-	size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    VertexDeclaration vDecl      = VertexPositionNormalTexture::GetVertexDeclaration();
+    size_t            index      = 0;
+    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
 
-	// Create the data buffer
-	Single buffer[bufferSize];
+    // Create the data buffer
+    Single buffer[bufferSize];
 
-	// Fill the data buffer with vertex data
-	// Raw processing there should be a better way to serialize vertex data
-	for (const auto& vertex : data)
-	{
-		const Vector3& position = vertex.GetPosition();
-		const Vector3& normal   = vertex.GetNormal();
-		const Vector2& tcoord   = vertex.GetTextureCoordinate();
+    // Fill the data buffer with vertex data
+    // Raw processing there should be a better way to serialize vertex data
+    for (const auto& vertex : data)
+    {
+        const Vector3& position = vertex.GetPosition();
+        const Vector3& normal   = vertex.GetNormal();
+        const Vector2& tcoord   = vertex.GetTextureCoordinate();
 
-		// process position components
-		for (int i = 0; i < 3; i++)
-		{
-			buffer[index++] = position[i];
-		}
+        // process position components
+        for (int i = 0; i < 3; i++)
+        {
+            buffer[index++] = position[i];
+        }
 
-		// process normal components
-		for (int i = 0; i < 3; i++)
-		{
-			buffer[index++] = normal[i];
-		}
+        // process normal components
+        for (int i = 0; i < 3; i++)
+        {
+            buffer[index++] = normal[i];
+        }
 
-		// process texture components
-		for (int i = 0; i < 2; i++)
-		{
-			buffer[index++] = tcoord[i];
-		}
-	}
+        // process texture components
+        for (int i = 0; i < 2; i++)
+        {
+            buffer[index++] = tcoord[i];
+        }
+    }
 
-	this->BindVertexBuffer();
+    this->BindVertexBuffer();
 
-	glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-				 bufferSize * sizeof(Single),
-				 &buffer,
-				 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
+    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
+                 bufferSize * sizeof(Single),
+                 &buffer,
+                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
 
-	this->UnbindVertexBuffer();
-	this->DeclareVertexFormat(vDecl);
+    this->UnbindVertexBuffer();
+    this->DeclareVertexFormat(vDecl);
 }

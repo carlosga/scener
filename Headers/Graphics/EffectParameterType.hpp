@@ -72,4 +72,4 @@ namespace SceneR
     }
 }
 
-#endif /* EFFECTPARAMETERTYPE_HPP */
+#endif  /* EFFECTPARAMETERTYPE_HPP */

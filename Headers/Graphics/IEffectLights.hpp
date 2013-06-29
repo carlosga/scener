@@ -77,12 +77,12 @@ namespace SceneR
 
             /**
              * Enables default lighting for the current effect.
-			 * http://xboxforums.create.msdn.com/forums/t/25547.aspx
-			 * http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
+             * http://xboxforums.create.msdn.com/forums/t/25547.aspx
+             * http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
              */
             virtual void EnableDefaultLighting() = 0;
         };
     }
 }
 
-#endif /* IEFFECTLIGHTS_HPP */
+#endif  /* IEFFECTLIGHTS_HPP */

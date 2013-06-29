@@ -50,4 +50,4 @@ namespace SceneR
     }
 }
 
-#endif /* VERTEXBUFFERREADER_HPP */
+#endif  /* VERTEXBUFFERREADER_HPP */

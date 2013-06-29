@@ -31,30 +31,30 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-	    class GraphicsDeviceManager;
-	    class Effect;
+    namespace Graphics
+    {
+        class GraphicsDeviceManager;
+        class Effect;
 
         /**
          * Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
          */
-		class GraphicsDevice
-		{
+        class GraphicsDevice
+        {
         public:
-			/**
-			 * Initializes a new instance of the GraphicsDevice class.
-			 *
-			 * @param graphicsProfile the graphics profile.
-			 */
-			GraphicsDevice(const GraphicsProfile&  graphicsProfile);
-			
-			/**
-			 * Release all resources being used by the GraphicsDevice instance.
-			 */
-			~GraphicsDevice();
-			
-		public:
+            /**
+             * Initializes a new instance of the GraphicsDevice class.
+             *
+             * @param graphicsProfile the graphics profile.
+             */
+            GraphicsDevice(const GraphicsProfile&  graphicsProfile);
+            
+            /**
+             * Release all resources being used by the GraphicsDevice instance.
+             */
+            ~GraphicsDevice();
+            
+        public:
             /**
              * Clears the resouce buffer
              */
@@ -146,16 +146,16 @@ namespace SceneR
              */
             DepthStencilState& GetDepthStencilState();
 
-			/**
-			 * Gets the presentation parameters associated with this graphics device.
-			 */
-			PresentationParameters& GetPresentationParameters();
+            /**
+             * Gets the presentation parameters associated with this graphics device.
+             */
+            PresentationParameters& GetPresentationParameters();
 
             /**
              * Gets the index buffer.
              * @return the index data
              */
-			std::shared_ptr<IndexBuffer> GetIndexBuffer();
+            std::shared_ptr<IndexBuffer> GetIndexBuffer();
 
             /**
              * Sets the index buffer.
@@ -168,9 +168,9 @@ namespace SceneR
              */
             RasterizerState& GetRasterizerState();
 
-			/**
-			 * Gets the current vertex buffer.
-			 */
+            /**
+             * Gets the current vertex buffer.
+             */
             std::shared_ptr<VertexBuffer> GetVertexBuffer();
 
             /**
@@ -188,22 +188,22 @@ namespace SceneR
              */
             void SetViewport(Viewport& viewport);
 
-		private:
-			void ApplyChanges();
+        private:
+            void ApplyChanges();
 
-		private:
-			DepthStencilState             depthStencilState;
-			std::shared_ptr<Effect>       effect;
+        private:
+            DepthStencilState             depthStencilState;
+            std::shared_ptr<Effect>       effect;
             GraphicsProfile               graphicsProfile;
             std::shared_ptr<IndexBuffer>  indexBuffer;
-			PresentationParameters        presentationParameters;
-			RasterizerState               rasterizerState;
-			std::shared_ptr<VertexBuffer> vertexBuffer;
-			Viewport                      viewport;
+            PresentationParameters        presentationParameters;
+            RasterizerState               rasterizerState;
+            std::shared_ptr<VertexBuffer> vertexBuffer;
+            Viewport                      viewport;
 
-			friend class GraphicsDeviceManager;
+            friend class GraphicsDeviceManager;
         };
-	}
+    }
 }
 
-#endif  // GRAPHICSDEVICE_HPP
+#endif  /* GRAPHICSDEVICE_HPP */

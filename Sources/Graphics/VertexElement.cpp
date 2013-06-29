@@ -18,11 +18,11 @@
 
 using namespace SceneR::Graphics;
 
-VertexElement::VertexElement(const UInt32& offset,
-                             const UInt32& componentCount,
+VertexElement::VertexElement(const UInt32&              offset,
+                             const UInt32&              componentCount,
                              const VertexElementFormat& vertexElementFormat,
-                             const VertexElementUsage& vertexElementUsage,
-                             const UInt32& usageIndex)
+                             const VertexElementUsage&  vertexElementUsage,
+                             const UInt32&              usageIndex)
     : offset(offset),
       componentCount(componentCount),
       vertexElementFormat(vertexElementFormat),

@@ -34,10 +34,10 @@ EffectParameter::EffectParameter()
 {
 }
 
-EffectParameter::EffectParameter(const std::wstring& 		 		  name, 
-								 const EffectParameterClass& 		  parameterClass,
-								 const EffectParameterType&   		  parameterType,
-								 const std::shared_ptr<ShaderProgram> shader)
+EffectParameter::EffectParameter(const std::wstring&                  name,
+                                 const EffectParameterClass&          parameterClass,
+                                 const EffectParameterType&           parameterType,
+                                 const std::shared_ptr<ShaderProgram> shader)
     : columnCount(0),
       elements(0),
       name(name),
@@ -48,7 +48,7 @@ EffectParameter::EffectParameter(const std::wstring& 		 		  name,
       shader(shader),
       parameterLocation(-1)
 {
-	this->parameterLocation = this->shader->GetParameterLocation(this->name);
+    this->parameterLocation = this->shader->GetParameterLocation(this->name);
 }
 
 const Int32& EffectParameter::ColumnCount() const
@@ -183,11 +183,11 @@ void EffectParameter::SetValue(const std::vector<Int32>& value) const
 
 void EffectParameter::SetValue(const Matrix& value) const
 {
-	if (this->parameterClass != EffectParameterClass::Matrix)
-	{
-		throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
-	}
-	
+    if (this->parameterClass != EffectParameterClass::Matrix)
+    {
+        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+    }
+    
     this->shader->SetValue(this->parameterLocation, value);
 }
 
@@ -233,11 +233,11 @@ void EffectParameter::SetValue(const std::wstring& value) const
 
 void EffectParameter::SetValue(const Vector3& value) const
 {
-	if (this->parameterClass != EffectParameterClass::Vector)
-	{
-		throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
-	}
-	
+    if (this->parameterClass != EffectParameterClass::Vector)
+    {
+        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+    }
+    
     this->shader->SetValue(this->parameterLocation, value);
 }
 

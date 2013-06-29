@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef RENDERER_HPP
-#define	RENDERER_HPP
+#define RENDERER_HPP
 
 #include <string>
 #include <Core/Core.hpp>
@@ -42,8 +42,8 @@ namespace SceneR
              * Releases all resources being used by the current renderer instance
              */
             virtual ~Renderer();
-			
-		public:
+            
+        public:
             /**
              * Call this method to initialize the renderer, begin running the rendering loop, 
              * and start processing events.
@@ -130,11 +130,11 @@ namespace SceneR
             void InitializeCallbacks() const;
             void ReleaseCallbacks() const;
 
-		private:	// Callback's
-			static void DebugCallback(GLenum  source, GLenum 	  type,
-							          GLuint  id	, GLenum 	  severity,
-							          GLsizei length, const char* message,
-							          void*   userParam);
+        private:    // Callback's
+            static void DebugCallback(GLenum  source, GLenum      type,
+                                      GLuint  id    , GLenum      severity,
+                                      GLsizei length, const char* message,
+                                      void*   userParam);
             
         private:
             GraphicsDeviceManager           graphicsDeviceManager;
@@ -144,4 +144,4 @@ namespace SceneR
     }
 }
 
-#endif	/* RENDERER_HPP */
+#endif  /* RENDERER_HPP */

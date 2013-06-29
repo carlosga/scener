@@ -135,12 +135,12 @@ void Renderer::InitializeCallbacks() const
     // Disable automatic event polling
     glfwDisable(GLFW_AUTO_POLL_EVENTS);
     
-	// Enable debugging output
-	// Other OpenGL 4.x debugging functions:
-	// 	glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
+    // Enable debugging output
+    // Other OpenGL 4.x debugging functions:
+    //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
     glEnable(GL_ARB_debug_output);
     glDebugMessageCallbackARB(Renderer::DebugCallback, nullptr);
-	
+    
     /*
     glfwSetWindowSizeCallback(RenderDevice::WindowSizeCallback);
     glfwSetWindowRefreshCallback(RenderDevice::WindowRefreshCallback);
@@ -153,8 +153,8 @@ void Renderer::InitializeCallbacks() const
 
 void Renderer::ReleaseCallbacks() const
 {
-	glDisable(GL_ARB_debug_output);
-	glDebugMessageCallbackARB(nullptr, nullptr);
+    glDisable(GL_ARB_debug_output);
+    glDebugMessageCallbackARB(nullptr, nullptr);
     /*
     glfwSetWindowSizeCallback(NULL);
     glfwSetWindowRefreshCallback(NULL);
@@ -165,10 +165,10 @@ void Renderer::ReleaseCallbacks() const
 }
 
 // A debugging callback
-void Renderer::DebugCallback(GLenum  source , GLenum 	  type,
-                             GLuint  id	    , GLenum 	  severity,
-							 GLsizei length , const char* message,
-							 void*   userParam)
+void Renderer::DebugCallback(GLenum  source , GLenum      type,
+                             GLuint  id     , GLenum      severity,
+                             GLsizei length , const char* message,
+                             void*   userParam)
 {
-	std::cout << message << std::endl;
+    std::cout << message << std::endl;
 }

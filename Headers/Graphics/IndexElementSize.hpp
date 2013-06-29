@@ -40,4 +40,4 @@ namespace SceneR
     }
 }
 
-#endif /* INDEXELEMENTSIZE_HPP */
+#endif  /* INDEXELEMENTSIZE_HPP */

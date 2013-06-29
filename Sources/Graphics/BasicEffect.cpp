@@ -266,30 +266,30 @@ void BasicEffect::SetWorld(const Matrix& world)
 
 void BasicEffect::EnableDefaultLighting()
 {
-	/*
-	http://xboxforums.create.msdn.com/forums/t/25547.aspx
-	
-	effect.LightingEnabled = true;
+    /*
+    http://xboxforums.create.msdn.com/forums/t/25547.aspx
+    
+    effect.LightingEnabled = true;
 
-	effect.AmbientLightColor = new Vector3(0.053f, 0.098f, 0.181f);
-	effect.SpecularColor = new Vector3(0, 0, 0);
-	effect.DiffuseColor = new Vector3(0.64f, 0.64f, 0.64f);
+    effect.AmbientLightColor = new Vector3(0.053f, 0.098f, 0.181f);
+    effect.SpecularColor = new Vector3(0, 0, 0);
+    effect.DiffuseColor = new Vector3(0.64f, 0.64f, 0.64f);
 
-	effect.DirectionalLight0.Enabled = true;
-	effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 0.96f, 0.81f);
-	effect.DirectionalLight0.Direction = new Vector3(-0.52f, -0.57f, -0.62f);
-	effect.DirectionalLight0.SpecularColor = new Vector3(1f, 0.96f, 0.81f);
+    effect.DirectionalLight0.Enabled = true;
+    effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 0.96f, 0.81f);
+    effect.DirectionalLight0.Direction = new Vector3(-0.52f, -0.57f, -0.62f);
+    effect.DirectionalLight0.SpecularColor = new Vector3(1f, 0.96f, 0.81f);
 
-	effect.DirectionalLight1.Enabled = true;
-	effect.DirectionalLight1.DiffuseColor = new Vector3(0.96f, 0.76f, 0.40f);
-	effect.DirectionalLight1.Direction = new Vector3(0.71f, 0.34f, 0.60f);
-	effect.DirectionalLight1.SpecularColor = new Vector3(0f, 0f, 0f);
+    effect.DirectionalLight1.Enabled = true;
+    effect.DirectionalLight1.DiffuseColor = new Vector3(0.96f, 0.76f, 0.40f);
+    effect.DirectionalLight1.Direction = new Vector3(0.71f, 0.34f, 0.60f);
+    effect.DirectionalLight1.SpecularColor = new Vector3(0f, 0f, 0f);
 
-	effect.DirectionalLight2.Enabled = true;
-	effect.DirectionalLight2.DiffuseColor = new Vector3(0.32f, 0.36f, 0.39f);
-	effect.DirectionalLight2.Direction = new Vector3(0.45f, -0.76f, 0.45f);
-	effect.DirectionalLight2.SpecularColor = new Vector3(0.32f, 0.36f, 0.39f);
-	*/
+    effect.DirectionalLight2.Enabled = true;
+    effect.DirectionalLight2.DiffuseColor = new Vector3(0.32f, 0.36f, 0.39f);
+    effect.DirectionalLight2.Direction = new Vector3(0.45f, -0.76f, 0.45f);
+    effect.DirectionalLight2.SpecularColor = new Vector3(0.32f, 0.36f, 0.39f);
+    */
 }
 
 void BasicEffect::OnApply()
@@ -326,14 +326,14 @@ void BasicEffect::LoadShader()
 
     this->shaderProgram = std::make_shared<ShaderProgram>(L"BasicEffect", shaders);
     this->shaderProgram->Build();
-	
-	Effect::AddEffectParameter(L"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"LightPosition" 		, EffectParameterClass::Vector, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"LightIntensity"		, EffectParameterClass::Vector, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"Ka"            		, EffectParameterClass::Vector, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"Kd"            		, EffectParameterClass::Vector, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"Ks"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-	Effect::AddEffectParameter(L"Shininess"     		, EffectParameterClass::Scalar, EffectParameterType::Single);
+    
+    Effect::AddEffectParameter(L"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"LightPosition"         , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"LightIntensity"        , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"Ka"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"Kd"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"Ks"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(L"Shininess"             , EffectParameterClass::Scalar, EffectParameterType::Single);
 }

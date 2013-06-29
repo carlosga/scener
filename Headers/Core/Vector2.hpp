@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef VECTOR2_HPP
-#define	VECTOR2_HPP
+#define VECTOR2_HPP
 
 #include "Core/Core.hpp"
 
@@ -71,4 +71,4 @@ namespace SceneR
     }
 }
 
-#endif	/* TEXTURECOORDINATE_HPP */
+#endif  /* TEXTURECOORDINATE_HPP */

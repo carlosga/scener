@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CULLMODE_HPP
-#define	CULLMODE_HPP
+#define CULLMODE_HPP
 
 #include "Core/Core.hpp"
 
@@ -44,4 +44,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CULLMODE_HPP */
+#endif  /* CULLMODE_HPP */

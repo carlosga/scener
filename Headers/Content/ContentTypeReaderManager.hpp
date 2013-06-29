@@ -61,4 +61,4 @@ namespace SceneR
     }
 }
 
-#endif /* CONTENTTYPEREADERMANAGER_HPP */
+#endif  /* CONTENTTYPEREADERMANAGER_HPP */

@@ -32,26 +32,26 @@ const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis,
                                    const Single&  angle)
 {
-	float radians = MathHelper::ToRadians(angle);
-	float cos	  = std::cos(radians) - 1 + 1;
-	float sin	  = std::sin(radians);
-	float cos_1   = 1.0f - cos;
-	float x 	  = 0.0f;
-	float y 	  = 0.0f;
-	float z 	  = 0.0f;
-	Vector3 axisNormalized(axis);
-	
-	axisNormalized.Normalize();
-	
-	x = axisNormalized.X();
-	y = axisNormalized.Y();
-	z = axisNormalized.Z();
-		
+    float radians = MathHelper::ToRadians(angle);
+    float cos      = std::cos(radians) - 1 + 1;
+    float sin      = std::sin(radians);
+    float cos_1   = 1.0f - cos;
+    float x       = 0.0f;
+    float y       = 0.0f;
+    float z       = 0.0f;
+    Vector3 axisNormalized(axis);
+    
+    axisNormalized.Normalize();
+    
+    x = axisNormalized.X();
+    y = axisNormalized.Y();
+    z = axisNormalized.Z();
+        
     return Matrix(x * x * cos_1 + cos    , y * x * cos_1 + z * sin, z * x * cos_1 - y * sin, 0.0f,
                   x * y * cos_1 - z * sin, y * y * cos_1 + cos    , z * y * cos_1 + x * sin, 0.0f,
                   x * z * cos_1 + y * sin, y * z * cos_1 - x * sin, z * z * cos_1 + cos    , 0.0f,
                   0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
-}								  
+}                                  
 
 Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
 {
@@ -81,13 +81,13 @@ Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw,
                                       const Single& pitch,
                                       const Single& roll)
 {
-	// Formula: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
-	Single sa = sin(MathHelper::ToRadians(pitch));
-	Single ca = cos(MathHelper::ToRadians(pitch));
-	Single sb = sin(MathHelper::ToRadians(roll));
-	Single cb = cos(MathHelper::ToRadians(roll));
-	Single sh = sin(MathHelper::ToRadians(yaw));
-	Single ch = cos(MathHelper::ToRadians(yaw));
+    // Formula: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
+    Single sa = sin(MathHelper::ToRadians(pitch));
+    Single ca = cos(MathHelper::ToRadians(pitch));
+    Single sb = sin(MathHelper::ToRadians(roll));
+    Single cb = cos(MathHelper::ToRadians(roll));
+    Single sh = sin(MathHelper::ToRadians(yaw));
+    Single ch = cos(MathHelper::ToRadians(yaw));
 
     return Matrix(ch * ca                , sa      , -sh * ca               , 0.0f,
                   -ch * sa * cb + sh * sb, ca * cb , sh * sa * cb + ch * sb , 0.0f,
@@ -97,7 +97,7 @@ Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw,
 
 Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
                              const Single& bottom, const Single& top,
-							 const Single& zNear , const Single& zFar)
+                             const Single& zNear , const Single& zFar)
 {
     if (zNear < 0 || zFar < 0)
     {
@@ -105,21 +105,21 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
     }
 
     Single rightSubLeft  = right - left;
-	Single rightPlusLeft = right + left;
-	Single topSubBottom  = top - bottom;
-	Single topPlusBottom = top + bottom;
-	Single farSubNear    = zFar - zNear;
-	Single farPlusNear   = zFar - zNear;
+    Single rightPlusLeft = right + left;
+    Single topSubBottom  = top - bottom;
+    Single topPlusBottom = top + bottom;
+    Single farSubNear    = zFar - zNear;
+    Single farPlusNear   = zFar - zNear;
 
-	return Matrix((2 * zNear) / rightSubLeft, 0.0f                      , (rightPlusLeft / rightSubLeft), 0.0f,
-			      0.0f        	   	        , (2 * zNear) / topSubBottom, (topPlusBottom / topSubBottom), 0.0f,
-			      0.0f        	   		    , 0.0f            		    , -(farPlusNear  / farSubNear)  , -(2 * zFar * zNear / farSubNear),
-			      0.0f        	   		    , 0.0f            		    , -1.0f           		        , 0.0f);
+    return Matrix((2 * zNear) / rightSubLeft, 0.0f                      , (rightPlusLeft / rightSubLeft), 0.0f,
+                  0.0f                      , (2 * zNear) / topSubBottom, (topPlusBottom / topSubBottom), 0.0f,
+                  0.0f                      , 0.0f                      , -(farPlusNear  / farSubNear)  , -(2 * zFar * zNear / farSubNear),
+                  0.0f                      , 0.0f                      , -1.0f                         , 0.0f);
 }
-			
+            
 Matrix Matrix::CreateLookAt(const Vector3& cameraPosition,
-							const Vector3& cameraTarget,
-							const Vector3& cameraUpVector)
+                            const Vector3& cameraTarget,
+                            const Vector3& cameraUpVector)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
     // zaxis = normal(Eye - At)
@@ -131,30 +131,30 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition,
     // xaxis.z           yaxis.z           zaxis.z          0
     // dot(xaxis, eye)   dot(yaxis, eye)   dot(zaxis, eye)  1
 
-	Vector3 zAxis(cameraPosition - cameraTarget);
-	
-	zAxis.Normalize();
-	
-	Vector3 xAxis(cameraUpVector.CrossProduct(zAxis));
-	
-	xAxis.Normalize();
-	
-	Vector3 yAxis(zAxis.CrossProduct(xAxis));
+    Vector3 zAxis(cameraPosition - cameraTarget);
+    
+    zAxis.Normalize();
+    
+    Vector3 xAxis(cameraUpVector.CrossProduct(zAxis));
+    
+    xAxis.Normalize();
+    
+    Vector3 yAxis(zAxis.CrossProduct(xAxis));
 
-	Single dx = xAxis.DotProduct(cameraPosition);
-	Single dy = yAxis.DotProduct(cameraPosition);
-	Single dz = zAxis.DotProduct(cameraPosition);
+    Single dx = xAxis.DotProduct(cameraPosition);
+    Single dy = yAxis.DotProduct(cameraPosition);
+    Single dz = zAxis.DotProduct(cameraPosition);
 
-	return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
-				  xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
-				  xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f,
-				  -dx      , -dy      , -dz      , 1.0f);
+    return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
+                  xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
+                  xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f,
+                  -dx      , -dy      , -dz      , 1.0f);
 }
 
 Matrix Matrix::CreateOrthographic(const Single& width,
-								  const Single& height,
-								  const Single& zNear,
-								  const Single& zFar)
+                                  const Single& height,
+                                  const Single& zNear,
+                                  const Single& zFar)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
     // 2/w  0    0           0
@@ -171,11 +171,11 @@ Matrix Matrix::CreateOrthographic(const Single& width,
 }
 
 Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
-										   const Single& right,
-										   const Single& bottom,
-										   const Single& top,
-										   const Single& zNear,
-										   const Single& zFar)
+                                           const Single& right,
+                                           const Single& bottom,
+                                           const Single& top,
+                                           const Single& zNear,
+                                           const Single& zFar)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
     // 2/(r-l)      0            0           0
@@ -184,21 +184,21 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
     // (l+r)/(l-r)  (t+b)/(b-t)  zn/(zn-zf)  1
 
     Single leftSubRight  = left - right;
-	Single leftPlusRight = left + right;
-	Single bottomSubTop  = bottom - top;
-	Single topPlusBottom = top + bottom;
-	Single nearSubFar    = zNear - zFar;
+    Single leftPlusRight = left + right;
+    Single bottomSubTop  = bottom - top;
+    Single topPlusBottom = top + bottom;
+    Single nearSubFar    = zNear - zFar;
 
-	return Matrix(2.0f / (right - left)       , 0.0f                        , 0.0f              , 0.0f,
-			      0.0f        	              , 2.0f / (top - bottom)       , 0.0f              , 0.0f,
-			      0.0f        	              , 0.0f                        , 1.0f / nearSubFar , 0.0f,
-			      leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f);
+    return Matrix(2.0f / (right - left)       , 0.0f                        , 0.0f              , 0.0f,
+                  0.0f                        , 2.0f / (top - bottom)       , 0.0f              , 0.0f,
+                  0.0f                        , 0.0f                        , 1.0f / nearSubFar , 0.0f,
+                  leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f);
 }
 
 Matrix Matrix::CreatePerspective(const Single& width,
-							     const Single& height,
-								 const Single& zNear,
-								 const Single& zFar)
+                                 const Single& height,
+                                 const Single& zNear,
+                                 const Single& zFar)
 {
     // Formula http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
@@ -220,9 +220,9 @@ Matrix Matrix::CreatePerspective(const Single& width,
 }
 
 Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
-											const Single& aspectRatio,
-											const Single& zNear,
-											const Single& zFar)
+                                            const Single& aspectRatio,
+                                            const Single& zNear,
+                                            const Single& zFar)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
     // xScale     0          0              0
@@ -266,50 +266,50 @@ Matrix Matrix::CreateRotationZ(const Single& angle)
 
 Matrix Matrix::CreateScale(const Single& scale)
 {
-	return Matrix::CreateScale(scale, scale, scale);
+    return Matrix::CreateScale(scale, scale, scale);
 }
 
 Matrix Matrix::CreateScale(const Single& xScale,
-						   const Single& yScale,
-						   const Single& zScale)
+                           const Single& yScale,
+                           const Single& zScale)
 {
     return Matrix(xScale, 0.0f  , 0.0f  , 0.0f,
                   0.0f  , yScale, 0.0f  , 0.0f,
                   0.0f  , 0.0f  , zScale, 0.0f,
                   0.0f  , 0.0f  , 0.0f  , 1.0f);
 }
-							
+                            
 Matrix Matrix::CreateScale(const Vector3& scales)
 {
-	return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
+    return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
 }
 
 Matrix Matrix::CreateTranslation(const Single& x,
-								 const Single& y,
-								 const Single& z)
+                                 const Single& y,
+                                 const Single& z)
 {
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
                   x   , y   , z   , 1.0f);
 }
-								  
+                                  
 Matrix Matrix::CreateTranslation(const Vector3& position)
 {
     return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
 }
 
  Matrix Matrix::CreateWorld(const Vector3& position,
-							const Vector3& forward,
-							const Vector3& up)
+                            const Vector3& forward,
+                            const Vector3& up)
 {
      return Matrix::Identity;
 }
 
-Matrix Matrix::Transform(const Matrix& 	   value,
-	 					 const Quaternion& rotation)
+Matrix Matrix::Transform(const Matrix&     value,
+                         const Quaternion& rotation)
 {
-	return value * Matrix::CreateFromQuaternion(rotation);
+    return value * Matrix::CreateFromQuaternion(rotation);
 }
 
 Matrix::Matrix()
@@ -321,9 +321,9 @@ Matrix::Matrix()
 }
 
 Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Single& m14,
-			   const Single& m21, const Single& m22, const Single& m23, const Single& m24,
-			   const Single& m31, const Single& m32, const Single& m33, const Single& m34,
-			   const Single& m41, const Single& m42, const Single& m43, const Single& m44)
+               const Single& m21, const Single& m22, const Single& m23, const Single& m24,
+               const Single& m31, const Single& m32, const Single& m33, const Single& m34,
+               const Single& m41, const Single& m42, const Single& m43, const Single& m44)
     : m11(m11), m12(m12), m13(m13), m14(m14),
       m21(m21), m22(m22), m23(m23), m24(m24),
       m31(m31), m32(m32), m33(m33), m34(m34),
@@ -426,20 +426,20 @@ bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translatio
 
 const Single Matrix::Determinant() const
 {
-	// Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-	
+    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    
     Single result = 0;
-	Single det;
-	Matrix msub;
-	
+    Single det;
+    Matrix msub;
+    
     for (int n = 0, i = 1; n < 4; n++, i *= -1)
-	{
+    {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();
-		result += this->matrix[n] * det * i;
-	}
-	
-	return result;
+        result += this->matrix[n] * det * i;
+    }
+    
+    return result;
 }
 
 bool Matrix::HasInverse() const
@@ -451,21 +451,21 @@ void Matrix::Invert()
 {
     if (this->HasInverse())
     {
-		// Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-		
-		Single mdet = this->Determinant();
-		Matrix mtemp;
-		int    sign;
-		
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
-			{
-				sign  		  	        = 1 - ((i + j) % 2) * 2;
-				mtemp 		  	        = this->SubMatrix(i, j);
-				this->matrix[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
-			}
-		}
+        // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+        
+        Single mdet = this->Determinant();
+        Matrix mtemp;
+        int    sign;
+        
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                sign                    = 1 - ((i + j) % 2) * 2;
+                mtemp                   = this->SubMatrix(i, j);
+                this->matrix[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+            }
+        }
     }
 }
 
@@ -511,40 +511,40 @@ Single Matrix::SubMatrixDeterminant()
 
 Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
 {
-	// Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-	UInt32 si;
-	UInt32 sj;
-	Matrix result;
+    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    UInt32 si;
+    UInt32 sj;
+    Matrix result;
 
-	// loop through 3x3 submatrix
-	for (int di = 0; di < 3; di++)
-	{
-		for (int dj = 0; dj < 3; dj++)
-		{
-			// map 3x3 element (destination) to 4x4 element (source)
-			si = di + ((di >= row) ? 1 : 0);
-			sj = dj + ((dj >= column) ? 1 : 0);
-		
-			// copy element
-			result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
-		}
-	}
-	
-	return result;
+    // loop through 3x3 submatrix
+    for (int di = 0; di < 3; di++)
+    {
+        for (int dj = 0; dj < 3; dj++)
+        {
+            // map 3x3 element (destination) to 4x4 element (source)
+            si = di + ((di >= row) ? 1 : 0);
+            sj = dj + ((dj >= column) ? 1 : 0);
+        
+            // copy element
+            result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
+        }
+    }
+    
+    return result;
 }
 
 Single& Matrix::operator[](const UInt32& index)
 {
-	assert(index >= 0 && index < 16);
+    assert(index >= 0 && index < 16);
 
-	return this->matrix[index];
+    return this->matrix[index];
 }
 
 const Single& Matrix::operator[](const UInt32& index) const
 {
-	assert(index >= 0 && index < 16);
+    assert(index >= 0 && index < 16);
 
-	return this->matrix[index];
+    return this->matrix[index];
 }
 
 bool Matrix::operator==(const Matrix &matrix) const
@@ -594,25 +594,25 @@ Matrix& Matrix::operator*=(const Matrix &matrix)
     Single m43 = ((this->m41 * matrix.m13) + (this->m42 * matrix.m23) + (this->m43 * matrix.m33) + (this->m44 * matrix.m43));
     Single m44 = ((this->m41 * matrix.m14) + (this->m42 * matrix.m24) + (this->m43 * matrix.m34) + (this->m44 * matrix.m44));
 
-	this->m11 = m11;
-	this->m12 = m12;
-	this->m13 = m13;
-	this->m14 = m14;
-	
-	this->m21 = m21;
-	this->m22 = m22;
-	this->m23 = m23;
-	this->m24 = m24;
-	
-	this->m31 = m31;
-	this->m32 = m32;
-	this->m33 = m33;
-	this->m34 = m34;
-	
-	this->m41 = m41;
-	this->m42 = m42;
-	this->m43 = m43;
-	this->m44 = m44;
+    this->m11 = m11;
+    this->m12 = m12;
+    this->m13 = m13;
+    this->m14 = m14;
+    
+    this->m21 = m21;
+    this->m22 = m22;
+    this->m23 = m23;
+    this->m24 = m24;
+    
+    this->m31 = m31;
+    this->m32 = m32;
+    this->m33 = m33;
+    this->m34 = m34;
+    
+    this->m41 = m41;
+    this->m42 = m42;
+    this->m43 = m43;
+    this->m44 = m44;
 
     return *this;
 }

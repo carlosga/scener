@@ -49,4 +49,4 @@ namespace SceneR
 }
 
 
-#endif /* TEXTUREMIPMAP_HPP */
+#endif  /* TEXTUREMIPMAP_HPP */

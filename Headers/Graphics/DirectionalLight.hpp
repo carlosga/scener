@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef DIRECTIONALLIGHT_HPP
-#define	DIRECTIONALLIGHT_HPP
+#define DIRECTIONALLIGHT_HPP
 
 #include "Core/Core.hpp"
 #include "Core/Vector3.hpp"
@@ -23,29 +23,29 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
+    namespace Graphics
+    {
         /**
-         * Light object that projects its effect along a direction specified by a Vector3D.
+         * Light object that projects its effect along a direction specified by a Vector3.
          */
-		class DirectionalLight : public Light
-		{
-		public:
+        class DirectionalLight : public Light
+        {
+        public:
             /**
              * Creates an instance of a light that projects its effect in a specified direction.
-             * This contructor creates an instance of a white light projected along a Vector3D of value (0,0,-1).
+             * This contructor creates an instance of a white light projected along a Vector3 of value (0,0,-1).
              */
             DirectionalLight();
             
             /**
-             * Creates an instance of a light that projects its effect along a specified Vector3D with a specified color.
+             * Creates an instance of a light that projects its effect along a specified Vector3 with a specified color.
              * @param diffuseColor diffuse color of the new light.
              * @param direction the direction of the new light.
              */
             DirectionalLight(const SceneR::Core::Color& diffuseColor,
                              const SceneR::Core::Vector3& direction);
 
-		public:
+        public:
             /**
              * Gets the vector along which the light's effect will be seen on models in a 3-D scene.
              * @return the vector along which the light's effect will be seen on models in a 3-D scene.
@@ -57,13 +57,13 @@ namespace SceneR
              */
             void SetDirection(const SceneR::Core::Vector3& direction);
             
-		private:
+        private:
             /**
              * Represents the vector along which the light's effect will be seen on models in a 3-D scene.
              */
             SceneR::Core::Vector3 direction;
         };
-	}
+    }
 }
 
-#endif  // DIRECTIONALLIGHT_HPP
+#endif  /* DIRECTIONALLIGHT_HPP */

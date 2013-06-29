@@ -21,20 +21,20 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx
-		 */
-		class PresentationParameters 
-		{
+    namespace Graphics
+    {
+        /**
+         * http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx
+         */
+        class PresentationParameters 
+        {
         public:
             /**
              * Initializes a new instance of the PresentationParameters class.
              */
             PresentationParameters();
-			
-		public:
+            
+        public:
             /**
              * Gets a value indicating whether an application is running in a full screen mode.
              */
@@ -71,22 +71,22 @@ namespace SceneR
             Size    backBufferWidth;
             
             /*
-            Property	Description
-            BackBufferCount	Retrieves or sets the number of back buffers.
-            BackBufferFormat	Retrieves or sets the format of the back buffer.
-            DeviceWindow	Retrieves or sets the display window.
-            DeviceWindowHandle	Retrieves or sets the display window.
-            ForceNoMultiThreadedFlag	Retrieves or sets a Boolean value that indicates whether an application can use multithreading.
-            FullScreenRefreshRateInHz	Retrieves or sets the rate at which the display adapter refreshes the screen.
-            MultiSample	Retrieves or sets the MultiSampleType.
-            MultiSampleQuality	Retrieves or sets the multisample quality level.
-            PresentationInterval	Retrieves or sets the maximum rate at which the swap chain's back buffers can be presented.
-            PresentFlag	Retrieves or sets the present flag.
-            SwapEffect	Retrieves or sets the swap effect.
-            Windowed	Boolean value that indicates whether an application is running in a windowed mode.		
+            Property    Description
+            BackBufferCount    Retrieves or sets the number of back buffers.
+            BackBufferFormat    Retrieves or sets the format of the back buffer.
+            DeviceWindow    Retrieves or sets the display window.
+            DeviceWindowHandle    Retrieves or sets the display window.
+            ForceNoMultiThreadedFlag    Retrieves or sets a Boolean value that indicates whether an application can use multithreading.
+            FullScreenRefreshRateInHz    Retrieves or sets the rate at which the display adapter refreshes the screen.
+            MultiSample    Retrieves or sets the MultiSampleType.
+            MultiSampleQuality    Retrieves or sets the multisample quality level.
+            PresentationInterval    Retrieves or sets the maximum rate at which the swap chain's back buffers can be presented.
+            PresentFlag    Retrieves or sets the present flag.
+            SwapEffect    Retrieves or sets the swap effect.
+            Windowed    Boolean value that indicates whether an application is running in a windowed mode.        
             */
-		};
-	}
+        };
+    }
 }
 
-#endif	// PRESENTATIONPARAMETERS_HPP
+#endif  /* PRESENTATIONPARAMETERS_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CONTENTMANAGER_HPP
-#define	CONTENTMANAGER_HPP
+#define CONTENTMANAGER_HPP
 
 #include <memory>
 #include <string>
@@ -65,9 +65,7 @@ namespace SceneR
                     std::string filename = SceneR::IO::Path::ChangeExtension(assetName, "scr");
                     std::string path     = SceneR::IO::Path::Combine(this->rootDirectory, filename);
                                         
-                    ContentReader reader(this->graphicsDevice,
-                                         this->typeReaderManager,
-                                         path);
+                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
 
                     asset = reader.ReadObject<T>();
                     
@@ -94,4 +92,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CONTENTMANAGER_HPP */
+#endif  /* CONTENTMANAGER_HPP */

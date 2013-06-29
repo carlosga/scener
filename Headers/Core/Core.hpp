@@ -32,4 +32,4 @@ typedef GLdouble Double;
 typedef GLsizei  SizeInt32;
 typedef size_t   Size;
 
-#endif // CORE_HPP
+#endif  /* CORE_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef AMBIENTLIGHT_HPP
-#define	AMBIENTLIGHT_HPP
+#define AMBIENTLIGHT_HPP
 
 #include "Core/Core.hpp"
 #include "Core/Color.hpp"
@@ -45,4 +45,4 @@ namespace SceneR
     }
 }
 
-#endif  // AMBIENTLIGHT_HPP
+#endif  /* AMBIENTLIGHT_HPP */

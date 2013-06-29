@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef VECTOR3_HPP
-#define	VECTOR3_HPP
+#define VECTOR3_HPP
 
 #include "Core/Core.hpp"
 #include "Core/Matrix.hpp"
@@ -119,9 +119,9 @@ namespace SceneR
             /**
              * Initializes a new instance of the Vector3 class.
              *
-             * @param x    The X value of the new Vector3 structure.
-             * @param x    The Y value of the new Vector3 structure.
-             * @param z    The Z value of the new Vector3 structure.
+             * @param x The X value of the new Vector3 structure.
+             * @param y The Y value of the new Vector3 structure.
+             * @param z The Z value of the new Vector3 structure.
              */
             Vector3(const Single& x, const Single& y, const Single& z);
 
@@ -242,4 +242,4 @@ namespace SceneR
     }
 }
 
-#endif	/* VECTOR3_HPP */
+#endif /* VECTOR3_HPP */

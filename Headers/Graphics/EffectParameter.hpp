@@ -268,12 +268,12 @@ namespace SceneR
             EffectParameterType                             parameterType;
             Int32                                           rowCount;
             std::vector<EffectParameter>                    structureMembers;
-			std::shared_ptr<SceneR::Shaders::ShaderProgram> shader;
-			Int32						                    parameterLocation;
+            std::shared_ptr<SceneR::Shaders::ShaderProgram> shader;
+            Int32                                            parameterLocation;
 
-			friend class Effect;
+            friend class Effect;
         };
     }
 }
 
-#endif /* EFFECTPARAMETER_HPP */
+#endif  /* EFFECTPARAMETER_HPP */

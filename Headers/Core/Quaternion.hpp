@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef QUATERNION_HPP
-#define	QUATERNION_HPP
+#define QUATERNION_HPP
 
 #include "Core/Core.hpp"
 #include "Core/Vector3.hpp"
@@ -206,4 +206,4 @@ namespace SceneR
     }
 }
 
-#endif	/* QUATERNION_HPP */
+#endif  /* QUATERNION_HPP */

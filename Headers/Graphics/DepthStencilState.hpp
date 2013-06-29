@@ -26,16 +26,16 @@ namespace SceneR
     {
         class GraphicsDevice;
 
-		/**
-		 * Contains depth-stencil state for the graphics device
-		 */
+        /**
+         * Contains depth-stencil state for the graphics device
+         */
         class DepthStencilState : GraphicsResource
         {
         public:
-			/**
-			 * Initializes a new instance of the DepthStencilState class 
-			 * with the given GraphcisDevice
-			 */
+            /**
+             * Initializes a new instance of the DepthStencilState class 
+             * with the given GraphcisDevice
+             */
             DepthStencilState(GraphicsDevice& graphicsDevice);
 
             /**
@@ -81,4 +81,4 @@ namespace SceneR
     }
 }
 
-#endif /* DEPTHSTENCILSTATE_HPP */
+#endif  /* DEPTHSTENCILSTATE_HPP */

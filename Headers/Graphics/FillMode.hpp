@@ -40,5 +40,4 @@ namespace SceneR
     }
 }
 
-
-#endif /* FILLMODE_HPP */
+#endif  /* FILLMODE_HPP */

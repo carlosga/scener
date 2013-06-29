@@ -91,4 +91,4 @@ namespace SceneR
     }
 }
 
-#endif /* TEXTURE2D_HPP */
+#endif  /* TEXTURE2D_HPP */

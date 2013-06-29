@@ -21,17 +21,23 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * Identifies the type of OpenGL profile to be used on GraphicsDevice instances.
-		 */ 
-		enum class GraphicsProfile : Int32
-		{
-			Core 			= GLFW_OPENGL_CORE_PROFILE,
-			Compatibility	= GLFW_OPENGL_CORE_PROFILE
-		};
-	}
+    namespace Graphics
+    {
+        /**
+         * Identifies the type of OpenGL profile to be used on GraphicsDevice instances.
+         */ 
+        enum class GraphicsProfile : Int32
+        {
+            /**
+             * Core profile
+             */
+            Core          = GLFW_OPENGL_CORE_PROFILE,
+            /**
+             * Compatibility profile
+             */
+            Compatibility = GLFW_OPENGL_COMPAT_PROFILE
+        };
+    }
 }
 
-#endif
+#endif  /* GRAPHICSPROFILE_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef GRAPHICSDEVICEMANAGER_HPP
-#define	GRAPHICSDEVICEMANAGER_HPP
+#define GRAPHICSDEVICEMANAGER_HPP
 
 #include "Graphics/GraphicsDevice.hpp"
 #include "Graphics/IGraphicsDeviceManager.hpp"
@@ -42,7 +42,7 @@ namespace SceneR
              */
             ~GraphicsDeviceManager();
 
-		public:
+        public:
             /**
              * Applies any changes to device-related propertie.
              */
@@ -133,4 +133,4 @@ namespace SceneR
     }
 }
 
-#endif	/* GRAPHICSDEVICEMANAGER_HPP */
+#endif  /* GRAPHICSDEVICEMANAGER_HPP */

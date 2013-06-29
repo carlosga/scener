@@ -25,34 +25,34 @@ namespace SceneR
 {
     namespace Graphics
     {
-		/**
-		 * Describes a custom vertex format structure that contains position and color information.
-		 */
+        /**
+         * Describes a custom vertex format structure that contains position and color information.
+         */
         class VertexPositionColor
         {
         public:
-			/**
-			 * Vertex declaration, which defines per-vertex data.
-			 */
+            /**
+             * Vertex declaration, which defines per-vertex data.
+             */
             static const VertexDeclaration GetVertexDeclaration();
 
         public:
-			/**
-			 * Initializes a new instance of the VertexPositionColor class with the
-			 * given position and color.
-			 */
+            /**
+             * Initializes a new instance of the VertexPositionColor class with the
+             * given position and color.
+             */
             VertexPositionColor(const SceneR::Core::Vector3& position,
                                 const SceneR::Core::Color&   color);
 
         public:
-			/**
-			 * Gets the vertex position.
-			 */
+            /**
+             * Gets the vertex position.
+             */
             const SceneR::Core::Vector3& GetPosition() const;
 
-			/**
-			 * Gets the vertex color.
-			 */
+            /**
+             * Gets the vertex color.
+             */
             const SceneR::Core::Color& GetColor() const;
 
         private:
@@ -62,4 +62,4 @@ namespace SceneR
     }
 }
 
-#endif /* VERTEXPOSITIONCOLOR_HPP */
+#endif  /* VERTEXPOSITIONCOLOR_HPP */

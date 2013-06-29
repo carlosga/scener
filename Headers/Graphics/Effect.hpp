@@ -28,35 +28,35 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-	    /**
-	     * Used to set and query effects, and to choose techniques.
-	     */
-		class Effect : public GraphicsResource
-		{
-		public:
-		    /**
-		     * Initializes a new instance of the Effect class
-		     *
-		     * @param graphicsDevice the graphics device
-		     * @param shaderSource   the shader source code
-		     */
-		    Effect(GraphicsDevice& graphicsDevice);
+    namespace Graphics
+    {
+        /**
+         * Used to set and query effects, and to choose techniques.
+         */
+        class Effect : public GraphicsResource
+        {
+        public:
+            /**
+             * Initializes a new instance of the Effect class
+             *
+             * @param graphicsDevice the graphics device
+             * @param shaderSource   the shader source code
+             */
+            Effect(GraphicsDevice& graphicsDevice);
 
-		    /**
-		     * Initializes a new instance of the Effect class.
-		     *
-		     * @param effect the effect to be copied
-		     */
-		    Effect(const Effect& effect);
+            /**
+             * Initializes a new instance of the Effect class.
+             *
+             * @param effect the effect to be copied
+             */
+            Effect(const Effect& effect);
 
-		    /**
-		     * Releases all resources being used by this effect instance.
-		     */
-		    virtual ~Effect();
+            /**
+             * Releases all resources being used by this effect instance.
+             */
+            virtual ~Effect();
 
-		public:
+        public:
             /**
              * Gets a collection of parameters used for this effect.
              */
@@ -82,11 +82,11 @@ namespace SceneR
                                                       const EffectParameterType&  parameterType);
             const EffectParameter& GetEffectParameter(const std::wstring& name) const;
 
-		protected:
-	        std::vector<EffectParameter>                    parameters;
-	        std::shared_ptr<SceneR::Shaders::ShaderProgram> shaderProgram;
-		};
-	}
+        protected:
+            std::vector<EffectParameter>                    parameters;
+            std::shared_ptr<SceneR::Shaders::ShaderProgram> shaderProgram;
+        };
+    }
 }
 
-#endif // EFFECT_HPP
+#endif  /* EFFECT_HPP */

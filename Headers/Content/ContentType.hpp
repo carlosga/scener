@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CONTENTTYPE_HPP
-#define	CONTENTTYPE_HPP
+#define CONTENTTYPE_HPP
 
 #include "Core/Core.hpp"
 
@@ -46,5 +46,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CONTENTTYPE_HPP */
-
+#endif  /* CONTENTTYPE_HPP */

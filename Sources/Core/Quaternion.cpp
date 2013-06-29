@@ -60,8 +60,8 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw,
 }
 
 Quaternion Quaternion::Lerp(const Quaternion& quaternion1,
-						    const Quaternion& quaternion2,
-							const Single&	  amount)
+                            const Quaternion& quaternion2,
+                            const Single&      amount)
 {
     Single amount1 = 1.0f - amount;
     Single amount2 = amount;
@@ -79,8 +79,8 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1,
 }
 
 Quaternion Quaternion::Slerp(const Quaternion& quaternion1,
-							 const Quaternion& quaternion2,
-							 const Single& 	   amount)
+                             const Quaternion& quaternion2,
+                             const Single&     amount)
 {
     Single w1;
     Single w2;
@@ -118,7 +118,7 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1,
 }
 
 Quaternion::Quaternion() 
-	: xCoordinate(0.0f), yCoordinate(0.0f), zCoordinate(0.0f), wCoordinate(0.0f)
+    : xCoordinate(0.0f), yCoordinate(0.0f), zCoordinate(0.0f), wCoordinate(0.0f)
 {
 }
             
@@ -194,7 +194,7 @@ const Single Quaternion::LengthSquared() const
     return (this->xCoordinate * this->xCoordinate)
          + (this->yCoordinate * this->yCoordinate)
          + (this->zCoordinate * this->zCoordinate)
-		 + (this->wCoordinate * this->wCoordinate);
+         + (this->wCoordinate * this->wCoordinate);
 }
 
 const Single Quaternion::Length() const
@@ -228,10 +228,10 @@ Quaternion& Quaternion::operator=(const Quaternion &quaternion)
         this->xCoordinate = quaternion.X();
         this->yCoordinate = quaternion.Y();
         this->zCoordinate = quaternion.Z();
-		this->wCoordinate = quaternion.W();
+        this->wCoordinate = quaternion.W();
     }
 
-	return *this;
+    return *this;
 }
 
 bool Quaternion::operator==(const Quaternion &quaternion) const
@@ -239,7 +239,7 @@ bool Quaternion::operator==(const Quaternion &quaternion) const
     return (this->xCoordinate    == quaternion.xCoordinate
             && this->yCoordinate == quaternion.yCoordinate
             && this->zCoordinate == quaternion.zCoordinate
-			&& this->wCoordinate == quaternion.wCoordinate);
+            && this->wCoordinate == quaternion.wCoordinate);
 }
 
 bool Quaternion::operator!=(const Quaternion &quaternion) const
@@ -249,19 +249,19 @@ bool Quaternion::operator!=(const Quaternion &quaternion) const
 
 Quaternion& Quaternion::operator*=(const Quaternion &q1)
 {
-	// Multiplication of quaternions is defined by
-	// q0q1 = (w0 + x0i + y0j + z0k)(w1 + x1i + y1j + z1k) = (w0w1 - x0x1 - y0y1 - z0z1)
-	// 													   + (w0x1 + x0w1 + y0z1 - z0y1)i
-	// 													   + (w0y1 - x0z1 + y0w1 + z0x1)j
-	//													   + (w0z1 + x0y1 - y0x1 + z0w1)k
+    // Multiplication of quaternions is defined by
+    // q0q1 = (w0 + x0i + y0j + z0k)(w1 + x1i + y1j + z1k) = (w0w1 - x0x1 - y0y1 - z0z1)
+    //                                                     + (w0x1 + x0w1 + y0z1 - z0y1)i
+    //                                                     + (w0y1 - x0z1 + y0w1 + z0x1)j
+    //                                                     + (w0z1 + x0y1 - y0x1 + z0w1)k
 
-	Quaternion q0 = *this;
-	
-	this->wCoordinate = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
-	this->xCoordinate = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
-	this->yCoordinate = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
-	this->zCoordinate = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
-	
+    Quaternion q0 = *this;
+    
+    this->wCoordinate = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
+    this->xCoordinate = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
+    this->yCoordinate = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
+    this->zCoordinate = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
+    
     return *this;
 }
 
@@ -270,7 +270,7 @@ Quaternion& Quaternion::operator*=(const Single &value)
     this->xCoordinate *= value;
     this->yCoordinate *= value;
     this->zCoordinate *= value;
-	this->wCoordinate *= value;
+    this->wCoordinate *= value;
 
     return *this;
 }
@@ -280,7 +280,7 @@ Quaternion& Quaternion::operator/=(const Quaternion &quaternion)
     this->xCoordinate /= quaternion.xCoordinate;
     this->yCoordinate /= quaternion.yCoordinate;
     this->zCoordinate /= quaternion.zCoordinate;
-	this->wCoordinate /= quaternion.wCoordinate;
+    this->wCoordinate /= quaternion.wCoordinate;
 
     return *this;
 }
@@ -290,7 +290,7 @@ Quaternion& Quaternion::operator/=(const Single &value)
     this->xCoordinate /= value;
     this->yCoordinate /= value;
     this->zCoordinate /= value;
-	this->wCoordinate /= value;
+    this->wCoordinate /= value;
 
     return *this;
 }
@@ -300,7 +300,7 @@ Quaternion& Quaternion::operator-=(const Quaternion &quaternion)
     this->xCoordinate -= quaternion.xCoordinate;
     this->yCoordinate -= quaternion.yCoordinate;
     this->zCoordinate -= quaternion.zCoordinate;
-	this->wCoordinate -= quaternion.wCoordinate;
+    this->wCoordinate -= quaternion.wCoordinate;
 
     return *this;
 }
@@ -310,7 +310,7 @@ Quaternion& Quaternion::operator+=(const Quaternion &quaternion)
     this->xCoordinate += quaternion.xCoordinate;
     this->yCoordinate += quaternion.yCoordinate;
     this->zCoordinate += quaternion.zCoordinate;
-	this->wCoordinate += quaternion.wCoordinate;
+    this->wCoordinate += quaternion.wCoordinate;
     
     return *this;
 }

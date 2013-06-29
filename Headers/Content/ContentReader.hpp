@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef CONTENTREADER_HPP
-#define	CONTENTREADER_HPP
+#define CONTENTREADER_HPP
 
 #include <fstream>
 #include <string>
@@ -187,4 +187,4 @@ namespace SceneR
     }
 }
 
-#endif	/* CONTENTREADER_HPP */
+#endif  /* CONTENTREADER_HPP */

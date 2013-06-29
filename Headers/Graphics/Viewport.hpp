@@ -21,22 +21,22 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-	    /**
-	     * Represents the portion of the render target to receive draw calls.
-	     */
-		class Viewport
-		{
-		public:
+    namespace Graphics
+    {
+        /**
+         * Represents the portion of the render target to receive draw calls.
+         */
+        class Viewport
+        {
+        public:
             /**
-			 * Initializes a new instance of the ViewPort class
-			 */
+             * Initializes a new instance of the ViewPort class
+             */
             Viewport();
 
             /**
-			 * Initializes a new instance of the ViewPort class
-			 */
+             * Initializes a new instance of the ViewPort class
+             */
             Viewport(Single x, Single y, Size width, Size height);
 
             /**
@@ -47,11 +47,11 @@ namespace SceneR
                      Single minDepth, Single maxDepth);
 
             /**
-			 * Default destructor
-			 */
+             * Default destructor
+             */
             ~Viewport();
 
-		public:
+        public:
             const Single X() const;
             const Single Y() const;
             const Single Width() const;
@@ -74,7 +74,7 @@ namespace SceneR
             Single minDepth;
             Single maxDepth;
         };
-	}
+    }
 }
 
-#endif  // VIEWPORT_HPP
+#endif  /* VIEWPORT_HPP */

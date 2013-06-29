@@ -90,4 +90,4 @@ namespace SceneR
     }
 }
 
-#endif  // VERTEXBUFFER_HPP
+#endif  /* VERTEXBUFFER_HPP */

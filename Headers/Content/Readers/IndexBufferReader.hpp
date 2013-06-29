@@ -50,4 +50,4 @@ namespace SceneR
     }
 }
 
-#endif /* INDEXBUFFERREADER_HPP */
+#endif  /* INDEXBUFFERREADER_HPP */

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef RENDERERWINDOW_HPP
-#define	RENDERERWINDOW_HPP
+#define RENDERERWINDOW_HPP
 
 #include <string>
 #include "Core/Core.hpp"
@@ -43,7 +43,7 @@ namespace SceneR
              */
             ~RendererWindow();
             
-		public:
+        public:
             /**
              * Gets the Window handle
              * @return 
@@ -88,4 +88,4 @@ namespace SceneR
     }
 }
 
-#endif	/* RENDERERWINDOW_HPP */
+#endif  /* RENDERERWINDOW_HPP */

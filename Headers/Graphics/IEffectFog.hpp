@@ -85,4 +85,4 @@ namespace SceneR
     }
 }
 
-#endif /* IEFFECTFOG_HPP */
+#endif  /* IEFFECTFOG_HPP */

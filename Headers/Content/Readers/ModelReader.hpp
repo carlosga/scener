@@ -55,4 +55,4 @@ namespace SceneR
     }
 }
 
-#endif /* MODELREADER_HPP */
+#endif  /* MODELREADER_HPP */

@@ -65,4 +65,4 @@ namespace SceneR
     }
 }
 
-#endif /* COMPAREFUNCTION_HPP */
+#endif  /* COMPAREFUNCTION_HPP */

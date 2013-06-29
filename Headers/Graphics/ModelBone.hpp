@@ -26,65 +26,65 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * Represents bone data for a model.
-		 */
-		class ModelBone
-		{
-		public:
-		    /**
-			 * Initializes a new instance of the ModelBone class.
-			 */
-			ModelBone();
-			
-		public:
-			/**
-			 * Gets the collection of children bones.
-			 */
-			const std::vector<std::shared_ptr<ModelBone>>& Children() const;
+    namespace Graphics
+    {
+        /**
+         * Represents bone data for a model.
+         */
+        class ModelBone
+        {
+        public:
+            /**
+             * Initializes a new instance of the ModelBone class.
+             */
+            ModelBone();
+            
+        public:
+            /**
+             * Gets the collection of children bones.
+             */
+            const std::vector<std::shared_ptr<ModelBone>>& Children() const;
 
-			/** 
-			 * Gets the index of this bone in the Bones collection.
-			 */
-			const UInt32& Index() const;
+            /** 
+             * Gets the index of this bone in the Bones collection.
+             */
+            const UInt32& Index() const;
 
-			/**
-			 * Gets the bone name
-			 */
-			const std::wstring& GetName() const;
+            /**
+             * Gets the bone name
+             */
+            const std::wstring& GetName() const;
 
             /**
              * Gets the bone name
              */
             void SetName(const std::wstring& name);
-			
-			/**
-			 * Gets the parent of the current bone
-			 */ 
-			const std::shared_ptr<ModelBone> Parent() const;
-			
-			/**
-			 * Gets the matrix used to transform this bone relative to its parent bone.
-			 */
-			const SceneR::Core::Matrix& GetTransform() const;
+            
+            /**
+             * Gets the parent of the current bone
+             */ 
+            const std::shared_ptr<ModelBone> Parent() const;
+            
+            /**
+             * Gets the matrix used to transform this bone relative to its parent bone.
+             */
+            const SceneR::Core::Matrix& GetTransform() const;
 
-			/**
-			 * Sets the matrix used to transform this bone relative to its parent bone.
-			 */
-			void SetTransform(const SceneR::Core::Matrix& transform);
+            /**
+             * Sets the matrix used to transform this bone relative to its parent bone.
+             */
+            void SetTransform(const SceneR::Core::Matrix& transform);
 
-		private:
-			std::vector<std::shared_ptr<ModelBone>> children;
-			UInt32 				                    index;
-			std::wstring                            name;
-			std::shared_ptr<ModelBone> 			    parent;
-			SceneR::Core::Matrix                    transform;
-			
-			friend class SceneR::Content::ModelReader;
-		};
-	}
+        private:
+            std::vector<std::shared_ptr<ModelBone>> children;
+            UInt32                                  index;
+            std::wstring                            name;
+            std::shared_ptr<ModelBone>              parent;
+            SceneR::Core::Matrix                    transform;
+            
+            friend class SceneR::Content::ModelReader;
+        };
+    }
 }
 
-#endif	// MODELBONE_HPP
+#endif  /* MODELBONE_HPP */

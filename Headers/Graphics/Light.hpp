@@ -22,48 +22,48 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-	   /**
-		* Object that represents lighting applied to a 3-D scene.
-		*/
-		class Light
-		{
-		public:
-	       /**
-			* Gets the color of the light.
-			* @return the color of the light.
-			*/
-			const SceneR::Core::Color& GetColor() const;
+    namespace Graphics
+    {
+       /**
+        * Object that represents lighting applied to a 3-D scene.
+        */
+        class Light
+        {
+        public:
+           /**
+            * Gets the color of the light.
+            * @return the color of the light.
+            */
+            const SceneR::Core::Color& GetColor() const;
 
-		   /**
-			* Sets the color of the light.
-			* @param color the color of the light.
-			*/
-			void SetColor(const SceneR::Core::Color& color);
-		
-		protected:
-		   /**
-			* Initializes a new instance of the Light class.
-			*/
-			Light();
+           /**
+            * Sets the color of the light.
+            * @param color the color of the light.
+            */
+            void SetColor(const SceneR::Core::Color& color);
+        
+        protected:
+           /**
+            * Initializes a new instance of the Light class.
+            */
+            Light();
 
- 		   /**
-			* Initializes a new instance of the Light class with the given color.
-			* @param color the light color.
-			*/
-			Light(const SceneR::Core::Color& color);
+            /**
+            * Initializes a new instance of the Light class with the given color.
+            * @param color the light color.
+            */
+            Light(const SceneR::Core::Color& color);
 
            /**
             * Default destructor
             */
             virtual ~Light();
 
-		protected:
-			UInt32              object;
-			SceneR::Core::Color color;
-		};
-	}
+        protected:
+            UInt32              object;
+            SceneR::Core::Color color;
+        };
+    }
 }
 
-#endif  // LIGHT_HPP
+#endif  /* LIGHT_HPP */

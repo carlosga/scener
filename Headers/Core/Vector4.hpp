@@ -39,7 +39,7 @@ namespace SceneR
              * Initializes a new instance of the Vector4 class.
              *
              * @param x The X value of the new Vector4 structure.
-             * @param x The Y value of the new Vector4 structure.
+             * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
              */
             Vector4(const Single& x, const Single& y, const Single& z);
@@ -48,7 +48,7 @@ namespace SceneR
              * Initializes a new instance of the Vector4 class.
              *
              * @param x The X value of the new Vector4 structure.
-             * @param x The Y value of the new Vector4 structure.
+             * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
              * @param w The W value of the new Vector4 structure.
              */
@@ -161,4 +161,4 @@ namespace SceneR
     }
 }
 
-#endif	/* VECTOR4_HPP */
+#endif  /* VECTOR4_HPP */

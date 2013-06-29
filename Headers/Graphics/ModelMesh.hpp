@@ -25,20 +25,20 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
-		/**
-		 * Represents a mesh that is part of a Model.
-		 */
-		class ModelMesh
-		{
-		public:
-			/**
-			 * Initializes a new instance of the ModelMesh class.
-			 */
-			ModelMesh();
-			
-		public:
+    namespace Graphics
+    {
+        /**
+         * Represents a mesh that is part of a Model.
+         */
+        class ModelMesh
+        {
+        public:
+            /**
+             * Initializes a new instance of the ModelMesh class.
+             */
+            ModelMesh();
+            
+        public:
             /**
              * Draws all of the ModelMeshPart objects in this mesh.
              */
@@ -49,48 +49,48 @@ namespace SceneR
              */
             const std::vector<std::shared_ptr<Effect>> GetEffects();
 
-			/**
-			 * Gets the ModelMeshPart objects that make up this mesh. 
-			 * Each part of a mesh is composed of a set of primitives that share the same material.
-			 */
-			const std::vector<std::shared_ptr<ModelMeshPart>>& MeshParts() const;
+            /**
+             * Gets the ModelMeshPart objects that make up this mesh. 
+             * Each part of a mesh is composed of a set of primitives that share the same material.
+             */
+            const std::vector<std::shared_ptr<ModelMeshPart>>& MeshParts() const;
 
-			/**
-			 * Gets the model mesh name
-			 */
-			const std::wstring& GetName() const;
+            /**
+             * Gets the model mesh name
+             */
+            const std::wstring& GetName() const;
 
             /**
              * Sets the model mesh name
              */
             void SetName(const std::wstring& name);
 
-			/**
-			 * Gets the parent bone for this mesh. The parent bone of a mesh contains a 
-			 * transformation matrix that describes how the mesh is located relative to 
-			 * any parent meshes in a model.
-			 */
+            /**
+             * Gets the parent bone for this mesh. The parent bone of a mesh contains a 
+             * transformation matrix that describes how the mesh is located relative to 
+             * any parent meshes in a model.
+             */
             std::shared_ptr<ModelBone> ParentBone() const;
 
-			/**
-			 * Gets the model mesh tag
-			 */
-			const std::wstring& GetTag() const;
+            /**
+             * Gets the model mesh tag
+             */
+            const std::wstring& GetTag() const;
 
             /**
              * Sets the model mesh tag
              */
             void SetTag(const std::wstring& tag);
 
-		private:
-			std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
-			std::wstring                                name;
-			std::shared_ptr<ModelBone> 			   	    parentBone;
-			std::wstring                                tag;
-			
-			friend class SceneR::Content::ModelReader;
-		};
-	}
+        private:
+            std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
+            std::wstring                                name;
+            std::shared_ptr<ModelBone>                  parentBone;
+            std::wstring                                tag;
+            
+            friend class SceneR::Content::ModelReader;
+        };
+    }
 }
 
-#endif	// MODELMESH_HPP
+#endif  /* MODELMESH_HPP */

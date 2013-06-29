@@ -50,4 +50,4 @@ namespace SceneR
     }
 }
 
-#endif /* TEXTURE2DREADER_HPP */
+#endif  /* TEXTURE2DREADER_HPP */

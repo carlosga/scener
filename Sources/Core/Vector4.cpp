@@ -22,7 +22,7 @@
 using namespace SceneR::Core;
 
 Vector4::Vector4()
-	: Vector4(0.0f, 0.0f, 0.0f, 1.0f)
+    : Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 {
 }
 
@@ -74,19 +74,19 @@ const Single Vector4::LengthSquared() const
 
 const Single Vector4::Length() const
 {
-	// The modulus or magnitude of a vector is simply its length. 
-	// This can easily be found using Pythagorean Theorem with the vector components. 
-	//
-	// The modulus is written like:
-	// a = |a|
-	//
-	// Given:
-	// a = xi + yj + zk
-	//
-	// Then:
-	//
-	// |a| = sqrt(x^2 + y^2 + z^2 + w^2)
-	
+    // The modulus or magnitude of a vector is simply its length. 
+    // This can easily be found using Pythagorean Theorem with the vector components. 
+    //
+    // The modulus is written like:
+    // a = |a|
+    //
+    // Given:
+    // a = xi + yj + zk
+    //
+    // Then:
+    //
+    // |a| = sqrt(x^2 + y^2 + z^2 + w^2)
+    
     return std::sqrt(this->LengthSquared());
 }
 
@@ -104,14 +104,15 @@ const Single Vector4::DotProduct(const Vector4& vectorb) const
 
 void Vector4::Normalize()
 {
-	// To find the unit vector of another vector, we use the modulus operator 
-	// and scalar multiplication like so:
-	// b = a / |a|
-	//
-	// Where |a| is the modulus of a
+    // To find the unit vector of another vector, we use the modulus operator 
+    // and scalar multiplication like so:
+    // b = a / |a|
+    //
+    // Where |a| is the modulus of a
+
     (*this /= this->Length());
 }       
-	
+    
 Single& Vector4::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 4);
@@ -136,7 +137,7 @@ Vector4& Vector4::operator=(const Vector4 &vector)
         this->wCoordinate = vector.W();
     }
 
-	return *this;
+    return *this;
 }
 
 bool Vector4::operator==(const Vector4 &vector) const
@@ -233,19 +234,19 @@ const Vector4 Vector4::operator*(const Single &value) const
 const Vector4 Vector4::operator*(const Matrix &matrix) const
 {
     Single x = (this->xCoordinate * matrix.M11())
-			 + (this->yCoordinate * matrix.M21())
-			 + (this->zCoordinate * matrix.M31())
-			 + (this->wCoordinate * matrix.M41());
+             + (this->yCoordinate * matrix.M21())
+             + (this->zCoordinate * matrix.M31())
+             + (this->wCoordinate * matrix.M41());
 
     Single y = (this->xCoordinate * matrix.M12())
-			 + (this->yCoordinate * matrix.M22())
-			 + (this->zCoordinate * matrix.M32())
-			 + (this->wCoordinate * matrix.M42());
+             + (this->yCoordinate * matrix.M22())
+             + (this->zCoordinate * matrix.M32())
+             + (this->wCoordinate * matrix.M42());
 
     Single z = (this->xCoordinate * matrix.M13())
-			 + (this->yCoordinate * matrix.M23())
-			 + (this->zCoordinate * matrix.M33())
-			 + (this->wCoordinate * matrix.M43());
+             + (this->yCoordinate * matrix.M23())
+             + (this->zCoordinate * matrix.M33())
+             + (this->wCoordinate * matrix.M43());
 
     Single w = (this->xCoordinate * matrix.M14())
              + (this->yCoordinate * matrix.M24())

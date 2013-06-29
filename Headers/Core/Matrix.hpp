@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #ifndef MATRIX_HPP
-#define	MATRIX_HPP
+#define MATRIX_HPP
 
 #include "Core/Core.hpp"
 
@@ -233,12 +233,12 @@ namespace SceneR
 
         public:
             /**
-             * Initializes a new instance of the Matrix3 class.
+             * Initializes a new instance of the Matrix class.
              */
             Matrix();
 
             /**
-             * Initializes a new instance of the Matrix3 class with the given initial values.
+             * Initializes a new instance of the Matrix class with the given initial values.
              * 
              * @param m11 Value of the (1,1) field of the new matrix.
              * @param m12 Value of the (1,2) field of the new matrix.
@@ -265,7 +265,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
              *
-             * @param matrix The Matrix3 to be copied.
+             * @param matrix The Matrix to be copied.
              */
             Matrix(const Matrix& matrix);
 
@@ -276,98 +276,98 @@ namespace SceneR
 
         public:
             /**
-             * Gets the value of the first row and first column of this Matrix3.
-             * @return the value of the first row and first column of this Matrix3.
+             * Gets the value of the first row and first column of this Matrix.
+             * @return the value of the first row and first column of this Matrix.
              */
             const Single& M11() const;
 
             /**
-             * Gets the value of the first row and second column of this Matrix3.
-             * @return the value of the first row and second column of this Matrix3.
+             * Gets the value of the first row and second column of this Matrix.
+             * @return the value of the first row and second column of this Matrix.
              */
             const Single& M12() const;
 
             /**
-             * Gets the value of the first row and third column of this Matrix3.
-             * @return the value of the first row and third column of this Matrix3.
+             * Gets the value of the first row and third column of this Matrix.
+             * @return the value of the first row and third column of this Matrix.
              */
             const Single& M13() const;
 
             /**
-             * Gets the value of the first row and fourth column of this Matrix3
-             * @return the value of the first row and fourth column of this Matrix3
+             * Gets the value of the first row and fourth column of this Matrix
+             * @return the value of the first row and fourth column of this Matrix
              */
             const Single& M14() const;
 
             /**
-             * Gets the value of the second row and first column of this Matrix3
-             * @return the value of the second row and first column of this Matrix3
+             * Gets the value of the second row and first column of this Matrix
+             * @return the value of the second row and first column of this Matrix
              */
             const Single& M21() const;
 
             /**
-             * Gets the value of the second row and second column of this Matrix3
-             * @return the value of the second row and second column of this Matrix3
+             * Gets the value of the second row and second column of this Matrix
+             * @return the value of the second row and second column of this Matrix
              */
             const Single& M22() const;
 
             /**
-             * Gets the value of the second row and third column of this Matrix3
-             * @return the value of the second row and third column of this Matrix3
+             * Gets the value of the second row and third column of this Matrix
+             * @return the value of the second row and third column of this Matrix
              */
             const Single& M23() const;
 
             /**
-             * Gets the value of the second row and fourth column of this Matrix3
-             * @return the value of the second row and fourth column of this Matrix3
+             * Gets the value of the second row and fourth column of this Matrix
+             * @return the value of the second row and fourth column of this Matrix
              */
             const Single& M24() const;
 
             /**
-             * Gets the value of the third row and first column of this Matrix3
-             * @return the value of the third row and first column of this Matrix3
+             * Gets the value of the third row and first column of this Matrix
+             * @return the value of the third row and first column of this Matrix
              */
             const Single& M31() const;
 
             /**
-             * Gets the value of the third row and second column of this Matrix3
-             * @return the value of the third row and second column of this Matrix3
+             * Gets the value of the third row and second column of this Matrix
+             * @return the value of the third row and second column of this Matrix
              */
             const Single& M32() const;
 
             /**
-             * Gets the value of the third row and third column of this Matrix3
-             * @return the value of the third row and third column of this Matrix3
+             * Gets the value of the third row and third column of this Matrix
+             * @return the value of the third row and third column of this Matrix
              */
             const Single& M33() const;
 
             /**
-             * Gets the value of the third row and fourth column of this Matrix3
-             * @return the value of the third row and fourth column of this Matrix3
+             * Gets the value of the third row and fourth column of this Matrix
+             * @return the value of the third row and fourth column of this Matrix
              */
             const Single& M34() const;
 
             /**
-             * Gets the value of the fourth row and first column of this Matrix3
-             * @return the value of the fourth row and first column of this Matrix3
+             * Gets the value of the fourth row and first column of this Matrix
+             * @return the value of the fourth row and first column of this Matrix
              */
             const Single& M41() const;
 
             /**
-             * Gets the value of the fourth row and second column of this Matrix3
-             * @return the value of the fourth row and second column of this Matrix3
+             * Gets the value of the fourth row and second column of this Matrix
+             * @return the value of the fourth row and second column of this Matrix
              */
             const Single& M42() const;
 
             /**
-             * Gets the value of the fourth row and third column of this Matrix3
-             * @return the value of the fourth row and third column of this Matrix3
+             * Gets the value of the fourth row and third column of this Matrix
+             * @return the value of the fourth row and third column of this Matrix
              */
             const Single& M43() const;
 
             /**
-             * Gets the value of the fourth row and fourth column of this Matrix3
-             * @return the value of the fourth row and fourth column of this Matrix3
+             * Gets the value of the fourth row and fourth column of this Matrix
+             * @return the value of the fourth row and fourth column of this Matrix
              */
             const Single& M44() const;
 
@@ -383,30 +383,30 @@ namespace SceneR
             bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation);
 
             /**
-             * Retrieves the determinant of this Matrix3.
-             * @return the determinant of this Matrix3.
+             * Retrieves the determinant of this Matrix.
+             * @return the determinant of this Matrix.
              */
             const Single Determinant() const;
 
             /**
-             * Gets a value that indicates whether this Matrix3 is invertible.
-             * @return a value that indicates whether this Matrix3 is invertible.
+             * Gets a value that indicates whether this Matrix is invertible.
+             * @return a value that indicates whether this Matrix is invertible.
              */
             bool HasInverse() const;
 
             /**
-             * Inverts this Matrix3 structure.
+             * Inverts this Matrix structure.
              */
             void Invert();
 
             /**
-             * Determines whether this Matrix3 structure is an identity Matrix3.
+             * Determines whether this Matrix structure is an identity Matrix.
              * @return a value indicating wheter the current matix is an identity matrix.
              */
             bool IsIdentity() const;
 
             /**
-             * Transposes this Matrix3 structure.
+             * Transposes this Matrix structure.
              */
             void Transpose();
 
@@ -450,4 +450,4 @@ namespace SceneR
     }
 }
 
-#endif	/* MATRIX_HPP */
+#endif  /* MATRIX_HPP */

@@ -56,4 +56,4 @@ namespace SceneR
     }
 }
 
-#endif /* PRIMITIVETYPE_HPP */
+#endif  /* PRIMITIVETYPE_HPP */

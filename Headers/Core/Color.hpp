@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef COLORRGBA_HPP
-#define	COLORRGBA_HPP
+#ifndef COLOR_HPP
+#define COLOR_HPP
 
 #include "Core/Core.hpp"
 
@@ -61,8 +61,8 @@ namespace SceneR
             Color(const Color& color);
             
             /**
-			 * Default destructor
-			 */
+             * Default destructor
+             */
             ~Color() = default;            
             
             /**
@@ -161,5 +161,4 @@ namespace SceneR
     }
 }
         
-#endif	/* COLORRGBA_HPP */
-
+#endif  /* COLOR_HPP */

@@ -21,15 +21,15 @@
 
 namespace SceneR
 {
-	namespace Graphics
-	{
+    namespace Graphics
+    {
         class GraphicsDevice;
         
-		/**
-		 * Queries and prepares resources.
-		 */
-		class GraphicsResource
-		{
+        /**
+         * Queries and prepares resources.
+         */
+        class GraphicsResource
+        {
         public:
             /**
              * Initializes a new instance of the GraphicsResource class
@@ -40,14 +40,14 @@ namespace SceneR
             /**
              * Releases all resources being used by this GraphicsResource
              */
-			~GraphicsResource() = default;
+            ~GraphicsResource() = default;
             
-		public:
+        public:
             /**
              * Gets the graphics associated to this resources
              * @return the graphics associated to this resources
              */
-			GraphicsDevice& GetGraphicsDevice();
+            GraphicsDevice& GetGraphicsDevice();
             
             /**
              * Gets the graphics resource name
@@ -77,8 +77,8 @@ namespace SceneR
             GraphicsDevice& graphicsDevice;
             std::wstring    name;
             std::wstring    tag;
-		};
-	}
+        };
+    }
 }
 
-#endif	// GRAPHICSRESOURCE_HPP
+#endif  /* GRAPHICSRESOURCE_HPP */
