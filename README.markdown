@@ -4,15 +4,14 @@
 The API is inspired on a subset of the Microsoft XNA 4 API.
 
 * License.
-	* **Apache License v2.0** - https://www.apache.org/licenses/LICENSE-2.0
+    * [**Apache License v2.0**](https://www.apache.org/licenses/LICENSE-2.0)
 * Development platform.
     * **Linux**.
 * IDE. 
-    * **Eclipse CDT (Kepler).**
+    * [**Eclipse CDT (Kepler).**](http://eclipse.org/cdt/)
 * C++ Compiler.
-    * **Clang 3.2.**
+    * [**Clang 3.2.**](http://clang.llvm.org/)
 * Third party dependencies.
-    * **OpenGL 4.2** - https://www.khronos.org/opengl/
-    * **GLEW**       - http://glew.sourceforge.net/
-    * **GLFW**       - http://www.glfw.org/
-
+    * [**OpenGL 4.2**](https://www.khronos.org/opengl/)
+    * [**GLEW**](http://glew.sourceforge.net/)
+    * [**GLFW**](http://www.glfw.org/)

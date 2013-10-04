@@ -23,16 +23,12 @@ using namespace SceneR::Custom;
 
 int main()
 {
-    // 1. Initialize content root path
     std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
 
-    // 2. Initialize the Renderer instance
     CustomRenderer renderer(rootPath);
 
-    // 3. Run the renderer
     renderer.Run();
     
-    // 4. Finalize the renderer instance
     renderer.Exit();
     
     return 0;
