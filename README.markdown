@@ -1,8 +1,10 @@
-### SceneR - OpenGL 3D model renderer ###
+### SceneR - OpenGL 3D model renderer
 
-#### C++ learning project.####
+#### C++ learning project.
 The API is inspired on a subset of the Microsoft XNA 4 API.
 
+* License.
+	* **Apache License v2.0** - https://www.apache.org/licenses/LICENSE-2.0
 * Development platform.
     * **Linux**.
 * IDE. 
