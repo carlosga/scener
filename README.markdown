@@ -9,6 +9,8 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
     * **Linux**.
 * IDE. 
     * [**Eclipse CDT (Kepler).**](http://eclipse.org/cdt/)
+* IDE Plugins.
+    * [**LLVM toolchain support for Eclipse CDT.**](http://marketplace.eclipse.org/content/llvm-toolchain-eclipse-cdt#.Uk8Bz5wW2lg)
 * C++ Compiler.
     * [**Clang 3.2.**](http://clang.llvm.org/)
 * Third party dependencies.
