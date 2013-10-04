@@ -1,4 +1,4 @@
-### SceneR OpenGL 3D model renderer 
+### SceneR - OpenGL 3D model renderer ###
 
 #### C++ learning project.####
 The API is inspired on a subset of the Microsoft XNA 4 API.
