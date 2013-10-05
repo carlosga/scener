@@ -5,10 +5,10 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.llvm.clang.linux.exe.debug.1219694338" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -32,9 +32,7 @@
 									<listOptionValue builtIn="false" value="GLEW"/>
 									<listOptionValue builtIn="false" value="glfw"/>
 								</option>
-								<option id="llvm.c.link.option.paths.1995743364" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.7/"/>
-								</option>
+								<option id="llvm.c.link.option.paths.1995743364" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths"/>
 								<option id="llvm.c.link.option.verbose.1107470714" name="Verbose mode" superClass="llvm.c.link.option.verbose" value="false" valueType="boolean"/>
 								<option id="llvm.c.link.base.option.ldflags.1951879615" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1527963223" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
@@ -71,10 +69,10 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.llvm.clang.linux.exe.release.1321489782" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">

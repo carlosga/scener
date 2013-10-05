@@ -21,9 +21,7 @@ using namespace SceneR::Graphics;
 VertexDeclaration::VertexDeclaration(const UInt32&                     componentCount,
                                      const UInt32&                     vertexStride,
                                      const std::vector<VertexElement>& vertexElements)
-    : componentCount(componentCount),
-      vertexStride(vertexStride),
-      vertexElements(vertexElements)
+    : componentCount(componentCount), vertexStride(vertexStride), vertexElements(vertexElements)
 {
 }
 

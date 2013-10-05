@@ -29,23 +29,29 @@ namespace SceneR
         enum class PrimitiveType : GLenum
         {
             /**
-             * Renders the vertices as a collection of isolated points. This value is unsupported for indexed primitives.
+             * Renders the vertices as a collection of isolated points. This value is unsupported for indexed
+             * primitives.
              */
             PointList = GL_POINTS,
             /*
-             * Renders the vertices as a list of isolated straight line segments. Calls that use this primitive type fail if the count is less than two or is odd.
+             * Renders the vertices as a list of isolated straight line segments.
+             * Calls that use this primitive type fail if the count is less than two or is odd.
              */
             LineList = GL_LINES,
             /*
-             * Renders the vertices as a single polyline. Calls that use this primitive type fail if the count is less than two.
+             * Renders the vertices as a single polyline.
+             * Calls that use this primitive type fail if the count is less than two.
              */
             LineStrip = GL_LINE_STRIP,
             /**
-             * Renders the specified vertices as a sequence of isolated triangles. Each group of three vertices defines a separate triangle. Back face culling is affected by the current winding-order render state.
+             * Renders the specified vertices as a sequence of isolated triangles.
+             * Each group of three vertices defines a separate triangle. Back face culling is affected by the current
+             * winding-order render state.
              */
             TriangleList = GL_TRIANGLES,
             /**
-             * Renders the vertices as a triangle strip. The back face culling flag is flipped automatically on even-numbered triangles.
+             * Renders the vertices as a triangle strip. The back face culling flag is flipped automatically on
+             * even-numbered triangles.
              */
             TriangleStrip = GL_TRIANGLE_STRIP,
             /**

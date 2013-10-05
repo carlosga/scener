@@ -19,14 +19,8 @@
 using namespace SceneR::Graphics;
 
 ModelMeshPart::ModelMeshPart()
-    : effect(nullptr),
-      indexBuffer(nullptr),
-      vertexCount(0),
-      primitiveCount(0),
-      startIndex(0),
-      tag(),
-      vertexBuffer(nullptr),
-      vertexOffset(0)
+    : effect(nullptr),       indexBuffer(nullptr), vertexCount(0), primitiveCount(0), startIndex(0), tag(),
+      vertexBuffer(nullptr), vertexOffset(0)
 {
 }
 

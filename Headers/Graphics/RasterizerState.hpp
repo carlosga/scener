@@ -39,36 +39,40 @@ namespace SceneR
 
         public:
             /**
-             * Specifies the conditions for culling or removing triangles. The default value is CullMode.CounterClockwise.
+             * Specifies the conditions for culling or removing triangles.
+             * The default value is CullMode.CounterClockwise.
              */
             const CullMode& GetCullMode() const;
 
             /**
-             * Specifies the conditions for culling or removing triangles. The default value is CullMode.CounterClockwise.
+             * Specifies the conditions for culling or removing triangles.
+             * The default value is CullMode.CounterClockwise.
              */
             void SetCullMode(const CullMode& cullMode);
 
             /**
-             * Gets the depth bias for polygons,
-             * which is the amount of bias to apply to the depth
-             * of a primitive to alleviate depth testing problems for primitives of similar depth. The default value is 0.
+             * Gets the depth bias for polygons, which is the amount of bias to apply to the depth
+             * of a primitive to alleviate depth testing problems for primitives of similar depth.
+             * The default value is 0.
              */
             const Single& GetDepthBias() const;
 
             /**
-             * Sets the depth bias for polygons,
-             * which is the amount of bias to apply to the depth
-             * of a primitive to alleviate depth testing problems for primitives of similar depth. The default value is 0.
+             * Sets the depth bias for polygons, which is the amount of bias to apply to the depth
+             * of a primitive to alleviate depth testing problems for primitives of similar depth.
+             * The default value is 0.
              */
             void SetDepthBias(const Single& depthBias);
 
             /**
-             * Gets the fill mode, which defines how a triangle is filled during rendering. The default is FillMode.Solid.
+             * Gets the fill mode, which defines how a triangle is filled during rendering.
+             * The default is FillMode.Solid.
              */
             const FillMode& GetFillMode() const;
 
             /**
-             * Sets the fill mode, which defines how a triangle is filled during rendering. The default is FillMode.Solid.
+             * Sets the fill mode, which defines how a triangle is filled during rendering.
+             * The default is FillMode.Solid.
              */
             void SetFillMode(const FillMode& fillMode);
 
@@ -93,16 +97,18 @@ namespace SceneR
             void SetScissorTestEnable(const Boolean& scissorTestEnable);
 
             /**
-             *  Gets a bias value that takes into account the slope of a polygon.
-             *  This bias value is applied to coplanar primitives to reduce aliasing
-             *  and other rendering artifacts caused by z-fighting. The default is 0.
+             * Gets a bias value that takes into account the slope of a polygon.
+             * This bias value is applied to coplanar primitives to reduce aliasing
+             * and other rendering artifacts caused by z-fighting.
+             * The default is 0.
              */
             const Single& GetSlopeScaleDepthBias() const;
 
             /**
-             *  Gets a bias value that takes into account the slope of a polygon.
-             *  This bias value is applied to coplanar primitives to reduce aliasing
-             *  and other rendering artifacts caused by z-fighting. The default is 0.
+             * Gets a bias value that takes into account the slope of a polygon.
+             * This bias value is applied to coplanar primitives to reduce aliasing
+             * and other rendering artifacts caused by z-fighting.
+             * The default is 0.
              */
             void SetSlopeScaleDepthBias(const Single& slopeScaleDepthBias);
 

@@ -23,8 +23,7 @@ using namespace SceneR::Graphics;
 ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
                              ContentTypeReaderManager& typeReaderManager,
                              const std::string&        file)
-    : graphicsDevice(graphicsDevice),
-      typeReaderManager(typeReaderManager)
+    : graphicsDevice(graphicsDevice), typeReaderManager(typeReaderManager)
 {
     this->stream.open(file.c_str(), std::ios::in | std::ios::binary);
 

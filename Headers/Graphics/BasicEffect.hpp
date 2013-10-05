@@ -36,10 +36,7 @@ namespace SceneR
         /**
          * Contains a basic rendering effect.
          */
-        class BasicEffect : public Effect,
-                            public IEffectMatrices,
-                            public IEffectLights,
-                            public IEffectFog
+        class BasicEffect : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
         public:
             /**

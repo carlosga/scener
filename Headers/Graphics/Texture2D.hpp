@@ -40,9 +40,7 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice,
-                      const Int32&    width,
-                      const Int32&    height);
+            Texture2D(GraphicsDevice& graphicsDevice, const Int32& width, const Int32& height);
 
             /**
              * Creates a new instance of the Texture2D class.

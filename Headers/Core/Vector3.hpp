@@ -191,7 +191,8 @@ namespace SceneR
             const Single DotProduct(const Vector3& vectorb) const;
 
             /**
-             * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified Vector3 structure.
+             * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
+             * Vector3 structure.
              * 
              * @param vectorb The second Vector3 to evaluate.
              * @return The angle in degrees needed to rotate this Vector3 into vectorb.

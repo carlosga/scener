@@ -269,7 +269,7 @@ namespace SceneR
             Int32                                           rowCount;
             std::vector<EffectParameter>                    structureMembers;
             std::shared_ptr<SceneR::Shaders::ShaderProgram> shader;
-            Int32                                            parameterLocation;
+            Int32                                           parameterLocation;
 
             friend class Effect;
         };

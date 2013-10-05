@@ -34,9 +34,7 @@ const Vector3 Vector3::UnitZ(0.0f, 0.0f, 1.0f);
 const Vector3 Vector3::Up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 
-Vector3 Vector3::Lerp(const Vector3& value1,
-                      const Vector3& value2,
-                      const Single&  amount)
+Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     
@@ -45,11 +43,9 @@ Vector3 Vector3::Lerp(const Vector3& value1,
     return (value1 + (value2 - value1) * amount);
 }
 
-Vector3 Vector3::SmoothStep(const Vector3& value1,
-                            const Vector3& value2,
-                            const Single&  amount)
+Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    // Necesario implementar Hermite y Clamp. Ver MathHelper de XNA
+    // TODO: Implement Hermite y Clamp. See XNA MathHelper at MSDN
     throw std::runtime_error("Not  implemented");
 }
 

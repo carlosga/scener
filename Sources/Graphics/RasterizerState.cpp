@@ -21,13 +21,8 @@
 using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice),
-      cullMode(CullMode::CullCounterClockwiseFace),
-      depthBias(0),
-      fillMode(FillMode::Solid),
-      multiSampleAntiAlias(true),
-      scissorTestEnable(false),
-      slopeScaleDepthBias(0)
+    : GraphicsResource(graphicsDevice), cullMode(CullMode::CullCounterClockwiseFace), depthBias(0),
+      fillMode(FillMode::Solid), multiSampleAntiAlias(true), scissorTestEnable(false), slopeScaleDepthBias(0)
 {
 }
 

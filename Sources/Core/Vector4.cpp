@@ -31,16 +31,14 @@ Vector4::Vector4(const Single& x, const Single& y, const Single& z)
 {
 }
 
-Vector4::Vector4(const Single& x, const Single& y,
-                 const Single& z, const Single& w)
+Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single& w)
     : xCoordinate(x), yCoordinate(y),
       zCoordinate(z), wCoordinate(w)
 {
 }
 
 Vector4::Vector4(const Vector4& vector)
-    : xCoordinate(vector.X()), yCoordinate(vector.Y()),
-      zCoordinate(vector.Z()), wCoordinate(vector.W())
+    : xCoordinate(vector.X()), yCoordinate(vector.Y()), zCoordinate(vector.Z()), wCoordinate(vector.W())
 {
 }
 

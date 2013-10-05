@@ -28,7 +28,8 @@ namespace SceneR
         {
             /**
              * Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE)
-             * before being written into the constant table; otherwise, the value will be set to 0 in the constant table.
+             * before being written into the constant table; otherwise, the value will be set to 0 in the constant
+             * table.
              */
             Bool,
             /**

@@ -25,8 +25,7 @@ PointLight::PointLight()
 {
 }
 
-PointLight::PointLight(const Color&   diffuseColor,
-                       const Vector3& position)
+PointLight::PointLight(const Color&   diffuseColor, const Vector3& position)
     : PointLightBase(diffuseColor, position)
 {
 }

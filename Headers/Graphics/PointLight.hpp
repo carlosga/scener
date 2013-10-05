@@ -41,8 +41,7 @@ namespace SceneR
              * @param diffuseColor the diffuse color of the light.
              * @param position The position of the light.
              */
-            PointLight(const SceneR::Core::Color&   diffuseColor,
-                       const SceneR::Core::Vector3& position);
+            PointLight(const SceneR::Core::Color& diffuseColor, const SceneR::Core::Vector3& position);
             
         protected:
             /**

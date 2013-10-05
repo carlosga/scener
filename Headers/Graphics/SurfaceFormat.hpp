@@ -28,11 +28,13 @@ namespace SceneR
              */
             Color = 0,
             /**
-             * (Unsigned format) 16-bit BGR pixel format with 5 bits for blue, 6 bits for green, and 5 bits for red.
+             * (Unsigned format) 16-bit BGR pixel format with 5 bits for blue, 6 bits for green,
+             * and 5 bits for red.
              */
             Bgr565 = 1,
             /**
-             * (Unsigned format) 16-bit BGRA pixel format where 5 bits are reserved for each color and 1 bit is reserved for alpha.
+             * (Unsigned format) 16-bit BGRA pixel format where 5 bits are reserved for each color
+             * and 1 bit is reserved for alpha.
              */
             Bgra5551 = 2,
             /**

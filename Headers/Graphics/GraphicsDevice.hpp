@@ -37,7 +37,8 @@ namespace SceneR
         class Effect;
 
         /**
-         * Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
+         * Performs primitive-based rendering, creates resources, handles system-level variables,
+         * adjusts gamma ramp levels, and creates shaders.
          */
         class GraphicsDevice
         {

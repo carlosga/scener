@@ -22,10 +22,7 @@ using namespace SceneR::Core;
 using namespace SceneR::Graphics;
 
 SpotLight::SpotLight()
-    : PointLightBase(),
-      direction(0.0f, 0.0f, -1.0f),
-      falloffAngle(180.0f),
-      falloffExponent(0.0f)
+    : PointLightBase(), direction(0.0f, 0.0f, -1.0f), falloffAngle(180.0f), falloffExponent(0.0f)
 {
 }
 

@@ -126,8 +126,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     return model;
 }
 
-UInt32 ModelReader::ReadBoneReference(ContentReader* input,
-                                      const UInt16&  boneCount)
+UInt32 ModelReader::ReadBoneReference(ContentReader* input, const UInt16&  boneCount)
 {
     return input->ReadUInt32();
 }

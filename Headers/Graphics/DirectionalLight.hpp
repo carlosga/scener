@@ -42,8 +42,7 @@ namespace SceneR
              * @param diffuseColor diffuse color of the new light.
              * @param direction the direction of the new light.
              */
-            DirectionalLight(const SceneR::Core::Color& diffuseColor,
-                             const SceneR::Core::Vector3& direction);
+            DirectionalLight(const SceneR::Core::Color& diffuseColor, const SceneR::Core::Vector3& direction);
 
         public:
             /**

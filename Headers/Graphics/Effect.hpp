@@ -77,9 +77,11 @@ namespace SceneR
              * Computes derived parameter values immediately before applying the effect.
              */
             virtual void OnApply() = 0;
+
             const EffectParameter& AddEffectParameter(const std::wstring&         name,
                                                       const EffectParameterClass& parameterClass,
                                                       const EffectParameterType&  parameterType);
+
             const EffectParameter& GetEffectParameter(const std::wstring& name) const;
 
         protected:

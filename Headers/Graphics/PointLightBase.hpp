@@ -52,7 +52,8 @@ namespace SceneR
             
             /**
              * Sets a value that specifies the linear diminution of the light's intensity over distance.
-             * @param linearAttenuation a value that specifies the linear diminution of the light's intensity over distance.
+             * @param linearAttenuation a value that specifies the linear diminution of the light's intensity over
+             *                          distance.
              */
             void SetLinearAttenuation(const Single linearAttenuation);
 

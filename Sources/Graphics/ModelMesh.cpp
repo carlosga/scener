@@ -20,10 +20,7 @@
 using namespace SceneR::Graphics;
 
 ModelMesh::ModelMesh()
-    : meshParts(0),
-      name(),
-      parentBone(nullptr),
-      tag()
+    : meshParts(0), name(), parentBone(nullptr), tag()
 {
 }
 

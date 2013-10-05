@@ -41,8 +41,7 @@ namespace SceneR
              * Initializes a new instance of the VertexPositionColor class with the
              * given position and color.
              */
-            VertexPositionColor(const SceneR::Core::Vector3& position,
-                                const SceneR::Core::Color&   color);
+            VertexPositionColor(const SceneR::Core::Vector3& position, const SceneR::Core::Color& color);
 
         public:
             /**

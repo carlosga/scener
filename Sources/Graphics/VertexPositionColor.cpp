@@ -32,8 +32,8 @@ const VertexDeclaration VertexPositionColor::GetVertexDeclaration()
     return VertexDeclaration(7, 28, vertexElements);
 }
 
-VertexPositionColor::VertexPositionColor(const Vector3& position,
-                                         const Color&   color)
+VertexPositionColor::VertexPositionColor(const Vector3& position, const Color& color)
+    : position(position), color(color)
 {
 }
 

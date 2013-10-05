@@ -55,5 +55,4 @@ namespace SceneR
     }
 }
 
-
 #endif  /* TEXTURE_HPP */

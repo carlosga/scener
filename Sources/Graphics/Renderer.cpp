@@ -79,7 +79,9 @@ void Renderer::StartEventLoop()
                 
         // Wait for new events
         glfwWaitEvents();
-    } while (glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS && glfwGetWindowParam(GLFW_OPENED)); // Check if the ESC key was pressed or the window was closed
+
+        // Check if the ESC key was pressed or the window was closed
+    } while (glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS && glfwGetWindowParam(GLFW_OPENED));
 }
 
 bool Renderer::BeginDraw()
@@ -165,9 +167,9 @@ void Renderer::ReleaseCallbacks() const
 }
 
 // A debugging callback
-void Renderer::DebugCallback(GLenum  source , GLenum      type,
-                             GLuint  id     , GLenum      severity,
-                             GLsizei length , const char* message,
+void Renderer::DebugCallback(GLenum  source   , GLenum      type,
+                             GLuint  id       , GLenum      severity,
+                             GLsizei length   , const char* message,
                              void*   userParam)
 {
     std::cout << message << std::endl;

@@ -28,12 +28,8 @@ Viewport::Viewport(Single x, Single y, Size width, Size height)
 {
 }
 
-Viewport::Viewport(Single x       , Single y,
-                   Single width   , Single height,
-                   Single minDepth, Single maxDepth)
-    : xCoordinate(x)    , yCoordinate(y),
-      vWidth(width)     , vHeight(height),
-      minDepth(minDepth), maxDepth(maxDepth)
+Viewport::Viewport(Single x , Single y, Single width, Single height, Single minDepth, Single maxDepth)
+    : xCoordinate(x), yCoordinate(y), vWidth(width), vHeight(height), minDepth(minDepth), maxDepth(maxDepth)
 {
 }
 

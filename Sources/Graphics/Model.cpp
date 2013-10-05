@@ -21,16 +21,11 @@ using namespace SceneR::Core;
 using namespace SceneR::Graphics;
 
 Model::Model()
-    : bones(0),
-      meshes(0),
-      root(nullptr),
-      tag()
+    : bones(0), meshes(0), root(nullptr), tag()
 {
 }
 
-void Model::Draw(const Matrix& world,
-                 const Matrix& view,
-                 const Matrix& projection)
+void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
     for (auto &mesh : this->meshes)
     {

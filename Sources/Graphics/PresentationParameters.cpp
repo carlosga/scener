@@ -19,9 +19,7 @@
 using namespace SceneR::Graphics;
 
 PresentationParameters::PresentationParameters()
-    : fullScreen(false),
-      backBufferHeight(0),
-      backBufferWidth(0)
+    : fullScreen(false), backBufferHeight(0), backBufferWidth(0)
 {
 }
 

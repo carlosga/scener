@@ -38,8 +38,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice,
-                           const std::string&                rootDirectory);
+            ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice, const std::string& rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.

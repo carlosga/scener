@@ -38,9 +38,7 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const 
                       cos(radians));
 }
 
-Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw,
-                                              const Single& pitch,
-                                              const Single& roll)
+Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
     // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
     // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
@@ -59,9 +57,7 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw,
     return qt * qz;
 }
 
-Quaternion Quaternion::Lerp(const Quaternion& quaternion1,
-                            const Quaternion& quaternion2,
-                            const Single&      amount)
+Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
     Single amount1 = 1.0f - amount;
     Single amount2 = amount;
@@ -78,9 +74,7 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1,
     return result;
 }
 
-Quaternion Quaternion::Slerp(const Quaternion& quaternion1,
-                             const Quaternion& quaternion2,
-                             const Single&     amount)
+Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
     Single w1;
     Single w2;

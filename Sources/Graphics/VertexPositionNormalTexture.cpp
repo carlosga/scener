@@ -33,12 +33,9 @@ const VertexDeclaration VertexPositionNormalTexture::GetVertexDeclaration()
     return VertexDeclaration(8, 32, vertexElements);
 }
 
-VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position,
-                                                         const Vector3& normal,
+VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position, const Vector3& normal,
                                                          const Vector2& textureCoordinate)
-    : position(position),
-      normal(normal),
-      textureCoordinate(textureCoordinate)
+    : position(position), normal(normal), textureCoordinate(textureCoordinate)
 {
 }
 

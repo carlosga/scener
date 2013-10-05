@@ -61,9 +61,7 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in degrees.
              * @param roll Roll around the x-axis, in degrees.
              */
-            static Matrix CreateFromYawPitchRoll(const Single& yaw,
-                                                 const Single& pitch,
-                                                 const Single& roll);
+            static Matrix CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll);
 
             /**
              * Creates a perspective projection matrix.

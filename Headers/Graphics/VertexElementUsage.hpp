@@ -33,15 +33,19 @@ namespace SceneR
              */
             Binormal = 0,
             /**
-             * Blending indices data. (BlendIndices with UsageIndex = 0) specifies matrix indices for fixed-function vertex processing using indexed paletted skinning.
+             * Blending indices data. (BlendIndices with UsageIndex = 0) specifies matrix indices for fixed-function
+             * vertex processing using indexed paletted skinning.
              */
             BlendIndices = 1,
             /**
-             * Blending weight data. (BlendWeight with UsageIndex = 0) specifies the blend weights in fixed-function vertex processing.
+             * Blending weight data. (BlendWeight with UsageIndex = 0) specifies the blend weights in fixed-function
+             * vertex processing.
              */
             BlendWeight = 2,
             /**
-             * Vertex data contains diffuse or specular color. (Color with UsageIndex = 0) specifies the diffuse color in the fixed-function vertex shader and in pixel shaders prior to ps_3_0. (Color with UsageIndex = 1) specifies the specular color in the fixed-function vertex shader and in pixel shaders prior to ps_3_0.
+             * Vertex data contains diffuse or specular color. (Color with UsageIndex = 0) specifies the diffuse color
+             * in the fixed-function vertex shader and in pixel shaders prior to ps_3_0. (Color with UsageIndex = 1)
+             * specifies the specular color in the fixed-function vertex shader and in pixel shaders prior to ps_3_0.
              */
             Color = 3,
             /**
@@ -49,7 +53,8 @@ namespace SceneR
              */
             Depth = 4,
             /**
-             * Vertex normal data. (Normal with UsageIndex = 0) specifies vertex normals for fixed-function vertex processing and the N-patch tessellator.
+             * Vertex normal data. (Normal with UsageIndex = 0) specifies vertex normals for fixed-function vertex
+             * processing and the N-patch tessellator.
              * (Normal with UsageIndex = 1) specifies vertex normals for fixed-function vertex processing for skinning.
              */
             Normal = 5,
@@ -60,8 +65,8 @@ namespace SceneR
             PointSize = 6,
             /**
              * Position data. (Position with UsageIndex = 0 ) specifies the nontransformed position in fixed-function
-             * vertex processing and the N-patch tessellator. (Position with UsageIndex = 1) specifies the nontransformed
-             * position in the fixed-function vertex shader for skinning.
+             * vertex processing and the N-patch tessellator. (Position with UsageIndex = 1) specifies the
+             * nontransformed position in the fixed-function vertex shader for skinning.
              */
             Position = 7,
             /**
@@ -78,7 +83,9 @@ namespace SceneR
              */
             TessellateFactor = 10,
             /**
-             * Texture coordinate data. (TextureCoordinate, n) specifies texture coordinates in fixed-function vertex processing and in pixel shaders prior to ps_3_0. These coordinates can be used to pass user-defined data.
+             * Texture coordinate data. (TextureCoordinate, n) specifies texture coordinates in fixed-function vertex
+             * processing and in pixel shaders prior to ps_3_0.
+             * These coordinates can be used to pass user-defined data.
              */
             TextureCoordinate = 11
         };

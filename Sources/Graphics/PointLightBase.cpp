@@ -20,17 +20,12 @@ using namespace SceneR::Core;
 using namespace SceneR::Graphics;
 
 PointLightBase::PointLightBase()
-    : PointLightBase(Color(1.0f, 1.0f, 1.0f, 1.0f),
-      Vector3(0.0f, 0.0f, 0.0f))
+    : PointLightBase(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f))
 {
 }
 
 PointLightBase::PointLightBase(const Color& diffuseColor, const Vector3& position)
-    : Light(diffuseColor),
-      position(position),
-      range(1.0f),
-      constantAttenuation(1.0f),
-      linearAttenuation(0.0f),
+    : Light(diffuseColor), position(position), range(1.0f), constantAttenuation(1.0f), linearAttenuation(0.0f),
       quadraticAttenuation(0.0f)
 {
 }

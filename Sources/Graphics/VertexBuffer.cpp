@@ -25,10 +25,7 @@ using namespace SceneR::Core;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice),
-      vertexCount(0),
-      vbo(0),
-      vao(0)
+    : GraphicsResource(graphicsDevice), vertexCount(0), vbo(0), vao(0)
 {
     // Create the vertex array ...
     this->CreateVertexArray();
