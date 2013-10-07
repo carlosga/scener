@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <stdexcept>
+#include <vector>
 #include "Shaders/Shader.hpp"
 
 using namespace SceneR::Shaders;
@@ -28,6 +29,7 @@ Shader::~Shader()
 {
     this->Release();
 }
+
 
 void Shader::Compile()
 {
@@ -44,22 +46,32 @@ void Shader::Compile()
     const char* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 
-    //compile
+    // Compile the shader source
     glCompileShader(this->object);
 
+    // Verify compilation state
+    this->VerifyCompilationState();
+}
+
+void Shader::VerifyCompilationState()
+{
     if (!this->IsCompiled())
     {
         std::string msg("Compile failure in shader:\n");
 
         GLint infoLogLength;
         glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
-        char* strInfoLog = new char[infoLogLength + 1];
-        glGetShaderInfoLog(this->object, infoLogLength, NULL, strInfoLog);
-        msg += strInfoLog;
-        delete[] strInfoLog;
 
-        glDeleteShader(this->object);
-        this->object = 0;
+        if (infoLogLength)
+        {
+            std::string compileErrorMessage("", infoLogLength);
+
+            glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
+
+            msg += compileErrorMessage;
+        }
+
+        this->Release();
 
         throw std::runtime_error(msg);
     }

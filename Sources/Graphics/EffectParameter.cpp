@@ -218,6 +218,11 @@ void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
 
 void EffectParameter::SetValue(const Single& value) const
 {
+    if (this->parameterClass != EffectParameterClass::Scalar)
+    {
+        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+    }
+
     this->shader->SetValue(this->parameterLocation, value);
 }
 

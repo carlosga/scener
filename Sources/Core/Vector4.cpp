@@ -32,8 +32,7 @@ Vector4::Vector4(const Single& x, const Single& y, const Single& z)
 }
 
 Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single& w)
-    : xCoordinate(x), yCoordinate(y),
-      zCoordinate(z), wCoordinate(w)
+    : xCoordinate(x), yCoordinate(y), zCoordinate(z), wCoordinate(w)
 {
 }
 

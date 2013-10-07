@@ -19,7 +19,7 @@
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-ContentManager::ContentManager(GraphicsDevice&    graphicsDevice, const std::string& rootDirectory)
+ContentManager::ContentManager(GraphicsDevice& graphicsDevice, const std::string& rootDirectory)
     : graphicsDevice(graphicsDevice), rootDirectory(rootDirectory), typeReaderManager()
 {
 }

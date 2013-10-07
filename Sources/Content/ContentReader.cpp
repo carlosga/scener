@@ -20,7 +20,7 @@ using namespace SceneR::Core;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
+ContentReader::ContentReader(GraphicsDevice& graphicsDevice,
                              ContentTypeReaderManager& typeReaderManager,
                              const std::string&        file)
     : graphicsDevice(graphicsDevice), typeReaderManager(typeReaderManager)

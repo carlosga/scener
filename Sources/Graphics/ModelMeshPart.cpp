@@ -59,7 +59,7 @@ const std::wstring& ModelMeshPart::GetTag() const
     return this->tag;
 }
 
-void ModelMeshPart::SetTag(const std::wstring tag)
+void ModelMeshPart::SetTag(const std::wstring& tag)
 {
     this->tag = tag;
 }

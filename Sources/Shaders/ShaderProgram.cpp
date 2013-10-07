@@ -66,6 +66,12 @@ void ShaderProgram::Build()
     glLinkProgram(this->object);
 
     // ... verify program linking
+    this->VerifyLinkingState();
+}
+
+void ShaderProgram::VerifyLinkingState()
+{
+    // ... verify program linking
     GLint status;
     glGetProgramiv(this->object, GL_LINK_STATUS, &status);
 
@@ -75,13 +81,17 @@ void ShaderProgram::Build()
 
         GLint infoLogLength;
         glGetProgramiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
-        char* strInfoLog = new char[infoLogLength + 1];
-        glGetProgramInfoLog(this->object, infoLogLength, NULL, strInfoLog);
-        msg += strInfoLog;
-        delete[] strInfoLog;
 
-        glDeleteProgram(this->object);
-        this->object = 0;
+        if (infoLogLength)
+        {
+            std::string linkErrorMessage("", infoLogLength);
+
+            glGetProgramInfoLog(this->object, infoLogLength, NULL, &linkErrorMessage[0]);
+
+            msg += linkErrorMessage;
+        }
+
+        this->Release();
 
         throw std::runtime_error(msg);
     }
@@ -92,16 +102,16 @@ void ShaderProgram::Deactivate() const
     glUseProgram(0);
 }
 
+const std::wstring& ShaderProgram::Name() const
+{
+    return this->name;
+}
+
 const Int32 ShaderProgram::GetParameterLocation(const std::wstring& parameterName) const
 {
     std::string temp(parameterName.begin(), parameterName.end());
 
     return glGetUniformLocation(this->object, temp.c_str());
-}
-
-const std::wstring& ShaderProgram::Name() const
-{
-    return this->name;
 }
 
 void ShaderProgram::SetValue(const std::wstring& parameterName, const Matrix& matrix) const

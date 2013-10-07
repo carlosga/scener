@@ -37,52 +37,102 @@ namespace SceneR
         {
         public:
             /**
-             * Intializes a new instance of the Program Stage class
+             * Intializes a new instance of the ShaderProgram class.
              */
             ShaderProgram(const std::wstring& name, std::vector<std::shared_ptr<Shader>> &shaders);
 
             /**
-             * Releases all memory being used by the current ProgramStage instance
+             * Releases all memory being used by the current ShaderProgram instance.
              */
             ~ShaderProgram();
 
         public:
             /**
-             * Activates the shader program
+             * Activates the shader program.
              */
             void Activate() const;
 
             /**
-             * Compiles and links the shader stage sources
+             * Compiles and links the shader program sources.
              */
             void Build();
 
             /**
-             * Deactivates the shader program
+             * Deactivates the shader program.
              */
             void Deactivate() const;
 
             /**
-             * Gets the shader program name
+             * Gets the shader program name.
+             * @return the shader program name.
              */
             const std::wstring& Name() const;
 
             /**
-             * Gets the location of the given parameter within the shader program.
+             * Gets the location of the shader parameter with the given name within the shader program.
+             * @return the location of the shader parameter with the given name within the shader program.
              */
             const Int32 GetParameterLocation(const std::wstring& parameterName) const;
 
+            /**
+             * Sets the value of the shader parameter with the given name as a Matrix.
+             * @param parameterName the shader parameter name.
+             * @param matrix the value to assign to the shader parameter.
+             */
             void SetValue(const std::wstring& parameterName, const SceneR::Core::Matrix& matrix) const;
+
+            /**
+             * Sets the value of the shader parameter with the given location as a Matrix.
+             * @param location the location of the shader parameter.
+             * @param matrix the value to assign to the shader parameter.
+             */
             void SetValue(const Int32& location, const SceneR::Core::Matrix& matrix) const;
+
+            /**
+             * Sets the value of the shader parameter with the given name as a Vector3.
+             * @param parameterName the shader parameter name.
+             * @param vector3 the value to assign to the shader parameter.
+             */
             void SetValue(const std::wstring& parameterName, const SceneR::Core::Vector3& vector3) const;
+
+            /**
+             * Sets the value of the shader parameter with the given location as a Vector3.
+             * @param location the location of the shader parameter.
+             * @param vector3 the value to assign to the shader parameter.
+             */
             void SetValue(const Int32& location, const SceneR::Core::Vector3& vector3) const;
+
+            /**
+             * Sets the value of the shader parameter with the given name as a Vector4.
+             * @param parameterName the shader parameter name.
+             * @param vector4 the value to assign to the shader parameter.
+             */
             void SetValue(const std::wstring& parameterName, const SceneR::Core::Vector4& vector4) const;
+
+            /**
+             * Sets the value of the shader parameter with the given location as a Vector4.
+             * @param location the location of the shader parameter.
+             * @param vector4 the value to assign to the shader parameter.
+             */
             void SetValue(const Int32& location, const SceneR::Core::Vector4& vector4) const;
+
+            /**
+             * Sets the value of the shader parameter with the given name as a scalar value of type Single.
+             * @param parameterName the shader parameter name.
+             * @param value the value to assign to the shader parameter.
+             */
             void SetValue(const std::wstring& parameterName, const Single& value) const;
+
+            /**
+             * Sets the value of the shader parameter with the given location as a scalar value of type Single.
+             * @param location the location of the shader parameter.
+             * @param value the value to assign to the shader parameter.
+             */
             void SetValue(const Int32& location, const Single& value) const;
 
         private:
             void Release();
+            void VerifyLinkingState();
 
         private:
             std::wstring                         name;

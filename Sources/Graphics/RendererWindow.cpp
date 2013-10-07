@@ -35,7 +35,7 @@ const UInt32 RendererWindow::GetHandle() const
     return this->handle;
 }
 
-const std::wstring RendererWindow::GetTitle() const
+const std::wstring& RendererWindow::GetTitle() const
 {
     return this->title;
 }

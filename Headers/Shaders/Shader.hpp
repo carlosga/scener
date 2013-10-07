@@ -59,6 +59,7 @@ namespace SceneR
 
         private:
             void Release();
+            void VerifyCompilationState();
 
         private:
             GLuint       object;

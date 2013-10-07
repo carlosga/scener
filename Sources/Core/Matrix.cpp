@@ -29,8 +29,7 @@ const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,
                               0.0f, 0.0f, 1.0f, 0.0f,
                               0.0f, 0.0f, 0.0f, 1.0f);
 
-Matrix Matrix::CreateFromAxisAngle(const Vector3& axis,
-                                   const Single&  angle)
+Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
     float radians = MathHelper::ToRadians(angle);
     float cos      = std::cos(radians) - 1 + 1;
@@ -77,9 +76,7 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
                   0.0f                        , 0.0f                        , 0.0f                        , 1.0f);
 }
 
-Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw,
-                                      const Single& pitch,
-                                      const Single& roll)
+Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
     // Formula: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
     Single sa = sin(MathHelper::ToRadians(pitch));
@@ -117,9 +114,7 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
                   0.0f                      , 0.0f                      , -1.0f                         , 0.0f);
 }
             
-Matrix Matrix::CreateLookAt(const Vector3& cameraPosition,
-                            const Vector3& cameraTarget,
-                            const Vector3& cameraUpVector)
+Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
     // zaxis = normal(Eye - At)
@@ -151,10 +146,7 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition,
                   -dx      , -dy      , -dz      , 1.0f);
 }
 
-Matrix Matrix::CreateOrthographic(const Single& width,
-                                  const Single& height,
-                                  const Single& zNear,
-                                  const Single& zFar)
+Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
     // 2/w  0    0           0
@@ -195,10 +187,7 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
                   leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f);
 }
 
-Matrix Matrix::CreatePerspective(const Single& width,
-                                 const Single& height,
-                                 const Single& zNear,
-                                 const Single& zFar)
+Matrix Matrix::CreatePerspective(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
 {
     // Formula http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
@@ -269,9 +258,7 @@ Matrix Matrix::CreateScale(const Single& scale)
     return Matrix::CreateScale(scale, scale, scale);
 }
 
-Matrix Matrix::CreateScale(const Single& xScale,
-                           const Single& yScale,
-                           const Single& zScale)
+Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale)
 {
     return Matrix(xScale, 0.0f  , 0.0f  , 0.0f,
                   0.0f  , yScale, 0.0f  , 0.0f,
@@ -284,9 +271,7 @@ Matrix Matrix::CreateScale(const Vector3& scales)
     return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
 }
 
-Matrix Matrix::CreateTranslation(const Single& x,
-                                 const Single& y,
-                                 const Single& z)
+Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single& z)
 {
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
@@ -299,15 +284,12 @@ Matrix Matrix::CreateTranslation(const Vector3& position)
     return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
 }
 
- Matrix Matrix::CreateWorld(const Vector3& position,
-                            const Vector3& forward,
-                            const Vector3& up)
+ Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
      return Matrix::Identity;
 }
 
-Matrix Matrix::Transform(const Matrix&     value,
-                         const Quaternion& rotation)
+Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 {
     return value * Matrix::CreateFromQuaternion(rotation);
 }

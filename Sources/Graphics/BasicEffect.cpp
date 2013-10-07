@@ -78,7 +78,7 @@ const Color& BasicEffect::GetDiffuseColor() const
     return this->diffuseColor;
 }
 
-void BasicEffect::SetDiffuseColor(Color& diffuseColor)
+void BasicEffect::SetDiffuseColor(const Color& diffuseColor)
 {
     this->diffuseColor = diffuseColor;
 }
@@ -99,7 +99,7 @@ const Color& BasicEffect::GetEmissiveColor() const
     return this->emissiveColor;
 }
 
-void BasicEffect::SetEmissiveColor(Color& emissiveColor)
+void BasicEffect::SetEmissiveColor(const Color& emissiveColor)
 {
     this->emissiveColor = emissiveColor;
 }

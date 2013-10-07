@@ -54,7 +54,7 @@ namespace SceneR
              * Gets the renderer window title
              * @return the renderer window title
              */
-            const std::wstring GetTitle() const;
+            const std::wstring& GetTitle() const;
             
             /**
              * Sets the renderer window title

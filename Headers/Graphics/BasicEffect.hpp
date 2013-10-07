@@ -77,7 +77,7 @@ namespace SceneR
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            void SetDiffuseColor(SceneR::Core::Color& diffuseColor);
+            void SetDiffuseColor(const SceneR::Core::Color& diffuseColor);
 
             /**
              * Gets the lights of the current effect
@@ -99,7 +99,7 @@ namespace SceneR
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SetEmissiveColor(SceneR::Core::Color& emissiveColor);
+            void SetEmissiveColor(const SceneR::Core::Color& emissiveColor);
 
             /**
              * Gets the emissive color for a material,

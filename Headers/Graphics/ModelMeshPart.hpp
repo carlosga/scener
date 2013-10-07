@@ -79,7 +79,7 @@ namespace SceneR
             /**
              * Sets the model mesh part tag
              */
-            void SetTag(const std::wstring tag);
+            void SetTag(const std::wstring& tag);
 
             /**
              * Gets the vertex buffer for this mesh part.

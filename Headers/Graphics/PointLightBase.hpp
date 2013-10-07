@@ -61,7 +61,7 @@ namespace SceneR
              * Gets a value that specifies the diminution of the light's effect over distance, 
              * calculated by a quadratic operation.
              * @return a value that specifies the diminution of the light's effect over distance, 
-             * calculated by a quadratic operation.
+             *         calculated by a quadratic operation.
              */
             const Single GetQuadraticAttenuation() const;
 
@@ -69,7 +69,7 @@ namespace SceneR
              * Gets a value that specifies the diminution of the light's effect over distance, 
              * calculated by a quadratic operation.
              * @param quadraticAttenuation a value that specifies the diminution of the light's effect over distance, 
-             * calculated by a quadratic operation.
+             *        calculated by a quadratic operation.
              */            
             void SetQuadraticAttenuation(const Single quadraticAttenuation);
 
