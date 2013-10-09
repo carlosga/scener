@@ -48,7 +48,7 @@ namespace SceneR
              *
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsProfile&  graphicsProfile);
+            GraphicsDevice(const GraphicsProfile& graphicsProfile);
             
             /**
              * Release all resources being used by the GraphicsDevice instance.

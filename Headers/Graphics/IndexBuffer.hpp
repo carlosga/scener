@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Gets the indices count
              */
-            const UInt32 GetIndexCount() const;
+            const UInt32& GetIndexCount() const;
 
             /**
              * Gets the size (in bits) of each index.

@@ -52,14 +52,14 @@ namespace SceneR
             ~Viewport();
 
         public:
-            const Single X() const;
-            const Single Y() const;
-            const Single Width() const;
-            const Single Height() const;
+            const Single& X() const;
+            const Single& Y() const;
+            const Single& Width() const;
+            const Single& Height() const;
             const Single AspectRatio() const;
-            const Single GetMinDepth() const;
+            const Single& GetMinDepth() const;
             void SetMinDepth(const Single& minDepth);
-            const Single GetMaxDepth() const;
+            const Single& GetMaxDepth() const;
             void SetMaxDepth(const Single& maxDepth);
 
             void Update(const UInt32& x, const UInt32& y, const Size& width, const Size& height);

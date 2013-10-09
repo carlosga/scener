@@ -185,7 +185,7 @@ namespace SceneR
              * Gets the value of the EffectParameter as an array of Boolean.
              * @param value the value to assign to the EffectParameter.
              */
-             void SetValue(const std::vector<Boolean> value) const;
+             void SetValue(const std::vector<Boolean>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an Int32.

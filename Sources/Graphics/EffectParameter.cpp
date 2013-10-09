@@ -166,7 +166,7 @@ void EffectParameter::SetValue(const Boolean& value) const
     throw std::runtime_error("Not implemented");
 }
 
-void EffectParameter::SetValue(const std::vector<Boolean> value) const
+void EffectParameter::SetValue(const std::vector<Boolean>& value) const
 {
     throw std::runtime_error("Not implemented");
 }

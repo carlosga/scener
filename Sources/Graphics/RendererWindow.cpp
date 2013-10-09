@@ -30,7 +30,7 @@ RendererWindow::~RendererWindow()
     this->Close();
 }
 
-const UInt32 RendererWindow::GetHandle() const
+const UInt32& RendererWindow::GetHandle() const
 {
     return this->handle;
 }
@@ -45,7 +45,7 @@ void RendererWindow::SetTitle(const std::wstring& title)
     this->title = title;
 }
 
-const Boolean RendererWindow::GetAllowUserResizing() const
+const Boolean& RendererWindow::GetAllowUserResizing() const
 {
     return this->allowUserResizing;
 }

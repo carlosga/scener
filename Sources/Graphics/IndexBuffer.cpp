@@ -37,7 +37,7 @@ IndexBuffer::~IndexBuffer()
     this->Release();
 }
 
-const UInt32 IndexBuffer::GetIndexCount() const
+const UInt32& IndexBuffer::GetIndexCount() const
 {
     return this->indexCount;
 }

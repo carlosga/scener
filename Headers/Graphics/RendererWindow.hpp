@@ -45,10 +45,10 @@ namespace SceneR
             
         public:
             /**
-             * Gets the Window handle
-             * @return 
+             * Gets the window handle
+             * @return the window handle
              */
-            const UInt32 GetHandle() const;
+            const UInt32& GetHandle() const;
             
             /**
              * Gets the renderer window title
@@ -66,7 +66,7 @@ namespace SceneR
              * Specifies whether to allow the user to resize the renderer window.
              * @return whether to allow the user to resize the renderer window.
              */
-            const Boolean GetAllowUserResizing() const;
+            const Boolean& GetAllowUserResizing() const;
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
