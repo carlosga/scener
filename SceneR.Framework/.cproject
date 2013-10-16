@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/SceneR.Framework"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SceneR.Framework/Debug"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="libSceneR.Framework.so" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="" artifactName="lib${ProjName}.so" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339" name="Debug" parent="cdt.managedbuild.config.llvm.clang.linux.so.debug">
+					<folderInfo id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.llvm.clang.linux.so.debug.61474731" name="LLVM with Clang (Linux)" superClass="cdt.managedbuild.toolchain.llvm.clang.linux.so.debug">
+							<targetPlatform archList="all" id="cdt.managedbuild.target.llvm.clang.linux.platform.so.debug.953060705" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.llvm.clang.linux.platform.so.debug"/>
+							<builder buildPath="${workspace_loc:/SceneR.Framework}/Debug" id="cdt.managedbuild.target.llvm.clang.linux.builder.so.debug.1367905554" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.llvm.clang.linux.builder.so.debug"/>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.assembler.so.debug.222428773" name="LLVM assembler" superClass="cdt.managedbuild.tool.llvm.clang.linux.assembler.so.debug"/>
+							<tool id="cdt.managedbuild.tool.llvm.archiver.base.615802712" name="LLVM archiver" superClass="cdt.managedbuild.tool.llvm.archiver.base"/>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.debug.1863652926" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.debug">
+								<option id="llvm.c_cpp.compiler.option.optimization.level.839681483" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="llvm.c_cpp.compiler.option.debugging.level.1217204619" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.1909522845" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.debug.619937137" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.debug">
+								<option id="llvm.c_cpp.compiler.option.optimization.level.1195806794" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="llvm.c_cpp.compiler.option.debugging.level.1863778525" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
+								<option id="llvm.c_cpp.compiler.option.misc.other.1492437657" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -fmessage-length=0 -m64 -std=c++11  -fPIC" valueType="string"/>
+								<option id="llvm.c_cpp.compiler.option.include.paths.1226632466" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Headers}&quot;"/>
+								</option>
+								<option id="llvm.c_cpp.compiler.option.warnings.toerrors.807405654" name="Warnings as errors (-Werror)" superClass="llvm.c_cpp.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
+								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.152899357" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.debug.285816142" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.debug">
+								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.1627170979" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" valueType="boolean"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug.1701105210" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug">
+								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.449492850" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" value="false" valueType="boolean"/>
+								<option id="llvm.c.link.option.libs.1501961573" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="stdc++"/>
+									<listOptionValue builtIn="false" value="GL"/>
+									<listOptionValue builtIn="false" value="GLEW"/>
+									<listOptionValue builtIn="false" value="glfw"/>
+								</option>
+								<option id="llvm.c.link.option.paths.1951854752" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.7/"/>
+								</option>
+								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC" valueType="string"/>
+								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1913489736" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+								<outputType id="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc.1823966268" outputPrefix="" superClass="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="Sources|Headers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Headers"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Sources"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/SceneR.Framework"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SceneR.Framework/Release"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="SceneR.Framework" srcPrefixMapping="" srcRootPath=""/>
+					</externalSetting>
+				</externalSettings>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="so" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009" name="Release" parent="cdt.managedbuild.config.llvm.clang.linux.so.release">
+					<folderInfo id="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.llvm.clang.linux.so.release.696853462" name="LLVM with Clang (Linux)" superClass="cdt.managedbuild.toolchain.llvm.clang.linux.so.release">
+							<targetPlatform archList="all" id="cdt.managedbuild.target.llvm.clang.linux.platform.so.release.1670603792" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.llvm.clang.linux.platform.so.release"/>
+							<builder buildPath="${workspace_loc:/SceneR.Framework}/Release" id="cdt.managedbuild.target.llvm.clang.linux.builder.so.release.1603276827" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.target.llvm.clang.linux.builder.so.release"/>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.assembler.so.release.818266317" name="LLVM assembler" superClass="cdt.managedbuild.tool.llvm.clang.linux.assembler.so.release"/>
+							<tool id="cdt.managedbuild.tool.llvm.archiver.base.234816469" name="LLVM archiver" superClass="cdt.managedbuild.tool.llvm.archiver.base"/>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.release.1904973381" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.release">
+								<option id="llvm.c_cpp.compiler.option.optimization.level.1584834905" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.most" valueType="enumerated"/>
+								<option id="llvm.c_cpp.compiler.option.debugging.level.794478727" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.404397292" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.release.497028240" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.release">
+								<option id="llvm.c_cpp.compiler.option.optimization.level.796969602" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.most" valueType="enumerated"/>
+								<option id="llvm.c_cpp.compiler.option.debugging.level.1689447972" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.676833841" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.release.1095132976" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.release">
+								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.1174399794" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" valueType="boolean"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.release.84390073" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.release">
+								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.752487125" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" valueType="boolean"/>
+								<option id="llvm.c.link.option.libs.966708762" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="stdc++"/>
+								</option>
+								<option id="llvm.c.link.option.paths.366092287" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.7/"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.734090902" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="Sources|Headers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Headers"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Sources"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="SceneR.Framework.cdt.managedbuild.target.llvm.clang.linux.so.805298061" name="Shared Library" projectType="cdt.managedbuild.target.llvm.clang.linux.so"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339;cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339.;cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.debug.1863652926;cdt.managedbuild.tool.llvm.c.compiler.input.1909522845">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.llvm.ui.LLVMManagedMakePerProjectProfileClang"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009;cdt.managedbuild.config.llvm.clang.linux.so.release.835599009.;cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.release.497028240;cdt.managedbuild.tool.llvm.cpp.compiler.input.676833841">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.llvm.ui.LLVMManagedMakePerProjectProfileClang++"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339;cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339.;cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.debug.619937137;cdt.managedbuild.tool.llvm.cpp.compiler.input.152899357">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.llvm.ui.LLVMManagedMakePerProjectProfileClang++"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.llvm.clang.linux.so.release.835599009;cdt.managedbuild.config.llvm.clang.linux.so.release.835599009.;cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.release.1904973381;cdt.managedbuild.tool.llvm.c.compiler.input.404397292">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.llvm.ui.LLVMManagedMakePerProjectProfileClang"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/SceneR.Framework"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/SceneR.Framework"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+</cproject>
