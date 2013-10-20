@@ -13,9 +13,9 @@ The API is inspired in a subset of the Microsoft XNA 4 API.
     * LLVM-Family C/C++ Compiler Build Support. Eclipse CDT.
     * [**Eclipse CppUnit Test Runner**](https://github.com/jmrharris/eclipse.cppunit.testsrunner)
 * C++ Compiler.
-    * [**Clang 3.2.**](http://clang.llvm.org/)
+    * [**Clang 3.4.**](http://clang.llvm.org/)
 * Third party dependencies.
     * [**CppUnit**](http://sourceforge.net/apps/mediawiki/cppunit/index.php?title=Main_Page)
-    * [**OpenGL 4.2**](https://www.khronos.org/opengl/)
-    * [**GLEW**](http://glew.sourceforge.net/)
-    * [**GLFW**](http://www.glfw.org/)
+    * [**OpenGL 4.3**](https://www.khronos.org/opengl/)
+    * [**GLEW 1.10**](http://glew.sourceforge.net/)
+    * [**GLFW 3.x**](http://www.glfw.org/)
