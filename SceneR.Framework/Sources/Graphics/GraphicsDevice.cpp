@@ -129,7 +129,6 @@ void GraphicsDevice::SetEffect(std::shared_ptr<Effect> effect)
 
 void GraphicsDevice::Present()
 {
-    glfwSwapBuffers();
 }
 
 const GraphicsProfile& GraphicsDevice::GetGraphicsProfile() const

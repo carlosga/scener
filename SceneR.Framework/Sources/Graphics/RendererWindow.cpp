@@ -21,7 +21,7 @@
 using namespace SceneR::Graphics;
 
 RendererWindow::RendererWindow(Renderer& renderer)
-    : handle(0), title(), renderer(renderer), allowUserResizing(false)
+    : title(), renderer(renderer), allowUserResizing(false), window(nullptr)
 {
 }
 
@@ -30,9 +30,9 @@ RendererWindow::~RendererWindow()
     this->Close();
 }
 
-const UInt32& RendererWindow::GetHandle() const
+GLFWwindow* RendererWindow::GetHandle() const
 {
-    return this->handle;
+    return this->window;
 }
 
 const std::wstring& RendererWindow::GetTitle() const
@@ -66,42 +66,41 @@ void RendererWindow::Open()
     GraphicsDevice         graphicsDevice = this->renderer.GetGraphicsDevice();
     PresentationParameters params         = graphicsDevice.GetPresentationParameters();
     UInt32                 profile        = static_cast<UInt32>(graphicsDevice.GetGraphicsProfile());
-    UInt32                 displayMode    = GLFW_WINDOW;
-    
+    GLFWmonitor*           monitor        = nullptr;
+
+    std::string title(this->title.begin(), this->title.end());
+
     if (this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen())
     {
-        displayMode = GLFW_FULLSCREEN;
+        monitor = glfwGetPrimaryMonitor();
     }
 
-    // Next, we use GLFW to create a window. The window will contain an OpenGL 4.2 core profile context.
-    glfwOpenWindowHint(GLFW_OPENGL_PROFILE      , profile);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 4);
-    glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
-    glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE    , (this->allowUserResizing ? GL_TRUE : GL_FALSE));
-    glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
-
-    this->handle = glfwOpenWindow
+    // Create a new window
+    this->window = glfwCreateWindow
     (
-        params.GetBackBufferWidth(),  // width
-        params.GetBackBufferHeight(), // height
-        8,                            // redbits
-        8,                            // greenbits
-        8,                            // bluebits
-        8,                            // alphabits
-        24,                           // depthbits
-        0,                            // stencilbits
-        displayMode                   // mode
+        params.GetBackBufferWidth(),    // width
+        params.GetBackBufferHeight(),   // height
+        title.c_str(),                  // title
+        monitor,                        // monitor
+        nullptr                         // share
     );
 
-    // If glfwOpenWindow is failing for you, then you may need to lower the OpenGL version.
-    if (!this->handle)
-    {
-        throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.2");
-    }
+    // Set the new window context as the current context
+    glfwMakeContextCurrent(this->window);
 
-    // Set window title
-    std::string title(this->title.begin(), this->title.end());
-    glfwSetWindowTitle(title.c_str());
+    // Set the window and context hints
+    glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_RESIZABLE            , (this->allowUserResizing ? GL_TRUE : GL_FALSE));
+    glfwWindowHint(GLFW_CLIENT_API           , GLFW_OPENGL_API);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT , 1);
+
+    // If glfwOpenWindow is failing for you, then you may need to lower the OpenGL version.
+    if (!this->window)
+    {
+        throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.3");
+    }
     
     // Now that we have an OpenGL context available in our window,
     // we initialise GLEW so that we get access to the OpenGL API functions.
@@ -112,10 +111,10 @@ void RendererWindow::Open()
         throw std::runtime_error("glewInit failed");
     }
 
-    // We will also use GLEW to double-check that the 4.2 API is available:
-    if (!GLEW_VERSION_4_2)
+    // We will also use GLEW to double-check that the 4.3 API is available:
+    if (!GLEW_VERSION_4_3)
     {
-        throw std::runtime_error("OpenGL 4.2 API is not available.");
+        throw std::runtime_error("OpenGL 4.3 API is not available.");
     }
     
     // GLEW throws some errors, so discard all the errors so far
@@ -129,12 +128,12 @@ void RendererWindow::Open()
 
 void RendererWindow::Close()
 {
-    if (this->handle != 0)
+    if (this->window)
     {
         // Close window
-        glfwCloseWindow();
+        glfwDestroyWindow(this->window);
 
-        // Reset object ID
-        this->handle = 0;
+        // Reset the window pointer
+        this->window = nullptr;
     }
 }

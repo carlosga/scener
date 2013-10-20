@@ -77,11 +77,13 @@ void Renderer::StartEventLoop()
         this->Draw();
         this->EndDraw();
                 
-        // Wait for new events
-        glfwWaitEvents();
+        // Poll events
+        glfwSwapBuffers(this->rendererWindow.GetHandle());
+        glfwPollEvents();
 
         // Check if the ESC key was pressed or the window was closed
-    } while (glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS && glfwGetWindowParam(GLFW_OPENED));
+    } while (glfwGetKey(this->rendererWindow.GetHandle(), GLFW_KEY_ESCAPE) != GLFW_PRESS
+             && !glfwWindowShouldClose(this->rendererWindow.GetHandle()));
 }
 
 bool Renderer::BeginDraw()
@@ -129,13 +131,10 @@ void Renderer::Update()
 void Renderer::InitializeCallbacks() const
 {
     // Enable sticky keys
-    glfwEnable(GLFW_STICKY_KEYS);
+    glfwSetInputMode(this->rendererWindow.GetHandle(), GLFW_STICKY_KEYS, GL_TRUE);
 
     // Enable mouse cursor (only needed for fullscreen mode)
-    glfwEnable(GLFW_MOUSE_CURSOR);
-
-    // Disable automatic event polling
-    glfwDisable(GLFW_AUTO_POLL_EVENTS);
+    glfwSetInputMode(this->rendererWindow.GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     
     // Enable debugging output
     // Other OpenGL 4.x debugging functions:

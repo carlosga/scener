@@ -48,8 +48,8 @@ namespace SceneR
              * Gets the window handle
              * @return the window handle
              */
-            const UInt32& GetHandle() const;
-            
+            GLFWwindow* GetHandle() const;
+
             /**
              * Gets the renderer window title
              * @return the renderer window title
@@ -78,10 +78,10 @@ namespace SceneR
             void Close();
             
         private:
-            UInt32       handle;
             std::wstring title;
             Renderer&    renderer;
             Boolean      allowUserResizing;
+            GLFWwindow*  window;
             
             friend class Renderer;
         };

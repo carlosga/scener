@@ -18,7 +18,7 @@
 #define CORE_HPP
 
 #include <GL/glew.h>
-#include <GL/glfw.h>
+#include <GLFW/glfw3.h>
 
 typedef bool     Boolean;
 typedef GLbyte   Byte;
