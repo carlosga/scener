@@ -54,6 +54,7 @@
 								<option id="llvm.c.link.option.paths.1951854752" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/usr/lib/clang/3.4/lib/linux"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib"/>
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 								</option>
 								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1913489736" superClass="cdt.managedbuild.tool.llvm.c.linker.input">

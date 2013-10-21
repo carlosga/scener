@@ -16,7 +16,7 @@
 					<folderInfo id="cdt.managedbuild.config.llvm.clang.linux.exe.debug.45975524." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.llvm.clang.linux.exe.debug.1889069371" name="LLVM with Clang (Linux)" superClass="cdt.managedbuild.toolchain.llvm.clang.linux.exe.debug">
 							<targetPlatform archList="all" id="cdt.managedbuild.target.llvm.clang.linux.platform.exe.debug.831079284" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.llvm.clang.linux.platform.exe.debug"/>
-							<builder buildPath="${workspace_loc:/SceneR}/Debug" id="cdt.managedbuild.target.llvm.clang.linux.builder.exe.debug.2140799478" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.target.llvm.clang.linux.builder.exe.debug"/>
+							<builder buildPath="${workspace_loc:/SceneR}/Debug" id="cdt.managedbuild.target.llvm.clang.linux.builder.exe.debug.2140799478" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="cdt.managedbuild.target.llvm.clang.linux.builder.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.assembler.exe.debug.1026429435" name="LLVM assembler" superClass="cdt.managedbuild.tool.llvm.clang.linux.assembler.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.llvm.archiver.base.1635763679" name="LLVM archiver" superClass="cdt.managedbuild.tool.llvm.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug.488185836" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug">
@@ -44,6 +44,7 @@
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug.2028594888" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug">
 								<option defaultValue="false" id="llvm.c.link.option.nativeCBackEnd.586637658" name="Create native binary (with C backend code generator)" superClass="llvm.c.link.option.nativeCBackEnd" valueType="boolean"/>
 								<option id="llvm.c.link.option.libs.1198047325" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" value="SceneR.Framework"/>
 								</option>
 								<option id="llvm.c.link.option.paths.527132283" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">

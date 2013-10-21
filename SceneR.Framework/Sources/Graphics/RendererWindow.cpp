@@ -75,6 +75,14 @@ void RendererWindow::Open()
         monitor = glfwGetPrimaryMonitor();
     }
 
+    // Set the window and context hints
+    glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_RESIZABLE            , (this->allowUserResizing ? GL_TRUE : GL_FALSE));
+    glfwWindowHint(GLFW_CLIENT_API           , GLFW_OPENGL_API);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT , 1);
+
     // Create a new window
     this->window = glfwCreateWindow
     (
@@ -85,23 +93,15 @@ void RendererWindow::Open()
         nullptr                         // share
     );
 
-    // Set the new window context as the current context
-    glfwMakeContextCurrent(this->window);
-
-    // Set the window and context hints
-    glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_RESIZABLE            , (this->allowUserResizing ? GL_TRUE : GL_FALSE));
-    glfwWindowHint(GLFW_CLIENT_API           , GLFW_OPENGL_API);
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT , 1);
-
-    // If glfwOpenWindow is failing for you, then you may need to lower the OpenGL version.
+    // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
     if (!this->window)
     {
         throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.3");
     }
     
+    // Set the new window context as the current context
+    glfwMakeContextCurrent(this->window);
+
     // Now that we have an OpenGL context available in our window,
     // we initialise GLEW so that we get access to the OpenGL API functions.
     glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
@@ -121,6 +121,12 @@ void RendererWindow::Open()
     while(glGetError() != GL_NO_ERROR)
     {
     }
+
+    // Enable sticky keys
+    glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
+
+    // Enable mouse cursor (only needed for fullscreen mode)
+    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     // Enable vertical sync (on cards that support it)
     glfwSwapInterval(1);

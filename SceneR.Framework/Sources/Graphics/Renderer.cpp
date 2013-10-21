@@ -79,7 +79,7 @@ void Renderer::StartEventLoop()
                 
         // Poll events
         glfwSwapBuffers(this->rendererWindow.GetHandle());
-        glfwPollEvents();
+        glfwWaitEvents();
 
         // Check if the ESC key was pressed or the window was closed
     } while (glfwGetKey(this->rendererWindow.GetHandle(), GLFW_KEY_ESCAPE) != GLFW_PRESS
@@ -130,17 +130,13 @@ void Renderer::Update()
 
 void Renderer::InitializeCallbacks() const
 {
-    // Enable sticky keys
-    glfwSetInputMode(this->rendererWindow.GetHandle(), GLFW_STICKY_KEYS, GL_TRUE);
-
-    // Enable mouse cursor (only needed for fullscreen mode)
-    glfwSetInputMode(this->rendererWindow.GetHandle(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    
     // Enable debugging output
     // Other OpenGL 4.x debugging functions:
     //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
-    glEnable(GL_ARB_debug_output);
-    glDebugMessageCallbackARB(Renderer::DebugCallback, nullptr);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(Renderer::DebugCallback, nullptr);
+    GLuint unusedIds = 0;
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
     
     /*
     glfwSetWindowSizeCallback(RenderDevice::WindowSizeCallback);
@@ -154,8 +150,8 @@ void Renderer::InitializeCallbacks() const
 
 void Renderer::ReleaseCallbacks() const
 {
-    glDisable(GL_ARB_debug_output);
-    glDebugMessageCallbackARB(nullptr, nullptr);
+    glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(nullptr, nullptr);
     /*
     glfwSetWindowSizeCallback(NULL);
     glfwSetWindowRefreshCallback(NULL);
@@ -165,7 +161,6 @@ void Renderer::ReleaseCallbacks() const
     */
 }
 
-// A debugging callback
 void Renderer::DebugCallback(GLenum  source   , GLenum      type,
                              GLuint  id       , GLenum      severity,
                              GLsizei length   , const char* message,
