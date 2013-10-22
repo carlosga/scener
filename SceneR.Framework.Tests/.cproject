@@ -49,6 +49,7 @@
 								</option>
 								<option id="llvm.c.link.option.paths.382698432" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 								</option>
 								<option id="llvm.c.link.base.option.ldflags.1046875732" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1830770909" superClass="cdt.managedbuild.tool.llvm.c.linker.input">

@@ -45,12 +45,6 @@ namespace SceneR
             
         public:
             /**
-             * Gets the window handle
-             * @return the window handle
-             */
-            GLFWwindow* GetHandle() const;
-
-            /**
              * Gets the renderer window title
              * @return the renderer window title
              */
@@ -76,12 +70,25 @@ namespace SceneR
         private:
             void Open();
             void Close();
+            void EnableDebugOutput() const;
+            void DisableDebugOutput() const;
+            void InitializeInput() const;
+            void InitializeCallbacks() const;
+            void ReleaseCallbacks() const;
+            bool ShouldClose() const;
+            void SwapBuffers() const;
+
+        private:
+            static void DebugCallback(GLenum  source, GLenum      type,
+                                      GLuint  id    , GLenum      severity,
+                                      GLsizei length, const char* message,
+                                      void*   userParam);
             
         private:
             std::wstring title;
             Renderer&    renderer;
             Boolean      allowUserResizing;
-            GLFWwindow*  window;
+            GLFWwindow*  handle;
             
             friend class Renderer;
         };

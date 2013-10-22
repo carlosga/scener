@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <iostream>
 #include "Graphics/Renderer.hpp"
 
 using namespace SceneR::Content;
@@ -38,7 +37,6 @@ void Renderer::Run()
     this->BeginRun();
     this->Initialize();
     this->rendererWindow.Open();
-    this->InitializeCallbacks();
     this->graphicsDeviceManager.ApplyChanges();
     this->LoadContent();
     this->StartEventLoop();
@@ -48,9 +46,8 @@ void Renderer::Run()
 
 void Renderer::Exit()
 {
-    this->ReleaseCallbacks();
     this->rendererWindow.Close();
-        
+
     glfwTerminate();
 }
 
@@ -77,13 +74,8 @@ void Renderer::StartEventLoop()
         this->Draw();
         this->EndDraw();
                 
-        // Poll events
-        glfwSwapBuffers(this->rendererWindow.GetHandle());
-        glfwWaitEvents();
-
         // Check if the ESC key was pressed or the window was closed
-    } while (glfwGetKey(this->rendererWindow.GetHandle(), GLFW_KEY_ESCAPE) != GLFW_PRESS
-             && !glfwWindowShouldClose(this->rendererWindow.GetHandle()));
+    } while (!this->rendererWindow.ShouldClose());
 }
 
 bool Renderer::BeginDraw()
@@ -101,7 +93,7 @@ void Renderer::Draw()
 
 void Renderer::EndDraw()
 {
-    this->graphicsDeviceManager.GetGraphicsDevice().Present();
+    this->rendererWindow.SwapBuffers();
 }
 
 void Renderer::EndRun()
@@ -126,45 +118,4 @@ void Renderer::UnloadContent()
 
 void Renderer::Update()
 {
-}
-
-void Renderer::InitializeCallbacks() const
-{
-    // Enable debugging output
-    // Other OpenGL 4.x debugging functions:
-    //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(Renderer::DebugCallback, nullptr);
-    GLuint unusedIds = 0;
-    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
-    
-    /*
-    glfwSetWindowSizeCallback(RenderDevice::WindowSizeCallback);
-    glfwSetWindowRefreshCallback(RenderDevice::WindowRefreshCallback);
-    glfwSetWindowCloseCallback(RenderDevice::WindowCloseCallback);
-    glfwSetMousePosCallback(RenderDevice::MousePosCallback);
-    glfwSetMouseButtonCallback(RenderDevice::MouseButtonCallback);
-    glfwSetKeyCallback(RenderDevice::KeyboardCallback);
-    */
-}
-
-void Renderer::ReleaseCallbacks() const
-{
-    glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(nullptr, nullptr);
-    /*
-    glfwSetWindowSizeCallback(NULL);
-    glfwSetWindowRefreshCallback(NULL);
-    glfwSetWindowCloseCallback(NULL);
-    glfwSetMousePosCallback(NULL);
-    glfwSetMouseButtonCallback(NULL);
-    */
-}
-
-void Renderer::DebugCallback(GLenum  source   , GLenum      type,
-                             GLuint  id       , GLenum      severity,
-                             GLsizei length   , const char* message,
-                             void*   userParam)
-{
-    std::cout << message << std::endl;
 }

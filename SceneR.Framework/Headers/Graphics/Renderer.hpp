@@ -127,14 +127,6 @@ namespace SceneR
 
         private:
             void StartEventLoop();
-            void InitializeCallbacks() const;
-            void ReleaseCallbacks() const;
-
-        private:    // Callback's
-            static void DebugCallback(GLenum  source, GLenum      type,
-                                      GLuint  id    , GLenum      severity,
-                                      GLsizei length, const char* message,
-                                      void*   userParam);
             
         private:
             GraphicsDeviceManager           graphicsDeviceManager;

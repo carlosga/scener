@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <iostream>
 #include "Graphics/Renderer.hpp"
 #include "Graphics/RendererWindow.hpp"
 #include "Graphics/GraphicsDevice.hpp"
@@ -21,18 +22,13 @@
 using namespace SceneR::Graphics;
 
 RendererWindow::RendererWindow(Renderer& renderer)
-    : title(), renderer(renderer), allowUserResizing(false), window(nullptr)
+    : title(), renderer(renderer), allowUserResizing(false), handle(nullptr)
 {
 }
 
 RendererWindow::~RendererWindow()
 {
     this->Close();
-}
-
-GLFWwindow* RendererWindow::GetHandle() const
-{
-    return this->window;
 }
 
 const std::wstring& RendererWindow::GetTitle() const
@@ -84,7 +80,7 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT , 1);
 
     // Create a new window
-    this->window = glfwCreateWindow
+    this->handle = glfwCreateWindow
     (
         params.GetBackBufferWidth(),    // width
         params.GetBackBufferHeight(),   // height
@@ -94,13 +90,13 @@ void RendererWindow::Open()
     );
 
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
-    if (!this->window)
+    if (!this->handle)
     {
         throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.3");
     }
-    
+
     // Set the new window context as the current context
-    glfwMakeContextCurrent(this->window);
+    glfwMakeContextCurrent(this->handle);
 
     // Now that we have an OpenGL context available in our window,
     // we initialise GLEW so that we get access to the OpenGL API functions.
@@ -122,11 +118,11 @@ void RendererWindow::Open()
     {
     }
 
-    // Enable sticky keys
-    glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
+    // Enable debug output
+    this->EnableDebugOutput();
 
-    // Enable mouse cursor (only needed for fullscreen mode)
-    glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    // Initialize input
+    this->InitializeInput();
 
     // Enable vertical sync (on cards that support it)
     glfwSwapInterval(1);
@@ -134,12 +130,83 @@ void RendererWindow::Open()
 
 void RendererWindow::Close()
 {
-    if (this->window)
+    if (this->handle)
     {
+        // Disable debug output
+        this->DisableDebugOutput();
+
         // Close window
-        glfwDestroyWindow(this->window);
+        glfwDestroyWindow(this->handle);
 
         // Reset the window pointer
-        this->window = nullptr;
+        this->handle = nullptr;
     }
+}
+
+void RendererWindow::InitializeInput() const
+{
+    // Enable sticky keys
+    glfwSetInputMode(this->handle, GLFW_STICKY_KEYS, GL_TRUE);
+
+    // Enable mouse cursor (only needed for fullscreen mode)
+    glfwSetInputMode(this->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void RendererWindow::EnableDebugOutput() const
+{
+    // Enable debugging output
+    // Other OpenGL 4.x debugging functions:
+    //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(RendererWindow::DebugCallback, nullptr);
+    GLuint unusedIds = 0;
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
+}
+
+void RendererWindow::DisableDebugOutput() const
+{
+    glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(nullptr, nullptr);
+}
+
+void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,
+                                   GLuint  id       , GLenum      severity,
+                                   GLsizei length   , const char* message,
+                                   void*   userParam)
+{
+    std::cout << message << std::endl;
+}
+
+void RendererWindow::InitializeCallbacks() const
+{
+    /*
+    glfwSetWindowSizeCallback(RenderDevice::WindowSizeCallback);
+    glfwSetWindowRefreshCallback(RenderDevice::WindowRefreshCallback);
+    glfwSetWindowCloseCallback(RenderDevice::WindowCloseCallback);
+    glfwSetMousePosCallback(RenderDevice::MousePosCallback);
+    glfwSetMouseButtonCallback(RenderDevice::MouseButtonCallback);
+    glfwSetKeyCallback(RenderDevice::KeyboardCallback);
+    */
+}
+
+void RendererWindow::ReleaseCallbacks() const
+{
+    /*
+    glfwSetWindowSizeCallback(NULL);
+    glfwSetWindowRefreshCallback(NULL);
+    glfwSetWindowCloseCallback(NULL);
+    glfwSetMousePosCallback(NULL);
+    glfwSetMouseButtonCallback(NULL);
+    */
+}
+
+bool RendererWindow::ShouldClose() const
+{
+    return (glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->handle));
+}
+
+void RendererWindow::SwapBuffers() const
+{
+    glfwSwapBuffers(this->handle);
+    glfwWaitEvents();
 }
