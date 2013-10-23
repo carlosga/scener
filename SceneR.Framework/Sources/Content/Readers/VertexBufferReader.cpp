@@ -37,10 +37,10 @@ const ContentType VertexBufferReader::GetContentType() const
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader* input)
 {
     std::vector<VertexPositionNormalTexture> data;
-    int                                      vertexCount = input->ReadUInt32();
+    UInt32                                   vertexCount = input->ReadUInt32();
     std::shared_ptr<VertexBuffer>            buffer      = std::make_shared<VertexBuffer>(input->GetGraphicsDevice());
 
-    for (int i = 0; i < vertexCount; i++)
+    for (UInt32 i = 0; i < vertexCount; i++)
     {
         Vector3 position = input->ReadVector3();
         Vector3 normal   = input->ReadVector3();

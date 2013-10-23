@@ -19,14 +19,14 @@
 
 using namespace SceneR::Graphics;
 
-Texture2D::Texture2D(GraphicsDevice& graphicsDevice, const Int32& width, const Int32& height)
+Texture2D::Texture2D(GraphicsDevice& graphicsDevice, const UInt32& width, const UInt32& height)
     : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
 {
 }
 
 Texture2D::Texture2D(GraphicsDevice&      graphicsDevice,
-                     const Int32&         width,
-                     const Int32&         height,
+                     const UInt32&        width,
+                     const UInt32&        height,
                      const Boolean&       mipMap,
                      const SurfaceFormat& format)
     : Texture(graphicsDevice), format(format), height(height), mipmaps(0), width(width)
@@ -38,7 +38,7 @@ const SurfaceFormat& Texture2D::Format() const
     return this->format;
 }
 
-const Int32& Texture2D::Height() const
+const UInt32& Texture2D::Height() const
 {
     return this->height;
 }
@@ -48,7 +48,7 @@ const Int32 Texture2D::LevelCount() const
     return this->mipmaps.size();
 }
 
-const Int32& Texture2D::Width() const
+const UInt32& Texture2D::Width() const
 {
     return this->width;
 }

@@ -38,7 +38,7 @@ std::shared_ptr<void> IndexBufferReader::Read(ContentReader* input)
                                                                             IndexElementSize::ThirtyTwoBits,
                                                                             indexCount);
 
-    for (int i = 0; i < indexCount; i++)
+    for (UInt32 i = 0; i < indexCount; i++)
     {
         data.push_back(input->ReadUInt32());
     }

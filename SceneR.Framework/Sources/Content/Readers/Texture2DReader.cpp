@@ -40,7 +40,7 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader* input)
 
     UInt32 mipmapCount = input->ReadUInt32();
 
-    for (int i = 0; i < mipmapCount; i++)
+    for (UInt32 i = 0; i < mipmapCount; i++)
     {
         TextureMipMap mipmap;
 

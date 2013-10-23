@@ -20,16 +20,13 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-typedef bool     Boolean;
-typedef GLbyte   Byte;
-typedef GLubyte  UByte;
-typedef GLshort  Int16;
-typedef GLshort  UInt16;
-typedef GLint    Int32;
-typedef GLuint   UInt32;
-typedef GLfloat  Single;
-typedef GLdouble Double;
-typedef GLsizei  SizeInt32;
-typedef size_t   Size;
+typedef bool 	  Boolean;
+typedef int16_t   Int16;
+typedef uint16_t  UInt16;
+typedef int32_t   Int32;
+typedef uint32_t  UInt32;
+typedef float     Single;
+typedef double    Double;
+typedef uint64_t  Size;
 
 #endif  /* CORE_HPP */

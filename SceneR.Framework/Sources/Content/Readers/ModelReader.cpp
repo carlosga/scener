@@ -40,7 +40,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
 {
     std::shared_ptr<Model> model = std::make_shared<Model>();
 
-    Int32 boneCount = input->ReadInt32();
+    UInt32 boneCount = input->ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
@@ -78,9 +78,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     }
 
     // Read model meshes
-    Int32 meshCount = input->ReadInt32();
+    UInt32 meshCount = input->ReadInt32();
 
-    for (int i = 0; i< meshCount; i++)
+    for (UInt32 i = 0; i< meshCount; i++)
     {
         std::shared_ptr<ModelMesh> modelMesh = std::make_shared<ModelMesh>();
 
@@ -98,9 +98,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
         modelMesh->SetTag(input->ReadString());
 
         // Read mesh parts
-        Int32 meshPartCount = input->ReadUInt32();
+        UInt32 meshPartCount = input->ReadUInt32();
 
-        for (int i = 0; i < meshPartCount; i++)
+        for (UInt32 i = 0; i < meshPartCount; i++)
         {
             std::shared_ptr<ModelMeshPart> modelMeshPart = std::make_shared<ModelMeshPart>();
 

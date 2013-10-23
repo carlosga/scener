@@ -38,10 +38,10 @@ namespace SceneR
             /**
              * Gets the mip map data
              */
-            const std::vector<Int16>& Data() const;
+            const std::vector<UInt32>& Data() const;
 
         private:
-            std::vector<Int16> data;
+            std::vector<UInt32> data;
 
             friend class SceneR::Content::Texture2DReader;
         };

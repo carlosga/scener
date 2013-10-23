@@ -20,6 +20,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <memory>
 #include "Core/Core.hpp"
 #include "Core/Matrix.hpp"
 #include "Core/Quaternion.hpp"
@@ -172,7 +173,7 @@ namespace SceneR
             /**
              * Reads the specified number of bytes from the underliying stream
              */
-            std::vector<Int16> ReadBytes(int count);
+            std::vector<UInt32> ReadBytes(UInt32 count);
 
             const int Position();
 

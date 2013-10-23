@@ -23,7 +23,7 @@ TextureMipMap::TextureMipMap()
 {
 }
 
-const std::vector<Int16>& TextureMipMap::Data() const
+const std::vector<UInt32>& TextureMipMap::Data() const
 {
     return this->data;
 }

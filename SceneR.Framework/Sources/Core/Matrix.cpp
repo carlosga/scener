@@ -410,11 +410,13 @@ const Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
     
+	UInt32 n      = 0;
+	Int32  i      = 1;
     Single result = 0;
-    Single det;
+    Single det    = 0;
     Matrix msub;
     
-    for (int n = 0, i = 1; n < 4; n++, i *= -1)
+    for (; n < 4; n++, i *= -1)
     {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();
@@ -437,11 +439,11 @@ void Matrix::Invert()
         
         Single mdet = this->Determinant();
         Matrix mtemp;
-        int    sign;
+        Int32  sign;
         
-        for (int i = 0; i < 4; i++)
+        for (UInt32 i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 4; j++)
+            for (UInt32 j = 0; j < 4; j++)
             {
                 sign                    = 1 - ((i + j) % 2) * 2;
                 mtemp                   = this->SubMatrix(i, j);
@@ -499,9 +501,9 @@ Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
     Matrix result;
 
     // loop through 3x3 submatrix
-    for (int di = 0; di < 3; di++)
+    for (UInt32 di = 0; di < 3; di++)
     {
-        for (int dj = 0; dj < 3; dj++)
+        for (UInt32 dj = 0; dj < 3; dj++)
         {
             // map 3x3 element (destination) to 4x4 element (source)
             si = di + ((di >= row) ? 1 : 0);

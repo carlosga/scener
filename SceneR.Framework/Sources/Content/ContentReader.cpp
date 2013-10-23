@@ -86,7 +86,7 @@ std::wstring ContentReader::ReadString()
     std::wstring buffer;
     UInt32       length = this->ReadUInt32();
 
-    for (int i = 0; i < length; i++)
+    for (UInt32 i = 0; i < length; i++)
     {
         buffer.push_back(this->ReadChar());
     }
@@ -116,11 +116,7 @@ UInt32 ContentReader::ReadByte()
 {
     char buffer;
 
-    int pos = this->stream.tellg();
-
     this->stream.read(&buffer, sizeof buffer);
-
-    pos = this->stream.tellg();
 
     return static_cast<UInt32>(buffer);
 }
@@ -254,13 +250,13 @@ Quaternion ContentReader::ReadQuaternion()
     return Quaternion(x, y, z, w);
 }
 
-std::vector<Int16> ContentReader::ReadBytes(Int32 count)
+std::vector<UInt32> ContentReader::ReadBytes(UInt32 count)
 {
-    std::vector<Int16> result;
+    std::vector<UInt32> result;
 
     result.reserve(count);
 
-    for (int i = 0; i < count; i++)
+    for (UInt32 i = 0; i < count; i++)
     {
         result.push_back(this->ReadByte());
     }

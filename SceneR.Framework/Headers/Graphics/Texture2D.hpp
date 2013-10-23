@@ -40,7 +40,7 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice, const Int32& width, const Int32& height);
+            Texture2D(GraphicsDevice& graphicsDevice, const UInt32& width, const UInt32& height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -52,8 +52,8 @@ namespace SceneR
              * @param format texture data format
              */
             Texture2D(GraphicsDevice&      graphicsDevice,
-                      const Int32&         width,
-                      const Int32&         height,
+                      const UInt32&        width,
+                      const UInt32&        height,
                       const Boolean&       mipMap,
                       const SurfaceFormat& format);
 
@@ -66,7 +66,7 @@ namespace SceneR
             /**
              * Gets the texture height, in pixels
              */
-            const Int32& Height() const;
+            const UInt32& Height() const;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
@@ -76,13 +76,13 @@ namespace SceneR
             /**
              * Gets the texture width, in pixels
              */
-            const Int32& Width() const;
+            const UInt32& Width() const;
 
         private:
             SurfaceFormat              format;
-            Int32                      height;
+            UInt32                     height;
             std::vector<TextureMipMap> mipmaps;
-            Int32                      width;
+            UInt32                     width;
 
             friend class SceneR::Content::Texture2DReader;
         };
