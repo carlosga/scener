@@ -14,10 +14,16 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/GraphicsDeviceManager.hpp"
-#include "Graphics/Renderer.hpp"
-#include "Graphics/RendererWindow.hpp"
+#include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/Renderer.hpp>
+#include <Framework/RendererWindow.hpp>
+#include <Graphics/DepthStencilState.hpp>
+#include <Graphics/GraphicsProfile.hpp>
+#include <Graphics/PresentationParameters.hpp>
+#include <Graphics/RasterizerState.hpp>
+#include <Graphics/Viewport.hpp>
 
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
@@ -32,7 +38,12 @@ GraphicsDeviceManager::~GraphicsDeviceManager()
 
 void GraphicsDeviceManager::ApplyChanges()
 {
-    this->graphicsDevice.ApplyChanges();
+    this->graphicsDevice.GetViewport()
+                        .Update(this->graphicsDevice.GetPresentationParameters().GetBackBufferWidth(),
+                                this->graphicsDevice.GetPresentationParameters().GetBackBufferHeight());
+
+    this->graphicsDevice.GetRasterizerState().Apply();
+    this->graphicsDevice.GetDepthStencilState().Apply();
 }
 
 Boolean GraphicsDeviceManager::BeginDraw()
@@ -82,7 +93,7 @@ const Boolean GraphicsDeviceManager::GetFullScreen()
 }
 
 void GraphicsDeviceManager::SetFullScreen(const Boolean& fullScreen)
-{    
+{
     this->graphicsDevice.GetPresentationParameters().SetFullScreen(fullScreen);
 }
 

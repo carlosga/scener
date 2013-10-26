@@ -17,14 +17,15 @@
 #ifndef VERTEXPOSITIONCOLOR_HPP
 #define VERTEXPOSITIONCOLOR_HPP
 
-#include "Core/Color.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/VertexDeclaration.hpp"
+#include <Framework/Color.hpp>
+#include <Framework/Vector3.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class VertexDeclaration;
+
         /**
          * Describes a custom vertex format structure that contains position and color information.
          */
@@ -41,22 +42,22 @@ namespace SceneR
              * Initializes a new instance of the VertexPositionColor class with the
              * given position and color.
              */
-            VertexPositionColor(const SceneR::Core::Vector3& position, const SceneR::Core::Color& color);
+            VertexPositionColor(const SceneR::Framework::Vector3& position, const SceneR::Framework::Color& color);
 
         public:
             /**
              * Gets the vertex position.
              */
-            const SceneR::Core::Vector3& GetPosition() const;
+            const SceneR::Framework::Vector3& GetPosition() const;
 
             /**
              * Gets the vertex color.
              */
-            const SceneR::Core::Color& GetColor() const;
+            const SceneR::Framework::Color& GetColor() const;
 
         private:
-            SceneR::Core::Vector3 position;
-            SceneR::Core::Color   color;
+            SceneR::Framework::Vector3 position;
+            SceneR::Framework::Color   color;
         };
     }
 }

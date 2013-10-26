@@ -17,9 +17,9 @@
 #ifndef VERTEXELEMENT_HPP
 #define VERTEXELEMENT_HPP
 
-#include "Core/Core.hpp"
-#include "Graphics/VertexElementFormat.hpp"
-#include "Graphics/VertexElementUsage.hpp"
+#include <Framework/Core.hpp>
+#include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
 
 namespace SceneR
 {

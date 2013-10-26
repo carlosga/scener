@@ -1,9 +1,11 @@
 #include <cppunit/BriefTestProgressListener.h>
-#include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/portability/Stream.h>
+#include <cppunit/Portability.h>
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
+#include <cppunit/XmlOutputter.h>
 
 int main ()
 {

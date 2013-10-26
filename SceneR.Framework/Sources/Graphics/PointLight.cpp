@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Core/Vector4.hpp"
-#include "Graphics/PointLight.hpp"
+#include <Graphics/PointLight.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 PointLight::PointLight()

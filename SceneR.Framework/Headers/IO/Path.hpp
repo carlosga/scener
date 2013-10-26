@@ -36,7 +36,7 @@ namespace SceneR
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const std::string ChangeExtension(const std::string& path, const std::string extension)
+            static const std::string ChangeExtension(const std::string& path, const std::string& extension)
             {
                 return GetFileNameWithoutExtension(path) + "." + extension;
             };
@@ -46,7 +46,7 @@ namespace SceneR
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const std::string GetFileNameWithoutExtension(const std::string path)
+            static const std::string GetFileNameWithoutExtension(const std::string& path)
             {
                 std::string::size_type result               = path.find_last_of('.');
                 std::string            pathWithoutExtension = path;

@@ -17,8 +17,8 @@
 #ifndef LIGHT_HPP
 #define LIGHT_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Color.hpp"
+#include <Framework/Color.hpp>
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -34,14 +34,14 @@ namespace SceneR
             * Gets the color of the light.
             * @return the color of the light.
             */
-            const SceneR::Core::Color& GetColor() const;
+            const SceneR::Framework::Color& GetColor() const;
 
            /**
             * Sets the color of the light.
             * @param color the color of the light.
             */
-            void SetColor(const SceneR::Core::Color& color);
-        
+            void SetColor(const SceneR::Framework::Color& color);
+
         protected:
            /**
             * Initializes a new instance of the Light class.
@@ -52,7 +52,7 @@ namespace SceneR
             * Initializes a new instance of the Light class with the given color.
             * @param color the light color.
             */
-            Light(const SceneR::Core::Color& color);
+            Light(const SceneR::Framework::Color& color);
 
            /**
             * Default destructor
@@ -61,7 +61,7 @@ namespace SceneR
 
         protected:
             UInt32              object;
-            SceneR::Core::Color color;
+            SceneR::Framework::Color color;
         };
     }
 }

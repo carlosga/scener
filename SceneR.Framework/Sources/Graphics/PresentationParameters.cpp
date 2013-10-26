@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/PresentationParameters.hpp"
+#include <Graphics/PresentationParameters.hpp>
 
 using namespace SceneR::Graphics;
 

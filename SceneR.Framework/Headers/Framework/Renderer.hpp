@@ -17,15 +17,22 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
+#include <Content/ContentManager.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/RendererWindow.hpp>
 #include <string>
-#include <Core/Core.hpp>
-#include "Content/ContentManager.hpp"
-#include "Graphics/GraphicsDeviceManager.hpp"
-#include "Graphics/RendererWindow.hpp"
 
 namespace SceneR
 {
     namespace Graphics
+    {
+        class GraphicsDevice;
+    }
+}
+
+namespace SceneR
+{
+    namespace Framework
     {
         /**
          * Provides basic graphics device initialization, and rendering code.
@@ -37,36 +44,36 @@ namespace SceneR
              * Initializes a new instance of the Renderer class.
              */
             Renderer(const std::string& rootDirectory);
-            
+
             /**
              * Releases all resources being used by the current renderer instance
              */
             virtual ~Renderer();
-            
+
         public:
             /**
-             * Call this method to initialize the renderer, begin running the rendering loop, 
+             * Call this method to initialize the renderer, begin running the rendering loop,
              * and start processing events.
              */
-            void Run();
-            
+            virtual void Run();
+
             /**
              * Exits the renderer.
              */
-            void Exit();
-            
+            virtual void Exit();
+
             /**
              * Gets the current graphics device
              * @return the current graphics device
              */
-            GraphicsDevice& GetGraphicsDevice();
-            
+            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+
             /**
              * Gets the underlying operating system window.
              * @return the underlying operating system window.
              */
             RendererWindow& GetRendererWindow();
-            
+
             /**
              * Gets the current content manager
              * @return the current content manager
@@ -123,15 +130,15 @@ namespace SceneR
             /**
              * Called when the renderer has determined that render logic needs to be processed.
              */
-            virtual void Update(/*GameTime gameTime*/);            
+            virtual void Update(/*GameTime gameTime*/);
 
         private:
             void StartEventLoop();
-            
-        private:
+
+        protected:
             GraphicsDeviceManager           graphicsDeviceManager;
-            SceneR::Content::ContentManager contentManager;
             RendererWindow                  rendererWindow;
+            SceneR::Content::ContentManager contentManager;
         };
     }
 }

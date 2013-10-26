@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Color.hpp>
 #include <cassert>
-#include "Core/Color.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 Color::Color()
     : r(0.0f), g(0.0f), b(0.0f), a(1.0f)
@@ -78,7 +78,7 @@ bool Color::operator==(const Color &color) const
     return (this->r    == color.r
             && this->g == color.g
             && this->b == color.b
-            && this->a == color.a);    
+            && this->a == color.a);
 }
 
 bool Color::operator!=(const Color &color) const
@@ -92,8 +92,8 @@ Color& Color::operator*=(const Color &color)
     this->g *= color.g;
     this->b *= color.b;
     this->a *= color.a;
-    
-    return *this;    
+
+    return *this;
 }
 
 Color& Color::operator*=(const Single &value)
@@ -102,7 +102,7 @@ Color& Color::operator*=(const Single &value)
     this->g *= value;
     this->b *= value;
     this->a *= value;
-    
+
     return *this;
 }
 
@@ -112,8 +112,8 @@ Color& Color::operator-=(const Color &color)
     this->g -= color.g;
     this->b -= color.b;
     this->a -= color.a;
-    
-    return *this;    
+
+    return *this;
 }
 
 Color& Color::operator+=(const Color &color)
@@ -122,7 +122,7 @@ Color& Color::operator+=(const Color &color)
     this->g += color.g;
     this->b += color.b;
     this->a += color.a;
-    
+
     return *this;
 }
 
@@ -131,8 +131,8 @@ const Color Color::operator*(const Color &color) const
     Color result = *this;
 
     result *= color;
-    
-    return result;    
+
+    return result;
 }
 
 const Color Color::operator*(const Single &value) const
@@ -140,8 +140,8 @@ const Color Color::operator*(const Single &value) const
     Color result = *this;
 
     result *= value;
-    
-    return result;    
+
+    return result;
 }
 
 const Color Color::operator-(const Color &color) const
@@ -149,8 +149,8 @@ const Color Color::operator-(const Color &color) const
     Color result = *this;
 
     result -= color;
-    
-    return result;    
+
+    return result;
 }
 
 const UInt32 Color::PackedValue() const
@@ -166,7 +166,7 @@ const Color Color::operator+(const Color &color) const
     Color result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
 
     result += color;
-    
+
     return result;
 }
 

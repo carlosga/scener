@@ -17,8 +17,9 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
+#include <Framework/Core.hpp>
+#include <Graphics/VertexElement.hpp>
 #include <vector>
-#include "Graphics/VertexElement.hpp"
 
 namespace SceneR
 {

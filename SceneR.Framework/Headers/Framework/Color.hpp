@@ -17,11 +17,11 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
         /**
          * Describes a color in terms of red, green, blue and alpha components.
@@ -33,38 +33,38 @@ namespace SceneR
              * Initializes a new instance of the Color class.
              */
             Color();
-            
+
             /**
              * Initializes a new instance of the Color class with the given red, green and blue components.
-             * 
+             *
              * @param r The red component value of the color.
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
              */
             Color(const Single& r, const Single& g, const Single& b);
-            
+
             /**
              * Initializes a new instance of the Color class with the given red, green, blue and alpha components.
-             * 
+             *
              * @param r The red component value of the color.
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
              * @param a The alpha component value of the color.
              */
             Color(const Single& r, const Single& g, const Single& b, const Single& a);
-            
+
             /**
              * Initializes a new instance of the Color class (Copy constructor)
              *
              * @param color The Color to be copied.
-             */            
+             */
             Color(const Color& color);
-            
+
             /**
              * Default destructor
              */
-            ~Color() = default;            
-            
+            ~Color() = default;
+
             /**
              * Gets the red component value of the color.
              * @return the red component value of the color.
@@ -82,13 +82,13 @@ namespace SceneR
              * @return the blue component value of the color.
              */
             const Single& B() const;
-            
+
             /**
              * Gets the alpha component value of the color.
              * @return the alpha component value of the color.
              */
             const Single& A() const;
-            
+
             /**
              * Gets the color packed value.
              */
@@ -100,11 +100,11 @@ namespace SceneR
             bool operator==(const Color &color) const;
             bool operator!=(const Color &color) const;
             Color& operator*=(const Color &color);
-            Color& operator*=(const Single &value);                     
+            Color& operator*=(const Single &value);
             Color& operator-=(const Color &color);
             Color& operator+=(const Color &color);
             const Color operator*(const Color &color) const;
-            const Color operator*(const Single &value) const;          
+            const Color operator*(const Single &value) const;
             const Color operator-(const Color &color) const;
             const Color operator+(const Color &color) const;
 
@@ -144,7 +144,7 @@ namespace SceneR
             static const Color DarkSalmon;
             static const Color DarkSeaGreen;
             static const Color DarkSlateBlue;
-            
+
         private:
             union
             {
@@ -160,5 +160,5 @@ namespace SceneR
         };
     }
 }
-        
+
 #endif  /* COLOR_HPP */

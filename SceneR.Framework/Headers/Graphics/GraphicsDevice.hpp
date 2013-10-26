@@ -17,25 +17,30 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
+#include <Framework/Core.hpp>
+#include <Graphics/DepthStencilState.hpp>
+#include <Graphics/Effect.hpp>
+#include <Graphics/GraphicsProfile.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/PresentationParameters.hpp>
+#include <Graphics/PrimitiveType.hpp>
+#include <Graphics/RasterizerState.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <Graphics/Viewport.hpp>
 #include <memory>
-#include "Core/Core.hpp"
-#include "Core/Color.hpp"
-#include "Graphics/DepthStencilState.hpp"
-#include "Graphics/GraphicsProfile.hpp"
-#include "Graphics/IndexBuffer.hpp"
-#include "Graphics/PresentationParameters.hpp"
-#include "Graphics/PrimitiveType.hpp"
-#include "Graphics/RasterizerState.hpp"
-#include "Graphics/VertexBuffer.hpp"
-#include "Graphics/Viewport.hpp"
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
-        class GraphicsDeviceManager;
-        class Effect;
-
         /**
          * Performs primitive-based rendering, creates resources, handles system-level variables,
          * adjusts gamma ramp levels, and creates shaders.
@@ -49,30 +54,30 @@ namespace SceneR
              * @param graphicsProfile the graphics profile.
              */
             GraphicsDevice(const GraphicsProfile& graphicsProfile);
-            
+
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
             ~GraphicsDevice();
-            
+
         public:
             /**
              * Clears the resouce buffer
              */
-            void Clear(const SceneR::Core::Color& color) const;
+            void Clear(const SceneR::Framework::Color& color) const;
 
             /**
              * Renders the specified geometric primitive, based on indexing into an array of vertices.
-             * 
-             * @param primitiveType The primitive type. 
+             *
+             * @param primitiveType The primitive type.
              * @param baseVertex Offset to add to each vertex index in the index buffer.
-             * @param minVertexIndex Minimum vertex index for vertices used during the call. 
-             *                       The minVertexIndex parameter and all of the indices in the 
+             * @param minVertexIndex Minimum vertex index for vertices used during the call.
+             *                       The minVertexIndex parameter and all of the indices in the
              *                       index stream are relative to the baseVertex parameter.
-             * @param numVertices    Number of vertices used during the call. The first vertex is located at index: 
+             * @param numVertices    Number of vertices used during the call. The first vertex is located at index:
              *                       baseVertex + minVertexIndex.
              * @param startIndex     Location in the index array at which to start reading vertices.
-             * @param primitiveCount Number of primitives to render. The number of vertices used is a function of 
+             * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
              *                       primitiveCount and primitiveType.
              */
             void DrawIndexedPrimitives(const PrimitiveType& primitiveType,
@@ -84,16 +89,16 @@ namespace SceneR
 
             /**
              * Draws a series of instanced models.
-             * 
+             *
              * @param primitiveType The primitive type.
              * @param baseVertex Offset to add to each vertex index in the index buffer.
-             * @param minVertexIndex Minimum vertex index for vertices used during the call. 
-             *                       The minVertexIndex parameter and all of the indices in the index stream are 
+             * @param minVertexIndex Minimum vertex index for vertices used during the call.
+             *                       The minVertexIndex parameter and all of the indices in the index stream are
              *                       relative to the baseVertex parameter.
-             * @param numVertices Number of vertices used during the call. The first vertex is located at index: 
+             * @param numVertices Number of vertices used during the call. The first vertex is located at index:
              *                    baseVertex + minVertexIndex.
              * @param startIndex Location in the index array at which to start reading vertices.
-             * @param primitiveCount Number of primitives to render. The number of vertices used is a function of 
+             * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
              *                       primitiveCount and primitiveType.
              * @param instanceCount Number of primitives to render.
              */
@@ -104,16 +109,16 @@ namespace SceneR
                                          const UInt32& startIndex,
                                          const UInt32& primitiveCount,
                                          const UInt32& instanceCount) const;
-                
+
             /**
-             * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data 
+             * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
              * input streams.
-             * 
+             *
              * @param primitiveType The primitive type.
-             * @param startVertex Index of the first vertex to load. Beginning at startVertex, the correct number of 
+             * @param startVertex Index of the first vertex to load. Beginning at startVertex, the correct number of
              *                    vertices is read out of the vertex buffer.
-             * @param primitiveCount Number of primitives to render. The primitiveCount is the number of primitives as 
-             *                       determined by the primitive type. If it is a line list, each primitive has two 
+             * @param primitiveCount Number of primitives to render. The primitiveCount is the number of primitives as
+             *                       determined by the primitive type. If it is a line list, each primitive has two
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
             void DrawPrimitives(const PrimitiveType& primitiveType,
@@ -121,7 +126,7 @@ namespace SceneR
                                 const UInt32&        primitiveCount) const;
 
             /**
-             * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the 
+             * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
              * GraphicsDevice.
              */
             void Present();
@@ -162,7 +167,7 @@ namespace SceneR
              * Sets the index buffer.
              * @param indexBuffer the index data
              */
-            void SetIndexBuffer(std::shared_ptr<IndexBuffer> indexBuffer);
+            void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer);
 
             /**
              * Gets rasterizer state.
@@ -177,7 +182,7 @@ namespace SceneR
             /**
              * Sets or binds a vertex buffer to the device.
              */
-            void SetVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer);
+            void SetVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer);
 
             /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
@@ -190,19 +195,14 @@ namespace SceneR
             void SetViewport(Viewport& viewport);
 
         private:
-            void ApplyChanges();
-
-        private:
-            DepthStencilState             depthStencilState;
-            std::shared_ptr<Effect>       effect;
-            GraphicsProfile               graphicsProfile;
-            std::shared_ptr<IndexBuffer>  indexBuffer;
-            PresentationParameters        presentationParameters;
-            RasterizerState               rasterizerState;
-            std::shared_ptr<VertexBuffer> vertexBuffer;
-            Viewport                      viewport;
-
-            friend class GraphicsDeviceManager;
+            DepthStencilState                   depthStencilState;
+            std::shared_ptr<Effect>             effect;
+            GraphicsProfile                     graphicsProfile;
+            std::shared_ptr<IndexBuffer>        indexBuffer;
+            PresentationParameters              presentationParameters;
+            RasterizerState                     rasterizerState;
+            std::shared_ptr<VertexBuffer>       vertexBuffer;
+            Viewport                            viewport;
         };
     }
 }

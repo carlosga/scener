@@ -17,15 +17,16 @@
 #ifndef TEXTURE2DREADER_HPP
 #define TEXTURE2DREADER_HPP
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReader.hpp>
 #include <memory>
-#include "Content/ContentType.hpp"
-#include "Content/ContentReader.hpp"
-#include "Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * Texture 2D reader.
          */

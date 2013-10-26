@@ -14,41 +14,38 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <cassert>
-#include "Core/Vector2.hpp"
+#ifndef MATHHELPER_HPP
+#define MATHHELPER_HPP
 
-using namespace SceneR::Core;
+#include <Framework/Core.hpp>
 
-Vector2::Vector2()
-    : x(0.0f), y(0.0f)
+namespace SceneR
 {
+    namespace Framework
+    {
+        /**
+         * Common math functions.
+         */
+        class MathHelper
+        {
+        public:
+            /**
+             * Converts the given value in degrees to radians.
+             */
+            static Single ToRadians(const Single& degrees);
+
+            /**
+             * Converts the given value in radians to degrees.
+             */
+            static Single ToDegrees(const Single& radians);
+
+        private:
+            /**
+             * Default constructor
+             */
+            MathHelper() = default;
+        };
+    }
 }
 
-Vector2::Vector2(const Single& x, const Single& y)
-    : x(x), y(y)
-{
-}
-
-const Single& Vector2::X() const
-{
-    return this->x;
-}
-
-const Single& Vector2::Y() const
-{
-    return this->x;
-}
-
-Single& Vector2::operator[](const Int32& index)
-{
-    assert(index >= 0 && index < 2);
-    
-    return (this->coords[index]);
-}
-
-const Single& Vector2::operator[](const Int32& index) const
-{
-    assert(index >= 0 && index < 2);
-    
-    return (this->coords[index]);
-}
+#endif  /* MATHHELPER_HPP */

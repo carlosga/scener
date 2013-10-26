@@ -17,7 +17,7 @@
 #ifndef INDEXELEMENTSIZE_HPP
 #define INDEXELEMENTSIZE_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines the element size for IndexBuffer instances
          */
-        enum class IndexElementSize : GLenum
+        enum class IndexElementSize : UInt32
         {
             /**
              * Sixteen bits

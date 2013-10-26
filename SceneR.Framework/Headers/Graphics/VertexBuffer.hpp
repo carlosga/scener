@@ -17,17 +17,18 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <stdexcept>
+#include <Framework/Core.hpp>
+#include <Graphics/GraphicsResource.hpp>
 #include <memory>
-#include "Core/Core.hpp"
-#include "Graphics/GraphicsResource.hpp"
-#include "Graphics/VertexDeclaration.hpp"
+#include <stdexcept>
+#include <vector>
 
 namespace SceneR
 {
     namespace Graphics
     {
         class GraphicsDevice;
+        class VertexDeclaration;
 
         /**
          * Represents a list of 3D vertices to be streamed to the graphics device.
@@ -37,7 +38,6 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the VertexBuffer class.
-             *
              * @param graphicsDevice the graphics device.
              */
             VertexBuffer(GraphicsDevice& graphicsDevice);
@@ -51,7 +51,7 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            const UInt32 GetVertexCount() const;
+            const UInt32& GetVertexCount() const;
 
             /**
              * Gets the vertex buffer data

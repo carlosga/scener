@@ -14,19 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CORE_HPP
-#define CORE_HPP
+#include <Framework/MathHelper.hpp>
+#include <math.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+using namespace SceneR::Framework;
 
-typedef bool 	  Boolean;
-typedef int16_t   Int16;
-typedef uint16_t  UInt16;
-typedef int32_t   Int32;
-typedef uint32_t  UInt32;
-typedef float     Single;
-typedef double    Double;
-typedef uint64_t  Size;
+Single MathHelper::ToRadians(const Single& degrees)
+{
+    return (degrees * M_PI / 180.0);
+}
 
-#endif  /* CORE_HPP */
+Single MathHelper::ToDegrees(const Single& radians)
+{
+    return (radians * 180.0 / M_PI);
+}

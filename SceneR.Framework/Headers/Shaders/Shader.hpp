@@ -17,16 +17,16 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
+#include <Framework/Core.hpp>
+#include <Shaders/ShaderType.hpp>
 #include <string>
-#include "Core/Core.hpp"
-#include "Shaders/ShaderType.hpp"
 
 namespace SceneR
 {
     namespace Shaders
     {
         class ShaderProgram;
-        
+
         /**
          * Represents a shader
          */
@@ -62,7 +62,7 @@ namespace SceneR
             void VerifyCompilationState();
 
         private:
-            GLuint       object;
+            UInt32       object;
             std::wstring shaderCode;
             ShaderType   shaderType;
 

@@ -17,7 +17,7 @@
 #ifndef VERTEXELEMENTFORMAT_HPP
 #define VERTEXELEMENTFORMAT_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -26,20 +26,20 @@ namespace SceneR
         /**
          * Defines vertex element formats.
          */
-        enum class VertexElementFormat
+        enum class VertexElementFormat : UInt32
         {
-            Single,
-            Vector2,
-            Vector3,
-            Vector4,
-            HalfVector2,
-            HalfVector4,
-            Color,
-            NormalizedShort2,
-            NormalizedShort4,
-            Short2,
-            Short4,
-            Byte4
+            Single           = 1,
+            Vector2          = 2,
+            Vector3          = 3,
+            Vector4          = 4,
+            HalfVector2      = 5,
+            HalfVector4      = 6,
+            Color            = 7,
+            NormalizedShort2 = 8,
+            NormalizedShort4 = 9,
+            Short2           = 10,
+            Short4           = 11,
+            Byte4            = 12
         };
     }
 }

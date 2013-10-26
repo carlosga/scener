@@ -17,13 +17,10 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
-#include <memory>
+#include <Graphics/ModelBone.hpp>
+#include <Graphics/ModelMesh.hpp>
 #include <string>
 #include <vector>
-#include "Core/Matrix.hpp"
-#include "Content/Readers/ModelReader.hpp"
-#include "Graphics/ModelBone.hpp"
-#include "Graphics/ModelMesh.hpp"
 
 namespace SceneR
 {
@@ -39,7 +36,7 @@ namespace SceneR
              * Initializes a new instance of the Model class.
              */
             Model();
-            
+
         public:
             /**
              * Render a model after applying the given matrix transformations.
@@ -48,20 +45,20 @@ namespace SceneR
              * @param view the view matrix
              * @param projection the projection matrix
              */
-            void Draw(const SceneR::Core::Matrix& world,
-                      const SceneR::Core::Matrix& view,
-                      const SceneR::Core::Matrix& projection);
+            void Draw(const SceneR::Framework::Matrix& world,
+                      const SceneR::Framework::Matrix& view,
+                      const SceneR::Framework::Matrix& projection);
 
             /**
              * Gets the root bone for the current model.
              */
             const std::shared_ptr<ModelBone> Root() const;
-            
+
             /**
              * Gets the collection of bones associated to the current model
              */
             const std::vector<std::shared_ptr<ModelBone>>& Bones() const;
-            
+
             /**
              * Gets a collection of ModelMesh objects which composes the current model.
              */
@@ -82,7 +79,7 @@ namespace SceneR
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
             std::wstring                            tag;
-            
+
             friend class SceneR::Content::ModelReader;
         };
     }

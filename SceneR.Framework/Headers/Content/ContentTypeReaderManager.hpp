@@ -17,9 +17,8 @@
 #ifndef CONTENTTYPEREADERMANAGER_HPP
 #define CONTENTTYPEREADERMANAGER_HPP
 
+#include <Content/ContentTypeReader.hpp>
 #include <vector>
-#include "Content/ContentType.hpp"
-#include "Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {

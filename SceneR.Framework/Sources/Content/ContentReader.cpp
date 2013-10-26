@@ -14,16 +14,25 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Content/ContentReader.hpp"
+#include <Content/ContentReader.hpp>
+#include <Framework/Color.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
+#include <iostream>
+#include <stdexcept>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-ContentReader::ContentReader(GraphicsDevice& graphicsDevice,
+ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
                              ContentTypeReaderManager& typeReaderManager,
                              const std::string&        file)
-    : graphicsDevice(graphicsDevice), typeReaderManager(typeReaderManager)
+    : graphicsDevice(graphicsDevice),
+      typeReaderManager(typeReaderManager)
 {
     this->stream.open(file.c_str(), std::ios::in | std::ios::binary);
 

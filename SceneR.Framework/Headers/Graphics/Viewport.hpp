@@ -17,7 +17,7 @@
 #ifndef VIEWPORT_HPP
 #define VIEWPORT_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -42,7 +42,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(Single x       , Single y, 
+            Viewport(Single x       , Single y,
                      Single width   , Single height,
                      Single minDepth, Single maxDepth);
 

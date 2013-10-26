@@ -17,15 +17,26 @@
 #ifndef RASTERIZERSTATE_HPP
 #define RASTERIZERSTATE_HPP
 
-#include "Core/Core.hpp"
-#include "Graphics/CullMode.hpp"
-#include "Graphics/FillMode.hpp"
-#include "Graphics/GraphicsResource.hpp"
+#include <Framework/Core.hpp>
+#include <Graphics/CullMode.hpp>
+#include <Graphics/FillMode.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <memory>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class GrapicsDeviceManager;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         /**
          * Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
          */
@@ -36,6 +47,11 @@ namespace SceneR
              * Initializes a new instance of the RasterizerState class.
              */
             RasterizerState(GraphicsDevice& graphicsDevice);
+
+            /**
+             * Releases all resources being used by this RasterizerState
+             */
+            ~RasterizerState();
 
         public:
             /**
@@ -123,7 +139,7 @@ namespace SceneR
             Boolean  scissorTestEnable;
             Single   slopeScaleDepthBias;
 
-            friend class GraphicsDevice;
+            friend class SceneR::Framework::GraphicsDeviceManager;
         };
     }
 }

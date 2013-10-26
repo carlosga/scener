@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/GraphicsResource.hpp"
-#include "Graphics/Texture2D.hpp"
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/Texture2D.hpp>
 
 using namespace SceneR::Graphics;
 
-Texture2D::Texture2D(GraphicsDevice& graphicsDevice, const UInt32& width, const UInt32& height)
+Texture2D::Texture2D(GraphicsDevice& graphicsDevice,
+                     const UInt32&   width,
+                     const UInt32&   height)
     : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
 {
 }
@@ -29,7 +31,15 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice,
                      const UInt32&        height,
                      const Boolean&       mipMap,
                      const SurfaceFormat& format)
-    : Texture(graphicsDevice), format(format), height(height), mipmaps(0), width(width)
+    : Texture(graphicsDevice),
+      format(format),
+      height(height),
+      mipmaps(0),
+      width(width)
+{
+}
+
+Texture2D::~Texture2D()
 {
 }
 

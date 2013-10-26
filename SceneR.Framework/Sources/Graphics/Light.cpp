@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <stdexcept>
-#include "Graphics/Light.hpp"
+#include <Graphics/Light.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Light::Light()
@@ -34,7 +33,7 @@ Light::~Light()
 {
 }
 
-const Color& Light::GetColor() const 
+const Color& Light::GetColor() const
 {
     return this->color;
 }

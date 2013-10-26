@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/VertexDeclaration.hpp>
+#include <Graphics/VertexElement.hpp>
+#include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
+#include <Graphics/VertexPositionColorTexture.hpp>
 #include <vector>
-#include "Graphics/VertexPositionColorTexture.hpp"
-#include "Graphics/VertexElementFormat.hpp"
-#include "Graphics/VertexElementUsage.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 const VertexDeclaration VertexPositionColorTexture::GetVertexDeclaration()

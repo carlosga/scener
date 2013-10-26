@@ -17,6 +17,7 @@
 #ifndef GRAPHICSRESOURCE_HPP
 #define GRAPHICSRESOURCE_HPP
 
+#include <memory>
 #include <string>
 
 namespace SceneR
@@ -24,7 +25,7 @@ namespace SceneR
     namespace Graphics
     {
         class GraphicsDevice;
-        
+
         /**
          * Queries and prepares resources.
          */
@@ -36,19 +37,19 @@ namespace SceneR
              * @param graphicsDevice the graphics associated to this resources
              */
             GraphicsResource(GraphicsDevice& graphicsDevice);
-            
+
             /**
              * Releases all resources being used by this GraphicsResource
              */
-            ~GraphicsResource() = default;
-            
+            ~GraphicsResource();
+
         public:
             /**
              * Gets the graphics associated to this resources
              * @return the graphics associated to this resources
              */
             GraphicsDevice& GetGraphicsDevice();
-            
+
             /**
              * Gets the graphics resource name
              * @return the graphics resource name

@@ -14,9 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Content/Readers/IndexBufferReader.hpp"
-#include "Graphics/IndexBuffer.hpp"
-#include "Graphics/IndexElementSize.hpp"
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/IndexBufferReader.hpp>
+#include <Framework/Core.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/IndexElementSize.hpp>
+#include <vector>
 
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;

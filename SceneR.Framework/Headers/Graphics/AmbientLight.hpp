@@ -17,9 +17,15 @@
 #ifndef AMBIENTLIGHT_HPP
 #define AMBIENTLIGHT_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Color.hpp"
-#include "Graphics/Light.hpp"
+#include <Graphics/Light.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
@@ -40,7 +46,7 @@ namespace SceneR
              * Initializes a new instance of the AmbientLight class with the specified color.
              * @param ambientColor Color of the new light.
              */
-            AmbientLight(const SceneR::Core::Color& ambientColor);
+            AmbientLight(const SceneR::Framework::Color& ambientColor);
         };
     }
 }

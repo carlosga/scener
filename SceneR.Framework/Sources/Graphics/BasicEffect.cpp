@@ -14,16 +14,21 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <memory>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
+#include <Graphics/BasicEffect.hpp>
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <IO/File.hpp>
+#include <Shaders/Shader.hpp>
+#include <Shaders/ShaderProgram.hpp>
+#include <Shaders/ShaderType.hpp>
 #include <stdexcept>
-#include <vector>
-#include "Graphics/BasicEffect.hpp"
-#include "IO/File.hpp"
-#include "Shaders/Shader.hpp"
-#include "Shaders/ShaderProgram.hpp"
-#include "Shaders/ShaderType.hpp"
+#include <string>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::IO;
 using namespace SceneR::Shaders;
@@ -51,6 +56,10 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
       world(Matrix::Identity)
 {
     this->LoadShader();
+}
+
+BasicEffect::~BasicEffect()
+{
 }
 
 const Single& BasicEffect::GetAlpha() const
@@ -268,7 +277,7 @@ void BasicEffect::EnableDefaultLighting()
 {
     /*
     http://xboxforums.create.msdn.com/forums/t/25547.aspx
-    
+
     effect.LightingEnabled = true;
 
     effect.AmbientLightColor = new Vector3(0.053f, 0.098f, 0.181f);
@@ -326,7 +335,7 @@ void BasicEffect::LoadShader()
 
     this->shaderProgram = std::make_shared<ShaderProgram>(L"BasicEffect", shaders);
     this->shaderProgram->Build();
-    
+
     Effect::AddEffectParameter(L"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
     Effect::AddEffectParameter(L"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
     Effect::AddEffectParameter(L"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);

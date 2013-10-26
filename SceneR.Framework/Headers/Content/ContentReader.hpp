@@ -17,21 +17,23 @@
 #ifndef CONTENTREADER_HPP
 #define CONTENTREADER_HPP
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReader.hpp>
+#include <Content/ContentTypeReaderManager.hpp>
+#include <Framework/Core.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
-#include "Core/Core.hpp"
-#include "Core/Matrix.hpp"
-#include "Core/Quaternion.hpp"
-#include "Core/Vector2.hpp"
-#include "Core/Vector3.hpp"
-#include "Core/Vector4.hpp"
-#include "Core/Color.hpp"
-#include "Content/ContentType.hpp"
-#include "Content/ContentTypeReader.hpp"
-#include "Content/ContentTypeReaderManager.hpp"
-#include "Graphics/GraphicsDevice.hpp"
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Vector2;
+    }
+}
 
 namespace SceneR
 {
@@ -143,32 +145,32 @@ namespace SceneR
             /**
              * Reads a Color value from the current stream.
              */
-            SceneR::Core::Color ReadColor();
+            SceneR::Framework::Color ReadColor();
 
             /**
              * Reads a Matrix value from the current stream.
              */
-            SceneR::Core::Matrix ReadMatrix();
+            SceneR::Framework::Matrix ReadMatrix();
 
             /**
              * Reads a Vector2 value from the current stream.
              */
-            SceneR::Core::Vector2 ReadVector2();
+            SceneR::Framework::Vector2 ReadVector2();
 
             /**
              * Reads a Vector3 value from the current stream.
              */
-            SceneR::Core::Vector3 ReadVector3();
+            SceneR::Framework::Vector3 ReadVector3();
 
             /**
              * Reads a Vector4 value from the current stream.
              */
-            SceneR::Core::Vector4 ReadVector4();
+            SceneR::Framework::Vector4 ReadVector4();
 
             /**
              * Reads a Quaternion value from the current stream.
              */
-            SceneR::Core::Quaternion ReadQuaternion();
+            SceneR::Framework::Quaternion ReadQuaternion();
 
             /**
              * Reads the specified number of bytes from the underliying stream

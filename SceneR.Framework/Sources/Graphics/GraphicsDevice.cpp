@@ -14,11 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Color.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <stdexcept>
-#include "Graphics/Effect.hpp"
-#include "Graphics/GraphicsDevice.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Shaders;
 
@@ -151,7 +151,7 @@ std::shared_ptr<IndexBuffer> GraphicsDevice::GetIndexBuffer()
     return this->indexBuffer;
 }
 
-void GraphicsDevice::SetIndexBuffer(std::shared_ptr<IndexBuffer> indexBuffer)
+void GraphicsDevice::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
 {
     this->indexBuffer = indexBuffer;
 }
@@ -166,11 +166,10 @@ std::shared_ptr<VertexBuffer> GraphicsDevice::GetVertexBuffer()
     return this->vertexBuffer;
 }
 
-void GraphicsDevice::SetVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer)
+void GraphicsDevice::SetVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
 {
     this->vertexBuffer = vertexBuffer;
 }
-
 
 Viewport& GraphicsDevice::GetViewport()
 {
@@ -181,13 +180,4 @@ void GraphicsDevice::SetViewport(Viewport& viewport)
 {
     this->viewport = viewport;
     this->viewport.Refresh();
-}
-
-void GraphicsDevice::ApplyChanges()
-{
-    this->viewport.Update(this->presentationParameters.GetBackBufferWidth(),
-                          this->presentationParameters.GetBackBufferHeight());
-
-    this->rasterizerState.Apply();
-    this->depthStencilState.Apply();
 }

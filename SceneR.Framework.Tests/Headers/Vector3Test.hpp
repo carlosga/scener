@@ -9,6 +9,13 @@
 #define	VECTOR3TEST_HPP
 
 #include <cppunit/extensions/HelperMacros.h>
+#include <cppunit/extensions/TestFixtureFactory.h>
+#include <cppunit/extensions/TestNamer.h>
+#include <cppunit/extensions/TestSuiteBuilderContext.h>
+#include <cppunit/Portability.h>
+#include <cppunit/TestCaller.h>
+#include <cppunit/TestSuite.h>
+
 class Vector3Test : public CPPUNIT_NS::TestFixture
 {
     CPPUNIT_TEST_SUITE(Vector3Test);

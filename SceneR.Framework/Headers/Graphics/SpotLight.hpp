@@ -17,8 +17,17 @@
 #ifndef SPOTLIGHT_HPP
 #define SPOTLIGHT_HPP
 
-#include "Core/Core.hpp"
-#include "Graphics/PointLightBase.hpp"
+#include <Framework/Core.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/PointLightBase.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
@@ -33,7 +42,7 @@ namespace SceneR
             SpotLight();
 
             /**
-             * Initializes a new instance of the SpotLight class using the specified color, position, direction, 
+             * Initializes a new instance of the SpotLight class using the specified color, position, direction,
              * and fallof values.
              * @param diffuseColor diffuse color of the new SpotLight.
              * @param position position of the new SpotLight.
@@ -41,37 +50,37 @@ namespace SceneR
              * @param falloffAngle
              * @param falloffExponent
              */
-            SpotLight(const SceneR::Core::Color&   diffuseColor,
-                      const SceneR::Core::Vector3& position,
-                      const SceneR::Core::Vector3& direction,
-                      const Single&                falloffAngle,
-                      const Single&                falloffExponent);
-                      
+            SpotLight(const SceneR::Framework::Color&   diffuseColor,
+                      const SceneR::Framework::Vector3& position,
+                      const SceneR::Framework::Vector3& direction,
+                      const Single&                     falloffAngle,
+                      const Single&                     falloffExponent);
+
         public:
             /**
              * Gets a Vector3D that specifies the direction in which the SpotLight projects its light.
              * @return the Vector3D that specifies the direction in which the SpotLight projects its light.
              */
-            const SceneR::Core::Vector3& GetDirection() const;
+            const SceneR::Framework::Vector3& GetDirection() const;
 
             /**
              * Sets a Vector3D that specifies the direction in which the SpotLight projects its light.
              * @param direction a Vector3D that specifies the direction in which the SpotLight projects its light.
              */
-            void SetDirection(const SceneR::Core::Vector3& direction);
-            
+            void SetDirection(const SceneR::Framework::Vector3& direction);
+
             const Single GetFalloffAngle() const;
-            
+
             void SetFalloffAngle(const Single falloffAngle);
 
             const Single GetFalloffExponent() const;
-            
+
             void SetFalloffExponent(const Single falloffExponent);
-            
+
         private:
-            SceneR::Core::Vector3 direction;
-            Single                falloffAngle;
-            Single                falloffExponent;
+            SceneR::Framework::Vector3 direction;
+            Single                     falloffAngle;
+            Single                     falloffExponent;
         };
     }
 }

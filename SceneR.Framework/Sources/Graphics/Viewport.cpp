@@ -14,7 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/Viewport.hpp"
+#include <GL/glew.h>
+#include <Graphics/Viewport.hpp>
 
 using namespace SceneR::Graphics;
 

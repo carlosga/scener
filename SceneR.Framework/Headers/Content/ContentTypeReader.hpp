@@ -18,7 +18,6 @@
 #define CONTENTTYPEREADER_HPP
 
 #include <memory>
-#include "Content/ContentType.hpp"
 
 namespace SceneR
 {
@@ -42,7 +41,7 @@ namespace SceneR
             /**
              * Gets the reader supported content type.
              */
-            virtual const ContentType GetContentType() const = 0;
+            virtual const SceneR::Content::ContentType GetContentType() const = 0;
 
             /**
              * Reads a object from the current stream.

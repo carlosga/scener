@@ -14,18 +14,24 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/VertexBuffer.hpp"
-#include "Graphics/VertexBufferTarget.hpp"
-#include "Graphics/VertexBufferUsage.hpp"
-#include "Graphics/VertexPositionColor.hpp"
-#include "Graphics/VertexPositionColorTexture.hpp"
-#include "Graphics/VertexPositionNormalTexture.hpp"
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexBufferTarget.hpp>
+#include <Graphics/VertexBufferUsage.hpp>
+#include <Graphics/VertexDeclaration.hpp>
+#include <Graphics/VertexElement.hpp>
+#include <Graphics/VertexPositionColor.hpp>
+#include <Graphics/VertexPositionColorTexture.hpp>
+#include <Graphics/VertexPositionNormalTexture.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice), vertexCount(0), vbo(0), vao(0)
+    : GraphicsResource(graphicsDevice),
+      vertexCount(0),
+      vbo(0),
+      vao(0)
 {
     // Create the vertex array ...
     this->CreateVertexArray();
@@ -38,7 +44,7 @@ VertexBuffer::~VertexBuffer()
     this->Release();
 }
 
-const UInt32 VertexBuffer::GetVertexCount() const
+const UInt32& VertexBuffer::GetVertexCount() const
 {
     return this->vertexCount;
 }
@@ -138,7 +144,7 @@ void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
 
         glEnableVertexAttribArray(ve.GetUsageIndex());
     }
-    
+
     // ... and unbind the vertex array and buffer
     this->UnbindVertexArray();
     this->UnbindVertexBuffer();

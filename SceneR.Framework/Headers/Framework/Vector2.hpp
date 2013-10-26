@@ -17,11 +17,11 @@
 #ifndef VECTOR2_HPP
 #define VECTOR2_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
         /**
          * Represents an x and y-coordinate vector.

@@ -17,15 +17,15 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
         class Vector3;
         class Quaternion;
-        
+
         /**
          * Represents a 4 x 4 matrix.
          */
@@ -237,7 +237,7 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Matrix class with the given initial values.
-             * 
+             *
              * @param m11 Value of the (1,1) field of the new matrix.
              * @param m12 Value of the (1,2) field of the new matrix.
              * @param m13 Value of the (1,3) field of the new matrix.

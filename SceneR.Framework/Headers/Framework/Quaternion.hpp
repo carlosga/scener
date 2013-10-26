@@ -17,13 +17,14 @@
 #ifndef QUATERNION_HPP
 #define QUATERNION_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Vector3.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
+        class Vector3;
+
         /**
          * Class that represents a rotation in three dimensions.
          */
@@ -150,23 +151,23 @@ namespace SceneR
 
             /**
              * Gets the square of the length of this Quaternion.
-             * 
+             *
              * @return the square of the length of this Quaternion.
              */
             const Single LengthSquared() const;
 
             /**
              * Gets the length of this Quaternion.
-             * 
+             *
              * @return the length of this Quaternion.
              */
             const Single Length() const;
 
             /**
              * Normalizes the specified Quaternion.
-             * 
-             * A normalized Quaternion maintains its direction but its magnitude becomes 1. 
-             * The resulting Quaternion is often called a unit vector. 
+             *
+             * A normalized Quaternion maintains its direction but its magnitude becomes 1.
+             * The resulting Quaternion is often called a unit vector.
              * A Quaternion is normalized by dividing the Quaternion by its magnitude.
              */
             void Normalize();

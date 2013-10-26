@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/IEffectMatrices.hpp"
-#include "Graphics/Model.hpp"
+#include <Graphics/IEffectMatrices.hpp>
+#include <Graphics/Model.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Model::Model()

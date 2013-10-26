@@ -17,16 +17,17 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
+#include <Framework/Core.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
+#include <Shaders/ShaderProgram.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-#include "Core/Matrix.hpp"
-#include "Core/Quaternion.hpp"
-#include "Core/Vector3.hpp"
-#include "Core/Vector4.hpp"
-#include "Graphics/EffectParameterClass.hpp"
-#include "Graphics/EffectParameterType.hpp"
-#include "Shaders/ShaderProgram.hpp"
 
 namespace SceneR
 {
@@ -113,32 +114,32 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as a Matrix.
              */
-            const SceneR::Core::Matrix& GetValueMatrix() const;
+            const SceneR::Framework::Matrix& GetValueMatrix() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Matrix.
              */
-            const std::vector<SceneR::Core::Matrix>& GetValueMatrixArray() const;
+            const std::vector<SceneR::Framework::Matrix>& GetValueMatrixArray() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix transpose.
              */
-            const SceneR::Core::Matrix& GetValueMatrixTranspose() const;
+            const SceneR::Framework::Matrix& GetValueMatrixTranspose() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Matrix transpose.
              */
-            const std::vector<SceneR::Core::Matrix>& GetValueMatrixTransposeArray();
+            const std::vector<SceneR::Framework::Matrix>& GetValueMatrixTransposeArray();
 
             /**
              * Gets the value of the EffectParameter as a Quaternion.
              */
-            const SceneR::Core::Quaternion& GetValueQuaternion() const;
+            const SceneR::Framework::Quaternion& GetValueQuaternion() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Quaternion.
              */
-            const std::vector<SceneR::Core::Quaternion>& GetValueQuaternionArray() const;
+            const std::vector<SceneR::Framework::Quaternion>& GetValueQuaternionArray() const;
 
             /**
              * Gets the value of the EffectParameter as a Single.
@@ -164,12 +165,12 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as a Vector3.
              */
-            const SceneR::Core::Vector3& GetValueVector3() const;
+            const SceneR::Framework::Vector3& GetValueVector3() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Vector3.
              */
-            const std::vector<SceneR::Core::Vector3>& GetValueVector3Array() const;
+            const std::vector<SceneR::Framework::Vector3>& GetValueVector3Array() const;
 
             // GetValueVector4  Gets the value of the EffectParameter as a Vector4.
             // GetValueVector4Array     Gets the value of the EffectParameter as an array of Vector4.
@@ -203,37 +204,37 @@ namespace SceneR
              * Sets the value of the EffectParameter as a Matrix.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const SceneR::Core::Matrix& value) const;
+            void SetValue(const SceneR::Framework::Matrix& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Matrix.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<SceneR::Core::Matrix>& value) const;
+            void SetValue(const std::vector<SceneR::Framework::Matrix>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix transpose.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValueTranspose(const SceneR::Core::Matrix& value) const;
+            void SetValueTranspose(const SceneR::Framework::Matrix& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Matrix transpose.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValueTranspose(const std::vector<SceneR::Core::Matrix>& value) const;
+            void SetValueTranspose(const std::vector<SceneR::Framework::Matrix>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Quaternion.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const SceneR::Core::Quaternion& value) const;
+            void SetValue(const SceneR::Framework::Quaternion& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Quaternion.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<SceneR::Core::Quaternion>& value) const;
+            void SetValue(const std::vector<SceneR::Framework::Quaternion>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Single.
@@ -257,25 +258,25 @@ namespace SceneR
              * Sets the value of the EffectParameter as a Vector3.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const SceneR::Core::Vector3& value) const;
+            void SetValue(const SceneR::Framework::Vector3& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector3.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<SceneR::Core::Vector3>& value) const;
+            void SetValue(const std::vector<SceneR::Framework::Vector3>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector4.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const SceneR::Core::Vector4& value) const;
+            void SetValue(const SceneR::Framework::Vector4& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector4.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<SceneR::Core::Vector4>& value) const;
+            void SetValue(const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
             Int32                                           columnCount;

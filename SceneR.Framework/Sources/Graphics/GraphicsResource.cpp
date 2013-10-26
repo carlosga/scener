@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/GraphicsResource.hpp"
+#include <Graphics/GraphicsResource.hpp>
 
 using namespace SceneR::Graphics;
 
@@ -22,6 +22,10 @@ GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
     : graphicsDevice(graphicsDevice),
       name(),
       tag()
+{
+}
+
+GraphicsResource::~GraphicsResource()
 {
 }
 

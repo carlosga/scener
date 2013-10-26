@@ -14,15 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <memory>
-#include "Core/Core.hpp"
-#include "Content/Readers/ModelReader.hpp"
-#include "Graphics/Effect.hpp"
-#include "Graphics/BasicEffect.hpp"
-#include "Graphics/Model.hpp"
-#include "Graphics/ModelBone.hpp"
-#include "Graphics/ModelMesh.hpp"
-#include "Graphics/ModelMeshPart.hpp"
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/ModelReader.hpp>
+#include <Framework/Matrix.hpp>
+#include <Graphics/BasicEffect.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/ModelBone.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/ModelMeshPart.hpp>
+#include <Graphics/VertexBuffer.hpp>
 
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;

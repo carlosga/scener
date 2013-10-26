@@ -17,45 +17,47 @@
 #ifndef RENDERERWINDOW_HPP
 #define RENDERERWINDOW_HPP
 
+#include <Framework/Core.hpp>
 #include <string>
-#include "Core/Core.hpp"
+
+struct GLFWwindow;
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Framework
     {
         class Renderer;
-        
+
         /**
          * The window associated with a renderer.
          */
-        class RendererWindow        
+        class RendererWindow
         {
         public:
             /**
-             * Initializes a new instance of the RendererWindow class
-             * @param renderer the renderer that owns this RendererWindow instance
+             * Initializes a new instance of the RendererWindow class.
+             * @param renderer the renderer instance owning the renderer window.
              */
             RendererWindow(Renderer& renderer);
-            
+
             /**
              * Releases all resource being used by the current RendererWindow
              */
             ~RendererWindow();
-            
+
         public:
             /**
              * Gets the renderer window title
              * @return the renderer window title
              */
             const std::wstring& GetTitle() const;
-            
+
             /**
              * Sets the renderer window title
              * @param title the renderer window title
              */
             void SetTitle(const std::wstring& title);
-            
+
             /**
              * Specifies whether to allow the user to resize the renderer window.
              * @return whether to allow the user to resize the renderer window.
@@ -66,7 +68,7 @@ namespace SceneR
              * Specifies whether to allow the user to resize the renderer window.
              */
             void SetAllowUserResizing(const Boolean &allowUserResizing);
-                                    
+
         private:
             void Open();
             void Close();
@@ -83,13 +85,13 @@ namespace SceneR
                                       GLuint  id    , GLenum      severity,
                                       GLsizei length, const char* message,
                                       void*   userParam);
-            
+
         private:
             std::wstring title;
-            Renderer&    renderer;
             Boolean      allowUserResizing;
             GLFWwindow*  handle;
-            
+            Renderer&    renderer;
+
             friend class Renderer;
         };
     }

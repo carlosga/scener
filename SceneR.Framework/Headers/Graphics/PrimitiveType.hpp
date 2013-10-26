@@ -17,7 +17,7 @@
 #ifndef PRIMITIVETYPE_HPP
 #define PRIMITIVETYPE_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines the primitives types
          */
-        enum class PrimitiveType : GLenum
+        enum class PrimitiveType : UInt32
         {
             /**
              * Renders the vertices as a collection of isolated points. This value is unsupported for indexed

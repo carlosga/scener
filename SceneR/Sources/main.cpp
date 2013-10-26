@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <CustomRenderer.hpp>
+#include <memory>
 #include <string>
-#include "Graphics/PresentationParameters.hpp"
-#include "CustomRenderer.hpp"
 
 using namespace SceneR::Graphics;
 using namespace SceneR::Custom;
@@ -28,8 +28,8 @@ int main()
     CustomRenderer renderer(rootPath);
 
     renderer.Run();
-    
+
     renderer.Exit();
-    
+
     return 0;
 }

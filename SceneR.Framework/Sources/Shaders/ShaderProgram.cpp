@@ -14,11 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <stdexcept>
+#include <Framework/Core.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
+#include <Shaders/ShaderProgram.hpp>
 #include <cassert>
-#include "Shaders/ShaderProgram.hpp"
+#include <stdexcept>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Shaders;
 
 ShaderProgram::ShaderProgram(const std::wstring& name, std::vector<std::shared_ptr<Shader>>& shaders)

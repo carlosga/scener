@@ -14,13 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <stdexcept>
+#include <Framework/MathHelper.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
-#include "Core/MathHelper.hpp"
-#include "Core/Vector3.hpp"
+#include <stdexcept>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 const Vector3 Vector3::Backward(0.0f, 0.0f, 1.0f);
 const Vector3 Vector3::Down(0.0f, -1.0f, 0.0f);
@@ -37,9 +38,9 @@ const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
-    
+
     assert(amount >= 0.0f && amount < 1.0f);
-    
+
     return (value1 + (value2 - value1) * amount);
 }
 
@@ -54,12 +55,12 @@ Vector3::Vector3()
 {
 }
 
-Vector3::Vector3(const Single& x, const Single& y, const Single& z) 
+Vector3::Vector3(const Single& x, const Single& y, const Single& z)
     : xCoordinate(x), yCoordinate(y), zCoordinate(z)
 {
 }
 
-Vector3::Vector3(const Vector3& vector) 
+Vector3::Vector3(const Vector3& vector)
     : xCoordinate(vector.X()), yCoordinate(vector.Y()), zCoordinate(vector.Z())
 {
 }
@@ -81,15 +82,15 @@ const Single& Vector3::Z() const
 
 const Single Vector3::LengthSquared() const
 {
-    return   (this->xCoordinate * this->xCoordinate) 
-           + (this->yCoordinate * this->yCoordinate) 
+    return   (this->xCoordinate * this->xCoordinate)
+           + (this->yCoordinate * this->yCoordinate)
            + (this->zCoordinate * this->zCoordinate);
 }
 
 const Single Vector3::Length() const
 {
-    // The modulus or magnitude of a vector is simply its length. 
-    // This can easily be found using Pythagorean Theorem with the vector components. 
+    // The modulus or magnitude of a vector is simply its length.
+    // This can easily be found using Pythagorean Theorem with the vector components.
     //
     // The modulus is written like:
     // a = |a|
@@ -100,7 +101,7 @@ const Single Vector3::Length() const
     // Then:
     //
     // |a| = sqrt(x^2 + y^2 + z^2)
-    
+
     return std::sqrt(this->LengthSquared());
 }
 
@@ -117,7 +118,7 @@ const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
     Single x = (this->yCoordinate * vectorb.Z()) - (vectorb.Y() * this->zCoordinate);
     Single y = (this->zCoordinate * vectorb.X()) - (vectorb.Z() * this->xCoordinate);
     Single z = (this->xCoordinate * vectorb.Y()) - (vectorb.X() * this->yCoordinate);
-    
+
     return Vector3(x, y, z);
 }
 
@@ -128,44 +129,44 @@ const Single Vector3::DotProduct(const Vector3& vectorb) const
     //
     // The scalar product can also be written in terms of Cartesian components as:
     // a · b = x1x2 + y1y2 + z1z2
-    
+
     Vector3 dotProduct = *this * vectorb;
-    
+
     return (dotProduct.X() + dotProduct.Y() + dotProduct.Z());
 }
-            
+
 const Single Vector3::AngleBetween(const Vector3& vectorb) const
 {
     Single lengthSquared = this->LengthSquared() * vectorb.LengthSquared();
     Single acos          = std::acos(this->DotProduct(vectorb) / std::sqrt(lengthSquared));
-    
+
     return MathHelper::ToDegrees(acos);
 }
-            
+
 void Vector3::Normalize()
 {
-    // To find the unit vector of another vector, we use the modulus operator 
+    // To find the unit vector of another vector, we use the modulus operator
     // and scalar multiplication like so:
     // b = a / |a|
     //
     // Where |a| is the modulus of a
     (*this /= this->Length());
-}       
-    
+}
+
 Single& Vector3::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 3);
-    
+
     return (this->vector[index]);
 }
 
 const Single& Vector3::operator[](const Int32& index) const
 {
     assert(index >= 0 && index < 3);
-    
+
     return (this->vector[index]);
 }
-        
+
 Vector3& Vector3::operator=(const Vector3 &vector)
 {
     if (this != &vector)
@@ -207,7 +208,7 @@ Vector3& Vector3::operator*=(const Single &value)
 
     return *this;
 }
-            
+
 Vector3& Vector3::operator/=(const Vector3 &vector)
 {
     this->xCoordinate /= vector.xCoordinate;
@@ -240,29 +241,29 @@ Vector3& Vector3::operator+=(const Vector3 &vector)
     this->xCoordinate += vector.xCoordinate;
     this->yCoordinate += vector.yCoordinate;
     this->zCoordinate += vector.zCoordinate;
-    
+
     return *this;
 }
 
-const Vector3 Vector3::operator*(const Vector3 &vector) const 
+const Vector3 Vector3::operator*(const Vector3 &vector) const
 {
     Vector3 result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
 
     result *= vector;
-    
+
     return result;
 }
 
-const Vector3 Vector3::operator*(const Single &value) const 
+const Vector3 Vector3::operator*(const Single &value) const
 {
     Vector3 result = *this;
 
     result *= value;
-    
+
     return result;
 }
 
-const Vector3 Vector3::operator*(const Matrix &matrix) const 
+const Vector3 Vector3::operator*(const Matrix &matrix) const
 {
     Single x = (this->xCoordinate * matrix.M11())
              + (this->yCoordinate * matrix.M21())
@@ -275,25 +276,25 @@ const Vector3 Vector3::operator*(const Matrix &matrix) const
     Single z = (this->xCoordinate * matrix.M13())
              + (this->yCoordinate * matrix.M23())
              + (this->zCoordinate * matrix.M33());
-                    
+
     return Vector3(x, y, z);
 }
 
-const Vector3 Vector3::operator/(const Vector3 &vector) const 
+const Vector3 Vector3::operator/(const Vector3 &vector) const
 {
     Vector3 result = *this;
 
     result /= vector;
-    
+
     return result;
 }
 
-const Vector3 Vector3::operator/(const Single &value) const 
+const Vector3 Vector3::operator/(const Single &value) const
 {
     Vector3 result = *this;
 
     result /= value;
-    
+
     return result;
 }
 
@@ -302,15 +303,15 @@ const Vector3 Vector3::operator-(const Vector3 &vector) const
     Vector3 result = *this;
 
     result -= vector;
-    
+
     return result;
-}           
+}
 
 const Vector3 Vector3::operator+(const Vector3 &vector) const
 {
     Vector3 result = *this;
 
     result += vector;
-    
+
     return result;
 }

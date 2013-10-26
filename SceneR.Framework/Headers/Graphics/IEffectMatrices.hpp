@@ -17,7 +17,13 @@
 #ifndef IEFFECTMATRICES_HPP
 #define IEFFECTMATRICES_HPP
 
-#include "Core/Matrix.hpp"
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Matrix;
+    }
+}
 
 namespace SceneR
 {
@@ -40,32 +46,32 @@ namespace SceneR
             /**
              * Gets the projection matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetProjection() const = 0;
+            virtual const SceneR::Framework::Matrix& GetProjection() const = 0;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            virtual void SetProjection(const SceneR::Core::Matrix& projection) = 0;
+            virtual void SetProjection(const SceneR::Framework::Matrix& projection) = 0;
 
             /**
              * Gets the view matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetView() const = 0;
+            virtual const SceneR::Framework::Matrix& GetView() const = 0;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            virtual void SetView(const SceneR::Core::Matrix& view) = 0;
+            virtual void SetView(const SceneR::Framework::Matrix& view) = 0;
 
             /**
              * Gets the world matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetWorld() const = 0;
+            virtual const SceneR::Framework::Matrix& GetWorld() const = 0;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            virtual void SetWorld(const SceneR::Core::Matrix& world) = 0;
+            virtual void SetWorld(const SceneR::Framework::Matrix& world) = 0;
         };
     };
 }

@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/ModelMesh.hpp"
-#include "Graphics/PrimitiveType.hpp"
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/PrimitiveType.hpp>
 
 using namespace SceneR::Graphics;
 
@@ -28,7 +29,7 @@ void ModelMesh::Draw()
 {
     for (auto& meshPart : this->meshParts)
     {
-        GraphicsDevice& graphicsDevice = meshPart->GetVertexBuffer()->GetGraphicsDevice();
+        auto graphicsDevice = meshPart->GetVertexBuffer()->GetGraphicsDevice();
 
         graphicsDevice.SetEffect(meshPart->GetEffect());
         graphicsDevice.SetVertexBuffer(meshPart->GetVertexBuffer());

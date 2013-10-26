@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/TextureMipMap.hpp"
+#include <Graphics/TextureMipMap.hpp>
 
 using namespace SceneR::Graphics;
 

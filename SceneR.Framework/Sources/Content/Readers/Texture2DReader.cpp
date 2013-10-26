@@ -14,9 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Content/Readers/Texture2DReader.hpp"
-#include "Graphics/Texture2D.hpp"
-#include "Graphics/TextureMipMap.hpp"
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/Texture2DReader.hpp>
+#include <Framework/Core.hpp>
+#include <Graphics/SurfaceFormat.hpp>
+#include <Graphics/Texture2D.hpp>
+#include <Graphics/TextureMipMap.hpp>
+#include <vector>
 
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;

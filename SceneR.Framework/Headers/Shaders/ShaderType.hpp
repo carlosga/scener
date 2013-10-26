@@ -17,7 +17,7 @@
 #ifndef SHADERTYPE_HPP
 #define SHADERTYPE_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Declares the supported shader types
          */
-        enum class ShaderType : GLenum
+        enum class ShaderType : UInt32
         {
             /**
              * A shader that is intended to run on the programmable vertex processor.

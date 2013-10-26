@@ -17,7 +17,7 @@
 #ifndef PRESENTATIONPARAMETERS_HPP
 #define PRESENTATIONPARAMETERS_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
@@ -26,14 +26,14 @@ namespace SceneR
         /**
          * http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx
          */
-        class PresentationParameters 
+        class PresentationParameters
         {
         public:
             /**
              * Initializes a new instance of the PresentationParameters class.
              */
             PresentationParameters();
-            
+
         public:
             /**
              * Gets a value indicating whether an application is running in a full screen mode.
@@ -44,7 +44,7 @@ namespace SceneR
              * Sets a value indicating whether an application is running in a full screen mode.
              */
             void SetFullScreen(const Boolean& fullScreen);
-            
+
             /**
              * Gets the height of a swap chain's back buffers, in pixels.
              */
@@ -54,7 +54,7 @@ namespace SceneR
              * Sets the height of a swap chain's back buffers, in pixels.
              */
             void SetBackBufferHeight(const Size& backBufferHeight);
-            
+
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
@@ -64,12 +64,12 @@ namespace SceneR
              * Gets the width of a swap chain's back buffers, in pixels.
              */
             void SetBackBufferWidth(const Size& backBufferWidth);
-            
+
         private:
             Boolean fullScreen;
             Size    backBufferHeight;
             Size    backBufferWidth;
-            
+
             /*
             Property    Description
             BackBufferCount    Retrieves or sets the number of back buffers.
@@ -83,7 +83,7 @@ namespace SceneR
             PresentationInterval    Retrieves or sets the maximum rate at which the swap chain's back buffers can be presented.
             PresentFlag    Retrieves or sets the present flag.
             SwapEffect    Retrieves or sets the swap effect.
-            Windowed    Boolean value that indicates whether an application is running in a windowed mode.        
+            Windowed    Boolean value that indicates whether an application is running in a windowed mode.
             */
         };
     }

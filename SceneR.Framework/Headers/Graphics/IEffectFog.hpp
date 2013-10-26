@@ -17,7 +17,15 @@
 #ifndef IEFFECTFOG_HPP
 #define IEFFECTFOG_HPP
 
-#include "Core/Color.hpp"
+#include <Framework/Core.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
@@ -40,12 +48,12 @@ namespace SceneR
             /**
              *  Gets the fog color.
              */
-            virtual const SceneR::Core::Color& GetFogColor() const = 0;
+            virtual const SceneR::Framework::Color& GetFogColor() const = 0;
 
             /**
              *  Set the fog color.
              */
-            virtual void SetFogColor(const SceneR::Core::Color& color) = 0;
+            virtual void SetFogColor(const SceneR::Framework::Color& color) = 0;
 
             /**
              * Enables fog for the current effect.

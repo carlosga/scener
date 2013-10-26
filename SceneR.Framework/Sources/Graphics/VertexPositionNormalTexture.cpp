@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/VertexPositionNormalTexture.hpp"
-#include "Graphics/VertexElement.hpp"
-#include "Graphics/VertexElementFormat.hpp"
-#include "Graphics/VertexElementUsage.hpp"
+#include <Graphics/VertexDeclaration.hpp>
+#include <Graphics/VertexElement.hpp>
+#include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
+#include <Graphics/VertexPositionNormalTexture.hpp>
+#include <vector>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 const VertexDeclaration VertexPositionNormalTexture::GetVertexDeclaration()

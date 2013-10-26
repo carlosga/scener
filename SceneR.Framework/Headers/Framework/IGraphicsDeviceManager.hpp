@@ -14,38 +14,45 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef ANGLE_HPP
-#define ANGLE_HPP
+#ifndef IGRAPHICSDEVICEMANAGER_HPP
+#define IGRAPHICSDEVICEMANAGER_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
         /**
-         * Common math functions.
+         * Defines the interface for an object that manages a GraphicsDevice.
          */
-        class MathHelper
+        class IGraphicsDeviceManager
         {
         public:
             /**
-             * Converts the given value in degrees to radians.
+             * Releases all resources being used by this IGraphicsDeviceManager instance
              */
-            static Single ToRadians(const Single& degrees);
+            virtual ~IGraphicsDeviceManager()
+            {
+            };
+
+        public:
+           /**
+             * Starts the drawing of a frame
+             */
+            virtual Boolean BeginDraw() = 0;
 
             /**
-             * Converts the given value in radians to degrees.
+             * Called to ensure that the device manager has created a valid device.
              */
-            static Single ToDegrees(const Single& radians);
-            
-        private:
+            virtual void CreateDevice() = 0;
+
             /**
-             * Default constructor
+             * Called by the game at the end of drawing; presents the final rendering.
              */
-            MathHelper() = default;
+            virtual void EndDraw() = 0;
         };
     }
 }
 
-#endif  /* ANGLE_HPP */
+#endif  /* IGRAPHICSDEVICEMANAGER_HPP */

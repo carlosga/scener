@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/Effect.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <stdexcept>
-#include "Graphics/Effect.hpp"
 
 using namespace SceneR::Graphics;
 
@@ -30,10 +31,6 @@ Effect::Effect(const Effect& effect)
     : GraphicsResource(effect.graphicsDevice),
       parameters(effect.parameters),
       shaderProgram(effect.shaderProgram)
-{
-}
-
-Effect::~Effect()
 {
 }
 
@@ -64,9 +61,9 @@ const EffectParameter& Effect::AddEffectParameter(const std::wstring&         na
                                                   const EffectParameterType&  parameterType)
 {
     EffectParameter newParameter(name, parameterClass, parameterType, this->shaderProgram);
-    
+
     this->parameters.push_back(newParameter);
-    
+
     return this->GetEffectParameter(name);
 }
 
@@ -79,6 +76,6 @@ const EffectParameter& Effect::GetEffectParameter(const std::wstring& name) cons
             return effectParameter;
         }
     }
-    
+
     throw std::runtime_error("Invalid parameter name");
 }

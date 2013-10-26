@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/ModelMeshPart.hpp"
+#include <Graphics/ModelMeshPart.hpp>
 
 using namespace SceneR::Graphics;
 
@@ -29,7 +29,7 @@ std::shared_ptr<Effect> ModelMeshPart::GetEffect() const
     return this->effect;
 }
 
-void ModelMeshPart::SetEffect(std::shared_ptr<Effect> effect)
+void ModelMeshPart::SetEffect(const std::shared_ptr<Effect>& effect)
 {
     this->effect = effect;
 }

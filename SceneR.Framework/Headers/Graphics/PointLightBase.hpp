@@ -17,16 +17,24 @@
 #ifndef POINTLIGHTBASE_HPP
 #define POINTLIGHTBASE_HPP
 
-#include "Core/Color.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/Light.hpp"
+#include <Framework/Core.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/Light.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
         /**
-         * Abstract base class that represents a light object that has a position in space 
+         * Abstract base class that represents a light object that has a position in space
          * and projects its light in all directions.
          */
         class PointLightBase : public Light
@@ -49,7 +57,7 @@ namespace SceneR
              * @return a value that specifies the linear diminution of the light's intensity over distance.
              */
             const Single GetLinearAttenuation() const;
-            
+
             /**
              * Sets a value that specifies the linear diminution of the light's intensity over distance.
              * @param linearAttenuation a value that specifies the linear diminution of the light's intensity over
@@ -58,64 +66,64 @@ namespace SceneR
             void SetLinearAttenuation(const Single linearAttenuation);
 
             /**
-             * Gets a value that specifies the diminution of the light's effect over distance, 
+             * Gets a value that specifies the diminution of the light's effect over distance,
              * calculated by a quadratic operation.
-             * @return a value that specifies the diminution of the light's effect over distance, 
+             * @return a value that specifies the diminution of the light's effect over distance,
              *         calculated by a quadratic operation.
              */
             const Single GetQuadraticAttenuation() const;
 
             /**
-             * Gets a value that specifies the diminution of the light's effect over distance, 
+             * Gets a value that specifies the diminution of the light's effect over distance,
              * calculated by a quadratic operation.
-             * @param quadraticAttenuation a value that specifies the diminution of the light's effect over distance, 
+             * @param quadraticAttenuation a value that specifies the diminution of the light's effect over distance,
              *        calculated by a quadratic operation.
-             */            
+             */
             void SetQuadraticAttenuation(const Single quadraticAttenuation);
 
             /**
              * Gets a Vector3 that specifies the light's position in world space.
              * @return a Vector3 that specifies the light's position in world space.
              */
-            const SceneR::Core::Vector3& GetPosition() const;
+            const SceneR::Framework::Vector3& GetPosition() const;
 
             /**
              * Sets a Vector3 that specifies the light's position in world space.
              * @param position a Vector3 that specifies the light's position in world space.
-             */            
-            void SetPosition(const SceneR::Core::Vector3& position);
-            
+             */
+            void SetPosition(const SceneR::Framework::Vector3& position);
+
             /**
-             * Gets the distance beyond which the light has no effect. 
+             * Gets the distance beyond which the light has no effect.
              * @return the distance beyond which the light has no effect.
              */
             const Single GetRange() const;
-            
+
             /**
-             * Gets the distance beyond which the light has no effect. 
+             * Gets the distance beyond which the light has no effect.
              * @param range the distance beyond which the light has no effect.
              */
             void SetRange(const Single range);
-            
+
             /**
              * Gets the total attenuation of this light given a distance as defined by the collada specification.
              * @param distance the distance.
              */
             const Single GetTotalAttenuation(const Single distance) const;
-                        
+
         protected:
             /**
              * Initializes a new instance of the PointLightBase class.
              */
             PointLightBase();
-            
+
             /**
              * Initializes a new instance of the PointLightBase class with the given color and position.
              * @param color the light diffuse color.
              * @param position the light position in world space.
              */
-            PointLightBase(const SceneR::Core::Color&   diffuseColor,
-                           const SceneR::Core::Vector3& position);
+            PointLightBase(const SceneR::Framework::Color&   diffuseColor,
+                           const SceneR::Framework::Vector3& position);
 
             /**
              * Releases all resources being used by the current PointLightBase
@@ -123,7 +131,7 @@ namespace SceneR
             virtual ~PointLightBase() = default;
 
         protected:
-            SceneR::Core::Vector3 position;
+            SceneR::Framework::Vector3 position;
             Single                range;
             Single                constantAttenuation;
             Single                linearAttenuation;

@@ -17,15 +17,16 @@
 #ifndef INDEXBUFFERREADER_HPP
 #define INDEXBUFFERREADER_HPP
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReader.hpp>
 #include <memory>
-#include "Content/ContentType.hpp"
-#include "Content/ContentReader.hpp"
-#include "Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * Index buffer reader.
          */

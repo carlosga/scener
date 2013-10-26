@@ -17,14 +17,21 @@
 #ifndef SHADERPROGRAM_HPP
 #define SHADERPROGRAM_HPP
 
+#include <Framework/Core.hpp>
+#include <Shaders/Shader.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-#include "Core/Core.hpp"
-#include "Core/Matrix.hpp"
-#include "Core/Vector3.hpp"
-#include "Core/Vector4.hpp"
-#include "Shaders/Shader.hpp"
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Matrix;
+        class Vector3;
+        class Vector4;
+    }
+}
 
 namespace SceneR
 {
@@ -79,42 +86,42 @@ namespace SceneR
              * @param parameterName the shader parameter name.
              * @param matrix the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Core::Matrix& matrix) const;
+            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Matrix& matrix) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Matrix.
              * @param location the location of the shader parameter.
              * @param matrix the value to assign to the shader parameter.
              */
-            void SetValue(const Int32& location, const SceneR::Core::Matrix& matrix) const;
+            void SetValue(const Int32& location, const SceneR::Framework::Matrix& matrix) const;
 
             /**
              * Sets the value of the shader parameter with the given name as a Vector3.
              * @param parameterName the shader parameter name.
              * @param vector3 the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Core::Vector3& vector3) const;
+            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Vector3& vector3) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Vector3.
              * @param location the location of the shader parameter.
              * @param vector3 the value to assign to the shader parameter.
              */
-            void SetValue(const Int32& location, const SceneR::Core::Vector3& vector3) const;
+            void SetValue(const Int32& location, const SceneR::Framework::Vector3& vector3) const;
 
             /**
              * Sets the value of the shader parameter with the given name as a Vector4.
              * @param parameterName the shader parameter name.
              * @param vector4 the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Core::Vector4& vector4) const;
+            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Vector4& vector4) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Vector4.
              * @param location the location of the shader parameter.
              * @param vector4 the value to assign to the shader parameter.
              */
-            void SetValue(const Int32& location, const SceneR::Core::Vector4& vector4) const;
+            void SetValue(const Int32& location, const SceneR::Framework::Vector4& vector4) const;
 
             /**
              * Sets the value of the shader parameter with the given name as a scalar value of type Single.

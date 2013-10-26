@@ -14,15 +14,23 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/GraphicsDevice.hpp"
-#include "Graphics/RasterizerState.hpp"
-#include "Graphics/Viewport.hpp"
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/RasterizerState.hpp>
 
 using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice), cullMode(CullMode::CullCounterClockwiseFace), depthBias(0),
-      fillMode(FillMode::Solid), multiSampleAntiAlias(true), scissorTestEnable(false), slopeScaleDepthBias(0)
+    : GraphicsResource(graphicsDevice),
+      cullMode(CullMode::CullCounterClockwiseFace),
+      depthBias(0),
+      fillMode(FillMode::Solid),
+      multiSampleAntiAlias(true),
+      scissorTestEnable(false),
+      slopeScaleDepthBias(0)
+{
+}
+
+RasterizerState::~RasterizerState()
 {
 }
 

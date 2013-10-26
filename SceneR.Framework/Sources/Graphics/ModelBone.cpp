@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <memory>
-#include "Graphics/ModelBone.hpp"
+#include <Graphics/ModelBone.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelBone::ModelBone()

@@ -1,7 +1,10 @@
-#include "QuaternionTest.hpp"
-#include "Core/Quaternion.hpp"
+#include <cppunit/SourceLine.h>
+#include <cppunit/TestAssert.h>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector3.hpp>
+#include <QuaternionTest.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(QuaternionTest);
 

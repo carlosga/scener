@@ -17,15 +17,16 @@
 #ifndef VERTEXBUFFERREADER_HPP
 #define VERTEXBUFFERREADER_HPP
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReader.hpp>
 #include <memory>
-#include "Content/ContentType.hpp"
-#include "Content/ContentReader.hpp"
-#include "Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * Vertex buffer reader
          */

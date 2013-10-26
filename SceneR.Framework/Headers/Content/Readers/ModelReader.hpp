@@ -17,16 +17,17 @@
 #ifndef MODELREADER_HPP
 #define MODELREADER_HPP
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReader.hpp>
+#include <Framework/Core.hpp>
 #include <memory>
-#include "Core/Core.hpp"
-#include "Content/ContentType.hpp"
-#include "Content/ContentReader.hpp"
-#include "Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * Model reader.
          */

@@ -14,7 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/Texture.hpp"
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/Texture.hpp>
 
 using namespace SceneR::Graphics;
 

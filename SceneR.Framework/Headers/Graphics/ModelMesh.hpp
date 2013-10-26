@@ -17,11 +17,11 @@
 #ifndef MODELMESH_HPP
 #define MODELMESH_HPP
 
+#include <Graphics/Effect.hpp>
+#include <Graphics/ModelBone.hpp>
+#include <Graphics/ModelMeshPart.hpp>
 #include <string>
 #include <vector>
-#include "Content/Readers/ModelReader.hpp"
-#include "Graphics/ModelBone.hpp"
-#include "Graphics/ModelMeshPart.hpp"
 
 namespace SceneR
 {
@@ -37,7 +37,7 @@ namespace SceneR
              * Initializes a new instance of the ModelMesh class.
              */
             ModelMesh();
-            
+
         public:
             /**
              * Draws all of the ModelMeshPart objects in this mesh.
@@ -50,7 +50,7 @@ namespace SceneR
             const std::vector<std::shared_ptr<Effect>> GetEffects();
 
             /**
-             * Gets the ModelMeshPart objects that make up this mesh. 
+             * Gets the ModelMeshPart objects that make up this mesh.
              * Each part of a mesh is composed of a set of primitives that share the same material.
              */
             const std::vector<std::shared_ptr<ModelMeshPart>>& MeshParts() const;
@@ -66,8 +66,8 @@ namespace SceneR
             void SetName(const std::wstring& name);
 
             /**
-             * Gets the parent bone for this mesh. The parent bone of a mesh contains a 
-             * transformation matrix that describes how the mesh is located relative to 
+             * Gets the parent bone for this mesh. The parent bone of a mesh contains a
+             * transformation matrix that describes how the mesh is located relative to
              * any parent meshes in a model.
              */
             std::shared_ptr<ModelBone> ParentBone() const;
@@ -87,7 +87,7 @@ namespace SceneR
             std::wstring                                name;
             std::shared_ptr<ModelBone>                  parentBone;
             std::wstring                                tag;
-            
+
             friend class SceneR::Content::ModelReader;
         };
     }

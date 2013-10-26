@@ -17,16 +17,27 @@
 #ifndef TEXTURE2D_HPP
 #define TEXTURE2D_HPP
 
+#include <Framework/Core.hpp>
+#include <Graphics/SurfaceFormat.hpp>
+#include <Graphics/Texture.hpp>
+#include <Graphics/TextureMipMap.hpp>
+#include <memory>
 #include <vector>
-#include "Content/Readers/Texture2DReader.hpp"
-#include "Graphics/Texture.hpp"
-#include "Graphics/SurfaceFormat.hpp"
-#include "Graphics/TextureMipMap.hpp"
+
+namespace SceneR
+{
+    namespace Content
+    {
+        class Texture2DReader;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         /**
          * Represents a 2D texture.
          */
@@ -40,7 +51,9 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice, const UInt32& width, const UInt32& height);
+            Texture2D(GraphicsDevice& graphicsDevice,
+                      const UInt32&   width,
+                      const UInt32&   height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -56,6 +69,11 @@ namespace SceneR
                       const UInt32&        height,
                       const Boolean&       mipMap,
                       const SurfaceFormat& format);
+
+            /**
+             * Releases all resources being used by this texture.
+             */
+            ~Texture2D();
 
         public:
             /**

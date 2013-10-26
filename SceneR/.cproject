@@ -30,12 +30,15 @@
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug.675160284" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug">
 								<option id="llvm.c_cpp.compiler.option.optimization.level.2053957927" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.debugging.level.1386599339" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="llvm.c_cpp.compiler.option.misc.other.1359165883" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -fmessage-length=0 -m64 -std=c++11" valueType="string"/>
+								<option id="llvm.c_cpp.compiler.option.misc.other.1359165883" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -m64 -std=c++11" valueType="string"/>
 								<option id="llvm.c_cpp.compiler.option.include.paths.54111845" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Headers}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/include/llvm-3.4/llvm"/>
+									<listOptionValue builtIn="false" value="/usr/include/clang/3.4/include"/>
 								</option>
 								<option id="llvm.c_cpp.compiler.option.warnings.toerrors.1350936611" name="Warnings as errors (-Werror)" superClass="llvm.c_cpp.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
+								<option id="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std.365431804" name="Language standard" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.1531765092" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug.1442000135" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug">
@@ -48,8 +51,10 @@
 									<listOptionValue builtIn="false" value="SceneR.Framework"/>
 								</option>
 								<option id="llvm.c.link.option.paths.527132283" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
+									<listOptionValue builtIn="false" value="/usr/lib/llvm-3.4/lib"/>
+									<listOptionValue builtIn="false" value="/usr/lib/clang/3.4/lib/linux"/>
 								</option>
 								<option id="llvm.c.link.base.option.ldflags.1699413408" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1867326941" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
@@ -100,7 +105,10 @@
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.release.344056289" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.release">
 								<option id="llvm.c_cpp.compiler.option.optimization.level.183749931" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.debugging.level.1989844636" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.none" valueType="enumerated"/>
-								<option id="llvm.c_cpp.compiler.option.include.paths.1235987023" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths"/>
+								<option id="llvm.c_cpp.compiler.option.include.paths.1235987023" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/usr/include/llvm-3.4/llvm"/>
+									<listOptionValue builtIn="false" value="/usr/include/clang/3.4/include"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.704574420" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.release.2086212072" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.release">
@@ -115,6 +123,8 @@
 								<option id="llvm.c.link.option.paths.1031318589" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.7/"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
+									<listOptionValue builtIn="false" value="/usr/lib/llvm-3.4/lib"/>
+									<listOptionValue builtIn="false" value="/usr/lib/clang/3.4/lib/linux"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.4415437" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

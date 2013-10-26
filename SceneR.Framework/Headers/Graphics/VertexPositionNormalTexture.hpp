@@ -17,15 +17,15 @@
 #ifndef VERTEXPOSITIONNORMALTEXTURE_HPP
 #define VERTEXPOSITIONNORMALTEXTURE_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Vector2.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/VertexDeclaration.hpp"
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class VertexDeclaration;
+
         /**
          * Describes a  vertex format  that contains position, normal data, and texture coordinates.
          */
@@ -42,30 +42,30 @@ namespace SceneR
              * Initializes a new instance of the VertexPositionNormalTexture class
              * with the given position, normal and texture coordinates.
              */
-            VertexPositionNormalTexture(const SceneR::Core::Vector3& position,
-                                        const SceneR::Core::Vector3& normal,
-                                        const SceneR::Core::Vector2& textureCoordinate);
+            VertexPositionNormalTexture(const SceneR::Framework::Vector3& position,
+                                        const SceneR::Framework::Vector3& normal,
+                                        const SceneR::Framework::Vector2& textureCoordinate);
 
         public:
             /**
              * Gets the vertex position
              */
-            const SceneR::Core::Vector3& GetPosition() const;
+            const SceneR::Framework::Vector3& GetPosition() const;
 
             /**
              * Gets the vertex normal
              */
-            const SceneR::Core::Vector3& GetNormal() const;
+            const SceneR::Framework::Vector3& GetNormal() const;
 
             /**
              * Gets the vertex texture coordinates
              */
-            const SceneR::Core::Vector2& GetTextureCoordinate() const;
+            const SceneR::Framework::Vector2& GetTextureCoordinate() const;
 
         private:
-            SceneR::Core::Vector3 position;
-            SceneR::Core::Vector3 normal;
-            SceneR::Core::Vector2 textureCoordinate;
+            SceneR::Framework::Vector3 position;
+            SceneR::Framework::Vector3 normal;
+            SceneR::Framework::Vector2 textureCoordinate;
         };
     }
 }

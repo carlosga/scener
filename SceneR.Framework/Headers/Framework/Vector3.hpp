@@ -17,13 +17,14 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Matrix.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
+        class Matrix;
+
         /**
          * Represents an x-, y-, and z-coordinate vector.
          */
@@ -155,28 +156,28 @@ namespace SceneR
 
             /**
              * Gets the square of the length of this Vector3.
-             * 
+             *
              * @return the square of the length of this Vector3.
              */
             const Single LengthSquared() const;
 
             /**
              * Gets the length of this Vector3.
-             * 
+             *
              * @return the length of this Vector3.
              */
             const Single Length() const;
 
             /**
              * Negates a Vector3.
-             * 
+             *
              * The vector has the same magnitude as before, but its direction is now opposite.
              */
             void Negate();
 
             /**
              * Calculates the cross product of two Vector3 structures.
-             * 
+             *
              * @param vectorb The second Vector3 structure to evaluate.
              * @return The cross product of this Vector3 and vectorb.
              */
@@ -184,7 +185,7 @@ namespace SceneR
 
             /**
              * Calculates the dot product of two Vector3 structures.
-             * 
+             *
              * @param vectorb The second Vector3 structure to evaluate.
              * @return The dot product of this Vector3 and vectorb.
              */
@@ -193,7 +194,7 @@ namespace SceneR
             /**
              * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
              * Vector3 structure.
-             * 
+             *
              * @param vectorb The second Vector3 to evaluate.
              * @return The angle in degrees needed to rotate this Vector3 into vectorb.
              */
@@ -201,7 +202,7 @@ namespace SceneR
 
             /**
              * Normalizes the specified Vector3.
-             * 
+             *
              * A normalized Vector3 maintains its direction but its magnitude becomes 1.
              * The resulting Vector3 is often called a unit vector.
              * A Vector3 is normalized by dividing the Vector3 by its magnitude.

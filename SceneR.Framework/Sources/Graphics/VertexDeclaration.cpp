@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/VertexDeclaration.hpp"
+#include <Graphics/VertexDeclaration.hpp>
 
 using namespace SceneR::Graphics;
 

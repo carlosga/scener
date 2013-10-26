@@ -17,16 +17,16 @@
 #ifndef VERTEXPOSITIONCOLORTEXTURE_HPP
 #define VERTEXPOSITIONCOLORTEXTURE_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Color.hpp"
-#include "Core/Vector2.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/VertexDeclaration.hpp"
+#include <Framework/Color.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class VertexDeclaration;
+
         /**
          * Describes a  vertex format  that contains position, color, and texture coordinates.
          */
@@ -46,30 +46,30 @@ namespace SceneR
              * @param color the vertex color
              * @param textureCoordinate the vertex texture coordinates
              */
-            VertexPositionColorTexture(const SceneR::Core::Vector3& position,
-                                       const SceneR::Core::Color&   color,
-                                       const SceneR::Core::Vector2& textureCoordinate);
-                                       
+            VertexPositionColorTexture(const SceneR::Framework::Vector3& position,
+                                       const SceneR::Framework::Color&   color,
+                                       const SceneR::Framework::Vector2& textureCoordinate);
+
         public:
             /**
              * Gets the vertex position
              */
-            const SceneR::Core::Vector3& GetPosition() const;
-            
+            const SceneR::Framework::Vector3& GetPosition() const;
+
             /**
              * Gets the vertex color
              */
-            const SceneR::Core::Color& GetColor() const;
-            
+            const SceneR::Framework::Color& GetColor() const;
+
             /**
              * Gets the vertex texture coordinates
              */
-            const SceneR::Core::Vector2& GetTextureCoordinate() const;
-            
+            const SceneR::Framework::Vector2& GetTextureCoordinate() const;
+
         private:
-            SceneR::Core::Vector3 position;
-            SceneR::Core::Color   color;
-            SceneR::Core::Vector2 textureCoordinate;
+            SceneR::Framework::Vector3 position;
+            SceneR::Framework::Color   color;
+            SceneR::Framework::Vector2 textureCoordinate;
         };
     }
 }

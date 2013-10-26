@@ -17,13 +17,13 @@
 #ifndef CONTENTMANAGER_HPP
 #define CONTENTMANAGER_HPP
 
+#include <Content/ContentLoadException.hpp>
+#include <Content/ContentReader.hpp>
+#include <Content/ContentTypeReaderManager.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <IO/Path.hpp>
 #include <memory>
 #include <string>
-#include "IO/Path.hpp"
-#include "Content/ContentLoadException.hpp"
-#include "Content/ContentReader.hpp"
-#include "Content/ContentTypeReaderManager.hpp"
-#include "Graphics/GraphicsDevice.hpp"
 
 namespace SceneR
 {
@@ -38,7 +38,8 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice, const std::string& rootDirectory);
+            ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice,
+                           const std::string&                rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -63,11 +64,11 @@ namespace SceneR
                 {
                     std::string filename = SceneR::IO::Path::ChangeExtension(assetName, "scr");
                     std::string path     = SceneR::IO::Path::Combine(this->rootDirectory, filename);
-                                        
+
                     ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
 
                     asset = reader.ReadObject<T>();
-                    
+
                     reader.Close();
                 }
                 catch (const std::exception& e)
@@ -77,7 +78,7 @@ namespace SceneR
 
                 return asset;
             };
-            
+
             /**
              * Disposes all data that was loaded by this ContentManager.
              */

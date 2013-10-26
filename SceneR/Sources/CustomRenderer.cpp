@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <cmath>
-#include <vector>
-#include "CustomRenderer.hpp"
-#include "Graphics/Model.hpp"
+#include <CustomRenderer.hpp>
+#include <Framework/Color.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/PresentationParameters.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Content;
 using namespace SceneR::Custom;
 using namespace SceneR::Graphics;

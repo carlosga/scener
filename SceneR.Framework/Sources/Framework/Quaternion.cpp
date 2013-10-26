@@ -14,13 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <stdexcept>
+#include <Framework/MathHelper.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
-#include "Core/MathHelper.hpp"
-#include "Core/Quaternion.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 const Quaternion Quaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -111,17 +111,17 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
     return quaternion1 * w1 + quaternion2 * w2;
 }
 
-Quaternion::Quaternion() 
+Quaternion::Quaternion()
     : xCoordinate(0.0f), yCoordinate(0.0f), zCoordinate(0.0f), wCoordinate(0.0f)
 {
 }
-            
+
 Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, const Single& w)
     : xCoordinate(x), yCoordinate(y), zCoordinate(z), wCoordinate(w)
 {
 }
 
-Quaternion::Quaternion(const Quaternion& quaternion) 
+Quaternion::Quaternion(const Quaternion& quaternion)
     : xCoordinate(quaternion.X()), yCoordinate(quaternion.Y()), zCoordinate(quaternion.Z()), wCoordinate(quaternion.W())
 {
 }
@@ -204,14 +204,14 @@ void Quaternion::Normalize()
 Single& Quaternion::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 4);
-    
+
     return (this->quaternion[index]);
 }
 
 const Single& Quaternion::operator[](const Int32& index) const
 {
     assert(index >= 0 && index < 4);
-    
+
     return (this->quaternion[index]);
 }
 
@@ -250,12 +250,12 @@ Quaternion& Quaternion::operator*=(const Quaternion &q1)
     //                                                     + (w0z1 + x0y1 - y0x1 + z0w1)k
 
     Quaternion q0 = *this;
-    
+
     this->wCoordinate = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
     this->xCoordinate = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
     this->yCoordinate = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
     this->zCoordinate = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
-    
+
     return *this;
 }
 
@@ -268,7 +268,7 @@ Quaternion& Quaternion::operator*=(const Single &value)
 
     return *this;
 }
-            
+
 Quaternion& Quaternion::operator/=(const Quaternion &quaternion)
 {
     this->xCoordinate /= quaternion.xCoordinate;
@@ -305,43 +305,43 @@ Quaternion& Quaternion::operator+=(const Quaternion &quaternion)
     this->yCoordinate += quaternion.yCoordinate;
     this->zCoordinate += quaternion.zCoordinate;
     this->wCoordinate += quaternion.wCoordinate;
-    
+
     return *this;
 }
 
-const Quaternion Quaternion::operator*(const Quaternion &quaternion) const 
+const Quaternion Quaternion::operator*(const Quaternion &quaternion) const
 {
     Quaternion result = *this;
 
     result *= quaternion;
-    
+
     return result;
 }
 
-const Quaternion Quaternion::operator*(const Single &value) const 
+const Quaternion Quaternion::operator*(const Single &value) const
 {
     Quaternion result = *this;
 
     result *= value;
-    
+
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Quaternion &quaternion) const 
+const Quaternion Quaternion::operator/(const Quaternion &quaternion) const
 {
     Quaternion result = *this;
 
     result /= quaternion;
-    
+
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Single &value) const 
+const Quaternion Quaternion::operator/(const Single &value) const
 {
     Quaternion result = *this;
 
     result /= value;
-    
+
     return result;
 }
 
@@ -350,15 +350,15 @@ const Quaternion Quaternion::operator-(const Quaternion &quaternion) const
     Quaternion result = *this;
 
     result -= quaternion;
-    
+
     return result;
-}           
+}
 
 const Quaternion Quaternion::operator+(const Quaternion &quaternion) const
 {
     Quaternion result = *this;
 
     result += quaternion;
-    
+
     return result;
 }

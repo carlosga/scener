@@ -14,10 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/VertexBufferTarget.hpp>
+#include <Graphics/VertexBufferUsage.hpp>
 #include <stdexcept>
-#include "Graphics/IndexBuffer.hpp"
-#include "Graphics/VertexBufferTarget.hpp"
-#include "Graphics/VertexBufferUsage.hpp"
 
 using namespace SceneR::Graphics;
 

@@ -17,16 +17,23 @@
 #ifndef CUSTOMRENDERER_HPP
 #define CUSTOMRENDERER_HPP
 
+#include <Framework/Renderer.hpp>
 #include <memory>
-#include "Graphics/PresentationParameters.hpp"
-#include "Graphics/Renderer.hpp"
-#include "Graphics/Model.hpp"
+#include <string>
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Model;
+    }
+}
 
 namespace SceneR
 {
     namespace Custom
     {
-        class CustomRenderer : public SceneR::Graphics::Renderer
+        class CustomRenderer : public SceneR::Framework::Renderer
         {
         public:
             CustomRenderer(const std::string& rootDirectory);

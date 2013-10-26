@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/VertexElement.hpp"
+#include <Graphics/VertexElement.hpp>
 
 using namespace SceneR::Graphics;
 

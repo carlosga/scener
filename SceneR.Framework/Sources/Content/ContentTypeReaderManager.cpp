@@ -14,12 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentType.hpp>
+#include <Content/ContentTypeReaderManager.hpp>
+#include <Content/Readers/IndexBufferReader.hpp>
+#include <Content/Readers/ModelReader.hpp>
+#include <Content/Readers/Texture2DReader.hpp>
+#include <Content/Readers/VertexBufferReader.hpp>
 #include <stdexcept>
-#include "Content/ContentTypeReaderManager.hpp"
-#include "Content/Readers/IndexBufferReader.hpp"
-#include "Content/Readers/ModelReader.hpp"
-#include "Content/Readers/Texture2DReader.hpp"
-#include "Content/Readers/VertexBufferReader.hpp"
 
 using namespace SceneR::Content;
 

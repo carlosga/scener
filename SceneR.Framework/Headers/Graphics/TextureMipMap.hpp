@@ -17,8 +17,16 @@
 #ifndef TEXTUREMIPMAP_HPP
 #define TEXTUREMIPMAP_HPP
 
+#include <Framework/Core.hpp>
 #include <vector>
-#include "Content/Readers/Texture2DReader.hpp"
+
+namespace SceneR
+{
+    namespace Content
+    {
+        class Texture2DReader;
+    }
+}
 
 namespace SceneR
 {

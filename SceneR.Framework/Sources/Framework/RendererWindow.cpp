@@ -14,15 +14,23 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Renderer.hpp>
+#include <Framework/RendererWindow.hpp>
+#include <GLFW/glfw3.h>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/GraphicsProfile.hpp>
+#include <Graphics/PresentationParameters.hpp>
 #include <iostream>
-#include "Graphics/Renderer.hpp"
-#include "Graphics/RendererWindow.hpp"
-#include "Graphics/GraphicsDevice.hpp"
+#include <stdexcept>
 
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 RendererWindow::RendererWindow(Renderer& renderer)
-    : title(), renderer(renderer), allowUserResizing(false), handle(nullptr)
+    : title(),
+      allowUserResizing(false),
+      handle(nullptr),
+      renderer(renderer)
 {
 }
 
@@ -48,7 +56,7 @@ const Boolean& RendererWindow::GetAllowUserResizing() const
 
 void RendererWindow::SetAllowUserResizing(const Boolean& allowUserResizing)
 {
-    this->allowUserResizing = allowUserResizing;            
+    this->allowUserResizing = allowUserResizing;
 }
 
 void RendererWindow::Open()
@@ -59,10 +67,9 @@ void RendererWindow::Open()
         throw std::runtime_error("glfwInit failed");
     }
 
-    GraphicsDevice         graphicsDevice = this->renderer.GetGraphicsDevice();
-    PresentationParameters params         = graphicsDevice.GetPresentationParameters();
-    UInt32                 profile        = static_cast<UInt32>(graphicsDevice.GetGraphicsProfile());
-    GLFWmonitor*           monitor        = nullptr;
+    PresentationParameters params  = this->renderer.GetGraphicsDevice().GetPresentationParameters();
+    UInt32                 profile = static_cast<UInt32>(this->renderer.GetGraphicsDevice().GetGraphicsProfile());
+    GLFWmonitor*           monitor = nullptr;
 
     std::string title(this->title.begin(), this->title.end());
 
@@ -112,7 +119,7 @@ void RendererWindow::Open()
     {
         throw std::runtime_error("OpenGL 4.3 API is not available.");
     }
-    
+
     // GLEW throws some errors, so discard all the errors so far
     while(glGetError() != GL_NO_ERROR)
     {

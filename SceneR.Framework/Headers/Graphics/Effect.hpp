@@ -17,19 +17,19 @@
 #ifndef EFFECT_HPP
 #define EFFECT_HPP
 
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <Shaders/ShaderProgram.hpp>
 #include <memory>
+#include <string>
 #include <vector>
-#include "Graphics/EffectParameter.hpp"
-#include "Graphics/EffectParameterClass.hpp"
-#include "Graphics/EffectParameterType.hpp"
-#include "Graphics/GraphicsResource.hpp"
-#include "Graphics/GraphicsDevice.hpp"
-#include "Shaders/ShaderProgram.hpp"
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         /**
          * Used to set and query effects, and to choose techniques.
          */
@@ -54,7 +54,9 @@ namespace SceneR
             /**
              * Releases all resources being used by this effect instance.
              */
-            virtual ~Effect();
+            virtual ~Effect()
+            {
+            };
 
         public:
             /**

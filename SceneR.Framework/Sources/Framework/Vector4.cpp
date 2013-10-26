@@ -14,12 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector4.hpp>
 #include <cassert>
 #include <cmath>
-#include "Core/MathHelper.hpp"
-#include "Core/Vector4.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 Vector4::Vector4()
     : Vector4(0.0f, 0.0f, 0.0f, 1.0f)
@@ -63,16 +63,16 @@ const Single& Vector4::W() const
 
 const Single Vector4::LengthSquared() const
 {
-    return   (this->xCoordinate * this->xCoordinate) 
-           + (this->yCoordinate * this->yCoordinate) 
+    return   (this->xCoordinate * this->xCoordinate)
+           + (this->yCoordinate * this->yCoordinate)
            + (this->zCoordinate * this->zCoordinate)
            + (this->wCoordinate * this->wCoordinate);
 }
 
 const Single Vector4::Length() const
 {
-    // The modulus or magnitude of a vector is simply its length. 
-    // This can easily be found using Pythagorean Theorem with the vector components. 
+    // The modulus or magnitude of a vector is simply its length.
+    // This can easily be found using Pythagorean Theorem with the vector components.
     //
     // The modulus is written like:
     // a = |a|
@@ -83,7 +83,7 @@ const Single Vector4::Length() const
     // Then:
     //
     // |a| = sqrt(x^2 + y^2 + z^2 + w^2)
-    
+
     return std::sqrt(this->LengthSquared());
 }
 
@@ -95,35 +95,35 @@ void Vector4::Negate()
 const Single Vector4::DotProduct(const Vector4& vectorb) const
 {
     Vector4 dotProduct = *this * vectorb;
-    
+
     return (dotProduct.X() + dotProduct.Y() + dotProduct.Z() + dotProduct.W());
 }
 
 void Vector4::Normalize()
 {
-    // To find the unit vector of another vector, we use the modulus operator 
+    // To find the unit vector of another vector, we use the modulus operator
     // and scalar multiplication like so:
     // b = a / |a|
     //
     // Where |a| is the modulus of a
 
     (*this /= this->Length());
-}       
-    
+}
+
 Single& Vector4::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 4);
-    
+
     return (this->vector[index]);
 }
 
 const Single& Vector4::operator[](const Int32& index) const
 {
     assert(index >= 0 && index < 4);
-    
+
     return (this->vector[index]);
 }
-        
+
 Vector4& Vector4::operator=(const Vector4 &vector)
 {
     if (this != &vector)
@@ -169,7 +169,7 @@ Vector4& Vector4::operator*=(const Single &value)
 
     return *this;
 }
-            
+
 Vector4& Vector4::operator/=(const Vector4 &vector)
 {
     this->xCoordinate /= vector.xCoordinate;
@@ -206,7 +206,7 @@ Vector4& Vector4::operator+=(const Vector4 &vector)
     this->yCoordinate += vector.yCoordinate;
     this->zCoordinate += vector.zCoordinate;
     this->wCoordinate += vector.wCoordinate;
-    
+
     return *this;
 }
 
@@ -215,7 +215,7 @@ const Vector4 Vector4::operator*(const Vector4 &vector) const
     Vector4 result = *this;
 
     result *= vector;
-    
+
     return result;
 }
 
@@ -224,7 +224,7 @@ const Vector4 Vector4::operator*(const Single &value) const
     Vector4 result = *this;
 
     result *= value;
-    
+
     return result;
 }
 
@@ -258,7 +258,7 @@ const Vector4 Vector4::operator/(const Vector4 &vector) const
     Vector4 result = *this;
 
     result /= vector;
-    
+
     return result;
 }
 
@@ -267,7 +267,7 @@ const Vector4 Vector4::operator/(const Single &value) const
     Vector4 result = *this;
 
     result /= value;
-    
+
     return result;
 }
 
@@ -276,15 +276,15 @@ const Vector4 Vector4::operator-(const Vector4 &vector) const
     Vector4 result = *this;
 
     result -= vector;
-    
+
     return result;
-}           
+}
 
 const Vector4 Vector4::operator+(const Vector4 &vector) const
 {
     Vector4 result = *this;
 
     result += vector;
-    
+
     return result;
 }

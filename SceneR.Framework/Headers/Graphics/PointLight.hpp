@@ -17,9 +17,16 @@
 #ifndef POINTLIGHT_HPP
 #define POINTLIGHT_HPP
 
-#include "Core/Color.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/PointLightBase.hpp"
+#include <Graphics/PointLightBase.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+        class Vector3;
+    }
+}
 
 namespace SceneR
 {
@@ -35,14 +42,14 @@ namespace SceneR
              * Initializes a new instance of the PointLight class at the origin.
              */
             PointLight();
-            
+
             /**
              * Initializes a new instance of the PointLight class at the specified position, using the specified color.
              * @param diffuseColor the diffuse color of the light.
              * @param position The position of the light.
              */
-            PointLight(const SceneR::Core::Color& diffuseColor, const SceneR::Core::Vector3& position);
-            
+            PointLight(const SceneR::Framework::Color& diffuseColor, const SceneR::Framework::Vector3& position);
+
         protected:
             /**
              * Releases all resources being used by the current PointLight

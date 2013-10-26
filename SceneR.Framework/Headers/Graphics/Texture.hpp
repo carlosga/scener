@@ -17,15 +17,17 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include "Core/Core.hpp"
-#include "Graphics/GraphicsDevice.hpp"
-#include "Graphics/GraphicsResource.hpp"
-#include "Graphics/SurfaceFormat.hpp"
+#include <Framework/Core.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <Graphics/SurfaceFormat.hpp>
+#include <memory>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         /**
          * Represents a texture reference.
          */

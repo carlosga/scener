@@ -17,21 +17,24 @@
 #ifndef BASICEFFECT_HPP
 #define BASICEFFECT_HPP
 
+#include <Framework/Color.hpp>
+#include <Framework/Core.hpp>
+#include <Framework/Matrix.hpp>
+#include <Graphics/AmbientLight.hpp>
+#include <Graphics/Effect.hpp>
+#include <Graphics/IEffectFog.hpp>
+#include <Graphics/IEffectLights.hpp>
+#include <Graphics/IEffectMatrices.hpp>
+#include <Graphics/Texture2D.hpp>
 #include <memory>
-#include "Core/Color.hpp"
-#include "Core/Matrix.hpp"
-#include "Graphics/AmbientLight.hpp"
-#include "Graphics/Effect.hpp"
-#include "Graphics/GraphicsDevice.hpp"
-#include "Graphics/IEffectMatrices.hpp"
-#include "Graphics/IEffectLights.hpp"
-#include "Graphics/IEffectFog.hpp"
-#include "Graphics/Texture2D.hpp"
+#include <vector>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         //http://msdn.microsoft.com/en-us/library/bb194916(v=xnagamestudio.40).aspx
         /**
          * Contains a basic rendering effect.
@@ -45,6 +48,11 @@ namespace SceneR
              * @param graphicsDevice the graphics device
              */
             BasicEffect(GraphicsDevice& graphicsDevice);
+
+            /**
+             * Releases all resources being used by this BasicEffect.
+             */
+            ~BasicEffect();
 
         public:
             /**
@@ -72,12 +80,12 @@ namespace SceneR
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            const SceneR::Core::Color& GetDiffuseColor() const;
+            const SceneR::Framework::Color& GetDiffuseColor() const;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            void SetDiffuseColor(const SceneR::Core::Color& diffuseColor);
+            void SetDiffuseColor(const SceneR::Framework::Color& diffuseColor);
 
             /**
              * Gets the lights of the current effect
@@ -93,25 +101,25 @@ namespace SceneR
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Core::Color& GetEmissiveColor() const;
+            const SceneR::Framework::Color& GetEmissiveColor() const;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SetEmissiveColor(const SceneR::Core::Color& emissiveColor);
+            void SetEmissiveColor(const SceneR::Framework::Color& emissiveColor);
 
             /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual const SceneR::Core::Color& GetFogColor() const override;
+            virtual const SceneR::Framework::Color& GetFogColor() const override;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual void SetFogColor(const SceneR::Core::Color& fogColor) override;
+            virtual void SetFogColor(const SceneR::Framework::Color& fogColor) override;
 
             /**
              * Enables fog for the current effect.
@@ -178,24 +186,24 @@ namespace SceneR
             /**
              * Gets the projection matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetProjection() const override;
+            virtual const SceneR::Framework::Matrix& GetProjection() const override;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            virtual void SetProjection(const SceneR::Core::Matrix& projection) override;
+            virtual void SetProjection(const SceneR::Framework::Matrix& projection) override;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Core::Color& GetSpecularColor() const;
+            const SceneR::Framework::Color& GetSpecularColor() const;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SetSpecularColor(const SceneR::Core::Color& specularColor);
+            void SetSpecularColor(const SceneR::Framework::Color& specularColor);
 
             /**
              * Gets specular power of this effect material.
@@ -235,12 +243,12 @@ namespace SceneR
             /**
              * Gets the view matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetView() const override;
+            virtual const SceneR::Framework::Matrix& GetView() const override;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            virtual void SetView(const SceneR::Core::Matrix& view) override;
+            virtual void SetView(const SceneR::Framework::Matrix& view) override;
 
             /**
              * Enables use vertex colors for this effect.
@@ -260,12 +268,12 @@ namespace SceneR
             /**
              * Gets the world matrix in the current effect.
              */
-            virtual const SceneR::Core::Matrix& GetWorld() const override;
+            virtual const SceneR::Framework::Matrix& GetWorld() const override;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            virtual void SetWorld(const SceneR::Core::Matrix& world) override;
+            virtual void SetWorld(const SceneR::Framework::Matrix& world) override;
 
         public:
             /**
@@ -285,23 +293,23 @@ namespace SceneR
         private:
             Single                              alpha;
             AmbientLight                        ambientLight;
-            SceneR::Core::Color                 diffuseColor;
+            SceneR::Framework::Color            diffuseColor;
             std::vector<std::shared_ptr<Light>> lights;
             Boolean                             lightingEnabled;
-            SceneR::Core::Color                 emissiveColor;
+            SceneR::Framework::Color            emissiveColor;
             Boolean                             fogEnabled;
-            SceneR::Core::Color                 fogColor;
+            SceneR::Framework::Color            fogColor;
             Single                              fogEnd;
             Single                              fogStart;
             Boolean                             preferPerPixelLighting;
-            SceneR::Core::Matrix                projection;
-            SceneR::Core::Color                 specularColor;
+            SceneR::Framework::Matrix           projection;
+            SceneR::Framework::Color            specularColor;
             Single                              specularPower;
             Boolean                             textureEnabled;
             std::shared_ptr<Texture2D>          texture;
             Boolean                             vertexColorEnabled;
-            SceneR::Core::Matrix                view;
-            SceneR::Core::Matrix                world;
+            SceneR::Framework::Matrix           view;
+            SceneR::Framework::Matrix           world;
         };
     }
 }

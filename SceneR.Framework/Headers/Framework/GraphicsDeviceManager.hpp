@@ -17,15 +17,18 @@
 #ifndef GRAPHICSDEVICEMANAGER_HPP
 #define GRAPHICSDEVICEMANAGER_HPP
 
-#include "Graphics/GraphicsDevice.hpp"
-#include "Graphics/IGraphicsDeviceManager.hpp"
+#include <Framework/Core.hpp>
+#include <Framework/IGraphicsDeviceManager.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <memory>
+#include <string>
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Framework
     {
         class Renderer;
-        
+
         /**
          * Handles the configuration and management of the graphics device.
          */
@@ -47,7 +50,7 @@ namespace SceneR
              * Applies any changes to device-related propertie.
              */
             void ApplyChanges();
-                        
+
             /**
              * Starts the drawing of a frame.
              */
@@ -67,13 +70,13 @@ namespace SceneR
              * Gets the graphics device.
              * @return the graphics device.
              */
-            GraphicsDevice& GetGraphicsDevice();
-            
+            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+
             /**
              * Gets a value indicating whether to allow the user to resize the device window.
              */
             const Boolean GetAllowUserResizing() const;
-                        
+
             /**
              * Geta a value indicating whether to allow the user to resize the device window.
              */
@@ -84,24 +87,24 @@ namespace SceneR
              * @return the window title.
              */
             const std::wstring GetWindowTitle() const;
-            
+
             /**
              * Sets the window title.
              * @param windowTitle the window title.
              */
             void SetWindowTitle(const std::wstring& windowTitle);
-                        
+
             /**
              * Gets a value that indicates whether the device should start in full-screen mode.
              * @return a value that indicates whether the device should start in full-screen mode.
              */
             const Boolean GetFullScreen();
-            
+
             /**
              * Sets a value that indicates whether the device should start in full-screen mode.
              */
             void SetFullScreen(const Boolean& fullScreen);
-            
+
             /**
              * Gets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
@@ -123,11 +126,11 @@ namespace SceneR
              * Sets the preferred back-buffer width.
              */
             void SetPreferredBackBufferWidth(const Size& preferredBackBufferWidth);
-            
+
         private:
-            Renderer&      renderer;
-            GraphicsDevice graphicsDevice;
-            
+            Renderer&                        renderer;
+            SceneR::Graphics::GraphicsDevice graphicsDevice;
+
             friend class Renderer;
         };
     }

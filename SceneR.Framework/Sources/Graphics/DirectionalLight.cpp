@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/DirectionalLight.hpp"
+#include <Graphics/DirectionalLight.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 DirectionalLight::DirectionalLight()
@@ -28,7 +28,7 @@ DirectionalLight::DirectionalLight(const Color& diffuseColor, const Vector3& dir
     : Light(diffuseColor), direction(direction)
 {
 }
-         
+
 const Vector3& DirectionalLight::GetDirection() const
 {
     return this->direction;

@@ -17,13 +17,14 @@
 #ifndef VECTOR4_HPP
 #define VECTOR4_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Matrix.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {
-    namespace Core
+    namespace Framework
     {
+        class Matrix;
+
         /**
          * Represents an x-, y-, z- and w-coordinate vector.
          */

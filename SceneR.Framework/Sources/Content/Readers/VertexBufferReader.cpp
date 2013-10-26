@@ -14,14 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/VertexBufferReader.hpp>
+#include <Framework/Core.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexPositionNormalTexture.hpp>
 #include <vector>
-#include "Core/Vector2.hpp"
-#include "Core/Vector3.hpp"
-#include "Content/Readers/VertexBufferReader.hpp"
-#include "Graphics/VertexBuffer.hpp"
-#include "Graphics/VertexPositionNormalTexture.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 

@@ -17,9 +17,10 @@
 #ifndef IEFFECTLIGHTS_HPP
 #define IEFFECTLIGHTS_HPP
 
+#include <Framework/Core.hpp>
+#include <Graphics/AmbientLight.hpp>
+#include <memory>
 #include <vector>
-#include "Graphics/AmbientLight.hpp"
-#include "Graphics/Light.hpp"
 
 namespace SceneR
 {

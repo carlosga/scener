@@ -17,7 +17,7 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include <iostream>
+#include <fstream>
 #include <sstream>
 #include <string>
 
@@ -36,9 +36,7 @@ namespace SceneR
              */
             static std::wstring ReadAllText(const std::string& filePath)
             {
-                std::wifstream stream;
-
-                stream.open(filePath.c_str(), std::ios::in | std::ios::binary);
+                std::wifstream stream(filePath.c_str(), std::ios::in | std::ios::binary);
 
                 if (!stream.is_open())
                 {

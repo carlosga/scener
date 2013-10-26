@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <stdexcept>
-#include "Graphics/AmbientLight.hpp"
+#include <Graphics/AmbientLight.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 AmbientLight::AmbientLight()

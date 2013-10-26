@@ -17,6 +17,8 @@
 #ifndef EFFECTPARAMETERCLASS_HPP
 #define EFFECTPARAMETERCLASS_HPP
 
+#include <Framework/Core.hpp>
+
 namespace SceneR
 {
     namespace Graphics
@@ -24,28 +26,28 @@ namespace SceneR
         /**
          * Defines classes that can be used for effect parameters or shader constants.
          */
-        enum class EffectParameterClass
+        enum class EffectParameterClass : UInt32
         {
             /**
              * Constant is a matrix.
              */
-            Matrix,
+            Matrix = 1,
             /**
              * Constant is either a texture, a shader, or a string.
              */
-            Object,
+            Object = 2,
             /**
              * Constant is a scalar.
              */
-            Scalar,
+            Scalar = 3,
             /**
              * Constant is a structure.
              */
-            Struct,
+            Struct = 4,
             /**
              * Constant is a vector.
              */
-            Vector
+            Vector = 5
         };
     }
 }

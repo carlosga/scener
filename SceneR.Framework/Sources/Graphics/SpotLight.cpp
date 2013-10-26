@@ -14,11 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/SpotLight.hpp>
 #include <stdexcept>
-#include "Core/Vector4.hpp"
-#include "Graphics/SpotLight.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 SpotLight::SpotLight()
@@ -59,7 +58,7 @@ void SpotLight::SetFalloffAngle(const Single falloffAngle)
     {
         throw std::runtime_error("Falloff angle should be between 0 and 180");
     }
-    
+
     this->falloffAngle = falloffAngle;
 }
 

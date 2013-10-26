@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
+#include <Shaders/Shader.hpp>
 #include <stdexcept>
-#include <vector>
-#include "Shaders/Shader.hpp"
 
 using namespace SceneR::Shaders;
 

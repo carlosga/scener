@@ -17,9 +17,16 @@
 #ifndef DIRECTIONALLIGHT_HPP
 #define DIRECTIONALLIGHT_HPP
 
-#include "Core/Core.hpp"
-#include "Core/Vector3.hpp"
-#include "Graphics/Light.hpp"
+#include <Framework/Vector3.hpp>
+#include <Graphics/Light.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class Color;
+    }
+}
 
 namespace SceneR
 {
@@ -36,31 +43,32 @@ namespace SceneR
              * This contructor creates an instance of a white light projected along a Vector3 of value (0,0,-1).
              */
             DirectionalLight();
-            
+
             /**
              * Creates an instance of a light that projects its effect along a specified Vector3 with a specified color.
              * @param diffuseColor diffuse color of the new light.
              * @param direction the direction of the new light.
              */
-            DirectionalLight(const SceneR::Core::Color& diffuseColor, const SceneR::Core::Vector3& direction);
+            DirectionalLight(const SceneR::Framework::Color& diffuseColor,
+                             const SceneR::Framework::Vector3& direction);
 
         public:
             /**
              * Gets the vector along which the light's effect will be seen on models in a 3-D scene.
              * @return the vector along which the light's effect will be seen on models in a 3-D scene.
              */
-            const SceneR::Core::Vector3& GetDirection() const;
+            const SceneR::Framework::Vector3& GetDirection() const;
 
             /**
              * Sets the vector along which the light's effect will be seen on models in a 3-D scene.
              */
-            void SetDirection(const SceneR::Core::Vector3& direction);
-            
+            void SetDirection(const SceneR::Framework::Vector3& direction);
+
         private:
             /**
              * Represents the vector along which the light's effect will be seen on models in a 3-D scene.
              */
-            SceneR::Core::Vector3 direction;
+            SceneR::Framework::Vector3 direction;
         };
     }
 }

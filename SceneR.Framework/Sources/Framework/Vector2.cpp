@@ -14,30 +14,41 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef FILLMODE_HPP
-#define FILLMODE_HPP
+#include <Framework/Vector2.hpp>
+#include <cassert>
 
-#include <Framework/Core.hpp>
+using namespace SceneR::Framework;
 
-namespace SceneR
+Vector2::Vector2()
+    : x(0.0f), y(0.0f)
 {
-    namespace Graphics
-    {
-        /**
-         * Describes options for filling the vertices and lines that define a primitive.
-         */
-        enum class FillMode : UInt32
-        {
-            /**
-             * Draw solid faces for each primitive.
-             */
-            Solid = 1,
-            /**
-             * Draw lines connecting the vertices that define a primitive face.
-             */
-            WireFrame = 2
-        };
-    }
 }
 
-#endif  /* FILLMODE_HPP */
+Vector2::Vector2(const Single& x, const Single& y)
+    : x(x), y(y)
+{
+}
+
+const Single& Vector2::X() const
+{
+    return this->x;
+}
+
+const Single& Vector2::Y() const
+{
+    return this->x;
+}
+
+Single& Vector2::operator[](const Int32& index)
+{
+    assert(index >= 0 && index < 2);
+
+    return (this->coords[index]);
+}
+
+const Single& Vector2::operator[](const Int32& index) const
+{
+    assert(index >= 0 && index < 2);
+
+    return (this->coords[index]);
+}

@@ -14,15 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/Renderer.hpp"
+#include <Framework/Renderer.hpp>
+#include <GLFW/glfw3.h>
 
 using namespace SceneR::Content;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Renderer::Renderer(const std::string& rootDirectory)
     : graphicsDeviceManager(*this),
-      contentManager(this->graphicsDeviceManager.graphicsDevice, rootDirectory),
-      rendererWindow(*this)
+      rendererWindow(*this),
+      contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory)
 {
 }
 
@@ -73,7 +75,7 @@ void Renderer::StartEventLoop()
         this->BeginDraw();
         this->Draw();
         this->EndDraw();
-                
+
         // Check if the ESC key was pressed or the window was closed
     } while (!this->rendererWindow.ShouldClose());
 }

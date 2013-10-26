@@ -17,7 +17,8 @@
 #ifndef GRAPHICSPROFILE_HPP
 #define GRAPHICSPROFILE_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
+#include <GLFW/glfw3.h>
 
 namespace SceneR
 {
@@ -25,8 +26,8 @@ namespace SceneR
     {
         /**
          * Identifies the type of OpenGL profile to be used on GraphicsDevice instances.
-         */ 
-        enum class GraphicsProfile : Int32
+         */
+        enum class GraphicsProfile : UInt32
         {
             /**
              * Core profile

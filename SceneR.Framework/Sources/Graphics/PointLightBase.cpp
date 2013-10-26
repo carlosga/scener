@@ -14,9 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/PointLightBase.hpp"
+#include <Framework/Color.hpp>
+#include <Graphics/PointLightBase.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 PointLightBase::PointLightBase()
@@ -33,7 +34,7 @@ PointLightBase::PointLightBase(const Color& diffuseColor, const Vector3& positio
 const Single PointLightBase::GetConstantAttenuation() const
 {
     return this->constantAttenuation;
-}            
+}
 
 void PointLightBase::SetConstantAttenuation(const Single constantAttenuation)
 {
@@ -82,6 +83,6 @@ void PointLightBase::SetRange(const Single range)
 
 const Single PointLightBase::GetTotalAttenuation(const Single distance) const
 {
-    // A = constant_attenuation + ( Dist * linear_attenuation ) + (( Dist^2 ) * quadratic_attenuation )  
+    // A = constant_attenuation + ( Dist * linear_attenuation ) + (( Dist^2 ) * quadratic_attenuation )
     return this->constantAttenuation + (distance * this->linearAttenuation) + ((distance * distance) * this->quadraticAttenuation);
 }

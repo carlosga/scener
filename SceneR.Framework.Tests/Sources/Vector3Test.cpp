@@ -1,7 +1,10 @@
-#include "Vector3Test.hpp"
-#include "Core/Vector3.hpp"
+#include <cppunit/SourceLine.h>
+#include <cppunit/TestAssert.h>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
+#include <Vector3Test.hpp>
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector3Test);
 

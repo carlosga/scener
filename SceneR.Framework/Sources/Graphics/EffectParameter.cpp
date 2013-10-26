@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/EffectParameter.hpp>
 #include <stdexcept>
-#include "Graphics/EffectParameter.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Shaders;
 
@@ -187,7 +187,7 @@ void EffectParameter::SetValue(const Matrix& value) const
     {
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
-    
+
     this->shader->SetValue(this->parameterLocation, value);
 }
 
@@ -242,7 +242,7 @@ void EffectParameter::SetValue(const Vector3& value) const
     {
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
-    
+
     this->shader->SetValue(this->parameterLocation, value);
 }
 

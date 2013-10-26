@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include "Graphics/DepthStencilState.hpp"
-#include "Graphics/GraphicsDevice.hpp"
+#include <Graphics/DepthStencilState.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/Viewport.hpp>
 
 using namespace SceneR::Graphics;
 
@@ -24,6 +25,10 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
       depthBufferEnable(true),
       depthBufferFunction(CompareFunction::LessEqual),
       depthBufferWriteEnable(true)
+{
+}
+
+DepthStencilState::~DepthStencilState()
 {
 }
 

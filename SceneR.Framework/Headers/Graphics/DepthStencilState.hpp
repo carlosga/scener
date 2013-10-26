@@ -17,8 +17,18 @@
 #ifndef DEPTHSTENCILSTATE_HPP
 #define DEPTHSTENCILSTATE_HPP
 
-#include "Graphics/CompareFunction.hpp"
-#include "Graphics/GraphicsResource.hpp"
+#include <Framework/Core.hpp>
+#include <Graphics/CompareFunction.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <memory>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class GraphicsDeviceManager;
+    }
+}
 
 namespace SceneR
 {
@@ -33,11 +43,17 @@ namespace SceneR
         {
         public:
             /**
-             * Initializes a new instance of the DepthStencilState class 
+             * Initializes a new instance of the DepthStencilState class
              * with the given GraphcisDevice
              */
             DepthStencilState(GraphicsDevice& graphicsDevice);
 
+            /**
+             * Releases all resources being used by this DepthStencilState
+             */
+            ~DepthStencilState();
+
+        public:
             /**
              * Gets a value indicating where depth buffer is enabled
              */
@@ -59,12 +75,12 @@ namespace SceneR
             void SetDepthBufferFunction(const CompareFunction& depthBufferFunction) const;
 
             /**
-             *  Gets a value indicating wheter writing to the depth buffer is allowed. The default is true.
+             *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
             const Boolean& GetDepthBufferWriteEnable() const;
 
             /**
-             *  Sets a value indicating wheter writing to the depth buffer is allowed. The default is true.
+             *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
             void SetDepthBufferWriteEnable(const Boolean& depthBufferWriteEnable);
 
@@ -76,7 +92,7 @@ namespace SceneR
             CompareFunction depthBufferFunction;
             Boolean         depthBufferWriteEnable;
 
-            friend class GraphicsDevice;
+            friend class SceneR::Framework::GraphicsDeviceManager;
         };
     }
 }

@@ -14,15 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
 #include <stdexcept>
-#include "Core/MathHelper.hpp"
-#include "Core/Matrix.hpp"
-#include "Core/Quaternion.hpp"
-#include "Core/Vector3.hpp"
 
-using namespace SceneR::Core;
+using namespace SceneR::Framework;
 
 const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,
                               0.0f, 1.0f, 0.0f, 0.0f,
@@ -39,18 +39,18 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
     float y       = 0.0f;
     float z       = 0.0f;
     Vector3 axisNormalized(axis);
-    
+
     axisNormalized.Normalize();
-    
+
     x = axisNormalized.X();
     y = axisNormalized.Y();
     z = axisNormalized.Z();
-        
+
     return Matrix(x * x * cos_1 + cos    , y * x * cos_1 + z * sin, z * x * cos_1 - y * sin, 0.0f,
                   x * y * cos_1 - z * sin, y * y * cos_1 + cos    , z * y * cos_1 + x * sin, 0.0f,
                   x * z * cos_1 + y * sin, y * z * cos_1 - x * sin, z * z * cos_1 + cos    , 0.0f,
                   0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
-}                                  
+}
 
 Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
 {
@@ -113,7 +113,7 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
                   0.0f                      , 0.0f                      , -(farPlusNear  / farSubNear)  , -(2 * zFar * zNear / farSubNear),
                   0.0f                      , 0.0f                      , -1.0f                         , 0.0f);
 }
-            
+
 Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
@@ -127,13 +127,13 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     // dot(xaxis, eye)   dot(yaxis, eye)   dot(zaxis, eye)  1
 
     Vector3 zAxis(cameraPosition - cameraTarget);
-    
+
     zAxis.Normalize();
-    
+
     Vector3 xAxis(cameraUpVector.CrossProduct(zAxis));
-    
+
     xAxis.Normalize();
-    
+
     Vector3 yAxis(zAxis.CrossProduct(xAxis));
 
     Single dx = xAxis.DotProduct(cameraPosition);
@@ -265,7 +265,7 @@ Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Sin
                   0.0f  , 0.0f  , zScale, 0.0f,
                   0.0f  , 0.0f  , 0.0f  , 1.0f);
 }
-                            
+
 Matrix Matrix::CreateScale(const Vector3& scales)
 {
     return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
@@ -278,7 +278,7 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
                   0.0f, 0.0f, 1.0f, 0.0f,
                   x   , y   , z   , 1.0f);
 }
-                                  
+
 Matrix Matrix::CreateTranslation(const Vector3& position)
 {
     return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
@@ -295,11 +295,11 @@ Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 }
 
 Matrix::Matrix()
-    : m11(0.0f), m12(0.0f), m13(0.0f), m14(0.0f), 
-      m21(0.0f), m22(0.0f), m23(0.0f), m24(0.0f), 
-      m31(0.0f), m32(0.0f), m33(0.0f), m34(0.0f), 
-      m41(0.0f), m42(0.0f), m43(0.0f), m44(0.0f) 
-{                
+    : m11(0.0f), m12(0.0f), m13(0.0f), m14(0.0f),
+      m21(0.0f), m22(0.0f), m23(0.0f), m24(0.0f),
+      m31(0.0f), m32(0.0f), m33(0.0f), m34(0.0f),
+      m41(0.0f), m42(0.0f), m43(0.0f), m44(0.0f)
+{
 }
 
 Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Single& m14,
@@ -350,52 +350,52 @@ const Single& Matrix::M22() const
 {
     return this->m22;
 }
-        
+
 const Single& Matrix::M23() const
 {
     return this->m23;
 }
-        
+
 const Single& Matrix::M24() const
 {
     return this->m24;
 }
-          
+
 const Single& Matrix::M31() const
 {
     return this->m31;
 }
-          
+
 const Single& Matrix::M32() const
 {
     return this->m32;
 }
-        
+
 const Single& Matrix::M33() const
 {
     return this->m33;
 }
-         
+
 const Single& Matrix::M34() const
 {
     return this->m34;
 }
-         
+
 const Single& Matrix::M41() const
 {
     return this->m41;
 }
-        
+
 const Single& Matrix::M42() const
 {
     return this->m42;
 }
-         
+
 const Single& Matrix::M43() const
 {
     return this->m43;
 }
-        
+
 const Single& Matrix::M44() const
 {
     return this->m44;
@@ -409,20 +409,20 @@ bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translatio
 const Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    
+
 	UInt32 n      = 0;
 	Int32  i      = 1;
     Single result = 0;
     Single det    = 0;
     Matrix msub;
-    
+
     for (; n < 4; n++, i *= -1)
     {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();
         result += this->matrix[n] * det * i;
     }
-    
+
     return result;
 }
 
@@ -436,11 +436,11 @@ void Matrix::Invert()
     if (this->HasInverse())
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        
+
         Single mdet = this->Determinant();
         Matrix mtemp;
         Int32  sign;
-        
+
         for (UInt32 i = 0; i < 4; i++)
         {
             for (UInt32 j = 0; j < 4; j++)
@@ -466,17 +466,17 @@ void Matrix::Transpose()
     this->m12 = temp.m21;
     this->m13 = temp.m31;
     this->m14 = temp.m41;
-    
+
     this->m21 = temp.m12;
     this->m22 = temp.m22;
     this->m23 = temp.m32;
     this->m24 = temp.m42;
-    
+
     this->m31 = temp.m13;
     this->m32 = temp.m23;
     this->m33 = temp.m33;
     this->m34 = temp.m43;
-    
+
     this->m41 = temp.m14;
     this->m42 = temp.m24;
     this->m43 = temp.m34;
@@ -508,12 +508,12 @@ Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
             // map 3x3 element (destination) to 4x4 element (source)
             si = di + ((di >= row) ? 1 : 0);
             sj = dj + ((dj >= column) ? 1 : 0);
-        
+
             // copy element
             result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
         }
     }
-    
+
     return result;
 }
 
@@ -582,17 +582,17 @@ Matrix& Matrix::operator*=(const Matrix &matrix)
     this->m12 = m12;
     this->m13 = m13;
     this->m14 = m14;
-    
+
     this->m21 = m21;
     this->m22 = m22;
     this->m23 = m23;
     this->m24 = m24;
-    
+
     this->m31 = m31;
     this->m32 = m32;
     this->m33 = m33;
     this->m34 = m34;
-    
+
     this->m41 = m41;
     this->m42 = m42;
     this->m43 = m43;
@@ -604,8 +604,8 @@ Matrix& Matrix::operator*=(const Matrix &matrix)
 const Matrix Matrix::operator*(const Matrix &matrix) const
 {
     Matrix result = *this;  // Make a copy of myself. Same as Vector3 result(*this)
-    
+
     result *= matrix;
-    
+
     return result;
 }

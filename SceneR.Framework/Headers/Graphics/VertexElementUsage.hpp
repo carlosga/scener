@@ -17,7 +17,7 @@
 #ifndef VERTEXELEMENTUSAGE_HPP
 #define VERTEXELEMENTUSAGE_HPP
 
-#include "Core/Core.hpp"
+#include <Framework/Core.hpp>
 
 namespace SceneR
 {

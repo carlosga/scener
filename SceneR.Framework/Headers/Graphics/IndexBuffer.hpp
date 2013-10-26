@@ -17,15 +17,18 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
+#include <Framework/Core.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <Graphics/IndexElementSize.hpp>
+#include <memory>
 #include <vector>
-#include "Core/Core.hpp"
-#include "Graphics/GraphicsResource.hpp"
-#include "Graphics/IndexElementSize.hpp"
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
+
         /**
          * Describes the rendering order of the vertices in a vertex buffer.
          */
@@ -39,9 +42,9 @@ namespace SceneR
              * @param indexElementSize The size (in bits) of each index.
              * @param indexCount The number of indices.
              */
-            IndexBuffer (GraphicsDevice&         graphicsDevice,
-                         const IndexElementSize& indexElementSize,
-                         const UInt32&           indexCount);
+            IndexBuffer(GraphicsDevice&         graphicsDevice,
+                        const IndexElementSize& indexElementSize,
+                        const UInt32&           indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
