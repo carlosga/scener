@@ -45,14 +45,7 @@ void CustomRenderer::Draw()
 //    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f), view, projection);
 }
 
-void SceneR::Sample::CustomRenderer::BeginRun()
-{
-    this->components.push_back(std::make_shared<AstroBoy>(*this));
-
-    Renderer::BeginRun();
-}
-
-void CustomRenderer::Initialize()
+void CustomRenderer::BeginRun()
 {
     PresentationParameters& parameters = this->GetGraphicsDevice().GetPresentationParameters();
 
@@ -61,5 +54,7 @@ void CustomRenderer::Initialize()
 
     this->GetRendererWindow().SetTitle(L"SceneR");
 
-    Renderer::Initialize();
+    Renderer::BeginRun();
+
+    this->components.push_back(std::make_shared<AstroBoy>(*this));
 }

@@ -40,9 +40,8 @@ const ContentType ModelReader::GetContentType() const
 
 std::shared_ptr<void> ModelReader::Read(ContentReader* input)
 {
-    std::shared_ptr<Model> model = std::make_shared<Model>();
-
-    UInt32 boneCount = input->ReadUInt32();
+    std::shared_ptr<Model> model     = std::make_shared<Model>();
+    UInt32                 boneCount = input->ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
@@ -86,7 +85,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     {
         std::shared_ptr<ModelMesh> modelMesh = std::make_shared<ModelMesh>();
 
-        modelMesh->SetName(input->ReadString());
+        modelMesh->name = input->ReadString();
 
         UInt32 parentBoneReference = this->ReadBoneReference(input, model->bones.size());
 
@@ -96,7 +95,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
         }
 
         // TODO: Read mesh bounds
-        modelMesh->SetTag(input->ReadString());
+        modelMesh->tag = input->ReadString();
 
         // Read mesh parts
         UInt32 meshPartCount = input->ReadUInt32();
@@ -109,14 +108,12 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
             modelMeshPart->vertexCount    = input->ReadUInt32();
             modelMeshPart->startIndex     = input->ReadUInt32();
             modelMeshPart->primitiveCount = input->ReadUInt32();
-            modelMeshPart->SetTag(input->ReadString());
+            modelMeshPart->tag            = input->ReadString();
             modelMeshPart->vertexBuffer   = input->ReadObject<VertexBuffer>();
             modelMeshPart->indexBuffer    = input->ReadObject<IndexBuffer>();
 
             // TODO: Read the effect from the file
-            std::shared_ptr<BasicEffect> effect = std::make_shared<BasicEffect>(input->GetGraphicsDevice());
-
-            modelMeshPart->SetEffect(effect);
+            modelMeshPart->effect = std::make_shared<BasicEffect>(input->GetGraphicsDevice());;
 
             modelMesh->meshParts.push_back(modelMeshPart);
         }

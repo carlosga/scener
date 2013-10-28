@@ -39,8 +39,6 @@ void Renderer::Run()
 {
     this->BeginRun();
     this->Initialize();
-    this->rendererWindow.Open();
-    this->graphicsDeviceManager.ApplyChanges();
     this->LoadContent();
     this->StartEventLoop();
     this->UnloadContent();
@@ -93,6 +91,7 @@ bool Renderer::BeginDraw()
 
 void Renderer::BeginRun()
 {
+    this->rendererWindow.Open();
 }
 
 void Renderer::Draw()
@@ -114,6 +113,8 @@ void Renderer::Finalize()
 
 void Renderer::Initialize()
 {
+    this->graphicsDeviceManager.ApplyChanges();
+
     if (this->components.size() > 0)
     {
         for (auto& component : this->components)

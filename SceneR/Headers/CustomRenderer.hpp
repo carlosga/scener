@@ -30,9 +30,8 @@ namespace SceneR
             CustomRenderer(const std::string& rootDirectory);
 
         protected:
-            virtual void BeginRun() override;
             virtual void Draw(/*GameTime gameTime*/) override;
-            virtual void Initialize() override;
+            virtual void BeginRun() override;
         };
     }
 }
