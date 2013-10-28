@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Renderer.hpp>
-#include <GLFW/glfw3.h>
+#include <Framework/IComponent.hpp>
 
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
@@ -24,7 +24,8 @@ using namespace SceneR::Graphics;
 Renderer::Renderer(const std::string& rootDirectory)
     : graphicsDeviceManager(*this),
       rendererWindow(*this),
-      contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory)
+      contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory),
+      components(0)
 {
 }
 
@@ -68,6 +69,11 @@ ContentManager& Renderer::GetContentManager()
     return this->contentManager;
 }
 
+std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
+{
+    return this->components;
+}
+
 void Renderer::StartEventLoop()
 {
     do
@@ -108,6 +114,13 @@ void Renderer::Finalize()
 
 void Renderer::Initialize()
 {
+    if (this->components.size() > 0)
+    {
+        for (auto& component : this->components)
+        {
+            component->Initialize();
+        }
+    }
 }
 
 void Renderer::LoadContent()

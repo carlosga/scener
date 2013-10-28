@@ -18,20 +18,11 @@
 #define CUSTOMRENDERER_HPP
 
 #include <Framework/Renderer.hpp>
-#include <memory>
 #include <string>
 
 namespace SceneR
 {
-    namespace Graphics
-    {
-        class Model;
-    }
-}
-
-namespace SceneR
-{
-    namespace Custom
+    namespace Sample
     {
         class CustomRenderer : public SceneR::Framework::Renderer
         {
@@ -39,12 +30,9 @@ namespace SceneR
             CustomRenderer(const std::string& rootDirectory);
 
         protected:
+            virtual void BeginRun() override;
             virtual void Draw(/*GameTime gameTime*/) override;
             virtual void Initialize() override;
-            virtual void LoadContent() override;
-
-        private:
-            std::shared_ptr<SceneR::Graphics::Model> model;
         };
     }
 }

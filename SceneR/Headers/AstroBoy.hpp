@@ -14,22 +14,50 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <CustomRenderer.hpp>
+#ifndef ASTROBOY_HPP
+#define ASTROBOY_HPP
+
+#include <Framework/DrawableComponent.hpp>
 #include <memory>
-#include <string>
 
-using namespace SceneR::Graphics;
-using namespace SceneR::Sample;
-
-int main()
+namespace SceneR
 {
-    std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
-
-    CustomRenderer renderer(rootPath);
-
-    renderer.Run();
-
-    renderer.Exit();
-
-    return 0;
+    namespace Framework
+    {
+        class Renderer;
+    }
 }
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Model;
+    }
+}
+
+namespace SceneR
+{
+    namespace Sample
+    {
+        class AstroBoy : public SceneR::Framework::DrawableComponent
+        {
+        public:
+            AstroBoy(SceneR::Framework::Renderer& renderer);
+
+            virtual ~AstroBoy();
+
+        public:
+            virtual void Draw() override;
+
+        protected:
+            virtual void LoadContent() override;
+            virtual void UnloadContent() override;
+
+        private:
+            std::shared_ptr<SceneR::Graphics::Model> model;
+        };
+    }
+}
+
+#endif /* ASTROBOY_HPP */

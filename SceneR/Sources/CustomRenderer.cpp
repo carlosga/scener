@@ -14,38 +14,42 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <AstroBoy.hpp>
 #include <CustomRenderer.hpp>
-#include <Framework/Color.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Vector3.hpp>
-#include <Graphics/Model.hpp>
+#include <Framework/RendererWindow.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/PresentationParameters.hpp>
 
-using namespace SceneR::Framework;
 using namespace SceneR::Content;
-using namespace SceneR::Custom;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+using namespace SceneR::Sample;
 
 CustomRenderer::CustomRenderer(const std::string& rootDirectory)
-    : Renderer(rootDirectory),
-      model(nullptr)
+    : Renderer(rootDirectory)
 {
 }
 
 void CustomRenderer::Draw()
 {
-    float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
+//    float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
+//
+//    this->GetGraphicsDevice().Clear(Color::Black);
+//
+//    Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, -15.0f, 5.0f), Vector3(0.0f, 0.0f, 3.0f), Vector3(0.0f, 0.0f, 1.0f));
+//    Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 0.1f, 100.0f);
 
-    this->GetGraphicsDevice().Clear(Color::Black);
+//    this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
+//    this->model->Draw(Matrix::CreateRotationZ(0.0f)   * Matrix::CreateTranslation(-2.0f, 0.0f, 0.0f), view, projection);
+//    this->model->Draw(Matrix::CreateRotationZ(180.0f) * Matrix::CreateTranslation(2.0f, 0.0f, 0.0f), view, projection);
+//    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f), view, projection);
+}
 
-    Matrix view = Matrix::CreateLookAt(Vector3(0.0f, -15.0f, 5.0f), Vector3(0.0f, 0.0f, 3.0f), Vector3(0.0f, 0.0f, 1.0f));
+void SceneR::Sample::CustomRenderer::BeginRun()
+{
+    this->components.push_back(std::make_shared<AstroBoy>(*this));
 
-    Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 0.1f, 100.0f);
-
-    this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(0.0f)   * Matrix::CreateTranslation(-2.0f, 0.0f, 0.0f), view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(180.0f) * Matrix::CreateTranslation(2.0f, 0.0f, 0.0f), view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f), view, projection);
+    Renderer::BeginRun();
 }
 
 void CustomRenderer::Initialize()
@@ -58,11 +62,4 @@ void CustomRenderer::Initialize()
     this->GetRendererWindow().SetTitle(L"SceneR");
 
     Renderer::Initialize();
-}
-
-void CustomRenderer::LoadContent()
-{
-    this->model = this->GetContentManager().Load<Model>("AstroBoy/astroBoy_walk_Max");
-
-    Renderer::LoadContent();
 }

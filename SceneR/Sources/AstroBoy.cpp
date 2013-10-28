@@ -14,22 +14,40 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <CustomRenderer.hpp>
-#include <memory>
-#include <string>
+#include <AstroBoy.hpp>
+#include <Framework/Renderer.hpp>
+#include <Graphics/Model.hpp>
 
-using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
+using namespace SceneR::Framework;
+using namespace SceneR::Graphics;
 
-int main()
+AstroBoy::AstroBoy(Renderer& renderer)
+    : DrawableComponent(renderer)
 {
-    std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
+}
 
-    CustomRenderer renderer(rootPath);
+AstroBoy::~AstroBoy()
+{
+    this->UnloadContent();
+}
 
-    renderer.Run();
+void AstroBoy::Draw()
+{
+    //this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
+    DrawableComponent::Draw();
+}
 
-    renderer.Exit();
+void AstroBoy::LoadContent()
+{
+    //this->model = this->renderer.GetContentManager().Load<Model>("AstroBoy/astroBoy_walk_Max");
+}
 
-    return 0;
+void AstroBoy::UnloadContent()
+{
+    if (this->model != nullptr)
+    {
+        this->model.reset();
+        this->model = nullptr;
+    }
 }

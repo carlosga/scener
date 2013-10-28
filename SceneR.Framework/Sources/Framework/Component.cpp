@@ -14,22 +14,43 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <CustomRenderer.hpp>
-#include <memory>
-#include <string>
+#include <Framework/Component.hpp>
+#include <Framework/Renderer.hpp>
 
-using namespace SceneR::Graphics;
-using namespace SceneR::Sample;
+using namespace SceneR::Framework;
 
-int main()
+Component::Component(Renderer& renderer)
+    : renderer(renderer),
+      enabled(true),
+      updateOrder(0)
 {
-    std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
+}
 
-    CustomRenderer renderer(rootPath);
+void Component::Update()
+{
+}
 
-    renderer.Run();
+void Component::Enable()
+{
+    this->enabled = true;
+}
 
-    renderer.Exit();
+void Component::Disable()
+{
+    this->enabled = false;
+}
 
-    return 0;
+const Boolean& Component::IsEnabled() const
+{
+    return this->enabled;
+}
+
+const UInt32& Component::GetUpdateOrder() const
+{
+    return this->updateOrder;
+}
+
+void Component::SetUpdateOrder(const UInt32& updateOrder)
+{
+    this->updateOrder = updateOrder;
 }

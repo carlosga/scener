@@ -14,22 +14,36 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <CustomRenderer.hpp>
-#include <memory>
-#include <string>
+#ifndef ICOMPONENT_HPP
+#define ICOMPONENT_HPP
 
-using namespace SceneR::Graphics;
-using namespace SceneR::Sample;
+#include <Framework/Core.hpp>
 
-int main()
+namespace SceneR
 {
-    std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
+	namespace Framework
+	{
+	    /**
+	     * Defines an interface for components.
+	     */
+		class IComponent
+		{
+		public:
+		    /**
+		     * Releases all resources being used by this IComponent instance.
+		     */
+		    virtual ~IComponent()
+		    {
+		    };
 
-    CustomRenderer renderer(rootPath);
-
-    renderer.Run();
-
-    renderer.Exit();
-
-    return 0;
+		public:
+		    /**
+		     * Called when the component should be initialized.
+		     * This method can be used for tasks like querying for services the component needs and setting up non-graphics resources.
+		     */
+			virtual void Initialize() = 0;
+		};
+	}
 }
+
+#endif /* ICOMPONENT_HPP */

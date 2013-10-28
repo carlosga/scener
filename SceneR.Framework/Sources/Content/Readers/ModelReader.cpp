@@ -96,7 +96,6 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
         }
 
         // TODO: Read mesh bounds
-
         modelMesh->SetTag(input->ReadString());
 
         // Read mesh parts

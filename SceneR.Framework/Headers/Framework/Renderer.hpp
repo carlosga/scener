@@ -34,6 +34,8 @@ namespace SceneR
 {
     namespace Framework
     {
+        class IComponent;
+
         /**
          * Provides basic graphics device initialization, and rendering code.
          */
@@ -79,6 +81,11 @@ namespace SceneR
              * @return the current content manager
              */
             SceneR::Content::ContentManager& GetContentManager();
+
+            /**
+             * Gets the collection of GameComponents owned by the renderer.
+             */
+            std::vector<std::shared_ptr<IComponent>>& Components();
 
         protected:
             /**
@@ -136,9 +143,10 @@ namespace SceneR
             void StartEventLoop();
 
         protected:
-            GraphicsDeviceManager           graphicsDeviceManager;
-            RendererWindow                  rendererWindow;
-            SceneR::Content::ContentManager contentManager;
+            GraphicsDeviceManager                    graphicsDeviceManager;
+            RendererWindow                           rendererWindow;
+            SceneR::Content::ContentManager          contentManager;
+            std::vector<std::shared_ptr<IComponent>> components;
         };
     }
 }
