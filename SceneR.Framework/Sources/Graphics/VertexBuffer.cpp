@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/GraphicsDevice.hpp>
+#include <GL/glew.h>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexBufferTarget.hpp>
 #include <Graphics/VertexBufferUsage.hpp>
@@ -154,8 +154,8 @@ template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionColor>& data)
 {
     VertexDeclaration vDecl      = VertexPositionColor::GetVertexDeclaration();
-    size_t            index      = 0;
-    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    Size              index      = 0;
+    Size              bufferSize = (data.size() * vDecl.GetComponentCount());
 
     // Create the data buffer
     Single buffer[bufferSize];
@@ -195,8 +195,8 @@ template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionColorTexture>& data)
 {
     VertexDeclaration vDecl      = VertexPositionColorTexture::GetVertexDeclaration();
-    size_t            index      = 0;
-    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    Size              index      = 0;
+    Size              bufferSize = (data.size() * vDecl.GetComponentCount());
 
     // Create the data buffer
     Single buffer[bufferSize];
@@ -243,8 +243,8 @@ template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
 {
     VertexDeclaration vDecl      = VertexPositionNormalTexture::GetVertexDeclaration();
-    size_t            index      = 0;
-    size_t            bufferSize = (data.size() * vDecl.GetComponentCount());
+    Size              index      = 0;
+    Size              bufferSize = (data.size() * vDecl.GetComponentCount());
 
     // Create the data buffer
     Single buffer[bufferSize];

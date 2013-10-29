@@ -15,8 +15,14 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
+#include <Content/ContentManager.hpp>
+#include <Framework/Color.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/Renderer.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
+#include <Graphics/Viewport.hpp>
 
 using namespace SceneR::Sample;
 using namespace SceneR::Framework;
@@ -34,8 +40,17 @@ AstroBoy::~AstroBoy()
 
 void AstroBoy::Draw()
 {
-    //this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
-    DrawableComponent::Draw();
+    float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
+
+    this->GetGraphicsDevice().Clear(Color::Black);
+
+    Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, -15.0f, 5.0f), Vector3(0.0f, 0.0f, 3.0f), Vector3(0.0f, 0.0f, 1.0f));
+    Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 0.1f, 100.0f);
+
+    this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
+    this->model->Draw(Matrix::CreateRotationZ(0.0f)   * Matrix::CreateTranslation(-2.0f, 0.0f, 0.0f), view, projection);
+    this->model->Draw(Matrix::CreateRotationZ(180.0f) * Matrix::CreateTranslation(2.0f, 0.0f, 0.0f), view, projection);
+    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f), view, projection);
 }
 
 void AstroBoy::LoadContent()

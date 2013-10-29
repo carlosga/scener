@@ -20,7 +20,6 @@
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <IO/File.hpp>
 #include <Shaders/Shader.hpp>
 #include <Shaders/ShaderProgram.hpp>

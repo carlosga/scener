@@ -24,10 +24,17 @@
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <Shaders/ShaderProgram.hpp>
 #include <memory>
 #include <string>
 #include <vector>
+
+namespace SceneR
+{
+    namespace Shaders
+    {
+        class ShaderProgram;
+    }
+}
 
 namespace SceneR
 {

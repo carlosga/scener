@@ -18,8 +18,9 @@
 #define EFFECT_HPP
 
 #include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <Shaders/ShaderProgram.hpp>
 #include <memory>
 #include <string>
 #include <vector>
@@ -28,7 +29,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class GraphicsDevice;
+        class GrapicsDevice;
 
         /**
          * Used to set and query effects, and to choose techniques.

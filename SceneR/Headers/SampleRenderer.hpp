@@ -24,10 +24,10 @@ namespace SceneR
 {
     namespace Sample
     {
-        class CustomRenderer : public SceneR::Framework::Renderer
+        class SampleRenderer : public SceneR::Framework::Renderer
         {
         public:
-            CustomRenderer(const std::string& rootDirectory);
+            SampleRenderer(const std::string& rootDirectory);
 
         protected:
             virtual void Draw(/*GameTime gameTime*/) override;

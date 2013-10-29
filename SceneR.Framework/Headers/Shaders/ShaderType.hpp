@@ -18,6 +18,7 @@
 #define SHADERTYPE_HPP
 
 #include <Framework/Core.hpp>
+#include <GL/glew.h>
 
 namespace SceneR
 {

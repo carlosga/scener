@@ -15,23 +15,30 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <CustomRenderer.hpp>
+#include <SampleRenderer.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/PresentationParameters.hpp>
+#include <memory>
+#include <vector>
 
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 
-CustomRenderer::CustomRenderer(const std::string& rootDirectory)
+SampleRenderer::SampleRenderer(const std::string& rootDirectory)
     : Renderer(rootDirectory)
 {
 }
 
-void CustomRenderer::Draw()
+void SampleRenderer::Draw()
 {
+    for (auto& component : this->components)
+    {
+        std::dynamic_pointer_cast<IDrawable>(component)->Draw();
+    }
+
 //    float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
 //
 //    this->GetGraphicsDevice().Clear(Color::Black);
@@ -45,7 +52,7 @@ void CustomRenderer::Draw()
 //    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f), view, projection);
 }
 
-void CustomRenderer::BeginRun()
+void SampleRenderer::BeginRun()
 {
     PresentationParameters& parameters = this->GetGraphicsDevice().GetPresentationParameters();
 

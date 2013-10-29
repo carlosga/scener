@@ -19,13 +19,10 @@
 
 #include <Framework/Core.hpp>
 #include <Graphics/DepthStencilState.hpp>
-#include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
-#include <Graphics/VertexBuffer.hpp>
 #include <Graphics/Viewport.hpp>
 #include <memory>
 
@@ -34,6 +31,16 @@ namespace SceneR
     namespace Framework
     {
         class Color;
+    }
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Effect;
+        class IndexBuffer;
+        class VertexBuffer;
     }
 }
 

@@ -20,8 +20,6 @@
 #include <Framework/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <memory>
-#include <string>
 
 namespace SceneR
 {

@@ -18,9 +18,8 @@
 #define INDEXBUFFER_HPP
 
 #include <Framework/Core.hpp>
-#include <Graphics/GraphicsResource.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexElementSize.hpp>
-#include <memory>
 #include <vector>
 
 namespace SceneR
@@ -74,11 +73,11 @@ namespace SceneR
 
         private:
             void Release();
-            void CreateVertexElementBuffer();
-            void BindVertexElementBuffer()  const;
+            void CreateIndexBuffer();
+            void BindIndexBuffer()  const;
             void BufferData(const std::vector<UInt32>& data) const;
-            void UnbindVertexElementBuffer() const;
-            void DeleteVertexElementBuffer();
+            void UnbindIndexBuffer() const;
+            void DeleteIndexBuffer();
             const UInt32 GetElementSizeInBytes() const;
 
         private:

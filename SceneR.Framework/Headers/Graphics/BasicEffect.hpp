@@ -22,10 +22,10 @@
 #include <Framework/Matrix.hpp>
 #include <Graphics/AmbientLight.hpp>
 #include <Graphics/Effect.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IEffectFog.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectMatrices.hpp>
-#include <Graphics/Texture2D.hpp>
 #include <memory>
 #include <vector>
 
@@ -34,6 +34,7 @@ namespace SceneR
     namespace Graphics
     {
         class GraphicsDevice;
+        class Texture2D;
 
         //http://msdn.microsoft.com/en-us/library/bb194916(v=xnagamestudio.40).aspx
         /**

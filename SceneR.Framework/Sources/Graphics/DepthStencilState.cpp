@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
 #include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Viewport.hpp>

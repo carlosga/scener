@@ -17,7 +17,6 @@
 #ifndef VERTEXBUFFERREADER_HPP
 #define VERTEXBUFFERREADER_HPP
 
-#include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <memory>
 

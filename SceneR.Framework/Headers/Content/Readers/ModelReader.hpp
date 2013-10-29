@@ -17,7 +17,6 @@
 #ifndef MODELREADER_HPP
 #define MODELREADER_HPP
 
-#include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Framework/Core.hpp>
 #include <memory>

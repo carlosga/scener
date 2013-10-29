@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/RasterizerState.hpp>
 

@@ -17,7 +17,6 @@
 #ifndef TEXTURE2DREADER_HPP
 #define TEXTURE2DREADER_HPP
 
-#include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <memory>
 

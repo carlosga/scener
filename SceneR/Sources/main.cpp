@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <CustomRenderer.hpp>
+#include <SampleRenderer.hpp>
 #include <memory>
 #include <string>
 
@@ -25,7 +25,7 @@ int main()
 {
     std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
 
-    CustomRenderer renderer(rootPath);
+    SampleRenderer renderer(rootPath);
 
     renderer.Run();
 

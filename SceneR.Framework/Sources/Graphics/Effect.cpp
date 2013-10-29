@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Effect.hpp>
-#include <Graphics/GraphicsDevice.hpp>
+#include <Shaders/ShaderProgram.hpp>
 #include <stdexcept>
 
 using namespace SceneR::Graphics;

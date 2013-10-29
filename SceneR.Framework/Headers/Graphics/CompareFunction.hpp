@@ -18,6 +18,7 @@
 #define COMPAREFUNCTION_HPP
 
 #include <Framework/Core.hpp>
+#include <GL/glew.h>
 
 namespace SceneR
 {
@@ -27,7 +28,7 @@ namespace SceneR
          * Specifies the functions used to compare each incoming pixel depth value
          * with the depth value present in the depth buffer.
          */
-        enum class CompareFunction : GLenum
+        enum class CompareFunction : UInt32
         {
             /**
              * Always passes.

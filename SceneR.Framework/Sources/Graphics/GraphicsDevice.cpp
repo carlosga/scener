@@ -15,7 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Color.hpp>
+#include <GL/glew.h>
+#include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/VertexBuffer.hpp>
 #include <stdexcept>
 
 using namespace SceneR::Framework;
@@ -97,11 +101,11 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     this->effect->Begin();
 
     this->vertexBuffer->BindVertexArray();
-    this->indexBuffer->BindVertexElementBuffer();
+    this->indexBuffer->BindIndexBuffer();
 
     glDrawElements(static_cast<GLenum>(primitiveType), numVertices, GL_UNSIGNED_INT, 0);
 
-    this->indexBuffer->UnbindVertexElementBuffer();
+    this->indexBuffer->UnbindIndexBuffer();
     this->vertexBuffer->UnbindVertexArray();
 
     this->effect->End();

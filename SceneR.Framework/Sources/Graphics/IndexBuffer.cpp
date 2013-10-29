@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/GraphicsDevice.hpp>
+#include <GL/glew.h>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/VertexBufferTarget.hpp>
 #include <Graphics/VertexBufferUsage.hpp>
@@ -30,7 +30,7 @@ IndexBuffer::IndexBuffer(GraphicsDevice&         graphicsDevice,
       indexCount(indexCount),
       indexElementSize(indexElementSize)
 {
-    this->CreateVertexElementBuffer();
+    this->CreateIndexBuffer();
 }
 
 IndexBuffer::~IndexBuffer()
@@ -56,20 +56,20 @@ const std::vector<UInt32>& IndexBuffer::GetData() const
 void SceneR::Graphics::IndexBuffer::SetData(const std::vector<UInt32>& data)
 {
     this->BufferData(data);
-    this->UnbindVertexElementBuffer();
+    this->UnbindIndexBuffer();
 }
 
 void IndexBuffer::Release()
 {
-    this->DeleteVertexElementBuffer();
+    this->DeleteIndexBuffer();
 }
 
-void IndexBuffer::CreateVertexElementBuffer()
+void IndexBuffer::CreateIndexBuffer()
 {
     glGenBuffers(1, &this->ibo);
 }
 
-void IndexBuffer::BindVertexElementBuffer() const
+void IndexBuffer::BindIndexBuffer() const
 {
     glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer),
                  this->ibo);
@@ -77,22 +77,22 @@ void IndexBuffer::BindVertexElementBuffer() const
 
 void IndexBuffer::BufferData(const std::vector<UInt32>& data) const
 {
-    this->BindVertexElementBuffer();
+    this->BindIndexBuffer();
 
     glBufferData(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer),
                  data.size() * this->GetElementSizeInBytes(),
                  data.data(),
                  static_cast<GLenum>(VertexBufferUsage::StaticDraw));
 
-    this->UnbindVertexElementBuffer();
+    this->UnbindIndexBuffer();
 }
 
-void IndexBuffer::UnbindVertexElementBuffer() const
+void IndexBuffer::UnbindIndexBuffer() const
 {
     glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer), 0);
 }
 
-void IndexBuffer::DeleteVertexElementBuffer()
+void IndexBuffer::DeleteIndexBuffer()
 {
     if (this->ibo != 0)
     {

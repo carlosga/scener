@@ -20,7 +20,6 @@
 #include <Framework/Core.hpp>
 #include <Graphics/CompareFunction.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <memory>
 
 namespace SceneR
 {

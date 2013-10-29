@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Core.hpp>
+#include <GL/glew.h>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>

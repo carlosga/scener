@@ -17,7 +17,6 @@
 #ifndef INDEXBUFFERREADER_HPP
 #define INDEXBUFFERREADER_HPP
 
-#include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <memory>
 

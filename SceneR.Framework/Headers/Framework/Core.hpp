@@ -17,15 +17,18 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include <GL/glew.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string>
 
-typedef bool 	  Boolean;
-typedef int16_t   Int16;
-typedef uint16_t  UInt16;
-typedef int32_t   Int32;
-typedef uint32_t  UInt32;
-typedef float     Single;
-typedef double    Double;
-typedef uint64_t  Size;
+typedef bool 	    Boolean;
+typedef int16_t     Int16;
+typedef uint16_t    UInt16;
+typedef int32_t     Int32;
+typedef uint32_t    UInt32;
+typedef float       Single;
+typedef double      Double;
+typedef size_t      Size;
+typedef std::string String;
 
 #endif  /* CORE_HPP */

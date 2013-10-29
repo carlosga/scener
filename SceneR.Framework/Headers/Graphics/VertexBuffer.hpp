@@ -18,8 +18,7 @@
 #define VERTEXBUFFER_HPP
 
 #include <Framework/Core.hpp>
-#include <Graphics/GraphicsResource.hpp>
-#include <memory>
+#include <Graphics/GraphicsDevice.hpp>
 #include <stdexcept>
 #include <vector>
 
@@ -77,7 +76,6 @@ namespace SceneR
             void UnbindVertexArray() const;
             void DeleteVertexArray();
             void DeclareVertexFormat(const VertexDeclaration& vDecl) const;
-            void BufferData(std::unique_ptr<Single[]>& buffer, const size_t& bufferSize) const;
             void Release();
 
         private:
