@@ -21,7 +21,7 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-Renderer::Renderer(const std::string& rootDirectory)
+Renderer::Renderer(const String& rootDirectory)
     : graphicsDeviceManager(*this),
       rendererWindow(*this),
       contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory),

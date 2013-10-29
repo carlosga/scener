@@ -18,7 +18,7 @@
 #define RENDERERWINDOW_HPP
 
 #include <Framework/Core.hpp>
-#include <string>
+#include <GL/glew.h>
 
 struct GLFWwindow;
 
@@ -50,13 +50,13 @@ namespace SceneR
              * Gets the renderer window title
              * @return the renderer window title
              */
-            const std::wstring& GetTitle() const;
+            const String& GetTitle() const;
 
             /**
              * Sets the renderer window title
              * @param title the renderer window title
              */
-            void SetTitle(const std::wstring& title);
+            void SetTitle(const String& title);
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
@@ -87,10 +87,10 @@ namespace SceneR
                                       void*   userParam);
 
         private:
-            std::wstring title;
-            Boolean      allowUserResizing;
-            GLFWwindow*  handle;
-            Renderer&    renderer;
+            String      title;
+            Boolean     allowUserResizing;
+            GLFWwindow* handle;
+            Renderer&   renderer;
 
             friend class Renderer;
         };

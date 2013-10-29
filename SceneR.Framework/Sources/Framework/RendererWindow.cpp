@@ -39,14 +39,19 @@ RendererWindow::~RendererWindow()
     this->Close();
 }
 
-const std::wstring& RendererWindow::GetTitle() const
+const String& RendererWindow::GetTitle() const
 {
     return this->title;
 }
 
-void RendererWindow::SetTitle(const std::wstring& title)
+void RendererWindow::SetTitle(const String& title)
 {
     this->title = title;
+
+    if (this->handle != nullptr)
+    {
+        glfwSetWindowTitle(this->handle, this->title.c_str());
+    }
 }
 
 const Boolean& RendererWindow::GetAllowUserResizing() const
@@ -71,8 +76,6 @@ void RendererWindow::Open()
     UInt32                 profile = static_cast<UInt32>(this->renderer.GetGraphicsDevice().GetGraphicsProfile());
     GLFWmonitor*           monitor = nullptr;
 
-    std::string title(this->title.begin(), this->title.end());
-
     if (this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen())
     {
         monitor = glfwGetPrimaryMonitor();
@@ -91,7 +94,7 @@ void RendererWindow::Open()
     (
         params.GetBackBufferWidth(),    // width
         params.GetBackBufferHeight(),   // height
-        title.c_str(),                  // title
+        this->title.c_str(),            // title
         monitor,                        // monitor
         nullptr                         // share
     );
@@ -107,7 +110,7 @@ void RendererWindow::Open()
 
     // Now that we have an OpenGL context available in our window,
     // we initialise GLEW so that we get access to the OpenGL API functions.
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
+    glewExperimental = GL_TRUE; //stops glew crashing on OSX / Linux :-/
 
     if (glewInit() != GLEW_OK)
     {

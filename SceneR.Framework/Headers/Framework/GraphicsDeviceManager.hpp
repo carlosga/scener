@@ -84,13 +84,13 @@ namespace SceneR
              * Gets the window title.
              * @return the window title.
              */
-            const std::wstring GetWindowTitle() const;
+            const String GetWindowTitle() const;
 
             /**
              * Sets the window title.
              * @param windowTitle the window title.
              */
-            void SetWindowTitle(const std::wstring& windowTitle);
+            void SetWindowTitle(const String& windowTitle);
 
             /**
              * Gets a value that indicates whether the device should start in full-screen mode.

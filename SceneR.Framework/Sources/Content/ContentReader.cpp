@@ -30,15 +30,15 @@ using namespace SceneR::Graphics;
 
 ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
                              ContentTypeReaderManager& typeReaderManager,
-                             const std::string&        file)
+                             const String&             file)
     : graphicsDevice(graphicsDevice),
       typeReaderManager(typeReaderManager)
 {
-    this->stream.open(file.c_str(), std::ios::in | std::ios::binary);
+    this->stream.open(file, std::ios::in | std::ios::binary);
 
     if (!this->stream.is_open())
     {
-        throw std::runtime_error(std::string("Failed to open file: ") + file);
+        throw std::runtime_error(String("Failed to open file: ") + file);
     }
 
     this->stream.seekg(0, std::ios_base::beg);

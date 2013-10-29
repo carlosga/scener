@@ -17,8 +17,8 @@
 #ifndef CUSTOMRENDERER_HPP
 #define CUSTOMRENDERER_HPP
 
+#include <Framework/Core.hpp>
 #include <Framework/Renderer.hpp>
-#include <string>
 
 namespace SceneR
 {
@@ -27,7 +27,7 @@ namespace SceneR
         class SampleRenderer : public SceneR::Framework::Renderer
         {
         public:
-            SampleRenderer(const std::string& rootDirectory);
+            SampleRenderer(const String& rootDirectory);
 
         protected:
             virtual void Draw(/*GameTime gameTime*/) override;

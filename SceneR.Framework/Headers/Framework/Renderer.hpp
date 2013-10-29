@@ -18,9 +18,11 @@
 #define RENDERER_HPP
 
 #include <Content/ContentManager.hpp>
+#include <Framework/Core.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererWindow.hpp>
-#include <string>
+#include <memory>
+#include <vector>
 
 namespace SceneR
 {
@@ -45,7 +47,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the Renderer class.
              */
-            Renderer(const std::string& rootDirectory);
+            Renderer(const String& rootDirectory);
 
             /**
              * Releases all resources being used by the current renderer instance

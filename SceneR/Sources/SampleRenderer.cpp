@@ -15,10 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <SampleRenderer.hpp>
+#include <Framework/Core.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/PresentationParameters.hpp>
+#include <SampleRenderer.hpp>
 #include <memory>
 #include <vector>
 
@@ -27,7 +28,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 
-SampleRenderer::SampleRenderer(const std::string& rootDirectory)
+SampleRenderer::SampleRenderer(const String& rootDirectory)
     : Renderer(rootDirectory)
 {
 }
@@ -59,7 +60,7 @@ void SampleRenderer::BeginRun()
     parameters.SetBackBufferWidth(1500);
     parameters.SetBackBufferHeight(943);
 
-    this->GetRendererWindow().SetTitle(L"SceneR");
+    this->GetRendererWindow().SetTitle("SceneR");
 
     Renderer::BeginRun();
 

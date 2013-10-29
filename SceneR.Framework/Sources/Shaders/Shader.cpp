@@ -42,7 +42,7 @@ void Shader::Compile()
     }
 
     // Set the source code
-    std::string temp(this->shaderCode.begin(), this->shaderCode.end());
+    String temp(this->shaderCode.begin(), this->shaderCode.end());
     const char* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 
@@ -57,14 +57,14 @@ void Shader::VerifyCompilationState()
 {
     if (!this->IsCompiled())
     {
-        std::string msg("Compile failure in shader:\n");
+        String msg("Compile failure in shader:\n");
 
         GLint infoLogLength;
         glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
 
         if (infoLogLength)
         {
-            std::string compileErrorMessage("", infoLogLength);
+            String compileErrorMessage("", infoLogLength);
 
             glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
 

@@ -77,12 +77,12 @@ void GraphicsDeviceManager::SetAllowUserResizing(const Boolean& allowUserResizin
     this->renderer.GetRendererWindow().SetAllowUserResizing(allowUserResizing);
 }
 
-const std::wstring GraphicsDeviceManager::GetWindowTitle() const
+const String GraphicsDeviceManager::GetWindowTitle() const
 {
     return this->renderer.GetRendererWindow().GetTitle();
 }
 
-void GraphicsDeviceManager::SetWindowTitle(const std::wstring& windowTitle)
+void GraphicsDeviceManager::SetWindowTitle(const String& windowTitle)
 {
     this->renderer.GetRendererWindow().SetTitle(windowTitle);
 }

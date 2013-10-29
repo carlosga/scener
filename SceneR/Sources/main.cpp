@@ -14,16 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Core.hpp>
 #include <SampleRenderer.hpp>
-#include <memory>
-#include <string>
 
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 
 int main()
 {
-    std::string rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
+    String rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
 
     SampleRenderer renderer(rootPath);
 

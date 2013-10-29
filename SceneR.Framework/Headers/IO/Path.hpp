@@ -17,6 +17,7 @@
 #ifndef PATH_HPP
 #define PATH_HPP
 
+#include <Framework/Core.hpp>
 #include <string>
 
 namespace SceneR
@@ -36,7 +37,7 @@ namespace SceneR
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const std::string ChangeExtension(const std::string& path, const std::string& extension)
+            static const String ChangeExtension(const String& path, const String& extension)
             {
                 return GetFileNameWithoutExtension(path) + "." + extension;
             };
@@ -46,13 +47,13 @@ namespace SceneR
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const std::string GetFileNameWithoutExtension(const std::string& path)
+            static const String GetFileNameWithoutExtension(const String& path)
             {
-                std::string::size_type result               = path.find_last_of('.');
-                std::string            pathWithoutExtension = path;
+                String::size_type result               = path.find_last_of('.');
+                String            pathWithoutExtension = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (std::string::npos != result)
+                if (String::npos != result)
                 {
                     pathWithoutExtension.erase(result);
                 }
@@ -66,15 +67,15 @@ namespace SceneR
              * @param path1 The first path to combine
              * @param path2 The second path to combine
              */
-            static const std::string Combine(const std::string& path1, const std::string& path2)
+            static const String Combine(const String& path1, const String& path2)
             {
-                return std::string(path1 + DirectorySeparator() + path2);
+                return String(path1 + DirectorySeparator() + path2);
             };
 
             /**
              * Gets platform specific string with the directory separator.
              */
-            static const std::string DirectorySeparator()
+            static const String DirectorySeparator()
             {
 #if __unix__
                 return "/";

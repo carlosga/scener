@@ -57,7 +57,7 @@ namespace SceneR
              */
             ContentReader(SceneR::Graphics::GraphicsDevice& graphicsDevice,
                           ContentTypeReaderManager&         typeReaderManager,
-                          const std::string&                file);
+                          const String&                     file);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.

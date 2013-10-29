@@ -81,14 +81,14 @@ void ShaderProgram::VerifyLinkingState()
 
     if (status == GL_FALSE)
     {
-        std::string msg("Program linking failure: ");
+        String msg("Program linking failure: ");
 
         GLint infoLogLength;
         glGetProgramiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
 
         if (infoLogLength)
         {
-            std::string linkErrorMessage("", infoLogLength);
+            String linkErrorMessage("", infoLogLength);
 
             glGetProgramInfoLog(this->object, infoLogLength, NULL, &linkErrorMessage[0]);
 
@@ -113,7 +113,7 @@ const std::wstring& ShaderProgram::Name() const
 
 const Int32 ShaderProgram::GetParameterLocation(const std::wstring& parameterName) const
 {
-    std::string temp(parameterName.begin(), parameterName.end());
+    String temp(parameterName.begin(), parameterName.end());
 
     return glGetUniformLocation(this->object, temp.c_str());
 }

@@ -17,6 +17,7 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
+#include <Framework/Core.hpp>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -34,13 +35,13 @@ namespace SceneR
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
-            static std::wstring ReadAllText(const std::string& filePath)
+            static std::wstring ReadAllText(const String& filePath)
             {
-                std::wifstream stream(filePath.c_str(), std::ios::in | std::ios::binary);
+                std::wifstream stream(filePath, std::ios::in | std::ios::binary);
 
                 if (!stream.is_open())
                 {
-                    throw std::runtime_error(std::string("Failed to open file: ") + filePath);
+                    throw std::runtime_error(String("Failed to open file: ") + filePath);
                 }
 
                 stream.seekg(0, std::ios_base::beg);
