@@ -22,6 +22,7 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
+#include <System/Pointer.hpp>
 #include <System/IO/Path.hpp>
 #include <memory>
 
@@ -58,19 +59,19 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> Load(const String& assetName) throw(ContentLoadException)
             {
-                std::shared_ptr<T> asset = nullptr;
+                std::shared_ptr<T>             asset  = nullptr;
+                std::unique_ptr<ContentReader> reader = nullptr;
 
                 try
                 {
                     String filename = System::IO::Path::ChangeExtension(assetName, "scr");
                     String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
-                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
+                    reader = System::Pointer::CreateUnique<ContentReader>(this->graphicsDevice, this->typeReaderManager, path);
 
-                    asset = reader.ReadObject<T>();
+                    asset = reader->ReadObject<T>();
 
-                    // TODO: Change this to close the stream when an exception gets thrown
-                    reader.Close();
+                    reader->Close();
                 }
                 catch (const std::exception& e)
                 {
