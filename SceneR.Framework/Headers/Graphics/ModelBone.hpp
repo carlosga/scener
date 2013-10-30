@@ -17,7 +17,7 @@
 #ifndef MODELBONE_HPP
 #define MODELBONE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <memory>
 #include <string>

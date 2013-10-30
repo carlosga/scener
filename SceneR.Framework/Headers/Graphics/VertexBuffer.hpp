@@ -17,7 +17,7 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <stdexcept>
 #include <vector>

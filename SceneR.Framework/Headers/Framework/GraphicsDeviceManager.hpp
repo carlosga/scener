@@ -17,7 +17,7 @@
 #ifndef GRAPHICSDEVICEMANAGER_HPP
 #define GRAPHICSDEVICEMANAGER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 

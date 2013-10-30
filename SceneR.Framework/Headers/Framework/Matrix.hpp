@@ -17,7 +17,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

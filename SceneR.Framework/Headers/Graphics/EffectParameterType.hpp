@@ -17,7 +17,7 @@
 #ifndef EFFECTPARAMETERTYPE_HPP
 #define EFFECTPARAMETERTYPE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

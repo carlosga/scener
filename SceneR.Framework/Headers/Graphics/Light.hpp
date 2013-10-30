@@ -18,7 +18,7 @@
 #define LIGHT_HPP
 
 #include <Framework/Color.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

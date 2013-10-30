@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <SampleRenderer.hpp>
 
 using namespace SceneR::Graphics;

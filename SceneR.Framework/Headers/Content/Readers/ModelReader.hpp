@@ -18,7 +18,7 @@
 #define MODELREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR

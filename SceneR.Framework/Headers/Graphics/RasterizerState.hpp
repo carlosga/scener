@@ -17,7 +17,7 @@
 #ifndef RASTERIZERSTATE_HPP
 #define RASTERIZERSTATE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
 #include <Graphics/GraphicsResource.hpp>

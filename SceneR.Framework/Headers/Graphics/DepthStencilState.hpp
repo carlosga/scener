@@ -17,7 +17,7 @@
 #ifndef DEPTHSTENCILSTATE_HPP
 #define DEPTHSTENCILSTATE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/CompareFunction.hpp>
 #include <Graphics/GraphicsResource.hpp>
 

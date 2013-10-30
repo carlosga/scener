@@ -17,7 +17,7 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <vector>
 

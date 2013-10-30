@@ -17,7 +17,7 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <memory>

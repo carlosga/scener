@@ -17,7 +17,7 @@
 #ifndef VIEWPORT_HPP
 #define VIEWPORT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

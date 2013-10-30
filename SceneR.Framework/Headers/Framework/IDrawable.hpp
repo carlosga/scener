@@ -17,7 +17,7 @@
 #ifndef IDRAWABLE_HPP
 #define IDRAWABLE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

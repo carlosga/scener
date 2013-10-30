@@ -17,7 +17,7 @@
 #ifndef CONTENTLOADEXCEPTION_HPP
 #define CONTENTLOADEXCEPTION_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

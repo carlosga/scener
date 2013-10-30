@@ -17,7 +17,7 @@
 #ifndef VERTEXBUFFERTARGET_HPP
 #define VERTEXBUFFERTARGET_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

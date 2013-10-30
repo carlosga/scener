@@ -20,7 +20,7 @@
 #include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <fstream>
 #include <memory>

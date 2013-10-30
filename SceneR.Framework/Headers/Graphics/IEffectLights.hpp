@@ -17,7 +17,7 @@
 #ifndef IEFFECTLIGHTS_HPP
 #define IEFFECTLIGHTS_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/AmbientLight.hpp>
 #include <memory>
 #include <vector>

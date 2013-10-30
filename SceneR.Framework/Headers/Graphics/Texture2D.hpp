@@ -17,7 +17,7 @@
 #ifndef TEXTURE2D_HPP
 #define TEXTURE2D_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture.hpp>
 #include <Graphics/TextureMipMap.hpp>

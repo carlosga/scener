@@ -17,7 +17,7 @@
 #ifndef SPOTLIGHT_HPP
 #define SPOTLIGHT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/PointLightBase.hpp>
 

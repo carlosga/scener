@@ -17,7 +17,7 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <vector>

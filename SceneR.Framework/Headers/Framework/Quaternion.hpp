@@ -17,7 +17,7 @@
 #ifndef QUATERNION_HPP
 #define QUATERNION_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

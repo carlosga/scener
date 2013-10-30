@@ -16,7 +16,7 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/TextureMipMap.hpp>

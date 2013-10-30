@@ -17,7 +17,7 @@
 #ifndef CUSTOMRENDERER_HPP
 #define CUSTOMRENDERER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Renderer.hpp>
 
 namespace SceneR

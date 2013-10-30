@@ -17,7 +17,7 @@
 #ifndef VERTEXELEMENTFORMAT_HPP
 #define VERTEXELEMENTFORMAT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

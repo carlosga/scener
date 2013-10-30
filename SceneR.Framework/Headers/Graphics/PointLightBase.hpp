@@ -17,7 +17,7 @@
 #ifndef POINTLIGHTBASE_HPP
 #define POINTLIGHTBASE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Light.hpp>
 

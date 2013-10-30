@@ -17,7 +17,7 @@
 #ifndef VECTOR2_HPP
 #define VECTOR2_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

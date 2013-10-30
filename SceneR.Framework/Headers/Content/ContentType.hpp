@@ -17,7 +17,7 @@
 #ifndef CONTENTTYPE_HPP
 #define CONTENTTYPE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

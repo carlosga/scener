@@ -17,7 +17,7 @@
 #ifndef IGRAPHICSDEVICEMANAGER_HPP
 #define IGRAPHICSDEVICEMANAGER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -17,7 +17,7 @@
 #ifndef GRAPHICSPROFILE_HPP
 #define GRAPHICSPROFILE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <GLFW/glfw3.h>
 
 namespace SceneR

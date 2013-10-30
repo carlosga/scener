@@ -17,7 +17,7 @@
 #ifndef SURFACEFORMAT_HPP
 #define SURFACEFORMAT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

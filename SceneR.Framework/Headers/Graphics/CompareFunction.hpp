@@ -17,7 +17,7 @@
 #ifndef COMPAREFUNCTION_HPP
 #define COMPAREFUNCTION_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <GL/glew.h>
 
 namespace SceneR

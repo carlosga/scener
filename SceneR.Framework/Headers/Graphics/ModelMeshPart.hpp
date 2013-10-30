@@ -17,7 +17,7 @@
 #ifndef MODELMESHPART_HPP
 #define MODELMESHPART_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/VertexBuffer.hpp>

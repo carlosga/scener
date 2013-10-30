@@ -17,10 +17,10 @@
 #ifndef PATH_HPP
 #define PATH_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <string>
 
-namespace SceneR
+namespace System
 {
     namespace IO
     {

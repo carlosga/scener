@@ -17,7 +17,7 @@
 #ifndef RENDERERWINDOW_HPP
 #define RENDERERWINDOW_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <GL/glew.h>
 
 struct GLFWwindow;

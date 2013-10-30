@@ -17,7 +17,7 @@
 #ifndef TEXTUREMIPMAP_HPP
 #define TEXTUREMIPMAP_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR

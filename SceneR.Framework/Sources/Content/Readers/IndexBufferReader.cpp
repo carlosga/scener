@@ -16,7 +16,7 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <vector>

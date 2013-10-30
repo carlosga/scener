@@ -16,7 +16,7 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>

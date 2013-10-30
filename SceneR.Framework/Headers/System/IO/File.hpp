@@ -17,12 +17,13 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <stdexcept>
 
-namespace SceneR
+namespace System
 {
     namespace IO
     {

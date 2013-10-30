@@ -17,7 +17,7 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>

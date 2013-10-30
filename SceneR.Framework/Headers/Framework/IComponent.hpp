@@ -17,7 +17,7 @@
 #ifndef ICOMPONENT_HPP
 #define ICOMPONENT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

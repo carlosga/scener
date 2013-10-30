@@ -17,7 +17,7 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>

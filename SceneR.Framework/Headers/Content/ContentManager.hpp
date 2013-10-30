@@ -20,9 +20,9 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <Framework/Core.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <IO/Path.hpp>
+#include <System/Core.hpp>
+#include <System/IO/Path.hpp>
 #include <memory>
 
 namespace SceneR
@@ -62,13 +62,14 @@ namespace SceneR
 
                 try
                 {
-                    String filename = SceneR::IO::Path::ChangeExtension(assetName, "scr");
-                    String path     = SceneR::IO::Path::Combine(this->rootDirectory, filename);
+                    String filename = System::IO::Path::ChangeExtension(assetName, "scr");
+                    String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
                     ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
 
                     asset = reader.ReadObject<T>();
 
+                    // TODO: Change this to close the stream when an exception gets thrown
                     reader.Close();
                 }
                 catch (const std::exception& e)

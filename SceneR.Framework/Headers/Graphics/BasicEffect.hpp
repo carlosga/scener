@@ -18,7 +18,7 @@
 #define BASICEFFECT_HPP
 
 #include <Framework/Color.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/AmbientLight.hpp>
 #include <Graphics/Effect.hpp>

@@ -16,6 +16,7 @@
 
 #include <GL/glew.h>
 #include <Shaders/Shader.hpp>
+#include <System/Text/Unicode.hpp>
 #include <stdexcept>
 
 using namespace SceneR::Shaders;
@@ -42,7 +43,7 @@ void Shader::Compile()
     }
 
     // Set the source code
-    String temp(this->shaderCode.begin(), this->shaderCode.end());
+    String temp = System::Text::Unicode::Narrow(this->shaderCode);
     const char* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 

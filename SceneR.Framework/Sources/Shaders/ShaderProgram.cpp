@@ -14,11 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <GL/glew.h>
 #include <Shaders/ShaderProgram.hpp>
+#include <System/Text/Unicode.hpp>
 #include <cassert>
 #include <stdexcept>
 
@@ -113,7 +114,7 @@ const std::wstring& ShaderProgram::Name() const
 
 const Int32 ShaderProgram::GetParameterLocation(const std::wstring& parameterName) const
 {
-    String temp(parameterName.begin(), parameterName.end());
+    String temp = System::Text::Unicode::Narrow(parameterName);
 
     return glGetUniformLocation(this->object, temp.c_str());
 }

@@ -18,7 +18,7 @@
 #define RENDERER_HPP
 
 #include <Content/ContentManager.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <memory>

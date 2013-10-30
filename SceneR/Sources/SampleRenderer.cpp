@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/PresentationParameters.hpp>

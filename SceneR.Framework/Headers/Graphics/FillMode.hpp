@@ -17,7 +17,7 @@
 #ifndef FILLMODE_HPP
 #define FILLMODE_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

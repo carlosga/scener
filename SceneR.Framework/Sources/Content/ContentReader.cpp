@@ -32,10 +32,9 @@ ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
                              ContentTypeReaderManager& typeReaderManager,
                              const String&             file)
     : graphicsDevice(graphicsDevice),
+      stream(file, std::ios::in | std::ios::binary),
       typeReaderManager(typeReaderManager)
 {
-    this->stream.open(file, std::ios::in | std::ios::binary);
-
     if (!this->stream.is_open())
     {
         throw std::runtime_error(String("Failed to open file: ") + file);

@@ -20,17 +20,17 @@
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <IO/File.hpp>
 #include <Shaders/Shader.hpp>
 #include <Shaders/ShaderProgram.hpp>
 #include <Shaders/ShaderType.hpp>
+#include <System/IO/File.hpp>
 #include <stdexcept>
 #include <string>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
-using namespace SceneR::IO;
 using namespace SceneR::Shaders;
+using namespace System::IO;
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     : Effect(graphicsDevice),

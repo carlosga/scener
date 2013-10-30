@@ -17,7 +17,7 @@
 #ifndef SHADERPROGRAM_HPP
 #define SHADERPROGRAM_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Shaders/Shader.hpp>
 #include <memory>
 #include <string>

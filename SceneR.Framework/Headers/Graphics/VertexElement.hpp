@@ -17,7 +17,7 @@
 #ifndef VERTEXELEMENT_HPP
 #define VERTEXELEMENT_HPP
 
-#include <Framework/Core.hpp>
+#include <System/Core.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 
