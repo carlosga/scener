@@ -38,7 +38,6 @@ const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
-
     assert(amount >= 0.0f && amount < 1.0f);
 
     return (value1 + (value2 - value1) * amount);
@@ -56,35 +55,35 @@ Vector3::Vector3()
 }
 
 Vector3::Vector3(const Single& x, const Single& y, const Single& z)
-    : xCoordinate(x), yCoordinate(y), zCoordinate(z)
+    : x(x), y(y), z(z)
 {
 }
 
 Vector3::Vector3(const Vector3& vector)
-    : xCoordinate(vector.X()), yCoordinate(vector.Y()), zCoordinate(vector.Z())
+    : x(vector.X()), y(vector.Y()), z(vector.Z())
 {
 }
 
 const Single& Vector3::X() const
 {
-    return this->xCoordinate;
+    return this->x;
 }
 
 const Single& Vector3::Y() const
 {
-    return this->yCoordinate;
+    return this->y;
 }
 
 const Single& Vector3::Z() const
 {
-    return this->zCoordinate;
+    return this->z;
 }
 
 const Single Vector3::LengthSquared() const
 {
-    return   (this->xCoordinate * this->xCoordinate)
-           + (this->yCoordinate * this->yCoordinate)
-           + (this->zCoordinate * this->zCoordinate);
+    return   (this->x * this->x)
+           + (this->y * this->y)
+           + (this->z * this->z);
 }
 
 const Single Vector3::Length() const
@@ -115,9 +114,9 @@ const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
     // The vector cross product in expanded form can be defined as:
     // a x b = (y1z2 - z1y2)i - (x1z2 - z1x2)j + (x1y2 - y1x2)k
 
-    Single x = (this->yCoordinate * vectorb.Z()) - (vectorb.Y() * this->zCoordinate);
-    Single y = (this->zCoordinate * vectorb.X()) - (vectorb.Z() * this->xCoordinate);
-    Single z = (this->xCoordinate * vectorb.Y()) - (vectorb.X() * this->yCoordinate);
+    Single x = (this->y * vectorb.Z()) - (vectorb.Y() * this->z);
+    Single y = (this->z * vectorb.X()) - (vectorb.Z() * this->x);
+    Single z = (this->x * vectorb.Y()) - (vectorb.X() * this->y);
 
     return Vector3(x, y, z);
 }
@@ -167,85 +166,85 @@ const Single& Vector3::operator[](const Int32& index) const
     return (this->vector[index]);
 }
 
-Vector3& Vector3::operator=(const Vector3 &vector)
+Vector3& Vector3::operator=(const Vector3& vector)
 {
     if (this != &vector)
     {
-        this->xCoordinate = vector.X();
-        this->yCoordinate = vector.Y();
-        this->zCoordinate = vector.Z();
+        this->x = vector.X();
+        this->y = vector.Y();
+        this->z = vector.Z();
     }
 
     return *this;
 }
 
-bool Vector3::operator==(const Vector3 &vector) const
+bool Vector3::operator==(const Vector3& vector) const
 {
-    return (this->xCoordinate    == vector.xCoordinate
-            && this->yCoordinate == vector.yCoordinate
-            && this->zCoordinate == vector.zCoordinate);
+    return (this->x    == vector.x
+            && this->y == vector.y
+            && this->z == vector.z);
 }
 
-bool Vector3::operator!=(const Vector3 &vector) const
+bool Vector3::operator!=(const Vector3& vector) const
 {
     return !(*this == vector);
 }
 
-Vector3& Vector3::operator*=(const Vector3 &vector)
+Vector3& Vector3::operator*=(const Vector3& vector)
 {
-    this->xCoordinate *= vector.xCoordinate;
-    this->yCoordinate *= vector.yCoordinate;
-    this->zCoordinate *= vector.zCoordinate;
+    this->x *= vector.x;
+    this->y *= vector.y;
+    this->z *= vector.z;
 
     return *this;
 }
 
-Vector3& Vector3::operator*=(const Single &value)
+Vector3& Vector3::operator*=(const Single& value)
 {
-    this->xCoordinate *= value;
-    this->yCoordinate *= value;
-    this->zCoordinate *= value;
+    this->x *= value;
+    this->y *= value;
+    this->z *= value;
 
     return *this;
 }
 
-Vector3& Vector3::operator/=(const Vector3 &vector)
+Vector3& Vector3::operator/=(const Vector3& vector)
 {
-    this->xCoordinate /= vector.xCoordinate;
-    this->yCoordinate /= vector.yCoordinate;
-    this->zCoordinate /= vector.zCoordinate;
+    this->x /= vector.x;
+    this->y /= vector.y;
+    this->z /= vector.z;
 
     return *this;
 }
 
-Vector3& Vector3::operator/=(const Single &value)
+Vector3& Vector3::operator/=(const Single& value)
 {
-    this->xCoordinate /= value;
-    this->yCoordinate /= value;
-    this->zCoordinate /= value;
+    this->x /= value;
+    this->y /= value;
+    this->z /= value;
 
     return *this;
 }
 
-Vector3& Vector3::operator-=(const Vector3 &vector)
+Vector3& Vector3::operator-=(const Vector3& vector)
 {
-    this->xCoordinate -= vector.xCoordinate;
-    this->yCoordinate -= vector.yCoordinate;
-    this->zCoordinate -= vector.zCoordinate;
+    this->x -= vector.x;
+    this->y -= vector.y;
+    this->z -= vector.z;
 
     return *this;
 }
 
-Vector3& Vector3::operator+=(const Vector3 &vector)
+Vector3& Vector3::operator+=(const Vector3& vector)
 {
-    this->xCoordinate += vector.xCoordinate;
-    this->yCoordinate += vector.yCoordinate;
-    this->zCoordinate += vector.zCoordinate;
+    this->x += vector.x;
+    this->y += vector.y;
+    this->z += vector.z;
 
     return *this;
 }
 
-const Vector3 Vector3::operator*(const Vector3 &vector) const
+const Vector3 Vector3::operator*(const Vector3& vector) const
 {
     Vector3 result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
 
@@ -254,7 +253,7 @@ const Vector3 Vector3::operator*(const Vector3 &vector) const
     return result;
 }
 
-const Vector3 Vector3::operator*(const Single &value) const
+const Vector3 Vector3::operator*(const Single& value) const
 {
     Vector3 result = *this;
 
@@ -263,24 +262,24 @@ const Vector3 Vector3::operator*(const Single &value) const
     return result;
 }
 
-const Vector3 Vector3::operator*(const Matrix &matrix) const
+const Vector3 Vector3::operator*(const Matrix& matrix) const
 {
-    Single x = (this->xCoordinate * matrix.M11())
-             + (this->yCoordinate * matrix.M21())
-             + (this->zCoordinate * matrix.M31());
+    Single x = (this->x * matrix.M11())
+             + (this->y * matrix.M21())
+             + (this->z * matrix.M31());
 
-    Single y = (this->xCoordinate * matrix.M12())
-             + (this->yCoordinate * matrix.M22())
-             + (this->zCoordinate * matrix.M32());
+    Single y = (this->x * matrix.M12())
+             + (this->y * matrix.M22())
+             + (this->z * matrix.M32());
 
-    Single z = (this->xCoordinate * matrix.M13())
-             + (this->yCoordinate * matrix.M23())
-             + (this->zCoordinate * matrix.M33());
+    Single z = (this->x * matrix.M13())
+             + (this->y * matrix.M23())
+             + (this->z * matrix.M33());
 
     return Vector3(x, y, z);
 }
 
-const Vector3 Vector3::operator/(const Vector3 &vector) const
+const Vector3 Vector3::operator/(const Vector3& vector) const
 {
     Vector3 result = *this;
 
@@ -289,7 +288,7 @@ const Vector3 Vector3::operator/(const Vector3 &vector) const
     return result;
 }
 
-const Vector3 Vector3::operator/(const Single &value) const
+const Vector3 Vector3::operator/(const Single& value) const
 {
     Vector3 result = *this;
 
@@ -298,7 +297,7 @@ const Vector3 Vector3::operator/(const Single &value) const
     return result;
 }
 
-const Vector3 Vector3::operator-(const Vector3 &vector) const
+const Vector3 Vector3::operator-(const Vector3& vector) const
 {
     Vector3 result = *this;
 
@@ -307,7 +306,7 @@ const Vector3 Vector3::operator-(const Vector3 &vector) const
     return result;
 }
 
-const Vector3 Vector3::operator+(const Vector3 &vector) const
+const Vector3 Vector3::operator+(const Vector3& vector) const
 {
     Vector3 result = *this;
 

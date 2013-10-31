@@ -42,9 +42,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this component instance.
              */
-            virtual ~Component()
-            {
-            };
+            virtual ~Component();
 
         public:
             /**

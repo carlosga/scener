@@ -483,40 +483,6 @@ void Matrix::Transpose()
     this->m44 = temp.m44;
 }
 
-Single Matrix::SubMatrixDeterminant()
-{
-    return this->M11() * this->M22() * this->M33()
-         + this->M12() * this->M23() * this->M31()
-         + this->M13() * this->M21() * this->M32()
-         - this->M13() * this->M22() * this->M31()
-         - this->M12() * this->M21() * this->M33()
-         - this->M11() * this->M23() * this->M32();
-}
-
-Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
-{
-    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    UInt32 si;
-    UInt32 sj;
-    Matrix result;
-
-    // loop through 3x3 submatrix
-    for (UInt32 di = 0; di < 3; di++)
-    {
-        for (UInt32 dj = 0; dj < 3; dj++)
-        {
-            // map 3x3 element (destination) to 4x4 element (source)
-            si = di + ((di >= row) ? 1 : 0);
-            sj = dj + ((dj >= column) ? 1 : 0);
-
-            // copy element
-            result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
-        }
-    }
-
-    return result;
-}
-
 Single& Matrix::operator[](const UInt32& index)
 {
     assert(index >= 0 && index < 16);
@@ -531,7 +497,7 @@ const Single& Matrix::operator[](const UInt32& index) const
     return this->matrix[index];
 }
 
-bool Matrix::operator==(const Matrix &matrix) const
+bool Matrix::operator==(const Matrix& matrix) const
 {
     return (this->m11 == matrix.m11
          && this->m12 == matrix.m12
@@ -551,12 +517,12 @@ bool Matrix::operator==(const Matrix &matrix) const
          && this->m44 == matrix.m44);
 }
 
-bool Matrix::operator!=(const Matrix &matrix) const
+bool Matrix::operator!=(const Matrix& matrix) const
 {
     return !(*this == matrix);
 }
 
-Matrix& Matrix::operator*=(const Matrix &matrix)
+Matrix& Matrix::operator*=(const Matrix& matrix)
 {
     Single m11 = ((this->m11 * matrix.m11) + (this->m12 * matrix.m21) + (this->m13 * matrix.m31) + (this->m14 * matrix.m41));
     Single m12 = ((this->m11 * matrix.m12) + (this->m12 * matrix.m22) + (this->m13 * matrix.m32) + (this->m14 * matrix.m42));
@@ -601,11 +567,45 @@ Matrix& Matrix::operator*=(const Matrix &matrix)
     return *this;
 }
 
-const Matrix Matrix::operator*(const Matrix &matrix) const
+const Matrix Matrix::operator*(const Matrix& matrix) const
 {
     Matrix result = *this;  // Make a copy of myself. Same as Vector3 result(*this)
 
     result *= matrix;
+
+    return result;
+}
+
+Single Matrix::SubMatrixDeterminant()
+{
+    return this->M11() * this->M22() * this->M33()
+         + this->M12() * this->M23() * this->M31()
+         + this->M13() * this->M21() * this->M32()
+         - this->M13() * this->M22() * this->M31()
+         - this->M12() * this->M21() * this->M33()
+         - this->M11() * this->M23() * this->M32();
+}
+
+Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
+{
+    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    UInt32 si;
+    UInt32 sj;
+    Matrix result;
+
+    // loop through 3x3 submatrix
+    for (UInt32 di = 0; di < 3; di++)
+    {
+        for (UInt32 dj = 0; dj < 3; dj++)
+        {
+            // map 3x3 element (destination) to 4x4 element (source)
+            si = di + ((di >= row) ? 1 : 0);
+            sj = dj + ((dj >= column) ? 1 : 0);
+
+            // copy element
+            result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
+        }
+    }
 
     return result;
 }

@@ -36,7 +36,7 @@ const ContentType Texture2DReader::GetContentType() const
 
 std::shared_ptr<void> Texture2DReader::Read(ContentReader* input)
 {
-    std::shared_ptr<Texture2D> texture = std::make_shared<Texture2D>(input->GetGraphicsDevice(), 0, 0);
+    auto texture = std::make_shared<Texture2D>(input->GetGraphicsDevice(), 0, 0);
 
     texture->format = static_cast<SurfaceFormat>(input->ReadUInt32());
     texture->width  = input->ReadUInt32();

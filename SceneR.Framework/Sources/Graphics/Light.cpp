@@ -19,6 +19,16 @@
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
+const Color& Light::GetColor() const
+{
+    return this->color;
+}
+
+void Light::SetColor(const Color& color)
+{
+    this->color = color;
+}
+
 Light::Light()
     : object(0), color(1.0f, 1.0f, 1.0f, 1.0f)
 {
@@ -31,14 +41,4 @@ Light::Light(const Color& color)
 
 Light::~Light()
 {
-}
-
-const Color& Light::GetColor() const
-{
-    return this->color;
-}
-
-void Light::SetColor(const Color& color)
-{
-    this->color = color;
 }

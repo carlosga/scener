@@ -41,6 +41,7 @@ namespace SceneR
                 {
                 };
 
+            public:
                 /**
                  * Gets the format of the texture data.
                  */

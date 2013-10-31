@@ -59,6 +59,14 @@ const Single& Color::A() const
     return this->a;
 }
 
+const UInt32 Color::PackedValue() const
+{
+    return ((static_cast<int>(this->r) * 255) << 24)
+         + ((static_cast<int>(this->g) * 255) << 16)
+         + ((static_cast<int>(this->b) * 255) << 8)
+         +  (static_cast<int>(this->a) * 255);
+}
+
 Single& Color::operator[](const Int32& index)
 {
     assert(index >= 0 && index < 4);
@@ -73,7 +81,7 @@ const Single& Color::operator[](const Int32& index) const
     return (this->color[index]);
 }
 
-bool Color::operator==(const Color &color) const
+bool Color::operator==(const Color& color) const
 {
     return (this->r    == color.r
             && this->g == color.g
@@ -81,12 +89,12 @@ bool Color::operator==(const Color &color) const
             && this->a == color.a);
 }
 
-bool Color::operator!=(const Color &color) const
+bool Color::operator!=(const Color& color) const
 {
     return !(*this == color);
 }
 
-Color& Color::operator*=(const Color &color)
+Color& Color::operator*=(const Color& color)
 {
     this->r *= color.r;
     this->g *= color.g;
@@ -96,7 +104,7 @@ Color& Color::operator*=(const Color &color)
     return *this;
 }
 
-Color& Color::operator*=(const Single &value)
+Color& Color::operator*=(const Single& value)
 {
     this->r *= value;
     this->g *= value;
@@ -106,7 +114,7 @@ Color& Color::operator*=(const Single &value)
     return *this;
 }
 
-Color& Color::operator-=(const Color &color)
+Color& Color::operator-=(const Color& color)
 {
     this->r -= color.r;
     this->g -= color.g;
@@ -116,7 +124,7 @@ Color& Color::operator-=(const Color &color)
     return *this;
 }
 
-Color& Color::operator+=(const Color &color)
+Color& Color::operator+=(const Color& color)
 {
     this->r += color.r;
     this->g += color.g;
@@ -126,7 +134,7 @@ Color& Color::operator+=(const Color &color)
     return *this;
 }
 
-const Color Color::operator*(const Color &color) const
+const Color Color::operator*(const Color& color) const
 {
     Color result = *this;
 
@@ -135,7 +143,7 @@ const Color Color::operator*(const Color &color) const
     return result;
 }
 
-const Color Color::operator*(const Single &value) const
+const Color Color::operator*(const Single& value) const
 {
     Color result = *this;
 
@@ -144,7 +152,7 @@ const Color Color::operator*(const Single &value) const
     return result;
 }
 
-const Color Color::operator-(const Color &color) const
+const Color Color::operator-(const Color& color) const
 {
     Color result = *this;
 
@@ -153,15 +161,7 @@ const Color Color::operator-(const Color &color) const
     return result;
 }
 
-const UInt32 Color::PackedValue() const
-{
-    return ((static_cast<int>(this->r) * 255) << 24)
-         + ((static_cast<int>(this->g) * 255) << 16)
-         + ((static_cast<int>(this->b) * 255) << 8)
-         +  (static_cast<int>(this->a) * 255);
-}
-
-const Color Color::operator+(const Color &color) const
+const Color Color::operator+(const Color& color) const
 {
     Color result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
 

@@ -46,6 +46,11 @@ namespace SceneR
              */
             ModelMeshPart();
 
+            /**
+             * Releases all resources being used by this ModelMeshPart.
+             */
+            ~ModelMeshPart();
+
         public:
             /**
              * Gets or sets the material Effect for this mesh part.

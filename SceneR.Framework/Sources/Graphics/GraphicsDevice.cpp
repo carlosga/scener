@@ -54,30 +54,6 @@ void GraphicsDevice::Clear(const Color& color) const
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
-                                    const UInt32&        startVertex,
-                                    const UInt32&        primitiveCount) const
-{
-    if (this->vertexBuffer == nullptr)
-    {
-        throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
-    }
-    if (this->effect == nullptr)
-    {
-        throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
-    }
-
-    this->effect->Begin();
-
-    this->vertexBuffer->BindVertexArray();
-
-    glDrawArrays(static_cast<GLenum>(primitiveType), startVertex, primitiveCount);
-
-    this->vertexBuffer->UnbindVertexArray();
-
-    this->effect->End();
-}
-
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
                                            const UInt32&        baseVertex,
                                            const UInt32&        minVertexIndex,
@@ -119,6 +95,35 @@ void GraphicsDevice::DrawInstancedPrimitives(const PrimitiveType& primitiveType,
                                              const UInt32&        primitiveCount,
                                              const UInt32&        instanceCount) const
 {
+    throw std::runtime_error("Not implemented");
+}
+
+void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
+                                    const UInt32&        startVertex,
+                                    const UInt32&        primitiveCount) const
+{
+    if (this->vertexBuffer == nullptr)
+    {
+        throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
+    }
+    if (this->effect == nullptr)
+    {
+        throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
+    }
+
+    this->effect->Begin();
+
+    this->vertexBuffer->BindVertexArray();
+
+    glDrawArrays(static_cast<GLenum>(primitiveType), startVertex, primitiveCount);
+
+    this->vertexBuffer->UnbindVertexArray();
+
+    this->effect->End();
+}
+
+void GraphicsDevice::Present()
+{
 }
 
 std::shared_ptr<Effect> GraphicsDevice::GetEffect()
@@ -129,10 +134,6 @@ std::shared_ptr<Effect> GraphicsDevice::GetEffect()
 void GraphicsDevice::SetEffect(std::shared_ptr<Effect> effect)
 {
     this->effect = effect;
-}
-
-void GraphicsDevice::Present()
-{
 }
 
 const GraphicsProfile& GraphicsDevice::GetGraphicsProfile() const

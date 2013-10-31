@@ -26,6 +26,10 @@ Component::Component(Renderer& renderer)
 {
 }
 
+Component::~Component()
+{
+}
+
 void Component::Update()
 {
 }

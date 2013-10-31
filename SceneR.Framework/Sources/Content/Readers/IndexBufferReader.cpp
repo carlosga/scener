@@ -35,11 +35,11 @@ const ContentType IndexBufferReader::GetContentType() const
 
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader* input)
 {
-    std::vector<UInt32>          data(0);
-    UInt32                       indexCount = input->ReadUInt32();
-    std::shared_ptr<IndexBuffer> buffer     = std::make_shared<IndexBuffer>(input->GetGraphicsDevice(),
-                                                                            IndexElementSize::ThirtyTwoBits,
-                                                                            indexCount);
+    std::vector<UInt32> data(0);
+    UInt32              indexCount = input->ReadUInt32();
+    auto                buffer     = std::make_shared<IndexBuffer>(input->GetGraphicsDevice(),
+                                                                   IndexElementSize::ThirtyTwoBits,
+                                                                   indexCount);
 
     for (UInt32 i = 0; i < indexCount; i++)
     {

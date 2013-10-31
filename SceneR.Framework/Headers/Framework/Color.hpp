@@ -36,7 +36,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Color class with the given red, green and blue components.
-             *
              * @param r The red component value of the color.
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
@@ -45,7 +44,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Color class with the given red, green, blue and alpha components.
-             *
              * @param r The red component value of the color.
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
@@ -55,7 +53,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Color class (Copy constructor)
-             *
              * @param color The Color to be copied.
              */
             Color(const Color& color);
@@ -65,6 +62,7 @@ namespace SceneR
              */
             ~Color() = default;
 
+        public:
             /**
              * Gets the red component value of the color.
              * @return the red component value of the color.
@@ -97,16 +95,16 @@ namespace SceneR
         public:
             Single& operator[](const Int32& index);
             const Single& operator[](const Int32& index) const;
-            bool operator==(const Color &color) const;
-            bool operator!=(const Color &color) const;
-            Color& operator*=(const Color &color);
-            Color& operator*=(const Single &value);
-            Color& operator-=(const Color &color);
-            Color& operator+=(const Color &color);
-            const Color operator*(const Color &color) const;
-            const Color operator*(const Single &value) const;
-            const Color operator-(const Color &color) const;
-            const Color operator+(const Color &color) const;
+            bool operator==(const Color& color) const;
+            bool operator!=(const Color& color) const;
+            Color& operator*=(const Color& color);
+            Color& operator*=(const Single& value);
+            Color& operator-=(const Color& color);
+            Color& operator+=(const Color& color);
+            const Color operator*(const Color& color) const;
+            const Color operator*(const Single& value) const;
+            const Color operator-(const Color& color) const;
+            const Color operator+(const Color& color) const;
 
         public:
             static const Color AliceBlue;

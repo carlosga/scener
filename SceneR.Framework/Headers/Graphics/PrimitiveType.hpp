@@ -17,6 +17,7 @@
 #ifndef PRIMITIVETYPE_HPP
 #define PRIMITIVETYPE_HPP
 
+#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

@@ -36,7 +36,9 @@ const VertexDeclaration VertexPositionColorTexture::GetVertexDeclaration()
 }
 
 VertexPositionColorTexture::VertexPositionColorTexture(const Vector3& position, const Color& color, const Vector2& textureCoordinate)
-    : position(position), color(color), textureCoordinate(textureCoordinate)
+    : position(position),
+      color(color),
+      textureCoordinate(textureCoordinate)
 {
 }
 

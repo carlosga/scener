@@ -174,22 +174,22 @@ namespace SceneR
 
         public:
             Single& operator[](const Int32 &index);
-            const Single& operator[](const Int32 &index) const;
-            Quaternion& operator=(const Quaternion &vector);
-            bool operator==(const Quaternion &vector) const;
-            bool operator!=(const Quaternion &vector) const;
-            Quaternion& operator*=(const Quaternion &vector);
-            Quaternion& operator*=(const Single &value);
-            Quaternion& operator/=(const Quaternion &vector);
-            Quaternion& operator/=(const Single &value);
-            Quaternion& operator-=(const Quaternion &vector);
-            Quaternion& operator+=(const Quaternion &vector);
-            const Quaternion operator*(const Quaternion &vector) const;
-            const Quaternion operator*(const Single &value) const;
-            const Quaternion operator/(const Quaternion &vector) const;
-            const Quaternion operator/(const Single &value) const;
-            const Quaternion operator-(const Quaternion &vector) const;
-            const Quaternion operator+(const Quaternion &vector) const;
+            const Single& operator[](const Int32& index) const;
+            Quaternion& operator=(const Quaternion& vector);
+            bool operator==(const Quaternion& vector) const;
+            bool operator!=(const Quaternion& vector) const;
+            Quaternion& operator*=(const Quaternion& vector);
+            Quaternion& operator*=(const Single& value);
+            Quaternion& operator/=(const Quaternion& vector);
+            Quaternion& operator/=(const Single& value);
+            Quaternion& operator-=(const Quaternion& vector);
+            Quaternion& operator+=(const Quaternion& vector);
+            const Quaternion operator*(const Quaternion& vector) const;
+            const Quaternion operator*(const Single& value) const;
+            const Quaternion operator/(const Quaternion& vector) const;
+            const Quaternion operator/(const Single& value) const;
+            const Quaternion operator-(const Quaternion& vector) const;
+            const Quaternion operator+(const Quaternion& vector) const;
 
         private:
             union
@@ -197,10 +197,10 @@ namespace SceneR
                 Single quaternion[4];
                 struct
                 {
-                    Single xCoordinate;
-                    Single yCoordinate;
-                    Single zCoordinate;
-                    Single wCoordinate;
+                    Single x;
+                    Single y;
+                    Single z;
+                    Single w;
                 };
             };
         };

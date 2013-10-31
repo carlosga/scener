@@ -55,14 +55,14 @@ namespace SceneR
             virtual Boolean BeginDraw() override;
 
             /**
-             * Creates the graphics device.
-             */
-            virtual void CreateDevice() override;
-
-            /**
              * Called by the renderer at the end of drawing; presents the final rendering.
              */
             virtual void EndDraw() override;
+
+            /**
+             * Creates the graphics device.
+             */
+            virtual void CreateDevice() override;
 
             /**
              * Gets the graphics device.

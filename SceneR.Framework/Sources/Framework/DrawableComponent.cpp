@@ -66,3 +66,11 @@ void DrawableComponent::Initialize()
 {
     this->LoadContent();
 }
+
+void DrawableComponent::LoadContent()
+{
+}
+
+void DrawableComponent::UnloadContent()
+{
+}

@@ -38,6 +38,11 @@ namespace SceneR
              */
             ModelMesh();
 
+            /**
+             * Releases all resources being used by this ModelMesh.
+             */
+            ~ModelMesh();
+
         public:
             /**
              * Draws all of the ModelMeshPart objects in this mesh.

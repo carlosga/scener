@@ -54,24 +54,28 @@ namespace SceneR
             SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
 
             /**
+             * Disposes all data that was loaded by this ContentManager.
+             */
+            void Unload();
+
+            /**
              * Loads a the given asset.
              */
             template <class T>
             std::shared_ptr<T> Load(const String& assetName) throw(ContentLoadException)
             {
-                std::shared_ptr<T>             asset  = nullptr;
-                std::unique_ptr<ContentReader> reader = nullptr;
+                std::shared_ptr<T> asset  = nullptr;
 
                 try
                 {
                     String filename = System::IO::Path::ChangeExtension(assetName, "scr");
                     String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
-                    reader = System::Pointer::CreateUnique<ContentReader>(this->graphicsDevice, this->typeReaderManager, path);
+                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
 
-                    asset = reader->ReadObject<T>();
+                    asset = reader.ReadObject<T>();
 
-                    reader->Close();
+                    reader.Close();
                 }
                 catch (const std::exception& e)
                 {
@@ -80,11 +84,6 @@ namespace SceneR
 
                 return asset;
             };
-
-            /**
-             * Disposes all data that was loaded by this ContentManager.
-             */
-            void Unload();
 
         private:
             SceneR::Graphics::GraphicsDevice& graphicsDevice;

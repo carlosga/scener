@@ -74,34 +74,6 @@ void ShaderProgram::Build()
     this->VerifyLinkingState();
 }
 
-void ShaderProgram::VerifyLinkingState()
-{
-    // ... verify program linking
-    GLint status;
-    glGetProgramiv(this->object, GL_LINK_STATUS, &status);
-
-    if (status == GL_FALSE)
-    {
-        String msg("Program linking failure: ");
-
-        GLint infoLogLength;
-        glGetProgramiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-        if (infoLogLength)
-        {
-            String linkErrorMessage("", infoLogLength);
-
-            glGetProgramInfoLog(this->object, infoLogLength, NULL, &linkErrorMessage[0]);
-
-            msg += linkErrorMessage;
-        }
-
-        this->Release();
-
-        throw std::runtime_error(msg);
-    }
-}
-
 void ShaderProgram::Deactivate() const
 {
     glUseProgram(0);
@@ -181,5 +153,33 @@ void ShaderProgram::Release()
     {
         glDeleteProgram(this->object);
         this->object = 0;
+    }
+}
+
+void ShaderProgram::VerifyLinkingState()
+{
+    // ... verify program linking
+    GLint status;
+    glGetProgramiv(this->object, GL_LINK_STATUS, &status);
+
+    if (status == GL_FALSE)
+    {
+        String msg("Program linking failure: ");
+
+        GLint infoLogLength;
+        glGetProgramiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+        if (infoLogLength)
+        {
+            String linkErrorMessage("", infoLogLength);
+
+            glGetProgramInfoLog(this->object, infoLogLength, NULL, &linkErrorMessage[0]);
+
+            msg += linkErrorMessage;
+        }
+
+        this->Release();
+
+        throw std::runtime_error(msg);
     }
 }

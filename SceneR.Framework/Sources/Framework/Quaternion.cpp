@@ -112,57 +112,57 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
 }
 
 Quaternion::Quaternion()
-    : xCoordinate(0.0f), yCoordinate(0.0f), zCoordinate(0.0f), wCoordinate(0.0f)
+    : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
 {
 }
 
 Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, const Single& w)
-    : xCoordinate(x), yCoordinate(y), zCoordinate(z), wCoordinate(w)
+    : x(x), y(y), z(z), w(w)
 {
 }
 
 Quaternion::Quaternion(const Quaternion& quaternion)
-    : xCoordinate(quaternion.X()), yCoordinate(quaternion.Y()), zCoordinate(quaternion.Z()), wCoordinate(quaternion.W())
+    : x(quaternion.X()), y(quaternion.Y()), z(quaternion.Z()), w(quaternion.W())
 {
 }
 
 const Single& Quaternion::X() const
 {
-    return this->xCoordinate;
+    return this->x;
 }
 
 const Single& Quaternion::Y() const
 {
-    return this->yCoordinate;
+    return this->y;
 }
 
 const Single& Quaternion::Z() const
 {
-    return this->zCoordinate;
+    return this->z;
 }
 
 const Single& Quaternion::W() const
 {
-    return this->wCoordinate;
+    return this->w;
+}
+
+const Single Quaternion::DotProduct(const Quaternion& quaternion) const
+{
+    Single x = this->x * quaternion.x;
+    Single y = this->y * quaternion.y;
+    Single z = this->z * quaternion.z;
+    Single w = this->w * quaternion.w;
+
+    return (x + y + z + w);
 }
 
 void Quaternion::Conjugate()
 {
     // The conjugate of a quaternion is defined by
     // q* = (w + xi + yj + zk) = w -xi  -yj -zk
-    this->xCoordinate = -this->xCoordinate;
-    this->yCoordinate = -this->yCoordinate;
-    this->zCoordinate = -this->zCoordinate;
-}
-
-const Single Quaternion::DotProduct(const Quaternion& quaternion) const
-{
-    Single x = this->xCoordinate * quaternion.xCoordinate;
-    Single y = this->yCoordinate * quaternion.yCoordinate;
-    Single z = this->zCoordinate * quaternion.zCoordinate;
-    Single w = this->wCoordinate * quaternion.wCoordinate;
-
-    return (x + y + z + w);
+    this->x = -this->x;
+    this->y = -this->y;
+    this->z = -this->z;
 }
 
 void Quaternion::Invert()
@@ -185,10 +185,10 @@ bool Quaternion::IsIdentity() const
 
 const Single Quaternion::LengthSquared() const
 {
-    return (this->xCoordinate * this->xCoordinate)
-         + (this->yCoordinate * this->yCoordinate)
-         + (this->zCoordinate * this->zCoordinate)
-         + (this->wCoordinate * this->wCoordinate);
+    return (this->x * this->x)
+         + (this->y * this->y)
+         + (this->z * this->z)
+         + (this->w * this->w);
 }
 
 const Single Quaternion::Length() const
@@ -215,33 +215,33 @@ const Single& Quaternion::operator[](const Int32& index) const
     return (this->quaternion[index]);
 }
 
-Quaternion& Quaternion::operator=(const Quaternion &quaternion)
+Quaternion& Quaternion::operator=(const Quaternion& quaternion)
 {
     if (this != &quaternion)
     {
-        this->xCoordinate = quaternion.X();
-        this->yCoordinate = quaternion.Y();
-        this->zCoordinate = quaternion.Z();
-        this->wCoordinate = quaternion.W();
+        this->x = quaternion.X();
+        this->y = quaternion.Y();
+        this->z = quaternion.Z();
+        this->w = quaternion.W();
     }
 
     return *this;
 }
 
-bool Quaternion::operator==(const Quaternion &quaternion) const
+bool Quaternion::operator==(const Quaternion& quaternion) const
 {
-    return (this->xCoordinate    == quaternion.xCoordinate
-            && this->yCoordinate == quaternion.yCoordinate
-            && this->zCoordinate == quaternion.zCoordinate
-            && this->wCoordinate == quaternion.wCoordinate);
+    return (this->x    == quaternion.x
+            && this->y == quaternion.y
+            && this->z == quaternion.z
+            && this->w == quaternion.w);
 }
 
-bool Quaternion::operator!=(const Quaternion &quaternion) const
+bool Quaternion::operator!=(const Quaternion& quaternion) const
 {
     return !(*this == quaternion);
 }
 
-Quaternion& Quaternion::operator*=(const Quaternion &q1)
+Quaternion& Quaternion::operator*=(const Quaternion& q1)
 {
     // Multiplication of quaternions is defined by
     // q0q1 = (w0 + x0i + y0j + z0k)(w1 + x1i + y1j + z1k) = (w0w1 - x0x1 - y0y1 - z0z1)
@@ -251,65 +251,65 @@ Quaternion& Quaternion::operator*=(const Quaternion &q1)
 
     Quaternion q0 = *this;
 
-    this->wCoordinate = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
-    this->xCoordinate = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
-    this->yCoordinate = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
-    this->zCoordinate = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
+    this->w = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
+    this->x = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
+    this->y = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
+    this->z = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
 
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const Single &value)
+Quaternion& Quaternion::operator*=(const Single& value)
 {
-    this->xCoordinate *= value;
-    this->yCoordinate *= value;
-    this->zCoordinate *= value;
-    this->wCoordinate *= value;
+    this->x *= value;
+    this->y *= value;
+    this->z *= value;
+    this->w *= value;
 
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Quaternion &quaternion)
+Quaternion& Quaternion::operator/=(const Quaternion& quaternion)
 {
-    this->xCoordinate /= quaternion.xCoordinate;
-    this->yCoordinate /= quaternion.yCoordinate;
-    this->zCoordinate /= quaternion.zCoordinate;
-    this->wCoordinate /= quaternion.wCoordinate;
+    this->x /= quaternion.x;
+    this->y /= quaternion.y;
+    this->z /= quaternion.z;
+    this->w /= quaternion.w;
 
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Single &value)
+Quaternion& Quaternion::operator/=(const Single& value)
 {
-    this->xCoordinate /= value;
-    this->yCoordinate /= value;
-    this->zCoordinate /= value;
-    this->wCoordinate /= value;
+    this->x /= value;
+    this->y /= value;
+    this->z /= value;
+    this->w /= value;
 
     return *this;
 }
 
-Quaternion& Quaternion::operator-=(const Quaternion &quaternion)
+Quaternion& Quaternion::operator-=(const Quaternion& quaternion)
 {
-    this->xCoordinate -= quaternion.xCoordinate;
-    this->yCoordinate -= quaternion.yCoordinate;
-    this->zCoordinate -= quaternion.zCoordinate;
-    this->wCoordinate -= quaternion.wCoordinate;
+    this->x -= quaternion.x;
+    this->y -= quaternion.y;
+    this->z -= quaternion.z;
+    this->w -= quaternion.w;
 
     return *this;
 }
 
-Quaternion& Quaternion::operator+=(const Quaternion &quaternion)
+Quaternion& Quaternion::operator+=(const Quaternion& quaternion)
 {
-    this->xCoordinate += quaternion.xCoordinate;
-    this->yCoordinate += quaternion.yCoordinate;
-    this->zCoordinate += quaternion.zCoordinate;
-    this->wCoordinate += quaternion.wCoordinate;
+    this->x += quaternion.x;
+    this->y += quaternion.y;
+    this->z += quaternion.z;
+    this->w += quaternion.w;
 
     return *this;
 }
 
-const Quaternion Quaternion::operator*(const Quaternion &quaternion) const
+const Quaternion Quaternion::operator*(const Quaternion& quaternion) const
 {
     Quaternion result = *this;
 
@@ -318,7 +318,7 @@ const Quaternion Quaternion::operator*(const Quaternion &quaternion) const
     return result;
 }
 
-const Quaternion Quaternion::operator*(const Single &value) const
+const Quaternion Quaternion::operator*(const Single& value) const
 {
     Quaternion result = *this;
 
@@ -327,7 +327,7 @@ const Quaternion Quaternion::operator*(const Single &value) const
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Quaternion &quaternion) const
+const Quaternion Quaternion::operator/(const Quaternion& quaternion) const
 {
     Quaternion result = *this;
 
@@ -336,7 +336,7 @@ const Quaternion Quaternion::operator/(const Quaternion &quaternion) const
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Single &value) const
+const Quaternion Quaternion::operator/(const Single& value) const
 {
     Quaternion result = *this;
 
@@ -345,7 +345,7 @@ const Quaternion Quaternion::operator/(const Single &value) const
     return result;
 }
 
-const Quaternion Quaternion::operator-(const Quaternion &quaternion) const
+const Quaternion Quaternion::operator-(const Quaternion& quaternion) const
 {
     Quaternion result = *this;
 
@@ -354,7 +354,7 @@ const Quaternion Quaternion::operator-(const Quaternion &quaternion) const
     return result;
 }
 
-const Quaternion Quaternion::operator+(const Quaternion &quaternion) const
+const Quaternion Quaternion::operator+(const Quaternion& quaternion) const
 {
     Quaternion result = *this;
 

@@ -37,6 +37,7 @@ namespace SceneR
              */
             Texture2DReader();
 
+        public:
             /**
              * Gets the the reader content type.
              */

@@ -24,6 +24,10 @@ ModelMeshPart::ModelMeshPart()
 {
 }
 
+ModelMeshPart::~ModelMeshPart()
+{
+}
+
 std::shared_ptr<Effect> ModelMeshPart::GetEffect() const
 {
     return this->effect;

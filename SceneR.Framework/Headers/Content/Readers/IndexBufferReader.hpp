@@ -37,6 +37,7 @@ namespace SceneR
              */
             IndexBufferReader();
 
+        public:
             /**
              * Gets the the reader content type.
              */

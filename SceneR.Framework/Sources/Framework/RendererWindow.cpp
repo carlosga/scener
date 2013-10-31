@@ -153,15 +153,6 @@ void RendererWindow::Close()
     }
 }
 
-void RendererWindow::InitializeInput() const
-{
-    // Enable sticky keys
-    glfwSetInputMode(this->handle, GLFW_STICKY_KEYS, GL_TRUE);
-
-    // Enable mouse cursor (only needed for fullscreen mode)
-    glfwSetInputMode(this->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-}
-
 void RendererWindow::EnableDebugOutput() const
 {
     // Enable debugging output
@@ -179,12 +170,13 @@ void RendererWindow::DisableDebugOutput() const
     glDebugMessageCallback(nullptr, nullptr);
 }
 
-void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,
-                                   GLuint  id       , GLenum      severity,
-                                   GLsizei length   , const char* message,
-                                   void*   userParam)
+void RendererWindow::InitializeInput() const
 {
-    std::cout << message << std::endl;
+    // Enable sticky keys
+    glfwSetInputMode(this->handle, GLFW_STICKY_KEYS, GL_TRUE);
+
+    // Enable mouse cursor (only needed for fullscreen mode)
+    glfwSetInputMode(this->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
 void RendererWindow::InitializeCallbacks() const
@@ -219,4 +211,12 @@ void RendererWindow::SwapBuffers() const
 {
     glfwSwapBuffers(this->handle);
     glfwWaitEvents();
+}
+
+void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,
+                                   GLuint  id       , GLenum      severity,
+                                   GLsizei length   , const char* message,
+                                   void*   userParam)
+{
+    std::cout << message << std::endl;
 }

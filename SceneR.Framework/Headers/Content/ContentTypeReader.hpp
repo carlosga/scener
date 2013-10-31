@@ -39,6 +39,7 @@ namespace SceneR
             {
             };
 
+        public:
             /**
              * Gets the reader supported content type.
              */

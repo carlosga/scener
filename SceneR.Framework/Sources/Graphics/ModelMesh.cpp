@@ -25,6 +25,10 @@ ModelMesh::ModelMesh()
 {
 }
 
+ModelMesh::~ModelMesh()
+{
+}
+
 void ModelMesh::Draw()
 {
     for (auto& meshPart : this->meshParts)

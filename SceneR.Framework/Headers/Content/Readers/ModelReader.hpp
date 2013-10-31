@@ -38,6 +38,7 @@ namespace SceneR
              */
             ModelReader();
 
+        public:
             /**
              * Gets the the reader content type.
              */

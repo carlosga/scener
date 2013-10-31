@@ -25,6 +25,10 @@ Model::Model()
 {
 }
 
+Model::~Model()
+{
+}
+
 void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
     for (auto &mesh : this->meshes)

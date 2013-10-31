@@ -34,6 +34,10 @@ Effect::Effect(const Effect& effect)
 {
 }
 
+Effect::~Effect()
+{
+}
+
 const std::vector<EffectParameter>& Effect::Parameters() const
 {
     return this->parameters;

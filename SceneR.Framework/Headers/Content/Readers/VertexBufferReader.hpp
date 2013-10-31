@@ -37,6 +37,7 @@ namespace SceneR
              */
             VertexBufferReader();
 
+        public:
             /**
              * Gets the the reader content type.
              */

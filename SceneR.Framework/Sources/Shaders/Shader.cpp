@@ -31,7 +31,6 @@ Shader::~Shader()
     this->Release();
 }
 
-
 void Shader::Compile()
 {
     //create the shader object
@@ -52,30 +51,6 @@ void Shader::Compile()
 
     // Verify compilation state
     this->VerifyCompilationState();
-}
-
-void Shader::VerifyCompilationState()
-{
-    if (!this->IsCompiled())
-    {
-        String msg("Compile failure in shader:\n");
-
-        GLint infoLogLength;
-        glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-        if (infoLogLength)
-        {
-            String compileErrorMessage("", infoLogLength);
-
-            glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
-
-            msg += compileErrorMessage;
-        }
-
-        this->Release();
-
-        throw std::runtime_error(msg);
-    }
 }
 
 const bool Shader::IsCompiled() const
@@ -99,5 +74,29 @@ void Shader::Release()
     {
         glDeleteShader(this->object);
         this->object = 0;
+    }
+}
+
+void Shader::VerifyCompilationState()
+{
+    if (!this->IsCompiled())
+    {
+        String msg("Compile failure in shader:\n");
+
+        GLint infoLogLength;
+        glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+        if (infoLogLength)
+        {
+            String compileErrorMessage("", infoLogLength);
+
+            glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
+
+            msg += compileErrorMessage;
+        }
+
+        this->Release();
+
+        throw std::runtime_error(msg);
     }
 }

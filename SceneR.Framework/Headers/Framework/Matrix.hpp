@@ -411,10 +411,10 @@ namespace SceneR
         public:
             Single& operator[](const UInt32& index);
             const Single& operator[](const UInt32& index) const;
-            bool operator==(const Matrix &matrix) const;
-            bool operator!=(const Matrix &matrix) const;
-            Matrix& operator*=(const Matrix &matrix);
-            const Matrix operator*(const Matrix &matrix) const;
+            bool operator==(const Matrix& matrix) const;
+            bool operator!=(const Matrix& matrix) const;
+            Matrix& operator*=(const Matrix& matrix);
+            const Matrix operator*(const Matrix& matrix) const;
 
         private:
             Single SubMatrixDeterminant();

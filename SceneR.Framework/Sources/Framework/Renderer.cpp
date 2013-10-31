@@ -72,18 +72,6 @@ std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
     return this->components;
 }
 
-void Renderer::StartEventLoop()
-{
-    do
-    {
-        this->BeginDraw();
-        this->Draw();
-        this->EndDraw();
-
-        // Check if the ESC key was pressed or the window was closed
-    } while (!this->rendererWindow.ShouldClose());
-}
-
 bool Renderer::BeginDraw()
 {
     return true;
@@ -134,4 +122,16 @@ void Renderer::UnloadContent()
 
 void Renderer::Update()
 {
+}
+
+void Renderer::StartEventLoop()
+{
+    do
+    {
+        this->BeginDraw();
+        this->Draw();
+        this->EndDraw();
+
+        // Check if the ESC key was pressed or the window was closed
+    } while (!this->rendererWindow.ShouldClose());
 }

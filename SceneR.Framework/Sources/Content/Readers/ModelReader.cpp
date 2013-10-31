@@ -40,13 +40,13 @@ const ContentType ModelReader::GetContentType() const
 
 std::shared_ptr<void> ModelReader::Read(ContentReader* input)
 {
-    std::shared_ptr<Model> model     = std::make_shared<Model>();
-    UInt32                 boneCount = input->ReadUInt32();
+    auto   model     = std::make_shared<Model>();
+    UInt32 boneCount = input->ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
     {
-        std::shared_ptr<ModelBone> bone = std::make_shared<ModelBone>();
+        auto bone = std::make_shared<ModelBone>();
 
         bone->name      = input->ReadString();
         bone->transform = input->ReadMatrix();
@@ -58,9 +58,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     // Read bone hierarchy
     for (UInt32 i = 0; i < boneCount; i++)
     {
-        std::shared_ptr<ModelBone> currentBone         = model->bones[i];
-        UInt32                     parentBoneReference = this->ReadBoneReference(input, boneCount);
-        UInt32                     childBoneCount      = input->ReadUInt32();
+        auto   currentBone         = model->bones[i];
+        UInt32 parentBoneReference = this->ReadBoneReference(input, boneCount);
+        UInt32 childBoneCount      = input->ReadUInt32();
 
         if (parentBoneReference > 0)
         {
@@ -83,7 +83,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
 
     for (UInt32 i = 0; i< meshCount; i++)
     {
-        std::shared_ptr<ModelMesh> modelMesh = std::make_shared<ModelMesh>();
+        auto modelMesh = std::make_shared<ModelMesh>();
 
         modelMesh->name = input->ReadString();
 
@@ -102,7 +102,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
 
         for (UInt32 i = 0; i < meshPartCount; i++)
         {
-            std::shared_ptr<ModelMeshPart> modelMeshPart = std::make_shared<ModelMeshPart>();
+            auto modelMeshPart = std::make_shared<ModelMeshPart>();
 
             modelMeshPart->vertexOffset   = input->ReadUInt32();
             modelMeshPart->vertexCount    = input->ReadUInt32();

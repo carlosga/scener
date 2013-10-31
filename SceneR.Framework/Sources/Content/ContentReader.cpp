@@ -138,7 +138,7 @@ Int16 ContentReader::ReadInt16()
     return buffer;
 }
 
-UInt16 SceneR::Content::ContentReader::ReadUInt16()
+UInt16 ContentReader::ReadUInt16()
 {
     UInt16 buffer;
 
@@ -156,7 +156,7 @@ Int32 ContentReader::ReadInt32()
     return buffer;
 }
 
-UInt32 SceneR::Content::ContentReader::ReadUInt32()
+UInt32 ContentReader::ReadUInt32()
 {
     UInt32 buffer;
 
@@ -282,9 +282,4 @@ void ContentReader::ReadHeader()
 
     // Format version.
     this->ReadInt32();
-}
-
-const int ContentReader::Position()
-{
-    return this->stream.tellg();
 }

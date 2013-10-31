@@ -61,7 +61,6 @@ namespace SceneR
             void SetMinDepth(const Single& minDepth);
             const Single& GetMaxDepth() const;
             void SetMaxDepth(const Single& maxDepth);
-
             void Update(const UInt32& x, const UInt32& y, const Size& width, const Size& height);
             void Update(const Size& width, const Size& height);
             void Refresh() const;

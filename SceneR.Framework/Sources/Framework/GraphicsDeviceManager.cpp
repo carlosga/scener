@@ -52,12 +52,12 @@ Boolean GraphicsDeviceManager::BeginDraw()
     return true;
 }
 
-void GraphicsDeviceManager::CreateDevice()
+void GraphicsDeviceManager::EndDraw()
 {
     // TODO: Implement
 }
 
-void GraphicsDeviceManager::EndDraw()
+void GraphicsDeviceManager::CreateDevice()
 {
     // TODO: Implement
 }

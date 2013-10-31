@@ -37,6 +37,11 @@ namespace SceneR
              */
             Model();
 
+            /**
+             * Releases all resources being used by this Model.
+             */
+            ~Model();
+
         public:
             /**
              * Render a model after applying the given matrix transformations.

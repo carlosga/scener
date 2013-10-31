@@ -41,7 +41,7 @@ std::shared_ptr<void> VertexBufferReader::Read(ContentReader* input)
 {
     std::vector<VertexPositionNormalTexture> data;
     UInt32                                   vertexCount = input->ReadUInt32();
-    std::shared_ptr<VertexBuffer>            buffer      = std::make_shared<VertexBuffer>(input->GetGraphicsDevice());
+    auto                                     buffer      = std::make_shared<VertexBuffer>(input->GetGraphicsDevice());
 
     for (UInt32 i = 0; i < vertexCount; i++)
     {

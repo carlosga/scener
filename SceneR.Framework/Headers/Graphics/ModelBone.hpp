@@ -46,6 +46,11 @@ namespace SceneR
              */
             ModelBone();
 
+            /**
+             * Releases all resources being used by this ModelBone.
+             */
+            ~ModelBone();
+
         public:
             /**
              * Gets the collection of children bones.

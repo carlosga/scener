@@ -20,17 +20,6 @@
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-PointLightBase::PointLightBase()
-    : PointLightBase(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f))
-{
-}
-
-PointLightBase::PointLightBase(const Color& diffuseColor, const Vector3& position)
-    : Light(diffuseColor), position(position), range(1.0f), constantAttenuation(1.0f), linearAttenuation(0.0f),
-      quadraticAttenuation(0.0f)
-{
-}
-
 const Single PointLightBase::GetConstantAttenuation() const
 {
     return this->constantAttenuation;
@@ -85,4 +74,15 @@ const Single PointLightBase::GetTotalAttenuation(const Single distance) const
 {
     // A = constant_attenuation + ( Dist * linear_attenuation ) + (( Dist^2 ) * quadratic_attenuation )
     return this->constantAttenuation + (distance * this->linearAttenuation) + ((distance * distance) * this->quadraticAttenuation);
+}
+
+PointLightBase::PointLightBase()
+    : PointLightBase(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f))
+{
+}
+
+PointLightBase::PointLightBase(const Color& diffuseColor, const Vector3& position)
+    : Light(diffuseColor), position(position), range(1.0f), constantAttenuation(1.0f), linearAttenuation(0.0f),
+      quadraticAttenuation(0.0f)
+{
 }

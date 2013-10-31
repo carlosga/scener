@@ -129,22 +129,22 @@ namespace SceneR
         public:
             Single& operator[](const Int32& index);
             const Single& operator[](const Int32& index) const;
-            Vector4& operator=(const Vector4 &vector);
-            bool operator==(const Vector4 &vector) const;
-            bool operator!=(const Vector4 &vector) const;
-            Vector4& operator*=(const Vector4 &vector);
-            Vector4& operator*=(const Single &value);
-            Vector4& operator/=(const Vector4 &vector);
-            Vector4& operator/=(const Single &value);
-            Vector4& operator-=(const Vector4 &vector);
-            Vector4& operator+=(const Vector4 &vector);
-            const Vector4 operator*(const Vector4 &vector) const;
-            const Vector4 operator*(const Single &value) const;
-            const Vector4 operator*(const Matrix &matrix) const;
-            const Vector4 operator/(const Vector4 &vector) const;
-            const Vector4 operator/(const Single &value) const;
-            const Vector4 operator-(const Vector4 &vector) const;
-            const Vector4 operator+(const Vector4 &vector) const;
+            Vector4& operator=(const Vector4& vector);
+            bool operator==(const Vector4& vector) const;
+            bool operator!=(const Vector4& vector) const;
+            Vector4& operator*=(const Vector4& vector);
+            Vector4& operator*=(const Single& value);
+            Vector4& operator/=(const Vector4& vector);
+            Vector4& operator/=(const Single& value);
+            Vector4& operator-=(const Vector4& vector);
+            Vector4& operator+=(const Vector4& vector);
+            const Vector4 operator*(const Vector4& vector) const;
+            const Vector4 operator*(const Single& value) const;
+            const Vector4 operator*(const Matrix& matrix) const;
+            const Vector4 operator/(const Vector4& vector) const;
+            const Vector4 operator/(const Single& value) const;
+            const Vector4 operator-(const Vector4& vector) const;
+            const Vector4 operator+(const Vector4& vector) const;
 
         private:
             union
@@ -152,10 +152,10 @@ namespace SceneR
                 Single vector[4];
                 struct
                 {
-                    Single xCoordinate;
-                    Single yCoordinate;
-                    Single zCoordinate;
-                    Single wCoordinate;
+                    Single x;
+                    Single y;
+                    Single z;
+                    Single w;
                 };
             };
         };

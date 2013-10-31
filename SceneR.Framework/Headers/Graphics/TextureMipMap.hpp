@@ -43,6 +43,7 @@ namespace SceneR
              */
             TextureMipMap();
 
+        public:
             /**
              * Gets the mip map data
              */

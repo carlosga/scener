@@ -89,7 +89,6 @@ namespace SceneR
         public:
             /**
              * Performs a linear interpolation between two vectors.
-             *
              * @param value1 first vector
              * @param value2 second vector
              * @param amount Value between 0 and 1 indicating the weight of value2.
@@ -101,7 +100,6 @@ namespace SceneR
 
             /**
              * Performs a cubic interpolation between two vectors.
-             *
              * @param value1 first vector
              * @param value2 second vector
              * @param amount Weighting value.
@@ -119,7 +117,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector3 class.
-             *
              * @param x The X value of the new Vector3 structure.
              * @param y The Y value of the new Vector3 structure.
              * @param z The Z value of the new Vector3 structure.
@@ -128,7 +125,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
-             *
              * @param vector The Vector3 to be copied.
              */
             Vector3(const Vector3& vector);
@@ -212,22 +208,22 @@ namespace SceneR
         public:
             Single& operator[](const Int32& index);
             const Single& operator[](const Int32& index) const;
-            Vector3& operator=(const Vector3 &vector);
-            bool operator==(const Vector3 &vector) const;
-            bool operator!=(const Vector3 &vector) const;
-            Vector3& operator*=(const Vector3 &vector);
-            Vector3& operator*=(const Single &value);
-            Vector3& operator/=(const Vector3 &vector);
-            Vector3& operator/=(const Single &value);
-            Vector3& operator-=(const Vector3 &vector);
-            Vector3& operator+=(const Vector3 &vector);
-            const Vector3 operator*(const Vector3 &vector) const;
-            const Vector3 operator*(const Single &value) const;
-            const Vector3 operator*(const Matrix &matrix) const;
-            const Vector3 operator/(const Vector3 &vector) const;
-            const Vector3 operator/(const Single &value) const;
-            const Vector3 operator-(const Vector3 &vector) const;
-            const Vector3 operator+(const Vector3 &vector) const;
+            Vector3& operator=(const Vector3& vector);
+            bool operator==(const Vector3& vector) const;
+            bool operator!=(const Vector3& vector) const;
+            Vector3& operator*=(const Vector3& vector);
+            Vector3& operator*=(const Single& value);
+            Vector3& operator/=(const Vector3& vector);
+            Vector3& operator/=(const Single& value);
+            Vector3& operator-=(const Vector3& vector);
+            Vector3& operator+=(const Vector3& vector);
+            const Vector3 operator*(const Vector3& vector) const;
+            const Vector3 operator*(const Single& value) const;
+            const Vector3 operator*(const Matrix& matrix) const;
+            const Vector3 operator/(const Vector3& vector) const;
+            const Vector3 operator/(const Single& value) const;
+            const Vector3 operator-(const Vector3& vector) const;
+            const Vector3 operator+(const Vector3& vector) const;
 
         private:
             union
@@ -235,9 +231,9 @@ namespace SceneR
                 Single vector[3];
                 struct
                 {
-                    Single xCoordinate;
-                    Single yCoordinate;
-                    Single zCoordinate;
+                    Single x;
+                    Single y;
+                    Single z;
                 };
             };
         };

@@ -88,8 +88,8 @@ namespace SceneR
             virtual void Initialize() override;
 
         protected:
-            virtual void LoadContent() = 0;
-            virtual void UnloadContent() = 0;
+            virtual void LoadContent() ;
+            virtual void UnloadContent();
 
         private:
             Boolean visible;

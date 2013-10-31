@@ -23,14 +23,14 @@ PresentationParameters::PresentationParameters()
 {
 }
 
-const Size PresentationParameters::GetBackBufferWidth() const
+const Boolean PresentationParameters::GetFullScreen() const
 {
-    return this->backBufferWidth;
+    return this->fullScreen;
 }
 
-void PresentationParameters::SetBackBufferWidth(const Size& backBufferWidth)
+void PresentationParameters::SetFullScreen(const Boolean& fullScreen)
 {
-    this->backBufferWidth = backBufferWidth;
+    this->fullScreen = fullScreen;
 }
 
 const Size PresentationParameters::GetBackBufferHeight() const
@@ -43,12 +43,12 @@ void PresentationParameters::SetBackBufferHeight(const Size& backBufferHeight)
     this->backBufferHeight = backBufferHeight;
 }
 
-const Boolean PresentationParameters::GetFullScreen() const
+const Size PresentationParameters::GetBackBufferWidth() const
 {
-    return this->fullScreen;
+    return this->backBufferWidth;
 }
 
-void PresentationParameters::SetFullScreen(const Boolean& fullScreen)
+void PresentationParameters::SetBackBufferWidth(const Size& backBufferWidth)
 {
-    this->fullScreen = fullScreen;
+    this->backBufferWidth = backBufferWidth;
 }

@@ -29,6 +29,11 @@ Vector2::Vector2(const Single& x, const Single& y)
 {
 }
 
+Vector2::Vector2(const Vector2& vector)
+    : x(vector.X()), y(vector.Y())
+{
+}
+
 const Single& Vector2::X() const
 {
     return this->x;

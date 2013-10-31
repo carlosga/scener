@@ -76,27 +76,6 @@ namespace SceneR
             SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
 
             /**
-             * Reads a single object from the current stream.
-             */
-            template<class T>
-            std::shared_ptr<T> ReadObject()
-            {
-                ContentType        contentType = static_cast<ContentType> (this->ReadInt32());
-                ContentTypeReader* reader      = this->typeReaderManager.GetReaderForContentType(contentType);
-
-                return this->ReadObject<T>(reader);
-            }
-
-            /**
-             * Reads a single object from the current stream.
-             */
-            template<class T>
-            std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader)
-            {
-                return std::static_pointer_cast<T>(typeReader->Read(this));
-            }
-
-            /**
              * Reads the next character from the current stream.
              */
             wchar_t ReadChar();
@@ -181,7 +160,27 @@ namespace SceneR
              */
             std::vector<UInt32> ReadBytes(UInt32 count);
 
-            const int Position();
+        public:
+            /**
+             * Reads a single object from the current stream.
+             */
+            template<class T>
+            std::shared_ptr<T> ReadObject()
+            {
+                ContentType        contentType = static_cast<ContentType> (this->ReadInt32());
+                ContentTypeReader* reader      = this->typeReaderManager.GetReaderForContentType(contentType);
+
+                return this->ReadObject<T>(reader);
+            }
+
+            /**
+             * Reads a single object from the current stream.
+             */
+            template<class T>
+            std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader)
+            {
+                return std::static_pointer_cast<T>(typeReader->Read(this));
+            }
 
         private:
             void ReadHeader();

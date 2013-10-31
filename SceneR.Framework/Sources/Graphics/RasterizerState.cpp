@@ -55,7 +55,7 @@ void RasterizerState::SetDepthBias(const Single& depthBias)
     this->depthBias = depthBias;
 }
 
-const FillMode& SceneR::Graphics::RasterizerState::GetFillMode() const
+const FillMode& RasterizerState::GetFillMode() const
 {
     return this->fillMode;
 }

@@ -55,9 +55,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this effect instance.
              */
-            virtual ~Effect()
-            {
-            };
+            virtual ~Effect();
 
         public:
             /**
@@ -81,6 +79,7 @@ namespace SceneR
              */
             virtual void OnApply() = 0;
 
+        protected:
             const EffectParameter& AddEffectParameter(const std::wstring&         name,
                                                       const EffectParameterClass& parameterClass,
                                                       const EffectParameterType&  parameterType);

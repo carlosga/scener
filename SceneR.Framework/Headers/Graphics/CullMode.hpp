@@ -17,6 +17,7 @@
 #ifndef CULLMODE_HPP
 #define CULLMODE_HPP
 
+#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -26,7 +27,7 @@ namespace SceneR
         /**
          * Defines winding orders that may be used to identify back faces for culling.
          */
-        enum class CullMode : GLenum
+        enum class CullMode : UInt32
         {
             /**
              * Cull back faces with clockwise vertices.

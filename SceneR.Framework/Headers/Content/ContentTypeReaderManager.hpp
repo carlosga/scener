@@ -40,6 +40,7 @@ namespace SceneR
              */
             ~ContentTypeReaderManager();
 
+        public:
             /**
              * Gets the content type reader for the specified content tpe
              */

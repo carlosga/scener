@@ -34,6 +34,11 @@ namespace SceneR
              */
             PresentationParameters();
 
+            /**
+             * Releases all resources being used by this PesentatationParameters.
+             */
+            ~PresentationParameters() = default;
+
         public:
             /**
              * Gets a value indicating whether an application is running in a full screen mode.

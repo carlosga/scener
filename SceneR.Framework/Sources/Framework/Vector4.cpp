@@ -32,41 +32,41 @@ Vector4::Vector4(const Single& x, const Single& y, const Single& z)
 }
 
 Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single& w)
-    : xCoordinate(x), yCoordinate(y), zCoordinate(z), wCoordinate(w)
+    : x(x), y(y), z(z), w(w)
 {
 }
 
 Vector4::Vector4(const Vector4& vector)
-    : xCoordinate(vector.X()), yCoordinate(vector.Y()), zCoordinate(vector.Z()), wCoordinate(vector.W())
+    : x(vector.X()), y(vector.Y()), z(vector.Z()), w(vector.W())
 {
 }
 
 const Single& Vector4::X() const
 {
-    return this->xCoordinate;
+    return this->x;
 }
 
 const Single& Vector4::Y() const
 {
-    return this->yCoordinate;
+    return this->y;
 }
 
 const Single& Vector4::Z() const
 {
-    return this->zCoordinate;
+    return this->z;
 }
 
 const Single& Vector4::W() const
 {
-    return this->wCoordinate;
+    return this->w;
 }
 
 const Single Vector4::LengthSquared() const
 {
-    return   (this->xCoordinate * this->xCoordinate)
-           + (this->yCoordinate * this->yCoordinate)
-           + (this->zCoordinate * this->zCoordinate)
-           + (this->wCoordinate * this->wCoordinate);
+    return   (this->x * this->x)
+           + (this->y * this->y)
+           + (this->z * this->z)
+           + (this->w * this->w);
 }
 
 const Single Vector4::Length() const
@@ -124,93 +124,93 @@ const Single& Vector4::operator[](const Int32& index) const
     return (this->vector[index]);
 }
 
-Vector4& Vector4::operator=(const Vector4 &vector)
+Vector4& Vector4::operator=(const Vector4& vector)
 {
     if (this != &vector)
     {
-        this->xCoordinate = vector.X();
-        this->yCoordinate = vector.Y();
-        this->zCoordinate = vector.Z();
-        this->wCoordinate = vector.W();
+        this->x = vector.X();
+        this->y = vector.Y();
+        this->z = vector.Z();
+        this->w = vector.W();
     }
 
     return *this;
 }
 
-bool Vector4::operator==(const Vector4 &vector) const
+bool Vector4::operator==(const Vector4& vector) const
 {
-    return (this->xCoordinate    == vector.xCoordinate
-            && this->yCoordinate == vector.yCoordinate
-            && this->zCoordinate == vector.zCoordinate
-            && this->wCoordinate == vector.wCoordinate);
+    return (this->x    == vector.x
+            && this->y == vector.y
+            && this->z == vector.z
+            && this->w == vector.w);
 }
 
-bool Vector4::operator!=(const Vector4 &vector) const
+bool Vector4::operator!=(const Vector4& vector) const
 {
     return !(*this == vector);
 }
 
-Vector4& Vector4::operator*=(const Vector4 &vector)
+Vector4& Vector4::operator*=(const Vector4& vector)
 {
-    this->xCoordinate *= vector.xCoordinate;
-    this->yCoordinate *= vector.yCoordinate;
-    this->zCoordinate *= vector.zCoordinate;
-    this->wCoordinate *= vector.wCoordinate;
+    this->x *= vector.x;
+    this->y *= vector.y;
+    this->z *= vector.z;
+    this->w *= vector.w;
 
     return *this;
 }
 
-Vector4& Vector4::operator*=(const Single &value)
+Vector4& Vector4::operator*=(const Single& value)
 {
-    this->xCoordinate *= value;
-    this->yCoordinate *= value;
-    this->zCoordinate *= value;
-    this->wCoordinate *= value;
+    this->x *= value;
+    this->y *= value;
+    this->z *= value;
+    this->w *= value;
 
     return *this;
 }
 
-Vector4& Vector4::operator/=(const Vector4 &vector)
+Vector4& Vector4::operator/=(const Vector4& vector)
 {
-    this->xCoordinate /= vector.xCoordinate;
-    this->yCoordinate /= vector.yCoordinate;
-    this->zCoordinate /= vector.zCoordinate;
-    this->wCoordinate /= vector.wCoordinate;
+    this->x /= vector.x;
+    this->y /= vector.y;
+    this->z /= vector.z;
+    this->w /= vector.w;
 
     return *this;
 }
 
-Vector4& Vector4::operator/=(const Single &value)
+Vector4& Vector4::operator/=(const Single& value)
 {
-    this->xCoordinate /= value;
-    this->yCoordinate /= value;
-    this->zCoordinate /= value;
-    this->wCoordinate /= value;
+    this->x /= value;
+    this->y /= value;
+    this->z /= value;
+    this->w /= value;
 
     return *this;
 }
 
-Vector4& Vector4::operator-=(const Vector4 &vector)
+Vector4& Vector4::operator-=(const Vector4& vector)
 {
-    this->xCoordinate -= vector.xCoordinate;
-    this->yCoordinate -= vector.yCoordinate;
-    this->zCoordinate -= vector.zCoordinate;
-    this->wCoordinate -= vector.wCoordinate;
+    this->x -= vector.x;
+    this->y -= vector.y;
+    this->z -= vector.z;
+    this->w -= vector.w;
 
     return *this;
 }
 
-Vector4& Vector4::operator+=(const Vector4 &vector)
+Vector4& Vector4::operator+=(const Vector4& vector)
 {
-    this->xCoordinate += vector.xCoordinate;
-    this->yCoordinate += vector.yCoordinate;
-    this->zCoordinate += vector.zCoordinate;
-    this->wCoordinate += vector.wCoordinate;
+    this->x += vector.x;
+    this->y += vector.y;
+    this->z += vector.z;
+    this->w += vector.w;
 
     return *this;
 }
 
-const Vector4 Vector4::operator*(const Vector4 &vector) const
+const Vector4 Vector4::operator*(const Vector4& vector) const
 {
     Vector4 result = *this;
 
@@ -219,7 +219,7 @@ const Vector4 Vector4::operator*(const Vector4 &vector) const
     return result;
 }
 
-const Vector4 Vector4::operator*(const Single &value) const
+const Vector4 Vector4::operator*(const Single& value) const
 {
     Vector4 result = *this;
 
@@ -228,32 +228,32 @@ const Vector4 Vector4::operator*(const Single &value) const
     return result;
 }
 
-const Vector4 Vector4::operator*(const Matrix &matrix) const
+const Vector4 Vector4::operator*(const Matrix& matrix) const
 {
-    Single x = (this->xCoordinate * matrix.M11())
-             + (this->yCoordinate * matrix.M21())
-             + (this->zCoordinate * matrix.M31())
-             + (this->wCoordinate * matrix.M41());
+    Single x = (this->x * matrix.M11())
+             + (this->y * matrix.M21())
+             + (this->z * matrix.M31())
+             + (this->w * matrix.M41());
 
-    Single y = (this->xCoordinate * matrix.M12())
-             + (this->yCoordinate * matrix.M22())
-             + (this->zCoordinate * matrix.M32())
-             + (this->wCoordinate * matrix.M42());
+    Single y = (this->x * matrix.M12())
+             + (this->y * matrix.M22())
+             + (this->z * matrix.M32())
+             + (this->w * matrix.M42());
 
-    Single z = (this->xCoordinate * matrix.M13())
-             + (this->yCoordinate * matrix.M23())
-             + (this->zCoordinate * matrix.M33())
-             + (this->wCoordinate * matrix.M43());
+    Single z = (this->x * matrix.M13())
+             + (this->y * matrix.M23())
+             + (this->z * matrix.M33())
+             + (this->w * matrix.M43());
 
-    Single w = (this->xCoordinate * matrix.M14())
-             + (this->yCoordinate * matrix.M24())
-             + (this->zCoordinate * matrix.M34())
-             + (this->wCoordinate * matrix.M44());
+    Single w = (this->x * matrix.M14())
+             + (this->y * matrix.M24())
+             + (this->z * matrix.M34())
+             + (this->w * matrix.M44());
 
     return Vector4(x, y, z, w);
 }
 
-const Vector4 Vector4::operator/(const Vector4 &vector) const
+const Vector4 Vector4::operator/(const Vector4& vector) const
 {
     Vector4 result = *this;
 
@@ -262,7 +262,7 @@ const Vector4 Vector4::operator/(const Vector4 &vector) const
     return result;
 }
 
-const Vector4 Vector4::operator/(const Single &value) const
+const Vector4 Vector4::operator/(const Single& value) const
 {
     Vector4 result = *this;
 
@@ -271,7 +271,7 @@ const Vector4 Vector4::operator/(const Single &value) const
     return result;
 }
 
-const Vector4 Vector4::operator-(const Vector4 &vector) const
+const Vector4 Vector4::operator-(const Vector4& vector) const
 {
     Vector4 result = *this;
 
@@ -280,7 +280,7 @@ const Vector4 Vector4::operator-(const Vector4 &vector) const
     return result;
 }
 
-const Vector4 Vector4::operator+(const Vector4 &vector) const
+const Vector4 Vector4::operator+(const Vector4& vector) const
 {
     Vector4 result = *this;
 

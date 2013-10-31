@@ -36,11 +36,21 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector2 class with the given texture coordinates.
-             *
              * @param x the x-coordinate value.
              * @param y the y-coordinate value.
              */
             Vector2(const Single& x, const Single& y);
+
+            /**
+             * Initializes a new instance of the Vector2 class (Copy constructor)
+             * @param vector The Vector2 to be copied.
+             */
+            Vector2(const Vector2& vector);
+
+            /**
+             * Default destructor
+             */
+            ~Vector2() = default;
 
         public:
             /**
