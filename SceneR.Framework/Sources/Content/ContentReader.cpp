@@ -21,166 +21,31 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <iostream>
-#include <stdexcept>
+#include <System/IO/FileStream.hpp>
 
-using namespace SceneR::Framework;
 using namespace SceneR::Content;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+using namespace System::IO;
 
-ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
-                             ContentTypeReaderManager& typeReaderManager,
-                             const String&             file)
-    : graphicsDevice(graphicsDevice),
-      stream(file, std::ios::in | std::ios::binary),
+ContentReader::ContentReader(GraphicsDevice&             graphicsDevice,
+                             ContentTypeReaderManager&   typeReaderManager,
+                             std::shared_ptr<FileStream> stream)
+    : BinaryReader(stream),
+      graphicsDevice(graphicsDevice),
       typeReaderManager(typeReaderManager)
 {
-    if (!this->stream.is_open())
-    {
-        throw std::runtime_error(String("Failed to open file: ") + file);
-    }
-
-    this->stream.seekg(0, std::ios_base::beg);
     this->ReadHeader();
 }
 
 ContentReader::~ContentReader()
 {
-    this->Close();
-}
-
-void ContentReader::Close()
-{
-    if (this->stream.is_open())
-    {
-        this->stream.close();
-    }
+    BinaryReader::Close();
 }
 
 GraphicsDevice& ContentReader::GetGraphicsDevice()
 {
     return this->graphicsDevice;
-}
-
-wchar_t ContentReader::ReadChar()
-{
-    wchar_t buffer = this->ReadByte();
-
-    // http://xbox.create.msdn.com/en-US/sample/xnb_format
-    // Decode UTF-8.
-    if (buffer & 0x80)
-    {
-        int byteCount = 1;
-
-        while (buffer & (0x80 >> byteCount))
-        {
-            byteCount++;
-        }
-
-        buffer &= (1 << (8 - byteCount)) - 1;
-
-        while (--byteCount)
-        {
-            buffer <<= 6;
-            buffer |= this->ReadByte() & 0x3F;
-        }
-    }
-
-    return buffer;
-}
-
-std::wstring ContentReader::ReadString()
-{
-    std::wstring buffer;
-    UInt32       length = this->ReadUInt32();
-
-    for (UInt32 i = 0; i < length; i++)
-    {
-        buffer.push_back(this->ReadChar());
-    }
-
-    return buffer;
-}
-
-UInt32 ContentReader::Read7BitEncodedInt()
-{
-    UInt32 result   = 0;
-    UInt32 bitsRead = 0;
-    UInt32 value    = 0;
-
-    do
-    {
-        value = this->ReadByte();
-
-        result |= (value & 0x7f) << bitsRead;
-
-        bitsRead += 7;
-    } while (value & 0x80);
-
-    return result;
-}
-
-UInt32 ContentReader::ReadByte()
-{
-    char buffer;
-
-    this->stream.read(&buffer, sizeof buffer);
-
-    return static_cast<UInt32>(buffer);
-}
-
-Int16 ContentReader::ReadInt16()
-{
-    Int16 buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
-}
-
-UInt16 ContentReader::ReadUInt16()
-{
-    UInt16 buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
-}
-
-Int32 ContentReader::ReadInt32()
-{
-    Int32 buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
-}
-
-UInt32 ContentReader::ReadUInt32()
-{
-    UInt32 buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
-}
-
-Single ContentReader::ReadSingle()
-{
-    Single buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
-}
-
-Double ContentReader::ReadDouble()
-{
-    Double buffer;
-
-    this->stream.read((char*) &buffer, sizeof buffer);
-
-    return buffer;
 }
 
 Color ContentReader::ReadColor()
@@ -256,20 +121,6 @@ Quaternion ContentReader::ReadQuaternion()
     Single w = this->ReadSingle();
 
     return Quaternion(x, y, z, w);
-}
-
-std::vector<UInt32> ContentReader::ReadBytes(UInt32 count)
-{
-    std::vector<UInt32> result;
-
-    result.reserve(count);
-
-    for (UInt32 i = 0; i < count; i++)
-    {
-        result.push_back(this->ReadByte());
-    }
-
-    return result;
 }
 
 void ContentReader::ReadHeader()

@@ -37,9 +37,6 @@ GraphicsDevice& ContentManager::GetGraphicsDevice()
     return this->graphicsDevice;
 }
 
-/**
- * Disposes all data that was loaded by this ContentManager.
- */
 void ContentManager::Unload()
 {
 }

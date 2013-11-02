@@ -21,6 +21,7 @@
 #include <iostream>
 #include <locale>
 #include <string>
+// #include <codecvt>
 
 namespace System
 {
@@ -37,6 +38,11 @@ namespace System
              */
             static String Narrow(const std::wstring& source)
             {
+                // typedef std::codecvt_utf8<wchar_t> convert_type;
+                // std::wstring_convert<convert_type, wchar_t> converter;
+
+                // return converter.to_bytes(source);
+
                 String narrowed(source.begin(), source.end());
 
                 return narrowed;

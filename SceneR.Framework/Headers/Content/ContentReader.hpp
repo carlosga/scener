@@ -20,11 +20,11 @@
 #include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <System/Core.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <fstream>
+#include <System/Core.hpp>
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/FileStream.hpp>
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace SceneR
@@ -46,7 +46,7 @@ namespace SceneR
         /**
          * Reads application content from disk
          */
-        class ContentReader
+        class ContentReader : public System::IO::BinaryReader
         {
         public:
             /**
@@ -55,9 +55,9 @@ namespace SceneR
              * @param typeReaderManager the type reader manager.
              * @param filePath the file path to read.
              */
-            ContentReader(SceneR::Graphics::GraphicsDevice& graphicsDevice,
-                          ContentTypeReaderManager&         typeReaderManager,
-                          const String&                     file);
+            ContentReader(SceneR::Graphics::GraphicsDevice&       graphicsDevice,
+                          ContentTypeReaderManager&               typeReaderManager,
+                          std::shared_ptr<System::IO::FileStream> stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -66,64 +66,9 @@ namespace SceneR
 
         public:
             /**
-             * Closes the current reader and the underlying stream.
-             */
-            void Close();
-
-            /**
              * Gets the graphics device.
              */
             SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
-
-            /**
-             * Reads the next character from the current stream.
-             */
-            wchar_t ReadChar();
-
-            /**
-             * Reads a string from the current stream. The string is prefixed with the length.
-             */
-            std::wstring ReadString();
-
-            /**
-             * Reads a 7-bit encoded int
-             */
-            UInt32 Read7BitEncodedInt();
-
-            /**
-             * Reads the next byte from the current stream.
-             */
-            UInt32 ReadByte();
-
-            /**
-             * Reads a 2-byte signed integer from the current stream.
-             */
-            Int16 ReadInt16();
-
-            /**
-             * Reads a 2-byte unsigned integer from the current stream.
-             */
-            UInt16 ReadUInt16();
-
-            /**
-             * Reads a 4-byte signed integer from the current stream.
-             */
-            Int32 ReadInt32();
-
-            /**
-             * Reads a 4-byte unsigned integer from the current stream.
-             */
-            UInt32 ReadUInt32();
-
-            /**
-             * Reads a float value from the currently open stream.
-             */
-            Single ReadSingle();
-
-            /**
-             * Reads a double value from the currently open stream.
-             */
-            Double ReadDouble();
 
             /**
              * Reads a Color value from the current stream.
@@ -155,11 +100,6 @@ namespace SceneR
              */
             SceneR::Framework::Quaternion ReadQuaternion();
 
-            /**
-             * Reads the specified number of bytes from the underliying stream
-             */
-            std::vector<UInt32> ReadBytes(UInt32 count);
-
         public:
             /**
              * Reads a single object from the current stream.
@@ -187,7 +127,6 @@ namespace SceneR
 
         private:
             SceneR::Graphics::GraphicsDevice& graphicsDevice;
-            std::ifstream                     stream;
             ContentTypeReaderManager&         typeReaderManager;
         };
     }

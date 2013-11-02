@@ -22,8 +22,8 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
-#include <System/Pointer.hpp>
 #include <System/IO/Path.hpp>
+#include <System/IO/FileStream.hpp>
 #include <memory>
 
 namespace SceneR
@@ -71,7 +71,8 @@ namespace SceneR
                     String filename = System::IO::Path::ChangeExtension(assetName, "scr");
                     String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
-                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, path);
+                    auto          stream = std::make_shared<System::IO::FileStream>(path);
+                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, stream);
 
                     asset = reader.ReadObject<T>();
 
