@@ -40,7 +40,7 @@ namespace SceneR
              * Initializes a new instance of the ContentManagerClass
              */
             ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice,
-                           const String&                     rootDirectory);
+                           const System::String&             rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -62,14 +62,14 @@ namespace SceneR
              * Loads a the given asset.
              */
             template <class T>
-            std::shared_ptr<T> Load(const String& assetName) throw(ContentLoadException)
+            std::shared_ptr<T> Load(const System::String& assetName) throw(ContentLoadException)
             {
                 std::shared_ptr<T> asset  = nullptr;
 
                 try
                 {
-                    String filename = System::IO::Path::ChangeExtension(assetName, "scr");
-                    String path     = System::IO::Path::Combine(this->rootDirectory, filename);
+                    System::String filename = System::IO::Path::ChangeExtension(assetName, "scr");
+                    System::String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
                     auto          stream = std::make_shared<System::IO::FileStream>(path);
                     ContentReader reader(this->graphicsDevice, this->typeReaderManager, stream);
@@ -88,7 +88,7 @@ namespace SceneR
 
         private:
             SceneR::Graphics::GraphicsDevice& graphicsDevice;
-            String                            rootDirectory;
+            System::String                    rootDirectory;
             ContentTypeReaderManager          typeReaderManager;
         };
     }

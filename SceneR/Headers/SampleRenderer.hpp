@@ -27,7 +27,7 @@ namespace SceneR
         class SampleRenderer : public SceneR::Framework::Renderer
         {
         public:
-            SampleRenderer(const String& rootDirectory);
+            SampleRenderer(const System::String& rootDirectory);
 
         protected:
             virtual void Draw(/*GameTime gameTime*/) override;

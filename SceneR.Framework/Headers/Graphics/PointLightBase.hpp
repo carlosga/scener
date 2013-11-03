@@ -44,26 +44,26 @@ namespace SceneR
              * Gets a constant value by which the intensity of the light diminishes over distance.
              * @return a constant value by which the intensity of the light diminishes over distance.
              */
-            const Single GetConstantAttenuation() const;
+            const System::Single GetConstantAttenuation() const;
 
             /**
              * Sets a constant value by which the intensity of the light diminishes over distance.
              * @param constantAttenuation a constant value by which the intensity of the light diminishes over distance.
              */
-            void SetConstantAttenuation(const Single constantAttenuation);
+            void SetConstantAttenuation(const System::Single constantAttenuation);
 
             /**
              * Gets a value that specifies the linear diminution of the light's intensity over distance.
              * @return a value that specifies the linear diminution of the light's intensity over distance.
              */
-            const Single GetLinearAttenuation() const;
+            const System::Single GetLinearAttenuation() const;
 
             /**
              * Sets a value that specifies the linear diminution of the light's intensity over distance.
              * @param linearAttenuation a value that specifies the linear diminution of the light's intensity over
              *                          distance.
              */
-            void SetLinearAttenuation(const Single linearAttenuation);
+            void SetLinearAttenuation(const System::Single linearAttenuation);
 
             /**
              * Gets a value that specifies the diminution of the light's effect over distance,
@@ -71,7 +71,7 @@ namespace SceneR
              * @return a value that specifies the diminution of the light's effect over distance,
              *         calculated by a quadratic operation.
              */
-            const Single GetQuadraticAttenuation() const;
+            const System::Single GetQuadraticAttenuation() const;
 
             /**
              * Gets a value that specifies the diminution of the light's effect over distance,
@@ -79,7 +79,7 @@ namespace SceneR
              * @param quadraticAttenuation a value that specifies the diminution of the light's effect over distance,
              *        calculated by a quadratic operation.
              */
-            void SetQuadraticAttenuation(const Single quadraticAttenuation);
+            void SetQuadraticAttenuation(const System::Single quadraticAttenuation);
 
             /**
              * Gets a Vector3 that specifies the light's position in world space.
@@ -97,19 +97,19 @@ namespace SceneR
              * Gets the distance beyond which the light has no effect.
              * @return the distance beyond which the light has no effect.
              */
-            const Single GetRange() const;
+            const System::Single GetRange() const;
 
             /**
              * Gets the distance beyond which the light has no effect.
              * @param range the distance beyond which the light has no effect.
              */
-            void SetRange(const Single range);
+            void SetRange(const System::Single range);
 
             /**
              * Gets the total attenuation of this light given a distance as defined by the collada specification.
              * @param distance the distance.
              */
-            const Single GetTotalAttenuation(const Single distance) const;
+            const System::Single GetTotalAttenuation(const System::Single distance) const;
 
         protected:
             /**
@@ -132,10 +132,10 @@ namespace SceneR
 
         protected:
             SceneR::Framework::Vector3 position;
-            Single                range;
-            Single                constantAttenuation;
-            Single                linearAttenuation;
-            Single                quadraticAttenuation;
+            System::Single             range;
+            System::Single             constantAttenuation;
+            System::Single             linearAttenuation;
+            System::Single             quadraticAttenuation;
         };
     }
 }

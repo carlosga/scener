@@ -17,6 +17,7 @@
 #include <GL/glew.h>
 #include <Graphics/Viewport.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 Viewport::Viewport()

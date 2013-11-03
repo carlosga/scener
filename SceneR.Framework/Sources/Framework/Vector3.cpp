@@ -21,6 +21,7 @@
 #include <cmath>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 const Vector3 Vector3::Backward(0.0f, 0.0f, 1.0f);

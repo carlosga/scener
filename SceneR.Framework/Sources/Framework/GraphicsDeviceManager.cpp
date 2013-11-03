@@ -23,6 +23,7 @@
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/Viewport.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

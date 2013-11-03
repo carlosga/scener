@@ -22,6 +22,7 @@
 #include <Graphics/TextureMipMap.hpp>
 #include <vector>
 
+using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 

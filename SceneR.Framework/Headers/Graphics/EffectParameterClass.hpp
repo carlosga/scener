@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines classes that can be used for effect parameters or shader constants.
          */
-        enum class EffectParameterClass : UInt32
+        enum class EffectParameterClass : System::UInt32
         {
             /**
              * Constant is a matrix.

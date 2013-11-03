@@ -43,7 +43,7 @@ namespace SceneR
              * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
              */
-            Vector4(const Single& x, const Single& y, const Single& z);
+            Vector4(const System::Single& x, const System::Single& y, const System::Single& z);
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -53,7 +53,7 @@ namespace SceneR
              * @param z The Z value of the new Vector4 structure.
              * @param w The W value of the new Vector4 structure.
              */
-            Vector4(const Single& x, const Single& y, const Single& z, const Single& w);
+            Vector4(const System::Single& x, const System::Single& y, const System::Single& z, const System::Single& w);
 
             /**
              * Initializes a new instance of the Vector4 class (Copy constructor)
@@ -71,36 +71,36 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const Single& X() const;
+            const System::Single& X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const Single& Y() const;
+            const System::Single& Y() const;
 
             /**
              * Gets the z-coordinate value.
              */
-            const Single& Z() const;
+            const System::Single& Z() const;
 
             /**
              * Gets the w-coordinate value.
              */
-            const Single& W() const;
+            const System::Single& W() const;
 
             /**
              * Gets the square of the length of this Vector4.
              *
              * @return the square of the length of this Vector4.
              */
-            const Single LengthSquared() const;
+            const System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Vector4.
              *
              * @return the length of this Vector4.
              */
-            const Single Length() const;
+            const System::Single Length() const;
 
             /**
              * Negates a Vector4.
@@ -115,7 +115,7 @@ namespace SceneR
              * @param vectorb The second Vector4 structure to evaluate.
              * @return The dot product of this Vector4 and vectorb.
              */
-            const Single DotProduct(const Vector4& vectorb) const;
+            const System::Single DotProduct(const Vector4& vectorb) const;
 
             /**
              * Normalizes the specified Vector4.
@@ -127,35 +127,35 @@ namespace SceneR
             void Normalize();
 
         public:
-            Single& operator[](const Int32& index);
-            const Single& operator[](const Int32& index) const;
+            System::Single& operator[](const System::Int32& index);
+            const System::Single& operator[](const System::Int32& index) const;
             Vector4& operator=(const Vector4& vector);
             bool operator==(const Vector4& vector) const;
             bool operator!=(const Vector4& vector) const;
             Vector4& operator*=(const Vector4& vector);
-            Vector4& operator*=(const Single& value);
+            Vector4& operator*=(const System::Single& value);
             Vector4& operator/=(const Vector4& vector);
-            Vector4& operator/=(const Single& value);
+            Vector4& operator/=(const System::Single& value);
             Vector4& operator-=(const Vector4& vector);
             Vector4& operator+=(const Vector4& vector);
             const Vector4 operator*(const Vector4& vector) const;
-            const Vector4 operator*(const Single& value) const;
+            const Vector4 operator*(const System::Single& value) const;
             const Vector4 operator*(const Matrix& matrix) const;
             const Vector4 operator/(const Vector4& vector) const;
-            const Vector4 operator/(const Single& value) const;
+            const Vector4 operator/(const System::Single& value) const;
             const Vector4 operator-(const Vector4& vector) const;
             const Vector4 operator+(const Vector4& vector) const;
 
         private:
             union
             {
-                Single vector[4];
+                System::Single vector[4];
                 struct
                 {
-                    Single x;
-                    Single y;
-                    Single z;
-                    Single w;
+                    System::Single x;
+                    System::Single y;
+                    System::Single z;
+                    System::Single w;
                 };
             };
         };

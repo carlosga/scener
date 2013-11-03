@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * Defines winding orders that may be used to identify back faces for culling.
          */
-        enum class CullMode : UInt32
+        enum class CullMode : System::UInt32
         {
             /**
              * Cull back faces with clockwise vertices.

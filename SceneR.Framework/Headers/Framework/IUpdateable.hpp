@@ -40,12 +40,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-			virtual const Boolean& IsEnabled() const = 0;
+			virtual const System::Boolean& IsEnabled() const = 0;
 
 			/**
 			 * Gets the order in which to update this object relative to other objects.
 			 */
-			virtual const UInt32& GetUpdateOrder() const = 0;
+			virtual const System::UInt32& GetUpdateOrder() const = 0;
 
 			/**
 			 * Called when the component should be updated.

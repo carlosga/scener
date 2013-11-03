@@ -43,7 +43,7 @@ namespace SceneR
              */
             IndexBuffer(GraphicsDevice&         graphicsDevice,
                         const IndexElementSize& indexElementSize,
-                        const UInt32&           indexCount);
+                        const System::UInt32&           indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -54,7 +54,7 @@ namespace SceneR
             /**
              * Gets the indices count
              */
-            const UInt32& GetIndexCount() const;
+            const System::UInt32& GetIndexCount() const;
 
             /**
              * Gets the size (in bits) of each index.
@@ -64,25 +64,25 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            const std::vector<UInt32>& GetData() const;
+            const std::vector<System::UInt32>& GetData() const;
 
             /**
              * Sets the indices buffer data
              */
-            void SetData(const std::vector<UInt32>& data);
+            void SetData(const std::vector<System::UInt32>& data);
 
         private:
             void Release();
             void CreateIndexBuffer();
             void BindIndexBuffer()  const;
-            void BufferData(const std::vector<UInt32>& data) const;
+            void BufferData(const std::vector<System::UInt32>& data) const;
             void UnbindIndexBuffer() const;
             void DeleteIndexBuffer();
-            const UInt32 GetElementSizeInBytes() const;
+            const System::UInt32 GetElementSizeInBytes() const;
 
         private:
-            UInt32           ibo;
-            UInt32           indexCount;
+            System::UInt32   ibo;
+            System::UInt32   indexCount;
             IndexElementSize indexElementSize;
 
             friend class GraphicsDevice;

@@ -53,8 +53,8 @@ namespace SceneR
             SpotLight(const SceneR::Framework::Color&   diffuseColor,
                       const SceneR::Framework::Vector3& position,
                       const SceneR::Framework::Vector3& direction,
-                      const Single&                     falloffAngle,
-                      const Single&                     falloffExponent);
+                      const System::Single&             falloffAngle,
+                      const System::Single&             falloffExponent);
 
         public:
             /**
@@ -69,18 +69,18 @@ namespace SceneR
              */
             void SetDirection(const SceneR::Framework::Vector3& direction);
 
-            const Single GetFalloffAngle() const;
+            const System::Single GetFalloffAngle() const;
 
-            void SetFalloffAngle(const Single falloffAngle);
+            void SetFalloffAngle(const System::Single falloffAngle);
 
-            const Single GetFalloffExponent() const;
+            const System::Single GetFalloffExponent() const;
 
-            void SetFalloffExponent(const Single falloffExponent);
+            void SetFalloffExponent(const System::Single falloffExponent);
 
         private:
             SceneR::Framework::Vector3 direction;
-            Single                     falloffAngle;
-            Single                     falloffExponent;
+            System::Single             falloffAngle;
+            System::Single             falloffExponent;
         };
     }
 }

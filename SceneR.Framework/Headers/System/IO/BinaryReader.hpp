@@ -36,7 +36,7 @@ namespace System
 	        /**
 	         * Initializes a new instance of the BinaryReader class with the given stream.
 	         */
-	        BinaryReader(const std::shared_ptr<System::IO::Stream>& stream);
+	        BinaryReader(const std::shared_ptr<Stream>& stream);
 
 	        /**
 	         * Releases all resources being used by this BinaryReader.

@@ -17,6 +17,7 @@
 #include <System/IO/FileStream.hpp>
 #include <fstream>
 
+using namespace System;
 using namespace System::IO;
 
 FileStream::FileStream(const String& path)

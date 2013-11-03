@@ -17,6 +17,7 @@
 #include <Framework/Component.hpp>
 #include <Framework/Renderer.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 Component::Component(Renderer& renderer)

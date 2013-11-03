@@ -70,7 +70,7 @@ namespace SceneR
             /**
              * Gets the number of columns in the parameter description.
              */
-            const Int32& ColumnCount() const;
+            const System::Int32& ColumnCount() const;
 
             /**
              * Gets the collection of effect parameters.
@@ -95,7 +95,7 @@ namespace SceneR
             /**
              * Gets the number of rows in the parameter description.
              */
-            const Int32& RowCount() const;
+            const System::Int32& RowCount() const;
 
             /**
              * Gets the collection of structure members.
@@ -104,24 +104,24 @@ namespace SceneR
 
         public:
             /**
-             * Gets the value of the EffectParameter as a Boolean.
+             * Gets the value of the EffectParameter as a System::Boolean.
              */
-            const Boolean& GetValueBoolean() const;
+            const System::Boolean& GetValueBoolean() const;
 
             /**
-             * Gets the value of the EffectParameter as an array of Boolean.
+             * Gets the value of the EffectParameter as an array of System::Boolean.
              */
-            const std::vector<Boolean>& GetValueBooleanArray() const;
+            const std::vector<System::Boolean>& GetValueBooleanArray() const;
 
             /**
-             * Gets the value of the EffectParameter as an Int32.
+             * Gets the value of the EffectParameter as an System::Int32.
              */
-            const Int32& GetValueInt32() const;
+            const System::Int32& GetValueInt32() const;
 
             /**
-             *  Gets the value of the EffectParameter as an array of Int32.
+             *  Gets the value of the EffectParameter as an array of System::Int32.
              */
-            const std::vector<Int32>& GetValueInt32Array() const;
+            const std::vector<System::Int32>& GetValueInt32Array() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix.
@@ -154,14 +154,14 @@ namespace SceneR
             const std::vector<SceneR::Framework::Quaternion>& GetValueQuaternionArray() const;
 
             /**
-             * Gets the value of the EffectParameter as a Single.
+             * Gets the value of the EffectParameter as a System::Single.
              */
-            const Single& GetValueSingle() const;
+            const System::Single& GetValueSingle() const;
 
             /**
-             * Gets the value of the EffectParameter as an array of Single.
+             * Gets the value of the EffectParameter as an array of System::Single.
              */
-            const std::vector<Single>& GetValueSingleArray() const;
+            const std::vector<System::Single>& GetValueSingleArray() const;
 
             /**
              * Gets the value of the EffectParameter as an String.
@@ -189,28 +189,28 @@ namespace SceneR
 
         public:
             /**
-             * Sets the value of the EffectParameter as a Boolean.
+             * Sets the value of the EffectParameter as a System::Boolean.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const Boolean& value) const;
+            void SetValue(const System::Boolean& value) const;
 
             /**
-             * Gets the value of the EffectParameter as an array of Boolean.
+             * Gets the value of the EffectParameter as an array of System::Boolean.
              * @param value the value to assign to the EffectParameter.
              */
-             void SetValue(const std::vector<Boolean>& value) const;
+             void SetValue(const std::vector<System::Boolean>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an Int32.
+             * Sets the value of the EffectParameter as an System::Int32.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const Int32& value) const;
+            void SetValue(const System::Int32& value) const;
 
             /**
-             *  Sets the value of the EffectParameter as an array of Int32.
+             *  Sets the value of the EffectParameter as an array of System::Int32.
              *  @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<Int32>& value) const;
+            void SetValue(const std::vector<System::Int32>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
@@ -249,16 +249,16 @@ namespace SceneR
             void SetValue(const std::vector<SceneR::Framework::Quaternion>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as a Single.
+             * Sets the value of the EffectParameter as a System::Single.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const Single& value) const;
+            void SetValue(const System::Single& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an array of Single.
+             * Sets the value of the EffectParameter as an array of System::Single.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<Single>& value) const;
+            void SetValue(const std::vector<System::Single>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an String.
@@ -291,15 +291,15 @@ namespace SceneR
             void SetValue(const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
-            Int32                                           columnCount;
+            System::Int32                                   columnCount;
             std::vector<EffectParameter>                    elements;
             std::wstring                                    name;
             EffectParameterClass                            parameterClass;
             EffectParameterType                             parameterType;
-            Int32                                           rowCount;
+            System::Int32                                   rowCount;
             std::vector<EffectParameter>                    structureMembers;
             std::shared_ptr<SceneR::Shaders::ShaderProgram> shader;
-            Int32                                           parameterLocation;
+            System::Int32                                   parameterLocation;
 
             friend class Effect;
         };

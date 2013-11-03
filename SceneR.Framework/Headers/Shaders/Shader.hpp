@@ -55,16 +55,16 @@ namespace SceneR
             /**
              * Indicates wheter the shader has been compiled
              */
-            const bool IsCompiled() const;
+            const System::Boolean IsCompiled() const;
 
         private:
             void Release();
             void VerifyCompilationState();
 
         private:
-            UInt32       object;
-            std::wstring shaderCode;
-            ShaderType   shaderType;
+            System::UInt32 object;
+            std::wstring   shaderCode;
+            ShaderType     shaderType;
 
             friend class ShaderProgram;
         };

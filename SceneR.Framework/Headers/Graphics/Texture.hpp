@@ -50,7 +50,7 @@ namespace SceneR
                 /**
                  * Gets the number of texture levels in a multilevel texture.
                  */
-                virtual const Int32 LevelCount() const = 0;
+                virtual const System::Int32 LevelCount() const = 0;
 
             protected:
                 Texture(GraphicsDevice& graphicsDevice);

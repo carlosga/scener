@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines types that can be used for effect parameters or shader constants.
          */
-        enum class EffectParameterType : UInt32
+        enum class EffectParameterType : System::UInt32
         {
             /**
              * Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE)

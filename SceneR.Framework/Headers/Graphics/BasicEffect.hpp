@@ -60,13 +60,13 @@ namespace SceneR
              * Gets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            const Single& GetAlpha() const;
+            const System::Single& GetAlpha() const;
 
             /**
              * Sets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            void SetAlpha(const Single& alpha);
+            void SetAlpha(const System::Single& alpha);
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
@@ -135,27 +135,27 @@ namespace SceneR
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual const Boolean& IsFogEnabled() const override;
+            virtual const System::Boolean& IsFogEnabled() const override;
 
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual const Single& GetFogEnd() const override;
+            virtual const System::Single& GetFogEnd() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual void SetFogEnd(const Single& fogEnd) override;
+            virtual void SetFogEnd(const System::Single& fogEnd) override;
 
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual const Single& GetFogStart() const override;
+            virtual const System::Single& GetFogStart() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual void SetFogStart(const Single& fogStart) override;
+            virtual void SetFogStart(const System::Single& fogStart) override;
 
             /**
              * Enables lighting support for the current effect.
@@ -170,19 +170,19 @@ namespace SceneR
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual const Boolean& IsLightingEnabled() override;
+            virtual const System::Boolean& IsLightingEnabled() override;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            const Boolean& GetPreferPerPixelLighting() const;
+            const System::Boolean& GetPreferPerPixelLighting() const;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            void SetPreferPerPixelLighting(const Boolean& preferPerPixelLighting);
+            void SetPreferPerPixelLighting(const System::Boolean& preferPerPixelLighting);
 
             /**
              * Gets the projection matrix in the current effect.
@@ -209,12 +209,12 @@ namespace SceneR
             /**
              * Gets specular power of this effect material.
              */
-            const Single& GetSpecularPower() const;
+            const System::Single& GetSpecularPower() const;
 
             /**
              * Sets specular power of this effect material.
              */
-            void SetSpecularPower(const Single& specularPower);
+            void SetSpecularPower(const System::Single& specularPower);
 
             /**
              * Gets a texture to be applied by this effect.
@@ -239,7 +239,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter textures are enabled for this effect
              */
-            const Boolean& IsTextureEnabled() const;
+            const System::Boolean& IsTextureEnabled() const;
 
             /**
              * Gets the view matrix in the current effect.
@@ -264,7 +264,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter vertex colors are enabled for this effect
              */
-            const Boolean& IsVertexColorEnabled() const;
+            const System::Boolean& IsVertexColorEnabled() const;
 
             /**
              * Gets the world matrix in the current effect.
@@ -292,23 +292,23 @@ namespace SceneR
             void LoadShader();
 
         private:
-            Single                              alpha;
+            System::Single                      alpha;
             AmbientLight                        ambientLight;
             SceneR::Framework::Color            diffuseColor;
             std::vector<std::shared_ptr<Light>> lights;
-            Boolean                             lightingEnabled;
+            System::Boolean                     lightingEnabled;
             SceneR::Framework::Color            emissiveColor;
-            Boolean                             fogEnabled;
+            System::Boolean                     fogEnabled;
             SceneR::Framework::Color            fogColor;
-            Single                              fogEnd;
-            Single                              fogStart;
-            Boolean                             preferPerPixelLighting;
+            System::Single                      fogEnd;
+            System::Single                      fogStart;
+            System::Boolean                     preferPerPixelLighting;
             SceneR::Framework::Matrix           projection;
             SceneR::Framework::Color            specularColor;
-            Single                              specularPower;
-            Boolean                             textureEnabled;
+            System::Single                      specularPower;
+            System::Boolean                     textureEnabled;
             std::shared_ptr<Texture2D>          texture;
-            Boolean                             vertexColorEnabled;
+            System::Boolean                     vertexColorEnabled;
             SceneR::Framework::Matrix           view;
             SceneR::Framework::Matrix           world;
         };

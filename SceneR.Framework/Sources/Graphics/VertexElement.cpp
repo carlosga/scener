@@ -16,6 +16,7 @@
 
 #include <Graphics/VertexElement.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 VertexElement::VertexElement(const UInt32&              offset,

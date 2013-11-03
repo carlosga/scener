@@ -23,7 +23,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class SurfaceFormat : UInt32
+        enum class SurfaceFormat : System::UInt32
         {
             /**
              * (Unsigned format) 32-bit ARGB pixel format with alpha, using 8 bits per channel.

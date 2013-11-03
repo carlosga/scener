@@ -32,12 +32,12 @@ namespace SceneR
             /**
              * Converts the given value in degrees to radians.
              */
-            static Single ToRadians(const Single& degrees);
+            static System::Single ToRadians(const System::Single& degrees);
 
             /**
              * Converts the given value in radians to degrees.
              */
-            static Single ToDegrees(const Single& radians);
+            static System::Single ToDegrees(const System::Single& radians);
 
         private:
             /**

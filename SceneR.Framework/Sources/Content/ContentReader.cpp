@@ -23,10 +23,11 @@
 #include <Framework/Vector4.hpp>
 #include <System/IO/FileStream.hpp>
 
+using namespace System;
+using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
-using namespace System::IO;
 
 ContentReader::ContentReader(GraphicsDevice&             graphicsDevice,
                              ContentTypeReaderManager&   typeReaderManager,

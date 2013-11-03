@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * Defines the primitives types
          */
-        enum class PrimitiveType : UInt32
+        enum class PrimitiveType : System::UInt32
         {
             /**
              * Renders the vertices as a collection of isolated points. This value is unsupported for indexed

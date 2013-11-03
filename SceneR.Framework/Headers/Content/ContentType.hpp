@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Types of content supported
          */
-        enum class ContentType : UInt32
+        enum class ContentType : System::UInt32
         {
             AlphaTextEffect      = 0,
             BasicEffect          = 1,

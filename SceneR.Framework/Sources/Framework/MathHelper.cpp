@@ -17,6 +17,7 @@
 #include <Framework/MathHelper.hpp>
 #include <math.h>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 Single MathHelper::ToRadians(const Single& degrees)

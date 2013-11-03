@@ -43,37 +43,37 @@ namespace SceneR
             /**
              * Gets a value indicating whether an application is running in a full screen mode.
              */
-            const Boolean GetFullScreen() const;
+            const System::Boolean GetFullScreen() const;
 
             /**
              * Sets a value indicating whether an application is running in a full screen mode.
              */
-            void SetFullScreen(const Boolean& fullScreen);
+            void SetFullScreen(const System::Boolean& fullScreen);
 
             /**
              * Gets the height of a swap chain's back buffers, in pixels.
              */
-            const Size GetBackBufferHeight() const;
+            const System::Size GetBackBufferHeight() const;
 
             /**
              * Sets the height of a swap chain's back buffers, in pixels.
              */
-            void SetBackBufferHeight(const Size& backBufferHeight);
+            void SetBackBufferHeight(const System::Size& backBufferHeight);
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            const Size GetBackBufferWidth() const;
+            const System::Size GetBackBufferWidth() const;
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            void SetBackBufferWidth(const Size& backBufferWidth);
+            void SetBackBufferWidth(const System::Size& backBufferWidth);
 
         private:
-            Boolean fullScreen;
-            Size    backBufferHeight;
-            Size    backBufferWidth;
+            System::Boolean fullScreen;
+            System::Size    backBufferHeight;
+            System::Size    backBufferWidth;
 
             /*
             Property    Description

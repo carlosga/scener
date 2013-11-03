@@ -16,6 +16,7 @@
 
 #include <Graphics/ModelBone.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

@@ -40,12 +40,12 @@ namespace SceneR
 		    /**
 		     * Gets a value indicating whether this object is visible.
 		     */
-			virtual const Boolean& IsVisible() const = 0;
+			virtual const System::Boolean& IsVisible() const = 0;
 
 			/**
 			 * The order in which to draw this object relative to other objects.
 			 */
-			virtual const UInt32& GetDrawOrder() const = 0;
+			virtual const System::UInt32& GetDrawOrder() const = 0;
 
 			/**
 			 * Called when the component should be drawn.

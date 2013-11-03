@@ -18,6 +18,7 @@
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

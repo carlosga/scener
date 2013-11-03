@@ -50,12 +50,12 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            const UInt32& GetVertexCount() const;
+            const System::UInt32& GetVertexCount() const;
 
             /**
              * Gets the vertex buffer data
              */
-            const std::vector<Single>& GetData() const;
+            const std::vector<System::Single>& GetData() const;
 
             /**
              * Sets the vertex buffer data
@@ -79,9 +79,9 @@ namespace SceneR
             void Release();
 
         private:
-            UInt32 vertexCount;
-            UInt32 vbo;
-            UInt32 vao;
+            System::UInt32 vertexCount;
+            System::UInt32 vbo;
+            System::UInt32 vao;
 
             friend class GraphicsDevice;
         };

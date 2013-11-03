@@ -21,6 +21,7 @@
 #include <cppunit/TestAssert.h>
 #include <memory>
 
+using namespace System;
 using namespace System::IO;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(BinaryReaderTest);

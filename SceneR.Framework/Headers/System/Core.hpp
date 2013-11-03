@@ -22,18 +22,21 @@
 #include <iostream>
 #include <string>
 
-typedef bool 	    Boolean;
-typedef int8_t      Byte;
-typedef uint8_t     UByte;
-typedef int16_t     Int16;
-typedef uint16_t    UInt16;
-typedef int32_t     Int32;
-typedef uint32_t    UInt32;
-typedef int64_t     Int64;
-typedef uint64_t    UInt64;
-typedef float       Single;
-typedef double      Double;
-typedef size_t      Size;
-typedef std::string String;
+namespace System
+{
+    typedef bool 	    Boolean;
+    typedef int8_t      Byte;
+    typedef uint8_t     UByte;
+    typedef int16_t     Int16;
+    typedef uint16_t    UInt16;
+    typedef int32_t     Int32;
+    typedef uint32_t    UInt32;
+    typedef int64_t     Int64;
+    typedef uint64_t    UInt64;
+    typedef float       Single;
+    typedef double      Double;
+    typedef size_t      Size;
+    typedef std::string String;
+}
 
 #endif  /* CORE_HPP */

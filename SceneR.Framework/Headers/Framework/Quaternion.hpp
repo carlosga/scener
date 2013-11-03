@@ -43,7 +43,7 @@ namespace SceneR
              * @param axisOfRotation Vector3 that represents the axis of rotation.
              * @param angle Angle to rotate around the specified axis, in degrees.
              */
-            static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const Single& angle);
+            static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const System::Single& angle);
 
             /**
              * Creates a new quaternion with a specified yaw, pitch, and roll.
@@ -53,9 +53,9 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in degrees.
              * @param roll Roll around the x-axis, in degrees.
              */
-            static Quaternion CreateFromYawPitchRoll(const Single& yaw,
-                                                     const Single& pitch,
-                                                     const Single& roll);
+            static Quaternion CreateFromYawPitchRoll(const System::Single& yaw,
+                                                     const System::Single& pitch,
+                                                     const System::Single& roll);
 
             /**
              * Calculates the linear interpolation between two quaternions.
@@ -66,7 +66,7 @@ namespace SceneR
              */
             static Quaternion Lerp(const Quaternion& quaternion1,
                                    const Quaternion& quaternion2,
-                                   const Single&     amount);
+                                   const System::Single&     amount);
 
             /**
              * Calculates the spherical interpolation between two quaternions.
@@ -77,7 +77,7 @@ namespace SceneR
              */
             static Quaternion Slerp(const Quaternion& quaternion1,
                                     const Quaternion& quaternion2,
-                                    const Single&     amount);
+                                    const System::Single&     amount);
 
         public:
             /**
@@ -93,7 +93,7 @@ namespace SceneR
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
-            Quaternion(const Single& x, const Single& y, const Single& z, const Single& w);
+            Quaternion(const System::Single& x, const System::Single& y, const System::Single& z, const System::Single& w);
 
             /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
@@ -111,27 +111,27 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const Single& X() const;
+            const System::Single& X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const Single& Y() const;
+            const System::Single& Y() const;
 
             /**
              * Gets the z-coordinate value.
              */
-            const Single& Z() const;
+            const System::Single& Z() const;
 
             /**
              * Gets the w-coordinate value.
              */
-            const Single& W() const;
+            const System::Single& W() const;
 
             /**
              * Calculates the quaternion dot product
              */
-            const Single DotProduct(const Quaternion& quaternion) const;
+            const System::Single DotProduct(const Quaternion& quaternion) const;
 
             /**
              * Replaces a quaternion with its conjugate.
@@ -154,14 +154,14 @@ namespace SceneR
              *
              * @return the square of the length of this Quaternion.
              */
-            const Single LengthSquared() const;
+            const System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Quaternion.
              *
              * @return the length of this Quaternion.
              */
-            const Single Length() const;
+            const System::Single Length() const;
 
             /**
              * Normalizes the specified Quaternion.
@@ -173,34 +173,34 @@ namespace SceneR
             void Normalize();
 
         public:
-            Single& operator[](const Int32 &index);
-            const Single& operator[](const Int32& index) const;
+            System::Single& operator[](const System::Int32& index);
+            const System::Single& operator[](const System::Int32& index) const;
             Quaternion& operator=(const Quaternion& vector);
             bool operator==(const Quaternion& vector) const;
             bool operator!=(const Quaternion& vector) const;
             Quaternion& operator*=(const Quaternion& vector);
-            Quaternion& operator*=(const Single& value);
+            Quaternion& operator*=(const System::Single& value);
             Quaternion& operator/=(const Quaternion& vector);
-            Quaternion& operator/=(const Single& value);
+            Quaternion& operator/=(const System::Single& value);
             Quaternion& operator-=(const Quaternion& vector);
             Quaternion& operator+=(const Quaternion& vector);
             const Quaternion operator*(const Quaternion& vector) const;
-            const Quaternion operator*(const Single& value) const;
+            const Quaternion operator*(const System::Single& value) const;
             const Quaternion operator/(const Quaternion& vector) const;
-            const Quaternion operator/(const Single& value) const;
+            const Quaternion operator/(const System::Single& value) const;
             const Quaternion operator-(const Quaternion& vector) const;
             const Quaternion operator+(const Quaternion& vector) const;
 
         private:
             union
             {
-                Single quaternion[4];
+                System::Single quaternion[4];
                 struct
                 {
-                    Single x;
-                    Single y;
-                    Single z;
-                    Single w;
+                    System::Single x;
+                    System::Single y;
+                    System::Single z;
+                    System::Single w;
                 };
             };
         };

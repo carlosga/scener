@@ -33,7 +33,7 @@ namespace SceneR
              * Initializes a new instance of the ContentLoadException class with the given message
              * @param m
              */
-            ContentLoadException(const String m = "Content Load Exception")
+            ContentLoadException(const System::String m = "Content Load Exception")
                 : msg(m)
             {
             };
@@ -56,7 +56,7 @@ namespace SceneR
             };
 
         private:
-            String msg;
+            System::String msg;
         };
     }
 }

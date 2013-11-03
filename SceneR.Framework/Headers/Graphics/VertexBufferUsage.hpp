@@ -24,7 +24,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class VertexBufferUsage : UInt32
+        enum class VertexBufferUsage : System::UInt32
         {
             StreamDraw  = GL_STREAM_DRAW,
             StreamReade = GL_STREAM_READ,

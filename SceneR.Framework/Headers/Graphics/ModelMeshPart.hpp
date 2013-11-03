@@ -70,17 +70,17 @@ namespace SceneR
             /**
              * Gets the number of vertices used during a draw call.
              */
-            const Int32& GetVertexCount() const;
+            const System::Int32& GetVertexCount() const;
 
             /**
              * Gets the number of primitives to render.
              */
-            const Int32& GetPrimitiveCount() const;
+            const System::Int32& GetPrimitiveCount() const;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
              */
-            const Int32& GetStartIndex() const;
+            const System::Int32& GetStartIndex() const;
 
             /**
              * Gets the model mesh part tag
@@ -100,17 +100,17 @@ namespace SceneR
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.
              */
-            const Int32& GetVertexOffset() const;
+            const System::Int32& GetVertexOffset() const;
 
         private:
             std::shared_ptr<Effect>       effect;
             std::shared_ptr<IndexBuffer>  indexBuffer;
-            Int32                         vertexCount;
-            Int32                         primitiveCount;
-            Int32                         startIndex;
+            System::Int32                 vertexCount;
+            System::Int32                 primitiveCount;
+            System::Int32                 startIndex;
             std::wstring                  tag;
             std::shared_ptr<VertexBuffer> vertexBuffer;
-            Int32                         vertexOffset;
+            System::Int32                 vertexOffset;
 
             friend class SceneR::Content::ModelReader;
         };

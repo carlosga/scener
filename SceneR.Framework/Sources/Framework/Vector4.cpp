@@ -19,6 +19,7 @@
 #include <cassert>
 #include <cmath>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 Vector4::Vector4()

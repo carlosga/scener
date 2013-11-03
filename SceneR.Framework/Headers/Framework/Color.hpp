@@ -40,7 +40,7 @@ namespace SceneR
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
              */
-            Color(const Single& r, const Single& g, const Single& b);
+            Color(const System::Single& r, const System::Single& g, const System::Single& b);
 
             /**
              * Initializes a new instance of the Color class with the given red, green, blue and alpha components.
@@ -49,7 +49,7 @@ namespace SceneR
              * @param b The blue component value of the color.
              * @param a The alpha component value of the color.
              */
-            Color(const Single& r, const Single& g, const Single& b, const Single& a);
+            Color(const System::Single& r, const System::Single& g, const System::Single& b, const System::Single& a);
 
             /**
              * Initializes a new instance of the Color class (Copy constructor)
@@ -67,42 +67,42 @@ namespace SceneR
              * Gets the red component value of the color.
              * @return the red component value of the color.
              */
-            const Single& R() const;
+            const System::Single& R() const;
 
             /**
              * Gets the green component value of the color.
              * @return the green component value of the color.
              */
-            const Single& G() const;
+            const System::Single& G() const;
 
             /**
              * Gets the blue component value of the color.
              * @return the blue component value of the color.
              */
-            const Single& B() const;
+            const System::Single& B() const;
 
             /**
              * Gets the alpha component value of the color.
              * @return the alpha component value of the color.
              */
-            const Single& A() const;
+            const System::Single& A() const;
 
             /**
              * Gets the color packed value.
              */
-            const UInt32 PackedValue() const;
+            const System::UInt32 PackedValue() const;
 
         public:
-            Single& operator[](const Int32& index);
-            const Single& operator[](const Int32& index) const;
+            System::Single& operator[](const System::Int32& index);
+            const System::Single& operator[](const System::Int32& index) const;
             bool operator==(const Color& color) const;
             bool operator!=(const Color& color) const;
             Color& operator*=(const Color& color);
-            Color& operator*=(const Single& value);
+            Color& operator*=(const System::Single& value);
             Color& operator-=(const Color& color);
             Color& operator+=(const Color& color);
             const Color operator*(const Color& color) const;
-            const Color operator*(const Single& value) const;
+            const Color operator*(const System::Single& value) const;
             const Color operator-(const Color& color) const;
             const Color operator+(const Color& color) const;
 
@@ -146,13 +146,13 @@ namespace SceneR
         private:
             union
             {
-                Single color[4];
+                System::Single color[4];
                 struct
                 {
-                    Single r;
-                    Single g;
-                    Single b;
-                    Single a;
+                    System::Single r;
+                    System::Single g;
+                    System::Single b;
+                    System::Single a;
                 };
             };
         };

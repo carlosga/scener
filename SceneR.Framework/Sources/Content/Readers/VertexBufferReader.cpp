@@ -24,6 +24,7 @@
 #include <Graphics/VertexPositionNormalTexture.hpp>
 #include <vector>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;

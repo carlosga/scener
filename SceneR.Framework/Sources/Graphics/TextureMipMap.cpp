@@ -16,6 +16,7 @@
 
 #include <Graphics/TextureMipMap.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 TextureMipMap::TextureMipMap()

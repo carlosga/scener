@@ -27,10 +27,11 @@
 #include <stdexcept>
 #include <string>
 
+using namespace System;
+using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Shaders;
-using namespace System::IO;
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     : Effect(graphicsDevice),

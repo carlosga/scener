@@ -18,6 +18,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/RasterizerState.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)

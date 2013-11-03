@@ -22,6 +22,7 @@
 #include <cmath>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,

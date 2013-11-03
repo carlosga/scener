@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines usage for vertex elements.
          */
-        enum class VertexElementUsage : UInt32
+        enum class VertexElementUsage : System::UInt32
         {
             /**
              * Vertex binormal data.

@@ -52,8 +52,8 @@ namespace SceneR
              * @param height the texture height, in pixels
              */
             Texture2D(GraphicsDevice& graphicsDevice,
-                      const UInt32&   width,
-                      const UInt32&   height);
+                      const System::UInt32&   width,
+                      const System::UInt32&   height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -64,11 +64,11 @@ namespace SceneR
              * @param mipMap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice&      graphicsDevice,
-                      const UInt32&        width,
-                      const UInt32&        height,
-                      const Boolean&       mipMap,
-                      const SurfaceFormat& format);
+            Texture2D(GraphicsDevice&        graphicsDevice,
+                      const System::UInt32&  width,
+                      const System::UInt32&  height,
+                      const System::Boolean& mipMap,
+                      const SurfaceFormat&   format);
 
             /**
              * Releases all resources being used by this texture.
@@ -84,23 +84,23 @@ namespace SceneR
             /**
              * Gets the texture height, in pixels
              */
-            const UInt32& Height() const;
+            const System::UInt32& Height() const;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            virtual const Int32 LevelCount() const override;
+            virtual const System::Int32 LevelCount() const override;
 
             /**
              * Gets the texture width, in pixels
              */
-            const UInt32& Width() const;
+            const System::UInt32& Width() const;
 
         private:
             SurfaceFormat              format;
-            UInt32                     height;
+            System::UInt32             height;
             std::vector<TextureMipMap> mipmaps;
-            UInt32                     width;
+            System::UInt32             width;
 
             friend class SceneR::Content::Texture2DReader;
         };

@@ -16,6 +16,7 @@
 
 #include <Graphics/ModelMeshPart.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 ModelMeshPart::ModelMeshPart()

@@ -60,7 +60,7 @@ namespace SceneR
             /**
              * Gets the index of this bone in the Bones collection.
              */
-            const UInt32& Index() const;
+            const System::UInt32& Index() const;
 
             /**
              * Gets the bone name
@@ -89,7 +89,7 @@ namespace SceneR
 
         private:
             std::vector<std::shared_ptr<ModelBone>> children;
-            UInt32                                  index;
+            System::UInt32                          index;
             std::wstring                            name;
             std::shared_ptr<ModelBone>              parent;
             SceneR::Framework::Matrix               transform;

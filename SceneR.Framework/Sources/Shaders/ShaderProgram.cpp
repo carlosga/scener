@@ -23,6 +23,7 @@
 #include <cassert>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Shaders;
 

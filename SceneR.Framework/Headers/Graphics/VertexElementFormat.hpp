@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Defines vertex element formats.
          */
-        enum class VertexElementFormat : UInt32
+        enum class VertexElementFormat : System::UInt32
         {
             Single           = 1,
             Vector2          = 2,

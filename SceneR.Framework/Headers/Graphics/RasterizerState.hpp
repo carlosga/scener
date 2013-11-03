@@ -70,14 +70,14 @@ namespace SceneR
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            const Single& GetDepthBias() const;
+            const System::Single& GetDepthBias() const;
 
             /**
              * Sets the depth bias for polygons, which is the amount of bias to apply to the depth
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            void SetDepthBias(const Single& depthBias);
+            void SetDepthBias(const System::Single& depthBias);
 
             /**
              * Gets the fill mode, which defines how a triangle is filled during rendering.
@@ -94,22 +94,22 @@ namespace SceneR
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            const Boolean& GetMultiSampleAntiAlias() const;
+            const System::Boolean& GetMultiSampleAntiAlias() const;
 
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            void SetMultiSampleAntiAlias(const Boolean& multiSampleAntiAlias);
+            void SetMultiSampleAntiAlias(const System::Boolean& multiSampleAntiAlias);
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            const Boolean& GetScissorTestEnable() const;
+            const System::Boolean& GetScissorTestEnable() const;
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            void SetScissorTestEnable(const Boolean& scissorTestEnable);
+            void SetScissorTestEnable(const System::Boolean& scissorTestEnable);
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -117,7 +117,7 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            const Single& GetSlopeScaleDepthBias() const;
+            const System::Single& GetSlopeScaleDepthBias() const;
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -125,18 +125,18 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            void SetSlopeScaleDepthBias(const Single& slopeScaleDepthBias);
+            void SetSlopeScaleDepthBias(const System::Single& slopeScaleDepthBias);
 
         private:
             void Apply() const;
 
         private:
-            CullMode cullMode;
-            Single   depthBias;
-            FillMode fillMode;
-            Boolean  multiSampleAntiAlias;
-            Boolean  scissorTestEnable;
-            Single   slopeScaleDepthBias;
+            CullMode        cullMode;
+            System::Single  depthBias;
+            FillMode        fillMode;
+            System::Boolean multiSampleAntiAlias;
+            System::Boolean scissorTestEnable;
+            System::Single  slopeScaleDepthBias;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

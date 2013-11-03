@@ -60,7 +60,7 @@ namespace SceneR
             virtual ~Light();
 
         protected:
-            UInt32                   object;
+            System::UInt32           object;
             SceneR::Framework::Color color;
         };
     }

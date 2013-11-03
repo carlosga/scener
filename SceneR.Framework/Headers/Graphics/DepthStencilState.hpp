@@ -56,12 +56,12 @@ namespace SceneR
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            const Boolean& GetDepthBufferEnable() const;
+            const System::Boolean& GetDepthBufferEnable() const;
 
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            void SetDepthBufferEnable(const Boolean& depthTestEnable);
+            void SetDepthBufferEnable(const System::Boolean& depthTestEnable);
 
             /**
              * Gets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
@@ -76,20 +76,20 @@ namespace SceneR
             /**
              *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            const Boolean& GetDepthBufferWriteEnable() const;
+            const System::Boolean& GetDepthBufferWriteEnable() const;
 
             /**
              *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            void SetDepthBufferWriteEnable(const Boolean& depthBufferWriteEnable);
+            void SetDepthBufferWriteEnable(const System::Boolean& depthBufferWriteEnable);
 
         private:
             void Apply() const;
 
         private:
-            Boolean         depthBufferEnable;
+            System::Boolean depthBufferEnable;
             CompareFunction depthBufferFunction;
-            Boolean         depthBufferWriteEnable;
+            System::Boolean depthBufferWriteEnable;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

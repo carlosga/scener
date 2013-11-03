@@ -24,7 +24,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class VertexBufferTarget : UInt32
+        enum class VertexBufferTarget : System::UInt32
         {
             ArrayBuffer              = GL_ARRAY_BUFFER,
             AtomicCounterBufer       = GL_ATOMIC_COUNTER_BUFFER,

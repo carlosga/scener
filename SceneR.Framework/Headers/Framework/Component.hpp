@@ -63,26 +63,26 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual const Boolean& IsEnabled()  const override;
+            virtual const System::Boolean& IsEnabled()  const override;
 
             /**
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual const UInt32& GetUpdateOrder()  const override;
+            virtual const System::UInt32& GetUpdateOrder()  const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            virtual void SetUpdateOrder(const UInt32& updateOrder);
+            virtual void SetUpdateOrder(const System::UInt32& updateOrder);
 
         protected:
             Renderer& renderer;
 
         private:
-            Boolean enabled;
-            UInt32  updateOrder;
+            System::Boolean enabled;
+            System::UInt32  updateOrder;
         };
     }
 }

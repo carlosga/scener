@@ -28,7 +28,7 @@
 
 class BinaryReaderTest : public CPPUNIT_NS::TestFixture
 {
-    const String TEST_FILE = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl";
+    const System::String TEST_FILE = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl";
 
     CPPUNIT_TEST_SUITE(BinaryReaderTest);
 

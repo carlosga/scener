@@ -74,7 +74,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual const Boolean& IsLightingEnabled() = 0;
+            virtual const System::Boolean& IsLightingEnabled() = 0;
 
             /**
              * Enables default lighting for the current effect.

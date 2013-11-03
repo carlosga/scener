@@ -69,17 +69,17 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual const Boolean& IsVisible() const override;
+            virtual const System::Boolean& IsVisible() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual const UInt32& GetDrawOrder() const override;
+            virtual const System::UInt32& GetDrawOrder() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual void SetDrawOrder(const UInt32& drawOrder);
+            virtual void SetDrawOrder(const System::UInt32& drawOrder);
 
             /**
              * Called when the component should be initialized.
@@ -92,8 +92,8 @@ namespace SceneR
             virtual void UnloadContent();
 
         private:
-            Boolean visible;
-            UInt32  drawOrder;
+            System::Boolean visible;
+            System::UInt32  drawOrder;
         };
     }
 }

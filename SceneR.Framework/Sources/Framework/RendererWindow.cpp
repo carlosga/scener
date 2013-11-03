@@ -23,6 +23,7 @@
 #include <iostream>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

@@ -20,6 +20,7 @@
 #include <cassert>
 #include <cmath>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 const Quaternion Quaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);

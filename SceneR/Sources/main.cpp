@@ -17,6 +17,7 @@
 #include <SampleRenderer.hpp>
 #include <System/Core.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 

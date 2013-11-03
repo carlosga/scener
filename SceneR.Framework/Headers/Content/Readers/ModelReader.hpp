@@ -50,7 +50,7 @@ namespace SceneR
             virtual std::shared_ptr<void> Read(ContentReader* input) override;
 
         private:
-            UInt32 ReadBoneReference(ContentReader* input, const UInt16& boneCount);
+            System::UInt32 ReadBoneReference(ContentReader* input, const System::UInt16& boneCount);
         };
     }
 }

@@ -18,6 +18,7 @@
 #include <Shaders/ShaderProgram.hpp>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Shaders;

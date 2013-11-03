@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * Identifies the type of OpenGL profile to be used on GraphicsDevice instances.
          */
-        enum class GraphicsProfile : UInt32
+        enum class GraphicsProfile : System::UInt32
         {
             /**
              * Core profile

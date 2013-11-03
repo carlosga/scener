@@ -25,12 +25,12 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/FileStream.hpp>
 #include <memory>
-#include <vector>
 
 namespace SceneR
 {
     namespace Framework
     {
+        class Color;
         class Matrix;
         class Quaternion;
         class Vector2;

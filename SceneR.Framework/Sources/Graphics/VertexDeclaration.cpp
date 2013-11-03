@@ -16,6 +16,7 @@
 
 #include <Graphics/VertexDeclaration.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 VertexDeclaration::VertexDeclaration(const UInt32&                     componentCount,

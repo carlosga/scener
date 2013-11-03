@@ -88,11 +88,11 @@ namespace SceneR
              *                       primitiveCount and primitiveType.
              */
             void DrawIndexedPrimitives(const PrimitiveType& primitiveType,
-                                       const UInt32& baseVertex,
-                                       const UInt32& minVertexIndex,
-                                       const UInt32& numVertices,
-                                       const UInt32& startIndex,
-                                       const UInt32& primitiveCount) const;
+                                       const System::UInt32& baseVertex,
+                                       const System::UInt32& minVertexIndex,
+                                       const System::UInt32& numVertices,
+                                       const System::UInt32& startIndex,
+                                       const System::UInt32& primitiveCount) const;
 
             /**
              * Draws a series of instanced models.
@@ -110,12 +110,12 @@ namespace SceneR
              * @param instanceCount Number of primitives to render.
              */
             void DrawInstancedPrimitives(const PrimitiveType& primitiveType,
-                                         const UInt32& baseVertex,
-                                         const UInt32& minVertexIndex,
-                                         const UInt32& numVertices,
-                                         const UInt32& startIndex,
-                                         const UInt32& primitiveCount,
-                                         const UInt32& instanceCount) const;
+                                         const System::UInt32& baseVertex,
+                                         const System::UInt32& minVertexIndex,
+                                         const System::UInt32& numVertices,
+                                         const System::UInt32& startIndex,
+                                         const System::UInt32& primitiveCount,
+                                         const System::UInt32& instanceCount) const;
 
             /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -128,9 +128,9 @@ namespace SceneR
              *                       determined by the primitive type. If it is a line list, each primitive has two
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
-            void DrawPrimitives(const PrimitiveType& primitiveType,
-                                const UInt32&        startVertex,
-                                const UInt32&        primitiveCount) const;
+            void DrawPrimitives(const PrimitiveType&  primitiveType,
+                                const System::UInt32& startVertex,
+                                const System::UInt32& primitiveCount) const;
 
             /**
              * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
@@ -202,14 +202,14 @@ namespace SceneR
             void SetViewport(Viewport& viewport);
 
         private:
-            DepthStencilState                   depthStencilState;
-            std::shared_ptr<Effect>             effect;
-            GraphicsProfile                     graphicsProfile;
-            std::shared_ptr<IndexBuffer>        indexBuffer;
-            PresentationParameters              presentationParameters;
-            RasterizerState                     rasterizerState;
-            std::shared_ptr<VertexBuffer>       vertexBuffer;
-            Viewport                            viewport;
+            DepthStencilState             depthStencilState;
+            std::shared_ptr<Effect>       effect;
+            GraphicsProfile               graphicsProfile;
+            std::shared_ptr<IndexBuffer>  indexBuffer;
+            PresentationParameters        presentationParameters;
+            RasterizerState               rasterizerState;
+            std::shared_ptr<VertexBuffer> vertexBuffer;
+            Viewport                      viewport;
         };
     }
 }

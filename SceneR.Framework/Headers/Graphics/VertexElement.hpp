@@ -34,28 +34,28 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const UInt32& offset,
-                          const UInt32& componentCount,
+            VertexElement(const System::UInt32&      offset,
+                          const System::UInt32&      componentCount,
                           const VertexElementFormat& vertexElementFormat,
-                          const VertexElementUsage& vertexElementUsage,
-                          const UInt32& usageIndex);
+                          const VertexElementUsage&  vertexElementUsage,
+                          const System::UInt32&      usageIndex);
 
         public:
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            const UInt32& GetOffset() const;
+            const System::UInt32& GetOffset() const;
 
             /**
              * Gets the number of components bases on the vertex element format.
              * @return
              */
-            const UInt32& GetComponentCount() const;
+            const System::UInt32& GetComponentCount() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            const UInt32& GetUsageIndex() const;
+            const System::UInt32& GetUsageIndex() const;
 
             /**
              * Gets or sets the format of this vertex element.
@@ -68,11 +68,11 @@ namespace SceneR
             const VertexElementUsage& GetVertexElementUsage() const;
 
         private:
-            UInt32              offset;
-            UInt32              componentCount;
+            System::UInt32      offset;
+            System::UInt32      componentCount;
             VertexElementFormat vertexElementFormat;
             VertexElementUsage  vertexElementUsage;
-            UInt32              usageIndex;
+            System::UInt32      usageIndex;
         };
     }
 }

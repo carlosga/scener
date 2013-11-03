@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Starts the drawing of a frame.
              */
-            virtual Boolean BeginDraw() override;
+            virtual System::Boolean BeginDraw() override;
 
             /**
              * Called by the renderer at the end of drawing; presents the final rendering.
@@ -71,59 +71,59 @@ namespace SceneR
             SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
 
             /**
-             * Gets a value indicating whether to allow the user to resize the device window.
+             * Gets a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            const Boolean GetAllowUserResizing() const;
+            const System::Boolean GetAllowUserResizing() const;
 
             /**
-             * Geta a value indicating whether to allow the user to resize the device window.
+             * Geta a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            void SetAllowUserResizing(const Boolean& allowUserResizing);
+            void SetAllowUserResizing(const System::Boolean& allowUserResizing);
 
             /**
              * Gets the window title.
              * @return the window title.
              */
-            const String GetWindowTitle() const;
+            const System::String GetWindowTitle() const;
 
             /**
              * Sets the window title.
              * @param windowTitle the window title.
              */
-            void SetWindowTitle(const String& windowTitle);
+            void SetWindowTitle(const System::String& windowTitle);
 
             /**
              * Gets a value that indicates whether the device should start in full-screen mode.
              * @return a value that indicates whether the device should start in full-screen mode.
              */
-            const Boolean GetFullScreen();
+            const System::Boolean GetFullScreen();
 
             /**
              * Sets a value that indicates whether the device should start in full-screen mode.
              */
-            void SetFullScreen(const Boolean& fullScreen);
+            void SetFullScreen(const System::Boolean& fullScreen);
 
             /**
              * Gets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
              */
-            const Size GetPreferredBackBufferHeight();
+            const System::Size GetPreferredBackBufferHeight();
 
             /**
              * Sets the preferred back-buffer height.
              */
-            void SetPreferredBackBufferHeight(const Size& preferredBackBufferHeight);
+            void SetPreferredBackBufferHeight(const System::Size& preferredBackBufferHeight);
 
             /**
              * Gets the preferred back-buffer width.
              * @return the preferred back-buffer width.
              */
-            const Size GetPreferredBackBufferWidth();
+            const System::Size GetPreferredBackBufferWidth();
 
             /**
              * Sets the preferred back-buffer width.
              */
-            void SetPreferredBackBufferWidth(const Size& preferredBackBufferWidth);
+            void SetPreferredBackBufferWidth(const System::Size& preferredBackBufferWidth);
 
         private:
             Renderer&                        renderer;

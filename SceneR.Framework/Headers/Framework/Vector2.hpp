@@ -39,7 +39,7 @@ namespace SceneR
              * @param x the x-coordinate value.
              * @param y the y-coordinate value.
              */
-            Vector2(const Single& x, const Single& y);
+            Vector2(const System::Single& x, const System::Single& y);
 
             /**
              * Initializes a new instance of the Vector2 class (Copy constructor)
@@ -56,25 +56,25 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const Single& X() const;
+            const System::Single& X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const Single& Y() const;
+            const System::Single& Y() const;
 
         public:
-            Single& operator[](const Int32& index);
-            const Single& operator[](const Int32& index) const;
+            System::Single& operator[](const System::Int32& index);
+            const System::Single& operator[](const System::Int32& index) const;
 
         private:
             union
             {
-                Single coords[2];
+                System::Single coords[2];
                 struct
                 {
-                    Single x;
-                    Single y;
+                    System::Single x;
+                    System::Single y;
                 };
             };
         };

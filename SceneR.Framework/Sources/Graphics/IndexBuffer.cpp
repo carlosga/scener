@@ -20,6 +20,7 @@
 #include <Graphics/VertexBufferUsage.hpp>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 IndexBuffer::IndexBuffer(GraphicsDevice&         graphicsDevice,

@@ -17,6 +17,7 @@
 #include <Framework/Color.hpp>
 #include <Graphics/PointLightBase.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

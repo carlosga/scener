@@ -17,6 +17,7 @@
 #include <Framework/Vector2.hpp>
 #include <cassert>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 Vector2::Vector2()

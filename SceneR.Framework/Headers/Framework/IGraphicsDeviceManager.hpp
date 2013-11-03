@@ -40,7 +40,7 @@ namespace SceneR
            /**
              * Starts the drawing of a frame
              */
-            virtual Boolean BeginDraw() = 0;
+            virtual System::Boolean BeginDraw() = 0;
 
             /**
              * Called to ensure that the device manager has created a valid device.

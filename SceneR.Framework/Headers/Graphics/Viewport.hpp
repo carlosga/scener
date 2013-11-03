@@ -37,14 +37,14 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(Single x, Single y, Size width, Size height);
+            Viewport(System::Single x, System::Single y, System::Size width, System::Size height);
 
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(Single x       , Single y,
-                     Single width   , Single height,
-                     Single minDepth, Single maxDepth);
+            Viewport(System::Single x       , System::Single y,
+                     System::Single width   , System::Single height,
+                     System::Single minDepth, System::Single maxDepth);
 
             /**
              * Default destructor
@@ -52,26 +52,27 @@ namespace SceneR
             ~Viewport();
 
         public:
-            const Single& X() const;
-            const Single& Y() const;
-            const Single& Width() const;
-            const Single& Height() const;
-            const Single AspectRatio() const;
-            const Single& GetMinDepth() const;
-            void SetMinDepth(const Single& minDepth);
-            const Single& GetMaxDepth() const;
-            void SetMaxDepth(const Single& maxDepth);
-            void Update(const UInt32& x, const UInt32& y, const Size& width, const Size& height);
-            void Update(const Size& width, const Size& height);
+            const System::Single& X() const;
+            const System::Single& Y() const;
+            const System::Single& Width() const;
+            const System::Single& Height() const;
+            const System::Single AspectRatio() const;
+            const System::Single& GetMinDepth() const;
+            void SetMinDepth(const System::Single& minDepth);
+            const System::Single& GetMaxDepth() const;
+            void SetMaxDepth(const System::Single& maxDepth);
+            void Update(const System::UInt32& x  , const System::UInt32& y,
+                        const System::Size& width, const System::Size& height);
+            void Update(const System::Size& width, const System::Size& height);
             void Refresh() const;
 
         private:
-            Single xCoordinate;
-            Single yCoordinate;
-            Single vWidth;
-            Single vHeight;
-            Single minDepth;
-            Single maxDepth;
+            System::Single xCoordinate;
+            System::Single yCoordinate;
+            System::Single vWidth;
+            System::Single vHeight;
+            System::Single minDepth;
+            System::Single maxDepth;
         };
     }
 }

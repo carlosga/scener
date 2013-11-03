@@ -49,12 +49,12 @@ namespace System
             /**
              * Returns the current position of the reader.
              */
-            virtual Size Position() = 0;
+            virtual System::Size Position() = 0;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            virtual Size Length() = 0;
+            virtual System::Size Length() = 0;
 
             /**
              * Closes the current stream
@@ -64,17 +64,17 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            virtual UByte ReadByte() = 0;
+            virtual System::UByte ReadByte() = 0;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual void Read(char* buffer, const Size& offset, const Size& count) = 0;
+            virtual void Read(char* buffer, const System::Size& offset, const System::Size& count) = 0;
 
             /**
              * Sets the position within the current stream.
              */
-            virtual Size Seek(const Size& offset, const std::ios::seekdir& origin) = 0;
+            virtual System::Size Seek(const Size& offset, const std::ios::seekdir& origin) = 0;
         };
     }
 }

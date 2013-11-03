@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 
+using namespace System;
 using namespace System::IO;
 
 BinaryReader::BinaryReader(const std::shared_ptr<Stream>& stream)

@@ -17,6 +17,7 @@
 #include <Framework/Color.hpp>
 #include <cassert>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 Color::Color()

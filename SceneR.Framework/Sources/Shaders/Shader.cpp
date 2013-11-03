@@ -19,6 +19,7 @@
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Shaders;
 
 Shader::Shader(const std::wstring& shaderCode, const ShaderType& shaderType)
@@ -53,7 +54,7 @@ void Shader::Compile()
     this->VerifyCompilationState();
 }
 
-const bool Shader::IsCompiled() const
+const Boolean Shader::IsCompiled() const
 {
     bool result = false;
 

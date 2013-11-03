@@ -19,6 +19,7 @@
 #include <cppunit/SourceLine.h>
 #include <cppunit/TestAssert.h>
 
+using namespace System;
 using namespace System::IO;
 
 CPPUNIT_TEST_SUITE_REGISTRATION(FileStreamTest);
