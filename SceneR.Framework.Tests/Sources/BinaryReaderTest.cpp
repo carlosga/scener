@@ -44,7 +44,7 @@ void BinaryReaderTest::tearDown()
 
 void BinaryReaderTest::TestOpenBinaryReader()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     reader.Close();
@@ -52,7 +52,7 @@ void BinaryReaderTest::TestOpenBinaryReader()
 
 void BinaryReaderTest::TestReadByte()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UByte value = reader.ReadByte();
@@ -68,7 +68,7 @@ void BinaryReaderTest::TestReadBytes()
 
 void BinaryReaderTest::TestReadInt16()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Int16 value = reader.ReadInt16();
@@ -80,7 +80,7 @@ void BinaryReaderTest::TestReadInt16()
 
 void BinaryReaderTest::TestReadUInt16()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UInt16 value = reader.ReadUInt16();
@@ -92,7 +92,7 @@ void BinaryReaderTest::TestReadUInt16()
 
 void BinaryReaderTest::TestReadInt32()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Int32 value = reader.ReadInt32();
@@ -104,7 +104,7 @@ void BinaryReaderTest::TestReadInt32()
 
 void BinaryReaderTest::TestReadUInt32()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UInt32 value = reader.ReadUInt32();
@@ -116,7 +116,7 @@ void BinaryReaderTest::TestReadUInt32()
 
 void BinaryReaderTest::TestReadInt64()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Int64 value = reader.ReadInt64();
@@ -128,7 +128,7 @@ void BinaryReaderTest::TestReadInt64()
 
 void BinaryReaderTest::TestReadUInt64()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UInt64 value = reader.ReadUInt64();
@@ -140,7 +140,7 @@ void BinaryReaderTest::TestReadUInt64()
 
 void BinaryReaderTest::TestReadSingle()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Single value = reader.ReadSingle();
@@ -152,7 +152,7 @@ void BinaryReaderTest::TestReadSingle()
 
 void BinaryReaderTest::TestReadDouble()
 {
-    std::shared_ptr<FileStream> stream = std::make_shared<FileStream>(BinaryReaderTest::TEST_FILE);
+    FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Double value = reader.ReadDouble();

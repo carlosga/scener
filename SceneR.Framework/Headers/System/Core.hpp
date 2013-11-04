@@ -24,7 +24,7 @@
 
 namespace System
 {
-    typedef bool 	    Boolean;
+    typedef bool        Boolean;
     typedef int8_t      Byte;
     typedef uint8_t     UByte;
     typedef int16_t     Int16;

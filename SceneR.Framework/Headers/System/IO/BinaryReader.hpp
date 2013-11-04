@@ -19,7 +19,6 @@
 
 #include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -36,7 +35,7 @@ namespace System
 	        /**
 	         * Initializes a new instance of the BinaryReader class with the given stream.
 	         */
-	        BinaryReader(const std::shared_ptr<Stream>& stream);
+	        BinaryReader(Stream& stream);
 
 	        /**
 	         * Releases all resources being used by this BinaryReader.
@@ -47,7 +46,7 @@ namespace System
 	        /**
 	         * Gets the underliying Stream.
 	         */
-	        std::shared_ptr<Stream> BaseStream();
+	        Stream& BaseStream();
 
             /**
              * Closes the current reader and the underlying stream.
@@ -130,7 +129,7 @@ namespace System
             Double ReadDouble();
 
 	    private:
-            std::shared_ptr<Stream> stream;
+            Stream& stream;
 	    };
 	}
 }

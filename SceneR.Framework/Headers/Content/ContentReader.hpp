@@ -55,9 +55,9 @@ namespace SceneR
              * @param typeReaderManager the type reader manager.
              * @param filePath the file path to read.
              */
-            ContentReader(SceneR::Graphics::GraphicsDevice&       graphicsDevice,
-                          ContentTypeReaderManager&               typeReaderManager,
-                          std::shared_ptr<System::IO::FileStream> stream);
+            ContentReader(SceneR::Graphics::GraphicsDevice& graphicsDevice,
+                          ContentTypeReaderManager&         typeReaderManager,
+                          System::IO::Stream&               stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.

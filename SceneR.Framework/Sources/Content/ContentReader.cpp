@@ -29,9 +29,9 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-ContentReader::ContentReader(GraphicsDevice&             graphicsDevice,
-                             ContentTypeReaderManager&   typeReaderManager,
-                             std::shared_ptr<FileStream> stream)
+ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
+                             ContentTypeReaderManager& typeReaderManager,
+                             Stream&                   stream)
     : BinaryReader(stream),
       graphicsDevice(graphicsDevice),
       typeReaderManager(typeReaderManager)

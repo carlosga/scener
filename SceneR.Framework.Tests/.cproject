@@ -48,8 +48,8 @@
 								<option id="llvm.c.link.base.option.ldflags.1046875732" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64" valueType="string"/>
 								<option id="llvm.c.link.option.libs.117343571" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="stdc++"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SceneR.Framework"/>
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="cppunit"/>
+									<listOptionValue builtIn="false" value="SceneR.Framework"/>
+									<listOptionValue builtIn="false" value="cppunit"/>
 								</option>
 								<option id="llvm.c.link.option.paths.322208138" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>

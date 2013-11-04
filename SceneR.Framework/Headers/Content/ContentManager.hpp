@@ -71,7 +71,7 @@ namespace SceneR
                     System::String filename = System::IO::Path::ChangeExtension(assetName, "scr");
                     System::String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
-                    auto          stream = std::make_shared<System::IO::FileStream>(path);
+                    System::IO::FileStream stream(path);
                     ContentReader reader(this->graphicsDevice, this->typeReaderManager, stream);
 
                     asset = reader.ReadObject<T>();

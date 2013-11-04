@@ -22,7 +22,7 @@
 using namespace System;
 using namespace System::IO;
 
-BinaryReader::BinaryReader(const std::shared_ptr<Stream>& stream)
+BinaryReader::BinaryReader(Stream& stream)
     : stream(stream)
 {
 }
@@ -32,14 +32,14 @@ BinaryReader::~BinaryReader()
     this->Close();
 }
 
-std::shared_ptr<Stream> BinaryReader::BaseStream()
+Stream& BinaryReader::BaseStream()
 {
     return this->stream;
 }
 
 void BinaryReader::Close()
 {
-    this->stream->Close();
+    this->stream.Close();
 }
 
 int BinaryReader::PeekChar()
@@ -114,7 +114,7 @@ UByte BinaryReader::ReadByte()
 {
     UByte buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -137,7 +137,7 @@ Int16 BinaryReader::ReadInt16()
 {
     Int16 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -146,7 +146,7 @@ UInt16 BinaryReader::ReadUInt16()
 {
     UInt16 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -155,7 +155,7 @@ Int32 BinaryReader::ReadInt32()
 {
     Int32 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -164,7 +164,7 @@ UInt32 BinaryReader::ReadUInt32()
 {
     UInt32 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -173,7 +173,7 @@ Int64 BinaryReader::ReadInt64()
 {
     Int64 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -182,7 +182,7 @@ UInt64 BinaryReader::ReadUInt64()
 {
     UInt64 buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -191,7 +191,7 @@ Single BinaryReader::ReadSingle()
 {
     Single buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
@@ -200,7 +200,7 @@ Double BinaryReader::ReadDouble()
 {
     Double buffer;
 
-    this->stream->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+    this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
