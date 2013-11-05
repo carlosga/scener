@@ -23,9 +23,15 @@ namespace System
 {
     namespace IO
     {
+		/**
+		 * Contract for stream implementations.
+		 */
         class Stream
         {
         protected:
+			/**
+			 * Releases all resources being used by this Stream.
+			 */
             virtual ~Stream()
             {
             };

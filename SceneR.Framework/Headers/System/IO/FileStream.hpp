@@ -26,12 +26,25 @@ namespace System
 {
     namespace IO
     {
+		/**
+		 * A Stream around a file, supporting read operations.
+		 */
         class FileStream : public Stream
         {
         public:
+			/**
+			 * Initializes a new FileStream with the specified file.
+			 */
             FileStream(const String& path);
+			
+			/**
+			 * Initializes a new FileStream with the specified and opening mode.
+			 */		
             FileStream(const String& path, const std::ios::openmode& mode);
 
+            /**
+			 * Releases all resources being used by this FileStream.
+			 */
             ~FileStream();
 
         public:
@@ -80,7 +93,11 @@ namespace System
              */
             virtual Size Seek(const Size& offset, const std::ios::seekdir& origin) override;
 
-        private:
+		private:
+            FileStream(const FileStream& stream);
+			FileStream& operator=(const FileStream& stream) = delete;
+
+        private:		
             std::fstream       stream;
             std::ios::openmode mode;
         };

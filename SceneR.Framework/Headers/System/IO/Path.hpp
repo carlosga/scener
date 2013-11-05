@@ -30,6 +30,10 @@ namespace System
         class Path
         {
         public:
+			static wchar_t GetInvalidPathChars()
+			{
+				throw new std::runtime_error("Not implemented");
+			};
 
             /**
              * Changes the extension of a path string.
@@ -85,7 +89,9 @@ namespace System
             };
 
         private:
-            Path() = default;
+            Path() = delete;
+			Path(const Path& path) = delete;
+			Path& operator=(const Path& path) = delete;
         };
     }
 }

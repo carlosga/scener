@@ -22,8 +22,9 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
-#include <System/IO/Path.hpp>
+#include <System/IO/File.hpp>
 #include <System/IO/FileStream.hpp>
+#include <System/IO/Path.hpp>
 #include <memory>
 
 namespace SceneR
@@ -70,6 +71,11 @@ namespace SceneR
                 {
                     System::String filename = System::IO::Path::ChangeExtension(assetName, "scr");
                     System::String path     = System::IO::Path::Combine(this->rootDirectory, filename);
+
+                    if (!System::IO::File::Exists(path))
+                    {
+                        throw std::runtime_error("the asset file doesn't exists.");
+                    }
 
                     System::IO::FileStream stream(path);
                     ContentReader reader(this->graphicsDevice, this->typeReaderManager, stream);

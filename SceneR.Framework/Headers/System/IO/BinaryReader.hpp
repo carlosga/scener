@@ -19,6 +19,7 @@
 
 #include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
+#include <System/IO/FileStream.hpp>
 #include <string>
 #include <vector>
 
@@ -128,6 +129,10 @@ namespace System
              */
             Double ReadDouble();
 
+        private:
+			BinaryReader(const BinaryReader& reader) = delete;
+			BinaryReader& operator=(const BinaryReader& reader) = delete;
+			
 	    private:
             Stream& stream;
 	    };

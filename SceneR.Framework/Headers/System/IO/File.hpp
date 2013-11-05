@@ -18,10 +18,11 @@
 #define FILE_HPP
 
 #include <System/Core.hpp>
+#include <System/IO/FileStream.hpp>
 #include <fstream>
 #include <sstream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 namespace System
 {
@@ -33,6 +34,26 @@ namespace System
         class File
         {
         public:
+			/**
+			 * Checks whether the given file exists.
+			 */ 
+			static Boolean Exists(const String& path)
+			{
+			    Boolean result = true;
+				std::fstream file(path, std::ios::in);
+
+				if (!file || !file.good())
+                {
+				    result = false;
+                }
+				else
+				{
+				    file.close();
+				}
+				
+				return result;
+			};
+		
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
@@ -56,7 +77,9 @@ namespace System
             };
 
         private:
-            File() = default;
+            File() = delete;
+			File(const File& file) = delete;
+			File& operator=(const File& file) = delete;
         };
     }
 }
