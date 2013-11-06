@@ -1,21 +1,20 @@
 ### SceneR - OpenGL 3D model renderer
 
 #### C++ learning project.
-The API is inspired in a subset of the Microsoft XNA 4 API.
+The API is inspired on a subset of the Microsoft XNA 4 API.
 
 * License.
     * [**Apache License v2.0**](https://www.apache.org/licenses/LICENSE-2.0)
 * Development platform.
     * **Linux**.
 * IDE. 
-    * [**Eclipse CDT (Kepler).**](http://eclipse.org/cdt/)
-* IDE Plugins.
-    * LLVM-Family C/C++ Compiler Build Support. Eclipse CDT.
-    * [**Eclipse CppUnit Test Runner**](https://github.com/jmrharris/eclipse.cppunit.testsrunner)
+    * [**Eclipse CDT (Luna).**](http://eclipse.org/cdt/)
 * C++ Compiler.
     * [**Clang 3.4.**](http://clang.llvm.org/)
+* C++ Standard Library.
+    * [**libC++**](http://libcxx.llvm.org/)
 * Third party dependencies.
-    * [**CppUnit**](http://sourceforge.net/apps/mediawiki/cppunit/index.php?title=Main_Page)
+    * [**Google Test 1.7**](https://code.google.com/p/googletest/)
     * [**OpenGL 4.3**](https://www.khronos.org/opengl/)
     * [**GLEW 1.10**](http://glew.sourceforge.net/)
     * [**GLFW 3.x**](http://www.glfw.org/)
