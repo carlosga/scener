@@ -14,50 +14,87 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
 #include <Framework/Matrix.hpp>
 #include <MatrixTest.hpp>
 
 using namespace SceneR::Framework;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(MatrixTest);
 
-MatrixTest::MatrixTest()
+TEST_F(MatrixTest, DefaultConstructor)
 {
+    Matrix matrix;
+
+    ASSERT_EQ(0.0f, matrix.M11());
+    ASSERT_EQ(0.0f, matrix.M12());
+    ASSERT_EQ(0.0f, matrix.M13());
+    ASSERT_EQ(0.0f, matrix.M14());
+    ASSERT_EQ(0.0f, matrix.M21());
+    ASSERT_EQ(0.0f, matrix.M22());
+    ASSERT_EQ(0.0f, matrix.M23());
+    ASSERT_EQ(0.0f, matrix.M24());
+    ASSERT_EQ(0.0f, matrix.M31());
+    ASSERT_EQ(0.0f, matrix.M32());
+    ASSERT_EQ(0.0f, matrix.M33());
+    ASSERT_EQ(0.0f, matrix.M34());
+    ASSERT_EQ(0.0f, matrix.M41());
+    ASSERT_EQ(0.0f, matrix.M42());
+    ASSERT_EQ(0.0f, matrix.M43());
+    ASSERT_EQ(0.0f, matrix.M44());
 }
 
-MatrixTest::~MatrixTest()
+TEST_F(MatrixTest, MatrixConstructor)
 {
+    Matrix matrix(10.0f, 10.0f, 10.0f, 0.0f,
+                  20.0f, 20.0f, 20.0f, 0.0f,
+                  30.0f, 30.0f, 30.0f, 0.0f,
+                  5.0f , 10.0f, 15.0f, 1.0f);
+
+    ASSERT_EQ(10.0f, matrix.M11());
+    ASSERT_EQ(10.0f, matrix.M12());
+    ASSERT_EQ(10.0f, matrix.M13());
+    ASSERT_EQ(0.0f , matrix.M14());
+    ASSERT_EQ(20.0f, matrix.M21());
+    ASSERT_EQ(20.0f, matrix.M22());
+    ASSERT_EQ(20.0f, matrix.M23());
+    ASSERT_EQ(0.0f , matrix.M24());
+    ASSERT_EQ(30.0f, matrix.M31());
+    ASSERT_EQ(30.0f, matrix.M32());
+    ASSERT_EQ(30.0f, matrix.M33());
+    ASSERT_EQ(0.0f , matrix.M34());
+    ASSERT_EQ(5.0f , matrix.M41());
+    ASSERT_EQ(10.0f, matrix.M42());
+    ASSERT_EQ(15.0f, matrix.M43());
+    ASSERT_EQ(1.0f , matrix.M44());
 }
 
-void MatrixTest::setUp()
+TEST_F(MatrixTest, CopyConstuctor)
 {
-}
-
-void MatrixTest::tearDown()
-{
-}
-
-void MatrixTest::testMatrix3()
-{
-    Matrix matrix3;
-}
-
-void MatrixTest::testMatrix32()
-{
-    Matrix matrix1(10.0f, 10.0f, 10.0f, 0.0f,
+    Matrix matrix(10.0f, 10.0f, 10.0f, 0.0f,
                    20.0f, 20.0f, 20.0f, 0.0f,
                    30.0f, 30.0f, 30.0f, 0.0f,
                    5.0f , 10.0f, 15.0f, 1.0f);
+
+    Matrix matrix1(matrix);
+
+    ASSERT_EQ(matrix.M11(), matrix1.M11());
+    ASSERT_EQ(matrix.M12(), matrix1.M12());
+    ASSERT_EQ(matrix.M13(), matrix1.M13());
+    ASSERT_EQ(matrix.M14(), matrix1.M14());
+    ASSERT_EQ(matrix.M21(), matrix1.M21());
+    ASSERT_EQ(matrix.M22(), matrix1.M22());
+    ASSERT_EQ(matrix.M23(), matrix1.M23());
+    ASSERT_EQ(matrix.M24(), matrix1.M24());
+    ASSERT_EQ(matrix.M31(), matrix1.M31());
+    ASSERT_EQ(matrix.M32(), matrix1.M32());
+    ASSERT_EQ(matrix.M33(), matrix1.M33());
+    ASSERT_EQ(matrix.M34(), matrix1.M34());
+    ASSERT_EQ(matrix.M41(), matrix1.M41());
+    ASSERT_EQ(matrix.M42(), matrix1.M42());
+    ASSERT_EQ(matrix.M43(), matrix1.M43());
+    ASSERT_EQ(matrix.M44(), matrix1.M44());
 }
 
-void MatrixTest::testMatrix33()
-{
-    // Copy Constuctor
-}
-
-void MatrixTest::testMatrixMultiply()
+TEST_F(MatrixTest, MatrixMultiplication)
 {
     Matrix matrix1(1.0f, 2.0f, 3.0f, 4.0f,
                    5.0f, 6.0f, 7.0f, 8.0f,
@@ -75,25 +112,25 @@ void MatrixTest::testMatrixMultiply()
 	// 34  44  54  64
 	// 82 108 134 160
 
-    CPPUNIT_ASSERT_EQUAL(34.0f , matrixResult.M11());
-    CPPUNIT_ASSERT_EQUAL(44.0f , matrixResult.M12());
-    CPPUNIT_ASSERT_EQUAL(54.0f , matrixResult.M13());
-    CPPUNIT_ASSERT_EQUAL(64.0f , matrixResult.M14());
-    CPPUNIT_ASSERT_EQUAL(82.0f , matrixResult.M21());
-    CPPUNIT_ASSERT_EQUAL(108.0f, matrixResult.M22());
-    CPPUNIT_ASSERT_EQUAL(134.0f, matrixResult.M23());
-    CPPUNIT_ASSERT_EQUAL(160.0f, matrixResult.M24());
-    CPPUNIT_ASSERT_EQUAL(34.0f , matrixResult.M31());
-    CPPUNIT_ASSERT_EQUAL(44.0f , matrixResult.M32());
-    CPPUNIT_ASSERT_EQUAL(54.0f , matrixResult.M33());
-    CPPUNIT_ASSERT_EQUAL(64.0f , matrixResult.M34());
-    CPPUNIT_ASSERT_EQUAL(82.0f , matrixResult.M41());
-    CPPUNIT_ASSERT_EQUAL(108.0f, matrixResult.M42());
-    CPPUNIT_ASSERT_EQUAL(134.0f, matrixResult.M43());
-    CPPUNIT_ASSERT_EQUAL(160.0f, matrixResult.M44());
+    ASSERT_EQ(34.0f , matrixResult.M11());
+    ASSERT_EQ(44.0f , matrixResult.M12());
+    ASSERT_EQ(54.0f , matrixResult.M13());
+    ASSERT_EQ(64.0f , matrixResult.M14());
+    ASSERT_EQ(82.0f , matrixResult.M21());
+    ASSERT_EQ(108.0f, matrixResult.M22());
+    ASSERT_EQ(134.0f, matrixResult.M23());
+    ASSERT_EQ(160.0f, matrixResult.M24());
+    ASSERT_EQ(34.0f , matrixResult.M31());
+    ASSERT_EQ(44.0f , matrixResult.M32());
+    ASSERT_EQ(54.0f , matrixResult.M33());
+    ASSERT_EQ(64.0f , matrixResult.M34());
+    ASSERT_EQ(82.0f , matrixResult.M41());
+    ASSERT_EQ(108.0f, matrixResult.M42());
+    ASSERT_EQ(134.0f, matrixResult.M43());
+    ASSERT_EQ(160.0f, matrixResult.M44());
 }
 
-void MatrixTest::testTranspose()
+TEST_F(MatrixTest, MatrixTranspose)
 {
     Matrix matrix(1.0f, 0.0f, 0.0f, 10.0f, 0.0f, 1.0f, 0.0f, 10.0f, 0.0f, 0.0f, 1.0f, 10.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -109,9 +146,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisX()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    CPPUNIT_ASSERT_EQUAL(0.0f  , vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(-10.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(0.0f  , vectorResult.Z());
+    ASSERT_EQ(0.0f  , vectorResult.X());
+    ASSERT_EQ(-10.0f, vectorResult.Y());
+    ASSERT_EQ(0.0f  , vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testTransformAxisY()
@@ -122,9 +159,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisY()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    CPPUNIT_ASSERT_EQUAL(0.0f , vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(10.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(0.0f , vectorResult.Z());
+    ASSERT_EQ(0.0f , vectorResult.X());
+    ASSERT_EQ(10.0f, vectorResult.Y());
+    ASSERT_EQ(0.0f , vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testTransformAxisZ()
@@ -135,9 +172,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisZ()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    CPPUNIT_ASSERT_EQUAL(0.0f , vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(0.0f , vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(10.0f, vectorResult.Z());
+    ASSERT_EQ(0.0f , vectorResult.X());
+    ASSERT_EQ(0.0f , vectorResult.Y());
+    ASSERT_EQ(10.0f, vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testValue()
@@ -206,7 +243,7 @@ void Transform3DGroupTest::testGetCount()
 
     transform3DGroup.AddTransform(rotateTransform3D);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, transform3DGroup.GetCount());
+    ASSERT_EQ((size_t)1, transform3DGroup.GetCount());
 
     // Create and apply a scale transformation that stretches the object along the local x-axis
     // by 200 percent and shrinks it along the local y-axis by 50 percent.
@@ -215,7 +252,7 @@ void Transform3DGroupTest::testGetCount()
     // Add the scale transform to the Transform3DGroup.
     transform3DGroup.AddTransform(scaleTransform3D);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)2, transform3DGroup.GetCount());
+    ASSERT_EQ((size_t)2, transform3DGroup.GetCount());
 }
 
 void Transform3DGroupTest::testClear()
@@ -235,11 +272,11 @@ void Transform3DGroupTest::testClear()
     // Add the scale transform to the Transform3DGroup.
     transform3DGroup.AddTransform(scaleTransform3D);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)2, transform3DGroup.GetCount());
+    ASSERT_EQ((size_t)2, transform3DGroup.GetCount());
 
     transform3DGroup.Clear();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)0, transform3DGroup.GetCount());
+    ASSERT_EQ((size_t)0, transform3DGroup.GetCount());
 }
 
 void Transform3DGroupTest::testTransformChain()
@@ -254,84 +291,84 @@ void Transform3DGroupTest::testTransformChain()
 
     transformGroup.AddTransform(translateTransform);
 
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M11());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M12());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M13());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M14());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M21());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M22());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M23());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M24());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M31());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M32());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M33());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M34());
-	CPPUNIT_ASSERT_EQUAL(10.0f, transformGroup.Value().M41());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M42());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M43());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M44());
+	ASSERT_EQ(01.0f, transformGroup.Value().M11());
+	ASSERT_EQ(00.0f, transformGroup.Value().M12());
+	ASSERT_EQ(00.0f, transformGroup.Value().M13());
+	ASSERT_EQ(00.0f, transformGroup.Value().M14());
+	ASSERT_EQ(00.0f, transformGroup.Value().M21());
+	ASSERT_EQ(01.0f, transformGroup.Value().M22());
+	ASSERT_EQ(00.0f, transformGroup.Value().M23());
+	ASSERT_EQ(00.0f, transformGroup.Value().M24());
+	ASSERT_EQ(00.0f, transformGroup.Value().M31());
+	ASSERT_EQ(00.0f, transformGroup.Value().M32());
+	ASSERT_EQ(01.0f, transformGroup.Value().M33());
+	ASSERT_EQ(00.0f, transformGroup.Value().M34());
+	ASSERT_EQ(10.0f, transformGroup.Value().M41());
+	ASSERT_EQ(00.0f, transformGroup.Value().M42());
+	ASSERT_EQ(00.0f, transformGroup.Value().M43());
+	ASSERT_EQ(01.0f, transformGroup.Value().M44());
 
     transformedVector = transformGroup.Transform(originalVector);
 
-	CPPUNIT_ASSERT_EQUAL(20.0f, transformedVector.X());
-	CPPUNIT_ASSERT_EQUAL(10.0f, transformedVector.Y());
-	CPPUNIT_ASSERT_EQUAL(10.0f, transformedVector.Z());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformedVector.W());
+	ASSERT_EQ(20.0f, transformedVector.X());
+	ASSERT_EQ(10.0f, transformedVector.Y());
+	ASSERT_EQ(10.0f, transformedVector.Z());
+	ASSERT_EQ(01.0f, transformedVector.W());
 
     transformGroup.AddTransform(rotateTransform);
 
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M11());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M12());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M13());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M14());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M21());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M22());
-	CPPUNIT_ASSERT_EQUAL(1.0f, transformGroup.Value().M23());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M24());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M31());
-	CPPUNIT_ASSERT_EQUAL(-1.0f, transformGroup.Value().M32());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M33());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M34());
-	CPPUNIT_ASSERT_EQUAL(10.0f, transformGroup.Value().M41());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M42());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M43());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M44());
+	ASSERT_EQ(01.0f, transformGroup.Value().M11());
+	ASSERT_EQ(00.0f, transformGroup.Value().M12());
+	ASSERT_EQ(00.0f, transformGroup.Value().M13());
+	ASSERT_EQ(00.0f, transformGroup.Value().M14());
+	ASSERT_EQ(00.0f, transformGroup.Value().M21());
+	ASSERT_EQ(00.0f, transformGroup.Value().M22());
+	ASSERT_EQ(1.0f, transformGroup.Value().M23());
+	ASSERT_EQ(00.0f, transformGroup.Value().M24());
+	ASSERT_EQ(00.0f, transformGroup.Value().M31());
+	ASSERT_EQ(-1.0f, transformGroup.Value().M32());
+	ASSERT_EQ(00.0f, transformGroup.Value().M33());
+	ASSERT_EQ(00.0f, transformGroup.Value().M34());
+	ASSERT_EQ(10.0f, transformGroup.Value().M41());
+	ASSERT_EQ(00.0f, transformGroup.Value().M42());
+	ASSERT_EQ(00.0f, transformGroup.Value().M43());
+	ASSERT_EQ(01.0f, transformGroup.Value().M44());
 
 	transformedVector = transformGroup.Transform(originalVector);
 
-	CPPUNIT_ASSERT_EQUAL(20.0f, transformedVector.X());
-	CPPUNIT_ASSERT_EQUAL(-10.0f, transformedVector.Y());
-	CPPUNIT_ASSERT_EQUAL(10.0f, transformedVector.Z());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformedVector.W());
+	ASSERT_EQ(20.0f, transformedVector.X());
+	ASSERT_EQ(-10.0f, transformedVector.Y());
+	ASSERT_EQ(10.0f, transformedVector.Z());
+	ASSERT_EQ(01.0f, transformedVector.W());
 
     transformGroup.AddTransform(scaleTransform);
 
-	CPPUNIT_ASSERT_EQUAL(02.0f, transformGroup.Value().M11());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M12());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M13());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M14());
+	ASSERT_EQ(02.0f, transformGroup.Value().M11());
+	ASSERT_EQ(00.0f, transformGroup.Value().M12());
+	ASSERT_EQ(00.0f, transformGroup.Value().M13());
+	ASSERT_EQ(00.0f, transformGroup.Value().M14());
 
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M21());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M22());
-	CPPUNIT_ASSERT_EQUAL(2.0f, transformGroup.Value().M23());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M24());
+	ASSERT_EQ(00.0f, transformGroup.Value().M21());
+	ASSERT_EQ(00.0f, transformGroup.Value().M22());
+	ASSERT_EQ(2.0f, transformGroup.Value().M23());
+	ASSERT_EQ(00.0f, transformGroup.Value().M24());
 
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M31());
-	CPPUNIT_ASSERT_EQUAL(-2.0f, transformGroup.Value().M32());
-	CPPUNIT_ASSERT_EQUAL(0.0f, transformGroup.Value().M33());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M34());
+	ASSERT_EQ(00.0f, transformGroup.Value().M31());
+	ASSERT_EQ(-2.0f, transformGroup.Value().M32());
+	ASSERT_EQ(0.0f, transformGroup.Value().M33());
+	ASSERT_EQ(00.0f, transformGroup.Value().M34());
 
-	CPPUNIT_ASSERT_EQUAL(20.0f, transformGroup.Value().M41());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M42());
-	CPPUNIT_ASSERT_EQUAL(00.0f, transformGroup.Value().M43());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformGroup.Value().M44());
+	ASSERT_EQ(20.0f, transformGroup.Value().M41());
+	ASSERT_EQ(00.0f, transformGroup.Value().M42());
+	ASSERT_EQ(00.0f, transformGroup.Value().M43());
+	ASSERT_EQ(01.0f, transformGroup.Value().M44());
 
     transformedVector = transformGroup.Transform(originalVector);
 
-	CPPUNIT_ASSERT_EQUAL(40.0f, transformedVector.X());
-	CPPUNIT_ASSERT_EQUAL(-20.0f, transformedVector.Y());
-	CPPUNIT_ASSERT_EQUAL(20.0f, transformedVector.Z());
-	CPPUNIT_ASSERT_EQUAL(01.0f, transformedVector.W());
+	ASSERT_EQ(40.0f, transformedVector.X());
+	ASSERT_EQ(-20.0f, transformedVector.Y());
+	ASSERT_EQ(20.0f, transformedVector.Z());
+	ASSERT_EQ(01.0f, transformedVector.W());
 }
 
 */

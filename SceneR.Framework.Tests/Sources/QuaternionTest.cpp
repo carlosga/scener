@@ -14,85 +14,65 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <QuaternionTest.hpp>
 
 using namespace SceneR::Framework;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(QuaternionTest);
-
-QuaternionTest::QuaternionTest()
+TEST_F(QuaternionTest, QuaternionConjugate)
 {
 }
 
-QuaternionTest::~QuaternionTest()
+TEST_F(QuaternionTest, QuaternionLength)
 {
 }
 
-void QuaternionTest::setUp()
+TEST_F(QuaternionTest, QuaternionLengthSquared)
 {
 }
 
-void QuaternionTest::tearDown()
+TEST_F(QuaternionTest, QuaternionNormalization)
 {
 }
 
-void QuaternionTest::testConjugate()
+TEST_F(QuaternionTest, WCoordinate)
 {
 }
 
-void QuaternionTest::testLength()
+TEST_F(QuaternionTest, XCoordinate)
 {
 }
 
-void QuaternionTest::testLengthSquared()
+TEST_F(QuaternionTest, YCoordinate)
 {
 }
 
-void QuaternionTest::testNormalize()
+TEST_F(QuaternionTest, ZCoordinate)
 {
 }
 
-void QuaternionTest::testW()
-{
-}
-
-void QuaternionTest::testX()
-{
-}
-
-void QuaternionTest::testY()
-{
-}
-
-void QuaternionTest::testZ()
-{
-}
-
-void QuaternionTest::testMultiplyOperator()
+TEST_F(QuaternionTest, QuaternionMultiplication)
 {
     Quaternion q1(1.0f, 2.0f, 3.0f, 4.0f);
     Quaternion q2(5.0f, 6.0f, 7.0f, 8.0f);
     Quaternion qResult = q1 * q2;
     
     // quaternion Result is equal to (24, 48, 48, -6)
-    CPPUNIT_ASSERT_EQUAL(24.0f, qResult.X());
-    CPPUNIT_ASSERT_EQUAL(48.0f, qResult.Y());
-    CPPUNIT_ASSERT_EQUAL(48.0f, qResult.Z());       
-    CPPUNIT_ASSERT_EQUAL(-6.0f, qResult.W());
+    EXPECT_EQ(24.0f, qResult.X());
+    EXPECT_EQ(48.0f, qResult.Y());
+    EXPECT_EQ(48.0f, qResult.Z());
+    EXPECT_EQ(-6.0f, qResult.W());
 }
 
-void QuaternionTest::testFromAxisAngle()
+TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
 {
     Vector3    axis(1, 0, 0);
     Quaternion qResult = Quaternion::CreateFromAxisAngle(axis, 90);
 
     // quaternion Result is equal to (0.707106769, 0, 0, 0.707106769)
-    CPPUNIT_ASSERT_EQUAL(0.707106769f, qResult.X());
-    CPPUNIT_ASSERT_EQUAL(0.0f        , qResult.Y());
-    CPPUNIT_ASSERT_EQUAL(0.0f        , qResult.Z());       
-    CPPUNIT_ASSERT_EQUAL(0.707106769f, qResult.W());
+    EXPECT_EQ(0.707106769f, qResult.X());
+    EXPECT_EQ(0.0f        , qResult.Y());
+    EXPECT_EQ(0.0f        , qResult.Z());
+    EXPECT_EQ(0.707106769f, qResult.W());
 }

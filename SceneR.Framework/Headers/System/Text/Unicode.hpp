@@ -21,7 +21,7 @@
 #include <iostream>
 #include <locale>
 #include <string>
-// #include <codecvt>
+#include <codecvt>
 
 namespace System
 {
@@ -38,18 +38,16 @@ namespace System
              */
             static String Narrow(const std::wstring& source)
             {
-                // typedef std::codecvt_utf8<wchar_t> convert_type;
-                // std::wstring_convert<convert_type, wchar_t> converter;
+                typedef std::codecvt_utf8<wchar_t> convert_type;
+                std::wstring_convert<convert_type, wchar_t> converter;
 
-                // return converter.to_bytes(source);
-
-                String narrowed(source.begin(), source.end());
-
-                return narrowed;
+                return converter.to_bytes(source);
             };
 
         private:
-            Unicode() = default;
+            Unicode() = delete;
+            Unicode(const Unicode& unicode) = delete;
+            Unicode& operator=(const Unicode& unicode) = delete;
         };
     }
 }

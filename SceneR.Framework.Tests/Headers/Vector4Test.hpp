@@ -14,33 +14,28 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef POINT4DTEST_HPP
-#define	POINT4DTEST_HPP
+#ifndef VECTOR4TEST_HPP
+#define	VECTOR4TEST_HPP
 
-#include <cppunit/extensions/HelperMacros.h>
-#include <cppunit/extensions/TestFixtureFactory.h>
-#include <cppunit/extensions/TestNamer.h>
-#include <cppunit/extensions/TestSuiteBuilderContext.h>
-#include <cppunit/Portability.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/TestSuite.h>
+#include "gtest/gtest.h"
+#include <System/Core.hpp>
 
-class Vector4Test : public CPPUNIT_NS::TestFixture
+class Vector4Test : public testing::Test
 {
-    CPPUNIT_TEST_SUITE(Vector4Test);
+protected:
+    // virtual void SetUp() will be called before each test is run.  You
+    // should define it if you need to initialize the varaibles.
+    // Otherwise, this can be skipped.
+    virtual void SetUp()
+    {
+    };
 
-    CPPUNIT_TEST(testMatrixMultiply);
-
-    CPPUNIT_TEST_SUITE_END();
-
-public:
-    Vector4Test();
-    virtual ~Vector4Test();
-    void setUp();
-    void tearDown();
-
-private:
-    void testMatrixMultiply();
+    // virtual void TearDown() will be called after each test is run.
+    // You should define it if there is cleanup work to do.  Otherwise,
+    // you don't have to provide it.
+    //
+    // virtual void TearDown() {
+    // }
 };
 
-#endif	/* POINT4DTEST_HPP */
+#endif	// VECTOR4TEST_HPP

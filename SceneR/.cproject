@@ -21,6 +21,7 @@
 							<tool id="cdt.managedbuild.tool.llvm.archiver.base.1635763679" name="LLVM archiver" superClass="cdt.managedbuild.tool.llvm.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug.488185836" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug">
 								<option id="llvm.c_cpp.compiler.option.include.paths.1792624302" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 								</option>
@@ -28,23 +29,25 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug.675160284" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug">
 								<option id="llvm.c_cpp.compiler.option.include.paths.1712017653" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR/Headers}&quot;"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
-								<option id="llvm.c_cpp.compiler.option.misc.other.1113914914" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -fmessage-length=0 -m64 -std=c++11" valueType="string"/>
+								<option id="llvm.c_cpp.compiler.option.misc.other.1113914914" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -fmessage-length=0 -m64 -std=c++11 -stdlib=libc++" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.1531765092" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug.1442000135" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug.2028594888" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug">
 								<option id="llvm.c.link.option.libs.381408203" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="SceneR.Framework"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SceneR.Framework"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 								</option>
 								<option id="llvm.c.link.option.paths.1106919130" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 								</option>
-								<option id="llvm.c.link.base.option.ldflags.957671945" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -std=c++11" valueType="string"/>
+								<option id="llvm.c.link.base.option.ldflags.957671945" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -std=c++11 -stdlib=libc++" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1867326941" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -62,7 +65,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/SceneR.Framework"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SceneR.Framework/Debug"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="libSceneR.Framework.so" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="SceneR.Framework" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
@@ -99,6 +102,7 @@
 								<option id="llvm.c_cpp.compiler.option.include.paths.1235987023" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/include/c++/v1"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR/Headers}&quot;"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.704574420" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>

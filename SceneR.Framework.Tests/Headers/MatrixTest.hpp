@@ -14,41 +14,28 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef MATRIX3TEST_HPP
-#define	MATRIX3TEST_HPP
+#ifndef MATRIXTEST_HPP
+#define	MATRIXTEST_HPP
 
-#include <cppunit/extensions/HelperMacros.h>
-#include <cppunit/extensions/TestFixtureFactory.h>
-#include <cppunit/extensions/TestNamer.h>
-#include <cppunit/extensions/TestSuiteBuilderContext.h>
-#include <cppunit/Portability.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/TestSuite.h>
+#include "gtest/gtest.h"
+#include <System/Core.hpp>
 
-class MatrixTest : public CPPUNIT_NS::TestFixture
+class MatrixTest : public testing::Test
 {
-    CPPUNIT_TEST_SUITE(MatrixTest);
+protected:
+    // virtual void SetUp() will be called before each test is run.  You
+    // should define it if you need to initialize the varaibles.
+    // Otherwise, this can be skipped.
+    virtual void SetUp()
+    {
+    };
 
-    CPPUNIT_TEST(testMatrix3);
-    CPPUNIT_TEST(testMatrix32);
-    CPPUNIT_TEST(testMatrix33);
-    CPPUNIT_TEST(testMatrixMultiply);
-    CPPUNIT_TEST(testTranspose);
-
-    CPPUNIT_TEST_SUITE_END();
-
-public:
-    MatrixTest();
-    virtual ~MatrixTest();
-    void setUp();
-    void tearDown();
-
-private:
-    void testMatrix3();
-    void testMatrix32();
-    void testMatrix33();
-    void testMatrixMultiply();
-    void testTranspose();
+    // virtual void TearDown() will be called after each test is run.
+    // You should define it if there is cleanup work to do.  Otherwise,
+    // you don't have to provide it.
+    //
+    // virtual void TearDown() {
+    // }
 };
 
-#endif	/* MATRIX3TEST_HPP */
+#endif	// MATRIXTEST_HPP

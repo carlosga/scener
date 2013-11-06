@@ -7,7 +7,7 @@
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/SceneR.Framework"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SceneR.Framework/Debug"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="libSceneR.Framework.so" srcPrefixMapping="" srcRootPath=""/>
+						<entry flags="RESOLVED" kind="libraryFile" name="SceneR.Framework" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -18,7 +18,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="" artifactName="lib${ProjName}.so" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339" name="Debug" parent="cdt.managedbuild.config.llvm.clang.linux.so.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
+				<configuration artifactExtension="so" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339" name="Debug" parent="cdt.managedbuild.config.llvm.clang.linux.so.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
 					<folderInfo id="cdt.managedbuild.config.llvm.clang.linux.so.debug.369277339." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.llvm.clang.linux.so.debug.61474731" name="LLVM with Clang (Linux)" superClass="cdt.managedbuild.toolchain.llvm.clang.linux.so.debug">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.llvm.clang.linux.platform.so.debug.953060705" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.llvm.clang.linux.platform.so.debug"/>
@@ -28,7 +28,7 @@
 							<tool command="clang" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.debug.1863652926" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.so.debug">
 								<option id="llvm.c_cpp.compiler.option.optimization.level.839681483" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.debugging.level.1217204619" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="llvm.c_cpp.compiler.option.include.paths.1653060770" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="llvm.c_cpp.compiler.option.include.paths.1653060770" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.1909522845" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
@@ -36,21 +36,22 @@
 							<tool command="clang++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.debug.619937137" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.so.debug">
 								<option id="llvm.c_cpp.compiler.option.optimization.level.1195806794" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.debugging.level.1863778525" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="llvm.c_cpp.compiler.option.misc.other.1492437657" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -m64  -fPIC -std=c++11" valueType="string"/>
+								<option id="llvm.c_cpp.compiler.option.misc.other.1492437657" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -m64  -fPIC -std=c++11 -stdlib=libc++" valueType="string"/>
 								<option id="llvm.c_cpp.compiler.option.warnings.toerrors.807405654" name="Warnings as errors (-Werror)" superClass="llvm.c_cpp.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
 								<option id="llvm.c_cpp.compiler.option.warnings.pedantic.error.2062971971" name="Pedantic warnings as errors (-pedantic-errors)" superClass="llvm.c_cpp.compiler.option.warnings.pedantic.error" value="false" valueType="boolean"/>
 								<option id="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std.1905197668" name="Language standard" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
-								<option id="llvm.c_cpp.compiler.option.include.paths.1766786332" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="llvm.c_cpp.compiler.option.include.paths.1766786332" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.152899357" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.debug.285816142" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.debug">
 								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.1627170979" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" valueType="boolean"/>
 							</tool>
-							<tool command="clang++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX} ${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug.1701105210" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug">
+							<tool command="clang++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug.1701105210" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug">
 								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.449492850" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" value="false" valueType="boolean"/>
-								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC" valueType="string"/>
+								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC -stdlib=libc++" valueType="string"/>
 								<option id="llvm.c.link.option.libs.598657696" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="GL"/>
@@ -64,7 +65,7 @@
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
 								</inputType>
-								<outputType id="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc.1823966268" outputPrefix="" superClass="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc"/>
+								<outputType id="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc.1823966268" outputPrefix="lib" superClass="cdt.managedbuild.tool.llvm.c.linker.output.exe.bc"/>
 								<outputType id="cdt.managedbuild.tool.llvm.c.linker.output.exe.1635736965" outputPrefix="" superClass="cdt.managedbuild.tool.llvm.c.linker.output.exe"/>
 							</tool>
 						</toolChain>
@@ -106,7 +107,7 @@
 								<option id="llvm.c_cpp.compiler.option.preprocessor.def.1251091850" name="Defined symbols (-D)" superClass="llvm.c_cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
 								</option>
-								<option id="llvm.c_cpp.compiler.option.include.paths.2145468020" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="llvm.c_cpp.compiler.option.include.paths.2145468020" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.404397292" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
@@ -118,6 +119,7 @@
 									<listOptionValue builtIn="false" value="/usr/include/clang/3.4/include"/>
 									<listOptionValue builtIn="false" value="/usr/include/llvm-3.4/llvm"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
 								<option id="llvm.c_cpp.compiler.option.preprocessor.def.1079992906" name="Defined symbols (-D)" superClass="llvm.c_cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>

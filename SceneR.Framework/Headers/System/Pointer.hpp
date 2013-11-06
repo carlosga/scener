@@ -37,7 +37,8 @@ namespace System
         };
 
     private:
-        Pointer() = default;
+        Pointer(const Pointer& pointer);
+        Pointer& operator=(const Pointer& pointer) = delete;
     };
 }
 

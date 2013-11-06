@@ -16,33 +16,12 @@
 
 #include <BinaryReaderTest.hpp>
 #include <System/IO/BinaryReader.hpp>
-#include <System/IO/FileStream.hpp>
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
-#include <memory>
 
 using namespace System;
 using namespace System::IO;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(BinaryReaderTest);
-
-BinaryReaderTest::BinaryReaderTest()
-{
-}
-
-BinaryReaderTest::~BinaryReaderTest()
-{
-}
-
-void BinaryReaderTest::setUp()
-{
-}
-
-void BinaryReaderTest::tearDown()
-{
-}
-
-void BinaryReaderTest::TestOpenBinaryReader()
+// Tests the default c'tor.
+TEST_F(BinaryReaderTest, DefaultConstructor) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -50,118 +29,126 @@ void BinaryReaderTest::TestOpenBinaryReader()
     reader.Close();
 }
 
-void BinaryReaderTest::TestReadByte()
+// Tests ReadByte().
+TEST_F(BinaryReaderTest, ReadByte) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UByte value = reader.ReadByte();
 
-    CPPUNIT_ASSERT(value != 0);
-
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadBytes()
-{
-}
-
-void BinaryReaderTest::TestReadInt16()
+// Tests ReadInt16().
+TEST_F(BinaryReaderTest, ReadInt16) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Int16 value = reader.ReadInt16();
 
-    CPPUNIT_ASSERT(value != 0);
-
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadUInt16()
+// Tests ReadUInt16().
+TEST_F(BinaryReaderTest, ReadUInt16) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UInt16 value = reader.ReadUInt16();
 
-    CPPUNIT_ASSERT(value != 0);
-
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadInt32()
+// Tests ReadInt32().
+TEST_F(BinaryReaderTest, ReadInt32)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Int32 value = reader.ReadInt32();
 
-    CPPUNIT_ASSERT(value != 0);
-
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadUInt32()
+// Tests ReadInt32().
+TEST_F(BinaryReaderTest, ReadUInt32) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     UInt32 value = reader.ReadUInt32();
 
-    CPPUNIT_ASSERT(value != 0);
-
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadInt64()
+// Tests ReadInt64().
+TEST_F(BinaryReaderTest, ReadInt64) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    Int64 value = reader.ReadInt64();
-
-    CPPUNIT_ASSERT(value != 0);
+    UInt32 value = reader.ReadInt64();
 
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadUInt64()
+// Tests ReadUInt64().
+TEST_F(BinaryReaderTest, ReadUInt64) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    UInt64 value = reader.ReadUInt64();
-
-    CPPUNIT_ASSERT(value != 0);
+    UInt32 value = reader.ReadUInt64();
 
     reader.Close();
+
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadSingle()
+// Tests ReadUInt64().
+TEST_F(BinaryReaderTest, ReadSingle) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Single value = reader.ReadSingle();
 
-    CPPUNIT_ASSERT(value != 0);
-
-    reader.Close();
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadDouble()
+// Tests ReadUInt64().
+TEST_F(BinaryReaderTest, ReadDouble) 
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
     Double value = reader.ReadDouble();
 
-    CPPUNIT_ASSERT(value != 0);
-
-    reader.Close();
+    EXPECT_NE(value, 0);
 }
 
-void BinaryReaderTest::TestReadString()
+// Tests ReadUInt64().
+TEST_F(BinaryReaderTest, ReadString) 
 {
+    FileStream stream(BinaryReaderTest::TEST_FILE);
+    BinaryReader reader(stream);
+
+    Double value = reader.ReadDouble();
+
+    EXPECT_NE(value, 0);
 }

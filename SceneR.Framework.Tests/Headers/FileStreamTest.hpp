@@ -17,61 +17,27 @@
 #ifndef FILESTREAMTEST_HPP
 #define	FILESTREAMTEST_HPP
 
-#include <cppunit/extensions/HelperMacros.h>
-#include <cppunit/extensions/TestFixtureFactory.h>
-#include <cppunit/extensions/TestNamer.h>
-#include <cppunit/extensions/TestSuiteBuilderContext.h>
-#include <cppunit/Portability.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/TestSuite.h>
+#include "gtest/gtest.h"
 #include <System/Core.hpp>
 
-class FileStreamTest : public CPPUNIT_NS::TestFixture
+class FileStreamTest : public testing::Test
 {
+protected:
     const System::String TEST_FILE = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl";
 
-    CPPUNIT_TEST_SUITE(FileStreamTest);
+    // virtual void SetUp() will be called before each test is run.  You
+    // should define it if you need to initialize the varaibles.
+    // Otherwise, this can be skipped.
+    virtual void SetUp()
+    {
+    };
 
-    CPPUNIT_TEST(TestOpenFileStream);
-    CPPUNIT_TEST(TestOpenFileStreamReadBinary);
-    CPPUNIT_TEST(TestBeginPosition);
-    CPPUNIT_TEST(TestEndPosition);
-    CPPUNIT_TEST(TestReadByte);
-    CPPUNIT_TEST(TestReadBytes);
-    CPPUNIT_TEST(TestReadInt16);
-    CPPUNIT_TEST(TestReadUInt16);
-    CPPUNIT_TEST(TestReadInt32);
-    CPPUNIT_TEST(TestReadUInt32);
-    CPPUNIT_TEST(TestReadInt64);
-    CPPUNIT_TEST(TestReadUInt64);
-    CPPUNIT_TEST(TestReadSingle);
-    CPPUNIT_TEST(TestReadDouble);
-    CPPUNIT_TEST(TestReadString);
-
-    CPPUNIT_TEST_SUITE_END();
-
-public:
-    FileStreamTest();
-    virtual ~FileStreamTest();
-    void setUp();
-    void tearDown();
-
-private:
-    void TestOpenFileStream();
-    void TestOpenFileStreamReadBinary();
-    void TestBeginPosition();
-    void TestEndPosition();
-    void TestReadByte();
-    void TestReadBytes();
-    void TestReadInt16();
-    void TestReadUInt16();
-    void TestReadInt32();
-    void TestReadUInt32();
-    void TestReadInt64();
-    void TestReadUInt64();
-    void TestReadSingle();
-    void TestReadDouble();
-    void TestReadString();
+    // virtual void TearDown() will be called after each test is run.
+    // You should define it if there is cleanup work to do.  Otherwise,
+    // you don't have to provide it.
+    //
+    // virtual void TearDown() {
+    // }
 };
 
-#endif	/* FILESTREAMTEST_HPP */
+#endif	// FILESTREAMTEST_HPP

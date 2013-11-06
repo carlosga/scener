@@ -24,6 +24,7 @@
 
 namespace System
 {
+    typedef wchar_t     Char;
     typedef bool        Boolean;
     typedef int8_t      Byte;
     typedef uint8_t     UByte;

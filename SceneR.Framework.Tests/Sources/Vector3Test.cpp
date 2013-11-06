@@ -14,43 +14,23 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Vector3Test.hpp>
 
 using namespace SceneR::Framework;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(Vector3Test);
-
-Vector3Test::Vector3Test()
-{
-}
-
-Vector3Test::~Vector3Test()
-{
-}
-
-void Vector3Test::setUp()
-{
-}
-
-void Vector3Test::tearDown()
-{
-}
-
-void Vector3Test::testVector3()
+TEST_F(Vector3Test, DefaultConstructor) 
 {
     Vector3 vector3;
 
     // vector3 is equal to (0.0, 0.0, 0.0)
-    CPPUNIT_ASSERT_EQUAL(0.0f, vector3.X());
-    CPPUNIT_ASSERT_EQUAL(0.0f, vector3.Y());
-    CPPUNIT_ASSERT_EQUAL(0.0f, vector3.Z());    
+    EXPECT_EQ(0.0f, vector3.X());
+    EXPECT_EQ(0.0f, vector3.Y());
+    EXPECT_EQ(0.0f, vector3.Z());
 }
 
-void Vector3Test::testVector32()
+TEST_F(Vector3Test, IndividualCoordinatesConstructor) 
 {
     float x = 20.0f;
     float y = 30.0f;
@@ -59,12 +39,12 @@ void Vector3Test::testVector32()
     Vector3 vector3(x, y, z);
     
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(x, vector3.X());
-    CPPUNIT_ASSERT_EQUAL(y, vector3.Y());
-    CPPUNIT_ASSERT_EQUAL(z, vector3.Z());    
+    EXPECT_EQ(x, vector3.X());
+    EXPECT_EQ(y, vector3.Y());
+    EXPECT_EQ(z, vector3.Z());
 }
 
-void Vector3Test::testVector33()
+TEST_F(Vector3Test, CopyConstructor)
 {
     float x = 20.0f;
     float y = 30.0f;
@@ -74,12 +54,12 @@ void Vector3Test::testVector33()
     Vector3 vector3(vector);
     
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(x, vector3.X());
-    CPPUNIT_ASSERT_EQUAL(y, vector3.Y());
-    CPPUNIT_ASSERT_EQUAL(z, vector3.Z());    
+    EXPECT_EQ(x, vector3.X());
+    EXPECT_EQ(y, vector3.Y());
+    EXPECT_EQ(z, vector3.Z());
 }
 
-void Vector3Test::testIndexer()
+TEST_F(Vector3Test, Indexer)
 {
     float x = 20.0f;
     float y = 30.0f;
@@ -88,12 +68,12 @@ void Vector3Test::testIndexer()
     Vector3 vector(x, y, z);
     
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(x, vector[0]);
-    CPPUNIT_ASSERT_EQUAL(y, vector[1]);
-    CPPUNIT_ASSERT_EQUAL(z, vector[2]);
+    EXPECT_EQ(x, vector[0]);
+    EXPECT_EQ(y, vector[1]);
+    EXPECT_EQ(z, vector[2]);
 }
 
-void Vector3Test::testX()
+TEST_F(Vector3Test, XCoordinateValue)
 {
     const float x = 20.0f;
     const float y = 30.0f;
@@ -102,10 +82,10 @@ void Vector3Test::testX()
     Vector3 vector3(x, y, z);
     
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(x, vector3.X());
+    EXPECT_EQ(x, vector3.X());
 }
 
-void Vector3Test::testY()
+TEST_F(Vector3Test, YCoordinateValue)
 {
     const float x = 20.0f;
     const float y = 30.0f;
@@ -114,10 +94,10 @@ void Vector3Test::testY()
     Vector3 vector3(x, y, z);
         
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(y, vector3.Y());
+    EXPECT_EQ(y, vector3.Y());
 }
 
-void Vector3Test::testZ()
+TEST_F(Vector3Test, ZCoordinateValue)
 {
     float x = 20.0f;
     float y = 30.0f;
@@ -126,121 +106,121 @@ void Vector3Test::testZ()
     Vector3 vector3(x, y, z);
         
     // vector3 is equal to (20.0, 30.0, 40.0)
-    CPPUNIT_ASSERT_EQUAL(z, vector3.Z());
+    EXPECT_EQ(z, vector3.Z());
 }
 
-void Vector3Test::testLength()
+TEST_F(Vector3Test, VectorLength)
 {
     Vector3 vector3(20.0f, 30.0f, 40.0f);
     float length = vector3.Length();
             
     // length is approximately equal to 53.8516
-    CPPUNIT_ASSERT_EQUAL(53.8516464f, length);
+    EXPECT_EQ(53.8516464f, length);
 }
 
-void Vector3Test::testLengthSquared()
+TEST_F(Vector3Test, VectorLengthSquared)
 {
     Vector3 vector3(20.0f, 30.0f, 40.0f);
     float length = vector3.LengthSquared();
             
     // length is approximately equal to 2900
-    CPPUNIT_ASSERT_EQUAL(2900.0f, length);
+    EXPECT_EQ(2900.0f, length);
 }
 
-void Vector3Test::testNegate()
+TEST_F(Vector3Test, VectorNegation)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     
     vector1.Negate();
 	    
     // vector Result is equal to (-20, -30, -40)
-    CPPUNIT_ASSERT_EQUAL(-20.0f, vector1.X());
-    CPPUNIT_ASSERT_EQUAL(-30.0f, vector1.Y());
-    CPPUNIT_ASSERT_EQUAL(-40.0f, vector1.Z());   
+    EXPECT_EQ(-20.0f, vector1.X());
+    EXPECT_EQ(-30.0f, vector1.Y());
+    EXPECT_EQ(-40.0f, vector1.Z());
 }
 
-void Vector3Test::testNormalize()
+TEST_F(Vector3Test, VectorNormalization)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     
     vector1.Normalize();
 	    
     // vector Result is equal to (0.37139, 0.55709, 0.74278) 
-    CPPUNIT_ASSERT_EQUAL(0.3713907f  , vector1.X());
-    CPPUNIT_ASSERT_EQUAL(0.557086051f, vector1.Y());
-    CPPUNIT_ASSERT_EQUAL(0.742781401f, vector1.Z());   
+    EXPECT_EQ(0.3713907f  , vector1.X());
+    EXPECT_EQ(0.557086051f, vector1.Y());
+    EXPECT_EQ(0.742781401f, vector1.Z());
 }
 
-void Vector3Test::testCrossProduct()
+TEST_F(Vector3Test, VectorCrossProduct)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
     Vector3 crossProduct = vector1.CrossProduct(vector2);
     
     // crossProduct is equal to (-400, 200, 50)                        
-    CPPUNIT_ASSERT_EQUAL(-400.0f, crossProduct.X());
-    CPPUNIT_ASSERT_EQUAL(200.0f , crossProduct.Y());
-    CPPUNIT_ASSERT_EQUAL(50.0f  , crossProduct.Z());   
+    EXPECT_EQ(-400.0f, crossProduct.X());
+    EXPECT_EQ(200.0f , crossProduct.Y());
+    EXPECT_EQ(50.0f  , crossProduct.Z());
 }
 
-void Vector3Test::testAngleBetween()
+TEST_F(Vector3Test, AngleBetweenVectors)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
     float angle = vector1.AngleBetween(vector2);
     
     // angleBetween is approximately equal to 4.15128803
-    CPPUNIT_ASSERT_EQUAL(4.15128803f, angle);
+    EXPECT_EQ(4.15128803f, angle);
 }
 
-void Vector3Test::testSumOperator()
+TEST_F(Vector3Test, VectorAddition)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
 	Vector3 vectorResult = vector1 + vector2;
     
     // vectorResult is equal to (65, 100, 120)    
-    CPPUNIT_ASSERT_EQUAL(65.0f , vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(100.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(120.0f, vectorResult.Z());
+    EXPECT_EQ(65.0f , vectorResult.X());
+    EXPECT_EQ(100.0f, vectorResult.Y());
+    EXPECT_EQ(120.0f, vectorResult.Z());
 }
 
-void Vector3Test::testSubtractOperator()
+TEST_F(Vector3Test, VectorSubtraction)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
 	Vector3 vectorResult = vector1 - vector2;
     
     // vector Result is equal to (-25, -40, -40)
-    CPPUNIT_ASSERT_EQUAL(-25.0f, vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(-40.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(-40.0f, vectorResult.Z());
+    EXPECT_EQ(-25.0f, vectorResult.X());
+    EXPECT_EQ(-40.0f, vectorResult.Y());
+    EXPECT_EQ(-40.0f, vectorResult.Z());
 }
 
-void Vector3Test::testVectorMultiplyOperator()
+TEST_F(Vector3Test, VectorMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
 	Vector3 vectorResult = vector1 * vector2;
         
     // vector Result is equal to (800, 2100, 3200)
-    CPPUNIT_ASSERT_EQUAL(900.0f , vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(2100.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(3200.0f, vectorResult.Z());
+    EXPECT_EQ(900.0f , vectorResult.X());
+    EXPECT_EQ(2100.0f, vectorResult.Y());
+    EXPECT_EQ(3200.0f, vectorResult.Z());
 }
 
-void Vector3Test::testScalarMultiplyOperator()
+TEST_F(Vector3Test, VectorByScalarMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vectorResult = vector1 * 75.0f; 
 	    
     // vector Result is equal to (1500, 2250, 3000)
-    CPPUNIT_ASSERT_EQUAL(1500.0f, vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(2250.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(3000.0f, vectorResult.Z());   
+    EXPECT_EQ(1500.0f, vectorResult.X());
+    EXPECT_EQ(2250.0f, vectorResult.Y());
+    EXPECT_EQ(3000.0f, vectorResult.Z());
 }
 
-void Vector3Test::testAdditionAssignmentOperator()
+TEST_F(Vector3Test, VectorAdditionAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);	
@@ -248,12 +228,12 @@ void Vector3Test::testAdditionAssignmentOperator()
     vector2 += vector1;
     
     // vector Result is equal to (65, 100, 120)    
-    CPPUNIT_ASSERT_EQUAL(65.0f , vector2.X());
-    CPPUNIT_ASSERT_EQUAL(100.0f, vector2.Y());
-    CPPUNIT_ASSERT_EQUAL(120.0f, vector2.Z());    
+    EXPECT_EQ(65.0f , vector2.X());
+    EXPECT_EQ(100.0f, vector2.Y());
+    EXPECT_EQ(120.0f, vector2.Z());
 }
 
-void Vector3Test::testSubtractionAssignmentOperator()
+TEST_F(Vector3Test, VectorSubtractionAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -261,12 +241,12 @@ void Vector3Test::testSubtractionAssignmentOperator()
     vector2 -= vector1;
     
     // vector Result is equal to (25, 40, 40)
-    CPPUNIT_ASSERT_EQUAL(25.0f, vector2.X());
-    CPPUNIT_ASSERT_EQUAL(40.0f, vector2.Y());
-    CPPUNIT_ASSERT_EQUAL(40.0f, vector2.Z());    
+    EXPECT_EQ(25.0f, vector2.X());
+    EXPECT_EQ(40.0f, vector2.Y());
+    EXPECT_EQ(40.0f, vector2.Z());
 }
 
-void Vector3Test::testVectorMultplyAssignmentOperator()
+TEST_F(Vector3Test, VectorMultplicationAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -274,24 +254,24 @@ void Vector3Test::testVectorMultplyAssignmentOperator()
     vector2 *= vector1;
     
     // vector Result is equal to (800, 2100, 3200)
-    CPPUNIT_ASSERT_EQUAL(900.0f , vector2.X());
-    CPPUNIT_ASSERT_EQUAL(2100.0f, vector2.Y());
-    CPPUNIT_ASSERT_EQUAL(3200.0f, vector2.Z());
+    EXPECT_EQ(900.0f , vector2.X());
+    EXPECT_EQ(2100.0f, vector2.Y());
+    EXPECT_EQ(3200.0f, vector2.Z());
 }
 
-void Vector3Test::testScalarMultplyAssignmentOperator()
+TEST_F(Vector3Test, VectorByScalarMultplicationAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	
     vector1 *= 75.0f;
     
     // vector Result is equal to (1500, 2250, 3000)
-    CPPUNIT_ASSERT_EQUAL(1500.0f, vector1.X());
-    CPPUNIT_ASSERT_EQUAL(2250.0f, vector1.Y());
-    CPPUNIT_ASSERT_EQUAL(3000.0f, vector1.Z());   
+    EXPECT_EQ(1500.0f, vector1.X());
+    EXPECT_EQ(2250.0f, vector1.Y());
+    EXPECT_EQ(3000.0f, vector1.Z());
 }
 
-void Vector3Test::testMatrixMultiply()
+TEST_F(Vector3Test, VectorByMatrixMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Matrix  matrix1(10.0f, 10.0f, 10.0f, 0.0f, 
@@ -302,7 +282,7 @@ void Vector3Test::testMatrixMultiply()
     Vector3 vectorResult = (vector1 * matrix1);
 
     // vector Result is equal to (2000, 2000, 2000)    
-    CPPUNIT_ASSERT_EQUAL(2000.0f, vectorResult.X());
-    CPPUNIT_ASSERT_EQUAL(2000.0f, vectorResult.Y());
-    CPPUNIT_ASSERT_EQUAL(2000.0f, vectorResult.Z());   
+    EXPECT_EQ(2000.0f, vectorResult.X());
+    EXPECT_EQ(2000.0f, vectorResult.Y());
+    EXPECT_EQ(2000.0f, vectorResult.Z());
 }

@@ -16,81 +16,61 @@
 
 #include <FileStreamTest.hpp>
 #include <System/IO/FileStream.hpp>
-#include <cppunit/SourceLine.h>
-#include <cppunit/TestAssert.h>
 
 using namespace System;
 using namespace System::IO;
 
-CPPUNIT_TEST_SUITE_REGISTRATION(FileStreamTest);
-
-FileStreamTest::FileStreamTest()
-{
-}
-
-FileStreamTest::~FileStreamTest()
-{
-}
-
-void FileStreamTest::setUp()
-{
-}
-
-void FileStreamTest::tearDown()
-{
-}
-
-void FileStreamTest::TestOpenFileStream()
+TEST_F(FileStreamTest, DefaultConstructor)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
     stream.Close();
 }
 
-void FileStreamTest::TestOpenFileStreamReadBinary()
+TEST_F(FileStreamTest, OpenFileStreamAsReadBinary)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     stream.Close();
 }
 
-void FileStreamTest::TestBeginPosition()
+TEST_F(FileStreamTest, BeginPosition)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
-    CPPUNIT_ASSERT(stream.Position() == 0);
+    EXPECT_EQ(0, stream.Position());
 
     stream.Close();
 }
 
-void FileStreamTest::TestEndPosition()
+TEST_F(FileStreamTest, EndPosition)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     stream.Seek(0, std::ios::end);
 
-    CPPUNIT_ASSERT(stream.Position() == stream.Length());
+    EXPECT_EQ( stream.Length(), stream.Position());
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadByte()
+TEST_F(FileStreamTest, ReadByte)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     UByte value = stream.ReadByte();
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(UByte));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(UByte), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadBytes()
+TEST_F(FileStreamTest, ReadBytes)
 {
 }
 
-void FileStreamTest::TestReadInt16()
+TEST_F(FileStreamTest, ReadInt16)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -98,13 +78,13 @@ void FileStreamTest::TestReadInt16()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Int16));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(Int16), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadUInt16()
+TEST_F(FileStreamTest, ReadUInt16)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -112,13 +92,13 @@ void FileStreamTest::TestReadUInt16()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Int16));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(UInt16), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadInt32()
+TEST_F(FileStreamTest, ReadInt32)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -126,13 +106,13 @@ void FileStreamTest::TestReadInt32()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int32));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Int32));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(Int32), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadUInt32()
+TEST_F(FileStreamTest, ReadUInt32)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -140,13 +120,13 @@ void FileStreamTest::TestReadUInt32()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int32));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Int32));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(UInt32), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadInt64()
+TEST_F(FileStreamTest, ReadInt64)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -154,13 +134,13 @@ void FileStreamTest::TestReadInt64()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int64));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Int64));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(Int64), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadUInt64()
+TEST_F(FileStreamTest, ReadUInt64)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -168,13 +148,13 @@ void FileStreamTest::TestReadUInt64()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(UInt64));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(UInt64));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(UInt64), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadSingle()
+TEST_F(FileStreamTest, ReadSingle)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -182,13 +162,13 @@ void FileStreamTest::TestReadSingle()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Single));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Single));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(Single), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadDouble()
+TEST_F(FileStreamTest, ReadDouble)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
@@ -196,12 +176,12 @@ void FileStreamTest::TestReadDouble()
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Double));
 
-    CPPUNIT_ASSERT(stream.Position() == sizeof(Double));
-    CPPUNIT_ASSERT(value != 0);
+    EXPECT_EQ(sizeof(Double), stream.Position());
+    EXPECT_NE(value, 0);
 
     stream.Close();
 }
 
-void FileStreamTest::TestReadString()
+TEST_F(FileStreamTest, ReadString)
 {
 }
