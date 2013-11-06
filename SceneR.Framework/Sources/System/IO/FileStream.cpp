@@ -61,7 +61,7 @@ Size FileStream::Length()
     Size position = this->Position();
     this->Seek(0, std::ios::end);
     Size result = this->Position();
-    this->Seek(position, std::ios::end);
+    this->Seek(position, std::ios::beg);
 
     return result;
 }
