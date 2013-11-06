@@ -131,9 +131,29 @@ TEST_F(MatrixTest, MatrixMultiplication)
 
 TEST_F(MatrixTest, MatrixTranspose)
 {
-    Matrix matrix(1.0f, 0.0f, 0.0f, 10.0f, 0.0f, 1.0f, 0.0f, 10.0f, 0.0f, 0.0f, 1.0f, 10.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+    Matrix matrix(1.0f, 0.0f, 0.0f, 10.0f,
+                  0.0f, 1.0f, 0.0f, 10.0f,
+                  0.0f, 0.0f, 1.0f, 10.0f,
+                  0.0f, 0.0f, 0.0f, 1.0f);
 
     matrix.Transpose();
+
+    EXPECT_TRUE(1.0f  == matrix.M11());
+    EXPECT_TRUE(0.0f  == matrix.M12());
+    EXPECT_TRUE(0.0f  == matrix.M13());
+    EXPECT_TRUE(0.0f  == matrix.M14());
+    EXPECT_TRUE(0.0f  == matrix.M21());
+    EXPECT_TRUE(1.0f  == matrix.M22());
+    EXPECT_TRUE(0.0f  == matrix.M23());
+    EXPECT_TRUE(0.0f  == matrix.M24());
+    EXPECT_TRUE(0.0f  == matrix.M31());
+    EXPECT_TRUE(0.0f  == matrix.M32());
+    EXPECT_TRUE(1.0f  == matrix.M33());
+    EXPECT_TRUE(0.0f  == matrix.M34());
+    EXPECT_TRUE(10.0f == matrix.M41());
+    EXPECT_TRUE(10.0f == matrix.M42());
+    EXPECT_TRUE(10.0f == matrix.M43());
+    EXPECT_TRUE(1.0f  == matrix.M44());
 }
 
 /*
@@ -174,108 +194,6 @@ void AxisAngleRotateTransform3DTest::testTransformAxisZ()
     EXPECT_TRUE(0.0f == vectorResult.X());
     EXPECT_TRUE(0.0f == vectorResult.Y());
     EXPECT_TRUE(10.0f == vectorResult.Z());
-}
-
-void AxisAngleRotateTransform3DTest::testValue()
-{
-}
-
-void Transform3DGroupTest::testAddTransform()
-{
-    // Apply multiple transformations to the object. In this sample, a rotation and scale
-    // transform is applied.
-
-    // Create and apply a transformation that rotates the object.
-    AxisAngleRotateTransform3D rotateTransform3D(Vector3D(0, 3, 0), 40);
-
-    // Add the rotation transform to a Transform3DGroup
-    Transform3DGroup transform3DGroup;
-
-    transform3DGroup.AddTransform(rotateTransform3D);
-
-    // Create and apply a scale transformation that stretches the object along the local x-axis
-    // by 200 percent and shrinks it along the local y-axis by 50 percent.
-    ScaleTransform3D scaleTransform3D(2, 0.5, 1);
-
-    // Add the scale transform to the Transform3DGroup.
-    transform3DGroup.AddTransform(scaleTransform3D);
-
-    // Set the Transform property of the GeometryModel to the Transform3DGroup which includes
-    // both transformations. The 3D object now has two Transformations applied to it.
-    // myGeometryModel.Transform = myTransform3DGroup;
-}
-
-void Transform3DGroupTest::testTransform()
-{
-    // Apply multiple transformations to the object. In this sample, a rotation and scale
-    // transform is applied.
-
-    // Create and apply a transformation that rotates the object.
-    AxisAngleRotateTransform3D rotateTransform3D(Vector3D(0, 3, 0), 40);
-
-    // Add the rotation transform to a Transform3DGroup
-    Transform3DGroup transform3DGroup;
-
-    transform3DGroup.AddTransform(rotateTransform3D);
-
-    // Create and apply a scale transformation that stretches the object along the local x-axis
-    // by 200 percent and shrinks it along the local y-axis by 50 percent.
-    ScaleTransform3D scaleTransform3D(2, 0.5, 1);
-
-    // Add the scale transform to the Transform3DGroup.
-    transform3DGroup.AddTransform(scaleTransform3D);
-
-    transform3DGroup.Transform(Vector3D(10, 20, 40));
-}
-
-void Transform3DGroupTest::testValue()
-{
-}
-
-void Transform3DGroupTest::testGetCount()
-{
-    // Create and apply a transformation that rotates the object.
-    AxisAngleRotateTransform3D rotateTransform3D(Vector3D(0, 3, 0), 40);
-
-    // Add the rotation transform to a Transform3DGroup
-    Transform3DGroup transform3DGroup;
-
-    transform3DGroup.AddTransform(rotateTransform3D);
-
-    EXPECT_TRUE((size_t)1, transform3DGroup.GetCount());
-
-    // Create and apply a scale transformation that stretches the object along the local x-axis
-    // by 200 percent and shrinks it along the local y-axis by 50 percent.
-    ScaleTransform3D scaleTransform3D(2, 0.5, 1);
-
-    // Add the scale transform to the Transform3DGroup.
-    transform3DGroup.AddTransform(scaleTransform3D);
-
-    EXPECT_TRUE((size_t)2, transform3DGroup.GetCount());
-}
-
-void Transform3DGroupTest::testClear()
-{
-    // Create and apply a transformation that rotates the object.
-    AxisAngleRotateTransform3D rotateTransform3D(Vector3D(0, 3, 0), 40);
-
-    // Add the rotation transform to a Transform3DGroup
-    Transform3DGroup transform3DGroup;
-
-    transform3DGroup.AddTransform(rotateTransform3D);
-
-    // Create and apply a scale transformation that stretches the object along the local x-axis
-    // by 200 percent and shrinks it along the local y-axis by 50 percent.
-    ScaleTransform3D scaleTransform3D(2, 0.5, 1);
-
-    // Add the scale transform to the Transform3DGroup.
-    transform3DGroup.AddTransform(scaleTransform3D);
-
-    EXPECT_TRUE((size_t)2, transform3DGroup.GetCount());
-
-    transform3DGroup.Clear();
-
-    EXPECT_TRUE((size_t)0, transform3DGroup.GetCount());
 }
 
 void Transform3DGroupTest::testTransformChain()
@@ -369,5 +287,4 @@ void Transform3DGroupTest::testTransformChain()
 	EXPECT_TRUE(20.0f == transformedVector.Z());
 	EXPECT_TRUE(01.0f, transformedVector.W());
 }
-
 */
