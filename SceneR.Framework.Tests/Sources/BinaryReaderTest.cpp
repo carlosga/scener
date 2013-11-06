@@ -39,7 +39,7 @@ TEST_F(BinaryReaderTest, ReadByte)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadInt16().
@@ -52,7 +52,7 @@ TEST_F(BinaryReaderTest, ReadInt16)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadUInt16().
@@ -65,7 +65,7 @@ TEST_F(BinaryReaderTest, ReadUInt16)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadInt32().
@@ -78,7 +78,7 @@ TEST_F(BinaryReaderTest, ReadInt32)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadInt32().
@@ -91,7 +91,7 @@ TEST_F(BinaryReaderTest, ReadUInt32)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadInt64().
@@ -104,7 +104,7 @@ TEST_F(BinaryReaderTest, ReadInt64)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadUInt64().
@@ -117,7 +117,7 @@ TEST_F(BinaryReaderTest, ReadUInt64)
 
     reader.Close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadUInt64().
@@ -128,7 +128,7 @@ TEST_F(BinaryReaderTest, ReadSingle)
 
     Single value = reader.ReadSingle();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadUInt64().
@@ -139,7 +139,7 @@ TEST_F(BinaryReaderTest, ReadDouble)
 
     Double value = reader.ReadDouble();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }
 
 // Tests ReadUInt64().
@@ -150,5 +150,5 @@ TEST_F(BinaryReaderTest, ReadString)
 
     Double value = reader.ReadDouble();
 
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(value != 0);
 }

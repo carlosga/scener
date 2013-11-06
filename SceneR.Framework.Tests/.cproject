@@ -25,10 +25,10 @@
 								<option id="llvm.c_cpp.compiler.option.optimization.level.819286970" name="Optimization Level" superClass="llvm.c_cpp.compiler.option.optimization.level" value="llvm.c_cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.debugging.level.780774354" name="Debug Level" superClass="llvm.c_cpp.compiler.option.debugging.level" value="llvm.c_cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="llvm.c_cpp.compiler.option.include.paths.1012720162" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework.Tests/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include/"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.1697663134" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
 							</tool>
@@ -53,17 +53,17 @@
 								<option id="llvm.c.link.base.option.ldflags.1046875732" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -stdlib=libc++" valueType="string"/>
 								<option id="llvm.c.link.option.libs.117343571" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="SceneR.Framework"/>
+									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="gtest"/>
 									<listOptionValue builtIn="false" value="gtest_main"/>
-									<listOptionValue builtIn="false" value="pthread"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 								</option>
 								<option id="llvm.c.link.option.paths.322208138" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 								</option>
-								<option id="llvm.c.link.option.userobjs.922202813" name="Other bytecode files" superClass="llvm.c.link.option.userobjs" valueType="userObjs"/>
+								<option id="llvm.c.link.option.userobjs.922202813" name="Other bytecode files" superClass="llvm.c.link.option.userobjs"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1830770909" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -111,6 +111,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework.Tests/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include/gtest"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/gtest-1.7.0/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.llvm.c.compiler.input.1597513049" superClass="cdt.managedbuild.tool.llvm.c.compiler.input"/>
 							</tool>

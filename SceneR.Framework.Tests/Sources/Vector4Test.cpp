@@ -29,8 +29,8 @@ TEST_F(Vector4Test, VectorMatrixMultiplication)
     pointResult = point1 * matrix1;
     
     // pointResult is equal to (250, 270, 290, 4)
-    EXPECT_EQ(250.0f, pointResult.X());
-    EXPECT_EQ(270.0f, pointResult.Y());
-    EXPECT_EQ(290.0f, pointResult.Z());
-    EXPECT_EQ(4.0f  , pointResult.W());
+    EXPECT_TRUE(pointResult.X() == 250.0f);
+    EXPECT_TRUE(pointResult.Y() == 270.0f);
+    EXPECT_TRUE(pointResult.Z() == 290.0f);
+    EXPECT_TRUE(pointResult.W() == 4.0f);
 }

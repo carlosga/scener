@@ -19,27 +19,26 @@
 
 using namespace SceneR::Framework;
 
-
 TEST_F(MatrixTest, DefaultConstructor)
 {
     Matrix matrix;
 
-    ASSERT_EQ(0.0f, matrix.M11());
-    ASSERT_EQ(0.0f, matrix.M12());
-    ASSERT_EQ(0.0f, matrix.M13());
-    ASSERT_EQ(0.0f, matrix.M14());
-    ASSERT_EQ(0.0f, matrix.M21());
-    ASSERT_EQ(0.0f, matrix.M22());
-    ASSERT_EQ(0.0f, matrix.M23());
-    ASSERT_EQ(0.0f, matrix.M24());
-    ASSERT_EQ(0.0f, matrix.M31());
-    ASSERT_EQ(0.0f, matrix.M32());
-    ASSERT_EQ(0.0f, matrix.M33());
-    ASSERT_EQ(0.0f, matrix.M34());
-    ASSERT_EQ(0.0f, matrix.M41());
-    ASSERT_EQ(0.0f, matrix.M42());
-    ASSERT_EQ(0.0f, matrix.M43());
-    ASSERT_EQ(0.0f, matrix.M44());
+    EXPECT_TRUE(0.0f == matrix.M11());
+    EXPECT_TRUE(0.0f == matrix.M12());
+    EXPECT_TRUE(0.0f == matrix.M13());
+    EXPECT_TRUE(0.0f == matrix.M14());
+    EXPECT_TRUE(0.0f == matrix.M21());
+    EXPECT_TRUE(0.0f == matrix.M22());
+    EXPECT_TRUE(0.0f == matrix.M23());
+    EXPECT_TRUE(0.0f == matrix.M24());
+    EXPECT_TRUE(0.0f == matrix.M31());
+    EXPECT_TRUE(0.0f == matrix.M32());
+    EXPECT_TRUE(0.0f == matrix.M33());
+    EXPECT_TRUE(0.0f == matrix.M34());
+    EXPECT_TRUE(0.0f == matrix.M41());
+    EXPECT_TRUE(0.0f == matrix.M42());
+    EXPECT_TRUE(0.0f == matrix.M43());
+    EXPECT_TRUE(0.0f == matrix.M44());
 }
 
 TEST_F(MatrixTest, MatrixConstructor)
@@ -49,22 +48,22 @@ TEST_F(MatrixTest, MatrixConstructor)
                   30.0f, 30.0f, 30.0f, 0.0f,
                   5.0f , 10.0f, 15.0f, 1.0f);
 
-    ASSERT_EQ(10.0f, matrix.M11());
-    ASSERT_EQ(10.0f, matrix.M12());
-    ASSERT_EQ(10.0f, matrix.M13());
-    ASSERT_EQ(0.0f , matrix.M14());
-    ASSERT_EQ(20.0f, matrix.M21());
-    ASSERT_EQ(20.0f, matrix.M22());
-    ASSERT_EQ(20.0f, matrix.M23());
-    ASSERT_EQ(0.0f , matrix.M24());
-    ASSERT_EQ(30.0f, matrix.M31());
-    ASSERT_EQ(30.0f, matrix.M32());
-    ASSERT_EQ(30.0f, matrix.M33());
-    ASSERT_EQ(0.0f , matrix.M34());
-    ASSERT_EQ(5.0f , matrix.M41());
-    ASSERT_EQ(10.0f, matrix.M42());
-    ASSERT_EQ(15.0f, matrix.M43());
-    ASSERT_EQ(1.0f , matrix.M44());
+    EXPECT_TRUE(10.0f == matrix.M11());
+    EXPECT_TRUE(10.0f == matrix.M12());
+    EXPECT_TRUE(10.0f == matrix.M13());
+    EXPECT_TRUE(0.0f  == matrix.M14());
+    EXPECT_TRUE(20.0f == matrix.M21());
+    EXPECT_TRUE(20.0f == matrix.M22());
+    EXPECT_TRUE(20.0f == matrix.M23());
+    EXPECT_TRUE(0.0f  == matrix.M24());
+    EXPECT_TRUE(30.0f == matrix.M31());
+    EXPECT_TRUE(30.0f == matrix.M32());
+    EXPECT_TRUE(30.0f == matrix.M33());
+    EXPECT_TRUE(0.0f  == matrix.M34());
+    EXPECT_TRUE(5.0f  == matrix.M41());
+    EXPECT_TRUE(10.0f == matrix.M42());
+    EXPECT_TRUE(15.0f == matrix.M43());
+    EXPECT_TRUE(1.0f  == matrix.M44());
 }
 
 TEST_F(MatrixTest, CopyConstuctor)
@@ -76,22 +75,22 @@ TEST_F(MatrixTest, CopyConstuctor)
 
     Matrix matrix1(matrix);
 
-    ASSERT_EQ(matrix.M11(), matrix1.M11());
-    ASSERT_EQ(matrix.M12(), matrix1.M12());
-    ASSERT_EQ(matrix.M13(), matrix1.M13());
-    ASSERT_EQ(matrix.M14(), matrix1.M14());
-    ASSERT_EQ(matrix.M21(), matrix1.M21());
-    ASSERT_EQ(matrix.M22(), matrix1.M22());
-    ASSERT_EQ(matrix.M23(), matrix1.M23());
-    ASSERT_EQ(matrix.M24(), matrix1.M24());
-    ASSERT_EQ(matrix.M31(), matrix1.M31());
-    ASSERT_EQ(matrix.M32(), matrix1.M32());
-    ASSERT_EQ(matrix.M33(), matrix1.M33());
-    ASSERT_EQ(matrix.M34(), matrix1.M34());
-    ASSERT_EQ(matrix.M41(), matrix1.M41());
-    ASSERT_EQ(matrix.M42(), matrix1.M42());
-    ASSERT_EQ(matrix.M43(), matrix1.M43());
-    ASSERT_EQ(matrix.M44(), matrix1.M44());
+    EXPECT_TRUE(matrix.M11() == matrix1.M11());
+    EXPECT_TRUE(matrix.M12() == matrix1.M12());
+    EXPECT_TRUE(matrix.M13() == matrix1.M13());
+    EXPECT_TRUE(matrix.M14() == matrix1.M14());
+    EXPECT_TRUE(matrix.M21() == matrix1.M21());
+    EXPECT_TRUE(matrix.M22() == matrix1.M22());
+    EXPECT_TRUE(matrix.M23() == matrix1.M23());
+    EXPECT_TRUE(matrix.M24() == matrix1.M24());
+    EXPECT_TRUE(matrix.M31() == matrix1.M31());
+    EXPECT_TRUE(matrix.M32() == matrix1.M32());
+    EXPECT_TRUE(matrix.M33() == matrix1.M33());
+    EXPECT_TRUE(matrix.M34() == matrix1.M34());
+    EXPECT_TRUE(matrix.M41() == matrix1.M41());
+    EXPECT_TRUE(matrix.M42() == matrix1.M42());
+    EXPECT_TRUE(matrix.M43() == matrix1.M43());
+    EXPECT_TRUE(matrix.M44() == matrix1.M44());
 }
 
 TEST_F(MatrixTest, MatrixMultiplication)
@@ -112,22 +111,22 @@ TEST_F(MatrixTest, MatrixMultiplication)
 	// 34  44  54  64
 	// 82 108 134 160
 
-    ASSERT_EQ(34.0f , matrixResult.M11());
-    ASSERT_EQ(44.0f , matrixResult.M12());
-    ASSERT_EQ(54.0f , matrixResult.M13());
-    ASSERT_EQ(64.0f , matrixResult.M14());
-    ASSERT_EQ(82.0f , matrixResult.M21());
-    ASSERT_EQ(108.0f, matrixResult.M22());
-    ASSERT_EQ(134.0f, matrixResult.M23());
-    ASSERT_EQ(160.0f, matrixResult.M24());
-    ASSERT_EQ(34.0f , matrixResult.M31());
-    ASSERT_EQ(44.0f , matrixResult.M32());
-    ASSERT_EQ(54.0f , matrixResult.M33());
-    ASSERT_EQ(64.0f , matrixResult.M34());
-    ASSERT_EQ(82.0f , matrixResult.M41());
-    ASSERT_EQ(108.0f, matrixResult.M42());
-    ASSERT_EQ(134.0f, matrixResult.M43());
-    ASSERT_EQ(160.0f, matrixResult.M44());
+    EXPECT_TRUE(34.0f  == matrixResult.M11());
+    EXPECT_TRUE(44.0f  == matrixResult.M12());
+    EXPECT_TRUE(54.0f  == matrixResult.M13());
+    EXPECT_TRUE(64.0f  == matrixResult.M14());
+    EXPECT_TRUE(82.0f  == matrixResult.M21());
+    EXPECT_TRUE(108.0f == matrixResult.M22());
+    EXPECT_TRUE(134.0f == matrixResult.M23());
+    EXPECT_TRUE(160.0f == matrixResult.M24());
+    EXPECT_TRUE(34.0f  == matrixResult.M31());
+    EXPECT_TRUE(44.0f  == matrixResult.M32());
+    EXPECT_TRUE(54.0f  == matrixResult.M33());
+    EXPECT_TRUE(64.0f  == matrixResult.M34());
+    EXPECT_TRUE(82.0f  == matrixResult.M41());
+    EXPECT_TRUE(108.0f == matrixResult.M42());
+    EXPECT_TRUE(134.0f == matrixResult.M43());
+    EXPECT_TRUE(160.0f == matrixResult.M44());
 }
 
 TEST_F(MatrixTest, MatrixTranspose)
@@ -146,9 +145,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisX()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    ASSERT_EQ(0.0f  , vectorResult.X());
-    ASSERT_EQ(-10.0f, vectorResult.Y());
-    ASSERT_EQ(0.0f  , vectorResult.Z());
+    EXPECT_TRUE(0.0f  , vectorResult.X());
+    EXPECT_TRUE(-10.0f, vectorResult.Y());
+    EXPECT_TRUE(0.0f  , vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testTransformAxisY()
@@ -159,9 +158,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisY()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    ASSERT_EQ(0.0f , vectorResult.X());
-    ASSERT_EQ(10.0f, vectorResult.Y());
-    ASSERT_EQ(0.0f , vectorResult.Z());
+    EXPECT_TRUE(0.0f == vectorResult.X());
+    EXPECT_TRUE(10.0f == vectorResult.Y());
+    EXPECT_TRUE(0.0f == vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testTransformAxisZ()
@@ -172,9 +171,9 @@ void AxisAngleRotateTransform3DTest::testTransformAxisZ()
 
     Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
 
-    ASSERT_EQ(0.0f , vectorResult.X());
-    ASSERT_EQ(0.0f , vectorResult.Y());
-    ASSERT_EQ(10.0f, vectorResult.Z());
+    EXPECT_TRUE(0.0f == vectorResult.X());
+    EXPECT_TRUE(0.0f == vectorResult.Y());
+    EXPECT_TRUE(10.0f == vectorResult.Z());
 }
 
 void AxisAngleRotateTransform3DTest::testValue()
@@ -243,7 +242,7 @@ void Transform3DGroupTest::testGetCount()
 
     transform3DGroup.AddTransform(rotateTransform3D);
 
-    ASSERT_EQ((size_t)1, transform3DGroup.GetCount());
+    EXPECT_TRUE((size_t)1, transform3DGroup.GetCount());
 
     // Create and apply a scale transformation that stretches the object along the local x-axis
     // by 200 percent and shrinks it along the local y-axis by 50 percent.
@@ -252,7 +251,7 @@ void Transform3DGroupTest::testGetCount()
     // Add the scale transform to the Transform3DGroup.
     transform3DGroup.AddTransform(scaleTransform3D);
 
-    ASSERT_EQ((size_t)2, transform3DGroup.GetCount());
+    EXPECT_TRUE((size_t)2, transform3DGroup.GetCount());
 }
 
 void Transform3DGroupTest::testClear()
@@ -272,11 +271,11 @@ void Transform3DGroupTest::testClear()
     // Add the scale transform to the Transform3DGroup.
     transform3DGroup.AddTransform(scaleTransform3D);
 
-    ASSERT_EQ((size_t)2, transform3DGroup.GetCount());
+    EXPECT_TRUE((size_t)2, transform3DGroup.GetCount());
 
     transform3DGroup.Clear();
 
-    ASSERT_EQ((size_t)0, transform3DGroup.GetCount());
+    EXPECT_TRUE((size_t)0, transform3DGroup.GetCount());
 }
 
 void Transform3DGroupTest::testTransformChain()
@@ -291,84 +290,84 @@ void Transform3DGroupTest::testTransformChain()
 
     transformGroup.AddTransform(translateTransform);
 
-	ASSERT_EQ(01.0f, transformGroup.Value().M11());
-	ASSERT_EQ(00.0f, transformGroup.Value().M12());
-	ASSERT_EQ(00.0f, transformGroup.Value().M13());
-	ASSERT_EQ(00.0f, transformGroup.Value().M14());
-	ASSERT_EQ(00.0f, transformGroup.Value().M21());
-	ASSERT_EQ(01.0f, transformGroup.Value().M22());
-	ASSERT_EQ(00.0f, transformGroup.Value().M23());
-	ASSERT_EQ(00.0f, transformGroup.Value().M24());
-	ASSERT_EQ(00.0f, transformGroup.Value().M31());
-	ASSERT_EQ(00.0f, transformGroup.Value().M32());
-	ASSERT_EQ(01.0f, transformGroup.Value().M33());
-	ASSERT_EQ(00.0f, transformGroup.Value().M34());
-	ASSERT_EQ(10.0f, transformGroup.Value().M41());
-	ASSERT_EQ(00.0f, transformGroup.Value().M42());
-	ASSERT_EQ(00.0f, transformGroup.Value().M43());
-	ASSERT_EQ(01.0f, transformGroup.Value().M44());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M11());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M22());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M23());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M32());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M33());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
+	EXPECT_TRUE(10.0f == transformGroup.Value().M41());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
 
     transformedVector = transformGroup.Transform(originalVector);
 
-	ASSERT_EQ(20.0f, transformedVector.X());
-	ASSERT_EQ(10.0f, transformedVector.Y());
-	ASSERT_EQ(10.0f, transformedVector.Z());
-	ASSERT_EQ(01.0f, transformedVector.W());
+	EXPECT_TRUE(20.0f == transformedVector.X());
+	EXPECT_TRUE(10.0f == transformedVector.Y());
+	EXPECT_TRUE(10.0f == transformedVector.Z());
+	EXPECT_TRUE(01.0f, transformedVector.W());
 
     transformGroup.AddTransform(rotateTransform);
 
-	ASSERT_EQ(01.0f, transformGroup.Value().M11());
-	ASSERT_EQ(00.0f, transformGroup.Value().M12());
-	ASSERT_EQ(00.0f, transformGroup.Value().M13());
-	ASSERT_EQ(00.0f, transformGroup.Value().M14());
-	ASSERT_EQ(00.0f, transformGroup.Value().M21());
-	ASSERT_EQ(00.0f, transformGroup.Value().M22());
-	ASSERT_EQ(1.0f, transformGroup.Value().M23());
-	ASSERT_EQ(00.0f, transformGroup.Value().M24());
-	ASSERT_EQ(00.0f, transformGroup.Value().M31());
-	ASSERT_EQ(-1.0f, transformGroup.Value().M32());
-	ASSERT_EQ(00.0f, transformGroup.Value().M33());
-	ASSERT_EQ(00.0f, transformGroup.Value().M34());
-	ASSERT_EQ(10.0f, transformGroup.Value().M41());
-	ASSERT_EQ(00.0f, transformGroup.Value().M42());
-	ASSERT_EQ(00.0f, transformGroup.Value().M43());
-	ASSERT_EQ(01.0f, transformGroup.Value().M44());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M11());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M22());
+	EXPECT_TRUE(1.0f, transformGroup.Value().M23());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
+	EXPECT_TRUE(-1.0f, transformGroup.Value().M32());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M33());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
+	EXPECT_TRUE(10.0f == transformGroup.Value().M41());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
 
 	transformedVector = transformGroup.Transform(originalVector);
 
-	ASSERT_EQ(20.0f, transformedVector.X());
-	ASSERT_EQ(-10.0f, transformedVector.Y());
-	ASSERT_EQ(10.0f, transformedVector.Z());
-	ASSERT_EQ(01.0f, transformedVector.W());
+	EXPECT_TRUE(20.0f == transformedVector.X());
+	EXPECT_TRUE(-10.0f, transformedVector.Y());
+	EXPECT_TRUE(10.0f == transformedVector.Z());
+	EXPECT_TRUE(01.0f, transformedVector.W());
 
     transformGroup.AddTransform(scaleTransform);
 
-	ASSERT_EQ(02.0f, transformGroup.Value().M11());
-	ASSERT_EQ(00.0f, transformGroup.Value().M12());
-	ASSERT_EQ(00.0f, transformGroup.Value().M13());
-	ASSERT_EQ(00.0f, transformGroup.Value().M14());
+	EXPECT_TRUE(02.0f, transformGroup.Value().M11());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
 
-	ASSERT_EQ(00.0f, transformGroup.Value().M21());
-	ASSERT_EQ(00.0f, transformGroup.Value().M22());
-	ASSERT_EQ(2.0f, transformGroup.Value().M23());
-	ASSERT_EQ(00.0f, transformGroup.Value().M24());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M22());
+	EXPECT_TRUE(2.0f, transformGroup.Value().M23());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
 
-	ASSERT_EQ(00.0f, transformGroup.Value().M31());
-	ASSERT_EQ(-2.0f, transformGroup.Value().M32());
-	ASSERT_EQ(0.0f, transformGroup.Value().M33());
-	ASSERT_EQ(00.0f, transformGroup.Value().M34());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
+	EXPECT_TRUE(-2.0f, transformGroup.Value().M32());
+	EXPECT_TRUE(0.0f == transformGroup.Value().M33());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
 
-	ASSERT_EQ(20.0f, transformGroup.Value().M41());
-	ASSERT_EQ(00.0f, transformGroup.Value().M42());
-	ASSERT_EQ(00.0f, transformGroup.Value().M43());
-	ASSERT_EQ(01.0f, transformGroup.Value().M44());
+	EXPECT_TRUE(20.0f == transformGroup.Value().M41());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
+	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
+	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
 
     transformedVector = transformGroup.Transform(originalVector);
 
-	ASSERT_EQ(40.0f, transformedVector.X());
-	ASSERT_EQ(-20.0f, transformedVector.Y());
-	ASSERT_EQ(20.0f, transformedVector.Z());
-	ASSERT_EQ(01.0f, transformedVector.W());
+	EXPECT_TRUE(40.0f, transformedVector.X());
+	EXPECT_TRUE(-20.0f, transformedVector.Y());
+	EXPECT_TRUE(20.0f == transformedVector.Z());
+	EXPECT_TRUE(01.0f, transformedVector.W());
 }
 
 */

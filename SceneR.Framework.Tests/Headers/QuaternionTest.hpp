@@ -17,8 +17,8 @@
 #ifndef QUATERNIONTEST_HPP
 #define	QUATERNIONTEST_HPP
 
-#include "gtest/gtest.h"
 #include <System/Core.hpp>
+#include <gtest/gtest.h>
 
 class QuaternionTest : public testing::Test
 {

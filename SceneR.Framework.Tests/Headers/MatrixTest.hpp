@@ -17,8 +17,8 @@
 #ifndef MATRIXTEST_HPP
 #define	MATRIXTEST_HPP
 
-#include "gtest/gtest.h"
 #include <System/Core.hpp>
+#include <gtest/gtest.h>
 
 class MatrixTest : public testing::Test
 {

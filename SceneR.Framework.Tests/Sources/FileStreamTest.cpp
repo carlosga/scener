@@ -38,7 +38,7 @@ TEST_F(FileStreamTest, BeginPosition)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
-    EXPECT_EQ(0, stream.Position());
+    EXPECT_TRUE(0 == stream.Position());
 
     stream.Close();
 }
@@ -49,7 +49,7 @@ TEST_F(FileStreamTest, EndPosition)
 
     stream.Seek(0, std::ios::end);
 
-    EXPECT_EQ( stream.Length(), stream.Position());
+    EXPECT_TRUE(stream.Length() == stream.Position());
 
     stream.Close();
 }
@@ -60,8 +60,8 @@ TEST_F(FileStreamTest, ReadByte)
 
     UByte value = stream.ReadByte();
 
-    EXPECT_EQ(sizeof(UByte), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(UByte) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -78,8 +78,8 @@ TEST_F(FileStreamTest, ReadInt16)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
 
-    EXPECT_EQ(sizeof(Int16), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(Int16) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -92,8 +92,8 @@ TEST_F(FileStreamTest, ReadUInt16)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
 
-    EXPECT_EQ(sizeof(UInt16), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(UInt16) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -106,8 +106,8 @@ TEST_F(FileStreamTest, ReadInt32)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int32));
 
-    EXPECT_EQ(sizeof(Int32), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(Int32) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -120,8 +120,8 @@ TEST_F(FileStreamTest, ReadUInt32)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int32));
 
-    EXPECT_EQ(sizeof(UInt32), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(UInt32) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -134,8 +134,8 @@ TEST_F(FileStreamTest, ReadInt64)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int64));
 
-    EXPECT_EQ(sizeof(Int64), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(Int64) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -148,8 +148,8 @@ TEST_F(FileStreamTest, ReadUInt64)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(UInt64));
 
-    EXPECT_EQ(sizeof(UInt64), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(UInt64) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -162,8 +162,8 @@ TEST_F(FileStreamTest, ReadSingle)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Single));
 
-    EXPECT_EQ(sizeof(Single), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(Single) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }
@@ -176,8 +176,8 @@ TEST_F(FileStreamTest, ReadDouble)
 
     stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Double));
 
-    EXPECT_EQ(sizeof(Double), stream.Position());
-    EXPECT_NE(value, 0);
+    EXPECT_TRUE(sizeof(Double) == stream.Position());
+    EXPECT_TRUE(value != 0);
 
     stream.Close();
 }

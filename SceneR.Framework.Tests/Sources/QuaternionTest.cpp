@@ -59,10 +59,10 @@ TEST_F(QuaternionTest, QuaternionMultiplication)
     Quaternion qResult = q1 * q2;
     
     // quaternion Result is equal to (24, 48, 48, -6)
-    EXPECT_EQ(24.0f, qResult.X());
-    EXPECT_EQ(48.0f, qResult.Y());
-    EXPECT_EQ(48.0f, qResult.Z());
-    EXPECT_EQ(-6.0f, qResult.W());
+    EXPECT_TRUE(24.0f == qResult.X());
+    EXPECT_TRUE(48.0f == qResult.Y());
+    EXPECT_TRUE(48.0f == qResult.Z());
+    EXPECT_TRUE(-6.0f == qResult.W());
 }
 
 TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
@@ -71,8 +71,8 @@ TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
     Quaternion qResult = Quaternion::CreateFromAxisAngle(axis, 90);
 
     // quaternion Result is equal to (0.707106769, 0, 0, 0.707106769)
-    EXPECT_EQ(0.707106769f, qResult.X());
-    EXPECT_EQ(0.0f        , qResult.Y());
-    EXPECT_EQ(0.0f        , qResult.Z());
-    EXPECT_EQ(0.707106769f, qResult.W());
+    EXPECT_TRUE(0.707106769f == qResult.X());
+    EXPECT_TRUE(0.0f         == qResult.Y());
+    EXPECT_TRUE(0.0f         == qResult.Z());
+    EXPECT_TRUE(0.707106769f == qResult.W());
 }

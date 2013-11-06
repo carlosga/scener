@@ -17,10 +17,10 @@
 #ifndef BINARYREADERTEST_HPP
 #define	BINARYREADERTEST_HPP
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 #include <System/Core.hpp>
 
-class BinaryReaderTest : public testing::Test
+class BinaryReaderTest : public ::testing::Test
 {
 protected:
     const System::String TEST_FILE = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl";
