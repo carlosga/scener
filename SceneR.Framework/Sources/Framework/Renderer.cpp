@@ -16,6 +16,8 @@
 
 #include <Framework/Renderer.hpp>
 #include <Framework/IComponent.hpp>
+#include <Framework/IDrawable.hpp>
+#include <Framework/IUpdateable.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -85,6 +87,15 @@ void Renderer::BeginRun()
 
 void Renderer::Draw()
 {
+    for (auto& component : this->components)
+    {
+        auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
+
+        if (drawable != nullptr && drawable->IsVisible())
+        {
+            drawable->Draw();
+        }
+    }
 }
 
 void Renderer::EndDraw()
@@ -123,16 +134,27 @@ void Renderer::UnloadContent()
 
 void Renderer::Update()
 {
+    for (auto& component : this->components)
+    {
+        auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
+
+        if (updateable != nullptr && updateable->IsEnabled())
+        {
+            updateable->Update();
+        }
+    }
 }
 
 void Renderer::StartEventLoop()
 {
     do
     {
-        this->BeginDraw();
-        this->Draw();
-        this->EndDraw();
+        this->Update();
 
-        // Check if the ESC key was pressed or the window was closed
+        if (this->BeginDraw())
+        {
+            this->Draw();
+            this->EndDraw();
+        }
     } while (!this->rendererWindow.ShouldClose());
 }

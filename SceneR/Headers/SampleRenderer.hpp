@@ -30,7 +30,6 @@ namespace SceneR
             SampleRenderer(const System::String& rootDirectory);
 
         protected:
-            virtual void Draw(/*GameTime gameTime*/) override;
             virtual void BeginRun() override;
         };
     }

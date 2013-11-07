@@ -15,6 +15,8 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <MatrixTest.hpp>
 
 using namespace SceneR::Framework;
@@ -156,135 +158,133 @@ TEST_F(MatrixTest, MatrixTranspose)
     EXPECT_TRUE(1.0f  == matrix.M44());
 }
 
-/*
-void AxisAngleRotateTransform3DTest::testTransformAxisX()
+TEST_F(MatrixTest, TransformChain)
 {
-    Vector3D vector(0, 0, 10);
-    Vector3D axis(1, 0, 0);
-    AxisAngleRotateTransform3D axisAngleRotateTransform3D(axis, 90);
+    Vector4 originalVector(10, 10, 10, 1);
+    Vector3 rotationAxis(1, 0, 0);
+    Vector4 transformedVector;
+    Matrix  matrix              = Matrix::Identity;
+    Matrix  translateTransform  = Matrix::CreateTranslation(10, 0, 0);
+    Matrix  rotateTransform     = Matrix::CreateFromAxisAngle(rotationAxis, 90);
+    Matrix  scaleTransform      = Matrix::CreateScale(2);
 
-    Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
+    matrix *= translateTransform;
 
-    EXPECT_TRUE(0.0f  , vectorResult.X());
-    EXPECT_TRUE(-10.0f, vectorResult.Y());
-    EXPECT_TRUE(0.0f  , vectorResult.Z());
+    EXPECT_TRUE(01.0f == matrix.M11());
+    EXPECT_TRUE(00.0f == matrix.M12());
+    EXPECT_TRUE(00.0f == matrix.M13());
+    EXPECT_TRUE(00.0f == matrix.M14());
+    EXPECT_TRUE(00.0f == matrix.M21());
+    EXPECT_TRUE(01.0f == matrix.M22());
+    EXPECT_TRUE(00.0f == matrix.M23());
+    EXPECT_TRUE(00.0f == matrix.M24());
+    EXPECT_TRUE(00.0f == matrix.M31());
+    EXPECT_TRUE(00.0f == matrix.M32());
+    EXPECT_TRUE(01.0f == matrix.M33());
+    EXPECT_TRUE(00.0f == matrix.M34());
+    EXPECT_TRUE(10.0f == matrix.M41());
+    EXPECT_TRUE(00.0f == matrix.M42());
+    EXPECT_TRUE(00.0f == matrix.M43());
+    EXPECT_TRUE(01.0f == matrix.M44());
+
+    transformedVector = originalVector * matrix;
+
+    EXPECT_TRUE(20.0f == transformedVector.X());
+    EXPECT_TRUE(10.0f == transformedVector.Y());
+    EXPECT_TRUE(10.0f == transformedVector.Z());
+    EXPECT_TRUE(01.0f == transformedVector.W());
+
+    matrix *= rotateTransform;
+
+    EXPECT_TRUE(01.0f == matrix.M11());
+    EXPECT_TRUE(00.0f == matrix.M12());
+    EXPECT_TRUE(00.0f == matrix.M13());
+    EXPECT_TRUE(00.0f == matrix.M14());
+    EXPECT_TRUE(00.0f == matrix.M21());
+    EXPECT_TRUE(00.0f == matrix.M22());
+    EXPECT_TRUE(1.0f  == matrix.M23());
+    EXPECT_TRUE(00.0f == matrix.M24());
+    EXPECT_TRUE(00.0f == matrix.M31());
+    EXPECT_TRUE(-1.0f == matrix.M32());
+    EXPECT_TRUE(00.0f == matrix.M33());
+    EXPECT_TRUE(00.0f == matrix.M34());
+    EXPECT_TRUE(10.0f == matrix.M41());
+    EXPECT_TRUE(00.0f == matrix.M42());
+    EXPECT_TRUE(00.0f == matrix.M43());
+    EXPECT_TRUE(01.0f == matrix.M44());
+
+    transformedVector = originalVector * matrix;
+
+    EXPECT_TRUE(20.0f  == transformedVector.X());
+    EXPECT_TRUE(-10.0f == transformedVector.Y());
+    EXPECT_TRUE(10.0f  == transformedVector.Z());
+    EXPECT_TRUE(01.0f  == transformedVector.W());
+
+    matrix *= scaleTransform;
+
+    EXPECT_TRUE(02.0f == matrix.M11());
+    EXPECT_TRUE(00.0f == matrix.M12());
+    EXPECT_TRUE(00.0f == matrix.M13());
+    EXPECT_TRUE(00.0f == matrix.M14());
+
+    EXPECT_TRUE(00.0f == matrix.M21());
+    EXPECT_TRUE(00.0f == matrix.M22());
+    EXPECT_TRUE(2.0f  == matrix.M23());
+    EXPECT_TRUE(00.0f == matrix.M24());
+
+    EXPECT_TRUE(00.0f == matrix.M31());
+    EXPECT_TRUE(-2.0f == matrix.M32());
+    EXPECT_TRUE(0.0f  == matrix.M33());
+    EXPECT_TRUE(00.0f == matrix.M34());
+
+    EXPECT_TRUE(20.0f == matrix.M41());
+    EXPECT_TRUE(00.0f == matrix.M42());
+    EXPECT_TRUE(00.0f == matrix.M43());
+    EXPECT_TRUE(01.0f == matrix.M44());
+
+    transformedVector = originalVector * matrix;
+
+    EXPECT_TRUE(40.0f  == transformedVector.X());
+    EXPECT_TRUE(-20.0f == transformedVector.Y());
+    EXPECT_TRUE(20.0f  == transformedVector.Z());
+    EXPECT_TRUE(01.0f  == transformedVector.W());
 }
 
-void AxisAngleRotateTransform3DTest::testTransformAxisY()
+TEST_F(MatrixTest, TransformFromAxisAngleX)
 {
-    Vector3D vector(0, 10, 0);
-    Vector3D axis(0, 1, 0);
-    AxisAngleRotateTransform3D axisAngleRotateTransform3D(axis, 90);
+    Vector3 vector(0, 0, 10);
+    Vector3 axis(1, 0, 0);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
 
-    Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
+    Vector3 vectorResult = vector * matrix;
 
-    EXPECT_TRUE(0.0f == vectorResult.X());
+    EXPECT_TRUE(0.0f   == vectorResult.X());
+    EXPECT_TRUE(-10.0f == vectorResult.Y());
+    EXPECT_TRUE(0.0f   == vectorResult.Z());
+}
+
+TEST_F(MatrixTest, TransformFromAxisAngleY)
+{
+    Vector3 vector(0, 10, 0);
+    Vector3 axis(0, 1, 0);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
+
+    Vector3 vectorResult = vector * matrix;
+
+    EXPECT_TRUE(0.0f  == vectorResult.X());
     EXPECT_TRUE(10.0f == vectorResult.Y());
-    EXPECT_TRUE(0.0f == vectorResult.Z());
+    EXPECT_TRUE(0.0f  == vectorResult.Z());
 }
 
-void AxisAngleRotateTransform3DTest::testTransformAxisZ()
+TEST_F(MatrixTest, TransformFromAxisAngleZ)
 {
-    Vector3D vector(0, 0, 10);
-    Vector3D axis(0, 0, 1);
-    AxisAngleRotateTransform3D axisAngleRotateTransform3D(axis, 90);
+    Vector3 vector(0, 0, 10);
+    Vector3 axis(0, 0, 1);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
 
-    Vector3D vectorResult = axisAngleRotateTransform3D.Transform(vector);
+    Vector3 vectorResult = vector * matrix;
 
-    EXPECT_TRUE(0.0f == vectorResult.X());
-    EXPECT_TRUE(0.0f == vectorResult.Y());
+    EXPECT_TRUE(0.0f  == vectorResult.X());
+    EXPECT_TRUE(0.0f  == vectorResult.Y());
     EXPECT_TRUE(10.0f == vectorResult.Z());
 }
-
-void Transform3DGroupTest::testTransformChain()
-{
-    Point4D                    originalVector(10, 10, 10, 1);
-    Vector3D                   rotationAxis(1, 0, 0);
-    Point4D                    transformedVector;
-    Transform3DGroup           transformGroup;
-    TranslateTransform3D       translateTransform(10, 0, 0);
-    AxisAngleRotateTransform3D rotateTransform(rotationAxis, 90);
-    ScaleTransform3D           scaleTransform(2, 2, 2);
-
-    transformGroup.AddTransform(translateTransform);
-
-	EXPECT_TRUE(01.0f, transformGroup.Value().M11());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
-	EXPECT_TRUE(01.0f, transformGroup.Value().M22());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M23());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M32());
-	EXPECT_TRUE(01.0f, transformGroup.Value().M33());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
-	EXPECT_TRUE(10.0f == transformGroup.Value().M41());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
-	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
-
-    transformedVector = transformGroup.Transform(originalVector);
-
-	EXPECT_TRUE(20.0f == transformedVector.X());
-	EXPECT_TRUE(10.0f == transformedVector.Y());
-	EXPECT_TRUE(10.0f == transformedVector.Z());
-	EXPECT_TRUE(01.0f, transformedVector.W());
-
-    transformGroup.AddTransform(rotateTransform);
-
-	EXPECT_TRUE(01.0f, transformGroup.Value().M11());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M22());
-	EXPECT_TRUE(1.0f, transformGroup.Value().M23());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
-	EXPECT_TRUE(-1.0f, transformGroup.Value().M32());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M33());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
-	EXPECT_TRUE(10.0f == transformGroup.Value().M41());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
-	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
-
-	transformedVector = transformGroup.Transform(originalVector);
-
-	EXPECT_TRUE(20.0f == transformedVector.X());
-	EXPECT_TRUE(-10.0f, transformedVector.Y());
-	EXPECT_TRUE(10.0f == transformedVector.Z());
-	EXPECT_TRUE(01.0f, transformedVector.W());
-
-    transformGroup.AddTransform(scaleTransform);
-
-	EXPECT_TRUE(02.0f, transformGroup.Value().M11());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M12());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M13());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M14());
-
-	EXPECT_TRUE(00.0f, transformGroup.Value().M21());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M22());
-	EXPECT_TRUE(2.0f, transformGroup.Value().M23());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M24());
-
-	EXPECT_TRUE(00.0f, transformGroup.Value().M31());
-	EXPECT_TRUE(-2.0f, transformGroup.Value().M32());
-	EXPECT_TRUE(0.0f == transformGroup.Value().M33());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M34());
-
-	EXPECT_TRUE(20.0f == transformGroup.Value().M41());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M42());
-	EXPECT_TRUE(00.0f, transformGroup.Value().M43());
-	EXPECT_TRUE(01.0f, transformGroup.Value().M44());
-
-    transformedVector = transformGroup.Transform(originalVector);
-
-	EXPECT_TRUE(40.0f, transformedVector.X());
-	EXPECT_TRUE(-20.0f, transformedVector.Y());
-	EXPECT_TRUE(20.0f == transformedVector.Z());
-	EXPECT_TRUE(01.0f, transformedVector.W());
-}
-*/

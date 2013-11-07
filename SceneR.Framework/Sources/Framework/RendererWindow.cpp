@@ -205,7 +205,10 @@ void RendererWindow::ReleaseCallbacks() const
 
 bool RendererWindow::ShouldClose() const
 {
-    return (glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->handle));
+    Boolean fullScreen = this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen();
+
+    return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            || glfwWindowShouldClose(this->handle));
 }
 
 void RendererWindow::SwapBuffers() const
