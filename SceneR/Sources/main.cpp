@@ -23,7 +23,7 @@ using namespace SceneR::Sample;
 
 int main()
 {
-    String rootPath = "/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
+    String rootPath = u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
 
     SampleRenderer renderer(rootPath);
 

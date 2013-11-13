@@ -41,7 +41,7 @@ void SampleRenderer::BeginRun()
     parameters.SetBackBufferWidth(1500);
     parameters.SetBackBufferHeight(943);
 
-    this->GetRendererWindow().SetTitle("SceneR");
+    this->GetRendererWindow().SetTitle(u"SceneR");
 
     Renderer::BeginRun();
 
