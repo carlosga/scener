@@ -69,7 +69,7 @@ namespace SceneR
 
                 try
                 {
-                    System::String filename = System::IO::Path::ChangeExtension(assetName, "scr");
+                    System::String filename = System::IO::Path::ChangeExtension(assetName, u"scr");
                     System::String path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
                     if (!System::IO::File::Exists(path))

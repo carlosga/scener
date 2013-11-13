@@ -60,7 +60,7 @@ void Effect::End()
     this->shaderProgram->Deactivate();
 }
 
-const EffectParameter& Effect::AddEffectParameter(const std::wstring&         name,
+const EffectParameter& Effect::AddEffectParameter(const std::u16string&       name,
                                                   const EffectParameterClass& parameterClass,
                                                   const EffectParameterType&  parameterType)
 {
@@ -71,7 +71,7 @@ const EffectParameter& Effect::AddEffectParameter(const std::wstring&         na
     return this->GetEffectParameter(name);
 }
 
-const EffectParameter& Effect::GetEffectParameter(const std::wstring& name) const
+const EffectParameter& Effect::GetEffectParameter(const std::u16string& name) const
 {
     for (const auto& effectParameter : this->parameters)
     {

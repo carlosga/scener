@@ -19,6 +19,7 @@
 
 #include <System/Core.hpp>
 #include <System/IO/FileStream.hpp>
+#include <System/Text/Unicode.hpp>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -37,10 +38,11 @@ namespace System
 			/**
 			 * Checks whether the given file exists.
 			 */ 
-			static Boolean Exists(const String& path)
+			static Boolean Exists(const System::String& path)
 			{
 			    Boolean result = true;
-				std::fstream file(path, std::ios::in);
+			    std::string filePath = System::Text::Unicode::Narrow(path);
+				std::fstream file(filePath, std::ios::in);
 
 				if (!file || !file.good())
                 {
@@ -57,13 +59,14 @@ namespace System
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
-            static std::wstring ReadAllText(const String& filePath)
+            static System::String ReadAllText(const System::String& path)
             {
+                std::string filePath = System::Text::Unicode::Narrow(path);
                 std::wifstream stream(filePath, std::ios::in | std::ios::binary);
 
                 if (!stream.is_open())
                 {
-                    throw std::runtime_error(String("Failed to open file: ") + filePath);
+                    throw std::runtime_error(std::string("Failed to open file: ") + filePath);
                 }
 
                 stream.seekg(0, std::ios_base::beg);
@@ -73,7 +76,9 @@ namespace System
 
                 stream.close();
 
-                return buffer.str();
+                std::wstring text = buffer.str();
+
+                return String(text.begin(), text.end());
             };
 
         private:

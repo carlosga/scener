@@ -308,41 +308,41 @@ void BasicEffect::OnApply()
     worldInverseTranspose.Invert();
     worldInverseTranspose.Transpose();
 
-    Effect::GetEffectParameter(L"WorldView").SetValue(this->world * this->view);
-    Effect::GetEffectParameter(L"WorldViewProjection").SetValue(this->world * this->view * this->projection);
-    Effect::GetEffectParameter(L"WorldInverseTranspose").SetValue(worldInverseTranspose);
-    Effect::GetEffectParameter(L"LightPosition").SetValue(Vector4(5.0f, -5.0, -5.0f, 1.0f));
-    Effect::GetEffectParameter(L"LightIntensity").SetValue(Vector3(0.52f , 0.57f , 0.62f));
-    Effect::GetEffectParameter(L"Ka").SetValue(Vector3(0.053f, 0.098f, 0.181f));
-    Effect::GetEffectParameter(L"Kd").SetValue(Vector3(0.64f , 0.64f , 0.64f));
-    Effect::GetEffectParameter(L"Ks").SetValue(Vector3(0.32f , 0.36f , 0.39f));
-    Effect::GetEffectParameter(L"Shininess").SetValue(1.0f);
+    Effect::GetEffectParameter(u"WorldView").SetValue(this->world * this->view);
+    Effect::GetEffectParameter(u"WorldViewProjection").SetValue(this->world * this->view * this->projection);
+    Effect::GetEffectParameter(u"WorldInverseTranspose").SetValue(worldInverseTranspose);
+    Effect::GetEffectParameter(u"LightPosition").SetValue(Vector4(5.0f, -5.0, -5.0f, 1.0f));
+    Effect::GetEffectParameter(u"LightIntensity").SetValue(Vector3(0.52f , 0.57f , 0.62f));
+    Effect::GetEffectParameter(u"Ka").SetValue(Vector3(0.053f, 0.098f, 0.181f));
+    Effect::GetEffectParameter(u"Kd").SetValue(Vector3(0.64f , 0.64f , 0.64f));
+    Effect::GetEffectParameter(u"Ks").SetValue(Vector3(0.32f , 0.36f , 0.39f));
+    Effect::GetEffectParameter(u"Shininess").SetValue(1.0f);
 }
 
 void BasicEffect::LoadShader()
 {
     // TODO: Check how to resolve the content manager here to build the shader pipeline from disk
     // TODO: Use EffectParameters and get parameter locations only once
-    std::wstring vSource = File::ReadAllText("/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl");
-    std::wstring fSource = File::ReadAllText("/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_FS.glsl");
-    auto         vShader = std::make_shared<Shader>(vSource, ShaderType::Vertex);
-    auto         fShader = std::make_shared<Shader>(fSource, ShaderType::Fragment);
+    String vSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl");
+    String fSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_FS.glsl");
+    auto   vShader = std::make_shared<Shader>(vSource, ShaderType::Vertex);
+    auto   fShader = std::make_shared<Shader>(fSource, ShaderType::Fragment);
 
     std::vector<std::shared_ptr<Shader>> shaders;
 
     shaders.push_back(vShader);
     shaders.push_back(fShader);
 
-    this->shaderProgram = std::make_shared<ShaderProgram>(L"BasicEffect", shaders);
+    this->shaderProgram = std::make_shared<ShaderProgram>(u"BasicEffect", shaders);
     this->shaderProgram->Build();
 
-    Effect::AddEffectParameter(L"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"LightPosition"         , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"LightIntensity"        , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"Ka"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"Kd"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"Ks"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(L"Shininess"             , EffectParameterClass::Scalar, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"LightPosition"         , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"LightIntensity"        , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Ka"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Kd"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Ks"                    , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Shininess"             , EffectParameterClass::Scalar, EffectParameterType::Single);
 }

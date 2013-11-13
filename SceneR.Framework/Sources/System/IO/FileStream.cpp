@@ -15,10 +15,12 @@
 //-------------------------------------------------------------------------------
 
 #include <System/IO/FileStream.hpp>
+#include <System/Text/Unicode.hpp>
 #include <fstream>
 
 using namespace System;
 using namespace System::IO;
+using namespace System::Text;
 
 FileStream::FileStream(const String& path)
     : FileStream(path, std::ios::in | std::ios::binary)
@@ -26,7 +28,7 @@ FileStream::FileStream(const String& path)
 }
 
 FileStream::FileStream(const String& path, const std::ios::openmode& mode)
-    : stream(path, mode),
+    : stream(Unicode::Narrow(path), mode),
       mode(mode)
 {
 }

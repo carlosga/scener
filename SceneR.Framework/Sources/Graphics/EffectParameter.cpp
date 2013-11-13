@@ -26,7 +26,7 @@ using namespace SceneR::Shaders;
 EffectParameter::EffectParameter()
     : columnCount(0),
       elements(0),
-      name(L""),
+      name(u""),
       parameterClass(EffectParameterClass::Matrix),
       parameterType(EffectParameterType::Single),
       rowCount(0),
@@ -36,7 +36,7 @@ EffectParameter::EffectParameter()
 {
 }
 
-EffectParameter::EffectParameter(const std::wstring&                  name,
+EffectParameter::EffectParameter(const std::u16string&                name,
                                  const EffectParameterClass&          parameterClass,
                                  const EffectParameterType&           parameterType,
                                  const std::shared_ptr<ShaderProgram> shader)
@@ -67,7 +67,7 @@ const std::vector<EffectParameter>& EffectParameter::Elements() const
     return this->elements;
 }
 
-const std::wstring& EffectParameter::Name() const
+const String& EffectParameter::Name() const
 {
     return this->name;
 }
@@ -152,7 +152,7 @@ const std::vector<Single>& EffectParameter::GetValueSingleArray() const
     throw std::runtime_error("Not implemented");
 }
 
-const std::wstring& EffectParameter::GetValueString() const
+const String& EffectParameter::GetValueString() const
 {
     throw std::runtime_error("Not implemented");
 }
@@ -237,7 +237,7 @@ void EffectParameter::SetValue(const std::vector<Single>& value) const
     throw std::runtime_error("Not implemented");
 }
 
-void EffectParameter::SetValue(const std::wstring& value) const
+void EffectParameter::SetValue(const String& value) const
 {
     throw std::runtime_error("Not implemented");
 }

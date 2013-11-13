@@ -59,12 +59,12 @@ const Int32& ModelMeshPart::GetStartIndex() const
     return this->startIndex;
 }
 
-const std::wstring& ModelMeshPart::GetTag() const
+const String& ModelMeshPart::GetTag() const
 {
     return this->tag;
 }
 
-void ModelMeshPart::SetTag(const std::wstring& tag)
+void ModelMeshPart::SetTag(const String& tag)
 {
     this->tag = tag;
 }

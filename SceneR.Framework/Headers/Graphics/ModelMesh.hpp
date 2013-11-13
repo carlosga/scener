@@ -20,7 +20,7 @@
 #include <Graphics/Effect.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMeshPart.hpp>
-#include <string>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR
@@ -63,12 +63,12 @@ namespace SceneR
             /**
              * Gets the model mesh name
              */
-            const std::wstring& GetName() const;
+            const System::String& GetName() const;
 
             /**
              * Sets the model mesh name
              */
-            void SetName(const std::wstring& name);
+            void SetName(const System::String& name);
 
             /**
              * Gets the parent bone for this mesh. The parent bone of a mesh contains a
@@ -80,18 +80,18 @@ namespace SceneR
             /**
              * Gets the model mesh tag
              */
-            const std::wstring& GetTag() const;
+            const System::String& GetTag() const;
 
             /**
              * Sets the model mesh tag
              */
-            void SetTag(const std::wstring& tag);
+            void SetTag(const System::String& tag);
 
         private:
             std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
-            std::wstring                                name;
+            System::String                              name;
             std::shared_ptr<ModelBone>                  parentBone;
-            std::wstring                                tag;
+            System::String                              tag;
 
             friend class SceneR::Content::ModelReader;
         };

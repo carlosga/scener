@@ -39,12 +39,12 @@ const UInt32& ModelBone::Index() const
     return this->index;
 }
 
-const std::wstring& ModelBone::GetName() const
+const String& ModelBone::GetName() const
 {
     return this->name;
 }
 
-void ModelBone::SetName(const std::wstring& name)
+void ModelBone::SetName(const String& name)
 {
     this->name = name;
 }

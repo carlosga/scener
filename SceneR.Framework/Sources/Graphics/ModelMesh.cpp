@@ -17,7 +17,9 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/PrimitiveType.hpp>
+#include <System/Core.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 ModelMesh::ModelMesh()
@@ -68,12 +70,12 @@ const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::MeshParts() const
     return this->meshParts;
 }
 
-const std::wstring& ModelMesh::GetName() const
+const String& ModelMesh::GetName() const
 {
     return this->name;
 }
 
-void ModelMesh::SetName(const std::wstring& name)
+void ModelMesh::SetName(const String& name)
 {
     this->name = name;
 }
@@ -83,12 +85,12 @@ std::shared_ptr<ModelBone> ModelMesh::ParentBone() const
     return this->parentBone;
 }
 
-const std::wstring& ModelMesh::GetTag() const
+const String& ModelMesh::GetTag() const
 {
     return this->tag;
 }
 
-void ModelMesh::SetTag(const std::wstring& tag)
+void ModelMesh::SetTag(const String& tag)
 {
     this->tag = tag;
 }

@@ -17,11 +17,11 @@
 #ifndef MODELMESHPART_HPP
 #define MODELMESHPART_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <string>
+#include <System/Core.hpp>
+#include <memory>
 
 namespace SceneR
 {
@@ -85,12 +85,12 @@ namespace SceneR
             /**
              * Gets the model mesh part tag
              */
-            const std::wstring& GetTag() const;
+            const System::String& GetTag() const;
 
             /**
              * Sets the model mesh part tag
              */
-            void SetTag(const std::wstring& tag);
+            void SetTag(const System::String& tag);
 
             /**
              * Gets the vertex buffer for this mesh part.
@@ -108,7 +108,7 @@ namespace SceneR
             System::Int32                 vertexCount;
             System::Int32                 primitiveCount;
             System::Int32                 startIndex;
-            std::wstring                  tag;
+            System::String                tag;
             std::shared_ptr<VertexBuffer> vertexBuffer;
             System::Int32                 vertexOffset;
 

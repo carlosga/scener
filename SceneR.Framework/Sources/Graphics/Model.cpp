@@ -17,6 +17,7 @@
 #include <Graphics/IEffectMatrices.hpp>
 #include <Graphics/Model.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
@@ -64,12 +65,12 @@ const std::vector<std::shared_ptr<ModelMesh>>& Model::Meshes() const
     return this->meshes;
 }
 
-const std::wstring& Model::GetTag() const
+const String& Model::GetTag() const
 {
     return this->tag;
 }
 
-void Model::SetTag(const std::wstring& tag)
+void Model::SetTag(const String& tag)
 {
     this->tag = tag;
 }

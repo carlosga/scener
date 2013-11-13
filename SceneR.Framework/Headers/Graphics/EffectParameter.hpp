@@ -17,15 +17,14 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
+#include <System/Core.hpp>
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace SceneR
@@ -56,7 +55,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
-            EffectParameter(const std::wstring&                                   name,
+            EffectParameter(const System::String&                                 name,
                             const EffectParameterClass&                           parameterClass,
                             const EffectParameterType&                            parameterType,
                             const std::shared_ptr<SceneR::Shaders::ShaderProgram> shader);
@@ -80,7 +79,7 @@ namespace SceneR
             /**
              * Gets the name of the parameter.
              */
-            const std::wstring& Name() const;
+            const System::String& Name() const;
 
             /**
              * Gets the class of the parameter.
@@ -166,7 +165,7 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as an String.
              */
-            const std::wstring& GetValueString() const;
+            const System::String& GetValueString() const;
 
             // GetValueTexture2D    Gets the value of the EffectParameter as a Texture2D.
             // GetValueTexture3D    Gets the value of the EffectParameter as a Texture3D.
@@ -264,7 +263,7 @@ namespace SceneR
              * Sets the value of the EffectParameter as an String.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::wstring& value) const;
+            void SetValue(const System::String& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector3.
@@ -293,7 +292,7 @@ namespace SceneR
         private:
             System::Int32                                   columnCount;
             std::vector<EffectParameter>                    elements;
-            std::wstring                                    name;
+            System::String                                  name;
             EffectParameterClass                            parameterClass;
             EffectParameterType                             parameterType;
             System::Int32                                   rowCount;

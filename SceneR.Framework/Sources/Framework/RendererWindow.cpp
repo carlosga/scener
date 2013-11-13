@@ -51,7 +51,8 @@ void RendererWindow::SetTitle(const String& title)
 
     if (this->handle != nullptr)
     {
-        glfwSetWindowTitle(this->handle, this->title.c_str());
+        std::string tmp = System::Text::Unicode::Narrow(this->title);
+        glfwSetWindowTitle(this->handle, tmp.c_str());
     }
 }
 
@@ -76,6 +77,7 @@ void RendererWindow::Open()
     PresentationParameters params  = this->renderer.GetGraphicsDevice().GetPresentationParameters();
     UInt32                 profile = static_cast<UInt32>(this->renderer.GetGraphicsDevice().GetGraphicsProfile());
     GLFWmonitor*           monitor = nullptr;
+    std::string            tmp     = System::Text::Unicode::Narrow(this->title);
 
     if (this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen())
     {
@@ -95,7 +97,7 @@ void RendererWindow::Open()
     (
         params.GetBackBufferWidth(),    // width
         params.GetBackBufferHeight(),   // height
-        this->title.c_str(),            // title
+        tmp.c_str(),                    // title
         monitor,                        // monitor
         nullptr                         // share
     );

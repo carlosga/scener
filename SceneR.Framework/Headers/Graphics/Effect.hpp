@@ -20,9 +20,11 @@
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Shaders/ShaderProgram.hpp>
+#include <System/Core.hpp>
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace SceneR
@@ -80,11 +82,11 @@ namespace SceneR
             virtual void OnApply() = 0;
 
         protected:
-            const EffectParameter& AddEffectParameter(const std::wstring&         name,
+            const EffectParameter& AddEffectParameter(const System::String&       name,
                                                       const EffectParameterClass& parameterClass,
                                                       const EffectParameterType&  parameterType);
 
-            const EffectParameter& GetEffectParameter(const std::wstring& name) const;
+            const EffectParameter& GetEffectParameter(const System::String& name) const;
 
         protected:
             std::vector<EffectParameter>                    parameters;

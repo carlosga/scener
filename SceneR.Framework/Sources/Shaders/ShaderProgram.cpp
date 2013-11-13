@@ -27,7 +27,7 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Shaders;
 
-ShaderProgram::ShaderProgram(const std::wstring& name, std::vector<std::shared_ptr<Shader>>& shaders)
+ShaderProgram::ShaderProgram(const String& name, std::vector<std::shared_ptr<Shader>>& shaders)
     : name(name), object(0), shaders(shaders)
 {
 }
@@ -80,19 +80,19 @@ void ShaderProgram::Deactivate() const
     glUseProgram(0);
 }
 
-const std::wstring& ShaderProgram::Name() const
+const String& ShaderProgram::Name() const
 {
     return this->name;
 }
 
-const Int32 ShaderProgram::GetParameterLocation(const std::wstring& parameterName) const
+const Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 {
-    String temp = System::Text::Unicode::Narrow(parameterName);
+    std::string temp = System::Text::Unicode::Narrow(parameterName);
 
     return glGetUniformLocation(this->object, temp.c_str());
 }
 
-void ShaderProgram::SetValue(const std::wstring& parameterName, const Matrix& matrix) const
+void ShaderProgram::SetValue(const String& parameterName, const Matrix& matrix) const
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
@@ -106,7 +106,7 @@ void ShaderProgram::SetValue(const Int32& location, const Matrix& matrix) const
     glUniformMatrix4fv(location, 1, GL_FALSE, &matrix[0]);
 }
 
-void ShaderProgram::SetValue(const std::wstring& parameterName, const Vector3& vector3) const
+void ShaderProgram::SetValue(const String& parameterName, const Vector3& vector3) const
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
@@ -120,7 +120,7 @@ void ShaderProgram::SetValue(const Int32& location, const Vector3& vector3) cons
     glUniform3fv(location, 1, &vector3[0]);
 }
 
-void ShaderProgram::SetValue(const std::wstring& parameterName, const Vector4& vector4) const
+void ShaderProgram::SetValue(const String& parameterName, const Vector4& vector4) const
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
@@ -134,7 +134,7 @@ void ShaderProgram::SetValue(const Int32& location, const Vector4& vector4) cons
     glUniform4fv(location, 1, &vector4[0]);
 }
 
-void ShaderProgram::SetValue(const std::wstring& parameterName, const Single& value) const
+void ShaderProgram::SetValue(const String& parameterName, const Single& value) const
 {
     Int32 location = this->GetParameterLocation(parameterName);
 
@@ -165,14 +165,14 @@ void ShaderProgram::VerifyLinkingState()
 
     if (status == GL_FALSE)
     {
-        String msg("Program linking failure: ");
+        std::string msg("Program linking failure: ");
 
         GLint infoLogLength;
         glGetProgramiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
 
         if (infoLogLength)
         {
-            String linkErrorMessage("", infoLogLength);
+            std::string linkErrorMessage("", infoLogLength);
 
             glGetProgramInfoLog(this->object, infoLogLength, NULL, &linkErrorMessage[0]);
 

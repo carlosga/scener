@@ -17,7 +17,7 @@
 #ifndef CONTENTLOADEXCEPTION_HPP
 #define CONTENTLOADEXCEPTION_HPP
 
-#include <System/Core.hpp>
+#include <string>
 
 namespace SceneR
 {
@@ -33,7 +33,7 @@ namespace SceneR
              * Initializes a new instance of the ContentLoadException class with the given message
              * @param m
              */
-            ContentLoadException(const System::String m = "Content Load Exception")
+            ContentLoadException(const std::string m = "Content Load Exception")
                 : msg(m)
             {
             };
@@ -56,7 +56,7 @@ namespace SceneR
             };
 
         private:
-            System::String msg;
+            std::string msg;
         };
     }
 }

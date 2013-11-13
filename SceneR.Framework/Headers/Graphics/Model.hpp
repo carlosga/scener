@@ -19,7 +19,7 @@
 
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <string>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR
@@ -72,18 +72,18 @@ namespace SceneR
             /**
              * Gets the model tag
              */
-            const std::wstring& GetTag() const;
+            const System::String& GetTag() const;
 
             /**
              * Sets the model tag
              */
-            void SetTag(const std::wstring& tag);
+            void SetTag(const System::String& tag);
 
         private:
             std::vector<std::shared_ptr<ModelBone>> bones;
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
-            std::wstring                            tag;
+            System::String                          tag;
 
             friend class SceneR::Content::ModelReader;
         };

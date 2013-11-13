@@ -30,7 +30,7 @@ namespace System
         class Path
         {
         public:
-			static wchar_t GetInvalidPathChars()
+			static Char GetInvalidPathChars()
 			{
 				throw new std::runtime_error("Not implemented");
 			};
@@ -41,9 +41,10 @@ namespace System
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const String ChangeExtension(const String& path, const String& extension)
+            static const System::String ChangeExtension(const System::String& path,
+                                                        const System::String& extension)
             {
-                return GetFileNameWithoutExtension(path) + "." + extension;
+                return GetFileNameWithoutExtension(path) + u"." + extension;
             };
 
             /**
@@ -51,7 +52,7 @@ namespace System
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const String GetFileNameWithoutExtension(const String& path)
+            static const System::String GetFileNameWithoutExtension(const System::String& path)
             {
                 String::size_type result               = path.find_last_of('.');
                 String            pathWithoutExtension = path;
@@ -82,7 +83,7 @@ namespace System
             static const String DirectorySeparator()
             {
 #if __unix__
-                return "/";
+                return u"/";
 #else
                 return "\\";
 #endif

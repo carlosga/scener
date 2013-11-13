@@ -17,9 +17,8 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
-#include <System/Core.hpp>
 #include <Shaders/ShaderType.hpp>
-#include <string>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
@@ -39,7 +38,7 @@ namespace SceneR
              * @param shaderCode the source code for the shader.
              * @param shaderType the type of the shader
              */
-            Shader(const std::wstring& shaderCode, const ShaderType& shaderType);
+            Shader(const System::String& shaderCode, const ShaderType& shaderType);
 
             /**
              * Releases all resources being used by this shader instance.
@@ -63,7 +62,7 @@ namespace SceneR
 
         private:
             System::UInt32 object;
-            std::wstring   shaderCode;
+            System::String shaderCode;
             ShaderType     shaderType;
 
             friend class ShaderProgram;

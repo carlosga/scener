@@ -20,7 +20,6 @@
 #include <System/Core.hpp>
 #include <Shaders/Shader.hpp>
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace SceneR
@@ -46,7 +45,7 @@ namespace SceneR
             /**
              * Intializes a new instance of the ShaderProgram class.
              */
-            ShaderProgram(const std::wstring& name, std::vector<std::shared_ptr<Shader>> &shaders);
+            ShaderProgram(const System::String& name, std::vector<std::shared_ptr<Shader>> &shaders);
 
             /**
              * Releases all memory being used by the current ShaderProgram instance.
@@ -73,20 +72,20 @@ namespace SceneR
              * Gets the shader program name.
              * @return the shader program name.
              */
-            const std::wstring& Name() const;
+            const System::String& Name() const;
 
             /**
              * Gets the location of the shader parameter with the given name within the shader program.
              * @return the location of the shader parameter with the given name within the shader program.
              */
-            const System::Int32 GetParameterLocation(const std::wstring& parameterName) const;
+            const System::Int32 GetParameterLocation(const System::String& parameterName) const;
 
             /**
              * Sets the value of the shader parameter with the given name as a Matrix.
              * @param parameterName the shader parameter name.
              * @param matrix the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Matrix& matrix) const;
+            void SetValue(const System::String& parameterName, const SceneR::Framework::Matrix& matrix) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Matrix.
@@ -100,7 +99,7 @@ namespace SceneR
              * @param parameterName the shader parameter name.
              * @param vector3 the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Vector3& vector3) const;
+            void SetValue(const System::String& parameterName, const SceneR::Framework::Vector3& vector3) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Vector3.
@@ -114,7 +113,7 @@ namespace SceneR
              * @param parameterName the shader parameter name.
              * @param vector4 the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const SceneR::Framework::Vector4& vector4) const;
+            void SetValue(const System::String& parameterName, const SceneR::Framework::Vector4& vector4) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a Vector4.
@@ -128,7 +127,7 @@ namespace SceneR
              * @param parameterName the shader parameter name.
              * @param value the value to assign to the shader parameter.
              */
-            void SetValue(const std::wstring& parameterName, const System::Single& value) const;
+            void SetValue(const System::String& parameterName, const System::Single& value) const;
 
             /**
              * Sets the value of the shader parameter with the given location as a scalar value of type System::Single.
@@ -142,7 +141,7 @@ namespace SceneR
             void VerifyLinkingState();
 
         private:
-            std::wstring                         name;
+            System::String                       name;
             System::UInt32                       object;
             std::vector<std::shared_ptr<Shader>> shaders;
         };

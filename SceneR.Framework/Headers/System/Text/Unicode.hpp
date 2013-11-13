@@ -36,10 +36,10 @@ namespace System
             /**
              * Converts a wide string to a regular string.
              */
-            static String Narrow(const std::wstring& source)
+            static std::string Narrow(const String& source)
             {
-                typedef std::codecvt_utf8<wchar_t> convert_type;
-                std::wstring_convert<convert_type, wchar_t> converter;
+                typedef std::codecvt_utf8_utf16<char16_t> convert_type; // UTF-8 <-> UTF-16 converter
+                std::wstring_convert<convert_type, char16_t> converter;
 
                 return converter.to_bytes(source);
             };

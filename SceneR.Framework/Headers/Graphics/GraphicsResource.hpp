@@ -17,8 +17,8 @@
 #ifndef GRAPHICSRESOURCE_HPP
 #define GRAPHICSRESOURCE_HPP
 
+#include <System/Core.hpp>
 #include <memory>
-#include <string>
 
 namespace SceneR
 {
@@ -54,30 +54,30 @@ namespace SceneR
              * Gets the graphics resource name
              * @return the graphics resource name
              */
-            const std::wstring& GetName() const;
+            const System::String& GetName() const;
 
             /**
              * Sets the graphics resource name
              * @param name the new graphics resource name
              */
-            void SetName(const std::wstring& name);
+            void SetName(const System::String& name);
 
             /**
              * Gets the graphics resource identifier
              * @return the graphics resource identifier
              */
-            const std::wstring& GetTag() const;
+            const System::String& GetTag() const;
 
             /**
              * Sets the graphics resource tag
              * @param tag the graphics resource tag
              */
-            void SetTag(const std::wstring& tag);
+            void SetTag(const System::String& tag);
 
         protected:
             GraphicsDevice& graphicsDevice;
-            std::wstring    name;
-            std::wstring    tag;
+            System::String  name;
+            System::String  tag;
         };
     }
 }

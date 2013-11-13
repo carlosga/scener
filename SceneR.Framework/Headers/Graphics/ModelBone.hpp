@@ -17,10 +17,9 @@
 #ifndef MODELBONE_HPP
 #define MODELBONE_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
+#include <System/Core.hpp>
 #include <memory>
-#include <string>
 #include <vector>
 
 namespace SceneR
@@ -65,12 +64,12 @@ namespace SceneR
             /**
              * Gets the bone name
              */
-            const std::wstring& GetName() const;
+            const System::String& GetName() const;
 
             /**
              * Gets the bone name
              */
-            void SetName(const std::wstring& name);
+            void SetName(const System::String& name);
 
             /**
              * Gets the parent of the current bone
@@ -90,7 +89,7 @@ namespace SceneR
         private:
             std::vector<std::shared_ptr<ModelBone>> children;
             System::UInt32                          index;
-            std::wstring                            name;
+            System::String                          name;
             std::shared_ptr<ModelBone>              parent;
             SceneR::Framework::Matrix               transform;
 

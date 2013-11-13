@@ -16,6 +16,7 @@
 
 #include <Graphics/GraphicsResource.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
@@ -34,22 +35,22 @@ GraphicsDevice& GraphicsResource::GetGraphicsDevice()
     return this->graphicsDevice;
 }
 
-const std::wstring& GraphicsResource::GetName() const
+const String& GraphicsResource::GetName() const
 {
     return this->name;
 }
 
-void GraphicsResource::SetName(const std::wstring& name)
+void GraphicsResource::SetName(const String& name)
 {
     this->name = name;
 }
 
-const std::wstring& GraphicsResource::GetTag() const
+const String& GraphicsResource::GetTag() const
 {
     return this->tag;
 }
 
-void GraphicsResource::SetTag(const std::wstring& tag)
+void GraphicsResource::SetTag(const String& tag)
 {
     this->tag = tag;
 }

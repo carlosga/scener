@@ -62,12 +62,12 @@ namespace System
             /**
              * Reads the next character from the current stream.
              */
-            wchar_t ReadChar();
+            Char ReadChar();
 
             /**
              * Reads a string from the current stream. The string is prefixed with the length.
              */
-            std::wstring ReadString();
+            String ReadString();
 
             /**
              * Reads a 7-bit encoded int

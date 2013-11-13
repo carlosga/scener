@@ -22,7 +22,7 @@
 using namespace System;
 using namespace SceneR::Shaders;
 
-Shader::Shader(const std::wstring& shaderCode, const ShaderType& shaderType)
+Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
     : object(0), shaderCode(shaderCode), shaderType(shaderType)
 {
 }
@@ -43,7 +43,7 @@ void Shader::Compile()
     }
 
     // Set the source code
-    String temp = System::Text::Unicode::Narrow(this->shaderCode);
+    std::string temp = System::Text::Unicode::Narrow(this->shaderCode);
     const char* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 
@@ -82,14 +82,14 @@ void Shader::VerifyCompilationState()
 {
     if (!this->IsCompiled())
     {
-        String msg("Compile failure in shader:\n");
+        std::string msg("Compile failure in shader:\n");
 
         GLint infoLogLength;
         glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
 
         if (infoLogLength)
         {
-            String compileErrorMessage("", infoLogLength);
+            std::string compileErrorMessage("", infoLogLength);
 
             glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
 

@@ -47,9 +47,9 @@ int BinaryReader::PeekChar()
     return -1;
 }
 
-wchar_t BinaryReader::ReadChar()
+char16_t BinaryReader::ReadChar()
 {
-    wchar_t buffer = this->ReadByte();
+    char16_t buffer = this->ReadByte();
 
     // http://xbox.create.msdn.com/en-US/sample/xnb_format
     // Decode UTF-8.
@@ -74,10 +74,10 @@ wchar_t BinaryReader::ReadChar()
     return buffer;
 }
 
-std::wstring BinaryReader::ReadString()
+std::u16string BinaryReader::ReadString()
 {
-    std::wstring buffer;
-    UInt32       length = this->ReadUInt32();
+    std::u16string buffer;
+    UInt32         length = this->ReadUInt32();
 
     for (UInt32 i = 0; i < length; i++)
     {
