@@ -254,26 +254,18 @@ void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
     this->BindVertexBuffer();
     this->BindVertexArray();
 
+    glBindVertexBuffer(0, this->vbo, 0, vDecl.GetVertexStride());
+
     // ... declare vertex elements
     for (const VertexElement& ve : vDecl.GetVertexElements())
     {
-        long offset = ve.GetOffset();
+        glVertexAttribFormat(ve.GetUsageIndex(),
+                             ve.GetComponentCount(),
+                             GL_FLOAT,
+                             false,
+                             ve.GetOffset());
 
-        glVertexAttribPointer(ve.GetUsageIndex(),       // Specifies the index of the generic vertex attribute to be modified.
-                              ve.GetComponentCount(),   // Specifies the number of components per generic vertex attribute.
-                                                        // Must be 1, 2, 3, 4. Additionally, the symbolic constant GL_BGRA is
-                                                        // accepted by glVertexAttribPointer. The initial value is 4.
-                              GL_FLOAT,                 // Specifies the data type of each component in the array.
-                              false,                    // For glVertexAttribPointer, specifies whether fixed-point data values should be
-                                                        // normalized (GL_TRUE) or converted directly as fixed-point values (GL_FALSE)
-                                                        // when they are accessed.
-                              vDecl.GetVertexStride(),  // Specifies the byte offset between consecutive generic vertex attributes.
-                                                        // If stride is 0, the generic vertex attributes are understood to be tightly packed
-                                                        // in the array. The initial value is 0.
-                              (const GLvoid*)offset);   // Specifies a offset of the first component of the first generic vertex attribute
-                                                        // in the array in the data store of the buffer currently bound to the GL_ARRAY_BUFFER
-                                                        // target. The initial value is 0.
-
+        glVertexAttribBinding(ve.GetUsageIndex(), 0);
         glEnableVertexAttribArray(ve.GetUsageIndex());
     }
 
