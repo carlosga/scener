@@ -67,15 +67,15 @@ Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
 Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
 {
     Single x = (normal.X() * matrix.M11())
-             + (normal.Y() * matrix.M12())
-             + (normal.Z() * matrix.M13());
+             + (normal.Y() * matrix.M21())
+             + (normal.Z() * matrix.M31());
 
-    Single y = (normal.X() * matrix.M21())
+    Single y = (normal.X() * matrix.M12())
              + (normal.Y() * matrix.M22())
-             + (normal.Z() * matrix.M23());
+             + (normal.Z() * matrix.M32());
 
-    Single z = (normal.X() * matrix.M31())
-             + (normal.Y() * matrix.M32())
+    Single z = (normal.X() * matrix.M13())
+             + (normal.Y() * matrix.M23())
              + (normal.Z() * matrix.M33());
 
     return Vector3(x, y, z);
@@ -298,23 +298,23 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
 {
     // http://softimage.wiki.softimage.com/xsidocs/iceref_Multiply_Vector_by_Matrix.htm
     Single x = (this->x * matrix.M11())
-             + (this->y * matrix.M12())
-             + (this->z * matrix.M13())
-             + matrix.M14();
+             + (this->y * matrix.M21())
+             + (this->z * matrix.M31())
+             + matrix.M41();
 
-    Single y = (this->x * matrix.M21())
+    Single y = (this->x * matrix.M12())
              + (this->y * matrix.M22())
-             + (this->z * matrix.M23())
-             + matrix.M24();
+             + (this->z * matrix.M32())
+             + matrix.M42();
 
-    Single z = (this->x * matrix.M31())
-             + (this->y * matrix.M32())
+    Single z = (this->x * matrix.M13())
+             + (this->y * matrix.M23())
              + (this->z * matrix.M33())
-             + matrix.M34();
+             + matrix.M43();
 
-    Single w = (this->x * matrix.M41())
-             + (this->y * matrix.M42())
-             + (this->z * matrix.M43())
+    Single w = (this->x * matrix.M14())
+             + (this->y * matrix.M24())
+             + (this->z * matrix.M34())
              + matrix.M44();
 
     return Vector3(x / w, y / w, z / w);

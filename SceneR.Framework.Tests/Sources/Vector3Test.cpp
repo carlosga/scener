@@ -274,10 +274,10 @@ TEST_F(Vector3Test, VectorByScalarMultplicationAssignment)
 TEST_F(Vector3Test, VectorByMatrixMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Matrix  matrix1(10.0f, 20.0f, 30.0f, 5.0f,
-                    10.0f, 20.0f, 30.0f, 10.0f,
-                    10.0f, 20.0f, 30.0f, 15.0f,
-                    0.0f , 0.0f , 0.0f , 1.0f);
+    Matrix  matrix1(10.0f, 10.0f, 10.0f, 0.0f,
+                    20.0f, 20.0f, 20.0f, 0.0f,
+                    30.0f, 30.0f, 30.0f, 0.0f,
+                    5.0f , 10.0f, 15.0f , 1.0f);
     
     Vector3 vectorResult = (vector1 * matrix1);
 
@@ -290,10 +290,10 @@ TEST_F(Vector3Test, VectorByMatrixMultiplication)
 TEST_F(Vector3Test, TransformNormal)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Matrix  matrix1(10.0f, 20.0f, 30.0f, 5.0f,
-                    10.0f, 20.0f, 30.0f, 10.0f,
-                    10.0f, 20.0f, 30.0f, 15.0f,
-                    0.0f , 0.0f , 0.0f , 1.0f);
+    Matrix  matrix1(10.0f, 10.0f, 10.0f, 0.0f,
+                    20.0f, 20.0f, 20.0f, 0.0f,
+                    30.0f, 30.0f, 30.0f, 0.0f,
+                    5.0f , 10.0f, 15.0f , 1.0f);
 
     Vector3 vectorResult = Vector3::TransformNormal(vector1, matrix1);
 
