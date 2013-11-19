@@ -109,6 +109,34 @@ namespace SceneR
                                       const Vector3& value2,
                                       const System::Single&  amount);
 
+            /**
+             * Normalizes the specified 3D Vector.
+             *
+             * A normalized Vector3 maintains its direction but its magnitude becomes 1.
+             * The resulting Vector3 is often called a unit vector.
+             * A Vector3 is normalized by dividing the Vector3 by its magnitude.
+             * @param value the vector to be normalized.
+             * @returns the normalized vector.
+             */
+            static Vector3 Normalize(const Vector3& value);
+
+            /**
+             * Transforms a 3D vector by the given matrix.
+             * @param position the 3D Vector to be transformed.
+             * @param matrix the transformation matrix.
+             * @return the transformed vector.
+             */
+            static Vector3 Transform(const Vector3& position, const Matrix& matrix);
+
+            /**
+             * This method transforms the vector normal (x, y, z, 0) of the source vector,
+             * or the array of vector structures, by the sourceMatrix matrix.
+             * If you transform a normal by a non-affine matrix, the matrix you pass to this
+             * function should be the transpose of the inverse of the matrix you would use to
+             * transform a coordinate.
+             */
+            static Vector3 TransformNormal(const Vector3& normal, const Matrix& matrix);
+
         public:
             /**
              * Initializes a new instance of the Vector3 class.
@@ -197,7 +225,7 @@ namespace SceneR
             const System::Single AngleBetween(const Vector3& vectorb) const;
 
             /**
-             * Normalizes the specified Vector3.
+             * Normalizes this Vector3.
              *
              * A normalized Vector3 maintains its direction but its magnitude becomes 1.
              * The resulting Vector3 is often called a unit vector.

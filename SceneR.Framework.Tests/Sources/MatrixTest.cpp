@@ -252,15 +252,15 @@ TEST_F(MatrixTest, TransformChain)
 
 TEST_F(MatrixTest, TransformFromAxisAngleX)
 {
-    Vector3 vector(0, 0, 10);
+    Vector3 vector(10, 0, 0);
     Vector3 axis(1, 0, 0);
     Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
 
     Vector3 vectorResult = vector * matrix;
 
-    EXPECT_TRUE(0.0f   == vectorResult.X());
-    EXPECT_TRUE(-10.0f == vectorResult.Y());
-    EXPECT_TRUE(0.0f   == vectorResult.Z());
+    EXPECT_TRUE(10.0f == vectorResult.X());
+    EXPECT_TRUE(0.0f  == vectorResult.Y());
+    EXPECT_TRUE(0.0f  == vectorResult.Z());
 }
 
 TEST_F(MatrixTest, TransformFromAxisAngleY)

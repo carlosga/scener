@@ -50,6 +50,37 @@ Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const 
     throw std::runtime_error("Not  implemented");
 }
 
+Vector3 Vector3::Normalize(const Vector3& value)
+{
+    Vector3 normalized(value);
+
+    normalized.Normalize();
+
+    return normalized;
+}
+
+Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
+{
+    return (position * matrix);
+}
+
+Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
+{
+    Single x = (normal.X() * matrix.M11())
+             + (normal.Y() * matrix.M12())
+             + (normal.Z() * matrix.M13());
+
+    Single y = (normal.X() * matrix.M21())
+             + (normal.Y() * matrix.M22())
+             + (normal.Z() * matrix.M23());
+
+    Single z = (normal.X() * matrix.M31())
+             + (normal.Y() * matrix.M32())
+             + (normal.Z() * matrix.M33());
+
+    return Vector3(x, y, z);
+}
+
 Vector3::Vector3()
     : Vector3(0.0f, 0.0f, 0.0f)
 {
@@ -265,19 +296,28 @@ const Vector3 Vector3::operator*(const Single& value) const
 
 const Vector3 Vector3::operator*(const Matrix& matrix) const
 {
+    // http://softimage.wiki.softimage.com/xsidocs/iceref_Multiply_Vector_by_Matrix.htm
     Single x = (this->x * matrix.M11())
-             + (this->y * matrix.M21())
-             + (this->z * matrix.M31());
+             + (this->y * matrix.M12())
+             + (this->z * matrix.M13())
+             + matrix.M14();
 
-    Single y = (this->x * matrix.M12())
+    Single y = (this->x * matrix.M21())
              + (this->y * matrix.M22())
-             + (this->z * matrix.M32());
+             + (this->z * matrix.M23())
+             + matrix.M24();
 
-    Single z = (this->x * matrix.M13())
-             + (this->y * matrix.M23())
-             + (this->z * matrix.M33());
+    Single z = (this->x * matrix.M31())
+             + (this->y * matrix.M32())
+             + (this->z * matrix.M33())
+             + matrix.M34();
 
-    return Vector3(x, y, z);
+    Single w = (this->x * matrix.M41())
+             + (this->y * matrix.M42())
+             + (this->z * matrix.M43())
+             + matrix.M44();
+
+    return Vector3(x / w, y / w, z / w);
 }
 
 const Vector3 Vector3::operator/(const Vector3& vector) const

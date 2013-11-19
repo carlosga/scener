@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Vector3.hpp>
 #include <GL/glew.h>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexBufferTarget.hpp>
@@ -23,6 +24,7 @@
 #include <Graphics/VertexPositionColor.hpp>
 #include <Graphics/VertexPositionColorTexture.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
+#include <sstream>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -168,7 +170,7 @@ void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
             buffer[index++] = position[i];
         }
 
-        // process normal components
+        // process color components
         for (int i = 0; i < 3; i++)
         {
             buffer[index++] = normal[i];
@@ -265,13 +267,15 @@ void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
                              false,
                              ve.GetOffset());
 
-        glVertexAttribBinding(ve.GetUsageIndex(), 0);
         glEnableVertexAttribArray(ve.GetUsageIndex());
+        glVertexAttribBinding(ve.GetUsageIndex(), 0);
     }
 
     // ... and unbind the vertex array and buffer
     this->UnbindVertexArray();
     this->UnbindVertexBuffer();
+
+    glBindVertexBuffer(0, 0, 0, vDecl.GetVertexStride());
 }
 
 void VertexBuffer::Release()

@@ -39,9 +39,7 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
     float x       = 0.0f;
     float y       = 0.0f;
     float z       = 0.0f;
-    Vector3 axisNormalized(axis);
-
-    axisNormalized.Normalize();
+    Vector3 axisNormalized(Vector3::Normalize(axis));
 
     x = axisNormalized.X();
     y = axisNormalized.Y();
@@ -127,14 +125,8 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     // xaxis.z           yaxis.z           zaxis.z          0
     // dot(xaxis, eye)   dot(yaxis, eye)   dot(zaxis, eye)  1
 
-    Vector3 zAxis(cameraPosition - cameraTarget);
-
-    zAxis.Normalize();
-
-    Vector3 xAxis(cameraUpVector.CrossProduct(zAxis));
-
-    xAxis.Normalize();
-
+    Vector3 zAxis(Vector3::Normalize(cameraPosition - cameraTarget));
+    Vector3 xAxis(Vector3::Normalize(cameraUpVector.CrossProduct(zAxis)));
     Vector3 yAxis(zAxis.CrossProduct(xAxis));
 
     Single dx = xAxis.DotProduct(cameraPosition);

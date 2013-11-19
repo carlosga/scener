@@ -274,14 +274,30 @@ TEST_F(Vector3Test, VectorByScalarMultplicationAssignment)
 TEST_F(Vector3Test, VectorByMatrixMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Matrix  matrix1(10.0f, 10.0f, 10.0f, 0.0f, 
-                     20.0f, 20.0f, 20.0f, 0.0f, 
-                     30.0f, 30.0f, 30.0f, 0.0f, 
-                     5.0f , 10.0f, 15.0f, 1.0f);
+    Matrix  matrix1(10.0f, 20.0f, 30.0f, 5.0f,
+                    10.0f, 20.0f, 30.0f, 10.0f,
+                    10.0f, 20.0f, 30.0f, 15.0f,
+                    0.0f , 0.0f , 0.0f , 1.0f);
     
     Vector3 vectorResult = (vector1 * matrix1);
 
-    // vector Result is equal to (2000, 2000, 2000)    
+    // vector Result is equal to (2005, 2010, 2015)
+    EXPECT_TRUE(2005.0f == vectorResult.X());
+    EXPECT_TRUE(2010.0f == vectorResult.Y());
+    EXPECT_TRUE(2015.0f == vectorResult.Z());
+}
+
+TEST_F(Vector3Test, TransformNormal)
+{
+    Vector3 vector1(20.0f, 30.0f, 40.0f);
+    Matrix  matrix1(10.0f, 20.0f, 30.0f, 5.0f,
+                    10.0f, 20.0f, 30.0f, 10.0f,
+                    10.0f, 20.0f, 30.0f, 15.0f,
+                    0.0f , 0.0f , 0.0f , 1.0f);
+
+    Vector3 vectorResult = Vector3::TransformNormal(vector1, matrix1);
+
+    // vector Result is equal to (2000, 2000, 2000)
     EXPECT_TRUE(2000.0f == vectorResult.X());
     EXPECT_TRUE(2000.0f == vectorResult.Y());
     EXPECT_TRUE(2000.0f == vectorResult.Z());
