@@ -215,9 +215,7 @@ namespace SceneR
              * @param forward Forward direction of the object.
              * @param up Upward direction of the object; usually [0, 1, 0].
              */
-            static Matrix CreateWorld(const Vector3& position,
-                                      const Vector3& forward,
-                                      const Vector3& up);
+            static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up);
 
             /**
              * Transforms a Matrix by applying a Quaternion rotation.
@@ -226,8 +224,14 @@ namespace SceneR
              * @param rotation the quaternion rotation
              * @returns thr transformed matrix
              */
-            static Matrix Transform(const Matrix& value,
-                                    const Quaternion& rotation);
+            static Matrix Transform(const Matrix& value, const Quaternion& rotation);
+
+            /**
+             * Returns the tranpose of the given matrix.
+             * @param matrix the source matrix.
+             * @returns Transposed matrix.
+             */
+            static Matrix Transpose(const Matrix& source);
 
         public:
             /**

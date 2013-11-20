@@ -32,22 +32,19 @@ const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
-    float radians = MathHelper::ToRadians(angle);
-    float cos      = std::cos(radians) - 1 + 1;
-    float sin      = std::sin(radians);
-    float cos_1   = 1.0f - cos;
-    float x       = 0.0f;
-    float y       = 0.0f;
-    float z       = 0.0f;
+    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
     Vector3 axisNormalized(Vector3::Normalize(axis));
+    float theta = MathHelper::ToRadians(angle);
+    float cos   = std::cos(theta) - 1 + 1;
+    float sin   = std::sin(theta);
+    float cos_1 = 1.0f - cos;
+    float x     = axisNormalized.X();
+    float y     = axisNormalized.Y();
+    float z     = axisNormalized.Z();
 
-    x = axisNormalized.X();
-    y = axisNormalized.Y();
-    z = axisNormalized.Z();
-
-    return Matrix(x * x * cos_1 + cos    , y * x * cos_1 + z * sin, z * x * cos_1 - y * sin, 0.0f,
-                  x * y * cos_1 - z * sin, y * y * cos_1 + cos    , z * y * cos_1 + x * sin, 0.0f,
-                  x * z * cos_1 + y * sin, y * z * cos_1 - x * sin, z * z * cos_1 + cos    , 0.0f,
+    return Matrix(x * x * cos_1 + cos    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f,
+                  y * x * cos_1 + z * sin, y * y * cos_1 + cos    , y * z * cos_1 - x * sin, 0.0f,
+                  z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, z * z * cos_1 + cos    , 0.0f,
                   0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
 }
 
@@ -69,26 +66,26 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
     Single yz = quaternion.Y() * quaternion.Z();
     Single xw = quaternion.X() * quaternion.W();
 
-    return Matrix(1.0f - 2.0f * yy - 2.0f * zz, 2.0f * xy + 2.0f * zw       , 2.0f * xz - 2.0f * yw       , 0.0f,
-                  2.0f * xy - 2.0f * zw       , 1.0f - 2.0f * xx - 2.0f * zz, 2.0f * yz + 2.0f * xw       , 0.0f,
-                  2.0f * xz + 2.0f * yw       , 2.0f * yz - 2.0f * xw       , 1.0f - 2.0f * xx - 2.0f * yy, 0.0f,
+    return Matrix(1.0f - 2.0f * yy - 2.0f * zz, 2.0f * xy - 2.0f * zw       , 2.0f * xz + 2.0f * yw       , 0.0f,
+                  2.0f * xy + 2.0f * zw       , 1.0f - 2.0f * xx - 2.0f * zz, 2.0f * yz - 2.0f * xw       , 0.0f,
+                  2.0f * xz - 2.0f * yw       , 2.0f * yz + 2.0f * xw       , 1.0f - 2.0f * xx - 2.0f * yy, 0.0f,
                   0.0f                        , 0.0f                        , 0.0f                        , 1.0f);
 }
 
 Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
     // Formula: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
-    Single sa = sin(MathHelper::ToRadians(pitch));
-    Single ca = cos(MathHelper::ToRadians(pitch));
-    Single sb = sin(MathHelper::ToRadians(roll));
-    Single cb = cos(MathHelper::ToRadians(roll));
-    Single sh = sin(MathHelper::ToRadians(yaw));
-    Single ch = cos(MathHelper::ToRadians(yaw));
+    Single ch = std::cos(MathHelper::ToRadians(yaw))   - 1 + 1;
+    Single sh = std::sin(MathHelper::ToRadians(yaw))   - 1 + 1;
+    Single ca = std::cos(MathHelper::ToRadians(pitch)) - 1 + 1;
+    Single sa = std::sin(MathHelper::ToRadians(pitch)) - 1 + 1;
+    Single sb = std::sin(MathHelper::ToRadians(roll))  - 1 + 1;
+    Single cb = std::cos(MathHelper::ToRadians(roll))  - 1 + 1;
 
-    return Matrix(ch * ca                , sa      , -sh * ca               , 0.0f,
-                  -ch * sa * cb + sh * sb, ca * cb , sh * sa * cb + ch * sb , 0.0f,
-                  ch * sa * sb + sh * cb , -ca * sb, -sh * sa * sb + ch * cb, 0.0f,
-                  0.0f                   , 0.0f    , 0.0f                   , 1.0f);
+    return Matrix(ch * ca , - ch * sa * cb + sh * sb, ch * sa * sb + sh * cb , 0.0f,
+                  sa      , ca * cb                 , -ca * sb               , 0.0f,
+                  -sh * ca, sh * sa * cb + ch * sb  , -sh * sa * sb + ch * cb, 0.0f,
+                  0.0f    , 0.0f                    , 0.0f                   , 1.0f);
 }
 
 Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
@@ -213,7 +210,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
     // 0        0        zn*zf/(zn-zf)      0
     //
     // where:
-    // yScale = 1.0f / cot(fovY/2)
+    // yScale = cot(fovY/2)
     // xScale = yScale / aspect ratio
 
     if (zNear < 0 || zFar < 0)
@@ -221,14 +218,15 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
         throw std::invalid_argument("zNear and zFar should be positive values.");
     }
 
-    Single f           = 1.0f / (std::tan(MathHelper::ToRadians(fieldOfView / 2)));
-    Single nearSubFar  = zNear - zFar;
-    Single nearDotFar  = zNear * zFar;
+    Single yScale     = 1.0f / std::tan(MathHelper::ToRadians(fieldOfView / 2));
+    Single xScale     = yScale / aspectRatio;
+    Single nearSubFar = zNear - zFar;
+    Single nearDotFar = zNear * zFar;
 
-    return Matrix(f / aspectRatio, 0.0f, 0.0f                   , 0.0f,
-                  0.0f           , f   , 0.0f                   , 0.0f,
-                  0.0f           , 0.0f, zFar / nearSubFar      , -1.0f,
-                  0.0f           , 0.0f, nearDotFar / nearSubFar, 0.0f);
+    return Matrix(xScale, 0.0f  , 0.0f                   , 0.0f,
+                  0.0f  , yScale, 0.0f                   , 0.0f,
+                  0.0f  , 0.0f  , zFar / nearSubFar      , -1.0f,
+                  0.0f  , 0.0f  , nearDotFar / nearSubFar, 0.0f);
 }
 
 Matrix Matrix::CreateRotationX(const Single& angle)
@@ -285,6 +283,15 @@ Matrix Matrix::CreateTranslation(const Vector3& position)
 Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 {
     return value * Matrix::CreateFromQuaternion(rotation);
+}
+
+Matrix Matrix::Transpose(const Matrix& source)
+{
+    Matrix result(source);
+
+    result.Transpose();
+
+    return result;
 }
 
 Matrix::Matrix()

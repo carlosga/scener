@@ -19,6 +19,7 @@
 #include <Framework/Vector4.hpp>
 #include <MatrixTest.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 TEST_F(MatrixTest, DefaultConstructor)
@@ -158,6 +159,32 @@ TEST_F(MatrixTest, MatrixTranspose)
     EXPECT_TRUE(1.0f  == matrix.M44());
 }
 
+TEST_F(MatrixTest, CreateFromYawPitchRoll)
+{
+    Single yaw   = 0.0f;
+    Single pitch = 0.0f;
+    Single roll  = 90.0f;
+
+    Matrix matrix = Matrix::CreateFromYawPitchRoll(yaw, pitch, roll);
+
+    EXPECT_TRUE(1.0f  == matrix.M11());
+    EXPECT_TRUE(0.0f  == matrix.M12());
+    EXPECT_TRUE(0.0f  == matrix.M13());
+    EXPECT_TRUE(0.0f  == matrix.M14());
+    EXPECT_TRUE(0.0f  == matrix.M21());
+    EXPECT_TRUE(0.0f  == matrix.M22());
+    EXPECT_TRUE(-1.0f == matrix.M23());
+    EXPECT_TRUE(0.0f  == matrix.M24());
+    EXPECT_TRUE(0.0f  == matrix.M31());
+    EXPECT_TRUE(1.0f  == matrix.M32());
+    EXPECT_TRUE(0.0f  == matrix.M33());
+    EXPECT_TRUE(0.0f  == matrix.M34());
+    EXPECT_TRUE(0.0f  == matrix.M41());
+    EXPECT_TRUE(0.0f  == matrix.M42());
+    EXPECT_TRUE(0.0f  == matrix.M43());
+    EXPECT_TRUE(1.0f  == matrix.M44());
+}
+
 TEST_F(MatrixTest, TransformChain)
 {
     Vector4 originalVector(10, 10, 10, 1);
@@ -202,10 +229,10 @@ TEST_F(MatrixTest, TransformChain)
     EXPECT_TRUE(00.0f == matrix.M14());
     EXPECT_TRUE(00.0f == matrix.M21());
     EXPECT_TRUE(00.0f == matrix.M22());
-    EXPECT_TRUE(1.0f  == matrix.M23());
+    EXPECT_TRUE(-1.0f == matrix.M23());
     EXPECT_TRUE(00.0f == matrix.M24());
     EXPECT_TRUE(00.0f == matrix.M31());
-    EXPECT_TRUE(-1.0f == matrix.M32());
+    EXPECT_TRUE(01.0f == matrix.M32());
     EXPECT_TRUE(00.0f == matrix.M33());
     EXPECT_TRUE(00.0f == matrix.M34());
     EXPECT_TRUE(10.0f == matrix.M41());
@@ -216,8 +243,8 @@ TEST_F(MatrixTest, TransformChain)
     transformedVector = originalVector * matrix;
 
     EXPECT_TRUE(20.0f  == transformedVector.X());
-    EXPECT_TRUE(-10.0f == transformedVector.Y());
-    EXPECT_TRUE(10.0f  == transformedVector.Z());
+    EXPECT_TRUE(10.0f  == transformedVector.Y());
+    EXPECT_TRUE(-10.0f == transformedVector.Z());
     EXPECT_TRUE(01.0f  == transformedVector.W());
 
     matrix *= scaleTransform;
@@ -229,11 +256,11 @@ TEST_F(MatrixTest, TransformChain)
 
     EXPECT_TRUE(00.0f == matrix.M21());
     EXPECT_TRUE(00.0f == matrix.M22());
-    EXPECT_TRUE(2.0f  == matrix.M23());
+    EXPECT_TRUE(-2.0f == matrix.M23());
     EXPECT_TRUE(00.0f == matrix.M24());
 
     EXPECT_TRUE(00.0f == matrix.M31());
-    EXPECT_TRUE(-2.0f == matrix.M32());
+    EXPECT_TRUE(02.0f == matrix.M32());
     EXPECT_TRUE(0.0f  == matrix.M33());
     EXPECT_TRUE(00.0f == matrix.M34());
 
@@ -245,8 +272,8 @@ TEST_F(MatrixTest, TransformChain)
     transformedVector = originalVector * matrix;
 
     EXPECT_TRUE(40.0f  == transformedVector.X());
-    EXPECT_TRUE(-20.0f == transformedVector.Y());
-    EXPECT_TRUE(20.0f  == transformedVector.Z());
+    EXPECT_TRUE(20.0f  == transformedVector.Y());
+    EXPECT_TRUE(-20.0f == transformedVector.Z());
     EXPECT_TRUE(01.0f  == transformedVector.W());
 }
 
