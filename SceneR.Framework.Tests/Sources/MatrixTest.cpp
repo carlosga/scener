@@ -272,7 +272,7 @@ TEST_F(MatrixTest, TransformChain)
     transformedVector = originalVector * matrix;
 
     EXPECT_TRUE(40.0f  == transformedVector.X());
-    EXPECT_TRUE(20.0f   == transformedVector.Y());
+    EXPECT_TRUE(20.0f  == transformedVector.Y());
     EXPECT_TRUE(-20.0f == transformedVector.Z());
     EXPECT_TRUE(01.0f  == transformedVector.W());
 }

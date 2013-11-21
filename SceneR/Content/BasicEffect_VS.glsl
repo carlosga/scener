@@ -17,12 +17,12 @@ void main()
     // Pass the tex coord straight through to the fragment shader
     // FragmentTexCoord = VertexCoord;
     
-    // Transform the normal vector
-    Normal = vec3(normalize(WorldInverseTranspose * vec4(VertexNormal, 1.0)));    
+    // Calculate the World Normal
+    Normal = normalize(vec4(VertexNormal, 1.0) * WorldInverseTranspose).xyz;    
     
     // Calculate vertex position
-    Position = vec3(WorldView * vec4(VertexPosition, 1.0));
+    Position = (vec4(VertexPosition, 1.0) * WorldView).xyz;
     
     // Apply all matrix transformations to vert
-    gl_Position = WorldViewProjection * vec4(VertexPosition, 1.0);
+    gl_Position = vec4(VertexPosition, 1.0) * WorldViewProjection;
 }

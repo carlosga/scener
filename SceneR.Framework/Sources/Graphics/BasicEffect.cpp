@@ -304,12 +304,14 @@ void BasicEffect::EnableDefaultLighting()
 void BasicEffect::OnApply()
 {
     Matrix worldInverseTranspose(this->world);
+    Matrix worldView(this->world * this->view);
+    Matrix worldViewProjection(worldView * this->projection);
 
     worldInverseTranspose.Invert();
     worldInverseTranspose.Transpose();
 
-    Effect::GetEffectParameter(u"WorldView").SetValue(this->world * this->view);
-    Effect::GetEffectParameter(u"WorldViewProjection").SetValue(this->world * this->view * this->projection);
+    Effect::GetEffectParameter(u"WorldView").SetValue(worldView);
+    Effect::GetEffectParameter(u"WorldViewProjection").SetValue(Matrix::Transpose(worldViewProjection));
     Effect::GetEffectParameter(u"WorldInverseTranspose").SetValue(worldInverseTranspose);
     Effect::GetEffectParameter(u"LightPosition").SetValue(Vector4(5.0f, -5.0, -5.0f, 1.0f));
     Effect::GetEffectParameter(u"LightIntensity").SetValue(Vector3(0.52f , 0.57f , 0.62f));
@@ -336,13 +338,13 @@ void BasicEffect::LoadShader()
     this->shaderProgram = std::make_shared<ShaderProgram>(u"BasicEffect", shaders);
     this->shaderProgram->Build();
 
-    Effect::AddEffectParameter(u"WorldView"             , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"WorldViewProjection"   , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"LightPosition"         , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"LightIntensity"        , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"Ka"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"Kd"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"Ks"                    , EffectParameterClass::Vector, EffectParameterType::Single);
-    Effect::AddEffectParameter(u"Shininess"             , EffectParameterClass::Scalar, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldView"            , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldViewProjection"  , EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"WorldInverseTranspose", EffectParameterClass::Matrix, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"LightPosition"        , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"LightIntensity"       , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Ka"                   , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Kd"                   , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Ks"                   , EffectParameterClass::Vector, EffectParameterType::Single);
+    Effect::AddEffectParameter(u"Shininess"            , EffectParameterClass::Scalar, EffectParameterType::Single);
 }

@@ -44,7 +44,7 @@ void AstroBoy::Draw()
 
     this->GetGraphicsDevice().Clear(Color::Black);
 
-    Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, -15.0f, 0.0f), Vector3(0.0f, 0.0f, 3.0f), Vector3(0.0f, 0.0f, 1.0f));
+    Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, 15.0f, 0.0f), Vector3(0.0f, 0.0f, 5.0f), Vector3(0.0f, 1.0f, 0.0f));
     Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 1.0f, 100.0f);
 
     this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
