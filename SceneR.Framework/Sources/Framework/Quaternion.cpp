@@ -231,10 +231,10 @@ Quaternion& Quaternion::operator=(const Quaternion& quaternion)
 
 bool Quaternion::operator==(const Quaternion& quaternion) const
 {
-    return (this->x    == quaternion.x
-            && this->y == quaternion.y
-            && this->z == quaternion.z
-            && this->w == quaternion.w);
+    return (this->x == quaternion.x
+         && this->y == quaternion.y
+         && this->z == quaternion.z
+         && this->w == quaternion.w);
 }
 
 bool Quaternion::operator!=(const Quaternion& quaternion) const

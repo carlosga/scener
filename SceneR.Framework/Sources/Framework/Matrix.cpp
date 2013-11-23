@@ -522,47 +522,29 @@ bool Matrix::operator!=(const Matrix& matrix) const
     return !(*this == matrix);
 }
 
-Matrix& Matrix::operator*=(const Matrix& matrix)
+Matrix& Matrix::operator*=(const Matrix& right)
 {
-    Single m11 = ((this->m11 * matrix.m11) + (this->m12 * matrix.m21) + (this->m13 * matrix.m31) + (this->m14 * matrix.m41));
-    Single m12 = ((this->m11 * matrix.m12) + (this->m12 * matrix.m22) + (this->m13 * matrix.m32) + (this->m14 * matrix.m42));
-    Single m13 = ((this->m11 * matrix.m13) + (this->m12 * matrix.m23) + (this->m13 * matrix.m33) + (this->m14 * matrix.m43));
-    Single m14 = ((this->m11 * matrix.m14) + (this->m12 * matrix.m24) + (this->m13 * matrix.m34) + (this->m14 * matrix.m44));
+    Matrix left = *this;
 
-    Single m21 = ((this->m21 * matrix.m11) + (this->m22 * matrix.m21) + (this->m23 * matrix.m31) + (this->m24 * matrix.m41));
-    Single m22 = ((this->m21 * matrix.m12) + (this->m22 * matrix.m22) + (this->m23 * matrix.m32) + (this->m24 * matrix.m42));
-    Single m23 = ((this->m21 * matrix.m13) + (this->m22 * matrix.m23) + (this->m23 * matrix.m33) + (this->m24 * matrix.m43));
-    Single m24 = ((this->m21 * matrix.m14) + (this->m22 * matrix.m24) + (this->m23 * matrix.m34) + (this->m24 * matrix.m44));
+    this->m11 = ((left.m11 * right.m11) + (left.m12 * right.m21) + (left.m13 * right.m31) + (left.m14 * right.m41));
+    this->m12 = ((left.m11 * right.m12) + (left.m12 * right.m22) + (left.m13 * right.m32) + (left.m14 * right.m42));
+    this->m13 = ((left.m11 * right.m13) + (left.m12 * right.m23) + (left.m13 * right.m33) + (left.m14 * right.m43));
+    this->m14 = ((left.m11 * right.m14) + (left.m12 * right.m24) + (left.m13 * right.m34) + (left.m14 * right.m44));
 
-    Single m31 = ((this->m31 * matrix.m11) + (this->m32 * matrix.m21) + (this->m33 * matrix.m31) + (this->m34 * matrix.m41));
-    Single m32 = ((this->m31 * matrix.m12) + (this->m32 * matrix.m22) + (this->m33 * matrix.m32) + (this->m34 * matrix.m42));
-    Single m33 = ((this->m31 * matrix.m13) + (this->m32 * matrix.m23) + (this->m33 * matrix.m33) + (this->m34 * matrix.m43));
-    Single m34 = ((this->m31 * matrix.m14) + (this->m32 * matrix.m24) + (this->m33 * matrix.m34) + (this->m34 * matrix.m44));
+    this->m21 = ((left.m21 * right.m11) + (left.m22 * right.m21) + (left.m23 * right.m31) + (left.m24 * right.m41));
+    this->m22 = ((left.m21 * right.m12) + (left.m22 * right.m22) + (left.m23 * right.m32) + (left.m24 * right.m42));
+    this->m23 = ((left.m21 * right.m13) + (left.m22 * right.m23) + (left.m23 * right.m33) + (left.m24 * right.m43));
+    this->m24 = ((left.m21 * right.m14) + (left.m22 * right.m24) + (left.m23 * right.m34) + (left.m24 * right.m44));
 
-    Single m41 = ((this->m41 * matrix.m11) + (this->m42 * matrix.m21) + (this->m43 * matrix.m31) + (this->m44 * matrix.m41));
-    Single m42 = ((this->m41 * matrix.m12) + (this->m42 * matrix.m22) + (this->m43 * matrix.m32) + (this->m44 * matrix.m42));
-    Single m43 = ((this->m41 * matrix.m13) + (this->m42 * matrix.m23) + (this->m43 * matrix.m33) + (this->m44 * matrix.m43));
-    Single m44 = ((this->m41 * matrix.m14) + (this->m42 * matrix.m24) + (this->m43 * matrix.m34) + (this->m44 * matrix.m44));
+    this->m31 = ((left.m31 * right.m11) + (left.m32 * right.m21) + (left.m33 * right.m31) + (left.m34 * right.m41));
+    this->m32 = ((left.m31 * right.m12) + (left.m32 * right.m22) + (left.m33 * right.m32) + (left.m34 * right.m42));
+    this->m33 = ((left.m31 * right.m13) + (left.m32 * right.m23) + (left.m33 * right.m33) + (left.m34 * right.m43));
+    this->m34 = ((left.m31 * right.m14) + (left.m32 * right.m24) + (left.m33 * right.m34) + (left.m34 * right.m44));
 
-    this->m11 = m11;
-    this->m12 = m12;
-    this->m13 = m13;
-    this->m14 = m14;
-
-    this->m21 = m21;
-    this->m22 = m22;
-    this->m23 = m23;
-    this->m24 = m24;
-
-    this->m31 = m31;
-    this->m32 = m32;
-    this->m33 = m33;
-    this->m34 = m34;
-
-    this->m41 = m41;
-    this->m42 = m42;
-    this->m43 = m43;
-    this->m44 = m44;
+    this->m41 = ((left.m41 * right.m11) + (left.m42 * right.m21) + (left.m43 * right.m31) + (left.m44 * right.m41));
+    this->m42 = ((left.m41 * right.m12) + (left.m42 * right.m22) + (left.m43 * right.m32) + (left.m44 * right.m42));
+    this->m43 = ((left.m41 * right.m13) + (left.m42 * right.m23) + (left.m43 * right.m33) + (left.m44 * right.m43));
+    this->m44 = ((left.m41 * right.m14) + (left.m42 * right.m24) + (left.m43 * right.m34) + (left.m44 * right.m44));
 
     return *this;
 }

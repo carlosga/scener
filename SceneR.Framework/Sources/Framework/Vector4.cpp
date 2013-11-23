@@ -140,10 +140,10 @@ Vector4& Vector4::operator=(const Vector4& vector)
 
 bool Vector4::operator==(const Vector4& vector) const
 {
-    return (this->x    == vector.x
-            && this->y == vector.y
-            && this->z == vector.z
-            && this->w == vector.w);
+    return (this->x == vector.x
+         && this->y == vector.y
+         && this->z == vector.z
+         && this->w == vector.w);
 }
 
 bool Vector4::operator!=(const Vector4& vector) const
