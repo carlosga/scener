@@ -85,9 +85,11 @@ UByte FileStream::ReadByte()
     return buffer;
 }
 
-void FileStream::Read(char* buffer, const Size& offset, const Size& count)
+Size FileStream::Read(char* buffer, const Size& offset, const Size& count)
 {
     this->stream.read(buffer + offset, count);
+
+    return this->stream.gcount();
 }
 
 Size FileStream::Seek(const Size& offset, const std::ios::seekdir& origin)

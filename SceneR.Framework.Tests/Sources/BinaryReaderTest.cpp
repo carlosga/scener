@@ -42,6 +42,20 @@ TEST_F(BinaryReaderTest, ReadByte)
     EXPECT_TRUE(value != 0);
 }
 
+// Tests ReadBytes().
+TEST_F(BinaryReaderTest, ReadBytes)
+{
+    FileStream stream(BinaryReaderTest::TEST_FILE);
+    BinaryReader reader(stream);
+    Size length = reader.BaseStream().Length();
+
+    std::vector<UByte> buffer = reader.ReadBytes(length);
+
+    reader.Close();
+
+    EXPECT_TRUE(buffer.size() == length);
+}
+
 // Tests ReadInt16().
 TEST_F(BinaryReaderTest, ReadInt16) 
 {

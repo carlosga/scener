@@ -551,7 +551,7 @@ Matrix& Matrix::operator*=(const Matrix& right)
 
 const Matrix Matrix::operator*(const Matrix& matrix) const
 {
-    Matrix result = *this;  // Make a copy of myself. Same as Vector3 result(*this)
+    Matrix result = *this;
 
     result *= matrix;
 

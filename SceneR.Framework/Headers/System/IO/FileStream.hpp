@@ -86,7 +86,7 @@ namespace System
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual void Read(char* buffer, const Size& offset, const Size& count) override;
+            virtual Size Read(char* buffer, const Size& offset, const Size& count) override;
 
             /**
              * Sets the position within the current stream.

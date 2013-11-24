@@ -75,7 +75,7 @@ namespace System
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual void Read(char* buffer, const System::Size& offset, const System::Size& count) = 0;
+            virtual Size Read(char* buffer, const System::Size& offset, const System::Size& count) = 0;
 
             /**
              * Sets the position within the current stream.

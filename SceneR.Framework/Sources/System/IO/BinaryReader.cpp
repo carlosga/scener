@@ -121,16 +121,16 @@ UByte BinaryReader::ReadByte()
 
 std::vector<UByte> BinaryReader::ReadBytes(const Size& count)
 {
-    std::vector<UByte> result;
+    std::vector<UByte> buffer(count);
 
-    result.reserve(count);
+    Size readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
 
-    for (Size i = 0; i < count; i++)
+    if (readed < count)
     {
-        result.push_back(this->ReadByte());
+        buffer.resize(readed);
     }
 
-    return result;
+    return buffer;
 }
 
 Int16 BinaryReader::ReadInt16()
