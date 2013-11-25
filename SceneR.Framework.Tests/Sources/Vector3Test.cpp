@@ -318,3 +318,14 @@ TEST_F(Vector3Test, TransformNormal)
     EXPECT_TRUE(2000.0f == vectorResult.Y());
     EXPECT_TRUE(2000.0f == vectorResult.Z());
 }
+
+TEST_F(Vector3Test, Lerp)
+{
+    Vector3 value1(5.0f, 10.0f, 50.0f);
+    Vector3 value2(0.0f, -20.0f, 100.0f);
+    Vector3 vector = Vector3::Lerp(value1, value2, 0.4f);
+
+    EXPECT_TRUE(3.0f  == vector.X());
+    EXPECT_TRUE(-2.0f == vector.Y());
+    EXPECT_TRUE(70.0f == vector.Z());
+}

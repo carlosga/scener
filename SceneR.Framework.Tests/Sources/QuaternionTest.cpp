@@ -20,8 +20,26 @@
 
 using namespace SceneR::Framework;
 
+TEST_F(QuaternionTest, XCoordinate)
+{
+    Quaternion q(1.0f, 2.0f, 3.0f, 4.0f);
+
+    EXPECT_TRUE(1.0f == q.X());
+    EXPECT_TRUE(2.0f == q.Y());
+    EXPECT_TRUE(3.0f == q.Z());
+    EXPECT_TRUE(4.0f == q.W());
+}
+
 TEST_F(QuaternionTest, QuaternionConjugate)
 {
+    Quaternion q(5.0f, 6.0f, 7.0f, 8.0f);
+
+    q.Conjugate();
+
+    EXPECT_TRUE(-5.0f == q.X());
+    EXPECT_TRUE(-6.0f == q.Y());
+    EXPECT_TRUE(-7.0f == q.Z());
+    EXPECT_TRUE(8.0f  == q.W());
 }
 
 TEST_F(QuaternionTest, QuaternionLength)
@@ -33,22 +51,6 @@ TEST_F(QuaternionTest, QuaternionLengthSquared)
 }
 
 TEST_F(QuaternionTest, QuaternionNormalization)
-{
-}
-
-TEST_F(QuaternionTest, WCoordinate)
-{
-}
-
-TEST_F(QuaternionTest, XCoordinate)
-{
-}
-
-TEST_F(QuaternionTest, YCoordinate)
-{
-}
-
-TEST_F(QuaternionTest, ZCoordinate)
 {
 }
 

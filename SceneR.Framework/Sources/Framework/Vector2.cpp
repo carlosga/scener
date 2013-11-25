@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
 #include <cassert>
 
@@ -24,6 +25,14 @@ const Vector2 Vector2::One(1.0f, 1.0f);
 const Vector2 Vector2::UnitX(1.0f, 0.0f);
 const Vector2 Vector2::UnitY(0.0f, 1.0f);
 const Vector2 Vector2::Zero(0.0f, 0.0f);
+
+Vector2 Vector2::Lerp(const Vector2& value1,
+                      const Vector2& value2,
+                      const Single&  amount)
+{
+    return Vector2(MathHelper::Lerp(value1.X(), value2.X(), amount)
+                 , MathHelper::Lerp(value1.Y(), value2.Y(), amount));
+}
 
 Vector2::Vector2()
     : x(0.0f), y(0.0f)
@@ -47,7 +56,7 @@ const Single& Vector2::X() const
 
 const Single& Vector2::Y() const
 {
-    return this->x;
+    return this->y;
 }
 
 Single& Vector2::operator[](const Int32& index)

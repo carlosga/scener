@@ -51,6 +51,18 @@ namespace SceneR
 
         public:
             /**
+             * Performs a linear interpolation between two vectors.
+             * @param value1 first vector
+             * @param value2 second vector
+             * @param amount Value between 0 and 1 indicating the weight of value2.
+             * @returns the linear interpolation of the two vectors.
+             */
+            static Vector2 Lerp(const Vector2& value1,
+                                const Vector2& value2,
+                                const System::Single&  amount);
+
+        public:
+            /**
              * Initializes a new instance of the Vector2 class.
              */
             Vector2();
@@ -102,4 +114,4 @@ namespace SceneR
     }
 }
 
-#endif  /* TEXTURECOORDINATE_HPP */
+#endif  /* VECTOR2_HPP */

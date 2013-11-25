@@ -109,7 +109,7 @@ Single MathHelper::Lerp(const System::Single& value1,
                         const System::Single& amount)
 {
     // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
-    assert(amount >= 0.0f && amount < 1.0f);
+    assert(amount >= 0.0f && amount <= 1.0f);
 
     return (value1 + (value2 - value1) * amount);
 }
