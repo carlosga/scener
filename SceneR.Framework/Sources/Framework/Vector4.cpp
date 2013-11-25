@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector4.hpp>
 #include <cassert>
@@ -21,6 +22,69 @@
 
 using namespace System;
 using namespace SceneR::Framework;
+
+const Vector4 Vector4::One(1.0f, 1.0f, 1.0f, 1.0f);
+const Vector4 Vector4::UnitX(1.0f, 0.0f, 0.0f, 0.0f);
+const Vector4 Vector4::UnitY(0.0f, 1.0f, 0.0f, 0.0f);
+const Vector4 Vector4::UnitZ(0.0f, 0.0f, 1.0f, 0.0f);
+const Vector4 Vector4::UnitW(0.0f, 0.0f, 0.0f, 1.0f);
+const Vector4 Vector4::Zero(0.0f, 0.0f, 0.0f, 0.0f);
+
+Vector4 Vector4::Barycentric(const Vector4& value1,
+                             const Vector4& value2,
+                             const Vector4& value3,
+                             const System::Single& amount1,
+                             const System::Single& amount2)
+{
+    return Vector4(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
+                 , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2)
+                 , MathHelper::Barycentric(value1.Z(), value2.Z(), value3.Z(), amount1, amount2)
+                 , MathHelper::Barycentric(value1.W(), value2.W(), value3.W(), amount1, amount2));
+}
+
+Vector4 Vector4::CatmullRom(const Vector4& value1,
+                            const Vector4& value2,
+                            const Vector4& value3,
+                            const Vector4& value4,
+                            const System::Single& amount)
+{
+    return Vector4(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
+                 , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount)
+                 , MathHelper::CatmullRom(value1.Z(), value2.Z(), value3.Z(), value4.Z(), amount)
+                 , MathHelper::CatmullRom(value1.W(), value2.W(), value3.W(), value4.W(), amount));
+}
+
+Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4& max)
+{
+    return Vector4(MathHelper::Clamp(value1.X(), min.X(), max.X())
+                 , MathHelper::Clamp(value1.Y(), min.Y(), max.Y())
+                 , MathHelper::Clamp(value1.Z(), min.Z(), max.Z())
+                 , MathHelper::Clamp(value1.W(), min.W(), max.W()));
+}
+
+Vector4 Vector4::Hermite(const Vector4& value1,
+                         const Vector4& tangent1,
+                         const Vector4& value2,
+                         const Vector4& tangent2,
+                         const Single& amount)
+{
+    return Vector4(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
+                 , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount)
+                 , MathHelper::Hermite(value1.Z(), tangent1.Z(), value2.Z(), tangent2.Z(), amount)
+                 , MathHelper::Hermite(value1.W(), tangent1.W(), value2.W(), tangent2.W(), amount));
+}
+
+Vector4 Vector4::Lerp(const Vector4& value1,
+                      const Vector4& value2,
+                      const Single& amount)
+{
+    assert(amount >= 0.0f && amount < 1.0f);
+
+    return Vector4(MathHelper::Lerp(value1.X(), value2.X(), amount)
+                 , MathHelper::Lerp(value1.Y(), value2.Y(), amount)
+                 , MathHelper::Lerp(value1.Z(), value2.Z(), amount)
+                 , MathHelper::Lerp(value1.W(), value2.W(), amount));
+}
 
 Vector4::Vector4()
     : Vector4(0.0f, 0.0f, 0.0f, 1.0f)

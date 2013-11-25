@@ -23,6 +23,8 @@ namespace SceneR
 {
 	namespace Framework
 	{
+	    class RenderTime;
+
 	    /**
 	     * Defines the interface for a drawable game component.
 	     */
@@ -50,7 +52,7 @@ namespace SceneR
 			/**
 			 * Called when the component should be drawn.
 			 */
-			virtual void Draw(/* GameTime gameTime */) = 0;
+			virtual void Draw(const RenderTime& renderTime) = 0;
 		};
 	}
 }

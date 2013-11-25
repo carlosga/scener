@@ -88,6 +88,56 @@ namespace SceneR
 
         public:
             /**
+             * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
+             * two normalized barycentric (areal) coordinates.
+             * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
+             * @param value2 the coordinate on the same axis of vertex 2 of the defining triangle.
+             * @param value3 the coordinate on the same axis of vertex 3 of the defining triangle.
+             * @param amount1 the normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2,
+             *                the coordinate of which is specified in value2.
+             * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
+             *                the coordinate of which is specified in value3.
+             */
+            static Vector3 Barycentric(const Vector3&        value1,
+                                       const Vector3&        value2,
+                                       const Vector3&        value3,
+                                       const System::Single& amount1,
+                                       const System::Single& amount2);
+
+            /**
+             * Performs a Catmull-Rom interpolation using the specified positions.
+             * @param value1 the first position in the interpolation.
+             * @param value2 the second position in the interpolation.
+             * @param value3 the third position in the interpolation.
+             * @param value4 the fourth position in the interpolation.
+             * @param amount weighting factor.
+             */
+            static Vector3 CatmullRom(const Vector3& value1,
+                                      const Vector3& value2,
+                                      const Vector3& value3,
+                                      const Vector3& value4,
+                                      const System::Single& amount);
+
+            /**
+             * Restricts a value to be within a specified range.
+             */
+            static Vector3 Clamp(const Vector3& value1, const Vector3& min, const Vector3& max);
+
+            /**
+             * Calculates a hermite spline interpolation.
+             * @param value1 source position 1.
+             * @param tangent1 source tangent 1.
+             * @param value2 source position 2.
+             * @param tangent2 source tangent 2.
+             * @param amount weighting factor.
+             */
+            static Vector3 Hermite(const Vector3& value1,
+                                   const Vector3& tangent1,
+                                   const Vector3& value2,
+                                   const Vector3& tangent2,
+                                   const System::Single& amount);
+
+            /**
              * Performs a linear interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector

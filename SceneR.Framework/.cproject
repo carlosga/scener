@@ -137,6 +137,7 @@
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="GLEW"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="glfw"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="pthread"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="chrono"/>
 								</option>
 								<option id="llvm.c.link.option.paths.366092287" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.7/"/>

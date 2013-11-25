@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Renderer.hpp>
+#include <Framework/RenderTime.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
@@ -28,7 +29,10 @@ Renderer::Renderer(const String& rootDirectory)
     : graphicsDeviceManager(*this),
       rendererWindow(*this),
       contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory),
-      components(0)
+      components(0),
+      timer(),
+      renderTime(),
+      totalRenderTime()
 {
 }
 
@@ -85,7 +89,7 @@ void Renderer::BeginRun()
     this->rendererWindow.Open();
 }
 
-void Renderer::Draw()
+void Renderer::Draw(const RenderTime& renderTime)
 {
     for (auto& component : this->components)
     {
@@ -93,7 +97,7 @@ void Renderer::Draw()
 
         if (drawable != nullptr && drawable->IsVisible())
         {
-            drawable->Draw();
+            drawable->Draw(renderTime);
         }
     }
 }
@@ -132,7 +136,7 @@ void Renderer::UnloadContent()
 {
 }
 
-void Renderer::Update()
+void Renderer::Update(const RenderTime& renderTime)
 {
     for (auto& component : this->components)
     {
@@ -140,7 +144,7 @@ void Renderer::Update()
 
         if (updateable != nullptr && updateable->IsEnabled())
         {
-            updateable->Update();
+            updateable->Update(renderTime);
         }
     }
 }
@@ -149,12 +153,24 @@ void Renderer::StartEventLoop()
 {
     do
     {
-        this->Update();
-
-        if (this->BeginDraw())
-        {
-            this->Draw();
-            this->EndDraw();
-        }
+        this->Tick();
+        glfwWaitEvents();
     } while (!this->rendererWindow.ShouldClose());
+}
+
+void Renderer::Tick()
+{
+//    auto elapsed = this->timer.ElapsedTickTime();
+
+    this->timer.Tick();
+//    this->renderTime.ElapsedRenderTime(elapsed);
+//    this->renderTime.TotalRenderTime(this->timer.ElapsedTime());
+
+    this->Update(this->renderTime);
+
+    if (this->BeginDraw())
+    {
+        this->Draw(this->renderTime);
+        this->EndDraw();
+    }
 }

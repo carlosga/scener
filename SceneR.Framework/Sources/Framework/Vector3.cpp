@@ -36,12 +36,53 @@ const Vector3 Vector3::UnitZ(0.0f, 0.0f, 1.0f);
 const Vector3 Vector3::Up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 
+Vector3 Vector3::Barycentric(const Vector3& value1,
+                             const Vector3& value2,
+                             const Vector3& value3,
+                             const Single&  amount1,
+                             const Single&  amount2)
+{
+    return Vector3(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
+                 , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2)
+                 , MathHelper::Barycentric(value1.Z(), value2.Z(), value3.Z(), amount1, amount2));
+}
+
+Vector3 Vector3::CatmullRom(const Vector3& value1,
+                            const Vector3& value2,
+                            const Vector3& value3,
+                            const Vector3& value4,
+                            const System::Single& amount)
+{
+    return Vector3(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
+                 , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount)
+                 , MathHelper::CatmullRom(value1.Z(), value2.Z(), value3.Z(), value4.Z(), amount));
+}
+
+Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3& max)
+{
+    return Vector3(MathHelper::Clamp(value1.X(), min.X(), max.X())
+                 , MathHelper::Clamp(value1.Y(), min.Y(), max.Y())
+                 , MathHelper::Clamp(value1.Z(), min.Z(), max.Z()));
+}
+
+Vector3 Vector3::Hermite(const Vector3& value1,
+                         const Vector3& tangent1,
+                         const Vector3& value2,
+                         const Vector3& tangent2,
+                         const System::Single& amount)
+{
+    return Vector3(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
+                 , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount)
+                 , MathHelper::Hermite(value1.Z(), tangent1.Z(), value2.Z(), tangent2.Z(), amount));
+}
+
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     assert(amount >= 0.0f && amount < 1.0f);
 
-    return (value1 + (value2 - value1) * amount);
+    return Vector3(MathHelper::Lerp(value1.X(), value2.X(), amount)
+                 , MathHelper::Lerp(value1.Y(), value2.Y(), amount)
+                 , MathHelper::Lerp(value1.Z(), value2.Z(), amount));
 }
 
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)

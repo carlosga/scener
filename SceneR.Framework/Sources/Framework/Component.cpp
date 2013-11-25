@@ -31,7 +31,7 @@ Component::~Component()
 {
 }
 
-void Component::Update()
+void Component::Update(const RenderTime& renderTime)
 {
 }
 

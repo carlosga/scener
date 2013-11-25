@@ -25,6 +25,7 @@ namespace SceneR
     namespace Framework
     {
         class Renderer;
+        class RenderTime;
     }
 }
 
@@ -48,7 +49,7 @@ namespace SceneR
             virtual ~AstroBoy();
 
         public:
-            virtual void Draw() override;
+            virtual void Draw(const SceneR::Framework::RenderTime& renderTime) override;
 
         protected:
             virtual void LoadContent() override;

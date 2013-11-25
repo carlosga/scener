@@ -19,6 +19,7 @@
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Renderer.hpp>
+#include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
@@ -38,7 +39,7 @@ AstroBoy::~AstroBoy()
     this->UnloadContent();
 }
 
-void AstroBoy::Draw()
+void AstroBoy::Draw(const RenderTime& renderTime)
 {
     float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
 

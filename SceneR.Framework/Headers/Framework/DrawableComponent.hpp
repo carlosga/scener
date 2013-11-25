@@ -33,6 +33,7 @@ namespace SceneR
     namespace Framework
     {
         class Renderer;
+        class RenderTime;
 
         /**
          * A component that is notified when it needs to draw itself.
@@ -54,7 +55,7 @@ namespace SceneR
             /**
              * Called when the component should be drawn.
              */
-            virtual void Draw(/* GameTime gameTime */) override;
+            virtual void Draw(const RenderTime& renderTime) override;
 
             /**
              * Enables object updates.

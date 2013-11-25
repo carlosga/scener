@@ -19,7 +19,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include <iostream>
+#include <chrono>
 #include <string>
 
 namespace System
@@ -38,6 +38,9 @@ namespace System
     typedef double         Double;
     typedef size_t         Size;
     typedef std::u16string String;
+
+    typedef std::chrono::high_resolution_clock Clock;
+    typedef std::chrono::microseconds          Duration;
 }
 
 #endif  /* CORE_HPP */

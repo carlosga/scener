@@ -20,6 +20,8 @@
 #include <Content/ContentManager.hpp>
 #include <System/Core.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/RendererTimer.hpp>
+#include <Framework/RenderTime.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <memory>
 #include <vector>
@@ -37,6 +39,7 @@ namespace SceneR
     namespace Framework
     {
         class IComponent;
+        class RenderTime;
 
         /**
          * Provides basic graphics device initialization, and rendering code.
@@ -103,7 +106,7 @@ namespace SceneR
             /**
              * Called when the renderer determines it is time to draw a frame.
              */
-            virtual void Draw(/*GameTime gameTime*/);
+            virtual void Draw(const RenderTime& renderTime);
 
             /**
              * Ends the drawing of a frame. This method is preceeded by calls to Draw and BeginDraw.
@@ -139,7 +142,12 @@ namespace SceneR
             /**
              * Called when the renderer has determined that render logic needs to be processed.
              */
-            virtual void Update(/*GameTime gameTime*/);
+            virtual void Update(const RenderTime& renderTime);
+
+            /**
+             * Updates the renderer's clock and calls Update and Draw.
+             */
+            void Tick();
 
         private:
             void StartEventLoop();
@@ -149,6 +157,9 @@ namespace SceneR
             RendererWindow                           rendererWindow;
             SceneR::Content::ContentManager          contentManager;
             std::vector<std::shared_ptr<IComponent>> components;
+            RendererTimer                            timer;
+            RenderTime                               renderTime;
+            System::Duration                         totalRenderTime;
         };
     }
 }

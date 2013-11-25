@@ -29,7 +29,7 @@ DrawableComponent::DrawableComponent(Renderer& renderer)
 {
 }
 
-void DrawableComponent::Draw()
+void DrawableComponent::Draw(const RenderTime& renderTime)
 {
 }
 

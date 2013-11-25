@@ -26,6 +26,7 @@ namespace SceneR
     namespace Framework
     {
         class Renderer;
+        class RenderTime;
 
         /**
          * Base class for all components.
@@ -48,7 +49,7 @@ namespace SceneR
             /**
              * Called when the component should be updated.
              */
-            virtual void Update(/* GameTime gameTime */) override;
+            virtual void Update(const RenderTime& renderTime) override;
 
             /**
              * Enables object updates.

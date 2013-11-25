@@ -30,6 +30,27 @@ namespace SceneR
         {
         public:
             /**
+             * Returns a Vector2 with ones in all of its components.
+             */
+            static const Vector2 One;
+
+            /**
+             * Returns the x unit Vector2 (1, 0).
+             */
+            static const Vector2 UnitX;
+
+            /**
+             * Returns the y unit Vector2 (0, 1).
+             */
+            static const Vector2 UnitY;
+
+            /**
+             * Returns a Vector2 with all of its components set to zero.
+             */
+            static const Vector2 Zero;
+
+        public:
+            /**
              * Initializes a new instance of the Vector2 class.
              */
             Vector2();

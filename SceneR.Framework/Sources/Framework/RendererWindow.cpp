@@ -216,7 +216,6 @@ bool RendererWindow::ShouldClose() const
 void RendererWindow::SwapBuffers() const
 {
     glfwSwapBuffers(this->handle);
-    glfwWaitEvents();
 }
 
 void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,

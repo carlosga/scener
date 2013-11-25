@@ -32,6 +32,98 @@ namespace SceneR
         {
         public:
             /**
+             * Returns a Vector4 with ones in all of its components.
+             */
+            static const Vector4 One;
+
+            /**
+             * Returns the x unit Vector4 (1, 0, 0, 0).
+             */
+            static const Vector4 UnitX;
+
+            /**
+             * Returns the y unit Vector4 (0, 1, 0, 0).
+             */
+            static const Vector4 UnitY;
+
+            /**
+             * Returns the z unit Vector4 (0, 0, 1, 0).
+             */
+            static const Vector4 UnitZ;
+
+            /**
+             * Returns the w unit Vector4 (0, 0, 0, 1).
+             */
+            static const Vector4 UnitW;
+
+            /**
+             * Returns a Vector4 with all of its components set to zero.
+             */
+            static const Vector4 Zero;
+
+        public:
+            /**
+             * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
+             * two normalized barycentric (areal) coordinates.
+             * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
+             * @param value2 the coordinate on the same axis of vertex 2 of the defining triangle.
+             * @param value3 the coordinate on the same axis of vertex 3 of the defining triangle.
+             * @param amount1 the normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2,
+             *                the coordinate of which is specified in value2.
+             * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
+             *                the coordinate of which is specified in value3.
+             */
+            static Vector4 Barycentric(const Vector4&        value1,
+                                       const Vector4&        value2,
+                                       const Vector4&        value3,
+                                       const System::Single& amount1,
+                                       const System::Single& amount2);
+
+            /**
+             * Performs a Catmull-Rom interpolation using the specified positions.
+             * @param value1 the first position in the interpolation.
+             * @param value2 the second position in the interpolation.
+             * @param value3 the third position in the interpolation.
+             * @param value4 the fourth position in the interpolation.
+             * @param amount weighting factor.
+             */
+            static Vector4 CatmullRom(const Vector4& value1,
+                                      const Vector4& value2,
+                                      const Vector4& value3,
+                                      const Vector4& value4,
+                                      const System::Single& amount);
+
+            /**
+             * Restricts a value to be within a specified range.
+             */
+            static Vector4 Clamp(const Vector4& value1, const Vector4& min, const Vector4& max);
+
+            /**
+             * Calculates a hermite spline interpolation.
+             * @param value1 source position 1.
+             * @param tangent1 source tangent 1.
+             * @param value2 source position 2.
+             * @param tangent2 source tangent 2.
+             * @param amount weighting factor.
+             */
+            static Vector4 Hermite(const Vector4& value1,
+                                   const Vector4& tangent1,
+                                   const Vector4& value2,
+                                   const Vector4& tangent2,
+                                   const System::Single& amount);
+
+            /**
+             * Performs a linear interpolation between two vectors.
+             * @param value1 first vector
+             * @param value2 second vector
+             * @param amount Value between 0 and 1 indicating the weight of value2.
+             * @returns the linear interpolation of the two vectors.
+             */
+            static Vector4 Lerp(const Vector4& value1,
+                                const Vector4& value2,
+                                const System::Single&  amount);
+        public:
+            /**
              * Initializes a new instance of the Vector4 class.
              */
             Vector4();

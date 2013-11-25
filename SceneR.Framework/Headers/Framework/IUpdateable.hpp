@@ -23,6 +23,8 @@ namespace SceneR
 {
 	namespace Framework
 	{
+	    class RenderTime;
+
 	    /**
 	     * Defines an interface for a component that should be updated in Renderer.Update.
 	     */
@@ -50,7 +52,7 @@ namespace SceneR
 			/**
 			 * Called when the component should be updated.
 			 */
-			virtual void Update(/* GameTime gameTime */) = 0;
+			virtual void Update(const RenderTime& renderTime) = 0;
 		};
 	}
 }
