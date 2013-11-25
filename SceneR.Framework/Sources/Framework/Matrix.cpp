@@ -437,39 +437,19 @@ void Matrix::Invert()
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
         Single mdet = this->Determinant();
+        Matrix copy = *this;
         Matrix mtemp;
         Int32  sign;
-        Matrix inverse;
 
         for (UInt32 i = 0; i < 4; i++)
         {
             for (UInt32 j = 0; j < 4; j++)
             {
-                sign               = 1 - ((i + j) % 2) * 2;
-                mtemp              = this->SubMatrix(i, j);
-                inverse[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+                sign            = 1 - ((i + j) % 2) * 2;
+                mtemp           = copy.SubMatrix(i, j);
+                this[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
             }
         }
-
-        this->m11 = inverse.m11;
-        this->m12 = inverse.m12;
-        this->m13 = inverse.m13;
-        this->m14 = inverse.m14;
-
-        this->m21 = inverse.m21;
-        this->m22 = inverse.m22;
-        this->m23 = inverse.m23;
-        this->m24 = inverse.m24;
-
-        this->m31 = inverse.m31;
-        this->m32 = inverse.m32;
-        this->m33 = inverse.m33;
-        this->m34 = inverse.m34;
-
-        this->m41 = inverse.m41;
-        this->m42 = inverse.m42;
-        this->m43 = inverse.m43;
-        this->m44 = inverse.m44;
     }
 }
 
