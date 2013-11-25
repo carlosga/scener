@@ -445,9 +445,9 @@ void Matrix::Invert()
         {
             for (UInt32 j = 0; j < 4; j++)
             {
-                sign            = 1 - ((i + j) % 2) * 2;
-                mtemp           = copy.SubMatrix(i, j);
-                this[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+                sign                    = 1 - ((i + j) % 2) * 2;
+                mtemp                   = copy.SubMatrix(i, j);
+                this->matrix[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
             }
         }
     }
