@@ -124,6 +124,11 @@ namespace SceneR
             static Vector3 Clamp(const Vector3& value1, const Vector3& min, const Vector3& max);
 
             /**
+             * Calculates the distance between two vectors.
+             */
+            static System::Single Distance(const Vector3& value1, const Vector3& value2);
+
+            /**
              * Calculates a hermite spline interpolation.
              * @param value1 source position 1.
              * @param tangent1 source tangent 1.

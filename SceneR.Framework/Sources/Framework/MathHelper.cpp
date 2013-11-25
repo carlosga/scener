@@ -118,7 +118,12 @@ Single MathHelper::SmoothStep(const System::Single& value1,
                               const System::Single& value2,
                               const System::Single& amount)
 {
-    throw std::runtime_error("Not implemented");
+    // Formula: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
+    Single t = MathHelper::Clamp(amount, 0.0f, 1.0f);;
+
+    t = t * t * (3.0f - 2.0f * t);
+
+    return MathHelper::Lerp(value1, value2, t);
 }
 
 Single MathHelper::ToRadians(const Single& degrees)

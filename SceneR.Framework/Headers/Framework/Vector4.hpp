@@ -122,6 +122,17 @@ namespace SceneR
             static Vector4 Lerp(const Vector4& value1,
                                 const Vector4& value2,
                                 const System::Single&  amount);
+
+            /**
+             * Performs a cubic interpolation between two vectors.
+             * @param value1 first vector
+             * @param value2 second vector
+             * @param amount Weighting value.
+             * @returns the linear interpolation of the two vectors.
+             */
+            static Vector4 SmoothStep(const Vector4& value1,
+                                      const Vector4& value2,
+                                      const System::Single&  amount);
         public:
             /**
              * Initializes a new instance of the Vector4 class.

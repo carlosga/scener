@@ -65,6 +65,13 @@ Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3&
                  , MathHelper::Clamp(value1.Z(), min.Z(), max.Z()));
 }
 
+Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
+{
+    Vector3 d = value2 - value1;
+
+    return d.Length();
+}
+
 Vector3 Vector3::Hermite(const Vector3& value1,
                          const Vector3& tangent1,
                          const Vector3& value2,
@@ -87,8 +94,9 @@ Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single
 
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    // TODO: Implement Hermite y Clamp. See XNA MathHelper at MSDN
-    throw std::runtime_error("Not  implemented");
+    return Vector3(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
+                 , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount)
+                 , MathHelper::SmoothStep(value1.Z(), value2.Z(), amount));
 }
 
 Vector3 Vector3::Normalize(const Vector3& value)

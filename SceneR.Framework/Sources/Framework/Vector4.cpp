@@ -86,6 +86,16 @@ Vector4 Vector4::Lerp(const Vector4& value1,
                  , MathHelper::Lerp(value1.W(), value2.W(), amount));
 }
 
+Vector4 Vector4::SmoothStep(const Vector4& value1,
+                            const Vector4& value2,
+                            const Single& amount)
+{
+    return Vector4(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
+                 , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount)
+                 , MathHelper::SmoothStep(value1.Z(), value2.Z(), amount)
+                 , MathHelper::SmoothStep(value1.W(), value2.W(), amount));
+}
+
 Vector4::Vector4()
     : Vector4(0.0f, 0.0f, 0.0f, 1.0f)
 {
