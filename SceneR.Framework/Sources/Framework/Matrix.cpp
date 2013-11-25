@@ -436,20 +436,40 @@ void Matrix::Invert()
     if (this->HasInverse())
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-
         Single mdet = this->Determinant();
         Matrix mtemp;
         Int32  sign;
+        Matrix inverse;
 
         for (UInt32 i = 0; i < 4; i++)
         {
             for (UInt32 j = 0; j < 4; j++)
             {
-                sign                    = 1 - ((i + j) % 2) * 2;
-                mtemp                   = this->SubMatrix(i, j);
-                this->matrix[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+                sign               = 1 - ((i + j) % 2) * 2;
+                mtemp              = this->SubMatrix(i, j);
+                inverse[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
             }
         }
+
+        this->m11 = inverse.m11;
+        this->m12 = inverse.m12;
+        this->m13 = inverse.m13;
+        this->m14 = inverse.m14;
+
+        this->m21 = inverse.m21;
+        this->m22 = inverse.m22;
+        this->m23 = inverse.m23;
+        this->m24 = inverse.m24;
+
+        this->m31 = inverse.m31;
+        this->m32 = inverse.m32;
+        this->m33 = inverse.m33;
+        this->m34 = inverse.m34;
+
+        this->m41 = inverse.m41;
+        this->m42 = inverse.m42;
+        this->m43 = inverse.m43;
+        this->m44 = inverse.m44;
     }
 }
 
@@ -460,7 +480,7 @@ bool Matrix::IsIdentity() const
 
 void Matrix::Transpose()
 {
-    Matrix temp(*this);
+    Matrix temp = *this;
 
     this->m11 = temp.m11;
     this->m12 = temp.m21;
@@ -560,12 +580,10 @@ const Matrix Matrix::operator*(const Matrix& matrix) const
 
 Single Matrix::SubMatrixDeterminant()
 {
-    return this->M11() * this->M22() * this->M33()
-         + this->M12() * this->M23() * this->M31()
-         + this->M13() * this->M21() * this->M32()
-         - this->M13() * this->M22() * this->M31()
-         - this->M12() * this->M21() * this->M33()
-         - this->M11() * this->M23() * this->M32();
+    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q23
+    return this->m11 * (this->m22 * this->m33 - this->m32 * this->m23)
+         - this->m12 * (this->m21 * this->m33 - this->m31 * this->m23)
+         + this->m13 * (this->m21 * this->m32 - this->m31 * this->m22);
 }
 
 Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const

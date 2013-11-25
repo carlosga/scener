@@ -315,3 +315,42 @@ TEST_F(MatrixTest, TransformFromAxisAngleZ)
     EXPECT_TRUE(0.0f  == vectorResult.Y());
     EXPECT_TRUE(10.0f == vectorResult.Z());
 }
+
+TEST_F(MatrixTest, Determinant)
+{
+    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
+                           1.0f, 2.0f, -3.0f, 0.0f,
+                           1.0f, 1.0f, 5.0f , 0.0f,
+                           0.0f, 0.0f, 0.0f , 1.0f);
+
+    Single determinant = matrix.Determinant();
+
+    EXPECT_TRUE(-2.0f == determinant);
+}
+
+TEST_F(MatrixTest, Inverse)
+{
+    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
+                           1.0f, 2.0f, -3.0f, 0.0f,
+                           1.0f, 1.0f, 5.0f , 0.0f,
+                           0.0f, 0.0f, 0.0f , 1.0f);
+
+    matrix.Invert();
+
+    EXPECT_TRUE(-6.5f == matrix.M11());
+    EXPECT_TRUE(05.5f == matrix.M12());
+    EXPECT_TRUE(08.5f == matrix.M13());
+    EXPECT_TRUE(00.0f == matrix.M14());
+    EXPECT_TRUE(04.0f == matrix.M21());
+    EXPECT_TRUE(-3.0f == matrix.M22());
+    EXPECT_TRUE(-5.0f == matrix.M23());
+    EXPECT_TRUE(00.0f == matrix.M24());
+    EXPECT_TRUE(00.5f == matrix.M31());
+    EXPECT_TRUE(-0.5f == matrix.M32());
+    EXPECT_TRUE(-0.5f == matrix.M33());
+    EXPECT_TRUE(00.0f == matrix.M34());
+    EXPECT_TRUE(00.0f == matrix.M41());
+    EXPECT_TRUE(00.0f == matrix.M42());
+    EXPECT_TRUE(00.0f == matrix.M43());
+    EXPECT_TRUE(01.0f == matrix.M44());
+}
