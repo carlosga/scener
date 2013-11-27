@@ -18,6 +18,7 @@
 #include <Framework/Vector3.hpp>
 #include <Vector3Test.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 TEST_F(Vector3Test, DefaultConstructor) 
@@ -109,7 +110,7 @@ TEST_F(Vector3Test, ZCoordinateValue)
     EXPECT_TRUE(z == vector3.Z());
 }
 
-TEST_F(Vector3Test, VectorLength)
+TEST_F(Vector3Test, Length)
 {
     Vector3 vector3(20.0f, 30.0f, 40.0f);
     float length = vector3.Length();
@@ -118,7 +119,7 @@ TEST_F(Vector3Test, VectorLength)
     EXPECT_TRUE(53.8516464f == length);
 }
 
-TEST_F(Vector3Test, VectorLengthSquared)
+TEST_F(Vector3Test, LengthSquared)
 {
     Vector3 vector3(20.0f, 30.0f, 40.0f);
     float length = vector3.LengthSquared();
@@ -127,7 +128,7 @@ TEST_F(Vector3Test, VectorLengthSquared)
     EXPECT_TRUE(2900.0f == length);
 }
 
-TEST_F(Vector3Test, VectorNegation)
+TEST_F(Vector3Test, Negation)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     
@@ -139,7 +140,7 @@ TEST_F(Vector3Test, VectorNegation)
     EXPECT_TRUE(-40.0f == vector1.Z());
 }
 
-TEST_F(Vector3Test, VectorNormalization)
+TEST_F(Vector3Test, Normalization)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     
@@ -151,7 +152,7 @@ TEST_F(Vector3Test, VectorNormalization)
     EXPECT_TRUE(0.742781401f == vector1.Z());
 }
 
-TEST_F(Vector3Test, VectorCrossProduct)
+TEST_F(Vector3Test, CrossProduct)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -163,7 +164,16 @@ TEST_F(Vector3Test, VectorCrossProduct)
     EXPECT_TRUE(50.0f   == crossProduct.Z());
 }
 
-TEST_F(Vector3Test, AngleBetweenVectors)
+TEST_F(Vector3Test, DotProduct)
+{
+    Vector3 vector1(20.0f, 30.0f, 40.0f);
+    Vector3 vector2(45.0f, 70.0f, 80.0f);
+    Single  dotProduct = vector1.DotProduct(vector2);
+
+    EXPECT_TRUE(6200.0f == dotProduct);
+}
+
+TEST_F(Vector3Test, AngleBetween)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -173,7 +183,7 @@ TEST_F(Vector3Test, AngleBetweenVectors)
     EXPECT_TRUE(4.15128803f == angle);
 }
 
-TEST_F(Vector3Test, VectorAddition)
+TEST_F(Vector3Test, Addition)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -185,7 +195,7 @@ TEST_F(Vector3Test, VectorAddition)
     EXPECT_TRUE(120.0f == vectorResult.Z());
 }
 
-TEST_F(Vector3Test, VectorSubtraction)
+TEST_F(Vector3Test, Subtraction)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -197,7 +207,7 @@ TEST_F(Vector3Test, VectorSubtraction)
     EXPECT_TRUE(-40.0f == vectorResult.Z());
 }
 
-TEST_F(Vector3Test, VectorMultiplication)
+TEST_F(Vector3Test, Multiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -209,7 +219,7 @@ TEST_F(Vector3Test, VectorMultiplication)
     EXPECT_TRUE(3200.0f == vectorResult.Z());
 }
 
-TEST_F(Vector3Test, VectorByScalarMultiplication)
+TEST_F(Vector3Test, ScalarMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vectorResult = vector1 * 75.0f; 
@@ -220,7 +230,7 @@ TEST_F(Vector3Test, VectorByScalarMultiplication)
     EXPECT_TRUE(3000.0f == vectorResult.Z());
 }
 
-TEST_F(Vector3Test, VectorAdditionAssignment)
+TEST_F(Vector3Test, AdditionAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);	
@@ -233,7 +243,7 @@ TEST_F(Vector3Test, VectorAdditionAssignment)
     EXPECT_TRUE(120.0f == vector2.Z());
 }
 
-TEST_F(Vector3Test, VectorSubtractionAssignment)
+TEST_F(Vector3Test, SubtractionAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -246,7 +256,7 @@ TEST_F(Vector3Test, VectorSubtractionAssignment)
     EXPECT_TRUE(40.0f == vector2.Z());
 }
 
-TEST_F(Vector3Test, VectorMultplicationAssignment)
+TEST_F(Vector3Test, MultplicationAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Vector3 vector2(45.0f, 70.0f, 80.0f);
@@ -259,7 +269,7 @@ TEST_F(Vector3Test, VectorMultplicationAssignment)
     EXPECT_TRUE(3200.0f == vector2.Z());
 }
 
-TEST_F(Vector3Test, VectorByScalarMultplicationAssignment)
+TEST_F(Vector3Test, ScalarMultplicationAssignment)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
 	
@@ -271,7 +281,7 @@ TEST_F(Vector3Test, VectorByScalarMultplicationAssignment)
     EXPECT_TRUE(3000.0f == vector1.Z());
 }
 
-TEST_F(Vector3Test, VectorByMatrixMultiplication)
+TEST_F(Vector3Test, MatrixMultiplication)
 {
     Vector3 vector1(20.0f, 30.0f, 40.0f);
     Matrix  matrix1(10.0f, 10.0f, 10.0f, 0.0f,

@@ -17,6 +17,7 @@
 #include <Framework/Vector2.hpp>
 #include <Vector2Test.hpp>
 
+using namespace System;
 using namespace SceneR::Framework;
 
 TEST_F(Vector2Test, IndividualCoordinatesConstructor)
@@ -29,6 +30,23 @@ TEST_F(Vector2Test, IndividualCoordinatesConstructor)
     // vector2 is equal to (20.0, 30.0)
     EXPECT_TRUE(x == vector3.X());
     EXPECT_TRUE(y == vector3.Y());
+}
+
+TEST_F(Vector2Test, Magnitude)
+{
+    Vector2 value1(20.0f, 30.0f);
+    Single  length = value1.Length();
+
+    EXPECT_TRUE(36.05551275463989f == length);
+}
+
+TEST_F(Vector2Test, Length)
+{
+    Vector2 value1(1.0f, 1.0f);
+    Vector2 value2(3.0f, 3.0f);
+    Single  d = Vector2::Distance(value1, value2);
+
+    EXPECT_TRUE(2.82842708f == d);
 }
 
 TEST_F(Vector2Test, Lerp)
