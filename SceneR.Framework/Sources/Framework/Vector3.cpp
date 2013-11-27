@@ -19,7 +19,6 @@
 #include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -70,6 +69,13 @@ Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
     Vector3 d = value2 - value1;
 
     return d.Length();
+}
+
+Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
+{
+    Vector3 d = value2 - value1;
+
+    return d.LengthSquared();
 }
 
 Vector3 Vector3::Hermite(const Vector3& value1,
@@ -162,9 +168,9 @@ const Single& Vector3::Z() const
 
 const Single Vector3::LengthSquared() const
 {
-    return   (this->x * this->x)
-           + (this->y * this->y)
-           + (this->z * this->z);
+    return (this->x * this->x)
+         + (this->y * this->y)
+         + (this->z * this->z);
 }
 
 const Single Vector3::Length() const
@@ -261,9 +267,9 @@ Vector3& Vector3::operator=(const Vector3& vector)
 
 bool Vector3::operator==(const Vector3& vector) const
 {
-    return (this->x    == vector.x
-            && this->y == vector.y
-            && this->z == vector.z);
+    return (this->x == vector.x
+         && this->y == vector.y
+         && this->z == vector.z);
 }
 
 bool Vector3::operator!=(const Vector3& vector) const

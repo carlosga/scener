@@ -62,6 +62,20 @@ Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4&
                  , MathHelper::Clamp(value1.W(), min.W(), max.W()));
 }
 
+Single Vector4::Distance(const Vector4& value1, const Vector4& value2)
+{
+    Vector4 d = value2 - value1;
+
+    return d.Length();
+}
+
+Single Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
+{
+    Vector4 d = value2 - value1;
+
+    return d.LengthSquared();
+}
+
 Vector4 Vector4::Hermite(const Vector4& value1,
                          const Vector4& tangent1,
                          const Vector4& value2,
@@ -146,19 +160,6 @@ const Single Vector4::LengthSquared() const
 
 const Single Vector4::Length() const
 {
-    // The modulus or magnitude of a vector is simply its length.
-    // This can easily be found using Pythagorean Theorem with the vector components.
-    //
-    // The modulus is written like:
-    // a = |a|
-    //
-    // Given:
-    // a = xi + yj + zk
-    //
-    // Then:
-    //
-    // |a| = sqrt(x^2 + y^2 + z^2 + w^2)
-
     return std::sqrt(this->LengthSquared());
 }
 
@@ -176,12 +177,6 @@ const Single Vector4::DotProduct(const Vector4& vectorb) const
 
 void Vector4::Normalize()
 {
-    // To find the unit vector of another vector, we use the modulus operator
-    // and scalar multiplication like so:
-    // b = a / |a|
-    //
-    // Where |a| is the modulus of a
-
     (*this /= this->Length());
 }
 

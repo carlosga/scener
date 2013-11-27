@@ -51,6 +51,66 @@ namespace SceneR
 
         public:
             /**
+             * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
+             * two normalized barycentric (areal) coordinates.
+             * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
+             * @param value2 the coordinate on the same axis of vertex 2 of the defining triangle.
+             * @param value3 the coordinate on the same axis of vertex 3 of the defining triangle.
+             * @param amount1 the normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2,
+             *                the coordinate of which is specified in value2.
+             * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
+             *                the coordinate of which is specified in value3.
+             */
+            static Vector2 Barycentric(const Vector2&        value1,
+                                       const Vector2&        value2,
+                                       const Vector2&        value3,
+                                       const System::Single& amount1,
+                                       const System::Single& amount2);
+
+            /**
+             * Performs a Catmull-Rom interpolation using the specified positions.
+             * @param value1 the first position in the interpolation.
+             * @param value2 the second position in the interpolation.
+             * @param value3 the third position in the interpolation.
+             * @param value4 the fourth position in the interpolation.
+             * @param amount weighting factor.
+             */
+            static Vector2 CatmullRom(const Vector2& value1,
+                                      const Vector2& value2,
+                                      const Vector2& value3,
+                                      const Vector2& value4,
+                                      const System::Single& amount);
+
+            /**
+             * Restricts a value to be within a specified range.
+             */
+            static Vector2 Clamp(const Vector2& value1, const Vector2& min, const Vector2& max);
+
+            /**
+             * Calculates the distance between two vectors.
+             */
+            static System::Single Distance(const Vector2& value1, const Vector2& value2);
+
+            /**
+             * Calculates the distance between two vectors squared.
+             */
+            static System::Single DistanceSquared(const Vector2& value1, const Vector2& value2);
+
+            /**
+             * Calculates a hermite spline interpolation.
+             * @param value1 source position 1.
+             * @param tangent1 source tangent 1.
+             * @param value2 source position 2.
+             * @param tangent2 source tangent 2.
+             * @param amount weighting factor.
+             */
+            static Vector2 Hermite(const Vector2& value1,
+                                   const Vector2& tangent1,
+                                   const Vector2& value2,
+                                   const Vector2& tangent2,
+                                   const System::Single& amount);
+
+            /**
              * Performs a linear interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector
@@ -60,6 +120,17 @@ namespace SceneR
             static Vector2 Lerp(const Vector2& value1,
                                 const Vector2& value2,
                                 const System::Single&  amount);
+
+            /**
+             * Performs a cubic interpolation between two vectors.
+             * @param value1 first vector
+             * @param value2 second vector
+             * @param amount Weighting value.
+             * @returns the linear interpolation of the two vectors.
+             */
+            static Vector2 SmoothStep(const Vector2& value1,
+                                      const Vector2& value2,
+                                      const System::Single&  amount);
 
         public:
             /**
@@ -96,9 +167,44 @@ namespace SceneR
              */
             const System::Single& Y() const;
 
+            /**
+             * Gets the square of the length of this Vector2.
+             *
+             * @return the square of the length of this Vector2.
+             */
+            const System::Single LengthSquared() const;
+
+            /**
+             * Gets the length of this Vector2.
+             *
+             * @return the length of this Vector2.
+             */
+            const System::Single Length() const;
+
+            /**
+             * Negates a Vector2.
+             * The vector has the same magnitude as before, but its direction is now opposite.
+             */
+            void Negate();
+
         public:
             System::Single& operator[](const System::Int32& index);
             const System::Single& operator[](const System::Int32& index) const;
+            Vector2& operator=(const Vector2& vector);
+            bool operator==(const Vector2& vector) const;
+            bool operator!=(const Vector2& vector) const;
+            Vector2& operator*=(const Vector2& vector);
+            Vector2& operator*=(const System::Single& value);
+            Vector2& operator/=(const Vector2& vector);
+            Vector2& operator/=(const System::Single& value);
+            Vector2& operator-=(const Vector2& vector);
+            Vector2& operator+=(const Vector2& vector);
+            const Vector2 operator*(const Vector2& vector) const;
+            const Vector2 operator*(const System::Single& value) const;
+            const Vector2 operator/(const Vector2& vector) const;
+            const Vector2 operator/(const System::Single& value) const;
+            const Vector2 operator-(const Vector2& vector) const;
+            const Vector2 operator+(const Vector2& vector) const;
 
         private:
             union
