@@ -112,15 +112,15 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
 
 Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/bb205343(v=VS.85).aspx
-    // zaxis = normal(Eye - At)
-    // xaxis = normal(cross(Up, zaxis))
+    // Formula: http://msdn.microsoft.com/en-us/library/windows/desktop/bb281711(v=vs.85).aspx
+    // zaxis = normal(cameraPosition - cameraTarget)
+    // xaxis = normal(cross(cameraUpVector, zaxis))
     // yaxis = cross(zaxis, xaxis)
 
-    // xaxis.x           yaxis.x           zaxis.x          0
-    // xaxis.y           yaxis.y           zaxis.y          0
-    // xaxis.z           yaxis.z           zaxis.z          0
-    // dot(xaxis, eye)   dot(yaxis, eye)   dot(zaxis, eye)  1
+    //  xaxis.x                    yaxis.x                     zaxis.x                     0
+    //  xaxis.y                    yaxis.y                     zaxis.y                     0
+    //  xaxis.z                    yaxis.z                     zaxis.z                     0
+    // -dot(xaxis, cameraPosition) -dot(yaxis, cameraPosition) -dot(zaxis, cameraPosition) 1
 
     Vector3 zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
     Vector3 xAxis = Vector3::Normalize(cameraUpVector.CrossProduct(zAxis));
@@ -133,7 +133,7 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
                   xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
                   xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f,
-                  -dx      , -dy      , -dz      , 1.0f);
+                  -dx      , -dy      , -dz     , 1.0f);
 }
 
 Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
@@ -221,12 +221,11 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
     Single yScale     = 1.0f / std::tan(MathHelper::ToRadians(fieldOfView / 2));
     Single xScale     = yScale / aspectRatio;
     Single nearSubFar = zNear - zFar;
-    Single nearDotFar = zNear * zFar;
 
     return Matrix(xScale, 0.0f  , 0.0f                   , 0.0f,
                   0.0f  , yScale, 0.0f                   , 0.0f,
                   0.0f  , 0.0f  , zFar / nearSubFar      , -1.0f,
-                  0.0f  , 0.0f  , nearDotFar / nearSubFar, 0.0f);
+                  0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f);
 }
 
 Matrix Matrix::CreateRotationX(const Single& angle)

@@ -14,9 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <gtest/gtest-message.h>
+#include <gtest/internal/gtest-internal.h>
 #include <MatrixTest.hpp>
 
 using namespace System;
@@ -159,6 +162,45 @@ TEST_F(MatrixTest, MatrixTranspose)
     EXPECT_TRUE(1.0f  == matrix.M44());
 }
 
+TEST_F(MatrixTest, Determinant)
+{
+    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
+                           1.0f, 2.0f, -3.0f, 0.0f,
+                           1.0f, 1.0f, 5.0f , 0.0f,
+                           0.0f, 0.0f, 0.0f , 1.0f);
+
+    Single determinant = matrix.Determinant();
+
+    EXPECT_TRUE(-2.0f == determinant);
+}
+
+TEST_F(MatrixTest, Inverse)
+{
+    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
+                           1.0f, 2.0f, -3.0f, 0.0f,
+                           1.0f, 1.0f, 5.0f , 0.0f,
+                           0.0f, 0.0f, 0.0f , 1.0f);
+
+    matrix.Invert();
+
+    EXPECT_TRUE(-6.5f == matrix.M11());
+    EXPECT_TRUE(05.5f == matrix.M12());
+    EXPECT_TRUE(08.5f == matrix.M13());
+    EXPECT_TRUE(00.0f == matrix.M14());
+    EXPECT_TRUE(04.0f == matrix.M21());
+    EXPECT_TRUE(-3.0f == matrix.M22());
+    EXPECT_TRUE(-5.0f == matrix.M23());
+    EXPECT_TRUE(00.0f == matrix.M24());
+    EXPECT_TRUE(00.5f == matrix.M31());
+    EXPECT_TRUE(-0.5f == matrix.M32());
+    EXPECT_TRUE(-0.5f == matrix.M33());
+    EXPECT_TRUE(00.0f == matrix.M34());
+    EXPECT_TRUE(00.0f == matrix.M41());
+    EXPECT_TRUE(00.0f == matrix.M42());
+    EXPECT_TRUE(00.0f == matrix.M43());
+    EXPECT_TRUE(01.0f == matrix.M44());
+}
+
 TEST_F(MatrixTest, CreateFromYawPitchRoll)
 {
     Single yaw   = 0.0f;
@@ -183,6 +225,52 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
     EXPECT_TRUE(0.0f  == matrix.M42());
     EXPECT_TRUE(0.0f  == matrix.M43());
     EXPECT_TRUE(1.0f  == matrix.M44());
+}
+
+TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
+{
+    Single fieldOfView = MathHelper::ToDegrees(MathHelper::PiOver4);
+    Single aspectRatio = 768.0f / 480.0f;
+    Matrix perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
+
+    EXPECT_TRUE(1.50888336f == perspective.M11());
+    EXPECT_TRUE(00.0f       == perspective.M12());
+    EXPECT_TRUE(00.0f       == perspective.M13());
+    EXPECT_TRUE(00.0f       == perspective.M14());
+    EXPECT_TRUE(00.0f       == perspective.M21());
+    EXPECT_TRUE(2.41421342f == perspective.M22());
+    EXPECT_TRUE(00.0f       == perspective.M23());
+    EXPECT_TRUE(00.0f       == perspective.M24());
+    EXPECT_TRUE(00.0f       == perspective.M31());
+    EXPECT_TRUE(00.0f       == perspective.M32());
+    EXPECT_TRUE(-1.001001f  == perspective.M33());
+    EXPECT_TRUE(-1.0f       == perspective.M34());
+    EXPECT_TRUE(00.0f       == perspective.M41());
+    EXPECT_TRUE(00.0f       == perspective.M42());
+    EXPECT_TRUE(-0.1001001f == perspective.M43());
+    EXPECT_TRUE(00.0f       == perspective.M44());
+}
+
+TEST_F(MatrixTest, CreateLookAt)
+{
+    Matrix lookAt = Matrix::CreateLookAt(Vector3(0.0f, 1.0f, -5.0f), Vector3::UnitY, Vector3::Up);
+
+    EXPECT_TRUE(-1.0f == lookAt.M11());
+    EXPECT_TRUE(00.0f == lookAt.M12());
+    EXPECT_TRUE(00.0f == lookAt.M13());
+    EXPECT_TRUE(00.0f == lookAt.M14());
+    EXPECT_TRUE(00.0f == lookAt.M21());
+    EXPECT_TRUE(01.0f == lookAt.M22());
+    EXPECT_TRUE(00.0f == lookAt.M23());
+    EXPECT_TRUE(00.0f == lookAt.M24());
+    EXPECT_TRUE(00.0f == lookAt.M31());
+    EXPECT_TRUE(00.0f == lookAt.M32());
+    EXPECT_TRUE(-1.0f == lookAt.M33());
+    EXPECT_TRUE(00.0f == lookAt.M34());
+    EXPECT_TRUE(00.0f == lookAt.M41());
+    EXPECT_TRUE(-1.0f == lookAt.M42());
+    EXPECT_TRUE(-5.0f == lookAt.M43());
+    EXPECT_TRUE(01.0f == lookAt.M44());
 }
 
 TEST_F(MatrixTest, TransformChain)
@@ -314,43 +402,4 @@ TEST_F(MatrixTest, TransformFromAxisAngleZ)
     EXPECT_TRUE(0.0f  == vectorResult.X());
     EXPECT_TRUE(0.0f  == vectorResult.Y());
     EXPECT_TRUE(10.0f == vectorResult.Z());
-}
-
-TEST_F(MatrixTest, Determinant)
-{
-    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
-                           1.0f, 2.0f, -3.0f, 0.0f,
-                           1.0f, 1.0f, 5.0f , 0.0f,
-                           0.0f, 0.0f, 0.0f , 1.0f);
-
-    Single determinant = matrix.Determinant();
-
-    EXPECT_TRUE(-2.0f == determinant);
-}
-
-TEST_F(MatrixTest, Inverse)
-{
-    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
-                           1.0f, 2.0f, -3.0f, 0.0f,
-                           1.0f, 1.0f, 5.0f , 0.0f,
-                           0.0f, 0.0f, 0.0f , 1.0f);
-
-    matrix.Invert();
-
-    EXPECT_TRUE(-6.5f == matrix.M11());
-    EXPECT_TRUE(05.5f == matrix.M12());
-    EXPECT_TRUE(08.5f == matrix.M13());
-    EXPECT_TRUE(00.0f == matrix.M14());
-    EXPECT_TRUE(04.0f == matrix.M21());
-    EXPECT_TRUE(-3.0f == matrix.M22());
-    EXPECT_TRUE(-5.0f == matrix.M23());
-    EXPECT_TRUE(00.0f == matrix.M24());
-    EXPECT_TRUE(00.5f == matrix.M31());
-    EXPECT_TRUE(-0.5f == matrix.M32());
-    EXPECT_TRUE(-0.5f == matrix.M33());
-    EXPECT_TRUE(00.0f == matrix.M34());
-    EXPECT_TRUE(00.0f == matrix.M41());
-    EXPECT_TRUE(00.0f == matrix.M42());
-    EXPECT_TRUE(00.0f == matrix.M43());
-    EXPECT_TRUE(01.0f == matrix.M44());
 }
