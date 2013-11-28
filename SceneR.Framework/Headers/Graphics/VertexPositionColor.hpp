@@ -29,7 +29,7 @@ namespace SceneR
         /**
          * Describes a custom vertex format structure that contains position and color information.
          */
-        class VertexPositionColor
+        struct VertexPositionColor
         {
         public:
             /**

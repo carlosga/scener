@@ -30,7 +30,7 @@ namespace SceneR
         /**
          * Describes a  vertex format  that contains position, color, and texture coordinates.
          */
-        class VertexPositionColorTexture
+        struct VertexPositionColorTexture
         {
         public:
             /**
