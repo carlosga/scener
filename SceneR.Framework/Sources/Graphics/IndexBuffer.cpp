@@ -57,7 +57,6 @@ const std::vector<UInt32>& IndexBuffer::GetData() const
 void IndexBuffer::SetData(const std::vector<UInt32>& data)
 {
     this->BufferData(data);
-    this->UnbindIndexBuffer();
 }
 
 void IndexBuffer::Release()
