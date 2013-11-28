@@ -30,12 +30,12 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Color;
-        class Matrix;
-        class Quaternion;
-        class Vector2;
-        class Vector3;
-        class Vector4;
+        struct Color;
+        struct Matrix;
+        struct Quaternion;
+        struct Vector2;
+        struct Vector3;
+        struct Vector4;
     }
 }
 

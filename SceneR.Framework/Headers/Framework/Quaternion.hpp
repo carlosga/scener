@@ -23,12 +23,12 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Vector3;
+        struct Vector3;
 
         /**
          * Class that represents a rotation in three dimensions.
          */
-        class Quaternion
+        struct Quaternion
         {
         public:
             /**

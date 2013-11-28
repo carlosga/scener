@@ -26,9 +26,9 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Matrix;
-        class Vector3;
-        class Vector4;
+        struct Matrix;
+        struct Vector3;
+        struct Vector4;
     }
 }
 

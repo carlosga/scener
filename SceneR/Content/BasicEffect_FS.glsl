@@ -1,8 +1,7 @@
-#version 430
+#version 430 core
 
 in vec3 Position;
 in vec3 Normal;
-// in vec2 FragmentTexCoord;
 
 uniform vec4 LightPosition;
 uniform vec3 LightIntensity;
@@ -27,8 +26,5 @@ vec3 ads()
 
 void main() 
 {
-    //note: the texture function was called texture2D in older versions of GLSL
-    //finalColor = texture(tex, fragTexCoord);
-    
     FragColor = vec4(ads(), 1.0);    
 }

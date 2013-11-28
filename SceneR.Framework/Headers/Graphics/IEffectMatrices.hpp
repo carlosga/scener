@@ -21,7 +21,7 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Matrix;
+        struct Matrix;
     }
 }
 

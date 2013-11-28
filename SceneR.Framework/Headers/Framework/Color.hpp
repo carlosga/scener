@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Describes a color in terms of red, green, blue and alpha components.
          */
-        class Color
+        struct Color
         {
         public:
             /**

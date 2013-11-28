@@ -23,12 +23,12 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Matrix;
+        struct Matrix;
 
         /**
          * Represents an x-, y-, and z-coordinate vector.
          */
-        class Vector3
+        struct Vector3
         {
         public:
             /**

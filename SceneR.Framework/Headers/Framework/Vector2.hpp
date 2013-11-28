@@ -26,7 +26,7 @@ namespace SceneR
         /**
          * Represents an x and y-coordinate vector.
          */
-        class Vector2
+        struct Vector2
         {
         public:
             /**

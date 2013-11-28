@@ -23,8 +23,8 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Color;
-        class Vector3;
+        struct Color;
+        struct Vector3;
     }
 }
 

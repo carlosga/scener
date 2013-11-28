@@ -24,7 +24,7 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Color;
+        struct Color;
     }
 }
 

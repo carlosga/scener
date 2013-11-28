@@ -29,7 +29,7 @@ namespace SceneR
         /**
          * Describes a  vertex format  that contains position, normal data, and texture coordinates.
          */
-        class VertexPositionNormalTexture
+        struct VertexPositionNormalTexture
         {
         public:
             /**

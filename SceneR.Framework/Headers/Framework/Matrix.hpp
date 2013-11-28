@@ -23,13 +23,13 @@ namespace SceneR
 {
     namespace Framework
     {
-        class Vector3;
-        class Quaternion;
+        struct Vector3;
+        struct Quaternion;
 
         /**
          * Represents a 4 x 4 matrix.
          */
-        class Matrix
+        struct Matrix
         {
         public:
             /**

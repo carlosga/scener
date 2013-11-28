@@ -54,7 +54,7 @@ const std::vector<UInt32>& IndexBuffer::GetData() const
     throw std::runtime_error("Not implemented");
 }
 
-void SceneR::Graphics::IndexBuffer::SetData(const std::vector<UInt32>& data)
+void IndexBuffer::SetData(const std::vector<UInt32>& data)
 {
     this->BufferData(data);
     this->UnbindIndexBuffer();

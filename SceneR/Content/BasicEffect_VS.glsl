@@ -1,4 +1,4 @@
-#version 430
+#version 430 core
 
 layout (location = 0) in vec3 VertexPosition;
 layout (location = 1) in vec3 VertexNormal;
@@ -10,13 +10,9 @@ uniform mat4 WorldInverseTranspose;
 
 out vec3 Position;
 out vec3 Normal;
-// out vec2 FragmentTexCoord;
 
 void main() 
 {
-    // Pass the tex coord straight through to the fragment shader
-    // FragmentTexCoord = VertexCoord;
-    
     // Calculate the World Normal
     Normal = normalize(vec4(VertexNormal, 1.0) * WorldInverseTranspose).xyz;    
     
