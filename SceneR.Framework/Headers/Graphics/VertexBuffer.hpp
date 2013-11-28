@@ -76,6 +76,7 @@ namespace SceneR
             void UnbindVertexArray() const;
             void DeleteVertexArray();
             void DeclareVertexFormat(const VertexDeclaration& vDecl) const;
+            void BufferData(const VertexDeclaration& vDecl, const System::UInt32& count, const GLvoid* data);
             void Release();
 
         private:
