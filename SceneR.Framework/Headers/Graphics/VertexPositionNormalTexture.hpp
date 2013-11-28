@@ -31,11 +31,14 @@ namespace SceneR
          */
         struct VertexPositionNormalTexture
         {
+        private:
+            static const VertexDeclaration& Declaration;
+
         public:
             /**
              * Gets the vertex declaration
              */
-            static const VertexDeclaration GetVertexDeclaration();
+            static const VertexDeclaration& GetVertexDeclaration();
 
         public:
             /**

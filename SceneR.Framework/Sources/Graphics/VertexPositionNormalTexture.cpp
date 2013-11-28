@@ -19,23 +19,28 @@
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
-#include <vector>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const VertexDeclaration VertexPositionNormalTexture::GetVertexDeclaration()
+const VertexDeclaration& VertexPositionNormalTexture::Declaration
 {
-    std::vector<VertexElement> vertexElements;
+    8,
+    32,
+    {
+        VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+        VertexElement(12, 3, VertexElementFormat::Vector3, VertexElementUsage::Normal, 1),
+        VertexElement(24, 2, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
+    }
+};
 
-    vertexElements.push_back(VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0));
-    vertexElements.push_back(VertexElement(12, 3, VertexElementFormat::Vector3, VertexElementUsage::Normal, 1));
-    vertexElements.push_back(VertexElement(24, 2, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2));
-
-    return VertexDeclaration(8, 32, vertexElements);
+const VertexDeclaration& VertexPositionNormalTexture::GetVertexDeclaration()
+{
+    return VertexPositionNormalTexture::Declaration;
 }
 
-VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position, const Vector3& normal,
+VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position,
+                                                         const Vector3& normal,
                                                          const Vector2& textureCoordinate)
     : position(position), normal(normal), textureCoordinate(textureCoordinate)
 {

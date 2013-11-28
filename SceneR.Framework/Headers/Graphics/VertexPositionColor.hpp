@@ -31,11 +31,14 @@ namespace SceneR
          */
         struct VertexPositionColor
         {
+        private:
+            static const VertexDeclaration& Declaration;
+
         public:
             /**
              * Vertex declaration, which defines per-vertex data.
              */
-            static const VertexDeclaration GetVertexDeclaration();
+            static const VertexDeclaration& GetVertexDeclaration();
 
         public:
             /**

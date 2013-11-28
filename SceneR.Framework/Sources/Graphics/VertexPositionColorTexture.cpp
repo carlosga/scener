@@ -19,20 +19,24 @@
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexPositionColorTexture.hpp>
-#include <vector>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const VertexDeclaration VertexPositionColorTexture::GetVertexDeclaration()
+const VertexDeclaration& VertexPositionColorTexture::Declaration
 {
-    std::vector<VertexElement> vertexElements;
+    9,
+    36,
+    {
+        VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+        VertexElement(12, 4, VertexElementFormat::Vector4, VertexElementUsage::Color, 3),
+        VertexElement(28, 2, VertexElementFormat::Vector3, VertexElementUsage::TextureCoordinate, 2)
+    }
+};
 
-    vertexElements.push_back(VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0));
-    vertexElements.push_back(VertexElement(12, 4, VertexElementFormat::Vector4, VertexElementUsage::Color, 3));
-    vertexElements.push_back(VertexElement(28, 2, VertexElementFormat::Vector3, VertexElementUsage::TextureCoordinate, 2));
-
-    return VertexDeclaration(9, 36, vertexElements);
+const VertexDeclaration& VertexPositionColorTexture::GetVertexDeclaration()
+{
+    return VertexPositionColorTexture::Declaration;
 }
 
 VertexPositionColorTexture::VertexPositionColorTexture(const Vector3& position, const Color& color, const Vector2& textureCoordinate)

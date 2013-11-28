@@ -19,19 +19,23 @@
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexPositionColor.hpp>
-#include <vector>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const VertexDeclaration VertexPositionColor::GetVertexDeclaration()
+const VertexDeclaration& VertexPositionColor::Declaration
 {
-    std::vector<VertexElement> vertexElements;
+    7,
+    28,
+    {
+        VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+        VertexElement(12, 4, VertexElementFormat::Vector4, VertexElementUsage::Color, 3)
+    }
+};
 
-    vertexElements.push_back(VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0));
-    vertexElements.push_back(VertexElement(12, 4, VertexElementFormat::Vector4, VertexElementUsage::Color, 3));
-
-    return VertexDeclaration(7, 28, vertexElements);
+const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
+{
+    return VertexPositionColor::Declaration;
 }
 
 VertexPositionColor::VertexPositionColor(const Vector3& position, const Color& color)

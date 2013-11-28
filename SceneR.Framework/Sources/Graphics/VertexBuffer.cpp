@@ -62,31 +62,15 @@ void VertexBuffer::SetData(const std::vector<VertexPositionColor>& data)
 {
     VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
 
-    this->BindVertexBuffer();
-
-    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-                 data.size() * vDecl.GetComponentCount() * sizeof(Single),
-                 data.data(),
-                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
-
-    this->UnbindVertexBuffer();
-    this->DeclareVertexFormat(vDecl);
- }
+    this->BufferData(vDecl, data.size(), data.data());
+}
 
 template <>
 void VertexBuffer::SetData(const std::vector<VertexPositionColorTexture>& data)
 {
     VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
 
-    this->BindVertexBuffer();
-
-    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-                 data.size() * vDecl.GetComponentCount() * sizeof(Single),
-                 data.data(),
-                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
-
-    this->UnbindVertexBuffer();
-    this->DeclareVertexFormat(vDecl);
+    this->BufferData(vDecl, data.size(), data.data());
 }
 
 template <>
@@ -94,15 +78,7 @@ void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
 {
     VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
 
-    this->BindVertexBuffer();
-
-    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-                 data.size() * vDecl.GetComponentCount() * sizeof(Single),
-                 data.data(),
-                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
-
-    this->UnbindVertexBuffer();
-    this->DeclareVertexFormat(vDecl);
+    this->BufferData(vDecl, data.size(), data.data());
 }
 
 void VertexBuffer::CreateVertexBuffer()
@@ -193,4 +169,18 @@ void VertexBuffer::Release()
 {
     this->DeleteVertexBuffer();
     this->DeleteVertexArray();
+}
+
+void VertexBuffer::BufferData(const VertexDeclaration& vDecl, const UInt32& count, const GLvoid* data)
+{
+    this->DeclareVertexFormat(vDecl);
+
+    this->BindVertexBuffer();
+
+    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
+                 count * vDecl.GetComponentCount() * sizeof(Single),
+                 data,
+                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
+
+    this->UnbindVertexBuffer();
 }
