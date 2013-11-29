@@ -14,9 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
 #include <System/Core.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/TextureMipMap.hpp>
@@ -35,21 +37,22 @@ const ContentType Texture2DReader::GetContentType() const
     return ContentType::Texture2D;
 }
 
-std::shared_ptr<void> Texture2DReader::Read(ContentReader* input)
+std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
 {
-    auto texture = std::make_shared<Texture2D>(input->GetGraphicsDevice(), 0, 0);
+    auto& gdService = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  texture   = std::make_shared<Texture2D>(gdService.GetGraphicsDevice(), 0, 0);
 
-    texture->format = static_cast<SurfaceFormat>(input->ReadUInt32());
-    texture->width  = input->ReadUInt32();
-    texture->height = input->ReadUInt32();
+    texture->format = static_cast<SurfaceFormat>(input.ReadUInt32());
+    texture->width  = input.ReadUInt32();
+    texture->height = input.ReadUInt32();
 
-    UInt32 mipmapCount = input->ReadUInt32();
+    UInt32 mipmapCount = input.ReadUInt32();
 
     for (UInt32 i = 0; i < mipmapCount; i++)
     {
         TextureMipMap mipmap;
 
-        mipmap.data = input->ReadBytes(input->ReadUInt32());
+        mipmap.data = input.ReadBytes(input.ReadUInt32());
 
         texture->mipmaps.push_back(mipmap);
     }

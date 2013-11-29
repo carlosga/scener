@@ -47,10 +47,10 @@ namespace SceneR
             /**
              * Reads the model contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader* input) override;
+            virtual std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
-            System::UInt32 ReadBoneReference(ContentReader* input, const System::UInt16& boneCount);
+            System::UInt32 ReadBoneReference(ContentReader& input, const System::UInt16& boneCount);
         };
     }
 }

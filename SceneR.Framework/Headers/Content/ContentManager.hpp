@@ -19,7 +19,7 @@
 
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
-#include <Content/ContentTypeReaderManager.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
 #include <System/IO/File.hpp>
@@ -40,8 +40,8 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(SceneR::Graphics::GraphicsDevice& graphicsDevice,
-                           const System::String&             rootDirectory);
+            ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider,
+                           const System::String&                        rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -52,7 +52,12 @@ namespace SceneR
             /**
              * Gets the graphics device
              */
-            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+            SceneR::Framework::RendererServiceContainer& ServiceProvider();
+
+            /**
+             * Gets the root directory associated with this ContentManager.
+             */
+            const System::String RootDirectory();
 
             /**
              * Disposes all data that was loaded by this ContentManager.
@@ -78,7 +83,7 @@ namespace SceneR
                     }
 
                     System::IO::FileStream stream(path);
-                    ContentReader reader(this->graphicsDevice, this->typeReaderManager, stream);
+                    ContentReader reader(assetName, *this, stream);
 
                     asset = reader.ReadObject<T>();
 
@@ -93,9 +98,8 @@ namespace SceneR
             };
 
         private:
-            SceneR::Graphics::GraphicsDevice& graphicsDevice;
-            System::String                    rootDirectory;
-            ContentTypeReaderManager          typeReaderManager;
+            SceneR::Framework::RendererServiceContainer& serviceProvider;
+            System::String                               rootDirectory;
         };
     }
 }

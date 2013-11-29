@@ -17,9 +17,10 @@
 #ifndef GRAPHICSDEVICEMANAGER_HPP
 #define GRAPHICSDEVICEMANAGER_HPP
 
-#include <System/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
@@ -30,7 +31,7 @@ namespace SceneR
         /**
          * Handles the configuration and management of the graphics device.
          */
-        class GraphicsDeviceManager : public IGraphicsDeviceManager
+        class GraphicsDeviceManager : public SceneR::Graphics::IGraphicsDeviceService, public IGraphicsDeviceManager
         {
         public:
             /**
@@ -68,7 +69,7 @@ namespace SceneR
              * Gets the graphics device.
              * @return the graphics device.
              */
-            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+            virtual SceneR::Graphics::GraphicsDevice& GetGraphicsDevice() override;
 
             /**
              * Gets a value indicating whether to allow the user to reSystem::Size the device window.

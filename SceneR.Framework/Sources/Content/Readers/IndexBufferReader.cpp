@@ -14,9 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <System/Core.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <vector>
@@ -34,17 +36,18 @@ const ContentType IndexBufferReader::GetContentType() const
     return ContentType::IndexBuffer;
 }
 
-std::shared_ptr<void> IndexBufferReader::Read(ContentReader* input)
+std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
     std::vector<UInt32> data(0);
-    UInt32              indexCount = input->ReadUInt32();
-    auto                buffer     = std::make_shared<IndexBuffer>(input->GetGraphicsDevice(),
+    auto&               gdService  = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    UInt32              indexCount = input.ReadUInt32();
+    auto                buffer     = std::make_shared<IndexBuffer>(gdService.GetGraphicsDevice(),
                                                                    IndexElementSize::ThirtyTwoBits,
                                                                    indexCount);
 
     for (UInt32 i = 0; i < indexCount; i++)
     {
-        data.push_back(input->ReadUInt32());
+        data.push_back(input.ReadUInt32());
     }
 
     buffer->SetData(data);

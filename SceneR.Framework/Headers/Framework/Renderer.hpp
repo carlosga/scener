@@ -19,6 +19,7 @@
 
 #include <Content/ContentManager.hpp>
 #include <System/Core.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RenderTime.hpp>
@@ -59,17 +60,6 @@ namespace SceneR
 
         public:
             /**
-             * Call this method to initialize the renderer, begin running the rendering loop,
-             * and start processing events.
-             */
-            virtual void Run();
-
-            /**
-             * Exits the renderer.
-             */
-            virtual void Exit();
-
-            /**
              * Gets the current graphics device
              * @return the current graphics device
              */
@@ -88,9 +78,25 @@ namespace SceneR
             SceneR::Content::ContentManager& GetContentManager();
 
             /**
-             * Gets the collection of GameComponents owned by the renderer.
+             * Gets the collection of components owned by the renderer.
              */
             std::vector<std::shared_ptr<IComponent>>& Components();
+
+            /**
+             * Gets the collection of services owned by the renderer.
+             */
+            RendererServiceContainer& Services();
+
+            /**
+             * Call this method to initialize the renderer, begin running the rendering loop,
+             * and start processing events.
+             */
+            virtual void Run();
+
+            /**
+             * Exits the renderer.
+             */
+            virtual void Exit();
 
         protected:
             /**
@@ -153,10 +159,11 @@ namespace SceneR
             void StartEventLoop();
 
         protected:
+            std::vector<std::shared_ptr<IComponent>> components;
+            RendererServiceContainer                 services;
             GraphicsDeviceManager                    graphicsDeviceManager;
             RendererWindow                           rendererWindow;
             SceneR::Content::ContentManager          contentManager;
-            std::vector<std::shared_ptr<IComponent>> components;
             RendererTimer                            timer;
             RenderTime                               renderTime;
             System::Duration                         totalRenderTime;

@@ -49,13 +49,12 @@ void GraphicsDeviceManager::ApplyChanges()
 
 Boolean GraphicsDeviceManager::BeginDraw()
 {
-    // TODO: Implement
     return true;
 }
 
 void GraphicsDeviceManager::EndDraw()
 {
-    // TODO: Implement
+    this->graphicsDevice.Present();
 }
 
 void GraphicsDeviceManager::CreateDevice()

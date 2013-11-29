@@ -14,11 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Renderer.hpp>
-#include <Framework/RenderTime.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
+#include <Framework/Renderer.hpp>
+#include <Framework/RenderTime.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -26,14 +27,16 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Renderer::Renderer(const String& rootDirectory)
-    : graphicsDeviceManager(*this),
+    : components(0),
+      services(),
+      graphicsDeviceManager(*this),
       rendererWindow(*this),
-      contentManager(this->graphicsDeviceManager.GetGraphicsDevice(), rootDirectory),
-      components(0),
+      contentManager(this->services, rootDirectory),
       timer(),
       renderTime(),
       totalRenderTime()
 {
+    this->services.AddService<IGraphicsDeviceService>(this->graphicsDeviceManager);
 }
 
 Renderer::~Renderer()
@@ -42,21 +45,9 @@ Renderer::~Renderer()
     this->Exit();
 }
 
-void Renderer::Run()
+std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
 {
-    this->BeginRun();
-    this->Initialize();
-    this->LoadContent();
-    this->StartEventLoop();
-    this->UnloadContent();
-    this->EndRun();
-}
-
-void Renderer::Exit()
-{
-    this->rendererWindow.Close();
-
-    glfwTerminate();
+    return this->components;
 }
 
 GraphicsDevice& Renderer::GetGraphicsDevice()
@@ -74,9 +65,26 @@ ContentManager& Renderer::GetContentManager()
     return this->contentManager;
 }
 
-std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
+RendererServiceContainer& Renderer::Services()
 {
-    return this->components;
+    return this->services;
+}
+
+void Renderer::Run()
+{
+    this->BeginRun();
+    this->Initialize();
+    this->LoadContent();
+    this->StartEventLoop();
+    this->UnloadContent();
+    this->EndRun();
+}
+
+void Renderer::Exit()
+{
+    this->rendererWindow.Close();
+
+    glfwTerminate();
 }
 
 bool Renderer::BeginDraw()
@@ -154,6 +162,7 @@ void Renderer::StartEventLoop()
     do
     {
         this->Tick();
+
         glfwWaitEvents();
     } while (!this->rendererWindow.ShouldClose());
 }

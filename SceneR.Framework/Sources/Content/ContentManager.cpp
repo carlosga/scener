@@ -18,13 +18,13 @@
 
 using namespace System;
 using namespace SceneR::Content;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-ContentManager::ContentManager(GraphicsDevice& graphicsDevice,
-                               const String&   rootDirectory)
-    : graphicsDevice(graphicsDevice),
-      rootDirectory(rootDirectory),
-      typeReaderManager()
+ContentManager::ContentManager(RendererServiceContainer& serviceProvider,
+                               const String&             rootDirectory)
+    : serviceProvider(serviceProvider),
+      rootDirectory(rootDirectory)
 {
 }
 
@@ -33,9 +33,14 @@ ContentManager::~ContentManager()
     this->Unload();
 }
 
-GraphicsDevice& ContentManager::GetGraphicsDevice()
+RendererServiceContainer& ContentManager::ServiceProvider()
 {
-    return this->graphicsDevice;
+    return this->serviceProvider;
+}
+
+const String ContentManager::RootDirectory()
+{
+    return this->rootDirectory;
 }
 
 void ContentManager::Unload()

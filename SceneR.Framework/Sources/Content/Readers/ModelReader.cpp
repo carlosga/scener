@@ -14,11 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
@@ -39,18 +41,19 @@ const ContentType ModelReader::GetContentType() const
     return ContentType::Model;
 }
 
-std::shared_ptr<void> ModelReader::Read(ContentReader* input)
+std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 {
+    auto&  gdService = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto   model     = std::make_shared<Model>();
-    UInt32 boneCount = input->ReadUInt32();
+    UInt32 boneCount = input.ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
     {
         auto bone = std::make_shared<ModelBone>();
 
-        bone->name      = input->ReadString();
-        bone->transform = input->ReadMatrix();
+        bone->name      = input.ReadString();
+        bone->transform = input.ReadMatrix();
         bone->index     = i;
 
         model->bones.push_back(bone);
@@ -61,7 +64,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     {
         auto   currentBone         = model->bones[i];
         UInt32 parentBoneReference = this->ReadBoneReference(input, boneCount);
-        UInt32 childBoneCount      = input->ReadUInt32();
+        UInt32 childBoneCount      = input.ReadUInt32();
 
         if (parentBoneReference > 0)
         {
@@ -80,13 +83,13 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     }
 
     // Read model meshes
-    UInt32 meshCount = input->ReadInt32();
+    UInt32 meshCount = input.ReadInt32();
 
     for (UInt32 i = 0; i< meshCount; i++)
     {
         auto modelMesh = std::make_shared<ModelMesh>();
 
-        modelMesh->name = input->ReadString();
+        modelMesh->name = input.ReadString();
 
         UInt32 parentBoneReference = this->ReadBoneReference(input, model->bones.size());
 
@@ -96,25 +99,25 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
         }
 
         // TODO: Read mesh bounds
-        modelMesh->tag = input->ReadString();
+        modelMesh->tag = input.ReadString();
 
         // Read mesh parts
-        UInt32 meshPartCount = input->ReadUInt32();
+        UInt32 meshPartCount = input.ReadUInt32();
 
         for (UInt32 i = 0; i < meshPartCount; i++)
         {
             auto modelMeshPart = std::make_shared<ModelMeshPart>();
 
-            modelMeshPart->vertexOffset   = input->ReadUInt32();
-            modelMeshPart->vertexCount    = input->ReadUInt32();
-            modelMeshPart->startIndex     = input->ReadUInt32();
-            modelMeshPart->primitiveCount = input->ReadUInt32();
-            modelMeshPart->tag            = input->ReadString();
-            modelMeshPart->vertexBuffer   = input->ReadObject<VertexBuffer>();
-            modelMeshPart->indexBuffer    = input->ReadObject<IndexBuffer>();
+            modelMeshPart->vertexOffset   = input.ReadUInt32();
+            modelMeshPart->vertexCount    = input.ReadUInt32();
+            modelMeshPart->startIndex     = input.ReadUInt32();
+            modelMeshPart->primitiveCount = input.ReadUInt32();
+            modelMeshPart->tag            = input.ReadString();
+            modelMeshPart->vertexBuffer   = input.ReadObject<VertexBuffer>();
+            modelMeshPart->indexBuffer    = input.ReadObject<IndexBuffer>();
 
             // TODO: Read the effect from the file
-            modelMeshPart->effect = std::make_shared<BasicEffect>(input->GetGraphicsDevice());;
+            modelMeshPart->effect = std::make_shared<BasicEffect>(gdService.GetGraphicsDevice());;
 
             modelMesh->meshParts.push_back(modelMeshPart);
         }
@@ -125,7 +128,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader* input)
     return model;
 }
 
-UInt32 ModelReader::ReadBoneReference(ContentReader* input, const UInt16&  boneCount)
+UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt16&  boneCount)
 {
-    return input->ReadUInt32();
+    return input.ReadUInt32();
 }

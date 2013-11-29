@@ -43,6 +43,8 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentManager;
+
         /**
          * Reads application content from disk
          */
@@ -51,13 +53,13 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the ContentReader.
-             * @param graphicsDevice the graphics device.
-             * @param typeReaderManager the type reader manager.
-             * @param filePath the file path to read.
+             * @param assetName the name of the asset to be readed.
+             * @param contentManager the content that owns this ContentReader.
+             * @param stream the base stream.
              */
-            ContentReader(SceneR::Graphics::GraphicsDevice& graphicsDevice,
-                          ContentTypeReaderManager&         typeReaderManager,
-                          System::IO::Stream&               stream);
+            ContentReader(const System::String& assetName,
+                          ContentManager&       contentManager,
+                          System::IO::Stream&   stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -66,9 +68,14 @@ namespace SceneR
 
         public:
             /**
-             * Gets the graphics device.
+             * Gets the name of the asset currently being read by this ContentReader.
              */
-            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+            System::String& AssetName();
+
+            /**
+             * Gets the content manager that owns this ContentReader.
+             */
+            ContentManager& GetContentManager();
 
             /**
              * Reads a Color value from the current stream.
@@ -104,30 +111,41 @@ namespace SceneR
             /**
              * Reads a single object from the current stream.
              */
-            template<class T>
+            template <class T>
             std::shared_ptr<T> ReadObject()
             {
                 ContentType        contentType = static_cast<ContentType> (this->ReadInt32());
                 ContentTypeReader* reader      = this->typeReaderManager.GetReaderForContentType(contentType);
 
                 return this->ReadObject<T>(reader);
-            }
+            };
 
             /**
              * Reads a single object from the current stream.
              */
-            template<class T>
+            template <class T>
             std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader)
             {
-                return std::static_pointer_cast<T>(typeReader->Read(this));
-            }
+                return std::static_pointer_cast<T>(typeReader->Read(*this));
+            };
+
+//            template <class T>
+//            void ReadSharedResource(std::function<void (const T&)> fixup)
+//            {
+//            };
+//
+//            template <class T>
+//            std::shared_ptr<T> ReadExternalReference()
+//            {
+//            };
 
         private:
             void ReadHeader();
 
         private:
-            SceneR::Graphics::GraphicsDevice& graphicsDevice;
-            ContentTypeReaderManager&         typeReaderManager;
+            System::String           assetName;
+            ContentManager&          contentManager;
+            ContentTypeReaderManager typeReaderManager;
         };
     }
 }

@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
 #include <System/Core.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
 #include <vector>
@@ -38,17 +40,19 @@ const ContentType VertexBufferReader::GetContentType() const
     return ContentType::VertextBuffer;
 }
 
-std::shared_ptr<void> VertexBufferReader::Read(ContentReader* input)
+std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
     std::vector<VertexPositionNormalTexture> data;
-    UInt32                                   vertexCount = input->ReadUInt32();
-    auto                                     buffer      = std::make_shared<VertexBuffer>(input->GetGraphicsDevice());
+
+    auto&  gdService   = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    UInt32 vertexCount = input.ReadUInt32();
+    auto   buffer      = std::make_shared<VertexBuffer>(gdService.GetGraphicsDevice());
 
     for (UInt32 i = 0; i < vertexCount; i++)
     {
-        Vector3 position = input->ReadVector3();
-        Vector3 normal   = input->ReadVector3();
-        Vector2 tcoord   = input->ReadVector2();
+        Vector3 position = input.ReadVector3();
+        Vector3 normal   = input.ReadVector3();
+        Vector2 tcoord   = input.ReadVector2();
 
         data.push_back(VertexPositionNormalTexture(position, normal, tcoord));
     }

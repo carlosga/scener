@@ -14,41 +14,35 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef INDEXBUFFERREADER_HPP
-#define INDEXBUFFERREADER_HPP
-
-#include <Content/ContentTypeReader.hpp>
-#include <memory>
+#ifndef IGRAPHICSDEVICESERVICE_HPP
+#define IGRAPHICSDEVICESERVICE_HPP
 
 namespace SceneR
 {
-    namespace Content
+    namespace Graphics
     {
-        class ContentReader;
+        class GraphicsDevice;
 
         /**
-         * Index buffer reader.
+         * Defines a mechanism for retrieving GraphicsDevice objects.
          */
-        class IndexBufferReader : public ContentTypeReader
+        class IGraphicsDeviceService
         {
-        public:
+        protected:
             /**
-             * Initializes a news instance of the IndexBufferReader class.
+             * Releases all resources being used by this IGraphicsDeviceService.
              */
-            IndexBufferReader();
+            virtual ~IGraphicsDeviceService()
+            {
+            };
 
         public:
             /**
-             * Gets the the reader content type.
+             * Retrieves a graphics device.
              */
-            virtual const ContentType GetContentType() const override;
-
-            /**
-             * Reads the index buffer contents from the given ContentReader.
-             */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            virtual GraphicsDevice& GetGraphicsDevice() = 0;
         };
     }
 }
 
-#endif  /* INDEXBUFFERREADER_HPP */
+#endif /* IGRAPHICSDEVICESERVICE_HPP */

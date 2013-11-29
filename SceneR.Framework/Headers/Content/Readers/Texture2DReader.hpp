@@ -46,7 +46,7 @@ namespace SceneR
             /**
              * Reads the 2D texture contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader* input) override;
+            virtual std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

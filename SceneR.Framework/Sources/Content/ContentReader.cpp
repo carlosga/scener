@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
@@ -29,12 +30,13 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-ContentReader::ContentReader(GraphicsDevice&           graphicsDevice,
-                             ContentTypeReaderManager& typeReaderManager,
-                             Stream&                   stream)
+ContentReader::ContentReader(const String&   assetName,
+                             ContentManager& contentManager,
+                             Stream&         stream)
     : BinaryReader(stream),
-      graphicsDevice(graphicsDevice),
-      typeReaderManager(typeReaderManager)
+      assetName(assetName),
+      contentManager(contentManager),
+      typeReaderManager()
 {
     this->ReadHeader();
 }
@@ -44,9 +46,17 @@ ContentReader::~ContentReader()
     BinaryReader::Close();
 }
 
-GraphicsDevice& ContentReader::GetGraphicsDevice()
+/**
+ * Gets the name of the asset currently being read by this ContentReader.
+ */
+String& ContentReader::AssetName()
 {
-    return this->graphicsDevice;
+    return this->assetName;
+}
+
+ContentManager& ContentReader::GetContentManager()
+{
+    return this->contentManager;
 }
 
 Color ContentReader::ReadColor()

@@ -29,7 +29,6 @@ RendererTimer::RendererTimer()
 
 RendererTimer::~RendererTimer()
 {
-    // TODO Auto-generated destructor stub
 }
 
 void RendererTimer::Reset()
