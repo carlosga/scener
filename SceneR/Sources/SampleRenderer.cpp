@@ -38,7 +38,7 @@ void SampleRenderer::BeginRun()
 {
     this->graphicsDeviceManager.PreferredBackBufferWidth(1500);
     this->graphicsDeviceManager.PreferredBackBufferHeight(943);
-    this->Window().Title(u"SceneR");
+    this->graphicsDeviceManager.WindowTitle(u"SceneR");
     this->components.push_back(std::make_shared<AstroBoy>(*this));
 
     Renderer::BeginRun();

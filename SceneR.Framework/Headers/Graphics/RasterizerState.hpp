@@ -57,59 +57,59 @@ namespace SceneR
              * Specifies the conditions for culling or removing triangles.
              * The default value is CullMode.CounterClockwise.
              */
-            const CullMode& GetCullMode() const;
+            const SceneR::Graphics::CullMode& CullMode() const;
 
             /**
              * Specifies the conditions for culling or removing triangles.
              * The default value is CullMode.CounterClockwise.
              */
-            void SetCullMode(const CullMode& cullMode);
+            void CullMode(const SceneR::Graphics::CullMode& cullMode);
 
             /**
              * Gets the depth bias for polygons, which is the amount of bias to apply to the depth
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            const System::Single& GetDepthBias() const;
+            const System::Single& DepthBias() const;
 
             /**
              * Sets the depth bias for polygons, which is the amount of bias to apply to the depth
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            void SetDepthBias(const System::Single& depthBias);
+            void DepthBias(const System::Single& depthBias);
 
             /**
              * Gets the fill mode, which defines how a triangle is filled during rendering.
              * The default is FillMode.Solid.
              */
-            const FillMode& GetFillMode() const;
+            const SceneR::Graphics::FillMode& FillMode() const;
 
             /**
              * Sets the fill mode, which defines how a triangle is filled during rendering.
              * The default is FillMode.Solid.
              */
-            void SetFillMode(const FillMode& fillMode);
+            void FillMode(const SceneR::Graphics::FillMode& fillMode);
 
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            const System::Boolean& GetMultiSampleAntiAlias() const;
+            const System::Boolean& MultiSampleAntiAlias() const;
 
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            void SetMultiSampleAntiAlias(const System::Boolean& multiSampleAntiAlias);
+            void MultiSampleAntiAlias(const System::Boolean& multiSampleAntiAlias);
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            const System::Boolean& GetScissorTestEnable() const;
+            const System::Boolean& ScissorTestEnable() const;
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            void SetScissorTestEnable(const System::Boolean& scissorTestEnable);
+            void ScissorTestEnable(const System::Boolean& scissorTestEnable);
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -117,7 +117,7 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            const System::Single& GetSlopeScaleDepthBias() const;
+            const System::Single& SlopeScaleDepthBias() const;
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -125,18 +125,18 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            void SetSlopeScaleDepthBias(const System::Single& slopeScaleDepthBias);
+            void SlopeScaleDepthBias(const System::Single& slopeScaleDepthBias);
 
         private:
             void Apply() const;
 
         private:
-            CullMode        cullMode;
-            System::Single  depthBias;
-            FillMode        fillMode;
-            System::Boolean multiSampleAntiAlias;
-            System::Boolean scissorTestEnable;
-            System::Single  slopeScaleDepthBias;
+            SceneR::Graphics::CullMode cullMode;
+            System::Single             depthBias;
+            SceneR::Graphics::FillMode fillMode;
+            System::Boolean            multiSampleAntiAlias;
+            System::Boolean            scissorTestEnable;
+            System::Single             slopeScaleDepthBias;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

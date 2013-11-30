@@ -36,62 +36,62 @@ RasterizerState::~RasterizerState()
 {
 }
 
-const CullMode& RasterizerState::GetCullMode() const
+const SceneR::Graphics::CullMode& RasterizerState::CullMode() const
 {
     return this->cullMode;
 }
 
-void RasterizerState::SetCullMode(const CullMode& cullMode)
+void RasterizerState::CullMode(const SceneR::Graphics::CullMode& cullMode)
 {
     this->cullMode = cullMode;
 }
 
-const Single& RasterizerState::GetDepthBias() const
+const Single& RasterizerState::DepthBias() const
 {
     return this->depthBias;
 }
 
-void RasterizerState::SetDepthBias(const Single& depthBias)
+void RasterizerState::DepthBias(const Single& depthBias)
 {
     this->depthBias = depthBias;
 }
 
-const FillMode& RasterizerState::GetFillMode() const
+const SceneR::Graphics::FillMode& RasterizerState::FillMode() const
 {
     return this->fillMode;
 }
 
-void RasterizerState::SetFillMode(const FillMode& fillMode)
+void RasterizerState::FillMode(const SceneR::Graphics::FillMode& fillMode)
 {
     this->fillMode = fillMode;
 }
 
-const Boolean& RasterizerState::GetMultiSampleAntiAlias() const
+const Boolean& RasterizerState::MultiSampleAntiAlias() const
 {
     return this->multiSampleAntiAlias;
 }
 
-void RasterizerState::SetMultiSampleAntiAlias(const Boolean& multiSampleAntiAlias)
+void RasterizerState::MultiSampleAntiAlias(const Boolean& multiSampleAntiAlias)
 {
     this->multiSampleAntiAlias = multiSampleAntiAlias;
 }
 
-const Boolean& RasterizerState::GetScissorTestEnable() const
+const Boolean& RasterizerState::ScissorTestEnable() const
 {
     return this->scissorTestEnable;
 }
 
-void RasterizerState::SetScissorTestEnable(const Boolean& scissorTestEnable)
+void RasterizerState::ScissorTestEnable(const Boolean& scissorTestEnable)
 {
     this->scissorTestEnable = scissorTestEnable;
 }
 
-const Single& RasterizerState::GetSlopeScaleDepthBias() const
+const Single& RasterizerState::SlopeScaleDepthBias() const
 {
     return this->slopeScaleDepthBias;
 }
 
-void RasterizerState::SetSlopeScaleDepthBias(const Single& slopeScaleDepthBias)
+void RasterizerState::SlopeScaleDepthBias(const Single& slopeScaleDepthBias)
 {
     this->slopeScaleDepthBias = slopeScaleDepthBias;
 }
