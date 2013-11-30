@@ -24,7 +24,7 @@ AmbientLight::AmbientLight()
 {
 }
 
-AmbientLight::AmbientLight(const Color& ambientColor)
+AmbientLight::AmbientLight(const SceneR::Framework::Color& ambientColor)
     : Light(ambientColor)
 {
 }

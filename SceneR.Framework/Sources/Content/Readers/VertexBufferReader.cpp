@@ -35,18 +35,18 @@ VertexBufferReader::VertexBufferReader()
 {
 }
 
-const ContentType VertexBufferReader::GetContentType() const
+const SceneR::Content::ContentType VertexBufferReader::ContentType() const
 {
-    return ContentType::VertextBuffer;
+    return SceneR::Content::ContentType::VertextBuffer;
 }
 
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
     std::vector<VertexPositionNormalTexture> data;
 
-    auto&  gdService   = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto&  gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     UInt32 vertexCount = input.ReadUInt32();
-    auto   buffer      = std::make_shared<VertexBuffer>(gdService.GetGraphicsDevice());
+    auto   buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());
 
     for (UInt32 i = 0; i < vertexCount; i++)
     {

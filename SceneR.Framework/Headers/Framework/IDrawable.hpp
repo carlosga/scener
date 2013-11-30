@@ -47,7 +47,7 @@ namespace SceneR
 			/**
 			 * The order in which to draw this object relative to other objects.
 			 */
-			virtual const System::UInt32& GetDrawOrder() const = 0;
+			virtual const System::UInt32& DrawOrder() const = 0;
 
 			/**
 			 * Called when the component should be drawn.

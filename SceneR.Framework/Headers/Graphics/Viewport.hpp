@@ -57,10 +57,10 @@ namespace SceneR
             const System::Single& Width() const;
             const System::Single& Height() const;
             const System::Single AspectRatio() const;
-            const System::Single& GetMinDepth() const;
-            void SetMinDepth(const System::Single& minDepth);
-            const System::Single& GetMaxDepth() const;
-            void SetMaxDepth(const System::Single& maxDepth);
+            const System::Single& MinDepth() const;
+            void MinDepth(const System::Single& minDepth);
+            const System::Single& MaxDepth() const;
+            void MaxDepth(const System::Single& maxDepth);
             void Update(const System::UInt32& x  , const System::UInt32& y,
                         const System::Size& width, const System::Size& height);
             void Update(const System::Size& width, const System::Size& height);

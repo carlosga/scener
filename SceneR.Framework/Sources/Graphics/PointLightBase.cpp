@@ -21,69 +21,74 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const Single PointLightBase::GetConstantAttenuation() const
+const Single PointLightBase::ConstantAttenuation() const
 {
     return this->constantAttenuation;
 }
 
-void PointLightBase::SetConstantAttenuation(const Single constantAttenuation)
+void PointLightBase::ConstantAttenuation(const Single constantAttenuation)
 {
     this->constantAttenuation = constantAttenuation;
 }
 
-const Single PointLightBase::GetLinearAttenuation() const
+const Single PointLightBase::LinearAttenuation() const
 {
     return this->linearAttenuation;
 }
 
-void PointLightBase::SetLinearAttenuation(const Single linearAttenuation)
+void PointLightBase::LinearAttenuation(const Single linearAttenuation)
 {
     this->linearAttenuation = linearAttenuation;
 }
 
-const Single PointLightBase::GetQuadraticAttenuation() const
+const Single PointLightBase::QuadraticAttenuation() const
 {
     return this->quadraticAttenuation;
 }
 
-void PointLightBase::SetQuadraticAttenuation(const Single quadraticAttenuation)
+void PointLightBase::QuadraticAttenuation(const Single quadraticAttenuation)
 {
     this->quadraticAttenuation = quadraticAttenuation;
 }
 
-const Vector3& PointLightBase::GetPosition() const
+const Vector3& PointLightBase::Position() const
 {
     return this->position;
 }
 
-void PointLightBase::SetPosition(const Vector3& position)
+void PointLightBase::Position(const Vector3& position)
 {
     this->position = position;
 }
 
-const Single PointLightBase::GetRange() const
+const Single PointLightBase::Range() const
 {
     return this->range;
 }
 
-void PointLightBase::SetRange(const Single range)
+void PointLightBase::Range(const Single range)
 {
     this->range = range;
 }
 
-const Single PointLightBase::GetTotalAttenuation(const Single distance) const
+const Single PointLightBase::TotalAttenuation(const Single distance) const
 {
     // A = constant_attenuation + ( Dist * linear_attenuation ) + (( Dist^2 ) * quadratic_attenuation )
     return this->constantAttenuation + (distance * this->linearAttenuation) + ((distance * distance) * this->quadraticAttenuation);
 }
 
 PointLightBase::PointLightBase()
-    : PointLightBase(Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f))
+    : PointLightBase(SceneR::Framework::Color(1.0f, 1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f))
 {
 }
 
-PointLightBase::PointLightBase(const Color& diffuseColor, const Vector3& position)
-    : Light(diffuseColor), position(position), range(1.0f), constantAttenuation(1.0f), linearAttenuation(0.0f),
+PointLightBase::PointLightBase(const SceneR::Framework::Color& diffuseColor,
+                               const Vector3& position)
+    : Light(diffuseColor),
+      position(position),
+      range(1.0f),
+      constantAttenuation(1.0f),
+      linearAttenuation(0.0f),
       quadraticAttenuation(0.0f)
 {
 }

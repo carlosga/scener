@@ -43,7 +43,7 @@ namespace SceneR
             /**
              * Gets the reader supported content type.
              */
-            virtual const ContentType GetContentType() const = 0;
+            virtual const SceneR::Content::ContentType ContentType() const = 0;
 
             /**
              * Reads a object from the current stream.

@@ -72,12 +72,12 @@ namespace SceneR
             /**
              * Gets the model tag
              */
-            const System::String& GetTag() const;
+            const System::String& Tag() const;
 
             /**
              * Sets the model tag
              */
-            void SetTag(const System::String& tag);
+            void Tag(const System::String& tag);
 
         private:
             std::vector<std::shared_ptr<ModelBone>> bones;

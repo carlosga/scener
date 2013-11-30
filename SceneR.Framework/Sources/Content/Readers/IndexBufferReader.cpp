@@ -31,17 +31,17 @@ IndexBufferReader::IndexBufferReader()
 {
 }
 
-const ContentType IndexBufferReader::GetContentType() const
+const SceneR::Content::ContentType IndexBufferReader::ContentType() const
 {
-    return ContentType::IndexBuffer;
+    return SceneR::Content::ContentType::IndexBuffer;
 }
 
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
     std::vector<UInt32> data(0);
-    auto&               gdService  = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto&               gdService  = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     UInt32              indexCount = input.ReadUInt32();
-    auto                buffer     = std::make_shared<IndexBuffer>(gdService.GetGraphicsDevice(),
+    auto                buffer     = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(),
                                                                    IndexElementSize::ThirtyTwoBits,
                                                                    indexCount);
 

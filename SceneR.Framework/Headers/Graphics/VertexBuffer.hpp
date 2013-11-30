@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            const System::UInt32& GetVertexCount() const;
+            const System::UInt32& VertexCount() const;
 
             /**
              * Gets the vertex buffer data

@@ -36,14 +36,14 @@ ModelReader::ModelReader()
 {
 }
 
-const ContentType ModelReader::GetContentType() const
+const SceneR::Content::ContentType ModelReader::ContentType() const
 {
-    return ContentType::Model;
+    return SceneR::Content::ContentType::Model;
 }
 
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 {
-    auto&  gdService = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto&  gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto   model     = std::make_shared<Model>();
     UInt32 boneCount = input.ReadUInt32();
 
@@ -117,7 +117,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMeshPart->indexBuffer    = input.ReadObject<IndexBuffer>();
 
             // TODO: Read the effect from the file
-            modelMeshPart->effect = std::make_shared<BasicEffect>(gdService.GetGraphicsDevice());;
+            modelMeshPart->effect = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());;
 
             modelMesh->meshParts.push_back(modelMeshPart);
         }

@@ -19,6 +19,7 @@
 
 #include <System/Core.hpp>
 #include <Graphics/DepthStencilState.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
@@ -57,10 +58,10 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the GraphicsDevice class.
-             *
+             * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsProfile& graphicsProfile);
+            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile);
 
             /**
              * Release all resources being used by the GraphicsDevice instance.
@@ -75,7 +76,6 @@ namespace SceneR
 
             /**
              * Renders the specified geometric primitive, based on indexing into an array of vertices.
-             *
              * @param primitiveType The primitive type.
              * @param baseVertex Offset to add to each vertex index in the index buffer.
              * @param minVertexIndex Minimum vertex index for vertices used during the call.
@@ -149,6 +149,11 @@ namespace SceneR
             void SetEffect(std::shared_ptr<Effect> effect);
 
             /**
+             * Gets the display adapter.
+             */
+            const GraphicsAdapter& Adapter() const;
+
+            /**
              * Gets the graphics profile.
              * @return the graphics profile.
              */
@@ -204,6 +209,7 @@ namespace SceneR
         private:
             DepthStencilState             depthStencilState;
             std::shared_ptr<Effect>       effect;
+            GraphicsAdapter               graphicsAdapter;
             GraphicsProfile               graphicsProfile;
             std::shared_ptr<IndexBuffer>  indexBuffer;
             PresentationParameters        presentationParameters;

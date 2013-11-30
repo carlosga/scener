@@ -36,7 +36,6 @@ Renderer::Renderer(const String& rootDirectory)
       renderTime(),
       totalRenderTime()
 {
-    this->services.AddService<IGraphicsDeviceService>(this->graphicsDeviceManager);
 }
 
 Renderer::~Renderer()
@@ -50,17 +49,17 @@ std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
     return this->components;
 }
 
-GraphicsDevice& Renderer::GetGraphicsDevice()
+GraphicsDevice& Renderer::CurrentGraphicsDevice()
 {
-    return this->graphicsDeviceManager.GetGraphicsDevice();
+    return this->graphicsDeviceManager.CurrentGraphicsDevice();
 }
 
-RendererWindow& Renderer::GetRendererWindow()
+RendererWindow& Renderer::Window()
 {
     return this->rendererWindow;
 }
 
-ContentManager& Renderer::GetContentManager()
+ContentManager& Renderer::Content()
 {
     return this->contentManager;
 }
@@ -73,6 +72,8 @@ RendererServiceContainer& Renderer::Services()
 void Renderer::Run()
 {
     this->BeginRun();
+    this->rendererWindow.Open();
+    this->graphicsDeviceManager.ApplyChanges();
     this->Initialize();
     this->LoadContent();
     this->StartEventLoop();
@@ -94,7 +95,7 @@ bool Renderer::BeginDraw()
 
 void Renderer::BeginRun()
 {
-    this->rendererWindow.Open();
+    this->graphicsDeviceManager.CreateDevice();
 }
 
 void Renderer::Draw(const RenderTime& renderTime)
@@ -112,7 +113,7 @@ void Renderer::Draw(const RenderTime& renderTime)
 
 void Renderer::EndDraw()
 {
-    this->rendererWindow.SwapBuffers();
+    this->graphicsDeviceManager.CurrentGraphicsDevice().Present();
 }
 
 void Renderer::EndRun()
@@ -125,8 +126,6 @@ void Renderer::Finalize()
 
 void Renderer::Initialize()
 {
-    this->graphicsDeviceManager.ApplyChanges();
-
     if (this->components.size() > 0)
     {
         for (auto& component : this->components)
@@ -172,6 +171,7 @@ void Renderer::Tick()
 //    auto elapsed = this->timer.ElapsedTickTime();
 
     this->timer.Tick();
+
 //    this->renderTime.ElapsedRenderTime(elapsed);
 //    this->renderTime.TotalRenderTime(this->timer.ElapsedTime());
 

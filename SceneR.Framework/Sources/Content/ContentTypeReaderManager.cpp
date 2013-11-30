@@ -46,7 +46,7 @@ ContentTypeReader* ContentTypeReaderManager::GetReaderForContentType(const Conte
 {
     for (auto &typeReader : this->readers)
     {
-        if (typeReader->GetContentType() == contentType)
+        if (typeReader->ContentType() == contentType)
         {
             return typeReader;
         }

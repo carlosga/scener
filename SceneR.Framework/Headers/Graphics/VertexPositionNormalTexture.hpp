@@ -53,17 +53,17 @@ namespace SceneR
             /**
              * Gets the vertex position
              */
-            const SceneR::Framework::Vector3& GetPosition() const;
+            const SceneR::Framework::Vector3& Position() const;
 
             /**
              * Gets the vertex normal
              */
-            const SceneR::Framework::Vector3& GetNormal() const;
+            const SceneR::Framework::Vector3& Normal() const;
 
             /**
              * Gets the vertex texture coordinates
              */
-            const SceneR::Framework::Vector2& GetTextureCoordinate() const;
+            const SceneR::Framework::Vector2& TextureCoordinate() const;
 
         private:
             SceneR::Framework::Vector3 position;

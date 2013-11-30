@@ -18,6 +18,7 @@
 #include <Framework/Renderer.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Graphics/DepthStencilState.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/RasterizerState.hpp>
@@ -29,8 +30,15 @@ using namespace SceneR::Graphics;
 
 GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
     : renderer(renderer),
-      graphicsDevice(GraphicsProfile::Core)
+      graphicsDevice(nullptr),
+      allowUserResizing(false),
+      fullScreen(false),
+      graphicsProfile(GraphicsProfile::Core),
+      preferredBackBufferWidth(GraphicsAdapter::DefaultAdapter().CurrentDisplayMode().Width()),
+      preferredBackBufferHeight(GraphicsAdapter::DefaultAdapter().CurrentDisplayMode().Height()),
+      windowTitle(u"")
 {
+    this->renderer.Services().AddService<IGraphicsDeviceService>(*this);
 }
 
 GraphicsDeviceManager::~GraphicsDeviceManager()
@@ -39,12 +47,15 @@ GraphicsDeviceManager::~GraphicsDeviceManager()
 
 void GraphicsDeviceManager::ApplyChanges()
 {
-    this->graphicsDevice.GetViewport()
-                        .Update(this->graphicsDevice.GetPresentationParameters().GetBackBufferWidth(),
-                                this->graphicsDevice.GetPresentationParameters().GetBackBufferHeight());
+    this->graphicsDevice->GetPresentationParameters().SetBackBufferWidth(this->preferredBackBufferWidth);
+    this->graphicsDevice->GetPresentationParameters().SetBackBufferHeight(this->preferredBackBufferHeight);
+    this->renderer.Window().Title(this->windowTitle);
+    this->renderer.Window().AllowUserResizing(this->allowUserResizing);
+    this->graphicsDevice->GetPresentationParameters().SetFullScreen(this->fullScreen);
+    this->graphicsDevice->GetViewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
 
-    this->graphicsDevice.GetRasterizerState().Apply();
-    this->graphicsDevice.GetDepthStencilState().Apply();
+    this->graphicsDevice->GetRasterizerState().Apply();
+    this->graphicsDevice->GetDepthStencilState().Apply();
 }
 
 Boolean GraphicsDeviceManager::BeginDraw()
@@ -54,65 +65,75 @@ Boolean GraphicsDeviceManager::BeginDraw()
 
 void GraphicsDeviceManager::EndDraw()
 {
-    this->graphicsDevice.Present();
+    this->graphicsDevice->Present();
 }
 
 void GraphicsDeviceManager::CreateDevice()
 {
-    // TODO: Implement
+    this->graphicsDevice = std::make_shared<GraphicsDevice>(GraphicsAdapter::DefaultAdapter(), GraphicsProfile::Core);
 }
 
-GraphicsDevice& GraphicsDeviceManager::GetGraphicsDevice()
+GraphicsDevice& GraphicsDeviceManager::CurrentGraphicsDevice()
 {
-    return this->graphicsDevice;
+    return *this->graphicsDevice;
 }
 
-const Boolean GraphicsDeviceManager::GetAllowUserResizing() const
+const GraphicsProfile& GraphicsDeviceManager::GraphicsProfile() const
 {
-    return this->renderer.GetRendererWindow().GetAllowUserResizing();
+    return this->graphicsProfile;
 }
 
-void GraphicsDeviceManager::SetAllowUserResizing(const Boolean& allowUserResizing)
+void GraphicsDeviceManager::GraphicsProfile(const SceneR::Graphics::GraphicsProfile& graphicsProfile)
 {
-    this->renderer.GetRendererWindow().SetAllowUserResizing(allowUserResizing);
+    this->graphicsProfile = graphicsProfile;
 }
 
-const String GraphicsDeviceManager::GetWindowTitle() const
+const Boolean& GraphicsDeviceManager::AllowUserResizing() const
 {
-    return this->renderer.GetRendererWindow().GetTitle();
+    return this->allowUserResizing;
 }
 
-void GraphicsDeviceManager::SetWindowTitle(const String& windowTitle)
+void GraphicsDeviceManager::AllowUserResizing(const Boolean& allowUserResizing)
 {
-    this->renderer.GetRendererWindow().SetTitle(windowTitle);
+    this->allowUserResizing = allowUserResizing;
 }
 
-const Boolean GraphicsDeviceManager::GetFullScreen()
+const String& GraphicsDeviceManager::WindowTitle() const
 {
-    return this->graphicsDevice.GetPresentationParameters().GetFullScreen();
+    return this->windowTitle;
 }
 
-void GraphicsDeviceManager::SetFullScreen(const Boolean& fullScreen)
+void GraphicsDeviceManager::WindowTitle(const String& windowTitle)
 {
-    this->graphicsDevice.GetPresentationParameters().SetFullScreen(fullScreen);
+    this->windowTitle = windowTitle;
 }
 
-const Size GraphicsDeviceManager::GetPreferredBackBufferHeight()
+const Boolean& GraphicsDeviceManager::FullScreen() const
 {
-    return this->graphicsDevice.GetPresentationParameters().GetBackBufferHeight();
+    return this->fullScreen;
 }
 
-void GraphicsDeviceManager::SetPreferredBackBufferHeight(const Size& preferredBackBufferHeight)
+void GraphicsDeviceManager::FullScreen(const Boolean& fullScreen)
 {
-    this->graphicsDevice.GetPresentationParameters().SetBackBufferHeight(preferredBackBufferHeight);
+    this->fullScreen = fullScreen;
 }
 
-const Size GraphicsDeviceManager::GetPreferredBackBufferWidth()
+const Size& GraphicsDeviceManager::PreferredBackBufferHeight() const
 {
-    return this->graphicsDevice.GetPresentationParameters().GetBackBufferWidth();
+    return this->preferredBackBufferHeight;
 }
 
-void GraphicsDeviceManager::SetPreferredBackBufferWidth(const Size& preferredBackBufferWidth)
+void GraphicsDeviceManager::PreferredBackBufferHeight(const Size& preferredBackBufferHeight)
 {
-    this->graphicsDevice.GetPresentationParameters().SetBackBufferWidth(preferredBackBufferWidth);
+    this->preferredBackBufferHeight = preferredBackBufferHeight;
+}
+
+const Size& GraphicsDeviceManager::PreferredBackBufferWidth() const
+{
+    return this->preferredBackBufferWidth;
+}
+
+void GraphicsDeviceManager::PreferredBackBufferWidth(const Size& preferredBackBufferWidth)
+{
+    this->preferredBackBufferWidth = preferredBackBufferWidth;
 }

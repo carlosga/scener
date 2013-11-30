@@ -47,7 +47,7 @@ VertexBuffer::~VertexBuffer()
     this->Release();
 }
 
-const UInt32& VertexBuffer::GetVertexCount() const
+const UInt32& VertexBuffer::VertexCount() const
 {
     return this->vertexCount;
 }
@@ -143,26 +143,26 @@ void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
     this->BindVertexBuffer();
     this->BindVertexArray();
 
-    glBindVertexBuffer(0, this->vbo, 0, vDecl.GetVertexStride());
+    glBindVertexBuffer(0, this->vbo, 0, vDecl.VertexStride());
 
     // ... declare vertex elements
-    for (const VertexElement& ve : vDecl.GetVertexElements())
+    for (const VertexElement& ve : vDecl.VertexElements())
     {
-        glVertexAttribFormat(ve.GetUsageIndex(),
-                             ve.GetComponentCount(),
+        glVertexAttribFormat(ve.UsageIndex(),
+                             ve.ComponentCount(),
                              GL_FLOAT,
                              false,
-                             ve.GetOffset());
+                             ve.Offset());
 
-        glEnableVertexAttribArray(ve.GetUsageIndex());
-        glVertexAttribBinding(ve.GetUsageIndex(), 0);
+        glEnableVertexAttribArray(ve.UsageIndex());
+        glVertexAttribBinding(ve.UsageIndex(), 0);
     }
 
     // ... and unbind the vertex array and buffer
     this->UnbindVertexArray();
     this->UnbindVertexBuffer();
 
-    glBindVertexBuffer(0, 0, 0, vDecl.GetVertexStride());
+    glBindVertexBuffer(0, 0, 0, vDecl.VertexStride());
 }
 
 void VertexBuffer::Release()
@@ -178,7 +178,7 @@ void VertexBuffer::BufferData(const VertexDeclaration& vDecl, const UInt32& coun
     this->BindVertexBuffer();
 
     glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-                 count * vDecl.GetComponentCount() * sizeof(Single),
+                 count * vDecl.ComponentCount() * sizeof(Single),
                  data,
                  static_cast<GLenum>(VertexBufferUsage::StaticDraw));
 

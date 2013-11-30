@@ -23,9 +23,9 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-IndexBuffer::IndexBuffer(GraphicsDevice&         graphicsDevice,
-                         const IndexElementSize& indexElementSize,
-                         const UInt32&           indexCount)
+IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice,
+                         const SceneR::Graphics::IndexElementSize& indexElementSize,
+                         const UInt32&                             indexCount)
     : GraphicsResource(graphicsDevice),
       ibo(0),
       indexCount(indexCount),
@@ -39,12 +39,12 @@ IndexBuffer::~IndexBuffer()
     this->Release();
 }
 
-const UInt32& IndexBuffer::GetIndexCount() const
+const UInt32& IndexBuffer::IndexCount() const
 {
     return this->indexCount;
 }
 
-const IndexElementSize& IndexBuffer::GetIndexElementSize() const
+const SceneR::Graphics::IndexElementSize& IndexBuffer::IndexElementSize() const
 {
     return this->indexElementSize;
 }

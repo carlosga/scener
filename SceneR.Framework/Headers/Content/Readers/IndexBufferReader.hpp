@@ -41,7 +41,7 @@ namespace SceneR
             /**
              * Gets the the reader content type.
              */
-            virtual const ContentType GetContentType() const override;
+            virtual const SceneR::Content::ContentType ContentType() const override;
 
             /**
              * Reads the index buffer contents from the given ContentReader.

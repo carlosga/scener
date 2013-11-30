@@ -48,12 +48,12 @@ namespace SceneR
             /**
              *  Gets the fog color.
              */
-            virtual const SceneR::Framework::Color& GetFogColor() const = 0;
+            virtual const SceneR::Framework::Color& FogColor() const = 0;
 
             /**
              *  Set the fog color.
              */
-            virtual void SetFogColor(const SceneR::Framework::Color& color) = 0;
+            virtual void FogColor(const SceneR::Framework::Color& color) = 0;
 
             /**
              * Enables fog for the current effect.
@@ -73,22 +73,22 @@ namespace SceneR
             /**
              * Gets maximum z value for fog.
              */
-            virtual const System::Single& GetFogEnd() const = 0;
+            virtual const System::Single& FogEnd() const = 0;
 
             /**
              * Sets maximum z value for fog.
              */
-            virtual void SetFogEnd(const System::Single& fogEnd) = 0;
+            virtual void FogEnd(const System::Single& fogEnd) = 0;
 
             /**
              * Gets minimum z value for fog.
              */
-            virtual const System::Single& GetFogStart() const = 0;
+            virtual const System::Single& FogStart() const = 0;
 
             /**
              * Sets minimum z value for fog.
              */
-            virtual void SetFogStart(const System::Single& fogStart) = 0;
+            virtual void FogStart(const System::Single& fogStart) = 0;
         };
     }
 }

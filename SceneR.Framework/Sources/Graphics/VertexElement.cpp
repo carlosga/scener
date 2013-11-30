@@ -19,11 +19,11 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexElement::VertexElement(const UInt32&              offset,
-                             const UInt32&              componentCount,
-                             const VertexElementFormat& vertexElementFormat,
-                             const VertexElementUsage&  vertexElementUsage,
-                             const UInt32&              usageIndex)
+VertexElement::VertexElement(const UInt32&                                offset,
+                             const UInt32&                                componentCount,
+                             const SceneR::Graphics::VertexElementFormat& vertexElementFormat,
+                             const SceneR::Graphics::VertexElementUsage&  vertexElementUsage,
+                             const UInt32&                                usageIndex)
     : offset(offset),
       componentCount(componentCount),
       vertexElementFormat(vertexElementFormat),
@@ -32,28 +32,28 @@ VertexElement::VertexElement(const UInt32&              offset,
 {
 }
 
-const UInt32& VertexElement::GetOffset() const
+const UInt32& VertexElement::Offset() const
 {
     return this->offset;
 }
 
-const UInt32& VertexElement::GetComponentCount() const
+const UInt32& VertexElement::ComponentCount() const
 {
     return this->componentCount;
 }
 
 
-const UInt32& VertexElement::GetUsageIndex() const
+const UInt32& VertexElement::UsageIndex() const
 {
     return this->usageIndex;
 }
 
-const VertexElementFormat& VertexElement::GetVertexElementFormat() const
+const SceneR::Graphics::VertexElementFormat& VertexElement::VertexElementFormat() const
 {
     return this->vertexElementFormat;
 }
 
-const VertexElementUsage& VertexElement::GetVertexElementUsage() const
+const SceneR::Graphics::VertexElementUsage& VertexElement::VertexElementUsage() const
 {
     return this->vertexElementUsage;
 }

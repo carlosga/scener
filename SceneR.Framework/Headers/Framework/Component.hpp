@@ -70,13 +70,13 @@ namespace SceneR
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual const System::UInt32& GetUpdateOrder()  const override;
+            virtual const System::UInt32& UpdateOrder()  const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            virtual void SetUpdateOrder(const System::UInt32& updateOrder);
+            virtual void UpdateOrder(const System::UInt32& updateOrder);
 
         protected:
             Renderer& renderer;

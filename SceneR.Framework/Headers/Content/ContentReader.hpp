@@ -75,7 +75,7 @@ namespace SceneR
             /**
              * Gets the content manager that owns this ContentReader.
              */
-            ContentManager& GetContentManager();
+            SceneR::Content::ContentManager& ContentManager();
 
             /**
              * Reads a Color value from the current stream.
@@ -143,9 +143,9 @@ namespace SceneR
             void ReadHeader();
 
         private:
-            System::String           assetName;
-            ContentManager&          contentManager;
-            ContentTypeReaderManager typeReaderManager;
+            System::String                   assetName;
+            SceneR::Content::ContentManager& contentManager;
+            ContentTypeReaderManager         typeReaderManager;
         };
     }
 }

@@ -61,21 +61,21 @@ namespace SceneR
              * Gets a Vector3D that specifies the direction in which the SpotLight projects its light.
              * @return the Vector3D that specifies the direction in which the SpotLight projects its light.
              */
-            const SceneR::Framework::Vector3& GetDirection() const;
+            const SceneR::Framework::Vector3& Direction() const;
 
             /**
              * Sets a Vector3D that specifies the direction in which the SpotLight projects its light.
              * @param direction a Vector3D that specifies the direction in which the SpotLight projects its light.
              */
-            void SetDirection(const SceneR::Framework::Vector3& direction);
+            void Direction(const SceneR::Framework::Vector3& direction);
 
-            const System::Single GetFalloffAngle() const;
+            const System::Single FalloffAngle() const;
 
-            void SetFalloffAngle(const System::Single falloffAngle);
+            void FalloffAngle(const System::Single falloffAngle);
 
-            const System::Single GetFalloffExponent() const;
+            const System::Single FalloffExponent() const;
 
-            void SetFalloffExponent(const System::Single falloffExponent);
+            void FalloffExponent(const System::Single falloffExponent);
 
         private:
             SceneR::Framework::Vector3 direction;

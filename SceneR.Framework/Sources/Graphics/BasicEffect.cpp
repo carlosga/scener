@@ -62,12 +62,12 @@ BasicEffect::~BasicEffect()
 {
 }
 
-const Single& BasicEffect::GetAlpha() const
+const Single& BasicEffect::Alpha() const
 {
     return this->alpha;
 }
 
-void BasicEffect::SetAlpha(const Single& alpha)
+void BasicEffect::Alpha(const Single& alpha)
 {
     this->alpha = alpha;
 }
@@ -82,12 +82,12 @@ void BasicEffect::SetAmbientLight(const AmbientLight& ambientLight)
     this->ambientLight = ambientLight;
 }
 
-const Color& BasicEffect::GetDiffuseColor() const
+const Color& BasicEffect::DiffuseColor() const
 {
     return this->diffuseColor;
 }
 
-void BasicEffect::SetDiffuseColor(const Color& diffuseColor)
+void BasicEffect::DiffuseColor(const Color& diffuseColor)
 {
     this->diffuseColor = diffuseColor;
 }
@@ -103,22 +103,22 @@ void BasicEffect::SetLights(const std::vector<std::shared_ptr<Light>> lights) co
     // this->lights = lights;
 }
 
-const Color& BasicEffect::GetEmissiveColor() const
+const Color& BasicEffect::EmissiveColor() const
 {
     return this->emissiveColor;
 }
 
-void BasicEffect::SetEmissiveColor(const Color& emissiveColor)
+void BasicEffect::EmissiveColor(const Color& emissiveColor)
 {
     this->emissiveColor = emissiveColor;
 }
 
-const Color& BasicEffect::GetFogColor() const
+const Color& BasicEffect::FogColor() const
 {
     return this->fogColor;
 }
 
-void BasicEffect::SetFogColor(const Color& fogColor)
+void BasicEffect::FogColor(const Color& fogColor)
 {
     this->fogColor = fogColor;
 }
@@ -138,22 +138,22 @@ const Boolean& BasicEffect::IsFogEnabled() const
     return this->fogEnabled;
 }
 
-const Single& BasicEffect::GetFogEnd() const
+const Single& BasicEffect::FogEnd() const
 {
     return this->fogEnd;
 }
 
-void BasicEffect::SetFogEnd(const Single& fogEnd)
+void BasicEffect::FogEnd(const Single& fogEnd)
 {
     this->fogEnd = fogEnd;
 }
 
-const Single& BasicEffect::GetFogStart() const
+const Single& BasicEffect::FogStart() const
 {
     return this->fogStart;
 }
 
-void BasicEffect::SetFogStart(const Single& fogStart)
+void BasicEffect::FogStart(const Single& fogStart)
 {
     this->fogStart = fogStart;
 }
@@ -173,52 +173,52 @@ const Boolean& BasicEffect::IsLightingEnabled()
     return this->lightingEnabled;
 }
 
-const Boolean& BasicEffect::GetPreferPerPixelLighting() const
+const Boolean& BasicEffect::PreferPerPixelLighting() const
 {
     return this->preferPerPixelLighting;
 }
 
-void BasicEffect::SetPreferPerPixelLighting(const Boolean& preferPerPixelLighting)
+void BasicEffect::PreferPerPixelLighting(const Boolean& preferPerPixelLighting)
 {
     this->preferPerPixelLighting = preferPerPixelLighting;
 }
 
-const Matrix& BasicEffect::GetProjection() const
+const Matrix& BasicEffect::Projection() const
 {
     return this->projection;
 }
 
-void BasicEffect::SetProjection(const Matrix& projection)
+void BasicEffect::Projection(const Matrix& projection)
 {
     this->projection = projection;
 }
 
-const Color& BasicEffect::GetSpecularColor() const
+const Color& BasicEffect::SpecularColor() const
 {
     return this->specularColor;
 }
 
-void BasicEffect::SetSpecularColor(const Color& specularColor)
+void BasicEffect::SpecularColor(const Color& specularColor)
 {
     this->specularColor = specularColor;
 }
 
-const Single& BasicEffect::GetSpecularPower() const
+const Single& BasicEffect::SpecularPower() const
 {
     return this->specularPower;
 }
 
-void BasicEffect::SetSpecularPower(const Single& specularPower)
+void BasicEffect::SpecularPower(const Single& specularPower)
 {
     this->specularPower = specularPower;
 }
 
-std::shared_ptr<Texture2D> BasicEffect::GetTexture() const
+std::shared_ptr<Texture2D> BasicEffect::Texture() const
 {
     return this->texture;
 }
 
-void BasicEffect::SetTexture(std::shared_ptr<Texture2D> texture)
+void BasicEffect::Texture(std::shared_ptr<Texture2D> texture)
 {
     this->texture = texture;
 }
@@ -238,12 +238,12 @@ const Boolean& BasicEffect::IsTextureEnabled() const
     return this->textureEnabled;
 }
 
-const Matrix& BasicEffect::GetView() const
+const Matrix& BasicEffect::View() const
 {
     return this->view;
 }
 
-void BasicEffect::SetView(const Matrix& view)
+void BasicEffect::View(const Matrix& view)
 {
     this->view = view;
 }
@@ -263,12 +263,12 @@ const Boolean& BasicEffect::IsVertexColorEnabled() const
     return this->vertexColorEnabled;
 }
 
-const Matrix& BasicEffect::GetWorld() const
+const Matrix& BasicEffect::World() const
 {
     return this->world;
 }
 
-void BasicEffect::SetWorld(const Matrix& world)
+void BasicEffect::World(const Matrix& world)
 {
     this->world = world;
 }

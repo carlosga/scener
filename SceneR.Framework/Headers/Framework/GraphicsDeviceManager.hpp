@@ -19,6 +19,7 @@
 
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <System/Core.hpp>
 
@@ -69,68 +70,82 @@ namespace SceneR
              * Gets the graphics device.
              * @return the graphics device.
              */
-            virtual SceneR::Graphics::GraphicsDevice& GetGraphicsDevice() override;
+            virtual SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice() override;
+
+            /**
+             * Gets the graphics profile, which determines the graphics feature set.
+             */
+            const SceneR::Graphics::GraphicsProfile& GraphicsProfile() const;
+
+            /**
+             * Gets the graphics profile, which determines the graphics feature set.
+             */
+            void GraphicsProfile(const SceneR::Graphics::GraphicsProfile& graphicsProfile);
 
             /**
              * Gets a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            const System::Boolean GetAllowUserResizing() const;
+            const System::Boolean& AllowUserResizing() const;
 
             /**
              * Geta a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            void SetAllowUserResizing(const System::Boolean& allowUserResizing);
+            void AllowUserResizing(const System::Boolean& allowUserResizing);
 
             /**
              * Gets the window title.
              * @return the window title.
              */
-            const System::String GetWindowTitle() const;
+            const System::String& WindowTitle() const;
 
             /**
              * Sets the window title.
              * @param windowTitle the window title.
              */
-            void SetWindowTitle(const System::String& windowTitle);
+            void WindowTitle(const System::String& windowTitle);
 
             /**
              * Gets a value that indicates whether the device should start in full-screen mode.
              * @return a value that indicates whether the device should start in full-screen mode.
              */
-            const System::Boolean GetFullScreen();
+            const System::Boolean& FullScreen() const;
 
             /**
              * Sets a value that indicates whether the device should start in full-screen mode.
              */
-            void SetFullScreen(const System::Boolean& fullScreen);
+            void FullScreen(const System::Boolean& fullScreen);
 
             /**
              * Gets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
              */
-            const System::Size GetPreferredBackBufferHeight();
+            const System::Size& PreferredBackBufferHeight() const;
 
             /**
              * Sets the preferred back-buffer height.
              */
-            void SetPreferredBackBufferHeight(const System::Size& preferredBackBufferHeight);
+            void PreferredBackBufferHeight(const System::Size& preferredBackBufferHeight);
 
             /**
              * Gets the preferred back-buffer width.
              * @return the preferred back-buffer width.
              */
-            const System::Size GetPreferredBackBufferWidth();
+            const System::Size& PreferredBackBufferWidth() const;
 
             /**
              * Sets the preferred back-buffer width.
              */
-            void SetPreferredBackBufferWidth(const System::Size& preferredBackBufferWidth);
+            void PreferredBackBufferWidth(const System::Size& preferredBackBufferWidth);
 
         private:
-            Renderer&                        renderer;
-            SceneR::Graphics::GraphicsDevice graphicsDevice;
-
-            friend class Renderer;
+            Renderer&                                         renderer;
+            std::shared_ptr<SceneR::Graphics::GraphicsDevice> graphicsDevice;
+            System::Boolean                                   allowUserResizing;
+            System::Boolean                                   fullScreen;
+            SceneR::Graphics::GraphicsProfile                 graphicsProfile;
+            System::Size                                      preferredBackBufferWidth;
+            System::Size                                      preferredBackBufferHeight;
+            System::String                                    windowTitle;
         };
     }
 }

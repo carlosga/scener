@@ -64,22 +64,22 @@ const Single Viewport::AspectRatio() const
     return (this->vWidth / this->vHeight);
 }
 
-const Single& Viewport::GetMinDepth() const
+const Single& Viewport::MinDepth() const
 {
     return this->minDepth;
 }
 
-void Viewport::SetMinDepth(const Single& minDepth)
+void Viewport::MinDepth(const Single& minDepth)
 {
     this->minDepth = minDepth;
 }
 
-const Single& Viewport::GetMaxDepth() const
+const Single& Viewport::MaxDepth() const
 {
     return this->maxDepth;
 }
 
-void Viewport::SetMaxDepth(const Single& maxDepth)
+void Viewport::MaxDepth(const Single& maxDepth)
 {
     this->maxDepth = maxDepth;
 }

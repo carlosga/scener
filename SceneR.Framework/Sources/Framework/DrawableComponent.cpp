@@ -35,7 +35,7 @@ void DrawableComponent::Draw(const RenderTime& renderTime)
 
 GraphicsDevice& DrawableComponent::GetGraphicsDevice()
 {
-    return this->renderer.GetGraphicsDevice();
+    return this->renderer.CurrentGraphicsDevice();
 }
 
 void DrawableComponent::Show()
@@ -53,12 +53,12 @@ const Boolean& DrawableComponent::IsVisible() const
     return this->visible;
 }
 
-const UInt32& DrawableComponent::GetDrawOrder() const
+const UInt32& DrawableComponent::DrawOrder() const
 {
     return this->drawOrder;
 }
 
-void DrawableComponent::SetDrawOrder(const UInt32& drawOrder)
+void DrawableComponent::DrawOrder(const UInt32& drawOrder)
 {
     this->drawOrder = drawOrder;
 }

@@ -47,7 +47,7 @@ namespace SceneR
 			/**
 			 * Gets the order in which to update this object relative to other objects.
 			 */
-			virtual const System::UInt32& GetUpdateOrder() const = 0;
+			virtual const System::UInt32& UpdateOrder() const = 0;
 
 			/**
 			 * Called when the component should be updated.

@@ -34,22 +34,22 @@ DepthStencilState::~DepthStencilState()
 {
 }
 
-const Boolean& DepthStencilState::GetDepthBufferEnable() const
+const Boolean& DepthStencilState::DepthBufferEnable() const
 {
     return this->depthBufferEnable;
 }
 
-void DepthStencilState::SetDepthBufferEnable(const Boolean& depthBufferEnable)
+void DepthStencilState::DepthBufferEnable(const Boolean& depthBufferEnable)
 {
     this->depthBufferEnable = depthBufferEnable;
 }
 
-const Boolean& DepthStencilState::GetDepthBufferWriteEnable() const
+const Boolean& DepthStencilState::DepthBufferWriteEnable() const
 {
     return this->depthBufferWriteEnable;
 }
 
-void DepthStencilState::SetDepthBufferWriteEnable(const Boolean& depthBufferWriteEnable)
+void DepthStencilState::DepthBufferWriteEnable(const Boolean& depthBufferWriteEnable)
 {
     this->depthBufferWriteEnable = depthBufferWriteEnable;
 }
@@ -63,7 +63,7 @@ void DepthStencilState::Apply() const
         glEnable(GL_DEPTH_TEST);
         glDepthMask(this->depthBufferWriteEnable);
         glDepthFunc(static_cast<GLenum>(this->depthBufferFunction));
-        glDepthRange(currentViewport.GetMinDepth(), currentViewport.GetMaxDepth());
+        glDepthRange(currentViewport.MinDepth(), currentViewport.MaxDepth());
     }
     else
     {

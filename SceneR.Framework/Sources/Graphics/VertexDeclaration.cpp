@@ -26,17 +26,17 @@ VertexDeclaration::VertexDeclaration(const UInt32&                     component
 {
 }
 
-const UInt32& VertexDeclaration::GetComponentCount() const
+const UInt32& VertexDeclaration::ComponentCount() const
 {
     return this->componentCount;
 }
 
-const UInt32& VertexDeclaration::GetVertexStride() const
+const UInt32& VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;
 }
 
-const std::vector<VertexElement>& VertexDeclaration::GetVertexElements() const
+const std::vector<VertexElement>& VertexDeclaration::VertexElements() const
 {
     return this->vertexElements;
 }

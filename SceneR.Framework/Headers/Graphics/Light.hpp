@@ -34,13 +34,13 @@ namespace SceneR
             * Gets the color of the light.
             * @return the color of the light.
             */
-            const SceneR::Framework::Color& GetColor() const;
+            const SceneR::Framework::Color& Color() const;
 
            /**
             * Sets the color of the light.
             * @param color the color of the light.
             */
-            void SetColor(const SceneR::Framework::Color& color);
+            void Color(const SceneR::Framework::Color& color);
 
         protected:
            /**

@@ -60,13 +60,13 @@ namespace SceneR
              * Gets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            const System::Single& GetAlpha() const;
+            const System::Single& Alpha() const;
 
             /**
              * Sets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            void SetAlpha(const System::Single& alpha);
+            void Alpha(const System::Single& alpha);
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
@@ -81,12 +81,12 @@ namespace SceneR
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& GetDiffuseColor() const;
+            const SceneR::Framework::Color& DiffuseColor() const;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            void SetDiffuseColor(const SceneR::Framework::Color& diffuseColor);
+            void DiffuseColor(const SceneR::Framework::Color& diffuseColor);
 
             /**
              * Gets the lights of the current effect
@@ -102,25 +102,25 @@ namespace SceneR
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& GetEmissiveColor() const;
+            const SceneR::Framework::Color& EmissiveColor() const;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SetEmissiveColor(const SceneR::Framework::Color& emissiveColor);
+            void EmissiveColor(const SceneR::Framework::Color& emissiveColor);
 
             /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual const SceneR::Framework::Color& GetFogColor() const override;
+            virtual const SceneR::Framework::Color& FogColor() const override;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual void SetFogColor(const SceneR::Framework::Color& fogColor) override;
+            virtual void FogColor(const SceneR::Framework::Color& fogColor) override;
 
             /**
              * Enables fog for the current effect.
@@ -140,22 +140,22 @@ namespace SceneR
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual const System::Single& GetFogEnd() const override;
+            virtual const System::Single& FogEnd() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual void SetFogEnd(const System::Single& fogEnd) override;
+            virtual void FogEnd(const System::Single& fogEnd) override;
 
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual const System::Single& GetFogStart() const override;
+            virtual const System::Single& FogStart() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual void SetFogStart(const System::Single& fogStart) override;
+            virtual void FogStart(const System::Single& fogStart) override;
 
             /**
              * Enables lighting support for the current effect.
@@ -176,55 +176,55 @@ namespace SceneR
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            const System::Boolean& GetPreferPerPixelLighting() const;
+            const System::Boolean& PreferPerPixelLighting() const;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            void SetPreferPerPixelLighting(const System::Boolean& preferPerPixelLighting);
+            void PreferPerPixelLighting(const System::Boolean& preferPerPixelLighting);
 
             /**
              * Gets the projection matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& GetProjection() const override;
+            virtual const SceneR::Framework::Matrix& Projection() const override;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            virtual void SetProjection(const SceneR::Framework::Matrix& projection) override;
+            virtual void Projection(const SceneR::Framework::Matrix& projection) override;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& GetSpecularColor() const;
+            const SceneR::Framework::Color& SpecularColor() const;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SetSpecularColor(const SceneR::Framework::Color& specularColor);
+            void SpecularColor(const SceneR::Framework::Color& specularColor);
 
             /**
              * Gets specular power of this effect material.
              */
-            const System::Single& GetSpecularPower() const;
+            const System::Single& SpecularPower() const;
 
             /**
              * Sets specular power of this effect material.
              */
-            void SetSpecularPower(const System::Single& specularPower);
+            void SpecularPower(const System::Single& specularPower);
 
             /**
              * Gets a texture to be applied by this effect.
              */
-            std::shared_ptr<Texture2D> GetTexture() const;
+            std::shared_ptr<Texture2D> Texture() const;
 
             /**
              * Sets a texture to be applied by this effect.
              */
-            void SetTexture(std::shared_ptr<Texture2D> texture);
+            void Texture(std::shared_ptr<Texture2D> texture);
 
             /**
              * Enables textures for this effect.
@@ -244,12 +244,12 @@ namespace SceneR
             /**
              * Gets the view matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& GetView() const override;
+            virtual const SceneR::Framework::Matrix& View() const override;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            virtual void SetView(const SceneR::Framework::Matrix& view) override;
+            virtual void View(const SceneR::Framework::Matrix& view) override;
 
             /**
              * Enables use vertex colors for this effect.
@@ -269,12 +269,12 @@ namespace SceneR
             /**
              * Gets the world matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& GetWorld() const override;
+            virtual const SceneR::Framework::Matrix& World() const override;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            virtual void SetWorld(const SceneR::Framework::Matrix& world) override;
+            virtual void World(const SceneR::Framework::Matrix& world) override;
 
         public:
             /**

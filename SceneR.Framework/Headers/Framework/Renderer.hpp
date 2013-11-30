@@ -63,19 +63,19 @@ namespace SceneR
              * Gets the current graphics device
              * @return the current graphics device
              */
-            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+            SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice();
 
             /**
              * Gets the underlying operating system window.
              * @return the underlying operating system window.
              */
-            RendererWindow& GetRendererWindow();
+            RendererWindow& Window();
 
             /**
              * Gets the current content manager
              * @return the current content manager
              */
-            SceneR::Content::ContentManager& GetContentManager();
+            SceneR::Content::ContentManager& Content();
 
             /**
              * Gets the collection of components owned by the renderer.
@@ -167,6 +167,8 @@ namespace SceneR
             RendererTimer                            timer;
             RenderTime                               renderTime;
             System::Duration                         totalRenderTime;
+
+            friend class RendererWindow;
         };
     }
 }

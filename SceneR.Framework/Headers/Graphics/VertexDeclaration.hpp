@@ -47,19 +47,19 @@ namespace SceneR
              * Gets the total number of components.
              * @return the total number of components
              */
-            const System::UInt32& GetComponentCount() const;
+            const System::UInt32& ComponentCount() const;
 
             /**
              * Gets the number of bytes per element.
              * @return the number of bytes per element.
              */
-            const System::UInt32& GetVertexStride() const;
+            const System::UInt32& VertexStride() const;
 
             /**
              * Gets the vertex elements.
              * @return the vertex elements.
              */
-            const std::vector<VertexElement>& GetVertexElements() const;
+            const std::vector<VertexElement>& VertexElements() const;
 
         private:
             System::UInt32             componentCount;

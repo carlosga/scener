@@ -34,15 +34,15 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
 {
     for (auto &mesh : this->meshes)
     {
-        for (auto &effect : mesh->GetEffects())
+        for (auto &effect : mesh->Effects())
         {
             std::shared_ptr<IEffectMatrices> mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
             if (mEffect != nullptr)
             {
-                mEffect->SetWorld(world);
-                mEffect->SetView(view);
-                mEffect->SetProjection(projection);
+                mEffect->World(world);
+                mEffect->View(view);
+                mEffect->Projection(projection);
             }
         }
 
@@ -65,12 +65,12 @@ const std::vector<std::shared_ptr<ModelMesh>>& Model::Meshes() const
     return this->meshes;
 }
 
-const String& Model::GetTag() const
+const String& Model::Tag() const
 {
     return this->tag;
 }
 
-void Model::SetTag(const String& tag)
+void Model::Tag(const String& tag)
 {
     this->tag = tag;
 }

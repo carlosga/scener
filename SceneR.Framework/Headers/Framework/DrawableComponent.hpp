@@ -75,12 +75,12 @@ namespace SceneR
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual const System::UInt32& GetDrawOrder() const override;
+            virtual const System::UInt32& DrawOrder() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual void SetDrawOrder(const System::UInt32& drawOrder);
+            virtual void DrawOrder(const System::UInt32& drawOrder);
 
             /**
              * Called when the component should be initialized.

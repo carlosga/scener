@@ -30,9 +30,9 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-ContentReader::ContentReader(const String&   assetName,
-                             ContentManager& contentManager,
-                             Stream&         stream)
+ContentReader::ContentReader(const String&                    assetName,
+                             SceneR::Content::ContentManager& contentManager,
+                             Stream&                          stream)
     : BinaryReader(stream),
       assetName(assetName),
       contentManager(contentManager),
@@ -54,7 +54,7 @@ String& ContentReader::AssetName()
     return this->assetName;
 }
 
-ContentManager& ContentReader::GetContentManager()
+SceneR::Content::ContentManager& ContentReader::ContentManager()
 {
     return this->contentManager;
 }

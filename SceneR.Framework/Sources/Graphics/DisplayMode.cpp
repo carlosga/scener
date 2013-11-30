@@ -14,32 +14,49 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <AstroBoy.hpp>
-#include <System/Core.hpp>
-#include <Framework/RendererWindow.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/PresentationParameters.hpp>
-#include <SampleRenderer.hpp>
-#include <memory>
-#include <vector>
+#include <GLFW/glfw3.h>
+#include <Graphics/DisplayMode.hpp>
 
 using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
-using namespace SceneR::Sample;
 
-SampleRenderer::SampleRenderer(const String& rootDirectory)
-    : Renderer(rootDirectory)
+DisplayMode::DisplayMode(const GLFWvidmode* mode)
+    : aspectRatio(mode->width / mode->height),
+      format(SurfaceFormat::Color),
+      height(mode->height),
+      width(mode->width)
+{
+    Int32 bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
+
+    switch (bitDepth)
+    {
+      case 16:
+      case 8:
+          this->format = SurfaceFormat::Bgr565;
+          break;
+    }
+}
+
+DisplayMode::~DisplayMode()
 {
 }
 
-void SampleRenderer::BeginRun()
+const System::Single& DisplayMode::AspectRatio() const
 {
-    this->graphicsDeviceManager.PreferredBackBufferWidth(1500);
-    this->graphicsDeviceManager.PreferredBackBufferHeight(943);
-    this->Window().Title(u"SceneR");
-    this->components.push_back(std::make_shared<AstroBoy>(*this));
+    return this->aspectRatio;
+}
 
-    Renderer::BeginRun();
+const SurfaceFormat& DisplayMode::Format() const
+{
+    return this->format;
+}
+
+const System::UInt32& DisplayMode::Height() const
+{
+    return this->height;
+}
+
+const System::UInt32& DisplayMode::Width() const
+{
+    return this->width;
 }

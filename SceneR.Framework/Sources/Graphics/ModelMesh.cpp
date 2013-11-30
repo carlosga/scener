@@ -35,30 +35,30 @@ void ModelMesh::Draw()
 {
     for (auto& meshPart : this->meshParts)
     {
-        auto graphicsDevice = meshPart->GetVertexBuffer()->GetGraphicsDevice();
+        auto graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
-        graphicsDevice.SetEffect(meshPart->GetEffect());
-        graphicsDevice.SetVertexBuffer(meshPart->GetVertexBuffer());
-        graphicsDevice.SetIndexBuffer(meshPart->GetIndexBuffer());
+        graphicsDevice.SetEffect(meshPart->Effect());
+        graphicsDevice.SetVertexBuffer(meshPart->VertexBuffer());
+        graphicsDevice.SetIndexBuffer(meshPart->IndexBuffer());
 
         graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
                                              0,
                                              0,
-                                             meshPart->GetVertexCount(),
-                                             meshPart->GetStartIndex(),
-                                             meshPart->GetPrimitiveCount());
+                                             meshPart->VertexCount(),
+                                             meshPart->StartIndex(),
+                                             meshPart->PrimitiveCount());
     }
 }
 
-const std::vector<std::shared_ptr<Effect>> ModelMesh::GetEffects()
+const std::vector<std::shared_ptr<Effect>> ModelMesh::Effects()
 {
     std::vector<std::shared_ptr<Effect>> effects(0);
 
     for (auto &meshPart : this->meshParts)
     {
-        if (meshPart->GetEffect() != nullptr)
+        if (meshPart->Effect() != nullptr)
         {
-            effects.push_back(meshPart->GetEffect());
+            effects.push_back(meshPart->Effect());
         }
     }
 
@@ -70,12 +70,12 @@ const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::MeshParts() const
     return this->meshParts;
 }
 
-const String& ModelMesh::GetName() const
+const String& ModelMesh::Name() const
 {
     return this->name;
 }
 
-void ModelMesh::SetName(const String& name)
+void ModelMesh::Name(const String& name)
 {
     this->name = name;
 }
@@ -85,12 +85,12 @@ std::shared_ptr<ModelBone> ModelMesh::ParentBone() const
     return this->parentBone;
 }
 
-const String& ModelMesh::GetTag() const
+const String& ModelMesh::Tag() const
 {
     return this->tag;
 }
 
-void ModelMesh::SetTag(const String& tag)
+void ModelMesh::Tag(const String& tag)
 {
     this->tag = tag;
 }

@@ -39,12 +39,12 @@ const UInt32& ModelBone::Index() const
     return this->index;
 }
 
-const String& ModelBone::GetName() const
+const String& ModelBone::Name() const
 {
     return this->name;
 }
 
-void ModelBone::SetName(const String& name)
+void ModelBone::Name(const String& name)
 {
     this->name = name;
 }
@@ -54,12 +54,12 @@ const std::shared_ptr<ModelBone> ModelBone::Parent() const
     return this->parent;
 }
 
-const Matrix& ModelBone::GetTransform() const
+const Matrix& ModelBone::Transform() const
 {
     return this->transform;
 }
 
-void ModelBone::SetTransform(const Matrix& transform)
+void ModelBone::Transform(const Matrix& transform)
 {
     this->transform = transform;
 }

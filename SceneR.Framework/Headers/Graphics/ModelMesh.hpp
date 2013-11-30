@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            const std::vector<std::shared_ptr<Effect>> GetEffects();
+            const std::vector<std::shared_ptr<Effect>> Effects();
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
@@ -63,12 +63,12 @@ namespace SceneR
             /**
              * Gets the model mesh name
              */
-            const System::String& GetName() const;
+            const System::String& Name() const;
 
             /**
              * Sets the model mesh name
              */
-            void SetName(const System::String& name);
+            void Name(const System::String& name);
 
             /**
              * Gets the parent bone for this mesh. The parent bone of a mesh contains a
@@ -80,12 +80,12 @@ namespace SceneR
             /**
              * Gets the model mesh tag
              */
-            const System::String& GetTag() const;
+            const System::String& Tag() const;
 
             /**
              * Sets the model mesh tag
              */
-            void SetTag(const System::String& tag);
+            void Tag(const System::String& tag);
 
         private:
             std::vector<std::shared_ptr<ModelMeshPart>> meshParts;

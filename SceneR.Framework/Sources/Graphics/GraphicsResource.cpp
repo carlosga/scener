@@ -30,27 +30,27 @@ GraphicsResource::~GraphicsResource()
 {
 }
 
-GraphicsDevice& GraphicsResource::GetGraphicsDevice()
+GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
 {
     return this->graphicsDevice;
 }
 
-const String& GraphicsResource::GetName() const
+const String& GraphicsResource::Name() const
 {
     return this->name;
 }
 
-void GraphicsResource::SetName(const String& name)
+void GraphicsResource::Name(const String& name)
 {
     this->name = name;
 }
 
-const String& GraphicsResource::GetTag() const
+const String& GraphicsResource::Tag() const
 {
     return this->tag;
 }
 
-void GraphicsResource::SetTag(const String& tag)
+void GraphicsResource::Tag(const String& tag)
 {
     this->tag = tag;
 }

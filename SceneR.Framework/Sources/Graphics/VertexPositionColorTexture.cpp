@@ -39,24 +39,26 @@ const VertexDeclaration& VertexPositionColorTexture::GetVertexDeclaration()
     return VertexPositionColorTexture::Declaration;
 }
 
-VertexPositionColorTexture::VertexPositionColorTexture(const Vector3& position, const Color& color, const Vector2& textureCoordinate)
+VertexPositionColorTexture::VertexPositionColorTexture(const Vector3&                  position,
+                                                       const SceneR::Framework::Color& color,
+                                                       const Vector2&                  textureCoordinate)
     : position(position),
       color(color),
       textureCoordinate(textureCoordinate)
 {
 }
 
-const Vector3& VertexPositionColorTexture::GetPosition() const
+const Vector3& VertexPositionColorTexture::Position() const
 {
     return this->position;
 }
 
-const Color& VertexPositionColorTexture::GetColor() const
+const SceneR::Framework::Color& VertexPositionColorTexture::Color() const
 {
     return this->color;
 }
 
-const Vector2& VertexPositionColorTexture::GetTextureCoordinate() const
+const Vector2& VertexPositionColorTexture::TextureCoordinate() const
 {
     return this->textureCoordinate;
 }

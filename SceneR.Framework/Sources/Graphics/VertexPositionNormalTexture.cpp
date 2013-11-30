@@ -46,17 +46,17 @@ VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position
 {
 }
 
-const Vector3& VertexPositionNormalTexture::GetPosition() const
+const Vector3& VertexPositionNormalTexture::Position() const
 {
     return this->position;
 }
 
-const Vector3& VertexPositionNormalTexture::GetNormal() const
+const Vector3& VertexPositionNormalTexture::Normal() const
 {
     return this->normal;
 }
 
-const Vector2& VertexPositionNormalTexture::GetTextureCoordinate() const
+const Vector2& VertexPositionNormalTexture::TextureCoordinate() const
 {
     return this->textureCoordinate;
 }

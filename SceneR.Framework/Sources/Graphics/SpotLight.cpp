@@ -26,11 +26,11 @@ SpotLight::SpotLight()
 {
 }
 
-SpotLight::SpotLight(const Color&   diffuseColor,
-                     const Vector3& position,
-                     const Vector3& direction,
-                     const Single&  falloffAngle,
-                     const Single&  falloffExponent)
+SpotLight::SpotLight(const SceneR::Framework::Color& diffuseColor,
+                     const Vector3&                  position,
+                     const Vector3&                  direction,
+                     const Single&                   falloffAngle,
+                     const Single&                   falloffExponent)
     : PointLightBase(diffuseColor, position),
       direction(direction),
       falloffAngle(falloffAngle),
@@ -38,22 +38,22 @@ SpotLight::SpotLight(const Color&   diffuseColor,
 {
 }
 
-const Vector3& SpotLight::GetDirection() const
+const Vector3& SpotLight::Direction() const
 {
     return this->direction;
 }
 
-void SpotLight::SetDirection(const Vector3& direction)
+void SpotLight::Direction(const Vector3& direction)
 {
     this->direction = direction;
 }
 
-const Single SpotLight::GetFalloffAngle() const
+const Single SpotLight::FalloffAngle() const
 {
     return this->falloffAngle;
 }
 
-void SpotLight::SetFalloffAngle(const Single falloffAngle)
+void SpotLight::FalloffAngle(const Single falloffAngle)
 {
     if (falloffAngle > 180.0f || falloffAngle < 0.0f)
     {
@@ -63,12 +63,12 @@ void SpotLight::SetFalloffAngle(const Single falloffAngle)
     this->falloffAngle = falloffAngle;
 }
 
-const Single SpotLight::GetFalloffExponent() const
+const Single SpotLight::FalloffExponent() const
 {
     return this->falloffExponent;
 }
 
-void SpotLight::SetFalloffExponent(const Single falloffExponent)
+void SpotLight::FalloffExponent(const Single falloffExponent)
 {
     if (falloffExponent > 128.0f || falloffExponent < 0.0f)
     {

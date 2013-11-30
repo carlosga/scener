@@ -57,12 +57,12 @@ namespace SceneR
              * Gets the vector along which the light's effect will be seen on models in a 3-D scene.
              * @return the vector along which the light's effect will be seen on models in a 3-D scene.
              */
-            const SceneR::Framework::Vector3& GetDirection() const;
+            const SceneR::Framework::Vector3& Direction() const;
 
             /**
              * Sets the vector along which the light's effect will be seen on models in a 3-D scene.
              */
-            void SetDirection(const SceneR::Framework::Vector3& direction);
+            void Direction(const SceneR::Framework::Vector3& direction);
 
         private:
             /**

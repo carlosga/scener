@@ -44,35 +44,35 @@ namespace SceneR
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            const System::UInt32& GetOffset() const;
+            const System::UInt32& Offset() const;
 
             /**
              * Gets the number of components bases on the vertex element format.
              * @return
              */
-            const System::UInt32& GetComponentCount() const;
+            const System::UInt32& ComponentCount() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            const System::UInt32& GetUsageIndex() const;
+            const System::UInt32& UsageIndex() const;
 
             /**
              * Gets or sets the format of this vertex element.
              */
-            const VertexElementFormat& GetVertexElementFormat() const;
+            const SceneR::Graphics::VertexElementFormat& VertexElementFormat() const;
 
             /**
              * Gets a value describing how the vertex element is to be used.
              */
-            const VertexElementUsage& GetVertexElementUsage() const;
+            const SceneR::Graphics::VertexElementUsage& VertexElementUsage() const;
 
         private:
-            System::UInt32      offset;
-            System::UInt32      componentCount;
-            VertexElementFormat vertexElementFormat;
-            VertexElementUsage  vertexElementUsage;
-            System::UInt32      usageIndex;
+            System::UInt32                        offset;
+            System::UInt32                        componentCount;
+            SceneR::Graphics::VertexElementFormat vertexElementFormat;
+            SceneR::Graphics::VertexElementUsage  vertexElementUsage;
+            System::UInt32                        usageIndex;
         };
     }
 }

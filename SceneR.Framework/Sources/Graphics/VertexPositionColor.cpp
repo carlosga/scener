@@ -38,18 +38,19 @@ const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
     return VertexPositionColor::Declaration;
 }
 
-VertexPositionColor::VertexPositionColor(const Vector3& position, const Color& color)
+VertexPositionColor::VertexPositionColor(const Vector3&                  position,
+                                         const SceneR::Framework::Color& color)
     : position(position),
       color(color)
 {
 }
 
-const Vector3& VertexPositionColor::GetPosition() const
+const Vector3& VertexPositionColor::Position() const
 {
     return this->position;
 }
 
-const Color& VertexPositionColor::GetColor() const
+const SceneR::Framework::Color& VertexPositionColor::Color() const
 {
     return this->color;
 }

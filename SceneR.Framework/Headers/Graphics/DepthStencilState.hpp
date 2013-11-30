@@ -56,32 +56,32 @@ namespace SceneR
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            const System::Boolean& GetDepthBufferEnable() const;
+            const System::Boolean& DepthBufferEnable() const;
 
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            void SetDepthBufferEnable(const System::Boolean& depthTestEnable);
+            void DepthBufferEnable(const System::Boolean& depthTestEnable);
 
             /**
              * Gets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
              */
-            const CompareFunction& GetDepthBufferFunction() const;
+            const CompareFunction& DepthBufferFunction() const;
 
             /**
              * Sets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
              */
-            void SetDepthBufferFunction(const CompareFunction& depthBufferFunction) const;
+            void DepthBufferFunction(const CompareFunction& depthBufferFunction) const;
 
             /**
              *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            const System::Boolean& GetDepthBufferWriteEnable() const;
+            const System::Boolean& DepthBufferWriteEnable() const;
 
             /**
              *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            void SetDepthBufferWriteEnable(const System::Boolean& depthBufferWriteEnable);
+            void DepthBufferWriteEnable(const System::Boolean& depthBufferWriteEnable);
 
         private:
             void Apply() const;

@@ -32,15 +32,15 @@ Texture2DReader::Texture2DReader()
 {
 }
 
-const ContentType Texture2DReader::GetContentType() const
+const SceneR::Content::ContentType Texture2DReader::ContentType() const
 {
-    return ContentType::Texture2D;
+    return SceneR::Content::ContentType::Texture2D;
 }
 
 std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
 {
-    auto& gdService = input.GetContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  texture   = std::make_shared<Texture2D>(gdService.GetGraphicsDevice(), 0, 0);
+    auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  texture   = std::make_shared<Texture2D>(gdService.CurrentGraphicsDevice(), 0, 0);
 
     texture->format = static_cast<SurfaceFormat>(input.ReadUInt32());
     texture->width  = input.ReadUInt32();

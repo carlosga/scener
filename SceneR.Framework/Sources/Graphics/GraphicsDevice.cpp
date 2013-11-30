@@ -16,6 +16,7 @@
 
 #include <Framework/Color.hpp>
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
@@ -27,9 +28,10 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Shaders;
 
-GraphicsDevice::GraphicsDevice(const GraphicsProfile&  graphicsProfile)
+GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile)
     : depthStencilState(*this),
       effect(nullptr),
+      graphicsAdapter(adapter),
       graphicsProfile(graphicsProfile),
       indexBuffer(nullptr),
       presentationParameters(),
@@ -47,7 +49,7 @@ void GraphicsDevice::Clear(const Color& color) const
 {
     glClearColor(color.R(), color.G(), color.B(), color.A());
 
-    if (this->depthStencilState.GetDepthBufferEnable())
+    if (this->depthStencilState.DepthBufferEnable())
     {
         glClearDepth(1.0f);
     }
@@ -125,6 +127,7 @@ void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
 
 void GraphicsDevice::Present()
 {
+    glfwSwapBuffers(glfwGetCurrentContext());
 }
 
 std::shared_ptr<Effect> GraphicsDevice::GetEffect()
@@ -135,6 +138,11 @@ std::shared_ptr<Effect> GraphicsDevice::GetEffect()
 void GraphicsDevice::SetEffect(std::shared_ptr<Effect> effect)
 {
     this->effect = effect;
+}
+
+const GraphicsAdapter& GraphicsDevice::Adapter() const
+{
+    return this->graphicsAdapter;
 }
 
 const GraphicsProfile& GraphicsDevice::GetGraphicsProfile() const

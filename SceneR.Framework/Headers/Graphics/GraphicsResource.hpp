@@ -48,31 +48,31 @@ namespace SceneR
              * Gets the graphics associated to this resources
              * @return the graphics associated to this resources
              */
-            GraphicsDevice& GetGraphicsDevice();
+            GraphicsDevice& CurrentGraphicsDevice();
 
             /**
              * Gets the graphics resource name
              * @return the graphics resource name
              */
-            const System::String& GetName() const;
+            const System::String& Name() const;
 
             /**
              * Sets the graphics resource name
              * @param name the new graphics resource name
              */
-            void SetName(const System::String& name);
+            void Name(const System::String& name);
 
             /**
              * Gets the graphics resource identifier
              * @return the graphics resource identifier
              */
-            const System::String& GetTag() const;
+            const System::String& Tag() const;
 
             /**
              * Sets the graphics resource tag
              * @param tag the graphics resource tag
              */
-            void SetTag(const System::String& tag);
+            void Tag(const System::String& tag);
 
         protected:
             GraphicsDevice& graphicsDevice;

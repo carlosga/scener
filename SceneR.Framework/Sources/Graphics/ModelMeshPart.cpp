@@ -29,52 +29,52 @@ ModelMeshPart::~ModelMeshPart()
 {
 }
 
-std::shared_ptr<Effect> ModelMeshPart::GetEffect() const
+std::shared_ptr<SceneR::Graphics::Effect> ModelMeshPart::Effect() const
 {
     return this->effect;
 }
 
-void ModelMeshPart::SetEffect(const std::shared_ptr<Effect>& effect)
+void ModelMeshPart::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect)
 {
     this->effect = effect;
 }
 
-std::shared_ptr<IndexBuffer> ModelMeshPart::GetIndexBuffer()
+std::shared_ptr<IndexBuffer> ModelMeshPart::IndexBuffer()
 {
     return this->indexBuffer;
 }
 
-const Int32& ModelMeshPart::GetVertexCount() const
+const Int32& ModelMeshPart::VertexCount() const
 {
     return this->vertexCount;
 }
 
-const Int32& ModelMeshPart::GetPrimitiveCount() const
+const Int32& ModelMeshPart::PrimitiveCount() const
 {
     return this->primitiveCount;
 }
 
-const Int32& ModelMeshPart::GetStartIndex() const
+const Int32& ModelMeshPart::StartIndex() const
 {
     return this->startIndex;
 }
 
-const String& ModelMeshPart::GetTag() const
+const String& ModelMeshPart::Tag() const
 {
     return this->tag;
 }
 
-void ModelMeshPart::SetTag(const String& tag)
+void ModelMeshPart::Tag(const String& tag)
 {
     this->tag = tag;
 }
 
-std::shared_ptr<VertexBuffer> ModelMeshPart::GetVertexBuffer()
+std::shared_ptr<VertexBuffer> ModelMeshPart::VertexBuffer()
 {
     return this->vertexBuffer;
 }
 
-const Int32& ModelMeshPart::GetVertexOffset() const
+const Int32& ModelMeshPart::VertexOffset() const
 {
     return this->vertexOffset;
 }

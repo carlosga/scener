@@ -55,62 +55,62 @@ namespace SceneR
             /**
              * Gets or sets the material Effect for this mesh part.
              */
-            std::shared_ptr<Effect> GetEffect() const;
+            std::shared_ptr<SceneR::Graphics::Effect> Effect() const;
 
             /**
              * Gets or sets the material Effect for this mesh part.
              */
-            void SetEffect(const std::shared_ptr<Effect>& effect);
+            void Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect);
 
             /**
              * Gets the index buffer for this mesh part.
              */
-            std::shared_ptr<IndexBuffer> GetIndexBuffer();
+            std::shared_ptr<IndexBuffer> IndexBuffer();
 
             /**
              * Gets the number of vertices used during a draw call.
              */
-            const System::Int32& GetVertexCount() const;
+            const System::Int32& VertexCount() const;
 
             /**
              * Gets the number of primitives to render.
              */
-            const System::Int32& GetPrimitiveCount() const;
+            const System::Int32& PrimitiveCount() const;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
              */
-            const System::Int32& GetStartIndex() const;
+            const System::Int32& StartIndex() const;
 
             /**
              * Gets the model mesh part tag
              */
-            const System::String& GetTag() const;
+            const System::String& Tag() const;
 
             /**
              * Sets the model mesh part tag
              */
-            void SetTag(const System::String& tag);
+            void Tag(const System::String& tag);
 
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            std::shared_ptr<VertexBuffer> GetVertexBuffer();
+            std::shared_ptr<VertexBuffer> VertexBuffer();
 
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.
              */
-            const System::Int32& GetVertexOffset() const;
+            const System::Int32& VertexOffset() const;
 
         private:
-            std::shared_ptr<Effect>       effect;
-            std::shared_ptr<IndexBuffer>  indexBuffer;
-            System::Int32                 vertexCount;
-            System::Int32                 primitiveCount;
-            System::Int32                 startIndex;
-            System::String                tag;
-            std::shared_ptr<VertexBuffer> vertexBuffer;
-            System::Int32                 vertexOffset;
+            std::shared_ptr<SceneR::Graphics::Effect>       effect;
+            std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
+            System::Int32                                   vertexCount;
+            System::Int32                                   primitiveCount;
+            System::Int32                                   startIndex;
+            System::String                                  tag;
+            std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
+            System::Int32                                   vertexOffset;
 
             friend class SceneR::Content::ModelReader;
         };

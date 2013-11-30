@@ -50,24 +50,24 @@ namespace SceneR
              * Gets the renderer window title
              * @return the renderer window title
              */
-            const System::String& GetTitle() const;
+            const System::String& Title() const;
 
             /**
              * Sets the renderer window title
              * @param title the renderer window title
              */
-            void SetTitle(const System::String& title);
+            void Title(const System::String& title);
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
              * @return whether to allow the user to resize the renderer window.
              */
-            const System::Boolean& GetAllowUserResizing() const;
+            const System::Boolean& AllowUserResizing() const;
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
              */
-            void SetAllowUserResizing(const System::Boolean &allowUserResizing);
+            void AllowUserResizing(const System::Boolean &allowUserResizing);
 
         private:
             void Open();
@@ -78,7 +78,6 @@ namespace SceneR
             void InitializeCallbacks() const;
             void ReleaseCallbacks() const;
             bool ShouldClose() const;
-            void SwapBuffers() const;
 
         private:
             static void DebugCallback(GLenum  source, GLenum      type,

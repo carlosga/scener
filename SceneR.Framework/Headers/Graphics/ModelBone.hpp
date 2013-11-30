@@ -64,12 +64,12 @@ namespace SceneR
             /**
              * Gets the bone name
              */
-            const System::String& GetName() const;
+            const System::String& Name() const;
 
             /**
              * Gets the bone name
              */
-            void SetName(const System::String& name);
+            void Name(const System::String& name);
 
             /**
              * Gets the parent of the current bone
@@ -79,12 +79,12 @@ namespace SceneR
             /**
              * Gets the matrix used to transform this bone relative to its parent bone.
              */
-            const SceneR::Framework::Matrix& GetTransform() const;
+            const SceneR::Framework::Matrix& Transform() const;
 
             /**
              * Sets the matrix used to transform this bone relative to its parent bone.
              */
-            void SetTransform(const SceneR::Framework::Matrix& transform);
+            void Transform(const SceneR::Framework::Matrix& transform);
 
         private:
             std::vector<std::shared_ptr<ModelBone>> children;

@@ -50,12 +50,12 @@ const Boolean& Component::IsEnabled() const
     return this->enabled;
 }
 
-const UInt32& Component::GetUpdateOrder() const
+const UInt32& Component::UpdateOrder() const
 {
     return this->updateOrder;
 }
 
-void Component::SetUpdateOrder(const UInt32& updateOrder)
+void Component::UpdateOrder(const UInt32& updateOrder)
 {
     this->updateOrder = updateOrder;
 }

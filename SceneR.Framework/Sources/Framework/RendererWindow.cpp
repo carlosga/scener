@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/IGraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <GLFW/glfw3.h>
@@ -40,12 +41,12 @@ RendererWindow::~RendererWindow()
     this->Close();
 }
 
-const String& RendererWindow::GetTitle() const
+const String& RendererWindow::Title() const
 {
     return this->title;
 }
 
-void RendererWindow::SetTitle(const String& title)
+void RendererWindow::Title(const String& title)
 {
     this->title = title;
 
@@ -56,50 +57,44 @@ void RendererWindow::SetTitle(const String& title)
     }
 }
 
-const Boolean& RendererWindow::GetAllowUserResizing() const
+const Boolean& RendererWindow::AllowUserResizing() const
 {
     return this->allowUserResizing;
 }
 
-void RendererWindow::SetAllowUserResizing(const Boolean& allowUserResizing)
+void RendererWindow::AllowUserResizing(const Boolean& allowUserResizing)
 {
     this->allowUserResizing = allowUserResizing;
 }
 
 void RendererWindow::Open()
 {
-    // First, we initialise GLFW.
-    if (!glfwInit())
-    {
-        throw std::runtime_error("glfwInit failed");
-    }
-
-    PresentationParameters params  = this->renderer.GetGraphicsDevice().GetPresentationParameters();
-    UInt32                 profile = static_cast<UInt32>(this->renderer.GetGraphicsDevice().GetGraphicsProfile());
-    GLFWmonitor*           monitor = nullptr;
-    std::string            tmp     = System::Text::Unicode::Narrow(this->title);
-
-    if (this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen())
-    {
-        monitor = glfwGetPrimaryMonitor();
-    }
+    auto         gdm     = this->renderer.graphicsDeviceManager;
+    UInt32       profile = static_cast<UInt32>(gdm.GraphicsProfile());
+    std::string  tmp     = System::Text::Unicode::Narrow(this->title);
+    GLFWmonitor* monitor = nullptr;
 
     // Set the window and context hints
     glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_RESIZABLE            , (this->allowUserResizing ? GL_TRUE : GL_FALSE));
+    glfwWindowHint(GLFW_RESIZABLE            , (gdm.AllowUserResizing() ? GL_TRUE : GL_FALSE));
     glfwWindowHint(GLFW_CLIENT_API           , GLFW_OPENGL_API);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT , 1);
+
+    if (gdm.FullScreen())
+    {
+        monitor = gdm.CurrentGraphicsDevice().Adapter().MonitorHandle();
+    }
 
     // Create a new window
     this->handle = glfwCreateWindow
     (
-        params.GetBackBufferWidth(),    // width
-        params.GetBackBufferHeight(),   // height
-        tmp.c_str(),                    // title
-        monitor,                        // monitor
-        nullptr                         // share
+        gdm.PreferredBackBufferWidth(),  // width
+        gdm.PreferredBackBufferHeight(), // height
+        tmp.c_str(),                        // title
+        monitor,                            // monitor
+        nullptr                             // share
     );
 
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
@@ -207,15 +202,10 @@ void RendererWindow::ReleaseCallbacks() const
 
 bool RendererWindow::ShouldClose() const
 {
-    Boolean fullScreen = this->renderer.GetGraphicsDevice().GetPresentationParameters().GetFullScreen();
+    Boolean fullScreen = this->renderer.CurrentGraphicsDevice().GetPresentationParameters().GetFullScreen();
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             || glfwWindowShouldClose(this->handle));
-}
-
-void RendererWindow::SwapBuffers() const
-{
-    glfwSwapBuffers(this->handle);
 }
 
 void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,

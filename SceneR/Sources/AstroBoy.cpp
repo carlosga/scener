@@ -56,7 +56,7 @@ void AstroBoy::Draw(const RenderTime& renderTime)
 
 void AstroBoy::LoadContent()
 {
-    this->model = this->renderer.GetContentManager().Load<Model>(u"AstroBoy/astroBoy_walk_Max");
+    this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroBoy_walk_Max");
 }
 
 void AstroBoy::UnloadContent()
