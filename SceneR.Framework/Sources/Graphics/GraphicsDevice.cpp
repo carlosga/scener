@@ -130,12 +130,12 @@ void GraphicsDevice::Present()
     glfwSwapBuffers(glfwGetCurrentContext());
 }
 
-std::shared_ptr<Effect> GraphicsDevice::GetEffect()
+std::shared_ptr<SceneR::Graphics::Effect> GraphicsDevice::Effect()
 {
     return this->effect;
 }
 
-void GraphicsDevice::SetEffect(std::shared_ptr<Effect> effect)
+void GraphicsDevice::Effect(std::shared_ptr<SceneR::Graphics::Effect> effect)
 {
     this->effect = effect;
 }
@@ -150,47 +150,47 @@ const GraphicsProfile& GraphicsDevice::GetGraphicsProfile() const
     return this->graphicsProfile;
 }
 
-DepthStencilState& GraphicsDevice::GetDepthStencilState()
+SceneR::Graphics::DepthStencilState& GraphicsDevice::DepthStencilState()
 {
     return this->depthStencilState;
 }
 
-PresentationParameters& GraphicsDevice::GetPresentationParameters()
+SceneR::Graphics::PresentationParameters& GraphicsDevice::PresentationParameters()
 {
     return this->presentationParameters;
 }
 
-std::shared_ptr<IndexBuffer> GraphicsDevice::GetIndexBuffer()
+std::shared_ptr<SceneR::Graphics::IndexBuffer> GraphicsDevice::IndexBuffer()
 {
     return this->indexBuffer;
 }
 
-void GraphicsDevice::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+void GraphicsDevice::IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBuffer>& indexBuffer)
 {
     this->indexBuffer = indexBuffer;
 }
 
-RasterizerState& GraphicsDevice::GetRasterizerState()
+RasterizerState& GraphicsDevice::RasterizerState()
 {
     return this->rasterizerState;
 }
 
-std::shared_ptr<VertexBuffer> GraphicsDevice::GetVertexBuffer()
+std::shared_ptr<SceneR::Graphics::VertexBuffer> GraphicsDevice::VertexBuffer()
 {
     return this->vertexBuffer;
 }
 
-void GraphicsDevice::SetVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+void GraphicsDevice::VertexBuffer(const std::shared_ptr<SceneR::Graphics::VertexBuffer>& vertexBuffer)
 {
     this->vertexBuffer = vertexBuffer;
 }
 
-Viewport& GraphicsDevice::GetViewport()
+SceneR::Graphics::Viewport& GraphicsDevice::Viewport()
 {
    return this->viewport;
 }
 
-void GraphicsDevice::SetViewport(Viewport& viewport)
+void GraphicsDevice::Viewport(SceneR::Graphics::Viewport& viewport)
 {
     this->viewport = viewport;
     this->viewport.Refresh();

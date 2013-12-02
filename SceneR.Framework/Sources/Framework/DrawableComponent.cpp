@@ -22,7 +22,7 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-DrawableComponent::DrawableComponent(Renderer& renderer)
+DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
     : Component(renderer),
       visible(true),
       drawOrder(0)
@@ -33,7 +33,7 @@ void DrawableComponent::Draw(const RenderTime& renderTime)
 {
 }
 
-GraphicsDevice& DrawableComponent::GetGraphicsDevice()
+GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
 {
     return this->renderer.CurrentGraphicsDevice();
 }

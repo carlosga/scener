@@ -40,7 +40,16 @@ namespace System
     typedef std::u16string String;
 
     typedef std::chrono::high_resolution_clock Clock;
-    typedef std::chrono::microseconds          Duration;
+
+//    typedef duration<long long              > seconds;
+//    typedef duration<     long, ratio<  60> > minutes;
+//    typedef duration<     long, ratio<3600> > hours;
+
+    typedef std::chrono::duration<double, std::ratio<3600>>       Hours;
+    typedef std::chrono::duration<double, std::ratio<60>>         Minutes;
+    typedef std::chrono::duration<double>                         Seconds;
+    typedef std::chrono::duration<double, std::ratio<1, 1000>>    MilliSeconds;
+    typedef std::chrono::duration<double, std::ratio<1, 1000000>> MicroSeconds;
 }
 
 #endif  /* CORE_HPP */

@@ -38,7 +38,7 @@ namespace SceneR
              * Initializes a new instance of the Component class.
              * @param renderer the renderer that owns the component.
              */
-            Component(Renderer& renderer);
+            Component(SceneR::Framework::Renderer& renderer);
 
             /**
              * Releases all resources being used by this component instance.
@@ -47,39 +47,39 @@ namespace SceneR
 
         public:
             /**
+             * Gets the Renderer associated with this Component.
+             */
+            SceneR::Framework::Renderer& Renderer();
+
+            /**
              * Called when the component should be updated.
              */
             virtual void Update(const RenderTime& renderTime) override;
 
             /**
-             * Enables object updates.
+             * Gets a value indicating whether the component is enabled.
              */
-            void Enable();
+            const System::Boolean& Enabled() const override;
 
             /**
-             * Disables Object udaptes.
+             * Sets a value indicating whether the component is enabled.
              */
-            void Disable();
-
-            /**
-             * Gets a value indicating whether this object is enabled.
-             */
-            virtual const System::Boolean& IsEnabled()  const override;
+            void Enabled(const System::Boolean& enabled);
 
             /**
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual const System::UInt32& UpdateOrder()  const override;
+            virtual const System::UInt32& UpdateOrder() const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            virtual void UpdateOrder(const System::UInt32& updateOrder);
+            void UpdateOrder(const System::UInt32& updateOrder);
 
         protected:
-            Renderer& renderer;
+            SceneR::Framework::Renderer& renderer;
 
         private:
             System::Boolean enabled;

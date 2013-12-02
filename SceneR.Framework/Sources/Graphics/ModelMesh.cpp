@@ -37,9 +37,9 @@ void ModelMesh::Draw()
     {
         auto graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
-        graphicsDevice.SetEffect(meshPart->Effect());
-        graphicsDevice.SetVertexBuffer(meshPart->VertexBuffer());
-        graphicsDevice.SetIndexBuffer(meshPart->IndexBuffer());
+        graphicsDevice.Effect(meshPart->Effect());
+        graphicsDevice.VertexBuffer(meshPart->VertexBuffer());
+        graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
 
         graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
                                              0,

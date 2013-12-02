@@ -20,6 +20,8 @@
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <chrono>
+#include <thread>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -32,9 +34,12 @@ Renderer::Renderer(const String& rootDirectory)
       graphicsDeviceManager(*this),
       rendererWindow(*this),
       contentManager(this->services, rootDirectory),
+      isFixedTimeStep(true),
+      targetElapsedTime(1000.0 / 60.0),
       timer(),
       renderTime(),
-      totalRenderTime()
+      totalRenderTime(),
+      isRunningSlowly(false)
 {
 }
 
@@ -42,11 +47,6 @@ Renderer::~Renderer()
 {
     this->Finalize();
     this->Exit();
-}
-
-std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
-{
-    return this->components;
 }
 
 GraphicsDevice& Renderer::CurrentGraphicsDevice()
@@ -64,6 +64,11 @@ ContentManager& Renderer::Content()
     return this->contentManager;
 }
 
+std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
+{
+    return this->components;
+}
+
 RendererServiceContainer& Renderer::Services()
 {
     return this->services;
@@ -72,8 +77,7 @@ RendererServiceContainer& Renderer::Services()
 void Renderer::Run()
 {
     this->BeginRun();
-    this->rendererWindow.Open();
-    this->graphicsDeviceManager.ApplyChanges();
+    this->CreateDevice();
     this->Initialize();
     this->LoadContent();
     this->StartEventLoop();
@@ -95,7 +99,6 @@ bool Renderer::BeginDraw()
 
 void Renderer::BeginRun()
 {
-    this->graphicsDeviceManager.CreateDevice();
 }
 
 void Renderer::Draw(const RenderTime& renderTime)
@@ -135,8 +138,28 @@ void Renderer::Initialize()
     }
 }
 
+const System::Boolean& Renderer::IsFixedTimeStep() const
+{
+    return this->isFixedTimeStep;
+}
+
+void Renderer::IsFixedTimeStep(const System::Boolean& isFixedTimeStep)
+{
+    this->isFixedTimeStep = isFixedTimeStep;
+}
+
 void Renderer::LoadContent()
 {
+}
+
+const System::MilliSeconds& Renderer::TargetElapsedTime() const
+{
+    return this->targetElapsedTime;
+}
+
+void Renderer::TargetElapsedTime(const System::MilliSeconds& targetElapsedTime)
+{
+    this->targetElapsedTime = targetElapsedTime;
 }
 
 void Renderer::UnloadContent()
@@ -145,11 +168,13 @@ void Renderer::UnloadContent()
 
 void Renderer::Update(const RenderTime& renderTime)
 {
+    glfwPollEvents();
+
     for (auto& component : this->components)
     {
         auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
 
-        if (updateable != nullptr && updateable->IsEnabled())
+        if (updateable != nullptr && updateable->Enabled())
         {
             updateable->Update(renderTime);
         }
@@ -158,28 +183,60 @@ void Renderer::Update(const RenderTime& renderTime)
 
 void Renderer::StartEventLoop()
 {
+    this->timer.Reset();
+
     do
     {
-        this->Tick();
 
-        glfwWaitEvents();
+        this->TimeStep();
+
     } while (!this->rendererWindow.ShouldClose());
 }
 
-void Renderer::Tick()
+void Renderer::TimeStep()
 {
-//    auto elapsed = this->timer.ElapsedTickTime();
+    if (this->IsFixedTimeStep())
+    {
+        this->FixedTimeStep();
+    }
+    else
+    {
+        this->VariableTimeStep();
+    }
+}
 
-    this->timer.Tick();
+void Renderer::CreateDevice()
+{
+    this->graphicsDeviceManager.CreateDevice();
+    this->rendererWindow.Open();
+    this->graphicsDeviceManager.ApplyChanges();
+}
 
-//    this->renderTime.ElapsedRenderTime(elapsed);
-//    this->renderTime.TotalRenderTime(this->timer.ElapsedTime());
+void Renderer::FixedTimeStep()
+{
+    this->renderTime.ElapsedRenderTime(this->timer.ElapsedTimeStepTime());
+    this->renderTime.TotalRenderTime(this->timer.ElapsedTime());
+    this->renderTime.IsRunningSlowly(this->isRunningSlowly);
+
+    this->timer.UpdateTimeStep();
 
     this->Update(this->renderTime);
 
-    if (this->BeginDraw())
+    this->isRunningSlowly = (this->timer.ElapsedTimeStepTime() > this->targetElapsedTime);
+
+    if (!this->isRunningSlowly)
     {
-        this->Draw(this->renderTime);
-        this->EndDraw();
+        if (this->BeginDraw())
+        {
+            this->Draw(this->renderTime);
+            this->EndDraw();
+        }
+
+        std::this_thread::sleep_for(this->targetElapsedTime - this->timer.ElapsedTimeStepTime());
     }
+}
+
+void Renderer::VariableTimeStep()
+{
+    glfwWaitEvents();
 }

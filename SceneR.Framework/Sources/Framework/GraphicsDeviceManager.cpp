@@ -47,15 +47,15 @@ GraphicsDeviceManager::~GraphicsDeviceManager()
 
 void GraphicsDeviceManager::ApplyChanges()
 {
-    this->graphicsDevice->GetPresentationParameters().SetBackBufferWidth(this->preferredBackBufferWidth);
-    this->graphicsDevice->GetPresentationParameters().SetBackBufferHeight(this->preferredBackBufferHeight);
+    this->graphicsDevice->PresentationParameters().SetBackBufferWidth(this->preferredBackBufferWidth);
+    this->graphicsDevice->PresentationParameters().SetBackBufferHeight(this->preferredBackBufferHeight);
     this->renderer.Window().Title(this->windowTitle);
     this->renderer.Window().AllowUserResizing(this->allowUserResizing);
-    this->graphicsDevice->GetPresentationParameters().SetFullScreen(this->fullScreen);
-    this->graphicsDevice->GetViewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
+    this->graphicsDevice->PresentationParameters().SetFullScreen(this->fullScreen);
+    this->graphicsDevice->Viewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
 
-    this->graphicsDevice->GetRasterizerState().Apply();
-    this->graphicsDevice->GetDepthStencilState().Apply();
+    this->graphicsDevice->RasterizerState().Apply();
+    this->graphicsDevice->DepthStencilState().Apply();
 }
 
 Boolean GraphicsDeviceManager::BeginDraw()

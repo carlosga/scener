@@ -23,7 +23,7 @@ using namespace SceneR::Framework;
 
 RendererTimer::RendererTimer()
     : start(Clock::now()),
-      lastTick(Clock::now())
+      lastTimeStep(Clock::now())
 {
 }
 
@@ -33,32 +33,32 @@ RendererTimer::~RendererTimer()
 
 void RendererTimer::Reset()
 {
-    this->start    = Clock::now();
-    this->lastTick = Clock::now();
+    this->start        = Clock::now();
+    this->lastTimeStep = Clock::now();
 }
 
-void SceneR::Framework::RendererTimer::Tick()
+void SceneR::Framework::RendererTimer::UpdateTimeStep()
 {
-    this->lastTick = this->CurrentTime();
+    this->lastTimeStep = Clock::now();
 }
 
-Duration RendererTimer::ElapsedTime() const
+MilliSeconds RendererTimer::ElapsedTime() const
 {
     return this->CalculateDuration(this->start, this->CurrentTime());
 }
 
-Duration RendererTimer::ElapsedTickTime() const
+MilliSeconds RendererTimer::ElapsedTimeStepTime() const
 {
-    return this->CalculateDuration(this->lastTick, this->CurrentTime());
+    return this->CalculateDuration(this->lastTimeStep, this->CurrentTime());
 }
 
-Clock::time_point RendererTimer::CurrentTime() const
+System::Clock::time_point RendererTimer::CurrentTime() const
 {
     return Clock::now();
 }
 
-Duration RendererTimer::CalculateDuration(const System::Clock::time_point& t0,
-                                          const System::Clock::time_point& t1) const
+MilliSeconds RendererTimer::CalculateDuration(const System::Clock::time_point& t0,
+                                              const System::Clock::time_point& t1) const
 {
-   return std::chrono::duration_cast<System::Duration>(t1 - t0);
+   return std::chrono::duration_cast<System::MilliSeconds>(t1 - t0);
 }

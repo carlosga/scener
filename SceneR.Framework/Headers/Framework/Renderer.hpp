@@ -136,9 +136,33 @@ namespace SceneR
             virtual void Initialize();
 
             /**
+             * Gets a value indicating whether to use fixed time steps.
+             * A fixed-step Game tries to call its Update method on the fixed interval specified in TargetElapsedTime.
+             * The default value is true.
+             */
+            virtual const System::Boolean& IsFixedTimeStep() const;
+
+            /**
+             * Gets a value indicating whether to use fixed time steps.
+             * A fixed-step Game tries to call its Update method on the fixed interval specified in TargetElapsedTime.
+             * The default value is true.
+             */
+            virtual void IsFixedTimeStep(const System::Boolean& isFixedTimeStep);
+
+            /**
              * Called when graphics resources need to be loaded.
              */
             virtual void LoadContent();
+
+            /**
+             * Gets the target time between calls to Update when IsFixedTimeStep is true.
+             */
+            virtual const System::MilliSeconds& TargetElapsedTime() const;
+
+            /**
+             * Gets the target time between calls to Update when IsFixedTimeStep is true.
+             */
+            virtual void TargetElapsedTime(const System::MilliSeconds& targetElapsedTime);
 
             /**
              * Called when graphics resources need to be unloaded.
@@ -153,9 +177,12 @@ namespace SceneR
             /**
              * Updates the renderer's clock and calls Update and Draw.
              */
-            void Tick();
+            void TimeStep();
 
         private:
+            void CreateDevice();
+            void FixedTimeStep();
+            void VariableTimeStep();
             void StartEventLoop();
 
         protected:
@@ -164,9 +191,12 @@ namespace SceneR
             GraphicsDeviceManager                    graphicsDeviceManager;
             RendererWindow                           rendererWindow;
             SceneR::Content::ContentManager          contentManager;
+            System::Boolean                          isFixedTimeStep;
+            System::MilliSeconds                     targetElapsedTime;
             RendererTimer                            timer;
             RenderTime                               renderTime;
-            System::Duration                         totalRenderTime;
+            System::MilliSeconds                     totalRenderTime;
+            System::Boolean                          isRunningSlowly;
 
             friend class RendererWindow;
         };

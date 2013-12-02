@@ -36,10 +36,21 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the RenderTime class.
-             * @param totalRenderTime The amount of render time since the start of the game.
-             * @param elapsedRenderTime The amount of elapsed render time since the last update.
+             * @param totalRenderTime the amount of render time since the start of the game.
+             * @param elapsedRenderTime the amount of elapsed render time since the last update.
              */
-            RenderTime(const System::Duration& totalRenderTime, const System::Duration& elapsedRenderTime);
+            RenderTime(const System::MilliSeconds& totalRenderTime,
+                       const System::MilliSeconds& elapsedRenderTime);
+
+            /**
+             * Initializes a new instance of the RenderTime class.
+             * @param totalRenderTime the amount of render time since the start of the game.
+             * @param elapsedRenderTime the amount of elapsed render time since the last update.
+             * @param isRunningSlowly a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             */
+            RenderTime(const System::MilliSeconds& totalRenderTime,
+                       const System::MilliSeconds& elapsedRenderTime,
+                       const System::Boolean&  isRunningSlowly);
 
             /**
              * Releases all resources being used by this RenderTime instance.
@@ -50,26 +61,37 @@ namespace SceneR
             /**
              * Gets the amount of elapsed render time since the last update.
              */
-            const System::Duration& ElapsedRenderTime() const;
-
-            /**
-             * Gets the amount of game time since the start of the renderer.
-             */
-            const System::Duration& TotalRenderTime() const;
+            const System::MilliSeconds& ElapsedRenderTime() const;
 
             /**
              * Gets the amount of elapsed render time since the last update.
              */
-            void ElapsedRenderTime(const System::Duration& elapsedRenderTime);
+            void ElapsedRenderTime(const System::MilliSeconds& elapsedRenderTime);
+
+            /**
+             * Gets a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             */
+            const System::Boolean IsRunningSlowly() const;
+
+            /**
+             * Sets a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             */
+            void IsRunningSlowly(const System::Boolean isRunningSlowly);
 
             /**
              * Gets the amount of render time since the start of the renderer.
              */
-            void TotalRenderTime(const System::Duration& totalRenderTime);
+            const System::MilliSeconds& TotalRenderTime() const;
+
+            /**
+             * Gets the amount of render time since the start of the renderer.
+             */
+            void TotalRenderTime(const System::MilliSeconds& totalRenderTime);
 
         private:
-            System::Duration totalRenderTime;
-            System::Duration elapsedRenderTime;
+            System::MilliSeconds totalRenderTime;
+            System::MilliSeconds elapsedRenderTime;
+            System::Boolean      isRunningSlowly;
         };
     }
 }

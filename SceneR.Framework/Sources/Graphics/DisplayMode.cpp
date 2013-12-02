@@ -21,7 +21,7 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 DisplayMode::DisplayMode(const GLFWvidmode* mode)
-    : aspectRatio(mode->width / mode->height),
+    : aspectRatio(static_cast<Single>(mode->width) / static_cast<Single>(mode->height)),
       format(SurfaceFormat::Color),
       height(mode->height),
       width(mode->width)

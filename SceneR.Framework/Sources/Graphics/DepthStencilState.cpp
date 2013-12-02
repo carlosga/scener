@@ -58,7 +58,7 @@ void DepthStencilState::Apply() const
 {
     if (this->depthBufferEnable)
     {
-        Viewport& currentViewport = this->graphicsDevice.GetViewport();
+        Viewport& currentViewport = this->graphicsDevice.Viewport();
 
         glEnable(GL_DEPTH_TEST);
         glDepthMask(this->depthBufferWriteEnable);

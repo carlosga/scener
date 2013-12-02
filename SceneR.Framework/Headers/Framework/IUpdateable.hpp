@@ -42,7 +42,7 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-			virtual const System::Boolean& IsEnabled() const = 0;
+			virtual const System::Boolean& Enabled() const = 0;
 
 			/**
 			 * Gets the order in which to update this object relative to other objects.

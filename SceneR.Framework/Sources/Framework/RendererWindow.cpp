@@ -14,15 +14,18 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/IGraphicsDeviceManager.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
 #include <Framework/RendererWindow.hpp>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>
+#include <System/Text/Unicode.hpp>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -69,10 +72,10 @@ void RendererWindow::AllowUserResizing(const Boolean& allowUserResizing)
 
 void RendererWindow::Open()
 {
-    auto         gdm     = this->renderer.graphicsDeviceManager;
-    UInt32       profile = static_cast<UInt32>(gdm.GraphicsProfile());
-    std::string  tmp     = System::Text::Unicode::Narrow(this->title);
-    GLFWmonitor* monitor = nullptr;
+    auto         gdm          = this->renderer.graphicsDeviceManager;
+    UInt32       profile      = static_cast<UInt32>(gdm.GraphicsProfile());
+    std::string  tmp          = System::Text::Unicode::Narrow(this->title);
+    GLFWmonitor* monitor      = nullptr;
 
     // Set the window and context hints
     glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);
@@ -92,9 +95,9 @@ void RendererWindow::Open()
     (
         gdm.PreferredBackBufferWidth(),  // width
         gdm.PreferredBackBufferHeight(), // height
-        tmp.c_str(),                        // title
-        monitor,                            // monitor
-        nullptr                             // share
+        tmp.c_str(),                     // title
+        monitor,                         // monitor
+        nullptr                          // share
     );
 
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
@@ -202,7 +205,7 @@ void RendererWindow::ReleaseCallbacks() const
 
 bool RendererWindow::ShouldClose() const
 {
-    Boolean fullScreen = this->renderer.CurrentGraphicsDevice().GetPresentationParameters().GetFullScreen();
+    Boolean fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().GetFullScreen();
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             || glfwWindowShouldClose(this->handle));

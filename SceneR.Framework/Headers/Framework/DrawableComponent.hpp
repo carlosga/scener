@@ -44,13 +44,13 @@ namespace SceneR
             /**
              * Initializes a new instance of the DrawableComponent class.
              */
-            DrawableComponent(Renderer& renderer);
+            DrawableComponent(SceneR::Framework::Renderer& renderer);
 
         public:
             /**
              * The GraphicsDevice the DrawableComponent is associated with.
              */
-            SceneR::Graphics::GraphicsDevice& GetGraphicsDevice();
+            SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice();
 
             /**
              * Called when the component should be drawn.
@@ -80,7 +80,7 @@ namespace SceneR
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual void DrawOrder(const System::UInt32& drawOrder);
+            void DrawOrder(const System::UInt32& drawOrder);
 
             /**
              * Called when the component should be initialized.

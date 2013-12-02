@@ -32,18 +32,18 @@ namespace SceneR
 
         public:
             void Reset();
-            void Tick();
-            System::Duration ElapsedTime() const;
-            System::Duration ElapsedTickTime() const;
+            void UpdateTimeStep();
+            System::MilliSeconds ElapsedTime() const;
+            System::MilliSeconds ElapsedTimeStepTime() const;
             System::Clock::time_point CurrentTime() const;
 
        private:
-            System::Duration CalculateDuration(const System::Clock::time_point& t0,
-                                               const System::Clock::time_point& t1) const;
+            System::MilliSeconds CalculateDuration(const System::Clock::time_point& t0,
+                                                   const System::Clock::time_point& t1) const;
 
         private:
             System::Clock::time_point start;
-            System::Clock::time_point lastTick;
+            System::Clock::time_point lastTimeStep;
         };
     }
 }

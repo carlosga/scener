@@ -141,12 +141,12 @@ namespace SceneR
             /**
              * Gets the effect used before drawing
              */
-            std::shared_ptr<Effect> GetEffect();
+            std::shared_ptr<SceneR::Graphics::Effect> Effect();
 
             /**
              * Sets the effect used before drawing
              */
-            void SetEffect(std::shared_ptr<Effect> effect);
+            void Effect(std::shared_ptr<SceneR::Graphics::Effect> effect);
 
             /**
              * Gets the display adapter.
@@ -162,60 +162,60 @@ namespace SceneR
             /**
              * Gets the depth-stencil state.
              */
-            DepthStencilState& GetDepthStencilState();
+            SceneR::Graphics::DepthStencilState& DepthStencilState();
 
             /**
              * Gets the presentation parameters associated with this graphics device.
              */
-            PresentationParameters& GetPresentationParameters();
+            SceneR::Graphics::PresentationParameters& PresentationParameters();
 
             /**
              * Gets the index buffer.
              * @return the index data
              */
-            std::shared_ptr<IndexBuffer> GetIndexBuffer();
+            std::shared_ptr<SceneR::Graphics::IndexBuffer> IndexBuffer();
 
             /**
              * Sets the index buffer.
              * @param indexBuffer the index data
              */
-            void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer);
+            void IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBuffer>& indexBuffer);
 
             /**
              * Gets rasterizer state.
              */
-            RasterizerState& GetRasterizerState();
+            SceneR::Graphics::RasterizerState& RasterizerState();
 
             /**
              * Gets the current vertex buffer.
              */
-            std::shared_ptr<VertexBuffer> GetVertexBuffer();
+            std::shared_ptr<SceneR::Graphics::VertexBuffer> VertexBuffer();
 
             /**
              * Sets or binds a vertex buffer to the device.
              */
-            void SetVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer);
+            void VertexBuffer(const std::shared_ptr<SceneR::Graphics::VertexBuffer>& vertexBuffer);
 
             /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
              */
-            Viewport& GetViewport();
+            SceneR::Graphics::Viewport& Viewport();
 
             /**
              * Sets the viewport identifying the portion of the render target to receive draw calls.
              */
-            void SetViewport(Viewport& viewport);
+            void Viewport(SceneR::Graphics::Viewport& viewport);
 
         private:
-            DepthStencilState             depthStencilState;
-            std::shared_ptr<Effect>       effect;
-            GraphicsAdapter               graphicsAdapter;
-            GraphicsProfile               graphicsProfile;
-            std::shared_ptr<IndexBuffer>  indexBuffer;
-            PresentationParameters        presentationParameters;
-            RasterizerState               rasterizerState;
-            std::shared_ptr<VertexBuffer> vertexBuffer;
-            Viewport                      viewport;
+            SceneR::Graphics::DepthStencilState             depthStencilState;
+            std::shared_ptr<SceneR::Graphics::Effect>       effect;
+            GraphicsAdapter                                 graphicsAdapter;
+            GraphicsProfile                                 graphicsProfile;
+            std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
+            SceneR::Graphics::PresentationParameters        presentationParameters;
+            SceneR::Graphics::RasterizerState               rasterizerState;
+            std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
+            SceneR::Graphics::Viewport                      viewport;
         };
     }
 }

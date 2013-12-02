@@ -20,7 +20,7 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-Component::Component(Renderer& renderer)
+Component::Component(SceneR::Framework::Renderer& renderer)
     : renderer(renderer),
       enabled(true),
       updateOrder(0)
@@ -31,23 +31,23 @@ Component::~Component()
 {
 }
 
+SceneR::Framework::Renderer& Component::Renderer()
+{
+    return this->renderer;
+}
+
 void Component::Update(const RenderTime& renderTime)
 {
 }
 
-void Component::Enable()
-{
-    this->enabled = true;
-}
-
-void Component::Disable()
-{
-    this->enabled = false;
-}
-
-const Boolean& Component::IsEnabled() const
+const Boolean& Component::Enabled() const
 {
     return this->enabled;
+}
+
+void Component::Enabled(const Boolean& enabled)
+{
+    this->enabled = enabled;
 }
 
 const UInt32& Component::UpdateOrder() const

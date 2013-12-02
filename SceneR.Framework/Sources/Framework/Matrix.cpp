@@ -133,7 +133,7 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
                   xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
                   xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f,
-                  -dx      , -dy      , -dz     , 1.0f);
+                  -dx      , -dy      , -dz      , 1.0f);
 }
 
 Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)

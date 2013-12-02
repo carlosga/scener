@@ -29,7 +29,7 @@ using namespace SceneR::Sample;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-AstroBoy::AstroBoy(Renderer& renderer)
+AstroBoy::AstroBoy(SceneR::Framework::Renderer& renderer)
     : DrawableComponent(renderer)
 {
 }
@@ -41,9 +41,9 @@ AstroBoy::~AstroBoy()
 
 void AstroBoy::Draw(const RenderTime& renderTime)
 {
-    float aspect = this->GetGraphicsDevice().GetViewport().AspectRatio();
+    float aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
 
-    this->GetGraphicsDevice().Clear(Color::Black);
+    this->CurrentGraphicsDevice().Clear(Color::Black);
 
     Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, 15.0f, 0.0f), Vector3(0.0f, 0.0f, 5.0f), Vector3(0.0f, 1.0f, 0.0f));
     Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 1.0f, 100.0f);
