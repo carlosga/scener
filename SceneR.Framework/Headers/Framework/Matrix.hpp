@@ -175,6 +175,13 @@ namespace SceneR
             /**
              * Creates a scaling Matrix
              *
+             * @param scales Amounts to scale by on the x, y, and z axes.
+             */
+            static Matrix CreateScale(const Vector3& scales);
+
+            /**
+             * Creates a scaling Matrix
+             *
              * @param xScale Value to scale by on the x-axis
              * @param yScale Value to scale by on the y-axis
              * @param zScale Value to scale by on the z-axis
@@ -184,11 +191,11 @@ namespace SceneR
                                       const System::Single& zScale);
 
             /**
-             * Creates a scaling Matrix
+             * Creates a translation Matrix
              *
-             * @param scales Amounts to scale by on the x, y, and z axes.
+             * @param position Amounts to translate by on the x, y, and z-axis.
              */
-            static Matrix CreateScale(const Vector3& scales);
+            static Matrix CreateTranslation(const Vector3& position);
 
             /**
              * Creates a translation Matrix
@@ -200,13 +207,6 @@ namespace SceneR
             static Matrix CreateTranslation(const System::Single& xPosition,
                                             const System::Single& yPosition,
                                             const System::Single& zPosition);
-
-            /**
-             * Creates a translation Matrix
-             *
-             * @param position Amounts to translate by on the x, y, and z-axis.
-             */
-            static Matrix CreateTranslation(const Vector3& position);
 
             /**
              * Creates a World Matrix

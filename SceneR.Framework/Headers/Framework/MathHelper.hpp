@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Represents the value of PI
              */
-            static const System::Single& PI;
+            static const System::Single& Pi;
 
             /**
              * Represents the value of PI divided by 2
@@ -153,6 +153,12 @@ namespace SceneR
              * @param radians the angle in radians.
              */
             static System::Single ToDegrees(const System::Single& radians);
+
+            /**
+             * Reduces a given angle to a value between π and -π.
+             * @param angle The angle to reduce, in radians.
+             */
+            static System::Single WrapAngle(const System::Single& angle);
 
         private:
             MathHelper() = delete;

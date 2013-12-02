@@ -199,7 +199,7 @@ void Vector3::Negate()
 const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
 {
     // The vector cross product in expanded form can be defined as:
-    // a x b = (y1z2 - z1y2)i - (x1z2 - z1x2)j + (x1y2 - y1x2)k
+    // a x b = (y1z2 - z1y2)i (x1z2 - z1x2)j (x1y2 - y1x2)k
 
     Single x = (this->y * vectorb.Z()) - (this->z * vectorb.Y());
     Single y = (this->z * vectorb.X()) - (this->x * vectorb.Z());

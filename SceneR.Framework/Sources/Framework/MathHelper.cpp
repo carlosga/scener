@@ -23,7 +23,7 @@ using namespace SceneR::Framework;
 const System::Single& MathHelper::E       = M_E;
 const System::Single& MathHelper::Log10E  = M_LOG10E;
 const System::Single& MathHelper::Log2E   = M_LOG2E;
-const System::Single& MathHelper::PI      = M_PI;
+const System::Single& MathHelper::Pi      = M_PI;
 const System::Single& MathHelper::PiOver2 = M_PI_2;
 const System::Single& MathHelper::PiOver4 = M_PI_4;
 const System::Single& MathHelper::TwoPi   = M_2_PI;
@@ -128,10 +128,27 @@ Single MathHelper::SmoothStep(const System::Single& value1,
 
 Single MathHelper::ToRadians(const Single& degrees)
 {
-    return (degrees * MathHelper::PI / 180.0);
+    return (degrees * MathHelper::Pi / 180.0);
 }
 
 Single MathHelper::ToDegrees(const Single& radians)
 {
-    return (radians * 180.0 / MathHelper::PI);
+    return (radians * 180.0 / MathHelper::Pi);
+}
+
+System::Single MathHelper::WrapAngle(const System::Single& angle)
+{
+    Single result = std::remainder(angle, MathHelper::TwoPi);
+
+    if (result < -MathHelper::Pi)
+    {
+        result += MathHelper::TwoPi;
+    }
+
+    if (result > MathHelper::Pi)
+    {
+        result -= MathHelper::TwoPi;
+    }
+
+    return result;
 }

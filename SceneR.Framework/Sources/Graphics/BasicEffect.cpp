@@ -313,7 +313,7 @@ void BasicEffect::OnApply()
     Effect::GetEffectParameter(u"WorldView").SetValue(worldView);
     Effect::GetEffectParameter(u"WorldViewProjection").SetValue(Matrix::Transpose(worldViewProjection));
     Effect::GetEffectParameter(u"WorldInverseTranspose").SetValue(worldInverseTranspose);
-    Effect::GetEffectParameter(u"LightPosition").SetValue(Vector4(5.0f, -5.0, -5.0f, 1.0f));
+    Effect::GetEffectParameter(u"LightPosition").SetValue(Vector4(0.0f, 2.0, 15.0f, 1.0f));
     Effect::GetEffectParameter(u"LightIntensity").SetValue(Vector3(0.52f , 0.57f , 0.62f));
     Effect::GetEffectParameter(u"Ka").SetValue(Vector3(0.053f, 0.098f, 0.181f));
     Effect::GetEffectParameter(u"Kd").SetValue(Vector3(0.64f , 0.64f , 0.64f));

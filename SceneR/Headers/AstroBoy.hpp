@@ -18,6 +18,8 @@
 #define ASTROBOY_HPP
 
 #include <Framework/DrawableComponent.hpp>
+#include <Framework/Matrix.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR
@@ -49,6 +51,7 @@ namespace SceneR
             virtual ~AstroBoy();
 
         public:
+            virtual void Update(const SceneR::Framework::RenderTime& renderTime) override;
             virtual void Draw(const SceneR::Framework::RenderTime& renderTime) override;
 
         protected:
@@ -57,6 +60,10 @@ namespace SceneR
 
         private:
             std::shared_ptr<SceneR::Graphics::Model> model;
+            System::Single                           rotation;
+            SceneR::Framework::Matrix                world;
+            SceneR::Framework::Matrix                view;
+            SceneR::Framework::Matrix                projection;
         };
     }
 }

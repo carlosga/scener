@@ -35,16 +35,16 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
     // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
     Vector3 axisNormalized(Vector3::Normalize(axis));
     float theta = MathHelper::ToRadians(angle);
-    float cos   = std::cos(theta) - 1 + 1;
+    float cos   = std::cos(theta) - 1.0f + 1.0f;
     float sin   = std::sin(theta);
     float cos_1 = 1.0f - cos;
     float x     = axisNormalized.X();
     float y     = axisNormalized.Y();
     float z     = axisNormalized.Z();
 
-    return Matrix(x * x * cos_1 + cos    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f,
-                  y * x * cos_1 + z * sin, y * y * cos_1 + cos    , y * z * cos_1 - x * sin, 0.0f,
-                  z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, z * z * cos_1 + cos    , 0.0f,
+    return Matrix(cos + x * x * cos_1    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f,
+                  y * x * cos_1 + z * sin, cos + y * y * cos_1    , y * z * cos_1 - x * sin, 0.0f,
+                  z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, cos + z * z * cos_1    , 0.0f,
                   0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
 }
 
@@ -222,30 +222,59 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
     Single xScale     = yScale / aspectRatio;
     Single nearSubFar = zNear - zFar;
 
-    return Matrix(xScale, 0.0f  , 0.0f                   , 0.0f,
-                  0.0f  , yScale, 0.0f                   , 0.0f,
-                  0.0f  , 0.0f  , zFar / nearSubFar      , -1.0f,
+    return Matrix(xScale, 0.0f  , 0.0f                     , 0.0f,
+                  0.0f  , yScale, 0.0f                     , 0.0f,
+                  0.0f  , 0.0f  , zFar / nearSubFar        , -1.0f,
                   0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f);
 }
 
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
-    return Matrix::CreateFromAxisAngle(Vector3::UnitX, angle);
+    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    float theta = MathHelper::ToRadians(angle);
+    float cos   = std::cos(theta);
+    float sin   = std::sin(theta);
+
+    return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
+                  0.0f,  cos, -sin, 0.0f,
+                  0.0f,  sin,  cos, 0.0f,
+                  0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
-    return Matrix::CreateFromAxisAngle(Vector3::UnitY, angle);
+    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    float theta = MathHelper::ToRadians(angle);
+    float cos   = std::cos(theta);
+    float sin   = std::sin(theta);
+
+    return Matrix( cos, 0.0f,  sin, 0.0f,
+                  0.0f, 1.0f, 0.0f, 0.0f,
+                  -sin, 0.0f,  cos, 0.0f,
+                  0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
-    return Matrix::CreateFromAxisAngle(Vector3::UnitZ, angle);
+    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    float theta = MathHelper::ToRadians(angle);
+    float cos   = std::cos(theta);
+    float sin   = std::sin(theta);
+
+    return Matrix(cos , -sin, 0.0f, 0.0f,
+                  sin ,  cos, 0.0f, 0.0f,
+                  0.0f, 0.0f, 1.0f, 0.0f,
+                  0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateScale(const Single& scale)
 {
     return Matrix::CreateScale(scale, scale, scale);
+}
+
+Matrix Matrix::CreateScale(const Vector3& scales)
+{
+    return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
 }
 
 Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale)
@@ -256,9 +285,9 @@ Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Sin
                   0.0f  , 0.0f  , 0.0f  , 1.0f);
 }
 
-Matrix Matrix::CreateScale(const Vector3& scales)
+Matrix Matrix::CreateTranslation(const Vector3& position)
 {
-    return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
+    return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
 }
 
 Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single& z)
@@ -267,11 +296,6 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
                   0.0f, 1.0f, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
                   x   , y   , z   , 1.0f);
-}
-
-Matrix Matrix::CreateTranslation(const Vector3& position)
-{
-    return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
 }
 
  Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)

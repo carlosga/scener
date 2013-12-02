@@ -193,6 +193,11 @@ void Renderer::StartEventLoop()
     } while (!this->rendererWindow.ShouldClose());
 }
 
+/**
+ * References:
+ *      http://gafferongames.com/game-physics/fix-your-timestep/
+ *      http://msdn.microsoft.com/en-us/library/bb203873.aspx
+ */
 void Renderer::TimeStep()
 {
     if (this->IsFixedTimeStep())

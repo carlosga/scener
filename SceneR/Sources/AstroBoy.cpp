@@ -17,20 +17,27 @@
 #include <AstroBoy.hpp>
 #include <Content/ContentManager.hpp>
 #include <Framework/Color.hpp>
-#include <Framework/Matrix.hpp>
+#include <Framework/MathHelper.hpp>
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Viewport.hpp>
+#include <chrono>
 
+using namespace System;
 using namespace SceneR::Sample;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 AstroBoy::AstroBoy(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer)
+    : DrawableComponent(renderer),
+      model(nullptr),
+      rotation(0.0f),
+      world(Matrix::Identity),
+      view(Matrix::Identity),
+      projection(Matrix::Identity)
 {
 }
 
@@ -39,19 +46,25 @@ AstroBoy::~AstroBoy()
     this->UnloadContent();
 }
 
+void AstroBoy::Update(const RenderTime& renderTime)
+{
+    Single aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
+    Single elapsed     = std::chrono::duration_cast<System::Seconds>(renderTime.ElapsedRenderTime()).count();
+    Single newRotation = this->rotation + elapsed;
+
+    this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
+    this->world      = Matrix::CreateRotationX(90.0f)
+                     * Matrix::CreateRotationY(MathHelper::ToDegrees(this->rotation))
+                     * Matrix::CreateTranslation(Vector3(0.0f, -3.0f, -2.0f));
+    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3::Up);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 1.0f, 100.0f);
+}
+
 void AstroBoy::Draw(const RenderTime& renderTime)
 {
-    float aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
-
     this->CurrentGraphicsDevice().Clear(Color::Black);
 
-    Matrix view       = Matrix::CreateLookAt(Vector3(0.0f, 15.0f, 0.0f), Vector3(0.0f, 0.0f, 5.0f), Vector3(0.0f, 1.0f, 0.0f));
-    Matrix projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 1.0f, 100.0f);
-
-    this->model->Draw(Matrix::CreateRotationZ(-90.0f) * Matrix::CreateTranslation(-6.0f, 0.0f, 0.0f), view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(0.0f)   * Matrix::CreateTranslation(-2.0f, 0.0f, 0.0f), view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(180.0f) * Matrix::CreateTranslation(2.0f, 0.0f, 0.0f) , view, projection);
-    this->model->Draw(Matrix::CreateRotationZ(90.0f)  * Matrix::CreateTranslation(6.0f, 0.0f, 0.0f) , view, projection);
+    this->model->Draw(this->world, this->view, this->projection);
 }
 
 void AstroBoy::LoadContent()
