@@ -19,6 +19,9 @@
 
 #include <Content/ContentManager.hpp>
 #include <System/Core.hpp>
+#include <Framework/IComponent.hpp>
+#include <Framework/IDrawable.hpp>
+#include <Framework/IUpdateable.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererTimer.hpp>
@@ -39,7 +42,6 @@ namespace SceneR
 {
     namespace Framework
     {
-        class IComponent;
         class RenderTime;
 
         /**
@@ -180,23 +182,28 @@ namespace SceneR
             void TimeStep();
 
         private:
+            void PostProcessComponents();
             void CreateDevice();
             void FixedTimeStep();
             void VariableTimeStep();
             void StartEventLoop();
 
         protected:
-            std::vector<std::shared_ptr<IComponent>> components;
-            RendererServiceContainer                 services;
-            GraphicsDeviceManager                    graphicsDeviceManager;
-            RendererWindow                           rendererWindow;
-            SceneR::Content::ContentManager          contentManager;
-            System::Boolean                          isFixedTimeStep;
-            System::MilliSeconds                     targetElapsedTime;
-            RendererTimer                            timer;
-            RenderTime                               renderTime;
-            System::MilliSeconds                     totalRenderTime;
-            System::Boolean                          isRunningSlowly;
+            std::vector<std::shared_ptr<IComponent>>  components;
+            RendererServiceContainer                  services;
+            GraphicsDeviceManager                     graphicsDeviceManager;
+
+        private:
+            RendererWindow                            rendererWindow;
+            SceneR::Content::ContentManager           contentManager;
+            System::Boolean                           isFixedTimeStep;
+            System::MilliSeconds                      targetElapsedTime;
+            RendererTimer                             timer;
+            RenderTime                                renderTime;
+            System::MilliSeconds                      totalRenderTime;
+            System::Boolean                           isRunningSlowly;
+            std::vector<std::shared_ptr<IDrawable>>   drawableComponents;
+            std::vector<std::shared_ptr<IUpdateable>> updateableComponents;
 
             friend class RendererWindow;
         };

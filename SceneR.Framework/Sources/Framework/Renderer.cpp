@@ -14,12 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/IComponent.hpp>
-#include <Framework/IDrawable.hpp>
-#include <Framework/IUpdateable.hpp>
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <algorithm>
 #include <chrono>
 #include <thread>
 
@@ -39,7 +37,9 @@ Renderer::Renderer(const String& rootDirectory)
       timer(),
       renderTime(),
       totalRenderTime(),
-      isRunningSlowly(false)
+      isRunningSlowly(false),
+      drawableComponents(0),
+      updateableComponents(0)
 {
 }
 
@@ -80,6 +80,7 @@ void Renderer::Run()
     this->CreateDevice();
     this->Initialize();
     this->LoadContent();
+    this->PostProcessComponents();
     this->StartEventLoop();
     this->UnloadContent();
     this->EndRun();
@@ -103,13 +104,11 @@ void Renderer::BeginRun()
 
 void Renderer::Draw(const RenderTime& renderTime)
 {
-    for (auto& component : this->components)
+    for (auto& component : this->drawableComponents)
     {
-        auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
-
-        if (drawable != nullptr && drawable->IsVisible())
+        if (component->IsVisible())
         {
-            drawable->Draw(renderTime);
+            component->Draw(renderTime);
         }
     }
 }
@@ -129,12 +128,9 @@ void Renderer::Finalize()
 
 void Renderer::Initialize()
 {
-    if (this->components.size() > 0)
+    for (auto& component : this->components)
     {
-        for (auto& component : this->components)
-        {
-            component->Initialize();
-        }
+        component->Initialize();
     }
 }
 
@@ -170,13 +166,11 @@ void Renderer::Update(const RenderTime& renderTime)
 {
     glfwPollEvents();
 
-    for (auto& component : this->components)
+    for (auto& component : this->updateableComponents)
     {
-        auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
-
-        if (updateable != nullptr && updateable->Enabled())
+        if (component->Enabled())
         {
-            updateable->Update(renderTime);
+            component->Update(renderTime);
         }
     }
 }
@@ -208,6 +202,38 @@ void Renderer::TimeStep()
     {
         this->VariableTimeStep();
     }
+}
+
+void Renderer::PostProcessComponents()
+{
+    for (auto& component : this->components)
+    {
+        auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
+
+        if (drawable != nullptr)
+        {
+            this->drawableComponents.push_back(drawable);
+        }
+
+        auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
+
+        if (updateable != nullptr)
+        {
+            this->updateableComponents.push_back(updateable);
+        }
+    }
+
+    std::sort(this->drawableComponents.begin(), this->drawableComponents.end(),
+              [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b)
+              {
+                  return a->DrawOrder() < b->DrawOrder();
+              });
+
+    std::sort(this->updateableComponents.begin(), this->updateableComponents.end(),
+              [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b)
+              {
+                  return a->UpdateOrder() < b->UpdateOrder();
+              });
 }
 
 void Renderer::CreateDevice()

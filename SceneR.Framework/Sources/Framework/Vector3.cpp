@@ -355,22 +355,22 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
     Single x = (this->x * matrix.M11())
              + (this->y * matrix.M21())
              + (this->z * matrix.M31())
-             + matrix.M41();
+             +            matrix.M41();
 
     Single y = (this->x * matrix.M12())
              + (this->y * matrix.M22())
              + (this->z * matrix.M32())
-             + matrix.M42();
+             +            matrix.M42();
 
     Single z = (this->x * matrix.M13())
              + (this->y * matrix.M23())
              + (this->z * matrix.M33())
-             + matrix.M43();
+             +            matrix.M43();
 
     Single w = (this->x * matrix.M14())
              + (this->y * matrix.M24())
              + (this->z * matrix.M34())
-             + matrix.M44();
+             +            matrix.M44();
 
     return Vector3(x / w, y / w, z / w);
 }
