@@ -14,16 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <functional>
-#include <iomanip>
 #include <Framework/RendererTimer.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 
 RendererTimer::RendererTimer()
-    : start(Clock::now()),
-      lastTimeStep(Clock::now())
+    : start(TimeSpan::Clock::now()),
+      lastTimeStep(TimeSpan::Clock::now())
 {
 }
 
@@ -33,32 +31,26 @@ RendererTimer::~RendererTimer()
 
 void RendererTimer::Reset()
 {
-    this->start        = Clock::now();
-    this->lastTimeStep = Clock::now();
+    this->start        = this->CurrentTime();
+    this->lastTimeStep = this->CurrentTime();
 }
 
 void SceneR::Framework::RendererTimer::UpdateTimeStep()
 {
-    this->lastTimeStep = Clock::now();
+    this->lastTimeStep = this->CurrentTime();
 }
 
-MilliSeconds RendererTimer::ElapsedTime() const
+TimeSpan RendererTimer::ElapsedTime() const
 {
-    return this->CalculateDuration(this->start, this->CurrentTime());
+    return TimeSpan::FromDuration(this->CurrentTime() - this->start);
 }
 
-MilliSeconds RendererTimer::ElapsedTimeStepTime() const
+TimeSpan RendererTimer::ElapsedTimeStepTime() const
 {
-    return this->CalculateDuration(this->lastTimeStep, this->CurrentTime());
+    return TimeSpan::FromDuration(this->CurrentTime() - this->lastTimeStep);
 }
 
-System::Clock::time_point RendererTimer::CurrentTime() const
+TimeSpan::Clock::time_point RendererTimer::CurrentTime() const
 {
-    return Clock::now();
-}
-
-MilliSeconds RendererTimer::CalculateDuration(const System::Clock::time_point& t0,
-                                              const System::Clock::time_point& t1) const
-{
-   return std::chrono::duration_cast<System::MilliSeconds>(t1 - t0);
+    return TimeSpan::Clock::now();
 }

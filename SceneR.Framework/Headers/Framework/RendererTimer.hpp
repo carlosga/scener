@@ -17,33 +17,56 @@
 #ifndef RENDERERTIMER_HPP
 #define RENDERERTIMER_HPP
 
-#include <System/Core.hpp>
+#include <System/TimeSpan.hpp>
 #include <chrono>
 
 namespace SceneR
 {
     namespace Framework
     {
+        /**
+         * Renderer timer.
+         */
         class RendererTimer
         {
         public:
+            /**
+             * Initializes a new instance of the RendererTimer class.
+             */
             RendererTimer();
+
+            /**
+             * Releases all resources being used by this RendererTimer.
+             */
             virtual ~RendererTimer();
 
         public:
+            /**
+             * Resets the renderer time points.
+             */
             void Reset();
-            void UpdateTimeStep();
-            System::MilliSeconds ElapsedTime() const;
-            System::MilliSeconds ElapsedTimeStepTime() const;
-            System::Clock::time_point CurrentTime() const;
 
-       private:
-            System::MilliSeconds CalculateDuration(const System::Clock::time_point& t0,
-                                                   const System::Clock::time_point& t1) const;
+            /*
+             * Updates the last time step time point.
+             */
+            void UpdateTimeStep();
+
+            /*
+             * Gets the time elapsed since the last timer reset.
+             */
+            System::TimeSpan ElapsedTime() const;
+
+            /*
+             * Gets the time elapsed since the last time step update.
+             */
+            System::TimeSpan ElapsedTimeStepTime() const;
 
         private:
-            System::Clock::time_point start;
-            System::Clock::time_point lastTimeStep;
+            System::TimeSpan::Clock::time_point CurrentTime() const;
+
+        private:
+            System::TimeSpan::Clock::time_point start;
+            System::TimeSpan::Clock::time_point lastTimeStep;
         };
     }
 }

@@ -18,15 +18,16 @@
 #define RENDERER_HPP
 
 #include <Content/ContentManager.hpp>
-#include <System/Core.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
 #include <Framework/RendererServiceContainer.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererTimer.hpp>
-#include <Framework/RenderTime.hpp>
 #include <Framework/RendererWindow.hpp>
+#include <Framework/RenderTime.hpp>
+#include <System/Core.hpp>
+#include <System/TimeSpan.hpp>
 #include <memory>
 #include <vector>
 
@@ -159,12 +160,12 @@ namespace SceneR
             /**
              * Gets the target time between calls to Update when IsFixedTimeStep is true.
              */
-            virtual const System::MilliSeconds& TargetElapsedTime() const;
+            virtual const System::TimeSpan& TargetElapsedTime() const;
 
             /**
              * Gets the target time between calls to Update when IsFixedTimeStep is true.
              */
-            virtual void TargetElapsedTime(const System::MilliSeconds& targetElapsedTime);
+            virtual void TargetElapsedTime(const System::TimeSpan& targetElapsedTime);
 
             /**
              * Called when graphics resources need to be unloaded.
@@ -197,10 +198,10 @@ namespace SceneR
             RendererWindow                            rendererWindow;
             SceneR::Content::ContentManager           contentManager;
             System::Boolean                           isFixedTimeStep;
-            System::MilliSeconds                      targetElapsedTime;
+            System::TimeSpan                          targetElapsedTime;
             RendererTimer                             timer;
             RenderTime                                renderTime;
-            System::MilliSeconds                      totalRenderTime;
+            System::TimeSpan                          totalRenderTime;
             System::Boolean                           isRunningSlowly;
             std::vector<std::shared_ptr<IDrawable>>   drawableComponents;
             std::vector<std::shared_ptr<IUpdateable>> updateableComponents;

@@ -24,7 +24,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Viewport.hpp>
-#include <chrono>
+#include <System/TimeSpan.hpp>
 
 using namespace System;
 using namespace SceneR::Sample;
@@ -49,8 +49,7 @@ AstroBoy::~AstroBoy()
 void AstroBoy::Update(const RenderTime& renderTime)
 {
     Single aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
-    Single elapsed     = std::chrono::duration_cast<System::Seconds>(renderTime.ElapsedRenderTime()).count();
-    Single newRotation = this->rotation + elapsed;
+    Single newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
 
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationX(90.0f)

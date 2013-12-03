@@ -33,10 +33,10 @@ Renderer::Renderer(const String& rootDirectory)
       rendererWindow(*this),
       contentManager(this->services, rootDirectory),
       isFixedTimeStep(true),
-      targetElapsedTime(1000.0 / 60.0),
+      targetElapsedTime(10000000L / 60L),
       timer(),
       renderTime(),
-      totalRenderTime(),
+      totalRenderTime(TimeSpan::Zero),
       isRunningSlowly(false),
       drawableComponents(0),
       updateableComponents(0)
@@ -148,12 +148,12 @@ void Renderer::LoadContent()
 {
 }
 
-const System::MilliSeconds& Renderer::TargetElapsedTime() const
+const System::TimeSpan& Renderer::TargetElapsedTime() const
 {
     return this->targetElapsedTime;
 }
 
-void Renderer::TargetElapsedTime(const System::MilliSeconds& targetElapsedTime)
+void Renderer::TargetElapsedTime(const System::TimeSpan& targetElapsedTime)
 {
     this->targetElapsedTime = targetElapsedTime;
 }
@@ -263,11 +263,12 @@ void Renderer::FixedTimeStep()
             this->EndDraw();
         }
 
-        std::this_thread::sleep_for(this->targetElapsedTime - this->timer.ElapsedTimeStepTime());
+        TimeSpan interval = this->targetElapsedTime - this->timer.ElapsedTimeStepTime();
+
+        std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
     }
 }
 
 void Renderer::VariableTimeStep()
 {
-    glfwWaitEvents();
 }

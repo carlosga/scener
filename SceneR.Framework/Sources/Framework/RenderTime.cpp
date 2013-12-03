@@ -15,25 +15,25 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/RenderTime.hpp>
-#include <chrono>
+#include <System/TimeSpan.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 
 RenderTime::RenderTime()
-    : RenderTime(System::MilliSeconds::zero(), System::MilliSeconds::zero(), false)
+    : RenderTime(System::TimeSpan::Zero, System::TimeSpan::Zero, false)
 {
 }
 
-RenderTime::RenderTime(const System::MilliSeconds& totalRenderTime,
-                       const System::MilliSeconds& elapsedRenderTime)
+RenderTime::RenderTime(const System::TimeSpan& totalRenderTime,
+                       const System::TimeSpan& elapsedRenderTime)
     : RenderTime(totalRenderTime, elapsedRenderTime, false)
 {
 }
 
-RenderTime::RenderTime(const System::MilliSeconds& totalRenderTime,
-                       const System::MilliSeconds& elapsedRenderTime,
-                       const System::Boolean&      isRunningSlowly)
+RenderTime::RenderTime(const System::TimeSpan& totalRenderTime,
+                       const System::TimeSpan& elapsedRenderTime,
+                       const System::Boolean&  isRunningSlowly)
     : totalRenderTime(totalRenderTime),
       elapsedRenderTime(elapsedRenderTime),
       isRunningSlowly(isRunningSlowly)
@@ -44,12 +44,12 @@ RenderTime::~RenderTime()
 {
 }
 
-const System::MilliSeconds& RenderTime::ElapsedRenderTime() const
+const System::TimeSpan& RenderTime::ElapsedRenderTime() const
 {
     return this->elapsedRenderTime;
 }
 
-void RenderTime::ElapsedRenderTime(const System::MilliSeconds& elapsedRenderTime)
+void RenderTime::ElapsedRenderTime(const System::TimeSpan& elapsedRenderTime)
 {
     this->elapsedRenderTime = elapsedRenderTime;
 }
@@ -64,12 +64,12 @@ void RenderTime::IsRunningSlowly(const System::Boolean isRunningSlowly)
     this->isRunningSlowly = isRunningSlowly;
 }
 
-const System::MilliSeconds& RenderTime::TotalRenderTime() const
+const System::TimeSpan& RenderTime::TotalRenderTime() const
 {
     return this->totalRenderTime;
 }
 
-void RenderTime::TotalRenderTime(const System::MilliSeconds& totalRenderTime)
+void RenderTime::TotalRenderTime(const System::TimeSpan& totalRenderTime)
 {
     this->totalRenderTime = totalRenderTime;
 }

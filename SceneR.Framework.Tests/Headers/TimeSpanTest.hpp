@@ -14,30 +14,28 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CORE_HPP
-#define CORE_HPP
+#ifndef TIMESPANTEST_HPP
+#define	TIMESPANTEST_HPP
 
-#include <stddef.h>
-#include <stdint.h>
-#include <chrono>
-#include <string>
+#include <System/Core.hpp>
+#include <gtest/gtest.h>
 
-namespace System
+class TimeSpanTest : public testing::Test
 {
-    typedef char16_t       Char;
-    typedef bool           Boolean;
-    typedef int8_t         Byte;
-    typedef uint8_t        UByte;
-    typedef int16_t        Int16;
-    typedef uint16_t       UInt16;
-    typedef int32_t        Int32;
-    typedef uint32_t       UInt32;
-    typedef int64_t        Int64;
-    typedef uint64_t       UInt64;
-    typedef float          Single;
-    typedef double         Double;
-    typedef size_t         Size;
-    typedef std::u16string String;
-}
+protected:
+    // virtual void SetUp() will be called before each test is run.  You
+    // should define it if you need to initialize the varaibles.
+    // Otherwise, this can be skipped.
+    virtual void SetUp()
+    {
+    };
 
-#endif  /* CORE_HPP */
+    // virtual void TearDown() will be called after each test is run.
+    // You should define it if there is cleanup work to do.  Otherwise,
+    // you don't have to provide it.
+    //
+    // virtual void TearDown() {
+    // }
+};
+
+#endif	// TIMESPANTEST_HPP
