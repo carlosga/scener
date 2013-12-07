@@ -73,12 +73,15 @@ const EffectParameter& Effect::AddEffectParameter(const std::u16string&       na
 
 const EffectParameter& Effect::GetEffectParameter(const std::u16string& name) const
 {
-    for (const auto& effectParameter : this->parameters)
+    auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
+                           [&](const EffectParameter& parameter) -> bool
+                           {
+                               return parameter.Name() == name;
+                           });
+
+    if (it != this->parameters.end())
     {
-        if (effectParameter.Name() == name)
-        {
-            return effectParameter;
-        }
+        return *it;
     }
 
     throw std::runtime_error("Invalid parameter name");

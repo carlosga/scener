@@ -42,17 +42,16 @@ const SceneR::Content::ContentType VertexBufferReader::ContentType() const
 
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
-    std::vector<VertexPositionNormalTexture> data;
-
-    auto&  gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    UInt32 vertexCount = input.ReadUInt32();
-    auto   buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());
+    auto  data        = std::vector<VertexPositionNormalTexture>{};
+    auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  vertexCount = input.ReadUInt32();
+    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());
 
     for (UInt32 i = 0; i < vertexCount; i++)
     {
-        Vector3 position = input.ReadVector3();
-        Vector3 normal   = input.ReadVector3();
-        Vector2 tcoord   = input.ReadVector2();
+        auto position = input.ReadVector3();
+        auto normal   = input.ReadVector3();
+        auto tcoord   = input.ReadVector2();
 
         data.push_back(VertexPositionNormalTexture(position, normal, tcoord));
     }

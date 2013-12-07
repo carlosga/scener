@@ -44,6 +44,17 @@ namespace System
                 return converter.to_bytes(source);
             };
 
+            /**
+             * Converts a regular string to a utf-16 string.
+             */
+            static System::String Widen(const std::string& source)
+            {
+                typedef std::codecvt_utf8_utf16<char16_t> convert_type; // UTF-8 <-> UTF-16 converter
+                std::wstring_convert<convert_type, char16_t> converter;
+
+                return converter.from_bytes(source);
+            };
+
         private:
             Unicode() = delete;
             Unicode(const Unicode& unicode) = delete;

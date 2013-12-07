@@ -71,8 +71,7 @@ void IndexBuffer::CreateIndexBuffer()
 
 void IndexBuffer::BindIndexBuffer() const
 {
-    glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer),
-                 this->ibo);
+    glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer), this->ibo);
 }
 
 void IndexBuffer::BufferData(const std::vector<UInt32>& data) const

@@ -46,7 +46,7 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
     texture->width  = input.ReadUInt32();
     texture->height = input.ReadUInt32();
 
-    UInt32 mipmapCount = input.ReadUInt32();
+    auto mipmapCount = input.ReadUInt32();
 
     for (UInt32 i = 0; i < mipmapCount; i++)
     {

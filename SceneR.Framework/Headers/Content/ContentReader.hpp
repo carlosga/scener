@@ -114,8 +114,8 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> ReadObject()
             {
-                ContentType        contentType = static_cast<ContentType> (this->ReadInt32());
-                ContentTypeReader* reader      = this->typeReaderManager.GetReaderForContentType(contentType);
+                auto contentType = static_cast<ContentType> (this->ReadInt32());
+                auto reader      = this->typeReaderManager.GetReaderForContentType(contentType);
 
                 return this->ReadObject<T>(reader);
             };

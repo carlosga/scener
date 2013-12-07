@@ -88,6 +88,15 @@ namespace SceneR
 
         public:
             /**
+             * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
+             * Vector3 structure.
+             * @param left The first Vector3 to evaluate.
+             * @param right The second Vector3 to evaluate.
+             * @return The angle in degrees needed to rotate this Vector3 into vectorb.
+             */
+            static const System::Single AngleBetween(const Vector3& left, const Vector3& right);
+
+            /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
              * two normalized barycentric (areal) coordinates.
              * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
@@ -124,6 +133,14 @@ namespace SceneR
             static Vector3 Clamp(const Vector3& value1, const Vector3& min, const Vector3& max);
 
             /**
+             * Calculates the cross product of two Vector3 structures.
+             * @param left The first Vector3 to evaluate.
+             * @param right The second Vector3 to evaluate.
+             * @return The cross product of this Vector3 and vectorb.
+             */
+            static const Vector3 CrossProduct(const Vector3& left, const Vector3& right);
+
+            /**
              * Calculates the distance between two vectors.
              */
             static System::Single Distance(const Vector3& value1, const Vector3& value2);
@@ -132,6 +149,14 @@ namespace SceneR
              * Calculates the distance between two vectors squared.
              */
             static System::Single DistanceSquared(const Vector3& value1, const Vector3& value2);
+
+            /**
+             * Calculates the dot product of two Vector3 structures.
+             * @param left The first Vector3 to evaluate.
+             * @param right The second Vector3 to evaluate.
+             * @return The dot product of this Vector3 and vectorb.
+             */
+            static const System::Single DotProduct(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -258,31 +283,6 @@ namespace SceneR
              * The vector has the same magnitude as before, but its direction is now opposite.
              */
             void Negate();
-
-            /**
-             * Calculates the cross product of two Vector3 structures.
-             *
-             * @param vectorb The second Vector3 structure to evaluate.
-             * @return The cross product of this Vector3 and vectorb.
-             */
-            const Vector3 CrossProduct(const Vector3& vectorb) const;
-
-            /**
-             * Calculates the dot product of two Vector3 structures.
-             *
-             * @param vectorb The second Vector3 structure to evaluate.
-             * @return The dot product of this Vector3 and vectorb.
-             */
-            const System::Single DotProduct(const Vector3& vectorb) const;
-
-            /**
-             * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
-             * Vector3 structure.
-             *
-             * @param vectorb The second Vector3 to evaluate.
-             * @return The angle in degrees needed to rotate this Vector3 into vectorb.
-             */
-            const System::Single AngleBetween(const Vector3& vectorb) const;
 
             /**
              * Normalizes this Vector3.

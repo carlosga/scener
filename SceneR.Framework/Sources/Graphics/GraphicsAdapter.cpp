@@ -21,18 +21,21 @@ using namespace SceneR::Graphics;
 
 const GraphicsAdapter& GraphicsAdapter::DefaultAdapter()
 {
-    for (auto& adapter : GraphicsAdapter::Adapters)
+    auto it = std::find_if(GraphicsAdapter::Adapters.begin(), GraphicsAdapter::Adapters.end(),
+                           [](const GraphicsAdapter& adapter) -> bool
+                           {
+                               return adapter.IsDefaultAdapter();
+                           });
+
+    if (it != GraphicsAdapter::Adapters.end())
     {
-        if (adapter.IsDefaultAdapter())
-        {
-            return adapter;
-        }
+        return *it;
     }
 
     throw std::runtime_error("No default adapter available");
 }
-const std::vector<GraphicsAdapter>& GraphicsAdapter::Adapters = GetAvailableAdapters();
 
+const std::vector<GraphicsAdapter>& GraphicsAdapter::Adapters = GetAvailableAdapters();
 const std::vector<GraphicsAdapter> GraphicsAdapter::GetAvailableAdapters()
 {
     if (!glfwInit())

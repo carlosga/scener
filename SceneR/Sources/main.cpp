@@ -23,9 +23,7 @@ using namespace SceneR::Sample;
 
 int main()
 {
-    String rootPath = u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content";
-
-    SampleRenderer renderer(rootPath);
+    SampleRenderer renderer;
 
     renderer.Run();
 

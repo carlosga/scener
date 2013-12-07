@@ -224,15 +224,15 @@ void Renderer::PostProcessComponents()
     }
 
     std::sort(this->drawableComponents.begin(), this->drawableComponents.end(),
-              [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b)
+              [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b) -> bool
               {
-                  return a->DrawOrder() < b->DrawOrder();
+                  return (a->DrawOrder() < b->DrawOrder());
               });
 
     std::sort(this->updateableComponents.begin(), this->updateableComponents.end(),
-              [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b)
+              [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b) -> bool
               {
-                  return a->UpdateOrder() < b->UpdateOrder();
+                  return (a->UpdateOrder() < b->UpdateOrder());
               });
 }
 

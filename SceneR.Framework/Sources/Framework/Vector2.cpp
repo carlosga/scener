@@ -148,7 +148,7 @@ const Single& Vector2::operator[](const Int32& index) const
     return (this->coords[index]);
 }
 
-Vector2& Vector2::operator =(const Vector2& vector)
+Vector2& Vector2::operator=(const Vector2& vector)
 {
     if (this != &vector)
     {
@@ -159,18 +159,18 @@ Vector2& Vector2::operator =(const Vector2& vector)
     return *this;
 }
 
-bool Vector2::operator ==(const Vector2& vector) const
+bool Vector2::operator==(const Vector2& vector) const
 {
     return (this->x == vector.x
          && this->y == vector.y);
 }
 
-bool Vector2::operator !=(const Vector2& vector) const
+bool Vector2::operator!=(const Vector2& vector) const
 {
     return !(*this == vector);
 }
 
-Vector2& Vector2::operator *=(const Vector2& vector)
+Vector2& Vector2::operator*=(const Vector2& vector)
 {
     this->x *= vector.x;
     this->y *= vector.y;
@@ -178,7 +178,7 @@ Vector2& Vector2::operator *=(const Vector2& vector)
     return *this;
 }
 
-Vector2& Vector2::operator *=(const Single& value)
+Vector2& Vector2::operator*=(const Single& value)
 {
     this->x *= value;
     this->y *= value;
@@ -186,7 +186,7 @@ Vector2& Vector2::operator *=(const Single& value)
     return *this;
 }
 
-Vector2& Vector2::operator /=(const Vector2& vector)
+Vector2& Vector2::operator/=(const Vector2& vector)
 {
     this->x /= vector.x;
     this->y /= vector.y;
@@ -194,7 +194,7 @@ Vector2& Vector2::operator /=(const Vector2& vector)
     return *this;
 }
 
-Vector2& Vector2::operator /=(const Single& value)
+Vector2& Vector2::operator/=(const Single& value)
 {
     this->x /= value;
     this->y /= value;
@@ -202,7 +202,7 @@ Vector2& Vector2::operator /=(const Single& value)
     return *this;
 }
 
-Vector2& Vector2::operator -=(const Vector2& vector)
+Vector2& Vector2::operator-=(const Vector2& vector)
 {
     this->x -= vector.x;
     this->y -= vector.y;
@@ -210,7 +210,7 @@ Vector2& Vector2::operator -=(const Vector2& vector)
     return *this;
 }
 
-Vector2& Vector2::operator +=(const Vector2& vector)
+Vector2& Vector2::operator+=(const Vector2& vector)
 {
     this->x += vector.x;
     this->y += vector.y;
@@ -218,7 +218,7 @@ Vector2& Vector2::operator +=(const Vector2& vector)
     return *this;
 }
 
-const Vector2 Vector2::operator *(const Vector2& vector) const
+const Vector2 Vector2::operator*(const Vector2& vector) const
 {
     Vector2 result = *this;
 
@@ -227,7 +227,7 @@ const Vector2 Vector2::operator *(const Vector2& vector) const
     return result;
 }
 
-const Vector2 Vector2::operator *(const Single& value) const
+const Vector2 Vector2::operator*(const Single& value) const
 {
     Vector2 result = *this;
 
@@ -236,7 +236,7 @@ const Vector2 Vector2::operator *(const Single& value) const
     return result;
 }
 
-const Vector2 Vector2::operator /(const Vector2& vector) const
+const Vector2 Vector2::operator/(const Vector2& vector) const
 {
     Vector2 result = *this;
 
@@ -245,7 +245,7 @@ const Vector2 Vector2::operator /(const Vector2& vector) const
     return result;
 }
 
-const Vector2 Vector2::operator /(const Single& value) const
+const Vector2 Vector2::operator/(const Single& value) const
 {
     Vector2 result = *this;
 
@@ -254,7 +254,7 @@ const Vector2 Vector2::operator /(const Single& value) const
     return result;
 }
 
-const Vector2 Vector2::operator -(const Vector2& vector) const
+const Vector2 Vector2::operator-(const Vector2& vector) const
 {
     Vector2 result = *this;
 
@@ -263,7 +263,7 @@ const Vector2 Vector2::operator -(const Vector2& vector) const
     return result;
 }
 
-const Vector2 Vector2::operator +(const Vector2& vector) const
+const Vector2 Vector2::operator+(const Vector2& vector) const
 {
     Vector2 result = *this;
 

@@ -154,9 +154,9 @@ TEST_F(Vector3Test, Normalization)
 
 TEST_F(Vector3Test, CrossProduct)
 {
-    Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Vector3 vector2(45.0f, 70.0f, 80.0f);
-    Vector3 crossProduct = vector1.CrossProduct(vector2);
+    Vector3 left(20.0f, 30.0f, 40.0f);
+    Vector3 right(45.0f, 70.0f, 80.0f);
+    Vector3 crossProduct = Vector3::CrossProduct(left, right);
     
     // crossProduct is equal to (-400, 200, 50)                        
     EXPECT_TRUE(-400.0f == crossProduct.X());
@@ -166,19 +166,20 @@ TEST_F(Vector3Test, CrossProduct)
 
 TEST_F(Vector3Test, DotProduct)
 {
-    Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Vector3 vector2(45.0f, 70.0f, 80.0f);
-    Single  dotProduct = vector1.DotProduct(vector2);
+    Vector3 left(20.0f, 30.0f, 40.0f);
+    Vector3 right(45.0f, 70.0f, 80.0f);
+    Single  dotProduct = Vector3::DotProduct(left, right);
 
     EXPECT_TRUE(6200.0f == dotProduct);
 }
 
 TEST_F(Vector3Test, AngleBetween)
 {
-    Vector3 vector1(20.0f, 30.0f, 40.0f);
-    Vector3 vector2(45.0f, 70.0f, 80.0f);
-    float angle = vector1.AngleBetween(vector2);
+    Vector3 left(20.0f, 30.0f, 40.0f);
+    Vector3 right(45.0f, 70.0f, 80.0f);
     
+    Single angle = Vector3::AngleBetween(left, right);
+
     // angleBetween is approximately equal to 4.15128803
     EXPECT_TRUE(4.15128803f == angle);
 }

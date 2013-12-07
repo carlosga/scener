@@ -66,7 +66,7 @@ namespace System
 
                 if (!stream.is_open())
                 {
-                    throw std::runtime_error(std::string("Failed to open file: ") + filePath);
+                    throw std::runtime_error("Failed to open file: " + filePath);
                 }
 
                 stream.seekg(0, std::ios_base::beg);

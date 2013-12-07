@@ -35,6 +35,14 @@ const Vector3 Vector3::UnitZ(0.0f, 0.0f, 1.0f);
 const Vector3 Vector3::Up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 
+const Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
+{
+    Single lengthSquared = left.LengthSquared() * right.LengthSquared();
+    Single acos          = std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
+
+    return MathHelper::ToDegrees(acos);
+}
+
 Vector3 Vector3::Barycentric(const Vector3& value1,
                              const Vector3& value2,
                              const Vector3& value3,
@@ -64,6 +72,18 @@ Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3&
                  , MathHelper::Clamp(value1.Z(), min.Z(), max.Z()));
 }
 
+const Vector3 Vector3::CrossProduct(const Vector3& left, const Vector3& right)
+{
+    // The vector cross product in expanded form can be defined as:
+    // a x b = (y1z2 - z1y2)i (x1z2 - z1x2)j (x1y2 - y1x2)k
+
+    Single x = (left.Y() * right.Z()) - (left.Z() * right.Y());
+    Single y = (left.Z() * right.X()) - (left.X() * right.Z());
+    Single z = (left.X() * right.Y()) - (left.Y() * right.X());
+
+    return Vector3(x, y, z);
+}
+
 Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
 {
     Vector3 d = value2 - value1;
@@ -76,6 +96,19 @@ Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
     Vector3 d = value2 - value1;
 
     return d.LengthSquared();
+}
+
+const Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
+{
+    // The definition of the scalar (dot) product is:
+    // a · b = |a||b|cosθ
+    //
+    // The scalar product can also be written in terms of Cartesian components as:
+    // a · b = x1x2 + y1y2 + z1z2
+
+    Vector3 dotProduct = left * right;
+
+    return (dotProduct.X() + dotProduct.Y() + dotProduct.Z());
 }
 
 Vector3 Vector3::Hermite(const Vector3& value1,
@@ -194,39 +227,6 @@ const Single Vector3::Length() const
 void Vector3::Negate()
 {
    (*this *= -1.0f);
-}
-
-const Vector3 Vector3::CrossProduct(const Vector3& vectorb) const
-{
-    // The vector cross product in expanded form can be defined as:
-    // a x b = (y1z2 - z1y2)i (x1z2 - z1x2)j (x1y2 - y1x2)k
-
-    Single x = (this->y * vectorb.Z()) - (this->z * vectorb.Y());
-    Single y = (this->z * vectorb.X()) - (this->x * vectorb.Z());
-    Single z = (this->x * vectorb.Y()) - (this->y * vectorb.X());
-
-    return Vector3(x, y, z);
-}
-
-const Single Vector3::DotProduct(const Vector3& vectorb) const
-{
-    // The definition of the scalar (dot) product is:
-    // a · b = |a||b|cosθ
-    //
-    // The scalar product can also be written in terms of Cartesian components as:
-    // a · b = x1x2 + y1y2 + z1z2
-
-    Vector3 dotProduct = *this * vectorb;
-
-    return (dotProduct.X() + dotProduct.Y() + dotProduct.Z());
-}
-
-const Single Vector3::AngleBetween(const Vector3& vectorb) const
-{
-    Single lengthSquared = this->LengthSquared() * vectorb.LengthSquared();
-    Single acos          = std::acos(this->DotProduct(vectorb) / std::sqrt(lengthSquared));
-
-    return MathHelper::ToDegrees(acos);
 }
 
 void Vector3::Normalize()

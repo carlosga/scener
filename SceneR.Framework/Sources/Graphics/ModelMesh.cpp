@@ -52,7 +52,7 @@ void ModelMesh::Draw()
 
 const std::vector<std::shared_ptr<Effect>> ModelMesh::Effects()
 {
-    std::vector<std::shared_ptr<Effect>> effects(0);
+    auto effects = std::vector<std::shared_ptr<Effect>>(0);
 
     for (auto &meshPart : this->meshParts)
     {

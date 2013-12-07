@@ -33,7 +33,7 @@ ContentTypeReaderManager::~ContentTypeReaderManager()
 {
     if (this->readers.size() > 0)
     {
-        for (auto &reader : this->readers)
+        for (auto& reader : this->readers)
         {
             delete reader;
         }
@@ -44,7 +44,7 @@ ContentTypeReaderManager::~ContentTypeReaderManager()
 
 ContentTypeReader* ContentTypeReaderManager::GetReaderForContentType(const ContentType& contentType)
 {
-    for (auto &typeReader : this->readers)
+    for (auto& typeReader : this->readers)
     {
         if (typeReader->ContentType() == contentType)
         {

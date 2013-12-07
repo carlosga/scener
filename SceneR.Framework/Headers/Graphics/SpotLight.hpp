@@ -69,13 +69,13 @@ namespace SceneR
              */
             void Direction(const SceneR::Framework::Vector3& direction);
 
-            const System::Single FalloffAngle() const;
+            const System::Single& FalloffAngle() const;
 
-            void FalloffAngle(const System::Single falloffAngle);
+            void FalloffAngle(const System::Single& falloffAngle);
 
-            const System::Single FalloffExponent() const;
+            const System::Single& FalloffExponent() const;
 
-            void FalloffExponent(const System::Single falloffExponent);
+            void FalloffExponent(const System::Single& falloffExponent);
 
         private:
             SceneR::Framework::Vector3 direction;

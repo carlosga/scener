@@ -61,77 +61,35 @@ SceneR::Content::ContentManager& ContentReader::ContentManager()
 
 Color ContentReader::ReadColor()
 {
-    Single r = this->ReadSingle();
-    Single g = this->ReadSingle();
-    Single b = this->ReadSingle();
-    Single a = this->ReadSingle();
-
-    return Color(r, g, b, a);
+    return Color(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 Matrix ContentReader::ReadMatrix()
 {
-    Single m11 = this->ReadSingle();
-    Single m12 = this->ReadSingle();
-    Single m13 = this->ReadSingle();
-    Single m14 = this->ReadSingle();
-
-    Single m21 = this->ReadSingle();
-    Single m22 = this->ReadSingle();
-    Single m23 = this->ReadSingle();
-    Single m24 = this->ReadSingle();
-
-    Single m31 = this->ReadSingle();
-    Single m32 = this->ReadSingle();
-    Single m33 = this->ReadSingle();
-    Single m34 = this->ReadSingle();
-
-    Single m41 = this->ReadSingle();
-    Single m42 = this->ReadSingle();
-    Single m43 = this->ReadSingle();
-    Single m44 = this->ReadSingle();
-
-    return Matrix(m11, m12, m13, m14,
-                  m21, m22, m23, m24,
-                  m31, m32, m33, m34,
-                  m41, m42, m43, m44);
+    return Matrix(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
+                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
+                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
+                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 Vector2 ContentReader::ReadVector2()
 {
-    Single x = this->ReadSingle();
-    Single y = this->ReadSingle();
-
-    return Vector2(x, y);
+    return Vector2(this->ReadSingle(), this->ReadSingle());
 }
 
 Vector3 ContentReader::ReadVector3()
 {
-    Single x = this->ReadSingle();
-    Single y = this->ReadSingle();
-    Single z = this->ReadSingle();
-
-    return Vector3(x, y, z);
+    return Vector3(this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 Vector4 ContentReader::ReadVector4()
 {
-    Single x = this->ReadSingle();
-    Single y = this->ReadSingle();
-    Single z = this->ReadSingle();
-    Single w = this->ReadSingle();
-
-    return Vector4(x, y, z, w);
+    return Vector4(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 Quaternion ContentReader::ReadQuaternion()
 {
-    Single x = this->ReadSingle();
-    Single y = this->ReadSingle();
-    Single z = this->ReadSingle();
-    Single w = this->ReadSingle();
-
-    return Quaternion(x, y, z, w);
+    return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 void ContentReader::ReadHeader()

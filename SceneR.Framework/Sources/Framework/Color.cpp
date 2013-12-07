@@ -21,12 +21,12 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Color::Color()
-    : r(0.0f), g(0.0f), b(0.0f), a(1.0f)
+    : Color(0.0f, 0.0f, 0.0f, 1.0f)
 {
 }
 
 Color::Color(const Single& r, const Single& g, const Single& b)
-    : r(r), g(g), b(b), a(1.0f)
+    : Color(r, g, b, 1.0f)
 {
 }
 
@@ -164,7 +164,7 @@ const Color Color::operator-(const Color& color) const
 
 const Color Color::operator+(const Color& color) const
 {
-    Color result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
+    Color result = *this;
 
     result += color;
 

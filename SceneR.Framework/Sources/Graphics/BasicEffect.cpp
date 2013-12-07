@@ -325,12 +325,11 @@ void BasicEffect::LoadShader()
 {
     // TODO: Check how to resolve the content manager here to build the shader pipeline from disk
     // TODO: Use EffectParameters and get parameter locations only once
-    String vSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl");
-    String fSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_FS.glsl");
-    auto   vShader = std::make_shared<Shader>(vSource, ShaderType::Vertex);
-    auto   fShader = std::make_shared<Shader>(fSource, ShaderType::Fragment);
-
-    std::vector<std::shared_ptr<Shader>> shaders;
+    auto vSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_VS.glsl");
+    auto fSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect_FS.glsl");
+    auto vShader = std::make_shared<Shader>(vSource, ShaderType::Vertex);
+    auto fShader = std::make_shared<Shader>(fSource, ShaderType::Fragment);
+    auto shaders = std::vector<std::shared_ptr<Shader>>{};
 
     shaders.push_back(vShader);
     shaders.push_back(fShader);

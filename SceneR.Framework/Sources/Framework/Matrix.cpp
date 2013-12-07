@@ -25,22 +25,22 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Matrix Matrix::Identity(1.0f, 0.0f, 0.0f, 0.0f,
-                              0.0f, 1.0f, 0.0f, 0.0f,
-                              0.0f, 0.0f, 1.0f, 0.0f,
-                              0.0f, 0.0f, 0.0f, 1.0f);
+const Matrix& Matrix::Identity{1.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 1.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 1.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 1.0f};
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
     // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
-    Vector3 axisNormalized(Vector3::Normalize(axis));
-    float theta = MathHelper::ToRadians(angle);
-    float cos   = std::cos(theta) - 1.0f + 1.0f;
-    float sin   = std::sin(theta);
-    float cos_1 = 1.0f - cos;
-    float x     = axisNormalized.X();
-    float y     = axisNormalized.Y();
-    float z     = axisNormalized.Z();
+    auto   naxis = Vector3::Normalize(axis);
+    Single theta = MathHelper::ToRadians(angle);
+    Single cos   = std::cos(theta) - 1.0f + 1.0f;
+    Single sin   = std::sin(theta);
+    Single cos_1 = 1.0f - cos;
+    Single x     = naxis.X();
+    Single y     = naxis.Y();
+    Single z     = naxis.Z();
 
     return Matrix(cos + x * x * cos_1    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f,
                   y * x * cos_1 + z * sin, cos + y * y * cos_1    , y * z * cos_1 - x * sin, 0.0f,
@@ -123,12 +123,12 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     // -dot(xaxis, cameraPosition) -dot(yaxis, cameraPosition) -dot(zaxis, cameraPosition) 1
 
     Vector3 zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
-    Vector3 xAxis = Vector3::Normalize(cameraUpVector.CrossProduct(zAxis));
-    Vector3 yAxis(zAxis.CrossProduct(xAxis));
+    Vector3 xAxis = Vector3::Normalize(Vector3::CrossProduct(cameraUpVector, zAxis));
+    Vector3 yAxis = Vector3::CrossProduct(zAxis, xAxis);
 
-    Single dx = xAxis.DotProduct(cameraPosition);
-    Single dy = yAxis.DotProduct(cameraPosition);
-    Single dz = zAxis.DotProduct(cameraPosition);
+    Single dx = Vector3::DotProduct(xAxis, cameraPosition);
+    Single dy = Vector3::DotProduct(yAxis, cameraPosition);
+    Single dz = Vector3::DotProduct(zAxis, cameraPosition);
 
     return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
                   xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
@@ -244,9 +244,9 @@ Matrix Matrix::CreateRotationX(const Single& angle)
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
     // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
-    float theta = MathHelper::ToRadians(angle);
-    float cos   = std::cos(theta);
-    float sin   = std::sin(theta);
+    Single theta = MathHelper::ToRadians(angle);
+    Single cos   = std::cos(theta);
+    Single sin   = std::sin(theta);
 
     return Matrix( cos, 0.0f,  sin, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
@@ -257,9 +257,9 @@ Matrix Matrix::CreateRotationY(const Single& angle)
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
     // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
-    float theta = MathHelper::ToRadians(angle);
-    float cos   = std::cos(theta);
-    float sin   = std::sin(theta);
+    Single theta = MathHelper::ToRadians(angle);
+    Single cos   = std::cos(theta);
+    Single sin   = std::sin(theta);
 
     return Matrix(cos , -sin, 0.0f, 0.0f,
                   sin ,  cos, 0.0f, 0.0f,

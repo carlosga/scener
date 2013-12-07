@@ -27,7 +27,7 @@ namespace SceneR
         class SampleRenderer : public SceneR::Framework::Renderer
         {
         public:
-            SampleRenderer(const System::String& rootDirectory);
+            SampleRenderer();
 
         protected:
             virtual void BeginRun() override;

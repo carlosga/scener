@@ -70,12 +70,12 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> Load(const System::String& assetName) throw(ContentLoadException)
             {
-                std::shared_ptr<T> asset  = nullptr;
+                std::shared_ptr<T> asset = nullptr;
 
                 try
                 {
-                    System::String filename = System::IO::Path::ChangeExtension(assetName, u"scr");
-                    System::String path     = System::IO::Path::Combine(this->rootDirectory, filename);
+                    auto filename = System::IO::Path::ChangeExtension(assetName, u"scr");
+                    auto path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
                     if (!System::IO::File::Exists(path))
                     {

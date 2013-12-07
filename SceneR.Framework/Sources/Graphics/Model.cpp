@@ -36,7 +36,7 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
     {
         for (auto &effect : mesh->Effects())
         {
-            std::shared_ptr<IEffectMatrices> mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
+            auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
             if (mEffect != nullptr)
             {

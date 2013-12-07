@@ -72,10 +72,10 @@ void RendererWindow::AllowUserResizing(const Boolean& allowUserResizing)
 
 void RendererWindow::Open()
 {
-    auto         gdm          = this->renderer.graphicsDeviceManager;
-    UInt32       profile      = static_cast<UInt32>(gdm.GraphicsProfile());
-    std::string  tmp          = System::Text::Unicode::Narrow(this->title);
-    GLFWmonitor* monitor      = nullptr;
+    auto         gdm     = this->renderer.graphicsDeviceManager;
+    auto         profile = static_cast<UInt32>(gdm.GraphicsProfile());
+    auto         tmp     = System::Text::Unicode::Narrow(this->title);
+    GLFWmonitor* monitor = nullptr;
 
     // Set the window and context hints
     glfwWindowHint(GLFW_OPENGL_PROFILE       , profile);

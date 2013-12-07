@@ -43,9 +43,9 @@ const SceneR::Content::ContentType ModelReader::ContentType() const
 
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 {
-    auto&  gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto   model     = std::make_shared<Model>();
-    UInt32 boneCount = input.ReadUInt32();
+    auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  model     = std::make_shared<Model>();
+    auto  boneCount = input.ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
@@ -62,9 +62,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     // Read bone hierarchy
     for (UInt32 i = 0; i < boneCount; i++)
     {
-        auto   currentBone         = model->bones[i];
-        UInt32 parentBoneReference = this->ReadBoneReference(input, boneCount);
-        UInt32 childBoneCount      = input.ReadUInt32();
+        auto currentBone         = model->bones[i];
+        auto parentBoneReference = this->ReadBoneReference(input, boneCount);
+        auto childBoneCount      = input.ReadUInt32();
 
         if (parentBoneReference > 0)
         {
@@ -73,7 +73,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         for (UInt32 j = 0; j < childBoneCount; j++)
         {
-            UInt32 childBoneReference = this->ReadBoneReference(input, boneCount);
+            auto childBoneReference = this->ReadBoneReference(input, boneCount);
 
             if (childBoneReference > 0)
             {
@@ -83,7 +83,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     }
 
     // Read model meshes
-    UInt32 meshCount = input.ReadInt32();
+    auto meshCount = input.ReadInt32();
 
     for (UInt32 i = 0; i< meshCount; i++)
     {
@@ -91,7 +91,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         modelMesh->name = input.ReadString();
 
-        UInt32 parentBoneReference = this->ReadBoneReference(input, model->bones.size());
+        auto parentBoneReference = this->ReadBoneReference(input, model->bones.size());
 
         if (parentBoneReference > 0)
         {
@@ -102,7 +102,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         modelMesh->tag = input.ReadString();
 
         // Read mesh parts
-        UInt32 meshPartCount = input.ReadUInt32();
+        auto meshPartCount = input.ReadUInt32();
 
         for (UInt32 i = 0; i < meshPartCount; i++)
         {

@@ -48,12 +48,12 @@ void SpotLight::Direction(const Vector3& direction)
     this->direction = direction;
 }
 
-const Single SpotLight::FalloffAngle() const
+const Single& SpotLight::FalloffAngle() const
 {
     return this->falloffAngle;
 }
 
-void SpotLight::FalloffAngle(const Single falloffAngle)
+void SpotLight::FalloffAngle(const Single& falloffAngle)
 {
     if (falloffAngle > 180.0f || falloffAngle < 0.0f)
     {
@@ -63,12 +63,12 @@ void SpotLight::FalloffAngle(const Single falloffAngle)
     this->falloffAngle = falloffAngle;
 }
 
-const Single SpotLight::FalloffExponent() const
+const Single& SpotLight::FalloffExponent() const
 {
     return this->falloffExponent;
 }
 
-void SpotLight::FalloffExponent(const Single falloffExponent)
+void SpotLight::FalloffExponent(const Single& falloffExponent)
 {
     if (falloffExponent > 128.0f || falloffExponent < 0.0f)
     {

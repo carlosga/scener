@@ -77,10 +77,10 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
 
 Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
-    Single w1;
-    Single w2;
-    Single cosTheta = quaternion1.DotProduct(quaternion2);
-    bool   bFlip    = false;
+    Single  w1;
+    Single  w2;
+    Single  cosTheta = quaternion1.DotProduct(quaternion2);
+    Boolean bFlip    = false;
 
     if (cosTheta < 0.0f)
     {
@@ -109,7 +109,7 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
         w2 = -w2;
     }
 
-    return quaternion1 * w1 + quaternion2 * w2;
+    return (quaternion1 * w1 + quaternion2 * w2);
 }
 
 Quaternion::Quaternion()
@@ -149,12 +149,10 @@ const Single& Quaternion::W() const
 
 const Single Quaternion::DotProduct(const Quaternion& quaternion) const
 {
-    Single x = this->x * quaternion.x;
-    Single y = this->y * quaternion.y;
-    Single z = this->z * quaternion.z;
-    Single w = this->w * quaternion.w;
-
-    return (x + y + z + w);
+    return ((this->x * quaternion.x)
+          + (this->y * quaternion.y)
+          + (this->z * quaternion.z)
+          + (this->w * quaternion.w));
 }
 
 void Quaternion::Conjugate()

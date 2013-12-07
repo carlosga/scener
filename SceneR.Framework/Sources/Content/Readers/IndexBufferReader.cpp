@@ -38,12 +38,12 @@ const SceneR::Content::ContentType IndexBufferReader::ContentType() const
 
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
-    std::vector<UInt32> data(0);
-    auto&               gdService  = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    UInt32              indexCount = input.ReadUInt32();
-    auto                buffer     = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(),
-                                                                   IndexElementSize::ThirtyTwoBits,
-                                                                   indexCount);
+    auto  data       = std::vector<UInt32>(0);
+    auto& gdService  = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  indexCount = input.ReadUInt32();
+    auto  buffer     = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(),
+                                                     IndexElementSize::ThirtyTwoBits,
+                                                     indexCount);
 
     for (UInt32 i = 0; i < indexCount; i++)
     {

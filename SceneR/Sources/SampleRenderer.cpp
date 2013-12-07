@@ -29,8 +29,8 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 
-SampleRenderer::SampleRenderer(const String& rootDirectory)
-    : Renderer(rootDirectory)
+SampleRenderer::SampleRenderer()
+    : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content")
 {
 }
 

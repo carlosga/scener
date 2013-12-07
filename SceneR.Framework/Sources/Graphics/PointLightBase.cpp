@@ -21,32 +21,32 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const Single PointLightBase::ConstantAttenuation() const
+const Single& PointLightBase::ConstantAttenuation() const
 {
     return this->constantAttenuation;
 }
 
-void PointLightBase::ConstantAttenuation(const Single constantAttenuation)
+void PointLightBase::ConstantAttenuation(const Single& constantAttenuation)
 {
     this->constantAttenuation = constantAttenuation;
 }
 
-const Single PointLightBase::LinearAttenuation() const
+const Single& PointLightBase::LinearAttenuation() const
 {
     return this->linearAttenuation;
 }
 
-void PointLightBase::LinearAttenuation(const Single linearAttenuation)
+void PointLightBase::LinearAttenuation(const Single& linearAttenuation)
 {
     this->linearAttenuation = linearAttenuation;
 }
 
-const Single PointLightBase::QuadraticAttenuation() const
+const Single& PointLightBase::QuadraticAttenuation() const
 {
     return this->quadraticAttenuation;
 }
 
-void PointLightBase::QuadraticAttenuation(const Single quadraticAttenuation)
+void PointLightBase::QuadraticAttenuation(const Single& quadraticAttenuation)
 {
     this->quadraticAttenuation = quadraticAttenuation;
 }
@@ -61,20 +61,22 @@ void PointLightBase::Position(const Vector3& position)
     this->position = position;
 }
 
-const Single PointLightBase::Range() const
+const Single& PointLightBase::Range() const
 {
     return this->range;
 }
 
-void PointLightBase::Range(const Single range)
+void PointLightBase::Range(const Single& range)
 {
     this->range = range;
 }
 
-const Single PointLightBase::TotalAttenuation(const Single distance) const
+const Single PointLightBase::TotalAttenuation(const Single& distance) const
 {
     // A = constant_attenuation + ( Dist * linear_attenuation ) + (( Dist^2 ) * quadratic_attenuation )
-    return this->constantAttenuation + (distance * this->linearAttenuation) + ((distance * distance) * this->quadraticAttenuation);
+    return this->constantAttenuation
+         + (distance * this->linearAttenuation)
+         + ((distance * distance) * this->quadraticAttenuation);
 }
 
 PointLightBase::PointLightBase()

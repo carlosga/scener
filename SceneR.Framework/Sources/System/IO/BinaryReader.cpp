@@ -121,9 +121,8 @@ UByte BinaryReader::ReadByte()
 
 std::vector<UByte> BinaryReader::ReadBytes(const Size& count)
 {
-    std::vector<UByte> buffer(count);
-
-    Size readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
+    auto buffer = std::vector<UByte>(count);
+    auto readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
 
     if (readed < count)
     {
