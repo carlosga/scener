@@ -76,11 +76,30 @@ void BufferObject::Delete()
     }
 }
 
-void SceneR::Graphics::BufferObject::BufferData(const System::Size& size, const GLvoid* data)
+void BufferObject::BufferData(const System::Size& size, const void* data) const
 {
     this->Activate();
 
     glBufferData(static_cast<GLenum>(this->target), size, data, static_cast<GLenum>(this->usage));
 
     this->Deactivate();
+}
+
+void BufferObject::BufferData(const System::Size& offset, const System::Size& size, const void *data) const
+{
+    this->Activate();
+
+    glBufferSubData(static_cast<GLenum>(this->target), offset, size, data);
+
+    this->Deactivate();
+}
+
+void BufferObject::Invalidate() const
+{
+    glInvalidateBufferData(this->id);
+}
+
+void BufferObject::Invalidate(const System::Size& offset, const System::Size& length) const
+{
+    glInvalidateBufferSubData(this->id, offset, length);
 }

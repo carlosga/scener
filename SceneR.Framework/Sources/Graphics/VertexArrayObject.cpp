@@ -79,7 +79,6 @@ void SceneR::Graphics::VertexArrayObject::DeclareVertexFormat(const VertexDeclar
                              false,
                              ve.Offset());
 
-        glVertexAttribBinding(ve.UsageIndex(), 0);
         glEnableVertexAttribArray(ve.UsageIndex());
     }
 

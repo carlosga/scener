@@ -8,7 +8,9 @@
 #ifndef BUFFEROBJECT_HPP
 #define BUFFEROBJECT_HPP
 
-#include <GL/glew.h>
+//#include <GL/glew.h>
+#include <Graphics/BufferTarget.hpp>
+#include <Graphics/BufferUsage.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -69,8 +71,31 @@ namespace SceneR
 
             /**
              * Creates and initializes the buffer object data store.
+             * @param size specifies the size in bytes of the buffer object's new data store.
+             * @param data specifies a pointer to data that will be copied into the data store for initialization,
+             *             or NULL if no data is to be copied.
              */
-            void BufferData(const System::Size& size, const GLvoid* data);
+            void BufferData(const System::Size& size, const void* data) const;
+
+            /**
+             * Updates a subset of a buffer object's data store
+             * @param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
+             * @param size specifies the size in bytes of the data store region being replaced.
+             * @param data specifies a pointer to the new data that will be copied into the data store.
+             */
+            void BufferData(const System::Size& offset, const System::Size& size, const void *data) const;
+
+            /**
+             * Invalidate the content of a buffer object's data store
+             */
+            void Invalidate() const;
+
+            /**
+             *  Invalidate a region of a buffer object's data store
+             *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
+             *  @param length the length of the range within the buffer's data store to be invalidated.
+             */
+            void Invalidate(const System::Size& offset, const System::Size& length) const;
 
         private:
             /**

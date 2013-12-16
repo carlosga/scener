@@ -30,7 +30,7 @@ namespace SceneR
          *
          * http://www.opengl.org/wiki/Uniform_Buffer_Object
          */
-        class UniformBufferObject : public BufferObject
+        class UniformBufferObject
         {
         public:
             /**
@@ -42,6 +42,9 @@ namespace SceneR
              * Releases all resources being used by this UniformBufferObject.
              */
             virtual ~UniformBufferObject();
+
+        private:
+            BufferObject ubo;
         };
     }
 }
