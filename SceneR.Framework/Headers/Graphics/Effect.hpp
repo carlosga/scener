@@ -17,12 +17,9 @@
 #ifndef EFFECT_HPP
 #define EFFECT_HPP
 
-#include <Graphics/EffectParameter.hpp>
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterType.hpp>
+#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <Shaders/ShaderProgram.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -32,6 +29,7 @@ namespace SceneR
     namespace Graphics
     {
         class GrapicsDevice;
+        class ShaderProgram;
 
         /**
          * Used to set and query effects, and to choose techniques.
@@ -43,9 +41,12 @@ namespace SceneR
              * Initializes a new instance of the Effect class
              *
              * @param graphicsDevice the graphics device
-             * @param shaderSource   the shader source code
+             * @param vertexShader   the vertex shader source code
+             * @param fragmentShader the fragment shader source code
              */
-            Effect(GraphicsDevice& graphicsDevice);
+            Effect(GraphicsDevice&       graphicsDevice,
+                   const System::String& vertexShader,
+                   const System::String& fragmentShader);
 
             /**
              * Initializes a new instance of the Effect class.
@@ -63,7 +64,7 @@ namespace SceneR
             /**
              * Gets a collection of parameters used for this effect.
              */
-            const std::vector<EffectParameter>& Parameters() const;
+            EffectParameterCollection& Parameters();
 
             /**
              * Starts the application of the effect state just prior to rendering the effect.
@@ -82,15 +83,7 @@ namespace SceneR
             virtual void OnApply() = 0;
 
         protected:
-            const EffectParameter& AddEffectParameter(const System::String&       name,
-                                                      const EffectParameterClass& parameterClass,
-                                                      const EffectParameterType&  parameterType);
-
-            const EffectParameter& GetEffectParameter(const System::String& name) const;
-
-        protected:
-            std::vector<EffectParameter>                    parameters;
-            std::shared_ptr<SceneR::Shaders::ShaderProgram> shaderProgram;
+            std::shared_ptr<ShaderProgram> shaderProgram;
         };
     }
 }

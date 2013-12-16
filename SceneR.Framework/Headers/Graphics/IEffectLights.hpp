@@ -18,9 +18,9 @@
 #define IEFFECTLIGHTS_HPP
 
 #include <System/Core.hpp>
-#include <Graphics/AmbientLight.hpp>
+#include <Framework/Color.hpp>
+#include <Graphics/DirectionalLight.hpp>
 #include <memory>
-#include <vector>
 
 namespace SceneR
 {
@@ -44,37 +44,52 @@ namespace SceneR
             /**
              * Gets the ambient light for the current effect
              */
-            virtual const AmbientLight& GetAmbientLight() const = 0;
+            virtual const SceneR::Framework::Color& AmbientLightColor() const = 0;
 
             /**
-             * Sets the ambient light for the current effect
+             * Gets the ambient light for the current effect
              */
-            virtual void SetAmbientLight(const AmbientLight& ambientLight) = 0;
+            virtual void AmbientLightColor(const SceneR::Framework::Color& ambientLightColor) = 0;
 
             /**
-             * Gets the lights of the current effect
+             * Gets the first directional light
              */
-            virtual const std::vector<std::shared_ptr<Light>>& GetLights() const = 0;
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight0() const = 0;
 
             /**
-             * Gets the lights of the current effect
+             * Sets the first directional light
              */
-            virtual void SetLights(const std::vector<std::shared_ptr<Light>> lights) const = 0;
+            virtual void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
 
             /**
-             * Enables lighting support for the current effect.
+             * Gets the second directional light
              */
-            virtual void EnableLighting() = 0;
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight1() const = 0;
 
             /**
-             * Enables lighting support for the current effect.
+             * Sets the second directional light
              */
-            virtual void DisableLighting() = 0;
+            virtual void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
+
+            /**
+             * Gets the third directional light
+             */
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight2() const = 0;
+
+            /**
+             * Sets the third directional light
+             */
+            virtual void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual const System::Boolean& IsLightingEnabled() = 0;
+            virtual const System::Boolean& LightingEnabled() const = 0;
+
+            /**
+             * Gets a value indicating wheter lighting is enabled for the current effect.
+             */
+            virtual void LightingEnabled(const System::Boolean& lightingEnabled) = 0;
 
             /**
              * Enables default lighting for the current effect.

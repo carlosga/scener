@@ -16,6 +16,7 @@
 
 #include <Content/ContentType.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
+#include <Content/Readers/EffectMaterialReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
@@ -57,8 +58,9 @@ ContentTypeReader* ContentTypeReaderManager::GetReaderForContentType(const Conte
 
 void ContentTypeReaderManager::RegisterKnownTypeReaders()
 {
-    this->RegisterTypeReader<ModelReader>();
-    this->RegisterTypeReader<VertexBufferReader>();
+    this->RegisterTypeReader<EffectMaterialReader>();
     this->RegisterTypeReader<IndexBufferReader>();
+    this->RegisterTypeReader<ModelReader>();
     this->RegisterTypeReader<Texture2DReader>();
+    this->RegisterTypeReader<VertexBufferReader>();
 }

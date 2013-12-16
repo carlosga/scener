@@ -14,17 +14,22 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/AmbientLight.hpp>
+#include <Content/ContentType.hpp>
+#include <Content/Readers/EffectMaterialReader.hpp>
+#include <stdexcept>
 
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
+using namespace SceneR::Content;
 
-AmbientLight::AmbientLight()
-    : Light()
+EffectMaterialReader::EffectMaterialReader()
 {
 }
 
-AmbientLight::AmbientLight(const SceneR::Framework::Color& ambientColor)
-    : Light(ambientColor)
+const ContentType EffectMaterialReader::ContentType() const
 {
+    return ContentType::EffectMaterial;
+}
+
+std::shared_ptr<void> EffectMaterialReader::Read(ContentReader& input)
+{
+    throw std::runtime_error("Not implemented");
 }

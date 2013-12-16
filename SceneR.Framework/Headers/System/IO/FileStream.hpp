@@ -20,7 +20,6 @@
 #include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
 #include <fstream>
-#include <iostream>
 
 namespace System
 {

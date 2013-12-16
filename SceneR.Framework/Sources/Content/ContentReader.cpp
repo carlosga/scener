@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
@@ -22,13 +21,11 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <System/IO/FileStream.hpp>
 
 using namespace System;
 using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
 
 ContentReader::ContentReader(const String&                    assetName,
                              SceneR::Content::ContentManager& contentManager,

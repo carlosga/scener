@@ -14,14 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectParameter.hpp>
-#include <Shaders/ShaderProgram.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
-using namespace SceneR::Shaders;
 
 EffectParameter::EffectParameter()
     : columnCount(0),
@@ -36,9 +36,17 @@ EffectParameter::EffectParameter()
 {
 }
 
-EffectParameter::EffectParameter(const std::u16string&                name,
+EffectParameter::EffectParameter(const String&               name,
+                                 const EffectParameterClass& parameterClass,
+                                 const EffectParameterType&  parameterType)
+    : EffectParameter(name, parameterClass, parameterType, -1, nullptr)
+{
+}
+
+EffectParameter::EffectParameter(const String&                        name,
                                  const EffectParameterClass&          parameterClass,
                                  const EffectParameterType&           parameterType,
+                                 const Int32&                         parameterLocation,
                                  const std::shared_ptr<ShaderProgram> shader)
     : columnCount(0),
       elements(0),
@@ -48,9 +56,8 @@ EffectParameter::EffectParameter(const std::u16string&                name,
       rowCount(0),
       structureMembers(0),
       shader(shader),
-      parameterLocation(-1)
+      parameterLocation(parameterLocation)
 {
-    this->parameterLocation = this->shader->GetParameterLocation(this->name);
 }
 
 EffectParameter::~EffectParameter()
@@ -87,7 +94,7 @@ const Int32& EffectParameter::RowCount() const
     return this->rowCount;
 }
 
-const std::vector<EffectParameter>& EffectParameter::StructureMembers() const
+std::vector<EffectParameter>& EffectParameter::StructureMembers()
 {
     return this->structureMembers;
 }
@@ -169,22 +176,51 @@ const std::vector<Vector3>& EffectParameter::GetValueVector3Array() const
 
 void EffectParameter::SetValue(const Boolean& value) const
 {
-    throw std::runtime_error("Not implemented");
+    if (this->parameterClass != EffectParameterClass::Scalar)
+    {
+        throw std::runtime_error("Boolean is not a valid value for the current effect parameter class");
+    }
+
+    glUniform1i(this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Boolean>& value) const
 {
+    for (const auto& bValue : value)
+    {
+        this->SetValue(bValue);
+    }
+}
+
+void EffectParameter::SetValue(const SceneR::Graphics::DirectionalLight& value) const
+{
     throw std::runtime_error("Not implemented");
+}
+
+void EffectParameter::SetValue(const std::vector<SceneR::Graphics::DirectionalLight>& value) const
+{
+    for (const auto& directionalLight : value)
+    {
+        this->SetValue(directionalLight);
+    }
 }
 
 void EffectParameter::SetValue(const Int32& value) const
 {
-    throw std::runtime_error("Not implemented");
+    if (this->parameterClass != EffectParameterClass::Scalar)
+    {
+        throw std::runtime_error("Int32 is not a valid value for the current effect parameter class");
+    }
+
+    glUniform1i(this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Int32>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& directionalLight : value)
+    {
+        this->SetValue(directionalLight);
+    }
 }
 
 void EffectParameter::SetValue(const Matrix& value) const
@@ -194,32 +230,46 @@ void EffectParameter::SetValue(const Matrix& value) const
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    glUniformMatrix4fv(this->parameterLocation, 1, GL_FALSE, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Matrix>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& matrix : value)
+    {
+        this->SetValue(matrix);
+    }
 }
 
 void EffectParameter::SetValueTranspose(const Matrix& value) const
 {
-    throw std::runtime_error("Not implemented");
+    if (this->parameterClass != EffectParameterClass::Matrix)
+    {
+        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+    }
+
+    this->SetValue(Matrix::Transpose(value));
 }
 
 void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& matrix : value)
+    {
+        this->SetValueTranspose(matrix);
+    }
 }
 
 void EffectParameter::SetValue(const Quaternion& value) const
 {
-    throw std::runtime_error("Not implemented");
+    glUniform4fv(this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& q : value)
+    {
+        this->SetValue(q);
+    }
 }
 
 void EffectParameter::SetValue(const Single& value) const
@@ -229,12 +279,15 @@ void EffectParameter::SetValue(const Single& value) const
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    glUniform1f(this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Single>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& scalar : value)
+    {
+        this->SetValue(scalar);
+    }
 }
 
 void EffectParameter::SetValue(const String& value) const
@@ -249,12 +302,15 @@ void EffectParameter::SetValue(const Vector3& value) const
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    glUniform3fv(this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector3>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& vector : value)
+    {
+        this->SetValue(vector);
+    }
 }
 
 void EffectParameter::SetValue(const Vector4& value) const
@@ -264,10 +320,13 @@ void EffectParameter::SetValue(const Vector4& value) const
         throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    glUniform4fv(this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector4>& value) const
 {
-    throw std::runtime_error("Not implemented");
+    for (const auto& vector : value)
+    {
+        this->SetValue(vector);
+    }
 }

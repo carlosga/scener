@@ -26,6 +26,7 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
+        enum class ContentType : System::UInt32;
 
         /**
          * Model reader.

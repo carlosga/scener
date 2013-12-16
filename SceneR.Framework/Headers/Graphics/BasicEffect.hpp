@@ -18,21 +18,21 @@
 #define BASICEFFECT_HPP
 
 #include <Framework/Color.hpp>
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
-#include <Graphics/AmbientLight.hpp>
+#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/Effect.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IEffectFog.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectMatrices.hpp>
+#include <Graphics/Texture2D.hpp>
+#include <System/Core.hpp>
 #include <memory>
-#include <vector>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class DirectionalLight;
         class GraphicsDevice;
         class Texture2D;
 
@@ -42,6 +42,9 @@ namespace SceneR
          */
         class BasicEffect : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
+            static System::String VSSource;
+            static System::String FSSource;
+
         public:
             /**
              * Initializes a new instance of the BassicEffect class.
@@ -49,6 +52,11 @@ namespace SceneR
              * @param graphicsDevice the graphics device
              */
             BasicEffect(GraphicsDevice& graphicsDevice);
+
+            /**
+             * Initializes a new instance of the BasicEffect class.
+             */
+            BasicEffect(const BasicEffect& effect);
 
             /**
              * Releases all resources being used by this BasicEffect.
@@ -69,14 +77,14 @@ namespace SceneR
             void Alpha(const System::Single& alpha);
 
             /**
-             * Gets the ambient color for a light, the range of color values is from 0 to 1.
+             * Gets the ambient light for the current effect
              */
-            virtual const AmbientLight& GetAmbientLight() const override;
+            virtual const SceneR::Framework::Color& AmbientLightColor() const override;
 
             /**
-             * Gets the ambient color for a light, the range of color values is from 0 to 1.
+             * Gets the ambient light for the current effect
              */
-            virtual void SetAmbientLight(const AmbientLight& ambientLight) override;
+            virtual void AmbientLightColor(const SceneR::Framework::Color& ambientLightColor) override;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
@@ -89,14 +97,34 @@ namespace SceneR
             void DiffuseColor(const SceneR::Framework::Color& diffuseColor);
 
             /**
-             * Gets the lights of the current effect
+             * Gets the first directional light
              */
-            virtual const std::vector<std::shared_ptr<Light>> &GetLights() const override;
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight0() const override;
 
             /**
-             * Gets the lights of the current effect
+             * Sets the first directional light
              */
-            virtual void SetLights(const std::vector<std::shared_ptr<Light>> lights) const override;
+            virtual void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+
+            /**
+             * Gets the second directional light
+             */
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight1() const override;
+
+            /**
+             * Sets the second directional light
+             */
+            virtual void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+
+            /**
+             * Gets the third directional light
+             */
+            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight2() const override;
+
+            /**
+             * Sets the third directional light
+             */
+            virtual void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
 
             /**
              * Gets the emissive color for a material,
@@ -123,19 +151,14 @@ namespace SceneR
             virtual void FogColor(const SceneR::Framework::Color& fogColor) override;
 
             /**
-             * Enables fog for the current effect.
+             * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual void EnableFog() override;
-
-            /**
-             * Disables fog for the current effect.
-             */
-            virtual void DisableFog() override;
+            virtual const System::Boolean& FogEnabled() const override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual const System::Boolean& IsFogEnabled() const override;
+            virtual void FogEnabled(const System::Boolean& fogEnabled) override;
 
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
@@ -158,19 +181,14 @@ namespace SceneR
             virtual void FogStart(const System::Single& fogStart) override;
 
             /**
-             * Enables lighting support for the current effect.
-             */
-            virtual void EnableLighting() override;
-
-            /**
-             * Enables lighting support for the current effect.
-             */
-            virtual void DisableLighting() override;
-
-            /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual const System::Boolean& IsLightingEnabled() override;
+            virtual const System::Boolean& LightingEnabled() const override;
+
+            /**
+             * Sets a value indicating wheter lighting is enabled for the current effect.
+             */
+            virtual void LightingEnabled(const System::Boolean& lightingEnabled) override;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
@@ -227,19 +245,14 @@ namespace SceneR
             void Texture(std::shared_ptr<Texture2D> texture);
 
             /**
-             * Enables textures for this effect.
-             */
-            void EnableTexture();
-
-            /**
-             * Enables textures for this effect.
-             */
-            void DisableTexture();
-
-            /**
              * Gets a value indicating wheter textures are enabled for this effect
              */
-            const System::Boolean& IsTextureEnabled() const;
+            const System::Boolean& TextureEnabled() const;
+
+            /**
+             * Sets a value indicating wheter textures are enabled for this effect
+             */
+            void TextureEnabled(const System::Boolean& textureEnabled);
 
             /**
              * Gets the view matrix in the current effect.
@@ -252,19 +265,14 @@ namespace SceneR
             virtual void View(const SceneR::Framework::Matrix& view) override;
 
             /**
-             * Enables use vertex colors for this effect.
+             * Gets a value indicating wheter vertex colors are enabled for this effect
              */
-            void EnableVertexColor();
-
-            /**
-             * Disables use vertex colors for this effect.
-             */
-            void DisableVertexColor();
+            const System::Boolean& VertexColorEnabled() const;
 
             /**
              * Gets a value indicating wheter vertex colors are enabled for this effect
              */
-            const System::Boolean& IsVertexColorEnabled() const;
+            void VertexColorEnabled(const System::Boolean& vertexColorEnabled);
 
             /**
              * Gets the world matrix in the current effect.
@@ -289,28 +297,27 @@ namespace SceneR
             virtual void OnApply() override;
 
         private:
-            void LoadShader();
-
-        private:
-            System::Single                      alpha;
-            AmbientLight                        ambientLight;
-            SceneR::Framework::Color            diffuseColor;
-            std::vector<std::shared_ptr<Light>> lights;
-            System::Boolean                     lightingEnabled;
-            SceneR::Framework::Color            emissiveColor;
-            System::Boolean                     fogEnabled;
-            SceneR::Framework::Color            fogColor;
-            System::Single                      fogEnd;
-            System::Single                      fogStart;
-            System::Boolean                     preferPerPixelLighting;
-            SceneR::Framework::Matrix           projection;
-            SceneR::Framework::Color            specularColor;
-            System::Single                      specularPower;
-            System::Boolean                     textureEnabled;
-            std::shared_ptr<Texture2D>          texture;
-            System::Boolean                     vertexColorEnabled;
-            SceneR::Framework::Matrix           view;
-            SceneR::Framework::Matrix           world;
+            System::Single                    alpha;
+            SceneR::Framework::Color          ambientLightColor;
+            SceneR::Framework::Color          diffuseColor;
+            std::shared_ptr<DirectionalLight> directionalLight0;
+            std::shared_ptr<DirectionalLight> directionalLight1;
+            std::shared_ptr<DirectionalLight> directionalLight2;
+            System::Boolean                   lightingEnabled;
+            SceneR::Framework::Color          emissiveColor;
+            System::Boolean                   fogEnabled;
+            SceneR::Framework::Color          fogColor;
+            System::Single                    fogEnd;
+            System::Single                    fogStart;
+            System::Boolean                   preferPerPixelLighting;
+            SceneR::Framework::Matrix         projection;
+            SceneR::Framework::Color          specularColor;
+            System::Single                    specularPower;
+            System::Boolean                   textureEnabled;
+            std::shared_ptr<Texture2D>        texture;
+            System::Boolean                   vertexColorEnabled;
+            SceneR::Framework::Matrix         view;
+            SceneR::Framework::Matrix         world;
         };
     }
 }

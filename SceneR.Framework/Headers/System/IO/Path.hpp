@@ -30,11 +30,6 @@ namespace System
         class Path
         {
         public:
-			static Char GetInvalidPathChars()
-			{
-				throw new std::runtime_error("Not implemented");
-			};
-
             /**
              * Changes the extension of a path string.
              * @param path The path of the file.
@@ -85,7 +80,7 @@ namespace System
 #if __unix__
                 return u"/";
 #else
-                return "\\";
+                return u"\\";
 #endif
             };
 

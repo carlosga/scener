@@ -20,10 +20,8 @@
 #include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
-#include <System/IO/FileStream.hpp>
 #include <memory>
 
 namespace SceneR

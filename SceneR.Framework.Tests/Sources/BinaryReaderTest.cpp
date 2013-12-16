@@ -16,6 +16,8 @@
 
 #include <BinaryReaderTest.hpp>
 #include <System/IO/BinaryReader.hpp>
+#include <System/IO/FileStream.hpp>
+#include <string>
 
 using namespace System;
 using namespace System::IO;

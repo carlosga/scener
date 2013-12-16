@@ -24,9 +24,12 @@ DirectionalLight::DirectionalLight()
 {
 }
 
-DirectionalLight::DirectionalLight(const SceneR::Framework::Color& diffuseColor,
-                                   const Vector3&                  direction)
-    : Light(diffuseColor), direction(direction)
+DirectionalLight::DirectionalLight(const Vector3&                  direction,
+                                   const SceneR::Framework::Color& diffuseColor,
+                                   const SceneR::Framework::Color& specularColor)
+    : Light(diffuseColor),
+      direction(direction),
+      specularColor(specularColor)
 {
 }
 
@@ -38,4 +41,14 @@ const Vector3& DirectionalLight::Direction() const
 void DirectionalLight::Direction(const Vector3& direction)
 {
     this->direction = direction;
+}
+
+const SceneR::Framework::Color& DirectionalLight::SpecularColor() const
+{
+    return this->specularColor;
+}
+
+void DirectionalLight::SpecularColor(const SceneR::Framework::Color& specularColor)
+{
+    this->specularColor = specularColor;
 }

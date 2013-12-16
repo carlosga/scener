@@ -16,8 +16,9 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/ContentType.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
-#include <System/Core.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/IndexElementSize.hpp>
@@ -31,9 +32,9 @@ IndexBufferReader::IndexBufferReader()
 {
 }
 
-const SceneR::Content::ContentType IndexBufferReader::ContentType() const
+const ContentType IndexBufferReader::ContentType() const
 {
-    return SceneR::Content::ContentType::IndexBuffer;
+    return ContentType::IndexBuffer;
 }
 
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)

@@ -3,6 +3,19 @@
 in vec3 Position;
 in vec3 Normal;
 
+struct DirectionalLightInfo 
+{
+    bool Enabled;
+    vec3 Direction;
+    vec3 DiffuseColor;
+    vec3 SpecularColor;
+};
+
+layout (std140) uniform DirectionalLights
+{
+    DirectionalLightInfo DirectionalLight[3];
+};
+
 uniform vec4 LightPosition;
 uniform vec3 LightIntensity;
 uniform vec3 Kd;          // Diffuse reflectivity
@@ -15,7 +28,7 @@ layout (location = 0) out vec4 FragColor;
 vec3 ads()
 {
     vec3 n = normalize(Normal);
-    vec3 s = normalize(vec3(LightPosition) - Position);
+    vec3 s = normalize(vec3(LightPosition) - Position + DirectionalLight[0].Direction);
     vec3 v = normalize(vec3(-Position));
     vec3 r = reflect(-s, n);
     

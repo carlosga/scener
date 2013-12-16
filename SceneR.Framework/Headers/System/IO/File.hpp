@@ -18,7 +18,6 @@
 #define FILE_HPP
 
 #include <System/Core.hpp>
-#include <System/IO/FileStream.hpp>
 #include <System/Text/Unicode.hpp>
 #include <fstream>
 #include <sstream>

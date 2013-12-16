@@ -15,9 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <System/TimeSpan.hpp>
-#include <iomanip>
-#include <sstream>
-#include <cmath>
+#include <cstdlib>
 
 using namespace System;
 

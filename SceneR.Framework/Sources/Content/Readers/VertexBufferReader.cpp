@@ -16,11 +16,11 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/ContentType.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
-#include <System/Core.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
@@ -35,9 +35,9 @@ VertexBufferReader::VertexBufferReader()
 {
 }
 
-const SceneR::Content::ContentType VertexBufferReader::ContentType() const
+const ContentType VertexBufferReader::ContentType() const
 {
-    return SceneR::Content::ContentType::VertextBuffer;
+    return ContentType::VertextBuffer;
 }
 
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)

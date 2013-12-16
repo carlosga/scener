@@ -26,7 +26,6 @@
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
-using namespace SceneR::Shaders;
 
 GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile)
     : depthStencilState(*this),
@@ -79,13 +78,13 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
 
     this->effect->Begin();
 
-    this->vertexBuffer->BindVertexArray();
-    this->indexBuffer->BindIndexBuffer();
+    this->vertexBuffer->Activate();
+    this->indexBuffer->Activate();
 
     glDrawElements(static_cast<GLenum>(primitiveType), numVertices, GL_UNSIGNED_INT, 0);
 
-    this->indexBuffer->UnbindIndexBuffer();
-    this->vertexBuffer->UnbindVertexArray();
+    this->indexBuffer->Deactivate();
+    this->vertexBuffer->Deactivate();
 
     this->effect->End();
 }
@@ -116,11 +115,11 @@ void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
 
     this->effect->Begin();
 
-    this->vertexBuffer->BindVertexArray();
+    this->vertexBuffer->Activate();
 
     glDrawArrays(static_cast<GLenum>(primitiveType), startVertex, primitiveCount);
 
-    this->vertexBuffer->UnbindVertexArray();
+    this->vertexBuffer->Deactivate();
 
     this->effect->End();
 }

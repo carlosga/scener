@@ -22,7 +22,7 @@
 
 namespace SceneR
 {
-    namespace Shaders
+    namespace Graphics
     {
         /**
          * Declares the supported shader types

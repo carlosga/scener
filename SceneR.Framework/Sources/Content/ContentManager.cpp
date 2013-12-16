@@ -19,7 +19,6 @@
 using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
 
 ContentManager::ContentManager(RendererServiceContainer& serviceProvider,
                                const String&             rootDirectory)

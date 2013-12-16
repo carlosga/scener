@@ -18,6 +18,7 @@
 #define INDEXBUFFER_HPP
 
 #include <System/Core.hpp>
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <vector>
@@ -48,7 +49,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            ~IndexBuffer();
+            virtual ~IndexBuffer();
 
         public:
             /**
@@ -72,17 +73,13 @@ namespace SceneR
             void SetData(const std::vector<System::UInt32>& data);
 
         private:
-            void Release();
-            void CreateIndexBuffer();
-            void BindIndexBuffer()  const;
-            void BufferData(const std::vector<System::UInt32>& data) const;
-            void UnbindIndexBuffer() const;
-            void DeleteIndexBuffer();
+            void Activate() const;
+            void Deactivate() const;
             const System::UInt32 GetElementSizeInBytes() const;
 
         private:
-            System::UInt32 ibo;
-            System::UInt32 indexCount;
+            BufferObject                       ibo;
+            System::UInt32                     indexCount;
             SceneR::Graphics::IndexElementSize indexElementSize;
 
             friend class GraphicsDevice;

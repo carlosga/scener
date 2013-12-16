@@ -16,10 +16,11 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/ContentType.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/BasicEffect.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
@@ -27,6 +28,8 @@
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <string>
+#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -36,9 +39,9 @@ ModelReader::ModelReader()
 {
 }
 
-const SceneR::Content::ContentType ModelReader::ContentType() const
+const ContentType ModelReader::ContentType() const
 {
-    return SceneR::Content::ContentType::Model;
+    return ContentType::Model;
 }
 
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
@@ -117,7 +120,11 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMeshPart->indexBuffer    = input.ReadObject<IndexBuffer>();
 
             // TODO: Read the effect from the file
-            modelMeshPart->effect = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());;
+            auto be = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());
+
+            be->EnableDefaultLighting();
+
+            modelMeshPart->effect = be;
 
             modelMesh->meshParts.push_back(modelMeshPart);
         }

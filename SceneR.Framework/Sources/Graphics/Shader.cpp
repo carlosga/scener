@@ -15,12 +15,12 @@
 //-------------------------------------------------------------------------------
 
 #include <GL/glew.h>
-#include <Shaders/Shader.hpp>
+#include <Graphics/Shader.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 
 using namespace System;
-using namespace SceneR::Shaders;
+using namespace SceneR::Graphics;
 
 Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
     : object(0), shaderCode(shaderCode), shaderType(shaderType)

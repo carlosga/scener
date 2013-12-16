@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
+#include <Graphics/BufferTarget.hpp>
+#include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <Graphics/VertexBufferTarget.hpp>
-#include <Graphics/VertexBufferUsage.hpp>
 #include <stdexcept>
 
 using namespace System;
@@ -27,16 +26,15 @@ IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevic
                          const SceneR::Graphics::IndexElementSize& indexElementSize,
                          const UInt32&                             indexCount)
     : GraphicsResource(graphicsDevice),
-      ibo(0),
+      ibo(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw),
       indexCount(indexCount),
       indexElementSize(indexElementSize)
 {
-    this->CreateIndexBuffer();
 }
 
 IndexBuffer::~IndexBuffer()
 {
-    this->Release();
+    this->ibo.Delete();
 }
 
 const UInt32& IndexBuffer::IndexCount() const
@@ -56,49 +54,17 @@ const std::vector<UInt32>& IndexBuffer::GetData() const
 
 void IndexBuffer::SetData(const std::vector<UInt32>& data)
 {
-    this->BufferData(data);
+    this->ibo.BufferData(data.size() * this->GetElementSizeInBytes(), data.data());
 }
 
-void IndexBuffer::Release()
+void IndexBuffer::Activate() const
 {
-    this->DeleteIndexBuffer();
+    this->ibo.Activate();
 }
 
-void IndexBuffer::CreateIndexBuffer()
+void IndexBuffer::Deactivate() const
 {
-    glGenBuffers(1, &this->ibo);
-}
-
-void IndexBuffer::BindIndexBuffer() const
-{
-    glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer), this->ibo);
-}
-
-void IndexBuffer::BufferData(const std::vector<UInt32>& data) const
-{
-    this->BindIndexBuffer();
-
-    glBufferData(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer),
-                 data.size() * this->GetElementSizeInBytes(),
-                 data.data(),
-                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
-
-    this->UnbindIndexBuffer();
-}
-
-void IndexBuffer::UnbindIndexBuffer() const
-{
-    glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ElementArraybuffer), 0);
-}
-
-void IndexBuffer::DeleteIndexBuffer()
-{
-    if (this->ibo != 0)
-    {
-        glDeleteBuffers(1, &this->ibo);
-    }
-
-    this->ibo = 0;
+    this->ibo.Deactivate();
 }
 
 const UInt32 IndexBuffer::GetElementSizeInBytes() const

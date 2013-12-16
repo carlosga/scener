@@ -18,10 +18,9 @@
 #define UNICODE_HPP
 
 #include <System/Core.hpp>
-#include <iostream>
+#include <codecvt>
 #include <locale>
 #include <string>
-#include <codecvt>
 
 namespace System
 {

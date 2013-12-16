@@ -124,9 +124,7 @@
 									<listOptionValue builtIn="false" value="/usr/include/llvm-3.4/llvm"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 								</option>
-								<option id="llvm.c_cpp.compiler.option.preprocessor.def.1079992906" name="Defined symbols (-D)" superClass="llvm.c_cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="__GXX_EXPERIMENTAL_CXX0X__"/>
-								</option>
+								<option id="llvm.c_cpp.compiler.option.preprocessor.def.1079992906" name="Defined symbols (-D)" superClass="llvm.c_cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.676833841" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.release.1095132976" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.so.release">

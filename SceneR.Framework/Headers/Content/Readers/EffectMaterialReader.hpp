@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef VERTEXBUFFERREADER_HPP
-#define VERTEXBUFFERREADER_HPP
+#ifndef EFFECTMATERIALREADER_HPP
+#define EFFECTMATERIALREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 #include <System/Core.hpp>
@@ -29,15 +29,15 @@ namespace SceneR
         enum class ContentType : System::UInt32;
 
         /**
-         * Vertex buffer reader
+         * Effect material reader
          */
-        class VertexBufferReader : public ContentTypeReader
+        class EffectMaterialReader : public ContentTypeReader
         {
         public:
             /**
-             * Initializes a new instance of the VertexBufferReader class.
+             * Initializes a new instance of the EffectMaterialReader class.
              */
-            VertexBufferReader();
+            EffectMaterialReader();
 
         public:
             /**
@@ -46,11 +46,11 @@ namespace SceneR
             virtual const SceneR::Content::ContentType ContentType() const override;
 
             /**
-             * Reads the vertex buffer contents from the given ContentReader.
+             * Reads the index buffer contents from the given ContentReader.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }
 
-#endif  /* VERTEXBUFFERREADER_HPP */
+#endif /* EFFECTMATERIALREADER_HPP */

@@ -19,6 +19,7 @@
 
 #include <System/Core.hpp>
 #include <chrono>
+#include <ratio>
 
 namespace System
 {

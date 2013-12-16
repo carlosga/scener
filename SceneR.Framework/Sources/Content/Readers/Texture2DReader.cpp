@@ -16,8 +16,9 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/ContentType.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
-#include <System/Core.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
@@ -32,9 +33,9 @@ Texture2DReader::Texture2DReader()
 {
 }
 
-const SceneR::Content::ContentType Texture2DReader::ContentType() const
+const ContentType Texture2DReader::ContentType() const
 {
-    return SceneR::Content::ContentType::Texture2D;
+    return ContentType::Texture2D;
 }
 
 std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)

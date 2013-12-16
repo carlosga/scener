@@ -14,22 +14,36 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <System/Core.hpp>
 #include <Graphics/Effect.hpp>
-#include <Shaders/ShaderProgram.hpp>
+#include <Graphics/EffectParameterCollection.hpp>
+#include <Graphics/Shader.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <memory>
 #include <stdexcept>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
-Effect::Effect(GraphicsDevice& graphicsDevice)
+Effect::Effect(GraphicsDevice& graphicsDevice,
+               const String&   vertexShader,
+               const String&   fragmentShader)
     : GraphicsResource(graphicsDevice),
-      parameters(0),
       shaderProgram(nullptr)
 {
+    auto vShader = std::make_shared<Shader>(vertexShader, ShaderType::Vertex);
+    auto fShader = std::make_shared<Shader>(fragmentShader, ShaderType::Fragment);
+    auto shaders = std::vector<std::shared_ptr<Shader>>{};
+
+    shaders.push_back(vShader);
+    shaders.push_back(fShader);
+
+    this->shaderProgram = std::make_shared<ShaderProgram>(shaders);
+    this->shaderProgram->Build();
 }
 
 Effect::Effect(const Effect& effect)
     : GraphicsResource(effect.graphicsDevice),
-      parameters(effect.parameters),
       shaderProgram(effect.shaderProgram)
 {
 }
@@ -38,9 +52,9 @@ Effect::~Effect()
 {
 }
 
-const std::vector<EffectParameter>& Effect::Parameters() const
+EffectParameterCollection& Effect::Parameters()
 {
-    return this->parameters;
+    return this->shaderProgram->Parameters();
 }
 
 void Effect::Begin()
@@ -58,31 +72,4 @@ void Effect::Begin()
 void Effect::End()
 {
     this->shaderProgram->Deactivate();
-}
-
-const EffectParameter& Effect::AddEffectParameter(const std::u16string&       name,
-                                                  const EffectParameterClass& parameterClass,
-                                                  const EffectParameterType&  parameterType)
-{
-    EffectParameter newParameter(name, parameterClass, parameterType, this->shaderProgram);
-
-    this->parameters.push_back(newParameter);
-
-    return this->GetEffectParameter(name);
-}
-
-const EffectParameter& Effect::GetEffectParameter(const std::u16string& name) const
-{
-    auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
-                           [&](const EffectParameter& parameter) -> bool
-                           {
-                               return parameter.Name() == name;
-                           });
-
-    if (it != this->parameters.end())
-    {
-        return *it;
-    }
-
-    throw std::runtime_error("Invalid parameter name");
 }

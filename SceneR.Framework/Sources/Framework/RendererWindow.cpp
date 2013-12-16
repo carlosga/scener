@@ -17,8 +17,8 @@
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
 #include <Framework/RendererWindow.hpp>
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>

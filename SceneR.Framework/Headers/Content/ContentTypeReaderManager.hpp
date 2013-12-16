@@ -18,12 +18,15 @@
 #define CONTENTTYPEREADERMANAGER_HPP
 
 #include <Content/ContentTypeReader.hpp>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR
 {
     namespace Content
     {
+        enum class ContentType : System::UInt32;
+
         /**
          * Content type reader manager.
          */

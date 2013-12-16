@@ -14,10 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
+#include <System/IO/Stream.hpp>
 #include <string>
-#include <vector>
 
 using namespace System;
 using namespace System::IO;

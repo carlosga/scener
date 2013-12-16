@@ -22,6 +22,7 @@
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <System/Core.hpp>
+#include <memory>
 
 namespace SceneR
 {

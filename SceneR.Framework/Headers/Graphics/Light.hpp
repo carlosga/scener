@@ -31,16 +31,26 @@ namespace SceneR
         {
         public:
            /**
-            * Gets the color of the light.
-            * @return the color of the light.
+            * Gets the diffuse color of the light.
+            * @return the diffuse color of the light.
             */
-            const SceneR::Framework::Color& Color() const;
+            const SceneR::Framework::Color& DiffuseColor() const;
 
            /**
-            * Sets the color of the light.
-            * @param color the color of the light.
+            * Sets the diffuse color of the light.
+            * @param color the diffuse color of the light.
             */
-            void Color(const SceneR::Framework::Color& color);
+            void DiffuseColor(const SceneR::Framework::Color& diffuseColor);
+
+            /**
+             * Gets a value indicating whether the light is enabled
+             */
+            const System::Boolean& Enabled() const;
+
+            /**
+             * Sets a value indicating whether the light is enabled
+             */
+            void Enabled(const System::Boolean& enabled);
 
         protected:
            /**
@@ -60,8 +70,8 @@ namespace SceneR
             virtual ~Light();
 
         protected:
-            System::UInt32           object;
-            SceneR::Framework::Color color;
+            System::Boolean          enabled;
+            SceneR::Framework::Color diffuseColor;
         };
     }
 }

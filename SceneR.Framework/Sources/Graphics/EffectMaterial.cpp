@@ -14,29 +14,22 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef VERTEXBUFFERUSAGE_HPP
-#define VERTEXBUFFERUSAGE_HPP
-
-#include <GL/glew.h>
 #include <System/Core.hpp>
+#include <Graphics/EffectMaterial.hpp>
 
-namespace SceneR
+using namespace System;
+using namespace SceneR::Graphics;
+
+EffectMaterial::EffectMaterial(GraphicsDevice& graphicsDevice)
+    : Effect(graphicsDevice, u"", u"")
 {
-    namespace Graphics
-    {
-        enum class VertexBufferUsage : System::UInt32
-        {
-            StreamDraw  = GL_STREAM_DRAW,
-            StreamReade = GL_STREAM_READ,
-            StreamCopy  = GL_STREAM_COPY,
-            StaticDraw  = GL_STATIC_DRAW,
-            StaticRead  = GL_STATIC_READ,
-            StaticCopy  = GL_STATIC_COPY,
-            DynamicDraw = GL_DYNAMIC_DRAW,
-            DynamicRead = GL_DYNAMIC_READ,
-            DynamicCopy = GL_DYNAMIC_COPY
-        };
-    }
 }
 
-#endif // VERTEXBUFFERUSAGE_HPP
+EffectMaterial::EffectMaterial(const EffectMaterial& effect)
+    : Effect(effect)
+{
+}
+
+EffectMaterial::~EffectMaterial()
+{
+}

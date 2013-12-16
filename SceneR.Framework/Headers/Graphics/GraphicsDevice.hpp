@@ -17,7 +17,6 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
@@ -25,6 +24,7 @@
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/Viewport.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR

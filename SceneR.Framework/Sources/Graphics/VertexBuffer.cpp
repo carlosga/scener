@@ -14,17 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Vector3.hpp>
 #include <GL/glew.h>
+#include <Graphics/BufferTarget.hpp>
+#include <Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <Graphics/VertexBufferTarget.hpp>
-#include <Graphics/VertexBufferUsage.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexPositionColor.hpp>
 #include <Graphics/VertexPositionColorTexture.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
-#include <sstream>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -33,18 +31,15 @@ using namespace SceneR::Graphics;
 VertexBuffer::VertexBuffer(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
       vertexCount(0),
-      vbo(0),
-      vao(0)
+      vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw),
+      vao()
 {
-    // Create the vertex array ...
-    this->CreateVertexArray();
-    // ... create the Vertex Buffer ...
-    this->CreateVertexBuffer();
 }
 
 VertexBuffer::~VertexBuffer()
 {
-    this->Release();
+    this->vbo.Delete();
+    this->vao.Delete();
 }
 
 const UInt32& VertexBuffer::VertexCount() const
@@ -81,106 +76,18 @@ void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
     this->BufferData(vDecl, data.size(), data.data());
 }
 
-void VertexBuffer::CreateVertexBuffer()
+void VertexBuffer::Activate()
 {
-    glGenBuffers(1, &this->vbo);
+    this->vao.Activate();
 }
 
-void VertexBuffer::BindVertexBuffer() const
+void VertexBuffer::Deactivate()
 {
-    glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer), this->vbo);
-}
-
-void VertexBuffer::UnbindVertexBuffer() const
-{
-    if (this->vbo != 0)
-    {
-        glBindBuffer(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer), 0);
-    }
-}
-
-void VertexBuffer::DeleteVertexBuffer()
-{
-    if (this->vbo != 0)
-    {
-        this->UnbindVertexBuffer();
-        glDeleteBuffers(1, &this->vbo);
-        this->vbo = 0;
-    }
-}
-
-void VertexBuffer::CreateVertexArray()
-{
-    glGenVertexArrays(1, &this->vao);
-}
-
-void VertexBuffer::BindVertexArray() const
-{
-    glBindVertexArray(this->vao);
-}
-
-void VertexBuffer::UnbindVertexArray() const
-{
-    if (this->vao != 0)
-    {
-        glBindVertexArray(0);
-    }
-}
-
-void VertexBuffer::DeleteVertexArray()
-{
-    if (this->vao != 0)
-    {
-        this->UnbindVertexArray();
-        glDeleteVertexArrays(1, &this->vao);
-        this->vao = 0;
-    }
-}
-
-void VertexBuffer::DeclareVertexFormat(const VertexDeclaration& vDecl) const
-{
-    // Bind the vertex buffer and array ...
-    this->BindVertexBuffer();
-    this->BindVertexArray();
-
-    glBindVertexBuffer(0, this->vbo, 0, vDecl.VertexStride());
-
-    // ... declare vertex elements
-    for (const VertexElement& ve : vDecl.VertexElements())
-    {
-        glVertexAttribFormat(ve.UsageIndex(),
-                             ve.ComponentCount(),
-                             GL_FLOAT,
-                             false,
-                             ve.Offset());
-
-        glEnableVertexAttribArray(ve.UsageIndex());
-        glVertexAttribBinding(ve.UsageIndex(), 0);
-    }
-
-    // ... and unbind the vertex array and buffer
-    this->UnbindVertexArray();
-    this->UnbindVertexBuffer();
-
-    glBindVertexBuffer(0, 0, 0, vDecl.VertexStride());
-}
-
-void VertexBuffer::Release()
-{
-    this->DeleteVertexBuffer();
-    this->DeleteVertexArray();
+    this->vao.Deactivate();
 }
 
 void VertexBuffer::BufferData(const VertexDeclaration& vDecl, const UInt32& count, const GLvoid* data)
 {
-    this->DeclareVertexFormat(vDecl);
-
-    this->BindVertexBuffer();
-
-    glBufferData(static_cast<GLenum>(VertexBufferTarget::ArrayBuffer),
-                 count * vDecl.ComponentCount() * sizeof(Single),
-                 data,
-                 static_cast<GLenum>(VertexBufferUsage::StaticDraw));
-
-    this->UnbindVertexBuffer();
+    this->vao.DeclareVertexFormat(vDecl);
+    this->vbo.BufferData(count * vDecl.ComponentCount() * sizeof(Single), data);
 }

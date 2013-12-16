@@ -19,13 +19,20 @@
 
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <System/Core.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/FileStream.hpp>
 #include <System/IO/Path.hpp>
 #include <memory>
+#include <stdexcept>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class RendererServiceContainer;
+    }
+}
 
 namespace SceneR
 {

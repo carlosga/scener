@@ -14,29 +14,40 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CORE_HPP
-#define CORE_HPP
+#ifndef VERTEXARRAYOBJECT_HPP
+#define VERTEXARRAYOBJECT_HPP
 
-#include <stddef.h>
-#include <stdint.h>
-#include <string>
+#include <System/Core.hpp>
 
-namespace System
+namespace SceneR
 {
-    typedef char16_t       Char;
-    typedef bool           Boolean;
-    typedef int8_t         Byte;
-    typedef uint8_t        UByte;
-    typedef int16_t        Int16;
-    typedef uint16_t       UInt16;
-    typedef int32_t        Int32;
-    typedef uint32_t       UInt32;
-    typedef int64_t        Int64;
-    typedef uint64_t       UInt64;
-    typedef float          Single;
-    typedef double         Double;
-    typedef size_t         Size;
-    typedef std::u16string String;
+    namespace Graphics
+    {
+        class VertexDeclaration;
+
+        /**
+         * Represents an opengl vertex array object
+         */
+        class VertexArrayObject
+        {
+        public:
+            VertexArrayObject();
+            virtual ~VertexArrayObject();
+
+        public:
+            const System::UInt32& Id() const;
+            void Activate() const;
+            void Deactivate() const;
+            void Delete();
+            void DeclareVertexFormat(const VertexDeclaration& vDecl) const;
+
+        private:
+            void Create();
+
+        private:
+            System::UInt32 id;
+        };
+    }
 }
 
-#endif  /* CORE_HPP */
+#endif /* VERTEXARRAYOBJECT_HPP */

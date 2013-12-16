@@ -16,6 +16,7 @@
 
 #include <Framework/MathHelper.hpp>
 #include <cassert>
+#include <cmath>
 
 using namespace System;
 using namespace SceneR::Framework;

@@ -56,19 +56,14 @@ namespace SceneR
             virtual void FogColor(const SceneR::Framework::Color& color) = 0;
 
             /**
-             * Enables fog for the current effect.
+             * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual void EnableFog() = 0;
-
-            /**
-             * Disables fog for the current effect.
-             */
-            virtual void DisableFog() = 0;
+            virtual const System::Boolean& FogEnabled() const = 0;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual const System::Boolean& IsFogEnabled() const = 0;
+            virtual void FogEnabled(const System::Boolean& fogEnabled) = 0;
 
             /**
              * Gets maximum z value for fog.

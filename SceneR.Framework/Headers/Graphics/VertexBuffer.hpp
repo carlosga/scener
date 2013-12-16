@@ -17,8 +17,11 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
+#include <GL/glew.h>
+#include <Graphics/BufferObject.hpp>
+#include <Graphics/GraphicsResource.hpp>
+#include <Graphics/VertexArrayObject.hpp>
 #include <System/Core.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <stdexcept>
 #include <vector>
 
@@ -44,7 +47,7 @@ namespace SceneR
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            ~VertexBuffer();
+            virtual ~VertexBuffer();
 
         public:
             /**
@@ -67,22 +70,14 @@ namespace SceneR
             };
 
         private:
-            void CreateVertexBuffer();
-            void BindVertexBuffer() const;
-            void UnbindVertexBuffer() const;
-            void DeleteVertexBuffer();
-            void CreateVertexArray();
-            void BindVertexArray() const;
-            void UnbindVertexArray() const;
-            void DeleteVertexArray();
-            void DeclareVertexFormat(const VertexDeclaration& vDecl) const;
+            void Activate();
+            void Deactivate();
             void BufferData(const VertexDeclaration& vDecl, const System::UInt32& count, const GLvoid* data);
-            void Release();
 
         private:
-            System::UInt32 vertexCount;
-            System::UInt32 vbo;
-            System::UInt32 vao;
+            System::UInt32    vertexCount;
+            BufferObject      vbo;
+            VertexArrayObject vao;
 
             friend class GraphicsDevice;
         };

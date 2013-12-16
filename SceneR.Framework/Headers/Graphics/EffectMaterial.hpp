@@ -14,43 +14,40 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef VERTEXBUFFERREADER_HPP
-#define VERTEXBUFFERREADER_HPP
+#ifndef EFFECTMATERIAL_H
+#define EFFECTMATERIAL_H
 
-#include <Content/ContentTypeReader.hpp>
-#include <System/Core.hpp>
-#include <memory>
+#include <Graphics/Effect.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 
 namespace SceneR
 {
-    namespace Content
+    namespace Graphics
     {
-        class ContentReader;
-        enum class ContentType : System::UInt32;
-
         /**
-         * Vertex buffer reader
+         * Contains an effect subclass which is used to load data for an EffectMaterialContent type.
          */
-        class VertexBufferReader : public ContentTypeReader
+        class EffectMaterial : public Effect
         {
         public:
             /**
-             * Initializes a new instance of the VertexBufferReader class.
+             * Initializes a new instance of the BassicEffect class.
+             *
+             * @param graphicsDevice the graphics device
              */
-            VertexBufferReader();
-
-        public:
-            /**
-             * Gets the the reader content type.
-             */
-            virtual const SceneR::Content::ContentType ContentType() const override;
+            EffectMaterial(GraphicsDevice& graphicsDevice);
 
             /**
-             * Reads the vertex buffer contents from the given ContentReader.
+             * Initializes a new instance of the EffectMaterial class.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            EffectMaterial(const EffectMaterial& effect);
+
+            /**
+             * Releases all resources being used by this EffectMaterial.
+             */
+            virtual ~EffectMaterial();
         };
     }
 }
 
-#endif  /* VERTEXBUFFERREADER_HPP */
+#endif /* EFFECTMATERIAL_H */

@@ -18,7 +18,6 @@
 #define MATHHELPER_HPP
 
 #include <System/Core.hpp>
-#include <cmath>
 
 namespace SceneR
 {

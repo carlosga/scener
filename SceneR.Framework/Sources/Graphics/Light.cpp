@@ -19,23 +19,33 @@
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const Color& Light::Color() const
+const Color& Light::DiffuseColor() const
 {
-    return this->color;
+    return this->diffuseColor;
 }
 
-void Light::Color(const SceneR::Framework::Color& color)
+void Light::DiffuseColor(const SceneR::Framework::Color& diffuseColor)
 {
-    this->color = color;
+    this->diffuseColor = diffuseColor;
+}
+
+const System::Boolean& SceneR::Graphics::Light::Enabled() const
+{
+    return this->enabled;
+}
+
+void SceneR::Graphics::Light::Enabled(const System::Boolean& enabled)
+{
+    this->enabled = enabled;
 }
 
 Light::Light()
-    : object(0), color(1.0f, 1.0f, 1.0f, 1.0f)
+    : enabled(true), diffuseColor(1.0f, 1.0f, 1.0f, 1.0f)
 {
 }
 
 Light::Light(const SceneR::Framework::Color& color)
-    : object(0), color(color)
+    : enabled(true), diffuseColor(color)
 {
 }
 

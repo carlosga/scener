@@ -18,6 +18,7 @@
 #define TEXTURE2DREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR
@@ -25,6 +26,7 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
+        enum class ContentType : System::UInt32;
 
         /**
          * Texture 2D reader.

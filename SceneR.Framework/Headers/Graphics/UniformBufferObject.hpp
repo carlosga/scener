@@ -14,41 +14,36 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef AMBIENTLIGHT_HPP
-#define AMBIENTLIGHT_HPP
+#ifndef UNIFORMBUFFEROBJECT_HPP
+#define UNIFORMBUFFEROBJECT_HPP
 
-#include <Graphics/Light.hpp>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        struct Color;
-    }
-}
+#include <Graphics/BufferObject.hpp>
+#include <Graphics/BufferUsage.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
         /**
-         * Light object that applies light to objects uniformly, regardless of their shape.
+         * Represents an OpenGL Uniform Buffer Object
+         *
+         * http://www.opengl.org/wiki/Uniform_Buffer_Object
          */
-        class AmbientLight : public Light
+        class UniformBufferObject : public BufferObject
         {
         public:
             /**
-             * Initializes a new instance of the AmbientLight class.
+             * Initializes a new instance of the UniformBufferObject class.
              */
-            AmbientLight();
+            UniformBufferObject(const BufferUsage& usage);
 
             /**
-             * Initializes a new instance of the AmbientLight class with the specified color.
-             * @param ambientColor Color of the new light.
+             * Releases all resources being used by this UniformBufferObject.
              */
-            AmbientLight(const SceneR::Framework::Color& ambientColor);
+            virtual ~UniformBufferObject();
         };
     }
 }
 
-#endif  /* AMBIENTLIGHT_HPP */
+#endif /* UNIFORMBUFFEROBJECT_HPP */

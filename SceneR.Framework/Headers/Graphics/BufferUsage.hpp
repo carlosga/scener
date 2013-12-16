@@ -14,29 +14,29 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CORE_HPP
-#define CORE_HPP
+#ifndef VERTEXBUFFERUSAGE_HPP
+#define VERTEXBUFFERUSAGE_HPP
 
-#include <stddef.h>
-#include <stdint.h>
-#include <string>
+#include <GL/glew.h>
+#include <System/Core.hpp>
 
-namespace System
+namespace SceneR
 {
-    typedef char16_t       Char;
-    typedef bool           Boolean;
-    typedef int8_t         Byte;
-    typedef uint8_t        UByte;
-    typedef int16_t        Int16;
-    typedef uint16_t       UInt16;
-    typedef int32_t        Int32;
-    typedef uint32_t       UInt32;
-    typedef int64_t        Int64;
-    typedef uint64_t       UInt64;
-    typedef float          Single;
-    typedef double         Double;
-    typedef size_t         Size;
-    typedef std::u16string String;
+    namespace Graphics
+    {
+        enum class BufferUsage : System::UInt32
+        {
+            StreamDraw  = GL_STREAM_DRAW,
+            StreamRead  = GL_STREAM_READ,
+            StreamCopy  = GL_STREAM_COPY,
+            StaticDraw  = GL_STATIC_DRAW,
+            StaticRead  = GL_STATIC_READ,
+            StaticCopy  = GL_STATIC_COPY,
+            DynamicDraw = GL_DYNAMIC_DRAW,
+            DynamicRead = GL_DYNAMIC_READ,
+            DynamicCopy = GL_DYNAMIC_COPY
+        };
+    }
 }
 
-#endif  /* CORE_HPP */
+#endif // VERTEXBUFFERUSAGE_HPP

@@ -47,10 +47,12 @@ namespace SceneR
             /**
              * Creates an instance of a light that projects its effect along a specified Vector3 with a specified color.
              * @param diffuseColor diffuse color of the new light.
+             * @param specularColor specular color of the new light.
              * @param direction the direction of the new light.
              */
-            DirectionalLight(const SceneR::Framework::Color& diffuseColor,
-                             const SceneR::Framework::Vector3& direction);
+            DirectionalLight(const SceneR::Framework::Vector3& direction,
+                             const SceneR::Framework::Color&   diffuseColor,
+                             const SceneR::Framework::Color&   specularColor);
 
         public:
             /**
@@ -64,11 +66,21 @@ namespace SceneR
              */
             void Direction(const SceneR::Framework::Vector3& direction);
 
-        private:
             /**
-             * Represents the vector along which the light's effect will be seen on models in a 3-D scene.
+             * Gets the specular color of the light.
+             * @return the specular color of the light.
              */
+             const SceneR::Framework::Color& SpecularColor() const;
+
+            /**
+             * Sets the specular color of the light.
+             * @param color the specular color of the light.
+             */
+             void SpecularColor(const SceneR::Framework::Color& specularColor);
+
+        private:
             SceneR::Framework::Vector3 direction;
+            SceneR::Framework::Color   specularColor;
         };
     }
 }

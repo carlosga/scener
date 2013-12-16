@@ -18,10 +18,15 @@
 #define BINARYREADER_HPP
 
 #include <System/Core.hpp>
-#include <System/IO/Stream.hpp>
-#include <System/IO/FileStream.hpp>
-#include <string>
 #include <vector>
+
+namespace System
+{
+    namespace IO
+    {
+        class Stream;
+    }
+}
 
 namespace System
 {

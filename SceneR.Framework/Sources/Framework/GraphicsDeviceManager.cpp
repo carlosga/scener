@@ -16,13 +16,7 @@
 
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
-#include <Framework/RendererWindow.hpp>
-#include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
-#include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/PresentationParameters.hpp>
-#include <Graphics/RasterizerState.hpp>
-#include <Graphics/Viewport.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

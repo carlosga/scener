@@ -17,7 +17,7 @@
 #ifndef CONTENTTYPEREADER_HPP
 #define CONTENTTYPEREADER_HPP
 
-#include <Content/ContentType.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR
@@ -25,6 +25,7 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
+        enum class ContentType : System::UInt32;
 
         /**
          * Interface for content type reader implementations.
