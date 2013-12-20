@@ -35,7 +35,6 @@ namespace SceneR
              * Initializes a new instance of the vertex element class
              */
             VertexElement(const System::UInt32&      offset,
-                          const System::UInt32&      componentCount,
                           const VertexElementFormat& vertexElementFormat,
                           const VertexElementUsage&  vertexElementUsage,
                           const System::UInt32&      usageIndex);
@@ -45,12 +44,6 @@ namespace SceneR
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
             const System::UInt32& Offset() const;
-
-            /**
-             * Gets the number of components bases on the vertex element format.
-             * @return
-             */
-            const System::UInt32& ComponentCount() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
@@ -69,7 +62,6 @@ namespace SceneR
 
         private:
             System::UInt32                        offset;
-            System::UInt32                        componentCount;
             SceneR::Graphics::VertexElementFormat vertexElementFormat;
             SceneR::Graphics::VertexElementUsage  vertexElementUsage;
             System::UInt32                        usageIndex;

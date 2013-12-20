@@ -18,6 +18,7 @@
 #define VERTEXARRAYOBJECT_HPP
 
 #include <System/Core.hpp>
+#include <Graphics/VertexElementFormat.hpp>
 
 namespace SceneR
 {
@@ -43,6 +44,7 @@ namespace SceneR
 
         private:
             void Create();
+            System::UInt32 GetComponentCount(const VertexElementFormat& vertexFormat) const;
 
         private:
             System::UInt32 id;

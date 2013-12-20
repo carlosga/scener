@@ -16,13 +16,13 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
-#include <Content/ContentType.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
 #include <vector>
 
@@ -35,17 +35,13 @@ VertexBufferReader::VertexBufferReader()
 {
 }
 
-const ContentType VertexBufferReader::ContentType() const
-{
-    return ContentType::VertextBuffer;
-}
-
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
-    auto  data        = std::vector<VertexPositionNormalTexture>{};
     auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  vDecl       = input.ReadObject<VertexDeclaration>();
     auto  vertexCount = input.ReadUInt32();
-    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());
+    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());    
+    auto  data        = std::vector<VertexPositionNormalTexture>{};
 
     for (UInt32 i = 0; i < vertexCount; i++)
     {

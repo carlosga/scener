@@ -19,7 +19,7 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <System/Core.hpp>
-#include <vector>
+#include <map>
 
 namespace SceneR
 {
@@ -47,19 +47,19 @@ namespace SceneR
             /**
              * Gets the content type reader for the specified content tpe
              */
-            ContentTypeReader* GetReaderForContentType(const ContentType& contentType);
+            ContentTypeReader* GetByReaderName(const System::String& name);
 
         private:
             void RegisterKnownTypeReaders();
 
             template<class T>
-            void RegisterTypeReader()
+            void RegisterTypeReader(const System::String& name)
             {
-                this->readers.push_back(new T);
+                this->readers[name] = new T;
             };
 
         private:
-            std::vector<ContentTypeReader*> readers;
+            std::map<System::String, ContentTypeReader*> readers;
         };
     }
 }

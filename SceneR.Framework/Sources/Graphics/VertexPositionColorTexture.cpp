@@ -28,9 +28,9 @@ const VertexDeclaration& VertexPositionColorTexture::Declaration
     9,
     36,
     {
-        VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
-        VertexElement(12, 4, VertexElementFormat::Vector4, VertexElementUsage::Color, 3),
-        VertexElement(28, 2, VertexElementFormat::Vector3, VertexElementUsage::TextureCoordinate, 2)
+        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+        VertexElement(12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3),
+        VertexElement(28, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
     }
 };
 

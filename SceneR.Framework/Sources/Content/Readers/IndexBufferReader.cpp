@@ -16,7 +16,6 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
-#include <Content/ContentType.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
@@ -32,23 +31,18 @@ IndexBufferReader::IndexBufferReader()
 {
 }
 
-const ContentType IndexBufferReader::ContentType() const
-{
-    return ContentType::IndexBuffer;
-}
-
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
-    auto  data       = std::vector<UInt32>(0);
-    auto& gdService  = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  indexCount = input.ReadUInt32();
-    auto  buffer     = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(),
-                                                     IndexElementSize::ThirtyTwoBits,
-                                                     indexCount);
+    auto& gdService     = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  isSixteenBits = input.ReadBoolean();
+    auto  indexCount    = input.ReadUInt32();
+    auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
+    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
+    auto  data          = std::vector<UInt32>(0);
 
     for (UInt32 i = 0; i < indexCount; i++)
     {
-        data.push_back(input.ReadUInt32());
+        data.push_back(((isSixteenBits) ? input.ReadUInt16() : input.ReadUInt32()));
     }
 
     buffer->SetData(data);

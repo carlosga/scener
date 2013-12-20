@@ -42,11 +42,6 @@ namespace SceneR
 
         public:
             /**
-             * Gets the reader supported content type.
-             */
-            virtual const SceneR::Content::ContentType ContentType() const = 0;
-
-            /**
              * Reads a object from the current stream.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) = 0;

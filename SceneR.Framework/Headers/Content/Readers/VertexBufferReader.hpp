@@ -26,7 +26,6 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
-        enum class ContentType : System::UInt32;
 
         /**
          * Vertex buffer reader
@@ -40,11 +39,6 @@ namespace SceneR
             VertexBufferReader();
 
         public:
-            /**
-             * Gets the the reader content type.
-             */
-            virtual const SceneR::Content::ContentType ContentType() const override;
-
             /**
              * Reads the vertex buffer contents from the given ContentReader.
              */

@@ -14,37 +14,22 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef INDEXBUFFERREADER_HPP
-#define INDEXBUFFERREADER_HPP
-
-#include <Content/ContentTypeReader.hpp>
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/StringReader.hpp>
 #include <System/Core.hpp>
 #include <memory>
+#include <string>
 
-namespace SceneR
+using namespace System;
+using namespace SceneR::Content;
+
+StringReader::StringReader()
 {
-    namespace Content
-    {
-        class ContentReader;
-
-        /**
-         * Index buffer reader.
-         */
-        class IndexBufferReader : public ContentTypeReader
-        {
-        public:
-            /**
-             * Initializes a news instance of the IndexBufferReader class.
-             */
-            IndexBufferReader();
-
-        public:
-            /**
-             * Reads the index buffer contents from the given ContentReader.
-             */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
-        };
-    }
 }
 
-#endif  /* INDEXBUFFERREADER_HPP */
+std::shared_ptr<void> StringReader::Read(ContentReader& input)
+{
+    String tmp = input.ReadString();
+
+    return std::make_shared<String>(tmp.begin(), tmp.end());
+}

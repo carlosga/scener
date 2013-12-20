@@ -26,7 +26,6 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
-        enum class ContentType : System::UInt32;
 
         /**
          * Effect material reader
@@ -40,11 +39,6 @@ namespace SceneR
             EffectMaterialReader();
 
         public:
-            /**
-             * Gets the the reader content type.
-             */
-            virtual const SceneR::Content::ContentType ContentType() const override;
-
             /**
              * Reads the index buffer contents from the given ContentReader.
              */

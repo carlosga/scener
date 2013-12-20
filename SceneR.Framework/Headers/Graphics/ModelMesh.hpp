@@ -25,6 +25,14 @@
 
 namespace SceneR
 {
+    namespace Framework
+    {
+        struct BoundingSphere;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
         /**
@@ -44,6 +52,8 @@ namespace SceneR
             ~ModelMesh();
 
         public:
+            const std::shared_ptr<SceneR::Framework::BoundingSphere>& BoundingSphere();
+
             /**
              * Draws all of the ModelMeshPart objects in this mesh.
              */
@@ -88,10 +98,11 @@ namespace SceneR
             void Tag(const System::String& tag);
 
         private:
-            std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
-            System::String                              name;
-            std::shared_ptr<ModelBone>                  parentBone;
-            System::String                              tag;
+            std::shared_ptr<SceneR::Framework::BoundingSphere> boundingSphere;
+            std::vector<std::shared_ptr<ModelMeshPart>>        meshParts;
+            System::String                                     name;
+            std::shared_ptr<ModelBone>                         parentBone;
+            System::String                                     tag;
 
             friend class SceneR::Content::ModelReader;
         };

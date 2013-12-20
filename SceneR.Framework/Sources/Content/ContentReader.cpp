@@ -33,9 +33,11 @@ ContentReader::ContentReader(const String&                    assetName,
     : BinaryReader(stream),
       assetName(assetName),
       contentManager(contentManager),
-      typeReaderManager()
+      typeReaderManager(),
+      sharedResourceCount(0)
 {
     this->ReadHeader();
+    this->ReadManifest();
 }
 
 ContentReader::~ContentReader()
@@ -43,9 +45,6 @@ ContentReader::~ContentReader()
     BinaryReader::Close();
 }
 
-/**
- * Gets the name of the asset currently being read by this ContentReader.
- */
 String& ContentReader::AssetName()
 {
     return this->assetName;
@@ -91,12 +90,47 @@ Quaternion ContentReader::ReadQuaternion()
 
 void ContentReader::ReadHeader()
 {
-    // Magic number.
-    this->ReadByte();
-    this->ReadByte();
-    this->ReadByte();
-    this->ReadByte();
+    this->ReadByte();   // ‘X’
+    this->ReadByte();   // ‘N’
+    this->ReadByte();   // ‘B’
+    this->ReadByte();   // Target platform
+    this->ReadByte();   // XNB format version
+    this->ReadByte();   // Flag bits
+                        // Bit 0x01 = content is for HiDef profile (otherwise Reach)
+                        // Bit 0x80 = asset data is compressed
+    this->ReadUInt32(); // Compressed file size
+                        // Total size of the (optionally compressed) .xnb file as stored on disk (including this header block)
 
-    // Format version.
-    this->ReadInt32();
+    if (false)
+    {
+        this->ReadUInt32(); // Decompressed data size
+                            // Only included for compressed .xnb files, where it indicates the expanded size of
+                            // the compressed data which starts immediately after this field (unlike the compressed
+                            // file size, this does not include the uncompressed portion of the header)
+    }
+}
+
+void ContentReader::ReadManifest()
+{
+    // String Type reader name
+    // Int32  Reader version number
+    Int32 typeReaderCount = this->Read7BitEncodedInt();
+
+    typeReaders.clear();
+
+    for (UInt32 i = 0; i < typeReaderCount; i++)
+    {
+        // Read the type reader name.
+        String readerName = this->ReadString();
+
+        // Read the type reader version.
+        this->ReadInt32();
+
+        // Look up and store this type reader implementation class.
+        ContentTypeReader* reader = this->typeReaderManager.GetByReaderName(readerName);
+
+        this->typeReaders.push_back(reader);
+    }
+
+    this->sharedResourceCount = this->Read7BitEncodedInt();
 }

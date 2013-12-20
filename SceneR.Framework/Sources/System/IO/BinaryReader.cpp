@@ -76,7 +76,7 @@ char16_t BinaryReader::ReadChar()
 std::u16string BinaryReader::ReadString()
 {
     std::u16string buffer;
-    UInt32         length = this->ReadUInt32();
+    UInt32         length = this->Read7BitEncodedInt();
 
     for (UInt32 i = 0; i < length; i++)
     {

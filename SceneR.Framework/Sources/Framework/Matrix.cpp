@@ -426,7 +426,26 @@ const Single& Matrix::M44() const
 
 bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation)
 {
-    return false;
+    this->Transpose();
+
+    translation = Vector3(this->m41, this->m42, this->m43);
+
+    Vector3 v1(this->m11, this->m12, this->m13);
+    Vector3 v2(this->m21, this->m22, this->m23);
+    Vector3 v3(this->m31, this->m32, this->m33);
+
+    scale = Vector3(v1.Length(), v2.Length(), v3.Length());
+
+    if (this->Determinant() < 0.0f)
+    {
+        scale.Negate();
+    }
+
+    rotation = Quaternion::CreateFromRotationMatrix(*this);
+
+    this->Transpose();
+
+    return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
 }
 
 const Single Matrix::Determinant() const
@@ -606,7 +625,7 @@ Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
             sj = dj + ((dj >= column) ? 1 : 0);
 
             // copy element
-            result.matrix[di * 4 + dj] = this->matrix[si * 4 + sj];
+            result[di * 4 + dj] = this->matrix[si * 4 + sj];
         }
     }
 

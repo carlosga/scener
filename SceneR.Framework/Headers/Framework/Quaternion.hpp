@@ -24,6 +24,7 @@ namespace SceneR
     namespace Framework
     {
         struct Vector3;
+        struct Matrix;
 
         /**
          * Class that represents a rotation in three dimensions.
@@ -44,6 +45,12 @@ namespace SceneR
              * @param angle Angle to rotate around the specified axis, in degrees.
              */
             static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const System::Single& angle);
+
+            /**
+             * Creates a Quaternion from a rotation Matrix.
+             * @param matrix the rotation matrix
+             */
+            static Quaternion CreateFromRotationMatrix(const Matrix& matrix);
 
             /**
              * Creates a new quaternion with a specified yaw, pitch, and roll.

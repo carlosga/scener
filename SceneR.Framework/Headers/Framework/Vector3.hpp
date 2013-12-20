@@ -245,7 +245,7 @@ namespace SceneR
             /**
              * Default destructor
              */
-            ~Vector3() = default;
+            virtual ~Vector3() = default;
 
         public:
             /**

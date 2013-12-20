@@ -16,7 +16,6 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
-#include <Content/ContentType.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
@@ -31,11 +30,6 @@ using namespace SceneR::Graphics;
 
 Texture2DReader::Texture2DReader()
 {
-}
-
-const ContentType Texture2DReader::ContentType() const
-{
-    return ContentType::Texture2D;
 }
 
 std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)

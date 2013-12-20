@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentType.hpp>
 #include <Content/Readers/EffectMaterialReader.hpp>
 #include <stdexcept>
 
@@ -22,11 +21,6 @@ using namespace SceneR::Content;
 
 EffectMaterialReader::EffectMaterialReader()
 {
-}
-
-const ContentType EffectMaterialReader::ContentType() const
-{
-    return ContentType::EffectMaterial;
 }
 
 std::shared_ptr<void> EffectMaterialReader::Read(ContentReader& input)

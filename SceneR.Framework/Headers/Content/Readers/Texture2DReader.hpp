@@ -26,7 +26,6 @@ namespace SceneR
     namespace Content
     {
         class ContentReader;
-        enum class ContentType : System::UInt32;
 
         /**
          * Texture 2D reader.
@@ -40,11 +39,6 @@ namespace SceneR
             Texture2DReader();
 
         public:
-            /**
-             * Gets the the reader content type.
-             */
-            virtual const SceneR::Content::ContentType ContentType() const override;
-
             /**
              * Reads the 2D texture contents from the given ContentReader.
              */

@@ -17,7 +17,6 @@
 #ifndef CONTENTREADER_HPP
 #define CONTENTREADER_HPP
 
-#include <Content/ContentType.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
 #include <System/Core.hpp>
@@ -112,8 +111,8 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> ReadObject()
             {
-                auto contentType = static_cast<ContentType> (this->ReadInt32());
-                auto reader      = this->typeReaderManager.GetReaderForContentType(contentType);
+                auto readerId = this->Read7BitEncodedInt();
+                auto reader   = this->typeReaders[readerId - 1];
 
                 return this->ReadObject<T>(reader);
             };
@@ -127,23 +126,28 @@ namespace SceneR
                 return std::static_pointer_cast<T>(typeReader->Read(*this));
             };
 
-//            template <class T>
-//            void ReadSharedResource(std::function<void (const T&)> fixup)
-//            {
-//            };
-//
-//            template <class T>
-//            std::shared_ptr<T> ReadExternalReference()
-//            {
-//            };
+            template <class T>
+            void ReadSharedResource(std::function<void (const T&)> fixup)
+            {
+                throw std::runtime_error("Not implemented");
+            };
+
+            template <class T>
+            std::shared_ptr<T> ReadExternalReference()
+            {
+                throw std::runtime_error("Not implemented");
+            };
 
         private:
             void ReadHeader();
+            void ReadManifest();
 
         private:
             System::String                   assetName;
             SceneR::Content::ContentManager& contentManager;
             ContentTypeReaderManager         typeReaderManager;
+            std::vector<ContentTypeReader*>  typeReaders;
+            System::Int32                    sharedResourceCount;
         };
     }
 }

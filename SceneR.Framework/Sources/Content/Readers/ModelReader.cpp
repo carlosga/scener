@@ -16,8 +16,8 @@
 
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
-#include <Content/ContentType.hpp>
 #include <Content/Readers/ModelReader.hpp>
+#include <Framework/BoundingSphere.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/BasicEffect.hpp>
@@ -33,15 +33,11 @@
 
 using namespace System;
 using namespace SceneR::Content;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelReader::ModelReader()
 {
-}
-
-const ContentType ModelReader::ContentType() const
-{
-    return ContentType::Model;
 }
 
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
@@ -55,7 +51,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     {
         auto bone = std::make_shared<ModelBone>();
 
-        bone->name      = input.ReadString();
+        bone->name      = *input.ReadObject<String>();
         bone->transform = input.ReadMatrix();
         bone->index     = i;
 
@@ -71,7 +67,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         if (parentBoneReference > 0)
         {
-            currentBone->parent = model->bones[parentBoneReference];
+            currentBone->parent = model->bones[parentBoneReference - 1];
         }
 
         for (UInt32 j = 0; j < childBoneCount; j++)
@@ -80,7 +76,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
             if (childBoneReference > 0)
             {
-                currentBone->children.push_back(model->bones[childBoneReference]);
+                currentBone->children.push_back(model->bones[childBoneReference - 1]);
             }
         }
     }
@@ -92,17 +88,20 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     {
         auto modelMesh = std::make_shared<ModelMesh>();
 
-        modelMesh->name = input.ReadString();
+        modelMesh->name = *input.ReadObject<String>();
 
-        auto parentBoneReference = this->ReadBoneReference(input, model->bones.size());
+        auto parentBoneReference = this->ReadBoneReference(input, boneCount);
 
         if (parentBoneReference > 0)
         {
-            modelMesh->parentBone = model->bones[parentBoneReference];
+            modelMesh->parentBone = model->bones[parentBoneReference - 1];
         }
 
-        // TODO: Read mesh bounds
-        modelMesh->tag = input.ReadString();
+        // Mesh bounds
+        modelMesh->boundingSphere = input.ReadObject<BoundingSphere>();
+
+        // Mesh tag
+        modelMesh->tag = *input.ReadObject<String>();
 
         // Read mesh parts
         auto meshPartCount = input.ReadUInt32();
@@ -115,7 +114,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMeshPart->vertexCount    = input.ReadUInt32();
             modelMeshPart->startIndex     = input.ReadUInt32();
             modelMeshPart->primitiveCount = input.ReadUInt32();
-            modelMeshPart->tag            = input.ReadString();
+            modelMeshPart->tag            = *input.ReadObject<String>();
+
+            // TODO: Vertex buffer, index buffer and effect are shared resources
             modelMeshPart->vertexBuffer   = input.ReadObject<VertexBuffer>();
             modelMeshPart->indexBuffer    = input.ReadObject<IndexBuffer>();
 
@@ -132,10 +133,26 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         model->meshes.push_back(modelMesh);
     }
 
+    // Model root bone
+    auto rootBoneReference = this->ReadBoneReference(input, boneCount);
+
+    if (rootBoneReference > 0)
+    {
+        model->root = model->bones[rootBoneReference - 1];
+    }
+
+    // Model tag
+    model->tag = *input.ReadObject<String>();
+
     return model;
 }
 
 UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt16&  boneCount)
 {
+    if (boneCount < 255)
+    {
+        return input.ReadByte();
+    }
+
     return input.ReadUInt32();
 }

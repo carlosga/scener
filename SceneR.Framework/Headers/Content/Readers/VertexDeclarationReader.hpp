@@ -14,12 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef INDEXBUFFERREADER_HPP
-#define INDEXBUFFERREADER_HPP
+#ifndef VERTEXDECLARATIONREADER_HPP
+#define VERTEXDECLARATIONREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <System/Core.hpp>
-#include <memory>
 
 namespace SceneR
 {
@@ -27,24 +25,18 @@ namespace SceneR
     {
         class ContentReader;
 
-        /**
-         * Index buffer reader.
-         */
-        class IndexBufferReader : public ContentTypeReader
+        class VertexDeclarationReader: public SceneR::Content::ContentTypeReader
         {
         public:
-            /**
-             * Initializes a news instance of the IndexBufferReader class.
-             */
-            IndexBufferReader();
+            VertexDeclarationReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the string contents from the given ContentReader.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }
 
-#endif  /* INDEXBUFFERREADER_HPP */
+#endif /* VERTEXDECLARATIONREADER_HPP */

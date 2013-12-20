@@ -37,17 +37,17 @@ const UInt32& VertexArrayObject::Id() const
     return this->id;
 }
 
-void SceneR::Graphics::VertexArrayObject::Create()
+void VertexArrayObject::Create()
 {
     glGenVertexArrays(1, &this->id);
 }
 
-void SceneR::Graphics::VertexArrayObject::Activate() const
+void VertexArrayObject::Activate() const
 {
     glBindVertexArray(this->id);
 }
 
-void SceneR::Graphics::VertexArrayObject::Deactivate() const
+void VertexArrayObject::Deactivate() const
 {
     if (this->id != 0)
     {
@@ -55,7 +55,7 @@ void SceneR::Graphics::VertexArrayObject::Deactivate() const
     }
 }
 
-void SceneR::Graphics::VertexArrayObject::Delete()
+void VertexArrayObject::Delete()
 {
     if (this->id != 0)
     {
@@ -65,7 +65,7 @@ void SceneR::Graphics::VertexArrayObject::Delete()
     }
 }
 
-void SceneR::Graphics::VertexArrayObject::DeclareVertexFormat(const VertexDeclaration& vDecl) const
+void VertexArrayObject::DeclareVertexFormat(const VertexDeclaration& vDecl) const
 {
     // Activate the vertex array object...
     this->Activate();
@@ -74,7 +74,7 @@ void SceneR::Graphics::VertexArrayObject::DeclareVertexFormat(const VertexDeclar
     for (const VertexElement& ve : vDecl.VertexElements())
     {
         glVertexAttribFormat(ve.UsageIndex(),
-                             ve.ComponentCount(),
+                             this->GetComponentCount(ve.VertexElementFormat()),
                              GL_FLOAT,
                              false,
                              ve.Offset());
@@ -84,4 +84,30 @@ void SceneR::Graphics::VertexArrayObject::DeclareVertexFormat(const VertexDeclar
 
     // ... and finally deactivate the vertex array object
     this->Deactivate();
+}
+
+System::UInt32 VertexArrayObject::GetComponentCount(const VertexElementFormat& vertexFormat) const
+{
+    switch (vertexFormat)
+    {
+        case VertexElementFormat::Single:
+            return 1;
+
+        case VertexElementFormat::Vector2:
+        case VertexElementFormat::Short2:
+        case VertexElementFormat::NormalizedShort2:
+        case VertexElementFormat::HalfVector2:
+            return 2;
+
+        case VertexElementFormat::Vector3:
+            return 3;
+
+        case VertexElementFormat::Vector4:
+        case VertexElementFormat::Color:
+        case VertexElementFormat::Byte4:
+        case VertexElementFormat::Short4:
+        case VertexElementFormat::NormalizedShort4:
+        case VertexElementFormat::HalfVector4:
+            return 4;
+    }
 }

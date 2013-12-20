@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/MathHelper.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <cassert>
@@ -56,6 +57,53 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     Quaternion qt = qx * qy;
 
     return qt * qz;
+}
+
+Quaternion SceneR::Framework::Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
+{
+    // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+
+    Quaternion result;
+    Single     tr = matrix.M11() + matrix.M22() + matrix.M33();
+
+    if (tr > 0.0f)
+    {
+        Single s = std::sqrt(tr + 1.0f);
+        result.w = s * 0.5f;
+        s = 0.5f / s;
+        result.x = (matrix.M23() - matrix.M32()) * s;
+        result.y = (matrix.M31() - matrix.M13()) * s;
+        result.z = (matrix.M12() - matrix.M21()) * s;
+    }
+    else if ((matrix.M11() >= matrix.M22()) && (matrix.M11() >= matrix.M33()))
+    {
+        Single s  = std::sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
+        Single s2 = 0.5f / s;
+        result.w  = (matrix.M23() - matrix.M32()) * s2;
+        result.x  = 0.5f * s;
+        result.y  = (matrix.M12() + matrix.M21()) * s2;
+        result.z  = (matrix.M13() + matrix.M31()) * s2;
+    }
+    else if (matrix.M22() > matrix.M33())
+    {
+        Single s  = std::sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
+        Single s2 = 0.5f / s;
+        result.w  = (matrix.M31() - matrix.M13()) * s2;
+        result.x  = (matrix.M21() + matrix.M12()) * s2;
+        result.y  = 0.5f * s;
+        result.z  = (matrix.M32() + matrix.M23()) * s2;
+    }
+    else
+    {
+        Single s  = std::sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
+        Single ss = 0.5f / s;
+        result.w  = (matrix.M12() - matrix.M21()) * ss;
+        result.x  = (matrix.M31() + matrix.M13()) * ss;
+        result.y  = (matrix.M32() + matrix.M23()) * ss;
+        result.z  = 0.5f * s;
+    }
+
+    return result;
 }
 
 Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)

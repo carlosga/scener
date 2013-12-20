@@ -14,10 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/BoundingSphere.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/PrimitiveType.hpp>
-#include <System/Core.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <memory>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -29,6 +33,11 @@ ModelMesh::ModelMesh()
 
 ModelMesh::~ModelMesh()
 {
+}
+
+const std::shared_ptr<SceneR::Framework::BoundingSphere>& ModelMesh::BoundingSphere()
+{
+    return this->boundingSphere;
 }
 
 void ModelMesh::Draw()

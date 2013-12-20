@@ -14,43 +14,34 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/VertexDeclarationReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-#include <Graphics/VertexPositionColor.hpp>
+#include <vector>
 
-using namespace SceneR::Framework;
+using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-const VertexDeclaration& VertexPositionColor::Declaration
+VertexDeclarationReader::VertexDeclarationReader()
 {
-    7,
-    28,
+}
+
+std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
+{
+    auto vertexStride = input.ReadUInt32();
+    auto elementCount = input.ReadUInt32();
+    auto elements     = std::vector<VertexElement>{};
+
+    for (int i = 0; i < elementCount; i++)
     {
-        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
-        VertexElement(12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3)
+    	elements.push_back({ input.ReadUInt32()                                   // Offset
+    			 		   , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format
+    					   , static_cast<VertexElementUsage>(input.ReadUInt32())  // Element usage
+    					   , input.ReadUInt32() });	                              // Usage index
     }
-};
 
-const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
-{
-    return VertexPositionColor::Declaration;
-}
-
-VertexPositionColor::VertexPositionColor(const Vector3&                  position,
-                                         const SceneR::Framework::Color& color)
-    : position(position),
-      color(color)
-{
-}
-
-const Vector3& VertexPositionColor::Position() const
-{
-    return this->position;
-}
-
-const SceneR::Framework::Color& VertexPositionColor::Color() const
-{
-    return this->color;
+    return std::make_shared<VertexDeclaration>(elementCount, vertexStride, elements);
 }

@@ -81,7 +81,7 @@ namespace SceneR
 
                 try
                 {
-                    auto filename = System::IO::Path::ChangeExtension(assetName, u"scr");
+                    auto filename = System::IO::Path::ChangeExtension(assetName, u"xnb");
                     auto path     = System::IO::Path::Combine(this->rootDirectory, filename);
 
                     if (!System::IO::File::Exists(path))

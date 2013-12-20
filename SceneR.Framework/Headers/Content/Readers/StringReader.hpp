@@ -14,36 +14,29 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CONTENTTYPE_HPP
-#define CONTENTTYPE_HPP
+#ifndef STRINGREADER_HPP
+#define STRINGREADER_HPP
 
-#include <System/Core.hpp>
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
-        /**
-         * Types of content supported
-         */
-        enum class ContentType : System::UInt32
+        class ContentReader;
+
+        class StringReader: public ContentTypeReader
         {
-            AlphaTextEffect      = 0,
-            BasicEffect          = 1,
-            DualTextureEffect    = 2,
-            EnvironmentMapEffect = 3,
-            Effect               = 4,
-            EffectMaterial       = 5,
-            IndexBuffer          = 6,
-            Model                = 7,
-            SkinnedEffect        = 8,
-            Texture2D            = 9,
-            Texture3D            = 10,
-            TextureCube          = 11,
-            VertextBuffer        = 12,
-            VertexDeclaration    = 13
+        public:
+            StringReader();
+
+        public:
+            /**
+             * Reads the string contents from the given ContentReader.
+             */
+            virtual std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }
 
-#endif  /* CONTENTTYPE_HPP */
+#endif /* STRINGREADER_HPP */

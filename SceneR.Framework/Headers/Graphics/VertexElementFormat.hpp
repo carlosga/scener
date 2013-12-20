@@ -28,18 +28,18 @@ namespace SceneR
          */
         enum class VertexElementFormat : System::UInt32
         {
-            Single           = 1,
-            Vector2          = 2,
-            Vector3          = 3,
-            Vector4          = 4,
-            HalfVector2      = 5,
-            HalfVector4      = 6,
-            Color            = 7,
+            Single           = 0,
+            Vector2          = 1,
+            Vector3          = 2,
+            Vector4          = 3,
+            Color            = 4,
+            Byte4            = 5,
+            Short2           = 6,
+            Short4           = 7,
             NormalizedShort2 = 8,
             NormalizedShort4 = 9,
-            Short2           = 10,
-            Short4           = 11,
-            Byte4            = 12
+            HalfVector2      = 10,
+            HalfVector4      = 11
         };
     }
 }

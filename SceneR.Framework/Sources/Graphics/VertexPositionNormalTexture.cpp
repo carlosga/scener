@@ -28,9 +28,9 @@ const VertexDeclaration& VertexPositionNormalTexture::Declaration
     8,
     32,
     {
-        VertexElement(0 , 3, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
-        VertexElement(12, 3, VertexElementFormat::Vector3, VertexElementUsage::Normal, 1),
-        VertexElement(24, 2, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
+        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+        VertexElement(12, VertexElementFormat::Vector3, VertexElementUsage::Normal, 1),
+        VertexElement(24, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
     }
 };
 

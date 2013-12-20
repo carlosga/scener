@@ -20,12 +20,10 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 VertexElement::VertexElement(const UInt32&                                offset,
-                             const UInt32&                                componentCount,
                              const SceneR::Graphics::VertexElementFormat& vertexElementFormat,
                              const SceneR::Graphics::VertexElementUsage&  vertexElementUsage,
                              const UInt32&                                usageIndex)
     : offset(offset),
-      componentCount(componentCount),
       vertexElementFormat(vertexElementFormat),
       vertexElementUsage(vertexElementUsage),
       usageIndex(usageIndex)
@@ -36,12 +34,6 @@ const UInt32& VertexElement::Offset() const
 {
     return this->offset;
 }
-
-const UInt32& VertexElement::ComponentCount() const
-{
-    return this->componentCount;
-}
-
 
 const UInt32& VertexElement::UsageIndex() const
 {
