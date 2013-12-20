@@ -22,7 +22,6 @@
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
