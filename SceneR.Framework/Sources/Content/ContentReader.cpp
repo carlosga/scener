@@ -21,11 +21,13 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
 using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
+using namespace SceneR::Graphics;
 
 ContentReader::ContentReader(const String&                    assetName,
                              SceneR::Content::ContentManager& contentManager,
@@ -34,7 +36,8 @@ ContentReader::ContentReader(const String&                    assetName,
       assetName(assetName),
       contentManager(contentManager),
       typeReaderManager(),
-      sharedResourceCount(0)
+      sharedResourceCount(0),
+      fixupActions(0)
 {
     this->ReadHeader();
     this->ReadManifest();
@@ -86,6 +89,22 @@ Vector4 ContentReader::ReadVector4()
 Quaternion ContentReader::ReadQuaternion()
 {
     return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+}
+
+void ContentReader::ReadSharedResources()
+{
+    for (int i = 0; i < this->sharedResourceCount; i++)
+    {
+        Int32 sharedResourceType = this->Read7BitEncodedInt();
+
+        if (sharedResourceType != 0)
+        {
+            auto t = this->typeReaders[--sharedResourceType];
+            auto x = std::static_pointer_cast<VertexBuffer>(t->Read(*this));
+
+            // this->Fixup(i, x);
+        }
+    }
 }
 
 void ContentReader::ReadHeader()

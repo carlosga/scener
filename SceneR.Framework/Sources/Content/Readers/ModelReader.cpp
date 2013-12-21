@@ -18,17 +18,12 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/BasicEffect.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <string>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -41,16 +36,15 @@ ModelReader::ModelReader()
 
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 {
-    auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  model     = std::make_shared<Model>();
-    auto  boneCount = input.ReadUInt32();
+    auto model     = std::make_shared<Model>();
+    auto boneCount = input.ReadUInt32();
 
     // Read model bones
     for (UInt32 i = 0; i < boneCount; i++)
     {
         auto bone = std::make_shared<ModelBone>();
 
-        bone->name      = *input.ReadObject<String>();
+        bone->name      = this->ReadString(input);
         bone->transform = input.ReadMatrix();
         bone->index     = i;
 
@@ -81,13 +75,13 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     }
 
     // Read model meshes
-    auto meshCount = input.ReadInt32();
+    auto meshCount = input.ReadUInt32();
 
     for (UInt32 i = 0; i< meshCount; i++)
     {
         auto modelMesh = std::make_shared<ModelMesh>();
 
-        modelMesh->name = *input.ReadObject<String>();
+        modelMesh->name = this->ReadString(input);
 
         auto parentBoneReference = this->ReadBoneReference(input, boneCount);
 
@@ -100,7 +94,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         modelMesh->boundingSphere = input.ReadObject<BoundingSphere>();
 
         // Mesh tag
-        modelMesh->tag = *input.ReadObject<String>();
+        modelMesh->tag = this->ReadString(input);
 
         // Read mesh parts
         auto meshPartCount = input.ReadUInt32();
@@ -113,18 +107,26 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMeshPart->vertexCount    = input.ReadUInt32();
             modelMeshPart->startIndex     = input.ReadUInt32();
             modelMeshPart->primitiveCount = input.ReadUInt32();
-            modelMeshPart->tag            = *input.ReadObject<String>();
+            modelMeshPart->tag            = this->ReadString(input);
 
             // TODO: Vertex buffer, index buffer and effect are shared resources
-            modelMeshPart->vertexBuffer   = input.ReadObject<VertexBuffer>();
-            modelMeshPart->indexBuffer    = input.ReadObject<IndexBuffer>();
+            input.ReadSharedResource<VertexBuffer>(
+                [=](std::shared_ptr<VertexBuffer>& vertexBuffer)
+                {
+                    modelMeshPart->vertexBuffer = vertexBuffer;
+                });
 
-            // TODO: Read the effect from the file
-            auto be = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());
+            input.ReadSharedResource<IndexBuffer>(
+                [=](std::shared_ptr<IndexBuffer>& indexBuffer)
+                {
+                    modelMeshPart->indexBuffer = indexBuffer;
+                });
 
-            be->EnableDefaultLighting();
-
-            modelMeshPart->effect = be;
+            input.ReadSharedResource<Effect>(
+                [=](std::shared_ptr<Effect>& effect)
+                {
+                    modelMeshPart->effect = effect;
+                });
 
             modelMesh->meshParts.push_back(modelMeshPart);
         }
@@ -141,7 +143,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     }
 
     // Model tag
-    model->tag = *input.ReadObject<String>();
+    model->tag = this->ReadString(input);
 
     return model;
 }
@@ -154,4 +156,11 @@ UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt16&  boneC
     }
 
     return input.ReadUInt32();
+}
+
+System::String ModelReader::ReadString(ContentReader& input)
+{
+    auto value = input.ReadObject<String>();
+
+    return ((value == nullptr) ? u"" : *value);
 }

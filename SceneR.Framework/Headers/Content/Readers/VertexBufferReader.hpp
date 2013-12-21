@@ -18,7 +18,7 @@
 #define VERTEXBUFFERREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <System/Core.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 #include <memory>
 
 namespace SceneR
@@ -43,6 +43,9 @@ namespace SceneR
              * Reads the vertex buffer contents from the given ContentReader.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
+
+        private:
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> ReadVertexDeclaration(ContentReader& input);
         };
     }
 }

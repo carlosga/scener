@@ -94,6 +94,8 @@ namespace SceneR
 
                     asset = reader.ReadObject<T>();
 
+                    reader.ReadSharedResources();
+
                     reader.Close();
                 }
                 catch (const std::exception& e)

@@ -21,7 +21,9 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
+#include <functional>
 #include <memory>
+#include <vector>
 
 namespace SceneR
 {
@@ -47,6 +49,50 @@ namespace SceneR
          */
         class ContentReader : public System::IO::BinaryReader
         {
+        private:
+            struct SharedResourceAction
+            {
+            public:
+                SharedResourceAction()
+                    : id(0),
+                      action(nullptr)
+                {
+                };
+
+                virtual ~SharedResourceAction()
+                {
+                };
+
+            public:
+                void Id(const System::UInt32& sharedResourceId)
+                {
+                    this->id = (sharedResourceId - 1);
+                }
+
+                const System::UInt32& Id() const
+                {
+                    return this->id;
+                }
+
+                template <class T>
+                void Action(std::function<void (std::shared_ptr<T>&)>& action)
+                {
+                    this->action = (void *)&action;
+                };
+
+                template <class T>
+                void Action(std::shared_ptr<T>& value)
+                {
+                    std::function<void(std::shared_ptr<T>&)> f = *static_cast<std::function<void(std::shared_ptr<T>&)>*>(this->action);
+
+                    f(value);
+                };
+
+            private:
+                System::UInt32 id;
+                void*          action;
+            };
+
         public:
             /**
              * Initializes a new instance of the ContentReader.
@@ -112,9 +158,18 @@ namespace SceneR
             std::shared_ptr<T> ReadObject()
             {
                 auto readerId = this->Read7BitEncodedInt();
-                auto reader   = this->typeReaders[readerId - 1];
 
-                return this->ReadObject<T>(reader);
+                // A reader id 0 means a NULL object
+                if (readerId == 0)
+                {
+                    return nullptr;
+                }
+                else
+                {
+                    auto reader = this->typeReaders[readerId - 1];
+
+                    return this->ReadObject<T>(reader);
+                }
             };
 
             /**
@@ -126,10 +181,23 @@ namespace SceneR
                 return std::static_pointer_cast<T>(typeReader->Read(*this));
             };
 
+            /**
+             * Reads a shared resource ID, and records it for subsequent fix-up.
+             */
             template <class T>
-            void ReadSharedResource(std::function<void (const T&)> fixup)
+            void ReadSharedResource(std::function<void (std::shared_ptr<T>&)> fixup)
             {
-                throw std::runtime_error("Not implemented");
+                auto sharedResourceId = this->Read7BitEncodedInt();
+
+                if (sharedResourceId != 0)
+                {
+                    SharedResourceAction fixupAction;
+
+                    fixupAction.Id(sharedResourceId);
+                    fixupAction.Action<T>(fixup);
+
+                    this->fixupActions.push_back(fixupAction);
+                }
             };
 
             template <class T>
@@ -138,16 +206,31 @@ namespace SceneR
                 throw std::runtime_error("Not implemented");
             };
 
+            void ReadSharedResources();
+
         private:
             void ReadHeader();
             void ReadManifest();
 
+            template <class T>
+            void Fixup(System::UInt32 id, std::shared_ptr<T>& value)
+            {
+                for (auto& fixupAction : this->fixupActions)
+                {
+                    if (fixupAction.Id() == id)
+                    {
+                        fixupAction.Action<T>(value);
+                    }
+                }
+            };
+
         private:
-            System::String                   assetName;
-            SceneR::Content::ContentManager& contentManager;
-            ContentTypeReaderManager         typeReaderManager;
-            std::vector<ContentTypeReader*>  typeReaders;
-            System::Int32                    sharedResourceCount;
+            System::String                    assetName;
+            SceneR::Content::ContentManager&  contentManager;
+            ContentTypeReaderManager          typeReaderManager;
+            std::vector<ContentTypeReader*>   typeReaders;
+            System::Int32                     sharedResourceCount;
+            std::vector<SharedResourceAction> fixupActions;
         };
     }
 }

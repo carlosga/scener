@@ -17,13 +17,14 @@
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
+#include <Content/Readers/VertexDeclarationReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
+#include <System/Core.hpp>
 #include <vector>
 
 using namespace System;
@@ -37,22 +38,30 @@ VertexBufferReader::VertexBufferReader()
 
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
-    auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  vDecl       = input.ReadObject<VertexDeclaration>();
-    auto  vertexCount = input.ReadUInt32();
-    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());    
-    auto  data        = std::vector<VertexPositionNormalTexture>{};
+    auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  buffer    = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice());
+    auto  data      = std::vector<VertexPositionNormalTexture>{};
+    auto  vDecl     = this->ReadVertexDeclaration(input);
 
-    for (UInt32 i = 0; i < vertexCount; i++)
-    {
-        auto position = input.ReadVector3();
-        auto normal   = input.ReadVector3();
-        auto tcoord   = input.ReadVector2();
+    buffer->vertexCount = input.ReadUInt32();
 
-        data.push_back(VertexPositionNormalTexture(position, normal, tcoord));
-    }
+    input.ReadBytes(buffer->vertexCount * vDecl->VertexStride());
 
-    buffer->SetData(data);
+//    for (UInt32 i = 0; i < buffer->vertexCount; i++)
+//    {
+//        auto position = input.ReadVector3();
+//        auto normal   = input.ReadVector3();
+//        auto tcoord   = input.ReadVector2();
+//
+//        data.push_back(VertexPositionNormalTexture(position, normal, tcoord));
+//    }
+
+    // buffer->SetData(data);
 
     return buffer;
+}
+
+std::shared_ptr<VertexDeclaration> VertexBufferReader::ReadVertexDeclaration(ContentReader& input)
+{
+    return std::static_pointer_cast<VertexDeclaration>(VertexDeclarationReader{}.Read(input));
 }

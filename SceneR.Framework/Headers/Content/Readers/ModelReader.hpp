@@ -46,6 +46,7 @@ namespace SceneR
 
         private:
             System::UInt32 ReadBoneReference(ContentReader& input, const System::UInt16& boneCount);
+            System::String ReadString(ContentReader& input);
         };
     }
 }

@@ -17,7 +17,7 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <GL/glew.h>
+#include <Content/Readers/VertexBufferReader.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>
@@ -80,6 +80,7 @@ namespace SceneR
             VertexArrayObject vao;
 
             friend class GraphicsDevice;
+            friend class SceneR::Content::VertexBufferReader;
         };
     }
 }
