@@ -25,7 +25,6 @@ using namespace SceneR::Graphics;
 
 const VertexDeclaration& VertexPositionColorTexture::Declaration
 {
-    9,
     36,
     {
         VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),

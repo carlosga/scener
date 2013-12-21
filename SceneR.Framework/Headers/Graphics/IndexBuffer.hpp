@@ -70,7 +70,7 @@ namespace SceneR
             /**
              * Sets the indices buffer data
              */
-            void SetData(const std::vector<System::UInt32>& data);
+            void SetData(const void* data);
 
         private:
             void Activate() const;

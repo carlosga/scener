@@ -17,12 +17,12 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <Content/Readers/VertexBufferReader.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 #include <System/Core.hpp>
-#include <stdexcept>
+#include <memory>
 #include <vector>
 
 namespace SceneR
@@ -42,7 +42,9 @@ namespace SceneR
              * Initializes a new instance of the VertexBuffer class.
              * @param graphicsDevice the graphics device.
              */
-            VertexBuffer(GraphicsDevice& graphicsDevice);
+            VertexBuffer(GraphicsDevice&                                      graphicsDevice
+                       , System::UInt32                                       vertexCount
+                       , std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration);
 
             /**
              * Releases all resources being used by the current VertexBuffer
@@ -63,24 +65,24 @@ namespace SceneR
             /**
              * Sets the vertex buffer data
              */
-            template <class T>
-            void SetData(const std::vector<T>& data)
-            {
-                throw std::runtime_error("Unknown vertex type");
-            };
+            void SetData(const void* data);
+
+            /**
+             * Defines per-vertex data in a buffer.
+             */
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexDeclaration();
 
         private:
             void Activate();
             void Deactivate();
-            void BufferData(const VertexDeclaration& vDecl, const System::UInt32& count, const GLvoid* data);
 
         private:
-            System::UInt32    vertexCount;
-            BufferObject      vbo;
-            VertexArrayObject vao;
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
+            System::UInt32                                       vertexCount;
+            BufferObject                                         vbo;
+            VertexArrayObject                                    vao;
 
             friend class GraphicsDevice;
-            friend class SceneR::Content::VertexBufferReader;
         };
     }
 }

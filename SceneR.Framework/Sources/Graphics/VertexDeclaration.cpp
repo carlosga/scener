@@ -19,16 +19,10 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexDeclaration::VertexDeclaration(const UInt32&                     componentCount,
-                                     const UInt32&                     vertexStride,
+VertexDeclaration::VertexDeclaration(const UInt32&                     vertexStride,
                                      const std::vector<VertexElement>& vertexElements)
-    : componentCount(componentCount), vertexStride(vertexStride), vertexElements(vertexElements)
+    : vertexStride(vertexStride), vertexElements(vertexElements)
 {
-}
-
-const UInt32& VertexDeclaration::ComponentCount() const
-{
-    return this->componentCount;
 }
 
 const UInt32& VertexDeclaration::VertexStride() const

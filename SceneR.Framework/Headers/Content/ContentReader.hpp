@@ -21,8 +21,10 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
+#include <Graphics/VertexBuffer.hpp>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 namespace SceneR
@@ -75,17 +77,15 @@ namespace SceneR
                 }
 
                 template <class T>
-                void Action(std::function<void (std::shared_ptr<T>&)>& action)
+                void Subscribe(const std::function<void(const std::shared_ptr<T>&)>& action)
                 {
-                    this->action = (void *)&action;
+                    this->action = (void*)&action;
                 };
 
                 template <class T>
-                void Action(std::shared_ptr<T>& value)
+                void Publish(const std::shared_ptr<T>& value)
                 {
-                    std::function<void(std::shared_ptr<T>&)> f = *static_cast<std::function<void(std::shared_ptr<T>&)>*>(this->action);
-
-                    f(value);
+                    std::bind(this->action, value);
                 };
 
             private:
@@ -185,7 +185,7 @@ namespace SceneR
              * Reads a shared resource ID, and records it for subsequent fix-up.
              */
             template <class T>
-            void ReadSharedResource(std::function<void (std::shared_ptr<T>&)> fixup)
+            void ReadSharedResource(const std::function<void(const std::shared_ptr<T>&)>& fixup)
             {
                 auto sharedResourceId = this->Read7BitEncodedInt();
 
@@ -194,7 +194,7 @@ namespace SceneR
                     SharedResourceAction fixupAction;
 
                     fixupAction.Id(sharedResourceId);
-                    fixupAction.Action<T>(fixup);
+                    fixupAction.Subscribe<T>(fixup);
 
                     this->fixupActions.push_back(fixupAction);
                 }
@@ -206,30 +206,45 @@ namespace SceneR
                 throw std::runtime_error("Not implemented");
             };
 
-            void ReadSharedResources();
+            void ReadSharedResources()
+            {
+                for (int i = 0; i < this->sharedResourceCount; i++)
+                {
+                    System::Int32 sharedResourceType = this->Read7BitEncodedInt();
+
+                    if (sharedResourceType != 0)
+                    {
+                        auto resource = this->typeReaders[--sharedResourceType]->Read(*this);
+                        std::string resourceName = typeid(resource).name();
+
+                        // this->Fixup(i, std::static_pointer_cast<SceneR::Graphics::VertexBuffer>(resource));
+                    }
+                }
+            };
 
         private:
             void ReadHeader();
             void ReadManifest();
 
             template <class T>
-            void Fixup(System::UInt32 id, std::shared_ptr<T>& value)
+            void Fixup(System::UInt32 id, const std::shared_ptr<T>& value)
             {
-                for (auto& fixupAction : this->fixupActions)
+                for (auto& fixup : this->fixupActions)
                 {
-                    if (fixupAction.Id() == id)
+                    if (fixup.Id() == id)
                     {
-                        fixupAction.Action<T>(value);
+                        fixup.Publish<T>(value);
                     }
                 }
             };
 
         private:
-            System::String                    assetName;
-            SceneR::Content::ContentManager&  contentManager;
-            ContentTypeReaderManager          typeReaderManager;
-            std::vector<ContentTypeReader*>   typeReaders;
-            System::Int32                     sharedResourceCount;
+            System::String                   assetName;
+            SceneR::Content::ContentManager& contentManager;
+            ContentTypeReaderManager         typeReaderManager;
+            std::vector<ContentTypeReader*>  typeReaders;
+            System::Int32                    sharedResourceCount;
+
             std::vector<SharedResourceAction> fixupActions;
         };
     }

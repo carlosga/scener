@@ -101,7 +101,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         for (UInt32 i = 0; i < meshPartCount; i++)
         {
-            auto modelMeshPart = std::make_shared<ModelMeshPart>();
+            std::shared_ptr<ModelMeshPart> modelMeshPart = std::make_shared<ModelMeshPart>();
 
             modelMeshPart->vertexOffset   = input.ReadUInt32();
             modelMeshPart->vertexCount    = input.ReadUInt32();
@@ -109,26 +109,26 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMeshPart->primitiveCount = input.ReadUInt32();
             modelMeshPart->tag            = this->ReadString(input);
 
-            // TODO: Vertex buffer, index buffer and effect are shared resources
-            input.ReadSharedResource<VertexBuffer>(
-                [=](std::shared_ptr<VertexBuffer>& vertexBuffer)
-                {
-                    modelMeshPart->vertexBuffer = vertexBuffer;
-                });
-
-            input.ReadSharedResource<IndexBuffer>(
-                [=](std::shared_ptr<IndexBuffer>& indexBuffer)
-                {
-                    modelMeshPart->indexBuffer = indexBuffer;
-                });
-
-            input.ReadSharedResource<Effect>(
-                [=](std::shared_ptr<Effect>& effect)
-                {
-                    modelMeshPart->effect = effect;
-                });
-
             modelMesh->meshParts.push_back(modelMeshPart);
+
+            auto vbc = [=](const std::shared_ptr<VertexBuffer>& vertexBuffer) -> void
+            {
+                modelMeshPart->vertexBuffer = vertexBuffer;
+            };
+
+            auto ibc = [=](const std::shared_ptr<IndexBuffer>& indexBuffer) -> void
+            {
+                modelMeshPart->indexBuffer = indexBuffer;
+            };
+
+            auto ec = [=](const std::shared_ptr<Effect>& effect) -> void
+            {
+                modelMeshPart->effect = effect;
+            };
+
+            input.ReadSharedResource<VertexBuffer>(vbc);
+            input.ReadSharedResource<IndexBuffer>(ibc);
+            input.ReadSharedResource<Effect>(ec);
         }
 
         model->meshes.push_back(modelMesh);

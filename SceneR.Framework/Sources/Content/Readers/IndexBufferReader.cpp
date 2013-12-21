@@ -38,14 +38,9 @@ std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
     auto  indexCount    = input.ReadUInt32();
     auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
     auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
-    auto  data          = std::vector<UInt32>(0);
+    auto  data          = input.ReadBytes(indexCount);
 
-    for (UInt32 i = 0; i < indexCount; i++)
-    {
-        data.push_back(((isSixteenBits) ? input.ReadUInt16() : input.ReadUInt32()));
-    }
-
-    buffer->SetData(data);
+    buffer->SetData(data.data());
 
     return buffer;
 }

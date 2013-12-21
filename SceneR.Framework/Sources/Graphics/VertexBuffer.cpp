@@ -28,12 +28,16 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-VertexBuffer::VertexBuffer(GraphicsDevice& graphicsDevice)
+VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
+                         , System::UInt32                                       vertexCount
+                         , std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)
     : GraphicsResource(graphicsDevice),
-      vertexCount(0),
+      vertexDeclaration(vertexDeclaration),
+      vertexCount(vertexCount),
       vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw),
       vao()
 {
+    this->vao.DeclareVertexFormat(*this->vertexDeclaration);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -52,28 +56,9 @@ const std::vector<Single>& VertexBuffer::GetData() const
     throw std::runtime_error("Not implemented");
 }
 
-template <>
-void VertexBuffer::SetData(const std::vector<VertexPositionColor>& data)
+void VertexBuffer::SetData(const void* data)
 {
-    VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
-
-    this->BufferData(vDecl, data.size(), data.data());
-}
-
-template <>
-void VertexBuffer::SetData(const std::vector<VertexPositionColorTexture>& data)
-{
-    VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
-
-    this->BufferData(vDecl, data.size(), data.data());
-}
-
-template <>
-void VertexBuffer::SetData(const std::vector<VertexPositionNormalTexture>& data)
-{
-    VertexDeclaration vDecl = VertexPositionNormalTexture::GetVertexDeclaration();
-
-    this->BufferData(vDecl, data.size(), data.data());
+    this->vbo.BufferData(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
 }
 
 void VertexBuffer::Activate()
@@ -86,8 +71,7 @@ void VertexBuffer::Deactivate()
     this->vao.Deactivate();
 }
 
-void VertexBuffer::BufferData(const VertexDeclaration& vDecl, const UInt32& count, const GLvoid* data)
+std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration()
 {
-    this->vao.DeclareVertexFormat(vDecl);
-    this->vbo.BufferData(count * vDecl.ComponentCount() * sizeof(Single), data);
+    return this->vertexDeclaration;
 }

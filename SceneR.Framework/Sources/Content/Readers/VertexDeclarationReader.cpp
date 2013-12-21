@@ -43,5 +43,5 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
     					   , input.ReadUInt32() });	                              // Usage index
     }
 
-    return std::make_shared<VertexDeclaration>(elementCount, vertexStride, elements);
+    return std::make_shared<VertexDeclaration>(vertexStride, elements);
 }

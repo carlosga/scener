@@ -25,7 +25,6 @@ using namespace SceneR::Graphics;
 
 const VertexDeclaration& VertexPositionNormalTexture::Declaration
 {
-    8,
     32,
     {
         VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),

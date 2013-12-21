@@ -52,9 +52,9 @@ const std::vector<UInt32>& IndexBuffer::GetData() const
     throw std::runtime_error("Not implemented");
 }
 
-void IndexBuffer::SetData(const std::vector<UInt32>& data)
+void IndexBuffer::SetData(const void* data)
 {
-    this->ibo.BufferData(data.size() * this->GetElementSizeInBytes(), data.data());
+    this->ibo.BufferData(this->indexCount * this->GetElementSizeInBytes(), data);
 }
 
 void IndexBuffer::Activate() const

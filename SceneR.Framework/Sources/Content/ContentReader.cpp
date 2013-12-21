@@ -37,7 +37,7 @@ ContentReader::ContentReader(const String&                    assetName,
       contentManager(contentManager),
       typeReaderManager(),
       sharedResourceCount(0),
-      fixupActions(0)
+      fixupActions()
 {
     this->ReadHeader();
     this->ReadManifest();
@@ -89,22 +89,6 @@ Vector4 ContentReader::ReadVector4()
 Quaternion ContentReader::ReadQuaternion()
 {
     return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
-}
-
-void ContentReader::ReadSharedResources()
-{
-    for (int i = 0; i < this->sharedResourceCount; i++)
-    {
-        Int32 sharedResourceType = this->Read7BitEncodedInt();
-
-        if (sharedResourceType != 0)
-        {
-            auto t = this->typeReaders[--sharedResourceType];
-            auto x = std::static_pointer_cast<VertexBuffer>(t->Read(*this));
-
-            // this->Fixup(i, x);
-        }
-    }
 }
 
 void ContentReader::ReadHeader()
