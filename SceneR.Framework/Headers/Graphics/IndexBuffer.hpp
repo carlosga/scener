@@ -17,10 +17,10 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
-#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/GraphicsResource.hpp>
 #include <Graphics/IndexElementSize.hpp>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR

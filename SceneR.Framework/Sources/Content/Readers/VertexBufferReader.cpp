@@ -21,7 +21,6 @@
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <System/Core.hpp>
 #include <vector>
 
 using namespace System;

@@ -14,18 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexDeclaration.hpp>
-#include <Graphics/VertexElement.hpp>
-#include <Graphics/VertexPositionColor.hpp>
-#include <Graphics/VertexPositionColorTexture.hpp>
-#include <Graphics/VertexPositionNormalTexture.hpp>
+#include <stdexcept>
 
 using namespace System;
-using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice

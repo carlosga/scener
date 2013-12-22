@@ -18,12 +18,12 @@
 #define VERTEXARRAYOBJECT_HPP
 
 #include <System/Core.hpp>
-#include <Graphics/VertexElementFormat.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        enum class VertexElementFormat : System::UInt32;
         class VertexDeclaration;
 
         /**

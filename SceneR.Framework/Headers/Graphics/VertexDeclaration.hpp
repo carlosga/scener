@@ -18,13 +18,14 @@
 #define VERTEXDECLARATION_HPP
 
 #include <System/Core.hpp>
-#include <Graphics/VertexElement.hpp>
 #include <vector>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class VertexElement;
+
         /**
          * A vertex declaration, which defines per-vertex data.
          */
@@ -42,12 +43,6 @@ namespace SceneR
                               const std::vector<VertexElement>& vertexElements);
 
         public:
-            /**
-             * Gets the total number of components.
-             * @return the total number of components
-             */
-            const System::UInt32& ComponentCount() const;
-
             /**
              * Gets the number of bytes per element.
              * @return the number of bytes per element.

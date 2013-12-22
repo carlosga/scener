@@ -20,7 +20,6 @@
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>
-#include <Graphics/VertexDeclaration.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>

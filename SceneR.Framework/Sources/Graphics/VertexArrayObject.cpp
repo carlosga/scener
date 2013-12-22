@@ -18,6 +18,7 @@
 #include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
+#include <Graphics/VertexElementFormat.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

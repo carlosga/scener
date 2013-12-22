@@ -17,8 +17,8 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/StringReader.hpp>
 #include <System/Core.hpp>
+#include <System/IO/BinaryReader.hpp>
 #include <memory>
-#include <string>
 
 using namespace System;
 using namespace SceneR::Content;

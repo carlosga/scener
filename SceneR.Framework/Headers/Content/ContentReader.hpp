@@ -21,10 +21,8 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
-#include <Graphics/VertexBuffer.hpp>
 #include <functional>
 #include <memory>
-#include <stdexcept>
 #include <vector>
 
 namespace SceneR
@@ -77,13 +75,13 @@ namespace SceneR
                 }
 
                 template <class T>
-                void Subscribe(const std::function<void(const std::shared_ptr<T>&)>& action)
+                void Register(const std::function<void(const std::shared_ptr<T>&)>& action)
                 {
                     this->action = (void*)&action;
                 };
 
                 template <class T>
-                void Publish(const std::shared_ptr<T>& value)
+                void Callback(const std::shared_ptr<T>& value)
                 {
                     std::bind(this->action, value);
                 };
@@ -166,9 +164,7 @@ namespace SceneR
                 }
                 else
                 {
-                    auto reader = this->typeReaders[readerId - 1];
-
-                    return this->ReadObject<T>(reader);
+                    return this->ReadObject<T>(this->typeReaders[readerId - 1]);
                 }
             };
 
@@ -194,7 +190,7 @@ namespace SceneR
                     SharedResourceAction fixupAction;
 
                     fixupAction.Id(sharedResourceId);
-                    fixupAction.Subscribe<T>(fixup);
+                    fixupAction.Register<T>(fixup);
 
                     this->fixupActions.push_back(fixupAction);
                 }
@@ -223,9 +219,6 @@ namespace SceneR
             };
 
         private:
-            void ReadHeader();
-            void ReadManifest();
-
             template <class T>
             void Fixup(System::UInt32 id, const std::shared_ptr<T>& value)
             {
@@ -233,18 +226,21 @@ namespace SceneR
                 {
                     if (fixup.Id() == id)
                     {
-                        fixup.Publish<T>(value);
+                        fixup.Callback<T>(value);
                     }
                 }
             };
 
         private:
-            System::String                   assetName;
-            SceneR::Content::ContentManager& contentManager;
-            ContentTypeReaderManager         typeReaderManager;
-            std::vector<ContentTypeReader*>  typeReaders;
-            System::Int32                    sharedResourceCount;
+            void ReadHeader();
+            void ReadManifest();
 
+        private:
+            System::String                    assetName;
+            SceneR::Content::ContentManager&  contentManager;
+            ContentTypeReaderManager          typeReaderManager;
+            std::vector<ContentTypeReader*>   typeReaders;
+            System::Int32                     sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;
         };
     }

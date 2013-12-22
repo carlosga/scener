@@ -25,7 +25,8 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Ray::Ray(const Vector3& position, const Vector3& direction)
-	: position(position), direction(direction)
+	: position(position),
+	  direction(direction)
 {
 }
 

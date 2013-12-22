@@ -21,13 +21,11 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
 using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
 
 ContentReader::ContentReader(const String&                    assetName,
                              SceneR::Content::ContentManager& contentManager,
@@ -115,8 +113,6 @@ void ContentReader::ReadHeader()
 
 void ContentReader::ReadManifest()
 {
-    // String Type reader name
-    // Int32  Reader version number
     Int32 typeReaderCount = this->Read7BitEncodedInt();
 
     typeReaders.clear();

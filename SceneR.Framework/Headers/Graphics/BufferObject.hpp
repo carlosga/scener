@@ -8,9 +8,6 @@
 #ifndef BUFFEROBJECT_HPP
 #define BUFFEROBJECT_HPP
 
-//#include <GL/glew.h>
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -18,7 +15,7 @@ namespace SceneR
     namespace Graphics
     {
         enum class BufferTarget : System::UInt32;
-        enum class BufferUsage : System::UInt32;
+        enum class BufferUsage  : System::UInt32;
 
         /**
          * Represents an OpenGL buffer object.

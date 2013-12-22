@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/VertexDeclaration.hpp>
+#include <Graphics/VertexElement.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

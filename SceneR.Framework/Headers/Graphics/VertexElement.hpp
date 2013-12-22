@@ -18,13 +18,14 @@
 #define VERTEXELEMENT_HPP
 
 #include <System/Core.hpp>
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        enum class VertexElementFormat : System::UInt32;
+        enum class VertexElementUsage  : System::UInt32;
+
         /**
          * Defines input vertex data.
          */
@@ -34,10 +35,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const System::UInt32&      offset,
-                          const VertexElementFormat& vertexElementFormat,
-                          const VertexElementUsage&  vertexElementUsage,
-                          const System::UInt32&      usageIndex);
+            VertexElement(const System::UInt32&                        offset,
+                          const SceneR::Graphics::VertexElementFormat& vertexElementFormat,
+                          const SceneR::Graphics::VertexElementUsage&  vertexElementUsage,
+                          const System::UInt32&                        usageIndex);
 
         public:
             /**

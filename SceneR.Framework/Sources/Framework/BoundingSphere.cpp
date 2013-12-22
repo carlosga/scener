@@ -22,7 +22,6 @@
 #include <Framework/Ray.hpp>
 #include <Framework/Vector3.hpp>
 #include <stdexcept>
-//#include <vector>
 
 using namespace System;
 using namespace SceneR::Framework;

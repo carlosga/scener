@@ -18,7 +18,8 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Graphics/BasicEffect.hpp>
+#include <Graphics/Effect.hpp>
+#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
