@@ -89,6 +89,41 @@ Quaternion ContentReader::ReadQuaternion()
     return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
+/**
+ * Reads a shared resource ID, and records it for subsequent fix-up.
+ */
+void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup)
+{
+    auto sharedResourceId = this->Read7BitEncodedInt();
+
+    if (sharedResourceId != 0)
+    {
+        this->fixupActions.push_back({ sharedResourceId - 1, std::move(fixup) });
+    }
+};
+
+void ContentReader::ReadSharedResources()
+{
+    for (int i = 0; i < this->sharedResourceCount; i++)
+    {
+        System::Int32 sharedResourceType = this->Read7BitEncodedInt();
+
+        if (sharedResourceType != 0)
+        {
+            auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
+
+            for (auto& fixup : this->fixupActions)
+            {
+                if (fixup.Id() == i)
+                {
+                    fixup.Callback(resource);
+                }
+            }
+        }
+    }
+};
+
+
 void ContentReader::ReadHeader()
 {
     this->ReadByte();   // ‘X’
@@ -102,7 +137,7 @@ void ContentReader::ReadHeader()
     this->ReadUInt32(); // Compressed file size
                         // Total size of the (optionally compressed) .xnb file as stored on disk (including this header block)
 
-    if (false)
+    if (false)  // Compressed files not supported
     {
         this->ReadUInt32(); // Decompressed data size
                             // Only included for compressed .xnb files, where it indicates the expanded size of

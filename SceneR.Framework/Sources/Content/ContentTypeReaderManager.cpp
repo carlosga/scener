@@ -23,7 +23,6 @@
 #include <Content/Readers/Texture2DReader.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
 #include <Content/Readers/VertexDeclarationReader.hpp>
-#include <utility>
 
 using namespace System;
 using namespace SceneR::Content;

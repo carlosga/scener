@@ -53,9 +53,10 @@ namespace SceneR
             struct SharedResourceAction
             {
             public:
-                SharedResourceAction()
-                    : id(0),
-                      action(nullptr)
+                SharedResourceAction(const System::UInt32&                                     sharedResourceId
+                                   , const std::function<void(const std::shared_ptr<void>&)>&& action)
+                    : id(sharedResourceId),
+                      action(std::move(action))
                 {
                 };
 
@@ -64,31 +65,19 @@ namespace SceneR
                 };
 
             public:
-                void Id(const System::UInt32& sharedResourceId)
-                {
-                    this->id = (sharedResourceId - 1);
-                }
-
                 const System::UInt32& Id() const
                 {
                     return this->id;
                 }
 
-                template <class T>
-                void Register(const std::function<void(const std::shared_ptr<T>&)>& action)
+                void Callback(const std::shared_ptr<void>& value)
                 {
-                    this->action = (void*)&action;
-                };
-
-                template <class T>
-                void Callback(const std::shared_ptr<T>& value)
-                {
-                    std::bind(this->action, value);
+                    this->action(value);
                 };
 
             private:
-                System::UInt32 id;
-                void*          action;
+                System::UInt32                                    id;
+                std::function<void(const std::shared_ptr<void>&)> action;
             };
 
         public:
@@ -180,55 +169,13 @@ namespace SceneR
             /**
              * Reads a shared resource ID, and records it for subsequent fix-up.
              */
-            template <class T>
-            void ReadSharedResource(const std::function<void(const std::shared_ptr<T>&)>& fixup)
-            {
-                auto sharedResourceId = this->Read7BitEncodedInt();
-
-                if (sharedResourceId != 0)
-                {
-                    SharedResourceAction fixupAction;
-
-                    fixupAction.Id(sharedResourceId);
-                    fixupAction.Register<T>(fixup);
-
-                    this->fixupActions.push_back(fixupAction);
-                }
-            };
+            void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup);
+            void ReadSharedResources();
 
             template <class T>
             std::shared_ptr<T> ReadExternalReference()
             {
                 throw std::runtime_error("Not implemented");
-            };
-
-            void ReadSharedResources()
-            {
-                for (int i = 0; i < this->sharedResourceCount; i++)
-                {
-                    System::Int32 sharedResourceType = this->Read7BitEncodedInt();
-
-                    if (sharedResourceType != 0)
-                    {
-                        auto resource = this->typeReaders[--sharedResourceType]->Read(*this);
-                        std::string resourceName = typeid(resource).name();
-
-                        // this->Fixup(i, std::static_pointer_cast<SceneR::Graphics::VertexBuffer>(resource));
-                    }
-                }
-            };
-
-        private:
-            template <class T>
-            void Fixup(System::UInt32 id, const std::shared_ptr<T>& value)
-            {
-                for (auto& fixup : this->fixupActions)
-                {
-                    if (fixup.Id() == id)
-                    {
-                        fixup.Callback<T>(value);
-                    }
-                }
             };
 
         private:

@@ -112,24 +112,25 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
             modelMesh->meshParts.push_back(modelMeshPart);
 
-            auto vbc = [=](const std::shared_ptr<VertexBuffer>& vertexBuffer) -> void
-            {
-                modelMeshPart->vertexBuffer = vertexBuffer;
-            };
-
-            auto ibc = [=](const std::shared_ptr<IndexBuffer>& indexBuffer) -> void
-            {
-                modelMeshPart->indexBuffer = indexBuffer;
-            };
-
-            auto ec = [=](const std::shared_ptr<Effect>& effect) -> void
-            {
-                modelMeshPart->effect = effect;
-            };
-
-            input.ReadSharedResource<VertexBuffer>(vbc);
-            input.ReadSharedResource<IndexBuffer>(ibc);
-            input.ReadSharedResource<Effect>(ec);
+            input.ReadSharedResource(
+                [=](const std::shared_ptr<void>& vertexBuffer) -> void
+                {
+                    std::shared_ptr<VertexBuffer> instance = std::static_pointer_cast<VertexBuffer>(vertexBuffer);
+                    modelMeshPart->vertexBuffer = instance;
+                }
+            );
+            input.ReadSharedResource(
+                [=](const std::shared_ptr<void>& indexBuffer) -> void
+                {
+                    modelMeshPart->indexBuffer = std::static_pointer_cast<IndexBuffer>(indexBuffer);
+                }
+            );
+            input.ReadSharedResource(
+                [=](const std::shared_ptr<void>& effect) -> void
+                {
+                    modelMeshPart->effect = std::static_pointer_cast<Effect>(effect);
+                }
+            );
         }
 
         model->meshes.push_back(modelMesh);
