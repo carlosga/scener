@@ -35,10 +35,11 @@ std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
     auto& gdService     = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto  isSixteenBits = input.ReadBoolean();
-    auto  indexCount    = input.ReadUInt32();
+    auto  dataSize      = input.ReadUInt32();
     auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
-    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
-    auto  data          = input.ReadBytes(indexCount);
+    auto  elementBytes  = ((isSixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
+    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, (dataSize / elementBytes));
+    auto  data          = input.ReadBytes(dataSize);
 
     buffer->SetData(data.data());
 
