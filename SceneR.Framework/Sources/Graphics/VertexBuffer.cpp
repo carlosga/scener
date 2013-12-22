@@ -61,6 +61,11 @@ void VertexBuffer::SetData(const void* data)
     this->vbo.BufferData(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
 }
 
+std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration()
+{
+    return this->vertexDeclaration;
+}
+
 void VertexBuffer::Activate()
 {
     this->vao.Activate();
@@ -69,9 +74,4 @@ void VertexBuffer::Activate()
 void VertexBuffer::Deactivate()
 {
     this->vao.Deactivate();
-}
-
-std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration()
-{
-    return this->vertexDeclaration;
 }
