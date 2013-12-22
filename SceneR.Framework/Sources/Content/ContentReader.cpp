@@ -98,7 +98,7 @@ void ContentReader::ReadSharedResource(const std::function<void(const std::share
 
     if (sharedResourceId != 0)
     {
-        this->fixupActions.push_back({ sharedResourceId - 1, std::move(fixup) });
+        this->fixupActions.push_back(SharedResourceAction(sharedResourceId - 1, std::move(fixup)));
     }
 };
 
@@ -122,7 +122,6 @@ void ContentReader::ReadSharedResources()
         }
     }
 };
-
 
 void ContentReader::ReadHeader()
 {

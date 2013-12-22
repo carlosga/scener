@@ -115,8 +115,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             input.ReadSharedResource(
                 [=](const std::shared_ptr<void>& vertexBuffer) -> void
                 {
-                    std::shared_ptr<VertexBuffer> instance = std::static_pointer_cast<VertexBuffer>(vertexBuffer);
-                    modelMeshPart->vertexBuffer = instance;
+                    modelMeshPart->vertexBuffer = std::static_pointer_cast<VertexBuffer>(vertexBuffer);
                 }
             );
             input.ReadSharedResource(
