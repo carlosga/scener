@@ -20,8 +20,14 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 ModelMeshPart::ModelMeshPart()
-    : effect(nullptr),       indexBuffer(nullptr), vertexCount(0), primitiveCount(0), startIndex(0), tag(),
-      vertexBuffer(nullptr), vertexOffset(0)
+    : effect(nullptr),
+      indexBuffer(nullptr),
+      vertexCount(0),
+      primitiveCount(0),
+      startIndex(0),
+      tag(),
+      vertexBuffer(nullptr),
+      vertexOffset(0)
 {
 }
 
@@ -39,7 +45,7 @@ void ModelMeshPart::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effe
     this->effect = effect;
 }
 
-std::shared_ptr<IndexBuffer> ModelMeshPart::IndexBuffer()
+std::shared_ptr<SceneR::Graphics::IndexBuffer> ModelMeshPart::IndexBuffer()
 {
     return this->indexBuffer;
 }
@@ -69,7 +75,7 @@ void ModelMeshPart::Tag(const String& tag)
     this->tag = tag;
 }
 
-std::shared_ptr<VertexBuffer> ModelMeshPart::VertexBuffer()
+std::shared_ptr<SceneR::Graphics::VertexBuffer> ModelMeshPart::VertexBuffer()
 {
     return this->vertexBuffer;
 }

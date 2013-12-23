@@ -65,7 +65,7 @@ namespace SceneR
             /**
              * Gets the index buffer for this mesh part.
              */
-            std::shared_ptr<IndexBuffer> IndexBuffer();
+            std::shared_ptr<SceneR::Graphics::IndexBuffer> IndexBuffer();
 
             /**
              * Gets the number of vertices used during a draw call.
@@ -95,7 +95,7 @@ namespace SceneR
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            std::shared_ptr<VertexBuffer> VertexBuffer();
+            std::shared_ptr<SceneR::Graphics::VertexBuffer> VertexBuffer();
 
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.

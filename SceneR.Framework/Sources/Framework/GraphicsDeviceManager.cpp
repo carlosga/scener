@@ -41,11 +41,11 @@ GraphicsDeviceManager::~GraphicsDeviceManager()
 
 void GraphicsDeviceManager::ApplyChanges()
 {
-    this->graphicsDevice->PresentationParameters().SetBackBufferWidth(this->preferredBackBufferWidth);
-    this->graphicsDevice->PresentationParameters().SetBackBufferHeight(this->preferredBackBufferHeight);
+    this->graphicsDevice->PresentationParameters().BackBufferWidth(this->preferredBackBufferWidth);
+    this->graphicsDevice->PresentationParameters().BackBufferHeight(this->preferredBackBufferHeight);
     this->renderer.Window().Title(this->windowTitle);
     this->renderer.Window().AllowUserResizing(this->allowUserResizing);
-    this->graphicsDevice->PresentationParameters().SetFullScreen(this->fullScreen);
+    this->graphicsDevice->PresentationParameters().FullScreen(this->fullScreen);
     this->graphicsDevice->Viewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
 
     this->graphicsDevice->RasterizerState().Apply();

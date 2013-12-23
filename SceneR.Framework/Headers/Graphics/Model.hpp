@@ -20,7 +20,16 @@
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <System/Core.hpp>
+#include <memory>
 #include <vector>
+
+namespace SceneR
+{
+    namespace Content
+    {
+        class ModelReader;
+    }
+}
 
 namespace SceneR
 {

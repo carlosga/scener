@@ -59,7 +59,7 @@ const Single& Viewport::Height() const
     return this->vHeight;
 }
 
-const Single Viewport::AspectRatio() const
+Single Viewport::AspectRatio() const
 {
     return (this->vWidth / this->vHeight);
 }

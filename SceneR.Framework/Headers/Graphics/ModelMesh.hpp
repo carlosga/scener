@@ -17,11 +17,21 @@
 #ifndef MODELMESH_HPP
 #define MODELMESH_HPP
 
+#include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <System/Core.hpp>
+#include <memory>
 #include <vector>
+
+namespace SceneR
+{
+    namespace Content
+    {
+        class ModelReader;
+    }
+}
 
 namespace SceneR
 {

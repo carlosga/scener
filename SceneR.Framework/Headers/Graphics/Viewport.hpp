@@ -56,7 +56,7 @@ namespace SceneR
             const System::Single& Y() const;
             const System::Single& Width() const;
             const System::Single& Height() const;
-            const System::Single AspectRatio() const;
+            System::Single AspectRatio() const;
             const System::Single& MinDepth() const;
             void MinDepth(const System::Single& minDepth);
             const System::Single& MaxDepth() const;

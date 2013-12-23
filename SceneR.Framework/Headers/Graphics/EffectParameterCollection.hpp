@@ -33,7 +33,7 @@ namespace SceneR
             virtual ~EffectParameterCollection();
 
         public:
-            const System::Size Count() const;
+            System::Size Count() const;
 
         public:
             EffectParameter& operator[](const System::Int32& parameterIndex);

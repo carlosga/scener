@@ -19,7 +19,7 @@ EffectParameterCollection::~EffectParameterCollection()
 {
 }
 
-const System::Size EffectParameterCollection::Count() const
+System::Size EffectParameterCollection::Count() const
 {
     return this->parameters.size();
 }
