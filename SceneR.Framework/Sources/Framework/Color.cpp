@@ -60,7 +60,7 @@ const Single& Color::A() const
     return this->a;
 }
 
-const UInt32 Color::PackedValue() const
+UInt32 Color::PackedValue() const
 {
     return ((static_cast<int>(this->r) * 255) << 24)
          + ((static_cast<int>(this->g) * 255) << 16)

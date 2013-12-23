@@ -94,7 +94,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The angle in degrees needed to rotate this Vector3 into vectorb.
              */
-            static const System::Single AngleBetween(const Vector3& left, const Vector3& right);
+            static System::Single AngleBetween(const Vector3& left, const Vector3& right);
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -138,7 +138,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The cross product of this Vector3 and vectorb.
              */
-            static const Vector3 CrossProduct(const Vector3& left, const Vector3& right);
+            static Vector3 CrossProduct(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates the distance between two vectors.
@@ -156,7 +156,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The dot product of this Vector3 and vectorb.
              */
-            static const System::Single DotProduct(const Vector3& left, const Vector3& right);
+            static System::Single DotProduct(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -268,14 +268,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector3.
              */
-            const System::Single LengthSquared() const;
+            System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Vector3.
              *
              * @return the length of this Vector3.
              */
-            const System::Single Length() const;
+            System::Single Length() const;
 
             /**
              * Negates a Vector3.

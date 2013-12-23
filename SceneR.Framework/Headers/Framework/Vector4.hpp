@@ -206,14 +206,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector4.
              */
-            const System::Single LengthSquared() const;
+            System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Vector4.
              *
              * @return the length of this Vector4.
              */
-            const System::Single Length() const;
+            System::Single Length() const;
 
             /**
              * Negates a Vector4.
@@ -228,7 +228,7 @@ namespace SceneR
              * @param vectorb The second Vector4 structure to evaluate.
              * @return The dot product of this Vector4 and vectorb.
              */
-            const System::Single DotProduct(const Vector4& vectorb) const;
+            System::Single DotProduct(const Vector4& vectorb) const;
 
             /**
              * Normalizes the specified Vector4.

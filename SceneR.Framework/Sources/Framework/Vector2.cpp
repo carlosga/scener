@@ -118,13 +118,13 @@ const Single& Vector2::Y() const
     return this->y;
 }
 
-const Single Vector2::LengthSquared() const
+Single Vector2::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y);
 }
 
-const Single Vector2::Length() const
+Single Vector2::Length() const
 {
     return std::sqrt(this->LengthSquared());
 }

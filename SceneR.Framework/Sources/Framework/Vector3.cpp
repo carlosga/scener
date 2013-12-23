@@ -35,7 +35,7 @@ const Vector3 Vector3::UnitZ(0.0f, 0.0f, 1.0f);
 const Vector3 Vector3::Up(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 
-const Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
+Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
     Single lengthSquared = left.LengthSquared() * right.LengthSquared();
     Single acos          = std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
@@ -72,7 +72,7 @@ Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3&
                  , MathHelper::Clamp(value1.Z(), min.Z(), max.Z()));
 }
 
-const Vector3 Vector3::CrossProduct(const Vector3& left, const Vector3& right)
+Vector3 Vector3::CrossProduct(const Vector3& left, const Vector3& right)
 {
     // The vector cross product in expanded form can be defined as:
     // a x b = (y1z2 - z1y2)i (x1z2 - z1x2)j (x1y2 - y1x2)k
@@ -98,7 +98,7 @@ Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
     return d.LengthSquared();
 }
 
-const Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
+Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
 {
     // The definition of the scalar (dot) product is:
     // a · b = |a||b|cosθ
@@ -199,14 +199,14 @@ const Single& Vector3::Z() const
     return this->z;
 }
 
-const Single Vector3::LengthSquared() const
+Single Vector3::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y)
          + (this->z * this->z);
 }
 
-const Single Vector3::Length() const
+Single Vector3::Length() const
 {
     // The modulus or magnitude of a vector is simply its length.
     // This can easily be found using Pythagorean Theorem with the vector components.

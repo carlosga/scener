@@ -150,7 +150,7 @@ const Single& Vector4::W() const
     return this->w;
 }
 
-const Single Vector4::LengthSquared() const
+Single Vector4::LengthSquared() const
 {
     return   (this->x * this->x)
            + (this->y * this->y)
@@ -158,7 +158,7 @@ const Single Vector4::LengthSquared() const
            + (this->w * this->w);
 }
 
-const Single Vector4::Length() const
+Single Vector4::Length() const
 {
     return std::sqrt(this->LengthSquared());
 }
@@ -168,7 +168,7 @@ void Vector4::Negate()
    (*this *= -1.0f);
 }
 
-const Single Vector4::DotProduct(const Vector4& vectorb) const
+Single Vector4::DotProduct(const Vector4& vectorb) const
 {
     Vector4 dotProduct = *this * vectorb;
 

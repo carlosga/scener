@@ -172,14 +172,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector2.
              */
-            const System::Single LengthSquared() const;
+            System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Vector2.
              *
              * @return the length of this Vector2.
              */
-            const System::Single Length() const;
+            System::Single Length() const;
 
             /**
              * Negates a Vector2.

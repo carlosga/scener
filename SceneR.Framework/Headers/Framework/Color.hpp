@@ -90,7 +90,7 @@ namespace SceneR
             /**
              * Gets the color packed value.
              */
-            const System::UInt32 PackedValue() const;
+            System::UInt32 PackedValue() const;
 
         public:
             System::Single& operator[](const System::Int32& index);

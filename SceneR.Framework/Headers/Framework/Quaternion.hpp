@@ -138,7 +138,7 @@ namespace SceneR
             /**
              * Calculates the quaternion dot product
              */
-            const System::Single DotProduct(const Quaternion& quaternion) const;
+            System::Single DotProduct(const Quaternion& quaternion) const;
 
             /**
              * Replaces a quaternion with its conjugate.
@@ -161,14 +161,14 @@ namespace SceneR
              *
              * @return the square of the length of this Quaternion.
              */
-            const System::Single LengthSquared() const;
+            System::Single LengthSquared() const;
 
             /**
              * Gets the length of this Quaternion.
              *
              * @return the length of this Quaternion.
              */
-            const System::Single Length() const;
+            System::Single Length() const;
 
             /**
              * Normalizes the specified Quaternion.

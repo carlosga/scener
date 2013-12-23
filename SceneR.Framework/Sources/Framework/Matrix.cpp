@@ -448,7 +448,7 @@ bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translatio
     return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
 }
 
-const Single Matrix::Determinant() const
+Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
 

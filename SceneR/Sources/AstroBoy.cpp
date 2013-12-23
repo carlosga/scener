@@ -70,13 +70,13 @@ void AstroBoy::LoadContent()
 {
     this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroBoy");
 
-    for (auto& mesh : this->model->Meshes())
-    {
-        for (auto& meshParth : mesh->MeshParts())
-        {
-            std::cout << System::Text::Unicode::Narrow(meshParth->Tag()) << std::endl;
-        }
-    }
+//    for (auto& mesh : this->model->Meshes())
+//    {
+//        for (auto& meshParth : mesh->MeshParts())
+//        {
+//            std::cout << System::Text::Unicode::Narrow(meshParth->Tag()) << std::endl;
+//        }
+//    }
 }
 
 void AstroBoy::UnloadContent()

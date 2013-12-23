@@ -388,7 +388,7 @@ namespace SceneR
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
-            const System::Single Determinant() const;
+            System::Single Determinant() const;
 
             /**
              * Gets a value that indicates whether this Matrix is invertible.

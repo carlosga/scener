@@ -195,7 +195,7 @@ const Single& Quaternion::W() const
     return this->w;
 }
 
-const Single Quaternion::DotProduct(const Quaternion& quaternion) const
+Single Quaternion::DotProduct(const Quaternion& quaternion) const
 {
     return ((this->x * quaternion.x)
           + (this->y * quaternion.y)
@@ -230,7 +230,7 @@ bool Quaternion::IsIdentity() const
     return (*this == Quaternion::Identity);
 }
 
-const Single Quaternion::LengthSquared() const
+Single Quaternion::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y)
@@ -238,7 +238,7 @@ const Single Quaternion::LengthSquared() const
          + (this->w * this->w);
 }
 
-const Single Quaternion::Length() const
+Single Quaternion::Length() const
 {
     return std::sqrt(this->LengthSquared());
 }
