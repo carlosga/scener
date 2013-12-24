@@ -297,13 +297,16 @@ namespace SceneR
             virtual void OnApply() override;
 
         private:
+            void Initialize();
+
+        private:
             System::Single                    alpha;
             SceneR::Framework::Color          ambientLightColor;
             SceneR::Framework::Color          diffuseColor;
             std::shared_ptr<DirectionalLight> directionalLight0;
             std::shared_ptr<DirectionalLight> directionalLight1;
             std::shared_ptr<DirectionalLight> directionalLight2;
-            System::Boolean                   lightingEnabled;
+            System::Boolean                   enableDefaultLighting;
             SceneR::Framework::Color          emissiveColor;
             System::Boolean                   fogEnabled;
             SceneR::Framework::Color          fogColor;

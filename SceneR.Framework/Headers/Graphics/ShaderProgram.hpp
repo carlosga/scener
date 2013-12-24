@@ -17,10 +17,6 @@
 #ifndef SHADERPROGRAM_HPP
 #define SHADERPROGRAM_HPP
 
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
-#include <Graphics/EffectParameterType.hpp>
-#include <Graphics/Shader.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -39,6 +35,8 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Shader;
+
         /**
          * Represents a shader program.
          */
@@ -78,27 +76,18 @@ namespace SceneR
             const System::String& Name() const;
 
             /**
-             * Gets a collection of parameters used for this effect.
-             */
-            EffectParameterCollection& Parameters();
-
-            /**
              * Gets the location of the shader parameter with the given name within the shader program.
              * @return the location of the shader parameter with the given name within the shader program.
              */
-            const System::Int32 GetParameterLocation(const System::String& parameterName) const;
+            System::Int32 GetParameterLocation(const System::String& parameterName) const;
 
         private:
-            void DescribeParameters();
-            void DescribeUniformBlocks();
             void Release();
             void VerifyLinkingState();
-            void InferParameterClassAndType(const GLenum& type, EffectParameterClass& epClass, EffectParameterType& epType) const;
 
         private:
             System::UInt32                       id;
             std::vector<std::shared_ptr<Shader>> shaders;
-            EffectParameterCollection            parameters;
         };
     }
 }

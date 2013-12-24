@@ -15,19 +15,13 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <System/Core.hpp>
-#include <Framework/RendererWindow.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/PresentationParameters.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <SampleRenderer.hpp>
 #include <memory>
 #include <vector>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
+using namespace SceneR::Framework;
 
 SampleRenderer::SampleRenderer()
     : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content")

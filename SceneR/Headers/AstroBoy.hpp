@@ -35,6 +35,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class BasicEffect;
         class Model;
     }
 }
@@ -59,11 +60,12 @@ namespace SceneR
             virtual void UnloadContent() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Model> model;
-            System::Single                           rotation;
-            SceneR::Framework::Matrix                world;
-            SceneR::Framework::Matrix                view;
-            SceneR::Framework::Matrix                projection;
+            std::shared_ptr<SceneR::Graphics::Model>       model;
+            std::shared_ptr<SceneR::Graphics::BasicEffect> effect;
+            System::Single                                 rotation;
+            SceneR::Framework::Matrix                      world;
+            SceneR::Framework::Matrix                      view;
+            SceneR::Framework::Matrix                      projection;
         };
     }
 }

@@ -30,10 +30,9 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
     : GraphicsResource(graphicsDevice),
       vertexDeclaration(vertexDeclaration),
       vertexCount(vertexCount),
-      vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw),
-      vao()
+      vao(),
+      vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
 {
-    this->vao.DeclareVertexFormat(*this->vertexDeclaration);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -55,6 +54,7 @@ const std::vector<Single>& VertexBuffer::GetData() const
 void VertexBuffer::SetData(const void* data)
 {
     this->vbo.BufferData(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
+    this->vao.DeclareVertexFormat(*this->vertexDeclaration);
 }
 
 std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration()

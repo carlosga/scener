@@ -94,7 +94,7 @@ namespace SceneR
             /**
              * Releases all resources used by the current instance of the ContentReader class.
              */
-            ~ContentReader();
+            virtual ~ContentReader();
 
         public:
             /**
@@ -170,7 +170,6 @@ namespace SceneR
              * Reads a shared resource ID, and records it for subsequent fix-up.
              */
             void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup);
-            void ReadSharedResources();
 
             template <class T>
             std::shared_ptr<T> ReadExternalReference()
@@ -181,6 +180,7 @@ namespace SceneR
         private:
             void ReadHeader();
             void ReadManifest();
+            void ReadSharedResources();
 
         private:
             System::String                    assetName;
@@ -189,6 +189,8 @@ namespace SceneR
             std::vector<ContentTypeReader*>   typeReaders;
             System::Int32                     sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;
+
+            friend class ContentManager;
         };
     }
 }

@@ -16,7 +16,6 @@
 
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
-#include <string>
 
 using namespace System;
 using namespace System::IO;
@@ -46,9 +45,9 @@ int BinaryReader::PeekChar()
     return -1;
 }
 
-char16_t BinaryReader::ReadChar()
+Char BinaryReader::ReadChar()
 {
-    char16_t buffer = this->ReadByte();
+    Char buffer = this->ReadByte();
 
     // http://xbox.create.msdn.com/en-US/sample/xnb_format
     // Decode UTF-8.
@@ -73,17 +72,11 @@ char16_t BinaryReader::ReadChar()
     return buffer;
 }
 
-std::u16string BinaryReader::ReadString()
+String BinaryReader::ReadString()
 {
-    std::u16string buffer;
-    UInt32         length = this->Read7BitEncodedInt();
+    auto buffer = this->ReadBytes(this->Read7BitEncodedInt());
 
-    for (UInt32 i = 0; i < length; i++)
-    {
-        buffer.push_back(this->ReadChar());
-    }
-
-    return buffer;
+    return String(buffer.begin(), buffer.end());
 }
 
 Int32 BinaryReader::Read7BitEncodedInt()

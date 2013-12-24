@@ -17,6 +17,7 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
+#include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
@@ -31,8 +32,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class DirectionalLight;
-        class Effect;
         class ShaderProgram;
 
         /**
@@ -49,18 +48,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
-            EffectParameter(const System::String&       name,
-                            const EffectParameterClass& parameterClass,
-                            const EffectParameterType&  parameterType);
-
-            /**
-             * Initializes a new instance of the EffectParameter class.
-             */
-            EffectParameter(const System::String&                name,
-                            const EffectParameterClass&          parameterClass,
-                            const EffectParameterType&           parameterType,
-                            const System::Int32&                 parameterLocation,
-                            const std::shared_ptr<ShaderProgram> shader);
+            EffectParameter(const System::String&                 name,
+                            const EffectParameterClass&           parameterClass,
+                            const EffectParameterType&            parameterType,
+                            const std::shared_ptr<ShaderProgram>& shaderProgram);
 
             /**
              * Releases all resources being used by this EffectParameter.
@@ -202,16 +193,16 @@ namespace SceneR
             void SetValue(const std::vector<System::Boolean>& value) const;
 
             /**
-             * Gets the value of the EffectParameter as a DirectionalLight.
+             * Sets the value of the EffectParameter as a Color.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const SceneR::Graphics::DirectionalLight& value) const;
+            void SetValue(const SceneR::Framework::Color& value) const;
 
             /**
-             * Gets the value of the EffectParameter as an array of DirectionalLight.
+             * Sets the value of the EffectParameter as an array of Color.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<SceneR::Graphics::DirectionalLight>& value) const;
+            void SetValue(const std::vector<SceneR::Framework::Color>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an System::Int32.
@@ -304,17 +295,15 @@ namespace SceneR
             void SetValue(const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
-            System::Int32                   columnCount;
-            std::vector<EffectParameter>    elements;
-            System::String                  name;
-            EffectParameterClass            parameterClass;
-            EffectParameterType             parameterType;
-            System::Int32                   rowCount;
-            std::vector<EffectParameter>    structureMembers;
-            std::shared_ptr<ShaderProgram>  shader;
-            System::Int32                   parameterLocation;
-
-            friend class Effect;
+            System::Int32                  columnCount;
+            std::vector<EffectParameter>   elements;
+            System::String                 name;
+            EffectParameterClass           parameterClass;
+            EffectParameterType            parameterType;
+            System::Int32                  rowCount;
+            std::vector<EffectParameter>   structureMembers;
+            std::shared_ptr<ShaderProgram> shaderProgram;
+            System::Int32                  parameterLocation;
         };
     }
 }

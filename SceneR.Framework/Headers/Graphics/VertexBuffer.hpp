@@ -78,8 +78,8 @@ namespace SceneR
         private:
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
             System::UInt32                                       vertexCount;
-            BufferObject                                         vbo;
             VertexArrayObject                                    vao;
+            BufferObject                                         vbo;
 
             friend class GraphicsDevice;
         };

@@ -14,13 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/Core.hpp>
 #include <Graphics/Effect.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
-#include <memory>
+#include <Graphics/ShaderType.hpp>
 #include <stdexcept>
+#include <vector>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -29,6 +28,7 @@ Effect::Effect(GraphicsDevice& graphicsDevice,
                const String&   vertexShader,
                const String&   fragmentShader)
     : GraphicsResource(graphicsDevice),
+      parameters(),
       shaderProgram(nullptr)
 {
     auto vShader = std::make_shared<Shader>(vertexShader, ShaderType::Vertex);
@@ -44,6 +44,7 @@ Effect::Effect(GraphicsDevice& graphicsDevice,
 
 Effect::Effect(const Effect& effect)
     : GraphicsResource(effect.graphicsDevice),
+      parameters(effect.parameters),
       shaderProgram(effect.shaderProgram)
 {
 }
@@ -54,7 +55,7 @@ Effect::~Effect()
 
 EffectParameterCollection& Effect::Parameters()
 {
-    return this->shaderProgram->Parameters();
+    return this->parameters;
 }
 
 void Effect::Begin()

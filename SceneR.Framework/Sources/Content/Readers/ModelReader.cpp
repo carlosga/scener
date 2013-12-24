@@ -113,19 +113,19 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             modelMesh->meshParts.push_back(modelMeshPart);
 
             input.ReadSharedResource(
-                [=](const std::shared_ptr<void>& vertexBuffer) -> void
+                [modelMeshPart](const std::shared_ptr<void>& vertexBuffer) -> void
                 {
                     modelMeshPart->vertexBuffer = std::static_pointer_cast<VertexBuffer>(vertexBuffer);
                 }
             );
             input.ReadSharedResource(
-                [=](const std::shared_ptr<void>& indexBuffer) -> void
+                [modelMeshPart](const std::shared_ptr<void>& indexBuffer) -> void
                 {
                     modelMeshPart->indexBuffer = std::static_pointer_cast<IndexBuffer>(indexBuffer);
                 }
             );
             input.ReadSharedResource(
-                [=](const std::shared_ptr<void>& effect) -> void
+                [modelMeshPart](const std::shared_ptr<void>& effect) -> void
                 {
                     modelMeshPart->effect = std::static_pointer_cast<Effect>(effect);
                 }

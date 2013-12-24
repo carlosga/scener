@@ -47,7 +47,7 @@ bool FileStream::CanSeek()
     return true;
 }
 
-bool System::IO::FileStream::CanWrite()
+bool FileStream::CanWrite()
 {
     return ((this->mode & std::ios::out) == std::ios::out);
 }

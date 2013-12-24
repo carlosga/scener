@@ -18,11 +18,9 @@
 #define EFFECT_HPP
 
 #include <Graphics/EffectParameterCollection.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <System/Core.hpp>
 #include <memory>
-#include <vector>
 
 namespace SceneR
 {
@@ -83,6 +81,7 @@ namespace SceneR
             virtual void OnApply() = 0;
 
         protected:
+            EffectParameterCollection      parameters;
             std::shared_ptr<ShaderProgram> shaderProgram;
         };
     }

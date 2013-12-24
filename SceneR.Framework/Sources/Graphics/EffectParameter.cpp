@@ -14,7 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/DirectionalLight.hpp>
+#include <GL/glew.h>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <stdexcept>
@@ -31,23 +31,15 @@ EffectParameter::EffectParameter()
       parameterType(EffectParameterType::Single),
       rowCount(0),
       structureMembers(0),
-      shader(nullptr),
+      shaderProgram(nullptr),
       parameterLocation(-1)
 {
 }
 
-EffectParameter::EffectParameter(const String&               name,
-                                 const EffectParameterClass& parameterClass,
-                                 const EffectParameterType&  parameterType)
-    : EffectParameter(name, parameterClass, parameterType, -1, nullptr)
-{
-}
-
-EffectParameter::EffectParameter(const String&                        name,
-                                 const EffectParameterClass&          parameterClass,
-                                 const EffectParameterType&           parameterType,
-                                 const Int32&                         parameterLocation,
-                                 const std::shared_ptr<ShaderProgram> shader)
+EffectParameter::EffectParameter(const String&                         name,
+                                 const EffectParameterClass&           parameterClass,
+                                 const EffectParameterType&            parameterType,
+                                 const std::shared_ptr<ShaderProgram>& shaderProgram)
     : columnCount(0),
       elements(0),
       name(name),
@@ -55,9 +47,10 @@ EffectParameter::EffectParameter(const String&                        name,
       parameterType(parameterType),
       rowCount(0),
       structureMembers(0),
-      shader(shader),
-      parameterLocation(parameterLocation)
+      shaderProgram(shaderProgram),
+      parameterLocation(-1)
 {
+    this->parameterLocation = this->shaderProgram->GetParameterLocation(this->name);
 }
 
 EffectParameter::~EffectParameter()
@@ -178,7 +171,7 @@ void EffectParameter::SetValue(const Boolean& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
-        throw std::runtime_error("Boolean is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniform1i(this->parameterLocation, value);
@@ -192,16 +185,21 @@ void EffectParameter::SetValue(const std::vector<Boolean>& value) const
     }
 }
 
-void EffectParameter::SetValue(const SceneR::Graphics::DirectionalLight& value) const
+void EffectParameter::SetValue(const Color& value) const
 {
-    throw std::runtime_error("Not implemented");
+    if (this->parameterClass != EffectParameterClass::Vector)
+    {
+        throw std::runtime_error("Invalid effect parameter class.");
+    }
+
+    glUniform4fv(this->parameterLocation, 1, &value[0]);
 }
 
-void EffectParameter::SetValue(const std::vector<SceneR::Graphics::DirectionalLight>& value) const
+void EffectParameter::SetValue(const std::vector<Color>& value) const
 {
-    for (const auto& directionalLight : value)
+    for (const auto& vector : value)
     {
-        this->SetValue(directionalLight);
+        this->SetValue(vector);
     }
 }
 
@@ -209,7 +207,7 @@ void EffectParameter::SetValue(const Int32& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
-        throw std::runtime_error("Int32 is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniform1i(this->parameterLocation, value);
@@ -227,7 +225,7 @@ void EffectParameter::SetValue(const Matrix& value) const
 {
     if (this->parameterClass != EffectParameterClass::Matrix)
     {
-        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniformMatrix4fv(this->parameterLocation, 1, GL_FALSE, &value[0]);
@@ -245,7 +243,7 @@ void EffectParameter::SetValueTranspose(const Matrix& value) const
 {
     if (this->parameterClass != EffectParameterClass::Matrix)
     {
-        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     this->SetValue(Matrix::Transpose(value));
@@ -276,7 +274,7 @@ void EffectParameter::SetValue(const Single& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
-        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniform1f(this->parameterLocation, value);
@@ -299,7 +297,7 @@ void EffectParameter::SetValue(const Vector3& value) const
 {
     if (this->parameterClass != EffectParameterClass::Vector)
     {
-        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniform3fv(this->parameterLocation, 1, &value[0]);
@@ -317,7 +315,7 @@ void EffectParameter::SetValue(const Vector4& value) const
 {
     if (this->parameterClass != EffectParameterClass::Vector)
     {
-        throw std::runtime_error("Matrix is not a valid value for the current effect parameter class");
+        throw std::runtime_error("Invalid effect parameter class.");
     }
 
     glUniform4fv(this->parameterLocation, 1, &value[0]);

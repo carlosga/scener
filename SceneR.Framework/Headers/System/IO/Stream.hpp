@@ -29,7 +29,7 @@ namespace System
 		 */
         class Stream
         {
-        protected:
+        public:
 			/**
 			 * Releases all resources being used by this Stream.
 			 */

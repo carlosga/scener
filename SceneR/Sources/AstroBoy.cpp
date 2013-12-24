@@ -21,6 +21,7 @@
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/BasicEffect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Viewport.hpp>
@@ -62,21 +63,17 @@ void AstroBoy::Update(const RenderTime& renderTime)
 void AstroBoy::Draw(const RenderTime& renderTime)
 {
     this->CurrentGraphicsDevice().Clear(Color::Black);
+    this->CurrentGraphicsDevice().Effect(this->effect);
 
     this->model->Draw(this->world, this->view, this->projection);
 }
 
 void AstroBoy::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroBoy");
+    this->model  = this->renderer.Content().Load<Model>(u"AstroBoy/astroBoy");
+    this->effect = std::make_shared<BasicEffect>(this->CurrentGraphicsDevice());
 
-//    for (auto& mesh : this->model->Meshes())
-//    {
-//        for (auto& meshParth : mesh->MeshParts())
-//        {
-//            std::cout << System::Text::Unicode::Narrow(meshParth->Tag()) << std::endl;
-//        }
-//    }
+    this->effect->EnableDefaultLighting();
 }
 
 void AstroBoy::UnloadContent()

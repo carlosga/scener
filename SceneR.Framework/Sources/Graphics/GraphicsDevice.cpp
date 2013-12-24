@@ -16,7 +16,6 @@
 
 #include <Framework/Color.hpp>
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
@@ -81,7 +80,10 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     this->vertexBuffer->Activate();
     this->indexBuffer->Activate();
 
-    glDrawElements(static_cast<GLenum>(primitiveType), numVertices, GL_UNSIGNED_INT, 0);
+    glDrawElements(static_cast<GLenum>(primitiveType),
+                   numVertices,
+                   static_cast<GLenum>(this->indexBuffer->IndexElementSize()),
+                   0);
 
     this->indexBuffer->Deactivate();
     this->vertexBuffer->Deactivate();

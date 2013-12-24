@@ -46,12 +46,14 @@ void ModelMesh::Draw()
     {
         auto graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
-        graphicsDevice.Effect(meshPart->Effect());
+        if (meshPart->Effect() != nullptr)
+        {
+            graphicsDevice.Effect(meshPart->Effect());
+        }
         graphicsDevice.VertexBuffer(meshPart->VertexBuffer());
         graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
-
         graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
-                                             0,
+                                             meshPart->VertexOffset(),
                                              0,
                                              meshPart->VertexCount(),
                                              meshPart->StartIndex(),

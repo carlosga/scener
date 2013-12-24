@@ -28,12 +28,22 @@ namespace SceneR
             EffectParameterCollection();
 
             /**
+             * Initializes a new instance of the EffectParameterCollection class.
+             */
+            EffectParameterCollection(const EffectParameterCollection& parameters);
+
+            /**
              * Releases all resources being used by this EffectParameterCollection.
              */
             virtual ~EffectParameterCollection();
 
         public:
             System::Size Count() const;
+
+            void Add(const System::String&                 name,
+                     const EffectParameterClass&           parameterClass,
+                     const EffectParameterType&            parameterType,
+                     const std::shared_ptr<ShaderProgram>& shaderProgram);
 
         public:
             EffectParameter& operator[](const System::Int32& parameterIndex);
@@ -42,15 +52,7 @@ namespace SceneR
             const EffectParameter& operator[](const System::String& parameterName) const;
 
         private:
-            void Add(const System::String&       name,
-                     const EffectParameterClass& parameterClass,
-                     const EffectParameterType&  parameterType,
-                     const System::Int32&        parameterLocation);
-
-        private:
             std::vector<EffectParameter> parameters;
-
-            friend class ShaderProgram;
         };
     }
 }

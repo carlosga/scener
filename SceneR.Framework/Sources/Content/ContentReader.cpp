@@ -44,6 +44,9 @@ ContentReader::ContentReader(const String&                    assetName,
 ContentReader::~ContentReader()
 {
     BinaryReader::Close();
+    this->typeReaders.clear();
+    this->sharedResourceCount = 0;
+    this->fixupActions.clear();
 }
 
 String& ContentReader::AssetName()
@@ -89,9 +92,6 @@ Quaternion ContentReader::ReadQuaternion()
     return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
-/**
- * Reads a shared resource ID, and records it for subsequent fix-up.
- */
 void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup)
 {
     auto sharedResourceId = this->Read7BitEncodedInt();
@@ -99,27 +99,6 @@ void ContentReader::ReadSharedResource(const std::function<void(const std::share
     if (sharedResourceId != 0)
     {
         this->fixupActions.push_back(SharedResourceAction(sharedResourceId - 1, std::move(fixup)));
-    }
-};
-
-void ContentReader::ReadSharedResources()
-{
-    for (int i = 0; i < this->sharedResourceCount; i++)
-    {
-        System::Int32 sharedResourceType = this->Read7BitEncodedInt();
-
-        if (sharedResourceType != 0)
-        {
-            auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
-
-            for (auto& fixup : this->fixupActions)
-            {
-                if (fixup.Id() == i)
-                {
-                    fixup.Callback(resource);
-                }
-            }
-        }
     }
 };
 
@@ -166,4 +145,25 @@ void ContentReader::ReadManifest()
     }
 
     this->sharedResourceCount = this->Read7BitEncodedInt();
+}
+
+void ContentReader::ReadSharedResources()
+{
+    for (int i = 0; i < this->sharedResourceCount; i++)
+    {
+        Int32 sharedResourceType = this->Read7BitEncodedInt();
+
+        if (sharedResourceType != 0)
+        {
+            auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
+
+            for (auto& fixup : this->fixupActions)
+            {
+                if (fixup.Id() == i)
+                {
+                    fixup.Callback(resource);
+                }
+            }
+        }
+    }
 }

@@ -6,12 +6,17 @@
  */
 
 #include <Graphics/EffectParameterCollection.hpp>
-#include <iostream>
+#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Graphics;
 
 EffectParameterCollection::EffectParameterCollection()
+{
+}
+
+EffectParameterCollection::EffectParameterCollection(const EffectParameterCollection& parameters)
+    : parameters(parameters.parameters)
 {
 }
 
@@ -36,28 +41,18 @@ const EffectParameter& EffectParameterCollection::operator[](const Int32& parame
 
 EffectParameter& EffectParameterCollection::operator[](const String& parameterName)
 {
-    for (auto& p : this->parameters)
+    auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
+                           [&](const EffectParameter& parameter) -> bool
+                           {
+                               return (parameter.Name() == parameterName);
+                           });
+
+    if (it == this->parameters.end())
     {
-        if (p.Name() == parameterName)
-        {
-            return p;
-        }
+        throw std::runtime_error("Parameter not found");
     }
 
-    throw std::runtime_error("Parameter not found");
-
-//    auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
-//                           [&](const EffectParameter& parameter) -> bool
-//                           {
-//                               return parameter.Name() == parameterName;
-//                           });
-//
-//    if (it == this->parameters.end())
-//    {
-//        std::cout << "mal mal" << std::endl;
-//    }
-//
-//    return *it;
+    return *it;
 }
 
 const EffectParameter& EffectParameterCollection::operator[](const String& parameterName) const
@@ -70,16 +65,16 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
 
     if (it == this->parameters.end())
     {
-        std::cout << "mal mal" << std::endl;
+        throw std::runtime_error("Parameter not found");
     }
 
     return *it;
 }
 
-void SceneR::Graphics::EffectParameterCollection::Add(const System::String&       name,
-                                                      const EffectParameterClass& parameterClass,
-                                                      const EffectParameterType&  parameterType,
-                                                      const System::Int32&        parameterLocation)
+void EffectParameterCollection::Add(const System::String&                 name,
+                                    const EffectParameterClass&           parameterClass,
+                                    const EffectParameterType&            parameterType,
+                                    const std::shared_ptr<ShaderProgram>& shaderProgram)
 {
-    this->parameters.push_back(EffectParameter(name, parameterClass, parameterType, parameterLocation, nullptr));
+    this->parameters.push_back({ name, parameterClass, parameterType, shaderProgram });
 }

@@ -20,11 +20,8 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
 #include <System/Core.hpp>
-#include <System/IO/File.hpp>
-#include <System/IO/FileStream.hpp>
-#include <System/IO/Path.hpp>
+#include <System/IO/Stream.hpp>
 #include <memory>
-#include <stdexcept>
 
 namespace SceneR
 {
@@ -53,7 +50,7 @@ namespace SceneR
             /**
              * Releases all resources being used by the ContentManager class.
              */
-            ~ContentManager();
+            virtual ~ContentManager();
 
         public:
             /**
@@ -77,31 +74,29 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> Load(const System::String& assetName) throw(ContentLoadException)
             {
-                std::shared_ptr<T> asset = nullptr;
+                return this->ReadAsset<T>(assetName);
+            };
 
-                try
-                {
-                    auto filename = System::IO::Path::ChangeExtension(assetName, u"xnb");
-                    auto path     = System::IO::Path::Combine(this->rootDirectory, filename);
+        protected:
+            /**
+             * Opens a stream for reading the specified asset.
+             * #param assetName the name of the asset being read.
+             */
+            virtual std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) throw(ContentLoadException);
 
-                    if (!System::IO::File::Exists(path))
-                    {
-                        throw std::runtime_error("the asset file doesn't exists.");
-                    }
+        protected:
+            /**
+             * Low-level worker method that reads asset data.
+             * @param assetName the name of the asset to be loaded from disk.
+             */
+            template <class T>
+            std::shared_ptr<T> ReadAsset(const System::String& assetName) throw(ContentLoadException)
+            {
+                auto          stream = this->OpenStream(assetName);
+                ContentReader reader(assetName, *this, *stream);
+                auto          asset = reader.ReadObject<T>();
 
-                    System::IO::FileStream stream(path);
-                    ContentReader reader(assetName, *this, stream);
-
-                    asset = reader.ReadObject<T>();
-
-                    reader.ReadSharedResources();
-
-                    reader.Close();
-                }
-                catch (const std::exception& e)
-                {
-                    throw ContentLoadException(e.what());
-                }
+                reader.ReadSharedResources();
 
                 return asset;
             };

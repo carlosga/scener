@@ -15,8 +15,12 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
+#include <System/IO/File.hpp>
+#include <System/IO/FileStream.hpp>
+#include <System/IO/Path.hpp>
 
 using namespace System;
+using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
@@ -44,4 +48,17 @@ const String ContentManager::RootDirectory()
 
 void ContentManager::Unload()
 {
+}
+
+std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) throw(ContentLoadException)
+{
+    auto filename = Path::ChangeExtension(assetName, u"xnb");
+    auto path     = Path::Combine(this->rootDirectory, filename);
+
+    if (!File::Exists(path))
+    {
+        throw ContentLoadException("the asset file doesn't exists.");
+    }
+
+    return std::make_shared<FileStream>(path);
 }
