@@ -23,7 +23,7 @@ namespace SceneR
 {
     namespace Framework
     {
-        struct Color;
+        struct Vector3;
     }
 }
 
@@ -48,12 +48,12 @@ namespace SceneR
             /**
              *  Gets the fog color.
              */
-            virtual const SceneR::Framework::Color& FogColor() const = 0;
+            virtual const SceneR::Framework::Vector3& FogColor() const = 0;
 
             /**
              *  Set the fog color.
              */
-            virtual void FogColor(const SceneR::Framework::Color& color) = 0;
+            virtual void FogColor(const SceneR::Framework::Vector3& color) = 0;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.

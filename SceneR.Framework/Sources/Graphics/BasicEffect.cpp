@@ -14,15 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Color.hpp>
 #include <Framework/Vector3.hpp>
-#include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
-#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <System/IO/File.hpp>
-#include <string>
 
 using namespace System;
 using namespace System::IO;
@@ -41,14 +40,14 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
       directionalLight1(nullptr),
       directionalLight2(nullptr),
       enableDefaultLighting(true),
-      emissiveColor(0.0f, 0.0f, 0.0f, 1.0f),
+      emissiveColor(0.0f, 0.0f, 0.0f),
       fogEnabled(false),
-      fogColor(0.0f, 0.0f, 0.0f, 1.0f),
+      fogColor(0.0f, 0.0f, 0.0f),
       fogEnd(0.0f),
       fogStart(0.0f),
       preferPerPixelLighting(false),
       projection(Matrix::Identity),
-      specularColor(0.0f, 0.0f, 0.0f, 1.0f),
+      specularColor(0.0f, 0.0f, 0.0f),
       specularPower(0.0f),
       textureEnabled(true),
       texture(nullptr),
@@ -100,22 +99,22 @@ void BasicEffect::Alpha(const Single& alpha)
     this->alpha = alpha;
 }
 
-const Color& BasicEffect::AmbientLightColor() const
+const Vector3& BasicEffect::AmbientLightColor() const
 {
     return this->ambientLightColor;
 }
 
-void BasicEffect::AmbientLightColor(const Color& ambientLightColor)
+void BasicEffect::AmbientLightColor(const Vector3& ambientLightColor)
 {
     this->ambientLightColor = ambientLightColor;
 }
 
-const Color& BasicEffect::DiffuseColor() const
+const Vector3& BasicEffect::DiffuseColor() const
 {
     return this->diffuseColor;
 }
 
-void BasicEffect::DiffuseColor(const Color& diffuseColor)
+void BasicEffect::DiffuseColor(const Vector3& diffuseColor)
 {
     this->diffuseColor = diffuseColor;
 }
@@ -150,22 +149,22 @@ void BasicEffect::DirectionalLight2(const std::shared_ptr<DirectionalLight>& dir
     this->directionalLight2 = directionalLight2;
 }
 
-const Color& BasicEffect::EmissiveColor() const
+const Vector3& BasicEffect::EmissiveColor() const
 {
     return this->emissiveColor;
 }
 
-void BasicEffect::EmissiveColor(const Color& emissiveColor)
+void BasicEffect::EmissiveColor(const Vector3& emissiveColor)
 {
     this->emissiveColor = emissiveColor;
 }
 
-const Color& BasicEffect::FogColor() const
+const Vector3& BasicEffect::FogColor() const
 {
     return this->fogColor;
 }
 
-void BasicEffect::FogColor(const Color& fogColor)
+void BasicEffect::FogColor(const Vector3& fogColor)
 {
     this->fogColor = fogColor;
 }
@@ -230,12 +229,12 @@ void BasicEffect::Projection(const Matrix& projection)
     this->projection = projection;
 }
 
-const Color& BasicEffect::SpecularColor() const
+const Vector3& BasicEffect::SpecularColor() const
 {
     return this->specularColor;
 }
 
-void BasicEffect::SpecularColor(const Color& specularColor)
+void BasicEffect::SpecularColor(const Vector3& specularColor)
 {
     this->specularColor = specularColor;
 }
@@ -304,9 +303,9 @@ void BasicEffect::EnableDefaultLighting()
 {
     this->enableDefaultLighting = true;
 
-    this->ambientLightColor = Color(0.053f, 0.098f, 0.181f);
-    this->specularColor     = Color(0.0f, 0.0f, 0.0f);
-    this->diffuseColor      = Color(0.64f, 0.64f, 0.64f);
+    this->ambientLightColor = Vector3(0.053f, 0.098f, 0.181f);
+    this->specularColor     = Vector3(0.0f, 0.0f, 0.0f);
+    this->diffuseColor      = Vector3(0.64f, 0.64f, 0.64f);
 
     this->directionalLight0 = std::make_shared<DirectionalLight>();
     this->directionalLight0->Enabled(true);

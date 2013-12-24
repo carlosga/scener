@@ -17,6 +17,7 @@
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
+#include <Content/Readers/BoundingSphereReader.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/IndexBuffer.hpp>
@@ -92,7 +93,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         }
 
         // Mesh bounds
-        modelMesh->boundingSphere = input.ReadObject<BoundingSphere>();
+        modelMesh->boundingSphere = this->ReadBoundingSphere(input);
 
         // Mesh tag
         modelMesh->tag = this->ReadString(input);
@@ -164,4 +165,11 @@ System::String ModelReader::ReadString(ContentReader& input)
     auto value = input.ReadObject<String>();
 
     return ((value == nullptr) ? u"" : *value);
+}
+
+std::shared_ptr<BoundingSphere> ModelReader::ReadBoundingSphere(ContentReader& input)
+{
+    BoundingSphereReader reader;
+
+    return std::static_pointer_cast<BoundingSphere>(reader.Read(input));
 }

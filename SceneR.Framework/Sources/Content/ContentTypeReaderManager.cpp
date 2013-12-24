@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentTypeReaderManager.hpp>
+#include <Content/Readers/BasicEffectReader.hpp>
 #include <Content/Readers/BoundingSphereReader.hpp>
 #include <Content/Readers/EffectMaterialReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
@@ -52,14 +53,15 @@ ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const String& name)
 
 void ContentTypeReaderManager::RegisterKnownTypeReaders()
 {
-    this->RegisterTypeReader<BoundingSphereReader>(u"Microsoft.Xna.Framework.Content.BoundingSphereReader");
-    this->RegisterTypeReader<EffectMaterialReader>(u"Microsoft.Xna.Framework.Content.EffectMaterialReader");
-    this->RegisterTypeReader<IndexBufferReader>(u"Microsoft.Xna.Framework.Content.IndexBufferReader");
-    this->RegisterTypeReader<ModelReader>(u"Microsoft.Xna.Framework.Content.ModelReader");
+    this->RegisterTypeReader<BasicEffectReader>(u"Microsoft.Xna.Framework.Content.BasicEffectReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<BoundingSphereReader>(u"Microsoft.Xna.Framework.Content.BoundingSphereReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<EffectMaterialReader>(u"Microsoft.Xna.Framework.Content.EffectMaterialReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<IndexBufferReader>(u"Microsoft.Xna.Framework.Content.IndexBufferReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<ModelReader>(u"Microsoft.Xna.Framework.Content.ModelReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<StringReader>(u"Microsoft.Xna.Framework.Content.StringReader");
-    this->RegisterTypeReader<Texture2DReader>(u"Microsoft.Xna.Framework.Content.Texture2DReader");
-    this->RegisterTypeReader<VertexBufferReader>(u"Microsoft.Xna.Framework.Content.VertexBufferReader");
-    this->RegisterTypeReader<VertexDeclarationReader>(u"Microsoft.Xna.Framework.Content.VertexDeclarationReader");
+    this->RegisterTypeReader<Texture2DReader>(u"Microsoft.Xna.Framework.Content.Texture2DReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<VertexBufferReader>(u"Microsoft.Xna.Framework.Content.VertexBufferReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<VertexDeclarationReader>(u"Microsoft.Xna.Framework.Content.VertexDeclarationReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
 
     // Built-In Readers
     // Microsoft.Xna.Framework.Content.ByteReader

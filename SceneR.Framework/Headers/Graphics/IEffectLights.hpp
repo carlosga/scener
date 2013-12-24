@@ -18,7 +18,7 @@
 #define IEFFECTLIGHTS_HPP
 
 #include <System/Core.hpp>
-#include <Framework/Color.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/DirectionalLight.hpp>
 #include <memory>
 
@@ -44,12 +44,12 @@ namespace SceneR
             /**
              * Gets the ambient light for the current effect
              */
-            virtual const SceneR::Framework::Color& AmbientLightColor() const = 0;
+            virtual const SceneR::Framework::Vector3& AmbientLightColor() const = 0;
 
             /**
              * Gets the ambient light for the current effect
              */
-            virtual void AmbientLightColor(const SceneR::Framework::Color& ambientLightColor) = 0;
+            virtual void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) = 0;
 
             /**
              * Gets the first directional light

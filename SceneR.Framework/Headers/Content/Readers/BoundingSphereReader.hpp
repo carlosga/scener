@@ -25,9 +25,15 @@ namespace SceneR
     {
         class ContentReader;
 
+        /**
+         * BoundingSphere reader
+         */
         class BoundingSphereReader: public ContentTypeReader
         {
         public:
+            /**
+             * Initializes a new instance of the BoundingSphereReader class.
+             */
             BoundingSphereReader();
 
         public:

@@ -63,17 +63,13 @@ void AstroBoy::Update(const RenderTime& renderTime)
 void AstroBoy::Draw(const RenderTime& renderTime)
 {
     this->CurrentGraphicsDevice().Clear(Color::Black);
-    this->CurrentGraphicsDevice().Effect(this->effect);
 
     this->model->Draw(this->world, this->view, this->projection);
 }
 
 void AstroBoy::LoadContent()
 {
-    this->model  = this->renderer.Content().Load<Model>(u"AstroBoy/astroBoy");
-    this->effect = std::make_shared<BasicEffect>(this->CurrentGraphicsDevice());
-
-    this->effect->EnableDefaultLighting();
+    this->model  = this->renderer.Content().Load<Model>(u"astroboy");
 }
 
 void AstroBoy::UnloadContent()

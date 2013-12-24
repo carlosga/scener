@@ -14,20 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef MODELREADER_HPP
-#define MODELREADER_HPP
+#ifndef BASICEFFECTREADER_HPP
+#define BASICEFFECTREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <System/Core.hpp>
 #include <memory>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        struct BoundingSphere;
-    }
-}
 
 namespace SceneR
 {
@@ -36,28 +27,23 @@ namespace SceneR
         class ContentReader;
 
         /**
-         * Model reader.
+         * BasicEffect reader
          */
-        class ModelReader : public ContentTypeReader
+        class BasicEffectReader: public ContentTypeReader
         {
         public:
             /**
-             * Initializes a new instance of the ModelReader class.
+             * Initializes a new instance of the BasicEffectReader class.
              */
-            ModelReader();
+            BasicEffectReader();
 
         public:
             /**
-             * Reads the model contents from the given ContentReader.
+             * Reads the string contents from the given ContentReader.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
-
-        private:
-            System::UInt32 ReadBoneReference(ContentReader& input, const System::UInt16& boneCount);
-            System::String ReadString(ContentReader& input);
-            std::shared_ptr<SceneR::Framework::BoundingSphere> ReadBoundingSphere(ContentReader& input);
         };
     }
 }
 
-#endif  /* MODELREADER_HPP */
+#endif /* BASICEFFECTREADER_HPP */

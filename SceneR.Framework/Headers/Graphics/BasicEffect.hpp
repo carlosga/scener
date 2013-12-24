@@ -17,7 +17,6 @@
 #ifndef BASICEFFECT_HPP
 #define BASICEFFECT_HPP
 
-#include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/DirectionalLight.hpp>
 #include <Graphics/Effect.hpp>
@@ -79,22 +78,22 @@ namespace SceneR
             /**
              * Gets the ambient light for the current effect
              */
-            virtual const SceneR::Framework::Color& AmbientLightColor() const override;
+            virtual const SceneR::Framework::Vector3& AmbientLightColor() const override;
 
             /**
              * Gets the ambient light for the current effect
              */
-            virtual void AmbientLightColor(const SceneR::Framework::Color& ambientLightColor) override;
+            virtual void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) override;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& DiffuseColor() const;
+            const SceneR::Framework::Vector3& DiffuseColor() const;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            void DiffuseColor(const SceneR::Framework::Color& diffuseColor);
+            void DiffuseColor(const SceneR::Framework::Vector3& diffuseColor);
 
             /**
              * Gets the first directional light
@@ -130,25 +129,25 @@ namespace SceneR
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& EmissiveColor() const;
+            const SceneR::Framework::Vector3& EmissiveColor() const;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void EmissiveColor(const SceneR::Framework::Color& emissiveColor);
+            void EmissiveColor(const SceneR::Framework::Vector3& emissiveColor);
 
             /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual const SceneR::Framework::Color& FogColor() const override;
+            virtual const SceneR::Framework::Vector3& FogColor() const override;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual void FogColor(const SceneR::Framework::Color& fogColor) override;
+            virtual void FogColor(const SceneR::Framework::Vector3& fogColor) override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
@@ -216,13 +215,13 @@ namespace SceneR
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Color& SpecularColor() const;
+            const SceneR::Framework::Vector3& SpecularColor() const;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SpecularColor(const SceneR::Framework::Color& specularColor);
+            void SpecularColor(const SceneR::Framework::Vector3& specularColor);
 
             /**
              * Gets specular power of this effect material.
@@ -301,20 +300,20 @@ namespace SceneR
 
         private:
             System::Single                    alpha;
-            SceneR::Framework::Color          ambientLightColor;
-            SceneR::Framework::Color          diffuseColor;
+            SceneR::Framework::Vector3        ambientLightColor;
+            SceneR::Framework::Vector3        diffuseColor;
             std::shared_ptr<DirectionalLight> directionalLight0;
             std::shared_ptr<DirectionalLight> directionalLight1;
             std::shared_ptr<DirectionalLight> directionalLight2;
             System::Boolean                   enableDefaultLighting;
-            SceneR::Framework::Color          emissiveColor;
+            SceneR::Framework::Vector3        emissiveColor;
             System::Boolean                   fogEnabled;
-            SceneR::Framework::Color          fogColor;
+            SceneR::Framework::Vector3        fogColor;
             System::Single                    fogEnd;
             System::Single                    fogStart;
             System::Boolean                   preferPerPixelLighting;
             SceneR::Framework::Matrix         projection;
-            SceneR::Framework::Color          specularColor;
+            SceneR::Framework::Vector3        specularColor;
             System::Single                    specularPower;
             System::Boolean                   textureEnabled;
             std::shared_ptr<Texture2D>        texture;
