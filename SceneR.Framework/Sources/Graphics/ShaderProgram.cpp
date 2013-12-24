@@ -18,7 +18,6 @@
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Text/Unicode.hpp>
-#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -74,26 +73,26 @@ void ShaderProgram::Build()
     // ... verify program linking
     this->VerifyLinkingState();
 
-    GLint uniformCount = 0;
-    GLsizei bufSize = 0;
-    glGetProgramiv(this->id, GL_ACTIVE_UNIFORMS, &uniformCount);
-    glGetProgramiv(this->id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &bufSize);
-
-    for (Int32 index = 0; index < uniformCount; ++index)
-    {
-        GLsizei length = 0;
-        GLint   size   = 0;
-        GLenum  type   = GL_ZERO;
-        std::vector<char> name(bufSize);
-
-        glGetActiveUniform(this->id, index, bufSize, &length, &size, &type, &name[0]);
-
-        name.resize(length);
-
-        std::string pname(name.begin(), name.end());
-
-        std::cout << "name " << pname << " index " << index << std::endl;
-    }
+//    GLint uniformCount = 0;
+//    GLsizei bufSize = 0;
+//    glGetProgramiv(this->id, GL_ACTIVE_UNIFORMS, &uniformCount);
+//    glGetProgramiv(this->id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &bufSize);
+//
+//    for (Int32 index = 0; index < uniformCount; ++index)
+//    {
+//        GLsizei length = 0;
+//        GLint   size   = 0;
+//        GLenum  type   = GL_ZERO;
+//        std::vector<char> name(bufSize);
+//
+//        glGetActiveUniform(this->id, index, bufSize, &length, &size, &type, &name[0]);
+//
+//        name.resize(length);
+//
+//        std::string pname(name.begin(), name.end());
+//
+//        std::cout << "name " << pname << " index " << index << std::endl;
+//    }
 }
 
 void ShaderProgram::Deactivate() const
@@ -108,7 +107,7 @@ Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 
     if (location == -1)
     {
-        std::cout << "Invalid parameter name " << temp << std::endl;
+        throw std::runtime_error("Unknown parameter with name " + temp);
     }
 
     return location;
