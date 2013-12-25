@@ -14,12 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -69,23 +67,58 @@ void VertexArrayObject::Delete()
 
 void VertexArrayObject::DeclareVertexFormat(const VertexDeclaration& vDecl) const
 {
+    System::UInt32 usageIndex = 0;
+
     // Activate the vertex array object...
     this->Activate();
 
     // ... declare vertex elements
     for (const VertexElement& ve : vDecl.VertexElements())
     {
-        glVertexAttribFormat(ve.UsageIndex(),
+        glVertexAttribFormat(usageIndex,
                              this->GetComponentCount(ve.VertexElementFormat()),
-                             GL_FLOAT,
+                             this->GetComponentType(ve.VertexElementFormat()),
                              false,
                              ve.Offset());
 
-        glEnableVertexAttribArray(ve.UsageIndex());
+        glVertexAttribBinding(usageIndex, 0);
+        glEnableVertexAttribArray(usageIndex++);
     }
 
     // ... and finally deactivate the vertex array object
     this->Deactivate();
+}
+
+GLenum VertexArrayObject::GetComponentType(const VertexElementFormat& vertexFormat) const
+{
+    switch (vertexFormat)
+    {
+        case VertexElementFormat::Single:
+            return GL_FLOAT;
+
+        case VertexElementFormat::Vector2:
+            return GL_FLOAT;
+
+        case VertexElementFormat::Short2:
+        case VertexElementFormat::NormalizedShort2:
+        case VertexElementFormat::HalfVector2:
+            return GL_UNSIGNED_SHORT;
+
+        case VertexElementFormat::Vector3:
+            return GL_FLOAT;
+
+        case VertexElementFormat::Vector4:
+        case VertexElementFormat::Color:
+            return GL_FLOAT;
+
+        case VertexElementFormat::Byte4:
+            return GL_UNSIGNED_BYTE;
+
+        case VertexElementFormat::Short4:
+        case VertexElementFormat::NormalizedShort4:
+        case VertexElementFormat::HalfVector4:
+            return GL_UNSIGNED_SHORT;
+    }
 }
 
 System::UInt32 VertexArrayObject::GetComponentCount(const VertexElementFormat& vertexFormat) const

@@ -22,8 +22,11 @@
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <System/Core.hpp>
+#include <System/IO/Path.hpp>
 
 using namespace System;
+using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
@@ -42,6 +45,8 @@ std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& in
 
     if (assetName.size() > 0)
     {
+        assetName = Path::GetDirectoryName(input.AssetName()) + Path::DirectorySeparator() + assetName;
+
         effect->Texture(input.ContentManager().Load<Texture2D>(assetName));
     }
 

@@ -21,6 +21,7 @@
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <cassert>
 #include <vector>
 
 using namespace System;

@@ -25,12 +25,12 @@ using namespace SceneR::Graphics;
 
 EffectParameter::EffectParameter()
     : columnCount(0),
-      elements(0),
+      elements(),
       name(u""),
       parameterClass(EffectParameterClass::Matrix),
       parameterType(EffectParameterType::Single),
       rowCount(0),
-      structureMembers(0),
+      structureMembers(),
       shaderProgram(nullptr),
       parameterLocation(-1)
 {
@@ -41,12 +41,12 @@ EffectParameter::EffectParameter(const String&                         name,
                                  const EffectParameterType&            parameterType,
                                  const std::shared_ptr<ShaderProgram>& shaderProgram)
     : columnCount(0),
-      elements(0),
+      elements(),
       name(name),
       parameterClass(parameterClass),
       parameterType(parameterType),
       rowCount(0),
-      structureMembers(0),
+      structureMembers(),
       shaderProgram(shaderProgram),
       parameterLocation(-1)
 {
@@ -62,7 +62,7 @@ const Int32& EffectParameter::ColumnCount() const
     return this->columnCount;
 }
 
-const std::vector<EffectParameter>& EffectParameter::Elements() const
+EffectParameterCollection& EffectParameter::Elements()
 {
     return this->elements;
 }
@@ -87,7 +87,7 @@ const Int32& EffectParameter::RowCount() const
     return this->rowCount;
 }
 
-std::vector<EffectParameter>& EffectParameter::StructureMembers()
+EffectParameterCollection& EffectParameter::StructureMembers()
 {
     return this->structureMembers;
 }
@@ -192,7 +192,9 @@ void EffectParameter::SetValue(const Color& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform4fv(this->parameterLocation, 1, &value[0]);
+    Vector3 v(value.R(), value.G(), value.B());
+
+    glUniform3fv(this->parameterLocation, 1, &v[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Color>& value) const

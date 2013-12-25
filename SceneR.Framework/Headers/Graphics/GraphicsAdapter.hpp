@@ -17,6 +17,7 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <System/Core.hpp>
 #include <Graphics/DisplayMode.hpp>

@@ -170,6 +170,11 @@ Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, con
 {
 }
 
+Quaternion::Quaternion(const Vector3& value, const System::Single& w)
+    : x(value.X()), y(value.Y()), z(value.Z()), w(w)
+{
+}
+
 Quaternion::Quaternion(const Quaternion& quaternion)
     : x(quaternion.X()), y(quaternion.Y()), z(quaternion.Z()), w(quaternion.W())
 {

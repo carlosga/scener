@@ -24,6 +24,8 @@ namespace SceneR
     namespace Framework
     {
         struct Matrix;
+        struct Vector2;
+        struct Vector3;
 
         /**
          * Represents an x-, y-, z- and w-coordinate vector.
@@ -151,7 +153,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector4 class.
-             *
              * @param x The X value of the new Vector4 structure.
              * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
@@ -160,7 +161,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector4 class.
-             *
              * @param x The X value of the new Vector4 structure.
              * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
@@ -169,8 +169,28 @@ namespace SceneR
             Vector4(const System::Single& x, const System::Single& y, const System::Single& z, const System::Single& w);
 
             /**
+             * Initializes a new instance of the Vector4 class.
+             * @param w value to initialize each component to.
+             */
+            Vector4(const System::Single& value);
+
+            /**
+             * Initializes a new instance of the Vector4 class.
+             * @param value a vector containing the values to initialize x and y components with.
+             * @param z value for the z-component of the vector.
+             * @param w value for the w-component of the vector.
+             */
+            Vector4(const Vector2& value, const System::Single& z, const System::Single& w);
+
+            /**
+             * Initializes a new instance of the Vector4 class.
+             * @param value a vector containing the values to initialize x, y, and z components with.
+             * @param w value for the w-component of the vector.
+             */
+            Vector4(const Vector3& value, const System::Single& w);
+
+            /**
              * Initializes a new instance of the Vector4 class (Copy constructor)
-             *
              * @param vector The Vector4 to be copied.
              */
             Vector4(const Vector4& vector);

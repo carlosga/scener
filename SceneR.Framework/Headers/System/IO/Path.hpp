@@ -43,6 +43,24 @@ namespace System
             };
 
             /**
+             * Returns the directory information for the specified path string.
+             * @param path the path of a file or directory.
+             */
+            static const System::String GetDirectoryName(const System::String& path)
+            {
+                String::size_type result        = path.find_last_of(Path::DirectorySeparator());
+                String            directoryName = path;
+
+                // Does new_filename.erase(std::string::npos) working here in place of this following test?
+                if (String::npos != result)
+                {
+                    directoryName.erase(result);
+                }
+
+                return directoryName;
+            };
+
+            /**
              * Returns the file name of the specified path string without the extension.
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.

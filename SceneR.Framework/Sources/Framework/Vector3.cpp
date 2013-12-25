@@ -16,6 +16,7 @@
 
 #include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
@@ -176,6 +177,11 @@ Vector3::Vector3()
 
 Vector3::Vector3(const Single& x, const Single& y, const Single& z)
     : x(x), y(y), z(z)
+{
+}
+
+Vector3::Vector3(const Vector2& value, const System::Single& z)
+    : x(value.X()), y(value.Y()), z(z)
 {
 }
 

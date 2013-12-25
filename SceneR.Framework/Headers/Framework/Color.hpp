@@ -23,6 +23,9 @@ namespace SceneR
 {
     namespace Framework
     {
+        struct Vector3;
+        struct Vector4;
+
         /**
          * Describes a color in terms of red, green, blue and alpha components.
          */
@@ -50,6 +53,18 @@ namespace SceneR
              * @param a The alpha component value of the color.
              */
             Color(const System::Single& r, const System::Single& g, const System::Single& b, const System::Single& a);
+
+            /**
+             * Initializes a new instance of the Color class.
+             * @param vector A three-component color.
+             */
+            Color(const Vector3& vector);
+
+            /**
+             * Initializes a new instance of the Color class.
+             * @param vector A four-component color.
+             */
+            Color(const Vector4& vector);
 
             /**
              * Initializes a new instance of the Color class (Copy constructor)

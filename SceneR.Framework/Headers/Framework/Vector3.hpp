@@ -24,6 +24,7 @@ namespace SceneR
     namespace Framework
     {
         struct Matrix;
+        struct Vector2;
 
         /**
          * Represents an x-, y-, and z-coordinate vector.
@@ -235,6 +236,13 @@ namespace SceneR
              * @param z The Z value of the new Vector3 structure.
              */
             Vector3(const System::Single& x, const System::Single& y, const System::Single& z);
+
+            /**
+             * Initializes a new instance of the Vector3 class.
+             * @param value a vector containing the values to initialize x and y components with.
+             * @param z value for the z-component of the vector.
+             */
+            Vector3(const Vector2& value, const System::Single& z);
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)

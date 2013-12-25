@@ -94,7 +94,6 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Quaternion class.
-             *
              * @param x    The X value of the new Quaternion structure.
              * @param x    The Y value of the new Quaternion structure.
              * @param z    The Z value of the new Quaternion structure.
@@ -103,8 +102,14 @@ namespace SceneR
             Quaternion(const System::Single& x, const System::Single& y, const System::Single& z, const System::Single& w);
 
             /**
+             * Initializes a new instance of the Quaternion class.
+             * @param value a vector containing the values to initialize x, y, and z components with.
+             * @param w value for the w-component of the vector.
+             */
+            Quaternion(const Vector3& value, const System::Single& w);
+
+            /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
-             *
              * @param vector The Quaternion to be copied.
              */
             Quaternion(const Quaternion& vector);

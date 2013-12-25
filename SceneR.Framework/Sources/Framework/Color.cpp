@@ -15,6 +15,8 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Color.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <cassert>
 
 using namespace System;
@@ -32,6 +34,16 @@ Color::Color(const Single& r, const Single& g, const Single& b)
 
 Color::Color(const Single& r, const Single& g, const Single& b, const Single& a)
     : r(r), g(g), b(b), a(a)
+{
+}
+
+Color::Color(const Vector3& vector)
+    : r(vector.X()), g(vector.Y()), b(vector.Z()), a(1.0)
+{
+}
+
+Color::Color(const Vector4& vector)
+    : r(vector.X()), g(vector.Y()), b(vector.Z()), a(vector.W())
 {
 }
 

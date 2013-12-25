@@ -17,6 +17,7 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
+#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -44,6 +45,7 @@ namespace SceneR
 
         private:
             void Create();
+            GLenum GetComponentType(const VertexElementFormat& vertexFormat) const;
             System::UInt32 GetComponentCount(const VertexElementFormat& vertexFormat) const;
 
         private:

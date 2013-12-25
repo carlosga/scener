@@ -69,7 +69,7 @@ void AstroBoy::Draw(const RenderTime& renderTime)
 
 void AstroBoy::LoadContent()
 {
-    this->model  = this->renderer.Content().Load<Model>(u"astroboy");
+    this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroboy");
 }
 
 void AstroBoy::UnloadContent()

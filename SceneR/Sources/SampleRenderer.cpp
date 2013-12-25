@@ -24,7 +24,7 @@ using namespace SceneR::Sample;
 using namespace SceneR::Framework;
 
 SampleRenderer::SampleRenderer()
-    : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/AstroBoy")
+    : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/")
 {
 }
 

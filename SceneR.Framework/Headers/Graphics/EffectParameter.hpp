@@ -23,7 +23,9 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -56,7 +58,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this EffectParameter.
              */
-            ~EffectParameter();
+            virtual ~EffectParameter();
 
         public:
             /**
@@ -67,7 +69,7 @@ namespace SceneR
             /**
              * Gets the collection of effect parameters.
              */
-            const std::vector<EffectParameter>& Elements() const;
+            EffectParameterCollection& Elements();
 
             /**
              * Gets the name of the parameter.
@@ -92,7 +94,7 @@ namespace SceneR
             /**
              * Gets the collection of structure members.
              */
-            std::vector<EffectParameter>& StructureMembers();
+            EffectParameterCollection& StructureMembers();
 
         public:
             /**
@@ -296,12 +298,12 @@ namespace SceneR
 
         private:
             System::Int32                  columnCount;
-            std::vector<EffectParameter>   elements;
+            EffectParameterCollection      elements;
             System::String                 name;
             EffectParameterClass           parameterClass;
             EffectParameterType            parameterType;
             System::Int32                  rowCount;
-            std::vector<EffectParameter>   structureMembers;
+            EffectParameterCollection      structureMembers;
             std::shared_ptr<ShaderProgram> shaderProgram;
             System::Int32                  parameterLocation;
         };

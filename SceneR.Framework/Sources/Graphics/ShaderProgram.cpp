@@ -18,6 +18,7 @@
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Text/Unicode.hpp>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -86,7 +87,7 @@ Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 
     if (location == -1)
     {
-        // throw std::runtime_error("Unknown parameter with name " + temp);
+        throw std::runtime_error("Unknown parameter with name " + temp);
     }
 
     return location;
