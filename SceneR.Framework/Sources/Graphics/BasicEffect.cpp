@@ -356,7 +356,7 @@ void BasicEffect::OnApply()
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
     this->Parameters()[u"World"].SetValue(worldView);
     this->Parameters()[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
-    this->Parameters()[u"WorldViewProj"].SetValue(worldViewProjection);
+    this->Parameters()[u"WorldViewProj"].SetValue(Matrix::Transpose(worldViewProjection));
 }
 
 void BasicEffect::Initialize()
