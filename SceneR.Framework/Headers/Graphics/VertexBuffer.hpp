@@ -60,7 +60,7 @@ namespace SceneR
             /**
              * Gets the vertex buffer data
              */
-            const std::vector<System::Single>& GetData() const;
+            std::vector<System::UByte> GetData() const;
 
             /**
              * Sets the vertex buffer data

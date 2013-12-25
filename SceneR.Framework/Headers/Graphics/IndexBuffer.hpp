@@ -65,7 +65,7 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            const std::vector<System::UInt32>& GetData() const;
+            std::vector<System::UByte> GetData() const;
 
             /**
              * Sets the indices buffer data

@@ -67,6 +67,14 @@ namespace SceneR
             void Delete();
 
             /**
+             * Gets a subset of data from a buffer object's data store.
+             * @param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
+             * @param size specifies the size in bytes of the data store region being replaced.
+             * @param data specifies a pointer to the new data that will be copied into the data store.
+             */
+            void GetData(const System::Size& offset, const System::Size& size, void *data) const;
+
+            /**
              * Creates and initializes the buffer object data store.
              * @param size specifies the size in bytes of the buffer object's new data store.
              * @param data specifies a pointer to data that will be copied into the data store for initialization,

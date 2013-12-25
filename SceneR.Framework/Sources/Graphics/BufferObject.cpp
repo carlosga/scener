@@ -104,3 +104,12 @@ void BufferObject::Invalidate(const System::Size& offset, const System::Size& le
 {
     glInvalidateBufferSubData(this->id, offset, length);
 }
+
+void BufferObject::GetData(const Size& offset, const Size& size, void* data) const
+{
+    this->Activate();
+
+    glGetBufferSubData(static_cast<GLenum>(this->target), offset, size, data);
+
+    this->Deactivate();
+}

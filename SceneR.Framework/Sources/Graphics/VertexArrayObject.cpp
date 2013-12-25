@@ -75,14 +75,25 @@ void VertexArrayObject::DeclareVertexFormat(const VertexDeclaration& vDecl) cons
     // ... declare vertex elements
     for (const VertexElement& ve : vDecl.VertexElements())
     {
-        glVertexAttribFormat(usageIndex,
-                             this->GetComponentCount(ve.VertexElementFormat()),
-                             this->GetComponentType(ve.VertexElementFormat()),
-                             false,
-                             ve.Offset());
+        UInt32 size = this->GetComponentCount(ve.VertexElementFormat());
+        GLenum type = this->GetComponentType(ve.VertexElementFormat());
+
+        switch (type)
+        {
+            case GL_UNSIGNED_SHORT:
+            case GL_UNSIGNED_BYTE:
+                glVertexAttribIFormat(usageIndex, size, type, ve.Offset());
+                break;
+
+            default:
+                glVertexAttribFormat(usageIndex, size, type, false, ve.Offset());
+                break;
+        }
 
         glVertexAttribBinding(usageIndex, 0);
-        glEnableVertexAttribArray(usageIndex++);
+        glEnableVertexAttribArray(usageIndex);
+
+        usageIndex++;
     }
 
     // ... and finally deactivate the vertex array object

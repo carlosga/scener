@@ -17,7 +17,6 @@
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -47,9 +46,14 @@ const SceneR::Graphics::IndexElementSize& IndexBuffer::IndexElementSize() const
     return this->indexElementSize;
 }
 
-const std::vector<UInt32>& IndexBuffer::GetData() const
+std::vector<UByte> IndexBuffer::GetData() const
 {
-    throw std::runtime_error("Not implemented");
+    UInt32 size = (this->indexCount * this->GetElementSizeInBytes());
+    std::vector<UByte> data(size);
+
+    this->ibo.GetData(0, size, data.data());
+
+    return data;
 }
 
 void IndexBuffer::SetData(const void* data)
