@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
@@ -56,75 +57,17 @@ std::vector<UByte> VertexBuffer::GetData() const
     std::vector<UByte> data(size);
 
     this->vbo.GetData(0, size, data.data());
-//
-//    MemoryStream stream(data);
-//    BinaryReader reader(stream);
-//
-//    for (int i = 0; i < this->vertexCount; i++)
-//    {
-//        for (const VertexElement& ve : this->vertexDeclaration->VertexElements())
-//        {
-//            UInt32 componentCount;
-//
-//            switch (ve.VertexElementFormat())
-//            {
-//                case VertexElementFormat::Single:
-//                    componentCount = 1;
-//                    break;
-//
-//                case VertexElementFormat::Vector2:
-//                case VertexElementFormat::Short2:
-//                case VertexElementFormat::NormalizedShort2:
-//                case VertexElementFormat::HalfVector2:
-//                    componentCount = 2;
-//                    break;
-//
-//                case VertexElementFormat::Vector3:
-//                    componentCount = 3;
-//                    break;
-//
-//                case VertexElementFormat::Vector4:
-//                case VertexElementFormat::Color:
-//                case VertexElementFormat::Byte4:
-//                case VertexElementFormat::Short4:
-//                case VertexElementFormat::NormalizedShort4:
-//                case VertexElementFormat::HalfVector4:
-//                    componentCount = 4;
-//                    break;
-//            }
-//
-//            for (int j = 0; j < componentCount; j++)
-//            {
-//                switch (ve.VertexElementFormat())
-//                {
-//                    case VertexElementFormat::Single:
-//                    case VertexElementFormat::Vector2:
-//                    case VertexElementFormat::Vector3:
-//                    case VertexElementFormat::Color:
-//                    case VertexElementFormat::Vector4:
-//                        std::cout << reader.ReadSingle() << "  ";
-//                        break;
-//
-//                    case VertexElementFormat::Short2:
-//                    case VertexElementFormat::NormalizedShort2:
-//                    case VertexElementFormat::HalfVector2:
-//                    case VertexElementFormat::Short4:
-//                    case VertexElementFormat::NormalizedShort4:
-//                    case VertexElementFormat::HalfVector4:
-//                        std::cout << reader.ReadUInt16() << "  ";
-//                        break;
-//
-//                    case VertexElementFormat::Byte4:
-//                        std::cout << (UInt16)reader.ReadByte() << "  ";
-//                        break;
-//                }
-//            }
-//
-//            std::cout << " || ";
-//        }
-//
-//        std::cout << " || " << std::endl;
-//    }
+
+    return data;
+}
+
+std::vector<UByte> VertexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount)
+{
+    UInt32 offset = (startIndex * this->vertexDeclaration->VertexStride());
+    UInt32 size   = (elementCount * this->vertexDeclaration->VertexStride());
+    std::vector<UByte> data(size);
+
+    this->vbo.GetData(offset, size, data.data());
 
     return data;
 }
@@ -142,13 +85,11 @@ std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclara
 void VertexBuffer::Activate()
 {
     this->vao.Activate();
-
     glBindVertexBuffer(0, this->vbo.Id(), 0, this->vertexDeclaration->VertexStride());
 }
 
 void VertexBuffer::Deactivate()
 {
     glBindVertexBuffer(0, 0, 0, this->vertexDeclaration->VertexStride());
-
     this->vao.Deactivate();
 }

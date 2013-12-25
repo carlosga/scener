@@ -157,6 +157,7 @@ namespace SceneR
             static const Color DarkSalmon;
             static const Color DarkSeaGreen;
             static const Color DarkSlateBlue;
+            static const Color White;
 
         private:
             union

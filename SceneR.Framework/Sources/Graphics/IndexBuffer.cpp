@@ -56,6 +56,17 @@ std::vector<UByte> IndexBuffer::GetData() const
     return data;
 }
 
+std::vector<UByte> IndexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount)
+{
+    UInt32 offset = (startIndex * this->GetElementSizeInBytes());
+    UInt32 size   = (elementCount * this->GetElementSizeInBytes());
+    std::vector<UByte> data(size);
+
+    this->ibo.GetData(offset, size, data.data());
+
+    return data;
+}
+
 void IndexBuffer::SetData(const void* data)
 {
     this->ibo.BufferData(this->indexCount * this->GetElementSizeInBytes(), data);

@@ -63,6 +63,11 @@ namespace SceneR
             std::vector<System::UByte> GetData() const;
 
             /**
+             * Gets the vertex buffer data
+             */
+            std::vector<System::UByte> GetData(const System::Int32& startIndex, const System::Int32& elementCount);
+
+            /**
              * Sets the vertex buffer data
              */
             void SetData(const void* data);

@@ -19,6 +19,7 @@
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
+#include <Graphics/IndexElementSize.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <stdexcept>
 
@@ -75,17 +76,17 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
         throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
     }
 
+    Size offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
+
     this->effect->Begin();
 
     this->vertexBuffer->Activate();
     this->indexBuffer->Activate();
 
-    long offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
-
     glDrawElements(static_cast<GLenum>(primitiveType),
                    numVertices,
                    static_cast<GLenum>(this->indexBuffer->IndexElementSize()),
-                   (const GLvoid*)offset);
+                   (const void *)offset);
 
     this->indexBuffer->Deactivate();
     this->vertexBuffer->Deactivate();

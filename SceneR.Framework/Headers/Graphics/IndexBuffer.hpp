@@ -68,6 +68,11 @@ namespace SceneR
             std::vector<System::UByte> GetData() const;
 
             /**
+             * Gets the indices buffer data
+             */
+            std::vector<System::UByte> GetData(const System::Int32& startIndex, const System::Int32& elementCount);
+
+            /**
              * Sets the indices buffer data
              */
             void SetData(const void* data);

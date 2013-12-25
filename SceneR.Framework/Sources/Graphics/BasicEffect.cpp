@@ -328,10 +328,10 @@ void BasicEffect::EnableDefaultLighting()
 
 void BasicEffect::OnApply()
 {
-    Matrix worldInverseTranspose(this->world);
-    Matrix worldView(this->world * this->view);
     Matrix viewInverse(this->view);
+    Matrix worldView(this->world * this->view);
     Matrix worldViewProjection(worldView * this->projection);
+    Matrix worldInverseTranspose(this->world);
 
     viewInverse.Invert();
     worldInverseTranspose.Invert();
@@ -354,7 +354,7 @@ void BasicEffect::OnApply()
     this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
-    this->Parameters()[u"World"].SetValue(this->world);
+    this->Parameters()[u"World"].SetValue(worldView);
     this->Parameters()[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
     this->Parameters()[u"WorldViewProj"].SetValue(worldViewProjection);
 }

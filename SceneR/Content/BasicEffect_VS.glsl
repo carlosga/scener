@@ -5,8 +5,8 @@
 layout (location = 0) in vec3 VertexPosition;
 layout (location = 1) in vec3 VertexNormal;
 layout (location = 2) in vec3 VertexTextureCoordinate;
-//layout (location = 3) in vec4 BlendIndices;
-//layout (location = 4) in vec4 BlendWeights;
+layout (location = 3) in vec4 BlendIndices;
+layout (location = 4) in vec4 BlendWeights;
 
 //layout (std140, row_major) uniform Parameters   // cbuffer Parameters : register(b0)
 //{
@@ -123,6 +123,5 @@ void main()
     Specular   = vec4(cout.Specular, cout.FogFactor);
     // TexCoord   = VertexTextureCoordinate;
     
-    // gl_Position = PositionPS;
-    gl_Position = vec4(VertexPosition, 1.0) * WorldViewProj;
+    gl_Position = cout.Pos_ps;
 }
