@@ -53,10 +53,10 @@ namespace SceneR
             struct SharedResourceAction
             {
             public:
-                SharedResourceAction(const System::UInt32&                                     sharedResourceId
-                                   , const std::function<void(const std::shared_ptr<void>&)>&& action)
+                SharedResourceAction(const System::UInt32&                                   sharedResourceId
+                                   , const std::function<void(const std::shared_ptr<void>&)>& action)
                     : id(sharedResourceId),
-                      action(std::move(action))
+                      action(action)
                 {
                 };
 
@@ -169,7 +169,7 @@ namespace SceneR
             /**
              * Reads a shared resource ID, and records it for subsequent fix-up.
              */
-            void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup);
+            void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup);
 
             template <class T>
             std::shared_ptr<T> ReadExternalReference()

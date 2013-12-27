@@ -35,9 +35,9 @@ namespace SceneR
         class GraphicsDevice;
         class Texture2D;
 
-        //http://msdn.microsoft.com/en-us/library/bb194916(v=xnagamestudio.40).aspx
         /**
          * Contains a basic rendering effect.
+         * http://msdn.microsoft.com/en-us/library/bb194916(v=xnagamestudio.40).aspx
          */
         class BasicEffect : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {

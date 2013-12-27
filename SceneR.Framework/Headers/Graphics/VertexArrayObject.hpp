@@ -18,13 +18,14 @@
 #define VERTEXARRAYOBJECT_HPP
 
 #include <GL/glew.h>
+#include <Graphics/VertexElementFormat.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        enum class VertexElementFormat : System::UInt32;
+        class BufferObject;
         class VertexDeclaration;
 
         /**
@@ -41,12 +42,13 @@ namespace SceneR
             void Activate() const;
             void Deactivate() const;
             void Delete();
-            void DeclareVertexFormat(const VertexDeclaration& vDecl) const;
+            void ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const;
+            void DeactivateVertexFormat(const VertexDeclaration& vDecl) const;
 
         private:
             void Create();
-            GLenum GetComponentType(const VertexElementFormat& vertexFormat) const;
-            System::UInt32 GetComponentCount(const VertexElementFormat& vertexFormat) const;
+            GLenum GetElementType(const VertexElementFormat& vertexFormat) const;
+            System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
 
         private:
             System::UInt32 id;

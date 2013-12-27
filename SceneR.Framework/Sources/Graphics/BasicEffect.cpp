@@ -33,22 +33,22 @@ String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/proj
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     : Effect(graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource),
-      alpha(0),
-      ambientLightColor(0.053f, 0.098f, 0.181f),
-      diffuseColor(0.64f, 0.64f, 0.64f),
+      alpha(1.0),
+      ambientLightColor(Vector3::Zero),
+      diffuseColor(Vector3::One),
       directionalLight0(nullptr),
       directionalLight1(nullptr),
       directionalLight2(nullptr),
-      enableDefaultLighting(true),
-      emissiveColor(0.0f, 0.0f, 0.0f),
+      enableDefaultLighting(false),
+      emissiveColor(Vector3::Zero),
       fogEnabled(false),
       fogColor(0.0f, 0.0f, 0.0f),
       fogEnd(0.0f),
       fogStart(0.0f),
       preferPerPixelLighting(false),
       projection(Matrix::Identity),
-      specularColor(0.0f, 0.0f, 0.0f),
-      specularPower(0.0f),
+      specularColor(Vector3::Zero),
+      specularPower(16.0f),
       textureEnabled(true),
       texture(nullptr),
       vertexColorEnabled(false),
@@ -301,29 +301,32 @@ void BasicEffect::World(const Matrix& world)
 
 void BasicEffect::EnableDefaultLighting()
 {
+    // http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
+
     this->enableDefaultLighting = true;
 
-    this->ambientLightColor = Vector3(0.053f, 0.098f, 0.181f);
-    this->specularColor     = Vector3(0.0f, 0.0f, 0.0f);
-    this->diffuseColor      = Vector3(0.64f, 0.64f, 0.64f);
-
+    // Key light.
     this->directionalLight0 = std::make_shared<DirectionalLight>();
+    this->directionalLight0->Direction(Vector3(-0.5265408f, -0.5735765f, -0.6275069f));
+    this->directionalLight0->DiffuseColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
+    this->directionalLight0->SpecularColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
     this->directionalLight0->Enabled(true);
-    this->directionalLight0->DiffuseColor(Color(1.0f, 0.96f, 0.81f));
-    this->directionalLight0->Direction(Vector3(-0.52f, -0.57f, -0.62f));
-    this->directionalLight0->SpecularColor(Color(1.0f, 0.96f, 0.81f));
 
+    // Fill light.
     this->directionalLight1 = std::make_shared<DirectionalLight>();
+    this->directionalLight1->Direction(Vector3(0.7198464f, 0.3420201f, 0.6040227f));
+    this->directionalLight1->DiffuseColor(Vector3(0.9647059f, 0.7607844f, 0.4078432f));
+    this->directionalLight1->SpecularColor(Vector3::Zero);
     this->directionalLight1->Enabled(true);
-    this->directionalLight1->DiffuseColor(Color(0.96f, 0.76f, 0.40f));
-    this->directionalLight1->Direction(Vector3(0.71f, 0.34f, 0.60f));
-    this->directionalLight1->SpecularColor(Color(0.0f, 0.0f, 0.0f));
 
+    // Back light.
     this->directionalLight2 = std::make_shared<DirectionalLight>();
+    this->directionalLight2->Direction(Vector3(0.4545195f, -0.7660444f, 0.4545195f));
+    this->directionalLight2->DiffuseColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
+    this->directionalLight2->SpecularColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
     this->directionalLight2->Enabled(true);
-    this->directionalLight2->DiffuseColor(Color(0.32f, 0.36f, 0.39f));
-    this->directionalLight2->Direction(Vector3(0.45f, -0.76f, 0.45f));
-    this->directionalLight2->SpecularColor(Color(0.32f, 0.36f, 0.39f));
+
+    this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
 }
 
 void BasicEffect::OnApply()
@@ -335,34 +338,32 @@ void BasicEffect::OnApply()
 
     viewInverse.Invert();
     worldInverseTranspose.Invert();
-    worldInverseTranspose.Transpose();
 
     Vector3 eyePosition(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
+    Vector3 emissive((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
 
-    this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor(), this->Alpha()));
+    this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor() * this->alpha, this->alpha));
     this->Parameters()[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
     this->Parameters()[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
     this->Parameters()[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
     this->Parameters()[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
     this->Parameters()[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
-    this->Parameters()[u"DirLight1SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+    this->Parameters()[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
     this->Parameters()[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
     this->Parameters()[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
-    this->Parameters()[u"DirLight2SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
-    this->Parameters()[u"EmissiveColor"].SetValue(this->EmissiveColor());
+    this->Parameters()[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+    this->Parameters()[u"EmissiveColor"].SetValue(emissive);
     this->Parameters()[u"EyePosition"].SetValue(eyePosition);
     this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
     this->Parameters()[u"World"].SetValue(worldView);
-    this->Parameters()[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
-    this->Parameters()[u"WorldViewProj"].SetValue(Matrix::Transpose(worldViewProjection));
+    this->Parameters()[u"WorldInverseTranspose"].SetValueTranspose(worldInverseTranspose);
+    this->Parameters()[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
 }
 
 void BasicEffect::Initialize()
 {
-    this->EnableDefaultLighting();
-
     this->Parameters().Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
     this->Parameters().Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
     this->Parameters().Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);

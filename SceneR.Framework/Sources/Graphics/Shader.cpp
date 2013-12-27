@@ -17,7 +17,6 @@
 #include <GL/glew.h>
 #include <Graphics/Shader.hpp>
 #include <System/Text/Unicode.hpp>
-#include <iostream>
 #include <stdexcept>
 
 using namespace System;
@@ -98,8 +97,6 @@ void Shader::VerifyCompilationState()
         }
 
         this->Release();
-
-        std::cout << msg << std::endl;
 
         throw std::runtime_error(msg);
     }

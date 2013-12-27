@@ -86,7 +86,7 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     glDrawElements(static_cast<GLenum>(primitiveType),
                    numVertices,
                    static_cast<GLenum>(this->indexBuffer->IndexElementSize()),
-                   (const void *)offset);
+                   reinterpret_cast<void*>(offset));
 
     this->indexBuffer->Deactivate();
     this->vertexBuffer->Deactivate();

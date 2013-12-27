@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
-#include <Graphics/VertexElementFormat.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -65,33 +65,46 @@ void VertexArrayObject::Delete()
     }
 }
 
-void VertexArrayObject::DeclareVertexFormat(const VertexDeclaration& vDecl) const
+void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const
 {
     System::UInt32 usageIndex = 0;
 
-    // Activate the vertex array object...
-    this->Activate();
+    glBindVertexBuffer(0, vbo.Id(), 0, vDecl.VertexStride());
 
     // ... declare vertex elements
     for (const VertexElement& ve : vDecl.VertexElements())
     {
-        glVertexAttribFormat(usageIndex,
-                             this->GetComponentCount(ve.VertexElementFormat()),
-                             this->GetComponentType(ve.VertexElementFormat()),
-                             false,
-                             ve.Offset());
+        UInt32 elementType  = this->GetElementType(ve.VertexElementFormat());
+        UInt32 elementCount = this->GetElementCount(ve.VertexElementFormat());
 
-        glVertexAttribBinding(usageIndex, 0);
+        if (elementType == GL_FLOAT)
+        {
+            glVertexAttribFormat(usageIndex, elementCount, elementType, false, ve.Offset());
+        }
+        else
+        {
+            glVertexAttribIFormat(usageIndex, elementCount, elementType, ve.Offset());
+        }
+
         glEnableVertexAttribArray(usageIndex);
+        glVertexAttribBinding(usageIndex, 0);
 
         usageIndex++;
     }
-
-    // ... and finally deactivate the vertex array object
-    this->Deactivate();
 }
 
-GLenum VertexArrayObject::GetComponentType(const VertexElementFormat& vertexFormat) const
+void VertexArrayObject::DeactivateVertexFormat(const VertexDeclaration& vDecl) const
+{
+    // ... declare vertex elements
+    for (Size i = 0; i < vDecl.VertexElements().size(); i++)
+    {
+        glDisableVertexAttribArray(i++);
+    }
+
+    glBindVertexBuffer(0, 0, 0, vDecl.VertexStride());
+}
+
+GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat) const
 {
     switch (vertexFormat)
     {
@@ -123,7 +136,7 @@ GLenum VertexArrayObject::GetComponentType(const VertexElementFormat& vertexForm
     }
 }
 
-System::UInt32 VertexArrayObject::GetComponentCount(const VertexElementFormat& vertexFormat) const
+System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& vertexFormat) const
 {
     switch (vertexFormat)
     {

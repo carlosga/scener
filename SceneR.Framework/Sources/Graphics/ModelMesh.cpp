@@ -53,6 +53,7 @@ void ModelMesh::Draw()
 
         graphicsDevice.VertexBuffer(meshPart->VertexBuffer());
         graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
+
         graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
                                              0,
                                              0,

@@ -21,11 +21,8 @@
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-#include <System/IO/BinaryReader.hpp>
-#include <System/IO/MemoryStream.hpp>
 
 using namespace System;
-using namespace System::IO;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
@@ -37,7 +34,6 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
       vao(),
       vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
 {
-    this->vao.DeclareVertexFormat(*this->vertexDeclaration);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -85,11 +81,11 @@ std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclara
 void VertexBuffer::Activate()
 {
     this->vao.Activate();
-    glBindVertexBuffer(0, this->vbo.Id(), 0, this->vertexDeclaration->VertexStride());
+    this->vao.ActivateVertexFormat(this->vbo, *this->vertexDeclaration);
 }
 
 void VertexBuffer::Deactivate()
 {
-    glBindVertexBuffer(0, 0, 0, this->vertexDeclaration->VertexStride());
+    this->vao.DeactivateVertexFormat(*this->vertexDeclaration);
     this->vao.Deactivate();
 }

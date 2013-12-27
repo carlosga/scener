@@ -17,6 +17,7 @@
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
+#include <iostream>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -85,4 +86,16 @@ void IndexBuffer::Deactivate() const
 const UInt32 IndexBuffer::GetElementSizeInBytes() const
 {
     return ((this->indexElementSize == IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
+}
+
+void SceneR::Graphics::IndexBuffer::Dump()
+{
+    auto data = this->GetData();
+
+    for (int i = 0; i < data.size(); i++)
+    {
+        std::cout << (int)data[i];
+    }
+
+    std::cout << std::endl;
 }

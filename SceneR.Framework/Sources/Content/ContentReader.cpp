@@ -92,13 +92,13 @@ Quaternion ContentReader::ReadQuaternion()
     return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
-void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>&& fixup)
+void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup)
 {
     auto sharedResourceId = this->Read7BitEncodedInt();
 
     if (sharedResourceId != 0)
     {
-        this->fixupActions.push_back(SharedResourceAction(sharedResourceId - 1, std::move(fixup)));
+        this->fixupActions.push_back(SharedResourceAction(sharedResourceId - 1, fixup));
     }
 };
 

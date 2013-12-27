@@ -40,6 +40,8 @@ std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& in
     auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto  effect    = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());
 
+    effect->EnableDefaultLighting();
+
     // Pointer to a separate .xnb file which contains an object of type Texture2D
     String assetName = input.ReadString();
 
