@@ -18,6 +18,7 @@
 #define TEXTURE2DREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
+#include <Graphics/SurfaceFormat.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -43,6 +44,9 @@ namespace SceneR
              * Reads the 2D texture contents from the given ContentReader.
              */
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
+
+        private:
+            virtual SceneR::Graphics::SurfaceFormat DecodeFormat(const System::UInt32& format);
         };
     }
 }

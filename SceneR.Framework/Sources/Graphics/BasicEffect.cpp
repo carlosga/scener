@@ -329,6 +329,26 @@ void BasicEffect::EnableDefaultLighting()
     this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
 }
 
+void BasicEffect::Begin()
+{
+    Effect::Begin();
+
+    if (this->textureEnabled)
+    {
+        this->texture->Activate();
+    }
+}
+
+void BasicEffect::End()
+{
+    if (this->textureEnabled)
+    {
+        this->texture->Deactivate();
+    }
+
+    Effect::End();
+}
+
 void BasicEffect::OnApply()
 {
     Matrix viewInverse(this->view);
@@ -357,6 +377,10 @@ void BasicEffect::OnApply()
     //this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
+    if (this->textureEnabled)
+    {
+        this->Parameters()[u"Texture"].SetValue(*this->texture);
+    }
     this->Parameters()[u"World"].SetValue(worldView);
     this->Parameters()[u"WorldInverseTranspose"].SetValueTranspose(worldInverseTranspose);
     this->Parameters()[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
@@ -364,22 +388,23 @@ void BasicEffect::OnApply()
 
 void BasicEffect::Initialize()
 {
-    this->Parameters().Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single, this->shaderProgram);
-    this->Parameters().Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single, this->shaderProgram);
+    this->Parameters().Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shaderProgram);
+    this->Parameters().Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shaderProgram);
+    this->Parameters().Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shaderProgram);
 }

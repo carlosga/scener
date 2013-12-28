@@ -4,8 +4,11 @@
 
 in vec3 PositionWS;
 in vec3 NormalWS;
+in vec3 TexCoord;
 
 layout (location = 0) out vec4 FragColor;
+
+uniform sampler2D Texture;
 
 //layout (std140, row_major) uniform Parameters   // cbuffer Parameters : register(b0)
 //{
@@ -31,13 +34,6 @@ layout (location = 0) out vec4 FragColor;
     uniform vec3  FogColor;                 //          _ps(c0)  _cb(c13);
     uniform vec4  FogVector;                // _vs(c14)          _cb(c14);
 //};
-
-uniform vec4 LightPosition;
-uniform vec3 LightIntensity;
-uniform vec3 Kd;          // Diffuse reflectivity
-uniform vec3 Ka;          // Ambient reflectivity
-uniform vec3 Ks;          // Specular reflectivity
-uniform float Shininess;  // Specular shininess factor
 
 struct ColorPair
 {
@@ -84,10 +80,11 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 
 void main() 
 {
+    vec4      diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
+    vec4      color       = texture(Texture, vec2(TexCoord.xy)) * diffuse;
     vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
     vec3      worldNormal = normalize(NormalWS);
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
-    vec4      color       = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
 
     color.rgb *= lightResult.Diffuse;
     

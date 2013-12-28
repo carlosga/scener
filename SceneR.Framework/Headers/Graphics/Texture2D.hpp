@@ -17,12 +17,10 @@
 #ifndef TEXTURE2D_HPP
 #define TEXTURE2D_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture.hpp>
-#include <Graphics/TextureMipMap.hpp>
-#include <memory>
-#include <vector>
+#include <Graphics/TextureObject.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
@@ -96,11 +94,30 @@ namespace SceneR
              */
             const System::UInt32& Width() const;
 
+            void SetData(const System::UInt32& mipmapLevel, const System::Size& size, const void* data);
+
+        public:
+            /**
+             * Activates the texture object
+             */
+            virtual void Activate() const override;
+
+            /**
+             * Deactivates the texture object
+             */
+            virtual void Deactivate() const override;
+
         private:
-            SurfaceFormat              format;
-            System::UInt32             height;
-            std::vector<TextureMipMap> mipmaps;
-            System::UInt32             width;
+            void DeclareStorage(const System::UInt32& mipMapLevels) const;
+
+        private:
+            SurfaceFormat  format;
+            System::UInt32 height;
+            System::UInt32 mipmapLevels;
+            System::UInt32 mipmapHeight;
+            System::UInt32 mipmapWidth;
+            System::UInt32 width;
+            TextureObject  object;
 
             friend class SceneR::Content::Texture2DReader;
         };

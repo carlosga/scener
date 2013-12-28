@@ -50,6 +50,7 @@ std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& in
         assetName = Path::GetDirectoryName(input.AssetName()) + Path::DirectorySeparator() + assetName;
 
         effect->Texture(input.ContentManager().Load<Texture2D>(assetName));
+        effect->TextureEnabled(true);
     }
 
     // Diffuse color

@@ -291,6 +291,16 @@ namespace SceneR
 
         protected:
             /**
+             * Starts the application of the effect state just prior to rendering the effect.
+             */
+            virtual void Begin() override;
+
+            /**
+             * Ends the application of the effect state just after rendering the effect.
+             */
+            virtual void End() override;
+
+            /**
              * Computes derived parameter values immediately before applying the effect.
              */
             virtual void OnApply() override;

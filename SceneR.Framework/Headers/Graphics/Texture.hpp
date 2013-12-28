@@ -17,10 +17,10 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/SurfaceFormat.hpp>
-#include <memory>
+#include <Graphics/TextureTarget.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
@@ -37,9 +37,7 @@ namespace SceneR
                 /**
                  * Releases all resources being used by this texture.
                  */
-                virtual ~Texture()
-                {
-                };
+                virtual ~Texture();
 
             public:
                 /**
@@ -51,6 +49,17 @@ namespace SceneR
                  * Gets the number of texture levels in a multilevel texture.
                  */
                 virtual const System::Int32 LevelCount() const = 0;
+
+            public:
+                /**
+                 * Activates the texture object
+                 */
+                virtual void Activate() const = 0;
+
+                /**
+                 * Deactivates the texture object
+                 */
+                virtual void Deactivate() const = 0;
 
             protected:
                 Texture(GraphicsDevice& graphicsDevice);

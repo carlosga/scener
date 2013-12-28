@@ -14,48 +14,35 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef TEXTUREMIPMAP_HPP
-#define TEXTUREMIPMAP_HPP
+#ifndef TEXTURETARGET_HPP
+#define TEXTURETARGET_HPP
 
+#include <GL/glew.h>
 #include <System/Core.hpp>
-#include <vector>
-
-namespace SceneR
-{
-    namespace Content
-    {
-        class Texture2DReader;
-    }
-}
 
 namespace SceneR
 {
     namespace Graphics
     {
         /**
-         * Represents a texture mipmap
+         * Declares OpenGL texture targets
          */
-        class TextureMipMap
+        enum class TextureTarget : System::UInt32
         {
-        public:
-            /**
-             * Initializes a new instance of the TextureMipMap class
-             */
-            TextureMipMap();
-
-        public:
-            /**
-             * Gets the mip map data
-             */
-            const std::vector<System::UByte>& Data() const;
-
-        private:
-            std::vector<System::UByte> data;
-
-            friend class SceneR::Content::Texture2DReader;
+            Texture1D                 = GL_TEXTURE_1D,
+            Texture2D                 = GL_TEXTURE_2D,
+            Texture3D                 = GL_TEXTURE_3D,
+            Texture1DArray            = GL_TEXTURE_1D_ARRAY,
+            Texture2DArray            = GL_TEXTURE_2D_ARRAY,
+            TextureRect               = GL_TEXTURE_RECTANGLE,
+            TextureCubeMap            = GL_TEXTURE_CUBE_MAP,
+            TextureCubeMapArray       = GL_TEXTURE_CUBE_MAP_ARRAY,
+            TextureBuffer             = GL_TEXTURE_BUFFER,
+            Texture2DMultiSample      = GL_TEXTURE_2D_MULTISAMPLE,
+            Texture2DMultiSampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
         };
     }
 }
 
 
-#endif  /* TEXTUREMIPMAP_HPP */
+#endif /* TEXTURETARGET_HPP */

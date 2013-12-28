@@ -67,12 +67,12 @@ namespace SceneR
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */
-            void Begin();
+            virtual void Begin();
 
             /**
              * Ends the application of the effect state just after rendering the effect.
              */
-            void End();
+            virtual void End();
 
         protected:
             /**

@@ -14,8 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <Graphics/TextureTarget.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -35,8 +37,11 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice,
     : Texture(graphicsDevice),
       format(format),
       height(height),
-      mipmaps(0),
-      width(width)
+      mipmapLevels(0),
+      mipmapHeight(height),
+      mipmapWidth(width),
+      width(width),
+      object(width, height, format, TextureTarget::Texture2D)
 {
 }
 
@@ -56,10 +61,43 @@ const UInt32& Texture2D::Height() const
 
 const Int32 Texture2D::LevelCount() const
 {
-    return this->mipmaps.size();
+    return this->mipmapLevels;
 }
 
 const UInt32& Texture2D::Width() const
 {
     return this->width;
+}
+
+void Texture2D::SetData(const UInt32& mipmapLevel, const Size& size, const void* data)
+{
+    // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
+    if (this->mipmapWidth == 0)
+    {
+        this->mipmapWidth = 1;
+    }
+    if (this->mipmapHeight == 0)
+    {
+        this->mipmapHeight = 1;
+    }
+
+    this->object.TextureSubImage2D(this->format, mipmapLevel, this->mipmapWidth, this->mipmapHeight, size, data);
+
+    this->mipmapWidth  >>= 1;
+    this->mipmapHeight >>= 1;
+}
+
+void Texture2D::DeclareStorage(const System::UInt32& mipMapLevels) const
+{
+    this->object.DeclareStorage(this->format, mipMapLevels, this->width, this->height);
+}
+
+void Texture2D::Activate() const
+{
+    this->object.Activate();
+}
+
+void Texture2D::Deactivate() const
+{
+    this->object.Deactivate();
 }

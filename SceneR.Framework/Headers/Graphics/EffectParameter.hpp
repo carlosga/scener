@@ -20,12 +20,14 @@
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
+#include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Texture.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -271,6 +273,24 @@ namespace SceneR
              * @param value the value to assign to the EffectParameter.
              */
             void SetValue(const System::String& value) const;
+
+            /**
+             * Sets the value of the EffectParameter as a Texture.
+             * @param value the value to assign to the EffectParameter.
+             */
+            void SetValue(const SceneR::Graphics::Texture& value);
+
+            /**
+             * Sets the value of the EffectParameter as a Vector2.
+             * @param value the value to assign to the EffectParameter.
+             */
+            void SetValue(const SceneR::Framework::Vector2& value);
+
+            /**
+             * Sets the value of the EffectParameter as an array of Vector2.
+             * @param value the value to assign to the EffectParameter.
+             */
+            void SetValue(const std::vector<SceneR::Framework::Vector2>& value);
 
             /**
              * Sets the value of the EffectParameter as a Vector3.

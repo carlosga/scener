@@ -295,6 +295,39 @@ void EffectParameter::SetValue(const String& value) const
     throw std::runtime_error("Not implemented");
 }
 
+void EffectParameter::SetValue(const SceneR::Graphics::Texture& value)
+{
+    if (this->parameterClass != EffectParameterClass::Object)
+    {
+        throw std::runtime_error("Invalid effect parameter class.");
+    }
+
+    glUniform1i(this->parameterLocation, 0);
+}
+
+void EffectParameter::SetValue(const SceneR::Framework::Vector2& value)
+{
+    if (this->parameterClass != EffectParameterClass::Vector)
+    {
+        throw std::runtime_error("Invalid effect parameter class.");
+    }
+
+    glUniform2fv(this->parameterLocation, 1, &value[0]);
+}
+
+void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value)
+{
+    if (this->parameterClass != EffectParameterClass::Vector)
+    {
+        throw std::runtime_error("Invalid effect parameter class.");
+    }
+
+    for (const auto& vector : value)
+    {
+        this->SetValue(vector);
+    }
+}
+
 void EffectParameter::SetValue(const Vector3& value) const
 {
     if (this->parameterClass != EffectParameterClass::Vector)

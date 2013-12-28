@@ -23,3 +23,7 @@ Texture::Texture(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice)
 {
 }
+
+Texture::~Texture()
+{
+}

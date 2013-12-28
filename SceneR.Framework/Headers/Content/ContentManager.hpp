@@ -22,7 +22,6 @@
 #include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
 #include <memory>
-#include <cassert>
 
 namespace SceneR
 {
@@ -98,8 +97,6 @@ namespace SceneR
                 auto          asset = reader.ReadObject<T>();
 
                 reader.ReadSharedResources();
-
-                assert(stream->Position() == stream->Length());
 
                 return asset;
             };
