@@ -18,10 +18,8 @@
 #include <Content/ContentManager.hpp>
 #include <Framework/Color.hpp>
 #include <Framework/MathHelper.hpp>
-#include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/BasicEffect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Viewport.hpp>
@@ -69,7 +67,7 @@ void AstroBoy::Draw(const RenderTime& renderTime)
 
 void AstroBoy::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroboy");
+    this->model = this->renderer.Content().Load<Model>(u"Illidan/Illidan");
 }
 
 void AstroBoy::UnloadContent()

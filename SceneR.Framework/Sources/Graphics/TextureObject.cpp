@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <GL/glew.h>
+#include <Graphics/Texture.hpp>
 #include <Graphics/TextureObject.hpp>
 
 using namespace System;
@@ -37,7 +38,7 @@ TextureObject::~TextureObject()
 
 void TextureObject::Activate() const
 {
-    glActiveTexture(GL_TEXTURE0);
+    // glActiveTexture(GL_TEXTURE0);
     glBindTexture(static_cast<GLenum>(this->target), this->texId);
 }
 
@@ -48,7 +49,7 @@ void TextureObject::Create()
 
 void TextureObject::Deactivate() const
 {
-    glBindTexture(static_cast<GLenum>(this->target), this->texId);
+    glBindTexture(static_cast<GLenum>(this->target), 0);
 }
 
 void TextureObject::Delete()
@@ -56,10 +57,10 @@ void TextureObject::Delete()
     glDeleteTextures(1, &this->texId);
 }
 
-void TextureObject::DeclareStorage(const SurfaceFormat& format,
-                                   const UInt32&        mipMapLevels,
-                                   const UInt32&        width,
-                                   const UInt32&        height) const
+void TextureObject::Declare2DStorage(const SurfaceFormat& format,
+                                     const UInt32&        mipMapLevels,
+                                     const UInt32&        width,
+                                     const UInt32&        height) const
 {
     this->Activate();
 
@@ -81,9 +82,7 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat&  format,
 {
     this->Activate();
 
-    if (format == SurfaceFormat::Dxt1
-     || format == SurfaceFormat::Dxt3
-     || format == SurfaceFormat::Dxt5)
+    if (Texture::IsCompressedSurfaceFormat(format))
     {
         glCompressedTexSubImage2D(static_cast<GLenum>(this->target),
                                   mipMapLevel,

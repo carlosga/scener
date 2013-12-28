@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/TextureTarget.hpp>
@@ -89,7 +88,7 @@ void Texture2D::SetData(const UInt32& mipmapLevel, const Size& size, const void*
 
 void Texture2D::DeclareStorage(const System::UInt32& mipMapLevels) const
 {
-    this->object.DeclareStorage(this->format, mipMapLevels, this->width, this->height);
+    this->object.Declare2DStorage(this->format, mipMapLevels, this->width, this->height);
 }
 
 void Texture2D::Activate() const

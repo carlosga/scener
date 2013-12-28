@@ -19,6 +19,13 @@
 
 using namespace SceneR::Graphics;
 
+System::Boolean Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
+{
+    return (format == SurfaceFormat::Dxt1
+         || format == SurfaceFormat::Dxt3
+         || format == SurfaceFormat::Dxt5);
+}
+
 Texture::Texture(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice)
 {

@@ -46,7 +46,7 @@ namespace SceneR
             virtual std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
-            virtual SceneR::Graphics::SurfaceFormat DecodeFormat(const System::UInt32& format);
+            virtual SceneR::Graphics::SurfaceFormat DecodeFormat(const System::UInt32& format) const;
         };
     }
 }

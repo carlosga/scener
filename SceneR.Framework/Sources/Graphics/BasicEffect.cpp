@@ -381,7 +381,7 @@ void BasicEffect::OnApply()
     {
         this->Parameters()[u"Texture"].SetValue(*this->texture);
     }
-    this->Parameters()[u"World"].SetValue(worldView);
+    this->Parameters()[u"World"].SetValueTranspose(world);
     this->Parameters()[u"WorldInverseTranspose"].SetValueTranspose(worldInverseTranspose);
     this->Parameters()[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
 }

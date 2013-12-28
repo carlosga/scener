@@ -56,7 +56,7 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
     return texture;
 }
 
-SurfaceFormat Texture2DReader::DecodeFormat(const System::UInt32& format)
+SurfaceFormat Texture2DReader::DecodeFormat(const System::UInt32& format) const
 {
     switch (format)
     {

@@ -19,6 +19,7 @@
 
 #include <Framework/DrawableComponent.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/Renderer.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -35,7 +36,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BasicEffect;
         class Model;
     }
 }

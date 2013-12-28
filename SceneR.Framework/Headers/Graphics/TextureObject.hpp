@@ -57,15 +57,27 @@ namespace SceneR
             void Delete();
 
             /**
-             * Defines the texture storage parameters.
+             * Declares the texture storage parameters.
+             * @param mipmapLevels texture mimap count
+             * @param width texture width
+             * @param height texture height
              */
-            void DeclareStorage(const SurfaceFormat& format,
-                               const System::UInt32& mipMapLevels,
-                               const System::UInt32& width,
-                               const System::UInt32& height) const;
+            void Declare2DStorage(const SurfaceFormat&  format,
+                                  const System::UInt32& mipmapLevels,
+                                  const System::UInt32& width,
+                                  const System::UInt32& height) const;
 
+            /**
+             * Adds texture data to the texture object
+             * @param format mipmap format
+             * @param mipmapLevel mipmap level index
+             * @param width mipmap width
+             * @param height mipmap height
+             * @param size mipmap data size
+             * @param data mipmap data
+             */
             void TextureSubImage2D(const SurfaceFormat&  format,
-                                   const System::UInt32& mipMapLevel,
+                                   const System::UInt32& mipmapLevel,
                                    const System::UInt32& width,
                                    const System::UInt32& height,
                                    const System::Size&   size,

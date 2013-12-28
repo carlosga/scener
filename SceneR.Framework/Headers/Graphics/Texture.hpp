@@ -19,7 +19,6 @@
 
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/SurfaceFormat.hpp>
-#include <Graphics/TextureTarget.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -33,6 +32,9 @@ namespace SceneR
          */
         class Texture : public GraphicsResource
         {
+            public:
+                static System::Boolean IsCompressedSurfaceFormat(const SurfaceFormat& format);
+
             public:
                 /**
                  * Releases all resources being used by this texture.

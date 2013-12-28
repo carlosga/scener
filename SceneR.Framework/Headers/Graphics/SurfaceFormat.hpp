@@ -49,19 +49,19 @@ namespace SceneR
              * surface using a DXTn format unless the surface dimensions are multiples of 4.
              * This applies to offscreen-plain surfaces, render targets, 2D textures, cube textures, and volume textures.
              */
-            Dxt1    = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT,
+            Dxt1 = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT,
             /**
              * DXT3 compression texture format. The runtime will not allow an application to create a surface using a DXTn
              * format unless the surface dimensions are multiples of 4. This applies to offscreen-plain surfaces,
              * render targets, 2D textures, cube textures, and volume textures.
              */
-            Dxt3    = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT,
+            Dxt3 = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT,
             /**
              * DXT5 compression texture format. The runtime will not allow an application to create a surface using a DXTn
              * format unless the surface dimensions are multiples of 4. This applies to offscreen-plain surfaces,
              * render targets, 2D textures, cube textures, and volume textures.
              */
-            Dxt5    = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT,
+            Dxt5 = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT,
             /**
              * (Signed format) 16-bit bump-map format using 8 bits each for u and v data.
              */
