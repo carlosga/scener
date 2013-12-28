@@ -354,7 +354,7 @@ void BasicEffect::OnApply()
     this->Parameters()[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
     this->Parameters()[u"EmissiveColor"].SetValue(emissive);
     this->Parameters()[u"EyePosition"].SetValue(eyePosition);
-    this->Parameters()[u"FogVector"].SetValue(Vector4());
+    //this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
     this->Parameters()[u"World"].SetValue(worldView);

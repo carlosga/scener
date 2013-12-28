@@ -23,7 +23,7 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
-      cullMode(CullMode::CullCounterClockwiseFace),
+      cullMode(CullMode::CullClockwiseFace),
       depthBias(0),
       fillMode(FillMode::Solid),
       multiSampleAntiAlias(true),

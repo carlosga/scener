@@ -55,7 +55,7 @@ void ModelMesh::Draw()
         graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
 
         graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
-                                             0,
+                                             meshPart->VertexOffset(),
                                              0,
                                              meshPart->VertexCount(),
                                              meshPart->StartIndex(),
@@ -107,75 +107,3 @@ void ModelMesh::Tag(const String& tag)
 {
     this->tag = tag;
 }
-
-
-//this->vbo.GetData(0, size, data.data());
-//
-//MemoryStream stream(data);
-//BinaryReader reader(stream);
-//
-//for (int i = 0; i < this->vertexCount; i++)
-//{
-//    for (const VertexElement& ve : this->vertexDeclaration->VertexElements())
-//    {
-//        UInt32 componentCount;
-//
-//        switch (ve.VertexElementFormat())
-//        {
-//            case VertexElementFormat::Single:
-//                componentCount = 1;
-//                break;
-//
-//            case VertexElementFormat::Vector2:
-//            case VertexElementFormat::Short2:
-//            case VertexElementFormat::NormalizedShort2:
-//            case VertexElementFormat::HalfVector2:
-//                componentCount = 2;
-//                break;
-//
-//            case VertexElementFormat::Vector3:
-//                componentCount = 3;
-//                break;
-//
-//            case VertexElementFormat::Vector4:
-//            case VertexElementFormat::Color:
-//            case VertexElementFormat::Byte4:
-//            case VertexElementFormat::Short4:
-//            case VertexElementFormat::NormalizedShort4:
-//            case VertexElementFormat::HalfVector4:
-//                componentCount = 4;
-//                break;
-//        }
-//
-//        for (int j = 0; j < componentCount; j++)
-//        {
-//            switch (ve.VertexElementFormat())
-//            {
-//                case VertexElementFormat::Single:
-//                case VertexElementFormat::Vector2:
-//                case VertexElementFormat::Vector3:
-//                case VertexElementFormat::Color:
-//                case VertexElementFormat::Vector4:
-//                    std::cout << reader.ReadSingle() << "  ";
-//                    break;
-//
-//                case VertexElementFormat::Short2:
-//                case VertexElementFormat::NormalizedShort2:
-//                case VertexElementFormat::HalfVector2:
-//                case VertexElementFormat::Short4:
-//                case VertexElementFormat::NormalizedShort4:
-//                case VertexElementFormat::HalfVector4:
-//                    std::cout << reader.ReadUInt16() << "  ";
-//                    break;
-//
-//                case VertexElementFormat::Byte4:
-//                    std::cout << (UInt16)reader.ReadByte() << "  ";
-//                    break;
-//            }
-//        }
-//
-//        std::cout << " || ";
-//    }
-//
-//    std::cout << " || " << std::endl;
-//}
