@@ -49,7 +49,7 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
       projection(Matrix::Identity),
       specularColor(Vector3::Zero),
       specularPower(16.0f),
-      textureEnabled(true),
+      textureEnabled(false),
       texture(nullptr),
       vertexColorEnabled(false),
       view(Matrix::Identity),
