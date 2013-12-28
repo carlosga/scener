@@ -48,6 +48,7 @@ void GraphicsDeviceManager::ApplyChanges()
     this->graphicsDevice->PresentationParameters().FullScreen(this->fullScreen);
     this->graphicsDevice->Viewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
 
+    this->graphicsDevice->BlendState().Apply();
     this->graphicsDevice->RasterizerState().Apply();
     this->graphicsDevice->DepthStencilState().Apply();
 }

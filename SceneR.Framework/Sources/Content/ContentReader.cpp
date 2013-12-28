@@ -21,6 +21,7 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <cassert>
 
 using namespace System;
 using namespace System::IO;
@@ -140,6 +141,8 @@ void ContentReader::ReadManifest()
 
         // Look up and store this type reader implementation class.
         ContentTypeReader* reader = this->typeReaderManager.GetByReaderName(readerName);
+
+        assert(reader != nullptr);
 
         this->typeReaders.push_back(reader);
     }

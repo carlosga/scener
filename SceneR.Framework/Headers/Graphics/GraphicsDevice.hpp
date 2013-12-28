@@ -17,6 +17,7 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
+#include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
@@ -160,6 +161,12 @@ namespace SceneR
             const GraphicsProfile& GetGraphicsProfile() const;
 
             /**
+             * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
+             * The default value is BlendState.Opaque.
+             */
+            SceneR::Graphics::BlendState BlendState();
+
+            /**
              * Gets the depth-stencil state.
              */
             SceneR::Graphics::DepthStencilState& DepthStencilState();
@@ -207,6 +214,7 @@ namespace SceneR
             void Viewport(SceneR::Graphics::Viewport& viewport);
 
         private:
+            SceneR::Graphics::BlendState                    blendState;
             SceneR::Graphics::DepthStencilState             depthStencilState;
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
             GraphicsAdapter                                 graphicsAdapter;
