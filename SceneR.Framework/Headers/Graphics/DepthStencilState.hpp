@@ -17,9 +17,10 @@
 #ifndef DEPTHSTENCILSTATE_HPP
 #define DEPTHSTENCILSTATE_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/CompareFunction.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/StencilOperation.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
@@ -53,6 +54,22 @@ namespace SceneR
             ~DepthStencilState();
 
         public:
+            const StencilOperation& CounterClockwiseStencilDepthBufferFail() const;
+
+            void CounterClockwiseStencilDepthBufferFail(const StencilOperation& counterClockwiseStencilDepthBufferFail);
+
+            const StencilOperation& CounterClockwiseStencilFail() const;
+
+            void CounterClockwiseStencilFail(const StencilOperation& counterClockwiseStencilFail);
+
+            const CompareFunction& CounterClockwiseStencilFunction() const;
+
+            void CounterClockwiseStencilFunction(const CompareFunction& counterClockwiseStencilFunction);
+
+            const StencilOperation& CounterClockwiseStencilPass() const;
+
+            void CounterClockwiseStencilPass(const StencilOperation& counterClockwiseStencilPass);
+
             /**
              * Gets a value indicating where depth buffer is enabled
              */
@@ -83,13 +100,62 @@ namespace SceneR
              */
             void DepthBufferWriteEnable(const System::Boolean& depthBufferWriteEnable);
 
+            const System::Int32& ReferenceStencil() const;
+
+            void ReferenceStencil(const System::Int32& referenceStencil);
+
+            const StencilOperation& StencilDepthBufferFail() const;
+
+            void StencilDepthBufferFail(const StencilOperation& stencilDepthBufferFail);
+
+            const System::Boolean& StencilEnable() const;
+
+            void StencilEnable(const System::Boolean& stencilEnable);
+
+            const StencilOperation& StencilFail() const;
+
+            void StencilFail(const StencilOperation& stencilFail);
+
+            const CompareFunction& StencilFunction() const;
+
+            void StencilFunction(const CompareFunction& stencilFunction);
+
+            const System::Int32& StencilMask() const;
+
+            void StencilMask(const System::Int32& stencilMask);
+
+            const StencilOperation& StencilPass() const;
+
+            void StencilPass(const StencilOperation& stencilPass);
+
+            const System::Int32& StencilWriteMask() const;
+
+            void StencilWriteMask(const System::Int32& stencilWriteMask);
+
+            const System::Boolean& TwoSidedStencilMode() const;
+
+            void TwoSidedStencilMode(const System::Boolean& twoSidedStencilMode);
+
         private:
             void Apply() const;
 
         private:
-            System::Boolean depthBufferEnable;
-            CompareFunction depthBufferFunction;
-            System::Boolean depthBufferWriteEnable;
+            StencilOperation counterClockwiseStencilDepthBufferFail;
+            StencilOperation counterClockwiseStencilFail;
+            CompareFunction  counterClockwiseStencilFunction;
+            StencilOperation counterClockwiseStencilPass;
+            System::Boolean  depthBufferEnable;
+            CompareFunction  depthBufferFunction;
+            System::Boolean  depthBufferWriteEnable;
+            System::Int32    referenceStencil;
+            StencilOperation stencilDepthBufferFail;
+            System::Boolean  stencilEnable;
+            StencilOperation stencilFail;
+            CompareFunction  stencilFunction;
+            System::Int32    stencilMask;
+            StencilOperation stencilPass;
+            System::Int32    stencilWriteMask;
+            System::Boolean  twoSidedStencilMode;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

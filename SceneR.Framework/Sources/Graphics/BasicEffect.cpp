@@ -42,12 +42,12 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
       enableDefaultLighting(false),
       emissiveColor(Vector3::Zero),
       fogEnabled(false),
-      fogColor(0.0f, 0.0f, 0.0f),
-      fogEnd(0.0f),
+      fogColor(Vector3::Zero),
+      fogEnd(1.0f),
       fogStart(0.0f),
       preferPerPixelLighting(false),
       projection(Matrix::Identity),
-      specularColor(Vector3::Zero),
+      specularColor(Vector3::One),
       specularPower(16.0f),
       textureEnabled(false),
       texture(nullptr),
@@ -377,12 +377,14 @@ void BasicEffect::OnApply()
     //this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
+
     if (this->textureEnabled)
     {
         this->Parameters()[u"Texture"].SetValue(*this->texture);
     }
-    this->Parameters()[u"World"].SetValueTranspose(world);
-    this->Parameters()[u"WorldInverseTranspose"].SetValueTranspose(worldInverseTranspose);
+
+    this->Parameters()[u"World"].SetValue(worldView);
+    this->Parameters()[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
     this->Parameters()[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
 }
 

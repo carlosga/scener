@@ -30,10 +30,10 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
       colorBlendFunction(BlendFunction::Add),
       colorDestinationBlend(Blend::Zero),
       colorSourceBlend(Blend::One),
-      colorWriteChannels(ColorWriteChannels::None),
-      colorWriteChannels1(ColorWriteChannels::None),
-      colorWriteChannels2(ColorWriteChannels::None),
-      colorWriteChannels3(ColorWriteChannels::None),
+      colorWriteChannels(ColorWriteChannels::All),
+      colorWriteChannels1(ColorWriteChannels::All),
+      colorWriteChannels2(ColorWriteChannels::All),
+      colorWriteChannels3(ColorWriteChannels::All),
       multiSampleMask(0xffffffff)
 {
 }
@@ -168,11 +168,6 @@ void BlendState::Apply() const
 
     glEnable(GL_BLEND);
 
-    glBlendColor(this->blendFactor.R() / 255,
-                 this->blendFactor.G() / 255,
-                 this->blendFactor.B() / 255,
-                 this->blendFactor.A() / 255);
-
     glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction),
                             static_cast<GLenum>(this->alphaBlendFunction));
 
@@ -180,4 +175,14 @@ void BlendState::Apply() const
                         static_cast<GLenum>(this->colorDestinationBlend),
                         static_cast<GLenum>(this->alphaSourceBlend),
                         static_cast<GLenum>(this->alphaDestinationBlend));
+
+    glColorMask((this->colorWriteChannels & ColorWriteChannels::Red)   == ColorWriteChannels::Red
+              , (this->colorWriteChannels & ColorWriteChannels::Green) == ColorWriteChannels::Green
+              , (this->colorWriteChannels & ColorWriteChannels::Blue)  == ColorWriteChannels::Blue
+              , (this->colorWriteChannels & ColorWriteChannels::Alpha) == ColorWriteChannels::Alpha);
+
+    glBlendColor(this->blendFactor.R() / 255,
+                 this->blendFactor.G() / 255,
+                 this->blendFactor.B() / 255,
+                 this->blendFactor.A() / 255);
 }

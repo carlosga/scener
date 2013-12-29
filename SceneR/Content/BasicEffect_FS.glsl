@@ -59,7 +59,7 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
         lightDiffuse[i]    = mat3(DirLight0DiffuseColor,  DirLight1DiffuseColor,  DirLight2DiffuseColor)[i];
         lightSpecular[i]   = mat3(DirLight0SpecularColor, DirLight1SpecularColor, DirLight2SpecularColor)[i];
         
-        halfVectors[i]     = normalize(eyeVector - lightDirections[i]);
+        halfVectors[i]     = normalize(eyeVector + lightDirections[i]);
     }
         
     vec3 dotL = -lightDirections * worldNormal;
@@ -72,8 +72,8 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 
     ColorPair result;
     
-    result.Diffuse  = (diffuse * lightDiffuse) * DiffuseColor.rgb + EmissiveColor;
-    result.Specular = (specular * lightSpecular) * SpecularColor;
+    result.Diffuse  = (lightDiffuse * diffuse) * DiffuseColor.rgb + EmissiveColor;
+    result.Specular = (lightSpecular * specular) * SpecularColor;    
 
     return result;
 }
@@ -81,8 +81,8 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 void main() 
 {
     vec4      diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
-    vec4      color       = texture(Texture, vec2(TexCoord.xy)) * diffuse;
-    vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
+    vec4      color       = texture(Texture, vec2(TexCoord)) * diffuse;
+    vec3      eyeVector   = normalize(PositionWS.xyz - EyePosition);
     vec3      worldNormal = normalize(NormalWS);
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
 

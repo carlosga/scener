@@ -52,7 +52,7 @@ void ContentManager::Unload()
 
 std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) throw(ContentLoadException)
 {
-    auto filename = Path::ChangeExtension(assetName, u"xnb");
+    auto filename = assetName + u".xnb";
     auto path     = Path::Combine(this->rootDirectory, filename);
 
     if (!File::Exists(path))

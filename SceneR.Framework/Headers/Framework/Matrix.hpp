@@ -134,7 +134,7 @@ namespace SceneR
             /**
              * Builds a perspective projection matrix based on a field of view and returns by value.
              *
-             * @param fieldOfView Field of view in the y direction, in degrees.
+             * @param fieldOfView Field of view in the y direction, in radians.
              * @param aspectRatio Aspect ratio, defined as view space width divided by height.
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.

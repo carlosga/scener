@@ -53,9 +53,9 @@ void AstroBoy::Update(const RenderTime& renderTime)
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationX(90.0f)
                      * Matrix::CreateRotationY(MathHelper::ToDegrees(this->rotation))
-                     * Matrix::CreateTranslation(Vector3(0.0f, -3.0f, -2.0f));
-    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 10.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(45.0f, aspect, 1.0f, 100.0f);
+                     * Matrix::CreateTranslation(Vector3(0.0f, -3.0f, 0.0f));
+    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 10.0f), Vector3::Zero, Vector3::Up);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 1.0f, 100.0f);
 }
 
 void AstroBoy::Draw(const RenderTime& renderTime)

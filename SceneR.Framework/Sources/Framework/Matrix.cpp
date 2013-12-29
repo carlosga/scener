@@ -218,7 +218,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
         throw std::invalid_argument("zNear and zFar should be positive values.");
     }
 
-    Single yScale     = 1.0f / std::tan(MathHelper::ToRadians(fieldOfView / 2));
+    Single yScale     = 1.0f / std::tan(fieldOfView / 2);
     Single xScale     = yScale / aspectRatio;
     Single nearSubFar = zNear - zFar;
 

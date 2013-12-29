@@ -23,12 +23,12 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
-      cullMode(CullMode::CullClockwiseFace),
-      depthBias(0),
+      cullMode(CullMode::CullCounterClockwiseFace),
+      depthBias(0.0f),
       fillMode(FillMode::Solid),
       multiSampleAntiAlias(true),
       scissorTestEnable(false),
-      slopeScaleDepthBias(0)
+      slopeScaleDepthBias(0.0f)
 {
 }
 
@@ -106,7 +106,7 @@ void RasterizerState::Apply() const
     else
     {
         glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        glCullFace(GL_FRONT);
         glFrontFace(static_cast<GLenum>(this->cullMode));
     }
 
@@ -131,7 +131,7 @@ void RasterizerState::Apply() const
     }
 
     // set the scale and units used to calculate depth values if needed
-    if (this->depthBias != 0 || this->slopeScaleDepthBias != 0)
+    if (this->depthBias != 0.0f || this->slopeScaleDepthBias != 0.0f)
     {
         glEnable(GL_POLYGON_OFFSET_FILL);
         glPolygonOffset(this->slopeScaleDepthBias, this->depthBias);
@@ -139,5 +139,15 @@ void RasterizerState::Apply() const
     else
     {
         glDisable(GL_POLYGON_OFFSET_FILL);
+    }
+
+    // Enable multisample
+    if (this->multiSampleAntiAlias)
+    {
+        glEnable(GL_MULTISAMPLE);
+    }
+    else
+    {
+        glDisable(GL_MULTISAMPLE);
     }
 }

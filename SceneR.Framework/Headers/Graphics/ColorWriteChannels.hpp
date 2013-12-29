@@ -26,35 +26,41 @@ namespace SceneR
         enum class ColorWriteChannels : System::UInt32
         {
             /**
-             * All buffer channels.
-             */
-            All = 1,
-            /**
-             * Alpha channel of a buffer.
-             */
-            Alpha = 2,
-            /**
-             * Blue channel of a buffer.
-             */
-            Blue = 4,
-            /**
-             * Green channel of a buffer.
-             */
-            Green = 8,
-            /**
              * No channel selected.
              */
             None = 0,
             /**
+             * Alpha channel of a buffer.
+             */
+            Alpha = 1,
+            /**
+             * Blue channel of a buffer.
+             */
+            Blue = 2,
+            /**
+             * Green channel of a buffer.
+             */
+            Green = 4,
+            /**
              * Red channel of a buffer.
              */
-            Red = 16
+            Red = 8,
+            /**
+             * All buffer channels.
+             */
+            All = Red | Green | Blue | Alpha
         };
 
         inline constexpr ColorWriteChannels
         operator&(ColorWriteChannels left, ColorWriteChannels right)
         {
             return static_cast<ColorWriteChannels>(static_cast<int>(left) & static_cast<int>(right));
+        };
+
+        inline constexpr ColorWriteChannels
+        operator|(ColorWriteChannels left, ColorWriteChannels right)
+        {
+            return static_cast<ColorWriteChannels>(static_cast<int>(left) | static_cast<int>(right));
         };
     }
 }

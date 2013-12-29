@@ -47,14 +47,22 @@ GraphicsDevice::~GraphicsDevice()
 
 void GraphicsDevice::Clear(const Color& color) const
 {
+    Int32 bufferBits = GL_COLOR_BUFFER_BIT;
+
     glClearColor(color.R(), color.G(), color.B(), color.A());
 
     if (this->depthStencilState.DepthBufferEnable())
     {
+        bufferBits |= GL_DEPTH_BUFFER_BIT;
         glClearDepth(1.0f);
     }
+    if (this->depthStencilState.StencilEnable())
+    {
+        bufferBits |= GL_STENCIL_BUFFER_BIT;
+        glClearStencil(1.0);
+    }
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(bufferBits);
 }
 
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
@@ -87,7 +95,7 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType),
                              numVertices,
                              static_cast<GLenum>(this->indexBuffer->IndexElementSize()),
-                             (void*)offset,
+                             reinterpret_cast<void*>(offset),
                              baseVertex);
 
     this->indexBuffer->Deactivate();
