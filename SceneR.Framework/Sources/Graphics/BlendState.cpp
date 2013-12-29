@@ -165,6 +165,7 @@ void BlendState::MultiSampleMask(const UInt32& multiSampleMask)
 void BlendState::Apply() const
 {
     // http://www.opengl.org/wiki/Blending
+
     glEnable(GL_BLEND);
 
     glBlendColor(this->blendFactor.R() / 255,
