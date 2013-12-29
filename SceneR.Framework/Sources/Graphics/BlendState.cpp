@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <GL/glew.h>
 #include <Graphics/BlendState.hpp>
 
 using namespace System;
@@ -23,11 +24,11 @@ using namespace SceneR::Graphics;
 BlendState::BlendState(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
       alphaBlendFunction(BlendFunction::Add),
-      alphaDestinationBlend(Blend::One),
+      alphaDestinationBlend(Blend::Zero),
       alphaSourceBlend(Blend::One),
-      blendFactor(),
+      blendFactor(Color::White),
       colorBlendFunction(BlendFunction::Add),
-      colorDestinationBlend(Blend::One),
+      colorDestinationBlend(Blend::Zero),
       colorSourceBlend(Blend::One),
       colorWriteChannels(ColorWriteChannels::None),
       colorWriteChannels1(ColorWriteChannels::None),
@@ -151,16 +152,31 @@ void BlendState::ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels&
     this->colorWriteChannels3 = colorWriteChannels3;
 }
 
-const Int32& BlendState::MultiSampleMask() const
+const UInt32& BlendState::MultiSampleMask() const
 {
     return multiSampleMask;
 }
 
-void BlendState::MultiSampleMask(const Int32& multiSampleMask)
+void BlendState::MultiSampleMask(const UInt32& multiSampleMask)
 {
     this->multiSampleMask = multiSampleMask;
 }
 
 void BlendState::Apply() const
 {
+    // http://www.opengl.org/wiki/Blending
+    glEnable(GL_BLEND);
+
+    glBlendColor(this->blendFactor.R() / 255,
+                 this->blendFactor.G() / 255,
+                 this->blendFactor.B() / 255,
+                 this->blendFactor.A() / 255);
+
+    glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction),
+                            static_cast<GLenum>(this->alphaBlendFunction));
+
+    glBlendFuncSeparate(static_cast<GLenum>(this->colorSourceBlend),
+                        static_cast<GLenum>(this->colorDestinationBlend),
+                        static_cast<GLenum>(this->alphaSourceBlend),
+                        static_cast<GLenum>(this->alphaDestinationBlend));
 }

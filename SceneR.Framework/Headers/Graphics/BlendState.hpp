@@ -44,6 +44,29 @@ namespace SceneR
         class BlendState: public SceneR::Graphics::GraphicsResource
         {
         public:
+//            /**
+//             * A built-in state object with settings for additive blend, that is adding the destination data to the source data without using alpha.
+//             */
+//            static const BlendState& Additive;
+//
+//            /**
+//             *  A built-in state object with settings for alpha blend, that is blending the source and destination data using alpha.
+//             */
+//            static const BlendState& AlphaBlend;
+//
+//            /**
+//             * A built-in state object with settings for blending with non-premultipled alpha,
+//             * that is blending source and destination data using alpha while assuming the color
+//             * data contains no alpha information.
+//             */
+//            static const BlendState& NonPremultiplied;
+//
+//            /**
+//             * A built-in state object with settings for opaque blend, that is overwriting the source with the destination data.
+//             */
+//            static const BlendState& Opaque;
+
+        public:
             /**
              * Initializes a new instance of the BlendState class.
              */
@@ -99,9 +122,9 @@ namespace SceneR
 
             void ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels3);
 
-            const System::Int32& MultiSampleMask() const;
+            const System::UInt32& MultiSampleMask() const;
 
-            void MultiSampleMask(const System::Int32& multiSampleMask);
+            void MultiSampleMask(const System::UInt32& multiSampleMask);
 
         private:
             void Apply() const;
@@ -118,7 +141,7 @@ namespace SceneR
             SceneR::Graphics::ColorWriteChannels colorWriteChannels1;
             SceneR::Graphics::ColorWriteChannels colorWriteChannels2;
             SceneR::Graphics::ColorWriteChannels colorWriteChannels3;
-            System::Int32                        multiSampleMask;
+            System::UInt32                       multiSampleMask;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

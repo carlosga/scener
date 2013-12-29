@@ -17,6 +17,9 @@
 #ifndef BLENDFUNCTION_HPP
 #define BLENDFUNCTION_HPP
 
+#include <GL/glew.h>
+#include <System/Core.hpp>
+
 namespace SceneR
 {
     namespace Graphics
@@ -30,27 +33,27 @@ namespace SceneR
              * The result is the destination added to the source.
              * Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
              */
-            Add,
+            Add = GL_FUNC_ADD,
             /**
              * The result is the maximum of the source and destination.
              * Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
              */
-            Max,
+            Max = GL_MAX,
             /**
              * The result is the minimum of the source and destination.
              * Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
              */
-            Min,
+            Min = GL_MIN,
             /**
              * The result is the source subtracted from the destination.
              * Result = (Destination Color * Destination Blend) − (Source Color * Source Blend)
              */
-            ReverseSubtract,
+            ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
             /**
              * The result is the destination subtracted from the source.
              * Result = (Source Color * Source Blend) − (Destination Color * Destination Blend)
              */
-            Subtract
+            Subtract = GL_FUNC_SUBTRACT
         };
     }
 }

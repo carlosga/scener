@@ -50,6 +50,12 @@ namespace SceneR
              */
             Red = 16
         };
+
+        inline constexpr ColorWriteChannels
+        operator&(ColorWriteChannels left, ColorWriteChannels right)
+        {
+            return static_cast<ColorWriteChannels>(static_cast<int>(left) & static_cast<int>(right));
+        };
     }
 }
 
