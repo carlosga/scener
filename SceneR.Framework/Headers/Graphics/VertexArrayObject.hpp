@@ -34,15 +34,50 @@ namespace SceneR
         class VertexArrayObject
         {
         public:
+            /**
+             * Initializes a new instance of the VertexArrayObject class.
+             */
             VertexArrayObject();
+
+            /**
+             * Releases all resources being used by this VertexArrayObject.
+             */
             virtual ~VertexArrayObject();
 
         public:
+            /**
+             * Gets the vertex array object identifier.
+             */
             const System::UInt32& Id() const;
+
+            /**
+             * Activates this vertex array object.
+             */
             void Activate() const;
+
+            /**
+             * Deactivates this vertex array object.
+             */
             void Deactivate() const;
+
+            /**
+             * Deletes this vertex array object.
+             */
             void Delete();
+
+            /**
+             * Declares the vertex format to be used on drawing operations.
+             */
+            void DeclareVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const;
+
+            /**
+             * Activates the vertex format to be used on drawing operations.
+             */
             void ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const;
+
+            /**
+             * Deactivates the vertex format to be used on drawing operations.
+             */
             void DeactivateVertexFormat(const VertexDeclaration& vDecl) const;
 
         private:

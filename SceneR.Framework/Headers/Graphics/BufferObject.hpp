@@ -62,7 +62,7 @@ namespace SceneR
             void Deactivate() const;
 
             /*
-             * Deletes the buffer objects.
+             * Deletes the buffer object.
              */
             void Delete();
 

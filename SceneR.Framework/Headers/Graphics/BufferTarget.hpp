@@ -24,21 +24,63 @@ namespace SceneR
 {
     namespace Graphics
     {
+        /**
+         * Defines opengl buffer object targets
+         */
         enum class BufferTarget : System::UInt32
         {
-            ArrayBuffer              = GL_ARRAY_BUFFER,
-            AtomicCounterBufer       = GL_ATOMIC_COUNTER_BUFFER,
-            CopyReadBuffer           = GL_COPY_READ_BUFFER,
-            CopyWriteBuffer          = GL_COPY_WRITE_BUFFER,
-            DrawIndirectBuffer       = GL_DRAW_INDIRECT_BUFFER,
-            DispatchIndirectBuffer   = GL_DISPATCH_INDIRECT_BUFFER,
-            ElementArraybuffer       = GL_ELEMENT_ARRAY_BUFFER,
-            PixelPackBuffer          = GL_PIXEL_PACK_BUFFER,
-            PixelUnpackBuffer        = GL_PIXEL_UNPACK_BUFFER,
-            ShaderStorageBuffer      = GL_SHADER_STORAGE_BUFFER,
-            TextureBuffer            = GL_TEXTURE_BUFFER,
-            TransformFeedbackBuffer  = GL_TRANSFORM_FEEDBACK_BUFFER,
-            UniformBuffer            = GL_UNIFORM_BUFFER
+            /**
+             * A buffer used as a source for vertex data.
+             */
+            ArrayBuffer = GL_ARRAY_BUFFER,
+            /**
+             * An indexed buffer binding for buffers used as storage for atomic counters
+             */
+            AtomicCounterBufer = GL_ATOMIC_COUNTER_BUFFER,
+            /**
+             * A buffer for reading buffer object data.
+             */
+            CopyReadBuffer = GL_COPY_READ_BUFFER,
+            /**
+             * A buffer for writing buffer object data.
+             */
+            CopyWriteBuffer = GL_COPY_WRITE_BUFFER,
+            /**
+             * A buffer used as the source for the indirect data when performing indirect rendering.
+             */
+            DrawIndirectBuffer = GL_DRAW_INDIRECT_BUFFER,
+            /**
+             * A buffer used as the source for indirect compute dispatch operations.
+             */
+            DispatchIndirectBuffer = GL_DISPATCH_INDIRECT_BUFFER,
+            /**
+             * A buffer used as the source of the indices used for indexed rendering.
+             */
+            ElementArraybuffer = GL_ELEMENT_ARRAY_BUFFER,
+            /**
+             * A buffer used for performing asynchronous pixel transfer operations.
+             */
+            PixelPackBuffer = GL_PIXEL_PACK_BUFFER,
+            /**
+             * A buffer used for performing asynchronous pixel transfer operations.
+             */
+            PixelUnpackBuffer = GL_PIXEL_UNPACK_BUFFER,
+            /**
+             * An indexed buffer used as storage for shader storage blocks.
+             */
+            ShaderStorageBuffer = GL_SHADER_STORAGE_BUFFER,
+            /**
+             * A buffer used as as storage for textures.
+             */
+            TextureBuffer = GL_TEXTURE_BUFFER,
+            /**
+             * An indexed buffer binding used for transform feedback operations.
+             */
+            TransformFeedbackBuffer = GL_TRANSFORM_FEEDBACK_BUFFER,
+            /**
+             * An indexed buffer binding used as storage for uniform blocks.
+             */
+            UniformBuffer = GL_UNIFORM_BUFFER
         };
     }
 }

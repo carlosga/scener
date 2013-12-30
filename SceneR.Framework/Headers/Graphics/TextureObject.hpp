@@ -25,14 +25,27 @@ namespace SceneR
 {
     namespace Graphics
     {
+        /**
+         * Represents an opengl texture object.
+         */
         class TextureObject
         {
         public:
+            /**
+             * Initializes a new instance of the TextureObject class.
+             * @param width the texture width in pixels.
+             * @param height the texture width in pixels.
+             * @param format the texture format.
+             * @param target the texturer target.
+             */
             TextureObject(const System::UInt32&  width,
                           const System::UInt32&  height,
                           const SurfaceFormat&   format,
                           const TextureTarget&   target);
 
+            /**
+             * Releases all resources being used by this TextureObject.
+             */
             virtual ~TextureObject();
 
         public:

@@ -145,9 +145,11 @@ void RasterizerState::Apply() const
     if (this->multiSampleAntiAlias)
     {
         glEnable(GL_MULTISAMPLE);
+        // glEnable(GL_FRAMEBUFFER_SRGB_EXT);
     }
     else
     {
         glDisable(GL_MULTISAMPLE);
+        // glDisable(GL_FRAMEBUFFER_SRGB_EXT);
     }
 }

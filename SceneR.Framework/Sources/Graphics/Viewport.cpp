@@ -102,5 +102,4 @@ void Viewport::Update(const UInt32& x, const UInt32& y, const Size& width, const
 void Viewport::Refresh() const
 {
     glViewport(this->xCoordinate, this->yCoordinate, this->vWidth, this->vHeight);
-    glDepthRange(this->minDepth, this->maxDepth);
 }

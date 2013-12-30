@@ -34,12 +34,11 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
       vao(),
       vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
 {
+    this->vao.DeclareVertexFormat(this->vbo, *this->vertexDeclaration);
 }
 
 VertexBuffer::~VertexBuffer()
 {
-    this->vbo.Delete();
-    this->vao.Delete();
 }
 
 const UInt32& VertexBuffer::VertexCount() const
@@ -81,11 +80,9 @@ std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclara
 void VertexBuffer::Activate()
 {
     this->vao.Activate();
-    this->vao.ActivateVertexFormat(this->vbo, *this->vertexDeclaration);
 }
 
 void VertexBuffer::Deactivate()
 {
-    this->vao.DeactivateVertexFormat(*this->vertexDeclaration);
     this->vao.Deactivate();
 }

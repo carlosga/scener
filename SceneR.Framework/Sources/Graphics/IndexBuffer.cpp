@@ -34,7 +34,6 @@ IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevic
 
 IndexBuffer::~IndexBuffer()
 {
-    this->ibo.Delete();
 }
 
 const UInt32& IndexBuffer::IndexCount() const

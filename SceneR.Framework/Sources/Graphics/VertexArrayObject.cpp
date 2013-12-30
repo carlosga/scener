@@ -30,6 +30,7 @@ VertexArrayObject::VertexArrayObject()
 
 VertexArrayObject::~VertexArrayObject()
 {
+    this->Delete();
 }
 
 const UInt32& VertexArrayObject::Id() const
@@ -63,6 +64,13 @@ void VertexArrayObject::Delete()
         glDeleteVertexArrays(1, &this->id);
         this->id = 0;
     }
+}
+
+void VertexArrayObject::DeclareVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const
+{
+    this->Activate();
+    this->ActivateVertexFormat(vbo, vDecl);
+    this->Deactivate();
 }
 
 void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const
@@ -102,6 +110,8 @@ void VertexArrayObject::DeactivateVertexFormat(const VertexDeclaration& vDecl) c
     }
 
     glBindVertexBuffer(0, 0, 0, vDecl.VertexStride());
+
+    this->Deactivate();
 }
 
 GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat) const
@@ -138,6 +148,7 @@ GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat
 
 System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& vertexFormat) const
 {
+    // TODO: Review this to see if it can matchs the XNA VertexElementFormat specificacion.
     switch (vertexFormat)
     {
         case VertexElementFormat::Single:

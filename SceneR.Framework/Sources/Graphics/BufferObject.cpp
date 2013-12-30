@@ -32,6 +32,7 @@ BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage)
 
 BufferObject::~BufferObject()
 {
+    this->Delete();
 }
 
 const UInt32& BufferObject::Id() const
