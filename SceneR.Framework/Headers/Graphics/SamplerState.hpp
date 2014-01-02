@@ -20,12 +20,14 @@
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class BasicEffect;
         class GraphicsDevice;
 
         /**
@@ -81,7 +83,7 @@ namespace SceneR
             const TextureFilter& Filter() const;
 
             /**
-             * Sets the maximum anisotropy. The default value is 0.
+             * Sets the type of filtering during sampling.
              */
             void Filter(const TextureFilter& filter);
 
@@ -116,6 +118,9 @@ namespace SceneR
             void MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias);
 
         private:
+            void OnApply(const TextureTarget& target, const System::Int32& mipmapLevels) const;
+
+        private:
             TextureAddressMode addressU;
             TextureAddressMode addressV;
             TextureAddressMode addressW;
@@ -123,6 +128,8 @@ namespace SceneR
             System::Int32      maxAnisotropy;
             System::Int32      maxMipLevel;
             System::Single     mipMapLevelOfDetailBias;
+
+            friend class BasicEffect;
         };
     }
 }

@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>

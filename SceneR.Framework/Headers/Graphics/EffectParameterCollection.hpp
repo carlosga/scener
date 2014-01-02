@@ -20,6 +20,7 @@
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <System/Core.hpp>
+#include <memory>
 #include <vector>
 
 namespace SceneR

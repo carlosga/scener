@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <stdexcept>
@@ -182,26 +181,6 @@ void EffectParameter::SetValue(const std::vector<Boolean>& value) const
     for (const auto& bValue : value)
     {
         this->SetValue(bValue);
-    }
-}
-
-void EffectParameter::SetValue(const Color& value) const
-{
-    if (this->parameterClass != EffectParameterClass::Vector)
-    {
-        throw std::runtime_error("Invalid effect parameter class.");
-    }
-
-    Vector3 v(value.R(), value.G(), value.B());
-
-    glUniform3fv(this->parameterLocation, 1, &v[0]);
-}
-
-void EffectParameter::SetValue(const std::vector<Color>& value) const
-{
-    for (const auto& vector : value)
-    {
-        this->SetValue(vector);
     }
 }
 

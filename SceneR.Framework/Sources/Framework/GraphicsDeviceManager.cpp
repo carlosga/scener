@@ -28,8 +28,8 @@ GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
       allowUserResizing(false),
       fullScreen(false),
       graphicsProfile(GraphicsProfile::Core),
-      preferredBackBufferWidth(GraphicsAdapter::DefaultAdapter().CurrentDisplayMode().Width()),
-      preferredBackBufferHeight(GraphicsAdapter::DefaultAdapter().CurrentDisplayMode().Height()),
+      preferredBackBufferWidth(0),
+      preferredBackBufferHeight(0),
       windowTitle(u"")
 {
     this->renderer.Services().AddService<IGraphicsDeviceService>(*this);

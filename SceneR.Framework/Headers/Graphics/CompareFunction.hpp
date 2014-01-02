@@ -18,7 +18,6 @@
 #define COMPAREFUNCTION_HPP
 
 #include <System/Core.hpp>
-#include <GL/glew.h>
 
 namespace SceneR
 {

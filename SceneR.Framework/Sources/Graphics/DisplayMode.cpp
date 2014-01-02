@@ -14,8 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <Graphics/DisplayMode.hpp>
 
 using namespace System;

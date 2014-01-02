@@ -18,7 +18,6 @@
 #define GRAPHICSPROFILE_HPP
 
 #include <System/Core.hpp>
-#include <GLFW/glfw3.h>
 
 namespace SceneR
 {

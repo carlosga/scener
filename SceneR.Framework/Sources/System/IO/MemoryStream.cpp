@@ -25,8 +25,8 @@ MemoryStream::MemoryStream(const std::vector<UByte>& buffer)
     : stream(std::ios::in | std::ios::out | std::ios::binary),
       mode(std::ios::in | std::ios::out | std::ios::binary)
 {
-// TODO: There should be a better way of doing this
-    for (int i = 0; i < buffer.size(); i++ )
+    // TODO: There should be a better way of doing this
+    for (Size i = 0; i < buffer.size(); i++ )
     {
         this->stream << buffer[i];
     }

@@ -17,7 +17,6 @@
 #ifndef SURFACEFORMAT_HPP
 #define SURFACEFORMAT_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

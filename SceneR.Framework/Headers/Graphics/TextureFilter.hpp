@@ -8,7 +8,6 @@
 #ifndef TEXTUREFILTER_HPP
 #define TEXTUREFILTER_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -23,11 +22,11 @@ namespace SceneR
             /**
              * Use linear filtering.
              */
-            Linear = 0,
+            Linear = GL_LINEAR,
             /**
              * Use point filtering.
              */
-            Point = 1,
+            Point = GL_NEAREST,
             /**
              * Use anisotropic filtering.
              */
@@ -35,27 +34,27 @@ namespace SceneR
             /**
              * Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
              */
-            LinearMipPoint = 3,
+            LinearMipPoint = GL_NEAREST_MIPMAP_LINEAR,
             /**
              * Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
              */
-            PointMipLinear = 4,
+            PointMipLinear = GL_LINEAR_MIPMAP_NEAREST,
             /**
              * Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
              */
-            MinLinearMagPointMipLinear = 5,
+            MinLinearMagPointMipLinear = GL_LINEAR_MIPMAP_LINEAR,
             /**
              * Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
              */
-            MinLinearMagPointMipPoint = 6,
+            MinLinearMagPointMipPoint = GL_LINEAR_MIPMAP_NEAREST,
             /**
              * Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
              */
-            MinPointMagLinearMipLinear = 7,
+            MinPointMagLinearMipLinear = GL_NEAREST_MIPMAP_LINEAR,
             /**
              * Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
              */
-            MinPointMagLinearMipPoint = 8
+            MinPointMagLinearMipPoint = GL_NEAREST_MIPMAP_NEAREST
         };
     }
 }

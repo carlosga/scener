@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Color.hpp>
-#include <GL/glew.h>
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
@@ -36,9 +35,11 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsPro
       indexBuffer(nullptr),
       presentationParameters(),
       rasterizerState(*this),
+      samplerStates(),
       vertexBuffer(nullptr),
       viewport()
 {
+    this->samplerStates.push_back(SamplerState(*this));
 }
 
 GraphicsDevice::~GraphicsDevice()
@@ -192,6 +193,11 @@ void GraphicsDevice::IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBu
 RasterizerState& GraphicsDevice::RasterizerState()
 {
     return this->rasterizerState;
+}
+
+const std::vector<SceneR::Graphics::SamplerState>& GraphicsDevice::SamplerStates()
+{
+    return samplerStates;
 }
 
 std::shared_ptr<SceneR::Graphics::VertexBuffer> GraphicsDevice::VertexBuffer()

@@ -17,7 +17,6 @@
 #ifndef TEXTURETARGET_HPP
 #define TEXTURETARGET_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

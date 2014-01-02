@@ -17,7 +17,6 @@
 #ifndef INDEXELEMENTSIZE_HPP
 #define INDEXELEMENTSIZE_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

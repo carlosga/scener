@@ -15,19 +15,21 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/GraphicsAdapter.hpp>
+#include <algorithm>
+#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Graphics;
 
 const GraphicsAdapter& GraphicsAdapter::DefaultAdapter()
 {
-    auto it = std::find_if(GraphicsAdapter::Adapters.begin(), GraphicsAdapter::Adapters.end(),
+    auto it = std::find_if(GraphicsAdapter::Adapters().begin(), GraphicsAdapter::Adapters().end(),
                            [](const GraphicsAdapter& adapter) -> bool
                            {
                                return adapter.IsDefaultAdapter();
                            });
 
-    if (it != GraphicsAdapter::Adapters.end())
+    if (it != GraphicsAdapter::Adapters().end())
     {
         return *it;
     }
@@ -35,14 +37,8 @@ const GraphicsAdapter& GraphicsAdapter::DefaultAdapter()
     throw std::runtime_error("No default adapter available");
 }
 
-const std::vector<GraphicsAdapter>& GraphicsAdapter::Adapters = GetAvailableAdapters();
-const std::vector<GraphicsAdapter> GraphicsAdapter::GetAvailableAdapters()
+const std::vector<GraphicsAdapter> GraphicsAdapter::Adapters()
 {
-    if (!glfwInit())
-    {
-        throw std::runtime_error("glfwInit failed");
-    }
-
     std::vector<GraphicsAdapter> adapters;
     Int32         monitorCount = 1;
     GLFWmonitor** monitors     = glfwGetMonitors(&monitorCount);

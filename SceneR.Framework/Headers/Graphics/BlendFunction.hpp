@@ -17,7 +17,6 @@
 #ifndef BLENDFUNCTION_HPP
 #define BLENDFUNCTION_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

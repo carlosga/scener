@@ -56,12 +56,12 @@ namespace SceneR
                 /**
                  * Activates the texture object
                  */
-                virtual void Activate() const = 0;
+                virtual void Activate() = 0;
 
                 /**
                  * Deactivates the texture object
                  */
-                virtual void Deactivate() const = 0;
+                virtual void Deactivate() = 0;
 
             protected:
                 Texture(GraphicsDevice& graphicsDevice);

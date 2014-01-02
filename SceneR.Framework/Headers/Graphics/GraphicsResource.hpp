@@ -41,7 +41,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this GraphicsResource
              */
-            ~GraphicsResource();
+            virtual ~GraphicsResource();
 
         public:
             /**

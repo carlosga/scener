@@ -17,6 +17,7 @@
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/ShaderProgram.hpp>
+#include <algorithm>
 #include <stdexcept>
 
 using namespace System;

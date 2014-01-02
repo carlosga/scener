@@ -118,31 +118,24 @@ GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat
 {
     switch (vertexFormat)
     {
-        case VertexElementFormat::Single:
-            return GL_FLOAT;
-
-        case VertexElementFormat::Vector2:
-            return GL_FLOAT;
+        case VertexElementFormat::Byte4:
+            return GL_UNSIGNED_BYTE;
 
         case VertexElementFormat::Short2:
         case VertexElementFormat::NormalizedShort2:
         case VertexElementFormat::HalfVector2:
-            return GL_UNSIGNED_SHORT;
-
-        case VertexElementFormat::Vector3:
-            return GL_FLOAT;
-
-        case VertexElementFormat::Vector4:
-        case VertexElementFormat::Color:
-            return GL_FLOAT;
-
-        case VertexElementFormat::Byte4:
-            return GL_UNSIGNED_BYTE;
-
         case VertexElementFormat::Short4:
         case VertexElementFormat::NormalizedShort4:
         case VertexElementFormat::HalfVector4:
             return GL_UNSIGNED_SHORT;
+
+        case VertexElementFormat::Single:
+        case VertexElementFormat::Vector2:
+        case VertexElementFormat::Vector3:
+        case VertexElementFormat::Vector4:
+        case VertexElementFormat::Color:
+        default:
+            return GL_FLOAT;
     }
 }
 
@@ -169,6 +162,7 @@ System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& ver
         case VertexElementFormat::Short4:
         case VertexElementFormat::NormalizedShort4:
         case VertexElementFormat::HalfVector4:
+        default:
             return 4;
     }
 }

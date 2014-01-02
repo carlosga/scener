@@ -14,13 +14,16 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Color.hpp>
 #include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/SamplerState.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/IO/File.hpp>
 
 using namespace System;
@@ -336,6 +339,7 @@ void BasicEffect::Begin()
     if (this->textureEnabled)
     {
         this->texture->Activate();
+        this->CurrentGraphicsDevice().SamplerStates()[0].OnApply(TextureTarget::Texture2D, this->texture->LevelCount());
     }
 }
 
@@ -363,15 +367,19 @@ void BasicEffect::OnApply()
     Vector3 emissive((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
 
     this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor() * this->alpha, this->alpha));
+
     this->Parameters()[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
     this->Parameters()[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
     this->Parameters()[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+
     this->Parameters()[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
     this->Parameters()[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
     this->Parameters()[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+
     this->Parameters()[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
     this->Parameters()[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
     this->Parameters()[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+
     this->Parameters()[u"EmissiveColor"].SetValue(emissive);
     this->Parameters()[u"EyePosition"].SetValue(eyePosition);
     //this->Parameters()[u"FogVector"].SetValue(Vector4());

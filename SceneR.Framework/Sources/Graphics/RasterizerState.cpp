@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/RasterizerState.hpp>
 
@@ -23,7 +22,7 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
-      cullMode(CullMode::CullCounterClockwiseFace),
+      cullMode(CullMode::CullClockwiseFace),
       depthBias(0.0f),
       fillMode(FillMode::Solid),
       multiSampleAntiAlias(true),
@@ -106,7 +105,7 @@ void RasterizerState::Apply() const
     else
     {
         glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
+        glCullFace(GL_BACK);
         glFrontFace(static_cast<GLenum>(this->cullMode));
     }
 
@@ -145,11 +144,11 @@ void RasterizerState::Apply() const
     if (this->multiSampleAntiAlias)
     {
         glEnable(GL_MULTISAMPLE);
-        // glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+        glEnable(GL_FRAMEBUFFER_SRGB_EXT);
     }
     else
     {
         glDisable(GL_MULTISAMPLE);
-        // glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+        glDisable(GL_FRAMEBUFFER_SRGB_EXT);
     }
 }

@@ -24,9 +24,11 @@
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
+#include <Graphics/SamplerState.hpp>
 #include <Graphics/Viewport.hpp>
 #include <System/Core.hpp>
 #include <memory>
+#include <vector>
 
 namespace SceneR
 {
@@ -193,6 +195,8 @@ namespace SceneR
              */
             SceneR::Graphics::RasterizerState& RasterizerState();
 
+            const std::vector<SceneR::Graphics::SamplerState>& SamplerStates();
+
             /**
              * Gets the current vertex buffer.
              */
@@ -222,6 +226,7 @@ namespace SceneR
             std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
             SceneR::Graphics::PresentationParameters        presentationParameters;
             SceneR::Graphics::RasterizerState               rasterizerState;
+            std::vector<SceneR::Graphics::SamplerState>     samplerStates;
             std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
             SceneR::Graphics::Viewport                      viewport;
         };

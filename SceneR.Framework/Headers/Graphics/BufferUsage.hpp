@@ -17,7 +17,6 @@
 #ifndef VERTEXBUFFERUSAGE_HPP
 #define VERTEXBUFFERUSAGE_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

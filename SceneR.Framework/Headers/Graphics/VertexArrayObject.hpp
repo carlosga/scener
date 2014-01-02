@@ -17,7 +17,6 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
-#include <GL/glew.h>
 #include <Graphics/VertexElementFormat.hpp>
 #include <System/Core.hpp>
 

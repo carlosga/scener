@@ -17,7 +17,6 @@
 #ifndef STENCILOPERATION_HPP
 #define STENCILOPERATION_HPP
 
-#include <GL/glew.h>
 #include <System/Core.hpp>
 
 namespace SceneR

@@ -17,8 +17,6 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <System/Core.hpp>
 #include <Graphics/DisplayMode.hpp>
 #include <vector>
@@ -36,10 +34,7 @@ namespace SceneR
         {
         public:
             static const GraphicsAdapter& DefaultAdapter();
-            static const std::vector<GraphicsAdapter>& Adapters;
-
-        private:
-            static const std::vector<GraphicsAdapter> GetAvailableAdapters();
+            static const std::vector<GraphicsAdapter> Adapters();
 
         private:
             /**

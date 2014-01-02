@@ -86,17 +86,18 @@ void Texture2D::SetData(const UInt32& mipmapLevel, const Size& size, const void*
     this->mipmapHeight >>= 1;
 }
 
-void Texture2D::DeclareStorage(const System::UInt32& mipMapLevels) const
+void Texture2D::DeclareStorage(const System::UInt32& mipMapLevels)
 {
     this->object.Declare2DStorage(this->format, mipMapLevels, this->width, this->height);
+    this->mipmapLevels = mipMapLevels;
 }
 
-void Texture2D::Activate() const
+void Texture2D::Activate()
 {
     this->object.Activate();
 }
 
-void Texture2D::Deactivate() const
+void Texture2D::Deactivate()
 {
     this->object.Deactivate();
 }

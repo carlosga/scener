@@ -16,7 +16,10 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/SamplerState.hpp>
+#include <Graphics/Texture.hpp>
+#include <Graphics/TextureTarget.hpp>
 
+using namespace System;
 using namespace SceneR::Graphics;
 
 SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
@@ -25,7 +28,7 @@ SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
       addressV(TextureAddressMode::Wrap),
       addressW(TextureAddressMode::Wrap),
       filter(TextureFilter::Linear),
-      maxAnisotropy(0),
+      maxAnisotropy(4),
       maxMipLevel(0),
       mipMapLevelOfDetailBias(0)
 {
@@ -103,4 +106,26 @@ const System::Single& SamplerState::MipMapLevelOfDetailBias() const
 void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias)
 {
     this->mipMapLevelOfDetailBias = mipMapLevelOfDetailBias;
+}
+
+void SamplerState::OnApply(const TextureTarget& target, const Int32& mipmapLevels) const
+{
+    // TODO: Apply the anisotropic filtering parameter
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R , GL_RED);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G , GL_GREEN);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B , GL_BLUE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A , GL_ALPHA);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S    , static_cast<GLenum>(this->addressU));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T    , static_cast<GLenum>(this->addressV));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R    , static_cast<GLenum>(this->addressW));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(this->filter));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+    if (mipmapLevels != 0)
+    {
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 1);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, mipmapLevels - 1);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipmapLevels - 1);
+    }
 }

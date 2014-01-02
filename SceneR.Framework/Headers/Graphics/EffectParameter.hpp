@@ -197,18 +197,6 @@ namespace SceneR
             void SetValue(const std::vector<System::Boolean>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as a Color.
-             * @param value the value to assign to the EffectParameter.
-             */
-            void SetValue(const SceneR::Framework::Color& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Color.
-             * @param value the value to assign to the EffectParameter.
-             */
-            void SetValue(const std::vector<SceneR::Framework::Color>& value) const;
-
-            /**
              * Sets the value of the EffectParameter as an System::Int32.
              * @param value the value to assign to the EffectParameter.
              */

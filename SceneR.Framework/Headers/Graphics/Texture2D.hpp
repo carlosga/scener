@@ -100,15 +100,15 @@ namespace SceneR
             /**
              * Activates the texture object
              */
-            virtual void Activate() const override;
+            virtual void Activate() override;
 
             /**
              * Deactivates the texture object
              */
-            virtual void Deactivate() const override;
+            virtual void Deactivate() override;
 
         private:
-            void DeclareStorage(const System::UInt32& mipMapLevels) const;
+            void DeclareStorage(const System::UInt32& mipMapLevels);
 
         private:
             SurfaceFormat  format;

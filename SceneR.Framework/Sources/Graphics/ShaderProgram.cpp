@@ -14,7 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <GL/glew.h>
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Text/Unicode.hpp>
