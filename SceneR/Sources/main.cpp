@@ -16,11 +16,9 @@
 
 #include <SampleRenderer.hpp>
 
-using namespace SceneR::Sample;
-
 int main()
 {
-    SampleRenderer renderer;
+    SceneR::Sample::SampleRenderer renderer;
 
     renderer.Run();
 
