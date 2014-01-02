@@ -229,7 +229,7 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
 {
-    Single fieldOfView = MathHelper::ToDegrees(MathHelper::PiOver4);
+    Single fieldOfView = MathHelper::PiOver4;
     Single aspectRatio = 768.0f / 480.0f;
     Matrix perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
 
