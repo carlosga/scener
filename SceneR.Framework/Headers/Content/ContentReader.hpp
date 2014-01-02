@@ -65,7 +65,7 @@ namespace SceneR
                 };
 
             public:
-                const System::UInt32& Id() const
+                const System::Int32& Id() const
                 {
                     return this->id;
                 }
@@ -76,7 +76,7 @@ namespace SceneR
                 };
 
             private:
-                System::UInt32                                    id;
+                System::Int32                                     id;
                 std::function<void(const std::shared_ptr<void>&)> action;
             };
 

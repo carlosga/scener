@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Viewport.hpp>
+#include <System/Graphics/Platform.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

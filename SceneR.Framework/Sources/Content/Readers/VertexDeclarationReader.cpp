@@ -23,6 +23,7 @@
 #include <memory>
 #include <vector>
 
+using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
@@ -36,7 +37,7 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
     auto elementCount = input.ReadUInt32();
     auto elements     = std::vector<VertexElement>{};
 
-    for (int i = 0; i < elementCount; i++)
+    for (UInt32 i = 0; i < elementCount; i++)
     {
     	elements.push_back({ input.ReadUInt32()                                   // Offset
     			 		   , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format

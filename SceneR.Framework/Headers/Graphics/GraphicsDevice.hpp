@@ -64,7 +64,8 @@ namespace SceneR
              * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile);
+            GraphicsDevice(const GraphicsAdapter& adapter
+                         , const SceneR::Graphics::GraphicsProfile& graphicsProfile);
 
             /**
              * Release all resources being used by the GraphicsDevice instance.
@@ -160,7 +161,7 @@ namespace SceneR
              * Gets the graphics profile.
              * @return the graphics profile.
              */
-            const GraphicsProfile& GetGraphicsProfile() const;
+            const SceneR::Graphics::GraphicsProfile& GraphicsProfile() const;
 
             /**
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
@@ -222,7 +223,7 @@ namespace SceneR
             SceneR::Graphics::DepthStencilState             depthStencilState;
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
             GraphicsAdapter                                 graphicsAdapter;
-            GraphicsProfile                                 graphicsProfile;
+            SceneR::Graphics::GraphicsProfile               graphicsProfile;
             std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
             SceneR::Graphics::PresentationParameters        presentationParameters;
             SceneR::Graphics::RasterizerState               rasterizerState;

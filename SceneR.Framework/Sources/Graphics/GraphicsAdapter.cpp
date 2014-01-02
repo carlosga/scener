@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/GraphicsAdapter.hpp>
+#include <System/Graphics/Platform.hpp>
 #include <algorithm>
 #include <stdexcept>
 

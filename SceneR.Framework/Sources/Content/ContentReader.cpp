@@ -131,7 +131,7 @@ void ContentReader::ReadManifest()
 
     typeReaders.clear();
 
-    for (UInt32 i = 0; i < typeReaderCount; i++)
+    for (Int32 i = 0; i < typeReaderCount; i++)
     {
         // Read the type reader name.
         String readerName = this->ReadString();
@@ -152,7 +152,7 @@ void ContentReader::ReadManifest()
 
 void ContentReader::ReadSharedResources()
 {
-    for (int i = 0; i < this->sharedResourceCount; i++)
+    for (Int32 i = 0; i < this->sharedResourceCount; i++)
     {
         Int32 sharedResourceType = this->Read7BitEncodedInt();
 

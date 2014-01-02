@@ -18,6 +18,7 @@
 #define BLEND_HPP
 
 #include <System/Core.hpp>
+#include <System/Graphics/Platform.hpp>
 
 namespace SceneR
 {

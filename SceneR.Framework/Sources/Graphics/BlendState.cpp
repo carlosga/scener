@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/BlendState.hpp>
+#include <System/Graphics/Platform.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -29,10 +30,10 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
       colorBlendFunction(BlendFunction::Add),
       colorDestinationBlend(Blend::Zero),
       colorSourceBlend(Blend::One),
-      colorWriteChannels(ColorWriteChannels::All),
-      colorWriteChannels1(ColorWriteChannels::All),
-      colorWriteChannels2(ColorWriteChannels::All),
-      colorWriteChannels3(ColorWriteChannels::All),
+      colorWriteChannels(SceneR::Graphics::ColorWriteChannels::All),
+      colorWriteChannels1(SceneR::Graphics::ColorWriteChannels::All),
+      colorWriteChannels2(SceneR::Graphics::ColorWriteChannels::All),
+      colorWriteChannels3(SceneR::Graphics::ColorWriteChannels::All),
       multiSampleMask(0xffffffff)
 {
 }
@@ -175,10 +176,10 @@ void BlendState::Apply() const
                         static_cast<GLenum>(this->alphaSourceBlend),
                         static_cast<GLenum>(this->alphaDestinationBlend));
 
-    glColorMask((this->colorWriteChannels & ColorWriteChannels::Red)   == ColorWriteChannels::Red
-              , (this->colorWriteChannels & ColorWriteChannels::Green) == ColorWriteChannels::Green
-              , (this->colorWriteChannels & ColorWriteChannels::Blue)  == ColorWriteChannels::Blue
-              , (this->colorWriteChannels & ColorWriteChannels::Alpha) == ColorWriteChannels::Alpha);
+    glColorMask((this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Red)   == SceneR::Graphics::ColorWriteChannels::Red
+              , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Green) == SceneR::Graphics::ColorWriteChannels::Green
+              , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Blue)  == SceneR::Graphics::ColorWriteChannels::Blue
+              , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Alpha) == SceneR::Graphics::ColorWriteChannels::Alpha);
 
     glBlendColor(this->blendFactor.R() / 255,
                  this->blendFactor.G() / 255,

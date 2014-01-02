@@ -84,17 +84,5 @@ void IndexBuffer::Deactivate() const
 
 const UInt32 IndexBuffer::GetElementSizeInBytes() const
 {
-    return ((this->indexElementSize == IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
-}
-
-void SceneR::Graphics::IndexBuffer::Dump()
-{
-    auto data = this->GetData();
-
-    for (int i = 0; i < data.size(); i++)
-    {
-        std::cout << (int)data[i];
-    }
-
-    std::cout << std::endl;
+    return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
 }

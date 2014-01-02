@@ -77,8 +77,6 @@ namespace SceneR
              */
             void SetData(const void* data);
 
-            void Dump();
-
         private:
             void Activate() const;
             void Deactivate() const;

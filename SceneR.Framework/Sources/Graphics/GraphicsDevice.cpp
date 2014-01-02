@@ -26,7 +26,8 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile)
+GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
+                             , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
     : blendState(*this),
       depthStencilState(*this),
       effect(nullptr),
@@ -160,7 +161,7 @@ const GraphicsAdapter& GraphicsDevice::Adapter() const
     return this->graphicsAdapter;
 }
 
-const GraphicsProfile& GraphicsDevice::GetGraphicsProfile() const
+const SceneR::Graphics::GraphicsProfile& GraphicsDevice::GraphicsProfile() const
 {
     return this->graphicsProfile;
 }

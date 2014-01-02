@@ -31,7 +31,7 @@ MemoryStream::MemoryStream(const std::vector<UByte>& buffer)
         this->stream << buffer[i];
     }
 
-    this->Seek(0, std::ios::seekdir::beg);
+    this->Seek(0, std::ios_base::beg);
 }
 
 MemoryStream::~MemoryStream()
