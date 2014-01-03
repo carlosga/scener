@@ -19,7 +19,6 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <System/Core.hpp>
-#include <memory>
 
 namespace SceneR
 {

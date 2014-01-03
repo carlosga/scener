@@ -54,7 +54,7 @@ namespace SceneR
             /**
              * Indicates wheter the shader has been compiled
              */
-            const System::Boolean IsCompiled() const;
+            System::Boolean IsCompiled() const;
 
         private:
             void Release();

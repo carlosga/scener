@@ -17,36 +17,22 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
+#include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
+#include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
+#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/SamplerState.hpp>
+#include <Graphics/VertexBuffer.hpp>
 #include <Graphics/Viewport.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        struct Color;
-    }
-}
-
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class Effect;
-        class IndexBuffer;
-        class VertexBuffer;
-    }
-}
 
 namespace SceneR
 {
@@ -64,7 +50,7 @@ namespace SceneR
              * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsAdapter& adapter
+            GraphicsDevice(const GraphicsAdapter&                   adapter
                          , const SceneR::Graphics::GraphicsProfile& graphicsProfile);
 
             /**

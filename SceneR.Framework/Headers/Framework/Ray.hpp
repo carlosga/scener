@@ -17,6 +17,8 @@
 #ifndef RAY_HPP
 #define RAY_HPP
 
+#include <System/Core.hpp>
+
 namespace SceneR
 {
 	namespace Framework

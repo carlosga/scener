@@ -43,8 +43,6 @@ namespace SceneR
 {
     namespace Framework
     {
-        class RenderTime;
-
         /**
          * Provides basic graphics device initialization, and rendering code.
          */

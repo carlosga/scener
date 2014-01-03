@@ -18,6 +18,7 @@
 #define BASICEFFECT_HPP
 
 #include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/DirectionalLight.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/IEffectFog.hpp>
@@ -31,9 +32,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class DirectionalLight;
         class GraphicsDevice;
-        class Texture2D;
 
         /**
          * Contains a basic rendering effect.

@@ -27,7 +27,7 @@ GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
       graphicsDevice(nullptr),
       allowUserResizing(false),
       fullScreen(false),
-      graphicsProfile(SceneR::Graphics::GraphicsProfile::Core),
+      graphicsProfile(SceneR::Graphics::GraphicsProfile::HiDef),
       preferredBackBufferWidth(0),
       preferredBackBufferHeight(0),
       windowTitle(u"")
@@ -66,7 +66,7 @@ void GraphicsDeviceManager::EndDraw()
 void GraphicsDeviceManager::CreateDevice()
 {
     this->graphicsDevice = std::make_shared<GraphicsDevice>(GraphicsAdapter::DefaultAdapter()
-                                                          , SceneR::Graphics::GraphicsProfile::Core);
+                                                          , SceneR::Graphics::GraphicsProfile::HiDef);
 }
 
 GraphicsDevice& GraphicsDeviceManager::CurrentGraphicsDevice()

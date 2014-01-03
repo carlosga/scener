@@ -379,6 +379,20 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
              +            matrix.M44();
 
     return Vector3(x / w, y / w, z / w);
+
+//    Single x = (this->x * matrix.M11())
+//             + (this->y * matrix.M21())
+//             + (this->z * matrix.M31());
+//
+//    Single y = (this->x * matrix.M12())
+//             + (this->y * matrix.M22())
+//             + (this->z * matrix.M32());
+//
+//    Single z = (this->x * matrix.M13())
+//             + (this->y * matrix.M23())
+//             + (this->z * matrix.M33());
+//
+//    return Vector3(x, y, z);
 }
 
 const Vector3 Vector3::operator/(const Vector3& vector) const

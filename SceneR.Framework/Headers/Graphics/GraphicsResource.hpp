@@ -18,7 +18,6 @@
 #define GRAPHICSRESOURCE_HPP
 
 #include <System/Core.hpp>
-#include <memory>
 
 namespace SceneR
 {

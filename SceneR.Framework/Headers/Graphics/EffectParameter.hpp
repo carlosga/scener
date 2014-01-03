@@ -17,7 +17,6 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
-#include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector2.hpp>
@@ -36,8 +35,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class ShaderProgram;
-
         /**
          * Represents an Effect parameter.
          */

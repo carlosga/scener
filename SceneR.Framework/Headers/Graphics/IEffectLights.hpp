@@ -17,9 +17,8 @@
 #ifndef IEFFECTLIGHTS_HPP
 #define IEFFECTLIGHTS_HPP
 
-#include <System/Core.hpp>
-#include <Framework/Vector3.hpp>
 #include <Graphics/DirectionalLight.hpp>
+#include <System/Core.hpp>
 #include <memory>
 
 namespace SceneR

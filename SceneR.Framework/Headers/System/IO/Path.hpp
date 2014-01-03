@@ -18,7 +18,6 @@
 #define PATH_HPP
 
 #include <System/Core.hpp>
-#include <string>
 
 namespace System
 {

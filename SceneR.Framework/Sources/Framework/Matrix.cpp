@@ -298,9 +298,16 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
                   x   , y   , z   , 1.0f);
 }
 
- Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
+Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
-     return Matrix::Identity;
+    Vector3 nf    = Vector3::Normalize(forward);
+    Vector3 right = Vector3::Normalize(Vector3::CrossProduct(forward, up));
+    Vector3 upv   = Vector3::Normalize(Vector3::CrossProduct(right, forward));;
+
+    return Matrix(right.X()   , right.Y()   , right.Z()   , 0.0f,
+                  upv.X()     , upv.Y()     , upv.Z()     , 0.0f,
+                  -forward.X(), -forward.Y(), -forward.Z(), 0.0f,
+                  position.X(), position.Y(), position.Z(), 1.0f);
 }
 
 Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
@@ -527,14 +534,14 @@ void Matrix::Transpose()
 
 Single& Matrix::operator[](const UInt32& index)
 {
-    assert(index >= 0 && index < 16);
+    assert(index < 16);
 
     return this->matrix[index];
 }
 
 const Single& Matrix::operator[](const UInt32& index) const
 {
-    assert(index >= 0 && index < 16);
+    assert(index < 16);
 
     return this->matrix[index];
 }

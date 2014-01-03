@@ -20,7 +20,6 @@
 #include <System/Core.hpp>
 #include <codecvt>
 #include <locale>
-#include <string>
 
 namespace System
 {

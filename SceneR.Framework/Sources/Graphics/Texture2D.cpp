@@ -40,7 +40,7 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice,
       mipmapHeight(height),
       mipmapWidth(width),
       width(width),
-      object(width, height, format, TextureTarget::Texture2D)
+      object(TextureTarget::Texture2D)
 {
 }
 
@@ -58,7 +58,7 @@ const UInt32& Texture2D::Height() const
     return this->height;
 }
 
-const Int32 Texture2D::LevelCount() const
+const UInt32& Texture2D::LevelCount() const
 {
     return this->mipmapLevels;
 }

@@ -53,7 +53,7 @@ void Shader::Compile()
     this->VerifyCompilationState();
 }
 
-const Boolean Shader::IsCompiled() const
+Boolean Shader::IsCompiled() const
 {
     bool result = false;
 

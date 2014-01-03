@@ -77,8 +77,6 @@ void RendererWindow::Open()
     GLFWmonitor* monitor     = nullptr;
     GLFWwindow*  windowShare = nullptr;
 
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX / Linux :-/
-
     if (!glfwInit())
     {
         throw std::runtime_error("glfwInit failed");
@@ -91,14 +89,14 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 3);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT  , 1);
     glfwWindowHint(GLFW_RESIZABLE             , (gdm.AllowUserResizing() ? GL_TRUE : GL_FALSE));
-    glfwWindowHint(GLFW_DECORATED             , true);
     glfwWindowHint(GLFW_RED_BITS              , 8);
     glfwWindowHint(GLFW_GREEN_BITS            , 8);
     glfwWindowHint(GLFW_BLUE_BITS             , 8);
     glfwWindowHint(GLFW_ALPHA_BITS            , 8);
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 8);
-    glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
+    glfwWindowHint(GLFW_SAMPLES               , 4);
+    // glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
 
     if (gdm.FullScreen())
     {
@@ -123,6 +121,8 @@ void RendererWindow::Open()
 
     // Set the new window context as the current context
     glfwMakeContextCurrent(this->handle);
+
+    glewExperimental = GL_TRUE; //stops glew crashing on OSX / Linux :-/
 
     if (glewInit() != GLEW_OK)
     {

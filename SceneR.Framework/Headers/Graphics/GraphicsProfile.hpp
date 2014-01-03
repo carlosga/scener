@@ -31,11 +31,11 @@ namespace SceneR
             /**
              * Core profile
              */
-            Core          = GLFW_OPENGL_CORE_PROFILE,
+            HiDef = GLFW_OPENGL_CORE_PROFILE,
             /**
              * Compatibility profile
              */
-            Compatibility = GLFW_OPENGL_COMPAT_PROFILE
+            Reach = GLFW_OPENGL_COMPAT_PROFILE
         };
     }
 }

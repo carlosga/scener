@@ -20,10 +20,7 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-TextureObject::TextureObject(const UInt32&        width,
-                             const UInt32&        height,
-                             const SurfaceFormat& format,
-                             const TextureTarget& target)
+TextureObject::TextureObject(const TextureTarget& target)
     : texId(0),
       target(target)
 {

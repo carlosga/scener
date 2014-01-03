@@ -17,16 +17,14 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/DisplayMode.hpp>
+#include <System/Core.hpp>
 #include <vector>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        class DisplayMode;
-
         /**
          * Provides methods to manipulate graphics adapters.
          */

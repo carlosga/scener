@@ -18,6 +18,7 @@
 #define TEXTUREADDRESSMODE_HPP
 
 #include <System/Core.hpp>
+#include <System/Graphics/Platform.hpp>
 
 namespace SceneR
 {
@@ -38,12 +39,12 @@ namespace SceneR
              * between 1 and 2, the texture is flipped (mirrored); between 2 and 3,
              * the texture is normal again, and so on.
              */
-            Mirror = GL_REPEAT,
+            Mirror = GL_MIRRORED_REPEAT,
             /**
              * Tile the texture at every integer junction. For example, for u values between 0 and 3,
              * the texture is repeated three times; no mirroring is performed.
              */
-            Wrap = GL_MIRRORED_REPEAT
+            Wrap = GL_REPEAT
         };
     }
 }

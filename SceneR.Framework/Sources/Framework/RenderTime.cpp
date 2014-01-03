@@ -54,12 +54,12 @@ void RenderTime::ElapsedRenderTime(const System::TimeSpan& elapsedRenderTime)
     this->elapsedRenderTime = elapsedRenderTime;
 }
 
-const System::Boolean RenderTime::IsRunningSlowly() const
+const System::Boolean& RenderTime::IsRunningSlowly() const
 {
     return this->isRunningSlowly;
 }
 
-void RenderTime::IsRunningSlowly(const System::Boolean isRunningSlowly)
+void RenderTime::IsRunningSlowly(const System::Boolean& isRunningSlowly)
 {
     this->isRunningSlowly = isRunningSlowly;
 }

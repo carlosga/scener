@@ -17,7 +17,6 @@
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <iostream>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -82,7 +81,7 @@ void IndexBuffer::Deactivate() const
     this->ibo.Deactivate();
 }
 
-const UInt32 IndexBuffer::GetElementSizeInBytes() const
+UInt32 IndexBuffer::GetElementSizeInBytes() const
 {
     return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
 }

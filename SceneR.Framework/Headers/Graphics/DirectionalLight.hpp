@@ -18,6 +18,7 @@
 #define DIRECTIONALLIGHT_HPP
 
 #include <Framework/Vector3.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -19,8 +19,6 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/SurfaceFormat.hpp>
-#include <System/Core.hpp>
-#include <memory>
 
 namespace SceneR
 {

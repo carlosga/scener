@@ -22,7 +22,6 @@
 
 using namespace System;
 using namespace System::Text;
-using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)

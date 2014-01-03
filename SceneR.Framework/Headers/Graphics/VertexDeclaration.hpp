@@ -17,6 +17,7 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
+#include <Graphics/VertexElement.hpp>
 #include <System/Core.hpp>
 #include <vector>
 
@@ -24,8 +25,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class VertexElement;
-
         /**
          * A vertex declaration, which defines per-vertex data.
          */

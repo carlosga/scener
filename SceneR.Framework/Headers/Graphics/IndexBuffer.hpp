@@ -80,7 +80,7 @@ namespace SceneR
         private:
             void Activate() const;
             void Deactivate() const;
-            const System::UInt32 GetElementSizeInBytes() const;
+            System::UInt32 GetElementSizeInBytes() const;
 
         private:
             BufferObject                       ibo;

@@ -18,7 +18,6 @@
 #define BASICEFFECTREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <memory>
 
 namespace SceneR
 {

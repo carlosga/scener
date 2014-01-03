@@ -14,10 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/RasterizerState.hpp>
 
 using namespace System;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
@@ -105,8 +107,8 @@ void RasterizerState::Apply() const
     else
     {
         glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
         glFrontFace(static_cast<GLenum>(this->cullMode));
+        glCullFace(GL_BACK);
     }
 
     //  Select a polygon rasterization mode
@@ -144,11 +146,11 @@ void RasterizerState::Apply() const
     if (this->multiSampleAntiAlias)
     {
         glEnable(GL_MULTISAMPLE);
-        glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+        // glEnable(GL_FRAMEBUFFER_SRGB_EXT);
     }
     else
     {
         glDisable(GL_MULTISAMPLE);
-        glDisable(GL_FRAMEBUFFER_SRGB_EXT);
+        // glDisable(GL_FRAMEBUFFER_SRGB_EXT);
     }
 }

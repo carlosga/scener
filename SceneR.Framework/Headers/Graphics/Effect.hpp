@@ -19,6 +19,7 @@
 
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -27,7 +28,6 @@ namespace SceneR
     namespace Graphics
     {
         class GrapicsDevice;
-        class ShaderProgram;
 
         /**
          * Used to set and query effects, and to choose techniques.

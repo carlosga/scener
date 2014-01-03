@@ -17,16 +17,16 @@
 #ifndef RASTERIZERSTATE_HPP
 #define RASTERIZERSTATE_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {
     namespace Framework
     {
-        class GrapicsDeviceManager;
+        class GraphicsDeviceManager;
     }
 }
 

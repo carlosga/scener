@@ -17,15 +17,14 @@
 #ifndef VERTEXELEMENT_HPP
 #define VERTEXELEMENT_HPP
 
+#include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        enum class VertexElementFormat : System::UInt32;
-        enum class VertexElementUsage  : System::UInt32;
-
         /**
          * Defines input vertex data.
          */

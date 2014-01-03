@@ -19,7 +19,6 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
-#include <memory>
 
 namespace SceneR
 {

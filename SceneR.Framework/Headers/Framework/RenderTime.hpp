@@ -72,12 +72,12 @@ namespace SceneR
             /**
              * Gets a value indicating that the render loop is taking longer than its TargetElapsedTime.
              */
-            const System::Boolean IsRunningSlowly() const;
+            const System::Boolean& IsRunningSlowly() const;
 
             /**
              * Sets a value indicating that the render loop is taking longer than its TargetElapsedTime.
              */
-            void IsRunningSlowly(const System::Boolean isRunningSlowly);
+            void IsRunningSlowly(const System::Boolean& isRunningSlowly);
 
             /**
              * Gets the amount of render time since the start of the renderer.

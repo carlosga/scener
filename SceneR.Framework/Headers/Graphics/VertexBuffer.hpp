@@ -30,7 +30,6 @@ namespace SceneR
     namespace Graphics
     {
         class GraphicsDevice;
-        class VertexDeclaration;
 
         /**
          * Represents a list of 3D vertices to be streamed to the graphics device.
