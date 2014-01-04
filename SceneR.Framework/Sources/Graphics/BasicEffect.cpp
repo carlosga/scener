@@ -129,7 +129,7 @@ const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight0() const
 
 void BasicEffect::DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight)
 {
-    this->directionalLight0 = directionalLight0;
+    this->directionalLight0 = directionalLight;
 }
 
 const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight1() const
@@ -139,7 +139,7 @@ const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight1() const
 
 void BasicEffect::DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight)
 {
-    this->directionalLight1 = directionalLight1;
+    this->directionalLight1 = directionalLight;
 }
 
 const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight2() const
@@ -149,7 +149,7 @@ const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight2() const
 
 void BasicEffect::DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight)
 {
-    this->directionalLight2 = directionalLight2;
+    this->directionalLight2 = directionalLight;
 }
 
 const Vector3& BasicEffect::EmissiveColor() const
