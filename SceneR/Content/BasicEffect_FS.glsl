@@ -81,7 +81,7 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 void main() 
 {
     vec4      diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
-    vec4      color       = texture(Texture, vec2(TexCoord)) * diffuse;
+    vec4      color       = texture(Texture, TexCoord.st) * diffuse;
     vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
     vec3      worldNormal = normalize(NormalWS);
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);

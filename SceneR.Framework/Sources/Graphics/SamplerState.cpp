@@ -110,7 +110,6 @@ void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDe
 
 void SamplerState::OnApply(const TextureTarget& target, const Int32& mipmapLevels) const
 {
-    // TODO: Apply the anisotropic filtering parameter
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R , GL_RED);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G , GL_GREEN);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B , GL_BLUE);
@@ -119,13 +118,13 @@ void SamplerState::OnApply(const TextureTarget& target, const Int32& mipmapLevel
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T    , static_cast<GLenum>(this->addressV));
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R    , static_cast<GLenum>(this->addressW));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(this->filter));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(TextureFilter::Linear));
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-    if (mipmapLevels != 0)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL , mipmapLevels - 1);
+
+    if (this->filter == TextureFilter::Anisotropic)
     {
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_LOD, 1);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LOD, mipmapLevels - 1);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, mipmapLevels - 1);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, this->maxAnisotropy);
     }
 }

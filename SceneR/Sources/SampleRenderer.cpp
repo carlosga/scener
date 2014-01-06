@@ -15,6 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
+//#include <BumbleBee.hpp>
+//#include <Felicia.hpp>
+//#include <Raiden.hpp>
+//#include <Vanquish.hpp>
+//#include <WarForrest.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <SampleRenderer.hpp>
 #include <memory>
@@ -33,7 +38,13 @@ void SampleRenderer::BeginRun()
     this->graphicsDeviceManager.PreferredBackBufferWidth(1600);
     this->graphicsDeviceManager.PreferredBackBufferHeight(900);
     this->graphicsDeviceManager.WindowTitle(u"SceneR");
+
     this->Components().push_back(std::make_shared<AstroBoy>(*this));
+    //this->Components().push_back(std::make_shared<BumbleBee>(*this));
+    // this->Components().push_back(std::make_shared<Felicia>(*this));
+    // this->Components().push_back(std::make_shared<Raiden>(*this));
+    // this->Components().push_back(std::make_shared<Vanquish>(*this));
+    // this->Components().push_back(std::make_shared<WarForrest>(*this));
 
     Renderer::BeginRun();
 }

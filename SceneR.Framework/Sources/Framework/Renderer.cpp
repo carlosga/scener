@@ -17,7 +17,6 @@
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <algorithm>
 #include <chrono>
 #include <thread>
 
@@ -104,6 +103,8 @@ void Renderer::BeginRun()
 
 void Renderer::Draw(const RenderTime& renderTime)
 {
+    this->graphicsDeviceManager.CurrentGraphicsDevice().Clear(Color::Black);
+
     for (auto& component : this->drawableComponents)
     {
         if (component->IsVisible())

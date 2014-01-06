@@ -35,11 +35,11 @@ namespace SceneR
             /**
              * Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
              */
-            LinearMipPoint = GL_NEAREST_MIPMAP_LINEAR,
+            LinearMipPoint = GL_LINEAR_MIPMAP_NEAREST,
             /**
              * Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
              */
-            PointMipLinear = GL_LINEAR_MIPMAP_NEAREST,
+            PointMipLinear = GL_NEAREST_MIPMAP_LINEAR,
             /**
              * Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
              */

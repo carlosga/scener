@@ -43,9 +43,9 @@ void GraphicsDeviceManager::ApplyChanges()
 {
     this->graphicsDevice->PresentationParameters().BackBufferWidth(this->preferredBackBufferWidth);
     this->graphicsDevice->PresentationParameters().BackBufferHeight(this->preferredBackBufferHeight);
+    this->graphicsDevice->PresentationParameters().FullScreen(this->fullScreen);
     this->renderer.Window().Title(this->windowTitle);
     this->renderer.Window().AllowUserResizing(this->allowUserResizing);
-    this->graphicsDevice->PresentationParameters().FullScreen(this->fullScreen);
     this->graphicsDevice->Viewport().Update(this->preferredBackBufferWidth, this->preferredBackBufferHeight);
 
     this->graphicsDevice->BlendState().Apply();

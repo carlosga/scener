@@ -53,23 +53,19 @@ void AstroBoy::Update(const RenderTime& renderTime)
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationX(90.0f)
                      * Matrix::CreateRotationY(MathHelper::ToDegrees(this->rotation))
-                     * Matrix::CreateTranslation(Vector3(0.0f, -2.0f, -2.0f));
-    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 4.0f), Vector3::Zero, Vector3::Up);
+                     * Matrix::CreateTranslation(Vector3(0.0f, -3.0f, -2.0f));
+    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 6.0f), Vector3::Zero, Vector3::Up);
     this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 0.1f, 1000.0f);
 }
 
 void AstroBoy::Draw(const RenderTime& renderTime)
 {
-    this->CurrentGraphicsDevice().Clear(Color::Black);
-
     this->model->Draw(this->world, this->view, this->projection);
 }
 
 void AstroBoy::LoadContent()
 {
-    // this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroboy");
-    this->model = this->renderer.Content().Load<Model>(u"dcu_steel/steel hero168");
-    // this->model = this->renderer.Content().Load<Model>(u"DarkSiders/DarkSiders");
+    this->model = this->renderer.Content().Load<Model>(u"AstroBoy/astroboy");
 }
 
 void AstroBoy::UnloadContent()
