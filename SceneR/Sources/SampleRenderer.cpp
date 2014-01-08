@@ -15,11 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <BumbleBee.hpp>
+//#include <BumbleBee.hpp>
 //#include <Felicia.hpp>
 //#include <Raiden.hpp>
 //#include <Vanquish.hpp>
-#include <WarForrest.hpp>
+//#include <WarForrest.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RenderTime.hpp>
 #include <SampleRenderer.hpp>
