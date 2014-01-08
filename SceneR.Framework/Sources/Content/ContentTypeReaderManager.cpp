@@ -17,7 +17,6 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <Content/Readers/BasicEffectReader.hpp>
 #include <Content/Readers/BoundingSphereReader.hpp>
-#include <Content/Readers/EffectMaterialReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Content/Readers/StringReader.hpp>
@@ -55,7 +54,6 @@ void ContentTypeReaderManager::RegisterKnownTypeReaders()
 {
     this->RegisterTypeReader<BasicEffectReader>(u"Microsoft.Xna.Framework.Content.BasicEffectReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<BoundingSphereReader>(u"Microsoft.Xna.Framework.Content.BoundingSphereReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
-    this->RegisterTypeReader<EffectMaterialReader>(u"Microsoft.Xna.Framework.Content.EffectMaterialReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<IndexBufferReader>(u"Microsoft.Xna.Framework.Content.IndexBufferReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<ModelReader>(u"Microsoft.Xna.Framework.Content.ModelReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<StringReader>(u"Microsoft.Xna.Framework.Content.StringReader");

@@ -218,6 +218,12 @@ namespace SceneR
             static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up);
 
             /**
+             * Inverts the given Matrix structure.
+             * @param matrix the matrix to invert.
+             */
+            static Matrix Invert(const Matrix& matrix);
+
+            /**
              * Transforms a Matrix by applying a Quaternion rotation.
              *
              * @param value the matrix to transform

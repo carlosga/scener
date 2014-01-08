@@ -32,7 +32,7 @@ const Matrix& Matrix::Identity{1.0f, 0.0f, 0.0f, 0.0f,
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
-    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     auto   naxis = Vector3::Normalize(axis);
     Single theta = MathHelper::ToRadians(angle);
     Single cos   = std::cos(theta) - 1.0f + 1.0f;
@@ -50,8 +50,8 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 
 Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
 {
-    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
-    //          http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
+    //            http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
     // 1 - 2yy - 2zz    2xy - 2zw       2xz + 2yw
     // 2xy + 2zw        1 - 2xx - 2zz   2yz - 2xw
     // 2xz - 2yw        2yz + 2xw       1 - 2xx - 2yy
@@ -66,15 +66,15 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
     Single yz = quaternion.Y() * quaternion.Z();
     Single xw = quaternion.X() * quaternion.W();
 
-    return Matrix(1.0f - 2.0f * yy - 2.0f * zz, 2.0f * xy - 2.0f * zw       , 2.0f * xz + 2.0f * yw       , 0.0f,
-                  2.0f * xy + 2.0f * zw       , 1.0f - 2.0f * xx - 2.0f * zz, 2.0f * yz - 2.0f * xw       , 0.0f,
-                  2.0f * xz - 2.0f * yw       , 2.0f * yz + 2.0f * xw       , 1.0f - 2.0f * xx - 2.0f * yy, 0.0f,
-                  0.0f                        , 0.0f                        , 0.0f                        , 1.0f);
+    return Matrix(1.0f - 2.0f * (yy + zz), 2.0f * (xy - zw)       , 2.0f * (xz + yw)       , 0.0f,
+                  2.0f * (xy + zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz - xw)       , 0.0f,
+                  2.0f * (xz - yw)       , 2.0f * (yz + xw)       , 1.0f - 2.0f * (xx + yy), 0.0f,
+                  0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
 }
 
 Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
-    // Formula: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
+    // Reference: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
     Single ch = std::cos(MathHelper::ToRadians(yaw))   - 1 + 1;
     Single sh = std::sin(MathHelper::ToRadians(yaw))   - 1 + 1;
     Single ca = std::cos(MathHelper::ToRadians(pitch)) - 1 + 1;
@@ -112,7 +112,7 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
 
 Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/windows/desktop/bb281711(v=vs.85).aspx
+    // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb281711(v=vs.85).aspx
     // zaxis = normal(cameraPosition - cameraTarget)
     // xaxis = normal(cross(cameraUpVector, zaxis))
     // yaxis = cross(zaxis, xaxis)
@@ -138,7 +138,7 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
 
 Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
+    // Reference: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
     // 2/w  0    0           0
     // 0    2/h  0           0
     // 0    0    1/(zn-zf)   0
@@ -159,7 +159,7 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
                                            const Single& zNear,
                                            const Single& zFar)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
+    // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
     // 2/(r-l)      0            0           0
     // 0            2/(t-b)      0           0
     // 0            0            1/(zn-zf)   0
@@ -179,7 +179,7 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
 
 Matrix Matrix::CreatePerspective(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
 {
-    // Formula http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
+    // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
     // 0       2*zn/h  0              0
     // 0       0       zf/(zn-zf)    -1
@@ -203,7 +203,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
                                             const Single& zNear,
                                             const Single& zFar)
 {
-    // Formula: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
+    // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
     // xScale     0          0              0
     // 0        yScale       0              0
     // 0        0        zf/(zn-zf)        -1
@@ -230,7 +230,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
 
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
-    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     float theta = MathHelper::ToRadians(angle);
     float cos   = std::cos(theta);
     float sin   = std::sin(theta);
@@ -243,7 +243,7 @@ Matrix Matrix::CreateRotationX(const Single& angle)
 
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
-    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     Single theta = MathHelper::ToRadians(angle);
     Single cos   = std::cos(theta);
     Single sin   = std::sin(theta);
@@ -256,7 +256,7 @@ Matrix Matrix::CreateRotationY(const Single& angle)
 
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
-    // Formula: http://en.wikipedia.org/wiki/Rotation_matrix
+    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     Single theta = MathHelper::ToRadians(angle);
     Single cos   = std::cos(theta);
     Single sin   = std::sin(theta);
@@ -295,7 +295,7 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
-                  x   , y   , z   , 1.0f);
+                  -x  , y   , z   , 1.0f);
 }
 
 Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
@@ -308,6 +308,15 @@ Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, cons
                   upv.X()     , upv.Y()     , upv.Z()     , 0.0f,
                   -forward.X(), -forward.Y(), -forward.Z(), 0.0f,
                   position.X(), position.Y(), position.Z(), 1.0f);
+}
+
+Matrix Matrix::Invert(const Matrix& matrix)
+{
+    Matrix result(matrix);
+
+    result.Invert();
+
+    return result;
 }
 
 Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)

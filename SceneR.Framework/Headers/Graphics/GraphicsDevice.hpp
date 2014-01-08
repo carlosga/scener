@@ -85,29 +85,6 @@ namespace SceneR
                                        const System::UInt32& primitiveCount) const;
 
             /**
-             * Draws a series of instanced models.
-             *
-             * @param primitiveType The primitive type.
-             * @param baseVertex Offset to add to each vertex index in the index buffer.
-             * @param minVertexIndex Minimum vertex index for vertices used during the call.
-             *                       The minVertexIndex parameter and all of the indices in the index stream are
-             *                       relative to the baseVertex parameter.
-             * @param numVertices Number of vertices used during the call. The first vertex is located at index:
-             *                    baseVertex + minVertexIndex.
-             * @param startIndex Location in the index array at which to start reading vertices.
-             * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
-             *                       primitiveCount and primitiveType.
-             * @param instanceCount Number of primitives to render.
-             */
-            void DrawInstancedPrimitives(const PrimitiveType& primitiveType,
-                                         const System::UInt32& baseVertex,
-                                         const System::UInt32& minVertexIndex,
-                                         const System::UInt32& numVertices,
-                                         const System::UInt32& startIndex,
-                                         const System::UInt32& primitiveCount,
-                                         const System::UInt32& instanceCount) const;
-
-            /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
              * input streams.
              *

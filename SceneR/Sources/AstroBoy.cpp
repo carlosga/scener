@@ -15,15 +15,10 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-#include <Content/ContentManager.hpp>
-#include <Framework/Color.hpp>
 #include <Framework/MathHelper.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
-#include <Graphics/Viewport.hpp>
-#include <System/TimeSpan.hpp>
 
 using namespace System;
 using namespace SceneR::Sample;

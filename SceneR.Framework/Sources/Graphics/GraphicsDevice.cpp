@@ -106,17 +106,6 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     this->effect->End();
 }
 
-void GraphicsDevice::DrawInstancedPrimitives(const PrimitiveType& primitiveType,
-                                             const UInt32&        baseVertex,
-                                             const UInt32&        minVertexIndex,
-                                             const UInt32&        numVertices,
-                                             const UInt32&        startIndex,
-                                             const UInt32&        primitiveCount,
-                                             const UInt32&        instanceCount) const
-{
-    throw std::runtime_error("Not implemented");
-}
-
 void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
                                     const UInt32&        startVertex,
                                     const UInt32&        primitiveCount) const

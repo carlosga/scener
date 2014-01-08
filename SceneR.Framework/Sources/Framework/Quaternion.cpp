@@ -26,6 +26,15 @@ using namespace SceneR::Framework;
 
 const Quaternion Quaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
 
+Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
+{
+    Quaternion result(quaternion);
+
+    result.Conjugate();
+
+    return result;
+}
+
 Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const Single& angle)
 {
     // The quaternion in terms of axis-angle is:
@@ -59,7 +68,7 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     return qt * qz;
 }
 
-Quaternion SceneR::Framework::Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
+Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 {
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
@@ -117,6 +126,15 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
     }
 
     Quaternion result = quaternion1 * amount1 + quaternion2 * amount2;
+
+    result.Normalize();
+
+    return result;
+}
+
+Quaternion Quaternion::Normalize(const Quaternion& quaternion)
+{
+    Quaternion result(quaternion);
 
     result.Normalize();
 
@@ -303,10 +321,10 @@ Quaternion& Quaternion::operator*=(const Quaternion& q1)
 
     Quaternion q0 = *this;
 
-    this->w = (q0.W() * q1.W() - q0.X() * q1.X() - q0.Y() * q1.Y() - q0.Z() * q1.Z());
-    this->x = (q0.W() * q1.X() + q0.X() * q1.W() + q0.Y() * q1.Z() - q0.Z() * q1.Y());
-    this->y = (q0.W() * q1.Y() - q0.X() * q1.Z() + q0.Y() * q1.W() + q0.Z() * q1.X());
-    this->z = (q0.W() * q1.Z() + q0.X() * q1.Y() - q0.Y() * q1.X() + q0.Z() * q1.W());
+    this->w = (q0.w * q1.w - q0.x * q1.x - q0.y * q1.y - q0.z * q1.z);
+    this->x = (q0.w * q1.x + q0.x * q1.w + q0.y * q1.z - q0.z * q1.y);
+    this->y = (q0.w * q1.y - q0.x * q1.z + q0.y * q1.w + q0.z * q1.x);
+    this->z = (q0.w * q1.z + q0.x * q1.y - q0.y * q1.x + q0.z * q1.w);
 
     return *this;
 }

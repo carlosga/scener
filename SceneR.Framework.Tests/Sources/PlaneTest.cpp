@@ -14,22 +14,22 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/Core.hpp>
-#include <Graphics/EffectMaterial.hpp>
+#include <Framework/Plane.hpp>
+#include <Framework/Quaternion.hpp>
+#include <PlaneTest.hpp>
 
 using namespace System;
-using namespace SceneR::Graphics;
+using namespace SceneR::Framework;
 
-EffectMaterial::EffectMaterial(GraphicsDevice& graphicsDevice)
-    : Effect(graphicsDevice, u"", u"")
+TEST_F(PlaneTest, TransformPlaneByQuaternion)
 {
+    Plane      pin(1.0f, 0.0f, 0.0f, 0.0f);
+    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, 90.0f);
+    Plane      pout = Plane::Transform(pin, q);
+
+    EXPECT_TRUE(0.0f        == pout.Normal().X());
+    EXPECT_TRUE(0.99999994f == pout.Normal().Y());
+    EXPECT_TRUE(0.0f        == pout.Normal().Z());
+    EXPECT_TRUE(0.0f        == pout.D());
 }
 
-EffectMaterial::EffectMaterial(const EffectMaterial& effect)
-    : Effect(effect)
-{
-}
-
-EffectMaterial::~EffectMaterial()
-{
-}

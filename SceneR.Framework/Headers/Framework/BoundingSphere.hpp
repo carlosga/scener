@@ -75,63 +75,58 @@ namespace SceneR
 			/**
 			 * Gets the center of the sphere.
 			 */
-			const Vector3& Center();
+			const Vector3& Center() const;
 
 			/**
 			 * * Gets the radius of the sphere.
 			 */ 
-			const System::Single& Radius();
+			const System::Single& Radius() const;
 
 		public:
 			/**
 			 * Checks whether the current BoundingSphere contains the specified BoundingBox.
 			 */
-			ContainmentType Contains(const BoundingBox& boundingBox);
+			ContainmentType Contains(const BoundingBox& boundingBox) const;
 
 			/**
 			 * Checks whether the current BoundingSphere contains the specified BoundingFrustum.
 			 */
-			ContainmentType Contains(const BoundingFrustum& frustrum);	 
+			ContainmentType Contains(const BoundingFrustum& frustrum) const;
 
 			/**
 			 * Checks whether the current BoundingSphere contains the specified BoundingSphere.
 			 */
-			ContainmentType Contains(const BoundingSphere& sphere);
+			ContainmentType Contains(const BoundingSphere& sphere) const;
 
 			/**
 			 * Checks whether the current BoundingSphere contains the specified point.
 			 */
-			ContainmentType Contains(const Vector3& point);
+			ContainmentType Contains(const Vector3& point) const;
 
 			/**
 			 * Checks whether the current BoundingSphere intersects with a specified BoundingBox.
 			 */
-			System::Boolean Intersects(const BoundingBox& boundingBox);
+			System::Boolean Intersects(const BoundingBox& boundingBox) const;
 
 			/**
 			 * Checks whether the current BoundingSphere intersects with a specified BoundingFrustum.
 			 */
-			System::Boolean Intersects(const BoundingFrustum& frustrum);
+			System::Boolean Intersects(const BoundingFrustum& frustrum) const;
 
 			/**
 			 * Checks whether the current BoundingSphere intersects with a specified BoundingSphere.
 			 */
-			System::Boolean Intersects(const BoundingSphere& sphere);
+			System::Boolean Intersects(const BoundingSphere& sphere) const;
 
 			/**
 			 * Checks whether the current BoundingSphere intersects with a specified Plane.
 			 */
-			System::Boolean Intersects(const Plane& plane);
-
-			/**
-			 * Checks whether the current BoundingSphere intersects a Plane.
-			 */
-			System::Boolean Intersects(const Plane& plane, const PlaneIntersectionType& intersectionType);
+			PlaneIntersectionType Intersects(const Plane& plane) const;
 
 			/**
 			 * Checks whether the current BoundingSphere intersects with a specified Ray.
 			 */
-			System::Boolean Intersects(const Ray& ray);
+			System::Boolean Intersects(const Ray& ray) const;
 
 			/**
 			 * 	 Checks whether the current BoundingSphere intersects a Ray.
@@ -147,7 +142,7 @@ namespace SceneR
 			 * This is because there is no way to shear or non-uniformly scale a sphere. 
 			 * Such an operation would cause the sphere to lose its shape as a sphere.
 			 */
- 			BoundingSphere Transform(const Matrix& matrix);
+ 			BoundingSphere Transform(const Matrix& matrix) const;
 
 		public:
             bool operator==(const BoundingSphere& sphere) const;

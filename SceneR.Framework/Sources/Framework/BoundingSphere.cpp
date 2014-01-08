@@ -56,78 +56,72 @@ BoundingSphere::~BoundingSphere()
 {
 }
 
-const Vector3& BoundingSphere::Center()
+const Vector3& BoundingSphere::Center() const
 {
     return this->center;
 }
 
-const System::Single& BoundingSphere::Radius()
+const System::Single& BoundingSphere::Radius() const
 {
     return this->radius;
 }
 
-ContainmentType BoundingSphere::Contains(const BoundingBox& boundingBox)
+ContainmentType BoundingSphere::Contains(const BoundingBox& boundingBox) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingSphere::Contains(const BoundingFrustum& frustrum)
+ContainmentType BoundingSphere::Contains(const BoundingFrustum& frustrum) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingSphere::Contains(const BoundingSphere& sphere)
+ContainmentType BoundingSphere::Contains(const BoundingSphere& sphere) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingSphere::Contains(const Vector3& point)
+ContainmentType BoundingSphere::Contains(const Vector3& point) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingBox& boundingBox)
+System::Boolean BoundingSphere::Intersects(const BoundingBox& boundingBox) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingFrustum& frustrum)
+System::Boolean BoundingSphere::Intersects(const BoundingFrustum& frustrum) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingSphere& sphere)
+System::Boolean BoundingSphere::Intersects(const BoundingSphere& sphere) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const Plane& plane)
+PlaneIntersectionType BoundingSphere::Intersects(const Plane& plane) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const Plane& plane,
-                                           const PlaneIntersectionType& intersectionType)
+System::Boolean BoundingSphere::Intersects(const Ray& ray) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const Ray& ray)
+BoundingSphere BoundingSphere::Transform(const Matrix& matrix) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-BoundingSphere BoundingSphere::Transform(const Matrix& matrix)
+bool BoundingSphere::operator==(const BoundingSphere& sphere) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingSphere::operator ==(const BoundingSphere& sphere) const
-{
-    throw std::runtime_error("Not implemented");
-}
-
-bool BoundingSphere::operator !=(const BoundingSphere& sphere) const
+bool BoundingSphere::operator!=(const BoundingSphere& sphere) const
 {
     throw std::runtime_error("Not implemented");
 }

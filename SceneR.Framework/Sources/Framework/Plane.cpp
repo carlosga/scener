@@ -14,16 +14,47 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/BoundingSphere.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>
-#include <Framework/Vector3.hpp>
+#include <Framework/Quaternion.hpp>
 #include <Framework/Vector4.hpp>
+#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;
 
-/**
- * Initializes a new instance of the Plane structure.
- */
+Vector4 Plane::DotNormal(const Vector3& p, const Vector3& v)
+{
+    // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
+    return Vector4(Vector3::DotProduct(p, v));
+}
+
+Plane Plane::Normalize(const Plane& value)
+{
+    Plane result(value);
+
+    result.Normalize();
+
+    return result;
+}
+
+Plane Plane::Transform(const Plane& plane, const Matrix& matrix)
+{
+    return Vector4(plane.Normal(), plane.D()) * Matrix::Transpose(Matrix::Invert(matrix));
+}
+
+Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
+{
+    // Reference: http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/transforms/
+    //
+    //      Pout = q * Pin * conj(q)
+
+    Quaternion r = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::Conjugate(rotation));
+
+    return Plane(r.X(), r.Y(), r.Z(), r.W());
+}
+
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
 	: d(d), normal(Vector3(a, b, c))
 {
@@ -35,8 +66,16 @@ Plane::Plane(const Vector3& normal, const System::Single& d)
 }
 
 Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3)
-	: d(0.0f), normal()
-{	
+    : d(0.0f), normal()
+{
+    // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
+    Vector3 v21 = point1 - point2;
+    Vector3 v31 = point1 - point3;
+    Vector3 n   = Vector3::Normalize(Vector3::CrossProduct(v21, v31));
+    Vector4 d   = Plane::DotNormal(n, point1);
+
+    this->normal = n;
+    this->d      = -d.W();
 }
 
 Plane::Plane(const Vector4& value)
@@ -44,16 +83,78 @@ Plane::Plane(const Vector4& value)
 {	
 }
 
+Plane::Plane(const Plane& value)
+    : d(value.d), normal(value.normal)
+{
+}
+
 Plane::~Plane()
 {
 }
 
-const System::Single& Plane::D()
+const System::Single& Plane::D() const
 {
     return this->d;
 }
 
-const Vector3& Plane::Normal()
+const Vector3& Plane::Normal() const
 {
     return this->normal;
+}
+
+System::Single Plane::Dot(const Vector4& value) const
+{
+    return Vector4(this->normal, this->d).DotProduct(value);
+}
+
+System::Single Plane::DotCoordinate(const Vector3& value) const
+{
+    return Vector3::DotProduct(this->normal, value);
+}
+
+System::Single Plane::DotNormal(const Vector3& value) const
+{
+    Vector4 tmp = Plane::DotNormal(this->normal, value);
+
+    return (tmp.X() + tmp.Y() + tmp.Z() + tmp.W());
+}
+
+PlaneIntersectionType Plane::Intersects(const BoundingBox& box) const
+{
+    throw std::runtime_error("Not implemented");
+}
+
+PlaneIntersectionType Plane::Intersects(const BoundingFrustrum& frustrum) const
+{
+    throw std::runtime_error("Not implemented");
+}
+
+PlaneIntersectionType Plane::Intersects(const BoundingSphere& sphere) const
+{
+    return sphere.Intersects(*this);
+}
+
+void Plane::Normalize()
+{
+    Single reciprocalLength = 1.0f / this->normal.Length();
+
+    this->normal *= reciprocalLength;
+    this->d      *= reciprocalLength;
+}
+
+Plane& Plane::operator=(const Plane& plane)
+{
+    if (this != &plane)
+    {
+        this->normal = plane.normal;
+        this->d      = plane.d;
+    }
+
+    return *this;
+}
+
+bool Plane::operator==(const Plane& plane) const
+{
+    return (this->normal == plane.normal
+         && this->d      == plane.d);
 }

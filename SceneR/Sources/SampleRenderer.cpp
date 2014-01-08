@@ -15,15 +15,15 @@
 //-------------------------------------------------------------------------------
 
 #include <AstroBoy.hpp>
-//#include <BumbleBee.hpp>
+#include <BumbleBee.hpp>
 //#include <Felicia.hpp>
 //#include <Raiden.hpp>
 //#include <Vanquish.hpp>
-//#include <WarForrest.hpp>
+#include <WarForrest.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/RenderTime.hpp>
 #include <SampleRenderer.hpp>
 #include <memory>
-#include <vector>
 
 using namespace SceneR::Sample;
 using namespace SceneR::Framework;
@@ -40,11 +40,18 @@ void SampleRenderer::BeginRun()
     this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
     this->Components().push_back(std::make_shared<AstroBoy>(*this));
-    //this->Components().push_back(std::make_shared<BumbleBee>(*this));
+    // this->Components().push_back(std::make_shared<BumbleBee>(*this));
     // this->Components().push_back(std::make_shared<Felicia>(*this));
     // this->Components().push_back(std::make_shared<Raiden>(*this));
     // this->Components().push_back(std::make_shared<Vanquish>(*this));
     // this->Components().push_back(std::make_shared<WarForrest>(*this));
 
     Renderer::BeginRun();
+}
+
+void SampleRenderer::Draw(const RenderTime& renderTime)
+{
+    this->graphicsDeviceManager.CurrentGraphicsDevice().Clear(Color::Black);
+
+    Renderer::Draw(renderTime);
 }

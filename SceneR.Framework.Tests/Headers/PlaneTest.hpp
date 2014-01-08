@@ -14,35 +14,28 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef EFFECTMATERIALREADER_HPP
-#define EFFECTMATERIALREADER_HPP
+#ifndef PLANE_TEST
+#define	PLANE_TEST
 
-#include <Content/ContentTypeReader.hpp>
+#include <System/Core.hpp>
+#include <gtest/gtest.h>
 
-namespace SceneR
+class PlaneTest : public testing::Test
 {
-    namespace Content
+protected:
+    // virtual void SetUp() will be called before each test is run.  You
+    // should define it if you need to initialize the varaibles.
+    // Otherwise, this can be skipped.
+    virtual void SetUp()
     {
-        class ContentReader;
+    };
 
-        /**
-         * Effect material reader
-         */
-        class EffectMaterialReader : public ContentTypeReader
-        {
-        public:
-            /**
-             * Initializes a new instance of the EffectMaterialReader class.
-             */
-            EffectMaterialReader();
+    // virtual void TearDown() will be called after each test is run.
+    // You should define it if there is cleanup work to do.  Otherwise,
+    // you don't have to provide it.
+    //
+    // virtual void TearDown() {
+    // }
+};
 
-        public:
-            /**
-             * Reads the index buffer contents from the given ContentReader.
-             */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
-        };
-    }
-}
-
-#endif /* EFFECTMATERIALREADER_HPP */
+#endif	// PLANE_TEST

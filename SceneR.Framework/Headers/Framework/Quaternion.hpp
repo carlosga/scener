@@ -39,6 +39,14 @@ namespace SceneR
 
         public:
             /**
+             * Returns the conjugate of a specified Quaternion.
+             *
+             * @param quaternion the Quaternion of which to return the conjugate.
+             * @returns the quaternion conjugate
+             */
+            static Quaternion Conjugate(const Quaternion& quaternion);
+
+            /**
              * Creates a Quaternion from a vector and an angle to rotate about the vector.
              *
              * @param axisOfRotation Vector3 that represents the axis of rotation.
@@ -74,6 +82,16 @@ namespace SceneR
             static Quaternion Lerp(const Quaternion& quaternion1,
                                    const Quaternion& quaternion2,
                                    const System::Single&     amount);
+
+            /**
+             * Normalizes the specified Quaternion.
+             *
+             * A normalized Quaternion maintains its direction but its magnitude becomes 1.
+             * The resulting Quaternion is often called a unit vector.
+             * @param quaternion the quaternion to normalize.
+             * @returns A Quaternion is normalized by dividing the Quaternion by its magnitude.
+             */
+            static Quaternion Normalize(const Quaternion& quaternion);
 
             /**
              * Calculates the spherical interpolation between two quaternions.

@@ -75,12 +75,9 @@ Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3&
 
 Vector3 Vector3::CrossProduct(const Vector3& left, const Vector3& right)
 {
-    // The vector cross product in expanded form can be defined as:
-    // a x b = (y1z2 - z1y2)i (x1z2 - z1x2)j (x1y2 - y1x2)k
-
-    Single x = (left.Y() * right.Z()) - (left.Z() * right.Y());
-    Single y = (left.Z() * right.X()) - (left.X() * right.Z());
-    Single z = (left.X() * right.Y()) - (left.Y() * right.X());
+    Single x = ((right.y * left.z) - (right.z * left.y));
+    Single y = ((right.z * left.x) - (right.x * left.z));
+    Single z = ((right.x * left.y) - (right.y * left.x));
 
     return Vector3(x, y, z);
 }
@@ -379,20 +376,6 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
              +            matrix.M44();
 
     return Vector3(x / w, y / w, z / w);
-
-//    Single x = (this->x * matrix.M11())
-//             + (this->y * matrix.M21())
-//             + (this->z * matrix.M31());
-//
-//    Single y = (this->x * matrix.M12())
-//             + (this->y * matrix.M22())
-//             + (this->z * matrix.M32());
-//
-//    Single z = (this->x * matrix.M13())
-//             + (this->y * matrix.M23())
-//             + (this->z * matrix.M33());
-//
-//    return Vector3(x, y, z);
 }
 
 const Vector3 Vector3::operator/(const Vector3& vector) const

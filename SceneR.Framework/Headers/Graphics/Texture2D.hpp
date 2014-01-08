@@ -65,7 +65,7 @@ namespace SceneR
             Texture2D(GraphicsDevice&        graphicsDevice,
                       const System::UInt32&  width,
                       const System::UInt32&  height,
-                      const System::Boolean& mipMap,
+                      const System::Boolean& mipmap,
                       const SurfaceFormat&   format);
 
             /**
@@ -111,13 +111,14 @@ namespace SceneR
             void DeclareStorage(const System::UInt32& mipMapLevels);
 
         private:
-            SurfaceFormat  format;
-            System::UInt32 height;
-            System::UInt32 mipmapLevels;
-            System::UInt32 mipmapHeight;
-            System::UInt32 mipmapWidth;
-            System::UInt32 width;
-            TextureObject  object;
+            SurfaceFormat   format;
+            System::UInt32  height;
+            System::Boolean mipmap;
+            System::UInt32  mipmapLevels;
+            System::UInt32  mipmapHeight;
+            System::UInt32  mipmapWidth;
+            System::UInt32  width;
+            TextureObject   object;
 
             friend class SceneR::Content::Texture2DReader;
         };

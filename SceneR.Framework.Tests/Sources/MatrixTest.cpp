@@ -16,11 +16,11 @@
 
 #include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <gtest/gtest-message.h>
-#include <gtest/internal/gtest-internal.h>
 #include <MatrixTest.hpp>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -225,6 +225,27 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
     EXPECT_TRUE(0.0f  == matrix.M42());
     EXPECT_TRUE(0.0f  == matrix.M43());
     EXPECT_TRUE(1.0f  == matrix.M44());
+}
+
+TEST_F(MatrixTest, CreateFromQuaternion)
+{
+    Quaternion q(0.7071f, 0.0f, 0.0f, 0.7071f);
+    Matrix matrix = Matrix::CreateFromQuaternion(q);
+
+    EXPECT_TRUE(1.0f            == matrix.M11());
+    EXPECT_TRUE(0.0f            == matrix.M12());
+    EXPECT_TRUE(0.0f            == matrix.M13());
+    EXPECT_TRUE(0.0f            == matrix.M14());
+
+    EXPECT_TRUE(0.0f            == matrix.M21());
+    EXPECT_TRUE(1.92523003e-05f == matrix.M22());
+    EXPECT_TRUE(-0.999980748f   == matrix.M23());
+    EXPECT_TRUE(0.0f            == matrix.M24());
+
+    EXPECT_TRUE(0.0f            == matrix.M31());
+    EXPECT_TRUE(0.999980748f    == matrix.M32());
+    EXPECT_TRUE(1.92523003e-05  == matrix.M33());
+    EXPECT_TRUE(0.0f            == matrix.M34());
 }
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)

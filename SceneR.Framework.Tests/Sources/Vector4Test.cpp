@@ -26,8 +26,6 @@ TEST_F(Vector4Test, VectorMatrixMultiplication)
     Matrix  matrix1(10, 10, 10, 0, 20, 20, 20, 0, 30, 30, 30, 0, 5, 10, 15, 1);
     Vector4 pointResult = point1 * matrix1;
 
-    pointResult = point1 * matrix1;
-    
     // pointResult is equal to (250, 270, 290, 4)
     EXPECT_TRUE(pointResult.X() == 250.0f);
     EXPECT_TRUE(pointResult.Y() == 270.0f);

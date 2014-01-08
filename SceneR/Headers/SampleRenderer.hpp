@@ -14,11 +14,18 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CUSTOMRENDERER_HPP
-#define CUSTOMRENDERER_HPP
+#ifndef SAMPLERENDERER_HPP
+#define SAMPLERENDERER_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Renderer.hpp>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        class RenderTime;
+    }
+}
 
 namespace SceneR
 {
@@ -31,8 +38,9 @@ namespace SceneR
 
         protected:
             virtual void BeginRun() override;
+            virtual void Draw(const SceneR::Framework::RenderTime& renderTime) override;
         };
     }
 }
 
-#endif /* CUSTOMRENDERER_HPP */
+#endif /* SAMPLERENDERER_HPP */
