@@ -123,8 +123,8 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     // -dot(xaxis, cameraPosition) -dot(yaxis, cameraPosition) -dot(zaxis, cameraPosition) 1
 
     Vector3 zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
-    Vector3 xAxis = Vector3::Normalize(Vector3::CrossProduct(cameraUpVector, zAxis));
-    Vector3 yAxis = Vector3::CrossProduct(zAxis, xAxis);
+    Vector3 xAxis = Vector3::Normalize(Vector3::Cross(cameraUpVector, zAxis));
+    Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
 
     Single dx = Vector3::DotProduct(xAxis, cameraPosition);
     Single dy = Vector3::DotProduct(yAxis, cameraPosition);
@@ -236,8 +236,8 @@ Matrix Matrix::CreateRotationX(const Single& angle)
     float sin   = std::sin(theta);
 
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
-                  0.0f,  cos, -sin, 0.0f,
-                  0.0f,  sin,  cos, 0.0f,
+                  0.0f,  cos,  sin, 0.0f,
+                  0.0f, -sin,  cos, 0.0f,
                   0.0f, 0.0f, 0.0f, 1.0f);
 }
 
@@ -248,9 +248,9 @@ Matrix Matrix::CreateRotationY(const Single& angle)
     Single cos   = std::cos(theta);
     Single sin   = std::sin(theta);
 
-    return Matrix( cos, 0.0f,  sin, 0.0f,
+    return Matrix( cos, 0.0f, -sin, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
-                  -sin, 0.0f,  cos, 0.0f,
+                   sin, 0.0f,  cos, 0.0f,
                   0.0f, 0.0f, 0.0f, 1.0f);
 }
 
@@ -261,8 +261,8 @@ Matrix Matrix::CreateRotationZ(const Single& angle)
     Single cos   = std::cos(theta);
     Single sin   = std::sin(theta);
 
-    return Matrix(cos , -sin, 0.0f, 0.0f,
-                  sin ,  cos, 0.0f, 0.0f,
+    return Matrix( cos,  sin, 0.0f, 0.0f,
+                  -sin,  cos, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
                   0.0f, 0.0f, 0.0f, 1.0f);
 }
@@ -295,14 +295,14 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
                   0.0f, 0.0f, 1.0f, 0.0f,
-                  -x  , y   , z   , 1.0f);
+                  x   , y   , z   , 1.0f);
 }
 
 Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
     Vector3 nf    = Vector3::Normalize(forward);
-    Vector3 right = Vector3::Normalize(Vector3::CrossProduct(forward, up));
-    Vector3 upv   = Vector3::Normalize(Vector3::CrossProduct(right, forward));;
+    Vector3 right = Vector3::Normalize(Vector3::Cross(forward, up));
+    Vector3 upv   = Vector3::Normalize(Vector3::Cross(right, forward));;
 
     return Matrix(right.X()   , right.Y()   , right.Z()   , 0.0f,
                   upv.X()     , upv.Y()     , upv.Z()     , 0.0f,

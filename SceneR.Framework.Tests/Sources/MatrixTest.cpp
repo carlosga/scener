@@ -244,7 +244,7 @@ TEST_F(MatrixTest, CreateFromQuaternion)
 
     EXPECT_TRUE(0.0f            == matrix.M31());
     EXPECT_TRUE(0.999980748f    == matrix.M32());
-    EXPECT_TRUE(1.92523003e-05  == matrix.M33());
+    EXPECT_TRUE(1.92523003e-05f == matrix.M33());
     EXPECT_TRUE(0.0f            == matrix.M34());
 }
 

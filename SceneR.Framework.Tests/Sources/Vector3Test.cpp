@@ -152,11 +152,11 @@ TEST_F(Vector3Test, Normalization)
     EXPECT_TRUE(0.742781401f == vector1.Z());
 }
 
-TEST_F(Vector3Test, CrossProduct)
+TEST_F(Vector3Test, Cross)
 {
     Vector3 left(20.0f, 30.0f, 40.0f);
     Vector3 right(45.0f, 70.0f, 80.0f);
-    Vector3 crossProduct = Vector3::CrossProduct(left, right);
+    Vector3 crossProduct = Vector3::Cross(left, right);
     
     // crossProduct is equal to (-400, 200, 50)                        
     EXPECT_TRUE(-400.0f == crossProduct.X());

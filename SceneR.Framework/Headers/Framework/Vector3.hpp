@@ -139,7 +139,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The cross product of this Vector3 and vectorb.
              */
-            static Vector3 CrossProduct(const Vector3& left, const Vector3& right);
+            static Vector3 Cross(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates the distance between two vectors.

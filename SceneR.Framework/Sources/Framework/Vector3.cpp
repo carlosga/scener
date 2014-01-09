@@ -50,9 +50,9 @@ Vector3 Vector3::Barycentric(const Vector3& value1,
                              const Single&  amount1,
                              const Single&  amount2)
 {
-    return Vector3(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
-                 , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2)
-                 , MathHelper::Barycentric(value1.Z(), value2.Z(), value3.Z(), amount1, amount2));
+    return Vector3(MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+                 , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+                 , MathHelper::Barycentric(value1.z, value2.z, value3.z, amount1, amount2));
 }
 
 Vector3 Vector3::CatmullRom(const Vector3& value1,
@@ -61,25 +61,24 @@ Vector3 Vector3::CatmullRom(const Vector3& value1,
                             const Vector3& value4,
                             const System::Single& amount)
 {
-    return Vector3(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
-                 , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount)
-                 , MathHelper::CatmullRom(value1.Z(), value2.Z(), value3.Z(), value4.Z(), amount));
+    return Vector3(MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
+                 , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
+                 , MathHelper::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount));
 }
 
 Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3& max)
 {
-    return Vector3(MathHelper::Clamp(value1.X(), min.X(), max.X())
-                 , MathHelper::Clamp(value1.Y(), min.Y(), max.Y())
-                 , MathHelper::Clamp(value1.Z(), min.Z(), max.Z()));
+    return Vector3(MathHelper::Clamp(value1.x, min.x, max.x)
+                 , MathHelper::Clamp(value1.y, min.y, max.y)
+                 , MathHelper::Clamp(value1.z, min.z, max.z));
 }
 
-Vector3 Vector3::CrossProduct(const Vector3& left, const Vector3& right)
+Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
 {
-    Single x = ((right.y * left.z) - (right.z * left.y));
-    Single y = ((right.z * left.x) - (right.x * left.z));
-    Single z = ((right.x * left.y) - (right.y * left.x));
-
-    return Vector3(x, y, z);
+    // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvector3cross(v=vs.85).aspx
+    return Vector3((left.y * right.z) - (left.z * right.y)
+                 , (left.z * right.x) - (left.x * right.z)
+                 , (left.x * right.y) - (left.y * right.x));
 }
 
 Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
@@ -106,7 +105,7 @@ Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
 
     Vector3 dotProduct = left * right;
 
-    return (dotProduct.X() + dotProduct.Y() + dotProduct.Z());
+    return (dotProduct.x + dotProduct.y + dotProduct.z);
 }
 
 Vector3 Vector3::Hermite(const Vector3& value1,
@@ -115,25 +114,25 @@ Vector3 Vector3::Hermite(const Vector3& value1,
                          const Vector3& tangent2,
                          const System::Single& amount)
 {
-    return Vector3(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
-                 , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount)
-                 , MathHelper::Hermite(value1.Z(), tangent1.Z(), value2.Z(), tangent2.Z(), amount));
+    return Vector3(MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+                 , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+                 , MathHelper::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount));
 }
 
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
     assert(amount >= 0.0f && amount < 1.0f);
 
-    return Vector3(MathHelper::Lerp(value1.X(), value2.X(), amount)
-                 , MathHelper::Lerp(value1.Y(), value2.Y(), amount)
-                 , MathHelper::Lerp(value1.Z(), value2.Z(), amount));
+    return Vector3(MathHelper::Lerp(value1.x, value2.x, amount)
+                 , MathHelper::Lerp(value1.y, value2.y, amount)
+                 , MathHelper::Lerp(value1.z, value2.z, amount));
 }
 
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    return Vector3(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
-                 , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount)
-                 , MathHelper::SmoothStep(value1.Z(), value2.Z(), amount));
+    return Vector3(MathHelper::SmoothStep(value1.x, value2.x, amount)
+                 , MathHelper::SmoothStep(value1.y, value2.y, amount)
+                 , MathHelper::SmoothStep(value1.z, value2.z, amount));
 }
 
 Vector3 Vector3::Normalize(const Vector3& value)
@@ -152,17 +151,17 @@ Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
 
 Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
 {
-    Single x = (normal.X() * matrix.M11())
-             + (normal.Y() * matrix.M21())
-             + (normal.Z() * matrix.M31());
+    Single x = (normal.x * matrix.M11())
+             + (normal.y * matrix.M21())
+             + (normal.z * matrix.M31());
 
-    Single y = (normal.X() * matrix.M12())
-             + (normal.Y() * matrix.M22())
-             + (normal.Z() * matrix.M32());
+    Single y = (normal.x * matrix.M12())
+             + (normal.y * matrix.M22())
+             + (normal.z * matrix.M32());
 
-    Single z = (normal.X() * matrix.M13())
-             + (normal.Y() * matrix.M23())
-             + (normal.Z() * matrix.M33());
+    Single z = (normal.x * matrix.M13())
+             + (normal.y * matrix.M23())
+             + (normal.z * matrix.M33());
 
     return Vector3(x, y, z);
 }
@@ -183,7 +182,7 @@ Vector3::Vector3(const Vector2& value, const System::Single& z)
 }
 
 Vector3::Vector3(const Vector3& vector)
-    : x(vector.X()), y(vector.Y()), z(vector.Z())
+    : x(vector.x), y(vector.y), z(vector.z)
 {
 }
 
@@ -260,9 +259,9 @@ Vector3& Vector3::operator=(const Vector3& vector)
 {
     if (this != &vector)
     {
-        this->x = vector.X();
-        this->y = vector.Y();
-        this->z = vector.Z();
+        this->x = vector.x;
+        this->y = vector.y;
+        this->z = vector.z;
     }
 
     return *this;
