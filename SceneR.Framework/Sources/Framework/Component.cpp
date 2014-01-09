@@ -36,9 +36,9 @@ SceneR::Framework::Renderer& Component::Renderer()
     return this->renderer;
 }
 
-//void Component::Update(const RenderTime& renderTime)
-//{
-//}
+void Component::Update(const RenderTime& renderTime)
+{
+}
 
 const Boolean& Component::Enabled() const
 {
