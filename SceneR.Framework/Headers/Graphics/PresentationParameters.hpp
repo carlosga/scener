@@ -17,6 +17,7 @@
 #ifndef PRESENTATIONPARAMETERS_HPP
 #define PRESENTATIONPARAMETERS_HPP
 
+#include <Framework/PresentInterval.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -70,26 +71,32 @@ namespace SceneR
              */
             void BackBufferWidth(const System::Size& backBufferWidth);
 
-        private:
-            System::Boolean fullScreen;
-            System::Size    backBufferHeight;
-            System::Size    backBufferWidth;
+            /**
+             * Gets the number of sample locations during multisampling.
+             */
+            const System::UInt32& MultiSampleCount() const;
 
-            /*
-            Property    Description
-            BackBufferCount    Retrieves or sets the number of back buffers.
-            BackBufferFormat    Retrieves or sets the format of the back buffer.
-            DeviceWindow    Retrieves or sets the display window.
-            DeviceWindowHandle    Retrieves or sets the display window.
-            ForceNoMultiThreadedFlag    Retrieves or sets a Boolean value that indicates whether an application can use multithreading.
-            FullScreenRefreshRateInHz    Retrieves or sets the rate at which the display adapter refreshes the screen.
-            MultiSample    Retrieves or sets the MultiSampleType.
-            MultiSampleQuality    Retrieves or sets the multisample quality level.
-            PresentationInterval    Retrieves or sets the maximum rate at which the swap chain's back buffers can be presented.
-            PresentFlag    Retrieves or sets the present flag.
-            SwapEffect    Retrieves or sets the swap effect.
-            Windowed    Boolean value that indicates whether an application is running in a windowed mode.
-            */
+            /**
+             * Sets the number of sample locations during multisampling.
+             */
+            void MultiSampleCount(const System::UInt32& multiSampleCount);
+
+            /**
+             * Gets the swap buffer interval.
+             */
+            const SceneR::Framework::PresentInterval& PresentInterval() const;
+
+            /**
+             * Sets the swap buffer interval.
+             */
+            void PresentInterval(const SceneR::Framework::PresentInterval& presentInterval);
+
+        private:
+            System::Boolean                    fullScreen;
+            System::Size                       backBufferHeight;
+            System::Size                       backBufferWidth;
+            System::UInt32                     multiSampleCount;
+            SceneR::Framework::PresentInterval presentInterval;
         };
     }
 }

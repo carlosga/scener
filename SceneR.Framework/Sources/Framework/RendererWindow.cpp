@@ -77,11 +77,6 @@ void RendererWindow::Open()
     GLFWmonitor* monitor     = nullptr;
     GLFWwindow*  windowShare = nullptr;
 
-    if (!glfwInit())
-    {
-        throw std::runtime_error("glfwInit failed");
-    }
-
     // Set the window and context hints
     glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
     glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
@@ -95,7 +90,7 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_ALPHA_BITS            , 8);
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 8);
-    glfwWindowHint(GLFW_SAMPLES               , 4);
+    glfwWindowHint(GLFW_SAMPLES               , gdm.CurrentGraphicsDevice().PresentationParameters().MultiSampleCount());
     // glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
 
     if (gdm.FullScreen())
@@ -145,9 +140,6 @@ void RendererWindow::Open()
 
     // Initialize input
     this->InitializeInput();
-
-    // Enable vertical sync (on cards that support it)
-    glfwSwapInterval(1);
 }
 
 void RendererWindow::Close()

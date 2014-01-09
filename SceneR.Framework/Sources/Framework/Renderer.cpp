@@ -237,8 +237,8 @@ void Renderer::PostProcessComponents()
 
 void Renderer::CreateDevice()
 {
-    this->rendererWindow.Open();
     this->graphicsDeviceManager.CreateDevice();
+    this->rendererWindow.Open();
     this->graphicsDeviceManager.ApplyChanges();
 }
 

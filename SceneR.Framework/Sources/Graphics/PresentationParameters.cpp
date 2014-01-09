@@ -20,7 +20,11 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 PresentationParameters::PresentationParameters()
-    : fullScreen(false), backBufferHeight(0), backBufferWidth(0)
+    : fullScreen(false),
+      backBufferHeight(0),
+      backBufferWidth(0),
+      multiSampleCount(8),
+      presentInterval(SceneR::Framework::PresentInterval::Default)
 {
 }
 
@@ -52,4 +56,24 @@ const Size& PresentationParameters::BackBufferWidth() const
 void PresentationParameters::BackBufferWidth(const Size& backBufferWidth)
 {
     this->backBufferWidth = backBufferWidth;
+}
+
+const System::UInt32& PresentationParameters::MultiSampleCount() const
+{
+    return this->multiSampleCount;
+}
+
+void PresentationParameters::MultiSampleCount(const System::UInt32& multiSampleCount)
+{
+    this->multiSampleCount = multiSampleCount;
+}
+
+const SceneR::Framework::PresentInterval& PresentationParameters::PresentInterval() const
+{
+    return presentInterval;
+}
+
+void PresentationParameters::PresentInterval(const SceneR::Framework::PresentInterval& presentInterval)
+{
+    this->presentInterval = presentInterval;
 }

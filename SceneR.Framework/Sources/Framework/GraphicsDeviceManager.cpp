@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/PresentInterval.hpp>
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 
@@ -51,6 +52,21 @@ void GraphicsDeviceManager::ApplyChanges()
     this->graphicsDevice->BlendState().Apply();
     this->graphicsDevice->RasterizerState().Apply();
     this->graphicsDevice->DepthStencilState().Apply();
+
+    switch (this->graphicsDevice->PresentationParameters().PresentInterval())
+    {
+        case PresentInterval::Default:
+        case PresentInterval::One:
+            glfwSwapInterval(1);
+            break;
+
+        case PresentInterval::Two:
+            glfwSwapInterval(2);
+            break;
+
+        case PresentInterval::Immediate:
+            glfwSwapInterval(0);
+    }
 }
 
 Boolean GraphicsDeviceManager::BeginDraw()
@@ -65,6 +81,11 @@ void GraphicsDeviceManager::EndDraw()
 
 void GraphicsDeviceManager::CreateDevice()
 {
+    if (!glfwInit())
+    {
+        throw std::runtime_error("glfwInit failed");
+    }
+
     this->graphicsDevice = std::make_shared<GraphicsDevice>(GraphicsAdapter::DefaultAdapter()
                                                           , SceneR::Graphics::GraphicsProfile::HiDef);
 }
