@@ -25,6 +25,14 @@
 
 namespace SceneR
 {
+    namespace Framework
+    {
+        struct Matrix;
+    }
+}
+
+namespace SceneR
+{
     namespace Content
     {
         class ModelReader;
@@ -52,6 +60,24 @@ namespace SceneR
             ~Model();
 
         public:
+            /**
+             * Copies a transform of each bone in a model relative to all parent bones of the bone into a given array.
+             * @param destinationBoneTransforms The array to receive bone transforms.
+             */
+            void CopyAbsoluteBoneTransformsTo(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
+
+            /**
+             * Copies an array of transforms into each bone in the model.
+             * @param the new bone transforms.
+             */
+            void CopyBoneTransformsFrom(const std::vector<SceneR::Framework::Matrix>& sourceBoneTransforms);
+
+            /**
+             * Copies each bone transform relative only to the parent bone of the model to a given array.
+             * @partam destinationBoneTransforms the array to receive bone transforms.
+             */
+            void CopyBoneTransformsTo(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
+
             /**
              * Render a model after applying the given matrix transformations.
              *

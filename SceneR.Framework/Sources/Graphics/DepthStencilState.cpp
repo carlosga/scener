@@ -228,20 +228,20 @@ void DepthStencilState::Apply() const
         }
         else
         {
-            glStencilFuncSeparate(GL_BACK
+            glStencilFuncSeparate(GL_FRONT
                                 , static_cast<GLenum>(this->stencilFunction)
                                 , this->referenceStencil
                                 , this->stencilMask);
-            glStencilOpSeparate(GL_BACK
+            glStencilOpSeparate(GL_FRONT
                               , static_cast<GLenum>(this->stencilFail)
                               , static_cast<GLenum>(this->stencilDepthBufferFail)
                               , static_cast<GLenum>(this->stencilPass));
 
-            glStencilFuncSeparate(GL_FRONT
+            glStencilFuncSeparate(GL_BACK
                                 , static_cast<GLenum>(this->counterClockwiseStencilFunction)
                                 , this->referenceStencil
                                 , this->stencilMask);
-            glStencilOpSeparate(GL_FRONT
+            glStencilOpSeparate(GL_BACK
                               , static_cast<GLenum>(this->counterClockwiseStencilFail)
                               , static_cast<GLenum>(this->counterClockwiseStencilDepthBufferFail)
                               , static_cast<GLenum>(this->counterClockwiseStencilPass));

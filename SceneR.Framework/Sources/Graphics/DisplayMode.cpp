@@ -15,16 +15,21 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/DisplayMode.hpp>
+#include <cassert>
 
 using namespace System;
 using namespace SceneR::Graphics;
 
 DisplayMode::DisplayMode(const GLFWvidmode* mode)
-    : aspectRatio(static_cast<Single>(mode->width) / static_cast<Single>(mode->height)),
+    : aspectRatio(0.0f),
       format(SurfaceFormat::Color),
       height(mode->height),
       width(mode->width)
 {
+    assert(mode->width != 0 && mode->height != 0);
+
+    this->aspectRatio = static_cast<Single>(mode->width) / static_cast<Single>(mode->height);
+
     Int32 bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
 
     switch (bitDepth)

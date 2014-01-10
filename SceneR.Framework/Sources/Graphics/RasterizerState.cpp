@@ -24,7 +24,7 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource(graphicsDevice),
-      cullMode(SceneR::Graphics::CullMode::CullClockwiseFace),
+      cullMode(SceneR::Graphics::CullMode::CullCounterClockwiseFace),
       depthBias(0.0f),
       fillMode(SceneR::Graphics::FillMode::Solid),
       multiSampleAntiAlias(true),
@@ -108,7 +108,21 @@ void RasterizerState::Apply() const
     {
         glEnable(GL_CULL_FACE);
         glFrontFace(static_cast<GLenum>(this->cullMode));
-        glCullFace(GL_BACK);
+
+        switch (this->cullMode)
+        {
+            case SceneR::Graphics::CullMode::CullClockwiseFace:
+                glCullFace(GL_BACK);
+                break;
+
+            case SceneR::Graphics::CullMode::CullCounterClockwiseFace:
+                glCullFace(GL_FRONT);
+                break;
+
+            default:
+                glCullFace(GL_FRONT_AND_BACK);
+                break;
+        }
     }
 
     //  Select a polygon rasterization mode

@@ -16,6 +16,7 @@
 
 #include <Graphics/Viewport.hpp>
 #include <System/Graphics/Platform.hpp>
+#include <cassert>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -61,6 +62,8 @@ const Single& Viewport::Height() const
 
 Single Viewport::AspectRatio() const
 {
+    assert(this->vWidth > 0 && this->vHeight > 0);
+
     return (this->vWidth / this->vHeight);
 }
 

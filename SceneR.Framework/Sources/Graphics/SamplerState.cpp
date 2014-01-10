@@ -110,18 +110,18 @@ void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDe
 
 void SamplerState::OnApply(const TextureTarget& target, const Int32& mipmapLevels) const
 {
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R , GL_RED);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G , GL_GREEN);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B , GL_BLUE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A , GL_ALPHA);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S    , static_cast<GLenum>(this->addressU));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T    , static_cast<GLenum>(this->addressV));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R    , static_cast<GLenum>(this->addressW));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(this->filter));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(TextureFilter::Linear));
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL , mipmapLevels);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R   , GL_RED);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G   , GL_GREEN);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B   , GL_BLUE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A   , GL_ALPHA);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S      , static_cast<GLenum>(this->addressU));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T      , static_cast<GLenum>(this->addressV));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R      , static_cast<GLenum>(this->addressW));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER  , static_cast<GLenum>(this->filter));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER  , static_cast<GLenum>(TextureFilter::Linear));
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS    , this->mipMapLevelOfDetailBias);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL  , 0);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL   , mipmapLevels);
 
     if (this->filter == TextureFilter::Anisotropic)
     {

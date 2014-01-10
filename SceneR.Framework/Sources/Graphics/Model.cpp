@@ -30,6 +30,19 @@ Model::~Model()
 {
 }
 
+void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
+{
+}
+
+void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransforms)
+{
+
+}
+
+void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
+{
+}
+
 void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
     for (auto &mesh : this->meshes)
