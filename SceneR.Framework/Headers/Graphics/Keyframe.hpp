@@ -40,6 +40,8 @@ namespace SceneR
                    , const System::TimeSpan&          time
                    , const SceneR::Framework::Matrix& transform);
 
+            Keyframe(const Keyframe& keyframe);
+
             virtual ~Keyframe();
 
         public:

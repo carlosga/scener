@@ -17,9 +17,10 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
+#include <GL/glew.h>
 #include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
 #include <System/Core.hpp>
-#include <System/Graphics/Platform.hpp>
 
 namespace SceneR
 {
@@ -82,8 +83,9 @@ namespace SceneR
 
         private:
             void Create();
-            GLenum GetElementType(const VertexElementFormat& vertexFormat) const;
             System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
+            GLenum GetElementType(const VertexElementFormat& vertexFormat) const;
+            System::UInt32 GetUsageIndex(const VertexElementUsage& usage) const;
 
         private:
             System::UInt32 id;

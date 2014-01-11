@@ -90,7 +90,7 @@ namespace SceneR
              * The underlying skinning data including bone weights and indices
              * for skinned mesh animation.
              */
-            SkinningData skinningData;
+            std::shared_ptr<SkinningData> skinningData;
 
             /**
              * Animation Controller that is used to apply animations to the model

@@ -28,6 +28,7 @@
 #include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
+#include <memory>
 #include <vector>
 
 namespace SceneR
@@ -37,7 +38,10 @@ namespace SceneR
         class AnimationPlayer
         {
         public:
-            AnimationPlayer(const SkinningData& skinningData);
+            AnimationPlayer(const std::shared_ptr<SkinningData>& skinningData);
+
+            AnimationPlayer(const AnimationPlayer& animationPlayer);
+
             virtual ~AnimationPlayer();
 
         public:
@@ -82,7 +86,7 @@ namespace SceneR
              * Gets the current bone transform matrices,
              * relative to the skinning bind pose.
              */
-            const std::vector<SceneR::Framework::Matrix>& GetSkinTransforms();
+            const std::vector<SceneR::Framework::Matrix>& GetSkinTransforms() const;
 
             /**
              * Gets the clip currently being decoded.
@@ -101,7 +105,7 @@ namespace SceneR
             System::Int32    currentKeyframe;
 
             // Backlink to the bind pose and skeleton hierarchy data.
-            SkinningData skinningDataValue;
+            std::shared_ptr<SkinningData> skinningDataValue;
 
             // Current animation transform matrices.
             std::vector<SceneR::Framework::Matrix> boneTransforms;

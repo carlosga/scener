@@ -396,7 +396,7 @@ void SkinnedEffect::OnApply()
 
     this->Parameters()[u"EmissiveColor"].SetValue(emissive);
     this->Parameters()[u"EyePosition"].SetValue(eyePosition);
-    //this->Parameters()[u"FogVector"].SetValue(Vector4());
+    // this->Parameters()[u"FogVector"].SetValue(Vector4());
     this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
     this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
 
@@ -426,7 +426,7 @@ void SkinnedEffect::Initialize()
     this->Parameters().Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
-    this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    // this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shaderProgram);

@@ -35,8 +35,8 @@ using namespace SceneR::Graphics;
 
 AnimatedModel::AnimatedModel(const std::shared_ptr<Model>& model)
     : model(model)
-    , skinningData()
-    , player(skinningData)
+    , skinningData(model->Skinning())
+    , player(model->Skinning())
 {
 }
 
@@ -46,12 +46,12 @@ AnimatedModel::~AnimatedModel()
 
 void AnimatedModel::Play(const String& clipName)
 {
-    this->player.StartClip(this->skinningData.AnimationClips()[clipName]);
+    this->player.StartClip(this->skinningData->AnimationClips()[clipName]);
 }
 
 void AnimatedModel::PlayFirstClip()
 {
-    this->player.StartClip(this->skinningData.AnimationClips()[0]);
+    this->player.StartClip(this->skinningData->AnimationClips().begin()->second);
 }
 
 void AnimatedModel::Update(const RenderTime& renderTime)

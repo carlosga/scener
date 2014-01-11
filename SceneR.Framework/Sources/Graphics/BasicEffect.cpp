@@ -410,7 +410,7 @@ void BasicEffect::Initialize()
     this->Parameters().Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
-    this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    // this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shaderProgram);
     this->Parameters().Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shaderProgram);

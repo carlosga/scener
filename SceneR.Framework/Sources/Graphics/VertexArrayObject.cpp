@@ -75,8 +75,6 @@ void VertexArrayObject::DeclareVertexFormat(const BufferObject& vbo, const Verte
 
 void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const
 {
-    System::UInt32 usageIndex = 0;
-
     glBindVertexBuffer(0, vbo.Id(), 0, vDecl.VertexStride());
 
     // ... declare vertex elements
@@ -84,6 +82,7 @@ void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const Vert
     {
         UInt32 elementType  = this->GetElementType(ve.VertexElementFormat());
         UInt32 elementCount = this->GetElementCount(ve.VertexElementFormat());
+        UInt32 usageIndex   = this->GetUsageIndex(ve.VertexElementUsage());
 
         if (elementType == GL_FLOAT)
         {
@@ -96,8 +95,6 @@ void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const Vert
 
         glEnableVertexAttribArray(usageIndex);
         glVertexAttribBinding(usageIndex, 0);
-
-        usageIndex++;
     }
 }
 
@@ -112,31 +109,6 @@ void VertexArrayObject::DeactivateVertexFormat(const VertexDeclaration& vDecl) c
     glBindVertexBuffer(0, 0, 0, vDecl.VertexStride());
 
     this->Deactivate();
-}
-
-GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat) const
-{
-    switch (vertexFormat)
-    {
-        case VertexElementFormat::Byte4:
-            return GL_UNSIGNED_BYTE;
-
-        case VertexElementFormat::Short2:
-        case VertexElementFormat::NormalizedShort2:
-        case VertexElementFormat::HalfVector2:
-        case VertexElementFormat::Short4:
-        case VertexElementFormat::NormalizedShort4:
-        case VertexElementFormat::HalfVector4:
-            return GL_UNSIGNED_SHORT;
-
-        case VertexElementFormat::Single:
-        case VertexElementFormat::Vector2:
-        case VertexElementFormat::Vector3:
-        case VertexElementFormat::Vector4:
-        case VertexElementFormat::Color:
-        default:
-            return GL_FLOAT;
-    }
 }
 
 System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& vertexFormat) const
@@ -164,5 +136,60 @@ System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& ver
         case VertexElementFormat::HalfVector4:
         default:
             return 4;
+    }
+}
+
+GLenum VertexArrayObject::GetElementType(const VertexElementFormat& vertexFormat) const
+{
+    switch (vertexFormat)
+    {
+        case VertexElementFormat::Byte4:
+            return GL_UNSIGNED_BYTE;
+
+        case VertexElementFormat::Short2:
+        case VertexElementFormat::NormalizedShort2:
+        case VertexElementFormat::HalfVector2:
+        case VertexElementFormat::Short4:
+        case VertexElementFormat::NormalizedShort4:
+        case VertexElementFormat::HalfVector4:
+            return GL_UNSIGNED_SHORT;
+
+        case VertexElementFormat::Single:
+        case VertexElementFormat::Vector2:
+        case VertexElementFormat::Vector3:
+        case VertexElementFormat::Vector4:
+        case VertexElementFormat::Color:
+        default:
+            return GL_FLOAT;
+    }
+}
+
+System::UInt32 VertexArrayObject::GetUsageIndex(const VertexElementUsage& usage) const
+{
+    switch (usage)
+    {
+        case VertexElementUsage::Position:
+            return 0;
+
+        case VertexElementUsage::Normal:
+            return 1;
+
+        case VertexElementUsage::TextureCoordinate:
+            return 2;
+
+        case VertexElementUsage::BlendIndices:
+            return 3;
+
+        case VertexElementUsage::BlendWeight:
+            return 4;
+
+        case VertexElementUsage::Tangent:
+            return 5;
+
+        case VertexElementUsage::Binormal:
+            return 5;
+
+        default:
+            return 0;
     }
 }

@@ -84,7 +84,7 @@ Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 
     if (location == -1)
     {
-        // throw std::runtime_error("Unknown parameter with name " + temp);
+        throw std::runtime_error("Unknown parameter with name " + temp);
     }
 
     return location;

@@ -28,7 +28,7 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-AnimationPlayer::AnimationPlayer(const SkinningData& skinningData)
+AnimationPlayer::AnimationPlayer(const std::shared_ptr<SkinningData>& skinningData)
     : currentClipValue()
     , currentTimeValue(TimeSpan::Zero)
     , currentKeyframe(0)
@@ -37,9 +37,20 @@ AnimationPlayer::AnimationPlayer(const SkinningData& skinningData)
     , worldTransforms(0)
     , skinTransforms(0)
 {
-    this->boneTransforms.reserve(this->skinningDataValue.BindPose().size());
-    this->worldTransforms.reserve(this->skinningDataValue.BindPose().size());
-    this->skinTransforms.reserve(this->skinningDataValue.BindPose().size());
+    this->boneTransforms.reserve(this->skinningDataValue->BindPose().size());
+    this->worldTransforms.reserve(this->skinningDataValue->BindPose().size());
+    this->skinTransforms.reserve(this->skinningDataValue->BindPose().size());
+}
+
+AnimationPlayer::AnimationPlayer(const AnimationPlayer& animationPlayer)
+    : currentClipValue(animationPlayer.currentClipValue)
+    , currentTimeValue(animationPlayer.currentTimeValue)
+    , currentKeyframe(animationPlayer.currentKeyframe)
+    , skinningDataValue(animationPlayer.skinningDataValue)
+    , boneTransforms(animationPlayer.boneTransforms)
+    , worldTransforms(animationPlayer.worldTransforms)
+    , skinTransforms(animationPlayer.skinTransforms)
+{
 }
 
 AnimationPlayer::~AnimationPlayer()
@@ -53,7 +64,7 @@ void AnimationPlayer::StartClip(const AnimationClip& clip)
     this->currentKeyframe  = 0;
 
     // Initialize bone transforms to the bind pose.
-    this->skinningDataValue.BindPose().assign(this->boneTransforms.begin(), this->boneTransforms.end());
+    this->boneTransforms.assign(this->skinningDataValue->BindPose().begin(), this->skinningDataValue->BindPose().end());
 }
 
 void AnimationPlayer::Update(const TimeSpan& time
@@ -81,7 +92,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
         }
     }
 
-    if ((currentTime < TimeSpan::Zero) || (time >= this->currentClipValue.Duration()))
+    if ((currentTime < TimeSpan::Zero) || (currentTime >= this->currentClipValue.Duration()))
     {
         throw std::runtime_error("time");
     }
@@ -90,7 +101,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
     if (currentTime < this->currentTimeValue)
     {
         this->currentKeyframe = 0;
-        this->skinningDataValue.BindPose().assign(this->boneTransforms.begin(), this->boneTransforms.end());
+        this->boneTransforms.assign(this->skinningDataValue->BindPose().begin(), this->skinningDataValue->BindPose().end());
     }
 
     this->currentTimeValue = currentTime;
@@ -117,23 +128,27 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
 
 void AnimationPlayer::UpdateWorldTransforms(const Matrix& rootTransform)
 {
+    this->worldTransforms.clear();
+
     // Root bone.
-    this->worldTransforms[0] = this->boneTransforms[0] * rootTransform;
+    this->worldTransforms.push_back(this->boneTransforms[0] * rootTransform);
 
     // Child bones.
-    for (Int32 bone = 1; bone < this->worldTransforms.size(); bone++)
+    for (Int32 bone = 1; bone < this->skinningDataValue->BindPose().size(); bone++)
     {
-        Int32 parentBone = this->skinningDataValue.SkeletonHierarchy()[bone];
+        Int32 parentBone = this->skinningDataValue->SkeletonHierarchy()[bone];
 
-        this->worldTransforms[bone] = this->boneTransforms[bone] * this->worldTransforms[parentBone];
+        this->worldTransforms.push_back(this->boneTransforms[bone] * this->worldTransforms[parentBone]);
     }
 }
 
 void AnimationPlayer::UpdateSkinTransforms()
 {
-    for (Int32 bone = 0; bone < this->skinTransforms.size(); bone++)
+    this->skinTransforms.clear();
+
+    for (Int32 bone = 0; bone < this->skinningDataValue->BindPose().size(); bone++)
     {
-        this->skinTransforms[bone] = this->skinningDataValue.InverseBindPose()[bone] * this->worldTransforms[bone];
+        this->skinTransforms.push_back(this->skinningDataValue->InverseBindPose()[bone] * this->worldTransforms[bone]);
     }
 }
 
@@ -147,7 +162,7 @@ const std::vector<Matrix>& AnimationPlayer::GetWorldTransforms() const
     return this->worldTransforms;
 }
 
-const std::vector<Matrix>& AnimationPlayer::GetSkinTransforms()
+const std::vector<Matrix>& AnimationPlayer::GetSkinTransforms() const
 {
     return this->skinTransforms;
 }

@@ -232,12 +232,7 @@ void EffectParameter::SetValue(const Matrix& value) const
 
 void EffectParameter::SetValue(const std::vector<Matrix>& value) const
 {
-//    for (const auto& matrix : value)
-//    {
-//        this->SetValue(matrix);
-//    }
-
-    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_FALSE, (float*)(&value[0]));
+    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_FALSE, &value[0][0]);
 }
 
 void EffectParameter::SetValueTranspose(const Matrix& value) const
@@ -252,10 +247,7 @@ void EffectParameter::SetValueTranspose(const Matrix& value) const
 
 void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
 {
-    for (const auto& matrix : value)
-    {
-        this->SetValueTranspose(matrix);
-    }
+    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_TRUE, &value[0][0]);
 }
 
 void EffectParameter::SetValue(const Quaternion& value) const
