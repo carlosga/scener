@@ -23,6 +23,7 @@
 #include <System/IO/BinaryReader.hpp>
 #include <functional>
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 namespace SceneR

@@ -152,6 +152,36 @@ void BasicEffect::DirectionalLight2(const std::shared_ptr<DirectionalLight>& dir
     this->directionalLight2 = directionalLight;
 }
 
+void BasicEffect::EnableDefaultLighting()
+{
+    // http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
+
+    this->enableDefaultLighting = true;
+
+    // Key light.
+    this->directionalLight0 = std::make_shared<DirectionalLight>();
+    this->directionalLight0->Direction(Vector3(-0.5265408f, -0.5735765f, -0.6275069f));
+    this->directionalLight0->DiffuseColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
+    this->directionalLight0->SpecularColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
+    this->directionalLight0->Enabled(true);
+
+    // Fill light.
+    this->directionalLight1 = std::make_shared<DirectionalLight>();
+    this->directionalLight1->Direction(Vector3(0.7198464f, 0.3420201f, 0.6040227f));
+    this->directionalLight1->DiffuseColor(Vector3(0.9647059f, 0.7607844f, 0.4078432f));
+    this->directionalLight1->SpecularColor(Vector3::Zero);
+    this->directionalLight1->Enabled(true);
+
+    // Back light.
+    this->directionalLight2 = std::make_shared<DirectionalLight>();
+    this->directionalLight2->Direction(Vector3(0.4545195f, -0.7660444f, 0.4545195f));
+    this->directionalLight2->DiffuseColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
+    this->directionalLight2->SpecularColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
+    this->directionalLight2->Enabled(true);
+
+    this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
+}
+
 const Vector3& BasicEffect::EmissiveColor() const
 {
     return this->emissiveColor;
@@ -300,36 +330,6 @@ const Matrix& BasicEffect::World() const
 void BasicEffect::World(const Matrix& world)
 {
     this->world = world;
-}
-
-void BasicEffect::EnableDefaultLighting()
-{
-    // http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
-
-    this->enableDefaultLighting = true;
-
-    // Key light.
-    this->directionalLight0 = std::make_shared<DirectionalLight>();
-    this->directionalLight0->Direction(Vector3(-0.5265408f, -0.5735765f, -0.6275069f));
-    this->directionalLight0->DiffuseColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
-    this->directionalLight0->SpecularColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
-    this->directionalLight0->Enabled(true);
-
-    // Fill light.
-    this->directionalLight1 = std::make_shared<DirectionalLight>();
-    this->directionalLight1->Direction(Vector3(0.7198464f, 0.3420201f, 0.6040227f));
-    this->directionalLight1->DiffuseColor(Vector3(0.9647059f, 0.7607844f, 0.4078432f));
-    this->directionalLight1->SpecularColor(Vector3::Zero);
-    this->directionalLight1->Enabled(true);
-
-    // Back light.
-    this->directionalLight2 = std::make_shared<DirectionalLight>();
-    this->directionalLight2->Direction(Vector3(0.4545195f, -0.7660444f, 0.4545195f));
-    this->directionalLight2->DiffuseColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
-    this->directionalLight2->SpecularColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
-    this->directionalLight2->Enabled(true);
-
-    this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
 }
 
 void BasicEffect::Begin()

@@ -17,8 +17,10 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
+#include <Framework/Matrix.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -105,6 +107,11 @@ namespace SceneR
             const std::vector<std::shared_ptr<ModelMesh>>& Meshes() const;
 
             /**
+             * Getsthe model skinning data
+             */
+            const std::shared_ptr<SkinningData>& Skinning() const;
+
+            /**
              * Gets the model tag
              */
             const System::String& Tag() const;
@@ -118,6 +125,7 @@ namespace SceneR
             std::vector<std::shared_ptr<ModelBone>> bones;
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
+            std::shared_ptr<SkinningData>           skinning;
             System::String                          tag;
 
             friend class SceneR::Content::ModelReader;

@@ -206,6 +206,18 @@ namespace SceneR
             void SetValue(const std::vector<System::Int32>& value) const;
 
             /**
+             * Sets the value of the EffectParameter as an System::UInt32.
+             * @param value the value to assign to the EffectParameter.
+             */
+            void SetValue(const System::UInt32& value) const;
+
+            /**
+             *  Sets the value of the EffectParameter as an array of System::UInt32.
+             *  @param value the value to assign to the EffectParameter.
+             */
+            void SetValue(const std::vector<System::UInt32>& value) const;
+
+            /**
              * Sets the value of the EffectParameter as a Matrix.
              * @param value the value to assign to the EffectParameter.
              */

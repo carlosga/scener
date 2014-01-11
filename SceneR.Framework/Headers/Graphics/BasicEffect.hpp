@@ -125,6 +125,11 @@ namespace SceneR
             virtual void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
 
             /**
+             * Enables default lighting for this effect.
+             */
+            virtual void EnableDefaultLighting() override;
+
+            /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
@@ -281,12 +286,6 @@ namespace SceneR
              * Sets the world matrix in the current effect.
              */
             virtual void World(const SceneR::Framework::Matrix& world) override;
-
-        public:
-            /**
-             * Enables default lighting for this effect.
-             */
-            virtual void EnableDefaultLighting() override;
 
         protected:
             /**

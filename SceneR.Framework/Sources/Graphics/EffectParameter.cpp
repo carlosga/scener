@@ -196,9 +196,27 @@ void EffectParameter::SetValue(const Int32& value) const
 
 void EffectParameter::SetValue(const std::vector<Int32>& value) const
 {
-    for (const auto& directionalLight : value)
+    for (const auto& currentVal : value)
     {
-        this->SetValue(directionalLight);
+        this->SetValue(currentVal);
+    }
+}
+
+void EffectParameter::SetValue(const UInt32& value) const
+{
+    if (this->parameterClass != EffectParameterClass::Scalar)
+    {
+        throw std::runtime_error("Invalid effect parameter class.");
+    }
+
+    glUniform1i(this->parameterLocation, value);
+}
+
+void EffectParameter::SetValue(const std::vector<UInt32>& value) const
+{
+    for (const auto& currentVal : value)
+    {
+        this->SetValue(currentVal);
     }
 }
 
@@ -214,10 +232,12 @@ void EffectParameter::SetValue(const Matrix& value) const
 
 void EffectParameter::SetValue(const std::vector<Matrix>& value) const
 {
-    for (const auto& matrix : value)
-    {
-        this->SetValue(matrix);
-    }
+//    for (const auto& matrix : value)
+//    {
+//        this->SetValue(matrix);
+//    }
+
+    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_FALSE, (float*)(&value[0]));
 }
 
 void EffectParameter::SetValueTranspose(const Matrix& value) const

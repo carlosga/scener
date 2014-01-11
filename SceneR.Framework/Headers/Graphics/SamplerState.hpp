@@ -29,6 +29,7 @@ namespace SceneR
     {
         class BasicEffect;
         class GraphicsDevice;
+        class SkinnedEffect;
 
         /**
          * Contains sampler state, which determines how to sample texture data.
@@ -130,6 +131,7 @@ namespace SceneR
             System::Single     mipMapLevelOfDetailBias;
 
             friend class BasicEffect;
+            friend class SkinnedEffect;
         };
     }
 }

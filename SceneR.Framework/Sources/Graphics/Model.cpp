@@ -78,6 +78,11 @@ const std::vector<std::shared_ptr<ModelMesh>>& Model::Meshes() const
     return this->meshes;
 }
 
+const std::shared_ptr<SkinningData>& Model::Skinning() const
+{
+    return this->skinning;
+}
+
 const String& Model::Tag() const
 {
     return this->tag;

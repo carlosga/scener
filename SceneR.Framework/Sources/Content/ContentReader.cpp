@@ -21,10 +21,12 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <System/Text/Unicode.hpp>
 #include <cassert>
 
 using namespace System;
 using namespace System::IO;
+using namespace System::Text;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 

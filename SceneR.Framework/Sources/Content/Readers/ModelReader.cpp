@@ -25,6 +25,7 @@
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
+#include <Graphics/SkinningData.hpp>
 #include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
@@ -145,7 +146,8 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     }
 
     // Model tag
-    model->tag = this->ReadString(input);
+    // model->tag = this->ReadString(input);
+    model->skinning = input.ReadObject<SkinningData>();
 
     return model;
 }

@@ -14,11 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <AstroBoy.hpp>
+//#include <AstroBoy.hpp>
 //#include <BumbleBee.hpp>
 //#include <Felicia.hpp>
-//#include <Raiden.hpp>
-//#include <Vanquish.hpp>
+#include <Marcus.hpp>
 //#include <WarForrest.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RenderTime.hpp>
@@ -39,11 +38,10 @@ void SampleRenderer::BeginRun()
     this->graphicsDeviceManager.PreferredBackBufferHeight(900);
     this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
-    this->Components().push_back(std::make_shared<AstroBoy>(*this));
+    // this->Components().push_back(std::make_shared<AstroBoy>(*this));
     // this->Components().push_back(std::make_shared<BumbleBee>(*this));
     // this->Components().push_back(std::make_shared<Felicia>(*this));
-    // this->Components().push_back(std::make_shared<Raiden>(*this));
-    // this->Components().push_back(std::make_shared<Vanquish>(*this));
+    this->Components().push_back(std::make_shared<Marcus>(*this));
     // this->Components().push_back(std::make_shared<WarForrest>(*this));
 
     Renderer::BeginRun();
