@@ -93,7 +93,7 @@ namespace SceneR
              * Vector3 structure.
              * @param left The first Vector3 to evaluate.
              * @param right The second Vector3 to evaluate.
-             * @return The angle in degrees needed to rotate this Vector3 into vectorb.
+             * @return The angle, in radians, needed to rotate the left vector into the right vector.
              */
             static System::Single AngleBetween(const Vector3& left, const Vector3& right);
 

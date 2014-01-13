@@ -46,7 +46,7 @@ void Felicia::Update(const RenderTime& renderTime)
     Single newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
 
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
-    this->world      = Matrix::CreateRotationY(MathHelper::ToDegrees(this->rotation))
+    this->world      = Matrix::CreateRotationY(this->rotation)
                      * Matrix::CreateTranslation(Vector3(0.0f, -0.5f, 0.0f));
     this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 2.0f), Vector3::Zero, Vector3::Up);
     this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 0.1f, 100.0f);

@@ -120,7 +120,7 @@ Single MathHelper::SmoothStep(const System::Single& value1,
                               const System::Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
-    Single t = MathHelper::Clamp(amount, 0.0f, 1.0f);;
+    Single t = MathHelper::Clamp(amount, 0.0f, 1.0f);
 
     t = t * t * (3.0f - 2.0f * t);
 

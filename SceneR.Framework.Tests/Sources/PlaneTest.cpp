@@ -14,9 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
 #include <PlaneTest.hpp>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -24,7 +26,7 @@ using namespace SceneR::Framework;
 TEST_F(PlaneTest, TransformPlaneByQuaternion)
 {
     Plane      pin(1.0f, 0.0f, 0.0f, 0.0f);
-    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, 90.0f);
+    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, MathHelper::PiOver2);
     Plane      pout = Plane::Transform(pin, q);
 
     EXPECT_TRUE(0.0f        == pout.Normal().X());

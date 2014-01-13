@@ -181,7 +181,7 @@ TEST_F(Vector3Test, AngleBetween)
     Single angle = Vector3::AngleBetween(left, right);
 
     // angleBetween is approximately equal to 4.15128803
-    EXPECT_TRUE(4.15128803f == angle);
+    EXPECT_TRUE(0.0724536479f == angle);
 }
 
 TEST_F(Vector3Test, Addition)

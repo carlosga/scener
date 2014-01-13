@@ -34,9 +34,8 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     auto   naxis = Vector3::Normalize(axis);
-    Single theta = MathHelper::ToRadians(angle);
-    Single cos   = std::cos(theta) - 1.0f + 1.0f;
-    Single sin   = std::sin(theta);
+    Single cos   = std::cos(angle) - 1.0f + 1.0f;
+    Single sin   = std::sin(angle);
     Single cos_1 = 1.0f - cos;
     Single x     = naxis.X();
     Single y     = naxis.Y();
@@ -75,12 +74,12 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
 Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
-    Single ch = std::cos(MathHelper::ToRadians(yaw))   - 1 + 1;
-    Single sh = std::sin(MathHelper::ToRadians(yaw))   - 1 + 1;
-    Single ca = std::cos(MathHelper::ToRadians(pitch)) - 1 + 1;
-    Single sa = std::sin(MathHelper::ToRadians(pitch)) - 1 + 1;
-    Single sb = std::sin(MathHelper::ToRadians(roll))  - 1 + 1;
-    Single cb = std::cos(MathHelper::ToRadians(roll))  - 1 + 1;
+    Single ch = std::cos(yaw)   - 1 + 1;
+    Single sh = std::sin(yaw)   - 1 + 1;
+    Single ca = std::cos(pitch) - 1 + 1;
+    Single sa = std::sin(pitch) - 1 + 1;
+    Single sb = std::sin(roll)  - 1 + 1;
+    Single cb = std::cos(roll)  - 1 + 1;
 
     return Matrix(ch * ca , - ch * sa * cb + sh * sb, ch * sa * sb + sh * cb , 0.0f,
                   sa      , ca * cb                 , -ca * sb               , 0.0f,
@@ -231,9 +230,8 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float theta = MathHelper::ToRadians(angle);
-    float cos   = std::cos(theta);
-    float sin   = std::sin(theta);
+    float cos   = std::cos(angle);
+    float sin   = std::sin(angle);
 
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f,  cos,  sin, 0.0f,
@@ -244,9 +242,8 @@ Matrix Matrix::CreateRotationX(const Single& angle)
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single theta = MathHelper::ToRadians(angle);
-    Single cos   = std::cos(theta);
-    Single sin   = std::sin(theta);
+    Single cos   = std::cos(angle);
+    Single sin   = std::sin(angle);
 
     return Matrix( cos, 0.0f, -sin, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
@@ -257,9 +254,8 @@ Matrix Matrix::CreateRotationY(const Single& angle)
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single theta = MathHelper::ToRadians(angle);
-    Single cos   = std::cos(theta);
-    Single sin   = std::sin(theta);
+    Single cos   = std::cos(angle);
+    Single sin   = std::sin(angle);
 
     return Matrix( cos,  sin, 0.0f, 0.0f,
                   -sin,  cos, 0.0f, 0.0f,

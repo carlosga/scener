@@ -14,9 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/MathHelper.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <QuaternionTest.hpp>
+#include <string>
 
 using namespace SceneR::Framework;
 
@@ -70,7 +72,7 @@ TEST_F(QuaternionTest, QuaternionMultiplication)
 TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
 {
     Vector3    axis(1, 0, 0);
-    Quaternion qResult = Quaternion::CreateFromAxisAngle(axis, 90);
+    Quaternion qResult = Quaternion::CreateFromAxisAngle(axis, MathHelper::PiOver2);
 
     // quaternion Result is equal to (0.707106769, 0, 0, 0.707106769)
     EXPECT_TRUE(0.707106769f == qResult.X());

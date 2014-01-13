@@ -50,7 +50,7 @@ namespace SceneR
              * Creates a Quaternion from a vector and an angle to rotate about the vector.
              *
              * @param axisOfRotation Vector3 that represents the axis of rotation.
-             * @param angle Angle to rotate around the specified axis, in degrees.
+             * @param angle Angle to rotate around the specified axis, in radians.
              */
             static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const System::Single& angle);
 
@@ -64,9 +64,9 @@ namespace SceneR
              * Creates a new quaternion with a specified yaw, pitch, and roll.
              * The order of transformations is yaw first, then pitch, then roll
              *
-             * @param yaw Yaw around the y-axis, in degrees.
-             * @param pitch Pitch around the z-axis, in degrees.
-             * @param roll Roll around the x-axis, in degrees.
+             * @param yaw Yaw around the y-axis, in radians.
+             * @param pitch Pitch around the z-axis, in radians.
+             * @param roll Roll around the x-axis, in radians.
              */
             static Quaternion CreateFromYawPitchRoll(const System::Single& yaw,
                                                      const System::Single& pitch,
@@ -79,9 +79,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Lerp(const Quaternion& quaternion1,
-                                   const Quaternion& quaternion2,
-                                   const System::Single&     amount);
+            static Quaternion Lerp(const Quaternion&     quaternion1,
+                                   const Quaternion&     quaternion2,
+                                   const System::Single& amount);
 
             /**
              * Normalizes the specified Quaternion.
@@ -100,9 +100,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Slerp(const Quaternion& quaternion1,
-                                    const Quaternion& quaternion2,
-                                    const System::Single&     amount);
+            static Quaternion Slerp(const Quaternion&     quaternion1,
+                                    const Quaternion&     quaternion2,
+                                    const System::Single& amount);
 
         public:
             /**

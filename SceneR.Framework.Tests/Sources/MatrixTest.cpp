@@ -205,7 +205,7 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
 {
     Single yaw   = 0.0f;
     Single pitch = 0.0f;
-    Single roll  = 90.0f;
+    Single roll  = MathHelper::PiOver2;
 
     Matrix matrix = Matrix::CreateFromYawPitchRoll(yaw, pitch, roll);
 
@@ -301,7 +301,7 @@ TEST_F(MatrixTest, TransformChain)
     Vector4 transformedVector;
     Matrix  matrix              = Matrix::Identity;
     Matrix  translateTransform  = Matrix::CreateTranslation(10, 0, 0);
-    Matrix  rotateTransform     = Matrix::CreateFromAxisAngle(rotationAxis, 90);
+    Matrix  rotateTransform     = Matrix::CreateFromAxisAngle(rotationAxis, MathHelper::PiOver2);
     Matrix  scaleTransform      = Matrix::CreateScale(2);
 
     matrix *= translateTransform;
@@ -390,7 +390,7 @@ TEST_F(MatrixTest, TransformFromAxisAngleX)
 {
     Vector3 vector(10, 0, 0);
     Vector3 axis(1, 0, 0);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
 
     Vector3 vectorResult = vector * matrix;
 
@@ -403,7 +403,7 @@ TEST_F(MatrixTest, TransformFromAxisAngleY)
 {
     Vector3 vector(0, 10, 0);
     Vector3 axis(0, 1, 0);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
 
     Vector3 vectorResult = vector * matrix;
 
@@ -416,7 +416,7 @@ TEST_F(MatrixTest, TransformFromAxisAngleZ)
 {
     Vector3 vector(0, 0, 10);
     Vector3 axis(0, 0, 1);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, 90);
+    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
 
     Vector3 vectorResult = vector * matrix;
 

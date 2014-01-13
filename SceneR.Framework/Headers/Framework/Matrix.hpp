@@ -42,7 +42,7 @@ namespace SceneR
              * Creates a new Matrix that rotates around an arbitrary axis.
              *
              * @param axis Vector3 that specifies the axis around which to rotate.
-             * @param angle Value that specifies the angle of rotation, in degrees.
+             * @param angle Value that specifies the angle of rotation, in radians.
              */
             static Matrix CreateFromAxisAngle(const Vector3& axis, const System::Single& angle);
 
@@ -57,9 +57,9 @@ namespace SceneR
              * Creates a new matrix with a specified yaw, pitch, and roll.
              * The order of transformations is yaw first, then pitch, then roll
              *
-             * @param yaw Yaw around the y-axis, in degrees.
-             * @param pitch Pitch around the z-axis, in degrees.
-             * @param roll Roll around the x-axis, in degrees.
+             * @param yaw Yaw around the y-axis, in radians.
+             * @param pitch Pitch around the z-axis, in radians.
+             * @param roll Roll around the x-axis, in radians.
              */
             static Matrix CreateFromYawPitchRoll(const System::Single& yaw, const System::Single& pitch, const System::Single& roll);
 
@@ -147,21 +147,21 @@ namespace SceneR
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
              *
-             * @param angle Value that specifies the angle of rotation, in degrees.
+             * @param angle Value that specifies the angle of rotation, in radians.
              */
             static Matrix CreateRotationX(const System::Single& angle);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
              *
-             * @param angle Value that specifies the angle of rotation, in degrees.
+             * @param angle Value that specifies the angle of rotation, in radians.
              */
             static Matrix CreateRotationY(const System::Single& angle);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
              *
-             * @param angle Value that specifies the angle of rotation, in degrees.
+             * @param angle Value that specifies the angle of rotation, in radians.
              */
             static Matrix CreateRotationZ(const System::Single& angle);
 

@@ -20,6 +20,8 @@
 #include <Framework/DrawableComponent.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Renderer.hpp>
+#include <Graphics/AnimatedModel.hpp>
+#include <Graphics/Model.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -29,14 +31,6 @@ namespace SceneR
     {
         class Renderer;
         class RenderTime;
-    }
-}
-
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class Model;
     }
 }
 
@@ -60,11 +54,12 @@ namespace SceneR
             virtual void UnloadContent() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Model> model;
-            System::Single                           rotation;
-            SceneR::Framework::Matrix                world;
-            SceneR::Framework::Matrix                view;
-            SceneR::Framework::Matrix                projection;
+            std::shared_ptr<SceneR::Graphics::Model>         model;
+            std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
+            System::Single                                   rotation;
+            SceneR::Framework::Matrix                        world;
+            SceneR::Framework::Matrix                        view;
+            SceneR::Framework::Matrix                        projection;
         };
     }
 }

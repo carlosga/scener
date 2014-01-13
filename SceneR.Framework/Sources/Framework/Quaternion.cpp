@@ -40,13 +40,13 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const 
     // The quaternion in terms of axis-angle is:
     // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
 
-    Single radians = MathHelper::ToRadians(angle) / 2;
-    Single rSin    = sin(radians);
+    Single theta = angle / 2;
+    Single rSin  = sin(theta);
 
     return Quaternion(axisOfRotation.X() * rSin,
                       axisOfRotation.Y() * rSin,
                       axisOfRotation.Z() * rSin,
-                      cos(radians));
+                      cos(theta));
 }
 
 Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
@@ -125,11 +125,7 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
         amount2 = -amount2;
     }
 
-    Quaternion result = quaternion1 * amount1 + quaternion2 * amount2;
-
-    result.Normalize();
-
-    return result;
+    return Quaternion::Normalize(quaternion1 * amount1 + quaternion2 * amount2);
 }
 
 Quaternion Quaternion::Normalize(const Quaternion& quaternion)

@@ -74,8 +74,6 @@ void AnimatedModel::Draw(const Matrix& world, const Matrix& view, const Matrix& 
             {
                 mEffect->SetBoneTransforms(bones);
 
-                mEffect->EnableDefaultLighting();
-
                 mEffect->SpecularColor(Vector3(0.25f, 0.25f, 0.25f));
                 mEffect->SpecularPower(16.0f);
 

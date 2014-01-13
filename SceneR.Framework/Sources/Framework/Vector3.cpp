@@ -39,9 +39,8 @@ const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
     Single lengthSquared = left.LengthSquared() * right.LengthSquared();
-    Single acos          = std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
 
-    return MathHelper::ToDegrees(acos);
+    return std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
 }
 
 Vector3 Vector3::Barycentric(const Vector3& value1,
