@@ -25,8 +25,15 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Ray::Ray(const Vector3& position, const Vector3& direction)
-	: position(position),
-	  direction(direction)
+	: direction(direction)
+    , position(position)
+
+{
+}
+
+Ray::Ray(const Ray& ray)
+    : direction(ray.direction)
+    , position(ray.position)
 {
 }
 
@@ -57,7 +64,7 @@ Boolean Ray::Intersects(const BoundingFrustum& frustum)
 
 Boolean Ray::Intersects(const BoundingSphere& sphere)
 {
-    throw std::runtime_error("Not implemented");
+    return sphere.Intersects(*this);
 }
 
 Boolean Ray::Intersects(const Plane& plane)
@@ -65,12 +72,23 @@ Boolean Ray::Intersects(const Plane& plane)
     throw std::runtime_error("Not implemented");
 }
 
+Ray& Ray::operator=(const Ray& ray)
+{
+    if (this != &ray)
+    {
+        this->direction = ray.direction;
+        this->position  = ray.position;
+    }
+
+    return *this;
+}
+
 bool Ray::operator ==(const Ray& ray) const
 {
-    throw std::runtime_error("Not implemented");
+    return (this->direction == ray.direction && this->position == ray.position);
 }
 
 bool Ray::operator !=(const Ray& ray) const
 {
-    throw std::runtime_error("Not implemented");
+    return (this->direction != ray.direction || this->position != ray.position);
 }

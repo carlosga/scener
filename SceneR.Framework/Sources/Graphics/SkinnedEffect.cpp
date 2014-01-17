@@ -31,8 +31,8 @@ using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect_VS.glsl");
-String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect_FS.glsl");
+String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect.vert");
+String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect.frag");
 
 SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     : Effect(graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource),

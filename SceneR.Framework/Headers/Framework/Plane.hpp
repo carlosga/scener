@@ -158,6 +158,7 @@ namespace SceneR
 		public:
 			Plane& operator=(const Plane& plane);
 			bool operator==(const Plane& plane) const;
+			bool operator!=(const Plane& plane) const;
 
 		private:
 			System::Single d;

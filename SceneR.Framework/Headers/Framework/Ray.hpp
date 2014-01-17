@@ -37,8 +37,15 @@ namespace SceneR
 		public:
 			/**
 			 * Initializes a new instance of the Ray structure with the given position an direction.
+			 * @param position the ray starting.
+			 * @param direction unit vector describing he ray direction.
 			 */
 			Ray(const Vector3& position, const Vector3& direction);
+
+            /**
+             * Initializes a new instance of the Ray structure with the given position an direction.
+             */
+            Ray(const Ray& ray);
 
 			/**
 			 * Releases all resources being used by this Ray.
@@ -78,12 +85,13 @@ namespace SceneR
 			System::Boolean Intersects(const Plane& plane);
 
 		public:			
+			Ray& operator=(const Ray& ray);
             bool operator==(const Ray& ray) const;
             bool operator!=(const Ray& ray) const;
 
 		private:
+            Vector3 direction;
 			Vector3 position;
-			Vector3 direction;
 		};
 	}
 }

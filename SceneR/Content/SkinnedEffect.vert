@@ -9,7 +9,7 @@ layout (location = 1) in vec3  VertexNormal;
 layout (location = 2) in vec3  VertexCoord;
 layout (location = 3) in ivec4 BlendIndices;
 layout (location = 4) in vec4  BlendWeights;
-       
+
 uniform mat4 World;
 uniform mat4 WorldInverseTranspose;
 uniform mat4 WorldViewProj;
@@ -42,7 +42,7 @@ void Skin(inout VSInputNmTxWeights vin, int boneCount)
     vin.Normal   = (vec4(vin.Normal, 1.0) * skinning).xyz;
 }
 
-void main() 
+void main()
 {
     VSInputNmTxWeights vin;
 
@@ -50,12 +50,12 @@ void main()
     vin.Normal   = VertexNormal;
     vin.TexCoord = VertexCoord;
     vin.Indices  = BlendIndices;
-    vin.Weights  = BlendWeights;      
+    vin.Weights  = BlendWeights;
 
     Skin(vin, WeightsPerVertex);
 
     gl_Position = vin.Position * WorldViewProj;
     PositionWS  = (vin.Position * World).xyz;
     NormalWS    = normalize(vec4(vin.Normal, 1.0) * WorldInverseTranspose).xyz;
-    TexCoord    = VertexCoord;       
+    TexCoord    = VertexCoord;
 }

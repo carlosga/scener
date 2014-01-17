@@ -158,3 +158,8 @@ bool Plane::operator==(const Plane& plane) const
     return (this->normal == plane.normal
          && this->d      == plane.d);
 }
+
+bool Plane::operator!=(const Plane& plane) const
+{
+    return !(*this == plane);
+}
