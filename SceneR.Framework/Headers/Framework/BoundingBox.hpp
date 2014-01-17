@@ -27,7 +27,6 @@ namespace SceneR
 {
 	namespace Framework
 	{
-	    struct BoundingBox;
 	    struct BoundingFrustrum;
 	    struct BoundingSphere;
 	    struct Plane;
