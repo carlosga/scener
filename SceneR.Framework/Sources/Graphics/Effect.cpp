@@ -29,7 +29,7 @@ Effect::Effect(GraphicsDevice& graphicsDevice,
                const String&   fragmentShader)
     : GraphicsResource(graphicsDevice),
       parameters(),
-      shaderProgram(nullptr)
+      shader(nullptr)
 {
     auto vShader = std::make_shared<Shader>(vertexShader, ShaderType::Vertex);
     auto fShader = std::make_shared<Shader>(fragmentShader, ShaderType::Fragment);
@@ -38,14 +38,14 @@ Effect::Effect(GraphicsDevice& graphicsDevice,
     shaders.push_back(vShader);
     shaders.push_back(fShader);
 
-    this->shaderProgram = std::make_shared<ShaderProgram>(shaders);
-    this->shaderProgram->Build();
+    this->shader = std::make_shared<ShaderProgram>(shaders);
+    this->shader->Build();
 }
 
 Effect::Effect(const Effect& effect)
     : GraphicsResource(effect.graphicsDevice),
       parameters(effect.parameters),
-      shaderProgram(effect.shaderProgram)
+      shader(effect.shader)
 {
 }
 
@@ -60,17 +60,17 @@ EffectParameterCollection& Effect::Parameters()
 
 void Effect::Begin()
 {
-    if (this->shaderProgram == nullptr)
+    if (this->shader == nullptr)
     {
         throw std::runtime_error("Shader program not initialized");
     }
 
-    this->shaderProgram->Activate();
+    this->shader->Activate();
 
     this->OnApply();
 }
 
 void Effect::End()
 {
-    this->shaderProgram->Deactivate();
+    this->shader->Deactivate();
 }

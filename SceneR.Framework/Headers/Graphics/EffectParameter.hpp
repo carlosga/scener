@@ -17,11 +17,6 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
-#include <Framework/Matrix.hpp>
-#include <Framework/Quaternion.hpp>
-#include <Framework/Vector2.hpp>
-#include <Framework/Vector3.hpp>
-#include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
@@ -30,6 +25,18 @@
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
+
+namespace SceneR
+{
+    namespace Framework
+    {
+        struct Matrix;
+        struct Quaternion;
+        struct Vector2;
+        struct Vector3;
+        struct Vector4;
+    }
+}
 
 namespace SceneR
 {
@@ -321,7 +328,7 @@ namespace SceneR
             EffectParameterType            parameterType;
             System::Int32                  rowCount;
             EffectParameterCollection      structureMembers;
-            std::shared_ptr<ShaderProgram> shaderProgram;
+            std::shared_ptr<ShaderProgram> shader;
             System::Int32                  parameterLocation;
         };
     }

@@ -14,14 +14,18 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/Shader.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
-#include <string>
 
 using namespace System;
 using namespace System::Text;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
@@ -32,11 +36,6 @@ ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
 ShaderProgram::~ShaderProgram()
 {
     this->Release();
-}
-
-const UInt32 ShaderProgram::Id() const
-{
-    return this->id;
 }
 
 void ShaderProgram::Activate() const
@@ -93,6 +92,109 @@ Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
     }
 
     return location;
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Boolean& value) const
+{
+    glProgramUniform1i(this->id, location, value);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Boolean>& value) const
+{
+    for (const auto& bValue : value)
+    {
+        this->SetValue(location, bValue);
+    }
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Int32& value) const
+{
+    glProgramUniform1i(this->id, location, value);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Int32>& value) const
+{
+    glProgramUniform1iv(this->id, location, value.size(), &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const UInt32& value) const
+{
+    glProgramUniform1ui(this->id, location, value);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<UInt32>& value) const
+{
+    glProgramUniform1uiv(this->id, location, value.size(), &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Matrix& value) const
+{
+    glProgramUniformMatrix4fv(this->id, location, 1, false, &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Matrix>& value) const
+{
+    glProgramUniformMatrix4fv(this->id, location, value.size(), false, &value[0][0]);
+}
+
+void ShaderProgram::SetValueTranspose(const System::Int32& location, const Matrix& value) const
+{
+    glProgramUniformMatrix4fv(this->id, location, 1, true, &value[0]);
+}
+
+void ShaderProgram::SetValueTranspose(const System::Int32& location, const std::vector<Matrix>& value) const
+{
+    glProgramUniformMatrix4fv(this->id, location, value.size(), true, &value[0][0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Quaternion& value) const
+{
+    glProgramUniform4fv(this->id, location, 1, &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Quaternion>& value) const
+{
+    glProgramUniform4fv(this->id, location, value.size(), &value[0][0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Single& value) const
+{
+    glProgramUniform1f(this->id, location, value);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Single>& value) const
+{
+    glProgramUniform1fv(this->id, location, value.size(), &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const SceneR::Framework::Vector2& value)
+{
+    glProgramUniform2fv(this->id, location, 1, &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector2>& value)
+{
+    glProgramUniform2fv(this->id, location, value.size(), &value[0][0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Vector3& value) const
+{
+    glProgramUniform3fv(this->id, location, 1, &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Vector3>& value) const
+{
+    glProgramUniform3fv(this->id, location, value.size(), &value[0][0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const Vector4& value) const
+{
+    glProgramUniform4fv(this->id, location, 1, &value[0]);
+}
+
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Vector4>& value) const
+{
+    glProgramUniform4fv(this->id, location, value.size(), &value[0][0]);
 }
 
 void ShaderProgram::Release()
