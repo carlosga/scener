@@ -58,15 +58,12 @@ void TextureObject::Declare2DStorage(const SurfaceFormat& format,
                                      const UInt32&        width,
                                      const UInt32&        height) const
 {
-    this->Activate();
-
-    glTexStorage2D(static_cast<GLenum>(this->target),
-                   mipMapLevels,
-                   static_cast<GLenum>(format),
-                   width,
-                   height);
-
-    this->Deactivate();
+    glTextureStorage2DEXT(this->texId,
+                          static_cast<GLenum>(this->target),
+                          mipMapLevels,
+                          static_cast<GLenum>(format),
+                          width,
+                          height);
 }
 
 void TextureObject::TextureSubImage2D(const SurfaceFormat&  format,
@@ -76,32 +73,30 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat&  format,
                                       const Size&           size,
                                       const void*           data) const
 {
-    this->Activate();
-
     if (Texture::IsCompressedSurfaceFormat(format))
     {
-        glCompressedTexSubImage2D(static_cast<GLenum>(this->target),
-                                  mipMapLevel,
-                                  0,
-                                  0,
-                                  width,
-                                  height,
-                                  static_cast<GLenum>(format),
-                                  size,
-                                  data);
+        glCompressedTextureSubImage2DEXT(this->texId,
+                                         static_cast<GLenum>(this->target),
+                                         mipMapLevel,
+                                         0,
+                                         0,
+                                         width,
+                                         height,
+                                         static_cast<GLenum>(format),
+                                         size,
+                                         data);
     }
     else
     {
-        glTexSubImage2D(static_cast<GLenum>(this->target),
-                        mipMapLevel,
-                        0,
-                        0,
-                        width,
-                        height,
-                        static_cast<GLenum>(format),
-                        GL_UNSIGNED_BYTE,
-                        data);
+        glTextureSubImage2DEXT(this->texId,
+                               static_cast<GLenum>(this->target),
+                               mipMapLevel,
+                               0,
+                               0,
+                               width,
+                               height,
+                               static_cast<GLenum>(format),
+                               GL_UNSIGNED_BYTE,
+                               data);
     }
-
-    this->Deactivate();
 }
