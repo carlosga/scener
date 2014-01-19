@@ -14,7 +14,7 @@ uniform mat4 World;
 uniform mat4 WorldInverseTranspose;
 uniform mat4 WorldViewProj;
 uniform mat4 Bones[SKINNED_EFFECT_MAX_BONES];    // _vs(c26)          _cb(c22);
-uniform int  WeightsPerVertex;
+uniform uint WeightsPerVertex;
 
 out vec3 PositionWS;
 out vec3 NormalWS;
@@ -29,7 +29,7 @@ struct VSInputNmTxWeights
     vec4  Weights;
 };
 
-void Skin(inout VSInputNmTxWeights vin, int boneCount)
+void Skin(inout VSInputNmTxWeights vin, uint boneCount)
 {
     mat4 skinning = mat4(0.0f);
 
