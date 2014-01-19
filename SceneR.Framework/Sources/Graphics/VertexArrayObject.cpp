@@ -100,7 +100,7 @@ void VertexArrayObject::ActivateVertexFormat(const BufferObject& vbo, const Vert
 
 void VertexArrayObject::DeactivateVertexFormat(const VertexDeclaration& vDecl) const
 {
-    // ... declare vertex elements
+    // ... disable vertex elements
     for (Size i = 0; i < vDecl.VertexElements().size(); i++)
     {
         glDisableVertexAttribArray(i++);
@@ -113,7 +113,7 @@ void VertexArrayObject::DeactivateVertexFormat(const VertexDeclaration& vDecl) c
 
 System::UInt32 VertexArrayObject::GetElementCount(const VertexElementFormat& vertexFormat) const
 {
-    // TODO: Review this to see if it can matchs the XNA VertexElementFormat specificacion.
+    // TODO: Review this to see if it can match the XNA VertexElementFormat specificacion.
     switch (vertexFormat)
     {
         case VertexElementFormat::Single:
