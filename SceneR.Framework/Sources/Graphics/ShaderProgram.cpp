@@ -34,6 +34,11 @@ ShaderProgram::~ShaderProgram()
     this->Release();
 }
 
+const UInt32 ShaderProgram::Id() const
+{
+    return this->id;
+}
+
 void ShaderProgram::Activate() const
 {
     glUseProgram(this->id);

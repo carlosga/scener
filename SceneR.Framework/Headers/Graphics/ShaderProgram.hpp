@@ -44,6 +44,11 @@ namespace SceneR
 
         public:
             /**
+             * Gets the shader program identifier.
+             */
+            const System::UInt32 Id() const;
+
+            /**
              * Activates the shader program.
              */
             void Activate() const;
@@ -57,12 +62,6 @@ namespace SceneR
              * Deactivates the shader program.
              */
             void Deactivate() const;
-
-            /**
-             * Gets the shader program name.
-             * @return the shader program name.
-             */
-            const System::String& Name() const;
 
             /**
              * Gets the location of the shader parameter with the given name within the shader program.

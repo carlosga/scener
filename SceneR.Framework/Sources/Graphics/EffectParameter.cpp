@@ -173,7 +173,7 @@ void EffectParameter::SetValue(const Boolean& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform1i(this->parameterLocation, value);
+    glProgramUniform1i(this->shaderProgram->Id(), this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Boolean>& value) const
@@ -191,15 +191,12 @@ void EffectParameter::SetValue(const Int32& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform1i(this->parameterLocation, value);
+    glProgramUniform1i(this->shaderProgram->Id(), this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Int32>& value) const
 {
-    for (const auto& currentVal : value)
-    {
-        this->SetValue(currentVal);
-    }
+    glProgramUniform1iv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0]);
 }
 
 void EffectParameter::SetValue(const UInt32& value) const
@@ -209,15 +206,12 @@ void EffectParameter::SetValue(const UInt32& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform1i(this->parameterLocation, value);
+    glProgramUniform1ui(this->shaderProgram->Id(), this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<UInt32>& value) const
 {
-    for (const auto& currentVal : value)
-    {
-        this->SetValue(currentVal);
-    }
+    glProgramUniform1uiv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0]);
 }
 
 void EffectParameter::SetValue(const Matrix& value) const
@@ -227,12 +221,12 @@ void EffectParameter::SetValue(const Matrix& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniformMatrix4fv(this->parameterLocation, 1, GL_FALSE, &value[0]);
+    glProgramUniformMatrix4fv(this->shaderProgram->Id(), this->parameterLocation, 1, false, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Matrix>& value) const
 {
-    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_FALSE, &value[0][0]);
+    glProgramUniformMatrix4fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), false, &value[0][0]);
 }
 
 void EffectParameter::SetValueTranspose(const Matrix& value) const
@@ -242,25 +236,22 @@ void EffectParameter::SetValueTranspose(const Matrix& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->SetValue(Matrix::Transpose(value));
+    glProgramUniformMatrix4fv(this->shaderProgram->Id(), this->parameterLocation, 1, true, &value[0]);
 }
 
 void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
 {
-    glUniformMatrix4fv(this->parameterLocation, value.size(), GL_TRUE, &value[0][0]);
+    glProgramUniformMatrix4fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), true, &value[0][0]);
 }
 
 void EffectParameter::SetValue(const Quaternion& value) const
 {
-    glUniform4fv(this->parameterLocation, 1, &value[0]);
+    glProgramUniform4fv(this->shaderProgram->Id(), this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
 {
-    for (const auto& q : value)
-    {
-        this->SetValue(q);
-    }
+    glProgramUniform4fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0][0]);
 }
 
 void EffectParameter::SetValue(const Single& value) const
@@ -270,15 +261,12 @@ void EffectParameter::SetValue(const Single& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform1f(this->parameterLocation, value);
+    glProgramUniform1f(this->shaderProgram->Id(), this->parameterLocation, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Single>& value) const
 {
-    for (const auto& scalar : value)
-    {
-        this->SetValue(scalar);
-    }
+    glProgramUniform1fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0]);
 }
 
 void EffectParameter::SetValue(const String& value) const
@@ -293,7 +281,7 @@ void EffectParameter::SetValue(const SceneR::Graphics::Texture& value)
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform1i(this->parameterLocation, 0);
+    glProgramUniform1i(this->shaderProgram->Id(), this->parameterLocation, 0);
 }
 
 void EffectParameter::SetValue(const SceneR::Framework::Vector2& value)
@@ -303,7 +291,7 @@ void EffectParameter::SetValue(const SceneR::Framework::Vector2& value)
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform2fv(this->parameterLocation, 1, &value[0]);
+    glProgramUniform2fv(this->shaderProgram->Id(), this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value)
@@ -313,10 +301,7 @@ void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& va
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    for (const auto& vector : value)
-    {
-        this->SetValue(vector);
-    }
+    glProgramUniform2fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0][0]);
 }
 
 void EffectParameter::SetValue(const Vector3& value) const
@@ -326,15 +311,12 @@ void EffectParameter::SetValue(const Vector3& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform3fv(this->parameterLocation, 1, &value[0]);
+    glProgramUniform3fv(this->shaderProgram->Id(), this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector3>& value) const
 {
-    for (const auto& vector : value)
-    {
-        this->SetValue(vector);
-    }
+    glProgramUniform3fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0][0]);
 }
 
 void EffectParameter::SetValue(const Vector4& value) const
@@ -344,13 +326,10 @@ void EffectParameter::SetValue(const Vector4& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    glUniform4fv(this->parameterLocation, 1, &value[0]);
+    glProgramUniform4fv(this->shaderProgram->Id(), this->parameterLocation, 1, &value[0]);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector4>& value) const
 {
-    for (const auto& vector : value)
-    {
-        this->SetValue(vector);
-    }
+    glProgramUniform4fv(this->shaderProgram->Id(), this->parameterLocation, value.size(), &value[0][0]);
 }
