@@ -14,12 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/VertexArrayObject.hpp>
+#include <System/Graphics/BufferObject.hpp>
+#include <System/Graphics/Platform.hpp>
+#include <System/Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 VertexArrayObject::VertexArrayObject()

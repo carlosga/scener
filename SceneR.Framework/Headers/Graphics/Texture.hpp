@@ -33,9 +33,6 @@ namespace SceneR
         class Texture : public GraphicsResource
         {
             public:
-                static System::Boolean IsCompressedSurfaceFormat(const SurfaceFormat& format);
-
-            public:
                 /**
                  * Releases all resources being used by this texture.
                  */

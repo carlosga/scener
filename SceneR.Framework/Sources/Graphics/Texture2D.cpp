@@ -16,9 +16,10 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture2D.hpp>
-#include <Graphics/TextureTarget.hpp>
+#include <System/Graphics/TextureTarget.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 Texture2D::Texture2D(GraphicsDevice& graphicsDevice,

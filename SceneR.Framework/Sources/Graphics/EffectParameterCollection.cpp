@@ -16,11 +16,12 @@
 
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
-#include <Graphics/ShaderProgram.hpp>
+#include <System/Graphics/ShaderProgram.hpp>
 #include <algorithm>
 #include <stdexcept>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 EffectParameterCollection::EffectParameterCollection()
@@ -83,10 +84,10 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
     return *it;
 }
 
-EffectParameter& EffectParameterCollection::Add(const System::String&                 name,
-                                                const EffectParameterClass&           parameterClass,
-                                                const EffectParameterType&            parameterType,
-                                                const std::shared_ptr<ShaderProgram>& shaderProgram)
+EffectParameter& EffectParameterCollection::Add(const System::String&                                   name,
+                                                const EffectParameterClass&                             parameterClass,
+                                                const EffectParameterType&                              parameterType,
+                                                const std::shared_ptr<System::Graphics::ShaderProgram>& shaderProgram)
 {
     EffectParameter newParameter = { name, parameterClass, parameterType, shaderProgram };
     this->parameters.push_back(newParameter);

@@ -14,14 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
+#include <System/Graphics/BufferTarget.hpp>
+#include <System/Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice

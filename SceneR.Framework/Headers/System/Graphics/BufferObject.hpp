@@ -18,14 +18,13 @@
 #define BUFFEROBJECT_HPP
 
 #include <System/Core.hpp>
+#include <System/Graphics/BufferTarget.hpp>
+#include <System/Graphics/BufferUsage.hpp>
 
-namespace SceneR
+namespace System
 {
     namespace Graphics
     {
-        enum class BufferTarget : System::UInt32;
-        enum class BufferUsage  : System::UInt32;
-
         /**
          * Represents an OpenGL buffer object.
          */

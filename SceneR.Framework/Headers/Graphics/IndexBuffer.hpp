@@ -17,10 +17,10 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
-#include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <System/Core.hpp>
+#include <System/Graphics/BufferObject.hpp>
 #include <vector>
 
 namespace SceneR
@@ -83,7 +83,7 @@ namespace SceneR
             System::UInt32 GetElementSizeInBytes() const;
 
         private:
-            BufferObject                       ibo;
+            System::Graphics::BufferObject     ibo;
             System::UInt32                     indexCount;
             SceneR::Graphics::IndexElementSize indexElementSize;
 

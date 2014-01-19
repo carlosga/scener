@@ -19,14 +19,14 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/ShaderProgram.hpp>
+#include <System/Graphics/ShaderProgram.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace System::Text;
 using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
 
 ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
     : id(0), shaders(shaders)

@@ -14,11 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
+#include <System/Graphics/BufferTarget.hpp>
+#include <System/Graphics/BufferUsage.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice,

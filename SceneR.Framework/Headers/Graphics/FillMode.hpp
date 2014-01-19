@@ -18,6 +18,7 @@
 #define FILLMODE_HPP
 
 #include <System/Core.hpp>
+#include <System/Graphics/Platform.hpp>
 
 namespace SceneR
 {
@@ -31,11 +32,11 @@ namespace SceneR
             /**
              * Draw solid faces for each primitive.
              */
-            Solid = 1,
+            Solid = GL_FILL,
             /**
              * Draw lines connecting the vertices that define a primitive face.
              */
-            WireFrame = 2
+            WireFrame = GL_LINE
         };
     }
 }

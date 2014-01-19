@@ -17,7 +17,6 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
-#include <GL/glew.h>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <System/Core.hpp>
@@ -26,8 +25,15 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BufferObject;
         class VertexDeclaration;
+    }
+}
+
+namespace System
+{
+    namespace Graphics
+    {
+        class BufferObject;
 
         /**
          * Represents an opengl vertex array object
@@ -69,23 +75,23 @@ namespace SceneR
             /**
              * Declares the vertex format to be used on drawing operations.
              */
-            void DeclareVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const;
+            void DeclareVertexFormat(const BufferObject& vbo, const SceneR::Graphics::VertexDeclaration& vDecl) const;
 
             /**
              * Activates the vertex format to be used on drawing operations.
              */
-            void ActivateVertexFormat(const BufferObject& vbo, const VertexDeclaration& vDecl) const;
+            void ActivateVertexFormat(const BufferObject& vbo, const SceneR::Graphics::VertexDeclaration& vDecl) const;
 
             /**
              * Deactivates the vertex format to be used on drawing operations.
              */
-            void DeactivateVertexFormat(const VertexDeclaration& vDecl) const;
+            void DeactivateVertexFormat(const SceneR::Graphics::VertexDeclaration& vDecl) const;
 
         private:
             void Create();
-            System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
-            GLenum GetElementType(const VertexElementFormat& vertexFormat) const;
-            System::UInt32 GetUsageIndex(const VertexElementUsage& usage) const;
+            System::UInt32 GetElementCount(const SceneR::Graphics::VertexElementFormat& vertexFormat) const;
+            GLenum GetElementType(const SceneR::Graphics::VertexElementFormat& vertexFormat) const;
+            System::UInt32 GetUsageIndex(const SceneR::Graphics::VertexElementUsage& usage) const;
 
         private:
             System::UInt32 id;

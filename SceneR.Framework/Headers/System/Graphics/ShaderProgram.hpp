@@ -17,7 +17,7 @@
 #ifndef SHADERPROGRAM_HPP
 #define SHADERPROGRAM_HPP
 
-#include <Graphics/Shader.hpp>
+#include <System/Graphics/Shader.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -34,7 +34,7 @@ namespace SceneR
     }
 }
 
-namespace SceneR
+namespace System
 {
     namespace Graphics
     {

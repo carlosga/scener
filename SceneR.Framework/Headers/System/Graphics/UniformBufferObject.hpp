@@ -17,10 +17,10 @@
 #ifndef UNIFORMBUFFEROBJECT_HPP
 #define UNIFORMBUFFEROBJECT_HPP
 
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/BufferUsage.hpp>
+#include <System/Graphics/BufferObject.hpp>
+#include <System/Graphics/BufferUsage.hpp>
 
-namespace SceneR
+namespace System
 {
     namespace Graphics
     {

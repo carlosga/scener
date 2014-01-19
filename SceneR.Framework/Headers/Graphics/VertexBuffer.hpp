@@ -17,11 +17,11 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <System/Core.hpp>
+#include <System/Graphics/BufferObject.hpp>
+#include <System/Graphics/VertexArrayObject.hpp>
 #include <memory>
 #include <vector>
 
@@ -83,8 +83,8 @@ namespace SceneR
         private:
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
             System::UInt32                                       vertexCount;
-            VertexArrayObject                                    vao;
-            BufferObject                                         vbo;
+            System::Graphics::VertexArrayObject                  vao;
+            System::Graphics::BufferObject                       vbo;
 
             friend class GraphicsDevice;
         };

@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/Texture.hpp>
-#include <Graphics/TextureObject.hpp>
+#include <System/Graphics/TextureObject.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 TextureObject::TextureObject(const TextureTarget& target)
@@ -73,7 +73,7 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat&  format,
                                       const Size&           size,
                                       const void*           data) const
 {
-    if (Texture::IsCompressedSurfaceFormat(format))
+    if (SceneR::Graphics::IsCompressedSurfaceFormat(format))
     {
         glCompressedTextureSubImage2DEXT(this->texId,
                                          static_cast<GLenum>(this->target),

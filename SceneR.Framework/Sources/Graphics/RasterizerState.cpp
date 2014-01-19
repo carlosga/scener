@@ -125,15 +125,8 @@ void RasterizerState::Apply() const
         }
     }
 
-    //  Select a polygon rasterization mode
-    if (this->fillMode == SceneR::Graphics::FillMode::Solid)
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-    else
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
+    // Select a polygon rasterization mode
+    glPolygonMode(GL_FRONT_AND_BACK, static_cast<GLenum>(this->fillMode));
 
     // Enable or disable the scissor test
     if (this->scissorTestEnable)

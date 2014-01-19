@@ -83,6 +83,13 @@ namespace SceneR
              */
             Rgba64 = GL_RGBA16
         };
+
+        inline constexpr System::Boolean IsCompressedSurfaceFormat(const SurfaceFormat& format)
+        {
+            return (format == SurfaceFormat::Dxt1
+                 || format == SurfaceFormat::Dxt3
+                 || format == SurfaceFormat::Dxt5);
+        };
     }
 }
 

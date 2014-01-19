@@ -17,9 +17,10 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/Texture.hpp>
-#include <Graphics/TextureTarget.hpp>
+#include <System/Graphics/TextureTarget.hpp>
 
 using namespace System;
+using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
