@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef VERTEXBUFFERUSAGE_HPP
-#define VERTEXBUFFERUSAGE_HPP
+#ifndef BUFFERUSAGE_HPP
+#define BUFFERUSAGE_HPP
 
 #include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
@@ -39,4 +39,4 @@ namespace SceneR
     }
 }
 
-#endif // VERTEXBUFFERUSAGE_HPP
+#endif // BUFFERUSAGE_HPP
