@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef VERTEXBUFFERTARGET_HPP
-#define VERTEXBUFFERTARGET_HPP
+#ifndef BUFFERTARGET_HPP
+#define BUFFERTARGET_HPP
 
 #include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
@@ -85,4 +85,4 @@ namespace SceneR
     }
 }
 
-#endif // VERTEXBUFFERTARGET_HPP
+#endif // BUFFERTARGET_HPP
