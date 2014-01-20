@@ -18,6 +18,8 @@
 #define VERTEXDECLARATION_HPP
 
 #include <Graphics/VertexElement.hpp>
+#include <Graphics/VertexElementFormat.hpp>
+#include <Graphics/VertexElementUsage.hpp>
 #include <System/Core.hpp>
 #include <vector>
 
@@ -25,6 +27,16 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class BufferObject;
+    }
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class VertexBuffer;
+
         /**
          * A vertex declaration, which defines per-vertex data.
          */
@@ -55,8 +67,25 @@ namespace SceneR
             const std::vector<VertexElement>& VertexElements() const;
 
         private:
+            /**
+             * Activates the vertex format to be used on drawing operations.
+             */
+            void Activate() const;
+
+            /**
+             * Deactivates the vertex format to be used on drawing operations.
+             */
+            void Deactivate() const;
+
+            System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
+            System::UInt32 GetElementType(const VertexElementFormat& vertexFormat) const;
+            System::UInt32 GetUsageIndex(const VertexElementUsage& usage) const;
+
+        private:
             System::UInt32             vertexStride;
             std::vector<VertexElement> vertexElements;
+
+            friend class VertexBuffer;
         };
     }
 }

@@ -22,7 +22,6 @@
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RenderTime.hpp>
 #include <SampleRenderer.hpp>
-#include <memory>
 
 using namespace SceneR::Sample;
 using namespace SceneR::Framework;

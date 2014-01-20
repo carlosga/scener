@@ -77,6 +77,11 @@ void BufferObject::Delete()
     }
 }
 
+void BufferObject::GetData(const Size& offset, const Size& size, void* data) const
+{
+    glGetNamedBufferSubDataEXT(this->id, offset, size, data);
+}
+
 void BufferObject::BufferData(const System::Size& size, const void* data) const
 {
     glNamedBufferDataEXT(this->id, size, data, static_cast<GLenum>(this->usage));
@@ -95,9 +100,4 @@ void BufferObject::Invalidate() const
 void BufferObject::Invalidate(const System::Size& offset, const System::Size& length) const
 {
     glInvalidateBufferSubData(this->id, offset, length);
-}
-
-void BufferObject::GetData(const Size& offset, const Size& size, void* data) const
-{
-    glGetNamedBufferSubDataEXT(this->id, offset, size, data);
 }

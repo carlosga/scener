@@ -47,15 +47,10 @@ const SceneR::Graphics::IndexElementSize& IndexBuffer::IndexElementSize() const
 
 std::vector<UByte> IndexBuffer::GetData() const
 {
-    UInt32 size = (this->indexCount * this->GetElementSizeInBytes());
-    std::vector<UByte> data(size);
-
-    this->ibo.GetData(0, size, data.data());
-
-    return data;
+    return this->GetData(0, this->indexCount);
 }
 
-std::vector<UByte> IndexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount)
+std::vector<UByte> IndexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount) const
 {
     UInt32 offset = (startIndex * this->GetElementSizeInBytes());
     UInt32 size   = (elementCount * this->GetElementSizeInBytes());

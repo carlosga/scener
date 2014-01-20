@@ -29,27 +29,19 @@ namespace SceneR
         enum class VertexElementUsage : System::UInt32
         {
             /**
-             * Position data. (Position with UsageIndex = 0 ) specifies the nontransformed position in fixed-function
-             * vertex processing and the N-patch tessellator. (Position with UsageIndex = 1) specifies the
-             * nontransformed position in the fixed-function vertex shader for skinning.
+             * Position data.
              */
             Position = 0,
             /**
-             * Vertex data contains diffuse or specular color. (Color with UsageIndex = 0) specifies the diffuse color
-             * in the fixed-function vertex shader and in pixel shaders prior to ps_3_0. (Color with UsageIndex = 1)
-             * specifies the specular color in the fixed-function vertex shader and in pixel shaders prior to ps_3_0.
+             * Vertex data contains diffuse or specular color.
              */
             Color = 1,
             /**
-             * Texture coordinate data. (TextureCoordinate, n) specifies texture coordinates in fixed-function vertex
-             * processing and in pixel shaders prior to ps_3_0.
-             * These coordinates can be used to pass user-defined data.
+             * Texture coordinate data.
              */
             TextureCoordinate = 2,
             /**
-             * Vertex normal data. (Normal with UsageIndex = 0) specifies vertex normals for fixed-function vertex
-             * processing and the N-patch tessellator.
-             * (Normal with UsageIndex = 1) specifies vertex normals for fixed-function vertex processing for skinning.
+             * Vertex normal data.
              */
             Normal = 3,
             /**
@@ -61,13 +53,11 @@ namespace SceneR
              */
             Tangent = 5,
             /**
-             * Blending indices data. (BlendIndices with UsageIndex = 0) specifies matrix indices for fixed-function
-             * vertex processing using indexed paletted skinning.
+             * Blending indices data.
              */
             BlendIndices = 6,
             /**
-             * Blending weight data. (BlendWeight with UsageIndex = 0) specifies the blend weights in fixed-function
-             * vertex processing.
+             * Blending weight data.
              */
             BlendWeight = 7,
             /**
@@ -75,21 +65,19 @@ namespace SceneR
              */
             Depth = 8,
             /**
-             * Vertex data contains fog data. (Fog with UsageIndex = 0) specifies a fog blend value to use after pixel shading is finished.
+             * Vertex data contains fog data.
              */
             Fog = 9,
             /**
-             * Point size data. (PointSize with UsageIndex = 0) specifies the point-size attribute used by
-             * the setup engine of the rasterizer to expand a point into a quad for the point-sprite functionality.
+             * Point size data.
              */
             PointSize = 10,
             /**
-             * Vertex data contains sampler data. (Sample with UsageIndex = 0) specifies the displacement value to look up.
+             * Vertex data contains sampler data.
              */
             Sample = 11,
             /**
-             * Single, positive floating-point value. (TessellateFactor with UsageIndex = 0) specifies a
-             * tessellation factor used in the tessellation unit to control the rate of tessellation.
+             * Single, positive floating-point value.
              */
             TessellateFactor = 12
         };

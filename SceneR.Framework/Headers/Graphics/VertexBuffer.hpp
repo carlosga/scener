@@ -64,7 +64,7 @@ namespace SceneR
             /**
              * Gets the vertex buffer data
              */
-            std::vector<System::UByte> GetData(const System::Int32& startIndex, const System::Int32& elementCount);
+            std::vector<System::UByte> GetData(const System::Int32& startIndex, const System::Int32& elementCount) const;
 
             /**
              * Sets the vertex buffer data
@@ -74,7 +74,7 @@ namespace SceneR
             /**
              * Defines per-vertex data in a buffer.
              */
-            std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexDeclaration();
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexDeclaration() const;
 
         private:
             void Activate();
