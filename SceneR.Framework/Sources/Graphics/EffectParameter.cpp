@@ -23,7 +23,6 @@
 #include <stdexcept>
 
 using namespace System;
-using namespace System::Graphics;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
@@ -40,10 +39,10 @@ EffectParameter::EffectParameter()
 {
 }
 
-EffectParameter::EffectParameter(const String&                                           name,
-                                 const EffectParameterClass&                             parameterClass,
-                                 const EffectParameterType&                              parameterType,
-                                 const std::shared_ptr<System::Graphics::ShaderProgram>& shaderProgram)
+EffectParameter::EffectParameter(const String&                         name,
+                                 const EffectParameterClass&           parameterClass,
+                                 const EffectParameterType&            parameterType,
+                                 const std::shared_ptr<ShaderProgram>& shaderProgram)
     : columnCount(0),
       elements(),
       name(name),

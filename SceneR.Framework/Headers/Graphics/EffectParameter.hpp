@@ -20,7 +20,7 @@
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <System/Graphics/ShaderProgram.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <Graphics/Texture.hpp>
 #include <System/Core.hpp>
 #include <memory>
@@ -56,10 +56,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
-            EffectParameter(const System::String&                                   name,
-                            const EffectParameterClass&                             parameterClass,
-                            const EffectParameterType&                              parameterType,
-                            const std::shared_ptr<System::Graphics::ShaderProgram>& shaderProgram);
+            EffectParameter(const System::String&                 name,
+                            const EffectParameterClass&           parameterClass,
+                            const EffectParameterType&            parameterType,
+                            const std::shared_ptr<ShaderProgram>& shaderProgram);
 
             /**
              * Releases all resources being used by this EffectParameter.
@@ -321,15 +321,15 @@ namespace SceneR
             void SetValue(const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
-            System::Int32                                    columnCount;
-            EffectParameterCollection                        elements;
-            System::String                                   name;
-            EffectParameterClass                             parameterClass;
-            EffectParameterType                              parameterType;
-            System::Int32                                    rowCount;
-            EffectParameterCollection                        structureMembers;
-            std::shared_ptr<System::Graphics::ShaderProgram> shader;
-            System::Int32                                    parameterLocation;
+            System::Int32                  columnCount;
+            EffectParameterCollection      elements;
+            System::String                 name;
+            EffectParameterClass           parameterClass;
+            EffectParameterType            parameterType;
+            System::Int32                  rowCount;
+            EffectParameterCollection      structureMembers;
+            std::shared_ptr<ShaderProgram> shader;
+            System::Int32                  parameterLocation;
         };
     }
 }

@@ -15,13 +15,13 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Effect.hpp>
-#include <System/Graphics/Shader.hpp>
-#include <System/Graphics/ShaderType.hpp>
+#include <Graphics/Shader.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/ShaderType.hpp>
 #include <stdexcept>
 #include <vector>
 
 using namespace System;
-using namespace System::Graphics;
 using namespace SceneR::Graphics;
 
 Effect::Effect(GraphicsDevice& graphicsDevice,

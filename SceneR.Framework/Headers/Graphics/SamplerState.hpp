@@ -20,8 +20,8 @@
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/Core.hpp>
-#include <System/Graphics/TextureTarget.hpp>
 
 namespace SceneR
 {
@@ -119,7 +119,7 @@ namespace SceneR
             void MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias);
 
         private:
-            void OnApply(const System::Graphics::TextureTarget& target, const System::Int32& mipmapLevels) const;
+            void OnApply(const TextureTarget& target, const System::Int32& mipmapLevels) const;
 
         private:
             TextureAddressMode addressU;

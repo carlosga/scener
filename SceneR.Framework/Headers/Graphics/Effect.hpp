@@ -19,8 +19,8 @@
 
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <System/Core.hpp>
-#include <System/Graphics/ShaderProgram.hpp>
 #include <memory>
 
 namespace SceneR
@@ -81,8 +81,8 @@ namespace SceneR
             virtual void OnApply() = 0;
 
         protected:
-            EffectParameterCollection                        parameters;
-            std::shared_ptr<System::Graphics::ShaderProgram> shader;
+            EffectParameterCollection      parameters;
+            std::shared_ptr<ShaderProgram> shader;
         };
     }
 }

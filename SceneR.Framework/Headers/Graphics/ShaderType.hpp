@@ -20,7 +20,7 @@
 #include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
 
-namespace System
+namespace SceneR
 {
     namespace Graphics
     {
@@ -48,11 +48,7 @@ namespace System
             /**
              * A shader that is intended to run on the programmable fragment processor.
              */
-            Fragment       = GL_FRAGMENT_SHADER,
-            /**
-             * A shader that is intended to be used for computing arbitrary information.
-             */
-            Compute        = GL_COMPUTE_SHADER
+            Fragment       = GL_FRAGMENT_SHADER
         };
     }
 }

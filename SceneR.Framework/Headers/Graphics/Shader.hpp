@@ -17,10 +17,10 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
-#include <System/Graphics/ShaderType.hpp>
+#include <Graphics/ShaderType.hpp>
 #include <System/Core.hpp>
 
-namespace System
+namespace SceneR
 {
     namespace Graphics
     {

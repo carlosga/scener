@@ -22,12 +22,11 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/SkinnedEffect.hpp>
-#include <System/Graphics/TextureTarget.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/IO/File.hpp>
 #include <cassert>
 
 using namespace System;
-using namespace System::Graphics;
 using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;

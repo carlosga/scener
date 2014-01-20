@@ -19,8 +19,8 @@
 
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
+#include <Graphics/ShaderProgram.hpp>
 #include <System/Core.hpp>
-#include <System/Graphics/ShaderProgram.hpp>
 #include <memory>
 #include <vector>
 
@@ -54,10 +54,10 @@ namespace SceneR
         public:
             System::Size Count() const;
 
-            EffectParameter& Add(const System::String&                                   name,
-                                 const EffectParameterClass&                             parameterClass,
-                                 const EffectParameterType&                              parameterType,
-                                 const std::shared_ptr<System::Graphics::ShaderProgram>& shaderProgram);
+            EffectParameter& Add(const System::String&                 name,
+                                 const EffectParameterClass&           parameterClass,
+                                 const EffectParameterType&            parameterType,
+                                 const std::shared_ptr<ShaderProgram>& shaderProgram);
 
         public:
             EffectParameter& operator[](const System::Int32& parameterIndex);

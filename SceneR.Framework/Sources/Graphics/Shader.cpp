@@ -14,12 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/Graphics/Shader.hpp>
+#include <Graphics/Shader.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 
 using namespace System;
-using namespace System::Graphics;
+using namespace SceneR::Graphics;
 
 Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
     : object(0), shaderCode(shaderCode), shaderType(shaderType)

@@ -20,7 +20,7 @@
 #include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
 
-namespace System
+namespace SceneR
 {
     namespace Graphics
     {

@@ -19,8 +19,8 @@
 
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture.hpp>
+#include <Graphics/TextureObject.hpp>
 #include <System/Core.hpp>
-#include <System/Graphics/TextureObject.hpp>
 
 namespace SceneR
 {
@@ -111,14 +111,14 @@ namespace SceneR
             void DeclareStorage(const System::UInt32& mipMapLevels);
 
         private:
-            SurfaceFormat                   format;
-            System::UInt32                  height;
-            System::Boolean                 mipmap;
-            System::UInt32                  mipmapLevels;
-            System::UInt32                  mipmapHeight;
-            System::UInt32                  mipmapWidth;
-            System::UInt32                  width;
-            System::Graphics::TextureObject object;
+            SurfaceFormat   format;
+            System::UInt32  height;
+            System::Boolean mipmap;
+            System::UInt32  mipmapLevels;
+            System::UInt32  mipmapHeight;
+            System::UInt32  mipmapWidth;
+            System::UInt32  width;
+            TextureObject   object;
 
             friend class SceneR::Content::Texture2DReader;
         };

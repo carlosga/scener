@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/EffectParameter.hpp>
@@ -22,11 +23,10 @@
 #include <Graphics/EffectParameterType.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/SamplerState.hpp>
-#include <System/Graphics/TextureTarget.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/IO/File.hpp>
 
 using namespace System;
-using namespace System::Graphics;
 using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;

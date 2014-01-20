@@ -14,16 +14,29 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/Graphics/BufferTarget.hpp>
-#include <System/Graphics/UniformBufferObject.hpp>
+#ifndef BUFFERUSAGE_HPP
+#define BUFFERUSAGE_HPP
 
-using namespace System::Graphics;
+#include <System/Core.hpp>
+#include <System/Graphics/Platform.hpp>
 
-UniformBufferObject::UniformBufferObject(const BufferUsage& usage)
-    : ubo(BufferTarget::UniformBuffer, usage)
+namespace SceneR
 {
+    namespace Graphics
+    {
+        enum class BufferUsage : System::UInt32
+        {
+            StreamDraw  = GL_STREAM_DRAW,
+            StreamRead  = GL_STREAM_READ,
+            StreamCopy  = GL_STREAM_COPY,
+            StaticDraw  = GL_STATIC_DRAW,
+            StaticRead  = GL_STATIC_READ,
+            StaticCopy  = GL_STATIC_COPY,
+            DynamicDraw = GL_DYNAMIC_DRAW,
+            DynamicRead = GL_DYNAMIC_READ,
+            DynamicCopy = GL_DYNAMIC_COPY
+        };
+    }
 }
 
-UniformBufferObject::~UniformBufferObject()
-{
-}
+#endif // BUFFERUSAGE_HPP

@@ -18,10 +18,10 @@
 #define TEXTUREOBJECT_HPP
 
 #include <Graphics/SurfaceFormat.hpp>
-#include <System/Graphics/TextureTarget.hpp>
+#include <Graphics/TextureTarget.hpp>
 #include <System/Core.hpp>
 
-namespace System
+namespace SceneR
 {
     namespace Graphics
     {
@@ -69,10 +69,10 @@ namespace System
              * @param width texture width
              * @param height texture height
              */
-            void Declare2DStorage(const SceneR::Graphics::SurfaceFormat& format,
-                                  const System::UInt32&                  mipmapLevels,
-                                  const System::UInt32&                  width,
-                                  const System::UInt32&                  height) const;
+            void Declare2DStorage(const SurfaceFormat&  format,
+                                  const System::UInt32& mipmapLevels,
+                                  const System::UInt32& width,
+                                  const System::UInt32& height) const;
 
             /**
              * Adds texture data to the texture object
@@ -83,12 +83,12 @@ namespace System
              * @param size mipmap data size
              * @param data mipmap data
              */
-            void TextureSubImage2D(const SceneR::Graphics::SurfaceFormat& format,
-                                   const System::UInt32&                  mipmapLevel,
-                                   const System::UInt32&                  width,
-                                   const System::UInt32&                  height,
-                                   const System::Size&                    size,
-                                   const void*                            data) const;
+            void TextureSubImage2D(const SurfaceFormat&  format,
+                                   const System::UInt32& mipmapLevel,
+                                   const System::UInt32& width,
+                                   const System::UInt32& height,
+                                   const System::Size&   size,
+                                   const void*           data) const;
 
         private:
             System::UInt32 texId;
