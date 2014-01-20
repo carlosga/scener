@@ -15,8 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/BufferObject.hpp>
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

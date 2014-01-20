@@ -82,7 +82,7 @@ ContainmentType BoundingBox::Contains(const Vector3& point) const
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Vector3> BoundingBox::GetCorners()
+std::vector<Vector3> BoundingBox::GetCorners() const
 {
     throw std::runtime_error("Not implemented");
 }

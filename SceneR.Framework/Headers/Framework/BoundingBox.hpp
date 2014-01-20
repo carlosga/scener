@@ -116,7 +116,7 @@ namespace SceneR
             /**
              * Gets the list of points that make up the corners of the BoundingBox.
              */
-            std::vector<Vector3> GetCorners();
+            std::vector<Vector3> GetCorners() const;
 
             /**
              * Checks whether the current BoundingBox intersects with another BoundingBox.

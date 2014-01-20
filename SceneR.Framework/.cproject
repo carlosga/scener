@@ -53,16 +53,13 @@
 							</tool>
 							<tool command="clang++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug.1701105210" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.so.debug">
 								<option defaultValue="true" id="llvm.c.link.option.linkaslibrary.449492850" name="Create a library" superClass="llvm.c.link.option.linkaslibrary" value="false" valueType="boolean"/>
-								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC" valueType="string"/>
+								<option id="llvm.c.link.base.option.ldflags.353807515" name="Linker flags" superClass="llvm.c.link.base.option.ldflags" value="-m64 -shared -fPIC -stdlib=libc++" valueType="string"/>
 								<option id="llvm.c.link.option.libs.177460023" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GLEW"/>
 									<listOptionValue builtIn="false" value="glfw"/>
 									<listOptionValue builtIn="false" value="pthread"/>
-									<listOptionValue builtIn="false" value="stdc++"/>
 								</option>
-								<option id="llvm.c.link.option.paths.2074003565" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
-								</option>
+								<option id="llvm.c.link.option.paths.2074003565" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths"/>
 								<inputType id="cdt.managedbuild.tool.llvm.c.linker.input.1913489736" superClass="cdt.managedbuild.tool.llvm.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

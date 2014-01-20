@@ -17,6 +17,7 @@
 #ifndef RAY_HPP
 #define RAY_HPP
 
+#include <Framework/Vector3.hpp>
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -27,7 +28,6 @@ namespace SceneR
 		struct BoundingFrustum;
 		struct BoundingSphere;
 		struct Plane;
-		struct Vector3;
 
 		/**
 		 * Defines a ray.

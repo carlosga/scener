@@ -18,9 +18,7 @@
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Plane.hpp>
-#include <Framework/Matrix.hpp>
 #include <Framework/Ray.hpp>
-#include <Framework/Vector3.hpp>
 #include <stdexcept>
 
 using namespace System;

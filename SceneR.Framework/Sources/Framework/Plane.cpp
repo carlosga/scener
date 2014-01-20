@@ -14,6 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/BoundingBox.hpp>
+#include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>

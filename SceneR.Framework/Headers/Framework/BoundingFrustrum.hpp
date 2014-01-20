@@ -57,6 +57,9 @@ namespace SceneR
              */
             BoundingFrustrum(const BoundingFrustrum& frustrum);
 
+            /**
+             * Releases all resources being used by this BoundingFrustrum
+             */
             virtual ~BoundingFrustrum();
 
         public:

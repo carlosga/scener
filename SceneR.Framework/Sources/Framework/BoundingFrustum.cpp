@@ -14,14 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
-#include <Framework/Vector3.hpp>
+#include <Framework/Ray.hpp>
 #include <stdexcept>
 
 using namespace SceneR::Framework;
+
+const System::Int32& BoundingFrustrum::CornerCount = 8;
 
 BoundingFrustrum::BoundingFrustrum(const SceneR::Framework::Matrix& value)
     : bottom(0.0f, 0.0f, 0.0f, 0.0f)
