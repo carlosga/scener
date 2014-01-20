@@ -79,12 +79,12 @@ void BufferObject::Delete()
 
 void BufferObject::BufferData(const System::Size& size, const void* data) const
 {
-    glNamedBufferDataEXT(this->id, static_cast<GLenum>(this->target), size, data, static_cast<GLenum>(this->usage));
+    glNamedBufferDataEXT(this->id, size, data, static_cast<GLenum>(this->usage));
 }
 
 void BufferObject::BufferData(const System::Size& offset, const System::Size& size, const void *data) const
 {
-    glNamedBufferSubDataEXT(this->id, static_cast<GLenum>(this->target), offset, size, data);
+    glNamedBufferSubDataEXT(this->id, offset, size, data);
 }
 
 void BufferObject::Invalidate() const
@@ -99,5 +99,5 @@ void BufferObject::Invalidate(const System::Size& offset, const System::Size& le
 
 void BufferObject::GetData(const Size& offset, const Size& size, void* data) const
 {
-    glGetNamedBufferSubDataEXT(this->id, static_cast<GLenum>(this->target), offset, size, data);
+    glGetNamedBufferSubDataEXT(this->id, offset, size, data);
 }
