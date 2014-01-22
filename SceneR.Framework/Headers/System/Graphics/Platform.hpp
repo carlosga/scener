@@ -21,19 +21,19 @@
 #include <GLFW/glfw3.h>
 
 #ifdef __linux__
-    // Prevent name collisions with X11 defines
-    #ifdef None
+// Prevent name collisions with X11 defines
+#ifdef None
     #undef None
-    #endif
-    #ifdef Always
+#endif
+#ifdef Always
     #undef Always
-    #endif
-    #ifdef Bool
+#endif
+#ifdef Bool
     #undef Bool
-    #endif
-    #ifdef CurrentTime
+#endif
+#ifdef CurrentTime
     #undef CurrentTime
-    #endif
+#endif
 #endif
 
 #endif /* PLATFORM_HPP */
