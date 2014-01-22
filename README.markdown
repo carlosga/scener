@@ -16,5 +16,5 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
 * Third party dependencies.
     * [**Google Test 1.7**](https://code.google.com/p/googletest/)
     * [**OpenGL 4.3**](https://www.khronos.org/opengl/)
-    * [**GLEW 1.10**](http://glew.sourceforge.net/)
+    * [**Regal (from github)**](https://github.com/p3/regal)
     * [**GLFW 3.x**](http://www.glfw.org/)
