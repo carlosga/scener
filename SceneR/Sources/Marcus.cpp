@@ -47,7 +47,7 @@ void Marcus::Update(const RenderTime& renderTime)
 {
     Single aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
 
-    this->world      = Matrix::CreateRotationX(-MathHelper::PiOver2)
+    this->world      = Matrix::CreateRotationX(-MathHelper::PiOver4)
                      * Matrix::CreateRotationY(MathHelper::ToRadians(150.0f))
                      * Matrix::CreateTranslation(Vector3(0.0f, -40.0f, 100.0f));
     this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, -10.0f), Vector3::Zero, Vector3::Up);

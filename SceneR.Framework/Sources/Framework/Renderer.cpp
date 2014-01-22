@@ -18,6 +18,7 @@
 #include <Framework/RenderTime.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <chrono>
+#include <iostream>
 #include <thread>
 
 using namespace System;
@@ -265,6 +266,10 @@ void Renderer::FixedTimeStep()
         TimeSpan interval = this->targetElapsedTime - this->timer.ElapsedTimeStepTime();
 
         std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
+    }
+    else
+    {
+        std::cout << "Running Slow !!" << std::endl;
     }
 }
 

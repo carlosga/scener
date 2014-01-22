@@ -21,7 +21,6 @@
 							<tool id="cdt.managedbuild.tool.llvm.archiver.base.1635763679" name="LLVM archiver" superClass="cdt.managedbuild.tool.llvm.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug.488185836" name="LLVM Clang" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.compiler.exe.debug">
 								<option id="llvm.c_cpp.compiler.option.include.paths.1792624302" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 								</option>
@@ -29,23 +28,25 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug.675160284" name="LLVM Clang++" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.compiler.exe.debug">
 								<option id="llvm.c_cpp.compiler.option.include.paths.1712017653" name="Include paths (-I)" superClass="llvm.c_cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/hlsl2glslfork-master/include"/>
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/opengl/regal/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Headers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR/Headers}&quot;"/>
 								</option>
 								<option id="llvm.c_cpp.compiler.option.misc.other.1113914914" name="Other flags" superClass="llvm.c_cpp.compiler.option.misc.other" value="-c -fmessage-length=0 -m64 -std=c++11 -stdlib=libc++" valueType="string"/>
 								<option id="llvm.c_cpp.compiler.option.warnings.toerrors.79693235" name="Warnings as errors (-Werror)" superClass="llvm.c_cpp.compiler.option.warnings.toerrors" value="true" valueType="boolean"/>
+								<option id="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std.455990708" name="Language standard" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.llvm.cpp.compiler.input.1531765092" superClass="cdt.managedbuild.tool.llvm.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug.1442000135" name="LLVM Clang C linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug.2028594888" name="LLVM Clang C++ linker" superClass="cdt.managedbuild.tool.llvm.clang.linux.cpp.linker.exe.debug">
 								<option id="llvm.c.link.option.libs.381408203" name="Libraries (-l)" superClass="llvm.c.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="SceneR.Framework"/>
+									<listOptionValue builtIn="false" value="Regal"/>
+									<listOptionValue builtIn="false" value="SceneR.Framework"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 								</option>
 								<option id="llvm.c.link.option.paths.1106919130" name="Library search path (-L)" superClass="llvm.c.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="/home/carlos/development/projects/cpp/opengl/regal/lib/linux"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SceneR.Framework/Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.8/"/>
 								</option>

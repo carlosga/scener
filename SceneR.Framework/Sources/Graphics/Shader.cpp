@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Shader.hpp>
+#include <System/Graphics/Platform.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 

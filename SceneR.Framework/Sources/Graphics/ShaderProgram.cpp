@@ -20,6 +20,7 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/ShaderProgram.hpp>
+#include <System/Graphics/Platform.hpp>
 #include <System/Text/Unicode.hpp>
 #include <stdexcept>
 

@@ -18,6 +18,7 @@
 #define CULLMODE_HPP
 
 #include <System/Core.hpp>
+#include <System/Graphics/Platform.hpp>
 
 namespace SceneR
 {
@@ -39,7 +40,7 @@ namespace SceneR
             /**
              * Do not perform culling
              */
-            None
+            None = 0
         };
     }
 }

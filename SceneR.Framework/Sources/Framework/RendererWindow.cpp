@@ -91,7 +91,7 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 8);
     glfwWindowHint(GLFW_SAMPLES               , gdm.CurrentGraphicsDevice().PresentationParameters().MultiSampleCount());
-    // glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
+    glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
 
     if (gdm.FullScreen())
     {
@@ -117,23 +117,8 @@ void RendererWindow::Open()
     // Set the new window context as the current context
     glfwMakeContextCurrent(this->handle);
 
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX / Linux :-/
-
-    if (glewInit() != GLEW_OK)
-    {
-        throw std::runtime_error("glewInit failed");
-    }
-
-    // We will also use GLEW to double-check that the 4.3 API is available:
-    if (!GLEW_VERSION_4_3)
-    {
-        throw std::runtime_error("OpenGL 4.3 API is not available.");
-    }
-
-    // GLEW throws some errors, so discard all the errors so far
-    while(glGetError() != GL_NO_ERROR)
-    {
-    }
+    // Disable regal emulation as it prevents the shaders to be compiled correctly
+    glDisable(GL_EMULATION_REGAL);
 
     // Enable debug output
     this->EnableDebugOutput();
@@ -214,10 +199,10 @@ bool RendererWindow::ShouldClose() const
             || glfwWindowShouldClose(this->handle));
 }
 
-void RendererWindow::DebugCallback(GLenum  source   , GLenum      type,
-                                   GLuint  id       , GLenum      severity,
-                                   GLsizei length   , const char* message,
-                                   void*   userParam)
+void RendererWindow::DebugCallback(GLenum  source   , GLenum        type,
+                                   GLuint  id       , GLenum        severity,
+                                   GLsizei length   , const GLchar* message,
+                                   const void* userParam)
 {
     std::cout << message << std::endl;
 }

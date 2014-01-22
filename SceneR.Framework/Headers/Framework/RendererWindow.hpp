@@ -79,10 +79,10 @@ namespace SceneR
             bool ShouldClose() const;
 
         private:
-            static void DebugCallback(GLenum  source, GLenum      type,
-                                      GLuint  id    , GLenum      severity,
-                                      GLsizei length, const char* message,
-                                      void*   userParam);
+            static void DebugCallback(GLenum  source, GLenum        type,
+                                      GLuint  id    , GLenum        severity,
+                                      GLsizei length, const GLchar* message,
+                                      const void* userParam);
 
         private:
             System::String  title;
