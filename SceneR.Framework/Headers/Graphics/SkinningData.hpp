@@ -48,13 +48,15 @@ namespace SceneR
             virtual ~SkinningData();
 
         public:
-            std::map<System::String, AnimationClip>& AnimationClips();
+            const std::map<System::String, AnimationClip>& AnimationClips() const;
 
-            std::vector<SceneR::Framework::Matrix>& BindPose();
+            const std::vector<SceneR::Framework::Matrix>& BindPose() const;
 
-            std::vector<SceneR::Framework::Matrix>& InverseBindPose();
+            const AnimationClip& GetAnimationClip(const System::String& clipName);
 
-            std::vector<System::Int32>& SkeletonHierarchy();
+            const std::vector<SceneR::Framework::Matrix>& InverseBindPose() const;
+
+            const std::vector<System::Int32>& SkeletonHierarchy() const;
 
         private:
             std::map<System::String, AnimationClip> animationClips;

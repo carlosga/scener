@@ -84,7 +84,7 @@ GraphicsAdapter::~GraphicsAdapter()
 {
 }
 
-const DisplayMode GraphicsAdapter::CurrentDisplayMode() const
+DisplayMode GraphicsAdapter::CurrentDisplayMode() const
 {
     return DisplayMode(glfwGetVideoMode(this->monitorHandle));
 }

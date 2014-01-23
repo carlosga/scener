@@ -71,7 +71,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            ~Texture2D();
+            virtual ~Texture2D();
 
         public:
             /**
@@ -94,7 +94,13 @@ namespace SceneR
              */
             const System::UInt32& Width() const;
 
-            void SetData(const System::UInt32& mipmapLevel, const System::Size& size, const void* data);
+            /**
+             * Sets mipmap data to the texture.
+             * @param level the mipmap level.
+             * @param size the size of the mipmap data.
+             * @param data pointer with the mipmap data.
+             */
+            void SetData(const System::UInt32& level, const System::Size& size, const void* data);
 
         public:
             /**

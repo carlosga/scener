@@ -52,12 +52,22 @@ namespace SceneR
             virtual ~EffectParameterCollection();
 
         public:
+            /**
+             * Gets the number of EffectParameter objects in this EffectParameterCollection.
+             */
             System::Size Count() const;
 
+            /**
+             * Adds a new EffectParamter in this EffectParameterCollection.
+             * @param name the parameter name.
+             * @param parameterClass the parameter class.
+             * @param parameterType the parameter type.
+             * @param shader the associated shader.
+             */
             EffectParameter& Add(const System::String&                 name,
                                  const EffectParameterClass&           parameterClass,
                                  const EffectParameterType&            parameterType,
-                                 const std::shared_ptr<ShaderProgram>& shaderProgram);
+                                 const std::shared_ptr<ShaderProgram>& shader);
 
         public:
             EffectParameter& operator[](const System::Int32& parameterIndex);

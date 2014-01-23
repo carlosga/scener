@@ -67,10 +67,10 @@ namespace SceneR
             void Refresh() const;
 
         private:
-            System::Single xCoordinate;
-            System::Single yCoordinate;
-            System::Single vWidth;
-            System::Single vHeight;
+            System::Single x;
+            System::Single y;
+            System::Single width;
+            System::Single height;
             System::Single minDepth;
             System::Single maxDepth;
         };

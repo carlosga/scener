@@ -66,23 +66,13 @@ namespace SceneR
             /**
              * Specifies whether to allow the user to resize the renderer window.
              */
-            void AllowUserResizing(const System::Boolean &allowUserResizing);
+            void AllowUserResizing(const System::Boolean& allowUserResizing);
 
         private:
             void Open();
             void Close();
-            void EnableDebugOutput() const;
-            void DisableDebugOutput() const;
             void InitializeInput() const;
-            void InitializeCallbacks() const;
-            void ReleaseCallbacks() const;
             bool ShouldClose() const;
-
-        private:
-            static void DebugCallback(GLenum  source, GLenum        type,
-                                      GLuint  id    , GLenum        severity,
-                                      GLsizei length, const GLchar* message,
-                                      const void* userParam);
 
         private:
             System::String  title;

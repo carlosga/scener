@@ -27,14 +27,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BufferObject;
-    }
-}
-
-namespace SceneR
-{
-    namespace Graphics
-    {
         class VertexBuffer;
 
         /**

@@ -59,7 +59,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BasicEffect.
              */
-            ~SkinnedEffect();
+            virtual ~SkinnedEffect();
 
         public:
             /**

@@ -63,7 +63,7 @@ void ModelMesh::Draw()
     }
 }
 
-const std::vector<std::shared_ptr<Effect>> ModelMesh::Effects()
+std::vector<std::shared_ptr<Effect>> ModelMesh::Effects() const
 {
     auto effects = std::vector<std::shared_ptr<Effect>>(0);
 

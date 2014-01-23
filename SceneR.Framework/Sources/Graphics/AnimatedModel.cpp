@@ -46,7 +46,7 @@ AnimatedModel::~AnimatedModel()
 
 void AnimatedModel::Play(const String& clipName)
 {
-    this->player.StartClip(this->skinningData->AnimationClips()[clipName]);
+    this->player.StartClip(this->skinningData->GetAnimationClip(clipName));
 }
 
 void AnimatedModel::PlayFirstClip()

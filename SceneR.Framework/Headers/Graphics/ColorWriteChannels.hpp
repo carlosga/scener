@@ -23,6 +23,9 @@ namespace SceneR
 {
     namespace Graphics
     {
+        /**
+         * Defines the color channels that can be chosen for a per-channel write to a render target color buffer
+         */
         enum class ColorWriteChannels : System::UInt32
         {
             /**

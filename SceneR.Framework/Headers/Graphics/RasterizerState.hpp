@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this RasterizerState
              */
-            ~RasterizerState();
+            virtual ~RasterizerState();
 
         public:
             /**

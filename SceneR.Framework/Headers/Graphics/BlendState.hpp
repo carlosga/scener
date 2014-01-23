@@ -78,52 +78,126 @@ namespace SceneR
             virtual ~BlendState();
 
         public:
+            /**
+             * Gets the arithmetic operation when blending alpha values.
+             */
             const BlendFunction& AlphaBlendFunction() const;
 
+            /**
+             * Sets the arithmetic operation when blending alpha values.
+             */
             void AlphaBlendFunction(const BlendFunction& alphaBlendFunction);
 
+            /**
+             * Gets the blend factor for the destination alpha,
+             * which is the percentage of the destination alpha included in the blended result.
+             */
             const Blend& AlphaDestinationBlend() const;
 
+            /**
+             * Sets the blend factor for the destination alpha,
+             * which is the percentage of the destination alpha included in the blended result.
+             */
             void AlphaDestinationBlend(const Blend& alphaDestinationBlend);
 
+            /**
+             * Gets the alpha blend factor.
+             */
             const Blend& AlphaSourceBlend() const;
 
+            /**
+             * Sets the alpha blend factor.
+             */
             void AlphaSourceBlend(const Blend& alphaSourceBlend);
 
+            /**
+             * Gets the four-component (RGBA) blend factor for alpha blending.
+             */
             const SceneR::Framework::Color& BlendFactor() const;
 
+            /**
+             * Sets the four-component (RGBA) blend factor for alpha blending.
+             */
             void BlendFactor(const SceneR::Framework::Color& blendFactor);
 
+            /**
+             * Gets the arithmetic operation when blending color values.
+             */
             const BlendFunction& ColorBlendFunction() const;
 
+            /**
+             * Sets the arithmetic operation when blending color values.
+             */
             void ColorBlendFunction(const BlendFunction& colorBlendFunction);
 
+            /**
+             * Gets the blend factor for the destination color.
+             */
             const Blend& ColorDestinationBlend() const;
 
+            /**
+             * Sets the blend factor for the destination color.
+             */
             void ColorDestinationBlend(const Blend& colorDestinationBlend);
 
+            /**
+             * Gets the blend factor for the source color.
+             */
             const Blend& ColorSourceBlend() const;
 
+            /**
+             * Sets the blend factor for the source color.
+             */
             void ColorSourceBlend(const Blend& colorSourceBlend);
 
+            /**
+             * Gets which color channels (RGBA) are enabled for writing during color blending.
+             */
             const SceneR::Graphics::ColorWriteChannels& ColorWriteChannels() const;
 
+            /**
+             * Sets which color channels (RGBA) are enabled for writing during color blending.
+             */
             void ColorWriteChannels(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels);
 
+            /**
+             * Gets which color channels (RGBA) are enabled for writing during color blending.
+             */
             const SceneR::Graphics::ColorWriteChannels& ColorWriteChannels1() const;
 
+            /**
+             * Sets which color channels (RGBA) are enabled for writing during color blending.
+             */
             void ColorWriteChannels1(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels1);
 
+            /**
+             * Gets which color channels (RGBA) are enabled for writing during color blending.
+             */
             const SceneR::Graphics::ColorWriteChannels& ColorWriteChannels2() const;
 
+            /**
+             * Sets which color channels (RGBA) are enabled for writing during color blending.
+             */
             void ColorWriteChannels2(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels2);
 
+            /**
+             * Gets which color channels (RGBA) are enabled for writing during color blending.
+             */
             const SceneR::Graphics::ColorWriteChannels& ColorWriteChannels3() const;
 
+            /**
+             * Sets which color channels (RGBA) are enabled for writing during color blending.
+             */
             void ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels3);
 
+            /**
+             * Gets a bitmask which defines which samples can be written during multisampling.
+             */
             const System::UInt32& MultiSampleMask() const;
 
+            /**
+             * Sets a bitmask which defines which samples can be written during multisampling.
+             */
             void MultiSampleMask(const System::UInt32& multiSampleMask);
 
         private:

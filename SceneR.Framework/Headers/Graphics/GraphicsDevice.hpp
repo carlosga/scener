@@ -130,7 +130,7 @@ namespace SceneR
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
              * The default value is BlendState.Opaque.
              */
-            SceneR::Graphics::BlendState BlendState();
+            SceneR::Graphics::BlendState& BlendState();
 
             /**
              * Gets the depth-stencil state.
@@ -159,6 +159,9 @@ namespace SceneR
              */
             SceneR::Graphics::RasterizerState& RasterizerState();
 
+            /**
+             * Retrieves a collection of SamplerState objects for the current GraphicsDevice.
+             */
             const std::vector<SceneR::Graphics::SamplerState>& SamplerStates();
 
             /**

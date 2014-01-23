@@ -32,7 +32,7 @@ Viewport::Viewport(Single x, Single y, Size width, Size height)
 }
 
 Viewport::Viewport(Single x , Single y, Single width, Single height, Single minDepth, Single maxDepth)
-    : xCoordinate(x), yCoordinate(y), vWidth(width), vHeight(height), minDepth(minDepth), maxDepth(maxDepth)
+    : x(x), y(y), width(width), height(height), minDepth(minDepth), maxDepth(maxDepth)
 {
 }
 
@@ -42,29 +42,29 @@ Viewport::~Viewport()
 
 const Single& Viewport::X() const
 {
-    return this->xCoordinate;
+    return this->x;
 }
 
 const Single& Viewport::Y() const
 {
-    return this->yCoordinate;
+    return this->y;
 }
 
 const Single& Viewport::Width() const
 {
-    return this->vWidth;
+    return this->width;
 }
 
 const Single& Viewport::Height() const
 {
-    return this->vHeight;
+    return this->height;
 }
 
 Single Viewport::AspectRatio() const
 {
-    assert(this->vWidth > 0 && this->vHeight > 0);
+    assert(this->width > 0 && this->height > 0);
 
-    return (this->vWidth / this->vHeight);
+    return (this->width / this->height);
 }
 
 const Single& Viewport::MinDepth() const
@@ -89,20 +89,21 @@ void Viewport::MaxDepth(const Single& maxDepth)
 
 void Viewport::Update(const Size& width, const Size& height)
 {
-    this->Update(this->xCoordinate, this->yCoordinate, width, height);
+    this->Update(this->x, this->y, width, height);
 }
 
 void Viewport::Update(const UInt32& x, const UInt32& y, const Size& width, const Size& height)
 {
-    this->xCoordinate = x;
-    this->xCoordinate = y;
-    this->vWidth      = width;
-    this->vHeight     = height;
+    this->x = x;
+    this->x = y;
+    this->width      = width;
+    this->height     = height;
 
     this->Refresh();
 }
 
 void Viewport::Refresh() const
 {
-    glViewport(this->xCoordinate, this->yCoordinate, this->vWidth, this->vHeight);
+    glViewportIndexedf(0, this->x, this->y, this->width, this->height);
+    glDepthRangeIndexed(0, this->minDepth, this->maxDepth);
 }

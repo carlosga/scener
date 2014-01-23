@@ -69,7 +69,7 @@ const UInt32& Texture2D::Width() const
     return this->width;
 }
 
-void Texture2D::SetData(const UInt32& mipmapLevel, const Size& size, const void* data)
+void Texture2D::SetData(const UInt32& level, const Size& size, const void* data)
 {
     // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
     if (this->mipmapWidth == 0)
@@ -81,7 +81,7 @@ void Texture2D::SetData(const UInt32& mipmapLevel, const Size& size, const void*
         this->mipmapHeight = 1;
     }
 
-    this->object.TextureSubImage2D(this->format, mipmapLevel, this->mipmapWidth, this->mipmapHeight, size, data);
+    this->object.TextureSubImage2D(this->format, level, this->mipmapWidth, this->mipmapHeight, size, data);
 
     this->mipmapWidth  >>= 1;
     this->mipmapHeight >>= 1;

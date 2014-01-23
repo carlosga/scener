@@ -156,7 +156,7 @@ const SceneR::Graphics::GraphicsProfile& GraphicsDevice::GraphicsProfile() const
     return this->graphicsProfile;
 }
 
-SceneR::Graphics::BlendState GraphicsDevice::BlendState()
+SceneR::Graphics::BlendState& GraphicsDevice::BlendState()
 {
     return this->blendState;
 }

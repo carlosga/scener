@@ -31,7 +31,14 @@ namespace SceneR
         class GraphicsAdapter
         {
         public:
+            /**
+             * Gets the default adapter.
+             */
             static const GraphicsAdapter& DefaultAdapter();
+
+            /**
+             * Gets the collection of available adapters.
+             */
             static const std::vector<GraphicsAdapter> Adapters();
 
         private:
@@ -50,7 +57,7 @@ namespace SceneR
             /**
              * Gets the current display mode.
              */
-            const DisplayMode CurrentDisplayMode() const;
+            DisplayMode CurrentDisplayMode() const;
 
             /**
              * Retrieves a string used for presentation to the user.

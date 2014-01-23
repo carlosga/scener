@@ -82,14 +82,13 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 3);
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT  , 1);
     glfwWindowHint(GLFW_RESIZABLE             , (gdm.AllowUserResizing() ? GL_TRUE : GL_FALSE));
     glfwWindowHint(GLFW_RED_BITS              , 8);
     glfwWindowHint(GLFW_GREEN_BITS            , 8);
     glfwWindowHint(GLFW_BLUE_BITS             , 8);
     glfwWindowHint(GLFW_ALPHA_BITS            , 8);
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
-    glfwWindowHint(GLFW_STENCIL_BITS          , 8);
+    glfwWindowHint(GLFW_STENCIL_BITS          , 24);
     glfwWindowHint(GLFW_SAMPLES               , gdm.CurrentGraphicsDevice().PresentationParameters().MultiSampleCount());
     glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
 
@@ -120,9 +119,6 @@ void RendererWindow::Open()
     // Disable regal emulation as it prevents the shaders to be compiled correctly
     glDisable(GL_EMULATION_REGAL);
 
-    // Enable debug output
-    this->EnableDebugOutput();
-
     // Initialize input
     this->InitializeInput();
 }
@@ -131,32 +127,12 @@ void RendererWindow::Close()
 {
     if (this->handle)
     {
-        // Disable debug output
-        this->DisableDebugOutput();
-
         // Close window
         glfwDestroyWindow(this->handle);
 
         // Reset the window pointer
         this->handle = nullptr;
     }
-}
-
-void RendererWindow::EnableDebugOutput() const
-{
-    // Enable debugging output
-    // Other OpenGL 4.x debugging functions:
-    //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(RendererWindow::DebugCallback, nullptr);
-    GLuint unusedIds = 0;
-    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
-}
-
-void RendererWindow::DisableDebugOutput() const
-{
-    glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(nullptr, nullptr);
 }
 
 void RendererWindow::InitializeInput() const
@@ -168,41 +144,10 @@ void RendererWindow::InitializeInput() const
     glfwSetInputMode(this->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
-void RendererWindow::InitializeCallbacks() const
-{
-    /*
-    glfwSetWindowSizeCallback(RenderDevice::WindowSizeCallback);
-    glfwSetWindowRefreshCallback(RenderDevice::WindowRefreshCallback);
-    glfwSetWindowCloseCallback(RenderDevice::WindowCloseCallback);
-    glfwSetMousePosCallback(RenderDevice::MousePosCallback);
-    glfwSetMouseButtonCallback(RenderDevice::MouseButtonCallback);
-    glfwSetKeyCallback(RenderDevice::KeyboardCallback);
-    */
-}
-
-void RendererWindow::ReleaseCallbacks() const
-{
-    /*
-    glfwSetWindowSizeCallback(NULL);
-    glfwSetWindowRefreshCallback(NULL);
-    glfwSetWindowCloseCallback(NULL);
-    glfwSetMousePosCallback(NULL);
-    glfwSetMouseButtonCallback(NULL);
-    */
-}
-
 bool RendererWindow::ShouldClose() const
 {
     Boolean fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().FullScreen();
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             || glfwWindowShouldClose(this->handle));
-}
-
-void RendererWindow::DebugCallback(GLenum  source   , GLenum        type,
-                                   GLuint  id       , GLenum        severity,
-                                   GLsizei length   , const GLchar* message,
-                                   const void* userParam)
-{
-    std::cout << message << std::endl;
 }

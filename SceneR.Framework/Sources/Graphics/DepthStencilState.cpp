@@ -16,7 +16,6 @@
 
 #include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Viewport.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -84,6 +83,16 @@ const StencilOperation& DepthStencilState::CounterClockwiseStencilPass() const
 void DepthStencilState::CounterClockwiseStencilPass(const StencilOperation& counterClockwiseStencilPass)
 {
     this->counterClockwiseStencilPass = counterClockwiseStencilPass;
+}
+
+const CompareFunction& SceneR::Graphics::DepthStencilState::DepthBufferFunction() const
+{
+    return this->depthBufferFunction;
+}
+
+void DepthStencilState::DepthBufferFunction(const CompareFunction& depthBufferFunction)
+{
+    this->depthBufferFunction = depthBufferFunction;
 }
 
 const Boolean& DepthStencilState::DepthBufferEnable() const
@@ -200,12 +209,9 @@ void DepthStencilState::Apply() const
 {
     if (this->depthBufferEnable)
     {
-        Viewport& currentViewport = this->graphicsDevice.Viewport();
-
         glEnable(GL_DEPTH_TEST);
         glDepthMask(this->depthBufferWriteEnable);
         glDepthFunc(static_cast<GLenum>(this->depthBufferFunction));
-        glDepthRange(currentViewport.MinDepth(), currentViewport.MaxDepth());
     }
     else
     {

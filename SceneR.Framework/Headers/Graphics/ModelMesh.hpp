@@ -72,7 +72,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            const std::vector<std::shared_ptr<Effect>> Effects();
+            std::vector<std::shared_ptr<Effect>> Effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
