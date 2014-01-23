@@ -50,6 +50,11 @@ BoundingSphere::BoundingSphere(const Vector3& center, const Single& radius)
 {
 }
 
+BoundingSphere::BoundingSphere(const BoundingSphere& sphere)
+    : center(sphere.center), radius(sphere.radius)
+{
+}
+
 BoundingSphere::~BoundingSphere()
 {
 }

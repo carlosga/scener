@@ -50,7 +50,7 @@ namespace SceneR
 			/**
 			 * Releases all resources being used by this Ray.
 			 */
-			virtual ~Ray();
+			~Ray();
 
 		public:
 			/**

@@ -14,20 +14,23 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/BoundingSphere.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <memory>
-#include <string>
 
 using namespace System;
+using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelMesh::ModelMesh()
-    : meshParts(0), name(), parentBone(nullptr), tag()
+    : boundingSphere(Vector3::Zero, 0.0f),
+      meshParts(0),
+      name(),
+      parentBone(nullptr),
+      tag()
 {
 }
 
@@ -35,7 +38,7 @@ ModelMesh::~ModelMesh()
 {
 }
 
-const std::shared_ptr<SceneR::Framework::BoundingSphere>& ModelMesh::BoundingSphere()
+const SceneR::Framework::BoundingSphere& ModelMesh::BoundingSphere() const
 {
     return this->boundingSphere;
 }

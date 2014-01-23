@@ -66,10 +66,15 @@ namespace SceneR
 			 */
 			BoundingSphere(const Vector3& center, const System::Single& radius);
 
+            /**
+             * Initializes a new instance of the BoundingSphere class.
+             */
+            BoundingSphere(const BoundingSphere& sphere);
+
 			/**
 			 * Releases all resources being used by this BoundingSphere.
 			 */
-			virtual ~BoundingSphere();
+			~BoundingSphere();
 
 		public:
 			/**

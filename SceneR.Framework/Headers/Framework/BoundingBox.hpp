@@ -61,7 +61,7 @@ namespace SceneR
 			 */
 			BoundingBox(const BoundingBox& boundingBox);
 
-			virtual ~BoundingBox();
+			~BoundingBox();
 
 		public:
 			/**

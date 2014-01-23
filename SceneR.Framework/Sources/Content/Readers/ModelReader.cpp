@@ -94,7 +94,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         }
 
         // Mesh bounds
-        modelMesh->boundingSphere = this->ReadBoundingSphere(input);
+        modelMesh->boundingSphere = *this->ReadBoundingSphere(input);
 
         // Mesh tag
         modelMesh->tag = this->ReadString(input);

@@ -96,7 +96,7 @@ namespace SceneR
 			/**
 			 * Releases all resources being used by this Plane.
 			 */
-			virtual ~Plane();
+			~Plane();
 
 		public:
 			/**
