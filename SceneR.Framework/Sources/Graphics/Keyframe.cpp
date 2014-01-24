@@ -54,7 +54,7 @@ const System::Int32& Keyframe::Bone() const
     return this->bone;
 }
 
-const TimeSpan Keyframe::Time() const
+const TimeSpan& Keyframe::Time() const
 {
     return this->time;
 }

@@ -94,7 +94,7 @@ namespace SceneR
             /**
              * Gets the root bone for the current model.
              */
-            const std::shared_ptr<ModelBone> Root() const;
+            const std::shared_ptr<ModelBone>& Root() const;
 
             /**
              * Gets the collection of bones associated to the current model
@@ -123,6 +123,7 @@ namespace SceneR
 
         private:
             std::vector<std::shared_ptr<ModelBone>> bones;
+            std::vector<SceneR::Framework::Matrix>  boneTransforms;
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
             std::shared_ptr<SkinningData>           skinning;

@@ -74,7 +74,7 @@ namespace SceneR
             /**
              * Gets the parent of the current bone
              */
-            const std::shared_ptr<ModelBone> Parent() const;
+            const std::shared_ptr<ModelBone>& Parent() const;
 
             /**
              * Gets the matrix used to transform this bone relative to its parent bone.

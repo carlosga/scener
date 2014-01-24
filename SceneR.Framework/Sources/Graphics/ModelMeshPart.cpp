@@ -35,7 +35,7 @@ ModelMeshPart::~ModelMeshPart()
 {
 }
 
-std::shared_ptr<SceneR::Graphics::Effect> ModelMeshPart::Effect() const
+const std::shared_ptr<SceneR::Graphics::Effect>& ModelMeshPart::Effect() const
 {
     return this->effect;
 }
@@ -45,7 +45,7 @@ void ModelMeshPart::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effe
     this->effect = effect;
 }
 
-std::shared_ptr<SceneR::Graphics::IndexBuffer> ModelMeshPart::IndexBuffer()
+const std::shared_ptr<SceneR::Graphics::IndexBuffer>& ModelMeshPart::IndexBuffer() const
 {
     return this->indexBuffer;
 }
@@ -75,7 +75,7 @@ void ModelMeshPart::Tag(const String& tag)
     this->tag = tag;
 }
 
-std::shared_ptr<SceneR::Graphics::VertexBuffer> ModelMeshPart::VertexBuffer()
+const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuffer() const
 {
     return this->vertexBuffer;
 }

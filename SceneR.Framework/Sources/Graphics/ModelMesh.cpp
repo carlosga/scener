@@ -16,10 +16,9 @@
 
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/PrimitiveType.hpp>
-#include <Graphics/VertexBuffer.hpp>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -45,7 +44,7 @@ const SceneR::Framework::BoundingSphere& ModelMesh::BoundingSphere() const
 
 void ModelMesh::Draw()
 {
-    for (auto& meshPart : this->meshParts)
+    for (const auto& meshPart : this->meshParts)
     {
         auto graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
@@ -70,7 +69,7 @@ std::vector<std::shared_ptr<Effect>> ModelMesh::Effects() const
 {
     auto effects = std::vector<std::shared_ptr<Effect>>(0);
 
-    for (auto &meshPart : this->meshParts)
+    for (const auto& meshPart : this->meshParts)
     {
         if (meshPart->Effect() != nullptr)
         {
@@ -96,7 +95,7 @@ void ModelMesh::Name(const String& name)
     this->name = name;
 }
 
-std::shared_ptr<ModelBone> ModelMesh::ParentBone() const
+const std::shared_ptr<ModelBone>& ModelMesh::ParentBone() const
 {
     return this->parentBone;
 }

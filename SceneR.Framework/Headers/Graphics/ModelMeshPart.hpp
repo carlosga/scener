@@ -55,7 +55,7 @@ namespace SceneR
             /**
              * Gets or sets the material Effect for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::Effect> Effect() const;
+            const std::shared_ptr<SceneR::Graphics::Effect>& Effect() const;
 
             /**
              * Gets or sets the material Effect for this mesh part.
@@ -65,7 +65,7 @@ namespace SceneR
             /**
              * Gets the index buffer for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::IndexBuffer> IndexBuffer();
+            const std::shared_ptr<SceneR::Graphics::IndexBuffer>& IndexBuffer() const;
 
             /**
              * Gets the number of vertices used during a draw call.
@@ -95,7 +95,7 @@ namespace SceneR
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::VertexBuffer> VertexBuffer();
+            const std::shared_ptr<SceneR::Graphics::VertexBuffer>& VertexBuffer() const;
 
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.

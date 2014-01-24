@@ -53,7 +53,7 @@ void ModelBone::Name(const String& name)
     this->name = name;
 }
 
-const std::shared_ptr<ModelBone> ModelBone::Parent() const
+const std::shared_ptr<ModelBone>& ModelBone::Parent() const
 {
     return this->parent;
 }

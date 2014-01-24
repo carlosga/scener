@@ -27,29 +27,29 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 SkinningData::SkinningData()
-    : animationClips(),
-      bindPose(),
-      inverseBindPose(),
-      skeletonHierarchy()
+    : animationClips()
+    , bindPose(0)
+    , inverseBindPose(0)
+    , skeletonHierarchy(0)
 {
 }
 
-SkinningData::SkinningData(std::map<String, AnimationClip> animationClips,
-                           std::vector<Matrix>             bindPose,
-                           std::vector<Matrix>             inverseBindPose,
-                           std::vector<Int32>              skeletonHierarchy)
-    : animationClips(animationClips),
-      bindPose(bindPose),
-      inverseBindPose(inverseBindPose),
-      skeletonHierarchy(skeletonHierarchy)
+SkinningData::SkinningData(const std::map<String, AnimationClip>& animationClips
+                         , const std::vector<Matrix>&            bindPose
+                         , const std::vector<Matrix>&            inverseBindPose
+                         , const std::vector<Int32>&             skeletonHierarchy)
+    : animationClips(animationClips)
+    , bindPose(bindPose)
+    , inverseBindPose(inverseBindPose)
+    , skeletonHierarchy(skeletonHierarchy)
 {
 }
 
 SkinningData::SkinningData(const SkinningData& skinningData)
-    : animationClips(skinningData.animationClips),
-      bindPose(skinningData.bindPose),
-      inverseBindPose(skinningData.inverseBindPose),
-      skeletonHierarchy(skinningData.skeletonHierarchy)
+    : animationClips(skinningData.animationClips)
+    , bindPose(skinningData.bindPose)
+    , inverseBindPose(skinningData.inverseBindPose)
+    , skeletonHierarchy(skinningData.skeletonHierarchy)
 {
 
 }
@@ -63,14 +63,14 @@ const std::map<String, AnimationClip>& SkinningData::AnimationClips() const
     return this->animationClips;
 }
 
+const AnimationClip& SkinningData::AnimationClips(const System::String& clipName)
+{
+    return this->animationClips[clipName];
+}
+
 const std::vector<Matrix>& SkinningData::BindPose() const
 {
     return this->bindPose;
-}
-
-const AnimationClip& SkinningData::GetAnimationClip(const System::String& clipName)
-{
-    return this->animationClips[clipName];
 }
 
 const std::vector<Matrix>& SkinningData::InverseBindPose() const

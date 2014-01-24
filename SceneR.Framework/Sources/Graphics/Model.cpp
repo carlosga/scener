@@ -14,15 +14,21 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/IEffectMatrices.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
+#include <Graphics/SkinnedEffect.hpp>
+#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Model::Model()
-    : bones(0), meshes(0), root(nullptr), tag()
+    : bones(0),
+      boneTransforms(0),
+      meshes(0),
+      root(nullptr),
+      tag()
 {
 }
 
@@ -32,24 +38,51 @@ Model::~Model()
 
 void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
+    // TODO: This isn't what it should be doing, but it's good enough for now
+    destinationBoneTransforms.clear();
+    destinationBoneTransforms.resize(this->boneTransforms.size());
+    destinationBoneTransforms.assign(this->boneTransforms.begin(), this->boneTransforms.end());
 }
 
 void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransforms)
 {
-
+    // TODO: This isn't what it should be doing, but it's good enough for now
+    this->boneTransforms = sourceBoneTransforms;
 }
 
 void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
+    // TODO: This isn't what it should be doing, but it's good enough for now
+    destinationBoneTransforms.clear();
+    destinationBoneTransforms.resize(this->boneTransforms.size());
+
+    for (const auto& bone : this->bones)
+    {
+        destinationBoneTransforms.push_back(bone->Transform());
+    }
 }
 
 void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
-    for (auto &mesh : this->meshes)
+    // Render the skinned mesh.
+    for (const auto& mesh : this->meshes)
     {
-        for (auto &effect : mesh->Effects())
+        for (const auto& effect : mesh->Effects())
         {
-            auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
+            if (this->boneTransforms.size() > 0)
+            {
+                const auto sEffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
+
+                if (sEffect != nullptr)
+                {
+                    sEffect->SetBoneTransforms(this->boneTransforms);
+
+                    sEffect->SpecularColor(Vector3(0.25f, 0.25f, 0.25f));
+                    sEffect->SpecularPower(16.0f);
+                }
+            }
+
+            const auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
             if (mEffect != nullptr)
             {
@@ -63,7 +96,7 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
     }
 }
 
-const std::shared_ptr<ModelBone> Model::Root() const
+const std::shared_ptr<ModelBone>& Model::Root() const
 {
     return this->root;
 }

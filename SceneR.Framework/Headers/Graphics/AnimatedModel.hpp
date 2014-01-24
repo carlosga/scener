@@ -23,8 +23,8 @@
 #ifndef ANIMATEDMODEL_HPP
 #define ANIMATEDMODEL_HPP
 
-#include <Graphics/Model.hpp>
 #include <Graphics/AnimationPlayer.hpp>
+#include <Graphics/Model.hpp>
 #include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <memory>
@@ -45,6 +45,7 @@ namespace SceneR
         {
         public:
             AnimatedModel(const std::shared_ptr<Model>& model);
+
             virtual ~AnimatedModel();
 
         public:

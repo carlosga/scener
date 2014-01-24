@@ -22,11 +22,9 @@
 
 #include <Framework/Matrix.hpp>
 #include <Framework/RenderTime.hpp>
-#include <Framework/Vector3.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <Graphics/SkinnedEffect.hpp>
 #include <Graphics/AnimatedModel.hpp>
-#include <Graphics/AnimationClip.hpp>
+#include <map>
+#include <utility>
 #include <vector>
 
 using namespace System;
@@ -46,7 +44,7 @@ AnimatedModel::~AnimatedModel()
 
 void AnimatedModel::Play(const String& clipName)
 {
-    this->player.StartClip(this->skinningData->GetAnimationClip(clipName));
+    this->player.StartClip(this->skinningData->AnimationClips(clipName));
 }
 
 void AnimatedModel::PlayFirstClip()
@@ -61,28 +59,6 @@ void AnimatedModel::Update(const RenderTime& renderTime)
 
 void AnimatedModel::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
-    std::vector<Matrix> bones = this->player.GetSkinTransforms();
-
-    // Render the skinned mesh.
-    for (auto &mesh : this->model->Meshes())
-    {
-        for (auto &effect : mesh->Effects())
-        {
-            auto mEffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
-
-            if (mEffect != nullptr)
-            {
-                mEffect->SetBoneTransforms(bones);
-
-                mEffect->SpecularColor(Vector3(0.25f, 0.25f, 0.25f));
-                mEffect->SpecularPower(16.0f);
-
-                mEffect->World(world);
-                mEffect->View(view);
-                mEffect->Projection(projection);
-            }
-        }
-
-        mesh->Draw();
-    }
+    this->model->CopyBoneTransformsFrom(this->player.GetSkinTransforms());
+    this->model->Draw(world, view, projection);
 }

@@ -37,9 +37,9 @@ AnimationPlayer::AnimationPlayer(const std::shared_ptr<SkinningData>& skinningDa
     , worldTransforms(0)
     , skinTransforms(0)
 {
-    this->boneTransforms.reserve(this->skinningDataValue->BindPose().size());
-    this->worldTransforms.reserve(this->skinningDataValue->BindPose().size());
-    this->skinTransforms.reserve(this->skinningDataValue->BindPose().size());
+    this->boneTransforms.resize(this->skinningDataValue->BindPose().size());
+    this->worldTransforms.resize(this->skinningDataValue->BindPose().size());
+    this->skinTransforms.resize(this->skinningDataValue->BindPose().size());
 }
 
 AnimationPlayer::AnimationPlayer(const AnimationPlayer& animationPlayer)
@@ -107,7 +107,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
     this->currentTimeValue = currentTime;
 
     // Read keyframe matrices.
-    std::vector<Keyframe> keyframes = this->currentClipValue.Keyframes();
+    const std::vector<Keyframe>& keyframes = this->currentClipValue.Keyframes();
 
     while (currentKeyframe < keyframes.size())
     {
@@ -128,27 +128,23 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
 
 void AnimationPlayer::UpdateWorldTransforms(const Matrix& rootTransform)
 {
-    this->worldTransforms.clear();
-
     // Root bone.
-    this->worldTransforms.push_back(this->boneTransforms[0] * rootTransform);
+    this->worldTransforms[0] = this->boneTransforms[0] * rootTransform;
 
     // Child bones.
-    for (Int32 bone = 1; bone < this->skinningDataValue->BindPose().size(); bone++)
+    for (Int32 bone = 1; bone < this->worldTransforms.size(); bone++)
     {
         Int32 parentBone = this->skinningDataValue->SkeletonHierarchy()[bone];
 
-        this->worldTransforms.push_back(this->boneTransforms[bone] * this->worldTransforms[parentBone]);
+        this->worldTransforms[bone] = this->boneTransforms[bone] * this->worldTransforms[parentBone];
     }
 }
 
 void AnimationPlayer::UpdateSkinTransforms()
 {
-    this->skinTransforms.clear();
-
-    for (Int32 bone = 0; bone < this->skinningDataValue->BindPose().size(); bone++)
+    for (Int32 bone = 0; bone < this->skinTransforms.size(); bone++)
     {
-        this->skinTransforms.push_back(this->skinningDataValue->InverseBindPose()[bone] * this->worldTransforms[bone]);
+        this->skinTransforms[bone] = this->skinningDataValue->InverseBindPose()[bone] * this->worldTransforms[bone];
     }
 }
 

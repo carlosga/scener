@@ -47,7 +47,7 @@ namespace SceneR
         public:
             const System::Int32& Bone() const;
 
-            const System::TimeSpan Time() const;
+            const System::TimeSpan& Time() const;
 
             const SceneR::Framework::Matrix& Transform() const;
 

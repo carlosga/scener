@@ -87,7 +87,7 @@ namespace SceneR
              * transformation matrix that describes how the mesh is located relative to
              * any parent meshes in a model.
              */
-            std::shared_ptr<ModelBone> ParentBone() const;
+            const std::shared_ptr<ModelBone>& ParentBone() const;
 
             /**
              * Gets the model mesh tag
