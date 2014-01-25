@@ -187,6 +187,11 @@ namespace SceneR
             void VariableTimeStep();
             void StartEventLoop();
 
+        private:
+            Renderer() = delete;
+            Renderer(const Renderer& renderer) = delete;
+            Renderer& operator=(const Renderer& renderer) = delete;
+
         protected:
             std::vector<std::shared_ptr<IComponent>>  components;
             RendererServiceContainer                  services;

@@ -43,22 +43,22 @@ Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
     return std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
 }
 
-Vector3 Vector3::Barycentric(const Vector3& value1,
-                             const Vector3& value2,
-                             const Vector3& value3,
-                             const Single&  amount1,
-                             const Single&  amount2)
+Vector3 Vector3::Barycentric(const Vector3& value1
+                           , const Vector3& value2
+                           , const Vector3& value3
+                           , const Single&  amount1
+                           , const Single&  amount2)
 {
     return Vector3(MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
                  , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
                  , MathHelper::Barycentric(value1.z, value2.z, value3.z, amount1, amount2));
 }
 
-Vector3 Vector3::CatmullRom(const Vector3& value1,
-                            const Vector3& value2,
-                            const Vector3& value3,
-                            const Vector3& value4,
-                            const System::Single& amount)
+Vector3 Vector3::CatmullRom(const Vector3& value1
+                          , const Vector3& value2
+                          , const Vector3& value3
+                          , const Vector3& value4
+                          , const System::Single& amount)
 {
     return Vector3(MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
                  , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
@@ -107,11 +107,11 @@ Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
     return (dotProduct.x + dotProduct.y + dotProduct.z);
 }
 
-Vector3 Vector3::Hermite(const Vector3& value1,
-                         const Vector3& tangent1,
-                         const Vector3& value2,
-                         const Vector3& tangent2,
-                         const System::Single& amount)
+Vector3 Vector3::Hermite(const Vector3& value1
+                       , const Vector3& tangent1
+                       , const Vector3& value2
+                       , const Vector3& tangent2
+                       , const Single&  amount)
 {
     return Vector3(MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
                  , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)

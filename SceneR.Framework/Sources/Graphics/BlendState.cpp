@@ -22,19 +22,19 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 BlendState::BlendState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice),
-      alphaBlendFunction(BlendFunction::Add),
-      alphaDestinationBlend(Blend::Zero),
-      alphaSourceBlend(Blend::One),
-      blendFactor(Color::White),
-      colorBlendFunction(BlendFunction::Add),
-      colorDestinationBlend(Blend::Zero),
-      colorSourceBlend(Blend::One),
-      colorWriteChannels(SceneR::Graphics::ColorWriteChannels::All),
-      colorWriteChannels1(SceneR::Graphics::ColorWriteChannels::All),
-      colorWriteChannels2(SceneR::Graphics::ColorWriteChannels::All),
-      colorWriteChannels3(SceneR::Graphics::ColorWriteChannels::All),
-      multiSampleMask(0xffffffff)
+    : GraphicsResource(graphicsDevice)
+    , alphaBlendFunction(BlendFunction::Add)
+    , alphaDestinationBlend(Blend::Zero)
+    , alphaSourceBlend(Blend::One)
+    , blendFactor(Color::White)
+    , colorBlendFunction(BlendFunction::Add)
+    , colorDestinationBlend(Blend::Zero)
+    , colorSourceBlend(Blend::One)
+    , colorWriteChannels(SceneR::Graphics::ColorWriteChannels::All)
+    , colorWriteChannels1(SceneR::Graphics::ColorWriteChannels::All)
+    , colorWriteChannels2(SceneR::Graphics::ColorWriteChannels::All)
+    , colorWriteChannels3(SceneR::Graphics::ColorWriteChannels::All)
+    , multiSampleMask(0xffffffff)
 {
 }
 
@@ -168,21 +168,21 @@ void BlendState::Apply() const
 
     glEnable(GL_BLEND);
 
-    glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction),
-                            static_cast<GLenum>(this->alphaBlendFunction));
+    glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction)
+                          , static_cast<GLenum>(this->alphaBlendFunction));
 
-    glBlendFuncSeparate(static_cast<GLenum>(this->colorSourceBlend),
-                        static_cast<GLenum>(this->colorDestinationBlend),
-                        static_cast<GLenum>(this->alphaSourceBlend),
-                        static_cast<GLenum>(this->alphaDestinationBlend));
+    glBlendFuncSeparate(static_cast<GLenum>(this->colorSourceBlend)
+                      , static_cast<GLenum>(this->colorDestinationBlend)
+                      , static_cast<GLenum>(this->alphaSourceBlend)
+                      , static_cast<GLenum>(this->alphaDestinationBlend));
 
     glColorMask((this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Red)   == SceneR::Graphics::ColorWriteChannels::Red
               , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Green) == SceneR::Graphics::ColorWriteChannels::Green
               , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Blue)  == SceneR::Graphics::ColorWriteChannels::Blue
               , (this->colorWriteChannels & SceneR::Graphics::ColorWriteChannels::Alpha) == SceneR::Graphics::ColorWriteChannels::Alpha);
 
-    glBlendColor(this->blendFactor.R() / 255,
-                 this->blendFactor.G() / 255,
-                 this->blendFactor.B() / 255,
-                 this->blendFactor.A() / 255);
+    glBlendColor(this->blendFactor.R() / 255
+               , this->blendFactor.G() / 255
+               , this->blendFactor.B() / 255
+               , this->blendFactor.A() / 255);
 }

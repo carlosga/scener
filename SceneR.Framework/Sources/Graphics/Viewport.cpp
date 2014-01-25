@@ -26,13 +26,20 @@ Viewport::Viewport()
 {
 }
 
-Viewport::Viewport(Single x, Single y, Size width, Size height)
+Viewport::Viewport(const Single& x, const Single& y, const Size& width, const Size& height)
     : Viewport(x, y, width, height, 0.0f, 1.0f)
 {
 }
 
-Viewport::Viewport(Single x , Single y, Single width, Single height, Single minDepth, Single maxDepth)
-    : x(x), y(y), width(width), height(height), minDepth(minDepth), maxDepth(maxDepth)
+Viewport::Viewport(const Single& x    , const Single& y
+                 , const Single& width, const Single& height
+                 , const Single& minDepth, const Single& maxDepth)
+    : x(x)
+    , y(y)
+    , width(width)
+    , height(height)
+    , minDepth(minDepth)
+    , maxDepth(maxDepth)
 {
 }
 

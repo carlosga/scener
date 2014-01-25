@@ -83,10 +83,10 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
     return *it;
 }
 
-EffectParameter& EffectParameterCollection::Add(const System::String&                 name,
-                                                const EffectParameterClass&           parameterClass,
-                                                const EffectParameterType&            parameterType,
-                                                const std::shared_ptr<ShaderProgram>& shader)
+EffectParameter& EffectParameterCollection::Add(const System::String&                 name
+                                              , const EffectParameterClass&           parameterClass
+                                              , const EffectParameterType&            parameterType
+                                              , const std::shared_ptr<ShaderProgram>& shader)
 {
     EffectParameter newParameter = { name, parameterClass, parameterType, shader };
     this->parameters.push_back(newParameter);

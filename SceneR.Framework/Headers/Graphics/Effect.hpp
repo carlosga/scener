@@ -42,9 +42,9 @@ namespace SceneR
              * @param vertexShader   the vertex shader source code
              * @param fragmentShader the fragment shader source code
              */
-            Effect(GraphicsDevice&       graphicsDevice,
-                   const System::String& vertexShader,
-                   const System::String& fragmentShader);
+            Effect(GraphicsDevice&       graphicsDevice
+                 , const System::String& vertexShader
+                 , const System::String& fragmentShader);
 
             /**
              * Initializes a new instance of the Effect class.

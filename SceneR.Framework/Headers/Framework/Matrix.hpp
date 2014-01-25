@@ -61,7 +61,9 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in radians.
              * @param roll Roll around the x-axis, in radians.
              */
-            static Matrix CreateFromYawPitchRoll(const System::Single& yaw, const System::Single& pitch, const System::Single& roll);
+            static Matrix CreateFromYawPitchRoll(const System::Single& yaw
+                                               , const System::Single& pitch
+                                               , const System::Single& roll);
 
             /**
              * Creates a perspective projection matrix.
@@ -73,9 +75,9 @@ namespace SceneR
              * @param zNear The distances to the near-depth clipping plane. Must be positive.
              * @param zFar The distances to the far-depth clipping plane. Must be positive.
              */
-            static Matrix CreateFrustum(const System::Single& left  , const System::Single& right,
-                                        const System::Single& bottom, const System::Single& top,
-                                        const System::Single& zNear , const System::Single& zFar);
+            static Matrix CreateFrustum(const System::Single& left  , const System::Single& right
+                                      , const System::Single& bottom, const System::Single& top
+                                      , const System::Single& zNear , const System::Single& zFar);
 
             /**
              * Creates a view matrix
@@ -84,9 +86,9 @@ namespace SceneR
              * @param cameraTarget The target towards which the camera is pointing.
              * @param cameraUpVector The direction that is "up" from the camera's point of view.
              */
-            static Matrix CreateLookAt(const Vector3& cameraPosition,
-                                       const Vector3& cameraTarget,
-                                       const Vector3& cameraUpVector);
+            static Matrix CreateLookAt(const Vector3& cameraPosition
+                                     , const Vector3& cameraTarget
+                                     , const Vector3& cameraUpVector);
 
             /**
              * Creates an orthogonal matrix
@@ -96,10 +98,10 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographic(const System::Single& width,
-                                             const System::Single& height,
-                                             const System::Single& zNear,
-                                             const System::Single& zFar);
+            static Matrix CreateOrthographic(const System::Single& width
+                                           , const System::Single& height
+                                           , const System::Single& zNear
+                                           , const System::Single& zFar);
 
             /**
              * Builds a customized, orthogonal projection matrix.
@@ -111,12 +113,12 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographicOffCenter(const System::Single& left,
-                                                      const System::Single& right,
-                                                      const System::Single& bottom,
-                                                      const System::Single& top,
-                                                      const System::Single& zNear,
-                                                      const System::Single& zFar);
+            static Matrix CreateOrthographicOffCenter(const System::Single& left
+                                                    , const System::Single& right
+                                                    , const System::Single& bottom
+                                                    , const System::Single& top
+                                                    , const System::Single& zNear
+                                                    , const System::Single& zFar);
 
             /**
              * Builds a perspective projection matrix.
@@ -126,10 +128,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspective(const System::Single& width,
-                                            const System::Single& height,
-                                            const System::Single& zNear,
-                                            const System::Single& zFar);
+            static Matrix CreatePerspective(const System::Single& width
+                                          , const System::Single& height
+                                          , const System::Single& zNear
+                                          , const System::Single& zFar);
 
             /**
              * Builds a perspective projection matrix based on a field of view and returns by value.
@@ -139,10 +141,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspectiveFieldOfView(const System::Single& fieldOfView,
-                                                       const System::Single& aspectRatio,
-                                                       const System::Single& zNear,
-                                                       const System::Single& zFar);
+            static Matrix CreatePerspectiveFieldOfView(const System::Single& fieldOfView
+                                                     , const System::Single& aspectRatio
+                                                     , const System::Single& zNear
+                                                     , const System::Single& zFar);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
@@ -186,9 +188,9 @@ namespace SceneR
              * @param yScale Value to scale by on the y-axis
              * @param zScale Value to scale by on the z-axis
              */
-            static Matrix CreateScale(const System::Single& xScale,
-                                      const System::Single& yScale,
-                                      const System::Single& zScale);
+            static Matrix CreateScale(const System::Single& xScale
+                                    , const System::Single& yScale
+                                    , const System::Single& zScale);
 
             /**
              * Creates a translation Matrix
@@ -204,9 +206,9 @@ namespace SceneR
              * @param yPosition Value to translate by on the y-axis.
              * @param zPosition Value to translate by on the z-axis.
              */
-            static Matrix CreateTranslation(const System::Single& xPosition,
-                                            const System::Single& yPosition,
-                                            const System::Single& zPosition);
+            static Matrix CreateTranslation(const System::Single& xPosition
+                                          , const System::Single& yPosition
+                                          , const System::Single& zPosition);
 
             /**
              * Creates a World Matrix
@@ -265,10 +267,10 @@ namespace SceneR
              * @param m43 Value of the (4,3) field of the new matrix.
              * @param m44 Value of the (4,4) field of the new matrix.
              */
-            Matrix(const System::Single& m11, const System::Single& m12, const System::Single& m13, const System::Single& m14,
-                   const System::Single& m21, const System::Single& m22, const System::Single& m23, const System::Single& m24,
-                   const System::Single& m31, const System::Single& m32, const System::Single& m33, const System::Single& m34,
-                   const System::Single& m41, const System::Single& m42, const System::Single& m43, const System::Single& m44);
+            Matrix(const System::Single& m11, const System::Single& m12, const System::Single& m13, const System::Single& m14
+                 , const System::Single& m21, const System::Single& m22, const System::Single& m23, const System::Single& m24
+                 , const System::Single& m31, const System::Single& m32, const System::Single& m33, const System::Single& m34
+                 , const System::Single& m41, const System::Single& m42, const System::Single& m43, const System::Single& m44);
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)

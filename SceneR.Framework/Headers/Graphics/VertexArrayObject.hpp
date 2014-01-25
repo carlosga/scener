@@ -37,7 +37,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexArrayObject.
              */
-            virtual ~VertexArrayObject();
+            ~VertexArrayObject();
 
         public:
             /**

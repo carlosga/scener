@@ -29,12 +29,12 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Marcus::Marcus(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer),
-      model(nullptr),
-      animatedModel(nullptr),
-      world(Matrix::Identity),
-      view(Matrix::Identity),
-      projection(Matrix::Identity)
+    : DrawableComponent(renderer)
+    , model(nullptr)
+    , animatedModel(nullptr)
+    , world(Matrix::Identity)
+    , view(Matrix::Identity)
+    , projection(Matrix::Identity)
 {
 }
 

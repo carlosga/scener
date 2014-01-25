@@ -24,12 +24,12 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-Effect::Effect(GraphicsDevice& graphicsDevice,
-               const String&   vertexShader,
-               const String&   fragmentShader)
-    : GraphicsResource(graphicsDevice),
-      parameters(),
-      shader(nullptr)
+Effect::Effect(GraphicsDevice& graphicsDevice
+             , const String&   vertexShader
+             , const String&   fragmentShader)
+    : GraphicsResource(graphicsDevice)
+    , parameters()
+    , shader(nullptr)
 {
     auto vShader = std::make_shared<Shader>(vertexShader, ShaderType::Vertex);
     auto fShader = std::make_shared<Shader>(fragmentShader, ShaderType::Fragment);
@@ -43,9 +43,9 @@ Effect::Effect(GraphicsDevice& graphicsDevice,
 }
 
 Effect::Effect(const Effect& effect)
-    : GraphicsResource(effect.graphicsDevice),
-      parameters(effect.parameters),
-      shader(effect.shader)
+    : GraphicsResource(effect.graphicsDevice)
+    , parameters(effect.parameters)
+    , shader(effect.shader)
 {
 }
 

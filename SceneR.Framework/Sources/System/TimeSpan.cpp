@@ -78,11 +78,11 @@ TimeSpan::TimeSpan(const Int32& days, const Int32& hours, const Int32& minutes, 
 {
 }
 
-TimeSpan::TimeSpan(const Int32& days,
-                   const Int32& hours,
-                   const Int32& minutes,
-                   const Int32& seconds,
-                   const Int32& milliseconds)
+TimeSpan::TimeSpan(const Int32& days
+                 , const Int32& hours
+                 , const Int32& minutes
+                 , const Int32& seconds
+                 , const Int32& milliseconds)
 {
     this->ticks = (std::chrono::duration_cast<TicksDuration>(DaysDuration(days))
                  + std::chrono::duration_cast<TicksDuration>(HoursDuration(hours))

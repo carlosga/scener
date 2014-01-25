@@ -25,10 +25,10 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Matrix& Matrix::Identity{1.0f, 0.0f, 0.0f, 0.0f,
-                               0.0f, 1.0f, 0.0f, 0.0f,
-                               0.0f, 0.0f, 1.0f, 0.0f,
-                               0.0f, 0.0f, 0.0f, 1.0f};
+const Matrix& Matrix::Identity{ 1.0f, 0.0f, 0.0f, 0.0f
+                              , 0.0f, 1.0f, 0.0f, 0.0f
+                              , 0.0f, 0.0f, 1.0f, 0.0f
+                              , 0.0f, 0.0f, 0.0f, 1.0f };
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
@@ -41,10 +41,10 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
     Single y     = naxis.Y();
     Single z     = naxis.Z();
 
-    return Matrix(cos + x * x * cos_1    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f,
-                  y * x * cos_1 + z * sin, cos + y * y * cos_1    , y * z * cos_1 - x * sin, 0.0f,
-                  z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, cos + z * z * cos_1    , 0.0f,
-                  0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
+    return Matrix(cos + x * x * cos_1    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f
+                , y * x * cos_1 + z * sin, cos + y * y * cos_1    , y * z * cos_1 - x * sin, 0.0f
+                , z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, cos + z * z * cos_1    , 0.0f
+                , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
 }
 
 Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
@@ -65,10 +65,10 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
     Single yz = quaternion.Y() * quaternion.Z();
     Single xw = quaternion.X() * quaternion.W();
 
-    return Matrix(1.0f - 2.0f * (yy + zz), 2.0f * (xy - zw)       , 2.0f * (xz + yw)       , 0.0f,
-                  2.0f * (xy + zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz - xw)       , 0.0f,
-                  2.0f * (xz - yw)       , 2.0f * (yz + xw)       , 1.0f - 2.0f * (xx + yy), 0.0f,
-                  0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
+    return Matrix(1.0f - 2.0f * (yy + zz), 2.0f * (xy - zw)       , 2.0f * (xz + yw)       , 0.0f
+                , 2.0f * (xy + zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz - xw)       , 0.0f
+                , 2.0f * (xz - yw)       , 2.0f * (yz + xw)       , 1.0f - 2.0f * (xx + yy), 0.0f
+                , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f);
 }
 
 Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
@@ -81,15 +81,15 @@ Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, co
     Single sb = std::sin(roll)  - 1 + 1;
     Single cb = std::cos(roll)  - 1 + 1;
 
-    return Matrix(ch * ca , - ch * sa * cb + sh * sb, ch * sa * sb + sh * cb , 0.0f,
-                  sa      , ca * cb                 , -ca * sb               , 0.0f,
-                  -sh * ca, sh * sa * cb + ch * sb  , -sh * sa * sb + ch * cb, 0.0f,
-                  0.0f    , 0.0f                    , 0.0f                   , 1.0f);
+    return Matrix(ch * ca , - ch * sa * cb + sh * sb, ch * sa * sb + sh * cb , 0.0f
+                , sa      , ca * cb                 , -ca * sb               , 0.0f
+                , -sh * ca, sh * sa * cb + ch * sb  , -sh * sa * sb + ch * cb, 0.0f
+                , 0.0f    , 0.0f                    , 0.0f                   , 1.0f);
 }
 
-Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
-                             const Single& bottom, const Single& top,
-                             const Single& zNear , const Single& zFar)
+Matrix Matrix::CreateFrustum(const Single& left  , const Single& right
+                           , const Single& bottom, const Single& top
+                           , const Single& zNear , const Single& zFar)
 {
     if (zNear < 0 || zFar < 0)
     {
@@ -103,10 +103,10 @@ Matrix Matrix::CreateFrustum(const Single& left  , const Single& right,
     Single farSubNear    = zFar - zNear;
     Single farPlusNear   = zFar - zNear;
 
-    return Matrix((2 * zNear) / rightSubLeft, 0.0f                      , (rightPlusLeft / rightSubLeft), 0.0f,
-                  0.0f                      , (2 * zNear) / topSubBottom, (topPlusBottom / topSubBottom), 0.0f,
-                  0.0f                      , 0.0f                      , -(farPlusNear  / farSubNear)  , -(2 * zFar * zNear / farSubNear),
-                  0.0f                      , 0.0f                      , -1.0f                         , 0.0f);
+    return Matrix((2 * zNear) / rightSubLeft, 0.0f                      , (rightPlusLeft / rightSubLeft), 0.0f
+                , 0.0f                      , (2 * zNear) / topSubBottom, (topPlusBottom / topSubBottom), 0.0f
+                , 0.0f                      , 0.0f                      , -(farPlusNear  / farSubNear)  , -(2 * zFar * zNear / farSubNear)
+                , 0.0f                      , 0.0f                      , -1.0f                         , 0.0f);
 }
 
 Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
@@ -129,10 +129,10 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     Single dy = Vector3::DotProduct(yAxis, cameraPosition);
     Single dz = Vector3::DotProduct(zAxis, cameraPosition);
 
-    return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f,
-                  xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f,
-                  xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f,
-                  -dx      , -dy      , -dz      , 1.0f);
+    return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f
+                , xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f
+                , xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f
+                , -dx      , -dy      , -dz      , 1.0f);
 }
 
 Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
@@ -145,18 +145,15 @@ Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, con
 
     Single nearSubFar = zNear - zFar;
 
-    return Matrix(2.0f / width, 0.0f         , 0.0f              , 0.0f,
-                  0           , 2.0f / height, 0.0f              , 0.0f,
-                  0.0f        , 0.0f         , 1 / nearSubFar    , 0.0f,
-                  0.0f        , 0.0f         , zNear / nearSubFar, 1.0f);
+    return Matrix(2.0f / width, 0.0f         , 0.0f              , 0.0f
+                , 0           , 2.0f / height, 0.0f              , 0.0f
+                , 0.0f        , 0.0f         , 1 / nearSubFar    , 0.0f
+                , 0.0f        , 0.0f         , zNear / nearSubFar, 1.0f);
 }
 
-Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
-                                           const Single& right,
-                                           const Single& bottom,
-                                           const Single& top,
-                                           const Single& zNear,
-                                           const Single& zFar)
+Matrix Matrix::CreateOrthographicOffCenter(const Single& left   , const Single& right
+                                         , const Single& bottom , const Single& top
+                                         , const Single& zNear  , const Single& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
     // 2/(r-l)      0            0           0
@@ -170,13 +167,14 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left,
     Single topPlusBottom = top + bottom;
     Single nearSubFar    = zNear - zFar;
 
-    return Matrix(2.0f / (right - left)       , 0.0f                        , 0.0f              , 0.0f,
-                  0.0f                        , 2.0f / (top - bottom)       , 0.0f              , 0.0f,
-                  0.0f                        , 0.0f                        , 1.0f / nearSubFar , 0.0f,
-                  leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f);
+    return Matrix(2.0f / (right - left)       , 0.0f                        , 0.0f              , 0.0f
+                , 0.0f                        , 2.0f / (top - bottom)       , 0.0f              , 0.0f
+                , 0.0f                        , 0.0f                        , 1.0f / nearSubFar , 0.0f
+                , leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f);
 }
 
-Matrix Matrix::CreatePerspective(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
+Matrix Matrix::CreatePerspective(const Single& width, const Single& height
+                               , const Single& zNear, const Single& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
@@ -191,16 +189,14 @@ Matrix Matrix::CreatePerspective(const Single& width, const Single& height, cons
 
     Single nearSubFar = zNear - zFar;
 
-    return Matrix(2 * zNear / width, 0.0f              , 0.0f                     , 0.0f,
-                  0.0f             , 2 * zNear / height, 0.0f                     , 0.0f,
-                  0.0f             , 0.0f              , zFar / nearSubFar        , -1.0f,
-                  0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f);
+    return Matrix(2 * zNear / width, 0.0f              , 0.0f                     , 0.0f
+                , 0.0f             , 2 * zNear / height, 0.0f                     , 0.0f
+                , 0.0f             , 0.0f              , zFar / nearSubFar        , -1.0f
+                , 0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f);
 }
 
-Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
-                                            const Single& aspectRatio,
-                                            const Single& zNear,
-                                            const Single& zFar)
+Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Single& aspectRatio,
+                                            const Single& zNear      , const Single& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
     // xScale     0          0              0
@@ -221,10 +217,10 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView,
     Single xScale     = yScale / aspectRatio;
     Single nearSubFar = zNear - zFar;
 
-    return Matrix(xScale, 0.0f  , 0.0f                     , 0.0f,
-                  0.0f  , yScale, 0.0f                     , 0.0f,
-                  0.0f  , 0.0f  , zFar / nearSubFar        , -1.0f,
-                  0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f);
+    return Matrix(xScale, 0.0f  , 0.0f                     , 0.0f
+                , 0.0f  , yScale, 0.0f                     , 0.0f
+                , 0.0f  , 0.0f  , zFar / nearSubFar        , -1.0f
+                , 0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f);
 }
 
 Matrix Matrix::CreateRotationX(const Single& angle)
@@ -233,10 +229,10 @@ Matrix Matrix::CreateRotationX(const Single& angle)
     float cos   = std::cos(angle);
     float sin   = std::sin(angle);
 
-    return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
-                  0.0f,  cos,  sin, 0.0f,
-                  0.0f, -sin,  cos, 0.0f,
-                  0.0f, 0.0f, 0.0f, 1.0f);
+    return Matrix(1.0f, 0.0f, 0.0f, 0.0f
+                , 0.0f,  cos,  sin, 0.0f
+                , 0.0f, -sin,  cos, 0.0f
+                , 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateRotationY(const Single& angle)
@@ -245,10 +241,10 @@ Matrix Matrix::CreateRotationY(const Single& angle)
     Single cos   = std::cos(angle);
     Single sin   = std::sin(angle);
 
-    return Matrix( cos, 0.0f, -sin, 0.0f,
-                  0.0f, 1.0f, 0.0f, 0.0f,
-                   sin, 0.0f,  cos, 0.0f,
-                  0.0f, 0.0f, 0.0f, 1.0f);
+    return Matrix( cos, 0.0f, -sin, 0.0f
+                , 0.0f, 1.0f, 0.0f, 0.0f
+                ,  sin, 0.0f,  cos, 0.0f
+                , 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateRotationZ(const Single& angle)
@@ -257,10 +253,10 @@ Matrix Matrix::CreateRotationZ(const Single& angle)
     Single cos   = std::cos(angle);
     Single sin   = std::sin(angle);
 
-    return Matrix( cos,  sin, 0.0f, 0.0f,
-                  -sin,  cos, 0.0f, 0.0f,
-                  0.0f, 0.0f, 1.0f, 0.0f,
-                  0.0f, 0.0f, 0.0f, 1.0f);
+    return Matrix( cos,  sin, 0.0f, 0.0f
+                , -sin,  cos, 0.0f, 0.0f
+                , 0.0f, 0.0f, 1.0f, 0.0f
+                , 0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Matrix Matrix::CreateScale(const Single& scale)
@@ -275,10 +271,10 @@ Matrix Matrix::CreateScale(const Vector3& scales)
 
 Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale)
 {
-    return Matrix(xScale, 0.0f  , 0.0f  , 0.0f,
-                  0.0f  , yScale, 0.0f  , 0.0f,
-                  0.0f  , 0.0f  , zScale, 0.0f,
-                  0.0f  , 0.0f  , 0.0f  , 1.0f);
+    return Matrix(xScale, 0.0f  , 0.0f  , 0.0f
+                , 0.0f  , yScale, 0.0f  , 0.0f
+                , 0.0f  , 0.0f  , zScale, 0.0f
+                , 0.0f  , 0.0f  , 0.0f  , 1.0f);
 }
 
 Matrix Matrix::CreateTranslation(const Vector3& position)
@@ -288,22 +284,22 @@ Matrix Matrix::CreateTranslation(const Vector3& position)
 
 Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single& z)
 {
-    return Matrix(1.0f, 0.0f, 0.0f, 0.0f,
-                  0.0f, 1.0f, 0.0f, 0.0f,
-                  0.0f, 0.0f, 1.0f, 0.0f,
-                  x   , y   , z   , 1.0f);
+    return Matrix(1.0f, 0.0f, 0.0f, 0.0f
+                , 0.0f, 1.0f, 0.0f, 0.0f
+                , 0.0f, 0.0f, 1.0f, 0.0f
+                , x   , y   , z   , 1.0f);
 }
 
 Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
     Vector3 nf    = Vector3::Normalize(forward);
-    Vector3 right = Vector3::Normalize(Vector3::Cross(forward, up));
-    Vector3 upv   = Vector3::Normalize(Vector3::Cross(right, forward));;
+    Vector3 right = Vector3::Normalize(Vector3::Cross(nf, up));
+    Vector3 upv   = Vector3::Normalize(Vector3::Cross(right, nf));
 
-    return Matrix(right.X()   , right.Y()   , right.Z()   , 0.0f,
-                  upv.X()     , upv.Y()     , upv.Z()     , 0.0f,
-                  -forward.X(), -forward.Y(), -forward.Z(), 0.0f,
-                  position.X(), position.Y(), position.Z(), 1.0f);
+    return Matrix(right.X()   , right.Y()   , right.Z()   , 0.0f
+                , upv.X()     , upv.Y()     , upv.Z()     , 0.0f
+                , -forward.X(), -forward.Y(), -forward.Z(), 0.0f
+                , position.X(), position.Y(), position.Z(), 1.0f);
 }
 
 Matrix Matrix::Invert(const Matrix& matrix)
@@ -330,17 +326,17 @@ Matrix Matrix::Transpose(const Matrix& source)
 }
 
 Matrix::Matrix()
-    : m11(0.0f), m12(0.0f), m13(0.0f), m14(0.0f),
-      m21(0.0f), m22(0.0f), m23(0.0f), m24(0.0f),
-      m31(0.0f), m32(0.0f), m33(0.0f), m34(0.0f),
-      m41(0.0f), m42(0.0f), m43(0.0f), m44(0.0f)
+    : m11(0.0f), m12(0.0f), m13(0.0f), m14(0.0f)
+    , m21(0.0f), m22(0.0f), m23(0.0f), m24(0.0f)
+    , m31(0.0f), m32(0.0f), m33(0.0f), m34(0.0f)
+    , m41(0.0f), m42(0.0f), m43(0.0f), m44(0.0f)
 {
 }
 
-Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Single& m14,
-               const Single& m21, const Single& m22, const Single& m23, const Single& m24,
-               const Single& m31, const Single& m32, const Single& m33, const Single& m34,
-               const Single& m41, const Single& m42, const Single& m43, const Single& m44)
+Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Single& m14
+             , const Single& m21, const Single& m22, const Single& m23, const Single& m24
+             , const Single& m31, const Single& m32, const Single& m33, const Single& m34
+             , const Single& m41, const Single& m42, const Single& m43, const Single& m44)
     : m11(m11), m12(m12), m13(m13), m14(m14),
       m21(m21), m22(m22), m23(m23), m24(m24),
       m31(m31), m32(m32), m33(m33), m34(m34),
@@ -349,10 +345,10 @@ Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Si
 }
 
 Matrix::Matrix(const Matrix& matrix)
-    : m11(matrix.m11), m12(matrix.m12), m13(matrix.m13), m14(matrix.m14),
-      m21(matrix.m21), m22(matrix.m22), m23(matrix.m23), m24(matrix.m24),
-      m31(matrix.m31), m32(matrix.m32), m33(matrix.m33), m34(matrix.m34),
-      m41(matrix.m41), m42(matrix.m42), m43(matrix.m43), m44(matrix.m44)
+    : m11(matrix.m11), m12(matrix.m12), m13(matrix.m13), m14(matrix.m14)
+    , m21(matrix.m21), m22(matrix.m22), m23(matrix.m23), m24(matrix.m24)
+    , m31(matrix.m31), m32(matrix.m32), m33(matrix.m33), m34(matrix.m34)
+    , m41(matrix.m41), m42(matrix.m42), m43(matrix.m43), m44(matrix.m44)
 {
 }
 

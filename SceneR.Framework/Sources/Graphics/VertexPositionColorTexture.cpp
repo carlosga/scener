@@ -25,11 +25,11 @@ using namespace SceneR::Graphics;
 
 const VertexDeclaration& VertexPositionColorTexture::Declaration
 {
-    36,
-    {
-        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
-        VertexElement(12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3),
-        VertexElement(28, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
+    36
+  , {
+        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0)
+      , VertexElement(12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3)
+      , VertexElement(28, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 2)
     }
 };
 
@@ -38,12 +38,16 @@ const VertexDeclaration& VertexPositionColorTexture::GetVertexDeclaration()
     return VertexPositionColorTexture::Declaration;
 }
 
-VertexPositionColorTexture::VertexPositionColorTexture(const Vector3&                  position,
-                                                       const SceneR::Framework::Color& color,
-                                                       const Vector2&                  textureCoordinate)
-    : position(position),
-      color(color),
-      textureCoordinate(textureCoordinate)
+VertexPositionColorTexture::VertexPositionColorTexture(const Vector3&                  position
+                                                     , const SceneR::Framework::Color& color
+                                                     , const Vector2&                  textureCoordinate)
+    : position(position)
+    , color(color)
+    , textureCoordinate(textureCoordinate)
+{
+}
+
+VertexPositionColorTexture::~VertexPositionColorTexture()
 {
 }
 

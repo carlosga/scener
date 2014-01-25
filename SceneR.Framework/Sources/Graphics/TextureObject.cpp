@@ -22,8 +22,8 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 TextureObject::TextureObject(const TextureTarget& target)
-    : texId(0),
-      target(target)
+    : texId(0)
+    , target(target)
 {
     this->Create();
 }
@@ -54,50 +54,50 @@ void TextureObject::Delete()
     glDeleteTextures(1, &this->texId);
 }
 
-void TextureObject::Declare2DStorage(const SurfaceFormat& format,
-                                     const UInt32&        mipMapLevels,
-                                     const UInt32&        width,
-                                     const UInt32&        height) const
+void TextureObject::Declare2DStorage(const SurfaceFormat& format
+                                   , const UInt32&        levels
+                                   , const UInt32&        width
+                                   , const UInt32&        height) const
 {
-    glTextureStorage2DEXT(this->texId,
-                          static_cast<GLenum>(this->target),
-                          mipMapLevels,
-                          static_cast<GLenum>(format),
-                          width,
-                          height);
+    glTextureStorage2DEXT(this->texId
+                        , static_cast<GLenum>(this->target)
+                        , levels
+                        , static_cast<GLenum>(format)
+                        , width
+                        , height);
 }
 
-void TextureObject::TextureSubImage2D(const SurfaceFormat&  format,
-                                      const System::UInt32& mipMapLevel,
-                                      const UInt32&         width,
-                                      const UInt32&         height,
-                                      const Size&           size,
-                                      const void*           data) const
+void TextureObject::TextureSubImage2D(const SurfaceFormat&  format
+                                    , const System::UInt32& level
+                                    , const UInt32&         width
+                                    , const UInt32&         height
+                                    , const Size&           size
+                                    , const void*           data) const
 {
     if (Texture::IsCompressedSurfaceFormat(format))
     {
-        glCompressedTextureSubImage2DEXT(this->texId,
-                                         static_cast<GLenum>(this->target),
-                                         mipMapLevel,
-                                         0,
-                                         0,
-                                         width,
-                                         height,
-                                         static_cast<GLenum>(format),
-                                         size,
-                                         data);
+        glCompressedTextureSubImage2DEXT(this->texId
+                                       , static_cast<GLenum>(this->target)
+                                       , level
+                                       , 0
+                                       , 0
+                                       , width
+                                       , height
+                                       , static_cast<GLenum>(format)
+                                       , size
+                                       , data);
     }
     else
     {
-        glTextureSubImage2DEXT(this->texId,
-                               static_cast<GLenum>(this->target),
-                               mipMapLevel,
-                               0,
-                               0,
-                               width,
-                               height,
-                               static_cast<GLenum>(format),
-                               GL_UNSIGNED_BYTE,
-                               data);
+        glTextureSubImage2DEXT(this->texId
+                             , static_cast<GLenum>(this->target)
+                             , level
+                             , 0
+                             , 0
+                             , width
+                             , height
+                             , static_cast<GLenum>(format)
+                             , GL_UNSIGNED_BYTE
+                             , data);
     }
 }

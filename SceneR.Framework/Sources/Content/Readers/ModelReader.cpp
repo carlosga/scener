@@ -80,7 +80,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     // Read model meshes
     auto meshCount = input.ReadUInt32();
 
-    for (UInt32 i = 0; i< meshCount; i++)
+    for (UInt32 i = 0; i < meshCount; i++)
     {
         auto modelMesh = std::make_shared<ModelMesh>();
 

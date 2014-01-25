@@ -20,11 +20,11 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 PresentationParameters::PresentationParameters()
-    : fullScreen(false),
-      backBufferHeight(0),
-      backBufferWidth(0),
-      multiSampleCount(8),
-      presentInterval(SceneR::Framework::PresentInterval::Default)
+    : fullScreen(false)
+    , backBufferHeight(0)
+    , backBufferWidth(0)
+    , multiSampleCount(8)
+    , presentInterval(SceneR::Framework::PresentInterval::Default)
 {
 }
 

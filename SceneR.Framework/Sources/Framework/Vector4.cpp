@@ -32,11 +32,11 @@ const Vector4 Vector4::UnitZ(0.0f, 0.0f, 1.0f, 0.0f);
 const Vector4 Vector4::UnitW(0.0f, 0.0f, 0.0f, 1.0f);
 const Vector4 Vector4::Zero(0.0f, 0.0f, 0.0f, 0.0f);
 
-Vector4 Vector4::Barycentric(const Vector4& value1,
-                             const Vector4& value2,
-                             const Vector4& value3,
-                             const System::Single& amount1,
-                             const System::Single& amount2)
+Vector4 Vector4::Barycentric(const Vector4& value1
+                           , const Vector4& value2
+                           , const Vector4& value3
+                           , const Single&  amount1
+                           , const Single&  amount2)
 {
     return Vector4(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
                  , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2)
@@ -44,11 +44,11 @@ Vector4 Vector4::Barycentric(const Vector4& value1,
                  , MathHelper::Barycentric(value1.W(), value2.W(), value3.W(), amount1, amount2));
 }
 
-Vector4 Vector4::CatmullRom(const Vector4& value1,
-                            const Vector4& value2,
-                            const Vector4& value3,
-                            const Vector4& value4,
-                            const System::Single& amount)
+Vector4 Vector4::CatmullRom(const Vector4& value1
+                          , const Vector4& value2
+                          , const Vector4& value3
+                          , const Vector4& value4
+                          , const Single&  amount)
 {
     return Vector4(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
                  , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount)
@@ -78,11 +78,11 @@ Single Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
     return d.LengthSquared();
 }
 
-Vector4 Vector4::Hermite(const Vector4& value1,
-                         const Vector4& tangent1,
-                         const Vector4& value2,
-                         const Vector4& tangent2,
-                         const Single& amount)
+Vector4 Vector4::Hermite(const Vector4& value1
+                       , const Vector4& tangent1
+                       , const Vector4& value2
+                       , const Vector4& tangent2
+                       , const Single&  amount)
 {
     return Vector4(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
                  , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount)
@@ -90,9 +90,9 @@ Vector4 Vector4::Hermite(const Vector4& value1,
                  , MathHelper::Hermite(value1.W(), tangent1.W(), value2.W(), tangent2.W(), amount));
 }
 
-Vector4 Vector4::Lerp(const Vector4& value1,
-                      const Vector4& value2,
-                      const Single& amount)
+Vector4 Vector4::Lerp(const Vector4& value1
+                    , const Vector4& value2
+                    , const Single&  amount)
 {
     assert(amount >= 0.0f && amount < 1.0f);
 
@@ -102,9 +102,9 @@ Vector4 Vector4::Lerp(const Vector4& value1,
                  , MathHelper::Lerp(value1.W(), value2.W(), amount));
 }
 
-Vector4 Vector4::SmoothStep(const Vector4& value1,
-                            const Vector4& value2,
-                            const Single& amount)
+Vector4 Vector4::SmoothStep(const Vector4& value1
+                          , const Vector4& value2
+                          , const Single&  amount)
 {
     return Vector4(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
                  , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount)
@@ -169,10 +169,10 @@ const Single& Vector4::W() const
 
 Single Vector4::LengthSquared() const
 {
-    return   (this->x * this->x)
-           + (this->y * this->y)
-           + (this->z * this->z)
-           + (this->w * this->w);
+    return (this->x * this->x)
+         + (this->y * this->y)
+         + (this->z * this->z)
+         + (this->w * this->w);
 }
 
 Single Vector4::Length() const

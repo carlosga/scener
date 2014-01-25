@@ -45,7 +45,7 @@ namespace SceneR
 
             SkinningData(const SkinningData& skinningData);
 
-            virtual ~SkinningData();
+            ~SkinningData();
 
         public:
             const std::map<System::String, AnimationClip>& AnimationClips() const;

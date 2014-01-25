@@ -21,23 +21,23 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice),
-      counterClockwiseStencilDepthBufferFail(StencilOperation::Keep),
-      counterClockwiseStencilFail(StencilOperation::Keep),
-      counterClockwiseStencilFunction(CompareFunction::Always),
-      counterClockwiseStencilPass(StencilOperation::Keep),
-      depthBufferEnable(true),
-      depthBufferFunction(CompareFunction::LessEqual),
-      depthBufferWriteEnable(true),
-      referenceStencil(0),
-      stencilDepthBufferFail(StencilOperation::Keep),
-      stencilEnable(false),
-      stencilFail(StencilOperation::Keep),
-      stencilFunction(CompareFunction::Always),
-      stencilMask(-1),
-      stencilPass(StencilOperation::Keep),
-      stencilWriteMask(-1),
-      twoSidedStencilMode(false)
+    : GraphicsResource(graphicsDevice)
+    , counterClockwiseStencilDepthBufferFail(StencilOperation::Keep)
+    , counterClockwiseStencilFail(StencilOperation::Keep)
+    , counterClockwiseStencilFunction(CompareFunction::Always)
+    , counterClockwiseStencilPass(StencilOperation::Keep)
+    , depthBufferEnable(true)
+    , depthBufferFunction(CompareFunction::LessEqual)
+    , depthBufferWriteEnable(true)
+    , referenceStencil(0)
+    , stencilDepthBufferFail(StencilOperation::Keep)
+    , stencilEnable(false)
+    , stencilFail(StencilOperation::Keep)
+    , stencilFunction(CompareFunction::Always)
+    , stencilMask(-1)
+    , stencilPass(StencilOperation::Keep)
+    , stencilWriteMask(-1)
+    , twoSidedStencilMode(false)
 {
 }
 
@@ -228,6 +228,7 @@ void DepthStencilState::Apply() const
             glStencilFunc(static_cast<GLenum>(this->stencilFunction)
                         , this->referenceStencil
                         , this->stencilMask);
+
             glStencilOp(static_cast<GLenum>(this->stencilFail)
                       , static_cast<GLenum>(this->stencilDepthBufferFail)
                       , static_cast<GLenum>(this->stencilPass));
@@ -238,6 +239,7 @@ void DepthStencilState::Apply() const
                                 , static_cast<GLenum>(this->stencilFunction)
                                 , this->referenceStencil
                                 , this->stencilMask);
+
             glStencilOpSeparate(GL_FRONT
                               , static_cast<GLenum>(this->stencilFail)
                               , static_cast<GLenum>(this->stencilDepthBufferFail)
@@ -247,6 +249,7 @@ void DepthStencilState::Apply() const
                                 , static_cast<GLenum>(this->counterClockwiseStencilFunction)
                                 , this->referenceStencil
                                 , this->stencilMask);
+
             glStencilOpSeparate(GL_BACK
                               , static_cast<GLenum>(this->counterClockwiseStencilFail)
                               , static_cast<GLenum>(this->counterClockwiseStencilDepthBufferFail)

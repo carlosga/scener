@@ -49,7 +49,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this EffectParameterCollection.
              */
-            virtual ~EffectParameterCollection();
+            ~EffectParameterCollection();
 
         public:
             /**
@@ -64,10 +64,10 @@ namespace SceneR
              * @param parameterType the parameter type.
              * @param shader the associated shader.
              */
-            EffectParameter& Add(const System::String&                 name,
-                                 const EffectParameterClass&           parameterClass,
-                                 const EffectParameterType&            parameterType,
-                                 const std::shared_ptr<ShaderProgram>& shader);
+            EffectParameter& Add(const System::String&                 name
+                               , const EffectParameterClass&           parameterClass
+                               , const EffectParameterType&            parameterType
+                               , const std::shared_ptr<ShaderProgram>& shader);
 
         public:
             EffectParameter& operator[](const System::Int32& parameterIndex);

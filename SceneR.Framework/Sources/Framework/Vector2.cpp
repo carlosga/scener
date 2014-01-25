@@ -27,21 +27,21 @@ const Vector2 Vector2::UnitX(1.0f, 0.0f);
 const Vector2 Vector2::UnitY(0.0f, 1.0f);
 const Vector2 Vector2::Zero(0.0f, 0.0f);
 
-Vector2 Vector2::Barycentric(const Vector2& value1,
-                             const Vector2& value2,
-                             const Vector2& value3,
-                             const Single& amount1,
-                             const Single& amount2)
+Vector2 Vector2::Barycentric(const Vector2& value1
+                           , const Vector2& value2
+                           , const Vector2& value3
+                           , const Single&  amount1
+                           , const Single&  amount2)
 {
     return Vector2(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
                  , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2));
 }
 
-Vector2 Vector2::CatmullRom(const Vector2& value1,
-                            const Vector2& value2,
-                            const Vector2& value3,
-                            const Vector2& value4,
-                            const Single& amount)
+Vector2 Vector2::CatmullRom(const Vector2& value1
+                          , const Vector2& value2
+                          , const Vector2& value3
+                          , const Vector2& value4
+                          , const Single&  amount)
 {
     return Vector2(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
                  , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount));
@@ -67,27 +67,27 @@ Single Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
     return d.LengthSquared();
 }
 
-Vector2 Vector2::Hermite(const Vector2& value1,
-                         const Vector2& tangent1,
-                         const Vector2& value2,
-                         const Vector2& tangent2,
-                         const Single& amount)
+Vector2 Vector2::Hermite(const Vector2& value1
+                       , const Vector2& tangent1
+                       , const Vector2& value2
+                       , const Vector2& tangent2
+                       , const Single&  amount)
 {
     return Vector2(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
                  , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount));
 }
 
-Vector2 Vector2::Lerp(const Vector2& value1,
-                      const Vector2& value2,
-                      const Single&  amount)
+Vector2 Vector2::Lerp(const Vector2& value1
+                    , const Vector2& value2
+                    , const Single&  amount)
 {
     return Vector2(MathHelper::Lerp(value1.X(), value2.X(), amount)
                  , MathHelper::Lerp(value1.Y(), value2.Y(), amount));
 }
 
-Vector2 Vector2::SmoothStep(const Vector2& value1,
-                            const Vector2& value2,
-                            const Single& amount)
+Vector2 Vector2::SmoothStep(const Vector2& value1
+                          , const Vector2& value2
+                          , const Single&  amount)
 {
     return Vector2(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
                  , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount));

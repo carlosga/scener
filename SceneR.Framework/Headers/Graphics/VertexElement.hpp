@@ -34,10 +34,15 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const System::UInt32&                        offset,
-                          const SceneR::Graphics::VertexElementFormat& vertexElementFormat,
-                          const SceneR::Graphics::VertexElementUsage&  vertexElementUsage,
-                          const System::UInt32&                        usageIndex);
+            VertexElement(const System::UInt32&                        offset
+                        , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
+                        , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
+                        , const System::UInt32&                        usageIndex);
+
+            /**
+             * Releases all resources being used by this VertexElement.
+             */
+            ~VertexElement();
 
         public:
             /**

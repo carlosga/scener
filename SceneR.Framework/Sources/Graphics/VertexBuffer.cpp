@@ -52,7 +52,7 @@ std::vector<UByte> VertexBuffer::GetData() const
     return this->GetData(0, this->vertexCount);
 }
 
-std::vector<UByte> VertexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount) const
+std::vector<UByte> VertexBuffer::GetData(const Int32& startIndex, const Int32& elementCount) const
 {
     UInt32 offset = (startIndex * this->vertexDeclaration->VertexStride());
     UInt32 size   = (elementCount * this->vertexDeclaration->VertexStride());

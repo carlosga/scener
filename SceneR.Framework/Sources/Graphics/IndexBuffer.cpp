@@ -21,13 +21,13 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice,
-                         const SceneR::Graphics::IndexElementSize& indexElementSize,
-                         const UInt32&                             indexCount)
-    : GraphicsResource(graphicsDevice),
-      ibo(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw),
-      indexCount(indexCount),
-      indexElementSize(indexElementSize)
+IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice
+                       , const SceneR::Graphics::IndexElementSize& indexElementSize
+                       , const UInt32&                             indexCount)
+    : GraphicsResource(graphicsDevice)
+    , ibo(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw)
+    , indexCount(indexCount)
+    , indexElementSize(indexElementSize)
 {
 }
 
@@ -50,7 +50,7 @@ std::vector<UByte> IndexBuffer::GetData() const
     return this->GetData(0, this->indexCount);
 }
 
-std::vector<UByte> IndexBuffer::GetData(const System::Int32& startIndex, const System::Int32& elementCount) const
+std::vector<UByte> IndexBuffer::GetData(const Int32& startIndex, const Int32& elementCount) const
 {
     UInt32 offset = (startIndex * this->GetElementSizeInBytes());
     UInt32 size   = (elementCount * this->GetElementSizeInBytes());

@@ -25,18 +25,18 @@ RenderTime::RenderTime()
 {
 }
 
-RenderTime::RenderTime(const System::TimeSpan& totalRenderTime,
-                       const System::TimeSpan& elapsedRenderTime)
+RenderTime::RenderTime(const System::TimeSpan& totalRenderTime
+                     , const System::TimeSpan& elapsedRenderTime)
     : RenderTime(totalRenderTime, elapsedRenderTime, false)
 {
 }
 
-RenderTime::RenderTime(const System::TimeSpan& totalRenderTime,
-                       const System::TimeSpan& elapsedRenderTime,
-                       const System::Boolean&  isRunningSlowly)
-    : totalRenderTime(totalRenderTime),
-      elapsedRenderTime(elapsedRenderTime),
-      isRunningSlowly(isRunningSlowly)
+RenderTime::RenderTime(const System::TimeSpan& totalRenderTime
+                     , const System::TimeSpan& elapsedRenderTime
+                     , const System::Boolean&  isRunningSlowly)
+    : totalRenderTime(totalRenderTime)
+    , elapsedRenderTime(elapsedRenderTime)
+    , isRunningSlowly(isRunningSlowly)
 {
 }
 

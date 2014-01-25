@@ -87,9 +87,9 @@ namespace SceneR
              * @param view the view matrix
              * @param projection the projection matrix
              */
-            void Draw(const SceneR::Framework::Matrix& world,
-                      const SceneR::Framework::Matrix& view,
-                      const SceneR::Framework::Matrix& projection);
+            void Draw(const SceneR::Framework::Matrix& world
+                    , const SceneR::Framework::Matrix& view
+                    , const SceneR::Framework::Matrix& projection);
 
             /**
              * Gets the root bone for the current model.

@@ -43,10 +43,16 @@ namespace SceneR
              * @param enabled a value indicating whether the light is enabled..
              * @param specularColor specular color of the new light.
              */
-            DirectionalLight(const SceneR::Framework::Vector3& diffuseColor,
-                             const SceneR::Framework::Vector3& direction,
-                             const System::Boolean&            enabled,
-                             const SceneR::Framework::Vector3& specularColor);
+            DirectionalLight(const SceneR::Framework::Vector3& diffuseColor
+                           , const SceneR::Framework::Vector3& direction
+                           , const System::Boolean&            enabled
+                           , const SceneR::Framework::Vector3& specularColor);
+
+
+            /**
+             * Releases all resources being used by this DirectionalLight.
+             */
+            ~DirectionalLight();
 
         public:
             /**

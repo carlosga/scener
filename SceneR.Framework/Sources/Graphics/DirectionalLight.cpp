@@ -25,14 +25,18 @@ DirectionalLight::DirectionalLight()
 {
 }
 
-DirectionalLight::DirectionalLight(const Vector3& diffuseColor,
-                                   const Vector3& direction,
-                                   const Boolean& enabled,
-                                   const Vector3& specularColor)
-    : diffuseColor(diffuseColor),
-      direction(direction),
-      enabled(enabled),
-      specularColor(specularColor)
+DirectionalLight::DirectionalLight(const Vector3& diffuseColor
+                                 , const Vector3& direction
+                                 , const Boolean& enabled
+                                 , const Vector3& specularColor)
+    : diffuseColor(diffuseColor)
+    , direction(direction)
+    , enabled(enabled)
+    , specularColor(specularColor)
+{
+}
+
+DirectionalLight::~DirectionalLight()
 {
 }
 

@@ -42,9 +42,9 @@ namespace SceneR
              * @param indexElementSize The size (in bits) of each index.
              * @param indexCount The number of indices.
              */
-            IndexBuffer(GraphicsDevice&         graphicsDevice,
-                        const IndexElementSize& indexElementSize,
-                        const System::UInt32&   indexCount);
+            IndexBuffer(GraphicsDevice&         graphicsDevice
+                      , const IndexElementSize& indexElementSize
+                      , const System::UInt32&   indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -70,7 +70,8 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            std::vector<System::UByte> GetData(const System::Int32& startIndex, const System::Int32& elementCount) const;
+            std::vector<System::UByte> GetData(const System::Int32& startIndex
+                                             , const System::Int32& elementCount) const;
 
             /**
              * Sets the indices buffer data

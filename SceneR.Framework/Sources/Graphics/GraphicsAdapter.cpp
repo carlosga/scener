@@ -67,16 +67,16 @@ const std::vector<GraphicsAdapter> GraphicsAdapter::Adapters()
 }
 
 GraphicsAdapter::GraphicsAdapter()
-    : description(u""),
-      deviceId(0),
-      deviceName(u""),
-      isDefaultAdapter(false),
-      isWideScreen(false),
-      monitorHandle(nullptr),
-      revision(0),
-      subSystemId(0),
-      supportedDisplayModes(),
-      vendorId(0)
+    : description(u"")
+    , deviceId(0)
+    , deviceName(u"")
+    , isDefaultAdapter(false)
+    , isWideScreen(false)
+    , monitorHandle(nullptr)
+    , revision(0)
+    , subSystemId(0)
+    , supportedDisplayModes()
+    , vendorId(0)
 {
 }
 

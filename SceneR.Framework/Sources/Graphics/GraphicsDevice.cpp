@@ -29,17 +29,17 @@ using namespace SceneR::Graphics;
 
 GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
                              , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
-    : blendState(*this),
-      depthStencilState(*this),
-      effect(nullptr),
-      graphicsAdapter(adapter),
-      graphicsProfile(graphicsProfile),
-      indexBuffer(nullptr),
-      presentationParameters(),
-      rasterizerState(*this),
-      samplerStates(),
-      vertexBuffer(nullptr),
-      viewport()
+    : blendState(*this)
+    , depthStencilState(*this)
+    , effect(nullptr)
+    , graphicsAdapter(adapter)
+    , graphicsProfile(graphicsProfile)
+    , indexBuffer(nullptr)
+    , presentationParameters()
+    , rasterizerState(*this)
+    , samplerStates()
+    , vertexBuffer(nullptr)
+    , viewport()
 {
     this->samplerStates.push_back(SamplerState(*this));
 }
@@ -68,12 +68,12 @@ void GraphicsDevice::Clear(const Color& color) const
     glClear(bufferBits);
 }
 
-void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
-                                           const UInt32&        baseVertex,
-                                           const UInt32&        minVertexIndex,
-                                           const UInt32&        numVertices,
-                                           const UInt32&        startIndex,
-                                           const UInt32&        primitiveCount) const
+void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
+                                         , const UInt32&        baseVertex
+                                         , const UInt32&        minVertexIndex
+                                         , const UInt32&        numVertices
+                                         , const UInt32&        startIndex
+                                         , const UInt32&        primitiveCount) const
 {
     if (this->indexBuffer == nullptr)
     {
@@ -95,11 +95,11 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     this->vertexBuffer->Activate();
     this->indexBuffer->Activate();
 
-    glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType),
-                             numVertices,
-                             static_cast<GLenum>(this->indexBuffer->IndexElementSize()),
-                             reinterpret_cast<void*>(offset),
-                             baseVertex);
+    glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
+                           , numVertices
+                           , static_cast<GLenum>(this->indexBuffer->IndexElementSize())
+                           , reinterpret_cast<void*>(offset)
+                           , baseVertex);
 
     this->indexBuffer->Deactivate();
     this->vertexBuffer->Deactivate();
@@ -107,9 +107,9 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType,
     this->effect->End();
 }
 
-void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType,
-                                    const UInt32&        startVertex,
-                                    const UInt32&        primitiveCount) const
+void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
+                                  , const UInt32&        startVertex
+                                  , const UInt32&        primitiveCount) const
 {
     if (this->vertexBuffer == nullptr)
     {
@@ -136,12 +136,12 @@ void GraphicsDevice::Present()
     glfwSwapBuffers(glfwGetCurrentContext());
 }
 
-std::shared_ptr<SceneR::Graphics::Effect> GraphicsDevice::Effect()
+const std::shared_ptr<SceneR::Graphics::Effect>& GraphicsDevice::Effect()
 {
     return this->effect;
 }
 
-void GraphicsDevice::Effect(std::shared_ptr<SceneR::Graphics::Effect> effect)
+void GraphicsDevice::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect)
 {
     this->effect = effect;
 }

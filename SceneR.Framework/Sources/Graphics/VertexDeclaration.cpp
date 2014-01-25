@@ -20,9 +20,10 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexDeclaration::VertexDeclaration(const UInt32&                     vertexStride,
-                                     const std::vector<VertexElement>& vertexElements)
-    : vertexStride(vertexStride), vertexElements(vertexElements)
+VertexDeclaration::VertexDeclaration(const UInt32&                     vertexStride
+                                   , const std::vector<VertexElement>& vertexElements)
+    : vertexStride(vertexStride)
+    , vertexElements(vertexElements)
 {
 }
 

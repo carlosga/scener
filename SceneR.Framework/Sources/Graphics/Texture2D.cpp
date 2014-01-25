@@ -21,27 +21,27 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-Texture2D::Texture2D(GraphicsDevice& graphicsDevice,
-                     const UInt32&   width,
-                     const UInt32&   height)
+Texture2D::Texture2D(GraphicsDevice& graphicsDevice
+                   , const UInt32&   width
+                   , const UInt32&   height)
     : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
 {
 }
 
-Texture2D::Texture2D(GraphicsDevice&      graphicsDevice,
-                     const UInt32&        width,
-                     const UInt32&        height,
-                     const Boolean&       mipmap,
-                     const SurfaceFormat& format)
-    : Texture(graphicsDevice),
-      format(format),
-      height(height),
-      mipmap(mipmap),
-      mipmapLevels(0),
-      mipmapHeight(height),
-      mipmapWidth(width),
-      width(width),
-      object(TextureTarget::Texture2D)
+Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
+                   , const UInt32&        width
+                   , const UInt32&        height
+                   , const Boolean&       mipmap
+                   , const SurfaceFormat& format)
+    : Texture(graphicsDevice)
+    , format(format)
+    , height(height)
+    , mipmap(mipmap)
+    , mipmapLevels(0)
+    , mipmapHeight(height)
+    , mipmapWidth(width)
+    , width(width)
+    , object(TextureTarget::Texture2D)
 {
 }
 
@@ -87,7 +87,7 @@ void Texture2D::SetData(const UInt32& level, const Size& size, const void* data)
     this->mipmapHeight >>= 1;
 }
 
-void Texture2D::DeclareStorage(const System::UInt32& mipMapLevels)
+void Texture2D::DeclareStorage(const UInt32& mipMapLevels)
 {
     this->object.Declare2DStorage(this->format, mipMapLevels, this->width, this->height);
     this->mipmapLevels = mipMapLevels;

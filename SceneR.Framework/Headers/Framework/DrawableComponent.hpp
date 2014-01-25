@@ -46,6 +46,11 @@ namespace SceneR
              */
             DrawableComponent(SceneR::Framework::Renderer& renderer);
 
+            /**
+             * Releases all resources being used by this DrawableComponent.
+             */
+            virtual ~DrawableComponent();
+
         public:
             /**
              * The GraphicsDevice the DrawableComponent is associated with.
@@ -58,19 +63,15 @@ namespace SceneR
             virtual void Draw(const RenderTime& renderTime) override;
 
             /**
-             * Enables object updates.
-             */
-            void Show();
-
-            /**
-             * Disables Object udaptes.
-             */
-            void Hide();
-
-            /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual const System::Boolean& IsVisible() const override;
+            virtual const System::Boolean& Visible() const override;
+
+            /**
+             * Sets a value indicating whether this object is enabled.
+             * @param a value indicating whether this object is enabled.
+             */
+            virtual void Visible(const System::Boolean& visible);
 
             /**
              * The order in which to draw this object relative to other objects.

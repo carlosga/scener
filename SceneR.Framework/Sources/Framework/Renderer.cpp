@@ -26,19 +26,19 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Renderer::Renderer(const String& rootDirectory)
-    : components(0),
-      services(),
-      graphicsDeviceManager(*this),
-      rendererWindow(*this),
-      contentManager(this->services, rootDirectory),
-      isFixedTimeStep(true),
-      targetElapsedTime(10000000L / 60L),
-      timer(),
-      renderTime(),
-      totalRenderTime(TimeSpan::Zero),
-      isRunningSlowly(false),
-      drawableComponents(0),
-      updateableComponents(0)
+    : components(0)
+    , services()
+    , graphicsDeviceManager(*this)
+    , rendererWindow(*this)
+    , contentManager(this->services, rootDirectory)
+    , isFixedTimeStep(true)
+    , targetElapsedTime(10000000L / 60L)
+    , timer()
+    , renderTime()
+    , totalRenderTime(TimeSpan::Zero)
+    , isRunningSlowly(false)
+    , drawableComponents(0)
+    , updateableComponents(0)
 {
 }
 
@@ -105,7 +105,7 @@ void Renderer::Draw(const RenderTime& renderTime)
 {
     for (auto& component : this->drawableComponents)
     {
-        if (component->IsVisible())
+        if (component->Visible())
         {
             component->Draw(renderTime);
         }
@@ -138,7 +138,7 @@ const System::Boolean& Renderer::IsFixedTimeStep() const
     return this->isFixedTimeStep;
 }
 
-void Renderer::IsFixedTimeStep(const System::Boolean& isFixedTimeStep)
+void Renderer::IsFixedTimeStep(const Boolean& isFixedTimeStep)
 {
     this->isFixedTimeStep = isFixedTimeStep;
 }
@@ -152,7 +152,7 @@ const System::TimeSpan& Renderer::TargetElapsedTime() const
     return this->targetElapsedTime;
 }
 
-void Renderer::TargetElapsedTime(const System::TimeSpan& targetElapsedTime)
+void Renderer::TargetElapsedTime(const TimeSpan& targetElapsedTime)
 {
     this->targetElapsedTime = targetElapsedTime;
 }

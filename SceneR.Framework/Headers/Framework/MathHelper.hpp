@@ -76,11 +76,11 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static System::Single Barycentric(const System::Single& value1,
-                                              const System::Single& value2,
-                                              const System::Single& value3,
-                                              const System::Single& amount1,
-                                              const System::Single& amount2);
+            static System::Single Barycentric(const System::Single& value1
+                                            , const System::Single& value2
+                                            , const System::Single& value3
+                                            , const System::Single& amount1
+                                            , const System::Single& amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -90,11 +90,11 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static System::Single CatmullRom(const System::Single& value1,
-                                             const System::Single& value2,
-                                             const System::Single& value3,
-                                             const System::Single& value4,
-                                             const System::Single& amount);
+            static System::Single CatmullRom(const System::Single& value1
+                                           , const System::Single& value2
+                                           , const System::Single& value3
+                                           , const System::Single& value4
+                                           , const System::Single& amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -102,9 +102,9 @@ namespace SceneR
              * @param min the min value.
              * @param max the max value.
              */
-            static System::Single Clamp(const System::Single& value,
-                                        const System::Single& min,
-                                        const System::Single& max);
+            static System::Single Clamp(const System::Single& value
+                                      , const System::Single& min
+                                      , const System::Single& max);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -114,11 +114,11 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static System::Single Hermite(const System::Single& value1,
-                                          const System::Single& tangent1,
-                                          const System::Single& value2,
-                                          const System::Single& tangent2,
-                                          const System::Single& amount);
+            static System::Single Hermite(const System::Single& value1
+                                        , const System::Single& tangent1
+                                        , const System::Single& value2
+                                        , const System::Single& tangent2
+                                        , const System::Single& amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -127,9 +127,9 @@ namespace SceneR
              * @param amount value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static System::Single Lerp(const System::Single& value1,
-                                       const System::Single& value2,
-                                       const System::Single& amount);
+            static System::Single Lerp(const System::Single& value1
+                                     , const System::Single& value2
+                                     , const System::Single& amount);
 
             /**
              * Interpolates between two values using a cubic equation.
@@ -137,9 +137,9 @@ namespace SceneR
              * @param value2 second vector
              * @param amount weighting value.
              */
-            static System::Single SmoothStep(const System::Single& value1,
-                                             const System::Single& value2,
-                                             const System::Single& amount);
+            static System::Single SmoothStep(const System::Single& value1
+                                           , const System::Single& value2
+                                           , const System::Single& amount);
 
             /**
              * Converts the given value in degrees to radians.

@@ -29,11 +29,11 @@ const System::Single& MathHelper::PiOver2 = M_PI_2;
 const System::Single& MathHelper::PiOver4 = M_PI_4;
 const System::Single& MathHelper::TwoPi   = M_2_PI;
 
-Single MathHelper::Barycentric(const Single& value1,
-                               const Single& value2,
-                               const Single& value3,
-                               const Single& amount1,
-                               const Single& amount2)
+Single MathHelper::Barycentric(const Single& value1
+                             , const Single& value2
+                             , const Single& value3
+                             , const Single& amount1
+                             , const Single& amount2)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.mathhelper.barycentric(v=xnagamestudio.40).aspx
     //  Pa = ((1 - b2 - b3) * V1a) + (b2 * V2a) + (b3 * V3a);
@@ -44,11 +44,11 @@ Single MathHelper::Barycentric(const Single& value1,
     return ((1 - amount1 - amount2) * value1) + (amount1 * value2) + (amount2 * value3);
 }
 
-Single MathHelper::CatmullRom(const Single& value1,
-                              const Single& value2,
-                              const Single& value3,
-                              const Single& value4,
-                              const Single& amount)
+Single MathHelper::CatmullRom(const Single& value1
+                            , const Single& value2
+                            , const Single& value3
+                            , const Single& value4
+                            , const Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324331(v=vs.85).aspx
     // Q(s) = [(-s3 + 2s2 - s)p1 + (3s3 - 5s2 + 2)p2 + (-3s3 + 4s2 + s)p3 + (s3 - s2)p4] / 2;
@@ -63,9 +63,7 @@ Single MathHelper::CatmullRom(const Single& value1,
           + (s3 - s2) * value4) / 2;
 }
 
-Single MathHelper::Clamp(const Single& value,
-                         const Single& min,
-                         const Single& max)
+Single MathHelper::Clamp(const Single& value, const Single& min, const Single& max)
 {
     Single maxValue = ((max < min) ? min : max);
 
@@ -81,11 +79,11 @@ Single MathHelper::Clamp(const Single& value,
     return value;
 }
 
-Single MathHelper::Hermite(const Single& value1,
-                           const Single& tangent1,
-                           const Single& value2,
-                           const Single& tangent2,
-                           const Single& amount)
+Single MathHelper::Hermite(const Single& value1
+                         , const Single& tangent1
+                         , const Single& value2
+                         , const Single& tangent2
+                         , const Single& amount)
 {
     // Reference: http://cubic.org/docs/hermite.htm
     // h1(s) =  2s^3 - 3s^2 + 1
@@ -105,9 +103,7 @@ Single MathHelper::Hermite(const Single& value1,
          + (s3    - s2)                    * tangent2;
 }
 
-Single MathHelper::Lerp(const System::Single& value1,
-                        const System::Single& value2,
-                        const System::Single& amount)
+Single MathHelper::Lerp(const Single& value1, const Single& value2, const Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     assert(amount >= 0.0f && amount <= 1.0f);
@@ -115,9 +111,7 @@ Single MathHelper::Lerp(const System::Single& value1,
     return (value1 + (value2 - value1) * amount);
 }
 
-Single MathHelper::SmoothStep(const System::Single& value1,
-                              const System::Single& value2,
-                              const System::Single& amount)
+Single MathHelper::SmoothStep(const Single& value1, const Single& value2, const Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
     Single t = MathHelper::Clamp(amount, 0.0f, 1.0f);

@@ -64,7 +64,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this EffectParameter.
              */
-            virtual ~EffectParameter();
+            ~EffectParameter();
 
         public:
             /**

@@ -38,7 +38,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this RendererTimer.
              */
-            virtual ~RendererTimer();
+            ~RendererTimer();
 
         public:
             /**
@@ -63,6 +63,10 @@ namespace SceneR
 
         private:
             System::TimeSpan::Clock::time_point CurrentTime() const;
+
+        private:
+            RendererTimer(const RendererTimer& timer) = delete;
+            RendererTimer& operator=(const RendererTimer& timer) = delete;
 
         private:
             System::TimeSpan::Clock::time_point start;

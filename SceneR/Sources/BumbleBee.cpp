@@ -26,12 +26,12 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 BumbleBee::BumbleBee(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer),
-      model(nullptr),
-      rotation(0.0f),
-      world(Matrix::Identity),
-      view(Matrix::Identity),
-      projection(Matrix::Identity)
+    : DrawableComponent(renderer)
+    , model(nullptr)
+    , rotation(0.0f)
+    , world(Matrix::Identity)
+    , view(Matrix::Identity)
+    , projection(Matrix::Identity)
 {
 }
 

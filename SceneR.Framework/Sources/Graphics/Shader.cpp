@@ -23,7 +23,9 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
-    : object(0), shaderCode(shaderCode), shaderType(shaderType)
+    : object(0)
+    , shaderCode(shaderCode)
+    , shaderType(shaderType)
 {
 }
 

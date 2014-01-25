@@ -24,11 +24,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Model::Model()
-    : bones(0),
-      boneTransforms(0),
-      meshes(0),
-      root(nullptr),
-      tag()
+    : bones(0)
+    , boneTransforms(0)
+    , meshes(0)
+    , root(nullptr)
+    , tag()
 {
 }
 
@@ -39,8 +39,6 @@ Model::~Model()
 void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
     // TODO: This isn't what it should be doing, but it's good enough for now
-    destinationBoneTransforms.clear();
-    destinationBoneTransforms.resize(this->boneTransforms.size());
     destinationBoneTransforms.assign(this->boneTransforms.begin(), this->boneTransforms.end());
 }
 

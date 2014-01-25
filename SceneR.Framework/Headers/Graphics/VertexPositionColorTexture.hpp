@@ -49,9 +49,15 @@ namespace SceneR
              * @param color the vertex color
              * @param textureCoordinate the vertex texture coordinates
              */
-            VertexPositionColorTexture(const SceneR::Framework::Vector3& position,
-                                       const SceneR::Framework::Color&   color,
-                                       const SceneR::Framework::Vector2& textureCoordinate);
+            VertexPositionColorTexture(const SceneR::Framework::Vector3& position
+                                     , const SceneR::Framework::Color&   color
+                                     , const SceneR::Framework::Vector2& textureCoordinate);
+
+
+            /**
+             * Releases all resources being used by this VertexPositionColorTexture.
+             */
+            ~VertexPositionColorTexture();
 
         public:
             /**

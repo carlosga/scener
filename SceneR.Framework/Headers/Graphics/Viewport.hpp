@@ -37,14 +37,17 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(System::Single x, System::Single y, System::Size width, System::Size height);
+            Viewport(const System::Single& x
+                   , const System::Single& y
+                   , const System::Size&   width
+                   , const System::Size&   height);
 
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(System::Single x       , System::Single y,
-                     System::Single width   , System::Single height,
-                     System::Single minDepth, System::Single maxDepth);
+            Viewport(const System::Single& x       , const System::Single& y,
+                     const System::Single& width   , const System::Single& height,
+                     const System::Single& minDepth, const System::Single& maxDepth);
 
             /**
              * Default destructor
@@ -53,17 +56,28 @@ namespace SceneR
 
         public:
             const System::Single& X() const;
+
             const System::Single& Y() const;
+
             const System::Single& Width() const;
+
             const System::Single& Height() const;
+
             System::Single AspectRatio() const;
+
             const System::Single& MinDepth() const;
+
             void MinDepth(const System::Single& minDepth);
+
             const System::Single& MaxDepth() const;
+
             void MaxDepth(const System::Single& maxDepth);
-            void Update(const System::UInt32& x  , const System::UInt32& y,
-                        const System::Size& width, const System::Size& height);
+
+            void Update(const System::UInt32& x  , const System::UInt32& y
+                      , const System::Size& width, const System::Size& height);
+
             void Update(const System::Size& width, const System::Size& height);
+
             void Refresh() const;
 
         private:

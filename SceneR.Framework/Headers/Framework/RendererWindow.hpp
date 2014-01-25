@@ -75,6 +75,11 @@ namespace SceneR
             bool ShouldClose() const;
 
         private:
+            RendererWindow() = delete;
+            RendererWindow(const RendererWindow& window) = delete;
+            RendererWindow& operator=(const RendererWindow& window) = delete;
+
+        private:
             System::String  title;
             System::Boolean allowUserResizing;
             GLFWwindow*     handle;

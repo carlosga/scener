@@ -35,57 +35,57 @@ String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/pr
 String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect.frag");
 
 SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
-    : Effect(graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource),
-      alpha(1.0),
-      ambientLightColor(Vector3::Zero),
-      boneTransforms(0),
-      diffuseColor(Vector3::One),
-      directionalLight0(nullptr),
-      directionalLight1(nullptr),
-      directionalLight2(nullptr),
-      enableDefaultLighting(false),
-      emissiveColor(Vector3::Zero),
-      fogEnabled(false),
-      fogColor(Vector3::Zero),
-      fogEnd(1.0f),
-      fogStart(0.0f),
-      preferPerPixelLighting(false),
-      projection(Matrix::Identity),
-      specularColor(Vector3::One),
-      specularPower(16.0f),
-      textureEnabled(false),
-      texture(nullptr),
-      view(Matrix::Identity),
-      weightsPerVertex(2),
-      world(Matrix::Identity)
+    : Effect(graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource)
+    , alpha(1.0)
+    , ambientLightColor(Vector3::Zero)
+    , boneTransforms(0)
+    , diffuseColor(Vector3::One)
+    , directionalLight0(nullptr)
+    , directionalLight1(nullptr)
+    , directionalLight2(nullptr)
+    , enableDefaultLighting(false)
+    , emissiveColor(Vector3::Zero)
+    , fogEnabled(false)
+    , fogColor(Vector3::Zero)
+    , fogEnd(1.0f)
+    , fogStart(0.0f)
+    , preferPerPixelLighting(false)
+    , projection(Matrix::Identity)
+    , specularColor(Vector3::One)
+    , specularPower(16.0f)
+    , textureEnabled(false)
+    , texture(nullptr)
+    , view(Matrix::Identity)
+    , weightsPerVertex(2)
+    , world(Matrix::Identity)
 {
     this->Initialize();
 }
 
 SkinnedEffect::SkinnedEffect(const SkinnedEffect& effect)
-    : Effect(effect),
-      alpha(effect.alpha),
-      ambientLightColor(effect.ambientLightColor),
-      boneTransforms(effect.boneTransforms),
-      diffuseColor(effect.diffuseColor),
-      directionalLight0(effect.directionalLight0),
-      directionalLight1(effect.directionalLight1),
-      directionalLight2(effect.directionalLight2),
-      enableDefaultLighting(effect.enableDefaultLighting),
-      emissiveColor(effect.emissiveColor),
-      fogEnabled(effect.fogEnabled),
-      fogColor(effect.fogColor),
-      fogEnd(effect.fogEnd),
-      fogStart(effect.fogStart),
-      preferPerPixelLighting(effect.preferPerPixelLighting),
-      projection(effect.projection),
-      specularColor(effect.specularColor),
-      specularPower(effect.specularPower),
-      textureEnabled(effect.textureEnabled),
-      texture(effect.texture),
-      view(effect.view),
-      weightsPerVertex(effect.weightsPerVertex),
-      world(effect.world)
+    : Effect(effect)
+    , alpha(effect.alpha)
+    , ambientLightColor(effect.ambientLightColor)
+    , boneTransforms(effect.boneTransforms)
+    , diffuseColor(effect.diffuseColor)
+    , directionalLight0(effect.directionalLight0)
+    , directionalLight1(effect.directionalLight1)
+    , directionalLight2(effect.directionalLight2)
+    , enableDefaultLighting(effect.enableDefaultLighting)
+    , emissiveColor(effect.emissiveColor)
+    , fogEnabled(effect.fogEnabled)
+    , fogColor(effect.fogColor)
+    , fogEnd(effect.fogEnd)
+    , fogStart(effect.fogStart)
+    , preferPerPixelLighting(effect.preferPerPixelLighting)
+    , projection(effect.projection)
+    , specularColor(effect.specularColor)
+    , specularPower(effect.specularPower)
+    , textureEnabled(effect.textureEnabled)
+    , texture(effect.texture)
+    , view(effect.view)
+    , weightsPerVertex(effect.weightsPerVertex)
+    , world(effect.world)
 {
     this->Initialize();
 }
@@ -284,12 +284,12 @@ void SkinnedEffect::SpecularPower(const Single& specularPower)
     this->specularPower = specularPower;
 }
 
-std::shared_ptr<Texture2D> SkinnedEffect::Texture() const
+const std::shared_ptr<Texture2D>& SkinnedEffect::Texture() const
 {
     return this->texture;
 }
 
-void SkinnedEffect::Texture(std::shared_ptr<Texture2D> texture)
+void SkinnedEffect::Texture(const std::shared_ptr<Texture2D>& texture)
 {
     this->texture = texture;
 }
@@ -324,9 +324,15 @@ void SkinnedEffect::World(const Matrix& world)
     this->world = world;
 }
 
-const std::vector<Matrix>& SkinnedEffect::GetBoneTransforms(const System::Int32& count) const
+std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const Size& count) const
 {
-    return this->boneTransforms;
+    assert(count < this->boneTransforms.size());
+
+    std::vector<Matrix> transforms(0);
+
+    transforms.assign(this->boneTransforms.begin(), this->boneTransforms.begin() + count);
+
+    return transforms;
 }
 
 void SkinnedEffect::SetBoneTransforms(const std::vector<Matrix>& boneTransforms)

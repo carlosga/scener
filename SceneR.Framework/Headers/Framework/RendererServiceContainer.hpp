@@ -46,7 +46,7 @@ namespace SceneR
             /**
              * Releases all the resources being used by this RendererServiceContainer.
              */
-            virtual ~RendererServiceContainer()
+            ~RendererServiceContainer()
             {
             };
 
@@ -88,6 +88,10 @@ namespace SceneR
                     this->instanceMap.erase(this->GetTypeName<T>());
                 }
             };
+
+        private:
+            RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
+            RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
 
         private:
             template <class T>

@@ -54,7 +54,7 @@ namespace SceneR
             struct SharedResourceAction
             {
             public:
-                SharedResourceAction(const System::UInt32&                                   sharedResourceId
+                SharedResourceAction(const System::UInt32&                                    sharedResourceId
                                    , const std::function<void(const std::shared_ptr<void>&)>& action)
                     : id(sharedResourceId),
                       action(action)
@@ -88,14 +88,14 @@ namespace SceneR
              * @param contentManager the content that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const System::String& assetName,
-                          ContentManager&       contentManager,
-                          System::IO::Stream&   stream);
+            ContentReader(const System::String& assetName
+                        , ContentManager&       contentManager
+                        , System::IO::Stream&   stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
              */
-            virtual ~ContentReader();
+            ~ContentReader();
 
         public:
             /**

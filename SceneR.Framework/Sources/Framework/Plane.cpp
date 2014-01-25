@@ -58,17 +58,20 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
-	: d(d), normal(Vector3(a, b, c))
+	: d(d)
+    , normal(Vector3(a, b, c))
 {
 }
 
 Plane::Plane(const Vector3& normal, const System::Single& d)
-	: d(d), normal(normal)
+	: d(d)
+    , normal(normal)
 {
 }
 
 Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3)
-    : d(0.0f), normal()
+    : d(0.0f)
+    , normal()
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
     Vector3 v21 = point1 - point2;
@@ -81,12 +84,14 @@ Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3
 }
 
 Plane::Plane(const Vector4& value)
-	: d(value.W()), normal(Vector3::Normalize({ value.X(), value.Y(), value.Z() }))
+	: d(value.W())
+    , normal(Vector3::Normalize({ value.X(), value.Y(), value.Z() }))
 {	
 }
 
 Plane::Plane(const Plane& value)
-    : d(value.d), normal(value.normal)
+    : d(value.d)
+    , normal(value.normal)
 {
 }
 

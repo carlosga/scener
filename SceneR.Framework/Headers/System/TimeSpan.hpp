@@ -124,26 +124,26 @@ namespace System
         /**
          * Initializes a new instance of the TimeSpan class with the given hours, minutes and seconds.
          */
-        TimeSpan(const System::Int32& hours,
-                 const System::Int32& minutes,
-                 const System::Int32& seconds);
+        TimeSpan(const System::Int32& hours
+               , const System::Int32& minutes
+               , const System::Int32& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes and seconds.
          */
-        TimeSpan(const System::Int32& days,
-                 const System::Int32& hours,
-                 const System::Int32& minutes,
-                 const System::Int32& seconds);
+        TimeSpan(const System::Int32& days
+               , const System::Int32& hours
+               , const System::Int32& minutes
+               , const System::Int32& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes, seconds and milliseconds.
          */
-        TimeSpan(const System::Int32& days,
-                 const System::Int32& hours,
-                 const System::Int32& minutes,
-                 const System::Int32& seconds,
-                 const System::Int32& milliseconds);
+        TimeSpan(const System::Int32& days
+               , const System::Int32& hours
+               , const System::Int32& minutes
+               , const System::Int32& seconds
+               , const System::Int32& milliseconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given timespan.
@@ -153,7 +153,7 @@ namespace System
         /**
          * Releases all resources being used by this TimeSpan.
          */
-        virtual ~TimeSpan();
+        ~TimeSpan();
 
     public:
         /**

@@ -14,11 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-//#include <AstroBoy.hpp>
-//#include <BumbleBee.hpp>
-//#include <Felicia.hpp>
+#include <AstroBoy.hpp>
+#include <BumbleBee.hpp>
+#include <Felicia.hpp>
 #include <Marcus.hpp>
-//#include <WarForrest.hpp>
+#include <WarForrest.hpp>
 #include <SampleRenderer.hpp>
 
 using namespace SceneR::Sample;

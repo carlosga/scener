@@ -21,14 +21,18 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexElement::VertexElement(const UInt32&                                offset,
-                             const SceneR::Graphics::VertexElementFormat& vertexElementFormat,
-                             const SceneR::Graphics::VertexElementUsage&  vertexElementUsage,
-                             const UInt32&                                usageIndex)
-    : offset(offset),
-      vertexElementFormat(vertexElementFormat),
-      vertexElementUsage(vertexElementUsage),
-      usageIndex(usageIndex)
+VertexElement::VertexElement(const UInt32&                                offset
+                           , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
+                           , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
+                           , const UInt32&                                usageIndex)
+    : offset(offset)
+    , vertexElementFormat(vertexElementFormat)
+    , vertexElementUsage(vertexElementUsage)
+    , usageIndex(usageIndex)
+{
+}
+
+VertexElement::~VertexElement()
 {
 }
 

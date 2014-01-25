@@ -35,55 +35,55 @@ String BasicEffect::VSSource = File::ReadAllText(u"/home/carlos/development/proj
 String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect.frag");
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
-    : Effect(graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource),
-      alpha(1.0),
-      ambientLightColor(Vector3::Zero),
-      diffuseColor(Vector3::One),
-      directionalLight0(nullptr),
-      directionalLight1(nullptr),
-      directionalLight2(nullptr),
-      enableDefaultLighting(false),
-      emissiveColor(Vector3::Zero),
-      fogEnabled(false),
-      fogColor(Vector3::Zero),
-      fogEnd(1.0f),
-      fogStart(0.0f),
-      preferPerPixelLighting(false),
-      projection(Matrix::Identity),
-      specularColor(Vector3::One),
-      specularPower(16.0f),
-      textureEnabled(false),
-      texture(nullptr),
-      vertexColorEnabled(false),
-      view(Matrix::Identity),
-      world(Matrix::Identity)
+    : Effect(graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource)
+    , alpha(1.0)
+    , ambientLightColor(Vector3::Zero)
+    , diffuseColor(Vector3::One)
+    , directionalLight0(nullptr)
+    , directionalLight1(nullptr)
+    , directionalLight2(nullptr)
+    , enableDefaultLighting(false)
+    , emissiveColor(Vector3::Zero)
+    , fogEnabled(false)
+    , fogColor(Vector3::Zero)
+    , fogEnd(1.0f)
+    , fogStart(0.0f)
+    , preferPerPixelLighting(false)
+    , projection(Matrix::Identity)
+    , specularColor(Vector3::One)
+    , specularPower(16.0f)
+    , textureEnabled(false)
+    , texture(nullptr)
+    , vertexColorEnabled(false)
+    , view(Matrix::Identity)
+    , world(Matrix::Identity)
 {
     this->Initialize();
 }
 
 BasicEffect::BasicEffect(const BasicEffect& effect)
-    : Effect(effect),
-      alpha(effect.alpha),
-      ambientLightColor(effect.ambientLightColor),
-      diffuseColor(effect.diffuseColor),
-      directionalLight0(effect.directionalLight0),
-      directionalLight1(effect.directionalLight1),
-      directionalLight2(effect.directionalLight2),
-      enableDefaultLighting(effect.enableDefaultLighting),
-      emissiveColor(effect.emissiveColor),
-      fogEnabled(effect.fogEnabled),
-      fogColor(effect.fogColor),
-      fogEnd(effect.fogEnd),
-      fogStart(effect.fogStart),
-      preferPerPixelLighting(effect.preferPerPixelLighting),
-      projection(effect.projection),
-      specularColor(effect.specularColor),
-      specularPower(effect.specularPower),
-      textureEnabled(effect.textureEnabled),
-      texture(effect.texture),
-      vertexColorEnabled(effect.vertexColorEnabled),
-      view(effect.view),
-      world(effect.world)
+    : Effect(effect)
+    , alpha(effect.alpha)
+    , ambientLightColor(effect.ambientLightColor)
+    , diffuseColor(effect.diffuseColor)
+    , directionalLight0(effect.directionalLight0)
+    , directionalLight1(effect.directionalLight1)
+    , directionalLight2(effect.directionalLight2)
+    , enableDefaultLighting(effect.enableDefaultLighting)
+    , emissiveColor(effect.emissiveColor)
+    , fogEnabled(effect.fogEnabled)
+    , fogColor(effect.fogColor)
+    , fogEnd(effect.fogEnd)
+    , fogStart(effect.fogStart)
+    , preferPerPixelLighting(effect.preferPerPixelLighting)
+    , projection(effect.projection)
+    , specularColor(effect.specularColor)
+    , specularPower(effect.specularPower)
+    , textureEnabled(effect.textureEnabled)
+    , texture(effect.texture)
+    , vertexColorEnabled(effect.vertexColorEnabled)
+    , view(effect.view)
+    , world(effect.world)
 {
     this->Initialize();
 }
@@ -282,12 +282,12 @@ void BasicEffect::SpecularPower(const Single& specularPower)
     this->specularPower = specularPower;
 }
 
-std::shared_ptr<Texture2D> BasicEffect::Texture() const
+const std::shared_ptr<Texture2D>& BasicEffect::Texture() const
 {
     return this->texture;
 }
 
-void BasicEffect::Texture(std::shared_ptr<Texture2D> texture)
+void BasicEffect::Texture(const std::shared_ptr<Texture2D>& texture)
 {
     this->texture = texture;
 }

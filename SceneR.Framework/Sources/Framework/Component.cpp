@@ -21,9 +21,9 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Component::Component(SceneR::Framework::Renderer& renderer)
-    : renderer(renderer),
-      enabled(true),
-      updateOrder(0)
+    : renderer(renderer)
+    , enabled(true)
+    , updateOrder(0)
 {
 }
 

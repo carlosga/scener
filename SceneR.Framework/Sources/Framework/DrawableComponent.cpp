@@ -23,9 +23,13 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
-    : Component(renderer),
-      visible(true),
-      drawOrder(0)
+    : Component(renderer)
+    , visible(true)
+    , drawOrder(0)
+{
+}
+
+DrawableComponent::~DrawableComponent()
 {
 }
 
@@ -38,19 +42,14 @@ GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
     return this->renderer.CurrentGraphicsDevice();
 }
 
-void DrawableComponent::Show()
-{
-    this->visible = true;
-}
-
-void DrawableComponent::Hide()
-{
-    this->visible = false;
-}
-
-const Boolean& DrawableComponent::IsVisible() const
+const Boolean& DrawableComponent::Visible() const
 {
     return this->visible;
+}
+
+void DrawableComponent::Visible(const System::Boolean& visible)
+{
+    this->visible = visible;
 }
 
 const UInt32& DrawableComponent::DrawOrder() const

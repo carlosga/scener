@@ -96,10 +96,10 @@ const Single& Color::operator[](const Int32& index) const
 
 bool Color::operator==(const Color& color) const
 {
-    return (this->r    == color.r
-            && this->g == color.g
-            && this->b == color.b
-            && this->a == color.a);
+    return (this->r == color.r
+         && this->g == color.g
+         && this->b == color.b
+         && this->a == color.a);
 }
 
 bool Color::operator!=(const Color& color) const

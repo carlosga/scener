@@ -77,12 +77,12 @@ namespace SceneR
              * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
              *                       primitiveCount and primitiveType.
              */
-            void DrawIndexedPrimitives(const PrimitiveType& primitiveType,
-                                       const System::UInt32& baseVertex,
-                                       const System::UInt32& minVertexIndex,
-                                       const System::UInt32& numVertices,
-                                       const System::UInt32& startIndex,
-                                       const System::UInt32& primitiveCount) const;
+            void DrawIndexedPrimitives(const PrimitiveType&  primitiveType
+                                     , const System::UInt32& baseVertex
+                                     , const System::UInt32& minVertexIndex
+                                     , const System::UInt32& numVertices
+                                     , const System::UInt32& startIndex
+                                     , const System::UInt32& primitiveCount) const;
 
             /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -95,9 +95,9 @@ namespace SceneR
              *                       determined by the primitive type. If it is a line list, each primitive has two
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
-            void DrawPrimitives(const PrimitiveType&  primitiveType,
-                                const System::UInt32& startVertex,
-                                const System::UInt32& primitiveCount) const;
+            void DrawPrimitives(const PrimitiveType&  primitiveType
+                              , const System::UInt32& startVertex
+                              , const System::UInt32& primitiveCount) const;
 
             /**
              * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
@@ -108,12 +108,12 @@ namespace SceneR
             /**
              * Gets the effect used before drawing
              */
-            std::shared_ptr<SceneR::Graphics::Effect> Effect();
+            const std::shared_ptr<SceneR::Graphics::Effect>& Effect();
 
             /**
              * Sets the effect used before drawing
              */
-            void Effect(std::shared_ptr<SceneR::Graphics::Effect> effect);
+            void Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect);
 
             /**
              * Gets the display adapter.
@@ -183,6 +183,11 @@ namespace SceneR
              * Sets the viewport identifying the portion of the render target to receive draw calls.
              */
             void Viewport(SceneR::Graphics::Viewport& viewport);
+
+        private:
+            GraphicsDevice() = delete;
+            GraphicsDevice(const GraphicsDevice& device) = delete;
+            GraphicsDevice& operator=(const GraphicsDevice& device) = delete;
 
         private:
             SceneR::Graphics::BlendState                    blendState;

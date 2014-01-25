@@ -30,15 +30,15 @@ using namespace System::Text;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
-ContentReader::ContentReader(const String&                    assetName,
-                             SceneR::Content::ContentManager& contentManager,
-                             Stream&                          stream)
-    : BinaryReader(stream),
-      assetName(assetName),
-      contentManager(contentManager),
-      typeReaderManager(),
-      sharedResourceCount(0),
-      fixupActions()
+ContentReader::ContentReader(const String&                    assetName
+                           , SceneR::Content::ContentManager& contentManager
+                           , Stream&                          stream)
+    : BinaryReader(stream)
+    , assetName(assetName)
+    , contentManager(contentManager)
+    , typeReaderManager()
+    , sharedResourceCount(0)
+    , fixupActions()
 {
     this->ReadHeader();
     this->ReadManifest();
@@ -69,10 +69,10 @@ Color ContentReader::ReadColor()
 
 Matrix ContentReader::ReadMatrix()
 {
-    return Matrix(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
-                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
-                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle(),
-                  this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return Matrix(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
 }
 
 Vector2 ContentReader::ReadVector2()

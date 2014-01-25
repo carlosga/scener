@@ -240,12 +240,12 @@ namespace SceneR
             /**
              * Gets a texture to be applied by this effect.
              */
-            std::shared_ptr<Texture2D> Texture() const;
+            const std::shared_ptr<Texture2D>& Texture() const;
 
             /**
              * Sets a texture to be applied by this effect.
              */
-            void Texture(std::shared_ptr<Texture2D> texture);
+            void Texture(const std::shared_ptr<Texture2D>& texture);
 
             /**
              * Gets a value indicating wheter textures are enabled for this effect
@@ -281,7 +281,7 @@ namespace SceneR
             /**
              * Gets the array of bone transform matrices of this SkinnedEffect.
              */
-            const std::vector<SceneR::Framework::Matrix>& GetBoneTransforms(const System::Int32& count) const;
+            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const System::Size& count) const;
 
             /**
              * Sets an array of bone transform matrices for a SkinnedEffect.

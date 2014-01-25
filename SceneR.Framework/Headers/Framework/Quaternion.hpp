@@ -68,9 +68,9 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in radians.
              * @param roll Roll around the x-axis, in radians.
              */
-            static Quaternion CreateFromYawPitchRoll(const System::Single& yaw,
-                                                     const System::Single& pitch,
-                                                     const System::Single& roll);
+            static Quaternion CreateFromYawPitchRoll(const System::Single& yaw
+                                                   , const System::Single& pitch
+                                                   , const System::Single& roll);
 
             /**
              * Calculates the linear interpolation between two quaternions.
@@ -79,9 +79,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Lerp(const Quaternion&     quaternion1,
-                                   const Quaternion&     quaternion2,
-                                   const System::Single& amount);
+            static Quaternion Lerp(const Quaternion&     quaternion1
+                                 , const Quaternion&     quaternion2
+                                 , const System::Single& amount);
 
             /**
              * Normalizes the specified Quaternion.
@@ -100,9 +100,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Slerp(const Quaternion&     quaternion1,
-                                    const Quaternion&     quaternion2,
-                                    const System::Single& amount);
+            static Quaternion Slerp(const Quaternion&     quaternion1
+                                  , const Quaternion&     quaternion2
+                                  , const System::Single& amount);
 
         public:
             /**
@@ -117,7 +117,10 @@ namespace SceneR
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
-            Quaternion(const System::Single& x, const System::Single& y, const System::Single& z, const System::Single& w);
+            Quaternion(const System::Single& x
+                     , const System::Single& y
+                     , const System::Single& z
+                     , const System::Single& w);
 
             /**
              * Initializes a new instance of the Quaternion class.

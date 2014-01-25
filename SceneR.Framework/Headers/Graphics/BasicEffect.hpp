@@ -240,12 +240,12 @@ namespace SceneR
             /**
              * Gets a texture to be applied by this effect.
              */
-            std::shared_ptr<Texture2D> Texture() const;
+            const std::shared_ptr<Texture2D>& Texture() const;
 
             /**
              * Sets a texture to be applied by this effect.
              */
-            void Texture(std::shared_ptr<Texture2D> texture);
+            void Texture(const std::shared_ptr<Texture2D>& texture);
 
             /**
              * Gets a value indicating wheter textures are enabled for this effect

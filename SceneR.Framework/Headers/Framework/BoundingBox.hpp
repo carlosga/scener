@@ -61,6 +61,9 @@ namespace SceneR
 			 */
 			BoundingBox(const BoundingBox& boundingBox);
 
+			/**
+			 * Releases all resources being used by this BoundingBox.
+			 */
 			~BoundingBox();
 
 		public:

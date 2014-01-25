@@ -108,11 +108,11 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static Vector3 Barycentric(const Vector3&        value1,
-                                       const Vector3&        value2,
-                                       const Vector3&        value3,
-                                       const System::Single& amount1,
-                                       const System::Single& amount2);
+            static Vector3 Barycentric(const Vector3&        value1
+                                     , const Vector3&        value2
+                                     , const Vector3&        value3
+                                     , const System::Single& amount1
+                                     , const System::Single& amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -122,11 +122,11 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static Vector3 CatmullRom(const Vector3& value1,
-                                      const Vector3& value2,
-                                      const Vector3& value3,
-                                      const Vector3& value4,
-                                      const System::Single& amount);
+            static Vector3 CatmullRom(const Vector3&        value1
+                                    , const Vector3&        value2
+                                    , const Vector3&        value3
+                                    , const Vector3&        value4
+                                    , const System::Single& amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -167,11 +167,11 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static Vector3 Hermite(const Vector3& value1,
-                                   const Vector3& tangent1,
-                                   const Vector3& value2,
-                                   const Vector3& tangent2,
-                                   const System::Single& amount);
+            static Vector3 Hermite(const Vector3&        value1
+                                 , const Vector3&        tangent1
+                                 , const Vector3&        value2
+                                 , const Vector3&        tangent2
+                                 , const System::Single& amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -180,9 +180,9 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 Lerp(const Vector3& value1,
-                                const Vector3& value2,
-                                const System::Single&  amount);
+            static Vector3 Lerp(const Vector3&        value1
+                              , const Vector3&        value2
+                              , const System::Single& amount);
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -191,9 +191,9 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 SmoothStep(const Vector3& value1,
-                                      const Vector3& value2,
-                                      const System::Single&  amount);
+            static Vector3 SmoothStep(const Vector3&        value1
+                                    , const Vector3&        value2
+                                    , const System::Single& amount);
 
             /**
              * Normalizes the specified 3D Vector.
@@ -253,7 +253,7 @@ namespace SceneR
             /**
              * Default destructor
              */
-            virtual ~Vector3() = default;
+            ~Vector3() = default;
 
         public:
             /**

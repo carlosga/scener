@@ -25,11 +25,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelMesh::ModelMesh()
-    : boundingSphere(Vector3::Zero, 0.0f),
-      meshParts(0),
-      name(),
-      parentBone(nullptr),
-      tag()
+    : boundingSphere(Vector3::Zero, 0.0f)
+    , meshParts(0)
+    , name()
+    , parentBone(nullptr)
+    , tag()
 {
 }
 
@@ -46,7 +46,7 @@ void ModelMesh::Draw()
 {
     for (const auto& meshPart : this->meshParts)
     {
-        auto graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
+        auto& graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
         if (meshPart->Effect() != nullptr)
         {
@@ -56,12 +56,12 @@ void ModelMesh::Draw()
         graphicsDevice.VertexBuffer(meshPart->VertexBuffer());
         graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
 
-        graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList,
-                                             meshPart->VertexOffset(),
-                                             0,
-                                             meshPart->VertexCount(),
-                                             meshPart->StartIndex(),
-                                             meshPart->PrimitiveCount());
+        graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList
+                                           , meshPart->VertexOffset()
+                                           , 0
+                                           , meshPart->VertexCount()
+                                           , meshPart->StartIndex()
+                                           , meshPart->PrimitiveCount());
     }
 }
 

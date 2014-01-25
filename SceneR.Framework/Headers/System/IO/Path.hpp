@@ -35,8 +35,8 @@ namespace System
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const System::String ChangeExtension(const System::String& path,
-                                                        const System::String& extension)
+            static const System::String ChangeExtension(const System::String& path
+                                                      , const System::String& extension)
             {
                 return GetFileNameWithoutExtension(path) + u"." + extension;
             };

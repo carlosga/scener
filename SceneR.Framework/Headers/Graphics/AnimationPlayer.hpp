@@ -42,7 +42,7 @@ namespace SceneR
 
             AnimationPlayer(const AnimationPlayer& animationPlayer);
 
-            virtual ~AnimationPlayer();
+            ~AnimationPlayer();
 
         public:
             /**
@@ -102,7 +102,7 @@ namespace SceneR
             // Information about the currently playing animation clip.
             AnimationClip    currentClipValue;
             System::TimeSpan currentTimeValue;
-            System::Int32    currentKeyframe;
+            System::Size     currentKeyframe;
 
             // Backlink to the bind pose and skeleton hierarchy data.
             std::shared_ptr<SkinningData> skinningDataValue;

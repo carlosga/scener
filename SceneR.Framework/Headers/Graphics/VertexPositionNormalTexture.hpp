@@ -49,6 +49,11 @@ namespace SceneR
                                         const SceneR::Framework::Vector3& normal,
                                         const SceneR::Framework::Vector2& textureCoordinate);
 
+            /**
+             * Releases all resources being used by this VertexPositionNormalTexture.
+             */
+            ~VertexPositionNormalTexture();
+
         public:
             /**
              * Gets the vertex position

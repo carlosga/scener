@@ -20,9 +20,9 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage)
-    : id(0),
-      target(target),
-      usage(usage)
+    : id(0)
+    , target(target)
+    , usage(usage)
 {
     this->Create();
 }

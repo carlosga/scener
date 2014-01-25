@@ -21,11 +21,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelBone::ModelBone()
-    : children(0),
-      index(0),
-      name(),
-      parent(nullptr),
-      transform(Matrix::Identity)
+    : children(0)
+    , index(0)
+    , name()
+    , parent(nullptr)
+    , transform(Matrix::Identity)
 {
 }
 
