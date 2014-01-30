@@ -24,8 +24,6 @@
 #define ANIMATEDMODEL_HPP
 
 #include <Graphics/AnimationPlayer.hpp>
-#include <Graphics/Model.hpp>
-#include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -41,6 +39,9 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Model;
+        class SkinningData;
+
         class AnimatedModel
         {
         public:

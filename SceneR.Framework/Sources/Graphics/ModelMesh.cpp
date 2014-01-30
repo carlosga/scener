@@ -16,9 +16,11 @@
 
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/PrimitiveType.hpp>
-#include <string>
+#include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

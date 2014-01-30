@@ -19,7 +19,6 @@
 
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <Graphics/ShaderProgram.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -29,6 +28,7 @@ namespace SceneR
     namespace Graphics
     {
         class EffectParameter;
+        class ShaderProgram;
 
         /**
          * Represents a collection of EffectParameter

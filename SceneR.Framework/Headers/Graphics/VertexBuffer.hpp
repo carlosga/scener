@@ -20,7 +20,6 @@
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>
-#include <Graphics/VertexDeclaration.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -30,6 +29,7 @@ namespace SceneR
     namespace Graphics
     {
         class GraphicsDevice;
+        class VertexDeclaration;
 
         /**
          * Represents a list of 3D vertices to be streamed to the graphics device.

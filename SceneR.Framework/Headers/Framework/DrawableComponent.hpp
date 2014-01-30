@@ -19,14 +19,8 @@
 
 #include <Framework/Component.hpp>
 #include <Framework/IDrawable.hpp>
-
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class GraphicsDevice;
-    }
-}
+#include <Graphics/GraphicsDevice.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

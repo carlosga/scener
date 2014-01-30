@@ -19,8 +19,6 @@
 
 #include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
-#include <Graphics/ModelBone.hpp>
-#include <Graphics/ModelMeshPart.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -37,6 +35,9 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class ModelBone;
+        class ModelMeshPart;
+
         /**
          * Represents a mesh that is part of a Model.
          */

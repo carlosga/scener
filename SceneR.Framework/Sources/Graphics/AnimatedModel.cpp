@@ -23,9 +23,8 @@
 #include <Framework/Matrix.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Graphics/AnimatedModel.hpp>
-#include <map>
-#include <utility>
-#include <vector>
+#include <Graphics/Model.hpp>
+#include <Graphics/SkinningData.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

@@ -17,9 +17,6 @@
 #ifndef MODELMESHPART_HPP
 #define MODELMESHPART_HPP
 
-#include <Graphics/Effect.hpp>
-#include <Graphics/IndexBuffer.hpp>
-#include <Graphics/VertexBuffer.hpp>
 #include <System/Core.hpp>
 #include <memory>
 
@@ -35,6 +32,10 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Effect;
+        class IndexBuffer;
+        class VertexBuffer;
+
         /**
          * Represents a a subdivision of a ModelMesh object.
          */

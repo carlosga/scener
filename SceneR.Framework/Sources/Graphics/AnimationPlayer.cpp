@@ -22,6 +22,7 @@
 
 #include <Graphics/AnimationPlayer.hpp>
 #include <Graphics/Keyframe.hpp>
+#include <Graphics/SkinningData.hpp>
 #include <stdexcept>
 
 using namespace System;

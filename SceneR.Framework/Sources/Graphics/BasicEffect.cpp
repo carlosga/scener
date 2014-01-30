@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
+#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>

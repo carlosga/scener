@@ -18,11 +18,18 @@
 #define GRAPHICSDEVICEMANAGER_HPP
 
 #include <Framework/IGraphicsDeviceManager.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <System/Core.hpp>
 #include <memory>
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class GraphicsDevice;
+    }
+}
 
 namespace SceneR
 {

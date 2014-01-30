@@ -18,20 +18,9 @@
 #define MODEL_HPP
 
 #include <Framework/Matrix.hpp>
-#include <Graphics/ModelBone.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        struct Matrix;
-    }
-}
 
 namespace SceneR
 {
@@ -43,8 +32,20 @@ namespace SceneR
 
 namespace SceneR
 {
+    namespace Framework
+    {
+        struct Matrix;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
+        class ModelBone;
+        class ModelMesh;
+        class SkinningData;
+
         /**
          * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
          */

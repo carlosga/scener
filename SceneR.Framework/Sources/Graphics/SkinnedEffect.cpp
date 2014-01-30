@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Vector4.hpp>
+#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>

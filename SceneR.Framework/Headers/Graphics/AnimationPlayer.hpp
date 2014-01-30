@@ -25,7 +25,6 @@
 
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
-#include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 #include <memory>
@@ -35,6 +34,8 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class SkinningData;
+
         class AnimationPlayer
         {
         public:

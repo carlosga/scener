@@ -20,8 +20,6 @@
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/EffectParameterType.hpp>
-#include <Graphics/ShaderProgram.hpp>
-#include <Graphics/Texture.hpp>
 #include <System/Core.hpp>
 #include <memory>
 #include <vector>
@@ -42,6 +40,9 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class ShaderProgram;
+        class Texture;
+
         /**
          * Represents an Effect parameter.
          */

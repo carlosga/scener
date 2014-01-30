@@ -20,6 +20,8 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameter.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Texture.hpp>
 #include <stdexcept>
 
 using namespace System;

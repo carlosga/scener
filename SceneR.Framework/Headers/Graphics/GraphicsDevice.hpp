@@ -20,15 +20,12 @@
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
-#include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/SamplerState.hpp>
-#include <Graphics/VertexBuffer.hpp>
 #include <Graphics/Viewport.hpp>
 #include <System/Core.hpp>
 #include <memory>
@@ -38,6 +35,10 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Effect;
+        class IndexBuffer;
+        class VertexBuffer;
+
         /**
          * Performs primitive-based rendering, creates resources, handles system-level variables,
          * adjusts gamma ramp levels, and creates shaders.

@@ -21,6 +21,8 @@
 #include <System/Core.hpp>
 #include <vector>
 
+struct GLFWmonitor;
+
 namespace SceneR
 {
     namespace Graphics

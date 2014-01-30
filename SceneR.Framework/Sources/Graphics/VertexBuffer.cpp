@@ -17,6 +17,7 @@
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
@@ -27,11 +28,11 @@ using namespace SceneR::Graphics;
 VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
                          , System::UInt32                                       vertexCount
                          , std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)
-    : GraphicsResource(graphicsDevice),
-      vertexDeclaration(vertexDeclaration),
-      vertexCount(vertexCount),
-      vao(),
-      vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
+    : GraphicsResource(graphicsDevice)
+    , vertexDeclaration(vertexDeclaration)
+    , vertexCount(vertexCount)
+    , vao()
+    , vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
 {
     this->Activate();
     this->vertexDeclaration->Activate();

@@ -16,6 +16,7 @@
 
 #include <Framework/Renderer.hpp>
 #include <Framework/RenderTime.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <chrono>
 #include <thread>

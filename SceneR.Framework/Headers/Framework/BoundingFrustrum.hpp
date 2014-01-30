@@ -21,7 +21,6 @@
 #include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
-#include <Framework/Vector3.hpp>
 #include <System/Core.hpp>
 #include <vector>
 
@@ -32,6 +31,7 @@ namespace SceneR
         struct BoundingBox;
         struct BoundingSphere;
         struct Ray;
+        struct Vector3;
 
         /**
          * Defines a frustum and helps determine whether forms intersect with it.
