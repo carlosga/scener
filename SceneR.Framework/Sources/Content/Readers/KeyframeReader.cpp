@@ -18,7 +18,6 @@
 #include <Content/Readers/KeyframeReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/Keyframe.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <System/TimeSpan.hpp>
 #include <memory>
 

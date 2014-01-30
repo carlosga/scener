@@ -22,7 +22,6 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <vector>
-#include <cassert>
 
 using namespace System;
 using namespace SceneR::Framework;

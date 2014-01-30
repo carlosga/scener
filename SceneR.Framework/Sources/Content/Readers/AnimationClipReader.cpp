@@ -16,7 +16,6 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/AnimationClipReader.hpp>
-#include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
 #include <Graphics/Keyframe.hpp>
 #include <System/Core.hpp>

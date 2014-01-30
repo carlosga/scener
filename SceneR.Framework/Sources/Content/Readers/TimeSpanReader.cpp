@@ -16,7 +16,6 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/TimeSpanReader.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <System/TimeSpan.hpp>
 #include <memory>
 

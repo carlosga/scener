@@ -20,10 +20,8 @@
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/AnimationClip.hpp>
-#include <Graphics/Keyframe.hpp>
 #include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
-#include <System/TimeSpan.hpp>
 #include <map>
 #include <memory>
 #include <vector>

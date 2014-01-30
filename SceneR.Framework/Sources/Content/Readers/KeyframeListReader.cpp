@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/KeyframeListReader.hpp>
 #include <Graphics/Keyframe.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <memory>
 #include <vector>
 

@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Int32Reader.hpp>
 #include <System/Core.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <memory>
 
 using namespace System;
