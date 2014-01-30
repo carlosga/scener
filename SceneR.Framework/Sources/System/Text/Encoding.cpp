@@ -52,16 +52,16 @@ std::vector<UByte> Encoding::Convert(const Encoding&           srcEncoding
 
 std::string Encoding::Convert(const String& source)
 {
-    typedef std::codecvt_utf8_utf16<char16_t> convert_type; // UTF-8 <-> UTF-16 converter
-    std::wstring_convert<convert_type, char16_t> converter;
+    typedef std::codecvt_utf8_utf16<Char> convert_type; // UTF-8 <-> UTF-16 converter
+    std::wstring_convert<convert_type, Char> converter;
 
     return converter.to_bytes(source);
 };
 
 System::String Encoding::Convert(const std::string& source)
 {
-    typedef std::codecvt_utf8_utf16<char16_t> convert_type; // UTF-8 <-> UTF-16 converter
-    std::wstring_convert<convert_type, char16_t> converter;
+    typedef std::codecvt_utf8_utf16<Char> convert_type; // UTF-8 <-> UTF-16 converter
+    std::wstring_convert<convert_type, Char> converter;
 
     return converter.from_bytes(source);
 };

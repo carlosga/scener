@@ -36,15 +36,15 @@ namespace System
             virtual ~UTF8Decoder();
 
         public:
-            virtual uint32_t GetCharCount(const std::vector<uint8_t>& bytes
-                                        , const uint32_t&             index
-                                        , const uint32_t&             count) const override;
+            virtual System::UInt32 GetCharCount(const std::vector<System::UByte>& bytes
+                                              , const System::UInt32&             index
+                                              , const System::UInt32&             count) const override;
 
-            virtual uint32_t GetChars(const std::vector<uint8_t>& bytes
-                                    , const uint32_t&             byteIndex
-                                    , const uint32_t&             byteCount
-                                    , std::vector<char16_t>&      chars
-                                    , const uint32_t&             charIndex) const override;
+            virtual System::UInt32 GetChars(const std::vector<System::UByte>& bytes
+                                    , const System::UInt32&                   byteIndex
+                                    , const System::UInt32&                   byteCount
+                                    , std::vector<System::Char>&              chars
+                                    , const System::UInt32&                   charIndex) const override;
 
             virtual void Reset();
 

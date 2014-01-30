@@ -33,17 +33,17 @@ namespace System
             virtual ~UTF8Encoder();
 
         public:
-            virtual uint32_t GetByteCount(const std::vector<char16_t>& chars
-                                        , const uint32_t&              index
-                                        , const uint32_t&              count
-                                        , const bool&                  flush) const override;
+            virtual uint32_t GetByteCount(const std::vector<System::Char>& chars
+                                        , const System::UInt32&            index
+                                        , const System::UInt32&            count
+                                        , const bool&                      flush) const override;
 
-            virtual uint32_t GetBytes(const std::vector<char16_t>& chars
-                                    , const uint32_t&              charIndex
-                                    , const uint32_t&              charCount
-                                    , std::vector<uint8_t>&        bytes
-                                    , const uint32_t&              byteIndex
-                                    , const bool&                  flush) const override;
+            virtual uint32_t GetBytes(const std::vector<System::Char>& chars
+                                    , const System::UInt32&            charIndex
+                                    , const System::UInt32&            charCount
+                                    , std::vector<System::UByte>&      bytes
+                                    , const System::UInt32&            byteIndex
+                                    , const bool&                      flush) const override;
 
         private:
             UTF8Encoder::Converter converter;

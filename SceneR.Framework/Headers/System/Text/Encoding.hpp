@@ -159,11 +159,11 @@ namespace System
              * When overridden in a derived class, encodes a set of characters from the
              * specified character array into the specified byte array.
              */
-            virtual System::UInt32 GetBytes(const std::vector<Char>&     chars
-                                          , const System::UInt32&        charIndex
-                                          , const System::UInt32&        charCount
-                                          , std::vector<System::UByte>&  bytes
-                                          , const System::UInt32&        byteIndex) const = 0;
+            virtual System::UInt32 GetBytes(const std::vector<Char>&    chars
+                                          , const System::UInt32&       charIndex
+                                          , const System::UInt32&       charCount
+                                          , std::vector<System::UByte>& bytes
+                                          , const System::UInt32&       byteIndex) const = 0;
 
             /**
              * Encodes a set of characters from the specified string into the specified byte array.

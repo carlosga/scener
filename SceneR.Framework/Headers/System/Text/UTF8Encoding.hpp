@@ -37,31 +37,31 @@ namespace System
 
             virtual bool IsSingleByte() const override;
 
-            virtual uint32_t GetByteCount(const std::vector<char16_t>& chars
-                                        , const uint32_t&              index
-                                        , const uint32_t&              count) const override;
+            virtual System::UInt32 GetByteCount(const std::vector<System::Char>& chars
+                                              , const System::UInt32&            index
+                                              , const System::UInt32&            count) const override;
 
-            virtual uint32_t GetBytes(const std::vector<char16_t>& chars
-                                    , const uint32_t&              charIndex
-                                    , const uint32_t&              charCount
-                                    , std::vector<uint8_t>&        bytes
-                                    , const uint32_t&              byteIndex) const override;
+            virtual System::UInt32 GetBytes(const std::vector<System::Char>& chars
+                                          , const System::UInt32&            charIndex
+                                          , const System::UInt32&            charCount
+                                          , std::vector<System::UByte>&      bytes
+                                          , const System::UInt32&            byteIndex) const override;
 
-            virtual uint32_t GetCharCount(const std::vector<uint8_t>& bytes
-                                        , const uint32_t&             index
-                                        , const uint32_t&             count) const override;
+            virtual System::UInt32 GetCharCount(const std::vector<System::UByte>& bytes
+                                        , const System::UInt32&                   index
+                                        , const System::UInt32&                   count) const override;
 
-            virtual uint32_t GetChars(const std::vector<uint8_t>& bytes
-                                    , const uint32_t&             byteIndex
-                                    , const uint32_t&             byteCount
-                                    , std::vector<char16_t>&      chars
-                                    , const uint32_t&             charIndex) const override;
+            virtual System::UInt32 GetChars(const std::vector<System::UByte>& bytes
+                                    , const System::UInt32&                   byteIndex
+                                    , const System::UInt32&                   byteCount
+                                    , std::vector<System::Char>&              chars
+                                    , const System::UInt32&                   charIndex) const override;
 
-            virtual uint32_t GetMaxByteCount(const uint32_t& charCount) override;
+            virtual System::UInt32 GetMaxByteCount(const System::UInt32& charCount) override;
 
-            virtual uint32_t GetMaxCharCount(const uint32_t& byteCount) override;
+            virtual System::UInt32 GetMaxCharCount(const System::UInt32& byteCount) override;
 
-            virtual std::vector<uint8_t> GetPreamble() const;
+            virtual std::vector<System::UByte> GetPreamble() const;
 
             virtual const Decoder& GetDecoder() const override;
 
