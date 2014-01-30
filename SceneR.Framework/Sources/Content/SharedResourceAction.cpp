@@ -38,4 +38,4 @@ const Int32& SharedResourceAction::Id() const
 void SharedResourceAction::Callback(const std::shared_ptr<void>& value)
 {
     this->action(value);
-};
+}

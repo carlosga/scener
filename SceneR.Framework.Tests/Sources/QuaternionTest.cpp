@@ -18,7 +18,6 @@
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <QuaternionTest.hpp>
-#include <string>
 
 using namespace SceneR::Framework;
 

@@ -18,7 +18,6 @@
 #include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
 #include <PlaneTest.hpp>
-#include <string>
 
 using namespace System;
 using namespace SceneR::Framework;

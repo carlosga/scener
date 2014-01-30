@@ -17,8 +17,6 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include <stddef.h>
-#include <cstdint>
 #include <string>
 
 namespace System

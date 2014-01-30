@@ -25,7 +25,6 @@
 #include <System/Core.hpp>
 #include <System/IO/Path.hpp>
 #include <memory>
-#include <string>
 
 using namespace System;
 using namespace System::IO;

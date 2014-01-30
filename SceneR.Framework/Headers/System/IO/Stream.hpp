@@ -18,7 +18,7 @@
 #define STREAM_HPP
 
 #include <System/Core.hpp>
-#include <iostream>
+#include <ios>
 
 namespace System
 {
