@@ -18,6 +18,8 @@
 #define BINARYREADER_HPP
 
 #include <System/Core.hpp>
+#include <System/Text/Encoding.hpp>
+#include <memory>
 #include <vector>
 
 namespace System
@@ -38,15 +40,20 @@ namespace System
 	    class BinaryReader
 	    {
 	    public:
-	        /**
-	         * Initializes a new instance of the BinaryReader class with the given stream.
-	         */
-	        BinaryReader(Stream& stream);
+            /**
+             * Initializes a new instance of the BinaryReader class with the given stream.
+             */
+            BinaryReader(Stream& stream);
+
+            /**
+             * Initializes a new instance of the BinaryReader class with the given stream.
+             */
+            BinaryReader(Stream& stream, const System::Text::Encoding& encoding);
 
 	        /**
 	         * Releases all resources being used by this BinaryReader.
 	         */
-	        ~BinaryReader();
+	        virtual ~BinaryReader();
 
 	    public:
 	        /**
@@ -139,7 +146,8 @@ namespace System
 			BinaryReader& operator=(const BinaryReader& reader) = delete;
 			
 	    private:
-            Stream& stream;
+            Stream&                       stream;
+            const System::Text::Encoding& encoding;
 	    };
 	}
 }

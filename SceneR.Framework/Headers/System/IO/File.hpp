@@ -18,10 +18,10 @@
 #define FILE_HPP
 
 #include <System/Core.hpp>
-#include <System/Text/Unicode.hpp>
+#include <System/Text/Encoding.hpp>
+#include <cassert>
 #include <fstream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 
 namespace System
@@ -40,7 +40,7 @@ namespace System
 			static Boolean Exists(const System::String& path)
 			{
 			    Boolean result = true;
-			    std::string filePath = System::Text::Unicode::Narrow(path);
+			    std::string filePath = System::Text::Encoding::Convert(path);
 				std::fstream file(filePath, std::ios::in);
 
 				if (!file || !file.good())
@@ -60,13 +60,10 @@ namespace System
              */
             static System::String ReadAllText(const System::String& path)
             {
-                std::string filePath = System::Text::Unicode::Narrow(path);
+                std::string filePath = System::Text::Encoding::Convert(path);
                 std::wifstream stream(filePath, std::ios::in | std::ios::binary);
 
-                if (!stream.is_open())
-                {
-                    throw std::runtime_error("Failed to open file: " + filePath);
-                }
+                assert(stream.is_open());
 
                 stream.seekg(0, std::ios_base::beg);
                 std::wstringstream buffer;

@@ -15,7 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <System/IO/FileStream.hpp>
-#include <System/Text/Unicode.hpp>
+#include <System/Text/Encoding.hpp>
 
 using namespace System;
 using namespace System::IO;
@@ -27,7 +27,7 @@ FileStream::FileStream(const String& path)
 }
 
 FileStream::FileStream(const String& path, const std::ios::openmode& mode)
-    : stream(Unicode::Narrow(path), mode),
+    : stream(Encoding::Convert(path), mode),
       mode(mode)
 {
 }

@@ -21,7 +21,7 @@
 #include <Framework/Vector4.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Graphics/Platform.hpp>
-#include <System/Text/Unicode.hpp>
+#include <System/Text/Encoding.hpp>
 #include <stdexcept>
 
 using namespace System;
@@ -85,7 +85,7 @@ void ShaderProgram::Deactivate() const
 
 Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 {
-    std::string temp = System::Text::Unicode::Narrow(parameterName);
+    std::string   temp     = System::Text::Encoding::Convert(parameterName);
     System::Int32 location = glGetUniformLocation(this->id, temp.c_str());
 
     if (location == -1)
@@ -235,4 +235,3 @@ void ShaderProgram::VerifyLinkingState()
         throw std::runtime_error(msg);
     }
 }
-

@@ -19,9 +19,15 @@
 
 using namespace System;
 using namespace System::IO;
+using namespace System::Text;
 
 BinaryReader::BinaryReader(Stream& stream)
-    : stream(stream)
+    : BinaryReader(stream, Encoding::UTF8)
+{
+}
+
+BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding)
+    : stream(stream), encoding(encoding)
 {
 }
 
@@ -74,9 +80,7 @@ Char BinaryReader::ReadChar()
 
 String BinaryReader::ReadString()
 {
-    auto buffer = this->ReadBytes(this->Read7BitEncodedInt());
-
-    return String(buffer.begin(), buffer.end());
+    return this->encoding.GetString(this->ReadBytes(this->Read7BitEncodedInt()));
 }
 
 Int32 BinaryReader::Read7BitEncodedInt()
