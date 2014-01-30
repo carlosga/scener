@@ -20,7 +20,6 @@
 #include <Graphics/VertexElement.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-#include <memory>
 #include <vector>
 
 using namespace System;

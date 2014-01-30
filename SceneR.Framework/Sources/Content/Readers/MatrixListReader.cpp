@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/MatrixListReader.hpp>
 #include <Framework/Matrix.hpp>
-#include <memory>
 #include <vector>
 
 using namespace System;

@@ -24,7 +24,6 @@
 #include <Graphics/Texture2D.hpp>
 #include <System/Core.hpp>
 #include <System/IO/Path.hpp>
-#include <memory>
 
 using namespace System;
 using namespace System::IO;

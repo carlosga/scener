@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Int32ListReader.hpp>
 #include <System/Core.hpp>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;

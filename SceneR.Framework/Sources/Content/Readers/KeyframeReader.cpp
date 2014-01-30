@@ -19,7 +19,6 @@
 #include <Framework/Matrix.hpp>
 #include <Graphics/Keyframe.hpp>
 #include <System/TimeSpan.hpp>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;

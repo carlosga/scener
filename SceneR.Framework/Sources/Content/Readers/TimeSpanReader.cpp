@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/TimeSpanReader.hpp>
 #include <System/TimeSpan.hpp>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;

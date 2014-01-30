@@ -18,7 +18,6 @@
 #include <Content/Readers/BoundingSphereReader.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Vector3.hpp>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;

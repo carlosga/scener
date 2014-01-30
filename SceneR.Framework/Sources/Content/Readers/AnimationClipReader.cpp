@@ -20,7 +20,6 @@
 #include <Graphics/Keyframe.hpp>
 #include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
-#include <memory>
 #include <vector>
 
 using namespace System;

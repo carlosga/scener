@@ -23,7 +23,6 @@
 #include <Graphics/SkinningData.hpp>
 #include <System/Core.hpp>
 #include <map>
-#include <memory>
 #include <vector>
 
 using namespace System;

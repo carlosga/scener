@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/KeyframeListReader.hpp>
 #include <Graphics/Keyframe.hpp>
-#include <memory>
 #include <vector>
 
 using namespace System;

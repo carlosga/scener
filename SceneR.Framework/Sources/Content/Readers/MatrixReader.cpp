@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/MatrixReader.hpp>
 #include <Framework/Matrix.hpp>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;

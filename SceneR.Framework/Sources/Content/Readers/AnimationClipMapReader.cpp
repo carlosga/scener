@@ -21,7 +21,6 @@
 #include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 #include <map>
-#include <memory>
 
 using namespace System;
 using namespace SceneR::Content;
