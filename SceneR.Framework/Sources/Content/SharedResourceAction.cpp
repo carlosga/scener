@@ -14,29 +14,28 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#ifndef CORE_HPP
-#define CORE_HPP
+#include <Content/SharedResourceAction.hpp>
 
-#include <stddef.h>
-#include <cstdint>
-#include <string>
+using namespace System;
+using namespace SceneR::Content;
 
-namespace System
+SharedResourceAction::SharedResourceAction(const UInt32&                                            sharedResourceId
+                                         , const std::function<void(const std::shared_ptr<void>&)>& action)
+    : id(sharedResourceId),
+      action(action)
 {
-    typedef char16_t       Char;
-    typedef bool           Boolean;
-    typedef int8_t         Byte;
-    typedef uint8_t        UByte;
-    typedef int16_t        Int16;
-    typedef uint16_t       UInt16;
-    typedef int32_t        Int32;
-    typedef uint32_t       UInt32;
-    typedef int64_t        Int64;
-    typedef uint64_t       UInt64;
-    typedef float          Single;
-    typedef double         Double;
-    typedef size_t         Size;
-    typedef std::u16string String;
 }
 
-#endif  /* CORE_HPP */
+SharedResourceAction::~SharedResourceAction()
+{
+}
+
+const Int32& SharedResourceAction::Id() const
+{
+    return this->id;
+}
+
+void SharedResourceAction::Callback(const std::shared_ptr<void>& value)
+{
+    this->action(value);
+};

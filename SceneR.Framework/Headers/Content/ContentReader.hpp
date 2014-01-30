@@ -19,6 +19,7 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
+#include <Content/SharedResourceAction.hpp>
 #include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <functional>
@@ -50,37 +51,6 @@ namespace SceneR
          */
         class ContentReader : public System::IO::BinaryReader
         {
-        private:
-            struct SharedResourceAction
-            {
-            public:
-                SharedResourceAction(const System::UInt32&                                    sharedResourceId
-                                   , const std::function<void(const std::shared_ptr<void>&)>& action)
-                    : id(sharedResourceId),
-                      action(action)
-                {
-                };
-
-                virtual ~SharedResourceAction()
-                {
-                };
-
-            public:
-                const System::Int32& Id() const
-                {
-                    return this->id;
-                }
-
-                void Callback(const std::shared_ptr<void>& value)
-                {
-                    this->action(value);
-                };
-
-            private:
-                System::Int32                                     id;
-                std::function<void(const std::shared_ptr<void>&)> action;
-            };
-
         public:
             /**
              * Initializes a new instance of the ContentReader.
@@ -95,7 +65,7 @@ namespace SceneR
             /**
              * Releases all resources used by the current instance of the ContentReader class.
              */
-            ~ContentReader();
+            virtual ~ContentReader();
 
         public:
             /**

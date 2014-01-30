@@ -1,0 +1,98 @@
+//-------------------------------------------------------------------------------
+//Copyright 2013 Carlos Guzmán Álvarez
+//
+//Licensed under the Apache License, Version 2.0 (the "License");
+//you may not use this file except in compliance with the License.
+//You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+//Unless required by applicable law or agreed to in writing, software
+//distributed under the License is distributed on an "AS IS" BASIS,
+//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//See the License for the specific language governing permissions and
+//limitations under the License.
+//-------------------------------------------------------------------------------
+
+#include <System/Text/UTF8Decoder.hpp>
+
+using namespace System;
+using namespace System::Text;
+
+UTF8Decoder::UTF8Decoder()
+    : Decoder()
+{
+}
+
+UTF8Decoder::~UTF8Decoder()
+{
+}
+
+UInt32 UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
+                               , const UInt32&             index
+                               , const UInt32&             count) const
+{
+    UInt32 result = 0;
+
+    for (UInt32 i = index; i < (index + count);)
+    {
+        char16_t buffer    = bytes[i];
+        int      byteCount = 1;
+
+        // http://xbox.create.msdn.com/en-US/sample/xnb_format
+        // Decode UTF-8.
+        if (buffer & 0x80)
+        {
+            while (buffer & (0x80 >> byteCount))
+            {
+                byteCount++;
+            }
+        }
+
+        i += byteCount;
+        result++;
+    }
+
+    return result;
+}
+
+UInt32 UTF8Decoder::GetChars(const std::vector<UByte>& bytes
+                           , const UInt32&             byteIndex
+                           , const UInt32&             byteCount
+                           , std::vector<Char>&        chars
+                           , const UInt32&             charIndex) const
+{
+    auto           from     = (char*)&bytes[0] + byteIndex;
+    auto           fromEnd  = from + byteCount;
+    const char*    fromNext = nullptr;
+    auto           to       = std::vector<Char>(byteCount);
+    auto           toStart  = &to[0];
+    auto           toEnd    = toStart + byteCount;
+    Char*          toNext   = nullptr;
+    auto           iterator = chars.begin() + charIndex;
+    std::mbstate_t state    = std::mbstate_t();
+    std::codecvt_base::result status;
+
+    status = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+
+    if (status == std::codecvt_base::error)
+    {
+        throw std::runtime_error("decoder error");
+    }
+    else if (status == std::codecvt_base::partial)
+    {
+    }
+    else if (status == std::codecvt_base::ok)
+    {
+        for (auto position = toStart; position < toNext; position++)
+        {
+            chars.emplace(iterator++, *position);
+        }
+    }
+
+    return static_cast<UInt32>(toNext - toStart);
+}
+
+void UTF8Decoder::Reset()
+{
+}

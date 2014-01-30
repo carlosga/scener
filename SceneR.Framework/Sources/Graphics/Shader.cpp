@@ -16,10 +16,11 @@
 
 #include <Graphics/Shader.hpp>
 #include <System/Graphics/Platform.hpp>
-#include <System/Text/Unicode.hpp>
+#include <System/Text/Encoding.hpp>
 #include <stdexcept>
 
 using namespace System;
+using namespace System::Text;
 using namespace SceneR::Graphics;
 
 Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
@@ -45,7 +46,7 @@ void Shader::Compile()
     }
 
     // Set the source code
-    std::string temp = System::Text::Unicode::Narrow(this->shaderCode);
+    std::string temp = Encoding::Convert(this->shaderCode);
     const char* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 

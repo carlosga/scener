@@ -15,11 +15,9 @@
 //-------------------------------------------------------------------------------
 
 #include <System/IO/MemoryStream.hpp>
-#include <System/Text/Unicode.hpp>
 
 using namespace System;
 using namespace System::IO;
-using namespace System::Text;
 
 MemoryStream::MemoryStream(const std::vector<UByte>& buffer)
     : stream(std::ios::in | std::ios::out | std::ios::binary),

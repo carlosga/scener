@@ -21,10 +21,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>
-#include <System/Text/Unicode.hpp>
-#include <iostream>
-#include <stdexcept>
-#include <string>
+#include <System/Text/Encoding.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -54,7 +51,7 @@ void RendererWindow::Title(const String& title)
 
     if (this->handle != nullptr)
     {
-        std::string tmp = System::Text::Unicode::Narrow(this->title);
+        std::string tmp = System::Text::Encoding::Convert(this->title);
         glfwSetWindowTitle(this->handle, tmp.c_str());
     }
 }
@@ -73,7 +70,7 @@ void RendererWindow::Open()
 {
     auto         gdm         = this->renderer.graphicsDeviceManager;
     auto         profile     = static_cast<UInt32>(gdm.GraphicsProfile());
-    auto         tmp         = System::Text::Unicode::Narrow(this->title);
+    auto         tmp         = System::Text::Encoding::Convert(this->title);
     GLFWmonitor* monitor     = nullptr;
     GLFWwindow*  windowShare = nullptr;
 
