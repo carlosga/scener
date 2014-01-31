@@ -38,10 +38,10 @@ Vector4 Vector4::Barycentric(const Vector4& value1
                            , const Single&  amount1
                            , const Single&  amount2)
 {
-    return Vector4(MathHelper::Barycentric(value1.X(), value2.X(), value3.X(), amount1, amount2)
-                 , MathHelper::Barycentric(value1.Y(), value2.Y(), value3.Y(), amount1, amount2)
-                 , MathHelper::Barycentric(value1.Z(), value2.Z(), value3.Z(), amount1, amount2)
-                 , MathHelper::Barycentric(value1.W(), value2.W(), value3.W(), amount1, amount2));
+    return Vector4(MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+                 , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+                 , MathHelper::Barycentric(value1.z, value2.z, value3.z, amount1, amount2)
+                 , MathHelper::Barycentric(value1.w, value2.w, value3.w, amount1, amount2));
 }
 
 Vector4 Vector4::CatmullRom(const Vector4& value1
@@ -50,18 +50,18 @@ Vector4 Vector4::CatmullRom(const Vector4& value1
                           , const Vector4& value4
                           , const Single&  amount)
 {
-    return Vector4(MathHelper::CatmullRom(value1.X(), value2.X(), value3.X(), value4.X(), amount)
-                 , MathHelper::CatmullRom(value1.Y(), value2.Y(), value3.Y(), value4.Y(), amount)
-                 , MathHelper::CatmullRom(value1.Z(), value2.Z(), value3.Z(), value4.Z(), amount)
-                 , MathHelper::CatmullRom(value1.W(), value2.W(), value3.W(), value4.W(), amount));
+    return Vector4(MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
+                 , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
+                 , MathHelper::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount)
+                 , MathHelper::CatmullRom(value1.w, value2.w, value3.w, value4.w, amount));
 }
 
 Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4& max)
 {
-    return Vector4(MathHelper::Clamp(value1.X(), min.X(), max.X())
-                 , MathHelper::Clamp(value1.Y(), min.Y(), max.Y())
-                 , MathHelper::Clamp(value1.Z(), min.Z(), max.Z())
-                 , MathHelper::Clamp(value1.W(), min.W(), max.W()));
+    return Vector4(MathHelper::Clamp(value1.x, min.x, max.x)
+                 , MathHelper::Clamp(value1.y, min.y, max.y)
+                 , MathHelper::Clamp(value1.z, min.z, max.z)
+                 , MathHelper::Clamp(value1.w, min.w, max.w));
 }
 
 Single Vector4::Distance(const Vector4& value1, const Vector4& value2)
@@ -84,10 +84,10 @@ Vector4 Vector4::Hermite(const Vector4& value1
                        , const Vector4& tangent2
                        , const Single&  amount)
 {
-    return Vector4(MathHelper::Hermite(value1.X(), tangent1.X(), value2.X(), tangent2.X(), amount)
-                 , MathHelper::Hermite(value1.Y(), tangent1.Y(), value2.Y(), tangent2.Y(), amount)
-                 , MathHelper::Hermite(value1.Z(), tangent1.Z(), value2.Z(), tangent2.Z(), amount)
-                 , MathHelper::Hermite(value1.W(), tangent1.W(), value2.W(), tangent2.W(), amount));
+    return Vector4(MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+                 , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+                 , MathHelper::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount)
+                 , MathHelper::Hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount));
 }
 
 Vector4 Vector4::Lerp(const Vector4& value1
@@ -96,20 +96,20 @@ Vector4 Vector4::Lerp(const Vector4& value1
 {
     assert(amount >= 0.0f && amount < 1.0f);
 
-    return Vector4(MathHelper::Lerp(value1.X(), value2.X(), amount)
-                 , MathHelper::Lerp(value1.Y(), value2.Y(), amount)
-                 , MathHelper::Lerp(value1.Z(), value2.Z(), amount)
-                 , MathHelper::Lerp(value1.W(), value2.W(), amount));
+    return Vector4(MathHelper::Lerp(value1.x, value2.x, amount)
+                 , MathHelper::Lerp(value1.y, value2.y, amount)
+                 , MathHelper::Lerp(value1.z, value2.z, amount)
+                 , MathHelper::Lerp(value1.w, value2.w, amount));
 }
 
 Vector4 Vector4::SmoothStep(const Vector4& value1
                           , const Vector4& value2
                           , const Single&  amount)
 {
-    return Vector4(MathHelper::SmoothStep(value1.X(), value2.X(), amount)
-                 , MathHelper::SmoothStep(value1.Y(), value2.Y(), amount)
-                 , MathHelper::SmoothStep(value1.Z(), value2.Z(), amount)
-                 , MathHelper::SmoothStep(value1.W(), value2.W(), amount));
+    return Vector4(MathHelper::SmoothStep(value1.x, value2.x, amount)
+                 , MathHelper::SmoothStep(value1.y, value2.y, amount)
+                 , MathHelper::SmoothStep(value1.z, value2.z, amount)
+                 , MathHelper::SmoothStep(value1.w, value2.w, amount));
 }
 
 Vector4::Vector4()
@@ -143,7 +143,7 @@ Vector4::Vector4(const Vector3& value, const System::Single& w)
 }
 
 Vector4::Vector4(const Vector4& vector)
-    : x(vector.X()), y(vector.Y()), z(vector.Z()), w(vector.W())
+    : x(vector.x), y(vector.y), z(vector.z), w(vector.w)
 {
 }
 
@@ -189,7 +189,7 @@ Single Vector4::DotProduct(const Vector4& vectorb) const
 {
     Vector4 dotProduct = *this * vectorb;
 
-    return (dotProduct.X() + dotProduct.Y() + dotProduct.Z() + dotProduct.W());
+    return (dotProduct.x + dotProduct.y + dotProduct.z + dotProduct.w);
 }
 
 void Vector4::Normalize()
@@ -215,10 +215,10 @@ Vector4& Vector4::operator=(const Vector4& vector)
 {
     if (this != &vector)
     {
-        this->x = vector.X();
-        this->y = vector.Y();
-        this->z = vector.Z();
-        this->w = vector.W();
+        this->x = vector.x;
+        this->y = vector.y;
+        this->z = vector.z;
+        this->w = vector.w;
     }
 
     return *this;

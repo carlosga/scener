@@ -27,7 +27,8 @@ BinaryReader::BinaryReader(Stream& stream)
 }
 
 BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding)
-    : stream(stream), encoding(encoding)
+    : stream(stream)
+    , encoding(encoding)
 {
 }
 

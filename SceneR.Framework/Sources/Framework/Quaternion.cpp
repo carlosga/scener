@@ -190,7 +190,7 @@ Quaternion::Quaternion(const Vector3& value, const System::Single& w)
 }
 
 Quaternion::Quaternion(const Quaternion& quaternion)
-    : x(quaternion.X()), y(quaternion.Y()), z(quaternion.Z()), w(quaternion.W())
+    : x(quaternion.x), y(quaternion.y), z(quaternion.z), w(quaternion.w)
 {
 }
 
@@ -285,10 +285,10 @@ Quaternion& Quaternion::operator=(const Quaternion& quaternion)
 {
     if (this != &quaternion)
     {
-        this->x = quaternion.X();
-        this->y = quaternion.Y();
-        this->z = quaternion.Z();
-        this->w = quaternion.W();
+        this->x = quaternion.x;
+        this->y = quaternion.y;
+        this->z = quaternion.z;
+        this->w = quaternion.w;
     }
 
     return *this;

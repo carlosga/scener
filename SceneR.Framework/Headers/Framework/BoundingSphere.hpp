@@ -150,6 +150,7 @@ namespace SceneR
  			BoundingSphere Transform(const Matrix& matrix) const;
 
 		public:
+ 			BoundingSphere& operator=(const BoundingSphere& sphere);
             bool operator==(const BoundingSphere& sphere) const;
             bool operator!=(const BoundingSphere& sphere) const;
 

@@ -43,7 +43,7 @@ Plane Plane::Normalize(const Plane& value)
 
 Plane Plane::Transform(const Plane& plane, const Matrix& matrix)
 {
-    return Vector4(plane.Normal(), plane.D()) * Matrix::Transpose(Matrix::Invert(matrix));
+    return Vector4(plane.normal, plane.d) * Matrix::Transpose(Matrix::Invert(matrix));
 }
 
 Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)

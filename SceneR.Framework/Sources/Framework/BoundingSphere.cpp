@@ -120,12 +120,24 @@ BoundingSphere BoundingSphere::Transform(const Matrix& matrix) const
     throw std::runtime_error("Not implemented");
 }
 
+BoundingSphere& BoundingSphere::operator=(const BoundingSphere& sphere)
+{
+    if (this != &sphere)
+    {
+        this->center = sphere.center;
+        this->radius = sphere.radius;
+    }
+
+    return *this;
+}
+
 bool BoundingSphere::operator==(const BoundingSphere& sphere) const
 {
-    throw std::runtime_error("Not implemented");
+    return (this->center == sphere.center
+         && this->radius == sphere.radius);
 }
 
 bool BoundingSphere::operator!=(const BoundingSphere& sphere) const
 {
-    throw std::runtime_error("Not implemented");
+    return !(*this == sphere);
 }

@@ -48,7 +48,7 @@ Color::Color(const Vector4& vector)
 }
 
 Color::Color(const Color& color)
-    : r(color.R()), g(color.G()), b(color.B()), a(color.A())
+    : r(color.r), g(color.g), b(color.b), a(color.a)
 {
 }
 
@@ -92,6 +92,19 @@ const Single& Color::operator[](const Int32& index) const
     assert(index >= 0 && index < 4);
 
     return (this->color[index]);
+}
+
+Color& Color::operator=(const Color& color)
+{
+    if (this != &color)
+    {
+        this->r = color.r;
+        this->g = color.g;
+        this->b = color.b;
+        this->a = color.a;
+    }
+
+    return *this;
 }
 
 bool Color::operator==(const Color& color) const

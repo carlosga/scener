@@ -27,8 +27,8 @@ FileStream::FileStream(const String& path)
 }
 
 FileStream::FileStream(const String& path, const std::ios::openmode& mode)
-    : stream(Encoding::Convert(path), mode),
-      mode(mode)
+    : stream(Encoding::Convert(path), mode)
+    , mode(mode)
 {
 }
 

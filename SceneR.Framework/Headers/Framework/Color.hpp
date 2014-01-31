@@ -110,6 +110,7 @@ namespace SceneR
         public:
             System::Single& operator[](const System::Int32& index);
             const System::Single& operator[](const System::Int32& index) const;
+            Color& operator=(const Color& color);
             bool operator==(const Color& color) const;
             bool operator!=(const Color& color) const;
             Color& operator*=(const Color& color);

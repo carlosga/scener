@@ -54,7 +54,7 @@ void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
     // TODO: This isn't what it should be doing, but it's good enough for now
     destinationBoneTransforms.clear();
-    destinationBoneTransforms.resize(this->boneTransforms.size());
+    destinationBoneTransforms.resize(this->bones.size());
 
     for (const auto& bone : this->bones)
     {
