@@ -66,14 +66,14 @@ Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4&
 
 Single Vector4::Distance(const Vector4& value1, const Vector4& value2)
 {
-    Vector4 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.Length();
 }
 
 Single Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
 {
-    Vector4 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.LengthSquared();
 }
@@ -187,7 +187,7 @@ void Vector4::Negate()
 
 Single Vector4::DotProduct(const Vector4& vectorb) const
 {
-    Vector4 dotProduct = *this * vectorb;
+    auto dotProduct = *this * vectorb;
 
     return (dotProduct.x + dotProduct.y + dotProduct.z + dotProduct.w);
 }

@@ -51,7 +51,8 @@ void RendererWindow::Title(const String& title)
 
     if (this->handle != nullptr)
     {
-        std::string tmp = System::Text::Encoding::Convert(this->title);
+        auto tmp = System::Text::Encoding::Convert(this->title);
+
         glfwSetWindowTitle(this->handle, tmp.c_str());
     }
 }
@@ -143,7 +144,7 @@ void RendererWindow::InitializeInput() const
 
 bool RendererWindow::ShouldClose() const
 {
-    Boolean fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().FullScreen();
+    auto fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().FullScreen();
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
             || glfwWindowShouldClose(this->handle));

@@ -47,8 +47,8 @@ namespace System
              */
             static const System::String GetDirectoryName(const System::String& path)
             {
-                String::size_type result        = path.find_last_of(Path::DirectorySeparator());
-                String            directoryName = path;
+                auto result        = path.find_last_of(Path::DirectorySeparator());
+                auto directoryName = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
                 if (String::npos != result)
@@ -66,8 +66,8 @@ namespace System
              */
             static const System::String GetFileNameWithoutExtension(const System::String& path)
             {
-                String::size_type result               = path.find_last_of('.');
-                String            pathWithoutExtension = path;
+                auto result               = path.find_last_of('.');
+                auto pathWithoutExtension = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
                 if (String::npos != result)

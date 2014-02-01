@@ -45,7 +45,7 @@ Marcus::~Marcus()
 
 void Marcus::Update(const RenderTime& renderTime)
 {
-    Single aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
+    auto aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
 
     this->world      = Matrix::CreateRotationX(-MathHelper::PiOver4)
                      * Matrix::CreateRotationY(MathHelper::ToRadians(150.0f))

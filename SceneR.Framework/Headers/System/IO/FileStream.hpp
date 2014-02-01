@@ -32,12 +32,12 @@ namespace System
         {
         public:
 			/**
-			 * Initializes a new FileStream with the specified file.
+			 * Initializes a new instance of the FileStream class with the specified file.
 			 */
             FileStream(const String& path);
 			
 			/**
-			 * Initializes a new FileStream with the specified and opening mode.
+			 * Initializes a new instance of the FileStream class with the specified and opening mode.
 			 */		
             FileStream(const String& path, const std::ios::openmode& mode);
 

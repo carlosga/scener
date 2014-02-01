@@ -33,12 +33,12 @@ namespace System
         {
         public:
 			/**
-			 * Initializes a new FileStream with the specified file.
+			 * Initializes a new instance of the MemoryStream class.
 			 */
             MemoryStream(const std::vector<UByte>& buffer);
 
             /**
-			 * Releases all resources being used by this FileStream.
+			 * Releases all resources being used by this MemoryStream.
 			 */
             virtual ~MemoryStream();
 

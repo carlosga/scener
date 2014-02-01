@@ -55,9 +55,9 @@ std::vector<UByte> VertexBuffer::GetData() const
 
 std::vector<UByte> VertexBuffer::GetData(const Size& startIndex, const Size& elementCount) const
 {
-    Size offset = (startIndex * this->vertexDeclaration->VertexStride());
-    Size size   = (elementCount * this->vertexDeclaration->VertexStride());
-    std::vector<UByte> data(size);
+    auto offset = (startIndex * this->vertexDeclaration->VertexStride());
+    auto size   = (elementCount * this->vertexDeclaration->VertexStride());
+    auto data   = std::vector<UByte>(size);
 
     this->vbo.GetData(offset, size, data.data());
 

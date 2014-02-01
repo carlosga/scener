@@ -46,8 +46,8 @@ void Shader::Compile()
     }
 
     // Set the source code
-    std::string temp = Encoding::Convert(this->shaderCode);
-    const char* code = temp.c_str();
+    auto  temp = Encoding::Convert(this->shaderCode);
+    auto* code = temp.c_str();
     glShaderSource(this->object, 1, (const GLchar**)&code, NULL);
 
     // Compile the shader source
@@ -92,7 +92,7 @@ void Shader::VerifyCompilationState()
 
         if (infoLogLength)
         {
-            std::string compileErrorMessage("", infoLogLength);
+            auto compileErrorMessage = std::string("", infoLogLength);
 
             glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
 

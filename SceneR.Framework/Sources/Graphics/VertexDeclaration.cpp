@@ -42,9 +42,9 @@ void VertexDeclaration::Activate() const
     // ... declare vertex elements
     for (const auto& ve : this->vertexElements)
     {
-        UInt32 elementType  = this->GetElementType(ve.VertexElementFormat());
-        UInt32 elementCount = this->GetElementCount(ve.VertexElementFormat());
-        UInt32 usageIndex   = this->GetUsageIndex(ve.VertexElementUsage());
+        auto elementType  = this->GetElementType(ve.VertexElementFormat());
+        auto elementCount = this->GetElementCount(ve.VertexElementFormat());
+        auto usageIndex   = this->GetUsageIndex(ve.VertexElementUsage());
 
         if (elementType == GL_FLOAT)
         {

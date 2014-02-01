@@ -94,8 +94,9 @@ namespace SceneR
             std::shared_ptr<T> ReadAsset(const System::String& assetName) throw(ContentLoadException)
             {
                 auto stream = this->OpenStream(assetName);
+                // auto reader = ContentReader(assetName, *this, *stream);
                 ContentReader reader(assetName, *this, *stream);
-                auto asset = reader.ReadObject<T>();
+                auto asset  = reader.ReadObject<T>();
 
                 reader.ReadSharedResources();
 

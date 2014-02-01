@@ -82,14 +82,14 @@ Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
 
 Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
 {
-    Vector3 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.Length();
 }
 
 Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
 {
-    Vector3 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.LengthSquared();
 }
@@ -102,7 +102,7 @@ Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
     // The scalar product can also be written in terms of Cartesian components as:
     // a · b = x1x2 + y1y2 + z1z2
 
-    Vector3 dotProduct = left * right;
+    auto dotProduct = left * right;
 
     return (dotProduct.x + dotProduct.y + dotProduct.z);
 }
@@ -136,7 +136,7 @@ Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const 
 
 Vector3 Vector3::Normalize(const Vector3& value)
 {
-    Vector3 normalized(value);
+    auto normalized = Vector3(value);
 
     normalized.Normalize();
 

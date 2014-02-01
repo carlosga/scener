@@ -86,7 +86,7 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
         throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
     }
 
-    Size offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
+    auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
 
     this->effect->Begin();
 

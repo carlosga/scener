@@ -263,7 +263,7 @@ void Renderer::FixedTimeStep()
             this->EndDraw();
         }
 
-        TimeSpan interval = this->targetElapsedTime - this->timer.ElapsedTimeStepTime();
+        auto interval = this->targetElapsedTime - this->timer.ElapsedTimeStepTime();
 
         std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
     }

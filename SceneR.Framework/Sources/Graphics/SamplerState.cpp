@@ -110,7 +110,7 @@ void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDe
 
 void SamplerState::OnApply(const TextureTarget& target, const Int32& mipmapLevels) const
 {
-    GLenum glTarget = static_cast<GLenum>(target);
+    auto glTarget = static_cast<GLenum>(target);
 
     glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_R , GL_RED);
     glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_G , GL_GREEN);

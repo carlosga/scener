@@ -55,14 +55,14 @@ Vector2 Vector2::Clamp(const Vector2& value1, const Vector2& min, const Vector2&
 
 Single Vector2::Distance(const Vector2& value1, const Vector2& value2)
 {
-    Vector2 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.Length();
 }
 
 Single Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
 {
-    Vector2 d = value2 - value1;
+    auto d = value2 - value1;
 
     return d.LengthSquared();
 }

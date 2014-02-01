@@ -18,7 +18,7 @@
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <Graphics/ShaderType.hpp>
-#include <stdexcept>
+#include <cassert>
 #include <vector>
 
 using namespace System;
@@ -60,10 +60,7 @@ EffectParameterCollection& Effect::Parameters()
 
 void Effect::Begin()
 {
-    if (this->shader == nullptr)
-    {
-        throw std::runtime_error("Shader program not initialized");
-    }
+    assert(this->shader != nullptr);
 
     this->shader->Activate();
 

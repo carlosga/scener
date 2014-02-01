@@ -23,7 +23,7 @@
 #include <Graphics/ShaderProgram.hpp>
 #include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
-#include <stdexcept>
+#include <cassert>
 
 using namespace System;
 using namespace System::Text;
@@ -86,13 +86,10 @@ void ShaderProgram::Deactivate() const
 
 Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 {
-    std::string   temp     = System::Text::Encoding::Convert(parameterName);
-    System::Int32 location = glGetUniformLocation(this->id, temp.c_str());
+    auto temp     = System::Text::Encoding::Convert(parameterName);
+    auto location = glGetUniformLocation(this->id, temp.c_str());
 
-    if (location == -1)
-    {
-        throw std::runtime_error("Unknown parameter with name " + temp);
-    }
+    assert(location != -1);
 
     return location;
 }
@@ -217,7 +214,7 @@ void ShaderProgram::VerifyLinkingState()
 
     if (status == GL_FALSE)
     {
-        std::string msg("Program linking failure: ");
+        auto msg = std::string("Program linking failure: ");
 
         GLint infoLogLength;
         glGetProgramiv(this->id, GL_INFO_LOG_LENGTH, &infoLogLength);

@@ -121,13 +121,12 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     //  xaxis.z                    yaxis.z                     zaxis.z                     0
     // -dot(xaxis, cameraPosition) -dot(yaxis, cameraPosition) -dot(zaxis, cameraPosition) 1
 
-    Vector3 zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
-    Vector3 xAxis = Vector3::Normalize(Vector3::Cross(cameraUpVector, zAxis));
-    Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
-
-    Single dx = Vector3::DotProduct(xAxis, cameraPosition);
-    Single dy = Vector3::DotProduct(yAxis, cameraPosition);
-    Single dz = Vector3::DotProduct(zAxis, cameraPosition);
+    auto zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
+    auto xAxis = Vector3::Normalize(Vector3::Cross(cameraUpVector, zAxis));
+    auto yAxis = Vector3::Cross(zAxis, xAxis);
+    auto dx    = Vector3::DotProduct(xAxis, cameraPosition);
+    auto dy    = Vector3::DotProduct(yAxis, cameraPosition);
+    auto dz    = Vector3::DotProduct(zAxis, cameraPosition);
 
     return Matrix(xAxis.X(), yAxis.X(), zAxis.X(), 0.0f
                 , xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f
@@ -226,8 +225,8 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos   = std::cos(angle);
-    float sin   = std::sin(angle);
+    Single cos = std::cos(angle);
+    Single sin = std::sin(angle);
 
     return Matrix(1.0f, 0.0f, 0.0f, 0.0f
                 , 0.0f,  cos,  sin, 0.0f
@@ -238,8 +237,8 @@ Matrix Matrix::CreateRotationX(const Single& angle)
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos   = std::cos(angle);
-    Single sin   = std::sin(angle);
+    Single cos = std::cos(angle);
+    Single sin = std::sin(angle);
 
     return Matrix( cos, 0.0f, -sin, 0.0f
                 , 0.0f, 1.0f, 0.0f, 0.0f
@@ -250,8 +249,8 @@ Matrix Matrix::CreateRotationY(const Single& angle)
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos   = std::cos(angle);
-    Single sin   = std::sin(angle);
+    Single cos = std::cos(angle);
+    Single sin = std::sin(angle);
 
     return Matrix( cos,  sin, 0.0f, 0.0f
                 , -sin,  cos, 0.0f, 0.0f
@@ -292,9 +291,9 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
 
 Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
-    Vector3 nf    = Vector3::Normalize(forward);
-    Vector3 right = Vector3::Normalize(Vector3::Cross(nf, up));
-    Vector3 upv   = Vector3::Normalize(Vector3::Cross(right, nf));
+    auto nf    = Vector3::Normalize(forward);
+    auto right = Vector3::Normalize(Vector3::Cross(nf, up));
+    auto upv   = Vector3::Normalize(Vector3::Cross(right, nf));
 
     return Matrix(right.X()   , right.Y()   , right.Z()   , 0.0f
                 , upv.X()     , upv.Y()     , upv.Z()     , 0.0f
@@ -304,7 +303,7 @@ Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, cons
 
 Matrix Matrix::Invert(const Matrix& matrix)
 {
-    Matrix result(matrix);
+    auto result = Matrix(matrix);
 
     result.Invert();
 
@@ -318,7 +317,7 @@ Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 
 Matrix Matrix::Transpose(const Matrix& source)
 {
-    Matrix result(source);
+    auto result = Matrix(source);
 
     result.Transpose();
 

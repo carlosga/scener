@@ -74,10 +74,10 @@ Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3
     , normal()
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
-    Vector3 v21 = point1 - point2;
-    Vector3 v31 = point1 - point3;
-    Vector3 n   = Vector3::Normalize(Vector3::Cross(v21, v31));
-    Vector4 d   = Plane::DotNormal(n, point1);
+    auto v21 = point1 - point2;
+    auto v31 = point1 - point3;
+    auto n   = Vector3::Normalize(Vector3::Cross(v21, v31));
+    auto d   = Plane::DotNormal(n, point1);
 
     this->normal = n;
     this->d      = -d.W();
@@ -121,7 +121,7 @@ System::Single Plane::DotCoordinate(const Vector3& value) const
 
 System::Single Plane::DotNormal(const Vector3& value) const
 {
-    Vector4 tmp = Plane::DotNormal(this->normal, value);
+    auto tmp = Plane::DotNormal(this->normal, value);
 
     return (tmp.X() + tmp.Y() + tmp.Z() + tmp.W());
 }

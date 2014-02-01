@@ -59,9 +59,9 @@ Size FileStream::Position()
 
 Size FileStream::Length()
 {
-    Size position = this->Position();
+    auto position = this->Position();
     this->Seek(0, std::ios::end);
-    Size result = this->Position();
+    auto result = this->Position();
     this->Seek(position, std::ios::beg);
 
     return result;

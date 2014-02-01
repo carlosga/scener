@@ -86,8 +86,7 @@ EffectParameter& EffectParameterCollection::Add(const System::String&           
                                               , const EffectParameterType&            parameterType
                                               , const std::shared_ptr<ShaderProgram>& shader)
 {
-    EffectParameter newParameter = { name, parameterClass, parameterType, shader };
-    this->parameters.push_back(newParameter);
+    this->parameters.push_back({ name, parameterClass, parameterType, shader });
 
     return (*this)[name];
 }

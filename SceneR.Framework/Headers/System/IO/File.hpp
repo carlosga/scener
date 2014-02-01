@@ -39,8 +39,8 @@ namespace System
 			 */ 
 			static Boolean Exists(const System::String& path)
 			{
-			    Boolean result = true;
-				std::fstream file(System::Text::Encoding::Convert(path), std::ios::in);
+			    auto result = true;
+				auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);
 
 				if (!file || !file.good())
                 {
@@ -59,7 +59,7 @@ namespace System
              */
             static System::String ReadAllText(const System::String& path)
             {
-                std::wifstream stream(System::Text::Encoding::Convert(path), std::ios::in | std::ios::binary);
+                auto stream = std::wifstream(System::Text::Encoding::Convert(path), std::ios::in | std::ios::binary);
 
                 assert(stream.is_open());
 
@@ -70,7 +70,7 @@ namespace System
 
                 stream.close();
 
-                std::wstring text = buffer.str();
+                auto text = buffer.str();
 
                 return String(text.begin(), text.end());
             };

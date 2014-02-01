@@ -28,7 +28,7 @@ const Quaternion Quaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
 
 Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
 {
-    Quaternion result(quaternion);
+    auto result = Quaternion(quaternion);
 
     result.Conjugate();
 
@@ -60,10 +60,10 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     // quaternion_multiply( &qt, &qx, &qy );
     // quaternion_multiply( &q,  &qt, &qz );
 
-    Quaternion qx = Quaternion::CreateFromAxisAngle(Vector3::UnitX, roll);
-    Quaternion qy = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yaw);
-    Quaternion qz = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, pitch);
-    Quaternion qt = qx * qy;
+    auto qx = Quaternion::CreateFromAxisAngle(Vector3::UnitX, roll);
+    auto qy = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yaw);
+    auto qz = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, pitch);
+    auto qt = qx * qy;
 
     return qt * qz;
 }
@@ -130,7 +130,7 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
 
 Quaternion Quaternion::Normalize(const Quaternion& quaternion)
 {
-    Quaternion result(quaternion);
+    auto result = Quaternion(quaternion);
 
     result.Normalize();
 

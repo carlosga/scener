@@ -79,7 +79,7 @@ void AnimationPlayer::Update(const TimeSpan& time
 
 void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& relativeToCurrentTime)
 {
-    TimeSpan currentTime(time);
+    auto currentTime = TimeSpan(time);
 
     // Update the animation position.
     if (relativeToCurrentTime)
@@ -112,7 +112,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
 
     while (currentKeyframe < keyframes.size())
     {
-        Keyframe keyframe = keyframes[this->currentKeyframe];
+        auto keyframe = keyframes[this->currentKeyframe];
 
         // Stop when we've read up to the current time position.
         if (keyframe.Time() > this->currentTimeValue)

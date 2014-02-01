@@ -42,8 +42,8 @@ WarForrest::~WarForrest()
 
 void WarForrest::Update(const RenderTime& renderTime)
 {
-    Single aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
-    Single newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
+    auto aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
+    auto newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
 
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationX(-MathHelper::PiOver2)

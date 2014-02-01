@@ -52,9 +52,9 @@ std::vector<UByte> IndexBuffer::GetData() const
 
 std::vector<UByte> IndexBuffer::GetData(const Size& startIndex, const Size& elementCount) const
 {
-    Size offset = (startIndex * this->GetElementSizeInBytes());
-    Size size   = (elementCount * this->GetElementSizeInBytes());
-    std::vector<UByte> data(size);
+    auto offset = (startIndex * this->GetElementSizeInBytes());
+    auto size   = (elementCount * this->GetElementSizeInBytes());
+    auto data   = std::vector<UByte>(size);
 
     this->ibo.GetData(offset, size, data.data());
 

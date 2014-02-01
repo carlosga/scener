@@ -141,11 +141,11 @@ namespace System
              */
             Double ReadDouble();
 
-        private:
+        public:
             BinaryReader() = delete;
-			BinaryReader(const BinaryReader& reader) = delete;
-			BinaryReader& operator=(const BinaryReader& reader) = delete;
-			
+            BinaryReader(const BinaryReader& reader) = delete;
+            BinaryReader& operator=(const BinaryReader& reader) = delete;
+
 	    private:
             Stream&                       stream;
             const System::Text::Encoding& encoding;

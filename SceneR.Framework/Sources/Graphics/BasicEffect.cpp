@@ -355,16 +355,13 @@ void BasicEffect::End()
 
 void BasicEffect::OnApply()
 {
-    Matrix viewInverse(this->view);
-    Matrix worldView(this->world * this->view);
-    Matrix worldViewProjection(worldView * this->projection);
-    Matrix worldInverseTranspose(this->world);
+    auto viewInverse           = Matrix::Invert(this->view);
+    auto worldView             = Matrix(this->world * this->view);
+    auto worldViewProjection   = Matrix(worldView * this->projection);
+    auto worldInverseTranspose = Matrix::Invert(this->world);
 
-    viewInverse.Invert();
-    worldInverseTranspose.Invert();
-
-    Vector3 eyePosition(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
-    Vector3 emissive((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
+    auto eyePosition = Vector3(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
+    auto emissive    = Vector3((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
 
     this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor() * this->alpha, this->alpha));
 
