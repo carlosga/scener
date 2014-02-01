@@ -93,7 +93,8 @@ namespace System
             virtual Size Seek(const Size& offset, const std::ios::seekdir& origin) override;
 
 		private:
-            FileStream(const FileStream& stream);
+            FileStream() = delete;
+            FileStream(const FileStream& stream) = delete;
 			FileStream& operator=(const FileStream& stream) = delete;
 
         private:		

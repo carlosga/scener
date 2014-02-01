@@ -142,6 +142,7 @@ namespace System
             Double ReadDouble();
 
         private:
+            BinaryReader() = delete;
 			BinaryReader(const BinaryReader& reader) = delete;
 			BinaryReader& operator=(const BinaryReader& reader) = delete;
 			
