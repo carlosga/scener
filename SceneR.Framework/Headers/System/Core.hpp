@@ -21,20 +21,20 @@
 
 namespace System
 {
-    typedef char16_t       Char;
-    typedef bool           Boolean;
-    typedef int8_t         Byte;
-    typedef uint8_t        UByte;
-    typedef int16_t        Int16;
-    typedef uint16_t       UInt16;
-    typedef int32_t        Int32;
-    typedef uint32_t       UInt32;
-    typedef int64_t        Int64;
-    typedef uint64_t       UInt64;
-    typedef float          Single;
-    typedef double         Double;
-    typedef size_t         Size;
-    typedef std::u16string String;
+    using Char    = char16_t;
+    using Boolean = bool;
+    using Byte    = int8_t;
+    using UByte   = uint8_t;
+    using Int16   = int16_t;
+    using UInt16  = uint16_t;
+    using Int32   = int32_t;
+    using UInt32  = uint32_t;
+    using Int64   = int64_t;
+    using UInt64  = uint64_t;
+    using Single  = float;
+    using Double  = double;
+    using Size    = size_t;
+    using String  = std::u16string;
 }
 
 #endif  /* CORE_HPP */

@@ -104,7 +104,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         for (UInt32 i = 0; i < meshPartCount; i++)
         {
-            std::shared_ptr<ModelMeshPart> modelMeshPart = std::make_shared<ModelMeshPart>();
+            auto modelMeshPart = std::make_shared<ModelMeshPart>();
 
             modelMeshPart->vertexOffset   = input.ReadUInt32();
             modelMeshPart->vertexCount    = input.ReadUInt32();
@@ -171,7 +171,7 @@ System::String ModelReader::ReadString(ContentReader& input)
 
 std::shared_ptr<BoundingSphere> ModelReader::ReadBoundingSphere(ContentReader& input)
 {
-    BoundingSphereReader reader;
+    auto reader = BoundingSphereReader();
 
     return std::static_pointer_cast<BoundingSphere>(reader.Read(input));
 }

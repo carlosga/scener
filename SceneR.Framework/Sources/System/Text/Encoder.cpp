@@ -29,7 +29,7 @@ Encoder::~Encoder()
 
 Size Encoder::GetByteCount(const Char* chars, const Size& count, const Boolean& flush) const
 {
-    std::vector<Char> vchars(chars, chars + count);
+    auto vchars = std::vector<Char>(chars, chars + count);
 
     return this->GetByteCount(vchars, 0, count, flush);
 }
@@ -40,13 +40,13 @@ Size Encoder::GetBytes(const Char*    chars
                      , const Size&    byteCount
                      , const Boolean& flush) const
 {
-    std::vector<Char>  vchars(chars, chars + charCount);
-    std::vector<UByte> vbytes;
+    auto vchars = std::vector<Char>(chars, chars + charCount);
+    auto vbytes = std::vector<UByte>();
 
     vbytes.reserve(this->GetByteCount(vchars, 0, charCount, flush));
 
-    Size totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
-    Size result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
+    auto totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
+    auto result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
 
     std::copy_n(vbytes.begin(), result, bytes);
 

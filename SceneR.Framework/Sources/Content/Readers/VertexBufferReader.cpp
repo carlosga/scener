@@ -34,11 +34,11 @@ VertexBufferReader::VertexBufferReader()
 
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
-    auto&  gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto   vDecl       = this->ReadVertexDeclaration(input);
-    UInt32 vertexCount = input.ReadUInt32();
-    auto   buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice(), vertexCount, vDecl);
-    auto   data        = input.ReadBytes(buffer->VertexCount() * vDecl->VertexStride());
+    auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+    auto  vDecl       = this->ReadVertexDeclaration(input);
+    auto  vertexCount = input.ReadUInt32();
+    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice(), vertexCount, vDecl);
+    auto  data        = input.ReadBytes(buffer->VertexCount() * vDecl->VertexStride());
 
     buffer->SetData(data.data());
 

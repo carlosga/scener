@@ -17,10 +17,8 @@
 #ifndef UTF8DECODER_HPP
 #define UTF8DECODER_HPP
 
-#include <System/Core.hpp>
 #include <System/Text/Decoder.hpp>
 #include <codecvt>
-#include <vector>
 
 namespace System
 {
@@ -28,8 +26,6 @@ namespace System
     {
         class UTF8Decoder : public Decoder
         {
-            typedef std::codecvt_utf8<char16_t> Converter;
-
         public:
             UTF8Decoder();
 
@@ -49,7 +45,7 @@ namespace System
             virtual void Reset();
 
         private:
-            UTF8Decoder::Converter converter;
+            std::codecvt_utf8<char16_t> converter;
         };
     }
 }

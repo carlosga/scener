@@ -34,12 +34,11 @@ AnimationClipMapReader::AnimationClipMapReader()
 std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
 {
     auto animationClips = std::make_shared<std::map<String, AnimationClip>>();
-
-    Int32 clipCount = input.ReadInt32();
+    auto clipCount      = input.ReadInt32();
 
     for (Int32 i = 0; i < clipCount; i++)
     {
-        String clipName = *input.ReadObject<String>();
+        auto clipName = *input.ReadObject<String>();
 
         animationClips->emplace(clipName, *input.ReadObject<AnimationClip>());
     }

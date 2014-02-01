@@ -29,14 +29,14 @@ namespace System
     struct TimeSpan
     {
     public:
-        typedef std::chrono::high_resolution_clock                             Clock;
-        typedef std::chrono::duration<System::Double, std::ratio<86400>>       DaysDuration;
-        typedef std::chrono::duration<System::Double, std::ratio<3600>>        HoursDuration;
-        typedef std::chrono::duration<System::Double, std::ratio<60>>          MinutesDuration;
-        typedef std::chrono::duration<System::Double>                          SecondsDuration;
-        typedef std::chrono::duration<System::Double, std::ratio<1, 1000>>     MillisecondsDuration;
-        typedef std::chrono::duration<System::Double, std::ratio<1, 1000000>>  MicrosecondsDuration;
-        typedef std::chrono::duration<System::Int64 , std::ratio<1, 10000000>> TicksDuration;
+        using Clock                = std::chrono::high_resolution_clock;
+        using DaysDuration         = std::chrono::duration<System::Double, std::ratio<86400>>;
+        using HoursDuration        = std::chrono::duration<System::Double, std::ratio<3600>>;
+        using MinutesDuration      = std::chrono::duration<System::Double, std::ratio<60>>;
+        using SecondsDuration      = std::chrono::duration<System::Double>;
+        using MillisecondsDuration = std::chrono::duration<System::Double, std::ratio<1, 1000>>;
+        using MicrosecondsDuration = std::chrono::duration<System::Double, std::ratio<1, 1000000>>;
+        using TicksDuration        = std::chrono::duration<System::Int64 , std::ratio<1, 10000000>>;
 
     public:
         /**

@@ -36,7 +36,7 @@ Size UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
 
     for (Size i = index; i < (index + count);)
     {
-        Char buffer    = bytes[i];
+        auto buffer    = bytes[i];
         Size byteCount = 1;
 
         // http://xbox.create.msdn.com/en-US/sample/xnb_format
@@ -62,18 +62,16 @@ Size UTF8Decoder::GetChars(const std::vector<UByte>& bytes
                          , std::vector<Char>&        chars
                          , const Size&               charIndex) const
 {
-    auto           from     = (char*)&bytes[0] + byteIndex;
-    auto           fromEnd  = from + byteCount;
-    const char*    fromNext = nullptr;
-    auto           to       = std::vector<Char>(byteCount);
-    auto           toStart  = &to[0];
-    auto           toEnd    = toStart + byteCount;
-    Char*          toNext   = nullptr;
-    auto           iterator = chars.begin() + charIndex;
-    std::mbstate_t state    = std::mbstate_t();
-    std::codecvt_base::result status;
-
-    status = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    auto        from     = (char*)&bytes[0] + byteIndex;
+    auto        fromEnd  = from + byteCount;
+    const char* fromNext = nullptr;
+    auto        to       = std::vector<Char>(byteCount);
+    auto        toStart  = &to[0];
+    auto        toEnd    = toStart + byteCount;
+    Char*       toNext   = nullptr;
+    auto        iterator = chars.begin() + charIndex;
+    auto        state    = std::mbstate_t();
+    auto        status   = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
     if (status == std::codecvt_base::error)
     {

@@ -127,20 +127,20 @@ void ContentReader::ReadHeader()
 
 void ContentReader::ReadManifest()
 {
-    Int32 typeReaderCount = this->Read7BitEncodedInt();
+    auto typeReaderCount = this->Read7BitEncodedInt();
 
     typeReaders.clear();
 
     for (Int32 i = 0; i < typeReaderCount; i++)
     {
         // Read the type reader name.
-        String readerName = this->ReadString();
+        auto readerName = this->ReadString();
 
         // Read the type reader version.
         this->ReadInt32();
 
         // Look up and store this type reader implementation class.
-        ContentTypeReader* reader = this->typeReaderManager.GetByReaderName(readerName);
+        auto reader = this->typeReaderManager.GetByReaderName(readerName);
 
         assert(reader != nullptr);
 
@@ -154,7 +154,7 @@ void ContentReader::ReadSharedResources()
 {
     for (Int32 i = 0; i < this->sharedResourceCount; i++)
     {
-        Int32 sharedResourceType = this->Read7BitEncodedInt();
+        auto sharedResourceType = this->Read7BitEncodedInt();
 
         if (sharedResourceType != 0)
         {

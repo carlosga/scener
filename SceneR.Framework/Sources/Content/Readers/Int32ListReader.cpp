@@ -27,8 +27,8 @@ Int32ListReader::Int32ListReader()
 
 std::shared_ptr<void> Int32ListReader::Read(ContentReader& input)
 {
-    auto  values = std::make_shared<std::vector<Int32>>();
-    Int32 count  = input.ReadInt32();
+    auto values = std::make_shared<std::vector<Int32>>();
+    auto count  = input.ReadInt32();
 
     values->reserve(count);
 

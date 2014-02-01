@@ -42,7 +42,7 @@ std::shared_ptr<void> SkinnedEffectReader::Read(ContentReader& input)
     effect->EnableDefaultLighting();
 
     // Pointer to a separate .xnb file which contains an object of type Texture2D
-    String assetName = input.ReadString();
+    auto assetName = input.ReadString();
 
     if (assetName.size() > 0)
     {

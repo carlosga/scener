@@ -29,8 +29,8 @@ KeyframeListReader::KeyframeListReader()
 
 std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
 {
-    auto  keyframes     = std::make_shared<std::vector<Keyframe>>();
-    Int32 keyframeCount = input.ReadInt32();
+    auto keyframes     = std::make_shared<std::vector<Keyframe>>();
+    auto keyframeCount = input.ReadInt32();
 
     keyframes->reserve(keyframeCount);
 

@@ -29,8 +29,8 @@ MatrixListReader::MatrixListReader()
 
 std::shared_ptr<void> MatrixListReader::Read(ContentReader& input)
 {
-    auto  matrices    = std::make_shared<std::vector<Matrix>>();
-    Int32 matrixCount = input.ReadInt32();
+    auto matrices    = std::make_shared<std::vector<Matrix>>();
+    auto matrixCount = input.ReadInt32();
 
     matrices->reserve(matrixCount);
 

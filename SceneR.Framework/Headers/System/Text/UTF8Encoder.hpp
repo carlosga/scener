@@ -18,6 +18,7 @@
 #define UTF8ENCODER_HPP
 
 #include <System/Text/Encoder.hpp>
+#include <codecvt>
 
 namespace System
 {
@@ -25,8 +26,6 @@ namespace System
     {
         class UTF8Encoder : public Encoder
         {
-            typedef std::codecvt_utf8<char16_t> Converter;
-
         public:
             UTF8Encoder();
 
@@ -46,7 +45,7 @@ namespace System
                                         , const System::Boolean&           flush) const override;
 
         private:
-            UTF8Encoder::Converter converter;
+            std::codecvt_utf8<char16_t> converter;
         };
     }
 }

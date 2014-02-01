@@ -27,7 +27,7 @@ StringReader::StringReader()
 
 std::shared_ptr<void> StringReader::Read(ContentReader& input)
 {
-    String tmp = input.ReadString();
+    auto tmp = input.ReadString();
 
     return std::make_shared<String>(tmp.begin(), tmp.end());
 }

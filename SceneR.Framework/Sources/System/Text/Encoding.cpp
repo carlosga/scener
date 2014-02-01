@@ -52,16 +52,14 @@ std::vector<UByte> Encoding::Convert(const Encoding&           srcEncoding
 
 std::string Encoding::Convert(const String& source)
 {
-    typedef std::codecvt_utf8_utf16<Char> convert_type; // UTF-8 <-> UTF-16 converter
-    std::wstring_convert<convert_type, Char> converter;
+    std::wstring_convert<std::codecvt_utf8_utf16<Char>, Char> converter; // UTF-8 <-> UTF-16 converter
 
     return converter.to_bytes(source);
 };
 
 System::String Encoding::Convert(const std::string& source)
 {
-    typedef std::codecvt_utf8_utf16<Char> convert_type; // UTF-8 <-> UTF-16 converter
-    std::wstring_convert<convert_type, Char> converter;
+    std::wstring_convert<std::codecvt_utf8_utf16<Char>, Char> converter; // UTF-8 <-> UTF-16 converter
 
     return converter.from_bytes(source);
 };
@@ -78,14 +76,14 @@ Size Encoding::GetByteCount(const std::vector<Char>& chars) const
 
 Size Encoding::GetByteCount(const String& s) const
 {
-    std::vector<Char> temp(s.begin(), s.end());
+    auto temp = std::vector<Char>(s.begin(), s.end());
 
     return this->GetByteCount(temp, 0, temp.size());
 }
 
 Size Encoding::GetByteCount(const Char* chars, const Size& count) const
 {
-    std::vector<Char> temp(chars, chars + count);
+    auto temp = std::vector<Char>(chars, chars + count);
 
     return this->GetByteCount(temp, 0, count);
 }
@@ -97,7 +95,7 @@ std::vector<UByte> Encoding::GetBytes(const std::vector<Char>& chars) const
 
 std::vector<UByte> Encoding::GetBytes(const String& s) const
 {
-    std::vector<Char> temp(s.begin(), s.end());
+    auto temp = std::vector<Char>(s.begin(), s.end());
 
     return this->GetBytes(temp, 0, temp.size());
 }
@@ -106,7 +104,7 @@ std::vector<UByte> Encoding::GetBytes(const std::vector<Char>& chars
                                     , const Size&              index
                                     , const Size&              count) const
 {
-    std::vector<UByte> result;
+    auto result = std::vector<UByte>();
 
     result.reserve(this->GetByteCount(chars, index, count));
 
@@ -139,7 +137,7 @@ Size Encoding::GetCharCount(const std::vector<UByte>& bytes) const
 
 Size Encoding::GetCharCount(const UByte* bytes, const Size& count) const
 {
-    std::vector<UByte> temp(bytes, bytes + count);
+    auto temp = std::vector<UByte>(bytes, bytes + count);
 
     return this->GetCharCount(temp, 0, count);
 }
@@ -153,7 +151,7 @@ std::vector<Char> Encoding::GetChars(const std::vector<UByte>& bytes
                                    , const Size&               index
                                    , const Size&               count) const
 {
-    std::vector<Char> result;
+    auto result = std::vector<Char>();
 
     result.reserve(this->GetCharCount(bytes, index, count));
 
@@ -179,8 +177,7 @@ String Encoding::GetString(const std::vector<UByte>& bytes
                          , const Size&               index
                          , const Size&               count) const
 {
-    std::vector<Char> chars = this->GetChars(bytes, index, count);
-    String result(chars.begin(), chars.end());
+    auto chars = this->GetChars(bytes, index, count);
 
-    return result;
+    return String(chars.begin(), chars.end());
 }

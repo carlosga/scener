@@ -79,18 +79,17 @@ Size UTF8Encoder::GetBytes(const std::vector<Char>& chars
                          , const Size&              byteIndex
                          , const Boolean&           flush) const
 {
-    Char*          from     = const_cast<Char*>(&chars[0] + charIndex);
-    Char*          fromEnd  = from + charCount;
-    const Char*    fromNext = nullptr;
-    auto           size     = charCount * this->converter.max_length();
-    auto           to       = std::vector<char>(size);
-    auto           toStart  = &to[0];
-    auto           toEnd    = toStart + size;
-    char*          toNext   = nullptr;
-    auto           iterator = bytes.begin() + byteIndex;
-    std::mbstate_t state    = std::mbstate_t();
-
-    std::codecvt_base::result r = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    auto        from     = const_cast<Char*>(&chars[0] + charIndex);
+    auto        fromEnd  = from + charCount;
+    const Char* fromNext = nullptr;
+    auto        size     = charCount * this->converter.max_length();
+    auto        to       = std::vector<char>(size);
+    auto        toStart  = &to[0];
+    auto        toEnd    = toStart + size;
+    char*       toNext   = nullptr;
+    auto        iterator = bytes.begin() + byteIndex;
+    auto        state    = std::mbstate_t();
+    auto        r        = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
     if (r == std::codecvt_base::error)
     {

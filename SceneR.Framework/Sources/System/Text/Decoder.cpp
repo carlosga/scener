@@ -29,7 +29,7 @@ Decoder::~Decoder()
 
 Size Decoder::GetCharCount(const UByte* bytes, const Size& count, const Boolean& flush) const
 {
-    std::vector<UByte> vbytes(bytes, bytes + count);
+    auto vbytes = std::vector<UByte>(bytes, bytes + count);
 
     return this->GetCharCount(vbytes, 0, count, flush);
 }
@@ -48,13 +48,13 @@ Size Decoder::GetChars(const UByte*   bytes
                      , const Size&    charCount
                      , const Boolean& flush) const
 {
-    std::vector<UByte> vbytes(bytes, bytes + byteCount);
-    std::vector<Char>  vchars;
+    auto vbytes = std::vector<UByte>(bytes, bytes + byteCount);
+    auto vchars = std::vector<Char>();
 
     vchars.reserve(this->GetCharCount(vbytes, 0, byteCount, flush));
 
-    Size totalChars = this->GetChars(vbytes, 0, byteCount, vchars, 0, flush);
-    Size result     = ((totalChars > charCount) ? charCount : totalChars);
+    auto totalChars = this->GetChars(vbytes, 0, byteCount, vchars, 0, flush);
+    auto result     = ((totalChars > charCount) ? charCount : totalChars);
 
     std::copy_n(vchars.begin(), result, chars);
 

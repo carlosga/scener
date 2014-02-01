@@ -63,11 +63,7 @@ namespace SceneR
              */
             const System::String RootDirectory();
 
-            /**
-             * Disposes all data that was loaded by this ContentManager.
-             */
-            void Unload();
-
+        public:
             /**
              * Loads a the given asset.
              */
@@ -76,6 +72,11 @@ namespace SceneR
             {
                 return this->ReadAsset<T>(assetName);
             };
+
+            /**
+             * Disposes all data that was loaded by this ContentManager.
+             */
+            void Unload();
 
         protected:
             /**
@@ -92,9 +93,9 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> ReadAsset(const System::String& assetName) throw(ContentLoadException)
             {
-                auto          stream = this->OpenStream(assetName);
+                auto stream = this->OpenStream(assetName);
                 ContentReader reader(assetName, *this, *stream);
-                auto          asset = reader.ReadObject<T>();
+                auto asset = reader.ReadObject<T>();
 
                 reader.ReadSharedResources();
 
