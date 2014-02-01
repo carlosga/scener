@@ -80,14 +80,14 @@ UInt32 Color::PackedValue() const
          +  (static_cast<int>(this->a) * 255);
 }
 
-Single& Color::operator[](const Int32& index)
+Single& Color::operator[](const Size& index)
 {
-    assert(index >= 0 && index < 4);
+    assert(index < 4);
 
     return (this->color[index]);
 }
 
-const Single& Color::operator[](const Int32& index) const
+const Single& Color::operator[](const Size& index) const
 {
     assert(index >= 0 && index < 4);
 

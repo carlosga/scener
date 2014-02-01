@@ -267,16 +267,16 @@ void Quaternion::Normalize()
     (*this /= this->Length());
 }
 
-Single& Quaternion::operator[](const Int32& index)
+Single& Quaternion::operator[](const Size& index)
 {
-    assert(index >= 0 && index < 4);
+    assert(index < 4);
 
     return (this->quaternion[index]);
 }
 
-const Single& Quaternion::operator[](const Int32& index) const
+const Single& Quaternion::operator[](const Size& index) const
 {
-    assert(index >= 0 && index < 4);
+    assert(index < 4);
 
     return (this->quaternion[index]);
 }

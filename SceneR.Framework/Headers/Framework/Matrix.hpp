@@ -421,8 +421,8 @@ namespace SceneR
             void Transpose();
 
         public:
-            System::Single& operator[](const System::UInt32& index);
-            const System::Single& operator[](const System::UInt32& index) const;
+            System::Single& operator[](const System::Size& index);
+            const System::Single& operator[](const System::Size& index) const;
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;
             Matrix& operator*=(const Matrix& matrix);

@@ -25,9 +25,9 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
-                         , System::UInt32                                       vertexCount
-                         , std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)
+VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
+                         , const System::Size&                                         vertexCount
+                         , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
     : GraphicsResource(graphicsDevice)
     , vertexDeclaration(vertexDeclaration)
     , vertexCount(vertexCount)
@@ -43,7 +43,7 @@ VertexBuffer::~VertexBuffer()
 {
 }
 
-const UInt32& VertexBuffer::VertexCount() const
+const Size& VertexBuffer::VertexCount() const
 {
     return this->vertexCount;
 }
@@ -53,10 +53,10 @@ std::vector<UByte> VertexBuffer::GetData() const
     return this->GetData(0, this->vertexCount);
 }
 
-std::vector<UByte> VertexBuffer::GetData(const Int32& startIndex, const Int32& elementCount) const
+std::vector<UByte> VertexBuffer::GetData(const Size& startIndex, const Size& elementCount) const
 {
-    UInt32 offset = (startIndex * this->vertexDeclaration->VertexStride());
-    UInt32 size   = (elementCount * this->vertexDeclaration->VertexStride());
+    Size offset = (startIndex * this->vertexDeclaration->VertexStride());
+    Size size   = (elementCount * this->vertexDeclaration->VertexStride());
     std::vector<UByte> data(size);
 
     this->vbo.GetData(offset, size, data.data());

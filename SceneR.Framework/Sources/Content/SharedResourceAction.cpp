@@ -30,7 +30,7 @@ SharedResourceAction::~SharedResourceAction()
 {
 }
 
-const Int32& SharedResourceAction::Id() const
+const UInt32& SharedResourceAction::Id() const
 {
     return this->id;
 }

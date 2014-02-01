@@ -37,10 +37,8 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(const System::Single& x
-                   , const System::Single& y
-                   , const System::Size&   width
-                   , const System::Size&   height);
+            Viewport(const System::Single& x    , const System::Single& y
+                   , const System::Single& width, const System::Single& height);
 
             /**
              * Initializes a new instance of the ViewPort class
@@ -73,10 +71,10 @@ namespace SceneR
 
             void MaxDepth(const System::Single& maxDepth);
 
-            void Update(const System::UInt32& x  , const System::UInt32& y
-                      , const System::Size& width, const System::Size& height);
+            void Update(const System::Single& x    , const System::Single& y
+                      , const System::Single& width, const System::Single& height);
 
-            void Update(const System::Size& width, const System::Size& height);
+            void Update(const System::Single& width, const System::Single& height);
 
             void Refresh() const;
 

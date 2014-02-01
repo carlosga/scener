@@ -28,7 +28,7 @@ UTF8Encoding::~UTF8Encoding()
 {
 }
 
-const std::u16string UTF8Encoding::EncodingName() const
+const String UTF8Encoding::EncodingName() const
 {
     return u"Unicode (UTF-8)";
 }
@@ -38,44 +38,44 @@ bool UTF8Encoding::IsSingleByte() const
     return false;
 }
 
-UInt32 UTF8Encoding::GetByteCount(const std::vector<Char>& chars
-                                , const UInt32&            index
-                                , const UInt32&            count) const
+Size UTF8Encoding::GetByteCount(const std::vector<Char>& chars
+                              , const Size&              index
+                              , const Size&              count) const
 {
     return this->encoder.GetByteCount(chars, index, count, false);
 }
 
-UInt32 UTF8Encoding::GetBytes(const std::vector<Char>& chars
-                            , const UInt32&            charIndex
-                            , const UInt32&            charCount
-                            , std::vector<UByte>&      bytes
-                            , const UInt32&            byteIndex) const
+Size UTF8Encoding::GetBytes(const std::vector<Char>& chars
+                          , const Size&              charIndex
+                          , const Size&              charCount
+                          , std::vector<UByte>&      bytes
+                          , const Size&              byteIndex) const
 {
     return this->encoder.GetBytes(chars, charIndex, charCount, bytes, byteIndex, false);
 }
 
-UInt32 UTF8Encoding::GetCharCount(const std::vector<UByte>& bytes
-                                , const UInt32&             index
-                                , const UInt32&             count) const
+Size UTF8Encoding::GetCharCount(const std::vector<UByte>& bytes
+                              , const Size&               index
+                              , const Size&               count) const
 {
     return this->decoder.GetCharCount(bytes, index, count);
 }
 
-UInt32 UTF8Encoding::GetChars(const std::vector<UByte>& bytes
-                            , const UInt32&             byteIndex
-                            , const UInt32&             byteCount
-                            , std::vector<Char>&        chars
-                            , const UInt32&             charIndex) const
+Size UTF8Encoding::GetChars(const std::vector<UByte>& bytes
+                          , const Size&               byteIndex
+                          , const Size&               byteCount
+                          , std::vector<Char>&        chars
+                          , const Size&               charIndex) const
 {
     return this->decoder.GetChars(bytes, byteIndex, byteCount, chars, charIndex);
 }
 
-UInt32 UTF8Encoding::GetMaxByteCount(const UInt32& charCount)
+Size UTF8Encoding::GetMaxByteCount(const Size& charCount)
 {
     return (charCount * 4);
 }
 
-UInt32 UTF8Encoding::GetMaxCharCount(const UInt32& byteCount)
+Size UTF8Encoding::GetMaxCharCount(const Size& byteCount)
 {
     return byteCount; // Every character could be 1 byte lenght
 }

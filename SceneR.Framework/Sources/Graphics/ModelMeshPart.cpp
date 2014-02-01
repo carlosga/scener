@@ -53,17 +53,17 @@ const std::shared_ptr<SceneR::Graphics::IndexBuffer>& ModelMeshPart::IndexBuffer
     return this->indexBuffer;
 }
 
-const Int32& ModelMeshPart::VertexCount() const
+const Size& ModelMeshPart::VertexCount() const
 {
     return this->vertexCount;
 }
 
-const Int32& ModelMeshPart::PrimitiveCount() const
+const Size& ModelMeshPart::PrimitiveCount() const
 {
     return this->primitiveCount;
 }
 
-const Int32& ModelMeshPart::StartIndex() const
+const Size& ModelMeshPart::StartIndex() const
 {
     return this->startIndex;
 }
@@ -83,7 +83,7 @@ const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuff
     return this->vertexBuffer;
 }
 
-const Int32& ModelMeshPart::VertexOffset() const
+const Size& ModelMeshPart::VertexOffset() const
 {
     return this->vertexOffset;
 }

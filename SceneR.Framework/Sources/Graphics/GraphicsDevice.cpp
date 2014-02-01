@@ -67,11 +67,11 @@ void GraphicsDevice::Clear(const Color& color) const
 }
 
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                         , const UInt32&        baseVertex
-                                         , const UInt32&        minVertexIndex
-                                         , const UInt32&        numVertices
-                                         , const UInt32&        startIndex
-                                         , const UInt32&        primitiveCount) const
+                                         , const Size&          baseVertex
+                                         , const Size&          minVertexIndex
+                                         , const Size&          numVertices
+                                         , const Size&          startIndex
+                                         , const Size&          primitiveCount) const
 {
     if (this->indexBuffer == nullptr)
     {
@@ -106,8 +106,8 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
 }
 
 void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
-                                  , const UInt32&        startVertex
-                                  , const UInt32&        primitiveCount) const
+                                  , const Size&          startVertex
+                                  , const Size&          primitiveCount) const
 {
     if (this->vertexBuffer == nullptr)
     {

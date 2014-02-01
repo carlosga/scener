@@ -38,7 +38,7 @@ const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
     return this->children;
 }
 
-const UInt32& ModelBone::Index() const
+const Size& ModelBone::Index() const
 {
     return this->index;
 }

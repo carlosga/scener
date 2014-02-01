@@ -58,12 +58,12 @@ void PresentationParameters::BackBufferWidth(const Size& backBufferWidth)
     this->backBufferWidth = backBufferWidth;
 }
 
-const System::UInt32& PresentationParameters::MultiSampleCount() const
+const System::Size& PresentationParameters::MultiSampleCount() const
 {
     return this->multiSampleCount;
 }
 
-void PresentationParameters::MultiSampleCount(const System::UInt32& multiSampleCount)
+void PresentationParameters::MultiSampleCount(const System::Size& multiSampleCount)
 {
     this->multiSampleCount = multiSampleCount;
 }

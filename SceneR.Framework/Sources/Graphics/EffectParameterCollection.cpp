@@ -18,7 +18,7 @@
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <algorithm>
-#include <stdexcept>
+#include <cassert>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -41,13 +41,17 @@ System::Size EffectParameterCollection::Count() const
     return this->parameters.size();
 }
 
-EffectParameter& EffectParameterCollection::operator[](const Int32& parameterIndex)
+EffectParameter& EffectParameterCollection::operator[](const Size& parameterIndex)
 {
+    assert(parameterIndex < this->parameters.size());
+
     return this->parameters[parameterIndex];
 }
 
-const EffectParameter& EffectParameterCollection::operator[](const Int32& parameterIndex) const
+const EffectParameter& EffectParameterCollection::operator[](const Size& parameterIndex) const
 {
+    assert(parameterIndex < this->parameters.size());
+
     return this->parameters[parameterIndex];
 }
 
@@ -59,10 +63,7 @@ EffectParameter& EffectParameterCollection::operator[](const String& parameterNa
                                return (parameter.Name() == parameterName);
                            });
 
-    if (it == this->parameters.end())
-    {
-        throw std::runtime_error("Parameter not found");
-    }
+    assert (it != this->parameters.end());
 
     return *it;
 }
@@ -75,10 +76,7 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
                                return parameter.Name() == parameterName;
                            });
 
-    if (it == this->parameters.end())
-    {
-        throw std::runtime_error("Parameter not found");
-    }
+    assert (it != this->parameters.end());
 
     return *it;
 }

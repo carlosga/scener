@@ -197,16 +197,16 @@ void Vector4::Normalize()
     (*this /= this->Length());
 }
 
-Single& Vector4::operator[](const Int32& index)
+Single& Vector4::operator[](const Size& index)
 {
-    assert(index >= 0 && index < 4);
+    assert(index < 4);
 
     return (this->vector[index]);
 }
 
-const Single& Vector4::operator[](const Int32& index) const
+const Single& Vector4::operator[](const Size& index) const
 {
-    assert(index >= 0 && index < 4);
+    assert(index < 4);
 
     return (this->vector[index]);
 }

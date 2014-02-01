@@ -28,12 +28,12 @@ UTF8Encoder::~UTF8Encoder()
 {
 }
 
-UInt32 UTF8Encoder::GetByteCount(const std::vector<Char>& chars
-                               , const UInt32&            index
-                               , const UInt32&            count
-                               , const Boolean&           flush) const
+Size UTF8Encoder::GetByteCount(const std::vector<Char>& chars
+                             , const Size&              index
+                             , const Size&              count
+                             , const Boolean&           flush) const
 {
-    int32_t byteCount = 0;
+    Size byteCount = 0;
 
     /**
      * Unicode code points
@@ -42,10 +42,10 @@ UInt32 UTF8Encoder::GetByteCount(const std::vector<Char>& chars
      * 0800-FFFF       (16 bits)
      * 010000-10FFFF   (21 bits)
      */
-    for (UInt32 i = index; i < (index + count); i++)
+    for (Size i = index; i < (index + count); i++)
     {
-        Char   buffer = chars[i];
-        UInt32 offset = 1;
+        Char buffer = chars[i];
+        Size offset = 1;
 
         if (((buffer >> 7) & 0xff) & 0x7F)
         {
@@ -72,12 +72,12 @@ UInt32 UTF8Encoder::GetByteCount(const std::vector<Char>& chars
     return byteCount;
 }
 
-UInt32 UTF8Encoder::GetBytes(const std::vector<Char>& chars
-                           , const UInt32&            charIndex
-                           , const UInt32&            charCount
-                           , std::vector<UByte>&      bytes
-                           , const UInt32&            byteIndex
-                           , const Boolean&           flush) const
+Size UTF8Encoder::GetBytes(const std::vector<Char>& chars
+                         , const Size&              charIndex
+                         , const Size&              charCount
+                         , std::vector<UByte>&      bytes
+                         , const Size&              byteIndex
+                         , const Boolean&           flush) const
 {
     Char*          from     = const_cast<Char*>(&chars[0] + charIndex);
     Char*          fromEnd  = from + charCount;
@@ -107,5 +107,5 @@ UInt32 UTF8Encoder::GetBytes(const std::vector<Char>& chars
         }
     }
 
-    return static_cast<UInt32>(toNext - toStart);
+    return static_cast<Size>(toNext - toStart);
 }

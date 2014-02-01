@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Gets the shared resource id.
              */
-            const System::Int32& Id() const;
+            const System::UInt32& Id() const;
 
             /**
              * Gets the shared resource fixup action callback.
@@ -56,7 +56,7 @@ namespace SceneR
             void Callback(const std::shared_ptr<void>& value);
 
         private:
-            System::Int32                                     id;
+            System::UInt32                                    id;
             std::function<void(const std::shared_ptr<void>&)> action;
         };
     }

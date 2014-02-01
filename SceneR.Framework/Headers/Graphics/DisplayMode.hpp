@@ -59,18 +59,18 @@ namespace SceneR
             /**
              * Gets a value indicating the screen height, in pixels.
              */
-            const System::UInt32& Height() const;
+            const System::Size& Height() const;
 
             /**
              * Gets a value indicating the screen width, in pixels.
              */
-            const System::UInt32& Width() const;
+            const System::Size& Width() const;
 
         private:
             System::Single aspectRatio;
             SurfaceFormat  format;
-            System::UInt32 height;
-            System::UInt32 width;
+            System::Size   height;
+            System::Size   width;
 
             friend class GraphicsAdapter;
         };

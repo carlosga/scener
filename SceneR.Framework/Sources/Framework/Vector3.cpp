@@ -240,16 +240,16 @@ void Vector3::Normalize()
     (*this /= this->Length());
 }
 
-Single& Vector3::operator[](const Int32& index)
+Single& Vector3::operator[](const Size& index)
 {
-    assert(index >= 0 && index < 3);
+    assert(index < 3);
 
     return (this->vector[index]);
 }
 
-const Single& Vector3::operator[](const Int32& index) const
+const Single& Vector3::operator[](const Size& index) const
 {
-    assert(index >= 0 && index < 3);
+    assert(index < 3);
 
     return (this->vector[index]);
 }

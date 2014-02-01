@@ -45,7 +45,7 @@ DisplayMode::~DisplayMode()
 {
 }
 
-const System::Single& DisplayMode::AspectRatio() const
+const Single& DisplayMode::AspectRatio() const
 {
     return this->aspectRatio;
 }
@@ -55,12 +55,12 @@ const SurfaceFormat& DisplayMode::Format() const
     return this->format;
 }
 
-const System::UInt32& DisplayMode::Height() const
+const Size& DisplayMode::Height() const
 {
     return this->height;
 }
 
-const System::UInt32& DisplayMode::Width() const
+const Size& DisplayMode::Width() const
 {
     return this->width;
 }

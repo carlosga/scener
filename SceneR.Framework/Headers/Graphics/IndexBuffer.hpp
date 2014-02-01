@@ -39,12 +39,12 @@ namespace SceneR
              * Initializes a new instance of the IndexBuffer class.
              *
              * @param graphicsDevice the graphics device
-             * @param indexElementSize The size (in bits) of each index.
-             * @param indexCount The number of indices.
+             * @param indexElementSize the size (in bits) of each index.
+             * @param indexCount the number of indices.
              */
             IndexBuffer(GraphicsDevice&         graphicsDevice
                       , const IndexElementSize& indexElementSize
-                      , const System::UInt32&   indexCount);
+                      , const System::Size&     indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -53,9 +53,9 @@ namespace SceneR
 
         public:
             /**
-             * Gets the indices count
+             * Gets the number of indices in the buffer.
              */
-            const System::UInt32& IndexCount() const;
+            const System::Size& IndexCount() const;
 
             /**
              * Gets the size (in bits) of each index.
@@ -70,8 +70,8 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            std::vector<System::UByte> GetData(const System::Int32& startIndex
-                                             , const System::Int32& elementCount) const;
+            std::vector<System::UByte> GetData(const System::Size& startIndex
+                                             , const System::Size& elementCount) const;
 
             /**
              * Sets the indices buffer data
@@ -81,11 +81,11 @@ namespace SceneR
         private:
             void Activate() const;
             void Deactivate() const;
-            System::UInt32 GetElementSizeInBytes() const;
+            System::Size GetElementSizeInBytes() const;
 
         private:
             BufferObject                       ibo;
-            System::UInt32                     indexCount;
+            System::Size                       indexCount;
             SceneR::Graphics::IndexElementSize indexElementSize;
 
             friend class GraphicsDevice;

@@ -188,8 +188,8 @@ namespace SceneR
             void Negate();
 
         public:
-            System::Single& operator[](const System::Int32& index);
-            const System::Single& operator[](const System::Int32& index) const;
+            System::Single& operator[](const System::Size& index);
+            const System::Single& operator[](const System::Size& index) const;
             Vector2& operator=(const Vector2& vector);
             bool operator==(const Vector2& vector) const;
             bool operator!=(const Vector2& vector) const;

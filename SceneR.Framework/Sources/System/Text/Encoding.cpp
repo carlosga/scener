@@ -42,8 +42,8 @@ std::vector<UByte> Encoding::Convert(const Encoding&           srcEncoding
 std::vector<UByte> Encoding::Convert(const Encoding&           srcEncoding
                                    , const Encoding&           dstEncoding
                                    , const std::vector<UByte>& bytes
-                                   , const UInt32&             index
-                                   , const UInt32&             count)
+                                   , const Size&               index
+                                   , const Size&               count)
 {
     auto srcChars = srcEncoding.GetChars(bytes, index, count);
 
@@ -71,19 +71,19 @@ bool Encoding::IsReadOnly() const
     return true;
 }
 
-UInt32 Encoding::GetByteCount(const std::vector<Char>& chars) const
+Size Encoding::GetByteCount(const std::vector<Char>& chars) const
 {
     return this->GetByteCount(chars, 0, chars.size());
 }
 
-UInt32 Encoding::GetByteCount(const String& s) const
+Size Encoding::GetByteCount(const String& s) const
 {
     std::vector<Char> temp(s.begin(), s.end());
 
     return this->GetByteCount(temp, 0, temp.size());
 }
 
-UInt32 Encoding::GetByteCount(const Char* chars, const UInt32& count) const
+Size Encoding::GetByteCount(const Char* chars, const Size& count) const
 {
     std::vector<Char> temp(chars, chars + count);
 
@@ -103,8 +103,8 @@ std::vector<UByte> Encoding::GetBytes(const String& s) const
 }
 
 std::vector<UByte> Encoding::GetBytes(const std::vector<Char>& chars
-                                    , const UInt32&            index
-                                    , const UInt32&            count) const
+                                    , const Size&              index
+                                    , const Size&              count) const
 {
     std::vector<UByte> result;
 
@@ -115,29 +115,29 @@ std::vector<UByte> Encoding::GetBytes(const std::vector<Char>& chars
     return result;
 }
 
-UInt32 Encoding::GetBytes(const Char*   chars
-                        , const UInt32& charCount
-                        , UByte*        bytes
-                        , const UInt32& byteCount) const
+Size Encoding::GetBytes(const Char* chars
+                      , const Size& charCount
+                      , UByte*      bytes
+                      , const Size& byteCount) const
 {
     return this->GetEncoder().GetBytes(chars, charCount, bytes, byteCount, false);
 }
 
-UInt32 Encoding::GetBytes(const String&       s
-                        , const UInt32&       charIndex
-                        , const UInt32&       charCount
-                        , std::vector<UByte>& bytes
-                        , const UInt32&       byteIndex) const
+Size Encoding::GetBytes(const String&       s
+                      , const Size&         charIndex
+                      , const Size&         charCount
+                      , std::vector<UByte>& bytes
+                      , const Size&         byteIndex) const
 {
     return this->GetBytes(s, charIndex, charCount, bytes, byteIndex);
 }
 
-UInt32 Encoding::GetCharCount(const std::vector<UByte>& bytes) const
+Size Encoding::GetCharCount(const std::vector<UByte>& bytes) const
 {
     return this->GetCharCount(bytes, 0, bytes.size());
 }
 
-UInt32 Encoding::GetCharCount(const UByte* bytes, const UInt32& count) const
+Size Encoding::GetCharCount(const UByte* bytes, const Size& count) const
 {
     std::vector<UByte> temp(bytes, bytes + count);
 
@@ -150,8 +150,8 @@ std::vector<Char> Encoding::GetChars(const std::vector<UByte>& bytes) const
 }
 
 std::vector<Char> Encoding::GetChars(const std::vector<UByte>& bytes
-                                   , const UInt32&             index
-                                   , const UInt32&             count) const
+                                   , const Size&               index
+                                   , const Size&               count) const
 {
     std::vector<Char> result;
 
@@ -162,10 +162,10 @@ std::vector<Char> Encoding::GetChars(const std::vector<UByte>& bytes
     return result;
 }
 
-UInt32 Encoding::GetChars(const UByte*  bytes
-                        , const UInt32& byteCount
-                        , Char*         chars
-                        , const UInt32& charCount) const
+Size Encoding::GetChars(const UByte* bytes
+                      , const Size&  byteCount
+                      , Char*        chars
+                      , const Size&  charCount) const
 {
     return this->GetDecoder().GetChars(bytes, byteCount, chars, charCount, false);
 }
@@ -176,8 +176,8 @@ String Encoding::GetString(const std::vector<UByte>& bytes) const
 }
 
 String Encoding::GetString(const std::vector<UByte>& bytes
-                         , const UInt32&             index
-                         , const UInt32&             count) const
+                         , const Size&               index
+                         , const Size&               count) const
 {
     std::vector<Char> chars = this->GetChars(bytes, index, count);
     String result(chars.begin(), chars.end());

@@ -26,13 +26,14 @@ Viewport::Viewport()
 {
 }
 
-Viewport::Viewport(const Single& x, const Single& y, const Size& width, const Size& height)
+Viewport::Viewport(const Single& x    , const Single& y
+                 , const Single& width, const Single& height)
     : Viewport(x, y, width, height, 0.0f, 1.0f)
 {
 }
 
-Viewport::Viewport(const Single& x    , const Single& y
-                 , const Single& width, const Single& height
+Viewport::Viewport(const Single& x       , const Single& y
+                 , const Single& width   , const Single& height
                  , const Single& minDepth, const Single& maxDepth)
     : x(x)
     , y(y)
@@ -94,17 +95,17 @@ void Viewport::MaxDepth(const Single& maxDepth)
     this->maxDepth = maxDepth;
 }
 
-void Viewport::Update(const Size& width, const Size& height)
+void Viewport::Update(const Single& width, const Single& height)
 {
     this->Update(this->x, this->y, width, height);
 }
 
-void Viewport::Update(const UInt32& x, const UInt32& y, const Size& width, const Size& height)
+void Viewport::Update(const Single& x, const Single& y, const Single& width, const Single& height)
 {
-    this->x = x;
-    this->x = y;
-    this->width      = width;
-    this->height     = height;
+    this->x      = x;
+    this->x      = y;
+    this->width  = width;
+    this->height = height;
 
     this->Refresh();
 }

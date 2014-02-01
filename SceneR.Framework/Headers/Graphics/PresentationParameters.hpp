@@ -74,12 +74,12 @@ namespace SceneR
             /**
              * Gets the number of sample locations during multisampling.
              */
-            const System::UInt32& MultiSampleCount() const;
+            const System::Size& MultiSampleCount() const;
 
             /**
              * Sets the number of sample locations during multisampling.
              */
-            void MultiSampleCount(const System::UInt32& multiSampleCount);
+            void MultiSampleCount(const System::Size& multiSampleCount);
 
             /**
              * Gets the swap buffer interval.
@@ -95,7 +95,7 @@ namespace SceneR
             System::Boolean                    fullScreen;
             System::Size                       backBufferHeight;
             System::Size                       backBufferWidth;
-            System::UInt32                     multiSampleCount;
+            System::Size                       multiSampleCount;
             SceneR::Framework::PresentInterval presentInterval;
         };
     }

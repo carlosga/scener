@@ -134,16 +134,16 @@ void Vector2::Negate()
     (*this *= -1.0f);
 }
 
-Single& Vector2::operator[](const Int32& index)
+Single& Vector2::operator[](const Size& index)
 {
-    assert(index >= 0 && index < 2);
+    assert(index < 2);
 
     return (this->coords[index]);
 }
 
-const Single& Vector2::operator[](const Int32& index) const
+const Single& Vector2::operator[](const Size& index) const
 {
-    assert(index >= 0 && index < 2);
+    assert(index < 2);
 
     return (this->coords[index]);
 }

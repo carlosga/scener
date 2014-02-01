@@ -27,28 +27,26 @@ Encoder::~Encoder()
 {
 }
 
-UInt32 Encoder::GetByteCount(const Char* chars, const UInt32& count, const Boolean& flush) const
+Size Encoder::GetByteCount(const Char* chars, const Size& count, const Boolean& flush) const
 {
     std::vector<Char> vchars(chars, chars + count);
 
     return this->GetByteCount(vchars, 0, count, flush);
 }
 
-UInt32 Encoder::GetBytes(const Char*    chars
-                       , const UInt32&  charCount
-                       , UByte*         bytes
-                       , const UInt32&  byteCount
-                       , const Boolean& flush) const
+Size Encoder::GetBytes(const Char*    chars
+                     , const Size&    charCount
+                     , UByte*         bytes
+                     , const Size&    byteCount
+                     , const Boolean& flush) const
 {
     std::vector<Char>  vchars(chars, chars + charCount);
     std::vector<UByte> vbytes;
 
-    UInt32 count = this->GetByteCount(vchars, 0, charCount, flush);
+    vbytes.reserve(this->GetByteCount(vchars, 0, charCount, flush));
 
-    vbytes.reserve(count);
-
-    UInt32 totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
-    UInt32 result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
+    Size totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
+    Size result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
 
     std::copy_n(vbytes.begin(), result, bytes);
 

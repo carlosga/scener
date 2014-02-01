@@ -302,8 +302,8 @@ namespace SceneR
             void Normalize();
 
         public:
-            System::Single& operator[](const System::Int32& index);
-            const System::Single& operator[](const System::Int32& index) const;
+            System::Single& operator[](const System::Size& index);
+            const System::Single& operator[](const System::Size& index) const;
             Vector3& operator=(const Vector3& vector);
             bool operator==(const Vector3& vector) const;
             bool operator!=(const Vector3& vector) const;

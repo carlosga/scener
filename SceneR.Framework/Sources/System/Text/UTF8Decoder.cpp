@@ -28,16 +28,16 @@ UTF8Decoder::~UTF8Decoder()
 {
 }
 
-UInt32 UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
-                               , const UInt32&             index
-                               , const UInt32&             count) const
+Size UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
+                             , const Size&               index
+                             , const Size&               count) const
 {
-    UInt32 result = 0;
+    Size result = 0;
 
-    for (UInt32 i = index; i < (index + count);)
+    for (Size i = index; i < (index + count);)
     {
-        char16_t buffer    = bytes[i];
-        int      byteCount = 1;
+        Char buffer    = bytes[i];
+        Size byteCount = 1;
 
         // http://xbox.create.msdn.com/en-US/sample/xnb_format
         // Decode UTF-8.
@@ -56,11 +56,11 @@ UInt32 UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
     return result;
 }
 
-UInt32 UTF8Decoder::GetChars(const std::vector<UByte>& bytes
-                           , const UInt32&             byteIndex
-                           , const UInt32&             byteCount
-                           , std::vector<Char>&        chars
-                           , const UInt32&             charIndex) const
+Size UTF8Decoder::GetChars(const std::vector<UByte>& bytes
+                         , const Size&               byteIndex
+                         , const Size&               byteCount
+                         , std::vector<Char>&        chars
+                         , const Size&               charIndex) const
 {
     auto           from     = (char*)&bytes[0] + byteIndex;
     auto           fromEnd  = from + byteCount;
@@ -90,7 +90,7 @@ UInt32 UTF8Decoder::GetChars(const std::vector<UByte>& bytes
         }
     }
 
-    return static_cast<UInt32>(toNext - toStart);
+    return static_cast<Size>(toNext - toStart);
 }
 
 void UTF8Decoder::Reset()

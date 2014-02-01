@@ -27,49 +27,46 @@ Decoder::~Decoder()
 {
 }
 
-UInt32 Decoder::GetCharCount(const UByte* bytes, const UInt32& count, const Boolean& flush) const
+Size Decoder::GetCharCount(const UByte* bytes, const Size& count, const Boolean& flush) const
 {
     std::vector<UByte> vbytes(bytes, bytes + count);
 
     return this->GetCharCount(vbytes, 0, count, flush);
 }
 
-UInt32 Decoder::GetCharCount(const std::vector<UByte>& bytes
-                           , const UInt32&             index
-                           , const UInt32&             count
-                           , const Boolean&            flush) const
+Size Decoder::GetCharCount(const std::vector<UByte>& bytes
+                         , const Size&               index
+                         , const Size&               count
+                         , const Boolean&            flush) const
 {
     return this->GetCharCount(bytes, index, count);
 }
 
-UInt32 Decoder::GetChars(const UByte*   bytes
-                       , const UInt32&  byteCount
-                       , Char*          chars
-                       , const UInt32&  charCount
-                       , const Boolean& flush) const
+Size Decoder::GetChars(const UByte*   bytes
+                     , const Size&    byteCount
+                     , Char*          chars
+                     , const Size&    charCount
+                     , const Boolean& flush) const
 {
     std::vector<UByte> vbytes(bytes, bytes + byteCount);
     std::vector<Char>  vchars;
-    UInt32             count;
 
-    count = this->GetCharCount(vbytes, 0, byteCount, flush);
+    vchars.reserve(this->GetCharCount(vbytes, 0, byteCount, flush));
 
-    vchars.reserve(count);
-
-    UInt32 totalChars = this->GetChars(vbytes, 0, byteCount, vchars, 0, flush);
-    UInt32 result     = ((totalChars > charCount) ? charCount : totalChars);
+    Size totalChars = this->GetChars(vbytes, 0, byteCount, vchars, 0, flush);
+    Size result     = ((totalChars > charCount) ? charCount : totalChars);
 
     std::copy_n(vchars.begin(), result, chars);
 
     return result;
 }
 
-UInt32 Decoder::GetChars(const std::vector<UByte>& bytes
-                       , const UInt32&             byteIndex
-                       , const UInt32&             byteCount
-                       , std::vector<Char>&        chars
-                       , const UInt32&             charIndex
-                       , const Boolean&            flush) const
+Size Decoder::GetChars(const std::vector<UByte>& bytes
+                     , const Size&               byteIndex
+                     , const Size&               byteCount
+                     , std::vector<Char>&        chars
+                     , const Size&               charIndex
+                     , const Boolean&            flush) const
 {
     return this->GetChars(bytes, byteIndex, byteCount, chars, charIndex);
 }

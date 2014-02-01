@@ -47,7 +47,7 @@ void BinaryReader::Close()
     this->stream.Close();
 }
 
-int BinaryReader::PeekChar()
+Int32 BinaryReader::PeekChar()
 {
     return -1;
 }

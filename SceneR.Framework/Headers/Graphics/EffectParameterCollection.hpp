@@ -70,8 +70,8 @@ namespace SceneR
                                , const std::shared_ptr<ShaderProgram>& shader);
 
         public:
-            EffectParameter& operator[](const System::Int32& parameterIndex);
-            const EffectParameter& operator[](const System::Int32& parameterIndex) const;
+            EffectParameter& operator[](const System::Size& parameterIndex);
+            const EffectParameter& operator[](const System::Size& parameterIndex) const;
             EffectParameter& operator[](const System::String& parameterName);
             const EffectParameter& operator[](const System::String& parameterName) const;
 

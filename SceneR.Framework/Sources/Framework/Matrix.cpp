@@ -533,14 +533,14 @@ void Matrix::Transpose()
     this->m44 = temp.m44;
 }
 
-Single& Matrix::operator[](const UInt32& index)
+Single& Matrix::operator[](const Size& index)
 {
     assert(index < 16);
 
     return this->matrix[index];
 }
 
-const Single& Matrix::operator[](const UInt32& index) const
+const Single& Matrix::operator[](const Size& index) const
 {
     assert(index < 16);
 

@@ -69,7 +69,7 @@ namespace System
             /**
              * Returns the next available character, or -1 if no more characters are available.
              */
-            int PeekChar();
+            Int32 PeekChar();
 
             /**
              * Reads the next character from the current stream.
