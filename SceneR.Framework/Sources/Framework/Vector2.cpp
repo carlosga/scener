@@ -22,10 +22,10 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Vector2 Vector2::One(1.0f, 1.0f);
-const Vector2 Vector2::UnitX(1.0f, 0.0f);
-const Vector2 Vector2::UnitY(0.0f, 1.0f);
-const Vector2 Vector2::Zero(0.0f, 0.0f);
+const Vector2 Vector2::One   { 1.0f, 1.0f };
+const Vector2 Vector2::UnitX { 1.0f, 0.0f };
+const Vector2 Vector2::UnitY { 0.0f, 1.0f };
+const Vector2 Vector2::Zero  { 0.0f, 0.0f };
 
 Vector2 Vector2::Barycentric(const Vector2& value1
                            , const Vector2& value2
@@ -33,8 +33,8 @@ Vector2 Vector2::Barycentric(const Vector2& value1
                            , const Single&  amount1
                            , const Single&  amount2)
 {
-    return Vector2(MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-                 , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2));
+    return { MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+           , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
 }
 
 Vector2 Vector2::CatmullRom(const Vector2& value1
@@ -43,14 +43,14 @@ Vector2 Vector2::CatmullRom(const Vector2& value1
                           , const Vector2& value4
                           , const Single&  amount)
 {
-    return Vector2(MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-                 , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount));
+    return { MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
+           , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount) };
 }
 
 Vector2 Vector2::Clamp(const Vector2& value1, const Vector2& min, const Vector2& max)
 {
-    return Vector2(MathHelper::Clamp(value1.x, min.x, max.x)
-                 , MathHelper::Clamp(value1.y, min.y, max.y));
+    return { MathHelper::Clamp(value1.x, min.x, max.x)
+           , MathHelper::Clamp(value1.y, min.y, max.y) };
 }
 
 Single Vector2::Distance(const Vector2& value1, const Vector2& value2)
@@ -73,24 +73,24 @@ Vector2 Vector2::Hermite(const Vector2& value1
                        , const Vector2& tangent2
                        , const Single&  amount)
 {
-    return Vector2(MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-                 , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount));
+    return { MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+           , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
 }
 
 Vector2 Vector2::Lerp(const Vector2& value1
                     , const Vector2& value2
                     , const Single&  amount)
 {
-    return Vector2(MathHelper::Lerp(value1.x, value2.x, amount)
-                 , MathHelper::Lerp(value1.y, value2.y, amount));
+    return { MathHelper::Lerp(value1.x, value2.x, amount)
+           , MathHelper::Lerp(value1.y, value2.y, amount) };
 }
 
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
                           , const Single&  amount)
 {
-    return Vector2(MathHelper::SmoothStep(value1.x, value2.x, amount)
-                 , MathHelper::SmoothStep(value1.y, value2.y, amount));
+    return { MathHelper::SmoothStep(value1.x, value2.x, amount)
+           , MathHelper::SmoothStep(value1.y, value2.y, amount) };
 }
 
 Vector2::Vector2()

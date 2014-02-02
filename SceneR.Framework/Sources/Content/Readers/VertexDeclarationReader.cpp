@@ -34,7 +34,7 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
 {
     auto vertexStride = input.ReadUInt32();
     auto elementCount = input.ReadUInt32();
-    auto elements     = std::vector<VertexElement>{};
+    auto elements     = std::vector<VertexElement>();
 
     for (UInt32 i = 0; i < elementCount; i++)
     {

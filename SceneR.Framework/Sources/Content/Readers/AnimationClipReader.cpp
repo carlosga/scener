@@ -32,6 +32,6 @@ AnimationClipReader::AnimationClipReader()
 
 std::shared_ptr<void> AnimationClipReader::Read(ContentReader& input)
 {
-    return std::make_shared<AnimationClip>(TimeSpan(input.ReadInt64())
+    return std::make_shared<AnimationClip>(TimeSpan{ input.ReadInt64() }
                                          , *input.ReadObject<std::vector<Keyframe>>());
 }

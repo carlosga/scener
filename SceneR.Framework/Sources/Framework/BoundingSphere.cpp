@@ -133,8 +133,7 @@ BoundingSphere& BoundingSphere::operator=(const BoundingSphere& sphere)
 
 bool BoundingSphere::operator==(const BoundingSphere& sphere) const
 {
-    return (this->center == sphere.center
-         && this->radius == sphere.radius);
+    return (this->center == sphere.center && this->radius == sphere.radius);
 }
 
 bool BoundingSphere::operator!=(const BoundingSphere& sphere) const

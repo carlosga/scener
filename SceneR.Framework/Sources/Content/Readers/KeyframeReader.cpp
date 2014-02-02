@@ -32,7 +32,7 @@ KeyframeReader::KeyframeReader()
 std::shared_ptr<void> KeyframeReader::Read(ContentReader& input)
 {
     return std::make_shared<Keyframe>(input.ReadInt32()
-                                    , TimeSpan(input.ReadInt64())
+                                    , TimeSpan {input.ReadInt64() }
                                     , input.ReadMatrix());
 }
 

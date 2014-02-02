@@ -43,10 +43,10 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const 
     Single theta = angle / 2;
     Single rSin  = sin(theta);
 
-    return Quaternion(axisOfRotation.X() * rSin,
-                      axisOfRotation.Y() * rSin,
-                      axisOfRotation.Z() * rSin,
-                      cos(theta));
+    return { axisOfRotation.X() * rSin
+           , axisOfRotation.Y() * rSin
+           , axisOfRotation.Z() * rSin
+           , cos(theta) };
 }
 
 Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
@@ -72,8 +72,8 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 {
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
-    Quaternion result;
-    Single     tr = matrix.M11() + matrix.M22() + matrix.M33();
+    auto   result = Quaternion { };
+    Single tr     = matrix.M11() + matrix.M22() + matrix.M33();
 
     if (tr > 0.0f)
     {

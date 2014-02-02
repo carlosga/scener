@@ -31,7 +31,7 @@ using namespace SceneR::Framework;
 ContentReader::ContentReader(const String&                    assetName
                            , SceneR::Content::ContentManager& contentManager
                            , Stream&                          stream)
-    : BinaryReader(stream)
+    : BinaryReader { stream }
     , assetName(assetName)
     , contentManager(contentManager)
     , typeReaderManager()
@@ -62,35 +62,35 @@ SceneR::Content::ContentManager& ContentReader::ContentManager()
 
 Color ContentReader::ReadColor()
 {
-    return Color(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
 }
 
 Matrix ContentReader::ReadMatrix()
 {
-    return Matrix(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+           , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+           , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
+           , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
 }
 
 Vector2 ContentReader::ReadVector2()
 {
-    return Vector2(this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle() };
 }
 
 Vector3 ContentReader::ReadVector3()
 {
-    return Vector3(this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
 }
 
 Vector4 ContentReader::ReadVector4()
 {
-    return Vector4(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
 }
 
 Quaternion ContentReader::ReadQuaternion()
 {
-    return Quaternion(this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle());
+    return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
 }
 
 void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup)
@@ -99,7 +99,7 @@ void ContentReader::ReadSharedResource(const std::function<void(const std::share
 
     if (sharedResourceId != 0)
     {
-        this->fixupActions.push_back(SharedResourceAction(sharedResourceId - 1, fixup));
+        this->fixupActions.push_back({ sharedResourceId - 1, fixup });
     }
 };
 

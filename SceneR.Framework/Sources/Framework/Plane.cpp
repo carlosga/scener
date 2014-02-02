@@ -29,12 +29,12 @@ using namespace SceneR::Framework;
 Vector4 Plane::DotNormal(const Vector3& p, const Vector3& v)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
-    return Vector4(Vector3::DotProduct(p, v));
+    return { Vector3::DotProduct(p, v)  };
 }
 
 Plane Plane::Normalize(const Plane& value)
 {
-    Plane result(value);
+    auto result = Plane(value);
 
     result.Normalize();
 
@@ -43,7 +43,7 @@ Plane Plane::Normalize(const Plane& value)
 
 Plane Plane::Transform(const Plane& plane, const Matrix& matrix)
 {
-    return Vector4(plane.normal, plane.d) * Matrix::Transpose(Matrix::Invert(matrix));
+    return { Vector4(plane.normal, plane.d) * Matrix::Transpose(Matrix::Invert(matrix)) };
 }
 
 Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
@@ -52,14 +52,14 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
     //
     //      Pout = q * Pin * conj(q)
 
-    Quaternion r = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::Conjugate(rotation));
+    auto r = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::Conjugate(rotation));
 
-    return Plane(r.X(), r.Y(), r.Z(), r.W());
+    return { r.X(), r.Y(), r.Z(), r.W() };
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
 	: d(d)
-    , normal(Vector3(a, b, c))
+    , normal({ a, b, c })
 {
 }
 
@@ -111,7 +111,9 @@ const Vector3& Plane::Normal() const
 
 System::Single Plane::Dot(const Vector4& value) const
 {
-    return Vector4(this->normal, this->d).DotProduct(value);
+    auto v = Vector4(this->normal, this->d);
+
+    return v.DotProduct(value);
 }
 
 System::Single Plane::DotCoordinate(const Vector3& value) const

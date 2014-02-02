@@ -23,7 +23,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
-    : Component(renderer)
+    : Component { renderer }
     , visible(true)
     , drawOrder(0)
 {

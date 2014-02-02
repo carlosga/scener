@@ -21,19 +21,19 @@ using namespace System;
 using namespace SceneR::Framework;
 
 RenderTime::RenderTime()
-    : RenderTime(System::TimeSpan::Zero, System::TimeSpan::Zero, false)
+    : RenderTime { TimeSpan::Zero, TimeSpan::Zero, false }
 {
 }
 
-RenderTime::RenderTime(const System::TimeSpan& totalRenderTime
-                     , const System::TimeSpan& elapsedRenderTime)
-    : RenderTime(totalRenderTime, elapsedRenderTime, false)
+RenderTime::RenderTime(const TimeSpan& totalRenderTime
+                     , const TimeSpan& elapsedRenderTime)
+    : RenderTime { totalRenderTime, elapsedRenderTime, false }
 {
 }
 
-RenderTime::RenderTime(const System::TimeSpan& totalRenderTime
-                     , const System::TimeSpan& elapsedRenderTime
-                     , const System::Boolean&  isRunningSlowly)
+RenderTime::RenderTime(const TimeSpan& totalRenderTime
+                     , const TimeSpan& elapsedRenderTime
+                     , const Boolean&  isRunningSlowly)
     : totalRenderTime(totalRenderTime)
     , elapsedRenderTime(elapsedRenderTime)
     , isRunningSlowly(isRunningSlowly)
@@ -44,32 +44,32 @@ RenderTime::~RenderTime()
 {
 }
 
-const System::TimeSpan& RenderTime::ElapsedRenderTime() const
+const TimeSpan& RenderTime::ElapsedRenderTime() const
 {
     return this->elapsedRenderTime;
 }
 
-void RenderTime::ElapsedRenderTime(const System::TimeSpan& elapsedRenderTime)
+void RenderTime::ElapsedRenderTime(const TimeSpan& elapsedRenderTime)
 {
     this->elapsedRenderTime = elapsedRenderTime;
 }
 
-const System::Boolean& RenderTime::IsRunningSlowly() const
+const Boolean& RenderTime::IsRunningSlowly() const
 {
     return this->isRunningSlowly;
 }
 
-void RenderTime::IsRunningSlowly(const System::Boolean& isRunningSlowly)
+void RenderTime::IsRunningSlowly(const Boolean& isRunningSlowly)
 {
     this->isRunningSlowly = isRunningSlowly;
 }
 
-const System::TimeSpan& RenderTime::TotalRenderTime() const
+const TimeSpan& RenderTime::TotalRenderTime() const
 {
     return this->totalRenderTime;
 }
 
-void RenderTime::TotalRenderTime(const System::TimeSpan& totalRenderTime)
+void RenderTime::TotalRenderTime(const TimeSpan& totalRenderTime)
 {
     this->totalRenderTime = totalRenderTime;
 }
