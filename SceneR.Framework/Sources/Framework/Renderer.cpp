@@ -27,7 +27,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Renderer::Renderer(const String& rootDirectory)
-    : components            { }
+    : components            ( 0 )
     , services              { }
     , graphicsDeviceManager { *this }
     , rendererWindow        { *this }
@@ -38,8 +38,8 @@ Renderer::Renderer(const String& rootDirectory)
     , renderTime            { }
     , totalRenderTime       { TimeSpan::Zero }
     , isRunningSlowly       { false }
-    , drawableComponents    { }
-    , updateableComponents  { }
+    , drawableComponents    ( 0 )
+    , updateableComponents  ( 0 )
 {
 }
 

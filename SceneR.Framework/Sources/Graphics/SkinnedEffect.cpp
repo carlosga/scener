@@ -39,7 +39,7 @@ SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     : Effect                 { graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource }
     , alpha                  { 1.0 }
     , ambientLightColor      { Vector3::Zero }
-    , boneTransforms         { 0 }
+    , boneTransforms         ( 0 )
     , diffuseColor           { Vector3::One }
     , directionalLight0      { nullptr }
     , directionalLight1      { nullptr }

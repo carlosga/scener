@@ -35,7 +35,7 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
     , indexBuffer            { nullptr }
     , presentationParameters { }
     , rasterizerState        { *this }
-    , samplerStates          {  }
+    , samplerStates          ( )
     , vertexBuffer           { nullptr }
     , viewport               { }
 {

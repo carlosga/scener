@@ -75,7 +75,7 @@ GraphicsAdapter::GraphicsAdapter()
     , monitorHandle         { nullptr }
     , revision              { 0 }
     , subSystemId           { 0 }
-    , supportedDisplayModes { }
+    , supportedDisplayModes ( )
     , vendorId              { 0 }
 {
 }

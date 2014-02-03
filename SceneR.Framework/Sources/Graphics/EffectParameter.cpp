@@ -28,19 +28,6 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-EffectParameter::EffectParameter()
-    : columnCount       { 0 }
-    , elements          { }
-    , name              { u"" }
-    , parameterClass    { EffectParameterClass::Matrix }
-    , parameterType     { EffectParameterType::Single }
-    , rowCount          { 0 }
-    , structureMembers  { }
-    , shader            { nullptr }
-    , parameterLocation { -1 }
-{
-}
-
 EffectParameter::EffectParameter(const String&                         name
                                , const EffectParameterClass&           parameterClass
                                , const EffectParameterType&            parameterType

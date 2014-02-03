@@ -34,9 +34,9 @@ AnimationPlayer::AnimationPlayer(const std::shared_ptr<SkinningData>& skinningDa
     , currentTimeValue  { TimeSpan::Zero }
     , currentKeyframe   { 0 }
     , skinningDataValue { skinningData }
-    , boneTransforms    { }
-    , worldTransforms   { }
-    , skinTransforms    { }
+    , boneTransforms    ( 0 )
+    , worldTransforms   ( 0 )
+    , skinTransforms    ( 0 )
 {
     this->boneTransforms.resize(this->skinningDataValue->BindPose().size());
     this->worldTransforms.resize(this->skinningDataValue->BindPose().size());

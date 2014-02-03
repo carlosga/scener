@@ -27,13 +27,13 @@ using namespace SceneR::Graphics;
 
 AnimationClip::AnimationClip()
     : duration  { TimeSpan::Zero }
-    , keyframes { }
+    , keyframes ( 0 )
 {
 }
 
 AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyframe>& keyframes)
     : duration  { duration }
-    , keyframes { keyframes }
+    , keyframes ( keyframes )
 {
 }
 

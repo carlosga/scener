@@ -52,11 +52,6 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
-            EffectParameter();
-
-            /**
-             * Initializes a new instance of the EffectParameter class.
-             */
             EffectParameter(const System::String&                 name,
                             const EffectParameterClass&           parameterClass,
                             const EffectParameterType&            parameterType,
