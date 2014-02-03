@@ -20,8 +20,8 @@ using namespace System;
 using namespace SceneR::Framework;
 
 RendererTimer::RendererTimer()
-    : start(TimeSpan::Clock::now()),
-      lastTimeStep(TimeSpan::Clock::now())
+    : start        { TimeSpan::Clock::now() }
+    , lastTimeStep { TimeSpan::Clock::now() }
 {
 }
 

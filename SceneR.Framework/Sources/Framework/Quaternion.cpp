@@ -24,7 +24,7 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Quaternion Quaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
+const Quaternion Quaternion::Identity { 0.0f, 0.0f, 0.0f, 1.0f };
 
 Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
 {
@@ -130,7 +130,7 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
 
 Quaternion Quaternion::Normalize(const Quaternion& quaternion)
 {
-    auto result = Quaternion(quaternion);
+    auto result = Quaternion { quaternion };
 
     result.Normalize();
 
@@ -175,22 +175,34 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
 }
 
 Quaternion::Quaternion()
-    : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
+    : x { 0.0f }
+    , y { 0.0f }
+    , z { 0.0f }
+    , w { 0.0f }
 {
 }
 
 Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, const Single& w)
-    : x(x), y(y), z(z), w(w)
+    : x { x }
+    , y { y }
+    , z { z }
+    , w { w }
 {
 }
 
 Quaternion::Quaternion(const Vector3& value, const System::Single& w)
-    : x(value.X()), y(value.Y()), z(value.Z()), w(w)
+    : x { value.X() }
+    , y { value.Y() }
+    , z { value.Z() }
+    , w { w }
 {
 }
 
 Quaternion::Quaternion(const Quaternion& quaternion)
-    : x(quaternion.x), y(quaternion.y), z(quaternion.z), w(quaternion.w)
+    : x { quaternion.x }
+    , y { quaternion.y }
+    , z { quaternion.z }
+    , w { quaternion.w }
 {
 }
 
@@ -216,10 +228,10 @@ const Single& Quaternion::W() const
 
 Single Quaternion::DotProduct(const Quaternion& quaternion) const
 {
-    return ((this->x * quaternion.x)
-          + (this->y * quaternion.y)
-          + (this->z * quaternion.z)
-          + (this->w * quaternion.w));
+    return (this->x * quaternion.x)
+         + (this->y * quaternion.y)
+         + (this->z * quaternion.z)
+         + (this->w * quaternion.w);
 }
 
 void Quaternion::Conjugate()

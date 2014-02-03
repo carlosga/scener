@@ -55,11 +55,11 @@ namespace SceneR
              * Adds a service to the RendererServiceContainer.
              */
             template <class T>
-            void AddService(const T& service)
+            void AddService(T& service)
             {
                 if (!this->IsRegistered<T>())
                 {
-                    this->instanceMap[this->GetTypeName<T>()] = (void*)&service;
+                    this->instanceMap[this->GetTypeName<T>()] = static_cast<void*>(&service);
                 }
             }
 

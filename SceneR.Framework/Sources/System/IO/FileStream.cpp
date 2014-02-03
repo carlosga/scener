@@ -22,13 +22,13 @@ using namespace System::IO;
 using namespace System::Text;
 
 FileStream::FileStream(const String& path)
-    : FileStream(path, std::ios::in | std::ios::binary)
+    : FileStream { path, std::ios::in | std::ios::binary }
 {
 }
 
 FileStream::FileStream(const String& path, const std::ios::openmode& mode)
-    : stream(Encoding::Convert(path), mode)
-    , mode(mode)
+    : stream { Encoding::Convert(path), mode }
+    , mode   { mode }
 {
 }
 

@@ -27,11 +27,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ModelMesh::ModelMesh()
-    : boundingSphere(Vector3::Zero, 0.0f)
-    , meshParts(0)
-    , name()
-    , parentBone(nullptr)
-    , tag()
+    : boundingSphere { Vector3::Zero, 0.0f }
+    , meshParts      ( 0 )
+    , name           { u"" }
+    , parentBone     { nullptr }
+    , tag            { u"" }
 {
 }
 

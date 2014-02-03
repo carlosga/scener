@@ -27,21 +27,21 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Keyframe::Keyframe()
-    : Keyframe(0, TimeSpan::Zero, Matrix::Identity)
+    : Keyframe {0, TimeSpan::Zero, Matrix::Identity }
 {
 }
 
 Keyframe::Keyframe(const Int32& bone, const TimeSpan& time, const Matrix& transform)
-    : bone(bone)
-    , time(time)
-    , transform(transform)
+    : bone      { bone }
+    , time      { time }
+    , transform { transform }
 {
 }
 
 Keyframe::Keyframe(const Keyframe& keyframe)
-    : bone(keyframe.bone)
-    , time(keyframe.time)
-    , transform(keyframe.transform)
+    : bone      { keyframe.bone }
+    , time      { keyframe.time }
+    , transform { keyframe.transform }
 {
 }
 

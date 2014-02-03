@@ -27,10 +27,10 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 SkinningData::SkinningData()
-    : animationClips()
-    , bindPose(0)
-    , inverseBindPose(0)
-    , skeletonHierarchy(0)
+    : animationClips    ( )
+    , bindPose          ( 0 )
+    , inverseBindPose   ( 0 )
+    , skeletonHierarchy ( 0 )
 {
 }
 
@@ -38,18 +38,18 @@ SkinningData::SkinningData(const std::map<String, AnimationClip>& animationClips
                          , const std::vector<Matrix>&            bindPose
                          , const std::vector<Matrix>&            inverseBindPose
                          , const std::vector<Int32>&             skeletonHierarchy)
-    : animationClips(animationClips)
-    , bindPose(bindPose)
-    , inverseBindPose(inverseBindPose)
-    , skeletonHierarchy(skeletonHierarchy)
+    : animationClips    { animationClips }
+    , bindPose          { bindPose }
+    , inverseBindPose   { inverseBindPose }
+    , skeletonHierarchy { skeletonHierarchy }
 {
 }
 
 SkinningData::SkinningData(const SkinningData& skinningData)
-    : animationClips(skinningData.animationClips)
-    , bindPose(skinningData.bindPose)
-    , inverseBindPose(skinningData.inverseBindPose)
-    , skeletonHierarchy(skinningData.skeletonHierarchy)
+    : animationClips    { skinningData.animationClips }
+    , bindPose          { skinningData.bindPose }
+    , inverseBindPose   { skinningData.inverseBindPose }
+    , skeletonHierarchy { skinningData.skeletonHierarchy }
 {
 
 }

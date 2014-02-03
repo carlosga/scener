@@ -22,8 +22,8 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 TextureObject::TextureObject(const TextureTarget& target)
-    : texId(0)
-    , target(target)
+    : texId  { 0 }
+    , target { target }
 {
     this->Create();
 }

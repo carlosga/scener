@@ -21,7 +21,7 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 VertexArrayObject::VertexArrayObject()
-    : id(0)
+    : id { 0 }
 {
     this->Create();
 }

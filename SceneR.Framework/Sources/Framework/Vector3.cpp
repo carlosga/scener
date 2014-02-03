@@ -171,17 +171,23 @@ Vector3::Vector3()
 }
 
 Vector3::Vector3(const Single& x, const Single& y, const Single& z)
-    : x(x), y(y), z(z)
+    : x { x }
+    , y { y }
+    , z { z }
 {
 }
 
 Vector3::Vector3(const Vector2& value, const System::Single& z)
-    : x(value.X()), y(value.Y()), z(z)
+    : x { value.X() }
+    , y { value.Y() }
+    , z { z }
 {
 }
 
 Vector3::Vector3(const Vector3& vector)
-    : x(vector.x), y(vector.y), z(vector.z)
+    : x { vector.x }
+    , y { vector.y }
+    , z { vector.z }
 {
 }
 

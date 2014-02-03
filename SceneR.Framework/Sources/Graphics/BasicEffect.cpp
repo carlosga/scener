@@ -35,55 +35,55 @@ String BasicEffect::VSSource = File::ReadAllText(u"/home/carlos/development/proj
 String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect.frag");
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
-    : Effect(graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource)
-    , alpha(1.0)
-    , ambientLightColor(Vector3::Zero)
-    , diffuseColor(Vector3::One)
-    , directionalLight0(nullptr)
-    , directionalLight1(nullptr)
-    , directionalLight2(nullptr)
-    , enableDefaultLighting(false)
-    , emissiveColor(Vector3::Zero)
-    , fogEnabled(false)
-    , fogColor(Vector3::Zero)
-    , fogEnd(1.0f)
-    , fogStart(0.0f)
-    , preferPerPixelLighting(false)
-    , projection(Matrix::Identity)
-    , specularColor(Vector3::One)
-    , specularPower(16.0f)
-    , textureEnabled(false)
-    , texture(nullptr)
-    , vertexColorEnabled(false)
-    , view(Matrix::Identity)
-    , world(Matrix::Identity)
+    : Effect                 { graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource }
+    , alpha                  { 1.0f }
+    , ambientLightColor      { Vector3::Zero }
+    , diffuseColor           { Vector3::One }
+    , directionalLight0      { nullptr }
+    , directionalLight1      { nullptr }
+    , directionalLight2      { nullptr }
+    , enableDefaultLighting  { false }
+    , emissiveColor          { Vector3::Zero }
+    , fogEnabled             { false }
+    , fogColor               { Vector3::Zero }
+    , fogEnd                 { 1.0f }
+    , fogStart               { 0.0f }
+    , preferPerPixelLighting { false }
+    , projection             { Matrix::Identity }
+    , specularColor          { Vector3::One }
+    , specularPower          { 16.0f }
+    , textureEnabled         { false }
+    , texture                { nullptr }
+    , vertexColorEnabled     { false }
+    , view                   { Matrix::Identity }
+    , world                  { Matrix::Identity }
 {
     this->Initialize();
 }
 
 BasicEffect::BasicEffect(const BasicEffect& effect)
-    : Effect(effect)
-    , alpha(effect.alpha)
-    , ambientLightColor(effect.ambientLightColor)
-    , diffuseColor(effect.diffuseColor)
-    , directionalLight0(effect.directionalLight0)
-    , directionalLight1(effect.directionalLight1)
-    , directionalLight2(effect.directionalLight2)
-    , enableDefaultLighting(effect.enableDefaultLighting)
-    , emissiveColor(effect.emissiveColor)
-    , fogEnabled(effect.fogEnabled)
-    , fogColor(effect.fogColor)
-    , fogEnd(effect.fogEnd)
-    , fogStart(effect.fogStart)
-    , preferPerPixelLighting(effect.preferPerPixelLighting)
-    , projection(effect.projection)
-    , specularColor(effect.specularColor)
-    , specularPower(effect.specularPower)
-    , textureEnabled(effect.textureEnabled)
-    , texture(effect.texture)
-    , vertexColorEnabled(effect.vertexColorEnabled)
-    , view(effect.view)
-    , world(effect.world)
+    : Effect                 { effect }
+    , alpha                  { effect.alpha }
+    , ambientLightColor      { effect.ambientLightColor }
+    , diffuseColor           { effect.diffuseColor }
+    , directionalLight0      { effect.directionalLight0 }
+    , directionalLight1      { effect.directionalLight1 }
+    , directionalLight2      { effect.directionalLight2 }
+    , enableDefaultLighting  { effect.enableDefaultLighting }
+    , emissiveColor          { effect.emissiveColor }
+    , fogEnabled             { effect.fogEnabled }
+    , fogColor               { effect.fogColor }
+    , fogEnd                 { effect.fogEnd }
+    , fogStart               { effect.fogStart }
+    , preferPerPixelLighting { effect.preferPerPixelLighting }
+    , projection             { effect.projection }
+    , specularColor          { effect.specularColor }
+    , specularPower          { effect.specularPower }
+    , textureEnabled         { effect.textureEnabled }
+    , texture                { effect.texture }
+    , vertexColorEnabled     { effect.vertexColorEnabled }
+    , view                   { effect.view }
+    , world                  { effect.world }
 {
     this->Initialize();
 }
@@ -160,26 +160,26 @@ void BasicEffect::EnableDefaultLighting()
 
     // Key light.
     this->directionalLight0 = std::make_shared<DirectionalLight>();
-    this->directionalLight0->Direction(Vector3(-0.5265408f, -0.5735765f, -0.6275069f));
-    this->directionalLight0->DiffuseColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
-    this->directionalLight0->SpecularColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
+    this->directionalLight0->Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
+    this->directionalLight0->DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
+    this->directionalLight0->SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
     this->directionalLight0->Enabled(true);
 
     // Fill light.
     this->directionalLight1 = std::make_shared<DirectionalLight>();
-    this->directionalLight1->Direction(Vector3(0.7198464f, 0.3420201f, 0.6040227f));
-    this->directionalLight1->DiffuseColor(Vector3(0.9647059f, 0.7607844f, 0.4078432f));
+    this->directionalLight1->Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
+    this->directionalLight1->DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
     this->directionalLight1->SpecularColor(Vector3::Zero);
     this->directionalLight1->Enabled(true);
 
     // Back light.
     this->directionalLight2 = std::make_shared<DirectionalLight>();
-    this->directionalLight2->Direction(Vector3(0.4545195f, -0.7660444f, 0.4545195f));
-    this->directionalLight2->DiffuseColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
-    this->directionalLight2->SpecularColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
+    this->directionalLight2->Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
+    this->directionalLight2->DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
+    this->directionalLight2->SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
     this->directionalLight2->Enabled(true);
 
-    this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
+    this->ambientLightColor = { 0.05333332f, 0.09882354f, 0.1819608f };
 }
 
 const Vector3& BasicEffect::EmissiveColor() const
@@ -356,8 +356,8 @@ void BasicEffect::End()
 void BasicEffect::OnApply()
 {
     auto viewInverse           = Matrix::Invert(this->view);
-    auto worldView             = Matrix(this->world * this->view);
-    auto worldViewProjection   = Matrix(worldView * this->projection);
+    auto worldView             = this->world * this->view;
+    auto worldViewProjection   = worldView * this->projection;
     auto worldInverseTranspose = Matrix::Invert(this->world);
 
     auto eyePosition = Vector3(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());

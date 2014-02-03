@@ -30,13 +30,13 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 AnimationPlayer::AnimationPlayer(const std::shared_ptr<SkinningData>& skinningData)
-    : currentClipValue()
-    , currentTimeValue(TimeSpan::Zero)
-    , currentKeyframe(0)
-    , skinningDataValue(skinningData)
-    , boneTransforms(0)
-    , worldTransforms(0)
-    , skinTransforms(0)
+    : currentClipValue  { }
+    , currentTimeValue  { TimeSpan::Zero }
+    , currentKeyframe   { 0 }
+    , skinningDataValue { skinningData }
+    , boneTransforms    { }
+    , worldTransforms   { }
+    , skinTransforms    { }
 {
     this->boneTransforms.resize(this->skinningDataValue->BindPose().size());
     this->worldTransforms.resize(this->skinningDataValue->BindPose().size());
@@ -44,13 +44,13 @@ AnimationPlayer::AnimationPlayer(const std::shared_ptr<SkinningData>& skinningDa
 }
 
 AnimationPlayer::AnimationPlayer(const AnimationPlayer& animationPlayer)
-    : currentClipValue(animationPlayer.currentClipValue)
-    , currentTimeValue(animationPlayer.currentTimeValue)
-    , currentKeyframe(animationPlayer.currentKeyframe)
-    , skinningDataValue(animationPlayer.skinningDataValue)
-    , boneTransforms(animationPlayer.boneTransforms)
-    , worldTransforms(animationPlayer.worldTransforms)
-    , skinTransforms(animationPlayer.skinTransforms)
+    : currentClipValue  { animationPlayer.currentClipValue }
+    , currentTimeValue  { animationPlayer.currentTimeValue }
+    , currentKeyframe   { animationPlayer.currentKeyframe }
+    , skinningDataValue { animationPlayer.skinningDataValue }
+    , boneTransforms    { animationPlayer.boneTransforms }
+    , worldTransforms   { animationPlayer.worldTransforms }
+    , skinTransforms    { animationPlayer.skinTransforms }
 {
 }
 
@@ -108,7 +108,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
     this->currentTimeValue = currentTime;
 
     // Read keyframe matrices.
-    const std::vector<Keyframe>& keyframes = this->currentClipValue.Keyframes();
+    const auto& keyframes = this->currentClipValue.Keyframes();
 
     while (currentKeyframe < keyframes.size())
     {

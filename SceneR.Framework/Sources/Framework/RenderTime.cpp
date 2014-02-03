@@ -34,9 +34,9 @@ RenderTime::RenderTime(const TimeSpan& totalRenderTime
 RenderTime::RenderTime(const TimeSpan& totalRenderTime
                      , const TimeSpan& elapsedRenderTime
                      , const Boolean&  isRunningSlowly)
-    : totalRenderTime(totalRenderTime)
-    , elapsedRenderTime(elapsedRenderTime)
-    , isRunningSlowly(isRunningSlowly)
+    : totalRenderTime   { totalRenderTime }
+    , elapsedRenderTime { elapsedRenderTime }
+    , isRunningSlowly   { isRunningSlowly }
 {
 }
 

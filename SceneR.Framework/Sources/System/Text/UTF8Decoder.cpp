@@ -20,7 +20,7 @@ using namespace System;
 using namespace System::Text;
 
 UTF8Decoder::UTF8Decoder()
-    : Decoder()
+    : Decoder { }
 {
 }
 

@@ -26,8 +26,8 @@ using namespace SceneR::Framework;
 
 ContentManager::ContentManager(RendererServiceContainer& serviceProvider,
                                const String&             rootDirectory)
-    : serviceProvider(serviceProvider)
-    , rootDirectory(rootDirectory)
+    : serviceProvider { serviceProvider }
+    , rootDirectory   { rootDirectory }
 {
 }
 

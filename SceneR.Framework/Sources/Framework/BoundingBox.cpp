@@ -27,12 +27,14 @@ using namespace SceneR::Framework;
 const System::Int32& BoundingBox::CornerCount = 8;
 
 BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
-    : min(min), max(max)
+    : min { min }
+    , max { max }
 {	
 }
 
 BoundingBox::BoundingBox(const BoundingBox& boundingBox)
-    : min(boundingBox.min), max(boundingBox.max)
+    : min { boundingBox.min }
+    , max { boundingBox.max }
 {
 }
 

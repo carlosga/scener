@@ -26,14 +26,14 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
-    : renderer(renderer)
-    , graphicsDevice(nullptr)
-    , allowUserResizing(false)
-    , fullScreen(false)
-    , graphicsProfile(SceneR::Graphics::GraphicsProfile::HiDef)
-    , preferredBackBufferWidth(0)
-    , preferredBackBufferHeight(0)
-    , windowTitle(u"")
+    : renderer                  { renderer }
+    , graphicsDevice            { nullptr }
+    , allowUserResizing         { false }
+    , fullScreen                { false }
+    , graphicsProfile           { SceneR::Graphics::GraphicsProfile::HiDef }
+    , preferredBackBufferWidth  { 0 }
+    , preferredBackBufferHeight { 0 }
+    , windowTitle               { u"" }
 {
     this->renderer.Services().AddService<IGraphicsDeviceService>(*this);
 }

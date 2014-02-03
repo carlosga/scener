@@ -325,10 +325,10 @@ Matrix Matrix::Transpose(const Matrix& source)
 }
 
 Matrix::Matrix()
-    : m11(0.0f), m12(0.0f), m13(0.0f), m14(0.0f)
-    , m21(0.0f), m22(0.0f), m23(0.0f), m24(0.0f)
-    , m31(0.0f), m32(0.0f), m33(0.0f), m34(0.0f)
-    , m41(0.0f), m42(0.0f), m43(0.0f), m44(0.0f)
+    : m11 { 0.0f }, m12 { 0.0f }, m13 { 0.0f }, m14 { 0.0f }
+    , m21 { 0.0f }, m22 { 0.0f }, m23 { 0.0f }, m24 { 0.0f }
+    , m31 { 0.0f }, m32 { 0.0f }, m33 { 0.0f }, m34 { 0.0f }
+    , m41 { 0.0f }, m42 { 0.0f }, m43 { 0.0f }, m44 { 0.0f }
 {
 }
 
@@ -336,18 +336,18 @@ Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Si
              , const Single& m21, const Single& m22, const Single& m23, const Single& m24
              , const Single& m31, const Single& m32, const Single& m33, const Single& m34
              , const Single& m41, const Single& m42, const Single& m43, const Single& m44)
-    : m11(m11), m12(m12), m13(m13), m14(m14),
-      m21(m21), m22(m22), m23(m23), m24(m24),
-      m31(m31), m32(m32), m33(m33), m34(m34),
-      m41(m41), m42(m42), m43(m43), m44(m44)
+    : m11 { m11 }, m12 { m12 }, m13 { m13 }, m14 { m14 }
+    , m21 { m21 }, m22 { m22 }, m23 { m23 }, m24 { m24 }
+    , m31 { m31 }, m32 { m32 }, m33 { m33 }, m34 { m34 }
+    , m41 { m41 }, m42 { m42 }, m43 { m43 }, m44 { m44 }
 {
 }
 
 Matrix::Matrix(const Matrix& matrix)
-    : m11(matrix.m11), m12(matrix.m12), m13(matrix.m13), m14(matrix.m14)
-    , m21(matrix.m21), m22(matrix.m22), m23(matrix.m23), m24(matrix.m24)
-    , m31(matrix.m31), m32(matrix.m32), m33(matrix.m33), m34(matrix.m34)
-    , m41(matrix.m41), m42(matrix.m42), m43(matrix.m43), m44(matrix.m44)
+    : m11 { matrix.m11 }, m12 { matrix.m12 }, m13 { matrix.m13 }, m14 { matrix.m14 }
+    , m21 { matrix.m21 }, m22 { matrix.m22 }, m23 { matrix.m23 }, m24 { matrix.m24 }
+    , m31 { matrix.m31 }, m32 { matrix.m32 }, m33 { matrix.m33 }, m34 { matrix.m34 }
+    , m41 { matrix.m41 }, m42 { matrix.m42 }, m43 { matrix.m43 }, m44 { matrix.m44 }
 {
 }
 

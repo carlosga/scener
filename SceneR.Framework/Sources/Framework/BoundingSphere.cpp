@@ -45,14 +45,14 @@ BoundingSphere BoundingSphere::CreateMerged(const BoundingSphere& original, cons
 }
 
 BoundingSphere::BoundingSphere(const Vector3& center, const Single& radius)
-    : center(center)
-    , radius(radius)
+    : center { center }
+    , radius { radius }
 {
 }
 
 BoundingSphere::BoundingSphere(const BoundingSphere& sphere)
-    : center(sphere.center)
-    , radius(sphere.radius)
+    : center { sphere.center }
+    , radius { sphere.radius }
 {
 }
 

@@ -28,11 +28,11 @@ using namespace SceneR::Graphics;
 VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
                          , const System::Size&                                         vertexCount
                          , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
-    : GraphicsResource(graphicsDevice)
-    , vertexDeclaration(vertexDeclaration)
-    , vertexCount(vertexCount)
-    , vao()
-    , vbo(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw)
+    : GraphicsResource  { graphicsDevice }
+    , vertexDeclaration { vertexDeclaration }
+    , vertexCount       { vertexCount }
+    , vao               { }
+    , vbo               { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
 {
     this->Activate();
     this->vertexDeclaration->Activate();

@@ -52,9 +52,9 @@ ContentTypeReaderManager::~ContentTypeReaderManager()
         {
             delete reader.second;
         }
-    }
 
-    this->readers.clear();
+        this->readers.clear();
+    }
 }
 
 ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const String& name)

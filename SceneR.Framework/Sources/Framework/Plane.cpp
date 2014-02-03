@@ -43,7 +43,7 @@ Plane Plane::Normalize(const Plane& value)
 
 Plane Plane::Transform(const Plane& plane, const Matrix& matrix)
 {
-    return { Vector4(plane.normal, plane.d) * Matrix::Transpose(Matrix::Invert(matrix)) };
+    return { Vector4 { plane.normal, plane.d } * Matrix::Transpose(Matrix::Invert(matrix)) };
 }
 
 Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
@@ -58,20 +58,20 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
-	: d(d)
-    , normal({ a, b, c })
+	: d      { d }
+    , normal { a, b, c }
 {
 }
 
 Plane::Plane(const Vector3& normal, const System::Single& d)
-	: d(d)
-    , normal(normal)
+	: d      { d }
+    , normal { normal }
 {
 }
 
 Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3)
-    : d(0.0f)
-    , normal()
+    : d      { 0.0f }
+    , normal { }
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
     auto v21 = point1 - point2;
@@ -84,14 +84,14 @@ Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3
 }
 
 Plane::Plane(const Vector4& value)
-	: d(value.W())
-    , normal(Vector3::Normalize({ value.X(), value.Y(), value.Z() }))
+	: d      { value.W() }
+    , normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) }
 {	
 }
 
 Plane::Plane(const Plane& value)
-    : d(value.d)
-    , normal(value.normal)
+    : d      { value.d }
+    , normal { value.normal }
 {
 }
 
@@ -111,7 +111,7 @@ const Vector3& Plane::Normal() const
 
 System::Single Plane::Dot(const Vector4& value) const
 {
-    auto v = Vector4(this->normal, this->d);
+    auto v = Vector4 { this->normal, this->d };
 
     return v.DotProduct(value);
 }

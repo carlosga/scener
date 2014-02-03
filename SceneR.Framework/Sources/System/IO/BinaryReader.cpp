@@ -22,13 +22,13 @@ using namespace System::IO;
 using namespace System::Text;
 
 BinaryReader::BinaryReader(Stream& stream)
-    : BinaryReader(stream, Encoding::UTF8)
+    : BinaryReader { stream, Encoding::UTF8 }
 {
 }
 
 BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding)
-    : stream(stream)
-    , encoding(encoding)
+    : stream   { stream }
+    , encoding { encoding }
 {
 }
 

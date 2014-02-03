@@ -27,7 +27,7 @@ System::Boolean Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
 }
 
 Texture::Texture(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice)
+    : GraphicsResource { graphicsDevice }
 {
 }
 

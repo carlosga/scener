@@ -21,7 +21,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 DirectionalLight::DirectionalLight()
-    : DirectionalLight(Vector3::One, Vector3(0.0f, -1.0f, 0.0f), true, Vector3::Zero)
+    : DirectionalLight { Vector3::One, Vector3(0.0f, -1.0f, 0.0f), true, Vector3::Zero }
 {
 }
 
@@ -29,10 +29,10 @@ DirectionalLight::DirectionalLight(const Vector3& diffuseColor
                                  , const Vector3& direction
                                  , const Boolean& enabled
                                  , const Vector3& specularColor)
-    : diffuseColor(diffuseColor)
-    , direction(direction)
-    , enabled(enabled)
-    , specularColor(specularColor)
+    : diffuseColor  { diffuseColor }
+    , direction     { direction }
+    , enabled       { enabled }
+    , specularColor { specularColor }
 {
 }
 

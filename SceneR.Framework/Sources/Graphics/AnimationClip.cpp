@@ -26,14 +26,14 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 AnimationClip::AnimationClip()
-    : duration(TimeSpan::Zero)
-    , keyframes(0)
+    : duration  { TimeSpan::Zero }
+    , keyframes { }
 {
 }
 
 AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyframe>& keyframes)
-    : duration(duration)
-    , keyframes(keyframes)
+    : duration  { duration }
+    , keyframes { keyframes }
 {
 }
 

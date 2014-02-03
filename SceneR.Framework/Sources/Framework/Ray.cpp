@@ -25,15 +25,15 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Ray::Ray(const Vector3& position, const Vector3& direction)
-	: direction(direction)
-    , position(position)
+	: direction { direction }
+    , position  { position }
 
 {
 }
 
 Ray::Ray(const Ray& ray)
-    : direction(ray.direction)
-    , position(ray.position)
+    : direction { ray.direction }
+    , position  { ray.position }
 {
 }
 

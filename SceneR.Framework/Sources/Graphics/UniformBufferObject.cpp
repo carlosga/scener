@@ -20,7 +20,7 @@
 using namespace SceneR::Graphics;
 
 UniformBufferObject::UniformBufferObject(const BufferUsage& usage)
-    : ubo(BufferTarget::UniformBuffer, usage)
+    : ubo { BufferTarget::UniformBuffer, usage }
 {
 }
 

@@ -21,10 +21,10 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 DisplayMode::DisplayMode(const GLFWvidmode* mode)
-    : aspectRatio(0.0f)
-    , format(SurfaceFormat::Color)
-    , height(mode->height)
-    , width(mode->width)
+    : aspectRatio { 0.0f }
+    , format      { SurfaceFormat::Color }
+    , height      ( mode->height )
+    , width       ( mode->width )
 {
     assert(mode->width != 0 && mode->height != 0);
 

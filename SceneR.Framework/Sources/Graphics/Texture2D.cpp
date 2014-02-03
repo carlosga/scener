@@ -33,15 +33,15 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
                    , const UInt32&        height
                    , const Boolean&       mipmap
                    , const SurfaceFormat& format)
-    : Texture(graphicsDevice)
-    , format(format)
-    , height(height)
-    , mipmap(mipmap)
-    , mipmapLevels(0)
-    , mipmapHeight(height)
-    , mipmapWidth(width)
-    , width(width)
-    , object(TextureTarget::Texture2D)
+    : Texture      { graphicsDevice }
+    , format       { format }
+    , height       { height }
+    , mipmap       { mipmap }
+    , mipmapLevels { 0 }
+    , mipmapHeight { height }
+    , mipmapWidth  { width }
+    , width        { width }
+    , object       { TextureTarget::Texture2D }
 {
 }
 

@@ -31,12 +31,12 @@ using namespace SceneR::Framework;
 ContentReader::ContentReader(const String&                    assetName
                            , SceneR::Content::ContentManager& contentManager
                            , Stream&                          stream)
-    : BinaryReader { stream }
-    , assetName(assetName)
-    , contentManager(contentManager)
-    , typeReaderManager()
-    , sharedResourceCount(0)
-    , fixupActions()
+    : BinaryReader        { stream }
+    , assetName           { assetName }
+    , contentManager      { contentManager }
+    , typeReaderManager   { }
+    , sharedResourceCount { 0 }
+    , fixupActions        { }
 {
     this->ReadHeader();
     this->ReadManifest();

@@ -28,25 +28,25 @@ using namespace SceneR::Framework;
 const System::Int32& BoundingFrustrum::CornerCount = 8;
 
 BoundingFrustrum::BoundingFrustrum(const SceneR::Framework::Matrix& value)
-    : bottom(0.0f, 0.0f, 0.0f, 0.0f)
-    , far(0.0f, 0.0f, 0.0f, 0.0f)
-    , left(0.0f, 0.0f, 0.0f, 0.0f)
-    , near(0.0f, 0.0f, 0.0f, 0.0f)
-    , right(0.0f, 0.0f, 0.0f, 0.0f)
-    , top(0.0f, 0.0f, 0.0f, 0.0f)
-    , value(value)
+    : bottom { 0.0f, 0.0f, 0.0f, 0.0f }
+    , far    { 0.0f, 0.0f, 0.0f, 0.0f }
+    , left   { 0.0f, 0.0f, 0.0f, 0.0f }
+    , near   { 0.0f, 0.0f, 0.0f, 0.0f }
+    , right  { 0.0f, 0.0f, 0.0f, 0.0f }
+    , top    { 0.0f, 0.0f, 0.0f, 0.0f }
+    , value  { value }
 {
     this->UpdatePlanes();
 }
 
 BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum)
-    : bottom(frustrum.bottom)
-    , far(frustrum.far)
-    , left(frustrum.left)
-    , near(frustrum.near)
-    , right(frustrum.right)
-    , top(frustrum.top)
-    , value(frustrum.value)
+    : bottom { frustrum.bottom }
+    , far    { frustrum.far }
+    , left   { frustrum.left }
+    , near   { frustrum.near }
+    , right  { frustrum.right }
+    , top    { frustrum.top }
+    , value  { frustrum.value }
 {
 }
 

@@ -31,8 +31,8 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
-    : id(0)
-    , shaders(shaders)
+    : id      { 0 }
+    , shaders { shaders }
 {
 }
 

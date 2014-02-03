@@ -27,19 +27,19 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Renderer::Renderer(const String& rootDirectory)
-    : components(0)
-    , services()
-    , graphicsDeviceManager(*this)
-    , rendererWindow(*this)
-    , contentManager(this->services, rootDirectory)
-    , isFixedTimeStep(true)
-    , targetElapsedTime(10000000L / 60L)
-    , timer()
-    , renderTime()
-    , totalRenderTime(TimeSpan::Zero)
-    , isRunningSlowly(false)
-    , drawableComponents(0)
-    , updateableComponents(0)
+    : components            { }
+    , services              { }
+    , graphicsDeviceManager { *this }
+    , rendererWindow        { *this }
+    , contentManager        { this->services, rootDirectory }
+    , isFixedTimeStep       { true }
+    , targetElapsedTime     { 10000000L / 60L }
+    , timer                 { }
+    , renderTime            { }
+    , totalRenderTime       { TimeSpan::Zero }
+    , isRunningSlowly       { false }
+    , drawableComponents    { }
+    , updateableComponents  { }
 {
 }
 

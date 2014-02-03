@@ -27,8 +27,8 @@ const VertexDeclaration& VertexPositionColor::Declaration
 {
     28
   , {
-        VertexElement(0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0)
-      , VertexElement(12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3)
+        { 0 , VertexElementFormat::Vector3, VertexElementUsage::Position, 0 }
+      , { 12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3 }
     }
 };
 
@@ -39,8 +39,8 @@ const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
 
 VertexPositionColor::VertexPositionColor(const Vector3&                  position
                                        , const SceneR::Framework::Color& color)
-    : position(position),
-      color(color)
+    : position { position },
+      color    { color }
 {
 }
 

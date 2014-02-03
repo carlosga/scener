@@ -21,23 +21,23 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice)
-    , counterClockwiseStencilDepthBufferFail(StencilOperation::Keep)
-    , counterClockwiseStencilFail(StencilOperation::Keep)
-    , counterClockwiseStencilFunction(CompareFunction::Always)
-    , counterClockwiseStencilPass(StencilOperation::Keep)
-    , depthBufferEnable(true)
-    , depthBufferFunction(CompareFunction::LessEqual)
-    , depthBufferWriteEnable(true)
-    , referenceStencil(0)
-    , stencilDepthBufferFail(StencilOperation::Keep)
-    , stencilEnable(false)
-    , stencilFail(StencilOperation::Keep)
-    , stencilFunction(CompareFunction::Always)
-    , stencilMask(-1)
-    , stencilPass(StencilOperation::Keep)
-    , stencilWriteMask(-1)
-    , twoSidedStencilMode(false)
+    : GraphicsResource                       { graphicsDevice }
+    , counterClockwiseStencilDepthBufferFail { StencilOperation::Keep }
+    , counterClockwiseStencilFail            { StencilOperation::Keep }
+    , counterClockwiseStencilFunction        { CompareFunction::Always }
+    , counterClockwiseStencilPass            { StencilOperation::Keep }
+    , depthBufferEnable                      { true }
+    , depthBufferFunction                    { CompareFunction::LessEqual }
+    , depthBufferWriteEnable                 { true }
+    , referenceStencil                       { 0 }
+    , stencilDepthBufferFail                 { StencilOperation::Keep }
+    , stencilEnable                          { false }
+    , stencilFail                            { StencilOperation::Keep }
+    , stencilFunction                        { CompareFunction::Always }
+    , stencilMask                            { -1 }
+    , stencilPass                            { StencilOperation::Keep }
+    , stencilWriteMask                       { -1 }
+    , twoSidedStencilMode                    { false }
 {
 }
 

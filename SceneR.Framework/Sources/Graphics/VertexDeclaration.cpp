@@ -22,8 +22,8 @@ using namespace SceneR::Graphics;
 
 VertexDeclaration::VertexDeclaration(const Size&                       vertexStride
                                    , const std::vector<VertexElement>& vertexElements)
-    : vertexStride(vertexStride)
-    , vertexElements(vertexElements)
+    : vertexStride   { vertexStride }
+    , vertexElements { vertexElements }
 {
 }
 

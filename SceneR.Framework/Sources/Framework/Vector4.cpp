@@ -123,27 +123,42 @@ Vector4::Vector4(const Single& x, const Single& y, const Single& z)
 }
 
 Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single& w)
-    : x(x), y(y), z(z), w(w)
+    : x { x }
+    , y { y }
+    , z { z }
+    , w { w }
 {
 }
 
 Vector4::Vector4(const System::Single& value)
-    : x(value), y(value), z(value), w(value)
+    : x { value }
+    , y { value }
+    , z { value }
+    , w { value }
 {
 }
 
 Vector4::Vector4(const Vector2& value, const System::Single& z, const System::Single& w)
-    : x(value.X()), y(value.Y()), z(z), w(w)
+    : x { value.X() }
+    , y { value.Y() }
+    , z { z }
+    , w { w }
 {
 }
 
 Vector4::Vector4(const Vector3& value, const System::Single& w)
-    : x(value.X()), y(value.Y()), z(value.Z()), w(w)
+    : x { value.X() }
+    , y { value.Y() }
+    , z { value.Z() }
+    , w { w }
 {
 }
 
 Vector4::Vector4(const Vector4& vector)
-    : x(vector.x), y(vector.y), z(vector.z), w(vector.w)
+    : x { vector.x }
+    , y { vector.y }
+    , z { vector.z }
+    , w { vector.w }
 {
 }
 

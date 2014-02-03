@@ -24,10 +24,10 @@ using namespace SceneR::Graphics;
 IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice
                        , const SceneR::Graphics::IndexElementSize& indexElementSize
                        , const Size&                               indexCount)
-    : GraphicsResource(graphicsDevice)
-    , ibo(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw)
-    , indexCount(indexCount)
-    , indexElementSize(indexElementSize)
+    : GraphicsResource { graphicsDevice }
+    , ibo              { BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw }
+    , indexCount       { indexCount }
+    , indexElementSize { indexElementSize }
 {
 }
 

@@ -26,11 +26,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Model::Model()
-    : bones(0)
-    , boneTransforms(0)
-    , meshes(0)
-    , root(nullptr)
-    , tag()
+    : bones          ( 0 )
+    , boneTransforms ( 0 )
+    , meshes         ( 0 )
+    , root           { nullptr }
+    , tag            { u"" }
 {
 }
 

@@ -27,17 +27,17 @@ using namespace SceneR::Graphics;
 
 GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
                              , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
-    : blendState(*this)
-    , depthStencilState(*this)
-    , effect(nullptr)
-    , graphicsAdapter(adapter)
-    , graphicsProfile(graphicsProfile)
-    , indexBuffer(nullptr)
-    , presentationParameters()
-    , rasterizerState(*this)
-    , samplerStates()
-    , vertexBuffer(nullptr)
-    , viewport()
+    : blendState             { *this }
+    , depthStencilState      { *this }
+    , effect                 { nullptr }
+    , graphicsAdapter        { adapter }
+    , graphicsProfile        { graphicsProfile }
+    , indexBuffer            { nullptr }
+    , presentationParameters { }
+    , rasterizerState        { *this }
+    , samplerStates          {  }
+    , vertexBuffer           { nullptr }
+    , viewport               { }
 {
     this->samplerStates.push_back(SamplerState(*this));
 }

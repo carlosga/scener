@@ -20,9 +20,9 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
-    : graphicsDevice(graphicsDevice)
-    , name()
-    , tag()
+    : graphicsDevice { graphicsDevice }
+    , name           { u""  }
+    , tag            { u""  }
 {
 }
 

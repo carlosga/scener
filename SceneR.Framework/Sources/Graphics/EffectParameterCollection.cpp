@@ -28,7 +28,7 @@ EffectParameterCollection::EffectParameterCollection()
 }
 
 EffectParameterCollection::EffectParameterCollection(const EffectParameterCollection& parameters)
-    : parameters(parameters.parameters)
+    : parameters { parameters.parameters }
 {
 }
 

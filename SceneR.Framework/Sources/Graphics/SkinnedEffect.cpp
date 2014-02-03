@@ -36,57 +36,57 @@ String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/pr
 String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/SkinnedEffect.frag");
 
 SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
-    : Effect(graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource)
-    , alpha(1.0)
-    , ambientLightColor(Vector3::Zero)
-    , boneTransforms(0)
-    , diffuseColor(Vector3::One)
-    , directionalLight0(nullptr)
-    , directionalLight1(nullptr)
-    , directionalLight2(nullptr)
-    , enableDefaultLighting(false)
-    , emissiveColor(Vector3::Zero)
-    , fogEnabled(false)
-    , fogColor(Vector3::Zero)
-    , fogEnd(1.0f)
-    , fogStart(0.0f)
-    , preferPerPixelLighting(false)
-    , projection(Matrix::Identity)
-    , specularColor(Vector3::One)
-    , specularPower(16.0f)
-    , textureEnabled(false)
-    , texture(nullptr)
-    , view(Matrix::Identity)
-    , weightsPerVertex(2)
-    , world(Matrix::Identity)
+    : Effect                 { graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource }
+    , alpha                  { 1.0 }
+    , ambientLightColor      { Vector3::Zero }
+    , boneTransforms         { 0 }
+    , diffuseColor           { Vector3::One }
+    , directionalLight0      { nullptr }
+    , directionalLight1      { nullptr }
+    , directionalLight2      { nullptr }
+    , enableDefaultLighting  { false }
+    , emissiveColor          { Vector3::Zero }
+    , fogEnabled             { false }
+    , fogColor               { Vector3::Zero }
+    , fogEnd                 { 1.0f }
+    , fogStart               { 0.0f }
+    , preferPerPixelLighting { false }
+    , projection             { Matrix::Identity }
+    , specularColor          { Vector3::One }
+    , specularPower          { 16.0f }
+    , textureEnabled         { false }
+    , texture                { nullptr }
+    , view                   { Matrix::Identity }
+    , weightsPerVertex       { 2 }
+    , world                  { Matrix::Identity }
 {
     this->Initialize();
 }
 
 SkinnedEffect::SkinnedEffect(const SkinnedEffect& effect)
-    : Effect(effect)
-    , alpha(effect.alpha)
-    , ambientLightColor(effect.ambientLightColor)
-    , boneTransforms(effect.boneTransforms)
-    , diffuseColor(effect.diffuseColor)
-    , directionalLight0(effect.directionalLight0)
-    , directionalLight1(effect.directionalLight1)
-    , directionalLight2(effect.directionalLight2)
-    , enableDefaultLighting(effect.enableDefaultLighting)
-    , emissiveColor(effect.emissiveColor)
-    , fogEnabled(effect.fogEnabled)
-    , fogColor(effect.fogColor)
-    , fogEnd(effect.fogEnd)
-    , fogStart(effect.fogStart)
-    , preferPerPixelLighting(effect.preferPerPixelLighting)
-    , projection(effect.projection)
-    , specularColor(effect.specularColor)
-    , specularPower(effect.specularPower)
-    , textureEnabled(effect.textureEnabled)
-    , texture(effect.texture)
-    , view(effect.view)
-    , weightsPerVertex(effect.weightsPerVertex)
-    , world(effect.world)
+    : Effect                 { effect }
+    , alpha                  { effect.alpha }
+    , ambientLightColor      { effect.ambientLightColor }
+    , boneTransforms         { effect.boneTransforms }
+    , diffuseColor           { effect.diffuseColor }
+    , directionalLight0      { effect.directionalLight0 }
+    , directionalLight1      { effect.directionalLight1 }
+    , directionalLight2      { effect.directionalLight2 }
+    , enableDefaultLighting  { effect.enableDefaultLighting }
+    , emissiveColor          { effect.emissiveColor }
+    , fogEnabled             { effect.fogEnabled }
+    , fogColor               { effect.fogColor }
+    , fogEnd                 { effect.fogEnd }
+    , fogStart               { effect.fogStart }
+    , preferPerPixelLighting { effect.preferPerPixelLighting }
+    , projection             { effect.projection }
+    , specularColor          { effect.specularColor }
+    , specularPower          { effect.specularPower }
+    , textureEnabled         { effect.textureEnabled }
+    , texture                { effect.texture }
+    , view                   { effect.view }
+    , weightsPerVertex       { effect.weightsPerVertex }
+    , world                  { effect.world }
 {
     this->Initialize();
 }
@@ -163,26 +163,26 @@ void SkinnedEffect::EnableDefaultLighting()
 
     // Key light.
     this->directionalLight0 = std::make_shared<DirectionalLight>();
-    this->directionalLight0->Direction(Vector3(-0.5265408f, -0.5735765f, -0.6275069f));
-    this->directionalLight0->DiffuseColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
-    this->directionalLight0->SpecularColor(Vector3(1.0f, 0.9607844f, 0.8078432f));
+    this->directionalLight0->Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
+    this->directionalLight0->DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
+    this->directionalLight0->SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
     this->directionalLight0->Enabled(true);
 
     // Fill light.
     this->directionalLight1 = std::make_shared<DirectionalLight>();
-    this->directionalLight1->Direction(Vector3(0.7198464f, 0.3420201f, 0.6040227f));
-    this->directionalLight1->DiffuseColor(Vector3(0.9647059f, 0.7607844f, 0.4078432f));
+    this->directionalLight1->Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
+    this->directionalLight1->DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
     this->directionalLight1->SpecularColor(Vector3::Zero);
     this->directionalLight1->Enabled(true);
 
     // Back light.
     this->directionalLight2 = std::make_shared<DirectionalLight>();
-    this->directionalLight2->Direction(Vector3(0.4545195f, -0.7660444f, 0.4545195f));
-    this->directionalLight2->DiffuseColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
-    this->directionalLight2->SpecularColor(Vector3(0.3231373f, 0.3607844f, 0.3937255f));
+    this->directionalLight2->Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
+    this->directionalLight2->DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
+    this->directionalLight2->SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
     this->directionalLight2->Enabled(true);
 
-    this->ambientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
+    this->ambientLightColor = { 0.05333332f, 0.09882354f, 0.1819608f };
 }
 
 const Vector3& SkinnedEffect::EmissiveColor() const
@@ -376,16 +376,13 @@ void SkinnedEffect::End()
 
 void SkinnedEffect::OnApply()
 {
-    Matrix viewInverse(this->view);
-    Matrix worldView(this->world * this->view);
-    Matrix worldViewProjection(worldView * this->projection);
-    Matrix worldInverseTranspose(this->world);
+    auto viewInverse           = Matrix::Invert(this->view);
+    auto worldView             = this->world * this->view;
+    auto worldViewProjection   = worldView * this->projection;
+    auto worldInverseTranspose = Matrix::Invert(this->world);
 
-    viewInverse.Invert();
-    worldInverseTranspose.Invert();
-
-    Vector3 eyePosition(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
-    Vector3 emissive((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
+    auto eyePosition = Vector3(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
+    auto emissive    = Vector3((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
 
     this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor() * this->alpha, this->alpha));
 

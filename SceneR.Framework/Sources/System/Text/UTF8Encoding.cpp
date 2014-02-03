@@ -20,7 +20,7 @@ using namespace System;
 using namespace System::Text;
 
 UTF8Encoding::UTF8Encoding()
-    : Encoding()
+    : Encoding { }
 {
 }
 

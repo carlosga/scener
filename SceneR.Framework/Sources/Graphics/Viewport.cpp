@@ -22,25 +22,25 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 Viewport::Viewport()
-    : Viewport(0.0f, 0.0f, 0.0f, 0.0f)
+    : Viewport { 0.0f, 0.0f, 0.0f, 0.0f }
 {
 }
 
 Viewport::Viewport(const Single& x    , const Single& y
                  , const Single& width, const Single& height)
-    : Viewport(x, y, width, height, 0.0f, 1.0f)
+    : Viewport { x, y, width, height, 0.0f, 1.0f }
 {
 }
 
 Viewport::Viewport(const Single& x       , const Single& y
                  , const Single& width   , const Single& height
                  , const Single& minDepth, const Single& maxDepth)
-    : x(x)
-    , y(y)
-    , width(width)
-    , height(height)
-    , minDepth(minDepth)
-    , maxDepth(maxDepth)
+    : x        { x }
+    , y        { y }
+    , width    { width }
+    , height   { height }
+    , minDepth { minDepth }
+    , maxDepth { maxDepth }
 {
 }
 

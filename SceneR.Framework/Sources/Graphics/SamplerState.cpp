@@ -23,14 +23,14 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice)
-    , addressU(TextureAddressMode::Wrap)
-    , addressV(TextureAddressMode::Wrap)
-    , addressW(TextureAddressMode::Wrap)
-    , filter(TextureFilter::Linear)
-    , maxAnisotropy(4)
-    , maxMipLevel(0)
-    , mipMapLevelOfDetailBias(0)
+    : GraphicsResource        { graphicsDevice }
+    , addressU                { TextureAddressMode::Wrap }
+    , addressV                { TextureAddressMode::Wrap }
+    , addressW                { TextureAddressMode::Wrap }
+    , filter                  { TextureFilter::Linear }
+    , maxAnisotropy           { 4 }
+    , maxMipLevel             { 0 }
+    , mipMapLevelOfDetailBias { 0 }
 {
 }
 

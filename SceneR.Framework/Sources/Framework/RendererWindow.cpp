@@ -28,10 +28,10 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 RendererWindow::RendererWindow(Renderer& renderer)
-    : title(),
-      allowUserResizing(false),
-      handle(nullptr),
-      renderer(renderer)
+    : title             { }
+    , allowUserResizing { false }
+    , handle            { nullptr }
+    , renderer          { renderer }
 {
 }
 

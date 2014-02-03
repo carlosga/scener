@@ -94,17 +94,20 @@ Vector2 Vector2::SmoothStep(const Vector2& value1
 }
 
 Vector2::Vector2()
-    : x(0.0f), y(0.0f)
+    : x { 0.0f }
+    , y { 0.0f }
 {
 }
 
 Vector2::Vector2(const Single& x, const Single& y)
-    : x(x), y(y)
+    : x { x }
+    , y { y }
 {
 }
 
 Vector2::Vector2(const Vector2& vector)
-    : x(vector.x), y(vector.y)
+    : x { vector.x }
+    , y { vector.y }
 {
 }
 

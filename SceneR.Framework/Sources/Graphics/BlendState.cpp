@@ -22,19 +22,19 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 BlendState::BlendState(GraphicsDevice& graphicsDevice)
-    : GraphicsResource(graphicsDevice)
-    , alphaBlendFunction(BlendFunction::Add)
-    , alphaDestinationBlend(Blend::Zero)
-    , alphaSourceBlend(Blend::One)
-    , blendFactor(Color::White)
-    , colorBlendFunction(BlendFunction::Add)
-    , colorDestinationBlend(Blend::Zero)
-    , colorSourceBlend(Blend::One)
-    , colorWriteChannels(SceneR::Graphics::ColorWriteChannels::All)
-    , colorWriteChannels1(SceneR::Graphics::ColorWriteChannels::All)
-    , colorWriteChannels2(SceneR::Graphics::ColorWriteChannels::All)
-    , colorWriteChannels3(SceneR::Graphics::ColorWriteChannels::All)
-    , multiSampleMask(0xffffffff)
+    : GraphicsResource      { graphicsDevice }
+    , alphaBlendFunction    { BlendFunction::Add }
+    , alphaDestinationBlend { Blend::Zero }
+    , alphaSourceBlend      { Blend::One }
+    , blendFactor           { Color::White }
+    , colorBlendFunction    { BlendFunction::Add }
+    , colorDestinationBlend { Blend::Zero }
+    , colorSourceBlend      { Blend::One }
+    , colorWriteChannels    { SceneR::Graphics::ColorWriteChannels::All }
+    , colorWriteChannels1   { SceneR::Graphics::ColorWriteChannels::All }
+    , colorWriteChannels2   { SceneR::Graphics::ColorWriteChannels::All }
+    , colorWriteChannels3   { SceneR::Graphics::ColorWriteChannels::All }
+    , multiSampleMask       { 0xffffffff }
 {
 }
 

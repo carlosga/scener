@@ -24,8 +24,8 @@ using namespace SceneR::Graphics;
 
 DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
     : Component { renderer }
-    , visible(true)
-    , drawOrder(0)
+    , visible   { true }
+    , drawOrder { 0 }
 {
 }
 

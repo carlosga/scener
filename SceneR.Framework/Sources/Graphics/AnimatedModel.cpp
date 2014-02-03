@@ -31,9 +31,9 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 AnimatedModel::AnimatedModel(const std::shared_ptr<Model>& model)
-    : model(model)
-    , skinningData(model->Skinning())
-    , player(model->Skinning())
+    : model        { model }
+    , skinningData { model->Skinning() }
+    , player       { model->Skinning() }
 {
 }
 
