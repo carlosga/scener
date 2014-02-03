@@ -28,13 +28,15 @@ using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
+ContentTypeReaderManager ContentReader::TypeReaderManager { };
+
 ContentReader::ContentReader(const String&                    assetName
                            , SceneR::Content::ContentManager& contentManager
                            , Stream&                          stream)
     : BinaryReader        { stream }
     , assetName           { assetName }
     , contentManager      { contentManager }
-    , typeReaderManager   { }
+    , typeReaders         ( 0 )
     , sharedResourceCount { 0 }
     , fixupActions        { }
 {
@@ -140,7 +142,7 @@ void ContentReader::ReadManifest()
         this->ReadInt32();
 
         // Look up and store this type reader implementation class.
-        auto reader = this->typeReaderManager.GetByReaderName(readerName);
+        auto reader = ContentReader::TypeReaderManager.GetByReaderName(readerName);
 
         assert(reader != nullptr);
 

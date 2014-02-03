@@ -51,6 +51,8 @@ namespace SceneR
          */
         class ContentReader : public System::IO::BinaryReader
         {
+            static ContentTypeReaderManager TypeReaderManager;
+
         public:
             /**
              * Initializes a new instance of the ContentReader.
@@ -156,7 +158,6 @@ namespace SceneR
         private:
             System::String                    assetName;
             SceneR::Content::ContentManager&  contentManager;
-            ContentTypeReaderManager          typeReaderManager;
             std::vector<ContentTypeReader*>   typeReaders;
             System::Int32                     sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;

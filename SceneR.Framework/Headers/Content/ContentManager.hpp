@@ -44,8 +44,8 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider,
-                           const System::String&                        rootDirectory);
+            ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider
+                         , const System::String&                        rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -94,7 +94,6 @@ namespace SceneR
             std::shared_ptr<T> ReadAsset(const System::String& assetName) throw(ContentLoadException)
             {
                 auto stream = this->OpenStream(assetName);
-                // auto reader = ContentReader(assetName, *this, *stream);
                 ContentReader reader(assetName, *this, *stream);
                 auto asset  = reader.ReadObject<T>();
 
