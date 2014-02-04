@@ -21,13 +21,13 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const System::Single& MathHelper::E       = M_E;
-const System::Single& MathHelper::Log10E  = M_LOG10E;
-const System::Single& MathHelper::Log2E   = M_LOG2E;
-const System::Single& MathHelper::Pi      = M_PI;
-const System::Single& MathHelper::PiOver2 = M_PI_2;
-const System::Single& MathHelper::PiOver4 = M_PI_4;
-const System::Single& MathHelper::TwoPi   = M_2_PI;
+const Single& MathHelper::E       = M_E;
+const Single& MathHelper::Log10E  = M_LOG10E;
+const Single& MathHelper::Log2E   = M_LOG2E;
+const Single& MathHelper::Pi      = M_PI;
+const Single& MathHelper::PiOver2 = M_PI_2;
+const Single& MathHelper::PiOver4 = M_PI_4;
+const Single& MathHelper::TwoPi   = M_2_PI;
 
 Single MathHelper::Barycentric(const Single& value1
                              , const Single& value2
