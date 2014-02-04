@@ -26,12 +26,12 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 WarForrest::WarForrest(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer)
-    , model(nullptr)
-    , rotation(0.0f)
-    , world(Matrix::Identity)
-    , view(Matrix::Identity)
-    , projection(Matrix::Identity)
+    : DrawableComponent { renderer }
+    , model             { nullptr }
+    , rotation          { 0.0f }
+    , world             { Matrix::Identity }
+    , view              { Matrix::Identity }
+    , projection        { Matrix::Identity }
 {
 }
 
@@ -48,8 +48,8 @@ void WarForrest::Update(const RenderTime& renderTime)
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationX(-MathHelper::PiOver2)
                      * Matrix::CreateRotationY(this->rotation)
-                     * Matrix::CreateTranslation(Vector3(300.0f, -400.0f, 0.0f));
-    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 1200.0f), Vector3::Zero, Vector3::Up);
+                     * Matrix::CreateTranslation({ 300.0f, -400.0f, 0.0f });
+    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 1200.0f }, Vector3::Zero, Vector3::Up);
     this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 1.0, 10000.0f);
 }
 

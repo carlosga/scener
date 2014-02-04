@@ -26,12 +26,12 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Felicia::Felicia(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer)
-    , model(nullptr)
-    , rotation(0.0f)
-    , world(Matrix::Identity)
-    , view(Matrix::Identity)
-    , projection(Matrix::Identity)
+    : DrawableComponent { renderer }
+    , model             { nullptr }
+    , rotation          { 0.0f }
+    , world             { Matrix::Identity }
+    , view              { Matrix::Identity }
+    , projection        { Matrix::Identity }
 {
 }
 
@@ -47,8 +47,8 @@ void Felicia::Update(const RenderTime& renderTime)
 
     this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
     this->world      = Matrix::CreateRotationY(this->rotation)
-                     * Matrix::CreateTranslation(Vector3(0.0f, -0.5f, 0.0f));
-    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 2.0f), Vector3::Zero, Vector3::Up);
+                     * Matrix::CreateTranslation({ 0.0f, -0.5f, 0.0f });
+    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 2.0f }, Vector3::Zero, Vector3::Up);
     this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 0.1f, 100.0f);
 }
 

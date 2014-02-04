@@ -29,12 +29,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Marcus::Marcus(SceneR::Framework::Renderer& renderer)
-    : DrawableComponent(renderer)
-    , model(nullptr)
-    , animatedModel(nullptr)
-    , world(Matrix::Identity)
-    , view(Matrix::Identity)
-    , projection(Matrix::Identity)
+    : DrawableComponent { renderer }
+    , model             { nullptr }
+    , world             { Matrix::Identity }
+    , view              { Matrix::Identity }
+    , projection        { Matrix::Identity }
 {
 }
 
@@ -49,8 +48,8 @@ void Marcus::Update(const RenderTime& renderTime)
 
     this->world      = Matrix::CreateRotationX(-MathHelper::PiOver4)
                      * Matrix::CreateRotationY(MathHelper::ToRadians(150.0f))
-                     * Matrix::CreateTranslation(Vector3(0.0f, -40.0f, 100.0f));
-    this->view       = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, -10.0f), Vector3::Zero, Vector3::Up);
+                     * Matrix::CreateTranslation({ 0.0f, -40.0f, 100.0f });
+    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, -10.0f }, Vector3::Zero, Vector3::Up);
     this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 1.0f, 10000.0f);
 
     this->animatedModel->Update(renderTime);
