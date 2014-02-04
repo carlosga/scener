@@ -485,8 +485,8 @@ void Matrix::Invert()
     if (this->HasInverse())
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        Single mdet = this->Determinant();
-        Matrix copy = *this;
+        auto   mdet = this->Determinant();
+        auto   copy = *this;
         Matrix mtemp;
         Int32  sign;
 
@@ -573,7 +573,7 @@ bool Matrix::operator!=(const Matrix& matrix) const
 
 Matrix& Matrix::operator*=(const Matrix& right)
 {
-    Matrix left = *this;
+    auto left = *this;
 
     this->m11 = ((left.m11 * right.m11) + (left.m12 * right.m21) + (left.m13 * right.m31) + (left.m14 * right.m41));
     this->m12 = ((left.m11 * right.m12) + (left.m12 * right.m22) + (left.m13 * right.m32) + (left.m14 * right.m42));
@@ -600,7 +600,7 @@ Matrix& Matrix::operator*=(const Matrix& right)
 
 const Matrix Matrix::operator*(const Matrix& matrix) const
 {
-    Matrix result = *this;
+    auto result = *this;
 
     result *= matrix;
 

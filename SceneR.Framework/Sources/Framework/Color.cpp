@@ -180,7 +180,7 @@ Color& Color::operator+=(const Color& color)
 
 const Color Color::operator*(const Color& color) const
 {
-    Color result = *this;
+    auto result = *this;
 
     result *= color;
 
@@ -189,7 +189,7 @@ const Color Color::operator*(const Color& color) const
 
 const Color Color::operator*(const Single& value) const
 {
-    Color result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -198,7 +198,7 @@ const Color Color::operator*(const Single& value) const
 
 const Color Color::operator-(const Color& color) const
 {
-    Color result = *this;
+    auto result = *this;
 
     result -= color;
 
@@ -207,7 +207,7 @@ const Color Color::operator-(const Color& color) const
 
 const Color Color::operator+(const Color& color) const
 {
-    Color result = *this;
+    auto result = *this;
 
     result += color;
 

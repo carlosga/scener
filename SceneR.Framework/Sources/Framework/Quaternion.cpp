@@ -389,7 +389,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& quaternion)
 
 const Quaternion Quaternion::operator*(const Quaternion& quaternion) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result *= quaternion;
 
@@ -398,7 +398,7 @@ const Quaternion Quaternion::operator*(const Quaternion& quaternion) const
 
 const Quaternion Quaternion::operator*(const Single& value) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -407,7 +407,7 @@ const Quaternion Quaternion::operator*(const Single& value) const
 
 const Quaternion Quaternion::operator/(const Quaternion& quaternion) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result /= quaternion;
 
@@ -416,7 +416,7 @@ const Quaternion Quaternion::operator/(const Quaternion& quaternion) const
 
 const Quaternion Quaternion::operator/(const Single& value) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result /= value;
 
@@ -425,7 +425,7 @@ const Quaternion Quaternion::operator/(const Single& value) const
 
 const Quaternion Quaternion::operator-(const Quaternion& quaternion) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result -= quaternion;
 
@@ -434,7 +434,7 @@ const Quaternion Quaternion::operator-(const Quaternion& quaternion) const
 
 const Quaternion Quaternion::operator+(const Quaternion& quaternion) const
 {
-    Quaternion result = *this;
+    auto result = *this;
 
     result += quaternion;
 

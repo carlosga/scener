@@ -223,7 +223,7 @@ Vector2& Vector2::operator+=(const Vector2& vector)
 
 const Vector2 Vector2::operator*(const Vector2& vector) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result *= vector;
 
@@ -232,7 +232,7 @@ const Vector2 Vector2::operator*(const Vector2& vector) const
 
 const Vector2 Vector2::operator*(const Single& value) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -241,7 +241,7 @@ const Vector2 Vector2::operator*(const Single& value) const
 
 const Vector2 Vector2::operator/(const Vector2& vector) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result /= vector;
 
@@ -250,7 +250,7 @@ const Vector2 Vector2::operator/(const Vector2& vector) const
 
 const Vector2 Vector2::operator/(const Single& value) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -259,7 +259,7 @@ const Vector2 Vector2::operator/(const Single& value) const
 
 const Vector2 Vector2::operator-(const Vector2& vector) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result -= vector;
 
@@ -268,7 +268,7 @@ const Vector2 Vector2::operator-(const Vector2& vector) const
 
 const Vector2 Vector2::operator+(const Vector2& vector) const
 {
-    Vector2 result = *this;
+    auto result = *this;
 
     result += vector;
 

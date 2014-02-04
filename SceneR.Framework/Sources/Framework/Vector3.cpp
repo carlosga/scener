@@ -340,7 +340,7 @@ Vector3& Vector3::operator+=(const Vector3& vector)
 
 const Vector3 Vector3::operator*(const Vector3& vector) const
 {
-    Vector3 result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
+    auto result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
 
     result *= vector;
 
@@ -349,7 +349,7 @@ const Vector3 Vector3::operator*(const Vector3& vector) const
 
 const Vector3 Vector3::operator*(const Single& value) const
 {
-    Vector3 result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -384,7 +384,7 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
 
 const Vector3 Vector3::operator/(const Vector3& vector) const
 {
-    Vector3 result = *this;
+    auto result = *this;
 
     result /= vector;
 
@@ -393,7 +393,7 @@ const Vector3 Vector3::operator/(const Vector3& vector) const
 
 const Vector3 Vector3::operator/(const Single& value) const
 {
-    Vector3 result = *this;
+    auto result = *this;
 
     result /= value;
 
@@ -402,7 +402,7 @@ const Vector3 Vector3::operator/(const Single& value) const
 
 const Vector3 Vector3::operator-(const Vector3& vector) const
 {
-    Vector3 result = *this;
+    auto result = *this;
 
     result -= vector;
 
@@ -411,7 +411,7 @@ const Vector3 Vector3::operator-(const Vector3& vector) const
 
 const Vector3 Vector3::operator+(const Vector3& vector) const
 {
-    Vector3 result = *this;
+    auto result = *this;
 
     result += vector;
 

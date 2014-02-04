@@ -314,7 +314,7 @@ Vector4& Vector4::operator+=(const Vector4& vector)
 
 const Vector4 Vector4::operator*(const Vector4& vector) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result *= vector;
 
@@ -323,7 +323,7 @@ const Vector4 Vector4::operator*(const Vector4& vector) const
 
 const Vector4 Vector4::operator*(const Single& value) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result *= value;
 
@@ -357,7 +357,7 @@ const Vector4 Vector4::operator*(const Matrix& matrix) const
 
 const Vector4 Vector4::operator/(const Vector4& vector) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result /= vector;
 
@@ -366,7 +366,7 @@ const Vector4 Vector4::operator/(const Vector4& vector) const
 
 const Vector4 Vector4::operator/(const Single& value) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result /= value;
 
@@ -375,7 +375,7 @@ const Vector4 Vector4::operator/(const Single& value) const
 
 const Vector4 Vector4::operator-(const Vector4& vector) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result -= vector;
 
@@ -384,7 +384,7 @@ const Vector4 Vector4::operator-(const Vector4& vector) const
 
 const Vector4 Vector4::operator+(const Vector4& vector) const
 {
-    Vector4 result = *this;
+    auto result = *this;
 
     result += vector;
 

@@ -221,7 +221,7 @@ TimeSpan& TimeSpan::operator+=(const TimeSpan& t2)
 
 const TimeSpan TimeSpan::operator-(const TimeSpan& t2) const
 {
-    TimeSpan result(*this);
+    auto result = *this;
 
     result -= t2;
 
@@ -230,7 +230,7 @@ const TimeSpan TimeSpan::operator-(const TimeSpan& t2) const
 
 const TimeSpan TimeSpan::operator+(const TimeSpan& t2) const
 {
-    TimeSpan result(*this);
+    auto result = *this;
 
     result += t2;
 
