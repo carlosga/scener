@@ -21,7 +21,7 @@ using namespace System;
 
 TEST_F(TimeSpanTest, Max)
 {
-    TimeSpan interval = TimeSpan::MaxValue;
+    auto interval = TimeSpan::MaxValue;
 
     EXPECT_TRUE(interval.Ticks()        == 9223372036854775807);
     EXPECT_TRUE(interval.Days()         == 10675199);
@@ -33,7 +33,7 @@ TEST_F(TimeSpanTest, Max)
 
 TEST_F(TimeSpanTest, Min)
 {
-    TimeSpan interval = TimeSpan::MinValue;
+    auto interval = TimeSpan::MinValue;
 
     EXPECT_TRUE(interval.Ticks()        == INT64_MIN);
     EXPECT_TRUE(interval.Days()         == -10675199);
@@ -45,7 +45,7 @@ TEST_F(TimeSpanTest, Min)
 
 TEST_F(TimeSpanTest, FromDays)
 {
-    TimeSpan interval = TimeSpan::FromDays(12345.678987654);
+    auto interval = TimeSpan::FromDays(12345.678987654);
 
     EXPECT_TRUE(interval.Days()         == 12345);
     EXPECT_TRUE(interval.Hours()        == 16);
@@ -56,7 +56,7 @@ TEST_F(TimeSpanTest, FromDays)
 
 TEST_F(TimeSpanTest, FromHours)
 {
-    TimeSpan interval = TimeSpan::FromHours(123456.7898765);
+    auto interval = TimeSpan::FromHours(123456.7898765);
 
     EXPECT_TRUE(interval.Days()         == 5144);
     EXPECT_TRUE(interval.Hours()        == 0);
@@ -67,7 +67,7 @@ TEST_F(TimeSpanTest, FromHours)
 
 TEST_F(TimeSpanTest, FromMilliseconds)
 {
-    TimeSpan interval = TimeSpan::FromMilliseconds(1234567898765.4);
+    auto interval = TimeSpan::FromMilliseconds(1234567898765.4);
 
     EXPECT_TRUE(interval.Days()         == 14288);
     EXPECT_TRUE(interval.Hours()        == 23);
@@ -78,7 +78,7 @@ TEST_F(TimeSpanTest, FromMilliseconds)
 
 TEST_F(TimeSpanTest, FromMinutes)
 {
-    TimeSpan interval = TimeSpan::FromMinutes(12345678.98765);
+    auto interval = TimeSpan::FromMinutes(12345678.98765);
 
     EXPECT_TRUE(interval.Days()         == 8573);
     EXPECT_TRUE(interval.Hours()        == 9);
@@ -89,7 +89,7 @@ TEST_F(TimeSpanTest, FromMinutes)
 
 TEST_F(TimeSpanTest, FromSeconds)
 {
-    TimeSpan interval = TimeSpan::FromSeconds(1234567898.7654);
+    auto interval = TimeSpan::FromSeconds(1234567898.7654);
 
     EXPECT_TRUE(interval.Days()         == 14288);
     EXPECT_TRUE(interval.Hours()        == 23);
@@ -100,7 +100,7 @@ TEST_F(TimeSpanTest, FromSeconds)
 
 TEST_F(TimeSpanTest, FromTicks)
 {
-    TimeSpan interval = TimeSpan::FromTicks(12345678987654321);
+    auto interval = TimeSpan::FromTicks(12345678987654321);
 
     EXPECT_TRUE(interval.Days()         == 14288);
     EXPECT_TRUE(interval.Hours()        == 23);
@@ -111,7 +111,7 @@ TEST_F(TimeSpanTest, FromTicks)
 
 TEST_F(TimeSpanTest, Zero)
 {
-    TimeSpan interval = TimeSpan::Zero;
+    auto interval = TimeSpan::Zero;
 
     EXPECT_TRUE(interval.Ticks()        == 0);
     EXPECT_TRUE(interval.Days()         == 0);
@@ -123,77 +123,77 @@ TEST_F(TimeSpanTest, Zero)
 
 TEST_F(TimeSpanTest, Days)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Days() == 10);
 }
 
 TEST_F(TimeSpanTest, Hours)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Hours() == 20);
 }
 
 TEST_F(TimeSpanTest, Minutes)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Minutes() == 30);
 }
 
 TEST_F(TimeSpanTest, Seconds)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Seconds() == 40);
 }
 
 TEST_F(TimeSpanTest, Milliseconds)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Milliseconds() == 50);
 }
 
 TEST_F(TimeSpanTest, Ticks)
 {
-    TimeSpan interval(10, 20, 30, 40, 50);
+    auto interval = TimeSpan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.Ticks() == 9378400500000);
 }
 
 TEST_F(TimeSpanTest, TotalDays)
 {
-    TimeSpan interval(3, 16, 42, 45, 750);
+    auto interval = TimeSpan { 3, 16, 42, 45, 750 };
 
     EXPECT_TRUE(interval.TotalDays() == 3.6963628472222223);
 }
 
 TEST_F(TimeSpanTest, TotalHours)
 {
-    TimeSpan interval(1, 15, 42, 45, 750);
+    auto interval = TimeSpan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.TotalHours() == 39.712708333333332);
 }
 
 TEST_F(TimeSpanTest, TotalMilliseconds)
 {
-    TimeSpan interval(1, 15, 42, 45, 750);
+    auto interval = TimeSpan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.TotalMilliseconds() == 142965750);
 }
 
 TEST_F(TimeSpanTest, TotalMinutes)
 {
-    TimeSpan interval(1, 15, 42, 45, 750);
+    auto interval = TimeSpan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.TotalMinutes() == 2382.7624999999998);
 }
 
 TEST_F(TimeSpanTest, TotalSeconds)
 {
-    TimeSpan interval(1, 15, 42, 45, 750);
+    auto interval = TimeSpan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.TotalSeconds() == 142965.75);
 }

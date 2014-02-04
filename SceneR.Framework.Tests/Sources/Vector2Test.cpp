@@ -25,36 +25,34 @@ TEST_F(Vector2Test, IndividualCoordinatesConstructor)
     float x = 20.0f;
     float y = 30.0f;
 
-    Vector2 vector3(x, y);
+    auto vector = Vector2 { x, y };
 
     // vector2 is equal to (20.0, 30.0)
-    EXPECT_TRUE(x == vector3.X());
-    EXPECT_TRUE(y == vector3.Y());
+    EXPECT_TRUE(x == vector.X());
+    EXPECT_TRUE(y == vector.Y());
 }
 
 TEST_F(Vector2Test, Magnitude)
 {
-    Vector2 value1(20.0f, 30.0f);
-    Single  length = value1.Length();
+    auto vector = Vector2 { 20.0f, 30.0f };
 
-    EXPECT_TRUE(36.05551275463989f == length);
+    EXPECT_TRUE(36.05551275463989f == vector.Length());
 }
 
 TEST_F(Vector2Test, Length)
 {
-    Vector2 value1(1.0f, 1.0f);
-    Vector2 value2(3.0f, 3.0f);
-    Single  d = Vector2::Distance(value1, value2);
+    auto vector1 = Vector2 { 1.0f, 1.0f };
+    auto vector2 = Vector2 { 3.0f, 3.0f };
 
-    EXPECT_TRUE(2.82842708f == d);
+    EXPECT_TRUE(2.82842708f == Vector2::Distance(vector1, vector2));
 }
 
 TEST_F(Vector2Test, Lerp)
 {
-    Vector2 value1(5.0f, 10.0f);
-    Vector2 value2(0.0f, -20.0f);
-    Vector2 vector = Vector2::Lerp(value1, value2, 0.4f);
+    auto vector1 = Vector2 { 5.0f, 10.0f };
+    auto vector2 = Vector2 { 0.0f, -20.0f };
+    auto result  = Vector2::Lerp(vector1, vector2, 0.4f);
 
-    EXPECT_TRUE(3.0f == vector.X());
-    EXPECT_TRUE(-2.0f == vector.Y());
+    EXPECT_TRUE(3.0f  == result.X());
+    EXPECT_TRUE(-2.0f == result.Y());
 }

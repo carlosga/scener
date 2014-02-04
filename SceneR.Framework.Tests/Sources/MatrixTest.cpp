@@ -26,7 +26,7 @@ using namespace SceneR::Framework;
 
 TEST_F(MatrixTest, DefaultConstructor)
 {
-    Matrix matrix;
+    auto matrix = Matrix { };
 
     EXPECT_TRUE(0.0f == matrix.M11());
     EXPECT_TRUE(0.0f == matrix.M12());
@@ -48,10 +48,10 @@ TEST_F(MatrixTest, DefaultConstructor)
 
 TEST_F(MatrixTest, MatrixConstructor)
 {
-    Matrix matrix(10.0f, 10.0f, 10.0f, 0.0f,
-                  20.0f, 20.0f, 20.0f, 0.0f,
-                  30.0f, 30.0f, 30.0f, 0.0f,
-                  5.0f , 10.0f, 15.0f, 1.0f);
+    auto matrix = Matrix { 10.0f, 10.0f, 10.0f, 0.0f
+                         , 20.0f, 20.0f, 20.0f, 0.0f
+                         , 30.0f, 30.0f, 30.0f, 0.0f
+                         , 5.0f , 10.0f, 15.0f, 1.0f };
 
     EXPECT_TRUE(10.0f == matrix.M11());
     EXPECT_TRUE(10.0f == matrix.M12());
@@ -73,12 +73,12 @@ TEST_F(MatrixTest, MatrixConstructor)
 
 TEST_F(MatrixTest, CopyConstuctor)
 {
-    Matrix matrix(10.0f, 10.0f, 10.0f, 0.0f,
-                   20.0f, 20.0f, 20.0f, 0.0f,
-                   30.0f, 30.0f, 30.0f, 0.0f,
-                   5.0f , 10.0f, 15.0f, 1.0f);
+    auto matrix = Matrix { 10.0f, 10.0f, 10.0f, 0.0f
+                         , 20.0f, 20.0f, 20.0f, 0.0f
+                         , 30.0f, 30.0f, 30.0f, 0.0f
+                         , 5.0f , 10.0f, 15.0f, 1.0f };
 
-    Matrix matrix1(matrix);
+    auto matrix1 = Matrix { matrix };
 
     EXPECT_TRUE(matrix.M11() == matrix1.M11());
     EXPECT_TRUE(matrix.M12() == matrix1.M12());
@@ -100,46 +100,46 @@ TEST_F(MatrixTest, CopyConstuctor)
 
 TEST_F(MatrixTest, MatrixMultiplication)
 {
-    Matrix matrix1(1.0f, 2.0f, 3.0f, 4.0f,
-                   5.0f, 6.0f, 7.0f, 8.0f,
-                   1.0f, 2.0f, 3.0f, 4.0f,
-                   5.0f, 6.0f, 7.0f, 8.0f);
-    Matrix matrix2(1.0f, 2.0f, 3.0f, 4.0f,
-                   5.0f, 6.0f, 7.0f, 8.0f,
-                   1.0f, 2.0f, 3.0f, 4.0f,
-                   5.0f, 6.0f, 7.0f, 8.0f);
+    auto matrix1 = Matrix { 1.0f, 2.0f, 3.0f, 4.0f
+                          , 5.0f, 6.0f, 7.0f, 8.0f
+                          , 1.0f, 2.0f, 3.0f, 4.0f
+                          , 5.0f, 6.0f, 7.0f, 8.0f };
+    auto matrix2 = Matrix { 1.0f, 2.0f, 3.0f, 4.0f
+                          , 5.0f, 6.0f, 7.0f, 8.0f
+                          , 1.0f, 2.0f, 3.0f, 4.0f
+                          , 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Matrix matrixResult = (matrix1 * matrix2);
+    auto result = matrix1 * matrix2;
 
 	// 34  44  54  64
 	// 82 108 134 160
 	// 34  44  54  64
 	// 82 108 134 160
 
-    EXPECT_TRUE(34.0f  == matrixResult.M11());
-    EXPECT_TRUE(44.0f  == matrixResult.M12());
-    EXPECT_TRUE(54.0f  == matrixResult.M13());
-    EXPECT_TRUE(64.0f  == matrixResult.M14());
-    EXPECT_TRUE(82.0f  == matrixResult.M21());
-    EXPECT_TRUE(108.0f == matrixResult.M22());
-    EXPECT_TRUE(134.0f == matrixResult.M23());
-    EXPECT_TRUE(160.0f == matrixResult.M24());
-    EXPECT_TRUE(34.0f  == matrixResult.M31());
-    EXPECT_TRUE(44.0f  == matrixResult.M32());
-    EXPECT_TRUE(54.0f  == matrixResult.M33());
-    EXPECT_TRUE(64.0f  == matrixResult.M34());
-    EXPECT_TRUE(82.0f  == matrixResult.M41());
-    EXPECT_TRUE(108.0f == matrixResult.M42());
-    EXPECT_TRUE(134.0f == matrixResult.M43());
-    EXPECT_TRUE(160.0f == matrixResult.M44());
+    EXPECT_TRUE(34.0f  == result.M11());
+    EXPECT_TRUE(44.0f  == result.M12());
+    EXPECT_TRUE(54.0f  == result.M13());
+    EXPECT_TRUE(64.0f  == result.M14());
+    EXPECT_TRUE(82.0f  == result.M21());
+    EXPECT_TRUE(108.0f == result.M22());
+    EXPECT_TRUE(134.0f == result.M23());
+    EXPECT_TRUE(160.0f == result.M24());
+    EXPECT_TRUE(34.0f  == result.M31());
+    EXPECT_TRUE(44.0f  == result.M32());
+    EXPECT_TRUE(54.0f  == result.M33());
+    EXPECT_TRUE(64.0f  == result.M34());
+    EXPECT_TRUE(82.0f  == result.M41());
+    EXPECT_TRUE(108.0f == result.M42());
+    EXPECT_TRUE(134.0f == result.M43());
+    EXPECT_TRUE(160.0f == result.M44());
 }
 
 TEST_F(MatrixTest, MatrixTranspose)
 {
-    Matrix matrix(1.0f, 0.0f, 0.0f, 10.0f,
-                  0.0f, 1.0f, 0.0f, 10.0f,
-                  0.0f, 0.0f, 1.0f, 10.0f,
-                  0.0f, 0.0f, 0.0f, 1.0f);
+    auto matrix = Matrix { 1.0f, 0.0f, 0.0f, 10.0f
+                         , 0.0f, 1.0f, 0.0f, 10.0f
+                         , 0.0f, 0.0f, 1.0f, 10.0f
+                         , 0.0f, 0.0f, 0.0f, 1.0f };
 
     matrix.Transpose();
 
@@ -163,22 +163,20 @@ TEST_F(MatrixTest, MatrixTranspose)
 
 TEST_F(MatrixTest, Determinant)
 {
-    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
-                           1.0f, 2.0f, -3.0f, 0.0f,
-                           1.0f, 1.0f, 5.0f , 0.0f,
-                           0.0f, 0.0f, 0.0f , 1.0f);
+    auto matrix = Matrix { 2.0f, 3.0f, 4.0f , 0.0f
+                         , 1.0f, 2.0f, -3.0f, 0.0f
+                         , 1.0f, 1.0f, 5.0f , 0.0f
+                         , 0.0f, 0.0f, 0.0f , 1.0f };
 
-    Single determinant = matrix.Determinant();
-
-    EXPECT_TRUE(-2.0f == determinant);
+    EXPECT_TRUE(-2.0f == matrix.Determinant());
 }
 
 TEST_F(MatrixTest, Inverse)
 {
-    Matrix matrix = Matrix(2.0f, 3.0f, 4.0f , 0.0f,
-                           1.0f, 2.0f, -3.0f, 0.0f,
-                           1.0f, 1.0f, 5.0f , 0.0f,
-                           0.0f, 0.0f, 0.0f , 1.0f);
+    auto matrix = Matrix { 2.0f, 3.0f, 4.0f , 0.0f
+                         , 1.0f, 2.0f, -3.0f, 0.0f
+                         , 1.0f, 1.0f, 5.0f , 0.0f
+                         , 0.0f, 0.0f, 0.0f , 1.0f };
 
     matrix.Invert();
 
@@ -206,7 +204,7 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
     Single pitch = 0.0f;
     Single roll  = MathHelper::PiOver2;
 
-    Matrix matrix = Matrix::CreateFromYawPitchRoll(yaw, pitch, roll);
+    auto matrix = Matrix::CreateFromYawPitchRoll(yaw, pitch, roll);
 
     EXPECT_TRUE(1.0f  == matrix.M11());
     EXPECT_TRUE(0.0f  == matrix.M12());
@@ -228,8 +226,8 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
 
 TEST_F(MatrixTest, CreateFromQuaternion)
 {
-    Quaternion q(0.7071f, 0.0f, 0.0f, 0.7071f);
-    Matrix matrix = Matrix::CreateFromQuaternion(q);
+    auto q      = Quaternion { 0.7071f, 0.0f, 0.0f, 0.7071f };
+    auto matrix = Matrix::CreateFromQuaternion(q);
 
     EXPECT_TRUE(1.0f            == matrix.M11());
     EXPECT_TRUE(0.0f            == matrix.M12());
@@ -251,7 +249,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
 {
     Single fieldOfView = MathHelper::PiOver4;
     Single aspectRatio = 768.0f / 480.0f;
-    Matrix perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
+    auto   perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
 
     EXPECT_TRUE(1.50888336f == perspective.M11());
     EXPECT_TRUE(00.0f       == perspective.M12());
@@ -273,7 +271,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
 
 TEST_F(MatrixTest, CreateLookAt)
 {
-    Matrix lookAt = Matrix::CreateLookAt(Vector3(0.0f, 1.0f, -5.0f), Vector3::UnitY, Vector3::Up);
+    auto lookAt = Matrix::CreateLookAt({ 0.0f, 1.0f, -5.0f }, Vector3::UnitY, Vector3::Up);
 
     EXPECT_TRUE(-1.0f == lookAt.M11());
     EXPECT_TRUE(00.0f == lookAt.M12());
@@ -295,13 +293,13 @@ TEST_F(MatrixTest, CreateLookAt)
 
 TEST_F(MatrixTest, TransformChain)
 {
-    Vector4 originalVector(10, 10, 10, 1);
-    Vector3 rotationAxis(1, 0, 0);
-    Vector4 transformedVector;
-    Matrix  matrix              = Matrix::Identity;
-    Matrix  translateTransform  = Matrix::CreateTranslation(10, 0, 0);
-    Matrix  rotateTransform     = Matrix::CreateFromAxisAngle(rotationAxis, MathHelper::PiOver2);
-    Matrix  scaleTransform      = Matrix::CreateScale(2);
+    auto originalVector      = Vector4 { 10.0f, 10.0f, 10.0f, 1.0f };
+    auto rotationAxis        = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto transformedVector   = Vector4 { };
+    auto matrix              = Matrix::Identity;
+    auto translateTransform  = Matrix::CreateTranslation(10.0f, 0.0f, 0.0f);
+    auto rotateTransform     = Matrix::CreateFromAxisAngle(rotationAxis, MathHelper::PiOver2);
+    auto scaleTransform      = Matrix::CreateScale(2);
 
     matrix *= translateTransform;
 
@@ -387,39 +385,36 @@ TEST_F(MatrixTest, TransformChain)
 
 TEST_F(MatrixTest, TransformFromAxisAngleX)
 {
-    Vector3 vector(10, 0, 0);
-    Vector3 axis(1, 0, 0);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto vector = Vector3 { 10.0f, 0.0f, 0.0f };
+    auto axis   = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto result = vector * matrix;
 
-    Vector3 vectorResult = vector * matrix;
-
-    EXPECT_TRUE(10.0f == vectorResult.X());
-    EXPECT_TRUE(0.0f  == vectorResult.Y());
-    EXPECT_TRUE(0.0f  == vectorResult.Z());
+    EXPECT_TRUE(10.0f == result.X());
+    EXPECT_TRUE(0.0f  == result.Y());
+    EXPECT_TRUE(0.0f  == result.Z());
 }
 
 TEST_F(MatrixTest, TransformFromAxisAngleY)
 {
-    Vector3 vector(0, 10, 0);
-    Vector3 axis(0, 1, 0);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto vector = Vector3 { 0.0f, 10.0f, 0.0f };
+    auto axis   = Vector3 { 0.0f, 1.0f, 0.0f };
+    auto matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto result = vector * matrix;
 
-    Vector3 vectorResult = vector * matrix;
-
-    EXPECT_TRUE(0.0f  == vectorResult.X());
-    EXPECT_TRUE(10.0f == vectorResult.Y());
-    EXPECT_TRUE(0.0f  == vectorResult.Z());
+    EXPECT_TRUE(0.0f  == result.X());
+    EXPECT_TRUE(10.0f == result.Y());
+    EXPECT_TRUE(0.0f  == result.Z());
 }
 
 TEST_F(MatrixTest, TransformFromAxisAngleZ)
 {
-    Vector3 vector(0, 0, 10);
-    Vector3 axis(0, 0, 1);
-    Matrix  matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto vector = Vector3 { 0.0f, 0.0f, 10.0f };
+    auto axis   = Vector3 { 0.0f, 0.0f, 1.0f };
+    auto matrix = Matrix::CreateFromAxisAngle(axis, MathHelper::PiOver2);
+    auto result = vector * matrix;
 
-    Vector3 vectorResult = vector * matrix;
-
-    EXPECT_TRUE(0.0f  == vectorResult.X());
-    EXPECT_TRUE(0.0f  == vectorResult.Y());
-    EXPECT_TRUE(10.0f == vectorResult.Z());
+    EXPECT_TRUE(0.0f  == result.X());
+    EXPECT_TRUE(0.0f  == result.Y());
+    EXPECT_TRUE(10.0f == result.Z());
 }

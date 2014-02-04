@@ -52,7 +52,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 {
     Char tmp[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
     auto chars = std::vector<Char>(std::begin(tmp), std::end(tmp));
-    std::vector<UByte> bytes;
+    auto bytes = std::vector<UByte> { };
     bytes.reserve(Encoding::UTF8.GetByteCount(chars, 2, 3));
     auto byteCount = Encoding::UTF8.GetBytes(chars, 2, 3, bytes, 0);
 
@@ -102,10 +102,10 @@ TEST_F(EncodingUTF8Test, GetByteCountFromCharArrayPointer)
 
 TEST_F(EncodingUTF8Test, GetBytesFromCharArrayPointer)
 {
-    Char chars[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
+    Char chars[]   = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
     auto byteCount = Encoding::UTF8.GetByteCount(&chars[0], 5);
-    std::vector<UByte> bytes(byteCount);
-    auto count = Encoding::UTF8.GetBytes(&chars[0], 5, &bytes[0], byteCount);
+    auto bytes     = std::vector<UByte>(byteCount);
+    auto count     = Encoding::UTF8.GetBytes(&chars[0], 5, &bytes[0], byteCount);
 
     EXPECT_TRUE(8 == count);
     EXPECT_TRUE(8 == byteCount);
