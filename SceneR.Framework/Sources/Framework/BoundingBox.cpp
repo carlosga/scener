@@ -17,6 +17,7 @@
 #include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
+#include <Framework/MathHelper.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Ray.hpp>
 #include <stdexcept>
@@ -109,7 +110,17 @@ PlaneIntersectionType BoundingBox::Intersects(const Plane& plane) const
 
 Single BoundingBox::Intersects(const Ray& ray) const
 {
-    throw std::runtime_error("Not implemented");
+    // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
+    auto tmin = (this->min - ray.Position()) / ray.Direction();
+    auto tmax = (this->max - ray.Position()) / ray.Direction();
+
+    auto tnear = Vector3::Min(tmin, tmax);
+    auto tfar  = Vector3::Min(tmin, tmax);
+
+    auto enter = MathHelper::Max(MathHelper::Max(tnear.X(), 0.0f), MathHelper::Max(tnear.Y(), tnear.Z()));
+    auto exit  = MathHelper::Min(tfar.X(), MathHelper::Min(tfar.Y(), tfar.Z()));
+
+    return (enter - exit);
 }
 
 BoundingBox& BoundingBox::operator=(const BoundingBox& box)

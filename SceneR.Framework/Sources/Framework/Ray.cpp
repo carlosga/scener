@@ -19,6 +19,7 @@
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Ray.hpp>
+#include <cmath>
 #include <stdexcept>
 
 using namespace System;
@@ -38,23 +39,22 @@ Ray::Ray(const Ray& ray)
 }
 
 Ray::~Ray()
-{	
-
+{
 }
 
-const Vector3& Ray::Direction()
+const Vector3& Ray::Direction() const
 {
     return this->direction;
 }
 
-const Vector3& Ray::Position()
+const Vector3& Ray::Position() const
 {
     return this->position;
 }
 
 Boolean Ray::Intersects(const BoundingBox& boundingBox)
 {
-    throw std::runtime_error("Not implemented");
+    return (boundingBox.Intersects(*this) == 0.0f);
 }
 
 Boolean Ray::Intersects(const BoundingFrustum& frustum)
@@ -69,7 +69,17 @@ Boolean Ray::Intersects(const BoundingSphere& sphere)
 
 Boolean Ray::Intersects(const Plane& plane)
 {
-    throw std::runtime_error("Not implemented");
+    // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
+    auto denom = Vector3::DotProduct(plane.Normal(), this->direction);
+
+    if (std::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
+    {
+        return false;
+    }
+
+    auto t = -(Vector3::DotProduct(this->position, plane.Normal()) + plane.D()) / denom;
+
+    return (t > 0.0f);
 }
 
 Ray& Ray::operator=(const Ray& ray)

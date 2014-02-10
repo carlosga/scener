@@ -19,6 +19,7 @@
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Ray.hpp>
+#include <cmath>
 #include <stdexcept>
 
 using namespace System;
@@ -112,7 +113,33 @@ PlaneIntersectionType BoundingSphere::Intersects(const Plane& plane) const
 
 System::Boolean BoundingSphere::Intersects(const Ray& ray) const
 {
-    throw std::runtime_error("Not implemented");
+    // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
+    auto rad2 = this->radius * this->radius;
+    auto l    = this->center - ray.Position();
+
+    auto tPX = Vector3::DotProduct(l, ray.Direction());
+
+    if (tPX < 0.0)
+    {
+        return false;
+    }
+
+    auto dsq = Vector3::DotProduct(l, l) - tPX * tPX;
+
+    if (dsq > rad2)
+    {
+        return false;
+    }
+
+    Single thit = std::sqrt(rad2 - dsq);
+    Single t    = tPX - thit;
+
+    if (t < 0.0f)
+    {
+        t = tPX + thit;
+    }
+
+    return (t < 0.0f);
 }
 
 BoundingSphere BoundingSphere::Transform(const Matrix& matrix) const

@@ -56,12 +56,12 @@ namespace SceneR
 			/**
 			 * Unit vector specifying the direction the Ray is pointing.
 			 */
-			const Vector3& Direction();
+			const Vector3& Direction() const;
 
 			/**
 			 * Specifies the starting point of the Ray.
 			 */
-			const Vector3& Position();
+			const Vector3& Position() const;
 
 		public:
 			/**
