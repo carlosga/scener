@@ -111,6 +111,16 @@ Single MathHelper::Lerp(const Single& value1, const Single& value2, const Single
     return (value1 + (value2 - value1) * amount);
 }
 
+Single MathHelper::Min(const Single& value1, const Single& value2)
+{
+    return ((value1 < value2) ? value1 : value2);
+}
+
+Single MathHelper::Max(const Single& value1, const Single& value2)
+{
+    return ((value1 > value2) ? value1 : value2);
+}
+
 Single MathHelper::SmoothStep(const Single& value1, const Single& value2, const Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
