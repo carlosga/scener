@@ -185,15 +185,18 @@ namespace SceneR
                               , const System::Single& amount);
 
             /**
-             * Performs a cubic interpolation between two vectors.
-             * @param value1 first vector
-             * @param value2 second vector
-             * @param amount Weighting value.
-             * @returns the linear interpolation of the two vectors.
+             * Returns a vector that contains the lowest value from each matching pair of components.
+             * @param value the first vector
+             * @param value the second vector
              */
-            static Vector3 SmoothStep(const Vector3&        value1
-                                    , const Vector3&        value2
-                                    , const System::Single& amount);
+            static Vector3 Min(const Vector3& value1, const Vector3& value2);
+
+            /**
+             * Returns a vector that contains the highest value from each matching pair of components.
+             * @param value the first vector
+             * @param value the second vector
+             */
+            static Vector3 Max(const Vector3& value1, const Vector3& value2);
 
             /**
              * Normalizes the specified 3D Vector.
@@ -205,6 +208,17 @@ namespace SceneR
              * @returns the normalized vector.
              */
             static Vector3 Normalize(const Vector3& value);
+
+            /**
+             * Performs a cubic interpolation between two vectors.
+             * @param value1 first vector
+             * @param value2 second vector
+             * @param amount Weighting value.
+             * @returns the linear interpolation of the two vectors.
+             */
+            static Vector3 SmoothStep(const Vector3&        value1
+                                    , const Vector3&        value2
+                                    , const System::Single& amount);
 
             /**
              * Transforms a 3D vector by the given matrix.
@@ -231,18 +245,18 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector3 class.
+             * @param value a vector containing the values to initialize x and y components with.
+             * @param z value for the z-component of the vector.
+             */
+            Vector3(const Vector2& value, const System::Single& z);
+
+            /**
+             * Initializes a new instance of the Vector3 class.
              * @param x The X value of the new Vector3 structure.
              * @param y The Y value of the new Vector3 structure.
              * @param z The Z value of the new Vector3 structure.
              */
             Vector3(const System::Single& x, const System::Single& y, const System::Single& z);
-
-            /**
-             * Initializes a new instance of the Vector3 class.
-             * @param value a vector containing the values to initialize x and y components with.
-             * @param z value for the z-component of the vector.
-             */
-            Vector3(const Vector2& value, const System::Single& z);
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)

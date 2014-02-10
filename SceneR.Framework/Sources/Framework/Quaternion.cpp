@@ -175,10 +175,12 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
 }
 
 Quaternion::Quaternion()
-    : x { 0.0f }
-    , y { 0.0f }
-    , z { 0.0f }
-    , w { 0.0f }
+    : Quaternion { 0.0f, 0.0f, 0.0f, 0.0f }
+{
+}
+
+Quaternion::Quaternion(const Vector3& value, const Single& w)
+    : Quaternion { value.X(), value.Y(), value.Z(), w }
 {
 }
 
@@ -186,14 +188,6 @@ Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, con
     : x { x }
     , y { y }
     , z { z }
-    , w { w }
-{
-}
-
-Quaternion::Quaternion(const Vector3& value, const System::Single& w)
-    : x { value.X() }
-    , y { value.Y() }
-    , z { value.Z() }
     , w { w }
 {
 }

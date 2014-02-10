@@ -28,7 +28,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 RendererWindow::RendererWindow(Renderer& renderer)
-    : title             { }
+    : title             { u"" }
     , allowUserResizing { false }
     , handle            { nullptr }
     , renderer          { renderer }

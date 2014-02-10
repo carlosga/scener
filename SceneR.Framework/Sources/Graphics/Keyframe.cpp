@@ -27,7 +27,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Keyframe::Keyframe()
-    : Keyframe {0, TimeSpan::Zero, Matrix::Identity }
+    : Keyframe { 0, TimeSpan::Zero, Matrix::Identity }
 {
 }
 

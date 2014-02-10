@@ -132,6 +132,20 @@ namespace SceneR
                                      , const System::Single& amount);
 
             /**
+             * Returns the lesser of two values
+             * @param value1 the first value
+             * @param value1 the second value
+             */
+            static System::Single Min(const System::Single& value1, const System::Single& value2);
+
+            /**
+             * Returns the greater of two values
+             * @param value1 the first value
+             * @param value1 the second value
+             */
+            static System::Single Max(const System::Single& value1, const System::Single& value2);
+
+            /**
              * Interpolates between two values using a cubic equation.
              * @param value1 first vector
              * @param value2 second vector

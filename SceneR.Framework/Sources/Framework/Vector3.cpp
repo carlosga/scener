@@ -127,11 +127,18 @@ Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single
            , MathHelper::Lerp(value1.z, value2.z, amount) };
 }
 
-Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
+Vector3 Vector3::Min(const Vector3& value1, const Vector3& value2)
 {
-    return { MathHelper::SmoothStep(value1.x, value2.x, amount)
-           , MathHelper::SmoothStep(value1.y, value2.y, amount)
-           , MathHelper::SmoothStep(value1.z, value2.z, amount) };
+    return { MathHelper::Min(value1.x, value2.x)
+           , MathHelper::Min(value1.y, value2.y)
+           , MathHelper::Min(value1.z, value2.z) };
+}
+
+Vector3 Vector3::Max(const Vector3& value1, const Vector3& value2)
+{
+    return { MathHelper::Max(value1.x, value2.x)
+           , MathHelper::Max(value1.y, value2.y)
+           , MathHelper::Max(value1.z, value2.z) };
 }
 
 Vector3 Vector3::Normalize(const Vector3& value)
@@ -141,6 +148,13 @@ Vector3 Vector3::Normalize(const Vector3& value)
     normalized.Normalize();
 
     return normalized;
+}
+
+Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
+{
+    return { MathHelper::SmoothStep(value1.x, value2.x, amount)
+           , MathHelper::SmoothStep(value1.y, value2.y, amount)
+           , MathHelper::SmoothStep(value1.z, value2.z, amount) };
 }
 
 Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
@@ -170,16 +184,14 @@ Vector3::Vector3()
 {
 }
 
-Vector3::Vector3(const Single& x, const Single& y, const Single& z)
-    : x { x }
-    , y { y }
-    , z { z }
+Vector3::Vector3(const Vector2& value, const Single& z)
+    : Vector3 { value.X(), value.Y(), z }
 {
 }
 
-Vector3::Vector3(const Vector2& value, const System::Single& z)
-    : x { value.X() }
-    , y { value.Y() }
+Vector3::Vector3(const Single& x, const Single& y, const Single& z)
+    : x { x }
+    , y { y }
     , z { z }
 {
 }

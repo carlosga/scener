@@ -38,6 +38,18 @@ namespace SceneR
             Color();
 
             /**
+             * Initializes a new instance of the Color class.
+             * @param vector A three-component color.
+             */
+            Color(const Vector3& vector);
+
+            /**
+             * Initializes a new instance of the Color class.
+             * @param vector A four-component color.
+             */
+            Color(const Vector4& vector);
+
+            /**
              * Initializes a new instance of the Color class with the given red, green and blue components.
              * @param r The red component value of the color.
              * @param g The green component value of the color.
@@ -53,18 +65,6 @@ namespace SceneR
              * @param a The alpha component value of the color.
              */
             Color(const System::Single& r, const System::Single& g, const System::Single& b, const System::Single& a);
-
-            /**
-             * Initializes a new instance of the Color class.
-             * @param vector A three-component color.
-             */
-            Color(const Vector3& vector);
-
-            /**
-             * Initializes a new instance of the Color class.
-             * @param vector A four-component color.
-             */
-            Color(const Vector4& vector);
 
             /**
              * Initializes a new instance of the Color class (Copy constructor)

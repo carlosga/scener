@@ -117,8 +117,23 @@ Vector4::Vector4()
 {
 }
 
+Vector4::Vector4(const System::Single& value)
+    : Vector4 { value, value, value, value }
+{
+}
+
+Vector4::Vector4(const Vector3& value, const System::Single& w)
+    : Vector4 { value.X(), value.Y(), value.Z(), w }
+{
+}
+
 Vector4::Vector4(const Single& x, const Single& y, const Single& z)
     : Vector4 { x, y, z, 1.0f }
+{
+}
+
+Vector4::Vector4(const Vector2& value, const System::Single& z, const Single& w)
+    : Vector4 { value.X(), value.Y(), z, w }
 {
 }
 
@@ -126,30 +141,6 @@ Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single
     : x { x }
     , y { y }
     , z { z }
-    , w { w }
-{
-}
-
-Vector4::Vector4(const System::Single& value)
-    : x { value }
-    , y { value }
-    , z { value }
-    , w { value }
-{
-}
-
-Vector4::Vector4(const Vector2& value, const System::Single& z, const System::Single& w)
-    : x { value.X() }
-    , y { value.Y() }
-    , z { z }
-    , w { w }
-{
-}
-
-Vector4::Vector4(const Vector3& value, const System::Single& w)
-    : x { value.X() }
-    , y { value.Y() }
-    , z { value.Z() }
     , w { w }
 {
 }

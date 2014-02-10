@@ -23,18 +23,22 @@ using namespace System;
 using namespace SceneR::Framework;
 
 Color::Color()
-    : r { 0.0f }
-    , g { 0.0f }
-    , b { 0.0f }
-    , a { 0.0f }
+    : Color ( 0.0f, 0.0f, 0.0f, 0.0f )
+{
+}
+
+Color::Color(const Vector3& vector)
+    : Color ( vector.X(), vector.Y(), vector.Z(), 1.0f )
+{
+}
+
+Color::Color(const Vector4& vector)
+    : Color ( vector.X(), vector.Y(), vector.Z(), vector.W() )
 {
 }
 
 Color::Color(const Single& r, const Single& g, const Single& b)
-    : r { r }
-    , g { g }
-    , b { b }
-    , a { 1.0f }
+    : Color ( r, g, b, 1.0f )
 {
 }
 
@@ -43,22 +47,6 @@ Color::Color(const Single& r, const Single& g, const Single& b, const Single& a)
     , g { g }
     , b { b }
     , a { a }
-{
-}
-
-Color::Color(const Vector3& vector)
-    : r { vector.X() }
-    , g { vector.Y() }
-    , b { vector.Z() }
-    , a { 1.0f }
-{
-}
-
-Color::Color(const Vector4& vector)
-    : r { vector.X() }
-    , g { vector.Y() }
-    , b { vector.Z() }
-    , a { vector.W() }
 {
 }
 

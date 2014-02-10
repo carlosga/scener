@@ -325,10 +325,10 @@ Matrix Matrix::Transpose(const Matrix& source)
 }
 
 Matrix::Matrix()
-    : m11 { 0.0f }, m12 { 0.0f }, m13 { 0.0f }, m14 { 0.0f }
-    , m21 { 0.0f }, m22 { 0.0f }, m23 { 0.0f }, m24 { 0.0f }
-    , m31 { 0.0f }, m32 { 0.0f }, m33 { 0.0f }, m34 { 0.0f }
-    , m41 { 0.0f }, m42 { 0.0f }, m43 { 0.0f }, m44 { 0.0f }
+    : Matrix { 0.0f, 0.0f, 0.0f, 0.0f
+             , 0.0f, 0.0f, 0.0f, 0.0f
+             , 0.0f, 0.0f, 0.0f, 0.0f
+             , 0.0f, 0.0f, 0.0f, 0.0f }
 {
 }
 
