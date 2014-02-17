@@ -33,10 +33,6 @@ RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
 {
 }
 
-RasterizerState::~RasterizerState()
-{
-}
-
 const SceneR::Graphics::CullMode& RasterizerState::CullMode() const
 {
     return this->cullMode;

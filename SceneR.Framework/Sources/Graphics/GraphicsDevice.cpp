@@ -42,10 +42,6 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
     this->samplerStates.push_back(SamplerState(*this));
 }
 
-GraphicsDevice::~GraphicsDevice()
-{
-}
-
 void GraphicsDevice::Clear(const Color& color) const
 {
     Int32 bufferBits = GL_COLOR_BUFFER_BIT;

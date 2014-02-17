@@ -27,10 +27,6 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-AnimationClipMapReader::AnimationClipMapReader()
-{
-}
-
 std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
 {
     auto animationClips = std::make_shared<std::map<String, AnimationClip>>();

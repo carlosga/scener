@@ -39,16 +39,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the RendererServiceContainer class.
              */
-            RendererServiceContainer()
-            {
-            };
+            RendererServiceContainer() = default;
 
             /**
              * Releases all the resources being used by this RendererServiceContainer.
              */
-            ~RendererServiceContainer()
-            {
-            };
+            ~RendererServiceContainer() = default;
 
         public:
             /**
@@ -90,10 +86,6 @@ namespace SceneR
             };
 
         private:
-            RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
-            RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
-
-        private:
             template <class T>
             System::Boolean IsRegistered()
             {
@@ -105,6 +97,10 @@ namespace SceneR
             {
                 return typeid(T).name();
             };
+
+        private:
+            RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
+            RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
 
         private:
             std::map<std::string, void*> instanceMap;

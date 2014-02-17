@@ -53,7 +53,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this GraphicsAdapter.
              */
-            ~GraphicsAdapter();
+            ~GraphicsAdapter() = default;
 
         public:
             /**

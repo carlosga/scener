@@ -39,10 +39,6 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
     this->Deactivate();
 }
 
-VertexBuffer::~VertexBuffer()
-{
-}
-
 const Size& VertexBuffer::VertexCount() const
 {
     return this->vertexCount;

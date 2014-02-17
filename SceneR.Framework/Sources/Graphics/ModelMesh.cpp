@@ -35,10 +35,6 @@ ModelMesh::ModelMesh()
 {
 }
 
-ModelMesh::~ModelMesh()
-{
-}
-
 const SceneR::Framework::BoundingSphere& ModelMesh::BoundingSphere() const
 {
     return this->boundingSphere;

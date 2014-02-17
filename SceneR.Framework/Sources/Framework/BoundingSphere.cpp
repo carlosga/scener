@@ -57,10 +57,6 @@ BoundingSphere::BoundingSphere(const BoundingSphere& sphere)
 {
 }
 
-BoundingSphere::~BoundingSphere()
-{
-}
-
 const Vector3& BoundingSphere::Center() const
 {
     return this->center;

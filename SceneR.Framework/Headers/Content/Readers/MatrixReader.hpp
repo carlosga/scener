@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the MatrixReader class.
              */
-            MatrixReader();
+            MatrixReader() = default;
+
+            /**
+             * Releases all resources being used by this MatrixReader.
+             */
+            virtual ~MatrixReader() = default;
 
         public:
             /**

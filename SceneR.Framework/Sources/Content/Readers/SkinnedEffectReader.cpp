@@ -30,10 +30,6 @@ using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-SkinnedEffectReader::SkinnedEffectReader()
-{
-}
-
 std::shared_ptr<void> SkinnedEffectReader::Read(ContentReader& input)
 {
     auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();

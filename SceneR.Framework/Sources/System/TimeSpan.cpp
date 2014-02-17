@@ -96,10 +96,6 @@ TimeSpan::TimeSpan(const TimeSpan& interval)
 {
 }
 
-TimeSpan::~TimeSpan()
-{
-}
-
 TimeSpan TimeSpan::Duration() const
 {
     return { std::abs(this->ticks.count()) };

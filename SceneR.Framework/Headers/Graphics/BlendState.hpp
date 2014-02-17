@@ -75,7 +75,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BlendState.
              */
-            virtual ~BlendState();
+            virtual ~BlendState() = default;
 
         public:
             /**

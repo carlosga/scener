@@ -44,10 +44,6 @@ Viewport::Viewport(const Single& x       , const Single& y
 {
 }
 
-Viewport::~Viewport()
-{
-}
-
 const Single& Viewport::X() const
 {
     return this->x;

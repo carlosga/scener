@@ -43,7 +43,7 @@ namespace SceneR
 
             AnimationClip(const System::TimeSpan& duration, const std::vector<Keyframe>& keyframes);
 
-            ~AnimationClip();
+            ~AnimationClip() = default;
 
         public:
             const System::TimeSpan& Duration() const;

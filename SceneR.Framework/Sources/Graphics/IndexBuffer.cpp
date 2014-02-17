@@ -31,10 +31,6 @@ IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevic
 {
 }
 
-IndexBuffer::~IndexBuffer()
-{
-}
-
 const Size& IndexBuffer::IndexCount() const
 {
     return this->indexCount;

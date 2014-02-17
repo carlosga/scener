@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the KeyframeReader class.
              */
-            KeyframeReader();
+            KeyframeReader() = default;
+
+            /**
+             * Releases all resources being used by this KeyframeReader.
+             */
+            virtual ~KeyframeReader() = default;
 
         public:
             /**

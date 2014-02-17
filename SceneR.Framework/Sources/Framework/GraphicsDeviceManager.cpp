@@ -38,10 +38,6 @@ GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
     this->renderer.Services().AddService<IGraphicsDeviceService>(*this);
 }
 
-GraphicsDeviceManager::~GraphicsDeviceManager()
-{
-}
-
 void GraphicsDeviceManager::ApplyChanges()
 {
     this->graphicsDevice->PresentationParameters().BackBufferWidth(this->preferredBackBufferWidth);

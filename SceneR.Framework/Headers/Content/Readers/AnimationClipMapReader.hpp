@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the AnimationClipMapReader class.
              */
-            AnimationClipMapReader();
+            AnimationClipMapReader() = default;
+
+            /**
+             * Releases all resources being used by this AnimationClipMapReader.
+             */
+            virtual ~AnimationClipMapReader() = default;
 
         public:
             /**

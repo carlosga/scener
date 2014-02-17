@@ -31,10 +31,6 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-BasicEffectReader::BasicEffectReader()
-{
-}
-
 std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& input)
 {
     auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();

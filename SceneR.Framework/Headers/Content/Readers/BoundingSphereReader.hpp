@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the BoundingSphereReader class.
              */
-            BoundingSphereReader();
+            BoundingSphereReader() = default;
+
+            /**
+             * Releases all resources being used by this BoundingSphereReader.
+             */
+            virtual ~BoundingSphereReader() = default;
 
         public:
             /**

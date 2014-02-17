@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the IndexBufferReader class.
              */
-            IndexBufferReader();
+            IndexBufferReader() = default;
+
+            /**
+             * Releases all resources being used by this IndexBufferReader.
+             */
+            virtual ~IndexBufferReader() = default;
 
         public:
             /**

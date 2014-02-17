@@ -95,10 +95,6 @@ Plane::Plane(const Plane& value)
 {
 }
 
-Plane::~Plane()
-{
-}
-
 const System::Single& Plane::D() const
 {
     return this->d;

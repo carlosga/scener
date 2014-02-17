@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the TimeSpanReader class.
              */
-            TimeSpanReader();
+            TimeSpanReader() = default;
+
+            /**
+             * Releases all resources being used by this TimeSpanReader.
+             */
+            virtual ~TimeSpanReader() = default;
 
         public:
             /**

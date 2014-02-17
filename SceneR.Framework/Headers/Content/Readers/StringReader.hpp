@@ -25,10 +25,21 @@ namespace SceneR
     {
         class ContentReader;
 
+        /**
+         * String reader
+         */
         class StringReader: public ContentTypeReader
         {
         public:
-            StringReader();
+            /**
+             * Initializes a new instance of the StringReader class
+             */
+            StringReader() = default;
+
+            /**
+             * Releases all resources being used by this StringReader.
+             */
+            virtual ~StringReader() = default;
 
         public:
             /**

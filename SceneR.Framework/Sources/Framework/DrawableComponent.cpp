@@ -29,10 +29,6 @@ DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
 {
 }
 
-DrawableComponent::~DrawableComponent()
-{
-}
-
 void DrawableComponent::Draw(const RenderTime& renderTime)
 {
 }

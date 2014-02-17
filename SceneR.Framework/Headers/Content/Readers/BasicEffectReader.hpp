@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the BasicEffectReader class.
              */
-            BasicEffectReader();
+            BasicEffectReader() = default;
+
+            /**
+             * Releases all resources being used by this BasicEffectReader.
+             */
+            virtual ~BasicEffectReader() = default;
 
         public:
             /**

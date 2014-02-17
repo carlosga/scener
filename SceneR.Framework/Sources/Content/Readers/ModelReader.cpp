@@ -33,10 +33,6 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-ModelReader::ModelReader()
-{
-}
-
 std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 {
     auto model     = std::make_shared<Model>();

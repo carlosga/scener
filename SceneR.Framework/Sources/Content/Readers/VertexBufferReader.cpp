@@ -28,10 +28,6 @@ using namespace SceneR::Framework;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-VertexBufferReader::VertexBufferReader()
-{
-}
-
 std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 {
     auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();

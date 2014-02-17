@@ -38,10 +38,6 @@ Ray::Ray(const Ray& ray)
 {
 }
 
-Ray::~Ray()
-{
-}
-
 const Vector3& Ray::Direction() const
 {
     return this->direction;

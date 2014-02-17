@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * Default destructor
              */
-            ~Viewport();
+            ~Viewport() = default;
 
         public:
             const System::Single& X() const;

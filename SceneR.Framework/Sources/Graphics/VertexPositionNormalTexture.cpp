@@ -47,10 +47,6 @@ VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position
 {
 }
 
-VertexPositionNormalTexture::~VertexPositionNormalTexture()
-{
-}
-
 const Vector3& VertexPositionNormalTexture::Position() const
 {
     return this->position;

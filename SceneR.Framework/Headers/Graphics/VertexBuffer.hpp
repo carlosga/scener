@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            virtual ~VertexBuffer();
+            virtual ~VertexBuffer() = default;
 
         public:
             /**

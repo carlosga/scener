@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the SkinnedEffectReader class.
              */
-            SkinnedEffectReader();
+            SkinnedEffectReader() = default;
+
+            /**
+             * Releases all resources being used by this SkinnedEffectReader.
+             */
+            virtual ~SkinnedEffectReader() = default;
 
         public:
             /**

@@ -57,7 +57,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexPositionColorTexture.
              */
-            ~VertexPositionColorTexture();
+            ~VertexPositionColorTexture() = default;
 
         public:
             /**

@@ -38,10 +38,6 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
 {
 }
 
-BlendState::~BlendState()
-{
-}
-
 const BlendFunction& BlendState::AlphaBlendFunction() const
 {
     return this->alphaBlendFunction;

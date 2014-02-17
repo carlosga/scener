@@ -39,12 +39,8 @@ const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
 
 VertexPositionColor::VertexPositionColor(const Vector3&                  position
                                        , const SceneR::Framework::Color& color)
-    : position { position },
-      color    { color }
-{
-}
-
-VertexPositionColor::~VertexPositionColor()
+    : position { position }
+    , color    { color }
 {
 }
 

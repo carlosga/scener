@@ -35,7 +35,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the VertexBufferReader class.
              */
-            VertexBufferReader();
+            VertexBufferReader() = default;
+
+            /**
+             * Releases all resources being used by this VertexBufferReader.
+             */
+            virtual ~VertexBufferReader() = default;
 
         public:
             /**

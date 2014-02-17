@@ -54,10 +54,6 @@ SkinningData::SkinningData(const SkinningData& skinningData)
 
 }
 
-SkinningData::~SkinningData()
-{
-}
-
 const std::map<String, AnimationClip>& SkinningData::AnimationClips() const
 {
     return this->animationClips;

@@ -22,10 +22,6 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
-MatrixReader::MatrixReader()
-{
-}
-
 std::shared_ptr<void> MatrixReader::Read(ContentReader& input)
 {
     return std::make_shared<Matrix>(input.ReadMatrix());

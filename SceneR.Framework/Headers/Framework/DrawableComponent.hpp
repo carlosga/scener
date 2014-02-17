@@ -43,7 +43,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this DrawableComponent.
              */
-            virtual ~DrawableComponent();
+            virtual ~DrawableComponent() = default;
 
         public:
             /**

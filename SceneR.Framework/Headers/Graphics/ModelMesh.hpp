@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this ModelMesh.
              */
-            ~ModelMesh();
+            ~ModelMesh() = default;
 
         public:
             const SceneR::Framework::BoundingSphere& BoundingSphere() const;

@@ -25,10 +25,21 @@ namespace SceneR
     {
         class ContentReader;
 
+        /**
+         * Vertex declaration reader
+         */
         class VertexDeclarationReader: public SceneR::Content::ContentTypeReader
         {
         public:
-            VertexDeclarationReader();
+            /**
+             * Initializes a new instance of the VertexDeclarationReader class.
+             */
+            VertexDeclarationReader() = default;
+
+            /**
+             * Releases all resources being used by this VertexDeclarationReader.
+             */
+            virtual ~VertexDeclarationReader() = default;
 
         public:
             /**

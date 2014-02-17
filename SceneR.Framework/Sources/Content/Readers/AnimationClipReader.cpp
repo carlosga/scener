@@ -26,10 +26,6 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-AnimationClipReader::AnimationClipReader()
-{
-}
-
 std::shared_ptr<void> AnimationClipReader::Read(ContentReader& input)
 {
     return std::make_shared<AnimationClip>(TimeSpan{ input.ReadInt64() }

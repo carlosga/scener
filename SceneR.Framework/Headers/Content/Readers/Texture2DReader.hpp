@@ -35,7 +35,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Texture2DReader class.
              */
-            Texture2DReader();
+            Texture2DReader() = default;
+
+            /**
+             * Releases all resources being used by this Texture2DReader.
+             */
+            virtual ~Texture2DReader() = default;
 
         public:
             /**

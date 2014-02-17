@@ -45,6 +45,11 @@ namespace SceneR
             VertexDeclaration(const System::Size&               vertexStride
                             , const std::vector<VertexElement>& vertexElements);
 
+            /**
+             * Releases all resources being used by this VertexDeclaration
+             */
+            ~VertexDeclaration() = default;
+
         public:
             /**
              * Gets the number of bytes per element.

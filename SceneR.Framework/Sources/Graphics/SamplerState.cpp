@@ -34,10 +34,6 @@ SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
 {
 }
 
-SamplerState::~SamplerState()
-{
-}
-
 const TextureAddressMode& SamplerState::AddressU() const
 {
     return this->addressU;

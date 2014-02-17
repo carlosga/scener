@@ -34,9 +34,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this ContentTypeReader.
              */
-            virtual ~ContentTypeReader()
-            {
-            };
+            virtual ~ContentTypeReader() = default;
 
         public:
             /**

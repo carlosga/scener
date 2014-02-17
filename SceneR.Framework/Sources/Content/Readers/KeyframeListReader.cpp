@@ -23,10 +23,6 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-KeyframeListReader::KeyframeListReader()
-{
-}
-
 std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
 {
     auto keyframes     = std::make_shared<std::vector<Keyframe>>();

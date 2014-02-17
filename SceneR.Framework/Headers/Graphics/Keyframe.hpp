@@ -42,7 +42,7 @@ namespace SceneR
 
             Keyframe(const Keyframe& keyframe);
 
-            ~Keyframe();
+            ~Keyframe() = default;
 
         public:
             const System::Int32& Bone() const;

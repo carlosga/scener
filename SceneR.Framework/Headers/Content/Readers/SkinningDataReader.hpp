@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the SkinningDataReader class.
              */
-            SkinningDataReader();
+            SkinningDataReader() = default;
+
+            /**
+             * Releases all resources being used by this SkinningDataReader.
+             */
+            virtual ~SkinningDataReader() = default;
 
         public:
             /**

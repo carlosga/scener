@@ -39,7 +39,7 @@ namespace SceneR
                 /**
                  * Releases all resources being used by this texture.
                  */
-                virtual ~Texture();
+                virtual ~Texture() = default;
 
             public:
                 /**

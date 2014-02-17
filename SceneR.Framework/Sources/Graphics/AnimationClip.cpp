@@ -37,10 +37,6 @@ AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyfram
 {
 }
 
-AnimationClip::~AnimationClip()
-{
-}
-
 const TimeSpan& AnimationClip::Duration() const
 {
     return this->duration;

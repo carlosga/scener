@@ -41,10 +41,6 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
 {
 }
 
-DepthStencilState::~DepthStencilState()
-{
-}
-
 const StencilOperation& DepthStencilState::CounterClockwiseStencilDepthBufferFail() const
 {
     return counterClockwiseStencilDepthBufferFail;

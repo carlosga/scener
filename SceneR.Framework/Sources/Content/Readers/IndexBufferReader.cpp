@@ -27,10 +27,6 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-IndexBufferReader::IndexBufferReader()
-{
-}
-
 std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
 {
     auto& gdService     = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();

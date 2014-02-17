@@ -47,10 +47,6 @@ VertexPositionColorTexture::VertexPositionColorTexture(const Vector3&           
 {
 }
 
-VertexPositionColorTexture::~VertexPositionColorTexture()
-{
-}
-
 const Vector3& VertexPositionColorTexture::Position() const
 {
     return this->position;

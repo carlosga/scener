@@ -26,10 +26,6 @@ SharedResourceAction::SharedResourceAction(const UInt32&                        
 {
 }
 
-SharedResourceAction::~SharedResourceAction()
-{
-}
-
 const UInt32& SharedResourceAction::Id() const
 {
     return this->id;

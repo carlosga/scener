@@ -25,10 +25,6 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-KeyframeReader::KeyframeReader()
-{
-}
-
 std::shared_ptr<void> KeyframeReader::Read(ContentReader& input)
 {
     return std::make_shared<Keyframe>(input.ReadInt32()

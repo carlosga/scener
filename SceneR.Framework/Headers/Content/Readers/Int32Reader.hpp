@@ -34,7 +34,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the Int32Reader class.
              */
-            Int32Reader();
+            Int32Reader() = default;
+
+            /**
+             * Releases all resources being used by this Int32Reader.
+             */
+            virtual ~Int32Reader() = default;
 
         public:
             /**

@@ -47,7 +47,7 @@ namespace SceneR
         public:
             AnimatedModel(const std::shared_ptr<Model>& model);
 
-            ~AnimatedModel();
+            ~AnimatedModel() = default;
 
         public:
             /**

@@ -43,7 +43,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ModelReader class.
              */
-            ModelReader();
+            ModelReader() = default;
+
+            /**
+             * Releases all resources being used by this ModelReader.
+             */
+            virtual ~ModelReader() = default;
 
         public:
             /**

@@ -43,7 +43,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this DisplayMode.
              */
-            virtual ~DisplayMode();
+            ~DisplayMode() = default;
 
         public:
             /**

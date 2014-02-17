@@ -49,7 +49,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            virtual ~IndexBuffer();
+            virtual ~IndexBuffer() = default;
 
         public:
             /**

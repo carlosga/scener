@@ -42,7 +42,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexElement.
              */
-            ~VertexElement();
+            ~VertexElement() = default;
 
         public:
             /**

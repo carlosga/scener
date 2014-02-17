@@ -50,11 +50,6 @@ BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum)
 {
 }
 
-BoundingFrustrum::~BoundingFrustrum()
-{
-
-}
-
 const Plane& BoundingFrustrum::Bottom() const
 {
     return this->bottom;

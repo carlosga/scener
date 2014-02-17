@@ -37,10 +37,6 @@ AnimatedModel::AnimatedModel(const std::shared_ptr<Model>& model)
 {
 }
 
-AnimatedModel::~AnimatedModel()
-{
-}
-
 void AnimatedModel::Play(const String& clipName)
 {
     this->player.StartClip(this->skinningData->AnimationClips(clipName));

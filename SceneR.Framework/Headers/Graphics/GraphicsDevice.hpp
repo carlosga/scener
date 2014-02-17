@@ -57,7 +57,7 @@ namespace SceneR
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            ~GraphicsDevice();
+            ~GraphicsDevice() = default;
 
         public:
             /**

@@ -40,10 +40,6 @@ RenderTime::RenderTime(const TimeSpan& totalRenderTime
 {
 }
 
-RenderTime::~RenderTime()
-{
-}
-
 const TimeSpan& RenderTime::ElapsedRenderTime() const
 {
     return this->elapsedRenderTime;

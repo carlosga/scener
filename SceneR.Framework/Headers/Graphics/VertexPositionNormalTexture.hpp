@@ -45,14 +45,14 @@ namespace SceneR
              * Initializes a new instance of the VertexPositionNormalTexture class
              * with the given position, normal and texture coordinates.
              */
-            VertexPositionNormalTexture(const SceneR::Framework::Vector3& position,
-                                        const SceneR::Framework::Vector3& normal,
-                                        const SceneR::Framework::Vector2& textureCoordinate);
+            VertexPositionNormalTexture(const SceneR::Framework::Vector3& position
+                                      , const SceneR::Framework::Vector3& normal
+                                      , const SceneR::Framework::Vector2& textureCoordinate);
 
             /**
              * Releases all resources being used by this VertexPositionNormalTexture.
              */
-            ~VertexPositionNormalTexture();
+            ~VertexPositionNormalTexture() = default;
 
         public:
             /**

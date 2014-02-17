@@ -36,10 +36,6 @@ DirectionalLight::DirectionalLight(const Vector3& diffuseColor
 {
 }
 
-DirectionalLight::~DirectionalLight()
-{
-}
-
 const Vector3& DirectionalLight::DiffuseColor() const
 {
     return this->diffuseColor;

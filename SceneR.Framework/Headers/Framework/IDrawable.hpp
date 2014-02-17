@@ -34,9 +34,7 @@ namespace SceneR
 		    /**
 		     * Releases all the resources being used by this IDrawable instance.
 		     */
-		    virtual ~IDrawable()
-		    {
-		    };
+		    virtual ~IDrawable() = default;
 
 		public:
 		    /**

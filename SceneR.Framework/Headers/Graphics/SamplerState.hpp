@@ -45,7 +45,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this SamplerState.
              */
-            virtual ~SamplerState();
+            virtual ~SamplerState() = default;
 
         public:
             /**

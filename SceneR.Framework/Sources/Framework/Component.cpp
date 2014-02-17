@@ -27,10 +27,6 @@ Component::Component(SceneR::Framework::Renderer& renderer)
 {
 }
 
-Component::~Component()
-{
-}
-
 SceneR::Framework::Renderer& Component::Renderer()
 {
     return this->renderer;

@@ -32,9 +32,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this IGraphicsDeviceManager instance
              */
-            virtual ~IGraphicsDeviceManager()
-            {
-            };
+            virtual ~IGraphicsDeviceManager() = default;
 
         public:
            /**

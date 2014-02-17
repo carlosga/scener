@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this ModelBone.
              */
-            ~ModelBone();
+            ~ModelBone() = default;
 
         public:
             /**

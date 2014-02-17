@@ -60,7 +60,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this Model.
              */
-            ~Model();
+            ~Model() = default;
 
         public:
             /**

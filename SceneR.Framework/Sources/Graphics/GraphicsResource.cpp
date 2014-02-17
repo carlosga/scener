@@ -26,10 +26,6 @@ GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
 {
 }
 
-GraphicsResource::~GraphicsResource()
-{
-}
-
 GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
 {
     return this->graphicsDevice;

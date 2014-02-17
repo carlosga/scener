@@ -51,7 +51,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this DepthStencilState
              */
-            virtual ~DepthStencilState();
+            virtual ~DepthStencilState() = default;
 
         public:
             /**

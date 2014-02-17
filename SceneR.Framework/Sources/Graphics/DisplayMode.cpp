@@ -41,10 +41,6 @@ DisplayMode::DisplayMode(const GLFWvidmode* mode)
     }
 }
 
-DisplayMode::~DisplayMode()
-{
-}
-
 const Single& DisplayMode::AspectRatio() const
 {
     return this->aspectRatio;

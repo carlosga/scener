@@ -57,6 +57,10 @@ namespace SceneR
             };
 
         private:
+            ContentTypeReaderManager(const ContentTypeReaderManager& manager) = delete;
+            ContentTypeReaderManager& operator=(const ContentTypeReaderManager& manager) = delete;
+
+        private:
             std::map<System::String, ContentTypeReader*> readers;
         };
     }

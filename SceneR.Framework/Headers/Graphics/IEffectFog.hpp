@@ -40,9 +40,7 @@ namespace SceneR
             /**
              * Releases all resource sbeing used by this IEffectFog instance
              */
-            virtual ~IEffectFog()
-            {
-            };
+            virtual ~IEffectFog() = default;
 
         public:
             /**

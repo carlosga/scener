@@ -21,10 +21,6 @@
 using namespace System;
 using namespace SceneR::Content;
 
-StringReader::StringReader()
-{
-}
-
 std::shared_ptr<void> StringReader::Read(ContentReader& input)
 {
     auto tmp = input.ReadString();

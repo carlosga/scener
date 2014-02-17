@@ -26,10 +26,6 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
-VertexDeclarationReader::VertexDeclarationReader()
-{
-}
-
 std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
 {
     auto vertexStride = input.ReadUInt32();

@@ -30,9 +30,7 @@ namespace SceneR
 		    /**
 		     * Releases all resources being used by this IComponent instance.
 		     */
-		    virtual ~IComponent()
-		    {
-		    };
+		    virtual ~IComponent() = default;
 
 		public:
 		    /**
