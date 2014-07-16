@@ -8,7 +8,7 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
 * Development platform.
     * **Linux**.
 * IDE. 
-    * [**Eclipse CDT (Luna).**](http://eclipse.org/cdt/)
+    * [**QT Creator.**](http://qt-project.org/)
 * C++ Compiler.
     * [**Clang 3.4.**](http://clang.llvm.org/)
 * C++ Standard Library.
