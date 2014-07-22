@@ -71,9 +71,8 @@ void Marcus::LoadContent()
 
 void Marcus::UnloadContent()
 {
-    if (this->model != nullptr)
+    if (this->model)
     {
-        this->model.reset();
         this->model = nullptr;
     }
 }

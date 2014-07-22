@@ -126,12 +126,6 @@ namespace SceneR
             virtual void EndRun();
 
             /**
-             * Allows a Renderer to attempt to free resources and perform other
-             * cleanup operations before garbage collection reclaims the Renderer.
-             */
-            virtual void Finalize();
-
-            /**
              * Called after the Renderer and GraphicsDevice are created, but before LoadContent.
              */
             virtual void Initialize();

@@ -45,7 +45,6 @@ Renderer::Renderer(const String& rootDirectory)
 
 Renderer::~Renderer()
 {
-    this->Finalize();
     this->Exit();
 }
 
@@ -88,6 +87,7 @@ void Renderer::Run()
 
 void Renderer::Exit()
 {
+    this->graphicsDeviceManager.~GraphicsDeviceManager();
     this->rendererWindow.Close();
 
     glfwTerminate();
@@ -119,10 +119,6 @@ void Renderer::EndDraw()
 }
 
 void Renderer::EndRun()
-{
-}
-
-void Renderer::Finalize()
 {
 }
 
@@ -160,6 +156,9 @@ void Renderer::TargetElapsedTime(const TimeSpan& targetElapsedTime)
 
 void Renderer::UnloadContent()
 {
+    this->drawableComponents.clear();
+    this->updateableComponents.clear();
+    this->components.clear();
 }
 
 void Renderer::Update(const RenderTime& renderTime)
