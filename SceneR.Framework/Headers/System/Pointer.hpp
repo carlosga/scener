@@ -17,6 +17,8 @@
 #ifndef POINTER_HPP
 #define POINTER_HPP
 
+#include <memory>
+
 namespace System
 {
     /**
