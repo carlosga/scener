@@ -18,7 +18,6 @@
 #include <Content/Readers/KeyframeReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/Keyframe.hpp>
-#include <System/TimeSpan.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -28,7 +27,7 @@ using namespace SceneR::Graphics;
 std::shared_ptr<void> KeyframeReader::Read(ContentReader& input)
 {
     return std::make_shared<Keyframe>(input.ReadInt32()
-                                    , TimeSpan {input.ReadInt64() }
+                                    , TimeSpan { input.ReadInt64() }
                                     , input.ReadMatrix());
 }
 
