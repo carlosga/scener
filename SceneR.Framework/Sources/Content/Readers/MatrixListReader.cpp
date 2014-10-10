@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/MatrixListReader.hpp>
 #include <Framework/Matrix.hpp>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -26,11 +25,11 @@ using namespace SceneR::Framework;
 std::shared_ptr<void> MatrixListReader::Read(ContentReader& input)
 {
     auto matrices    = std::make_shared<std::vector<Matrix>>();
-    auto matrixCount = input.ReadInt32();
+    auto matrixCount = input.ReadUInt32();
 
     matrices->reserve(matrixCount);
 
-    for (Int32 i = 0; i < matrixCount; i++)
+    for (UInt32 i = 0; i < matrixCount; i++)
     {
         matrices->push_back(input.ReadMatrix());
     }
