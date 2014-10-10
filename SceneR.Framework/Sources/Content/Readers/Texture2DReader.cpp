@@ -15,13 +15,10 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -34,11 +31,11 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
     auto  width       = input.ReadUInt32();
     auto  height      = input.ReadUInt32();
     auto  mipmapCount = input.ReadUInt32();
-    auto  texture     = std::make_shared<Texture2D>(gdService.CurrentGraphicsDevice(),
-                                                    width,
-                                                    height,
-                                                    (mipmapCount >= 1),
-                                                    static_cast<SurfaceFormat>(this->DecodeFormat(format)));
+    auto  texture     = std::make_shared<Texture2D>(gdService.CurrentGraphicsDevice()
+                                                  , width
+                                                  , height
+                                                  , (mipmapCount >= 1)
+                                                  , this->DecodeFormat(format));
 
     texture->DeclareStorage(mipmapCount);
 
