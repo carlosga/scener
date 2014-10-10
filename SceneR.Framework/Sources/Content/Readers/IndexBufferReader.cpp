@@ -15,13 +15,10 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <Graphics/IndexElementSize.hpp>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
