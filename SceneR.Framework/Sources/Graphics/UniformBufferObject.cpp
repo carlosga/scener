@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferTarget.hpp>
 #include <Graphics/UniformBufferObject.hpp>
+#include <Graphics/BufferTarget.hpp>
 
 using namespace SceneR::Graphics;
 

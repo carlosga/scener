@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/SamplerState.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture.hpp>
 

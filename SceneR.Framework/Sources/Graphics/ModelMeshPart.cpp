@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/Effect.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/Effect.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

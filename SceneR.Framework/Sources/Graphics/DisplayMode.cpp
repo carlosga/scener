@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/DisplayMode.hpp>
+
 #include <cassert>
 
 using namespace System;

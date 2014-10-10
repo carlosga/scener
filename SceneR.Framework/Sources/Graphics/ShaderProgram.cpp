@@ -14,14 +14,14 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Matrix.hpp>
-#include <Framework/Quaternion.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Shader.hpp>
+#include <System/Text/Encoding.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/Shader.hpp>
-#include <Graphics/ShaderProgram.hpp>
-#include <System/Text/Encoding.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Matrix.hpp>
 #include <cassert>
 
 using namespace System;

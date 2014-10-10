@@ -14,9 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/EffectParameterCollection.hpp>
+
+#include <cassert>
+
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/ShaderProgram.hpp>
-#include <cassert>
 
 using namespace System;
 using namespace SceneR::Graphics;

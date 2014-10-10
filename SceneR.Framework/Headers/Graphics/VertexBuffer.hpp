@@ -17,12 +17,13 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/GraphicsResource.hpp>
-#include <Graphics/VertexArrayObject.hpp>
-#include <System/Core.hpp>
 #include <memory>
 #include <vector>
+
+#include <Graphics/GraphicsResource.hpp>
+#include <Graphics/VertexArrayObject.hpp>
+#include <Graphics/BufferObject.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

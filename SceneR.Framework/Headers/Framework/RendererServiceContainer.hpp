@@ -17,10 +17,11 @@
 #ifndef RENDERERSERVICECONTAINER_HPP
 #define RENDERERSERVICECONTAINER_HPP
 
-#include <System/Core.hpp>
 #include <map>
 #include <memory>
 #include <string>
+
+#include <System/Core.hpp>
 
 namespace SceneR
 {

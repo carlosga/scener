@@ -15,9 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Color.hpp>
+
+#include <cassert>
+
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <cassert>
 
 using namespace System;
 using namespace SceneR::Framework;

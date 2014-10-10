@@ -14,11 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/BoundingBox.hpp>
+#include <Framework/Ray.hpp>
+
+#include <cmath>
+
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Framework/Ray.hpp>
-#include <cmath>
+#include <Framework/BoundingBox.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

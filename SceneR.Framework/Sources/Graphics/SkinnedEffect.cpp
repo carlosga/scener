@@ -14,11 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/SkinnedEffect.hpp>
+#include <Graphics/EffectParameter.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/DirectionalLight.hpp>
-#include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/SkinnedEffect.hpp>
 #include <System/IO/File.hpp>
 #include <cassert>
 

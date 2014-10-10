@@ -17,11 +17,12 @@
 #ifndef CONTENTMANAGER_HPP
 #define CONTENTMANAGER_HPP
 
+#include <memory>
+
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
-#include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
-#include <memory>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -14,11 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Content/ContentManager.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

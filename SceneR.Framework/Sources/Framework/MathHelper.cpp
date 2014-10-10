@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/MathHelper.hpp>
+
 #include <cassert>
 #include <cmath>
 

@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <codecvt>
 #include <System/Text/UTF8Encoder.hpp>
+#include <codecvt>
 
 using namespace System;
 using namespace System::Text;

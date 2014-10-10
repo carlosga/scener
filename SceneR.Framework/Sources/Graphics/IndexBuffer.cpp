@@ -14,8 +14,6 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
 #include <Graphics/IndexBuffer.hpp>
 
 using namespace System;
@@ -74,5 +72,5 @@ void IndexBuffer::Deactivate() const
 
 Size IndexBuffer::GetElementSizeInBytes() const
 {
-    return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
+    return ((this->indexElementSize == IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
 }

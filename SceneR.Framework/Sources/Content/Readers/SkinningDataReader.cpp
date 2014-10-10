@@ -14,11 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/Readers/SkinningDataReader.hpp>
-#include <Framework/Matrix.hpp>
-#include <Graphics/AnimationClip.hpp>
 #include <Graphics/SkinningData.hpp>
+#include <Content/ContentManager.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

@@ -17,10 +17,11 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
-#include <Framework/Matrix.hpp>
-#include <System/Core.hpp>
 #include <memory>
 #include <vector>
+
+#include <Framework/Matrix.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

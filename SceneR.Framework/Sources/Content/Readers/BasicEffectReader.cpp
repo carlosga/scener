@@ -14,12 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/Readers/BasicEffectReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Framework/Vector3.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Content/ContentManager.hpp>
 #include <System/IO/Path.hpp>
 
 using namespace System;

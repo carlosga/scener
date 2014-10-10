@@ -17,6 +17,9 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
+#include <memory>
+#include <vector>
+
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
@@ -28,8 +31,6 @@
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/Viewport.hpp>
 #include <System/Core.hpp>
-#include <memory>
-#include <vector>
 
 namespace SceneR
 {

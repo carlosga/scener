@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/VertexDeclarationReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
+#include <Content/ContentReader.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

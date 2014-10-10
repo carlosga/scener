@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;

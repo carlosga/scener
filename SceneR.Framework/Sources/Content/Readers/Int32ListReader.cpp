@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/Int32ListReader.hpp>
+#include <Content/ContentReader.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

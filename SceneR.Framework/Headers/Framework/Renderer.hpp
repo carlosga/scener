@@ -17,6 +17,9 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
+#include <memory>
+#include <vector>
+
 #include <Content/ContentManager.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/IComponent.hpp>
@@ -26,10 +29,8 @@
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Framework/RenderTime.hpp>
-#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
-#include <memory>
-#include <vector>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

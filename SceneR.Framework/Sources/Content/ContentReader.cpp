@@ -15,13 +15,15 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentReader.hpp>
+
+#include <cassert>
+
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <cassert>
 
 using namespace System;
 using namespace System::IO;

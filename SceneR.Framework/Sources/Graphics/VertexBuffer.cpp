@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexDeclaration.hpp>
+#include <Graphics/BufferTarget.hpp>
+#include <Graphics/BufferUsage.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

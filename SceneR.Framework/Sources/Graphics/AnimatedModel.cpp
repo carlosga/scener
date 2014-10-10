@@ -20,11 +20,10 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //-----------------------------------------------------------------------------
 
-#include <Framework/Matrix.hpp>
-#include <Framework/RenderTime.hpp>
 #include <Graphics/AnimatedModel.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/SkinningData.hpp>
+#include <Framework/RenderTime.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

@@ -14,12 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
-#include <Content/Readers/VertexDeclarationReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <Content/Readers/VertexDeclarationReader.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Content/ContentManager.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

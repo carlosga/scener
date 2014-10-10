@@ -14,10 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
+
 #include <cassert>
 #include <cmath>
+
+#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

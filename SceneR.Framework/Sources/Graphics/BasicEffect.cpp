@@ -14,10 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Framework/Vector4.hpp>
 #include <System/IO/File.hpp>
 
 using namespace System;

@@ -15,9 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Effect.hpp>
-#include <Graphics/Shader.hpp>
-#include <Graphics/ShaderProgram.hpp>
+
 #include <cassert>
+
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Shader.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

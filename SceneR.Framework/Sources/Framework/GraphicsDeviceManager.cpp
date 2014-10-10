@@ -15,17 +15,17 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/GraphicsDeviceManager.hpp>
-#include <Framework/PresentInterval.hpp>
-#include <Framework/Renderer.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
+#include <Framework/Renderer.hpp>
+#include <Framework/PresentInterval.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
-    : renderer                  { renderer }
+    : renderer                  ( renderer )
     , graphicsDevice            { nullptr }
     , allowUserResizing         { false }
     , fullScreen                { false }

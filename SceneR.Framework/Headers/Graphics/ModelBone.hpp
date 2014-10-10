@@ -17,10 +17,11 @@
 #ifndef MODELBONE_HPP
 #define MODELBONE_HPP
 
-#include <Framework/Matrix.hpp>
-#include <System/Core.hpp>
 #include <memory>
 #include <vector>
+
+#include <Framework/Matrix.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

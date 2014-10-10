@@ -17,11 +17,12 @@
 #ifndef MODELMESH_HPP
 #define MODELMESH_HPP
 
+#include <memory>
+#include <vector>
+
 #include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
 #include <System/Core.hpp>
-#include <memory>
-#include <vector>
 
 namespace SceneR
 {

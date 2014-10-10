@@ -23,11 +23,12 @@
 #ifndef SKINNINGDATA_HPP
 #define SKINNINGDATA_HPP
 
+#include <map>
+#include <vector>
+
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
 #include <System/Core.hpp>
-#include <map>
-#include <vector>
 
 namespace SceneR
 {

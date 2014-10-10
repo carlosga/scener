@@ -14,13 +14,15 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/MathHelper.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Vector2.hpp>
-#include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+
 #include <cassert>
 #include <cmath>
+
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

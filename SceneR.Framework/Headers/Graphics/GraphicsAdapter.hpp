@@ -17,9 +17,10 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
+#include <vector>
+
 #include <Graphics/DisplayMode.hpp>
 #include <System/Core.hpp>
-#include <vector>
 
 struct GLFWmonitor;
 

@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

@@ -14,12 +14,12 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/SkinnedEffect.hpp>
 #include <Graphics/SkinningData.hpp>
+#include <Framework/Vector3.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

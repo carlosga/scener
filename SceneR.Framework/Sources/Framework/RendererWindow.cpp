@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/RendererWindow.hpp>
 #include <Framework/Renderer.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 
@@ -27,7 +28,7 @@ RendererWindow::RendererWindow(Renderer& renderer)
     : title             { u"" }
     , allowUserResizing { false }
     , handle            { nullptr }
-    , renderer          { renderer }
+    , renderer          ( renderer )
 {
 }
 

@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
+#include <Framework/BoundingBox.hpp>
 #include <Framework/Ray.hpp>
 
 using namespace SceneR::Framework;

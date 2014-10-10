@@ -14,6 +14,7 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Graphics/RasterizerState.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 
@@ -23,9 +24,9 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource     { graphicsDevice }
-    , cullMode             { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
+    , cullMode             { CullMode::CullCounterClockwiseFace }
     , depthBias            { 0.0f }
-    , fillMode             { SceneR::Graphics::FillMode::Solid }
+    , fillMode             { FillMode::Solid }
     , multiSampleAntiAlias { true }
     , scissorTestEnable    { false }
     , slopeScaleDepthBias  { 0.0f }
@@ -95,7 +96,7 @@ void RasterizerState::SlopeScaleDepthBias(const Single& slopeScaleDepthBias)
 void RasterizerState::Apply() const
 {
     // Specify whether front- or back-facing facets can be culled
-    if (this->cullMode == SceneR::Graphics::CullMode::None)
+    if (this->cullMode == CullMode::None)
     {
         glDisable(GL_CULL_FACE);
     }
@@ -121,7 +122,7 @@ void RasterizerState::Apply() const
     }
 
     //  Select a polygon rasterization mode
-    if (this->fillMode == SceneR::Graphics::FillMode::Solid)
+    if (this->fillMode == FillMode::Solid)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

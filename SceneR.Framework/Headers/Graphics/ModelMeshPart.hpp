@@ -17,8 +17,9 @@
 #ifndef MODELMESHPART_HPP
 #define MODELMESHPART_HPP
 
-#include <System/Core.hpp>
 #include <memory>
+
+#include <System/Core.hpp>
 
 namespace SceneR
 {

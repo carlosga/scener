@@ -14,8 +14,8 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Graphics/VertexDeclaration.hpp>
 #include <Graphics/VertexPositionColor.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;

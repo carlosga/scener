@@ -15,8 +15,8 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
-#include <System/IO/File.hpp>
 #include <System/IO/FileStream.hpp>
+#include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
 
 using namespace System;

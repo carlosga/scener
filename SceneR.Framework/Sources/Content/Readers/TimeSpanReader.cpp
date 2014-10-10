@@ -14,9 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/TimeSpanReader.hpp>
 #include <System/TimeSpan.hpp>
+#include <Content/ContentReader.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

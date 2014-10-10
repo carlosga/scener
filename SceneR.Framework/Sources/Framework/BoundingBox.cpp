@@ -17,8 +17,8 @@
 #include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Framework/MathHelper.hpp>
 #include <Framework/Ray.hpp>
+#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

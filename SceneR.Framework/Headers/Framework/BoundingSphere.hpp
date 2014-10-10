@@ -17,11 +17,12 @@
 #ifndef BOUNDINGSPHERE_HPP
 #define BOUNDINGSPHERE_HPP
 
+#include <vector>
+
 #include <Framework/ContainmentType.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/Vector3.hpp>
 #include <System/Core.hpp>
-#include <vector>
 
 namespace SceneR
 {

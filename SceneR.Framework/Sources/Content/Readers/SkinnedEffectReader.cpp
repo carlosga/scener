@@ -14,13 +14,13 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
 #include <Content/Readers/SkinnedEffectReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/SkinnedEffect.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/SkinnedEffect.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <System/IO/Path.hpp>
+#include <Content/ContentManager.hpp>
 
 using namespace System;
 using namespace System::IO;
