@@ -1,6 +1,6 @@
 // Partial port from the Microsoft XNA Stock Effects (Microsoft Permissive License.rtf)
 
-#version 430 core
+#version 440 core
 
 in vec3 PositionWS;
 in vec3 NormalWS;

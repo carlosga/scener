@@ -42,7 +42,6 @@ namespace SceneR
         {
         public:
             AstroBoy(SceneR::Framework::Renderer& renderer);
-
             virtual ~AstroBoy();
 
         public:
@@ -54,12 +53,11 @@ namespace SceneR
             virtual void UnloadContent() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Model>         model;
-            std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
-            System::Single                                   rotation;
-            SceneR::Framework::Matrix                        world;
-            SceneR::Framework::Matrix                        view;
-            SceneR::Framework::Matrix                        projection;
+            std::shared_ptr<SceneR::Graphics::Model> model;
+            System::Single                           rotation;
+            SceneR::Framework::Matrix                world;
+            SceneR::Framework::Matrix                view;
+            SceneR::Framework::Matrix                projection;
         };
     }
 }

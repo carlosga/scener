@@ -1,6 +1,6 @@
 // Partial port from the Microsoft XNA Stock Effects (Microsoft Permissive License.rtf)
 
-#version 430 core
+#version 440 core
 
 #define SKINNED_EFFECT_MAX_BONES   72
 
