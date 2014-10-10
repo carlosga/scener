@@ -15,14 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/SkinnedEffectReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SkinnedEffect.hpp>
-#include <Graphics/Texture2D.hpp>
-#include <System/Core.hpp>
 #include <System/IO/Path.hpp>
 
 using namespace System;
