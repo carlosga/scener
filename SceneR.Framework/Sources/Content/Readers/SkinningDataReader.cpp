@@ -17,13 +17,8 @@
 #include <Content/ContentManager.hpp>
 #include <Content/Readers/SkinningDataReader.hpp>
 #include <Framework/Matrix.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/AnimationClip.hpp>
 #include <Graphics/SkinningData.hpp>
-#include <System/Core.hpp>
-#include <map>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
