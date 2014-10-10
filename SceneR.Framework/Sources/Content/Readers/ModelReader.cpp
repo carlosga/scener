@@ -98,7 +98,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         // Read mesh parts
         auto meshPartCount = input.ReadUInt32();
 
-        for (UInt32 i = 0; i < meshPartCount; i++)
+        for (UInt32 j = 0; j < meshPartCount; j++)
         {
             auto modelMeshPart = std::make_shared<ModelMeshPart>();
 
@@ -148,7 +148,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     return model;
 }
 
-UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt16&  boneCount)
+UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount)
 {
     if (boneCount < 255)
     {
