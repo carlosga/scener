@@ -42,7 +42,7 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
 
 void GraphicsDevice::Clear(const Color& color) const
 {
-    Int32 bufferBits = GL_COLOR_BUFFER_BIT;
+    UInt32 bufferBits = GL_COLOR_BUFFER_BIT;
 
     glClearColor(color.R(), color.G(), color.B(), color.A());
 
@@ -54,7 +54,7 @@ void GraphicsDevice::Clear(const Color& color) const
     if (this->depthStencilState.StencilEnable())
     {
         bufferBits |= GL_STENCIL_BUFFER_BIT;
-        glClearStencil(1.0);
+        glClearStencil(1);
     }
 
     glClear(bufferBits);
@@ -173,7 +173,7 @@ void GraphicsDevice::IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBu
     this->indexBuffer = indexBuffer;
 }
 
-RasterizerState& GraphicsDevice::RasterizerState()
+SceneR::Graphics::RasterizerState& GraphicsDevice::RasterizerState()
 {
     return this->rasterizerState;
 }
