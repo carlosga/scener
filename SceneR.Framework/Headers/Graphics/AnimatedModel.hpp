@@ -32,6 +32,7 @@ namespace SceneR
     namespace Framework
     {
         class RenderTime;
+        struct Matrix;
     }
 }
 
