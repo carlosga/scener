@@ -16,7 +16,6 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Int32Reader.hpp>
-#include <System/Core.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
