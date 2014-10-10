@@ -16,7 +16,6 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/Int32ListReader.hpp>
-#include <System/Core.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -24,11 +23,11 @@ using namespace SceneR::Content;
 std::shared_ptr<void> Int32ListReader::Read(ContentReader& input)
 {
     auto values = std::make_shared<std::vector<Int32>>();
-    auto count  = input.ReadInt32();
+    auto count  = input.ReadUInt32();
 
     values->reserve(count);
 
-    for (Int32 i = 0; i < count; i++)
+    for (UInt32 i = 0; i < count; i++)
     {
         values->push_back(input.ReadInt32());
     }
