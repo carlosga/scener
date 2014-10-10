@@ -17,10 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/VertexDeclarationReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
-#include <Graphics/VertexElement.hpp>
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
