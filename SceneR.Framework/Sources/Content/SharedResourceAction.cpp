@@ -19,14 +19,14 @@
 using namespace System;
 using namespace SceneR::Content;
 
-SharedResourceAction::SharedResourceAction(const UInt32&                                            sharedResourceId
+SharedResourceAction::SharedResourceAction(const Int32&                                             sharedResourceId
                                          , const std::function<void(const std::shared_ptr<void>&)>& action)
     : id     { sharedResourceId }
     , action { action }
 {
 }
 
-const UInt32& SharedResourceAction::Id() const
+const Int32& SharedResourceAction::Id() const
 {
     return this->id;
 }
