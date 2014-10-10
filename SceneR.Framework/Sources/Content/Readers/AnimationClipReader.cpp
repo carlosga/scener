@@ -17,10 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/AnimationClipReader.hpp>
 #include <Graphics/AnimationClip.hpp>
-#include <Graphics/Keyframe.hpp>
-#include <System/Core.hpp>
-#include <System/TimeSpan.hpp>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -28,6 +24,6 @@ using namespace SceneR::Graphics;
 
 std::shared_ptr<void> AnimationClipReader::Read(ContentReader& input)
 {
-    return std::make_shared<AnimationClip>(TimeSpan{ input.ReadInt64() }
+    return std::make_shared<AnimationClip>(TimeSpan { input.ReadInt64() }
                                          , *input.ReadObject<std::vector<Keyframe>>());
 }
