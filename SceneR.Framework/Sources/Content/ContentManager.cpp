@@ -24,9 +24,9 @@ using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
-ContentManager::ContentManager(RendererServiceContainer& serviceProvider,
-                               const String&             rootDirectory)
-    : serviceProvider { serviceProvider }
+ContentManager::ContentManager(RendererServiceContainer& serviceProvider
+                             , const String&             rootDirectory)
+    : serviceProvider ( serviceProvider )
     , rootDirectory   { rootDirectory }
 {
 }

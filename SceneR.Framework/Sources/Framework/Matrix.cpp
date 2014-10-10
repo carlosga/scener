@@ -20,7 +20,6 @@
 #include <Framework/Vector3.hpp>
 #include <cassert>
 #include <cmath>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;

@@ -16,12 +16,8 @@
 
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
-#include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/PresentationParameters.hpp>
-#include <System/Text/Encoding.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -79,7 +75,7 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
     glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 4);
     glfwWindowHint(GLFW_RESIZABLE             , (gdm.AllowUserResizing() ? GL_TRUE : GL_FALSE));
     glfwWindowHint(GLFW_RED_BITS              , 8);
     glfwWindowHint(GLFW_GREEN_BITS            , 8);

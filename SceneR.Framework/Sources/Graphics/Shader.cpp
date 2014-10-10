@@ -15,9 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Shader.hpp>
-#include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
-#include <stdexcept>
 
 using namespace System;
 using namespace System::Text;

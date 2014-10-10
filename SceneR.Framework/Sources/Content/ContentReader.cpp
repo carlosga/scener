@@ -35,7 +35,7 @@ ContentReader::ContentReader(const String&                    assetName
                            , Stream&                          stream)
     : BinaryReader        { stream }
     , assetName           { assetName }
-    , contentManager      { contentManager }
+    , contentManager      ( contentManager )
     , typeReaders         ( 0 )
     , sharedResourceCount { 0 }
     , fixupActions        { }
@@ -48,8 +48,8 @@ ContentReader::~ContentReader()
 {
     BinaryReader::Close();
     this->typeReaders.clear();
-    this->sharedResourceCount = 0;
     this->fixupActions.clear();
+    this->sharedResourceCount = 0;
 }
 
 String& ContentReader::AssetName()

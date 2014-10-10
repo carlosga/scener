@@ -17,11 +17,8 @@
 #include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector4.hpp>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;

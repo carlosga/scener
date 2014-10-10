@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/RenderTime.hpp>
-#include <System/TimeSpan.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

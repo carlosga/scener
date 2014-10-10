@@ -18,9 +18,6 @@
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexDeclaration.hpp>
-#include <Graphics/VertexElement.hpp>
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

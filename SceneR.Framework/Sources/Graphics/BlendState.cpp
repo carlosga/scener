@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/BlendState.hpp>
-#include <System/Graphics/Platform.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

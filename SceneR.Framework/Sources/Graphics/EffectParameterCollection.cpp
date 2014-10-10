@@ -15,9 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/EffectParameter.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/ShaderProgram.hpp>
-#include <algorithm>
 #include <cassert>
 
 using namespace System;

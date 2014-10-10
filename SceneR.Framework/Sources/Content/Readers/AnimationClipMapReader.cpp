@@ -16,11 +16,7 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/AnimationClipMapReader.hpp>
-#include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
-#include <System/Core.hpp>
-#include <System/TimeSpan.hpp>
-#include <map>
 
 using namespace System;
 using namespace SceneR::Content;

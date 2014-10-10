@@ -17,9 +17,7 @@
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <Graphics/IndexElementSize.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;

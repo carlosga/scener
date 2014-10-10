@@ -15,9 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/GraphicsAdapter.hpp>
-#include <System/Graphics/Platform.hpp>
-#include <algorithm>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Graphics;

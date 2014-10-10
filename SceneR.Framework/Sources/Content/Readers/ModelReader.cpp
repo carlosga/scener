@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
 #include <Content/Readers/ModelReader.hpp>
 #include <Content/Readers/BoundingSphereReader.hpp>
 #include <Framework/BoundingSphere.hpp>

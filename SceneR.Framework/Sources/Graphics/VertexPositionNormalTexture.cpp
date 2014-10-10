@@ -15,9 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/VertexDeclaration.hpp>
-#include <Graphics/VertexElement.hpp>
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexPositionNormalTexture.hpp>
 
 using namespace SceneR::Framework;

@@ -16,12 +16,7 @@
 
 #include <Framework/BoundingBox.hpp>
 #include <Framework/BoundingFrustrum.hpp>
-#include <Framework/ContainmentType.hpp>
-#include <Framework/Plane.hpp>
-#include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/Ray.hpp>
-#include <Framework/Vector3.hpp>
-#include <stdexcept>
 
 using namespace SceneR::Framework;
 

@@ -21,7 +21,6 @@
 #include <Framework/Vector4.hpp>
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
-#include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
 #include <cassert>
 

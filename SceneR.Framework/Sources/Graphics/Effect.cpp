@@ -17,9 +17,7 @@
 #include <Graphics/Effect.hpp>
 #include <Graphics/Shader.hpp>
 #include <Graphics/ShaderProgram.hpp>
-#include <Graphics/ShaderType.hpp>
 #include <cassert>
-#include <vector>
 
 using namespace System;
 using namespace SceneR::Graphics;

@@ -241,7 +241,9 @@ HEADERS += \
     System/Text/Encoding.hpp \
     System/Text/UTF8Decoder.hpp \
     System/Text/UTF8Encoder.hpp \
-    System/Text/UTF8Encoding.hpp
+    System/Text/UTF8Encoding.hpp \
+    ../../../../../backup/BitConverter.hpp \
+    Headers/System/BitConverter.hpp
 
 unix {
     target.path = /usr/lib

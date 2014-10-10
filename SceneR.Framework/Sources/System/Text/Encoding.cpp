@@ -16,7 +16,6 @@
 
 #include <System/Text/Encoding.hpp>
 #include <System/Text/UTF8Encoding.hpp>
-#include <codecvt>
 #include <locale>
 
 using namespace System;

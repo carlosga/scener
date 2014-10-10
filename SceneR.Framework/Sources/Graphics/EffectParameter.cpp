@@ -22,7 +22,6 @@
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <Graphics/Texture.hpp>
-#include <stdexcept>
 
 using namespace System;
 using namespace SceneR::Framework;

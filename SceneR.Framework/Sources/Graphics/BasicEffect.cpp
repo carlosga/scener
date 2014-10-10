@@ -16,14 +16,8 @@
 
 #include <Framework/Vector4.hpp>
 #include <Graphics/BasicEffect.hpp>
-#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectParameter.hpp>
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
-#include <Graphics/EffectParameterType.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/SamplerState.hpp>
-#include <Graphics/TextureTarget.hpp>
 #include <System/IO/File.hpp>
 
 using namespace System;

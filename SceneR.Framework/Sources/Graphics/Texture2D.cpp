@@ -16,7 +16,6 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Texture2D.hpp>
-#include <Graphics/TextureTarget.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

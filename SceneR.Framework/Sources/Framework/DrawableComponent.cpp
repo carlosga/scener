@@ -16,7 +16,6 @@
 
 #include <Framework/DrawableComponent.hpp>
 #include <Framework/Renderer.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

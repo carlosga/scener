@@ -19,7 +19,6 @@
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
-#include <Graphics/PrimitiveType.hpp>
 #include <Graphics/VertexBuffer.hpp>
 
 using namespace System;

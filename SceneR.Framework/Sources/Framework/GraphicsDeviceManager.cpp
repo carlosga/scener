@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/GraphicsDeviceManager.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/PresentInterval.hpp>
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>

@@ -15,9 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/SamplerState.hpp>
 #include <Graphics/Texture.hpp>
-#include <Graphics/TextureTarget.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
