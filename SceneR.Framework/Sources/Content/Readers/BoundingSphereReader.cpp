@@ -17,7 +17,6 @@
 #include <Content/ContentReader.hpp>
 #include <Content/Readers/BoundingSphereReader.hpp>
 #include <Framework/BoundingSphere.hpp>
-#include <Framework/Vector3.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
