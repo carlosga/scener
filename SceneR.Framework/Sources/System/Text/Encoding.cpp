@@ -15,8 +15,10 @@
 //-------------------------------------------------------------------------------
 
 #include <System/Text/Encoding.hpp>
-#include <System/Text/UTF8Encoding.hpp>
+
 #include <locale>
+
+#include <System/Text/UTF8Encoding.hpp>
 
 using namespace System;
 using namespace System::Text;

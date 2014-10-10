@@ -17,9 +17,10 @@
 #ifndef TIMESPAN_HPP
 #define TIMESPAN_HPP
 
-#include <System/Core.hpp>
 #include <chrono>
 #include <ratio>
+
+#include <System/Core.hpp>
 
 namespace System
 {

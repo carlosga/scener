@@ -15,8 +15,8 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/RasterizerState.hpp>
-#include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Framework/Vector3.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

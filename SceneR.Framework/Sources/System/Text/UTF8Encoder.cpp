@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <System/Text/UTF8Encoder.hpp>
+
 #include <codecvt>
 
 using namespace System;

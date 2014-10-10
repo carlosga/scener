@@ -15,14 +15,16 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/ShaderProgram.hpp>
+
+#include <cassert>
+
 #include <Graphics/Shader.hpp>
-#include <System/Text/Encoding.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Framework/Quaternion.hpp>
-#include <Framework/Matrix.hpp>
-#include <cassert>
+#include <System/Text/Encoding.hpp>
 
 using namespace System;
 using namespace System::Text;

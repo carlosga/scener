@@ -15,7 +15,6 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/UniformBufferObject.hpp>
-#include <Graphics/BufferTarget.hpp>
 
 using namespace SceneR::Graphics;
 
