@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/ContentTypeReaderManager.hpp>
+
 #include <Content/Readers/AnimationClipMapReader.hpp>
 #include <Content/Readers/AnimationClipReader.hpp>
 #include <Content/Readers/BasicEffectReader.hpp>

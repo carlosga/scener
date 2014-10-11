@@ -15,6 +15,9 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/ModelReader.hpp>
+
+#include <Content/Readers/BoundingSphereReader.hpp>
+#include <Framework/BoundingSphere.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -23,8 +26,6 @@
 #include <Graphics/Effect.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <Content/Readers/BoundingSphereReader.hpp>
-#include <Framework/BoundingSphere.hpp>
 #include <Content/ContentManager.hpp>
 
 using namespace System;

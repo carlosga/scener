@@ -15,10 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/SkinnedEffectReader.hpp>
-#include <Graphics/SkinnedEffect.hpp>
-#include <Framework/Vector3.hpp>
+
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Framework/RendererServiceContainer.hpp>
+#include <Framework/Vector3.hpp>
+#include <Graphics/SkinnedEffect.hpp>
 #include <System/IO/Path.hpp>
 #include <Content/ContentManager.hpp>
 

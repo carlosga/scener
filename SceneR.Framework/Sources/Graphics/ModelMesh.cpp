@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/ModelMesh.hpp>
+
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/VertexBuffer.hpp>

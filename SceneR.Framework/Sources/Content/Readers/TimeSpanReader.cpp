@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/TimeSpanReader.hpp>
+
 #include <System/TimeSpan.hpp>
 #include <Content/ContentReader.hpp>
 

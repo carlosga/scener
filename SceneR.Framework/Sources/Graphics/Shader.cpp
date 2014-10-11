@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Shader.hpp>
+
 #include <System/Text/Encoding.hpp>
 
 using namespace System;

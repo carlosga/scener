@@ -15,10 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/GraphicsDeviceManager.hpp>
+
+#include <Framework/PresentInterval.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Framework/Renderer.hpp>
-#include <Framework/PresentInterval.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

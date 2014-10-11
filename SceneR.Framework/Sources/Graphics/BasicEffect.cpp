@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/BasicEffect.hpp>
+
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Framework/Vector4.hpp>

@@ -15,10 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/RendererWindow.hpp>
-#include <Framework/Renderer.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
+
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/Renderer.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

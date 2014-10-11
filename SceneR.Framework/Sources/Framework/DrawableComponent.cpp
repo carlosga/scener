@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/DrawableComponent.hpp>
+
 #include <Framework/Renderer.hpp>
 
 using namespace System;

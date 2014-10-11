@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/StringReader.hpp>
+
 #include <Content/ContentReader.hpp>
 
 using namespace System;

@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/IndexBufferReader.hpp>
+
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Framework/RendererServiceContainer.hpp>

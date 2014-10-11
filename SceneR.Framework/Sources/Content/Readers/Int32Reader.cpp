@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/Int32Reader.hpp>
+
 #include <Content/ContentReader.hpp>
 
 using namespace System;

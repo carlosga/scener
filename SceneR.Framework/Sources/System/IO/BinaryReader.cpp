@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <System/IO/BinaryReader.hpp>
+
 #include <System/IO/Stream.hpp>
 
 using namespace System;
@@ -22,7 +23,7 @@ using namespace System::IO;
 using namespace System::Text;
 
 BinaryReader::BinaryReader(Stream& stream)
-    : BinaryReader { stream, Encoding::UTF8 }
+    : BinaryReader ( stream, Encoding::UTF8 )
 {
 }
 

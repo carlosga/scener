@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Model.hpp>
+
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/SkinnedEffect.hpp>

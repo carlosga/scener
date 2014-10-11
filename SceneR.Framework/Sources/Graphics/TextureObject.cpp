@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/TextureObject.hpp>
+
 #include <Graphics/Texture.hpp>
 
 using namespace System;

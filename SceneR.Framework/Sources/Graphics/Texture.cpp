@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Texture.hpp>
+
 #include <Graphics/GraphicsDevice.hpp>
 
 using namespace SceneR::Graphics;

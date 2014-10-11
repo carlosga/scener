@@ -15,8 +15,9 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/Texture2DReader.hpp>
-#include <Graphics/Texture2D.hpp>
+
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Texture2D.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
 

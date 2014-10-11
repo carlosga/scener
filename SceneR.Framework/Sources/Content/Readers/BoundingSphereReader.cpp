@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/BoundingSphereReader.hpp>
+
 #include <Framework/BoundingSphere.hpp>
 #include <Content/ContentReader.hpp>
 

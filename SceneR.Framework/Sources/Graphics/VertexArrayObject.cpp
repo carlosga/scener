@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/VertexArrayObject.hpp>
+
 #include <System/Graphics/Platform.hpp>
 
 using namespace System;

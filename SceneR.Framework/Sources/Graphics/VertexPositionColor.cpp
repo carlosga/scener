@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/VertexPositionColor.hpp>
+
 #include <Graphics/VertexDeclaration.hpp>
 
 using namespace SceneR::Framework;

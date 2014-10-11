@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <System/IO/FileStream.hpp>
+
 #include <System/Text/Encoding.hpp>
 
 using namespace System;

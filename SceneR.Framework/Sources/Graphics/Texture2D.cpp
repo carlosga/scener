@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/Texture2D.hpp>
+
 #include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;

@@ -21,6 +21,7 @@
 //-----------------------------------------------------------------------------
 
 #include <Graphics/AnimationPlayer.hpp>
+
 #include <Graphics/SkinningData.hpp>
 
 using namespace System;

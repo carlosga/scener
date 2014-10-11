@@ -15,9 +15,10 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/VertexBufferReader.hpp>
-#include <Graphics/VertexBuffer.hpp>
-#include <Content/Readers/VertexDeclarationReader.hpp>
+
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Content/Readers/VertexDeclarationReader.hpp>
+#include <Graphics/VertexBuffer.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
 

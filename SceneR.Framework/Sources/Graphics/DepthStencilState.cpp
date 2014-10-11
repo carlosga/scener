@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/DepthStencilState.hpp>
+
 #include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;

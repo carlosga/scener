@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/SkinningDataReader.hpp>
+
 #include <Graphics/SkinningData.hpp>
 #include <Content/ContentManager.hpp>
 

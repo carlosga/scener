@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/VertexDeclaration.hpp>
+
 #include <System/Graphics/Platform.hpp>
 
 using namespace System;

@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Component.hpp>
+
 #include <Framework/Renderer.hpp>
 
 using namespace System;

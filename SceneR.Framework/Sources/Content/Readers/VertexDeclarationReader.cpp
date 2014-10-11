@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/VertexDeclarationReader.hpp>
+
 #include <Graphics/VertexDeclaration.hpp>
 #include <Content/ContentReader.hpp>
 

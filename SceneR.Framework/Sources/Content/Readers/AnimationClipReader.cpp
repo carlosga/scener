@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/AnimationClipReader.hpp>
+
 #include <Graphics/AnimationClip.hpp>
 #include <Content/ContentReader.hpp>
 

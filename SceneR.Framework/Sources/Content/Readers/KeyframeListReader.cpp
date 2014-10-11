@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/KeyframeListReader.hpp>
+
 #include <Graphics/Keyframe.hpp>
 #include <Content/ContentReader.hpp>
 

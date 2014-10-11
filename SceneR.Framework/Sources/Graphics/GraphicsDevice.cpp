@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <Graphics/GraphicsDevice.hpp>
+
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Effect.hpp>

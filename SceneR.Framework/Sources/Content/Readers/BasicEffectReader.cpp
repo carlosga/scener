@@ -15,10 +15,11 @@
 //-------------------------------------------------------------------------------
 
 #include <Content/Readers/BasicEffectReader.hpp>
-#include <Graphics/BasicEffect.hpp>
+
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
+#include <Graphics/BasicEffect.hpp>
 #include <System/IO/Path.hpp>
 
 using namespace System;
