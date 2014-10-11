@@ -16,6 +16,7 @@
 
 #include <Framework/Renderer.hpp>
 
+#include <algorithm>
 #include <thread>
 
 #include <Graphics/GraphicsDevice.hpp>

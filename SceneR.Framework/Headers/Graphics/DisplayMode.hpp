@@ -18,7 +18,6 @@
 #define DISPLAYMODE_HPP
 
 #include <Graphics/SurfaceFormat.hpp>
-#include <System/Core.hpp>
 
 struct GLFWvidmode;
 

@@ -18,9 +18,8 @@
 #define DEPTHSTENCILSTATE_HPP
 
 #include <Graphics/CompareFunction.hpp>
-#include <Graphics/GraphicsResource.hpp>
 #include <Graphics/StencilOperation.hpp>
-#include <System/Core.hpp>
+#include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {

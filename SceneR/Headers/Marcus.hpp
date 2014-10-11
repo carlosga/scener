@@ -17,13 +17,11 @@
 #ifndef MARCUS_HPP
 #define MARCUS_HPP
 
-#include <Framework/DrawableComponent.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Renderer.hpp>
-#include <Graphics/Model.hpp>
-#include <Graphics/AnimatedModel.hpp>
-#include <System/Core.hpp>
 #include <memory>
+
+#include <Framework/Matrix.hpp>
+#include <Framework/DrawableComponent.hpp>
+#include <Graphics/AnimatedModel.hpp>
 
 namespace SceneR
 {

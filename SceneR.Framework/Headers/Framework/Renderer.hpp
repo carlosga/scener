@@ -20,17 +20,16 @@
 #include <memory>
 #include <vector>
 
-#include <Content/ContentManager.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererServiceContainer.hpp>
+#include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RendererWindow.hpp>
-#include <Framework/RenderTime.hpp>
+#include <Content/ContentManager.hpp>
 #include <System/TimeSpan.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

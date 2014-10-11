@@ -17,8 +17,8 @@
 #ifndef VERTEXBUFFERREADER_HPP
 #define VERTEXBUFFERREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {

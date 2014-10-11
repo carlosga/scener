@@ -18,11 +18,10 @@
 #define BLENDSTATE_HPP
 
 #include <Framework/Color.hpp>
-#include <Graphics/Blend.hpp>
-#include <Graphics/BlendFunction.hpp>
-#include <Graphics/ColorWriteChannels.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <System/Core.hpp>
+#include <Graphics/BlendFunction.hpp>
+#include <Graphics/Blend.hpp>
+#include <Graphics/ColorWriteChannels.hpp>
 
 namespace SceneR
 {

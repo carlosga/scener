@@ -21,7 +21,6 @@
 #include <vector>
 
 #include <Framework/Matrix.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

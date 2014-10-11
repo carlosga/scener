@@ -15,6 +15,9 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/Plane.hpp>
+
+#include <stdexcept>
+
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/BoundingBox.hpp>

@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <System/TimeSpan.hpp>
 #include <TimeSpanTest.hpp>
+
+#include <System/TimeSpan.hpp>
 
 using namespace System;
 

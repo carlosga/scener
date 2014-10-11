@@ -14,10 +14,11 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/MathHelper.hpp>
+#include <PlaneTest.hpp>
+
 #include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
-#include <PlaneTest.hpp>
+#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

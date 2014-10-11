@@ -14,15 +14,17 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <SampleRenderer.hpp>
+
 #include <AstroBoy.hpp>
 #include <BumbleBee.hpp>
 #include <Felicia.hpp>
 #include <Marcus.hpp>
 #include <WarForrest.hpp>
-#include <SampleRenderer.hpp>
 
-using namespace SceneR::Sample;
+using namespace System;
 using namespace SceneR::Framework;
+using namespace SceneR::Sample;
 
 SampleRenderer::SampleRenderer()
     : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/")

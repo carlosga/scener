@@ -17,8 +17,9 @@
 #ifndef UTF8ENCODER_HPP
 #define UTF8ENCODER_HPP
 
-#include <System/Text/Encoder.hpp>
 #include <codecvt>
+
+#include <System/Text/Encoder.hpp>
 
 namespace System
 {

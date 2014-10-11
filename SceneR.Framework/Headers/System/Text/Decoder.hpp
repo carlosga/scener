@@ -17,8 +17,9 @@
 #ifndef DECODER_HPP
 #define DECODER_HPP
 
-#include <System/Core.hpp>
 #include <vector>
+
+#include <System/Core.hpp>
 
 namespace System
 {

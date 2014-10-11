@@ -23,9 +23,9 @@
 #ifndef ANIMATEDMODEL_HPP
 #define ANIMATEDMODEL_HPP
 
-#include <Graphics/AnimationPlayer.hpp>
-#include <System/Core.hpp>
 #include <memory>
+
+#include <Graphics/AnimationPlayer.hpp>
 
 namespace SceneR
 {

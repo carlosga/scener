@@ -20,7 +20,6 @@
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

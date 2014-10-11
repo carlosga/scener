@@ -14,9 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Vector3Test.hpp>
+
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
-#include <Vector3Test.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

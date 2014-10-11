@@ -23,12 +23,12 @@
 #ifndef ANIMATIONPLAYER_HPP
 #define ANIMATIONPLAYER_HPP
 
-#include <Framework/Matrix.hpp>
-#include <Graphics/AnimationClip.hpp>
-#include <System/Core.hpp>
-#include <System/TimeSpan.hpp>
 #include <memory>
 #include <vector>
+
+#include <Framework/Matrix.hpp>
+#include <Graphics/AnimationClip.hpp>
+#include <System/TimeSpan.hpp>
 
 namespace SceneR
 {

@@ -17,6 +17,7 @@
 #include <Framework/BoundingSphere.hpp>
 
 #include <cmath>
+#include <stdexcept>
 
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingBox.hpp>

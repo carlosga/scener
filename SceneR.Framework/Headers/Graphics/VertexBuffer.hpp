@@ -20,10 +20,9 @@
 #include <memory>
 #include <vector>
 
-#include <Graphics/GraphicsResource.hpp>
-#include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/BufferObject.hpp>
-#include <System/Core.hpp>
+#include <Graphics/VertexArrayObject.hpp>
+#include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {

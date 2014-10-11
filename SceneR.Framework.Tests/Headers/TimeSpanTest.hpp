@@ -17,8 +17,9 @@
 #ifndef TIMESPANTEST_HPP
 #define	TIMESPANTEST_HPP
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class TimeSpanTest : public testing::Test
 {

@@ -19,10 +19,9 @@
 
 #include <vector>
 
-#include <Graphics/GraphicsResource.hpp>
-#include <Graphics/BufferObject.hpp>
 #include <Graphics/IndexElementSize.hpp>
-#include <System/Core.hpp>
+#include <Graphics/BufferObject.hpp>
+#include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {
@@ -43,9 +42,9 @@ namespace SceneR
              * @param indexElementSize the size (in bits) of each index.
              * @param indexCount the number of indices.
              */
-            IndexBuffer(GraphicsDevice&         graphicsDevice
-                      , const IndexElementSize& indexElementSize
-                      , const System::Size&     indexCount);
+            IndexBuffer(GraphicsDevice&                           graphicsDevice
+                      , const SceneR::Graphics::IndexElementSize& indexElementSize
+                      , const System::Size&                       indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance

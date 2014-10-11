@@ -17,8 +17,8 @@
 #ifndef SHADERTYPE_HPP
 #define SHADERTYPE_HPP
 
-#include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -17,8 +17,9 @@
 #ifndef ENCODINGTEST_HPP
 #define ENCODINGTEST_HPP
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class EncodingUTF8Test : public testing::Test
 {

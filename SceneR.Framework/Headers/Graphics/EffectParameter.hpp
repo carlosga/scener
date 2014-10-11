@@ -17,12 +17,10 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
-#include <Graphics/EffectParameterType.hpp>
-#include <System/Core.hpp>
 #include <memory>
 #include <vector>
+
+#include <Graphics/EffectParameterCollection.hpp>
 
 namespace SceneR
 {

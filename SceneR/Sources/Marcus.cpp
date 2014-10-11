@@ -14,19 +14,18 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Content/ContentManager.hpp>
+#include <Marcus.hpp>
+
 #include <Framework/MathHelper.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Viewport.hpp>
-#include <Marcus.hpp>
-#include <System/TimeSpan.hpp>
+#include <Content/ContentManager.hpp>
+#include <Framework/Renderer.hpp>
 
 using namespace System;
-using namespace SceneR::Sample;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+using namespace SceneR::Sample;
 
 Marcus::Marcus(SceneR::Framework::Renderer& renderer)
     : DrawableComponent { renderer }

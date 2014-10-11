@@ -17,10 +17,9 @@
 #ifndef DRAWABLECOMPONENT_HPP
 #define DRAWABLECOMPONENT_HPP
 
-#include <Framework/Component.hpp>
 #include <Framework/IDrawable.hpp>
+#include <Framework/Component.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

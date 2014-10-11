@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/Vector2.hpp>
 #include <Vector2Test.hpp>
+
+#include <Framework/Vector2.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

@@ -17,8 +17,8 @@
 #ifndef BUFFERTARGET_HPP
 #define BUFFERTARGET_HPP
 
-#include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

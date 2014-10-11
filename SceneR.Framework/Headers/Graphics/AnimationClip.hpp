@@ -23,9 +23,10 @@
 #ifndef ANIMATIONCLIP_HPP
 #define ANIMATIONCLIP_HPP
 
+#include <vector>
+
 #include <Graphics/Keyframe.hpp>
 #include <System/TimeSpan.hpp>
-#include <vector>
 
 namespace SceneR
 {

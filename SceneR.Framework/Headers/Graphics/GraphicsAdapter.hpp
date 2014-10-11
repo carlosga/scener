@@ -20,7 +20,6 @@
 #include <vector>
 
 #include <Graphics/DisplayMode.hpp>
-#include <System/Core.hpp>
 
 struct GLFWmonitor;
 

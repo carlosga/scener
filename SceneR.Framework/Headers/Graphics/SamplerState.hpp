@@ -17,11 +17,10 @@
 #ifndef SAMPLERSTATE_HPP
 #define SAMPLERSTATE_HPP
 
-#include <Graphics/GraphicsResource.hpp>
-#include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
 #include <Graphics/TextureTarget.hpp>
-#include <System/Core.hpp>
+#include <Graphics/TextureAddressMode.hpp>
+#include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {

@@ -14,9 +14,10 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
+#include <Vector4Test.hpp>
+
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector4.hpp>
-#include <Vector4Test.hpp>
 
 using namespace SceneR::Framework;
 

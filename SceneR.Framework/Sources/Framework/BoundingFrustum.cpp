@@ -15,6 +15,9 @@
 //-------------------------------------------------------------------------------
 
 #include <Framework/BoundingFrustrum.hpp>
+
+#include <stdexcept>
+
 #include <Framework/BoundingBox.hpp>
 #include <Framework/Ray.hpp>
 

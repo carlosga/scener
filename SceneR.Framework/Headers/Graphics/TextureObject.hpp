@@ -19,7 +19,6 @@
 
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureTarget.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

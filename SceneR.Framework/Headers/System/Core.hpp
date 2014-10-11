@@ -33,7 +33,7 @@ namespace System
     using UInt64  = uint64_t;
     using Single  = float;
     using Double  = double;
-    using Size    = size_t;
+    using Size    = uint32_t;
     using String  = std::u16string;
 }
 

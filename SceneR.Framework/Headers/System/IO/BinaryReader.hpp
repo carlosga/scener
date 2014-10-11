@@ -17,10 +17,10 @@
 #ifndef BINARYREADER_HPP
 #define BINARYREADER_HPP
 
-#include <System/Core.hpp>
-#include <System/Text/Encoding.hpp>
 #include <memory>
 #include <vector>
+
+#include <System/Text/Encoding.hpp>
 
 namespace System
 {

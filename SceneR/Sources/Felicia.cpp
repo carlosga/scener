@@ -15,15 +15,17 @@
 //-------------------------------------------------------------------------------
 
 #include <Felicia.hpp>
+
 #include <Framework/MathHelper.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
+#include <Framework/Renderer.hpp>
 
 using namespace System;
-using namespace SceneR::Sample;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+using namespace SceneR::Sample;
 
 Felicia::Felicia(SceneR::Framework::Renderer& renderer)
     : DrawableComponent { renderer }

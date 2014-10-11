@@ -17,8 +17,8 @@
 #ifndef TEXTURE2DREADER_HPP
 #define TEXTURE2DREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
 #include <Graphics/SurfaceFormat.hpp>
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {

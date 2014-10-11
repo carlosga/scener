@@ -17,8 +17,9 @@
 #ifndef PLANE_TEST
 #define	PLANE_TEST
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class PlaneTest : public testing::Test
 {

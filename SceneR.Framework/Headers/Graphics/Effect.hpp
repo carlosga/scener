@@ -21,7 +21,6 @@
 
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

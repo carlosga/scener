@@ -17,9 +17,9 @@
 #ifndef UTF8ENCODING_HPP
 #define UTF8ENCODING_HPP
 
-#include <System/Text/Encoding.hpp>
 #include <System/Text/UTF8Decoder.hpp>
 #include <System/Text/UTF8Encoder.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace System
 {

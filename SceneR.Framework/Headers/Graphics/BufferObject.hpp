@@ -19,7 +19,6 @@
 
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

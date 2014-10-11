@@ -18,7 +18,6 @@
 #define PRESENTATIONPARAMETERS_HPP
 
 #include <Framework/PresentInterval.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

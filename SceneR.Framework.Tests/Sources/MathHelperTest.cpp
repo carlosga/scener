@@ -14,8 +14,9 @@
 //limitations under the License.
 //-------------------------------------------------------------------------------
 
-#include <Framework/MathHelper.hpp>
 #include <MathHelperTest.hpp>
+
+#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

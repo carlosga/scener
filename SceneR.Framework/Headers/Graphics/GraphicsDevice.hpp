@@ -23,14 +23,13 @@
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
-#include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
+#include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/SamplerState.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/Viewport.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

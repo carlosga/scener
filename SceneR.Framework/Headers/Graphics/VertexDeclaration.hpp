@@ -17,11 +17,11 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
-#include <Graphics/VertexElement.hpp>
+#include <vector>
+
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-#include <System/Core.hpp>
-#include <vector>
+#include <Graphics/VertexElement.hpp>
 
 namespace SceneR
 {

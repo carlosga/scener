@@ -17,8 +17,9 @@
 #ifndef VECTOR2TEST_HPP
 #define	VECTOR2TEST_HPP
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class Vector2Test : public testing::Test
 {

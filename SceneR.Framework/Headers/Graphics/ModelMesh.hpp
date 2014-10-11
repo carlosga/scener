@@ -22,7 +22,6 @@
 
 #include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

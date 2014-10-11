@@ -17,8 +17,8 @@
 #ifndef CULLMODE_HPP
 #define CULLMODE_HPP
 
-#include <System/Core.hpp>
 #include <System/Graphics/Platform.hpp>
+#include <System/Core.hpp>
 
 namespace SceneR
 {

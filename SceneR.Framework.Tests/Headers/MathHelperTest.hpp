@@ -17,8 +17,9 @@
 #ifndef MATHHELPERTEST_HPP
 #define	MATHHELPERTEST_HPP
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class MathHelperTest : public testing::Test
 {

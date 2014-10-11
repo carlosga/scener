@@ -17,6 +17,7 @@
 #include <Framework/Ray.hpp>
 
 #include <cmath>
+#include <stdexcept>
 
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>

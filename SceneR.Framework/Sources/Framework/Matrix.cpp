@@ -16,8 +16,9 @@
 
 #include <Framework/Matrix.hpp>
 
-#include <cassert>
 #include <cmath>
+#include <cassert>
+#include <stdexcept>
 
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>

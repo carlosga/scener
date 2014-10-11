@@ -17,8 +17,9 @@
 #ifndef FILESTREAMTEST_HPP
 #define	FILESTREAMTEST_HPP
 
-#include <System/Core.hpp>
 #include <gtest/gtest.h>
+
+#include <System/Core.hpp>
 
 class FileStreamTest : public testing::Test
 {

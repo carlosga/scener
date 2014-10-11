@@ -17,8 +17,9 @@
 #ifndef ENCODING_HPP
 #define ENCODING_HPP
 
-#include <System/Core.hpp>
 #include <vector>
+
+#include <System/Core.hpp>
 
 namespace System
 {

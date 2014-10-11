@@ -17,10 +17,10 @@
 #ifndef MEMORYSTREAM_HPP
 #define MEMORYSTREAM_HPP
 
-#include <System/Core.hpp>
-#include <System/IO/Stream.hpp>
 #include <sstream>
 #include <vector>
+
+#include <System/IO/Stream.hpp>
 
 namespace System
 {

@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <FileStreamTest.hpp>
+
 #include <System/IO/FileStream.hpp>
 
 using namespace System;

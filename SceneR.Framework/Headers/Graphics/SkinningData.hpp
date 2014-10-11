@@ -28,7 +28,6 @@
 
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

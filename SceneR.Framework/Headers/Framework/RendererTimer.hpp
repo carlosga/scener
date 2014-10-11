@@ -17,8 +17,9 @@
 #ifndef RENDERERTIMER_HPP
 #define RENDERERTIMER_HPP
 
-#include <System/TimeSpan.hpp>
 #include <chrono>
+
+#include <System/TimeSpan.hpp>
 
 namespace SceneR
 {

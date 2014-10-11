@@ -17,13 +17,10 @@
 #ifndef ASTROBOY_HPP
 #define ASTROBOY_HPP
 
-#include <Framework/DrawableComponent.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Renderer.hpp>
-#include <Graphics/AnimatedModel.hpp>
-#include <Graphics/Model.hpp>
-#include <System/Core.hpp>
 #include <memory>
+
+#include <Framework/Matrix.hpp>
+#include <Framework/DrawableComponent.hpp>
 
 namespace SceneR
 {
@@ -31,6 +28,14 @@ namespace SceneR
     {
         class Renderer;
         class RenderTime;
+    }
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Model;
     }
 }
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(SceneR_Framework)
 enable_language(CXX)
 
-set(CMAKE_C_COMPILER clang)
+## set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 
 # enable c++11 & clang standard library

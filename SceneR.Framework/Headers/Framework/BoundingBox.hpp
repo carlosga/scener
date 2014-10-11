@@ -17,11 +17,12 @@
 #ifndef BOUNDINGBOX_HPP
 #define BOUNDINGBOX_HPP
 
-#include <Framework/ContainmentType.hpp>
+#include <vector>
+
 #include <Framework/PlaneIntersectionType.hpp>
+#include <Framework/ContainmentType.hpp>
 #include <Framework/Vector3.hpp>
 #include <System/Core.hpp>
-#include <vector>
 
 namespace SceneR
 {

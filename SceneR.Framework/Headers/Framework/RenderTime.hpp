@@ -17,7 +17,6 @@
 #ifndef RENDERTIME_HPP
 #define RENDERTIME_HPP
 
-#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 
 namespace SceneR

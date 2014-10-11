@@ -17,9 +17,10 @@
 #ifndef CONTENTTYPEREADERMANAGER_HPP
 #define CONTENTTYPEREADERMANAGER_HPP
 
+#include <map>
+
 #include <Content/ContentTypeReader.hpp>
 #include <System/Core.hpp>
-#include <map>
 
 namespace SceneR
 {

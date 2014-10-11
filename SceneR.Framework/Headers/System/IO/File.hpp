@@ -17,12 +17,13 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include <System/Core.hpp>
-#include <System/Text/Encoding.hpp>
-#include <cassert>
 #include <fstream>
 #include <sstream>
 #include <string>
+
+#include <cassert>
+
+#include <System/Text/Encoding.hpp>
 
 namespace System
 {

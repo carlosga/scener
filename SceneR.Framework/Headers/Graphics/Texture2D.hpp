@@ -18,9 +18,8 @@
 #define TEXTURE2D_HPP
 
 #include <Graphics/SurfaceFormat.hpp>
-#include <Graphics/Texture.hpp>
 #include <Graphics/TextureObject.hpp>
-#include <System/Core.hpp>
+#include <Graphics/Texture.hpp>
 
 namespace SceneR
 {

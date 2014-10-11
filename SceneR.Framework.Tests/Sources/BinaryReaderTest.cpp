@@ -15,6 +15,7 @@
 //-------------------------------------------------------------------------------
 
 #include <BinaryReaderTest.hpp>
+
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/FileStream.hpp>
 

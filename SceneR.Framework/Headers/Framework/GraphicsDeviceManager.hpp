@@ -17,11 +17,11 @@
 #ifndef GRAPHICSDEVICEMANAGER_HPP
 #define GRAPHICSDEVICEMANAGER_HPP
 
-#include <Framework/IGraphicsDeviceManager.hpp>
-#include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <System/Core.hpp>
 #include <memory>
+
+#include <Framework/IGraphicsDeviceManager.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/GraphicsProfile.hpp>
 
 namespace SceneR
 {

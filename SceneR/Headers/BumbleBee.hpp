@@ -17,11 +17,10 @@
 #ifndef BUMBLEBEE_HPP
 #define BUMBLEBEE_HPP
 
-#include <Framework/DrawableComponent.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Renderer.hpp>
-#include <System/Core.hpp>
 #include <memory>
+
+#include <Framework/Matrix.hpp>
+#include <Framework/DrawableComponent.hpp>
 
 namespace SceneR
 {

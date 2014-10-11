@@ -17,9 +17,10 @@
 #ifndef SHAREDRESOURCEACTION_HPP
 #define SHAREDRESOURCEACTION_HPP
 
-#include <System/Core.hpp>
 #include <functional>
 #include <memory>
+
+#include <System/Core.hpp>
 
 namespace SceneR
 {

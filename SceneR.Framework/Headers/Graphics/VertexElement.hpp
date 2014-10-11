@@ -19,7 +19,6 @@
 
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

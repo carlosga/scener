@@ -24,7 +24,6 @@
 #define KEYFRAME_HPP
 
 #include <Framework/Matrix.hpp>
-#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 
 namespace SceneR

@@ -17,15 +17,15 @@
 #ifndef CONTENTREADER_HPP
 #define CONTENTREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Content/ContentTypeReaderManager.hpp>
-#include <Content/SharedResourceAction.hpp>
-#include <System/Core.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <functional>
 #include <memory>
 #include <stdexcept>
 #include <vector>
+
+#include <Content/SharedResourceAction.hpp>
+#include <Content/ContentTypeReaderManager.hpp>
+#include <Content/ContentTypeReader.hpp>
+#include <System/IO/BinaryReader.hpp>
 
 namespace SceneR
 {

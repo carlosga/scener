@@ -17,12 +17,12 @@
 #ifndef BOUNDINGFRUSTRUM_HPP
 #define BOUNDINGFRUSTRUM_HPP
 
+#include <vector>
+
+#include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>
-#include <Framework/PlaneIntersectionType.hpp>
-#include <System/Core.hpp>
-#include <vector>
 
 namespace SceneR
 {

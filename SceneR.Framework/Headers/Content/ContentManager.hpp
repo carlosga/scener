@@ -22,7 +22,6 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentReader.hpp>
 #include <System/IO/Stream.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

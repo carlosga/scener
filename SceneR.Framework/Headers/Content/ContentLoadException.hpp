@@ -52,7 +52,7 @@ namespace SceneR
              */
             const char* what() const throw ()
             {
-                return msg.c_str();
+                return this->msg.c_str();
             };
 
         private:
