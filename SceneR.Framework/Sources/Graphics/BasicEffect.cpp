@@ -26,8 +26,8 @@ using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-String BasicEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect.vert");
-String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/BasicEffect.frag");
+String BasicEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/BasicEffect.vert");
+String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/BasicEffect.frag");
 
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     : Effect                 { graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource }

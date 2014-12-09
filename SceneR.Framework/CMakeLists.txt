@@ -42,6 +42,7 @@ set(HEADER_FILES
     Headers/Content/Readers/TimeSpanReader.hpp
     Headers/Content/Readers/VertexBufferReader.hpp
     Headers/Content/Readers/VertexDeclarationReader.hpp
+    Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
     Headers/Content/ContentManager.hpp
     Headers/Content/ContentReader.hpp

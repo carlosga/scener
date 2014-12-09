@@ -27,7 +27,7 @@ using namespace SceneR::Framework;
 using namespace SceneR::Sample;
 
 SampleRenderer::SampleRenderer()
-    : Renderer(u"/home/carlos/development/projects/cpp/opengl/workspace/SceneR/Content/")
+    : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/")
 {
 }
 
