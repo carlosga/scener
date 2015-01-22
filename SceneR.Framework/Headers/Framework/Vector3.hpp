@@ -155,7 +155,7 @@ namespace SceneR
              * Calculates the dot product of two Vector3 structures.
              * @param left The first Vector3 to evaluate.
              * @param right The second Vector3 to evaluate.
-             * @return The dot product of this Vector3 and vectorb.
+             * @return The dot product of the given vectors.
              */
             static System::Single DotProduct(const Vector3& left, const Vector3& right);
 
