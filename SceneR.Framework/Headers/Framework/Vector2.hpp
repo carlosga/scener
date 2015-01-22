@@ -97,6 +97,14 @@ namespace SceneR
             static System::Single DistanceSquared(const Vector2& value1, const Vector2& value2);
 
             /**
+            * Calculates the dot product of two Vector2 structures.
+            * @param left The first Vector2 to evaluate.
+            * @param right The second Vector2 to evaluate.
+            * @return The dot product of the given vectors.
+            */
+            static System::Single DotProduct(const Vector2& left, const Vector2& right);
+
+            /**
              * Calculates a hermite spline interpolation.
              * @param value1 source position 1.
              * @param tangent1 source tangent 1.
