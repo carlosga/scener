@@ -69,6 +69,13 @@ Single Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
     return d.LengthSquared();
 }
 
+Single Vector2::DotProduct(const Vector2& left, const Vector2& right)
+{
+    auto dotProduct = left * right;
+
+    return (dotProduct.x + dotProduct.y);
+}
+
 Vector2 Vector2::Hermite(const Vector2& value1
                        , const Vector2& tangent1
                        , const Vector2& value2
