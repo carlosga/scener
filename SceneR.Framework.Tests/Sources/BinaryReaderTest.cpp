@@ -1,18 +1,5 @@
-//-------------------------------------------------------------------------------
-//Copyright 2013 Carlos Guzmán Álvarez
-//
-//Licensed under the Apache License, Version 2.0 (the "License");
-//you may not use this file except in compliance with the License.
-//You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//Unless required by applicable law or agreed to in writing, software
-//distributed under the License is distributed on an "AS IS" BASIS,
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//See the License for the specific language governing permissions and
-//limitations under the License.
-//-------------------------------------------------------------------------------
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <BinaryReaderTest.hpp>
 
@@ -23,7 +10,7 @@ using namespace System;
 using namespace System::IO;
 
 // Tests the default c'tor.
-TEST_F(BinaryReaderTest, DefaultConstructor) 
+TEST_F(BinaryReaderTest, DefaultConstructor)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -32,7 +19,7 @@ TEST_F(BinaryReaderTest, DefaultConstructor)
 }
 
 // Tests ReadByte().
-TEST_F(BinaryReaderTest, ReadByte) 
+TEST_F(BinaryReaderTest, ReadByte)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -59,7 +46,7 @@ TEST_F(BinaryReaderTest, ReadBytes)
 }
 
 // Tests ReadInt16().
-TEST_F(BinaryReaderTest, ReadInt16) 
+TEST_F(BinaryReaderTest, ReadInt16)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -72,7 +59,7 @@ TEST_F(BinaryReaderTest, ReadInt16)
 }
 
 // Tests ReadUInt16().
-TEST_F(BinaryReaderTest, ReadUInt16) 
+TEST_F(BinaryReaderTest, ReadUInt16)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -98,7 +85,7 @@ TEST_F(BinaryReaderTest, ReadInt32)
 }
 
 // Tests ReadInt32().
-TEST_F(BinaryReaderTest, ReadUInt32) 
+TEST_F(BinaryReaderTest, ReadUInt32)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -111,7 +98,7 @@ TEST_F(BinaryReaderTest, ReadUInt32)
 }
 
 // Tests ReadInt64().
-TEST_F(BinaryReaderTest, ReadInt64) 
+TEST_F(BinaryReaderTest, ReadInt64)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -124,7 +111,7 @@ TEST_F(BinaryReaderTest, ReadInt64)
 }
 
 // Tests ReadUInt64().
-TEST_F(BinaryReaderTest, ReadUInt64) 
+TEST_F(BinaryReaderTest, ReadUInt64)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -137,7 +124,7 @@ TEST_F(BinaryReaderTest, ReadUInt64)
 }
 
 // Tests ReadUInt64().
-TEST_F(BinaryReaderTest, ReadSingle) 
+TEST_F(BinaryReaderTest, ReadSingle)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -148,7 +135,7 @@ TEST_F(BinaryReaderTest, ReadSingle)
 }
 
 // Tests ReadUInt64().
-TEST_F(BinaryReaderTest, ReadDouble) 
+TEST_F(BinaryReaderTest, ReadDouble)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
@@ -159,7 +146,7 @@ TEST_F(BinaryReaderTest, ReadDouble)
 }
 
 // Tests ReadUInt64().
-TEST_F(BinaryReaderTest, ReadString) 
+TEST_F(BinaryReaderTest, ReadString)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);

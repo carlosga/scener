@@ -1,18 +1,5 @@
-//-------------------------------------------------------------------------------
-//Copyright 2013 Carlos Guzmán Álvarez
-//
-//Licensed under the Apache License, Version 2.0 (the "License");
-//you may not use this file except in compliance with the License.
-//You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//Unless required by applicable law or agreed to in writing, software
-//distributed under the License is distributed on an "AS IS" BASIS,
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//See the License for the specific language governing permissions and
-//limitations under the License.
-//-------------------------------------------------------------------------------
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <Content/ContentTypeReaderManager.hpp>
 
@@ -112,8 +99,8 @@ void ContentTypeReaderManager::RegisterKnownTypeReaders()
 
     // External reference reader
     // Microsoft.Xna.Framework.Content.ExternalReferenceReader
-    // Filename (relative to the current .xnb file, and not including the .xnb file extension) 
-    // pointing to a separate .xnb file which contains an object of type T, the contents of 
+    // Filename (relative to the current .xnb file, and not including the .xnb file extension)
+    // pointing to a separate .xnb file which contains an object of type T, the contents of
     // which should be inserted at the current location into the file currently being read.
     // If the string is empty, the resulting object is null.
 
@@ -132,7 +119,7 @@ void ContentTypeReaderManager::RegisterKnownTypeReaders()
     // Microsoft.Xna.Framework.Content.BoundingFrustumReader
     // Microsoft.Xna.Framework.Content.RayReader
     // Microsoft.Xna.Framework.Content.CurveReader
-    
+
     // Graphics readers
     // Microsoft.Xna.Framework.Content.TextureReader
     // Microsoft.Xna.Framework.Content.Texture2DReader

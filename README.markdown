@@ -4,7 +4,7 @@
 The API is inspired on a subset of the Microsoft XNA 4 API.
 
 * License.
-    * [**Apache License v2.0**](https://www.apache.org/licenses/LICENSE-2.0)
+    * [**MIT LICENSE**](http://opensource.org/licenses/MIT)
 * Development platform.
     * **Linux**.
 * IDE. 

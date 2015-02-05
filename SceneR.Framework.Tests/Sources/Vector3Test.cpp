@@ -1,18 +1,5 @@
-//-------------------------------------------------------------------------------
-//Copyright 2013 Carlos Guzmán Álvarez
-//
-//Licensed under the Apache License, Version 2.0 (the "License");
-//you may not use this file except in compliance with the License.
-//You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//Unless required by applicable law or agreed to in writing, software
-//distributed under the License is distributed on an "AS IS" BASIS,
-//WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//See the License for the specific language governing permissions and
-//limitations under the License.
-//-------------------------------------------------------------------------------
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <Vector3Test.hpp>
 
@@ -22,7 +9,7 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-TEST_F(Vector3Test, DefaultConstructor) 
+TEST_F(Vector3Test, DefaultConstructor)
 {
     auto vector = Vector3 { };
 
@@ -32,14 +19,14 @@ TEST_F(Vector3Test, DefaultConstructor)
     EXPECT_TRUE(0.0f == vector.Z());
 }
 
-TEST_F(Vector3Test, IndividualCoordinatesConstructor) 
+TEST_F(Vector3Test, IndividualCoordinatesConstructor)
 {
     float x = 20.0f;
     float y = 30.0f;
     float z = 40.0f;
-    
+
     auto vector3 = Vector3 { x, y, z };
-    
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(x == vector3.X());
     EXPECT_TRUE(y == vector3.Y());
@@ -54,7 +41,7 @@ TEST_F(Vector3Test, CopyConstructor)
 
     auto vector  = Vector3 { x, y, z };
     auto vector3 = Vector3 { vector };
-    
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(x == vector3.X());
     EXPECT_TRUE(y == vector3.Y());
@@ -68,7 +55,7 @@ TEST_F(Vector3Test, Indexer)
     float z = 40.0f;
 
     auto vector = Vector3 { x, y, z };
-    
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(x == vector[0]);
     EXPECT_TRUE(y == vector[1]);
@@ -80,9 +67,9 @@ TEST_F(Vector3Test, XCoordinateValue)
     const float x = 20.0f;
     const float y = 30.0f;
     const float z = 40.0f;
-    
+
     auto vector = Vector3 { x, y, z };
-    
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(x == vector.X());
 }
@@ -92,9 +79,9 @@ TEST_F(Vector3Test, YCoordinateValue)
     const float x = 20.0f;
     const float y = 30.0f;
     const float z = 40.0f;
-    
+
     auto vector = Vector3 { x, y, z };
-        
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(y == vector.Y());
 }
@@ -104,9 +91,9 @@ TEST_F(Vector3Test, ZCoordinateValue)
     float x = 20.0f;
     float y = 30.0f;
     float z = 40.0f;
-    
+
     auto vector = Vector3 { x, y, z };
-        
+
     // vector3 is equal to (20.0, 30.0, 40.0)
     EXPECT_TRUE(z == vector.Z());
 }
@@ -114,7 +101,7 @@ TEST_F(Vector3Test, ZCoordinateValue)
 TEST_F(Vector3Test, Length)
 {
     auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
-            
+
     // length is approximately equal to 53.8516
     EXPECT_TRUE(53.8516464f == vector.Length());
 }
@@ -122,7 +109,7 @@ TEST_F(Vector3Test, Length)
 TEST_F(Vector3Test, LengthSquared)
 {
     auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
-            
+
     // length is approximately equal to 2900
     EXPECT_TRUE(2900.0f == vector.LengthSquared());
 }
@@ -130,9 +117,9 @@ TEST_F(Vector3Test, LengthSquared)
 TEST_F(Vector3Test, Negation)
 {
     auto vector = Vector3  { 20.0f, 30.0f, 40.0f };
-    
+
     vector.Negate();
-	    
+
     // vector Result is equal to (-20, -30, -40)
     EXPECT_TRUE(-20.0f == vector.X());
     EXPECT_TRUE(-30.0f == vector.Y());
@@ -142,10 +129,10 @@ TEST_F(Vector3Test, Negation)
 TEST_F(Vector3Test, Normalization)
 {
     auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
-    
+
     vector.Normalize();
-	    
-    // vector Result is equal to (0.37139, 0.55709, 0.74278) 
+
+    // vector Result is equal to (0.37139, 0.55709, 0.74278)
     EXPECT_TRUE(0.3713907f   == vector.X());
     EXPECT_TRUE(0.557086051f == vector.Y());
     EXPECT_TRUE(0.742781401f == vector.Z());
@@ -154,8 +141,8 @@ TEST_F(Vector3Test, Normalization)
 TEST_F(Vector3Test, Cross)
 {
     auto crossProduct = Vector3::Cross({ 20.0f, 30.0f, 40.0f }, { 45.0f, 70.0f, 80.0f });
-    
-    // crossProduct is equal to (-400, 200, 50)                        
+
+    // crossProduct is equal to (-400, 200, 50)
     EXPECT_TRUE(-400.0f == crossProduct.X());
     EXPECT_TRUE(200.0f  == crossProduct.Y());
     EXPECT_TRUE(50.0f   == crossProduct.Z());
@@ -182,7 +169,7 @@ TEST_F(Vector3Test, Addition)
 	auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
 	auto result  = vector1 + vector2;
 
-    // vectorResult is equal to (65, 100, 120)    
+    // vectorResult is equal to (65, 100, 120)
     EXPECT_TRUE(65.0f  == result.X());
     EXPECT_TRUE(100.0f == result.Y());
     EXPECT_TRUE(120.0f == result.Z());
@@ -193,7 +180,7 @@ TEST_F(Vector3Test, Subtraction)
     auto vector1 = Vector3 { 20.0f, 30.0f, 40.0f };
     auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
     auto result  = vector1 - vector2;
-    
+
     // vector Result is equal to (-25, -40, -40)
     EXPECT_TRUE(-25.0f == result.X());
     EXPECT_TRUE(-40.0f == result.Y());
@@ -205,7 +192,7 @@ TEST_F(Vector3Test, Multiplication)
     auto vector1 = Vector3 { 20.0f, 30.0f, 40.0f };
     auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
     auto result  = vector1 * vector2;
-        
+
     // vector Result is equal to (800, 2100, 3200)
     EXPECT_TRUE(900.0f  == result.X());
     EXPECT_TRUE(2100.0f == result.Y());
@@ -216,7 +203,7 @@ TEST_F(Vector3Test, ScalarMultiplication)
 {
     auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
     auto result = vector * 75.0f;
-	    
+
     // vector Result is equal to (1500, 2250, 3000)
     EXPECT_TRUE(1500.0f == result.X());
     EXPECT_TRUE(2250.0f == result.Y());
@@ -227,10 +214,10 @@ TEST_F(Vector3Test, AdditionAssignment)
 {
     auto vector1 = Vector3 { 20.0f, 30.0f, 40.0f };
     auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
-    
+
     vector2 += vector1;
-    
-    // vector Result is equal to (65, 100, 120)    
+
+    // vector Result is equal to (65, 100, 120)
     EXPECT_TRUE(65.0f  == vector2.X());
     EXPECT_TRUE(100.0f == vector2.Y());
     EXPECT_TRUE(120.0f == vector2.Z());
@@ -240,9 +227,9 @@ TEST_F(Vector3Test, SubtractionAssignment)
 {
     auto vector1 = Vector3 { 20.0f, 30.0f, 40.0f };
     auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
-	
+
     vector2 -= vector1;
-    
+
     // vector Result is equal to (25, 40, 40)
     EXPECT_TRUE(25.0f == vector2.X());
     EXPECT_TRUE(40.0f == vector2.Y());
@@ -253,9 +240,9 @@ TEST_F(Vector3Test, MultplicationAssignment)
 {
     auto vector1 = Vector3 { 20.0f, 30.0f, 40.0f };
     auto vector2 = Vector3 { 45.0f, 70.0f, 80.0f };
-	
+
     vector2 *= vector1;
-    
+
     // vector Result is equal to (800, 2100, 3200)
     EXPECT_TRUE(900.0f  == vector2.X());
     EXPECT_TRUE(2100.0f == vector2.Y());
@@ -265,9 +252,9 @@ TEST_F(Vector3Test, MultplicationAssignment)
 TEST_F(Vector3Test, ScalarMultplicationAssignment)
 {
     auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
-	
+
     vector *= 75.0f;
-    
+
     // vector Result is equal to (1500, 2250, 3000)
     EXPECT_TRUE(1500.0f == vector.X());
     EXPECT_TRUE(2250.0f == vector.Y());
@@ -281,7 +268,7 @@ TEST_F(Vector3Test, MatrixMultiplication)
                           , 20.0f, 20.0f, 20.0f, 0.0f
                           , 30.0f, 30.0f, 30.0f, 0.0f
                           , 5.0f , 10.0f, 15.0f, 1.0f };
-    
+
     auto vectorResult = (vector * matrix);
 
     // vector Result is equal to (2005, 2010, 2015)
