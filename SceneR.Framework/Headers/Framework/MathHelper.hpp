@@ -51,6 +51,16 @@ namespace SceneR
              */
             static const System::Single& TwoPi;
 
+            /**
+             * Represents negative infinity.
+             */
+            static const System::Single& NegativeInfinity;
+
+            /**
+             * Represents positive infinity.
+             */
+            static const System::Single& PositiveInfinity;
+
         public:
             /**
              * Returns a value indicating whether the specified number evaluates to negative or positive infinity.

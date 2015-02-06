@@ -10,13 +10,15 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Single& MathHelper::E       = M_E;
-const Single& MathHelper::Log10E  = M_LOG10E;
-const Single& MathHelper::Log2E   = M_LOG2E;
-const Single& MathHelper::Pi      = M_PI;
-const Single& MathHelper::PiOver2 = M_PI_2;
-const Single& MathHelper::PiOver4 = M_PI_4;
-const Single& MathHelper::TwoPi   = M_2_PI;
+const Single& MathHelper::E                = M_E;
+const Single& MathHelper::Log10E           = M_LOG10E;
+const Single& MathHelper::Log2E            = M_LOG2E;
+const Single& MathHelper::Pi               = M_PI;
+const Single& MathHelper::PiOver2          = M_PI_2;
+const Single& MathHelper::PiOver4          = M_PI_4;
+const Single& MathHelper::TwoPi            = M_2_PI;
+const Single& MathHelper::NegativeInfinity = -std::numeric_limits<Single>::infinity();
+const Single& MathHelper::PositiveInfinity = std::numeric_limits<Single>::infinity();
 
 Boolean MathHelper::IsInfinity(const System::Single& f)
 {
@@ -25,12 +27,12 @@ Boolean MathHelper::IsInfinity(const System::Single& f)
 
 Boolean MathHelper::IsNegativeInfinity(const System::Single& f)
 {
-    return (f == -std::numeric_limits<Single>::infinity());
+    return (f == MathHelper::NegativeInfinity);
 }
 
 Boolean MathHelper::IsPositiveInfinity(const System::Single& f)
 {
-    return (f == std::numeric_limits<Single>::infinity());
+    return (f == MathHelper::PositiveInfinity);
 }
 
 Single MathHelper::Barycentric(const Single& value1
@@ -110,8 +112,6 @@ Single MathHelper::Hermite(const Single& value1
 Single MathHelper::Lerp(const Single& value1, const Single& value2, const Single& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
-    assert(amount >= 0.0f && amount <= 1.0f);
-
     return (value1 + (value2 - value1) * amount);
 }
 

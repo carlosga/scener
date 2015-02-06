@@ -368,6 +368,90 @@ namespace SceneR
              */
             const System::Single& M44() const;
 
+        public:
+            /**
+             * Sets the value of the first row and first column of this Matrix.
+             */
+            void M11(const System::Single& value);
+
+            /**
+             * Sets the value of the first row and second column of this Matrix.
+             */
+            void M12(const System::Single& value);
+
+            /**
+             * Sets the value of the first row and third column of this Matrix.
+             */
+            void M13(const System::Single& value);
+
+            /**
+             * Sets the value of the first row and fourth column of this Matrix
+             */
+            void M14(const System::Single& value);
+
+            /**
+             * Sets the value of the second row and first column of this Matrix
+             */
+            void M21(const System::Single& value);
+
+            /**
+             * Sets the value of the second row and second column of this Matrix
+             */
+            void M22(const System::Single& value);
+
+            /**
+             * Gets the value of the second row and third column of this Matrix
+             */
+            void M23(const System::Single& value);
+
+            /**
+             * Sets the value of the second row and fourth column of this Matrix
+             */
+            void M24(const System::Single& value);
+
+            /**
+             * Sets the value of the third row and first column of this Matrix
+             */
+            void M31(const System::Single& value);
+
+            /**
+             * Sets the value of the third row and second column of this Matrix
+             */
+            void M32(const System::Single& value);
+
+            /**
+            * Gets the value of the third row and third column of this Matrix
+            * @return the value of the third row and third column of this Matrix
+            */
+            void M33(const System::Single& value);
+
+            /**
+             * Gets the value of the third row and fourth column of this Matrix
+             * @return the value of the third row and fourth column of this Matrix
+             */
+            void M34(const System::Single& value);
+
+            /**
+             * Sets the value of the fourth row and first column of this Matrix
+             */
+            void M41(const System::Single& value);
+
+            /**
+             * Sets the value of the fourth row and second column of this Matrix
+             */
+            void M42(const System::Single& value);
+
+            /**
+             * Sets the value of the fourth row and third column of this Matrix
+             */
+            void M43(const System::Single& value);
+
+            /**
+             * Sets the value of the fourth row and fourth column of this Matrix
+             */
+            void M44(const System::Single& value);
+
+        public:
             /**
              * Extracts the scalar, translation, and rotation components from a 3D scale/rotate/translate (SRT) Matrix.
              *

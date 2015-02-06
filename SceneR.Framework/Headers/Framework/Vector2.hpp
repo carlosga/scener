@@ -10,6 +10,8 @@ namespace SceneR
 {
     namespace Framework
     {
+        struct Matrix;
+
         /**
          * Represents an x and y-coordinate vector.
          */
@@ -131,6 +133,12 @@ namespace SceneR
             static Vector2 Max(const Vector2& value1, const Vector2& value2);
 
             /**
+             * Negates a Vector2.
+             * The vector has the same magnitude as before, but its direction is now opposite.
+             */
+            static Vector2 Negate(const Vector2& value);
+
+            /**
              * Performs a cubic interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector
@@ -140,6 +148,23 @@ namespace SceneR
             static Vector2 SmoothStep(const Vector2&        value1
                                     , const Vector2&        value2
                                     , const System::Single& amount);
+
+            /**
+            * Transforms a 2D vector by the given matrix.
+            * @param position the 2D Vector to be transformed.
+            * @param matrix the transformation matrix.
+            * @return the transformed vector.
+            */
+            static Vector2 Transform(const Vector2& position, const Matrix& matrix);
+
+            /**
+            * This method transforms the vector normal (x, y, 0) of the source vector,
+            * or the array of vector structures, by the sourceMatrix matrix.
+            * If you transform a normal by a non-affine matrix, the matrix you pass to this
+            * function should be the transpose of the inverse of the matrix you would use to
+            * transform a coordinate.
+            */
+            static Vector2 TransformNormal(const Vector2& normal, const Matrix& matrix);
 
         public:
             /**

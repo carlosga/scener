@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cmath>
 
+#include <Framework/Matrix.hpp>
 #include <Framework/MathHelper.hpp>
 
 using namespace System;
@@ -93,12 +94,45 @@ Vector2 Vector2::Max(const Vector2& value1, const Vector2& value2)
            , MathHelper::Max(value1.y, value2.y) };
 }
 
+Vector2 Vector2::Negate(const Vector2& value)
+{
+    auto result = Vector2 { value };
+
+    result.Negate();
+
+    return result;
+}
+
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
                           , const Single&  amount)
 {
     return { MathHelper::SmoothStep(value1.x, value2.x, amount)
            , MathHelper::SmoothStep(value1.y, value2.y, amount) };
+}
+
+Vector2 Vector2::Transform(const Vector2& position, const Matrix& matrix)
+{
+    Single x = (position.X() * matrix.M11())
+             + (position.Y() * matrix.M21())
+             +                 matrix.M41();
+
+    Single y = (position.X() * matrix.M12())
+             + (position.Y() * matrix.M22())
+             +                 matrix.M42();
+
+    return { x, y };
+}
+
+Vector2 Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix)
+{
+    Single x = (normal.x * matrix.M11())
+             + (normal.y * matrix.M21());
+
+    Single y = (normal.x * matrix.M12())
+             + (normal.y * matrix.M22());
+
+    return { x, y };
 }
 
 Vector2::Vector2()

@@ -420,6 +420,86 @@ const Single& Matrix::M44() const
     return this->m44;
 }
 
+void Matrix::M11(const System::Single& value)
+{
+    this->m11 = value;
+}
+
+void Matrix::M12(const System::Single& value)
+{
+    this->m12 = value;
+}
+
+void Matrix::M13(const System::Single& value)
+{
+    this->m13 = value;
+}
+
+void Matrix::M14(const System::Single& value)
+{
+    this->m14 = value;
+}
+
+void Matrix::M21(const System::Single& value)
+{
+    this->m21 = value;
+}
+
+void Matrix::M22(const System::Single& value)
+{
+    this->m22 = value;
+}
+
+void Matrix::M23(const System::Single& value)
+{
+    this->m23 = value;
+}
+
+void Matrix::M24(const System::Single& value)
+{
+    this->m24 = value;
+}
+
+void Matrix::M31(const System::Single& value)
+{
+    this->m31 = value;
+}
+
+void Matrix::M32(const System::Single& value)
+{
+    this->m32 = value;
+}
+
+void Matrix::M33(const System::Single& value)
+{
+    this->m33 = value;
+}
+
+void Matrix::M34(const System::Single& value)
+{
+    this->m34 = value;
+}
+
+void Matrix::M41(const Single& value)
+{
+    this->m41 = value;
+}
+
+void Matrix::M42(const Single& value)
+{
+    this->m42 = value;
+}
+
+void Matrix::M43(const Single& value)
+{
+    this->m43 = value;
+}
+
+void Matrix::M44(const Single& value)
+{
+    this->m44 = value;
+}
+
 bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation)
 {
     this->Transpose();

@@ -1,12 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#include <Vector2Test.hpp>
+
 #include <cmath>
 #include <limits>
 
-#include <Vector2Test.hpp>
-
 #include <Framework/Vector2.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/MathHelper.hpp>
 
 using namespace System;
@@ -223,234 +224,222 @@ TEST_F(Vector2Test, Max)
     auto actual   = Vector2::Max(a, b);
 
     EXPECT_TRUE(expected == actual);
-};
+}
 
-/*
 // A test for Clamp (Vector2f, Vector2f, Vector2f)
-[Fact]
-public void Vector2ClampTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Clamp)
 {
-    Vector2 a = new Vector2(0.5f, 0.3f);
-    Vector2 min = new Vector2(0.0f, 0.1f);
-    Vector2 max = new Vector2(1.0f, 1.1f);
+    auto a   = Vector2 { 0.5f, 0.3f };
+    auto min = Vector2 { 0.0f, 0.1f };
+    auto max = Vector2 { 1.0f, 1.1f };
 
     // Normal case.
-    // Case N1: specfied value is in the range.
-    Vector2 expected = new Vector2(0.5f, 0.3f);
-    Vector2 actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
+    // Case N1: specified value is in the range.
+    auto expected = Vector2(0.5f, 0.3f);
+    auto actual   = Vector2::Clamp(a, min, max);
+
+    EXPECT_TRUE(expected == actual);
+
     // Normal case.
-    // Case N2: specfied value is bigger than max value.
-    a = new Vector2(2.0f, 3.0f);
+    // Case N2: specified value is bigger than max value.
+    a        = Vector2 { 2.0f, 3.0f };
     expected = max;
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
-    // Case N3: specfied value is smaller than max value.
-    a = new Vector2(-1.0f, -2.0f);
-    expected = min;
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
-    // Case N4: combination case.
-    a = new Vector2(-2.0f, 4.0f);
-    expected = new Vector2(min.X, max.Y);
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
-    // User specfied min value is bigger than max value.
-    max = new Vector2(0.0f, 0.1f);
-    min = new Vector2(1.0f, 1.1f);
+    actual   = Vector2::Clamp(a, min, max);
 
-    // Case W1: specfied value is in the range.
-    a = new Vector2(0.5f, 0.3f);
+    EXPECT_TRUE(expected == actual);
+
+    // Case N3: specified value is smaller than max value.
+    a        = Vector2 { -1.0f, -2.0f };
     expected = min;
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
+    actual   = Vector2::Clamp(a, min, max);
+
+    EXPECT_TRUE(expected == actual);
+
+    // Case N4: combination case.
+    a        = Vector2(-2.0f, 4.0f);
+    expected = Vector2(min.X(), max.Y());
+    actual   = Vector2::Clamp(a, min, max);
+
+    EXPECT_TRUE(expected == actual);
+
+    // User specified min value is bigger than max value.
+    max = Vector2 { 0.0f, 0.1f };
+    min = Vector2 { 1.0f, 1.1f };
+
+    // Case W1: specified value is in the range.
+    a        = Vector2 { 0.5f, 0.3f };
+    expected = min;
+    actual   = Vector2::Clamp(a, min, max);
+
+    EXPECT_TRUE(expected == actual);
 
     // Normal case.
-    // Case W2: specfied value is bigger than max and min value.
-    a = new Vector2(2.0f, 3.0f);
+    // Case W2: specified value is bigger than max and min value.
+    a        = Vector2 { 2.0f, 3.0f };
     expected = min;
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
+    actual   = Vector2::Clamp(a, min, max);
 
-    // Case W3: specfied value is smaller than min and max value.
-    a = new Vector2(-1.0f, -2.0f);
+    EXPECT_TRUE(expected == actual);
+
+    // Case W3: specified value is smaller than min and max value.
+    a        = Vector2 { -1.0f, -2.0f };
     expected = min;
-    actual = Vector2.Clamp(a, min, max);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Clamp did not return the expected value.");
+    actual   = Vector2::Clamp(a, min, max);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
-[Fact]
-public void Vector2LerpTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Lerp2)
 {
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(3.0f, 4.0f);
+    auto a = Vector2 { 1.0f, 2.0f };
+    auto b = Vector2 { 3.0f, 4.0f };
 
-    float t = 0.5f;
+    Single t = 0.5f;
 
-    Vector2 expected = new Vector2(2.0f, 3.0f);
-    Vector2 actual;
-    actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    auto expected = Vector2 { 2.0f, 3.0f };
+    auto actual   = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test with factor zero
-[Fact]
-public void Vector2LerpTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpWithFactorZero)
 {
-    Vector2 a = new Vector2(0.0f, 0.0f);
-    Vector2 b = new Vector2(3.18f, 4.25f);
+    auto a = Vector2 { 0.0f, 0.0f };
+    auto b = Vector2 { 3.18f, 4.25f };
 
-    float t = 0.0f;
-    Vector2 expected = Vector2.Zero;
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    Single t = 0.0f;
+
+    auto expected = Vector2::Zero;
+    auto actual   = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test with factor one
-[Fact]
-public void Vector2LerpTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpWithFactorOne)
 {
-    Vector2 a = new Vector2(0.0f, 0.0f);
-    Vector2 b = new Vector2(3.18f, 4.25f);
+    auto a = Vector2 { 0.0f, 0.0f };
+    auto b = Vector2 { 3.18f, 4.25f };
 
-    float t = 1.0f;
-    Vector2 expected = new Vector2(3.18f, 4.25f);
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    Single t = 1.0f;
+
+    auto expected = Vector2(3.18f, 4.25f);
+    auto actual = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test with factor > 1
-[Fact]
-public void Vector2LerpTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpWithFactorGreaterThanOne)
 {
-    Vector2 a = new Vector2(0.0f, 0.0f);
-    Vector2 b = new Vector2(3.18f, 4.25f);
+    auto a = Vector2 { 0.0f, 0.0f };
+    auto b = Vector2 { 3.18f, 4.25f };
 
-    float t = 2.0f;
-    Vector2 expected = b * 2.0f;
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    Single  t = 2.0f;
+
+    auto expected = b * 2.0f;
+    auto actual   = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test with factor < 0
-[Fact]
-public void Vector2LerpTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpWithFactorLessThanZero)
 {
-    Vector2 a = new Vector2(0.0f, 0.0f);
-    Vector2 b = new Vector2(3.18f, 4.25f);
+    auto a = Vector2 { 0.0f, 0.0f };
+    auto b = Vector2 { 3.18f, 4.25f };
 
-    float t = -2.0f;
-    Vector2 expected = -(b * 2.0f);
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    Single t = -2.0f;
+
+    auto expected = Vector2::Negate(b * 2.0f);
+    auto actual   = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test with special float value
-[Fact]
-public void Vector2LerpTest5()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpWithSpecialFloatValue)
 {
-    Vector2 a = new Vector2(45.67f, 90.0f);
-    Vector2 b = new Vector2(float.PositiveInfinity, float.NegativeInfinity);
+    auto a = Vector2 { 45.67f, 90.0f };
+    auto b = Vector2 { MathHelper::PositiveInfinity, MathHelper::NegativeInfinity };
 
-    float t = 0.408f;
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(float.IsPositiveInfinity(actual.X), "Vector2f.Lerp did not return the expected value.");
-    Assert.True(float.IsNegativeInfinity(actual.Y), "Vector2f.Lerp did not return the expected value.");
+    Single t = 0.408f;
+
+    auto actual = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
 // Lerp test from the same point
-[Fact]
-public void Vector2LerpTest6()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, LerpFromSamePoint)
 {
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(1.0f, 2.0f);
+    auto a = Vector2 { 1.0f, 2.0f };
+    auto b = Vector2 { 1.0f, 2.0f };
 
     float t = 0.5f;
 
-    Vector2 expected = new Vector2(1.0f, 2.0f);
-    Vector2 actual = Vector2.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Lerp did not return the expected value.");
+    auto expected = Vector2 { 1.0f, 2.0f };
+    auto actual   = Vector2::Lerp(a, b, t);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Transform(Vector2f, Matrix4x4)
-[Fact]
-public void Vector2TransformTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Transform)
 {
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Matrix4x4 m =
-                Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-                    Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-                    Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    m.M41 = 10.0f;
-    m.M42 = 20.0f;
-    m.M43 = 30.0f;
+    auto v = Vector2 { 1.0f, 2.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
 
-    Vector2 expected = new Vector2(10.316987f, 22.183012f);
-    Vector2 actual;
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
 
-    actual = Vector2.Transform(v, m);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Transform did not return the expected value.");
-}
+    auto expected = Vector2 { 10.316987f, 22.183012f };
+    auto actual   = Vector2::Transform(v, m);
 
-// A test for Transform(Vector2f, Matrix3x2)
-[Fact]
-public void Vector2Transform3x2Test()
-{
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Matrix3x2 m = Matrix3x2.CreateRotation(MathHelper.ToRadians(30.0f));
-    m.M31 = 10.0f;
-    m.M32 = 20.0f;
-
-    Vector2 expected = new Vector2(9.866025f, 22.23205f);
-    Vector2 actual;
-
-    actual = Vector2.Transform(v, m);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Transform did not return the expected value.");
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for TransformNormal (Vector2f, Matrix4x4)
-[Fact]
-public void Vector2TransformNormalTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, TransformNormal)
 {
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Matrix4x4 m =
-                Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-                    Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-                    Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    m.M41 = 10.0f;
-    m.M42 = 20.0f;
-    m.M43 = 30.0f;
+    auto v = Vector2 { 1.0f, 2.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
 
-    Vector2 expected = new Vector2(0.3169873f, 2.18301272f);
-    Vector2 actual;
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
 
-    actual = Vector2.TransformNormal(v, m);
-    Assert.Equal(expected, actual);
+    auto expected = Vector2 { 0.3169873f, 2.18301272f };
+    auto actual   = Vector2::TransformNormal(v, m);
+
+    EXPECT_TRUE(expected == actual);
 }
 
-// A test for TransformNormal (Vector2f, Matrix3x2)
-[Fact]
-public void Vector2TransformNormal3x2Test()
-{
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Matrix3x2 m = Matrix3x2.CreateRotation(MathHelper.ToRadians(30.0f));
-    m.M31 = 10.0f;
-    m.M32 = 20.0f;
-
-    Vector2 expected = new Vector2(-0.133974612f, 2.232051f);
-    Vector2 actual;
-
-    actual = Vector2.TransformNormal(v, m);
-    Assert.Equal(expected, actual);
-}
-
+/*
 // A test for Transform (Vector2f, Quaternion)
 [Fact]
 public void Vector2TransformByQuaternionTest()
