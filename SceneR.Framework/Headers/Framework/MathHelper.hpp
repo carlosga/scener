@@ -53,6 +53,27 @@ namespace SceneR
 
         public:
             /**
+             * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
+             * @param f A single-precision floating-point number.
+             * @returns true if f evaluates to PositiveInfinity or NegativeInfinity; otherwise, false.
+             */
+            static System::Boolean IsInfinity(const System::Single& f);
+
+            /**
+             * Returns a value indicating whether the specified number evaluates to positive infinity.
+             * @param f A single-precision floating-point number.
+             * @returns true if f evaluates to NegativeInfinity; otherwise, false.
+             */
+            static System::Boolean IsNegativeInfinity(const System::Single& f);
+
+            /**
+            * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
+            * @param f A single-precision floating-point number.
+            * @returns true if f evaluates to PositiveInfinity; otherwise, false.
+            */
+            static System::Boolean IsPositiveInfinity(const System::Single& f);
+
+            /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
              * two normalized barycentric (areal) coordinates.
              * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.

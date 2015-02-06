@@ -5,6 +5,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <limits>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -16,6 +17,21 @@ const Single& MathHelper::Pi      = M_PI;
 const Single& MathHelper::PiOver2 = M_PI_2;
 const Single& MathHelper::PiOver4 = M_PI_4;
 const Single& MathHelper::TwoPi   = M_2_PI;
+
+Boolean MathHelper::IsInfinity(const System::Single& f)
+{
+    return MathHelper::IsPositiveInfinity(f) || MathHelper::IsNegativeInfinity(f);
+}
+
+Boolean MathHelper::IsNegativeInfinity(const System::Single& f)
+{
+    return (f == -std::numeric_limits<Single>::infinity());
+}
+
+Boolean MathHelper::IsPositiveInfinity(const System::Single& f)
+{
+    return (f == std::numeric_limits<Single>::infinity());
+}
 
 Single MathHelper::Barycentric(const Single& value1
                              , const Single& value2

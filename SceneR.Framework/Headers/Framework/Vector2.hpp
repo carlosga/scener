@@ -117,6 +117,20 @@ namespace SceneR
                               , const System::Single& amount);
 
             /**
+            * Returns a vector that contains the lowest value from each matching pair of components.
+            * @param value the first vector
+            * @param value the second vector
+            */
+            static Vector2 Min(const Vector2& value1, const Vector2& value2);
+
+            /**
+            * Returns a vector that contains the highest value from each matching pair of components.
+            * @param value the first vector
+            * @param value the second vector
+            */
+            static Vector2 Max(const Vector2& value1, const Vector2& value2);
+
+            /**
              * Performs a cubic interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector

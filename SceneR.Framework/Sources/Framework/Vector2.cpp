@@ -81,6 +81,18 @@ Vector2 Vector2::Lerp(const Vector2& value1
            , MathHelper::Lerp(value1.y, value2.y, amount) };
 }
 
+Vector2 Vector2::Min(const Vector2& value1, const Vector2& value2)
+{
+    return { MathHelper::Min(value1.x, value2.x)
+           , MathHelper::Min(value1.y, value2.y) };
+}
+
+Vector2 Vector2::Max(const Vector2& value1, const Vector2& value2)
+{
+    return { MathHelper::Max(value1.x, value2.x)
+           , MathHelper::Max(value1.y, value2.y) };
+}
+
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
                           , const Single&  amount)
