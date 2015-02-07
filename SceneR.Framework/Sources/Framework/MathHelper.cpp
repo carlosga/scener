@@ -19,6 +19,7 @@ const Single& MathHelper::PiOver4          = M_PI_4;
 const Single& MathHelper::TwoPi            = M_2_PI;
 const Single& MathHelper::NegativeInfinity = -std::numeric_limits<Single>::infinity();
 const Single& MathHelper::PositiveInfinity = std::numeric_limits<Single>::infinity();
+const Single& MathHelper::NaN              = std::numeric_limits<Single>::quiet_NaN();
 
 Boolean MathHelper::IsInfinity(const System::Single& f)
 {
@@ -33,6 +34,11 @@ Boolean MathHelper::IsNegativeInfinity(const System::Single& f)
 Boolean MathHelper::IsPositiveInfinity(const System::Single& f)
 {
     return (f == MathHelper::PositiveInfinity);
+}
+
+Boolean MathHelper::IsNaN(const System::Single& f)
+{
+    return std::isnan(f);
 }
 
 Single MathHelper::Barycentric(const Single& value1

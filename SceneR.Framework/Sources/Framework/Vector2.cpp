@@ -103,6 +103,15 @@ Vector2 Vector2::Negate(const Vector2& value)
     return result;
 }
 
+Vector2 Vector2::Normalize(const Vector2& value)
+{
+    auto normalized = Vector2 { value };
+
+    normalized.Normalize();
+
+    return normalized;
+};
+
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
                           , const Single&  amount)
@@ -178,6 +187,16 @@ void Vector2::Negate()
     (*this *= -1.0f);
 }
 
+void Vector2::Normalize()
+{
+    // To find the unit vector of another vector, we use the modulus operator
+    // and scalar multiplication like so:
+    // b = a / |a|
+    //
+    // Where |a| is the modulus of a
+    (*this /= this->Length());
+}
+
 Single& Vector2::operator[](const Size& index)
 {
     assert(index < 2);
@@ -205,8 +224,7 @@ Vector2& Vector2::operator=(const Vector2& vector)
 
 bool Vector2::operator==(const Vector2& vector) const
 {
-    return (this->x == vector.x
-         && this->y == vector.y);
+    return (this->x == vector.x && this->y == vector.y);
 }
 
 bool Vector2::operator!=(const Vector2& vector) const
@@ -305,6 +323,11 @@ const Vector2 Vector2::operator-(const Vector2& vector) const
     result -= vector;
 
     return result;
+}
+
+const Vector2 Vector2::operator-() const
+{
+    return Vector2 { -this->x, -this->y };
 }
 
 const Vector2 Vector2::operator+(const Vector2& vector) const

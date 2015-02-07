@@ -139,6 +139,17 @@ namespace SceneR
             static Vector2 Negate(const Vector2& value);
 
             /**
+            * Normalizes the specified 2D Vector.
+            *
+            * A normalized Vector2 maintains its direction but its magnitude becomes 1.
+            * The resulting Vector2 is often called a unit vector.
+            * A Vector2 is normalized by dividing the Vector2 by its magnitude.
+            * @param value the vector to be normalized.
+            * @returns the normalized vector.
+            */
+            static Vector2 Normalize(const Vector2& value);
+
+            /**
              * Performs a cubic interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector
@@ -221,6 +232,15 @@ namespace SceneR
              */
             void Negate();
 
+            /**
+            * Normalizes this Vector2.
+            *
+            * A normalized Vector2 maintains its direction but its magnitude becomes 1.
+            * The resulting Vector2 is often called a unit vector.
+            * A Vector2 is normalized by dividing the Vector2 by its magnitude.
+            */
+            void Normalize();
+
         public:
             System::Single& operator[](const System::Size& index);
             const System::Single& operator[](const System::Size& index) const;
@@ -238,6 +258,7 @@ namespace SceneR
             const Vector2 operator/(const Vector2& vector) const;
             const Vector2 operator/(const System::Single& value) const;
             const Vector2 operator-(const Vector2& vector) const;
+            const Vector2 operator-() const;
             const Vector2 operator+(const Vector2& vector) const;
 
         private:

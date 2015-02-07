@@ -61,6 +61,11 @@ namespace SceneR
              */
             static const System::Single& PositiveInfinity;
 
+            /**
+             * Represents not a number (NaN).
+             */
+            static const System::Single& NaN;
+
         public:
             /**
              * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
@@ -82,6 +87,13 @@ namespace SceneR
             * @returns true if f evaluates to PositiveInfinity; otherwise, false.
             */
             static System::Boolean IsPositiveInfinity(const System::Single& f);
+
+            /**
+             * Returns a value that indicates whether the specified value is not a number (NaN).
+             * @param f A single-precision floating-point number.
+             * @returns true if f evaluates to not a number (NaN); otherwise, false.
+             */
+            static System::Boolean IsNaN(const System::Single& f);
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and

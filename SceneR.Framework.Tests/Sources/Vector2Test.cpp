@@ -439,6 +439,88 @@ TEST_F(Vector2Test, TransformNormal)
     EXPECT_TRUE(expected == actual);
 }
 
+// A test for Normalize (Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Normalize)
+{
+    auto a        = Vector2 { 2.0f, 3.0f };
+    auto expected = Vector2 { 0.554700196225229122018341733457f, 0.8320502943378436830275126001855f };
+    auto actual   = Vector2::Normalize(a);
+
+    EXPECT_TRUE(expected == actual);
+};
+
+// A test for Normalize (Vector2f)
+// Normalize zero length vector
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, NormalizeZeroLengthVector)
+{
+    Vector2 a; // no parameter, default to 0.0f
+    Vector2 actual = Vector2::Normalize(a);
+
+    EXPECT_TRUE(MathHelper::IsNaN(actual.X()) && MathHelper::IsNaN(actual.Y()));
+}
+
+// A test for Normalize (Vector2f)
+// Normalize infinite length vector
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, NormalizeInfiniteLengthVector)
+{
+    auto a        = Vector2 { std::numeric_limits<Single>::max(), std::numeric_limits<Single>::max() };
+    auto actual   = Vector2::Normalize(a);
+    auto expected = Vector2 { 0, 0 };
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator - (Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, UnaryNegation)
+{
+    auto a        = Vector2 { 1.0f, 2.0f };
+    auto expected = Vector2 { -1.0f, -2.0f };
+    auto actual   = -a;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator - (Vector2f)
+// Negate test with special float value
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
+{
+    auto a      = Vector2 { MathHelper::PositiveInfinity, MathHelper::NegativeInfinity };
+    auto actual = -a;
+
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+}
+
+// A test for operator - (Vector2f)
+// Negate test with special float value
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, UnaryNegationWithNanValue)
+{
+    auto a      = Vector2 { MathHelper::NaN, 0.0f };
+    auto actual = -a;
+
+    EXPECT_TRUE(MathHelper::IsNaN(actual.X()));
+    EXPECT_TRUE(0.0f == actual.Y());
+}
+
+// A test for operator - (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Subtraction)
+{
+    auto a        = Vector2 { 1.0f, 3.0f };
+    auto b        = Vector2 { 2.0f, 1.5f };
+    auto expected = Vector2 { -1.0f, 1.5f };
+    auto actual   = a - b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+
 /*
 // A test for Transform (Vector2f, Quaternion)
 [Fact]
@@ -481,95 +563,6 @@ public void Vector2TransformByQuaternionTest2()
 
     Vector2 actual = Vector2.Transform(v, q);
     Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Transform did not return the expected value.");
-}
-
-// A test for Normalize (Vector2f)
-[Fact]
-public void Vector2NormalizeTest()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-    Vector2 expected = new Vector2(0.554700196225229122018341733457f, 0.8320502943378436830275126001855f);
-    Vector2 actual;
-
-    actual = Vector2.Normalize(a);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Normalize did not return the expected value.");
-}
-
-// A test for Normalize (Vector2f)
-// Normalize zero length vector
-[Fact]
-public void Vector2NormalizeTest1()
-{
-    Vector2 a = new Vector2(); // no parameter, default to 0.0f
-    Vector2 actual = Vector2.Normalize(a);
-    Assert.True(float.IsNaN(actual.X) && float.IsNaN(actual.Y), "Vector2f.Normalize did not return the expected value.");
-}
-
-// A test for Normalize (Vector2f)
-// Normalize infinite length vector
-[Fact]
-public void Vector2NormalizeTest2()
-{
-    Vector2 a = new Vector2(float.MaxValue, float.MaxValue);
-    Vector2 actual = Vector2.Normalize(a);
-    Vector2 expected = new Vector2(0, 0);
-    Assert.Equal(expected, actual);
-}
-
-// A test for operator - (Vector2f)
-[Fact]
-public void Vector2UnaryNegationTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-
-    Vector2 expected = new Vector2(-1.0f, -2.0f);
-    Vector2 actual;
-
-    actual = -a;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator - did not return the expected value.");
-}
-
-
-
-// A test for operator - (Vector2f)
-// Negate test with special float value
-[Fact]
-public void Vector2UnaryNegationTest1()
-{
-    Vector2 a = new Vector2(float.PositiveInfinity, float.NegativeInfinity);
-
-    Vector2 actual = -a;
-
-    Assert.True(float.IsNegativeInfinity(actual.X), "Vector2f.operator - did not return the expected value.");
-    Assert.True(float.IsPositiveInfinity(actual.Y), "Vector2f.operator - did not return the expected value.");
-}
-
-// A test for operator - (Vector2f)
-// Negate test with special float value
-[Fact]
-public void Vector2UnaryNegationTest2()
-{
-    Vector2 a = new Vector2(float.NaN, 0.0f);
-    Vector2 actual = -a;
-
-    Assert.True(float.IsNaN(actual.X), "Vector2f.operator - did not return the expected value.");
-    Assert.True(float.Equals(0.0f, actual.Y), "Vector2f.operator - did not return the expected value.");
-}
-
-// A test for operator - (Vector2f, Vector2f)
-[Fact]
-public void Vector2SubtractionTest()
-{
-    Vector2 a = new Vector2(1.0f, 3.0f);
-    Vector2 b = new Vector2(2.0f, 1.5f);
-
-    Vector2 expected = new Vector2(-1.0f, 1.5f);
-    Vector2 actual;
-
-    actual = a - b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator - did not return the expected value.");
 }
 
 // A test for operator * (Vector2f, float)
