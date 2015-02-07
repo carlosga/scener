@@ -155,12 +155,12 @@ void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Si
     glProgramUniform1fv(this->id, location, value.size(), &value[0]);
 }
 
-void ShaderProgram::SetValue(const System::Int32& location, const SceneR::Framework::Vector2& value)
+void ShaderProgram::SetValue(const System::Int32& location, const SceneR::Framework::Vector2& value) const
 {
     glProgramUniform2fv(this->id, location, 1, &value[0]);
 }
 
-void ShaderProgram::SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector2>& value)
+void ShaderProgram::SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector2>& value) const
 {
     glProgramUniform2fv(this->id, location, value.size(), &value[0][0]);
 }

@@ -17,6 +17,16 @@ const Vector2 Vector2::UnitX { 1.0f, 0.0f };
 const Vector2 Vector2::UnitY { 0.0f, 1.0f };
 const Vector2 Vector2::Zero  { 0.0f, 0.0f };
 
+Vector2 Vector2::Abs(const Vector2& value)
+{
+    return Vector2 { std::abs(value.X()), std::abs(value.Y()) };
+}
+
+Vector2 Vector2::SquareRoot(const Vector2& value)
+{
+    return Vector2 { std::sqrt(value.X()), std::sqrt(value.Y()) };
+}
+
 Vector2 Vector2::Barycentric(const Vector2& value1
                            , const Vector2& value2
                            , const Vector2& value3
@@ -146,6 +156,11 @@ Vector2 Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix)
 
 Vector2::Vector2()
     : Vector2 { 0.0f, 0.0f }
+{
+}
+
+Vector2::Vector2(const Single& value)
+    : Vector2 { value, value }
 {
 }
 
@@ -311,7 +326,7 @@ const Vector2 Vector2::operator/(const Single& value) const
 {
     auto result = *this;
 
-    result *= value;
+    result /= value;
 
     return result;
 }

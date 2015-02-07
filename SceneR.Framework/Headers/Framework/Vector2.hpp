@@ -39,6 +39,10 @@ namespace SceneR
             static const Vector2 Zero;
 
         public:
+            static Vector2 Abs(const Vector2& value);
+
+            static Vector2 SquareRoot(const Vector2& value);
+
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
              * two normalized barycentric (areal) coordinates.
@@ -182,6 +186,12 @@ namespace SceneR
              * Initializes a new instance of the Vector2 class.
              */
             Vector2();
+
+            /**
+            * Initializes a new instance of the Vector2 class with the given value.
+            * @param value
+            */
+            Vector2(const System::Single& value);
 
             /**
              * Initializes a new instance of the Vector2 class with the given texture coordinates.

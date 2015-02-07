@@ -295,7 +295,7 @@ void EffectParameter::SetValue(const String& value) const
     throw std::runtime_error("Not implemented");
 }
 
-void EffectParameter::SetValue(const SceneR::Graphics::Texture& value)
+void EffectParameter::SetValue(const SceneR::Graphics::Texture& value) const
 {
     if (this->parameterClass != EffectParameterClass::Object)
     {
@@ -313,7 +313,7 @@ void EffectParameter::SetValue(const SceneR::Graphics::Texture& value)
     this->shader->SetValue(this->parameterLocation, 0);
 }
 
-void EffectParameter::SetValue(const SceneR::Framework::Vector2& value)
+void EffectParameter::SetValue(const SceneR::Framework::Vector2& value) const
 {
     if (this->parameterClass != EffectParameterClass::Vector)
     {
@@ -323,7 +323,7 @@ void EffectParameter::SetValue(const SceneR::Framework::Vector2& value)
     this->shader->SetValue(this->parameterLocation, value);
 }
 
-void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value)
+void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value) const
 {
     if (this->parameterClass != EffectParameterClass::Vector)
     {

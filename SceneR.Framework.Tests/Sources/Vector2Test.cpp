@@ -363,7 +363,7 @@ TEST_F(Vector2Test, LerpWithFactorLessThanZero)
 
     Single t = -2.0f;
 
-    auto expected = Vector2::Negate(b * 2.0f);
+    auto expected = -(b * 2.0f);
     auto actual   = Vector2::Lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
@@ -520,6 +520,283 @@ TEST_F(Vector2Test, Subtraction)
     EXPECT_TRUE(expected == actual);
 }
 
+// A test for operator * (Vector2f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Multiply)
+{
+    auto   a        = Vector2 { 2.0f, 3.0f };
+    Single factor   = 2.0f;
+    auto   expected = Vector2 { 4.0f, 6.0f };
+    auto   actual   = a * factor;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator * (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Multiply1)
+{
+    auto a        = Vector2 { 2.0f, 3.0f };
+    auto b        = Vector2 { 4.0f, 5.0f };
+    auto expected = Vector2 { 8.0f, 15.0f };
+    auto actual   = a * b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator / (Vector2f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Division)
+{
+    auto  a        = Vector2 { 2.0f, 3.0f };
+    float div      = 2.0f;
+    auto  expected = Vector2 { 1.0f, 1.5f };
+    auto  actual   = a / div;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator / (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Division1)
+{
+    auto a        = Vector2 { 2.0f, 3.0f };
+    auto b        = Vector2 { 4.0f, 5.0f };
+    auto expected = Vector2 { 2.0f / 4.0f, 3.0f / 5.0f };
+    auto actual   = a / b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator / (Vector2f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Division2)
+{
+    auto  a      = Vector2 { -2.0f, 3.0f };
+    float div    = 0.0f;
+    auto  actual = a / div;
+
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+}
+
+// A test for operator / (Vector2f, Vector2f)
+// Divide by zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, DivisionByZero)
+{
+    auto a      = Vector2 { 0.047f, -3.0f };
+    auto b      = Vector2 { };
+    auto actual = a / b;
+
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
+}
+
+// A test for operator + (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Addition)
+{
+    auto a        = Vector2 { 1.0f, 2.0f };
+    auto b        = Vector2 { 3.0f, 4.0f };
+    auto expected = Vector2 { 4.0f, 6.0f };
+    auto actual   = a + b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for Vector2f (float, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Constructor)
+{
+    Single x      = 1.0f;
+    Single y      = 2.0f;
+    auto   target = Vector2 { x, y };
+
+    EXPECT_TRUE(x == target.X());
+    EXPECT_TRUE(y == target.Y());
+}
+
+// A test for Vector2f ()
+// Constructor with no parameter
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, DefaultConstructor)
+{
+    auto target = Vector2 { };
+
+    EXPECT_TRUE(0.0f == target.X());
+    EXPECT_TRUE(0.0f == target.Y());
+}
+
+// A test for Vector2f (float, float)
+// Constructor with special floating values
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, ConstructorWithSpecialValues)
+{
+    auto target = Vector2 { MathHelper::NaN, std::numeric_limits<Single>::max() };
+
+    EXPECT_TRUE(MathHelper::IsNaN(target.X()));
+    EXPECT_TRUE(std::numeric_limits<Single>::max() == target.Y());
+}
+
+// A test for Vector2f (float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Constructor4)
+{
+    Single value    = 1.0f;
+    auto   target   = Vector2 { value };
+    auto   expected = Vector2 { value, value };
+
+    EXPECT_TRUE(expected == target);
+
+    value    = 2.0f;
+    target   = Vector2 { value };
+    expected = Vector2 { value, value };
+
+    EXPECT_TRUE(expected == target);
+}
+
+// A test for Negate (Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Negate)
+{
+    auto a        = Vector2 { 1.0f, 2.0f };
+    auto expected = Vector2 { -1.0f, -2.0f };
+    auto actual   = Vector2::Negate(a);
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator != (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Inequality)
+{
+    auto a = Vector2 { 1.0f, 2.0f };
+    auto b = Vector2 { 1.0f, 2.0f };
+
+    // case 1: compare between same values
+    bool expected = false;
+    bool actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
+
+    // case 2: compare between different values
+    b        = Vector2 { 10.0f, 2.0f };
+    expected = true;
+    actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator == (Vector2f, Vector2f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Equality)
+{
+    auto a = Vector2 { 1.0f, 2.0f };
+    auto b = Vector2 { 1.0f, 2.0f };
+
+    // case 1: compare between same values
+    bool expected = true;
+    bool actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
+
+    // case 2: compare between different values
+    b        = Vector2 { 10.0f, 2.0f };
+    expected = false;
+    actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for UnitX
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, UnitX)
+{
+    auto actual = Vector2 { 1.0f, 0.0f };
+
+    EXPECT_TRUE(Vector2::UnitX == actual);
+}
+
+// A test for UnitY
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, UnitY)
+{
+    auto actual = Vector2 { 0.0f, 1.0f };
+
+    EXPECT_TRUE(Vector2::UnitY == actual);
+}
+
+// A test for One
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, One)
+{
+    auto actual = Vector2 { 1.0f, 1.0f };
+
+    EXPECT_TRUE(Vector2::One == actual);
+}
+
+// A test for Zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Zero)
+{
+    auto actual = Vector2 { 0.0f, 0.0f };
+
+    EXPECT_TRUE(Vector2::Zero == actual);
+}
+
+// A test for Vector2f comparison involving NaN values
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Equals)
+{
+    auto a = Vector2 { MathHelper::NaN, 0.0f };
+    auto b = Vector2 { 0, MathHelper::NaN };
+
+    EXPECT_FALSE(a == Vector2::Zero);
+    EXPECT_FALSE(b == Vector2::Zero);
+
+    EXPECT_TRUE(a != Vector2::Zero);
+    EXPECT_TRUE(b != Vector2::Zero);
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Abs)
+{
+    auto v1 = Vector2 { -2.5f, 2.0f };
+    auto v3 = Vector2::Abs(Vector2 { 0.0f, MathHelper::NegativeInfinity });
+    auto v  = Vector2::Abs(v1);
+
+    EXPECT_TRUE(2.5f == v.X());
+    EXPECT_TRUE(2.0f == v.Y());
+    EXPECT_TRUE(0.0f == v3.X());
+    EXPECT_TRUE(MathHelper::PositiveInfinity == v3.Y());
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, Sqrt)
+{
+    auto v1 = Vector2 { -2.5f, 2.0f };
+    auto v2 = Vector2 { 5.5f, 4.5f };
+
+    EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).X());
+    EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).Y());
+    EXPECT_TRUE(MathHelper::IsNaN(Vector2::SquareRoot(v1).X()));
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector2Test, SetFields)
+{
+//    Vector2 v3 = new Vector2(4f, 5f);
+//    v3.X = 1.0f;
+//    v3.Y = 2.0f;
+//    Assert.Equal(1.0f, v3.X);
+//    Assert.Equal(2.0f, v3.Y);
+//    Vector2 v4 = v3;
+//    v4.Y = 0.5f;
+//    Assert.Equal(1.0f, v4.X);
+//    Assert.Equal(0.5f, v4.Y);
+//    Assert.Equal(2.0f, v3.Y);
+}
 
 /*
 // A test for Transform (Vector2f, Quaternion)
@@ -563,393 +840,6 @@ public void Vector2TransformByQuaternionTest2()
 
     Vector2 actual = Vector2.Transform(v, q);
     Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Transform did not return the expected value.");
-}
-
-// A test for operator * (Vector2f, float)
-[Fact]
-public void Vector2MultiplyTest()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-    float factor = 2.0f;
-
-    Vector2 expected = new Vector2(4.0f, 6.0f);
-    Vector2 actual;
-
-    actual = a * factor;
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator * did not return the expected value.");
-}
-
-// A test for operator * (float, Vector2f)
-[Fact]
-public void Vector2MultiplyTest4()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-    float factor = 2.0f;
-
-    Vector2 expected = new Vector2(4.0f, 6.0f);
-    Vector2 actual;
-
-    actual = factor * a;
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator * did not return the expected value.");
-}
-
-// A test for operator * (Vector2f, Vector2f)
-[Fact]
-public void Vector2MultiplyTest1()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-    Vector2 b = new Vector2(4.0f, 5.0f);
-
-    Vector2 expected = new Vector2(8.0f, 15.0f);
-    Vector2 actual;
-
-    actual = a * b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator * did not return the expected value.");
-}
-
-// A test for operator / (Vector2f, float)
-[Fact]
-public void Vector2DivisionTest()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-
-    float div = 2.0f;
-
-    Vector2 expected = new Vector2(1.0f, 1.5f);
-    Vector2 actual;
-
-    actual = a / div;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator / did not return the expected value.");
-}
-
-// A test for operator / (Vector2f, Vector2f)
-[Fact]
-public void Vector2DivisionTest1()
-{
-    Vector2 a = new Vector2(2.0f, 3.0f);
-    Vector2 b = new Vector2(4.0f, 5.0f);
-
-    Vector2 expected = new Vector2(2.0f / 4.0f, 3.0f / 5.0f);
-    Vector2 actual;
-
-    actual = a / b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator / did not return the expected value.");
-}
-
-// A test for operator / (Vector2f, float)
-// Divide by zero
-[Fact]
-public void Vector2DivisionTest2()
-{
-    Vector2 a = new Vector2(-2.0f, 3.0f);
-
-    float div = 0.0f;
-
-    Vector2 actual = a / div;
-
-    Assert.True(float.IsNegativeInfinity(actual.X), "Vector2f.operator / did not return the expected value.");
-    Assert.True(float.IsPositiveInfinity(actual.Y), "Vector2f.operator / did not return the expected value.");
-}
-
-// A test for operator / (Vector2f, Vector2f)
-// Divide by zero
-[Fact]
-public void Vector2DivisionTest3()
-{
-    Vector2 a = new Vector2(0.047f, -3.0f);
-    Vector2 b = new Vector2();
-
-    Vector2 actual = a / b;
-
-    Assert.True(float.IsInfinity(actual.X), "Vector2f.operator / did not return the expected value.");
-    Assert.True(float.IsInfinity(actual.Y), "Vector2f.operator / did not return the expected value.");
-}
-
-// A test for operator + (Vector2f, Vector2f)
-[Fact]
-public void Vector2AdditionTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(3.0f, 4.0f);
-
-    Vector2 expected = new Vector2(4.0f, 6.0f);
-    Vector2 actual;
-
-    actual = a + b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector2f.operator + did not return the expected value.");
-}
-
-// A test for Vector2f (float, float)
-[Fact]
-public void Vector2ConstructorTest()
-{
-    float x = 1.0f;
-    float y = 2.0f;
-
-    Vector2 target = new Vector2(x, y);
-    Assert.True(MathHelper.Equal(target.X, x) && MathHelper.Equal(target.Y, y), "Vector2f(x,y) constructor did not return the expected value.");
-}
-
-// A test for Vector2f ()
-// Constructor with no parameter
-[Fact]
-public void Vector2ConstructorTest2()
-{
-    Vector2 target = new Vector2();
-    Assert.Equal(target.X, 0.0f);
-    Assert.Equal(target.Y, 0.0f);
-}
-
-// A test for Vector2f (float, float)
-// Constructor with special floating values
-[Fact]
-public void Vector2ConstructorTest3()
-{
-    Vector2 target = new Vector2(float.NaN, float.MaxValue);
-    Assert.Equal(target.X, float.NaN);
-    Assert.Equal(target.Y, float.MaxValue);
-}
-
-// A test for Vector2f (float)
-[Fact]
-public void Vector2ConstructorTest4()
-{
-    float value = 1.0f;
-    Vector2 target = new Vector2(value);
-
-    Vector2 expected = new Vector2(value, value);
-    Assert.Equal(expected, target);
-
-    value = 2.0f;
-    target = new Vector2(value);
-    expected = new Vector2(value, value);
-    Assert.Equal(expected, target);
-}
-
-// A test for Add (Vector2f, Vector2f)
-[Fact]
-public void Vector2AddTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(5.0f, 6.0f);
-
-    Vector2 expected = new Vector2(6.0f, 8.0f);
-    Vector2 actual;
-
-    actual = Vector2.Add(a, b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Divide (Vector2f, float)
-[Fact]
-public void Vector2DivideTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    float div = 2.0f;
-    Vector2 expected = new Vector2(0.5f, 1.0f);
-    Vector2 actual;
-    actual = Vector2.Divide(a, div);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Divide (Vector2f, Vector2f)
-[Fact]
-public void Vector2DivideTest1()
-{
-    Vector2 a = new Vector2(1.0f, 6.0f);
-    Vector2 b = new Vector2(5.0f, 2.0f);
-
-    Vector2 expected = new Vector2(1.0f / 5.0f, 6.0f / 2.0f);
-    Vector2 actual;
-
-    actual = Vector2.Divide(a, b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Equals (object)
-[Fact]
-public void Vector2EqualsTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(1.0f, 2.0f);
-
-    // case 1: compare between same values
-    object obj = b;
-
-    bool expected = true;
-    bool actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    obj = b;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare between different types.
-    obj = new Quaternion();
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare against null.
-    obj = null;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Multiply (Vector2f, float)
-[Fact]
-public void Vector2MultiplyTest2()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    float factor = 2.0f;
-    Vector2 expected = new Vector2(2.0f, 4.0f);
-    Vector2 actual = Vector2.Multiply(a, factor);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Negate (Vector2f)
-[Fact]
-public void Vector2NegateTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-
-    Vector2 expected = new Vector2(-1.0f, -2.0f);
-    Vector2 actual;
-
-    actual = Vector2.Negate(a);
-    Assert.Equal(expected, actual);
-}
-
-// A test for operator != (Vector2f, Vector2f)
-[Fact]
-public void Vector2InequalityTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(1.0f, 2.0f);
-
-    // case 1: compare between same values
-    bool expected = false;
-    bool actual = a != b;
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    expected = true;
-    actual = a != b;
-    Assert.Equal(expected, actual);
-}
-
-// A test for operator == (Vector2f, Vector2f)
-[Fact]
-public void Vector2EqualityTest()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(1.0f, 2.0f);
-
-    // case 1: compare between same values
-    bool expected = true;
-    bool actual = a == b;
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    expected = false;
-    actual = a == b;
-    Assert.Equal(expected, actual);
-}
-
-// A test for Subtract (Vector2f, Vector2f)
-[Fact]
-public void Vector2SubtractTest()
-{
-    Vector2 a = new Vector2(1.0f, 6.0f);
-    Vector2 b = new Vector2(5.0f, 2.0f);
-
-    Vector2 expected = new Vector2(-4.0f, 4.0f);
-    Vector2 actual;
-
-    actual = Vector2.Subtract(a, b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for UnitX
-[Fact]
-public void Vector2UnitXTest()
-{
-    Vector2 val = new Vector2(1.0f, 0.0f);
-    Assert.Equal(val, Vector2.UnitX);
-}
-
-// A test for UnitY
-[Fact]
-public void Vector2UnitYTest()
-{
-    Vector2 val = new Vector2(0.0f, 1.0f);
-    Assert.Equal(val, Vector2.UnitY);
-}
-
-// A test for One
-[Fact]
-public void Vector2OneTest()
-{
-    Vector2 val = new Vector2(1.0f, 1.0f);
-    Assert.Equal(val, Vector2.One);
-}
-
-// A test for Zero
-[Fact]
-public void Vector2ZeroTest()
-{
-    Vector2 val = new Vector2(0.0f, 0.0f);
-    Assert.Equal(val, Vector2.Zero);
-}
-
-// A test for Equals (Vector2f)
-[Fact]
-public void Vector2EqualsTest1()
-{
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    Vector2 b = new Vector2(1.0f, 2.0f);
-
-    // case 1: compare between same values
-    bool expected = true;
-    bool actual = a.Equals(b);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    expected = false;
-    actual = a.Equals(b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Vector2f comparison involving NaN values
-[Fact]
-public void Vector2EqualsNanTest()
-{
-    Vector2 a = new Vector2(float.NaN, 0);
-    Vector2 b = new Vector2(0, float.NaN);
-
-    Assert.False(a == Vector2.Zero);
-    Assert.False(b == Vector2.Zero);
-
-    Assert.True(a != Vector2.Zero);
-    Assert.True(b != Vector2.Zero);
-
-    Assert.False(a.Equals(Vector2.Zero));
-    Assert.False(b.Equals(Vector2.Zero));
-
-    // Counterintuitive result - IEEE rules for NaN comparison are weird!
-    Assert.False(a.Equals(a));
-    Assert.False(b.Equals(b));
 }
 
 // A test for Reflect (Vector2f, Vector2f)
@@ -1003,88 +893,5 @@ public void Vector2ReflectTest2()
     Vector2 expected = n;
     Vector2 actual = Vector2.Reflect(a, n);
     Assert.True(MathHelper.Equal(expected, actual), "Vector2f.Reflect did not return the expected value.");
-}
-
-[Fact]
-public void Vector2AbsTest()
-{
-    Vector2 v1 = new Vector2(-2.5f, 2.0f);
-    Vector2 v3 = Vector2.Abs(new Vector2(0.0f, Single.NegativeInfinity));
-    Vector2 v = Vector2.Abs(v1);
-    Assert.Equal(2.5f, v.X);
-    Assert.Equal(2.0f, v.Y);
-    Assert.Equal(0.0f, v3.X);
-    Assert.Equal(Single.PositiveInfinity, v3.Y);
-}
-
-[Fact]
-public void Vector2SqrtTest()
-{
-    Vector2 v1 = new Vector2(-2.5f, 2.0f);
-    Vector2 v2 = new Vector2(5.5f, 4.5f);
-    Assert.Equal(2, (int)Vector2.SquareRoot(v2).X);
-    Assert.Equal(2, (int)Vector2.SquareRoot(v2).Y);
-    Assert.Equal(Single.NaN, Vector2.SquareRoot(v1).X);
-}
-
-// A test to make sure these types are blittable directly into GPU buffer memory layouts
-[Fact]
-public unsafe void Vector2SizeofTest()
-{
-    Assert.Equal(8, sizeof(Vector2));
-    Assert.Equal(16, sizeof(Vector2_2x));
-    Assert.Equal(12, sizeof(Vector2PlusFloat));
-    Assert.Equal(24, sizeof(Vector2PlusFloat_2x));
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Vector2_2x
-{
-private Vector2 _a;
-private Vector2 _b;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Vector2PlusFloat
-{
-private Vector2 _v;
-private float _f;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Vector2PlusFloat_2x
-{
-private Vector2PlusFloat _a;
-private Vector2PlusFloat _b;
-}
-
-[Fact]
-public void SetFieldsTest()
-{
-    Vector2 v3 = new Vector2(4f, 5f);
-    v3.X = 1.0f;
-    v3.Y = 2.0f;
-    Assert.Equal(1.0f, v3.X);
-    Assert.Equal(2.0f, v3.Y);
-    Vector2 v4 = v3;
-    v4.Y = 0.5f;
-    Assert.Equal(1.0f, v4.X);
-    Assert.Equal(0.5f, v4.Y);
-    Assert.Equal(2.0f, v3.Y);
-}
-
-[Fact]
-public void EmbeddedVectorSetFields()
-{
-    EmbeddedVectorObject evo = new EmbeddedVectorObject();
-    evo.FieldVector.X = 5.0f;
-    evo.FieldVector.Y = 5.0f;
-    Assert.Equal(5.0f, evo.FieldVector.X);
-    Assert.Equal(5.0f, evo.FieldVector.Y);
-}
-
-private class EmbeddedVectorObject
-{
-public Vector2 FieldVector;
 }
 */

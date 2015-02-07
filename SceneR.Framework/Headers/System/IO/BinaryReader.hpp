@@ -11,16 +11,10 @@
 
 namespace System
 {
-    namespace IO
-    {
-        class Stream;
-    }
-}
-
-namespace System
-{
 	namespace IO
 	{
+        class Stream;
+
 	    /**
 	     * Reads primitive data types as binary values in a specific encoding.
 	     */

@@ -169,14 +169,14 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const System::Int32& location, const SceneR::Framework::Vector2& value);
+            void SetValue(const System::Int32& location, const SceneR::Framework::Vector2& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector2.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector2>& value);
+            void SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector2>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector3.
