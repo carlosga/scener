@@ -759,7 +759,6 @@ TEST_F(QuaternionTest, Identity)
     EXPECT_TRUE(Quaternion::Identity == actual);
 }
 
-// A test for
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, IsIdentity)
 {
@@ -771,84 +770,28 @@ TEST_F(QuaternionTest, IsIdentity)
     EXPECT_FALSE(Quaternion(0, 0, 0, 0).IsIdentity());
 }
 
-/*
-
 // A test for Quaternion comparison involving NaN values
-[Fact]
-public void QuaternionEqualsNanTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(QuaternionTest, EqualsNan)
 {
-    Quaternion a = new Quaternion(float.NaN, 0, 0, 0);
-    Quaternion b = new Quaternion(0, float.NaN, 0, 0);
-    Quaternion c = new Quaternion(0, 0, float.NaN, 0);
-    Quaternion d = new Quaternion(0, 0, 0, float.NaN);
+    auto a = Quaternion { MathHelper::NaN, 0, 0, 0 };
+    auto b = Quaternion { 0, MathHelper::NaN, 0, 0 };
+    auto c = Quaternion { 0, 0, MathHelper::NaN, 0 };
+    auto d = Quaternion { 0, 0, 0, MathHelper::NaN };
+    auto z = Quaternion { 0, 0, 0, 0 };
 
-    Assert.False(a == new Quaternion(0, 0, 0, 0));
-    Assert.False(b == new Quaternion(0, 0, 0, 0));
-    Assert.False(c == new Quaternion(0, 0, 0, 0));
-    Assert.False(d == new Quaternion(0, 0, 0, 0));
+    EXPECT_FALSE(a == z);
+    EXPECT_FALSE(b == z);
+    EXPECT_FALSE(c == z);
+    EXPECT_FALSE(d == z);
 
-    Assert.True(a != new Quaternion(0, 0, 0, 0));
-    Assert.True(b != new Quaternion(0, 0, 0, 0));
-    Assert.True(c != new Quaternion(0, 0, 0, 0));
-    Assert.True(d != new Quaternion(0, 0, 0, 0));
+    EXPECT_TRUE(a != z);
+    EXPECT_TRUE(b != z);
+    EXPECT_TRUE(c != z);
+    EXPECT_TRUE(d != z);
 
-    Assert.False(a.Equals(new Quaternion(0, 0, 0, 0)));
-    Assert.False(b.Equals(new Quaternion(0, 0, 0, 0)));
-    Assert.False(c.Equals(new Quaternion(0, 0, 0, 0)));
-    Assert.False(d.Equals(new Quaternion(0, 0, 0, 0)));
-
-    Assert.False(a.IsIdentity);
-    Assert.False(b.IsIdentity);
-    Assert.False(c.IsIdentity);
-    Assert.False(d.IsIdentity);
-
-    // Counterintuitive result - IEEE rules for NaN comparison are weird!
-    Assert.False(a.Equals(a));
-    Assert.False(b.Equals(b));
-    Assert.False(c.Equals(c));
-    Assert.False(d.Equals(d));
+    EXPECT_FALSE(a.IsIdentity());
+    EXPECT_FALSE(b.IsIdentity());
+    EXPECT_FALSE(c.IsIdentity());
+    EXPECT_FALSE(d.IsIdentity());
 }
-
-// A test to make sure these types are blittable directly into GPU buffer memory layouts
-[Fact]
-public unsafe void QuaternionSizeofTest()
-{
-    Assert.Equal(16, sizeof(Quaternion));
-    Assert.Equal(32, sizeof(Quaternion_2x));
-    Assert.Equal(20, sizeof(QuaternionPlusFloat));
-    Assert.Equal(40, sizeof(QuaternionPlusFloat_2x));
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Quaternion_2x
-{
-    private Quaternion _a;
-    private Quaternion _b;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct QuaternionPlusFloat
-{
-    private Quaternion _v;
-    private float _f;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct QuaternionPlusFloat_2x
-{
-    private QuaternionPlusFloat _a;
-    private QuaternionPlusFloat _b;
-}
-
-// A test to make sure the fields are laid out how we expect
-[Fact]
-public unsafe void QuaternionFieldOffsetTest()
-{
-    Quaternion* ptr = (Quaternion*)0;
-
-    Assert.Equal(new IntPtr(0), new IntPtr(&ptr->X));
-    Assert.Equal(new IntPtr(4), new IntPtr(&ptr->Y));
-    Assert.Equal(new IntPtr(8), new IntPtr(&ptr->Z));
-    Assert.Equal(new IntPtr(12), new IntPtr(&ptr->W));
-}
- */

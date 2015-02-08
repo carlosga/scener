@@ -406,3 +406,4 @@ TEST_F(MatrixTest, TransformFromAxisAngleZ)
     EXPECT_TRUE(0.0f  == result.Y());
     EXPECT_TRUE(10.0f == result.Z());
 }
+
