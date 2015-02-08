@@ -3,6 +3,8 @@
 
 #include <Vector3Test.hpp>
 
+#include <cmath>
+
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 
@@ -318,4 +320,58 @@ TEST_F(Vector3Test, Lerp)
     EXPECT_TRUE(3.0f  == result.X());
     EXPECT_TRUE(-2.0f == result.Y());
     EXPECT_TRUE(70.0f == result.Z());
+}
+
+// A test for Cross (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Cross1)
+{
+    auto a        = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto b        = Vector3 { 0.0f, 1.0f, 0.0f };
+    auto expected = Vector3 { 0.0f, 0.0f, 1.0f };
+    auto actual   = Vector3::Cross(a, b);
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for Cross (Vector3f, Vector3f)
+// Cross test of the same vector
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, CrossWithSameVector)
+{
+    auto a        = Vector3 { 0.0f, 1.0f, 0.0f };
+    auto b        = Vector3 { 0.0f, 1.0f, 0.0f };
+    auto expected = Vector3 { 0.0f, 0.0f, 0.0f };
+    auto actual   = Vector3::Cross(a, b);
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for Distance (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Distance)
+{
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto b = Vector3 { 4.0f, 5.0f, 6.0f };
+
+    Single expected = std::sqrt(27.0f);
+    Single actual   = Vector3::Distance(a, b);
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for Distance (Vector3f, Vector3f)
+// Distance from the same point
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, DistanceFromTheSamePoint)
+{
+//    auto a = Vector3 { 1.051f, 2.05f, 3.478f };
+//    auto b = Vector3 { Vector2 { 1.051f, 0.0f }, 1.0f };
+//
+//    b.Y = 2.05f;
+//    b.Z = 3.478f;
+//
+//    Single actual = Vector3::Distance(a, b);
+//
+//    EXPECT_TRUE(0.0f == actual);
 }

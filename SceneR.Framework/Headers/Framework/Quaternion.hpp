@@ -60,6 +60,18 @@ namespace SceneR
                                                    , const System::Single& roll);
 
             /**
+             * Calculates the dot product oof two quaternions
+             */
+            static System::Single DotProduct(const Quaternion& quaternion1, const Quaternion& quaternion2);
+
+            static bool EqualRotation(const Quaternion& a, const Quaternion& b);
+
+            /**
+             * Calculates the invers of the specified quaternion.
+             */
+            static Quaternion Inverse(const Quaternion& value);
+
+            /**
              * Calculates the linear interpolation between two quaternions.
              *
              * @param quaternion1 first quaternion
@@ -69,6 +81,11 @@ namespace SceneR
             static Quaternion Lerp(const Quaternion&     quaternion1
                                  , const Quaternion&     quaternion2
                                  , const System::Single& amount);
+
+            /**
+             * Negates the specified Quaternion.
+             */
+            static Quaternion Negate(const Quaternion& value);
 
             /**
              * Normalizes the specified Quaternion.
@@ -148,6 +165,29 @@ namespace SceneR
              */
             const System::Single& W() const;
 
+        public:
+            /**
+             * Sets the x-coordinate value.
+             */
+            void X(const System::Single& x);
+
+            /**
+             * Sets the y-coordinate value.
+             */
+            void Y(const System::Single& y);
+
+            /**
+             * Sets the z-coordinate value.
+             */
+            void Z(const System::Single& z);
+
+            /**
+             * Sets the w-coordinate value.
+             */
+            void W(const System::Single& w);
+
+        public:
+
             /**
              * Calculates the quaternion dot product
              */
@@ -184,6 +224,11 @@ namespace SceneR
             System::Single Length() const;
 
             /**
+            * Negates a Quaternion.
+            */
+            void Negate();
+
+            /**
              * Normalizes the specified Quaternion.
              *
              * A normalized Quaternion maintains its direction but its magnitude becomes 1.
@@ -209,6 +254,7 @@ namespace SceneR
             const Quaternion operator/(const Quaternion& vector) const;
             const Quaternion operator/(const System::Single& value) const;
             const Quaternion operator-(const Quaternion& vector) const;
+            const Quaternion operator-() const;
             const Quaternion operator+(const Quaternion& vector) const;
 
         private:

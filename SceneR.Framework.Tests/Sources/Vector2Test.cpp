@@ -119,13 +119,13 @@ TEST_F(Vector2Test, DotWithPerpendicularVector)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, DotWithSpecialFloatValues)
 {
-    auto a = Vector2 { std::numeric_limits<Single>::min(), std::numeric_limits<Single>::min() };
+    auto a = Vector2 { std::numeric_limits<Single>::lowest(), std::numeric_limits<Single>::lowest() };
     auto b = Vector2 { std::numeric_limits<Single>::max(), std::numeric_limits<Single>::max() };
 
     Single actual = Vector2::DotProduct(a, b);
 
     EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual));
-};
+}
 
 // A test for Length ()
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -138,7 +138,7 @@ TEST_F(Vector2Test, Length2)
     Single actual   = target.Length();
 
     EXPECT_TRUE(expected == actual);
-};
+}
 
 // A test for Length ()
 // Length test where length is zero

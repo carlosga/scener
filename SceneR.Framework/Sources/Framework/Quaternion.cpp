@@ -57,6 +57,17 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     return qt * qz;
 }
 
+System::Single Quaternion::DotProduct(const Quaternion& quaternion1, const Quaternion& quaternion2)
+{
+    return quaternion1.DotProduct(quaternion2);
+}
+
+bool Quaternion::EqualRotation(const Quaternion& a, const Quaternion& b)
+{
+    return ((a == b) || (a == -b));
+}
+
+
 Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 {
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
@@ -104,6 +115,15 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
     return result;
 }
 
+Quaternion Quaternion::Inverse(const Quaternion& value)
+{
+    auto result = Quaternion { value };
+
+    result.Invert();
+
+    return result;
+}
+
 Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
     Single amount1 = 1.0f - amount;
@@ -115,6 +135,15 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
     }
 
     return Quaternion::Normalize(quaternion1 * amount1 + quaternion2 * amount2);
+}
+
+Quaternion Quaternion::Negate(const Quaternion & value)
+{
+    auto result = Quaternion { value };
+
+    result.Negate();
+
+    return result;
 }
 
 Quaternion Quaternion::Normalize(const Quaternion& quaternion)
@@ -209,6 +238,26 @@ const Single& Quaternion::W() const
     return this->w;
 }
 
+void Quaternion::X(const System::Single& x)
+{
+    this->x = x;
+}
+
+void Quaternion::Y(const System::Single& y)
+{
+    this->y = y;
+}
+
+void Quaternion::Z(const System::Single& z)
+{
+    this->z = z;
+}
+
+void Quaternion::W(const System::Single& w)
+{
+    this->w = w;
+}
+
 Single Quaternion::DotProduct(const Quaternion& quaternion) const
 {
     return (this->x * quaternion.x)
@@ -257,9 +306,14 @@ Single Quaternion::Length() const
     return std::sqrt(this->LengthSquared());
 }
 
+void Quaternion::Negate()
+{
+    *this *= -1.0f;
+}
+
 void Quaternion::Normalize()
 {
-    (*this /= this->Length());
+    *this /= this->Length();
 }
 
 Single& Quaternion::operator[](const Size& index)
@@ -413,6 +467,11 @@ const Quaternion Quaternion::operator-(const Quaternion& quaternion) const
     result -= quaternion;
 
     return result;
+}
+
+const Quaternion Quaternion::operator-() const
+{
+    return Quaternion { -this->x, -this->y, -this->z, -this->w };
 }
 
 const Quaternion Quaternion::operator+(const Quaternion& quaternion) const
