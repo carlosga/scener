@@ -207,6 +207,18 @@ namespace SceneR
             static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up);
 
             /**
+            * Extracts the scalar, translation, and rotation components from a 3D scale/rotate/translate (SRT) Matrix.
+            *
+            * @param matrix The source matrix.
+            * @param scale The scalar component of the transform matrix, expressed as a Vector3.
+            * @param rotation The rotation component of the transform matrix, expressed as a Quaternion.
+            * @param translation The translation component of the transform matrix, expressed as a Vector3.
+            *
+            * @returns true if the Matrix can be decomposed; false otherwise.
+            */
+            static bool Decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation);
+
+            /**
              * Inverts the given Matrix structure.
              * @param matrix the matrix to invert.
              */

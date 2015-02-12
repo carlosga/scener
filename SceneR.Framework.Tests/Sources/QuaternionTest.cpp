@@ -5,6 +5,7 @@
 
 #include <cmath>
 
+#include <EqualityHelper.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/MathHelper.hpp>
@@ -69,7 +70,7 @@ TEST_F(QuaternionTest, Dot)
     Single expected = 70.0f;
     Single actual   = Quaternion::DotProduct(a, b);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 
@@ -83,7 +84,7 @@ TEST_F(QuaternionTest, Length)
     Single expected = 5.477226f;
     Single actual   = target.Length();
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for LengthSquared ()
@@ -96,7 +97,7 @@ TEST_F(QuaternionTest, LengthSquared)
     Single expected = 30.0f;
     Single actual   = target.LengthSquared();
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Lerp (Quaternion, Quaternion, float)
@@ -110,13 +111,13 @@ TEST_F(QuaternionTest, Lerp)
     auto   expected = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(20.0f));
     auto   actual   = Quaternion::Lerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // Case a and b are same.
     expected = a;
     actual   = Quaternion::Lerp(a, a, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Lerp (Quaternion, Quaternion, float)
@@ -131,7 +132,7 @@ TEST_F(QuaternionTest, LerpWithInterpolateZero)
     auto   expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
     auto   actual   = Quaternion::Lerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Lerp (Quaternion, Quaternion, float)
@@ -146,7 +147,7 @@ TEST_F(QuaternionTest, LerpWithInterpolateOne)
     auto   expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
     auto   actual   = Quaternion::Lerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Lerp (Quaternion, Quaternion, float)
@@ -163,7 +164,7 @@ TEST_F(QuaternionTest, LerpWithQuaternionsWithMoreThan90Degrees)
     // Note that in quaternion world, Q == -Q. In the case of quaternions dot product is zero,
     // one of the quaternion will be flipped to compute the shortest distance. When t = 1, we
     // expect the result to be the same as quaternion b but flipped.
-    EXPECT_TRUE(a == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(a, actual));
 }
 
 // A test for Conjugate(Quaternion)
@@ -174,7 +175,7 @@ TEST_F(QuaternionTest, Conjugate)
     auto expected = Quaternion { -1, -2, -3, 4 };
     auto actual   = Quaternion::Conjugate(a);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Normalize (Quaternion)
@@ -185,7 +186,7 @@ TEST_F(QuaternionTest, Normalize)
     auto expected = Quaternion { 0.182574168f, 0.365148336f, 0.5477225f, 0.7302967f };
     auto actual   = Quaternion::Normalize(a);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Normalize (Quaternion)
@@ -223,7 +224,7 @@ TEST_F(QuaternionTest, Subtraction)
     auto expected = Quaternion { -4.0f, 4.0f, 4.0f, -4.0f };
     auto actual   = a - b;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Quaternion, float)
@@ -235,7 +236,7 @@ TEST_F(QuaternionTest, Multiply)
     auto   expected = Quaternion { 0.5f, 1.0f, 1.5f, 2.0f };
     auto   actual   = a * factor;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Quaternion, Quaternion)
@@ -247,7 +248,7 @@ TEST_F(QuaternionTest, Multiply1)
     auto expected = Quaternion { 24.0f, 48.0f, 48.0f, -6.0f };
     auto actual   = a * b;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator / (Quaternion, Quaternion)
@@ -259,7 +260,7 @@ TEST_F(QuaternionTest, Division)
     auto expected = Quaternion { -0.045977015f, -0.09195402f, -7.450581E-9f, 0.402298868f };
     auto actual   = a / b;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator + (Quaternion, Quaternion)
@@ -271,7 +272,7 @@ TEST_F(QuaternionTest, Addition)
     auto expected = Quaternion { 6.0f, 8.0f, 10.0f, 12.0f };
     auto actual   = a + b;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Quaternion (float, float, float, float)
@@ -315,7 +316,7 @@ TEST_F(QuaternionTest, CreateFromAxisAngle)
     auto   expected = Quaternion(0.0691723f, 0.1383446f, 0.207516879f, 0.9659258f);
     auto   actual   = Quaternion::CreateFromAxisAngle(axis, angle);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
@@ -331,7 +332,7 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
     EXPECT_TRUE(0.0f == actual.X());
     EXPECT_TRUE(0.0f == actual.Y());
     EXPECT_TRUE(0.0f == actual.Z());
-    EXPECT_TRUE(cos  == actual.W());
+    EXPECT_TRUE(EqualityHelper::Equal(cos, actual.W()));
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
@@ -344,7 +345,7 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
     auto   actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
     auto   actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
 
-    EXPECT_TRUE(actual1 == actual2);
+    EXPECT_TRUE(EqualityHelper::Equal(actual1, actual2));
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
@@ -360,7 +361,7 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
     actual1.X(-actual1.X());
     actual1.W(-actual1.W());
 
-    EXPECT_TRUE(actual1 == actual2);
+    EXPECT_TRUE(EqualityHelper::Equal(actual1, actual2));
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
@@ -377,7 +378,7 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll)
     auto expected = yaw * pitch * roll;
     auto actual   = Quaternion::CreateFromYawPitchRoll(yawAngle, pitchAngle, rollAngle);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // Covers more numeric rigions
@@ -403,7 +404,7 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
                 auto expected = yaw * pitch * roll;
                 auto actual   = Quaternion::CreateFromYawPitchRoll(yawRad, pitchRad, rollRad);
 
-                EXPECT_TRUE(expected == actual);
+                EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
         }
     }
@@ -422,13 +423,13 @@ TEST_F(QuaternionTest, Slerp)
     auto expected = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(20.0f));
     auto actual   = Quaternion::Slerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // Case a and b are same.
     expected = a;
     actual   = Quaternion::Slerp(a, a, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Slerp (Quaternion, Quaternion, float)
@@ -442,10 +443,10 @@ TEST_F(QuaternionTest, SlerpWithInterpolateZero)
 
     Single t = 0.0f;
 
-    Quaternion expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
-    Quaternion actual   = Quaternion::Slerp(a, b, t);
+    auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
+    auto actual   = Quaternion::Slerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Slerp (Quaternion, Quaternion, float)
@@ -462,7 +463,7 @@ TEST_F(QuaternionTest, SlerpWithInterpolateOne)
     auto expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
     auto actual   = Quaternion::Slerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Slerp (Quaternion, Quaternion, float)
@@ -482,7 +483,7 @@ TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
     // Note that in quaternion world, Q == -Q. In the case of quaternions dot product is zero,
     // one of the quaternion will be flipped to compute the shortest distance. When t = 1, we
     // expect the result to be the same as quaternion b but flipped.
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Slerp (Quaternion, Quaternion, float)
@@ -499,7 +500,7 @@ TEST_F(QuaternionTest, SlerpWithFlippedQuaternion)
     auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
     auto actual   = Quaternion::Slerp(a, b, t);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator - (Quaternion)
@@ -510,7 +511,7 @@ TEST_F(QuaternionTest, UnaryNegation)
     auto expected = Quaternion { -1.0f, -2.0f, -3.0f, -4.0f };
     auto actual   = -a;
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Inverse (Quaternion)
@@ -521,7 +522,7 @@ TEST_F(QuaternionTest, Inverse)
     auto expected = Quaternion { -0.0287356321f, -0.03448276f, -0.0402298868f, 0.04597701f };
     auto actual   = Quaternion::Inverse(a);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Inverse (Quaternion)
@@ -545,7 +546,7 @@ TEST_F(QuaternionTest, Negate)
     auto expected = Quaternion { -1.0f, -2.0f, -3.0f, -4.0f };
     auto actual   = Quaternion::Negate(a);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator != (Quaternion, Quaternion)
@@ -600,12 +601,12 @@ TEST_F(QuaternionTest, ConvertIdentityMatrix)
     auto expected = Quaternion { 0.0f, 0.0f, 0.0f, 1.0f };
     auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-    EXPECT_TRUE(expected == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
     auto m2 = Matrix::CreateFromQuaternion(actual);
 
-    EXPECT_TRUE(matrix == m2);
+    EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
 
 // A test for CreateFromRotationMatrix (Matrix4x4)
@@ -618,12 +619,12 @@ TEST_F(QuaternionTest, ConvertXAxisRotationMatrix)
         auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
         auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-        EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+        EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
         auto m2 = Matrix::CreateFromQuaternion(actual);
 
-        EXPECT_TRUE(matrix == m2);
+        EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
 }
 
@@ -637,12 +638,12 @@ TEST_F(QuaternionTest, ConvertYAxisRotationMatrix)
         auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
         auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-        EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+        EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
         auto m2 = Matrix::CreateFromQuaternion(actual);
 
-        EXPECT_TRUE(matrix == m2);
+        EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
 }
 
@@ -656,12 +657,12 @@ TEST_F(QuaternionTest, ConvertZAxisRotationMatrix)
         auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle);
         auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-        EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+        EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
         auto m2 = Matrix::CreateFromQuaternion(actual);
 
-        EXPECT_TRUE(matrix == m2);
+        EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
 }
 
@@ -681,12 +682,12 @@ TEST_F(QuaternionTest, ConvertXYZAxisRotationMatrix)
 
         auto actual = Quaternion::CreateFromRotationMatrix(matrix);
 
-        EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+        EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
         auto m2 = Matrix::CreateFromQuaternion(actual);
 
-        EXPECT_TRUE(matrix == m2);
+        EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
 }
 
@@ -702,12 +703,12 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
                   * Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
     auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-    EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+    EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
     auto m2 = Matrix::CreateFromQuaternion(actual);
 
-    EXPECT_TRUE(matrix == m2);
+    EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
 
 // A test for CreateFromRotationMatrix (Matrix4x4)
@@ -722,12 +723,12 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
                   * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
     auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-    EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+    EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
     auto m2 = Matrix::CreateFromQuaternion(actual);
 
-    EXPECT_TRUE(matrix == m2);
+    EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
 
 // A test for CreateFromRotationMatrix (Matrix4x4)
@@ -742,12 +743,12 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnZAxis)
                   * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
     auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
 
-    EXPECT_TRUE(Quaternion::EqualRotation(expected, actual));
+    EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
     auto m2 = Matrix::CreateFromQuaternion(actual);
 
-    EXPECT_TRUE(matrix == m2);
+    EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
 
 // A test for Identity
@@ -756,7 +757,7 @@ TEST_F(QuaternionTest, Identity)
 {
     auto actual = Quaternion { 0.0f, 0.0f, 0.0f, 1.0f };
 
-    EXPECT_TRUE(Quaternion::Identity == actual);
+    EXPECT_TRUE(EqualityHelper::Equal(Quaternion::Identity, actual));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite

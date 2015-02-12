@@ -64,8 +64,6 @@ namespace SceneR
              */
             static System::Single DotProduct(const Quaternion& quaternion1, const Quaternion& quaternion2);
 
-            static bool EqualRotation(const Quaternion& a, const Quaternion& b);
-
             /**
              * Calculates the invers of the specified quaternion.
              */

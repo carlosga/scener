@@ -62,12 +62,6 @@ System::Single Quaternion::DotProduct(const Quaternion& quaternion1, const Quate
     return quaternion1.DotProduct(quaternion2);
 }
 
-bool Quaternion::EqualRotation(const Quaternion& a, const Quaternion& b)
-{
-    return ((a == b) || (a == -b));
-}
-
-
 Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 {
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
@@ -442,13 +436,18 @@ const Quaternion Quaternion::operator*(const Single& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Quaternion& quaternion) const
+const Quaternion Quaternion::operator/(const Quaternion& r) const
 {
-    auto result = *this;
+    // http://es.mathworks.com/help/aeroblks/quaterniondivision.html
+    auto q              = *this;
+    auto lengthSuquared = r.LengthSquared();
 
-    result /= quaternion;
+    auto x = (r.x * q.x + r.y * q.y + r.z * q.z + r.w * q.w) / lengthSuquared;
+    auto y = (r.x * q.y - r.y * q.x - r.z * q.w + r.w * q.z) / lengthSuquared;
+    auto z = (r.x * q.z + r.y * q.w - r.z * q.x - r.w * q.y) / lengthSuquared;
+    auto w = (r.x * q.w - r.y * q.z + r.z * q.y - r.w * q.x) / lengthSuquared;
 
-    return result;
+    return Quaternion::Conjugate({ w, z, y, x });
 }
 
 const Quaternion Quaternion::operator/(const Single& value) const

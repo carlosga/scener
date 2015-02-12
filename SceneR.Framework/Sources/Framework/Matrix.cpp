@@ -290,6 +290,13 @@ Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, cons
            , position.X(), position.Y(), position.Z(), 1.0f };
 }
 
+bool Matrix::Decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation)
+{
+    auto result = Matrix { matrix };
+
+    return result.Decompose(scale, rotation, translation);
+}
+
 Matrix Matrix::Invert(const Matrix& matrix)
 {
     auto result = Matrix(matrix);
@@ -527,14 +534,12 @@ bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translatio
 Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-
-	UInt32 n      = 0;
 	Int32  i      = 1;
     Single result = 0;
     Single det    = 0;
     Matrix msub;
 
-    for (; n < 4; n++, i *= -1)
+    for (UInt32 n = 0; n < 4; n++, i *= -1)
     {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();
