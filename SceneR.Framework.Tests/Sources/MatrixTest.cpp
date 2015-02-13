@@ -741,7 +741,7 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
-TEST_F(MatrixTest, CreateFromYawPitchRoll1)
+TEST_F(MatrixTest, CreateFromYawPitchRoll)
 {
     Single yawAngle   = MathHelper::ToRadians(30.0f);
     Single pitchAngle = MathHelper::ToRadians(40.0f);
@@ -756,362 +756,213 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll1)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-/*
 // Covers more numeric rigions
-[Fact]
-public void Matrix4x4CreateFromYawPitchRollTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromYawPitchRoll2)
 {
-    const float step = 35.0f;
+    const Single step = 35.0f;
 
-    for (float yawAngle = -720.0f; yawAngle <= 720.0f; yawAngle += step)
+    for (Single yawAngle = -720.0f; yawAngle <= 720.0f; yawAngle += step)
     {
-        for (float pitchAngle = -720.0f; pitchAngle <= 720.0f; pitchAngle += step)
+        for (Single pitchAngle = -720.0f; pitchAngle <= 720.0f; pitchAngle += step)
         {
-            for (float rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
+            for (Single rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
             {
-                float yawRad = MathHelper.ToRadians(yawAngle);
-                float pitchRad = MathHelper.ToRadians(pitchAngle);
-                float rollRad = MathHelper.ToRadians(rollAngle);
-                Matrix4x4 yaw = Matrix4x4.CreateFromAxisAngle(Vector3.UnitY, yawRad);
-                Matrix4x4 pitch = Matrix4x4.CreateFromAxisAngle(Vector3.UnitX, pitchRad);
-                Matrix4x4 roll = Matrix4x4.CreateFromAxisAngle(Vector3.UnitZ, rollRad);
+                Single yawRad   = MathHelper::ToRadians(yawAngle);
+                Single pitchRad = MathHelper::ToRadians(pitchAngle);
+                Single rollRad  = MathHelper::ToRadians(rollAngle);
 
-                Matrix4x4 expected = roll * pitch * yaw;
-                Matrix4x4 actual = Matrix4x4.CreateFromYawPitchRoll(yawRad, pitchRad, rollRad);
-                Assert.True(MathHelper.Equal(expected, actual), String.Format("Yaw:{0} Pitch:{1} Roll:{2}", yawAngle, pitchAngle, rollAngle));
+                auto yaw   = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawRad);
+                auto pitch = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
+                auto roll  = Matrix::CreateFromAxisAngle(Vector3::UnitZ, rollRad);
+
+                auto expected = roll * pitch * yaw;
+                auto actual   = Matrix::CreateFromYawPitchRoll(yawRad, pitchRad, rollRad);
+
+                EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
-        }
-    }
-}
-
-// Simple shadow test.
-[Fact]
-public void Matrix4x4CreateShadowTest01()
-{
-    Vector3 lightDir = Vector3.UnitY;
-    Plane plane = new Plane(Vector3.UnitY, 0);
-
-    Matrix4x4 expected = Matrix4x4.CreateScale(1, 0, 1);
-
-    Matrix4x4 actual = Matrix4x4.CreateShadow(lightDir, plane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateShadow did not returned expected value.");
-}
-
-// Various plane projections.
-[Fact]
-public void Matrix4x4CreateShadowTest02()
-{
-    // Complex cases.
-    Plane[] planes = {
-        new Plane( 0, 1, 0, 0 ),
-        new Plane( 1, 2, 3, 4 ),
-        new Plane( 5, 6, 7, 8 ),
-        new Plane(-1,-2,-3,-4 ),
-        new Plane(-5,-6,-7,-8 ),
-    };
-
-    Vector3[] points = {
-        new Vector3( 1, 2, 3),
-        new Vector3( 5, 6, 7),
-        new Vector3( 8, 9, 10),
-        new Vector3(-1,-2,-3),
-        new Vector3(-5,-6,-7),
-        new Vector3(-8,-9,-10),
-    };
-
-    foreach (Plane p in planes)
-    {
-        Plane plane = Plane.Normalize(p);
-
-        // Try various direction of light directions.
-        var testDirections = new Vector3[]
-            {
-                new Vector3( -1.0f, 1.0f, 1.0f ),
-                new Vector3(  0.0f, 1.0f, 1.0f ),
-                new Vector3(  1.0f, 1.0f, 1.0f ),
-                new Vector3( -1.0f, 0.0f, 1.0f ),
-                new Vector3(  0.0f, 0.0f, 1.0f ),
-                new Vector3(  1.0f, 0.0f, 1.0f ),
-                new Vector3( -1.0f,-1.0f, 1.0f ),
-                new Vector3(  0.0f,-1.0f, 1.0f ),
-                new Vector3(  1.0f,-1.0f, 1.0f ),
-
-                new Vector3( -1.0f, 1.0f, 0.0f ),
-                new Vector3(  0.0f, 1.0f, 0.0f ),
-                new Vector3(  1.0f, 1.0f, 0.0f ),
-                new Vector3( -1.0f, 0.0f, 0.0f ),
-                new Vector3(  0.0f, 0.0f, 0.0f ),
-                new Vector3(  1.0f, 0.0f, 0.0f ),
-                new Vector3( -1.0f,-1.0f, 0.0f ),
-                new Vector3(  0.0f,-1.0f, 0.0f ),
-                new Vector3(  1.0f,-1.0f, 0.0f ),
-
-                new Vector3( -1.0f, 1.0f,-1.0f ),
-                new Vector3(  0.0f, 1.0f,-1.0f ),
-                new Vector3(  1.0f, 1.0f,-1.0f ),
-                new Vector3( -1.0f, 0.0f,-1.0f ),
-                new Vector3(  0.0f, 0.0f,-1.0f ),
-                new Vector3(  1.0f, 0.0f,-1.0f ),
-                new Vector3( -1.0f,-1.0f,-1.0f ),
-                new Vector3(  0.0f,-1.0f,-1.0f ),
-                new Vector3(  1.0f,-1.0f,-1.0f ),
-            };
-
-        foreach (Vector3 lightDirInfo in testDirections)
-        {
-            if (lightDirInfo.Length() < 0.1f)
-                continue;
-            Vector3 lightDir = Vector3.Normalize(lightDirInfo);
-
-            if (Plane.DotNormal(plane, lightDir) < 0.1f)
-                continue;
-
-            Matrix4x4 m = Matrix4x4.CreateShadow(lightDir, plane);
-            Vector3 pp = -plane.D * plane.Normal; // origin of the plane.
-
-            //
-            foreach (Vector3 point in points)
-            {
-                Vector4 v4 = Vector4.Transform(point, m);
-
-                Vector3 sp = new Vector3(v4.X, v4.Y, v4.Z) / v4.W;
-
-                // Make sure transformed position is on the plane.
-                Vector3 v = sp - pp;
-                float d = Vector3.Dot(v, plane.Normal);
-                Assert.True(MathHelper.Equal(d, 0), "Matrix4x4.CreateShadow did not provide expected value.");
-
-                // make sure direction between transformed position and original position are same as light direction.
-                if (Vector3.Dot(point - pp, plane.Normal) > 0.0001f)
-                {
-                    Vector3 dir = Vector3.Normalize(point - sp);
-                    Assert.True(MathHelper.Equal(dir, lightDir), "Matrix4x4.CreateShadow did not provide expected value.");
-                }
-            }
-        }
-    }
-}
-
-void CreateReflectionTest(Plane plane, Matrix4x4 expected)
-{
-    Matrix4x4 actual = Matrix4x4.CreateReflection(plane);
-    Assert.True(MathHelper.Equal(actual, expected), "Matrix4x4.CreateReflection did not return expected value.");
-}
-
-[Fact]
-public void Matrix4x4CreateReflectionTest01()
-{
-    // XY plane.
-    CreateReflectionTest(new Plane(Vector3.UnitZ, 0), Matrix4x4.CreateScale(1, 1, -1));
-    // XZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitY, 0), Matrix4x4.CreateScale(1, -1, 1));
-    // YZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitX, 0), Matrix4x4.CreateScale(-1, 1, 1));
-
-    // Complex cases.
-    Plane[] planes = {
-        new Plane( 0, 1, 0, 0 ),
-        new Plane( 1, 2, 3, 4 ),
-        new Plane( 5, 6, 7, 8 ),
-        new Plane(-1,-2,-3,-4 ),
-        new Plane(-5,-6,-7,-8 ),
-    };
-
-    Vector3[] points = {
-        new Vector3( 1, 2, 3),
-        new Vector3( 5, 6, 7),
-        new Vector3(-1,-2,-3),
-        new Vector3(-5,-6,-7),
-    };
-
-    foreach (Plane p in planes)
-    {
-        Plane plane = Plane.Normalize(p);
-        Matrix4x4 m = Matrix4x4.CreateReflection(plane);
-        Vector3 pp = -plane.D * plane.Normal; // Position on the plane.
-
-        //
-        foreach (Vector3 point in points)
-        {
-            Vector3 rp = Vector3.Transform(point, m);
-
-            // Maniually compute refelction point and compare results.
-            Vector3 v = point - pp;
-            float d = Vector3.Dot(v, plane.Normal);
-            Vector3 vp = point - 2.0f * d * plane.Normal;
-            Assert.True(MathHelper.Equal(rp, vp), "Matrix4x4.Reflection did not provide expected value.");
         }
     }
 }
 
 // A test for CreateRotationZ (float)
-[Fact]
-public void Matrix4x4CreateRotationZTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationZ)
 {
-    float radians = MathHelper.ToRadians(50.0f);
+    Single radians = MathHelper::ToRadians(50.0f);
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.642787635f;
-    expected.M12 = 0.766044438f;
-    expected.M21 = -0.766044438f;
-    expected.M22 = 0.642787635f;
-    expected.M33 = 1.0f;
-    expected.M44 = 1.0f;
+    Matrix expected;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreateRotationZ(radians);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateRotationZ did not return the expected value.");
+    expected.M11(0.642787635f);
+    expected.M12(0.766044438f);
+    expected.M21(-0.766044438f);
+    expected.M22(0.642787635f);
+    expected.M33(1.0f);
+    expected.M44(1.0f);
+
+    auto actual = Matrix::CreateRotationZ(radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateRotationZ (float, Vector3f)
-[Fact]
-public void Matrix4x4CreateRotationZCenterTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationZCenter)
 {
-    float radians = MathHelper.ToRadians(30.0f);
-    Vector3 center = new Vector3(23, 42, 66);
-
-    Matrix4x4 rotateAroundZero = Matrix4x4.CreateRotationZ(radians, Vector3.Zero);
-    Matrix4x4 rotateAroundZeroExpected = Matrix4x4.CreateRotationZ(radians);
-    Assert.True(MathHelper.Equal(rotateAroundZero, rotateAroundZeroExpected));
-
-    Matrix4x4 rotateAroundCenter = Matrix4x4.CreateRotationZ(radians, center);
-    Matrix4x4 rotateAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateRotationZ(radians) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(rotateAroundCenter, rotateAroundCenterExpected));
+//    float radians = MathHelper.ToRadians(30.0f);
+//    Vector3 center = new Vector3(23, 42, 66);
+//
+//    Matrix4x4 rotateAroundZero = Matrix4x4.CreateRotationZ(radians, Vector3.Zero);
+//    Matrix4x4 rotateAroundZeroExpected = Matrix4x4.CreateRotationZ(radians);
+//    Assert.True(MathHelper.Equal(rotateAroundZero, rotateAroundZeroExpected));
+//
+//    Matrix4x4 rotateAroundCenter = Matrix4x4.CreateRotationZ(radians, center);
+//    Matrix4x4 rotateAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateRotationZ(radians) * Matrix4x4.CreateTranslation(center);
+//    Assert.True(MathHelper.Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CrateLookAt (Vector3f, Vector3f, Vector3f)
-[Fact]
-public void Matrix4x4CreateLookAtTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateLookAt2)
 {
-    Vector3 cameraPosition = new Vector3(10.0f, 20.0f, 30.0f);
-    Vector3 cameraTarget = new Vector3(3.0f, 2.0f, -4.0f);
-    Vector3 cameraUpVector = new Vector3(0.0f, 1.0f, 0.0f);
+    auto cameraPosition = Vector3 { 10.0f, 20.0f, 30.0f };
+    auto cameraTarget   = Vector3 { 3.0f, 2.0f, -4.0f };
+    auto cameraUpVector = Vector3 { 0.0f, 1.0f, 0.0f };
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.979457f;
-    expected.M12 = -0.0928267762f;
-    expected.M13 = 0.179017f;
+    Matrix expected;
 
-    expected.M21 = 0.0f;
-    expected.M22 = 0.8877481f;
-    expected.M23 = 0.460329473f;
+    expected.M11(0.979457f);
+    expected.M12(-0.0928267762f);
+    expected.M13(0.179017f);
 
-    expected.M31 = -0.201652914f;
-    expected.M32 = -0.450872928f;
-    expected.M33 = 0.8695112f;
+    expected.M21(0.0f);
+    expected.M22(0.8877481f);
+    expected.M23(0.460329473f);
 
-    expected.M41 = -3.74498272f;
-    expected.M42 = -3.30050683f;
-    expected.M43 = -37.0820961f;
-    expected.M44 = 1.0f;
+    expected.M31(-0.201652914f);
+    expected.M32(-0.450872928f);
+    expected.M33(0.8695112f);
 
-    Matrix4x4 actual = Matrix4x4.CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateLookAt did not return the expected value.");
+    expected.M41(-3.74498272f);
+    expected.M42(-3.30050683f);
+    expected.M43(-37.0820961f);
+    expected.M44(1.0f);
+
+    auto actual = Matrix::CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateWorld (Vector3f, Vector3f, Vector3f)
-[Fact]
-public void Matrix4x4CreateWorldTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateWorld)
 {
-    Vector3 objectPosition = new Vector3(10.0f, 20.0f, 30.0f);
-    Vector3 objectForwardDirection = new Vector3(3.0f, 2.0f, -4.0f);
-    Vector3 objectUpVector = new Vector3(0.0f, 1.0f, 0.0f);
+    auto objectPosition         = Vector3 { 10.0f, 20.0f, 30.0f };
+    auto objectForwardDirection = Vector3 { 3.0f, 2.0f, -4.0f };
+    auto objectUpVector         = Vector3 { 0.0f, 1.0f, 0.0f };
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.799999952f;
-    expected.M12 = 0;
-    expected.M13 = 0.599999964f;
-    expected.M14 = 0;
+    Matrix expected;
 
-    expected.M21 = -0.2228344f;
-    expected.M22 = 0.928476632f;
-    expected.M23 = 0.297112525f;
-    expected.M24 = 0;
+    expected.M11(0.799999952f);
+    expected.M12(0);
+    expected.M13(0.599999964f);
+    expected.M14(0);
 
-    expected.M31 = -0.557086f;
-    expected.M32 = -0.371390671f;
-    expected.M33 = 0.742781341f;
-    expected.M34 = 0;
+    expected.M21(-0.2228344f);
+    expected.M22(0.928476632f);
+    expected.M23(0.297112525f);
+    expected.M24(0);
 
-    expected.M41 = 10;
-    expected.M42 = 20;
-    expected.M43 = 30;
-    expected.M44 = 1.0f;
+    expected.M31(-0.557086f);
+    expected.M32(-0.371390671f);
+    expected.M33(0.742781341f);
+    expected.M34(0);
 
-    Matrix4x4 actual = Matrix4x4.CreateWorld(objectPosition, objectForwardDirection, objectUpVector);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateWorld did not return the expected value.");
+    expected.M41(10);
+    expected.M42(20);
+    expected.M43(30);
+    expected.M44(1.0f);
 
-    Assert.Equal(objectPosition, actual.Translation);
-    Assert.True(Vector3.Dot(Vector3.Normalize(objectUpVector), new Vector3(actual.M21, actual.M22, actual.M23)) > 0);
-    Assert.True(Vector3.Dot(Vector3.Normalize(objectForwardDirection), new Vector3(-actual.M31, -actual.M32, -actual.M33)) > 0.999f);
+    auto actual = Matrix::CreateWorld(objectPosition, objectForwardDirection, objectUpVector);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    //EXPECT_TRUE(objectPosition, actual.Translation);
+    EXPECT_TRUE(Vector3::DotProduct(Vector3::Normalize(objectUpVector), Vector3(actual.M21(), actual.M22(), actual.M23())) > 0);
+    EXPECT_TRUE(Vector3::DotProduct(Vector3::Normalize(objectForwardDirection), Vector3(-actual.M31(), -actual.M32(), -actual.M33())) > 0.999f);
 }
 
 // A test for CreateOrtho (float, float, float, float)
-[Fact]
-public void Matrix4x4CreateOrthoTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateOrtho)
 {
-    float width = 100.0f;
-    float height = 200.0f;
-    float zNearPlane = 1.5f;
-    float zFarPlane = 1000.0f;
+    Single width      = 100.0f;
+    Single height     = 200.0f;
+    Single zNearPlane = 1.5f;
+    Single zFarPlane  = 1000.0f;
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.02f;
-    expected.M22 = 0.01f;
-    expected.M33 = -0.00100150227f;
-    expected.M43 = -0.00150225335f;
-    expected.M44 = 1.0f;
+    Matrix expected;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreateOrthographic(width, height, zNearPlane, zFarPlane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateOrtho did not return the expected value.");
+    expected.M11(0.02f);
+    expected.M22(0.01f);
+    expected.M33(-0.00100150227f);
+    expected.M43(-0.00150225335f);
+    expected.M44(1.0f);
+
+    auto actual = Matrix::CreateOrthographic(width, height, zNearPlane, zFarPlane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateOrthoOffCenter (float, float, float, float, float, float)
-[Fact]
-public void Matrix4x4CreateOrthoOffCenterTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateOrthoOffCenter)
 {
-    float left = 10.0f;
-    float right = 90.0f;
-    float bottom = 20.0f;
-    float top = 180.0f;
-    float zNearPlane = 1.5f;
-    float zFarPlane = 1000.0f;
+    Single left       = 10.0f;
+    Single right      = 90.0f;
+    Single bottom     = 20.0f;
+    Single top        = 180.0f;
+    Single zNearPlane = 1.5f;
+    Single zFarPlane  = 1000.0f;
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.025f;
-    expected.M22 = 0.0125f;
-    expected.M33 = -0.00100150227f;
-    expected.M41 = -1.25f;
-    expected.M42 = -1.25f;
-    expected.M43 = -0.00150225335f;
-    expected.M44 = 1.0f;
+    Matrix expected;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateOrthoOffCenter did not return the expected value.");
+    expected.M11(0.025f);
+    expected.M22(0.0125f);
+    expected.M33(-0.00100150227f);
+    expected.M41(-1.25f);
+    expected.M42(-1.25f);
+    expected.M43(-0.00150225335f);
+    expected.M44(1.0f);
+
+    auto actual = Matrix::CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreatePerspective (float, float, float, float)
-[Fact]
-public void Matrix4x4CreatePerspectiveTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspective)
 {
-    float width = 100.0f;
-    float height = 200.0f;
-    float zNearPlane = 1.5f;
-    float zFarPlane = 1000.0f;
+    Single width      = 100.0f;
+    Single height     = 200.0f;
+    Single zNearPlane = 1.5f;
+    Single zFarPlane  = 1000.0f;
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.03f;
-    expected.M22 = 0.015f;
-    expected.M33 = -1.00150228f;
-    expected.M34 = -1.0f;
-    expected.M43 = -1.50225341f;
+    Matrix expected;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreatePerspective(width, height, zNearPlane, zFarPlane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreatePerspective did not return the expected value.");
+    expected.M11(0.03f);
+    expected.M22(0.015f);
+    expected.M33(-1.00150228f);
+    expected.M34(-1.0f);
+    expected.M43(-1.50225341f);
+
+    auto actual = Matrix::CreatePerspective(width, height, zNearPlane, zFarPlane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
+
+/*
 
 // A test for CreatePerspective (float, float, float, float)
 // CreatePerspective test where znear = zfar
@@ -2726,5 +2577,164 @@ public unsafe void Matrix4x4FieldOffsetTest()
     Assert.Equal(new IntPtr(52), new IntPtr(&ptr->M42));
     Assert.Equal(new IntPtr(56), new IntPtr(&ptr->M43));
     Assert.Equal(new IntPtr(60), new IntPtr(&ptr->M44));
+}
+// Simple shadow test.
+[Fact]
+public void Matrix4x4CreateShadowTest01()
+{
+    Vector3 lightDir = Vector3.UnitY;
+    Plane plane = new Plane(Vector3.UnitY, 0);
+
+    Matrix4x4 expected = Matrix4x4.CreateScale(1, 0, 1);
+
+    Matrix4x4 actual = Matrix4x4.CreateShadow(lightDir, plane);
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateShadow did not returned expected value.");
+}
+
+// Various plane projections.
+[Fact]
+public void Matrix4x4CreateShadowTest02()
+{
+    // Complex cases.
+    Plane[] planes = {
+        new Plane( 0, 1, 0, 0 ),
+        new Plane( 1, 2, 3, 4 ),
+        new Plane( 5, 6, 7, 8 ),
+        new Plane(-1,-2,-3,-4 ),
+        new Plane(-5,-6,-7,-8 ),
+    };
+
+    Vector3[] points = {
+        new Vector3( 1, 2, 3),
+        new Vector3( 5, 6, 7),
+        new Vector3( 8, 9, 10),
+        new Vector3(-1,-2,-3),
+        new Vector3(-5,-6,-7),
+        new Vector3(-8,-9,-10),
+    };
+
+    foreach (Plane p in planes)
+    {
+        Plane plane = Plane.Normalize(p);
+
+        // Try various direction of light directions.
+        var testDirections = new Vector3[]
+            {
+                new Vector3( -1.0f, 1.0f, 1.0f ),
+                new Vector3(  0.0f, 1.0f, 1.0f ),
+                new Vector3(  1.0f, 1.0f, 1.0f ),
+                new Vector3( -1.0f, 0.0f, 1.0f ),
+                new Vector3(  0.0f, 0.0f, 1.0f ),
+                new Vector3(  1.0f, 0.0f, 1.0f ),
+                new Vector3( -1.0f,-1.0f, 1.0f ),
+                new Vector3(  0.0f,-1.0f, 1.0f ),
+                new Vector3(  1.0f,-1.0f, 1.0f ),
+
+                new Vector3( -1.0f, 1.0f, 0.0f ),
+                new Vector3(  0.0f, 1.0f, 0.0f ),
+                new Vector3(  1.0f, 1.0f, 0.0f ),
+                new Vector3( -1.0f, 0.0f, 0.0f ),
+                new Vector3(  0.0f, 0.0f, 0.0f ),
+                new Vector3(  1.0f, 0.0f, 0.0f ),
+                new Vector3( -1.0f,-1.0f, 0.0f ),
+                new Vector3(  0.0f,-1.0f, 0.0f ),
+                new Vector3(  1.0f,-1.0f, 0.0f ),
+
+                new Vector3( -1.0f, 1.0f,-1.0f ),
+                new Vector3(  0.0f, 1.0f,-1.0f ),
+                new Vector3(  1.0f, 1.0f,-1.0f ),
+                new Vector3( -1.0f, 0.0f,-1.0f ),
+                new Vector3(  0.0f, 0.0f,-1.0f ),
+                new Vector3(  1.0f, 0.0f,-1.0f ),
+                new Vector3( -1.0f,-1.0f,-1.0f ),
+                new Vector3(  0.0f,-1.0f,-1.0f ),
+                new Vector3(  1.0f,-1.0f,-1.0f ),
+            };
+
+        foreach (Vector3 lightDirInfo in testDirections)
+        {
+            if (lightDirInfo.Length() < 0.1f)
+                continue;
+            Vector3 lightDir = Vector3.Normalize(lightDirInfo);
+
+            if (Plane.DotNormal(plane, lightDir) < 0.1f)
+                continue;
+
+            Matrix4x4 m = Matrix4x4.CreateShadow(lightDir, plane);
+            Vector3 pp = -plane.D * plane.Normal; // origin of the plane.
+
+            //
+            foreach (Vector3 point in points)
+            {
+                Vector4 v4 = Vector4.Transform(point, m);
+
+                Vector3 sp = new Vector3(v4.X, v4.Y, v4.Z) / v4.W;
+
+                // Make sure transformed position is on the plane.
+                Vector3 v = sp - pp;
+                float d = Vector3.Dot(v, plane.Normal);
+                Assert.True(MathHelper.Equal(d, 0), "Matrix4x4.CreateShadow did not provide expected value.");
+
+                // make sure direction between transformed position and original position are same as light direction.
+                if (Vector3.Dot(point - pp, plane.Normal) > 0.0001f)
+                {
+                    Vector3 dir = Vector3.Normalize(point - sp);
+                    Assert.True(MathHelper.Equal(dir, lightDir), "Matrix4x4.CreateShadow did not provide expected value.");
+                }
+            }
+        }
+    }
+}
+
+void CreateReflectionTest(Plane plane, Matrix4x4 expected)
+{
+    Matrix4x4 actual = Matrix4x4.CreateReflection(plane);
+    Assert.True(MathHelper.Equal(actual, expected), "Matrix4x4.CreateReflection did not return expected value.");
+}
+
+[Fact]
+public void Matrix4x4CreateReflectionTest01()
+{
+    // XY plane.
+    CreateReflectionTest(new Plane(Vector3.UnitZ, 0), Matrix4x4.CreateScale(1, 1, -1));
+    // XZ plane.
+    CreateReflectionTest(new Plane(Vector3.UnitY, 0), Matrix4x4.CreateScale(1, -1, 1));
+    // YZ plane.
+    CreateReflectionTest(new Plane(Vector3.UnitX, 0), Matrix4x4.CreateScale(-1, 1, 1));
+
+    // Complex cases.
+    Plane[] planes = {
+        new Plane( 0, 1, 0, 0 ),
+        new Plane( 1, 2, 3, 4 ),
+        new Plane( 5, 6, 7, 8 ),
+        new Plane(-1,-2,-3,-4 ),
+        new Plane(-5,-6,-7,-8 ),
+    };
+
+    Vector3[] points = {
+        new Vector3( 1, 2, 3),
+        new Vector3( 5, 6, 7),
+        new Vector3(-1,-2,-3),
+        new Vector3(-5,-6,-7),
+    };
+
+    foreach (Plane p in planes)
+    {
+        Plane plane = Plane.Normalize(p);
+        Matrix4x4 m = Matrix4x4.CreateReflection(plane);
+        Vector3 pp = -plane.D * plane.Normal; // Position on the plane.
+
+        //
+        foreach (Vector3 point in points)
+        {
+            Vector3 rp = Vector3.Transform(point, m);
+
+            // Maniually compute refelction point and compare results.
+            Vector3 v = point - pp;
+            float d = Vector3.Dot(v, plane.Normal);
+            Vector3 vp = point - 2.0f * d * plane.Normal;
+            Assert.True(MathHelper.Equal(rp, vp), "Matrix4x4.Reflection did not provide expected value.");
+        }
+    }
 }
 */
