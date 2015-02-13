@@ -21,25 +21,32 @@ const Matrix& Matrix::Identity { 1.0f, 0.0f, 0.0f, 0.0f
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
-    // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
+    // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto   naxis = Vector3::Normalize(axis);
-    Single cos   = std::cos(angle) - 1.0f + 1.0f;
+    Single cos   = std::cos(angle);
     Single sin   = std::sin(angle);
     Single cos_1 = 1.0f - cos;
     Single x     = naxis.X();
     Single y     = naxis.Y();
     Single z     = naxis.Z();
+    Single xx    = x * x;
+    Single yy    = y * y;
+    Single zz    = z * z;
+    Single xy    = x * y;
+    Single yz    = y * z;
+    Single xz    = x * z;
 
-    return { cos + x * x * cos_1    , x * y * cos_1 - z * sin, x * z * cos_1 + y * sin, 0.0f
-           , y * x * cos_1 + z * sin, cos + y * y * cos_1    , y * z * cos_1 - x * sin, 0.0f
-           , z * x * cos_1 - y * sin, z * y * cos_1 + x * sin, cos + z * z * cos_1    , 0.0f
-           , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
+    return { cos + xx * cos_1     , z * sin + xy * cos_1 , -y * sin + xz * cos_1, 0.0f
+           , xy * cos_1 - z * sin , cos + yy * cos_1     , x * sin + yz * cos_1 , 0.0f
+           , y * sin + xz * cos_1 , -x * sin + yz * cos_1, cos + zz * cos_1     , 0.0f
+           , 0.0f                 , 0.0f                 , 0.0f                 , 1.0f };
 }
 
 Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     //            http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+    //
     // 1 - 2yy - 2zz    2xy - 2zw       2xz + 2yw
     // 2xy + 2zw        1 - 2xx - 2zz   2yz - 2xw
     // 2xz - 2yw        2yz + 2xw       1 - 2xx - 2yy
@@ -54,26 +61,17 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
     Single yz = quaternion.Y() * quaternion.Z();
     Single xw = quaternion.X() * quaternion.W();
 
-    return { 1.0f - 2.0f * (yy + zz), 2.0f * (xy - zw)       , 2.0f * (xz + yw)       , 0.0f
-           , 2.0f * (xy + zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz - xw)       , 0.0f
-           , 2.0f * (xz - yw)       , 2.0f * (yz + xw)       , 1.0f - 2.0f * (xx + yy), 0.0f
+    return { 1.0f - 2.0f * (yy + zz), 2.0f * (xy + zw)       , 2.0f * (xz - yw)       , 0.0f
+           , 2.0f * (xy - zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz + xw)       , 0.0f
+           , 2.0f * (xz + yw)       , 2.0f * (yz - xw)       , 1.0f - 2.0f * (xx + yy), 0.0f
            , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
 }
 
 Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
 {
-    // Reference: http://www.euclideanspace.com/maths/geometry/rotations/conversions/eulerToMatrix/index.htm
-    Single ch = std::cos(yaw)   - 1 + 1;
-    Single sh = std::sin(yaw)   - 1 + 1;
-    Single ca = std::cos(pitch) - 1 + 1;
-    Single sa = std::sin(pitch) - 1 + 1;
-    Single sb = std::sin(roll)  - 1 + 1;
-    Single cb = std::cos(roll)  - 1 + 1;
-
-    return { ch * ca , - ch * sa * cb + sh * sb, ch * sa * sb + sh * cb , 0.0f
-           , sa      , ca * cb                 , -ca * sb               , 0.0f
-           , -sh * ca, sh * sa * cb + ch * sb  , -sh * sa * sb + ch * cb, 0.0f
-           , 0.0f    , 0.0f                    , 0.0f                   , 1.0f };
+    return Matrix::CreateFromAxisAngle(Vector3::UnitZ, roll)
+         * Matrix::CreateFromAxisAngle(Vector3::UnitX, pitch)
+         * Matrix::CreateFromAxisAngle(Vector3::UnitY, yaw);
 }
 
 Matrix Matrix::CreateFrustum(const Single& left  , const Single& right
