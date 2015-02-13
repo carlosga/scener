@@ -90,6 +90,23 @@ void MatrixTest::Decompose(const Single& yaw
     EXPECT_TRUE(EqualityHelper::Equal(expectedTranslation, translation));
 }
 
+void MatrixTest::DecomposeScale(const Single& sx, const Single& sy, const Single& sz)
+{
+    auto m              = Matrix::CreateScale(sx, sy, sz);
+    auto expectedScales = Vector3 { sx, sy, sz };
+
+    Vector3    scales;
+    Quaternion rotation;
+    Vector3    translation;
+
+    bool actualResult = Matrix::Decompose(m, scales, rotation, translation);
+
+    EXPECT_TRUE(actualResult);
+    EXPECT_TRUE(EqualityHelper::Equal(expectedScales, scales));
+    EXPECT_TRUE(EqualityHelper::EqualRotation(Quaternion::Identity, rotation));
+    EXPECT_TRUE(EqualityHelper::Equal(Vector3::Zero, translation));
+}
+
 TEST_F(MatrixTest, DefaultConstructor)
 {
     auto matrix = Matrix { };
@@ -288,27 +305,6 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
     EXPECT_TRUE(0.0f  == matrix.M42());
     EXPECT_TRUE(0.0f  == matrix.M43());
     EXPECT_TRUE(1.0f  == matrix.M44());
-}
-
-TEST_F(MatrixTest, CreateFromQuaternion)
-{
-    auto q      = Quaternion { 0.7071f, 0.0f, 0.0f, 0.7071f };
-    auto matrix = Matrix::CreateFromQuaternion(q);
-
-    EXPECT_TRUE(1.0f            == matrix.M11());
-    EXPECT_TRUE(0.0f            == matrix.M12());
-    EXPECT_TRUE(0.0f            == matrix.M13());
-    EXPECT_TRUE(0.0f            == matrix.M14());
-
-    EXPECT_TRUE(0.0f            == matrix.M21());
-    EXPECT_TRUE(1.92523003e-05f == matrix.M22());
-    EXPECT_TRUE(-0.999980748f   == matrix.M23());
-    EXPECT_TRUE(0.0f            == matrix.M24());
-
-    EXPECT_TRUE(0.0f            == matrix.M31());
-    EXPECT_TRUE(0.999980748f    == matrix.M32());
-    EXPECT_TRUE(1.92523003e-05f == matrix.M33());
-    EXPECT_TRUE(0.0f            == matrix.M34());
 }
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
@@ -697,229 +693,224 @@ TEST_F(MatrixTest, VariousScaledMatrixDecomposition)
     MatrixTest::Decompose(0, 0, 0, { 10, 20, 30 }, { 1, 1, -1 });
 }
 
-/*
-void DecomposeScaleTest(float sx, float sy, float sz)
-{
-    Matrix4x4 m = Matrix4x4.CreateScale(sx, sy, sz);
-
-    Vector3 expectedScales = new Vector3(sx, sy, sz);
-    Vector3 scales;
-    Quaternion rotation;
-    Vector3 translation;
-
-    bool actualResult = Matrix4x4.Decompose(m, out scales, out rotation, out translation);
-    Assert.True(actualResult, "Matrix4x4.Decompose did not return expected value.");
-    Assert.True(MathHelper.Equal(expectedScales, scales), "Matrix4x4.Decompose did not return expected value.");
-    Assert.True(MathHelper.EqualRotation(Quaternion.Identity, rotation), "Matrix4x4.Decompose did not return expected value.");
-    Assert.True(MathHelper.Equal(Vector3.Zero, translation), "Matrix4x4.Decompose did not return expected value.");
-}
-
 // Tiny scale decompose test.
-[Fact]
-public void Matrix4x4DecomposeTest03()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, ScaleDecompose)
 {
-    DecomposeScaleTest(1, 2e-4f, 3e-4f);
-    DecomposeScaleTest(1, 3e-4f, 2e-4f);
-    DecomposeScaleTest(2e-4f, 1, 3e-4f);
-    DecomposeScaleTest(2e-4f, 3e-4f, 1);
-    DecomposeScaleTest(3e-4f, 1, 2e-4f);
-    DecomposeScaleTest(3e-4f, 2e-4f, 1);
+    MatrixTest::DecomposeScale(1, 2e-4f, 3e-4f);
+    MatrixTest::DecomposeScale(1, 3e-4f, 2e-4f);
+    MatrixTest::DecomposeScale(2e-4f, 1, 3e-4f);
+    MatrixTest::DecomposeScale(2e-4f, 3e-4f, 1);
+    MatrixTest::DecomposeScale(3e-4f, 1, 2e-4f);
+    MatrixTest::DecomposeScale(3e-4f, 2e-4f, 1);
 }
 
-[Fact]
-public void Matrix4x4DecomposeTest04()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, ScaleDecompose1)
 {
-    Vector3 scales;
+    Vector3    scales;
     Quaternion rotation;
-    Vector3 translation;
+    Vector3    translation;
 
-    Assert.False(Matrix4x4.Decompose(GenerateMatrixNumberFrom1To16(), out scales, out rotation, out translation), "decompose should have failed.");
-    Assert.False(Matrix4x4.Decompose(new Matrix4x4(Matrix3x2.CreateSkew(1, 2)), out scales, out rotation, out translation), "decompose should have failed.");
+    EXPECT_FALSE(Matrix::Decompose(MatrixTest::GenerateMatrixNumberFrom1To16(), scales, rotation, translation));
+    //EXPECT_FALSE(Matrix::Decompose(new Matrix4x4(Matrix3x2.CreateSkew(1, 2)), out scales, out rotation, out translation));
 }
 
 // Transform by quaternion test
-[Fact]
-public void Matrix4x4TransformTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, TransformByQuaternion)
 {
-    Matrix4x4 target = GenerateMatrixNumberFrom1To16();
+    auto target = MatrixTest::GenerateMatrixNumberFrom1To16();
+    auto m      = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+                * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+                * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
 
-    Matrix4x4 m =
-                  Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-                      Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-                      Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
+    auto q        = Quaternion::CreateFromRotationMatrix(m);
+    auto expected = target * m;
+    auto actual   = Matrix::Transform(target, q);
 
-    Quaternion q = Quaternion.CreateFromRotationMatrix(m);
-
-    Matrix4x4 expected = target * m;
-    Matrix4x4 actual;
-    actual = Matrix4x4.Transform(target, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateRotationX (float)
-[Fact]
-public void Matrix4x4CreateRotationXTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationX)
 {
-    float radians = MathHelper.ToRadians(30.0f);
+    Single radians = MathHelper::ToRadians(30.0f);
+    Matrix expected;
 
-    Matrix4x4 expected = new Matrix4x4();
+    expected.M11(1.0f);
+    expected.M22(0.8660254f);
+    expected.M23(0.5f);
+    expected.M32(-0.5f);
+    expected.M33(0.8660254f);
+    expected.M44(1.0f);
 
-    expected.M11 = 1.0f;
-    expected.M22 = 0.8660254f;
-    expected.M23 = 0.5f;
-    expected.M32 = -0.5f;
-    expected.M33 = 0.8660254f;
-    expected.M44 = 1.0f;
+    auto actual = Matrix::CreateRotationX(radians);
 
-    Matrix4x4 actual;
-
-    actual = Matrix4x4.CreateRotationX(radians);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateRotationX did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateRotationX (float)
 // CreateRotationX of zero degree
-[Fact]
-public void Matrix4x4CreateRotationXTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationXOfZeroDegree)
 {
-    float radians = 0;
+    Single radians = 0;
 
-    Matrix4x4 expected = Matrix4x4.Identity;
-    Matrix4x4 actual = Matrix4x4.CreateRotationX(radians);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateRotationX did not return the expected value.");
+    auto expected = Matrix::Identity;
+    auto actual   = Matrix::CreateRotationX(radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateRotationX (float, Vector3f)
-[Fact]
-public void Matrix4x4CreateRotationXCenterTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationXCenter)
 {
-    float radians = MathHelper.ToRadians(30.0f);
-    Vector3 center = new Vector3(23, 42, 66);
-
-    Matrix4x4 rotateAroundZero = Matrix4x4.CreateRotationX(radians, Vector3.Zero);
-    Matrix4x4 rotateAroundZeroExpected = Matrix4x4.CreateRotationX(radians);
-    Assert.True(MathHelper.Equal(rotateAroundZero, rotateAroundZeroExpected));
-
-    Matrix4x4 rotateAroundCenter = Matrix4x4.CreateRotationX(radians, center);
-    Matrix4x4 rotateAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateRotationX(radians) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(rotateAroundCenter, rotateAroundCenterExpected));
+//    Single radians = MathHelper::ToRadians(30.0f);
+//    auto   center  = Vector3 { 23, 42, 66 };
+//
+//    auto rotateAroundZero         = Matrix::CreateRotationX(radians, Vector3::Zero);
+//    auto rotateAroundZeroExpected = Matrix::CreateRotationX(radians);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
+//
+//    auto rotateAroundCenter         = Matrix::CreateRotationX(radians, center);
+//    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
+//                                    * Matrix::CreateRotationX(radians)
+//                                    * Matrix::CreateTranslation(center);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CreateRotationY (float)
-[Fact]
-public void Matrix4x4CreateRotationYTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationY)
 {
-    float radians = MathHelper.ToRadians(60.0f);
+    Single radians = MathHelper::ToRadians(60.0f);
+    Matrix expected;
 
-    Matrix4x4 expected = new Matrix4x4();
+    expected.M11(0.49999997f);
+    expected.M13(-0.866025448f);
+    expected.M22(1.0f);
+    expected.M31(0.866025448f);
+    expected.M33(0.49999997f);
+    expected.M44(1.0f);
 
-    expected.M11 = 0.49999997f;
-    expected.M13 = -0.866025448f;
-    expected.M22 = 1.0f;
-    expected.M31 = 0.866025448f;
-    expected.M33 = 0.49999997f;
-    expected.M44 = 1.0f;
+    auto actual = Matrix::CreateRotationY(radians);
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreateRotationY(radians);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateRotationY did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for RotationY (float)
 // CreateRotationY test for negative angle
-[Fact]
-public void Matrix4x4CreateRotationYTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationYForNegativeAngle)
 {
-    float radians = MathHelper.ToRadians(-300.0f);
+    Single radians = MathHelper::ToRadians(-300.0f);
+    Matrix expected;
 
-    Matrix4x4 expected = new Matrix4x4();
+    expected.M11(0.49999997f);
+    expected.M13(-0.866025448f);
+    expected.M22(1.0f);
+    expected.M31(0.866025448f);
+    expected.M33(0.49999997f);
+    expected.M44(1.0f);
 
-    expected.M11 = 0.49999997f;
-    expected.M13 = -0.866025448f;
-    expected.M22 = 1.0f;
-    expected.M31 = 0.866025448f;
-    expected.M33 = 0.49999997f;
-    expected.M44 = 1.0f;
+    auto actual = Matrix::CreateRotationY(radians);
 
-    Matrix4x4 actual = Matrix4x4.CreateRotationY(radians);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateRotationY did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreateRotationY (float, Vector3f)
-[Fact]
-public void Matrix4x4CreateRotationYCenterTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateRotationYCenter)
 {
-    float radians = MathHelper.ToRadians(30.0f);
-    Vector3 center = new Vector3(23, 42, 66);
-
-    Matrix4x4 rotateAroundZero = Matrix4x4.CreateRotationY(radians, Vector3.Zero);
-    Matrix4x4 rotateAroundZeroExpected = Matrix4x4.CreateRotationY(radians);
-    Assert.True(MathHelper.Equal(rotateAroundZero, rotateAroundZeroExpected));
-
-    Matrix4x4 rotateAroundCenter = Matrix4x4.CreateRotationY(radians, center);
-    Matrix4x4 rotateAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateRotationY(radians) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(rotateAroundCenter, rotateAroundCenterExpected));
+//    Single radians = MathHelper::ToRadians(30.0f);
+//    auto   center  = Vector3 { 23, 42, 66 };
+//
+//    auto rotateAroundZero         = Matrix::CreateRotationY(radians, Vector3::Zero);
+//    auto rotateAroundZeroExpected = Matrix::CreateRotationY(radians);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
+//
+//    auto rotateAroundCenter         = Matrix::CreateRotationY(radians, center);
+//    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
+//                                    * Matrix::CreateRotationY(radians)
+//                                    * Matrix::CreateTranslation(center);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CreateFromAxisAngle(Vector3f,float)
-[Fact]
-public void Matrix4x4CreateFromAxisAngleTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromAxisAngle)
 {
-    float radians = MathHelper.ToRadians(-30.0f);
+    Single radians  = MathHelper::ToRadians(-30.0f);
+    auto   expected = Matrix::CreateRotationX(radians);
+    auto   actual   = Matrix::CreateFromAxisAngle(Vector3::UnitX, radians);
 
-    Matrix4x4 expected = Matrix4x4.CreateRotationX(radians);
-    Matrix4x4 actual = Matrix4x4.CreateFromAxisAngle(Vector3.UnitX, radians);
-    Assert.True(MathHelper.Equal(expected, actual));
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    expected = Matrix4x4.CreateRotationY(radians);
-    actual = Matrix4x4.CreateFromAxisAngle(Vector3.UnitY, radians);
-    Assert.True(MathHelper.Equal(expected, actual));
+    expected = Matrix::CreateRotationY(radians);
+    actual   = Matrix::CreateFromAxisAngle(Vector3::UnitY, radians);
 
-    expected = Matrix4x4.CreateRotationZ(radians);
-    actual = Matrix4x4.CreateFromAxisAngle(Vector3.UnitZ, radians);
-    Assert.True(MathHelper.Equal(expected, actual));
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    expected = Matrix4x4.CreateFromQuaternion(Quaternion.CreateFromAxisAngle(Vector3.Normalize(Vector3.One), radians));
-    actual = Matrix4x4.CreateFromAxisAngle(Vector3.Normalize(Vector3.One), radians);
-    Assert.True(MathHelper.Equal(expected, actual));
+    expected = Matrix::CreateRotationZ(radians);
+    actual   = Matrix::CreateFromAxisAngle(Vector3::UnitZ, radians);
 
-    const int rotCount = 16;
-    for (int i = 0; i < rotCount; ++i)
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    expected = Matrix::CreateFromQuaternion(Quaternion::CreateFromAxisAngle(Vector3::Normalize(Vector3::One), radians));
+    actual   = Matrix::CreateFromAxisAngle(Vector3::Normalize(Vector3::One), radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    const UInt32 rotCount = 16;
+
+    for (UInt32 i = 0; i < rotCount; ++i)
     {
-        float latitude = (2.0f * MathHelper.Pi) * ((float)i / (float)rotCount);
-        for (int j = 0; j < rotCount; ++j)
-        {
-            float longitude = -MathHelper.PiOver2 + MathHelper.Pi * ((float)j / (float)rotCount);
+        Single latitude = (2.0f * MathHelper::Pi) * ((Single)i / (Single)rotCount);
 
-            Matrix4x4 m = Matrix4x4.CreateRotationZ(longitude) * Matrix4x4.CreateRotationY(latitude);
-            Vector3 axis = new Vector3(m.M11, m.M12, m.M13);
-            for (int k = 0; k < rotCount; ++k)
+        for (UInt32 j = 0; j < rotCount; ++j)
+        {
+            Single longitude = -MathHelper::PiOver2 + MathHelper::Pi * ((Single)j / (float)rotCount);
+
+            auto m    = Matrix::CreateRotationZ(longitude) * Matrix::CreateRotationY(latitude);
+            auto axis = Vector3 { m.M11(), m.M12(), m.M13() };
+
+            for (UInt32 k = 0; k < rotCount; ++k)
             {
-                float rot = (2.0f * MathHelper.Pi) * ((float)k / (float)rotCount);
-                expected = Matrix4x4.CreateFromQuaternion(Quaternion.CreateFromAxisAngle(axis, rot));
-                actual = Matrix4x4.CreateFromAxisAngle(axis, rot);
-                Assert.True(MathHelper.Equal(expected, actual));
+                Single rot = (2.0f * MathHelper::Pi) * ((Single)k / (Single)rotCount);
+
+                expected = Matrix::CreateFromQuaternion(Quaternion::CreateFromAxisAngle(axis, rot));
+                actual   = Matrix::CreateFromAxisAngle(axis, rot);
+
+                EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
         }
     }
 }
 
-[Fact]
-public void Matrix4x4CreateFromYawPitchRollTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromYawPitchRoll1)
 {
-    float yawAngle = MathHelper.ToRadians(30.0f);
-    float pitchAngle = MathHelper.ToRadians(40.0f);
-    float rollAngle = MathHelper.ToRadians(50.0f);
+    Single yawAngle   = MathHelper::ToRadians(30.0f);
+    Single pitchAngle = MathHelper::ToRadians(40.0f);
+    Single rollAngle  = MathHelper::ToRadians(50.0f);
 
-    Matrix4x4 yaw = Matrix4x4.CreateFromAxisAngle(Vector3.UnitY, yawAngle);
-    Matrix4x4 pitch = Matrix4x4.CreateFromAxisAngle(Vector3.UnitX, pitchAngle);
-    Matrix4x4 roll = Matrix4x4.CreateFromAxisAngle(Vector3.UnitZ, rollAngle);
+    auto yaw      = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
+    auto pitch    = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
+    auto roll     = Matrix::CreateFromAxisAngle(Vector3::UnitZ, rollAngle);
+    auto expected = roll * pitch * yaw;
+    auto actual   = Matrix::CreateFromYawPitchRoll(yawAngle, pitchAngle, rollAngle);
 
-    Matrix4x4 expected = roll * pitch * yaw;
-    Matrix4x4 actual = Matrix4x4.CreateFromYawPitchRoll(yawAngle, pitchAngle, rollAngle);
-    Assert.True(MathHelper.Equal(expected, actual));
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
+/*
 // Covers more numeric rigions
 [Fact]
 public void Matrix4x4CreateFromYawPitchRollTest2()

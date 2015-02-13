@@ -26,6 +26,7 @@ protected:
                         , const System::Single&             roll
                         , const SceneR::Framework::Vector3& expectedTranslation
                         , const SceneR::Framework::Vector3& expectedScales);
+    static void DecomposeScale(const System::Single& sx, const System::Single& sy, const System::Single& sz);
 
     // virtual void TearDown() will be called after each test is run.
     // You should define it if there is cleanup work to do.  Otherwise,
