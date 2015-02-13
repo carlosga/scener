@@ -49,11 +49,10 @@ namespace SceneR
 
             /**
              * Creates a new quaternion with a specified yaw, pitch, and roll.
-             * The order of transformations is yaw first, then pitch, then roll
              *
              * @param yaw Yaw around the y-axis, in radians.
-             * @param pitch Pitch around the z-axis, in radians.
-             * @param roll Roll around the x-axis, in radians.
+             * @param pitch Pitch around the x-axis, in radians.
+             * @param roll Roll around the z-axis, in radians.
              */
             static Quaternion CreateFromYawPitchRoll(const System::Single& yaw
                                                    , const System::Single& pitch
