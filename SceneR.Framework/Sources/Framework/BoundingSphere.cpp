@@ -101,14 +101,14 @@ System::Boolean BoundingSphere::Intersects(const Ray& ray) const
     auto rad2 = this->radius * this->radius;
     auto l    = this->center - ray.Position();
 
-    auto tPX = Vector3::DotProduct(l, ray.Direction());
+    auto tPX = Vector3::Dot(l, ray.Direction());
 
     if (tPX < 0.0)
     {
         return false;
     }
 
-    auto dsq = Vector3::DotProduct(l, l) - tPX * tPX;
+    auto dsq = Vector3::Dot(l, l) - tPX * tPX;
 
     if (dsq > rad2)
     {

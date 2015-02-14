@@ -54,14 +54,14 @@ Boolean Ray::Intersects(const BoundingSphere& sphere)
 Boolean Ray::Intersects(const Plane& plane)
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
-    auto denom = Vector3::DotProduct(plane.Normal(), this->direction);
+    auto denom = Vector3::Dot(plane.Normal(), this->direction);
 
     if (std::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
     {
         return false;
     }
 
-    auto t = -(Vector3::DotProduct(this->position, plane.Normal()) + plane.D()) / denom;
+    auto t = -(Vector3::Dot(this->position, plane.Normal()) + plane.D()) / denom;
 
     return (t > 0.0f);
 }

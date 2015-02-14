@@ -261,24 +261,24 @@ TEST_F(MatrixTest, Inverse)
                          , 1.0f, 1.0f, 5.0f , 0.0f
                          , 0.0f, 0.0f, 0.0f , 1.0f };
 
-    matrix.Invert();
+    auto inverse = Matrix::Invert(matrix);
 
-    EXPECT_TRUE(-6.5f == matrix.M11());
-    EXPECT_TRUE(05.5f == matrix.M12());
-    EXPECT_TRUE(08.5f == matrix.M13());
-    EXPECT_TRUE(00.0f == matrix.M14());
-    EXPECT_TRUE(04.0f == matrix.M21());
-    EXPECT_TRUE(-3.0f == matrix.M22());
-    EXPECT_TRUE(-5.0f == matrix.M23());
-    EXPECT_TRUE(00.0f == matrix.M24());
-    EXPECT_TRUE(00.5f == matrix.M31());
-    EXPECT_TRUE(-0.5f == matrix.M32());
-    EXPECT_TRUE(-0.5f == matrix.M33());
-    EXPECT_TRUE(00.0f == matrix.M34());
-    EXPECT_TRUE(00.0f == matrix.M41());
-    EXPECT_TRUE(00.0f == matrix.M42());
-    EXPECT_TRUE(00.0f == matrix.M43());
-    EXPECT_TRUE(01.0f == matrix.M44());
+    EXPECT_TRUE(-6.5f == inverse.M11());
+    EXPECT_TRUE(05.5f == inverse.M12());
+    EXPECT_TRUE(08.5f == inverse.M13());
+    EXPECT_TRUE(00.0f == inverse.M14());
+    EXPECT_TRUE(04.0f == inverse.M21());
+    EXPECT_TRUE(-3.0f == inverse.M22());
+    EXPECT_TRUE(-5.0f == inverse.M23());
+    EXPECT_TRUE(00.0f == inverse.M24());
+    EXPECT_TRUE(00.5f == inverse.M31());
+    EXPECT_TRUE(-0.5f == inverse.M32());
+    EXPECT_TRUE(-0.5f == inverse.M33());
+    EXPECT_TRUE(00.0f == inverse.M34());
+    EXPECT_TRUE(00.0f == inverse.M41());
+    EXPECT_TRUE(00.0f == inverse.M42());
+    EXPECT_TRUE(00.0f == inverse.M43());
+    EXPECT_TRUE(01.0f == inverse.M44());
 }
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
@@ -888,8 +888,9 @@ TEST_F(MatrixTest, CreateWorld)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     //EXPECT_TRUE(objectPosition, actual.Translation);
-    EXPECT_TRUE(Vector3::DotProduct(Vector3::Normalize(objectUpVector), Vector3(actual.M21(), actual.M22(), actual.M23())) > 0);
-    EXPECT_TRUE(Vector3::DotProduct(Vector3::Normalize(objectForwardDirection), Vector3(-actual.M31(), -actual.M32(), -actual.M33())) > 0.999f);
+    EXPECT_TRUE(Vector3::Dot(Vector3::Normalize(objectUpVector), Vector3(actual.M21(), actual.M22(), actual.M23())) > 0);
+    EXPECT_TRUE(
+        Vector3::Dot(Vector3::Normalize(objectForwardDirection), Vector3(-actual.M31(), -actual.M32(), -actual.M33())) > 0.999f);
 }
 
 // A test for CreateOrtho (float, float, float, float)

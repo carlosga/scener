@@ -61,7 +61,7 @@ namespace SceneR
             /**
              * Calculates the dot product oof two quaternions
              */
-            static System::Single DotProduct(const Quaternion& quaternion1, const Quaternion& quaternion2);
+            static System::Single Dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
 
             /**
              * Calculates the invers of the specified quaternion.
@@ -89,10 +89,10 @@ namespace SceneR
              *
              * A normalized Quaternion maintains its direction but its magnitude becomes 1.
              * The resulting Quaternion is often called a unit vector.
-             * @param quaternion the quaternion to normalize.
+             * @param value the quaternion to normalize.
              * @returns A Quaternion is normalized by dividing the Quaternion by its magnitude.
              */
-            static Quaternion Normalize(const Quaternion& quaternion);
+            static Quaternion Normalize(const Quaternion& value);
 
             /**
              * Calculates the spherical interpolation between two quaternions.
@@ -184,22 +184,6 @@ namespace SceneR
             void W(const System::Single& w);
 
         public:
-
-            /**
-             * Calculates the quaternion dot product
-             */
-            System::Single DotProduct(const Quaternion& quaternion) const;
-
-            /**
-             * Replaces a quaternion with its conjugate.
-             */
-            void Conjugate();
-
-            /**
-             * Replaces the specified quaternion with its inverse.
-             */
-            void Invert();
-
             /**
              * Gets a value that indicates whether the specified quaternion is an Identity quaternion.
              * @return a value that indicates whether the specified quaternion is an Identity quaternion.
@@ -219,20 +203,6 @@ namespace SceneR
              * @return the length of this Quaternion.
              */
             System::Single Length() const;
-
-            /**
-            * Negates a Quaternion.
-            */
-            void Negate();
-
-            /**
-             * Normalizes the specified Quaternion.
-             *
-             * A normalized Quaternion maintains its direction but its magnitude becomes 1.
-             * The resulting Quaternion is often called a unit vector.
-             * A Quaternion is normalized by dividing the Quaternion by its magnitude.
-             */
-            void Normalize();
 
         public:
             System::Single& operator[](const System::Size& index);

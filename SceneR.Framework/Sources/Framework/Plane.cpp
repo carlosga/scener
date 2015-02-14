@@ -17,7 +17,7 @@ using namespace SceneR::Framework;
 Vector4 Plane::DotNormal(const Vector3& p, const Vector3& v)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
-    return { Vector3::DotProduct(p, v)  };
+    return {Vector3::Dot(p, v)  };
 }
 
 Plane Plane::Normalize(const Plane& value)
@@ -95,14 +95,12 @@ const Vector3& Plane::Normal() const
 
 System::Single Plane::Dot(const Vector4& value) const
 {
-    auto v = Vector4 { this->normal, this->d };
-
-    return v.DotProduct(value);
+    return Vector4::Dot({ this->normal, this->d }, value);
 }
 
 System::Single Plane::DotCoordinate(const Vector3& value) const
 {
-    return Vector3::DotProduct(this->normal, value);
+    return Vector3::Dot(this->normal, value);
 }
 
 System::Single Plane::DotNormal(const Vector3& value) const

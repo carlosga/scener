@@ -236,21 +236,6 @@ namespace SceneR
              */
             System::Single Length() const;
 
-            /**
-             * Negates a Vector2.
-             * The vector has the same magnitude as before, but its direction is now opposite.
-             */
-            void Negate();
-
-            /**
-            * Normalizes this Vector2.
-            *
-            * A normalized Vector2 maintains its direction but its magnitude becomes 1.
-            * The resulting Vector2 is often called a unit vector.
-            * A Vector2 is normalized by dividing the Vector2 by its magnitude.
-            */
-            void Normalize();
-
         public:
             System::Single& operator[](const System::Size& index);
             const System::Single& operator[](const System::Size& index) const;

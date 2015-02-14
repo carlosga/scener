@@ -106,21 +106,18 @@ Vector2 Vector2::Max(const Vector2& value1, const Vector2& value2)
 
 Vector2 Vector2::Negate(const Vector2& value)
 {
-    auto result = Vector2 { value };
-
-    result.Negate();
-
-    return result;
+    return value * -1;
 }
 
 Vector2 Vector2::Normalize(const Vector2& value)
 {
-    auto normalized = Vector2 { value };
-
-    normalized.Normalize();
-
-    return normalized;
-};
+    // To find the unit vector of another vector, we use the modulus operator
+    // and scalar multiplication like so:
+    // b = a / |a|
+    //
+    // Where |a| is the modulus of a
+    return (value / value.Length());
+}
 
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
@@ -195,21 +192,6 @@ Single Vector2::LengthSquared() const
 Single Vector2::Length() const
 {
     return std::sqrt(this->LengthSquared());
-}
-
-void Vector2::Negate()
-{
-    (*this *= -1.0f);
-}
-
-void Vector2::Normalize()
-{
-    // To find the unit vector of another vector, we use the modulus operator
-    // and scalar multiplication like so:
-    // b = a / |a|
-    //
-    // Where |a| is the modulus of a
-    (*this /= this->Length());
 }
 
 Single& Vector2::operator[](const Size& index)

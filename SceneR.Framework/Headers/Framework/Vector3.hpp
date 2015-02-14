@@ -144,7 +144,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The dot product of the given vectors.
              */
-            static System::Single DotProduct(const Vector3& left, const Vector3& right);
+            static System::Single Dot(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -184,6 +184,13 @@ namespace SceneR
              * @param value the second vector
              */
             static Vector3 Max(const Vector3& value1, const Vector3& value2);
+
+            /**
+             * Negates a Vector3. The vector has the same magnitude as before, but its direction is now opposite.
+             * @param value the vector to be negated.
+             * @returns the negated vector.
+             */
+            static Vector3 Negate(const Vector3& value);
 
             /**
              * Normalizes the specified 3D Vector.
@@ -285,22 +292,6 @@ namespace SceneR
              * @return the length of this Vector3.
              */
             System::Single Length() const;
-
-            /**
-             * Negates a Vector3.
-             *
-             * The vector has the same magnitude as before, but its direction is now opposite.
-             */
-            void Negate();
-
-            /**
-             * Normalizes this Vector3.
-             *
-             * A normalized Vector3 maintains its direction but its magnitude becomes 1.
-             * The resulting Vector3 is often called a unit vector.
-             * A Vector3 is normalized by dividing the Vector3 by its magnitude.
-             */
-            void Normalize();
 
         public:
             System::Single& operator[](const System::Size& index);

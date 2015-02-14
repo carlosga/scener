@@ -98,6 +98,14 @@ namespace SceneR
             static System::Single DistanceSquared(const Vector4& value1, const Vector4& value2);
 
             /**
+             * Calculates the dot product of two Vector4 structures.
+             * @param vectora the first Vector4 structure to evaluate
+             * @param vectorb The second Vector4 structure to evaluate.
+             * @return The dot product of the given vectors.
+             */
+            static System::Single Dot(const Vector4& value1, const Vector4& value2);
+
+            /**
              * Calculates a hermite spline interpolation.
              * @param value1 source position 1.
              * @param tangent1 source tangent 1.
@@ -121,6 +129,24 @@ namespace SceneR
             static Vector4 Lerp(const Vector4&        value1
                               , const Vector4&        value2
                               , const System::Single& amount);
+
+            /**
+            * Negates a Vector4.
+            *
+            * The vector has the same magnitude as before, but its direction is now opposite.
+            * @param value the vector to be negated
+            */
+            static Vector4 Negate(const Vector4& value);
+
+            /**
+            * Normalizes the specified Vector4.
+            *
+            * A normalized Vector4 maintains its direction but its magnitude becomes 1.
+            * The resulting Vector4 is often called a unit vector.
+            * A Vector4 is normalized by dividing the Vector4 by its magnitude.
+            * @param value the vector to normalize
+            */
+            static Vector4 Normalize(const Vector4& value);
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -225,30 +251,6 @@ namespace SceneR
              * @return the length of this Vector4.
              */
             System::Single Length() const;
-
-            /**
-             * Negates a Vector4.
-             *
-             * The vector has the same magnitude as before, but its direction is now opposite.
-             */
-            void Negate();
-
-            /**
-             * Calculates the dot product of two Vector4 structures.
-             *
-             * @param vectorb The second Vector4 structure to evaluate.
-             * @return The dot product of this Vector4 and vectorb.
-             */
-            System::Single DotProduct(const Vector4& vectorb) const;
-
-            /**
-             * Normalizes the specified Vector4.
-             *
-             * A normalized Vector4 maintains its direction but its magnitude becomes 1.
-             * The resulting Vector4 is often called a unit vector.
-             * A Vector4 is normalized by dividing the Vector4 by its magnitude.
-             */
-            void Normalize();
 
         public:
             System::Single& operator[](const System::Size& index);

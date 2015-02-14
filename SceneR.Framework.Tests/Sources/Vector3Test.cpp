@@ -118,26 +118,22 @@ TEST_F(Vector3Test, LengthSquared)
 
 TEST_F(Vector3Test, Negation)
 {
-    auto vector = Vector3  { 20.0f, 30.0f, 40.0f };
-
-    vector.Negate();
+    auto actual = Vector3::Negate({ 20.0f, 30.0f, 40.0f });
 
     // vector Result is equal to (-20, -30, -40)
-    EXPECT_TRUE(-20.0f == vector.X());
-    EXPECT_TRUE(-30.0f == vector.Y());
-    EXPECT_TRUE(-40.0f == vector.Z());
+    EXPECT_TRUE(-20.0f == actual.X());
+    EXPECT_TRUE(-30.0f == actual.Y());
+    EXPECT_TRUE(-40.0f == actual.Z());
 }
 
 TEST_F(Vector3Test, Normalization)
 {
-    auto vector = Vector3 { 20.0f, 30.0f, 40.0f };
-
-    vector.Normalize();
+    auto actual = Vector3::Normalize({ 20.0f, 30.0f, 40.0f });
 
     // vector Result is equal to (0.37139, 0.55709, 0.74278)
-    EXPECT_TRUE(0.3713907f   == vector.X());
-    EXPECT_TRUE(0.557086051f == vector.Y());
-    EXPECT_TRUE(0.742781401f == vector.Z());
+    EXPECT_TRUE(0.3713907f   == actual.X());
+    EXPECT_TRUE(0.557086051f == actual.Y());
+    EXPECT_TRUE(0.742781401f == actual.Z());
 }
 
 TEST_F(Vector3Test, Cross)
@@ -152,7 +148,7 @@ TEST_F(Vector3Test, Cross)
 
 TEST_F(Vector3Test, DotProduct)
 {
-    Single dotProduct = Vector3::DotProduct({ 20.0f, 30.0f, 40.0f } , { 45.0f, 70.0f, 80.0f });
+    Single dotProduct = Vector3::Dot({20.0f, 30.0f, 40.0f} , { 45.0f, 70.0f, 80.0f });
 
     EXPECT_TRUE(6200.0f == dotProduct);
 }

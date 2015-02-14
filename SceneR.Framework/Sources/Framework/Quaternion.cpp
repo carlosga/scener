@@ -17,11 +17,9 @@ const Quaternion Quaternion::Identity { 0.0f, 0.0f, 0.0f, 1.0f };
 
 Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
 {
-    auto result = Quaternion(quaternion);
-
-    result.Conjugate();
-
-    return result;
+    // The conjugate of a quaternion is defined by
+    // q* = (w + xi + yj + zk) = w -xi -yj -zk
+    return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
 }
 
 Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const Single& angle)
@@ -56,9 +54,12 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     return (qy * qx) * qz; // yaw * pitch * roll
 }
 
-System::Single Quaternion::DotProduct(const Quaternion& quaternion1, const Quaternion& quaternion2)
+System::Single Quaternion::Dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
 {
-    return quaternion1.DotProduct(quaternion2);
+    return (quaternion1.x * quaternion2.x)
+         + (quaternion1.y * quaternion2.y)
+         + (quaternion1.z * quaternion2.z)
+         + (quaternion1.w * quaternion2.w);
 }
 
 Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
@@ -113,11 +114,13 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 
 Quaternion Quaternion::Inverse(const Quaternion& value)
 {
-    auto result = Quaternion { value };
-
-    result.Invert();
-
-    return result;
+    // The multiplicative inverse of a quaternion q is constructed as
+    // q^-1 = q* / N(q)
+    //
+    // Where:
+    //  q* is the quaternion Conjugate
+    //  N(q) is the quaternion norm
+    return Quaternion::Conjugate(value) / value.LengthSquared();
 }
 
 Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
@@ -125,7 +128,7 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
     Single amount1 = 1.0f - amount;
     Single amount2 = amount;
 
-    if (quaternion1.DotProduct(quaternion2) < 0.0f)
+    if (Quaternion::Dot(quaternion1, quaternion2) < 0.0f)
     {
         amount2 = -amount2;
     }
@@ -135,27 +138,19 @@ Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& qua
 
 Quaternion Quaternion::Negate(const Quaternion & value)
 {
-    auto result = Quaternion { value };
-
-    result.Negate();
-
-    return result;
+    return value * -1.0f;
 }
 
-Quaternion Quaternion::Normalize(const Quaternion& quaternion)
+Quaternion Quaternion::Normalize(const Quaternion& value)
 {
-    auto result = Quaternion { quaternion };
-
-    result.Normalize();
-
-    return result;
+    return value / value.Length();
 }
 
 Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
     Single  w1;
     Single  w2;
-    Single  cosTheta = quaternion1.DotProduct(quaternion2);
+    Single  cosTheta = Quaternion::Dot(quaternion1, quaternion2);
     Boolean bFlip    = false;
 
     if (cosTheta < 0.0f)
@@ -254,36 +249,6 @@ void Quaternion::W(const System::Single& w)
     this->w = w;
 }
 
-Single Quaternion::DotProduct(const Quaternion& quaternion) const
-{
-    return (this->x * quaternion.x)
-         + (this->y * quaternion.y)
-         + (this->z * quaternion.z)
-         + (this->w * quaternion.w);
-}
-
-void Quaternion::Conjugate()
-{
-    // The conjugate of a quaternion is defined by
-    // q* = (w + xi + yj + zk) = w -xi  -yj -zk
-    this->x = -this->x;
-    this->y = -this->y;
-    this->z = -this->z;
-}
-
-void Quaternion::Invert()
-{
-    // The multiplicative inverse of a quaternion q is constructed as
-    // q^-1 = q* / N(q)
-    //
-    // Where:
-    //  q* is the quaternion Conjugate
-    //  N(q) is the quaternion norm
-    this->Conjugate();
-
-    *this /= this->LengthSquared();
-}
-
 bool Quaternion::IsIdentity() const
 {
     return (*this == Quaternion::Identity);
@@ -300,16 +265,6 @@ Single Quaternion::LengthSquared() const
 Single Quaternion::Length() const
 {
     return std::sqrt(this->LengthSquared());
-}
-
-void Quaternion::Negate()
-{
-    *this *= -1.0f;
-}
-
-void Quaternion::Normalize()
-{
-    *this /= this->Length();
 }
 
 Single& Quaternion::operator[](const Size& index)

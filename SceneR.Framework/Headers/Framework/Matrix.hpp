@@ -487,17 +487,6 @@ namespace SceneR
 
         public:
             /**
-             * Extracts the scalar, translation, and rotation components from a 3D scale/rotate/translate (SRT) Matrix.
-             *
-             * @param scale The scalar component of the transform matrix, expressed as a Vector3.
-             * @param rotation The rotation component of the transform matrix, expressed as a Quaternion.
-             * @param translation The translation component of the transform matrix, expressed as a Vector3.
-             *
-             * @returns true if the Matrix can be decomposed; false otherwise.
-             */
-            bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation);
-
-            /**
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
@@ -508,11 +497,6 @@ namespace SceneR
              * @return a value that indicates whether this Matrix is invertible.
              */
             bool HasInverse() const;
-
-            /**
-             * Inverts this Matrix structure.
-             */
-            void Invert();
 
             /**
              * Determines whether this Matrix structure is an identity Matrix.

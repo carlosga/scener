@@ -29,7 +29,7 @@ Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
     Single lengthSquared = left.LengthSquared() * right.LengthSquared();
 
-    return std::acos(Vector3::DotProduct(left, right) / std::sqrt(lengthSquared));
+    return std::acos(Vector3::Dot(left, right) / std::sqrt(lengthSquared));
 }
 
 Vector3 Vector3::Barycentric(const Vector3& value1
@@ -83,7 +83,7 @@ Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
     return d.LengthSquared();
 }
 
-Single Vector3::DotProduct(const Vector3& left, const Vector3& right)
+Single Vector3::Dot(const Vector3& left, const Vector3& right)
 {
     // The definition of the scalar (dot) product is:
     // a · b = |a||b|cosθ
@@ -130,13 +130,19 @@ Vector3 Vector3::Max(const Vector3& value1, const Vector3& value2)
            , MathHelper::Max(value1.z, value2.z) };
 }
 
+Vector3 Vector3::Negate(const Vector3& value)
+{
+    return (value * -1.0f);
+}
+
 Vector3 Vector3::Normalize(const Vector3& value)
 {
-    auto normalized = Vector3(value);
-
-    normalized.Normalize();
-
-    return normalized;
+    // To find the unit vector of another vector, we use the modulus operator
+    // and scalar multiplication like so:
+    // b = a / |a|
+    //
+    // Where |a| is the modulus of a
+    return (value / value.Length());
 }
 
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
@@ -230,21 +236,6 @@ Single Vector3::Length() const
     // |a| = sqrt(x^2 + y^2 + z^2)
 
     return std::sqrt(this->LengthSquared());
-}
-
-void Vector3::Negate()
-{
-   (*this *= -1.0f);
-}
-
-void Vector3::Normalize()
-{
-    // To find the unit vector of another vector, we use the modulus operator
-    // and scalar multiplication like so:
-    // b = a / |a|
-    //
-    // Where |a| is the modulus of a
-    (*this /= this->Length());
 }
 
 Single& Vector3::operator[](const Size& index)

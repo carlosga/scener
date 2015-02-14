@@ -26,14 +26,12 @@ TEST_F(QuaternionTest, XCoordinate)
 
 TEST_F(QuaternionTest, QuaternionConjugate)
 {
-    auto q = Quaternion { 5.0f, 6.0f, 7.0f, 8.0f };
+    auto actual = Quaternion::Conjugate({ 5.0f, 6.0f, 7.0f, 8.0f });
 
-    q.Conjugate();
-
-    EXPECT_TRUE(-5.0f == q.X());
-    EXPECT_TRUE(-6.0f == q.Y());
-    EXPECT_TRUE(-7.0f == q.Z());
-    EXPECT_TRUE(8.0f  == q.W());
+    EXPECT_TRUE(-5.0f == actual.X());
+    EXPECT_TRUE(-6.0f == actual.Y());
+    EXPECT_TRUE(-7.0f == actual.Z());
+    EXPECT_TRUE(8.0f  == actual.W());
 }
 
 TEST_F(QuaternionTest, QuaternionMultiplication)
@@ -68,11 +66,10 @@ TEST_F(QuaternionTest, Dot)
     auto b = Quaternion { 5.0f, 6.0f, 7.0f, 8.0f };
 
     Single expected = 70.0f;
-    Single actual   = Quaternion::DotProduct(a, b);
+    Single actual   = Quaternion::Dot(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
-
 
 // A test for Length ()
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite

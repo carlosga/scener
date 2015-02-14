@@ -67,6 +67,13 @@ Single Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
     return d.LengthSquared();
 }
 
+Single Vector4::Dot(const Vector4& value1, const Vector4& value2)
+{
+    auto dotProduct = value1 * value2;
+
+    return (dotProduct.x + dotProduct.y + dotProduct.z + dotProduct.w);
+}
+
 Vector4 Vector4::Hermite(const Vector4& value1
                        , const Vector4& tangent1
                        , const Vector4& value2
@@ -89,6 +96,16 @@ Vector4 Vector4::Lerp(const Vector4& value1
            , MathHelper::Lerp(value1.y, value2.y, amount)
            , MathHelper::Lerp(value1.z, value2.z, amount)
            , MathHelper::Lerp(value1.w, value2.w, amount) };
+}
+
+Vector4 Vector4::Negate(const Vector4& value)
+{
+    return value * -1;
+}
+
+Vector4 Vector4::Normalize(const Vector4& value)
+{
+    return (value / value.Length());
 }
 
 Vector4 Vector4::SmoothStep(const Vector4& value1
@@ -173,23 +190,6 @@ Single Vector4::LengthSquared() const
 Single Vector4::Length() const
 {
     return std::sqrt(this->LengthSquared());
-}
-
-void Vector4::Negate()
-{
-   (*this *= -1.0f);
-}
-
-Single Vector4::DotProduct(const Vector4& vectorb) const
-{
-    auto dotProduct = *this * vectorb;
-
-    return (dotProduct.x + dotProduct.y + dotProduct.z + dotProduct.w);
-}
-
-void Vector4::Normalize()
-{
-    (*this /= this->Length());
 }
 
 Single& Vector4::operator[](const Size& index)

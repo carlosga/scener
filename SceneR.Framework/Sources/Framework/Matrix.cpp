@@ -111,9 +111,9 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
     auto zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
     auto xAxis = Vector3::Normalize(Vector3::Cross(cameraUpVector, zAxis));
     auto yAxis = Vector3::Cross(zAxis, xAxis);
-    auto dx    = Vector3::DotProduct(xAxis, cameraPosition);
-    auto dy    = Vector3::DotProduct(yAxis, cameraPosition);
-    auto dz    = Vector3::DotProduct(zAxis, cameraPosition);
+    auto dx    = Vector3::Dot(xAxis, cameraPosition);
+    auto dy    = Vector3::Dot(yAxis, cameraPosition);
+    auto dz    = Vector3::Dot(zAxis, cameraPosition);
 
     return { xAxis.X(), yAxis.X(), zAxis.X(), 0.0f
            , xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f
@@ -357,18 +357,47 @@ Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, cons
 
 bool Matrix::Decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation)
 {
-    auto result = Matrix { matrix };
+    translation = { matrix.m41, matrix.m42, matrix.m43 };
 
-    return result.Decompose(scale, rotation, translation);
+    auto v1 = Vector3 { matrix.m11, matrix.m12, matrix.m13 };
+    auto v2 = Vector3 { matrix.m21, matrix.m22, matrix.m23 };
+    auto v3 = Vector3 { matrix.m31, matrix.m32, matrix.m33 };
+
+    scale = { v1.Length(), v2.Length(), v3.Length() };
+
+    if (matrix.Determinant() < 0.0f)
+    {
+        scale *= -1;
+    }
+
+    rotation = Quaternion::CreateFromRotationMatrix(matrix);
+
+    return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
 }
 
 Matrix Matrix::Invert(const Matrix& matrix)
 {
-    auto result = Matrix(matrix);
+    Matrix inverse = Matrix::Identity;
 
-    result.Invert();
+    if (matrix.HasInverse())
+    {
+        // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+        auto   mdet = matrix.Determinant();
+        Matrix mtemp;
+        Int32  sign;
 
-    return result;
+        for (UInt32 i = 0; i < 4; i++)
+        {
+            for (UInt32 j = 0; j < 4; j++)
+            {
+                sign               = 1 - ((i + j) % 2) * 2;
+                mtemp              = matrix.SubMatrix(i, j);
+                inverse[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+            }
+        }
+    }
+
+    return inverse;
 }
 
 Matrix Matrix::Negate(const Matrix& matrix)
@@ -576,26 +605,6 @@ void Matrix::M44(const Single& value)
     this->m44 = value;
 }
 
-bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation)
-{
-    translation = { this->m41, this->m42, this->m43 };
-
-    auto v1 = Vector3 { this->m11, this->m12, this->m13 };
-    auto v2 = Vector3 { this->m21, this->m22, this->m23 };
-    auto v3 = Vector3 { this->m31, this->m32, this->m33 };
-
-    scale = { v1.Length(), v2.Length(), v3.Length() };
-
-    if (this->Determinant() < 0.0f)
-    {
-        scale.Negate();
-    }
-
-    rotation = Quaternion::CreateFromRotationMatrix(*this);
-
-    return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
-}
-
 Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
@@ -616,29 +625,7 @@ Single Matrix::Determinant() const
 
 bool Matrix::HasInverse() const
 {
-    return (std::fabs(this->Determinant()) > 0.0005f);
-}
-
-void Matrix::Invert()
-{
-    if (this->HasInverse())
-    {
-        // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        auto   mdet = this->Determinant();
-        auto   copy = *this;
-        Matrix mtemp;
-        Int32  sign;
-
-        for (UInt32 i = 0; i < 4; i++)
-        {
-            for (UInt32 j = 0; j < 4; j++)
-            {
-                sign                    = 1 - ((i + j) % 2) * 2;
-                mtemp                   = copy.SubMatrix(i, j);
-                this->matrix[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
-            }
-        }
-    }
+    return (std::abs(this->Determinant()) > 0.0005f);
 }
 
 bool Matrix::IsIdentity() const
