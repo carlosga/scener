@@ -962,515 +962,369 @@ TEST_F(MatrixTest, CreatePerspective)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-/*
-
 // A test for CreatePerspective (float, float, float, float)
 // CreatePerspective test where znear = zfar
-[Fact]
-public void Matrix4x4CreatePerspectiveTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveWhereZnearEqualsZfar)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            float width = 100.0f;
-        float height = 200.0f;
-        float zNearPlane = 0.0f;
-        float zFarPlane = 0.0f;
+    Single width      = 100.0f;
+    Single height     = 200.0f;
+    Single zNearPlane = 0.0f;
+    Single zFarPlane  = 0.0f;
 
-        Matrix4x4 actual = Matrix4x4.CreatePerspective(width, height, zNearPlane, zFarPlane);
-        });
+    ASSERT_THROW(Matrix::CreatePerspective(width, height, zNearPlane, zFarPlane), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
 // CreatePerspective test where near plane is negative value
-[Fact]
-public void Matrix4x4CreatePerspectiveTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 actual = Matrix4x4.CreatePerspective(10, 10, -10, 10);
-        });
+    ASSERT_THROW(Matrix::CreatePerspective(10, 10, -10, 10), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
 // CreatePerspective test where far plane is negative value
-[Fact]
-public void Matrix4x4CreatePerspectiveTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveWhereFarPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 actual = Matrix4x4.CreatePerspective(10, 10, 10, -10);
-        });
+    ASSERT_THROW(Matrix::CreatePerspective(10, 10, 10, -10), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
 // CreatePerspective test where near plane is beyond far plane
-[Fact]
-public void Matrix4x4CreatePerspectiveTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsBeyondFarPlane)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 actual = Matrix4x4.CreatePerspective(10, 10, 10, 1);
-        });
+    ASSERT_THROW(Matrix::CreatePerspective(10, 10, 10, 1), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfView1)
 {
-    float fieldOfView = MathHelper.ToRadians(30.0f);
-    float aspectRatio = 1280.0f / 720.0f;
-    float zNearPlane = 1.5f;
-    float zFarPlane = 1000.0f;
+    Single fieldOfView = MathHelper::ToRadians(30.0f);
+    Single aspectRatio = 1280.0f / 720.0f;
+    Single zNearPlane  = 1.5f;
+    Single zFarPlane   = 1000.0f;
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 2.09927845f;
-    expected.M22 = 3.73205066f;
-    expected.M33 = -1.00150228f;
-    expected.M34 = -1.0f;
-    expected.M43 = -1.50225341f;
-    Matrix4x4 actual;
+    Matrix expected;
 
-    actual = Matrix4x4.CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, zNearPlane, zFarPlane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreatePerspectiveFieldOfView did not return the expected value.");
+    expected.M11(2.09927845f);
+    expected.M22(3.73205066f);
+    expected.M33(-1.00150228f);
+    expected.M34(-1.0f);
+    expected.M43(-1.50225341f);
+
+    auto actual = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, zNearPlane, zFarPlane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
 // CreatePerspectiveFieldOfView test where filedOfView is negative value.
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 mtx = Matrix4x4.CreatePerspectiveFieldOfView(-1, 1, 1, 10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(-1, 1, 1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
 // CreatePerspectiveFieldOfView test where filedOfView is more than pi.
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 mtx = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.Pi + 0.01f, 1, 1, 10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(MathHelper::Pi + 0.01f, 1, 1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
 // CreatePerspectiveFieldOfView test where nearPlaneDistance is negative value.
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 mtx = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1, -1, 10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, 1, -1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
 // CreatePerspectiveFieldOfView test where farPlaneDistance is negative value.
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 mtx = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1, 1, -10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, 1, 1, -10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
 // CreatePerspectiveFieldOfView test where nearPlaneDistance is larger than farPlaneDistance.
-[Fact]
-public void Matrix4x4CreatePerspectiveFieldOfViewTest5()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsLargerThanFarPlane)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            Matrix4x4 mtx = Matrix4x4.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1, 10, 1);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, 1, 10, 1), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
-[Fact]
-public void Matrix4x4CreatePerspectiveOffCenterTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveOffCenter)
 {
-    float left = 10.0f;
-    float right = 90.0f;
-    float bottom = 20.0f;
-    float top = 180.0f;
-    float zNearPlane = 1.5f;
-    float zFarPlane = 1000.0f;
+    Single left       = 10.0f;
+    Single right      = 90.0f;
+    Single bottom     = 20.0f;
+    Single top        = 180.0f;
+    Single zNearPlane = 1.5f;
+    Single zFarPlane  = 1000.0f;
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.0375f;
-    expected.M22 = 0.01875f;
-    expected.M31 = 1.25f;
-    expected.M32 = 1.25f;
-    expected.M33 = -1.00150228f;
-    expected.M34 = -1.0f;
-    expected.M43 = -1.50225341f;
+    Matrix expected;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.CreatePerspectiveOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreatePerspectiveOffCenter did not return the expected value.");
+    expected.M11(0.0375f);
+    expected.M22(0.01875f);
+    expected.M31(1.25f);
+    expected.M32(1.25f);
+    expected.M33(-1.00150228f);
+    expected.M34(-1.0f);
+    expected.M43(-1.50225341f);
+
+    auto actual = Matrix::CreatePerspectiveOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
 // CreatePerspectiveOffCenter test where nearPlaneDistance is negative.
-[Fact]
-public void Matrix4x4CreatePerspectiveOffCenterTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            float left = 10.0f, right = 90.0f, bottom = 20.0f, top = 180.0f;
-        Matrix4x4 actual = Matrix4x4.CreatePerspectiveOffCenter(left, right, bottom, top, -1, 10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, -1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
 // CreatePerspectiveOffCenter test where farPlaneDistance is negative.
-[Fact]
-public void Matrix4x4CreatePerspectiveOffCenterTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereFarPlaneIsNegative)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            float left = 10.0f, right = 90.0f, bottom = 20.0f, top = 180.0f;
-        Matrix4x4 actual = Matrix4x4.CreatePerspectiveOffCenter(left, right, bottom, top, 1, -10);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, 1, -10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
 // CreatePerspectiveOffCenter test where test where nearPlaneDistance is larger than farPlaneDistance.
-[Fact]
-public void Matrix4x4CreatePerspectiveOffCenterTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsLargerThanFarPlane)
 {
-    Assert.Throws<ArgumentOutOfRangeException>(() =>
-        {
-            float left = 10.0f, right = 90.0f, bottom = 20.0f, top = 180.0f;
-        Matrix4x4 actual = Matrix4x4.CreatePerspectiveOffCenter(left, right, bottom, top, 10, 1);
-        });
+    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), std::out_of_range);
 }
 
 // A test for Invert (Matrix4x4)
 // Non invertible matrix - determinant is zero - singular matrix
-[Fact]
-public void Matrix4x4InvertTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, InvertNonInvertibleMatrix)
 {
-    Matrix4x4 a = new Matrix4x4();
-    a.M11 = 1.0f;
-    a.M12 = 2.0f;
-    a.M13 = 3.0f;
-    a.M14 = 4.0f;
-    a.M21 = 5.0f;
-    a.M22 = 6.0f;
-    a.M23 = 7.0f;
-    a.M24 = 8.0f;
-    a.M31 = 9.0f;
-    a.M32 = 10.0f;
-    a.M33 = 11.0f;
-    a.M34 = 12.0f;
-    a.M41 = 13.0f;
-    a.M42 = 14.0f;
-    a.M43 = 15.0f;
-    a.M44 = 16.0f;
+    Matrix a = { 1.0f , 2.0f , 3.0f , 4.0f
+               , 5.0f , 6.0f , 7.0f , 8.0f
+               , 9.0f , 10.0f, 11.0f, 12.0f
+               , 13.0f, 14.0f, 15.0f, 16.0f };
 
-    float detA = a.GetDeterminant();
-    Assert.True(MathHelper.Equal(detA, 0.0f), "Matrix4x4.Invert did not return the expected value.");
+    Single detA = a.Determinant();
 
-    Matrix4x4 actual;
-    Assert.False(Matrix4x4.Invert(a, out actual));
+    EXPECT_TRUE(EqualityHelper::Equal(detA, 0.0f));
+
+    auto actual = Matrix::Invert(a);
 
     // all the elements in Actual is NaN
-    Assert.True(
-        float.IsNaN(actual.M11) && float.IsNaN(actual.M12) && float.IsNaN(actual.M13) && float.IsNaN(actual.M14) &&
-        float.IsNaN(actual.M21) && float.IsNaN(actual.M22) && float.IsNaN(actual.M23) && float.IsNaN(actual.M24) &&
-        float.IsNaN(actual.M31) && float.IsNaN(actual.M32) && float.IsNaN(actual.M33) && float.IsNaN(actual.M34) &&
-        float.IsNaN(actual.M41) && float.IsNaN(actual.M42) && float.IsNaN(actual.M43) && float.IsNaN(actual.M44)
-        , "Matrix4x4.Invert did not return the expected value.");
-}
-
-// A test for Lerp (Matrix4x4, Matrix4x4, float)
-[Fact]
-public void Matrix4x4LerpTest()
-{
-    Matrix4x4 a = new Matrix4x4();
-    a.M11 = 11.0f;
-    a.M12 = 12.0f;
-    a.M13 = 13.0f;
-    a.M14 = 14.0f;
-    a.M21 = 21.0f;
-    a.M22 = 22.0f;
-    a.M23 = 23.0f;
-    a.M24 = 24.0f;
-    a.M31 = 31.0f;
-    a.M32 = 32.0f;
-    a.M33 = 33.0f;
-    a.M34 = 34.0f;
-    a.M41 = 41.0f;
-    a.M42 = 42.0f;
-    a.M43 = 43.0f;
-    a.M44 = 44.0f;
-
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
-
-    float t = 0.5f;
-
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = a.M11 + (b.M11 - a.M11) * t;
-    expected.M12 = a.M12 + (b.M12 - a.M12) * t;
-    expected.M13 = a.M13 + (b.M13 - a.M13) * t;
-    expected.M14 = a.M14 + (b.M14 - a.M14) * t;
-
-    expected.M21 = a.M21 + (b.M21 - a.M21) * t;
-    expected.M22 = a.M22 + (b.M22 - a.M22) * t;
-    expected.M23 = a.M23 + (b.M23 - a.M23) * t;
-    expected.M24 = a.M24 + (b.M24 - a.M24) * t;
-
-    expected.M31 = a.M31 + (b.M31 - a.M31) * t;
-    expected.M32 = a.M32 + (b.M32 - a.M32) * t;
-    expected.M33 = a.M33 + (b.M33 - a.M33) * t;
-    expected.M34 = a.M34 + (b.M34 - a.M34) * t;
-
-    expected.M41 = a.M41 + (b.M41 - a.M41) * t;
-    expected.M42 = a.M42 + (b.M42 - a.M42) * t;
-    expected.M43 = a.M43 + (b.M43 - a.M43) * t;
-    expected.M44 = a.M44 + (b.M44 - a.M44) * t;
-
-    Matrix4x4 actual;
-    actual = Matrix4x4.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Lerp did not return the expected value.");
+    EXPECT_TRUE(MathHelper::IsNaN(actual.M11())
+             && MathHelper::IsNaN(actual.M12())
+             && MathHelper::IsNaN(actual.M13())
+             && MathHelper::IsNaN(actual.M14())
+             && MathHelper::IsNaN(actual.M21())
+             && MathHelper::IsNaN(actual.M22())
+             && MathHelper::IsNaN(actual.M23())
+             && MathHelper::IsNaN(actual.M24())
+             && MathHelper::IsNaN(actual.M31())
+             && MathHelper::IsNaN(actual.M32())
+             && MathHelper::IsNaN(actual.M33())
+             && MathHelper::IsNaN(actual.M34())
+             && MathHelper::IsNaN(actual.M41())
+             && MathHelper::IsNaN(actual.M42())
+             && MathHelper::IsNaN(actual.M43())
+             && MathHelper::IsNaN(actual.M44()));
 }
 
 // A test for operator - (Matrix4x4)
-[Fact]
-public void Matrix4x4UnaryNegationTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, UnaryNegation)
 {
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
+    auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = -1.0f;
-    expected.M12 = -2.0f;
-    expected.M13 = -3.0f;
-    expected.M14 = -4.0f;
-    expected.M21 = -5.0f;
-    expected.M22 = -6.0f;
-    expected.M23 = -7.0f;
-    expected.M24 = -8.0f;
-    expected.M31 = -9.0f;
-    expected.M32 = -10.0f;
-    expected.M33 = -11.0f;
-    expected.M34 = -12.0f;
-    expected.M41 = -13.0f;
-    expected.M42 = -14.0f;
-    expected.M43 = -15.0f;
-    expected.M44 = -16.0f;
+    Matrix expected;
 
-    Matrix4x4 actual = -a;
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.operator - did not return the expected value.");
+    expected.M11(-1.0f);
+    expected.M12(-2.0f);
+    expected.M13(-3.0f);
+    expected.M14(-4.0f);
+    expected.M21(-5.0f);
+    expected.M22(-6.0f);
+    expected.M23(-7.0f);
+    expected.M24(-8.0f);
+    expected.M31(-9.0f);
+    expected.M32(-10.0f);
+    expected.M33(-11.0f);
+    expected.M34(-12.0f);
+    expected.M41(-13.0f);
+    expected.M42(-14.0f);
+    expected.M43(-15.0f);
+    expected.M44(-16.0f);
+
+    auto actual = -a;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator - (Matrix4x4, Matrix4x4)
-[Fact]
-public void Matrix4x4SubtractionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, Subtraction)
 {
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
-    Matrix4x4 expected = new Matrix4x4();
+    auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
+    auto b = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix4x4 actual = a - b;
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.operator - did not return the expected value.");
+    Matrix expected;
+
+    auto actual = a - b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Matrix4x4, Matrix4x4)
-[Fact]
-public void Matrix4x4MultiplyTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, MultiplyTest1)
 {
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
+    auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
+    auto b = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31 + a.M14 * b.M41;
-    expected.M12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32 + a.M14 * b.M42;
-    expected.M13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33 + a.M14 * b.M43;
-    expected.M14 = a.M11 * b.M14 + a.M12 * b.M24 + a.M13 * b.M34 + a.M14 * b.M44;
+    Matrix expected;
 
-    expected.M21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31 + a.M24 * b.M41;
-    expected.M22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32 + a.M24 * b.M42;
-    expected.M23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33 + a.M24 * b.M43;
-    expected.M24 = a.M21 * b.M14 + a.M22 * b.M24 + a.M23 * b.M34 + a.M24 * b.M44;
+    expected.M11(a.M11() * b.M11() + a.M12() * b.M21() + a.M13() * b.M31() + a.M14() * b.M41());
+    expected.M12(a.M11() * b.M12() + a.M12() * b.M22() + a.M13() * b.M32() + a.M14() * b.M42());
+    expected.M13(a.M11() * b.M13() + a.M12() * b.M23() + a.M13() * b.M33() + a.M14() * b.M43());
+    expected.M14(a.M11() * b.M14() + a.M12() * b.M24() + a.M13() * b.M34() + a.M14() * b.M44());
 
-    expected.M31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31 + a.M34 * b.M41;
-    expected.M32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32 + a.M34 * b.M42;
-    expected.M33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33 + a.M34 * b.M43;
-    expected.M34 = a.M31 * b.M14 + a.M32 * b.M24 + a.M33 * b.M34 + a.M34 * b.M44;
+    expected.M21(a.M21() * b.M11() + a.M22() * b.M21() + a.M23() * b.M31() + a.M24() * b.M41());
+    expected.M22(a.M21() * b.M12() + a.M22() * b.M22() + a.M23() * b.M32() + a.M24() * b.M42());
+    expected.M23(a.M21() * b.M13() + a.M22() * b.M23() + a.M23() * b.M33() + a.M24() * b.M43());
+    expected.M24(a.M21() * b.M14() + a.M22() * b.M24() + a.M23() * b.M34() + a.M24() * b.M44());
 
-    expected.M41 = a.M41 * b.M11 + a.M42 * b.M21 + a.M43 * b.M31 + a.M44 * b.M41;
-    expected.M42 = a.M41 * b.M12 + a.M42 * b.M22 + a.M43 * b.M32 + a.M44 * b.M42;
-    expected.M43 = a.M41 * b.M13 + a.M42 * b.M23 + a.M43 * b.M33 + a.M44 * b.M43;
-    expected.M44 = a.M41 * b.M14 + a.M42 * b.M24 + a.M43 * b.M34 + a.M44 * b.M44;
+    expected.M31(a.M31() * b.M11() + a.M32() * b.M21() + a.M33() * b.M31() + a.M34() * b.M41());
+    expected.M32(a.M31() * b.M12() + a.M32() * b.M22() + a.M33() * b.M32() + a.M34() * b.M42());
+    expected.M33(a.M31() * b.M13() + a.M32() * b.M23() + a.M33() * b.M33() + a.M34() * b.M43());
+    expected.M34(a.M31() * b.M14() + a.M32() * b.M24() + a.M33() * b.M34() + a.M34() * b.M44());
 
-    Matrix4x4 actual = a * b;
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.operator * did not return the expected value.");
+    expected.M41(a.M41() * b.M11() + a.M42() * b.M21() + a.M43() * b.M31() + a.M44() * b.M41());
+    expected.M42(a.M41() * b.M12() + a.M42() * b.M22() + a.M43() * b.M32() + a.M44() * b.M42());
+    expected.M43(a.M41() * b.M13() + a.M42() * b.M23() + a.M43() * b.M33() + a.M44() * b.M43());
+    expected.M44(a.M41() * b.M14() + a.M42() * b.M24() + a.M43() * b.M34() + a.M44() * b.M44());
+
+    auto actual = a * b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Matrix4x4, Matrix4x4)
 // Multiply with identity matrix
-[Fact]
-public void Matrix4x4MultiplyTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, MultiplyTest2)
 {
-    Matrix4x4 a = new Matrix4x4();
-    a.M11 = 1.0f;
-    a.M12 = 2.0f;
-    a.M13 = 3.0f;
-    a.M14 = 4.0f;
-    a.M21 = 5.0f;
-    a.M22 = -6.0f;
-    a.M23 = 7.0f;
-    a.M24 = -8.0f;
-    a.M31 = 9.0f;
-    a.M32 = 10.0f;
-    a.M33 = 11.0f;
-    a.M34 = 12.0f;
-    a.M41 = 13.0f;
-    a.M42 = -14.0f;
-    a.M43 = 15.0f;
-    a.M44 = -16.0f;
+    Matrix a = { 1.0f , 2.0f  , 3.0f , 4.0f
+               , 5.0f , -6.0f , 7.0f , -8.0f
+               , 9.0f , 10.0f , 11.0f, 12.0f
+               , 13.0f, -14.0f, 15.0f, -16.0f };
 
-    Matrix4x4 b = new Matrix4x4();
-    b = Matrix4x4.Identity;
+    auto b = Matrix::Identity;
 
-    Matrix4x4 expected = a;
-    Matrix4x4 actual = a * b;
+    auto expected = a;
+    auto actual   = a * b;
 
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.operator * did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator + (Matrix4x4, Matrix4x4)
-[Fact]
-public void Matrix4x4AdditionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, Addition)
 {
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
+    auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
+    auto b = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = a.M11 + b.M11;
-    expected.M12 = a.M12 + b.M12;
-    expected.M13 = a.M13 + b.M13;
-    expected.M14 = a.M14 + b.M14;
-    expected.M21 = a.M21 + b.M21;
-    expected.M22 = a.M22 + b.M22;
-    expected.M23 = a.M23 + b.M23;
-    expected.M24 = a.M24 + b.M24;
-    expected.M31 = a.M31 + b.M31;
-    expected.M32 = a.M32 + b.M32;
-    expected.M33 = a.M33 + b.M33;
-    expected.M34 = a.M34 + b.M34;
-    expected.M41 = a.M41 + b.M41;
-    expected.M42 = a.M42 + b.M42;
-    expected.M43 = a.M43 + b.M43;
-    expected.M44 = a.M44 + b.M44;
+    Matrix expected = { a.M11() + b.M11(), a.M12() + b.M12(), a.M13() + b.M13(), a.M14() + b.M14()
+                      , a.M21() + b.M21(), a.M22() + b.M22(), a.M23() + b.M23(), a.M24() + b.M24()
+                      , a.M31() + b.M31(), a.M32() + b.M32(), a.M33() + b.M33(), a.M34() + b.M34()
+                      , a.M41() + b.M41(), a.M42() + b.M42(), a.M43() + b.M43(), a.M44() + b.M44() };
 
-    Matrix4x4 actual;
+    auto actual = a + b;
 
-    actual = a + b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.operator + did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transpose (Matrix4x4)
-[Fact]
-public void Matrix4x4TransposeTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, Transpose)
 {
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
+    auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = a.M11;
-    expected.M12 = a.M21;
-    expected.M13 = a.M31;
-    expected.M14 = a.M41;
-    expected.M21 = a.M12;
-    expected.M22 = a.M22;
-    expected.M23 = a.M32;
-    expected.M24 = a.M42;
-    expected.M31 = a.M13;
-    expected.M32 = a.M23;
-    expected.M33 = a.M33;
-    expected.M34 = a.M43;
-    expected.M41 = a.M14;
-    expected.M42 = a.M24;
-    expected.M43 = a.M34;
-    expected.M44 = a.M44;
+    Matrix expected = { a.M11(), a.M21(), a.M31(), a.M41()
+                      , a.M12(), a.M22(), a.M32(), a.M42()
+                      , a.M13(), a.M23(), a.M33(), a.M43()
+                      , a.M14(), a.M24(), a.M34(), a.M44() };
 
-    Matrix4x4 actual = Matrix4x4.Transpose(a);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Transpose did not return the expected value.");
+    auto actual = Matrix::Transpose(a);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transpose (Matrix4x4)
 // Transpose Identity matrix
-[Fact]
-public void Matrix4x4TransposeTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, TransposeIdentityMatrix)
 {
-    Matrix4x4 a = Matrix4x4.Identity;
-    Matrix4x4 expected = Matrix4x4.Identity;
+    auto a        = Matrix::Identity;
+    auto expected = Matrix::Identity;
+    auto actual   = Matrix::Transpose(a);
 
-    Matrix4x4 actual = Matrix4x4.Transpose(a);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Transpose did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Matrix4x4 (Quaternion)
-[Fact]
-public void Matrix4x4FromQuaternionTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromQuaternion)
 {
-    Vector3 axis = Vector3.Normalize(new Vector3(1.0f, 2.0f, 3.0f));
-    Quaternion q = Quaternion.CreateFromAxisAngle(axis, MathHelper.ToRadians(30.0f));
+    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto q    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
 
-    Matrix4x4 expected = new Matrix4x4();
-    expected.M11 = 0.875595033f;
-    expected.M12 = 0.420031041f;
-    expected.M13 = -0.2385524f;
-    expected.M14 = 0.0f;
+    Matrix expected = { 0.875595033f, 0.420031041f, -0.2385524f , 0.0f
+                      , -0.38175258f, 0.904303849f, 0.1910483f  , 0.0f
+                      , 0.295970082f, -0.07621294f, 0.952151954f, 0.0f
+                      , 0.0f        , 0.0f        , 0.0f        , 1.0f };
 
-    expected.M21 = -0.38175258f;
-    expected.M22 = 0.904303849f;
-    expected.M23 = 0.1910483f;
-    expected.M24 = 0.0f;
+    auto target = Matrix::CreateFromQuaternion(q);
 
-    expected.M31 = 0.295970082f;
-    expected.M32 = -0.07621294f;
-    expected.M33 = 0.952151954f;
-    expected.M34 = 0.0f;
-
-    expected.M41 = 0.0f;
-    expected.M42 = 0.0f;
-    expected.M43 = 0.0f;
-    expected.M44 = 1.0f;
-
-    Matrix4x4 target = Matrix4x4.CreateFromQuaternion(q);
-    Assert.True(MathHelper.Equal(expected, target), "Matrix4x4.Matrix4x4(Quaternion) did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, target));
 }
 
 // A test for FromQuaternion (Matrix4x4)
 // Convert X axis rotation matrix
-[Fact]
-public void Matrix4x4FromQuaternionTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromQuaternionConvertXAxisRotationMatrix)
 {
-    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        Quaternion quat = Quaternion.CreateFromAxisAngle(Vector3.UnitX, angle);
+        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
+        auto expected = Matrix::CreateRotationX(angle);
+        auto actual   = Matrix::CreateFromQuaternion(quat);
 
-        Matrix4x4 expected = Matrix4x4.CreateRotationX(angle);
-        Matrix4x4 actual = Matrix4x4.CreateFromQuaternion(quat);
-        Assert.True(MathHelper.Equal(expected, actual),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        Quaternion q2 = Quaternion.CreateFromRotationMatrix(actual);
-        Assert.True(MathHelper.EqualRotation(quat, q2),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+
+        EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
 }
 
+/*
 // A test for FromQuaternion (Matrix4x4)
 // Convert Y axis rotation matrix
 [Fact]
@@ -2736,5 +2590,57 @@ public void Matrix4x4CreateReflectionTest01()
             Assert.True(MathHelper.Equal(rp, vp), "Matrix4x4.Reflection did not provide expected value.");
         }
     }
+}
+
+// A test for Lerp (Matrix4x4, Matrix4x4, float)
+[Fact]
+public void Matrix4x4LerpTest()
+{
+    Matrix4x4 a = new Matrix4x4();
+    a.M11 = 11.0f;
+    a.M12 = 12.0f;
+    a.M13 = 13.0f;
+    a.M14 = 14.0f;
+    a.M21 = 21.0f;
+    a.M22 = 22.0f;
+    a.M23 = 23.0f;
+    a.M24 = 24.0f;
+    a.M31 = 31.0f;
+    a.M32 = 32.0f;
+    a.M33 = 33.0f;
+    a.M34 = 34.0f;
+    a.M41 = 41.0f;
+    a.M42 = 42.0f;
+    a.M43 = 43.0f;
+    a.M44 = 44.0f;
+
+    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
+
+    float t = 0.5f;
+
+    Matrix4x4 expected = new Matrix4x4();
+    expected.M11 = a.M11 + (b.M11 - a.M11) * t;
+    expected.M12 = a.M12 + (b.M12 - a.M12) * t;
+    expected.M13 = a.M13 + (b.M13 - a.M13) * t;
+    expected.M14 = a.M14 + (b.M14 - a.M14) * t;
+
+    expected.M21 = a.M21 + (b.M21 - a.M21) * t;
+    expected.M22 = a.M22 + (b.M22 - a.M22) * t;
+    expected.M23 = a.M23 + (b.M23 - a.M23) * t;
+    expected.M24 = a.M24 + (b.M24 - a.M24) * t;
+
+    expected.M31 = a.M31 + (b.M31 - a.M31) * t;
+    expected.M32 = a.M32 + (b.M32 - a.M32) * t;
+    expected.M33 = a.M33 + (b.M33 - a.M33) * t;
+    expected.M34 = a.M34 + (b.M34 - a.M34) * t;
+
+    expected.M41 = a.M41 + (b.M41 - a.M41) * t;
+    expected.M42 = a.M42 + (b.M42 - a.M42) * t;
+    expected.M43 = a.M43 + (b.M43 - a.M43) * t;
+    expected.M44 = a.M44 + (b.M44 - a.M44) * t;
+
+    Matrix4x4 actual;
+    actual = Matrix4x4.Lerp(a, b, t);
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Lerp did not return the expected value.");
 }
 */
