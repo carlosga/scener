@@ -371,6 +371,11 @@ Matrix Matrix::Invert(const Matrix& matrix)
     return result;
 }
 
+Matrix Matrix::Negate(const Matrix& matrix)
+{
+    return matrix * -1;
+}
+
 Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 {
     return value * Matrix::CreateFromQuaternion(rotation);
@@ -378,11 +383,10 @@ Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
 
 Matrix Matrix::Transpose(const Matrix& source)
 {
-    auto result = Matrix(source);
-
-    result.Transpose();
-
-    return result;
+    return { source.m11, source.m21, source.m31, source.m41
+           , source.m12, source.m22, source.m32, source.m42
+           , source.m13, source.m23, source.m33, source.m43
+           , source.m14, source.m24, source.m34, source.m44 };
 }
 
 Matrix::Matrix()
@@ -574,8 +578,6 @@ void Matrix::M44(const Single& value)
 
 bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation)
 {
-    this->Transpose();
-
     translation = { this->m41, this->m42, this->m43 };
 
     auto v1 = Vector3 { this->m11, this->m12, this->m13 };
@@ -590,8 +592,6 @@ bool Matrix::Decompose(Vector3& scale, Quaternion& rotation, Vector3& translatio
     }
 
     rotation = Quaternion::CreateFromRotationMatrix(*this);
-
-    this->Transpose();
 
     return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
 }
@@ -644,31 +644,6 @@ void Matrix::Invert()
 bool Matrix::IsIdentity() const
 {
     return (*this == Matrix::Identity);
-}
-
-void Matrix::Transpose()
-{
-    Matrix temp = *this;
-
-    this->m11 = temp.m11;
-    this->m12 = temp.m21;
-    this->m13 = temp.m31;
-    this->m14 = temp.m41;
-
-    this->m21 = temp.m12;
-    this->m22 = temp.m22;
-    this->m23 = temp.m32;
-    this->m24 = temp.m42;
-
-    this->m31 = temp.m13;
-    this->m32 = temp.m23;
-    this->m33 = temp.m33;
-    this->m34 = temp.m43;
-
-    this->m41 = temp.m14;
-    this->m42 = temp.m24;
-    this->m43 = temp.m34;
-    this->m44 = temp.m44;
 }
 
 Single& Matrix::operator[](const Size& index)
@@ -817,6 +792,15 @@ const Matrix Matrix::operator*(const Matrix& matrix) const
     auto result = *this;
 
     result *= matrix;
+
+    return result;
+}
+
+const Matrix Matrix::operator*(const Single& value) const
+{
+    auto result = *this;
+
+    result *= value;
 
     return result;
 }

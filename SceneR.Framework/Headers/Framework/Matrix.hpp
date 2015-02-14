@@ -241,6 +241,12 @@ namespace SceneR
             static Matrix Invert(const Matrix& matrix);
 
             /**
+            * Negates the given Matrix structure.
+            * @param matrix the matrix to negate.
+            */
+            static Matrix Negate(const Matrix& matrix);
+
+            /**
              * Transforms a Matrix by applying a Quaternion rotation.
              *
              * @param value the matrix to transform
@@ -514,11 +520,6 @@ namespace SceneR
              */
             bool IsIdentity() const;
 
-            /**
-             * Transposes this Matrix structure.
-             */
-            void Transpose();
-
         public:
             System::Single& operator[](const System::Size& index);
             const System::Single& operator[](const System::Size& index) const;
@@ -529,6 +530,7 @@ namespace SceneR
             Matrix& operator+=(const Matrix& matrix);
             Matrix& operator-=(const Matrix& matrix);
             const Matrix operator*(const Matrix& matrix) const;
+            const Matrix operator*(const System::Single& value) const;
             const Matrix operator+(const Matrix& matrix) const;
             const Matrix operator-(const Matrix& matrix) const;
             const Matrix operator-() const;
