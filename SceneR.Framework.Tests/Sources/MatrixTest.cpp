@@ -1324,82 +1324,73 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertXAxisRotationMatrix)
     }
 }
 
-/*
 // A test for FromQuaternion (Matrix4x4)
 // Convert Y axis rotation matrix
-[Fact]
-public void Matrix4x4FromQuaternionTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromQuaternionConvertYAxisRotationMatrix)
 {
-    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        Quaternion quat = Quaternion.CreateFromAxisAngle(Vector3.UnitY, angle);
+        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
+        auto expected = Matrix::CreateRotationY(angle);
+        auto actual   = Matrix::CreateFromQuaternion(quat);
 
-        Matrix4x4 expected = Matrix4x4.CreateRotationY(angle);
-        Matrix4x4 actual = Matrix4x4.CreateFromQuaternion(quat);
-        Assert.True(MathHelper.Equal(expected, actual),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        Quaternion q2 = Quaternion.CreateFromRotationMatrix(actual);
-        Assert.True(MathHelper.EqualRotation(quat, q2),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+
+        EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
 }
 
 // A test for FromQuaternion (Matrix4x4)
 // Convert Z axis rotation matrix
-[Fact]
-public void Matrix4x4FromQuaternionTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromQuaternionConvertZAxisRotationMatrix)
 {
-    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        Quaternion quat = Quaternion.CreateFromAxisAngle(Vector3.UnitZ, angle);
+        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle);
+        auto expected = Matrix::CreateRotationZ(angle);
+        auto actual   = Matrix::CreateFromQuaternion(quat);
 
-        Matrix4x4 expected = Matrix4x4.CreateRotationZ(angle);
-        Matrix4x4 actual = Matrix4x4.CreateFromQuaternion(quat);
-        Assert.True(MathHelper.Equal(expected, actual),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        Quaternion q2 = Quaternion.CreateFromRotationMatrix(actual);
-        Assert.True(MathHelper.EqualRotation(quat, q2),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+
+        EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
 }
 
 // A test for FromQuaternion (Matrix4x4)
 // Convert XYZ axis rotation matrix
-[Fact]
-public void Matrix4x4FromQuaternionTest5()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateFromQuaternionConvertXYZAxisRotationMatrix)
 {
-    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        Quaternion quat =
-                       Quaternion.CreateFromAxisAngle(Vector3.UnitZ, angle) *
-                           Quaternion.CreateFromAxisAngle(Vector3.UnitY, angle) *
-                           Quaternion.CreateFromAxisAngle(Vector3.UnitX, angle);
+        auto quat = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
+                  * Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle)
+                  * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
 
-        Matrix4x4 expected =
-                      Matrix4x4.CreateRotationX(angle) *
-                          Matrix4x4.CreateRotationY(angle) *
-                          Matrix4x4.CreateRotationZ(angle);
-        Matrix4x4 actual = Matrix4x4.CreateFromQuaternion(quat);
-        Assert.True(MathHelper.Equal(expected, actual),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        auto expected = Matrix::CreateRotationX(angle)
+                      * Matrix::CreateRotationY(angle)
+                      * Matrix::CreateRotationZ(angle);
+
+        auto actual = Matrix::CreateFromQuaternion(quat);
+
+        EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        Quaternion q2 = Quaternion.CreateFromRotationMatrix(actual);
-        Assert.True(MathHelper.EqualRotation(quat, q2),
-                    string.Format("Quaternion.FromQuaternion did not return the expected value. angle:{0}",
-                                  angle.ToString()));
+        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+
+        EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
 }
 
+/*
 // A test for ToString ()
 [Fact]
 public void Matrix4x4ToStringTest()
