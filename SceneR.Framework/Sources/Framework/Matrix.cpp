@@ -168,9 +168,19 @@ Matrix Matrix::CreatePerspective(const Single& width, const Single& height
     // 0       0       zf/(zn-zf)    -1
     // 0       0       zn*zf/(zn-zf)  0
 
-    if (zNear < 0 || zFar < 0)
+    if (zNear <= 0.0f)
     {
-        throw std::invalid_argument("zNear and zFar should be positive values.");
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zFar <= 0.0f)
+    {
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zNear >= zFar)
+    {
+        throw std::out_of_range("zNear should be greather than zFar.");
     }
 
     Single nearSubFar = zNear - zFar;
@@ -194,9 +204,24 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
     // yScale = cot(fovY/2)
     // xScale = yScale / aspect ratio
 
-    if (zNear < 0 || zFar < 0)
+    if (fieldOfView <= 0.0f || fieldOfView >= MathHelper::Pi)
     {
-        throw std::invalid_argument("zNear and zFar should be positive values.");
+        throw std::out_of_range("fieldOfView should be a positive value less than MathHelper::Pi");
+    }
+
+    if (zNear <= 0.0f)
+    {
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zFar <= 0.0f)
+    {
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zNear >= zFar)
+    {
+        throw std::out_of_range("zNear should be greather than zFar.");
     }
 
     Single yScale     = 1.0f / std::tan(fieldOfView / 2);
@@ -208,6 +233,48 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
            , 0.0f  , 0.0f  , zFar / nearSubFar        , -1.0f
            , 0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f };
 }
+
+Matrix Matrix::CreatePerspectiveOffCenter(const Single& left
+                                        , const Single& right
+                                        , const Single& bottom
+                                        , const Single& top
+                                        , const Single& zNear
+                                        , const Single& zFar)
+{
+    if (zNear <= 0.0f)
+    {
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zFar <= 0.0f)
+    {
+        throw std::out_of_range("zNear should be a positive value.");
+    }
+
+    if (zNear >= zFar)
+    {
+        throw std::out_of_range("zNear should be greather than zFar.");
+    }
+
+    // Reference : https://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
+
+    // 2*zn/(r-l)   0            0                0
+    // 0            2*zn/(t-b)   0                0
+    // (l+r)/(r-l)  (t+b)/(t-b)  zf/(zn-zf)      -1
+    // 0            0            zn*zf/(zn-zf)    0
+
+    Single rightSubLeft  = right - left;
+    Single leftPlusRight = left + right;
+    Single topSubBottom  = top - bottom;
+    Single topPlusBottom = top + bottom;
+    Single nearSubFar    = zNear - zFar;
+
+    return { 2.0f * zNear / rightSubLeft , 0.0f                        , 0.0f                     , 0.0f
+           , 0.0f                        , 2 * zNear / topSubBottom    , 0.0f                     , 0.0f
+           , leftPlusRight / rightSubLeft, topPlusBottom / topSubBottom, zFar / nearSubFar        , -1.0f
+           , 0.0f                        , 0.0f                        , zNear * zFar / nearSubFar, 0.0f};
+}
+
 
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
@@ -670,11 +737,113 @@ Matrix& Matrix::operator*=(const Matrix& right)
     return *this;
 }
 
+Matrix& Matrix::operator*=(const Single& value)
+{
+    this->m11 *= value;
+    this->m12 *= value;
+    this->m13 *= value;
+    this->m14 *= value;
+
+    this->m21 *= value;
+    this->m22 *= value;
+    this->m23 *= value;
+    this->m24 *= value;
+
+    this->m31 *= value;
+    this->m32 *= value;
+    this->m33 *= value;
+    this->m34 *= value;
+
+    this->m41 *= value;
+    this->m42 *= value;
+    this->m43 *= value;
+    this->m44 *= value;
+
+    return *this;
+}
+
+Matrix& Matrix::operator+=(const Matrix& matrix)
+{
+    this->m11 += matrix.m11;
+    this->m12 += matrix.m12;
+    this->m13 += matrix.m13;
+    this->m14 += matrix.m14;
+
+    this->m21 += matrix.m21;
+    this->m22 += matrix.m22;
+    this->m23 += matrix.m23;
+    this->m24 += matrix.m24;
+
+    this->m31 += matrix.m31;
+    this->m32 += matrix.m32;
+    this->m33 += matrix.m33;
+    this->m34 += matrix.m34;
+
+    this->m41 += matrix.m41;
+    this->m42 += matrix.m42;
+    this->m43 += matrix.m43;
+    this->m44 += matrix.m44;
+
+    return *this;
+}
+
+Matrix& Matrix::operator-=(const Matrix& matrix)
+{
+    this->m11 -= matrix.m11;
+    this->m12 -= matrix.m12;
+    this->m13 -= matrix.m13;
+    this->m14 -= matrix.m14;
+
+    this->m21 -= matrix.m21;
+    this->m22 -= matrix.m22;
+    this->m23 -= matrix.m23;
+    this->m24 -= matrix.m24;
+
+    this->m31 -= matrix.m31;
+    this->m32 -= matrix.m32;
+    this->m33 -= matrix.m33;
+    this->m34 -= matrix.m34;
+
+    this->m41 -= matrix.m41;
+    this->m42 -= matrix.m42;
+    this->m43 -= matrix.m43;
+    this->m44 -= matrix.m44;
+
+    return *this;
+}
+
 const Matrix Matrix::operator*(const Matrix& matrix) const
 {
     auto result = *this;
 
     result *= matrix;
+
+    return result;
+}
+
+const Matrix Matrix::operator+(const Matrix& matrix) const
+{
+    auto result = *this;
+
+    result += matrix;
+
+    return result;
+}
+
+const Matrix Matrix::operator-(const Matrix& matrix) const
+{
+    auto result = *this;
+
+    result -= matrix;
+
+    return result;
+}
+
+const Matrix Matrix::operator-() const
+{
+    auto result = *this;
+
+    result *= -1;
 
     return result;
 }

@@ -134,6 +134,22 @@ namespace SceneR
                                                      , const System::Single& zFar);
 
             /**
+             * Builds a customized, right-handed perspective projection matrix.
+             * @param left Minimum x-value of the view volume.
+             * @param right Maximum x-value of the view volume.
+             * @param bottom Minimum y-value of the view volume.
+             * @param top Maximum y-value of the view volume.
+             * @param zNear Minimum z-value of the view volume.
+             * @param zFar Maximun z-value of the view volume.
+             */
+            static Matrix CreatePerspectiveOffCenter(const System::Single& left
+                                                   , const System::Single& right
+                                                   , const System::Single& bottom
+                                                   , const System::Single& top
+                                                   , const System::Single& zNear
+                                                   , const System::Single& zFar);
+
+            /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
@@ -509,7 +525,13 @@ namespace SceneR
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;
             Matrix& operator*=(const Matrix& matrix);
+            Matrix& operator*=(const System::Single& value);
+            Matrix& operator+=(const Matrix& matrix);
+            Matrix& operator-=(const Matrix& matrix);
             const Matrix operator*(const Matrix& matrix) const;
+            const Matrix operator+(const Matrix& matrix) const;
+            const Matrix operator-(const Matrix& matrix) const;
+            const Matrix operator-() const;
 
         private:
             System::Single SubMatrixDeterminant();
