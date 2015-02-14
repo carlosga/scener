@@ -3,9 +3,9 @@
 
 #include <Framework/Ray.hpp>
 
-#include <cmath>
 #include <stdexcept>
 
+#include <System/Math.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/BoundingBox.hpp>
@@ -56,7 +56,7 @@ Boolean Ray::Intersects(const Plane& plane)
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto denom = Vector3::Dot(plane.Normal(), this->direction);
 
-    if (std::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
+    if (Math::Abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
     {
         return false;
     }

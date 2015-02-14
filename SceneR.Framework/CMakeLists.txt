@@ -148,6 +148,7 @@ set(HEADER_FILES
     Headers/System/IO/Path.hpp
     Headers/System/IO/Stream.hpp
     Headers/System/Core.hpp
+    Headers/System/Math.hpp
     Headers/System/Pointer.hpp
     Headers/System/TimeSpan.hpp
     Headers/System/Text/Decoder.hpp
@@ -242,6 +243,7 @@ set(SOURCE_FILES
     Sources/Graphics/VertexPositionColorTexture.cpp
     Sources/Graphics/VertexPositionNormalTexture.cpp
     Sources/Graphics/Viewport.cpp
+    Sources/System/Math.cpp
     Sources/System/TimeSpan.cpp
     Sources/System/IO/BinaryReader.cpp
     Sources/System/IO/FileStream.cpp

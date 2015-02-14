@@ -4,8 +4,8 @@
 #include <Framework/Quaternion.hpp>
 
 #include <cassert>
-#include <cmath>
 
+#include <System/Math.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/MathHelper.hpp>
@@ -28,12 +28,12 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const 
     // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
 
     Single theta = angle / 2;
-    Single rSin  = sin(theta);
+    Single rSin  = Math::Sin(theta);
 
     return { axisOfRotation.X() * rSin
            , axisOfRotation.Y() * rSin
            , axisOfRotation.Z() * rSin
-           , cos(theta) };
+           , Math::Cos(theta) };
 }
 
 Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
@@ -71,7 +71,7 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
 
     if (tr > 0.0f)
     {
-        Single s = std::sqrt(tr + 1.0f);
+        Single s = Math::Sqrt(tr + 1.0f);
         result.w = s * 0.5f;
         s = 0.5f / s;
         result.x = (matrix.M23() - matrix.M32()) * s;
@@ -82,7 +82,7 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
     {
         if ((matrix.M11() >= matrix.M22()) && (matrix.M11() >= matrix.M33()))
         {
-            Single s  = std::sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
+            Single s  = Math::Sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
             Single s2 = 0.5f / s;
             result.w  = (matrix.M23() - matrix.M32()) * s2;
             result.x  = 0.5f * s;
@@ -91,7 +91,7 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
         }
         else if (matrix.M22() > matrix.M33())
         {
-            Single s  = std::sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
+            Single s  = Math::Sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
             Single s2 = 0.5f / s;
             result.w  = (matrix.M31() - matrix.M13()) * s2;
             result.x  = (matrix.M21() + matrix.M12()) * s2;
@@ -100,7 +100,7 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
         }
         else
         {
-            Single s  = std::sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
+            Single s  = Math::Sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
             Single s2 = 0.5f / s;
             result.w  = (matrix.M12() - matrix.M21()) * s2;
             result.x  = (matrix.M31() + matrix.M13()) * s2;
@@ -160,13 +160,13 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
         bFlip    = true;
     }
 
-    Single theta    = std::acos(cosTheta);
-    Single sinTheta = std::sin(theta);
+    Single theta    = Math::Acos(cosTheta);
+    Single sinTheta = Math::Sin(theta);
 
     if (sinTheta > 0.005f)
     {
-        w1 = std::sin((1.0f - amount) * theta) / sinTheta;
-        w2 = std::sin(amount * theta) / sinTheta;
+        w1 = Math::Sin((1.0f - amount) * theta) / sinTheta;
+        w2 = Math::Sin(amount * theta) / sinTheta;
     }
     else
     {
@@ -264,7 +264,7 @@ Single Quaternion::LengthSquared() const
 
 Single Quaternion::Length() const
 {
-    return std::sqrt(this->LengthSquared());
+    return Math::Sqrt(this->LengthSquared());
 }
 
 Single& Quaternion::operator[](const Size& index)

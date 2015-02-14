@@ -4,8 +4,8 @@
 #include <Framework/Vector2.hpp>
 
 #include <cassert>
-#include <cmath>
 
+#include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/MathHelper.hpp>
 
@@ -19,12 +19,12 @@ const Vector2 Vector2::Zero  { 0.0f, 0.0f };
 
 Vector2 Vector2::Abs(const Vector2& value)
 {
-    return Vector2 { std::abs(value.X()), std::abs(value.Y()) };
+    return Vector2 { Math::Abs(value.X()), Math::Abs(value.Y()) };
 }
 
 Vector2 Vector2::SquareRoot(const Vector2& value)
 {
-    return Vector2 { std::sqrt(value.X()), std::sqrt(value.Y()) };
+    return Vector2 { Math::Sqrt(value.X()), Math::Sqrt(value.Y()) };
 }
 
 Vector2 Vector2::Barycentric(const Vector2& value1
@@ -191,7 +191,7 @@ Single Vector2::LengthSquared() const
 
 Single Vector2::Length() const
 {
-    return std::sqrt(this->LengthSquared());
+    return Math::Sqrt(this->LengthSquared());
 }
 
 Single& Vector2::operator[](const Size& index)

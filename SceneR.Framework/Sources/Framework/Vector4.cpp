@@ -4,8 +4,8 @@
 #include <Framework/Vector4.hpp>
 
 #include <cassert>
-#include <cmath>
 
+#include <System/Math.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Matrix.hpp>
@@ -189,7 +189,7 @@ Single Vector4::LengthSquared() const
 
 Single Vector4::Length() const
 {
-    return std::sqrt(this->LengthSquared());
+    return Math::Sqrt(this->LengthSquared());
 }
 
 Single& Vector4::operator[](const Size& index)

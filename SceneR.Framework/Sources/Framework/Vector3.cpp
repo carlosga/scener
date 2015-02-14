@@ -4,8 +4,8 @@
 #include <Framework/Vector3.hpp>
 
 #include <cassert>
-#include <cmath>
 
+#include <System/Math.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/MathHelper.hpp>
@@ -29,7 +29,7 @@ Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
     Single lengthSquared = left.LengthSquared() * right.LengthSquared();
 
-    return std::acos(Vector3::Dot(left, right) / std::sqrt(lengthSquared));
+    return Math::Acos(Vector3::Dot(left, right) / Math::Sqrt(lengthSquared));
 }
 
 Vector3 Vector3::Barycentric(const Vector3& value1
@@ -235,7 +235,7 @@ Single Vector3::Length() const
     //
     // |a| = sqrt(x^2 + y^2 + z^2)
 
-    return std::sqrt(this->LengthSquared());
+    return Math::Sqrt(this->LengthSquared());
 }
 
 Single& Vector3::operator[](const Size& index)

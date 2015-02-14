@@ -3,9 +3,9 @@
 
 #include <Framework/BoundingSphere.hpp>
 
-#include <cmath>
 #include <stdexcept>
 
+#include <System/Math.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingBox.hpp>
 #include <Framework/Ray.hpp>
@@ -115,7 +115,7 @@ System::Boolean BoundingSphere::Intersects(const Ray& ray) const
         return false;
     }
 
-    Single thit = std::sqrt(rad2 - dsq);
+    Single thit = Math::Sqrt(rad2 - dsq);
     Single t    = tPX - thit;
 
     if (t < 0.0f)

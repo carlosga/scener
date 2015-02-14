@@ -7,6 +7,8 @@
 #include <cmath>
 #include <limits>
 
+#include <System/Math.hpp>
+
 using namespace System;
 using namespace SceneR::Framework;
 
@@ -153,7 +155,7 @@ Single MathHelper::ToDegrees(const Single& radians)
 
 System::Single MathHelper::WrapAngle(const System::Single& angle)
 {
-    Single result = std::remainder(angle, MathHelper::TwoPi);
+    Single result = Math::IEEERemainder(angle, MathHelper::TwoPi);
 
     if (result < -MathHelper::Pi)
     {

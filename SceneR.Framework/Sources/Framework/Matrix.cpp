@@ -3,10 +3,10 @@
 
 #include <Framework/Matrix.hpp>
 
-#include <cmath>
 #include <cassert>
 #include <stdexcept>
 
+#include <System/Math.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/MathHelper.hpp>
@@ -23,8 +23,8 @@ Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {
     // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto   naxis = Vector3::Normalize(axis);
-    Single cos   = std::cos(angle);
-    Single sin   = std::sin(angle);
+    Single cos   = Math::Cos(angle);
+    Single sin   = Math::Sin(angle);
     Single cos_1 = 1.0f - cos;
     Single x     = naxis.X();
     Single y     = naxis.Y();
@@ -224,7 +224,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
         throw std::out_of_range("zNear should be greather than zFar.");
     }
 
-    Single yScale     = 1.0f / std::tan(fieldOfView / 2);
+    Single yScale     = 1.0f / Math::Tan(fieldOfView / 2);
     Single xScale     = yScale / aspectRatio;
     Single nearSubFar = zNear - zFar;
 
@@ -279,8 +279,8 @@ Matrix Matrix::CreatePerspectiveOffCenter(const Single& left
 Matrix Matrix::CreateRotationX(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = std::cos(angle);
-    Single sin = std::sin(angle);
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
 
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f,  cos,  sin, 0.0f
@@ -291,8 +291,8 @@ Matrix Matrix::CreateRotationX(const Single& angle)
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = std::cos(angle);
-    Single sin = std::sin(angle);
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
 
     return {  cos, 0.0f, -sin, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -303,8 +303,8 @@ Matrix Matrix::CreateRotationY(const Single& angle)
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = std::cos(angle);
-    Single sin = std::sin(angle);
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
 
     return {  cos,  sin, 0.0f, 0.0f
            , -sin,  cos, 0.0f, 0.0f
@@ -625,7 +625,7 @@ Single Matrix::Determinant() const
 
 bool Matrix::HasInverse() const
 {
-    return (std::abs(this->Determinant()) > 0.0005f);
+    return (Math::Abs(this->Determinant()) > 0.0005f);
 }
 
 bool Matrix::IsIdentity() const
