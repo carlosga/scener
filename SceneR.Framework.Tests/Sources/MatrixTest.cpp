@@ -385,7 +385,7 @@ TEST_F(MatrixTest, Determinant2)
     EXPECT_TRUE(std::abs(detA - t) < 1e-3);
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Invert)
 {
@@ -408,7 +408,7 @@ TEST_F(MatrixTest, Invert)
     EXPECT_TRUE(EqualityHelper::Equal(Matrix::Identity, i));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertIdentityMatrix)
 {
@@ -418,7 +418,7 @@ TEST_F(MatrixTest, InvertIdentityMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(actual, Matrix::Identity));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertTranslationMatrix)
 {
@@ -429,7 +429,7 @@ TEST_F(MatrixTest, InvertTranslationMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertRotationMatrix)
 {
@@ -440,7 +440,7 @@ TEST_F(MatrixTest, InvertRotationMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertScaleMatrix)
 {
@@ -451,7 +451,7 @@ TEST_F(MatrixTest, InvertScaleMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertProjectionMatrix)
 {
@@ -462,7 +462,7 @@ TEST_F(MatrixTest, InvertProjectionMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertAffineMatrix)
 {
@@ -559,7 +559,7 @@ TEST_F(MatrixTest, ScaleDecompose1)
     Vector3    translation;
 
     EXPECT_FALSE(Matrix::Decompose(MatrixTest::GenerateMatrixNumberFrom1To16(), scales, rotation, translation));
-    //EXPECT_FALSE(Matrix::Decompose(new Matrix4x4(Matrix3x2.CreateSkew(1, 2)), out scales, out rotation, out translation));
+    //EXPECT_FALSE(Matrix::Decompose(new Matrix(Matrix3x2.CreateSkew(1, 2)), out scales, out rotation, out translation));
 }
 
 // Transform by quaternion test
@@ -1116,7 +1116,7 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsLargerThanFarPlane)
     EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), std::out_of_range);
 }
 
-// A test for Invert (Matrix4x4)
+// A test for Invert (Matrix)
 // Non invertible matrix - determinant is zero - singular matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertNonInvertibleMatrix)
@@ -1151,7 +1151,7 @@ TEST_F(MatrixTest, InvertNonInvertibleMatrix)
              && MathHelper::IsNaN(actual.M44()));
 }
 
-// A test for operator - (Matrix4x4)
+// A test for operator - (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, UnaryNegation)
 {
@@ -1181,7 +1181,7 @@ TEST_F(MatrixTest, UnaryNegation)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for operator - (Matrix4x4, Matrix4x4)
+// A test for operator - (Matrix, Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Subtraction)
 {
@@ -1195,7 +1195,7 @@ TEST_F(MatrixTest, Subtraction)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for operator * (Matrix4x4, Matrix4x4)
+// A test for operator * (Matrix, Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, MultiplyTest1)
 {
@@ -1229,7 +1229,7 @@ TEST_F(MatrixTest, MultiplyTest1)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for operator * (Matrix4x4, Matrix4x4)
+// A test for operator * (Matrix, Matrix)
 // Multiply with identity matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, MultiplyTest2)
@@ -1247,7 +1247,7 @@ TEST_F(MatrixTest, MultiplyTest2)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for operator + (Matrix4x4, Matrix4x4)
+// A test for operator + (Matrix, Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Addition)
 {
@@ -1264,7 +1264,7 @@ TEST_F(MatrixTest, Addition)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for Transpose (Matrix4x4)
+// A test for Transpose (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Transpose)
 {
@@ -1280,7 +1280,7 @@ TEST_F(MatrixTest, Transpose)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for Transpose (Matrix4x4)
+// A test for Transpose (Matrix)
 // Transpose Identity matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, TransposeIdentityMatrix)
@@ -1292,7 +1292,7 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for Matrix4x4 (Quaternion)
+// A test for Matrix (Quaternion)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternion)
 {
@@ -1309,7 +1309,7 @@ TEST_F(MatrixTest, CreateFromQuaternion)
     EXPECT_TRUE(EqualityHelper::Equal(expected, target));
 }
 
-// A test for FromQuaternion (Matrix4x4)
+// A test for FromQuaternion (Matrix)
 // Convert X axis rotation matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternionConvertXAxisRotationMatrix)
@@ -1329,7 +1329,7 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertXAxisRotationMatrix)
     }
 }
 
-// A test for FromQuaternion (Matrix4x4)
+// A test for FromQuaternion (Matrix)
 // Convert Y axis rotation matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternionConvertYAxisRotationMatrix)
@@ -1349,7 +1349,7 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertYAxisRotationMatrix)
     }
 }
 
-// A test for FromQuaternion (Matrix4x4)
+// A test for FromQuaternion (Matrix)
 // Convert Z axis rotation matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternionConvertZAxisRotationMatrix)
@@ -1369,7 +1369,7 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertZAxisRotationMatrix)
     }
 }
 
-// A test for FromQuaternion (Matrix4x4)
+// A test for FromQuaternion (Matrix)
 // Convert XYZ axis rotation matrix
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternionConvertXYZAxisRotationMatrix)
@@ -1395,7 +1395,7 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertXYZAxisRotationMatrix)
     }
 }
 
-// A test for Multiply (Matrix4x4, float)
+// A test for Multiply (Matrix, float)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Multiply)
 {
@@ -1406,7 +1406,7 @@ TEST_F(MatrixTest, Multiply)
     EXPECT_TRUE(expected == actual);
 }
 
-// A test for Negate (Matrix4x4)
+// A test for Negate (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Negate)
 {
@@ -1421,7 +1421,7 @@ TEST_F(MatrixTest, Negate)
     EXPECT_TRUE(expected == actual);
 }
 
-// A test for operator != (Matrix4x4, Matrix4x4)
+// A test for operator != (Matrix, Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Inequality)
 {
@@ -1443,7 +1443,7 @@ TEST_F(MatrixTest, Inequality)
     EXPECT_TRUE(expected == actual);
 }
 
-// A test for operator == (Matrix4x4, Matrix4x4)
+// A test for operator == (Matrix, Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Equality)
 {
@@ -1515,307 +1515,235 @@ TEST_F(MatrixTest, CreateScale2)
     EXPECT_TRUE(expected == actual);
 }
 
-/*
 // A test for CreateScale (float, Vector3f)
-[Fact]
-public void Matrix4x4CreateScaleCenterTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateScale3)
 {
-    float scale = 5;
-    Vector3 center = new Vector3(23, 42, 666);
+    Single scale  = 5;
+    auto   center = Vector3 { 23, 42, 666 };
 
-    Matrix4x4 scaleAroundZero = Matrix4x4.CreateScale(scale, Vector3.Zero);
-    Matrix4x4 scaleAroundZeroExpected = Matrix4x4.CreateScale(scale);
-    Assert.True(MathHelper.Equal(scaleAroundZero, scaleAroundZeroExpected));
+    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
+    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
 
-    Matrix4x4 scaleAroundCenter = Matrix4x4.CreateScale(scale, center);
-    Matrix4x4 scaleAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateScale(scale) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(scaleAroundCenter, scaleAroundCenterExpected));
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
+
+    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
+    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                   * Matrix::CreateScale(scale)
+                                   * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
 
 // A test for CreateScale (float, float, float)
-[Fact]
-public void Matrix4x4CreateScaleTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateScale4)
 {
-    float xScale = 2.0f;
-    float yScale = 3.0f;
-    float zScale = 4.0f;
-    Matrix4x4 expected = new Matrix4x4(
-        2.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 3.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 4.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f);
-    Matrix4x4 actual = Matrix4x4.CreateScale(xScale, yScale, zScale);
-    Assert.Equal(expected, actual);
+    Single xScale   = 2.0f;
+    Single yScale   = 3.0f;
+    Single zScale   = 4.0f;
+    Matrix expected = { 2.0f, 0.0f, 0.0f, 0.0f
+                      , 0.0f, 3.0f, 0.0f, 0.0f
+                      , 0.0f, 0.0f, 4.0f, 0.0f
+                      , 0.0f, 0.0f, 0.0f, 1.0f };
+
+    auto actual = Matrix::CreateScale(xScale, yScale, zScale);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for CreateScale (float, float, float, Vector3f)
-[Fact]
-public void Matrix4x4CreateScaleCenterTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateScale5)
 {
-    Vector3 scale = new Vector3(3, 4, 5);
-    Vector3 center = new Vector3(23, 42, 666);
+    auto scale  = Vector3 { 3, 4, 5 };
+    auto center = Vector3 { 23, 42, 666 };
 
-    Matrix4x4 scaleAroundZero = Matrix4x4.CreateScale(scale.X, scale.Y, scale.Z, Vector3.Zero);
-    Matrix4x4 scaleAroundZeroExpected = Matrix4x4.CreateScale(scale.X, scale.Y, scale.Z);
-    Assert.True(MathHelper.Equal(scaleAroundZero, scaleAroundZeroExpected));
+    auto scaleAroundZero         = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z(), Vector3::Zero);
+    auto scaleAroundZeroExpected = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z());
 
-    Matrix4x4 scaleAroundCenter = Matrix4x4.CreateScale(scale.X, scale.Y, scale.Z, center);
-    Matrix4x4 scaleAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateScale(scale.X, scale.Y, scale.Z) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(scaleAroundCenter, scaleAroundCenterExpected));
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
+
+    auto scaleAroundCenter         = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z(), center);
+    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                   * Matrix::CreateScale(scale.X(), scale.Y(), scale.Z())
+                                   * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
 
 // A test for CreateTranslation (Vector3f)
-[Fact]
-public void Matrix4x4CreateTranslationTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateTranslation)
 {
-    Vector3 position = new Vector3(2.0f, 3.0f, 4.0f);
-    Matrix4x4 expected = new Matrix4x4(
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        2.0f, 3.0f, 4.0f, 1.0f);
+    Vector3 position = { 2.0f, 3.0f, 4.0f };
+    Matrix  expected = { 1.0f, 0.0f, 0.0f, 0.0f
+                       , 0.0f, 1.0f, 0.0f, 0.0f
+                       , 0.0f, 0.0f, 1.0f, 0.0f
+                       , 2.0f, 3.0f, 4.0f, 1.0f };
 
-    Matrix4x4 actual = Matrix4x4.CreateTranslation(position);
-    Assert.Equal(expected, actual);
+    auto actual = Matrix::CreateTranslation(position);
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for CreateTranslation (float, float, float)
-[Fact]
-public void Matrix4x4CreateTranslationTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateTranslation1)
 {
-    float xPosition = 2.0f;
-    float yPosition = 3.0f;
-    float zPosition = 4.0f;
+    Single xPosition = 2.0f;
+    Single yPosition = 3.0f;
+    Single zPosition = 4.0f;
+    Matrix expected  = { 1.0f, 0.0f, 0.0f, 0.0f
+                       , 0.0f, 1.0f, 0.0f, 0.0f
+                       , 0.0f, 0.0f, 1.0f, 0.0f
+                       , 2.0f, 3.0f, 4.0f, 1.0f };
 
-    Matrix4x4 expected = new Matrix4x4(
-        1.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f, 0.0f,
-        2.0f, 3.0f, 4.0f, 1.0f);
+    auto actual = Matrix::CreateTranslation(xPosition, yPosition, zPosition);
 
-    Matrix4x4 actual = Matrix4x4.CreateTranslation(xPosition, yPosition, zPosition);
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Translation
-[Fact]
-public void Matrix4x4TranslationTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateTranslation2)
 {
-    Matrix4x4 a = GenerateTestMatrix();
-    Matrix4x4 b = a;
+    auto a = MatrixTest::GenerateTestMatrix();
+    auto b = a;
 
     // Transfomed vector that has same semantics of property must be same.
-    Vector3 val = new Vector3(a.M41, a.M42, a.M43);
-    Assert.Equal(val, a.Translation);
+    auto val = Vector3 { a.M41(), a.M42(), a.M43() };
+
+    EXPECT_TRUE(val == a.Translation());
 
     // Set value and get value must be same.
-    val = new Vector3(1.0f, 2.0f, 3.0f);
-    a.Translation = val;
-    Assert.Equal(val, a.Translation);
+    val = Vector3 { 1.0f, 2.0f, 3.0f };
+
+    a.Translation(val);
+
+    EXPECT_TRUE(val == a.Translation());
 
     // Make sure it only modifies expected value of matrix.
-    Assert.True(
-        a.M11 == b.M11 && a.M12 == b.M12 && a.M13 == b.M13 && a.M14 == b.M14 &&
-            a.M21 == b.M21 && a.M22 == b.M22 && a.M23 == b.M23 && a.M24 == b.M24 &&
-            a.M31 == b.M31 && a.M32 == b.M32 && a.M33 == b.M33 && a.M34 == b.M34 &&
-            a.M41 != b.M41 && a.M42 != b.M42 && a.M43 != b.M43 && a.M44 == b.M44);
-}
-
-// A test for Equals (Matrix4x4)
-[Fact]
-public void Matrix4x4EqualsTest1()
-{
-    Matrix4x4 a = GenerateMatrixNumberFrom1To16();
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
-
-    // case 1: compare between same values
-    bool expected = true;
-    bool actual = a.Equals(b);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.M11 = 11.0f;
-    expected = false;
-    actual = a.Equals(b);
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(a.M11() == b.M11() && a.M12() == b.M12() && a.M13() == b.M13() && a.M14() == b.M14()
+             && a.M21() == b.M21() && a.M22() == b.M22() && a.M23() == b.M23() && a.M24() == b.M24()
+             && a.M31() == b.M31() && a.M32() == b.M32() && a.M33() == b.M33() && a.M34() == b.M34()
+             && a.M41() != b.M41() && a.M42() != b.M42() && a.M43() != b.M43() && a.M44() == b.M44());
 }
 
 // A test for IsIdentity
-[Fact]
-public void Matrix4x4IsIdentityTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, IsIdentity)
 {
-    Assert.True(Matrix4x4.Identity.IsIdentity);
-    Assert.True(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1).IsIdentity);
-    Assert.False(new Matrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0).IsIdentity);
+    EXPECT_TRUE(Matrix::Identity.IsIdentity());
+    EXPECT_TRUE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1).IsIdentity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0).IsIdentity());
 }
 
-// A test for Matrix4x4 (Matrix3x2)
-[Fact]
-public void Matrix4x4From3x2Test()
+// A test for Matrix comparison involving NaN values
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, EqualsNan)
 {
-    Matrix3x2 source = new Matrix3x2(1, 2, 3, 4, 5, 6);
-    Matrix4x4 result = new Matrix4x4(source);
+    Matrix a = { MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix b = { 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix c = { 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix d = { 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix e = { 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix f = { 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix g = { 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix h = { 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix i = { 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix j = { 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0, 0 };
+    Matrix k = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0, 0 };
+    Matrix l = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0, 0 };
+    Matrix m = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0, 0 };
+    Matrix n = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0, 0 };
+    Matrix o = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN, 0 };
+    Matrix p = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MathHelper::NaN };
 
-    Assert.Equal(source.M11, result.M11);
-    Assert.Equal(source.M12, result.M12);
-    Assert.Equal(0f, result.M13);
-    Assert.Equal(0f, result.M14);
+    EXPECT_FALSE(a == Matrix {});
+    EXPECT_FALSE(b == Matrix {});
+    EXPECT_FALSE(c == Matrix {});
+    EXPECT_FALSE(d == Matrix {});
+    EXPECT_FALSE(e == Matrix {});
+    EXPECT_FALSE(f == Matrix {});
+    EXPECT_FALSE(g == Matrix {});
+    EXPECT_FALSE(h == Matrix {});
+    EXPECT_FALSE(i == Matrix {});
+    EXPECT_FALSE(j == Matrix {});
+    EXPECT_FALSE(k == Matrix {});
+    EXPECT_FALSE(l == Matrix {});
+    EXPECT_FALSE(m == Matrix {});
+    EXPECT_FALSE(n == Matrix {});
+    EXPECT_FALSE(o == Matrix {});
+    EXPECT_FALSE(p == Matrix {});
 
-    Assert.Equal(source.M21, result.M21);
-    Assert.Equal(source.M22, result.M22);
-    Assert.Equal(0f, result.M23);
-    Assert.Equal(0f, result.M24);
+    EXPECT_TRUE(a != Matrix {});
+    EXPECT_TRUE(b != Matrix {});
+    EXPECT_TRUE(c != Matrix {});
+    EXPECT_TRUE(d != Matrix {});
+    EXPECT_TRUE(e != Matrix {});
+    EXPECT_TRUE(f != Matrix {});
+    EXPECT_TRUE(g != Matrix {});
+    EXPECT_TRUE(h != Matrix {});
+    EXPECT_TRUE(i != Matrix {});
+    EXPECT_TRUE(j != Matrix {});
+    EXPECT_TRUE(k != Matrix {});
+    EXPECT_TRUE(l != Matrix {});
+    EXPECT_TRUE(m != Matrix {});
+    EXPECT_TRUE(n != Matrix {});
+    EXPECT_TRUE(o != Matrix {});
+    EXPECT_TRUE(p != Matrix {});
 
-    Assert.Equal(0f, result.M31);
-    Assert.Equal(0f, result.M32);
-    Assert.Equal(1f, result.M33);
-    Assert.Equal(0f, result.M34);
-
-    Assert.Equal(source.M31, result.M41);
-    Assert.Equal(source.M32, result.M42);
-    Assert.Equal(0f, result.M43);
-    Assert.Equal(1f, result.M44);
+    EXPECT_FALSE(a.IsIdentity());
+    EXPECT_FALSE(b.IsIdentity());
+    EXPECT_FALSE(c.IsIdentity());
+    EXPECT_FALSE(d.IsIdentity());
+    EXPECT_FALSE(e.IsIdentity());
+    EXPECT_FALSE(f.IsIdentity());
+    EXPECT_FALSE(g.IsIdentity());
+    EXPECT_FALSE(h.IsIdentity());
+    EXPECT_FALSE(i.IsIdentity());
+    EXPECT_FALSE(j.IsIdentity());
+    EXPECT_FALSE(k.IsIdentity());
+    EXPECT_FALSE(l.IsIdentity());
+    EXPECT_FALSE(m.IsIdentity());
+    EXPECT_FALSE(n.IsIdentity());
+    EXPECT_FALSE(o.IsIdentity());
+    EXPECT_FALSE(p.IsIdentity());
 }
 
-// A test for Matrix4x4 comparison involving NaN values
-[Fact]
-public void Matrix4x4EqualsNanTest()
-{
-    Matrix4x4 a = new Matrix4x4(float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 b = new Matrix4x4(0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 c = new Matrix4x4(0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 d = new Matrix4x4(0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 e = new Matrix4x4(0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 f = new Matrix4x4(0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 g = new Matrix4x4(0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 h = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 i = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 j = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0, 0);
-    Matrix4x4 k = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0, 0);
-    Matrix4x4 l = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0, 0);
-    Matrix4x4 m = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0, 0);
-    Matrix4x4 n = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0, 0);
-    Matrix4x4 o = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN, 0);
-    Matrix4x4 p = new Matrix4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, float.NaN);
-
-    Assert.False(a == new Matrix4x4());
-    Assert.False(b == new Matrix4x4());
-    Assert.False(c == new Matrix4x4());
-    Assert.False(d == new Matrix4x4());
-    Assert.False(e == new Matrix4x4());
-    Assert.False(f == new Matrix4x4());
-    Assert.False(g == new Matrix4x4());
-    Assert.False(h == new Matrix4x4());
-    Assert.False(i == new Matrix4x4());
-    Assert.False(j == new Matrix4x4());
-    Assert.False(k == new Matrix4x4());
-    Assert.False(l == new Matrix4x4());
-    Assert.False(m == new Matrix4x4());
-    Assert.False(n == new Matrix4x4());
-    Assert.False(o == new Matrix4x4());
-    Assert.False(p == new Matrix4x4());
-
-    Assert.True(a != new Matrix4x4());
-    Assert.True(b != new Matrix4x4());
-    Assert.True(c != new Matrix4x4());
-    Assert.True(d != new Matrix4x4());
-    Assert.True(e != new Matrix4x4());
-    Assert.True(f != new Matrix4x4());
-    Assert.True(g != new Matrix4x4());
-    Assert.True(h != new Matrix4x4());
-    Assert.True(i != new Matrix4x4());
-    Assert.True(j != new Matrix4x4());
-    Assert.True(k != new Matrix4x4());
-    Assert.True(l != new Matrix4x4());
-    Assert.True(m != new Matrix4x4());
-    Assert.True(n != new Matrix4x4());
-    Assert.True(o != new Matrix4x4());
-    Assert.True(p != new Matrix4x4());
-
-    Assert.False(a.Equals(new Matrix4x4()));
-    Assert.False(b.Equals(new Matrix4x4()));
-    Assert.False(c.Equals(new Matrix4x4()));
-    Assert.False(d.Equals(new Matrix4x4()));
-    Assert.False(e.Equals(new Matrix4x4()));
-    Assert.False(f.Equals(new Matrix4x4()));
-    Assert.False(g.Equals(new Matrix4x4()));
-    Assert.False(h.Equals(new Matrix4x4()));
-    Assert.False(i.Equals(new Matrix4x4()));
-    Assert.False(j.Equals(new Matrix4x4()));
-    Assert.False(k.Equals(new Matrix4x4()));
-    Assert.False(l.Equals(new Matrix4x4()));
-    Assert.False(m.Equals(new Matrix4x4()));
-    Assert.False(n.Equals(new Matrix4x4()));
-    Assert.False(o.Equals(new Matrix4x4()));
-    Assert.False(p.Equals(new Matrix4x4()));
-
-    Assert.False(a.IsIdentity);
-    Assert.False(b.IsIdentity);
-    Assert.False(c.IsIdentity);
-    Assert.False(d.IsIdentity);
-    Assert.False(e.IsIdentity);
-    Assert.False(f.IsIdentity);
-    Assert.False(g.IsIdentity);
-    Assert.False(h.IsIdentity);
-    Assert.False(i.IsIdentity);
-    Assert.False(j.IsIdentity);
-    Assert.False(k.IsIdentity);
-    Assert.False(l.IsIdentity);
-    Assert.False(m.IsIdentity);
-    Assert.False(n.IsIdentity);
-    Assert.False(o.IsIdentity);
-    Assert.False(p.IsIdentity);
-
-    // Counterintuitive result - IEEE rules for NaN comparison are weird!
-    Assert.False(a.Equals(a));
-    Assert.False(b.Equals(b));
-    Assert.False(c.Equals(c));
-    Assert.False(d.Equals(d));
-    Assert.False(e.Equals(e));
-    Assert.False(f.Equals(f));
-    Assert.False(g.Equals(g));
-    Assert.False(h.Equals(h));
-    Assert.False(i.Equals(i));
-    Assert.False(j.Equals(j));
-    Assert.False(k.Equals(k));
-    Assert.False(l.Equals(l));
-    Assert.False(m.Equals(m));
-    Assert.False(n.Equals(n));
-    Assert.False(o.Equals(o));
-    Assert.False(p.Equals(p));
-}
-
+/*
 // Simple shadow test.
 [Fact]
-public void Matrix4x4CreateShadowTest01()
+public void MatrixCreateShadowTest01()
 {
     Vector3 lightDir = Vector3.UnitY;
     Plane plane = new Plane(Vector3.UnitY, 0);
 
-    Matrix4x4 expected = Matrix4x4.CreateScale(1, 0, 1);
+    Matrix expected = Matrix.CreateScale(1, 0, 1);
 
-    Matrix4x4 actual = Matrix4x4.CreateShadow(lightDir, plane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateShadow did not returned expected value.");
+    Matrix actual = Matrix.CreateShadow(lightDir, plane);
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateShadow did not returned expected value.");
 }
 
 // Various plane projections.
 [Fact]
-public void Matrix4x4CreateShadowTest02()
+public void MatrixCreateShadowTest02()
 {
     // Complex cases.
     Plane[] planes = {
@@ -1882,7 +1810,7 @@ public void Matrix4x4CreateShadowTest02()
             if (Plane.DotNormal(plane, lightDir) < 0.1f)
                 continue;
 
-            Matrix4x4 m = Matrix4x4.CreateShadow(lightDir, plane);
+            Matrix m = Matrix.CreateShadow(lightDir, plane);
             Vector3 pp = -plane.D * plane.Normal; // origin of the plane.
 
             //
@@ -1895,34 +1823,34 @@ public void Matrix4x4CreateShadowTest02()
                 // Make sure transformed position is on the plane.
                 Vector3 v = sp - pp;
                 float d = Vector3.Dot(v, plane.Normal);
-                Assert.True(MathHelper.Equal(d, 0), "Matrix4x4.CreateShadow did not provide expected value.");
+                Assert.True(MathHelper.Equal(d, 0), "Matrix.CreateShadow did not provide expected value.");
 
                 // make sure direction between transformed position and original position are same as light direction.
                 if (Vector3.Dot(point - pp, plane.Normal) > 0.0001f)
                 {
                     Vector3 dir = Vector3.Normalize(point - sp);
-                    Assert.True(MathHelper.Equal(dir, lightDir), "Matrix4x4.CreateShadow did not provide expected value.");
+                    Assert.True(MathHelper.Equal(dir, lightDir), "Matrix.CreateShadow did not provide expected value.");
                 }
             }
         }
     }
 }
 
-void CreateReflectionTest(Plane plane, Matrix4x4 expected)
+void CreateReflectionTest(Plane plane, Matrix expected)
 {
-    Matrix4x4 actual = Matrix4x4.CreateReflection(plane);
-    Assert.True(MathHelper.Equal(actual, expected), "Matrix4x4.CreateReflection did not return expected value.");
+    Matrix actual = Matrix.CreateReflection(plane);
+    Assert.True(MathHelper.Equal(actual, expected), "Matrix.CreateReflection did not return expected value.");
 }
 
 [Fact]
-public void Matrix4x4CreateReflectionTest01()
+public void MatrixCreateReflectionTest01()
 {
     // XY plane.
-    CreateReflectionTest(new Plane(Vector3.UnitZ, 0), Matrix4x4.CreateScale(1, 1, -1));
+    CreateReflectionTest(new Plane(Vector3.UnitZ, 0), Matrix.CreateScale(1, 1, -1));
     // XZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitY, 0), Matrix4x4.CreateScale(1, -1, 1));
+    CreateReflectionTest(new Plane(Vector3.UnitY, 0), Matrix.CreateScale(1, -1, 1));
     // YZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitX, 0), Matrix4x4.CreateScale(-1, 1, 1));
+    CreateReflectionTest(new Plane(Vector3.UnitX, 0), Matrix.CreateScale(-1, 1, 1));
 
     // Complex cases.
     Plane[] planes = {
@@ -1943,7 +1871,7 @@ public void Matrix4x4CreateReflectionTest01()
     foreach (Plane p in planes)
     {
         Plane plane = Plane.Normalize(p);
-        Matrix4x4 m = Matrix4x4.CreateReflection(plane);
+        Matrix m = Matrix.CreateReflection(plane);
         Vector3 pp = -plane.D * plane.Normal; // Position on the plane.
 
         //
@@ -1955,16 +1883,16 @@ public void Matrix4x4CreateReflectionTest01()
             Vector3 v = point - pp;
             float d = Vector3.Dot(v, plane.Normal);
             Vector3 vp = point - 2.0f * d * plane.Normal;
-            Assert.True(MathHelper.Equal(rp, vp), "Matrix4x4.Reflection did not provide expected value.");
+            Assert.True(MathHelper.Equal(rp, vp), "Matrix.Reflection did not provide expected value.");
         }
     }
 }
 
-// A test for Lerp (Matrix4x4, Matrix4x4, float)
+// A test for Lerp (Matrix, Matrix, float)
 [Fact]
-public void Matrix4x4LerpTest()
+public void MatrixLerpTest()
 {
-    Matrix4x4 a = new Matrix4x4();
+    Matrix a = new Matrix();
     a.M11 = 11.0f;
     a.M12 = 12.0f;
     a.M13 = 13.0f;
@@ -1982,11 +1910,11 @@ public void Matrix4x4LerpTest()
     a.M43 = 43.0f;
     a.M44 = 44.0f;
 
-    Matrix4x4 b = GenerateMatrixNumberFrom1To16();
+    Matrix b = GenerateMatrixNumberFrom1To16();
 
     float t = 0.5f;
 
-    Matrix4x4 expected = new Matrix4x4();
+    Matrix expected = new Matrix();
     expected.M11 = a.M11 + (b.M11 - a.M11) * t;
     expected.M12 = a.M12 + (b.M12 - a.M12) * t;
     expected.M13 = a.M13 + (b.M13 - a.M13) * t;
@@ -2007,333 +1935,333 @@ public void Matrix4x4LerpTest()
     expected.M43 = a.M43 + (b.M43 - a.M43) * t;
     expected.M44 = a.M44 + (b.M44 - a.M44) * t;
 
-    Matrix4x4 actual;
-    actual = Matrix4x4.Lerp(a, b, t);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.Lerp did not return the expected value.");
+    Matrix actual;
+    actual = Matrix.Lerp(a, b, t);
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.Lerp did not return the expected value.");
 }
-private void CreateBillboardFact(Vector3 placeDirection, Vector3 cameraUpVector, Matrix4x4 expectedRotation)
+private void CreateBillboardFact(Vector3 placeDirection, Vector3 cameraUpVector, Matrix expectedRotation)
 {
     Vector3 cameraPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 objectPosition = cameraPosition + placeDirection * 10.0f;
-    Matrix4x4 expected = expectedRotation * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateBillboard did not return the expected value.");
+    Matrix expected = expectedRotation * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateBillboard did not return the expected value.");
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Forward side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest01()
+public void MatrixCreateBillboardTest01()
 {
     // Object placed at Forward of camera. result must be same as 180 degrees rotate along y-axis.
-    CreateBillboardFact(new Vector3(0, 0, -1), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)));
+    CreateBillboardFact(new Vector3(0, 0, -1), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Backward side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest02()
+public void MatrixCreateBillboardTest02()
 {
     // Object placed at Backward of camera. This result must be same as 0 degrees rotate along y-axis.
-    CreateBillboardFact(new Vector3(0, 0, 1), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(0)));
+    CreateBillboardFact(new Vector3(0, 0, 1), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(0)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Right side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest03()
+public void MatrixCreateBillboardTest03()
 {
     // Place object at Right side of camera. This result must be same as 90 degrees rotate along y-axis.
-    CreateBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(90)));
+    CreateBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(90)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Left side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest04()
+public void MatrixCreateBillboardTest04()
 {
     // Place object at Left side of camera. This result must be same as -90 degrees rotate along y-axis.
-    CreateBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(-90)));
+    CreateBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(-90)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Up side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest05()
+public void MatrixCreateBillboardTest05()
 {
     // Place object at Up side of camera. result must be same as 180 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateBillboardFact(new Vector3(0, 1, 0), new Vector3(0, 0, 1),
-                        Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(180)));
+                        Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(180)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Down side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest06()
+public void MatrixCreateBillboardTest06()
 {
     // Place object at Down side of camera. result must be same as 0 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateBillboardFact(new Vector3(0, -1, 0), new Vector3(0, 0, 1),
-                        Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(0)));
+                        Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(0)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Right side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest07()
+public void MatrixCreateBillboardTest07()
 {
     // Place object at Right side of camera. result must be same as 90 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 0, 1),
-                        Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)));
+                        Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Left side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest08()
+public void MatrixCreateBillboardTest08()
 {
     // Place object at Left side of camera. result must be same as -90 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 0, 1),
-                        Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(-90.0f)));
+                        Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Up side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest09()
+public void MatrixCreateBillboardTest09()
 {
     // Place object at Up side of camera. result must be same as -90 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateBillboardFact(new Vector3(0, 1, 0), new Vector3(-1, 0, 0),
-                        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(-90.0f)));
+                        Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(-90.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Down side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest10()
+public void MatrixCreateBillboardTest10()
 {
     // Place object at Down side of camera. result must be same as 90 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateBillboardFact(new Vector3(0, -1, 0), new Vector3(-1, 0, 0),
-                        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)));
+                        Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Forward side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest11()
+public void MatrixCreateBillboardTest11()
 {
     // Place object at Forward side of camera. result must be same as 180 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateBillboardFact(new Vector3(0, 0, -1), new Vector3(-1, 0, 0),
-                        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(180.0f)));
+                        Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(180.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Backward side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateBillboardTest12()
+public void MatrixCreateBillboardTest12()
 {
     // Place object at Backward side of camera. result must be same as 0 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateBillboardFact(new Vector3(0, 0, 1), new Vector3(-1, 0, 0),
-                        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(0.0f)));
+                        Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(0.0f)));
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Object and camera positions are too close and doesn't pass cameraFowardVector.
 [Fact]
-public void Matrix4x4CreateBillboardTooCloseTest1()
+public void MatrixCreateBillboardTooCloseTest1()
 {
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 cameraPosition = objectPosition;
     Vector3 cameraUpVector = new Vector3(0, 1, 0);
 
     // Doesn't pass camera face direction. CreateBillboard uses new Vector3f(0, 0, -1) direction. Result must be same as 180 degrees rotate along y-axis.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, 1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, 1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateBillboard did not return the expected value.");
 }
 
 // A test for CreateBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Object and camera positions are too close and passed cameraFowardVector.
 [Fact]
-public void Matrix4x4CreateBillboardTooCloseTest2()
+public void MatrixCreateBillboardTooCloseTest2()
 {
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 cameraPosition = objectPosition;
     Vector3 cameraUpVector = new Vector3(0, 1, 0);
 
     // Passes Vector3f.Rgiht as camera face direction. Result must be same as -90 degrees rotate along y-axis.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(1, 0, 0));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(1, 0, 0));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateBillboard did not return the expected value.");
 }
 
-private void CreateConstrainedBillboardFact(Vector3 placeDirection, Vector3 rotateAxis, Matrix4x4 expectedRotation)
+private void CreateConstrainedBillboardFact(Vector3 placeDirection, Vector3 rotateAxis, Matrix expectedRotation)
 {
     Vector3 cameraPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 objectPosition = cameraPosition + placeDirection * 10.0f;
-    Matrix4x4 expected = expectedRotation * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = expectedRotation * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 
     // When you move camera along rotateAxis, result must be same.
     cameraPosition += rotateAxis * 10.0f;
-    actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 
     cameraPosition -= rotateAxis * 30.0f;
-    actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Forward side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest01()
+public void MatrixCreateConstrainedBillboardTest01()
 {
     // Object placed at Forward of camera. result must be same as 180 degrees rotate along y-axis.
-    CreateConstrainedBillboardFact(new Vector3(0, 0, -1), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)));
+    CreateConstrainedBillboardFact(new Vector3(0, 0, -1), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Backward side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest02()
+public void MatrixCreateConstrainedBillboardTest02()
 {
     // Object placed at Backward of camera. This result must be same as 0 degrees rotate along y-axis.
-    CreateConstrainedBillboardFact(new Vector3(0, 0, 1), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(0)));
+    CreateConstrainedBillboardFact(new Vector3(0, 0, 1), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(0)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Right side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest03()
+public void MatrixCreateConstrainedBillboardTest03()
 {
     // Place object at Right side of camera. This result must be same as 90 degrees rotate along y-axis.
-    CreateConstrainedBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(90)));
+    CreateConstrainedBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(90)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Left side of camera on XZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest04()
+public void MatrixCreateConstrainedBillboardTest04()
 {
     // Place object at Left side of camera. This result must be same as -90 degrees rotate along y-axis.
-    CreateConstrainedBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 1, 0), Matrix4x4.CreateRotationY(MathHelper.ToRadians(-90)));
+    CreateConstrainedBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 1, 0), Matrix.CreateRotationY(MathHelper.ToRadians(-90)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Up side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest05()
+public void MatrixCreateConstrainedBillboardTest05()
 {
     // Place object at Up side of camera. result must be same as 180 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateConstrainedBillboardFact(new Vector3(0, 1, 0), new Vector3(0, 0, 1),
-                                   Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(180)));
+                                   Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(180)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Down side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest06()
+public void MatrixCreateConstrainedBillboardTest06()
 {
     // Place object at Down side of camera. result must be same as 0 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateConstrainedBillboardFact(new Vector3(0, -1, 0), new Vector3(0, 0, 1),
-                                   Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(0)));
+                                   Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(0)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Right side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest07()
+public void MatrixCreateConstrainedBillboardTest07()
 {
     // Place object at Right side of camera. result must be same as 90 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateConstrainedBillboardFact(new Vector3(1, 0, 0), new Vector3(0, 0, 1),
-                                   Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)));
+                                   Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Left side of camera on XY-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest08()
+public void MatrixCreateConstrainedBillboardTest08()
 {
     // Place object at Left side of camera. result must be same as -90 degrees rotate along z-axis after 90 degrees rotate along x-axis.
     CreateConstrainedBillboardFact(new Vector3(-1, 0, 0), new Vector3(0, 0, 1),
-                                   Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(-90.0f)));
+                                   Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Up side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest09()
+public void MatrixCreateConstrainedBillboardTest09()
 {
     // Place object at Up side of camera. result must be same as -90 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateConstrainedBillboardFact(new Vector3(0, 1, 0), new Vector3(-1, 0, 0),
-                                   Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(-90.0f)));
+                                   Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(-90.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Down side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest10()
+public void MatrixCreateConstrainedBillboardTest10()
 {
     // Place object at Down side of camera. result must be same as 90 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateConstrainedBillboardFact(new Vector3(0, -1, 0), new Vector3(-1, 0, 0),
-                                   Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(90.0f)));
+                                   Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(90.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Forward side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest11()
+public void MatrixCreateConstrainedBillboardTest11()
 {
     // Place object at Forward side of camera. result must be same as 180 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateConstrainedBillboardFact(new Vector3(0, 0, -1), new Vector3(-1, 0, 0),
-                                   Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(180.0f)));
+                                   Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(180.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Place object at Backward side of camera on YZ-plane
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTest12()
+public void MatrixCreateConstrainedBillboardTest12()
 {
     // Place object at Backward side of camera. result must be same as 0 degrees rotate along x-axis after 90 degrees rotate along z-axis.
     CreateConstrainedBillboardFact(new Vector3(0, 0, 1), new Vector3(-1, 0, 0),
-                                   Matrix4x4.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix4x4.CreateRotationX(MathHelper.ToRadians(0.0f)));
+                                   Matrix.CreateRotationZ(MathHelper.ToRadians(90.0f)) * Matrix.CreateRotationX(MathHelper.ToRadians(0.0f)));
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Object and camera positions are too close and doesn't pass cameraForwardVector.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTooCloseTest1()
+public void MatrixCreateConstrainedBillboardTooCloseTest1()
 {
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 cameraPosition = objectPosition;
     Vector3 cameraUpVector = new Vector3(0, 1, 0);
 
     // Doesn't pass camera face direction. CreateConstrainedBillboard uses new Vector3f(0, 0, -1) direction. Result must be same as 180 degrees rotate along y-axis.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, 1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(0, 0, 1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Object and camera positions are too close and passed cameraForwardVector.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardTooCloseTest2()
+public void MatrixCreateConstrainedBillboardTooCloseTest2()
 {
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
     Vector3 cameraPosition = objectPosition;
     Vector3 cameraUpVector = new Vector3(0, 1, 0);
 
     // Passes Vector3f.Rgiht as camera face direction. Result must be same as -90 degrees rotate along y-axis.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(1, 0, 0), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(1, 0, 0), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Angle between rotateAxis and camera to object vector is too small. And use doesn't passed objectForwardVector parameter.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardAlongAxisTest1()
+public void MatrixCreateConstrainedBillboardAlongAxisTest1()
 {
     // Place camera at up side of object.
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
@@ -2341,15 +2269,15 @@ public void Matrix4x4CreateConstrainedBillboardAlongAxisTest1()
     Vector3 cameraPosition = objectPosition + rotateAxis * 10.0f;
 
     // In this case, CreateConstrainedBillboard picks new Vector3f(0, 0, -1) as object forward vector.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Angle between rotateAxis and camera to object vector is too small. And user doesn't passed objectForwardVector parameter.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardAlongAxisTest2()
+public void MatrixCreateConstrainedBillboardAlongAxisTest2()
 {
     // Place camera at up side of object.
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
@@ -2357,15 +2285,15 @@ public void Matrix4x4CreateConstrainedBillboardAlongAxisTest2()
     Vector3 cameraPosition = objectPosition + rotateAxis * 10.0f;
 
     // In this case, CreateConstrainedBillboard picks new Vector3f(1, 0, 0) as object forward vector.
-    Matrix4x4 expected = Matrix4x4.CreateRotationX(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationX(MathHelper.ToRadians(-90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Angle between rotateAxis and camera to object vector is too small. And user passed correct objectForwardVector parameter.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardAlongAxisTest3()
+public void MatrixCreateConstrainedBillboardAlongAxisTest3()
 {
     // Place camera at up side of object.
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
@@ -2373,15 +2301,15 @@ public void Matrix4x4CreateConstrainedBillboardAlongAxisTest3()
     Vector3 cameraPosition = objectPosition + rotateAxis * 10.0f;
 
     // User passes correct objectForwardVector.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Angle between rotateAxis and camera to object vector is too small. And user passed incorrect objectForwardVector parameter.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardAlongAxisTest4()
+public void MatrixCreateConstrainedBillboardAlongAxisTest4()
 {
     // Place camera at up side of object.
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
@@ -2389,15 +2317,15 @@ public void Matrix4x4CreateConstrainedBillboardAlongAxisTest4()
     Vector3 cameraPosition = objectPosition + rotateAxis * 10.0f;
 
     // User passes correct objectForwardVector.
-    Matrix4x4 expected = Matrix4x4.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 1, 0));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(180.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 1, 0));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)
 // Angle between rotateAxis and camera to object vector is too small. And user passed incorrect objectForwardVector parameter.
 [Fact]
-public void Matrix4x4CreateConstrainedBillboardAlongAxisTest5()
+public void MatrixCreateConstrainedBillboardAlongAxisTest5()
 {
     // Place camera at up side of object.
     Vector3 objectPosition = new Vector3(3.0f, 4.0f, 5.0f);
@@ -2405,8 +2333,8 @@ public void Matrix4x4CreateConstrainedBillboardAlongAxisTest5()
     Vector3 cameraPosition = objectPosition + rotateAxis * 10.0f;
 
     // In this case, CreateConstrainedBillboard picks Vector3f.Right as object forward vector.
-    Matrix4x4 expected = Matrix4x4.CreateRotationX(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateRotationZ(MathHelper.ToRadians(-90.0f)) * Matrix4x4.CreateTranslation(objectPosition);
-    Matrix4x4 actual = Matrix4x4.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix4x4.CreateConstrainedBillboard did not return the expected value.");
+    Matrix expected = Matrix.CreateRotationX(MathHelper.ToRadians(-90.0f)) * Matrix.CreateRotationZ(MathHelper.ToRadians(-90.0f)) * Matrix.CreateTranslation(objectPosition);
+    Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, rotateAxis, new Vector3(0, 0, -1), new Vector3(0, 0, -1));
+    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 */
