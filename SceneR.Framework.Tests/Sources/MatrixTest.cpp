@@ -4,6 +4,7 @@
 #include <MatrixTest.hpp>
 
 #include <cmath>
+#include <vector>
 
 #include <EqualityHelper.hpp>
 #include <Framework/Quaternion.hpp>
@@ -781,6 +782,117 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll2)
 
                 EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
+        }
+    }
+}
+
+// Simple shadow test.
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateShadow)
+{
+    auto lightDir = Vector3::UnitY;
+    auto plane    = Plane { Vector3::UnitY, 0 };
+    auto expected = Matrix::CreateScale(1, 0, 1);
+    auto actual   = Matrix::CreateShadow(lightDir, plane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// Various plane projections.
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateShadowVariousPlaneProjections)
+{
+    // Complex cases.
+    auto planes = std::vector<Plane>();
+
+    planes.push_back({ 0, 1, 0, 0 });
+    planes.push_back({ 1, 2, 3, 4 });
+    planes.push_back({ 5, 6, 7, 8 });
+    planes.push_back({-1,-2,-3,-4 });
+    planes.push_back({-5,-6,-7,-8 });
+
+    auto points = std::vector<Vector3>();
+
+    points.push_back({ 1, 2,  3 });
+    points.push_back({ 5, 6,  7 });
+    points.push_back({ 8, 9, 10 });
+    points.push_back({-1,-2, -3 });
+    points.push_back({-5,-6, -7 });
+    points.push_back({-8,-9,-10 });
+
+    for (auto& p : planes)
+    {
+        auto plane = Plane::Normalize(p);
+
+        // Try various direction of light directions.
+        auto testDirections = std::vector<Vector3>();
+
+        points.push_back({ -1.0f, 1.0f, 1.0f });
+        points.push_back({  0.0f, 1.0f, 1.0f });
+        points.push_back({  1.0f, 1.0f, 1.0f });
+        points.push_back({ -1.0f, 0.0f, 1.0f });
+        points.push_back({  0.0f, 0.0f, 1.0f });
+        points.push_back({  1.0f, 0.0f, 1.0f });
+        points.push_back({ -1.0f,-1.0f, 1.0f });
+        points.push_back({  0.0f,-1.0f, 1.0f });
+        points.push_back({  1.0f,-1.0f, 1.0f });
+
+        points.push_back({ -1.0f, 1.0f, 0.0f });
+        points.push_back({  0.0f, 1.0f, 0.0f });
+        points.push_back({  1.0f, 1.0f, 0.0f });
+        points.push_back({ -1.0f, 0.0f, 0.0f });
+        points.push_back({  0.0f, 0.0f, 0.0f });
+        points.push_back({  1.0f, 0.0f, 0.0f });
+        points.push_back({ -1.0f,-1.0f, 0.0f });
+        points.push_back({  0.0f,-1.0f, 0.0f });
+        points.push_back({  1.0f,-1.0f, 0.0f });
+
+        points.push_back({ -1.0f, 1.0f,-1.0f });
+        points.push_back({  0.0f, 1.0f,-1.0f });
+        points.push_back({  1.0f, 1.0f,-1.0f });
+        points.push_back({ -1.0f, 0.0f,-1.0f });
+        points.push_back({  0.0f, 0.0f,-1.0f });
+        points.push_back({  1.0f, 0.0f,-1.0f });
+        points.push_back({ -1.0f,-1.0f,-1.0f });
+        points.push_back({  0.0f,-1.0f,-1.0f });
+        points.push_back({  1.0f,-1.0f,-1.0f });
+
+        for (auto& lightDirInfo : testDirections)
+        {
+            if (lightDirInfo.Length() < 0.1f)
+            {
+                continue;
+            }
+
+            auto lightDir = Vector3::Normalize(lightDirInfo);
+
+            if (Plane::DotNormal(plane, lightDir) < 0.1f)
+            {
+                continue;
+            }
+
+            auto m  = Matrix::CreateShadow(lightDir, plane);
+            auto pp = -plane.D() * plane.Normal(); // origin of the plane.
+
+            for (auto& point : points)
+            {
+                auto v4 = Vector4::Transform(point, m);
+                auto sp = Vector3 { v4.X(), v4.Y(), v4.Z() } / v4.W();
+
+                // Make sure transformed position is on the plane.
+                auto   v = sp - pp;
+                Single d = Vector3::Dot(v, plane.Normal());
+
+                EXPECT_TRUE(EqualityHelper::Equal(d, 0));
+
+                // make sure direction between transformed position and original position are same as light direction.
+                if (Vector3::Dot(point - pp, plane.Normal()) > 0.0001f)
+                {
+                    auto dir = Vector3::Normalize(point - sp);
+
+                    EXPECT_TRUE(EqualityHelper::Equal(dir, lightDir));
+                }
+            };
         }
     }
 }
@@ -1728,114 +1840,6 @@ TEST_F(MatrixTest, EqualsNan)
 }
 
 /*
-// Simple shadow test.
-[Fact]
-public void MatrixCreateShadowTest01()
-{
-    Vector3 lightDir = Vector3.UnitY;
-    Plane plane = new Plane(Vector3.UnitY, 0);
-
-    Matrix expected = Matrix.CreateScale(1, 0, 1);
-
-    Matrix actual = Matrix.CreateShadow(lightDir, plane);
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateShadow did not returned expected value.");
-}
-
-// Various plane projections.
-[Fact]
-public void MatrixCreateShadowTest02()
-{
-    // Complex cases.
-    Plane[] planes = {
-        new Plane( 0, 1, 0, 0 ),
-        new Plane( 1, 2, 3, 4 ),
-        new Plane( 5, 6, 7, 8 ),
-        new Plane(-1,-2,-3,-4 ),
-        new Plane(-5,-6,-7,-8 ),
-    };
-
-    Vector3[] points = {
-        new Vector3( 1, 2, 3),
-        new Vector3( 5, 6, 7),
-        new Vector3( 8, 9, 10),
-        new Vector3(-1,-2,-3),
-        new Vector3(-5,-6,-7),
-        new Vector3(-8,-9,-10),
-    };
-
-    foreach (Plane p in planes)
-    {
-        Plane plane = Plane.Normalize(p);
-
-        // Try various direction of light directions.
-        var testDirections = new Vector3[]
-            {
-                new Vector3( -1.0f, 1.0f, 1.0f ),
-                new Vector3(  0.0f, 1.0f, 1.0f ),
-                new Vector3(  1.0f, 1.0f, 1.0f ),
-                new Vector3( -1.0f, 0.0f, 1.0f ),
-                new Vector3(  0.0f, 0.0f, 1.0f ),
-                new Vector3(  1.0f, 0.0f, 1.0f ),
-                new Vector3( -1.0f,-1.0f, 1.0f ),
-                new Vector3(  0.0f,-1.0f, 1.0f ),
-                new Vector3(  1.0f,-1.0f, 1.0f ),
-
-                new Vector3( -1.0f, 1.0f, 0.0f ),
-                new Vector3(  0.0f, 1.0f, 0.0f ),
-                new Vector3(  1.0f, 1.0f, 0.0f ),
-                new Vector3( -1.0f, 0.0f, 0.0f ),
-                new Vector3(  0.0f, 0.0f, 0.0f ),
-                new Vector3(  1.0f, 0.0f, 0.0f ),
-                new Vector3( -1.0f,-1.0f, 0.0f ),
-                new Vector3(  0.0f,-1.0f, 0.0f ),
-                new Vector3(  1.0f,-1.0f, 0.0f ),
-
-                new Vector3( -1.0f, 1.0f,-1.0f ),
-                new Vector3(  0.0f, 1.0f,-1.0f ),
-                new Vector3(  1.0f, 1.0f,-1.0f ),
-                new Vector3( -1.0f, 0.0f,-1.0f ),
-                new Vector3(  0.0f, 0.0f,-1.0f ),
-                new Vector3(  1.0f, 0.0f,-1.0f ),
-                new Vector3( -1.0f,-1.0f,-1.0f ),
-                new Vector3(  0.0f,-1.0f,-1.0f ),
-                new Vector3(  1.0f,-1.0f,-1.0f ),
-            };
-
-        foreach (Vector3 lightDirInfo in testDirections)
-        {
-            if (lightDirInfo.Length() < 0.1f)
-                continue;
-            Vector3 lightDir = Vector3.Normalize(lightDirInfo);
-
-            if (Plane.DotNormal(plane, lightDir) < 0.1f)
-                continue;
-
-            Matrix m = Matrix.CreateShadow(lightDir, plane);
-            Vector3 pp = -plane.D * plane.Normal; // origin of the plane.
-
-            //
-            foreach (Vector3 point in points)
-            {
-                Vector4 v4 = Vector4.Transform(point, m);
-
-                Vector3 sp = new Vector3(v4.X, v4.Y, v4.Z) / v4.W;
-
-                // Make sure transformed position is on the plane.
-                Vector3 v = sp - pp;
-                float d = Vector3.Dot(v, plane.Normal);
-                Assert.True(MathHelper.Equal(d, 0), "Matrix.CreateShadow did not provide expected value.");
-
-                // make sure direction between transformed position and original position are same as light direction.
-                if (Vector3.Dot(point - pp, plane.Normal) > 0.0001f)
-                {
-                    Vector3 dir = Vector3.Normalize(point - sp);
-                    Assert.True(MathHelper.Equal(dir, lightDir), "Matrix.CreateShadow did not provide expected value.");
-                }
-            }
-        }
-    }
-}
-
 void CreateReflectionTest(Plane plane, Matrix expected)
 {
     Matrix actual = Matrix.CreateReflection(plane);
@@ -1939,6 +1943,7 @@ public void MatrixLerpTest()
     actual = Matrix.Lerp(a, b, t);
     Assert.True(MathHelper.Equal(expected, actual), "Matrix.Lerp did not return the expected value.");
 }
+
 private void CreateBillboardFact(Vector3 placeDirection, Vector3 cameraUpVector, Matrix expectedRotation)
 {
     Vector3 cameraPosition = new Vector3(3.0f, 4.0f, 5.0f);

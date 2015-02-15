@@ -24,12 +24,28 @@ namespace SceneR
 		struct Plane
 		{
 		public:
-		    /**
-		     * Calculates the dot product between the normal vector of a plane and a 3D vector.
-		     * @param p Vector3 describing the plane coefficients (A, B, C, D) for the plane equation
-		     * @param v 3D vector to use in the dot product.
+            /**
+             * Calculates the dot product of a specified Vector4 and this Plane.
+             *
+             * @param the Vector4 to multiply this Plane by.
+             */
+            static System::Single Dot(const Plane& plane, const Vector4& value);
+
+            /**
+             * Returns the dot product of a specified three-dimensional vector and the Normal vector of this plane.
+             * @param p The plane.
+             * @param v The three-dimensional vector.
+             * @returns The dot product.
 		     */
-		    static Vector4 DotNormal(const Vector3& p, const Vector3& v);
+            static System::Single DotNormal(const Plane& p, const Vector3& v);
+
+			/**
+			 * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
+			 * @param p The plane
+			 * @param value The three-dimensional vector.
+			 * @returns The dot product
+			 */
+			static System::Single DotCoordinate(const Plane& p, const Vector3& value);
 
 		    /**
 		     * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
@@ -97,25 +113,6 @@ namespace SceneR
 
 		public:
 			/**
-			 * Calculates the dot product of a specified Vector4 and this Plane.
-			 *
-			 * @param the Vector4 to multiply this Plane by.
-			 */
-			System::Single Dot(const Vector4& value) const;
-
-			/**
-			 * Returns the dot product of a specified Vector3 and the Normal vector of this Plane plus the D constant value of the Plane.
-			 * @param value the Vector3 to multiply by.
-			 */
-			System::Single DotCoordinate(const Vector3& value) const;
-
-			/**
-			 * Returns the dot product of a specified Vector3 and the Normal vector of this Plane.
-			 * @param the Vector3 to multiply by.
-			 */
-			System::Single DotNormal(const Vector3& value) const;
-
-			/**
 			 * Checks whether the current Plane intersects a specified BoundingBox.
 			 * @param box the BoundingBox to test for intersection with.
 			 * @returns the relationship between the Plane and the BoundingBox.
@@ -136,19 +133,14 @@ namespace SceneR
 			 */
 			PlaneIntersectionType Intersects(const BoundingSphere& sphere) const;
 
-			/**
-			 * Changes the coefficients of the Normal vector of this Plane to make it of unit length.
-			 */
-			void Normalize();
-
 		public:
 			Plane& operator=(const Plane& plane);
 			bool operator==(const Plane& plane) const;
 			bool operator!=(const Plane& plane) const;
 
 		private:
-			System::Single d;
 			Vector3 	   normal;
+			System::Single d;
 		};
 	}
 }

@@ -10,7 +10,9 @@ namespace SceneR
 {
     namespace Framework
     {
+        struct Plane;
         struct Vector3;
+        struct Vector4;
         struct Quaternion;
 
         /**
@@ -246,7 +248,7 @@ namespace SceneR
             static Matrix CreateScale(const System::Single& xScale
                                     , const System::Single& yScale
                                     , const System::Single& zScale
-                                    , const Vector3&        center);
+                                    , const Vector3&        center);                        
 
             /**
              * Creates a translation Matrix
@@ -265,6 +267,14 @@ namespace SceneR
             static Matrix CreateTranslation(const System::Single& xPosition
                                           , const System::Single& yPosition
                                           , const System::Single& zPosition);
+
+            /**
+             * Creates a matrix that flattens geometry into a specified plane as if casting a shadow from a specified light source.
+             * @param lightDirection The direction from which the light that will cast the shadow is coming.
+             * @param plane The plane onto which the new matrix should flatten geometry so as to cast a shadow.
+             * @return A new matrix that can be used to flatten geometry onto the specified plane from the specified direction.
+             */
+            static Matrix CreateShadow(const Vector3& lightDirection, const Plane& plane);
 
             /**
              * Creates a World Matrix

@@ -149,6 +149,14 @@ namespace SceneR
             static Vector4 Normalize(const Vector4& value);
 
             /**
+             * @brief Transforms a three-dimensional vector by a specified 4x4 matrix.
+             * @param position The vector to transform.
+             * @param matrix The transformation matrix.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector3& position, const Matrix& matrix);
+
+            /**
              * Performs a cubic interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector

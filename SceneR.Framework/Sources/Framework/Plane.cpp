@@ -14,19 +14,27 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-Vector4 Plane::DotNormal(const Vector3& p, const Vector3& v)
+Single Plane::Dot(const Plane& plane, const Vector4& value)
+{
+    return Vector4::Dot({ plane.Normal(), plane.D() }, value);
+}
+
+Single Plane::DotNormal(const Plane& p, const Vector3& v)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
-    return {Vector3::Dot(p, v)  };
+    return Vector3::Dot(p.Normal(), v);
+}
+
+Single Plane::DotCoordinate(const Plane& p, const Vector3& value)
+{
+    return Plane::DotNormal(p, value) + p.D();
 }
 
 Plane Plane::Normalize(const Plane& value)
 {
-    auto result = Plane(value);
+    Single reciprocalLength = 1.0f / value.normal.Length();
 
-    result.Normalize();
-
-    return result;
+    return { value.normal * reciprocalLength, value.d * reciprocalLength };
 }
 
 Plane Plane::Transform(const Plane& plane, const Matrix& matrix)
@@ -46,40 +54,40 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
-	: d      { d }
-    , normal { a, b, c }
+	: normal { a, b, c }
+    , d      { d }
 {
 }
 
 Plane::Plane(const Vector3& normal, const System::Single& d)
-	: d      { d }
-    , normal { normal }
+	: normal { normal }
+    , d      { d }
 {
 }
 
 Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3)
-    : d      { 0.0f }
-    , normal { }
+    : normal { }
+    , d      { 0.0f }
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
     auto v21 = point1 - point2;
     auto v31 = point1 - point3;
     auto n   = Vector3::Normalize(Vector3::Cross(v21, v31));
-    auto d   = Plane::DotNormal(n, point1);
+    auto d   = Vector3::Dot(n, point1);
 
     this->normal = n;
-    this->d      = -d.W();
+    this->d      = -d;
 }
 
 Plane::Plane(const Vector4& value)
-	: d      { value.W() }
-    , normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) }
+	: normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) },
+      d      { value.W() }
 {
 }
 
 Plane::Plane(const Plane& value)
-    : d      { value.d }
-    , normal { value.normal }
+    : normal { value.normal }
+    , d      { value.d }
 {
 }
 
@@ -91,23 +99,6 @@ const System::Single& Plane::D() const
 const Vector3& Plane::Normal() const
 {
     return this->normal;
-}
-
-System::Single Plane::Dot(const Vector4& value) const
-{
-    return Vector4::Dot({ this->normal, this->d }, value);
-}
-
-System::Single Plane::DotCoordinate(const Vector3& value) const
-{
-    return Vector3::Dot(this->normal, value);
-}
-
-System::Single Plane::DotNormal(const Vector3& value) const
-{
-    auto tmp = Plane::DotNormal(this->normal, value);
-
-    return (tmp.X() + tmp.Y() + tmp.Z() + tmp.W());
 }
 
 PlaneIntersectionType Plane::Intersects(const BoundingBox& box) const
@@ -123,14 +114,6 @@ PlaneIntersectionType Plane::Intersects(const BoundingFrustrum& frustrum) const
 PlaneIntersectionType Plane::Intersects(const BoundingSphere& sphere) const
 {
     return sphere.Intersects(*this);
-}
-
-void Plane::Normalize()
-{
-    Single reciprocalLength = 1.0f / this->normal.Length();
-
-    this->normal *= reciprocalLength;
-    this->d      *= reciprocalLength;
 }
 
 Plane& Plane::operator=(const Plane& plane)

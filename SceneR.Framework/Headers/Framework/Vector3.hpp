@@ -326,6 +326,11 @@ namespace SceneR
                 };
             };
         };
+
+        inline Vector3 operator*(const System::Single& value, const Vector3& vector)
+        {
+            return { value * vector.X(), value * vector.Y(), value * vector.Z() };
+        }
     }
 }
 

@@ -108,6 +108,11 @@ Vector4 Vector4::Normalize(const Vector4& value)
     return (value / value.Length());
 }
 
+Vector4 Vector4::Transform(const Vector3& position, const Matrix& matrix)
+{
+    return (Vector4 { position, 1.0f } * matrix);
+}
+
 Vector4 Vector4::SmoothStep(const Vector4& value1
                           , const Vector4& value2
                           , const Single&  amount)
