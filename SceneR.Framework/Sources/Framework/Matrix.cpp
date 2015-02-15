@@ -694,6 +694,18 @@ void Matrix::M44(const Single& value)
     this->m44 = value;
 }
 
+Vector3 Matrix::Translation() const
+{
+    return { this->m41, this->m42, this->m43 };
+}
+
+void Matrix::Translation(const Vector3& translation)
+{
+    this->m41 = translation.X();
+    this->m42 = translation.Y();
+    this->m43 = translation.Z();
+}
+
 Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24

@@ -540,6 +540,19 @@ namespace SceneR
 
         public:
             /**
+             * Gets the translation component of this matrix.
+             * @returns The translation component of the current instance.
+            */
+            Vector3 Translation() const;
+
+            /**
+             * Sets the translation component of this matrix.
+             * @param translation the translation component for this matrix.
+            */
+            void Translation(const Vector3& translation);
+
+        public:
+            /**
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
