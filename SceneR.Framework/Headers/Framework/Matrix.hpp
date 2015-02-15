@@ -195,29 +195,58 @@ namespace SceneR
             static Matrix CreateRotationZ(const System::Single& angle, const Vector3& center);
 
             /**
-             * Creates a scaling Matrix.
+             * Creates a uniform scaling matrix that scales equally on each axis.
              *
              * @param scale Amount to scale by.
              */
             static Matrix CreateScale(const System::Single& scale);
 
             /**
-             * Creates a scaling Matrix
+             * Creates a uniform scaling matrix that scales equally on each axis with a center point.
+             *
+             * @param scale Amount to scale by.
+             * @param center The center point
+             */
+            static Matrix CreateScale(const System::Single& scale, const Vector3& center);
+
+            /**
+             * Creates a scaling matrix from the specified vector scale.
              *
              * @param scales Amounts to scale by on the x, y, and z axes.
              */
             static Matrix CreateScale(const Vector3& scales);
 
             /**
-             * Creates a scaling Matrix
+             * Creates a scaling matrix from the specified X, Y, and Z components.
              *
-             * @param xScale Value to scale by on the x-axis
-             * @param yScale Value to scale by on the y-axis
-             * @param zScale Value to scale by on the z-axis
+             * @param xScale The value to scale by on the X axis.
+             * @param yScale The value to scale by on the Y axis.
+             * @param zScale The value to scale by on the Z axis.
              */
             static Matrix CreateScale(const System::Single& xScale
                                     , const System::Single& yScale
                                     , const System::Single& zScale);
+
+            /**
+             * Creates a scaling matrix with a center point.
+             *
+             * @param scales The vector that contains the amount to scale on each axis.
+             * @param center The center point
+             */
+            static Matrix CreateScale(const Vector3& scales, const Vector3& center);
+
+            /**
+             * Creates a scaling matrix that is offset by a given center point.
+             *
+             * @param xScale The value to scale by on the X axis.
+             * @param yScale The value to scale by on the Y axis.
+             * @param zScale The value to scale by on the Z axis.
+             * @param center The center point.
+             */
+            static Matrix CreateScale(const System::Single& xScale
+                                    , const System::Single& yScale
+                                    , const System::Single& zScale
+                                    , const Vector3&        center);
 
             /**
              * Creates a translation Matrix

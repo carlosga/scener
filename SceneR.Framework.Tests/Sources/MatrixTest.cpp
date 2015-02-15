@@ -892,9 +892,9 @@ TEST_F(MatrixTest, CreateWorld)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     //EXPECT_TRUE(objectPosition, actual.Translation);
-    EXPECT_TRUE(Vector3::Dot(Vector3::Normalize(objectUpVector), Vector3(actual.M21(), actual.M22(), actual.M23())) > 0);
+    EXPECT_TRUE(Vector3::Dot(Vector3::Normalize(objectUpVector), { actual.M21(), actual.M22(), actual.M23() }) > 0);
     EXPECT_TRUE(
-        Vector3::Dot(Vector3::Normalize(objectForwardDirection), Vector3(-actual.M31(), -actual.M32(), -actual.M33())) > 0.999f);
+        Vector3::Dot(Vector3::Normalize(objectForwardDirection), { -actual.M31(), -actual.M32(), -actual.M33() }) > 0.999f);
 }
 
 // A test for CreateOrtho (float, float, float, float)
@@ -1484,20 +1484,20 @@ TEST_F(MatrixTest, CreateScale)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateScaleCenter)
 {
-//    auto scale  = Vector3 { 3, 4, 5 };
-//    auto center = Vector3 { 23, 42, 666 };
-//
-//    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
-//    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
-//
-//    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
-//    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
-//                                   * Matrix::CreateScale(scale)
-//                                   * Matrix::CreateTranslation(center);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
+    auto scale  = Vector3 { 3, 4, 5 };
+    auto center = Vector3 { 23, 42, 666 };
+
+    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
+    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
+
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
+
+    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
+    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                   * Matrix::CreateScale(scale)
+                                   * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
 
 // A test for CreateScale (float)

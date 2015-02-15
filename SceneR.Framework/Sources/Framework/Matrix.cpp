@@ -377,6 +377,11 @@ Matrix Matrix::CreateScale(const Single& scale)
     return Matrix::CreateScale(scale, scale, scale);
 }
 
+Matrix Matrix::CreateScale(const System::Single& scale, const Vector3& center)
+{
+    return Matrix::CreateScale(scale, scale, scale, center);
+}
+
 Matrix Matrix::CreateScale(const Vector3& scales)
 {
     return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
@@ -388,6 +393,30 @@ Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Sin
            , 0.0f  , yScale, 0.0f  , 0.0f
            , 0.0f  , 0.0f  , zScale, 0.0f
            , 0.0f  , 0.0f  , 0.0f  , 1.0f };
+}
+
+Matrix Matrix::CreateScale(const Vector3& scales, const Vector3& center)
+{
+    return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z(), center);
+}
+
+Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale, const Vector3& center)
+{
+    // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
+    //
+    // s00	s01	s02 x - s00*x - s01*y - s02*z
+    // s10	s11	s12	y - s10*x - s11*y - s12*z
+    // s20	s21	s22	z - s20*x - s21*y - s22*z
+    // 0	0	0	1
+
+    Single x  = center.X();
+    Single y  = center.Y();
+    Single z  = center.Z();
+
+    return { xScale        , 0.0f          , 0.0f          , 0.0f
+           , 0.0f          , yScale        , 0.0f          , 0.0f
+           , 0.0f          , 0.0f          , zScale        , 0.0f
+           , x - xScale * x, y - yScale * y, z - zScale * z, 1.0f };
 }
 
 Matrix Matrix::CreateTranslation(const Vector3& position)
