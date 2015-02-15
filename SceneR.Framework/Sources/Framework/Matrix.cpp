@@ -430,7 +430,29 @@ Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single&
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
            , 0.0f, 0.0f, 1.0f, 0.0f
-           , x   , y   , z   , 1.0f };
+        , x   , y   , z   , 1.0f };
+}
+
+Matrix Matrix::CreateReflection(const Plane &plane)
+{
+    // Reference: https://msdn.microsoft.com/en-us/library/bb205356(v=vs.85).aspx
+    // P = normalize(Plane);
+
+    // -2 * P.a * P.a + 1  -2 * P.b * P.a      -2 * P.c * P.a        0
+    // -2 * P.a * P.b      -2 * P.b * P.b + 1  -2 * P.c * P.b        0
+    // -2 * P.a * P.c      -2 * P.b * P.c      -2 * P.c * P.c + 1    0
+    // -2 * P.a * P.d      -2 * P.b * P.d      -2 * P.c * P.d        1
+
+    auto P = Plane::Normalize(plane);
+    auto a = -P.Normal().X();
+    auto b = -P.Normal().Y();
+    auto c = -P.Normal().Z();
+    auto d = -P.D();
+
+    return { -2 * a * a + 1, -2 * b * a    , -2 * c * a    , 0.0f
+           , -2 * a * b    , -2 * b * b + 1, -2 * c * b    , 0.0f
+           , -2 * a * c    , -2 * b * c    , -2 * c * c + 1, 0.0f
+           , -2 * a * d    , -2 * b * d    , -2 * c * d    , 1.0f };
 }
 
 Matrix Matrix::CreateShadow(const Vector3& lightDirection, const Plane& plane)
@@ -740,7 +762,7 @@ void Matrix::Translation(const Vector3& translation)
 Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-	Int32  i      = 1;
+    Int32  i      = 1;
     Single result = 0;
     Single det    = 0;
     Matrix msub;

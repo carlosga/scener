@@ -108,6 +108,13 @@ void MatrixTest::DecomposeScale(const Single& sx, const Single& sy, const Single
     EXPECT_TRUE(EqualityHelper::Equal(Vector3::Zero, translation));
 }
 
+void MatrixTest::CreateReflection(const Plane& plane, const Matrix& expected)
+{
+    auto actual = Matrix::CreateReflection(plane);
+
+    EXPECT_TRUE(EqualityHelper::Equal(actual, expected));
+}
+
 TEST_F(MatrixTest, DefaultConstructor)
 {
     auto matrix = Matrix { };
@@ -195,10 +202,10 @@ TEST_F(MatrixTest, MatrixMultiplication)
 
     auto result = matrix1 * matrix2;
 
-	// 34  44  54  64
-	// 82 108 134 160
-	// 34  44  54  64
-	// 82 108 134 160
+    // 34  44  54  64
+    // 82 108 134 160
+    // 34  44  54  64
+    // 82 108 134 160
 
     EXPECT_TRUE(34.0f  == result.M11());
     EXPECT_TRUE(44.0f  == result.M12());
@@ -1839,59 +1846,53 @@ TEST_F(MatrixTest, EqualsNan)
     EXPECT_FALSE(p.IsIdentity());
 }
 
-/*
-void CreateReflectionTest(Plane plane, Matrix expected)
-{
-    Matrix actual = Matrix.CreateReflection(plane);
-    Assert.True(MathHelper.Equal(actual, expected), "Matrix.CreateReflection did not return expected value.");
-}
-
-[Fact]
-public void MatrixCreateReflectionTest01()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateReflection)
 {
     // XY plane.
-    CreateReflectionTest(new Plane(Vector3.UnitZ, 0), Matrix.CreateScale(1, 1, -1));
+    MatrixTest::CreateReflection({ Vector3::UnitZ, 0 }, Matrix::CreateScale(1, 1, -1));
     // XZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitY, 0), Matrix.CreateScale(1, -1, 1));
+    MatrixTest::CreateReflection({ Vector3::UnitY, 0 }, Matrix::CreateScale(1, -1, 1));
     // YZ plane.
-    CreateReflectionTest(new Plane(Vector3.UnitX, 0), Matrix.CreateScale(-1, 1, 1));
+    MatrixTest::CreateReflection({ Vector3::UnitX, 0 }, Matrix::CreateScale(-1, 1, 1));
 
     // Complex cases.
-    Plane[] planes = {
-        new Plane( 0, 1, 0, 0 ),
-        new Plane( 1, 2, 3, 4 ),
-        new Plane( 5, 6, 7, 8 ),
-        new Plane(-1,-2,-3,-4 ),
-        new Plane(-5,-6,-7,-8 ),
-    };
+    auto planes = std::vector<Plane>();
 
-    Vector3[] points = {
-        new Vector3( 1, 2, 3),
-        new Vector3( 5, 6, 7),
-        new Vector3(-1,-2,-3),
-        new Vector3(-5,-6,-7),
-    };
+    planes.push_back({ 0, 1, 0, 0 });
+    planes.push_back({ 1, 2, 3, 4 });
+    planes.push_back({ 5, 6, 7, 8 });
+    planes.push_back({-1,-2,-3,-4 });
+    planes.push_back({-5,-6,-7,-8 });
 
-    foreach (Plane p in planes)
+    auto points = std::vector<Vector3>();
+
+    points.push_back({  1, 2, 3 });
+    points.push_back({  5, 6, 7 });
+    points.push_back({ -1,-2,-3 });
+    points.push_back({ -5,-6,-7 });
+
+    for (auto& p : planes)
     {
-        Plane plane = Plane.Normalize(p);
-        Matrix m = Matrix.CreateReflection(plane);
-        Vector3 pp = -plane.D * plane.Normal; // Position on the plane.
+        auto plane = Plane::Normalize(p);
+        auto m     = Matrix::CreateReflection(plane);
+        auto pp    = -plane.D() * plane.Normal(); // Position on the plane.
 
-        //
-        foreach (Vector3 point in points)
+        for (auto& point : points)
         {
-            Vector3 rp = Vector3.Transform(point, m);
+            auto rp = Vector3::Transform(point, m);
 
-            // Maniually compute refelction point and compare results.
-            Vector3 v = point - pp;
-            float d = Vector3.Dot(v, plane.Normal);
-            Vector3 vp = point - 2.0f * d * plane.Normal;
-            Assert.True(MathHelper.Equal(rp, vp), "Matrix.Reflection did not provide expected value.");
+            // Manually compute reflection point and compare results.
+            auto   v  = point - pp;
+            Single d  = Vector3::Dot(v, plane.Normal());
+            auto   vp = point - 2.0f * d * plane.Normal();
+
+            EXPECT_TRUE(EqualityHelper::Equal(rp, vp));
         }
     }
 }
 
+/*
 // A test for Lerp (Matrix, Matrix, float)
 [Fact]
 public void MatrixLerpTest()

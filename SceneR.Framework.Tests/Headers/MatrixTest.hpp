@@ -6,8 +6,9 @@
 
 #include <gtest/gtest.h>
 
-#include <Framework/Matrix.hpp>
 #include <System/Core.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Plane.hpp>
 
 class MatrixTest : public testing::Test
 {
@@ -27,6 +28,7 @@ protected:
                         , const SceneR::Framework::Vector3& expectedTranslation
                         , const SceneR::Framework::Vector3& expectedScales);
     static void DecomposeScale(const System::Single& sx, const System::Single& sy, const System::Single& sz);
+    static void CreateReflection(const SceneR::Framework::Plane& plane, const SceneR::Framework::Matrix& expected);
 
     // virtual void TearDown() will be called after each test is run.
     // You should define it if there is cleanup work to do.  Otherwise,

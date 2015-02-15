@@ -268,6 +268,14 @@ namespace SceneR
                                           , const System::Single& yPosition
                                           , const System::Single& zPosition);
 
+
+            /**
+             * @brief Creates a matrix that reflects the coordinate system about a specified plane.
+             * @param plane The plane
+             * @return A new matrix expressing the reflection.
+             */
+            static Matrix CreateReflection(const Plane& plane);
+
             /**
              * Creates a matrix that flattens geometry into a specified plane as if casting a shadow from a specified light source.
              * @param lightDirection The direction from which the light that will cast the shadow is coming.
