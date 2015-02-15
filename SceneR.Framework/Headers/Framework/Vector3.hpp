@@ -279,6 +279,24 @@ namespace SceneR
              */
             const System::Single& Z() const;
 
+        public:
+            /**
+             * Sets the x-coordinate value.
+             */
+            void X(const System::Single& x);
+
+            /**
+             * Sets the y-coordinate value.
+             */
+            void Y(const System::Single& y);
+
+            /**
+             * Sets the z-coordinate value.
+             */
+            void Z(const System::Single& z);
+
+        public:
+
             /**
              * Gets the square of the length of this Vector3.
              *

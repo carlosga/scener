@@ -3,10 +3,10 @@
 
 #include <MatrixTest.hpp>
 
-#include <cmath>
 #include <vector>
 
 #include <EqualityHelper.hpp>
+#include <System/Math.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
@@ -78,9 +78,9 @@ void MatrixTest::Decompose(const Single& yaw
 
     if (scaleIsZeroOrNegative)
     {
-        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.X()), std::abs(scales.X())));
-        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.Y()), std::abs(scales.Y())));
-        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.Z()), std::abs(scales.Z())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.X()), Math::Abs(scales.X())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.Y()), Math::Abs(scales.Y())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.Z()), Math::Abs(scales.Z())));
     }
     else
     {
@@ -390,7 +390,7 @@ TEST_F(MatrixTest, Determinant2)
     Single t    = 1.0f / detI;
 
     // only accurate to 3 precision
-    EXPECT_TRUE(std::abs(detA - t) < 1e-3);
+    EXPECT_TRUE(Math::Abs(detA - t) < 1e-3);
 }
 
 // A test for Invert (Matrix)

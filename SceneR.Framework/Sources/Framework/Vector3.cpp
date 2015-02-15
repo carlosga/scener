@@ -109,8 +109,6 @@ Vector3 Vector3::Hermite(const Vector3& value1
 
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    assert(amount >= 0.0f && amount < 1.0f);
-
     return { MathHelper::Lerp(value1.x, value2.x, amount)
            , MathHelper::Lerp(value1.y, value2.y, amount)
            , MathHelper::Lerp(value1.z, value2.z, amount) };
@@ -211,6 +209,21 @@ const Single& Vector3::Y() const
 const Single& Vector3::Z() const
 {
     return this->z;
+}
+
+void Vector3::X(const Single& x)
+{
+    this->x = x;
+}
+
+void Vector3::Y(const Single& y)
+{
+    this->y = y;
+}
+
+void Vector3::Z(const Single& z)
+{
+    this->z = z;
 }
 
 Single Vector3::LengthSquared() const
