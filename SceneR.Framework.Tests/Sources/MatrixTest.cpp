@@ -614,20 +614,20 @@ TEST_F(MatrixTest, CreateRotationXOfZeroDegree)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationXCenter)
 {
-//    Single radians = MathHelper::ToRadians(30.0f);
-//    auto   center  = Vector3 { 23, 42, 66 };
-//
-//    auto rotateAroundZero         = Matrix::CreateRotationX(radians, Vector3::Zero);
-//    auto rotateAroundZeroExpected = Matrix::CreateRotationX(radians);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
-//
-//    auto rotateAroundCenter         = Matrix::CreateRotationX(radians, center);
-//    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
-//                                    * Matrix::CreateRotationX(radians)
-//                                    * Matrix::CreateTranslation(center);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
+    Single radians = MathHelper::ToRadians(30.0f);
+    auto   center  = Vector3 { 23, 42, 66 };
+
+    auto rotateAroundZero         = Matrix::CreateRotationX(radians, Vector3::Zero);
+    auto rotateAroundZeroExpected = Matrix::CreateRotationX(radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
+
+    auto rotateAroundCenter         = Matrix::CreateRotationX(radians, center);
+    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                    * Matrix::CreateRotationX(radians)
+                                    * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CreateRotationY (float)
@@ -673,20 +673,20 @@ TEST_F(MatrixTest, CreateRotationYForNegativeAngle)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationYCenter)
 {
-//    Single radians = MathHelper::ToRadians(30.0f);
-//    auto   center  = Vector3 { 23, 42, 66 };
-//
-//    auto rotateAroundZero         = Matrix::CreateRotationY(radians, Vector3::Zero);
-//    auto rotateAroundZeroExpected = Matrix::CreateRotationY(radians);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
-//
-//    auto rotateAroundCenter         = Matrix::CreateRotationY(radians, center);
-//    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
-//                                    * Matrix::CreateRotationY(radians)
-//                                    * Matrix::CreateTranslation(center);
-//
-//    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
+    Single radians = MathHelper::ToRadians(30.0f);
+    auto   center  = Vector3 { 23, 42, 66 };
+
+    auto rotateAroundZero         = Matrix::CreateRotationY(radians, Vector3::Zero);
+    auto rotateAroundZeroExpected = Matrix::CreateRotationY(radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
+
+    auto rotateAroundCenter         = Matrix::CreateRotationY(radians, center);
+    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                    * Matrix::CreateRotationY(radians)
+                                    * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CreateFromAxisAngle(Vector3f,float)
@@ -809,16 +809,20 @@ TEST_F(MatrixTest, CreateRotationZ)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationZCenter)
 {
-//    float radians = MathHelper.ToRadians(30.0f);
-//    Vector3 center = new Vector3(23, 42, 66);
-//
-//    Matrix4x4 rotateAroundZero = Matrix4x4.CreateRotationZ(radians, Vector3.Zero);
-//    Matrix4x4 rotateAroundZeroExpected = Matrix4x4.CreateRotationZ(radians);
-//    Assert.True(MathHelper.Equal(rotateAroundZero, rotateAroundZeroExpected));
-//
-//    Matrix4x4 rotateAroundCenter = Matrix4x4.CreateRotationZ(radians, center);
-//    Matrix4x4 rotateAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateRotationZ(radians) * Matrix4x4.CreateTranslation(center);
-//    Assert.True(MathHelper.Equal(rotateAroundCenter, rotateAroundCenterExpected));
+    Single radians = MathHelper::ToRadians(30.0f);
+    auto   center  = Vector3 { 23, 42, 66 };
+
+    auto rotateAroundZero         = Matrix::CreateRotationZ(radians, Vector3::Zero);
+    auto rotateAroundZeroExpected = Matrix::CreateRotationZ(radians);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
+
+    auto rotateAroundCenter         = Matrix::CreateRotationZ(radians, center);
+    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
+                                    * Matrix::CreateRotationZ(radians)
+                                    * Matrix::CreateTranslation(center);
+
+    EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
 
 // A test for CrateLookAt (Vector3f, Vector3f, Vector3f)
@@ -1474,39 +1478,44 @@ TEST_F(MatrixTest, CreateScale)
     auto actual = Matrix::CreateScale(scales);
 
     EXPECT_TRUE(expected == actual);
-};
+}
 
-/*
 // A test for CreateScale (Vector3f, Vector3f)
-[Fact]
-public void Matrix4x4CreateScaleCenterTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateScaleCenter)
 {
-    Vector3 scale = new Vector3(3, 4, 5);
-    Vector3 center = new Vector3(23, 42, 666);
-
-    Matrix4x4 scaleAroundZero = Matrix4x4.CreateScale(scale, Vector3.Zero);
-    Matrix4x4 scaleAroundZeroExpected = Matrix4x4.CreateScale(scale);
-    Assert.True(MathHelper.Equal(scaleAroundZero, scaleAroundZeroExpected));
-
-    Matrix4x4 scaleAroundCenter = Matrix4x4.CreateScale(scale, center);
-    Matrix4x4 scaleAroundCenterExpected = Matrix4x4.CreateTranslation(-center) * Matrix4x4.CreateScale(scale) * Matrix4x4.CreateTranslation(center);
-    Assert.True(MathHelper.Equal(scaleAroundCenter, scaleAroundCenterExpected));
+//    auto scale  = Vector3 { 3, 4, 5 };
+//    auto center = Vector3 { 23, 42, 666 };
+//
+//    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
+//    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
+//
+//    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
+//    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
+//                                   * Matrix::CreateScale(scale)
+//                                   * Matrix::CreateTranslation(center);
+//
+//    EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
 
 // A test for CreateScale (float)
-[Fact]
-public void Matrix4x4CreateScaleTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(MatrixTest, CreateScale2)
 {
-    float scale = 2.0f;
-    Matrix4x4 expected = new Matrix4x4(
-        2.0f, 0.0f, 0.0f, 0.0f,
-        0.0f, 2.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 2.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f);
-    Matrix4x4 actual = Matrix4x4.CreateScale(scale);
-    Assert.Equal(expected, actual);
+    Single scale    = 2.0f;
+    Matrix expected = { 2.0f, 0.0f, 0.0f, 0.0f
+                      , 0.0f, 2.0f, 0.0f, 0.0f
+                      , 0.0f, 0.0f, 2.0f, 0.0f
+                      , 0.0f, 0.0f, 0.0f, 1.0f };
+
+    auto actual = Matrix::CreateScale(scale);
+
+    EXPECT_TRUE(expected == actual);
 }
 
+/*
 // A test for CreateScale (float, Vector3f)
 [Fact]
 public void Matrix4x4CreateScaleCenterTest2()
@@ -1791,63 +1800,6 @@ public void Matrix4x4EqualsNanTest()
     Assert.False(p.Equals(p));
 }
 
-// A test to make sure these types are blittable directly into GPU buffer memory layouts
-[Fact]
-public unsafe void Matrix4x4SizeofTest()
-{
-    Assert.Equal(64, sizeof(Matrix4x4));
-    Assert.Equal(128, sizeof(Matrix4x4_2x));
-    Assert.Equal(68, sizeof(Matrix4x4PlusFloat));
-    Assert.Equal(136, sizeof(Matrix4x4PlusFloat_2x));
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Matrix4x4_2x
-{
-private Matrix4x4 _a;
-private Matrix4x4 _b;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Matrix4x4PlusFloat
-{
-private Matrix4x4 _v;
-private float _f;
-}
-
-[StructLayout(LayoutKind.Sequential)]
-struct Matrix4x4PlusFloat_2x
-{
-private Matrix4x4PlusFloat _a;
-private Matrix4x4PlusFloat _b;
-}
-
-// A test to make sure the fields are laid out how we expect
-[Fact]
-public unsafe void Matrix4x4FieldOffsetTest()
-{
-    Matrix4x4* ptr = (Matrix4x4*)0;
-
-    Assert.Equal(new IntPtr(0), new IntPtr(&ptr->M11));
-    Assert.Equal(new IntPtr(4), new IntPtr(&ptr->M12));
-    Assert.Equal(new IntPtr(8), new IntPtr(&ptr->M13));
-    Assert.Equal(new IntPtr(12), new IntPtr(&ptr->M14));
-
-    Assert.Equal(new IntPtr(16), new IntPtr(&ptr->M21));
-    Assert.Equal(new IntPtr(20), new IntPtr(&ptr->M22));
-    Assert.Equal(new IntPtr(24), new IntPtr(&ptr->M23));
-    Assert.Equal(new IntPtr(28), new IntPtr(&ptr->M24));
-
-    Assert.Equal(new IntPtr(32), new IntPtr(&ptr->M31));
-    Assert.Equal(new IntPtr(36), new IntPtr(&ptr->M32));
-    Assert.Equal(new IntPtr(40), new IntPtr(&ptr->M33));
-    Assert.Equal(new IntPtr(44), new IntPtr(&ptr->M34));
-
-    Assert.Equal(new IntPtr(48), new IntPtr(&ptr->M41));
-    Assert.Equal(new IntPtr(52), new IntPtr(&ptr->M42));
-    Assert.Equal(new IntPtr(56), new IntPtr(&ptr->M43));
-    Assert.Equal(new IntPtr(60), new IntPtr(&ptr->M44));
-}
 // Simple shadow test.
 [Fact]
 public void Matrix4x4CreateShadowTest01()

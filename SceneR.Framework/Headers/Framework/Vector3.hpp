@@ -311,6 +311,7 @@ namespace SceneR
             const Vector3 operator/(const Vector3& vector) const;
             const Vector3 operator/(const System::Single& value) const;
             const Vector3 operator-(const Vector3& vector) const;
+            const Vector3 operator-() const;
             const Vector3 operator+(const Vector3& vector) const;
 
         private:

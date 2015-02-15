@@ -157,6 +157,14 @@ namespace SceneR
             static Matrix CreateRotationX(const System::Single& angle);
 
             /**
+             * Creates a matrix for rotating points around the X-axis, from a center point.
+             * @param angleThe amount, in radians, by which to rotate around the X-axis.
+             * @param centerPointThe center point.
+             * @returns The rotation matrix.
+             */
+            static Matrix CreateRotationX(const System::Single& angle, const Vector3& center);
+
+            /**
              * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
@@ -164,11 +172,27 @@ namespace SceneR
             static Matrix CreateRotationY(const System::Single& angle);
 
             /**
+             * Creates a matrix for rotating points around the Y-axis, from a center point.
+             * @param angleThe amount, in radians, by which to rotate around the Y-axis.
+             * @param centerPointThe center point.
+             * @returns The rotation matrix.
+             */
+            static Matrix CreateRotationY(const System::Single& angle, const Vector3& center);
+
+            /**
              * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
             static Matrix CreateRotationZ(const System::Single& angle);
+
+            /**
+             * Creates a matrix for rotating points around the Z-axis, from a center point.
+             * @param angleThe amount, in radians, by which to rotate around the Z-axis.
+             * @param centerPointThe center point.
+             * @returns The rotation matrix.
+             */
+            static Matrix CreateRotationZ(const System::Single& angle, const Vector3& center);
 
             /**
              * Creates a scaling Matrix.

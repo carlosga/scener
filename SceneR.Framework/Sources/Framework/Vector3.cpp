@@ -401,6 +401,11 @@ const Vector3 Vector3::operator-(const Vector3& vector) const
     return result;
 }
 
+const Vector3 Vector3::operator-() const
+{
+    return *this * -1;
+}
+
 const Vector3 Vector3::operator+(const Vector3& vector) const
 {
     auto result = *this;

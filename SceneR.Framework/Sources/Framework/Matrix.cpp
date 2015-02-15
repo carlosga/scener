@@ -288,6 +288,26 @@ Matrix Matrix::CreateRotationX(const Single& angle)
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
+Matrix Matrix::CreateRotationX(const System::Single& angle, const Vector3& center)
+{
+    // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
+    //
+    // r00	r01	r02	x - r00*x - r01*y - r02*z
+    // r10	r11	r12	y - r10*x - r11*y - r12*z
+    // r20	r21	r22	z - r20*x - r21*y - r22*z
+    // 0	0	0	1
+
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
+    Single y   = center.Y();
+    Single z   = center.Z();
+
+    return { 1.0f, 0.0f                 , 0.0f                 , 0.0f
+           , 0.0f,  cos                 , sin                  , 0.0f
+           , 0.0f, -sin                 , cos                  , 0.0f
+           , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
+}
+
 Matrix Matrix::CreateRotationY(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
@@ -300,6 +320,26 @@ Matrix Matrix::CreateRotationY(const Single& angle)
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
+Matrix Matrix::CreateRotationY(const System::Single& angle, const Vector3& center)
+{
+    // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
+    //
+    // r00	r01	r02 x - r00*x - r01*y - r02*z
+    // r10	r11	r12	y - r10*x - r11*y - r12*z
+    // r20	r21	r22	z - r20*x - r21*y - r22*z
+    // 0	0	0	1
+
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
+    Single x   = center.X();
+    Single z   = center.Z();
+
+    return { cos                  , 0.0f, -sin                 , 0.0f
+           , 0.0f                 , 1.0f, 0.0f                 , 0.0f
+           , sin                  , 0.0f, cos                  , 0.0f
+           , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
+}
+
 Matrix Matrix::CreateRotationZ(const Single& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
@@ -310,6 +350,26 @@ Matrix Matrix::CreateRotationZ(const Single& angle)
            , -sin,  cos, 0.0f, 0.0f
            , 0.0f, 0.0f, 1.0f, 0.0f
            , 0.0f, 0.0f, 0.0f, 1.0f };
+}
+
+Matrix Matrix::CreateRotationZ(const System::Single& angle, const Vector3& center)
+{
+    // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
+    //
+    // r00	r01	r02 x - r00*x - r01*y - r02*z
+    // r10	r11	r12	y - r10*x - r11*y - r12*z
+    // r20	r21	r22	z - r20*x - r21*y - r22*z
+    // 0	0	0	1
+
+    Single cos = Math::Cos(angle);
+    Single sin = Math::Sin(angle);
+    Single x   = center.X();
+    Single y   = center.Y();
+
+    return { cos                  , sin                  , 0.0f, 0.0f
+           , -sin                 , cos                  , 0.0f, 0.0f
+           , 0.0f                 , 0.0f                 , 1.0f, 0.0f
+           , x - cos * x + sin * y, y - sin * x - cos * y, 0.0f, 1.0f };
 }
 
 Matrix Matrix::CreateScale(const Single& scale)
