@@ -207,22 +207,22 @@ namespace SceneR
         public:
             System::Single& operator[](const System::Size& index);
             const System::Single& operator[](const System::Size& index) const;
-            Quaternion& operator=(const Quaternion& vector);
-            bool operator==(const Quaternion& vector) const;
-            bool operator!=(const Quaternion& vector) const;
-            Quaternion& operator*=(const Quaternion& vector);
+            Quaternion& operator=(const Quaternion& value);
+            bool operator==(const Quaternion& value) const;
+            bool operator!=(const Quaternion& value) const;
+            Quaternion& operator*=(const Quaternion& value);
             Quaternion& operator*=(const System::Single& value);
-            Quaternion& operator/=(const Quaternion& vector);
+            Quaternion& operator/=(const Quaternion& value);
             Quaternion& operator/=(const System::Single& value);
-            Quaternion& operator-=(const Quaternion& vector);
-            Quaternion& operator+=(const Quaternion& vector);
-            const Quaternion operator*(const Quaternion& vector) const;
+            Quaternion& operator-=(const Quaternion& value);
+            Quaternion& operator+=(const Quaternion& value);
+            const Quaternion operator*(const Quaternion& value) const;
             const Quaternion operator*(const System::Single& value) const;
-            const Quaternion operator/(const Quaternion& vector) const;
+            const Quaternion operator/(const Quaternion& value) const;
             const Quaternion operator/(const System::Single& value) const;
-            const Quaternion operator-(const Quaternion& vector) const;
+            const Quaternion operator-(const Quaternion& value) const;
             const Quaternion operator-() const;
-            const Quaternion operator+(const Quaternion& vector) const;
+            const Quaternion operator+(const Quaternion& value) const;
 
         private:
             union

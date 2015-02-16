@@ -281,30 +281,30 @@ const Single& Quaternion::operator[](const Size& index) const
     return (this->quaternion[index]);
 }
 
-Quaternion& Quaternion::operator=(const Quaternion& quaternion)
+Quaternion& Quaternion::operator=(const Quaternion& value)
 {
-    if (this != &quaternion)
+    if (this != &value)
     {
-        this->x = quaternion.x;
-        this->y = quaternion.y;
-        this->z = quaternion.z;
-        this->w = quaternion.w;
+        this->x = value.x;
+        this->y = value.y;
+        this->z = value.z;
+        this->w = value.w;
     }
 
     return *this;
 }
 
-bool Quaternion::operator==(const Quaternion& quaternion) const
+bool Quaternion::operator==(const Quaternion& value) const
 {
-    return (this->x == quaternion.x
-         && this->y == quaternion.y
-         && this->z == quaternion.z
-         && this->w == quaternion.w);
+    return (this->x == value.x
+         && this->y == value.y
+         && this->z == value.z
+         && this->w == value.w);
 }
 
-bool Quaternion::operator!=(const Quaternion& quaternion) const
+bool Quaternion::operator!=(const Quaternion& value) const
 {
-    return !(*this == quaternion);
+    return !(*this == value);
 }
 
 Quaternion& Quaternion::operator*=(const Quaternion& q1)
@@ -335,12 +335,12 @@ Quaternion& Quaternion::operator*=(const Single& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Quaternion& quaternion)
+Quaternion& Quaternion::operator/=(const Quaternion& value)
 {
-    this->x /= quaternion.x;
-    this->y /= quaternion.y;
-    this->z /= quaternion.z;
-    this->w /= quaternion.w;
+    this->x /= value.x;
+    this->y /= value.y;
+    this->z /= value.z;
+    this->w /= value.w;
 
     return *this;
 }
@@ -355,31 +355,31 @@ Quaternion& Quaternion::operator/=(const Single& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator-=(const Quaternion& quaternion)
+Quaternion& Quaternion::operator-=(const Quaternion& value)
 {
-    this->x -= quaternion.x;
-    this->y -= quaternion.y;
-    this->z -= quaternion.z;
-    this->w -= quaternion.w;
+    this->x -= value.x;
+    this->y -= value.y;
+    this->z -= value.z;
+    this->w -= value.w;
 
     return *this;
 }
 
-Quaternion& Quaternion::operator+=(const Quaternion& quaternion)
+Quaternion& Quaternion::operator+=(const Quaternion& value)
 {
-    this->x += quaternion.x;
-    this->y += quaternion.y;
-    this->z += quaternion.z;
-    this->w += quaternion.w;
+    this->x += value.x;
+    this->y += value.y;
+    this->z += value.z;
+    this->w += value.w;
 
     return *this;
 }
 
-const Quaternion Quaternion::operator*(const Quaternion& quaternion) const
+const Quaternion Quaternion::operator*(const Quaternion& value) const
 {
     auto result = *this;
 
-    result *= quaternion;
+    result *= value;
 
     return result;
 }
@@ -416,11 +416,11 @@ const Quaternion Quaternion::operator/(const Single& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator-(const Quaternion& quaternion) const
+const Quaternion Quaternion::operator-(const Quaternion& value) const
 {
     auto result = *this;
 
-    result -= quaternion;
+    result -= value;
 
     return result;
 }
@@ -430,11 +430,11 @@ const Quaternion Quaternion::operator-() const
     return Quaternion { -this->x, -this->y, -this->z, -this->w };
 }
 
-const Quaternion Quaternion::operator+(const Quaternion& quaternion) const
+const Quaternion Quaternion::operator+(const Quaternion& value) const
 {
     auto result = *this;
 
-    result += quaternion;
+    result += value;
 
     return result;
 }

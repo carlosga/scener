@@ -258,8 +258,8 @@ set(SOURCE_FILES
 # library output
 add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
+# enable 64 bit build
+set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
+
 # target links
 target_link_libraries(SceneR_Framework pthread glfw Regal)
-
-# enable 64 bit build
-set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

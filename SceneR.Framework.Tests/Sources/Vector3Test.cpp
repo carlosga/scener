@@ -3,8 +3,11 @@
 
 #include <Vector3Test.hpp>
 
+#include <limits>
+
 #include <EqualityHelper.hpp>
 #include <System/Math.hpp>
+#include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
@@ -565,4 +568,683 @@ TEST_F(Vector3Test, LerpWithFactorGreaterThanOne)
     auto actual   = Vector3::Lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Lerp (Vector3f, Vector3f, float)
+// Lerp test with factor < 0
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, LerpWithFactorLessThanZero)
+{
+    auto a = Vector3 { 0.0f, 0.0f, 0.0f };
+    auto b = Vector3 { 4.0f, 5.0f, 6.0f };
+
+    Single t = -2.0f;
+
+    auto expected = Vector3 { -8.0f, -10.0f, -12.0f };
+    auto actual   = Vector3::Lerp(a, b, t);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Lerp (Vector3f, Vector3f, float)
+// Lerp test from the same point
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, LerpFromTheSamePoint)
+{
+    auto a = Vector3 { 1.68f, 2.34f, 5.43f };
+    auto b = a;
+
+    Single t = 0.18f;
+
+    auto expected = Vector3 { 1.68f, 2.34f, 5.43f };
+    auto actual   = Vector3::Lerp(a, b, t);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Reflect (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Reflect)
+{
+    auto a = Vector3::Normalize({ 1.0f, 1.0f, 1.0f });
+
+    // Reflect on XZ plane.
+    auto n        = Vector3 { 0.0f, 1.0f, 0.0f };
+    auto expected = Vector3 { a.X(), -a.Y(), a.Z() };
+    auto actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Reflect on XY plane.
+    n        = Vector3 { 0.0f, 0.0f, 1.0f };
+    expected = Vector3(a.X(), a.Y(), -a.Z());
+    actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Reflect on YZ plane.
+    n        = Vector3 { 1.0f, 0.0f, 0.0f };
+    expected = Vector3 { -a.X(), a.Y(), a.Z() };
+    actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Reflect (Vector3f, Vector3f)
+// Reflection when normal and source are the same
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ReflectWhenNormalAndSourceAreTheSame)
+{
+    auto n = Vector3 { 0.45f, 1.28f, 0.86f };
+
+    n = Vector3::Normalize(n);
+
+    auto a = n;
+
+    auto expected = -n;
+    auto actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Reflect (Vector3f, Vector3f)
+// Reflection when normal and source are negation
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ReflectWhenNormalAndSourceAreNegation)
+{
+    auto n = Vector3 { 0.45f, 1.28f, 0.86f };
+
+    n = Vector3::Normalize(n);
+
+    auto a = -n;
+
+    auto expected = n;
+    auto actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Reflect (Vector3f, Vector3f)
+// Reflection when normal and source are perpendicular (a dot n = 0)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ReflectWhenNormalAndSourceArePerpendicular)
+{
+    auto n    = Vector3 { 0.45f, 1.28f, 0.86f };
+    auto temp = Vector3 { 1.28f, 0.45f, 0.01f };
+
+    // find a perpendicular vector of n
+    auto a = Vector3::Cross(temp, n);
+
+    auto expected = a;
+    auto actual   = Vector3::Reflect(a, n);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Transform(Vector3f, Matrix4x4)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Transform1)
+{
+    auto v = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
+
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
+
+    auto expected = Vector3 { 12.191987f, 21.533493f, 32.616024f };
+    auto actual   = Vector3::Transform(v, m);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Clamp (Vector3f, Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Clamp)
+{
+    auto a   = Vector3 { 0.5f, 0.3f, 0.33f };
+    auto min = Vector3 { 0.0f, 0.1f, 0.13f };
+    auto max = Vector3 { 1.0f, 1.1f, 1.13f };
+
+    // Normal case.
+    // Case N1: specfied value is in the range.
+    auto expected = Vector3 { 0.5f, 0.3f, 0.33f };
+    auto actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Normal case.
+    // Case N2: specfied value is bigger than max value.
+    a        = Vector3 { 2.0f, 3.0f, 4.0f };
+    expected = max;
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Case N3: specfied value is smaller than max value.
+    a        = Vector3 { -2.0f, -3.0f, -4.0f };
+    expected = min;
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Case N4: combination case.
+    a        = Vector3 {   -2.0f,  0.5f,    4.0f };
+    expected = Vector3 { min.X(), a.Y(), max.Z() };
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // User specfied min value is bigger than max value.
+    max = Vector3 { 0.0f, 0.1f, 0.13f };
+    min = Vector3 { 1.0f, 1.1f, 1.13f };
+
+    // Case W1: specfied value is in the range.
+    a        = Vector3 { 0.5f, 0.3f, 0.33f };
+    expected = min;
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Normal case.
+    // Case W2: specfied value is bigger than max and min value.
+    a        = Vector3 { 2.0f, 3.0f, 4.0f };
+    expected = min;
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+
+    // Case W3: specfied value is smaller than min and max value.
+    a        = Vector3 { -2.0f, -3.0f, -4.0f };
+    expected = min;
+    actual   = Vector3::Clamp(a, min, max);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for TransformNormal (Vector3f, Matrix4x4)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, TransformNormal1)
+{
+    auto v = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
+
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
+
+    auto expected = Vector3 { 2.19198728f, 1.53349364f, 2.61602545f };
+    auto actual   = Vector3::TransformNormal(v, m);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Transform (Vector3f, Quaternion)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, TransformByQuaternion)
+{
+    auto v = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
+    auto q = Quaternion::CreateFromRotationMatrix(m);
+
+    auto expected = Vector3::Transform(v, m);
+    auto actual   = Vector3::Transform(v, q);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Transform (Vector3f, Quaternion)
+// Transform vector3 with zero quaternion
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, TransformByZeroQuaternion)
+{
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto q        = Quaternion {};
+    auto expected = v;
+    auto actual   = Vector3::Transform(v, q);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Transform (Vector3f, Quaternion)
+// Transform vector3 with identity quaternion
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, TransformByIdentityQuaternion)
+{
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto q        = Quaternion::Identity;
+    auto expected = v;
+
+    auto actual = Vector3::Transform(v, q);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Normalize (Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Normalize)
+{
+    auto a        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto expected = Vector3 { 0.26726124191242438468455348087975f
+                            , 0.53452248382484876936910696175951f
+                            , 0.80178372573727315405366044263926f };
+
+    auto actual = Vector3::Normalize(a);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Normalize (Vector3f)
+// Normalize vector of length one
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, NormalizeVectorOfLengthOne)
+{
+    auto a = Vector3 { 1.0f, 0.0f, 0.0f };
+
+    auto expected = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto actual   = Vector3::Normalize(a);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Normalize (Vector3f)
+// Normalize vector of length zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, NormalizeVectorOfLengthZero)
+{
+    auto a      = Vector3 { 0.0f, 0.0f, 0.0f };
+    auto actual = Vector3::Normalize(a);
+
+    EXPECT_TRUE(MathHelper::IsNaN(actual.X())
+             && MathHelper::IsNaN(actual.Y())
+             && MathHelper::IsNaN(actual.Z()));
+}
+
+// A test for operator - (Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, UnaryNegation)
+{
+    auto a        = Vector3 {  1.0f,  2.0f,  3.0f };
+    auto expected = Vector3 { -1.0f, -2.0f, -3.0f };
+    auto actual   = -a;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, UnaryNegationWithSpecialValues)
+{
+    auto a = -Vector3 { MathHelper::NaN, MathHelper::PositiveInfinity, MathHelper::NegativeInfinity };
+    auto b = -Vector3 { 0.0f, 0.0f, 0.0f };
+
+    EXPECT_TRUE(MathHelper::IsNaN(a.X()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(a.Y()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(a.Z()));
+    EXPECT_TRUE(0.0f == b.X());
+    EXPECT_TRUE(0.0f == b.Y());
+    EXPECT_TRUE(0.0f == b.Z());
+}
+
+// A test for operator - (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Subtraction1)
+{
+    auto a        = Vector3 { 4.0f, 2.0f, 3.0f };
+    auto b        = Vector3 { 1.0f, 5.0f, 7.0f };
+    auto expected = Vector3 { 3.0f, -3.0f, -4.0f };
+    auto actual   = a - b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for operator * (Vector3f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ScalarMultiplyOperator)
+{
+    auto   a        = Vector3 { 1.0f, 2.0f, 3.0f };
+    Single factor   = 2.0f;
+    auto   expected = Vector3 { 2.0f, 4.0f, 6.0f };
+    auto   actual   = a * factor;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for operator * (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, VectorMultiplyOperator)
+{
+    auto a        = Vector3 { 1.0f,  2.0f,  3.0f };
+    auto b        = Vector3 { 4.0f,  5.0f,  6.0f };
+    auto expected = Vector3 { 4.0f, 10.0f, 18.0f };
+    auto actual   = a * b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for operator / (Vector3f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ScalarDivisionOperator)
+{
+    auto   a        = Vector3 { 1.0f, 2.0f, 3.0f };
+    Single div      = 2.0f;
+    auto   expected = Vector3 { 0.5f, 1.0f, 1.5f };
+    auto   actual   = a / div;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for operator / (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, VectorDivisionOperator)
+{
+    auto a        = Vector3 { 4.0f, 2.0f, 3.0f };
+    auto b        = Vector3 { 1.0f, 5.0f, 6.0f };
+    auto expected = Vector3 { 4.0f, 0.4f, 0.5f };
+    auto actual   = a / b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for operator / (Vector3f, float)
+// Divide by zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ScalarDivisionByZero)
+{
+    auto a = Vector3 { -2.0f, 3.0f, std::numeric_limits<Single>::max() };
+
+    float div = 0.0f;
+
+    auto actual = a / div;
+
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Z()));
+}
+
+// A test for operator / (Vector3f, Vector3f)
+// Divide by zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, VectorDivisionByZero)
+{
+    auto a = Vector3 { 0.047f, -3.0f, MathHelper::NegativeInfinity };
+    auto b = Vector3 { };
+
+    auto actual = a / b;
+
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Z()));
+}
+
+// A test for operator + (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Addition1)
+{
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto b = Vector3 { 4.0f, 5.0f, 6.0f };
+
+    auto expected = Vector3 { 5.0f, 7.0f, 9.0f };
+    auto actual   = a + b;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
+}
+
+// A test for Vector3f (float, float, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Constructor)
+{
+    Single x = 1.0f;
+    Single y = 2.0f;
+    Single z = 3.0f;
+
+    auto target = Vector3 { x, y, z };
+
+    EXPECT_TRUE(EqualityHelper::Equal(target.X(), x)
+             && EqualityHelper::Equal(target.Y(), y)
+             && EqualityHelper::Equal(target.Z(), z));
+}
+
+// A test for Vector3f (Vector2f, float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Constructor1)
+{
+    auto a = Vector2 { 1.0f, 2.0f };
+
+    Single z = 3.0f;
+
+    auto target = Vector3 { a, z };
+
+    EXPECT_TRUE(EqualityHelper::Equal(target.X(), a.X())
+             && EqualityHelper::Equal(target.Y(), a.Y())
+             && EqualityHelper::Equal(target.Z(), z));
+}
+
+// A test for Vector3f ()
+// Constructor with no parameter
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Constructor2)
+{
+    auto a = Vector3 { };
+
+    EXPECT_TRUE(a.X() == 0.0f);
+    EXPECT_TRUE(a.Y() == 0.0f);
+    EXPECT_TRUE(a.Z() == 0.0f);
+}
+
+// A test for Vector2f (float, float)
+// Constructor with special floating values
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, ConstructorWithSpecialFloatValues)
+{
+    auto target = Vector3 { MathHelper::NaN, std::numeric_limits<Single>::max(), MathHelper::PositiveInfinity };
+
+    EXPECT_TRUE(MathHelper::IsNaN(target.X()));
+    EXPECT_TRUE(std::numeric_limits<Single>::max() == target.Y());
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(target.Z()));
+}
+
+// A test for Negate (Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Negate)
+{
+    auto a        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto expected = Vector3 { -1.0f, -2.0f, -3.0f };
+    auto actual   = Vector3::Negate(a);
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator != (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Inequality)
+{
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto b = Vector3 { 1.0f, 2.0f, 3.0f };
+
+    // case 1: compare between same values
+    bool expected = false;
+    bool actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
+
+    // case 2: compare between different values
+    b.X(10.0f);
+
+    expected = true;
+    actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for operator == (Vector3f, Vector3f)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Equality)
+{
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto b = Vector3 { 1.0f, 2.0f, 3.0f };
+
+    // case 1: compare between same values
+    bool expected = true;
+    bool actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
+
+    // case 2: compare between different values
+    b.X(10.0f);
+
+    expected = false;
+    actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
+}
+
+// A test for One
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, VectorOne)
+{
+    auto val = Vector3 { 1.0f, 1.0f, 1.0f };
+
+    EXPECT_TRUE(val == Vector3::One);
+}
+
+// A test for UnitX
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, UnitX)
+{
+    auto val = Vector3 { 1.0f, 0.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector3::UnitX);
+}
+
+// A test for UnitY
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, UnitY)
+{
+    auto val = Vector3 { 0.0f, 1.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector3::UnitY);
+}
+
+// A test for UnitZ
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, UnitZ)
+{
+    auto val = Vector3 { 0.0f, 0.0f, 1.0f };
+
+    EXPECT_TRUE(val == Vector3::UnitZ);
+}
+
+// A test for Zero
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, VectorZero)
+{
+    auto val = Vector3 { 0.0f, 0.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector3::Zero);
+}
+
+// A test for Vector3f (float)
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Constructor4)
+{
+    Single value  = 1.0f;
+    auto   target = Vector3 { value };
+
+    auto expected = Vector3 { value, value, value };
+
+    EXPECT_TRUE(expected == target);
+
+    value    = 2.0f;
+    target   = Vector3 { value };
+    expected = Vector3 { value, value, value };
+
+    EXPECT_TRUE(expected == target);
+}
+
+// A test for Vector3f comparison involving NaN values
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, EqualsNaN)
+{
+    auto a = Vector3 { MathHelper::NaN, 0, 0 };
+    auto b = Vector3 { 0, MathHelper::NaN, 0 };
+    auto c = Vector3 { 0, 0, MathHelper::NaN };
+
+    EXPECT_FALSE(a == Vector3::Zero);
+    EXPECT_FALSE(b == Vector3::Zero);
+    EXPECT_FALSE(c == Vector3::Zero);
+
+    EXPECT_TRUE(a != Vector3::Zero);
+    EXPECT_TRUE(b != Vector3::Zero);
+    EXPECT_TRUE(c != Vector3::Zero);
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Abs)
+{
+    auto v1 = Vector3 { -2.5f, 2.0f, 0.5f };
+    auto v3 = Vector3::Abs({ 0.0f, MathHelper::NegativeInfinity, MathHelper::NaN });
+    auto v  = Vector3::Abs(v1);
+
+    EXPECT_TRUE(2.5f == v.X());
+    EXPECT_TRUE(2.0f == v.Y());
+    EXPECT_TRUE(0.5f == v.Z());
+    EXPECT_TRUE(0.0f == v3.X());
+    EXPECT_TRUE(MathHelper::PositiveInfinity == v3.Y());
+    EXPECT_TRUE(MathHelper::IsNaN(v3.Z()));
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Sqrt)
+{
+    auto a = Vector3 { -2.5f, 2.0f, 0.5f };
+    auto b = Vector3 { 5.5f, 4.5f, 16.5f };
+
+    EXPECT_TRUE(2 == (int)Vector3::SquareRoot(b).X());
+    EXPECT_TRUE(2 == (int)Vector3::SquareRoot(b).Y());
+    EXPECT_TRUE(4 == (int)Vector3::SquareRoot(b).Z());
+    EXPECT_TRUE(MathHelper::IsNaN(Vector3::SquareRoot(a).X()));
+}
+
+// A test to make sure these types are blittable directly into GPU buffer memory layouts
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, Sizeof)
+{
+    EXPECT_TRUE(12 == sizeof(Vector3));
+}
+
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector3Test, SetFields)
+{
+    auto v3 = Vector3 { 4.0f, 5.0f, 6.0f };
+
+    v3.X(1.0f);
+    v3.Y(2.0f);
+    v3.Z(3.0f);
+
+    EXPECT_TRUE(1.0f == v3.X());
+    EXPECT_TRUE(2.0f == v3.Y());
+    EXPECT_TRUE(3.0f == v3.Z());
+
+    auto v4 = v3;
+
+    v4.Y(0.5f);
+    v4.Z(2.2f);
+
+    EXPECT_TRUE(1.0f == v4.X());
+    EXPECT_TRUE(0.5f == v4.Y());
+    EXPECT_TRUE(2.2f == v4.Z());
+    EXPECT_TRUE(2.0f == v3.Y());
+
+    auto before = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto after  = before;
+
+    after.X(500.0f);
+
+    EXPECT_FALSE(before == after);
 }

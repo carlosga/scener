@@ -22,8 +22,10 @@ find_package(glfw REQUIRED)
 
 # Regal
 # Google Tests
+# SceneR Framework
 link_directories(../../regal/lib/linux/
-                 ../../gtest-1.7.0)
+                 ../../gtest-1.7.0
+                 ../SceneR.Framework-build)
 
 # header files
 set(HEADER_FILES

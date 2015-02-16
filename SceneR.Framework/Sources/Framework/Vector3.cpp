@@ -6,9 +6,10 @@
 #include <cassert>
 
 #include <System/Math.hpp>
+#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Matrix.hpp>
-#include <Framework/MathHelper.hpp>
+#include <Framework/Quaternion.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -24,6 +25,11 @@ const Vector3 Vector3::UnitY    { 0.0f , 1.0f , 0.0f  };
 const Vector3 Vector3::UnitZ    { 0.0f , 0.0f , 1.0f  };
 const Vector3 Vector3::Up       { 0.0f , 1.0f , 0.0f  };
 const Vector3 Vector3::Zero     { 0.0f , 0.0f , 0.0f  };
+
+Vector3 Vector3::Abs(const Vector3& value)
+{
+    return { Math::Abs(value.X()), Math::Abs(value.Y()), Math::Abs(value.Z()) };
+}
 
 Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
@@ -143,6 +149,15 @@ Vector3 Vector3::Normalize(const Vector3& value)
     return (value / value.Length());
 }
 
+Vector3 Vector3::Reflect(const Vector3& vector, const Vector3& normal)
+{
+    // Reference : http://mathworld.wolfram.com/Reflection.html
+    // The position of the point reflected in the given plane is given by
+    // r = v-2·Dn
+
+    return vector - 2 * Vector3::Dot(vector, normal) * normal;
+}
+
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
     return { MathHelper::SmoothStep(value1.x, value2.x, amount)
@@ -150,9 +165,19 @@ Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const 
            , MathHelper::SmoothStep(value1.z, value2.z, amount) };
 }
 
+Vector3 Vector3::SquareRoot(const Vector3& value)
+{
+    return { Math::Sqrt(value.X()), Math::Sqrt(value.Y()), Math::Sqrt(value.Z()) };
+}
+
 Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
 {
     return (position * matrix);
+}
+
+Vector3 Vector3::Transform(const Vector3& value, const Quaternion& rotation)
+{
+    return (value * Matrix::CreateFromQuaternion(rotation));
 }
 
 Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
@@ -174,6 +199,11 @@ Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
 
 Vector3::Vector3()
     : Vector3 { 0.0f, 0.0f, 0.0f }
+{
+}
+
+Vector3::Vector3(const Single& value)
+    : Vector3 { value, value, value }
 {
 }
 

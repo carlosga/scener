@@ -11,6 +11,7 @@ namespace SceneR
     namespace Framework
     {
         struct Matrix;
+        struct Quaternion;
         struct Vector2;
 
         /**
@@ -75,6 +76,13 @@ namespace SceneR
             static const Vector3 Zero;
 
         public:
+            /**
+             * @brief Returns a vector whose elements are the absolute values of each of the specified vector's elements.
+             * @param value A vector.
+             * @return The absolute value vector.
+             */
+            static Vector3 Abs(const Vector3& value);
+
             /**
              * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
              * Vector3 structure.
@@ -204,6 +212,14 @@ namespace SceneR
             static Vector3 Normalize(const Vector3& value);
 
             /**
+             * @brief Returns the reflection of a vector off a surface that has the specified normal.
+             * @param vector Source vector.
+             * @param normal Normal of the surface.
+             * @return The reflected vector.
+             */
+            static Vector3 Reflect(const Vector3& vector, const Vector3& normal);
+
+            /**
              * Performs a cubic interpolation between two vectors.
              * @param value1 first vector
              * @param value2 second vector
@@ -215,12 +231,27 @@ namespace SceneR
                                     , const System::Single& amount);
 
             /**
+             * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
+             * @param value A vector.
+             * @return The square root vector.
+             */
+            static Vector3 SquareRoot(const Vector3& value);
+
+            /**
              * Transforms a 3D vector by the given matrix.
              * @param position the 3D Vector to be transformed.
              * @param matrix the transformation matrix.
              * @return the transformed vector.
              */
             static Vector3 Transform(const Vector3& position, const Matrix& matrix);
+
+            /**
+             * @brief Transforms a vector by the specified Quaternion rotation value.
+             * @param value The vector to rotate.
+             * @param rotation The rotation to apply.
+             * @return The transformed vector.
+             */
+            static Vector3 Transform(const Vector3& value, const Quaternion& rotation);
 
             /**
              * This method transforms the vector normal (x, y, z, 0) of the source vector,
@@ -236,6 +267,12 @@ namespace SceneR
              * Initializes a new instance of the Vector3 class.
              */
             Vector3();
+
+            /**
+             * Initializes a new instance of the Vector3 class.
+             * @param value value for the x, y and z components of the vector.
+             */
+            Vector3(const System::Single& value);
 
             /**
              * Initializes a new instance of the Vector3 class.
