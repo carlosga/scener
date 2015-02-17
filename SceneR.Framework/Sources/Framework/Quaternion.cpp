@@ -229,22 +229,22 @@ const Single& Quaternion::W() const
     return this->w;
 }
 
-void Quaternion::X(const System::Single& x)
+void Quaternion::X(const Single& x)
 {
     this->x = x;
 }
 
-void Quaternion::Y(const System::Single& y)
+void Quaternion::Y(const Single& y)
 {
     this->y = y;
 }
 
-void Quaternion::Z(const System::Single& z)
+void Quaternion::Z(const Single& z)
 {
     this->z = z;
 }
 
-void Quaternion::W(const System::Single& w)
+void Quaternion::W(const Single& w)
 {
     this->w = w;
 }

@@ -6,10 +6,11 @@
 #include <cassert>
 
 #include <System/Math.hpp>
+#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Matrix.hpp>
-#include <Framework/MathHelper.hpp>
+#include <Framework/Quaternion.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -90,12 +91,26 @@ Vector4 Vector4::Lerp(const Vector4& value1
                     , const Vector4& value2
                     , const Single&  amount)
 {
-    assert(amount >= 0.0f && amount < 1.0f);
-
     return { MathHelper::Lerp(value1.x, value2.x, amount)
            , MathHelper::Lerp(value1.y, value2.y, amount)
            , MathHelper::Lerp(value1.z, value2.z, amount)
            , MathHelper::Lerp(value1.w, value2.w, amount) };
+}
+
+Vector4 Vector4::Min(const Vector4& value1, const Vector4& value2)
+{
+    return { MathHelper::Min(value1.x, value2.x)
+           , MathHelper::Min(value1.y, value2.y)
+           , MathHelper::Min(value1.z, value2.z)
+           , MathHelper::Min(value1.w, value2.w)};
+}
+
+Vector4 Vector4::Max(const Vector4& value1, const Vector4& value2)
+{
+    return { MathHelper::Max(value1.x, value2.x)
+           , MathHelper::Max(value1.y, value2.y)
+           , MathHelper::Max(value1.z, value2.z)
+           , MathHelper::Max(value1.w, value2.w)};
 }
 
 Vector4 Vector4::Negate(const Vector4& value)
@@ -108,9 +123,29 @@ Vector4 Vector4::Normalize(const Vector4& value)
     return (value / value.Length());
 }
 
+Vector4 Vector4::Transform(const Vector2& position, const Matrix& matrix)
+{
+    return (Vector4 { position, 0.0f, 1.0f } * matrix);
+}
+
 Vector4 Vector4::Transform(const Vector3& position, const Matrix& matrix)
 {
     return (Vector4 { position, 1.0f } * matrix);
+}
+
+Vector4 Vector4::Transform(const Vector4& position, const Matrix& matrix)
+{
+    return (position * matrix);
+}
+
+Vector4 Vector4::Transform(const Vector2& value, const Quaternion& rotation)
+{
+    return (Vector4 { value, 0.0f, 1.0f } * Matrix::CreateFromQuaternion(rotation));
+}
+
+Vector4 Vector4::Transform(const Vector3& value, const Quaternion& rotation)
+{
+    return (Vector4 { value, 1.0f } * Matrix::CreateFromQuaternion(rotation));
 }
 
 Vector4 Vector4::SmoothStep(const Vector4& value1
@@ -124,7 +159,7 @@ Vector4 Vector4::SmoothStep(const Vector4& value1
 }
 
 Vector4::Vector4()
-    : Vector4 { 0.0f, 0.0f, 0.0f, 1.0f }
+    : Vector4 { 0.0f, 0.0f, 0.0f, 0.0f }
 {
 }
 
@@ -139,7 +174,7 @@ Vector4::Vector4(const Vector3& value, const System::Single& w)
 }
 
 Vector4::Vector4(const Single& x, const Single& y, const Single& z)
-    : Vector4 { x, y, z, 1.0f }
+    : Vector4 { x, y, z, 0.0f }
 {
 }
 
@@ -182,6 +217,26 @@ const Single& Vector4::Z() const
 const Single& Vector4::W() const
 {
     return this->w;
+}
+
+void Vector4::X(const Single& x)
+{
+    this->x = x;
+}
+
+void Vector4::Y(const Single& y)
+{
+    this->y = y;
+}
+
+void Vector4::Z(const Single& z)
+{
+    this->z = z;
+}
+
+void Vector4::W(const Single& w)
+{
+    this->w = w;
 }
 
 Single Vector4::LengthSquared() const
@@ -363,6 +418,15 @@ const Vector4 Vector4::operator-(const Vector4& vector) const
     auto result = *this;
 
     result -= vector;
+
+    return result;
+}
+
+const Vector4 Vector4::operator-() const
+{
+    auto result = *this;
+
+    result *= -1;
 
     return result;
 }

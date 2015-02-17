@@ -11,6 +11,7 @@ namespace SceneR
     namespace Framework
     {
         struct Matrix;
+        struct Quaternion;
         struct Vector2;
         struct Vector3;
 
@@ -130,23 +131,46 @@ namespace SceneR
                               , const Vector4&        value2
                               , const System::Single& amount);
 
+
             /**
-            * Negates a Vector4.
-            *
-            * The vector has the same magnitude as before, but its direction is now opposite.
-            * @param value the vector to be negated
-            */
+             * Returns a vector that contains the lowest value from each matching pair of components.
+             * @param value the first vector
+             * @param value the second vector
+             */
+            static Vector4 Min(const Vector4& value1, const Vector4& value2);
+
+            /**
+             * Returns a vector that contains the highest value from each matching pair of components.
+             * @param value the first vector
+             * @param value the second vector
+             */
+            static Vector4 Max(const Vector4& value1, const Vector4& value2);
+
+            /**
+             * Negates a Vector4.
+             *
+             * The vector has the same magnitude as before, but its direction is now opposite.
+             * @param value the vector to be negated
+             */
             static Vector4 Negate(const Vector4& value);
 
             /**
-            * Normalizes the specified Vector4.
-            *
-            * A normalized Vector4 maintains its direction but its magnitude becomes 1.
-            * The resulting Vector4 is often called a unit vector.
-            * A Vector4 is normalized by dividing the Vector4 by its magnitude.
-            * @param value the vector to normalize
-            */
+             * Normalizes the specified Vector4.
+             *
+             * A normalized Vector4 maintains its direction but its magnitude becomes 1.
+             * The resulting Vector4 is often called a unit vector.
+             * A Vector4 is normalized by dividing the Vector4 by its magnitude.
+             * @param value the vector to normalize
+             */
             static Vector4 Normalize(const Vector4& value);
+
+            /**
+             * @brief Transforms a two-dimensional vector by a specified 4x4 matrix.
+             * @param position The vector to transform.
+             * @param matrix The transformation matrix.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector2& position, const Matrix& matrix);
 
             /**
              * @brief Transforms a three-dimensional vector by a specified 4x4 matrix.
@@ -155,6 +179,30 @@ namespace SceneR
              * @return The transformed vector
              */
             static Vector4 Transform(const Vector3& position, const Matrix& matrix);
+
+            /**
+             * @brief Transforms a four-dimensional vector by a specified 4x4 matrix.
+             * @param position The vector to transform.
+             * @param matrix The transformation matrix.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector4& position, const Matrix& matrix);
+
+            /**
+             * @brief Transforms a two-dimensional vector by a specified quaternion.
+             * @param position The vector to transform.
+             * @param rotation The transformation quaternion.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector2& value, const Quaternion& rotation);
+
+            /**
+             * @brief Transforms a three-dimensional vector by a specified quaternion.
+             * @param position The vector to transform.
+             * @param rotation The transformation quaternion.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector3& value, const Quaternion& rotation);
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -246,6 +294,28 @@ namespace SceneR
              */
             const System::Single& W() const;
 
+        public:
+            /**
+             * Sets the x-coordinate value.
+             */
+            void X(const System::Single& x);
+
+            /**
+             * Sets the y-coordinate value.
+             */
+            void Y(const System::Single& y);
+
+            /**
+             * Sets the z-coordinate value.
+             */
+            void Z(const System::Single& z);
+
+            /**
+             * Sets the w-coordinate value.
+             */
+            void W(const System::Single& w);
+
+        public:
             /**
              * Gets the square of the length of this Vector4.
              *
@@ -278,6 +348,7 @@ namespace SceneR
             const Vector4 operator/(const Vector4& vector) const;
             const Vector4 operator/(const System::Single& value) const;
             const Vector4 operator-(const Vector4& vector) const;
+            const Vector4 operator-() const;
             const Vector4 operator+(const Vector4& vector) const;
 
         private:
