@@ -3,7 +3,7 @@
 
 #include <Felicia.hpp>
 
-#include <Framework/MathHelper.hpp>
+#include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
@@ -34,11 +34,11 @@ void Felicia::Update(const RenderTime& renderTime)
     auto aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
     auto newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
 
-    this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
+    this->rotation   = Math::SmoothStep(this->rotation, newRotation, Math::PiOver4);
     this->world      = Matrix::CreateRotationY(this->rotation)
                      * Matrix::CreateTranslation({ 0.0f, -0.5f, 0.0f });
     this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 2.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 0.1f, 100.0f);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 0.1f, 100.0f);
 }
 
 void Felicia::Draw(const RenderTime& renderTime)

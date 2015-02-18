@@ -14,7 +14,8 @@ include_directories(Headers
                     ../../regal/include)
 
 # Regal
-link_directories(../../regal/lib/linux/)
+link_directories(../../regal/lib/linux/
+                 ../SceneR.Framework-build)
 
 # header files
 set(HEADER_FILES

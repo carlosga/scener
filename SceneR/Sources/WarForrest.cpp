@@ -3,7 +3,7 @@
 
 #include <WarForrest.hpp>
 
-#include <Framework/MathHelper.hpp>
+#include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
@@ -34,12 +34,12 @@ void WarForrest::Update(const RenderTime& renderTime)
     auto aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
     auto newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
 
-    this->rotation   = MathHelper::SmoothStep(this->rotation, newRotation, MathHelper::PiOver4);
-    this->world      = Matrix::CreateRotationX(-MathHelper::PiOver2)
+    this->rotation   = Math::SmoothStep(this->rotation, newRotation, Math::PiOver4);
+    this->world      = Matrix::CreateRotationX(-Math::PiOver2)
                      * Matrix::CreateRotationY(this->rotation)
                      * Matrix::CreateTranslation({ 300.0f, -400.0f, 0.0f });
     this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 1200.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 1.0, 10000.0f);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0, 10000.0f);
 }
 
 void WarForrest::Draw(const RenderTime& renderTime)

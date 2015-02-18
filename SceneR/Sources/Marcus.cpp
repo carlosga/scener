@@ -3,7 +3,7 @@
 
 #include <Marcus.hpp>
 
-#include <Framework/MathHelper.hpp>
+#include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Content/ContentManager.hpp>
@@ -32,11 +32,11 @@ void Marcus::Update(const RenderTime& renderTime)
 {
     auto aspect = this->CurrentGraphicsDevice().Viewport().AspectRatio();
 
-    this->world      = Matrix::CreateRotationX(-MathHelper::PiOver4)
-                     * Matrix::CreateRotationY(MathHelper::ToRadians(150.0f))
+    this->world      = Matrix::CreateRotationX(-Math::PiOver4)
+                     * Matrix::CreateRotationY(Math::ToRadians(150.0f))
                      * Matrix::CreateTranslation({ 0.0f, -40.0f, 100.0f });
     this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, -10.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(MathHelper::PiOver4, aspect, 1.0f, 10000.0f);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0f, 10000.0f);
 
     this->animatedModel->Update(renderTime);
 }
