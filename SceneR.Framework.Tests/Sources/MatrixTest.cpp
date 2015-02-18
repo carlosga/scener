@@ -1010,7 +1010,7 @@ TEST_F(MatrixTest, CreateWorld)
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    //EXPECT_TRUE(objectPosition, actual.Translation);
+    EXPECT_TRUE(objectPosition == actual.Translation());
     EXPECT_TRUE(Vector3::Dot(Vector3::Normalize(objectUpVector), { actual.M21(), actual.M22(), actual.M23() }) > 0);
     EXPECT_TRUE(
         Vector3::Dot(Vector3::Normalize(objectForwardDirection), { -actual.M31(), -actual.M32(), -actual.M33() }) > 0.999f);

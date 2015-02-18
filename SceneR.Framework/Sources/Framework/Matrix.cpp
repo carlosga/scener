@@ -487,12 +487,12 @@ Matrix Matrix::CreateShadow(const Vector3& lightDirection, const Plane& plane)
 Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
 {
     auto nf    = Vector3::Normalize(forward);
-    auto right = Vector3::Normalize(Vector3::Cross(nf, up));
+    auto right = Vector3::Normalize(Vector3::Cross(nf, Vector3::Normalize(up)));
     auto upv   = Vector3::Normalize(Vector3::Cross(right, nf));
 
     return { right.X()   , right.Y()   , right.Z()   , 0.0f
            , upv.X()     , upv.Y()     , upv.Z()     , 0.0f
-           , -forward.X(), -forward.Y(), -forward.Z(), 0.0f
+           , -nf.X()     , -nf.Y()     , -nf.Z()     , 0.0f
            , position.X(), position.Y(), position.Z(), 1.0f };
 }
 
