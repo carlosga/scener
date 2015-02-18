@@ -6,7 +6,6 @@
 #include <cassert>
 
 #include <System/Math.hpp>
-#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Matrix.hpp>
@@ -33,10 +32,10 @@ Vector4 Vector4::Barycentric(const Vector4& value1
                            , const Single&  amount1
                            , const Single&  amount2)
 {
-    return { MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-           , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
-           , MathHelper::Barycentric(value1.z, value2.z, value3.z, amount1, amount2)
-           , MathHelper::Barycentric(value1.w, value2.w, value3.w, amount1, amount2) };
+    return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+           , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+           , Math::Barycentric(value1.z, value2.z, value3.z, amount1, amount2)
+           , Math::Barycentric(value1.w, value2.w, value3.w, amount1, amount2) };
 }
 
 Vector4 Vector4::CatmullRom(const Vector4& value1
@@ -45,18 +44,18 @@ Vector4 Vector4::CatmullRom(const Vector4& value1
                           , const Vector4& value4
                           , const Single&  amount)
 {
-    return { MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-           , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
-           , MathHelper::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount)
-           , MathHelper::CatmullRom(value1.w, value2.w, value3.w, value4.w, amount) };
+    return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
+           , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
+           , Math::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount)
+           , Math::CatmullRom(value1.w, value2.w, value3.w, value4.w, amount) };
 }
 
 Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4& max)
 {
-    return { MathHelper::Clamp(value1.x, min.x, max.x)
-           , MathHelper::Clamp(value1.y, min.y, max.y)
-           , MathHelper::Clamp(value1.z, min.z, max.z)
-           , MathHelper::Clamp(value1.w, min.w, max.w) };
+    return { Math::Clamp(value1.x, min.x, max.x)
+           , Math::Clamp(value1.y, min.y, max.y)
+           , Math::Clamp(value1.z, min.z, max.z)
+           , Math::Clamp(value1.w, min.w, max.w) };
 }
 
 Single Vector4::Distance(const Vector4& value1, const Vector4& value2)
@@ -86,36 +85,36 @@ Vector4 Vector4::Hermite(const Vector4& value1
                        , const Vector4& tangent2
                        , const Single&  amount)
 {
-    return { MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-           , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
-           , MathHelper::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount)
-           , MathHelper::Hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount) };
+    return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+           , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+           , Math::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount)
+           , Math::Hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount) };
 }
 
 Vector4 Vector4::Lerp(const Vector4& value1
                     , const Vector4& value2
                     , const Single&  amount)
 {
-    return { MathHelper::Lerp(value1.x, value2.x, amount)
-           , MathHelper::Lerp(value1.y, value2.y, amount)
-           , MathHelper::Lerp(value1.z, value2.z, amount)
-           , MathHelper::Lerp(value1.w, value2.w, amount) };
+    return { Math::Lerp(value1.x, value2.x, amount)
+           , Math::Lerp(value1.y, value2.y, amount)
+           , Math::Lerp(value1.z, value2.z, amount)
+           , Math::Lerp(value1.w, value2.w, amount) };
 }
 
 Vector4 Vector4::Min(const Vector4& value1, const Vector4& value2)
 {
-    return { MathHelper::Min(value1.x, value2.x)
-           , MathHelper::Min(value1.y, value2.y)
-           , MathHelper::Min(value1.z, value2.z)
-           , MathHelper::Min(value1.w, value2.w)};
+    return { Math::Min(value1.x, value2.x)
+           , Math::Min(value1.y, value2.y)
+           , Math::Min(value1.z, value2.z)
+           , Math::Min(value1.w, value2.w)};
 }
 
 Vector4 Vector4::Max(const Vector4& value1, const Vector4& value2)
 {
-    return { MathHelper::Max(value1.x, value2.x)
-           , MathHelper::Max(value1.y, value2.y)
-           , MathHelper::Max(value1.z, value2.z)
-           , MathHelper::Max(value1.w, value2.w)};
+    return { Math::Max(value1.x, value2.x)
+           , Math::Max(value1.y, value2.y)
+           , Math::Max(value1.z, value2.z)
+           , Math::Max(value1.w, value2.w)};
 }
 
 Vector4 Vector4::Negate(const Vector4& value)
@@ -167,10 +166,10 @@ Vector4 Vector4::SmoothStep(const Vector4& value1
                           , const Vector4& value2
                           , const Single&  amount)
 {
-    return { MathHelper::SmoothStep(value1.x, value2.x, amount)
-           , MathHelper::SmoothStep(value1.y, value2.y, amount)
-           , MathHelper::SmoothStep(value1.z, value2.z, amount)
-           , MathHelper::SmoothStep(value1.w, value2.w, amount) };
+    return { Math::SmoothStep(value1.x, value2.x, amount)
+           , Math::SmoothStep(value1.y, value2.y, amount)
+           , Math::SmoothStep(value1.z, value2.z, amount)
+           , Math::SmoothStep(value1.w, value2.w, amount) };
 }
 
 Vector4::Vector4()

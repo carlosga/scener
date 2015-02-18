@@ -6,7 +6,6 @@
 #include <cassert>
 
 #include <System/Math.hpp>
-#include <Framework/MathHelper.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
@@ -44,9 +43,9 @@ Vector3 Vector3::Barycentric(const Vector3& value1
                            , const Single&  amount1
                            , const Single&  amount2)
 {
-    return { MathHelper::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-           , MathHelper::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
-           , MathHelper::Barycentric(value1.z, value2.z, value3.z, amount1, amount2) };
+    return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+           , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+           , Math::Barycentric(value1.z, value2.z, value3.z, amount1, amount2) };
 }
 
 Vector3 Vector3::CatmullRom(const Vector3& value1
@@ -55,16 +54,16 @@ Vector3 Vector3::CatmullRom(const Vector3& value1
                           , const Vector3& value4
                           , const System::Single& amount)
 {
-    return { MathHelper::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-           , MathHelper::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
-           , MathHelper::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount) };
+    return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
+           , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
+           , Math::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount) };
 }
 
 Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3& max)
 {
-    return { MathHelper::Clamp(value1.x, min.x, max.x)
-           , MathHelper::Clamp(value1.y, min.y, max.y)
-           , MathHelper::Clamp(value1.z, min.z, max.z) };
+    return { Math::Clamp(value1.x, min.x, max.x)
+           , Math::Clamp(value1.y, min.y, max.y)
+           , Math::Clamp(value1.z, min.z, max.z) };
 }
 
 Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
@@ -108,30 +107,30 @@ Vector3 Vector3::Hermite(const Vector3& value1
                        , const Vector3& tangent2
                        , const Single&  amount)
 {
-    return { MathHelper::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-           , MathHelper::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
-           , MathHelper::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
+    return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+           , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+           , Math::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
 }
 
 Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    return { MathHelper::Lerp(value1.x, value2.x, amount)
-           , MathHelper::Lerp(value1.y, value2.y, amount)
-           , MathHelper::Lerp(value1.z, value2.z, amount) };
+    return { Math::Lerp(value1.x, value2.x, amount)
+           , Math::Lerp(value1.y, value2.y, amount)
+           , Math::Lerp(value1.z, value2.z, amount) };
 }
 
 Vector3 Vector3::Min(const Vector3& value1, const Vector3& value2)
 {
-    return { MathHelper::Min(value1.x, value2.x)
-           , MathHelper::Min(value1.y, value2.y)
-           , MathHelper::Min(value1.z, value2.z) };
+    return { Math::Min(value1.x, value2.x)
+           , Math::Min(value1.y, value2.y)
+           , Math::Min(value1.z, value2.z) };
 }
 
 Vector3 Vector3::Max(const Vector3& value1, const Vector3& value2)
 {
-    return { MathHelper::Max(value1.x, value2.x)
-           , MathHelper::Max(value1.y, value2.y)
-           , MathHelper::Max(value1.z, value2.z) };
+    return { Math::Max(value1.x, value2.x)
+           , Math::Max(value1.y, value2.y)
+           , Math::Max(value1.z, value2.z) };
 }
 
 Vector3 Vector3::Negate(const Vector3& value)
@@ -160,9 +159,9 @@ Vector3 Vector3::Reflect(const Vector3& vector, const Vector3& normal)
 
 Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
 {
-    return { MathHelper::SmoothStep(value1.x, value2.x, amount)
-           , MathHelper::SmoothStep(value1.y, value2.y, amount)
-           , MathHelper::SmoothStep(value1.z, value2.z, amount) };
+    return { Math::SmoothStep(value1.x, value2.x, amount)
+           , Math::SmoothStep(value1.y, value2.y, amount)
+           , Math::SmoothStep(value1.z, value2.z, amount) };
 }
 
 Vector3 Vector3::SquareRoot(const Vector3& value)

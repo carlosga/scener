@@ -60,7 +60,6 @@ set(HEADER_FILES
     Headers/Framework/IDrawable.hpp
     Headers/Framework/IGraphicsDeviceManager.hpp
     Headers/Framework/IUpdateable.hpp
-    Headers/Framework/MathHelper.hpp
     Headers/Framework/Matrix.hpp
     Headers/Framework/Plane.hpp
     Headers/Framework/PlaneIntersectionType.hpp
@@ -191,7 +190,6 @@ set(SOURCE_FILES
     Sources/Framework/Component.cpp
     Sources/Framework/DrawableComponent.cpp
     Sources/Framework/GraphicsDeviceManager.cpp
-    Sources/Framework/MathHelper.cpp
     Sources/Framework/Matrix.cpp
     Sources/Framework/Plane.cpp
     Sources/Framework/Quaternion.cpp

@@ -33,7 +33,7 @@ set(HEADER_FILES
     Headers/BinaryReaderTest.hpp
     Headers/EncodingUTF8Test.hpp
     Headers/FileStreamTest.hpp
-    Headers/MathHelperTest.hpp
+    Headers/MathTest.hpp
     Headers/MatrixTest.hpp
     Headers/PlaneTest.hpp
     Headers/QuaternionTest.hpp
@@ -48,7 +48,7 @@ set(SOURCE_FILES
     Sources/BinaryReaderTest.cpp
     Sources/EncodingUTF8Test.cpp
     Sources/FileStreamTest.cpp
-    Sources/MathHelperTest.cpp
+    Sources/MathTest.cpp
     Sources/MatrixTest.cpp
     Sources/PlaneTest.cpp
     Sources/QuaternionTest.cpp

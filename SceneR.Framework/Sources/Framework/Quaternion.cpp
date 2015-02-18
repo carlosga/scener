@@ -8,7 +8,6 @@
 #include <System/Math.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Matrix.hpp>
-#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

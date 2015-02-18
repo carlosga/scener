@@ -3,12 +3,9 @@
 
 #include <Vector2Test.hpp>
 
-#include <cmath>
-#include <limits>
-
+#include <System/Math.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Matrix.hpp>
-#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -56,7 +53,7 @@ TEST_F(Vector2Test, Distance)
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
 
-    Single expected = (Single)std::sqrt(8);
+    Single expected = Math::Sqrt(8.0f);
     Single actual   = Vector2::Distance(a, b);
 
     EXPECT_TRUE(expected == actual);
@@ -119,12 +116,12 @@ TEST_F(Vector2Test, DotWithPerpendicularVector)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, DotWithSpecialFloatValues)
 {
-    auto a = Vector2 { std::numeric_limits<Single>::lowest(), std::numeric_limits<Single>::lowest() };
-    auto b = Vector2 { std::numeric_limits<Single>::max(), std::numeric_limits<Single>::max() };
+    auto a = Vector2 { Math::MinValue, Math::MinValue };
+    auto b = Vector2 { Math::MaxValue, Math::MaxValue };
 
     Single actual = Vector2::DotProduct(a, b);
 
-    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual));
+    EXPECT_TRUE(Math::IsNegativeInfinity(actual));
 }
 
 // A test for Length ()
@@ -134,7 +131,7 @@ TEST_F(Vector2Test, Length2)
     auto a      = Vector2 { 2.0f, 4.0f };
     auto target = a;
 
-    Single expected = (Single)std::sqrt(20);
+    Single expected = Math::Sqrt(20.0f);
     Single actual   = target.Length();
 
     EXPECT_TRUE(expected == actual);
@@ -375,14 +372,14 @@ TEST_F(Vector2Test, LerpWithFactorLessThanZero)
 TEST_F(Vector2Test, LerpWithSpecialFloatValue)
 {
     auto a = Vector2 { 45.67f, 90.0f };
-    auto b = Vector2 { MathHelper::PositiveInfinity, MathHelper::NegativeInfinity };
+    auto b = Vector2 { Math::PositiveInfinity, Math::NegativeInfinity };
 
     Single t = 0.408f;
 
     auto actual = Vector2::Lerp(a, b, t);
 
-    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
-    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
+    EXPECT_TRUE(Math::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(Math::IsNegativeInfinity(actual.Y()));
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
@@ -406,9 +403,9 @@ TEST_F(Vector2Test, LerpFromSamePoint)
 TEST_F(Vector2Test, Transform)
 {
     auto v = Vector2 { 1.0f, 2.0f };
-    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
-           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
+           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -425,9 +422,9 @@ TEST_F(Vector2Test, Transform)
 TEST_F(Vector2Test, TransformNormal)
 {
     auto v = Vector2 { 1.0f, 2.0f };
-    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
-           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
+           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -458,7 +455,7 @@ TEST_F(Vector2Test, NormalizeZeroLengthVector)
     Vector2 a; // no parameter, default to 0.0f
     Vector2 actual = Vector2::Normalize(a);
 
-    EXPECT_TRUE(MathHelper::IsNaN(actual.X()) && MathHelper::IsNaN(actual.Y()));
+    EXPECT_TRUE(Math::IsNaN(actual.X()) && Math::IsNaN(actual.Y()));
 }
 
 // A test for Normalize (Vector2f)
@@ -466,7 +463,7 @@ TEST_F(Vector2Test, NormalizeZeroLengthVector)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, NormalizeInfiniteLengthVector)
 {
-    auto a        = Vector2 { std::numeric_limits<Single>::max(), std::numeric_limits<Single>::max() };
+    auto a        = Vector2 { Math::MaxValue, Math::MaxValue };
     auto actual   = Vector2::Normalize(a);
     auto expected = Vector2 { 0, 0 };
 
@@ -489,11 +486,11 @@ TEST_F(Vector2Test, UnaryNegation)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
 {
-    auto a      = Vector2 { MathHelper::PositiveInfinity, MathHelper::NegativeInfinity };
+    auto a      = Vector2 { Math::PositiveInfinity, Math::NegativeInfinity };
     auto actual = -a;
 
-    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
-    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+    EXPECT_TRUE(Math::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(Math::IsPositiveInfinity(actual.Y()));
 }
 
 // A test for operator - (Vector2f)
@@ -501,10 +498,10 @@ TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, UnaryNegationWithNanValue)
 {
-    auto a      = Vector2 { MathHelper::NaN, 0.0f };
+    auto a      = Vector2 { Math::NaN, 0.0f };
     auto actual = -a;
 
-    EXPECT_TRUE(MathHelper::IsNaN(actual.X()));
+    EXPECT_TRUE(Math::IsNaN(actual.X()));
     EXPECT_TRUE(0.0f == actual.Y());
 }
 
@@ -576,8 +573,8 @@ TEST_F(Vector2Test, Division2)
     float div    = 0.0f;
     auto  actual = a / div;
 
-    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
-    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+    EXPECT_TRUE(Math::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(Math::IsPositiveInfinity(actual.Y()));
 }
 
 // A test for operator / (Vector2f, Vector2f)
@@ -589,8 +586,8 @@ TEST_F(Vector2Test, DivisionByZero)
     auto b      = Vector2 { };
     auto actual = a / b;
 
-    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
-    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
+    EXPECT_TRUE(Math::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(Math::IsNegativeInfinity(actual.Y()));
 }
 
 // A test for operator + (Vector2f, Vector2f)
@@ -633,10 +630,10 @@ TEST_F(Vector2Test, DefaultConstructor)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, ConstructorWithSpecialValues)
 {
-    auto target = Vector2 { MathHelper::NaN, std::numeric_limits<Single>::max() };
+    auto target = Vector2 { Math::NaN, Math::MaxValue };
 
-    EXPECT_TRUE(MathHelper::IsNaN(target.X()));
-    EXPECT_TRUE(std::numeric_limits<Single>::max() == target.Y());
+    EXPECT_TRUE(Math::IsNaN(target.X()));
+    EXPECT_TRUE(Math::MaxValue == target.Y());
 }
 
 // A test for Vector2f (float)
@@ -749,8 +746,8 @@ TEST_F(Vector2Test, Zero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Equals)
 {
-    auto a = Vector2 { MathHelper::NaN, 0.0f };
-    auto b = Vector2 { 0, MathHelper::NaN };
+    auto a = Vector2 { Math::NaN, 0.0f };
+    auto b = Vector2 { 0, Math::NaN };
 
     EXPECT_FALSE(a == Vector2::Zero);
     EXPECT_FALSE(b == Vector2::Zero);
@@ -763,13 +760,13 @@ TEST_F(Vector2Test, Equals)
 TEST_F(Vector2Test, Abs)
 {
     auto v1 = Vector2 { -2.5f, 2.0f };
-    auto v3 = Vector2::Abs(Vector2 { 0.0f, MathHelper::NegativeInfinity });
+    auto v3 = Vector2::Abs(Vector2 { 0.0f, Math::NegativeInfinity });
     auto v  = Vector2::Abs(v1);
 
     EXPECT_TRUE(2.5f == v.X());
     EXPECT_TRUE(2.0f == v.Y());
     EXPECT_TRUE(0.0f == v3.X());
-    EXPECT_TRUE(MathHelper::PositiveInfinity == v3.Y());
+    EXPECT_TRUE(Math::PositiveInfinity == v3.Y());
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -780,7 +777,7 @@ TEST_F(Vector2Test, Sqrt)
 
     EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).X());
     EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).Y());
-    EXPECT_TRUE(MathHelper::IsNaN(Vector2::SquareRoot(v1).X()));
+    EXPECT_TRUE(Math::IsNaN(Vector2::SquareRoot(v1).X()));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite

@@ -5,10 +5,10 @@
 
 #include <stdexcept>
 
+#include <System/Math.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/Ray.hpp>
-#include <Framework/MathHelper.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -101,8 +101,8 @@ Single BoundingBox::Intersects(const Ray& ray) const
     auto tnear = Vector3::Min(tmin, tmax);
     auto tfar  = Vector3::Min(tmin, tmax);
 
-    auto enter = MathHelper::Max(MathHelper::Max(tnear.X(), 0.0f), MathHelper::Max(tnear.Y(), tnear.Z()));
-    auto exit  = MathHelper::Min(tfar.X(), MathHelper::Min(tfar.Y(), tfar.Z()));
+    auto enter = Math::Max(Math::Max(tnear.X(), 0.0f), Math::Max(tnear.Y(), tnear.Z()));
+    auto exit  = Math::Min(tfar.X(), Math::Min(tfar.Y(), tfar.Z()));
 
     return (enter - exit);
 }

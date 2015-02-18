@@ -3,12 +3,11 @@
 
 #include <QuaternionTest.hpp>
 
-#include <cmath>
-
 #include <EqualityHelper.hpp>
+
+#include <System/Math.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
-#include <Framework/MathHelper.hpp>
 #include <Framework/Matrix.hpp>
 
 using namespace System;
@@ -49,7 +48,7 @@ TEST_F(QuaternionTest, QuaternionMultiplication)
 
 TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
 {
-    auto result = Quaternion::CreateFromAxisAngle({ 1.0f, 0.0f, 0.0f }, MathHelper::PiOver2);
+    auto result = Quaternion::CreateFromAxisAngle({ 1.0f, 0.0f, 0.0f }, Math::PiOver2);
 
     // quaternion Result is equal to (0.707106769, 0, 0, 0.707106769)
     EXPECT_TRUE(0.707106769f == result.X());
@@ -102,10 +101,10 @@ TEST_F(QuaternionTest, LengthSquared)
 TEST_F(QuaternionTest, Lerp)
 {
     auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
     Single t        = 0.5f;
-    auto   expected = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(20.0f));
+    auto   expected = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(20.0f));
     auto   actual   = Quaternion::Lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
@@ -123,8 +122,8 @@ TEST_F(QuaternionTest, Lerp)
 TEST_F(QuaternionTest, LerpWithInterpolateZero)
 {
     auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
     Single t        = 0.0f;
     auto   expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
     auto   actual   = Quaternion::Lerp(a, b, t);
@@ -138,8 +137,8 @@ TEST_F(QuaternionTest, LerpWithInterpolateZero)
 TEST_F(QuaternionTest, LerpWithInterpolateOne)
 {
     auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
     Single t        = 1.0f;
     auto   expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
     auto   actual   = Quaternion::Lerp(a, b, t);
@@ -153,7 +152,7 @@ TEST_F(QuaternionTest, LerpWithInterpolateOne)
 TEST_F(QuaternionTest, LerpWithQuaternionsWithMoreThan90Degrees)
 {
     auto   axis   = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a      = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
+    auto   a      = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto   b      = Quaternion::Negate(a);
     Single t      = 1.0f;
     auto   actual = Quaternion::Lerp(a, b, t);
@@ -194,10 +193,10 @@ TEST_F(QuaternionTest, NormalizeZeroLengthQuaternion)
     auto a      = Quaternion { 0.0f, 0.0f, -0.0f, 0.0f };
     auto actual = Quaternion::Normalize(a);
 
-    EXPECT_TRUE(MathHelper::IsNaN(actual.X()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.Y()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.Z()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.W()));
+    EXPECT_TRUE(Math::IsNaN(actual.X()));
+    EXPECT_TRUE(Math::IsNaN(actual.Y()));
+    EXPECT_TRUE(Math::IsNaN(actual.Z()));
+    EXPECT_TRUE(Math::IsNaN(actual.W()));
 }
 
 // A test for Concatenate(Quaternion, Quaternion)
@@ -309,7 +308,7 @@ TEST_F(QuaternionTest, ConstructorWithVector3)
 TEST_F(QuaternionTest, CreateFromAxisAngle)
 {
     auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    Single angle    = MathHelper::ToRadians(30.0f);
+    Single angle    = Math::ToRadians(30.0f);
     auto   expected = Quaternion(0.0691723f, 0.1383446f, 0.207516879f, 0.9659258f);
     auto   actual   = Quaternion::CreateFromAxisAngle(axis, angle);
 
@@ -322,8 +321,8 @@ TEST_F(QuaternionTest, CreateFromAxisAngle)
 TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
 {
     auto   axis   = Vector3 { };
-    Single angle  = MathHelper::ToRadians(-30.0f);
-    Single cos    = std::cos(angle / 2.0f);
+    Single angle  = Math::ToRadians(-30.0f);
+    Single cos    = Math::Cos(angle / 2.0f);
     auto   actual = Quaternion::CreateFromAxisAngle(axis, angle);
 
     EXPECT_TRUE(0.0f == actual.X());
@@ -337,8 +336,8 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
 TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
 {
     auto   axis    = Vector3 { 1.0f, 0.0f, 0.0f };
-    Single angle1  = MathHelper::ToRadians(30.0f);
-    Single angle2  = MathHelper::ToRadians(750.0f);
+    Single angle1  = Math::ToRadians(30.0f);
+    Single angle2  = Math::ToRadians(750.0f);
     auto   actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
     auto   actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
 
@@ -350,8 +349,8 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
 TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
 {
     auto   axis    = Vector3 { 1.0f, 0.0f, 0.0f };
-    Single angle1  = MathHelper::ToRadians(30.0f);
-    Single angle2  = MathHelper::ToRadians(390.0f);
+    Single angle1  = Math::ToRadians(30.0f);
+    Single angle2  = Math::ToRadians(390.0f);
     auto   actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
     auto   actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
 
@@ -365,9 +364,9 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromYawPitchRoll)
 {
-    Single yawAngle   = MathHelper::ToRadians(30.0f);
-    Single pitchAngle = MathHelper::ToRadians(40.0f);
-    Single rollAngle  = MathHelper::ToRadians(50.0f);
+    Single yawAngle   = Math::ToRadians(30.0f);
+    Single pitchAngle = Math::ToRadians(40.0f);
+    Single rollAngle  = Math::ToRadians(50.0f);
 
     auto yaw      = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
     auto pitch    = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
@@ -390,9 +389,9 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
         {
             for (Single rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
             {
-                Single yawRad   = MathHelper::ToRadians(yawAngle);
-                Single pitchRad = MathHelper::ToRadians(pitchAngle);
-                Single rollRad  = MathHelper::ToRadians(rollAngle);
+                Single yawRad   = Math::ToRadians(yawAngle);
+                Single pitchRad = Math::ToRadians(pitchAngle);
+                Single rollRad  = Math::ToRadians(rollAngle);
 
                 auto yaw   = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawRad);
                 auto pitch = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
@@ -412,12 +411,12 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
 TEST_F(QuaternionTest, Slerp)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
 
     Single t = 0.5f;
 
-    auto expected = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(20.0f));
+    auto expected = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(20.0f));
     auto actual   = Quaternion::Slerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
@@ -435,8 +434,8 @@ TEST_F(QuaternionTest, Slerp)
 TEST_F(QuaternionTest, SlerpWithInterpolateZero)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
 
     Single t = 0.0f;
 
@@ -452,8 +451,8 @@ TEST_F(QuaternionTest, SlerpWithInterpolateZero)
 TEST_F(QuaternionTest, SlerpWithInterpolateOne)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
 
     Single t = 1.0f;
 
@@ -469,7 +468,7 @@ TEST_F(QuaternionTest, SlerpWithInterpolateOne)
 TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
+    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = -a;
 
     Single t = 1.0f;
@@ -489,8 +488,8 @@ TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
 TEST_F(QuaternionTest, SlerpWithFlippedQuaternion)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(10.0f));
-    auto b    = -Quaternion::CreateFromAxisAngle(axis, MathHelper::ToRadians(30.0f));
+    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b    = -Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
 
     Single t = 0.0f;
 
@@ -529,10 +528,10 @@ TEST_F(QuaternionTest, InvertZeroLengthQuaternion)
     auto a      = Quaternion { };
     auto actual = Quaternion::Inverse(a);
 
-    EXPECT_TRUE(MathHelper::IsNaN(actual.X()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.Y()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.Z()));
-    EXPECT_TRUE(MathHelper::IsNaN(actual.W()));
+    EXPECT_TRUE(Math::IsNaN(actual.X()));
+    EXPECT_TRUE(Math::IsNaN(actual.Y()));
+    EXPECT_TRUE(Math::IsNaN(actual.Z()));
+    EXPECT_TRUE(Math::IsNaN(actual.W()));
 }
 
 // A test for Negate (Quaternion)
@@ -692,7 +691,7 @@ TEST_F(QuaternionTest, ConvertXYZAxisRotationMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
 {
-    auto angle  = MathHelper::ToRadians(180.0f);
+    auto angle  = Math::ToRadians(180.0f);
     auto matrix = Matrix::CreateRotationY(angle)
                 * Matrix::CreateRotationZ(angle);
 
@@ -712,7 +711,7 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
 {
-    Single angle  = MathHelper::ToRadians(180.0f);
+    Single angle  = Math::ToRadians(180.0f);
     auto   matrix = Matrix::CreateRotationX(angle)
                   * Matrix::CreateRotationZ(angle);
 
@@ -732,7 +731,7 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnZAxis)
 {
-    auto angle  = MathHelper::ToRadians(180.0f);
+    auto angle  = Math::ToRadians(180.0f);
     auto matrix = Matrix::CreateRotationX(angle)
                 * Matrix::CreateRotationY(angle);
 
@@ -772,10 +771,10 @@ TEST_F(QuaternionTest, IsIdentity)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, EqualsNan)
 {
-    auto a = Quaternion { MathHelper::NaN, 0, 0, 0 };
-    auto b = Quaternion { 0, MathHelper::NaN, 0, 0 };
-    auto c = Quaternion { 0, 0, MathHelper::NaN, 0 };
-    auto d = Quaternion { 0, 0, 0, MathHelper::NaN };
+    auto a = Quaternion { Math::NaN, 0, 0, 0 };
+    auto b = Quaternion { 0, Math::NaN, 0, 0 };
+    auto c = Quaternion { 0, 0, Math::NaN, 0 };
+    auto d = Quaternion { 0, 0, 0, Math::NaN };
     auto z = Quaternion { 0, 0, 0, 0 };
 
     EXPECT_FALSE(a == z);

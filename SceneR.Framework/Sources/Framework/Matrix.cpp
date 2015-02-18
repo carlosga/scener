@@ -9,7 +9,6 @@
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Framework/MathHelper.hpp>
 #include <Framework/Plane.hpp>
 
 using namespace System;
@@ -205,7 +204,7 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
     // yScale = cot(fovY/2)
     // xScale = yScale / aspect ratio
 
-    if (fieldOfView <= 0.0f || fieldOfView >= MathHelper::Pi)
+    if (fieldOfView <= 0.0f || fieldOfView >= Math::Pi)
     {
         throw std::out_of_range("fieldOfView should be a positive value less than MathHelper::Pi");
     }

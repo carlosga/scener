@@ -15,14 +15,98 @@ namespace System
     {
     public:
         /**
-        * Represents the mathematical constant e.
-        */
-        static const Single& E;
+         * Represents the mathematical constant e.
+         */
+        static const System::Single& E;
 
         /**
-        * Represents the value of PI
-        */
-        static const Single& Pi;
+         * Represents the log base ten of e.
+         */
+        static const System::Single& Log10E;
+
+        /**
+         * Represents the log base two of e.
+         */
+        static const System::Single& Log2E;
+
+        /**
+         * Represents the value of PI
+         */
+        static const System::Single& Pi;
+
+        /**
+         * Represents the value of PI divided by 2
+         */
+        static const System::Single& PiOver2;
+
+        /**
+         * Represents the value of PI divided by 4
+         */
+        static const System::Single& PiOver4;
+
+        /**
+         * Represents the value of pi times two.
+         */
+        static const System::Single& TwoPi;
+
+        /**
+         * Represents negative infinity.
+         */
+        static const System::Single& NegativeInfinity;
+
+        /**
+         * Represents positive infinity.
+         */
+        static const System::Single& PositiveInfinity;
+
+        /**
+         * Represents not a number (NaN).
+         */
+        static const System::Single& NaN;
+
+        /**
+         * Represents the smallest positive Single value that is greater than zero.
+         */
+        static const System::Single& Epsilon;
+
+        /**
+         * @brief MinValue Represents the smallest possible value of Single.
+         */
+        static const Single& MinValue;
+
+        /**
+         * @brief MaxValue Represents the largest possible value of Single. This field is constant.
+         */
+        static const Single& MaxValue;
+
+    public:
+        /**
+         * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
+         * @param f A single-precision floating-point number.
+         * @returns true if f evaluates to PositiveInfinity or NegativeInfinity; otherwise, false.
+         */
+        static System::Boolean IsInfinity(const System::Single& f);
+
+        /**
+         * Returns a value indicating whether the specified number evaluates to positive infinity.
+         * @param f A single-precision floating-point number.
+         * @returns true if f evaluates to NegativeInfinity; otherwise, false.
+         */
+        static System::Boolean IsNegativeInfinity(const System::Single& f);
+
+        /**
+         * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
+         * @param f A single-precision floating-point number.
+         * @returns true if f evaluates to PositiveInfinity; otherwise, false.
+         */
+        static System::Boolean IsPositiveInfinity(const System::Single& f);
+
+        /**
+         * Returns a value that indicates whether the specified value is not a number (NaN).
+         * @param f A single-precision floating-point number.
+         * @returns true if f evaluates to not a number (NaN); otherwise, false.
+         */
+        static System::Boolean IsNaN(const System::Single& f);
 
     public:
         /**
@@ -154,56 +238,119 @@ namespace System
          */
         static Single Tanh(const Single& value);
 
-        /*
-        Log(Double)	Returns the natural (base e) logarithm of a specified number.
-        Log(Double, Double)	Returns the logarithm of a specified number in a specified base.
-        Log10	Returns the base 10 logarithm of a specified number.
-        Max(Byte, Byte)	Returns the larger of two 8-bit unsigned integers.
-        Max(Decimal, Decimal)	Returns the larger of two decimal numbers.
-        Max(Double, Double)	Returns the larger of two double-precision floating-point numbers.
-        Max(Int16, Int16)	Returns the larger of two 16-bit signed integers.
-        Max(Int32, Int32)	Returns the larger of two 32-bit signed integers.
-        Max(Int64, Int64)	Returns the larger of two 64-bit signed integers.
-        Max(SByte, SByte)	Returns the larger of two 8-bit signed integers.
-        Max(Single, Single)	Returns the larger of two single-precision floating-point numbers.
-        Max(UInt16, UInt16)	Returns the larger of two 16-bit unsigned integers.
-        Max(UInt32, UInt32)	Returns the larger of two 32-bit unsigned integers.
-        Max(UInt64, UInt64)	Returns the larger of two 64-bit unsigned integers.
-        Min(Byte, Byte)	Returns the smaller of two 8-bit unsigned integers.
-        Min(Decimal, Decimal)	Returns the smaller of two decimal numbers.
-        Min(Double, Double)	Returns the smaller of two double-precision floating-point numbers.
-        Min(Int16, Int16)	Returns the smaller of two 16-bit signed integers.
-        Min(Int32, Int32)	Returns the smaller of two 32-bit signed integers.
-        Min(Int64, Int64)	Returns the smaller of two 64-bit signed integers.
-        Min(SByte, SByte)	Returns the smaller of two 8-bit signed integers.
-        Min(Single, Single)	Returns the smaller of two single-precision floating-point numbers.
-        Min(UInt16, UInt16)	Returns the smaller of two 16-bit unsigned integers.
-        Min(UInt32, UInt32)	Returns the smaller of two 32-bit unsigned integers.
-        Min(UInt64, UInt64)	Returns the smaller of two 64-bit unsigned integers.
-        Pow	Returns a specified number raised to the specified power.
-        Round(Decimal)	Rounds a decimal value to the nearest integral value.
-        Round(Double)	Rounds a double-precision floating-point value to the nearest integral value.
-        Round(Decimal, Int32)	Rounds a decimal value to a specified number of fractional digits.
-        Round(Decimal, MidpointRounding)	Rounds a decimal value to the nearest integer. A parameter specifies how to round the value if it is midway between two numbers.
-        Round(Double, Int32)	Rounds a double-precision floating-point value to a specified number of fractional digits.
-        Round(Double, MidpointRounding)	Rounds a double-precision floating-point value to the nearest integer. A parameter specifies how to round the value if it is midway between two numbers.
-        Round(Decimal, Int32, MidpointRounding)	Rounds a decimal value to a specified number of fractional digits. A parameter specifies how to round the value if it is midway between two numbers.
-        Round(Double, Int32, MidpointRounding)	Rounds a double-precision floating-point value to a specified number of fractional digits. A parameter specifies how to round the value if it is midway between two numbers.
-        Sign(Decimal)	Returns a value indicating the sign of a decimal number.
-        Sign(Double)	Returns a value indicating the sign of a double-precision floating-point number.
-        Sign(Int16)	Returns a value indicating the sign of a 16-bit signed integer.
-        Sign(Int32)	Returns a value indicating the sign of a 32-bit signed integer.
-        Sign(Int64)	Returns a value indicating the sign of a 64-bit signed integer.
-        Sign(SByte)	Returns a value indicating the sign of an 8-bit signed integer.
-        Sign(Single)	Returns a value indicating the sign of a single-precision floating-point number.
-        Sin	Returns the sine of the specified angle.
-        Sinh	Returns the hyperbolic sine of the specified angle.
-        Sqrt	Returns the square root of a specified number.
-        Tan	Returns the tangent of the specified angle.
-        Tanh	Returns the hyperbolic tangent of the specified angle.
-        Truncate(Decimal)	Calculates the integral part of a specified decimal number.
-        Truncate(Double)	Calculates the integral part of a specified double-precision floating-point number.
-        */
+    public:
+        /**
+         * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
+         * two normalized barycentric (areal) coordinates.
+         * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
+         * @param value2 the coordinate on the same axis of vertex 2 of the defining triangle.
+         * @param value3 the coordinate on the same axis of vertex 3 of the defining triangle.
+         * @param amount1 the normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2,
+         *                the coordinate of which is specified in value2.
+         * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
+         *                the coordinate of which is specified in value3.
+         */
+        static System::Single Barycentric(const System::Single& value1
+                                        , const System::Single& value2
+                                        , const System::Single& value3
+                                        , const System::Single& amount1
+                                        , const System::Single& amount2);
+
+        /**
+         * Performs a Catmull-Rom interpolation using the specified positions.
+         * @param value1 the first position in the interpolation.
+         * @param value2 the second position in the interpolation.
+         * @param value3 the third position in the interpolation.
+         * @param value4 the fourth position in the interpolation.
+         * @param amount weighting factor.
+         */
+        static System::Single CatmullRom(const System::Single& value1
+                                       , const System::Single& value2
+                                       , const System::Single& value3
+                                       , const System::Single& value4
+                                       , const System::Single& amount);
+
+        /**
+         * Restricts a value to be within a specified range.
+         * @params value the value to clamp.
+         * @param min the min value.
+         * @param max the max value.
+         */
+        static System::Single Clamp(const System::Single& value
+                                  , const System::Single& min
+                                  , const System::Single& max);
+
+        /**
+         * Calculates a hermite spline interpolation.
+         * @param value1 source position 1.
+         * @param tangent1 source tangent 1.
+         * @param value2 source position 2.
+         * @param tangent2 source tangent 2.
+         * @param amount weighting factor.
+         */
+        static System::Single Hermite(const System::Single& value1
+                                    , const System::Single& tangent1
+                                    , const System::Single& value2
+                                    , const System::Single& tangent2
+                                    , const System::Single& amount);
+
+        /**
+         * Performs a linear interpolation between two vectors.
+         * @param value1 first vector
+         * @param value2 second vector
+         * @param amount value between 0 and 1 indicating the weight of value2.
+         * @returns the linear interpolation of the two vectors.
+         */
+        static System::Single Lerp(const System::Single& value1
+                                 , const System::Single& value2
+                                 , const System::Single& amount);
+
+        /**
+         * Returns the lesser of two values
+         * @param value1 the first value
+         * @param value1 the second value
+         */
+        static System::Single Min(const System::Single& value1, const System::Single& value2);
+
+        /**
+         * Returns the greater of two values
+         * @param value1 the first value
+         * @param value1 the second value
+         */
+        static System::Single Max(const System::Single& value1, const System::Single& value2);
+
+        /**
+         * Interpolates between two values using a cubic equation.
+         * @param value1 first vector
+         * @param value2 second vector
+         * @param amount weighting value.
+         */
+        static System::Single SmoothStep(const System::Single& value1
+                                       , const System::Single& value2
+                                       , const System::Single& amount);
+
+        /**
+         * Converts the given value in degrees to radians.
+         * @param degrees the angle in degress.
+         */
+        static System::Single ToRadians(const System::Single& degrees);
+
+        /**
+         * Converts the given value in radians to degrees.
+         * @param radians the angle in radians.
+         */
+        static System::Single ToDegrees(const System::Single& radians);
+
+        /**
+         * Reduces a given angle to a value between π and -π.
+         * @param angle The angle to reduce, in radians.
+         */
+        static System::Single WrapAngle(const System::Single& angle);
+
+    private:
+        Math() = delete;
+        Math(const Math& math) = delete;
+        Math& operator=(const Math& math) = delete;
     };
 }
 
