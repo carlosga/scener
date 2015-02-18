@@ -39,7 +39,7 @@ set(SOURCE_FILES
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
 # target libs
-target_link_libraries(SceneR SceneR_Framework) ## Regal
+target_link_libraries(SceneR SceneR_Framework)
 
 # enable 64 bit build
 set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

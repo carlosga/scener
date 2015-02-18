@@ -110,11 +110,6 @@ namespace System
 
     public:
         /**
-         * Returns the absolute value of a double-precision floating-point number.
-         */
-        static Double Abs(const Double& value);
-
-        /**
          * Returns the absolute value of a single-precision floating-point number.
          */
         static Single Abs(const Single& value);
@@ -144,22 +139,12 @@ namespace System
         /**
          * Returns the smallest integral value that is greater than or equal to the specified double-precision floating-point number.
          */
-        static Double Ceiling(const Double& value);
-
-        /**
-         * Returns the cosine of the specified angle.
-         */
-        static Double Cos(const Double& value);
+        static Single Ceiling(const Single& value);
 
         /**
          * Returns the cosine of the specified angle.
          */
         static Single Cos(const Single& value);
-
-        /**
-         * Returns the hyperbolic cosine of the specified angle.
-         */
-        static Double Cosh(const Double& value);
 
         /**
         * Returns the hyperbolic cosine of the specified angle.
@@ -169,12 +154,7 @@ namespace System
         /**
          * Returns e raised to the specified power.
          */
-        static Double Exp(const Double& d);
-
-        /**
-         * Returns the largest integer less than or equal to the specified double-precision floating-point number.
-         */
-        static Double Floor(const Double& value);
+        static Single Exp(const Single& d);
 
         /**
         * Returns the largest integer less than or equal to the specified double-precision floating-point number.
@@ -186,17 +166,12 @@ namespace System
          * @param x A dividend.
          * @param y A divisor.
          */
-        static Double IEEERemainder(const Double& x, const Double& y);
+        static Single IEEERemainder(const Single& x, const Single& y);
 
         /**
          * Rounds a double-precision floating-point value to the nearest integral value.
          */
-        static Double Round(const Double& a);
-
-        /**
-         * Returns the sine of the specified angle.
-         */
-        static Double Sin(const Double& value);
+        static Single Round(const Single & a);
 
         /**
          * Returns the sine of the specified angle.
@@ -206,12 +181,7 @@ namespace System
         /**
          * Returns the hyperbolic sine of the specified angle.
          */
-        static Double Sinh(const Double& value);
-
-        /**
-         * Returns the square root of a specified number.
-         */
-        static Double Sqrt(const Double& value);
+        static Single Sinh(const Single& value);
 
         /**
          * Returns the square root of a specified number.
@@ -221,17 +191,7 @@ namespace System
         /**
          * Returns the tangent of the specified angle.
          */
-        static Double Tan(const Double& value);
-
-        /**
-         * Returns the tangent of the specified angle.
-         */
         static Single Tan(const Single& value);
-
-        /**
-         * Returns the hyperbolic tangent of the specified angle.
-         */
-        static Double Tanh(const Double& value);
 
         /**
          * Returns the hyperbolic tangent of the specified angle.

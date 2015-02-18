@@ -42,11 +42,6 @@ Boolean Math::IsNaN(const System::Single& f)
     return std::isnan(f);
 }
 
-Double Math::Abs(const Double& value)
-{
-    return std::abs(value);
-}
-
 Single Math::Abs(const Single& value)
 {
     return std::abs(value);
@@ -72,14 +67,9 @@ Single Math::Atan2(const Single& x, const Single& y)
     return std::atan2(x, y);
 }
 
-Double Math::Ceiling(const Double& value)
+Single Math::Ceiling(const Single& value)
 {
     return std::ceil(value);
-}
-
-Double Math::Cos(const Double& value)
-{
-    return std::cos(value);
 }
 
 Single Math::Cos(const Single& value)
@@ -87,24 +77,14 @@ Single Math::Cos(const Single& value)
     return std::cos(value);
 }
 
-Double Math::Cosh(const Double& value)
-{
-    return std::cosh(value);
-}
-
 Single Math::Cosh(const Single& value)
 {
     return std::cosh(value);
 }
 
-Double Math::Exp(const Double& d)
+Single Math::Exp(const Single& d)
 {
     return std::exp(d);
-}
-
-Double Math::Floor(const Double& value)
-{
-    return std::floor(value);
 }
 
 Single Math::Floor(const Single& value)
@@ -112,21 +92,16 @@ Single Math::Floor(const Single& value)
     return std::floor(value);
 }
 
-Double Math::IEEERemainder(const Double& x, const Double& y)
+Single Math::IEEERemainder(const Single& x, const Single& y)
 {
     // Reference: https://msdn.microsoft.com/es-es/library/system.math.ieeeremainder%28v=vs.110%29.aspx
     // IEEERemainder = dividend - (divisor * Math.Round(dividend / divisor))
     return x - (y * Math::Round(x / y));
 }
 
-Double Math::Round(const Double& a)
+Single Math::Round(const Single& a)
 {
     return std::round(a);
-}
-
-Double Math::Sin(const Double& value)
-{
-    return std::sin(value);
 }
 
 Single Math::Sin(const Single& value)
@@ -134,14 +109,9 @@ Single Math::Sin(const Single& value)
     return std::sin(value);
 }
 
-Double Math::Sinh(const Double& value)
+Single Math::Sinh(const Single& value)
 {
     return std::sinh(value);
-}
-
-Double Math::Sqrt(const Double& value)
-{
-    return std::sqrt(value);
 }
 
 Single Math::Sqrt(const Single& value)
@@ -149,19 +119,9 @@ Single Math::Sqrt(const Single& value)
     return std::sqrt(value);
 }
 
-Double Math::Tan(const Double& value)
-{
-    return std::tan(value);
-}
-
 Single Math::Tan(const Single& value)
 {
     return std::tan(value);
-}
-
-Double Math::Tanh(const Double& value)
-{
-    return std::tanh(value);
 }
 
 Single Math::Tanh(const Single& value)
