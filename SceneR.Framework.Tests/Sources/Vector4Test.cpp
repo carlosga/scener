@@ -3,6 +3,8 @@
 
 #include <Vector4Test.hpp>
 
+#include <limits>
+
 #include <EqualityHelper.hpp>
 
 #include <System/Math.hpp>
@@ -572,939 +574,583 @@ TEST_F(Vector4Test, TransformVector3Quaternion)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-/*
 // A test for Transform (Vector4f, Quaternion)
-[Fact]
-public void Vector4TransformVector4QuaternionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformQuaternion)
 {
-    Vector4 v = Vector4(1.0f, 2.0f, 3.0f, 0.0f);
+    auto v = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
+    auto m = Matrix::CreateRotationX(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationY(MathHelper::ToRadians(30.0f))
+           * Matrix::CreateRotationZ(MathHelper::ToRadians(30.0f));
 
-    Matrix4x4 m =
-        Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    Quaternion q = Quaternion.CreateFromRotationMatrix(m);
+    auto q        = Quaternion::CreateFromRotationMatrix(m);
+    auto expected = Vector4::Transform(v, m);
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 expected = Vector4.Transform(v, m);
-    Vector4 actual;
-
-    actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     //
-    v.W = 1.0f;
-    expected.W = 1.0f;
-    actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    v.W(1.0f);
+    expected.W(1.0f);
+
+    actual = Vector4::Transform(v, q);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector4f, Quaternion)
 // Transform vector4 with zero quaternion
-[Fact]
-public void Vector4TransformVector4QuaternionTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformWithZeroQuaternion)
 {
-    Vector4 v = Vector4(1.0f, 2.0f, 3.0f, 0.0f);
-    Quaternion q = new Quaternion();
-    Vector4 expected = v;
+    auto v        = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
+    auto q        = Quaternion { };
+    auto expected = v;
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector4f, Quaternion)
-// Transform vector4 with identity matrix
-[Fact]
-public void Vector4TransformVector4QuaternionTest2()
+// Transform vector4 with identity quaternion
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformWithIdentityQuaternion)
 {
-    Vector4 v = Vector4(1.0f, 2.0f, 3.0f, 0.0f);
-    Quaternion q = Quaternion.Identity;
-    Vector4 expected = Vector4(1.0f, 2.0f, 3.0f, 0.0f);
+    auto v        = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
+    auto q        = Quaternion::Identity;
+    auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
-}
-
-// A test for Transform (Vector3f, Quaternion)
-// Transform Vector3f test
-[Fact]
-public void Vector4TransformVector3QuaternionTest()
-{
-    Vector3 v = new Vector3(1.0f, 2.0f, 3.0f);
-
-    Matrix4x4 m =
-        Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    Quaternion q = Quaternion.CreateFromRotationMatrix(m);
-
-    Vector4 expected = Vector4.Transform(v, m);
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector3f, Quaternion)
 // Transform vector3 with zero quaternion
-[Fact]
-public void Vector4TransformVector3QuaternionTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformVector3WithZeroQuaternion)
 {
-    Vector3 v = new Vector3(1.0f, 2.0f, 3.0f);
-    Quaternion q = new Quaternion();
-    Vector4 expected = Vector4(v, 1.0f);
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto q        = Quaternion { };
+    auto expected = Vector4 { v, 1.0f };
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector3f, Quaternion)
 // Transform vector3 with identity quaternion
-[Fact]
-public void Vector4TransformVector3QuaternionTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformVector3WithIdentityQuaternion)
 {
-    Vector3 v = new Vector3(1.0f, 2.0f, 3.0f);
-    Quaternion q = Quaternion.Identity;
-    Vector4 expected = Vector4(1.0f, 2.0f, 3.0f, 1.0f);
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto q        = Quaternion::Identity;
+    auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 1.0f };
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
-}
-
-// A test for Transform (Vector2f, Quaternion)
-// Transform Vector2f by quaternion test
-[Fact]
-public void Vector4TransformVector2QuaternionTest()
-{
-    Vector2 v = new Vector2(1.0f, 2.0f);
-
-    Matrix4x4 m =
-        Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    Quaternion q = Quaternion.CreateFromRotationMatrix(m);
-
-    Vector4 expected = Vector4.Transform(v, m);
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector2f, Quaternion)
 // Transform Vector2f with zero quaternion
-[Fact]
-public void Vector4TransformVector2QuaternionTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformVector2WithZeroQuaternion)
 {
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Quaternion q = new Quaternion();
-    Vector4 expected = Vector4(1.0f, 2.0f, 0, 1.0f);
+    auto v        = Vector2 { 1.0f, 2.0f };
+    auto q        = Quaternion { };
+    auto expected = Vector4 { 1.0f, 2.0f, 0, 1.0f };
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Transform (Vector2f, Matrix4x4)
 // Transform vector2 with identity Quaternion
-[Fact]
-public void Vector4TransformVector2QuaternionTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, TransformVector2WithIdentityQuaternion)
 {
-    Vector2 v = new Vector2(1.0f, 2.0f);
-    Quaternion q = Quaternion.Identity;
-    Vector4 expected = Vector4(1.0f, 2.0f, 0, 1.0f);
+    auto v        = Vector2 { 1.0f, 2.0f };
+    auto q        = Quaternion::Identity;
+    auto expected = Vector4 { 1.0f, 2.0f, 0, 1.0f };
+    auto actual   = Vector4::Transform(v, q);
 
-    Vector4 actual = Vector4.Transform(v, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Transform did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Normalize (Vector4f)
-[Fact]
-public void Vector4NormalizeTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Normalize)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a        = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto expected = Vector4 { 0.1825741858350553711523232609336f
+                            , 0.3651483716701107423046465218672f
+                            , 0.5477225575051661134569697828008f
+                            , 0.7302967433402214846092930437344f };
 
-    Vector4 expected = Vector4(
-        0.1825741858350553711523232609336f,
-        0.3651483716701107423046465218672f,
-        0.5477225575051661134569697828008f,
-        0.7302967433402214846092930437344f);
-    Vector4 actual;
+    auto actual = Vector4::Normalize(a);
 
-    actual = Vector4.Normalize(a);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Normalize did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Normalize (Vector4f)
 // Normalize vector of length one
-[Fact]
-public void Vector4NormalizeTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, NormalizeVectorOfLengthZero)
 {
-    Vector4 a = Vector4(1.0f, 0.0f, 0.0f, 0.0f);
+    auto a        = Vector4 { 1.0f, 0.0f, 0.0f, 0.0f };
+    auto expected = Vector4 { 1.0f, 0.0f, 0.0f, 0.0f };
+    auto actual   = Vector4::Normalize(a);
 
-    Vector4 expected = Vector4(1.0f, 0.0f, 0.0f, 0.0f);
-    Vector4 actual = Vector4.Normalize(a);
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.Normalize did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Normalize (Vector4f)
 // Normalize vector of length zero
-[Fact]
-public void Vector4NormalizeTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, NormalizeVectorOfLengthZero2)
 {
-    Vector4 a = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+    auto a      = Vector4 { 0.0f, 0.0f, 0.0f, 0.0f };
+    auto actual = Vector4::Normalize(a);
 
-    Vector4 expected = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-    Vector4 actual = Vector4.Normalize(a);
-    Assert.True(float.IsNaN(actual.X) && float.IsNaN(actual.Y) && float.IsNaN(actual.Z) && float.IsNaN(actual.W), "Vector4f.Normalize did not return the expected value.");
+    EXPECT_TRUE(MathHelper::IsNaN(actual.X())
+             && MathHelper::IsNaN(actual.Y())
+             && MathHelper::IsNaN(actual.Z())
+             && MathHelper::IsNaN(actual.W()));
 }
 
 // A test for operator - (Vector4f)
-[Fact]
-public void Vector4UnaryNegationTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, UnaryNegation)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a        = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto expected = Vector4 { -1.0f, -2.0f, -3.0f, -4.0f };
+    auto actual   = -a;
 
-    Vector4 expected = Vector4(-1.0f, -2.0f, -3.0f, -4.0f);
-    Vector4 actual;
-
-    actual = -a;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator - did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator - (Vector4f, Vector4f)
-[Fact]
-public void Vector4SubtractionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Subtraction)
 {
-    Vector4 a = Vector4(1.0f, 6.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 2.0f, 3.0f, 9.0f);
+    auto a        = Vector4 { 1.0f, 6.0f, 3.0f, 4.0f };
+    auto b        = Vector4 { 5.0f, 2.0f, 3.0f, 9.0f };
+    auto expected = Vector4 { -4.0f, 4.0f, 0.0f, -5.0f };
+    auto actual   = a - b;
 
-    Vector4 expected = Vector4(-4.0f, 4.0f, 0.0f, -5.0f);
-    Vector4 actual;
-
-    actual = a - b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator - did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Vector4f, float)
-[Fact]
-public void Vector4MultiplyTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, MultiplyVectorByScalar)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
 
-    float factor = 2.0f;
+    Single factor = 2.0f;
 
-    Vector4 expected = Vector4(2.0f, 4.0f, 6.0f, 8.0f);
-    Vector4 actual;
+    auto expected = Vector4 { 2.0f, 4.0f, 6.0f, 8.0f };
+    auto actual   = a * factor;
 
-    actual = a * factor;
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator * did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (float, Vector4f)
-[Fact]
-public void Vector4MultiplyTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, MultiplyScalarByVector)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
 
-    float factor = 2.0f;
-    Vector4 expected = Vector4(2.0f, 4.0f, 6.0f, 8.0f);
-    Vector4 actual;
+    Single factor = 2.0f;
 
-    actual = factor * a;
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator * did not return the expected value.");
+    auto expected = Vector4 { 2.0f, 4.0f, 6.0f, 8.0f };
+    auto actual   = factor * a;
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator * (Vector4f, Vector4f)
-[Fact]
-public void Vector4MultiplyTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Multiply)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 6.0f, 7.0f, 8.0f);
+    auto a        = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto b        = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
+    auto expected = Vector4 { 5.0f, 12.0f, 21.0f, 32.0f };
+    auto actual   = a * b;
 
-    Vector4 expected = Vector4(5.0f, 12.0f, 21.0f, 32.0f);
-    Vector4 actual;
-
-    actual = a * b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator * did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator / (Vector4f, float)
-[Fact]
-public void Vector4DivisionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Division)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
 
-    float div = 2.0f;
+    Single div = 2.0f;
 
-    Vector4 expected = Vector4(0.5f, 1.0f, 1.5f, 2.0f);
-    Vector4 actual;
+    auto expected = Vector4 { 0.5f, 1.0f, 1.5f, 2.0f };
+    auto actual   = a / div;
 
-    actual = a / div;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator / did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator / (Vector4f, Vector4f)
-[Fact]
-public void Vector4DivisionTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Division1)
 {
-    Vector4 a = Vector4(1.0f, 6.0f, 7.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 2.0f, 3.0f, 8.0f);
+    auto a = Vector4 { 1.0f, 6.0f, 7.0f, 4.0f };
+    auto b = Vector4 { 5.0f, 2.0f, 3.0f, 8.0f };
 
-    Vector4 expected = Vector4(1.0f / 5.0f, 6.0f / 2.0f, 7.0f / 3.0f, 4.0f / 8.0f);
-    Vector4 actual;
+    auto expected = Vector4 { 1.0f / 5.0f, 6.0f / 2.0f, 7.0f / 3.0f, 4.0f / 8.0f };
+    auto actual   = a / b;
 
-    actual = a / b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator / did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for operator / (Vector4f, Vector4f)
 // Divide by zero
-[Fact]
-public void Vector4DivisionTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, ScalarDivisionByZero)
 {
-    Vector4 a = Vector4(-2.0f, 3.0f, float.MaxValue, float.NaN);
+    auto a = Vector4 { -2.0f, 3.0f, std::numeric_limits<Single>::max(), MathHelper::NaN };
 
-    float div = 0.0f;
+    Single div = 0.0f;
 
-    Vector4 actual = a / div;
+    auto actual = a / div;
 
-    Assert.True(float.IsNegativeInfinity(actual.X), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsPositiveInfinity(actual.Y), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsPositiveInfinity(actual.Z), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsNaN(actual.W), "Vector4f.operator / did not return the expected value.");
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Y()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.Z()));
+    EXPECT_TRUE(MathHelper::IsNaN(actual.W()));
 }
 
 // A test for operator / (Vector4f, Vector4f)
 // Divide by zero
-[Fact]
-public void Vector4DivisionTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, DivisionByZero)
 {
-    Vector4 a = Vector4(0.047f, -3.0f, float.NegativeInfinity, float.MinValue);
-    Vector4 b = Vector4();
+    auto a = Vector4 { 0.047f, -3.0f, MathHelper::NegativeInfinity, std::numeric_limits<Single>::lowest() };
+    auto b = Vector4 { };
 
     Vector4 actual = a / b;
 
-    Assert.True(float.IsPositiveInfinity(actual.X), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsNegativeInfinity(actual.Y), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsNegativeInfinity(actual.Z), "Vector4f.operator / did not return the expected value.");
-    Assert.True(float.IsNegativeInfinity(actual.W), "Vector4f.operator / did not return the expected value.");
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(actual.X()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Y()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.Z()));
+    EXPECT_TRUE(MathHelper::IsNegativeInfinity(actual.W()));
 }
 
 // A test for operator + (Vector4f, Vector4f)
-[Fact]
-public void Vector4AdditionTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Addition)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 6.0f, 7.0f, 8.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto b = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Vector4 expected = Vector4(6.0f, 8.0f, 10.0f, 12.0f);
-    Vector4 actual;
+    auto expected = Vector4 { 6.0f, 8.0f, 10.0f, 12.0f };
+    auto actual   = a + b;
 
-    actual = a + b;
-
-    Assert.True(MathHelper.Equal(expected, actual), "Vector4f.operator + did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
-public void OperatorAddTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Add)
 {
-    Vector4 v1 = Vector4(2.5f, 2.0f, 3.0f, 3.3f);
-    Vector4 v2 = Vector4(5.5f, 4.5f, 6.5f, 7.5f);
+    auto v1 = Vector4 { 2.5f, 2.0f, 3.0f, 3.3f };
+    auto v2 = Vector4 { 5.5f, 4.5f, 6.5f, 7.5f };
 
-    Vector4 v3 = v1 + v2;
-    Vector4 v5 = Vector4(-1.0f, 0.0f, 0.0f, Single.NaN);
-    Vector4 v4 = v1 + v5;
-    Assert.Equal(8.0f, v3.X);
-    Assert.Equal(6.5f, v3.Y);
-    Assert.Equal(9.5f, v3.Z);
-    Assert.Equal(10.8f, v3.W);
-    Assert.Equal(1.5f, v4.X);
-    Assert.Equal(2.0f, v4.Y);
-    Assert.Equal(3.0f, v4.Z);
-    Assert.Equal(Single.NaN, v4.W);
+    auto v3 = v1 + v2;
+    auto v5 = Vector4 { -1.0f, 0.0f, 0.0f, MathHelper::NaN };
+    auto v4 = v1 + v5;
+
+    EXPECT_TRUE( 8.0f == v3.X());
+    EXPECT_TRUE( 6.5f == v3.Y());
+    EXPECT_TRUE( 9.5f == v3.Z());
+    EXPECT_TRUE(10.8f == v3.W());
+    EXPECT_TRUE( 1.5f == v4.X());
+    EXPECT_TRUE( 2.0f == v4.Y());
+    EXPECT_TRUE( 3.0f == v4.Z());
+    EXPECT_TRUE(MathHelper::IsNaN(v4.W()));
 }
 
 // A test for Vector4f (float, float, float, float)
-[Fact]
-public void Vector4ConstructorTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Constructor)
 {
-    float x = 1.0f;
-    float y = 2.0f;
-    float z = 3.0f;
-    float w = 4.0f;
+    Single x = 1.0f;
+    Single y = 2.0f;
+    Single z = 3.0f;
+    Single w = 4.0f;
 
-    Vector4 target = Vector4(x, y, z, w);
+    auto target = Vector4 { x, y, z, w };
 
-    Assert.True(MathHelper.Equal(target.X, x) && MathHelper.Equal(target.Y, y) && MathHelper.Equal(target.Z, z) && MathHelper.Equal(target.W, w),
-        "Vector4f constructor(x,y,z,w) did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(target.X(), x)
+             && EqualityHelper::Equal(target.Y(), y)
+             && EqualityHelper::Equal(target.Z(), z)
+             && EqualityHelper::Equal(target.W(), w));
 }
 
 // A test for Vector4f (Vector2f, float, float)
-[Fact]
-public void Vector4ConstructorTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, ConstructorWithVector2)
 {
-    Vector2 a = new Vector2(1.0f, 2.0f);
-    float z = 3.0f;
-    float w = 4.0f;
+    auto   a = Vector2 { 1.0f, 2.0f };
+    Single z = 3.0f;
+    Single w = 4.0f;
 
-    Vector4 target = Vector4(a, z, w);
-    Assert.True(MathHelper.Equal(target.X, a.X) && MathHelper.Equal(target.Y, a.Y) && MathHelper.Equal(target.Z, z) && MathHelper.Equal(target.W, w),
-        "Vector4f constructor(Vector2f,z,w) did not return the expected value.");
+    auto target = Vector4 { a, z, w };
+
+    EXPECT_TRUE(EqualityHelper::Equal(target.X(), a.X())
+             && EqualityHelper::Equal(target.Y(), a.Y())
+             && EqualityHelper::Equal(target.Z(), z)
+             && EqualityHelper::Equal(target.W(), w));
 }
 
 // A test for Vector4f (Vector3f, float)
-[Fact]
-public void Vector4ConstructorTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, ConstructorWithVector3)
 {
-    Vector3 a = new Vector3(1.0f, 2.0f, 3.0f);
-    float w = 4.0f;
+    auto   a = Vector3 { 1.0f, 2.0f, 3.0f };
+    Single w = 4.0f;
 
-    Vector4 target = Vector4(a, w);
+    auto target = Vector4 { a, w };
 
-    Assert.True(MathHelper.Equal(target.X, a.X) && MathHelper.Equal(target.Y, a.Y) && MathHelper.Equal(target.Z, a.Z) && MathHelper.Equal(target.W, w),
-        "Vector4f constructor(Vector3f,w) did not return the expected value.");
+    EXPECT_TRUE(EqualityHelper::Equal(target.X(), a.X())
+             && EqualityHelper::Equal(target.Y(), a.Y())
+             && EqualityHelper::Equal(target.Z(), a.Z())
+             && EqualityHelper::Equal(target.W(), w));
 }
 
 // A test for Vector4f ()
 // Constructor with no parameter
-[Fact]
-public void Vector4ConstructorTest4()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, DefaultConstructor)
 {
-    Vector4 a = Vector4();
+    Vector4 a;
 
-    Assert.Equal(a.X, 0.0f);
-    Assert.Equal(a.Y, 0.0f);
-    Assert.Equal(a.Z, 0.0f);
-    Assert.Equal(a.W, 0.0f);
+    EXPECT_TRUE(a.X() == 0.0f);
+    EXPECT_TRUE(a.Y() == 0.0f);
+    EXPECT_TRUE(a.Z() == 0.0f);
+    EXPECT_TRUE(a.W() == 0.0f);
 }
 
 // A test for Vector4f ()
 // Constructor with special floating values
-[Fact]
-public void Vector4ConstructorTest5()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, ConstructorWithSpecialFloatingValues)
 {
-    Vector4 target = Vector4(float.NaN, float.MaxValue, float.PositiveInfinity, float.Epsilon);
+    auto target = Vector4(MathHelper::NaN
+                        , std::numeric_limits<Single>::max()
+                        , MathHelper::PositiveInfinity
+                        , std::numeric_limits<Single>::epsilon());
 
-    Assert.True(float.IsNaN(target.X), "Vector4f.constructor (float, float, float, float) did not return the expected value.");
-    Assert.True(float.Equals(float.MaxValue, target.Y), "Vector4f.constructor (float, float, float, float) did not return the expected value.");
-    Assert.True(float.IsPositiveInfinity(target.Z), "Vector4f.constructor (float, float, float, float) did not return the expected value.");
-    Assert.True(float.Equals(float.Epsilon, target.W), "Vector4f.constructor (float, float, float, float) did not return the expected value.");
-}
-
-// A test for Add (Vector4f, Vector4f)
-[Fact]
-public void Vector4AddTest()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 6.0f, 7.0f, 8.0f);
-
-    Vector4 expected = Vector4(6.0f, 8.0f, 10.0f, 12.0f);
-    Vector4 actual;
-
-    actual = Vector4.Add(a, b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Divide (Vector4f, float)
-[Fact]
-public void Vector4DivideTest()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    float div = 2.0f;
-    Vector4 expected = Vector4(0.5f, 1.0f, 1.5f, 2.0f);
-    Vector4 actual;
-    actual = Vector4.Divide(a, div);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Divide (Vector4f, Vector4f)
-[Fact]
-public void Vector4DivideTest1()
-{
-    Vector4 a = Vector4(1.0f, 6.0f, 7.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 2.0f, 3.0f, 8.0f);
-
-    Vector4 expected = Vector4(1.0f / 5.0f, 6.0f / 2.0f, 7.0f / 3.0f, 4.0f / 8.0f);
-    Vector4 actual;
-
-    actual = Vector4.Divide(a, b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Equals (object)
-[Fact]
-public void Vector4EqualsTest()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-
-    // case 1: compare between same values
-    object obj = b;
-
-    bool expected = true;
-    bool actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    obj = b;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare between different types.
-    obj = new Quaternion();
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare against null.
-    obj = null;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Multiply (Vector4f, float)
-[Fact]
-public void Vector4MultiplyTest2()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    float factor = 2.0f;
-    Vector4 expected = Vector4(2.0f, 4.0f, 6.0f, 8.0f);
-    Vector4 actual = Vector4.Multiply(a, factor);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Multiply (Vector4f, Vector4f)
-[Fact]
-public void Vector4MultiplyTest3()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 6.0f, 7.0f, 8.0f);
-
-    Vector4 expected = Vector4(5.0f, 12.0f, 21.0f, 32.0f);
-    Vector4 actual;
-
-    actual = Vector4.Multiply(a, b);
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(MathHelper::IsNaN(target.X()));
+    EXPECT_TRUE(EqualityHelper::Equal(std::numeric_limits<Single>::max(), target.Y()));
+    EXPECT_TRUE(MathHelper::IsPositiveInfinity(target.Z()));
+    EXPECT_TRUE(EqualityHelper::Equal(std::numeric_limits<Single>::epsilon(), target.W()));
 }
 
 // A test for Negate (Vector4f)
-[Fact]
-public void Vector4NegateTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Negate)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a        = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto expected = Vector4 { -1.0f, -2.0f, -3.0f, -4.0f };
+    auto actual   = Vector4::Negate(a);
 
-    Vector4 expected = Vector4(-1.0f, -2.0f, -3.0f, -4.0f);
-    Vector4 actual;
-
-    actual = Vector4.Negate(a);
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for operator != (Vector4f, Vector4f)
-[Fact]
-public void Vector4InequalityTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Inequality)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto b = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
 
     // case 1: compare between same values
     bool expected = false;
-    bool actual = a != b;
-    Assert.Equal(expected, actual);
+    bool actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.X = 10.0f;
+    b.X(10.0f);
+
     expected = true;
-    actual = a != b;
-    Assert.Equal(expected, actual);
+    actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for operator == (Vector4f, Vector4f)
-[Fact]
-public void Vector4EqualityTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Equality)
 {
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
+    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto b = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
 
     // case 1: compare between same values
     bool expected = true;
-    bool actual = a == b;
-    Assert.Equal(expected, actual);
+    bool actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.X = 10.0f;
+    b.X(10.0f);
+
     expected = false;
-    actual = a == b;
-    Assert.Equal(expected, actual);
-}
+    actual   = a == b;
 
-// A test for Subtract (Vector4f, Vector4f)
-[Fact]
-public void Vector4SubtractTest()
-{
-    Vector4 a = Vector4(1.0f, 6.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(5.0f, 2.0f, 3.0f, 9.0f);
-
-    Vector4 expected = Vector4(-4.0f, 4.0f, 0.0f, -5.0f);
-    Vector4 actual;
-
-    actual = Vector4.Subtract(a, b);
-
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for UnitW
-[Fact]
-public void Vector4UnitWTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, UnitW)
 {
-    Vector4 val = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-    Assert.Equal(val, Vector4.UnitW);
+    Vector4 val { 0.0f, 0.0f, 0.0f, 1.0f };
+
+    EXPECT_TRUE(val == Vector4::UnitW);
 }
 
 // A test for UnitX
-[Fact]
-public void Vector4UnitXTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, UnitX)
 {
-    Vector4 val = Vector4(1.0f, 0.0f, 0.0f, 0.0f);
-    Assert.Equal(val, Vector4.UnitX);
+    Vector4 val { 1.0f, 0.0f, 0.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector4::UnitX);
 }
 
 // A test for UnitY
-[Fact]
-public void Vector4UnitYTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, UnitY)
 {
-    Vector4 val = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
-    Assert.Equal(val, Vector4.UnitY);
+    Vector4 val { 0.0f, 1.0f, 0.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector4::UnitY);
 }
 
 // A test for UnitZ
-[Fact]
-public void Vector4UnitZTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, UnitZ)
 {
-    Vector4 val = Vector4(0.0f, 0.0f, 1.0f, 0.0f);
-    Assert.Equal(val, Vector4.UnitZ);
+    Vector4 val { 0.0f, 0.0f, 1.0f, 0.0f };
+
+    EXPECT_TRUE(val == Vector4::UnitZ);
 }
 
 // A test for One
-[Fact]
-public void Vector4OneTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, One)
 {
-    Vector4 val = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-    Assert.Equal(val, Vector4.One);
+    Vector4 val { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    EXPECT_TRUE(val == Vector4::One);
 }
 
 // A test for Zero
-[Fact]
-public void Vector4ZeroTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Zero)
 {
-    Vector4 val = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-    Assert.Equal(val, Vector4.Zero);
-}
+    Vector4 val { 0.0f, 0.0f, 0.0f, 0.0f };
 
-// A test for Equals (Vector4f)
-[Fact]
-public void Vector4EqualsTest1()
-{
-    Vector4 a = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Vector4 b = Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-
-    // case 1: compare between same values
-    Assert.True(a.Equals(b));
-
-    // case 2: compare between different values
-    b.X = 10.0f;
-    Assert.False(a.Equals(b));
+    EXPECT_TRUE(val == Vector4::Zero);
 }
 
 // A test for Vector4f (float)
-[Fact]
-public void Vector4ConstructorTest6()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, ConstructorWithScalarValue)
 {
-    float value = 1.0f;
-    Vector4 target = Vector4(value);
+    Single  value = 1.0f;
+    Vector4 target { value };
 
-    Vector4 expected = Vector4(value, value, value, value);
-    Assert.Equal(expected, target);
+    Vector4 expected { value, value, value, value };
 
-    value = 2.0f;
-    target = Vector4(value);
-    expected = Vector4(value, value, value, value);
-    Assert.Equal(expected, target);
+    EXPECT_TRUE(expected == target);
+
+    value    = 2.0f;
+    target   = Vector4 { value };
+    expected = Vector4 { value, value, value, value };
+
+    EXPECT_TRUE(expected == target);
 }
 
 // A test for Vector4f comparison involving NaN values
-[Fact]
-public void Vector4EqualsNanTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, EqualsNaN)
 {
-    Vector4 a = Vector4(float.NaN, 0, 0, 0);
-    Vector4 b = Vector4(0, float.NaN, 0, 0);
-    Vector4 c = Vector4(0, 0, float.NaN, 0);
-    Vector4 d = Vector4(0, 0, 0, float.NaN);
+    Vector4 a { MathHelper::NaN, 0, 0, 0 };
+    Vector4 b { 0, MathHelper::NaN, 0, 0 };
+    Vector4 c { 0, 0, MathHelper::NaN, 0 };
+    Vector4 d { 0, 0, 0, MathHelper::NaN };
 
-    Assert.False(a == Vector4.Zero);
-    Assert.False(b == Vector4.Zero);
-    Assert.False(c == Vector4.Zero);
-    Assert.False(d == Vector4.Zero);
+    EXPECT_FALSE(a == Vector4::Zero);
+    EXPECT_FALSE(b == Vector4::Zero);
+    EXPECT_FALSE(c == Vector4::Zero);
+    EXPECT_FALSE(d == Vector4::Zero);
 
-    Assert.True(a != Vector4.Zero);
-    Assert.True(b != Vector4.Zero);
-    Assert.True(c != Vector4.Zero);
-    Assert.True(d != Vector4.Zero);
-
-    Assert.False(a.Equals(Vector4.Zero));
-    Assert.False(b.Equals(Vector4.Zero));
-    Assert.False(c.Equals(Vector4.Zero));
-    Assert.False(d.Equals(Vector4.Zero));
-
-    // Counterintuitive result - IEEE rules for NaN comparison are weird!
-    Assert.False(a.Equals(a));
-    Assert.False(b.Equals(b));
-    Assert.False(c.Equals(c));
-    Assert.False(d.Equals(d));
+    EXPECT_TRUE(a != Vector4::Zero);
+    EXPECT_TRUE(b != Vector4::Zero);
+    EXPECT_TRUE(c != Vector4::Zero);
+    EXPECT_TRUE(d != Vector4::Zero);
 }
 
-[Fact]
-public void Vector4AbsTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, Abs)
 {
-    Vector4 v1 = Vector4(-2.5f, 2.0f, 3.0f, 3.3f);
-    Vector4 v3 = Vector4.Abs(Vector4(Single.PositiveInfinity, 0.0f, Single.NegativeInfinity, Single.NaN));
-    Vector4 v = Vector4.Abs(v1);
-    Assert.Equal(2.5f, v.X);
-    Assert.Equal(2.0f, v.Y);
-    Assert.Equal(3.0f, v.Z);
-    Assert.Equal(3.3f, v.W);
-    Assert.Equal(Single.PositiveInfinity, v3.X);
-    Assert.Equal(0.0f, v3.Y);
-    Assert.Equal(Single.PositiveInfinity, v3.Z);
-    Assert.Equal(Single.NaN, v3.W);
+    Vector4 v1 { -2.5f, 2.0f, 3.0f, 3.3f };
+    Vector4 v3 = Vector4::Abs(Vector4{ MathHelper::PositiveInfinity, 0.0f, MathHelper::NegativeInfinity, MathHelper::NaN });
+    Vector4 v  = Vector4::Abs(v1);
+
+    EXPECT_TRUE(2.5f == v.X());
+    EXPECT_TRUE(2.0f == v.Y());
+    EXPECT_TRUE(3.0f == v.Z());
+    EXPECT_TRUE(3.3f == v.W());
+    EXPECT_TRUE(MathHelper::PositiveInfinity == v3.X());
+    EXPECT_TRUE(0.0f == v3.Y());
+    EXPECT_TRUE(MathHelper::PositiveInfinity == v3.Z());
+    EXPECT_TRUE(MathHelper::IsNaN(v3.W()));
 }
 
-[Fact]
-public void Vector4SqrtTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, SquareRoot)
 {
-    Vector4 v1 = Vector4(-2.5f, 2.0f, 3.0f, 3.3f);
-    Vector4 v2 = Vector4(5.5f, 4.5f, 6.5f, 7.5f);
-    Assert.Equal(2, (int)Vector4.SquareRoot(v2).X);
-    Assert.Equal(2, (int)Vector4.SquareRoot(v2).Y);
-    Assert.Equal(2, (int)Vector4.SquareRoot(v2).Z);
-    Assert.Equal(2, (int)Vector4.SquareRoot(v2).W);
-    Assert.Equal(Single.NaN, Vector4.SquareRoot(v1).X);
+    Vector4 v1 { -2.5f, 2.0f, 3.0f, 3.3f };
+    Vector4 v2 { 5.5f, 4.5f, 6.5f, 7.5f };
+
+    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).X());
+    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).Y());
+    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).Z());
+    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).W());
+    EXPECT_TRUE(MathHelper::IsNaN(Vector4::SquareRoot(v1).X()));
 }
 
-// A test to make sure these types are blittable directly into GPU buffer memory layouts
-[Fact]
-public unsafe void Vector4SizeofTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(Vector4Test, SetFields)
 {
-    Assert.Equal(16, sizeof(Vector4));
-    Assert.Equal(32, sizeof(Vector4_2x));
-    Assert.Equal(20, sizeof(Vector4PlusFloat));
-    Assert.Equal(40, sizeof(Vector4PlusFloat_2x));
-}
+    Vector4 v3 { 4.0f, 5.0f, 6.0f, 7 };
 
-[StructLayout(LayoutKind.Sequential)]
-struct Vector4_2x
-{
-    private Vector4 _a;
-    private Vector4 _b;
-}
+    v3.X(1.0f);
+    v3.Y(2.0f);
+    v3.Z(3.0f);
+    v3.W(4.0f);
 
-[StructLayout(LayoutKind.Sequential)]
-struct Vector4PlusFloat
-{
-    private Vector4 _v;
-    private float _f;
-}
+    EXPECT_TRUE(1.0f == v3.X());
+    EXPECT_TRUE(2.0f == v3.Y());
+    EXPECT_TRUE(3.0f == v3.Z());
+    EXPECT_TRUE(4.0f == v3.W());
 
-[StructLayout(LayoutKind.Sequential)]
-struct Vector4PlusFloat_2x
-{
-    private Vector4PlusFloat _a;
-    private Vector4PlusFloat _b;
-}
+    auto v4 = v3;
 
-[Fact]
-public void SetFieldsTest()
-{
-    Vector4 v3 = Vector4(4f, 5f, 6f, 7f);
-    v3.X = 1.0f;
-    v3.Y = 2.0f;
-    v3.Z = 3.0f;
-    v3.W = 4.0f;
-    Assert.Equal(1.0f, v3.X);
-    Assert.Equal(2.0f, v3.Y);
-    Assert.Equal(3.0f, v3.Z);
-    Assert.Equal(4.0f, v3.W);
-    Vector4 v4 = v3;
-    v4.Y = 0.5f;
-    v4.Z = 2.2f;
-    v4.W = 3.5f;
-    Assert.Equal(1.0f, v4.X);
-    Assert.Equal(0.5f, v4.Y);
-    Assert.Equal(2.2f, v4.Z);
-    Assert.Equal(3.5f, v4.W);
-    Assert.Equal(2.0f, v3.Y);
-}
+    v4.Y(0.5f);
+    v4.Z(2.2f);
+    v4.W(3.5f);
 
-[Fact]
-public void EmbeddedVectorSetFields()
-{
-    EmbeddedVectorObject evo = new EmbeddedVectorObject();
-    evo.FieldVector.X = 5.0f;
-    evo.FieldVector.Y = 5.0f;
-    evo.FieldVector.Z = 5.0f;
-    evo.FieldVector.W = 5.0f;
-    Assert.Equal(5.0f, evo.FieldVector.X);
-    Assert.Equal(5.0f, evo.FieldVector.Y);
-    Assert.Equal(5.0f, evo.FieldVector.Z);
-    Assert.Equal(5.0f, evo.FieldVector.W);
+    EXPECT_TRUE(1.0f == v4.X());
+    EXPECT_TRUE(0.5f == v4.Y());
+    EXPECT_TRUE(2.2f == v4.Z());
+    EXPECT_TRUE(3.5f == v4.W());
+    EXPECT_TRUE(2.0f == v3.Y());
 }
-
-[Fact]
-public void DeeplyEmbeddedObjectTest()
-{
-    DeeplyEmbeddedClass obj = new DeeplyEmbeddedClass();
-    obj.L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector.X = 5f;
-    Assert.Equal(5f, obj.RootEmbeddedObject.X);
-    Assert.Equal(5f, obj.RootEmbeddedObject.Y);
-    Assert.Equal(1f, obj.RootEmbeddedObject.Z);
-    Assert.Equal(-5f, obj.RootEmbeddedObject.W);
-    obj.L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector = Vector4(1, 2, 3, 4);
-    Assert.Equal(1f, obj.RootEmbeddedObject.X);
-    Assert.Equal(2f, obj.RootEmbeddedObject.Y);
-    Assert.Equal(3f, obj.RootEmbeddedObject.Z);
-    Assert.Equal(4f, obj.RootEmbeddedObject.W);
-}
-
-[Fact]
-public void DeeplyEmbeddedStructTest()
-{
-    DeeplyEmbeddedStruct obj = DeeplyEmbeddedStruct.Create();
-    obj.L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector.X = 5f;
-    Assert.Equal(5f, obj.RootEmbeddedObject.X);
-    Assert.Equal(5f, obj.RootEmbeddedObject.Y);
-    Assert.Equal(1f, obj.RootEmbeddedObject.Z);
-    Assert.Equal(-5f, obj.RootEmbeddedObject.W);
-    obj.L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector = Vector4(1, 2, 3, 4);
-    Assert.Equal(1f, obj.RootEmbeddedObject.X);
-    Assert.Equal(2f, obj.RootEmbeddedObject.Y);
-    Assert.Equal(3f, obj.RootEmbeddedObject.Z);
-    Assert.Equal(4f, obj.RootEmbeddedObject.W);
-}
-
-private class EmbeddedVectorObject
-{
-    public Vector4 FieldVector;
-}
-
-private class DeeplyEmbeddedClass
-{
-    public readonly Level0 L0 = new Level0();
-    public Vector4 RootEmbeddedObject { get { return L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector; } }
-    public class Level0
-    {
-        public readonly Level1 L1 = new Level1();
-        public class Level1
-        {
-            public readonly Level2 L2 = new Level2();
-            public class Level2
-            {
-                public readonly Level3 L3 = new Level3();
-                public class Level3
-                {
-                    public readonly Level4 L4 = new Level4();
-                    public class Level4
-                    {
-                        public readonly Level5 L5 = new Level5();
-                        public class Level5
-                        {
-                            public readonly Level6 L6 = new Level6();
-                            public class Level6
-                            {
-                                public readonly Level7 L7 = new Level7();
-                                public class Level7
-                                {
-                                    public Vector4 EmbeddedVector = Vector4(1, 5, 1, -5);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-// Contrived test for strangely-sized and shaped embedded structures, with unused buffer fields.
-#pragma warning disable 0169
-private struct DeeplyEmbeddedStruct
-{
-    public static DeeplyEmbeddedStruct Create()
-    {
-        var obj = new DeeplyEmbeddedStruct();
-        obj.L0 = new Level0();
-        obj.L0.L1 = new Level0.Level1();
-        obj.L0.L1.L2 = new Level0.Level1.Level2();
-        obj.L0.L1.L2.L3 = new Level0.Level1.Level2.Level3();
-        obj.L0.L1.L2.L3.L4 = new Level0.Level1.Level2.Level3.Level4();
-        obj.L0.L1.L2.L3.L4.L5 = new Level0.Level1.Level2.Level3.Level4.Level5();
-        obj.L0.L1.L2.L3.L4.L5.L6 = new Level0.Level1.Level2.Level3.Level4.Level5.Level6();
-        obj.L0.L1.L2.L3.L4.L5.L6.L7 = new Level0.Level1.Level2.Level3.Level4.Level5.Level6.Level7();
-        obj.L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector = Vector4(1, 5, 1, -5);
-
-        return obj;
-    }
-
-    public Level0 L0;
-    public Vector4 RootEmbeddedObject { get { return L0.L1.L2.L3.L4.L5.L6.L7.EmbeddedVector; } }
-    public struct Level0
-    {
-        private float _buffer0, _buffer1;
-        public Level1 L1;
-        private float _buffer2;
-        public struct Level1
-        {
-            private float _buffer0, _buffer1;
-            public Level2 L2;
-            private byte _buffer2;
-            public struct Level2
-            {
-                public Level3 L3;
-                private float _buffer0;
-                private byte _buffer1;
-                public struct Level3
-                {
-                    public Level4 L4;
-                    public struct Level4
-                    {
-                        private float _buffer0;
-                        public Level5 L5;
-                        private long _buffer1;
-                        private byte _buffer2;
-                        private double _buffer3;
-                        public struct Level5
-                        {
-                            private byte _buffer0;
-                            public Level6 L6;
-                            public struct Level6
-                            {
-                                private byte _buffer0;
-                                public Level7 L7;
-                                private byte _buffer1, _buffer2;
-                                public struct Level7
-                                {
-                                    public Vector4 EmbeddedVector;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-#pragma warning restore 0169
-}
-*/

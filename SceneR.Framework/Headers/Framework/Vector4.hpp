@@ -53,6 +53,13 @@ namespace SceneR
 
         public:
             /**
+             * @brief Returns a vector whose elements are the absolute values of each of the specified vector's elements.
+             * @param value A vector.
+             * @return The absolute value vector.
+             */
+            static Vector4 Abs(const Vector4& value);
+
+            /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
              * two normalized barycentric (areal) coordinates.
              * @param value1 the coordinate on one axis of vertex 1 of the defining triangle.
@@ -165,6 +172,13 @@ namespace SceneR
             static Vector4 Normalize(const Vector4& value);
 
             /**
+             * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
+             * @param value A vector.
+             * @return The square root vector.
+             */
+            static Vector4 SquareRoot(const Vector4& value);
+
+            /**
              * @brief Transforms a two-dimensional vector by a specified 4x4 matrix.
              * @param position The vector to transform.
              * @param matrix The transformation matrix.
@@ -203,6 +217,14 @@ namespace SceneR
              * @return The transformed vector
              */
             static Vector4 Transform(const Vector3& value, const Quaternion& rotation);
+
+            /**
+             * @brief Transforms a four-dimensional vector by a specified quaternion.
+             * @param position The vector to transform.
+             * @param rotation The transformation quaternion.
+             * @return The transformed vector
+             */
+            static Vector4 Transform(const Vector4& value, const Quaternion& rotation);
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -364,6 +386,11 @@ namespace SceneR
                 };
             };
         };
+
+        inline Vector4 operator*(const System::Single& value, const Vector4& vector)
+        {
+            return { value * vector.X(), value * vector.Y(), value * vector.Z(), value * vector.W() };
+        }
     }
 }
 

@@ -22,6 +22,11 @@ const Vector4 Vector4::UnitZ { 0.0f, 0.0f, 1.0f, 0.0f };
 const Vector4 Vector4::UnitW { 0.0f, 0.0f, 0.0f, 1.0f };
 const Vector4 Vector4::Zero  { 0.0f, 0.0f, 0.0f, 0.0f };
 
+Vector4 Vector4::Abs(const Vector4 &value)
+{
+    return { Math::Abs(value.X()), Math::Abs(value.Y()), Math::Abs(value.Z()), Math::Abs(value.W()) };
+}
+
 Vector4 Vector4::Barycentric(const Vector4& value1
                            , const Vector4& value2
                            , const Vector4& value3
@@ -123,6 +128,11 @@ Vector4 Vector4::Normalize(const Vector4& value)
     return (value / value.Length());
 }
 
+Vector4 Vector4::SquareRoot(const Vector4 &value)
+{
+    return { Math::Sqrt(value.X()), Math::Sqrt(value.Y()), Math::Sqrt(value.Z()), Math::Sqrt(value.W()) };
+}
+
 Vector4 Vector4::Transform(const Vector2& position, const Matrix& matrix)
 {
     return (Vector4 { position, 0.0f, 1.0f } * matrix);
@@ -146,6 +156,11 @@ Vector4 Vector4::Transform(const Vector2& value, const Quaternion& rotation)
 Vector4 Vector4::Transform(const Vector3& value, const Quaternion& rotation)
 {
     return (Vector4 { value, 1.0f } * Matrix::CreateFromQuaternion(rotation));
+}
+
+Vector4 Vector4::Transform(const Vector4& value, const Quaternion& rotation)
+{
+    return (value* Matrix::CreateFromQuaternion(rotation));
 }
 
 Vector4 Vector4::SmoothStep(const Vector4& value1
