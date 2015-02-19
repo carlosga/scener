@@ -16,6 +16,7 @@ using namespace SceneR::Framework;
 
 Plane Plane::CreateFromVertices(const Vector3& point1, const Vector3& point2, const Vector3& point3)
 {
+    // http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
     // http://en.wikipedia.org/wiki/Plane_%28geometry%29#Describing_a_plane_through_three_points
 
     // A plane can be described by a "point and a normal vector".
@@ -85,22 +86,8 @@ Plane::Plane(const Vector3& normal, const System::Single& d)
 {
 }
 
-Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3)
-    : normal { }
-    , d      { 0.0f }
-{
-    // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
-    auto v21 = point1 - point2;
-    auto v31 = point1 - point3;
-    auto n   = Vector3::Normalize(Vector3::Cross(v21, v31));
-    auto d   = Vector3::Dot(n, point1);
-
-    this->normal = n;
-    this->d      = -d;
-}
-
 Plane::Plane(const Vector4& value)
-    : normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) },
+    : normal { value.X(), value.Y(), value.Z() },
       d      { value.W() }
 {
 }

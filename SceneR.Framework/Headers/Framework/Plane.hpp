@@ -92,11 +92,6 @@ namespace SceneR
             /**
              * Initializes a new instance of the Plane structure.
              */
-            Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3);
-
-            /**
-             * Initializes a new instance of the Plane structure.
-             */
             Plane(const Vector4& value);
 
             /**
