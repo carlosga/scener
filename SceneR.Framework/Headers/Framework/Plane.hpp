@@ -82,6 +82,11 @@ namespace SceneR
             /**
              * Initializes a new instance of the Plane structure.
              */
+            Plane();
+
+            /**
+             * Initializes a new instance of the Plane structure.
+             */
             Plane(const System::Single& a, const System::Single& b, const System::Single& c, const System::Single& d);
 
             /**
@@ -106,20 +111,25 @@ namespace SceneR
 
         public:
             /**
-             * 	Gets the distance of the Plane along its normal from the origin.
-             */
-            const System::Single& D() const;
-
-            /**
              * Gets The normal vector of the Plane.
              */
             const Vector3& Normal() const;
+
+            /**
+             * 	Gets the distance of the Plane along its normal from the origin.
+             */
+            const System::Single& D() const;
 
         public:
             /**
              * Sets The normal vector of the Plane.
              */
             void Normal(const Vector3& normal);
+
+            /**
+             * 	Gets the distance of the Plane along its normal from the origin.
+             */
+            void D(const System::Single& d);
 
         public:
             /**

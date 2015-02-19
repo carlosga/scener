@@ -146,152 +146,144 @@ TEST_F(PlaneTest, ConstructorFromVector4)
              && target.D()          == value.W());
 }
 
-/*
-[Fact]
-public void PlaneDotTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, Dot)
 {
-    Plane target = new Plane(2, 3, 4, 5);
-    Vector4 value = new Vector4(5, 4, 3, 2);
+    Plane   target { 2, 3, 4, 5 };
+    Vector4 value  { 5, 4, 3, 2 };
 
-    float expected = 10 + 12 + 12 + 10;
-    float actual = Plane.Dot(target, value);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.Dot returns unexpected value.");
+    Single expected = 10 + 12 + 12 + 10;
+    Single actual   = Plane::Dot(target, value);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
-public void PlaneDotCoordinateTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, DotCoordinate)
 {
-    Plane target = new Plane(2, 3, 4, 5);
-    Vector3 value = new Vector3(5, 4, 3);
+    Plane   target { 2, 3, 4, 5 };
+    Vector3 value  { 5, 4, 3 };
 
-    float expected = 10 + 12 + 12 + 5;
-    float actual = Plane.DotCoordinate(target, value);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.DotCoordinate returns unexpected value.");
+    Single expected = 10 + 12 + 12 + 5;
+    Single actual   = Plane::DotCoordinate(target, value);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
-public void PlaneDotNormalTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, DotNormal)
 {
-    Plane target = new Plane(2, 3, 4, 5);
-    Vector3 value = new Vector3(5, 4, 3);
+    Plane   target { 2, 3, 4, 5 };
+    Vector3 value  { 5, 4, 3 };
 
-    float expected = 10 + 12 + 12;
-    float actual = Plane.DotNormal(target, value);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.DotCoordinate returns unexpected value.");
+    Single expected = 10 + 12 + 12;
+    Single actual   = Plane::DotNormal(target, value);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
-public void PlaneNormalizeTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, Normalize)
 {
-    Plane target = new Plane(1, 2, 3, 4);
+    Plane target { 1, 2, 3, 4 };
 
-    float f = target.Normal.LengthSquared();
-    float invF = 1.0f / (float)Math.Sqrt(f);
-    Plane expected = new Plane(target.Normal * invF, target.D * invF);
+    Single f        = target.Normal().LengthSquared();
+    Single invF     = 1.0f / Math::Sqrt(f);
+    Plane  expected { target.Normal() * invF, target.D() * invF };
 
-    Plane actual = Plane.Normalize(target);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.Normalize returns unexpected value.");
+    auto actual = Plane::Normalize(target);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // normalize, normalized normal.
-    actual = Plane.Normalize(actual);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.Normalize returns unexpected value.");
+    actual = Plane::Normalize(actual);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
 // Transform by matrix
-public void PlaneTransformTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, TransformByMatrix)
 {
-    Plane target = new Plane(1, 2, 3, 4);
-    target = Plane.Normalize(target);
+    auto target = Plane::Normalize({ 1, 2, 3, 4 });
+    auto m      = Matrix::CreateRotationX(Math::ToRadians(30.0f))
+                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
+                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
 
-    Matrix4x4 m =
-        Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    m.M41 = 10.0f;
-    m.M42 = 20.0f;
-    m.M43 = 30.0f;
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
 
-    Plane expected = new Plane();
-    Matrix4x4 inv;
-    Matrix4x4.Invert(m, out inv);
-    Matrix4x4 itm = Matrix4x4.Transpose(inv);
-    float x = target.Normal.X, y = target.Normal.Y, z = target.Normal.Z, w = target.D;
-    expected.Normal = new Vector3(
-        x * itm.M11 + y * itm.M21 + z * itm.M31 + w * itm.M41,
-        x * itm.M12 + y * itm.M22 + z * itm.M32 + w * itm.M42,
-        x * itm.M13 + y * itm.M23 + z * itm.M33 + w * itm.M43);
-    expected.D = x * itm.M14 + y * itm.M24 + z * itm.M34 + w * itm.M44;
+    Plane expected;
+    auto inv = Matrix::Invert(m);
+    auto itm = Matrix::Transpose(inv);
 
-    Plane actual;
-    actual = Plane.Transform(target, m);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.Transform did not return the expected value.");
+    Single x = target.Normal().X();
+    Single y = target.Normal().Y();
+    Single z = target.Normal().Z();
+    Single w = target.D();
+
+    expected.Normal({ x * itm.M11() + y * itm.M21() + z * itm.M31() + w * itm.M41()
+                    , x * itm.M12() + y * itm.M22() + z * itm.M32() + w * itm.M42()
+                    , x * itm.M13() + y * itm.M23() + z * itm.M33() + w * itm.M43() });
+
+    expected.D(x * itm.M14() + y * itm.M24() + z * itm.M34() + w * itm.M44());
+
+    auto actual = Plane::Transform(target, m);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-[Fact]
 // Transform by quaternion
-public void PlaneTransformTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, TransformByQuaternion)
 {
-    Plane target = new Plane(1, 2, 3, 4);
-    target = Plane.Normalize(target);
+    auto target = Plane::Normalize({ 1, 2, 3, 4 });
+    auto m      = Matrix::CreateRotationX(Math::ToRadians(30.0f))
+                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
+                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
 
-    Matrix4x4 m =
-        Matrix4x4.CreateRotationX(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationY(MathHelper.ToRadians(30.0f)) *
-        Matrix4x4.CreateRotationZ(MathHelper.ToRadians(30.0f));
-    Quaternion q = Quaternion.CreateFromRotationMatrix(m);
+    m.M41(10.0f);
+    m.M42(20.0f);
+    m.M43(30.0f);
 
-    Plane expected = new Plane();
-    float x = target.Normal.X, y = target.Normal.Y, z = target.Normal.Z, w = target.D;
-    expected.Normal = new Vector3(
-        x * m.M11 + y * m.M21 + z * m.M31 + w * m.M41,
-        x * m.M12 + y * m.M22 + z * m.M32 + w * m.M42,
-        x * m.M13 + y * m.M23 + z * m.M33 + w * m.M43);
-    expected.D = x * m.M14 + y * m.M24 + z * m.M34 + w * m.M44;
+    auto q = Quaternion::CreateFromRotationMatrix(m);
 
-    Plane actual;
-    actual = Plane.Transform(target, q);
-    Assert.True(MathHelper.Equal(expected, actual), "Plane.Transform did not return the expected value.");
+    Plane expected;
+
+    Single x = target.Normal().X();
+    Single y = target.Normal().Y();
+    Single z = target.Normal().Z();
+    Single w = target.D();
+
+    expected.Normal({ x * m.M11() + y * m.M21() + z * m.M31() + w * m.M41()
+                    , x * m.M12() + y * m.M22() + z * m.M32() + w * m.M42()
+                    , x * m.M13() + y * m.M23() + z * m.M33() + w * m.M43() });
+
+    expected.D(x * m.M14() + y * m.M24() + z * m.M34() + w * m.M44());
+
+    auto actual = Plane::Transform(target, q);
+
+    EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
 // A test for Plane comparison involving NaN values
-[Fact]
-public void PlaneEqualsNanTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, EqualsNaN)
 {
-    Plane a = new Plane(float.NaN, 0, 0, 0);
-    Plane b = new Plane(0, float.NaN, 0, 0);
-    Plane c = new Plane(0, 0, float.NaN, 0);
-    Plane d = new Plane(0, 0, 0, float.NaN);
+    Plane a = { Math::NaN, 0, 0, 0 };
+    Plane b = { 0, Math::NaN, 0, 0 };
+    Plane c = { 0, 0, Math::NaN, 0 };
+    Plane d = { 0, 0, 0, Math::NaN };
+    Plane z = { 0, 0, 0, 0 };
 
-    Assert.False(a == new Plane(0, 0, 0, 0));
-    Assert.False(b == new Plane(0, 0, 0, 0));
-    Assert.False(c == new Plane(0, 0, 0, 0));
-    Assert.False(d == new Plane(0, 0, 0, 0));
+    EXPECT_FALSE(a == z);
+    EXPECT_FALSE(c == z);
+    EXPECT_FALSE(d == z);
+    EXPECT_FALSE(b == z);
 
-    Assert.True(a != new Plane(0, 0, 0, 0));
-    Assert.True(b != new Plane(0, 0, 0, 0));
-    Assert.True(c != new Plane(0, 0, 0, 0));
-    Assert.True(d != new Plane(0, 0, 0, 0));
-
-    Assert.False(a.Equals(new Plane(0, 0, 0, 0)));
-    Assert.False(b.Equals(new Plane(0, 0, 0, 0)));
-    Assert.False(c.Equals(new Plane(0, 0, 0, 0)));
-    Assert.False(d.Equals(new Plane(0, 0, 0, 0)));
-
-    // Counterintuitive result - IEEE rules for NaN comparison are weird!
-    Assert.False(a.Equals(a));
-    Assert.False(b.Equals(b));
-    Assert.False(c.Equals(c));
-    Assert.False(d.Equals(d));
+    EXPECT_TRUE(a != z);
+    EXPECT_TRUE(b != z);
+    EXPECT_TRUE(c != z);
+    EXPECT_TRUE(d != z);
 }
-
-// A test to make sure the fields are laid out how we expect
-[Fact]
-public unsafe void PlaneFieldOffsetTest()
-{
-    Plane* ptr = (Plane*)0;
-
-    EXPECT_TRUE(new IntPtr(0), new IntPtr(&ptr->Normal));
-    EXPECT_TRUE(new IntPtr(12), new IntPtr(&ptr->D));
-}
-*/

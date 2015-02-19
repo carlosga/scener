@@ -192,7 +192,7 @@ Quaternion::Quaternion(const Vector3& value, const Single& w)
 {
 }
 
-Quaternion::Quaternion(const Single&  x, const Single&  y, const Single&  z, const Single& w)
+Quaternion::Quaternion(const Single& x, const Single& y, const Single& z, const Single& w)
     : x { x }
     , y { y }
     , z { z }

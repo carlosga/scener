@@ -68,10 +68,16 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
     // Reference: http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/transforms/
     //
     //      Pout = q * Pin * conj(q)
+    //
 
-    auto r = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::Conjugate(rotation));
+    auto pout = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::Conjugate(rotation));
 
-    return { r.X(), r.Y(), r.Z(), r.W() };
+    return { pout.X(), pout.Y(), pout.Z(), pout.W() };
+}
+
+Plane::Plane()
+    : Plane { 0.0f, 0.0f, 0.0f, 0.0f }
+{
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
@@ -98,11 +104,6 @@ Plane::Plane(const Plane& value)
 {
 }
 
-const System::Single& Plane::D() const
-{
-    return this->d;
-}
-
 const Vector3& Plane::Normal() const
 {
     return this->normal;
@@ -111,6 +112,16 @@ const Vector3& Plane::Normal() const
 void Plane::Normal(const Vector3& normal)
 {
     this->normal = normal;
+}
+
+const System::Single& Plane::D() const
+{
+    return this->d;
+}
+
+void Plane::D(const Single& d)
+{
+    this->d = d;
 }
 
 PlaneIntersectionType Plane::Intersects(const BoundingBox& box) const
