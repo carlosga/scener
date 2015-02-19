@@ -14,6 +14,26 @@
 using namespace System;
 using namespace SceneR::Framework;
 
+Plane Plane::CreateFromVertices(const Vector3& point1, const Vector3& point2, const Vector3& point3)
+{
+    // http://en.wikipedia.org/wiki/Plane_%28geometry%29#Describing_a_plane_through_three_points
+
+    // A plane can be described by a "point and a normal vector".
+    // A suitable normal vector is given by the cross product
+    // n = (p2 - p1) x (p3 - p1)
+    // and the point r can be taken to be any of the given points p1, p2 or p3.
+    //
+    // The Hesse normal form for the equation of a plane relies on the parameter D. This form is:
+    // n · r - D = 0
+    // where n is a unit normal vector to the plane,
+    // r a position vector of a point of the plane and D0 the distance of the plane from the origin.
+
+    Vector3 n = Vector3::Normalize(Vector3::Cross(point2 - point1, point3 - point1));
+    Single  d = -Vector3::Dot(n, point1);
+
+    return { n, d };
+}
+
 Single Plane::Dot(const Plane& plane, const Vector4& value)
 {
     return Vector4::Dot({ plane.Normal(), plane.D() }, value);
@@ -54,13 +74,13 @@ Plane Plane::Transform(const Plane& plane, const Quaternion& rotation)
 }
 
 Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
-	: normal { a, b, c }
+    : normal { a, b, c }
     , d      { d }
 {
 }
 
 Plane::Plane(const Vector3& normal, const System::Single& d)
-	: normal { normal }
+    : normal { normal }
     , d      { d }
 {
 }
@@ -80,7 +100,7 @@ Plane::Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3
 }
 
 Plane::Plane(const Vector4& value)
-	: normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) },
+    : normal { Vector3::Normalize({ value.X(), value.Y(), value.Z() }) },
       d      { value.W() }
 {
 }
@@ -99,6 +119,11 @@ const System::Single& Plane::D() const
 const Vector3& Plane::Normal() const
 {
     return this->normal;
+}
+
+void Plane::Normal(const Vector3& normal)
+{
+    this->normal = normal;
 }
 
 PlaneIntersectionType Plane::Intersects(const BoundingBox& box) const

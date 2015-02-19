@@ -9,21 +9,30 @@
 
 namespace SceneR
 {
-	namespace Framework
-	{
-	    struct BoundingBox;
-	    struct BoundingFrustrum;
-	    struct BoundingSphere;
-	    struct Matrix;
-	    struct Quaternion;
-		struct Vector4;
+    namespace Framework
+    {
+        struct BoundingBox;
+        struct BoundingFrustrum;
+        struct BoundingSphere;
+        struct Matrix;
+        struct Quaternion;
+        struct Vector4;
 
-		/**
-		 * Defines a plane.
-		 */
-		struct Plane
-		{
-		public:
+        /**
+         * Defines a plane.
+         */
+        struct Plane
+        {
+        public:
+            /**
+             * @brief Creates a Plane object that contains three specified points.
+             * @param point1 The first point defining the plane.
+             * @param point2 The second point defining the plane.
+             * @param point3 The third point defining the plane.
+             * @return The plane containing the three points.
+             */
+            static Plane CreateFromVertices(const Vector3& point1, const Vector3& point2, const Vector3& point3);
+
             /**
              * Calculates the dot product of a specified Vector4 and this Plane.
              *
@@ -36,29 +45,29 @@ namespace SceneR
              * @param p The plane.
              * @param v The three-dimensional vector.
              * @returns The dot product.
-		     */
+             */
             static System::Single DotNormal(const Plane& p, const Vector3& v);
 
-			/**
-			 * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
-			 * @param p The plane
-			 * @param value The three-dimensional vector.
-			 * @returns The dot product
-			 */
-			static System::Single DotCoordinate(const Plane& p, const Vector3& value);
+            /**
+             * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
+             * @param p The plane
+             * @param value The three-dimensional vector.
+             * @returns The dot product
+             */
+            static System::Single DotCoordinate(const Plane& p, const Vector3& value);
 
-		    /**
-		     * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
-		     * @param value the Plane to normalize.
-		     */
-		    static Plane Normalize(const Plane& value);
+            /**
+             * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
+             * @param value the Plane to normalize.
+             */
+            static Plane Normalize(const Plane& value);
 
-		    /**
-		     *  Transforms a normalized Plane by a Matrix.
-		     *  @param plane the normalized Plane to transform. This Plane must already be normalized.
-		     *  @param matrix the transform Matrix to apply to the Plane.
-		     *  @returns a new Plane that results from applying the transform.
-		     */
+            /**
+             *  Transforms a normalized Plane by a Matrix.
+             *  @param plane the normalized Plane to transform. This Plane must already be normalized.
+             *  @param matrix the transform Matrix to apply to the Plane.
+             *  @returns a new Plane that results from applying the transform.
+             */
             static Plane Transform(const Plane& plane, const Matrix& matrix);
 
             /**
@@ -69,80 +78,86 @@ namespace SceneR
              */
             static Plane Transform(const Plane& plane, const Quaternion& rotation);
 
-		public:
-			/**
-			 * Initializes a new instance of the Plane structure.
-			 */
-			Plane(const System::Single& a, const System::Single& b, const System::Single& c, const System::Single& d);
+        public:
+            /**
+             * Initializes a new instance of the Plane structure.
+             */
+            Plane(const System::Single& a, const System::Single& b, const System::Single& c, const System::Single& d);
 
-			/**
-			 * Initializes a new instance of the Plane structure.
-			 */			
-			Plane(const Vector3& normal, const System::Single& d);
+            /**
+             * Initializes a new instance of the Plane structure.
+             */
+            Plane(const Vector3& normal, const System::Single& d);
 
-			/**
-			 * Initializes a new instance of the Plane structure.
-			 */			
-			Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3);
+            /**
+             * Initializes a new instance of the Plane structure.
+             */
+            Plane(const Vector3& point1, const Vector3& point2, const Vector3& point3);
 
-			/**
-			 * Initializes a new instance of the Plane structure.
-			 */			
-			Plane(const Vector4& value);
+            /**
+             * Initializes a new instance of the Plane structure.
+             */
+            Plane(const Vector4& value);
 
             /**
              * Initializes a new instance of the Plane structure. Copy constructor
              */
             Plane(const Plane& value);
 
-			/**
-			 * Releases all resources being used by this Plane.
-			 */
-			~Plane() = default;
+            /**
+             * Releases all resources being used by this Plane.
+             */
+            ~Plane() = default;
 
-		public:
-			/**
-			 * 	The distance of the Plane along its normal from the origin.
-			 */
-			const System::Single& D() const;
+        public:
+            /**
+             * 	Gets the distance of the Plane along its normal from the origin.
+             */
+            const System::Single& D() const;
 
-			/**
-			 * The normal vector of the Plane.
-			 */ 
-			const Vector3& Normal() const;
+            /**
+             * Gets The normal vector of the Plane.
+             */
+            const Vector3& Normal() const;
 
-		public:
-			/**
-			 * Checks whether the current Plane intersects a specified BoundingBox.
-			 * @param box the BoundingBox to test for intersection with.
-			 * @returns the relationship between the Plane and the BoundingBox.
-			 */
-			PlaneIntersectionType Intersects(const BoundingBox& box) const;
+        public:
+            /**
+             * Sets The normal vector of the Plane.
+             */
+            void Normal(const Vector3& normal);
 
-			/**
-			 * Checks whether the current Plane intersects a specified BoundingFrustum.
-			 * @param frustrum the BoundingFrustum to test for intersection with.
-			 * @returns the relationship between the Plane and the BoundingFrustum.
-			 */
-			PlaneIntersectionType Intersects(const BoundingFrustrum& frustrum) const;
+        public:
+            /**
+             * Checks whether the current Plane intersects a specified BoundingBox.
+             * @param box the BoundingBox to test for intersection with.
+             * @returns the relationship between the Plane and the BoundingBox.
+             */
+            PlaneIntersectionType Intersects(const BoundingBox& box) const;
 
-			/**
-			 * Checks whether the current Plane intersects a specified BoundingSphere.
+            /**
+             * Checks whether the current Plane intersects a specified BoundingFrustum.
+             * @param frustrum the BoundingFrustum to test for intersection with.
+             * @returns the relationship between the Plane and the BoundingFrustum.
+             */
+            PlaneIntersectionType Intersects(const BoundingFrustrum& frustrum) const;
+
+            /**
+             * Checks whether the current Plane intersects a specified BoundingSphere.
              * @param sphere the BoundingSphere to test for intersection with.
              * @returns the relationship between the Plane and the BoundingSphere.
-			 */
-			PlaneIntersectionType Intersects(const BoundingSphere& sphere) const;
+             */
+            PlaneIntersectionType Intersects(const BoundingSphere& sphere) const;
 
-		public:
-			Plane& operator=(const Plane& plane);
-			bool operator==(const Plane& plane) const;
-			bool operator!=(const Plane& plane) const;
+        public:
+            Plane& operator=(const Plane& plane);
+            bool operator==(const Plane& plane) const;
+            bool operator!=(const Plane& plane) const;
 
-		private:
-			Vector3 	   normal;
-			System::Single d;
-		};
-	}
+        private:
+            Vector3 	   normal;
+            System::Single d;
+        };
+    }
 }
 
 #endif // PLANE_HPP
