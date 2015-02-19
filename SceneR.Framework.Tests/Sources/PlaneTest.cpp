@@ -121,32 +121,32 @@ TEST_F(PlaneTest, CreateFromVertices2)
     EXPECT_TRUE(EqualityHelper::Equal(target, expected));
 }
 
-/*
 // A test for Plane (Vector3f, float)
-[Fact]
-public void PlaneConstructorTest3()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, ConstructorFromVector3AndScalar)
 {
-    Vector3 normal = new Vector3(1, 2, 3);
-    float d = 4;
+    Vector3 normal { 1, 2, 3 };
+    Single  d = 4;
 
-    Plane target = new Plane(normal, d);
-    Assert.True(
-        target.Normal == normal && target.D == d,
-        "Plane.cstor did not return the expected value.");
+    Plane target = { normal, d };
+
+    EXPECT_TRUE(target.Normal() == normal && target.D() == d);
 }
 
 // A test for Plane (Vector4f)
-[Fact]
-public void PlaneConstructorTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, ConstructorFromVector4)
 {
-    Vector4 value = new Vector4(1.0f, 2.0f, 3.0f, 4.0f);
-    Plane target = new Plane(value);
+    Vector4 value { 1.0f, 2.0f, 3.0f, 4.0f };
+    Plane   target { value };
 
-    Assert.True(
-        target.Normal.X == value.X && target.Normal.Y == value.Y && target.Normal.Z == value.Z && target.D == value.W,
-        "Plane.cstor did not return the expected value.");
+    EXPECT_TRUE(target.Normal().X() == value.X()
+             && target.Normal().Y() == value.Y()
+             && target.Normal().Z() == value.Z()
+             && target.D()          == value.W());
 }
 
+/*
 [Fact]
 public void PlaneDotTest()
 {
