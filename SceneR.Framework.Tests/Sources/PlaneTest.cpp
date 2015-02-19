@@ -3,6 +3,8 @@
 
 #include <PlaneTest.hpp>
 
+#include <EqualityHelper.hpp>
+
 #include <System/Math.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
@@ -29,150 +31,97 @@ TEST_F(PlaneTest, Sizeof)
     EXPECT_TRUE(16 == sizeof(Plane));
 }
 
-/*
-// A test for Equals (Plane)
-[Fact]
-public void PlaneEqualsTest1()
-{
-    Plane a = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-    Plane b = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-
-    // case 1: compare between same values
-    bool expected = true;
-    bool actual = a.Equals(b);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.Normal = new Vector3(10.0f, b.Normal.Y, b.Normal.Z);
-    expected = false;
-    actual = a.Equals(b);
-    Assert.Equal(expected, actual);
-}
-
-// A test for Equals (object)
-[Fact]
-public void PlaneEqualsTest()
-{
-    Plane a = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-    Plane b = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-
-    // case 1: compare between same values
-    object obj = b;
-
-    bool expected = true;
-    bool actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 2: compare between different values
-    b.Normal = new Vector3(10.0f, b.Normal.Y, b.Normal.Z);
-
-    obj = b;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare between different types.
-    obj = new Quaternion();
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-
-    // case 3: compare against null.
-    obj = null;
-    expected = false;
-    actual = a.Equals(obj);
-    Assert.Equal(expected, actual);
-}
-
 // A test for operator != (Plane, Plane)
-[Fact]
-public void PlaneInequalityTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, Inequality)
 {
-    Plane a = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-    Plane b = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
+    Plane a { 1.0f, 2.0f, 3.0f, 4.0f };
+    Plane b { 1.0f, 2.0f, 3.0f, 4.0f };
 
     // case 1: compare between same values
     bool expected = false;
-    bool actual = a != b;
-    Assert.Equal(expected, actual);
+    bool actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.Normal = new Vector3(10.0f, b.Normal.Y, b.Normal.Z);
+    b.Normal({ 10.0f, b.Normal().Y(), b.Normal().Z() });
+
     expected = true;
-    actual = a != b;
-    Assert.Equal(expected, actual);
+    actual   = a != b;
+
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for operator == (Plane, Plane)
-[Fact]
-public void PlaneEqualityTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, Equality)
 {
-    Plane a = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-    Plane b = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
+    Plane a { 1.0f, 2.0f, 3.0f, 4.0f };
+    Plane b { 1.0f, 2.0f, 3.0f, 4.0f };
 
     // case 1: compare between same values
     bool expected = true;
-    bool actual = a == b;
-    Assert.Equal(expected, actual);
+    bool actual   = a == b;
+
+    EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.Normal = new Vector3(10.0f, b.Normal.Y, b.Normal.Z);
+    b.Normal({ 10.0f, b.Normal().Y(), b.Normal().Z() });
+
     expected = false;
-    actual = a == b;
-    Assert.Equal(expected, actual);
-}
+    actual   = a == b;
 
-// A test for GetHashCode ()
-[Fact]
-public void PlaneGetHashCodeTest()
-{
-    Plane target = new Plane(1.0f, 2.0f, 3.0f, 4.0f);
-
-    int expected = target.Normal.GetHashCode() + target.D.GetHashCode();
-    int actual = target.GetHashCode();
-    Assert.Equal(expected, actual);
+    EXPECT_TRUE(expected == actual);
 }
 
 // A test for Plane (float, float, float, float)
-[Fact]
-public void PlaneConstructorTest1()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, Constructor)
 {
-    float a = 1.0f, b = 2.0f, c = 3.0f, d = 4.0f;
-    Plane target = new Plane(a, b, c, d);
+    Single a = 1.0f;
+    Single b = 2.0f;
+    Single c = 3.0f;
+    Single d = 4.0f;
+    Plane target { a, b, c, d };
 
-    Assert.True(
-        target.Normal.X == a && target.Normal.Y == b && target.Normal.Z == c && target.D == d,
-        "Plane.cstor did not return the expected value.");
+    EXPECT_TRUE(target.Normal().X() == a
+             && target.Normal().Y() == b
+             && target.Normal().Z() == c
+             && target.D() == d);
 }
 
 // A test for Plane.CreateFromVertices
-[Fact]
-public void PlaneCreateFromVerticesTest()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, CreateFromVertices)
 {
-    Vector3 point1 = new Vector3(0.0f, 1.0f, 1.0f);
-    Vector3 point2 = new Vector3(0.0f, 0.0f, 1.0f);
-    Vector3 point3 = new Vector3(1.0f, 0.0f, 1.0f);
+    Vector3 point1 { 0.0f, 1.0f, 1.0f };
+    Vector3 point2 { 0.0f, 0.0f, 1.0f };
+    Vector3 point3 { 1.0f, 0.0f, 1.0f };
 
-    Plane target = Plane.CreateFromVertices(point1, point2, point3);
-    Plane expected = new Plane(new Vector3(0, 0, 1), -1.0f);
-    Assert.Equal(target, expected);
+    Plane target   = Plane::CreateFromVertices(point1, point2, point3);
+    Plane expected = {{ 0, 0, 1 }, -1.0f };
+
+    EXPECT_TRUE(target == expected);
 }
 
 // A test for Plane.CreateFromVertices
-[Fact]
-public void PlaneCreateFromVerticesTest2()
+// Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
+TEST_F(PlaneTest, CreateFromVertices2)
 {
-    Vector3 point1 = new Vector3(0.0f, 0.0f, 1.0f);
-    Vector3 point2 = new Vector3(1.0f, 0.0f, 0.0f);
-    Vector3 point3 = new Vector3(1.0f, 1.0f, 0.0f);
+    Vector3 point1 { 0.0f, 0.0f, 1.0f };
+    Vector3 point2 { 1.0f, 0.0f, 0.0f };
+    Vector3 point3 { 1.0f, 1.0f, 0.0f };
 
-    Plane target = Plane.CreateFromVertices(point1, point2, point3);
-    float invRoot2 = (float)(1 / Math.Sqrt(2));
+    Plane  target   = Plane::CreateFromVertices(point1, point2, point3);
+    Single invRoot2 = (Single)(1 / Math::Sqrt(2.0f));
 
-    Plane expected = new Plane(new Vector3(invRoot2, 0, invRoot2), -invRoot2);
-    Assert.True(MathHelper.Equal(target, expected), "Plane.cstor did not return the expected value.");
+    Plane expected { { invRoot2, 0, invRoot2 }, -invRoot2 };
+
+    EXPECT_TRUE(EqualityHelper::Equal(target, expected));
 }
 
+/*
 // A test for Plane (Vector3f, float)
 [Fact]
 public void PlaneConstructorTest3()
@@ -342,7 +291,7 @@ public unsafe void PlaneFieldOffsetTest()
 {
     Plane* ptr = (Plane*)0;
 
-    Assert.Equal(new IntPtr(0), new IntPtr(&ptr->Normal));
-    Assert.Equal(new IntPtr(12), new IntPtr(&ptr->D));
+    EXPECT_TRUE(new IntPtr(0), new IntPtr(&ptr->Normal));
+    EXPECT_TRUE(new IntPtr(12), new IntPtr(&ptr->D));
 }
 */
