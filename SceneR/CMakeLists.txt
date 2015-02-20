@@ -35,6 +35,13 @@ set(SOURCE_FILES
     Sources/SampleRenderer.cpp
     Sources/WarForrest.cpp)
 
+# add content files
+add_custom_target(CONTENT_FILES SOURCES
+                  Content/BasicEffect.vert
+                  Content/BasicEffect.frag
+                  Content/SkinnedEffect.vert
+                  Content/SkinnedEffect.frag)
+
 # add execlutable
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
@@ -45,5 +52,4 @@ target_link_libraries(SceneR SceneR_Framework)
 set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 
 # Installing
-## install(TARGETS SceneR.Framework DESTINATION bin)
 install(TARGETS SceneR DESTINATION bin)
