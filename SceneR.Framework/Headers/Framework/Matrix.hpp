@@ -160,8 +160,8 @@ namespace SceneR
 
             /**
              * Creates a matrix for rotating points around the X-axis, from a center point.
-             * @param angleThe amount, in radians, by which to rotate around the X-axis.
-             * @param centerPointThe center point.
+             * @param angle The amount, in radians, by which to rotate around the X-axis.
+             * @param center The center point.
              * @returns The rotation matrix.
              */
             static Matrix CreateRotationX(const System::Single& angle, const Vector3& center);
@@ -175,8 +175,8 @@ namespace SceneR
 
             /**
              * Creates a matrix for rotating points around the Y-axis, from a center point.
-             * @param angleThe amount, in radians, by which to rotate around the Y-axis.
-             * @param centerPointThe center point.
+             * @param angle The amount, in radians, by which to rotate around the Y-axis.
+             * @param center The center point.
              * @returns The rotation matrix.
              */
             static Matrix CreateRotationY(const System::Single& angle, const Vector3& center);
@@ -190,8 +190,8 @@ namespace SceneR
 
             /**
              * Creates a matrix for rotating points around the Z-axis, from a center point.
-             * @param angleThe amount, in radians, by which to rotate around the Z-axis.
-             * @param centerPointThe center point.
+             * @param angle The amount, in radians, by which to rotate around the Z-axis.
+             * @param center The center point.
              * @returns The rotation matrix.
              */
             static Matrix CreateRotationZ(const System::Single& angle, const Vector3& center);
@@ -248,7 +248,7 @@ namespace SceneR
             static Matrix CreateScale(const System::Single& xScale
                                     , const System::Single& yScale
                                     , const System::Single& zScale
-                                    , const Vector3&        center);                        
+                                    , const Vector3&        center);
 
             /**
              * Creates a translation Matrix
@@ -328,7 +328,7 @@ namespace SceneR
 
             /**
              * Returns the tranpose of the given matrix.
-             * @param matrix the source matrix.
+             * @param source the source matrix.
              * @returns Transposed matrix.
              */
             static Matrix Transpose(const Matrix& source);
@@ -525,14 +525,12 @@ namespace SceneR
             void M32(const System::Single& value);
 
             /**
-            * Gets the value of the third row and third column of this Matrix
-            * @return the value of the third row and third column of this Matrix
-            */
+             * Gets the value of the third row and third column of this Matrix
+             */
             void M33(const System::Single& value);
 
             /**
              * Gets the value of the third row and fourth column of this Matrix
-             * @return the value of the third row and fourth column of this Matrix
              */
             void M34(const System::Single& value);
 

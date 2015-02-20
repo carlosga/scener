@@ -12,18 +12,18 @@ namespace System
 {
     namespace IO
     {
-		/**
-		 * Contract for stream implementations.
-		 */
+        /**
+         * Contract for stream implementations.
+         */
         class Stream
         {
         public:
-			/**
-			 * Releases all resources being used by this Stream.
-			 */
+            /**
+             * Releases all resources being used by this Stream.
+             */
             virtual ~Stream()
             {
-            };
+            }
 
         public:
             /**

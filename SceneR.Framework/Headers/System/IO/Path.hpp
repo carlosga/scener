@@ -26,7 +26,7 @@ namespace System
                                                       , const System::String& extension)
             {
                 return GetFileNameWithoutExtension(path) + u"." + extension;
-            };
+            }
 
             /**
              * Returns the directory information for the specified path string.
@@ -44,7 +44,7 @@ namespace System
                 }
 
                 return directoryName;
-            };
+            }
 
             /**
              * Returns the file name of the specified path string without the extension.
@@ -63,7 +63,7 @@ namespace System
                 }
 
                 return pathWithoutExtension;
-            };
+            }
 
             /**
              * Combines two strings into a path.
@@ -74,7 +74,7 @@ namespace System
             static const String Combine(const String& path1, const String& path2)
             {
                 return String(path1 + DirectorySeparator() + path2);
-            };
+            }
 
             /**
              * Gets platform specific string with the directory separator.
@@ -86,12 +86,12 @@ namespace System
 #else
                 return u"\\";
 #endif
-            };
+            }
 
         private:
             Path() = delete;
-			Path(const Path& path) = delete;
-			Path& operator=(const Path& path) = delete;
+            Path(const Path& path) = delete;
+            Path& operator=(const Path& path) = delete;
         };
     }
 }

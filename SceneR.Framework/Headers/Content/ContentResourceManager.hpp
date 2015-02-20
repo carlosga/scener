@@ -36,7 +36,7 @@ namespace SceneR
                 {
                     this->resources[name] = resource;
                 }
-            };
+            }
 
             template <class T>
             std::shared_ptr<T> GetResource(System::String name)
@@ -47,12 +47,12 @@ namespace SceneR
                 }
 
                 return nullptr;
-            };
+            }
 
             System::Boolean HasResource(System::String name)
             {
                 return (this->resources.find(name) != this->resources.end());
-            };
+            }
 
             void Clear()
             {
@@ -72,7 +72,7 @@ namespace SceneR
 
                     this->resources.clear();
                 }
-            };
+            }
 
         private:
             ContentResourceManager(const ContentResourceManager& manager) = delete;

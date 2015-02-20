@@ -61,7 +61,7 @@ namespace SceneR
             std::shared_ptr<T> Load(const System::String& assetName) throw(ContentLoadException)
             {
                 return this->ReadAsset<T>(assetName);
-            };
+            }
 
             /**
             * Disposes all data that was loaded by this ContentManager.
@@ -97,7 +97,7 @@ namespace SceneR
                 ContentManager::ResourceManager.AddResource<T>(assetName, asset);
 
                 return asset;
-            };
+            }
 
         private:
             SceneR::Framework::RendererServiceContainer& serviceProvider;

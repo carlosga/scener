@@ -22,26 +22,26 @@ namespace System
         class File
         {
         public:
-			/**
-			 * Checks whether the given file exists.
-			 */ 
-			static Boolean Exists(const System::String& path)
-			{
-			    auto result = true;
-				auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);
+            /**
+             * Checks whether the given file exists.
+             */
+            static Boolean Exists(const System::String& path)
+            {
+                auto result = true;
+                auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);
 
-				if (!file || !file.good())
+                if (!file || !file.good())
                 {
-				    result = false;
+                    result = false;
                 }
-				else
-				{
-				    file.close();
-				}
-				
-				return result;
-			};
-		
+                else
+                {
+                    file.close();
+                }
+
+                return result;
+            }
+
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
@@ -61,12 +61,12 @@ namespace System
                 auto text = buffer.str();
 
                 return String(text.begin(), text.end());
-            };
+            }
 
         private:
             File() = delete;
-			File(const File& file) = delete;
-			File& operator=(const File& file) = delete;
+            File(const File& file) = delete;
+            File& operator=(const File& file) = delete;
         };
     }
 }

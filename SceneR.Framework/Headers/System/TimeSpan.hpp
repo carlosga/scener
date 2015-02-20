@@ -216,7 +216,7 @@ namespace System
         TimeSpan::Clock::duration ToDuration() const
         {
             return std::chrono::duration_cast<_Duration>(this->ticks);
-        };
+        }
 
     public:
         TimeSpan& operator=(const TimeSpan& t2);

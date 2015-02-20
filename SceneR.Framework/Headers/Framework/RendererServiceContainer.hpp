@@ -59,7 +59,7 @@ namespace SceneR
                 }
 
                 return *(static_cast<T*>(this->instanceMap[this->GetTypeName<T>()]));
-            };
+            }
 
             /**
              * Removes the object providing a specified service.
@@ -71,25 +71,25 @@ namespace SceneR
                 {
                     this->instanceMap.erase(this->GetTypeName<T>());
                 }
-            };
+            }
 
             void Clear()
             {
                 this->instanceMap.clear();
-            };
+            }
 
         private:
             template <class T>
             System::Boolean IsRegistered()
             {
                 return (this->instanceMap.find(this->GetTypeName<T>()) != this->instanceMap.end());
-            };
+            }
 
             template <class T>
             std::string GetTypeName()
             {
                 return typeid(T).name();
-            };
+            }
 
         private:
             RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;

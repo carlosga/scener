@@ -115,7 +115,7 @@ namespace SceneR
                 {
                     return this->ReadObject<T>(this->typeReaders[readerId - 1]);
                 }
-            };
+            }
 
             /**
              * Reads a single object from the current stream.
@@ -124,7 +124,7 @@ namespace SceneR
             std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader)
             {
                 return std::static_pointer_cast<T>(typeReader->Read(*this));
-            };
+            }
 
             /**
              * Reads a shared resource ID, and records it for subsequent fix-up.
@@ -135,7 +135,7 @@ namespace SceneR
             std::shared_ptr<T> ReadExternalReference()
             {
                 throw std::runtime_error("Not implemented");
-            };
+            }
 
         private:
             void ReadHeader();

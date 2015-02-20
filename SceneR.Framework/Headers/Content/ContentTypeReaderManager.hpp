@@ -42,7 +42,7 @@ namespace SceneR
             void RegisterTypeReader(const System::String& name)
             {
                 this->readers[name] = new T;
-            };
+            }
 
         private:
             ContentTypeReaderManager(const ContentTypeReaderManager& manager) = delete;

@@ -29,7 +29,6 @@ namespace System
         public:
             /**
              * Gets an encoding for the UTF-8 format.
-             * @returns a System::Text::Encoding for the UTF-8 format.
              */
             static const Encoding& UTF8;
 

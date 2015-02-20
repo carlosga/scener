@@ -25,7 +25,9 @@ namespace SceneR
              */
             GraphicsResource(GraphicsDevice& graphicsDevice);
 
-        // IDisposable interface
+        public:
+            virtual ~GraphicsResource() = default;
+
         public:
             virtual void Dispose() = 0;
 

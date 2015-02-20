@@ -23,14 +23,14 @@ namespace SceneR
             ContentLoadException(const std::string m = "Content Load Exception")
                 : msg(m)
             {
-            };
+            }
 
             /**
              * ContentLoadException destructor
              */
             ~ContentLoadException() throw ()
             {
-            };
+            }
 
         public:
             /**
@@ -40,7 +40,7 @@ namespace SceneR
             const char* what() const throw ()
             {
                 return this->msg.c_str();
-            };
+            }
 
         private:
             std::string msg;
