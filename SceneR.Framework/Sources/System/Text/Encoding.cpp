@@ -115,7 +115,9 @@ Size Encoding::GetBytes(const String&       s
                       , std::vector<UByte>& bytes
                       , const Size&         byteIndex) const
 {
-    return this->GetBytes(s, charIndex, charCount, bytes, byteIndex);
+    auto temp = std::vector<Char>(s.begin(), s.end());
+
+    return this->GetBytes(temp, charIndex, charCount, bytes, byteIndex);
 }
 
 Size Encoding::GetCharCount(const std::vector<UByte>& bytes) const

@@ -88,6 +88,26 @@ TEST_F(EncodingUTF8Test, GetBytesFromString)
     EXPECT_TRUE(0xB2 == bytes[7]);
 }
 
+TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
+{
+    String s     = u"za\u0306\u01FD\u03B2";
+    auto   bytes = std::vector<UByte>();
+
+    bytes.reserve(Encoding::UTF8.GetByteCount(s));
+
+    auto count = Encoding::UTF8.GetBytes(s, 2, 3, bytes, 0);
+
+    EXPECT_TRUE(6 == bytes.size());
+    EXPECT_TRUE(6 == count);
+
+    EXPECT_TRUE(0xCC == bytes[0]);
+    EXPECT_TRUE(0x86 == bytes[1]);
+    EXPECT_TRUE(0xC7 == bytes[2]);
+    EXPECT_TRUE(0xBD == bytes[3]);
+    EXPECT_TRUE(0xCE == bytes[4]);
+    EXPECT_TRUE(0xB2 == bytes[5]);
+}
+
 TEST_F(EncodingUTF8Test, GetByteCountFromCharArrayPointer)
 {
     Char   chars[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
