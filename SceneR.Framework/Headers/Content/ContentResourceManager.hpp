@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICSRESOURCEMANAGER_HPP
-#define GRAPHICSRESOURCEMANAGER_HPP
+#ifndef CONTENTRESOURCEMANAGER_HPP
+#define CONTENTRESOURCEMANAGER_HPP
 
 #include <memory>
 #include <map>
@@ -63,4 +63,4 @@ namespace SceneR
     }
 }
 
-#endif  /* GRAPHICSRESOURCEMANAGER_HPP */
+#endif  /* CONTENTRESOURCEMANAGER_HPP */
