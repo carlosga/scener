@@ -69,7 +69,9 @@ void Renderer::Run()
 
 void Renderer::Exit()
 {
+    this->contentManager.Unload();
     this->graphicsDeviceManager.Dispose();
+    this->services.Clear();
     this->rendererWindow.Close();
 
     glfwTerminate();

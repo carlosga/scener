@@ -38,6 +38,7 @@ const String ContentManager::RootDirectory()
 
 void ContentManager::Unload()
 {
+    this->ResourceManager.Clear();
 }
 
 std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) throw(ContentLoadException)

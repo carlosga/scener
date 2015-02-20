@@ -73,6 +73,11 @@ namespace SceneR
                 }
             };
 
+            void Clear()
+            {
+                this->instanceMap.clear();
+            };
+
         private:
             template <class T>
             System::Boolean IsRegistered()

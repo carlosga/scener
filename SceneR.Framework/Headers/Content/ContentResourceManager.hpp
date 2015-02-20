@@ -7,8 +7,9 @@
 #include <memory>
 #include <map>
 
-#include <Graphics/GraphicsResource.hpp>
+#include <System/IDisposable.hpp>
 #include <System/Core.hpp>
+#include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {
@@ -51,6 +52,26 @@ namespace SceneR
             System::Boolean HasResource(System::String name)
             {
                 return (this->resources.find(name) != this->resources.end());
+            };
+
+            void Clear()
+            {
+                if (this->resources.size() > 0)
+                {
+                    /*
+                    for (auto& kvp : resources)
+                    {
+                        auto disposable = std::static_pointer_cast<System::IDisposable>(kvp.second);
+
+                        if (disposable)
+                        {
+                            disposable->Dispose();
+                        }
+                    }
+                    */
+
+                    this->resources.clear();
+                }
             };
 
         private:

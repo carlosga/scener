@@ -41,6 +41,7 @@ namespace SceneR
         private:
             std::shared_ptr<SceneR::Graphics::Model>         model;
             std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
+            System::Single                                   rotation;
             SceneR::Framework::Matrix                        world;
             SceneR::Framework::Matrix                        view;
             SceneR::Framework::Matrix                        projection;
