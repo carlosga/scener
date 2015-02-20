@@ -4,6 +4,7 @@
 #ifndef BUFFEROBJECT_HPP
 #define BUFFEROBJECT_HPP
 
+#include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 
@@ -14,7 +15,7 @@ namespace SceneR
         /**
          * Represents an OpenGL buffer object.
          */
-        class BufferObject
+        class BufferObject : System::IDisposable
         {
         public:
             /**
@@ -27,7 +28,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this BufferObject.
              */
-            ~BufferObject();
+            virtual ~BufferObject() = default;
+
+        public:
+            void Dispose();
 
         public:
             /**
@@ -54,11 +58,6 @@ namespace SceneR
              * Deactivates the buffer object.
              */
             void Deactivate() const;
-
-            /**
-             * Deletes the buffer object.
-             */
-            void Delete();
 
             /**
              * Gets a subset of data from a buffer object's data store.

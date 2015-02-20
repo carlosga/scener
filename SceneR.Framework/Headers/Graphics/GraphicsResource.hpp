@@ -5,6 +5,7 @@
 #define GRAPHICSRESOURCE_HPP
 
 #include <System/Core.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {
@@ -15,7 +16,7 @@ namespace SceneR
         /**
          * Queries and prepares resources.
          */
-        class GraphicsResource
+        class GraphicsResource : System::IDisposable
         {
         public:
             /**
@@ -24,10 +25,9 @@ namespace SceneR
              */
             GraphicsResource(GraphicsDevice& graphicsDevice);
 
-            /**
-             * Releases all resources being used by this GraphicsResource
-             */
-            virtual ~GraphicsResource() = default;
+        // IDisposable interface
+        public:
+            virtual void Dispose() = 0;
 
         public:
             /**

@@ -16,6 +16,11 @@ IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevic
 {
 }
 
+void IndexBuffer::Dispose()
+{
+    this->ibo.Dispose();
+}
+
 const Size& IndexBuffer::IndexCount() const
 {
     return this->indexCount;

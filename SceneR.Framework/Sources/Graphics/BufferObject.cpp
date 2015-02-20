@@ -14,9 +14,13 @@ BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage)
     this->Create();
 }
 
-BufferObject::~BufferObject()
+void BufferObject::Dispose()
 {
-    this->Delete();
+    if (this->id != 0)
+    {
+        glDeleteBuffers(1, &this->id);
+        this->id = 0;
+    }
 }
 
 const UInt32& BufferObject::Id() const
@@ -49,16 +53,6 @@ void BufferObject::Deactivate() const
     if (this->id != 0)
     {
         glBindBuffer(static_cast<GLenum>(this->target), 0);
-    }
-}
-
-void BufferObject::Delete()
-{
-    if (this->id != 0)
-    {
-        this->Deactivate();
-        glDeleteBuffers(1, &this->id);
-        this->id = 0;
     }
 }
 

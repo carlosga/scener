@@ -41,6 +41,9 @@ namespace SceneR
             virtual ~GraphicsDeviceManager() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Applies any changes to device-related propertie.
              */

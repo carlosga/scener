@@ -14,9 +14,13 @@ VertexArrayObject::VertexArrayObject()
     this->Create();
 }
 
-VertexArrayObject::~VertexArrayObject()
+void VertexArrayObject::Dispose()
 {
-    this->Delete();
+    if (this->id != 0)
+    {
+        glDeleteVertexArrays(1, &this->id);
+        this->id = 0;
+    }
 }
 
 const UInt32& VertexArrayObject::Id() const
@@ -39,15 +43,5 @@ void VertexArrayObject::Deactivate() const
     if (this->id != 0)
     {
         glBindVertexArray(0);
-    }
-}
-
-void VertexArrayObject::Delete()
-{
-    if (this->id != 0)
-    {
-        this->Deactivate();
-        glDeleteVertexArrays(1, &this->id);
-        this->id = 0;
     }
 }

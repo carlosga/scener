@@ -8,6 +8,7 @@
 #include <vector>
 
 #include <System/Core.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {
@@ -30,7 +31,7 @@ namespace SceneR
         /**
          * Represents a shader program.
          */
-        class ShaderProgram
+        class ShaderProgram : System::IDisposable
         {
         public:
             /**
@@ -38,10 +39,9 @@ namespace SceneR
              */
             ShaderProgram(std::vector<std::shared_ptr<Shader>> &shaders);
 
-            /**
-             * Releases all memory being used by the current ShaderProgram instance.
-             */
-            ~ShaderProgram();
+        // IDisposable interface
+        public:
+            void Dispose();
 
         public:
             /**
@@ -207,7 +207,6 @@ namespace SceneR
             void SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
-            void Release();
             void VerifyLinkingState();
 
         private:

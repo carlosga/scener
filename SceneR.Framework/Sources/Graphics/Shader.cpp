@@ -16,9 +16,13 @@ Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
 {
 }
 
-Shader::~Shader()
+void Shader::Dispose()
 {
-    this->Release();
+    if (this->object != 0)
+    {
+        glDeleteShader(this->object);
+        this->object = 0;
+    }
 }
 
 void Shader::Compile()
@@ -58,15 +62,6 @@ Boolean Shader::IsCompiled() const
     return result;
 }
 
-void Shader::Release()
-{
-    if (this->object != 0)
-    {
-        glDeleteShader(this->object);
-        this->object = 0;
-    }
-}
-
 void Shader::VerifyCompilationState()
 {
     if (!this->IsCompiled())
@@ -85,7 +80,7 @@ void Shader::VerifyCompilationState()
             msg += compileErrorMessage;
         }
 
-        this->Release();
+        this->Dispose();
 
         throw std::runtime_error(msg);
     }

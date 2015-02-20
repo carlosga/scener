@@ -30,11 +30,6 @@ Renderer::Renderer(const String& rootDirectory)
 {
 }
 
-Renderer::~Renderer()
-{
-    this->Exit();
-}
-
 GraphicsDevice& Renderer::CurrentGraphicsDevice()
 {
     return this->graphicsDeviceManager.CurrentGraphicsDevice();
@@ -74,7 +69,7 @@ void Renderer::Run()
 
 void Renderer::Exit()
 {
-    this->graphicsDeviceManager.~GraphicsDeviceManager();
+    this->graphicsDeviceManager.Dispose();
     this->rendererWindow.Close();
 
     glfwTerminate();

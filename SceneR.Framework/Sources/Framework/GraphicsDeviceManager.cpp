@@ -25,6 +25,15 @@ GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
     this->renderer.Services().AddService<IGraphicsDeviceService>(*this);
 }
 
+void GraphicsDeviceManager::Dispose()
+{
+    if (this->graphicsDevice)
+    {
+        this->graphicsDevice->Dispose();
+        this->graphicsDevice = nullptr;
+    }
+}
+
 void GraphicsDeviceManager::ApplyChanges()
 {
     this->graphicsDevice->PresentationParameters().BackBufferWidth(this->preferredBackBufferWidth);

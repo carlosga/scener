@@ -32,8 +32,9 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
 {
 }
 
-Texture2D::~Texture2D()
+void Texture2D::Dispose()
 {
+    this->object.Dispose();
 }
 
 const SurfaceFormat& Texture2D::Format() const
@@ -80,12 +81,12 @@ void Texture2D::DeclareStorage(const UInt32& mipMapLevels)
     this->mipmapLevels = mipMapLevels;
 }
 
-void Texture2D::Activate()
+void Texture2D::Activate() const
 {
     this->object.Activate();
 }
 
-void Texture2D::Deactivate()
+void Texture2D::Deactivate() const
 {
     this->object.Deactivate();
 }

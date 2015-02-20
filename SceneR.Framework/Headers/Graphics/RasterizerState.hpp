@@ -39,6 +39,9 @@ namespace SceneR
             virtual ~RasterizerState() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Specifies the conditions for culling or removing triangles.
              * The default value is CullMode.CounterClockwise.

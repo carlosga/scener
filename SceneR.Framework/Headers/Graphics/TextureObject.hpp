@@ -4,6 +4,7 @@
 #ifndef TEXTUREOBJECT_HPP
 #define TEXTUREOBJECT_HPP
 
+#include <System/IDisposable.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureTarget.hpp>
 
@@ -14,7 +15,7 @@ namespace SceneR
         /**
          * Represents an opengl texture object.
          */
-        class TextureObject
+        class TextureObject : System::IDisposable
         {
         public:
             /**
@@ -26,7 +27,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this TextureObject.
              */
-            ~TextureObject();
+            virtual ~TextureObject() = default;
+
+        public:
+            void Dispose();
 
         public:
             /**
@@ -43,11 +47,6 @@ namespace SceneR
              * Deactivates the texture object.
              */
             void Deactivate() const;
-
-            /*
-             * Deletes the texture objects.
-             */
-            void Delete();
 
             /**
              * Declares the texture storage parameters.

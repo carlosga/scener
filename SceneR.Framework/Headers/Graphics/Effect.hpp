@@ -40,10 +40,8 @@ namespace SceneR
              */
             Effect(const Effect& effect);
 
-            /**
-             * Releases all resources being used by this effect instance.
-             */
-            virtual ~Effect();
+        public:
+            virtual void Dispose() override;
 
         public:
             /**

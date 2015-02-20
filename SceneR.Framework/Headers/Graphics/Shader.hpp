@@ -4,6 +4,7 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
+#include <System/IDisposable.hpp>
 #include <Graphics/ShaderType.hpp>
 
 namespace SceneR
@@ -15,7 +16,7 @@ namespace SceneR
         /**
          * Represents a shader
          */
-        class Shader
+        class Shader : System::IDisposable
         {
         public:
             /**
@@ -26,10 +27,9 @@ namespace SceneR
              */
             Shader(const System::String& shaderCode, const ShaderType& shaderType);
 
-            /**
-             * Releases all resources being used by this shader instance.
-             */
-            ~Shader();
+        // IDisposable interface
+        public:
+            void Dispose();
 
         public:
             /**
@@ -43,7 +43,6 @@ namespace SceneR
             System::Boolean IsCompiled() const;
 
         private:
-            void Release();
             void VerifyCompilationState();
 
         private:

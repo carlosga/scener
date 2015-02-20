@@ -40,6 +40,9 @@ namespace SceneR
             virtual ~DepthStencilState() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Gets the stencil operation to perform if the stencil test passes and the depth-buffer
              * test fails for a counterclockwise triangle.

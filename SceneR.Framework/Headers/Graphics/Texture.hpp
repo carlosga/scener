@@ -28,6 +28,9 @@ namespace SceneR
                 virtual ~Texture() = default;
 
             public:
+                virtual void Dispose() = 0;
+
+            public:
                 /**
                  * Gets the format of the texture data.
                  */
@@ -38,16 +41,15 @@ namespace SceneR
                  */
                 virtual const System::UInt32& LevelCount() const = 0;
 
-            public:
                 /**
                  * Activates the texture object
                  */
-                virtual void Activate() = 0;
+                virtual void Activate() const = 0;
 
                 /**
                  * Deactivates the texture object
                  */
-                virtual void Deactivate() = 0;
+                virtual void Deactivate() const = 0;
 
             protected:
                 Texture(GraphicsDevice& graphicsDevice);

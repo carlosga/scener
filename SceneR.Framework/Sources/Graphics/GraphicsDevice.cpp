@@ -28,6 +28,39 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
     this->samplerStates.push_back(SamplerState(*this));
 }
 
+void GraphicsDevice::Dispose()
+{
+    this->blendState.Dispose();
+    this->depthStencilState.Dispose();
+    this->rasterizerState.Dispose();
+
+    if (this->samplerStates.size() > 0)
+    {
+        for (auto& sampler : this->samplerStates)
+        {
+            sampler.Dispose();
+        }
+
+        this->samplerStates.clear();
+    }
+
+    if (this->effect)
+    {
+        this->effect->Dispose();
+        this->effect = nullptr;
+    }
+    if (this->indexBuffer)
+    {
+        this->indexBuffer->Dispose();
+        this->indexBuffer = nullptr;
+    }
+    if (this->vertexBuffer)
+    {
+        this->vertexBuffer->Dispose();
+        this->vertexBuffer = nullptr;
+    }
+}
+
 void GraphicsDevice::Clear(const Color& color) const
 {
     UInt32 bufferBits = GL_COLOR_BUFFER_BIT;

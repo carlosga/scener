@@ -64,6 +64,9 @@ namespace SceneR
             virtual ~BlendState() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Gets the arithmetic operation when blending alpha values.
              */

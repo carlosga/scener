@@ -46,7 +46,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this BasicEffect.
              */
-            virtual ~BasicEffect();
+            virtual ~BasicEffect() = default;
+
+        public:
+            virtual void Dispose() override;
 
         public:
             /**

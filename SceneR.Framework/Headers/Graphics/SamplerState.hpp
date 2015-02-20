@@ -34,6 +34,9 @@ namespace SceneR
             virtual ~SamplerState() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              *  Gets the texture-address mode for the u-coordinate.
              */

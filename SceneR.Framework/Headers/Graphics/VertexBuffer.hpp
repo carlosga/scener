@@ -38,6 +38,9 @@ namespace SceneR
             virtual ~VertexBuffer() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Gets the number of vertex for the current buffer
              */

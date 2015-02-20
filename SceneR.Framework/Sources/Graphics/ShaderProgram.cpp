@@ -24,9 +24,24 @@ ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
 {
 }
 
-ShaderProgram::~ShaderProgram()
+void ShaderProgram::Dispose()
 {
-    this->Release();
+    if (this->id != 0)
+    {
+        // Dipose all the shader instances
+        if (this->shaders.size() > 0)
+        {
+            for (auto& shader : this->shaders)
+            {
+                shader->Dispose();
+            }
+        }
+
+        glDeleteProgram(this->id);
+
+        this->shaders.clear();
+        this->id = 0;
+    }
 }
 
 void ShaderProgram::Activate() const
@@ -185,15 +200,6 @@ void ShaderProgram::SetValue(const System::Int32& location, const std::vector<Ve
     glProgramUniform4fv(this->id, location, value.size(), &value[0][0]);
 }
 
-void ShaderProgram::Release()
-{
-    if (this->id != 0)
-    {
-        glDeleteProgram(this->id);
-        this->id = 0;
-    }
-}
-
 void ShaderProgram::VerifyLinkingState()
 {
     // ... verify program linking
@@ -216,7 +222,7 @@ void ShaderProgram::VerifyLinkingState()
             msg += linkErrorMessage;
         }
 
-        this->Release();
+        this->Dispose();
 
         throw std::runtime_error(msg);
     }

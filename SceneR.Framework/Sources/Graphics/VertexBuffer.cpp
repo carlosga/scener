@@ -22,6 +22,12 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
     this->Deactivate();
 }
 
+void VertexBuffer::Dispose()
+{
+    this->vao.Dispose();
+    this->vbo.Dispose();
+}
+
 const Size& VertexBuffer::VertexCount() const
 {
     return this->vertexCount;

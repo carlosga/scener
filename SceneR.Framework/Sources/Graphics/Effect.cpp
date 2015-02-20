@@ -36,8 +36,13 @@ Effect::Effect(const Effect& effect)
 {
 }
 
-Effect::~Effect()
+void Effect::Dispose()
 {
+    if (this->shader)
+    {
+        this->shader->Dispose();
+        this->shader = nullptr;
+    }
 }
 
 EffectParameterCollection& Effect::Parameters()

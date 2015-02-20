@@ -147,6 +147,7 @@ set(HEADER_FILES
     Headers/System/IO/Path.hpp
     Headers/System/IO/Stream.hpp
     Headers/System/Core.hpp
+    Headers/System/IDisposable.hpp
     Headers/System/Math.hpp
     Headers/System/Pointer.hpp
     Headers/System/TimeSpan.hpp

@@ -24,6 +24,10 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
 {
 }
 
+void BlendState::Dispose()
+{
+}
+
 const BlendFunction& BlendState::AlphaBlendFunction() const
 {
     return this->alphaBlendFunction;

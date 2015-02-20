@@ -5,6 +5,7 @@
 #define IGRAPHICSDEVICEMANAGER_HPP
 
 #include <System/Core.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {
@@ -13,13 +14,16 @@ namespace SceneR
         /**
          * Defines the interface for an object that manages a GraphicsDevice.
          */
-        class IGraphicsDeviceManager
+        class IGraphicsDeviceManager : System::IDisposable
         {
         public:
             /**
              * Releases all resources being used by this IGraphicsDeviceManager instance
              */
             virtual ~IGraphicsDeviceManager() = default;
+
+        public:
+            virtual void Dispose() override = 0;
 
         public:
            /**

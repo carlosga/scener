@@ -21,6 +21,10 @@ SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
 {
 }
 
+void SamplerState::Dispose()
+{
+}
+
 const TextureAddressMode& SamplerState::AddressU() const
 {
     return this->addressU;

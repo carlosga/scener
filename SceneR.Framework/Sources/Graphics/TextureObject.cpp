@@ -15,9 +15,13 @@ TextureObject::TextureObject(const TextureTarget& target)
     this->Create();
 }
 
-TextureObject::~TextureObject()
+void TextureObject::Dispose()
 {
-    this->Delete();
+    if (this->texId != 0)
+    {
+        glDeleteTextures(1, &this->texId);
+        this->texId = 0;
+    }
 }
 
 void TextureObject::Activate() const
@@ -34,11 +38,6 @@ void TextureObject::Create()
 void TextureObject::Deactivate() const
 {
     glBindTexture(static_cast<GLenum>(this->target), 0);
-}
-
-void TextureObject::Delete()
-{
-    glDeleteTextures(1, &this->texId);
 }
 
 void TextureObject::Declare2DStorage(const SurfaceFormat& format

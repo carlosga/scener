@@ -35,9 +35,9 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice,
-                      const System::UInt32&   width,
-                      const System::UInt32&   height);
+            Texture2D(GraphicsDevice&       graphicsDevice,
+                      const System::UInt32& width,
+                      const System::UInt32& height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -57,7 +57,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            virtual ~Texture2D();
+            virtual ~Texture2D() = default;
+
+        public:
+            virtual void Dispose() override;
 
         public:
             /**
@@ -88,16 +91,15 @@ namespace SceneR
              */
             void SetData(const System::UInt32& level, const System::Size& size, const void* data);
 
-        public:
             /**
              * Activates the texture object
              */
-            virtual void Activate() override;
+            virtual void Activate() const override;
 
             /**
              * Deactivates the texture object
              */
-            virtual void Deactivate() override;
+            virtual void Deactivate() const override;
 
         private:
             void DeclareStorage(const System::UInt32& mipMapLevels);

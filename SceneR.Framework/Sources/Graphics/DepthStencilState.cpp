@@ -29,6 +29,10 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
 {
 }
 
+void DepthStencilState::Dispose()
+{
+}
+
 const StencilOperation& DepthStencilState::CounterClockwiseStencilDepthBufferFail() const
 {
     return counterClockwiseStencilDepthBufferFail;

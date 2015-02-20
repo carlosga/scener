@@ -74,8 +74,15 @@ SkinnedEffect::SkinnedEffect(const SkinnedEffect& effect)
     this->Initialize();
 }
 
-SkinnedEffect::~SkinnedEffect()
+void SkinnedEffect::Dispose()
 {
+    if (this->texture)
+    {
+        this->texture->Dispose();
+        this->texture = nullptr;
+    }
+
+    Effect::Dispose();
 }
 
 const Single& SkinnedEffect::Alpha() const

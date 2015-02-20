@@ -5,6 +5,7 @@
 #define VERTEXARRAYOBJECT_HPP
 
 #include <System/Core.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {
@@ -13,7 +14,7 @@ namespace SceneR
         /**
          * Represents an opengl vertex array object
          */
-        class VertexArrayObject
+        class VertexArrayObject : System::IDisposable
         {
         public:
             /**
@@ -24,7 +25,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexArrayObject.
              */
-            ~VertexArrayObject();
+            virtual ~VertexArrayObject() = default;
+
+        public:
+            virtual void Dispose() override;
 
         public:
             /**
@@ -41,11 +45,6 @@ namespace SceneR
              * Deactivates this vertex array object.
              */
             void Deactivate() const;
-
-            /**
-             * Deletes this vertex array object.
-             */
-            void Delete();
 
         private:
             void Create();

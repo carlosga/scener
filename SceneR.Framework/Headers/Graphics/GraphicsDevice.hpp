@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+#include <System/IDisposable.hpp>
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
@@ -30,7 +31,7 @@ namespace SceneR
          * Performs primitive-based rendering, creates resources, handles system-level variables,
          * adjusts gamma ramp levels, and creates shaders.
          */
-        class GraphicsDevice
+        class GraphicsDevice : System::IDisposable
         {
         public:
             /**
@@ -44,7 +45,10 @@ namespace SceneR
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            ~GraphicsDevice() = default;
+            virtual ~GraphicsDevice() = default;
+
+        public:
+            virtual void Dispose() override;
 
         public:
             /**

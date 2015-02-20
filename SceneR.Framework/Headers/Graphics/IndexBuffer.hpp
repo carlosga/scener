@@ -39,6 +39,9 @@ namespace SceneR
             virtual ~IndexBuffer() = default;
 
         public:
+            virtual void Dispose() override;
+
+        public:
             /**
              * Gets the number of indices in the buffer.
              */
