@@ -3,6 +3,7 @@
 
 #include <Content/ContentReader.hpp>
 
+#include <algorithm>
 #include <cassert>
 
 #include <Framework/Color.hpp>
@@ -143,7 +144,7 @@ void ContentReader::ReadManifest()
 
 void ContentReader::ReadSharedResources()
 {
-    for (Int32 i = 0; i < this->sharedResourceCount; i++)
+    for (UInt32 i = 0; i < this->sharedResourceCount; i++)
     {
         auto sharedResourceType = this->Read7BitEncodedInt();
 
@@ -151,12 +152,12 @@ void ContentReader::ReadSharedResources()
         {
             auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
 
-            for (auto& fixup : this->fixupActions)
+            auto fixup = std::find_if(this->fixupActions.begin(), this->fixupActions.end()
+                                    , [i](const SharedResourceAction& action) -> bool { return (action.Id() == i); });
+
+            if (fixup != this->fixupActions.end())
             {
-                if (fixup.Id() == i)
-                {
-                    fixup.Callback(resource);
-                }
+                fixup->Callback(resource);
             }
         }
     }
