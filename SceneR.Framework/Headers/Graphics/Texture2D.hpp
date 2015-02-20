@@ -45,7 +45,7 @@ namespace SceneR
              * @param graphicsDevice the graphics device
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
-             * @param mipMap true to generate a full mipmap chain; false otherwise.
+             * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
             Texture2D(GraphicsDevice&        graphicsDevice,

@@ -58,13 +58,13 @@ namespace SceneR
 
             /**
              * Copies an array of transforms into each bone in the model.
-             * @param the new bone transforms.
+             * @param sourceBoneTransforms the new bone transforms.
              */
             void CopyBoneTransformsFrom(const std::vector<SceneR::Framework::Matrix>& sourceBoneTransforms);
 
             /**
              * Copies each bone transform relative only to the parent bone of the model to a given array.
-             * @partam destinationBoneTransforms the array to receive bone transforms.
+             * @param destinationBoneTransforms the array to receive bone transforms.
              */
             void CopyBoneTransformsTo(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
 

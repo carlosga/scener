@@ -122,7 +122,7 @@ namespace SceneR
 
             /**
              * Checks whether the current BoundingFrustrum contains a point.
-             * @param sphere the point to test for overlap.
+             * @param point the point to test for overlap.
              * @returns the extent of overlap
              */
             ContainmentType Contains(const Vector3& point) const;
@@ -155,14 +155,14 @@ namespace SceneR
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified Plane.
-             * @param sphere the BoundingFrustrum to test for intersection with.
+             * @param plane the Plane to test for intersection with.
              * @returns the relationship between the Plane and the BoundingFrustrum.
              */
             PlaneIntersectionType Intersects(const Plane& plane) const;
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified Ray.
-             * @param sphere the BoundingSphere to test for intersection with.
+             * @param ray the Ray to test for intersection with.
              * @returns distance at which the ray intersects the BoundingFrustrum, or 0 if there is no intersection.
              */
             System::Single Intersects(const Ray& ray) const;

@@ -49,7 +49,7 @@ namespace SceneR
 
             /**
              * Sets a value indicating whether this object is enabled.
-             * @param a value indicating whether this object is enabled.
+             * @param visible a value indicating whether this object is enabled.
              */
             virtual void Visible(const System::Boolean& visible);
 

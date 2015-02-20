@@ -18,7 +18,7 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the ContentLoadException class with the given message
-             * @param m
+             * @param m the exception message
              */
             ContentLoadException(const std::string m = "Content Load Exception")
                 : msg(m)

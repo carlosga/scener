@@ -58,7 +58,7 @@ namespace SceneR
              */
             virtual void World(const SceneR::Framework::Matrix& world) = 0;
         };
-    };
+    }
 }
 
 #endif  /* IEFFECTMATRICES_HPP */

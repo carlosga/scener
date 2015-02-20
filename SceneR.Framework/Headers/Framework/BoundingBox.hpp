@@ -13,51 +13,51 @@
 
 namespace SceneR
 {
-	namespace Framework
-	{
-	    struct BoundingFrustrum;
-	    struct BoundingSphere;
-	    struct Plane;
-	    struct Ray;
+    namespace Framework
+    {
+        struct BoundingFrustrum;
+        struct BoundingSphere;
+        struct Plane;
+        struct Ray;
 
-	    /**
-	     * Defines an axis-aligned box-shaped 3D volume.
-	     */
-		struct BoundingBox
-		{
-		public:
-		    /**
-		     * Specifies the total number of corners (8) in the BoundingBox.
-		     */
-		    static const System::Int32& CornerCount;
+        /**
+         * Defines an axis-aligned box-shaped 3D volume.
+         */
+        struct BoundingBox
+        {
+        public:
+            /**
+             * Specifies the total number of corners (8) in the BoundingBox.
+             */
+            static const System::Int32& CornerCount;
 
-		public:
-		    //Public Method Static    CreateFromPoints    Creates the smallest BoundingBox that will contain a group of points.
-		    //Public Method Static    CreateFromSphere    Overloaded. Creates the smallest BoundingBox that will contain the specified BoundingSphere.
-		    //Public Method Static    CreateMerged    Overloaded. Creates the smallest BoundingBox that contains the two specified BoundingBox instances.
+        public:
+            //Public Method Static    CreateFromPoints    Creates the smallest BoundingBox that will contain a group of points.
+            //Public Method Static    CreateFromSphere    Overloaded. Creates the smallest BoundingBox that will contain the specified BoundingSphere.
+            //Public Method Static    CreateMerged    Overloaded. Creates the smallest BoundingBox that contains the two specified BoundingBox instances.
 
-		public:
-		    /**
-		     * Initializes a new instance of the BoundingBox class.
-		     * @param min the minimum point the BoundingBox includes.
-		     * @param max the maximum point the BoundingBox includes.
-		     */
-			BoundingBox(const Vector3& min, const Vector3& max);
+        public:
+            /**
+             * Initializes a new instance of the BoundingBox class.
+             * @param min the minimum point the BoundingBox includes.
+             * @param max the maximum point the BoundingBox includes.
+             */
+            BoundingBox(const Vector3& min, const Vector3& max);
 
-			/**
-			 * Initializes a new instance of the BoundingBox class.
-			 */
-			BoundingBox(const BoundingBox& boundingBox);
+            /**
+             * Initializes a new instance of the BoundingBox class.
+             */
+            BoundingBox(const BoundingBox& boundingBox);
 
-			/**
-			 * Releases all resources being used by this BoundingBox.
-			 */
-			~BoundingBox() = default;
+            /**
+             * Releases all resources being used by this BoundingBox.
+             */
+            ~BoundingBox() = default;
 
-		public:
-			/**
-			 * Gets the maximum point the BoundingBox contains.
-			 */
+        public:
+            /**
+             * Gets the maximum point the BoundingBox contains.
+             */
             const Vector3& Max() const;
 
             /**
@@ -75,7 +75,7 @@ namespace SceneR
              */
             void Min(const Vector3& min);
 
-		public:
+        public:
             /**
              * Checks whether the current BoundingBox contains another BoundingBox.
              * @param box the BoundingBox to test for overlap.
@@ -99,7 +99,7 @@ namespace SceneR
 
             /**
              * Checks whether the current BoundingBox contains a point.
-             * @param sphere the point to test for overlap.
+             * @param point the point to test for overlap.
              * @returns the extent of overlap
              */
             ContainmentType Contains(const Vector3& point) const;
@@ -132,28 +132,28 @@ namespace SceneR
 
             /**
              * Checks whether the current BoundingBox intersects a specified Plane.
-             * @param sphere the BoundingBox to test for intersection with.
+             * @param plane the Plane to test for intersection with.
              * @returns the relationship between the Plane and the BoundingBox.
              */
             PlaneIntersectionType Intersects(const Plane& plane) const;
 
             /**
              * Checks whether the current BoundingBox intersects a specified Ray.
-             * @param sphere the BoundingSphere to test for intersection with.
+             * @param ray the Ray to test for intersection with.
              * @returns distance at which the ray intersects the BoundingBox, or 0 if there is no intersection.
              */
             System::Single Intersects(const Ray& ray) const;
 
-		public:
+        public:
             BoundingBox& operator=(const BoundingBox& box);
             bool operator==(const BoundingBox& box) const;
             bool operator!=(const BoundingBox& box) const;
 
-		private:
+        private:
             Vector3 min;
             Vector3 max;
-		};
-	}
+        };
+    }
 }
 
 #endif // BOUNDINGBOX_HPP

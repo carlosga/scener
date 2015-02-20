@@ -49,7 +49,7 @@ namespace SceneR
 
             /**
              * Sets the diffuse color of the light.
-             * @param color the diffuse color of the light.
+             * @param diffuseColor the diffuse color of the light.
              */
              void DiffuseColor(const SceneR::Framework::Vector3& diffuseColor);
 
@@ -83,7 +83,7 @@ namespace SceneR
 
             /**
              * Sets the specular color of the light.
-             * @param color the specular color of the light.
+             * @param specularColor the specular color of the light.
              */
              void SpecularColor(const SceneR::Framework::Vector3& specularColor);
 

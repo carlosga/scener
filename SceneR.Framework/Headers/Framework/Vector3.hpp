@@ -181,15 +181,15 @@ namespace SceneR
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
-             * @param value the first vector
-             * @param value the second vector
+             * @param value1 the first vector
+             * @param value2 the second vector
              */
             static Vector3 Min(const Vector3& value1, const Vector3& value2);
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
-             * @param value the first vector
-             * @param value the second vector
+             * @param value1 the first vector
+             * @param value2 the second vector
              */
             static Vector3 Max(const Vector3& value1, const Vector3& value2);
 
@@ -270,7 +270,7 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector3 class.
-             * @param value value for the x, y and z components of the vector.
+             * @param value the value for the x, y and z components of the vector.
              */
             Vector3(const System::Single& value);
 

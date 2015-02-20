@@ -107,8 +107,8 @@ namespace SceneR
 
             /**
              * Calculates the dot product of two Vector4 structures.
-             * @param vectora the first Vector4 structure to evaluate
-             * @param vectorb The second Vector4 structure to evaluate.
+             * @param value1 the first Vector4 structure to evaluate
+             * @param value2 The second Vector4 structure to evaluate.
              * @return The dot product of the given vectors.
              */
             static System::Single Dot(const Vector4& value1, const Vector4& value2);
@@ -141,15 +141,15 @@ namespace SceneR
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
-             * @param value the first vector
-             * @param value the second vector
+             * @param value1 the first vector
+             * @param value2 the second vector
              */
             static Vector4 Min(const Vector4& value1, const Vector4& value2);
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
-             * @param value the first vector
-             * @param value the second vector
+             * @param value1 the first vector
+             * @param value2 the second vector
              */
             static Vector4 Max(const Vector4& value1, const Vector4& value2);
 
@@ -204,7 +204,7 @@ namespace SceneR
 
             /**
              * @brief Transforms a two-dimensional vector by a specified quaternion.
-             * @param position The vector to transform.
+             * @param value The vector to transform.
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
@@ -212,7 +212,7 @@ namespace SceneR
 
             /**
              * @brief Transforms a three-dimensional vector by a specified quaternion.
-             * @param position The vector to transform.
+             * @param value The vector to transform.
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
@@ -220,7 +220,7 @@ namespace SceneR
 
             /**
              * @brief Transforms a four-dimensional vector by a specified quaternion.
-             * @param position The vector to transform.
+             * @param value The vector to transform.
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
@@ -245,7 +245,7 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Vector4 class.
-             * @param w value to initialize each component to.
+             * @param value the value for the x, y, z and w components of the vector.
              */
             Vector4(const System::Single& value);
 

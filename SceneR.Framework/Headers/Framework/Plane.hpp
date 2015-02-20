@@ -36,7 +36,8 @@ namespace SceneR
             /**
              * Calculates the dot product of a specified Vector4 and this Plane.
              *
-             * @param the Vector4 to multiply this Plane by.
+             * @param plane The plane.
+             * @param value The four-dimensional vector.
              */
             static System::Single Dot(const Plane& plane, const Vector4& value);
 

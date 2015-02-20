@@ -25,7 +25,6 @@ namespace SceneR
             /**
              * Initializes a new instance of the VertexDeclaration class.
              *
-             * @param componentCount The total number of components.
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */

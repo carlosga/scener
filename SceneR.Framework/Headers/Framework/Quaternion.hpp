@@ -121,7 +121,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the Quaternion class.
              * @param x    The X value of the new Quaternion structure.
-             * @param x    The Y value of the new Quaternion structure.
+             * @param y    The Y value of the new Quaternion structure.
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
