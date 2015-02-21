@@ -108,6 +108,7 @@ void ContentReader::ReadHeader()
     this->ReadUInt32(); // Compressed file size
                         // Total size of the (optionally compressed) .xnb file as stored on disk (including this header block)
 
+    /*
     if (false)  // Compressed files not supported
     {
         this->ReadUInt32(); // Decompressed data size
@@ -115,6 +116,7 @@ void ContentReader::ReadHeader()
                             // the compressed data which starts immediately after this field (unlike the compressed
                             // file size, this does not include the uncompressed portion of the header)
     }
+    */
 }
 
 void ContentReader::ReadManifest()

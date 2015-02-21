@@ -5,6 +5,7 @@
 
 #include <stdexcept>
 
+#include <System/Math.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Framework/BoundingBox.hpp>
@@ -152,8 +153,7 @@ Plane& Plane::operator=(const Plane& plane)
 
 bool Plane::operator==(const Plane& plane) const
 {
-    return (this->normal == plane.normal
-         && this->d      == plane.d);
+    return (this->normal == plane.normal && Math::Equal(this->d, plane.d));
 }
 
 bool Plane::operator!=(const Plane& plane) const

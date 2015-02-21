@@ -199,6 +199,9 @@ namespace System
         static Single Tanh(const Single& value);
 
     public:
+        static bool Equal(const Single& a, const Single& b);
+
+    public:
         /**
          * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
          * two normalized barycentric (areal) coordinates.

@@ -5,6 +5,7 @@
 
 #include <cassert>
 
+#include <System/Math.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 
@@ -104,10 +105,10 @@ Color& Color::operator=(const Color& color)
 
 bool Color::operator==(const Color& color) const
 {
-    return (this->r == color.r
-         && this->g == color.g
-         && this->b == color.b
-         && this->a == color.a);
+    return (Math::Equal(this->r, color.r)
+         && Math::Equal(this->g, color.g)
+         && Math::Equal(this->b, color.b)
+         && Math::Equal(this->a, color.a));
 }
 
 bool Color::operator!=(const Color& color) const

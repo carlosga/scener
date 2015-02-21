@@ -29,12 +29,12 @@ Boolean Math::IsInfinity(const System::Single& f)
 
 Boolean Math::IsNegativeInfinity(const System::Single& f)
 {
-    return (f == Math::NegativeInfinity);
+    return (Math::Equal(f, Math::NegativeInfinity));
 }
 
 Boolean Math::IsPositiveInfinity(const System::Single& f)
 {
-    return (f == Math::PositiveInfinity);
+    return (Math::Equal(f, Math::PositiveInfinity));
 }
 
 Boolean Math::IsNaN(const System::Single& f)
@@ -127,6 +127,18 @@ Single Math::Tan(const Single& value)
 Single Math::Tanh(const Single& value)
 {
     return std::tanh(value);
+}
+
+bool Math::Equal(const Single& a, const Single& b)
+{
+    // TODO: Take a look at
+    //
+    // http://floating-point-gui.de/errors/comparison/
+    // https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/
+    //
+    // to take care for edge cases
+
+    return (a == b);
 }
 
 Single Math::Barycentric(const Single& value1

@@ -308,9 +308,9 @@ Vector3& Vector3::operator=(const Vector3& vector)
 
 bool Vector3::operator==(const Vector3& vector) const
 {
-    return (this->x == vector.x
-         && this->y == vector.y
-         && this->z == vector.z);
+    return (Math::Equal(this->x, vector.x)
+         && Math::Equal(this->y, vector.y)
+         && Math::Equal(this->z, vector.z));
 }
 
 bool Vector3::operator!=(const Vector3& vector) const

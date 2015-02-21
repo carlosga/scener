@@ -220,7 +220,7 @@ Vector2& Vector2::operator=(const Vector2& vector)
 
 bool Vector2::operator==(const Vector2& vector) const
 {
-    return (this->x == vector.x && this->y == vector.y);
+    return (Math::Equal(this->x, vector.x) && Math::Equal(this->y, vector.y));
 }
 
 bool Vector2::operator!=(const Vector2& vector) const

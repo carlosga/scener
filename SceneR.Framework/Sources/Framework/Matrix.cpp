@@ -802,22 +802,22 @@ const Single& Matrix::operator[](const Size& index) const
 
 bool Matrix::operator==(const Matrix& matrix) const
 {
-    return (this->m11 == matrix.m11
-         && this->m12 == matrix.m12
-         && this->m13 == matrix.m13
-         && this->m14 == matrix.m14
-         && this->m21 == matrix.m21
-         && this->m22 == matrix.m22
-         && this->m23 == matrix.m23
-         && this->m24 == matrix.m24
-         && this->m31 == matrix.m31
-         && this->m32 == matrix.m32
-         && this->m33 == matrix.m33
-         && this->m34 == matrix.m34
-         && this->m41 == matrix.m41
-         && this->m42 == matrix.m42
-         && this->m43 == matrix.m43
-         && this->m44 == matrix.m44);
+    return (Math::Equal(this->m11, matrix.m11)
+         && Math::Equal(this->m12, matrix.m12)
+         && Math::Equal(this->m13, matrix.m13)
+         && Math::Equal(this->m14, matrix.m14)
+         && Math::Equal(this->m21, matrix.m21)
+         && Math::Equal(this->m22, matrix.m22)
+         && Math::Equal(this->m23, matrix.m23)
+         && Math::Equal(this->m24, matrix.m24)
+         && Math::Equal(this->m31, matrix.m31)
+         && Math::Equal(this->m32, matrix.m32)
+         && Math::Equal(this->m33, matrix.m33)
+         && Math::Equal(this->m34, matrix.m34)
+         && Math::Equal(this->m41, matrix.m41)
+         && Math::Equal(this->m42, matrix.m42)
+         && Math::Equal(this->m43, matrix.m43)
+         && Math::Equal(this->m44, matrix.m44));
 }
 
 bool Matrix::operator!=(const Matrix& matrix) const

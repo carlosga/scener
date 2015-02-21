@@ -10,7 +10,7 @@
 using namespace System;
 using namespace System::Text;
 
-const Encoding& Encoding::UTF8 = UTF8Encoding{};
+const Encoding& Encoding::UTF8 = UTF8Encoding { };
 
 Encoding::Encoding()
 {

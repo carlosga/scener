@@ -295,10 +295,10 @@ Vector4& Vector4::operator=(const Vector4& vector)
 
 bool Vector4::operator==(const Vector4& vector) const
 {
-    return (this->x == vector.x
-         && this->y == vector.y
-         && this->z == vector.z
-         && this->w == vector.w);
+    return (Math::Equal(this->x, vector.x)
+         && Math::Equal(this->y, vector.y)
+         && Math::Equal(this->z, vector.z)
+         && Math::Equal(this->w, vector.w));
 }
 
 bool Vector4::operator!=(const Vector4& vector) const
