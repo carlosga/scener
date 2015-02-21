@@ -154,12 +154,12 @@ void ContentReader::ReadSharedResources()
         {
             auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
 
-            auto fixup = std::find_if(this->fixupActions.begin(), this->fixupActions.end()
-                                    , [i](const SharedResourceAction& action) -> bool { return (action.Id() == i); });
-
-            if (fixup != this->fixupActions.end())
+            for (auto& fixup : this->fixupActions)
             {
-                fixup->Callback(resource);
+                if (fixup.Id() == i)
+                {
+                    fixup.Callback(resource);
+                }
             }
         }
     }

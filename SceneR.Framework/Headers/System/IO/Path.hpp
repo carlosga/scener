@@ -4,6 +4,8 @@
 #ifndef PATH_HPP
 #define PATH_HPP
 
+#include <algorithm>
+
 #include <System/Core.hpp>
 
 namespace System
@@ -73,7 +75,27 @@ namespace System
              */
             static const String Combine(const String& path1, const String& path2)
             {
-                return String(path1 + DirectorySeparator() + path2);
+                String separator = u"";
+                String cpath1    = path1;
+                String cpath2    = path2;
+
+#if __unix__
+                if (!cpath1.empty())
+                {
+                    std::replace(cpath1.begin(), cpath1.end(), u'\\', Path::DirectorySeparator()[0]);
+                }
+                if (!cpath2.empty())
+                {
+                    std::replace(cpath2.begin(), cpath2.end(), u'\\', Path::DirectorySeparator()[0]);
+                }
+#endif
+
+                if (!cpath1.empty() && cpath1.back() != DirectorySeparator()[0])
+                {
+                    separator = DirectorySeparator();
+                }
+
+                return String(cpath1 + separator + cpath2);
             }
 
             /**

@@ -27,7 +27,7 @@ std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& in
 
     if (assetName.size() > 0)
     {
-        assetName = Path::GetDirectoryName(input.AssetName()) + Path::DirectorySeparator() + assetName;
+        assetName = Path::Combine(Path::GetDirectoryName(input.AssetName()), assetName);
 
         effect->Texture(input.ContentManager().Load<Texture2D>(assetName));
         effect->TextureEnabled(true);

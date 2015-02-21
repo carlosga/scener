@@ -18,7 +18,7 @@ const UInt32& SharedResourceAction::Id() const
     return this->id;
 }
 
-void SharedResourceAction::Callback(const std::shared_ptr<void>& value)
+void SharedResourceAction::Callback(const std::shared_ptr<void>& value) const
 {
     this->action(value);
 }

@@ -32,9 +32,9 @@ void SampleModel::Update(const RenderTime& renderTime)
     this->rotation   = Math::SmoothStep(this->rotation, newRotation, Math::PiOver4);
     this->world      = Matrix::CreateRotationX(-Math::PiOver2)
                      * Matrix::CreateRotationY(this->rotation)
-                     * Matrix::CreateTranslation({ 0.0f, -3.0f, -2.0f });
-    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 6.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0f, 100.0f);
+                     * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f });
+    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 400.0f }, Vector3::Zero, Vector3::Up);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0f, 10000.0f);
 }
 
 void SampleModel::Draw(const RenderTime& renderTime)
@@ -44,7 +44,7 @@ void SampleModel::Draw(const RenderTime& renderTime)
 
 void SampleModel::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"SampleModel/Goblin_D_Shareyko");
+    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/Goblin_D_Shareyko");
 }
 
 void SampleModel::UnloadContent()

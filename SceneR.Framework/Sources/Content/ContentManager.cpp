@@ -3,6 +3,8 @@
 
 #include <Content/ContentManager.hpp>
 
+#include <iostream>
+
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
@@ -43,11 +45,15 @@ void ContentManager::Unload()
 
 std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) throw(ContentLoadException)
 {
-    auto filename = assetName + u".xnb";
-    auto path     = Path::Combine(this->rootDirectory, filename);
+    auto filename  = assetName + u".xnb";
+    auto path      = Path::Combine(this->rootDirectory, filename);
 
     if (!File::Exists(path))
     {
+        std::string temp(path.begin(), path.end());
+
+        std::cout << temp;
+
         throw ContentLoadException("the asset file doesn't exists.");
     }
 
