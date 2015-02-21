@@ -19,21 +19,15 @@ link_directories(../../regal/lib/linux/
 
 # header files
 set(HEADER_FILES
-    Headers/AstroBoy.hpp
-    Headers/BumbleBee.hpp
-    Headers/Felicia.hpp
     Headers/Marcus.hpp
-    Headers/SampleRenderer.hpp
-    Headers/WarForrest.hpp)
+    Headers/SampleModel.hpp
+    Headers/SampleRenderer.hpp)
 
 # source files
 set(SOURCE_FILES
-    Sources/AstroBoy.cpp
-    Sources/BumbleBee.cpp
-    Sources/Felicia.cpp
     Sources/Marcus.cpp
-    Sources/SampleRenderer.cpp
-    Sources/WarForrest.cpp)
+    Sources/SampleModel.cpp
+    Sources/SampleRenderer.cpp)
 
 # add content files
 add_custom_target(CONTENT_FILES SOURCES

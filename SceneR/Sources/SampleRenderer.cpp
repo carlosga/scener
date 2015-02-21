@@ -3,11 +3,8 @@
 
 #include <SampleRenderer.hpp>
 
-#include <AstroBoy.hpp>
-#include <BumbleBee.hpp>
-#include <Felicia.hpp>
 #include <Marcus.hpp>
-#include <WarForrest.hpp>
+#include <SampleModel.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -24,11 +21,8 @@ void SampleRenderer::BeginRun()
     this->graphicsDeviceManager.PreferredBackBufferHeight(900);
     this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
-    // this->Components().push_back(std::make_shared<AstroBoy>(*this));
-    // this->Components().push_back(std::make_shared<BumbleBee>(*this));
-    // this->Components().push_back(std::make_shared<Felicia>(*this));
     this->Components().push_back(std::make_shared<Marcus>(*this));
-    // this->Components().push_back(std::make_shared<WarForrest>(*this));
+    // this->Components().push_back(std::make_shared<SampleModel>(*this));
 
     Renderer::BeginRun();
 }

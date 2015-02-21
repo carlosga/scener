@@ -32,14 +32,16 @@ void Marcus::Update(const RenderTime& renderTime)
 {
     auto aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
     auto newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
+    auto newPosition = this->position + renderTime.ElapsedRenderTime().TotalSeconds();
 
     this->rotation   = Math::Lerp(this->rotation, newRotation, Math::PiOver4);
+    this->position   = Math::SmoothStep(this->position, newPosition, Math::PiOver2);
 
     this->world      = Matrix::CreateRotationX(-Math::PiOver2)
                      * Matrix::CreateTranslation({ 0.0f, -40.0f, 100.0f });
     this->view       = Matrix::CreateRotationY(this->rotation, { 0.0f, -40.0f, 100.0f })
-                     * Matrix::CreateLookAt({ 0.0f, 0.0f, -10.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0f, 10000.0f);
+                     * Matrix::CreateLookAt({ 0.0f, 0.0f, -this->position }, Vector3::Zero, Vector3::Up);
+    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver2, aspect, 1.0f, 1000.0f);
 
     this->animatedModel->Update(renderTime);
 }
