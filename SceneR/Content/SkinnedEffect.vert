@@ -5,10 +5,10 @@
 #define SKINNED_EFFECT_MAX_BONES   72
 
 layout (location = 0) in vec3  VertexPosition;
-layout (location = 1) in vec3  VertexNormal;
 layout (location = 2) in vec3  VertexCoord;
-layout (location = 3) in ivec4 BlendIndices;
-layout (location = 4) in vec4  BlendWeights;
+layout (location = 3) in vec3  VertexNormal;
+layout (location = 6) in ivec4 BlendIndices;
+layout (location = 7) in vec4  BlendWeights;
 
 uniform mat4 World;
 uniform mat4 WorldInverseTranspose;

@@ -65,7 +65,8 @@ namespace SceneR
 
             /**
              * Called when the component should be initialized.
-             * This method can be used for tasks like querying for services the component needs and setting up non-graphics resources.
+             * This method can be used for tasks like querying for
+             * services the component needs and setting up non-graphics resources.
              */
             virtual void Initialize() override;
 

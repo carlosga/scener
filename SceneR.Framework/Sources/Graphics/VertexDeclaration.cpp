@@ -32,7 +32,7 @@ void VertexDeclaration::Activate() const
     {
         auto elementType  = this->GetElementType(ve.VertexElementFormat());
         auto elementCount = this->GetElementCount(ve.VertexElementFormat());
-        auto usageIndex   = this->GetUsageIndex(ve.VertexElementUsage());
+        auto usageIndex   = (int)ve.VertexElementUsage();
 
         if (elementType == GL_FLOAT)
         {
@@ -53,7 +53,7 @@ void VertexDeclaration::Deactivate() const
     // ... disable vertex elements
     for (const auto& ve : this->vertexElements)
     {
-        glDisableVertexAttribArray(this->GetUsageIndex(ve.VertexElementUsage()));
+        glDisableVertexAttribArray((int)ve.VertexElementUsage());
     }
 }
 
@@ -107,35 +107,5 @@ UInt32 VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat
         case VertexElementFormat::Color:
         default:
             return GL_FLOAT;
-    }
-}
-
-UInt32 VertexDeclaration::GetUsageIndex(const VertexElementUsage& usage) const
-{
-    switch (usage)
-    {
-        case VertexElementUsage::Position:
-            return 0;
-
-        case VertexElementUsage::Normal:
-            return 1;
-
-        case VertexElementUsage::TextureCoordinate:
-            return 2;
-
-        case VertexElementUsage::BlendIndices:
-            return 3;
-
-        case VertexElementUsage::BlendWeight:
-            return 4;
-
-        case VertexElementUsage::Tangent:
-            return 5;
-
-        case VertexElementUsage::Binormal:
-            return 6;
-
-        default:
-            return 0;
     }
 }

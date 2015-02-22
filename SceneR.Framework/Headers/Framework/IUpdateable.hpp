@@ -8,38 +8,38 @@
 
 namespace SceneR
 {
-	namespace Framework
-	{
-	    class RenderTime;
+    namespace Framework
+    {
+        class RenderTime;
 
-	    /**
-	     * Defines an interface for a component that should be updated in Renderer.Update.
-	     */
-		class IUpdateable
-		{
+        /**
+         * Defines an interface for a component that should be updated in Renderer.Update.
+         */
+        class IUpdateable
+        {
         public:
-		    /**
-		     * Releases all resources being used by this IUpdateable instance.
-		     */
+            /**
+             * Releases all resources being used by this IUpdateable instance.
+             */
             virtual ~IUpdateable() = default;
 
-		public:
+        public:
             /**
              * Gets a value indicating whether this object is enabled.
              */
-			virtual const System::Boolean& Enabled() const = 0;
+            virtual const System::Boolean& Enabled() const = 0;
 
-			/**
-			 * Gets the order in which to update this object relative to other objects.
-			 */
-			virtual const System::UInt32& UpdateOrder() const = 0;
+            /**
+             * Gets the order in which to update this object relative to other objects.
+             */
+            virtual const System::UInt32& UpdateOrder() const = 0;
 
-			/**
-			 * Called when the component should be updated.
-			 */
-			virtual void Update(const RenderTime& renderTime) = 0;
-		};
-	}
+            /**
+             * Called when the component should be updated.
+             */
+            virtual void Update(const RenderTime& renderTime) = 0;
+        };
+    }
 }
 
 #endif /* IUPDATEABLE_HPP */

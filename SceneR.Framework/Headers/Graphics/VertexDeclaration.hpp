@@ -62,7 +62,6 @@ namespace SceneR
 
             System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
             System::UInt32 GetElementType(const VertexElementFormat& vertexFormat) const;
-            System::UInt32 GetUsageIndex(const VertexElementUsage& usage) const;
 
         private:
             System::Size               vertexStride;

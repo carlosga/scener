@@ -3,55 +3,50 @@
 
 #include <SampleModel.hpp>
 
+#include <Camera.hpp>
+#include <SampleRenderer.hpp>
+
 #include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
-#include <Framework/Renderer.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 using namespace SceneR::Sample;
 
-SampleModel::SampleModel(SceneR::Framework::Renderer& renderer)
+SampleModel::SampleModel(SampleRenderer& renderer)
     : DrawableComponent { renderer }
     , model             { nullptr }
-    , rotation          { 0.0f }
     , world             { Matrix::Identity }
-    , view              { Matrix::Identity }
-    , projection        { Matrix::Identity }
 {
 }
 
-void SampleModel::Update(const RenderTime& renderTime)
+void SampleModel::Initialize()
 {
-    auto aspect      = this->CurrentGraphicsDevice().Viewport().AspectRatio();
-    auto newRotation = this->rotation + renderTime.ElapsedRenderTime().TotalSeconds();
+    this->Enabled(false);
+    this->Visible(false);
 
-    this->rotation   = Math::SmoothStep(this->rotation, newRotation, Math::PiOver4);
-    this->world      = Matrix::CreateRotationX(-Math::PiOver2)
-                     * Matrix::CreateRotationY(this->rotation)
-                     * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f });
-    this->view       = Matrix::CreateLookAt({ 0.0f, 0.0f, 400.0f }, Vector3::Zero, Vector3::Up);
-    this->projection = Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, aspect, 1.0f, 10000.0f);
-}
+    this->world = Matrix::CreateRotationX(-Math::PiOver2)
+                * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f });
 
-void SampleModel::Draw(const RenderTime& renderTime)
-{
-    this->model->Draw(this->world, this->view, this->projection);
+    DrawableComponent::Initialize();
 }
 
 void SampleModel::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/Goblin_D_Shareyko");
+    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/GoblinDShareyko");
 }
 
 void SampleModel::UnloadContent()
 {
-    if (this->model != nullptr)
-    {
-        this->model.reset();
-        this->model = nullptr;
-    }
+    this->world    = Matrix::Identity;
+    this->model    = nullptr;
+}
+
+void SampleModel::Draw(const RenderTime& renderTime)
+{
+    const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.Components()[0]);
+    this->model->Draw(this->world, camera->View, camera->Projection);
 }

@@ -6,16 +6,20 @@
 
 #include <memory>
 
-#include <Framework/Matrix.hpp>
 #include <Framework/DrawableComponent.hpp>
-#include <Graphics/AnimatedModel.hpp>
+#include <Framework/Matrix.hpp>
 
 namespace SceneR
 {
     namespace Framework
     {
-        class Renderer;
         class RenderTime;
+    }
+
+    namespace Graphics
+    {
+        class Model;
+        class AnimatedModel;
     }
 }
 
@@ -23,31 +27,29 @@ namespace SceneR
 {
     namespace Sample
     {
+        class SampleRenderer;
+
         class Marcus : public SceneR::Framework::DrawableComponent
         {
         public:
-            Marcus(SceneR::Framework::Renderer& renderer);
-
-            virtual ~Marcus();
+            Marcus(SampleRenderer& renderer);
+            ~Marcus() = default;
 
         public:
-            virtual void Update(const SceneR::Framework::RenderTime& renderTime) override;
-            virtual void Draw(const SceneR::Framework::RenderTime& renderTime) override;
+            void Initialize() override;
+            void Update(const SceneR::Framework::RenderTime& renderTime) override;
+            void Draw(const SceneR::Framework::RenderTime& renderTime) override;
 
         protected:
-            virtual void LoadContent() override;
-            virtual void UnloadContent() override;
+            void LoadContent() override;
+            void UnloadContent() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Model>         model;
             std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
-            System::Single                                   rotation;
-            System::Single                                   position;
+            std::shared_ptr<SceneR::Graphics::Model>         model;
             SceneR::Framework::Matrix                        world;
-            SceneR::Framework::Matrix                        view;
-            SceneR::Framework::Matrix                        projection;
         };
     }
 }
 
-#endif /* ASTROBOY_HPP */
+#endif /* MARCUS_HPP */

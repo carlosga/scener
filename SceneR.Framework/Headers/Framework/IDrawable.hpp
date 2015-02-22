@@ -8,38 +8,38 @@
 
 namespace SceneR
 {
-	namespace Framework
-	{
-	    class RenderTime;
+    namespace Framework
+    {
+        class RenderTime;
 
-	    /**
-	     * Defines the interface for a drawable game component.
-	     */
-		class IDrawable
-		{
-		public:
-		    /**
-		     * Releases all the resources being used by this IDrawable instance.
-		     */
-		    virtual ~IDrawable() = default;
+        /**
+         * Defines the interface for a drawable game component.
+         */
+        class IDrawable
+        {
+        public:
+            /**
+             * Releases all the resources being used by this IDrawable instance.
+             */
+            virtual ~IDrawable() = default;
 
-		public:
-		    /**
-		     * Gets a value indicating whether this object is visible.
-		     */
-			virtual const System::Boolean& Visible() const = 0;
+        public:
+            /**
+             * Gets a value indicating whether this object is visible.
+             */
+            virtual const System::Boolean& Visible() const = 0;
 
-			/**
-			 * The order in which to draw this object relative to other objects.
-			 */
-			virtual const System::UInt32& DrawOrder() const = 0;
+            /**
+             * The order in which to draw this object relative to other objects.
+             */
+            virtual const System::UInt32& DrawOrder() const = 0;
 
-			/**
-			 * Called when the component should be drawn.
-			 */
-			virtual void Draw(const RenderTime& renderTime) = 0;
-		};
-	}
+            /**
+             * Called when the component should be drawn.
+             */
+            virtual void Draw(const RenderTime& renderTime) = 0;
+        };
+    }
 }
 
 #endif /* IDRAWABLE_HPP */
