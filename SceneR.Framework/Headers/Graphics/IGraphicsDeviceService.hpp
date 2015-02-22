@@ -15,12 +15,6 @@ namespace SceneR
          */
         class IGraphicsDeviceService
         {
-        protected:
-            /**
-             * Releases all resources being used by this IGraphicsDeviceService.
-             */
-            virtual ~IGraphicsDeviceService() = default;
-
         public:
             /**
              * Retrieves a graphics device.

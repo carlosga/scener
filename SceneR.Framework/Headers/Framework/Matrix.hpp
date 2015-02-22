@@ -589,6 +589,7 @@ namespace SceneR
         public:
             System::Single& operator[](const System::Size& index);
             const System::Single& operator[](const System::Size& index) const;
+            Matrix& operator=(const Matrix& matrix);
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;
             Matrix& operator*=(const Matrix& matrix);

@@ -23,11 +23,6 @@ namespace SceneR
              */
             StringReader() = default;
 
-            /**
-             * Releases all resources being used by this StringReader.
-             */
-            virtual ~StringReader() = default;
-
         public:
             /**
              * Reads the string contents from the given ContentReader.

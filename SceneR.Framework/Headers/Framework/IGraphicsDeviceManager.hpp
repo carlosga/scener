@@ -20,9 +20,6 @@ namespace SceneR
             /**
              * Releases all resources being used by this IGraphicsDeviceManager instance
              */
-            virtual ~IGraphicsDeviceManager() = default;
-
-        public:
             virtual void Dispose() override = 0;
 
         public:

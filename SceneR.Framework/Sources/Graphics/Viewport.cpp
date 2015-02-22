@@ -33,6 +33,16 @@ Viewport::Viewport(const Single& x       , const Single& y
 {
 }
 
+Viewport::Viewport(const Viewport& viewport)
+    : x        { viewport.x }
+    , y        { viewport.y }
+    , width    { viewport.width }
+    , height   { viewport.height }
+    , minDepth { viewport.minDepth }
+    , maxDepth { viewport.maxDepth }
+{
+}
+
 const Single& Viewport::X() const
 {
     return this->x;
@@ -80,6 +90,12 @@ void Viewport::MaxDepth(const Single& maxDepth)
     this->maxDepth = maxDepth;
 }
 
+void Viewport::Update() const
+{
+    glViewportIndexedf(0, this->x, this->y, this->width, this->height);
+    glDepthRangeIndexed(0, this->minDepth, this->maxDepth);
+}
+
 void Viewport::Update(const Single& width, const Single& height)
 {
     this->Update(this->x, this->y, width, height);
@@ -92,11 +108,21 @@ void Viewport::Update(const Single& x, const Single& y, const Single& width, con
     this->width  = width;
     this->height = height;
 
-    this->Refresh();
+    this->Update();
 }
 
-void Viewport::Refresh() const
+
+Viewport& Viewport::operator=(const Viewport &viewport)
 {
-    glViewportIndexedf(0, this->x, this->y, this->width, this->height);
-    glDepthRangeIndexed(0, this->minDepth, this->maxDepth);
+    if (this != &viewport)
+    {
+        this->x        = viewport.x;
+        this->y        = viewport.y;
+        this->width    = viewport.width;
+        this->height   = viewport.height;
+        this->minDepth = viewport.minDepth;
+        this->maxDepth = viewport.maxDepth;
+    }
+
+    return *this;
 }

@@ -10,7 +10,5 @@ using namespace SceneR::Content;
 
 std::shared_ptr<void> StringReader::Read(ContentReader& input)
 {
-    auto tmp = input.ReadString();
-
-    return std::make_shared<String>(tmp.begin(), tmp.end());
+    return std::make_shared<String>(input.ReadString());
 }

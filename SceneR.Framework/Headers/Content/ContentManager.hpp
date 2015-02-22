@@ -58,7 +58,7 @@ namespace SceneR
             * Loads a the given asset.
             */
             template <class T>
-            std::shared_ptr<T> Load(const System::String& assetName) throw(ContentLoadException)
+            std::shared_ptr<T> Load(const System::String& assetName) noexcept(false)
             {
                 return this->ReadAsset<T>(assetName);
             }
@@ -73,7 +73,7 @@ namespace SceneR
             * Opens a stream for reading the specified asset.
             * #param assetName the name of the asset being read.
             */
-            virtual std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) throw(ContentLoadException);
+            virtual std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) noexcept(false);
 
         protected:
             /**
@@ -81,7 +81,7 @@ namespace SceneR
             * @param assetName the name of the asset to be loaded from disk.
             */
             template <class T>
-            std::shared_ptr<T> ReadAsset(const System::String& assetName) throw(ContentLoadException)
+            std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false)
             {
                 // if (ContentManager::ResourceManager.HasResource(assetName))
                 // {

@@ -43,7 +43,7 @@ void ContentManager::Unload()
     this->ResourceManager.Clear();
 }
 
-std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) throw(ContentLoadException)
+std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) noexcept(false)
 {
     auto filename  = assetName + u".xnb";
     auto path      = Path::Combine(this->rootDirectory, filename);

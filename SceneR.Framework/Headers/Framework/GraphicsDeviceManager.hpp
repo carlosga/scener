@@ -35,11 +35,6 @@ namespace SceneR
              */
             GraphicsDeviceManager(Renderer& renderer);
 
-            /**
-             * Releases all resources being used by this GraphicsDeviceManager instance
-             */
-            virtual ~GraphicsDeviceManager() = default;
-
         public:
             virtual void Dispose() override;
 

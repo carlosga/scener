@@ -23,11 +23,6 @@ namespace SceneR
              */
             BoundingSphereReader() = default;
 
-            /**
-             * Releases all resources being used by this BoundingSphereReader.
-             */
-            virtual ~BoundingSphereReader() = default;
-
         public:
             /**
              * Reads the string contents from the given ContentReader.

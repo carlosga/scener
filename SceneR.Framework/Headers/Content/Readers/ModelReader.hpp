@@ -32,11 +32,6 @@ namespace SceneR
              */
             ModelReader() = default;
 
-            /**
-             * Releases all resources being used by this ModelReader.
-             */
-            virtual ~ModelReader() = default;
-
         public:
             /**
              * Reads the model contents from the given ContentReader.

@@ -24,6 +24,12 @@ AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyfram
 {
 }
 
+AnimationClip::AnimationClip(const AnimationClip& clip)
+    : duration  { clip.duration }
+    , keyframes ( clip.keyframes )
+{
+}
+
 const TimeSpan& AnimationClip::Duration() const
 {
     return this->duration;
@@ -32,4 +38,15 @@ const TimeSpan& AnimationClip::Duration() const
 const std::vector<Keyframe>& AnimationClip::Keyframes() const
 {
     return this->keyframes;
+}
+
+AnimationClip &AnimationClip::operator=(const AnimationClip& clip)
+{
+    if (this != &clip)
+    {
+        this->duration  = clip.duration;
+        this->keyframes = std::vector<Keyframe>(clip.keyframes);
+    }
+
+    return *this;
 }

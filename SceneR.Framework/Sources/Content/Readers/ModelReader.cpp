@@ -154,7 +154,7 @@ System::String ModelReader::ReadString(ContentReader& input)
 
 std::shared_ptr<BoundingSphere> ModelReader::ReadBoundingSphere(ContentReader& input)
 {
-    auto reader = BoundingSphereReader { };
+    BoundingSphereReader reader;
 
     return std::static_pointer_cast<BoundingSphere>(reader.Read(input));
 }

@@ -23,11 +23,6 @@ namespace SceneR
              */
             SkinnedEffectReader() = default;
 
-            /**
-             * Releases all resources being used by this SkinnedEffectReader.
-             */
-            virtual ~SkinnedEffectReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

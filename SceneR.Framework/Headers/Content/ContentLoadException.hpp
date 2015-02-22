@@ -25,19 +25,12 @@ namespace SceneR
             {
             }
 
-            /**
-             * ContentLoadException destructor
-             */
-            ~ContentLoadException() throw ()
-            {
-            }
-
         public:
             /**
              * Gets the message that describes the error.
              * @return  the message describing the error.
              */
-            const char* what() const throw ()
+            const char* what() const noexcept
             {
                 return this->msg.c_str();
             }

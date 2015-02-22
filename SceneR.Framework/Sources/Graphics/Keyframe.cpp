@@ -46,3 +46,15 @@ const Matrix& Keyframe::Transform() const
 {
     return this->transform;
 }
+
+Keyframe& Keyframe::operator=(const Keyframe& keyframe)
+{
+    if (this != &keyframe)
+    {
+        this->bone      = keyframe.bone;
+        this->time      = keyframe.time;
+        this->transform = keyframe.transform;
+    }
+
+    return *this;
+}

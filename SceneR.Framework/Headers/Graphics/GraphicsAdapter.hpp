@@ -38,12 +38,6 @@ namespace SceneR
 
         public:
             /**
-             * Releases all resources being used by this GraphicsAdapter.
-             */
-            ~GraphicsAdapter() = default;
-
-        public:
-            /**
              * Gets the current display mode.
              */
             DisplayMode CurrentDisplayMode() const;

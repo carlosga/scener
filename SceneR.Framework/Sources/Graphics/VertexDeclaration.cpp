@@ -15,6 +15,12 @@ VertexDeclaration::VertexDeclaration(const Size&                       vertexStr
 {
 }
 
+VertexDeclaration::VertexDeclaration(const VertexDeclaration& declaration)
+    : vertexStride   { declaration.vertexStride }
+    , vertexElements { declaration.vertexElements }
+{
+}
+
 const Size& VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;
@@ -23,6 +29,17 @@ const Size& VertexDeclaration::VertexStride() const
 const std::vector<VertexElement>& VertexDeclaration::VertexElements() const
 {
     return this->vertexElements;
+}
+
+VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declaration)
+{
+    if (this != &declaration)
+    {
+        this->vertexStride   = declaration.vertexStride;
+        this->vertexElements = declaration.vertexElements;
+    }
+
+    return *this;
 }
 
 void VertexDeclaration::Activate() const

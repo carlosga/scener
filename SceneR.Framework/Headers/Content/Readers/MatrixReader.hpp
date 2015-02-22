@@ -23,11 +23,6 @@ namespace SceneR
              */
             MatrixReader() = default;
 
-            /**
-             * Releases all resources being used by this MatrixReader.
-             */
-            virtual ~MatrixReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

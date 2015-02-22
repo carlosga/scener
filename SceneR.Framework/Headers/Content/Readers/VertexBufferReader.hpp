@@ -24,11 +24,6 @@ namespace SceneR
              */
             VertexBufferReader() = default;
 
-            /**
-             * Releases all resources being used by this VertexBufferReader.
-             */
-            virtual ~VertexBufferReader() = default;
-
         public:
             /**
              * Reads the vertex buffer contents from the given ContentReader.

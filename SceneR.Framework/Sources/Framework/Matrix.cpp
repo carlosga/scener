@@ -800,6 +800,34 @@ const Single& Matrix::operator[](const Size& index) const
     return this->matrix[index];
 }
 
+Matrix& Matrix::operator=(const Matrix& matrix)
+{
+    if (this != &matrix)
+    {
+        this->m11 = matrix.m11;
+        this->m12 = matrix.m12;
+        this->m13 = matrix.m13;
+        this->m14 = matrix.m14;
+
+        this->m21 = matrix.m21;
+        this->m22 = matrix.m22;
+        this->m23 = matrix.m23;
+        this->m24 = matrix.m24;
+
+        this->m31 = matrix.m31;
+        this->m32 = matrix.m32;
+        this->m33 = matrix.m33;
+        this->m34 = matrix.m34;
+
+        this->m41 = matrix.m41;
+        this->m42 = matrix.m42;
+        this->m43 = matrix.m43;
+        this->m44 = matrix.m44;
+    }
+
+    return *this;
+}
+
 bool Matrix::operator==(const Matrix& matrix) const
 {
     return (Math::Equal(this->m11, matrix.m11)

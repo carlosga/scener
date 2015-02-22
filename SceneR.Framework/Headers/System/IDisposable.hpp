@@ -8,12 +8,6 @@ namespace System
      */
     class IDisposable
     {
-    protected:
-        /**
-         * Releases all resources being used by this IDisposable.
-         */
-        virtual ~IDisposable() = default;
-
     public:
         /**
          * @brief Performs application-defined tasks associated with freeing, releasing,

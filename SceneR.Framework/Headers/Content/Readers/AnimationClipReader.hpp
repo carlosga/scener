@@ -23,11 +23,6 @@ namespace SceneR
              */
             AnimationClipReader() = default;
 
-            /**
-             * Releases all resources being used by this AnimationClipReader.
-             */
-            virtual ~AnimationClipReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

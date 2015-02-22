@@ -14,9 +14,9 @@ using namespace SceneR::Sample;
 
 Camera::Camera(SampleRenderer& renderer)
     : Component  { renderer }
-    , rotation   { 0 }
     , View       { Matrix::Identity }
     , Projection { Matrix::Identity }
+    , rotation   { 0 }
 {
 }
 
@@ -34,5 +34,4 @@ void Camera::Update(const RenderTime& renderTime)
 
     this->View = Matrix::CreateRotationY(this->rotation, { 0.0f, 0.0f, 0.0f})
                * Matrix::CreateLookAt({ 0.0f, 0.0f, -400.0f }, Vector3::Zero, Vector3::Up);
-
 }

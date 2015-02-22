@@ -42,11 +42,6 @@ namespace SceneR
                             const EffectParameterType&            parameterType,
                             const std::shared_ptr<ShaderProgram>& shaderProgram);
 
-            /**
-             * Releases all resources being used by this EffectParameter.
-             */
-            ~EffectParameter() = default;
-
         public:
             /**
              * Gets the number of columns in the parameter description.

@@ -12,24 +12,22 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class GraphicsAdapter;
-
         /**
          * Display mode information.
          */
         class DisplayMode
         {
-        private:
+        public:
             /**
              * Initializes a new instance of the DisplayMode class.
              */
             DisplayMode(const GLFWvidmode* mode);
 
-        public:
             /**
-             * Releases all resources being used by this DisplayMode.
+             * @brief Coopy constructor
+             * @param displayMode thge display mode to copy from.
              */
-            ~DisplayMode() = default;
+            DisplayMode(const DisplayMode& displayMode);
 
         public:
             /**
@@ -52,13 +50,14 @@ namespace SceneR
              */
             const System::Size& Width() const;
 
+        public:
+            DisplayMode& operator=(const DisplayMode& displayMode);
+
         private:
             System::Single aspectRatio;
             SurfaceFormat  format;
             System::Size   height;
             System::Size   width;
-
-            friend class GraphicsAdapter;
         };
     }
 }

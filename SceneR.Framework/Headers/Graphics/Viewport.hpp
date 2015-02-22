@@ -35,6 +35,13 @@ namespace SceneR
                      const System::Single& minDepth, const System::Single& maxDepth);
 
             /**
+             * @brief Copy constructor
+             * @param viewport the instance to copy from
+             */
+            Viewport(const Viewport& viewport);
+
+        public:
+            /**
              * Default destructor
              */
             ~Viewport() = default;
@@ -58,12 +65,15 @@ namespace SceneR
 
             void MaxDepth(const System::Single& maxDepth);
 
+            void Update() const;
+
             void Update(const System::Single& x    , const System::Single& y
                       , const System::Single& width, const System::Single& height);
 
             void Update(const System::Single& width, const System::Single& height);
 
-            void Refresh() const;
+        public:
+            Viewport& operator=(const Viewport& viewport);
 
         private:
             System::Single x;

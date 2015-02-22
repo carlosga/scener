@@ -23,11 +23,6 @@ namespace SceneR
              */
             Int32ListReader() = default;
 
-            /**
-             * Releases all resources being used by this Int32ListReader.
-             */
-            virtual ~Int32ListReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

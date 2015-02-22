@@ -17,6 +17,14 @@ VertexElement::VertexElement(const UInt32&                                offset
 {
 }
 
+VertexElement::VertexElement(const VertexElement& element)
+    : offset              { element.offset }
+    , vertexElementFormat { element.vertexElementFormat }
+    , vertexElementUsage  { element.vertexElementUsage }
+    , usageIndex          { element.usageIndex }
+{
+}
+
 const UInt32& VertexElement::Offset() const
 {
     return this->offset;
@@ -35,4 +43,17 @@ const SceneR::Graphics::VertexElementFormat& VertexElement::VertexElementFormat(
 const SceneR::Graphics::VertexElementUsage& VertexElement::VertexElementUsage() const
 {
     return this->vertexElementUsage;
+}
+
+VertexElement& VertexElement::operator=(const VertexElement& element)
+{
+    if (this != &element)
+    {
+        this->offset              = element.offset;
+        this->vertexElementFormat = element.vertexElementFormat;
+        this->vertexElementUsage  = element.vertexElementUsage;
+        this->usageIndex          = element.usageIndex;
+    }
+
+    return *this;
 }

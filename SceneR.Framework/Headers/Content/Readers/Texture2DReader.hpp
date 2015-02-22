@@ -24,11 +24,6 @@ namespace SceneR
              */
             Texture2DReader() = default;
 
-            /**
-             * Releases all resources being used by this Texture2DReader.
-             */
-            virtual ~Texture2DReader() = default;
-
         public:
             /**
              * Reads the 2D texture contents from the given ContentReader.

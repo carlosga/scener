@@ -1,5 +1,6 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+//-----------------------------------------------------------------------------
 // Ported from a Microsoft XNA Community Game Platform example
 //-----------------------------------------------------------------------------
 // Microsoft XNA Community Game Platform
@@ -35,6 +36,9 @@ namespace SceneR
             const System::TimeSpan& Time() const;
 
             const SceneR::Framework::Matrix& Transform() const;
+
+        public:
+            Keyframe& operator=(const Keyframe& keyframe);
 
         private:
             System::Int32             bone;

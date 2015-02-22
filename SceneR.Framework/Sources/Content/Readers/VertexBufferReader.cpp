@@ -29,6 +29,7 @@ std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
 
 std::shared_ptr<VertexDeclaration> VertexBufferReader::ReadVertexDeclaration(ContentReader& input)
 {
-    auto reader = VertexDeclarationReader { };
+    VertexDeclarationReader reader;
+
     return std::static_pointer_cast<VertexDeclaration>(reader.Read(input));
 }

@@ -28,11 +28,6 @@ namespace SceneR
              */
             SamplerState(GraphicsDevice& graphicsDevice);
 
-            /**
-             * Releases all resources being used by this SamplerState.
-             */
-            virtual ~SamplerState() = default;
-
         public:
             virtual void Dispose() override;
 

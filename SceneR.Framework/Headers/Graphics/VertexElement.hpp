@@ -26,6 +26,12 @@ namespace SceneR
                         , const System::UInt32&                        usageIndex);
 
             /**
+             * @brief Copy constructor
+             * @param element the vertex element to copy from
+             */
+            VertexElement(const VertexElement& element);
+
+            /**
              * Releases all resources being used by this VertexElement.
              */
             ~VertexElement() = default;
@@ -50,6 +56,9 @@ namespace SceneR
              * Gets a value describing how the vertex element is to be used.
              */
             const SceneR::Graphics::VertexElementUsage& VertexElementUsage() const;
+
+        public:
+            VertexElement& operator=(const VertexElement& element);
 
         private:
             System::UInt32                        offset;

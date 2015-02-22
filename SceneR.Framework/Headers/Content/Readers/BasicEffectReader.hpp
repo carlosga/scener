@@ -23,11 +23,6 @@ namespace SceneR
              */
             BasicEffectReader() = default;
 
-            /**
-             * Releases all resources being used by this BasicEffectReader.
-             */
-            virtual ~BasicEffectReader() = default;
-
         public:
             /**
              * Reads the string contents from the given ContentReader.

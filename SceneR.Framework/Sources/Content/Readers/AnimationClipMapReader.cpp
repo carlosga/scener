@@ -13,10 +13,10 @@ using namespace SceneR::Graphics;
 
 std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
 {
+    auto clipCount      = input.ReadUInt32();
     auto animationClips = std::make_shared<std::map<String, AnimationClip>>();
-    auto clipCount      = input.ReadInt32();
 
-    for (Int32 i = 0; i < clipCount; i++)
+    for (UInt32 i = 0; i < clipCount; i++)
     {
         auto clipName = *input.ReadObject<String>();
 

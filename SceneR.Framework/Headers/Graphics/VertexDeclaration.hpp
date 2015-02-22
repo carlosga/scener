@@ -32,9 +32,10 @@ namespace SceneR
                             , const std::vector<VertexElement>& vertexElements);
 
             /**
-             * Releases all resources being used by this VertexDeclaration
+             * @brief Copy constructor
+             * @param declaration the vertex declaration to copy from
              */
-            ~VertexDeclaration() = default;
+            VertexDeclaration(const VertexDeclaration& declaration);
 
         public:
             /**
@@ -48,6 +49,9 @@ namespace SceneR
              * @return the vertex elements.
              */
             const std::vector<VertexElement>& VertexElements() const;
+
+        public:
+            VertexDeclaration& operator=(const VertexDeclaration& declaration);
 
         private:
             /**

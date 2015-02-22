@@ -23,11 +23,6 @@ namespace SceneR
              */
             KeyframeReader() = default;
 
-            /**
-             * Releases all resources being used by this KeyframeReader.
-             */
-            virtual ~KeyframeReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

@@ -29,6 +29,14 @@ DisplayMode::DisplayMode(const GLFWvidmode* mode)
     }
 }
 
+DisplayMode::DisplayMode(const DisplayMode& displayMode)
+    : aspectRatio { displayMode.aspectRatio }
+    , format      { displayMode.format }
+    , height      ( displayMode.height )
+    , width       ( displayMode.width )
+{
+}
+
 const Single& DisplayMode::AspectRatio() const
 {
     return this->aspectRatio;
@@ -47,4 +55,17 @@ const Size& DisplayMode::Height() const
 const Size& DisplayMode::Width() const
 {
     return this->width;
+}
+
+DisplayMode& DisplayMode::operator=(const DisplayMode& displayMode)
+{
+    if (this != &displayMode)
+    {
+        this->aspectRatio = displayMode.aspectRatio;
+        this->format      = displayMode.format;
+        this->height      = displayMode.height;
+        this->width       = displayMode.width;
+    }
+
+    return *this;
 }

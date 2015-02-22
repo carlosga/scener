@@ -23,11 +23,6 @@ namespace SceneR
              */
             TimeSpanReader() = default;
 
-            /**
-             * Releases all resources being used by this TimeSpanReader.
-             */
-            virtual ~TimeSpanReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.

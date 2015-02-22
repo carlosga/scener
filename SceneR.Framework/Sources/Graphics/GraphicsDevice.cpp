@@ -222,5 +222,5 @@ SceneR::Graphics::Viewport& GraphicsDevice::Viewport()
 void GraphicsDevice::Viewport(SceneR::Graphics::Viewport& viewport)
 {
     this->viewport = viewport;
-    this->viewport.Refresh();
+    this->viewport.Update();
 }

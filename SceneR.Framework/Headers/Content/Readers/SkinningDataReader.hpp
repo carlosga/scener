@@ -23,11 +23,6 @@ namespace SceneR
              */
             SkinningDataReader() = default;
 
-            /**
-             * Releases all resources being used by this SkinningDataReader.
-             */
-            virtual ~SkinningDataReader() = default;
-
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.
