@@ -35,10 +35,10 @@ namespace SceneR
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            virtual ~VertexBuffer() = default;
+            ~VertexBuffer();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

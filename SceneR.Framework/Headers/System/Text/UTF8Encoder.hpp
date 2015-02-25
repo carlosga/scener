@@ -12,25 +12,34 @@ namespace System
 {
     namespace Text
     {
+        /**
+         * Converts a set of UTF-8 encoded characters into a sequence of bytes.
+         */
         class UTF8Encoder : public Encoder
         {
         public:
-            UTF8Encoder();
+            /**
+             * Initializes a new instance of the UTF8Encoder class.
+             */
+             UTF8Encoder();
 
-            virtual ~UTF8Encoder();
+            /**
+             * Releases all resources being used by this UTF8Encoder.
+             */
+            ~UTF8Encoder();
 
         public:
-            virtual System::Size GetByteCount(const std::vector<System::Char>& chars
-                                            , const System::Size&              index
-                                            , const System::Size&              count
-                                            , const System::Boolean&           flush) const override;
+            System::Size GetByteCount(const std::vector<System::Char>& chars
+                                    , const System::Size&              index
+                                    , const System::Size&              count
+                                    , const System::Boolean&           flush) const override;
 
-            virtual System::Size GetBytes(const std::vector<System::Char>& chars
-                                        , const System::Size&              charIndex
-                                        , const System::Size&              charCount
-                                        , std::vector<System::UByte>&      bytes
-                                        , const System::Size&              byteIndex
-                                        , const System::Boolean&           flush) const override;
+            System::Size GetBytes(const std::vector<System::Char>& chars
+                                , const System::Size&              charIndex
+                                , const System::Size&              charCount
+                                , std::vector<System::UByte>&      bytes
+                                , const System::Size&              byteIndex
+                                , const System::Boolean&           flush) const override;
 
         private:
             std::codecvt_utf8<char16_t> converter;

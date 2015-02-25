@@ -586,6 +586,10 @@ Matrix::Matrix(const Matrix& matrix)
 {
 }
 
+Matrix::~Matrix()
+{
+}
+
 const Single& Matrix::M11() const
 {
     return this->m11;

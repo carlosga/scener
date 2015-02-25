@@ -8,6 +8,14 @@
 using namespace System;
 using namespace SceneR::Content;
 
+StringReader::StringReader()
+{
+}
+
+StringReader::~StringReader()
+{
+}
+
 std::shared_ptr<void> StringReader::Read(ContentReader& input)
 {
     return std::make_shared<String>(input.ReadString());

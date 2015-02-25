@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the SkinnedEffectReader class.
              */
-            SkinnedEffectReader() = default;
+            SkinnedEffectReader();
+
+            /**
+             * Destructor
+             */
+            ~SkinnedEffectReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the skinned effect contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

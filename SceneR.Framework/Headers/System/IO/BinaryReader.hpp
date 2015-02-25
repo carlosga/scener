@@ -11,16 +11,16 @@
 
 namespace System
 {
-	namespace IO
-	{
+    namespace IO
+    {
         class Stream;
 
-	    /**
-	     * Reads primitive data types as binary values in a specific encoding.
-	     */
-	    class BinaryReader
-	    {
-	    public:
+        /**
+         * Reads primitive data types as binary values in a specific encoding.
+         */
+        class BinaryReader
+        {
+        public:
             /**
              * Initializes a new instance of the BinaryReader class with the given stream.
              */
@@ -31,16 +31,16 @@ namespace System
              */
             BinaryReader(Stream& stream, const System::Text::Encoding& encoding);
 
-	        /**
-	         * Releases all resources being used by this BinaryReader.
-	         */
-	        virtual ~BinaryReader();
+            /**
+             * Releases all resources being used by this BinaryReader.
+             */
+            ~BinaryReader();
 
-	    public:
-	        /**
-	         * Gets the underliying Stream.
-	         */
-	        Stream& BaseStream();
+        public:
+            /**
+             * Gets the underliying Stream.
+             */
+            Stream& BaseStream();
 
             /**
              * Closes the current reader and the underlying stream.
@@ -63,9 +63,9 @@ namespace System
             String ReadString();
 
             /**
-             * Reads a 7-bit encoded int
+             * Reads a 7-bit encoded unsigned int
              */
-            Int32 Read7BitEncodedInt();
+            UInt32 Read7BitEncodedInt();
 
             /**
              * Reads a Boolean value from the current stream.
@@ -127,11 +127,11 @@ namespace System
             BinaryReader(const BinaryReader& reader) = delete;
             BinaryReader& operator=(const BinaryReader& reader) = delete;
 
-	    private:
+        private:
             Stream&                       stream;
             const System::Text::Encoding& encoding;
-	    };
-	}
+        };
+    }
 }
 
 #endif  /* BINARYREADER_HPP */

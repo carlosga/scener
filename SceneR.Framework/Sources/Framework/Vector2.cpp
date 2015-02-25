@@ -172,6 +172,10 @@ Vector2::Vector2(const Vector2& vector)
 {
 }
 
+Vector2::~Vector2()
+{
+}
+
 const Single& Vector2::X() const
 {
     return this->x;

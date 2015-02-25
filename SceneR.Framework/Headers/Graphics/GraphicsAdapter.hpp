@@ -30,11 +30,16 @@ namespace SceneR
              */
             static const std::vector<GraphicsAdapter> Adapters();
 
-        private:
+        public:
             /**
              * Initializes a new instance of the GraphicsAdapter class.
              */
             GraphicsAdapter();
+
+            /**
+             * Destructor
+             */
+            ~GraphicsAdapter();
 
         public:
             /**

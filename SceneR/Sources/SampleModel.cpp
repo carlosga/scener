@@ -25,24 +25,25 @@ SampleModel::SampleModel(SampleRenderer& renderer)
 
 void SampleModel::Initialize()
 {
-    this->Enabled(false);
-    this->Visible(false);
+    // this->Enabled(false);
+    // this->Visible(false);
 
     this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f });
+                * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f })
+                * Matrix::CreateScale(0.2f);
 
     DrawableComponent::Initialize();
 }
 
 void SampleModel::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/GoblinDShareyko");
+    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/WAR");
 }
 
 void SampleModel::UnloadContent()
 {
-    this->world    = Matrix::Identity;
-    this->model    = nullptr;
+    this->world = Matrix::Identity;
+    this->model = nullptr;
 }
 
 void SampleModel::Draw(const RenderTime& renderTime)

@@ -61,10 +61,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this BlendState.
              */
-            virtual ~BlendState() = default;
+            ~BlendState();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

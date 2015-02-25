@@ -225,6 +225,10 @@ Vector3::Vector3(const Vector3& vector)
 {
 }
 
+Vector3::~Vector3()
+{
+}
+
 const Single& Vector3::X() const
 {
     return this->x;

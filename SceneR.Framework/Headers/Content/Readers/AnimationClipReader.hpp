@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the AnimationClipReader class.
              */
-            AnimationClipReader() = default;
+            AnimationClipReader();
+
+            /**
+             * Destructor
+             */
+            ~AnimationClipReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the animation clip contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

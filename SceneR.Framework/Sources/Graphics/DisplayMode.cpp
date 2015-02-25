@@ -37,6 +37,10 @@ DisplayMode::DisplayMode(const DisplayMode& displayMode)
 {
 }
 
+DisplayMode::~DisplayMode()
+{
+}
+
 const Single& DisplayMode::AspectRatio() const
 {
     return this->aspectRatio;

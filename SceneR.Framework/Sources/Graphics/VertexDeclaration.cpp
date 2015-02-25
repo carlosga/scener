@@ -21,6 +21,10 @@ VertexDeclaration::VertexDeclaration(const VertexDeclaration& declaration)
 {
 }
 
+VertexDeclaration::~VertexDeclaration()
+{
+}
+
 const Size& VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;

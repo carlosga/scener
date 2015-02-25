@@ -22,13 +22,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the VertexBufferReader class.
              */
-            VertexBufferReader() = default;
+            VertexBufferReader();
+
+            /**
+             * Destructor
+             */
+            ~VertexBufferReader();
 
         public:
             /**
              * Reads the vertex buffer contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> ReadVertexDeclaration(ContentReader& input);

@@ -213,6 +213,10 @@ Vector4::Vector4(const Vector4& vector)
 {
 }
 
+Vector4::~Vector4()
+{
+}
+
 const Single& Vector4::X() const
 {
     return this->x;

@@ -17,6 +17,12 @@ namespace SceneR
         {
         public:
             /**
+             * Destructor
+             */
+            virtual ~IGraphicsDeviceService();
+
+        public:
+            /**
              * Retrieves a graphics device.
              */
             virtual GraphicsDevice& CurrentGraphicsDevice() = 0;

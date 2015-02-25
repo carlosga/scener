@@ -141,7 +141,7 @@ namespace System
         /**
          * Releases all resources being used by this TimeSpan.
          */
-        ~TimeSpan() = default;
+        ~TimeSpan();
 
     public:
         /**

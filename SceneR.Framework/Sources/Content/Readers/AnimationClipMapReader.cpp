@@ -11,6 +11,14 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
+AnimationClipMapReader::AnimationClipMapReader()
+{
+}
+
+AnimationClipMapReader::~AnimationClipMapReader()
+{
+}
+
 std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
 {
     auto clipCount      = input.ReadUInt32();

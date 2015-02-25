@@ -32,7 +32,10 @@ namespace SceneR
 
             SkinningData(const SkinningData& skinningData);
 
-            ~SkinningData() = default;
+            /**
+             * Destructor
+             */
+            ~SkinningData();
 
         public:
             const std::map<System::String, AnimationClip>& AnimationClips() const;

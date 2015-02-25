@@ -10,6 +10,14 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
+MatrixListReader::MatrixListReader()
+{
+}
+
+MatrixListReader::~MatrixListReader()
+{
+}
+
 std::shared_ptr<void> MatrixListReader::Read(ContentReader& input)
 {
     auto matrices    = std::make_shared<std::vector<Matrix>>();

@@ -15,6 +15,10 @@ PresentationParameters::PresentationParameters()
 {
 }
 
+PresentationParameters::~PresentationParameters()
+{
+}
+
 const Boolean& PresentationParameters::FullScreen() const
 {
     return this->fullScreen;

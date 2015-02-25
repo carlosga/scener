@@ -29,6 +29,10 @@ VertexPositionColor::VertexPositionColor(const Vector3&                  positio
 {
 }
 
+VertexPositionColor::~VertexPositionColor()
+{
+}
+
 const Vector3& VertexPositionColor::Position() const
 {
     return this->position;

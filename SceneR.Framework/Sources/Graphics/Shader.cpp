@@ -16,6 +16,10 @@ Shader::Shader(const String& shaderCode, const ShaderType& shaderType)
 {
 }
 
+Shader::~Shader()
+{
+}
+
 void Shader::Dispose()
 {
     if (this->object != 0)

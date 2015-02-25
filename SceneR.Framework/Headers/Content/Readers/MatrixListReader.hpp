@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the MatrixListReader class.
              */
-            MatrixListReader() = default;
+            MatrixListReader();
+
+            /**
+             * Destructor
+             */
+            ~MatrixListReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the matrix list contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

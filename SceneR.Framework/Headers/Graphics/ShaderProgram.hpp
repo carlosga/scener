@@ -39,9 +39,13 @@ namespace SceneR
              */
             ShaderProgram(std::vector<std::shared_ptr<Shader>> &shaders);
 
-        // IDisposable interface
+            /**
+             * Destructor
+             */
+            ~ShaderProgram();
+
         public:
-            void Dispose();
+            void Dispose() override;
 
         public:
             /**

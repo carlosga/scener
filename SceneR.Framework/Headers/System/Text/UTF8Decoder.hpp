@@ -12,25 +12,34 @@ namespace System
 {
     namespace Text
     {
+        /**
+         * Converts a sequence of encoded bytes into a set of UTF-8 encoded characters.
+         */
         class UTF8Decoder : public Decoder
         {
         public:
+            /**
+             * Initializes a new instance of the UTF8Decoder class.
+             */
             UTF8Decoder();
 
-            virtual ~UTF8Decoder();
+            /**
+             * Releases all resources being used by this UTF8Decoder.
+             */
+            ~UTF8Decoder();
 
         public:
-            virtual System::Size GetCharCount(const std::vector<System::UByte>& bytes
-                                            , const System::Size&               index
-                                            , const System::Size&               count) const override;
+            System::Size GetCharCount(const std::vector<System::UByte>& bytes
+                                    , const System::Size&               index
+                                    , const System::Size&               count) const override;
 
-            virtual System::Size GetChars(const std::vector<System::UByte>& bytes
-                                        , const System::Size&               byteIndex
-                                        , const System::Size&               byteCount
-                                        , std::vector<System::Char>&        chars
-                                        , const System::Size&               charIndex) const override;
+            System::Size GetChars(const std::vector<System::UByte>& bytes
+                                , const System::Size&               byteIndex
+                                , const System::Size&               byteCount
+                                , std::vector<System::Char>&        chars
+                                , const System::Size&               charIndex) const override;
 
-            virtual void Reset();
+            void Reset();
 
         private:
             std::codecvt_utf8<char16_t> converter;

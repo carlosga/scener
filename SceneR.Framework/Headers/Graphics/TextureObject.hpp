@@ -27,10 +27,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this TextureObject.
              */
-            virtual ~TextureObject() = default;
+            ~TextureObject();
 
         public:
-            void Dispose();
+            void Dispose() override;
 
         public:
             /**

@@ -108,7 +108,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this Plane.
              */
-            ~Plane() = default;
+            ~Plane();
 
         public:
             /**

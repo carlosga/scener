@@ -28,8 +28,13 @@ namespace SceneR
              */
             SamplerState(GraphicsDevice& graphicsDevice);
 
+            /**
+             * Destructor
+             */
+            ~SamplerState();
+
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

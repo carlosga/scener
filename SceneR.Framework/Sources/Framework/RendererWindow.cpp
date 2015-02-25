@@ -132,5 +132,5 @@ bool RendererWindow::ShouldClose() const
     auto fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().FullScreen();
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            || glfwWindowShouldClose(this->handle));
+         || glfwWindowShouldClose(this->handle));
 }

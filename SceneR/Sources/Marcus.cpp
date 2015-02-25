@@ -27,7 +27,8 @@ Marcus::Marcus(SampleRenderer& renderer)
 void Marcus::Initialize()
 {
     this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f });
+                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
+                * Matrix::CreateScale(2.0f);
 
     DrawableComponent::Initialize();
 }

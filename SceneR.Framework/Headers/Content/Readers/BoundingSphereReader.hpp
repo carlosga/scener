@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the BoundingSphereReader class.
              */
-            BoundingSphereReader() = default;
+            BoundingSphereReader();
+
+            /**
+             * Destructor
+             */
+            ~BoundingSphereReader();
 
         public:
             /**
-             * Reads the string contents from the given ContentReader.
+             * Reads the bounding sphere contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

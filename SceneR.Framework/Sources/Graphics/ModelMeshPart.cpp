@@ -22,6 +22,10 @@ ModelMeshPart::ModelMeshPart()
 {
 }
 
+ModelMeshPart::~ModelMeshPart()
+{
+}
+
 const std::shared_ptr<SceneR::Graphics::Effect>& ModelMeshPart::Effect() const
 {
     return this->effect;

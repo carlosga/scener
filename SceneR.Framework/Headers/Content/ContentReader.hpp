@@ -38,6 +38,7 @@ namespace SceneR
          */
         class ContentReader : public System::IO::BinaryReader
         {
+        private:
             static ContentTypeReaderManager TypeReaderManager;
 
         public:
@@ -54,7 +55,7 @@ namespace SceneR
             /**
              * Releases all resources used by the current instance of the ContentReader class.
              */
-            virtual ~ContentReader();
+            ~ContentReader();
 
         public:
             /**

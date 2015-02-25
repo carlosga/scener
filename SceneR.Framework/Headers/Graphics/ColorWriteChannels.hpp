@@ -41,17 +41,15 @@ namespace SceneR
             All = Red | Green | Blue | Alpha
         };
 
-        inline constexpr ColorWriteChannels
-        operator&(ColorWriteChannels left, ColorWriteChannels right)
+        inline constexpr ColorWriteChannels operator&(ColorWriteChannels left, ColorWriteChannels right)
         {
             return static_cast<ColorWriteChannels>(static_cast<int>(left) & static_cast<int>(right));
-        };
+        }
 
-        inline constexpr ColorWriteChannels
-        operator|(ColorWriteChannels left, ColorWriteChannels right)
+        inline constexpr ColorWriteChannels operator|(ColorWriteChannels left, ColorWriteChannels right)
         {
             return static_cast<ColorWriteChannels>(static_cast<int>(left) | static_cast<int>(right));
-        };
+        }
     }
 }
 

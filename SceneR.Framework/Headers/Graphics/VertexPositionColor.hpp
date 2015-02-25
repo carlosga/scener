@@ -33,12 +33,12 @@ namespace SceneR
              * given position and color.
              */
             VertexPositionColor(const SceneR::Framework::Vector3& position
-                              , const SceneR::Framework::Color& color);
+                              , const SceneR::Framework::Color&   color);
 
             /**
              * Releases all resources being used by this VertexPositionColor.
              */
-            ~VertexPositionColor() = default;
+            ~VertexPositionColor();
 
         public:
             /**

@@ -43,6 +43,10 @@ Viewport::Viewport(const Viewport& viewport)
 {
 }
 
+Viewport::~Viewport()
+{
+}
+
 const Single& Viewport::X() const
 {
     return this->x;
@@ -111,8 +115,7 @@ void Viewport::Update(const Single& x, const Single& y, const Single& width, con
     this->Update();
 }
 
-
-Viewport& Viewport::operator=(const Viewport &viewport)
+Viewport& Viewport::operator=(const Viewport& viewport)
 {
     if (this != &viewport)
     {

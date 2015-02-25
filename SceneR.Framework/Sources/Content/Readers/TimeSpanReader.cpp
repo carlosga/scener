@@ -9,6 +9,14 @@
 using namespace System;
 using namespace SceneR::Content;
 
+TimeSpanReader::TimeSpanReader()
+{
+}
+
+TimeSpanReader::~TimeSpanReader()
+{
+}
+
 std::shared_ptr<void> TimeSpanReader::Read(ContentReader& input)
 {
     return std::make_shared<TimeSpan>(input.ReadUInt64());

@@ -105,6 +105,10 @@ Plane::Plane(const Plane& value)
 {
 }
 
+Plane::~Plane()
+{
+}
+
 const Vector3& Plane::Normal() const
 {
     return this->normal;

@@ -57,16 +57,16 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            virtual ~Texture2D() = default;
+            ~Texture2D();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**
              * Gets the format of the texture data.
              */
-            virtual const SurfaceFormat& Format() const override;
+            const SurfaceFormat& Format() const override;
 
             /**
              * Gets the texture height, in pixels
@@ -76,7 +76,7 @@ namespace SceneR
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            virtual const System::UInt32& LevelCount() const override;
+            const System::UInt32& LevelCount() const override;
 
             /**
              * Gets the texture width, in pixels
@@ -94,12 +94,12 @@ namespace SceneR
             /**
              * Activates the texture object
              */
-            virtual void Activate() const override;
+            void Activate() const override;
 
             /**
              * Deactivates the texture object
              */
-            virtual void Deactivate() const override;
+            void Deactivate() const override;
 
         private:
             void DeclareStorage(const System::UInt32& mipMapLevels);

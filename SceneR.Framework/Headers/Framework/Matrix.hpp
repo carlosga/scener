@@ -372,9 +372,9 @@ namespace SceneR
             Matrix(const Matrix& matrix);
 
             /**
-             * Default destructor
+             * Destructor
              */
-            ~Matrix() = default;
+            ~Matrix();
 
         public:
             /**

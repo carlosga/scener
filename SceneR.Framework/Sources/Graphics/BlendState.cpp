@@ -24,6 +24,10 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
 {
 }
 
+BlendState::~BlendState()
+{
+}
+
 void BlendState::Dispose()
 {
 }

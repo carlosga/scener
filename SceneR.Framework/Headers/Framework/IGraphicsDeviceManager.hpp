@@ -18,6 +18,12 @@ namespace SceneR
         {
         public:
             /**
+             * Destructor
+             */
+            virtual ~IGraphicsDeviceManager();
+
+        public:
+            /**
              * Releases all resources being used by this IGraphicsDeviceManager instance
              */
             virtual void Dispose() override = 0;

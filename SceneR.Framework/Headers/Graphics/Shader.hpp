@@ -27,9 +27,13 @@ namespace SceneR
              */
             Shader(const System::String& shaderCode, const ShaderType& shaderType);
 
-        // IDisposable interface
+            /**
+             * Destructor
+             */
+            ~Shader();
+
         public:
-            void Dispose();
+            void Dispose() override;
 
         public:
             /**

@@ -18,7 +18,7 @@ using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Framework;
 
-ContentTypeReaderManager ContentReader::TypeReaderManager { };
+ContentTypeReaderManager ContentReader::TypeReaderManager;
 
 ContentReader::ContentReader(const String&                    assetName
                            , SceneR::Content::ContentManager& contentManager
@@ -93,7 +93,7 @@ void ContentReader::ReadSharedResource(const std::function<void(const std::share
     {
         this->fixupActions.push_back({ sharedResourceId - 1, fixup });
     }
-};
+}
 
 void ContentReader::ReadHeader()
 {
@@ -125,7 +125,7 @@ void ContentReader::ReadManifest()
 
     typeReaders.clear();
 
-    for (Int32 i = 0; i < typeReaderCount; i++)
+    for (UInt32 i = 0; i < typeReaderCount; i++)
     {
         // Read the type reader name.
         auto readerName = this->ReadString();
@@ -152,7 +152,8 @@ void ContentReader::ReadSharedResources()
 
         if (sharedResourceType != 0)
         {
-            auto resource = this->typeReaders[sharedResourceType - 1]->Read(*this);
+            auto sreader  = this->typeReaders[sharedResourceType - 1];
+            auto resource = sreader->Read(*this);
 
             for (auto& fixup : this->fixupActions)
             {

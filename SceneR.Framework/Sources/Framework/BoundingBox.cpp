@@ -27,6 +27,10 @@ BoundingBox::BoundingBox(const BoundingBox& boundingBox)
 {
 }
 
+BoundingBox::~BoundingBox()
+{    
+}
+
 const Vector3& BoundingBox::Max() const
 {
     return max;

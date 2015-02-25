@@ -16,6 +16,10 @@ IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevic
 {
 }
 
+IndexBuffer::~IndexBuffer()
+{
+}
+
 void IndexBuffer::Dispose()
 {
     this->ibo.Dispose();

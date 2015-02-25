@@ -25,6 +25,10 @@ GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
     this->renderer.Services().AddService<IGraphicsDeviceService>(*this);
 }
 
+GraphicsDeviceManager::~GraphicsDeviceManager()
+{
+}
+
 void GraphicsDeviceManager::Dispose()
 {
     if (this->graphicsDevice)

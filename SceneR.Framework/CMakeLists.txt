@@ -6,9 +6,9 @@ set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
 
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wdeprecated -Wno-unused-parameter")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wweak-vtables")
 
-#-Weverything -Wno-c++98-compat -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+# -Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
 # include directories
 include_directories(Headers
@@ -141,6 +141,12 @@ set(HEADER_FILES
     Headers/Graphics/VertexPositionColorTexture.hpp
     Headers/Graphics/VertexPositionNormalTexture.hpp
     Headers/Graphics/Viewport.hpp
+    Headers/System/Core.hpp
+    Headers/System/IDisposable.hpp
+    Headers/System/BitConverter.hpp
+    Headers/System/Math.hpp
+    Headers/System/Pointer.hpp
+    Headers/System/TimeSpan.hpp
     Headers/System/Graphics/Platform.hpp
     Headers/System/IO/BinaryReader.hpp
     Headers/System/IO/File.hpp
@@ -148,11 +154,6 @@ set(HEADER_FILES
     Headers/System/IO/MemoryStream.hpp
     Headers/System/IO/Path.hpp
     Headers/System/IO/Stream.hpp
-    Headers/System/Core.hpp
-    Headers/System/IDisposable.hpp
-    Headers/System/Math.hpp
-    Headers/System/Pointer.hpp
-    Headers/System/TimeSpan.hpp
     Headers/System/Text/Decoder.hpp
     Headers/System/Text/Encoder.hpp
     Headers/System/Text/Encoding.hpp
@@ -182,10 +183,12 @@ set(SOURCE_FILES
     Sources/Content/Readers/TimeSpanReader.cpp
     Sources/Content/Readers/VertexBufferReader.cpp
     Sources/Content/Readers/VertexDeclarationReader.cpp
+    Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
     Sources/Content/ContentTypeReaderManager.cpp
     Sources/Content/SharedResourceAction.cpp
+    Sources/Content/ContentTypeReader.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustum.cpp
     Sources/Framework/BoundingSphere.cpp
@@ -193,6 +196,10 @@ set(SOURCE_FILES
     Sources/Framework/Component.cpp
     Sources/Framework/DrawableComponent.cpp
     Sources/Framework/GraphicsDeviceManager.cpp
+    Sources/Framework/IComponent.cpp
+    Sources/Framework/IDrawable.cpp
+    Sources/Framework/IUpdateable.cpp
+    Sources/Framework/IGraphicsDeviceManager.cpp
     Sources/Framework/Matrix.cpp
     Sources/Framework/Plane.cpp
     Sources/Framework/Quaternion.cpp
@@ -219,6 +226,10 @@ set(SOURCE_FILES
     Sources/Graphics/GraphicsAdapter.cpp
     Sources/Graphics/GraphicsDevice.cpp
     Sources/Graphics/GraphicsResource.cpp
+    Sources/Graphics/IEffectFog.cpp
+    Sources/Graphics/IEffectLights.cpp
+    Sources/Graphics/IEffectMatrices.cpp
+    Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
     Sources/Graphics/Keyframe.cpp
     Sources/Graphics/Model.cpp
@@ -244,11 +255,13 @@ set(SOURCE_FILES
     Sources/Graphics/VertexPositionColorTexture.cpp
     Sources/Graphics/VertexPositionNormalTexture.cpp
     Sources/Graphics/Viewport.cpp
+    Sources/System/IDisposable.cpp
     Sources/System/Math.cpp
     Sources/System/TimeSpan.cpp
     Sources/System/IO/BinaryReader.cpp
     Sources/System/IO/FileStream.cpp
     Sources/System/IO/MemoryStream.cpp
+    Sources/System/IO/Stream.cpp
     Sources/System/Text/Decoder.cpp
     Sources/System/Text/Encoder.cpp
     Sources/System/Text/Encoding.cpp

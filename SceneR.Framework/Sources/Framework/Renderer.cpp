@@ -30,6 +30,10 @@ Renderer::Renderer(const String& rootDirectory)
 {
 }
 
+Renderer::~Renderer()
+{
+}
+
 GraphicsDevice& Renderer::CurrentGraphicsDevice()
 {
     return this->graphicsDeviceManager.CurrentGraphicsDevice();

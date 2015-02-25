@@ -22,16 +22,21 @@ namespace SceneR
             /**
              * Initializes a new instance of the Texture2DReader class.
              */
-            Texture2DReader() = default;
+            Texture2DReader();
+
+            /**
+             * Destructor
+             */
+            ~Texture2DReader();
 
         public:
             /**
              * Reads the 2D texture contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
-            virtual SceneR::Graphics::SurfaceFormat DecodeFormat(const System::UInt32& format) const;
+            SceneR::Graphics::SurfaceFormat DecodeFormat(const System::UInt32& format) const;
         };
     }
 }

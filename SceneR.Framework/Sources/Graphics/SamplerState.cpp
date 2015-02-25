@@ -21,6 +21,10 @@ SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
 {
 }
 
+SamplerState::~SamplerState()
+{
+}
+
 void SamplerState::Dispose()
 {
 }

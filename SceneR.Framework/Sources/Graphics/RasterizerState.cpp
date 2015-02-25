@@ -21,6 +21,10 @@ RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
 {
 }
 
+RasterizerState::~RasterizerState()
+{
+}
+
 void RasterizerState::Dispose()
 {
 }

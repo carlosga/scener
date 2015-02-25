@@ -25,6 +25,11 @@ namespace SceneR
              */
             GraphicsResource(GraphicsDevice& graphicsDevice);
 
+            /**
+             * Destructor
+             */
+            virtual ~GraphicsResource();
+
         public:
             virtual void Dispose() = 0;
 

@@ -15,6 +15,10 @@ TextureObject::TextureObject(const TextureTarget& target)
     this->Create();
 }
 
+TextureObject::~TextureObject()
+{
+}
+
 void TextureObject::Dispose()
 {
     if (this->texId != 0)

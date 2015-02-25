@@ -32,6 +32,10 @@ EffectParameter::EffectParameter(const String&                         name
     this->parameterLocation = this->shader->GetParameterLocation(this->name);
 }
 
+EffectParameter::~EffectParameter()
+{
+}
+
 const Int32& EffectParameter::ColumnCount() const
 {
     return this->columnCount;

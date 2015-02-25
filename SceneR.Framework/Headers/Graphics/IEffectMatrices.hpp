@@ -25,7 +25,7 @@ namespace SceneR
             /**
              * Release all resource being used by the current IIEffectMatrices instance
              */
-            virtual ~IEffectMatrices() = default;
+            virtual ~IEffectMatrices();
 
         public:
             /**

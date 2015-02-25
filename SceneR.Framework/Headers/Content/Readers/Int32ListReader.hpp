@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the Int32ListReader class.
              */
-            Int32ListReader() = default;
+            Int32ListReader();
+
+            /**
+             * Destructor
+             */
+            ~Int32ListReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the 32-bit integer list buffer contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

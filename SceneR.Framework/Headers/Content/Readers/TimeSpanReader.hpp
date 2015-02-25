@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the TimeSpanReader class.
              */
-            TimeSpanReader() = default;
+            TimeSpanReader();
+
+            /**
+             * Destructor
+             */
+            ~TimeSpanReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the timespan contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

@@ -24,7 +24,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this PesentatationParameters.
              */
-            ~PresentationParameters() = default;
+            ~PresentationParameters();
 
         public:
             /**

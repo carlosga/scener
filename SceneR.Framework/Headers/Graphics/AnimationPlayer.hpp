@@ -30,7 +30,7 @@ namespace SceneR
 
             AnimationPlayer(const AnimationPlayer& animationPlayer);
 
-            ~AnimationPlayer() = default;
+            ~AnimationPlayer();
 
         public:
             /**

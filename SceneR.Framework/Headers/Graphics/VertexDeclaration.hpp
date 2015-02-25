@@ -37,6 +37,11 @@ namespace SceneR
              */
             VertexDeclaration(const VertexDeclaration& declaration);
 
+            /**
+             * Destructor
+             */
+            ~VertexDeclaration();
+
         public:
             /**
              * Gets the number of bytes per element.

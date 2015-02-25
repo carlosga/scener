@@ -8,6 +8,14 @@
 using namespace System;
 using namespace SceneR::Content;
 
+Int32Reader::Int32Reader()
+{
+}
+
+Int32Reader::~Int32Reader()
+{
+}
+
 std::shared_ptr<void> Int32Reader::Read(ContentReader& input)
 {
     return std::make_shared<Int32>(input.ReadInt32());

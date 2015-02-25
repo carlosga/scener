@@ -70,6 +70,10 @@ BasicEffect::BasicEffect(const BasicEffect& effect)
     this->Initialize();
 }
 
+BasicEffect::~BasicEffect()
+{
+}
+
 void BasicEffect::Dispose()
 {
     if (this->texture)

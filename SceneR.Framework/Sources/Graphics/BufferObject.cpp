@@ -14,6 +14,10 @@ BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage)
     this->Create();
 }
 
+BufferObject::~BufferObject()
+{
+}
+
 void BufferObject::Dispose()
 {
     if (this->id != 0)

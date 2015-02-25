@@ -30,6 +30,10 @@ AnimationClip::AnimationClip(const AnimationClip& clip)
 {
 }
 
+AnimationClip::~AnimationClip()
+{
+}
+
 const TimeSpan& AnimationClip::Duration() const
 {
     return this->duration;

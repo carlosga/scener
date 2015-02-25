@@ -10,6 +10,12 @@ namespace System
     {
     public:
         /**
+         * Destructor
+         */
+        virtual ~IDisposable();
+
+    public:
+        /**
          * @brief Performs application-defined tasks associated with freeing, releasing,
          *        or resetting unmanaged resources.
          */

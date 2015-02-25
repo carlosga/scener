@@ -22,9 +22,9 @@ SkinningData::SkinningData()
 }
 
 SkinningData::SkinningData(const std::map<String, AnimationClip>& animationClips
-                         , const std::vector<Matrix>&            bindPose
-                         , const std::vector<Matrix>&            inverseBindPose
-                         , const std::vector<Int32>&             skeletonHierarchy)
+                         , const std::vector<Matrix>&             bindPose
+                         , const std::vector<Matrix>&             inverseBindPose
+                         , const std::vector<Int32>&              skeletonHierarchy)
     : animationClips    { animationClips }
     , bindPose          { bindPose }
     , inverseBindPose   { inverseBindPose }
@@ -38,7 +38,10 @@ SkinningData::SkinningData(const SkinningData& skinningData)
     , inverseBindPose   { skinningData.inverseBindPose }
     , skeletonHierarchy { skinningData.skeletonHierarchy }
 {
+}
 
+SkinningData::~SkinningData()
+{
 }
 
 const std::map<String, AnimationClip>& SkinningData::AnimationClips() const

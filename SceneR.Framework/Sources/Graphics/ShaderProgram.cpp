@@ -24,6 +24,10 @@ ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
 {
 }
 
+ShaderProgram::~ShaderProgram()
+{
+}
+
 void ShaderProgram::Dispose()
 {
     if (this->id != 0)

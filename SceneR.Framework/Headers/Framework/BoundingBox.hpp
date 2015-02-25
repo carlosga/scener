@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BoundingBox.
              */
-            ~BoundingBox() = default;
+            ~BoundingBox();
 
         public:
             /**

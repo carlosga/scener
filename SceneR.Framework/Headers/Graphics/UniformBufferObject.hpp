@@ -27,7 +27,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this UniformBufferObject.
              */
-            virtual ~UniformBufferObject();
+            ~UniformBufferObject();
 
         private:
             BufferObject ubo;

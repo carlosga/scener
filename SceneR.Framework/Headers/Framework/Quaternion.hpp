@@ -137,9 +137,9 @@ namespace SceneR
             Quaternion(const Quaternion& vector);
 
             /**
-             * Default destructor
+             * Destructor
              */
-            ~Quaternion() = default;
+            ~Quaternion();
 
         public:
             /**

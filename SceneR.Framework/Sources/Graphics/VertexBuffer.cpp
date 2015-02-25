@@ -22,6 +22,10 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
     this->Deactivate();
 }
 
+VertexBuffer::~VertexBuffer()
+{
+}
+
 void VertexBuffer::Dispose()
 {
     this->vao.Dispose();

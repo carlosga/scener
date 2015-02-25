@@ -45,10 +45,10 @@ namespace SceneR
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            virtual ~GraphicsDevice() = default;
+            ~GraphicsDevice();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

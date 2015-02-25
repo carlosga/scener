@@ -19,6 +19,44 @@ namespace SceneR
         struct Color
         {
         public:
+            static const Color& AliceBlue;
+            static const Color& AntiqueWhite;
+            static const Color& Aqua;
+            static const Color& Aquamarine;
+            static const Color& Azure;
+            static const Color& Beige;
+            static const Color& Bisque;
+            static const Color& Black;
+            static const Color& BlanchedAlmond;
+            static const Color& Blue;
+            static const Color& BlueViolet;
+            static const Color& Brown;
+            static const Color& BurlyWood;
+            static const Color& CadetBlue;
+            static const Color& Chartreuse;
+            static const Color& Chocolate;
+            static const Color& Coral;
+            static const Color& CornflowerBlue;
+            static const Color& Cornsilk;
+            static const Color& Crimson;
+            static const Color& Cyan;
+            static const Color& DarkBlue;
+            static const Color& DarkCyan;
+            static const Color& DarkGoldenrod;
+            static const Color& DarkGray;
+            static const Color& DarkGreen;
+            static const Color& DarkKhaki;
+            static const Color& DarkMagenta;
+            static const Color& DarkOliveGreen;
+            static const Color& DarkOrange;
+            static const Color& DarkOrchid;
+            static const Color& DarkRed;
+            static const Color& DarkSalmon;
+            static const Color& DarkSeaGreen;
+            static const Color& DarkSlateBlue;
+            static const Color& White;
+
+        public:
             /**
              * Initializes a new instance of the Color class.
              */
@@ -60,9 +98,9 @@ namespace SceneR
             Color(const Color& color);
 
             /**
-             * Default destructor
+             * Destructor
              */
-            ~Color() = default;
+            ~Color();
 
         public:
             /**
@@ -108,44 +146,6 @@ namespace SceneR
             const Color operator*(const System::Single& value) const;
             const Color operator-(const Color& color) const;
             const Color operator+(const Color& color) const;
-
-        public:
-            static const Color AliceBlue;
-            static const Color AntiqueWhite;
-            static const Color Aqua;
-            static const Color Aquamarine;
-            static const Color Azure;
-            static const Color Beige;
-            static const Color Bisque;
-            static const Color Black;
-            static const Color BlanchedAlmond;
-            static const Color Blue;
-            static const Color BlueViolet;
-            static const Color Brown;
-            static const Color BurlyWood;
-            static const Color CadetBlue;
-            static const Color Chartreuse;
-            static const Color Chocolate;
-            static const Color Coral;
-            static const Color CornflowerBlue;
-            static const Color Cornsilk;
-            static const Color Crimson;
-            static const Color Cyan;
-            static const Color DarkBlue;
-            static const Color DarkCyan;
-            static const Color DarkGoldenrod;
-            static const Color DarkGray;
-            static const Color DarkGreen;
-            static const Color DarkKhaki;
-            static const Color DarkMagenta;
-            static const Color DarkOliveGreen;
-            static const Color DarkOrange;
-            static const Color DarkOrchid;
-            static const Color DarkRed;
-            static const Color DarkSalmon;
-            static const Color DarkSeaGreen;
-            static const Color DarkSlateBlue;
-            static const Color White;
 
         private:
             union

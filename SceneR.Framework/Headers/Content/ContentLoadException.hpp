@@ -20,20 +20,28 @@ namespace SceneR
              * Initializes a new instance of the ContentLoadException class with the given message
              * @param m the exception message
              */
-            ContentLoadException(const std::string m = "Content Load Exception")
-                : msg(m)
-            {
-            }
+            ContentLoadException(const std::string m = "Content Load Exception");
+
+            /**
+             * @brief Copy constructor.
+             * @param exception the exception to copy from.
+             */
+            ContentLoadException(const ContentLoadException& exception);
+
+            /**
+             * Destructor
+             */
+            ~ContentLoadException() noexcept;
 
         public:
             /**
              * Gets the message that describes the error.
              * @return  the message describing the error.
              */
-            const char* what() const noexcept
-            {
-                return this->msg.c_str();
-            }
+            const char* what() const noexcept;
+
+        public:
+            ContentLoadException& operator=(const ContentLoadException& exception);
 
         private:
             std::string msg;

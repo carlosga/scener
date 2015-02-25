@@ -29,6 +29,10 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
 {
 }
 
+DepthStencilState::~DepthStencilState()
+{
+}
+
 void DepthStencilState::Dispose()
 {
 }

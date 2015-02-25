@@ -27,12 +27,16 @@ namespace SceneR
             /**
              * Initializes a new instance of the RendererServiceContainer class.
              */
-            RendererServiceContainer() = default;
+            RendererServiceContainer()
+            {
+            }
 
             /**
              * Releases all the resources being used by this RendererServiceContainer.
              */
-            ~RendererServiceContainer() = default;
+            ~RendererServiceContainer()
+            {
+            }
 
         public:
             /**

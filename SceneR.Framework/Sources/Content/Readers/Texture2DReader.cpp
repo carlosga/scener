@@ -12,6 +12,14 @@ using namespace System;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
+Texture2DReader::Texture2DReader()
+{
+}
+
+Texture2DReader::~Texture2DReader()
+{
+}
+
 std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
 {
     auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();

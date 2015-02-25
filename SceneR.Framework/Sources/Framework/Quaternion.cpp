@@ -208,6 +208,10 @@ Quaternion::Quaternion(const Quaternion& quaternion)
 {
 }
 
+Quaternion::~Quaternion()
+{
+}
+
 const Single& Quaternion::X() const
 {
     return this->x;

@@ -40,11 +40,10 @@ namespace SceneR
              */
             Viewport(const Viewport& viewport);
 
-        public:
             /**
-             * Default destructor
+             * destructor
              */
-            ~Viewport() = default;
+            ~Viewport();
 
         public:
             const System::Single& X() const;

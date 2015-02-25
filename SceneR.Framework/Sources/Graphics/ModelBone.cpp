@@ -16,6 +16,10 @@ ModelBone::ModelBone()
 {
 }
 
+ModelBone::~ModelBone()
+{
+}
+
 const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
 {
     return this->children;

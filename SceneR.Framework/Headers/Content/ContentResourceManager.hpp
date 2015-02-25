@@ -21,12 +21,16 @@ namespace SceneR
             /**
             * Initializes a new instance of the ContentResourceManager
             */
-            ContentResourceManager() = default;
+            ContentResourceManager()
+            {
+            }
 
             /**
             * Releases all resources being used by the ContentResourceManager class.
             */
-            virtual ~ContentResourceManager() = default;
+            ~ContentResourceManager()
+            {
+            }
 
         public:
             template <class T>
@@ -58,17 +62,15 @@ namespace SceneR
             {
                 if (this->resources.size() > 0)
                 {
-                    /*
                     for (auto& kvp : resources)
                     {
                         auto disposable = std::static_pointer_cast<System::IDisposable>(kvp.second);
 
-                        if (disposable)
+                        if (disposable != nullptr)
                         {
                             disposable->Dispose();
                         }
                     }
-                    */
 
                     this->resources.clear();
                 }

@@ -28,7 +28,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BufferObject.
              */
-            virtual ~BufferObject() = default;
+            ~BufferObject();
 
         public:
             void Dispose();

@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the IndexBufferReader class.
              */
-            IndexBufferReader() = default;
+            IndexBufferReader();
+
+            /**
+             * Destructor
+             */
+            ~IndexBufferReader();
 
         public:
             /**
              * Reads the index buffer contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

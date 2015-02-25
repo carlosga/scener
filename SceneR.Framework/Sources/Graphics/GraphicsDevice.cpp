@@ -28,6 +28,10 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
     this->samplerStates.push_back(SamplerState(*this));
 }
 
+GraphicsDevice::~GraphicsDevice()
+{
+}
+
 void GraphicsDevice::Dispose()
 {
     this->blendState.Dispose();

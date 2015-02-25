@@ -72,11 +72,11 @@ String BinaryReader::ReadString()
     return this->encoding.GetString(this->ReadBytes(this->Read7BitEncodedInt()));
 }
 
-Int32 BinaryReader::Read7BitEncodedInt()
+UInt32 BinaryReader::Read7BitEncodedInt()
 {
-    Int32 result   = 0;
-    Int32 bitsRead = 0;
-    Int32 value    = 0;
+    UInt32 result   = 0;
+    UInt32 bitsRead = 0;
+    UInt32 value    = 0;
 
     do
     {

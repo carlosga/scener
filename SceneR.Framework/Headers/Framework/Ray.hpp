@@ -9,7 +9,7 @@
 namespace SceneR
 {
 	namespace Framework
-	{		
+	{
 		struct BoundingBox;
 		struct BoundingFrustum;
 		struct BoundingSphere;
@@ -17,7 +17,7 @@ namespace SceneR
 
 		/**
 		 * Defines a ray.
-		 */ 
+		 */
 		struct Ray
 		{
 		public:
@@ -36,7 +36,7 @@ namespace SceneR
 			/**
 			 * Releases all resources being used by this Ray.
 			 */
-			~Ray() = default;
+			~Ray();
 
 		public:
 			/**
@@ -70,7 +70,7 @@ namespace SceneR
 			 */
 			System::Boolean Intersects(const Plane& plane);
 
-		public:			
+		public:
 			Ray& operator=(const Ray& ray);
             bool operator==(const Ray& ray) const;
             bool operator!=(const Ray& ray) const;

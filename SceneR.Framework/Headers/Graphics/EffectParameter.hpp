@@ -42,6 +42,11 @@ namespace SceneR
                             const EffectParameterType&            parameterType,
                             const std::shared_ptr<ShaderProgram>& shaderProgram);
 
+            /**
+             * Destructor
+             */
+            ~EffectParameter();
+
         public:
             /**
              * Gets the number of columns in the parameter description.

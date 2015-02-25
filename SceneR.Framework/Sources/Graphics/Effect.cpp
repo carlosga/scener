@@ -36,6 +36,10 @@ Effect::Effect(const Effect& effect)
 {
 }
 
+Effect::~Effect()
+{
+}
+
 void Effect::Dispose()
 {
     if (this->shader)

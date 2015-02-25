@@ -30,13 +30,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the ModelReader class.
              */
-            ModelReader() = default;
+            ModelReader();
+
+            /**
+             * Destructor
+             */
+            ~ModelReader();
 
         public:
             /**
              * Reads the model contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
             System::UInt32 ReadBoneReference(ContentReader& input, const System::UInt32& boneCount);

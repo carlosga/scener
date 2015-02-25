@@ -32,7 +32,7 @@ namespace System
         static System::Int64 DoubleToInt64Bits(const System::Double& value)
         {
             return static_cast<System::Int64>(value);
-        };
+        }
 
         //
         // Summary:
@@ -48,7 +48,7 @@ namespace System
         static System::Double Int64BitsToDouble(const System::Int64& value)
         {
             return static_cast<System::Double>(value);
-        };
+        }
 
         //
         // Summary:
@@ -63,7 +63,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Boolean& value)
         {
             return GetBytes<bool>(value);
-        };
+        }
 
         //
         // Summary:
@@ -78,7 +78,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Char& value)
         {
             return GetBytes<System::Int16>(static_cast<System::Int16>(value));
-        };
+        }
 
         //
         // Summary:
@@ -94,7 +94,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Double& value)
         {
             return GetBytes<System::Int64>(static_cast<System::Int64>(value));
-        };
+        }
 
         //
         // Summary:
@@ -110,7 +110,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Single& value)
         {
             return GetBytes<System::Int32>(static_cast<System::Int32>(value));
-        };
+        }
 
         //
         // Summary:
@@ -125,7 +125,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Int32& value)
         {
             return GetBytes<System::Int32>(value);
-        };
+        }
 
         //
         // Summary:
@@ -140,7 +140,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Int64& value)
         {
             return GetBytes<System::Int64>(value);
-        };
+        }
 
         //
         // Summary:
@@ -155,7 +155,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Int16& value)
         {
             return GetBytes<System::Int16>(value);
-        };
+        }
 
         //
         // Summary:
@@ -170,7 +170,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::UInt32& value)
         {
             return GetBytes<System::UInt32>(value);
-        };
+        }
 
         //
         // Summary:
@@ -185,7 +185,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const System::Int64& value)
         {
             return GetBytes<System::Int64>(value);
-        };
+        }
 
         //
         // Summary:
@@ -200,7 +200,7 @@ namespace System
         static std::vector<System::UByte> GetBytes(const uSystem::Int16& value)
         {
             return GetBytes<uSystem::Int16>(value);
-        };
+        }
 
         //
         // Summary:
@@ -228,7 +228,7 @@ namespace System
             assert(startIndex <= (value.size() - 1));
 
             return (value[startIndex] == 1);
-        };
+        }
 
         //
         // Summary:
@@ -257,7 +257,7 @@ namespace System
         static System::Char ToChar(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             throw std::runtime_error("Not implemented");
-        };
+        }
 
         //
         // Summary:
@@ -288,7 +288,7 @@ namespace System
         static System::Double ToDouble(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Double>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -317,7 +317,7 @@ namespace System
         static System::Int16 ToInt16(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Int16>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -347,7 +347,7 @@ namespace System
         static System::Int32 ToInt32(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Int32>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -377,7 +377,7 @@ namespace System
         static System::Int64 ToInt64(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Int64>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -408,7 +408,7 @@ namespace System
         static float ToSingle(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<float>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -429,7 +429,7 @@ namespace System
         static std::u16string ToString(const std::vector<System::UByte>& value)
         {
             throw std::runtime_error("Not implemented");
-        };
+        }
 
         //
         // Summary:
@@ -457,7 +457,7 @@ namespace System
         static std::u16string ToString(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             throw std::runtime_error("Not implemented");
-        };
+        }
 
         //
         // Summary:
@@ -494,7 +494,7 @@ namespace System
         static std::u16string ToString(const std::vector<System::UByte>& value, const System::UInt32& startIndex, System::Int32 length)
         {
             throw std::runtime_error("Not implemented");
-        };
+        }
 
         //
         // Summary:
@@ -523,7 +523,7 @@ namespace System
         static System::UInt16 ToUInt16(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::UInt16>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -553,7 +553,7 @@ namespace System
         static System::Int32 ToUInt32(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Int32>(value, startIndex);
-        };
+        }
 
         //
         // Summary:
@@ -583,7 +583,7 @@ namespace System
         static System::Int64 ToUInt64(const std::vector<System::UByte>& value, const System::UInt32& startIndex)
         {
             return ToValue<System::Int64>(value, startIndex);
-        };
+        }
 
     private:
         template <typename T>
@@ -603,7 +603,7 @@ namespace System
             }
 
             return result;
-        };
+        }
 
         template <typename T>
         static std::vector<System::UByte> GetBytes(const T& value)

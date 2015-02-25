@@ -296,9 +296,9 @@ namespace SceneR
             Vector3(const Vector3& vector);
 
             /**
-             * Default destructor
+             * Destructor
              */
-            ~Vector3() = default;
+            ~Vector3();
 
         public:
             /**

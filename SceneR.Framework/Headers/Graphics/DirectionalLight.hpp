@@ -34,11 +34,10 @@ namespace SceneR
                            , const System::Boolean&            enabled
                            , const SceneR::Framework::Vector3& specularColor);
 
-
             /**
              * Releases all resources being used by this DirectionalLight.
              */
-            ~DirectionalLight() = default;
+            ~DirectionalLight();
 
         public:
             /**

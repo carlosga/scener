@@ -36,5 +36,4 @@ namespace SceneR
     }
 }
 
-
 #endif /* TEXTUREADDRESSMODE_HPP */

@@ -35,6 +35,11 @@ namespace SceneR
              */
             GraphicsDeviceManager(Renderer& renderer);
 
+            /**
+             * Destructor
+             */
+            ~GraphicsDeviceManager();
+
         public:
             virtual void Dispose() override;
 
@@ -47,23 +52,23 @@ namespace SceneR
             /**
              * Starts the drawing of a frame.
              */
-            virtual System::Boolean BeginDraw() override;
+            System::Boolean BeginDraw() override;
 
             /**
              * Called by the renderer at the end of drawing; presents the final rendering.
              */
-            virtual void EndDraw() override;
+            void EndDraw() override;
 
             /**
              * Creates the graphics device.
              */
-            virtual void CreateDevice() override;
+            void CreateDevice() override;
 
             /**
              * Gets the graphics device.
              * @return the graphics device.
              */
-            virtual SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice() override;
+            SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice() override;
 
             /**
              * Gets the graphics profile, which determines the graphics feature set.

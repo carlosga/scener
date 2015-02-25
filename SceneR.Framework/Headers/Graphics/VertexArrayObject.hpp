@@ -25,10 +25,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexArrayObject.
              */
-            virtual ~VertexArrayObject() = default;
+            ~VertexArrayObject();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

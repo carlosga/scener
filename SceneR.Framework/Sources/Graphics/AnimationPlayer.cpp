@@ -40,6 +40,10 @@ AnimationPlayer::AnimationPlayer(const AnimationPlayer& animationPlayer)
 {
 }
 
+AnimationPlayer::~AnimationPlayer()
+{
+}
+
 void AnimationPlayer::StartClip(const AnimationClip& clip)
 {
     this->currentClipValue = clip;

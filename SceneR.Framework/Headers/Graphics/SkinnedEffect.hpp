@@ -46,10 +46,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this BasicEffect.
              */
-            virtual ~SkinnedEffect() = default;
+            ~SkinnedEffect();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**
@@ -67,12 +67,12 @@ namespace SceneR
             /**
              * Gets the ambient light for the current effect
              */
-            virtual const SceneR::Framework::Vector3& AmbientLightColor() const override;
+            const SceneR::Framework::Vector3& AmbientLightColor() const override;
 
             /**
              * Gets the ambient light for the current effect
              */
-            virtual void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) override;
+            void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) override;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
@@ -87,37 +87,37 @@ namespace SceneR
             /**
              * Gets the first directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight0() const override;
+            const std::shared_ptr<DirectionalLight>& DirectionalLight0() const override;
 
             /**
              * Sets the first directional light
              */
-            virtual void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) override;
 
             /**
              * Gets the second directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight1() const override;
+            const std::shared_ptr<DirectionalLight>& DirectionalLight1() const override;
 
             /**
              * Sets the second directional light
              */
-            virtual void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) override;
 
             /**
              * Gets the third directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight2() const override;
+            const std::shared_ptr<DirectionalLight>& DirectionalLight2() const override;
 
             /**
              * Sets the third directional light
              */
-            virtual void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
 
             /**
              * Enables default lighting for this effect.
              */
-            virtual void EnableDefaultLighting() override;
+            void EnableDefaultLighting() override;
 
             /**
              * Gets the emissive color for a material,
@@ -135,53 +135,53 @@ namespace SceneR
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual const SceneR::Framework::Vector3& FogColor() const override;
+            const SceneR::Framework::Vector3& FogColor() const override;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            virtual void FogColor(const SceneR::Framework::Vector3& fogColor) override;
+            void FogColor(const SceneR::Framework::Vector3& fogColor) override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual const System::Boolean& FogEnabled() const override;
+            const System::Boolean& FogEnabled() const override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual void FogEnabled(const System::Boolean& fogEnabled) override;
+            void FogEnabled(const System::Boolean& fogEnabled) override;
 
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual const System::Single& FogEnd() const override;
+            const System::Single& FogEnd() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
              */
-            virtual void FogEnd(const System::Single& fogEnd) override;
+            void FogEnd(const System::Single& fogEnd) override;
 
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual const System::Single& FogStart() const override;
+            const System::Single& FogStart() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
              */
-            virtual void FogStart(const System::Single& fogStart) override;
+            void FogStart(const System::Single& fogStart) override;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual const System::Boolean& LightingEnabled() const override;
+            const System::Boolean& LightingEnabled() const override;
 
             /**
              * Sets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual void LightingEnabled(const System::Boolean& lightingEnabled) override;
+            void LightingEnabled(const System::Boolean& lightingEnabled) override;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
@@ -198,12 +198,12 @@ namespace SceneR
             /**
              * Gets the projection matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& Projection() const override;
+            const SceneR::Framework::Matrix& Projection() const override;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            virtual void Projection(const SceneR::Framework::Matrix& projection) override;
+            void Projection(const SceneR::Framework::Matrix& projection) override;
 
             /**
              * Gets the specular color for a material,
@@ -250,22 +250,22 @@ namespace SceneR
             /**
              * Gets the view matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& View() const override;
+            const SceneR::Framework::Matrix& View() const override;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            virtual void View(const SceneR::Framework::Matrix& view) override;
+            void View(const SceneR::Framework::Matrix& view) override;
 
             /**
              * Gets the world matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& World() const override;
+            const SceneR::Framework::Matrix& World() const override;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            virtual void World(const SceneR::Framework::Matrix& world) override;
+            void World(const SceneR::Framework::Matrix& world) override;
 
         public:
             /**
@@ -292,17 +292,17 @@ namespace SceneR
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */
-            virtual void Begin() override;
+            void Begin() override;
 
             /**
              * Ends the application of the effect state just after rendering the effect.
              */
-            virtual void End() override;
+            void End() override;
 
             /**
              * Computes derived parameter values immediately before applying the effect.
              */
-            virtual void OnApply() override;
+            void OnApply() override;
 
         private:
             void Initialize();

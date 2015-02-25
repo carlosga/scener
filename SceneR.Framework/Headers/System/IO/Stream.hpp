@@ -21,9 +21,7 @@ namespace System
             /**
              * Releases all resources being used by this Stream.
              */
-            virtual ~Stream()
-            {
-            }
+            virtual ~Stream();
 
         public:
             /**

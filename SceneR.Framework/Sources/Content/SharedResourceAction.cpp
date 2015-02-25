@@ -7,9 +7,19 @@ using namespace System;
 using namespace SceneR::Content;
 
 SharedResourceAction::SharedResourceAction(const UInt32&                                            sharedResourceId
-                                         , const std::function<void(const std::shared_ptr<void>&)>& action)
-    : id     { sharedResourceId }
-    , action { action }
+                                         , const std::function<void(const std::shared_ptr<void>&)>& callback)
+    : id       { sharedResourceId }
+    , callback { callback }
+{
+}
+
+SharedResourceAction::SharedResourceAction(const SharedResourceAction& action)
+    : id { action.id }
+    , callback { action.callback }
+{
+}
+
+SharedResourceAction::~SharedResourceAction()
 {
 }
 
@@ -20,5 +30,16 @@ const UInt32& SharedResourceAction::Id() const
 
 void SharedResourceAction::Callback(const std::shared_ptr<void>& value) const
 {
-    this->action(value);
+    this->callback(value);
+}
+
+SharedResourceAction&SharedResourceAction::operator=(const SharedResourceAction& action)
+{
+    if (this != &action)
+    {
+        this->id       = action.id;
+        this->callback = action.callback;
+    }
+
+    return *this;
 }

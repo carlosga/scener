@@ -29,7 +29,9 @@ namespace SceneR
             /**
              * Releases all resources being used by this DrawableComponent.
              */
-            virtual ~DrawableComponent() = default;
+            virtual ~DrawableComponent()
+            {
+            }
 
         public:
             /**
@@ -71,7 +73,7 @@ namespace SceneR
             virtual void Initialize() override;
 
         protected:
-            virtual void LoadContent() ;
+            virtual void LoadContent();
             virtual void UnloadContent();
 
         private:

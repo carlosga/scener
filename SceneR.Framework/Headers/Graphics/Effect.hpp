@@ -40,6 +40,11 @@ namespace SceneR
              */
             Effect(const Effect& effect);
 
+            /**
+             * Destructor
+             */
+            virtual ~Effect();
+
         public:
             virtual void Dispose() override;
 

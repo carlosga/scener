@@ -8,6 +8,14 @@
 using namespace System;
 using namespace SceneR::Content;
 
+Int32ListReader::Int32ListReader()
+{
+}
+
+Int32ListReader::~Int32ListReader()
+{
+}
+
 std::shared_ptr<void> Int32ListReader::Read(ContentReader& input)
 {
     auto values = std::make_shared<std::vector<Int32>>();

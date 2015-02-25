@@ -32,6 +32,10 @@ Keyframe::Keyframe(const Keyframe& keyframe)
 {
 }
 
+Keyframe::~Keyframe()
+{
+}
+
 const System::Int32& Keyframe::Bone() const
 {
     return this->bone;

@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a news instance of the SkinningDataReader class.
              */
-            SkinningDataReader() = default;
+            SkinningDataReader();
+
+            /**
+             * Destructor
+             */
+            ~SkinningDataReader();
 
         public:
             /**
-             * Reads the index buffer contents from the given ContentReader.
+             * Reads the skinning data contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

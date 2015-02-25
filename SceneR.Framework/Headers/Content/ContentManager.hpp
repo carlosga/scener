@@ -4,6 +4,7 @@
 #ifndef CONTENTMANAGER_HPP
 #define CONTENTMANAGER_HPP
 
+#include <iostream>
 #include <memory>
 
 #include "ContentResourceManager.hpp"
@@ -24,39 +25,40 @@ namespace SceneR
     namespace Content
     {
         /**
-        * The ContentManager is used at runtime to load application content from files.
-        */
+         * The ContentManager is used at runtime to load application content from files.
+         */
         class ContentManager
         {
+        private:
             static ContentResourceManager ResourceManager;
 
         public:
             /**
-            * Initializes a new instance of the ContentManagerClass
-            */
+             * Initializes a new instance of the ContentManagerClass
+             */
             ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider
                          , const System::String&                        rootDirectory);
 
             /**
-            * Releases all resources being used by the ContentManager class.
-            */
-            virtual ~ContentManager();
+             * Releases all resources being used by the ContentManager class.
+             */
+            ~ContentManager();
 
         public:
             /**
-            * Gets the graphics device
-            */
+             * Gets the graphics device
+             */
             SceneR::Framework::RendererServiceContainer& ServiceProvider();
 
             /**
-            * Gets the root directory associated with this ContentManager.
-            */
+             * Gets the root directory associated with this ContentManager.
+             */
             const System::String RootDirectory();
 
         public:
             /**
-            * Loads a the given asset.
-            */
+             * Loads a the given asset.
+             */
             template <class T>
             std::shared_ptr<T> Load(const System::String& assetName) noexcept(false)
             {
@@ -70,23 +72,31 @@ namespace SceneR
 
         protected:
             /**
-            * Opens a stream for reading the specified asset.
-            * #param assetName the name of the asset being read.
-            */
-            virtual std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) noexcept(false);
+             * Opens a stream for reading the specified asset.
+             * #param assetName the name of the asset being read.
+             */
+            std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) noexcept(false);
 
         protected:
             /**
-            * Low-level worker method that reads asset data.
-            * @param assetName the name of the asset to be loaded from disk.
-            */
+             * Low-level worker method that reads asset data.
+             * @param assetName the name of the asset to be loaded from disk.
+             */
             template <class T>
             std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false)
             {
-                // if (ContentManager::ResourceManager.HasResource(assetName))
-                // {
-                //     return ContentManager::ResourceManager.GetResource<T>(assetName);
-                // }
+                /*
+                std::string tmp(assetName.begin(), assetName.end());
+
+                if (ContentManager::ResourceManager.HasResource(assetName))
+                {
+                    std::cout << "Loading asset :: " << tmp << " :: from resource manager";
+
+                    return ContentManager::ResourceManager.GetResource<T>(assetName);
+                }
+
+                std::cout << "Loading asset :: " << tmp << " :: from disk";
+                */
 
                 auto stream = this->OpenStream(assetName);
                 ContentReader reader(assetName, *this, *stream);

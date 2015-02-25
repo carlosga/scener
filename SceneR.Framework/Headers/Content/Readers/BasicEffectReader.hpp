@@ -21,13 +21,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the BasicEffectReader class.
              */
-            BasicEffectReader() = default;
+            BasicEffectReader();
+
+            /**
+             * Destructor
+             */
+            ~BasicEffectReader();
 
         public:
             /**
-             * Reads the string contents from the given ContentReader.
+             * Reads the basic effect contents from the given ContentReader.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) override;
+            std::shared_ptr<void> Read(ContentReader& input) override;
         };
     }
 }

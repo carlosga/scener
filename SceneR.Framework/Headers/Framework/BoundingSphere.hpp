@@ -38,7 +38,7 @@ namespace SceneR
 
 			/**
 			 * Creates a BoundingSphere that can contain a specified list of points.
-			 */ 
+			 */
 			static BoundingSphere CreateFromPoints(const std::vector<Vector3>& points);
 
 			/**
@@ -61,7 +61,7 @@ namespace SceneR
 			/**
 			 * Releases all resources being used by this BoundingSphere.
 			 */
-			~BoundingSphere() = default;
+			~BoundingSphere();
 
 		public:
 			/**
@@ -71,7 +71,7 @@ namespace SceneR
 
 			/**
 			 * * Gets the radius of the sphere.
-			 */ 
+			 */
 			const System::Single& Radius() const;
 
 		public:
@@ -127,11 +127,11 @@ namespace SceneR
 
 			/**
 			 * Translates and scales the BoundingSphere using a given Matrix.
-			 * @param matrix transformation matrix that might include translation, 
-			 * rotation, or uniform scaling. Note that BoundingSphere.Transform 
-			 * will not return correct results if there are non-uniform scaling, 
-			 * shears, or other unusual transforms in this transformation matrix. 
-			 * This is because there is no way to shear or non-uniformly scale a sphere. 
+			 * @param matrix transformation matrix that might include translation,
+			 * rotation, or uniform scaling. Note that BoundingSphere.Transform
+			 * will not return correct results if there are non-uniform scaling,
+			 * shears, or other unusual transforms in this transformation matrix.
+			 * This is because there is no way to shear or non-uniformly scale a sphere.
 			 * Such an operation would cause the sphere to lose its shape as a sphere.
 			 */
  			BoundingSphere Transform(const Matrix& matrix) const;

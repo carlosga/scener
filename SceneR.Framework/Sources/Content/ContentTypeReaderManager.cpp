@@ -47,7 +47,7 @@ ContentTypeReaderManager::~ContentTypeReaderManager()
 ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const String& name)
 {
     return this->readers[name];
-};
+}
 
 void ContentTypeReaderManager::RegisterKnownTypeReaders()
 {

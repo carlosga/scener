@@ -14,6 +14,10 @@ VertexArrayObject::VertexArrayObject()
     this->Create();
 }
 
+VertexArrayObject::~VertexArrayObject()
+{
+}
+
 void VertexArrayObject::Dispose()
 {
     if (this->id != 0)

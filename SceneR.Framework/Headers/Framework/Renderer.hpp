@@ -44,7 +44,7 @@ namespace SceneR
             /**
              * Releases all resources being used by the current renderer instance
              */
-            virtual ~Renderer() = default;
+            virtual ~Renderer();
 
         public:
             /**

@@ -23,6 +23,9 @@ namespace System
              */
             Encoder();
 
+            /**
+             * Releases all resources being used by this Encoder.
+             */
             virtual ~Encoder();
 
         public:

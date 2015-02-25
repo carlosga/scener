@@ -11,6 +11,14 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
+SkinningDataReader::SkinningDataReader()
+{
+}
+
+SkinningDataReader::~SkinningDataReader()
+{
+}
+
 std::shared_ptr<void> SkinningDataReader::Read(ContentReader& input)
 {
     // 1. Read the animation clips.

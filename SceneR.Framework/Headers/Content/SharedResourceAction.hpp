@@ -22,10 +22,20 @@ namespace SceneR
             /**
              * Initializes a new instance of the SharedResourceAction class.
              * @param sharedResourceId the shared resource id.
-             * @param action the shared resource fixup action callback.
+             * @param callback the shared resource fixup action callback.
              */
             SharedResourceAction(const System::UInt32&                                    sharedResourceId
-                               , const std::function<void(const std::shared_ptr<void>&)>& action);
+                               , const std::function<void(const std::shared_ptr<void>&)>& callback);
+
+            /**
+             * Copy constructor
+             */
+            SharedResourceAction(const SharedResourceAction& action);
+
+            /**
+             * Destructor
+             */
+            ~SharedResourceAction();
 
         public:
             /**
@@ -38,14 +48,15 @@ namespace SceneR
              */
             void Callback(const std::shared_ptr<void>& value) const;
 
+        public:
+            SharedResourceAction& operator=(const SharedResourceAction& action);
+
         private:
             SharedResourceAction() = delete;
-            //SharedResourceAction(const SharedResourceAction& action) = delete;
-            //SharedResourceAction& operator=(const SharedResourceAction& action) = delete;
 
         private:
             System::UInt32                                    id;
-            std::function<void(const std::shared_ptr<void>&)> action;
+            std::function<void(const std::shared_ptr<void>&)> callback;
         };
     }
 }

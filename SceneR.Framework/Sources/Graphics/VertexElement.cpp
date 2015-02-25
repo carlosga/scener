@@ -25,6 +25,10 @@ VertexElement::VertexElement(const VertexElement& element)
 {
 }
 
+VertexElement::~VertexElement()
+{
+}
+
 const UInt32& VertexElement::Offset() const
 {
     return this->offset;

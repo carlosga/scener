@@ -12,47 +12,56 @@ namespace System
 {
     namespace Text
     {
+        /**
+         * Represents a UTF-8 encoding of Unicode characters.
+         */
         class UTF8Encoding : public Encoding
         {
         public:
+            /**
+             * Initializes a new instance of the UTF8Encoding class.
+             */
             UTF8Encoding();
 
-            virtual ~UTF8Encoding();
+            /**
+             * Releases all resources being used by this Encoding.
+             */
+            ~UTF8Encoding();
 
         public:
-            virtual const System::String EncodingName() const override;
+            const System::String EncodingName() const override;
 
-            virtual bool IsSingleByte() const override;
+            bool IsSingleByte() const override;
 
-            virtual System::Size GetByteCount(const std::vector<System::Char>& chars
-                                            , const System::Size&              index
-                                            , const System::Size&              count) const override;
+            System::Size GetByteCount(const std::vector<System::Char>& chars
+                                    , const System::Size&              index
+                                    , const System::Size&              count) const override;
 
-            virtual System::Size GetBytes(const std::vector<System::Char>& chars
-                                        , const System::Size&              charIndex
-                                        , const System::Size&              charCount
-                                        , std::vector<System::UByte>&      bytes
-                                        , const System::Size&              byteIndex) const override;
+            System::Size GetBytes(const std::vector<System::Char>& chars
+                                , const System::Size&              charIndex
+                                , const System::Size&              charCount
+                                , std::vector<System::UByte>&      bytes
+                                , const System::Size&              byteIndex) const override;
 
-            virtual System::Size GetCharCount(const std::vector<System::UByte>& bytes
-                                            , const System::Size&               index
-                                            , const System::Size&               count) const override;
+            System::Size GetCharCount(const std::vector<System::UByte>& bytes
+                                    , const System::Size&               index
+                                    , const System::Size&               count) const override;
 
-            virtual System::Size GetChars(const std::vector<System::UByte>& bytes
-                                        , const System::Size&               byteIndex
-                                        , const System::Size&               byteCount
-                                        , std::vector<System::Char>&        chars
-                                        , const System::Size&               charIndex) const override;
+            System::Size GetChars(const std::vector<System::UByte>& bytes
+                                , const System::Size&               byteIndex
+                                , const System::Size&               byteCount
+                                , std::vector<System::Char>&        chars
+                                , const System::Size&               charIndex) const override;
 
-            virtual System::Size GetMaxByteCount(const System::Size& charCount) override;
+            System::Size GetMaxByteCount(const System::Size& charCount) override;
 
-            virtual System::Size GetMaxCharCount(const System::Size& byteCount) override;
+            System::Size GetMaxCharCount(const System::Size& byteCount) override;
 
-            virtual std::vector<System::UByte> GetPreamble() const;
+            std::vector<System::UByte> GetPreamble() const;
 
-            virtual const Decoder& GetDecoder() const override;
+            const Decoder& GetDecoder() const override;
 
-            virtual const Encoder& GetEncoder() const override;
+            const Encoder& GetEncoder() const override;
 
         private:
             UTF8Encoder encoder;

@@ -74,6 +74,10 @@ SkinnedEffect::SkinnedEffect(const SkinnedEffect& effect)
     this->Initialize();
 }
 
+SkinnedEffect::~SkinnedEffect()
+{
+}
+
 void SkinnedEffect::Dispose()
 {
     if (this->texture)

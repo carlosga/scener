@@ -39,8 +39,18 @@ namespace SceneR
             static const Vector2 Zero;
 
         public:
+            /**
+             * @brief Returns a vector whose elements are the absolute values of each of the specified vector's elements.
+             * @param value A vector.
+             * @return The absolute value vector.
+             */
             static Vector2 Abs(const Vector2& value);
 
+            /**
+             * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
+             * @param value A vector.
+             * @return The square root vector.
+             */
             static Vector2 SquareRoot(const Vector2& value);
 
             /**
@@ -207,9 +217,9 @@ namespace SceneR
             Vector2(const Vector2& vector);
 
             /**
-             * Default destructor
+             * Destructor
              */
-            ~Vector2() = default;
+            ~Vector2();
 
         public:
             /**

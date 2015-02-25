@@ -29,6 +29,11 @@ namespace SceneR
              */
             DisplayMode(const DisplayMode& displayMode);
 
+            /**
+             * Destructor
+             */
+            ~DisplayMode();
+
         public:
             /**
              * Gets the aspect ratio used by the graphics device.

@@ -23,12 +23,18 @@ namespace SceneR
 
             public:
                 /**
+                 * @brief Initializes a new instance of the Texture class.
+                 * @param graphicsDevice the graphics device.
+                 */
+                Texture(GraphicsDevice& graphicsDevice);
+
+                /**
                  * Releases all resources being used by this texture.
                  */
-                virtual ~Texture() = default;
+                virtual ~Texture();
 
             public:
-                virtual void Dispose() = 0;
+                virtual void Dispose() override = 0;
 
             public:
                 /**
@@ -50,9 +56,6 @@ namespace SceneR
                  * Deactivates the texture object
                  */
                 virtual void Deactivate() const = 0;
-
-            protected:
-                Texture(GraphicsDevice& graphicsDevice);
         };
     }
 }

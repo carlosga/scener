@@ -13,69 +13,69 @@ namespace System
 {
     namespace IO
     {
-		/**
-		 * A Stream around a in memory buffer, supporting read operations.
-		 */
+        /**
+         * A Stream around a in memory buffer, supporting read operations.
+         */
         class MemoryStream : public Stream
         {
         public:
-			/**
-			 * Initializes a new instance of the MemoryStream class.
-			 */
+            /**
+             * Initializes a new instance of the MemoryStream class.
+             */
             MemoryStream(const std::vector<UByte>& buffer);
 
             /**
-			 * Releases all resources being used by this MemoryStream.
-			 */
-            virtual ~MemoryStream();
+             * Releases all resources being used by this MemoryStream.
+             */
+            ~MemoryStream();
 
         public:
             /**
              * Gets a value indicating whether the current stream supports reading.
              */
-            virtual bool CanRead() override;
+            bool CanRead() override;
 
             /**
              * Gets a value indicating whether the current stream supports seeking.
              */
-            virtual bool CanSeek() override;
+            bool CanSeek() override;
 
             /**
              * Gets a value indicating whether the current stream supports writing.
              */
-            virtual bool CanWrite() override;
+            bool CanWrite() override;
 
             /**
              * Returns the current position of the reader.
              */
-            virtual Size Position() override;
+            Size Position() override;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            virtual Size Length() override;
+            Size Length() override;
 
             /**
              * Closes the current stream
              */
-            virtual void Close() override;
+            void Close() override;
 
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            virtual UByte ReadByte() override;
+            UByte ReadByte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual Size Read(char* buffer, const Size& offset, const Size& count) override;
+            Size Read(char* buffer, const Size& offset, const Size& count) override;
 
             /**
              * Sets the position within the current stream.
              */
-            virtual Size Seek(const Size& offset, const std::ios::seekdir& origin) override;
+            Size Seek(const Size& offset, const std::ios::seekdir& origin) override;
 
-		private:
+        private:
             MemoryStream() = delete;
             MemoryStream(const MemoryStream& stream) = delete;
             MemoryStream& operator=(const MemoryStream& stream) = delete;

@@ -32,6 +32,10 @@ Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
 {
 }
 
+Texture2D::~Texture2D()
+{
+}
+
 void Texture2D::Dispose()
 {
     this->object.Dispose();

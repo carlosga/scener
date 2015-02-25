@@ -36,10 +36,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            virtual ~IndexBuffer() = default;
+            ~IndexBuffer();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**
