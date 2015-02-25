@@ -154,7 +154,7 @@ namespace SceneR
             /**
              * Retrieves a collection of SamplerState objects for the current GraphicsDevice.
              */
-            const std::vector<SceneR::Graphics::SamplerState>& SamplerStates();
+            std::vector<SceneR::Graphics::SamplerState>& SamplerStates();
 
             /**
              * Gets the current vertex buffer.

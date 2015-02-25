@@ -51,10 +51,10 @@ void TextureObject::Declare2DStorage(const SurfaceFormat& format
 {
     glTextureStorage2DEXT(this->texId
                         , static_cast<GLenum>(this->target)
-                        , levels
+                        , static_cast<GLint>(levels)
                         , static_cast<GLenum>(format)
-                        , width
-                        , height);
+                        , static_cast<GLint>(width)
+                        , static_cast<GLint>(height));
 }
 
 void TextureObject::TextureSubImage2D(const SurfaceFormat&  format
@@ -68,11 +68,11 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat&  format
     {
         glCompressedTextureSubImage2DEXT(this->texId
                                        , static_cast<GLenum>(this->target)
-                                       , level
+                                       , static_cast<GLint>(level)
                                        , 0
                                        , 0
-                                       , width
-                                       , height
+                                       , static_cast<GLint>(width)
+                                       , static_cast<GLint>(height)
                                        , static_cast<GLenum>(format)
                                        , size
                                        , data);
@@ -81,11 +81,11 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat&  format
     {
         glTextureSubImage2DEXT(this->texId
                              , static_cast<GLenum>(this->target)
-                             , level
+                             , static_cast<GLint>(level)
                              , 0
                              , 0
-                             , width
-                             , height
+                             , static_cast<GLint>(width)
+                             , static_cast<GLint>(height)
                              , static_cast<GLenum>(format)
                              , GL_UNSIGNED_BYTE
                              , data);

@@ -219,7 +219,7 @@ void ShaderProgram::VerifyLinkingState()
 
         if (infoLogLength)
         {
-            std::string linkErrorMessage("", infoLogLength);
+            std::string linkErrorMessage("", static_cast<Size>(infoLogLength));
 
             glGetProgramInfoLog(this->id, infoLogLength, NULL, &linkErrorMessage[0]);
 

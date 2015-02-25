@@ -62,7 +62,7 @@ void BufferObject::Deactivate() const
 
 void BufferObject::GetData(const Size& offset, const Size& size, void* data) const
 {
-    glGetNamedBufferSubDataEXT(this->id, offset, size, data);
+    glGetNamedBufferSubData(this->id, offset, size, data);
 }
 
 void BufferObject::BufferData(const System::Size& size, const void* data) const
@@ -72,7 +72,7 @@ void BufferObject::BufferData(const System::Size& size, const void* data) const
 
 void BufferObject::BufferData(const System::Size& offset, const System::Size& size, const void *data) const
 {
-    glNamedBufferSubDataEXT(this->id, offset, size, data);
+    glNamedBufferSubData(this->id, offset, size, data);
 }
 
 void BufferObject::Invalidate() const

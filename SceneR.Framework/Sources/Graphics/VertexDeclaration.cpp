@@ -53,15 +53,22 @@ void VertexDeclaration::Activate() const
     {
         auto elementType  = this->GetElementType(ve.VertexElementFormat());
         auto elementCount = this->GetElementCount(ve.VertexElementFormat());
-        auto usageIndex   = (int)ve.VertexElementUsage();
+        auto usageIndex   = static_cast<UInt32>(ve.VertexElementUsage());
 
         if (elementType == GL_FLOAT)
         {
-            glVertexAttribFormat(usageIndex, elementCount, elementType, false, ve.Offset());
+            glVertexAttribFormat(usageIndex
+                               , static_cast<GLint>(elementCount)
+                               , elementType
+                               , false
+                               , ve.Offset());
         }
         else
         {
-            glVertexAttribIFormat(usageIndex, elementCount, elementType, ve.Offset());
+            glVertexAttribIFormat(usageIndex
+                                , static_cast<GLint>(elementCount)
+                                , elementType
+                                , ve.Offset());
         }
 
         glEnableVertexAttribArray(usageIndex);
@@ -74,7 +81,7 @@ void VertexDeclaration::Deactivate() const
     // ... disable vertex elements
     for (const auto& ve : this->vertexElements)
     {
-        glDisableVertexAttribArray((int)ve.VertexElementUsage());
+        glDisableVertexAttribArray(static_cast<UInt32>(ve.VertexElementUsage()));
     }
 }
 

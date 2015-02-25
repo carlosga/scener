@@ -203,7 +203,7 @@ SceneR::Graphics::RasterizerState& GraphicsDevice::RasterizerState()
     return this->rasterizerState;
 }
 
-const std::vector<SceneR::Graphics::SamplerState>& GraphicsDevice::SamplerStates()
+std::vector<SceneR::Graphics::SamplerState>& GraphicsDevice::SamplerStates()
 {
     return samplerStates;
 }

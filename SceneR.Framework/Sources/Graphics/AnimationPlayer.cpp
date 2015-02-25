@@ -98,7 +98,7 @@ void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& 
 
     while (currentKeyframe < keyframes.size())
     {
-        auto keyframe = keyframes[this->currentKeyframe];
+        auto& keyframe = keyframes[this->currentKeyframe];
 
         // Stop when we've read up to the current time position.
         if (keyframe.Time() > this->currentTimeValue)

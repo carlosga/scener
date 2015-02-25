@@ -90,12 +90,12 @@ namespace SceneR
             /**
              * Gets the level of detail (LOD) index of the largest map to use.
              */
-            const System::Int32& MaxMipLevel() const;
+            const System::UInt32& MaxMipLevel() const;
 
             /**
              * Sets the level of detail (LOD) index of the largest map to use.
              */
-            void MaxMipLevel(const System::Int32& maxMipLevel);
+            void MaxMipLevel(const System::UInt32& maxMipLevel);
 
             /**
              * Gets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
@@ -108,7 +108,7 @@ namespace SceneR
             void MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias);
 
         private:
-            void OnApply(const TextureTarget& target, const System::Int32& mipmapLevels) const;
+            void OnApply(const TextureTarget& target) const;
 
         private:
             TextureAddressMode addressU;
@@ -116,7 +116,7 @@ namespace SceneR
             TextureAddressMode addressW;
             TextureFilter      filter;
             System::Int32      maxAnisotropy;
-            System::Int32      maxMipLevel;
+            System::UInt32     maxMipLevel;
             System::Single     mipMapLevelOfDetailBias;
 
             friend class BasicEffect;

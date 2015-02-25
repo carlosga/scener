@@ -331,8 +331,12 @@ void BasicEffect::Begin()
 
     if (this->textureEnabled)
     {
+        SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
+
         this->texture->Activate();
-        this->CurrentGraphicsDevice().SamplerStates()[0].OnApply(TextureTarget::Texture2D, this->texture->LevelCount());
+
+        sampler.MaxMipLevel(this->texture->LevelCount());
+        sampler.OnApply(TextureTarget::Texture2D);
     }
 }
 

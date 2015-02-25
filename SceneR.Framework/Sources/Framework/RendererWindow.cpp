@@ -54,40 +54,47 @@ void RendererWindow::AllowUserResizing(const Boolean& allowUserResizing)
 
 void RendererWindow::Open()
 {
-    auto         gdm         = this->renderer.graphicsDeviceManager;
-    auto         profile     = static_cast<UInt32>(gdm.GraphicsProfile());
-    auto         tmp         = System::Text::Encoding::Convert(this->title);
     GLFWmonitor* monitor     = nullptr;
     GLFWwindow*  windowShare = nullptr;
+    auto         profile     = static_cast<Int32>(this->renderer.graphicsDeviceManager.GraphicsProfile());
+    auto         tmp         = System::Text::Encoding::Convert(this->title);
+    auto         fullscreen  = this->renderer.graphicsDeviceManager.FullScreen();
+    auto         width       = this->renderer.graphicsDeviceManager.PreferredBackBufferWidth();
+    auto         height      = this->renderer.graphicsDeviceManager.PreferredBackBufferHeight();
+    auto         allowResize = this->renderer.graphicsDeviceManager.AllowUserResizing();
+    auto         sampleCount = this->renderer.graphicsDeviceManager
+                                             .CurrentGraphicsDevice()
+                                             .PresentationParameters()
+                                             .MultiSampleCount();
 
     // Set the window and context hints
     glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
     glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 4);
-    glfwWindowHint(GLFW_RESIZABLE             , (gdm.AllowUserResizing() ? GL_TRUE : GL_FALSE));
+    glfwWindowHint(GLFW_RESIZABLE             , (allowResize ? GL_TRUE : GL_FALSE));
     glfwWindowHint(GLFW_RED_BITS              , 8);
     glfwWindowHint(GLFW_GREEN_BITS            , 8);
     glfwWindowHint(GLFW_BLUE_BITS             , 8);
     glfwWindowHint(GLFW_ALPHA_BITS            , 8);
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 24);
-    glfwWindowHint(GLFW_SAMPLES               , gdm.CurrentGraphicsDevice().PresentationParameters().MultiSampleCount());
+    glfwWindowHint(GLFW_SAMPLES               , sampleCount);
     glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
 
-    if (gdm.FullScreen())
+    if (fullscreen)
     {
-        monitor = gdm.CurrentGraphicsDevice().Adapter().MonitorHandle();
+        monitor = this->renderer.graphicsDeviceManager.CurrentGraphicsDevice().Adapter().MonitorHandle();
     }
 
     // Create a new window
     this->handle = glfwCreateWindow
     (
-        gdm.PreferredBackBufferWidth(),  // width
-        gdm.PreferredBackBufferHeight(), // height
-        tmp.c_str(),                     // title
-        monitor,                         // monitor
-        windowShare                      // share
+        width       // width
+      , height      // height
+      , tmp.c_str() // title
+      , monitor     // monitor
+      , windowShare // share
     );
 
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.

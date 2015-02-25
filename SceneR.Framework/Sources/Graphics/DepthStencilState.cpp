@@ -17,14 +17,14 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
     , depthBufferEnable                      { true }
     , depthBufferFunction                    { CompareFunction::LessEqual }
     , depthBufferWriteEnable                 { true }
-    , referenceStencil                       { 0 }
+    , referenceStencil                       { -1 }
     , stencilDepthBufferFail                 { StencilOperation::Keep }
     , stencilEnable                          { false }
     , stencilFail                            { StencilOperation::Keep }
     , stencilFunction                        { CompareFunction::Always }
-    , stencilMask                            { -1 }
+    , stencilMask                            { 0 }
     , stencilPass                            { StencilOperation::Keep }
-    , stencilWriteMask                       { -1 }
+    , stencilWriteMask                       { 0 }
     , twoSidedStencilMode                    { false }
 {
 }
@@ -157,12 +157,12 @@ void DepthStencilState::StencilFunction(const CompareFunction& stencilFunction)
     this->stencilFunction = stencilFunction;
 }
 
-const System::Int32& DepthStencilState::StencilMask() const
+const System::UInt32& DepthStencilState::StencilMask() const
 {
     return this->stencilMask;
 }
 
-void DepthStencilState::StencilMask(const System::Int32& stencilMask)
+void DepthStencilState::StencilMask(const System::UInt32& stencilMask)
 {
     this->stencilMask = stencilMask;
 }
@@ -177,12 +177,12 @@ void DepthStencilState::StencilPass(const StencilOperation& stencilPass)
     this->stencilPass = stencilPass;
 }
 
-const System::Int32& DepthStencilState::StencilWriteMask() const
+const System::UInt32& DepthStencilState::StencilWriteMask() const
 {
     return this->stencilWriteMask;
 }
 
-void DepthStencilState::StencilWriteMask(const System::Int32& stencilWriteMask)
+void DepthStencilState::StencilWriteMask(const System::UInt32& stencilWriteMask)
 {
     this->stencilWriteMask = stencilWriteMask;
 }

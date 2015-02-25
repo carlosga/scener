@@ -41,7 +41,7 @@ namespace SceneR
             ~GraphicsDeviceManager();
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**
