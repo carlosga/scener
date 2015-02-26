@@ -31,7 +31,7 @@ namespace System
             /**
              * Releases all resources being used by this FileStream.
              */
-            ~FileStream();
+            ~FileStream() override;
 
         public:
             /**

@@ -36,7 +36,7 @@ namespace SceneR
         /**
          * Reads application content from disk
          */
-        class ContentReader : public System::IO::BinaryReader
+        class ContentReader final : public System::IO::BinaryReader
         {
         private:
             static ContentTypeReaderManager TypeReaderManager;

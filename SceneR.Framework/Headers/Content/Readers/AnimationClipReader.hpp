@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Animation clip reader
          */
-        class AnimationClipReader : public ContentTypeReader
+        class AnimationClipReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~AnimationClipReader();
+            ~AnimationClipReader() override;
 
         public:
             /**

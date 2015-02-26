@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx
          */
-        class PresentationParameters
+        class PresentationParameters final
         {
         public:
             /**

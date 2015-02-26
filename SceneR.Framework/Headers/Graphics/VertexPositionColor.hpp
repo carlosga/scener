@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Describes a custom vertex format structure that contains position and color information.
          */
-        struct VertexPositionColor
+        struct VertexPositionColor final
         {
         private:
             static const VertexDeclaration& Declaration;

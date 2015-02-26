@@ -21,7 +21,7 @@ namespace SceneR
          *  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
          *  http://blog.jsolutions.co.uk/?p=588
          */
-        class RendererServiceContainer
+        class RendererServiceContainer final
         {
         public:
             /**

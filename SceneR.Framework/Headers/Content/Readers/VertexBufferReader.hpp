@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Vertex buffer reader
          */
-        class VertexBufferReader : public ContentTypeReader
+        class VertexBufferReader final : public ContentTypeReader
         {
         public:
             /**
@@ -27,7 +27,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~VertexBufferReader();
+            ~VertexBufferReader() override;
 
         public:
             /**

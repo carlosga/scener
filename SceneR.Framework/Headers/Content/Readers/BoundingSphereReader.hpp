@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * BoundingSphere reader
          */
-        class BoundingSphereReader: public ContentTypeReader
+        class BoundingSphereReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~BoundingSphereReader();
+            ~BoundingSphereReader() override;
 
         public:
             /**

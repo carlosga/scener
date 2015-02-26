@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Skinned Effect reader
          */
-        class SkinnedEffectReader : public ContentTypeReader
+        class SkinnedEffectReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~SkinnedEffectReader();
+            ~SkinnedEffectReader() override;
 
         public:
             /**

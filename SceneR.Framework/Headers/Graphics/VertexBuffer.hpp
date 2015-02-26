@@ -21,7 +21,7 @@ namespace SceneR
         /**
          * Represents a list of 3D vertices to be streamed to the graphics device.
          */
-        class VertexBuffer : public GraphicsResource
+        class VertexBuffer final : public GraphicsResource
         {
         public:
             /**
@@ -35,7 +35,7 @@ namespace SceneR
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            ~VertexBuffer();
+            ~VertexBuffer() override;
 
         public:
             void Dispose() override;

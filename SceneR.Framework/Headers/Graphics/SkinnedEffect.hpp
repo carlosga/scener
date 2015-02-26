@@ -25,7 +25,7 @@ namespace SceneR
         /**
          * Contains a configurable effect for rendering skinned character models.
          */
-        class SkinnedEffect: public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
+        class SkinnedEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
             static System::String VSSource;
             static System::String FSSource;
@@ -46,7 +46,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BasicEffect.
              */
-            ~SkinnedEffect();
+            ~SkinnedEffect() override;
 
         public:
             void Dispose() override;

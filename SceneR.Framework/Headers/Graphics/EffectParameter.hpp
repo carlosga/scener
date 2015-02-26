@@ -31,7 +31,7 @@ namespace SceneR
         /**
          * Represents an Effect parameter.
          */
-        class EffectParameter
+        class EffectParameter final
         {
         public:
             /**

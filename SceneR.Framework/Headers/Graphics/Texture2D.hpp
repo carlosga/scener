@@ -25,7 +25,7 @@ namespace SceneR
         /**
          * Represents a 2D texture.
          */
-        class Texture2D : public Texture
+        class Texture2D final : public Texture
         {
         public:
             /**
@@ -57,7 +57,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            ~Texture2D();
+            ~Texture2D() override;
 
         public:
             void Dispose() override;

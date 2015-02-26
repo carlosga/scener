@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * BasicEffect reader
          */
-        class BasicEffectReader: public ContentTypeReader
+        class BasicEffectReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~BasicEffectReader();
+            ~BasicEffectReader() override;
 
         public:
             /**

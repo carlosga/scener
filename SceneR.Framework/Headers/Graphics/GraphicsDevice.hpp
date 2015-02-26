@@ -31,7 +31,7 @@ namespace SceneR
          * Performs primitive-based rendering, creates resources, handles system-level variables,
          * adjusts gamma ramp levels, and creates shaders.
          */
-        class GraphicsDevice : System::IDisposable
+        class GraphicsDevice final : System::IDisposable
         {
         public:
             /**
@@ -45,7 +45,7 @@ namespace SceneR
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            ~GraphicsDevice();
+            ~GraphicsDevice() override;
 
         public:
             void Dispose() override;

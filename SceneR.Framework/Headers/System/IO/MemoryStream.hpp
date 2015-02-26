@@ -27,7 +27,7 @@ namespace System
             /**
              * Releases all resources being used by this MemoryStream.
              */
-            ~MemoryStream();
+            ~MemoryStream() override;
 
         public:
             /**

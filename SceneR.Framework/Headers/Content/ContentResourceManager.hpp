@@ -15,7 +15,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentResourceManager
+        class ContentResourceManager final
         {
         public:
             /**

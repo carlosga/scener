@@ -17,7 +17,7 @@ namespace SceneR
         /**
          * Provides methods to manipulate graphics adapters.
          */
-        class GraphicsAdapter
+        class GraphicsAdapter final
         {
         public:
             /**

@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Content type reader manager.
          */
-        class ContentTypeReaderManager
+        class ContentTypeReaderManager final
         {
         public:
             /**

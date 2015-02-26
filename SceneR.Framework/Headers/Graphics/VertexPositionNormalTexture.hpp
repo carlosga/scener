@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Describes a  vertex format  that contains position, normal data, and texture coordinates.
          */
-        struct VertexPositionNormalTexture
+        struct VertexPositionNormalTexture final
         {
         private:
             static const VertexDeclaration& Declaration;

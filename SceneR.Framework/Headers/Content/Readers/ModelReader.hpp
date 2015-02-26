@@ -24,7 +24,7 @@ namespace SceneR
         /**
          * Model reader.
          */
-        class ModelReader : public ContentTypeReader
+        class ModelReader final : public ContentTypeReader
         {
         public:
             /**
@@ -35,7 +35,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~ModelReader();
+            ~ModelReader() override;
 
         public:
             /**

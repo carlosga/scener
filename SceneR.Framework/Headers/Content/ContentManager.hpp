@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * The ContentManager is used at runtime to load application content from files.
          */
-        class ContentManager
+        class ContentManager final
         {
         private:
             static ContentResourceManager ResourceManager;

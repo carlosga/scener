@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * Contains blend state for the device.
          */
-        class BlendState: public SceneR::Graphics::GraphicsResource
+        class BlendState final : public SceneR::Graphics::GraphicsResource
         {
         public:
 //            /**
@@ -61,7 +61,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BlendState.
              */
-            ~BlendState();
+            ~BlendState() override;
 
         public:
             void Dispose() override;

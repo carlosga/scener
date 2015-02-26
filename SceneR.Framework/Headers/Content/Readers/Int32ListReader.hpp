@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Int32 list reader
          */
-        class Int32ListReader : public ContentTypeReader
+        class Int32ListReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~Int32ListReader();
+            ~Int32ListReader() override;
 
         public:
             /**

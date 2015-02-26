@@ -43,10 +43,10 @@ namespace SceneR
             /**
              * Destructor
              */
-            virtual ~Effect();
+            ~Effect() override;
 
         public:
-            virtual void Dispose() override;
+            void Dispose() override;
 
         public:
             /**

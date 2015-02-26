@@ -25,7 +25,7 @@ namespace SceneR
         /**
          * Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
          */
-        class RasterizerState : public GraphicsResource
+        class RasterizerState final : public GraphicsResource
         {
         public:
             /**
@@ -36,7 +36,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this RasterizerState
              */
-            ~RasterizerState();
+            ~RasterizerState() override;
 
         public:
             void Dispose() override;

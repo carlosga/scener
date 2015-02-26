@@ -20,7 +20,7 @@ namespace SceneR
         /**
          * Represents a collection of EffectParameter
          */
-        class EffectParameterCollection
+        class EffectParameterCollection final
         {
         public:
             /**

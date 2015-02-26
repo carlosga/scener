@@ -15,7 +15,7 @@ namespace System
         /**
          * Represents a UTF-8 encoding of Unicode characters.
          */
-        class UTF8Encoding : public Encoding
+        class UTF8Encoding final : public Encoding
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace System
             /**
              * Releases all resources being used by this Encoding.
              */
-            ~UTF8Encoding();
+            ~UTF8Encoding() override;
 
         public:
             const System::String EncodingName() const override;

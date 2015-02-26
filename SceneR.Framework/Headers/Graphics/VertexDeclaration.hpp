@@ -19,7 +19,7 @@ namespace SceneR
         /**
          * A vertex declaration, which defines per-vertex data.
          */
-        class VertexDeclaration
+        class VertexDeclaration final
         {
         public:
             /**

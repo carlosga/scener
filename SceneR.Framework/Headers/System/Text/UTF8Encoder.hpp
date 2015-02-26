@@ -15,7 +15,7 @@ namespace System
         /**
          * Converts a set of UTF-8 encoded characters into a sequence of bytes.
          */
-        class UTF8Encoder : public Encoder
+        class UTF8Encoder final : public Encoder
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace System
             /**
              * Releases all resources being used by this UTF8Encoder.
              */
-            ~UTF8Encoder();
+            ~UTF8Encoder() override;
 
         public:
             System::Size GetByteCount(const std::vector<System::Char>& chars

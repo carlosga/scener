@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Represents a shader
          */
-        class Shader : System::IDisposable
+        class Shader final : System::IDisposable
         {
         public:
             /**
@@ -30,7 +30,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~Shader();
+            ~Shader() override;
 
         public:
             void Dispose() override;

@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Represents a shared resource fixup action
          */
-        struct SharedResourceAction
+        struct SharedResourceAction final
         {
         public:
             /**

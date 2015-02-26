@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Exception used to report errors from the ContentManager.Load method.
          */
-        class ContentLoadException : std::exception
+        class ContentLoadException final : std::exception
         {
         public:
             /**

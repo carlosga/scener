@@ -27,7 +27,7 @@ namespace SceneR
         /**
          * Handles the configuration and management of the graphics device.
          */
-        class GraphicsDeviceManager : public SceneR::Graphics::IGraphicsDeviceService, public IGraphicsDeviceManager
+        class GraphicsDeviceManager final : public SceneR::Graphics::IGraphicsDeviceService, public IGraphicsDeviceManager
         {
         public:
             /**
@@ -38,7 +38,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~GraphicsDeviceManager();
+            ~GraphicsDeviceManager() override;
 
         public:
             void Dispose() override;

@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Index buffer reader.
          */
-        class IndexBufferReader : public ContentTypeReader
+        class IndexBufferReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~IndexBufferReader();
+            ~IndexBufferReader() override;
 
         public:
             /**

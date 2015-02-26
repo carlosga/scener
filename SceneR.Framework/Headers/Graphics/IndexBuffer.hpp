@@ -19,7 +19,7 @@ namespace SceneR
         /**
          * Describes the rendering order of the vertices in a vertex buffer.
          */
-        class IndexBuffer : public GraphicsResource
+        class IndexBuffer final : public GraphicsResource
         {
         public:
             /**
@@ -36,7 +36,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            ~IndexBuffer();
+            ~IndexBuffer() override;
 
         public:
             void Dispose() override;

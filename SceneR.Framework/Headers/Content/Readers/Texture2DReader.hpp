@@ -16,7 +16,7 @@ namespace SceneR
         /**
          * Texture 2D reader.
          */
-        class Texture2DReader : public ContentTypeReader
+        class Texture2DReader final : public ContentTypeReader
         {
         public:
             /**
@@ -27,7 +27,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~Texture2DReader();
+            ~Texture2DReader() override;
 
         public:
             /**

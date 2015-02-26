@@ -17,7 +17,7 @@ namespace SceneR
         /**
          * Describes a  vertex format  that contains position, color, and texture coordinates.
          */
-        struct VertexPositionColorTexture
+        struct VertexPositionColorTexture final
         {
         private:
             static const VertexDeclaration& Declaration;

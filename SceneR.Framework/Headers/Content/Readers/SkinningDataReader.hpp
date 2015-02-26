@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Skinning Data reader
          */
-        class SkinningDataReader : public ContentTypeReader
+        class SkinningDataReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~SkinningDataReader();
+            ~SkinningDataReader() override;
 
         public:
             /**

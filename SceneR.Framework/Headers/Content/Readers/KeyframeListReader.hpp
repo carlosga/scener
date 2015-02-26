@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Keyframe list reader
          */
-        class KeyframeListReader : public ContentTypeReader
+        class KeyframeListReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~KeyframeListReader();
+            ~KeyframeListReader() override;
 
         public:
             /**

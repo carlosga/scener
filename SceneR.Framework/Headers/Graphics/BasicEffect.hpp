@@ -25,7 +25,7 @@ namespace SceneR
          * Contains a basic rendering effect.
          * http://msdn.microsoft.com/en-us/library/bb194916(v=xnagamestudio.40).aspx
          */
-        class BasicEffect : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
+        class BasicEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
             static System::String VSSource;
             static System::String FSSource;
@@ -46,7 +46,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BasicEffect.
              */
-            ~BasicEffect();
+            ~BasicEffect() override;
 
         public:
             void Dispose() override;

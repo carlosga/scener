@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Animation clip reader
          */
-        class AnimationClipMapReader : public ContentTypeReader
+        class AnimationClipMapReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this AnimationClipMapReader.
              */
-            ~AnimationClipMapReader();
+            ~AnimationClipMapReader() override;
 
         public:
             /**

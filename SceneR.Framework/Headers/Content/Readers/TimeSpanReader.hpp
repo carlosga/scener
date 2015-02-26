@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * TimeSpan reader
          */
-        class TimeSpanReader : public ContentTypeReader
+        class TimeSpanReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~TimeSpanReader();
+            ~TimeSpanReader() override;
 
         public:
             /**

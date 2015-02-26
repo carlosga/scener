@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Matrix list reader
          */
-        class MatrixListReader : public ContentTypeReader
+        class MatrixListReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~MatrixListReader();
+            ~MatrixListReader() override;
 
         public:
             /**

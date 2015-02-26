@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines input vertex data.
          */
-        class VertexElement
+        class VertexElement final
         {
         public:
             /**
@@ -68,6 +68,5 @@ namespace SceneR
         };
     }
 }
-
 
 #endif  /* VERTEXELEMENT_HPP */

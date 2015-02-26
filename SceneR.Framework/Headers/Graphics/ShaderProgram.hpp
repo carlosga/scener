@@ -31,7 +31,7 @@ namespace SceneR
         /**
          * Represents a shader program.
          */
-        class ShaderProgram : System::IDisposable
+        class ShaderProgram final : System::IDisposable
         {
         public:
             /**
@@ -42,7 +42,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~ShaderProgram();
+            ~ShaderProgram() override;
 
         public:
             void Dispose() override;

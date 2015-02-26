@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * String reader
          */
-        class StringReader: public ContentTypeReader
+        class StringReader final : public ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~StringReader();
+            ~StringReader() override;
 
         public:
             /**

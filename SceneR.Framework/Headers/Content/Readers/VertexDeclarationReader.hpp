@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Vertex declaration reader
          */
-        class VertexDeclarationReader: public SceneR::Content::ContentTypeReader
+        class VertexDeclarationReader final : public SceneR::Content::ContentTypeReader
         {
         public:
             /**
@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexDeclarationReader.
              */
-            ~VertexDeclarationReader();
+            ~VertexDeclarationReader() override;
 
         public:
             /**
