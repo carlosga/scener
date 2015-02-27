@@ -22,7 +22,7 @@ namespace SceneR
         public:
             Keyframe();
 
-            Keyframe(const System::Int32&             bone
+            Keyframe(const System::UInt32&            bone
                    , const System::TimeSpan&          time
                    , const SceneR::Framework::Matrix& transform);
 
@@ -31,7 +31,7 @@ namespace SceneR
             ~Keyframe();
 
         public:
-            const System::Int32& Bone() const;
+            const System::UInt32& Bone() const;
 
             const System::TimeSpan& Time() const;
 
@@ -41,7 +41,7 @@ namespace SceneR
             Keyframe& operator=(const Keyframe& keyframe);
 
         private:
-            System::Int32             bone;
+            System::UInt32            bone;
             System::TimeSpan          time;
             SceneR::Framework::Matrix transform;
         };

@@ -28,7 +28,7 @@ namespace SceneR
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */
-            VertexDeclaration(const System::Size&               vertexStride
+            VertexDeclaration(const System::UInt32&             vertexStride
                             , const std::vector<VertexElement>& vertexElements);
 
             /**
@@ -47,7 +47,7 @@ namespace SceneR
              * Gets the number of bytes per element.
              * @return the number of bytes per element.
              */
-            const System::Size& VertexStride() const;
+            const System::UInt32& VertexStride() const;
 
             /**
              * Gets the vertex elements.
@@ -73,7 +73,7 @@ namespace SceneR
             System::UInt32 GetElementType(const VertexElementFormat& vertexFormat) const;
 
         private:
-            System::Size               vertexStride;
+            System::UInt32             vertexStride;
             std::vector<VertexElement> vertexElements;
 
             friend class VertexBuffer;

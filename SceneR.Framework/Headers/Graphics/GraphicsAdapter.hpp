@@ -37,6 +37,12 @@ namespace SceneR
             GraphicsAdapter();
 
             /**
+             * @brief Copy constructor.
+             * @param adapter The graphics adapter to copy from.
+             */
+            GraphicsAdapter(const GraphicsAdapter& adapter);
+
+            /**
              * Destructor
              */
             ~GraphicsAdapter();
@@ -96,6 +102,9 @@ namespace SceneR
              * Retrieves a value used to identify the manufacturer.
              */
             const System::Int32& VendorId() const;
+
+        public:
+            GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
 
         private:
             System::String           description;

@@ -15,6 +15,15 @@ PresentationParameters::PresentationParameters()
 {
 }
 
+PresentationParameters::PresentationParameters(const PresentationParameters& parameters)
+    : fullScreen       { parameters.fullScreen }
+    , backBufferHeight { parameters.backBufferHeight }
+    , backBufferWidth  { parameters.backBufferWidth }
+    , multiSampleCount { parameters.multiSampleCount }
+    , presentInterval  { parameters.presentInterval }
+{
+}
+
 PresentationParameters::~PresentationParameters()
 {
 }
@@ -29,32 +38,32 @@ void PresentationParameters::FullScreen(const Boolean& fullScreen)
     this->fullScreen = fullScreen;
 }
 
-const Size& PresentationParameters::BackBufferHeight() const
+const UInt32& PresentationParameters::BackBufferHeight() const
 {
     return this->backBufferHeight;
 }
 
-void PresentationParameters::BackBufferHeight(const Size& backBufferHeight)
+void PresentationParameters::BackBufferHeight(const UInt32& backBufferHeight)
 {
     this->backBufferHeight = backBufferHeight;
 }
 
-const Size& PresentationParameters::BackBufferWidth() const
+const UInt32& PresentationParameters::BackBufferWidth() const
 {
     return this->backBufferWidth;
 }
 
-void PresentationParameters::BackBufferWidth(const Size& backBufferWidth)
+void PresentationParameters::BackBufferWidth(const UInt32& backBufferWidth)
 {
     this->backBufferWidth = backBufferWidth;
 }
 
-const System::Size& PresentationParameters::MultiSampleCount() const
+const System::UInt32& PresentationParameters::MultiSampleCount() const
 {
     return this->multiSampleCount;
 }
 
-void PresentationParameters::MultiSampleCount(const System::Size& multiSampleCount)
+void PresentationParameters::MultiSampleCount(const System::UInt32& multiSampleCount)
 {
     this->multiSampleCount = multiSampleCount;
 }
@@ -67,4 +76,18 @@ const SceneR::Framework::PresentInterval& PresentationParameters::PresentInterva
 void PresentationParameters::PresentInterval(const SceneR::Framework::PresentInterval& presentInterval)
 {
     this->presentInterval = presentInterval;
+}
+
+PresentationParameters&PresentationParameters::operator=(const PresentationParameters& parameters)
+{
+    if (this != &parameters)
+    {
+        this->fullScreen       = parameters.fullScreen;
+        this->backBufferHeight = parameters.backBufferHeight;
+        this->backBufferWidth  = parameters.backBufferWidth;
+        this->multiSampleCount = parameters.multiSampleCount;
+        this->presentInterval  = parameters.presentInterval;
+    }
+
+    return *this;
 }

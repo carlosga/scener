@@ -57,19 +57,29 @@ namespace SceneR
             const std::shared_ptr<SceneR::Graphics::IndexBuffer>& IndexBuffer() const;
 
             /**
-             * Gets the number of vertices used during a draw call.
+             * Gets the vertex buffer for this mesh part.
              */
-            const System::Size& VertexCount() const;
-
-            /**
-             * Gets the number of primitives to render.
-             */
-            const System::Size& PrimitiveCount() const;
+            const std::shared_ptr<SceneR::Graphics::VertexBuffer>& VertexBuffer() const;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
              */
-            const System::Size& StartIndex() const;
+            const System::UInt32& StartIndex() const;
+
+            /**
+             * Gets the offset (in vertices) from the top of vertex buffer.
+             */
+            const System::UInt32& VertexOffset() const;
+
+            /**
+             * Gets the number of vertices used during a draw call.
+             */
+            const System::UInt32& VertexCount() const;
+
+            /**
+             * Gets the number of primitives to render.
+             */
+            const System::UInt32& PrimitiveCount() const;
 
             /**
              * Gets the model mesh part tag
@@ -81,25 +91,15 @@ namespace SceneR
              */
             void Tag(const System::String& tag);
 
-            /**
-             * Gets the vertex buffer for this mesh part.
-             */
-            const std::shared_ptr<SceneR::Graphics::VertexBuffer>& VertexBuffer() const;
-
-            /**
-             * Gets the offset (in vertices) from the top of vertex buffer.
-             */
-            const System::Size& VertexOffset() const;
-
         private:
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
             std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
-            System::Size                                    vertexCount;
-            System::Size                                    primitiveCount;
-            System::Size                                    startIndex;
-            System::String                                  tag;
             std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
-            System::Size                                    vertexOffset;
+            System::UInt32                                  startIndex;
+            System::UInt32                                  vertexOffset;
+            System::UInt32                                  vertexCount;
+            System::UInt32                                  primitiveCount;
+            System::String                                  tag;
 
             friend class SceneR::Content::ModelReader;
         };

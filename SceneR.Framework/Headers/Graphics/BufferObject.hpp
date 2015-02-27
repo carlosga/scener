@@ -65,7 +65,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void GetData(const System::Size& offset, const System::Size& size, void *data) const;
+            void GetData(const System::UInt32& offset, const System::UInt32& size, void *data) const;
 
             /**
              * Creates and initializes the buffer object data store.
@@ -73,7 +73,7 @@ namespace SceneR
              * @param data specifies a pointer to data that will be copied into the data store for initialization,
              *             or NULL if no data is to be copied.
              */
-            void BufferData(const System::Size& size, const void* data) const;
+            void BufferData(const System::UInt32& size, const void* data) const;
 
             /**
              * Updates a subset of a buffer object's data store
@@ -81,7 +81,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void BufferData(const System::Size& offset, const System::Size& size, const void *data) const;
+            void BufferData(const System::UInt32& offset, const System::UInt32& size, const void *data) const;
 
             /**
              * Invalidate the content of a buffer object's data store
@@ -93,7 +93,7 @@ namespace SceneR
              *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
              *  @param length the length of the range within the buffer's data store to be invalidated.
              */
-            void Invalidate(const System::Size& offset, const System::Size& length) const;
+            void Invalidate(const System::UInt32& offset, const System::UInt32& length) const;
 
         private:
             /**

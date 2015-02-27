@@ -3,7 +3,6 @@
 
 #include <Graphics/RasterizerState.hpp>
 
-#include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
@@ -18,6 +17,17 @@ RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     , multiSampleAntiAlias { true }
     , scissorTestEnable    { false }
     , slopeScaleDepthBias  { 0.0f }
+{
+}
+
+RasterizerState::RasterizerState(const RasterizerState& rasterizerState)
+    : GraphicsResource     { rasterizerState.graphicsDevice }
+    , cullMode             { rasterizerState.cullMode }
+    , depthBias            { rasterizerState.depthBias }
+    , fillMode             { rasterizerState.fillMode }
+    , multiSampleAntiAlias { rasterizerState.multiSampleAntiAlias }
+    , scissorTestEnable    { rasterizerState.scissorTestEnable }
+    , slopeScaleDepthBias  { rasterizerState.slopeScaleDepthBias }
 {
 }
 
@@ -87,6 +97,22 @@ const Single& RasterizerState::SlopeScaleDepthBias() const
 void RasterizerState::SlopeScaleDepthBias(const Single& slopeScaleDepthBias)
 {
     this->slopeScaleDepthBias = slopeScaleDepthBias;
+}
+
+RasterizerState&RasterizerState::operator=(const RasterizerState& rasterizerState)
+{
+    if (this != &rasterizerState)
+    {
+        this->graphicsDevice       = rasterizerState.graphicsDevice;
+        this->cullMode             = rasterizerState.cullMode;
+        this->depthBias            = rasterizerState.depthBias;
+        this->fillMode             = rasterizerState.fillMode;
+        this->multiSampleAntiAlias = rasterizerState.multiSampleAntiAlias;
+        this->scissorTestEnable    = rasterizerState.scissorTestEnable;
+        this->slopeScaleDepthBias  = rasterizerState.slopeScaleDepthBias;
+    }
+
+    return *this;
 }
 
 void RasterizerState::Apply() const

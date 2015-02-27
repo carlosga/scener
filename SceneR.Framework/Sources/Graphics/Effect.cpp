@@ -11,6 +11,11 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
+Effect::Effect(GraphicsDevice& graphicsDevice)
+    : GraphicsResource { graphicsDevice }
+{
+}
+
 Effect::Effect(GraphicsDevice& graphicsDevice
              , const String&   vertexShader
              , const String&   fragmentShader)

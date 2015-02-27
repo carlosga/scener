@@ -6,9 +6,9 @@ set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
 
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
 
-# -Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+#-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
 # include directories
 include_directories(Headers
@@ -29,6 +29,9 @@ set(HEADER_FILES
     Headers/Content/Readers/AnimationClipReader.hpp
     Headers/Content/Readers/BasicEffectReader.hpp
     Headers/Content/Readers/BoundingSphereReader.hpp
+    Headers/Content/Readers/DictionaryReader.hpp
+    Headers/Content/Readers/EffectMaterialReader.hpp
+    Headers/Content/Readers/ExternalReferenceReader.hpp
     Headers/Content/Readers/IndexBufferReader.hpp
     Headers/Content/Readers/Int32ListReader.hpp
     Headers/Content/Readers/Int32Reader.hpp
@@ -41,6 +44,7 @@ set(HEADER_FILES
     Headers/Content/Readers/SkinningDataReader.hpp
     Headers/Content/Readers/StringReader.hpp
     Headers/Content/Readers/Texture2DReader.hpp
+    Headers/Content/Readers/TextureReader.hpp
     Headers/Content/Readers/TimeSpanReader.hpp
     Headers/Content/Readers/VertexBufferReader.hpp
     Headers/Content/Readers/VertexDeclarationReader.hpp
@@ -93,6 +97,7 @@ set(HEADER_FILES
     Headers/Graphics/DirectionalLight.hpp
     Headers/Graphics/DisplayMode.hpp
     Headers/Graphics/Effect.hpp
+    Headers/Graphics/EffectMaterial.hpp
     Headers/Graphics/EffectParameter.hpp
     Headers/Graphics/EffectParameterClass.hpp
     Headers/Graphics/EffectParameterCollection.hpp
@@ -168,6 +173,9 @@ set(SOURCE_FILES
     Sources/Content/Readers/AnimationClipReader.cpp
     Sources/Content/Readers/BasicEffectReader.cpp
     Sources/Content/Readers/BoundingSphereReader.cpp
+    Sources/Content/Readers/DictionaryReader.cpp
+    Sources/Content/Readers/EffectMaterialReader.cpp
+    Sources/Content/Readers/ExternalReferenceReader.cpp
     Sources/Content/Readers/IndexBufferReader.cpp
     Sources/Content/Readers/Int32ListReader.cpp
     Sources/Content/Readers/Int32Reader.cpp
@@ -180,6 +188,7 @@ set(SOURCE_FILES
     Sources/Content/Readers/SkinningDataReader.cpp
     Sources/Content/Readers/StringReader.cpp
     Sources/Content/Readers/Texture2DReader.cpp
+    Sources/Content/Readers/TextureReader.cpp
     Sources/Content/Readers/TimeSpanReader.cpp
     Sources/Content/Readers/VertexBufferReader.cpp
     Sources/Content/Readers/VertexDeclarationReader.cpp
@@ -221,6 +230,7 @@ set(SOURCE_FILES
     Sources/Graphics/DirectionalLight.cpp
     Sources/Graphics/DisplayMode.cpp
     Sources/Graphics/Effect.cpp
+    Sources/Graphics/EffectMaterial.cpp
     Sources/Graphics/EffectParameter.cpp
     Sources/Graphics/EffectParameterCollection.cpp
     Sources/Graphics/GraphicsAdapter.cpp

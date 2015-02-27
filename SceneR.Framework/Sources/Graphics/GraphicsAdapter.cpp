@@ -64,6 +64,20 @@ GraphicsAdapter::GraphicsAdapter()
 {
 }
 
+GraphicsAdapter::GraphicsAdapter(const GraphicsAdapter& adapter)
+    : description           { adapter.description }
+    , deviceId              { adapter.deviceId }
+    , deviceName            { adapter.deviceName }
+    , isDefaultAdapter      { adapter.isDefaultAdapter }
+    , isWideScreen          { adapter.isWideScreen }
+    , monitorHandle         { adapter.monitorHandle }
+    , revision              { adapter.revision }
+    , subSystemId           { adapter.subSystemId }
+    , supportedDisplayModes ( adapter.supportedDisplayModes )
+    , vendorId              { adapter.vendorId }
+{
+}
+
 GraphicsAdapter::~GraphicsAdapter()
 {
 }
@@ -121,4 +135,23 @@ const std::vector<DisplayMode>& GraphicsAdapter::SupportedDisplayModes() const
 const System::Int32& GraphicsAdapter::VendorId() const
 {
     return this->vendorId;
+}
+
+GraphicsAdapter&GraphicsAdapter::operator=(const GraphicsAdapter& adapter)
+{
+    if (this != &adapter)
+    {
+        this->description           = adapter.description;
+        this->deviceId              = adapter.deviceId;
+        this->deviceName            = adapter.deviceName;
+        this->isDefaultAdapter      = adapter.isDefaultAdapter;
+        this->isWideScreen          = adapter.isWideScreen;
+        this->monitorHandle         = adapter.monitorHandle;
+        this->revision              = adapter.revision;
+        this->subSystemId           = adapter.subSystemId;
+        this->supportedDisplayModes = adapter.supportedDisplayModes;
+        this->vendorId              = adapter.vendorId;
+    }
+
+    return *this;
 }

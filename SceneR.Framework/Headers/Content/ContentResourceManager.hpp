@@ -38,7 +38,7 @@ namespace SceneR
             {
                 if (!this->HasResource(name))
                 {
-                    this->resources[name] = resource;
+                    this->resources[name] = std::static_pointer_cast<void>(resource);
                 }
             }
 
@@ -64,11 +64,14 @@ namespace SceneR
                 {
                     for (auto& kvp : resources)
                     {
-                        auto disposable = std::static_pointer_cast<System::IDisposable>(kvp.second);
-
-                        if (disposable != nullptr)
+                        if (kvp.second.get() != nullptr)
                         {
-                            disposable->Dispose();
+                            auto disposable = std::static_pointer_cast<System::IDisposable>(kvp.second);
+
+                            if (disposable.get() != nullptr)
+                            {
+                                disposable->Dispose();
+                            }
                         }
                     }
 

@@ -28,6 +28,21 @@ GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
     this->samplerStates.push_back(SamplerState(*this));
 }
 
+GraphicsDevice::GraphicsDevice(const GraphicsDevice& device)
+    : blendState             { device.blendState }
+    , depthStencilState      { device.depthStencilState }
+    , effect                 { device.effect }
+    , graphicsAdapter        { device.graphicsAdapter }
+    , graphicsProfile        { device.graphicsProfile }
+    , indexBuffer            { device.indexBuffer }
+    , presentationParameters { device.presentationParameters }
+    , rasterizerState        { device.rasterizerState }
+    , samplerStates          { device.samplerStates }
+    , vertexBuffer           { device.vertexBuffer }
+    , viewport               { device.viewport }
+{
+}
+
 GraphicsDevice::~GraphicsDevice()
 {
 }
@@ -86,11 +101,11 @@ void GraphicsDevice::Clear(const Color& color) const
 }
 
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                         , const Size&          baseVertex
-                                         , const Size&          minVertexIndex
-                                         , const Size&          numVertices
-                                         , const Size&          startIndex
-                                         , const Size&          primitiveCount) const
+                                         , const UInt32&        baseVertex
+                                         , const UInt32&        minVertexIndex
+                                         , const UInt32&        numVertices
+                                         , const UInt32&        startIndex
+                                         , const UInt32&        primitiveCount) const
 {
     if (this->indexBuffer == nullptr)
     {
@@ -113,10 +128,10 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
     this->indexBuffer->Activate();
 
     glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
-                           , numVertices
+                           , static_cast<GLsizei>(numVertices)
                            , static_cast<GLenum>(this->indexBuffer->IndexElementSize())
                            , reinterpret_cast<void*>(offset)
-                           , baseVertex);
+                           , static_cast<GLint>(baseVertex));
 
     this->indexBuffer->Deactivate();
     this->vertexBuffer->Deactivate();
@@ -125,8 +140,8 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
 }
 
 void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
-                                  , const Size&          startVertex
-                                  , const Size&          primitiveCount) const
+                                  , const UInt32&        startVertex
+                                  , const UInt32&        primitiveCount) const
 {
     if (this->vertexBuffer == nullptr)
     {
@@ -141,7 +156,9 @@ void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
 
     this->vertexBuffer->Activate();
 
-    glDrawArrays(static_cast<GLenum>(primitiveType), startVertex, primitiveCount);
+    glDrawArrays(static_cast<GLenum>(primitiveType)
+               , static_cast<GLint>(startVertex)
+               , static_cast<GLsizei>(primitiveCount));
 
     this->vertexBuffer->Deactivate();
 
@@ -227,4 +244,24 @@ void GraphicsDevice::Viewport(SceneR::Graphics::Viewport& viewport)
 {
     this->viewport = viewport;
     this->viewport.Update();
+}
+
+GraphicsDevice&GraphicsDevice::operator=(const GraphicsDevice& device)
+{
+    if (this != &device)
+    {
+        this->blendState             = device.blendState;
+        this->depthStencilState      = device.depthStencilState;
+        this->effect                 = device.effect;
+        this->graphicsAdapter        = device.graphicsAdapter;
+        this->graphicsProfile        = device.graphicsProfile;
+        this->indexBuffer            = device.indexBuffer;
+        this->presentationParameters = device.presentationParameters;
+        this->rasterizerState        = device.rasterizerState;
+        this->samplerStates          = device.samplerStates;
+        this->vertexBuffer           = device.vertexBuffer;
+        this->viewport               = device.viewport;
+    }
+
+    return *this;
 }

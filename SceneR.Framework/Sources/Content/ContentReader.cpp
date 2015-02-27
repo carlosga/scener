@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
@@ -135,6 +136,8 @@ void ContentReader::ReadManifest()
 
         // Look up and store this type reader implementation class.
         auto reader = ContentReader::TypeReaderManager.GetByReaderName(readerName);
+
+        std::cout << std::string(readerName.begin(), readerName.end()) << std::endl;
 
         assert(reader != nullptr);
 

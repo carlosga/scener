@@ -9,7 +9,7 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                         , const System::Size&                                         vertexCount
+                         , const System::UInt32&                                       vertexCount
                          , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
     : GraphicsResource  { graphicsDevice }
     , vertexDeclaration { vertexDeclaration }
@@ -32,7 +32,7 @@ void VertexBuffer::Dispose()
     this->vbo.Dispose();
 }
 
-const Size& VertexBuffer::VertexCount() const
+const UInt32& VertexBuffer::VertexCount() const
 {
     return this->vertexCount;
 }
@@ -42,7 +42,7 @@ std::vector<UByte> VertexBuffer::GetData() const
     return this->GetData(0, this->vertexCount);
 }
 
-std::vector<UByte> VertexBuffer::GetData(const Size& startIndex, const Size& elementCount) const
+std::vector<UByte> VertexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
 {
     auto offset = (startIndex * this->vertexDeclaration->VertexStride());
     auto size   = (elementCount * this->vertexDeclaration->VertexStride());
@@ -66,11 +66,11 @@ std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclara
 void VertexBuffer::Activate()
 {
     this->vao.Activate();
-    glBindVertexBuffer(0, this->vbo.Id(), 0, this->vertexDeclaration->VertexStride());
+    glBindVertexBuffer(0, this->vbo.Id(), 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
 }
 
 void VertexBuffer::Deactivate()
 {
-    glBindVertexBuffer(0, 0, 0, this->vertexDeclaration->VertexStride());
+    glBindVertexBuffer(0, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
     this->vao.Deactivate();
 }

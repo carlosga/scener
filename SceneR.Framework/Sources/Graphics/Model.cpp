@@ -26,6 +26,10 @@ Model::~Model()
 {
 }
 
+void Model::Dispose()
+{
+}
+
 void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
     // TODO: This isn't what it should be doing, but it's good enough for now

@@ -26,6 +26,13 @@ namespace SceneR
              * Initializes a new instance of the Effect class
              *
              * @param graphicsDevice the graphics device
+             */
+            Effect(GraphicsDevice& graphicsDevice);
+
+            /**
+             * Initializes a new instance of the Effect class
+             *
+             * @param graphicsDevice the graphics device
              * @param vertexShader   the vertex shader source code
              * @param fragmentShader the fragment shader source code
              */
@@ -54,6 +61,7 @@ namespace SceneR
              */
             EffectParameterCollection& Parameters();
 
+        public:
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */

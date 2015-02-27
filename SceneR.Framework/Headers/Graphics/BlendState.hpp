@@ -59,6 +59,12 @@ namespace SceneR
             BlendState(GraphicsDevice& graphicsDevice);
 
             /**
+             * @brief Copy constructor.
+             * @param blendState The blend state to copy from.
+             */
+            BlendState(const BlendState& blendState);
+
+            /**
              * Releases all resources being used by this BlendState.
              */
             ~BlendState() override;
@@ -188,6 +194,9 @@ namespace SceneR
              * Sets a bitmask which defines which samples can be written during multisampling.
              */
             void MultiSampleMask(const System::UInt32& multiSampleMask);
+
+        public:
+            BlendState& operator=(const BlendState& blendState);
 
         private:
             void Apply() const;

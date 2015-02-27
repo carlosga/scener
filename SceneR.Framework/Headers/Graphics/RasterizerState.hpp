@@ -33,6 +33,8 @@ namespace SceneR
              */
             RasterizerState(GraphicsDevice& graphicsDevice);
 
+            RasterizerState(const RasterizerState& rasterizerState);
+
             /**
              * Releases all resources being used by this RasterizerState
              */
@@ -115,6 +117,9 @@ namespace SceneR
              * The default is 0.
              */
             void SlopeScaleDepthBias(const System::Single& slopeScaleDepthBias);
+
+        public:
+            RasterizerState& operator=(const RasterizerState& rasterizerState);
 
         private:
             void Apply() const;

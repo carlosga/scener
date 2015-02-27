@@ -8,7 +8,7 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexDeclaration::VertexDeclaration(const Size&                       vertexStride
+VertexDeclaration::VertexDeclaration(const UInt32&                     vertexStride
                                    , const std::vector<VertexElement>& vertexElements)
     : vertexStride   { vertexStride }
     , vertexElements { vertexElements }
@@ -25,7 +25,7 @@ VertexDeclaration::~VertexDeclaration()
 {
 }
 
-const Size& VertexDeclaration::VertexStride() const
+const UInt32& VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;
 }

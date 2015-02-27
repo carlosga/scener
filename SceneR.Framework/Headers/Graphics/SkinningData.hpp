@@ -28,7 +28,7 @@ namespace SceneR
             SkinningData(const std::map<System::String, AnimationClip>& animationClips
                        , const std::vector<SceneR::Framework::Matrix>&  bindPose
                        , const std::vector<SceneR::Framework::Matrix>&  inverseBindPose
-                       , const std::vector<System::Int32>&              skeletonHierarchy);
+                       , const std::vector<System::UInt32>&             skeletonHierarchy);
 
             SkinningData(const SkinningData& skinningData);
 
@@ -46,13 +46,13 @@ namespace SceneR
 
             const std::vector<SceneR::Framework::Matrix>& InverseBindPose() const;
 
-            const std::vector<System::Int32>& SkeletonHierarchy() const;
+            const std::vector<System::UInt32>& SkeletonHierarchy() const;
 
         private:
             std::map<System::String, AnimationClip> animationClips;
             std::vector<SceneR::Framework::Matrix>  bindPose;
             std::vector<SceneR::Framework::Matrix>  inverseBindPose;
-            std::vector<System::Int32>              skeletonHierarchy;
+            std::vector<System::UInt32>             skeletonHierarchy;
         };
     }
 }

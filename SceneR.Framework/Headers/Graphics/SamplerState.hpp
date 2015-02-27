@@ -29,6 +29,12 @@ namespace SceneR
             SamplerState(GraphicsDevice& graphicsDevice);
 
             /**
+             * @brief Copy constructor.
+             * @param samplerState The sampler state to copy from.
+             */
+            SamplerState(const SamplerState& samplerState);
+
+            /**
              * Destructor
              */
             ~SamplerState();
@@ -107,6 +113,9 @@ namespace SceneR
              */
             void MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias);
 
+        public:
+            SamplerState& operator=(const SamplerState& samplerState);
+
         private:
             void OnApply(const TextureTarget& target) const;
 
@@ -121,6 +130,7 @@ namespace SceneR
 
             friend class BasicEffect;
             friend class SkinnedEffect;
+            friend class EffectMaterial;
         };
     }
 }

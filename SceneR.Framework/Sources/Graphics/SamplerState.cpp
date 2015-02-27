@@ -21,6 +21,18 @@ SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
 {
 }
 
+SamplerState::SamplerState(const SamplerState& samplerState)
+    : GraphicsResource        { samplerState.graphicsDevice }
+    , addressU                { samplerState.addressU }
+    , addressV                { samplerState.addressV }
+    , addressW                { samplerState.addressW }
+    , filter                  { samplerState.filter }
+    , maxAnisotropy           { samplerState.maxAnisotropy }
+    , maxMipLevel             { samplerState.maxMipLevel }
+    , mipMapLevelOfDetailBias { samplerState.mipMapLevelOfDetailBias }
+{
+}
+
 SamplerState::~SamplerState()
 {
 }
@@ -97,6 +109,23 @@ const System::Single& SamplerState::MipMapLevelOfDetailBias() const
 void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias)
 {
     this->mipMapLevelOfDetailBias = mipMapLevelOfDetailBias;
+}
+
+SamplerState&SamplerState::operator=(const SamplerState& samplerState)
+{
+    if (this != &samplerState)
+    {
+        this->graphicsDevice          = samplerState.graphicsDevice;
+        this->addressU                = samplerState.addressU;
+        this->addressV                = samplerState.addressV;
+        this->addressW                = samplerState.addressW;
+        this->filter                  = samplerState.filter;
+        this->maxAnisotropy           = samplerState.maxAnisotropy;
+        this->maxMipLevel             = samplerState.maxMipLevel;
+        this->mipMapLevelOfDetailBias = samplerState.mipMapLevelOfDetailBias;
+    }
+
+    return *this;
 }
 
 void SamplerState::OnApply(const TextureTarget& target) const

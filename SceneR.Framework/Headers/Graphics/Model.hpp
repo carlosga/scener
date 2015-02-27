@@ -8,6 +8,7 @@
 #include <vector>
 
 #include <Framework/Matrix.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {
@@ -36,7 +37,7 @@ namespace SceneR
         /**
          * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
          */
-        class Model
+        class Model : System::IDisposable
         {
         public:
             /**
@@ -47,7 +48,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this Model.
              */
-            ~Model();
+            ~Model() override;
+
+        public:
+            void Dispose() override;
 
         public:
             /**

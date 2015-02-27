@@ -8,7 +8,7 @@ using namespace SceneR::Graphics;
 
 IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice
                        , const SceneR::Graphics::IndexElementSize& indexElementSize
-                       , const Size&                               indexCount)
+                       , const UInt32&                             indexCount)
     : GraphicsResource { graphicsDevice }
     , ibo              { BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw }
     , indexCount       { indexCount }
@@ -25,7 +25,7 @@ void IndexBuffer::Dispose()
     this->ibo.Dispose();
 }
 
-const Size& IndexBuffer::IndexCount() const
+const UInt32& IndexBuffer::IndexCount() const
 {
     return this->indexCount;
 }
@@ -40,7 +40,7 @@ std::vector<UByte> IndexBuffer::GetData() const
     return this->GetData(0, this->indexCount);
 }
 
-std::vector<UByte> IndexBuffer::GetData(const Size& startIndex, const Size& elementCount) const
+std::vector<UByte> IndexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
 {
     auto offset = (startIndex * this->GetElementSizeInBytes());
     auto size   = (elementCount * this->GetElementSizeInBytes());
@@ -66,7 +66,7 @@ void IndexBuffer::Deactivate() const
     this->ibo.Deactivate();
 }
 
-Size IndexBuffer::GetElementSizeInBytes() const
+UInt32 IndexBuffer::GetElementSizeInBytes() const
 {
     return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
 }

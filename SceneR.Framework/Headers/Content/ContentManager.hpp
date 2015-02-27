@@ -85,18 +85,14 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false)
             {
-                /*
-                std::string tmp(assetName.begin(), assetName.end());
-
                 if (ContentManager::ResourceManager.HasResource(assetName))
                 {
-                    std::cout << "Loading asset :: " << tmp << " :: from resource manager";
+                    std::cout << "Loading asset :: " << std::string(assetName.begin(), assetName.end()) << " :: from resource manager" << std::endl;
 
                     return ContentManager::ResourceManager.GetResource<T>(assetName);
                 }
 
-                std::cout << "Loading asset :: " << tmp << " :: from disk";
-                */
+                std::cout << "Loading asset :: " << std::string(assetName.begin(), assetName.end()) << " :: from disk" << std::endl;
 
                 auto stream = this->OpenStream(assetName);
                 ContentReader reader(assetName, *this, *stream);
@@ -104,7 +100,7 @@ namespace SceneR
 
                 reader.ReadSharedResources();
 
-                // ContentManager::ResourceManager.AddResource<T>(assetName, asset);
+                ContentManager::ResourceManager.AddResource<T>(assetName, asset);
 
                 return asset;
             }

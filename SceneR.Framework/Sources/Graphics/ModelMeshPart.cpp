@@ -13,12 +13,12 @@ using namespace SceneR::Graphics;
 ModelMeshPart::ModelMeshPart()
     : effect         { nullptr }
     , indexBuffer    { nullptr }
+    , vertexBuffer   { nullptr }
+    , startIndex     { 0 }
+    , vertexOffset   { 0 }
     , vertexCount    { 0 }
     , primitiveCount { 0 }
-    , startIndex     { 0 }
     , tag            { u"" }
-    , vertexBuffer   { nullptr }
-    , vertexOffset   { 0 }
 {
 }
 
@@ -41,19 +41,29 @@ const std::shared_ptr<SceneR::Graphics::IndexBuffer>& ModelMeshPart::IndexBuffer
     return this->indexBuffer;
 }
 
-const Size& ModelMeshPart::VertexCount() const
+const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuffer() const
+{
+    return this->vertexBuffer;
+}
+
+const UInt32& ModelMeshPart::StartIndex() const
+{
+    return this->startIndex;
+}
+
+const UInt32& ModelMeshPart::VertexOffset() const
+{
+    return this->vertexOffset;
+}
+
+const UInt32& ModelMeshPart::VertexCount() const
 {
     return this->vertexCount;
 }
 
-const Size& ModelMeshPart::PrimitiveCount() const
+const UInt32& ModelMeshPart::PrimitiveCount() const
 {
     return this->primitiveCount;
-}
-
-const Size& ModelMeshPart::StartIndex() const
-{
-    return this->startIndex;
 }
 
 const String& ModelMeshPart::Tag() const
@@ -64,14 +74,4 @@ const String& ModelMeshPart::Tag() const
 void ModelMeshPart::Tag(const String& tag)
 {
     this->tag = tag;
-}
-
-const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuffer() const
-{
-    return this->vertexBuffer;
-}
-
-const Size& ModelMeshPart::VertexOffset() const
-{
-    return this->vertexOffset;
 }

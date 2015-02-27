@@ -34,6 +34,8 @@ namespace SceneR
              */
             DepthStencilState(GraphicsDevice& graphicsDevice);
 
+            DepthStencilState(const DepthStencilState& depthStencilState);
+
             /**
              * Releases all resources being used by this DepthStencilState
              */
@@ -212,6 +214,9 @@ namespace SceneR
              * Enables or disables two-sided stenciling.
              */
             void TwoSidedStencilMode(const System::Boolean& twoSidedStencilMode);
+
+        public:
+            DepthStencilState& operator=(const DepthStencilState& depthStencilState);
 
         private:
             void Apply() const;

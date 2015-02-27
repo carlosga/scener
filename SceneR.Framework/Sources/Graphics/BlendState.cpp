@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <Graphics/BlendState.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -21,6 +22,23 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
     , colorWriteChannels2   { SceneR::Graphics::ColorWriteChannels::All }
     , colorWriteChannels3   { SceneR::Graphics::ColorWriteChannels::All }
     , multiSampleMask       { 0xffffffff }
+{
+}
+
+BlendState::BlendState(const BlendState& blendState)
+    : GraphicsResource      { blendState.graphicsDevice }
+    , alphaBlendFunction    { blendState.alphaBlendFunction }
+    , alphaDestinationBlend { blendState.alphaDestinationBlend }
+    , alphaSourceBlend      { blendState.alphaSourceBlend }
+    , blendFactor           { blendState.blendFactor }
+    , colorBlendFunction    { blendState.colorBlendFunction }
+    , colorDestinationBlend { blendState.colorDestinationBlend }
+    , colorSourceBlend      { blendState.colorSourceBlend }
+    , colorWriteChannels    { blendState.colorWriteChannels }
+    , colorWriteChannels1   { blendState.colorWriteChannels1 }
+    , colorWriteChannels2   { blendState.colorWriteChannels2 }
+    , colorWriteChannels3   { blendState.colorWriteChannels3 }
+    , multiSampleMask       { blendState.multiSampleMask }
 {
 }
 
@@ -150,6 +168,28 @@ const UInt32& BlendState::MultiSampleMask() const
 void BlendState::MultiSampleMask(const UInt32& multiSampleMask)
 {
     this->multiSampleMask = multiSampleMask;
+}
+
+BlendState&BlendState::operator=(const BlendState& blendState)
+{
+    if (this != &blendState)
+    {
+        this->graphicsDevice        = blendState.graphicsDevice;
+        this->alphaBlendFunction    = blendState.alphaBlendFunction;
+        this->alphaDestinationBlend = blendState.alphaDestinationBlend;
+        this->alphaSourceBlend      = blendState.alphaSourceBlend;
+        this->blendFactor           = blendState.blendFactor;
+        this->colorBlendFunction    = blendState.colorBlendFunction;
+        this->colorDestinationBlend = blendState.colorDestinationBlend;
+        this->colorSourceBlend      = blendState.colorSourceBlend;
+        this->colorWriteChannels    = blendState.colorWriteChannels;
+        this->colorWriteChannels1   = blendState.colorWriteChannels1;
+        this->colorWriteChannels2   = blendState.colorWriteChannels2;
+        this->colorWriteChannels3   = blendState.colorWriteChannels3;
+        this->multiSampleMask       = blendState.multiSampleMask;
+    }
+
+    return *this;
 }
 
 void BlendState::Apply() const

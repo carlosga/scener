@@ -7,6 +7,9 @@
 #include <Content/Readers/AnimationClipReader.hpp>
 #include <Content/Readers/BasicEffectReader.hpp>
 #include <Content/Readers/BoundingSphereReader.hpp>
+#include <Content/Readers/DictionaryReader.hpp>
+#include <Content/Readers/EffectMaterialReader.hpp>
+#include <Content/Readers/ExternalReferenceReader.hpp>
 #include <Content/Readers/IndexBufferReader.hpp>
 #include <Content/Readers/Int32ListReader.hpp>
 #include <Content/Readers/Int32Reader.hpp>
@@ -19,6 +22,7 @@
 #include <Content/Readers/SkinningDataReader.hpp>
 #include <Content/Readers/StringReader.hpp>
 #include <Content/Readers/Texture2DReader.hpp>
+#include <Content/Readers/TextureReader.hpp>
 #include <Content/Readers/TimeSpanReader.hpp>
 #include <Content/Readers/VertexBufferReader.hpp>
 #include <Content/Readers/VertexDeclarationReader.hpp>
@@ -55,6 +59,9 @@ void ContentTypeReaderManager::RegisterKnownTypeReaders()
     this->RegisterTypeReader<AnimationClipReader>(u"Microsoft.Xna.Framework.Content.ReflectiveReader`1[[SkinnedModel.AnimationClip, SkinnedModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]");
     this->RegisterTypeReader<BasicEffectReader>(u"Microsoft.Xna.Framework.Content.BasicEffectReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<BoundingSphereReader>(u"Microsoft.Xna.Framework.Content.BoundingSphereReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<DictionaryReader>(u"Microsoft.Xna.Framework.Content.DictionaryReader`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]");
+    this->RegisterTypeReader<EffectMaterialReader>(u"Microsoft.Xna.Framework.Content.EffectMaterialReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<ExternalReferenceReader>(u"Microsoft.Xna.Framework.Content.ExternalReferenceReader");
     this->RegisterTypeReader<IndexBufferReader>(u"Microsoft.Xna.Framework.Content.IndexBufferReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<Int32ListReader>(u"Microsoft.Xna.Framework.Content.ListReader`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]");
     this->RegisterTypeReader<Int32Reader>(u"Microsoft.Xna.Framework.Content.Int32Reader");
@@ -67,6 +74,7 @@ void ContentTypeReaderManager::RegisterKnownTypeReaders()
     this->RegisterTypeReader<SkinningDataReader>(u"Microsoft.Xna.Framework.Content.ReflectiveReader`1[[SkinnedModel.SkinningData, SkinnedModel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]");
     this->RegisterTypeReader<StringReader>(u"Microsoft.Xna.Framework.Content.StringReader");
     this->RegisterTypeReader<Texture2DReader>(u"Microsoft.Xna.Framework.Content.Texture2DReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
+    this->RegisterTypeReader<TextureReader>(u"Microsoft.Xna.Framework.Content.TextureReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<VertexBufferReader>(u"Microsoft.Xna.Framework.Content.VertexBufferReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<VertexDeclarationReader>(u"Microsoft.Xna.Framework.Content.VertexDeclarationReader, Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553");
     this->RegisterTypeReader<TimeSpanReader>(u"Microsoft.Xna.Framework.Content.TimeSpanReader");

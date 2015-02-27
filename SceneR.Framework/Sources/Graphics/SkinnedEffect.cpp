@@ -15,8 +15,8 @@ using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.vert");
-String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.frag");
+const String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.vert");
+const String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.frag");
 
 SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     : Effect                 { graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource }
@@ -319,7 +319,7 @@ void SkinnedEffect::World(const Matrix& world)
     this->world = world;
 }
 
-std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const Size& count) const
+std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const UInt32& count) const
 {
     assert(count < this->boneTransforms.size());
 

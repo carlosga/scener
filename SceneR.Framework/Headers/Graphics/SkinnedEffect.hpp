@@ -27,8 +27,8 @@ namespace SceneR
          */
         class SkinnedEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
-            static System::String VSSource;
-            static System::String FSSource;
+            const static System::String VSSource;
+            const static System::String FSSource;
 
         public:
             /**
@@ -271,7 +271,7 @@ namespace SceneR
             /**
              * Gets the array of bone transform matrices of this SkinnedEffect.
              */
-            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const System::Size& count) const;
+            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const System::UInt32& count) const;
 
             /**
              * Sets an array of bone transform matrices for a SkinnedEffect.
@@ -288,7 +288,7 @@ namespace SceneR
              */
             void WeightsPerVertex(const System::UInt32& weightsPerVertex);
 
-        protected:
+        public:
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */
@@ -299,6 +299,7 @@ namespace SceneR
              */
             void End() override;
 
+        protected:
             /**
              * Computes derived parameter values immediately before applying the effect.
              */

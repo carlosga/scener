@@ -29,6 +29,27 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
 {
 }
 
+DepthStencilState::DepthStencilState(const DepthStencilState& depthStencilState)
+    : GraphicsResource                       { depthStencilState.graphicsDevice }
+    , counterClockwiseStencilDepthBufferFail { depthStencilState.counterClockwiseStencilDepthBufferFail }
+    , counterClockwiseStencilFail            { depthStencilState.counterClockwiseStencilFail }
+    , counterClockwiseStencilFunction        { depthStencilState.counterClockwiseStencilFunction }
+    , counterClockwiseStencilPass            { depthStencilState.counterClockwiseStencilPass }
+    , depthBufferEnable                      { depthStencilState.depthBufferEnable }
+    , depthBufferFunction                    { depthStencilState.depthBufferFunction }
+    , depthBufferWriteEnable                 { depthStencilState.depthBufferWriteEnable }
+    , referenceStencil                       { depthStencilState.referenceStencil }
+    , stencilDepthBufferFail                 { depthStencilState.stencilDepthBufferFail }
+    , stencilEnable                          { depthStencilState.stencilEnable }
+    , stencilFail                            { depthStencilState.stencilFail }
+    , stencilFunction                        { depthStencilState.stencilFunction }
+    , stencilMask                            { depthStencilState.stencilMask }
+    , stencilPass                            { depthStencilState.stencilPass }
+    , stencilWriteMask                       { depthStencilState.stencilWriteMask }
+    , twoSidedStencilMode                    { depthStencilState.twoSidedStencilMode }
+{
+}
+
 DepthStencilState::~DepthStencilState()
 {
 }
@@ -195,6 +216,32 @@ const System::Boolean& DepthStencilState::TwoSidedStencilMode() const
 void DepthStencilState::TwoSidedStencilMode(const System::Boolean& twoSidedStencilMode)
 {
     this->twoSidedStencilMode = twoSidedStencilMode;
+}
+
+DepthStencilState&DepthStencilState::operator=(const DepthStencilState& depthStencilState)
+{
+    if (this != &depthStencilState)
+    {
+        this->graphicsDevice                         = depthStencilState.graphicsDevice;
+        this->counterClockwiseStencilDepthBufferFail = depthStencilState.counterClockwiseStencilDepthBufferFail;
+        this->counterClockwiseStencilFail            = depthStencilState.counterClockwiseStencilFail;
+        this->counterClockwiseStencilFunction        = depthStencilState.counterClockwiseStencilFunction;
+        this->counterClockwiseStencilPass            = depthStencilState.counterClockwiseStencilPass;
+        this->depthBufferEnable                      = depthStencilState.depthBufferEnable;
+        this->depthBufferFunction                    = depthStencilState.depthBufferFunction;
+        this->depthBufferWriteEnable                 = depthStencilState.depthBufferWriteEnable;
+        this->referenceStencil                       = depthStencilState.referenceStencil;
+        this->stencilDepthBufferFail                 = depthStencilState.stencilDepthBufferFail;
+        this->stencilEnable                          = depthStencilState.stencilEnable;
+        this->stencilFail                            = depthStencilState.stencilFail;
+        this->stencilFunction                        = depthStencilState.stencilFunction;
+        this->stencilMask                            = depthStencilState.stencilMask;
+        this->stencilPass                            = depthStencilState.stencilPass;
+        this->stencilWriteMask                       = depthStencilState.stencilWriteMask;
+        this->twoSidedStencilMode                    = depthStencilState.twoSidedStencilMode;
+    }
+
+    return *this;
 }
 
 void DepthStencilState::Apply() const

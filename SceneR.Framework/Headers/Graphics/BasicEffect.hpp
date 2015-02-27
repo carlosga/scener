@@ -27,8 +27,8 @@ namespace SceneR
          */
         class BasicEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
-            static System::String VSSource;
-            static System::String FSSource;
+            const static System::String VSSource;
+            const static System::String FSSource;
 
         public:
             /**
@@ -277,7 +277,7 @@ namespace SceneR
              */
             void World(const SceneR::Framework::Matrix& world) override;
 
-        protected:
+        public:
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */
@@ -288,6 +288,7 @@ namespace SceneR
              */
             void End() override;
 
+        protected:
             /**
              * Computes derived parameter values immediately before applying the effect.
              */
