@@ -31,6 +31,7 @@ namespace SceneR
     namespace Content
     {
         class ContentManager;
+        class ContentTypeReader;
 
        /**
          * Reads application content from disk
