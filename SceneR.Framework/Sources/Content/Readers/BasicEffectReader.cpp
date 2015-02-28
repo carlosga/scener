@@ -14,7 +14,6 @@
 using namespace System;
 using namespace System::IO;
 using namespace SceneR::Content;
-using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 BasicEffectReader::BasicEffectReader()

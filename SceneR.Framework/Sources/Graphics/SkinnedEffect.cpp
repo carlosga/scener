@@ -379,62 +379,74 @@ void SkinnedEffect::OnApply()
     auto worldViewProjection   = worldView * this->projection;
     auto worldInverseTranspose = Matrix::Invert(this->world);
 
-    auto eyePosition = Vector3(viewInverse.M41(), viewInverse.M42(), viewInverse.M43());
-    auto emissive    = Vector3((this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha);
+    auto eyePosition = Vector3 { viewInverse.M41(), viewInverse.M42(), viewInverse.M43() };
+    auto emissive    = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
 
-    this->Parameters()[u"DiffuseColor"].SetValue(Vector4(this->DiffuseColor() * this->alpha, this->alpha));
+    this->parameters[u"EyePosition"].SetValue(eyePosition);
+    this->parameters[u"World"].SetValue(worldView);
+    this->parameters[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
+    this->parameters[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
+    this->parameters[u"DiffuseColor"].SetValue(Vector4 { this->diffuseColor * this->alpha, this->alpha });
+    this->parameters[u"EmissiveColor"].SetValue(emissive);
+    this->parameters[u"SpecularColor"].SetValue(this->specularColor);
+    this->parameters[u"SpecularPower"].SetValue(this->specularPower);
+    this->parameters[u"WeightsPerVertex"].SetValue(this->weightsPerVertex);
+    this->parameters[u"Bones"].SetValue(this->boneTransforms);
 
-    this->Parameters()[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
-    this->Parameters()[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
-    this->Parameters()[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+    //this->Parameters()[u"FogVector"].SetValue(Vector4());
 
-    this->Parameters()[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
-    this->Parameters()[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
-    this->Parameters()[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+    if (this->enableDefaultLighting)
+    {
+        if (this->directionalLight0->Enabled())
+        {
+            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
+            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
+            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+        }
 
-    this->Parameters()[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
-    this->Parameters()[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
-    this->Parameters()[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+        if (this->directionalLight1->Enabled())
+        {
+            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
+            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
+            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+        }
 
-    this->Parameters()[u"EmissiveColor"].SetValue(emissive);
-    this->Parameters()[u"EyePosition"].SetValue(eyePosition);
-    // this->Parameters()[u"FogVector"].SetValue(Vector4());
-    this->Parameters()[u"SpecularColor"].SetValue(this->SpecularColor());
-    this->Parameters()[u"SpecularPower"].SetValue(this->SpecularPower());
+        if (this->directionalLight2->Enabled())
+        {
+            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
+            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
+            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+        }
+    }
 
     if (this->textureEnabled)
     {
-        this->Parameters()[u"Texture"].SetValue(*this->texture);
+        this->parameters[u"Texture"].SetValue(*this->texture);
     }
-
-    this->Parameters()[u"World"].SetValue(worldView);
-    this->Parameters()[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
-    this->Parameters()[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
-    this->Parameters()[u"WeightsPerVertex"].SetValue(this->weightsPerVertex);
-    this->Parameters()[u"Bones"].SetValue(this->boneTransforms);
 }
 
 void SkinnedEffect::Initialize()
 {
-    this->Parameters().Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
+    this->parameters.Add(u"WeightsPerVertex"      , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->shader);
+    this->parameters.Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+
     // this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
-    this->Parameters().Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
-    this->Parameters().Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->Parameters().Add(u"WeightsPerVertex"      , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->shader);
-    this->Parameters().Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
 }
