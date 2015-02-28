@@ -3,10 +3,11 @@
 
 #include <Content/Readers/IndexBufferReader.hpp>
 
-#include <Graphics/IndexBuffer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/IndexBuffer.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -27,7 +28,8 @@ std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
     auto  dataSize      = input.ReadUInt32();
     auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
     auto  elementBytes  = ((isSixteenBits) ? sizeof(UInt16) : sizeof(UInt32));
-    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, (dataSize / elementBytes));
+    auto  indexCount    = (dataSize / elementBytes);
+    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
     auto  data          = input.ReadBytes(dataSize);
 
     buffer->SetData(data.data());

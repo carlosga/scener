@@ -4,6 +4,7 @@
 #ifndef PLANE_HPP
 #define PLANE_HPP
 
+#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/Vector3.hpp>
 

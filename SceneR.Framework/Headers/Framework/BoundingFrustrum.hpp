@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Matrix.hpp>

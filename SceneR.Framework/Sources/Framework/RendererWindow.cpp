@@ -3,12 +3,14 @@
 
 #include <Framework/RendererWindow.hpp>
 
-#include <Graphics/GraphicsAdapter.hpp>
-#include <Graphics/GraphicsDevice.hpp>
+#include <System/Text/Encoding.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
+using namespace System::Text;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
@@ -36,7 +38,7 @@ void RendererWindow::Title(const String& title)
 
     if (this->handle != nullptr)
     {
-        auto tmp = System::Text::Encoding::Convert(this->title);
+        auto tmp = Encoding::Convert(this->title);
 
         glfwSetWindowTitle(this->handle, tmp.c_str());
     }

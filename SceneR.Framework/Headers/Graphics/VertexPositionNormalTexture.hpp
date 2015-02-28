@@ -4,6 +4,7 @@
 #ifndef VERTEXPOSITIONNORMALTEXTURE_HPP
 #define VERTEXPOSITIONNORMALTEXTURE_HPP
 
+#include <System/Core.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 
@@ -14,7 +15,7 @@ namespace SceneR
         class VertexDeclaration;
 
         /**
-         * Describes a  vertex format  that contains position, normal data, and texture coordinates.
+         * Describes a vertex format that contains position, normal data, and texture coordinates.
          */
         struct VertexPositionNormalTexture final
         {

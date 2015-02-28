@@ -3,11 +3,10 @@
 
 #include <Content/ContentManager.hpp>
 
-#include <iostream>
-
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
+#include <Content/ContentReader.hpp>
 
 using namespace System;
 using namespace System::IO;
@@ -50,10 +49,6 @@ std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) noex
 
     if (!File::Exists(path))
     {
-        std::string temp(path.begin(), path.end());
-
-        std::cout << temp;
-
         throw ContentLoadException("the asset file doesn't exists.");
     }
 

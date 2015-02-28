@@ -3,10 +3,10 @@
 
 #include <Graphics/BasicEffect.hpp>
 
+#include <System/IO/File.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Framework/Vector4.hpp>
-#include <System/IO/File.hpp>
 
 using namespace System;
 using namespace System::IO;

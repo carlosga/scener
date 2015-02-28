@@ -10,6 +10,7 @@
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
+#include <Graphics/AnimatedModel.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -19,25 +20,27 @@ using namespace SceneR::Sample;
 SampleModel::SampleModel(SampleRenderer& renderer)
     : DrawableComponent { renderer }
     , model             { nullptr }
+    , animatedModel     { nullptr }
     , world             { Matrix::Identity }
 {
 }
 
 void SampleModel::Initialize()
 {
-    // this->Enabled(false);
-    // this->Visible(false);
-
     this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                * Matrix::CreateTranslation({ 0.0f, -100.0f, 0.0f })
-                * Matrix::CreateScale(0.2f);
+                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
+                * Matrix::CreateScale(2.0f);
 
     DrawableComponent::Initialize();
 }
 
 void SampleModel::LoadContent()
 {
-    this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/WAR");
+    this->model         = this->renderer.Content().Load<Model>(u"dude/dude");
+    this->animatedModel = std::make_shared<AnimatedModel>(this->model);
+
+    // Start default animation clip
+    this->animatedModel->PlayFirstClip();
 }
 
 void SampleModel::UnloadContent()

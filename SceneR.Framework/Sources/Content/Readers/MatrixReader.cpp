@@ -3,8 +3,8 @@
 
 #include <Content/Readers/MatrixReader.hpp>
 
-#include <Framework/Matrix.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/Matrix.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

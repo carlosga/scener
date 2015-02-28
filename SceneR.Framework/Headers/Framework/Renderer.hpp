@@ -7,6 +7,9 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
+#include <System/TimeSpan.hpp>
+#include <Content/ContentManager.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
@@ -15,8 +18,6 @@
 #include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RendererWindow.hpp>
-#include <Content/ContentManager.hpp>
-#include <System/TimeSpan.hpp>
 
 namespace SceneR
 {

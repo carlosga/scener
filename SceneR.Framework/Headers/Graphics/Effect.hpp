@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include <System/Core.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsResource.hpp>
 

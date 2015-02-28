@@ -4,26 +4,20 @@
 #ifndef CONTENTMANAGER_HPP
 #define CONTENTMANAGER_HPP
 
-#include <iostream>
 #include <memory>
 
-#include "ContentResourceManager.hpp"
-#include <Content/ContentLoadException.hpp>
-#include <Content/ContentReader.hpp>
+#include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        class RendererServiceContainer;
-    }
-}
+#include <Content/ContentResourceManager.hpp>
+#include <Content/ContentLoadException.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * The ContentManager is used at runtime to load application content from files.
          */
@@ -60,56 +54,59 @@ namespace SceneR
              * Loads a the given asset.
              */
             template <class T>
-            std::shared_ptr<T> Load(const System::String& assetName) noexcept(false)
-            {
-                return this->ReadAsset<T>(assetName);
-            }
+            std::shared_ptr<T> Load(const System::String& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
             */
             void Unload();
 
-        protected:
+        private:
             /**
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
             std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) noexcept(false);
 
-        protected:
             /**
              * Low-level worker method that reads asset data.
              * @param assetName the name of the asset to be loaded from disk.
              */
             template <class T>
-            std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false)
-            {
-                if (ContentManager::ResourceManager.HasResource(assetName))
-                {
-                    std::cout << "Loading asset :: " << std::string(assetName.begin(), assetName.end()) << " :: from resource manager" << std::endl;
-
-                    return ContentManager::ResourceManager.GetResource<T>(assetName);
-                }
-
-                std::cout << "Loading asset :: " << std::string(assetName.begin(), assetName.end()) << " :: from disk" << std::endl;
-
-                auto stream = this->OpenStream(assetName);
-                ContentReader reader(assetName, *this, *stream);
-                auto asset  = reader.ReadObject<T>();
-
-                reader.ReadSharedResources();
-
-                ContentManager::ResourceManager.AddResource<T>(assetName, asset);
-
-                return asset;
-            }
+            std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false);
 
         private:
             SceneR::Framework::RendererServiceContainer& serviceProvider;
             System::String                               rootDirectory;
         };
     }
+}
+
+#include <Content/ContentReader.hpp>
+
+template <class T>
+std::shared_ptr<T> SceneR::Content::ContentManager::Load(const System::String& assetName)
+{
+    return this->ReadAsset<T>(assetName);
+}
+
+template <class T>
+std::shared_ptr<T> SceneR::Content::ContentManager::ReadAsset(const System::String& assetName)
+{
+    if (SceneR::Content::ContentManager::ResourceManager.HasResource(assetName))
+    {
+        return SceneR::Content::ContentManager::ResourceManager.GetResource<T>(assetName);
+    }
+
+    auto stream = this->OpenStream(assetName);
+    SceneR::Content::ContentReader reader(assetName, *this, *stream);
+    auto asset  = reader.ReadObject<T>();
+
+    reader.ReadSharedResources();
+
+    SceneR::Content::ContentManager::ResourceManager.AddResource<T>(assetName, asset);
+
+    return asset;
 }
 
 #endif  /* CONTENTMANAGER_HPP */

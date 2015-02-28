@@ -13,6 +13,7 @@
 #include <map>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
 

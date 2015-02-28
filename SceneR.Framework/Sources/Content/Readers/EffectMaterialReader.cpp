@@ -3,6 +3,8 @@
 
 #include <Content/Readers/EffectMaterialReader.hpp>
 
+#include <Content/ContentReader.hpp>
+
 using namespace SceneR::Content;
 
 EffectMaterialReader::EffectMaterialReader()

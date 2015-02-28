@@ -3,11 +3,11 @@
 
 #include <Graphics/Model.hpp>
 
+#include <Framework/Vector3.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/SkinnedEffect.hpp>
 #include <Graphics/SkinningData.hpp>
-#include <Framework/Vector3.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -65,7 +65,7 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
             {
                 const auto sEffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
 
-                if (sEffect != nullptr)
+                if (sEffect.get() != nullptr)
                 {
                     sEffect->SetBoneTransforms(this->boneTransforms);
 
@@ -76,7 +76,7 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
 
             const auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
-            if (mEffect != nullptr)
+            if (mEffect.get() != nullptr)
             {
                 mEffect->World(world);
                 mEffect->View(view);

@@ -4,6 +4,7 @@
 #ifndef DEPTHSTENCILSTATE_HPP
 #define DEPTHSTENCILSTATE_HPP
 
+#include <System/Core.hpp>
 #include <Graphics/CompareFunction.hpp>
 #include <Graphics/StencilOperation.hpp>
 #include <Graphics/GraphicsResource.hpp>

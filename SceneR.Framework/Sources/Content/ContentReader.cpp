@@ -3,9 +3,8 @@
 
 #include <Content/ContentReader.hpp>
 
-#include <algorithm>
 #include <cassert>
-#include <iostream>
+#include <stdexcept>
 
 #include <Framework/Color.hpp>
 #include <Framework/Matrix.hpp>
@@ -48,7 +47,7 @@ String& ContentReader::AssetName()
     return this->assetName;
 }
 
-SceneR::Content::ContentManager& ContentReader::ContentManager()
+ContentManager& ContentReader::ContentManager()
 {
     return this->contentManager;
 }
@@ -136,8 +135,6 @@ void ContentReader::ReadManifest()
 
         // Look up and store this type reader implementation class.
         auto reader = ContentReader::TypeReaderManager.GetByReaderName(readerName);
-
-        std::cout << std::string(readerName.begin(), readerName.end()) << std::endl;
 
         assert(reader != nullptr);
 

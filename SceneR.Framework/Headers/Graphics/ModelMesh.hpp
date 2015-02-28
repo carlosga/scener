@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Framework/BoundingSphere.hpp>
 #include <Graphics/Effect.hpp>
 

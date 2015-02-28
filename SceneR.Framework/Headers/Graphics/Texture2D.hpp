@@ -4,6 +4,7 @@
 #ifndef TEXTURE2D_HPP
 #define TEXTURE2D_HPP
 
+#include <System/Core.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureObject.hpp>
 #include <Graphics/Texture.hpp>

@@ -4,15 +4,14 @@
 #ifndef CONTENTREADER_HPP
 #define CONTENTREADER_HPP
 
-#include <functional>
 #include <memory>
-#include <stdexcept>
 #include <vector>
 
-#include <Content/SharedResourceAction.hpp>
-#include <Content/ContentTypeReaderManager.hpp>
-#include <Content/ContentTypeReader.hpp>
+#include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
+#include <System/IO/Stream.hpp>
+#include <Content/ContentTypeReaderManager.hpp>
+#include <Content/SharedResourceAction.hpp>
 
 namespace SceneR
 {
@@ -33,7 +32,7 @@ namespace SceneR
     {
         class ContentManager;
 
-        /**
+       /**
          * Reads application content from disk
          */
         class ContentReader final : public System::IO::BinaryReader
@@ -48,9 +47,9 @@ namespace SceneR
              * @param contentManager the content that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const System::String& assetName
-                        , ContentManager&       contentManager
-                        , System::IO::Stream&   stream);
+            ContentReader(const System::String&            assetName
+                        , SceneR::Content::ContentManager& contentManager
+                        , System::IO::Stream&              stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -102,41 +101,26 @@ namespace SceneR
             /**
              * Reads a single object from the current stream.
              */
-            template <class T>
-            std::shared_ptr<T> ReadObject()
-            {
-                auto readerId = this->Read7BitEncodedInt();
-
-                // A reader id 0 means a NULL object
-                if (readerId == 0)
-                {
-                    return nullptr;
-                }
-                else
-                {
-                    return this->ReadObject<T>(this->typeReaders[readerId - 1]);
-                }
-            }
+            template <typename T>
+            std::shared_ptr<T> ReadObject();
 
             /**
              * Reads a single object from the current stream.
              */
-            template <class T>
-            std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader)
-            {
-                return std::static_pointer_cast<T>(typeReader->Read(*this));
-            }
+            template <typename T>
+            std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader);
 
             /**
              * Reads a shared resource ID, and records it for subsequent fix-up.
              */
             void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup);
 
+            /**
+             * Reads a link to an external file.
+             * @returns The asset stored in the external file.
+             */
             template <class T>
-            std::shared_ptr<T> ReadExternalReference()
-            {
-                throw std::runtime_error("Not implemented");
-            }
+            std::shared_ptr<T> ReadExternalReference();
 
         private:
             void ReadHeader();
@@ -153,6 +137,47 @@ namespace SceneR
             friend class ContentManager;
         };
     }
+}
+
+#include <System/IO/Path.hpp>
+#include <Content/ContentManager.hpp>
+#include <Content/ContentTypeReader.hpp>
+
+template <class T>
+std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject()
+{
+    auto readerId = this->Read7BitEncodedInt();
+
+    // A reader id 0 means a NULL object
+    if (readerId == 0)
+    {
+        return nullptr;
+    }
+    else
+    {
+        return this->ReadObject<T>(this->typeReaders[readerId - 1]);
+    }
+}
+
+template <class T>
+std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject(SceneR::Content::ContentTypeReader* typeReader)
+{
+    return std::static_pointer_cast<T>(typeReader->Read(*this));
+}
+
+template <class T>
+std::shared_ptr<T> SceneR::Content::ContentReader::ReadExternalReference()
+{
+    auto assetName = this->ReadString();
+
+    if (assetName.size() > 0)
+    {
+        assetName = System::IO::Path::Combine(System::IO::Path::GetDirectoryName(this->assetName), assetName);
+
+        return this->contentManager.Load<T>(assetName);
+    }
+
+    return nullptr;
 }
 
 #endif  /* CONTENTREADER_HPP */

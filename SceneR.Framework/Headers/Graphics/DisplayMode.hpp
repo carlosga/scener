@@ -4,6 +4,7 @@
 #ifndef DISPLAYMODE_HPP
 #define DISPLAYMODE_HPP
 
+#include <System/Core.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 
 struct GLFWvidmode;

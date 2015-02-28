@@ -3,11 +3,12 @@
 
 #include <Content/Readers/VertexBufferReader.hpp>
 
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Content/Readers/VertexDeclarationReader.hpp>
-#include <Graphics/VertexBuffer.hpp>
-#include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+#include <Content/Readers/VertexDeclarationReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

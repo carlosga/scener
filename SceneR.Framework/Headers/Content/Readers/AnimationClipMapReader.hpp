@@ -10,8 +10,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-
         /**
          * Animation clip reader
          */

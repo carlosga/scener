@@ -4,8 +4,8 @@
 #ifndef MODELREADER_HPP
 #define MODELREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
 #include <System/Core.hpp>
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {

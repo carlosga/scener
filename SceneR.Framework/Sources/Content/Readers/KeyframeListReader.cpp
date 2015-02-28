@@ -3,8 +3,8 @@
 
 #include <Content/Readers/KeyframeListReader.hpp>
 
-#include <Graphics/Keyframe.hpp>
 #include <Content/ContentReader.hpp>
+#include <Graphics/Keyframe.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

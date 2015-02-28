@@ -4,6 +4,7 @@
 #ifndef TEXTUREOBJECT_HPP
 #define TEXTUREOBJECT_HPP
 
+#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureTarget.hpp>

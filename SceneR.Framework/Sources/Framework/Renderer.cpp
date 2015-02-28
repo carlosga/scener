@@ -118,7 +118,7 @@ void Renderer::Initialize()
     }
 }
 
-const System::Boolean& Renderer::IsFixedTimeStep() const
+const Boolean& Renderer::IsFixedTimeStep() const
 {
     return this->isFixedTimeStep;
 }
@@ -132,7 +132,7 @@ void Renderer::LoadContent()
 {
 }
 
-const System::TimeSpan& Renderer::TargetElapsedTime() const
+const TimeSpan& Renderer::TargetElapsedTime() const
 {
     return this->targetElapsedTime;
 }

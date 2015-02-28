@@ -3,6 +3,8 @@
 
 #include <Content/Readers/TextureReader.hpp>
 
+#include <Content/ContentReader.hpp>
+
 using namespace SceneR::Content;
 
 TextureReader::TextureReader()
@@ -15,5 +17,7 @@ TextureReader::~TextureReader()
 
 std::shared_ptr<void> TextureReader::Read(ContentReader& input)
 {
+    // Never directly invoked (as Texture is an abstract base type),
+    // but sometimes referenced in .xnb headers as a base reader for polymorphic values.
     return nullptr;
 }

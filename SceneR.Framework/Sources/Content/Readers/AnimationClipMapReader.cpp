@@ -3,12 +3,15 @@
 
 #include <Content/Readers/AnimationClipMapReader.hpp>
 
-#include <Graphics/AnimationClip.hpp>
+#include <map>
+#include <memory>
+
+#include <System/Core.hpp>
 #include <Content/ContentReader.hpp>
+#include <Graphics/AnimationClip.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
-using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 AnimationClipMapReader::AnimationClipMapReader()

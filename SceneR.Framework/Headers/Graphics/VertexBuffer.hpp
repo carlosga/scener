@@ -7,9 +7,10 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
-#include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/VertexArrayObject.hpp>
 
 namespace SceneR
 {

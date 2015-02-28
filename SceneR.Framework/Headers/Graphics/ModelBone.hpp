@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 
 namespace SceneR

@@ -3,8 +3,8 @@
 
 #include <Content/Readers/VertexDeclarationReader.hpp>
 
-#include <Graphics/VertexDeclaration.hpp>
 #include <Content/ContentReader.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 using namespace System;
 using namespace SceneR::Content;
@@ -26,10 +26,10 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
 
     for (UInt32 i = 0; i < elementCount; i++)
     {
-    	elements.push_back({ input.ReadUInt32()                                   // Offset
-    			 		   , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format
-    					   , static_cast<VertexElementUsage>(input.ReadUInt32())  // Element usage
-    					   , input.ReadUInt32() });	                              // Usage index
+        elements.push_back({ input.ReadUInt32()                                   // Offset
+                           , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format
+                           , static_cast<VertexElementUsage>(input.ReadUInt32())  // Element usage
+                           , input.ReadUInt32() });	                              // Usage index
     }
 
     return std::make_shared<VertexDeclaration>(vertexStride, elements);

@@ -3,6 +3,10 @@
 
 #include <Content/Readers/ExternalReferenceReader.hpp>
 
+#include <System/IO/Path.hpp>
+#include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+
 using namespace SceneR::Content;
 
 ExternalReferenceReader::ExternalReferenceReader()

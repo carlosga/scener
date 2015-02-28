@@ -4,6 +4,7 @@
 #ifndef SAMPLERSTATE_HPP
 #define SAMPLERSTATE_HPP
 
+#include <System/Core.hpp>
 #include <Graphics/TextureFilter.hpp>
 #include <Graphics/TextureTarget.hpp>
 #include <Graphics/TextureAddressMode.hpp>

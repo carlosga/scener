@@ -4,6 +4,7 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
+#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Graphics/ShaderType.hpp>
 

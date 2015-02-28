@@ -6,11 +6,12 @@
 
 #include <memory>
 
+#include <System/Core.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/IEffectFog.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectMatrices.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Vector3.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/Effect.hpp>
 

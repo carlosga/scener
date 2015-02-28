@@ -46,7 +46,7 @@ BoundingSphere::BoundingSphere(const BoundingSphere& sphere)
 }
 
 BoundingSphere::~BoundingSphere()
-{    
+{
 }
 
 const Vector3& BoundingSphere::Center() const
@@ -79,17 +79,17 @@ ContainmentType BoundingSphere::Contains(const Vector3& point) const
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingBox& boundingBox) const
+Boolean BoundingSphere::Intersects(const BoundingBox& boundingBox) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingFrustum& frustrum) const
+Boolean BoundingSphere::Intersects(const BoundingFrustum& frustrum) const
 {
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const BoundingSphere& sphere) const
+Boolean BoundingSphere::Intersects(const BoundingSphere& sphere) const
 {
     throw std::runtime_error("Not implemented");
 }
@@ -99,7 +99,7 @@ PlaneIntersectionType BoundingSphere::Intersects(const Plane& plane) const
     throw std::runtime_error("Not implemented");
 }
 
-System::Boolean BoundingSphere::Intersects(const Ray& ray) const
+Boolean BoundingSphere::Intersects(const Ray& ray) const
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto rad2 = this->radius * this->radius;

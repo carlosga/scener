@@ -4,6 +4,7 @@
 #ifndef BLENDSTATE_HPP
 #define BLENDSTATE_HPP
 
+#include <System/Core.hpp>
 #include <Framework/Color.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/BlendFunction.hpp>

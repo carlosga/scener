@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexElement.hpp>

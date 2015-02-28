@@ -3,15 +3,14 @@
 
 #include <Content/Readers/SkinnedEffectReader.hpp>
 
-#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SkinnedEffect.hpp>
-#include <System/IO/Path.hpp>
-#include <Content/ContentManager.hpp>
 
 using namespace System;
-using namespace System::IO;
 using namespace SceneR::Content;
 using namespace SceneR::Graphics;
 
@@ -28,16 +27,12 @@ std::shared_ptr<void> SkinnedEffectReader::Read(ContentReader& input)
     auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto  effect    = std::make_shared<SkinnedEffect>(gdService.CurrentGraphicsDevice());
 
-    effect->EnableDefaultLighting();
-
     // Pointer to a separate .xnb file which contains an object of type Texture2D
-    auto assetName = input.ReadString();
+    auto texture = input.ReadExternalReference<Texture2D>();
 
-    if (assetName.size() > 0)
+    if (texture != nullptr)
     {
-        assetName = Path::GetDirectoryName(input.AssetName()) + Path::DirectorySeparator() + assetName;
-
-        effect->Texture(input.ContentManager().Load<Texture2D>(assetName));
+        effect->Texture(texture);
         effect->TextureEnabled(true);
     }
 

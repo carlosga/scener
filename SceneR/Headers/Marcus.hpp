@@ -45,8 +45,8 @@ namespace SceneR
             void UnloadContent() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
             std::shared_ptr<SceneR::Graphics::Model>         model;
+            std::shared_ptr<SceneR::Graphics::AnimatedModel> animatedModel;
             SceneR::Framework::Matrix                        world;
         };
     }

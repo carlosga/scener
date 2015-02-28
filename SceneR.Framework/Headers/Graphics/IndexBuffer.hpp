@@ -6,8 +6,9 @@
 
 #include <vector>
 
-#include <Graphics/IndexElementSize.hpp>
+#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
+#include <Graphics/IndexElementSize.hpp>
 #include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR

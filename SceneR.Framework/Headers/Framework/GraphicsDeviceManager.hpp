@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include <System/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/GraphicsProfile.hpp>

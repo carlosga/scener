@@ -3,9 +3,9 @@
 
 #include <Graphics/ModelMeshPart.hpp>
 
-#include <Graphics/VertexBuffer.hpp>
-#include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Effect.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/VertexBuffer.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

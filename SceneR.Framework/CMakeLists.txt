@@ -199,7 +199,7 @@ set(SOURCE_FILES
     Sources/Content/SharedResourceAction.cpp
     Sources/Content/ContentTypeReader.cpp
     Sources/Framework/BoundingBox.cpp
-    Sources/Framework/BoundingFrustum.cpp
+    Sources/Framework/BoundingFrustrum.cpp
     Sources/Framework/BoundingSphere.cpp
     Sources/Framework/Color.cpp
     Sources/Framework/Component.cpp

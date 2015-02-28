@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include <System/Core.hpp>
 #include <Graphics/DirectionalLight.hpp>
 
 namespace SceneR

@@ -3,8 +3,8 @@
 
 #include <Content/Readers/BoundingSphereReader.hpp>
 
-#include <Framework/BoundingSphere.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/BoundingSphere.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

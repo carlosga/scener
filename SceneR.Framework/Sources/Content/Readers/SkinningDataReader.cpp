@@ -3,8 +3,9 @@
 
 #include <Content/Readers/SkinningDataReader.hpp>
 
-#include <Graphics/SkinningData.hpp>
 #include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+#include <Graphics/SkinningData.hpp>
 
 using namespace System;
 using namespace SceneR::Content;

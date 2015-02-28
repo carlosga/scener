@@ -5,13 +5,13 @@
 
 #include <cassert>
 
-#include <Graphics/Shader.hpp>
-#include <Framework/Quaternion.hpp>
+#include <System/Text/Encoding.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <System/Text/Encoding.hpp>
+#include <Graphics/Shader.hpp>
 
 using namespace System;
 using namespace System::Text;

@@ -6,10 +6,10 @@
 
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Vector3.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

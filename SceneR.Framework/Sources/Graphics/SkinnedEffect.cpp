@@ -5,10 +5,10 @@
 
 #include <cassert>
 
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/EffectParameter.hpp>
-#include <Framework/Vector4.hpp>
 #include <System/IO/File.hpp>
+#include <Framework/Vector4.hpp>
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
 using namespace System::IO;

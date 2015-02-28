@@ -3,11 +3,13 @@
 
 #include <Content/Readers/BasicEffectReader.hpp>
 
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Content/ContentManager.hpp>
-#include <Graphics/BasicEffect.hpp>
+#include <System/Core.hpp>
 #include <System/IO/Path.hpp>
+#include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/BasicEffect.hpp>
 
 using namespace System;
 using namespace System::IO;
@@ -28,16 +30,12 @@ std::shared_ptr<void> SceneR::Content::BasicEffectReader::Read(ContentReader& in
     auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
     auto  effect    = std::make_shared<BasicEffect>(gdService.CurrentGraphicsDevice());
 
-    effect->EnableDefaultLighting();
-
     // Pointer to a separate .xnb file which contains an object of type Texture2D
-    auto assetName = input.ReadString();
+    auto texture = input.ReadExternalReference<Texture2D>();
 
-    if (assetName.size() > 0)
+    if (texture != nullptr)
     {
-        assetName = Path::Combine(Path::GetDirectoryName(input.AssetName()), assetName);
-
-        effect->Texture(input.ContentManager().Load<Texture2D>(assetName));
+        effect->Texture(texture);
         effect->TextureEnabled(true);
     }
 

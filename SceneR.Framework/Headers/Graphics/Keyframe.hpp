@@ -10,8 +10,9 @@
 #ifndef KEYFRAME_HPP
 #define KEYFRAME_HPP
 
-#include <Framework/Matrix.hpp>
+#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
+#include <Framework/Matrix.hpp>
 
 namespace SceneR
 {

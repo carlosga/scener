@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 

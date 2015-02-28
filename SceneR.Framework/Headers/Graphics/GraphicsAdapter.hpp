@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include <System/Core.hpp>
 #include <Graphics/DisplayMode.hpp>
 
 struct GLFWmonitor;

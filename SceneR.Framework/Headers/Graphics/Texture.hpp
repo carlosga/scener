@@ -4,8 +4,9 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include <Graphics/SurfaceFormat.hpp>
+#include <System/Core.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/SurfaceFormat.hpp>
 
 namespace SceneR
 {

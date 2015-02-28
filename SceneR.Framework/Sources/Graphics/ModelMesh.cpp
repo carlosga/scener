@@ -3,10 +3,10 @@
 
 #include <Graphics/ModelMesh.hpp>
 
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;

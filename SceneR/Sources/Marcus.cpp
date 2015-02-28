@@ -9,6 +9,9 @@
 #include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/IEffectLights.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/ModelMesh.hpp>
 #include <Graphics/AnimatedModel.hpp>
 
 using namespace System;
@@ -18,8 +21,8 @@ using namespace SceneR::Sample;
 
 Marcus::Marcus(SampleRenderer& renderer)
     : DrawableComponent { renderer }
-    , animatedModel     { nullptr }
     , model             { nullptr }
+    , animatedModel     { nullptr }
     , world             { Matrix::Identity }
 {
 }
@@ -37,6 +40,19 @@ void Marcus::LoadContent()
 {
     this->model         = this->renderer.Content().Load<Model>(u"Marcus/marcus");
     this->animatedModel = std::make_shared<AnimatedModel>(this->model);
+
+    for (const auto& mesh : this->model->Meshes())
+    {
+        for (auto& effect : mesh->Effects())
+        {
+            auto leffect = std::dynamic_pointer_cast<IEffectLights>(effect);
+
+            if (leffect.get() != nullptr)
+            {
+                leffect->EnableDefaultLighting();
+            }
+        }
+    }
 
     // Start default animation clip
     this->animatedModel->PlayFirstClip();

@@ -3,8 +3,8 @@
 
 #include <Graphics/SamplerState.hpp>
 
-#include <Graphics/Texture.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/Texture.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;

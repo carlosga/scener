@@ -4,6 +4,7 @@
 #ifndef RASTERIZERSTATE_HPP
 #define RASTERIZERSTATE_HPP
 
+#include <System/Core.hpp>
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
 #include <Graphics/GraphicsResource.hpp>
@@ -33,6 +34,10 @@ namespace SceneR
              */
             RasterizerState(GraphicsDevice& graphicsDevice);
 
+            /**
+             * @brief Copy constructor.
+             * @param rasterizerState the rasterizer state to copy from.
+             */
             RasterizerState(const RasterizerState& rasterizerState);
 
             /**

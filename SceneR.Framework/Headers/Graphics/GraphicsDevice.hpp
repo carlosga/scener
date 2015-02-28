@@ -7,16 +7,17 @@
 #include <memory>
 #include <vector>
 
+#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
+#include <Graphics/GraphicsProfile.hpp>
+#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
-#include <Graphics/GraphicsProfile.hpp>
 #include <Graphics/RasterizerState.hpp>
 #include <Graphics/SamplerState.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/Viewport.hpp>
 
 namespace SceneR
