@@ -1,6 +1,7 @@
 // Partial port from the Microsoft XNA Stock Effects (Microsoft Permissive License.rtf)
 
 #version 440 core
+#pragma optionNV (unroll all)
 
 #define SKINNED_EFFECT_MAX_BONES   72
 
@@ -38,8 +39,8 @@ void Skin(inout VSInputNmTxWeights vin, uint boneCount)
         skinning += Bones[vin.Indices[i]] * vin.Weights[i];
     }
 
-    vin.Position = skinning * vin.Position;
-    vin.Normal   = (vec4(vin.Normal, 1.0) * skinning).xyz;
+    vin.Position.xyz = vec3(skinning * vin.Position);
+    vin.Normal       = vin.Normal * mat3x3(skinning);
 }
 
 void main()
@@ -56,6 +57,6 @@ void main()
 
     gl_Position = vin.Position * WorldViewProj;
     PositionWS  = (vin.Position * World).xyz;
-    NormalWS    = normalize(vec4(vin.Normal, 1.0) * WorldInverseTranspose).xyz;
+    NormalWS    = normalize(vin.Normal * mat3x3(WorldInverseTranspose));
     TexCoord    = VertexCoord;
 }
