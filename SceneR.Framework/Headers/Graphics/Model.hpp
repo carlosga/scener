@@ -116,7 +116,6 @@ namespace SceneR
 
         private:
             std::vector<std::shared_ptr<ModelBone>> bones;
-            std::vector<SceneR::Framework::Matrix>  boneTransforms;
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
             std::shared_ptr<SkinningData>           skinning;

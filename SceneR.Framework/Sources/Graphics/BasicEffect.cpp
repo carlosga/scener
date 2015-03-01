@@ -352,24 +352,22 @@ void BasicEffect::End()
 
 void BasicEffect::OnApply()
 {
+    auto emissive              = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
+    auto diffuse               = Vector4 { this->diffuseColor * this->alpha, this->alpha };
     auto viewInverse           = Matrix::Invert(this->view);
-    auto worldView             = this->world * this->view;
-    auto worldViewProjection   = worldView * this->projection;
-    auto worldInverseTranspose = Matrix::Invert(this->world);
+    auto eyePosition           = viewInverse.Translation();
+    auto worldInverse          = Matrix::Invert(this->world);
+    auto worldInverseTranspose = Matrix::Transpose(worldInverse);
+    auto worldViewProjection   = this->world * this->view * this->projection;
 
-    auto eyePosition = Vector3 { viewInverse.M41(), viewInverse.M42(), viewInverse.M43() };
-    auto emissive    = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
-
-    auto& parameters = this->Parameters();
-
-    parameters[u"EyePosition"].SetValue(eyePosition);
-    parameters[u"World"].SetValue(worldView);
-    parameters[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
-    parameters[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
-    parameters[u"DiffuseColor"].SetValue(Vector4 { this->diffuseColor * this->alpha, this->alpha });
-    parameters[u"EmissiveColor"].SetValue(emissive);
-    parameters[u"SpecularColor"].SetValue(this->specularColor);
-    parameters[u"SpecularPower"].SetValue(this->specularPower);
+    this->parameters[u"EyePosition"].SetValue(eyePosition);
+    this->parameters[u"World"].SetValue(worldInverse);
+    this->parameters[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
+    this->parameters[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
+    this->parameters[u"DiffuseColor"].SetValue(diffuse);
+    this->parameters[u"EmissiveColor"].SetValue(emissive);
+    this->parameters[u"SpecularColor"].SetValue(this->specularColor);
+    this->parameters[u"SpecularPower"].SetValue(this->specularPower);
 
     //this->Parameters()[u"FogVector"].SetValue(Vector4());
 
@@ -377,53 +375,51 @@ void BasicEffect::OnApply()
     {
         if (this->directionalLight0->Enabled())
         {
-            parameters[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
-            parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
-            parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
+            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
+            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
         }
 
         if (this->directionalLight1->Enabled())
         {
-            parameters[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
-            parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
-            parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
+            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
+            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
         }
 
         if (this->directionalLight2->Enabled())
         {
-            parameters[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
-            parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
-            parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
+            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
+            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
         }
     }
 
     if (this->textureEnabled)
     {
-        parameters[u"Texture"].SetValue(*this->texture);
+        this->parameters[u"Texture"].SetValue(*this->texture);
     }
 }
 
 void BasicEffect::Initialize()
 {
-    auto& parameters = this->Parameters();
-
-    parameters.Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
+    this->parameters.Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
     // this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
 }

@@ -3,22 +3,23 @@
 
 #include <Graphics/Model.hpp>
 
+#include <cassert>
+#include <iostream>
+
 #include <Framework/Vector3.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/SkinnedEffect.hpp>
-#include <Graphics/SkinningData.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 Model::Model()
-    : bones          ( 0 )
-    , boneTransforms ( 0 )
-    , meshes         ( 0 )
-    , root           { nullptr }
-    , tag            { u"" }
+    : bones  ( 0 )
+    , meshes ( 0 )
+    , root   { nullptr }
+    , tag    { u"" }
 {
 }
 
@@ -32,50 +33,60 @@ void Model::Dispose()
 
 void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
-    // TODO: This isn't what it should be doing, but it's good enough for now
-    destinationBoneTransforms.assign(this->boneTransforms.begin(), this->boneTransforms.end());
+    assert(destinationBoneTransforms.size() == this->bones.size());
+
+    for (UInt32 boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
+    {
+        auto bone = this->bones[boneIndex];
+
+        if (bone->Parent().get() == nullptr)
+        {
+            destinationBoneTransforms[boneIndex] = bone->Transform();
+        }
+        else
+        {
+            UInt32 parentBoneIndex = bone->Parent()->Index();
+
+            destinationBoneTransforms[boneIndex] = bone->Transform() * destinationBoneTransforms[parentBoneIndex];
+        }
+    }
 }
 
 void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransforms)
 {
-    // TODO: This isn't what it should be doing, but it's good enough for now
-    this->boneTransforms = sourceBoneTransforms;
+    assert(sourceBoneTransforms.size() == this->bones.size());
+
+    for (UInt32 i = 0; i < sourceBoneTransforms.size(); i++)
+    {
+        this->bones[i]->Transform(sourceBoneTransforms[i]);
+    }
 }
 
 void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
-    // TODO: This isn't what it should be doing, but it's good enough for now
-    destinationBoneTransforms.clear();
-    destinationBoneTransforms.resize(this->bones.size());
+    assert(destinationBoneTransforms.size() == this->bones.size());
 
-    for (const auto& bone : this->bones)
+    for (UInt32 i = 0; i < this->bones.size(); i++)
     {
-        destinationBoneTransforms.push_back(bone->Transform());
+        destinationBoneTransforms[i] = this->bones[i]->Transform();
     }
 }
 
 void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
-    // Render the skinned mesh.
-    for (const auto& mesh : this->meshes)
+    auto boneTransforms = std::vector<Matrix>(this->bones.size());
+
+    this->CopyAbsoluteBoneTransformsTo(boneTransforms);
+
+    for (auto& mesh : this->meshes)
     {
-        for (const auto& effect : mesh->Effects())
+        for (auto& effect : mesh->Effects())
         {
-            if (this->boneTransforms.size() > 0)
-            {
-                const auto sEffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
-
-                if (sEffect.get() != nullptr)
-                {
-                    sEffect->SetBoneTransforms(this->boneTransforms);
-                }
-            }
-
-            const auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
+            auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
             if (mEffect.get() != nullptr)
             {
-                mEffect->World(world);
+                mEffect->World(boneTransforms[mesh->ParentBone()->Index()] * world);
                 mEffect->View(view);
                 mEffect->Projection(projection);
             }

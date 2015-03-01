@@ -12,6 +12,8 @@
 #include <Framework/RenderTime.hpp>
 #include <Graphics/SkinningData.hpp>
 #include <Graphics/Model.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/SkinnedEffect.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -45,6 +47,21 @@ void AnimatedModel::Update(const RenderTime& renderTime)
 
 void AnimatedModel::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
 {
-    this->model->CopyBoneTransformsFrom(this->player.GetSkinTransforms());
-    this->model->Draw(world, view, projection);
+    auto& bones = this->player.GetSkinTransforms();
+
+    // Render the skinned mesh.
+    for (auto& mesh : this->model->Meshes())
+    {
+        for (auto& effect : mesh->Effects())
+        {
+            auto sEffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
+
+            sEffect->SetBoneTransforms(bones);
+            sEffect->World(world);
+            sEffect->View(view);
+            sEffect->Projection(projection);
+        }
+
+        mesh->Draw();
+    }
 }

@@ -39,9 +39,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     {
         auto bone = std::make_shared<ModelBone>();
 
+        bone->index     = i;
         bone->name      = this->ReadString(input);
         bone->transform = input.ReadMatrix();
-        bone->index     = i;
 
         model->bones.push_back(bone);
     }
@@ -55,7 +55,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         if (parentBoneReference > 0)
         {
-            currentBone->parent = model->bones[parentBoneReference - 1];
+            currentBone->parent = model->bones[parentBoneReference];
         }
 
         for (UInt32 j = 0; j < childBoneCount; j++)
@@ -64,7 +64,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
             if (childBoneReference > 0)
             {
-                currentBone->children.push_back(model->bones[childBoneReference - 1]);
+                currentBone->children.push_back(model->bones[childBoneReference]);
             }
         }
     }
@@ -82,7 +82,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
         if (parentBoneReference > 0)
         {
-            modelMesh->parentBone = model->bones[parentBoneReference - 1];
+            modelMesh->parentBone = model->bones[parentBoneReference];
         }
 
         // Mesh bounds
@@ -134,7 +134,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
 
     if (rootBoneReference > 0)
     {
-        model->root = model->bones[rootBoneReference - 1];
+        model->root = model->bones[rootBoneReference];
     }
 
     // Model tag
@@ -144,24 +144,30 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     return model;
 }
 
-UInt32 ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount)
+Int32 ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount) const
 {
+    Int32 boneReference;
+
     if (boneCount < 255)
     {
-        return input.ReadByte();
+        boneReference = input.ReadByte();
+    }
+    else
+    {
+        boneReference = input.ReadUInt32();
     }
 
-    return input.ReadUInt32();
+    return boneReference - 1;
 }
 
-System::String ModelReader::ReadString(ContentReader& input)
+System::String ModelReader::ReadString(ContentReader& input) const
 {
     auto value = input.ReadObject<String>();
 
     return ((value == nullptr) ? u"" : *value);
 }
 
-std::shared_ptr<BoundingSphere> ModelReader::ReadBoundingSphere(ContentReader& input)
+std::shared_ptr<BoundingSphere> ModelReader::ReadBoundingSphere(ContentReader& input) const
 {
     BoundingSphereReader reader;
 

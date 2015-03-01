@@ -31,8 +31,7 @@ SampleModel::SampleModel(SampleRenderer& renderer)
 
 void SampleModel::Initialize()
 {
-    this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f });
+    this->world = Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f });
 
     DrawableComponent::Initialize();
 }
@@ -51,7 +50,6 @@ void SampleModel::LoadContent()
             if (seffect.get() != nullptr)
             {
                 seffect->EnableDefaultLighting();
-                seffect->SpecularColor(Vector3(0.15f, 0.15f, 0.15f));
             }
         }
     }
@@ -75,9 +73,6 @@ void SampleModel::Draw(const RenderTime& renderTime)
 {
     const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.Components()[0]);
 
-    this->CurrentGraphicsDevice().RasterizerState().CullMode(CullMode::CullCounterClockwiseFace);
-
     this->model->Draw(this->world, camera->View, camera->Projection);
-
     // this->animatedModel->Draw(this->world, camera->View, camera->Projection);
 }

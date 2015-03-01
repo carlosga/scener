@@ -374,19 +374,19 @@ void SkinnedEffect::End()
 
 void SkinnedEffect::OnApply()
 {
+    auto emissive              = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
+    auto diffuse               = Vector4 { this->diffuseColor * this->alpha, this->alpha };
     auto viewInverse           = Matrix::Invert(this->view);
-    auto worldView             = this->world * this->view;
-    auto worldViewProjection   = worldView * this->projection;
-    auto worldInverseTranspose = Matrix::Invert(this->world);
-
-    auto eyePosition = Vector3 { viewInverse.M41(), viewInverse.M42(), viewInverse.M43() };
-    auto emissive    = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
+    auto eyePosition           = viewInverse.Translation();
+    auto worldInverse          = Matrix::Invert(this->world);
+    auto worldInverseTranspose = Matrix::Transpose(worldInverse);
+    auto worldViewProjection   = this->world * this->view * this->projection;
 
     this->parameters[u"EyePosition"].SetValue(eyePosition);
-    this->parameters[u"World"].SetValue(worldView);
+    this->parameters[u"World"].SetValue(worldInverse);
     this->parameters[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
     this->parameters[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
-    this->parameters[u"DiffuseColor"].SetValue(Vector4 { this->diffuseColor * this->alpha, this->alpha });
+    this->parameters[u"DiffuseColor"].SetValue(diffuse);
     this->parameters[u"EmissiveColor"].SetValue(emissive);
     this->parameters[u"SpecularColor"].SetValue(this->specularColor);
     this->parameters[u"SpecularPower"].SetValue(this->specularPower);
