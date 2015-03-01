@@ -11,7 +11,7 @@
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/AnimatedModel.hpp>
-#include <Graphics/IEffectLights.hpp>
+#include <Graphics/BasicEffect.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/AnimatedModel.hpp>
@@ -31,13 +31,8 @@ SampleModel::SampleModel(SampleRenderer& renderer)
 
 void SampleModel::Initialize()
 {
-    /*
     this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
-                * Matrix::CreateScale(2.0f);
-    */
-
-    this->world = Matrix::CreateTranslation({ 0.0f, -80.0f, 0.0f });
+                * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f });
 
     DrawableComponent::Initialize();
 }
@@ -51,11 +46,12 @@ void SampleModel::LoadContent()
     {
         for (auto& effect : mesh->Effects())
         {
-            auto leffect = std::dynamic_pointer_cast<IEffectLights>(effect);
+            auto seffect = std::dynamic_pointer_cast<BasicEffect>(effect);
 
-            if (leffect.get() != nullptr)
+            if (seffect.get() != nullptr)
             {
-                leffect->EnableDefaultLighting();
+                seffect->EnableDefaultLighting();
+                seffect->SpecularColor(Vector3(0.15f, 0.15f, 0.15f));
             }
         }
     }
