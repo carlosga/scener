@@ -119,6 +119,7 @@ namespace SceneR
 
         private:
             void OnApply(const TextureTarget& target) const;
+            void GetMinMaxFilters(GLenum& minfilter, GLenum& maxfilter) const;
 
         private:
             TextureAddressMode addressU;

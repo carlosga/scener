@@ -21,7 +21,7 @@ BlendState::BlendState(GraphicsDevice& graphicsDevice)
     , colorWriteChannels1   { SceneR::Graphics::ColorWriteChannels::All }
     , colorWriteChannels2   { SceneR::Graphics::ColorWriteChannels::All }
     , colorWriteChannels3   { SceneR::Graphics::ColorWriteChannels::All }
-    , multiSampleMask       { 0xffffffff }
+    , multiSampleMask       { 0 }
 {
 }
 
@@ -160,9 +160,9 @@ void BlendState::ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels&
     this->colorWriteChannels3 = colorWriteChannels3;
 }
 
-const UInt32& BlendState::MultiSampleMask() const
+UInt32 BlendState::MultiSampleMask() const
 {
-    return multiSampleMask;
+    return this->multiSampleMask;
 }
 
 void BlendState::MultiSampleMask(const UInt32& multiSampleMask)
@@ -196,7 +196,19 @@ void BlendState::Apply() const
 {
     // http://www.opengl.org/wiki/Blending
 
-    glEnable(GL_BLEND);
+    auto blendEnabled = !(this->colorSourceBlend      == Blend::One
+                       && this->colorDestinationBlend == Blend::Zero
+                       && this->alphaSourceBlend      == Blend::One
+                       && this->alphaDestinationBlend == Blend::Zero);
+
+    if (!blendEnabled)
+    {
+        glDisable(GL_BLEND);
+    }
+    else
+    {
+        glEnable(GL_BLEND);
+    }
 
     glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction)
                           , static_cast<GLenum>(this->alphaBlendFunction));
@@ -215,4 +227,9 @@ void BlendState::Apply() const
                , this->blendFactor.G() / 255
                , this->blendFactor.B() / 255
                , this->blendFactor.A() / 255);
+
+    if (this->multiSampleMask != 0)
+    {
+        glSampleCoverage(this->multiSampleMask, GL_FALSE);
+    }
 }

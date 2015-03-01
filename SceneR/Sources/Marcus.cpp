@@ -9,10 +9,10 @@
 #include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/IEffectLights.hpp>
+#include <Graphics/AnimatedModel.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <Graphics/AnimatedModel.hpp>
+#include <Graphics/SkinnedEffect.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -45,11 +45,12 @@ void Marcus::LoadContent()
     {
         for (auto& effect : mesh->Effects())
         {
-            auto leffect = std::dynamic_pointer_cast<IEffectLights>(effect);
+            auto seffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
 
-            if (leffect.get() != nullptr)
+            if (seffect.get() != nullptr)
             {
-                leffect->EnableDefaultLighting();
+                seffect->EnableDefaultLighting();
+                seffect->SpecularColor(Vector3(0.15f, 0.15f, 0.15f));
             }
         }
     }

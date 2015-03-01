@@ -17,7 +17,7 @@ DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
     , depthBufferEnable                      { true }
     , depthBufferFunction                    { CompareFunction::LessEqual }
     , depthBufferWriteEnable                 { true }
-    , referenceStencil                       { -1 }
+    , referenceStencil                       { 0 }
     , stencilDepthBufferFail                 { StencilOperation::Keep }
     , stencilEnable                          { false }
     , stencilFail                            { StencilOperation::Keep }
@@ -60,7 +60,7 @@ void DepthStencilState::Dispose()
 
 const StencilOperation& DepthStencilState::CounterClockwiseStencilDepthBufferFail() const
 {
-    return counterClockwiseStencilDepthBufferFail;
+    return this->counterClockwiseStencilDepthBufferFail;
 }
 
 void DepthStencilState::CounterClockwiseStencilDepthBufferFail(const StencilOperation& counterClockwiseStencilDepthBufferFail)
@@ -108,7 +108,7 @@ void DepthStencilState::DepthBufferFunction(const CompareFunction& depthBufferFu
     this->depthBufferFunction = depthBufferFunction;
 }
 
-const Boolean& DepthStencilState::DepthBufferEnable() const
+Boolean DepthStencilState::DepthBufferEnable() const
 {
     return this->depthBufferEnable;
 }
@@ -118,7 +118,7 @@ void DepthStencilState::DepthBufferEnable(const Boolean& depthBufferEnable)
     this->depthBufferEnable = depthBufferEnable;
 }
 
-const Boolean& DepthStencilState::DepthBufferWriteEnable() const
+Boolean DepthStencilState::DepthBufferWriteEnable() const
 {
     return this->depthBufferWriteEnable;
 }
@@ -128,7 +128,7 @@ void DepthStencilState::DepthBufferWriteEnable(const Boolean& depthBufferWriteEn
     this->depthBufferWriteEnable = depthBufferWriteEnable;
 }
 
-const System::Int32& DepthStencilState::ReferenceStencil() const
+System::Int32 DepthStencilState::ReferenceStencil() const
 {
     return this->referenceStencil;
 }
@@ -148,7 +148,7 @@ void DepthStencilState::StencilDepthBufferFail(const StencilOperation& stencilDe
     this->stencilDepthBufferFail = stencilDepthBufferFail;
 }
 
-const System::Boolean& DepthStencilState::StencilEnable() const
+System::Boolean DepthStencilState::StencilEnable() const
 {
     return this->stencilEnable;
 }
@@ -178,7 +178,7 @@ void DepthStencilState::StencilFunction(const CompareFunction& stencilFunction)
     this->stencilFunction = stencilFunction;
 }
 
-const System::UInt32& DepthStencilState::StencilMask() const
+System::UInt32 DepthStencilState::StencilMask() const
 {
     return this->stencilMask;
 }
@@ -198,7 +198,7 @@ void DepthStencilState::StencilPass(const StencilOperation& stencilPass)
     this->stencilPass = stencilPass;
 }
 
-const System::UInt32& DepthStencilState::StencilWriteMask() const
+System::UInt32 DepthStencilState::StencilWriteMask() const
 {
     return this->stencilWriteMask;
 }
@@ -208,7 +208,7 @@ void DepthStencilState::StencilWriteMask(const System::UInt32& stencilWriteMask)
     this->stencilWriteMask = stencilWriteMask;
 }
 
-const System::Boolean& DepthStencilState::TwoSidedStencilMode() const
+System::Boolean DepthStencilState::TwoSidedStencilMode() const
 {
     return this->twoSidedStencilMode;
 }
@@ -249,54 +249,56 @@ void DepthStencilState::Apply() const
     if (this->depthBufferEnable)
     {
         glEnable(GL_DEPTH_TEST);
-        glDepthMask(this->depthBufferWriteEnable);
-        glDepthFunc(static_cast<GLenum>(this->depthBufferFunction));
     }
     else
     {
         glDisable(GL_DEPTH_TEST);
     }
 
+    glDepthMask(this->depthBufferWriteEnable);
+    glDepthFunc(static_cast<GLenum>(this->depthBufferFunction));
+
     if (this->stencilEnable)
     {
         glEnable(GL_STENCIL_TEST);
-        glStencilMask(this->stencilWriteMask);
-
-        if (this->twoSidedStencilMode)
-        {
-            glStencilFunc(static_cast<GLenum>(this->stencilFunction)
-                        , this->referenceStencil
-                        , this->stencilMask);
-
-            glStencilOp(static_cast<GLenum>(this->stencilFail)
-                      , static_cast<GLenum>(this->stencilDepthBufferFail)
-                      , static_cast<GLenum>(this->stencilPass));
-        }
-        else
-        {
-            glStencilFuncSeparate(GL_FRONT
-                                , static_cast<GLenum>(this->stencilFunction)
-                                , this->referenceStencil
-                                , this->stencilMask);
-
-            glStencilOpSeparate(GL_FRONT
-                              , static_cast<GLenum>(this->stencilFail)
-                              , static_cast<GLenum>(this->stencilDepthBufferFail)
-                              , static_cast<GLenum>(this->stencilPass));
-
-            glStencilFuncSeparate(GL_BACK
-                                , static_cast<GLenum>(this->counterClockwiseStencilFunction)
-                                , this->referenceStencil
-                                , this->stencilMask);
-
-            glStencilOpSeparate(GL_BACK
-                              , static_cast<GLenum>(this->counterClockwiseStencilFail)
-                              , static_cast<GLenum>(this->counterClockwiseStencilDepthBufferFail)
-                              , static_cast<GLenum>(this->counterClockwiseStencilPass));
-        }
     }
     else
     {
         glDisable(GL_STENCIL_TEST);
+    }
+
+    glStencilMask(this->stencilWriteMask);
+
+    if (this->twoSidedStencilMode)
+    {
+        glStencilFuncSeparate(GL_FRONT
+                            , static_cast<GLenum>(this->stencilFunction)
+                            , this->referenceStencil
+                            , this->stencilMask);
+
+        glStencilFuncSeparate(GL_BACK
+                            , static_cast<GLenum>(this->counterClockwiseStencilFunction)
+                            , this->referenceStencil
+                            , this->stencilMask);
+
+        glStencilOpSeparate(GL_FRONT
+                          , static_cast<GLenum>(this->stencilFail)
+                          , static_cast<GLenum>(this->stencilDepthBufferFail)
+                          , static_cast<GLenum>(this->stencilPass));
+
+        glStencilOpSeparate(GL_BACK
+                          , static_cast<GLenum>(this->counterClockwiseStencilFail)
+                          , static_cast<GLenum>(this->counterClockwiseStencilDepthBufferFail)
+                          , static_cast<GLenum>(this->counterClockwiseStencilPass));
+    }
+    else
+    {
+        glStencilFunc(static_cast<GLenum>(this->stencilFunction)
+                    , this->referenceStencil
+                    , this->stencilMask);
+
+        glStencilOp(static_cast<GLenum>(this->stencilFail)
+                  , static_cast<GLenum>(this->stencilDepthBufferFail)
+                  , static_cast<GLenum>(this->stencilPass));
     }
 }

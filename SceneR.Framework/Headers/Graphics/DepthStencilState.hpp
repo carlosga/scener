@@ -93,7 +93,7 @@ namespace SceneR
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            const System::Boolean& DepthBufferEnable() const;
+            System::Boolean DepthBufferEnable() const;
 
             /**
              * Gets a value indicating where depth buffer is enabled
@@ -113,7 +113,7 @@ namespace SceneR
             /**
              *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            const System::Boolean& DepthBufferWriteEnable() const;
+            System::Boolean DepthBufferWriteEnable() const;
 
             /**
              *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
@@ -123,7 +123,7 @@ namespace SceneR
             /**
              * Specifies a reference value to use for the stencil test.
              */
-            const System::Int32& ReferenceStencil() const;
+            System::Int32 ReferenceStencil() const;
 
             /**
              * Specifies a reference value to use for the stencil test.
@@ -145,7 +145,7 @@ namespace SceneR
             /**
              * Gets a value indicating whether the stencil test is enabled.
              */
-            const System::Boolean& StencilEnable() const;
+            System::Boolean StencilEnable() const;
 
             /**
              * Enables or disables the stencil test.
@@ -177,7 +177,7 @@ namespace SceneR
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            const System::UInt32& StencilMask() const;
+            System::UInt32 StencilMask() const;
 
             /**
              * Sets the mask applied to the reference value and
@@ -199,7 +199,7 @@ namespace SceneR
             /**
              * Gets the write mask applied to values written into the stencil buffer.
              */
-            const System::UInt32& StencilWriteMask() const;
+            System::UInt32 StencilWriteMask() const;
 
             /**
              * Sets the write mask applied to values written into the stencil buffer.
@@ -209,7 +209,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter two-sided stenciling is enabled.
              */
-            const System::Boolean& TwoSidedStencilMode() const;
+            System::Boolean TwoSidedStencilMode() const;
 
             /**
              * Enables or disables two-sided stenciling.

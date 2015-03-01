@@ -11,6 +11,10 @@
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/AnimatedModel.hpp>
+#include <Graphics/IEffectLights.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/AnimatedModel.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
@@ -27,20 +31,37 @@ SampleModel::SampleModel(SampleRenderer& renderer)
 
 void SampleModel::Initialize()
 {
+    /*
     this->world = Matrix::CreateRotationX(-Math::PiOver2)
                 * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
                 * Matrix::CreateScale(2.0f);
+    */
+
+    this->world = Matrix::CreateTranslation({ 0.0f, -80.0f, 0.0f });
 
     DrawableComponent::Initialize();
 }
 
 void SampleModel::LoadContent()
 {
-    this->model         = this->renderer.Content().Load<Model>(u"dude/dude");
-    this->animatedModel = std::make_shared<AnimatedModel>(this->model);
+    this->model         = this->renderer.Content().Load<Model>(u"Wild Centaur/Wild Centaur");
+    // this->animatedModel = std::make_shared<AnimatedModel>(this->model);
+
+    for (const auto& mesh : this->model->Meshes())
+    {
+        for (auto& effect : mesh->Effects())
+        {
+            auto leffect = std::dynamic_pointer_cast<IEffectLights>(effect);
+
+            if (leffect.get() != nullptr)
+            {
+                leffect->EnableDefaultLighting();
+            }
+        }
+    }
 
     // Start default animation clip
-    this->animatedModel->PlayFirstClip();
+    // this->animatedModel->PlayFirstClip();
 }
 
 void SampleModel::UnloadContent()
@@ -49,8 +70,18 @@ void SampleModel::UnloadContent()
     this->model = nullptr;
 }
 
+void SampleModel::Update(const RenderTime& renderTime)
+{
+    // this->animatedModel->Update(renderTime);
+}
+
 void SampleModel::Draw(const RenderTime& renderTime)
 {
     const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.Components()[0]);
+
+    this->CurrentGraphicsDevice().RasterizerState().CullMode(CullMode::CullCounterClockwiseFace);
+
     this->model->Draw(this->world, camera->View, camera->Projection);
+
+    // this->animatedModel->Draw(this->world, camera->View, camera->Projection);
 }

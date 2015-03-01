@@ -68,9 +68,6 @@ void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projecti
                 if (sEffect.get() != nullptr)
                 {
                     sEffect->SetBoneTransforms(this->boneTransforms);
-
-                    sEffect->SpecularColor(Vector3(0.25f, 0.25f, 0.25f));
-                    sEffect->SpecularPower(16.0f);
                 }
             }
 

@@ -11,9 +11,9 @@ using namespace SceneR::Graphics;
 
 RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
     : GraphicsResource     { graphicsDevice }
-    , cullMode             { CullMode::CullCounterClockwiseFace }
+    , cullMode             { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
     , depthBias            { 0.0f }
-    , fillMode             { FillMode::Solid }
+    , fillMode             { SceneR::Graphics::FillMode::Solid }
     , multiSampleAntiAlias { true }
     , scissorTestEnable    { false }
     , slopeScaleDepthBias  { 0.0f }
@@ -117,6 +117,8 @@ RasterizerState&RasterizerState::operator=(const RasterizerState& rasterizerStat
 
 void RasterizerState::Apply() const
 {
+     glDisable(GL_DITHER);
+
     // Specify whether front- or back-facing facets can be culled
     if (this->cullMode == CullMode::None)
     {
@@ -178,11 +180,9 @@ void RasterizerState::Apply() const
     if (this->multiSampleAntiAlias)
     {
         glEnable(GL_MULTISAMPLE);
-        // glEnable(GL_FRAMEBUFFER_SRGB_EXT);
     }
     else
     {
         glDisable(GL_MULTISAMPLE);
-        // glDisable(GL_FRAMEBUFFER_SRGB_EXT);
     }
 }

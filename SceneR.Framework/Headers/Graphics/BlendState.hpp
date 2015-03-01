@@ -189,7 +189,7 @@ namespace SceneR
             /**
              * Gets a bitmask which defines which samples can be written during multisampling.
              */
-            const System::UInt32& MultiSampleMask() const;
+            System::UInt32 MultiSampleMask() const;
 
             /**
              * Sets a bitmask which defines which samples can be written during multisampling.

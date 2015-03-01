@@ -130,23 +130,68 @@ SamplerState&SamplerState::operator=(const SamplerState& samplerState)
 
 void SamplerState::OnApply(const TextureTarget& target) const
 {
-    auto glTarget = static_cast<GLenum>(target);
+    auto   glTarget  = static_cast<GLenum>(target);
+    GLenum minfilter;
+    GLenum magfilter;
 
-    glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_R , GL_RED);
-    glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_G , GL_GREEN);
-    glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_B , GL_BLUE);
-    glTexParameteri(glTarget, GL_TEXTURE_SWIZZLE_A , GL_ALPHA);
+    this->GetMinMaxFilters(minfilter, magfilter);
+
     glTexParameteri(glTarget, GL_TEXTURE_WRAP_S    , static_cast<GLint>(this->addressU));
     glTexParameteri(glTarget, GL_TEXTURE_WRAP_T    , static_cast<GLint>(this->addressV));
     glTexParameteri(glTarget, GL_TEXTURE_WRAP_R    , static_cast<GLint>(this->addressW));
-    glTexParameteri(glTarget, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(this->filter));
-    glTexParameteri(glTarget, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(TextureFilter::Linear));
-    glTexParameteri(glTarget, GL_TEXTURE_BASE_LEVEL, 0);
     glTexParameterf(glTarget, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
     glTexParameteri(glTarget, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(this->maxMipLevel));
+    glTexParameteri(glTarget, GL_TEXTURE_MIN_FILTER, minfilter);
+    glTexParameteri(glTarget, GL_TEXTURE_MAG_FILTER, magfilter);
 
     if (this->filter == TextureFilter::Anisotropic)
     {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, this->maxAnisotropy);
+    }
+}
+
+void SamplerState::GetMinMaxFilters(GLenum& minfilter, GLenum& magfilter) const
+{
+    switch (this->filter)
+    {
+    case TextureFilter::Point:
+        minfilter = ((this->maxMipLevel != 0) ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST);
+        magfilter = GL_NEAREST;
+        break;
+
+    case TextureFilter::Linear:
+    case TextureFilter::Anisotropic:
+        minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+        magfilter = GL_LINEAR;
+        break;
+
+    case TextureFilter::PointMipLinear:
+        minfilter = ((this->maxMipLevel != 0) ? GL_NEAREST_MIPMAP_LINEAR : GL_NEAREST);
+        magfilter = GL_NEAREST;
+        break;
+
+    case TextureFilter::LinearMipPoint:
+        minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
+        magfilter = GL_LINEAR;
+        break;
+
+    case TextureFilter::MinLinearMagPointMipLinear:
+        minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
+        magfilter = GL_NEAREST;
+
+    case TextureFilter::MinLinearMagPointMipPoint:
+        minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
+        magfilter = GL_NEAREST;
+        break;
+
+    case TextureFilter::MinPointMagLinearMipLinear:
+        minfilter = ((this->maxMipLevel != 0) ? GL_NEAREST_MIPMAP_LINEAR : GL_NEAREST);
+        magfilter = GL_LINEAR;
+        break;
+
+    case TextureFilter::MinPointMagLinearMipPoint:
+        minfilter = ((this->maxMipLevel != 0) ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST);
+        magfilter = GL_LINEAR;
+        break;
     }
 }

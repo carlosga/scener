@@ -19,11 +19,11 @@ namespace SceneR
             /**
              * Use linear filtering.
              */
-            Linear = GL_LINEAR,
+            Linear = 0,
             /**
              * Use point filtering.
              */
-            Point = GL_NEAREST,
+            Point = 1,
             /**
              * Use anisotropic filtering.
              */
@@ -31,27 +31,27 @@ namespace SceneR
             /**
              * Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
              */
-            LinearMipPoint = GL_LINEAR_MIPMAP_NEAREST,
+            LinearMipPoint = 3,
             /**
              * Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
              */
-            PointMipLinear = GL_NEAREST_MIPMAP_LINEAR,
+            PointMipLinear = 4,
             /**
              * Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
              */
-            MinLinearMagPointMipLinear = GL_LINEAR_MIPMAP_LINEAR,
+            MinLinearMagPointMipLinear = 5,
             /**
              * Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
              */
-            MinLinearMagPointMipPoint = GL_LINEAR_MIPMAP_NEAREST,
+            MinLinearMagPointMipPoint = 6,
             /**
              * Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
              */
-            MinPointMagLinearMipLinear = GL_NEAREST_MIPMAP_LINEAR,
+            MinPointMagLinearMipLinear = 7,
             /**
              * Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
              */
-            MinPointMagLinearMipPoint = GL_NEAREST_MIPMAP_NEAREST
+            MinPointMagLinearMipPoint = 8,
         };
     }
 }

@@ -3,6 +3,7 @@
 
 #include <Graphics/TextureObject.hpp>
 
+#include <System/Graphics/Platform.hpp>
 #include <Graphics/Texture.hpp>
 
 using namespace System;
@@ -30,7 +31,6 @@ void TextureObject::Dispose()
 
 void TextureObject::Activate() const
 {
-    // glActiveTexture(GL_TEXTURE0);
     glBindTexture(static_cast<GLenum>(this->target), this->texId);
 }
 
