@@ -2,9 +2,10 @@
 
 #version 440 core
 
-in vec3 PositionWS;
+in vec4 PositionWS;
 in vec3 NormalWS;
 in vec3 TexCoord;
+in vec4 Diffuse;
 
 layout (location = 0) out vec4 FragColor;
 
@@ -46,6 +47,11 @@ void AddSpecular(inout vec4 color, vec3 specular)
     color.rgb += specular * color.a;
 }
 
+void ApplyFog(inout vec4 color, float fogFactor)
+{
+    color.rgb = mix(color.rgb, FogColor * color.a, fogFactor);
+}
+
 ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 {
     mat3 lightDirections = mat3(0.0);
@@ -80,8 +86,7 @@ ColorPair ComputeLights(vec3 eyeVector, vec3 worldNormal, int numLights)
 
 void main()
 {
-    vec4      diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
-    vec4      color       = texture(Texture, TexCoord.st) * diffuse;
+    vec4      color       = texture(Texture, TexCoord.st) * Diffuse;
     vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
     vec3      worldNormal = normalize(NormalWS);
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
@@ -89,6 +94,7 @@ void main()
     color.rgb *= lightResult.Diffuse;
 
     AddSpecular(color, lightResult.Specular);
+    ApplyFog(color, PositionWS.w);
 
     FragColor = color;
 }

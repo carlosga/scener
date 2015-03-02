@@ -1,8 +1,8 @@
 #version 440 core
 
-layout (location = 0) in vec3 VertexPosition;
-layout (location = 3) in vec3 VertexNormal;
-layout (location = 2) in vec3 VertexCoord;
+layout (location = 0) in vec3  VertexPosition;
+layout (location = 2) in vec3  VertexCoord;
+layout (location = 3) in vec3  VertexNormal;
 
 
 //layout (std140, row_major) uniform Parameters   // cbuffer Parameters : register(b0)
@@ -34,17 +34,28 @@ uniform mat4 World;
 uniform mat4 WorldInverseTranspose;
 uniform mat4 WorldViewProj;
 
-out vec3 PositionWS;
+out vec4 PositionWS;
 out vec3 NormalWS;
 out vec3 TexCoord;
+out vec4 Diffuse;
 
 struct CommonVSOutputPixelLighting
 {
     vec4 Pos_ps;
     vec3 Pos_ws;
     vec3 Normal_ws;
-    // float FogFactor;
+    float FogFactor;
 };
+
+float saturate(float value)
+{
+    return clamp(value, 0.0, 1.0);
+}
+
+float ComputeFogFactor(vec4 position)
+{
+    return saturate(dot(position, FogVector));
+}
 
 CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(vec4 position, vec3 normal)
 {
@@ -53,14 +64,14 @@ CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(vec4 position, ve
     vout.Pos_ps    = position * WorldViewProj;
     vout.Pos_ws    = (position * World).xyz;
     vout.Normal_ws = normalize(normal * mat3x3(WorldInverseTranspose));
-    // vout.FogFactor = ComputeFogFactor(position);
+    vout.FogFactor = ComputeFogFactor(position);
 
     return vout;
 }
 
 void main()
 {
-    CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0), VertexNormal);
+    CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0f), VertexNormal);
 
     /*
     #define SetCommonVSOutputParamsPixelLighting \
@@ -70,7 +81,8 @@ void main()
     */
 
     gl_Position = cout.Pos_ps;
-    PositionWS  = cout.Pos_ws;
+    PositionWS  = vec4(cout.Pos_ws, cout.FogFactor);
     NormalWS    = cout.Normal_ws;
     TexCoord    = VertexCoord;
+    Diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
 }
