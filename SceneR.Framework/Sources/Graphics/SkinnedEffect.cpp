@@ -374,18 +374,15 @@ void SkinnedEffect::End()
 
 void SkinnedEffect::OnApply()
 {
-    auto emissive              = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
-    auto diffuse               = Vector4 { this->diffuseColor * this->alpha, this->alpha };
-    auto viewInverse           = Matrix::Invert(this->view);
-    auto eyePosition           = viewInverse.Translation();
-    auto worldInverse          = Matrix::Invert(this->world);
-    auto worldInverseTranspose = Matrix::Transpose(worldInverse);
-    auto worldViewProjection   = this->world * this->view * this->projection;
+    auto emissive    = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
+    auto diffuse     = Vector4 { this->diffuseColor * this->alpha, this->alpha };
+    auto viewInverse = Matrix::Invert(this->view);
 
-    this->parameters[u"EyePosition"].SetValue(eyePosition);
-    this->parameters[u"World"].SetValue(worldInverse);
-    this->parameters[u"WorldInverseTranspose"].SetValue(worldInverseTranspose);
-    this->parameters[u"WorldViewProj"].SetValueTranspose(worldViewProjection);
+    this->parameters[u"World"].SetValueTranspose(this->world);
+    this->parameters[u"WorldInverseTranspose"].SetValueTranspose(Matrix::Transpose(Matrix::Invert(this->world)));
+    this->parameters[u"WorldViewProj"].SetValueTranspose(this->world * this->view * this->projection);
+    this->parameters[u"EyePosition"].SetValue(viewInverse.Translation());
+
     this->parameters[u"DiffuseColor"].SetValue(diffuse);
     this->parameters[u"EmissiveColor"].SetValue(emissive);
     this->parameters[u"SpecularColor"].SetValue(this->specularColor);
@@ -393,7 +390,7 @@ void SkinnedEffect::OnApply()
     this->parameters[u"WeightsPerVertex"].SetValue(this->weightsPerVertex);
     this->parameters[u"Bones"].SetValue(this->boneTransforms);
 
-    //this->Parameters()[u"FogVector"].SetValue(Vector4());
+    this->parameters[u"FogVector"].SetValue(Vector4::Zero);
 
     if (this->enableDefaultLighting)
     {
@@ -447,6 +444,5 @@ void SkinnedEffect::Initialize()
     this->parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
     this->parameters.Add(u"WeightsPerVertex"      , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->shader);
     this->parameters.Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-
-    // this->Parameters().Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shaderProgram);
+    this->parameters.Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
 }
