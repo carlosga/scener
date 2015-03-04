@@ -6,10 +6,35 @@
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Effect.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+
+UInt32 GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType, const UInt32& primitiveCount)
+{
+    switch (primitiveType)
+    {
+    case PrimitiveType::LineList:
+        return primitiveCount * 2;
+
+    case PrimitiveType::LineStrip:
+        return primitiveCount + 1;
+
+    case PrimitiveType::PointList:
+        return primitiveCount;
+
+    case PrimitiveType::TriangleFan:
+        return primitiveCount;
+
+    case PrimitiveType::TriangleList:
+        return primitiveCount * 3;
+
+    case PrimitiveType::TriangleStrip:
+        return primitiveCount + 2;
+    }
+}
 
 GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
                              , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
@@ -107,28 +132,28 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
                                          , const UInt32&        startIndex
                                          , const UInt32&        primitiveCount) const
 {
-    if (this->indexBuffer == nullptr)
+    if (this->indexBuffer.get() == nullptr)
     {
         throw std::runtime_error("Set the IndexBuffer before calling DrawIndexedPrimitives");
     }
-    if (this->vertexBuffer == nullptr)
+    if (this->vertexBuffer.get() == nullptr)
     {
         throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
     }
-    if (this->effect == nullptr)
+    if (this->effect.get() == nullptr)
     {
         throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
     }
-
-    auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
 
     this->effect->Begin();
 
     this->vertexBuffer->Activate();
     this->indexBuffer->Activate();
 
+    auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
+
     glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
-                           , static_cast<GLsizei>(numVertices)
+                           , static_cast<GLsizei>(GetElementCount(primitiveType, primitiveCount))
                            , static_cast<GLenum>(this->indexBuffer->IndexElementSize())
                            , reinterpret_cast<void*>(offset)
                            , static_cast<GLint>(baseVertex));
@@ -143,11 +168,11 @@ void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
                                   , const UInt32&        startVertex
                                   , const UInt32&        primitiveCount) const
 {
-    if (this->vertexBuffer == nullptr)
+    if (this->vertexBuffer.get() == nullptr)
     {
         throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
     }
-    if (this->effect == nullptr)
+    if (this->effect.get() == nullptr)
     {
         throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
     }

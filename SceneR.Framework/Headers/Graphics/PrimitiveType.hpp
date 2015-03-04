@@ -21,12 +21,12 @@ namespace SceneR
              * primitives.
              */
             PointList = GL_POINTS,
-            /*
+            /**
              * Renders the vertices as a list of isolated straight line segments.
              * Calls that use this primitive type fail if the count is less than two or is odd.
              */
             LineList = GL_LINES,
-            /*
+            /**
              * Renders the vertices as a single polyline.
              * Calls that use this primitive type fail if the count is less than two.
              */

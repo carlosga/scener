@@ -34,6 +34,10 @@ namespace SceneR
          */
         class GraphicsDevice final : System::IDisposable
         {
+        private:
+                static System::UInt32 GetElementCount(const PrimitiveType&  primitiveType
+                                                    , const System::UInt32& primitiveCount);
+
         public:
             /**
              * Initializes a new instance of the GraphicsDevice class.
