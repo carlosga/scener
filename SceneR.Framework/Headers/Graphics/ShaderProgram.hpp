@@ -9,6 +9,9 @@
 
 #include <System/Core.hpp>
 #include <System/IDisposable.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
+#include <Graphics/ShaderType.hpp>
 
 namespace SceneR
 {
@@ -37,7 +40,7 @@ namespace SceneR
             /**
              * Intializes a new instance of the ShaderProgram class.
              */
-            ShaderProgram(std::vector<std::shared_ptr<Shader>> &shaders);
+            ShaderProgram();
 
             /**
              * Destructor
@@ -48,6 +51,13 @@ namespace SceneR
             void Dispose() override;
 
         public:
+            /**
+             * @brief Adds the given shader sources to the shader program for later compilation
+             */
+            void AddShader(const System::String& shaderName
+                         , const ShaderType&     shaderStage
+                         , const System::String& shaderSource);
+
             /**
              * Activates the shader program.
              */
@@ -211,7 +221,12 @@ namespace SceneR
             void SetValue(const System::Int32& location, const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
+            void DescribeUniformBlocks();
+            void DescribeParameters();
             void VerifyLinkingState();
+            void InferParameterClassAndType(const System::UInt32&                   type
+                                          , SceneR::Graphics::EffectParameterClass& epClass
+                                          , SceneR::Graphics::EffectParameterType&  epType) const;
 
         private:
             System::UInt32                       id;

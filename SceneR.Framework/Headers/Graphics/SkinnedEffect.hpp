@@ -28,9 +28,6 @@ namespace SceneR
          */
         class SkinnedEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
-            const static System::String VSSource;
-            const static System::String FSSource;
-
         public:
             /**
              * Initializes a new instance of the SkinnedEffect class.
@@ -88,32 +85,17 @@ namespace SceneR
             /**
              * Gets the first directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight0() const override;
-
-            /**
-             * Sets the first directional light
-             */
-            void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight0() const override;
 
             /**
              * Gets the second directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight1() const override;
-
-            /**
-             * Sets the second directional light
-             */
-            void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight1() const override;
 
             /**
              * Gets the third directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight2() const override;
-
-            /**
-             * Sets the third directional light
-             */
-            void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight2() const override;
 
             /**
              * Enables default lighting for this effect.
@@ -307,6 +289,7 @@ namespace SceneR
             void OnApply() override;
 
         private:
+            void CreateShader();
             void Initialize();
 
         private:
@@ -314,9 +297,9 @@ namespace SceneR
             SceneR::Framework::Vector3             ambientLightColor;
             std::vector<SceneR::Framework::Matrix> boneTransforms;
             SceneR::Framework::Vector3             diffuseColor;
-            std::shared_ptr<DirectionalLight>      directionalLight0;
-            std::shared_ptr<DirectionalLight>      directionalLight1;
-            std::shared_ptr<DirectionalLight>      directionalLight2;
+            DirectionalLight                       directionalLight0;
+            DirectionalLight                       directionalLight1;
+            DirectionalLight                       directionalLight2;
             System::Boolean                        enableDefaultLighting;
             SceneR::Framework::Vector3             emissiveColor;
             System::Boolean                        fogEnabled;

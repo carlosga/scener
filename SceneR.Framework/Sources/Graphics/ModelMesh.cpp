@@ -36,7 +36,7 @@ void ModelMesh::Draw()
     {
         auto& graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
 
-        if (meshPart->Effect() != nullptr)
+        if (meshPart->Effect().get() != nullptr)
         {
             graphicsDevice.Effect(meshPart->Effect());
         }
@@ -59,7 +59,7 @@ std::vector<std::shared_ptr<Effect>> ModelMesh::Effects() const
 
     for (const auto& meshPart : this->meshParts)
     {
-        if (meshPart->Effect() != nullptr)
+        if (meshPart->Effect().get() != nullptr)
         {
             effects.push_back(meshPart->Effect());
         }

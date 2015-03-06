@@ -38,10 +38,20 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
+            EffectParameter();
+
+            /**
+             * Initializes a new instance of the EffectParameter class.
+             */
             EffectParameter(const System::String&                 name,
                             const EffectParameterClass&           parameterClass,
                             const EffectParameterType&            parameterType,
-                            const std::shared_ptr<ShaderProgram>& shaderProgram);
+                            const std::shared_ptr<ShaderProgram>& shader);
+
+            /**
+             * Copy constructor.
+             */
+            EffectParameter(const EffectParameter& parameter);
 
             /**
              * Destructor
@@ -301,6 +311,9 @@ namespace SceneR
              * @param value the value to assign to the EffectParameter.
              */
             void SetValue(const std::vector<SceneR::Framework::Vector4>& value) const;
+
+        public:
+            EffectParameter& operator=(const EffectParameter& parameter);
 
         private:
             System::Int32                  columnCount;

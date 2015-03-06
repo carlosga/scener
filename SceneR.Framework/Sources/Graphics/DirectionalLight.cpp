@@ -8,18 +8,25 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 DirectionalLight::DirectionalLight()
-    : DirectionalLight { Vector3::One, Vector3(0.0f, -1.0f, 0.0f), true, Vector3::Zero }
+    : DirectionalLight { Vector3(0.0f, -1.0f, 0.0f), Vector3::One, Vector3::Zero }
 {
 }
 
-DirectionalLight::DirectionalLight(const Vector3& diffuseColor
-                                 , const Vector3& direction
-                                 , const Boolean& enabled
+DirectionalLight::DirectionalLight(const Vector3& direction
+                                 , const Vector3& diffuseColor
                                  , const Vector3& specularColor)
-    : diffuseColor  { diffuseColor }
-    , direction     { direction }
-    , enabled       { enabled }
+    : direction     { direction }
+    , diffuseColor  { diffuseColor }
     , specularColor { specularColor }
+    , enabled       { false }
+{
+}
+
+DirectionalLight::DirectionalLight(const DirectionalLight& light)
+    : direction     { light.direction }
+    , diffuseColor  { light.diffuseColor }
+    , specularColor { light.specularColor }
+    , enabled       { light.enabled }
 {
 }
 
@@ -65,4 +72,17 @@ const Vector3& DirectionalLight::SpecularColor() const
 void DirectionalLight::SpecularColor(const Vector3& specularColor)
 {
     this->specularColor = specularColor;
+}
+
+DirectionalLight&DirectionalLight::operator=(const DirectionalLight& light)
+{
+    if (this != &light)
+    {
+        this->diffuseColor  = light.diffuseColor;
+        this->direction     = light.direction;
+        this->enabled       = light.enabled;
+        this->specularColor = light.specularColor;
+    }
+
+    return *this;
 }

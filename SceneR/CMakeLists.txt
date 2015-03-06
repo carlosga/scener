@@ -31,13 +31,6 @@ set(SOURCE_FILES
     Sources/SampleModel.cpp
     Sources/SampleRenderer.cpp)
 
-# add content files
-add_custom_target(CONTENT_FILES SOURCES
-                  Content/BasicEffect.vert
-                  Content/BasicEffect.frag
-                  Content/SkinnedEffect.vert
-                  Content/SkinnedEffect.frag)
-
 # add execlutable
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 

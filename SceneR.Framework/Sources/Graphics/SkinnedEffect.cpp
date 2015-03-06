@@ -9,24 +9,23 @@
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Resources.hpp>
 
 using namespace System;
 using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const String SkinnedEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.vert");
-const String SkinnedEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/SkinnedEffect.frag");
-
 SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
-    : Effect                 { graphicsDevice, SkinnedEffect::VSSource, SkinnedEffect::FSSource }
+    : Effect                 { graphicsDevice }
     , alpha                  { 1.0 }
     , ambientLightColor      { Vector3::Zero }
     , boneTransforms         ( 0 )
     , diffuseColor           { Vector3::One }
-    , directionalLight0      { nullptr }
-    , directionalLight1      { nullptr }
-    , directionalLight2      { nullptr }
+    , directionalLight0      { }
+    , directionalLight1      { }
+    , directionalLight2      { }
     , enableDefaultLighting  { false }
     , emissiveColor          { Vector3::Zero }
     , fogEnabled             { false }
@@ -43,6 +42,7 @@ SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     , weightsPerVertex       { 2 }
     , world                  { Matrix::Identity }
 {
+    this->CreateShader();
     this->Initialize();
 }
 
@@ -119,34 +119,19 @@ void SkinnedEffect::DiffuseColor(const Vector3& diffuseColor)
     this->diffuseColor = diffuseColor;
 }
 
-const std::shared_ptr<DirectionalLight>& SkinnedEffect::DirectionalLight0() const
+const DirectionalLight& SkinnedEffect::DirectionalLight0() const
 {
     return this->directionalLight0;
 }
 
-void SkinnedEffect::DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight)
-{
-    this->directionalLight0 = directionalLight;
-}
-
-const std::shared_ptr<DirectionalLight>& SkinnedEffect::DirectionalLight1() const
+const DirectionalLight& SkinnedEffect::DirectionalLight1() const
 {
     return this->directionalLight1;
 }
 
-void SkinnedEffect::DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight)
-{
-    this->directionalLight1 = directionalLight;
-}
-
-const std::shared_ptr<DirectionalLight>& SkinnedEffect::DirectionalLight2() const
+const DirectionalLight& SkinnedEffect::DirectionalLight2() const
 {
     return this->directionalLight2;
-}
-
-void SkinnedEffect::DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight)
-{
-    this->directionalLight2 = directionalLight;
 }
 
 void SkinnedEffect::EnableDefaultLighting()
@@ -156,25 +141,22 @@ void SkinnedEffect::EnableDefaultLighting()
     this->enableDefaultLighting = true;
 
     // Key light.
-    this->directionalLight0 = std::make_shared<DirectionalLight>();
-    this->directionalLight0->Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
-    this->directionalLight0->DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0->SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0->Enabled(true);
+    this->directionalLight0.Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
+    this->directionalLight0.DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
+    this->directionalLight0.SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
+    this->directionalLight0.Enabled(true);
 
     // Fill light.
-    this->directionalLight1 = std::make_shared<DirectionalLight>();
-    this->directionalLight1->Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
-    this->directionalLight1->DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
-    this->directionalLight1->SpecularColor(Vector3::Zero);
-    this->directionalLight1->Enabled(true);
+    this->directionalLight1.Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
+    this->directionalLight1.DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
+    this->directionalLight1.SpecularColor(Vector3::Zero);
+    this->directionalLight1.Enabled(true);
 
     // Back light.
-    this->directionalLight2 = std::make_shared<DirectionalLight>();
-    this->directionalLight2->Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
-    this->directionalLight2->DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2->SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2->Enabled(true);
+    this->directionalLight2.Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
+    this->directionalLight2.DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
+    this->directionalLight2.SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
+    this->directionalLight2.Enabled(true);
 
     this->ambientLightColor = { 0.05333332f, 0.09882354f, 0.1819608f };
 }
@@ -394,25 +376,25 @@ void SkinnedEffect::OnApply()
 
     if (this->enableDefaultLighting)
     {
-        if (this->directionalLight0->Enabled())
+        if (this->directionalLight0.Enabled())
         {
-            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
-            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
-            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0.Direction());
+            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0.DiffuseColor());
+            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0.SpecularColor());
         }
 
-        if (this->directionalLight1->Enabled())
+        if (this->directionalLight1.Enabled())
         {
-            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
-            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
-            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1.Direction());
+            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1.DiffuseColor());
+            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1.SpecularColor());
         }
 
-        if (this->directionalLight2->Enabled())
+        if (this->directionalLight2.Enabled())
         {
-            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
-            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
-            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2.Direction());
+            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2.DiffuseColor());
+            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2.SpecularColor());
         }
     }
 
@@ -420,6 +402,14 @@ void SkinnedEffect::OnApply()
     {
         this->parameters[u"Texture"].SetValue(*this->texture);
     }
+}
+
+void SkinnedEffect::CreateShader()
+{
+    this->shader = std::make_shared<ShaderProgram>();
+    this->shader->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vertString);
+    this->shader->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_fragString);
+    this->shader->Build();
 }
 
 void SkinnedEffect::Initialize()

@@ -39,32 +39,17 @@ namespace SceneR
             /**
              * Gets the first directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight0() const = 0;
-
-            /**
-             * Sets the first directional light
-             */
-            virtual void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
+            virtual const DirectionalLight& DirectionalLight0() const = 0;
 
             /**
              * Gets the second directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight1() const = 0;
-
-            /**
-             * Sets the second directional light
-             */
-            virtual void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
+            virtual const DirectionalLight& DirectionalLight1() const = 0;
 
             /**
              * Gets the third directional light
              */
-            virtual const std::shared_ptr<DirectionalLight>& DirectionalLight2() const = 0;
-
-            /**
-             * Sets the third directional light
-             */
-            virtual void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) = 0;
+            virtual const DirectionalLight& DirectionalLight2() const = 0;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.

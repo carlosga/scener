@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-//-------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
 // Ported from a Microsoft XNA Community Game Platform example
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
 // Microsoft XNA Community Game Platform
 // Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------
 
 #ifndef ANIMATEDMODEL_HPP
 #define ANIMATEDMODEL_HPP

@@ -9,6 +9,8 @@
 #include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/IEffectFog.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectMatrices.hpp>
@@ -28,9 +30,6 @@ namespace SceneR
          */
         class BasicEffect final : public Effect, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
-            const static System::String VSSource;
-            const static System::String FSSource;
-
         public:
             /**
              * Initializes a new instance of the BassicEffect class.
@@ -88,32 +87,17 @@ namespace SceneR
             /**
              * Gets the first directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight0() const override;
-
-            /**
-             * Sets the first directional light
-             */
-            void DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight0() const override;
 
             /**
              * Gets the second directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight1() const override;
-
-            /**
-             * Sets the second directional light
-             */
-            void DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight1() const override;
 
             /**
              * Gets the third directional light
              */
-            const std::shared_ptr<DirectionalLight>& DirectionalLight2() const override;
-
-            /**
-             * Sets the third directional light
-             */
-            void DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight) override;
+            const DirectionalLight& DirectionalLight2() const override;
 
             /**
              * Enables default lighting for this effect.
@@ -296,30 +280,47 @@ namespace SceneR
             void OnApply() override;
 
         private:
-            void Initialize();
+            void CreateShader();
+            void CacheEffectParameters();
 
         private:
-            System::Single                    alpha;
-            SceneR::Framework::Vector3        ambientLightColor;
-            SceneR::Framework::Vector3        diffuseColor;
-            std::shared_ptr<DirectionalLight> directionalLight0;
-            std::shared_ptr<DirectionalLight> directionalLight1;
-            std::shared_ptr<DirectionalLight> directionalLight2;
-            System::Boolean                   enableDefaultLighting;
-            SceneR::Framework::Vector3        emissiveColor;
-            System::Boolean                   fogEnabled;
-            SceneR::Framework::Vector3        fogColor;
-            System::Single                    fogEnd;
-            System::Single                    fogStart;
-            System::Boolean                   preferPerPixelLighting;
-            SceneR::Framework::Matrix         projection;
-            SceneR::Framework::Vector3        specularColor;
-            System::Single                    specularPower;
-            System::Boolean                   textureEnabled;
-            std::shared_ptr<Texture2D>        texture;
-            System::Boolean                   vertexColorEnabled;
-            SceneR::Framework::Matrix         view;
-            SceneR::Framework::Matrix         world;
+            System::Single             alpha;
+            SceneR::Framework::Vector3 ambientLightColor;
+            SceneR::Framework::Vector3 diffuseColor;
+            DirectionalLight           light0;
+            DirectionalLight           light1;
+            DirectionalLight           light2;
+            System::Boolean            lightingEnabled;
+            SceneR::Framework::Vector3 emissiveColor;
+            System::Boolean            fogEnabled;
+            SceneR::Framework::Vector3 fogColor;
+            System::Single             fogEnd;
+            System::Single             fogStart;
+            System::Boolean            preferPerPixelLighting;
+            SceneR::Framework::Matrix  projection;
+            SceneR::Framework::Vector3 specularColor;
+            System::Single             specularPower;
+            System::Boolean            textureEnabled;
+            std::shared_ptr<Texture2D> texture;
+            System::Boolean            vertexColorEnabled;
+            SceneR::Framework::Matrix  view;
+            SceneR::Framework::Matrix  world;
+            SceneR::Framework::Matrix  worldView;
+            System::Boolean            oneLight;
+            EffectDirtyFlags           dirtyFlags;
+
+            EffectParameter            textureParam;
+            EffectParameter            diffuseColorParam;
+            EffectParameter            emissiveColorParam;
+            EffectParameter            specularColorParam;
+            EffectParameter            specularPowerParam;
+            EffectParameter            eyePositionParam;
+            EffectParameter            fogColorParam;
+            EffectParameter            fogVectorParam;
+            EffectParameter            worldParam;
+            EffectParameter            worldInverseTransposeParam;
+            EffectParameter            worldViewProjParam;
+            EffectParameter            shaderIndexParam;
         };
     }
 }

@@ -8,6 +8,7 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/Texture.hpp>
 #include <Graphics/ShaderProgram.hpp>
 
@@ -15,10 +16,23 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
+EffectParameter::EffectParameter()
+    : columnCount       { 0 }
+    , elements          {  }
+    , name              { u"" }
+    , parameterClass    { EffectParameterClass::Object }
+    , parameterType     { EffectParameterType::Single }
+    , rowCount          { 0 }
+    , structureMembers  {  }
+    , shader            { nullptr }
+    , parameterLocation { -1 }
+{
+}
+
 EffectParameter::EffectParameter(const String&                         name
                                , const EffectParameterClass&           parameterClass
                                , const EffectParameterType&            parameterType
-                               , const std::shared_ptr<ShaderProgram>& shaderProgram)
+                               , const std::shared_ptr<ShaderProgram>& shader)
     : columnCount       { 0 }
     , elements          {  }
     , name              { name }
@@ -26,10 +40,23 @@ EffectParameter::EffectParameter(const String&                         name
     , parameterType     { parameterType }
     , rowCount          { 0 }
     , structureMembers  {  }
-    , shader            { shaderProgram }
+    , shader            { shader }
     , parameterLocation { -1 }
 {
     this->parameterLocation = this->shader->GetParameterLocation(this->name);
+}
+
+EffectParameter::EffectParameter(const EffectParameter& parameter)
+    : columnCount       { parameter.columnCount }
+    , elements          { parameter.elements }
+    , name              { parameter.name }
+    , parameterClass    { parameter.parameterClass }
+    , parameterType     { parameter.parameterType }
+    , rowCount          { parameter.rowCount }
+    , structureMembers  { parameter.structureMembers }
+    , shader            { parameter.shader }
+    , parameterLocation { parameter.parameterLocation }
+{
 }
 
 EffectParameter::~EffectParameter()
@@ -375,4 +402,22 @@ void EffectParameter::SetValue(const std::vector<Vector4>& value) const
     }
 
     this->shader->SetValue(this->parameterLocation, value);
+}
+
+EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
+{
+    if (this != &parameter)
+    {
+        this->columnCount       = parameter.columnCount;
+        this->elements          = parameter.elements;
+        this->name              = parameter.name;
+        this->parameterClass    = parameter.parameterClass;
+        this->parameterType     = parameter.parameterType;
+        this->rowCount          = parameter.rowCount;
+        this->structureMembers  = parameter.structureMembers;
+        this->shader            = parameter.shader;
+        this->parameterLocation = parameter.parameterLocation;
+    }
+
+    return *this;
 }

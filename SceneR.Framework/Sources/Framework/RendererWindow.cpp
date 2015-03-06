@@ -82,7 +82,8 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 24);
     glfwWindowHint(GLFW_SAMPLES               , static_cast<Int32>(sampleCount));
-    glfwWindowHint(GLFW_SRGB_CAPABLE          , true);
+    glfwWindowHint(GLFW_SRGB_CAPABLE          , GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT  , GL_TRUE);
 
     if (fullscreen)
     {

@@ -16,24 +16,6 @@ Effect::Effect(GraphicsDevice& graphicsDevice)
 {
 }
 
-Effect::Effect(GraphicsDevice& graphicsDevice
-             , const String&   vertexShader
-             , const String&   fragmentShader)
-    : GraphicsResource { graphicsDevice }
-    , parameters       { }
-    , shader           { nullptr }
-{
-    auto vShader = std::make_shared<Shader>(vertexShader, ShaderType::Vertex);
-    auto fShader = std::make_shared<Shader>(fragmentShader, ShaderType::Fragment);
-    auto shaders = std::vector<std::shared_ptr<Shader>>{};
-
-    shaders.push_back(vShader);
-    shaders.push_back(fShader);
-
-    this->shader = std::make_shared<ShaderProgram>(shaders);
-    this->shader->Build();
-}
-
 Effect::Effect(const Effect& effect)
     : GraphicsResource { effect.graphicsDevice }
     , parameters       { effect.parameters }

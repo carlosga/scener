@@ -5,6 +5,73 @@ enable_language(CXX)
 set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
 
+# http://stackoverflow.com/questions/11813271/embed-resources-eg-shader-code-images-into-executable-library-with-cmake
+# Creates C resources file from files in given directory
+function(create_resources_header dir output)
+    # Create empty output file
+    file(WRITE ${output} "")
+    # Collect input files
+    file(GLOB bins ${dir}/*)
+    # Write header
+    file(APPEND ${output} "#ifndef RESOURCES_HPP\n")
+    file(APPEND ${output} "#define RESOURCES_HPP\n\n")
+    file(APPEND ${output} "#include <System/Core.hpp>\n\n")
+    file(APPEND ${output} "namespace SceneR\n")
+    file(APPEND ${output} "{\n")
+    file(APPEND ${output} "    namespace Graphics\n")
+    file(APPEND ${output} "    {\n")
+    file(APPEND ${output} "        class Resources\n")
+    file(APPEND ${output} "        {\n")
+    # Iterate through input files
+    foreach(bin ${bins})
+        # Get short filename
+        string(REGEX MATCH "([^/]+)$" filename ${bin})
+        # Replace filename spaces & extension separator for C compatibility
+        string(REGEX REPLACE "\\.| " "_" filename ${filename})
+        # Read hex data from file
+        file(READ ${bin} filedata HEX)
+        # Convert hex data for C compatibility
+        string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
+        # Append data to output file
+        file(APPEND ${output} "        private:\n")
+        file(APPEND ${output} "            static const unsigned char ${filename}[];\n")
+        file(APPEND ${output} "            static const unsigned ${filename}_size;\n")
+        file(APPEND ${output} "        public:\n")
+        file(APPEND ${output} "            static const System::String ${filename}String;\n")
+    endforeach()
+    # Write footer
+    file(APPEND ${output} "        };\n")
+    file(APPEND ${output} "    }\n")
+    file(APPEND ${output} "}\n\n")
+    file(APPEND ${output} "\n#endif /* RESOURCES_HPP */\n")
+endfunction()
+
+function(create_resources_source dir output)
+    # Create empty output file
+    file(WRITE ${output} "")
+    # Collect input files
+    file(GLOB bins ${dir}/*)
+    # Write header
+    file(APPEND ${output} "#include <Graphics/Resources.hpp>\n\n")
+    file(APPEND ${output} "using namespace System;\n")
+    file(APPEND ${output} "using namespace SceneR::Graphics;\n\n")
+    # Iterate through input files
+    foreach(bin ${bins})
+        # Get short filename
+        string(REGEX MATCH "([^/]+)$" filename ${bin})
+        # Replace filename spaces & extension separator for C compatibility
+        string(REGEX REPLACE "\\.| " "_" filename ${filename})
+        # Read hex data from file
+        file(READ ${bin} filedata HEX)
+        # Convert hex data for C compatibility
+        string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
+        # Append data to output file
+        file(APPEND ${output} "const unsigned char Resources::${filename}[] = {${filedata}};\n")
+        file(APPEND ${output} "const unsigned Resources::${filename}_size   = sizeof(${filename});\n")
+        file(APPEND ${output} "const String Resources::${filename}String = String(Resources::${filename}, Resources::${filename} + Resources::${filename}_size);\n")
+    endforeach()
+endfunction()
+
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
 
@@ -22,6 +89,23 @@ find_package(glfw REQUIRED)
 
 # Regal
 link_directories(../../regal/lib/linux/)
+
+# add content files
+add_custom_target(CONTENT_FILES SOURCES
+                  Resources/BasicEffect.vert
+                  Resources/BasicEffect.frag
+                  Resources/SkinnedEffect.vert
+                  Resources/SkinnedEffect.frag)
+
+# resource files
+set(RESOURCE_FILES
+    Resources/BasicEffect.vert
+    Resources/BasicEffect.frag
+    Resources/SkinnedEffect.vert
+    Resources/SkinnedEffect.frag)
+
+create_resources_header(Resources Headers/Graphics/Resources.hpp)
+create_resources_source(Resources Sources/Graphics/Resources.cpp)
 
 # header files
 set(HEADER_FILES
@@ -80,6 +164,7 @@ set(HEADER_FILES
     Headers/Framework/Vector2.hpp
     Headers/Framework/Vector3.hpp
     Headers/Framework/Vector4.hpp
+    Headers/Graphics/Resources.hpp
     Headers/Graphics/AnimatedModel.hpp
     Headers/Graphics/AnimationClip.hpp
     Headers/Graphics/AnimationPlayer.hpp
@@ -97,6 +182,8 @@ set(HEADER_FILES
     Headers/Graphics/DirectionalLight.hpp
     Headers/Graphics/DisplayMode.hpp
     Headers/Graphics/Effect.hpp
+    Headers/Graphics/EffectDirtyFlags.hpp
+    Headers/Graphics/EffectHelpers.hpp
     Headers/Graphics/EffectMaterial.hpp
     Headers/Graphics/EffectParameter.hpp
     Headers/Graphics/EffectParameterClass.hpp
@@ -220,6 +307,7 @@ set(SOURCE_FILES
     Sources/Framework/Vector2.cpp
     Sources/Framework/Vector3.cpp
     Sources/Framework/Vector4.cpp
+    Sources/Graphics/Resources.cpp
     Sources/Graphics/AnimatedModel.cpp
     Sources/Graphics/AnimationClip.cpp
     Sources/Graphics/AnimationPlayer.cpp
@@ -230,6 +318,7 @@ set(SOURCE_FILES
     Sources/Graphics/DirectionalLight.cpp
     Sources/Graphics/DisplayMode.cpp
     Sources/Graphics/Effect.cpp
+    Sources/Graphics/EffectHelpers.cpp
     Sources/Graphics/EffectMaterial.cpp
     Sources/Graphics/EffectParameter.cpp
     Sources/Graphics/EffectParameterCollection.cpp

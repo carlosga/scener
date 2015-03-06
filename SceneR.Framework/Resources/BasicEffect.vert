@@ -1,9 +1,9 @@
 #version 440 core
+#pragma optionNV (unroll all)
 
 layout (location = 0) in vec3  VertexPosition;
 layout (location = 2) in vec3  VertexCoord;
 layout (location = 3) in vec3  VertexNormal;
-
 
 //layout (std140, row_major) uniform Parameters   // cbuffer Parameters : register(b0)
 //{
@@ -28,11 +28,13 @@ uniform vec3  EyePosition;              // _vs(c13) _ps(c14) _cb(c12);
 
 uniform vec3  FogColor;                 //          _ps(c0)  _cb(c13);
 uniform vec4  FogVector;                // _vs(c14)          _cb(c14);
-//};
 
-uniform mat4 World;
-uniform mat4 WorldInverseTranspose;
-uniform mat4 WorldViewProj;
+uniform int   ShaderIndex;
+
+uniform mat4  World;
+uniform mat4  WorldInverseTranspose;
+uniform mat4  WorldViewProj;
+//};
 
 out vec4 PositionWS;
 out vec3 NormalWS;
@@ -71,6 +73,7 @@ CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(vec4 position, ve
 
 void main()
 {
+    // Hack to get the Shader Index param into use
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0f), VertexNormal);
 
     /*
@@ -80,7 +83,7 @@ void main()
         vout.NormalWS = cout.Normal_ws;
     */
 
-    gl_Position = cout.Pos_ps;
+    gl_Position = cout.Pos_ps + ShaderIndex;
     PositionWS  = vec4(cout.Pos_ws, cout.FogFactor);
     NormalWS    = cout.Normal_ws;
     TexCoord    = VertexCoord;

@@ -38,6 +38,7 @@ void SampleModel::Initialize()
 
 void SampleModel::LoadContent()
 {
+    // this->model = this->renderer.Content().Load<Model>(u"Goblin_D_Shareyko/Mixamo_Goblin_Run");
     this->model         = this->renderer.Content().Load<Model>(u"Wild Centaur/Wild Centaur");
     // this->animatedModel = std::make_shared<AnimatedModel>(this->model);
 

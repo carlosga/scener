@@ -1,73 +1,111 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+//---------------------------------------------------------------------------------------------------
+// Partially ported from Microsoft XNA Community Game Platform Stock Effects
+//---------------------------------------------------------------------------------------------------
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//---------------------------------------------------------------------------------------------------
 
 #include <Graphics/BasicEffect.hpp>
 
 #include <System/IO/File.hpp>
 #include <Framework/Vector4.hpp>
+#include <Graphics/EffectHelpers.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/Resources.hpp>
 
 using namespace System;
-using namespace System::IO;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-const String BasicEffect::VSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/BasicEffect.vert");
-const String BasicEffect::FSSource = File::ReadAllText(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/BasicEffect.frag");
-
 BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
-    : Effect                 { graphicsDevice, BasicEffect::VSSource, BasicEffect::FSSource }
-    , alpha                  { 1.0f }
-    , ambientLightColor      { Vector3::Zero }
-    , diffuseColor           { Vector3::One }
-    , directionalLight0      { nullptr }
-    , directionalLight1      { nullptr }
-    , directionalLight2      { nullptr }
-    , enableDefaultLighting  { false }
-    , emissiveColor          { Vector3::Zero }
-    , fogEnabled             { false }
-    , fogColor               { Vector3::Zero }
-    , fogEnd                 { 1.0f }
-    , fogStart               { 0.0f }
-    , preferPerPixelLighting { false }
-    , projection             { Matrix::Identity }
-    , specularColor          { Vector3::One }
-    , specularPower          { 16.0f }
-    , textureEnabled         { false }
-    , texture                { nullptr }
-    , vertexColorEnabled     { false }
-    , view                   { Matrix::Identity }
-    , world                  { Matrix::Identity }
+    : Effect                     { graphicsDevice }
+    , alpha                      { 1.0f }
+    , ambientLightColor          { Vector3::Zero }
+    , diffuseColor               { Vector3::One }
+    , light0                     { }
+    , light1                     { }
+    , light2                     { }
+    , lightingEnabled            { false }
+    , emissiveColor              { Vector3::Zero }
+    , fogEnabled                 { false }
+    , fogColor                   { Vector3::Zero }
+    , fogEnd                     { 1.0f }
+    , fogStart                   { 0.0f }
+    , preferPerPixelLighting     { false }
+    , projection                 { Matrix::Identity }
+    , specularColor              { Vector3::One }
+    , specularPower              { 16.0f }
+    , textureEnabled             { false }
+    , texture                    { nullptr }
+    , vertexColorEnabled         { false }
+    , view                       { Matrix::Identity }
+    , world                      { Matrix::Identity }
+    , worldView                  { Matrix::Identity }
+    , oneLight                   { false }
+    , dirtyFlags                 { EffectDirtyFlags::All }
+    , textureParam               { }
+    , diffuseColorParam          { }
+    , emissiveColorParam         { }
+    , specularColorParam         { }
+    , specularPowerParam         { }
+    , eyePositionParam           { }
+    , fogColorParam              { }
+    , fogVectorParam             { }
+    , worldParam                 { }
+    , worldInverseTransposeParam { }
+    , worldViewProjParam         { }
+    , shaderIndexParam           { }
 {
-    this->Initialize();
+    this->CreateShader();
+    this->CacheEffectParameters();
+
+    this->light0.Enabled(true);
 }
 
 BasicEffect::BasicEffect(const BasicEffect& effect)
-    : Effect                 { effect }
-    , alpha                  { effect.alpha }
-    , ambientLightColor      { effect.ambientLightColor }
-    , diffuseColor           { effect.diffuseColor }
-    , directionalLight0      { effect.directionalLight0 }
-    , directionalLight1      { effect.directionalLight1 }
-    , directionalLight2      { effect.directionalLight2 }
-    , enableDefaultLighting  { effect.enableDefaultLighting }
-    , emissiveColor          { effect.emissiveColor }
-    , fogEnabled             { effect.fogEnabled }
-    , fogColor               { effect.fogColor }
-    , fogEnd                 { effect.fogEnd }
-    , fogStart               { effect.fogStart }
-    , preferPerPixelLighting { effect.preferPerPixelLighting }
-    , projection             { effect.projection }
-    , specularColor          { effect.specularColor }
-    , specularPower          { effect.specularPower }
-    , textureEnabled         { effect.textureEnabled }
-    , texture                { effect.texture }
-    , vertexColorEnabled     { effect.vertexColorEnabled }
-    , view                   { effect.view }
-    , world                  { effect.world }
+    : Effect                     { effect }
+    , alpha                      { effect.alpha }
+    , ambientLightColor          { effect.ambientLightColor }
+    , diffuseColor               { effect.diffuseColor }
+    , light0                     { effect.light0 }
+    , light1                     { effect.light1 }
+    , light2                     { effect.light2 }
+    , lightingEnabled            { effect.lightingEnabled }
+    , emissiveColor              { effect.emissiveColor }
+    , fogEnabled                 { effect.fogEnabled }
+    , fogColor                   { effect.fogColor }
+    , fogEnd                     { effect.fogEnd }
+    , fogStart                   { effect.fogStart }
+    , preferPerPixelLighting     { effect.preferPerPixelLighting }
+    , projection                 { effect.projection }
+    , specularColor              { effect.specularColor }
+    , specularPower              { effect.specularPower }
+    , textureEnabled             { effect.textureEnabled }
+    , texture                    { effect.texture }
+    , vertexColorEnabled         { effect.vertexColorEnabled }
+    , view                       { effect.view }
+    , world                      { effect.world }
+    , worldView                  { effect.worldView }
+    , oneLight                   { effect.oneLight }
+    , dirtyFlags                 { EffectDirtyFlags::All }
+    , textureParam               { }
+    , diffuseColorParam          { }
+    , emissiveColorParam         { }
+    , specularColorParam         { }
+    , specularPowerParam         { }
+    , eyePositionParam           { }
+    , fogColorParam              { }
+    , fogVectorParam             { }
+    , worldParam                 { }
+    , worldInverseTransposeParam { }
+    , worldViewProjParam         { }
+    , shaderIndexParam           { }
 {
-    this->Initialize();
+    this->CacheEffectParameters();
 }
 
 BasicEffect::~BasicEffect()
@@ -92,7 +130,11 @@ const Single& BasicEffect::Alpha() const
 
 void BasicEffect::Alpha(const Single& alpha)
 {
-    this->alpha = alpha;
+    if (this->alpha != alpha)
+    {
+        this->alpha = alpha;
+        this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+    }
 }
 
 const Vector3& BasicEffect::AmbientLightColor() const
@@ -102,7 +144,11 @@ const Vector3& BasicEffect::AmbientLightColor() const
 
 void BasicEffect::AmbientLightColor(const Vector3& ambientLightColor)
 {
-    this->ambientLightColor = ambientLightColor;
+    if (this->ambientLightColor != ambientLightColor)
+    {
+        this->ambientLightColor = ambientLightColor;
+        this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+    }
 }
 
 const Vector3& BasicEffect::DiffuseColor() const
@@ -112,67 +158,33 @@ const Vector3& BasicEffect::DiffuseColor() const
 
 void BasicEffect::DiffuseColor(const Vector3& diffuseColor)
 {
-    this->diffuseColor = diffuseColor;
+    if (this->diffuseColor != diffuseColor)
+    {
+        this->diffuseColor = diffuseColor;
+        this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+    }
 }
 
-const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight0() const
+const DirectionalLight& BasicEffect::DirectionalLight0() const
 {
-    return this->directionalLight0;
+    return this->light0;
 }
 
-void BasicEffect::DirectionalLight0(const std::shared_ptr<DirectionalLight>& directionalLight)
+const DirectionalLight& BasicEffect::DirectionalLight1() const
 {
-    this->directionalLight0 = directionalLight;
+    return this->light1;
 }
 
-const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight1() const
+const DirectionalLight& BasicEffect::DirectionalLight2() const
 {
-    return this->directionalLight1;
-}
-
-void BasicEffect::DirectionalLight1(const std::shared_ptr<DirectionalLight>& directionalLight)
-{
-    this->directionalLight1 = directionalLight;
-}
-
-const std::shared_ptr<DirectionalLight>& BasicEffect::DirectionalLight2() const
-{
-    return this->directionalLight2;
-}
-
-void BasicEffect::DirectionalLight2(const std::shared_ptr<DirectionalLight>& directionalLight)
-{
-    this->directionalLight2 = directionalLight;
+    return this->light2;
 }
 
 void BasicEffect::EnableDefaultLighting()
 {
-    // http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
+    this->LightingEnabled(true);
 
-    this->enableDefaultLighting = true;
-
-    // Key light.
-    this->directionalLight0 = std::make_shared<DirectionalLight>();
-    this->directionalLight0->Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
-    this->directionalLight0->DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0->SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0->Enabled(true);
-
-    // Fill light.
-    this->directionalLight1 = std::make_shared<DirectionalLight>();
-    this->directionalLight1->Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
-    this->directionalLight1->DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
-    this->directionalLight1->SpecularColor(Vector3::Zero);
-    this->directionalLight1->Enabled(true);
-
-    // Back light.
-    this->directionalLight2 = std::make_shared<DirectionalLight>();
-    this->directionalLight2->Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
-    this->directionalLight2->DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2->SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2->Enabled(true);
-
-    this->ambientLightColor = { 0.05333332f, 0.09882354f, 0.1819608f };
+    this->AmbientLightColor(EffectHelpers::EnableDefaultLighting(this->light0, this->light1, this->light2));
 }
 
 const Vector3& BasicEffect::EmissiveColor() const
@@ -182,7 +194,11 @@ const Vector3& BasicEffect::EmissiveColor() const
 
 void BasicEffect::EmissiveColor(const Vector3& emissiveColor)
 {
-    this->emissiveColor = emissiveColor;
+    if (this->emissiveColor != emissiveColor)
+    {
+        this->emissiveColor = emissiveColor;
+        this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+    }
 }
 
 const Vector3& BasicEffect::FogColor() const
@@ -192,7 +208,10 @@ const Vector3& BasicEffect::FogColor() const
 
 void BasicEffect::FogColor(const Vector3& fogColor)
 {
-    this->fogColor = fogColor;
+    if (this->fogColor != fogColor)
+    {
+        this->fogColor = fogColor;
+    }
 }
 
 const Boolean& BasicEffect::FogEnabled() const
@@ -202,7 +221,11 @@ const Boolean& BasicEffect::FogEnabled() const
 
 void BasicEffect::FogEnabled(const Boolean& fogEnabled)
 {
-    this->fogEnabled = fogEnabled;
+    if (this->fogEnabled != fogEnabled)
+    {
+        this->fogEnabled = fogEnabled;
+        this->dirtyFlags |= EffectDirtyFlags::Fog;
+    }
 }
 
 const Single& BasicEffect::FogEnd() const
@@ -212,7 +235,11 @@ const Single& BasicEffect::FogEnd() const
 
 void BasicEffect::FogEnd(const Single& fogEnd)
 {
-    this->fogEnd = fogEnd;
+    if (this->fogEnd != fogEnd)
+    {
+        this->fogEnd = fogEnd;
+        this->dirtyFlags |= EffectDirtyFlags::Fog;
+    }
 }
 
 const Single& BasicEffect::FogStart() const
@@ -222,17 +249,25 @@ const Single& BasicEffect::FogStart() const
 
 void BasicEffect::FogStart(const Single& fogStart)
 {
-    this->fogStart = fogStart;
+    if (this->fogStart != fogStart)
+    {
+        this->fogStart = fogStart;
+        this->dirtyFlags |= EffectDirtyFlags::Fog;
+    }
 }
 
 const Boolean& BasicEffect::LightingEnabled() const
 {
-    return this->enableDefaultLighting;
+    return this->lightingEnabled;
 }
 
 void BasicEffect::LightingEnabled(const Boolean& lightingEnabled)
 {
-    this->enableDefaultLighting = lightingEnabled;
+    if (this->lightingEnabled != lightingEnabled)
+    {
+        this->lightingEnabled = lightingEnabled;
+        this->dirtyFlags |= EffectDirtyFlags::ShaderIndex | EffectDirtyFlags::MaterialColor;
+    }
 }
 
 const Boolean& BasicEffect::PreferPerPixelLighting() const
@@ -242,7 +277,11 @@ const Boolean& BasicEffect::PreferPerPixelLighting() const
 
 void BasicEffect::PreferPerPixelLighting(const Boolean& preferPerPixelLighting)
 {
-    this->preferPerPixelLighting = preferPerPixelLighting;
+    if (this->preferPerPixelLighting != preferPerPixelLighting)
+    {
+        this->preferPerPixelLighting = preferPerPixelLighting;
+        this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+    }
 }
 
 const Matrix& BasicEffect::Projection() const
@@ -253,6 +292,7 @@ const Matrix& BasicEffect::Projection() const
 void BasicEffect::Projection(const Matrix& projection)
 {
     this->projection = projection;
+    this->dirtyFlags |= EffectDirtyFlags::WorldViewProj;
 }
 
 const Vector3& BasicEffect::SpecularColor() const
@@ -282,7 +322,11 @@ const std::shared_ptr<Texture2D>& BasicEffect::Texture() const
 
 void BasicEffect::Texture(const std::shared_ptr<Texture2D>& texture)
 {
-    this->texture = texture;
+    if (this->texture != texture)
+    {
+        this->texture = texture;
+        this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+    }
 }
 
 const Boolean& BasicEffect::TextureEnabled() const
@@ -292,7 +336,11 @@ const Boolean& BasicEffect::TextureEnabled() const
 
 void BasicEffect::TextureEnabled(const Boolean& textureEnabled)
 {
-    this->textureEnabled = textureEnabled;
+    if (this->textureEnabled != textureEnabled)
+    {
+        this->textureEnabled = textureEnabled;
+        this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+    }
 }
 
 const Matrix& BasicEffect::View() const
@@ -303,6 +351,7 @@ const Matrix& BasicEffect::View() const
 void BasicEffect::View(const Matrix& view)
 {
     this->view = view;
+    this->dirtyFlags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
 }
 
 const Boolean& BasicEffect::VertexColorEnabled() const
@@ -312,7 +361,11 @@ const Boolean& BasicEffect::VertexColorEnabled() const
 
 void BasicEffect::VertexColorEnabled(const Boolean& vertexColorEnabled)
 {
-    this->vertexColorEnabled = vertexColorEnabled;
+    if (this->vertexColorEnabled != vertexColorEnabled)
+    {
+        this->vertexColorEnabled = vertexColorEnabled;
+        this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+    }
 }
 
 const Matrix& BasicEffect::World() const
@@ -323,6 +376,7 @@ const Matrix& BasicEffect::World() const
 void BasicEffect::World(const Matrix& world)
 {
     this->world = world;
+    this->dirtyFlags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
 }
 
 void BasicEffect::Begin()
@@ -352,44 +406,91 @@ void BasicEffect::End()
 
 void BasicEffect::OnApply()
 {
-    auto emissive     = Vector3 { (this->emissiveColor + this->ambientLightColor * this->diffuseColor) * this->alpha };
-    auto diffuse      = Vector4 { this->diffuseColor * this->alpha, this->alpha };
-    auto viewInverse  = Matrix::Invert(this->view);
+    // Recompute the world+view+projection matrix or fog vector?
+    this->dirtyFlags = EffectHelpers::SetWorldViewProjAndFog(this->dirtyFlags
+                                                           , this->world
+                                                           , this->view
+                                                           , this->projection
+                                                           , this->worldView
+                                                           , this->fogEnabled
+                                                           , this->fogStart
+                                                           , this->fogEnd
+                                                           , this->worldViewProjParam
+                                                           , this->fogVectorParam);
 
-    this->parameters[u"World"].SetValueTranspose(this->world);
-    this->parameters[u"WorldInverseTranspose"].SetValueTranspose(Matrix::Transpose(Matrix::Invert(this->world)));
-    this->parameters[u"WorldViewProj"].SetValueTranspose(this->world * this->view * this->projection);
-    this->parameters[u"EyePosition"].SetValue(viewInverse.Translation());
-
-    this->parameters[u"DiffuseColor"].SetValue(diffuse);
-    this->parameters[u"EmissiveColor"].SetValue(emissive);
-    this->parameters[u"SpecularColor"].SetValue(this->specularColor);
-    this->parameters[u"SpecularPower"].SetValue(this->specularPower);
-
-    this->parameters[u"FogVector"].SetValue(Vector4::Zero);
-
-    if (this->enableDefaultLighting)
+    // Recompute the diffuse/emissive/alpha material color parameters
+    if ((dirtyFlags & EffectDirtyFlags::MaterialColor) != 0)
     {
-        if (this->directionalLight0->Enabled())
+        EffectHelpers::SetMaterialColor(this->lightingEnabled
+                                      , this->alpha
+                                      , this->diffuseColor
+                                      , this->emissiveColor
+                                      , this->ambientLightColor
+                                      , this->diffuseColorParam
+                                      , this->emissiveColorParam);
+
+        this->dirtyFlags &= ~EffectDirtyFlags::MaterialColor;
+    }
+
+    if (lightingEnabled)
+    {
+        // Recompute the world inverse transpose and eye position?
+        this->dirtyFlags = EffectHelpers::SetLightingMatrices(this->dirtyFlags
+                                                            , this->world
+                                                            , this->view
+                                                            , this->worldParam
+                                                            , this->worldInverseTransposeParam
+                                                            , this->eyePositionParam);
+
+        // Check if we can use the only-bother-with-the-first-light shader optimization.
+        bool newOneLight = !this->light1.Enabled() && !this->light2.Enabled();
+
+        if (oneLight != newOneLight)
         {
-            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0->Direction());
-            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0->DiffuseColor());
-            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0->SpecularColor());
+            oneLight = newOneLight;
+            this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+        }
+    }
+
+    // Recompute the shader index?
+    if ((this->dirtyFlags & EffectDirtyFlags::ShaderIndex) != 0)
+    {
+        int shaderIndex = 0;
+
+        if (!fogEnabled)
+        {
+            shaderIndex += 1;
         }
 
-        if (this->directionalLight1->Enabled())
+        if (vertexColorEnabled)
         {
-            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1->Direction());
-            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1->DiffuseColor());
-            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1->SpecularColor());
+            shaderIndex += 2;
         }
 
-        if (this->directionalLight2->Enabled())
+        if (textureEnabled)
         {
-            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2->Direction());
-            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2->DiffuseColor());
-            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2->SpecularColor());
+            shaderIndex += 4;
         }
+
+        if (lightingEnabled)
+        {
+            if (preferPerPixelLighting)
+            {
+                shaderIndex += 24;
+            }
+            else if (oneLight)
+            {
+                shaderIndex += 16;
+            }
+            else
+            {
+                shaderIndex += 8;
+            }
+        }
+
+        this->shaderIndexParam.SetValue(shaderIndex);
+
+        this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
 
     if (this->textureEnabled)
@@ -398,25 +499,48 @@ void BasicEffect::OnApply()
     }
 }
 
-void BasicEffect::Initialize()
+void BasicEffect::CreateShader()
 {
-    this->parameters.Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    this->parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
-    this->parameters.Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->shader = std::make_shared<ShaderProgram>();
+    this->shader->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString);
+    this->shader->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_fragString);
+    this->shader->Build();
+}
+
+void BasicEffect::CacheEffectParameters()
+{
+    this->diffuseColorParam  = this->parameters.Add(u"DiffuseColor"  , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->emissiveColorParam = this->parameters.Add(u"EmissiveColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->specularColorParam = this->parameters.Add(u"SpecularColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->specularPowerParam = this->parameters.Add(u"SpecularPower" , EffectParameterClass::Scalar, EffectParameterType::Single   , this->shader);
+    this->textureParam       = this->parameters.Add(u"Texture"       , EffectParameterClass::Object, EffectParameterType::Texture2D, this->shader);
+    this->fogColorParam      = this->parameters.Add(u"FogColor"      , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->fogVectorParam     = this->parameters.Add(u"FogVector"     , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->eyePositionParam   = this->parameters.Add(u"EyePosition"   , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
+    this->shaderIndexParam   = this->parameters.Add(u"ShaderIndex"   , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->shader);
+    this->worldParam         = this->parameters.Add(u"World"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->worldViewProjParam = this->parameters.Add(u"WorldViewProj" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
+    this->worldInverseTransposeParam = this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single, this->shader);
+
+    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->shader);
+
+    this->light0 = DirectionalLight { this->parameters[u"DirLight0Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight0DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight0SpecularColor"].GetValueVector3() };
+
+    this->light1 = DirectionalLight { this->parameters[u"DirLight1Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight1DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight1SpecularColor"].GetValueVector3() };
+
+    this->light2 = DirectionalLight { this->parameters[u"DirLight2Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight2DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight2SpecularColor"].GetValueVector3() };
 }
