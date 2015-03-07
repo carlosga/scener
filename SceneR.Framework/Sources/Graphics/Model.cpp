@@ -4,7 +4,6 @@
 #include <Graphics/Model.hpp>
 
 #include <cassert>
-#include <iostream>
 
 #include <Framework/Vector3.hpp>
 #include <Graphics/ModelBone.hpp>

@@ -5,6 +5,7 @@
 #define SHADERPROGRAM_HPP
 
 #include <memory>
+#include <map>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -52,16 +53,36 @@ namespace SceneR
 
         public:
             /**
-             * @brief Adds the given shader sources to the shader program for later compilation
+             * @brief Adds the given shader sources to the shader program for later compilation.
+             * @param shaderName the name of the shader.
+             * @param shaderType the type of the shader.
+             * @param shaderSource the shader sources.
              */
             void AddShader(const System::String& shaderName
-                         , const ShaderType&     shaderStage
+                         , const ShaderType&     shaderType
                          , const System::String& shaderSource);
+
+            /**
+             * @brief Adds the given shader sources and includes to the shader program for later compilation
+             * @param shaderName the name of the shader.
+             * @param shaderType the type of the shader.
+             * @param shaderSource the shader sources.
+             * @param shaderIncludes the shader sources for "include" files.
+             */
+            void AddShader(const System::String&                           shaderName
+                         , const ShaderType&                               shaderType
+                         , const System::String&                           shaderSource
+                         , const std::map<System::String, System::String>& shaderIncludes);
 
             /**
              * Activates the shader program.
              */
             void Activate() const;
+
+            /**
+             *
+             */
+            void ActivateSubroutine(const System::UInt32& subroutineIndex) const;
 
             /**
              * Compiles and links the shader program sources.

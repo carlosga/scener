@@ -1,4 +1,11 @@
-// Partial port from the Microsoft XNA Stock Effects (Microsoft Permissive License.rtf)
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+//---------------------------------------------------------------------------------------------------
+// Ported from Microsoft XNA Community Game Platform Stock Effects
+//---------------------------------------------------------------------------------------------------
+// Microsoft XNA Community Game Platform
+// Copyright (C) Microsoft Corporation. All rights reserved.
+//---------------------------------------------------------------------------------------------------
 
 #version 440 core
 #pragma optionNV (unroll all)

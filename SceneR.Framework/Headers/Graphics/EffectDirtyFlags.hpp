@@ -32,34 +32,39 @@ namespace SceneR
             All             = WorldViewProj | World | EyePosition | MaterialColor | Fog | FogEnable | AlphaTest | ShaderIndex
         };
 
-        inline constexpr EffectDirtyFlags operator~(EffectDirtyFlags value)
-        {
-            return static_cast<EffectDirtyFlags>(static_cast<System::UInt32>(~value));
-        }
-
-        inline constexpr EffectDirtyFlags operator&(EffectDirtyFlags left, EffectDirtyFlags right)
+        inline constexpr EffectDirtyFlags operator&(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
             return static_cast<EffectDirtyFlags>(static_cast<System::UInt32>(left) & static_cast<System::UInt32>(right));
         }
 
-        inline constexpr EffectDirtyFlags operator|(EffectDirtyFlags left, EffectDirtyFlags right)
+        inline constexpr EffectDirtyFlags operator|(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
             return static_cast<EffectDirtyFlags>(static_cast<System::UInt32>(left) | static_cast<System::UInt32>(right));
         }
 
-        inline constexpr System::Boolean operator!=(EffectDirtyFlags left, System::UInt32 right)
+        inline constexpr EffectDirtyFlags operator~(const EffectDirtyFlags& value)
+        {
+            return static_cast<EffectDirtyFlags>(~static_cast<System::UInt32>(value));
+        }
+
+        inline constexpr System::Boolean operator==(const EffectDirtyFlags& left, const System::UInt32& right)
+        {
+            return (static_cast<System::UInt32>(left) == right);
+        }
+
+        inline constexpr System::Boolean operator!=(const EffectDirtyFlags& left, const System::UInt32& right)
         {
             return (static_cast<System::UInt32>(left) != right);
         }
 
-        inline EffectDirtyFlags operator&=(EffectDirtyFlags left, EffectDirtyFlags right)
+        inline EffectDirtyFlags& operator&=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
             left = left & right;
 
             return left;
         }
 
-        inline EffectDirtyFlags operator|=(EffectDirtyFlags left, EffectDirtyFlags right)
+        inline EffectDirtyFlags& operator|=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
             left = left | right;
 

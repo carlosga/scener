@@ -35,5 +35,5 @@ void Camera::Update(const RenderTime& renderTime)
     this->View = Matrix::CreateRotationY(this->rotation, { 0.0f, 0.0f, 0.0f })
                * Matrix::CreateLookAt({ 0.0f, 0.0f, -500.0f }, Vector3::Zero, Vector3::Up);
 
-    //this->View = Matrix::CreateLookAt({ 0.0f, 0.0f, 500.0f }, Vector3::Zero, Vector3::Up);
+    // this->View = Matrix::CreateLookAt({ 0.0f, 0.0f, 500.0f }, Vector3::Zero, Vector3::Up);
 }

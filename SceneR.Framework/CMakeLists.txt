@@ -2,8 +2,17 @@ cmake_minimum_required(VERSION 2.8.4)
 project(SceneR_Framework)
 enable_language(CXX)
 
+# set(CMAKE_VERBOSE_MAKEFILE on)
+
+set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
+
 set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
+
+# enable c++11 & clang standard library
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
+
+#-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
 # http://stackoverflow.com/questions/11813271/embed-resources-eg-shader-code-images-into-executable-library-with-cmake
 # Creates C resources file from files in given directory
@@ -63,6 +72,8 @@ function(create_resources_source dir output)
         string(REGEX REPLACE "\\.| " "_" filename ${filename})
         # Read hex data from file
         file(READ ${bin} filedata HEX)
+        # Remove comments
+        # STRING(REGEX REPLACE "^/\\* (#undef .*) \\*/$" "! \\1" i "${i}")
         # Convert hex data for C compatibility
         string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
         # Append data to output file
@@ -72,14 +83,8 @@ function(create_resources_source dir output)
     endforeach()
 endfunction()
 
-# enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
-
-#-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
-
 # include directories
-include_directories(Headers
-                    ../../regal/include)
+include_directories(Headers)
 
 # pthread
 find_package(Threads REQUIRED)
@@ -92,18 +97,16 @@ link_directories(../../regal/lib/linux/)
 
 # add content files
 add_custom_target(CONTENT_FILES SOURCES
+                  Resources/Common.glsl
+                  Resources/Structures.glsl
+                  Resources/Lighting.glsl
+                  Resources/BasicEffect.glsl
                   Resources/BasicEffect.vert
                   Resources/BasicEffect.frag
                   Resources/SkinnedEffect.vert
                   Resources/SkinnedEffect.frag)
 
-# resource files
-set(RESOURCE_FILES
-    Resources/BasicEffect.vert
-    Resources/BasicEffect.frag
-    Resources/SkinnedEffect.vert
-    Resources/SkinnedEffect.frag)
-
+# generate resource header and source files
 create_resources_header(Resources Headers/Graphics/Resources.hpp)
 create_resources_source(Resources Sources/Graphics/Resources.cpp)
 
@@ -374,5 +377,18 @@ add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 
+# target include directories
+target_include_directories(SceneR_Framework PRIVATE ../../regal/include)
+
 # target links
 target_link_libraries(SceneR_Framework pthread glfw Regal)
+
+# install target
+install(TARGETS SceneR_Framework
+        RUNTIME DESTINATION bin COMPONENT libraries
+        LIBRARY DESTINATION lib COMPONENT libraries
+        ARCHIVE DESTINATION lib/static COMPONENT libraries)
+
+# install header files
+install(DIRECTORY Headers/ DESTINATION include
+        FILES_MATCHING PATTERN "*.hpp")

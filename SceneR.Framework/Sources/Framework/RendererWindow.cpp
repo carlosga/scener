@@ -3,6 +3,8 @@
 
 #include <Framework/RendererWindow.hpp>
 
+#include <iostream>
+
 #include <System/Text/Encoding.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
@@ -13,6 +15,17 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
+
+void RendererWindow::DebugCallback(GLenum        source
+                                 , GLenum        type
+                                 , GLuint        id
+                                 , GLenum        severity
+                                 , GLsizei       length
+                                 , const GLchar* message
+                                 , const void*   userParam)
+{
+    std::cout << message << std::endl;
+}
 
 RendererWindow::RendererWindow(Renderer& renderer)
     : title             { u"" }
@@ -114,6 +127,9 @@ void RendererWindow::Open()
 
     // Initialize input
     this->InitializeInput();
+
+    // Enable debug output
+    this->EnableDebugOutput();
 }
 
 void RendererWindow::Close()
@@ -143,4 +159,16 @@ bool RendererWindow::ShouldClose() const
 
     return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
          || glfwWindowShouldClose(this->handle));
+}
+
+void RendererWindow::EnableDebugOutput() const
+{
+    GLuint unusedIds = 0;
+
+    // Enable debugging output
+    // Other OpenGL 4.x debugging functions:
+    //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(RendererWindow::DebugCallback, nullptr);
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
 }

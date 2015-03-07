@@ -2,18 +2,22 @@ cmake_minimum_required(VERSION 2.8.4)
 project(SceneR)
 enable_language(CXX)
 
+# set(CMAKE_VERBOSE_MAKEFILE on)
+
+#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
+#endif()
+
 set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
 
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -Wall -O0")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall")
 
-# include directory
-include_directories(Headers
-                    ../SceneR.Framework/Headers
-                    ../../regal/include)
+# include directories
+include_directories(Headers)
 
-# Regal
+# link directories
 link_directories(../../regal/lib/linux/
                  ../SceneR.Framework-build)
 
@@ -34,6 +38,10 @@ set(SOURCE_FILES
 # add execlutable
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
+# target include directories
+target_include_directories(SceneR PRIVATE ../../regal/include
+                                  PUBLIC ../SceneR.Framework/Headers)
+
 # target libs
 target_link_libraries(SceneR SceneR_Framework)
 
@@ -41,4 +49,5 @@ target_link_libraries(SceneR SceneR_Framework)
 set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 
 # Installing
-install(TARGETS SceneR DESTINATION bin)
+install(TARGETS SceneR RUNTIME DESTINATION bin)
+

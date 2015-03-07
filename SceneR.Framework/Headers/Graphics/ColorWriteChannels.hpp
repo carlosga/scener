@@ -41,14 +41,43 @@ namespace SceneR
             All = Red | Green | Blue | Alpha
         };
 
-        inline constexpr ColorWriteChannels operator&(ColorWriteChannels left, ColorWriteChannels right)
+        inline constexpr ColorWriteChannels operator&(const ColorWriteChannels& left, const ColorWriteChannels& right)
         {
-            return static_cast<ColorWriteChannels>(static_cast<int>(left) & static_cast<int>(right));
+            return static_cast<ColorWriteChannels>(static_cast<System::UInt32>(left) & static_cast<System::UInt32>(right));
         }
 
-        inline constexpr ColorWriteChannels operator|(ColorWriteChannels left, ColorWriteChannels right)
+        inline constexpr ColorWriteChannels operator|(const ColorWriteChannels& left, const ColorWriteChannels& right)
         {
-            return static_cast<ColorWriteChannels>(static_cast<int>(left) | static_cast<int>(right));
+            return static_cast<ColorWriteChannels>(static_cast<System::UInt32>(left) | static_cast<System::UInt32>(right));
+        }
+
+        inline constexpr ColorWriteChannels operator~(const ColorWriteChannels& value)
+        {
+            return static_cast<ColorWriteChannels>(~static_cast<System::UInt32>(value));
+        }
+
+        inline constexpr System::Boolean operator==(const ColorWriteChannels& left, const System::UInt32& right)
+        {
+            return (static_cast<System::UInt32>(left) == right);
+        }
+
+        inline constexpr System::Boolean operator!=(const ColorWriteChannels& left, const System::UInt32& right)
+        {
+            return (static_cast<System::UInt32>(left) != right);
+        }
+
+        inline ColorWriteChannels& operator&=(ColorWriteChannels& left, const ColorWriteChannels& right)
+        {
+            left = left & right;
+
+            return left;
+        }
+
+        inline ColorWriteChannels& operator|=(ColorWriteChannels& left, const ColorWriteChannels& right)
+        {
+            left = left | right;
+
+            return left;
         }
     }
 }

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cassert>
+#include <map>
 
 #include <System/Text/Encoding.hpp>
 #include <Framework/Matrix.hpp>
@@ -49,14 +50,28 @@ void ShaderProgram::Dispose()
     }
 }
 
-void ShaderProgram::AddShader(const String& shaderName, const ShaderType& shaderStage, const String& shaderSource)
+void ShaderProgram::AddShader(const String& shaderName, const ShaderType& shaderType, const String& shaderSource)
 {
-    this->shaders.push_back(std::make_shared<Shader>(shaderSource, shaderStage));
+    this->AddShader(shaderName, shaderType, shaderSource, std::map<String, String>());
+}
+
+void ShaderProgram::AddShader(const String&                   shaderName
+                            , const ShaderType&               shaderType
+                            , const String&                   shaderSource
+                            , const std::map<String, String>& shaderIncludes)
+{
+    this->shaders.push_back(std::make_shared<Shader>(shaderType, shaderSource, shaderIncludes));
 }
 
 void ShaderProgram::Activate() const
 {
     glUseProgram(this->id);
+}
+
+void ShaderProgram::ActivateSubroutine(const UInt32& subroutineIndex) const
+{
+    glUniformSubroutinesuiv(static_cast<GLenum>(ShaderType::Vertex), 1, &subroutineIndex);
+    glUniformSubroutinesuiv(static_cast<GLenum>(ShaderType::Fragment), 1, &subroutineIndex);
 }
 
 void ShaderProgram::Build()
@@ -91,7 +106,8 @@ void ShaderProgram::Build()
     // ... verify program linking
     this->VerifyLinkingState();
 
-    this->DescribeParameters();
+    // this->DescribeParameters();
+    // this->DescribeUniformBlocks();
 }
 
 void ShaderProgram::Deactivate() const
@@ -103,6 +119,11 @@ Int32 ShaderProgram::GetParameterLocation(const String& parameterName) const
 {
     auto temp     = System::Text::Encoding::Convert(parameterName);
     auto location = glGetUniformLocation(this->id, temp.c_str());
+
+    if (location == -1)
+    {
+        std::cout << temp + " not found" << std::endl;
+    }
 
     assert(location != -1);
 
@@ -245,6 +266,8 @@ void ShaderProgram::DescribeParameters()
     GLint   uniformCount = 0;
     GLsizei bufSize      = 0;
 
+    std::cout << "shader parameters" << std::endl;
+
     glGetProgramiv(this->id, GL_ACTIVE_UNIFORMS, &uniformCount);
     glGetProgramiv(this->id, GL_ACTIVE_UNIFORM_MAX_LENGTH, &bufSize);
 
@@ -273,6 +296,8 @@ void ShaderProgram::DescribeParameters()
 void ShaderProgram::DescribeUniformBlocks()
 {
     GLint numBlocks;
+
+    std::cout << "shader uniform blocks" << std::endl;
 
     glGetProgramiv(this->id, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
 

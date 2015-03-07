@@ -4,6 +4,7 @@
 #ifndef RENDERERWINDOW_HPP
 #define RENDERERWINDOW_HPP
 
+#include <System/Graphics/Platform.hpp>
 #include <System/Core.hpp>
 
 struct GLFWwindow;
@@ -60,6 +61,14 @@ namespace SceneR
             void Close();
             void InitializeInput() const;
             bool ShouldClose() const;
+            void EnableDebugOutput() const;
+            static void DebugCallback(GLenum        source
+                                    , GLenum        type
+                                    , GLuint        id
+                                    , GLenum        severity
+                                    , GLsizei       length
+                                    , const GLchar* message
+                                    , const void*   userParam);
 
         private:
             RendererWindow() = delete;
