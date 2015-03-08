@@ -449,9 +449,9 @@ void BasicEffect::OnApply()
         // Check if we can use the only-bother-with-the-first-light shader optimization.
         bool newOneLight = !this->light1.Enabled() && !this->light2.Enabled();
 
-        if (oneLight != newOneLight)
+        if (this->oneLight != newOneLight)
         {
-            oneLight = newOneLight;
+            this->oneLight    = newOneLight;
             this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
         }
         else

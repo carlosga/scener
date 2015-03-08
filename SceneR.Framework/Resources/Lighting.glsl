@@ -84,7 +84,7 @@ CommonVSOutputPixelLighting ComputeCommonVSOutputPixelLighting(vec4 position, ve
 }
 
 #define SetCommonVSOutputParamsPixelLighting \
-    gl_Position      = cout.Pos_ps; \
-    VSOut.PositionPS = cout.Pos_ps; \
-    VSOut.PositionWS = vec4(cout.Pos_ws, cout.FogFactor); \
-    VSOut.NormalWS   = cout.Normal_ws;
+    gl_Position     = cout.Pos_ps; \
+    vout.PositionPS = cout.Pos_ps; \
+    vout.PositionWS = vec4(cout.Pos_ws, cout.FogFactor); \
+    vout.NormalWS   = cout.Normal_ws;

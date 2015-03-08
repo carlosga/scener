@@ -47,10 +47,52 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
     return vout;
 }
 
+//
+// Input macros
+//
+#define SetVSInputParams \
+    vin.Position = vec4(VertexPosition, 1.0f);
+
+#define SetVSInputVcParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Color    = VertexColor;
+
+#define SetVSInputTxParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.TexCoord = VertexTexCoord.st;
+
+#define SetVSInputTxVcParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.TexCoord = VertexTexCoord.st; \
+    vin.Color    = VertexColor;
+
+#define SetVSInputNmParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Normal   = VertexNormal;
+
+#define SetVSInputNmVcParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Normal   = VertexNormal; \
+    vin.Color    = VertexColor;
+
+#define SetVSInputNmTxParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Normal   = VertexNormal; \
+    vin.TexCoord = VertexTexCoord.st;
+
+#define SetVSInputNmTxVcParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Normal   = VertexNormal; \
+    vin.TexCoord = VertexTexCoord.st; \
+    vin.Color    = VertexColor;
+
+//
+// Output macros
+//
 #define SetCommonVSOutputParams \
     vout.PositionPS = cout.Pos_ps; \
     vout.Diffuse    = cout.Diffuse; \
-    vout.Specular   = float4(cout.Specular, cout.FogFactor);
+    vout.Specular   = vec4(cout.Specular, cout.FogFactor);
 
 #define SetCommonVSOutputParamsNoFog \
     vout.PositionPS = cout.Pos_ps; \

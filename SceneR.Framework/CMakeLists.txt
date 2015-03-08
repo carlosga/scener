@@ -306,6 +306,9 @@ add_custom_target(CONTENT_FILES SOURCES
                   Resources/SkinnedEffect.vert
                   Resources/SkinnedEffect.frag)
 
+# library output
+add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
+
 # generate resource sources files before build
 add_custom_command(TARGET SceneR_Framework
                    PRE_BUILD
@@ -322,9 +325,6 @@ add_custom_command(TARGET SceneR_Framework
                         -D GENERATE_SOURCE=1
                         -P ${GENERATE_RESOURCES_SCRIPT}
                    DEPENDS CONTENT_FILES)
-
-# library output
-add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
