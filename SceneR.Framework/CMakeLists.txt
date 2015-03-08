@@ -14,75 +14,6 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall 
 
 #-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
-# http://stackoverflow.com/questions/11813271/embed-resources-eg-shader-code-images-into-executable-library-with-cmake
-# Creates C resources file from files in given directory
-function(create_resources_header dir output)
-    # Create empty output file
-    file(WRITE ${output} "")
-    # Collect input files
-    file(GLOB bins ${dir}/*)
-    # Write header
-    file(APPEND ${output} "#ifndef RESOURCES_HPP\n")
-    file(APPEND ${output} "#define RESOURCES_HPP\n\n")
-    file(APPEND ${output} "#include <System/Core.hpp>\n\n")
-    file(APPEND ${output} "namespace SceneR\n")
-    file(APPEND ${output} "{\n")
-    file(APPEND ${output} "    namespace Graphics\n")
-    file(APPEND ${output} "    {\n")
-    file(APPEND ${output} "        class Resources\n")
-    file(APPEND ${output} "        {\n")
-    # Iterate through input files
-    foreach(bin ${bins})
-        # Get short filename
-        string(REGEX MATCH "([^/]+)$" filename ${bin})
-        # Replace filename spaces & extension separator for C compatibility
-        string(REGEX REPLACE "\\.| " "_" filename ${filename})
-        # Read hex data from file
-        file(READ ${bin} filedata HEX)
-        # Convert hex data for C compatibility
-        string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
-        # Append data to output file
-        file(APPEND ${output} "        private:\n")
-        file(APPEND ${output} "            static const unsigned char ${filename}[];\n")
-        file(APPEND ${output} "            static const unsigned ${filename}_size;\n")
-        file(APPEND ${output} "        public:\n")
-        file(APPEND ${output} "            static const System::String ${filename}String;\n")
-    endforeach()
-    # Write footer
-    file(APPEND ${output} "        };\n")
-    file(APPEND ${output} "    }\n")
-    file(APPEND ${output} "}\n\n")
-    file(APPEND ${output} "\n#endif /* RESOURCES_HPP */\n")
-endfunction()
-
-function(create_resources_source dir output)
-    # Create empty output file
-    file(WRITE ${output} "")
-    # Collect input files
-    file(GLOB bins ${dir}/*)
-    # Write header
-    file(APPEND ${output} "#include <Graphics/Resources.hpp>\n\n")
-    file(APPEND ${output} "using namespace System;\n")
-    file(APPEND ${output} "using namespace SceneR::Graphics;\n\n")
-    # Iterate through input files
-    foreach(bin ${bins})
-        # Get short filename
-        string(REGEX MATCH "([^/]+)$" filename ${bin})
-        # Replace filename spaces & extension separator for C compatibility
-        string(REGEX REPLACE "\\.| " "_" filename ${filename})
-        # Read hex data from file
-        file(READ ${bin} filedata HEX)
-        # Remove comments
-        # STRING(REGEX REPLACE "^/\\* (#undef .*) \\*/$" "! \\1" i "${i}")
-        # Convert hex data for C compatibility
-        string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
-        # Append data to output file
-        file(APPEND ${output} "const unsigned char Resources::${filename}[] = {${filedata}};\n")
-        file(APPEND ${output} "const unsigned Resources::${filename}_size   = sizeof(${filename});\n")
-        file(APPEND ${output} "const String Resources::${filename}String = String(Resources::${filename}, Resources::${filename} + Resources::${filename}_size);\n")
-    endforeach()
-endfunction()
-
 # include directories
 include_directories(Headers)
 
@@ -94,21 +25,6 @@ find_package(glfw REQUIRED)
 
 # Regal
 link_directories(../../regal/lib/linux/)
-
-# add content files
-add_custom_target(CONTENT_FILES SOURCES
-                  Resources/Common.glsl
-                  Resources/Structures.glsl
-                  Resources/Lighting.glsl
-                  Resources/BasicEffect.glsl
-                  Resources/BasicEffect.vert
-                  Resources/BasicEffect.frag
-                  Resources/SkinnedEffect.vert
-                  Resources/SkinnedEffect.frag)
-
-# generate resource header and source files
-create_resources_header(Resources Headers/Graphics/Resources.hpp)
-create_resources_source(Resources Sources/Graphics/Resources.cpp)
 
 # header files
 set(HEADER_FILES
@@ -141,6 +57,7 @@ set(HEADER_FILES
     Headers/Content/ContentReader.hpp
     Headers/Content/ContentTypeReader.hpp
     Headers/Content/ContentTypeReaderManager.hpp
+    Headers/Content/SharedResourceAction.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -254,8 +171,7 @@ set(HEADER_FILES
     Headers/System/Text/Encoding.hpp
     Headers/System/Text/UTF8Decoder.hpp
     Headers/System/Text/UTF8Encoder.hpp
-    Headers/System/Text/UTF8Encoding.hpp
-    Headers/Content/SharedResourceAction.hpp)
+    Headers/System/Text/UTF8Encoding.hpp)
 
 # source files
 set(SOURCE_FILES
@@ -371,8 +287,42 @@ set(SOURCE_FILES
     Sources/System/Text/UTF8Encoder.cpp
     Sources/System/Text/UTF8Encoding.cpp)
 
+# resource script file
+set(RESOURCE_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
+
+# add script files ( sso they appear in the IDE )
+add_custom_target(SCRIPT_FILES SOURCES ${RESOURCE_SCRIPT})
+
+# add content files
+add_custom_target(CONTENT_FILES SOURCES
+                  Resources/Common.glsl
+                  Resources/Structures.glsl
+                  Resources/Lighting.glsl
+                  Resources/BasicEffect.glsl
+                  Resources/BasicEffect.vert
+                  Resources/BasicEffect.frag
+                  Resources/SkinnedEffect.vert
+                  Resources/SkinnedEffect.frag)
+
 # library output
 add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
+
+# generate resource sources files before build
+add_custom_command(TARGET SceneR_Framework
+                   PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND}
+                        -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
+                        -D GENERATE_HEADER=1
+                        -P ${RESOURCE_SCRIPT}
+                   DEPENDS CONTENT_FILES)
+
+add_custom_command(TARGET SceneR_Framework
+                   PRE_BUILD
+                   COMMAND ${CMAKE_COMMAND}
+                        -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
+                        -D GENERATE_SOURCE=1
+                        -P ${RESOURCE_SCRIPT}
+                   DEPENDS CONTENT_FILES)
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
