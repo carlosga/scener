@@ -9,13 +9,12 @@
 
 #include <Graphics/BasicEffect.hpp>
 
-#include <map>
-
 #include <System/IO/File.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectHelpers.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/ShaderManager.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <Graphics/Resources.hpp>
 
@@ -529,12 +528,10 @@ void BasicEffect::OnApply()
 
 void BasicEffect::CreateShader()
 {
-    std::map<String, String> includes;
-
-    includes.emplace(u"BasicEffect.glsl", Resources::BasicEffect_glslString);
-    includes.emplace(u"Structures.glsl" , Resources::Structures_glslString);
-    includes.emplace(u"Common.glsl"     , Resources::Common_glslString);
-    includes.emplace(u"Lighting.glsl"   , Resources::Lighting_glslString);
+    const auto& includes = std::vector<std::string > { ShaderManager::BasicEffectIncludePath
+                                                     , ShaderManager::StructuresIncludePath
+                                                     , ShaderManager::CommonIncludePath
+                                                     , ShaderManager::LightingIncludePath };
 
     this->shader = std::make_shared<ShaderProgram>();
     this->shader->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);

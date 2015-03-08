@@ -50,15 +50,15 @@ void ShaderProgram::Dispose()
     }
 }
 
-void ShaderProgram::AddShader(const String& shaderName, const ShaderType& shaderType, const String& shaderSource)
+void ShaderProgram::AddShader(const String& shaderName, const ShaderType& shaderType, const std::string& shaderSource)
 {
-    this->AddShader(shaderName, shaderType, shaderSource, std::map<String, String>());
+    this->AddShader(shaderName, shaderType, shaderSource, std::vector<std::string>());
 }
 
 void ShaderProgram::AddShader(const String&                   shaderName
                             , const ShaderType&               shaderType
-                            , const String&                   shaderSource
-                            , const std::map<String, String>& shaderIncludes)
+                            , const std::string&              shaderSource
+                            , const std::vector<std::string>& shaderIncludes)
 {
     this->shaders.push_back(std::make_shared<Shader>(shaderType, shaderSource, shaderIncludes));
 }
@@ -79,10 +79,7 @@ void ShaderProgram::Build()
     // Compile the shaders if needed ...
     for (auto &s : this->shaders)
     {
-        if (!s->IsCompiled())
-        {
-            s->Compile();
-        }
+        s->Compile();
     }
 
     // ... Create the program object

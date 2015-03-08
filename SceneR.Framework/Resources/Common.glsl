@@ -47,7 +47,6 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
     return vout;
 }
 
-/*
 #define SetCommonVSOutputParams \
     vout.PositionPS = cout.Pos_ps; \
     vout.Diffuse    = cout.Diffuse; \
@@ -56,4 +55,3 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 #define SetCommonVSOutputParamsNoFog \
     vout.PositionPS = cout.Pos_ps; \
     vout.Diffuse    = cout.Diffuse;
-*/

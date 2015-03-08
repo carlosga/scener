@@ -60,7 +60,7 @@ namespace SceneR
              */
             void AddShader(const System::String& shaderName
                          , const ShaderType&     shaderType
-                         , const System::String& shaderSource);
+                         , const std::string&    shaderSource);
 
             /**
              * @brief Adds the given shader sources and includes to the shader program for later compilation
@@ -69,10 +69,10 @@ namespace SceneR
              * @param shaderSource the shader sources.
              * @param shaderIncludes the shader sources for "include" files.
              */
-            void AddShader(const System::String&                           shaderName
-                         , const ShaderType&                               shaderType
-                         , const System::String&                           shaderSource
-                         , const std::map<System::String, System::String>& shaderIncludes);
+            void AddShader(const System::String&           shaderName
+                         , const ShaderType&               shaderType
+                         , const std::string&              shaderSource
+                         , const std::vector<std::string>& shaderIncludes);
 
             /**
              * Activates the shader program.

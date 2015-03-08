@@ -130,6 +130,7 @@ set(HEADER_FILES
     Headers/Graphics/RasterizerState.hpp
     Headers/Graphics/SamplerState.hpp
     Headers/Graphics/Shader.hpp
+    Headers/Graphics/ShaderManager.hpp
     Headers/Graphics/ShaderProgram.hpp
     Headers/Graphics/ShaderType.hpp
     Headers/Graphics/SkinnedEffect.hpp
@@ -258,6 +259,7 @@ set(SOURCE_FILES
     Sources/Graphics/RasterizerState.cpp
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp
+    Sources/Graphics/ShaderManager.cpp
     Sources/Graphics/ShaderProgram.cpp
     Sources/Graphics/SkinnedEffect.cpp
     Sources/Graphics/SkinningData.cpp
@@ -288,10 +290,10 @@ set(SOURCE_FILES
     Sources/System/Text/UTF8Encoding.cpp)
 
 # resource script file
-set(RESOURCE_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
+set(GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
 
 # add script files ( sso they appear in the IDE )
-add_custom_target(SCRIPT_FILES SOURCES ${RESOURCE_SCRIPT})
+add_custom_target(SCRIPT_FILES SOURCES ${GENERATE_RESOURCES_SCRIPT})
 
 # add content files
 add_custom_target(CONTENT_FILES SOURCES
@@ -304,16 +306,13 @@ add_custom_target(CONTENT_FILES SOURCES
                   Resources/SkinnedEffect.vert
                   Resources/SkinnedEffect.frag)
 
-# library output
-add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
-
 # generate resource sources files before build
 add_custom_command(TARGET SceneR_Framework
                    PRE_BUILD
                    COMMAND ${CMAKE_COMMAND}
                         -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
                         -D GENERATE_HEADER=1
-                        -P ${RESOURCE_SCRIPT}
+                        -P ${GENERATE_RESOURCES_SCRIPT}
                    DEPENDS CONTENT_FILES)
 
 add_custom_command(TARGET SceneR_Framework
@@ -321,8 +320,11 @@ add_custom_command(TARGET SceneR_Framework
                    COMMAND ${CMAKE_COMMAND}
                         -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
                         -D GENERATE_SOURCE=1
-                        -P ${RESOURCE_SCRIPT}
+                        -P ${GENERATE_RESOURCES_SCRIPT}
                    DEPENDS CONTENT_FILES)
+
+# library output
+add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

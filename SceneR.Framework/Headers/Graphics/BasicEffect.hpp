@@ -5,6 +5,7 @@
 #define BASICEFFECT_HPP
 
 #include <memory>
+#include <vector>
 
 #include <System/Core.hpp>
 #include <Framework/Matrix.hpp>

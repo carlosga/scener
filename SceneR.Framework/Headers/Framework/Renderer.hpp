@@ -18,6 +18,7 @@
 #include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RendererWindow.hpp>
+#include <Graphics/ShaderManager.hpp>
 
 namespace SceneR
 {
@@ -182,6 +183,7 @@ namespace SceneR
         private:
             RendererWindow                            rendererWindow;
             SceneR::Content::ContentManager           contentManager;
+            SceneR::Graphics::ShaderManager           shaderManager;
             System::Boolean                           isFixedTimeStep;
             System::TimeSpan                          targetElapsedTime;
             RendererTimer                             timer;

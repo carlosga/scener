@@ -16,7 +16,7 @@ uniform float SpecularPower;            // _vs(c3)  _ps(c4)  _cb(c2.w);
 
 uniform vec3  DirLight0Direction;       // _vs(c4)  _ps(c5)  _cb(c3);
 uniform vec3  DirLight0DiffuseColor;    // _vs(c5)  _ps(c6)  _cb(c4);
-uniform vec3  DirLight0SpecularColor;   // _vs(c6)  _ps(c7)  _cb(c5);
+uniform vec3  DirLight0SpecularColor ;   // _vs(c6)  _ps(c7)  _cb(c5);
 
 uniform vec3  DirLight1Direction;       // _vs(c7)  _ps(c8)  _cb(c6);
 uniform vec3  DirLight1DiffuseColor;    // _vs(c8)  _ps(c9)  _cb(c7);

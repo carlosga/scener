@@ -19,6 +19,7 @@ Renderer::Renderer(const String& rootDirectory)
     , graphicsDeviceManager { *this }
     , rendererWindow        { *this }
     , contentManager        { this->services, rootDirectory }
+    , shaderManager         { }
     , isFixedTimeStep       { true }
     , targetElapsedTime     { 10000000L / 60L }
     , timer                 { }
@@ -63,8 +64,9 @@ void Renderer::Run()
 {
     this->BeginRun();
     this->CreateDevice();
-    this->Initialize();
+    this->shaderManager.Load();
     this->LoadContent();
+    this->Initialize();
     this->PostProcessComponents();
     this->StartEventLoop();
     this->UnloadContent();
@@ -74,6 +76,7 @@ void Renderer::Run()
 void Renderer::Exit()
 {
     this->contentManager.Unload();
+    this->shaderManager.Unload();
     this->graphicsDeviceManager.Dispose();
     this->services.Clear();
     this->rendererWindow.Close();

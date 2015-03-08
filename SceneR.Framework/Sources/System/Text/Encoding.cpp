@@ -43,14 +43,14 @@ std::string Encoding::Convert(const String& source)
     std::wstring_convert<std::codecvt_utf8_utf16<Char>, Char> converter; // UTF-8 <-> UTF-16 converter
 
     return converter.to_bytes(source);
-};
+}
 
 System::String Encoding::Convert(const std::string& source)
 {
     std::wstring_convert<std::codecvt_utf8_utf16<Char>, Char> converter; // UTF-8 <-> UTF-16 converter
 
     return converter.from_bytes(source);
-};
+}
 
 bool Encoding::IsReadOnly() const
 {

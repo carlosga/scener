@@ -127,6 +127,7 @@ struct VSOutputPixelLighting
     vec4 PositionPS;
 };
 
+/*
 struct VSOutputPixelLightingTx
 {
     vec2 TexCoord;
@@ -135,6 +136,7 @@ struct VSOutputPixelLightingTx
     vec4 Diffuse;
     vec4 PositionPS;
 };
+*/
 
 struct VSOutputTx2
 {
@@ -197,6 +199,7 @@ struct PSInputPixelLighting
     vec4 Diffuse;
 };
 
+/*
 struct PSInputPixelLightingTx
 {
     vec2 TexCoord;
@@ -204,6 +207,7 @@ struct PSInputPixelLightingTx
     vec3 NormalWS;
     vec4 Diffuse;
 };
+*/
 
 struct PSInputTx2
 {

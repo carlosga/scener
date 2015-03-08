@@ -8,7 +8,7 @@ function(generate_resources_header dir output)
     # Write header
     file(APPEND ${output} "#ifndef RESOURCES_HPP\n")
     file(APPEND ${output} "#define RESOURCES_HPP\n\n")
-    file(APPEND ${output} "#include <System/Core.hpp>\n\n")
+    file(APPEND ${output} "#include <string>\n\n")
     file(APPEND ${output} "namespace SceneR\n")
     file(APPEND ${output} "{\n")
     file(APPEND ${output} "    namespace Graphics\n")
@@ -30,7 +30,7 @@ function(generate_resources_header dir output)
         file(APPEND ${output} "            static const unsigned char ${filename}[];\n")
         file(APPEND ${output} "            static const unsigned ${filename}_size;\n")
         file(APPEND ${output} "        public:\n")
-        file(APPEND ${output} "            static const System::String ${filename}String;\n")
+        file(APPEND ${output} "            static const std::string ${filename}String;\n")
     endforeach()
     # Write footer
     file(APPEND ${output} "        };\n")
@@ -46,7 +46,6 @@ function(generate_resources_source dir output)
     file(GLOB bins ${dir}/*)
     # Write header
     file(APPEND ${output} "#include <Graphics/Resources.hpp>\n\n")
-    file(APPEND ${output} "using namespace System;\n")
     file(APPEND ${output} "using namespace SceneR::Graphics;\n\n")
     # Iterate through input files
     foreach(bin ${bins})
@@ -59,9 +58,9 @@ function(generate_resources_source dir output)
         # Convert hex data for C compatibility
         string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
         # Append data to output file
-        file(APPEND ${output} "const unsigned char Resources::${filename}[] = {${filedata}};\n")
-        file(APPEND ${output} "const unsigned Resources::${filename}_size   = sizeof(${filename});\n")
-        file(APPEND ${output} "const String Resources::${filename}String = String(Resources::${filename}, Resources::${filename} + Resources::${filename}_size);\n")
+        file(APPEND ${output} "const unsigned char Resources::${filename}[]   = {${filedata}};\n")
+        file(APPEND ${output} "const unsigned Resources::${filename}_size     = sizeof(${filename});\n")
+        file(APPEND ${output} "const std::string Resources::${filename}String = std::string(Resources::${filename}, Resources::${filename} + Resources::${filename}_size);\n")
     endforeach()
 endfunction()
 
