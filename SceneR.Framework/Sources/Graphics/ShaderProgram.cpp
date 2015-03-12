@@ -118,7 +118,10 @@ void ShaderProgram::ActivateSubroutine(const UInt32& subroutineIndex) const
 
 void ShaderProgram::ActivateSubroutine(const ShaderType& type, const UInt32& subroutineIndex) const
 {
-    glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
+    GLint subroutineCount = 0;
+
+    glGetProgramStageiv(this->id, static_cast<GLenum>(type), GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &activeSubroutineUniforms);
+    glUniformSubroutinesuiv(static_cast<GLenum>(type), subroutineCount, &subroutineIndex);
 }
 
 void ShaderProgram::Deactivate() const
