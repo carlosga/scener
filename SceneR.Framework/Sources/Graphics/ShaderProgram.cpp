@@ -3,7 +3,6 @@
 
 #include <Graphics/ShaderProgram.hpp>
 
-#include <iostream>
 #include <cassert>
 
 #include <System/Pointer.hpp>
@@ -99,8 +98,9 @@ void ShaderProgram::Build()
     // ... verify program linking
     this->VerifyLinkingState();
 
-    this->DescribeUniformBlocks();
-    this->DescribeUniforms();
+    // ... fill uniform buffer info
+    this->uniformBuffer = std::make_shared<UniformBufferObject>(this->id, String(name.begin(), name.end()));
+    this->uniformBuffer->Describe();
 }
 
 void ShaderProgram::Activate() const
@@ -254,11 +254,10 @@ void ShaderProgram::VerifyLinkingState()
     }
 }
 
+/*
 void ShaderProgram::DescribeUniformBlocks()
 {
     GLint numBlocks;
-
-    std::cout << "shader uniform blocks" << std::endl;
 
     glGetProgramiv(this->id, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
 
@@ -273,8 +272,6 @@ void ShaderProgram::DescribeUniformBlocks()
 
     name.resize(length);
 
-    std::cout << std::string(name.begin(), name.end()) << std::endl;
-
     this->uniformBuffer = std::make_shared<UniformBufferObject>(this->id, String(name.begin(), name.end()));
 
     this->uniformBuffer->Describe();
@@ -282,8 +279,6 @@ void ShaderProgram::DescribeUniformBlocks()
 
 void ShaderProgram::DescribeUniforms()
 {
-    std::cout << "shader uniforms" << std::endl;
-
     const GLchar** cnames;
 
     GLint   uniformCount        = 0;
@@ -329,8 +324,6 @@ void ShaderProgram::DescribeUniforms()
             names.push_back(uname);
 
             cnames[index] = uname.c_str();
-
-            std::cout << "index " << index << " name " << uname << std::endl;
         }
 
         glGetUniformIndices(this->id, uniformCount, cnames, &indices[0]);
@@ -343,3 +336,4 @@ void ShaderProgram::DescribeUniforms()
         glGetActiveUniformsiv(this->id, uniformCount, &indices[0], GL_UNIFORM_IS_ROW_MAJOR , &matrix_is_row_major[0]);
     }
 }
+*/

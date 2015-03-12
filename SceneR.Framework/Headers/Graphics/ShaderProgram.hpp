@@ -248,8 +248,6 @@ namespace SceneR
             void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector4>& value) const;
 
         private:
-            void DescribeUniforms();
-            void DescribeUniformBlocks();
             void VerifyLinkingState();
             void InferParameterClassAndType(const System::UInt32&                   type
                                           , SceneR::Graphics::EffectParameterClass& epClass

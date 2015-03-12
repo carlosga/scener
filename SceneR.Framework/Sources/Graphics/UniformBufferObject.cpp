@@ -38,146 +38,140 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const Bool
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1i(this->id, location, value);
+    this->bufferObject.BufferData(uniform.Offset(), 1, &value);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Boolean>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    for (const auto& bValue : value)
-    {
-        // this->SetValue(location, bValue);
-    }
+    this->bufferObject.BufferData(uniform.Offset(), value.size(), &value);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Int32& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1i(this->id, location, value);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Int32), &value);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Int32>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1iv(this->id, location, value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Int32) * value.size(), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const UInt32& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1ui(this->id, location, value);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(UInt32), &value);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<UInt32>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1uiv(this->id, location, value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(UInt32) * value.size(), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Matrix& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // const System::UInt32& offset, const System::UInt32& size, const void *data
     this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix), &value[0]);
-
-    // glProgramUniformMatrix4fv(this->id, location, 1, GL_FALSE, &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Matrix>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniformMatrix4fv(this->id, location, value.size(), GL_FALSE, &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::SetValueTranspose(const System::String& uniformName, const Matrix& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniformMatrix4fv(this->id, location, 1, GL_TRUE, &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix), &value[0]);
 }
 
 void UniformBufferObject::SetValueTranspose(const System::String& uniformName, const std::vector<Matrix>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniformMatrix4fv(this->id, location, value.size(), GL_TRUE, &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Quaternion& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform4fv(this->id, location, 1, &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Quaternion>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform4fv(this->id, location, value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Single& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1f(this->id, location, value);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Single), &value);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Single>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform1fv(this->id, location, value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const SceneR::Framework::Vector2& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform2fv(this->id, location, 1, &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector2), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector2>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform2fv(this->id, location, value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector2) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Vector3& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform3fv(this->id, location, 1, &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector3), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Vector3>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform3fv(this->id, location, value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector3) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Vector4& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform4fv(this->id, location, 1, &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector4), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const std::vector<Vector4>& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    // glProgramUniform4fv(this->id, location, value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector4) * value.size(), &value[0][0]);
 }
 
 void UniformBufferObject::Describe()
