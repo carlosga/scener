@@ -30,7 +30,7 @@ subroutine vec4 PixelShader();
 layout(location = 20) subroutine uniform PixelShader PixelShaderProcessor;
 
 // Pixel shader: basic.
-layout(index = 0) subroutine (VertexShader) vec4 PSBasic()
+layout(index = 0) subroutine (PixelShader) vec4 PSBasic()
 {
     PSInput pin;
     vec4 color = pin.Diffuse;
@@ -40,59 +40,60 @@ layout(index = 0) subroutine (VertexShader) vec4 PSBasic()
     return color;
 }
 
-/*
 // Pixel shader: no fog.
-float4 PSBasicNoFog(PSInputNoFog pin) : SV_Target0
+layout(index = 1) subroutine (PixelShader) vec4 PSBasicNoFog()
 {
+    PSInputNoFog pin;
+
     return pin.Diffuse;
 }
 
-
 // Pixel shader: texture.
-float4 PSBasicTx(PSInputTx pin) : SV_Target0
+layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
 {
-    float4 color = SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;
+    PSInputTx pin;
+    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
 
     ApplyFog(color, pin.Specular.w);
 
     return color;
 }
-
 
 // Pixel shader: texture, no fog.
-float4 PSBasicTxNoFog(PSInputTxNoFog pin) : SV_Target0
+layout(index = 3) subroutine (PixelShader) vec4 PSBasicTxNoFog()
 {
-    return SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;
+    PSInputTxNoFog pin;
+    return texture(Texture, pin.TexCoord.st) * pin.Diffuse;
 }
-
 
 // Pixel shader: vertex lighting.
-float4 PSBasicVertexLighting(PSInput pin) : SV_Target0
+layout(index = 4) subroutine (PixelShader) vec4 PSBasicVertexLighting()
 {
-    float4 color = pin.Diffuse;
+    PSInput pin;
+    vec4 color = pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
     ApplyFog(color, pin.Specular.w);
 
     return color;
 }
-
 
 // Pixel shader: vertex lighting, no fog.
-float4 PSBasicVertexLightingNoFog(PSInput pin) : SV_Target0
+layout(index = 5) subroutine (PixelShader) vec4 PSBasicVertexLightingNoFog()
 {
-    float4 color = pin.Diffuse;
+    PSInput pin;
+    vec4 color = pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
 
     return color;
 }
 
-
 // Pixel shader: vertex lighting + texture.
-float4 PSBasicVertexLightingTx(PSInputTx pin) : SV_Target0
+layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
 {
-    float4 color = SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;
+    PSInputTx pin;
+    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
     ApplyFog(color, pin.Specular.w);
@@ -100,25 +101,25 @@ float4 PSBasicVertexLightingTx(PSInputTx pin) : SV_Target0
     return color;
 }
 
-
 // Pixel shader: vertex lighting + texture, no fog.
-float4 PSBasicVertexLightingTxNoFog(PSInputTx pin) : SV_Target0
+layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
 {
-    float4 color = SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;
+    PSInputTx pin;
+    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
 
     return color;
 }
 
-
 // Pixel shader: pixel lighting.
-float4 PSBasicPixelLighting(PSInputPixelLighting pin) : SV_Target0
+layout(index = 8) subroutine (PixelShader) vec4 PSBasicPixelLighting()
 {
-    float4 color = pin.Diffuse;
+    PSInputPixelLighting pin;
+    vec4 color = pin.Diffuse;
 
-    float3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
-    float3 worldNormal = normalize(pin.NormalWS);
+    vec3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
+    vec3 worldNormal = normalize(pin.NormalWS);
 
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
 
@@ -129,15 +130,15 @@ float4 PSBasicPixelLighting(PSInputPixelLighting pin) : SV_Target0
 
     return color;
 }
-
 
 // Pixel shader: pixel lighting + texture.
-float4 PSBasicPixelLightingTx(PSInputPixelLightingTx pin) : SV_Target0
+layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
 {
-    float4 color = SAMPLE_TEXTURE(Texture, pin.TexCoord) * pin.Diffuse;
+    PSInputPixelLightingTx pin;
+    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
 
-    float3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
-    float3 worldNormal = normalize(pin.NormalWS);
+    vec3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
+    vec3 worldNormal = normalize(pin.NormalWS);
 
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
 
@@ -148,7 +149,6 @@ float4 PSBasicPixelLightingTx(PSInputPixelLightingTx pin) : SV_Target0
 
     return color;
 }
-*/
 
 void main()
 {
