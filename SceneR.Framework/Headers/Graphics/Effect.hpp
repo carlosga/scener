@@ -70,7 +70,7 @@ namespace SceneR
 
         protected:
             EffectParameterCollection      parameters;
-            std::shared_ptr<ShaderProgram> shader;
+            std::shared_ptr<ShaderProgram> program;
         };
     }
 }

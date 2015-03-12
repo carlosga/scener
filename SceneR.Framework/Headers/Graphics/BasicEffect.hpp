@@ -323,6 +323,10 @@ namespace SceneR
             EffectParameter            worldParam;
             EffectParameter            worldInverseTransposeParam;
             EffectParameter            worldViewProjParam;
+
+        private:
+            static int VSIndices[32];
+            static int PSIndices[32];
         };
     }
 }

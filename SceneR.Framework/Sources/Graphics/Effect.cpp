@@ -19,7 +19,7 @@ Effect::Effect(GraphicsDevice& graphicsDevice)
 Effect::Effect(const Effect& effect)
     : GraphicsResource { effect.graphicsDevice }
     , parameters       { effect.parameters }
-    , shader           { effect.shader }
+    , program           { effect.program }
 {
 }
 
@@ -29,10 +29,10 @@ Effect::~Effect()
 
 void Effect::Dispose()
 {
-    if (this->shader)
+    if (this->program)
     {
-        this->shader->Dispose();
-        this->shader = nullptr;
+        this->program->Dispose();
+        this->program = nullptr;
     }
 }
 
@@ -43,14 +43,14 @@ EffectParameterCollection& Effect::Parameters()
 
 void Effect::Begin()
 {
-    assert(this->shader != nullptr);
+    assert(this->program != nullptr);
 
-    this->shader->Activate();
+    this->program->Activate();
 
     this->OnApply();
 }
 
 void Effect::End()
 {
-    this->shader->Deactivate();
+    this->program->Deactivate();
 }

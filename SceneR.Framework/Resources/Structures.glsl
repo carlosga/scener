@@ -197,7 +197,6 @@ struct PSInputPixelLighting
     vec4 Diffuse;
 };
 
-/*
 struct PSInputPixelLightingTx
 {
     vec2 TexCoord;
@@ -205,7 +204,6 @@ struct PSInputPixelLightingTx
     vec3 NormalWS;
     vec4 Diffuse;
 };
-*/
 
 struct PSInputTx2
 {
