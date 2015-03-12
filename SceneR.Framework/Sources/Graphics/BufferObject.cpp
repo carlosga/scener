@@ -3,6 +3,8 @@
 
 #include <Graphics/BufferObject.hpp>
 
+#include <vector>
+
 using namespace System;
 using namespace SceneR::Graphics;
 
@@ -47,6 +49,14 @@ void BufferObject::Create()
     glGenBuffers(1, &this->id);
 }
 
+void BufferObject::Create(const UInt32& bufferSize)
+{
+    std::vector<UByte> data(bufferSize, 0);
+
+    this->Create();
+    this->BufferData(bufferSize, &data);
+}
+
 void BufferObject::Activate() const
 {
     glBindBuffer(static_cast<GLenum>(this->target), this->id);
@@ -62,7 +72,7 @@ void BufferObject::Deactivate() const
 
 void BufferObject::GetData(const UInt32& offset, const UInt32& size, void* data) const
 {
-    glGetNamedBufferSubData(this->id, offset, size, data);
+    glGetNamedBufferSubDataEXT(this->id, offset, size, data);
 }
 
 void BufferObject::BufferData(const System::UInt32& size, const void* data) const
@@ -72,7 +82,7 @@ void BufferObject::BufferData(const System::UInt32& size, const void* data) cons
 
 void BufferObject::BufferData(const System::UInt32& offset, const System::UInt32& size, const void *data) const
 {
-    glNamedBufferSubData(this->id, offset, size, data);
+    glNamedBufferSubDataEXT(this->id, offset, size, data);
 }
 
 void BufferObject::Invalidate() const

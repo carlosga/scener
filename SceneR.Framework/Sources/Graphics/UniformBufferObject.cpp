@@ -4,7 +4,6 @@
 #include <Graphics/UniformBufferObject.hpp>
 
 #include <cassert>
-#include <iostream>
 
 #include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
@@ -176,19 +175,33 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 
 void UniformBufferObject::Describe()
 {
-    GLint activeUniforms = 0;
+    // Get uniform block name
+    GLsizei nameLength = 0;
+    glGetActiveUniformBlockiv(this->programId, 0, GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLength);
 
-    glGetActiveUniformBlockiv(this->programId, 0, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+    std::vector<GLchar> blockName(nameLength);
 
-    assert(activeUniforms > 0);
+    glGetActiveUniformBlockName(this->programId, 0, nameLength, NULL, &blockName[0]);
 
-    std::string tmp = Encoding::Convert(this->name);
+    std::string tmp = std::string(blockName.begin(), blockName.begin() + nameLength);
 
     this->binding = glGetUniformBlockIndex(this->programId, tmp.c_str());
 
-    this->DescribeUniforms(activeUniforms);
+    // Get buffer block size
+    GLint blockSize = 0;
 
-    this->bufferObject.Create();
+    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+    // Create the buffer object
+    this->bufferObject.Create(blockSize);
+
+    // Check the number of active uniforms
+    GLint activeUniforms = 0;
+
+    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+
+    // Describe uniforms
+    this->DescribeUniforms(activeUniforms);
 }
 
 void UniformBufferObject::DescribeUniforms(const UInt32& count)
@@ -202,7 +215,7 @@ void UniformBufferObject::DescribeUniforms(const UInt32& count)
     std::vector<GLint> matrix_strides(count);
     std::vector<GLint> matrix_is_row_major(count);
 
-    glGetActiveUniformBlockiv(this->programId, 0, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, &indices[0]);
+    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, &indices[0]);
 
     glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_NAME_LENGTH  , &nameLengths[0]);
     glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_OFFSET       , &offsets[0]);
@@ -222,8 +235,6 @@ void UniformBufferObject::DescribeUniforms(const UInt32& count)
         name.reserve(nameLengths[i]);
 
         glGetActiveUniform(this->programId, indices[i], nameLengths[i], &length, &size, &type, &name[0]);
-
-        std::cout << std::string(name.begin(), name.begin() + length) << std::endl;
 
         String  uniformName(name.begin(), name.begin() + length);
         Uniform uniform { uniformName

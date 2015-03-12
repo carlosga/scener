@@ -90,6 +90,11 @@ namespace SceneR
             void Create();
 
             /**
+             * Creates the buffer object and initializes it to the given size.
+             */
+            void Create(const System::UInt32& bufferSize);
+
+            /**
              * Invalidate the content of a buffer object's data store
              */
             void Invalidate() const;
