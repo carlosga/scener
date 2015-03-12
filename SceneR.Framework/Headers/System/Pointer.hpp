@@ -23,7 +23,7 @@ namespace System
         static std::unique_ptr<Value> CreateUnique(Arguments && ... arguments_for_constructor)
         {
             return std::unique_ptr<Value>(new Value(std::forward<Arguments>(arguments_for_constructor)...));
-        };
+        }
 
     private:
         Pointer() = delete;

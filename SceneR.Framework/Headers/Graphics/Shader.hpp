@@ -24,18 +24,22 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the Shader class.
-             * @param shaderType the type of the shader
-             * @param shaderCode the source code for the shader.
+             * @param name the name of the shader.
+             * @param type the type of the shader.
+             * @param source the source code for the shader.
              */
-            Shader(const ShaderType& shaderType, const std::string& shaderCode);
+            Shader(const System::String& name, const ShaderType& type, const std::string& source);
 
             /**
              * Initializes a new instance of the Shader class.
-             * @param shaderType the type of the shader
-             * @param shaderCode the source code for the shader.
+             * @param name the name of the shader.
+             * @param type the type of the shader
+             * @param source the source code for the shader.
+             * @param includes the shader includes references.
              */
-            Shader(const ShaderType&               shaderType
-                 , const std::string&              shaderCode
+            Shader(const System::String&           name
+                 , const ShaderType&               type
+                 , const std::string&              source
                  , const std::vector<std::string>& includes);
 
             /**
@@ -47,6 +51,18 @@ namespace SceneR
             void Dispose() override;
 
         public:
+            /**
+             * @brief Gets the name of the shader.
+             * @return the name of the shader.
+             */
+            const System::String& Name() const;
+
+            /**
+             * @brief Gets the type of the shader.
+             * @return the type of the shader.
+             */
+            const ShaderType& Type() const;
+
             /**
              * Performs the compilation of the shader source code.
              */
@@ -61,10 +77,11 @@ namespace SceneR
             void VerifyCompilationState();
 
         private:
-            System::UInt32           object;
-            ShaderType               shaderType;
-            std::string              shaderCode;
-            std::vector<std::string> shaderIncludes;
+            System::String           name;
+            System::UInt32           id;
+            ShaderType               type;
+            std::string              source;
+            std::vector<std::string> includes;
 
             friend class ShaderProgram;
         };

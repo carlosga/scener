@@ -406,7 +406,7 @@ void SkinnedEffect::OnApply()
 
 void SkinnedEffect::CreateShader()
 {
-    this->shader = std::make_shared<ShaderProgram>();
+    this->shader = std::make_shared<ShaderProgram>(u"SkinnedEffect");
     this->shader->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vertString);
     this->shader->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_fragString);
     this->shader->Build();

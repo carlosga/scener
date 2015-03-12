@@ -24,8 +24,7 @@ EffectParameter::EffectParameter()
     , parameterType     { EffectParameterType::Single }
     , rowCount          { 0 }
     , structureMembers  {  }
-    , shader            { nullptr }
-    , parameterLocation { -1 }
+    , program            { nullptr }
 {
 }
 
@@ -40,10 +39,8 @@ EffectParameter::EffectParameter(const String&                         name
     , parameterType     { parameterType }
     , rowCount          { 0 }
     , structureMembers  {  }
-    , shader            { shader }
-    , parameterLocation { -1 }
+    , program            { shader }
 {
-    this->parameterLocation = this->shader->GetParameterLocation(this->name);
 }
 
 EffectParameter::EffectParameter(const EffectParameter& parameter)
@@ -54,8 +51,7 @@ EffectParameter::EffectParameter(const EffectParameter& parameter)
     , parameterType     { parameter.parameterType }
     , rowCount          { parameter.rowCount }
     , structureMembers  { parameter.structureMembers }
-    , shader            { parameter.shader }
-    , parameterLocation { parameter.parameterLocation }
+    , program            { parameter.program }
 {
 }
 
@@ -184,7 +180,7 @@ void EffectParameter::SetValue(const Boolean& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Boolean>& value) const
@@ -206,7 +202,7 @@ void EffectParameter::SetValue(const Int32& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Int32>& value) const
@@ -220,7 +216,7 @@ void EffectParameter::SetValue(const std::vector<Int32>& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const UInt32& value) const
@@ -230,7 +226,7 @@ void EffectParameter::SetValue(const UInt32& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<UInt32>& value) const
@@ -240,7 +236,7 @@ void EffectParameter::SetValue(const std::vector<UInt32>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const Matrix& value) const
@@ -250,7 +246,7 @@ void EffectParameter::SetValue(const Matrix& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Matrix>& value) const
@@ -260,7 +256,7 @@ void EffectParameter::SetValue(const std::vector<Matrix>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValueTranspose(const Matrix& value) const
@@ -270,7 +266,7 @@ void EffectParameter::SetValueTranspose(const Matrix& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValueTranspose(this->parameterLocation, value);
+    this->program->SetValueTranspose(this->name, value);
 }
 
 void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
@@ -280,17 +276,17 @@ void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValueTranspose(this->parameterLocation, value);
+    this->program->SetValueTranspose(this->name, value);
 }
 
 void EffectParameter::SetValue(const Quaternion& value) const
 {
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
 {
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const Single& value) const
@@ -304,7 +300,7 @@ void EffectParameter::SetValue(const Single& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Single>& value) const
@@ -318,7 +314,7 @@ void EffectParameter::SetValue(const std::vector<Single>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const String& value) const
@@ -341,7 +337,7 @@ void EffectParameter::SetValue(const SceneR::Graphics::Texture& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->shader->SetValue(this->parameterLocation, 0);
+    this->program->SetValue(this->name, 0);
 }
 
 void EffectParameter::SetValue(const SceneR::Framework::Vector2& value) const
@@ -351,7 +347,7 @@ void EffectParameter::SetValue(const SceneR::Framework::Vector2& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value) const
@@ -361,7 +357,7 @@ void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& va
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const Vector3& value) const
@@ -371,7 +367,7 @@ void EffectParameter::SetValue(const Vector3& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector3>& value) const
@@ -381,7 +377,7 @@ void EffectParameter::SetValue(const std::vector<Vector3>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const Vector4& value) const
@@ -391,7 +387,7 @@ void EffectParameter::SetValue(const Vector4& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 void EffectParameter::SetValue(const std::vector<Vector4>& value) const
@@ -401,7 +397,7 @@ void EffectParameter::SetValue(const std::vector<Vector4>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->shader->SetValue(this->parameterLocation, value);
+    this->program->SetValue(this->name, value);
 }
 
 EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
@@ -415,8 +411,7 @@ EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
         this->parameterType     = parameter.parameterType;
         this->rowCount          = parameter.rowCount;
         this->structureMembers  = parameter.structureMembers;
-        this->shader            = parameter.shader;
-        this->parameterLocation = parameter.parameterLocation;
+        this->program           = parameter.program;
     }
 
     return *this;

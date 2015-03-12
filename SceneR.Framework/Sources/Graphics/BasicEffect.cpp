@@ -47,6 +47,7 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     , world                      { Matrix::Identity }
     , worldView                  { Matrix::Identity }
     , oneLight                   { false }
+    , shaderIndex                { 0 }
     , dirtyFlags                 { EffectDirtyFlags::All }
     , textureParam               { }
     , diffuseColorParam          { }
@@ -59,7 +60,6 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     , worldParam                 { }
     , worldInverseTransposeParam { }
     , worldViewProjParam         { }
-    , shaderIndexParam           { }
 {
     this->CreateShader();
     this->CacheEffectParameters();
@@ -92,6 +92,7 @@ BasicEffect::BasicEffect(const BasicEffect& effect)
     , world                      { effect.world }
     , worldView                  { effect.worldView }
     , oneLight                   { effect.oneLight }
+    , shaderIndex                { effect.shaderIndex }
     , dirtyFlags                 { EffectDirtyFlags::All }
     , textureParam               { }
     , diffuseColorParam          { }
@@ -104,7 +105,6 @@ BasicEffect::BasicEffect(const BasicEffect& effect)
     , worldParam                 { }
     , worldInverseTransposeParam { }
     , worldViewProjParam         { }
-    , shaderIndexParam           { }
 {
     this->CacheEffectParameters();
 }
@@ -487,40 +487,40 @@ void BasicEffect::OnApply()
     // Recompute the shader index?
     if ((this->dirtyFlags & EffectDirtyFlags::ShaderIndex) != 0)
     {
-        int shaderIndex = 0;
+        this->shaderIndex = 0;
 
         if (!fogEnabled)
         {
-            shaderIndex += 1;
+            this->shaderIndex += 1;
         }
 
         if (vertexColorEnabled)
         {
-            shaderIndex += 2;
+            this->shaderIndex += 2;
         }
 
         if (this->textureEnabled)
         {
-            shaderIndex += 4;
+            this->shaderIndex += 4;
         }
 
         if (this->lightingEnabled)
         {
             if (this->preferPerPixelLighting)
             {
-                shaderIndex += 24;
+                this->shaderIndex += 24;
             }
             else if (this->oneLight)
             {
-                shaderIndex += 16;
+                this->shaderIndex += 16;
             }
             else
             {
-                shaderIndex += 8;
+                this->shaderIndex += 8;
             }
         }
 
-        // this->shaderIndexParam.SetValue(shaderIndex);
+        this->shader->ActivateSubroutine(this->shaderIndex);
 
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
@@ -533,7 +533,7 @@ void BasicEffect::CreateShader()
                                                      , ShaderManager::CommonIncludePath
                                                      , ShaderManager::LightingIncludePath };
 
-    this->shader = std::make_shared<ShaderProgram>();
+    this->shader = std::make_shared<ShaderProgram>(u"BasicEffect");
     this->shader->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);
     this->shader->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_fragString, includes);
     this->shader->Build();
@@ -549,7 +549,6 @@ void BasicEffect::CacheEffectParameters()
     this->fogColorParam      = this->parameters.Add(u"FogColor"      , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
     this->fogVectorParam     = this->parameters.Add(u"FogVector"     , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
     this->eyePositionParam   = this->parameters.Add(u"EyePosition"   , EffectParameterClass::Vector, EffectParameterType::Single   , this->shader);
-    // this->shaderIndexParam   = this->parameters.Add(u"ShaderIndex"   , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->shader);
     this->worldParam         = this->parameters.Add(u"World"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
     this->worldViewProjParam = this->parameters.Add(u"WorldViewProj" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->shader);
     this->worldInverseTransposeParam = this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single, this->shader);

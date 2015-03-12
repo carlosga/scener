@@ -43,17 +43,17 @@ namespace SceneR
             }
 
             template <class T>
-            std::shared_ptr<T> GetResource(System::String name)
+            std::shared_ptr<T> GetResource(const System::String& name) const
             {
                 if (this->HasResource(name))
                 {
-                    return std::static_pointer_cast<T>(this->resources[name]);
+                    return std::static_pointer_cast<T>(this->resources.find(name)->second);
                 }
 
                 return nullptr;
             }
 
-            System::Boolean HasResource(System::String name)
+            System::Boolean HasResource(const System::String& name) const
             {
                 return (this->resources.find(name) != this->resources.end());
             }

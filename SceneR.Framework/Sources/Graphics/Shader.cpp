@@ -12,18 +12,20 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Graphics;
 
-Shader::Shader(const ShaderType& shaderType, const std::string& shaderCode)
-    : Shader { shaderType, shaderCode, std::vector<std::string>() }
+Shader::Shader(const String& name, const ShaderType& type, const std::string& source)
+    : Shader { name, type, source, std::vector<std::string>() }
 {
 }
 
-Shader::Shader(const ShaderType&               shaderType
-             , const std::string&              shaderCode
+Shader::Shader(const String&                   name
+             , const ShaderType&               type
+             , const std::string&              source
              , const std::vector<std::string>& includes)
-    : object         { 0 }
-    , shaderType     { shaderType }
-    , shaderCode     { shaderCode }
-    , shaderIncludes { includes }
+    : name     { name }
+    , id       { 0 }
+    , type     { type }
+    , source   { source }
+    , includes { includes }
 {
 
 }
@@ -34,11 +36,21 @@ Shader::~Shader()
 
 void Shader::Dispose()
 {
-    if (this->object != 0)
+    if (this->id != 0)
     {
-        glDeleteShader(this->object);
-        this->object = 0;
+        glDeleteShader(this->id);
+        this->id = 0;
     }
+}
+
+const String&Shader::Name() const
+{
+    return this->name;
+}
+
+const ShaderType&Shader::Type() const
+{
+    return this->type;
 }
 
 void Shader::Compile()
@@ -53,26 +65,26 @@ void Shader::Compile()
     std::vector<const char*> cpaths(0);
 
     // process includes
-    for (const auto& path : this->shaderIncludes)
+    for (const auto& path : this->includes)
     {
         cpaths.push_back(manager.GetPathReference(path));
     }
 
     // create the shader object
-    this->object = glCreateShader(static_cast<GLenum>(this->shaderType));
+    this->id = glCreateShader(static_cast<GLenum>(this->type));
 
-    if (this->object == 0)
+    if (this->id == 0)
     {
         throw std::runtime_error("glCreateShader failed");
     }
 
     // root shader
-    const char* cstring = this->shaderCode.c_str();
+    const char* cstring = this->source.c_str();
 
-    glShaderSource(this->object, 1, (const GLchar**)&cstring, NULL);
+    glShaderSource(this->id, 1, (const GLchar**)&cstring, NULL);
 
     // Compile the shader source
-    glCompileShaderIncludeARB(this->object, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
+    glCompileShaderIncludeARB(this->id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
 
     // Verify compilation state
     this->VerifyCompilationState();
@@ -82,10 +94,10 @@ Boolean Shader::IsCompiled() const
 {
     bool result = false;
 
-    if (this->object != 0)
+    if (this->id != 0)
     {
         GLint status;
-        glGetShaderiv(this->object, GL_COMPILE_STATUS, &status);
+        glGetShaderiv(this->id, GL_COMPILE_STATUS, &status);
 
         result = (status == GL_TRUE);
     }
@@ -100,13 +112,13 @@ void Shader::VerifyCompilationState()
         std::string msg("Compile failure in shader:\n");
 
         GLint infoLogLength;
-        glGetShaderiv(this->object, GL_INFO_LOG_LENGTH, &infoLogLength);
+        glGetShaderiv(this->id, GL_INFO_LOG_LENGTH, &infoLogLength);
 
         if (infoLogLength)
         {
             auto compileErrorMessage = std::string("", static_cast<Size>(infoLogLength));
 
-            glGetShaderInfoLog(this->object, infoLogLength, NULL, &compileErrorMessage[0]);
+            glGetShaderInfoLog(this->id, infoLogLength, NULL, &compileErrorMessage[0]);
 
             msg += compileErrorMessage;
         }

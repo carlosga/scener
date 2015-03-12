@@ -18,8 +18,6 @@ in vec4 Diffuse;
 
 layout (location = 0) out vec4 FragColor;
 
-uniform sampler2D Texture;
-
 #include "/SceneR/BasicEffect.glsl"
 #include "/SceneR/Structures.glsl"
 #include "/SceneR/Common.glsl"

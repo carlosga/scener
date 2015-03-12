@@ -308,6 +308,8 @@ namespace SceneR
             SceneR::Framework::Matrix  world;
             SceneR::Framework::Matrix  worldView;
             System::Boolean            oneLight;
+            System::UInt32             shaderIndex;
+
             EffectDirtyFlags           dirtyFlags;
 
             EffectParameter            textureParam;
@@ -321,7 +323,6 @@ namespace SceneR
             EffectParameter            worldParam;
             EffectParameter            worldInverseTransposeParam;
             EffectParameter            worldViewProjParam;
-            EffectParameter            shaderIndexParam;
         };
     }
 }

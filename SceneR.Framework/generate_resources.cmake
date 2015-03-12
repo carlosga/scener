@@ -65,11 +65,5 @@ function(generate_resources_source dir output)
 endfunction()
 
 # generate resource header and source files
-if (${GENERATE_HEADER})
-    message(STATUS "generating header resource file")
-    generate_resources_header(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Headers/Graphics/Resources.hpp)
-endif()
-if (${GENERATE_SOURCE})
-    message(STATUS "generating source resource file")
-    generate_resources_source(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Sources/Graphics/Resources.cpp)
-endif()
+generate_resources_header(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Headers/Graphics/Resources.hpp)
+generate_resources_source(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Sources/Graphics/Resources.cpp)

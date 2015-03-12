@@ -46,7 +46,7 @@ namespace SceneR
             EffectParameter(const System::String&                 name,
                             const EffectParameterClass&           parameterClass,
                             const EffectParameterType&            parameterType,
-                            const std::shared_ptr<ShaderProgram>& shader);
+                            const std::shared_ptr<ShaderProgram>& program);
 
             /**
              * Copy constructor.
@@ -323,8 +323,7 @@ namespace SceneR
             EffectParameterType            parameterType;
             System::Int32                  rowCount;
             EffectParameterCollection      structureMembers;
-            std::shared_ptr<ShaderProgram> shader;
-            System::Int32                  parameterLocation;
+            std::shared_ptr<ShaderProgram> program;
         };
     }
 }

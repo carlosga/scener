@@ -143,6 +143,7 @@ set(HEADER_FILES
     Headers/Graphics/TextureFilter.hpp
     Headers/Graphics/TextureObject.hpp
     Headers/Graphics/TextureTarget.hpp
+    Headers/Graphics/Uniform.hpp
     Headers/Graphics/UniformBufferObject.hpp
     Headers/Graphics/VertexArrayObject.hpp
     Headers/Graphics/VertexBuffer.hpp
@@ -266,6 +267,7 @@ set(SOURCE_FILES
     Sources/Graphics/Texture.cpp
     Sources/Graphics/Texture2D.cpp
     Sources/Graphics/TextureObject.cpp
+    Sources/Graphics/Uniform.cpp
     Sources/Graphics/UniformBufferObject.cpp
     Sources/Graphics/VertexArrayObject.cpp
     Sources/Graphics/VertexBuffer.cpp
@@ -289,42 +291,39 @@ set(SOURCE_FILES
     Sources/System/Text/UTF8Encoder.cpp
     Sources/System/Text/UTF8Encoding.cpp)
 
+#set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
+#set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)
+
 # resource script file
 set(GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
 
-# add script files ( sso they appear in the IDE )
+# add script files ( so they appear in the IDE )
 add_custom_target(SCRIPT_FILES SOURCES ${GENERATE_RESOURCES_SCRIPT})
 
 # add content files
 add_custom_target(CONTENT_FILES SOURCES
-                  Resources/Common.glsl
-                  Resources/Structures.glsl
-                  Resources/Lighting.glsl
+                  Resources/BasicEffect.frag
                   Resources/BasicEffect.glsl
                   Resources/BasicEffect.vert
-                  Resources/BasicEffect.frag
+                  Resources/Common.glsl
+                  Resources/Lighting.glsl
                   Resources/SkinnedEffect.vert
-                  Resources/SkinnedEffect.frag)
+                  Resources/SkinnedEffect.frag
+                  Resources/Structures.glsl)
+
+# generate resource sources files before build
+add_custom_target(RESOURCES_GENERATION
+                  COMMAND ${CMAKE_COMMAND}
+                       -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
+                       -P ${GENERATE_RESOURCES_SCRIPT}
+                  DEPENDS CONTENT_FILES
+                  COMMENT "generating resource files")
 
 # library output
 add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
-# generate resource sources files before build
-add_custom_command(TARGET SceneR_Framework
-                   PRE_BUILD
-                   COMMAND ${CMAKE_COMMAND}
-                        -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
-                        -D GENERATE_HEADER=1
-                        -P ${GENERATE_RESOURCES_SCRIPT}
-                   DEPENDS CONTENT_FILES)
-
-add_custom_command(TARGET SceneR_Framework
-                   PRE_BUILD
-                   COMMAND ${CMAKE_COMMAND}
-                        -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
-                        -D GENERATE_SOURCE=1
-                        -P ${GENERATE_RESOURCES_SCRIPT}
-                   DEPENDS CONTENT_FILES)
+# target dependencies
+add_dependencies(SceneR_Framework RESOURCES_GENERATION)
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

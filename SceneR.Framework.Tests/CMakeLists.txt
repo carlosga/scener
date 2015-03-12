@@ -6,7 +6,7 @@ set(CMAKE_C_COMPILER clang-3.5)
 set(CMAKE_CXX_COMPILER clang++-3.5)
 
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -Wall -O0")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall")
 
 # include directories
 include_directories(Headers

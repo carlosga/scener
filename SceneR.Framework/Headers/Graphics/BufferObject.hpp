@@ -85,6 +85,11 @@ namespace SceneR
             void BufferData(const System::UInt32& offset, const System::UInt32& size, const void *data) const;
 
             /**
+             * Creates the buffer object.
+             */
+            void Create();
+
+            /**
              * Invalidate the content of a buffer object's data store
              */
             void Invalidate() const;
@@ -95,12 +100,6 @@ namespace SceneR
              *  @param length the length of the range within the buffer's data store to be invalidated.
              */
             void Invalidate(const System::UInt32& offset, const System::UInt32& length) const;
-
-        private:
-            /**
-             * Creates the buffer object.
-             */
-            void Create();
 
         private:
             System::UInt32 id;

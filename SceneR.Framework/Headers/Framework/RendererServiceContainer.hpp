@@ -55,14 +55,14 @@ namespace SceneR
              * Gets the service object of the specified identifier.
              */
             template <class T>
-            T& GetService()
+            T& GetService() const
             {
                 if (!this->IsRegistered<T>())
                 {
                     throw std::runtime_error("Service not registered");
                 }
 
-                return *(static_cast<T*>(this->instanceMap[this->GetTypeName<T>()]));
+                return *(static_cast<T*>(this->instanceMap.find(this->GetTypeName<T>())->second));
             }
 
             /**
@@ -84,13 +84,13 @@ namespace SceneR
 
         private:
             template <class T>
-            System::Boolean IsRegistered()
+            System::Boolean IsRegistered() const
             {
                 return (this->instanceMap.find(this->GetTypeName<T>()) != this->instanceMap.end());
             }
 
             template <class T>
-            std::string GetTypeName()
+            std::string GetTypeName() const
             {
                 return typeid(T).name();
             }
