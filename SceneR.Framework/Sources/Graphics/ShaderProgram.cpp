@@ -4,6 +4,7 @@
 #include <Graphics/ShaderProgram.hpp>
 
 #include <cassert>
+#include <iostream>
 
 #include <System/Pointer.hpp>
 #include <System/Text/Encoding.hpp>
@@ -106,6 +107,7 @@ void ShaderProgram::Build()
 void ShaderProgram::Activate() const
 {
     glUseProgram(this->id);
+    this->uniformBuffer->Activate();
 }
 
 void ShaderProgram::ActivateSubroutine(const UInt32& subroutineIndex) const
@@ -120,12 +122,13 @@ void ShaderProgram::ActivateSubroutine(const ShaderType& type, const UInt32& sub
 {
     GLint subroutineCount = 0;
 
-    glGetProgramStageiv(this->id, static_cast<GLenum>(type), GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &activeSubroutineUniforms);
+    glGetProgramStageiv(this->id, static_cast<GLenum>(type), GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineCount);
     glUniformSubroutinesuiv(static_cast<GLenum>(type), subroutineCount, &subroutineIndex);
 }
 
 void ShaderProgram::Deactivate() const
 {
+    this->uniformBuffer->Deactivate();
     glUseProgram(0);
 }
 

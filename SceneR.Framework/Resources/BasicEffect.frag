@@ -33,6 +33,9 @@ layout(location = 20) subroutine uniform PixelShader PixelShaderProcessor;
 layout(index = 0) subroutine (PixelShader) vec4 PSBasic()
 {
     PSInput pin;
+
+    SetPSInputParams;
+
     vec4 color = pin.Diffuse;
 
     ApplyFog(color, pin.Specular.w);
@@ -45,6 +48,8 @@ layout(index = 1) subroutine (PixelShader) vec4 PSBasicNoFog()
 {
     PSInputNoFog pin;
 
+    SetPSInputNoFogParams;
+
     return pin.Diffuse;
 }
 
@@ -52,7 +57,10 @@ layout(index = 1) subroutine (PixelShader) vec4 PSBasicNoFog()
 layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
 {
     PSInputTx pin;
-    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
+
+    SetPSInputTxParams;
+
+    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
 
     ApplyFog(color, pin.Specular.w);
 
@@ -63,13 +71,19 @@ layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
 layout(index = 3) subroutine (PixelShader) vec4 PSBasicTxNoFog()
 {
     PSInputTxNoFog pin;
-    return texture(Texture, pin.TexCoord.st) * pin.Diffuse;
+
+    SetPSInputTxNoFogParams;
+
+    return texture(Texture, pin.TexCoord) * pin.Diffuse;
 }
 
 // Pixel shader: vertex lighting.
 layout(index = 4) subroutine (PixelShader) vec4 PSBasicVertexLighting()
 {
     PSInput pin;
+
+    SetPSInputParams;
+
     vec4 color = pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
@@ -82,6 +96,9 @@ layout(index = 4) subroutine (PixelShader) vec4 PSBasicVertexLighting()
 layout(index = 5) subroutine (PixelShader) vec4 PSBasicVertexLightingNoFog()
 {
     PSInput pin;
+
+    SetPSInputParams;
+
     vec4 color = pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
@@ -93,7 +110,10 @@ layout(index = 5) subroutine (PixelShader) vec4 PSBasicVertexLightingNoFog()
 layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
 {
     PSInputTx pin;
-    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
+
+    SetPSInputTxParams;
+
+    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
     ApplyFog(color, pin.Specular.w);
@@ -105,7 +125,10 @@ layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
 layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
 {
     PSInputTx pin;
-    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
+
+    SetPSInputTxParams;
+
+    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
 
@@ -116,6 +139,9 @@ layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
 layout(index = 8) subroutine (PixelShader) vec4 PSBasicPixelLighting()
 {
     PSInputPixelLighting pin;
+
+    SetPSInputPixelLightingParams;
+
     vec4 color = pin.Diffuse;
 
     vec3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
@@ -135,7 +161,10 @@ layout(index = 8) subroutine (PixelShader) vec4 PSBasicPixelLighting()
 layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
 {
     PSInputPixelLightingTx pin;
-    vec4 color = texture(Texture, pin.TexCoord.st) * pin.Diffuse;
+
+    SetPSInputPixelLightingTxParams;
+
+    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
 
     vec3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
     vec3 worldNormal = normalize(pin.NormalWS);

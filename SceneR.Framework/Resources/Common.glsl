@@ -48,7 +48,7 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 }
 
 //
-// Input macros
+// VS Input macros
 //
 #define SetVSInputParams \
     vin.Position = vec4(VertexPosition, 1.0f);
@@ -87,7 +87,7 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
     vin.Color    = VertexColor;
 
 //
-// Output macros
+// VS Output macros
 //
 #define SetCommonVSOutputParams \
     vout.PositionPS = cout.Pos_ps; \
@@ -97,3 +97,33 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 #define SetCommonVSOutputParamsNoFog \
     vout.PositionPS = cout.Pos_ps; \
     vout.Diffuse    = cout.Diffuse;
+
+//
+// PS Input macros
+//
+#define SetPSInputParams \
+    pin.Diffuse  = Diffuse; \
+    pin.Specular = vec4(SpecularColor, SpecularPower);
+
+#define SetPSInputNoFogParams \
+    pin.Diffuse  = Diffuse;
+
+#define SetPSInputTxParams \
+    pin.Diffuse  = Diffuse; \
+    pin.Specular = vec4(SpecularColor, SpecularPower); \
+    pin.TexCoord = TexCoord.st;
+
+#define SetPSInputTxNoFogParams \
+    pin.Diffuse  = Diffuse; \
+    pin.TexCoord = TexCoord.st;
+
+#define SetPSInputPixelLightingParams \
+    pin.PositionWS = PositionWS; \
+    pin.NormalWS   = NormalWS; \
+    pin.Diffuse    = Diffuse;
+
+#define SetPSInputPixelLightingTxParams \
+    pin.TexCoord   = TexCoord.st; \
+    pin.PositionWS = PositionWS; \
+    pin.NormalWS   = NormalWS; \
+    pin.Diffuse    = Diffuse;

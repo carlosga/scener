@@ -48,6 +48,9 @@ namespace SceneR
             ~UniformBufferObject();
 
         public:
+            void Activate();
+            void Deactivate();
+
             /**
              * Sets the value of the given uniform as a System::Boolean.
              * @param location the uniform location

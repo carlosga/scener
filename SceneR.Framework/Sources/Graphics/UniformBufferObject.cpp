@@ -33,6 +33,16 @@ UniformBufferObject::~UniformBufferObject()
 {
 }
 
+void UniformBufferObject::Activate()
+{
+    this->bufferObject.Activate();
+}
+
+void UniformBufferObject::Deactivate()
+{
+    this->bufferObject.Deactivate();
+}
+
 void UniformBufferObject::SetValue(const System::String& uniformName, const Boolean& value) const
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
