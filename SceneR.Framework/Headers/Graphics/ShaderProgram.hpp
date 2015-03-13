@@ -247,6 +247,8 @@ namespace SceneR
              */
             void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector4>& value) const;
 
+            void DumpUniformBuffer() const;
+
         private:
             void VerifyLinkingState();
             void InferParameterClassAndType(const System::UInt32&                   type
@@ -254,10 +256,11 @@ namespace SceneR
                                           , SceneR::Graphics::EffectParameterType&  epType) const;
 
         private:
-            System::String                       name;
-            System::UInt32                       id;
-            std::vector<std::shared_ptr<Shader>> shaders;
-            std::shared_ptr<UniformBufferObject> uniformBuffer;
+            System::String                                    name;
+            System::UInt32                                    id;
+            std::vector<std::shared_ptr<Shader>>              shaders;
+            std::shared_ptr<std::vector<UniformBufferObject>> uniforms;
+            std::shared_ptr<UniformBufferObject>              uniformBuffer;
         };
     }
 }

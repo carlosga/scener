@@ -1,4 +1,4 @@
-#ifndef UNIFORM_HPP
+﻿#ifndef UNIFORM_HPP
 #define UNIFORM_HPP
 
 #include <System/Core.hpp>
@@ -16,12 +16,10 @@ namespace SceneR
 
             Uniform(const System::String& name
                   , const System::UInt32& index
-                  , const System::Int32&  offset
-                  , const System::Int32&  type
-                  , const System::Int32&  arraySize
-                  , const System::Int32&  arrayStride
-                  , const System::Int32&  matrixStride
-                  , const System::Int32&  matrixIsRowMajor);
+                  , const System::UInt32& offset
+                  , const System::UInt32& type);
+
+            Uniform(const Uniform& uniform);
 
             ~Uniform();
 
@@ -36,13 +34,12 @@ namespace SceneR
 
             const EffectParameterType& ParameterType() const;
 
-            System::Int32 ArraySize() const;
+            System::UInt32 ColumnCount() const;
 
-            System::Int32 ArrayStride() const;
+            System::UInt32 RowCount() const;
 
-            System::Int32 MatrixStride() const;
-
-            System::Int32 MatrixIsRowMajor() const;
+        public:
+            Uniform& operator=(const Uniform& uniform);
 
         private:
             void Describe(const System::Int32& type);
@@ -50,13 +47,11 @@ namespace SceneR
         private:
             System::String       name;
             System::UInt32       index;
-            System::Int32        offset;
+            System::UInt32       offset;
+            System::UInt32       columnCount;
+            System::UInt32       rowCount;
             EffectParameterClass parameterClass;
             EffectParameterType  parameterType;
-            System::Int32        arraySize;
-            System::Int32        arrayStride;
-            System::Int32        matrixStride;
-            System::Int32        matrixIsRowMajor;
         };
     }
 }

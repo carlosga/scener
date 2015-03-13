@@ -13,8 +13,9 @@
 
 in vec4 PositionWS;
 in vec3 NormalWS;
-in vec3 TexCoord;
+in vec2 TexCoord;
 in vec4 Diffuse;
+in vec4 Specular;
 
 layout (location = 0) out vec4 FragColor;
 
@@ -27,13 +28,12 @@ layout (location = 0) out vec4 FragColor;
 subroutine vec4 PixelShader();
 
 // special uniform variable to control which option will be used
-layout(location = 20) subroutine uniform PixelShader PixelShaderProcessor;
+subroutine uniform PixelShader PixelShaderProcessor;
 
 // Pixel shader: basic.
 layout(index = 0) subroutine (PixelShader) vec4 PSBasic()
 {
     PSInput pin;
-
     SetPSInputParams;
 
     vec4 color = pin.Diffuse;
@@ -47,7 +47,6 @@ layout(index = 0) subroutine (PixelShader) vec4 PSBasic()
 layout(index = 1) subroutine (PixelShader) vec4 PSBasicNoFog()
 {
     PSInputNoFog pin;
-
     SetPSInputNoFogParams;
 
     return pin.Diffuse;
@@ -57,7 +56,6 @@ layout(index = 1) subroutine (PixelShader) vec4 PSBasicNoFog()
 layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
 {
     PSInputTx pin;
-
     SetPSInputTxParams;
 
     vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
@@ -71,7 +69,6 @@ layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
 layout(index = 3) subroutine (PixelShader) vec4 PSBasicTxNoFog()
 {
     PSInputTxNoFog pin;
-
     SetPSInputTxNoFogParams;
 
     return texture(Texture, pin.TexCoord) * pin.Diffuse;
@@ -81,7 +78,6 @@ layout(index = 3) subroutine (PixelShader) vec4 PSBasicTxNoFog()
 layout(index = 4) subroutine (PixelShader) vec4 PSBasicVertexLighting()
 {
     PSInput pin;
-
     SetPSInputParams;
 
     vec4 color = pin.Diffuse;
@@ -96,7 +92,6 @@ layout(index = 4) subroutine (PixelShader) vec4 PSBasicVertexLighting()
 layout(index = 5) subroutine (PixelShader) vec4 PSBasicVertexLightingNoFog()
 {
     PSInput pin;
-
     SetPSInputParams;
 
     vec4 color = pin.Diffuse;
@@ -110,7 +105,6 @@ layout(index = 5) subroutine (PixelShader) vec4 PSBasicVertexLightingNoFog()
 layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
 {
     PSInputTx pin;
-
     SetPSInputTxParams;
 
     vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
@@ -125,7 +119,6 @@ layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
 layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
 {
     PSInputTx pin;
-
     SetPSInputTxParams;
 
     vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
@@ -139,7 +132,6 @@ layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
 layout(index = 8) subroutine (PixelShader) vec4 PSBasicPixelLighting()
 {
     PSInputPixelLighting pin;
-
     SetPSInputPixelLightingParams;
 
     vec4 color = pin.Diffuse;
@@ -161,7 +153,6 @@ layout(index = 8) subroutine (PixelShader) vec4 PSBasicPixelLighting()
 layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
 {
     PSInputPixelLightingTx pin;
-
     SetPSInputPixelLightingTxParams;
 
     vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;

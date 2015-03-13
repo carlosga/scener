@@ -194,11 +194,13 @@ namespace SceneR
         public:
             void Describe();
             void DescribeUniforms(const System::UInt32& uniformCount);
+            void Dump() const;
 
         private:
             System::UInt32                    programId;
             System::String                    name;
             System::UInt32                    binding;
+            System::Int32                     blockSize;
             std::map<System::String, Uniform> uniforms;
             BufferObject                      bufferObject;
         };

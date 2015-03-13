@@ -90,13 +90,13 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 // VS Output macros
 //
 #define SetCommonVSOutputParams \
-    vout.PositionPS = cout.Pos_ps; \
-    vout.Diffuse    = cout.Diffuse; \
-    vout.Specular   = vec4(cout.Specular, cout.FogFactor);
+    gl_Position = cout.Pos_ps; \
+    Diffuse     = cout.Diffuse; \
+    Specular    = vec4(cout.Specular, cout.FogFactor);
 
 #define SetCommonVSOutputParamsNoFog \
-    vout.PositionPS = cout.Pos_ps; \
-    vout.Diffuse    = cout.Diffuse;
+    gl_Position = cout.Pos_ps; \
+    Diffuse     = cout.Diffuse;
 
 //
 // PS Input macros

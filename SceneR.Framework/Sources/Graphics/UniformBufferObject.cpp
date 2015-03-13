@@ -3,9 +3,14 @@
 
 #include <Graphics/UniformBufferObject.hpp>
 
+#include <algorithm>
 #include <cassert>
+#include <iostream>
+#include <sstream>
 
 #include <System/Graphics/Platform.hpp>
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/MemoryStream.hpp>
 #include <System/Text/Encoding.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
@@ -16,6 +21,7 @@
 #include <Graphics/Uniform.hpp>
 
 using namespace System;
+using namespace System::IO;
 using namespace System::Text;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
@@ -24,6 +30,7 @@ UniformBufferObject::UniformBufferObject(const UInt32& programId, const String& 
     : programId    { programId }
     , name         { name }
     , binding      { 0 }
+    , blockSize    { 0 }
     , uniforms     ()
     , bufferObject { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
 {
@@ -101,9 +108,10 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 
 void UniformBufferObject::SetValueTranspose(const System::String& uniformName, const Matrix& value) const
 {
-    const auto& uniform = this->uniforms.find(uniformName)->second;
+    const auto& uniform   = this->uniforms.find(uniformName)->second;
+    const auto  transpose = Matrix::Transpose(value);
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix), &transpose[0]);
 }
 
 void UniformBufferObject::SetValueTranspose(const System::String& uniformName, const std::vector<Matrix>& value) const
@@ -198,12 +206,10 @@ void UniformBufferObject::Describe()
     this->binding = glGetUniformBlockIndex(this->programId, tmp.c_str());
 
     // Get buffer block size
-    GLint blockSize = 0;
-
-    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
 
     // Create the buffer object
-    this->bufferObject.Create(blockSize);
+    this->bufferObject.Create(this->blockSize);
 
     // Check the number of active uniforms
     GLint activeUniforms = 0;
@@ -220,20 +226,14 @@ void UniformBufferObject::DescribeUniforms(const UInt32& count)
     std::vector<GLint> nameLengths(count);
     std::vector<GLint> offsets(count);
     std::vector<GLint> types(count);
-    std::vector<GLint> array_sizes(count);
-    std::vector<GLint> array_strides(count);
-    std::vector<GLint> matrix_strides(count);
-    std::vector<GLint> matrix_is_row_major(count);
 
     glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, &indices[0]);
 
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_NAME_LENGTH  , &nameLengths[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_OFFSET       , &offsets[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_TYPE         , &types[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_SIZE         , &array_sizes[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_ARRAY_STRIDE , &array_strides[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_MATRIX_STRIDE, &matrix_strides[0]);
-    glGetActiveUniformsiv(this->programId, count, (GLuint*)&indices[0], GL_UNIFORM_IS_ROW_MAJOR , &matrix_is_row_major[0]);
+    GLuint* address = reinterpret_cast<GLuint*>(&indices[0]);
+
+    glGetActiveUniformsiv(this->programId, count, address, GL_UNIFORM_NAME_LENGTH, &nameLengths[0]);
+    glGetActiveUniformsiv(this->programId, count, address, GL_UNIFORM_OFFSET     , &offsets[0]);
+    glGetActiveUniformsiv(this->programId, count, address, GL_UNIFORM_TYPE       , &types[0]);
 
     for (UInt32 i = 0; i < count; i++)
     {
@@ -248,14 +248,51 @@ void UniformBufferObject::DescribeUniforms(const UInt32& count)
 
         String  uniformName(name.begin(), name.begin() + length);
         Uniform uniform { uniformName
-                        , indices[i]
-                        , offsets[i]
-                        , types[i]
-                        , array_sizes[i]
-                        , array_strides[i]
-                        , matrix_strides[i]
-                        , matrix_is_row_major[i] };
+                        , static_cast<UInt32>(indices[i])
+                        , static_cast<UInt32>(offsets[i])
+                        , static_cast<UInt32>(types[i]) };
 
         this->uniforms.emplace(uniformName, uniform);
     }
 }
+
+void UniformBufferObject::Dump() const
+{
+    std::vector<UByte> data(this->blockSize);
+
+    this->bufferObject.GetData(0, this->blockSize, &data[0]);
+
+    MemoryStream stream(data);
+    BinaryReader reader(stream);
+
+    std::vector<Uniform> sorted(0);
+
+    for (auto& kvp : this->uniforms)
+    {
+        sorted.push_back(kvp.second);
+    }
+
+    // Sort uniforms by offset
+    std::sort(sorted.begin(), sorted.end(),
+              [] (const Uniform& a, const Uniform& b) { return a.Offset() < b.Offset(); });
+
+    for (auto& uniform : sorted)
+    {
+        auto stride = uniform.RowCount() * uniform.ColumnCount();
+        auto uname  = Encoding::Convert(uniform.Name());
+
+        std::cout << "Stream Position " << std::to_string(stream.Position());
+        std::cout << " Offset " << std::to_string(uniform.Offset());
+        std::cout << " Uniform " << uname << std::endl;
+
+        for (UInt32 i = 0; i < stride; i++)
+        {
+            std::cout << std::to_string(reader.ReadSingle()) << "  ";
+        }
+
+        std::cout << "" << std::endl;
+    }
+
+    std::cout << "" << std::endl;
+}
+

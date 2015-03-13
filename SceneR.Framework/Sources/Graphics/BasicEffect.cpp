@@ -481,7 +481,7 @@ void BasicEffect::OnApply()
 
     if (this->textureEnabled)
     {
-        this->parameters[u"Texture"].SetValue(*this->texture);
+        //this->parameters[u"Texture"].SetValue(*this->texture);
     }
 
     // Recompute the shader index?
@@ -525,6 +525,8 @@ void BasicEffect::OnApply()
 
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
+
+    // this->program->DumpUniformBuffer();
 }
 
 void BasicEffect::CreateShader()

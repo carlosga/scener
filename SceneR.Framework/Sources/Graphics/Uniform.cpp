@@ -5,33 +5,36 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 Uniform::Uniform()
-    : name             { u"" }
-    , index            { 0 }
-    , offset           { 0 }
-    , arraySize        { 0 }
-    , arrayStride      { 0 }
-    , matrixStride     { 0 }
-    , matrixIsRowMajor { 0 }
+    : name        { u"" }
+    , index       { 0 }
+    , offset      { 0 }
+    , columnCount { 0 }
+    , rowCount    { 0 }
 {
 }
 
 Uniform::Uniform(const System::String& name
                , const System::UInt32& index
-               , const System::Int32&  offset
-               , const System::Int32&  type
-               , const System::Int32&  arraySize
-               , const System::Int32&  arrayStride
-               , const System::Int32&  matrixStride
-               , const System::Int32&  matrixIsRowMajor)
-    : name             { name }
-    , index            { index }
-    , offset           { offset }
-    , arraySize        { arraySize }
-    , arrayStride      { arrayStride }
-    , matrixStride     { matrixStride }
-    , matrixIsRowMajor { matrixIsRowMajor }
+               , const System::UInt32& offset
+               , const System::UInt32& type)
+    : name        { name }
+    , index       { index }
+    , offset      { offset }
+    , columnCount { 0 }
+    , rowCount    { 0 }
 {
     this->Describe(type);
+}
+
+Uniform::Uniform(const Uniform& uniform)
+    : name           { uniform.name }
+    , index          { uniform.index }
+    , offset         { uniform.offset }
+    , columnCount    { uniform.columnCount }
+    , rowCount       { uniform.rowCount }
+    , parameterClass { uniform.parameterClass }
+    , parameterType  { uniform.parameterType }
+{
 }
 
 Uniform::~Uniform()
@@ -58,24 +61,30 @@ const EffectParameterType& Uniform::ParameterType() const
     return this->parameterType;
 }
 
-Int32 Uniform::ArraySize() const
+System::UInt32 Uniform::RowCount() const
 {
-    return this->arraySize;
+    return rowCount;
 }
 
-Int32 Uniform::ArrayStride() const
+Uniform& Uniform::operator=(const Uniform& uniform)
 {
-    return this->arrayStride;
+    if (this != &uniform)
+    {
+        this->name           = uniform.name;
+        this->index          = uniform.index;
+        this->offset         = uniform.offset;
+        this->columnCount    = uniform.columnCount;
+        this->rowCount       = uniform.rowCount;
+        this->parameterClass = uniform.parameterClass;
+        this->parameterType  = uniform.parameterType;
+    }
+
+    return *this;
 }
 
-Int32 Uniform::MatrixStride() const
+System::UInt32 Uniform::ColumnCount() const
 {
-    return this->matrixStride;
-}
-
-Int32 Uniform::MatrixIsRowMajor() const
-{
-    return this->matrixIsRowMajor;
+    return columnCount;
 }
 
 void Uniform::Describe(const Int32& type)
@@ -90,16 +99,22 @@ void Uniform::Describe(const Int32& type)
         case GL_FLOAT_VEC2:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 1;
+            this->columnCount    = 2;
             break;
 
         case GL_FLOAT_VEC3:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 1;
+            this->columnCount    = 3;
             break;
 
         case GL_FLOAT_VEC4:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 1;
+            this->columnCount    = 4;
             break;
 
         case GL_INT:
@@ -110,16 +125,22 @@ void Uniform::Describe(const Int32& type)
         case GL_INT_VEC2:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Int32;
+            this->rowCount       = 1;
+            this->columnCount    = 2;
             break;
 
         case GL_INT_VEC3:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Int32;
+            this->rowCount       = 1;
+            this->columnCount    = 3;
             break;
 
         case GL_INT_VEC4:
             this->parameterClass = EffectParameterClass::Vector;
             this->parameterType  = EffectParameterType::Int32;
+            this->rowCount       = 1;
+            this->columnCount    = 4;
             break;
 
         case GL_BOOL:
@@ -128,16 +149,66 @@ void Uniform::Describe(const Int32& type)
             break;
 
         case GL_FLOAT_MAT2	: // mat2
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 2;
+            this->columnCount    = 2;
+            break;
+
         case GL_FLOAT_MAT3	: // mat3
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 3;
+            this->columnCount    = 3;
+            break;
+
         case GL_FLOAT_MAT4	: // mat4
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 4;
+            this->columnCount    = 4;
+            break;
+
         case GL_FLOAT_MAT2x3: // mat2x3
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 3;
+            this->columnCount    = 2;
+            break;
+
         case GL_FLOAT_MAT2x4: // mat2x4
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 4;
+            this->columnCount    = 2;
+            break;
+
         case GL_FLOAT_MAT3x2: // mat3x2
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 2;
+            this->columnCount    = 3;
+            break;
+
         case GL_FLOAT_MAT3x4: // mat3x4
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 4;
+            this->columnCount    = 3;
+            break;
+
         case GL_FLOAT_MAT4x2: // mat4x2
+            this->parameterClass = EffectParameterClass::Matrix;
+            this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 2;
+            this->columnCount    = 4;
+            break;
+
         case GL_FLOAT_MAT4x3: // mat4x3
             this->parameterClass = EffectParameterClass::Matrix;
             this->parameterType  = EffectParameterType::Single;
+            this->rowCount       = 3;
+            this->columnCount    = 4;
             break;
     }
 }

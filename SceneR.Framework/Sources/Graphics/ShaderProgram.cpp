@@ -22,9 +22,11 @@ using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
 ShaderProgram::ShaderProgram(const System::String& name)
-    : name    { name }
-    , id      { 0 }
-    , shaders {}
+    : name          { name }
+    , id            { 0 }
+    , shaders       ( 0 )
+    , uniforms      { nullptr }
+    , uniformBuffer { nullptr }
 {
 }
 
@@ -72,7 +74,7 @@ void ShaderProgram::AddShader(const String&                   name
 
 void ShaderProgram::Build()
 {
-    // Compile the shaders if needed ...
+    // Compile the shaders ...
     for (auto &s : this->shaders)
     {
         s->Compile();
@@ -230,6 +232,11 @@ void ShaderProgram::SetValue(const System::String& uniformName, const Vector4& v
 void ShaderProgram::SetValue(const System::String& uniformName, const std::vector<Vector4>& value) const
 {
     this->uniformBuffer->SetValue(uniformName, value);
+}
+
+void ShaderProgram::DumpUniformBuffer() const
+{
+    this->uniformBuffer->Dump();
 }
 
 void ShaderProgram::VerifyLinkingState()

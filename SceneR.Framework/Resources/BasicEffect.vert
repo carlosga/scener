@@ -23,21 +23,20 @@ layout(location = 3) in vec3 VertexNormal;
 
 out vec4 PositionWS;
 out vec3 NormalWS;
-out vec3 TexCoord;
+out vec2 TexCoord;
 out vec4 Diffuse;
+out vec4 Specular;
 
 // subroutine signature
 subroutine void VertexShader();
 
 // special uniform variable to control which option will be used
-layout(location = 20) subroutine uniform VertexShader VertexShaderProcessor;
+subroutine uniform VertexShader VertexShaderProcessor;
 
 // Vertex shader: basic.
 layout(index = 0) subroutine (VertexShader) void VSBasic()
 {
-    VSInput  vin;
-    VSOutput vout;
-
+    VSInput vin;
     SetVSInputParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
@@ -47,9 +46,7 @@ layout(index = 0) subroutine (VertexShader) void VSBasic()
 // Vertex shader: no fog.
 layout(index = 1) subroutine (VertexShader) void VSBasicNoFog()
 {
-    VSInput       vin;
-    VSOutputNoFog vout;
-
+    VSInput vin;
     SetVSInputParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
@@ -60,94 +57,80 @@ layout(index = 1) subroutine (VertexShader) void VSBasicNoFog()
 layout(index = 2) subroutine (VertexShader) void VSBasicVc()
 {
     VSInputVc vin;
-    VSOutput  vout;
-
     SetVSInputVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParams;
 
-    vout.Diffuse *= vin.Color;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: vertex color, no fog.
 layout(index = 3) subroutine (VertexShader) void VSBasicVcNoFog()
 {
-    VSInputVc     vin;
-    VSOutputNoFog vout;
-
+    VSInputVc vin;
     SetVSInputVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParamsNoFog;
 
-    vout.Diffuse *= vin.Color;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: texture.
 layout(index = 4) subroutine (VertexShader) void VSBasicTx()
 {
-    VSInputTx  vin;
-    VSOutputTx vout;
-
+    VSInputTx vin;
     SetVSInputTxParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
+    TexCoord = vin.TexCoord;
 }
 
 // Vertex shader: texture, no fog.
 layout(index = 5) subroutine (VertexShader) void VSBasicTxNoFog()
 {
-    VSInputTx       vin;
-    VSOutputTxNoFog vout;
-
+    VSInputTx vin;
     SetVSInputTxParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParamsNoFog;
 
-    vout.TexCoord = vin.TexCoord;
+    TexCoord = vin.TexCoord;
 }
 
 // Vertex shader: texture + vertex color.
 layout(index = 6) subroutine (VertexShader) void VSBasicTxVc()
 {
     VSInputTxVc vin;
-    VSOutputTx  vout;
-
     SetVSInputTxVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
-    vout.Diffuse *= vin.Color;
+    TexCoord = vin.TexCoord;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: texture + vertex color, no fog.
 layout(index = 7) subroutine (VertexShader) void VSBasicTxVcNoFog()
 {
-    VSInputTxVc     vin;
-    VSOutputTxNoFog vout;
-
+    VSInputTxVc vin;
     SetVSInputTxVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutput(vin.Position);
     SetCommonVSOutputParamsNoFog;
 
-    vout.TexCoord = vin.TexCoord;
-    vout.Diffuse *= vin.Color;
+    TexCoord = vin.TexCoord;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: vertex lighting.
 layout(index = 8) subroutine (VertexShader) void VSBasicVertexLighting()
 {
     VSInputNm vin;
-    VSOutput  vout;
-
     SetVSInputNmParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 3);
@@ -158,8 +141,6 @@ layout(index = 8) subroutine (VertexShader) void VSBasicVertexLighting()
 layout(index = 9) subroutine (VertexShader) void VSBasicVertexLightingVc()
 {
     VSInputNmVc vin;
-    VSOutput    vout;
-
     SetVSInputNmVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 3);
@@ -170,37 +151,31 @@ layout(index = 9) subroutine (VertexShader) void VSBasicVertexLightingVc()
 layout(index = 10) subroutine (VertexShader) void VSBasicVertexLightingTx()
 {
     VSInputNmTx vin;
-    VSOutputTx  vout;
-
     SetVSInputNmTxParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 3);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
+    TexCoord = vin.TexCoord;
 }
 
 // Vertex shader: vertex lighting + texture + vertex color.
 layout(index = 11) subroutine (VertexShader) void VSBasicVertexLightingTxVc()
 {
     VSInputNmTxVc vin;
-    VSOutputTx    vout;
-
     SetVSInputNmTxVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 3);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
-    vout.Diffuse *= vin.Color;
+    TexCoord = vin.TexCoord;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: one light.
 layout(index = 12) subroutine (VertexShader) void VSBasicOneLight()
 {
     VSInputNm vin;
-    VSOutput  vout;
-
     SetVSInputNmParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 1);
@@ -211,114 +186,92 @@ layout(index = 12) subroutine (VertexShader) void VSBasicOneLight()
 layout(index = 13) subroutine (VertexShader) void VSBasicOneLightVc()
 {
     VSInputNmVc vin;
-    VSOutput    vout;
-
     SetVSInputNmVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 1);
     SetCommonVSOutputParams;
 
-    vout.Diffuse *= vin.Color;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: one light + texture.
 layout(index = 14) subroutine (VertexShader) void VSBasicOneLightTx()
 {
     VSInputNmTx vin;
-    VSOutputTx  vout;
-
     SetVSInputNmTxParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 1);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
+    TexCoord = vin.TexCoord;
 }
 
 // Vertex shader: one light + texture + vertex color.
 layout(index = 15) subroutine (VertexShader) void VSBasicOneLightTxVc()
 {
     VSInputNmTxVc vin;
-    VSOutputTx    vout;
-
     SetVSInputNmTxVcParams;
 
     CommonVSOutput cout = ComputeCommonVSOutputWithLighting(vin.Position, vin.Normal, 1);
     SetCommonVSOutputParams;
 
-    vout.TexCoord = vin.TexCoord;
-    vout.Diffuse *= vin.Color;
+    TexCoord = vin.TexCoord;
+    Diffuse *= vin.Color;
 }
 
 // Vertex shader: pixel lighting.
 layout(index = 16) subroutine (VertexShader) void VSBasicPixelLighting()
 {
-    VSInputNm             vin;
-    VSOutputPixelLighting vout;
-
+    VSInputNm vin;
     SetVSInputNmParams;
 
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vin.Position, vin.Normal);
     SetCommonVSOutputParamsPixelLighting;
 
-    vout.Diffuse = vec4(1.0f, 1.0f, 1.0f, DiffuseColor.a);
+    Diffuse = vec4(1.0f, 1.0f, 1.0f, DiffuseColor.a);
 }
 
 // Vertex shader: pixel lighting + vertex color.
 layout(index = 17) subroutine (VertexShader) void VSBasicPixelLightingVc()
 {
-    VSInputNmVc           vin;
-    VSOutputPixelLighting vout;
-
+    VSInputNmVc vin;
     SetVSInputNmVcParams;
 
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vin.Position, vin.Normal);
     SetCommonVSOutputParamsPixelLighting;
 
-    vout.Diffuse.rgb = vin.Color.rgb;
-    vout.Diffuse.a   = vin.Color.a * DiffuseColor.a;
+    Diffuse.rgb = vin.Color.rgb;
+    Diffuse.a   = vin.Color.a * DiffuseColor.a;
 }
 
 // Vertex shader: pixel lighting + texture.
 layout(index = 18) subroutine (VertexShader) void VSBasicPixelLightingTx()
 {
-    VSInputNmTx             vin;
-    VSOutputPixelLightingTx vout;
-
+    VSInputNmTx vin;
     SetVSInputNmTxParams;
 
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vin.Position, vin.Normal);
     SetCommonVSOutputParamsPixelLighting;
 
-    vout.Diffuse  = vec4(1, 1, 1, DiffuseColor.a);
-    vout.TexCoord = vin.TexCoord;
+    Diffuse  = vec4(1, 1, 1, DiffuseColor.a);
+    TexCoord = vin.TexCoord;
 }
 
 // Vertex shader: pixel lighting + texture + vertex color.
 layout(index = 19) subroutine (VertexShader) void VSBasicPixelLightingTxVc()
 {
-    VSInputNmTxVc           vin;
-    VSOutputPixelLightingTx vout;
-
+    VSInputNmTxVc vin;
     SetVSInputNmTxVcParams;
 
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vin.Position, vin.Normal);
     SetCommonVSOutputParamsPixelLighting;
 
-    vout.Diffuse.rgb = vin.Color.rgb;
-    vout.Diffuse.a   = vin.Color.a * DiffuseColor.a;
-    vout.TexCoord    = vin.TexCoord;
+    Diffuse.rgb = vin.Color.rgb;
+    Diffuse.a   = vin.Color.a * DiffuseColor.a;
+    TexCoord    = vin.TexCoord;
 }
 
 void main()
 {
     VertexShaderProcessor();
-
-    // CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0f), VertexNormal);
-
-    // gl_Position = cout.Pos_ps;
-    // PositionWS  = vec4(cout.Pos_ws, cout.FogFactor);
-    // NormalWS    = cout.Normal_ws;
-    // TexCoord    = VertexTexCoord;
-    // Diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
 }

@@ -7,7 +7,7 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //---------------------------------------------------------------------------------------------------
 
-uniform sampler2D Texture;
+layout(binding = 0) uniform sampler2D Texture;
 
 layout (std140) uniform ConstantBuffer // cbuffer Parameters : register(b0)
 {
@@ -34,7 +34,7 @@ layout (std140) uniform ConstantBuffer // cbuffer Parameters : register(b0)
     vec4  FogVector;                   // _vs(c14)          _cb(c14);
 
     mat4  World;                       // _vs(c19)          _cb(c15);
-    mat3  WorldInverseTranspose;       // _vs(c23)          _cb(c19);
+    mat4  WorldInverseTranspose;       // _vs(c23)          _cb(c19);
 
     mat4  WorldViewProj;               // _vs(c15)          _cb(c0);
 };

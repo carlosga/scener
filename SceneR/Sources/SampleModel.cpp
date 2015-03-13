@@ -51,6 +51,7 @@ void SampleModel::LoadContent()
             if (seffect.get() != nullptr)
             {
                 seffect->EnableDefaultLighting();
+                seffect->PreferPerPixelLighting(true);
             }
         }
     }

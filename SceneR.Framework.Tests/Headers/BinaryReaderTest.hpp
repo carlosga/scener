@@ -11,7 +11,7 @@
 class BinaryReaderTest : public ::testing::Test
 {
 protected:
-    const System::String TEST_FILE = u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/BasicEffect.vert";
+    const System::String TEST_FILE = u"/home/carlos/development/projects/cpp/opengl/scener/SceneR.Framework/Resources/BasicEffect.vert";
 
     // virtual void SetUp() will be called before each test is run.  You
     // should define it if you need to initialize the varaibles.
