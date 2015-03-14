@@ -216,6 +216,9 @@ void UniformBufferObject::Describe()
     // Create the buffer object
     this->bufferObject.Create(this->blockSize);
 
+    // Bind the buffer to the uniform block
+    glBindBufferBase(GL_UNIFORM_BUFFER, this->binding, this->bufferObject.Id());
+
     // Check the number of active uniforms
     GLint activeUniforms = 0;
 
@@ -223,9 +226,6 @@ void UniformBufferObject::Describe()
 
     // Describe uniforms
     this->DescribeUniforms(activeUniforms);
-
-    // Bind the buffer to the uniform block
-    glBindBufferBase(GL_UNIFORM_BUFFER, this->binding, this->bufferObject.Id());
 }
 
 void UniformBufferObject::DescribeUniforms(const UInt32& count)

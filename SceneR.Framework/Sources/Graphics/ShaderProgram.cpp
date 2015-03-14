@@ -111,7 +111,6 @@ void ShaderProgram::Build()
 void ShaderProgram::Activate() const
 {
     glUseProgram(this->id);
-    this->uniformBuffer->Activate();
 }
 
 void ShaderProgram::ActivateSubroutine(const UInt32& subroutineIndex) const
