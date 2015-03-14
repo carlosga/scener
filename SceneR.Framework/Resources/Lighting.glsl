@@ -51,7 +51,7 @@ CommonVSOutput ComputeCommonVSOutputWithLighting(vec4 position, vec3 normal, int
 
     vec4 pos_ws      = position * World;
     vec3 eyeVector   = normalize(EyePosition - pos_ws.xyz);
-    vec3 worldNormal = normalize(normal * mat3x3(WorldInverseTranspose));
+    vec3 worldNormal = normalize(normal * mat3(WorldInverseTranspose));
 
     ColorPair lightResult = ComputeLights(eyeVector, worldNormal, numLights);
 

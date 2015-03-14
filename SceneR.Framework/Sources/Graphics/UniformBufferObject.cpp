@@ -40,6 +40,11 @@ UniformBufferObject::~UniformBufferObject()
 {
 }
 
+void UniformBufferObject::Dispose()
+{
+    this->bufferObject.Dispose();
+}
+
 void UniformBufferObject::Activate()
 {
     this->bufferObject.Activate();
@@ -218,6 +223,9 @@ void UniformBufferObject::Describe()
 
     // Describe uniforms
     this->DescribeUniforms(activeUniforms);
+
+    // Bind the buffer to the uniform block
+    glBindBufferBase(GL_UNIFORM_BUFFER, this->binding, this->bufferObject.Id());
 }
 
 void UniformBufferObject::DescribeUniforms(const UInt32& count)
@@ -278,8 +286,15 @@ void UniformBufferObject::Dump() const
 
     for (auto& uniform : sorted)
     {
-        auto stride = uniform.RowCount() * uniform.ColumnCount();
-        auto uname  = Encoding::Convert(uniform.Name());
+        UInt32 stride = 1;
+        auto   uname  = Encoding::Convert(uniform.Name());
+
+        stream.Seek(uniform.Offset(), std::ios_base::beg);
+
+        if (uniform.ParameterClass() != EffectParameterClass::Scalar)
+        {
+            stride = uniform.RowCount() * uniform.ColumnCount();
+        }
 
         std::cout << "Stream Position " << std::to_string(stream.Position());
         std::cout << " Offset " << std::to_string(uniform.Offset());

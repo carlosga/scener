@@ -46,14 +46,19 @@ const String& Uniform::Name() const
     return this->name;
 }
 
+UInt32 Uniform::Index() const
+{
+    return this->index;
+}
+
 Int32 Uniform::Offset() const
 {
     return this->offset;
 }
 
-UInt32 Uniform::Index() const
+const EffectParameterClass&Uniform::ParameterClass() const
 {
-    return this->index;
+    return this->parameterClass;
 }
 
 const EffectParameterType& Uniform::ParameterType() const

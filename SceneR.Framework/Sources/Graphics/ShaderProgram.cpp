@@ -47,6 +47,8 @@ void ShaderProgram::Dispose()
             }
         }
 
+        this->uniformBuffer->Dispose();
+
         glDeleteProgram(this->id);
 
         this->shaders.clear();

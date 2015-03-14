@@ -123,7 +123,7 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
     pin.Diffuse    = Diffuse;
 
 #define SetPSInputPixelLightingTxParams \
-    pin.TexCoord   = TexCoord.st; \
+    pin.TexCoord   = TexCoord; \
     pin.PositionWS = PositionWS; \
     pin.NormalWS   = NormalWS; \
     pin.Diffuse    = Diffuse;

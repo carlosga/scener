@@ -9,6 +9,8 @@
 
 #include <Graphics/BasicEffect.hpp>
 
+#include <iostream>
+
 #include <System/IO/File.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectHelpers.hpp>
@@ -520,21 +522,19 @@ void BasicEffect::OnApply()
             }
         }
 
-        this->program->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
-        this->program->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
+        // this->program->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
+        // this->program->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
 
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
-
-    // this->program->DumpUniformBuffer();
 }
 
 void BasicEffect::CreateShader()
 {
-    const auto& includes = std::vector<std::string > { ShaderManager::BasicEffectIncludePath
-                                                     , ShaderManager::StructuresIncludePath
-                                                     , ShaderManager::CommonIncludePath
-                                                     , ShaderManager::LightingIncludePath };
+    const auto& includes = std::vector<std::string> { ShaderManager::BasicEffectIncludePath
+                                                    , ShaderManager::StructuresIncludePath
+                                                    , ShaderManager::CommonIncludePath
+                                                    , ShaderManager::LightingIncludePath };
 
     this->program = std::make_shared<ShaderProgram>(u"BasicEffect");
     this->program->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);

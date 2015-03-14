@@ -273,5 +273,13 @@ layout(index = 19) subroutine (VertexShader) void VSBasicPixelLightingTxVc()
 
 void main()
 {
-    VertexShaderProcessor();
+    // VertexShaderProcessor();
+
+    CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0f), VertexNormal);
+
+    gl_Position = cout.Pos_ps;
+    PositionWS  = vec4(cout.Pos_ws, cout.FogFactor);
+    NormalWS    = cout.Normal_ws;
+    TexCoord    = VertexTexCoord.st;
+    Diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
 }

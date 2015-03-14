@@ -34,7 +34,7 @@ namespace SceneR
          *
          * http://www.opengl.org/wiki/Uniform_Buffer_Object
          */
-        class UniformBufferObject
+        class UniformBufferObject final : System::IDisposable
         {
         public:
             /**
@@ -46,6 +46,9 @@ namespace SceneR
              * Releases all resources being used by this UniformBufferObject.
              */
             ~UniformBufferObject();
+
+        public:
+            void Dispose() override;
 
         public:
             void Activate();

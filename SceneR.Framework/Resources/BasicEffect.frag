@@ -172,9 +172,8 @@ layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
 
 void main()
 {
-    FragColor = PixelShaderProcessor();
+    // FragColor = PixelShaderProcessor();
 
-    /*
     vec4      color       = texture(Texture, TexCoord.st) * Diffuse;
     vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
     vec3      worldNormal = normalize(NormalWS);
@@ -186,5 +185,4 @@ void main()
     ApplyFog(color, PositionWS.w);
 
     FragColor = color;
-    */
 }
