@@ -151,7 +151,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Single) * value.size(), &value[0]);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const SceneR::Framework::Vector2& value) const
