@@ -198,15 +198,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 
 void UniformBufferObject::Describe()
 {
-    // Get uniform block name
-    GLsizei nameLength = 0;
-    glGetActiveUniformBlockiv(this->programId, 0, GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLength);
-
-    std::vector<GLchar> blockName(nameLength);
-
-    glGetActiveUniformBlockName(this->programId, 0, nameLength, NULL, &blockName[0]);
-
-    std::string tmp = std::string(blockName.begin(), blockName.begin() + nameLength);
+    std::string tmp = Encoding::Convert(this->name);
 
     this->binding = glGetUniformBlockIndex(this->programId, tmp.c_str());
 

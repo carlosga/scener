@@ -27,9 +27,6 @@ layout (location = 0) out vec4 FragColor;
 // subroutine signature
 subroutine vec4 PixelShader();
 
-// special uniform variable to control which option will be used
-subroutine uniform PixelShader PixelShaderProcessor;
-
 // Pixel shader: basic.
 layout(index = 0) subroutine (PixelShader) vec4 PSBasic()
 {
@@ -170,19 +167,10 @@ layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
     return color;
 }
 
+// special uniform variable to control which option will be used
+layout (location = 0) subroutine uniform PixelShader PixelShaderProcessor;
+
 void main()
 {
-    // FragColor = PixelShaderProcessor();
-
-    vec4      color       = texture(Texture, TexCoord.st) * Diffuse;
-    vec3      eyeVector   = normalize(EyePosition - PositionWS.xyz);
-    vec3      worldNormal = normalize(NormalWS);
-    ColorPair lightResult = ComputeLights(eyeVector, worldNormal, 3);
-
-    color.rgb *= lightResult.Diffuse;
-
-    AddSpecular(color, lightResult.Specular);
-    ApplyFog(color, PositionWS.w);
-
-    FragColor = color;
+    FragColor = PixelShaderProcessor();
 }

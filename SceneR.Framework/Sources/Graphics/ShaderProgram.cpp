@@ -104,7 +104,7 @@ void ShaderProgram::Build()
     this->VerifyLinkingState();
 
     // ... fill uniform buffer info
-    this->uniformBuffer = std::make_shared<UniformBufferObject>(this->id, String(name.begin(), name.end()));
+    this->uniformBuffer = std::make_shared<UniformBufferObject>(this->id, u"ConstantBuffer");
     this->uniformBuffer->Describe();
 }
 
@@ -123,10 +123,7 @@ void ShaderProgram::ActivateSubroutine(const UInt32& subroutineIndex) const
 
 void ShaderProgram::ActivateSubroutine(const ShaderType& type, const UInt32& subroutineIndex) const
 {
-    GLint subroutineCount = 0;
-
-    glGetProgramStageiv(this->id, static_cast<GLenum>(type), GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, &subroutineCount);
-    glUniformSubroutinesuiv(static_cast<GLenum>(type), subroutineCount, &subroutineIndex);
+    glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
 }
 
 void ShaderProgram::Deactivate() const

@@ -522,11 +522,11 @@ void BasicEffect::OnApply()
             }
         }
 
-        // this->program->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
-        // this->program->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
-
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
+
+    this->program->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
+    this->program->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
 }
 
 void BasicEffect::CreateShader()

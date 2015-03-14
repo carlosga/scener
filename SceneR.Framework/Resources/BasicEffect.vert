@@ -30,9 +30,6 @@ out vec4 Specular;
 // subroutine signature
 subroutine void VertexShader();
 
-// special uniform variable to control which option will be used
-subroutine uniform VertexShader VertexShaderProcessor;
-
 // Vertex shader: basic.
 layout(index = 0) subroutine (VertexShader) void VSBasic()
 {
@@ -253,7 +250,7 @@ layout(index = 18) subroutine (VertexShader) void VSBasicPixelLightingTx()
     CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vin.Position, vin.Normal);
     SetCommonVSOutputParamsPixelLighting;
 
-    Diffuse  = vec4(1, 1, 1, DiffuseColor.a);
+    Diffuse  = vec4(1.0f, 1.0f, 1.0f, DiffuseColor.a);
     TexCoord = vin.TexCoord;
 }
 
@@ -271,15 +268,10 @@ layout(index = 19) subroutine (VertexShader) void VSBasicPixelLightingTxVc()
     TexCoord    = vin.TexCoord;
 }
 
+// special uniform variable to control which option will be used
+layout (location = 0) subroutine uniform VertexShader VertexShaderProcessor;
+
 void main()
 {
-    // VertexShaderProcessor();
-
-    CommonVSOutputPixelLighting cout = ComputeCommonVSOutputPixelLighting(vec4(VertexPosition, 1.0f), VertexNormal);
-
-    gl_Position = cout.Pos_ps;
-    PositionWS  = vec4(cout.Pos_ws, cout.FogFactor);
-    NormalWS    = cout.Normal_ws;
-    TexCoord    = VertexTexCoord.st;
-    Diffuse     = vec4(1.0, 1.0, 1.0, DiffuseColor.a);
+    VertexShaderProcessor();
 }
