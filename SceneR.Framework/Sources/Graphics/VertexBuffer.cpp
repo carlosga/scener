@@ -12,14 +12,15 @@ VertexBuffer::VertexBuffer(GraphicsDevice&                                      
                          , const System::UInt32&                                       vertexCount
                          , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
     : GraphicsResource  { graphicsDevice }
+    , bindingIndex      { 0 }
     , vertexDeclaration { vertexDeclaration }
     , vertexCount       { vertexCount }
     , vao               { }
     , vbo               { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
 {
-    this->Activate();
-    this->vertexDeclaration->Activate();
-    this->Deactivate();
+    this->vao.Activate();
+    this->vertexDeclaration->Declare(this->vao.Id(), this->bindingIndex);
+    this->vao.Deactivate();
 }
 
 VertexBuffer::~VertexBuffer()
@@ -46,7 +47,7 @@ std::vector<UByte> VertexBuffer::GetData(const UInt32& startIndex, const UInt32&
 {
     auto offset = (startIndex * this->vertexDeclaration->VertexStride());
     auto size   = (elementCount * this->vertexDeclaration->VertexStride());
-    auto data   = std::vector<UByte>(size);
+    auto data   = std::vector<UByte>(size, 0);
 
     this->vbo.GetData(offset, size, data.data());
 
@@ -65,12 +66,16 @@ std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclara
 
 void VertexBuffer::Activate()
 {
+    auto stride = this->vertexDeclaration->VertexStride();
+
+    // glVertexArrayVertexBuffer(this->vao.Id(), this->bindingIndex, this->vbo.Id(), 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
     this->vao.Activate();
-    glBindVertexBuffer(0, this->vbo.Id(), 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
+    glBindVertexBuffer(this->bindingIndex, this->vbo.Id(), 0, static_cast<GLsizei>(stride));
 }
 
 void VertexBuffer::Deactivate()
 {
-    glBindVertexBuffer(0, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
+    // glVertexArrayVertexBuffer(0, this->bindingIndex, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
+    glBindVertexBuffer(this->bindingIndex, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
     this->vao.Deactivate();
 }

@@ -145,12 +145,12 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
         throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
     }
 
+    auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
+
     this->effect->Begin();
 
     this->vertexBuffer->Activate();
     this->indexBuffer->Activate();
-
-    auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
 
     glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
                            , static_cast<GLsizei>(GetElementCount(primitiveType, primitiveCount))

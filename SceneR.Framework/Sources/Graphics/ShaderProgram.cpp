@@ -128,7 +128,6 @@ void ShaderProgram::ActivateSubroutine(const ShaderType& type, const UInt32& sub
 
 void ShaderProgram::Deactivate() const
 {
-    this->uniformBuffer->Deactivate();
     glUseProgram(0);
 }
 

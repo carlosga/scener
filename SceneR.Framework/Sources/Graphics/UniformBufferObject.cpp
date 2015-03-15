@@ -81,7 +81,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Int32) * value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Int32) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const UInt32& value) const
@@ -95,7 +95,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(UInt32) * value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(UInt32) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Matrix& value) const
@@ -109,7 +109,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValueTranspose(const System::String& uniformName, const Matrix& value) const
@@ -124,7 +124,7 @@ void UniformBufferObject::SetValueTranspose(const System::String& uniformName, c
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Matrix) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Quaternion& value) const
@@ -138,7 +138,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Quaternion) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Single& value) const
@@ -152,7 +152,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Single) * value.size(), &value[0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Single) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const SceneR::Framework::Vector2& value) const
@@ -166,7 +166,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector2) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector2) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Vector3& value) const
@@ -180,7 +180,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector3) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector3) * value.size(), value.data());
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Vector4& value) const
@@ -194,7 +194,7 @@ void UniformBufferObject::SetValue(const System::String& uniformName, const std:
 {
     const auto& uniform = this->uniforms.find(uniformName)->second;
 
-    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector4) * value.size(), &value[0][0]);
+    this->bufferObject.BufferData(uniform.Offset(), sizeof(Vector4) * value.size(), value.data());
 }
 
 void UniformBufferObject::Describe()
@@ -210,16 +210,15 @@ void UniformBufferObject::Describe()
     // Get uniform block data size
     glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
 
+    // Bind the buffer to the uniform block
+    glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), this->bindingPoint, this->bufferObject.Id());
+
     // Describe uniforms
     this->DescribeUniforms();
 
     // Initialize the buffer object
     std::vector<UByte> data(this->blockSize, 0);
-
     this->bufferObject.BufferData(this->blockSize, data.data());
-
-    // Bind the buffer to the uniform block
-    glBindBufferBase(GL_UNIFORM_BUFFER, this->bindingPoint, this->bufferObject.Id());
 }
 
 void UniformBufferObject::DescribeUniforms()
@@ -278,8 +277,7 @@ void UniformBufferObject::Dump() const
     }
 
     // Sort uniforms by offset
-    std::sort(sorted.begin(), sorted.end(),
-              [] (const Uniform& a, const Uniform& b) { return a.Offset() < b.Offset(); });
+    std::sort(sorted.begin(), sorted.end(), [] (const Uniform& a, const Uniform& b) { return a.Offset() < b.Offset(); });
 
     for (auto& uniform : sorted)
     {
@@ -304,7 +302,5 @@ void UniformBufferObject::Dump() const
 
         std::cout << "" << std::endl;
     }
-
-    std::cout << "" << std::endl;
 }
 

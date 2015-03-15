@@ -61,14 +61,11 @@ namespace SceneR
 
         private:
             /**
-             * Activates the vertex format to be used on drawing operations.
+             * Declares the vertex format to be used on drawing operations.
+             * @param vaoiId Specifies the name of the vertex array object for glDisableVertexArrayAttrib and glEnableVertexArrayAttrib functions.
+             * @param bindingIndex The index of the vertex buffer binding with which to associate the generic vertex attribute.
              */
-            void Activate() const;
-
-            /**
-             * Deactivates the vertex format to be used on drawing operations.
-             */
-            void Deactivate() const;
+            void Declare(const System::UInt32& vaoId, const System::UInt32& bindingIndex​) const;
 
             System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
             System::UInt32 GetElementType(const VertexElementFormat& vertexFormat) const;

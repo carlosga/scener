@@ -72,6 +72,7 @@ namespace SceneR
             void Deactivate();
 
         private:
+            System::UInt32                                       bindingIndex;
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
             System::UInt32                                       vertexCount;
             VertexArrayObject                                    vao;

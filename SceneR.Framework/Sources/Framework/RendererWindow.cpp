@@ -116,7 +116,7 @@ void RendererWindow::Open()
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
     if (!this->handle)
     {
-        throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.3");
+        throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.4");
     }
 
     // Set the new window context as the current context

@@ -46,7 +46,7 @@ VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declara
     return *this;
 }
 
-void VertexDeclaration::Activate() const
+void VertexDeclaration::Declare(const UInt32& vaoId, const UInt32& bindingIndex​) const
 {
     // ... declare vertex elements
     for (const auto& ve : this->vertexElements)
@@ -72,16 +72,10 @@ void VertexDeclaration::Activate() const
         }
 
         glEnableVertexAttribArray(usageIndex);
-        glVertexAttribBinding(usageIndex, 0);
-    }
-}
+        glVertexAttribBinding(usageIndex, bindingIndex​);
 
-void VertexDeclaration::Deactivate() const
-{
-    // ... disable vertex elements
-    for (const auto& ve : this->vertexElements)
-    {
-        glDisableVertexAttribArray(static_cast<UInt32>(ve.VertexElementUsage()));
+        // glEnableVertexArrayAttrib(vaoId, usageIndex);
+        // glVertexArrayAttribBinding(vaoId, usageIndex, bindingIndex​);
     }
 }
 
