@@ -1,3 +1,5 @@
+set(needs_rebuild 0)
+
 # http://stackoverflow.com/questions/11813271/embed-resources-eg-shader-code-images-into-executable-library-with-cmake
 # Creates C resources file from files in given directory
 function(generate_resources_header dir output)
@@ -64,6 +66,21 @@ function(generate_resources_source dir output)
     endforeach()
 endfunction()
 
+function(check_state dir output)
+    # Collect input files
+    file(GLOB bins ${dir}/*)
+    # Iterate through input files
+    foreach(bin ${bins})
+        if (${bin} IS_NEWER_THAN ${output})
+            set(needs_rebuild 1 PARENT_SCOPE)
+        endif()
+    endforeach()
+endfunction()
+
+check_state(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Sources/Graphics/Resources.cpp)
+
 # generate resource header and source files
-generate_resources_header(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Headers/Graphics/Resources.hpp)
-generate_resources_source(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Sources/Graphics/Resources.cpp)
+if (${needs_rebuild} EQUAL 1)
+    generate_resources_header(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Headers/Graphics/Resources.hpp)
+    generate_resources_source(${ROOT_DIRECTORY}/Resources ${ROOT_DIRECTORY}/Sources/Graphics/Resources.cpp)
+endif()
