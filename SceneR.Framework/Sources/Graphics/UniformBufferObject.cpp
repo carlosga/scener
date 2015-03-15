@@ -208,7 +208,7 @@ void UniformBufferObject::Describe()
     glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_BINDING, &this->bindingPoint);
 
     // Get uniform block data size
-    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
+    glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
 
     // Describe uniforms
     this->DescribeUniforms();
@@ -227,14 +227,14 @@ void UniformBufferObject::DescribeUniforms()
     // Check the number of active uniforms
     GLint activeUniforms = 0;
 
-    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+    glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
 
     std::vector<GLint> indices(activeUniforms, 0);
     std::vector<GLint> nameLengths(activeUniforms, 0);
     std::vector<GLint> offsets(activeUniforms, 0);
     std::vector<GLint> types(activeUniforms, 0);
 
-    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
+    glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
 
     GLuint* address = reinterpret_cast<GLuint*>(indices.data());
 
