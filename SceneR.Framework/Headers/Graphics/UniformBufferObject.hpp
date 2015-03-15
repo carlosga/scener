@@ -203,7 +203,7 @@ namespace SceneR
             System::UInt32                    programId;
             System::String                    name;
             System::UInt32                    blockIndex;
-            System::UInt32                    bindingPoint;
+            System::Int32                     bindingPoint;
             System::Int32                     blockSize;
             std::map<System::String, Uniform> uniforms;
             BufferObject                      bufferObject;

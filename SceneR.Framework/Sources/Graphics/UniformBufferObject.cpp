@@ -204,8 +204,8 @@ void UniformBufferObject::Describe()
     // Get the uniform block index
     this->blockIndex = glGetUniformBlockIndex(this->programId, tmp.c_str());
 
-    // Set binding point
-    glUniformBlockBinding(this->programId, this->blockIndex, this->bindingPoint);
+    // Get the binding point
+    glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_BINDING, &this->bindingPoint);
 
     // Get uniform block data size
     glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
@@ -263,9 +263,9 @@ void UniformBufferObject::DescribeUniforms()
 
 void UniformBufferObject::Dump() const
 {
-    std::vector<UByte> data(this->blockSize);
+    std::vector<UByte> data(this->blockSize, 0);
 
-    this->bufferObject.GetData(0, this->blockSize, &data[0]);
+    this->bufferObject.GetData(0, this->blockSize, data.data());
 
     MemoryStream stream(data);
     BinaryReader reader(stream);

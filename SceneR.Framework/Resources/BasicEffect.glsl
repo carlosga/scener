@@ -7,9 +7,9 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //---------------------------------------------------------------------------------------------------
 
-layout(binding = 0) uniform sampler2D Texture;
+layout (binding = 0) uniform sampler2D Texture;
 
-layout (std140) uniform ConstantBuffer // cbuffer Parameters : register(b0)
+layout (binding = 0, std140) uniform ConstantBuffer // cbuffer Parameters : register(b0)
 {
     vec4  DiffuseColor;                // _vs(c0)  _ps(c1)  _cb(c0);
     vec3  EmissiveColor;               // _vs(c1)  _ps(c2)  _cb(c1);
