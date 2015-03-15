@@ -196,7 +196,7 @@ namespace SceneR
 
         public:
             void Describe();
-            void DescribeUniforms(const System::UInt32& uniformCount);
+            void DescribeUniforms();
             void Dump() const;
 
         private:
