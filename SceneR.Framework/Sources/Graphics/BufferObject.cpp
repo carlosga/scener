@@ -44,19 +44,6 @@ const BufferUsage& BufferObject::Usage() const
     return this->usage;
 }
 
-void BufferObject::Create()
-{
-    glGenBuffers(1, &this->id);
-}
-
-void BufferObject::Create(const UInt32& bufferSize)
-{
-    std::vector<UByte> data(bufferSize, 0);
-
-    this->Create();
-    this->BufferData(bufferSize, &data);
-}
-
 void BufferObject::Activate() const
 {
     glBindBuffer(static_cast<GLenum>(this->target), this->id);
@@ -93,4 +80,11 @@ void BufferObject::Invalidate() const
 void BufferObject::Invalidate(const System::UInt32& offset, const System::UInt32& length) const
 {
     glInvalidateBufferSubData(this->id, offset, length);
+}
+
+void BufferObject::Create()
+{
+    glGenBuffers(1, &this->id);
+    this->Activate();
+    this->Deactivate();
 }

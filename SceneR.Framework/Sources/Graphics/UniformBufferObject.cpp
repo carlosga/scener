@@ -29,7 +29,8 @@ using namespace SceneR::Graphics;
 UniformBufferObject::UniformBufferObject(const UInt32& programId, const String& name)
     : programId    { programId }
     , name         { name }
-    , binding      { 0 }
+    , blockIndex   { 0 }
+    , bindingPoint      { 0 }
     , blockSize    { 0 }
     , uniforms     ()
     , bufferObject { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
@@ -200,24 +201,29 @@ void UniformBufferObject::Describe()
 {
     std::string tmp = Encoding::Convert(this->name);
 
-    this->binding = glGetUniformBlockIndex(this->programId, tmp.c_str());
+    this->blockIndex = glGetUniformBlockIndex(this->programId, tmp.c_str());
 
-    // Get buffer block size
-    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
+    // Set binding point
+    glUniformBlockBinding(this->programId, this->blockIndex, this->bindingPoint);
 
-    // Create the buffer object
-    this->bufferObject.Create(this->blockSize);
-
-    // Bind the buffer to the uniform block
-    glBindBufferBase(GL_UNIFORM_BUFFER, this->binding, this->bufferObject.Id());
+    // Get uniform block data size
+    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
 
     // Check the number of active uniforms
     GLint activeUniforms = 0;
 
-    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
 
     // Describe uniforms
     this->DescribeUniforms(activeUniforms);
+
+    // Initialize the buffer object
+    std::vector<UByte> data(this->blockSize, 0);
+
+    this->bufferObject.BufferData(this->blockSize, data.data());
+
+    // Bind the buffer to the uniform block
+    glBindBufferBase(GL_UNIFORM_BUFFER, this->bindingPoint, this->bufferObject.Id());
 }
 
 void UniformBufferObject::DescribeUniforms(const UInt32& count)
@@ -227,7 +233,7 @@ void UniformBufferObject::DescribeUniforms(const UInt32& count)
     std::vector<GLint> offsets(count);
     std::vector<GLint> types(count);
 
-    glGetActiveUniformBlockiv(this->programId, this->binding, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, &indices[0]);
+    glGetActiveUniformBlockiv(this->programId, this->bindingPoint, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, &indices[0]);
 
     GLuint* address = reinterpret_cast<GLuint*>(&indices[0]);
 
