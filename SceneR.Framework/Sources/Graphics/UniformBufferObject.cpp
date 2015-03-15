@@ -48,12 +48,12 @@ void UniformBufferObject::Dispose()
 
 void UniformBufferObject::Activate()
 {
-    this->bufferObject.Activate();
+    glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), this->bindingPoint, this->bufferObject.Id());
 }
 
 void UniformBufferObject::Deactivate()
 {
-    this->bufferObject.Deactivate();
+    glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), 0, 0);
 }
 
 void UniformBufferObject::SetValue(const System::String& uniformName, const Boolean& value) const
@@ -209,9 +209,6 @@ void UniformBufferObject::Describe()
 
     // Get uniform block data size
     glGetActiveUniformBlockiv(this->programId, this->blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &this->blockSize);
-
-    // Bind the buffer to the uniform block
-    glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), this->bindingPoint, this->bufferObject.Id());
 
     // Describe uniforms
     this->DescribeUniforms();
