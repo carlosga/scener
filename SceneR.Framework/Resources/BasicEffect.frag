@@ -11,6 +11,8 @@
 #extension GL_ARB_shading_language_include : require
 #pragma optionNV (unroll all)
 
+layout (binding = 0) uniform sampler2D Texture;
+
 in vec4 PositionWS;
 in vec3 NormalWS;
 in vec2 TexCoord;
@@ -55,7 +57,7 @@ layout(index = 2) subroutine (PixelShader) vec4 PSBasicTx()
     PSInputTx pin;
     SetPSInputTxParams;
 
-    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
+    vec4 color = SampleTexture(Texture, pin.TexCoord) * pin.Diffuse;
 
     ApplyFog(color, pin.Specular.w);
 
@@ -68,7 +70,7 @@ layout(index = 3) subroutine (PixelShader) vec4 PSBasicTxNoFog()
     PSInputTxNoFog pin;
     SetPSInputTxNoFogParams;
 
-    return texture(Texture, pin.TexCoord) * pin.Diffuse;
+    return SampleTexture(Texture, pin.TexCoord) * pin.Diffuse;
 }
 
 // Pixel shader: vertex lighting.
@@ -104,7 +106,7 @@ layout(index = 6) subroutine (PixelShader) vec4 PSBasicVertexLightingTx()
     PSInputTx pin;
     SetPSInputTxParams;
 
-    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
+    vec4 color = SampleTexture(Texture, pin.TexCoord) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
     ApplyFog(color, pin.Specular.w);
@@ -118,7 +120,7 @@ layout(index = 7) subroutine (PixelShader) vec4 PSBasicVertexLightingTxNoFog()
     PSInputTx pin;
     SetPSInputTxParams;
 
-    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
+    vec4 color = SampleTexture(Texture, pin.TexCoord) * pin.Diffuse;
 
     AddSpecular(color, pin.Specular.rgb);
 
@@ -152,7 +154,7 @@ layout(index = 9) subroutine (PixelShader) vec4 PSBasicPixelLightingTx()
     PSInputPixelLightingTx pin;
     SetPSInputPixelLightingTxParams;
 
-    vec4 color = texture(Texture, pin.TexCoord) * pin.Diffuse;
+    vec4 color = SampleTexture(Texture, pin.TexCoord) * pin.Diffuse;
 
     vec3 eyeVector = normalize(EyePosition - pin.PositionWS.xyz);
     vec3 worldNormal = normalize(pin.NormalWS);

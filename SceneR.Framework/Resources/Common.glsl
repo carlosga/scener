@@ -27,6 +27,11 @@ void AddSpecular(inout vec4 color, vec3 specular)
     color.rgb += specular * color.a;
 }
 
+vec4 SampleTexture(sampler2D texture, vec2 texCoord)
+{
+   return textureLod(texture, texCoord, textureQueryLod(texture, texCoord).t);
+}
+
 struct CommonVSOutput
 {
     vec4  Pos_ps;
