@@ -6,7 +6,7 @@
 #include <cassert>
 
 #include <Graphics/EffectParameter.hpp>
-#include <Graphics/ShaderProgram.hpp>
+#include <Graphics/UniformBufferObject.hpp>
 
 using namespace System;
 using namespace SceneR::Graphics;
@@ -69,12 +69,13 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
     return *it;
 }
 
-EffectParameter& EffectParameterCollection::Add(const System::String&                 name
-                                              , const EffectParameterClass&           parameterClass
-                                              , const EffectParameterType&            parameterType
-                                              , const std::shared_ptr<ShaderProgram>& shader)
+EffectParameter& EffectParameterCollection::Add(const System::String&                      name
+                                              , const System::UInt32&                      index
+                                              , const System::UInt32&                      offset
+                                              , const System::UInt32&                      type
+                                              , const std::shared_ptr<UniformBufferObject> uniformBuffer)
 {
-    this->parameters.push_back({ name, parameterClass, parameterType, shader });
+    this->parameters.push_back({ name, index, offset, type, uniformBuffer});
 
     return (*this)[name];
 }

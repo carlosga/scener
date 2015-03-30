@@ -10,6 +10,8 @@
 #include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/EffectDirtyFlags.hpp>
+#include <Graphics/EffectParameter.hpp>
 #include <Graphics/IEffectFog.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectMatrices.hpp>
@@ -290,16 +292,16 @@ namespace SceneR
 
         private:
             void CreateShader();
-            void Initialize();
+            void CacheEffectParameters();
 
         private:
             System::Single                         alpha;
             SceneR::Framework::Vector3             ambientLightColor;
             std::vector<SceneR::Framework::Matrix> boneTransforms;
             SceneR::Framework::Vector3             diffuseColor;
-            DirectionalLight                       directionalLight0;
-            DirectionalLight                       directionalLight1;
-            DirectionalLight                       directionalLight2;
+            DirectionalLight                       light0;
+            DirectionalLight                       light1;
+            DirectionalLight                       light2;
             System::Boolean                        enableDefaultLighting;
             SceneR::Framework::Vector3             emissiveColor;
             System::Boolean                        fogEnabled;
@@ -315,6 +317,27 @@ namespace SceneR
             SceneR::Framework::Matrix              view;
             System::UInt32                         weightsPerVertex;
             SceneR::Framework::Matrix              world;
+            SceneR::Framework::Matrix              worldView;
+            System::Boolean                        oneLight;
+            System::UInt32                         shaderIndex;
+
+            EffectDirtyFlags                       dirtyFlags;
+
+            EffectParameter                        textureParam;
+            EffectParameter                        diffuseColorParam;
+            EffectParameter                        emissiveColorParam;
+            EffectParameter                        specularColorParam;
+            EffectParameter                        specularPowerParam;
+            EffectParameter                        eyePositionParam;
+            EffectParameter                        fogColorParam;
+            EffectParameter                        fogVectorParam;
+            EffectParameter                        worldParam;
+            EffectParameter                        worldInverseTransposeParam;
+            EffectParameter                        worldViewProjParam;
+
+        private:
+            static int VSIndices[32];
+            static int PSIndices[32];
         };
     }
 }

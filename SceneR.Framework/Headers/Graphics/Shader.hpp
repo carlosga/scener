@@ -14,7 +14,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class ShaderProgram;
+        class Effect;
 
         /**
          * Represents a shader
@@ -83,7 +83,7 @@ namespace SceneR
             std::string              source;
             std::vector<std::string> includes;
 
-            friend class ShaderProgram;
+            friend class Effect;
         };
     }
 }

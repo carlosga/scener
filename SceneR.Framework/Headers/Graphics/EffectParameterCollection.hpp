@@ -16,7 +16,7 @@ namespace SceneR
     namespace Graphics
     {
         class EffectParameter;
-        class ShaderProgram;
+        class UniformBufferObject;
 
         /**
          * Represents a collection of EffectParameter
@@ -48,14 +48,16 @@ namespace SceneR
             /**
              * Adds a new EffectParamter in this EffectParameterCollection.
              * @param name the parameter name.
-             * @param parameterClass the parameter class.
-             * @param parameterType the parameter type.
-             * @param shader the associated shader.
+             * @param index the parameter index.
+             * @param offset the parameter offset.
+             * @param type the parameter raw type.
+             * @param uniformBuffer the uniform buffer object.
              */
-            EffectParameter& Add(const System::String&                 name
-                               , const EffectParameterClass&           parameterClass
-                               , const EffectParameterType&            parameterType
-                               , const std::shared_ptr<ShaderProgram>& shader);
+            EffectParameter& Add(const System::String&                name
+                               , const System::UInt32&                index
+                               , const System::UInt32&                offset
+                               , const System::UInt32&                type
+                               , std::shared_ptr<UniformBufferObject> uniformBuffer);
 
         public:
             EffectParameter& operator[](const System::Size& parameterIndex);

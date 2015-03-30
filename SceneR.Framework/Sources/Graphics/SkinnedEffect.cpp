@@ -7,7 +7,7 @@
 
 #include <System/IO/File.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectHelpers.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ShaderProgram.hpp>
 #include <Graphics/Resources.hpp>
@@ -23,9 +23,9 @@ SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     , ambientLightColor      { Vector3::Zero }
     , boneTransforms         ( 0 )
     , diffuseColor           { Vector3::One }
-    , directionalLight0      { }
-    , directionalLight1      { }
-    , directionalLight2      { }
+    , light0      { }
+    , light1      { }
+    , light2      { }
     , enableDefaultLighting  { false }
     , emissiveColor          { Vector3::Zero }
     , fogEnabled             { false }
@@ -41,37 +41,73 @@ SkinnedEffect::SkinnedEffect(GraphicsDevice& graphicsDevice)
     , view                   { Matrix::Identity }
     , weightsPerVertex       { 2 }
     , world                  { Matrix::Identity }
+    , worldView                  { Matrix::Identity }
+    , oneLight                   { false }
+    , shaderIndex                { 0 }
+    , dirtyFlags                 { EffectDirtyFlags::All }
+    , textureParam               { }
+    , diffuseColorParam          { }
+    , emissiveColorParam         { }
+    , specularColorParam         { }
+    , specularPowerParam         { }
+    , eyePositionParam           { }
+    , fogColorParam              { }
+    , fogVectorParam             { }
+    , worldParam                 { }
+    , worldInverseTransposeParam { }
+    , worldViewProjParam         { }
 {
+    this->Name(u"SkinnedEffect");
+
     this->CreateShader();
-    this->Initialize();
+    this->CacheEffectParameters();
+
+    this->light0.Enabled(true);
 }
 
 SkinnedEffect::SkinnedEffect(const SkinnedEffect& effect)
-    : Effect                 { effect }
-    , alpha                  { effect.alpha }
-    , ambientLightColor      { effect.ambientLightColor }
-    , boneTransforms         { effect.boneTransforms }
-    , diffuseColor           { effect.diffuseColor }
-    , directionalLight0      { effect.directionalLight0 }
-    , directionalLight1      { effect.directionalLight1 }
-    , directionalLight2      { effect.directionalLight2 }
-    , enableDefaultLighting  { effect.enableDefaultLighting }
-    , emissiveColor          { effect.emissiveColor }
-    , fogEnabled             { effect.fogEnabled }
-    , fogColor               { effect.fogColor }
-    , fogEnd                 { effect.fogEnd }
-    , fogStart               { effect.fogStart }
-    , preferPerPixelLighting { effect.preferPerPixelLighting }
-    , projection             { effect.projection }
-    , specularColor          { effect.specularColor }
-    , specularPower          { effect.specularPower }
-    , textureEnabled         { effect.textureEnabled }
-    , texture                { effect.texture }
-    , view                   { effect.view }
-    , weightsPerVertex       { effect.weightsPerVertex }
-    , world                  { effect.world }
+    : Effect                     { effect }
+    , alpha                      { effect.alpha }
+    , ambientLightColor          { effect.ambientLightColor }
+    , boneTransforms             { effect.boneTransforms }
+    , diffuseColor               { effect.diffuseColor }
+    , light0                     { effect.light0 }
+    , light1                     { effect.light1 }
+    , light2                     { effect.light2 }
+    , enableDefaultLighting      { effect.enableDefaultLighting }
+    , emissiveColor              { effect.emissiveColor }
+    , fogEnabled                 { effect.fogEnabled }
+    , fogColor                   { effect.fogColor }
+    , fogEnd                     { effect.fogEnd }
+    , fogStart                   { effect.fogStart }
+    , preferPerPixelLighting     { effect.preferPerPixelLighting }
+    , projection                 { effect.projection }
+    , specularColor              { effect.specularColor }
+    , specularPower              { effect.specularPower }
+    , textureEnabled             { effect.textureEnabled }
+    , texture                    { effect.texture }
+    , view                       { effect.view }
+    , weightsPerVertex           { effect.weightsPerVertex }
+    , world                      { effect.world }
+    , worldView                  { effect.worldView }
+    , oneLight                   { effect.oneLight }
+    , shaderIndex                { effect.shaderIndex }
+    , dirtyFlags                 { EffectDirtyFlags::All }
+    , textureParam               { }
+    , diffuseColorParam          { }
+    , emissiveColorParam         { }
+    , specularColorParam         { }
+    , specularPowerParam         { }
+    , eyePositionParam           { }
+    , fogColorParam              { }
+    , fogVectorParam             { }
+    , worldParam                 { }
+    , worldInverseTransposeParam { }
+    , worldViewProjParam         { }
 {
-    this->Initialize();
+    this->Name(u"BasicEffect");
+
+    this->CacheEffectParameters();
 }
 
 SkinnedEffect::~SkinnedEffect()
@@ -121,44 +157,24 @@ void SkinnedEffect::DiffuseColor(const Vector3& diffuseColor)
 
 const DirectionalLight& SkinnedEffect::DirectionalLight0() const
 {
-    return this->directionalLight0;
+    return this->light0;
 }
 
 const DirectionalLight& SkinnedEffect::DirectionalLight1() const
 {
-    return this->directionalLight1;
+    return this->light1;
 }
 
 const DirectionalLight& SkinnedEffect::DirectionalLight2() const
 {
-    return this->directionalLight2;
+    return this->light2;
 }
 
 void SkinnedEffect::EnableDefaultLighting()
 {
-    // http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
+    this->LightingEnabled(true);
 
-    this->enableDefaultLighting = true;
-
-    // Key light.
-    this->directionalLight0.Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
-    this->directionalLight0.DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0.SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
-    this->directionalLight0.Enabled(true);
-
-    // Fill light.
-    this->directionalLight1.Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
-    this->directionalLight1.DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
-    this->directionalLight1.SpecularColor(Vector3::Zero);
-    this->directionalLight1.Enabled(true);
-
-    // Back light.
-    this->directionalLight2.Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
-    this->directionalLight2.DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2.SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-    this->directionalLight2.Enabled(true);
-
-    this->ambientLightColor = { 0.05333332f, 0.09882354f, 0.1819608f };
+    this->AmbientLightColor(EffectHelpers::EnableDefaultLighting(this->light0, this->light1, this->light2));
 }
 
 const Vector3& SkinnedEffect::EmissiveColor() const
@@ -376,25 +392,25 @@ void SkinnedEffect::OnApply()
 
     if (this->enableDefaultLighting)
     {
-        if (this->directionalLight0.Enabled())
+        if (this->light0.Enabled())
         {
-            this->parameters[u"DirLight0Direction"].SetValue(this->directionalLight0.Direction());
-            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->directionalLight0.DiffuseColor());
-            this->parameters[u"DirLight0SpecularColor"].SetValue(this->directionalLight0.SpecularColor());
+            this->parameters[u"DirLight0Direction"].SetValue(this->light0.Direction());
+            this->parameters[u"DirLight0DiffuseColor"].SetValue(this->light0.DiffuseColor());
+            this->parameters[u"DirLight0SpecularColor"].SetValue(this->light0.SpecularColor());
         }
 
-        if (this->directionalLight1.Enabled())
+        if (this->light1.Enabled())
         {
-            this->parameters[u"DirLight1Direction"].SetValue(this->directionalLight1.Direction());
-            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->directionalLight1.DiffuseColor());
-            this->parameters[u"DirLight1SpecularColor"].SetValue(this->directionalLight1.SpecularColor());
+            this->parameters[u"DirLight1Direction"].SetValue(this->light1.Direction());
+            this->parameters[u"DirLight1DiffuseColor"].SetValue(this->light1.DiffuseColor());
+            this->parameters[u"DirLight1SpecularColor"].SetValue(this->light1.SpecularColor());
         }
 
-        if (this->directionalLight2.Enabled())
+        if (this->light2.Enabled())
         {
-            this->parameters[u"DirLight2Direction"].SetValue(this->directionalLight2.Direction());
-            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->directionalLight2.DiffuseColor());
-            this->parameters[u"DirLight2SpecularColor"].SetValue(this->directionalLight2.SpecularColor());
+            this->parameters[u"DirLight2Direction"].SetValue(this->light2.Direction());
+            this->parameters[u"DirLight2DiffuseColor"].SetValue(this->light2.DiffuseColor());
+            this->parameters[u"DirLight2SpecularColor"].SetValue(this->light2.SpecularColor());
         }
     }
 
@@ -406,33 +422,119 @@ void SkinnedEffect::OnApply()
 
 void SkinnedEffect::CreateShader()
 {
-    this->program = std::make_shared<ShaderProgram>(u"SkinnedEffect");
-    this->program->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vertString);
-    this->program->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_fragString);
-    this->program->Build();
+    const auto& includes = std::vector<std::string> { };
+
+    this->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vertString, includes);
+    this->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_fragString, includes);
+    this->Build();
 }
 
-void SkinnedEffect::Initialize()
+void SkinnedEffect::CacheEffectParameters()
 {
-    this->parameters.Add(u"EyePosition"           , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"World"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"WorldViewProj"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DiffuseColor"          , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"EmissiveColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"SpecularColor"         , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"SpecularPower"         , EffectParameterClass::Scalar, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"Texture"               , EffectParameterClass::Object, EffectParameterType::Texture2D, this->program);
-    this->parameters.Add(u"WeightsPerVertex"      , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->program);
-    this->parameters.Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->parameters.Add(u"FogVector"             , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
+    this->diffuseColorParam          = this->parameters[u"DiffuseColor"];
+    this->emissiveColorParam         = this->parameters[u"EmissiveColor"];
+    this->specularColorParam         = this->parameters[u"SpecularColor"];
+    this->specularPowerParam         = this->parameters[u"SpecularPower"];
+    this->textureParam               = this->parameters[u"Texture"];
+    this->fogColorParam              = this->parameters[u"FogColor"];
+    this->fogVectorParam             = this->parameters[u"FogVector"];
+    this->eyePositionParam           = this->parameters[u"EyePosition"];
+    this->worldParam                 = this->parameters[u"World"];
+    this->worldViewProjParam         = this->parameters[u"WorldViewProj"];
+    this->worldInverseTransposeParam = this->parameters[u"WorldInverseTranspose"];
+
+    /*
+    this->light0 = light { this->parameters[u"DirLight0Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight0DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight0SpecularColor"].GetValueVector3() };
+
+    this->light1 = light { this->parameters[u"DirLight1Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight1DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight1SpecularColor"].GetValueVector3() };
+
+    this->light2 = light { this->parameters[u"DirLight2Direction"].GetValueVector3()
+                                    , this->parameters[u"DirLight2DiffuseColor"].GetValueVector3()
+                                    , this->parameters[u"DirLight2SpecularColor"].GetValueVector3() };
+    */
+
+    // this->parameters.Add(u"WeightsPerVertex"      , EffectParameterClass::Scalar, EffectParameterType::Int32    , this->program);
+    // this->parameters.Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
 }
+
+int SkinnedEffect::VSIndices[32] =
+{
+    0,      // basic
+    1,      // no fog
+    2,      // vertex color
+    3,      // vertex color, no fog
+    4,      // texture
+    5,      // texture, no fog
+    6,      // texture + vertex color
+    7,      // texture + vertex color, no fog
+
+    8,      // vertex lighting
+    8,      // vertex lighting, no fog
+    9,      // vertex lighting + vertex color
+    9,      // vertex lighting + vertex color, no fog
+    10,     // vertex lighting + texture
+    10,     // vertex lighting + texture, no fog
+    11,     // vertex lighting + texture + vertex color
+    11,     // vertex lighting + texture + vertex color, no fog
+
+    12,     // one light
+    12,     // one light, no fog
+    13,     // one light + vertex color
+    13,     // one light + vertex color, no fog
+    14,     // one light + texture
+    14,     // one light + texture, no fog
+    15,     // one light + texture + vertex color
+    15,     // one light + texture + vertex color, no fog
+
+    16,     // pixel lighting
+    16,     // pixel lighting, no fog
+    17,     // pixel lighting + vertex color
+    17,     // pixel lighting + vertex color, no fog
+    18,     // pixel lighting + texture
+    18,     // pixel lighting + texture, no fog
+    19,     // pixel lighting + texture + vertex color
+    19,     // pixel lighting + texture + vertex color, no fog
+};
+
+int SkinnedEffect::PSIndices[32] =
+{
+    0,      // basic
+    1,      // no fog
+    0,      // vertex color
+    1,      // vertex color, no fog
+    2,      // texture
+    3,      // texture, no fog
+    2,      // texture + vertex color
+    3,      // texture + vertex color, no fog
+
+    4,      // vertex lighting
+    5,      // vertex lighting, no fog
+    4,      // vertex lighting + vertex color
+    5,      // vertex lighting + vertex color, no fog
+    6,      // vertex lighting + texture
+    7,      // vertex lighting + texture, no fog
+    6,      // vertex lighting + texture + vertex color
+    7,      // vertex lighting + texture + vertex color, no fog
+
+    4,      // one light
+    5,      // one light, no fog
+    4,      // one light + vertex color
+    5,      // one light + vertex color, no fog
+    6,      // one light + texture
+    7,      // one light + texture, no fog
+    6,      // one light + texture + vertex color
+    7,      // one light + texture + vertex color, no fog
+
+    8,      // pixel lighting
+    8,      // pixel lighting, no fog
+    8,      // pixel lighting + vertex color
+    8,      // pixel lighting + vertex color, no fog
+    9,      // pixel lighting + texture
+    9,      // pixel lighting + texture, no fog
+    9,      // pixel lighting + texture + vertex color
+    9,      // pixel lighting + texture + vertex color, no fog
+};

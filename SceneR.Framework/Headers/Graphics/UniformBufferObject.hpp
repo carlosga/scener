@@ -4,24 +4,11 @@
 #ifndef UNIFORMBUFFEROBJECT_HPP
 #define UNIFORMBUFFEROBJECT_HPP
 
-#include <map>
 #include <vector>
 
 #include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/BufferUsage.hpp>
-
-namespace SceneR
-{
-    namespace Framework
-    {
-        struct Matrix;
-        struct Quaternion;
-        struct Vector2;
-        struct Vector3;
-        struct Vector4;
-    }
-}
 
 namespace SceneR
 {
@@ -39,8 +26,10 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the UniformBufferObject class.
+             * @param name the name of the uniform buffer object.
+             * @oaram programId the handle of the shader program.
              */
-            UniformBufferObject(const System::UInt32& programId, const System::String& name);
+            UniformBufferObject(const System::String& name, const System::UInt32& programId);
 
             /**
              * Releases all resources being used by this UniformBufferObject.
@@ -51,162 +40,63 @@ namespace SceneR
             void Dispose() override;
 
         public:
+            /**
+             * Gets the uniform buffer block index.
+             */
+            System::UInt32 Index() const;
+
+            /**
+             * Gets the uniform buffer binding point.
+             */
+            System::Int32 BindingPoint() const;
+
+            /**
+             * Gets the uniform buffer block data size.
+             */
+            System::Int32 Size() const;
+
+        public:
+            /**
+             * Activates the uniform buffer object.
+             */
             void Activate();
+
+            /**
+             * Deactivates the uniform buffer object.
+             */
             void Deactivate();
 
+        public:
             /**
-             * Sets the value of the given uniform as a System::Boolean.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
+             * Gets the uniform buffer data
              */
-            void SetValue(const System::String& uniformName, const System::Boolean& value) const;
+            std::vector<System::UByte> GetData() const;
 
             /**
-             * Gets the value of the given uniform as an array of System::Boolean.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
+             * Gets the uniform buffer data
              */
-            void SetValue(const System::String& uniformName, const std::vector<System::Boolean>& value) const;
+            std::vector<System::UByte> GetData(const System::UInt32& startIndex, const System::UInt32& elementCount) const;
 
             /**
-             * Sets the value of the given uniform as an System::Int32.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
+             * Sets the uniform buffer data
              */
-            void SetValue(const System::String& uniformName, const System::Int32& value) const;
+            void SetData(const void* data);
 
             /**
-             * Sets the value of the given uniform as an array of System::Int32.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
+             * Sets the uniform buffer data
              */
-            void SetValue(const System::String& uniformName, const std::vector<System::Int32>& value) const;
-
-            /**
-             * Sets the value of the given uniform as an System::UInt32.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const System::UInt32& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of System::UInt32.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<System::UInt32>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Matrix.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const SceneR::Framework::Matrix& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Matrix.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Matrix>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Matrix transpose.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValueTranspose(const System::String& uniformName, const SceneR::Framework::Matrix& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Matrix transpose.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValueTranspose(const System::String& uniformName, const std::vector<SceneR::Framework::Matrix>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Quaternion.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const SceneR::Framework::Quaternion& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Quaternion.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Quaternion>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a System::Single.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const System::Single& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of System::Single.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<System::Single>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Vector2.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const SceneR::Framework::Vector2& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Vector2.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector2>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Vector3.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const SceneR::Framework::Vector3& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Vector3.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector3>& value) const;
-
-            /**
-             * Sets the value of the given uniform as a Vector4.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const SceneR::Framework::Vector4& value) const;
-
-            /**
-             * Sets the value of the given uniform as an array of Vector4.
-             * @param location the uniform location
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const System::String& uniformName, const std::vector<SceneR::Framework::Vector4>& value) const;
+            void SetData(const System::UInt32& startIndex, const System::UInt32& elementCount, const void *data);
 
         public:
             void Describe();
-            void DescribeUniforms();
-            void Dump() const;
 
         private:
-            System::UInt32                    programId;
-            System::String                    name;
-            System::UInt32                    blockIndex;
-            System::Int32                     bindingPoint;
-            System::Int32                     blockSize;
-            std::map<System::String, Uniform> uniforms;
-            BufferObject                      bufferObject;
+            System::String name;
+            System::UInt32 programId;
+            System::UInt32 index;
+            System::Int32  bindingPoint;
+            System::Int32  size;
+            BufferObject   bufferObject;
         };
     }
 }

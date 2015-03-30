@@ -14,7 +14,6 @@
 #include <System/IO/File.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectHelpers.hpp>
-#include <Graphics/EffectParameter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ShaderManager.hpp>
 #include <Graphics/ShaderProgram.hpp>
@@ -63,6 +62,8 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     , worldInverseTransposeParam { }
     , worldViewProjParam         { }
 {
+    this->Name(u"BasicEffect");
+
     this->CreateShader();
     this->CacheEffectParameters();
 
@@ -108,6 +109,8 @@ BasicEffect::BasicEffect(const BasicEffect& effect)
     , worldInverseTransposeParam { }
     , worldViewProjParam         { }
 {
+    this->Name(u"BasicEffect");
+
     this->CacheEffectParameters();
 }
 
@@ -382,21 +385,6 @@ void BasicEffect::World(const Matrix& world)
     this->dirtyFlags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
 }
 
-void BasicEffect::Begin()
-{
-    Effect::Begin();
-
-    if (this->textureEnabled)
-    {
-        SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
-
-        this->texture->Activate();
-
-        sampler.MaxMipLevel(this->texture->LevelCount());
-        sampler.OnApply(TextureTarget::Texture2D);
-    }
-}
-
 void BasicEffect::End()
 {
     if (this->textureEnabled)
@@ -409,7 +397,7 @@ void BasicEffect::End()
 
 void BasicEffect::OnApply()
 {
-    // Recompute the world+view+projection matrix or fog vector?
+    // Recompute the world+view+projection matrix or fog vector
     this->dirtyFlags = EffectHelpers::SetWorldViewProjAndFog(this->dirtyFlags
                                                            , this->world
                                                            , this->view
@@ -481,12 +469,7 @@ void BasicEffect::OnApply()
         }
     }
 
-    if (this->textureEnabled)
-    {
-        //this->parameters[u"Texture"].SetValue(*this->texture);
-    }
-
-    // Recompute the shader index?
+    // Recompute the shader index
     if ((this->dirtyFlags & EffectDirtyFlags::ShaderIndex) != 0)
     {
         this->shaderIndex = 0;
@@ -525,8 +508,18 @@ void BasicEffect::OnApply()
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
 
-    this->program->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
-    this->program->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
+    this->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
+    this->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
+
+    if (this->textureEnabled)
+    {
+        SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
+
+        this->texture->Activate();
+
+        sampler.MaxMipLevel(this->texture->LevelCount());
+        sampler.OnApply(TextureTarget::Texture2D);
+    }
 }
 
 void BasicEffect::CreateShader()
@@ -536,35 +529,24 @@ void BasicEffect::CreateShader()
                                                     , ShaderManager::CommonIncludePath
                                                     , ShaderManager::LightingIncludePath };
 
-    this->program = std::make_shared<ShaderProgram>(u"BasicEffect");
-    this->program->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);
-    this->program->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_fragString, includes);
-    this->program->Build();
+    this->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);
+    this->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_fragString, includes);
+    this->Build();
 }
 
 void BasicEffect::CacheEffectParameters()
 {
-    this->diffuseColorParam  = this->parameters.Add(u"DiffuseColor"  , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->emissiveColorParam = this->parameters.Add(u"EmissiveColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->specularColorParam = this->parameters.Add(u"SpecularColor" , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->specularPowerParam = this->parameters.Add(u"SpecularPower" , EffectParameterClass::Scalar, EffectParameterType::Single   , this->program);
-    this->textureParam       = this->parameters.Add(u"Texture"       , EffectParameterClass::Object, EffectParameterType::Texture2D, this->program);
-    this->fogColorParam      = this->parameters.Add(u"FogColor"      , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->fogVectorParam     = this->parameters.Add(u"FogVector"     , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->eyePositionParam   = this->parameters.Add(u"EyePosition"   , EffectParameterClass::Vector, EffectParameterType::Single   , this->program);
-    this->worldParam         = this->parameters.Add(u"World"         , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->worldViewProjParam = this->parameters.Add(u"WorldViewProj" , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
-    this->worldInverseTransposeParam = this->parameters.Add(u"WorldInverseTranspose" , EffectParameterClass::Matrix, EffectParameterType::Single, this->program);
-
-    this->parameters.Add(u"DirLight0DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight0Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight0SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight1DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight1Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight1SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight2DiffuseColor" , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight2Direction"    , EffectParameterClass::Vector, EffectParameterType::Single, this->program);
-    this->parameters.Add(u"DirLight2SpecularColor", EffectParameterClass::Vector, EffectParameterType::Single, this->program);
+    this->diffuseColorParam          = this->parameters[u"DiffuseColor"];
+    this->emissiveColorParam         = this->parameters[u"EmissiveColor"];
+    this->specularColorParam         = this->parameters[u"SpecularColor"];
+    this->specularPowerParam         = this->parameters[u"SpecularPower"];
+    this->fogColorParam              = this->parameters[u"FogColor"];
+    this->fogVectorParam             = this->parameters[u"FogVector"];
+    this->eyePositionParam           = this->parameters[u"EyePosition"];
+    this->worldParam                 = this->parameters[u"World"];
+    this->worldViewProjParam         = this->parameters[u"WorldViewProj"];
+    this->worldInverseTransposeParam = this->parameters[u"WorldInverseTranspose"];
+    // this->textureParam               = this->parameters[u"Texture"];
 
     /*
     this->light0 = DirectionalLight { this->parameters[u"DirLight0Direction"].GetValueVector3()

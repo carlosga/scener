@@ -131,7 +131,6 @@ set(HEADER_FILES
     Headers/Graphics/SamplerState.hpp
     Headers/Graphics/Shader.hpp
     Headers/Graphics/ShaderManager.hpp
-    Headers/Graphics/ShaderProgram.hpp
     Headers/Graphics/ShaderType.hpp
     Headers/Graphics/SkinnedEffect.hpp
     Headers/Graphics/SkinningData.hpp
@@ -143,7 +142,6 @@ set(HEADER_FILES
     Headers/Graphics/TextureFilter.hpp
     Headers/Graphics/TextureObject.hpp
     Headers/Graphics/TextureTarget.hpp
-    Headers/Graphics/Uniform.hpp
     Headers/Graphics/UniformBufferObject.hpp
     Headers/Graphics/VertexArrayObject.hpp
     Headers/Graphics/VertexBuffer.hpp
@@ -261,13 +259,11 @@ set(SOURCE_FILES
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp
     Sources/Graphics/ShaderManager.cpp
-    Sources/Graphics/ShaderProgram.cpp
     Sources/Graphics/SkinnedEffect.cpp
     Sources/Graphics/SkinningData.cpp
     Sources/Graphics/Texture.cpp
     Sources/Graphics/Texture2D.cpp
     Sources/Graphics/TextureObject.cpp
-    Sources/Graphics/Uniform.cpp
     Sources/Graphics/UniformBufferObject.cpp
     Sources/Graphics/VertexArrayObject.cpp
     Sources/Graphics/VertexBuffer.cpp

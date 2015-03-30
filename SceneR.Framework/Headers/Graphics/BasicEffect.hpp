@@ -265,11 +265,6 @@ namespace SceneR
 
         public:
             /**
-             * Starts the application of the effect state just prior to rendering the effect.
-             */
-            void Begin() override;
-
-            /**
              * Ends the application of the effect state just after rendering the effect.
              */
             void End() override;

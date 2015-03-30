@@ -8,6 +8,7 @@
 #include <vector>
 
 #include <System/Core.hpp>
+#include <Graphics/Effect.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 
 namespace SceneR
@@ -26,8 +27,8 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class ShaderProgram;
         class Texture;
+        class UniformBufferObject;
 
         /**
          * Represents an Effect parameter.
@@ -42,11 +43,16 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the EffectParameter class.
+             * @param name the parameter name.
+             * @param index the parameter index.
+             * @param offset the parameter offset.
+             * @param type the parameter raw type.
              */
-            EffectParameter(const System::String&                 name,
-                            const EffectParameterClass&           parameterClass,
-                            const EffectParameterType&            parameterType,
-                            const std::shared_ptr<ShaderProgram>& program);
+            EffectParameter(const System::String&                      name
+                          , const System::UInt32&                      index
+                          , const System::UInt32&                      offset
+                          , const System::UInt32&                      type
+                          , const std::shared_ptr<UniformBufferObject> uniformBuffer);
 
             /**
              * Copy constructor.
@@ -316,14 +322,19 @@ namespace SceneR
             EffectParameter& operator=(const EffectParameter& parameter);
 
         private:
-            System::Int32                  columnCount;
-            EffectParameterCollection      elements;
-            System::String                 name;
-            EffectParameterClass           parameterClass;
-            EffectParameterType            parameterType;
-            System::Int32                  rowCount;
-            EffectParameterCollection      structureMembers;
-            std::shared_ptr<ShaderProgram> program;
+            void Describe(const System::Int32& type);
+
+        private:
+            System::Int32                        columnCount;
+            EffectParameterCollection            elements;
+            System::String                       name;
+            EffectParameterClass                 parameterClass;
+            EffectParameterType                  parameterType;
+            System::Int32                        rowCount;
+            EffectParameterCollection            structureMembers;
+            System::UInt32                       index;
+            System::UInt32                       offset;
+            std::shared_ptr<UniformBufferObject> uniformBuffer;
         };
     }
 }
