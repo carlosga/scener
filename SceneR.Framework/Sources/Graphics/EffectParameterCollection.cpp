@@ -79,3 +79,8 @@ EffectParameter& EffectParameterCollection::Add(const System::String&           
 
     return (*this)[name];
 }
+
+void EffectParameterCollection::Clear()
+{
+    this->parameters.clear();
+}

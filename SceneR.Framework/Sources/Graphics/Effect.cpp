@@ -42,6 +42,9 @@ void Effect::Dispose()
 {
     if (this->id != 0)
     {
+        // Clear parameter collection
+        this->parameters.Clear();
+
         // Dipose all the shader instances
         if (this->shaders.size() > 0)
         {
@@ -49,13 +52,18 @@ void Effect::Dispose()
             {
                 shader->Dispose();
             }
+
+            this->shaders.clear();
         }
 
+        // Dispose the uniform buffer object
         this->uniformBuffer->Dispose();
+        this->uniformBuffer = nullptr;
 
+        // Delete the shader program
         glDeleteProgram(this->id);
 
-        this->shaders.clear();
+        // Reset the shader program name
         this->id = 0;
     }
 }

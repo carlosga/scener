@@ -15,6 +15,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Effect;
         class EffectParameter;
         class UniformBufferObject;
 
@@ -45,20 +46,6 @@ namespace SceneR
              */
             System::Size Count() const;
 
-            /**
-             * Adds a new EffectParamter in this EffectParameterCollection.
-             * @param name the parameter name.
-             * @param index the parameter index.
-             * @param offset the parameter offset.
-             * @param type the parameter raw type.
-             * @param uniformBuffer the uniform buffer object.
-             */
-            EffectParameter& Add(const System::String&                name
-                               , const System::UInt32&                index
-                               , const System::UInt32&                offset
-                               , const System::UInt32&                type
-                               , std::shared_ptr<UniformBufferObject> uniformBuffer);
-
         public:
             EffectParameter& operator[](const System::Size& parameterIndex);
             const EffectParameter& operator[](const System::Size& parameterIndex) const;
@@ -66,7 +53,18 @@ namespace SceneR
             const EffectParameter& operator[](const System::String& parameterName) const;
 
         private:
+            EffectParameter& Add(const System::String&                name
+                               , const System::UInt32&                index
+                               , const System::UInt32&                offset
+                               , const System::UInt32&                type
+                               , std::shared_ptr<UniformBufferObject> uniformBuffer);
+
+            void Clear();
+
+        private:
             std::vector<EffectParameter> parameters;
+
+            friend class Effect;
         };
     }
 }
