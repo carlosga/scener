@@ -14,8 +14,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Uniform;
-
         /**
          * Represents an OpenGL Uniform Buffer Object
          *
@@ -68,6 +66,12 @@ namespace SceneR
 
         public:
             /**
+             * @brief Describe the uniform buffer object.
+             */
+            void Describe();
+
+        public:
+            /**
              * Gets the uniform buffer data
              */
             std::vector<System::UByte> GetData() const;
@@ -86,9 +90,6 @@ namespace SceneR
              * Sets the uniform buffer data
              */
             void SetData(const System::UInt32& startIndex, const System::UInt32& elementCount, const void *data);
-
-        public:
-            void Describe();
 
         private:
             System::String name;
