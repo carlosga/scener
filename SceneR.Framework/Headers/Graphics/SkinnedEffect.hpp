@@ -336,8 +336,8 @@ namespace SceneR
             EffectParameter                        worldViewProjParam;
 
         private:
-            static int VSIndices[32];
-            static int PSIndices[32];
+            static int VSIndices[18];
+            static int PSIndices[18];
         };
     }
 }

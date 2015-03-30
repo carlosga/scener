@@ -461,80 +461,50 @@ void SkinnedEffect::CacheEffectParameters()
     // this->parameters.Add(u"Bones"                 , EffectParameterClass::Matrix, EffectParameterType::Single   , this->program);
 }
 
-int SkinnedEffect::VSIndices[32] =
+int SkinnedEffect::VSIndices[18] =
 {
-    0,      // basic
-    1,      // no fog
-    2,      // vertex color
-    3,      // vertex color, no fog
-    4,      // texture
-    5,      // texture, no fog
-    6,      // texture + vertex color
-    7,      // texture + vertex color, no fog
+    0,      // vertex lighting, one bone
+    0,      // vertex lighting, one bone, no fog
+    1,      // vertex lighting, two bones
+    1,      // vertex lighting, two bones, no fog
+    2,      // vertex lighting, four bones
+    2,      // vertex lighting, four bones, no fog
 
-    8,      // vertex lighting
-    8,      // vertex lighting, no fog
-    9,      // vertex lighting + vertex color
-    9,      // vertex lighting + vertex color, no fog
-    10,     // vertex lighting + texture
-    10,     // vertex lighting + texture, no fog
-    11,     // vertex lighting + texture + vertex color
-    11,     // vertex lighting + texture + vertex color, no fog
+    3,      // one light, one bone
+    3,      // one light, one bone, no fog
+    4,      // one light, two bones
+    4,      // one light, two bones, no fog
+    5,      // one light, four bones
+    5,      // one light, four bones, no fog
 
-    12,     // one light
-    12,     // one light, no fog
-    13,     // one light + vertex color
-    13,     // one light + vertex color, no fog
-    14,     // one light + texture
-    14,     // one light + texture, no fog
-    15,     // one light + texture + vertex color
-    15,     // one light + texture + vertex color, no fog
-
-    16,     // pixel lighting
-    16,     // pixel lighting, no fog
-    17,     // pixel lighting + vertex color
-    17,     // pixel lighting + vertex color, no fog
-    18,     // pixel lighting + texture
-    18,     // pixel lighting + texture, no fog
-    19,     // pixel lighting + texture + vertex color
-    19,     // pixel lighting + texture + vertex color, no fog
+    6,      // pixel lighting, one bone
+    6,      // pixel lighting, one bone, no fog
+    7,      // pixel lighting, two bones
+    7,      // pixel lighting, two bones, no fog
+    8,      // pixel lighting, four bones
+    8,      // pixel lighting, four bones, no fog
 };
 
-int SkinnedEffect::PSIndices[32] =
+int SkinnedEffect::PSIndices[18] =
 {
-    0,      // basic
-    1,      // no fog
-    0,      // vertex color
-    1,      // vertex color, no fog
-    2,      // texture
-    3,      // texture, no fog
-    2,      // texture + vertex color
-    3,      // texture + vertex color, no fog
+    0,      // vertex lighting, one bone
+    1,      // vertex lighting, one bone, no fog
+    0,      // vertex lighting, two bones
+    1,      // vertex lighting, two bones, no fog
+    0,      // vertex lighting, four bones
+    1,      // vertex lighting, four bones, no fog
 
-    4,      // vertex lighting
-    5,      // vertex lighting, no fog
-    4,      // vertex lighting + vertex color
-    5,      // vertex lighting + vertex color, no fog
-    6,      // vertex lighting + texture
-    7,      // vertex lighting + texture, no fog
-    6,      // vertex lighting + texture + vertex color
-    7,      // vertex lighting + texture + vertex color, no fog
+    0,      // one light, one bone
+    1,      // one light, one bone, no fog
+    0,      // one light, two bones
+    1,      // one light, two bones, no fog
+    0,      // one light, four bones
+    1,      // one light, four bones, no fog
 
-    4,      // one light
-    5,      // one light, no fog
-    4,      // one light + vertex color
-    5,      // one light + vertex color, no fog
-    6,      // one light + texture
-    7,      // one light + texture, no fog
-    6,      // one light + texture + vertex color
-    7,      // one light + texture + vertex color, no fog
-
-    8,      // pixel lighting
-    8,      // pixel lighting, no fog
-    8,      // pixel lighting + vertex color
-    8,      // pixel lighting + vertex color, no fog
-    9,      // pixel lighting + texture
-    9,      // pixel lighting + texture, no fog
-    9,      // pixel lighting + texture + vertex color
-    9,      // pixel lighting + texture + vertex color, no fog
+    2,      // pixel lighting, one bone
+    2,      // pixel lighting, one bone, no fog
+    2,      // pixel lighting, two bones
+    2,      // pixel lighting, two bones, no fog
+    2,      // pixel lighting, four bones
+    2,      // pixel lighting, four bones, no fog
 };
