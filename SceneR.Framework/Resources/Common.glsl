@@ -132,3 +132,10 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
     pin.PositionWS = PositionWS; \
     pin.NormalWS   = NormalWS; \
     pin.Diffuse    = Diffuse;
+
+#define SetVSInputNmTxWeightsParams \
+    vin.Position = vec4(VertexPosition, 1.0f); \
+    vin.Normal   = VertexNormal; \
+    vin.TexCoord = VertexCoord.st; \
+    vin.Indices  = BlendIndices; \
+    vin.Weights  = BlendWeights;

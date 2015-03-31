@@ -20,10 +20,11 @@ namespace SceneR
              */
             static const std::string IncludesRootPath;
 
-            static const std::string BasicEffectIncludePath;
             static const std::string StructuresIncludePath;
             static const std::string CommonIncludePath;
             static const std::string LightingIncludePath;
+            static const std::string BasicEffectIncludePath;
+            static const std::string SkinnedEffectIncludePath;
 
             static std::string FormatIncludePath(const std::string& path);
 

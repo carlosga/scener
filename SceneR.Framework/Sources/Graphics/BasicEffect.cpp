@@ -16,7 +16,6 @@
 #include <Graphics/EffectHelpers.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ShaderManager.hpp>
-#include <Graphics/ShaderProgram.hpp>
 #include <Graphics/Resources.hpp>
 
 using namespace System;
@@ -50,7 +49,6 @@ BasicEffect::BasicEffect(GraphicsDevice& graphicsDevice)
     , oneLight                   { false }
     , shaderIndex                { 0 }
     , dirtyFlags                 { EffectDirtyFlags::All }
-    , textureParam               { }
     , diffuseColorParam          { }
     , emissiveColorParam         { }
     , specularColorParam         { }
@@ -97,7 +95,6 @@ BasicEffect::BasicEffect(const BasicEffect& effect)
     , oneLight                   { effect.oneLight }
     , shaderIndex                { effect.shaderIndex }
     , dirtyFlags                 { EffectDirtyFlags::All }
-    , textureParam               { }
     , diffuseColorParam          { }
     , emissiveColorParam         { }
     , specularColorParam         { }
@@ -129,7 +126,7 @@ void BasicEffect::Dispose()
     Effect::Dispose();
 }
 
-const Single& BasicEffect::Alpha() const
+Single BasicEffect::Alpha() const
 {
     return this->alpha;
 }
@@ -217,10 +214,12 @@ void BasicEffect::FogColor(const Vector3& fogColor)
     if (this->fogColor != fogColor)
     {
         this->fogColor = fogColor;
+
+        this->fogColorParam.SetValue(this->fogColor);
     }
 }
 
-const Boolean& BasicEffect::FogEnabled() const
+Boolean BasicEffect::FogEnabled() const
 {
     return this->fogEnabled;
 }
@@ -234,7 +233,7 @@ void BasicEffect::FogEnabled(const Boolean& fogEnabled)
     }
 }
 
-const Single& BasicEffect::FogEnd() const
+Single BasicEffect::FogEnd() const
 {
     return this->fogEnd;
 }
@@ -248,7 +247,7 @@ void BasicEffect::FogEnd(const Single& fogEnd)
     }
 }
 
-const Single& BasicEffect::FogStart() const
+Single BasicEffect::FogStart() const
 {
     return this->fogStart;
 }
@@ -262,7 +261,7 @@ void BasicEffect::FogStart(const Single& fogStart)
     }
 }
 
-const Boolean& BasicEffect::LightingEnabled() const
+Boolean BasicEffect::LightingEnabled() const
 {
     return this->lightingEnabled;
 }
@@ -276,7 +275,7 @@ void BasicEffect::LightingEnabled(const Boolean& lightingEnabled)
     }
 }
 
-const Boolean& BasicEffect::PreferPerPixelLighting() const
+Boolean BasicEffect::PreferPerPixelLighting() const
 {
     return this->preferPerPixelLighting;
 }
@@ -308,17 +307,27 @@ const Vector3& BasicEffect::SpecularColor() const
 
 void BasicEffect::SpecularColor(const Vector3& specularColor)
 {
-    this->specularColor = specularColor;
+    if (this->specularColor != specularColor)
+    {
+        this->specularColor = specularColor;
+
+        this->specularColorParam.SetValue(this->specularColor);
+    }
 }
 
-const Single& BasicEffect::SpecularPower() const
+Single BasicEffect::SpecularPower() const
 {
     return this->specularPower;
 }
 
 void BasicEffect::SpecularPower(const Single& specularPower)
 {
-    this->specularPower = specularPower;
+    if (this->specularPower != specularPower)
+    {
+        this->specularPower = specularPower;
+
+        this->specularPowerParam.SetValue(this->specularPower);
+    }
 }
 
 const std::shared_ptr<Texture2D>& BasicEffect::Texture() const
@@ -335,7 +344,7 @@ void BasicEffect::Texture(const std::shared_ptr<Texture2D>& texture)
     }
 }
 
-const Boolean& BasicEffect::TextureEnabled() const
+Boolean BasicEffect::TextureEnabled() const
 {
     return this->textureEnabled;
 }
@@ -360,7 +369,7 @@ void BasicEffect::View(const Matrix& view)
     this->dirtyFlags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
 }
 
-const Boolean& BasicEffect::VertexColorEnabled() const
+Boolean BasicEffect::VertexColorEnabled() const
 {
     return this->vertexColorEnabled;
 }
@@ -397,6 +406,19 @@ void BasicEffect::End()
 
 void BasicEffect::OnApply()
 {
+    this->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
+    this->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
+
+    if (this->textureEnabled)
+    {
+        SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
+
+        this->texture->Activate();
+
+        sampler.MaxMipLevel(this->texture->LevelCount());
+        sampler.OnApply(TextureTarget::Texture2D);
+    }
+
     // Recompute the world+view+projection matrix or fog vector
     this->dirtyFlags = EffectHelpers::SetWorldViewProjAndFog(this->dirtyFlags
                                                            , this->world
@@ -412,9 +434,6 @@ void BasicEffect::OnApply()
     // Recompute the diffuse/emissive/alpha material color parameters
     if ((dirtyFlags & EffectDirtyFlags::MaterialColor) != 0)
     {
-        this->parameters[u"SpecularColor"].SetValue(this->specularColor);
-        this->parameters[u"SpecularPower"].SetValue(this->specularPower);
-
         EffectHelpers::SetMaterialColor(this->lightingEnabled
                                       , this->alpha
                                       , this->diffuseColor
@@ -507,19 +526,6 @@ void BasicEffect::OnApply()
 
         this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
     }
-
-    this->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
-    this->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
-
-    if (this->textureEnabled)
-    {
-        SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
-
-        this->texture->Activate();
-
-        sampler.MaxMipLevel(this->texture->LevelCount());
-        sampler.OnApply(TextureTarget::Texture2D);
-    }
 }
 
 void BasicEffect::CreateShader()
@@ -546,7 +552,6 @@ void BasicEffect::CacheEffectParameters()
     this->worldParam                 = this->parameters[u"World"];
     this->worldViewProjParam         = this->parameters[u"WorldViewProj"];
     this->worldInverseTransposeParam = this->parameters[u"WorldInverseTranspose"];
-    // this->textureParam               = this->parameters[u"Texture"];
 
     /*
     this->light0 = DirectionalLight { this->parameters[u"DirLight0Direction"].GetValueVector3()

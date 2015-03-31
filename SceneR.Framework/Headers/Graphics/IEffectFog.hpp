@@ -43,7 +43,7 @@ namespace SceneR
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            virtual const System::Boolean& FogEnabled() const = 0;
+            virtual System::Boolean FogEnabled() const = 0;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
@@ -53,7 +53,7 @@ namespace SceneR
             /**
              * Gets maximum z value for fog.
              */
-            virtual const System::Single& FogEnd() const = 0;
+            virtual System::Single FogEnd() const = 0;
 
             /**
              * Sets maximum z value for fog.
@@ -63,7 +63,7 @@ namespace SceneR
             /**
              * Gets minimum z value for fog.
              */
-            virtual const System::Single& FogStart() const = 0;
+            virtual System::Single FogStart() const = 0;
 
             /**
              * Sets minimum z value for fog.

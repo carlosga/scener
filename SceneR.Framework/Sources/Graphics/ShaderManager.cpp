@@ -11,11 +11,12 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Graphics;
 
-const std::string ShaderManager::IncludesRootPath       = "/SceneR/";
-const std::string ShaderManager::BasicEffectIncludePath = "/SceneR/BasicEffect.glsl";
-const std::string ShaderManager::StructuresIncludePath  = "/SceneR/Structures.glsl";
-const std::string ShaderManager::CommonIncludePath      = "/SceneR/Common.glsl";
-const std::string ShaderManager::LightingIncludePath    = "/SceneR/Lighting.glsl";
+const std::string ShaderManager::IncludesRootPath         = "/SceneR/";
+const std::string ShaderManager::StructuresIncludePath    = "/SceneR/Structures.glsl";
+const std::string ShaderManager::CommonIncludePath        = "/SceneR/Common.glsl";
+const std::string ShaderManager::LightingIncludePath      = "/SceneR/Lighting.glsl";
+const std::string ShaderManager::BasicEffectIncludePath   = "/SceneR/BasicEffect.glsl";
+const std::string ShaderManager::SkinnedEffectIncludePath = "/SceneR/SkinnedEffect.glsl";
 
 std::map<std::string, std::string> ShaderManager::ShaderIncludes;
 
@@ -53,18 +54,21 @@ const char* ShaderManager::GetPathReference(const std::string& path)
 
 void ShaderManager::LoadShaderIncludes()
 {
-    this->LoadInclude(BasicEffectIncludePath, Resources::BasicEffect_glslString);
-    this->LoadInclude(StructuresIncludePath , Resources::Structures_glslString);
-    this->LoadInclude(CommonIncludePath     , Resources::Common_glslString);
-    this->LoadInclude(LightingIncludePath   , Resources::Lighting_glslString);
+    this->LoadInclude(StructuresIncludePath   , Resources::Structures_glslString);
+    this->LoadInclude(CommonIncludePath       , Resources::Common_glslString);
+    this->LoadInclude(LightingIncludePath     , Resources::Lighting_glslString);
+    this->LoadInclude(BasicEffectIncludePath  , Resources::BasicEffect_glslString);
+    this->LoadInclude(SkinnedEffectIncludePath, Resources::SkinnedEffect_glslString);
 }
 
 void ShaderManager::UnloadShaderIncludes()
 {
-    this->UnloadInclude(BasicEffectIncludePath);
-    this->UnloadInclude(StructuresIncludePath);
-    this->UnloadInclude(CommonIncludePath);
-    this->UnloadInclude(LightingIncludePath);
+    for (const auto& kvp : ShaderIncludes)
+    {
+        this->UnloadInclude(kvp.first);
+    }
+
+    ShaderIncludes.clear();
 }
 
 void ShaderManager::LoadInclude(const std::string& path, const std::string& shaderInclude)

@@ -51,6 +51,7 @@ void Marcus::LoadContent()
             {
                 seffect->EnableDefaultLighting();
                 seffect->SpecularColor(Vector3(0.15f, 0.15f, 0.15f));
+                seffect->PreferPerPixelLighting(true);
             }
         }
     }

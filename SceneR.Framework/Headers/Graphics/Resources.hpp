@@ -10,6 +10,11 @@ namespace SceneR
         class Resources
         {
         private:
+            static const unsigned char SkinnedEffect_glsl[];
+            static const unsigned SkinnedEffect_glsl_size;
+        public:
+            static const std::string SkinnedEffect_glslString;
+        private:
             static const unsigned char Common_glsl[];
             static const unsigned Common_glsl_size;
         public:

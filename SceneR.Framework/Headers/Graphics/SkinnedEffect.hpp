@@ -56,7 +56,7 @@ namespace SceneR
              * Gets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            const System::Single& Alpha() const;
+            System::Single Alpha() const;
 
             /**
              * Sets the material alpha which determines its transparency.
@@ -131,7 +131,7 @@ namespace SceneR
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            const System::Boolean& FogEnabled() const override;
+            System::Boolean FogEnabled() const override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
@@ -141,7 +141,7 @@ namespace SceneR
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            const System::Single& FogEnd() const override;
+            System::Single FogEnd() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
@@ -151,7 +151,7 @@ namespace SceneR
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            const System::Single& FogStart() const override;
+            System::Single FogStart() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
@@ -161,7 +161,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            const System::Boolean& LightingEnabled() const override;
+            System::Boolean LightingEnabled() const override;
 
             /**
              * Sets a value indicating wheter lighting is enabled for the current effect.
@@ -172,7 +172,7 @@ namespace SceneR
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            const System::Boolean& PreferPerPixelLighting() const;
+            System::Boolean PreferPerPixelLighting() const;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
@@ -205,7 +205,7 @@ namespace SceneR
             /**
              * Gets specular power of this effect material.
              */
-            const System::Single& SpecularPower() const;
+            System::Single SpecularPower() const;
 
             /**
              * Sets specular power of this effect material.
@@ -225,7 +225,7 @@ namespace SceneR
             /**
              * Gets a value indicating wheter textures are enabled for this effect
              */
-            const System::Boolean& TextureEnabled() const;
+            System::Boolean TextureEnabled() const;
 
             /**
              * Sets a value indicating wheter textures are enabled for this effect
@@ -266,7 +266,7 @@ namespace SceneR
             /**
              * Gets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            const System::UInt32& WeightsPerVertex() const;
+            System::UInt32 WeightsPerVertex() const;
 
             /**
              * Sets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
@@ -274,11 +274,6 @@ namespace SceneR
             void WeightsPerVertex(const System::UInt32& weightsPerVertex);
 
         public:
-            /**
-             * Starts the application of the effect state just prior to rendering the effect.
-             */
-            void Begin() override;
-
             /**
              * Ends the application of the effect state just after rendering the effect.
              */
@@ -302,7 +297,7 @@ namespace SceneR
             DirectionalLight                       light0;
             DirectionalLight                       light1;
             DirectionalLight                       light2;
-            System::Boolean                        enableDefaultLighting;
+            System::Boolean                        lightingEnabled;
             SceneR::Framework::Vector3             emissiveColor;
             System::Boolean                        fogEnabled;
             SceneR::Framework::Vector3             fogColor;
@@ -323,7 +318,6 @@ namespace SceneR
 
             EffectDirtyFlags                       dirtyFlags;
 
-            EffectParameter                        textureParam;
             EffectParameter                        diffuseColorParam;
             EffectParameter                        emissiveColorParam;
             EffectParameter                        specularColorParam;
@@ -334,6 +328,7 @@ namespace SceneR
             EffectParameter                        worldParam;
             EffectParameter                        worldInverseTransposeParam;
             EffectParameter                        worldViewProjParam;
+            EffectParameter                        bonesParam;
 
         private:
             static int VSIndices[18];

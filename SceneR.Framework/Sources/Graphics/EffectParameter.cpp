@@ -279,7 +279,9 @@ void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    std::vector<Matrix> transposed(value.size());
+    std::vector<Matrix> transposed;
+
+    transposed.reserve(value.size());
 
     for (const auto& matrix : value)
     {

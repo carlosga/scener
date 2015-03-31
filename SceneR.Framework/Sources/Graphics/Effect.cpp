@@ -4,6 +4,7 @@
 #include <Graphics/Effect.hpp>
 
 #include <cassert>
+#include <iostream>
 
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
@@ -172,7 +173,7 @@ void Effect::VerifyLinkingState()
             msg += linkErrorMessage;
         }
 
-        this->Dispose();
+        //this->Dispose();
 
         throw std::runtime_error(msg);
     }
@@ -206,6 +207,10 @@ void Effect::DescribeParameters()
         auto    name   = std::vector<char>(nameLengths[i], 0);
 
         glGetActiveUniform(this->id, indices[i], nameLengths[i], &length, &size, &type, name.data());
+
+        std::string sname(name.begin(), name.begin() + length);
+
+        std::cout << sname << std::endl;
 
         this->parameters.Add({ name.begin(), name.begin() + length }
                            , static_cast<UInt32>(indices[i])

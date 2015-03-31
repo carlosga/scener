@@ -304,6 +304,7 @@ add_custom_target(CONTENT_FILES SOURCES
                   Resources/Common.glsl
                   Resources/Lighting.glsl
                   Resources/SkinnedEffect.vert
+                  Resources/SkinnedEffect.glsl
                   Resources/SkinnedEffect.frag
                   Resources/Structures.glsl)
 
