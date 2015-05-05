@@ -1,18 +1,24 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.2.2)
 project(SceneR_Framework)
 enable_language(CXX)
+
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 # set(CMAKE_VERBOSE_MAKEFILE on)
 
 set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
 
-set(CMAKE_C_COMPILER clang-3.5)
-set(CMAKE_CXX_COMPILER clang++-3.5)
-
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
 
 #-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+
+# Reconfigure final output directory
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
 include_directories(Headers)
@@ -21,7 +27,8 @@ include_directories(Headers)
 find_package(Threads REQUIRED)
 
 # glfw
-find_package(glfw REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GLFW REQUIRED glfw3)
 
 # Regal
 link_directories(../../regal/lib/linux/)
@@ -326,10 +333,12 @@ add_dependencies(SceneR_Framework RESOURCES_GENERATION)
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 
 # target include directories
-target_include_directories(SceneR_Framework PRIVATE ../../regal/include)
+target_include_directories(SceneR_Framework
+                           PRIVATE ${GLFW_INCLUDE_DIRS}
+                           PRIVATE ../../regal/include)
 
 # target links
-target_link_libraries(SceneR_Framework pthread glfw Regal)
+target_link_libraries(SceneR_Framework pthread ${GLFW_LIBRARIES} Regal)
 
 # install target
 install(TARGETS SceneR_Framework

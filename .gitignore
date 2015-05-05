@@ -28,9 +28,7 @@
 *.app
 
 # Build Directories
-SceneR-build
-SceneR.Framework-build
-SceneR.Framework.Tests-build
+build
 
 # Cmake
 CMakeCache.txt

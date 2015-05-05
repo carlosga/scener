@@ -57,7 +57,7 @@ namespace System
 
             System::Size GetMaxCharCount(const System::Size& byteCount) override;
 
-            std::vector<System::UByte> GetPreamble() const;
+            std::vector<System::UByte> GetPreamble() const override;
 
             const Decoder& GetDecoder() const override;
 

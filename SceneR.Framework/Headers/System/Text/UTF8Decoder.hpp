@@ -39,7 +39,7 @@ namespace System
                                 , std::vector<System::Char>&        chars
                                 , const System::Size&               charIndex) const override;
 
-            void Reset();
+            void Reset() override;
 
         private:
             std::codecvt_utf8<char16_t> converter;

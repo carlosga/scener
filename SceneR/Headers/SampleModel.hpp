@@ -41,7 +41,7 @@ namespace SceneR
         protected:
             void Initialize() override;
             void LoadContent() override;
-            void Update(const SceneR::Framework::RenderTime& renderTime);
+            void Update(const SceneR::Framework::RenderTime& renderTime) override;
             void UnloadContent() override;
 
         private:

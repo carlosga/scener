@@ -1,25 +1,32 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.2.2)
 project(SceneR)
 enable_language(CXX)
 
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
+
 # set(CMAKE_VERBOSE_MAKEFILE on)
 
-#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
-#endif()
+set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
 
-set(CMAKE_C_COMPILER clang-3.5)
-set(CMAKE_CXX_COMPILER clang++-3.5)
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
 
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -g3 -O0 -stdlib=libc++ -Wall")
+
+# Reconfigure final output directory
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
 include_directories(Headers)
 
 # link directories
 link_directories(../../regal/lib/linux/
-                 ../SceneR.Framework-build)
+                 ../SceneR.Framework/build/${CMAKE_BUILD_TYPE})
 
 # header files
 set(HEADER_FILES
