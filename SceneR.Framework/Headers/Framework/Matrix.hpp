@@ -24,7 +24,7 @@ namespace SceneR
             /**
              * Returns the identity matrix.
              */
-            static const Matrix& Identity;
+            static const Matrix Identity;
 
         public:
             /**

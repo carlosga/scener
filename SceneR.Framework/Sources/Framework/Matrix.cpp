@@ -14,10 +14,10 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const Matrix& Matrix::Identity { 1.0f, 0.0f, 0.0f, 0.0f
-                               , 0.0f, 1.0f, 0.0f, 0.0f
-                               , 0.0f, 0.0f, 1.0f, 0.0f
-                               , 0.0f, 0.0f, 0.0f, 1.0f };
+const Matrix Matrix::Identity { 1.0f, 0.0f, 0.0f, 0.0f
+                              , 0.0f, 1.0f, 0.0f, 0.0f
+                              , 0.0f, 0.0f, 1.0f, 0.0f
+                              , 0.0f, 0.0f, 0.0f, 1.0f };
 
 Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
 {

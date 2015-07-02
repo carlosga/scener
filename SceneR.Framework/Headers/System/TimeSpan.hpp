@@ -30,42 +30,42 @@ namespace System
         /**
          * Represents the maximum TimeSpan value.
          */
-        static const TimeSpan& MaxValue;
+        static const TimeSpan MaxValue;
 
         /**
          * Represents the minimum TimeSpan value.
          */
-        static const TimeSpan& MinValue;
+        static const TimeSpan MinValue;
 
         /**
          * Represents the number of ticks in 1 day.
          */
-        static const System::Int64& TicksPerDay;
+        static const System::Int64 TicksPerDay;
 
         /**
          * Represents the number of ticks in 1 hour.
          */
-        static const System::Int64& TicksPerHour;
+        static const System::Int64 TicksPerHour;
 
         /**
          * Represents the number of ticks in 1 millisecond.
          */
-        static const System::Int64& TicksPerMillisecond;
+        static const System::Int64 TicksPerMillisecond;
 
         /**
          * Represents the number of ticks in 1 minute.
          */
-        static const System::Int64& TicksPerMinute;
+        static const System::Int64 TicksPerMinute;
 
         /**
          * Represents the number of ticks in 1 second.
          */
-        static const System::Int64& TicksPerSecond;
+        static const System::Int64 TicksPerSecond;
 
         /**
          * Represents the zero TimeSpan value. This field is read-only.
          */
-        static const TimeSpan& Zero;
+        static const TimeSpan Zero;
 
     public:
         /**
