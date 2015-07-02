@@ -17,67 +17,67 @@ namespace System
         /**
          * Represents the mathematical constant e.
          */
-        static const System::Single& E;
+        static const System::Single E;
 
         /**
          * Represents the log base ten of e.
          */
-        static const System::Single& Log10E;
+        static const System::Single Log10E;
 
         /**
          * Represents the log base two of e.
          */
-        static const System::Single& Log2E;
+        static const System::Single Log2E;
 
         /**
          * Represents the value of PI
          */
-        static const System::Single& Pi;
+        static const System::Single Pi;
 
         /**
          * Represents the value of PI divided by 2
          */
-        static const System::Single& PiOver2;
+        static const System::Single PiOver2;
 
         /**
          * Represents the value of PI divided by 4
          */
-        static const System::Single& PiOver4;
+        static const System::Single PiOver4;
 
         /**
          * Represents the value of pi times two.
          */
-        static const System::Single& TwoPi;
+        static const System::Single TwoPi;
 
         /**
          * Represents negative infinity.
          */
-        static const System::Single& NegativeInfinity;
+        static const System::Single NegativeInfinity;
 
         /**
          * Represents positive infinity.
          */
-        static const System::Single& PositiveInfinity;
+        static const System::Single PositiveInfinity;
 
         /**
          * Represents not a number (NaN).
          */
-        static const System::Single& NaN;
+        static const System::Single NaN;
 
         /**
          * Represents the smallest positive Single value that is greater than zero.
          */
-        static const System::Single& Epsilon;
+        static const System::Single Epsilon;
 
         /**
          * @brief MinValue Represents the smallest possible value of Single.
          */
-        static const Single& MinValue;
+        static const Single MinValue;
 
         /**
          * @brief MaxValue Represents the largest possible value of Single. This field is constant.
          */
-        static const Single& MaxValue;
+        static const Single MaxValue;
 
     public:
         /**

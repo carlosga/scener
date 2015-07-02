@@ -8,19 +8,19 @@
 
 using namespace System;
 
-const Single& Math::E                = M_E;
-const Single& Math::Log10E           = M_LOG10E;
-const Single& Math::Log2E            = M_LOG2E;
-const Single& Math::Pi               = M_PI;
-const Single& Math::PiOver2          = M_PI_2;
-const Single& Math::PiOver4          = M_PI_4;
-const Single& Math::TwoPi            = M_2_PI;
-const Single& Math::Epsilon          = std::numeric_limits<Single>::epsilon();
-const Single& Math::NegativeInfinity = -std::numeric_limits<Single>::infinity();
-const Single& Math::PositiveInfinity = std::numeric_limits<Single>::infinity();
-const Single& Math::NaN              = std::numeric_limits<Single>::quiet_NaN();
-const Single& Math::MinValue         = std::numeric_limits<Single>::lowest();
-const Single& Math::MaxValue         = std::numeric_limits<Single>::max();
+const Single Math::E                = M_E;
+const Single Math::Log10E           = M_LOG10E;
+const Single Math::Log2E            = M_LOG2E;
+const Single Math::Pi               = M_PI;
+const Single Math::PiOver2          = M_PI_2;
+const Single Math::PiOver4          = M_PI_4;
+const Single Math::TwoPi            = M_2_PI;
+const Single Math::Epsilon          = std::numeric_limits<Single>::epsilon();
+const Single Math::NegativeInfinity = -std::numeric_limits<Single>::infinity();
+const Single Math::PositiveInfinity = std::numeric_limits<Single>::infinity();
+const Single Math::NaN              = std::numeric_limits<Single>::quiet_NaN();
+const Single Math::MinValue         = std::numeric_limits<Single>::lowest();
+const Single Math::MaxValue         = std::numeric_limits<Single>::max();
 
 Boolean Math::IsInfinity(const System::Single& f)
 {
