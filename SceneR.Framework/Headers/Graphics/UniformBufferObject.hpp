@@ -75,12 +75,12 @@ namespace SceneR
             /**
              * Gets the uniform buffer data
              */
-            std::vector<System::UByte> GetData() const;
+            std::vector<uint8_t> GetData() const;
 
             /**
              * Gets the uniform buffer data
              */
-            std::vector<System::UByte> GetData(const System::UInt32& startIndex, const System::UInt32& elementCount) const;
+            std::vector<uint8_t> GetData(const System::UInt32& startIndex, const System::UInt32& elementCount) const;
 
             /**
              * Sets the uniform buffer data

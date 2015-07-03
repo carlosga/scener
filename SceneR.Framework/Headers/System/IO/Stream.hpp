@@ -57,7 +57,7 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            virtual System::UByte ReadByte() = 0;
+            virtual uint8_t ReadByte() = 0;
 
             /**
              * Reads a sequence of bytes from the current stream.

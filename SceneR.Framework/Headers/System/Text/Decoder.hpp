@@ -34,27 +34,27 @@ namespace System
              * starting at the specified byte pointer. A parameter indicates whether to clear
              * the internal state of the decoder after the calculation.
              */
-            virtual System::Size GetCharCount(const System::UByte* bytes
-                                            , const System::Size&  count
-                                            , const bool&          flush) const;
+            virtual System::Size GetCharCount(const uint8_t*      bytes
+                                            , const System::Size& count
+                                            , const bool&         flush) const;
 
             /**
              * When overridden in a derived class, calculates the number of characters produced
              * by decoding a sequence of bytes from the specified byte array.
              */
-            virtual System::Size GetCharCount(const std::vector<System::UByte>& bytes
-                                            , const System::Size&               index
-                                            , const System::Size&               count) const = 0;
+            virtual System::Size GetCharCount(const std::vector<uint8_t>& bytes
+                                            , const System::Size&         index
+                                            , const System::Size&         count) const = 0;
 
             /**
              * Calculates the number of characters produced by decoding a sequence of bytes
              * from the specified byte array. A parameter indicates whether to clear the
              * internal state of the decoder after the calculation.
              */
-            virtual System::Size GetCharCount(const std::vector<System::UByte>& bytes
-                                            , const System::Size&               index
-                                            , const System::Size&               count
-                                            , const bool&                       flush) const;
+            virtual System::Size GetCharCount(const std::vector<uint8_t>& bytes
+                                            , const System::Size&         index
+                                            , const System::Size&         count
+                                            , const bool&                 flush) const;
 
             /**
              * Decodes a sequence of bytes starting at the specified byte pointer and
@@ -63,34 +63,34 @@ namespace System
              * A parameter indicates whether to clear the internal state of the decoder
              * after the conversion.
              */
-            virtual System::Size GetChars(const System::UByte* bytes
-                                        , const System::Size&  byteCount
-                                        , char16_t*            chars
-                                        , const System::Size&  charCount
-                                        , const bool&          flush) const;
+            virtual System::Size GetChars(const uint8_t*      bytes
+                                        , const System::Size& byteCount
+                                        , char16_t*           chars
+                                        , const System::Size& charCount
+                                        , const bool&         flush) const;
 
             /**
              * When overridden in a derived class, decodes a sequence of bytes from the
              * specified byte array and any bytes in the internal buffer into the specified
              * character array.
              */
-            virtual System::Size GetChars(const std::vector<System::UByte>& bytes
-                                        , const System::Size&               byteIndex
-                                        , const System::Size&               byteCount
-                                        , std::vector<char16_t>&            chars
-                                        , const System::Size&               charIndex) const = 0;
+            virtual System::Size GetChars(const std::vector<uint8_t>& bytes
+                                        , const System::Size&         byteIndex
+                                        , const System::Size&         byteCount
+                                        , std::vector<char16_t>&      chars
+                                        , const System::Size&         charIndex) const = 0;
 
             /**
              * Decodes a sequence of bytes from the specified byte array and any bytes
              * in the internal buffer into the specified character array.
              * A parameter indicates whether to clear the internal state of the decoder after the conversion.
              */
-            virtual System::Size GetChars(const std::vector<System::UByte>& bytes
-                                        , const System::Size&               byteIndex
-                                        , const System::Size&               byteCount
-                                        , std::vector<char16_t>&            chars
-                                        , const System::Size&               charIndex
-                                        , const bool&                       flush) const;
+            virtual System::Size GetChars(const std::vector<uint8_t>& bytes
+                                        , const System::Size&         byteIndex
+                                        , const System::Size&         byteCount
+                                        , std::vector<char16_t>&      chars
+                                        , const System::Size&         charIndex
+                                        , const bool&                 flush) const;
 
             /**
              * Sets the encoder back to its initial state.

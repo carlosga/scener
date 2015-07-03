@@ -95,18 +95,18 @@ bool BinaryReader::ReadBoolean()
     return static_cast<bool>(this->ReadByte());
 }
 
-UByte BinaryReader::ReadByte()
+uint8_t BinaryReader::ReadByte()
 {
-    UByte buffer;
+    uint8_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
 
-std::vector<UByte> BinaryReader::ReadBytes(const Size& count)
+std::vector<uint8_t> BinaryReader::ReadBytes(const Size& count)
 {
-    auto buffer = std::vector<UByte>(count);
+    auto buffer = std::vector<uint8_t>(count);
     auto readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
 
     if (readed < count)

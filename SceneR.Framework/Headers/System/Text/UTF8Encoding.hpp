@@ -40,24 +40,24 @@ namespace System
             System::Size GetBytes(const std::vector<char16_t>& chars
                                 , const System::Size&          charIndex
                                 , const System::Size&          charCount
-                                , std::vector<System::UByte>&  bytes
+                                , std::vector<uint8_t>&        bytes
                                 , const System::Size&          byteIndex) const override;
 
-            System::Size GetCharCount(const std::vector<System::UByte>& bytes
-                                    , const System::Size&               index
-                                    , const System::Size&               count) const override;
+            System::Size GetCharCount(const std::vector<uint8_t>& bytes
+                                    , const System::Size&         index
+                                    , const System::Size&         count) const override;
 
-            System::Size GetChars(const std::vector<System::UByte>& bytes
-                                , const System::Size&               byteIndex
-                                , const System::Size&               byteCount
-                                , std::vector<char16_t>&            chars
-                                , const System::Size&               charIndex) const override;
+            System::Size GetChars(const std::vector<uint8_t>& bytes
+                                , const System::Size&         byteIndex
+                                , const System::Size&         byteCount
+                                , std::vector<char16_t>&      chars
+                                , const System::Size&         charIndex) const override;
 
             System::Size GetMaxByteCount(const System::Size& charCount) override;
 
             System::Size GetMaxCharCount(const System::Size& byteCount) override;
 
-            std::vector<System::UByte> GetPreamble() const override;
+            std::vector<uint8_t> GetPreamble() const override;
 
             const Decoder& GetDecoder() const override;
 

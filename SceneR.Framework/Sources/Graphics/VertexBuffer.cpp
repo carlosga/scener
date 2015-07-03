@@ -38,16 +38,16 @@ const UInt32& VertexBuffer::VertexCount() const
     return this->vertexCount;
 }
 
-std::vector<UByte> VertexBuffer::GetData() const
+std::vector<uint8_t> VertexBuffer::GetData() const
 {
     return this->GetData(0, this->vertexCount);
 }
 
-std::vector<UByte> VertexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
+std::vector<uint8_t> VertexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
 {
     auto offset = (startIndex * this->vertexDeclaration->VertexStride());
     auto size   = (elementCount * this->vertexDeclaration->VertexStride());
-    auto data   = std::vector<UByte>(size, 0);
+    auto data   = std::vector<uint8_t>(size, 0);
 
     this->vbo.GetData(offset, size, data.data());
 

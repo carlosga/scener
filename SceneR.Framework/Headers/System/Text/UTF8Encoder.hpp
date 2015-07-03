@@ -37,7 +37,7 @@ namespace System
             System::Size GetBytes(const std::vector<char16_t>& chars
                                 , const System::Size&          charIndex
                                 , const System::Size&          charCount
-                                , std::vector<System::UByte>&  bytes
+                                , std::vector<uint8_t>&        bytes
                                 , const System::Size&          byteIndex
                                 , const bool&                  flush) const override;
 

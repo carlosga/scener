@@ -24,7 +24,7 @@ TEST_F(BinaryReaderTest, ReadByte)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    UByte value = reader.ReadByte();
+    uint8_t value = reader.ReadByte();
 
     reader.Close();
 
@@ -38,7 +38,7 @@ TEST_F(BinaryReaderTest, ReadBytes)
     BinaryReader reader(stream);
     Size length = reader.BaseStream().Length();
 
-    std::vector<UByte> buffer = reader.ReadBytes(length);
+    std::vector<uint8_t> buffer = reader.ReadBytes(length);
 
     reader.Close();
 

@@ -63,9 +63,9 @@ void FileStream::Close()
     }
 }
 
-UByte FileStream::ReadByte()
+uint8_t FileStream::ReadByte()
 {
-    UByte buffer;
+    uint8_t buffer;
 
     this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

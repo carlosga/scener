@@ -63,7 +63,7 @@ Size UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
 Size UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
                          , const Size&                  charIndex
                          , const Size&                  charCount
-                         , std::vector<UByte>&          bytes
+                         , std::vector<uint8_t>&        bytes
                          , const Size&                  byteIndex
                          , const bool&                  flush) const
 {
@@ -90,7 +90,7 @@ Size UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
     {
         for (auto position = toStart; position < toNext; position++)
         {
-            bytes.emplace(iterator++, static_cast<UByte>(*position));
+            bytes.emplace(iterator++, static_cast<uint8_t>(*position));
         }
     }
 

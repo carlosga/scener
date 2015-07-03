@@ -67,7 +67,7 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            UByte ReadByte() override;
+            uint8_t ReadByte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.

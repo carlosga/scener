@@ -6,7 +6,7 @@
 using namespace System;
 using namespace System::IO;
 
-MemoryStream::MemoryStream(const std::vector<UByte>& buffer)
+MemoryStream::MemoryStream(const std::vector<uint8_t>& buffer)
     : stream { std::ios::in | std::ios::out | std::ios::binary }
     , mode   { std::ios::in | std::ios::out | std::ios::binary }
 {
@@ -58,9 +58,9 @@ void MemoryStream::Close()
 {
 }
 
-UByte MemoryStream::ReadByte()
+uint8_t MemoryStream::ReadByte()
 {
-    UByte buffer;
+    uint8_t buffer;
 
     this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

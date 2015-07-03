@@ -23,12 +23,12 @@ Size Encoder::GetByteCount(const char16_t* chars, const Size& count, const bool&
 
 Size Encoder::GetBytes(const char16_t* chars
                      , const Size&     charCount
-                     , UByte*          bytes
+                     , uint8_t*        bytes
                      , const Size&     byteCount
                      , const bool&     flush) const
 {
     auto vchars = std::vector<char16_t>(chars, chars + charCount);
-    auto vbytes = std::vector<UByte>();
+    auto vbytes = std::vector<uint8_t>();
 
     vbytes.reserve(this->GetByteCount(vchars, 0, charCount, flush));
 

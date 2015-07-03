@@ -54,14 +54,14 @@ void UniformBufferObject::Deactivate()
     glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), 0, 0);
 }
 
-std::vector<UByte> UniformBufferObject::GetData() const
+std::vector<uint8_t> UniformBufferObject::GetData() const
 {
     return this->GetData(0, this->size);
 }
 
-std::vector<UByte> UniformBufferObject::GetData(const UInt32& startIndex, const UInt32& elementCount) const
+std::vector<uint8_t> UniformBufferObject::GetData(const UInt32& startIndex, const UInt32& elementCount) const
 {
-    auto data = std::vector<UByte>(elementCount, 0);
+    auto data = std::vector<uint8_t>(elementCount, 0);
 
     this->bufferObject.GetData(startIndex, elementCount, data.data());
 
@@ -97,6 +97,6 @@ void UniformBufferObject::Describe()
     glGetActiveUniformBlockiv(this->programId, this->index, GL_UNIFORM_BLOCK_DATA_SIZE, &this->size);
 
     // Initialize the buffer object
-    std::vector<UByte> data(this->size, 0);
+    std::vector<uint8_t> data(this->size, 0);
     this->bufferObject.BufferData(this->size, data.data());
 }

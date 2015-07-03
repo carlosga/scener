@@ -22,7 +22,7 @@ namespace System
             /**
              * Initializes a new instance of the MemoryStream class.
              */
-            MemoryStream(const std::vector<UByte>& buffer);
+            MemoryStream(const std::vector<uint8_t>& buffer);
 
             /**
              * Releases all resources being used by this MemoryStream.
@@ -63,7 +63,7 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            UByte ReadByte() override;
+            uint8_t ReadByte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.

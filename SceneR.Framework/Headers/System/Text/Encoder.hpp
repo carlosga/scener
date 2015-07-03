@@ -58,7 +58,7 @@ namespace System
              */
             virtual System::Size GetBytes(const char16_t*     chars
                                         , const System::Size& charCount
-                                        , System::UByte*      bytes
+                                        , uint8_t*            bytes
                                         , const System::Size& byteCount
                                         , const bool&         flush) const;
 
@@ -71,7 +71,7 @@ namespace System
             virtual System::Size GetBytes(const std::vector<char16_t>& chars
                                         , const System::Size&          charIndex
                                         , const System::Size&          charCount
-                                        , std::vector<System::UByte>&  bytes
+                                        , std::vector<uint8_t>&        bytes
                                         , const System::Size&          byteIndex
                                         , const bool&                  flush) const = 0;
 

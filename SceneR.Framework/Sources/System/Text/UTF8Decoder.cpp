@@ -15,9 +15,9 @@ UTF8Decoder::~UTF8Decoder()
 {
 }
 
-Size UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
-                             , const Size&               index
-                             , const Size&               count) const
+Size UTF8Decoder::GetCharCount(const std::vector<uint8_t>& bytes
+                             , const Size&                 index
+                             , const Size&                 count) const
 {
     Size result = 0;
 
@@ -43,11 +43,11 @@ Size UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
     return result;
 }
 
-Size UTF8Decoder::GetChars(const std::vector<UByte>& bytes
-                         , const Size&               byteIndex
-                         , const Size&               byteCount
-                         , std::vector<char16_t>&    chars
-                         , const Size&               charIndex) const
+Size UTF8Decoder::GetChars(const std::vector<uint8_t>& bytes
+                         , const Size&                 byteIndex
+                         , const Size&                 byteCount
+                         , std::vector<char16_t>&      chars
+                         , const Size&                 charIndex) const
 {
     auto        from     = (char*)&bytes[0] + byteIndex;
     auto        fromEnd  = from + byteCount;

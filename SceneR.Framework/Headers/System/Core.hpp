@@ -8,8 +8,7 @@
 
 namespace System
 {
-    using Byte    = int8_t;
-    using UByte   = uint8_t;
+    // using UByte   = uint8_t;
     using Int16   = int16_t;
     using UInt16  = uint16_t;
     using Int32   = int32_t;

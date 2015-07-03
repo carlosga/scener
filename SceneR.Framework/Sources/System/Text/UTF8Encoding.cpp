@@ -35,24 +35,24 @@ Size UTF8Encoding::GetByteCount(const std::vector<char16_t>& chars
 Size UTF8Encoding::GetBytes(const std::vector<char16_t>& chars
                           , const Size&                  charIndex
                           , const Size&                  charCount
-                          , std::vector<UByte>&          bytes
+                          , std::vector<uint8_t>&        bytes
                           , const Size&                  byteIndex) const
 {
     return this->encoder.GetBytes(chars, charIndex, charCount, bytes, byteIndex, false);
 }
 
-Size UTF8Encoding::GetCharCount(const std::vector<UByte>& bytes
-                              , const Size&               index
-                              , const Size&               count) const
+Size UTF8Encoding::GetCharCount(const std::vector<uint8_t>& bytes
+                              , const Size&                 index
+                              , const Size&                 count) const
 {
     return this->decoder.GetCharCount(bytes, index, count);
 }
 
-Size UTF8Encoding::GetChars(const std::vector<UByte>& bytes
-                          , const Size&               byteIndex
-                          , const Size&               byteCount
-                          , std::vector<char16_t>&    chars
-                          , const Size&               charIndex) const
+Size UTF8Encoding::GetChars(const std::vector<uint8_t>& bytes
+                          , const Size&                 byteIndex
+                          , const Size&                 byteCount
+                          , std::vector<char16_t>&      chars
+                          , const Size&                 charIndex) const
 {
     return this->decoder.GetChars(bytes, byteIndex, byteCount, chars, charIndex);
 }
@@ -67,7 +67,7 @@ Size UTF8Encoding::GetMaxCharCount(const Size& byteCount)
     return byteCount; // Every character could be 1 byte lenght
 }
 
-std::vector<UByte> UTF8Encoding::GetPreamble() const
+std::vector<uint8_t> UTF8Encoding::GetPreamble() const
 {
     return { 0xef, 0xbb, 0xbf };
 }

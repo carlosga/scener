@@ -75,12 +75,12 @@ namespace System
             /**
              * Reads the next byte from the current stream.
              */
-            UByte ReadByte();
+            uint8_t ReadByte();
 
             /**
              * Reads the specified number of bytes from the underliying stream
              */
-            std::vector<UByte> ReadBytes(const Size& count);
+            std::vector<uint8_t> ReadBytes(const Size& count);
 
             /**
              * Reads a 2-byte signed integer from the current stream.
