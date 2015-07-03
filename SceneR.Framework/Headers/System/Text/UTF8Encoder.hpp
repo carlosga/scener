@@ -32,14 +32,14 @@ namespace System
             System::Size GetByteCount(const std::vector<System::Char>& chars
                                     , const System::Size&              index
                                     , const System::Size&              count
-                                    , const System::Boolean&           flush) const override;
+                                    , const bool&                      flush) const override;
 
             System::Size GetBytes(const std::vector<System::Char>& chars
                                 , const System::Size&              charIndex
                                 , const System::Size&              charCount
                                 , std::vector<System::UByte>&      bytes
                                 , const System::Size&              byteIndex
-                                , const System::Boolean&           flush) const override;
+                                , const bool&                      flush) const override;
 
         private:
             std::codecvt_utf8<char16_t> converter;

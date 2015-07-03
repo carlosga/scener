@@ -6,6 +6,9 @@
 
 #include <System/Core.hpp>
 
+#include <cmath>
+#include <limits>
+
 namespace System
 {
     /**
@@ -17,67 +20,67 @@ namespace System
         /**
          * Represents the mathematical constant e.
          */
-        static const System::Single E;
+        constexpr static const System::Single E = M_E;
 
         /**
          * Represents the log base ten of e.
          */
-        static const System::Single Log10E;
+        constexpr static const System::Single Log10E = M_LOG10E;
 
         /**
          * Represents the log base two of e.
          */
-        static const System::Single Log2E;
+        constexpr static const System::Single Log2E = M_LOG2E;
 
         /**
          * Represents the value of PI
          */
-        static const System::Single Pi;
+        constexpr static const System::Single Pi = M_PI;
 
         /**
          * Represents the value of PI divided by 2
          */
-        static const System::Single PiOver2;
+        constexpr static const System::Single PiOver2 = M_PI_2;
 
         /**
          * Represents the value of PI divided by 4
          */
-        static const System::Single PiOver4;
+        constexpr static const System::Single PiOver4 = M_PI_4;
 
         /**
          * Represents the value of pi times two.
          */
-        static const System::Single TwoPi;
+        constexpr static const System::Single TwoPi = M_2_PI;
 
         /**
          * Represents negative infinity.
          */
-        static const System::Single NegativeInfinity;
+        constexpr static const System::Single NegativeInfinity = -std::numeric_limits<Single>::infinity();
 
         /**
          * Represents positive infinity.
          */
-        static const System::Single PositiveInfinity;
+        constexpr static const System::Single PositiveInfinity = std::numeric_limits<Single>::infinity();
 
         /**
          * Represents not a number (NaN).
          */
-        static const System::Single NaN;
+        constexpr static const System::Single NaN = std::numeric_limits<Single>::quiet_NaN();
 
         /**
          * Represents the smallest positive Single value that is greater than zero.
          */
-        static const System::Single Epsilon;
+        constexpr static const System::Single Epsilon = std::numeric_limits<Single>::epsilon();
 
         /**
          * @brief MinValue Represents the smallest possible value of Single.
          */
-        static const Single MinValue;
+        constexpr static const Single MinValue = std::numeric_limits<Single>::lowest();
 
         /**
          * @brief MaxValue Represents the largest possible value of Single. This field is constant.
          */
-        static const Single MaxValue;
+        constexpr static const Single MaxValue = std::numeric_limits<Single>::max();
 
     public:
         /**
@@ -85,28 +88,28 @@ namespace System
          * @param f A single-precision floating-point number.
          * @returns true if f evaluates to PositiveInfinity or NegativeInfinity; otherwise, false.
          */
-        static System::Boolean IsInfinity(const System::Single& f);
+        static bool IsInfinity(const System::Single& f);
 
         /**
          * Returns a value indicating whether the specified number evaluates to positive infinity.
          * @param f A single-precision floating-point number.
          * @returns true if f evaluates to NegativeInfinity; otherwise, false.
          */
-        static System::Boolean IsNegativeInfinity(const System::Single& f);
+        static bool IsNegativeInfinity(const System::Single& f);
 
         /**
          * Returns a value indicating whether the specified number evaluates to negative or positive infinity.
          * @param f A single-precision floating-point number.
          * @returns true if f evaluates to PositiveInfinity; otherwise, false.
          */
-        static System::Boolean IsPositiveInfinity(const System::Single& f);
+        static bool IsPositiveInfinity(const System::Single& f);
 
         /**
          * Returns a value that indicates whether the specified value is not a number (NaN).
          * @param f A single-precision floating-point number.
          * @returns true if f evaluates to not a number (NaN); otherwise, false.
          */
-        static System::Boolean IsNaN(const System::Single& f);
+        static bool IsNaN(const System::Single& f);
 
     public:
         /**

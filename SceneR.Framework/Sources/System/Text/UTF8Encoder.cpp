@@ -19,7 +19,7 @@ UTF8Encoder::~UTF8Encoder()
 Size UTF8Encoder::GetByteCount(const std::vector<Char>& chars
                              , const Size&              index
                              , const Size&              count
-                             , const Boolean&           flush) const
+                             , const bool&              flush) const
 {
     Size byteCount = 0;
 
@@ -65,7 +65,7 @@ Size UTF8Encoder::GetBytes(const std::vector<Char>& chars
                          , const Size&              charCount
                          , std::vector<UByte>&      bytes
                          , const Size&              byteIndex
-                         , const Boolean&           flush) const
+                         , const bool&              flush) const
 {
     auto        from     = const_cast<Char*>(&chars[0] + charIndex);
     auto        fromEnd  = from + charCount;

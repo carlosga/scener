@@ -57,8 +57,8 @@ namespace SceneR
             void UnloadShaderIncludes();
             void LoadInclude(const std::string& path, const std::string& shaderInclude);
             void UnloadInclude(const std::string& path);
-            System::Boolean IsIncludeRegistered(const std::string& path) const;
-            System::Boolean IsIncludeDeclared(const std::string& path) const;
+            bool IsIncludeRegistered(const std::string& path) const;
+            bool IsIncludeDeclared(const std::string& path) const;
 
         private:
             static std::map<std::string, std::string> ShaderIncludes;

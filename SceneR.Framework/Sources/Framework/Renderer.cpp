@@ -121,12 +121,12 @@ void Renderer::Initialize()
     }
 }
 
-const Boolean& Renderer::IsFixedTimeStep() const
+bool Renderer::IsFixedTimeStep() const
 {
     return this->isFixedTimeStep;
 }
 
-void Renderer::IsFixedTimeStep(const Boolean& isFixedTimeStep)
+void Renderer::IsFixedTimeStep(const bool& isFixedTimeStep)
 {
     this->isFixedTimeStep = isFixedTimeStep;
 }

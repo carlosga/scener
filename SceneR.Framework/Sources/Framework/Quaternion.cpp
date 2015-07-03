@@ -147,10 +147,10 @@ Quaternion Quaternion::Normalize(const Quaternion& value)
 
 Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
 {
-    Single  w1;
-    Single  w2;
-    Single  cosTheta = Quaternion::Dot(quaternion1, quaternion2);
-    Boolean bFlip    = false;
+    Single w1;
+    Single w2;
+    Single cosTheta = Quaternion::Dot(quaternion1, quaternion2);
+    bool   bFlip    = false;
 
     if (cosTheta < 0.0f)
     {

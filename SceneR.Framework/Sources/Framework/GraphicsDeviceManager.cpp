@@ -67,7 +67,7 @@ void GraphicsDeviceManager::ApplyChanges()
     }
 }
 
-Boolean GraphicsDeviceManager::BeginDraw()
+bool GraphicsDeviceManager::BeginDraw()
 {
     return true;
 }
@@ -103,12 +103,12 @@ void GraphicsDeviceManager::GraphicsProfile(const SceneR::Graphics::GraphicsProf
     this->graphicsProfile = graphicsProfile;
 }
 
-const Boolean& GraphicsDeviceManager::AllowUserResizing() const
+bool GraphicsDeviceManager::AllowUserResizing() const
 {
     return this->allowUserResizing;
 }
 
-void GraphicsDeviceManager::AllowUserResizing(const Boolean& allowUserResizing)
+void GraphicsDeviceManager::AllowUserResizing(const bool& allowUserResizing)
 {
     this->allowUserResizing = allowUserResizing;
 }
@@ -123,12 +123,12 @@ void GraphicsDeviceManager::WindowTitle(const String& windowTitle)
     this->windowTitle = windowTitle;
 }
 
-const Boolean& GraphicsDeviceManager::FullScreen() const
+bool GraphicsDeviceManager::FullScreen() const
 {
     return this->fullScreen;
 }
 
-void GraphicsDeviceManager::FullScreen(const Boolean& fullScreen)
+void GraphicsDeviceManager::FullScreen(const bool& fullScreen)
 {
     this->fullScreen = fullScreen;
 }

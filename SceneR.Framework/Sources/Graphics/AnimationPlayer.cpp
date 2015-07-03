@@ -55,7 +55,7 @@ void AnimationPlayer::StartClip(const AnimationClip& clip)
 }
 
 void AnimationPlayer::Update(const TimeSpan& time
-                           , const Boolean&  relativeToCurrentTime
+                           , const bool&     relativeToCurrentTime
                            , const Matrix&   rootTransform)
 {
     this->UpdateBoneTransforms(time, relativeToCurrentTime);
@@ -63,7 +63,7 @@ void AnimationPlayer::Update(const TimeSpan& time
     this->UpdateSkinTransforms();
 }
 
-void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const Boolean& relativeToCurrentTime)
+void AnimationPlayer::UpdateBoneTransforms(const TimeSpan& time, const bool& relativeToCurrentTime)
 {
     auto currentTime = TimeSpan(time);
 

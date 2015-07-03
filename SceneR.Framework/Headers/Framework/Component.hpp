@@ -47,18 +47,18 @@ namespace SceneR
             /**
              * Gets a value indicating whether the component is enabled.
              */
-            const System::Boolean& Enabled() const override;
+            bool Enabled() const override;
 
             /**
              * Sets a value indicating whether the component is enabled.
              */
-            void Enabled(const System::Boolean& enabled);
+            void Enabled(const bool& enabled);
 
             /**
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual const System::UInt32& UpdateOrder() const override;
+            virtual System::UInt32 UpdateOrder() const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
@@ -70,8 +70,8 @@ namespace SceneR
             SceneR::Framework::Renderer& renderer;
 
         private:
-            System::Boolean enabled;
-            System::UInt32  updateOrder;
+            bool           enabled;
+            System::UInt32 updateOrder;
         };
     }
 }

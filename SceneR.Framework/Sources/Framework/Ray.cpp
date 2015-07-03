@@ -40,22 +40,22 @@ const Vector3& Ray::Position() const
     return this->position;
 }
 
-Boolean Ray::Intersects(const BoundingBox& boundingBox)
+bool Ray::Intersects(const BoundingBox& boundingBox)
 {
     return (boundingBox.Intersects(*this) == 0.0f);
 }
 
-Boolean Ray::Intersects(const BoundingFrustum& frustum)
+bool Ray::Intersects(const BoundingFrustum& frustum)
 {
     throw std::runtime_error("Not implemented");
 }
 
-Boolean Ray::Intersects(const BoundingSphere& sphere)
+bool Ray::Intersects(const BoundingSphere& sphere)
 {
     return sphere.Intersects(*this);
 }
 
-Boolean Ray::Intersects(const Plane& plane)
+bool Ray::Intersects(const Plane& plane)
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto denom = Vector3::Dot(plane.Normal(), this->direction);

@@ -90,22 +90,22 @@ namespace SceneR
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            const System::Boolean& MultiSampleAntiAlias() const;
+            bool MultiSampleAntiAlias() const;
 
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            void MultiSampleAntiAlias(const System::Boolean& multiSampleAntiAlias);
+            void MultiSampleAntiAlias(const bool& multiSampleAntiAlias);
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            const System::Boolean& ScissorTestEnable() const;
+            bool ScissorTestEnable() const;
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            void ScissorTestEnable(const System::Boolean& scissorTestEnable);
+            void ScissorTestEnable(const bool& scissorTestEnable);
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -133,8 +133,8 @@ namespace SceneR
             SceneR::Graphics::CullMode cullMode;
             System::Single             depthBias;
             SceneR::Graphics::FillMode fillMode;
-            System::Boolean            multiSampleAntiAlias;
-            System::Boolean            scissorTestEnable;
+            bool                       multiSampleAntiAlias;
+            bool                       scissorTestEnable;
             System::Single             slopeScaleDepthBias;
 
             friend class SceneR::Framework::GraphicsDeviceManager;

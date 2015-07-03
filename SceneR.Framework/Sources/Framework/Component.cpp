@@ -24,17 +24,17 @@ void Component::Update(const RenderTime& renderTime)
 {
 }
 
-const Boolean& Component::Enabled() const
+bool Component::Enabled() const
 {
     return this->enabled;
 }
 
-void Component::Enabled(const Boolean& enabled)
+void Component::Enabled(const bool& enabled)
 {
     this->enabled = enabled;
 }
 
-const UInt32& Component::UpdateOrder() const
+UInt32 Component::UpdateOrder() const
 {
     return this->updateOrder;
 }

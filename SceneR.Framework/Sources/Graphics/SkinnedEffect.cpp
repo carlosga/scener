@@ -222,12 +222,12 @@ void SkinnedEffect::FogColor(const Vector3& fogColor)
     }
 }
 
-Boolean SkinnedEffect::FogEnabled() const
+bool SkinnedEffect::FogEnabled() const
 {
     return this->fogEnabled;
 }
 
-void SkinnedEffect::FogEnabled(const Boolean& fogEnabled)
+void SkinnedEffect::FogEnabled(const bool& fogEnabled)
 {
     if (this->fogEnabled != fogEnabled)
     {
@@ -264,22 +264,22 @@ void SkinnedEffect::FogStart(const Single& fogStart)
     }
 }
 
-Boolean SkinnedEffect::LightingEnabled() const
+bool SkinnedEffect::LightingEnabled() const
 {
     return this->lightingEnabled;
 }
 
-void SkinnedEffect::LightingEnabled(const Boolean& lightingEnabled)
+void SkinnedEffect::LightingEnabled(const bool& lightingEnabled)
 {
     assert(false);
 }
 
-Boolean SkinnedEffect::PreferPerPixelLighting() const
+bool SkinnedEffect::PreferPerPixelLighting() const
 {
     return this->preferPerPixelLighting;
 }
 
-void SkinnedEffect::PreferPerPixelLighting(const Boolean& preferPerPixelLighting)
+void SkinnedEffect::PreferPerPixelLighting(const bool& preferPerPixelLighting)
 {
     if (this->preferPerPixelLighting != preferPerPixelLighting)
     {
@@ -343,12 +343,12 @@ void SkinnedEffect::Texture(const std::shared_ptr<Texture2D>& texture)
     }
 }
 
-Boolean SkinnedEffect::TextureEnabled() const
+bool SkinnedEffect::TextureEnabled() const
 {
     return this->textureEnabled;
 }
 
-void SkinnedEffect::TextureEnabled(const Boolean& textureEnabled)
+void SkinnedEffect::TextureEnabled(const bool& textureEnabled)
 {
     if (this->textureEnabled != textureEnabled)
     {

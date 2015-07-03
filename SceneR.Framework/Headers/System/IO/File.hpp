@@ -25,7 +25,7 @@ namespace System
             /**
              * Checks whether the given file exists.
              */
-            static Boolean Exists(const System::String& path)
+            static bool Exists(const System::String& path)
             {
                 auto result = true;
                 auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);

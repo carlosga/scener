@@ -90,9 +90,9 @@ UInt32 BinaryReader::Read7BitEncodedInt()
     return result;
 }
 
-Boolean BinaryReader::ReadBoolean()
+bool BinaryReader::ReadBoolean()
 {
-    return static_cast<Boolean>(this->ReadByte());
+    return static_cast<bool>(this->ReadByte());
 }
 
 UByte BinaryReader::ReadByte()

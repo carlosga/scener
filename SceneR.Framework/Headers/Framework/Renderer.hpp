@@ -124,14 +124,14 @@ namespace SceneR
              * A fixed-step Game tries to call its Update method on the fixed interval specified in TargetElapsedTime.
              * The default value is true.
              */
-            virtual const System::Boolean& IsFixedTimeStep() const;
+            virtual bool IsFixedTimeStep() const;
 
             /**
              * Gets a value indicating whether to use fixed time steps.
              * A fixed-step Game tries to call its Update method on the fixed interval specified in TargetElapsedTime.
              * The default value is true.
              */
-            virtual void IsFixedTimeStep(const System::Boolean& isFixedTimeStep);
+            virtual void IsFixedTimeStep(const bool& isFixedTimeStep);
 
             /**
              * Called when graphics resources need to be loaded.
@@ -184,12 +184,12 @@ namespace SceneR
             RendererWindow                            rendererWindow;
             SceneR::Content::ContentManager           contentManager;
             SceneR::Graphics::ShaderManager           shaderManager;
-            System::Boolean                           isFixedTimeStep;
+            bool                                      isFixedTimeStep;
             System::TimeSpan                          targetElapsedTime;
             RendererTimer                             timer;
             RenderTime                                renderTime;
             System::TimeSpan                          totalRenderTime;
-            System::Boolean                           isRunningSlowly;
+            bool                                      isRunningSlowly;
             std::vector<std::shared_ptr<IDrawable>>   drawableComponents;
             std::vector<std::shared_ptr<IUpdateable>> updateableComponents;
 

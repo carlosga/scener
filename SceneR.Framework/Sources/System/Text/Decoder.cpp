@@ -14,7 +14,7 @@ Decoder::~Decoder()
 {
 }
 
-Size Decoder::GetCharCount(const UByte* bytes, const Size& count, const Boolean& flush) const
+Size Decoder::GetCharCount(const UByte* bytes, const Size& count, const bool& flush) const
 {
     auto vbytes = std::vector<UByte>(bytes, bytes + count);
 
@@ -24,16 +24,16 @@ Size Decoder::GetCharCount(const UByte* bytes, const Size& count, const Boolean&
 Size Decoder::GetCharCount(const std::vector<UByte>& bytes
                          , const Size&               index
                          , const Size&               count
-                         , const Boolean&            flush) const
+                         , const bool&               flush) const
 {
     return this->GetCharCount(bytes, index, count);
 }
 
-Size Decoder::GetChars(const UByte*   bytes
-                     , const Size&    byteCount
-                     , Char*          chars
-                     , const Size&    charCount
-                     , const Boolean& flush) const
+Size Decoder::GetChars(const UByte* bytes
+                     , const Size&  byteCount
+                     , Char*        chars
+                     , const Size&  charCount
+                     , const bool&  flush) const
 {
     auto vbytes = std::vector<UByte>(bytes, bytes + byteCount);
     auto vchars = std::vector<Char>();
@@ -53,7 +53,7 @@ Size Decoder::GetChars(const std::vector<UByte>& bytes
                      , const Size&               byteCount
                      , std::vector<Char>&        chars
                      , const Size&               charIndex
-                     , const Boolean&            flush) const
+                     , const bool&               flush) const
 {
     return this->GetChars(bytes, byteIndex, byteCount, chars, charIndex);
 }

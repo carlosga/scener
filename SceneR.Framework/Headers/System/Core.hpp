@@ -9,7 +9,6 @@
 namespace System
 {
     using Char    = char16_t;
-    using Boolean = bool;
     using Byte    = int8_t;
     using UByte   = uint8_t;
     using Int16   = int16_t;

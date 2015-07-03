@@ -108,22 +108,22 @@ void DepthStencilState::DepthBufferFunction(const CompareFunction& depthBufferFu
     this->depthBufferFunction = depthBufferFunction;
 }
 
-Boolean DepthStencilState::DepthBufferEnable() const
+bool DepthStencilState::DepthBufferEnable() const
 {
     return this->depthBufferEnable;
 }
 
-void DepthStencilState::DepthBufferEnable(const Boolean& depthBufferEnable)
+void DepthStencilState::DepthBufferEnable(const bool& depthBufferEnable)
 {
     this->depthBufferEnable = depthBufferEnable;
 }
 
-Boolean DepthStencilState::DepthBufferWriteEnable() const
+bool DepthStencilState::DepthBufferWriteEnable() const
 {
     return this->depthBufferWriteEnable;
 }
 
-void DepthStencilState::DepthBufferWriteEnable(const Boolean& depthBufferWriteEnable)
+void DepthStencilState::DepthBufferWriteEnable(const bool& depthBufferWriteEnable)
 {
     this->depthBufferWriteEnable = depthBufferWriteEnable;
 }
@@ -148,12 +148,12 @@ void DepthStencilState::StencilDepthBufferFail(const StencilOperation& stencilDe
     this->stencilDepthBufferFail = stencilDepthBufferFail;
 }
 
-System::Boolean DepthStencilState::StencilEnable() const
+bool DepthStencilState::StencilEnable() const
 {
     return this->stencilEnable;
 }
 
-void DepthStencilState::StencilEnable(const System::Boolean& stencilEnable)
+void DepthStencilState::StencilEnable(const bool& stencilEnable)
 {
     this->stencilEnable = stencilEnable;
 }
@@ -208,12 +208,12 @@ void DepthStencilState::StencilWriteMask(const System::UInt32& stencilWriteMask)
     this->stencilWriteMask = stencilWriteMask;
 }
 
-System::Boolean DepthStencilState::TwoSidedStencilMode() const
+bool DepthStencilState::TwoSidedStencilMode() const
 {
     return this->twoSidedStencilMode;
 }
 
-void DepthStencilState::TwoSidedStencilMode(const System::Boolean& twoSidedStencilMode)
+void DepthStencilState::TwoSidedStencilMode(const bool& twoSidedStencilMode)
 {
     this->twoSidedStencilMode = twoSidedStencilMode;
 }

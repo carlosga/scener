@@ -83,14 +83,14 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const System::String& uniformName, const System::Boolean& value) const;
+            void SetValue(const System::String& uniformName, const bool& value) const;
 
             /**
              * Gets the value of the EffectParameter as an array of System::Boolean.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const System::String& uniformName, const std::vector<System::Boolean>& value) const;
+            void SetValue(const System::String& uniformName, const std::vector<bool>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an System::Int32.

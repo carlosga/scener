@@ -99,17 +99,17 @@ namespace SceneR
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingBox.
              */
-            System::Boolean Intersects(const BoundingBox& boundingBox) const;
+            bool Intersects(const BoundingBox& boundingBox) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingFrustum.
              */
-            System::Boolean Intersects(const BoundingFrustum& frustrum) const;
+            bool Intersects(const BoundingFrustum& frustrum) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingSphere.
              */
-            System::Boolean Intersects(const BoundingSphere& sphere) const;
+            bool Intersects(const BoundingSphere& sphere) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified Plane.
@@ -119,12 +119,12 @@ namespace SceneR
             /**
              * Checks whether the current BoundingSphere intersects with a specified Ray.
              */
-            System::Boolean Intersects(const Ray& ray) const;
+            bool Intersects(const Ray& ray) const;
 
             /**
              * 	 Checks whether the current BoundingSphere intersects a Ray.
              */
-            // System::Boolean Intersects(const Ray& ray, Nullable<Single>);
+            // bool Intersects(const Ray& ray, Nullable<Single>);
 
             /**
              * Translates and scales the BoundingSphere using a given Matrix.

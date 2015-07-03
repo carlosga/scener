@@ -9,11 +9,11 @@ using namespace System;
 
 const TimeSpan TimeSpan::MaxValue            { INT64_MAX };
 const TimeSpan TimeSpan::MinValue            { INT64_MIN };
-const Int64    TimeSpan::TicksPerDay         = 864000000000;
-const Int64    TimeSpan::TicksPerHour        = 36000000000;
-const Int64    TimeSpan::TicksPerMillisecond = 10000;
-const Int64    TimeSpan::TicksPerMinute      = 600000000;
-const Int64    TimeSpan::TicksPerSecond      = 10000000;
+const Int64    TimeSpan::TicksPerDay;
+const Int64    TimeSpan::TicksPerHour;
+const Int64    TimeSpan::TicksPerMillisecond;
+const Int64    TimeSpan::TicksPerMinute;
+const Int64    TimeSpan::TicksPerSecond;
 const TimeSpan TimeSpan::Zero                { 0 };
 
 TimeSpan TimeSpan::FromDays(const System::Double& value)

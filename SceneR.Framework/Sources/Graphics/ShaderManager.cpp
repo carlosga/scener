@@ -102,12 +102,12 @@ void ShaderManager::UnloadInclude(const std::string& path)
     }
 }
 
-Boolean ShaderManager::IsIncludeRegistered(const std::string& path) const
+bool ShaderManager::IsIncludeRegistered(const std::string& path) const
 {
     return (ShaderIncludes.find(path) != ShaderIncludes.end());
 }
 
-Boolean ShaderManager::IsIncludeDeclared(const std::string& path) const
+bool ShaderManager::IsIncludeDeclared(const std::string& path) const
 {
     return (glIsNamedStringARB(path.size(), path.c_str()));
 }

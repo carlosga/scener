@@ -53,7 +53,7 @@ namespace SceneR
                 return nullptr;
             }
 
-            System::Boolean HasResource(const System::String& name) const
+            bool HasResource(const System::String& name) const
             {
                 return (this->resources.find(name) != this->resources.end());
             }

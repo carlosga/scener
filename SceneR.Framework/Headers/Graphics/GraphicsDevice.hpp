@@ -47,6 +47,10 @@ namespace SceneR
             GraphicsDevice(const GraphicsAdapter&                   adapter
                          , const SceneR::Graphics::GraphicsProfile& graphicsProfile);
 
+            /**
+             * @brief GraphicsDevice Initializes a new instance of the GraphicsDevice class. Copy constructor.
+             * @param device the graphics device to copy from.
+             */
             GraphicsDevice(const GraphicsDevice& device);
 
             /**

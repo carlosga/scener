@@ -28,12 +28,12 @@ PresentationParameters::~PresentationParameters()
 {
 }
 
-const Boolean& PresentationParameters::FullScreen() const
+bool PresentationParameters::FullScreen() const
 {
     return this->fullScreen;
 }
 
-void PresentationParameters::FullScreen(const Boolean& fullScreen)
+void PresentationParameters::FullScreen(const bool& fullScreen)
 {
     this->fullScreen = fullScreen;
 }

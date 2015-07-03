@@ -49,7 +49,7 @@ EffectDirtyFlags EffectHelpers::SetWorldViewProjAndFog(const EffectDirtyFlags& d
                                                      , const Matrix&           view
                                                      , const Matrix&           projection
                                                      , Matrix&                 worldView
-                                                     , const Boolean&          fogEnabled
+                                                     , const bool&             fogEnabled
                                                      , const Single&           fogStart
                                                      , const Single&           fogEnd
                                                      , EffectParameter&        worldViewProjParam
@@ -156,7 +156,7 @@ EffectDirtyFlags EffectHelpers::SetLightingMatrices(const EffectDirtyFlags& dirt
     return result;
 }
 
-void EffectHelpers::SetMaterialColor(const Boolean&   lightingEnabled
+void EffectHelpers::SetMaterialColor(const bool&      lightingEnabled
                                    , const Single&    alpha
                                    , const Vector3&   diffuseColor
                                    , const Vector3&   emissiveColor

@@ -53,7 +53,7 @@ namespace SceneR
             /**
              * Starts the drawing of a frame.
              */
-            System::Boolean BeginDraw() override;
+            bool BeginDraw() override;
 
             /**
              * Called by the renderer at the end of drawing; presents the final rendering.
@@ -84,12 +84,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            const System::Boolean& AllowUserResizing() const;
+            bool AllowUserResizing() const;
 
             /**
              * Geta a value indicating whether to allow the user to reSystem::Size the device window.
              */
-            void AllowUserResizing(const System::Boolean& allowUserResizing);
+            void AllowUserResizing(const bool& allowUserResizing);
 
             /**
              * Gets the window title.
@@ -107,12 +107,12 @@ namespace SceneR
              * Gets a value that indicates whether the device should start in full-screen mode.
              * @return a value that indicates whether the device should start in full-screen mode.
              */
-            const System::Boolean& FullScreen() const;
+            bool FullScreen() const;
 
             /**
              * Sets a value that indicates whether the device should start in full-screen mode.
              */
-            void FullScreen(const System::Boolean& fullScreen);
+            void FullScreen(const bool& fullScreen);
 
             /**
              * Gets the preferred back-buffer height.
@@ -139,8 +139,8 @@ namespace SceneR
         private:
             Renderer&                                         renderer;
             std::shared_ptr<SceneR::Graphics::GraphicsDevice> graphicsDevice;
-            System::Boolean                                   allowUserResizing;
-            System::Boolean                                   fullScreen;
+            bool                                              allowUserResizing;
+            bool                                              fullScreen;
             SceneR::Graphics::GraphicsProfile                 graphicsProfile;
             System::UInt32                                    preferredBackBufferWidth;
             System::UInt32                                    preferredBackBufferHeight;

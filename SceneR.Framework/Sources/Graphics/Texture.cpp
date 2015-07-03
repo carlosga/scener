@@ -7,7 +7,7 @@
 
 using namespace SceneR::Graphics;
 
-System::Boolean Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
+bool Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
 {
     return (format == SurfaceFormat::Dxt1
          || format == SurfaceFormat::Dxt3

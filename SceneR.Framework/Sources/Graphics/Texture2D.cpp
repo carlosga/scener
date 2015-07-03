@@ -18,7 +18,7 @@ Texture2D::Texture2D(GraphicsDevice& graphicsDevice
 Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
                    , const UInt32&        width
                    , const UInt32&        height
-                   , const Boolean&       mipmap
+                   , const bool&          mipmap
                    , const SurfaceFormat& format)
     : Texture      { graphicsDevice }
     , format       { format }

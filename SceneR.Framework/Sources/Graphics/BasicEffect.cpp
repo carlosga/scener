@@ -219,12 +219,12 @@ void BasicEffect::FogColor(const Vector3& fogColor)
     }
 }
 
-Boolean BasicEffect::FogEnabled() const
+bool BasicEffect::FogEnabled() const
 {
     return this->fogEnabled;
 }
 
-void BasicEffect::FogEnabled(const Boolean& fogEnabled)
+void BasicEffect::FogEnabled(const bool& fogEnabled)
 {
     if (this->fogEnabled != fogEnabled)
     {
@@ -261,12 +261,12 @@ void BasicEffect::FogStart(const Single& fogStart)
     }
 }
 
-Boolean BasicEffect::LightingEnabled() const
+bool BasicEffect::LightingEnabled() const
 {
     return this->lightingEnabled;
 }
 
-void BasicEffect::LightingEnabled(const Boolean& lightingEnabled)
+void BasicEffect::LightingEnabled(const bool& lightingEnabled)
 {
     if (this->lightingEnabled != lightingEnabled)
     {
@@ -275,12 +275,12 @@ void BasicEffect::LightingEnabled(const Boolean& lightingEnabled)
     }
 }
 
-Boolean BasicEffect::PreferPerPixelLighting() const
+bool BasicEffect::PreferPerPixelLighting() const
 {
     return this->preferPerPixelLighting;
 }
 
-void BasicEffect::PreferPerPixelLighting(const Boolean& preferPerPixelLighting)
+void BasicEffect::PreferPerPixelLighting(const bool& preferPerPixelLighting)
 {
     if (this->preferPerPixelLighting != preferPerPixelLighting)
     {
@@ -344,12 +344,12 @@ void BasicEffect::Texture(const std::shared_ptr<Texture2D>& texture)
     }
 }
 
-Boolean BasicEffect::TextureEnabled() const
+bool BasicEffect::TextureEnabled() const
 {
     return this->textureEnabled;
 }
 
-void BasicEffect::TextureEnabled(const Boolean& textureEnabled)
+void BasicEffect::TextureEnabled(const bool& textureEnabled)
 {
     if (this->textureEnabled != textureEnabled)
     {
@@ -369,12 +369,12 @@ void BasicEffect::View(const Matrix& view)
     this->dirtyFlags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
 }
 
-Boolean BasicEffect::VertexColorEnabled() const
+bool BasicEffect::VertexColorEnabled() const
 {
     return this->vertexColorEnabled;
 }
 
-void BasicEffect::VertexColorEnabled(const Boolean& vertexColorEnabled)
+void BasicEffect::VertexColorEnabled(const bool& vertexColorEnabled)
 {
     if (this->vertexColorEnabled != vertexColorEnabled)
     {

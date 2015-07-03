@@ -62,7 +62,7 @@ namespace SceneR
             /**
              * Retrieves a value that is used to help identify a particular chip set.
              */
-            const System::Int32& DeviceId() const;
+            System::Int32 DeviceId() const;
 
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
@@ -72,12 +72,12 @@ namespace SceneR
             /**
              * Determines if this instance of GraphicsAdapter is the default adapter.
              */
-            const System::Boolean& IsDefaultAdapter() const;
+            bool IsDefaultAdapter() const;
 
             /**
              * Determines if the graphics adapter is in widescreen mode.
              */
-            const System::Boolean& IsWideScreen() const;
+            bool IsWideScreen() const;
 
             /**
              * Retrieves the handle of the monitor associated with the Microsoft Direct3D object.
@@ -87,12 +87,12 @@ namespace SceneR
             /**
              * Retrieves a value used to help identify the revision level of a particular chip set.
              */
-            const System::Int32& Revision() const;
+            System::Int32 Revision() const;
 
             /**
              * Retrieves a value used to identify the subsystem.
              */
-            const System::Int32& SubSystemId() const;
+            System::Int32 SubSystemId() const;
 
             /**
              * Returns a collection of supported display modes for the current adapter.
@@ -102,7 +102,7 @@ namespace SceneR
             /**
              * Retrieves a value used to identify the manufacturer.
              */
-            const System::Int32& VendorId() const;
+            System::Int32 VendorId() const;
 
         public:
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
@@ -111,8 +111,8 @@ namespace SceneR
             System::String           description;
             System::Int32            deviceId;
             System::String           deviceName;
-            System::Boolean          isDefaultAdapter;
-            System::Boolean          isWideScreen;
+            bool                     isDefaultAdapter;
+            bool                     isWideScreen;
             GLFWmonitor*             monitorHandle;
             System::Int32            revision;
             System::Int32            subSystemId;

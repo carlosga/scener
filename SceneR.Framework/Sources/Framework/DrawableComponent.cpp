@@ -25,17 +25,17 @@ GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
     return this->renderer.CurrentGraphicsDevice();
 }
 
-const Boolean& DrawableComponent::Visible() const
+bool DrawableComponent::Visible() const
 {
     return this->visible;
 }
 
-void DrawableComponent::Visible(const System::Boolean& visible)
+void DrawableComponent::Visible(const bool& visible)
 {
     this->visible = visible;
 }
 
-const UInt32& DrawableComponent::DrawOrder() const
+UInt32 DrawableComponent::DrawOrder() const
 {
     return this->drawOrder;
 }

@@ -37,12 +37,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether an application is running in a full screen mode.
              */
-            const System::Boolean& FullScreen() const;
+            bool FullScreen() const;
 
             /**
              * Sets a value indicating whether an application is running in a full screen mode.
              */
-            void FullScreen(const System::Boolean& fullScreen);
+            void FullScreen(const bool& fullScreen);
 
             /**
              * Gets the height of a swap chain's back buffers, in pixels.
@@ -88,7 +88,7 @@ namespace SceneR
             PresentationParameters& operator=(const PresentationParameters& parameters);
 
         private:
-            System::Boolean                    fullScreen;
+            bool                               fullScreen;
             System::UInt32                     backBufferHeight;
             System::UInt32                     backBufferWidth;
             System::UInt32                     multiSampleCount;

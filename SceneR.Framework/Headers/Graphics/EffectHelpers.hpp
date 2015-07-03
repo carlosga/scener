@@ -53,7 +53,7 @@ namespace SceneR
                                                              , const SceneR::Framework::Matrix& view
                                                              , const SceneR::Framework::Matrix& projection
                                                              , SceneR::Framework::Matrix&       worldView
-                                                             , const System::Boolean&           fogEnabled
+                                                             , const bool&                      fogEnabled
                                                              , const System::Single&            fogStart
                                                              , const System::Single&            fogEnd
                                                              , EffectParameter&                 worldViewProjParam
@@ -81,7 +81,7 @@ namespace SceneR
                 /// <summary>
                 /// Sets the diffuse/emissive/alpha material color parameters.
                 /// </summary>
-                static void SetMaterialColor(const System::Boolean&            lightingEnabled
+                static void SetMaterialColor(const bool&                       lightingEnabled
                                            , const System::Single&             alpha
                                            , const SceneR::Framework::Vector3& diffuseColor
                                            , const SceneR::Framework::Vector3& emissiveColor

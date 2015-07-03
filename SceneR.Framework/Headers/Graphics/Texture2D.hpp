@@ -49,11 +49,11 @@ namespace SceneR
              * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice&        graphicsDevice,
-                      const System::UInt32&  width,
-                      const System::UInt32&  height,
-                      const System::Boolean& mipmap,
-                      const SurfaceFormat&   format);
+            Texture2D(GraphicsDevice&       graphicsDevice,
+                      const System::UInt32& width,
+                      const System::UInt32& height,
+                      const bool&           mipmap,
+                      const SurfaceFormat&  format);
 
             /**
              * Releases all resources being used by this texture.
@@ -108,7 +108,7 @@ namespace SceneR
         private:
             SurfaceFormat   format;
             System::UInt32  height;
-            System::Boolean mipmap;
+            bool            mipmap;
             System::UInt32  mipmapLevels;
             System::UInt32  mipmapHeight;
             System::UInt32  mipmapWidth;

@@ -34,9 +34,9 @@ namespace System
              * starting at the specified byte pointer. A parameter indicates whether to clear
              * the internal state of the decoder after the calculation.
              */
-            virtual System::Size GetCharCount(const System::UByte*   bytes
-                                            , const System::Size&    count
-                                            , const System::Boolean& flush) const;
+            virtual System::Size GetCharCount(const System::UByte* bytes
+                                            , const System::Size&  count
+                                            , const bool&          flush) const;
 
             /**
              * When overridden in a derived class, calculates the number of characters produced
@@ -54,7 +54,7 @@ namespace System
             virtual System::Size GetCharCount(const std::vector<System::UByte>& bytes
                                             , const System::Size&               index
                                             , const System::Size&               count
-                                            , const System::Boolean&            flush) const;
+                                            , const bool&                       flush) const;
 
             /**
              * Decodes a sequence of bytes starting at the specified byte pointer and
@@ -63,11 +63,11 @@ namespace System
              * A parameter indicates whether to clear the internal state of the decoder
              * after the conversion.
              */
-            virtual System::Size GetChars(const System::UByte*   bytes
-                                        , const System::Size&    byteCount
-                                        , System::Char*          chars
-                                        , const System::Size&    charCount
-                                        , const System::Boolean& flush) const;
+            virtual System::Size GetChars(const System::UByte* bytes
+                                        , const System::Size&  byteCount
+                                        , System::Char*        chars
+                                        , const System::Size&  charCount
+                                        , const bool&          flush) const;
 
             /**
              * When overridden in a derived class, decodes a sequence of bytes from the
@@ -90,7 +90,7 @@ namespace System
                                         , const System::Size&               byteCount
                                         , std::vector<System::Char>&        chars
                                         , const System::Size&               charIndex
-                                        , const System::Boolean&            flush) const;
+                                        , const bool&                       flush) const;
 
             /**
              * Sets the encoder back to its initial state.

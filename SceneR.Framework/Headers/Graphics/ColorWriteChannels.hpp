@@ -56,12 +56,12 @@ namespace SceneR
             return static_cast<ColorWriteChannels>(~static_cast<System::UInt32>(value));
         }
 
-        inline constexpr System::Boolean operator==(const ColorWriteChannels& left, const System::UInt32& right)
+        inline constexpr bool operator==(const ColorWriteChannels& left, const System::UInt32& right)
         {
             return (static_cast<System::UInt32>(left) == right);
         }
 
-        inline constexpr System::Boolean operator!=(const ColorWriteChannels& left, const System::UInt32& right)
+        inline constexpr bool operator!=(const ColorWriteChannels& left, const System::UInt32& right)
         {
             return (static_cast<System::UInt32>(left) != right);
         }

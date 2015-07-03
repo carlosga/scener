@@ -54,22 +54,22 @@ namespace SceneR
             /**
              * Checks whether the Ray intersects a specified BoundingBox.
              */
-            System::Boolean Intersects(const BoundingBox& boundingBox);
+            bool Intersects(const BoundingBox& boundingBox);
 
             /**
              * Checks whether the Ray intersects a specified BoundingFrustum.
              */
-            System::Boolean Intersects(const BoundingFrustum& frustum);
+            bool Intersects(const BoundingFrustum& frustum);
 
             /**
              * Checks whether the Ray intersects a specified BoundingSphere.
              */
-            System::Boolean Intersects(const BoundingSphere& sphere);
+            bool Intersects(const BoundingSphere& sphere);
 
             /**
              * Determines whether this Ray intersects a specified Plane.
              */
-            System::Boolean Intersects(const Plane& plane);
+            bool Intersects(const Plane& plane);
 
         public:
             Ray& operator=(const Ray& ray);

@@ -43,13 +43,13 @@ namespace SceneR
              * Advances the current animation position.
              */
             void Update(const System::TimeSpan&          time
-                      , const System::Boolean&           relativeToCurrentTime
+                      , const bool&                      relativeToCurrentTime
                       , const SceneR::Framework::Matrix& rootTransform);
 
             /**
              * Helper used by the Update method to refresh the BoneTransforms data.
              */
-            void UpdateBoneTransforms(const System::TimeSpan& time, const System::Boolean& relativeToCurrentTime);
+            void UpdateBoneTransforms(const System::TimeSpan& time, const bool& relativeToCurrentTime);
 
             /**
              * Helper used by the Update method to refresh the WorldTransforms data.

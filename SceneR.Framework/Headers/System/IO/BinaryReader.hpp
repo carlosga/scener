@@ -70,7 +70,7 @@ namespace System
             /**
              * Reads a Boolean value from the current stream.
              */
-            Boolean ReadBoolean();
+            bool ReadBoolean();
 
             /**
              * Reads the next byte from the current stream.

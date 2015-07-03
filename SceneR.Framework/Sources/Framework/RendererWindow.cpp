@@ -57,12 +57,12 @@ void RendererWindow::Title(const String& title)
     }
 }
 
-const Boolean& RendererWindow::AllowUserResizing() const
+bool RendererWindow::AllowUserResizing() const
 {
     return this->allowUserResizing;
 }
 
-void RendererWindow::AllowUserResizing(const Boolean& allowUserResizing)
+void RendererWindow::AllowUserResizing(const bool& allowUserResizing)
 {
     this->allowUserResizing = allowUserResizing;
 }

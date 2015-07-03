@@ -92,7 +92,7 @@ const System::String& GraphicsAdapter::Description() const
     return this->description;
 }
 
-const System::Int32& GraphicsAdapter::DeviceId() const
+System::Int32 GraphicsAdapter::DeviceId() const
 {
     return this->deviceId;
 }
@@ -102,12 +102,12 @@ const System::String& GraphicsAdapter::DeviceName() const
     return this->deviceName;
 }
 
-const System::Boolean& GraphicsAdapter::IsDefaultAdapter() const
+bool GraphicsAdapter::IsDefaultAdapter() const
 {
     return this->isDefaultAdapter;
 }
 
-const System::Boolean& GraphicsAdapter::IsWideScreen() const
+bool GraphicsAdapter::IsWideScreen() const
 {
     return this->isWideScreen;
 }
@@ -117,12 +117,12 @@ GLFWmonitor* GraphicsAdapter::MonitorHandle() const
     return this->monitorHandle;
 }
 
-const System::Int32& GraphicsAdapter::Revision() const
+System::Int32 GraphicsAdapter::Revision() const
 {
     return this->revision;
 }
 
-const System::Int32& GraphicsAdapter::SubSystemId() const
+System::Int32 GraphicsAdapter::SubSystemId() const
 {
     return this->subSystemId;
 }
@@ -132,7 +132,7 @@ const std::vector<DisplayMode>& GraphicsAdapter::SupportedDisplayModes() const
     return this->supportedDisplayModes;
 }
 
-const System::Int32& GraphicsAdapter::VendorId() const
+System::Int32 GraphicsAdapter::VendorId() const
 {
     return this->vendorId;
 }

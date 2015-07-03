@@ -132,12 +132,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            System::Boolean FogEnabled() const override;
+            bool FogEnabled() const override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            void FogEnabled(const System::Boolean& fogEnabled) override;
+            void FogEnabled(const bool& fogEnabled) override;
 
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
@@ -162,24 +162,24 @@ namespace SceneR
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            System::Boolean LightingEnabled() const override;
+            bool LightingEnabled() const override;
 
             /**
              * Sets a value indicating wheter lighting is enabled for the current effect.
              */
-            void LightingEnabled(const System::Boolean& lightingEnabled) override;
+            void LightingEnabled(const bool& lightingEnabled) override;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            System::Boolean PreferPerPixelLighting() const;
+            bool PreferPerPixelLighting() const;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            void PreferPerPixelLighting(const System::Boolean& preferPerPixelLighting);
+            void PreferPerPixelLighting(const bool& preferPerPixelLighting);
 
             /**
              * Gets the projection matrix in the current effect.
@@ -226,12 +226,12 @@ namespace SceneR
             /**
              * Gets a value indicating wheter textures are enabled for this effect
              */
-            System::Boolean TextureEnabled() const;
+            bool TextureEnabled() const;
 
             /**
              * Sets a value indicating wheter textures are enabled for this effect
              */
-            void TextureEnabled(const System::Boolean& textureEnabled);
+            void TextureEnabled(const bool& textureEnabled);
 
             /**
              * Gets the view matrix in the current effect.
@@ -246,12 +246,12 @@ namespace SceneR
             /**
              * Gets a value indicating wheter vertex colors are enabled for this effect
              */
-            System::Boolean VertexColorEnabled() const;
+            bool VertexColorEnabled() const;
 
             /**
              * Gets a value indicating wheter vertex colors are enabled for this effect
              */
-            void VertexColorEnabled(const System::Boolean& vertexColorEnabled);
+            void VertexColorEnabled(const bool& vertexColorEnabled);
 
             /**
              * Gets the world matrix in the current effect.
@@ -286,23 +286,23 @@ namespace SceneR
             DirectionalLight           light0;
             DirectionalLight           light1;
             DirectionalLight           light2;
-            System::Boolean            lightingEnabled;
+            bool                       lightingEnabled;
             SceneR::Framework::Vector3 emissiveColor;
-            System::Boolean            fogEnabled;
+            bool                       fogEnabled;
             SceneR::Framework::Vector3 fogColor;
             System::Single             fogEnd;
             System::Single             fogStart;
-            System::Boolean            preferPerPixelLighting;
+            bool                       preferPerPixelLighting;
             SceneR::Framework::Matrix  projection;
             SceneR::Framework::Vector3 specularColor;
             System::Single             specularPower;
-            System::Boolean            textureEnabled;
+            bool                       textureEnabled;
             std::shared_ptr<Texture2D> texture;
-            System::Boolean            vertexColorEnabled;
+            bool                       vertexColorEnabled;
             SceneR::Framework::Matrix  view;
             SceneR::Framework::Matrix  world;
             SceneR::Framework::Matrix  worldView;
-            System::Boolean            oneLight;
+            bool                       oneLight;
             System::UInt32             shaderIndex;
 
             EffectDirtyFlags           dirtyFlags;

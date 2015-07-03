@@ -49,12 +49,12 @@ namespace SceneR
              * Specifies whether to allow the user to resize the renderer window.
              * @return whether to allow the user to resize the renderer window.
              */
-            const System::Boolean& AllowUserResizing() const;
+            bool AllowUserResizing() const;
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
              */
-            void AllowUserResizing(const System::Boolean& allowUserResizing);
+            void AllowUserResizing(const bool& allowUserResizing);
 
         private:
             void Open();
@@ -76,10 +76,10 @@ namespace SceneR
             RendererWindow& operator=(const RendererWindow& window) = delete;
 
         private:
-            System::String  title;
-            System::Boolean allowUserResizing;
-            GLFWwindow*     handle;
-            Renderer&       renderer;
+            System::String title;
+            bool           allowUserResizing;
+            GLFWwindow*    handle;
+            Renderer&      renderer;
 
             friend class Renderer;
         };

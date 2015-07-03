@@ -54,12 +54,12 @@ void DirectionalLight::Direction(const Vector3& direction)
     this->direction = direction;
 }
 
-const Boolean& DirectionalLight::Enabled() const
+bool DirectionalLight::Enabled() const
 {
     return this->enabled;
 }
 
-void DirectionalLight::Enabled(const System::Boolean& enabled)
+void DirectionalLight::Enabled(const bool& enabled)
 {
     this->enabled = enabled;
 }

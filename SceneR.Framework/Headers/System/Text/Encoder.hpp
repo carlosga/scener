@@ -35,9 +35,9 @@ namespace System
              * A parameter indicates whether to clear the internal state of the encoder
              * after the calculation.
              */
-            virtual System::Size GetByteCount(const System::Char*    chars
-                                            , const System::Size&    count
-                                            , const System::Boolean& flush) const;
+            virtual System::Size GetByteCount(const System::Char* chars
+                                            , const System::Size& count
+                                            , const bool&         flush) const;
 
             /**
              * When overridden in a derived class, calculates the number of bytes produced
@@ -47,7 +47,7 @@ namespace System
             virtual System::Size GetByteCount(const std::vector<System::Char>& chars
                                             , const System::Size&              index
                                             , const System::Size&              count
-                                            , const System::Boolean&           flush) const = 0;
+                                            , const bool&                      flush) const = 0;
 
             /**
              * When overridden in a derived class, encodes a set of characters starting
@@ -56,11 +56,11 @@ namespace System
              * A parameter indicates whether to clear the internal state of the encoder
              * after the conversion.
              */
-            virtual System::Size GetBytes(const System::Char*    chars
-                                        , const System::Size&    charCount
-                                        , System::UByte*         bytes
-                                        , const System::Size&    byteCount
-                                        , const System::Boolean& flush) const;
+            virtual System::Size GetBytes(const System::Char* chars
+                                        , const System::Size& charCount
+                                        , System::UByte*      bytes
+                                        , const System::Size& byteCount
+                                        , const bool&         flush) const;
 
             /**
              * When overridden in a derived class, encodes a set of characters from the
@@ -73,7 +73,7 @@ namespace System
                                         , const System::Size&              charCount
                                         , std::vector<System::UByte>&      bytes
                                         , const System::Size&              byteIndex
-                                        , const System::Boolean&           flush) const = 0;
+                                        , const bool&                      flush) const = 0;
 
             /**
              * When overridden in a derived class, sets the encoder back to its initial

@@ -93,82 +93,82 @@ EffectParameterCollection& EffectParameter::StructureMembers()
     return this->structureMembers;
 }
 
-const Boolean& EffectParameter::GetValueBoolean() const
+bool EffectParameter::GetValueBoolean() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Boolean>& EffectParameter::GetValueBooleanArray() const
+std::vector<bool> EffectParameter::GetValueBooleanArray() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Int32& EffectParameter::GetValueInt32() const
+Int32 EffectParameter::GetValueInt32() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Int32>& EffectParameter::GetValueInt32Array() const
+std::vector<Int32> EffectParameter::GetValueInt32Array() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Matrix& EffectParameter::GetValueMatrix() const
+Matrix EffectParameter::GetValueMatrix() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Matrix>& EffectParameter::GetValueMatrixArray() const
+std::vector<Matrix> EffectParameter::GetValueMatrixArray() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Matrix& EffectParameter::GetValueMatrixTranspose() const
+Matrix EffectParameter::GetValueMatrixTranspose() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Matrix>& EffectParameter::GetValueMatrixTransposeArray()
+std::vector<Matrix> EffectParameter::GetValueMatrixTransposeArray()
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Quaternion& EffectParameter::GetValueQuaternion() const
+Quaternion EffectParameter::GetValueQuaternion() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Quaternion>& EffectParameter::GetValueQuaternionArray() const
+std::vector<Quaternion> EffectParameter::GetValueQuaternionArray() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Single& EffectParameter::GetValueSingle() const
+Single EffectParameter::GetValueSingle() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Single>& EffectParameter::GetValueSingleArray() const
+std::vector<Single> EffectParameter::GetValueSingleArray() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const String& EffectParameter::GetValueString() const
+String EffectParameter::GetValueString() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const Vector3& EffectParameter::GetValueVector3() const
+Vector3 EffectParameter::GetValueVector3() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-const std::vector<Vector3>& EffectParameter::GetValueVector3Array() const
+std::vector<Vector3> EffectParameter::GetValueVector3Array() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-void EffectParameter::SetValue(const Boolean& value) const
+void EffectParameter::SetValue(const bool& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
@@ -182,7 +182,7 @@ void EffectParameter::SetValue(const Boolean& value) const
     this->uniformBuffer->SetData(this->offset, 1, &value);
 }
 
-void EffectParameter::SetValue(const std::vector<Boolean>& value) const
+void EffectParameter::SetValue(const std::vector<bool>& value) const
 {
     if (this->parameterType != EffectParameterType::Bool)
     {

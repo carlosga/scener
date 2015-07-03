@@ -38,7 +38,7 @@ namespace SceneR
              */
             RenderTime(const System::TimeSpan& totalRenderTime
                      , const System::TimeSpan& elapsedRenderTime
-                     , const System::Boolean&  isRunningSlowly);
+                     , const bool&             isRunningSlowly);
 
             /**
              * Releases all resources being used by this RenderTime instance.
@@ -59,12 +59,12 @@ namespace SceneR
             /**
              * Gets a value indicating that the render loop is taking longer than its TargetElapsedTime.
              */
-            const System::Boolean& IsRunningSlowly() const;
+            bool IsRunningSlowly() const;
 
             /**
              * Sets a value indicating that the render loop is taking longer than its TargetElapsedTime.
              */
-            void IsRunningSlowly(const System::Boolean& isRunningSlowly);
+            void IsRunningSlowly(const bool& isRunningSlowly);
 
             /**
              * Gets the amount of render time since the start of the renderer.
@@ -79,7 +79,7 @@ namespace SceneR
         private:
             System::TimeSpan totalRenderTime;
             System::TimeSpan elapsedRenderTime;
-            System::Boolean  isRunningSlowly;
+            bool             isRunningSlowly;
         };
     }
 }

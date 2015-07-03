@@ -35,6 +35,9 @@ namespace SceneR
              */
             DepthStencilState(GraphicsDevice& graphicsDevice);
 
+            /**
+             * Initializes a new instance of the DepthStencilState class. Copy constructor.
+             */
             DepthStencilState(const DepthStencilState& depthStencilState);
 
             /**
@@ -93,12 +96,12 @@ namespace SceneR
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            System::Boolean DepthBufferEnable() const;
+            bool DepthBufferEnable() const;
 
             /**
              * Gets a value indicating where depth buffer is enabled
              */
-            void DepthBufferEnable(const System::Boolean& depthTestEnable);
+            void DepthBufferEnable(const bool& depthTestEnable);
 
             /**
              * Gets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
@@ -113,12 +116,12 @@ namespace SceneR
             /**
              *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            System::Boolean DepthBufferWriteEnable() const;
+            bool DepthBufferWriteEnable() const;
 
             /**
              *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            void DepthBufferWriteEnable(const System::Boolean& depthBufferWriteEnable);
+            void DepthBufferWriteEnable(const bool& depthBufferWriteEnable);
 
             /**
              * Specifies a reference value to use for the stencil test.
@@ -145,12 +148,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether the stencil test is enabled.
              */
-            System::Boolean StencilEnable() const;
+            bool StencilEnable() const;
 
             /**
              * Enables or disables the stencil test.
              */
-            void StencilEnable(const System::Boolean& stencilEnable);
+            void StencilEnable(const bool& stencilEnable);
 
             /**
              * Gets the stencil operation to perform if the stencil test fails.
@@ -209,12 +212,12 @@ namespace SceneR
             /**
              * Gets a value indicating wheter two-sided stenciling is enabled.
              */
-            System::Boolean TwoSidedStencilMode() const;
+            bool TwoSidedStencilMode() const;
 
             /**
              * Enables or disables two-sided stenciling.
              */
-            void TwoSidedStencilMode(const System::Boolean& twoSidedStencilMode);
+            void TwoSidedStencilMode(const bool& twoSidedStencilMode);
 
         public:
             DepthStencilState& operator=(const DepthStencilState& depthStencilState);
@@ -227,18 +230,18 @@ namespace SceneR
             StencilOperation counterClockwiseStencilFail;
             CompareFunction  counterClockwiseStencilFunction;
             StencilOperation counterClockwiseStencilPass;
-            System::Boolean  depthBufferEnable;
+            bool             depthBufferEnable;
             CompareFunction  depthBufferFunction;
-            System::Boolean  depthBufferWriteEnable;
+            bool             depthBufferWriteEnable;
             System::Int32    referenceStencil;
             StencilOperation stencilDepthBufferFail;
-            System::Boolean  stencilEnable;
+            bool             stencilEnable;
             StencilOperation stencilFail;
             CompareFunction  stencilFunction;
             System::UInt32   stencilMask;
             StencilOperation stencilPass;
             System::UInt32   stencilWriteMask;
-            System::Boolean  twoSidedStencilMode;
+            bool             twoSidedStencilMode;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

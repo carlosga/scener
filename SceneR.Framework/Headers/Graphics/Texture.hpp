@@ -20,7 +20,7 @@ namespace SceneR
         class Texture : public GraphicsResource
         {
             public:
-                static System::Boolean IsCompressedSurfaceFormat(const SurfaceFormat& format);
+                static bool IsCompressedSurfaceFormat(const SurfaceFormat& format);
 
             public:
                 /**

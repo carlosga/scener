@@ -71,12 +71,12 @@ namespace SceneR
              * Gets a value indicating wheter the light is enabled.
              * @return true if the light is enabled; otherwise false.
              */
-            const System::Boolean& Enabled() const;
+            bool Enabled() const;
 
             /**
              * Sets a value indicating wheter the light is enabled.
              */
-            void Enabled(const System::Boolean& enabled);
+            void Enabled(const bool& enabled);
 
             /**
              * Gets the specular color of the light.
@@ -97,7 +97,7 @@ namespace SceneR
             SceneR::Framework::Vector3 direction;
             SceneR::Framework::Vector3 diffuseColor;
             SceneR::Framework::Vector3 specularColor;
-            System::Boolean            enabled;
+            bool                       enabled;
         };
     }
 }

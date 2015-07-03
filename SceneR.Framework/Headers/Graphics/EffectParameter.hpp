@@ -104,67 +104,67 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as a System::Boolean.
              */
-            const System::Boolean& GetValueBoolean() const;
+            bool GetValueBoolean() const;
 
             /**
              * Gets the value of the EffectParameter as an array of System::Boolean.
              */
-            const std::vector<System::Boolean>& GetValueBooleanArray() const;
+            std::vector<bool> GetValueBooleanArray() const;
 
             /**
              * Gets the value of the EffectParameter as an System::Int32.
              */
-            const System::Int32& GetValueInt32() const;
+            System::Int32 GetValueInt32() const;
 
             /**
              *  Gets the value of the EffectParameter as an array of System::Int32.
              */
-            const std::vector<System::Int32>& GetValueInt32Array() const;
+            std::vector<System::Int32> GetValueInt32Array() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix.
              */
-            const SceneR::Framework::Matrix& GetValueMatrix() const;
+            SceneR::Framework::Matrix GetValueMatrix() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Matrix.
              */
-            const std::vector<SceneR::Framework::Matrix>& GetValueMatrixArray() const;
+            std::vector<SceneR::Framework::Matrix> GetValueMatrixArray() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix transpose.
              */
-            const SceneR::Framework::Matrix& GetValueMatrixTranspose() const;
+            SceneR::Framework::Matrix GetValueMatrixTranspose() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Matrix transpose.
              */
-            const std::vector<SceneR::Framework::Matrix>& GetValueMatrixTransposeArray();
+            std::vector<SceneR::Framework::Matrix> GetValueMatrixTransposeArray();
 
             /**
              * Gets the value of the EffectParameter as a Quaternion.
              */
-            const SceneR::Framework::Quaternion& GetValueQuaternion() const;
+            SceneR::Framework::Quaternion GetValueQuaternion() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Quaternion.
              */
-            const std::vector<SceneR::Framework::Quaternion>& GetValueQuaternionArray() const;
+            std::vector<SceneR::Framework::Quaternion> GetValueQuaternionArray() const;
 
             /**
              * Gets the value of the EffectParameter as a System::Single.
              */
-            const System::Single& GetValueSingle() const;
+            System::Single GetValueSingle() const;
 
             /**
              * Gets the value of the EffectParameter as an array of System::Single.
              */
-            const std::vector<System::Single>& GetValueSingleArray() const;
+            std::vector<System::Single> GetValueSingleArray() const;
 
             /**
              * Gets the value of the EffectParameter as an String.
              */
-            const System::String& GetValueString() const;
+            System::String GetValueString() const;
 
             // GetValueTexture2D    Gets the value of the EffectParameter as a Texture2D.
             // GetValueTexture3D    Gets the value of the EffectParameter as a Texture3D.
@@ -175,12 +175,12 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as a Vector3.
              */
-            const SceneR::Framework::Vector3& GetValueVector3() const;
+            SceneR::Framework::Vector3 GetValueVector3() const;
 
             /**
              * Gets the value of the EffectParameter as an array of Vector3.
              */
-            const std::vector<SceneR::Framework::Vector3>& GetValueVector3Array() const;
+            std::vector<SceneR::Framework::Vector3> GetValueVector3Array() const;
 
             // GetValueVector4  Gets the value of the EffectParameter as a Vector4.
             // GetValueVector4Array     Gets the value of the EffectParameter as an array of Vector4.
@@ -190,13 +190,13 @@ namespace SceneR
              * Sets the value of the EffectParameter as a System::Boolean.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const System::Boolean& value) const;
+            void SetValue(const bool& value) const;
 
             /**
              * Gets the value of the EffectParameter as an array of System::Boolean.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<System::Boolean>& value) const;
+            void SetValue(const std::vector<bool>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an System::Int32.

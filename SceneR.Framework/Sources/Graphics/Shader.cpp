@@ -90,7 +90,7 @@ void Shader::Compile()
     this->VerifyCompilationState();
 }
 
-Boolean Shader::IsCompiled() const
+bool Shader::IsCompiled() const
 {
     bool result = false;
 

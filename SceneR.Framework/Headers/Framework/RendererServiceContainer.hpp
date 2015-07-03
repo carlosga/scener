@@ -84,7 +84,7 @@ namespace SceneR
 
         private:
             template <class T>
-            System::Boolean IsRegistered() const
+            bool IsRegistered() const
             {
                 return (this->instanceMap.find(this->GetTypeName<T>()) != this->instanceMap.end());
             }

@@ -40,27 +40,27 @@ namespace System
         /**
          * Represents the number of ticks in 1 day.
          */
-        static const System::Int64 TicksPerDay;
+        constexpr static const System::Int64 TicksPerDay = 864000000000;
 
         /**
          * Represents the number of ticks in 1 hour.
          */
-        static const System::Int64 TicksPerHour;
+        constexpr static const System::Int64 TicksPerHour = 36000000000;
 
         /**
          * Represents the number of ticks in 1 millisecond.
          */
-        static const System::Int64 TicksPerMillisecond;
+        constexpr static const System::Int64 TicksPerMillisecond = 10000;
 
         /**
          * Represents the number of ticks in 1 minute.
          */
-        static const System::Int64 TicksPerMinute;
+        constexpr static const System::Int64 TicksPerMinute = 600000000;
 
         /**
          * Represents the number of ticks in 1 second.
          */
-        static const System::Int64 TicksPerSecond;
+        constexpr static const System::Int64 TicksPerSecond = 10000000;
 
         /**
          * Represents the zero TimeSpan value. This field is read-only.

@@ -48,18 +48,18 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual const System::Boolean& Visible() const override;
+            virtual bool Visible() const override;
 
             /**
              * Sets a value indicating whether this object is enabled.
              * @param visible a value indicating whether this object is enabled.
              */
-            virtual void Visible(const System::Boolean& visible);
+            virtual void Visible(const bool& visible);
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual const System::UInt32& DrawOrder() const override;
+            virtual System::UInt32 DrawOrder() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
@@ -78,8 +78,8 @@ namespace SceneR
             virtual void UnloadContent();
 
         private:
-            System::Boolean visible;
-            System::UInt32  drawOrder;
+            bool           visible;
+            System::UInt32 drawOrder;
         };
     }
 }

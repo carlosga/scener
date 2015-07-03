@@ -19,7 +19,7 @@ RenderTime::RenderTime(const TimeSpan& totalRenderTime
 
 RenderTime::RenderTime(const TimeSpan& totalRenderTime
                      , const TimeSpan& elapsedRenderTime
-                     , const Boolean&  isRunningSlowly)
+                     , const bool&     isRunningSlowly)
     : totalRenderTime   { totalRenderTime }
     , elapsedRenderTime { elapsedRenderTime }
     , isRunningSlowly   { isRunningSlowly }
@@ -40,12 +40,12 @@ void RenderTime::ElapsedRenderTime(const TimeSpan& elapsedRenderTime)
     this->elapsedRenderTime = elapsedRenderTime;
 }
 
-const Boolean& RenderTime::IsRunningSlowly() const
+bool RenderTime::IsRunningSlowly() const
 {
     return this->isRunningSlowly;
 }
 
-void RenderTime::IsRunningSlowly(const Boolean& isRunningSlowly)
+void RenderTime::IsRunningSlowly(const bool& isRunningSlowly)
 {
     this->isRunningSlowly = isRunningSlowly;
 }

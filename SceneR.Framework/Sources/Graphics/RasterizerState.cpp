@@ -69,22 +69,22 @@ void RasterizerState::FillMode(const SceneR::Graphics::FillMode& fillMode)
     this->fillMode = fillMode;
 }
 
-const Boolean& RasterizerState::MultiSampleAntiAlias() const
+bool RasterizerState::MultiSampleAntiAlias() const
 {
     return this->multiSampleAntiAlias;
 }
 
-void RasterizerState::MultiSampleAntiAlias(const Boolean& multiSampleAntiAlias)
+void RasterizerState::MultiSampleAntiAlias(const bool& multiSampleAntiAlias)
 {
     this->multiSampleAntiAlias = multiSampleAntiAlias;
 }
 
-const Boolean& RasterizerState::ScissorTestEnable() const
+bool RasterizerState::ScissorTestEnable() const
 {
     return this->scissorTestEnable;
 }
 
-void RasterizerState::ScissorTestEnable(const Boolean& scissorTestEnable)
+void RasterizerState::ScissorTestEnable(const bool& scissorTestEnable)
 {
     this->scissorTestEnable = scissorTestEnable;
 }
