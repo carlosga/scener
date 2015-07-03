@@ -5,6 +5,7 @@
 #define EFFECTPARAMETERCOLLECTION_HPP
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -49,11 +50,11 @@ namespace SceneR
         public:
             EffectParameter& operator[](const System::Size& parameterIndex);
             const EffectParameter& operator[](const System::Size& parameterIndex) const;
-            EffectParameter& operator[](const System::String& parameterName);
-            const EffectParameter& operator[](const System::String& parameterName) const;
+            EffectParameter& operator[](const std::u16string& parameterName);
+            const EffectParameter& operator[](const std::u16string& parameterName) const;
 
         private:
-            EffectParameter& Add(const System::String&                name
+            EffectParameter& Add(const std::u16string&                name
                                , const System::UInt32&                index
                                , const System::UInt32&                offset
                                , const System::UInt32&                type

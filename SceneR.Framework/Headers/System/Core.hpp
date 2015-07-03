@@ -4,11 +4,10 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include <string>
+#include <stdint.h>
 
 namespace System
 {
-    // using Char    = char16_t;
     using Byte    = int8_t;
     using UByte   = uint8_t;
     using Int16   = int16_t;
@@ -19,8 +18,7 @@ namespace System
     using UInt64  = uint64_t;
     using Single  = float;
     using Double  = double;
-    using Size    = size_t;
-    using String  = std::u16string;
+    using Size    = uint64_t;
 }
 
 #endif  /* CORE_HPP */

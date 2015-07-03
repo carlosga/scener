@@ -11,14 +11,14 @@
 class BinaryReaderTest : public ::testing::Test
 {
 protected:
-    const System::String TEST_FILE = u"/home/carlos/development/projects/cpp/opengl/scener/SceneR.Framework/Resources/BasicEffect.vert";
+    const std::u16string TEST_FILE = u"/home/carlos/development/projects/cpp/opengl/scener/SceneR.Framework/Resources/BasicEffect.vert";
 
     // virtual void SetUp() will be called before each test is run.  You
     // should define it if you need to initialize the varaibles.
     // Otherwise, this can be skipped.
     virtual void SetUp()
     {
-    };
+    }
 
     // virtual void TearDown() will be called after each test is run.
     // You should define it if there is cleanup work to do.  Otherwise,

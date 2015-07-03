@@ -13,7 +13,7 @@ using namespace SceneR::Content;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-Renderer::Renderer(const String& rootDirectory)
+Renderer::Renderer(const std::u16string& rootDirectory)
     : components            ( 0 )
     , services              { }
     , graphicsDeviceManager { *this }

@@ -41,7 +41,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the Renderer class.
              */
-            Renderer(const System::String& rootDirectory);
+            Renderer(const std::u16string& rootDirectory);
 
             /**
              * Releases all resources being used by the current renderer instance

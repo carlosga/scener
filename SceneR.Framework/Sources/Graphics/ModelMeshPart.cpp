@@ -66,12 +66,12 @@ const UInt32& ModelMeshPart::PrimitiveCount() const
     return this->primitiveCount;
 }
 
-const String& ModelMeshPart::Tag() const
+const std::u16string& ModelMeshPart::Tag() const
 {
     return this->tag;
 }
 
-void ModelMeshPart::Tag(const String& tag)
+void ModelMeshPart::Tag(const std::u16string& tag)
 {
     this->tag = tag;
 }

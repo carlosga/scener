@@ -22,22 +22,22 @@ GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
     return this->graphicsDevice;
 }
 
-const String& GraphicsResource::Name() const
+const std::u16string& GraphicsResource::Name() const
 {
     return this->name;
 }
 
-void GraphicsResource::Name(const String& name)
+void GraphicsResource::Name(const std::u16string& name)
 {
     this->name = name;
 }
 
-const String& GraphicsResource::Tag() const
+const std::u16string& GraphicsResource::Tag() const
 {
     return this->tag;
 }
 
-void GraphicsResource::Tag(const String& tag)
+void GraphicsResource::Tag(const std::u16string& tag)
 {
     this->tag = tag;
 }

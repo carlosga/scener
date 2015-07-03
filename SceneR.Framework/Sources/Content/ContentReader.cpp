@@ -20,7 +20,7 @@ using namespace SceneR::Framework;
 
 ContentTypeReaderManager ContentReader::TypeReaderManager;
 
-ContentReader::ContentReader(const String&                    assetName
+ContentReader::ContentReader(const std::u16string&            assetName
                            , SceneR::Content::ContentManager& contentManager
                            , Stream&                          stream)
     : BinaryReader        { stream }
@@ -42,7 +42,7 @@ ContentReader::~ContentReader()
     this->sharedResourceCount = 0;
 }
 
-String& ContentReader::AssetName()
+const std::u16string& ContentReader::AssetName() const
 {
     return this->assetName;
 }

@@ -12,12 +12,12 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Graphics;
 
-Shader::Shader(const String& name, const ShaderType& type, const std::string& source)
+Shader::Shader(const std::u16string& name, const ShaderType& type, const std::string& source)
     : Shader { name, type, source, std::vector<std::string>() }
 {
 }
 
-Shader::Shader(const String&                   name
+Shader::Shader(const std::u16string&           name
              , const ShaderType&               type
              , const std::string&              source
              , const std::vector<std::string>& includes)
@@ -43,12 +43,12 @@ void Shader::Dispose()
     }
 }
 
-const String&Shader::Name() const
+const std::u16string& Shader::Name() const
 {
     return this->name;
 }
 
-const ShaderType&Shader::Type() const
+const ShaderType& Shader::Type() const
 {
     return this->type;
 }

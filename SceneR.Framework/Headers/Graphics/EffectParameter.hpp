@@ -48,7 +48,7 @@ namespace SceneR
              * @param offset the parameter offset.
              * @param type the parameter raw type.
              */
-            EffectParameter(const System::String&                      name
+            EffectParameter(const std::u16string&                      name
                           , const System::UInt32&                      index
                           , const System::UInt32&                      offset
                           , const System::UInt32&                      type
@@ -78,7 +78,7 @@ namespace SceneR
             /**
              * Gets the name of the parameter.
              */
-            const System::String& Name() const;
+            const std::u16string& Name() const;
 
             /**
              * Gets the class of the parameter.
@@ -164,7 +164,7 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as an String.
              */
-            System::String GetValueString() const;
+            std::u16string GetValueString() const;
 
             // GetValueTexture2D    Gets the value of the EffectParameter as a Texture2D.
             // GetValueTexture3D    Gets the value of the EffectParameter as a Texture3D.
@@ -274,7 +274,7 @@ namespace SceneR
              * Sets the value of the EffectParameter as an String.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const System::String& value) const;
+            void SetValue(const std::u16string& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Texture.
@@ -327,7 +327,7 @@ namespace SceneR
         private:
             System::Int32                        columnCount;
             EffectParameterCollection            elements;
-            System::String                       name;
+            std::u16string                       name;
             EffectParameterClass                 parameterClass;
             EffectParameterType                  parameterType;
             System::Int32                        rowCount;

@@ -5,6 +5,7 @@
 #define MODELBONE_HPP
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -52,12 +53,12 @@ namespace SceneR
             /**
              * Gets the bone name
              */
-            const System::String& Name() const;
+            const std::u16string& Name() const;
 
             /**
              * Gets the bone name
              */
-            void Name(const System::String& name);
+            void Name(const std::u16string& name);
 
             /**
              * Gets the parent of the current bone
@@ -77,7 +78,7 @@ namespace SceneR
         private:
             std::vector<std::shared_ptr<ModelBone>> children;
             System::Size                            index;
-            System::String                          name;
+            std::u16string                          name;
             std::shared_ptr<ModelBone>              parent;
             SceneR::Framework::Matrix               transform;
 

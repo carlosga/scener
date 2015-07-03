@@ -25,7 +25,7 @@ namespace System
             /**
              * Checks whether the given file exists.
              */
-            static bool Exists(const System::String& path)
+            static bool Exists(const std::u16string& path)
             {
                 auto result = true;
                 auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);
@@ -45,7 +45,7 @@ namespace System
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
-            static System::String ReadAllText(const System::String& path)
+            static std::u16string ReadAllText(const std::u16string& path)
             {
                 auto stream = std::wifstream(System::Text::Encoding::Convert(path), std::ios::in | std::ios::binary);
 
@@ -60,7 +60,7 @@ namespace System
 
                 auto text = buffer.str();
 
-                return String(text.begin(), text.end());
+                return std::u16string(text.begin(), text.end());
             }
 
         private:

@@ -15,7 +15,7 @@ UTF8Encoding::~UTF8Encoding()
 {
 }
 
-const String UTF8Encoding::EncodingName() const
+std::u16string UTF8Encoding::EncodingName() const
 {
     return u"Unicode (UTF-8)";
 }

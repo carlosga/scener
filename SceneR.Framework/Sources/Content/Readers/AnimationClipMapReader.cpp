@@ -25,11 +25,11 @@ AnimationClipMapReader::~AnimationClipMapReader()
 std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
 {
     auto clipCount      = input.ReadUInt32();
-    auto animationClips = std::make_shared<std::map<String, AnimationClip>>();
+    auto animationClips = std::make_shared<std::map<std::u16string, AnimationClip>>();
 
     for (UInt32 i = 0; i < clipCount; i++)
     {
-        auto clipName = *input.ReadObject<String>();
+        auto clipName = *input.ReadObject<std::u16string>();
 
         animationClips->emplace(clipName, *input.ReadObject<AnimationClip>());
     }

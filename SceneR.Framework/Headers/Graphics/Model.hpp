@@ -5,6 +5,7 @@
 #define MODEL_HPP
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -107,19 +108,19 @@ namespace SceneR
             /**
              * Gets the model tag
              */
-            const System::String& Tag() const;
+            const std::u16string& Tag() const;
 
             /**
              * Sets the model tag
              */
-            void Tag(const System::String& tag);
+            void Tag(const std::u16string& tag);
 
         private:
             std::vector<std::shared_ptr<ModelBone>> bones;
             std::vector<std::shared_ptr<ModelMesh>> meshes;
             std::shared_ptr<ModelBone>              root;
             std::shared_ptr<SkinningData>           skinning;
-            System::String                          tag;
+            std::u16string                          tag;
 
             friend class SceneR::Content::ModelReader;
         };

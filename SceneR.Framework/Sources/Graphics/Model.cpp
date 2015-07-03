@@ -115,12 +115,12 @@ const std::shared_ptr<SkinningData>& Model::Skinning() const
     return this->skinning;
 }
 
-const String& Model::Tag() const
+const std::u16string& Model::Tag() const
 {
     return this->tag;
 }
 
-void Model::Tag(const String& tag)
+void Model::Tag(const std::u16string& tag)
 {
     this->tag = tag;
 }

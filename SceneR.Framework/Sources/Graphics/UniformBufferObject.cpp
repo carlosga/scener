@@ -10,7 +10,7 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Graphics;
 
-UniformBufferObject::UniformBufferObject(const String& name, const UInt32& programId)
+UniformBufferObject::UniformBufferObject(const std::u16string& name, const UInt32& programId)
     : name         { name }
     , programId    { programId }
     , index        { 0 }

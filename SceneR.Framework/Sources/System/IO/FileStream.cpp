@@ -9,12 +9,12 @@ using namespace System;
 using namespace System::IO;
 using namespace System::Text;
 
-FileStream::FileStream(const String& path)
+FileStream::FileStream(const std::u16string& path)
     : FileStream { path, std::ios::in | std::ios::binary }
 {
 }
 
-FileStream::FileStream(const String& path, const std::ios::openmode& mode)
+FileStream::FileStream(const std::u16string& path, const std::ios::openmode& mode)
     : stream { Encoding::Convert(path), mode }
     , mode   { mode }
 {

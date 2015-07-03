@@ -5,6 +5,7 @@
 #define GRAPHICSDEVICEMANAGER_HPP
 
 #include <memory>
+#include <string>
 
 #include <System/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
@@ -95,13 +96,13 @@ namespace SceneR
              * Gets the window title.
              * @return the window title.
              */
-            const System::String& WindowTitle() const;
+            const std::u16string& WindowTitle() const;
 
             /**
              * Sets the window title.
              * @param windowTitle the window title.
              */
-            void WindowTitle(const System::String& windowTitle);
+            void WindowTitle(const std::u16string& windowTitle);
 
             /**
              * Gets a value that indicates whether the device should start in full-screen mode.
@@ -144,7 +145,7 @@ namespace SceneR
             SceneR::Graphics::GraphicsProfile                 graphicsProfile;
             System::UInt32                                    preferredBackBufferWidth;
             System::UInt32                                    preferredBackBufferHeight;
-            System::String                                    windowTitle;
+            std::u16string                                    windowTitle;
         };
     }
 }

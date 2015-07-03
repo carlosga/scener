@@ -30,7 +30,7 @@ AnimatedModel::~AnimatedModel()
 {
 }
 
-void AnimatedModel::Play(const String& clipName)
+void AnimatedModel::Play(const std::u16string& clipName)
 {
     this->player.StartClip(this->skinningData->AnimationClips(clipName));
 }

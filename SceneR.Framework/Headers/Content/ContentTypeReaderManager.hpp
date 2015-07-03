@@ -5,6 +5,7 @@
 #define CONTENTTYPEREADERMANAGER_HPP
 
 #include <map>
+#include <string>
 
 #include <System/Core.hpp>
 #include <Content/ContentTypeReader.hpp>
@@ -33,13 +34,13 @@ namespace SceneR
             /**
              * Gets the content type reader for the specified content tpe
              */
-            ContentTypeReader* GetByReaderName(const System::String& name);
+            ContentTypeReader* GetByReaderName(const std::u16string& name);
 
         private:
             void RegisterKnownTypeReaders();
 
             template<class T>
-            void RegisterTypeReader(const System::String& name)
+            void RegisterTypeReader(const std::u16string& name)
             {
                 this->readers[name] = new T;
             }
@@ -49,7 +50,7 @@ namespace SceneR
             ContentTypeReaderManager& operator=(const ContentTypeReaderManager& manager) = delete;
 
         private:
-            std::map<System::String, ContentTypeReader*> readers;
+            std::map<std::u16string, ContentTypeReader*> readers;
         };
     }
 }

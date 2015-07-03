@@ -60,7 +60,7 @@ namespace System
             /**
              * Reads a string from the current stream. The string is prefixed with the length.
              */
-            String ReadString();
+            std::u16string ReadString();
 
             /**
              * Reads a 7-bit encoded unsigned int

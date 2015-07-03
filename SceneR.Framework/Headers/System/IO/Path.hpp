@@ -6,7 +6,7 @@
 
 #include <algorithm>
 
-#include <System/Core.hpp>
+#include <string>
 
 namespace System
 {
@@ -24,8 +24,8 @@ namespace System
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const System::String ChangeExtension(const System::String& path
-                                                      , const System::String& extension)
+            static const std::u16string ChangeExtension(const std::u16string& path
+                                                      , const std::u16string& extension)
             {
                 return GetFileNameWithoutExtension(path) + u"." + extension;
             }
@@ -34,13 +34,13 @@ namespace System
              * Returns the directory information for the specified path string.
              * @param path the path of a file or directory.
              */
-            static const System::String GetDirectoryName(const System::String& path)
+            static const std::u16string GetDirectoryName(const std::u16string& path)
             {
                 auto result        = path.find_last_of(Path::DirectorySeparator());
                 auto directoryName = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (String::npos != result)
+                if (std::u16string::npos != result)
                 {
                     directoryName.erase(result);
                 }
@@ -53,13 +53,13 @@ namespace System
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const System::String GetFileNameWithoutExtension(const System::String& path)
+            static const std::u16string GetFileNameWithoutExtension(const std::u16string& path)
             {
                 auto result               = path.find_last_of('.');
                 auto pathWithoutExtension = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (String::npos != result)
+                if (std::u16string::npos != result)
                 {
                     pathWithoutExtension.erase(result);
                 }
@@ -73,11 +73,11 @@ namespace System
              * @param path1 The first path to combine
              * @param path2 The second path to combine
              */
-            static const String Combine(const String& path1, const String& path2)
+            static const std::u16string Combine(const std::u16string& path1, const std::u16string& path2)
             {
-                String separator = u"";
-                String cpath1    = path1;
-                String cpath2    = path2;
+                std::u16string separator = u"";
+                std::u16string cpath1    = path1;
+                std::u16string cpath2    = path2;
 
 #if __unix__
                 if (!cpath1.empty())
@@ -95,13 +95,13 @@ namespace System
                     separator = DirectorySeparator();
                 }
 
-                return String(cpath1 + separator + cpath2);
+                return std::u16string(cpath1 + separator + cpath2);
             }
 
             /**
              * Gets platform specific string with the directory separator.
              */
-            static const String DirectorySeparator()
+            static const std::u16string DirectorySeparator()
             {
 #if __unix__
                 return u"/";

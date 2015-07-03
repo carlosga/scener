@@ -18,5 +18,5 @@ StringReader::~StringReader()
 
 std::shared_ptr<void> StringReader::Read(ContentReader& input)
 {
-    return std::make_shared<String>(input.ReadString());
+    return std::make_shared<std::u16string>(input.ReadString());
 }

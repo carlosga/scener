@@ -48,7 +48,7 @@ namespace SceneR
              * @param contentManager the content that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const System::String&            assetName
+            ContentReader(const std::u16string&            assetName
                         , SceneR::Content::ContentManager& contentManager
                         , System::IO::Stream&              stream);
 
@@ -61,7 +61,7 @@ namespace SceneR
             /**
              * Gets the name of the asset currently being read by this ContentReader.
              */
-            System::String& AssetName();
+            const std::u16string& AssetName() const;
 
             /**
              * Gets the content manager that owns this ContentReader.
@@ -129,7 +129,7 @@ namespace SceneR
             void ReadSharedResources();
 
         private:
-            System::String                    assetName;
+            std::u16string                    assetName;
             SceneR::Content::ContentManager&  contentManager;
             std::vector<ContentTypeReader*>   typeReaders;
             System::UInt32                    sharedResourceCount;

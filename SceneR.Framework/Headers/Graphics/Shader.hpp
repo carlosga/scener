@@ -4,6 +4,7 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -28,7 +29,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
-            Shader(const System::String& name, const ShaderType& type, const std::string& source);
+            Shader(const std::u16string& name, const ShaderType& type, const std::string& source);
 
             /**
              * Initializes a new instance of the Shader class.
@@ -37,7 +38,7 @@ namespace SceneR
              * @param source the source code for the shader.
              * @param includes the shader includes references.
              */
-            Shader(const System::String&           name
+            Shader(const std::u16string&           name
                  , const ShaderType&               type
                  , const std::string&              source
                  , const std::vector<std::string>& includes);
@@ -55,7 +56,7 @@ namespace SceneR
              * @brief Gets the name of the shader.
              * @return the name of the shader.
              */
-            const System::String& Name() const;
+            const std::u16string& Name() const;
 
             /**
              * @brief Gets the type of the shader.
@@ -77,7 +78,7 @@ namespace SceneR
             void VerifyCompilationState();
 
         private:
-            System::String           name;
+            std::u16string           name;
             System::UInt32           id;
             ShaderType               type;
             std::string              source;

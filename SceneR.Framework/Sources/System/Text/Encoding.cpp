@@ -38,14 +38,14 @@ std::vector<UByte> Encoding::Convert(const Encoding&           srcEncoding
     return dstEncoding.GetBytes(srcChars, 0, srcChars.size());
 }
 
-std::string Encoding::Convert(const String& source)
+std::string Encoding::Convert(const std::u16string& source)
 {
     std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter; // UTF-8 <-> UTF-16 converter
 
     return converter.to_bytes(source);
 }
 
-System::String Encoding::Convert(const std::string& source)
+std::u16string Encoding::Convert(const std::string& source)
 {
     std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter; // UTF-8 <-> UTF-16 converter
 
@@ -62,7 +62,7 @@ Size Encoding::GetByteCount(const std::vector<char16_t>& chars) const
     return this->GetByteCount(chars, 0, chars.size());
 }
 
-Size Encoding::GetByteCount(const String& s) const
+Size Encoding::GetByteCount(const std::u16string& s) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
@@ -81,7 +81,7 @@ std::vector<UByte> Encoding::GetBytes(const std::vector<char16_t>& chars) const
     return this->GetBytes(chars, 0, chars.size());
 }
 
-std::vector<UByte> Encoding::GetBytes(const String& s) const
+std::vector<UByte> Encoding::GetBytes(const std::u16string& s) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
@@ -109,11 +109,11 @@ Size Encoding::GetBytes(const char16_t* chars
     return this->GetEncoder().GetBytes(chars, charCount, bytes, byteCount, false);
 }
 
-Size Encoding::GetBytes(const String&       s
-                      , const Size&         charIndex
-                      , const Size&         charCount
-                      , std::vector<UByte>& bytes
-                      , const Size&         byteIndex) const
+Size Encoding::GetBytes(const std::u16string& s
+                      , const Size&           charIndex
+                      , const Size&           charCount
+                      , std::vector<UByte>&   bytes
+                      , const Size&           byteIndex) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
@@ -158,16 +158,16 @@ Size Encoding::GetChars(const UByte* bytes
     return this->GetDecoder().GetChars(bytes, byteCount, chars, charCount, false);
 }
 
-String Encoding::GetString(const std::vector<UByte>& bytes) const
+std::u16string Encoding::GetString(const std::vector<UByte>& bytes) const
 {
     return this->GetString(bytes, 0, bytes.size());
 }
 
-String Encoding::GetString(const std::vector<UByte>& bytes
-                         , const Size&               index
-                         , const Size&               count) const
+std::u16string Encoding::GetString(const std::vector<UByte>& bytes
+                                 , const Size&               index
+                                 , const Size&               count) const
 {
     auto chars = this->GetChars(bytes, index, count);
 
-    return String(chars.begin(), chars.end());
+    return std::u16string(chars.begin(), chars.end());
 }

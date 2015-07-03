@@ -4,6 +4,7 @@
 #ifndef UNIFORMBUFFEROBJECT_HPP
 #define UNIFORMBUFFEROBJECT_HPP
 
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -27,7 +28,7 @@ namespace SceneR
              * @param name the name of the uniform buffer object.
              * @oaram programId the handle of the shader program.
              */
-            UniformBufferObject(const System::String& name, const System::UInt32& programId);
+            UniformBufferObject(const std::u16string& name, const System::UInt32& programId);
 
             /**
              * Releases all resources being used by this UniformBufferObject.
@@ -92,7 +93,7 @@ namespace SceneR
             void SetData(const System::UInt32& startIndex, const System::UInt32& elementCount, const void *data);
 
         private:
-            System::String name;
+            std::u16string name;
             System::UInt32 programId;
             System::UInt32 index;
             System::Int32  bindingPoint;

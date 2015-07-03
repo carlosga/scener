@@ -29,7 +29,7 @@ namespace System
             ~UTF8Encoding() override;
 
         public:
-            const System::String EncodingName() const override;
+            std::u16string EncodingName() const override;
 
             bool IsSingleByte() const override;
 

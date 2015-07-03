@@ -11,6 +11,7 @@
 #define SKINNINGDATA_HPP
 
 #include <map>
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -26,7 +27,7 @@ namespace SceneR
         public:
             SkinningData();
 
-            SkinningData(const std::map<System::String, AnimationClip>& animationClips
+            SkinningData(const std::map<std::u16string, AnimationClip>& animationClips
                        , const std::vector<SceneR::Framework::Matrix>&  bindPose
                        , const std::vector<SceneR::Framework::Matrix>&  inverseBindPose
                        , const std::vector<System::UInt32>&             skeletonHierarchy);
@@ -39,9 +40,9 @@ namespace SceneR
             ~SkinningData();
 
         public:
-            const std::map<System::String, AnimationClip>& AnimationClips() const;
+            const std::map<std::u16string, AnimationClip>& AnimationClips() const;
 
-            const AnimationClip& AnimationClips(const System::String& clipName);
+            const AnimationClip& AnimationClips(const std::u16string& clipName);
 
             const std::vector<SceneR::Framework::Matrix>& BindPose() const;
 
@@ -50,7 +51,7 @@ namespace SceneR
             const std::vector<System::UInt32>& SkeletonHierarchy() const;
 
         private:
-            std::map<System::String, AnimationClip> animationClips;
+            std::map<std::u16string, AnimationClip> animationClips;
             std::vector<SceneR::Framework::Matrix>  bindPose;
             std::vector<SceneR::Framework::Matrix>  inverseBindPose;
             std::vector<System::UInt32>             skeletonHierarchy;

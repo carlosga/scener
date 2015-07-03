@@ -87,7 +87,7 @@ DisplayMode GraphicsAdapter::CurrentDisplayMode() const
     return DisplayMode(glfwGetVideoMode(this->monitorHandle));
 }
 
-const System::String& GraphicsAdapter::Description() const
+const std::u16string& GraphicsAdapter::Description() const
 {
     return this->description;
 }
@@ -97,7 +97,7 @@ System::Int32 GraphicsAdapter::DeviceId() const
     return this->deviceId;
 }
 
-const System::String& GraphicsAdapter::DeviceName() const
+const std::u16string& GraphicsAdapter::DeviceName() const
 {
     return this->deviceName;
 }

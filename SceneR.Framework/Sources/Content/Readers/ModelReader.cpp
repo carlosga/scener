@@ -160,9 +160,9 @@ Int32 ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCou
     return boneReference - 1;
 }
 
-System::String ModelReader::ReadString(ContentReader& input) const
+std::u16string ModelReader::ReadString(ContentReader& input) const
 {
-    auto value = input.ReadObject<String>();
+    auto value = input.ReadObject<std::u16string>();
 
     return ((value == nullptr) ? u"" : *value);
 }

@@ -164,7 +164,6 @@ set(HEADER_FILES
     Headers/System/IDisposable.hpp
     Headers/System/BitConverter.hpp
     Headers/System/Math.hpp
-    Headers/System/Pointer.hpp
     Headers/System/TimeSpan.hpp
     Headers/System/Graphics/Platform.hpp
     Headers/System/IO/BinaryReader.hpp

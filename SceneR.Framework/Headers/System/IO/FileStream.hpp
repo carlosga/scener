@@ -21,12 +21,12 @@ namespace System
             /**
              * Initializes a new instance of the FileStream class with the specified file.
              */
-            FileStream(const String& path);
+            FileStream(const std::u16string& path);
 
             /**
              * Initializes a new instance of the FileStream class with the specified and opening mode.
              */
-            FileStream(const String& path, const std::ios::openmode& mode);
+            FileStream(const std::u16string& path, const std::ios::openmode& mode);
 
             /**
              * Releases all resources being used by this FileStream.

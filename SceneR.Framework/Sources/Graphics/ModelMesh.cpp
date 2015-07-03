@@ -73,12 +73,12 @@ const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::MeshParts() const
     return this->meshParts;
 }
 
-const String& ModelMesh::Name() const
+const std::u16string& ModelMesh::Name() const
 {
     return this->name;
 }
 
-void ModelMesh::Name(const String& name)
+void ModelMesh::Name(const std::u16string& name)
 {
     this->name = name;
 }
@@ -88,12 +88,12 @@ const std::shared_ptr<ModelBone>& ModelMesh::ParentBone() const
     return this->parentBone;
 }
 
-const String& ModelMesh::Tag() const
+const std::u16string& ModelMesh::Tag() const
 {
     return this->tag;
 }
 
-void ModelMesh::Tag(const String& tag)
+void ModelMesh::Tag(const std::u16string& tag)
 {
     this->tag = tag;
 }

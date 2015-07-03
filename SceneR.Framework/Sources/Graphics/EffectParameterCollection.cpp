@@ -43,7 +43,7 @@ const EffectParameter& EffectParameterCollection::operator[](const Size& paramet
     return this->parameters[parameterIndex];
 }
 
-EffectParameter& EffectParameterCollection::operator[](const String& parameterName)
+EffectParameter& EffectParameterCollection::operator[](const std::u16string& parameterName)
 {
     auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
                            [&](const EffectParameter& parameter) -> bool
@@ -56,7 +56,7 @@ EffectParameter& EffectParameterCollection::operator[](const String& parameterNa
     return *it;
 }
 
-const EffectParameter& EffectParameterCollection::operator[](const String& parameterName) const
+const EffectParameter& EffectParameterCollection::operator[](const std::u16string& parameterName) const
 {
     auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
                            [&](const EffectParameter& parameter) -> bool
@@ -69,7 +69,7 @@ const EffectParameter& EffectParameterCollection::operator[](const String& param
     return *it;
 }
 
-EffectParameter& EffectParameterCollection::Add(const System::String&                      name
+EffectParameter& EffectParameterCollection::Add(const std::u16string&                      name
                                               , const System::UInt32&                      index
                                               , const System::UInt32&                      offset
                                               , const System::UInt32&                      type

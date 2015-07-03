@@ -67,7 +67,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 
 TEST_F(EncodingUTF8Test, GetByteCountFromString)
 {
-    String s     = u"za\u0306\u01FD\u03B2";
+    auto   s     = u"za\u0306\u01FD\u03B2";
     UInt32 count = Encoding::UTF8.GetByteCount(s);
 
     EXPECT_TRUE(8 == count);
@@ -75,8 +75,8 @@ TEST_F(EncodingUTF8Test, GetByteCountFromString)
 
 TEST_F(EncodingUTF8Test, GetBytesFromString)
 {
-    String s     = u"za\u0306\u01FD\u03B2";
-    auto   bytes = Encoding::UTF8.GetBytes(s);
+    auto s     = u"za\u0306\u01FD\u03B2";
+    auto bytes = Encoding::UTF8.GetBytes(s);
 
     EXPECT_TRUE(8 == bytes.size());
 
@@ -92,8 +92,8 @@ TEST_F(EncodingUTF8Test, GetBytesFromString)
 
 TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
 {
-    String s     = u"za\u0306\u01FD\u03B2";
-    auto   bytes = std::vector<UByte>();
+    auto s     = u"za\u0306\u01FD\u03B2";
+    auto bytes = std::vector<UByte>();
 
     bytes.reserve(Encoding::UTF8.GetByteCount(s));
 
@@ -141,9 +141,9 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayPointer)
 
 TEST_F(EncodingUTF8Test, GetCharCountFromByteArray)
 {
-    String s     = u"za\u0306\u01FD\u03B2";
-    auto   bytes = Encoding::UTF8.GetBytes(s);
-    auto   count = Encoding::UTF8.GetCharCount(bytes);
+    std::u16string s     = u"za\u0306\u01FD\u03B2";
+    auto           bytes = Encoding::UTF8.GetBytes(s);
+    auto           count = Encoding::UTF8.GetCharCount(bytes);
 
     EXPECT_TRUE(5        == count);
     EXPECT_TRUE(s.size() == count);
@@ -151,9 +151,9 @@ TEST_F(EncodingUTF8Test, GetCharCountFromByteArray)
 
 TEST_F(EncodingUTF8Test, GetCharCountFromByteArrayPointer)
 {
-    String s     = u"za\u0306\u01FD\u03B2";
-    auto   bytes = Encoding::UTF8.GetBytes(s);
-    auto   count = Encoding::UTF8.GetCharCount(&bytes[0], bytes.size());
+    std::u16string s     = u"za\u0306\u01FD\u03B2";
+    auto           bytes = Encoding::UTF8.GetBytes(s);
+    auto           count = Encoding::UTF8.GetCharCount(&bytes[0], bytes.size());
 
     EXPECT_TRUE(5        == count);
     EXPECT_TRUE(s.size() == count);

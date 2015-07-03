@@ -21,7 +21,7 @@ EffectParameter::EffectParameter()
 {
 }
 
-EffectParameter::EffectParameter(const System::String&                      name
+EffectParameter::EffectParameter(const std::u16string&                      name
                                , const System::UInt32&                      index
                                , const System::UInt32&                      offset
                                , const System::UInt32&                      type
@@ -68,7 +68,7 @@ EffectParameterCollection& EffectParameter::Elements()
     return this->elements;
 }
 
-const String& EffectParameter::Name() const
+const std::u16string& EffectParameter::Name() const
 {
     return this->name;
 }
@@ -153,7 +153,7 @@ std::vector<Single> EffectParameter::GetValueSingleArray() const
     throw std::runtime_error("Not implemented");
 }
 
-String EffectParameter::GetValueString() const
+std::u16string EffectParameter::GetValueString() const
 {
     throw std::runtime_error("Not implemented");
 }
@@ -329,7 +329,7 @@ void EffectParameter::SetValue(const std::vector<Single>& value) const
     this->uniformBuffer->SetData(this->offset, sizeof(Single) * value.size(), value.data());
 }
 
-void EffectParameter::SetValue(const String& value) const
+void EffectParameter::SetValue(const std::u16string& value) const
 {
     throw std::runtime_error("Not implemented");
 }

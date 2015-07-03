@@ -16,7 +16,7 @@ using namespace SceneR::Framework;
 ContentResourceManager ContentManager::ResourceManager;
 
 ContentManager::ContentManager(RendererServiceContainer& serviceProvider
-                             , const String&             rootDirectory)
+                             , const std::u16string&     rootDirectory)
     : serviceProvider ( serviceProvider )
     , rootDirectory   { rootDirectory }
 {
@@ -32,7 +32,7 @@ RendererServiceContainer& ContentManager::ServiceProvider()
     return this->serviceProvider;
 }
 
-const String ContentManager::RootDirectory()
+const std::u16string& ContentManager::RootDirectory()
 {
     return this->rootDirectory;
 }
@@ -42,7 +42,7 @@ void ContentManager::Unload()
     this->ResourceManager.Clear();
 }
 
-std::shared_ptr<Stream> ContentManager::OpenStream(const String& assetName) noexcept(false)
+std::shared_ptr<Stream> ContentManager::OpenStream(const std::u16string& assetName) noexcept(false)
 {
     auto filename  = assetName + u".xnb";
     auto path      = Path::Combine(this->rootDirectory, filename);

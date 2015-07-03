@@ -64,12 +64,12 @@ namespace SceneR
             /**
              * Gets the model mesh name
              */
-            const System::String& Name() const;
+            const std::u16string& Name() const;
 
             /**
              * Sets the model mesh name
              */
-            void Name(const System::String& name);
+            void Name(const std::u16string& name);
 
             /**
              * Gets the parent bone for this mesh. The parent bone of a mesh contains a
@@ -81,19 +81,19 @@ namespace SceneR
             /**
              * Gets the model mesh tag
              */
-            const System::String& Tag() const;
+            const std::u16string& Tag() const;
 
             /**
              * Sets the model mesh tag
              */
-            void Tag(const System::String& tag);
+            void Tag(const std::u16string& tag);
 
         private:
             SceneR::Framework::BoundingSphere           boundingSphere;
             std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
-            System::String                              name;
+            std::u16string                              name;
             std::shared_ptr<ModelBone>                  parentBone;
-            System::String                              tag;
+            std::u16string                              tag;
 
             friend class SceneR::Content::ModelReader;
         };

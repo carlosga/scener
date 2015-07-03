@@ -5,6 +5,7 @@
 #define MODELMESHPART_HPP
 
 #include <memory>
+#include <string>
 
 #include <System/Core.hpp>
 
@@ -84,12 +85,12 @@ namespace SceneR
             /**
              * Gets the model mesh part tag
              */
-            const System::String& Tag() const;
+            const std::u16string& Tag() const;
 
             /**
              * Sets the model mesh part tag
              */
-            void Tag(const System::String& tag);
+            void Tag(const std::u16string& tag);
 
         private:
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
@@ -99,7 +100,7 @@ namespace SceneR
             System::UInt32                                  vertexOffset;
             System::UInt32                                  vertexCount;
             System::UInt32                                  primitiveCount;
-            System::String                                  tag;
+            std::u16string                                  tag;
 
             friend class SceneR::Content::ModelReader;
         };

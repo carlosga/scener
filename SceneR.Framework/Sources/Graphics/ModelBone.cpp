@@ -30,12 +30,12 @@ const Size& ModelBone::Index() const
     return this->index;
 }
 
-const String& ModelBone::Name() const
+const std::u16string& ModelBone::Name() const
 {
     return this->name;
 }
 
-void ModelBone::Name(const String& name)
+void ModelBone::Name(const std::u16string& name)
 {
     this->name = name;
 }

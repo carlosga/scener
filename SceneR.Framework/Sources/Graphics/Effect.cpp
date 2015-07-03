@@ -87,12 +87,12 @@ void Effect::End()
     glUseProgram(0);
 }
 
-void Effect::AddShader(const String& name, const ShaderType& type, const std::string& source)
+void Effect::AddShader(const std::u16string& name, const ShaderType& type, const std::string& source)
 {
     this->AddShader(name, type, source, std::vector<std::string>());
 }
 
-void Effect::AddShader(const String&                   name
+void Effect::AddShader(const std::u16string&           name
                      , const ShaderType&               type
                      , const std::string&              source
                      , const std::vector<std::string>& includes)

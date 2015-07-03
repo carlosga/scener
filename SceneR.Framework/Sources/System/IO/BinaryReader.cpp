@@ -67,7 +67,7 @@ char16_t BinaryReader::ReadChar()
     return buffer;
 }
 
-String BinaryReader::ReadString()
+std::u16string BinaryReader::ReadString()
 {
     return this->encoding.GetString(this->ReadBytes(this->Read7BitEncodedInt()));
 }

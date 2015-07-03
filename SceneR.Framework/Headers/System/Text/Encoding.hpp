@@ -4,6 +4,7 @@
 #ifndef ENCODING_HPP
 #define ENCODING_HPP
 
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -52,12 +53,12 @@ namespace System
             /**
              * Converts a UTF-16 encoded string to a regular UTF-8 encoded string.
              */
-            static std::string Convert(const String& source);
+            static std::string Convert(const std::u16string& source);
 
             /**
              * Converts a UTF-8 encoded string to a regular UTF-16 encoded string.
              */
-            static System::String Convert(const std::string& source);
+            static std::u16string Convert(const std::string& source);
 
         protected:
 
@@ -76,7 +77,7 @@ namespace System
              * When overridden in a derived class, gets the human-readable description of
              * the current encoding.
              */
-            virtual const System::String EncodingName() const = 0;
+            virtual std::u16string EncodingName() const = 0;
 
             /**
              * When overridden in a derived class, gets a value indicating whether the current
@@ -99,7 +100,7 @@ namespace System
             /**
              * Calculates the number of bytes produced by encoding the characters in the specified string.
              */
-            virtual System::Size GetByteCount(const System::String& s) const;
+            virtual System::Size GetByteCount(const std::u16string& s) const;
 
             /**
              * Calculates the number of bytes produced by encoding a set of characters
@@ -123,7 +124,7 @@ namespace System
             /**
              * Encodes all the characters in the specified string into a sequence of bytes.
              */
-            virtual std::vector<System::UByte> GetBytes(const System::String& s) const;
+            virtual std::vector<System::UByte> GetBytes(const std::u16string& s) const;
 
             /**
              * Encodes a set of characters from the specified character array into a sequence of bytes.
@@ -155,7 +156,7 @@ namespace System
             /**
              * Encodes a set of characters from the specified string into the specified byte array.
              */
-            virtual System::Size GetBytes(const System::String&       s
+            virtual System::Size GetBytes(const std::u16string&       s
                                         , const System::Size&         charIndex
                                         , const System::Size&         charCount
                                         , std::vector<System::UByte>& bytes
@@ -246,12 +247,12 @@ namespace System
             /**
              * Decodes all the bytes in the specified byte array into a string.
              */
-            virtual System::String GetString(const std::vector<System::UByte>& bytes) const;
+            virtual std::u16string GetString(const std::vector<System::UByte>& bytes) const;
 
             /**
              * Decodes a sequence of bytes from the specified byte array into a string.
              */
-            virtual System::String GetString(const std::vector<System::UByte>& bytes
+            virtual std::u16string GetString(const std::vector<System::UByte>& bytes
                                            , const System::Size&               index
                                            , const System::Size&               count) const;
         };

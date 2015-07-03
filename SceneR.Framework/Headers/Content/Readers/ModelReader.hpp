@@ -4,6 +4,8 @@
 #ifndef MODELREADER_HPP
 #define MODELREADER_HPP
 
+#include <string>
+
 #include <System/Core.hpp>
 #include <Content/ContentTypeReader.hpp>
 
@@ -45,7 +47,7 @@ namespace SceneR
 
         private:
             System::Int32 ReadBoneReference(ContentReader& input, const System::UInt32& boneCount) const;
-            System::String ReadString(ContentReader& input) const;
+            std::u16string ReadString(ContentReader& input) const;
             std::shared_ptr<SceneR::Framework::BoundingSphere> ReadBoundingSphere(ContentReader& input) const;
         };
     }

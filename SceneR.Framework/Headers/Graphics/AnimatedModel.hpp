@@ -11,6 +11,7 @@
 #define ANIMATEDMODEL_HPP
 
 #include <memory>
+#include <string>
 
 #include <Graphics/AnimationPlayer.hpp>
 
@@ -45,7 +46,7 @@ namespace SceneR
              * model until the animation is updated (via Update()).
              * @param clipName name of the animation clip
              */
-            void Play(const System::String& clipName = u"Take 001");
+            void Play(const std::u16string& clipName = u"Take 001");
 
             /**
              * Plays the first clip.

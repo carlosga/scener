@@ -31,7 +31,7 @@ namespace SceneR
              * Initializes a new instance of the ContentManagerClass
              */
             ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider
-                         , const System::String&                        rootDirectory);
+                         , const std::u16string&                        rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -47,14 +47,14 @@ namespace SceneR
             /**
              * Gets the root directory associated with this ContentManager.
              */
-            const System::String RootDirectory();
+            const std::u16string& RootDirectory();
 
         public:
             /**
              * Loads a the given asset.
              */
             template <class T>
-            std::shared_ptr<T> Load(const System::String& assetName) noexcept(false);
+            std::shared_ptr<T> Load(const std::u16string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
@@ -66,18 +66,18 @@ namespace SceneR
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
-            std::shared_ptr<System::IO::Stream> OpenStream(const System::String& assetName) noexcept(false);
+            std::shared_ptr<System::IO::Stream> OpenStream(const std::u16string& assetName) noexcept(false);
 
             /**
              * Low-level worker method that reads asset data.
              * @param assetName the name of the asset to be loaded from disk.
              */
             template <class T>
-            std::shared_ptr<T> ReadAsset(const System::String& assetName) noexcept(false);
+            std::shared_ptr<T> ReadAsset(const std::u16string& assetName) noexcept(false);
 
         private:
             SceneR::Framework::RendererServiceContainer& serviceProvider;
-            System::String                               rootDirectory;
+            std::u16string                               rootDirectory;
         };
     }
 }
@@ -85,13 +85,13 @@ namespace SceneR
 #include <Content/ContentReader.hpp>
 
 template <class T>
-std::shared_ptr<T> SceneR::Content::ContentManager::Load(const System::String& assetName)
+std::shared_ptr<T> SceneR::Content::ContentManager::Load(const std::u16string& assetName)
 {
     return this->ReadAsset<T>(assetName);
 }
 
 template <class T>
-std::shared_ptr<T> SceneR::Content::ContentManager::ReadAsset(const System::String& assetName)
+std::shared_ptr<T> SceneR::Content::ContentManager::ReadAsset(const std::u16string& assetName)
 {
     if (SceneR::Content::ContentManager::ResourceManager.HasResource(assetName))
     {

@@ -48,7 +48,7 @@ ContentTypeReaderManager::~ContentTypeReaderManager()
     }
 }
 
-ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const String& name)
+ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const std::u16string& name)
 {
     return this->readers[name];
 }

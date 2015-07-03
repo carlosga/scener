@@ -4,6 +4,7 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
+#include <string>
 #include <vector>
 
 #include <System/Core.hpp>
@@ -57,7 +58,7 @@ namespace SceneR
             /**
              * Retrieves a string used for presentation to the user.
              */
-            const System::String& Description() const;
+            const std::u16string& Description() const;
 
             /**
              * Retrieves a value that is used to help identify a particular chip set.
@@ -67,7 +68,7 @@ namespace SceneR
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
              */
-            const System::String& DeviceName() const;
+            const std::u16string& DeviceName() const;
 
             /**
              * Determines if this instance of GraphicsAdapter is the default adapter.
@@ -108,9 +109,9 @@ namespace SceneR
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
 
         private:
-            System::String           description;
+            std::u16string           description;
             System::Int32            deviceId;
-            System::String           deviceName;
+            std::u16string           deviceName;
             bool                     isDefaultAdapter;
             bool                     isWideScreen;
             GLFWmonitor*             monitorHandle;

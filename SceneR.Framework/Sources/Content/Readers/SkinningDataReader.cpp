@@ -24,7 +24,7 @@ std::shared_ptr<void> SkinningDataReader::Read(ContentReader& input)
 {
     // 1. Read the animation clips.
     //    Gets a collection of animation clips.
-    auto animationClips = *input.ReadObject<std::map<String, AnimationClip>>();
+    auto animationClips = *input.ReadObject<std::map<std::u16string, AnimationClip>>();
 
     // 2. Read the bind pose
     //    Bindpose matrices for each bone in the skeleton, relative to the parent bone.

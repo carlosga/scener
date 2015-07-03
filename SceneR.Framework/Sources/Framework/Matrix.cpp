@@ -4,6 +4,7 @@
 #include <Framework/Matrix.hpp>
 
 #include <cassert>
+#include <stdexcept>
 
 #include <System/Math.hpp>
 #include <Framework/Quaternion.hpp>

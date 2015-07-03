@@ -21,10 +21,10 @@ SkinningData::SkinningData()
 {
 }
 
-SkinningData::SkinningData(const std::map<String, AnimationClip>& animationClips
-                         , const std::vector<Matrix>&             bindPose
-                         , const std::vector<Matrix>&             inverseBindPose
-                         , const std::vector<UInt32>&             skeletonHierarchy)
+SkinningData::SkinningData(const std::map<std::u16string, AnimationClip>& animationClips
+                         , const std::vector<Matrix>&                     bindPose
+                         , const std::vector<Matrix>&                     inverseBindPose
+                         , const std::vector<UInt32>&                     skeletonHierarchy)
     : animationClips    { animationClips }
     , bindPose          { bindPose }
     , inverseBindPose   { inverseBindPose }
@@ -44,12 +44,12 @@ SkinningData::~SkinningData()
 {
 }
 
-const std::map<String, AnimationClip>& SkinningData::AnimationClips() const
+const std::map<std::u16string, AnimationClip>& SkinningData::AnimationClips() const
 {
     return this->animationClips;
 }
 
-const AnimationClip& SkinningData::AnimationClips(const System::String& clipName)
+const AnimationClip& SkinningData::AnimationClips(const std::u16string& clipName)
 {
     return this->animationClips[clipName];
 }

@@ -113,12 +113,12 @@ void GraphicsDeviceManager::AllowUserResizing(const bool& allowUserResizing)
     this->allowUserResizing = allowUserResizing;
 }
 
-const String& GraphicsDeviceManager::WindowTitle() const
+const std::u16string& GraphicsDeviceManager::WindowTitle() const
 {
     return this->windowTitle;
 }
 
-void GraphicsDeviceManager::WindowTitle(const String& windowTitle)
+void GraphicsDeviceManager::WindowTitle(const std::u16string& windowTitle)
 {
     this->windowTitle = windowTitle;
 }

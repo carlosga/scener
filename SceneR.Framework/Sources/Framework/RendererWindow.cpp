@@ -40,12 +40,12 @@ RendererWindow::~RendererWindow()
     this->Close();
 }
 
-const String& RendererWindow::Title() const
+const std::u16string& RendererWindow::Title() const
 {
     return this->title;
 }
 
-void RendererWindow::Title(const String& title)
+void RendererWindow::Title(const std::u16string& title)
 {
     this->title = title;
 

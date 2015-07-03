@@ -4,6 +4,8 @@
 #ifndef RENDERERWINDOW_HPP
 #define RENDERERWINDOW_HPP
 
+#include <string>
+
 #include <System/Graphics/Platform.hpp>
 #include <System/Core.hpp>
 
@@ -37,13 +39,13 @@ namespace SceneR
              * Gets the renderer window title
              * @return the renderer window title
              */
-            const System::String& Title() const;
+            const std::u16string& Title() const;
 
             /**
              * Sets the renderer window title
              * @param title the renderer window title
              */
-            void Title(const System::String& title);
+            void Title(const std::u16string& title);
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
@@ -76,7 +78,7 @@ namespace SceneR
             RendererWindow& operator=(const RendererWindow& window) = delete;
 
         private:
-            System::String title;
+            std::u16string title;
             bool           allowUserResizing;
             GLFWwindow*    handle;
             Renderer&      renderer;
