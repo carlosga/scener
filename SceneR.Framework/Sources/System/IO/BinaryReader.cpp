@@ -40,9 +40,9 @@ Int32 BinaryReader::PeekChar()
     return -1;
 }
 
-Char BinaryReader::ReadChar()
+char16_t BinaryReader::ReadChar()
 {
-    Char buffer = this->ReadByte();
+    char16_t buffer = this->ReadByte();
 
     // http://xbox.create.msdn.com/en-US/sample/xnb_format
     // Decode UTF-8.

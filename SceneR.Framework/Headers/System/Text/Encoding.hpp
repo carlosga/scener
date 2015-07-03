@@ -94,7 +94,7 @@ namespace System
              * Calculates the number of bytes produced by encoding all
              * the characters in the specified character array.
              */
-            virtual System::Size GetByteCount(const std::vector<Char>& chars) const;
+            virtual System::Size GetByteCount(const std::vector<char16_t>& chars) const;
 
             /**
              * Calculates the number of bytes produced by encoding the characters in the specified string.
@@ -105,20 +105,20 @@ namespace System
              * Calculates the number of bytes produced by encoding a set of characters
              * starting at the specified character pointer.
              */
-            virtual System::Size GetByteCount(const Char* chars, const System::Size& count) const;
+            virtual System::Size GetByteCount(const char16_t* chars, const System::Size& count) const;
 
             /**
              * When overridden in a derived class, calculates the number of bytes produced
              * by encoding a set of characters from the specified character array.
              */
-            virtual System::Size GetByteCount(const std::vector<Char>& chars
-                                            , const System::Size&      index
-                                            , const System::Size&      count) const = 0;
+            virtual System::Size GetByteCount(const std::vector<char16_t>& chars
+                                            , const System::Size&          index
+                                            , const System::Size&          count) const = 0;
 
             /**
              * Encodes all the characters in the specified character array into a sequence of bytes.
              */
-            virtual std::vector<System::UByte> GetBytes(const std::vector<Char>& chars) const;
+            virtual std::vector<System::UByte> GetBytes(const std::vector<char16_t>& chars) const;
 
             /**
              * Encodes all the characters in the specified string into a sequence of bytes.
@@ -128,16 +128,16 @@ namespace System
             /**
              * Encodes a set of characters from the specified character array into a sequence of bytes.
              */
-            virtual std::vector<System::UByte> GetBytes(const std::vector<Char>& chars
-                                                      , const System::Size&      index
-                                                      , const System::Size&      count) const;
+            virtual std::vector<System::UByte> GetBytes(const std::vector<char16_t>& chars
+                                                      , const System::Size&          index
+                                                      , const System::Size&          count) const;
 
             /**
              * Encodes a set of characters starting at the specified
              * character pointer into a sequence of bytes that are stored
              * starting at the specified byte pointer.
              */
-            virtual System::Size GetBytes(const Char*         chars
+            virtual System::Size GetBytes(const char16_t*     chars
                                         , const System::Size& charCount
                                         , System::UByte*      bytes
                                         , const System::Size& byteCount) const;
@@ -146,11 +146,11 @@ namespace System
              * When overridden in a derived class, encodes a set of characters from the
              * specified character array into the specified byte array.
              */
-            virtual System::Size GetBytes(const std::vector<Char>&    chars
-                                        , const System::Size&         charIndex
-                                        , const System::Size&         charCount
-                                        , std::vector<System::UByte>& bytes
-                                        , const System::Size&         byteIndex) const = 0;
+            virtual System::Size GetBytes(const std::vector<char16_t>& chars
+                                        , const System::Size&          charIndex
+                                        , const System::Size&          charCount
+                                        , std::vector<System::UByte>&  bytes
+                                        , const System::Size&          byteIndex) const = 0;
 
             /**
              * Encodes a set of characters from the specified string into the specified byte array.
@@ -184,14 +184,14 @@ namespace System
             /**
              * Decodes all the bytes in the specified byte array into a set of characters.
              */
-            virtual std::vector<Char> GetChars(const std::vector<System::UByte>& bytes) const;
+            virtual std::vector<char16_t> GetChars(const std::vector<System::UByte>& bytes) const;
 
             /**
              * Decodes a sequence of bytes from the specified byte array into a set of characters.
              */
-            virtual std::vector<Char> GetChars(const std::vector<System::UByte>& bytes
-                                             , const System::Size&               index
-                                             , const System::Size&               count) const;
+            virtual std::vector<char16_t> GetChars(const std::vector<System::UByte>& bytes
+                                                 , const System::Size&               index
+                                                 , const System::Size&               count) const;
 
             /**
              * Decodes a sequence of bytes starting at the specified byte pointer
@@ -200,7 +200,7 @@ namespace System
              */
             virtual System::Size GetChars(const System::UByte* bytes
                                         , const System::Size&  byteCount
-                                        , Char*                chars
+                                        , char16_t*            chars
                                         , const System::Size&  charCount) const;
 
             /**
@@ -210,7 +210,7 @@ namespace System
             virtual System::Size GetChars(const std::vector<System::UByte>& bytes
                                         , const System::Size&               byteIndex
                                         , const System::Size&               byteCount
-                                        , std::vector<Char>&                chars
+                                        , std::vector<char16_t>&            chars
                                         , const System::Size&               charIndex) const = 0;
 
             /**

@@ -55,7 +55,7 @@ namespace System
             /**
              * Reads the next character from the current stream.
              */
-            Char ReadChar();
+            char16_t ReadChar();
 
             /**
              * Reads a string from the current stream. The string is prefixed with the length.

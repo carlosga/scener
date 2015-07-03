@@ -65,7 +65,7 @@ namespace System
              */
             virtual System::Size GetChars(const System::UByte* bytes
                                         , const System::Size&  byteCount
-                                        , System::Char*        chars
+                                        , char16_t*            chars
                                         , const System::Size&  charCount
                                         , const bool&          flush) const;
 
@@ -77,7 +77,7 @@ namespace System
             virtual System::Size GetChars(const std::vector<System::UByte>& bytes
                                         , const System::Size&               byteIndex
                                         , const System::Size&               byteCount
-                                        , std::vector<System::Char>&        chars
+                                        , std::vector<char16_t>&            chars
                                         , const System::Size&               charIndex) const = 0;
 
             /**
@@ -88,7 +88,7 @@ namespace System
             virtual System::Size GetChars(const std::vector<System::UByte>& bytes
                                         , const System::Size&               byteIndex
                                         , const System::Size&               byteCount
-                                        , std::vector<System::Char>&        chars
+                                        , std::vector<char16_t>&            chars
                                         , const System::Size&               charIndex
                                         , const bool&                       flush) const;
 

@@ -25,18 +25,18 @@ bool UTF8Encoding::IsSingleByte() const
     return false;
 }
 
-Size UTF8Encoding::GetByteCount(const std::vector<Char>& chars
-                              , const Size&              index
-                              , const Size&              count) const
+Size UTF8Encoding::GetByteCount(const std::vector<char16_t>& chars
+                              , const Size&                  index
+                              , const Size&                  count) const
 {
     return this->encoder.GetByteCount(chars, index, count, false);
 }
 
-Size UTF8Encoding::GetBytes(const std::vector<Char>& chars
-                          , const Size&              charIndex
-                          , const Size&              charCount
-                          , std::vector<UByte>&      bytes
-                          , const Size&              byteIndex) const
+Size UTF8Encoding::GetBytes(const std::vector<char16_t>& chars
+                          , const Size&                  charIndex
+                          , const Size&                  charCount
+                          , std::vector<UByte>&          bytes
+                          , const Size&                  byteIndex) const
 {
     return this->encoder.GetBytes(chars, charIndex, charCount, bytes, byteIndex, false);
 }
@@ -51,7 +51,7 @@ Size UTF8Encoding::GetCharCount(const std::vector<UByte>& bytes
 Size UTF8Encoding::GetChars(const std::vector<UByte>& bytes
                           , const Size&               byteIndex
                           , const Size&               byteCount
-                          , std::vector<Char>&        chars
+                          , std::vector<char16_t>&    chars
                           , const Size&               charIndex) const
 {
     return this->decoder.GetChars(bytes, byteIndex, byteCount, chars, charIndex);

@@ -36,7 +36,7 @@ namespace System
             System::Size GetChars(const std::vector<System::UByte>& bytes
                                 , const System::Size&               byteIndex
                                 , const System::Size&               byteCount
-                                , std::vector<System::Char>&        chars
+                                , std::vector<char16_t>&            chars
                                 , const System::Size&               charIndex) const override;
 
             void Reset() override;

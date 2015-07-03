@@ -46,16 +46,16 @@ Size UTF8Decoder::GetCharCount(const std::vector<UByte>& bytes
 Size UTF8Decoder::GetChars(const std::vector<UByte>& bytes
                          , const Size&               byteIndex
                          , const Size&               byteCount
-                         , std::vector<Char>&        chars
+                         , std::vector<char16_t>&    chars
                          , const Size&               charIndex) const
 {
     auto        from     = (char*)&bytes[0] + byteIndex;
     auto        fromEnd  = from + byteCount;
     const char* fromNext = nullptr;
-    auto        to       = std::vector<Char>(byteCount);
+    auto        to       = std::vector<char16_t>(byteCount);
     auto        toStart  = &to[0];
     auto        toEnd    = toStart + byteCount;
-    Char*       toNext   = nullptr;
+    char16_t*   toNext   = nullptr;
     auto        iterator = chars.begin() + charIndex;
     auto        state    = std::mbstate_t();
     auto        status   = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);

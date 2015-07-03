@@ -33,15 +33,15 @@ namespace System
 
             bool IsSingleByte() const override;
 
-            System::Size GetByteCount(const std::vector<System::Char>& chars
-                                    , const System::Size&              index
-                                    , const System::Size&              count) const override;
+            System::Size GetByteCount(const std::vector<char16_t>& chars
+                                    , const System::Size&          index
+                                    , const System::Size&          count) const override;
 
-            System::Size GetBytes(const std::vector<System::Char>& chars
-                                , const System::Size&              charIndex
-                                , const System::Size&              charCount
-                                , std::vector<System::UByte>&      bytes
-                                , const System::Size&              byteIndex) const override;
+            System::Size GetBytes(const std::vector<char16_t>& chars
+                                , const System::Size&          charIndex
+                                , const System::Size&          charCount
+                                , std::vector<System::UByte>&  bytes
+                                , const System::Size&          byteIndex) const override;
 
             System::Size GetCharCount(const std::vector<System::UByte>& bytes
                                     , const System::Size&               index
@@ -50,7 +50,7 @@ namespace System
             System::Size GetChars(const std::vector<System::UByte>& bytes
                                 , const System::Size&               byteIndex
                                 , const System::Size&               byteCount
-                                , std::vector<System::Char>&        chars
+                                , std::vector<char16_t>&            chars
                                 , const System::Size&               charIndex) const override;
 
             System::Size GetMaxByteCount(const System::Size& charCount) override;

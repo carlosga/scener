@@ -16,10 +16,10 @@ UTF8Encoder::~UTF8Encoder()
 {
 }
 
-Size UTF8Encoder::GetByteCount(const std::vector<Char>& chars
-                             , const Size&              index
-                             , const Size&              count
-                             , const bool&              flush) const
+Size UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
+                             , const Size&                  index
+                             , const Size&                  count
+                             , const bool&                  flush) const
 {
     Size byteCount = 0;
 
@@ -32,8 +32,8 @@ Size UTF8Encoder::GetByteCount(const std::vector<Char>& chars
      */
     for (Size i = index; i < (index + count); i++)
     {
-        Char buffer = chars[i];
-        Size offset = 1;
+        char16_t buffer = chars[i];
+        Size     offset = 1;
 
         if (((buffer >> 7) & 0xff) & 0x7F)
         {
@@ -60,24 +60,24 @@ Size UTF8Encoder::GetByteCount(const std::vector<Char>& chars
     return byteCount;
 }
 
-Size UTF8Encoder::GetBytes(const std::vector<Char>& chars
-                         , const Size&              charIndex
-                         , const Size&              charCount
-                         , std::vector<UByte>&      bytes
-                         , const Size&              byteIndex
-                         , const bool&              flush) const
+Size UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
+                         , const Size&                  charIndex
+                         , const Size&                  charCount
+                         , std::vector<UByte>&          bytes
+                         , const Size&                  byteIndex
+                         , const bool&                  flush) const
 {
-    auto        from     = const_cast<Char*>(&chars[0] + charIndex);
-    auto        fromEnd  = from + charCount;
-    const Char* fromNext = nullptr;
-    auto        size     = charCount * this->converter.max_length();
-    auto        to       = std::vector<char>(size);
-    auto        toStart  = &to[0];
-    auto        toEnd    = toStart + size;
-    char*       toNext   = nullptr;
-    auto        iterator = bytes.begin() + byteIndex;
-    auto        state    = std::mbstate_t();
-    auto        r        = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    auto            from     = const_cast<char16_t*>(&chars[0] + charIndex);
+    auto            fromEnd  = from + charCount;
+    const char16_t* fromNext = nullptr;
+    auto            size     = charCount * this->converter.max_length();
+    auto            to       = std::vector<char>(size);
+    auto            toStart  = &to[0];
+    auto            toEnd    = toStart + size;
+    char*           toNext   = nullptr;
+    auto            iterator = bytes.begin() + byteIndex;
+    auto            state    = std::mbstate_t();
+    auto            r        = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
     if (r == std::codecvt_base::error)
     {

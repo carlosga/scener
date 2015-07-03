@@ -31,12 +31,12 @@ Size Decoder::GetCharCount(const std::vector<UByte>& bytes
 
 Size Decoder::GetChars(const UByte* bytes
                      , const Size&  byteCount
-                     , Char*        chars
+                     , char16_t*    chars
                      , const Size&  charCount
                      , const bool&  flush) const
 {
     auto vbytes = std::vector<UByte>(bytes, bytes + byteCount);
-    auto vchars = std::vector<Char>();
+    auto vchars = std::vector<char16_t>();
 
     vchars.reserve(this->GetCharCount(vbytes, 0, byteCount, flush));
 
@@ -51,7 +51,7 @@ Size Decoder::GetChars(const UByte* bytes
 Size Decoder::GetChars(const std::vector<UByte>& bytes
                      , const Size&               byteIndex
                      , const Size&               byteCount
-                     , std::vector<Char>&        chars
+                     , std::vector<char16_t>&    chars
                      , const Size&               charIndex
                      , const bool&               flush) const
 {

@@ -29,17 +29,17 @@ namespace System
             ~UTF8Encoder() override;
 
         public:
-            System::Size GetByteCount(const std::vector<System::Char>& chars
-                                    , const System::Size&              index
-                                    , const System::Size&              count
-                                    , const bool&                      flush) const override;
+            System::Size GetByteCount(const std::vector<char16_t>& chars
+                                    , const System::Size&          index
+                                    , const System::Size&          count
+                                    , const bool&                  flush) const override;
 
-            System::Size GetBytes(const std::vector<System::Char>& chars
-                                , const System::Size&              charIndex
-                                , const System::Size&              charCount
-                                , std::vector<System::UByte>&      bytes
-                                , const System::Size&              byteIndex
-                                , const bool&                      flush) const override;
+            System::Size GetBytes(const std::vector<char16_t>& chars
+                                , const System::Size&          charIndex
+                                , const System::Size&          charCount
+                                , std::vector<System::UByte>&  bytes
+                                , const System::Size&          byteIndex
+                                , const bool&                  flush) const override;
 
         private:
             std::codecvt_utf8<char16_t> converter;
