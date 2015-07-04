@@ -18,7 +18,7 @@ DisplayMode::DisplayMode(const GLFWvidmode* mode)
 
     this->aspectRatio = static_cast<Single>(mode->width) / static_cast<Single>(mode->height);
 
-    Int32 bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
+    int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
 
     switch (bitDepth)
     {

@@ -29,7 +29,7 @@ namespace SceneR
             /**
              * Specifies the total number of corners (8) in the BoundingBox.
              */
-            static const System::Int32 CornerCount;
+            static const uint32_t CornerCount;
 
         public:
             //Public Method Static    CreateFromPoints    Creates the smallest BoundingBox that will contain a group of points.

@@ -112,26 +112,26 @@ namespace System
         /**
          * Initializes a new instance of the TimeSpan class with the given hours, minutes and seconds.
          */
-        TimeSpan(const System::Int32& hours
-               , const System::Int32& minutes
-               , const System::Int32& seconds);
+        TimeSpan(const int32_t& hours
+               , const int32_t& minutes
+               , const int32_t& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes and seconds.
          */
-        TimeSpan(const System::Int32& days
-               , const System::Int32& hours
-               , const System::Int32& minutes
-               , const System::Int32& seconds);
+        TimeSpan(const int32_t& days
+               , const int32_t& hours
+               , const int32_t& minutes
+               , const int32_t& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes, seconds and milliseconds.
          */
-        TimeSpan(const System::Int32& days
-               , const System::Int32& hours
-               , const System::Int32& minutes
-               , const System::Int32& seconds
-               , const System::Int32& milliseconds);
+        TimeSpan(const int32_t& days
+               , const int32_t& hours
+               , const int32_t& minutes
+               , const int32_t& seconds
+               , const int32_t& milliseconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given timespan.
@@ -157,27 +157,27 @@ namespace System
         /**
          * Gets the days component of the time interval represented by the current TimeSpan structure.
          */
-        System::Int32 Days() const;
+        int32_t Days() const;
 
         /**
          * Gets the hours component of the time interval represented by the current TimeSpan structure.
          */
-        System::Int32 Hours() const;
+        int32_t Hours() const;
 
         /**
          * Gets the milliseconds component of the time interval represented by the current TimeSpan structure.
          */
-        System::Int32 Milliseconds() const;
+        int32_t Milliseconds() const;
 
         /**
          * Gets the minutes component of the time interval represented by the current TimeSpan structure.
          */
-        System::Int32 Minutes() const;
+        int32_t Minutes() const;
 
         /**
          * Gets the seconds component of the time interval represented by the current TimeSpan structure.
          */
-        System::Int32 Seconds() const;
+        int32_t Seconds() const;
 
         /**
          * Gets the number of ticks that represent the value of the current TimeSpan structure.

@@ -181,14 +181,14 @@ void Effect::VerifyLinkingState()
 void Effect::DescribeParameters()
 {
     // Check the number of active uniforms
-    Int32 activeUniforms = 0;
+    int32_t activeUniforms = 0;
 
     glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
 
-    std::vector<Int32> indices(activeUniforms, 0);
-    std::vector<Int32> nameLengths(activeUniforms, 0);
-    std::vector<Int32> offsets(activeUniforms, 0);
-    std::vector<Int32> types(activeUniforms, 0);
+    std::vector<int32_t> indices(activeUniforms, 0);
+    std::vector<int32_t> nameLengths(activeUniforms, 0);
+    std::vector<int32_t> offsets(activeUniforms, 0);
+    std::vector<int32_t> types(activeUniforms, 0);
 
     glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
 
@@ -198,7 +198,7 @@ void Effect::DescribeParameters()
     glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
     glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
 
-    for (Int32 i = 0; i < activeUniforms; i++)
+    for (int32_t i = 0; i < activeUniforms; i++)
     {
         GLsizei length = 0;
         GLint   size   = 0;

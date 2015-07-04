@@ -128,12 +128,12 @@ void DepthStencilState::DepthBufferWriteEnable(const bool& depthBufferWriteEnabl
     this->depthBufferWriteEnable = depthBufferWriteEnable;
 }
 
-System::Int32 DepthStencilState::ReferenceStencil() const
+int32_t DepthStencilState::ReferenceStencil() const
 {
     return this->referenceStencil;
 }
 
-void DepthStencilState::ReferenceStencil(const System::Int32& referenceStencil)
+void DepthStencilState::ReferenceStencil(const int32_t& referenceStencil)
 {
     this->referenceStencil = referenceStencil;
 }

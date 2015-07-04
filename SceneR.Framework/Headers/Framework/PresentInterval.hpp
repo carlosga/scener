@@ -14,7 +14,7 @@ namespace SceneR
          * Defines flags that describe the relationship between the adapter refresh rate and
          * the rate at which Present operations are completed.
          */
-        enum class PresentInterval : System::Int32
+        enum class PresentInterval : uint32_t
         {
             /**
              * Equivalent to setting One.

@@ -81,12 +81,12 @@ void SamplerState::Filter(const TextureFilter& filter)
     this->filter = filter;
 }
 
-const System::Int32& SamplerState::MaxAnisotropy() const
+const int32_t& SamplerState::MaxAnisotropy() const
 {
     return this->maxAnisotropy;
 }
 
-void SamplerState::MaxAnisotropy(const System::Int32& maxAnisotropy)
+void SamplerState::MaxAnisotropy(const int32_t& maxAnisotropy)
 {
     this->maxAnisotropy = maxAnisotropy;
 }

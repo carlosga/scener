@@ -87,12 +87,12 @@ namespace SceneR
             /**
              * Gets the maximum anisotropy. The default value is 0.
              */
-            const System::Int32& MaxAnisotropy() const;
+            const int32_t& MaxAnisotropy() const;
 
             /**
              * Sets the maximum anisotropy. The default value is 0.
              */
-            void MaxAnisotropy(const System::Int32& maxAnisotropy);
+            void MaxAnisotropy(const int32_t& maxAnisotropy);
 
             /**
              * Gets the level of detail (LOD) index of the largest map to use.
@@ -126,7 +126,7 @@ namespace SceneR
             TextureAddressMode addressV;
             TextureAddressMode addressW;
             TextureFilter      filter;
-            System::Int32      maxAnisotropy;
+            int32_t            maxAnisotropy;
             System::UInt32     maxMipLevel;
             System::Single     mipMapLevelOfDetailBias;
 

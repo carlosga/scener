@@ -144,9 +144,9 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     return model;
 }
 
-Int32 ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount) const
+int32_t ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount) const
 {
-    Int32 boneReference;
+    int32_t boneReference;
 
     if (boneCount < 255)
     {

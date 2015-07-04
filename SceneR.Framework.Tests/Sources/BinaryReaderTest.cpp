@@ -77,7 +77,7 @@ TEST_F(BinaryReaderTest, ReadInt32)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    Int32 value = reader.ReadInt32();
+    int32_t value = reader.ReadInt32();
 
     reader.Close();
 

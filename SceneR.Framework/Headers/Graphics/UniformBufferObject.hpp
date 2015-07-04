@@ -47,12 +47,12 @@ namespace SceneR
             /**
              * Gets the uniform buffer binding point.
              */
-            System::Int32 BindingPoint() const;
+            int32_t BindingPoint() const;
 
             /**
              * Gets the uniform buffer block data size.
              */
-            System::Int32 Size() const;
+            int32_t Size() const;
 
         public:
             /**
@@ -96,8 +96,8 @@ namespace SceneR
             std::u16string name;
             System::UInt32 programId;
             System::UInt32 index;
-            System::Int32  bindingPoint;
-            System::Int32  size;
+            int32_t        bindingPoint;
+            int32_t        size;
             BufferObject   bufferObject;
         };
     }

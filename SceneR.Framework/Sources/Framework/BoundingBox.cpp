@@ -13,7 +13,7 @@
 using namespace System;
 using namespace SceneR::Framework;
 
-const System::Int32 BoundingBox::CornerCount = 8;
+const uint32_t BoundingBox::CornerCount = 8;
 
 BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
     : min { min }

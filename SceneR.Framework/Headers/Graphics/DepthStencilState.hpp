@@ -126,12 +126,12 @@ namespace SceneR
             /**
              * Specifies a reference value to use for the stencil test.
              */
-            System::Int32 ReferenceStencil() const;
+            int32_t ReferenceStencil() const;
 
             /**
              * Specifies a reference value to use for the stencil test.
              */
-            void ReferenceStencil(const System::Int32& referenceStencil);
+            void ReferenceStencil(const int32_t& referenceStencil);
 
             /**
              * Gets the stencil operation to perform if the stencil test passes and
@@ -233,7 +233,7 @@ namespace SceneR
             bool             depthBufferEnable;
             CompareFunction  depthBufferFunction;
             bool             depthBufferWriteEnable;
-            System::Int32    referenceStencil;
+            int32_t          referenceStencil;
             StencilOperation stencilDepthBufferFail;
             bool             stencilEnable;
             StencilOperation stencilFail;

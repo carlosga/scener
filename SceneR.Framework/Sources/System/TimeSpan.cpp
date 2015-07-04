@@ -56,21 +56,21 @@ TimeSpan::TimeSpan(const Int64& ticks)
 {
 }
 
-TimeSpan::TimeSpan(const Int32& hours, const Int32& minutes, const Int32& seconds)
+TimeSpan::TimeSpan(const int32_t& hours, const int32_t& minutes, const int32_t& seconds)
     : TimeSpan { 0, hours, minutes, seconds, 0 }
 {
 }
 
-TimeSpan::TimeSpan(const Int32& days, const Int32& hours, const Int32& minutes, const Int32& seconds)
+TimeSpan::TimeSpan(const int32_t& days, const int32_t& hours, const int32_t& minutes, const int32_t& seconds)
     : TimeSpan { days, hours, minutes, seconds, 0 }
 {
 }
 
-TimeSpan::TimeSpan(const Int32& days
-                 , const Int32& hours
-                 , const Int32& minutes
-                 , const Int32& seconds
-                 , const Int32& milliseconds)
+TimeSpan::TimeSpan(const int32_t& days
+                 , const int32_t& hours
+                 , const int32_t& minutes
+                 , const int32_t& seconds
+                 , const int32_t& milliseconds)
 {
     this->ticks = (std::chrono::duration_cast<TicksDuration>(DaysDuration(days))
                  + std::chrono::duration_cast<TicksDuration>(HoursDuration(hours))
@@ -98,27 +98,27 @@ TimeSpan TimeSpan::Negate() const
     return { -this->ticks.count() };
 }
 
-Int32 TimeSpan::Days() const
+int32_t TimeSpan::Days() const
 {
     return (this->ticks.count() / TimeSpan::TicksPerDay);
 }
 
-Int32 TimeSpan::Hours() const
+int32_t TimeSpan::Hours() const
 {
     return (this->ticks.count() % TimeSpan::TicksPerDay / TimeSpan::TicksPerHour);
 }
 
-Int32 TimeSpan::Milliseconds() const
+int32_t TimeSpan::Milliseconds() const
 {
     return (this->ticks.count() % TimeSpan::TicksPerSecond / TimeSpan::TicksPerMillisecond);
 }
 
-Int32 TimeSpan::Minutes() const
+int32_t TimeSpan::Minutes() const
 {
     return (this->ticks.count() % TimeSpan::TicksPerHour / TimeSpan::TicksPerMinute);
 }
 
-Int32 TimeSpan::Seconds() const
+int32_t TimeSpan::Seconds() const
 {
     return (this->ticks.count() % TimeSpan::TicksPerMinute / TimeSpan::TicksPerSecond);
 }

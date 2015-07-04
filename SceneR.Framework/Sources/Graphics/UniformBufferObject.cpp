@@ -34,12 +34,12 @@ System::UInt32 UniformBufferObject::Index() const
     return this->index;
 }
 
-System::Int32 UniformBufferObject::BindingPoint() const
+int32_t UniformBufferObject::BindingPoint() const
 {
     return this->bindingPoint;
 }
 
-System::Int32 UniformBufferObject::Size() const
+int32_t UniformBufferObject::Size() const
 {
     return this->size;
 }

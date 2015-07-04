@@ -58,7 +58,7 @@ EffectParameter::~EffectParameter()
 {
 }
 
-const Int32& EffectParameter::ColumnCount() const
+const int32_t& EffectParameter::ColumnCount() const
 {
     return this->columnCount;
 }
@@ -83,7 +83,7 @@ const EffectParameterType& EffectParameter::ParameterType() const
     return this->parameterType;
 }
 
-const Int32& EffectParameter::RowCount() const
+const int32_t& EffectParameter::RowCount() const
 {
     return this->rowCount;
 }
@@ -103,12 +103,12 @@ std::vector<bool> EffectParameter::GetValueBooleanArray() const
     throw std::runtime_error("Not implemented");
 }
 
-Int32 EffectParameter::GetValueInt32() const
+int32_t EffectParameter::GetValueInt32() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Int32> EffectParameter::GetValueInt32Array() const
+std::vector<int32_t> EffectParameter::GetValueInt32Array() const
 {
     throw std::runtime_error("Not implemented");
 }
@@ -192,7 +192,7 @@ void EffectParameter::SetValue(const std::vector<bool>& value) const
     //this->uniformBuffer->SetData(this->offset, value.size(), value.data());
 }
 
-void EffectParameter::SetValue(const Int32& value) const
+void EffectParameter::SetValue(const int32_t& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
@@ -203,10 +203,10 @@ void EffectParameter::SetValue(const Int32& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(Int32), &value);
+    this->uniformBuffer->SetData(this->offset, sizeof(int32_t), &value);
 }
 
-void EffectParameter::SetValue(const std::vector<Int32>& value) const
+void EffectParameter::SetValue(const std::vector<int32_t>& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
@@ -217,7 +217,7 @@ void EffectParameter::SetValue(const std::vector<Int32>& value) const
         throw std::runtime_error("Invalid effect parameter type.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(Int32) * value.size(), value.data());
+    this->uniformBuffer->SetData(this->offset, sizeof(int32_t) * value.size(), value.data());
 }
 
 void EffectParameter::SetValue(const UInt32& value) const
@@ -431,7 +431,7 @@ EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
     return *this;
 }
 
-void EffectParameter::Describe(const Int32& type)
+void EffectParameter::Describe(const int32_t& type)
 {
     switch (type)
     {

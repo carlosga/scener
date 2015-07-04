@@ -50,7 +50,7 @@ namespace System
             /**
              * Returns the next available character, or -1 if no more characters are available.
              */
-            Int32 PeekChar();
+            int32_t PeekChar();
 
             /**
              * Reads the next character from the current stream.
@@ -95,7 +95,7 @@ namespace System
             /**
              * Reads a 4-byte signed integer from the current stream.
              */
-            Int32 ReadInt32();
+            int32_t ReadInt32();
 
             /**
              * Reads a 4-byte unsigned integer from the current stream.

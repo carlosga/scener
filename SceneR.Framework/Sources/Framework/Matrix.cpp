@@ -524,9 +524,9 @@ Matrix Matrix::Invert(const Matrix& matrix)
     if (matrix.HasInverse())
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        auto   mdet = matrix.Determinant();
-        Matrix mtemp;
-        Int32  sign;
+        auto    mdet = matrix.Determinant();
+        Matrix  mtemp;
+        int32_t sign;
 
         for (UInt32 i = 0; i < 4; i++)
         {
@@ -766,10 +766,10 @@ void Matrix::Translation(const Vector3& translation)
 Single Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    Int32  i      = 1;
-    Single result = 0;
-    Single det    = 0;
-    Matrix msub;
+    int32_t i      = 1;
+    Single  result = 0;
+    Single  det    = 0;
+    Matrix  msub;
 
     for (UInt32 n = 0; n < 4; n++, i *= -1)
     {

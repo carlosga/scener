@@ -63,7 +63,7 @@ namespace SceneR
             /**
              * Retrieves a value that is used to help identify a particular chip set.
              */
-            System::Int32 DeviceId() const;
+            int32_t DeviceId() const;
 
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
@@ -88,12 +88,12 @@ namespace SceneR
             /**
              * Retrieves a value used to help identify the revision level of a particular chip set.
              */
-            System::Int32 Revision() const;
+            int32_t Revision() const;
 
             /**
              * Retrieves a value used to identify the subsystem.
              */
-            System::Int32 SubSystemId() const;
+            int32_t SubSystemId() const;
 
             /**
              * Returns a collection of supported display modes for the current adapter.
@@ -103,22 +103,22 @@ namespace SceneR
             /**
              * Retrieves a value used to identify the manufacturer.
              */
-            System::Int32 VendorId() const;
+            int32_t VendorId() const;
 
         public:
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
 
         private:
             std::u16string           description;
-            System::Int32            deviceId;
+            int32_t                  deviceId;
             std::u16string           deviceName;
             bool                     isDefaultAdapter;
             bool                     isWideScreen;
             GLFWmonitor*             monitorHandle;
-            System::Int32            revision;
-            System::Int32            subSystemId;
+            int32_t                  revision;
+            int32_t                  subSystemId;
             std::vector<DisplayMode> supportedDisplayModes;
-            System::Int32            vendorId;
+            int32_t                  vendorId;
         };
     }
 }

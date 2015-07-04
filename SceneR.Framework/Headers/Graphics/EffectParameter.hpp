@@ -68,7 +68,7 @@ namespace SceneR
             /**
              * Gets the number of columns in the parameter description.
              */
-            const System::Int32& ColumnCount() const;
+            const int32_t& ColumnCount() const;
 
             /**
              * Gets the collection of effect parameters.
@@ -93,7 +93,7 @@ namespace SceneR
             /**
              * Gets the number of rows in the parameter description.
              */
-            const System::Int32& RowCount() const;
+            const int32_t& RowCount() const;
 
             /**
              * Gets the collection of structure members.
@@ -114,12 +114,12 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as an System::Int32.
              */
-            System::Int32 GetValueInt32() const;
+            int32_t GetValueInt32() const;
 
             /**
              *  Gets the value of the EffectParameter as an array of System::Int32.
              */
-            std::vector<System::Int32> GetValueInt32Array() const;
+            std::vector<int32_t> GetValueInt32Array() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix.
@@ -202,13 +202,13 @@ namespace SceneR
              * Sets the value of the EffectParameter as an System::Int32.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const System::Int32& value) const;
+            void SetValue(const int32_t& value) const;
 
             /**
              *  Sets the value of the EffectParameter as an array of System::Int32.
              *  @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<System::Int32>& value) const;
+            void SetValue(const std::vector<int32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an System::UInt32.
@@ -322,15 +322,15 @@ namespace SceneR
             EffectParameter& operator=(const EffectParameter& parameter);
 
         private:
-            void Describe(const System::Int32& type);
+            void Describe(const int32_t& type);
 
         private:
-            System::Int32                        columnCount;
+            int32_t                              columnCount;
             EffectParameterCollection            elements;
             std::u16string                       name;
             EffectParameterClass                 parameterClass;
             EffectParameterType                  parameterType;
-            System::Int32                        rowCount;
+            int32_t                              rowCount;
             EffectParameterCollection            structureMembers;
             System::UInt32                       index;
             System::UInt32                       offset;

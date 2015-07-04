@@ -35,7 +35,7 @@ void BinaryReader::Close()
     this->stream.Close();
 }
 
-Int32 BinaryReader::PeekChar()
+int32_t BinaryReader::PeekChar()
 {
     return -1;
 }
@@ -135,9 +135,9 @@ uint16_t BinaryReader::ReadUInt16()
     return buffer;
 }
 
-Int32 BinaryReader::ReadInt32()
+int32_t BinaryReader::ReadInt32()
 {
-    Int32 buffer;
+    int32_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

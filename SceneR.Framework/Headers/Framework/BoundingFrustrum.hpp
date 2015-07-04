@@ -31,7 +31,7 @@ namespace SceneR
             /**
              * Specifies the total number of corners (8) in the BoundingFrustrum.
              */
-            static const System::Int32 CornerCount;
+            static const uint32_t CornerCount;
 
         public:
             /**
