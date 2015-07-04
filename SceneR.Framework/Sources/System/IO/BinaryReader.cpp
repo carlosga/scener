@@ -162,9 +162,9 @@ int64_t BinaryReader::ReadInt64()
     return buffer;
 }
 
-UInt64 BinaryReader::ReadUInt64()
+uint64_t BinaryReader::ReadUInt64()
 {
-    UInt64 buffer;
+    uint64_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

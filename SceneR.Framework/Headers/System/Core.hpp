@@ -8,8 +8,7 @@
 
 namespace System
 {
-    // using Int64   = int64_t;
-    using UInt64  = uint64_t;
+    // using UInt64  = uint64_t;
     using Single  = float;
     using Double  = double;
     using Size    = uint64_t;
