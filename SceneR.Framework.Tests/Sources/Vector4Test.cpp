@@ -41,8 +41,8 @@ TEST_F(Vector4Test, DistanceSquared)
     auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
     auto b = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Single expected = 64.0f;
-    Single actual   = Vector4::DistanceSquared(a, b);
+    auto expected = 64.0f;
+    auto actual   = Vector4::DistanceSquared(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -54,8 +54,8 @@ TEST_F(Vector4Test, Distance)
     auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
     auto b = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Single expected = 8.0f;
-    Single actual   = Vector4::Distance(a, b);
+    auto expected = 8.0f;
+    auto actual   = Vector4::Distance(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -70,7 +70,7 @@ TEST_F(Vector4Test, DistanceFromTheSamePoint)
 
     b.W(1.0f);
 
-    Single actual = Vector4::Distance(a, b);
+    auto actual = Vector4::Distance(a, b);
 
     EXPECT_TRUE(0.0f == actual);
 }
@@ -82,8 +82,8 @@ TEST_F(Vector4Test, Dot)
     auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
     auto b = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Single expected = 70.0f;
-    Single actual = Vector4::Dot(a, b);
+    auto expected = 70.0f;
+    auto actual   = Vector4::Dot(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -100,7 +100,7 @@ TEST_F(Vector4Test, DotForPerpendicularVector)
     auto d = Vector4 { a, 0 };
     auto e = Vector4 { c, 0 };
 
-    Single actual = Vector4::Dot(d, e);
+    auto actual = Vector4::Dot(d, e);
 
     EXPECT_TRUE(EqualityHelper::Equal(0.0f, actual));
 }
@@ -109,12 +109,12 @@ TEST_F(Vector4Test, DotForPerpendicularVector)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, Length)
 {
-    auto   a      = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w      = 4.0f;
-    auto   target = Vector4 { a, w };
+    auto a      = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w      = 4.0f;
+    auto target = Vector4 { a, w };
 
-    Single expected = Math::Sqrt(30.0f);
-    Single actual   = target.Length();
+    auto expected = Math::Sqrt(30.0f);
+    auto actual   = target.Length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -125,8 +125,8 @@ TEST_F(Vector4Test, Length)
 TEST_F(Vector4Test, LengthWhereLengthIsZero)
 {
     Vector4 target;
-    Single  expected = 0.0f;
-    Single  actual   = target.Length();
+    auto    expected = 0.0f;
+    auto    actual   = target.Length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -135,13 +135,13 @@ TEST_F(Vector4Test, LengthWhereLengthIsZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, LengthSquared)
 {
-    auto   a = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w = 4.0f;
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w = 4.0f;
 
     auto target = Vector4 { a, w };
 
-    Single expected = 30;
-    Single actual   = target.LengthSquared();
+    auto expected = 30;
+    auto actual   = target.LengthSquared();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -268,8 +268,7 @@ TEST_F(Vector4Test, Lerp)
 {
     auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
     auto b = Vector4 { 5.0f, 6.0f, 7.0f, 8.0f };
-
-    Single t = 0.5f;
+    auto t = 0.5f;
 
     auto expected = Vector4 { 3.0f, 4.0f, 5.0f, 6.0f };
     auto actual   = Vector4::Lerp(a, b, t);
@@ -284,8 +283,7 @@ TEST_F(Vector4Test, LerpWithFactorZero)
 {
     auto a = Vector4 { { 1.0f, 2.0f, 3.0f }, 4.0f };
     auto b = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
-
-    Single t = 0.0f;
+    auto t = 0.0f;
 
     auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
     auto actual   = Vector4::Lerp(a, b, t);
@@ -300,8 +298,7 @@ TEST_F(Vector4Test, LerpWithFactorOne)
 {
     auto a = Vector4 { { 1.0f, 2.0f, 3.0f }, 4.0f };
     auto b = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
-
-    Single t = 1.0f;
+    auto t = 1.0f;
 
     auto expected = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
     auto actual   = Vector4::Lerp(a, b, t);
@@ -316,8 +313,7 @@ TEST_F(Vector4Test, LerpWithFactorGreaterThanOne)
 {
     auto a = Vector4 { { 0.0f, 0.0f, 0.0f }, 0.0f };
     auto b = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
-
-    Single t = 2.0f;
+    auto t = 2.0f;
 
     auto expected = Vector4 { 8.0f, 10.0f, 12.0f, 14.0f };
     auto actual   = Vector4::Lerp(a, b, t);
@@ -332,8 +328,7 @@ TEST_F(Vector4Test, LerpWithFactorLessThanZero)
 {
     auto a = Vector4 { { 0.0f, 0.0f, 0.0f }, 0.0f };
     auto b = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
-
-    Single t = -2.0f;
+    auto t = -2.0f;
 
     auto expected = -(b * 2);
     auto actual   = Vector4::Lerp(a, b, t);
@@ -348,8 +343,7 @@ TEST_F(Vector4Test, LerpFromTheSamePoint)
 {
     Vector4 a = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
     Vector4 b = Vector4 { 4.0f, 5.0f, 6.0f, 7.0f };
-
-    float t = 0.85f;
+    auto    t = 0.85f;
 
     auto expected = a;
     auto actual   = Vector4::Lerp(a, b, t);
@@ -741,9 +735,8 @@ TEST_F(Vector4Test, Subtraction)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, MultiplyVectorByScalar)
 {
-    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
-
-    Single factor = 2.0f;
+    auto a      = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto factor = 2.0f;
 
     auto expected = Vector4 { 2.0f, 4.0f, 6.0f, 8.0f };
     auto actual   = a * factor;
@@ -755,9 +748,8 @@ TEST_F(Vector4Test, MultiplyVectorByScalar)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, MultiplyScalarByVector)
 {
-    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
-
-    Single factor = 2.0f;
+    auto a      = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto factor = 2.0f;
 
     auto expected = Vector4 { 2.0f, 4.0f, 6.0f, 8.0f };
     auto actual   = factor * a;
@@ -781,9 +773,8 @@ TEST_F(Vector4Test, Multiply)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, Division)
 {
-    auto a = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
-
-    Single div = 2.0f;
+    auto a   = Vector4 { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto div = 2.0f;
 
     auto expected = Vector4 { 0.5f, 1.0f, 1.5f, 2.0f };
     auto actual   = a / div;
@@ -809,9 +800,8 @@ TEST_F(Vector4Test, Division1)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, ScalarDivisionByZero)
 {
-    auto a = Vector4 { -2.0f, 3.0f, Math::MaxValue, Math::NaN };
-
-    Single div = 0.0f;
+    auto a   = Vector4 { -2.0f, 3.0f, Math::MaxValue, Math::NaN };
+    auto div = 0.0f;
 
     auto actual = a / div;
 
@@ -874,10 +864,10 @@ TEST_F(Vector4Test, Add)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, Constructor)
 {
-    Single x = 1.0f;
-    Single y = 2.0f;
-    Single z = 3.0f;
-    Single w = 4.0f;
+    auto x = 1.0f;
+    auto y = 2.0f;
+    auto z = 3.0f;
+    auto w = 4.0f;
 
     auto target = Vector4 { x, y, z, w };
 
@@ -891,9 +881,9 @@ TEST_F(Vector4Test, Constructor)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, ConstructorWithVector2)
 {
-    auto   a = Vector2 { 1.0f, 2.0f };
-    Single z = 3.0f;
-    Single w = 4.0f;
+    auto a = Vector2 { 1.0f, 2.0f };
+    auto z = 3.0f;
+    auto w = 4.0f;
 
     auto target = Vector4 { a, z, w };
 
@@ -907,8 +897,8 @@ TEST_F(Vector4Test, ConstructorWithVector2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, ConstructorWithVector3)
 {
-    auto   a = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w = 4.0f;
+    auto a = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w = 4.0f;
 
     auto target = Vector4 { a, w };
 
@@ -1057,7 +1047,7 @@ TEST_F(Vector4Test, Zero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, ConstructorWithScalarValue)
 {
-    Single  value = 1.0f;
+    auto    value = 1.0f;
     Vector4 target { value };
 
     Vector4 expected { value, value, value, value };

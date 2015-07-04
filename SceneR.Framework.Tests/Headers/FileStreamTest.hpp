@@ -6,8 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <System/Core.hpp>
-
 class FileStreamTest : public testing::Test
 {
 protected:

@@ -5,6 +5,7 @@
 #define BINARYREADER_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
 #include <System/Text/Encoding.hpp>
@@ -115,12 +116,12 @@ namespace System
             /**
              * Reads a float value from the currently open stream.
              */
-            Single ReadSingle();
+            float ReadSingle();
 
             /**
              * Reads a double value from the currently open stream.
              */
-            Double ReadDouble();
+            double ReadDouble();
 
         public:
             BinaryReader() = delete;

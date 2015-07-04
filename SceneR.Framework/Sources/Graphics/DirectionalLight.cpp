@@ -3,7 +3,6 @@
 
 #include <Graphics/DirectionalLight.hpp>
 
-using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 

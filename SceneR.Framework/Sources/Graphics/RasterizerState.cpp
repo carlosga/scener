@@ -49,12 +49,12 @@ void RasterizerState::CullMode(const SceneR::Graphics::CullMode& cullMode)
     this->cullMode = cullMode;
 }
 
-const Single& RasterizerState::DepthBias() const
+float RasterizerState::DepthBias() const
 {
     return this->depthBias;
 }
 
-void RasterizerState::DepthBias(const Single& depthBias)
+void RasterizerState::DepthBias(const float& depthBias)
 {
     this->depthBias = depthBias;
 }
@@ -89,12 +89,12 @@ void RasterizerState::ScissorTestEnable(const bool& scissorTestEnable)
     this->scissorTestEnable = scissorTestEnable;
 }
 
-const Single& RasterizerState::SlopeScaleDepthBias() const
+float RasterizerState::SlopeScaleDepthBias() const
 {
     return this->slopeScaleDepthBias;
 }
 
-void RasterizerState::SlopeScaleDepthBias(const Single& slopeScaleDepthBias)
+void RasterizerState::SlopeScaleDepthBias(const float& slopeScaleDepthBias)
 {
     this->slopeScaleDepthBias = slopeScaleDepthBias;
 }

@@ -4,8 +4,6 @@
 #ifndef VIEWPORT_HPP
 #define VIEWPORT_HPP
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Graphics
@@ -24,15 +22,15 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(const System::Single& x    , const System::Single& y
-                   , const System::Single& width, const System::Single& height);
+            Viewport(const float& x    , const float& y
+                   , const float& width, const float& height);
 
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport(const System::Single& x       , const System::Single& y,
-                     const System::Single& width   , const System::Single& height,
-                     const System::Single& minDepth, const System::Single& maxDepth);
+            Viewport(const float& x       , const float& y,
+                     const float& width   , const float& height,
+                     const float& minDepth, const float& maxDepth);
 
             /**
              * @brief Copy constructor
@@ -46,41 +44,41 @@ namespace SceneR
             ~Viewport();
 
         public:
-            const System::Single& X() const;
+            float X() const;
 
-            const System::Single& Y() const;
+            float Y() const;
 
-            const System::Single& Width() const;
+            float Width() const;
 
-            const System::Single& Height() const;
+            float Height() const;
 
-            System::Single AspectRatio() const;
+            float AspectRatio() const;
 
-            const System::Single& MinDepth() const;
+            float MinDepth() const;
 
-            void MinDepth(const System::Single& minDepth);
+            void MinDepth(const float& minDepth);
 
-            const System::Single& MaxDepth() const;
+            float MaxDepth() const;
 
-            void MaxDepth(const System::Single& maxDepth);
+            void MaxDepth(const float& maxDepth);
 
             void Update() const;
 
-            void Update(const System::Single& x    , const System::Single& y
-                      , const System::Single& width, const System::Single& height);
+            void Update(const float& x    , const float& y
+                      , const float& width, const float& height);
 
-            void Update(const System::Single& width, const System::Single& height);
+            void Update(const float& width, const float& height);
 
         public:
             Viewport& operator=(const Viewport& viewport);
 
         private:
-            System::Single x;
-            System::Single y;
-            System::Single width;
-            System::Single height;
-            System::Single minDepth;
-            System::Single maxDepth;
+            float x;
+            float y;
+            float width;
+            float height;
+            float minDepth;
+            float maxDepth;
         };
     }
 }

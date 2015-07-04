@@ -8,7 +8,6 @@
 #include <Framework/BoundingBox.hpp>
 #include <Framework/Ray.hpp>
 
-using namespace System;
 using namespace SceneR::Framework;
 
 const uint32_t BoundingFrustrum::CornerCount = 8;
@@ -126,7 +125,7 @@ PlaneIntersectionType BoundingFrustrum::Intersects(const Plane& plane) const
     throw std::runtime_error("Not implemented");
 }
 
-Single BoundingFrustrum::Intersects(const Ray& ray) const
+float BoundingFrustrum::Intersects(const Ray& ray) const
 {
     throw std::runtime_error("Not implemented");
 }

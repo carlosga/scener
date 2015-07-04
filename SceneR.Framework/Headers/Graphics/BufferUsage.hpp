@@ -4,8 +4,9 @@
 #ifndef BUFFERUSAGE_HPP
 #define BUFFERUSAGE_HPP
 
+#include <stdint.h>
+
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -160,7 +160,6 @@ set(HEADER_FILES
     Headers/Graphics/VertexPositionColorTexture.hpp
     Headers/Graphics/VertexPositionNormalTexture.hpp
     Headers/Graphics/Viewport.hpp
-    Headers/System/Core.hpp
     Headers/System/IDisposable.hpp
     Headers/System/BitConverter.hpp
     Headers/System/Math.hpp

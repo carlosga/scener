@@ -4,10 +4,10 @@
 #ifndef ENCODING_HPP
 #define ENCODING_HPP
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 #include <vector>
-
-#include <System/Core.hpp>
 
 namespace System
 {

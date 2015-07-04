@@ -123,35 +123,24 @@ TEST_F(BinaryReaderTest, ReadUInt64)
     EXPECT_TRUE(value != 0);
 }
 
-// Tests ReadUInt64().
+// Tests ReadSingle().
 TEST_F(BinaryReaderTest, ReadSingle)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    Single value = reader.ReadSingle();
+    auto value = reader.ReadSingle();
 
     EXPECT_TRUE(value != 0);
 }
 
-// Tests ReadUInt64().
+// Tests ReadDouble().
 TEST_F(BinaryReaderTest, ReadDouble)
 {
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    Double value = reader.ReadDouble();
-
-    EXPECT_TRUE(value != 0);
-}
-
-// Tests ReadUInt64().
-TEST_F(BinaryReaderTest, ReadString)
-{
-    FileStream stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
-
-    Double value = reader.ReadDouble();
+    auto value = reader.ReadDouble();
 
     EXPECT_TRUE(value != 0);
 }

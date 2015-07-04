@@ -4,7 +4,8 @@
 #ifndef DRAWABLECOMPONENT_HPP
 #define DRAWABLECOMPONENT_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <Framework/IDrawable.hpp>
 #include <Framework/Component.hpp>
 #include <Graphics/GraphicsDevice.hpp>

@@ -5,128 +5,128 @@
 
 using namespace System;
 
-const Single Math::E;
-const Single Math::Log10E;
-const Single Math::Log2E;
-const Single Math::Pi;
-const Single Math::PiOver2;
-const Single Math::PiOver4;
-const Single Math::TwoPi;
-const Single Math::NegativeInfinity;
-const Single Math::PositiveInfinity;
-const Single Math::NaN;
-const Single Math::Epsilon;
-const Single Math::MinValue;
-const Single Math::MaxValue;
+const float Math::E;
+const float Math::Log10E;
+const float Math::Log2E;
+const float Math::Pi;
+const float Math::PiOver2;
+const float Math::PiOver4;
+const float Math::TwoPi;
+const float Math::NegativeInfinity;
+const float Math::PositiveInfinity;
+const float Math::NaN;
+const float Math::Epsilon;
+const float Math::MinValue;
+const float Math::MaxValue;
 
-bool Math::IsInfinity(const System::Single& f)
+bool Math::IsInfinity(const float& f)
 {
     return Math::IsPositiveInfinity(f) || Math::IsNegativeInfinity(f);
 }
 
-bool Math::IsNegativeInfinity(const System::Single& f)
+bool Math::IsNegativeInfinity(const float& f)
 {
     return (Math::Equal(f, Math::NegativeInfinity));
 }
 
-bool Math::IsPositiveInfinity(const System::Single& f)
+bool Math::IsPositiveInfinity(const float& f)
 {
     return (Math::Equal(f, Math::PositiveInfinity));
 }
 
-bool Math::IsNaN(const System::Single& f)
+bool Math::IsNaN(const float& f)
 {
     return std::isnan(f);
 }
 
-Single Math::Abs(const Single& value)
+float Math::Abs(const float& value)
 {
     return std::abs(value);
 }
 
-Single Math::Acos(const Single& value)
+float Math::Acos(const float& value)
 {
     return std::acos(value);
 }
 
-Single Math::Asin(const Single& value)
+float Math::Asin(const float& value)
 {
     return std::asin(value);
 }
 
-Single Math::Atan(const Single& value)
+float Math::Atan(const float& value)
 {
     return std::atan(value);
 }
 
-Single Math::Atan2(const Single& x, const Single& y)
+float Math::Atan2(const float& x, const float& y)
 {
     return std::atan2(x, y);
 }
 
-Single Math::Ceiling(const Single& value)
+float Math::Ceiling(const float& value)
 {
     return std::ceil(value);
 }
 
-Single Math::Cos(const Single& value)
+float Math::Cos(const float& value)
 {
     return std::cos(value);
 }
 
-Single Math::Cosh(const Single& value)
+float Math::Cosh(const float& value)
 {
     return std::cosh(value);
 }
 
-Single Math::Exp(const Single& d)
+float Math::Exp(const float& d)
 {
     return std::exp(d);
 }
 
-Single Math::Floor(const Single& value)
+float Math::Floor(const float& value)
 {
     return std::floor(value);
 }
 
-Single Math::IEEERemainder(const Single& x, const Single& y)
+float Math::IEEERemainder(const float& x, const float& y)
 {
     // Reference: https://msdn.microsoft.com/es-es/library/system.math.ieeeremainder%28v=vs.110%29.aspx
     // IEEERemainder = dividend - (divisor * Math.Round(dividend / divisor))
     return x - (y * Math::Round(x / y));
 }
 
-Single Math::Round(const Single& a)
+float Math::Round(const float& a)
 {
     return std::round(a);
 }
 
-Single Math::Sin(const Single& value)
+float Math::Sin(const float& value)
 {
     return std::sin(value);
 }
 
-Single Math::Sinh(const Single& value)
+float Math::Sinh(const float& value)
 {
     return std::sinh(value);
 }
 
-Single Math::Sqrt(const Single& value)
+float Math::Sqrt(const float& value)
 {
     return std::sqrt(value);
 }
 
-Single Math::Tan(const Single& value)
+float Math::Tan(const float& value)
 {
     return std::tan(value);
 }
 
-Single Math::Tanh(const Single& value)
+float Math::Tanh(const float& value)
 {
     return std::tanh(value);
 }
 
-bool Math::Equal(const Single& a, const Single& b)
+bool Math::Equal(const float& a, const float& b)
 {
     // TODO: Take a look at
     //
@@ -138,11 +138,11 @@ bool Math::Equal(const Single& a, const Single& b)
     return (a == b);
 }
 
-Single Math::Barycentric(const Single& value1
-                       , const Single& value2
-                       , const Single& value3
-                       , const Single& amount1
-                       , const Single& amount2)
+float Math::Barycentric(const float& value1
+                       , const float& value2
+                       , const float& value3
+                       , const float& amount1
+                       , const float& amount2)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.Math.barycentric(v=xnagamestudio.40).aspx
     //  Pa = ((1 - b2 - b3) * V1a) + (b2 * V2a) + (b3 * V3a);
@@ -153,18 +153,18 @@ Single Math::Barycentric(const Single& value1
     return ((1 - amount1 - amount2) * value1) + (amount1 * value2) + (amount2 * value3);
 }
 
-Single Math::CatmullRom(const Single& value1
-                      , const Single& value2
-                      , const Single& value3
-                      , const Single& value4
-                      , const Single& amount)
+float Math::CatmullRom(const float& value1
+                      , const float& value2
+                      , const float& value3
+                      , const float& value4
+                      , const float& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324331(v=vs.85).aspx
     // Q(s) = [(-s3 + 2s2 - s)p1 + (3s3 - 5s2 + 2)p2 + (-3s3 + 4s2 + s)p3 + (s3 - s2)p4] / 2;
 
-    Single s3 = amount * amount * amount;
-    Single s2 = amount * amount;
-    Single s  = amount;
+    float s3 = amount * amount * amount;
+    float s2 = amount * amount;
+    float s  = amount;
 
     return ((-s3 + 2.0f * s2 - s)          * value1
           + (3.0f * s3 - 5.0f * s2 + 2.0f) * value2
@@ -172,9 +172,9 @@ Single Math::CatmullRom(const Single& value1
           + (s3 - s2) * value4) / 2;
 }
 
-Single Math::Clamp(const Single& value, const Single& min, const Single& max)
+float Math::Clamp(const float& value, const float& min, const float& max)
 {
-    Single maxValue = ((max < min) ? min : max);
+    float maxValue = ((max < min) ? min : max);
 
     if (value < min)
     {
@@ -188,11 +188,11 @@ Single Math::Clamp(const Single& value, const Single& min, const Single& max)
     return value;
 }
 
-Single Math::Hermite(const Single& value1
-                   , const Single& tangent1
-                   , const Single& value2
-                   , const Single& tangent2
-                   , const Single& amount)
+float Math::Hermite(const float& value1
+                   , const float& tangent1
+                   , const float& value2
+                   , const float& tangent2
+                   , const float& amount)
 {
     // Reference: http://cubic.org/docs/hermite.htm
     // h1(s) =  2s^3 - 3s^2 + 1
@@ -203,8 +203,8 @@ Single Math::Hermite(const Single& value1
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324340(v=vs.85).aspx
     // Q(s) = (2s3 - 3s2 + 1)v1 + (-2s3 + 3s2)v2 + (s3 - 2s2 + s)t1 + (s3 - s2)t2.
 
-    Single s3 = amount * amount * amount;
-    Single s2 = amount * amount;
+    float s3 = amount * amount * amount;
+    float s2 = amount * amount;
 
     return (2.0f  * s3 - 3.0f * s2 + 1.0f) * value1
          + (-2.0f * s3 + 3.0f * s2)        * value2
@@ -212,45 +212,45 @@ Single Math::Hermite(const Single& value1
          + (s3    - s2)                    * tangent2;
 }
 
-Single Math::Lerp(const Single& value1, const Single& value2, const Single& amount)
+float Math::Lerp(const float& value1, const float& value2, const float& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     return (value1 + (value2 - value1) * amount);
 }
 
-Single Math::Min(const Single& value1, const Single& value2)
+float Math::Min(const float& value1, const float& value2)
 {
     return ((value1 < value2) ? value1 : value2);
 }
 
-Single Math::Max(const Single& value1, const Single& value2)
+float Math::Max(const float& value1, const float& value2)
 {
     return ((value1 > value2) ? value1 : value2);
 }
 
-Single Math::SmoothStep(const Single& value1, const Single& value2, const Single& amount)
+float Math::SmoothStep(const float& value1, const float& value2, const float& amount)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
-    Single t = Math::Clamp(amount, 0.0f, 1.0f);
+    float t = Math::Clamp(amount, 0.0f, 1.0f);
 
     t = t * t * (3.0f - 2.0f * t);
 
     return Math::Lerp(value1, value2, t);
 }
 
-Single Math::ToRadians(const Single& degrees)
+float Math::ToRadians(const float& degrees)
 {
     return (degrees * Math::Pi / 180.0);
 }
 
-Single Math::ToDegrees(const Single& radians)
+float Math::ToDegrees(const float& radians)
 {
     return (radians * 180.0 / Math::Pi);
 }
 
-System::Single Math::WrapAngle(const System::Single& angle)
+float Math::WrapAngle(const float& angle)
 {
-    Single result = Math::IEEERemainder(angle, Math::TwoPi);
+    float result = Math::IEEERemainder(angle, Math::TwoPi);
 
     if (result < -Math::Pi)
     {

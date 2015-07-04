@@ -6,7 +6,6 @@
 
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Vector3.hpp>
@@ -142,7 +141,7 @@ namespace SceneR
              * @param ray the Ray to test for intersection with.
              * @returns distance at which the ray intersects the BoundingBox, or 0 if there is no intersection.
              */
-            System::Single Intersects(const Ray& ray) const;
+            float Intersects(const Ray& ray) const;
 
         public:
             BoundingBox& operator=(const BoundingBox& box);

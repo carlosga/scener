@@ -7,8 +7,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -36,7 +34,7 @@ namespace SceneR
              * @param axis Vector3 that specifies the axis around which to rotate.
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateFromAxisAngle(const Vector3& axis, const System::Single& angle);
+            static Matrix CreateFromAxisAngle(const Vector3& axis, const float& angle);
 
             /**
              * Creates a rotation Matrix from a Quaternion.
@@ -53,9 +51,9 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in radians.
              * @param roll Roll around the x-axis, in radians.
              */
-            static Matrix CreateFromYawPitchRoll(const System::Single& yaw
-                                               , const System::Single& pitch
-                                               , const System::Single& roll);
+            static Matrix CreateFromYawPitchRoll(const float& yaw
+                                               , const float& pitch
+                                               , const float& roll);
 
             /**
              * Creates a perspective projection matrix.
@@ -67,9 +65,9 @@ namespace SceneR
              * @param zNear The distances to the near-depth clipping plane. Must be positive.
              * @param zFar The distances to the far-depth clipping plane. Must be positive.
              */
-            static Matrix CreateFrustum(const System::Single& left  , const System::Single& right
-                                      , const System::Single& bottom, const System::Single& top
-                                      , const System::Single& zNear , const System::Single& zFar);
+            static Matrix CreateFrustum(const float& left  , const float& right
+                                      , const float& bottom, const float& top
+                                      , const float& zNear , const float& zFar);
 
             /**
              * Creates a view matrix
@@ -90,10 +88,10 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographic(const System::Single& width
-                                           , const System::Single& height
-                                           , const System::Single& zNear
-                                           , const System::Single& zFar);
+            static Matrix CreateOrthographic(const float& width
+                                           , const float& height
+                                           , const float& zNear
+                                           , const float& zFar);
 
             /**
              * Builds a customized, orthogonal projection matrix.
@@ -105,12 +103,12 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographicOffCenter(const System::Single& left
-                                                    , const System::Single& right
-                                                    , const System::Single& bottom
-                                                    , const System::Single& top
-                                                    , const System::Single& zNear
-                                                    , const System::Single& zFar);
+            static Matrix CreateOrthographicOffCenter(const float& left
+                                                    , const float& right
+                                                    , const float& bottom
+                                                    , const float& top
+                                                    , const float& zNear
+                                                    , const float& zFar);
 
             /**
              * Builds a perspective projection matrix.
@@ -120,10 +118,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspective(const System::Single& width
-                                          , const System::Single& height
-                                          , const System::Single& zNear
-                                          , const System::Single& zFar);
+            static Matrix CreatePerspective(const float& width
+                                          , const float& height
+                                          , const float& zNear
+                                          , const float& zFar);
 
             /**
              * Builds a perspective projection matrix based on a field of view and returns by value.
@@ -133,10 +131,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspectiveFieldOfView(const System::Single& fieldOfView
-                                                     , const System::Single& aspectRatio
-                                                     , const System::Single& zNear
-                                                     , const System::Single& zFar);
+            static Matrix CreatePerspectiveFieldOfView(const float& fieldOfView
+                                                     , const float& aspectRatio
+                                                     , const float& zNear
+                                                     , const float& zFar);
 
             /**
              * Builds a customized, right-handed perspective projection matrix.
@@ -147,19 +145,19 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreatePerspectiveOffCenter(const System::Single& left
-                                                   , const System::Single& right
-                                                   , const System::Single& bottom
-                                                   , const System::Single& top
-                                                   , const System::Single& zNear
-                                                   , const System::Single& zFar);
+            static Matrix CreatePerspectiveOffCenter(const float& left
+                                                   , const float& right
+                                                   , const float& bottom
+                                                   , const float& top
+                                                   , const float& zNear
+                                                   , const float& zFar);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationX(const System::Single& angle);
+            static Matrix CreateRotationX(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the X-axis, from a center point.
@@ -167,14 +165,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationX(const System::Single& angle, const Vector3& center);
+            static Matrix CreateRotationX(const float& angle, const Vector3& center);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationY(const System::Single& angle);
+            static Matrix CreateRotationY(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the Y-axis, from a center point.
@@ -182,14 +180,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationY(const System::Single& angle, const Vector3& center);
+            static Matrix CreateRotationY(const float& angle, const Vector3& center);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationZ(const System::Single& angle);
+            static Matrix CreateRotationZ(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the Z-axis, from a center point.
@@ -197,14 +195,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationZ(const System::Single& angle, const Vector3& center);
+            static Matrix CreateRotationZ(const float& angle, const Vector3& center);
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis.
              *
              * @param scale Amount to scale by.
              */
-            static Matrix CreateScale(const System::Single& scale);
+            static Matrix CreateScale(const float& scale);
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis with a center point.
@@ -212,7 +210,7 @@ namespace SceneR
              * @param scale Amount to scale by.
              * @param center The center point
              */
-            static Matrix CreateScale(const System::Single& scale, const Vector3& center);
+            static Matrix CreateScale(const float& scale, const Vector3& center);
 
             /**
              * Creates a scaling matrix from the specified vector scale.
@@ -228,9 +226,9 @@ namespace SceneR
              * @param yScale The value to scale by on the Y axis.
              * @param zScale The value to scale by on the Z axis.
              */
-            static Matrix CreateScale(const System::Single& xScale
-                                    , const System::Single& yScale
-                                    , const System::Single& zScale);
+            static Matrix CreateScale(const float& xScale
+                                    , const float& yScale
+                                    , const float& zScale);
 
             /**
              * Creates a scaling matrix with a center point.
@@ -248,10 +246,10 @@ namespace SceneR
              * @param zScale The value to scale by on the Z axis.
              * @param center The center point.
              */
-            static Matrix CreateScale(const System::Single& xScale
-                                    , const System::Single& yScale
-                                    , const System::Single& zScale
-                                    , const Vector3&        center);
+            static Matrix CreateScale(const float&   xScale
+                                    , const float&   yScale
+                                    , const float&   zScale
+                                    , const Vector3& center);
 
             /**
              * Creates a translation Matrix
@@ -267,9 +265,9 @@ namespace SceneR
              * @param yPosition Value to translate by on the y-axis.
              * @param zPosition Value to translate by on the z-axis.
              */
-            static Matrix CreateTranslation(const System::Single& xPosition
-                                          , const System::Single& yPosition
-                                          , const System::Single& zPosition);
+            static Matrix CreateTranslation(const float& xPosition
+                                          , const float& yPosition
+                                          , const float& zPosition);
 
 
             /**
@@ -362,10 +360,10 @@ namespace SceneR
              * @param m43 Value of the (4,3) field of the new matrix.
              * @param m44 Value of the (4,4) field of the new matrix.
              */
-            Matrix(const System::Single& m11, const System::Single& m12, const System::Single& m13, const System::Single& m14
-                 , const System::Single& m21, const System::Single& m22, const System::Single& m23, const System::Single& m24
-                 , const System::Single& m31, const System::Single& m32, const System::Single& m33, const System::Single& m34
-                 , const System::Single& m41, const System::Single& m42, const System::Single& m43, const System::Single& m44);
+            Matrix(const float& m11, const float& m12, const float& m13, const float& m14
+                 , const float& m21, const float& m22, const float& m23, const float& m24
+                 , const float& m31, const float& m32, const float& m33, const float& m34
+                 , const float& m41, const float& m42, const float& m43, const float& m44);
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
@@ -384,178 +382,178 @@ namespace SceneR
              * Gets the value of the first row and first column of this Matrix.
              * @return the value of the first row and first column of this Matrix.
              */
-            const System::Single& M11() const;
+            float M11() const;
 
             /**
              * Gets the value of the first row and second column of this Matrix.
              * @return the value of the first row and second column of this Matrix.
              */
-            const System::Single& M12() const;
+            float M12() const;
 
             /**
              * Gets the value of the first row and third column of this Matrix.
              * @return the value of the first row and third column of this Matrix.
              */
-            const System::Single& M13() const;
+            float M13() const;
 
             /**
              * Gets the value of the first row and fourth column of this Matrix
              * @return the value of the first row and fourth column of this Matrix
              */
-            const System::Single& M14() const;
+            float M14() const;
 
             /**
              * Gets the value of the second row and first column of this Matrix
              * @return the value of the second row and first column of this Matrix
              */
-            const System::Single& M21() const;
+            float M21() const;
 
             /**
              * Gets the value of the second row and second column of this Matrix
              * @return the value of the second row and second column of this Matrix
              */
-            const System::Single& M22() const;
+            float M22() const;
 
             /**
              * Gets the value of the second row and third column of this Matrix
              * @return the value of the second row and third column of this Matrix
              */
-            const System::Single& M23() const;
+            float M23() const;
 
             /**
              * Gets the value of the second row and fourth column of this Matrix
              * @return the value of the second row and fourth column of this Matrix
              */
-            const System::Single& M24() const;
+            float M24() const;
 
             /**
              * Gets the value of the third row and first column of this Matrix
              * @return the value of the third row and first column of this Matrix
              */
-            const System::Single& M31() const;
+            float M31() const;
 
             /**
              * Gets the value of the third row and second column of this Matrix
              * @return the value of the third row and second column of this Matrix
              */
-            const System::Single& M32() const;
+            float M32() const;
 
             /**
              * Gets the value of the third row and third column of this Matrix
              * @return the value of the third row and third column of this Matrix
              */
-            const System::Single& M33() const;
+            float M33() const;
 
             /**
              * Gets the value of the third row and fourth column of this Matrix
              * @return the value of the third row and fourth column of this Matrix
              */
-            const System::Single& M34() const;
+            float M34() const;
 
             /**
              * Gets the value of the fourth row and first column of this Matrix
              * @return the value of the fourth row and first column of this Matrix
              */
-            const System::Single& M41() const;
+            float M41() const;
 
             /**
              * Gets the value of the fourth row and second column of this Matrix
              * @return the value of the fourth row and second column of this Matrix
              */
-            const System::Single& M42() const;
+            float M42() const;
 
             /**
              * Gets the value of the fourth row and third column of this Matrix
              * @return the value of the fourth row and third column of this Matrix
              */
-            const System::Single& M43() const;
+            float M43() const;
 
             /**
              * Gets the value of the fourth row and fourth column of this Matrix
              * @return the value of the fourth row and fourth column of this Matrix
              */
-            const System::Single& M44() const;
+            float M44() const;
 
         public:
             /**
              * Sets the value of the first row and first column of this Matrix.
              */
-            void M11(const System::Single& value);
+            void M11(const float& value);
 
             /**
              * Sets the value of the first row and second column of this Matrix.
              */
-            void M12(const System::Single& value);
+            void M12(const float& value);
 
             /**
              * Sets the value of the first row and third column of this Matrix.
              */
-            void M13(const System::Single& value);
+            void M13(const float& value);
 
             /**
              * Sets the value of the first row and fourth column of this Matrix
              */
-            void M14(const System::Single& value);
+            void M14(const float& value);
 
             /**
              * Sets the value of the second row and first column of this Matrix
              */
-            void M21(const System::Single& value);
+            void M21(const float& value);
 
             /**
              * Sets the value of the second row and second column of this Matrix
              */
-            void M22(const System::Single& value);
+            void M22(const float& value);
 
             /**
              * Gets the value of the second row and third column of this Matrix
              */
-            void M23(const System::Single& value);
+            void M23(const float& value);
 
             /**
              * Sets the value of the second row and fourth column of this Matrix
              */
-            void M24(const System::Single& value);
+            void M24(const float& value);
 
             /**
              * Sets the value of the third row and first column of this Matrix
              */
-            void M31(const System::Single& value);
+            void M31(const float& value);
 
             /**
              * Sets the value of the third row and second column of this Matrix
              */
-            void M32(const System::Single& value);
+            void M32(const float& value);
 
             /**
              * Gets the value of the third row and third column of this Matrix
              */
-            void M33(const System::Single& value);
+            void M33(const float& value);
 
             /**
              * Gets the value of the third row and fourth column of this Matrix
              */
-            void M34(const System::Single& value);
+            void M34(const float& value);
 
             /**
              * Sets the value of the fourth row and first column of this Matrix
              */
-            void M41(const System::Single& value);
+            void M41(const float& value);
 
             /**
              * Sets the value of the fourth row and second column of this Matrix
              */
-            void M42(const System::Single& value);
+            void M42(const float& value);
 
             /**
              * Sets the value of the fourth row and third column of this Matrix
              */
-            void M43(const System::Single& value);
+            void M43(const float& value);
 
             /**
              * Sets the value of the fourth row and fourth column of this Matrix
              */
-            void M44(const System::Single& value);
+            void M44(const float& value);
 
         public:
             /**
@@ -575,7 +573,7 @@ namespace SceneR
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
-            System::Single Determinant() const;
+            float Determinant() const;
 
             /**
              * Gets a value that indicates whether this Matrix is invertible.
@@ -590,47 +588,47 @@ namespace SceneR
             bool IsIdentity() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Matrix& operator=(const Matrix& matrix);
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;
             Matrix& operator*=(const Matrix& matrix);
-            Matrix& operator*=(const System::Single& value);
+            Matrix& operator*=(const float& value);
             Matrix& operator+=(const Matrix& matrix);
             Matrix& operator-=(const Matrix& matrix);
             const Matrix operator*(const Matrix& matrix) const;
-            const Matrix operator*(const System::Single& value) const;
+            const Matrix operator*(const float& value) const;
             const Matrix operator+(const Matrix& matrix) const;
             const Matrix operator-(const Matrix& matrix) const;
             const Matrix operator-() const;
 
         private:
-            System::Single SubMatrixDeterminant();
+            float SubMatrixDeterminant();
             Matrix SubMatrix(const uint32_t& row, const uint32_t& column) const;
 
         private:
             union
             {
-                System::Single matrix[16];
+                float matrix[16];
                 struct
                 {
-                    System::Single m11;
-                    System::Single m12;
-                    System::Single m13;
-                    System::Single m14;
-                    System::Single m21;
-                    System::Single m22;
-                    System::Single m23;
-                    System::Single m24;
-                    System::Single m31;
-                    System::Single m32;
-                    System::Single m33;
-                    System::Single m34;
-                    System::Single m41;
-                    System::Single m42;
-                    System::Single m43;
-                    System::Single m44;
+                    float m11;
+                    float m12;
+                    float m13;
+                    float m14;
+                    float m21;
+                    float m22;
+                    float m23;
+                    float m24;
+                    float m31;
+                    float m32;
+                    float m33;
+                    float m34;
+                    float m41;
+                    float m42;
+                    float m43;
+                    float m44;
                 };
             };
         };

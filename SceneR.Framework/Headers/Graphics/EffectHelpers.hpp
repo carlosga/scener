@@ -10,7 +10,6 @@
 #ifndef EFFECTHELPERS_HPP
 #define EFFECTHELPERS_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectParameter.hpp>
@@ -54,8 +53,8 @@ namespace SceneR
                                                              , const SceneR::Framework::Matrix& projection
                                                              , SceneR::Framework::Matrix&       worldView
                                                              , const bool&                      fogEnabled
-                                                             , const System::Single&            fogStart
-                                                             , const System::Single&            fogEnd
+                                                             , const float&                     fogStart
+                                                             , const float&                     fogEnd
                                                              , EffectParameter&                 worldViewProjParam
                                                              , EffectParameter&                 fogVectorParam);
 
@@ -63,8 +62,8 @@ namespace SceneR
                 /// Sets a vector which can be dotted with the object space vertex position to compute fog amount.
                 /// </summary>
                 static void SetFogVector(const SceneR::Framework::Matrix& worldView
-                                       , const System::Single&            fogStart
-                                       , const System::Single&            fogEnd
+                                       , const float&                     fogStart
+                                       , const float&                     fogEnd
                                        , EffectParameter&                 fogVectorParam);
 
                 /// <summary>
@@ -82,7 +81,7 @@ namespace SceneR
                 /// Sets the diffuse/emissive/alpha material color parameters.
                 /// </summary>
                 static void SetMaterialColor(const bool&                       lightingEnabled
-                                           , const System::Single&             alpha
+                                           , const float&                      alpha
                                            , const SceneR::Framework::Vector3& diffuseColor
                                            , const SceneR::Framework::Vector3& emissiveColor
                                            , const SceneR::Framework::Vector3& ambientLightColor

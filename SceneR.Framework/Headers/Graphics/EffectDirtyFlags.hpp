@@ -10,7 +10,7 @@
 #ifndef EFFECTDIRTYFLAGS_HPP
 #define EFFECTDIRTYFLAGS_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

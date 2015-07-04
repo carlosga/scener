@@ -3,7 +3,6 @@
 
 #include <Content/SharedResourceAction.hpp>
 
-using namespace System;
 using namespace SceneR::Content;
 
 SharedResourceAction::SharedResourceAction(const uint32_t&                                          sharedResourceId

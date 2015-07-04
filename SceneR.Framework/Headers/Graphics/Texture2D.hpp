@@ -4,7 +4,8 @@
 #ifndef TEXTURE2D_HPP
 #define TEXTURE2D_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureObject.hpp>
 #include <Graphics/Texture.hpp>
@@ -36,9 +37,9 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice,
-                      const uint32_t& width,
-                      const uint32_t& height);
+            Texture2D(GraphicsDevice& graphicsDevice
+                    , const uint32_t& width
+                    , const uint32_t& height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -49,11 +50,11 @@ namespace SceneR
              * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice&      graphicsDevice,
-                      const uint32_t&      width,
-                      const uint32_t&      height,
-                      const bool&          mipmap,
-                      const SurfaceFormat& format);
+            Texture2D(GraphicsDevice&      graphicsDevice
+                    , const uint32_t&      width
+                    , const uint32_t&      height
+                    , const bool&          mipmap
+                    , const SurfaceFormat& format);
 
             /**
              * Releases all resources being used by this texture.

@@ -3,7 +3,6 @@
 
 #include <Content/Readers/BasicEffectReader.hpp>
 
-#include <System/Core.hpp>
 #include <System/IO/Path.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>

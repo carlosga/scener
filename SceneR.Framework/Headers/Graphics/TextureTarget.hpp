@@ -4,8 +4,9 @@
 #ifndef TEXTURETARGET_HPP
 #define TEXTURETARGET_HPP
 
+#include <stdint.h>
+
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

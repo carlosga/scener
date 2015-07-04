@@ -5,9 +5,9 @@
 #define GRAPHICSDEVICE_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>

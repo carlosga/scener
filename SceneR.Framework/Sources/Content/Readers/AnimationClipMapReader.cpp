@@ -6,7 +6,6 @@
 #include <map>
 #include <memory>
 
-#include <System/Core.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/AnimationClip.hpp>
 

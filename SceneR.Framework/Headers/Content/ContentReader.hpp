@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <Content/ContentTypeReaderManager.hpp>

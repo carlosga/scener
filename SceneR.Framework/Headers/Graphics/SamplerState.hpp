@@ -4,7 +4,8 @@
 #ifndef SAMPLERSTATE_HPP
 #define SAMPLERSTATE_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <Graphics/TextureFilter.hpp>
 #include <Graphics/TextureTarget.hpp>
 #include <Graphics/TextureAddressMode.hpp>
@@ -107,12 +108,12 @@ namespace SceneR
             /**
              * Gets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
              */
-            const System::Single& MipMapLevelOfDetailBias() const;
+            float MipMapLevelOfDetailBias() const;
 
             /**
              * Sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
              */
-            void MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias);
+            void MipMapLevelOfDetailBias(const float& mipMapLevelOfDetailBias);
 
         public:
             SamplerState& operator=(const SamplerState& samplerState);
@@ -128,7 +129,7 @@ namespace SceneR
             TextureFilter      filter;
             int32_t            maxAnisotropy;
             uint32_t           maxMipLevel;
-            System::Single     mipMapLevelOfDetailBias;
+            float              mipMapLevelOfDetailBias;
 
             friend class BasicEffect;
             friend class SkinnedEffect;

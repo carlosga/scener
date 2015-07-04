@@ -4,7 +4,6 @@
 #ifndef VERTEXPOSITIONCOLORTEXTURE_HPP
 #define VERTEXPOSITIONCOLORTEXTURE_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Color.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>

@@ -7,8 +7,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -83,7 +81,7 @@ namespace SceneR
              * @param g The green component value of the color.
              * @param b The blue component value of the color.
              */
-            Color(const System::Single& r, const System::Single& g, const System::Single& b);
+            Color(const float& r, const float& g, const float& b);
 
             /**
              * Initializes a new instance of the Color class with the given red, green, blue and alpha components.
@@ -92,7 +90,7 @@ namespace SceneR
              * @param b The blue component value of the color.
              * @param a The alpha component value of the color.
              */
-            Color(const System::Single& r, const System::Single& g, const System::Single& b, const System::Single& a);
+            Color(const float& r, const float& g, const float& b, const float& a);
 
             /**
              * Initializes a new instance of the Color class (Copy constructor)
@@ -110,25 +108,25 @@ namespace SceneR
              * Gets the red component value of the color.
              * @return the red component value of the color.
              */
-            const System::Single& R() const;
+            float R() const;
 
             /**
              * Gets the green component value of the color.
              * @return the green component value of the color.
              */
-            const System::Single& G() const;
+            float G() const;
 
             /**
              * Gets the blue component value of the color.
              * @return the blue component value of the color.
              */
-            const System::Single& B() const;
+            float B() const;
 
             /**
              * Gets the alpha component value of the color.
              * @return the alpha component value of the color.
              */
-            const System::Single& A() const;
+            float A() const;
 
             /**
              * Gets the color packed value.
@@ -136,30 +134,30 @@ namespace SceneR
             uint32_t PackedValue() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Color& operator=(const Color& color);
             bool operator==(const Color& color) const;
             bool operator!=(const Color& color) const;
             Color& operator*=(const Color& color);
-            Color& operator*=(const System::Single& value);
+            Color& operator*=(const float& value);
             Color& operator-=(const Color& color);
             Color& operator+=(const Color& color);
             const Color operator*(const Color& color) const;
-            const Color operator*(const System::Single& value) const;
+            const Color operator*(const float& value) const;
             const Color operator-(const Color& color) const;
             const Color operator+(const Color& color) const;
 
         private:
             union
             {
-                System::Single color[4];
+                float color[4];
                 struct
                 {
-                    System::Single r;
-                    System::Single g;
-                    System::Single b;
-                    System::Single a;
+                    float r;
+                    float g;
+                    float b;
+                    float a;
                 };
             };
         };

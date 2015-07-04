@@ -16,7 +16,7 @@ const int64_t  TimeSpan::TicksPerMinute;
 const int64_t  TimeSpan::TicksPerSecond;
 const TimeSpan TimeSpan::Zero                { 0 };
 
-TimeSpan TimeSpan::FromDays(const System::Double& value)
+TimeSpan TimeSpan::FromDays(const double& value)
 {
     return { std::chrono::duration_cast<TicksDuration>(DaysDuration(value)).count() };
 }
@@ -26,22 +26,22 @@ TimeSpan TimeSpan::FromDuration(const TimeSpan::Clock::duration& value)
     return { std::chrono::duration_cast<TicksDuration>(value).count() };
 }
 
-TimeSpan TimeSpan::FromHours(const Double& value)
+TimeSpan TimeSpan::FromHours(const double& value)
 {
     return { std::chrono::duration_cast<TicksDuration>(HoursDuration(value)).count() };
 }
 
-TimeSpan TimeSpan::FromMilliseconds(const System::Double& value)
+TimeSpan TimeSpan::FromMilliseconds(const double& value)
 {
     return { std::chrono::duration_cast<TicksDuration>(MillisecondsDuration(value)).count() };
 }
 
-TimeSpan TimeSpan::FromMinutes(const Double& value)
+TimeSpan TimeSpan::FromMinutes(const double& value)
 {
     return { std::chrono::duration_cast<TicksDuration>(MinutesDuration(value)).count() };
 }
 
-TimeSpan TimeSpan::FromSeconds(const Double& value)
+TimeSpan TimeSpan::FromSeconds(const double& value)
 {
     return { std::chrono::duration_cast<TicksDuration>(SecondsDuration(value)).count() };
 }
@@ -128,27 +128,27 @@ int64_t TimeSpan::Ticks() const
     return this->ticks.count();
 }
 
-Double TimeSpan::TotalDays() const
+double TimeSpan::TotalDays() const
 {
     return std::chrono::duration_cast<DaysDuration>(this->ticks).count();
 }
 
-Double TimeSpan::TotalHours() const
+double TimeSpan::TotalHours() const
 {
     return std::chrono::duration_cast<HoursDuration>(this->ticks).count();
 }
 
-Double TimeSpan::TotalMilliseconds() const
+double TimeSpan::TotalMilliseconds() const
 {
     return std::chrono::duration_cast<MillisecondsDuration>(this->ticks).count();
 }
 
-Double TimeSpan::TotalMinutes() const
+double TimeSpan::TotalMinutes() const
 {
     return std::chrono::duration_cast<MinutesDuration>(this->ticks).count();
 }
 
-Double TimeSpan::TotalSeconds() const
+double TimeSpan::TotalSeconds() const
 {
     return std::chrono::duration_cast<SecondsDuration>(this->ticks).count();
 }

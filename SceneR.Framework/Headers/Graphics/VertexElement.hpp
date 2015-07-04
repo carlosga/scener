@@ -4,7 +4,8 @@
 #ifndef VERTEXELEMENT_HPP
 #define VERTEXELEMENT_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 

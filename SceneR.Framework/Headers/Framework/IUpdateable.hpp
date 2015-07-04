@@ -6,8 +6,6 @@
 
 #include <stdint.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework

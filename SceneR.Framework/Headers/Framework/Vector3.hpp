@@ -6,8 +6,6 @@
 
 #include <stddef.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -92,7 +90,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The angle, in radians, needed to rotate the left vector into the right vector.
              */
-            static System::Single AngleBetween(const Vector3& left, const Vector3& right);
+            static float AngleBetween(const Vector3& left, const Vector3& right);
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -108,8 +106,8 @@ namespace SceneR
             static Vector3 Barycentric(const Vector3&        value1
                                      , const Vector3&        value2
                                      , const Vector3&        value3
-                                     , const System::Single& amount1
-                                     , const System::Single& amount2);
+                                     , const float& amount1
+                                     , const float& amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -123,7 +121,7 @@ namespace SceneR
                                     , const Vector3&        value2
                                     , const Vector3&        value3
                                     , const Vector3&        value4
-                                    , const System::Single& amount);
+                                    , const float& amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -141,12 +139,12 @@ namespace SceneR
             /**
              * Calculates the distance between two vectors.
              */
-            static System::Single Distance(const Vector3& value1, const Vector3& value2);
+            static float Distance(const Vector3& value1, const Vector3& value2);
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static System::Single DistanceSquared(const Vector3& value1, const Vector3& value2);
+            static float DistanceSquared(const Vector3& value1, const Vector3& value2);
 
             /**
              * Calculates the dot product of two Vector3 structures.
@@ -154,7 +152,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The dot product of the given vectors.
              */
-            static System::Single Dot(const Vector3& left, const Vector3& right);
+            static float Dot(const Vector3& left, const Vector3& right);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -168,7 +166,7 @@ namespace SceneR
                                  , const Vector3&        tangent1
                                  , const Vector3&        value2
                                  , const Vector3&        tangent2
-                                 , const System::Single& amount);
+                                 , const float& amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -179,7 +177,7 @@ namespace SceneR
              */
             static Vector3 Lerp(const Vector3&        value1
                               , const Vector3&        value2
-                              , const System::Single& amount);
+                              , const float& amount);
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
@@ -230,7 +228,7 @@ namespace SceneR
              */
             static Vector3 SmoothStep(const Vector3&        value1
                                     , const Vector3&        value2
-                                    , const System::Single& amount);
+                                    , const float& amount);
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
@@ -274,14 +272,14 @@ namespace SceneR
              * Initializes a new instance of the Vector3 class.
              * @param value the value for the x, y and z components of the vector.
              */
-            Vector3(const System::Single& value);
+            Vector3(const float& value);
 
             /**
              * Initializes a new instance of the Vector3 class.
              * @param value a vector containing the values to initialize x and y components with.
              * @param z value for the z-component of the vector.
              */
-            Vector3(const Vector2& value, const System::Single& z);
+            Vector3(const Vector2& value, const float& z);
 
             /**
              * Initializes a new instance of the Vector3 class.
@@ -289,7 +287,7 @@ namespace SceneR
              * @param y The Y value of the new Vector3 structure.
              * @param z The Z value of the new Vector3 structure.
              */
-            Vector3(const System::Single& x, const System::Single& y, const System::Single& z);
+            Vector3(const float& x, const float& y, const float& z);
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
@@ -306,33 +304,33 @@ namespace SceneR
             /**
              * Gets the x-coordinate value
              */
-            const System::Single& X() const;
+            float X() const;
 
             /**
              * Gets the y-coordinate value
              */
-            const System::Single& Y() const;
+            float Y() const;
 
             /**
              * Gets the z-coordinate value
              */
-            const System::Single& Z() const;
+            float Z() const;
 
         public:
             /**
              * Sets the x-coordinate value.
              */
-            void X(const System::Single& x);
+            void X(const float& x);
 
             /**
              * Sets the y-coordinate value.
              */
-            void Y(const System::Single& y);
+            void Y(const float& y);
 
             /**
              * Sets the z-coordinate value.
              */
-            void Z(const System::Single& z);
+            void Z(const float& z);
 
         public:
 
@@ -341,32 +339,32 @@ namespace SceneR
              *
              * @return the square of the length of this Vector3.
              */
-            System::Single LengthSquared() const;
+            float LengthSquared() const;
 
             /**
              * Gets the length of this Vector3.
              *
              * @return the length of this Vector3.
              */
-            System::Single Length() const;
+            float Length() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Vector3& operator=(const Vector3& vector);
             bool operator==(const Vector3& vector) const;
             bool operator!=(const Vector3& vector) const;
             Vector3& operator*=(const Vector3& vector);
-            Vector3& operator*=(const System::Single& value);
+            Vector3& operator*=(const float& value);
             Vector3& operator/=(const Vector3& vector);
-            Vector3& operator/=(const System::Single& value);
+            Vector3& operator/=(const float& value);
             Vector3& operator-=(const Vector3& vector);
             Vector3& operator+=(const Vector3& vector);
             const Vector3 operator*(const Vector3& vector) const;
-            const Vector3 operator*(const System::Single& value) const;
+            const Vector3 operator*(const float& value) const;
             const Vector3 operator*(const Matrix& matrix) const;
             const Vector3 operator/(const Vector3& vector) const;
-            const Vector3 operator/(const System::Single& value) const;
+            const Vector3 operator/(const float& value) const;
             const Vector3 operator-(const Vector3& vector) const;
             const Vector3 operator-() const;
             const Vector3 operator+(const Vector3& vector) const;
@@ -374,17 +372,17 @@ namespace SceneR
         private:
             union
             {
-                System::Single vector[3];
+                float vector[3];
                 struct
                 {
-                    System::Single x;
-                    System::Single y;
-                    System::Single z;
+                    float x;
+                    float y;
+                    float z;
                 };
             };
         };
 
-        inline Vector3 operator*(const System::Single& value, const Vector3& vector)
+        inline Vector3 operator*(const float& value, const Vector3& vector)
         {
             return { value * vector.X(), value * vector.Y(), value * vector.Z() };
         }

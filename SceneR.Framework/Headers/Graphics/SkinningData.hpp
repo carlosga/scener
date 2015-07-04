@@ -11,10 +11,10 @@
 #define SKINNINGDATA_HPP
 
 #include <map>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>
 

@@ -2,10 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <Graphics/VertexDeclaration.hpp>
-
 #include <System/Graphics/Platform.hpp>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 VertexDeclaration::VertexDeclaration(const uint32_t&                   vertexStride

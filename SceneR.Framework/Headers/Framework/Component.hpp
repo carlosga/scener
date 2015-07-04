@@ -4,6 +4,8 @@
 #ifndef COMPONENT_HPP
 #define COMPONENT_HPP
 
+#include <stdint.h>
+
 #include <Framework/IComponent.hpp>
 #include <Framework/IUpdateable.hpp>
 

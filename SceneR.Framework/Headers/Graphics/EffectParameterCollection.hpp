@@ -5,10 +5,10 @@
 #define EFFECTPARAMETERCOLLECTION_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 

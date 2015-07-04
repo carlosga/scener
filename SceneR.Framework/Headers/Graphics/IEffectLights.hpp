@@ -6,13 +6,20 @@
 
 #include <memory>
 
-#include <System/Core.hpp>
-#include <Graphics/DirectionalLight.hpp>
+namespace SceneR
+{
+    namespace Framework
+    {
+        struct Vector3;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class DirectionalLight;
+
         /**
          * Defines the lighting parameters for the current effect.
          * A basic effect implements per-vertex lighting using three directional lights.

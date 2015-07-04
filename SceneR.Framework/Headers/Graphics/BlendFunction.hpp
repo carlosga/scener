@@ -4,8 +4,9 @@
 #ifndef BLENDFUNCTION_HPP
 #define BLENDFUNCTION_HPP
 
+#include <stdint.h>
+
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

@@ -5,10 +5,7 @@
 #define RENDERERSERVICECONTAINER_HPP
 
 #include <map>
-#include <memory>
 #include <string>
-
-#include <System/Core.hpp>
 
 namespace SceneR
 {

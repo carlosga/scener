@@ -3,7 +3,6 @@
 
 #include <Graphics/VertexElement.hpp>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 VertexElement::VertexElement(const uint32_t&                              offset

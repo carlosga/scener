@@ -53,8 +53,8 @@ TEST_F(Vector2Test, Distance)
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
 
-    Single expected = Math::Sqrt(8.0f);
-    Single actual   = Vector2::Distance(a, b);
+    auto expected = Math::Sqrt(8.0f);
+    auto actual   = Vector2::Distance(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -67,7 +67,7 @@ TEST_F(Vector2Test, Distance2)
     auto a = Vector2 { 1.051f, 2.05f };
     auto b = Vector2 { 1.051f, 2.05f };
 
-    Single actual = Vector2::Distance(a, b);
+    auto actual = Vector2::Distance(a, b);
 
     EXPECT_TRUE(0.0f == actual);
 }
@@ -79,8 +79,8 @@ TEST_F(Vector2Test, DistanceSquared)
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
 
-    Single expected = 8.0f;
-    Single actual   = Vector2::DistanceSquared(a, b);
+    auto expected = 8.0f;
+    auto actual   = Vector2::DistanceSquared(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -92,8 +92,8 @@ TEST_F(Vector2Test, Dot)
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
 
-    Single expected = 11.0f;
-    Single actual   = Vector2::DotProduct(a, b);
+    auto expected = 11.0f;
+    auto actual   = Vector2::DotProduct(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -105,8 +105,8 @@ TEST_F(Vector2Test, DotWithPerpendicularVector)
     auto a = Vector2 { 1.55f, 1.55f };
     auto b = Vector2 { -1.55f, 1.55f };
 
-    Single expected = 0.0f;
-    Single actual   = Vector2::DotProduct(a, b);
+    auto expected = 0.0f;
+    auto actual   = Vector2::DotProduct(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -119,7 +119,7 @@ TEST_F(Vector2Test, DotWithSpecialFloatValues)
     auto a = Vector2 { Math::MinValue, Math::MinValue };
     auto b = Vector2 { Math::MaxValue, Math::MaxValue };
 
-    Single actual = Vector2::DotProduct(a, b);
+    auto actual = Vector2::DotProduct(a, b);
 
     EXPECT_TRUE(Math::IsNegativeInfinity(actual));
 }
@@ -131,8 +131,8 @@ TEST_F(Vector2Test, Length2)
     auto a      = Vector2 { 2.0f, 4.0f };
     auto target = a;
 
-    Single expected = Math::Sqrt(20.0f);
-    Single actual   = target.Length();
+    auto expected = Math::Sqrt(20.0f);
+    auto actual   = target.Length();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -144,8 +144,8 @@ TEST_F(Vector2Test, ZeroLength)
 {
     auto target = Vector2 { 0.0f, 0.0f };
 
-    Single expected = 0.0f;
-    Single actual   = target.Length();
+    auto expected = 0.0f;
+    auto actual   = target.Length();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -157,8 +157,8 @@ TEST_F(Vector2Test, LengthSquared1)
     auto a      = Vector2 { 2.0f, 4.0f };
     auto target = a;
 
-    Single expected = 20.0f;
-    Single actual   = target.LengthSquared();
+    auto expected = 20.0f;
+    auto actual   = target.LengthSquared();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -170,8 +170,8 @@ TEST_F(Vector2Test, ZeroLengthSquared)
 {
     auto a = Vector2 { 0.0f, 0.0f };
 
-    Single expected = 0.0f;
-    Single actual   = a.LengthSquared();
+    auto expected = 0.0f;
+    auto actual   = a.LengthSquared();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -293,8 +293,7 @@ TEST_F(Vector2Test, Lerp2)
 {
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
-
-    Single t = 0.5f;
+    auto t = 0.5f;
 
     auto expected = Vector2 { 2.0f, 3.0f };
     auto actual   = Vector2::Lerp(a, b, t);
@@ -309,8 +308,7 @@ TEST_F(Vector2Test, LerpWithFactorZero)
 {
     auto a = Vector2 { 0.0f, 0.0f };
     auto b = Vector2 { 3.18f, 4.25f };
-
-    Single t = 0.0f;
+    auto t = 0.0f;
 
     auto expected = Vector2::Zero;
     auto actual   = Vector2::Lerp(a, b, t);
@@ -325,8 +323,7 @@ TEST_F(Vector2Test, LerpWithFactorOne)
 {
     auto a = Vector2 { 0.0f, 0.0f };
     auto b = Vector2 { 3.18f, 4.25f };
-
-    Single t = 1.0f;
+    auto t = 1.0f;
 
     auto expected = Vector2(3.18f, 4.25f);
     auto actual = Vector2::Lerp(a, b, t);
@@ -341,8 +338,7 @@ TEST_F(Vector2Test, LerpWithFactorGreaterThanOne)
 {
     auto a = Vector2 { 0.0f, 0.0f };
     auto b = Vector2 { 3.18f, 4.25f };
-
-    Single  t = 2.0f;
+    auto t = 2.0f;
 
     auto expected = b * 2.0f;
     auto actual   = Vector2::Lerp(a, b, t);
@@ -357,8 +353,7 @@ TEST_F(Vector2Test, LerpWithFactorLessThanZero)
 {
     auto a = Vector2 { 0.0f, 0.0f };
     auto b = Vector2 { 3.18f, 4.25f };
-
-    Single t = -2.0f;
+    auto t = -2.0f;
 
     auto expected = -(b * 2.0f);
     auto actual   = Vector2::Lerp(a, b, t);
@@ -373,8 +368,7 @@ TEST_F(Vector2Test, LerpWithSpecialFloatValue)
 {
     auto a = Vector2 { 45.67f, 90.0f };
     auto b = Vector2 { Math::PositiveInfinity, Math::NegativeInfinity };
-
-    Single t = 0.408f;
+    auto t = 0.408f;
 
     auto actual = Vector2::Lerp(a, b, t);
 
@@ -389,8 +383,7 @@ TEST_F(Vector2Test, LerpFromSamePoint)
 {
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 1.0f, 2.0f };
-
-    float t = 0.5f;
+    auto t = 0.5f;
 
     auto expected = Vector2 { 1.0f, 2.0f };
     auto actual   = Vector2::Lerp(a, b, t);
@@ -521,10 +514,10 @@ TEST_F(Vector2Test, Subtraction)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Multiply)
 {
-    auto   a        = Vector2 { 2.0f, 3.0f };
-    Single factor   = 2.0f;
-    auto   expected = Vector2 { 4.0f, 6.0f };
-    auto   actual   = a * factor;
+    auto a        = Vector2 { 2.0f, 3.0f };
+    auto factor   = 2.0f;
+    auto expected = Vector2 { 4.0f, 6.0f };
+    auto actual   = a * factor;
 
     EXPECT_TRUE(expected == actual);
 }
@@ -545,10 +538,10 @@ TEST_F(Vector2Test, Multiply1)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Division)
 {
-    auto  a        = Vector2 { 2.0f, 3.0f };
-    float div      = 2.0f;
-    auto  expected = Vector2 { 1.0f, 1.5f };
-    auto  actual   = a / div;
+    auto a        = Vector2 { 2.0f, 3.0f };
+    auto div      = 2.0f;
+    auto expected = Vector2 { 1.0f, 1.5f };
+    auto actual   = a / div;
 
     EXPECT_TRUE(expected == actual);
 }
@@ -569,9 +562,9 @@ TEST_F(Vector2Test, Division1)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Division2)
 {
-    auto  a      = Vector2 { -2.0f, 3.0f };
-    float div    = 0.0f;
-    auto  actual = a / div;
+    auto a      = Vector2 { -2.0f, 3.0f };
+    auto div    = 0.0f;
+    auto actual = a / div;
 
     EXPECT_TRUE(Math::IsNegativeInfinity(actual.X()));
     EXPECT_TRUE(Math::IsPositiveInfinity(actual.Y()));
@@ -606,9 +599,9 @@ TEST_F(Vector2Test, Addition)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Constructor)
 {
-    Single x      = 1.0f;
-    Single y      = 2.0f;
-    auto   target = Vector2 { x, y };
+    auto x      = 1.0f;
+    auto y      = 2.0f;
+    auto target = Vector2 { x, y };
 
     EXPECT_TRUE(x == target.X());
     EXPECT_TRUE(y == target.Y());
@@ -640,9 +633,9 @@ TEST_F(Vector2Test, ConstructorWithSpecialValues)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Constructor4)
 {
-    Single value    = 1.0f;
-    auto   target   = Vector2 { value };
-    auto   expected = Vector2 { value, value };
+    auto value    = 1.0f;
+    auto target   = Vector2 { value };
+    auto expected = Vector2 { value, value };
 
     EXPECT_TRUE(expected == target);
 

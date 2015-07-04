@@ -4,8 +4,6 @@
 #ifndef IEFFECTFOG_HPP
 #define IEFFECTFOG_HPP
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -53,22 +51,22 @@ namespace SceneR
             /**
              * Gets maximum z value for fog.
              */
-            virtual System::Single FogEnd() const = 0;
+            virtual float FogEnd() const = 0;
 
             /**
              * Sets maximum z value for fog.
              */
-            virtual void FogEnd(const System::Single& fogEnd) = 0;
+            virtual void FogEnd(const float& fogEnd) = 0;
 
             /**
              * Gets minimum z value for fog.
              */
-            virtual System::Single FogStart() const = 0;
+            virtual float FogStart() const = 0;
 
             /**
              * Sets minimum z value for fog.
              */
-            virtual void FogStart(const System::Single& fogStart) = 0;
+            virtual void FogStart(const float& fogStart) = 0;
         };
     }
 }

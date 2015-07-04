@@ -4,10 +4,10 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
+#include <stdint.h>
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Graphics/ShaderType.hpp>
 

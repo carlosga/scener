@@ -27,7 +27,6 @@
 #include <Content/Readers/VertexBufferReader.hpp>
 #include <Content/Readers/VertexDeclarationReader.hpp>
 
-using namespace System;
 using namespace SceneR::Content;
 
 ContentTypeReaderManager::ContentTypeReaderManager()

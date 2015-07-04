@@ -171,18 +171,18 @@ uint64_t BinaryReader::ReadUInt64()
     return buffer;
 }
 
-Single BinaryReader::ReadSingle()
+float BinaryReader::ReadSingle()
 {
-    Single buffer;
+    float buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
 
-Double BinaryReader::ReadDouble()
+double BinaryReader::ReadDouble()
 {
-    Double buffer;
+    double buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

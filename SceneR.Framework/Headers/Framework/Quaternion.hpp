@@ -6,8 +6,6 @@
 
 #include <stddef.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -41,7 +39,7 @@ namespace SceneR
              * @param axisOfRotation Vector3 that represents the axis of rotation.
              * @param angle Angle to rotate around the specified axis, in radians.
              */
-            static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const System::Single& angle);
+            static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const float& angle);
 
             /**
              * Creates a Quaternion from a rotation Matrix.
@@ -56,14 +54,14 @@ namespace SceneR
              * @param pitch Pitch around the x-axis, in radians.
              * @param roll Roll around the z-axis, in radians.
              */
-            static Quaternion CreateFromYawPitchRoll(const System::Single& yaw
-                                                   , const System::Single& pitch
-                                                   , const System::Single& roll);
+            static Quaternion CreateFromYawPitchRoll(const float& yaw
+                                                   , const float& pitch
+                                                   , const float& roll);
 
             /**
              * Calculates the dot product oof two quaternions
              */
-            static System::Single Dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
+            static float Dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
 
             /**
              * Calculates the invers of the specified quaternion.
@@ -77,9 +75,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Lerp(const Quaternion&     quaternion1
-                                 , const Quaternion&     quaternion2
-                                 , const System::Single& amount);
+            static Quaternion Lerp(const Quaternion& quaternion1
+                                 , const Quaternion& quaternion2
+                                 , const float&      amount);
 
             /**
              * Negates the specified Quaternion.
@@ -103,9 +101,9 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Slerp(const Quaternion&     quaternion1
-                                  , const Quaternion&     quaternion2
-                                  , const System::Single& amount);
+            static Quaternion Slerp(const Quaternion& quaternion1
+                                  , const Quaternion& quaternion2
+                                  , const float&      amount);
 
         public:
             /**
@@ -118,7 +116,7 @@ namespace SceneR
              * @param value a vector containing the values to initialize x, y, and z components with.
              * @param w value for the w-component of the vector.
              */
-            Quaternion(const Vector3& value, const System::Single& w);
+            Quaternion(const Vector3& value, const float& w);
 
             /**
              * Initializes a new instance of the Quaternion class.
@@ -127,10 +125,10 @@ namespace SceneR
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
-            Quaternion(const System::Single& x
-                     , const System::Single& y
-                     , const System::Single& z
-                     , const System::Single& w);
+            Quaternion(const float& x
+                     , const float& y
+                     , const float& z
+                     , const float& w);
 
             /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
@@ -147,43 +145,43 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const System::Single& X() const;
+            float X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const System::Single& Y() const;
+            float Y() const;
 
             /**
              * Gets the z-coordinate value.
              */
-            const System::Single& Z() const;
+            float Z() const;
 
             /**
              * Gets the w-coordinate value.
              */
-            const System::Single& W() const;
+            float W() const;
 
         public:
             /**
              * Sets the x-coordinate value.
              */
-            void X(const System::Single& x);
+            void X(const float& x);
 
             /**
              * Sets the y-coordinate value.
              */
-            void Y(const System::Single& y);
+            void Y(const float& y);
 
             /**
              * Sets the z-coordinate value.
              */
-            void Z(const System::Single& z);
+            void Z(const float& z);
 
             /**
              * Sets the w-coordinate value.
              */
-            void W(const System::Single& w);
+            void W(const float& w);
 
         public:
             /**
@@ -197,31 +195,31 @@ namespace SceneR
              *
              * @return the square of the length of this Quaternion.
              */
-            System::Single LengthSquared() const;
+            float LengthSquared() const;
 
             /**
              * Gets the length of this Quaternion.
              *
              * @return the length of this Quaternion.
              */
-            System::Single Length() const;
+            float Length() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Quaternion& operator=(const Quaternion& value);
             bool operator==(const Quaternion& value) const;
             bool operator!=(const Quaternion& value) const;
             Quaternion& operator*=(const Quaternion& value);
-            Quaternion& operator*=(const System::Single& value);
+            Quaternion& operator*=(const float& value);
             Quaternion& operator/=(const Quaternion& value);
-            Quaternion& operator/=(const System::Single& value);
+            Quaternion& operator/=(const float& value);
             Quaternion& operator-=(const Quaternion& value);
             Quaternion& operator+=(const Quaternion& value);
             const Quaternion operator*(const Quaternion& value) const;
-            const Quaternion operator*(const System::Single& value) const;
+            const Quaternion operator*(const float& value) const;
             const Quaternion operator/(const Quaternion& value) const;
-            const Quaternion operator/(const System::Single& value) const;
+            const Quaternion operator/(const float& value) const;
             const Quaternion operator-(const Quaternion& value) const;
             const Quaternion operator-() const;
             const Quaternion operator+(const Quaternion& value) const;
@@ -229,13 +227,13 @@ namespace SceneR
         private:
             union
             {
-                System::Single quaternion[4];
+                float quaternion[4];
                 struct
                 {
-                    System::Single x;
-                    System::Single y;
-                    System::Single z;
-                    System::Single w;
+                    float x;
+                    float y;
+                    float z;
+                    float w;
                 };
             };
         };

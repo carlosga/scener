@@ -4,7 +4,8 @@
 #ifndef BUFFEROBJECT_HPP
 #define BUFFEROBJECT_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>

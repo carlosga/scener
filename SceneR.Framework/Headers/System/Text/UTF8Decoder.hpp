@@ -5,6 +5,8 @@
 #define UTF8DECODER_HPP
 
 #include <codecvt>
+#include <stddef.h>
+#include <stdint.h>
 
 #include <System/Text/Decoder.hpp>
 

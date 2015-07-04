@@ -5,11 +5,12 @@
 
 #include <iostream>
 
+#include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+
 
 using namespace System;
 using namespace System::Text;

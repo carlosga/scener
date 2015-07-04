@@ -4,7 +4,8 @@
 #ifndef DISPLAYMODE_HPP
 #define DISPLAYMODE_HPP
 
-#include <System/Core.hpp>
+#include <stddef.h>
+
 #include <Graphics/SurfaceFormat.hpp>
 
 struct GLFWvidmode;
@@ -39,7 +40,7 @@ namespace SceneR
             /**
              * Gets the aspect ratio used by the graphics device.
              */
-            const System::Single& AspectRatio() const;
+            float AspectRatio() const;
 
             /**
              * Gets a value indicating the surface format of the display mode.
@@ -60,10 +61,10 @@ namespace SceneR
             DisplayMode& operator=(const DisplayMode& displayMode);
 
         private:
-            System::Single aspectRatio;
-            SurfaceFormat  format;
-            size_t         height;
-            size_t         width;
+            float         aspectRatio;
+            SurfaceFormat format;
+            size_t        height;
+            size_t        width;
         };
     }
 }

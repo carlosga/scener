@@ -131,12 +131,12 @@ void SkinnedEffect::Dispose()
     Effect::Dispose();
 }
 
-Single SkinnedEffect::Alpha() const
+float SkinnedEffect::Alpha() const
 {
     return this->alpha;
 }
 
-void SkinnedEffect::Alpha(const Single& alpha)
+void SkinnedEffect::Alpha(const float& alpha)
 {
     if (this->alpha != alpha)
     {
@@ -236,12 +236,12 @@ void SkinnedEffect::FogEnabled(const bool& fogEnabled)
     }
 }
 
-Single SkinnedEffect::FogEnd() const
+float SkinnedEffect::FogEnd() const
 {
     return this->fogEnd;
 }
 
-void SkinnedEffect::FogEnd(const Single& fogEnd)
+void SkinnedEffect::FogEnd(const float& fogEnd)
 {
     if (this->fogEnd != fogEnd)
     {
@@ -250,12 +250,12 @@ void SkinnedEffect::FogEnd(const Single& fogEnd)
     }
 }
 
-Single SkinnedEffect::FogStart() const
+float SkinnedEffect::FogStart() const
 {
     return this->fogStart;
 }
 
-void SkinnedEffect::FogStart(const Single& fogStart)
+void SkinnedEffect::FogStart(const float& fogStart)
 {
     if (this->fogStart != fogStart)
     {
@@ -314,12 +314,12 @@ void SkinnedEffect::SpecularColor(const Vector3& specularColor)
     }
 }
 
-Single SkinnedEffect::SpecularPower() const
+float SkinnedEffect::SpecularPower() const
 {
     return this->specularPower;
 }
 
-void SkinnedEffect::SpecularPower(const Single& specularPower)
+void SkinnedEffect::SpecularPower(const float& specularPower)
 {
     if (this->specularPower != specularPower)
     {
@@ -577,7 +577,7 @@ void SkinnedEffect::CacheEffectParameters()
     */
 }
 
-int SkinnedEffect::VSIndices[18] =
+uint32_t SkinnedEffect::VSIndices[18] =
 {
     0,      // vertex lighting, one bone
     0,      // vertex lighting, one bone, no fog
@@ -601,7 +601,7 @@ int SkinnedEffect::VSIndices[18] =
     8,      // pixel lighting, four bones, no fog
 };
 
-int SkinnedEffect::PSIndices[18] =
+uint32_t SkinnedEffect::PSIndices[18] =
 {
     0,      // vertex lighting, one bone
     1,      // vertex lighting, one bone, no fog

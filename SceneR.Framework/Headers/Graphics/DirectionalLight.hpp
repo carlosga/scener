@@ -4,7 +4,6 @@
 #ifndef DIRECTIONALLIGHT_HPP
 #define DIRECTIONALLIGHT_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Vector3.hpp>
 
 namespace SceneR

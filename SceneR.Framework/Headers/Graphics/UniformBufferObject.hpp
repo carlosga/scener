@@ -4,10 +4,10 @@
 #ifndef UNIFORMBUFFEROBJECT_HPP
 #define UNIFORMBUFFEROBJECT_HPP
 
+#include <stdint.h>
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/BufferUsage.hpp>
 

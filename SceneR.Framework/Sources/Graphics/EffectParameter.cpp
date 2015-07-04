@@ -143,12 +143,12 @@ std::vector<Quaternion> EffectParameter::GetValueQuaternionArray() const
     throw std::runtime_error("Not implemented");
 }
 
-Single EffectParameter::GetValueSingle() const
+float EffectParameter::GetValueFloat() const
 {
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Single> EffectParameter::GetValueSingleArray() const
+std::vector<float> EffectParameter::GetValueFloatArray() const
 {
     throw std::runtime_error("Not implemented");
 }
@@ -301,7 +301,7 @@ void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
     this->uniformBuffer->SetData(this->offset, sizeof(Quaternion) * value.size(), value.data());
 }
 
-void EffectParameter::SetValue(const Single& value) const
+void EffectParameter::SetValue(const float& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
@@ -312,10 +312,10 @@ void EffectParameter::SetValue(const Single& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(Single), &value);
+    this->uniformBuffer->SetData(this->offset, sizeof(float), &value);
 }
 
-void EffectParameter::SetValue(const std::vector<Single>& value) const
+void EffectParameter::SetValue(const std::vector<float>& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
@@ -326,7 +326,7 @@ void EffectParameter::SetValue(const std::vector<Single>& value) const
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(Single) * value.size(), value.data());
+    this->uniformBuffer->SetData(this->offset, sizeof(float) * value.size(), value.data());
 }
 
 void EffectParameter::SetValue(const std::u16string& value) const

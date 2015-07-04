@@ -4,7 +4,8 @@
 #ifndef PRESENTATIONPARAMETERS_HPP
 #define PRESENTATIONPARAMETERS_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <Framework/PresentInterval.hpp>
 
 namespace SceneR

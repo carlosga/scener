@@ -5,8 +5,8 @@
 #define STREAM_HPP
 
 #include <ios>
-
-#include <System/Core.hpp>
+#include <stddef.h>
+#include <stdint.h>
 
 namespace System
 {

@@ -126,12 +126,12 @@ void BasicEffect::Dispose()
     Effect::Dispose();
 }
 
-Single BasicEffect::Alpha() const
+float BasicEffect::Alpha() const
 {
     return this->alpha;
 }
 
-void BasicEffect::Alpha(const Single& alpha)
+void BasicEffect::Alpha(const float& alpha)
 {
     if (this->alpha != alpha)
     {
@@ -233,12 +233,12 @@ void BasicEffect::FogEnabled(const bool& fogEnabled)
     }
 }
 
-Single BasicEffect::FogEnd() const
+float BasicEffect::FogEnd() const
 {
     return this->fogEnd;
 }
 
-void BasicEffect::FogEnd(const Single& fogEnd)
+void BasicEffect::FogEnd(const float& fogEnd)
 {
     if (this->fogEnd != fogEnd)
     {
@@ -247,12 +247,12 @@ void BasicEffect::FogEnd(const Single& fogEnd)
     }
 }
 
-Single BasicEffect::FogStart() const
+float BasicEffect::FogStart() const
 {
     return this->fogStart;
 }
 
-void BasicEffect::FogStart(const Single& fogStart)
+void BasicEffect::FogStart(const float& fogStart)
 {
     if (this->fogStart != fogStart)
     {
@@ -315,12 +315,12 @@ void BasicEffect::SpecularColor(const Vector3& specularColor)
     }
 }
 
-Single BasicEffect::SpecularPower() const
+float BasicEffect::SpecularPower() const
 {
     return this->specularPower;
 }
 
-void BasicEffect::SpecularPower(const Single& specularPower)
+void BasicEffect::SpecularPower(const float& specularPower)
 {
     if (this->specularPower != specularPower)
     {
@@ -568,7 +568,7 @@ void BasicEffect::CacheEffectParameters()
     */
 }
 
-int BasicEffect::VSIndices[32] =
+uint32_t BasicEffect::VSIndices[32] =
 {
     0,      // basic
     1,      // no fog
@@ -607,7 +607,7 @@ int BasicEffect::VSIndices[32] =
     19,     // pixel lighting + texture + vertex color, no fog
 };
 
-int BasicEffect::PSIndices[32] =
+uint32_t BasicEffect::PSIndices[32] =
 {
     0,      // basic
     1,      // no fog

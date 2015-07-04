@@ -5,7 +5,6 @@
 
 #include <cassert>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 DisplayMode::DisplayMode(const GLFWvidmode* mode)
@@ -16,7 +15,7 @@ DisplayMode::DisplayMode(const GLFWvidmode* mode)
 {
     assert(mode->width != 0 && mode->height != 0);
 
-    this->aspectRatio = static_cast<Single>(mode->width) / static_cast<Single>(mode->height);
+    this->aspectRatio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
 
     int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
 
@@ -41,7 +40,7 @@ DisplayMode::~DisplayMode()
 {
 }
 
-const Single& DisplayMode::AspectRatio() const
+float DisplayMode::AspectRatio() const
 {
     return this->aspectRatio;
 }

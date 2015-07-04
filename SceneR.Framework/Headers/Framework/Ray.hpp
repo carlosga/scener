@@ -4,7 +4,6 @@
 #ifndef RAY_HPP
 #define RAY_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Vector3.hpp>
 
 namespace SceneR

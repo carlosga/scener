@@ -5,9 +5,9 @@
 #define EFFECT_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/ShaderType.hpp>
@@ -79,7 +79,7 @@ namespace SceneR
 
         public:
             /**
-             * Sets the value of the EffectParameter as a System::Boolean.
+             * Sets the value of the EffectParameter as a boolean.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
@@ -163,18 +163,18 @@ namespace SceneR
             void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Quaternion>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as a System::Single.
+             * Sets the value of the EffectParameter as a float.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const System::Single& value) const;
+            void SetValue(const std::u16string& uniformName, const float& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an array of System::Single.
+             * Sets the value of the EffectParameter as an array of float.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<System::Single>& value) const;
+            void SetValue(const std::u16string& uniformName, const std::vector<float>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector2.

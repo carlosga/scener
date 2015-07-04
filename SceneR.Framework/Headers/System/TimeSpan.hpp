@@ -7,8 +7,6 @@
 #include <chrono>
 #include <ratio>
 
-#include <System/Core.hpp>
-
 namespace System
 {
     /**
@@ -18,13 +16,13 @@ namespace System
     {
     public:
         using Clock                = std::chrono::high_resolution_clock;
-        using DaysDuration         = std::chrono::duration<System::Double, std::ratio<86400>>;
-        using HoursDuration        = std::chrono::duration<System::Double, std::ratio<3600>>;
-        using MinutesDuration      = std::chrono::duration<System::Double, std::ratio<60>>;
-        using SecondsDuration      = std::chrono::duration<System::Double>;
-        using MillisecondsDuration = std::chrono::duration<System::Double, std::ratio<1, 1000>>;
-        using MicrosecondsDuration = std::chrono::duration<System::Double, std::ratio<1, 1000000>>;
-        using TicksDuration        = std::chrono::duration<int64_t       , std::ratio<1, 10000000>>;
+        using DaysDuration         = std::chrono::duration<double , std::ratio<86400>>;
+        using HoursDuration        = std::chrono::duration<double , std::ratio<3600>>;
+        using MinutesDuration      = std::chrono::duration<double , std::ratio<60>>;
+        using SecondsDuration      = std::chrono::duration<double>;
+        using MillisecondsDuration = std::chrono::duration<double , std::ratio<1, 1000>>;
+        using MicrosecondsDuration = std::chrono::duration<double , std::ratio<1, 1000000>>;
+        using TicksDuration        = std::chrono::duration<int64_t, std::ratio<1, 10000000>>;
 
     public:
         /**
@@ -71,7 +69,7 @@ namespace System
         /**
          * Returns a TimeSpan that represents a specified number of days.
          */
-        static TimeSpan FromDays(const System::Double& value);
+        static TimeSpan FromDays(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified duration.
@@ -81,22 +79,22 @@ namespace System
         /**
          * Returns a TimeSpan that represents a specified number of hours.
          */
-        static TimeSpan FromHours(const System::Double& value);
+        static TimeSpan FromHours(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of milliseconds.
          */
-        static TimeSpan FromMilliseconds(const System::Double& value);
+        static TimeSpan FromMilliseconds(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of minutes.
          */
-        static TimeSpan FromMinutes(const System::Double& value);
+        static TimeSpan FromMinutes(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of seconds.
          */
-        static TimeSpan FromSeconds(const System::Double& value);
+        static TimeSpan FromSeconds(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified time.
@@ -187,27 +185,27 @@ namespace System
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional days.
          */
-        System::Double TotalDays() const;
+        double TotalDays() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional hours.
          */
-        System::Double TotalHours() const;
+        double TotalHours() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional milliseconds.
          */
-        System::Double TotalMilliseconds() const;
+        double TotalMilliseconds() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional minutes.
          */
-        System::Double TotalMinutes() const;
+        double TotalMinutes() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional seconds.
          */
-        System::Double TotalSeconds() const;
+        double TotalSeconds() const;
 
         /**
          * Returns a TimeSpan that represents a specified duration type.

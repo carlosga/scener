@@ -4,7 +4,7 @@
 #ifndef COLORWRITECHANNELS_HPP
 #define COLORWRITECHANNELS_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

@@ -3,7 +3,6 @@
 
 #include <Graphics/PresentationParameters.hpp>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 PresentationParameters::PresentationParameters()

@@ -6,7 +6,6 @@
 
 #include <memory>
 
-#include <System/Core.hpp>
 #include <System/IO/Stream.hpp>
 #include <Content/ContentResourceManager.hpp>
 #include <Content/ContentLoadException.hpp>

@@ -64,12 +64,12 @@ Color::Color(const Vector4& vector)
 {
 }
 
-Color::Color(const Single& r, const Single& g, const Single& b)
+Color::Color(const float& r, const float& g, const float& b)
     : Color ( r, g, b, 1.0f )
 {
 }
 
-Color::Color(const Single& r, const Single& g, const Single& b, const Single& a)
+Color::Color(const float& r, const float& g, const float& b, const float& a)
     : r { r }
     , g { g }
     , b { b }
@@ -89,22 +89,22 @@ Color::~Color()
 {
 }
 
-const Single& Color::R() const
+float Color::R() const
 {
     return this->r;
 }
 
-const Single& Color::G() const
+float Color::G() const
 {
     return this->g;
 }
 
-const Single& Color::B() const
+float Color::B() const
 {
     return this->b;
 }
 
-const Single& Color::A() const
+float Color::A() const
 {
     return this->a;
 }
@@ -117,14 +117,14 @@ uint32_t Color::PackedValue() const
          +  (static_cast<uint32_t>(this->a) * 255);
 }
 
-Single& Color::operator[](const size_t& index)
+float& Color::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->color[index]);
 }
 
-const Single& Color::operator[](const size_t& index) const
+const float& Color::operator[](const size_t& index) const
 {
     assert(index >= 0 && index < 4);
 
@@ -167,7 +167,7 @@ Color& Color::operator*=(const Color& color)
     return *this;
 }
 
-Color& Color::operator*=(const Single& value)
+Color& Color::operator*=(const float& value)
 {
     this->r *= value;
     this->g *= value;
@@ -206,7 +206,7 @@ const Color Color::operator*(const Color& color) const
     return result;
 }
 
-const Color Color::operator*(const Single& value) const
+const Color Color::operator*(const float& value) const
 {
     auto result = *this;
 

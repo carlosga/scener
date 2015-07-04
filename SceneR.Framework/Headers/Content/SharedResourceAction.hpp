@@ -7,8 +7,6 @@
 #include <functional>
 #include <memory>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Content

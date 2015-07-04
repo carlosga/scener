@@ -5,11 +5,12 @@
 #define SKINNEDEFFECT_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/DirectionalLight.hpp>
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/IEffectFog.hpp>
@@ -56,13 +57,13 @@ namespace SceneR
              * Gets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            System::Single Alpha() const;
+            float Alpha() const;
 
             /**
              * Sets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            void Alpha(const System::Single& alpha);
+            void Alpha(const float& alpha);
 
             /**
              * Gets the ambient light for the current effect
@@ -141,22 +142,22 @@ namespace SceneR
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            System::Single FogEnd() const override;
+            float FogEnd() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
              */
-            void FogEnd(const System::Single& fogEnd) override;
+            void FogEnd(const float& fogEnd) override;
 
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            System::Single FogStart() const override;
+            float FogStart() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
              */
-            void FogStart(const System::Single& fogStart) override;
+            void FogStart(const float& fogStart) override;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
@@ -205,12 +206,12 @@ namespace SceneR
             /**
              * Gets specular power of this effect material.
              */
-            System::Single SpecularPower() const;
+            float SpecularPower() const;
 
             /**
              * Sets specular power of this effect material.
              */
-            void SpecularPower(const System::Single& specularPower);
+            void SpecularPower(const float& specularPower);
 
             /**
              * Gets a texture to be applied by this effect.
@@ -290,7 +291,7 @@ namespace SceneR
             void CacheEffectParameters();
 
         private:
-            System::Single                         alpha;
+            float                                  alpha;
             SceneR::Framework::Vector3             ambientLightColor;
             std::vector<SceneR::Framework::Matrix> boneTransforms;
             SceneR::Framework::Vector3             diffuseColor;
@@ -301,12 +302,12 @@ namespace SceneR
             SceneR::Framework::Vector3             emissiveColor;
             bool                                   fogEnabled;
             SceneR::Framework::Vector3             fogColor;
-            System::Single                         fogEnd;
-            System::Single                         fogStart;
+            float                                  fogEnd;
+            float                                  fogStart;
             bool                                   preferPerPixelLighting;
             SceneR::Framework::Matrix              projection;
             SceneR::Framework::Vector3             specularColor;
-            System::Single                         specularPower;
+            float                                  specularPower;
             bool                                   textureEnabled;
             std::shared_ptr<Texture2D>             texture;
             SceneR::Framework::Matrix              view;
@@ -331,8 +332,8 @@ namespace SceneR
             EffectParameter                        bonesParam;
 
         private:
-            static int VSIndices[18];
-            static int PSIndices[18];
+            static uint32_t VSIndices[18];
+            static uint32_t PSIndices[18];
         };
     }
 }

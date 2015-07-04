@@ -6,8 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <System/Core.hpp>
-
 class PlaneTest : public testing::Test
 {
 protected:
@@ -16,7 +14,7 @@ protected:
     // Otherwise, this can be skipped.
     virtual void SetUp()
     {
-    };
+    }
 
     // virtual void TearDown() will be called after each test is run.
     // You should define it if there is cleanup work to do.  Otherwise,

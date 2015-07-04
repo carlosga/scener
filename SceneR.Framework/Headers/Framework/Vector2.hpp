@@ -6,8 +6,6 @@
 
 #include <stddef.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -66,11 +64,11 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static Vector2 Barycentric(const Vector2&        value1
-                                     , const Vector2&        value2
-                                     , const Vector2&        value3
-                                     , const System::Single& amount1
-                                     , const System::Single& amount2);
+            static Vector2 Barycentric(const Vector2& value1
+                                     , const Vector2& value2
+                                     , const Vector2& value3
+                                     , const float&   amount1
+                                     , const float&   amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -80,11 +78,11 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static Vector2 CatmullRom(const Vector2&        value1
-                                    , const Vector2&        value2
-                                    , const Vector2&        value3
-                                    , const Vector2&        value4
-                                    , const System::Single& amount);
+            static Vector2 CatmullRom(const Vector2& value1
+                                    , const Vector2& value2
+                                    , const Vector2& value3
+                                    , const Vector2& value4
+                                    , const float&   amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -94,12 +92,12 @@ namespace SceneR
             /**
              * Calculates the distance between two vectors.
              */
-            static System::Single Distance(const Vector2& value1, const Vector2& value2);
+            static float Distance(const Vector2& value1, const Vector2& value2);
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static System::Single DistanceSquared(const Vector2& value1, const Vector2& value2);
+            static float DistanceSquared(const Vector2& value1, const Vector2& value2);
 
             /**
             * Calculates the dot product of two Vector2 structures.
@@ -107,7 +105,7 @@ namespace SceneR
             * @param right The second Vector2 to evaluate.
             * @return The dot product of the given vectors.
             */
-            static System::Single DotProduct(const Vector2& left, const Vector2& right);
+            static float DotProduct(const Vector2& left, const Vector2& right);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -117,11 +115,11 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static Vector2 Hermite(const Vector2&        value1
-                                 , const Vector2&        tangent1
-                                 , const Vector2&        value2
-                                 , const Vector2&        tangent2
-                                 , const System::Single& amount);
+            static Vector2 Hermite(const Vector2& value1
+                                 , const Vector2& tangent1
+                                 , const Vector2& value2
+                                 , const Vector2& tangent2
+                                 , const float&   amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -130,9 +128,9 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector2 Lerp(const Vector2&        value1
-                              , const Vector2&        value2
-                              , const System::Single& amount);
+            static Vector2 Lerp(const Vector2& value1
+                              , const Vector2& value2
+                              , const float&   amount);
 
             /**
             * Returns a vector that contains the lowest value from each matching pair of components.
@@ -172,9 +170,9 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector2 SmoothStep(const Vector2&        value1
-                                    , const Vector2&        value2
-                                    , const System::Single& amount);
+            static Vector2 SmoothStep(const Vector2& value1
+                                    , const Vector2& value2
+                                    , const float&   amount);
 
             /**
             * Transforms a 2D vector by the given matrix.
@@ -203,14 +201,14 @@ namespace SceneR
             * Initializes a new instance of the Vector2 class with the given value.
             * @param value value value for the x and y components of the vector.
             */
-            Vector2(const System::Single& value);
+            Vector2(const float& value);
 
             /**
              * Initializes a new instance of the Vector2 class with the given texture coordinates.
              * @param x the x-coordinate value.
              * @param y the y-coordinate value.
              */
-            Vector2(const System::Single& x, const System::Single& y);
+            Vector2(const float& x, const float& y);
 
             /**
              * Initializes a new instance of the Vector2 class (Copy constructor)
@@ -227,43 +225,43 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const System::Single& X() const;
+            float X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const System::Single& Y() const;
+            float Y() const;
 
             /**
              * Gets the square of the length of this Vector2.
              *
              * @return the square of the length of this Vector2.
              */
-            System::Single LengthSquared() const;
+            float LengthSquared() const;
 
             /**
              * Gets the length of this Vector2.
              *
              * @return the length of this Vector2.
              */
-            System::Single Length() const;
+            float Length() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Vector2& operator=(const Vector2& vector);
             bool operator==(const Vector2& vector) const;
             bool operator!=(const Vector2& vector) const;
             Vector2& operator*=(const Vector2& vector);
-            Vector2& operator*=(const System::Single& value);
+            Vector2& operator*=(const float& value);
             Vector2& operator/=(const Vector2& vector);
-            Vector2& operator/=(const System::Single& value);
+            Vector2& operator/=(const float& value);
             Vector2& operator-=(const Vector2& vector);
             Vector2& operator+=(const Vector2& vector);
             const Vector2 operator*(const Vector2& vector) const;
-            const Vector2 operator*(const System::Single& value) const;
+            const Vector2 operator*(const float& value) const;
             const Vector2 operator/(const Vector2& vector) const;
-            const Vector2 operator/(const System::Single& value) const;
+            const Vector2 operator/(const float& value) const;
             const Vector2 operator-(const Vector2& vector) const;
             const Vector2 operator-() const;
             const Vector2 operator+(const Vector2& vector) const;
@@ -271,11 +269,11 @@ namespace SceneR
         private:
             union
             {
-                System::Single coords[2];
+                float coords[2];
                 struct
                 {
-                    System::Single x;
-                    System::Single y;
+                    float x;
+                    float y;
                 };
             };
         };

@@ -4,9 +4,9 @@
 #ifndef ENCODER_HPP
 #define ENCODER_HPP
 
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
-
-#include <System/Core.hpp>
 
 namespace System
 {

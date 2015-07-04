@@ -5,9 +5,9 @@
 #define GRAPHICSDEVICEMANAGER_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <string>
 
-#include <System/Core.hpp>
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/GraphicsProfile.hpp>

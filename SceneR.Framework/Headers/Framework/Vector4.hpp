@@ -6,8 +6,6 @@
 
 #include <stddef.h>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Framework
@@ -72,11 +70,11 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static Vector4 Barycentric(const Vector4&        value1
-                                     , const Vector4&        value2
-                                     , const Vector4&        value3
-                                     , const System::Single& amount1
-                                     , const System::Single& amount2);
+            static Vector4 Barycentric(const Vector4& value1
+                                     , const Vector4& value2
+                                     , const Vector4& value3
+                                     , const float&   amount1
+                                     , const float&   amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -86,11 +84,11 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static Vector4 CatmullRom(const Vector4&        value1
-                                    , const Vector4&        value2
-                                    , const Vector4&        value3
-                                    , const Vector4&        value4
-                                    , const System::Single& amount);
+            static Vector4 CatmullRom(const Vector4& value1
+                                    , const Vector4& value2
+                                    , const Vector4& value3
+                                    , const Vector4& value4
+                                    , const float&   amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -100,12 +98,12 @@ namespace SceneR
             /**
              * Calculates the distance between two vectors.
              */
-            static System::Single Distance(const Vector4& value1, const Vector4& value2);
+            static float Distance(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static System::Single DistanceSquared(const Vector4& value1, const Vector4& value2);
+            static float DistanceSquared(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates the dot product of two Vector4 structures.
@@ -113,7 +111,7 @@ namespace SceneR
              * @param value2 The second Vector4 structure to evaluate.
              * @return The dot product of the given vectors.
              */
-            static System::Single Dot(const Vector4& value1, const Vector4& value2);
+            static float Dot(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -123,11 +121,11 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static Vector4 Hermite(const Vector4&        value1
-                                 , const Vector4&        tangent1
-                                 , const Vector4&        value2
-                                 , const Vector4&        tangent2
-                                 , const System::Single& amount);
+            static Vector4 Hermite(const Vector4& value1
+                                 , const Vector4& tangent1
+                                 , const Vector4& value2
+                                 , const Vector4& tangent2
+                                 , const float&   amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -136,9 +134,9 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 Lerp(const Vector4&        value1
-                              , const Vector4&        value2
-                              , const System::Single& amount);
+            static Vector4 Lerp(const Vector4& value1
+                              , const Vector4& value2
+                              , const float&   amount);
 
 
             /**
@@ -235,9 +233,9 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 SmoothStep(const Vector4&        value1
-                                    , const Vector4&        value2
-                                    , const System::Single& amount);
+            static Vector4 SmoothStep(const Vector4& value1
+                                    , const Vector4& value2
+                                    , const float&   amount);
 
         public:
             /**
@@ -249,14 +247,14 @@ namespace SceneR
              * Initializes a new instance of the Vector4 class.
              * @param value the value for the x, y, z and w components of the vector.
              */
-            Vector4(const System::Single& value);
+            Vector4(const float& value);
 
             /**
              * Initializes a new instance of the Vector4 class.
              * @param value a vector containing the values to initialize x, y, and z components with.
              * @param w value for the w-component of the vector.
              */
-            Vector4(const Vector3& value, const System::Single& w);
+            Vector4(const Vector3& value, const float& w);
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -264,7 +262,7 @@ namespace SceneR
              * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
              */
-            Vector4(const System::Single& x, const System::Single& y, const System::Single& z);
+            Vector4(const float& x, const float& y, const float& z);
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -272,7 +270,7 @@ namespace SceneR
              * @param z value for the z-component of the vector.
              * @param w value for the w-component of the vector.
              */
-            Vector4(const Vector2& value, const System::Single& z, const System::Single& w);
+            Vector4(const Vector2& value, const float& z, const float& w);
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -281,10 +279,10 @@ namespace SceneR
              * @param z The Z value of the new Vector4 structure.
              * @param w The W value of the new Vector4 structure.
              */
-            Vector4(const System::Single& x
-                  , const System::Single& y
-                  , const System::Single& z
-                  , const System::Single& w);
+            Vector4(const float& x
+                  , const float& y
+                  , const float& z
+                  , const float& w);
 
             /**
              * Initializes a new instance of the Vector4 class (Copy constructor)
@@ -301,43 +299,43 @@ namespace SceneR
             /**
              * Gets the x-coordinate value.
              */
-            const System::Single& X() const;
+            float X() const;
 
             /**
              * Gets the y-coordinate value.
              */
-            const System::Single& Y() const;
+            float Y() const;
 
             /**
              * Gets the z-coordinate value.
              */
-            const System::Single& Z() const;
+            float Z() const;
 
             /**
              * Gets the w-coordinate value.
              */
-            const System::Single& W() const;
+            float W() const;
 
         public:
             /**
              * Sets the x-coordinate value.
              */
-            void X(const System::Single& x);
+            void X(const float& x);
 
             /**
              * Sets the y-coordinate value.
              */
-            void Y(const System::Single& y);
+            void Y(const float& y);
 
             /**
              * Sets the z-coordinate value.
              */
-            void Z(const System::Single& z);
+            void Z(const float& z);
 
             /**
              * Sets the w-coordinate value.
              */
-            void W(const System::Single& w);
+            void W(const float& w);
 
         public:
             /**
@@ -345,32 +343,32 @@ namespace SceneR
              *
              * @return the square of the length of this Vector4.
              */
-            System::Single LengthSquared() const;
+            float LengthSquared() const;
 
             /**
              * Gets the length of this Vector4.
              *
              * @return the length of this Vector4.
              */
-            System::Single Length() const;
+            float Length() const;
 
         public:
-            System::Single& operator[](const size_t& index);
-            const System::Single& operator[](const size_t& index) const;
+            float& operator[](const size_t& index);
+            const float& operator[](const size_t& index) const;
             Vector4& operator=(const Vector4& vector);
             bool operator==(const Vector4& vector) const;
             bool operator!=(const Vector4& vector) const;
             Vector4& operator*=(const Vector4& vector);
-            Vector4& operator*=(const System::Single& value);
+            Vector4& operator*=(const float& value);
             Vector4& operator/=(const Vector4& vector);
-            Vector4& operator/=(const System::Single& value);
+            Vector4& operator/=(const float& value);
             Vector4& operator-=(const Vector4& vector);
             Vector4& operator+=(const Vector4& vector);
             const Vector4 operator*(const Vector4& vector) const;
-            const Vector4 operator*(const System::Single& value) const;
+            const Vector4 operator*(const float& value) const;
             const Vector4 operator*(const Matrix& matrix) const;
             const Vector4 operator/(const Vector4& vector) const;
-            const Vector4 operator/(const System::Single& value) const;
+            const Vector4 operator/(const float& value) const;
             const Vector4 operator-(const Vector4& vector) const;
             const Vector4 operator-() const;
             const Vector4 operator+(const Vector4& vector) const;
@@ -378,18 +376,18 @@ namespace SceneR
         private:
             union
             {
-                System::Single vector[4];
+                float vector[4];
                 struct
                 {
-                    System::Single x;
-                    System::Single y;
-                    System::Single z;
-                    System::Single w;
+                    float x;
+                    float y;
+                    float z;
+                    float w;
                 };
             };
         };
 
-        inline Vector4 operator*(const System::Single& value, const Vector4& vector)
+        inline Vector4 operator*(const float& value, const Vector4& vector)
         {
             return { value * vector.X(), value * vector.Y(), value * vector.Z(), value * vector.W() };
         }

@@ -31,30 +31,30 @@ Plane Plane::CreateFromVertices(const Vector3& point1, const Vector3& point2, co
     // r a position vector of a point of the plane and D0 the distance of the plane from the origin.
 
     Vector3 n = Vector3::Normalize(Vector3::Cross(point2 - point1, point3 - point1));
-    Single  d = -Vector3::Dot(n, point1);
+    float   d = -Vector3::Dot(n, point1);
 
     return { n, d };
 }
 
-Single Plane::Dot(const Plane& plane, const Vector4& value)
+float Plane::Dot(const Plane& plane, const Vector4& value)
 {
     return Vector4::Dot({ plane.Normal(), plane.D() }, value);
 }
 
-Single Plane::DotNormal(const Plane& p, const Vector3& v)
+float Plane::DotNormal(const Plane& p, const Vector3& v)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
     return Vector3::Dot(p.Normal(), v);
 }
 
-Single Plane::DotCoordinate(const Plane& p, const Vector3& value)
+float Plane::DotCoordinate(const Plane& p, const Vector3& value)
 {
     return Plane::DotNormal(p, value) + p.D();
 }
 
 Plane Plane::Normalize(const Plane& value)
 {
-    Single reciprocalLength = 1.0f / value.normal.Length();
+    float reciprocalLength = 1.0f / value.normal.Length();
 
     return { value.normal * reciprocalLength, value.d * reciprocalLength };
 }
@@ -81,21 +81,21 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(const Single& a, const Single& b, const Single& c, const Single& d)
+Plane::Plane(const float& a, const float& b, const float& c, const float& d)
     : normal { a, b, c }
     , d      { d }
 {
 }
 
-Plane::Plane(const Vector3& normal, const System::Single& d)
+Plane::Plane(const Vector3& normal, const float& d)
     : normal { normal }
     , d      { d }
 {
 }
 
 Plane::Plane(const Vector4& value)
-    : normal { value.X(), value.Y(), value.Z() },
-      d      { value.W() }
+    : normal { value.X(), value.Y(), value.Z() }
+    , d      { value.W() }
 {
 }
 
@@ -119,12 +119,12 @@ void Plane::Normal(const Vector3& normal)
     this->normal = normal;
 }
 
-const System::Single& Plane::D() const
+float Plane::D() const
 {
     return this->d;
 }
 
-void Plane::D(const Single& d)
+void Plane::D(const float& d)
 {
     this->d = d;
 }

@@ -7,7 +7,6 @@
 #include <string>
 
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 struct GLFWwindow;
 

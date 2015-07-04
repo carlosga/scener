@@ -5,10 +5,10 @@
 #define MODELBONE_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 
 namespace SceneR

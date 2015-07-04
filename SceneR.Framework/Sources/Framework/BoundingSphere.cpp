@@ -33,7 +33,7 @@ BoundingSphere BoundingSphere::CreateMerged(const BoundingSphere& original, cons
     throw std::runtime_error("Not implemented");
 }
 
-BoundingSphere::BoundingSphere(const Vector3& center, const Single& radius)
+BoundingSphere::BoundingSphere(const Vector3& center, const float& radius)
     : center { center }
     , radius { radius }
 {
@@ -54,7 +54,7 @@ const Vector3& BoundingSphere::Center() const
     return this->center;
 }
 
-const System::Single& BoundingSphere::Radius() const
+float BoundingSphere::Radius() const
 {
     return this->radius;
 }
@@ -104,8 +104,7 @@ bool BoundingSphere::Intersects(const Ray& ray) const
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto rad2 = this->radius * this->radius;
     auto l    = this->center - ray.Position();
-
-    auto tPX = Vector3::Dot(l, ray.Direction());
+    auto tPX  = Vector3::Dot(l, ray.Direction());
 
     if (tPX < 0.0)
     {
@@ -119,8 +118,8 @@ bool BoundingSphere::Intersects(const Ray& ray) const
         return false;
     }
 
-    Single thit = Math::Sqrt(rad2 - dsq);
-    Single t    = tPX - thit;
+    auto thit = Math::Sqrt(rad2 - dsq);
+    auto t    = tPX - thit;
 
     if (t < 0.0f)
     {

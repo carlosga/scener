@@ -4,9 +4,9 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/IndexElementSize.hpp>
 #include <Graphics/GraphicsResource.hpp>

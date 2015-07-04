@@ -20,22 +20,22 @@ const Matrix Matrix::Identity { 1.0f, 0.0f, 0.0f, 0.0f
                               , 0.0f, 0.0f, 1.0f, 0.0f
                               , 0.0f, 0.0f, 0.0f, 1.0f };
 
-Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const Single&  angle)
+Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const float&  angle)
 {
     // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto   naxis = Vector3::Normalize(axis);
-    Single cos   = Math::Cos(angle);
-    Single sin   = Math::Sin(angle);
-    Single cos_1 = 1.0f - cos;
-    Single x     = naxis.X();
-    Single y     = naxis.Y();
-    Single z     = naxis.Z();
-    Single xx    = x * x;
-    Single yy    = y * y;
-    Single zz    = z * z;
-    Single xy    = x * y;
-    Single yz    = y * z;
-    Single xz    = x * z;
+    float cos   = Math::Cos(angle);
+    float sin   = Math::Sin(angle);
+    float cos_1 = 1.0f - cos;
+    float x     = naxis.X();
+    float y     = naxis.Y();
+    float z     = naxis.Z();
+    float xx    = x * x;
+    float yy    = y * y;
+    float zz    = z * z;
+    float xy    = x * y;
+    float yz    = y * z;
+    float xz    = x * z;
 
     return { cos + xx * cos_1     , z * sin + xy * cos_1 , -y * sin + xz * cos_1, 0.0f
            , xy * cos_1 - z * sin , cos + yy * cos_1     , x * sin + yz * cos_1 , 0.0f
@@ -52,15 +52,15 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
     // 2xy + 2zw        1 - 2xx - 2zz   2yz - 2xw
     // 2xz - 2yw        2yz + 2xw       1 - 2xx - 2yy
 
-    Single xx = quaternion.X() * quaternion.X();
-    Single yy = quaternion.Y() * quaternion.Y();
-    Single zz = quaternion.Z() * quaternion.Z();
-    Single xy = quaternion.X() * quaternion.Y();
-    Single zw = quaternion.Z() * quaternion.W();
-    Single xz = quaternion.X() * quaternion.Z();
-    Single yw = quaternion.Y() * quaternion.W();
-    Single yz = quaternion.Y() * quaternion.Z();
-    Single xw = quaternion.X() * quaternion.W();
+    float xx = quaternion.X() * quaternion.X();
+    float yy = quaternion.Y() * quaternion.Y();
+    float zz = quaternion.Z() * quaternion.Z();
+    float xy = quaternion.X() * quaternion.Y();
+    float zw = quaternion.Z() * quaternion.W();
+    float xz = quaternion.X() * quaternion.Z();
+    float yw = quaternion.Y() * quaternion.W();
+    float yz = quaternion.Y() * quaternion.Z();
+    float xw = quaternion.X() * quaternion.W();
 
     return { 1.0f - 2.0f * (yy + zz), 2.0f * (xy + zw)       , 2.0f * (xz - yw)       , 0.0f
            , 2.0f * (xy - zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz + xw)       , 0.0f
@@ -68,28 +68,28 @@ Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
            , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
 }
 
-Matrix Matrix::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
+Matrix Matrix::CreateFromYawPitchRoll(const float& yaw, const float& pitch, const float& roll)
 {
     return Matrix::CreateFromAxisAngle(Vector3::UnitZ, roll)
          * Matrix::CreateFromAxisAngle(Vector3::UnitX, pitch)
          * Matrix::CreateFromAxisAngle(Vector3::UnitY, yaw);
 }
 
-Matrix Matrix::CreateFrustum(const Single& left  , const Single& right
-                           , const Single& bottom, const Single& top
-                           , const Single& zNear , const Single& zFar)
+Matrix Matrix::CreateFrustum(const float& left  , const float& right
+                           , const float& bottom, const float& top
+                           , const float& zNear , const float& zFar)
 {
     if (zNear < 0 || zFar < 0)
     {
         throw std::invalid_argument("zNear and zFar should be positive values.");
     }
 
-    Single rightSubLeft  = right - left;
-    Single rightPlusLeft = right + left;
-    Single topSubBottom  = top - bottom;
-    Single topPlusBottom = top + bottom;
-    Single farSubNear    = zFar - zNear;
-    Single farPlusNear   = zFar - zNear;
+    float rightSubLeft  = right - left;
+    float rightPlusLeft = right + left;
+    float topSubBottom  = top - bottom;
+    float topPlusBottom = top + bottom;
+    float farSubNear    = zFar - zNear;
+    float farPlusNear   = zFar - zNear;
 
     return { (2 * zNear) / rightSubLeft, 0.0f                      , (rightPlusLeft / rightSubLeft), 0.0f
            , 0.0f                      , (2 * zNear) / topSubBottom, (topPlusBottom / topSubBottom), 0.0f
@@ -122,7 +122,7 @@ Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& camera
            , -dx      , -dy      , -dz      , 1.0f };
 }
 
-Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, const Single& zNear, const Single& zFar)
+Matrix Matrix::CreateOrthographic(const float& width, const float& height, const float& zNear, const float& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
     // 2/w  0    0           0
@@ -130,7 +130,7 @@ Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, con
     // 0    0    1/(zn-zf)   0
     // 0    0    zn/(zn-zf)  1
 
-    Single nearSubFar = zNear - zFar;
+    float nearSubFar = zNear - zFar;
 
     return { 2.0f / width, 0.0f         , 0.0f              , 0.0f
            , 0           , 2.0f / height, 0.0f              , 0.0f
@@ -138,9 +138,9 @@ Matrix Matrix::CreateOrthographic(const Single& width, const Single& height, con
            , 0.0f        , 0.0f         , zNear / nearSubFar, 1.0f };
 }
 
-Matrix Matrix::CreateOrthographicOffCenter(const Single& left  , const Single& right
-                                         , const Single& bottom, const Single& top
-                                         , const Single& zNear , const Single& zFar)
+Matrix Matrix::CreateOrthographicOffCenter(const float& left  , const float& right
+                                         , const float& bottom, const float& top
+                                         , const float& zNear , const float& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
     // 2/(r-l)      0            0           0
@@ -148,11 +148,11 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left  , const Single& r
     // 0            0            1/(zn-zf)   0
     // (l+r)/(l-r)  (t+b)/(b-t)  zn/(zn-zf)  1
 
-    Single leftSubRight  = left - right;
-    Single leftPlusRight = left + right;
-    Single bottomSubTop  = bottom - top;
-    Single topPlusBottom = top + bottom;
-    Single nearSubFar    = zNear - zFar;
+    float leftSubRight  = left - right;
+    float leftPlusRight = left + right;
+    float bottomSubTop  = bottom - top;
+    float topPlusBottom = top + bottom;
+    float nearSubFar    = zNear - zFar;
 
     return { 2.0f / (right - left)       , 0.0f                        , 0.0f              , 0.0f
            , 0.0f                        , 2.0f / (top - bottom)       , 0.0f              , 0.0f
@@ -160,8 +160,8 @@ Matrix Matrix::CreateOrthographicOffCenter(const Single& left  , const Single& r
            , leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f };
 }
 
-Matrix Matrix::CreatePerspective(const Single& width, const Single& height
-                               , const Single& zNear, const Single& zFar)
+Matrix Matrix::CreatePerspective(const float& width, const float& height
+                               , const float& zNear, const float& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
@@ -184,7 +184,7 @@ Matrix Matrix::CreatePerspective(const Single& width, const Single& height
         throw std::out_of_range("zNear should be greather than zFar.");
     }
 
-    Single nearSubFar = zNear - zFar;
+    float nearSubFar = zNear - zFar;
 
     return { 2 * zNear / width, 0.0f              , 0.0f                     , 0.0f
            , 0.0f             , 2 * zNear / height, 0.0f                     , 0.0f
@@ -192,8 +192,8 @@ Matrix Matrix::CreatePerspective(const Single& width, const Single& height
            , 0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f };
 }
 
-Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Single& aspectRatio,
-                                            const Single& zNear      , const Single& zFar)
+Matrix Matrix::CreatePerspectiveFieldOfView(const float& fieldOfView, const float& aspectRatio,
+                                            const float& zNear      , const float& zFar)
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
     // xScale     0          0              0
@@ -225,9 +225,9 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
         throw std::out_of_range("zNear should be greather than zFar.");
     }
 
-    Single yScale     = 1.0f / Math::Tan(fieldOfView / 2);
-    Single xScale     = yScale / aspectRatio;
-    Single nearSubFar = zNear - zFar;
+    float yScale     = 1.0f / Math::Tan(fieldOfView / 2);
+    float xScale     = yScale / aspectRatio;
+    float nearSubFar = zNear - zFar;
 
     return { xScale, 0.0f  , 0.0f                     , 0.0f
            , 0.0f  , yScale, 0.0f                     , 0.0f
@@ -235,12 +235,12 @@ Matrix Matrix::CreatePerspectiveFieldOfView(const Single& fieldOfView, const Sin
            , 0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f };
 }
 
-Matrix Matrix::CreatePerspectiveOffCenter(const Single& left
-                                        , const Single& right
-                                        , const Single& bottom
-                                        , const Single& top
-                                        , const Single& zNear
-                                        , const Single& zFar)
+Matrix Matrix::CreatePerspectiveOffCenter(const float& left
+                                        , const float& right
+                                        , const float& bottom
+                                        , const float& top
+                                        , const float& zNear
+                                        , const float& zFar)
 {
     if (zNear <= 0.0f)
     {
@@ -264,11 +264,11 @@ Matrix Matrix::CreatePerspectiveOffCenter(const Single& left
     // (l+r)/(r-l)  (t+b)/(t-b)  zf/(zn-zf)      -1
     // 0            0            zn*zf/(zn-zf)    0
 
-    Single rightSubLeft  = right - left;
-    Single leftPlusRight = left + right;
-    Single topSubBottom  = top - bottom;
-    Single topPlusBottom = top + bottom;
-    Single nearSubFar    = zNear - zFar;
+    float rightSubLeft  = right - left;
+    float leftPlusRight = left + right;
+    float topSubBottom  = top - bottom;
+    float topPlusBottom = top + bottom;
+    float nearSubFar    = zNear - zFar;
 
     return { 2.0f * zNear / rightSubLeft , 0.0f                        , 0.0f                     , 0.0f
            , 0.0f                        , 2 * zNear / topSubBottom    , 0.0f                     , 0.0f
@@ -277,11 +277,11 @@ Matrix Matrix::CreatePerspectiveOffCenter(const Single& left
 }
 
 
-Matrix Matrix::CreateRotationX(const Single& angle)
+Matrix Matrix::CreateRotationX(const float& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
 
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f,  cos,  sin, 0.0f
@@ -289,7 +289,7 @@ Matrix Matrix::CreateRotationX(const Single& angle)
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::CreateRotationX(const System::Single& angle, const Vector3& center)
+Matrix Matrix::CreateRotationX(const float& angle, const Vector3& center)
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -298,10 +298,10 @@ Matrix Matrix::CreateRotationX(const System::Single& angle, const Vector3& cente
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
-    Single y   = center.Y();
-    Single z   = center.Z();
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
+    float y   = center.Y();
+    float z   = center.Z();
 
     return { 1.0f, 0.0f                 , 0.0f                 , 0.0f
            , 0.0f,  cos                 , sin                  , 0.0f
@@ -309,11 +309,11 @@ Matrix Matrix::CreateRotationX(const System::Single& angle, const Vector3& cente
            , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
 }
 
-Matrix Matrix::CreateRotationY(const Single& angle)
+Matrix Matrix::CreateRotationY(const float& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
 
     return {  cos, 0.0f, -sin, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -321,7 +321,7 @@ Matrix Matrix::CreateRotationY(const Single& angle)
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::CreateRotationY(const System::Single& angle, const Vector3& center)
+Matrix Matrix::CreateRotationY(const float& angle, const Vector3& center)
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -330,10 +330,10 @@ Matrix Matrix::CreateRotationY(const System::Single& angle, const Vector3& cente
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
-    Single x   = center.X();
-    Single z   = center.Z();
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
+    float x   = center.X();
+    float z   = center.Z();
 
     return { cos                  , 0.0f, -sin                 , 0.0f
            , 0.0f                 , 1.0f, 0.0f                 , 0.0f
@@ -341,11 +341,11 @@ Matrix Matrix::CreateRotationY(const System::Single& angle, const Vector3& cente
            , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
 }
 
-Matrix Matrix::CreateRotationZ(const Single& angle)
+Matrix Matrix::CreateRotationZ(const float& angle)
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
 
     return {  cos,  sin, 0.0f, 0.0f
            , -sin,  cos, 0.0f, 0.0f
@@ -353,7 +353,7 @@ Matrix Matrix::CreateRotationZ(const Single& angle)
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::CreateRotationZ(const System::Single& angle, const Vector3& center)
+Matrix Matrix::CreateRotationZ(const float& angle, const Vector3& center)
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -362,10 +362,10 @@ Matrix Matrix::CreateRotationZ(const System::Single& angle, const Vector3& cente
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    Single cos = Math::Cos(angle);
-    Single sin = Math::Sin(angle);
-    Single x   = center.X();
-    Single y   = center.Y();
+    float cos = Math::Cos(angle);
+    float sin = Math::Sin(angle);
+    float x   = center.X();
+    float y   = center.Y();
 
     return { cos                  , sin                  , 0.0f, 0.0f
            , -sin                 , cos                  , 0.0f, 0.0f
@@ -373,12 +373,12 @@ Matrix Matrix::CreateRotationZ(const System::Single& angle, const Vector3& cente
            , x - cos * x + sin * y, y - sin * x - cos * y, 0.0f, 1.0f };
 }
 
-Matrix Matrix::CreateScale(const Single& scale)
+Matrix Matrix::CreateScale(const float& scale)
 {
     return Matrix::CreateScale(scale, scale, scale);
 }
 
-Matrix Matrix::CreateScale(const System::Single& scale, const Vector3& center)
+Matrix Matrix::CreateScale(const float& scale, const Vector3& center)
 {
     return Matrix::CreateScale(scale, scale, scale, center);
 }
@@ -388,7 +388,7 @@ Matrix Matrix::CreateScale(const Vector3& scales)
     return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
 }
 
-Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale)
+Matrix Matrix::CreateScale(const float& xScale, const float& yScale, const float& zScale)
 {
     return { xScale, 0.0f  , 0.0f  , 0.0f
            , 0.0f  , yScale, 0.0f  , 0.0f
@@ -401,7 +401,7 @@ Matrix Matrix::CreateScale(const Vector3& scales, const Vector3& center)
     return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z(), center);
 }
 
-Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Single& zScale, const Vector3& center)
+Matrix Matrix::CreateScale(const float& xScale, const float& yScale, const float& zScale, const Vector3& center)
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -410,9 +410,9 @@ Matrix Matrix::CreateScale(const Single& xScale, const Single& yScale, const Sin
     // s20	s21	s22	z - s20*x - s21*y - s22*z
     // 0	0	0	1
 
-    Single x  = center.X();
-    Single y  = center.Y();
-    Single z  = center.Z();
+    float x  = center.X();
+    float y  = center.Y();
+    float z  = center.Z();
 
     return { xScale        , 0.0f          , 0.0f          , 0.0f
            , 0.0f          , yScale        , 0.0f          , 0.0f
@@ -425,7 +425,7 @@ Matrix Matrix::CreateTranslation(const Vector3& position)
     return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
 }
 
-Matrix Matrix::CreateTranslation(const Single& x, const Single& y, const Single& z)
+Matrix Matrix::CreateTranslation(const float& x, const float& y, const float& z)
 {
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -568,10 +568,10 @@ Matrix::Matrix()
 {
 }
 
-Matrix::Matrix(const Single& m11, const Single& m12, const Single& m13, const Single& m14
-             , const Single& m21, const Single& m22, const Single& m23, const Single& m24
-             , const Single& m31, const Single& m32, const Single& m33, const Single& m34
-             , const Single& m41, const Single& m42, const Single& m43, const Single& m44)
+Matrix::Matrix(const float& m11, const float& m12, const float& m13, const float& m14
+             , const float& m21, const float& m22, const float& m23, const float& m24
+             , const float& m31, const float& m32, const float& m33, const float& m34
+             , const float& m41, const float& m42, const float& m43, const float& m44)
     : m11 { m11 }, m12 { m12 }, m13 { m13 }, m14 { m14 }
     , m21 { m21 }, m22 { m22 }, m23 { m23 }, m24 { m24 }
     , m31 { m31 }, m32 { m32 }, m33 { m33 }, m34 { m34 }
@@ -591,162 +591,162 @@ Matrix::~Matrix()
 {
 }
 
-const Single& Matrix::M11() const
+float Matrix::M11() const
 {
     return this->m11;
 }
 
-const Single& Matrix::M12() const
+float Matrix::M12() const
 {
     return this->m12;
 }
 
-const Single& Matrix::M13() const
+float Matrix::M13() const
 {
     return this->m13;
 }
 
-const Single& Matrix::M14() const
+float Matrix::M14() const
 {
     return this->m14;
 }
 
-const Single& Matrix::M21() const
+float Matrix::M21() const
 {
     return this->m21;
 }
 
-const Single& Matrix::M22() const
+float Matrix::M22() const
 {
     return this->m22;
 }
 
-const Single& Matrix::M23() const
+float Matrix::M23() const
 {
     return this->m23;
 }
 
-const Single& Matrix::M24() const
+float Matrix::M24() const
 {
     return this->m24;
 }
 
-const Single& Matrix::M31() const
+float Matrix::M31() const
 {
     return this->m31;
 }
 
-const Single& Matrix::M32() const
+float Matrix::M32() const
 {
     return this->m32;
 }
 
-const Single& Matrix::M33() const
+float Matrix::M33() const
 {
     return this->m33;
 }
 
-const Single& Matrix::M34() const
+float Matrix::M34() const
 {
     return this->m34;
 }
 
-const Single& Matrix::M41() const
+float Matrix::M41() const
 {
     return this->m41;
 }
 
-const Single& Matrix::M42() const
+float Matrix::M42() const
 {
     return this->m42;
 }
 
-const Single& Matrix::M43() const
+float Matrix::M43() const
 {
     return this->m43;
 }
 
-const Single& Matrix::M44() const
+float Matrix::M44() const
 {
     return this->m44;
 }
 
-void Matrix::M11(const System::Single& value)
+void Matrix::M11(const float& value)
 {
     this->m11 = value;
 }
 
-void Matrix::M12(const System::Single& value)
+void Matrix::M12(const float& value)
 {
     this->m12 = value;
 }
 
-void Matrix::M13(const System::Single& value)
+void Matrix::M13(const float& value)
 {
     this->m13 = value;
 }
 
-void Matrix::M14(const System::Single& value)
+void Matrix::M14(const float& value)
 {
     this->m14 = value;
 }
 
-void Matrix::M21(const System::Single& value)
+void Matrix::M21(const float& value)
 {
     this->m21 = value;
 }
 
-void Matrix::M22(const System::Single& value)
+void Matrix::M22(const float& value)
 {
     this->m22 = value;
 }
 
-void Matrix::M23(const System::Single& value)
+void Matrix::M23(const float& value)
 {
     this->m23 = value;
 }
 
-void Matrix::M24(const System::Single& value)
+void Matrix::M24(const float& value)
 {
     this->m24 = value;
 }
 
-void Matrix::M31(const System::Single& value)
+void Matrix::M31(const float& value)
 {
     this->m31 = value;
 }
 
-void Matrix::M32(const System::Single& value)
+void Matrix::M32(const float& value)
 {
     this->m32 = value;
 }
 
-void Matrix::M33(const System::Single& value)
+void Matrix::M33(const float& value)
 {
     this->m33 = value;
 }
 
-void Matrix::M34(const System::Single& value)
+void Matrix::M34(const float& value)
 {
     this->m34 = value;
 }
 
-void Matrix::M41(const Single& value)
+void Matrix::M41(const float& value)
 {
     this->m41 = value;
 }
 
-void Matrix::M42(const Single& value)
+void Matrix::M42(const float& value)
 {
     this->m42 = value;
 }
 
-void Matrix::M43(const Single& value)
+void Matrix::M43(const float& value)
 {
     this->m43 = value;
 }
 
-void Matrix::M44(const Single& value)
+void Matrix::M44(const float& value)
 {
     this->m44 = value;
 }
@@ -763,12 +763,12 @@ void Matrix::Translation(const Vector3& translation)
     this->m43 = translation.Z();
 }
 
-Single Matrix::Determinant() const
+float Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
     int32_t i      = 1;
-    Single  result = 0;
-    Single  det    = 0;
+    float  result = 0;
+    float  det    = 0;
     Matrix  msub;
 
     for (uint32_t n = 0; n < 4; n++, i *= -1)
@@ -791,14 +791,14 @@ bool Matrix::IsIdentity() const
     return (*this == Matrix::Identity);
 }
 
-Single& Matrix::operator[](const size_t& index)
+float& Matrix::operator[](const size_t& index)
 {
     assert(index < 16);
 
     return this->matrix[index];
 }
 
-const Single& Matrix::operator[](const size_t& index) const
+const float& Matrix::operator[](const size_t& index) const
 {
     assert(index < 16);
 
@@ -885,7 +885,7 @@ Matrix& Matrix::operator*=(const Matrix& right)
     return *this;
 }
 
-Matrix& Matrix::operator*=(const Single& value)
+Matrix& Matrix::operator*=(const float& value)
 {
     this->m11 *= value;
     this->m12 *= value;
@@ -969,7 +969,7 @@ const Matrix Matrix::operator*(const Matrix& matrix) const
     return result;
 }
 
-const Matrix Matrix::operator*(const Single& value) const
+const Matrix Matrix::operator*(const float& value) const
 {
     auto result = *this;
 
@@ -1005,7 +1005,7 @@ const Matrix Matrix::operator-() const
     return result;
 }
 
-Single Matrix::SubMatrixDeterminant()
+float Matrix::SubMatrixDeterminant()
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q23
     return this->m11 * (this->m22 * this->m33 - this->m32 * this->m23)

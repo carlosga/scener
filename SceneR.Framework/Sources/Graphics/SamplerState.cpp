@@ -101,12 +101,12 @@ void SamplerState::MaxMipLevel(const uint32_t& maxMipLevel)
     this->maxMipLevel = maxMipLevel;
 }
 
-const System::Single& SamplerState::MipMapLevelOfDetailBias() const
+float SamplerState::MipMapLevelOfDetailBias() const
 {
     return this->mipMapLevelOfDetailBias;
 }
 
-void SamplerState::MipMapLevelOfDetailBias(const System::Single& mipMapLevelOfDetailBias)
+void SamplerState::MipMapLevelOfDetailBias(const float& mipMapLevelOfDetailBias)
 {
     this->mipMapLevelOfDetailBias = mipMapLevelOfDetailBias;
 }

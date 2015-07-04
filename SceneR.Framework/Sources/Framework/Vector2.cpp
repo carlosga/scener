@@ -29,8 +29,8 @@ Vector2 Vector2::SquareRoot(const Vector2& value)
 Vector2 Vector2::Barycentric(const Vector2& value1
                            , const Vector2& value2
                            , const Vector2& value3
-                           , const Single&  amount1
-                           , const Single&  amount2)
+                           , const float&   amount1
+                           , const float&   amount2)
 {
     return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
@@ -40,7 +40,7 @@ Vector2 Vector2::CatmullRom(const Vector2& value1
                           , const Vector2& value2
                           , const Vector2& value3
                           , const Vector2& value4
-                          , const Single&  amount)
+                          , const float&   amount)
 {
     return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount) };
@@ -52,21 +52,21 @@ Vector2 Vector2::Clamp(const Vector2& value1, const Vector2& min, const Vector2&
            , Math::Clamp(value1.y, min.y, max.y) };
 }
 
-Single Vector2::Distance(const Vector2& value1, const Vector2& value2)
+float Vector2::Distance(const Vector2& value1, const Vector2& value2)
 {
     auto d = value2 - value1;
 
     return d.Length();
 }
 
-Single Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
+float Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
 {
     auto d = value2 - value1;
 
     return d.LengthSquared();
 }
 
-Single Vector2::DotProduct(const Vector2& left, const Vector2& right)
+float Vector2::DotProduct(const Vector2& left, const Vector2& right)
 {
     auto dotProduct = left * right;
 
@@ -77,7 +77,7 @@ Vector2 Vector2::Hermite(const Vector2& value1
                        , const Vector2& tangent1
                        , const Vector2& value2
                        , const Vector2& tangent2
-                       , const Single&  amount)
+                       , const float&   amount)
 {
     return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
@@ -85,7 +85,7 @@ Vector2 Vector2::Hermite(const Vector2& value1
 
 Vector2 Vector2::Lerp(const Vector2& value1
                     , const Vector2& value2
-                    , const Single&  amount)
+                    , const float&   amount)
 {
     return { Math::Lerp(value1.x, value2.x, amount)
            , Math::Lerp(value1.y, value2.y, amount) };
@@ -120,7 +120,7 @@ Vector2 Vector2::Normalize(const Vector2& value)
 
 Vector2 Vector2::SmoothStep(const Vector2& value1
                           , const Vector2& value2
-                          , const Single&  amount)
+                          , const float&   amount)
 {
     return { Math::SmoothStep(value1.x, value2.x, amount)
            , Math::SmoothStep(value1.y, value2.y, amount) };
@@ -128,24 +128,24 @@ Vector2 Vector2::SmoothStep(const Vector2& value1
 
 Vector2 Vector2::Transform(const Vector2& position, const Matrix& matrix)
 {
-    Single x = (position.X() * matrix.M11())
-             + (position.Y() * matrix.M21())
-             +                 matrix.M41();
+    float x = (position.X() * matrix.M11())
+            + (position.Y() * matrix.M21())
+            +                 matrix.M41();
 
-    Single y = (position.X() * matrix.M12())
-             + (position.Y() * matrix.M22())
-             +                 matrix.M42();
+    float y = (position.X() * matrix.M12())
+            + (position.Y() * matrix.M22())
+            +                 matrix.M42();
 
     return { x, y };
 }
 
 Vector2 Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix)
 {
-    Single x = (normal.x * matrix.M11())
-             + (normal.y * matrix.M21());
+    float x = (normal.x * matrix.M11())
+            + (normal.y * matrix.M21());
 
-    Single y = (normal.x * matrix.M12())
-             + (normal.y * matrix.M22());
+    float y = (normal.x * matrix.M12())
+            + (normal.y * matrix.M22());
 
     return { x, y };
 }
@@ -155,12 +155,12 @@ Vector2::Vector2()
 {
 }
 
-Vector2::Vector2(const Single& value)
+Vector2::Vector2(const float& value)
     : Vector2 { value, value }
 {
 }
 
-Vector2::Vector2(const Single& x, const Single& y)
+Vector2::Vector2(const float& x, const float& y)
     : x { x }
     , y { y }
 {
@@ -176,35 +176,35 @@ Vector2::~Vector2()
 {
 }
 
-const Single& Vector2::X() const
+float Vector2::X() const
 {
     return this->x;
 }
 
-const Single& Vector2::Y() const
+float Vector2::Y() const
 {
     return this->y;
 }
 
-Single Vector2::LengthSquared() const
+float Vector2::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y);
 }
 
-Single Vector2::Length() const
+float Vector2::Length() const
 {
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Vector2::operator[](const size_t& index)
+float& Vector2::operator[](const size_t& index)
 {
     assert(index < 2);
 
     return (this->coords[index]);
 }
 
-const Single& Vector2::operator[](const size_t& index) const
+const float& Vector2::operator[](const size_t& index) const
 {
     assert(index < 2);
 
@@ -240,7 +240,7 @@ Vector2& Vector2::operator*=(const Vector2& vector)
     return *this;
 }
 
-Vector2& Vector2::operator*=(const Single& value)
+Vector2& Vector2::operator*=(const float& value)
 {
     this->x *= value;
     this->y *= value;
@@ -256,7 +256,7 @@ Vector2& Vector2::operator/=(const Vector2& vector)
     return *this;
 }
 
-Vector2& Vector2::operator/=(const Single& value)
+Vector2& Vector2::operator/=(const float& value)
 {
     this->x /= value;
     this->y /= value;
@@ -289,7 +289,7 @@ const Vector2 Vector2::operator*(const Vector2& vector) const
     return result;
 }
 
-const Vector2 Vector2::operator*(const Single& value) const
+const Vector2 Vector2::operator*(const float& value) const
 {
     auto result = *this;
 
@@ -307,7 +307,7 @@ const Vector2 Vector2::operator/(const Vector2& vector) const
     return result;
 }
 
-const Vector2 Vector2::operator/(const Single& value) const
+const Vector2 Vector2::operator/(const float& value) const
 {
     auto result = *this;
 

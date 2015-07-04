@@ -6,7 +6,6 @@
 
 #include <gtest/gtest.h>
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>
 
@@ -18,16 +17,16 @@ protected:
     // Otherwise, this can be skipped.
     virtual void SetUp()
     {
-    };
+    }
 
     static SceneR::Framework::Matrix GenerateMatrixNumberFrom1To16();
     static SceneR::Framework::Matrix GenerateTestMatrix();
-    static void Decompose(const System::Single&             yaw
-                        , const System::Single&             pitch
-                        , const System::Single&             roll
+    static void Decompose(const float&                      yaw
+                        , const float&                      pitch
+                        , const float&                      roll
                         , const SceneR::Framework::Vector3& expectedTranslation
                         , const SceneR::Framework::Vector3& expectedScales);
-    static void DecomposeScale(const System::Single& sx, const System::Single& sy, const System::Single& sz);
+    static void DecomposeScale(const float& sx, const float& sy, const float& sz);
     static void CreateReflection(const SceneR::Framework::Plane& plane, const SceneR::Framework::Matrix& expected);
 
     // virtual void TearDown() will be called after each test is run.

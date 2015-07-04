@@ -8,11 +8,10 @@
 
 #include <cmath>
 
-using namespace System;
 using namespace SceneR::Framework;
 
 // Comparison helpers with small tolerance to allow for floating point rounding during computations.
-bool EqualityHelper::Equal(const Single& a, const Single& b)
+bool EqualityHelper::Equal(const float& a, const float& b)
 {
     return (std::abs(a - b) < 1e-5);
 }

@@ -64,8 +64,8 @@ TEST_F(QuaternionTest, Dot)
     auto a = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
     auto b = Quaternion { 5.0f, 6.0f, 7.0f, 8.0f };
 
-    Single expected = 70.0f;
-    Single actual   = Quaternion::Dot(a, b);
+    auto expected = 70.0f;
+    auto actual   = Quaternion::Dot(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -74,11 +74,11 @@ TEST_F(QuaternionTest, Dot)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Length)
 {
-    auto   v        = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w        = 4.0f;
-    auto   target   = Quaternion { v, w };
-    Single expected = 5.477226f;
-    Single actual   = target.Length();
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w        = 4.0f;
+    auto target   = Quaternion { v, w };
+    auto expected = 5.477226f;
+    auto actual   = target.Length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -87,11 +87,11 @@ TEST_F(QuaternionTest, Length)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LengthSquared)
 {
-    auto   v        = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w        = 4.0f;
-    auto   target   = Quaternion { v, w };
-    Single expected = 30.0f;
-    Single actual   = target.LengthSquared();
+    auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w        = 4.0f;
+    auto target   = Quaternion { v, w };
+    auto expected = 30.0f;
+    auto actual   = target.LengthSquared();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -100,12 +100,12 @@ TEST_F(QuaternionTest, LengthSquared)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Lerp)
 {
-    auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-    Single t        = 0.5f;
-    auto   expected = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(20.0f));
-    auto   actual   = Quaternion::Lerp(a, b, t);
+    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
+    auto t        = 0.5f;
+    auto expected = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(20.0f));
+    auto actual   = Quaternion::Lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
@@ -121,12 +121,12 @@ TEST_F(QuaternionTest, Lerp)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithInterpolateZero)
 {
-    auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-    Single t        = 0.0f;
-    auto   expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
-    auto   actual   = Quaternion::Lerp(a, b, t);
+    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
+    auto t        = 0.0f;
+    auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
+    auto actual   = Quaternion::Lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -136,12 +136,12 @@ TEST_F(QuaternionTest, LerpWithInterpolateZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithInterpolateOne)
 {
-    auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
-    auto   b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-    Single t        = 1.0f;
-    auto   expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
-    auto   actual   = Quaternion::Lerp(a, b, t);
+    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
+    auto t        = 1.0f;
+    auto expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
+    auto actual   = Quaternion::Lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -151,11 +151,11 @@ TEST_F(QuaternionTest, LerpWithInterpolateOne)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithQuaternionsWithMoreThan90Degrees)
 {
-    auto   axis   = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto   a      = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
-    auto   b      = Quaternion::Negate(a);
-    Single t      = 1.0f;
-    auto   actual = Quaternion::Lerp(a, b, t);
+    auto axis   = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto a      = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
+    auto b      = Quaternion::Negate(a);
+    auto t      = 1.0f;
+    auto actual = Quaternion::Lerp(a, b, t);
 
     // Note that in quaternion world, Q == -Q. In the case of quaternions dot product is zero,
     // one of the quaternion will be flipped to compute the shortest distance. When t = 1, we
@@ -227,10 +227,10 @@ TEST_F(QuaternionTest, Subtraction)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Multiply)
 {
-    auto   a        = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
-    Single factor   = 0.5f;
-    auto   expected = Quaternion { 0.5f, 1.0f, 1.5f, 2.0f };
-    auto   actual   = a * factor;
+    auto a        = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
+    auto factor   = 0.5f;
+    auto expected = Quaternion { 0.5f, 1.0f, 1.5f, 2.0f };
+    auto actual   = a * factor;
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -275,10 +275,10 @@ TEST_F(QuaternionTest, Addition)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Constructor)
 {
-    Single x = 1.0f;
-    Single y = 2.0f;
-    Single z = 3.0f;
-    Single w = 4.0f;
+    auto x = 1.0f;
+    auto y = 2.0f;
+    auto z = 3.0f;
+    auto w = 4.0f;
 
     auto target = Quaternion { x, y, z, w };
 
@@ -292,9 +292,8 @@ TEST_F(QuaternionTest, Constructor)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, ConstructorWithVector3)
 {
-    auto   v = Vector3 { 1.0f, 2.0f, 3.0f };
-    Single w = 4.0f;
-
+    auto v      = Vector3 { 1.0f, 2.0f, 3.0f };
+    auto w      = 4.0f;
     auto target = Quaternion { v, w };
 
     EXPECT_TRUE(v.X() == target.X());
@@ -307,10 +306,10 @@ TEST_F(QuaternionTest, ConstructorWithVector3)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromAxisAngle)
 {
-    auto   axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    Single angle    = Math::ToRadians(30.0f);
-    auto   expected = Quaternion(0.0691723f, 0.1383446f, 0.207516879f, 0.9659258f);
-    auto   actual   = Quaternion::CreateFromAxisAngle(axis, angle);
+    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto angle    = Math::ToRadians(30.0f);
+    auto expected = Quaternion(0.0691723f, 0.1383446f, 0.207516879f, 0.9659258f);
+    auto actual   = Quaternion::CreateFromAxisAngle(axis, angle);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -320,10 +319,10 @@ TEST_F(QuaternionTest, CreateFromAxisAngle)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
 {
-    auto   axis   = Vector3 { };
-    Single angle  = Math::ToRadians(-30.0f);
-    Single cos    = Math::Cos(angle / 2.0f);
-    auto   actual = Quaternion::CreateFromAxisAngle(axis, angle);
+    auto axis   = Vector3 { };
+    auto angle  = Math::ToRadians(-30.0f);
+    auto cos    = Math::Cos(angle / 2.0f);
+    auto actual = Quaternion::CreateFromAxisAngle(axis, angle);
 
     EXPECT_TRUE(0.0f == actual.X());
     EXPECT_TRUE(0.0f == actual.Y());
@@ -335,11 +334,11 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
 {
-    auto   axis    = Vector3 { 1.0f, 0.0f, 0.0f };
-    Single angle1  = Math::ToRadians(30.0f);
-    Single angle2  = Math::ToRadians(750.0f);
-    auto   actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
-    auto   actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
+    auto axis    = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto angle1  = Math::ToRadians(30.0f);
+    auto angle2  = Math::ToRadians(750.0f);
+    auto actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
+    auto actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
 
     EXPECT_TRUE(EqualityHelper::Equal(actual1, actual2));
 }
@@ -348,11 +347,11 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
 {
-    auto   axis    = Vector3 { 1.0f, 0.0f, 0.0f };
-    Single angle1  = Math::ToRadians(30.0f);
-    Single angle2  = Math::ToRadians(390.0f);
-    auto   actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
-    auto   actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
+    auto axis    = Vector3 { 1.0f, 0.0f, 0.0f };
+    auto angle1  = Math::ToRadians(30.0f);
+    auto angle2  = Math::ToRadians(390.0f);
+    auto actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
+    auto actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
 
     actual1.X(-actual1.X());
     actual1.W(-actual1.W());
@@ -364,9 +363,9 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromYawPitchRoll)
 {
-    Single yawAngle   = Math::ToRadians(30.0f);
-    Single pitchAngle = Math::ToRadians(40.0f);
-    Single rollAngle  = Math::ToRadians(50.0f);
+    auto yawAngle   = Math::ToRadians(30.0f);
+    auto pitchAngle = Math::ToRadians(40.0f);
+    auto rollAngle  = Math::ToRadians(50.0f);
 
     auto yaw      = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
     auto pitch    = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
@@ -381,17 +380,17 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
 {
-    const Single step = 35.0f;
+    const auto step = 35.0f;
 
-    for (Single yawAngle = -720.0f; yawAngle <= 720.0f; yawAngle += step)
+    for (float yawAngle = -720.0f; yawAngle <= 720.0f; yawAngle += step)
     {
-        for (Single pitchAngle = -720.0f; pitchAngle <= 720.0f; pitchAngle += step)
+        for (float pitchAngle = -720.0f; pitchAngle <= 720.0f; pitchAngle += step)
         {
-            for (Single rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
+            for (float rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
             {
-                Single yawRad   = Math::ToRadians(yawAngle);
-                Single pitchRad = Math::ToRadians(pitchAngle);
-                Single rollRad  = Math::ToRadians(rollAngle);
+                auto yawRad   = Math::ToRadians(yawAngle);
+                auto pitchRad = Math::ToRadians(pitchAngle);
+                auto rollRad  = Math::ToRadians(rollAngle);
 
                 auto yaw   = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawRad);
                 auto pitch = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
@@ -413,8 +412,7 @@ TEST_F(QuaternionTest, Slerp)
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
     auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-
-    Single t = 0.5f;
+    auto t    = 0.5f;
 
     auto expected = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(20.0f));
     auto actual   = Quaternion::Slerp(a, b, t);
@@ -436,8 +434,7 @@ TEST_F(QuaternionTest, SlerpWithInterpolateZero)
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
     auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-
-    Single t = 0.0f;
+    auto t    = 0.0f;
 
     auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
     auto actual   = Quaternion::Slerp(a, b, t);
@@ -453,8 +450,7 @@ TEST_F(QuaternionTest, SlerpWithInterpolateOne)
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
     auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-
-    Single t = 1.0f;
+    auto t    = 1.0f;
 
     auto expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
     auto actual   = Quaternion::Slerp(a, b, t);
@@ -470,8 +466,7 @@ TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
     auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = -a;
-
-    Single t = 1.0f;
+    auto t    = 1.0f;
 
     auto expected = a;
     auto actual   = Quaternion::Slerp(a, b, t);
@@ -490,8 +485,7 @@ TEST_F(QuaternionTest, SlerpWithFlippedQuaternion)
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
     auto a    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(10.0f));
     auto b    = -Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
-
-    Single t = 0.0f;
+    auto t    = 0.0f;
 
     auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
     auto actual   = Quaternion::Slerp(a, b, t);
@@ -609,7 +603,7 @@ TEST_F(QuaternionTest, ConvertIdentityMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, ConvertXAxisRotationMatrix)
 {
-    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
         auto matrix   = Matrix::CreateRotationX(angle);
         auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
@@ -628,7 +622,7 @@ TEST_F(QuaternionTest, ConvertXAxisRotationMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, ConvertYAxisRotationMatrix)
 {
-    for (Single angle = 0.0f; angle < 720.0f; angle += 10.0f)
+    for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
         auto matrix   = Matrix::CreateRotationY(angle);
         auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
@@ -711,9 +705,9 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
 {
-    Single angle  = Math::ToRadians(180.0f);
-    auto   matrix = Matrix::CreateRotationX(angle)
-                  * Matrix::CreateRotationZ(angle);
+    auto angle  = Math::ToRadians(180.0f);
+    auto matrix = Matrix::CreateRotationX(angle)
+                * Matrix::CreateRotationZ(angle);
 
     auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
                   * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);

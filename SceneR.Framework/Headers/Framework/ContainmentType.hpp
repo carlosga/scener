@@ -4,7 +4,7 @@
 #ifndef CONTAINMENTTYPE_HPP
 #define CONTAINMENTTYPE_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

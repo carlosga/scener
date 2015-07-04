@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 #include <Framework/Matrix.hpp>
 

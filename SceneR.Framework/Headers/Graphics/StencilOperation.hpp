@@ -4,8 +4,9 @@
 #ifndef STENCILOPERATION_HPP
 #define STENCILOPERATION_HPP
 
+#include <stdint.h>
+
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

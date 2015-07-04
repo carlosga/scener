@@ -7,7 +7,6 @@
 #ifndef EQUALITYHELPER_HPP
 #define	EQUALITYHELPER_HPP
 
-#include <System/Core.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Plane.hpp>
 #include <Framework/Quaternion.hpp>
@@ -19,7 +18,7 @@ class EqualityHelper
 {
 public:
     // Comparison helpers with small tolerance to allow for floating point rounding during computations.
-    static bool Equal(const System::Single& a, const System::Single& b);
+    static bool Equal(const float& a, const float& b);
 
     static bool Equal(const SceneR::Framework::Vector2& a, const SceneR::Framework::Vector2& b);
 

@@ -28,7 +28,7 @@ namespace SceneR
             SceneR::Framework::Matrix Projection;
 
         private:
-            System::Single rotation;
+            float rotation;
         };
     }
 }

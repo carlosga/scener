@@ -50,8 +50,8 @@ EffectDirtyFlags EffectHelpers::SetWorldViewProjAndFog(const EffectDirtyFlags& d
                                                      , const Matrix&           projection
                                                      , Matrix&                 worldView
                                                      , const bool&             fogEnabled
-                                                     , const Single&           fogStart
-                                                     , const Single&           fogEnd
+                                                     , const float&            fogStart
+                                                     , const float&            fogEnd
                                                      , EffectParameter&        worldViewProjParam
                                                      , EffectParameter&        fogVectorParam)
 {
@@ -95,8 +95,8 @@ EffectDirtyFlags EffectHelpers::SetWorldViewProjAndFog(const EffectDirtyFlags& d
 }
 
 void EffectHelpers::SetFogVector(const Matrix&    worldView
-                               , const Single&    fogStart
-                               , const Single&    fogEnd
+                               , const float&     fogStart
+                               , const float&     fogEnd
                                , EffectParameter& fogVectorParam)
 {
     if (fogStart == fogEnd)
@@ -109,9 +109,9 @@ void EffectHelpers::SetFogVector(const Matrix&    worldView
         // We want to transform vertex positions into view space, take the resulting
         // Z value, then scale and offset according to the fog start/end distances.
         // Because we only care about the Z component, the shader can do all this
-        // with a single dot product, using only the Z row of the world+view matrix.
+        // with a float dot product, using only the Z row of the world+view matrix.
 
-        Single scale = 1.0f / (fogStart - fogEnd);
+        float scale = 1.0f / (fogStart - fogEnd);
 
         Vector4 fogVector = { worldView.M13() * scale
                             , worldView.M23() * scale
@@ -157,7 +157,7 @@ EffectDirtyFlags EffectHelpers::SetLightingMatrices(const EffectDirtyFlags& dirt
 }
 
 void EffectHelpers::SetMaterialColor(const bool&      lightingEnabled
-                                   , const Single&    alpha
+                                   , const float&     alpha
                                    , const Vector3&   diffuseColor
                                    , const Vector3&   emissiveColor
                                    , const Vector3&   ambientLightColor

@@ -96,7 +96,7 @@ PlaneIntersectionType BoundingBox::Intersects(const Plane& plane) const
     throw std::runtime_error("Not implemented");
 }
 
-Single BoundingBox::Intersects(const Ray& ray) const
+float BoundingBox::Intersects(const Ray& ray) const
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto tmin = (this->min - ray.Position()) / ray.Direction();

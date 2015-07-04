@@ -5,9 +5,9 @@
 #define EFFECTPARAMETER_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/EffectParameterCollection.hpp>
 
@@ -102,22 +102,22 @@ namespace SceneR
 
         public:
             /**
-             * Gets the value of the EffectParameter as a System::Boolean.
+             * Gets the value of the EffectParameter as a boolean.
              */
             bool GetValueBoolean() const;
 
             /**
-             * Gets the value of the EffectParameter as an array of System::Boolean.
+             * Gets the value of the EffectParameter as an array of booleans.
              */
             std::vector<bool> GetValueBooleanArray() const;
 
             /**
-             * Gets the value of the EffectParameter as an System::Int32.
+             * Gets the value of the EffectParameter as an int32_t.
              */
             int32_t GetValueInt32() const;
 
             /**
-             *  Gets the value of the EffectParameter as an array of System::Int32.
+             *  Gets the value of the EffectParameter as an array of int32_t.
              */
             std::vector<int32_t> GetValueInt32Array() const;
 
@@ -152,14 +152,14 @@ namespace SceneR
             std::vector<SceneR::Framework::Quaternion> GetValueQuaternionArray() const;
 
             /**
-             * Gets the value of the EffectParameter as a System::Single.
+             * Gets the value of the EffectParameter as a float.
              */
-            System::Single GetValueSingle() const;
+            float GetValueFloat() const;
 
             /**
-             * Gets the value of the EffectParameter as an array of System::Single.
+             * Gets the value of the EffectParameter as an array of float.
              */
-            std::vector<System::Single> GetValueSingleArray() const;
+            std::vector<float> GetValueFloatArray() const;
 
             /**
              * Gets the value of the EffectParameter as an String.
@@ -259,16 +259,16 @@ namespace SceneR
             void SetValue(const std::vector<SceneR::Framework::Quaternion>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as a System::Single.
+             * Sets the value of the EffectParameter as a float.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const System::Single& value) const;
+            void SetValue(const float& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an array of System::Single.
+             * Sets the value of the EffectParameter as an array of float.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<System::Single>& value) const;
+            void SetValue(const std::vector<float>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an String.

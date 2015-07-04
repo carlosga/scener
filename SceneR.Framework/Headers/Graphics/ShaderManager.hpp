@@ -3,8 +3,6 @@
 
 #include <map>
 
-#include <System/Core.hpp>
-
 namespace SceneR
 {
     namespace Graphics

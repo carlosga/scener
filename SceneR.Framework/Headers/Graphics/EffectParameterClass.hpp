@@ -4,7 +4,7 @@
 #ifndef EFFECTPARAMETERCLASS_HPP
 #define EFFECTPARAMETERCLASS_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

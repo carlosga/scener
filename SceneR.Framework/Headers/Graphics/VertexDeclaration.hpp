@@ -4,9 +4,9 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexElement.hpp>

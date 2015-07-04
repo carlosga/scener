@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 #include <Content/ContentManager.hpp>
 #include <Framework/IComponent.hpp>

@@ -6,7 +6,6 @@
 
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Vector3.hpp>
@@ -52,7 +51,7 @@ namespace SceneR
              * Initializes a new instance of the BoundingSphere class with
              * the given center an radius.
              */
-            BoundingSphere(const Vector3& center, const System::Single& radius);
+            BoundingSphere(const Vector3& center, const float& radius);
 
             /**
              * Initializes a new instance of the BoundingSphere class.
@@ -73,7 +72,7 @@ namespace SceneR
             /**
              * * Gets the radius of the sphere.
              */
-            const System::Single& Radius() const;
+            float Radius() const;
 
         public:
             /**
@@ -143,8 +142,8 @@ namespace SceneR
             bool operator!=(const BoundingSphere& sphere) const;
 
         public:
-            Vector3 	   center;
-            System::Single radius;
+            Vector3 center;
+            float   radius;
         };
     }
 }

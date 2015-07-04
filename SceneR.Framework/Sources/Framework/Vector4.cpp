@@ -29,8 +29,8 @@ Vector4 Vector4::Abs(const Vector4 &value)
 Vector4 Vector4::Barycentric(const Vector4& value1
                            , const Vector4& value2
                            , const Vector4& value3
-                           , const Single&  amount1
-                           , const Single&  amount2)
+                           , const float&   amount1
+                           , const float&   amount2)
 {
     return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
@@ -42,7 +42,7 @@ Vector4 Vector4::CatmullRom(const Vector4& value1
                           , const Vector4& value2
                           , const Vector4& value3
                           , const Vector4& value4
-                          , const Single&  amount)
+                          , const float&   amount)
 {
     return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
@@ -58,21 +58,21 @@ Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4&
            , Math::Clamp(value1.w, min.w, max.w) };
 }
 
-Single Vector4::Distance(const Vector4& value1, const Vector4& value2)
+float Vector4::Distance(const Vector4& value1, const Vector4& value2)
 {
     auto d = value2 - value1;
 
     return d.Length();
 }
 
-Single Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
+float Vector4::DistanceSquared(const Vector4& value1, const Vector4& value2)
 {
     auto d = value2 - value1;
 
     return d.LengthSquared();
 }
 
-Single Vector4::Dot(const Vector4& value1, const Vector4& value2)
+float Vector4::Dot(const Vector4& value1, const Vector4& value2)
 {
     auto dotProduct = value1 * value2;
 
@@ -83,7 +83,7 @@ Vector4 Vector4::Hermite(const Vector4& value1
                        , const Vector4& tangent1
                        , const Vector4& value2
                        , const Vector4& tangent2
-                       , const Single&  amount)
+                       , const float&   amount)
 {
     return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
@@ -93,7 +93,7 @@ Vector4 Vector4::Hermite(const Vector4& value1
 
 Vector4 Vector4::Lerp(const Vector4& value1
                     , const Vector4& value2
-                    , const Single&  amount)
+                    , const float&   amount)
 {
     return { Math::Lerp(value1.x, value2.x, amount)
            , Math::Lerp(value1.y, value2.y, amount)
@@ -164,7 +164,7 @@ Vector4 Vector4::Transform(const Vector4& value, const Quaternion& rotation)
 
 Vector4 Vector4::SmoothStep(const Vector4& value1
                           , const Vector4& value2
-                          , const Single&  amount)
+                          , const float&   amount)
 {
     return { Math::SmoothStep(value1.x, value2.x, amount)
            , Math::SmoothStep(value1.y, value2.y, amount)
@@ -177,27 +177,27 @@ Vector4::Vector4()
 {
 }
 
-Vector4::Vector4(const System::Single& value)
+Vector4::Vector4(const float& value)
     : Vector4 { value, value, value, value }
 {
 }
 
-Vector4::Vector4(const Vector3& value, const System::Single& w)
+Vector4::Vector4(const Vector3& value, const float& w)
     : Vector4 { value.X(), value.Y(), value.Z(), w }
 {
 }
 
-Vector4::Vector4(const Single& x, const Single& y, const Single& z)
+Vector4::Vector4(const float& x, const float& y, const float& z)
     : Vector4 { x, y, z, 0.0f }
 {
 }
 
-Vector4::Vector4(const Vector2& value, const System::Single& z, const Single& w)
+Vector4::Vector4(const Vector2& value, const float& z, const float& w)
     : Vector4 { value.X(), value.Y(), z, w }
 {
 }
 
-Vector4::Vector4(const Single& x, const Single& y, const Single& z, const Single& w)
+Vector4::Vector4(const float& x, const float& y, const float& z, const float& w)
     : x { x }
     , y { y }
     , z { z }
@@ -217,47 +217,47 @@ Vector4::~Vector4()
 {
 }
 
-const Single& Vector4::X() const
+float Vector4::X() const
 {
     return this->x;
 }
 
-const Single& Vector4::Y() const
+float Vector4::Y() const
 {
     return this->y;
 }
 
-const Single& Vector4::Z() const
+float Vector4::Z() const
 {
     return this->z;
 }
 
-const Single& Vector4::W() const
+float Vector4::W() const
 {
     return this->w;
 }
 
-void Vector4::X(const Single& x)
+void Vector4::X(const float& x)
 {
     this->x = x;
 }
 
-void Vector4::Y(const Single& y)
+void Vector4::Y(const float& y)
 {
     this->y = y;
 }
 
-void Vector4::Z(const Single& z)
+void Vector4::Z(const float& z)
 {
     this->z = z;
 }
 
-void Vector4::W(const Single& w)
+void Vector4::W(const float& w)
 {
     this->w = w;
 }
 
-Single Vector4::LengthSquared() const
+float Vector4::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y)
@@ -265,19 +265,19 @@ Single Vector4::LengthSquared() const
          + (this->w * this->w);
 }
 
-Single Vector4::Length() const
+float Vector4::Length() const
 {
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Vector4::operator[](const size_t& index)
+float& Vector4::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->vector[index]);
 }
 
-const Single& Vector4::operator[](const size_t& index) const
+const float& Vector4::operator[](const size_t& index) const
 {
     assert(index < 4);
 
@@ -320,7 +320,7 @@ Vector4& Vector4::operator*=(const Vector4& vector)
     return *this;
 }
 
-Vector4& Vector4::operator*=(const Single& value)
+Vector4& Vector4::operator*=(const float& value)
 {
     this->x *= value;
     this->y *= value;
@@ -340,7 +340,7 @@ Vector4& Vector4::operator/=(const Vector4& vector)
     return *this;
 }
 
-Vector4& Vector4::operator/=(const Single& value)
+Vector4& Vector4::operator/=(const float& value)
 {
     this->x /= value;
     this->y /= value;
@@ -379,7 +379,7 @@ const Vector4 Vector4::operator*(const Vector4& vector) const
     return result;
 }
 
-const Vector4 Vector4::operator*(const Single& value) const
+const Vector4 Vector4::operator*(const float& value) const
 {
     auto result = *this;
 
@@ -390,25 +390,25 @@ const Vector4 Vector4::operator*(const Single& value) const
 
 const Vector4 Vector4::operator*(const Matrix& matrix) const
 {
-    Single x = (this->x * matrix.M11())
-             + (this->y * matrix.M21())
-             + (this->z * matrix.M31())
-             + (this->w * matrix.M41());
+    float x = (this->x * matrix.M11())
+            + (this->y * matrix.M21())
+            + (this->z * matrix.M31())
+            + (this->w * matrix.M41());
 
-    Single y = (this->x * matrix.M12())
-             + (this->y * matrix.M22())
-             + (this->z * matrix.M32())
-             + (this->w * matrix.M42());
+    float y = (this->x * matrix.M12())
+            + (this->y * matrix.M22())
+            + (this->z * matrix.M32())
+            + (this->w * matrix.M42());
 
-    Single z = (this->x * matrix.M13())
-             + (this->y * matrix.M23())
-             + (this->z * matrix.M33())
-             + (this->w * matrix.M43());
+    float z = (this->x * matrix.M13())
+            + (this->y * matrix.M23())
+            + (this->z * matrix.M33())
+            + (this->w * matrix.M43());
 
-    Single w = (this->x * matrix.M14())
-             + (this->y * matrix.M24())
-             + (this->z * matrix.M34())
-             + (this->w * matrix.M44());
+    float w = (this->x * matrix.M14())
+            + (this->y * matrix.M24())
+            + (this->z * matrix.M34())
+            + (this->w * matrix.M44());
 
     return { x, y, z, w };
 }
@@ -422,7 +422,7 @@ const Vector4 Vector4::operator/(const Vector4& vector) const
     return result;
 }
 
-const Vector4 Vector4::operator/(const Single& value) const
+const Vector4 Vector4::operator/(const float& value) const
 {
     auto result = *this;
 

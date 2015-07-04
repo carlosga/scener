@@ -4,7 +4,8 @@
 #ifndef TEXTUREOBJECT_HPP
 #define TEXTUREOBJECT_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <System/IDisposable.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureTarget.hpp>
@@ -69,12 +70,12 @@ namespace SceneR
              * @param size mipmap data size
              * @param data mipmap data
              */
-            void TextureSubImage2D(const SurfaceFormat& format,
-                                   const uint32_t&      level,
-                                   const uint32_t&      width,
-                                   const uint32_t&      height,
-                                   const size_t&        size,
-                                   const void*          data) const;
+            void TextureSubImage2D(const SurfaceFormat& format
+                                 , const uint32_t&      level
+                                 , const uint32_t&      width
+                                 , const uint32_t&      height
+                                 , const size_t&        size
+                                 , const void*          data) const;
 
         private:
             uint32_t      texId;

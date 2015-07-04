@@ -4,7 +4,7 @@
 #ifndef FILLMODE_HPP
 #define FILLMODE_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

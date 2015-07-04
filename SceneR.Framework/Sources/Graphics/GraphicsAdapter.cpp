@@ -3,7 +3,6 @@
 
 #include <Graphics/GraphicsAdapter.hpp>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 const GraphicsAdapter& GraphicsAdapter::DefaultAdapter()

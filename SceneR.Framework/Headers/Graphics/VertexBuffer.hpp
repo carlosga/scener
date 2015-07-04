@@ -5,9 +5,9 @@
 #define VERTEXBUFFER_HPP
 
 #include <memory>
+#include <stdint.h>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>

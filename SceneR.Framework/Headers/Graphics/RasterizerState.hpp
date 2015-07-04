@@ -4,7 +4,6 @@
 #ifndef RASTERIZERSTATE_HPP
 #define RASTERIZERSTATE_HPP
 
-#include <System/Core.hpp>
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
 #include <Graphics/GraphicsResource.hpp>
@@ -66,14 +65,14 @@ namespace SceneR
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            const System::Single& DepthBias() const;
+            float DepthBias() const;
 
             /**
              * Sets the depth bias for polygons, which is the amount of bias to apply to the depth
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            void DepthBias(const System::Single& depthBias);
+            void DepthBias(const float& depthBias);
 
             /**
              * Gets the fill mode, which defines how a triangle is filled during rendering.
@@ -113,7 +112,7 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            const System::Single& SlopeScaleDepthBias() const;
+            float SlopeScaleDepthBias() const;
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -121,7 +120,7 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            void SlopeScaleDepthBias(const System::Single& slopeScaleDepthBias);
+            void SlopeScaleDepthBias(const float& slopeScaleDepthBias);
 
         public:
             RasterizerState& operator=(const RasterizerState& rasterizerState);
@@ -131,11 +130,11 @@ namespace SceneR
 
         private:
             SceneR::Graphics::CullMode cullMode;
-            System::Single             depthBias;
+            float                      depthBias;
             SceneR::Graphics::FillMode fillMode;
             bool                       multiSampleAntiAlias;
             bool                       scissorTestEnable;
-            System::Single             slopeScaleDepthBias;
+            float                      slopeScaleDepthBias;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

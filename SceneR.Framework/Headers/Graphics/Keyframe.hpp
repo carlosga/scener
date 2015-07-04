@@ -10,7 +10,8 @@
 #ifndef KEYFRAME_HPP
 #define KEYFRAME_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <System/TimeSpan.hpp>
 #include <Framework/Matrix.hpp>
 

@@ -4,7 +4,6 @@
 #ifndef PLANE_HPP
 #define PLANE_HPP
 
-#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/Vector3.hpp>
 
@@ -40,7 +39,7 @@ namespace SceneR
              * @param plane The plane.
              * @param value The four-dimensional vector.
              */
-            static System::Single Dot(const Plane& plane, const Vector4& value);
+            static float Dot(const Plane& plane, const Vector4& value);
 
             /**
              * Returns the dot product of a specified three-dimensional vector and the Normal vector of this plane.
@@ -48,7 +47,7 @@ namespace SceneR
              * @param v The three-dimensional vector.
              * @returns The dot product.
              */
-            static System::Single DotNormal(const Plane& p, const Vector3& v);
+            static float DotNormal(const Plane& p, const Vector3& v);
 
             /**
              * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
@@ -56,7 +55,7 @@ namespace SceneR
              * @param value The three-dimensional vector.
              * @returns The dot product
              */
-            static System::Single DotCoordinate(const Plane& p, const Vector3& value);
+            static float DotCoordinate(const Plane& p, const Vector3& value);
 
             /**
              * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
@@ -89,12 +88,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Plane structure.
              */
-            Plane(const System::Single& a, const System::Single& b, const System::Single& c, const System::Single& d);
+            Plane(const float& a, const float& b, const float& c, const float& d);
 
             /**
              * Initializes a new instance of the Plane structure.
              */
-            Plane(const Vector3& normal, const System::Single& d);
+            Plane(const Vector3& normal, const float& d);
 
             /**
              * Initializes a new instance of the Plane structure.
@@ -120,7 +119,7 @@ namespace SceneR
             /**
              * 	Gets the distance of the Plane along its normal from the origin.
              */
-            const System::Single& D() const;
+            float D() const;
 
         public:
             /**
@@ -131,7 +130,7 @@ namespace SceneR
             /**
              * 	Gets the distance of the Plane along its normal from the origin.
              */
-            void D(const System::Single& d);
+            void D(const float& d);
 
         public:
             /**
@@ -161,8 +160,8 @@ namespace SceneR
             bool operator!=(const Plane& plane) const;
 
         private:
-            Vector3 	   normal;
-            System::Single d;
+            Vector3 normal;
+            float   d;
         };
     }
 }

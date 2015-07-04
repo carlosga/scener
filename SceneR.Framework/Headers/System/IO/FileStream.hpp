@@ -5,6 +5,8 @@
 #define FILESTREAM_HPP
 
 #include <fstream>
+#include <stddef.h>
+#include <stdint.h>
 
 #include <System/IO/Stream.hpp>
 

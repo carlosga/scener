@@ -6,7 +6,6 @@
 
 #include <vector>
 
-#include <System/Core.hpp>
 #include <Framework/PlaneIntersectionType.hpp>
 #include <Framework/ContainmentType.hpp>
 #include <Framework/Matrix.hpp>
@@ -166,7 +165,7 @@ namespace SceneR
              * @param ray the Ray to test for intersection with.
              * @returns distance at which the ray intersects the BoundingFrustrum, or 0 if there is no intersection.
              */
-            System::Single Intersects(const Ray& ray) const;
+            float Intersects(const Ray& ray) const;
 
         public:
             BoundingFrustrum& operator=(const BoundingFrustrum& frustrum);

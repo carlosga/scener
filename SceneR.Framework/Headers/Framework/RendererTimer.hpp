@@ -4,8 +4,6 @@
 #ifndef RENDERERTIMER_HPP
 #define RENDERERTIMER_HPP
 
-#include <chrono>
-
 #include <System/TimeSpan.hpp>
 
 namespace SceneR

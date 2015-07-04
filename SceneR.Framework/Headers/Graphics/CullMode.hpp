@@ -4,8 +4,9 @@
 #ifndef CULLMODE_HPP
 #define CULLMODE_HPP
 
+#include <stdint.h>
+
 #include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
 
 namespace SceneR
 {

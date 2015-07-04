@@ -30,9 +30,9 @@ Vector3 Vector3::Abs(const Vector3& value)
     return { Math::Abs(value.X()), Math::Abs(value.Y()), Math::Abs(value.Z()) };
 }
 
-Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
+float Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 {
-    Single lengthSquared = left.LengthSquared() * right.LengthSquared();
+    float lengthSquared = left.LengthSquared() * right.LengthSquared();
 
     return Math::Acos(Vector3::Dot(left, right) / Math::Sqrt(lengthSquared));
 }
@@ -40,8 +40,8 @@ Single Vector3::AngleBetween(const Vector3& left, const Vector3& right)
 Vector3 Vector3::Barycentric(const Vector3& value1
                            , const Vector3& value2
                            , const Vector3& value3
-                           , const Single&  amount1
-                           , const Single&  amount2)
+                           , const float&   amount1
+                           , const float&   amount2)
 {
     return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
@@ -52,7 +52,7 @@ Vector3 Vector3::CatmullRom(const Vector3& value1
                           , const Vector3& value2
                           , const Vector3& value3
                           , const Vector3& value4
-                          , const System::Single& amount)
+                          , const float&   amount)
 {
     return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
@@ -74,21 +74,21 @@ Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
            , (left.x * right.y) - (left.y * right.x) };
 }
 
-Single Vector3::Distance(const Vector3& value1, const Vector3& value2)
+float Vector3::Distance(const Vector3& value1, const Vector3& value2)
 {
     auto d = value2 - value1;
 
     return d.Length();
 }
 
-Single Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
+float Vector3::DistanceSquared(const Vector3& value1, const Vector3& value2)
 {
     auto d = value2 - value1;
 
     return d.LengthSquared();
 }
 
-Single Vector3::Dot(const Vector3& left, const Vector3& right)
+float Vector3::Dot(const Vector3& left, const Vector3& right)
 {
     // The definition of the scalar (dot) product is:
     // a · b = |a||b|cosθ
@@ -105,14 +105,14 @@ Vector3 Vector3::Hermite(const Vector3& value1
                        , const Vector3& tangent1
                        , const Vector3& value2
                        , const Vector3& tangent2
-                       , const Single&  amount)
+                       , const float&  amount)
 {
     return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
            , Math::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
 }
 
-Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const Single& amount)
+Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const float& amount)
 {
     return { Math::Lerp(value1.x, value2.x, amount)
            , Math::Lerp(value1.y, value2.y, amount)
@@ -157,7 +157,7 @@ Vector3 Vector3::Reflect(const Vector3& vector, const Vector3& normal)
     return vector - 2 * Vector3::Dot(vector, normal) * normal;
 }
 
-Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const Single& amount)
+Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const float& amount)
 {
     return { Math::SmoothStep(value1.x, value2.x, amount)
            , Math::SmoothStep(value1.y, value2.y, amount)
@@ -181,17 +181,17 @@ Vector3 Vector3::Transform(const Vector3& value, const Quaternion& rotation)
 
 Vector3 Vector3::TransformNormal(const Vector3& normal, const Matrix& matrix)
 {
-    Single x = (normal.x * matrix.M11())
-             + (normal.y * matrix.M21())
-             + (normal.z * matrix.M31());
+    float x = (normal.x * matrix.M11())
+            + (normal.y * matrix.M21())
+            + (normal.z * matrix.M31());
 
-    Single y = (normal.x * matrix.M12())
-             + (normal.y * matrix.M22())
-             + (normal.z * matrix.M32());
+    float y = (normal.x * matrix.M12())
+            + (normal.y * matrix.M22())
+            + (normal.z * matrix.M32());
 
-    Single z = (normal.x * matrix.M13())
-             + (normal.y * matrix.M23())
-             + (normal.z * matrix.M33());
+    float z = (normal.x * matrix.M13())
+            + (normal.y * matrix.M23())
+            + (normal.z * matrix.M33());
 
     return { x, y, z };
 }
@@ -201,17 +201,17 @@ Vector3::Vector3()
 {
 }
 
-Vector3::Vector3(const Single& value)
+Vector3::Vector3(const float& value)
     : Vector3 { value, value, value }
 {
 }
 
-Vector3::Vector3(const Vector2& value, const Single& z)
+Vector3::Vector3(const Vector2& value, const float& z)
     : Vector3 { value.X(), value.Y(), z }
 {
 }
 
-Vector3::Vector3(const Single& x, const Single& y, const Single& z)
+Vector3::Vector3(const float& x, const float& y, const float& z)
     : x { x }
     , y { y }
     , z { z }
@@ -229,44 +229,44 @@ Vector3::~Vector3()
 {
 }
 
-const Single& Vector3::X() const
+float Vector3::X() const
 {
     return this->x;
 }
 
-const Single& Vector3::Y() const
+float Vector3::Y() const
 {
     return this->y;
 }
 
-const Single& Vector3::Z() const
+float Vector3::Z() const
 {
     return this->z;
 }
 
-void Vector3::X(const Single& x)
+void Vector3::X(const float& x)
 {
     this->x = x;
 }
 
-void Vector3::Y(const Single& y)
+void Vector3::Y(const float& y)
 {
     this->y = y;
 }
 
-void Vector3::Z(const Single& z)
+void Vector3::Z(const float& z)
 {
     this->z = z;
 }
 
-Single Vector3::LengthSquared() const
+float Vector3::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y)
          + (this->z * this->z);
 }
 
-Single Vector3::Length() const
+float Vector3::Length() const
 {
     // The modulus or magnitude of a vector is simply its length.
     // This can easily be found using Pythagorean Theorem with the vector components.
@@ -284,14 +284,14 @@ Single Vector3::Length() const
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Vector3::operator[](const size_t& index)
+float& Vector3::operator[](const size_t& index)
 {
     assert(index < 3);
 
     return (this->vector[index]);
 }
 
-const Single& Vector3::operator[](const size_t& index) const
+const float& Vector3::operator[](const size_t& index) const
 {
     assert(index < 3);
 
@@ -331,7 +331,7 @@ Vector3& Vector3::operator*=(const Vector3& vector)
     return *this;
 }
 
-Vector3& Vector3::operator*=(const Single& value)
+Vector3& Vector3::operator*=(const float& value)
 {
     this->x *= value;
     this->y *= value;
@@ -349,7 +349,7 @@ Vector3& Vector3::operator/=(const Vector3& vector)
     return *this;
 }
 
-Vector3& Vector3::operator/=(const Single& value)
+Vector3& Vector3::operator/=(const float& value)
 {
     this->x /= value;
     this->y /= value;
@@ -385,7 +385,7 @@ const Vector3 Vector3::operator*(const Vector3& vector) const
     return result;
 }
 
-const Vector3 Vector3::operator*(const Single& value) const
+const Vector3 Vector3::operator*(const float& value) const
 {
     auto result = *this;
 
@@ -397,25 +397,25 @@ const Vector3 Vector3::operator*(const Single& value) const
 const Vector3 Vector3::operator*(const Matrix& matrix) const
 {
     // http://softimage.wiki.softimage.com/xsidocs/iceref_Multiply_Vector_by_Matrix.htm
-    Single x = (this->x * matrix.M11())
-             + (this->y * matrix.M21())
-             + (this->z * matrix.M31())
-             +            matrix.M41();
+    float x = (this->x * matrix.M11())
+            + (this->y * matrix.M21())
+            + (this->z * matrix.M31())
+            +            matrix.M41();
 
-    Single y = (this->x * matrix.M12())
-             + (this->y * matrix.M22())
-             + (this->z * matrix.M32())
-             +            matrix.M42();
+    float y = (this->x * matrix.M12())
+            + (this->y * matrix.M22())
+            + (this->z * matrix.M32())
+            +            matrix.M42();
 
-    Single z = (this->x * matrix.M13())
-             + (this->y * matrix.M23())
-             + (this->z * matrix.M33())
-             +            matrix.M43();
+    float z = (this->x * matrix.M13())
+            + (this->y * matrix.M23())
+            + (this->z * matrix.M33())
+            +            matrix.M43();
 
-    Single w = (this->x * matrix.M14())
-             + (this->y * matrix.M24())
-             + (this->z * matrix.M34())
-             +            matrix.M44();
+    float w = (this->x * matrix.M14())
+            + (this->y * matrix.M24())
+            + (this->z * matrix.M34())
+            +            matrix.M44();
 
     return { x / w, y / w, z / w };
 }
@@ -429,7 +429,7 @@ const Vector3 Vector3::operator/(const Vector3& vector) const
     return result;
 }
 
-const Vector3 Vector3::operator/(const Single& value) const
+const Vector3 Vector3::operator/(const float& value) const
 {
     auto result = *this;
 

@@ -6,7 +6,6 @@
 
 #include <string>
 
-#include <System/Core.hpp>
 #include <System/IDisposable.hpp>
 
 namespace SceneR

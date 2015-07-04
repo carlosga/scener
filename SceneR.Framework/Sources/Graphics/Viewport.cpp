@@ -7,7 +7,6 @@
 
 #include <System/Graphics/Platform.hpp>
 
-using namespace System;
 using namespace SceneR::Graphics;
 
 Viewport::Viewport()
@@ -15,15 +14,15 @@ Viewport::Viewport()
 {
 }
 
-Viewport::Viewport(const Single& x    , const Single& y
-                 , const Single& width, const Single& height)
+Viewport::Viewport(const float& x    , const float& y
+                 , const float& width, const float& height)
     : Viewport { x, y, width, height, 0.0f, 1.0f }
 {
 }
 
-Viewport::Viewport(const Single& x       , const Single& y
-                 , const Single& width   , const Single& height
-                 , const Single& minDepth, const Single& maxDepth)
+Viewport::Viewport(const float& x       , const float& y
+                 , const float& width   , const float& height
+                 , const float& minDepth, const float& maxDepth)
     : x        { x }
     , y        { y }
     , width    { width }
@@ -47,49 +46,49 @@ Viewport::~Viewport()
 {
 }
 
-const Single& Viewport::X() const
+float Viewport::X() const
 {
     return this->x;
 }
 
-const Single& Viewport::Y() const
+float Viewport::Y() const
 {
     return this->y;
 }
 
-const Single& Viewport::Width() const
+float Viewport::Width() const
 {
     return this->width;
 }
 
-const Single& Viewport::Height() const
+float Viewport::Height() const
 {
     return this->height;
 }
 
-Single Viewport::AspectRatio() const
+float Viewport::AspectRatio() const
 {
     assert(this->width > 0 && this->height > 0);
 
     return (this->width / this->height);
 }
 
-const Single& Viewport::MinDepth() const
+float Viewport::MinDepth() const
 {
     return this->minDepth;
 }
 
-void Viewport::MinDepth(const Single& minDepth)
+void Viewport::MinDepth(const float& minDepth)
 {
     this->minDepth = minDepth;
 }
 
-const Single& Viewport::MaxDepth() const
+float Viewport::MaxDepth() const
 {
     return this->maxDepth;
 }
 
-void Viewport::MaxDepth(const Single& maxDepth)
+void Viewport::MaxDepth(const float& maxDepth)
 {
     this->maxDepth = maxDepth;
 }
@@ -100,12 +99,12 @@ void Viewport::Update() const
     glDepthRangeIndexed(0, this->minDepth, this->maxDepth);
 }
 
-void Viewport::Update(const Single& width, const Single& height)
+void Viewport::Update(const float& width, const float& height)
 {
     this->Update(this->x, this->y, width, height);
 }
 
-void Viewport::Update(const Single& x, const Single& y, const Single& width, const Single& height)
+void Viewport::Update(const float& x, const float& y, const float& width, const float& height)
 {
     this->x      = x;
     this->x      = y;

@@ -4,8 +4,7 @@
 #ifndef TEXTUREFILTER_HPP
 #define TEXTUREFILTER_HPP
 
-#include <System/Graphics/Platform.hpp>
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

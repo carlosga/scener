@@ -21,13 +21,13 @@ Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
     return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
 }
 
-Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const Single& angle)
+Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const float& angle)
 {
     // The quaternion in terms of axis-angle is:
     // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
 
-    Single theta = angle / 2;
-    Single rSin  = Math::Sin(theta);
+    float theta = angle / 2;
+    float rSin  = Math::Sin(theta);
 
     return { axisOfRotation.X() * rSin
            , axisOfRotation.Y() * rSin
@@ -35,7 +35,7 @@ Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const 
            , Math::Cos(theta) };
 }
 
-Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& pitch, const Single& roll)
+Quaternion Quaternion::CreateFromYawPitchRoll(const float& yaw, const float& pitch, const float& roll)
 {
     // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
     // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
@@ -53,7 +53,7 @@ Quaternion Quaternion::CreateFromYawPitchRoll(const Single& yaw, const Single& p
     return (qy * qx) * qz; // yaw * pitch * roll
 }
 
-System::Single Quaternion::Dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
+float Quaternion::Dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
 {
     return (quaternion1.x * quaternion2.x)
          + (quaternion1.y * quaternion2.y)
@@ -66,11 +66,11 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
     auto   result = Quaternion { };
-    Single tr     = matrix.M11() + matrix.M22() + matrix.M33();
+    float tr     = matrix.M11() + matrix.M22() + matrix.M33();
 
     if (tr > 0.0f)
     {
-        Single s = Math::Sqrt(tr + 1.0f);
+        float s = Math::Sqrt(tr + 1.0f);
         result.w = s * 0.5f;
         s = 0.5f / s;
         result.x = (matrix.M23() - matrix.M32()) * s;
@@ -81,8 +81,8 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
     {
         if ((matrix.M11() >= matrix.M22()) && (matrix.M11() >= matrix.M33()))
         {
-            Single s  = Math::Sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
-            Single s2 = 0.5f / s;
+            float s  = Math::Sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
+            float s2 = 0.5f / s;
             result.w  = (matrix.M23() - matrix.M32()) * s2;
             result.x  = 0.5f * s;
             result.y  = (matrix.M12() + matrix.M21()) * s2;
@@ -90,8 +90,8 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
         }
         else if (matrix.M22() > matrix.M33())
         {
-            Single s  = Math::Sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
-            Single s2 = 0.5f / s;
+            float s  = Math::Sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
+            float s2 = 0.5f / s;
             result.w  = (matrix.M31() - matrix.M13()) * s2;
             result.x  = (matrix.M21() + matrix.M12()) * s2;
             result.y  = 0.5f * s;
@@ -99,8 +99,8 @@ Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
         }
         else
         {
-            Single s  = Math::Sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
-            Single s2 = 0.5f / s;
+            float s  = Math::Sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
+            float s2 = 0.5f / s;
             result.w  = (matrix.M12() - matrix.M21()) * s2;
             result.x  = (matrix.M31() + matrix.M13()) * s2;
             result.y  = (matrix.M32() + matrix.M23()) * s2;
@@ -122,10 +122,10 @@ Quaternion Quaternion::Inverse(const Quaternion& value)
     return Quaternion::Conjugate(value) / value.LengthSquared();
 }
 
-Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
+Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
 {
-    Single amount1 = 1.0f - amount;
-    Single amount2 = amount;
+    float amount1 = 1.0f - amount;
+    float amount2 = amount;
 
     if (Quaternion::Dot(quaternion1, quaternion2) < 0.0f)
     {
@@ -145,22 +145,22 @@ Quaternion Quaternion::Normalize(const Quaternion& value)
     return value / value.Length();
 }
 
-Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const Single& amount)
+Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
 {
-    Single w1;
-    Single w2;
-    Single cosTheta = Quaternion::Dot(quaternion1, quaternion2);
-    bool   bFlip    = false;
+    float w1;
+    float w2;
+    float cosTheta = Quaternion::Dot(quaternion1, quaternion2);
+    bool  flip     = false;
 
     if (cosTheta < 0.0f)
     {
         // We need to flip a quaternion for shortest path interpolation
         cosTheta = -cosTheta;
-        bFlip    = true;
+        flip     = true;
     }
 
-    Single theta    = Math::Acos(cosTheta);
-    Single sinTheta = Math::Sin(theta);
+    float theta    = Math::Acos(cosTheta);
+    float sinTheta = Math::Sin(theta);
 
     if (sinTheta > 0.005f)
     {
@@ -174,7 +174,7 @@ Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& qu
         w2 = amount;
     }
 
-    if (bFlip)
+    if (flip)
     {
         w2 = -w2;
     }
@@ -187,12 +187,12 @@ Quaternion::Quaternion()
 {
 }
 
-Quaternion::Quaternion(const Vector3& value, const Single& w)
+Quaternion::Quaternion(const Vector3& value, const float& w)
     : Quaternion { value.X(), value.Y(), value.Z(), w }
 {
 }
 
-Quaternion::Quaternion(const Single& x, const Single& y, const Single& z, const Single& w)
+Quaternion::Quaternion(const float& x, const float& y, const float& z, const float& w)
     : x { x }
     , y { y }
     , z { z }
@@ -212,42 +212,42 @@ Quaternion::~Quaternion()
 {
 }
 
-const Single& Quaternion::X() const
+float Quaternion::X() const
 {
     return this->x;
 }
 
-const Single& Quaternion::Y() const
+float Quaternion::Y() const
 {
     return this->y;
 }
 
-const Single& Quaternion::Z() const
+float Quaternion::Z() const
 {
     return this->z;
 }
 
-const Single& Quaternion::W() const
+float Quaternion::W() const
 {
     return this->w;
 }
 
-void Quaternion::X(const Single& x)
+void Quaternion::X(const float& x)
 {
     this->x = x;
 }
 
-void Quaternion::Y(const Single& y)
+void Quaternion::Y(const float& y)
 {
     this->y = y;
 }
 
-void Quaternion::Z(const Single& z)
+void Quaternion::Z(const float& z)
 {
     this->z = z;
 }
 
-void Quaternion::W(const Single& w)
+void Quaternion::W(const float& w)
 {
     this->w = w;
 }
@@ -257,7 +257,7 @@ bool Quaternion::IsIdentity() const
     return (*this == Quaternion::Identity);
 }
 
-Single Quaternion::LengthSquared() const
+float Quaternion::LengthSquared() const
 {
     return (this->x * this->x)
          + (this->y * this->y)
@@ -265,19 +265,19 @@ Single Quaternion::LengthSquared() const
          + (this->w * this->w);
 }
 
-Single Quaternion::Length() const
+float Quaternion::Length() const
 {
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Quaternion::operator[](const size_t& index)
+float& Quaternion::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->quaternion[index]);
 }
 
-const Single& Quaternion::operator[](const size_t& index) const
+const float& Quaternion::operator[](const size_t& index) const
 {
     assert(index < 4);
 
@@ -328,7 +328,7 @@ Quaternion& Quaternion::operator*=(const Quaternion& q1)
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const Single& value)
+Quaternion& Quaternion::operator*=(const float& value)
 {
     this->x *= value;
     this->y *= value;
@@ -348,7 +348,7 @@ Quaternion& Quaternion::operator/=(const Quaternion& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Single& value)
+Quaternion& Quaternion::operator/=(const float& value)
 {
     this->x /= value;
     this->y /= value;
@@ -387,7 +387,7 @@ const Quaternion Quaternion::operator*(const Quaternion& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator*(const Single& value) const
+const Quaternion Quaternion::operator*(const float& value) const
 {
     auto result = *this;
 
@@ -410,7 +410,7 @@ const Quaternion Quaternion::operator/(const Quaternion& r) const
     return Quaternion::Conjugate({ w, z, y, x });
 }
 
-const Quaternion Quaternion::operator/(const Single& value) const
+const Quaternion Quaternion::operator/(const float& value) const
 {
     auto result = *this;
 

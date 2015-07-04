@@ -157,11 +157,11 @@ TEST_F(FileStreamTest, ReadSingle)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    Single value;
+    float value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Single));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(float));
 
-    EXPECT_TRUE(sizeof(Single) == stream.Position());
+    EXPECT_TRUE(sizeof(float) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();
@@ -171,16 +171,12 @@ TEST_F(FileStreamTest, ReadDouble)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    Double value;
+    double value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Double));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(double));
 
-    EXPECT_TRUE(sizeof(Double) == stream.Position());
+    EXPECT_TRUE(sizeof(double) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();
-}
-
-TEST_F(FileStreamTest, ReadString)
-{
 }

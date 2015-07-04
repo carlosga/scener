@@ -4,6 +4,9 @@
 #ifndef UTF8ENCODING_HPP
 #define UTF8ENCODING_HPP
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include <System/Text/UTF8Decoder.hpp>
 #include <System/Text/UTF8Encoder.hpp>
 #include <System/Text/Encoding.hpp>

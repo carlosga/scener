@@ -13,7 +13,6 @@
 #include <memory>
 #include <vector>
 
-#include <System/Core.hpp>
 #include <System/TimeSpan.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/AnimationClip.hpp>

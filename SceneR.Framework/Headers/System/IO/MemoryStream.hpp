@@ -4,6 +4,8 @@
 #ifndef MEMORYSTREAM_HPP
 #define MEMORYSTREAM_HPP
 
+#include <stddef.h>
+#include <stdint.h>
 #include <sstream>
 #include <vector>
 
