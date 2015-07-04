@@ -24,19 +24,19 @@ EffectParameterCollection::~EffectParameterCollection()
 {
 }
 
-System::Size EffectParameterCollection::Count() const
+size_t EffectParameterCollection::Count() const
 {
     return this->parameters.size();
 }
 
-EffectParameter& EffectParameterCollection::operator[](const Size& parameterIndex)
+EffectParameter& EffectParameterCollection::operator[](const size_t& parameterIndex)
 {
     assert(parameterIndex < this->parameters.size());
 
     return this->parameters[parameterIndex];
 }
 
-const EffectParameter& EffectParameterCollection::operator[](const Size& parameterIndex) const
+const EffectParameter& EffectParameterCollection::operator[](const size_t& parameterIndex) const
 {
     assert(parameterIndex < this->parameters.size());
 

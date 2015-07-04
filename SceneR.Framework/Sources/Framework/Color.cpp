@@ -117,14 +117,14 @@ uint32_t Color::PackedValue() const
          +  (static_cast<uint32_t>(this->a) * 255);
 }
 
-Single& Color::operator[](const Size& index)
+Single& Color::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->color[index]);
 }
 
-const Single& Color::operator[](const Size& index) const
+const Single& Color::operator[](const size_t& index) const
 {
     assert(index >= 0 && index < 4);
 

@@ -58,10 +58,10 @@ TEST_F(FileStreamTest, ReadBytes)
 {
     FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
-    Size length = stream.Length();
+    size_t length = stream.Length();
     std::vector<uint8_t> buffer(length);
 
-    Size count = stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, length);
+    size_t count = stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, length);
 
     EXPECT_TRUE(length == stream.Position());
     EXPECT_TRUE(length == count);

@@ -4,6 +4,9 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -133,8 +136,8 @@ namespace SceneR
             uint32_t PackedValue() const;
 
         public:
-            System::Single& operator[](const System::Size& index);
-            const System::Single& operator[](const System::Size& index) const;
+            System::Single& operator[](const size_t& index);
+            const System::Single& operator[](const size_t& index) const;
             Color& operator=(const Color& color);
             bool operator==(const Color& color) const;
             bool operator!=(const Color& color) const;

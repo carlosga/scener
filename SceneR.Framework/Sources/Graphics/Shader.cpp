@@ -116,7 +116,7 @@ void Shader::VerifyCompilationState()
 
         if (infoLogLength)
         {
-            auto compileErrorMessage = std::string("", static_cast<Size>(infoLogLength));
+            auto compileErrorMessage = std::string("", static_cast<size_t>(infoLogLength));
 
             glGetShaderInfoLog(this->id, infoLogLength, NULL, &compileErrorMessage[0]);
 

@@ -33,29 +33,29 @@ namespace System
 
             bool IsSingleByte() const override;
 
-            System::Size GetByteCount(const std::vector<char16_t>& chars
-                                    , const System::Size&          index
-                                    , const System::Size&          count) const override;
+            size_t GetByteCount(const std::vector<char16_t>& chars
+                                    , const size_t&          index
+                                    , const size_t&          count) const override;
 
-            System::Size GetBytes(const std::vector<char16_t>& chars
-                                , const System::Size&          charIndex
-                                , const System::Size&          charCount
-                                , std::vector<uint8_t>&        bytes
-                                , const System::Size&          byteIndex) const override;
+            size_t GetBytes(const std::vector<char16_t>& chars
+                                , const size_t&          charIndex
+                                , const size_t&          charCount
+                                , std::vector<uint8_t>&  bytes
+                                , const size_t&          byteIndex) const override;
 
-            System::Size GetCharCount(const std::vector<uint8_t>& bytes
-                                    , const System::Size&         index
-                                    , const System::Size&         count) const override;
+            size_t GetCharCount(const std::vector<uint8_t>& bytes
+                                    , const size_t&         index
+                                    , const size_t&         count) const override;
 
-            System::Size GetChars(const std::vector<uint8_t>& bytes
-                                , const System::Size&         byteIndex
-                                , const System::Size&         byteCount
-                                , std::vector<char16_t>&      chars
-                                , const System::Size&         charIndex) const override;
+            size_t GetChars(const std::vector<uint8_t>& bytes
+                          , const size_t&               byteIndex
+                          , const size_t&               byteCount
+                          , std::vector<char16_t>&      chars
+                          , const size_t&               charIndex) const override;
 
-            System::Size GetMaxByteCount(const System::Size& charCount) override;
+            size_t GetMaxByteCount(const size_t& charCount) override;
 
-            System::Size GetMaxCharCount(const System::Size& byteCount) override;
+            size_t GetMaxCharCount(const size_t& byteCount) override;
 
             std::vector<uint8_t> GetPreamble() const override;
 

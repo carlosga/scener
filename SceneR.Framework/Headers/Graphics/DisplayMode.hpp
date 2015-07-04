@@ -49,12 +49,12 @@ namespace SceneR
             /**
              * Gets a value indicating the screen height, in pixels.
              */
-            const System::Size& Height() const;
+            size_t Height() const;
 
             /**
              * Gets a value indicating the screen width, in pixels.
              */
-            const System::Size& Width() const;
+            size_t Width() const;
 
         public:
             DisplayMode& operator=(const DisplayMode& displayMode);
@@ -62,8 +62,8 @@ namespace SceneR
         private:
             System::Single aspectRatio;
             SurfaceFormat  format;
-            System::Size   height;
-            System::Size   width;
+            size_t         height;
+            size_t         width;
         };
     }
 }

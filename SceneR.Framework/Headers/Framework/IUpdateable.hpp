@@ -4,6 +4,8 @@
 #ifndef IUPDATEABLE_HPP
 #define IUPDATEABLE_HPP
 
+#include <stdint.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR

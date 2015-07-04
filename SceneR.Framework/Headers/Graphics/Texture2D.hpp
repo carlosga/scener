@@ -90,7 +90,7 @@ namespace SceneR
              * @param size the size of the mipmap data.
              * @param data pointer with the mipmap data.
              */
-            void SetData(const uint32_t& level, const System::Size& size, const void* data);
+            void SetData(const uint32_t& level, const size_t& size, const void* data);
 
             /**
              * Activates the texture object

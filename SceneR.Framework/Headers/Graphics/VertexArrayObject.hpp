@@ -4,7 +4,8 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
+
 #include <System/IDisposable.hpp>
 
 namespace SceneR

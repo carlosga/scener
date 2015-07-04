@@ -4,6 +4,8 @@
 #ifndef IDRAWABLE_HPP
 #define IDRAWABLE_HPP
 
+#include <stdint.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR

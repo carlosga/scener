@@ -4,7 +4,7 @@
 #ifndef PRESENTINTERVAL_HPP
 #define PRESENTINTERVAL_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

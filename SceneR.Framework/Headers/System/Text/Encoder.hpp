@@ -35,19 +35,19 @@ namespace System
              * A parameter indicates whether to clear the internal state of the encoder
              * after the calculation.
              */
-            virtual System::Size GetByteCount(const char16_t*     chars
-                                            , const System::Size& count
-                                            , const bool&         flush) const;
+            virtual size_t GetByteCount(const char16_t* chars
+                                      , const size_t&   count
+                                      , const bool&     flush) const;
 
             /**
              * When overridden in a derived class, calculates the number of bytes produced
              * by encoding a set of characters from the specified character array. A parameter
              * indicates whether to clear the internal state of the encoder after the calculation.
              */
-            virtual System::Size GetByteCount(const std::vector<char16_t>& chars
-                                            , const System::Size&          index
-                                            , const System::Size&          count
-                                            , const bool&                  flush) const = 0;
+            virtual size_t GetByteCount(const std::vector<char16_t>& chars
+                                      , const size_t&                index
+                                      , const size_t&                count
+                                      , const bool&                  flush) const = 0;
 
             /**
              * When overridden in a derived class, encodes a set of characters starting
@@ -56,11 +56,11 @@ namespace System
              * A parameter indicates whether to clear the internal state of the encoder
              * after the conversion.
              */
-            virtual System::Size GetBytes(const char16_t*     chars
-                                        , const System::Size& charCount
-                                        , uint8_t*            bytes
-                                        , const System::Size& byteCount
-                                        , const bool&         flush) const;
+            virtual size_t GetBytes(const char16_t* chars
+                                  , const size_t&   charCount
+                                  , uint8_t*        bytes
+                                  , const size_t&   byteCount
+                                  , const bool&     flush) const;
 
             /**
              * When overridden in a derived class, encodes a set of characters from the
@@ -68,12 +68,12 @@ namespace System
              * the specified byte array. A parameter indicates whether to clear the internal
              * state of the encoder after the conversion.
              */
-            virtual System::Size GetBytes(const std::vector<char16_t>& chars
-                                        , const System::Size&          charIndex
-                                        , const System::Size&          charCount
-                                        , std::vector<uint8_t>&        bytes
-                                        , const System::Size&          byteIndex
-                                        , const bool&                  flush) const = 0;
+            virtual size_t GetBytes(const std::vector<char16_t>& chars
+                                  , const size_t&                charIndex
+                                  , const size_t&                charCount
+                                  , std::vector<uint8_t>&        bytes
+                                  , const size_t&                byteIndex
+                                  , const bool&                  flush) const = 0;
 
             /**
              * When overridden in a derived class, sets the encoder back to its initial

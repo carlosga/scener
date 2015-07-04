@@ -73,7 +73,7 @@ namespace SceneR
                                    const uint32_t&      level,
                                    const uint32_t&      width,
                                    const uint32_t&      height,
-                                   const System::Size&  size,
+                                   const size_t&        size,
                                    const void*          data) const;
 
         private:

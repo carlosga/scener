@@ -14,18 +14,18 @@ Encoder::~Encoder()
 {
 }
 
-Size Encoder::GetByteCount(const char16_t* chars, const Size& count, const bool& flush) const
+size_t Encoder::GetByteCount(const char16_t* chars, const size_t& count, const bool& flush) const
 {
     auto vchars = std::vector<char16_t>(chars, chars + count);
 
     return this->GetByteCount(vchars, 0, count, flush);
 }
 
-Size Encoder::GetBytes(const char16_t* chars
-                     , const Size&     charCount
-                     , uint8_t*        bytes
-                     , const Size&     byteCount
-                     , const bool&     flush) const
+size_t Encoder::GetBytes(const char16_t* chars
+                       , const size_t&   charCount
+                       , uint8_t*        bytes
+                       , const size_t&   byteCount
+                       , const bool&     flush) const
 {
     auto vchars = std::vector<char16_t>(chars, chars + charCount);
     auto vbytes = std::vector<uint8_t>();

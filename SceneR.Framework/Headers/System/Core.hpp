@@ -4,14 +4,11 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include <stdint.h>
-
 namespace System
 {
-    // using UInt64  = uint64_t;
     using Single  = float;
     using Double  = double;
-    using Size    = uint64_t;
+    // using Size    = uint64_t;
 }
 
 #endif  /* CORE_HPP */

@@ -4,6 +4,8 @@
 #ifndef VECTOR4_HPP
 #define VECTOR4_HPP
 
+#include <stddef.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -353,8 +355,8 @@ namespace SceneR
             System::Single Length() const;
 
         public:
-            System::Single& operator[](const System::Size& index);
-            const System::Single& operator[](const System::Size& index) const;
+            System::Single& operator[](const size_t& index);
+            const System::Single& operator[](const size_t& index) const;
             Vector4& operator=(const Vector4& vector);
             bool operator==(const Vector4& vector) const;
             bool operator!=(const Vector4& vector) const;

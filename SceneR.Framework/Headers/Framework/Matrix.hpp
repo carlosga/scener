@@ -4,6 +4,9 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -587,8 +590,8 @@ namespace SceneR
             bool IsIdentity() const;
 
         public:
-            System::Single& operator[](const System::Size& index);
-            const System::Single& operator[](const System::Size& index) const;
+            System::Single& operator[](const size_t& index);
+            const System::Single& operator[](const size_t& index) const;
             Matrix& operator=(const Matrix& matrix);
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;

@@ -29,15 +29,15 @@ namespace System
             ~UTF8Decoder() override;
 
         public:
-            System::Size GetCharCount(const std::vector<uint8_t>& bytes
-                                    , const System::Size&         index
-                                    , const System::Size&         count) const override;
+            size_t GetCharCount(const std::vector<uint8_t>& bytes
+                              , const size_t&               index
+                              , const size_t&               count) const override;
 
-            System::Size GetChars(const std::vector<uint8_t>& bytes
-                                , const System::Size&         byteIndex
-                                , const System::Size&         byteCount
-                                , std::vector<char16_t>&      chars
-                                , const System::Size&         charIndex) const override;
+            size_t GetChars(const std::vector<uint8_t>&  bytes
+                                , const size_t&          byteIndex
+                                , const size_t&          byteCount
+                                , std::vector<char16_t>& chars
+                                , const size_t&          charIndex) const override;
 
             void Reset() override;
 

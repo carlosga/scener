@@ -61,7 +61,7 @@ uint32_t Texture2D::Width() const
     return this->width;
 }
 
-void Texture2D::SetData(const uint32_t& level, const Size& size, const void* data)
+void Texture2D::SetData(const uint32_t& level, const size_t& size, const void* data)
 {
     // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
     if (this->mipmapWidth == 0)

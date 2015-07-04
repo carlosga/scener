@@ -14,26 +14,26 @@ Decoder::~Decoder()
 {
 }
 
-Size Decoder::GetCharCount(const uint8_t* bytes, const Size& count, const bool& flush) const
+size_t Decoder::GetCharCount(const uint8_t* bytes, const size_t& count, const bool& flush) const
 {
     auto vbytes = std::vector<uint8_t>(bytes, bytes + count);
 
     return this->GetCharCount(vbytes, 0, count, flush);
 }
 
-Size Decoder::GetCharCount(const std::vector<uint8_t>& bytes
-                         , const Size&                 index
-                         , const Size&                 count
-                         , const bool&                 flush) const
+size_t Decoder::GetCharCount(const std::vector<uint8_t>& bytes
+                         , const size_t&                 index
+                         , const size_t&                 count
+                         , const bool&                   flush) const
 {
     return this->GetCharCount(bytes, index, count);
 }
 
-Size Decoder::GetChars(const uint8_t* bytes
-                     , const Size&    byteCount
-                     , char16_t*      chars
-                     , const Size&    charCount
-                     , const bool&    flush) const
+size_t Decoder::GetChars(const uint8_t* bytes
+                       , const size_t&  byteCount
+                       , char16_t*      chars
+                       , const size_t&  charCount
+                       , const bool&    flush) const
 {
     auto vbytes = std::vector<uint8_t>(bytes, bytes + byteCount);
     auto vchars = std::vector<char16_t>();
@@ -48,12 +48,12 @@ Size Decoder::GetChars(const uint8_t* bytes
     return result;
 }
 
-Size Decoder::GetChars(const std::vector<uint8_t>& bytes
-                     , const Size&                 byteIndex
-                     , const Size&                 byteCount
-                     , std::vector<char16_t>&      chars
-                     , const Size&                 charIndex
-                     , const bool&                 flush) const
+size_t Decoder::GetChars(const std::vector<uint8_t>& bytes
+                       , const size_t&               byteIndex
+                       , const size_t&               byteCount
+                       , std::vector<char16_t>&      chars
+                       , const size_t&               charIndex
+                       , const bool&                 flush) const
 {
     return this->GetChars(bytes, byteIndex, byteCount, chars, charIndex);
 }

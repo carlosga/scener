@@ -270,14 +270,14 @@ Single Quaternion::Length() const
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Quaternion::operator[](const Size& index)
+Single& Quaternion::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->quaternion[index]);
 }
 
-const Single& Quaternion::operator[](const Size& index) const
+const Single& Quaternion::operator[](const size_t& index) const
 {
     assert(index < 4);
 

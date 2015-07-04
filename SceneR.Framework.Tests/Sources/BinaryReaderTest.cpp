@@ -34,9 +34,9 @@ TEST_F(BinaryReaderTest, ReadByte)
 // Tests ReadBytes().
 TEST_F(BinaryReaderTest, ReadBytes)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
-    Size length = reader.BaseStream().Length();
+    size_t       length = reader.BaseStream().Length();
 
     std::vector<uint8_t> buffer = reader.ReadBytes(length);
 

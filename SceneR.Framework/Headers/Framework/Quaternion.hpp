@@ -4,6 +4,8 @@
 #ifndef QUATERNION_HPP
 #define QUATERNION_HPP
 
+#include <stddef.h>
+
 #include <System/Core.hpp>
 
 namespace SceneR
@@ -205,8 +207,8 @@ namespace SceneR
             System::Single Length() const;
 
         public:
-            System::Single& operator[](const System::Size& index);
-            const System::Single& operator[](const System::Size& index) const;
+            System::Single& operator[](const size_t& index);
+            const System::Single& operator[](const size_t& index) const;
             Quaternion& operator=(const Quaternion& value);
             bool operator==(const Quaternion& value) const;
             bool operator!=(const Quaternion& value) const;

@@ -45,11 +45,11 @@ namespace SceneR
             /**
              * Gets the number of EffectParameter objects in this EffectParameterCollection.
              */
-            System::Size Count() const;
+            size_t Count() const;
 
         public:
-            EffectParameter& operator[](const System::Size& parameterIndex);
-            const EffectParameter& operator[](const System::Size& parameterIndex) const;
+            EffectParameter& operator[](const size_t& parameterIndex);
+            const EffectParameter& operator[](const size_t& parameterIndex) const;
             EffectParameter& operator[](const std::u16string& parameterName);
             const EffectParameter& operator[](const std::u16string& parameterName) const;
 

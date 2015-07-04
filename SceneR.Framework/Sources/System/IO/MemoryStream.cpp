@@ -11,7 +11,7 @@ MemoryStream::MemoryStream(const std::vector<uint8_t>& buffer)
     , mode   { std::ios::in | std::ios::out | std::ios::binary }
 {
     // TODO: There should be a better way of doing this
-    for (Size i = 0; i < buffer.size(); i++)
+    for (size_t i = 0; i < buffer.size(); i++)
     {
         this->stream << buffer[i];
     }
@@ -39,12 +39,12 @@ bool MemoryStream::CanWrite()
     return ((this->mode & std::ios::out) == std::ios::out);
 }
 
-Size MemoryStream::Position()
+size_t MemoryStream::Position()
 {
     return this->stream.tellg();
 }
 
-Size MemoryStream::Length()
+size_t MemoryStream::Length()
 {
     auto position = this->Position();
     this->Seek(0, std::ios::end);
@@ -67,14 +67,14 @@ uint8_t MemoryStream::ReadByte()
     return buffer;
 }
 
-Size MemoryStream::Read(char* buffer, const Size& offset, const Size& count)
+size_t MemoryStream::Read(char* buffer, const size_t& offset, const size_t& count)
 {
     this->stream.read(buffer + offset, count);
 
     return this->stream.gcount();
 }
 
-Size MemoryStream::Seek(const Size& offset, const std::ios::seekdir& origin)
+size_t MemoryStream::Seek(const size_t& offset, const std::ios::seekdir& origin)
 {
     this->stream.seekg(offset, origin);
 

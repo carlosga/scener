@@ -270,14 +270,14 @@ Single Vector4::Length() const
     return Math::Sqrt(this->LengthSquared());
 }
 
-Single& Vector4::operator[](const Size& index)
+Single& Vector4::operator[](const size_t& index)
 {
     assert(index < 4);
 
     return (this->vector[index]);
 }
 
-const Single& Vector4::operator[](const Size& index) const
+const Single& Vector4::operator[](const size_t& index) const
 {
     assert(index < 4);
 

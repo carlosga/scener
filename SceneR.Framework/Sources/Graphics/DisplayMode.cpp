@@ -51,12 +51,12 @@ const SurfaceFormat& DisplayMode::Format() const
     return this->format;
 }
 
-const Size& DisplayMode::Height() const
+size_t DisplayMode::Height() const
 {
     return this->height;
 }
 
-const Size& DisplayMode::Width() const
+size_t DisplayMode::Width() const
 {
     return this->width;
 }

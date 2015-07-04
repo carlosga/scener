@@ -40,12 +40,12 @@ bool FileStream::CanWrite()
     return ((this->mode & std::ios::out) == std::ios::out);
 }
 
-Size FileStream::Position()
+size_t FileStream::Position()
 {
     return this->stream.tellg();
 }
 
-Size FileStream::Length()
+size_t FileStream::Length()
 {
     auto position = this->Position();
     this->Seek(0, std::ios::end);
@@ -72,14 +72,14 @@ uint8_t FileStream::ReadByte()
     return buffer;
 }
 
-Size FileStream::Read(char* buffer, const Size& offset, const Size& count)
+size_t FileStream::Read(char* buffer, const size_t& offset, const size_t& count)
 {
     this->stream.read(buffer + offset, count);
 
     return this->stream.gcount();
 }
 
-Size FileStream::Seek(const Size& offset, const std::ios::seekdir& origin)
+size_t FileStream::Seek(const size_t& offset, const std::ios::seekdir& origin)
 {
     this->stream.seekg(offset, origin);
 

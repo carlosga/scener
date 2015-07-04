@@ -91,7 +91,7 @@ namespace SceneR
             // Information about the currently playing animation clip.
             AnimationClip    currentClipValue;
             System::TimeSpan currentTimeValue;
-            System::Size     currentKeyframe;
+            size_t           currentKeyframe;
 
             // Backlink to the bind pose and skeleton hierarchy data.
             std::shared_ptr<SkinningData> skinningDataValue;

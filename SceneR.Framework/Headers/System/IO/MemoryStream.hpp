@@ -48,12 +48,12 @@ namespace System
             /**
              * Returns the current position of the reader.
              */
-            Size Position() override;
+            size_t Position() override;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            Size Length() override;
+            size_t Length() override;
 
             /**
              * Closes the current stream
@@ -68,12 +68,12 @@ namespace System
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            Size Read(char* buffer, const Size& offset, const Size& count) override;
+            size_t Read(char* buffer, const size_t& offset, const size_t& count) override;
 
             /**
              * Sets the position within the current stream.
              */
-            Size Seek(const Size& offset, const std::ios::seekdir& origin) override;
+            size_t Seek(const size_t& offset, const std::ios::seekdir& origin) override;
 
         private:
             MemoryStream() = delete;

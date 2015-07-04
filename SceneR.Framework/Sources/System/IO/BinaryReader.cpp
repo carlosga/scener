@@ -104,7 +104,7 @@ uint8_t BinaryReader::ReadByte()
     return buffer;
 }
 
-std::vector<uint8_t> BinaryReader::ReadBytes(const Size& count)
+std::vector<uint8_t> BinaryReader::ReadBytes(const size_t& count)
 {
     auto buffer = std::vector<uint8_t>(count);
     auto readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);

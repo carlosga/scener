@@ -61,7 +61,7 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat& format
                                     , const uint32_t&      level
                                     , const uint32_t&      width
                                     , const uint32_t&      height
-                                    , const Size&          size
+                                    , const size_t&        size
                                     , const void*          data) const
 {
     if (Texture::IsCompressedSurfaceFormat(format))

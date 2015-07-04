@@ -30,8 +30,8 @@ std::vector<uint8_t> Encoding::Convert(const Encoding&            srcEncoding
 std::vector<uint8_t> Encoding::Convert(const Encoding&             srcEncoding
                                      , const Encoding&             dstEncoding
                                      , const std::vector<uint8_t>& bytes
-                                     , const Size&                 index
-                                     , const Size&                 count)
+                                     , const size_t&               index
+                                     , const size_t&               count)
 {
     auto srcChars = srcEncoding.GetChars(bytes, index, count);
 
@@ -57,19 +57,19 @@ bool Encoding::IsReadOnly() const
     return true;
 }
 
-Size Encoding::GetByteCount(const std::vector<char16_t>& chars) const
+size_t Encoding::GetByteCount(const std::vector<char16_t>& chars) const
 {
     return this->GetByteCount(chars, 0, chars.size());
 }
 
-Size Encoding::GetByteCount(const std::u16string& s) const
+size_t Encoding::GetByteCount(const std::u16string& s) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
     return this->GetByteCount(temp, 0, temp.size());
 }
 
-Size Encoding::GetByteCount(const char16_t* chars, const Size& count) const
+size_t Encoding::GetByteCount(const char16_t* chars, const size_t& count) const
 {
     auto temp = std::vector<char16_t>(chars, chars + count);
 
@@ -89,8 +89,8 @@ std::vector<uint8_t> Encoding::GetBytes(const std::u16string& s) const
 }
 
 std::vector<uint8_t> Encoding::GetBytes(const std::vector<char16_t>& chars
-                                      , const Size&                  index
-                                      , const Size&                  count) const
+                                      , const size_t&                index
+                                      , const size_t&                count) const
 {
     auto result = std::vector<uint8_t>();
 
@@ -101,31 +101,31 @@ std::vector<uint8_t> Encoding::GetBytes(const std::vector<char16_t>& chars
     return result;
 }
 
-Size Encoding::GetBytes(const char16_t* chars
-                      , const Size&     charCount
-                      , uint8_t*        bytes
-                      , const Size&     byteCount) const
+size_t Encoding::GetBytes(const char16_t* chars
+                        , const size_t&   charCount
+                        , uint8_t*        bytes
+                        , const size_t&   byteCount) const
 {
     return this->GetEncoder().GetBytes(chars, charCount, bytes, byteCount, false);
 }
 
-Size Encoding::GetBytes(const std::u16string& s
-                      , const Size&           charIndex
-                      , const Size&           charCount
-                      , std::vector<uint8_t>& bytes
-                      , const Size&           byteIndex) const
+size_t Encoding::GetBytes(const std::u16string& s
+                        , const size_t&         charIndex
+                        , const size_t&         charCount
+                        , std::vector<uint8_t>& bytes
+                        , const size_t&         byteIndex) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
     return this->GetBytes(temp, charIndex, charCount, bytes, byteIndex);
 }
 
-Size Encoding::GetCharCount(const std::vector<uint8_t>& bytes) const
+size_t Encoding::GetCharCount(const std::vector<uint8_t>& bytes) const
 {
     return this->GetCharCount(bytes, 0, bytes.size());
 }
 
-Size Encoding::GetCharCount(const uint8_t* bytes, const Size& count) const
+size_t Encoding::GetCharCount(const uint8_t* bytes, const size_t& count) const
 {
     auto temp = std::vector<uint8_t>(bytes, bytes + count);
 
@@ -138,8 +138,8 @@ std::vector<char16_t> Encoding::GetChars(const std::vector<uint8_t>& bytes) cons
 }
 
 std::vector<char16_t> Encoding::GetChars(const std::vector<uint8_t>& bytes
-                                       , const Size&                 index
-                                       , const Size&                 count) const
+                                       , const size_t&               index
+                                       , const size_t&               count) const
 {
     auto result = std::vector<char16_t>();
 
@@ -150,10 +150,10 @@ std::vector<char16_t> Encoding::GetChars(const std::vector<uint8_t>& bytes
     return result;
 }
 
-Size Encoding::GetChars(const uint8_t* bytes
-                      , const Size&    byteCount
-                      , char16_t*      chars
-                      , const Size&    charCount) const
+size_t Encoding::GetChars(const uint8_t* bytes
+                        , const size_t&  byteCount
+                        , char16_t*      chars
+                        , const size_t&  charCount) const
 {
     return this->GetDecoder().GetChars(bytes, byteCount, chars, charCount, false);
 }
@@ -164,8 +164,8 @@ std::u16string Encoding::GetString(const std::vector<uint8_t>& bytes) const
 }
 
 std::u16string Encoding::GetString(const std::vector<uint8_t>& bytes
-                                 , const Size&                 index
-                                 , const Size&                 count) const
+                                 , const size_t&               index
+                                 , const size_t&               count) const
 {
     auto chars = this->GetChars(bytes, index, count);
 

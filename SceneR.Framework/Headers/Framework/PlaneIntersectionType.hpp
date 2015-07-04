@@ -4,7 +4,7 @@
 #ifndef PLANEINTERSECTIONTYPE_HPP
 #define PLANEINTERSECTIONTYPE_HPP
 
-#include <System/Core.hpp>
+#include <stdint.h>
 
 namespace SceneR
 {

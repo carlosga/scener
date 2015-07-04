@@ -42,12 +42,12 @@ namespace System
             /**
              * Returns the current position of the reader.
              */
-            virtual System::Size Position() = 0;
+            virtual size_t Position() = 0;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            virtual System::Size Length() = 0;
+            virtual size_t Length() = 0;
 
             /**
              * Closes the current stream
@@ -62,12 +62,12 @@ namespace System
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual Size Read(char* buffer, const System::Size& offset, const System::Size& count) = 0;
+            virtual size_t Read(char* buffer, const size_t& offset, const size_t& count) = 0;
 
             /**
              * Sets the position within the current stream.
              */
-            virtual System::Size Seek(const Size& offset, const std::ios::seekdir& origin) = 0;
+            virtual size_t Seek(const size_t& offset, const std::ios::seekdir& origin) = 0;
         };
     }
 }

@@ -80,7 +80,7 @@ namespace System
             /**
              * Reads the specified number of bytes from the underliying stream
              */
-            std::vector<uint8_t> ReadBytes(const Size& count);
+            std::vector<uint8_t> ReadBytes(const size_t& count);
 
             /**
              * Reads a 2-byte signed integer from the current stream.

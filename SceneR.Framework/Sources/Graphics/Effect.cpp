@@ -165,7 +165,7 @@ void Effect::VerifyLinkingState()
 
         if (infoLogLength)
         {
-            std::string linkErrorMessage("", static_cast<Size>(infoLogLength));
+            std::string linkErrorMessage("", static_cast<size_t>(infoLogLength));
 
             glGetProgramInfoLog(this->id, infoLogLength, NULL, &linkErrorMessage[0]);
 

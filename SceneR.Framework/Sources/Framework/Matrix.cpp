@@ -791,14 +791,14 @@ bool Matrix::IsIdentity() const
     return (*this == Matrix::Identity);
 }
 
-Single& Matrix::operator[](const Size& index)
+Single& Matrix::operator[](const size_t& index)
 {
     assert(index < 16);
 
     return this->matrix[index];
 }
 
-const Single& Matrix::operator[](const Size& index) const
+const Single& Matrix::operator[](const size_t& index) const
 {
     assert(index < 16);
 
