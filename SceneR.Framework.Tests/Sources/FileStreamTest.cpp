@@ -129,11 +129,11 @@ TEST_F(FileStreamTest, ReadInt64)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    Int64 value;
+    int64_t value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int64));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(int64_t));
 
-    EXPECT_TRUE(sizeof(Int64) == stream.Position());
+    EXPECT_TRUE(sizeof(int64_t) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();

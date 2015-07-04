@@ -105,12 +105,12 @@ namespace System
             /**
              * Reads a 8-byte signed integer from the current stream.
              */
-            Int64 ReadInt64();
+            int64_t ReadInt64();
 
             /**
              * Reads a 8-byte unsigned integer from the current stream.
              */
-            UInt64 ReadUInt64();
+            uint64_t ReadUInt64();
 
             /**
              * Reads a float value from the currently open stream.

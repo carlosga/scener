@@ -9,11 +9,11 @@ using namespace System;
 
 const TimeSpan TimeSpan::MaxValue            { INT64_MAX };
 const TimeSpan TimeSpan::MinValue            { INT64_MIN };
-const Int64    TimeSpan::TicksPerDay;
-const Int64    TimeSpan::TicksPerHour;
-const Int64    TimeSpan::TicksPerMillisecond;
-const Int64    TimeSpan::TicksPerMinute;
-const Int64    TimeSpan::TicksPerSecond;
+const int64_t  TimeSpan::TicksPerDay;
+const int64_t  TimeSpan::TicksPerHour;
+const int64_t  TimeSpan::TicksPerMillisecond;
+const int64_t  TimeSpan::TicksPerMinute;
+const int64_t  TimeSpan::TicksPerSecond;
 const TimeSpan TimeSpan::Zero                { 0 };
 
 TimeSpan TimeSpan::FromDays(const System::Double& value)
@@ -46,12 +46,12 @@ TimeSpan TimeSpan::FromSeconds(const Double& value)
     return { std::chrono::duration_cast<TicksDuration>(SecondsDuration(value)).count() };
 }
 
-TimeSpan TimeSpan::FromTicks(const Int64& value)
+TimeSpan TimeSpan::FromTicks(const int64_t& value)
 {
     return { value };
 }
 
-TimeSpan::TimeSpan(const Int64& ticks)
+TimeSpan::TimeSpan(const int64_t& ticks)
     : ticks { TicksDuration(ticks) }
 {
 }
@@ -123,7 +123,7 @@ int32_t TimeSpan::Seconds() const
     return (this->ticks.count() % TimeSpan::TicksPerMinute / TimeSpan::TicksPerSecond);
 }
 
-Int64 TimeSpan::Ticks() const
+int64_t TimeSpan::Ticks() const
 {
     return this->ticks.count();
 }
