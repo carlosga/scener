@@ -51,7 +51,7 @@ TEST_F(BinaryReaderTest, ReadInt16)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    Int16 value = reader.ReadInt16();
+    int16_t value = reader.ReadInt16();
 
     reader.Close();
 
@@ -64,7 +64,7 @@ TEST_F(BinaryReaderTest, ReadUInt16)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    UInt16 value = reader.ReadUInt16();
+    uint16_t value = reader.ReadUInt16();
 
     reader.Close();
 

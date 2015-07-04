@@ -85,12 +85,12 @@ namespace System
             /**
              * Reads a 2-byte signed integer from the current stream.
              */
-            Int16 ReadInt16();
+            int16_t ReadInt16();
 
             /**
              * Reads a 2-byte unsigned integer from the current stream.
              */
-            UInt16 ReadUInt16();
+            uint16_t ReadUInt16();
 
             /**
              * Reads a 4-byte signed integer from the current stream.

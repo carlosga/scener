@@ -73,11 +73,11 @@ TEST_F(FileStreamTest, ReadInt16)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    Int16 value;
+    int16_t value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(int16_t));
 
-    EXPECT_TRUE(sizeof(Int16) == stream.Position());
+    EXPECT_TRUE(sizeof(int16_t) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();
@@ -87,11 +87,11 @@ TEST_F(FileStreamTest, ReadUInt16)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    UInt16 value;
+    uint16_t value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(Int16));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(uint16_t));
 
-    EXPECT_TRUE(sizeof(UInt16) == stream.Position());
+    EXPECT_TRUE(sizeof(uint16_t) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();

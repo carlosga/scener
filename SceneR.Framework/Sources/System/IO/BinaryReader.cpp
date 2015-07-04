@@ -117,18 +117,18 @@ std::vector<uint8_t> BinaryReader::ReadBytes(const Size& count)
     return buffer;
 }
 
-Int16 BinaryReader::ReadInt16()
+int16_t BinaryReader::ReadInt16()
 {
-    Int16 buffer;
+    int16_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
     return buffer;
 }
 
-UInt16 BinaryReader::ReadUInt16()
+uint16_t BinaryReader::ReadUInt16()
 {
-    UInt16 buffer;
+    uint16_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
