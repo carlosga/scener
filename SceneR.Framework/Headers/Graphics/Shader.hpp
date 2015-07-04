@@ -79,7 +79,7 @@ namespace SceneR
 
         private:
             std::u16string           name;
-            System::UInt32           id;
+            uint32_t                 id;
             ShaderType               type;
             std::string              source;
             std::vector<std::string> includes;

@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Declares OpenGL texture targets
          */
-        enum class TextureTarget : System::UInt32
+        enum class TextureTarget : uint32_t
         {
             /**
              * One-dimensional texture image.

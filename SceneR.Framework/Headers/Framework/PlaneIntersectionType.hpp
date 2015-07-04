@@ -13,7 +13,7 @@ namespace SceneR
 	    /**
 	     * Describes the intersection between a plane and a bounding volume.
 	     */
-		enum class PlaneIntersectionType : System::UInt32
+        enum class PlaneIntersectionType : uint32_t
 		{
 			/**
 			 * There is no intersection, and the bounding volume is in the negative half-space of the Plane.

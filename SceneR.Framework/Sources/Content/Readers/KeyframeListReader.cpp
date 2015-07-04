@@ -25,7 +25,7 @@ std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
 
     keyframes->reserve(keyframeCount);
 
-    for (UInt32 i = 0; i < keyframeCount; i++)
+    for (uint32_t i = 0; i < keyframeCount; i++)
     {
         keyframes->push_back(*input.ReadObject<Keyframe>());
     }

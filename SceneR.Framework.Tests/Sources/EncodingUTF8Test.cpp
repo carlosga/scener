@@ -67,8 +67,8 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 
 TEST_F(EncodingUTF8Test, GetByteCountFromString)
 {
-    auto   s     = u"za\u0306\u01FD\u03B2";
-    UInt32 count = Encoding::UTF8.GetByteCount(s);
+    auto     s     = u"za\u0306\u01FD\u03B2";
+    uint32_t count = Encoding::UTF8.GetByteCount(s);
 
     EXPECT_TRUE(8 == count);
 }
@@ -113,7 +113,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
 TEST_F(EncodingUTF8Test, GetByteCountFromCharArrayPointer)
 {
     char16_t chars[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
-    UInt32   count   = Encoding::UTF8.GetByteCount(&chars[0], 5);
+    uint32_t count   = Encoding::UTF8.GetByteCount(&chars[0], 5);
 
     EXPECT_TRUE(8 == count);
 }

@@ -46,22 +46,22 @@ const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuff
     return this->vertexBuffer;
 }
 
-const UInt32& ModelMeshPart::StartIndex() const
+uint32_t ModelMeshPart::StartIndex() const
 {
     return this->startIndex;
 }
 
-const UInt32& ModelMeshPart::VertexOffset() const
+uint32_t ModelMeshPart::VertexOffset() const
 {
     return this->vertexOffset;
 }
 
-const UInt32& ModelMeshPart::VertexCount() const
+uint32_t ModelMeshPart::VertexCount() const
 {
     return this->vertexCount;
 }
 
-const UInt32& ModelMeshPart::PrimitiveCount() const
+uint32_t ModelMeshPart::PrimitiveCount() const
 {
     return this->primitiveCount;
 }

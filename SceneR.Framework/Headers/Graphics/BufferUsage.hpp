@@ -11,7 +11,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class BufferUsage : System::UInt32
+        enum class BufferUsage : uint32_t
         {
             StreamDraw  = GL_STREAM_DRAW,
             StreamRead  = GL_STREAM_READ,

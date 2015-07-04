@@ -45,9 +45,9 @@ void TextureObject::Deactivate() const
 }
 
 void TextureObject::Declare2DStorage(const SurfaceFormat& format
-                                   , const UInt32&        levels
-                                   , const UInt32&        width
-                                   , const UInt32&        height) const
+                                   , const uint32_t&      levels
+                                   , const uint32_t&      width
+                                   , const uint32_t&      height) const
 {
     glTextureStorage2DEXT(this->texId
                         , static_cast<GLenum>(this->target)
@@ -57,12 +57,12 @@ void TextureObject::Declare2DStorage(const SurfaceFormat& format
                         , static_cast<GLint>(height));
 }
 
-void TextureObject::TextureSubImage2D(const SurfaceFormat&  format
-                                    , const System::UInt32& level
-                                    , const UInt32&         width
-                                    , const UInt32&         height
-                                    , const Size&           size
-                                    , const void*           data) const
+void TextureObject::TextureSubImage2D(const SurfaceFormat& format
+                                    , const uint32_t&      level
+                                    , const uint32_t&      width
+                                    , const uint32_t&      height
+                                    , const Size&          size
+                                    , const void*          data) const
 {
     if (Texture::IsCompressedSurfaceFormat(format))
     {

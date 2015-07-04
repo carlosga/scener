@@ -36,9 +36,9 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice&       graphicsDevice,
-                      const System::UInt32& width,
-                      const System::UInt32& height);
+            Texture2D(GraphicsDevice& graphicsDevice,
+                      const uint32_t& width,
+                      const uint32_t& height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -49,11 +49,11 @@ namespace SceneR
              * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice&       graphicsDevice,
-                      const System::UInt32& width,
-                      const System::UInt32& height,
-                      const bool&           mipmap,
-                      const SurfaceFormat&  format);
+            Texture2D(GraphicsDevice&      graphicsDevice,
+                      const uint32_t&      width,
+                      const uint32_t&      height,
+                      const bool&          mipmap,
+                      const SurfaceFormat& format);
 
             /**
              * Releases all resources being used by this texture.
@@ -72,17 +72,17 @@ namespace SceneR
             /**
              * Gets the texture height, in pixels
              */
-            const System::UInt32& Height() const;
+            uint32_t Height() const;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            const System::UInt32& LevelCount() const override;
+            uint32_t LevelCount() const override;
 
             /**
              * Gets the texture width, in pixels
              */
-            const System::UInt32& Width() const;
+            uint32_t Width() const;
 
             /**
              * Sets mipmap data to the texture.
@@ -90,7 +90,7 @@ namespace SceneR
              * @param size the size of the mipmap data.
              * @param data pointer with the mipmap data.
              */
-            void SetData(const System::UInt32& level, const System::Size& size, const void* data);
+            void SetData(const uint32_t& level, const System::Size& size, const void* data);
 
             /**
              * Activates the texture object
@@ -103,17 +103,17 @@ namespace SceneR
             void Deactivate() const override;
 
         private:
-            void DeclareStorage(const System::UInt32& mipMapLevels);
+            void DeclareStorage(const uint32_t& mipMapLevels);
 
         private:
-            SurfaceFormat   format;
-            System::UInt32  height;
-            bool            mipmap;
-            System::UInt32  mipmapLevels;
-            System::UInt32  mipmapHeight;
-            System::UInt32  mipmapWidth;
-            System::UInt32  width;
-            TextureObject   object;
+            SurfaceFormat format;
+            uint32_t      height;
+            bool          mipmap;
+            uint32_t      mipmapLevels;
+            uint32_t      mipmapHeight;
+            uint32_t      mipmapWidth;
+            uint32_t      width;
+            TextureObject object;
 
             friend class SceneR::Content::Texture2DReader;
         };

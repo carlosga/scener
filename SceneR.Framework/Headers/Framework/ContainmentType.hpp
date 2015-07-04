@@ -13,7 +13,7 @@ namespace SceneR
 		/**
 		 * Indicates the extent to which bounding volumes intersect or contain one another.
 		 */ 
-		enum class ContainmentType : System::UInt32
+        enum class ContainmentType : uint32_t
 		{
 			/**
 			 * Indicates that one bounding volume completely contains the other.

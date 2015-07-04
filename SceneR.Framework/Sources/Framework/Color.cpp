@@ -109,12 +109,12 @@ const Single& Color::A() const
     return this->a;
 }
 
-UInt32 Color::PackedValue() const
+uint32_t Color::PackedValue() const
 {
-    return ((static_cast<UInt32>(this->r) * 255) << 24)
-         + ((static_cast<UInt32>(this->g) * 255) << 16)
-         + ((static_cast<UInt32>(this->b) * 255) << 8)
-         +  (static_cast<UInt32>(this->a) * 255);
+    return ((static_cast<uint32_t>(this->r) * 255) << 24)
+         + ((static_cast<uint32_t>(this->g) * 255) << 16)
+         + ((static_cast<uint32_t>(this->b) * 255) << 8)
+         +  (static_cast<uint32_t>(this->a) * 255);
 }
 
 Single& Color::operator[](const Size& index)

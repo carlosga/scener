@@ -119,9 +119,9 @@ void AnimationPlayer::UpdateWorldTransforms(const Matrix& rootTransform)
     this->worldTransforms[0] = this->boneTransforms[0] * rootTransform;
 
     // Child bones.
-    for (UInt32 bone = 1; bone < this->worldTransforms.size(); bone++)
+    for (uint32_t bone = 1; bone < this->worldTransforms.size(); bone++)
     {
-        UInt32 parentBone = this->skinningDataValue->SkeletonHierarchy()[bone];
+        uint32_t parentBone = this->skinningDataValue->SkeletonHierarchy()[bone];
 
         this->worldTransforms[bone] = this->boneTransforms[bone] * this->worldTransforms[parentBone];
     }
@@ -129,7 +129,7 @@ void AnimationPlayer::UpdateWorldTransforms(const Matrix& rootTransform)
 
 void AnimationPlayer::UpdateSkinTransforms()
 {
-    for (UInt32 bone = 0; bone < this->skinTransforms.size(); bone++)
+    for (uint32_t bone = 0; bone < this->skinTransforms.size(); bone++)
     {
         this->skinTransforms[bone] = this->skinningDataValue->InverseBindPose()[bone] * this->worldTransforms[bone];
     }

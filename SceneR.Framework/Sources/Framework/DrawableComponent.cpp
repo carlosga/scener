@@ -35,12 +35,12 @@ void DrawableComponent::Visible(const bool& visible)
     this->visible = visible;
 }
 
-UInt32 DrawableComponent::DrawOrder() const
+uint32_t DrawableComponent::DrawOrder() const
 {
     return this->drawOrder;
 }
 
-void DrawableComponent::DrawOrder(const UInt32& drawOrder)
+void DrawableComponent::DrawOrder(const uint32_t& drawOrder)
 {
     this->drawOrder = drawOrder;
 }

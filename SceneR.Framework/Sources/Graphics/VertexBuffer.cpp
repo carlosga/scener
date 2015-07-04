@@ -9,7 +9,7 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                         , const System::UInt32&                                       vertexCount
+                         , const uint32_t&                                             vertexCount
                          , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
     : GraphicsResource  { graphicsDevice }
     , bindingIndex      { 0 }
@@ -33,7 +33,7 @@ void VertexBuffer::Dispose()
     this->vbo.Dispose();
 }
 
-const UInt32& VertexBuffer::VertexCount() const
+uint32_t VertexBuffer::VertexCount() const
 {
     return this->vertexCount;
 }
@@ -43,7 +43,7 @@ std::vector<uint8_t> VertexBuffer::GetData() const
     return this->GetData(0, this->vertexCount);
 }
 
-std::vector<uint8_t> VertexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
+std::vector<uint8_t> VertexBuffer::GetData(const uint32_t& startIndex, const uint32_t& elementCount) const
 {
     auto offset = (startIndex * this->vertexDeclaration->VertexStride());
     auto size   = (elementCount * this->vertexDeclaration->VertexStride());

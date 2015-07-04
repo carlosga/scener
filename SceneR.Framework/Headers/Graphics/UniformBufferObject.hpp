@@ -28,7 +28,7 @@ namespace SceneR
              * @param name the name of the uniform buffer object.
              * @oaram programId the handle of the shader program.
              */
-            UniformBufferObject(const std::u16string& name, const System::UInt32& programId);
+            UniformBufferObject(const std::u16string& name, const uint32_t& programId);
 
             /**
              * Releases all resources being used by this UniformBufferObject.
@@ -42,7 +42,7 @@ namespace SceneR
             /**
              * Gets the uniform buffer block index.
              */
-            System::UInt32 Index() const;
+            uint32_t Index() const;
 
             /**
              * Gets the uniform buffer binding point.
@@ -80,7 +80,7 @@ namespace SceneR
             /**
              * Gets the uniform buffer data
              */
-            std::vector<uint8_t> GetData(const System::UInt32& startIndex, const System::UInt32& elementCount) const;
+            std::vector<uint8_t> GetData(const uint32_t& startIndex, const uint32_t& elementCount) const;
 
             /**
              * Sets the uniform buffer data
@@ -90,12 +90,12 @@ namespace SceneR
             /**
              * Sets the uniform buffer data
              */
-            void SetData(const System::UInt32& startIndex, const System::UInt32& elementCount, const void *data);
+            void SetData(const uint32_t& startIndex, const uint32_t& elementCount, const void *data);
 
         private:
             std::u16string name;
-            System::UInt32 programId;
-            System::UInt32 index;
+            uint32_t       programId;
+            uint32_t       index;
             int32_t        bindingPoint;
             int32_t        size;
             BufferObject   bufferObject;

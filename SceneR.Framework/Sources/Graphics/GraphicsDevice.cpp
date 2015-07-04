@@ -12,7 +12,7 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-UInt32 GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType, const UInt32& primitiveCount)
+uint32_t GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType, const uint32_t& primitiveCount)
 {
     switch (primitiveType)
     {
@@ -107,7 +107,7 @@ void GraphicsDevice::Dispose()
 
 void GraphicsDevice::Clear(const Color& color) const
 {
-    UInt32 bufferBits = GL_COLOR_BUFFER_BIT;
+    uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
     glClearColor(color.R(), color.G(), color.B(), color.A());
 
@@ -126,11 +126,11 @@ void GraphicsDevice::Clear(const Color& color) const
 }
 
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                         , const UInt32&        baseVertex
-                                         , const UInt32&        minVertexIndex
-                                         , const UInt32&        numVertices
-                                         , const UInt32&        startIndex
-                                         , const UInt32&        primitiveCount) const
+                                         , const uint32_t&      baseVertex
+                                         , const uint32_t&      minVertexIndex
+                                         , const uint32_t&      numVertices
+                                         , const uint32_t&      startIndex
+                                         , const uint32_t&      primitiveCount) const
 {
     if (this->indexBuffer.get() == nullptr)
     {
@@ -165,8 +165,8 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
 }
 
 void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
-                                  , const UInt32&        startVertex
-                                  , const UInt32&        primitiveCount) const
+                                  , const uint32_t&      startVertex
+                                  , const uint32_t&      primitiveCount) const
 {
     if (this->vertexBuffer.get() == nullptr)
     {

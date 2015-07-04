@@ -8,7 +8,7 @@ using namespace SceneR::Graphics;
 
 IndexBuffer::IndexBuffer(GraphicsDevice&                           graphicsDevice
                        , const SceneR::Graphics::IndexElementSize& indexElementSize
-                       , const UInt32&                             indexCount)
+                       , const uint32_t&                           indexCount)
     : GraphicsResource { graphicsDevice }
     , ibo              { BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw }
     , indexCount       { indexCount }
@@ -25,7 +25,7 @@ void IndexBuffer::Dispose()
     this->ibo.Dispose();
 }
 
-const UInt32& IndexBuffer::IndexCount() const
+uint32_t IndexBuffer::IndexCount() const
 {
     return this->indexCount;
 }
@@ -40,7 +40,7 @@ std::vector<uint8_t> IndexBuffer::GetData() const
     return this->GetData(0, this->indexCount);
 }
 
-std::vector<uint8_t> IndexBuffer::GetData(const UInt32& startIndex, const UInt32& elementCount) const
+std::vector<uint8_t> IndexBuffer::GetData(const uint32_t& startIndex, const uint32_t& elementCount) const
 {
     auto offset = (startIndex * this->GetElementSizeInBytes());
     auto size   = (elementCount * this->GetElementSizeInBytes());
@@ -66,7 +66,7 @@ void IndexBuffer::Deactivate() const
     this->ibo.Deactivate();
 }
 
-UInt32 IndexBuffer::GetElementSizeInBytes() const
+uint32_t IndexBuffer::GetElementSizeInBytes() const
 {
-    return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(uint16_t) : sizeof(UInt32));
+    return ((this->indexElementSize == SceneR::Graphics::IndexElementSize::SixteenBits) ? sizeof(uint16_t) : sizeof(uint32_t));
 }

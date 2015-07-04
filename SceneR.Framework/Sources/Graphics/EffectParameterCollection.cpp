@@ -70,9 +70,9 @@ const EffectParameter& EffectParameterCollection::operator[](const std::u16strin
 }
 
 EffectParameter& EffectParameterCollection::Add(const std::u16string&                      name
-                                              , const System::UInt32&                      index
-                                              , const System::UInt32&                      offset
-                                              , const System::UInt32&                      type
+                                              , const uint32_t&                            index
+                                              , const uint32_t&                            offset
+                                              , const uint32_t&                            type
                                               , const std::shared_ptr<UniformBufferObject> uniformBuffer)
 {
     this->parameters.push_back({ name, index, offset, type, uniformBuffer});

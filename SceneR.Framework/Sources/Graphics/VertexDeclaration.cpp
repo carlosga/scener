@@ -8,7 +8,7 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-VertexDeclaration::VertexDeclaration(const UInt32&                     vertexStride
+VertexDeclaration::VertexDeclaration(const uint32_t&                   vertexStride
                                    , const std::vector<VertexElement>& vertexElements)
     : vertexStride   { vertexStride }
     , vertexElements { vertexElements }
@@ -25,7 +25,7 @@ VertexDeclaration::~VertexDeclaration()
 {
 }
 
-const UInt32& VertexDeclaration::VertexStride() const
+uint32_t VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;
 }
@@ -46,14 +46,14 @@ VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declara
     return *this;
 }
 
-void VertexDeclaration::Declare(const UInt32& vaoId, const UInt32& bindingIndex​) const
+void VertexDeclaration::Declare(const uint32_t& vaoId, const uint32_t& bindingIndex​) const
 {
     // ... declare vertex elements
     for (const auto& ve : this->vertexElements)
     {
         auto elementType  = this->GetElementType(ve.VertexElementFormat());
         auto elementCount = this->GetElementCount(ve.VertexElementFormat());
-        auto usageIndex   = static_cast<UInt32>(ve.VertexElementUsage());
+        auto usageIndex   = static_cast<uint32_t>(ve.VertexElementUsage());
 
         if (elementType == GL_FLOAT)
         {
@@ -79,7 +79,7 @@ void VertexDeclaration::Declare(const UInt32& vaoId, const UInt32& bindingIndex�
     }
 }
 
-UInt32 VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFormat) const
+uint32_t VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFormat) const
 {
     // TODO: Review this to see if it can match the XNA VertexElementFormat specificacion.
     switch (vertexFormat)
@@ -107,7 +107,7 @@ UInt32 VertexDeclaration::GetElementCount(const VertexElementFormat& vertexForma
     }
 }
 
-UInt32 VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat) const
+uint32_t VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat) const
 {
     switch (vertexFormat)
     {

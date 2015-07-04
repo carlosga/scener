@@ -115,11 +115,11 @@ TEST_F(FileStreamTest, ReadUInt32)
 {
     FileStream stream(FileStreamTest::TEST_FILE);
 
-    UInt32 value;
+    uint32_t value;
 
-    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(UInt32));
+    stream.Read(reinterpret_cast<char*>(&value), 0, sizeof(uint32_t));
 
-    EXPECT_TRUE(sizeof(UInt32) == stream.Position());
+    EXPECT_TRUE(sizeof(uint32_t) == stream.Position());
     EXPECT_TRUE(value != 0);
 
     stream.Close();

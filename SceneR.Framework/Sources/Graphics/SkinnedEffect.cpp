@@ -379,7 +379,7 @@ void SkinnedEffect::World(const Matrix& world)
     this->dirtyFlags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
 }
 
-std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const UInt32& count) const
+std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const uint32_t& count) const
 {
     assert(count < this->boneTransforms.size());
 
@@ -397,12 +397,12 @@ void SkinnedEffect::SetBoneTransforms(const std::vector<Matrix>& boneTransforms)
     this->bonesParam.SetValue(this->boneTransforms);
 }
 
-System::UInt32 SkinnedEffect::WeightsPerVertex() const
+uint32_t SkinnedEffect::WeightsPerVertex() const
 {
     return this->weightsPerVertex;
 }
 
-void SkinnedEffect::WeightsPerVertex(const System::UInt32& weightsPerVertex)
+void SkinnedEffect::WeightsPerVertex(const uint32_t& weightsPerVertex)
 {
     assert(weightsPerVertex == 1 || weightsPerVertex == 2 || weightsPerVertex == 4);
 

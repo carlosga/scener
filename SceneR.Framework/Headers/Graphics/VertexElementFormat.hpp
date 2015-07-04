@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines vertex element formats.
          */
-        enum class VertexElementFormat : System::UInt32
+        enum class VertexElementFormat : uint32_t
         {
             /**
              * Single-component, 32-bit floating-point, expanded to (float, 0, 0, 1).

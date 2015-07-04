@@ -65,7 +65,7 @@ namespace System
             /**
              * Reads a 7-bit encoded unsigned int
              */
-            UInt32 Read7BitEncodedInt();
+            uint32_t Read7BitEncodedInt();
 
             /**
              * Reads a Boolean value from the current stream.
@@ -100,7 +100,7 @@ namespace System
             /**
              * Reads a 4-byte unsigned integer from the current stream.
              */
-            UInt32 ReadUInt32();
+            uint32_t ReadUInt32();
 
             /**
              * Reads a 8-byte signed integer from the current stream.

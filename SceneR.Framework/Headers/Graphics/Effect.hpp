@@ -86,39 +86,39 @@ namespace SceneR
             void SetValue(const std::u16string& uniformName, const bool& value) const;
 
             /**
-             * Gets the value of the EffectParameter as an array of System::Boolean.
+             * Gets the value of the EffectParameter as an array of booleans.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<bool>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an System::Int32.
+             * Sets the value of the EffectParameter as an int32_t.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const int32_t& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an array of System::Int32.
+             * Sets the value of the EffectParameter as an array of int32_t
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<int32_t>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an System::UInt32.
+             * Sets the value of the EffectParameter as an uint32_t.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const System::UInt32& value) const;
+            void SetValue(const std::u16string& uniformName, const uint32_t& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an array of System::UInt32.
+             * Sets the value of the EffectParameter as an array of uint32_t.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<System::UInt32>& value) const;
+            void SetValue(const std::u16string& uniformName, const std::vector<uint32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
@@ -249,12 +249,12 @@ namespace SceneR
             /**
              * Activates the shader subroutine with the given index.
              */
-            void ActivateSubroutine(const System::UInt32& subroutineIndex) const;
+            void ActivateSubroutine(const uint32_t& subroutineIndex) const;
 
             /**
              * Activates the shader subroutine with the given shader type and index.
              */
-            void ActivateSubroutine(const ShaderType& type, const System::UInt32& subroutineIndex) const;
+            void ActivateSubroutine(const ShaderType& type, const uint32_t& subroutineIndex) const;
 
         protected:
             /**
@@ -273,7 +273,7 @@ namespace SceneR
 
         protected:
             EffectParameterCollection            parameters;
-            System::UInt32                       id;
+            uint32_t                             id;
             std::vector<std::shared_ptr<Shader>> shaders;
             std::shared_ptr<UniformBufferObject> uniformBuffer;
         };

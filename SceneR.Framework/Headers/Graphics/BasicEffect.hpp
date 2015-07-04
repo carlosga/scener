@@ -303,7 +303,7 @@ namespace SceneR
             SceneR::Framework::Matrix  world;
             SceneR::Framework::Matrix  worldView;
             bool                       oneLight;
-            System::UInt32             shaderIndex;
+            uint32_t                   shaderIndex;
 
             EffectDirtyFlags           dirtyFlags;
 

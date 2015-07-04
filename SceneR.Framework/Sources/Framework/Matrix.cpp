@@ -528,9 +528,9 @@ Matrix Matrix::Invert(const Matrix& matrix)
         Matrix  mtemp;
         int32_t sign;
 
-        for (UInt32 i = 0; i < 4; i++)
+        for (uint32_t i = 0; i < 4; i++)
         {
-            for (UInt32 j = 0; j < 4; j++)
+            for (uint32_t j = 0; j < 4; j++)
             {
                 sign               = 1 - ((i + j) % 2) * 2;
                 mtemp              = matrix.SubMatrix(i, j);
@@ -771,7 +771,7 @@ Single Matrix::Determinant() const
     Single  det    = 0;
     Matrix  msub;
 
-    for (UInt32 n = 0; n < 4; n++, i *= -1)
+    for (uint32_t n = 0; n < 4; n++, i *= -1)
     {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();
@@ -1013,17 +1013,17 @@ Single Matrix::SubMatrixDeterminant()
          + this->m13 * (this->m21 * this->m32 - this->m31 * this->m22);
 }
 
-Matrix Matrix::SubMatrix(const UInt32& row, const UInt32& column) const
+Matrix Matrix::SubMatrix(const uint32_t& row, const uint32_t& column) const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    UInt32 si;
-    UInt32 sj;
-    Matrix result;
+    uint32_t si;
+    uint32_t sj;
+    Matrix   result;
 
     // loop through 3x3 submatrix
-    for (UInt32 di = 0; di < 3; di++)
+    for (uint32_t di = 0; di < 3; di++)
     {
-        for (UInt32 dj = 0; dj < 3; dj++)
+        for (uint32_t dj = 0; dj < 3; dj++)
         {
             // map 3x3 element (destination) to 4x4 element (source)
             si = di + ((di >= row) ? 1 : 0);

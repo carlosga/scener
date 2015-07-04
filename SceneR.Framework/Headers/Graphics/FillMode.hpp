@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Describes options for filling the vertices and lines that define a primitive.
          */
-        enum class FillMode : System::UInt32
+        enum class FillMode : uint32_t
         {
             /**
              * Draw solid faces for each primitive.

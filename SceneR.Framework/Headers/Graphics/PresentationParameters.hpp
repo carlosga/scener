@@ -47,32 +47,32 @@ namespace SceneR
             /**
              * Gets the height of a swap chain's back buffers, in pixels.
              */
-            const System::UInt32& BackBufferHeight() const;
+            uint32_t BackBufferHeight() const;
 
             /**
              * Sets the height of a swap chain's back buffers, in pixels.
              */
-            void BackBufferHeight(const System::UInt32& backBufferHeight);
+            void BackBufferHeight(const uint32_t& backBufferHeight);
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            const System::UInt32& BackBufferWidth() const;
+            uint32_t BackBufferWidth() const;
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            void BackBufferWidth(const System::UInt32& backBufferWidth);
+            void BackBufferWidth(const uint32_t& backBufferWidth);
 
             /**
              * Gets the number of sample locations during multisampling.
              */
-            const System::UInt32& MultiSampleCount() const;
+            uint32_t MultiSampleCount() const;
 
             /**
              * Sets the number of sample locations during multisampling.
              */
-            void MultiSampleCount(const System::UInt32& multiSampleCount);
+            void MultiSampleCount(const uint32_t& multiSampleCount);
 
             /**
              * Gets the swap buffer interval.
@@ -89,9 +89,9 @@ namespace SceneR
 
         private:
             bool                               fullScreen;
-            System::UInt32                     backBufferHeight;
-            System::UInt32                     backBufferWidth;
-            System::UInt32                     multiSampleCount;
+            uint32_t                           backBufferHeight;
+            uint32_t                           backBufferWidth;
+            uint32_t                           multiSampleCount;
             SceneR::Framework::PresentInterval presentInterval;
         };
     }

@@ -35,8 +35,8 @@ namespace SceneR
         class GraphicsDevice final : System::IDisposable
         {
         private:
-                static System::UInt32 GetElementCount(const PrimitiveType&  primitiveType
-                                                    , const System::UInt32& primitiveCount);
+                static uint32_t GetElementCount(const PrimitiveType& primitiveType
+                                              , const uint32_t&      primitiveCount);
 
         public:
             /**
@@ -80,12 +80,12 @@ namespace SceneR
              * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
              *                       primitiveCount and primitiveType.
              */
-            void DrawIndexedPrimitives(const PrimitiveType&  primitiveType
-                                     , const System::UInt32& baseVertex
-                                     , const System::UInt32& minVertexIndex
-                                     , const System::UInt32& numVertices
-                                     , const System::UInt32& startIndex
-                                     , const System::UInt32& primitiveCount) const;
+            void DrawIndexedPrimitives(const PrimitiveType& primitiveType
+                                     , const uint32_t&      baseVertex
+                                     , const uint32_t&      minVertexIndex
+                                     , const uint32_t&      numVertices
+                                     , const uint32_t&      startIndex
+                                     , const uint32_t&      primitiveCount) const;
 
             /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -98,9 +98,9 @@ namespace SceneR
              *                       determined by the primitive type. If it is a line list, each primitive has two
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
-            void DrawPrimitives(const PrimitiveType&  primitiveType
-                              , const System::UInt32& startVertex
-                              , const System::UInt32& primitiveCount) const;
+            void DrawPrimitives(const PrimitiveType& primitiveType
+                              , const uint32_t&      startVertex
+                              , const uint32_t&      primitiveCount) const;
 
             /**
              * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the

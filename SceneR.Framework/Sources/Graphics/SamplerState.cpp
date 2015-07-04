@@ -91,12 +91,12 @@ void SamplerState::MaxAnisotropy(const int32_t& maxAnisotropy)
     this->maxAnisotropy = maxAnisotropy;
 }
 
-const System::UInt32& SamplerState::MaxMipLevel() const
+uint32_t SamplerState::MaxMipLevel() const
 {
     return this->maxMipLevel;
 }
 
-void SamplerState::MaxMipLevel(const System::UInt32& maxMipLevel)
+void SamplerState::MaxMipLevel(const uint32_t& maxMipLevel)
 {
     this->maxMipLevel = maxMipLevel;
 }

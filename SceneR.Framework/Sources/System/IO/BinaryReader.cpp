@@ -72,11 +72,11 @@ std::u16string BinaryReader::ReadString()
     return this->encoding.GetString(this->ReadBytes(this->Read7BitEncodedInt()));
 }
 
-UInt32 BinaryReader::Read7BitEncodedInt()
+uint32_t BinaryReader::Read7BitEncodedInt()
 {
-    UInt32 result   = 0;
-    UInt32 bitsRead = 0;
-    UInt32 value    = 0;
+    uint32_t result   = 0;
+    uint32_t bitsRead = 0;
+    uint32_t value    = 0;
 
     do
     {
@@ -144,9 +144,9 @@ int32_t BinaryReader::ReadInt32()
     return buffer;
 }
 
-UInt32 BinaryReader::ReadUInt32()
+uint32_t BinaryReader::ReadUInt32()
 {
-    UInt32 buffer;
+    uint32_t buffer;
 
     this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 

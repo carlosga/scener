@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines stencil buffer operations.
          */
-        enum class StencilOperation : System::UInt32
+        enum class StencilOperation : uint32_t
         {
             /**
              * Decrements the stencil-buffer entry, wrapping to the maximum value if the new value is less than 0.

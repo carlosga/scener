@@ -27,7 +27,7 @@ void VertexArrayObject::Dispose()
     }
 }
 
-const UInt32& VertexArrayObject::Id() const
+uint32_t VertexArrayObject::Id() const
 {
     return this->id;
 }

@@ -36,7 +36,7 @@ std::shared_ptr<void> SkinningDataReader::Read(ContentReader& input)
 
     // 4. Read the skeleton hierarchy.
     //    For each bone in the skeleton, stores the index of the parent bone.
-    auto skeletonHierarchy = *input.ReadObject<std::vector<UInt32>>();
+    auto skeletonHierarchy = *input.ReadObject<std::vector<uint32_t>>();
 
     return std::make_shared<SkinningData>(animationClips, bindPose, inverseBindPose, skeletonHierarchy);
 }

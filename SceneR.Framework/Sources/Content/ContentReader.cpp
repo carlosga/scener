@@ -125,7 +125,7 @@ void ContentReader::ReadManifest()
 
     typeReaders.clear();
 
-    for (UInt32 i = 0; i < typeReaderCount; i++)
+    for (uint32_t i = 0; i < typeReaderCount; i++)
     {
         // Read the type reader name.
         auto readerName = this->ReadString();
@@ -146,7 +146,7 @@ void ContentReader::ReadManifest()
 
 void ContentReader::ReadSharedResources()
 {
-    for (UInt32 i = 0; i < this->sharedResourceCount; i++)
+    for (uint32_t i = 0; i < this->sharedResourceCount; i++)
     {
         auto sharedResourceType = this->Read7BitEncodedInt();
 

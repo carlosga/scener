@@ -21,10 +21,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const System::UInt32&                        offset
+            VertexElement(const uint32_t&                              offset
                         , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
                         , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
-                        , const System::UInt32&                        usageIndex);
+                        , const uint32_t&                              usageIndex);
 
             /**
              * @brief Copy constructor
@@ -41,12 +41,12 @@ namespace SceneR
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            const System::UInt32& Offset() const;
+            uint32_t Offset() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            const System::UInt32& UsageIndex() const;
+            uint32_t UsageIndex() const;
 
             /**
              * Gets or sets the format of this vertex element.
@@ -62,10 +62,10 @@ namespace SceneR
             VertexElement& operator=(const VertexElement& element);
 
         private:
-            System::UInt32                        offset;
+            uint32_t                              offset;
             SceneR::Graphics::VertexElementFormat vertexElementFormat;
             SceneR::Graphics::VertexElementUsage  vertexElementUsage;
-            System::UInt32                        usageIndex;
+            uint32_t                              usageIndex;
         };
     }
 }

@@ -22,9 +22,9 @@ EffectParameter::EffectParameter()
 }
 
 EffectParameter::EffectParameter(const std::u16string&                      name
-                               , const System::UInt32&                      index
-                               , const System::UInt32&                      offset
-                               , const System::UInt32&                      type
+                               , const uint32_t&                            index
+                               , const uint32_t&                            offset
+                               , const uint32_t&                            type
                                , const std::shared_ptr<UniformBufferObject> uniformBuffer)
     : columnCount       { 0 }
     , elements          {  }
@@ -220,24 +220,24 @@ void EffectParameter::SetValue(const std::vector<int32_t>& value) const
     this->uniformBuffer->SetData(this->offset, sizeof(int32_t) * value.size(), value.data());
 }
 
-void EffectParameter::SetValue(const UInt32& value) const
+void EffectParameter::SetValue(const uint32_t& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(UInt32), &value);
+    this->uniformBuffer->SetData(this->offset, sizeof(uint32_t), &value);
 }
 
-void EffectParameter::SetValue(const std::vector<UInt32>& value) const
+void EffectParameter::SetValue(const std::vector<uint32_t>& value) const
 {
     if (this->parameterClass != EffectParameterClass::Scalar)
     {
         throw std::runtime_error("Invalid effect parameter class.");
     }
 
-    this->uniformBuffer->SetData(this->offset, sizeof(UInt32) * value.size(), value.data());
+    this->uniformBuffer->SetData(this->offset, sizeof(uint32_t) * value.size(), value.data());
 }
 
 void EffectParameter::SetValue(const Matrix& value) const

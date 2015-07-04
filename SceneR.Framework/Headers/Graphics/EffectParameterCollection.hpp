@@ -55,9 +55,9 @@ namespace SceneR
 
         private:
             EffectParameter& Add(const std::u16string&                name
-                               , const System::UInt32&                index
-                               , const System::UInt32&                offset
-                               , const System::UInt32&                type
+                               , const uint32_t&                      index
+                               , const uint32_t&                      offset
+                               , const uint32_t&                      type
                                , std::shared_ptr<UniformBufferObject> uniformBuffer);
 
             void Clear();

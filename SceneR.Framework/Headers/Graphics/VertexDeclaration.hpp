@@ -29,7 +29,7 @@ namespace SceneR
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */
-            VertexDeclaration(const System::UInt32&             vertexStride
+            VertexDeclaration(const uint32_t&                   vertexStride
                             , const std::vector<VertexElement>& vertexElements);
 
             /**
@@ -48,7 +48,7 @@ namespace SceneR
              * Gets the number of bytes per element.
              * @return the number of bytes per element.
              */
-            const System::UInt32& VertexStride() const;
+            uint32_t VertexStride() const;
 
             /**
              * Gets the vertex elements.
@@ -65,13 +65,13 @@ namespace SceneR
              * @param vaoiId Specifies the name of the vertex array object for glDisableVertexArrayAttrib and glEnableVertexArrayAttrib functions.
              * @param bindingIndex The index of the vertex buffer binding with which to associate the generic vertex attribute.
              */
-            void Declare(const System::UInt32& vaoId, const System::UInt32& bindingIndex​) const;
+            void Declare(const uint32_t& vaoId, const uint32_t& bindingIndex​) const;
 
-            System::UInt32 GetElementCount(const VertexElementFormat& vertexFormat) const;
-            System::UInt32 GetElementType(const VertexElementFormat& vertexFormat) const;
+            uint32_t GetElementCount(const VertexElementFormat& vertexFormat) const;
+            uint32_t GetElementType(const VertexElementFormat& vertexFormat) const;
 
         private:
-            System::UInt32             vertexStride;
+            uint32_t                   vertexStride;
             std::vector<VertexElement> vertexElements;
 
             friend class VertexBuffer;

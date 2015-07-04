@@ -59,12 +59,12 @@ namespace SceneR
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual System::UInt32 DrawOrder() const override;
+            virtual uint32_t DrawOrder() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            void DrawOrder(const System::UInt32& drawOrder);
+            void DrawOrder(const uint32_t& drawOrder);
 
             /**
              * Called when the component should be initialized.
@@ -78,8 +78,8 @@ namespace SceneR
             virtual void UnloadContent();
 
         private:
-            bool           visible;
-            System::UInt32 drawOrder;
+            bool     visible;
+            uint32_t drawOrder;
         };
     }
 }

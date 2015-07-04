@@ -19,7 +19,7 @@ namespace SceneR
         /**
          * @brief Track which effect parameters need to be recomputed during the next OnApply.
          */
-        enum class EffectDirtyFlags : System::UInt32
+        enum class EffectDirtyFlags : uint32_t
         {
             WorldViewProj   = 1,
             World           = 2,
@@ -34,27 +34,27 @@ namespace SceneR
 
         inline constexpr EffectDirtyFlags operator&(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
-            return static_cast<EffectDirtyFlags>(static_cast<System::UInt32>(left) & static_cast<System::UInt32>(right));
+            return static_cast<EffectDirtyFlags>(static_cast<uint32_t>(left) & static_cast<uint32_t>(right));
         }
 
         inline constexpr EffectDirtyFlags operator|(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
         {
-            return static_cast<EffectDirtyFlags>(static_cast<System::UInt32>(left) | static_cast<System::UInt32>(right));
+            return static_cast<EffectDirtyFlags>(static_cast<uint32_t>(left) | static_cast<uint32_t>(right));
         }
 
         inline constexpr EffectDirtyFlags operator~(const EffectDirtyFlags& value)
         {
-            return static_cast<EffectDirtyFlags>(~static_cast<System::UInt32>(value));
+            return static_cast<EffectDirtyFlags>(~static_cast<uint32_t>(value));
         }
 
-        inline constexpr bool operator==(const EffectDirtyFlags& left, const System::UInt32& right)
+        inline constexpr bool operator==(const EffectDirtyFlags& left, const uint32_t& right)
         {
-            return (static_cast<System::UInt32>(left) == right);
+            return (static_cast<uint32_t>(left) == right);
         }
 
-        inline constexpr bool operator!=(const EffectDirtyFlags& left, const System::UInt32& right)
+        inline constexpr bool operator!=(const EffectDirtyFlags& left, const uint32_t& right)
         {
-            return (static_cast<System::UInt32>(left) != right);
+            return (static_cast<uint32_t>(left) != right);
         }
 
         inline EffectDirtyFlags& operator&=(EffectDirtyFlags& left, const EffectDirtyFlags& right)

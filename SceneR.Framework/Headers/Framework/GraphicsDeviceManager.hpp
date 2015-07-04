@@ -119,23 +119,23 @@ namespace SceneR
              * Gets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
              */
-            const System::UInt32& PreferredBackBufferHeight() const;
+            uint32_t PreferredBackBufferHeight() const;
 
             /**
              * Sets the preferred back-buffer height.
              */
-            void PreferredBackBufferHeight(const System::UInt32& preferredBackBufferHeight);
+            void PreferredBackBufferHeight(const uint32_t& preferredBackBufferHeight);
 
             /**
              * Gets the preferred back-buffer width.
              * @return the preferred back-buffer width.
              */
-            const System::UInt32& PreferredBackBufferWidth() const;
+            uint32_t PreferredBackBufferWidth() const;
 
             /**
              * Sets the preferred back-buffer width.
              */
-            void PreferredBackBufferWidth(const System::UInt32& preferredBackBufferWidth);
+            void PreferredBackBufferWidth(const uint32_t& preferredBackBufferWidth);
 
         private:
             Renderer&                                         renderer;
@@ -143,8 +143,8 @@ namespace SceneR
             bool                                              allowUserResizing;
             bool                                              fullScreen;
             SceneR::Graphics::GraphicsProfile                 graphicsProfile;
-            System::UInt32                                    preferredBackBufferWidth;
-            System::UInt32                                    preferredBackBufferHeight;
+            uint32_t                                          preferredBackBufferWidth;
+            uint32_t                                          preferredBackBufferHeight;
             std::u16string                                    windowTitle;
         };
     }

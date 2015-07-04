@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines color blending factors.
          */
-        enum class Blend : System::UInt32
+        enum class Blend : uint32_t
         {
             /**
              * Each component of the color is multiplied by (0, 0, 0, 0).

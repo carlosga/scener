@@ -49,9 +49,9 @@ namespace SceneR
              * @param type the parameter raw type.
              */
             EffectParameter(const std::u16string&                      name
-                          , const System::UInt32&                      index
-                          , const System::UInt32&                      offset
-                          , const System::UInt32&                      type
+                          , const uint32_t&                            index
+                          , const uint32_t&                            offset
+                          , const uint32_t&                            type
                           , const std::shared_ptr<UniformBufferObject> uniformBuffer);
 
             /**
@@ -187,40 +187,40 @@ namespace SceneR
 
         public:
             /**
-             * Sets the value of the EffectParameter as a System::Boolean.
+             * Sets the value of the EffectParameter as a boolean.
              * @param value the value to assign to the EffectParameter.
              */
             void SetValue(const bool& value) const;
 
             /**
-             * Gets the value of the EffectParameter as an array of System::Boolean.
+             * Gets the value of the EffectParameter as an array of booleans.
              * @param value the value to assign to the EffectParameter.
              */
             void SetValue(const std::vector<bool>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an System::Int32.
+             * Sets the value of the EffectParameter as a int32_t.
              * @param value the value to assign to the EffectParameter.
              */
             void SetValue(const int32_t& value) const;
 
             /**
-             *  Sets the value of the EffectParameter as an array of System::Int32.
+             *  Sets the value of the EffectParameter as an array of int32_t.
              *  @param value the value to assign to the EffectParameter.
              */
             void SetValue(const std::vector<int32_t>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as an System::UInt32.
+             * Sets the value of the EffectParameter as a uint32_t.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const System::UInt32& value) const;
+            void SetValue(const uint32_t& value) const;
 
             /**
-             *  Sets the value of the EffectParameter as an array of System::UInt32.
+             *  Sets the value of the EffectParameter as an array of uint32_t.
              *  @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<System::UInt32>& value) const;
+            void SetValue(const std::vector<uint32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
@@ -332,8 +332,8 @@ namespace SceneR
             EffectParameterType                  parameterType;
             int32_t                              rowCount;
             EffectParameterCollection            structureMembers;
-            System::UInt32                       index;
-            System::UInt32                       offset;
+            uint32_t                             index;
+            uint32_t                             offset;
             std::shared_ptr<UniformBufferObject> uniformBuffer;
         };
     }

@@ -137,7 +137,7 @@ void Effect::Build()
     this->DescribeParameters();
 }
 
-void Effect::ActivateSubroutine(const UInt32& subroutineIndex) const
+void Effect::ActivateSubroutine(const uint32_t& subroutineIndex) const
 {
     for (const auto& shader : this->shaders)
     {
@@ -145,7 +145,7 @@ void Effect::ActivateSubroutine(const UInt32& subroutineIndex) const
     }
 }
 
-void Effect::ActivateSubroutine(const ShaderType& type, const UInt32& subroutineIndex) const
+void Effect::ActivateSubroutine(const ShaderType& type, const uint32_t& subroutineIndex) const
 {
     glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
 }
@@ -208,9 +208,9 @@ void Effect::DescribeParameters()
         glGetActiveUniform(this->id, indices[i], nameLengths[i], &length, &size, &type, name.data());
 
         this->parameters.Add({ name.begin(), name.begin() + length }
-                           , static_cast<UInt32>(indices[i])
-                           , static_cast<UInt32>(offsets[i])
-                           , static_cast<UInt32>(types[i])
+                           , static_cast<uint32_t>(indices[i])
+                           , static_cast<uint32_t>(offsets[i])
+                           , static_cast<uint32_t>(types[i])
                            , this->uniformBuffer);
     }
 }

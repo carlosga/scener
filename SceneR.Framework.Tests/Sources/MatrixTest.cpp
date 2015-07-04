@@ -722,20 +722,20 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    const UInt32 rotCount = 16;
+    const uint32_t rotCount = 16;
 
-    for (UInt32 i = 0; i < rotCount; ++i)
+    for (uint32_t i = 0; i < rotCount; ++i)
     {
         Single latitude = (2.0f * Math::Pi) * ((Single)i / (Single)rotCount);
 
-        for (UInt32 j = 0; j < rotCount; ++j)
+        for (uint32_t j = 0; j < rotCount; ++j)
         {
             Single longitude = -Math::PiOver2 + Math::Pi * ((Single)j / (float)rotCount);
 
             auto m    = Matrix::CreateRotationZ(longitude) * Matrix::CreateRotationY(latitude);
             auto axis = Vector3 { m.M11(), m.M12(), m.M13() };
 
-            for (UInt32 k = 0; k < rotCount; ++k)
+            for (uint32_t k = 0; k < rotCount; ++k)
             {
                 Single rot = (2.0f * Math::Pi) * ((Single)k / (Single)rotCount);
 

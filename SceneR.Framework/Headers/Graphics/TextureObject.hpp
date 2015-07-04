@@ -55,10 +55,10 @@ namespace SceneR
              * @param width texture width
              * @param height texture height
              */
-            void Declare2DStorage(const SurfaceFormat&  format
-                                , const System::UInt32& levels
-                                , const System::UInt32& width
-                                , const System::UInt32& height) const;
+            void Declare2DStorage(const SurfaceFormat& format
+                                , const uint32_t&      levels
+                                , const uint32_t&      width
+                                , const uint32_t&      height) const;
 
             /**
              * Adds texture data to the texture object
@@ -69,16 +69,16 @@ namespace SceneR
              * @param size mipmap data size
              * @param data mipmap data
              */
-            void TextureSubImage2D(const SurfaceFormat&  format,
-                                   const System::UInt32& level,
-                                   const System::UInt32& width,
-                                   const System::UInt32& height,
-                                   const System::Size&   size,
-                                   const void*           data) const;
+            void TextureSubImage2D(const SurfaceFormat& format,
+                                   const uint32_t&      level,
+                                   const uint32_t&      width,
+                                   const uint32_t&      height,
+                                   const System::Size&  size,
+                                   const void*          data) const;
 
         private:
-            System::UInt32 texId;
-            TextureTarget  target;
+            uint32_t      texId;
+            TextureTarget target;
         };
     }
 }

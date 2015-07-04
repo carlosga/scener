@@ -34,7 +34,7 @@ void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTra
 {
     assert(destinationBoneTransforms.size() == this->bones.size());
 
-    for (UInt32 boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
+    for (uint32_t boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
     {
         auto bone = this->bones[boneIndex];
 
@@ -44,7 +44,7 @@ void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTra
         }
         else
         {
-            UInt32 parentBoneIndex = bone->Parent()->Index();
+            uint32_t parentBoneIndex = bone->Parent()->Index();
 
             destinationBoneTransforms[boneIndex] = bone->Transform() * destinationBoneTransforms[parentBoneIndex];
         }
@@ -55,7 +55,7 @@ void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransfor
 {
     assert(sourceBoneTransforms.size() == this->bones.size());
 
-    for (UInt32 i = 0; i < sourceBoneTransforms.size(); i++)
+    for (uint32_t i = 0; i < sourceBoneTransforms.size(); i++)
     {
         this->bones[i]->Transform(sourceBoneTransforms[i]);
     }
@@ -65,7 +65,7 @@ void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
     assert(destinationBoneTransforms.size() == this->bones.size());
 
-    for (UInt32 i = 0; i < this->bones.size(); i++)
+    for (uint32_t i = 0; i < this->bones.size(); i++)
     {
         destinationBoneTransforms[i] = this->bones[i]->Transform();
     }

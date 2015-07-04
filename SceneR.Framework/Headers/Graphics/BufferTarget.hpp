@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines opengl buffer object targets
          */
-        enum class BufferTarget : System::UInt32
+        enum class BufferTarget : uint32_t
         {
             /**
              * A buffer used as a source for vertex data.

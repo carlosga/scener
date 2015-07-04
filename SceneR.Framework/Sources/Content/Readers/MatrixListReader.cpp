@@ -25,7 +25,7 @@ std::shared_ptr<void> MatrixListReader::Read(ContentReader& input)
 
     matrices->reserve(matrixCount);
 
-    for (UInt32 i = 0; i < matrixCount; i++)
+    for (uint32_t i = 0; i < matrixCount; i++)
     {
         matrices->push_back(input.ReadMatrix());
     }

@@ -604,7 +604,7 @@ namespace SceneR
 
         private:
             System::Single SubMatrixDeterminant();
-            Matrix SubMatrix(const System::UInt32& row, const System::UInt32& column) const;
+            Matrix SubMatrix(const uint32_t& row, const uint32_t& column) const;
 
         private:
             union

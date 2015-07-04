@@ -8,8 +8,7 @@
 
 namespace System
 {
-    // using Int32   = int32_t;
-    using UInt32  = uint32_t;
+    // using UInt32  = uint32_t;
     using Int64   = int64_t;
     using UInt64  = uint64_t;
     using Single  = float;

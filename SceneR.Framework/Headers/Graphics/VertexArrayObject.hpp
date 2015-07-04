@@ -34,7 +34,7 @@ namespace SceneR
             /**
              * Gets the vertex array object identifier.
              */
-            const System::UInt32& Id() const;
+            uint32_t Id() const;
 
             /**
              * Activates this vertex array object.
@@ -50,7 +50,7 @@ namespace SceneR
             void Create();
 
         private:
-            System::UInt32 id;
+            uint32_t id;
         };
     }
 }

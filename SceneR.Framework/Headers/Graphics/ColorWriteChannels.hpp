@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines the color channels that can be chosen for a per-channel write to a render target color buffer
          */
-        enum class ColorWriteChannels : System::UInt32
+        enum class ColorWriteChannels : uint32_t
         {
             /**
              * No channel selected.
@@ -43,27 +43,27 @@ namespace SceneR
 
         inline constexpr ColorWriteChannels operator&(const ColorWriteChannels& left, const ColorWriteChannels& right)
         {
-            return static_cast<ColorWriteChannels>(static_cast<System::UInt32>(left) & static_cast<System::UInt32>(right));
+            return static_cast<ColorWriteChannels>(static_cast<uint32_t>(left) & static_cast<uint32_t>(right));
         }
 
         inline constexpr ColorWriteChannels operator|(const ColorWriteChannels& left, const ColorWriteChannels& right)
         {
-            return static_cast<ColorWriteChannels>(static_cast<System::UInt32>(left) | static_cast<System::UInt32>(right));
+            return static_cast<ColorWriteChannels>(static_cast<uint32_t>(left) | static_cast<uint32_t>(right));
         }
 
         inline constexpr ColorWriteChannels operator~(const ColorWriteChannels& value)
         {
-            return static_cast<ColorWriteChannels>(~static_cast<System::UInt32>(value));
+            return static_cast<ColorWriteChannels>(~static_cast<uint32_t>(value));
         }
 
-        inline constexpr bool operator==(const ColorWriteChannels& left, const System::UInt32& right)
+        inline constexpr bool operator==(const ColorWriteChannels& left, const uint32_t& right)
         {
-            return (static_cast<System::UInt32>(left) == right);
+            return (static_cast<uint32_t>(left) == right);
         }
 
-        inline constexpr bool operator!=(const ColorWriteChannels& left, const System::UInt32& right)
+        inline constexpr bool operator!=(const ColorWriteChannels& left, const uint32_t& right)
         {
-            return (static_cast<System::UInt32>(left) != right);
+            return (static_cast<uint32_t>(left) != right);
         }
 
         inline ColorWriteChannels& operator&=(ColorWriteChannels& left, const ColorWriteChannels& right)

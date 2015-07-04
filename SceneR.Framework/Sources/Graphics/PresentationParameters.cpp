@@ -38,32 +38,32 @@ void PresentationParameters::FullScreen(const bool& fullScreen)
     this->fullScreen = fullScreen;
 }
 
-const UInt32& PresentationParameters::BackBufferHeight() const
+uint32_t PresentationParameters::BackBufferHeight() const
 {
     return this->backBufferHeight;
 }
 
-void PresentationParameters::BackBufferHeight(const UInt32& backBufferHeight)
+void PresentationParameters::BackBufferHeight(const uint32_t& backBufferHeight)
 {
     this->backBufferHeight = backBufferHeight;
 }
 
-const UInt32& PresentationParameters::BackBufferWidth() const
+uint32_t PresentationParameters::BackBufferWidth() const
 {
     return this->backBufferWidth;
 }
 
-void PresentationParameters::BackBufferWidth(const UInt32& backBufferWidth)
+void PresentationParameters::BackBufferWidth(const uint32_t& backBufferWidth)
 {
     this->backBufferWidth = backBufferWidth;
 }
 
-const System::UInt32& PresentationParameters::MultiSampleCount() const
+uint32_t PresentationParameters::MultiSampleCount() const
 {
     return this->multiSampleCount;
 }
 
-void PresentationParameters::MultiSampleCount(const System::UInt32& multiSampleCount)
+void PresentationParameters::MultiSampleCount(const uint32_t& multiSampleCount)
 {
     this->multiSampleCount = multiSampleCount;
 }

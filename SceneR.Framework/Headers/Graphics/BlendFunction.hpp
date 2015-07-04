@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines how to combine a source color with the destination color already on the render target for color blending.
          */
-        enum class BlendFunction : System::UInt32
+        enum class BlendFunction : uint32_t
         {
             /**
              * The result is the destination added to the source.

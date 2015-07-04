@@ -30,7 +30,7 @@ namespace SceneR
              * @param graphicsDevice the graphics device.
              */
             VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                       , const System::UInt32&                                       vertexCount
+                       , const uint32_t&                                             vertexCount
                        , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration);
 
             /**
@@ -45,7 +45,7 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            const System::UInt32& VertexCount() const;
+            uint32_t VertexCount() const;
 
             /**
              * Gets the vertex buffer data
@@ -55,7 +55,7 @@ namespace SceneR
             /**
              * Gets the vertex buffer data
              */
-            std::vector<uint8_t> GetData(const System::UInt32& startIndex, const System::UInt32& elementCount) const;
+            std::vector<uint8_t> GetData(const uint32_t& startIndex, const uint32_t& elementCount) const;
 
             /**
              * Sets the vertex buffer data
@@ -72,9 +72,9 @@ namespace SceneR
             void Deactivate();
 
         private:
-            System::UInt32                                       bindingIndex;
+            uint32_t                                             bindingIndex;
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
-            System::UInt32                                       vertexCount;
+            uint32_t                                             vertexCount;
             VertexArrayObject                                    vao;
             BufferObject                                         vbo;
 

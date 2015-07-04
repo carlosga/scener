@@ -35,7 +35,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     auto boneCount = input.ReadUInt32();
 
     // Read model bones
-    for (UInt32 i = 0; i < boneCount; i++)
+    for (uint32_t i = 0; i < boneCount; i++)
     {
         auto bone = std::make_shared<ModelBone>();
 
@@ -47,7 +47,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     }
 
     // Read bone hierarchy
-    for (UInt32 i = 0; i < boneCount; i++)
+    for (uint32_t i = 0; i < boneCount; i++)
     {
         auto currentBone         = model->bones[i];
         auto parentBoneReference = this->ReadBoneReference(input, boneCount);
@@ -58,7 +58,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
             currentBone->parent = model->bones[parentBoneReference];
         }
 
-        for (UInt32 j = 0; j < childBoneCount; j++)
+        for (uint32_t j = 0; j < childBoneCount; j++)
         {
             auto childBoneReference = this->ReadBoneReference(input, boneCount);
 
@@ -72,7 +72,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     // Read model meshes
     auto meshCount = input.ReadUInt32();
 
-    for (UInt32 i = 0; i < meshCount; i++)
+    for (uint32_t i = 0; i < meshCount; i++)
     {
         auto modelMesh = std::make_shared<ModelMesh>();
 
@@ -94,7 +94,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
         // Read mesh parts
         auto meshPartCount = input.ReadUInt32();
 
-        for (UInt32 j = 0; j < meshPartCount; j++)
+        for (uint32_t j = 0; j < meshPartCount; j++)
         {
             auto modelMeshPart = std::make_shared<ModelMeshPart>();
 
@@ -144,7 +144,7 @@ std::shared_ptr<void> ModelReader::Read(ContentReader& input)
     return model;
 }
 
-int32_t ModelReader::ReadBoneReference(ContentReader& input, const UInt32& boneCount) const
+int32_t ModelReader::ReadBoneReference(ContentReader& input, const uint32_t& boneCount) const
 {
     int32_t boneReference;
 

@@ -18,12 +18,12 @@ Int32ListReader::~Int32ListReader()
 
 std::shared_ptr<void> Int32ListReader::Read(ContentReader& input)
 {
-    auto values = std::make_shared<std::vector<UInt32>>();
+    auto values = std::make_shared<std::vector<uint32_t>>();
     auto count  = input.ReadUInt32();
 
     values->reserve(count);
 
-    for (UInt32 i = 0; i < count; i++)
+    for (uint32_t i = 0; i < count; i++)
     {
         values->push_back(input.ReadUInt32());
     }

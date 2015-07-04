@@ -10,7 +10,7 @@ using namespace System;
 using namespace System::Text;
 using namespace SceneR::Graphics;
 
-UniformBufferObject::UniformBufferObject(const std::u16string& name, const UInt32& programId)
+UniformBufferObject::UniformBufferObject(const std::u16string& name, const uint32_t& programId)
     : name         { name }
     , programId    { programId }
     , index        { 0 }
@@ -29,7 +29,7 @@ void UniformBufferObject::Dispose()
     this->bufferObject.Dispose();
 }
 
-System::UInt32 UniformBufferObject::Index() const
+uint32_t UniformBufferObject::Index() const
 {
     return this->index;
 }
@@ -59,7 +59,7 @@ std::vector<uint8_t> UniformBufferObject::GetData() const
     return this->GetData(0, this->size);
 }
 
-std::vector<uint8_t> UniformBufferObject::GetData(const UInt32& startIndex, const UInt32& elementCount) const
+std::vector<uint8_t> UniformBufferObject::GetData(const uint32_t& startIndex, const uint32_t& elementCount) const
 {
     auto data = std::vector<uint8_t>(elementCount, 0);
 
@@ -73,7 +73,7 @@ void UniformBufferObject::SetData(const void* data)
     this->bufferObject.BufferData(0, this->size, data);
 }
 
-void UniformBufferObject::SetData(const UInt32& startIndex, const UInt32& elementCount, const void *data)
+void UniformBufferObject::SetData(const uint32_t& startIndex, const uint32_t& elementCount, const void *data)
 {
     if (data == nullptr)
     {

@@ -132,7 +132,7 @@ namespace SceneR
             std::u16string                    assetName;
             SceneR::Content::ContentManager&  contentManager;
             std::vector<ContentTypeReader*>   typeReaders;
-            System::UInt32                    sharedResourceCount;
+            uint32_t                          sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;
 
             friend class ContentManager;

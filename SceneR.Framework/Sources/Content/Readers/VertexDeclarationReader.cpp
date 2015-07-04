@@ -24,7 +24,7 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
     auto elementCount = input.ReadUInt32();
     auto elements     = std::vector<VertexElement>();
 
-    for (UInt32 i = 0; i < elementCount; i++)
+    for (uint32_t i = 0; i < elementCount; i++)
     {
         elements.push_back({ input.ReadUInt32()                                   // Offset
                            , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format

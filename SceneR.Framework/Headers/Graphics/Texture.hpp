@@ -46,7 +46,7 @@ namespace SceneR
                 /**
                  * Gets the number of texture levels in a multilevel texture.
                  */
-                virtual const System::UInt32& LevelCount() const = 0;
+                virtual uint32_t LevelCount() const = 0;
 
                 /**
                  * Activates the texture object

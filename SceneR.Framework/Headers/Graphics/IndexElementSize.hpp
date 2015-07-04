@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines the element size for IndexBuffer instances
          */
-        enum class IndexElementSize : System::UInt32
+        enum class IndexElementSize : uint32_t
         {
             /**
              * Sixteen bits

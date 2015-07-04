@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Declares the supported shader types
          */
-        enum class ShaderType : System::UInt32
+        enum class ShaderType : uint32_t
         {
             /**
              * A shader that is intended to run on the programmable vertex processor.

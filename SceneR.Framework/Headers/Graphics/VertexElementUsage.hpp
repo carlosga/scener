@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines usage for vertex elements.
          */
-        enum class VertexElementUsage : System::UInt32
+        enum class VertexElementUsage : uint32_t
         {
             /**
              * Position data.

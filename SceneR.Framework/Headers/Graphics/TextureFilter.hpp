@@ -14,7 +14,7 @@ namespace SceneR
         /**
          * Defines filtering types during texture sampling.
          */
-        enum class TextureFilter : System::UInt32
+        enum class TextureFilter : uint32_t
         {
             /**
              * Use linear filtering.

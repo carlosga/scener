@@ -178,12 +178,12 @@ void DepthStencilState::StencilFunction(const CompareFunction& stencilFunction)
     this->stencilFunction = stencilFunction;
 }
 
-System::UInt32 DepthStencilState::StencilMask() const
+uint32_t DepthStencilState::StencilMask() const
 {
     return this->stencilMask;
 }
 
-void DepthStencilState::StencilMask(const System::UInt32& stencilMask)
+void DepthStencilState::StencilMask(const uint32_t& stencilMask)
 {
     this->stencilMask = stencilMask;
 }
@@ -198,12 +198,12 @@ void DepthStencilState::StencilPass(const StencilOperation& stencilPass)
     this->stencilPass = stencilPass;
 }
 
-System::UInt32 DepthStencilState::StencilWriteMask() const
+uint32_t DepthStencilState::StencilWriteMask() const
 {
     return this->stencilWriteMask;
 }
 
-void DepthStencilState::StencilWriteMask(const System::UInt32& stencilWriteMask)
+void DepthStencilState::StencilWriteMask(const uint32_t& stencilWriteMask)
 {
     this->stencilWriteMask = stencilWriteMask;
 }

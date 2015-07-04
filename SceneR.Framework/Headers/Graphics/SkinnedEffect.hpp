@@ -256,7 +256,7 @@ namespace SceneR
             /**
              * Gets the array of bone transform matrices of this SkinnedEffect.
              */
-            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const System::UInt32& count) const;
+            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const uint32_t& count) const;
 
             /**
              * Sets an array of bone transform matrices for a SkinnedEffect.
@@ -266,12 +266,12 @@ namespace SceneR
             /**
              * Gets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            System::UInt32 WeightsPerVertex() const;
+            uint32_t WeightsPerVertex() const;
 
             /**
              * Sets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            void WeightsPerVertex(const System::UInt32& weightsPerVertex);
+            void WeightsPerVertex(const uint32_t& weightsPerVertex);
 
         public:
             /**
@@ -310,11 +310,11 @@ namespace SceneR
             bool                                   textureEnabled;
             std::shared_ptr<Texture2D>             texture;
             SceneR::Framework::Matrix              view;
-            System::UInt32                         weightsPerVertex;
+            uint32_t                               weightsPerVertex;
             SceneR::Framework::Matrix              world;
             SceneR::Framework::Matrix              worldView;
             bool                                   oneLight;
-            System::UInt32                         shaderIndex;
+            uint32_t                               shaderIndex;
 
             EffectDirtyFlags                       dirtyFlags;
 

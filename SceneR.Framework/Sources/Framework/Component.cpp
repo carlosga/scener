@@ -34,12 +34,12 @@ void Component::Enabled(const bool& enabled)
     this->enabled = enabled;
 }
 
-UInt32 Component::UpdateOrder() const
+uint32_t Component::UpdateOrder() const
 {
     return this->updateOrder;
 }
 
-void Component::UpdateOrder(const UInt32& updateOrder)
+void Component::UpdateOrder(const uint32_t& updateOrder)
 {
     this->updateOrder = updateOrder;
 }

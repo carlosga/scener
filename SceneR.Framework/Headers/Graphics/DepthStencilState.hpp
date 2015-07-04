@@ -180,14 +180,14 @@ namespace SceneR
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            System::UInt32 StencilMask() const;
+            uint32_t StencilMask() const;
 
             /**
              * Sets the mask applied to the reference value and
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            void StencilMask(const System::UInt32& stencilMask);
+            void StencilMask(const uint32_t& stencilMask);
 
             /**
              * Gets the stencil operation to perform if the stencil test passes
@@ -202,12 +202,12 @@ namespace SceneR
             /**
              * Gets the write mask applied to values written into the stencil buffer.
              */
-            System::UInt32 StencilWriteMask() const;
+            uint32_t StencilWriteMask() const;
 
             /**
              * Sets the write mask applied to values written into the stencil buffer.
              */
-            void StencilWriteMask(const System::UInt32& stencilWriteMask);
+            void StencilWriteMask(const uint32_t& stencilWriteMask);
 
             /**
              * Gets a value indicating wheter two-sided stenciling is enabled.
@@ -238,9 +238,9 @@ namespace SceneR
             bool             stencilEnable;
             StencilOperation stencilFail;
             CompareFunction  stencilFunction;
-            System::UInt32   stencilMask;
+            uint32_t         stencilMask;
             StencilOperation stencilPass;
-            System::UInt32   stencilWriteMask;
+            uint32_t         stencilWriteMask;
             bool             twoSidedStencilMode;
 
             friend class SceneR::Framework::GraphicsDeviceManager;

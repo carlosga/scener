@@ -18,5 +18,5 @@ Int32Reader::~Int32Reader()
 
 std::shared_ptr<void> Int32Reader::Read(ContentReader& input)
 {
-    return std::make_shared<UInt32>(input.ReadUInt32());
+    return std::make_shared<uint32_t>(input.ReadUInt32());
 }
