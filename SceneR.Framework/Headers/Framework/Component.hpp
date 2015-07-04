@@ -4,7 +4,7 @@
 #ifndef COMPONENT_HPP
 #define COMPONENT_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <Framework/IComponent.hpp>
 #include <Framework/IUpdateable.hpp>
@@ -31,9 +31,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this component instance.
              */
-            virtual ~Component()
-            {
-            }
+            virtual ~Component();
 
         public:
             /**
@@ -60,20 +58,20 @@ namespace SceneR
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual uint32_t UpdateOrder() const override;
+            virtual std::uint32_t UpdateOrder() const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            void UpdateOrder(const uint32_t& updateOrder);
+            void UpdateOrder(const std::uint32_t& updateOrder);
 
         protected:
             SceneR::Framework::Renderer& renderer;
 
         private:
-            bool     enabled;
-            uint32_t updateOrder;
+            bool          enabled;
+            std::uint32_t updateOrder;
         };
     }
 }

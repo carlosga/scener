@@ -4,7 +4,8 @@
 #ifndef BUFFEROBJECT_HPP
 #define BUFFEROBJECT_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
@@ -39,7 +40,7 @@ namespace SceneR
             /**
              * Gets the buffer object identifier.
              */
-            uint32_t Id() const;
+            std::uint32_t Id() const;
 
             /**
              * Gets the buffer object target.
@@ -67,7 +68,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void GetData(const uint32_t& offset, const uint32_t& size, void *data) const;
+            void GetData(const std::size_t& offset, const std::size_t& size, void *data) const;
 
             /**
              * Creates and initializes the buffer object data store.
@@ -75,7 +76,7 @@ namespace SceneR
              * @param data specifies a pointer to data that will be copied into the data store for initialization,
              *             or NULL if no data is to be copied.
              */
-            void BufferData(const uint32_t& size, const void* data) const;
+            void BufferData(const std::size_t& size, const void* data) const;
 
             /**
              * Updates a subset of a buffer object's data store
@@ -83,7 +84,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void BufferData(const uint32_t& offset, const uint32_t& size, const void *data) const;
+            void BufferData(const std::size_t& offset, const std::size_t& size, const void *data) const;
 
             /**
              * Invalidate the content of a buffer object's data store
@@ -95,7 +96,7 @@ namespace SceneR
              *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
              *  @param length the length of the range within the buffer's data store to be invalidated.
              */
-            void Invalidate(const uint32_t& offset, const uint32_t& length) const;
+            void Invalidate(const std::size_t& offset, const std::size_t& length) const;
 
         private:
             /**
@@ -104,9 +105,9 @@ namespace SceneR
             void Create();
 
         private:
-            uint32_t     id;
-            BufferTarget target;
-            BufferUsage  usage;
+            std::uint32_t id;
+            BufferTarget  target;
+            BufferUsage   usage;
         };
     }
 }

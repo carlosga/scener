@@ -568,7 +568,7 @@ void BasicEffect::CacheEffectParameters()
     */
 }
 
-uint32_t BasicEffect::VSIndices[32] =
+std::uint32_t BasicEffect::VSIndices[32] =
 {
     0,      // basic
     1,      // no fog
@@ -607,7 +607,7 @@ uint32_t BasicEffect::VSIndices[32] =
     19,     // pixel lighting + texture + vertex color, no fog
 };
 
-uint32_t BasicEffect::PSIndices[32] =
+std::uint32_t BasicEffect::PSIndices[32] =
 {
     0,      // basic
     1,      // no fog

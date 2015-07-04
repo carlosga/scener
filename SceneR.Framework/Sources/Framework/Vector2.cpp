@@ -197,14 +197,14 @@ float Vector2::Length() const
     return Math::Sqrt(this->LengthSquared());
 }
 
-float& Vector2::operator[](const size_t& index)
+float& Vector2::operator[](const std::size_t& index)
 {
     assert(index < 2);
 
     return (this->coords[index]);
 }
 
-const float& Vector2::operator[](const size_t& index) const
+const float& Vector2::operator[](const std::size_t& index) const
 {
     assert(index < 2);
 

@@ -133,22 +133,22 @@ void GraphicsDeviceManager::FullScreen(const bool& fullScreen)
     this->fullScreen = fullScreen;
 }
 
-uint32_t GraphicsDeviceManager::PreferredBackBufferHeight() const
+std::uint32_t GraphicsDeviceManager::PreferredBackBufferHeight() const
 {
     return this->preferredBackBufferHeight;
 }
 
-void GraphicsDeviceManager::PreferredBackBufferHeight(const uint32_t& preferredBackBufferHeight)
+void GraphicsDeviceManager::PreferredBackBufferHeight(const std::uint32_t& preferredBackBufferHeight)
 {
     this->preferredBackBufferHeight = preferredBackBufferHeight;
 }
 
-uint32_t GraphicsDeviceManager::PreferredBackBufferWidth() const
+std::uint32_t GraphicsDeviceManager::PreferredBackBufferWidth() const
 {
     return this->preferredBackBufferWidth;
 }
 
-void GraphicsDeviceManager::PreferredBackBufferWidth(const uint32_t& preferredBackBufferWidth)
+void GraphicsDeviceManager::PreferredBackBufferWidth(const std::uint32_t& preferredBackBufferWidth)
 {
     this->preferredBackBufferWidth = preferredBackBufferWidth;
 }

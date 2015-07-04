@@ -4,7 +4,8 @@
 #ifndef UNIFORMBUFFEROBJECT_HPP
 #define UNIFORMBUFFEROBJECT_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -28,7 +29,7 @@ namespace SceneR
              * @param name the name of the uniform buffer object.
              * @oaram programId the handle of the shader program.
              */
-            UniformBufferObject(const std::u16string& name, const uint32_t& programId);
+            UniformBufferObject(const std::u16string& name, const std::uint32_t& programId);
 
             /**
              * Releases all resources being used by this UniformBufferObject.
@@ -40,19 +41,19 @@ namespace SceneR
 
         public:
             /**
-             * Gets the uniform buffer block index.
-             */
-            uint32_t Index() const;
-
-            /**
              * Gets the uniform buffer binding point.
              */
-            int32_t BindingPoint() const;
+            std::int32_t BindingPoint() const;
+
+            /**
+             * Gets the uniform buffer block index.
+             */
+            std::size_t Index() const;
 
             /**
              * Gets the uniform buffer block data size.
              */
-            int32_t Size() const;
+            std::size_t Size() const;
 
         public:
             /**
@@ -75,12 +76,12 @@ namespace SceneR
             /**
              * Gets the uniform buffer data
              */
-            std::vector<uint8_t> GetData() const;
+            std::vector<std::uint8_t> GetData() const;
 
             /**
              * Gets the uniform buffer data
              */
-            std::vector<uint8_t> GetData(const uint32_t& startIndex, const uint32_t& elementCount) const;
+            std::vector<std::uint8_t> GetData(const std::size_t& startIndex, const std::size_t& elementCount) const;
 
             /**
              * Sets the uniform buffer data
@@ -90,14 +91,14 @@ namespace SceneR
             /**
              * Sets the uniform buffer data
              */
-            void SetData(const uint32_t& startIndex, const uint32_t& elementCount, const void *data);
+            void SetData(const std::size_t& startIndex, const std::size_t& elementCount, const void *data);
 
         private:
             std::u16string name;
-            uint32_t       programId;
-            uint32_t       index;
-            int32_t        bindingPoint;
-            int32_t        size;
+            std::uint32_t  programId;
+            std::size_t    index;
+            std::int32_t   bindingPoint;
+            std::size_t    size;
             BufferObject   bufferObject;
         };
     }

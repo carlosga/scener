@@ -4,6 +4,7 @@
 #include <Graphics/Effect.hpp>
 
 #include <cassert>
+#include <cstddef>
 
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
@@ -137,7 +138,7 @@ void Effect::Build()
     this->DescribeParameters();
 }
 
-void Effect::ActivateSubroutine(const uint32_t& subroutineIndex) const
+void Effect::ActivateSubroutine(const std::uint32_t& subroutineIndex) const
 {
     for (const auto& shader : this->shaders)
     {
@@ -145,7 +146,7 @@ void Effect::ActivateSubroutine(const uint32_t& subroutineIndex) const
     }
 }
 
-void Effect::ActivateSubroutine(const ShaderType& type, const uint32_t& subroutineIndex) const
+void Effect::ActivateSubroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
 {
     glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
 }
@@ -165,7 +166,7 @@ void Effect::VerifyLinkingState()
 
         if (infoLogLength)
         {
-            std::string linkErrorMessage("", static_cast<size_t>(infoLogLength));
+            std::string linkErrorMessage("", static_cast<std::size_t>(infoLogLength));
 
             glGetProgramInfoLog(this->id, infoLogLength, NULL, &linkErrorMessage[0]);
 
@@ -181,14 +182,14 @@ void Effect::VerifyLinkingState()
 void Effect::DescribeParameters()
 {
     // Check the number of active uniforms
-    int32_t activeUniforms = 0;
+    std::int32_t activeUniforms = 0;
 
     glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
 
-    std::vector<int32_t> indices(activeUniforms, 0);
-    std::vector<int32_t> nameLengths(activeUniforms, 0);
-    std::vector<int32_t> offsets(activeUniforms, 0);
-    std::vector<int32_t> types(activeUniforms, 0);
+    std::vector<std::int32_t> indices(activeUniforms, 0);
+    std::vector<std::int32_t> nameLengths(activeUniforms, 0);
+    std::vector<std::int32_t> offsets(activeUniforms, 0);
+    std::vector<std::int32_t> types(activeUniforms, 0);
 
     glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
 
@@ -198,7 +199,7 @@ void Effect::DescribeParameters()
     glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
     glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
 
-    for (int32_t i = 0; i < activeUniforms; i++)
+    for (std::int32_t i = 0; i < activeUniforms; i++)
     {
         GLsizei length = 0;
         GLint   size   = 0;
@@ -208,9 +209,9 @@ void Effect::DescribeParameters()
         glGetActiveUniform(this->id, indices[i], nameLengths[i], &length, &size, &type, name.data());
 
         this->parameters.Add({ name.begin(), name.begin() + length }
-                           , static_cast<uint32_t>(indices[i])
-                           , static_cast<uint32_t>(offsets[i])
-                           , static_cast<uint32_t>(types[i])
+                           , static_cast<std::uint32_t>(indices[i])
+                           , static_cast<std::uint32_t>(offsets[i])
+                           , static_cast<std::uint32_t>(types[i])
                            , this->uniformBuffer);
     }
 }

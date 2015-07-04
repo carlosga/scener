@@ -12,7 +12,7 @@ using namespace System;
 using namespace SceneR::Framework;
 using namespace SceneR::Graphics;
 
-uint32_t GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType, const uint32_t& primitiveCount)
+std::size_t GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType, const std::size_t& primitiveCount)
 {
     switch (primitiveType)
     {
@@ -126,11 +126,11 @@ void GraphicsDevice::Clear(const Color& color) const
 }
 
 void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                         , const uint32_t&      baseVertex
-                                         , const uint32_t&      minVertexIndex
-                                         , const uint32_t&      numVertices
-                                         , const uint32_t&      startIndex
-                                         , const uint32_t&      primitiveCount) const
+                                         , const std::size_t&   baseVertex
+                                         , const std::size_t&   minVertexIndex
+                                         , const std::size_t&   numVertices
+                                         , const std::size_t&   startIndex
+                                         , const std::size_t&   primitiveCount) const
 {
     if (this->indexBuffer.get() == nullptr)
     {
@@ -165,8 +165,8 @@ void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
 }
 
 void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
-                                  , const uint32_t&      startVertex
-                                  , const uint32_t&      primitiveCount) const
+                                  , const std::size_t&   startVertex
+                                  , const std::size_t&   primitiveCount) const
 {
     if (this->vertexBuffer.get() == nullptr)
     {

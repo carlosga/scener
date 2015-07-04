@@ -24,21 +24,21 @@ const GraphicsAdapter& GraphicsAdapter::DefaultAdapter()
 const std::vector<GraphicsAdapter> GraphicsAdapter::Adapters()
 {
     std::vector<GraphicsAdapter> adapters;
-    int32_t       monitorCount = 1;
-    GLFWmonitor** monitors     = glfwGetMonitors(&monitorCount);
+    std::int32_t                 monitorCount = 1;
+    GLFWmonitor**                monitors     = glfwGetMonitors(&monitorCount);
 
-    for (int32_t i = 0; i < monitorCount; i++)
+    for (std::int32_t i = 0; i < monitorCount; i++)
     {
         GraphicsAdapter adapter;
         GLFWmonitor*    monitorHandle    = monitors[i];
-        int32_t         displayModeCount = 0;
+        std::int32_t    displayModeCount = 0;
 
         const GLFWvidmode* modes = glfwGetVideoModes(monitorHandle, &displayModeCount);
 
         adapter.monitorHandle    = monitorHandle;
         adapter.isDefaultAdapter = (monitorHandle == glfwGetPrimaryMonitor());
 
-        for (int32_t j = 0; j < displayModeCount; j++)
+        for (std::int32_t j = 0; j < displayModeCount; j++)
         {
             adapter.supportedDisplayModes.push_back(DisplayMode { &modes[j] });
         }
@@ -91,7 +91,7 @@ const std::u16string& GraphicsAdapter::Description() const
     return this->description;
 }
 
-int32_t GraphicsAdapter::DeviceId() const
+std::int32_t GraphicsAdapter::DeviceId() const
 {
     return this->deviceId;
 }
@@ -116,12 +116,12 @@ GLFWmonitor* GraphicsAdapter::MonitorHandle() const
     return this->monitorHandle;
 }
 
-int32_t GraphicsAdapter::Revision() const
+std::int32_t GraphicsAdapter::Revision() const
 {
     return this->revision;
 }
 
-int32_t GraphicsAdapter::SubSystemId() const
+std::int32_t GraphicsAdapter::SubSystemId() const
 {
     return this->subSystemId;
 }
@@ -131,7 +131,7 @@ const std::vector<DisplayMode>& GraphicsAdapter::SupportedDisplayModes() const
     return this->supportedDisplayModes;
 }
 
-int32_t GraphicsAdapter::VendorId() const
+std::int32_t GraphicsAdapter::VendorId() const
 {
     return this->vendorId;
 }

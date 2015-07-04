@@ -4,8 +4,8 @@
 #ifndef MODELMESHPART_HPP
 #define MODELMESHPART_HPP
 
+#include <cstddef>
 #include <memory>
-#include <stdint.h>
 #include <string>
 
 namespace SceneR
@@ -64,22 +64,22 @@ namespace SceneR
             /**
              * Gets the location in the index array at which to start reading vertices.
              */
-            uint32_t StartIndex() const;
+            std::size_t StartIndex() const;
 
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.
              */
-            uint32_t VertexOffset() const;
+            std::size_t VertexOffset() const;
 
             /**
              * Gets the number of vertices used during a draw call.
              */
-            uint32_t VertexCount() const;
+            std::size_t VertexCount() const;
 
             /**
              * Gets the number of primitives to render.
              */
-            uint32_t PrimitiveCount() const;
+            std::size_t PrimitiveCount() const;
 
             /**
              * Gets the model mesh part tag
@@ -95,10 +95,10 @@ namespace SceneR
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
             std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
             std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
-            uint32_t                                        startIndex;
-            uint32_t                                        vertexOffset;
-            uint32_t                                        vertexCount;
-            uint32_t                                        primitiveCount;
+            std::size_t                                     startIndex;
+            std::size_t                                     vertexOffset;
+            std::size_t                                     vertexCount;
+            std::size_t                                     primitiveCount;
             std::u16string                                  tag;
 
             friend class SceneR::Content::ModelReader;

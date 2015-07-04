@@ -4,7 +4,7 @@
 #ifndef DISPLAYMODE_HPP
 #define DISPLAYMODE_HPP
 
-#include <stddef.h>
+#include <cstddef>
 
 #include <Graphics/SurfaceFormat.hpp>
 
@@ -50,12 +50,12 @@ namespace SceneR
             /**
              * Gets a value indicating the screen height, in pixels.
              */
-            size_t Height() const;
+            std::size_t Height() const;
 
             /**
              * Gets a value indicating the screen width, in pixels.
              */
-            size_t Width() const;
+            std::size_t Width() const;
 
         public:
             DisplayMode& operator=(const DisplayMode& displayMode);
@@ -63,8 +63,8 @@ namespace SceneR
         private:
             float         aspectRatio;
             SurfaceFormat format;
-            size_t        height;
-            size_t        width;
+            std::size_t   height;
+            std::size_t   width;
         };
     }
 }

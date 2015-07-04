@@ -4,7 +4,7 @@
 #ifndef BLENDSTATE_HPP
 #define BLENDSTATE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <Framework/Color.hpp>
 #include <Graphics/GraphicsResource.hpp>
@@ -190,12 +190,12 @@ namespace SceneR
             /**
              * Gets a bitmask which defines which samples can be written during multisampling.
              */
-            uint32_t MultiSampleMask() const;
+            std::uint32_t MultiSampleMask() const;
 
             /**
              * Sets a bitmask which defines which samples can be written during multisampling.
              */
-            void MultiSampleMask(const uint32_t& multiSampleMask);
+            void MultiSampleMask(const std::uint32_t& multiSampleMask);
 
         public:
             BlendState& operator=(const BlendState& blendState);
@@ -215,7 +215,7 @@ namespace SceneR
             SceneR::Graphics::ColorWriteChannels colorWriteChannels1;
             SceneR::Graphics::ColorWriteChannels colorWriteChannels2;
             SceneR::Graphics::ColorWriteChannels colorWriteChannels3;
-            uint32_t                             multiSampleMask;
+            std::uint32_t                        multiSampleMask;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

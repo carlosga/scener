@@ -4,9 +4,9 @@
 #ifndef STREAM_HPP
 #define STREAM_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <ios>
-#include <stddef.h>
-#include <stdint.h>
 
 namespace System
 {
@@ -42,12 +42,12 @@ namespace System
             /**
              * Returns the current position of the reader.
              */
-            virtual size_t Position() = 0;
+            virtual std::size_t Position() = 0;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            virtual size_t Length() = 0;
+            virtual std::size_t Length() = 0;
 
             /**
              * Closes the current stream
@@ -57,17 +57,17 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            virtual uint8_t ReadByte() = 0;
+            virtual std::uint8_t ReadByte() = 0;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual size_t Read(char* buffer, const size_t& offset, const size_t& count) = 0;
+            virtual std::size_t Read(char* buffer, const std::size_t& offset, const std::size_t& count) = 0;
 
             /**
              * Sets the position within the current stream.
              */
-            virtual size_t Seek(const size_t& offset, const std::ios::seekdir& origin) = 0;
+            virtual std::size_t Seek(const std::size_t& offset, const std::ios::seekdir& origin) = 0;
         };
     }
 }

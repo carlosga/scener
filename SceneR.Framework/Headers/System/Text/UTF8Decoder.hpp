@@ -5,8 +5,8 @@
 #define UTF8DECODER_HPP
 
 #include <codecvt>
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <System/Text/Decoder.hpp>
 
@@ -31,15 +31,15 @@ namespace System
             ~UTF8Decoder() override;
 
         public:
-            size_t GetCharCount(const std::vector<uint8_t>& bytes
-                              , const size_t&               index
-                              , const size_t&               count) const override;
+            std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes
+                                   , const std::size_t&               index
+                                   , const std::size_t&               count) const override;
 
-            size_t GetChars(const std::vector<uint8_t>&  bytes
-                                , const size_t&          byteIndex
-                                , const size_t&          byteCount
-                                , std::vector<char16_t>& chars
-                                , const size_t&          charIndex) const override;
+            std::size_t GetChars(const std::vector<std::uint8_t>& bytes
+                               , const std::size_t&               byteIndex
+                               , const std::size_t&               byteCount
+                               , std::vector<char16_t>&           chars
+                               , const std::size_t&               charIndex) const override;
 
             void Reset() override;
 

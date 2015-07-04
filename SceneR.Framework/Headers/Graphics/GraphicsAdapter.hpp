@@ -4,7 +4,7 @@
 #ifndef GRAPHICSADAPTER_HPP
 #define GRAPHICSADAPTER_HPP
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -63,7 +63,7 @@ namespace SceneR
             /**
              * Retrieves a value that is used to help identify a particular chip set.
              */
-            int32_t DeviceId() const;
+            std::int32_t DeviceId() const;
 
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
@@ -88,12 +88,12 @@ namespace SceneR
             /**
              * Retrieves a value used to help identify the revision level of a particular chip set.
              */
-            int32_t Revision() const;
+            std::int32_t Revision() const;
 
             /**
              * Retrieves a value used to identify the subsystem.
              */
-            int32_t SubSystemId() const;
+            std::int32_t SubSystemId() const;
 
             /**
              * Returns a collection of supported display modes for the current adapter.
@@ -103,22 +103,22 @@ namespace SceneR
             /**
              * Retrieves a value used to identify the manufacturer.
              */
-            int32_t VendorId() const;
+            std::int32_t VendorId() const;
 
         public:
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
 
         private:
             std::u16string           description;
-            int32_t                  deviceId;
+            std::int32_t             deviceId;
             std::u16string           deviceName;
             bool                     isDefaultAdapter;
             bool                     isWideScreen;
             GLFWmonitor*             monitorHandle;
-            int32_t                  revision;
-            int32_t                  subSystemId;
+            std::int32_t             revision;
+            std::int32_t             subSystemId;
             std::vector<DisplayMode> supportedDisplayModes;
-            int32_t                  vendorId;
+            std::int32_t             vendorId;
         };
     }
 }

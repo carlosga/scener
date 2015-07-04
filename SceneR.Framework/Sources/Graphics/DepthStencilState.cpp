@@ -128,12 +128,12 @@ void DepthStencilState::DepthBufferWriteEnable(const bool& depthBufferWriteEnabl
     this->depthBufferWriteEnable = depthBufferWriteEnable;
 }
 
-int32_t DepthStencilState::ReferenceStencil() const
+std::int32_t DepthStencilState::ReferenceStencil() const
 {
     return this->referenceStencil;
 }
 
-void DepthStencilState::ReferenceStencil(const int32_t& referenceStencil)
+void DepthStencilState::ReferenceStencil(const std::int32_t& referenceStencil)
 {
     this->referenceStencil = referenceStencil;
 }
@@ -178,12 +178,12 @@ void DepthStencilState::StencilFunction(const CompareFunction& stencilFunction)
     this->stencilFunction = stencilFunction;
 }
 
-uint32_t DepthStencilState::StencilMask() const
+std::uint32_t DepthStencilState::StencilMask() const
 {
     return this->stencilMask;
 }
 
-void DepthStencilState::StencilMask(const uint32_t& stencilMask)
+void DepthStencilState::StencilMask(const std::uint32_t& stencilMask)
 {
     this->stencilMask = stencilMask;
 }
@@ -198,12 +198,12 @@ void DepthStencilState::StencilPass(const StencilOperation& stencilPass)
     this->stencilPass = stencilPass;
 }
 
-uint32_t DepthStencilState::StencilWriteMask() const
+std::uint32_t DepthStencilState::StencilWriteMask() const
 {
     return this->stencilWriteMask;
 }
 
-void DepthStencilState::StencilWriteMask(const uint32_t& stencilWriteMask)
+void DepthStencilState::StencilWriteMask(const std::uint32_t& stencilWriteMask)
 {
     this->stencilWriteMask = stencilWriteMask;
 }

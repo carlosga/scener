@@ -4,7 +4,7 @@
 #ifndef CONTAINMENTTYPE_HPP
 #define CONTAINMENTTYPE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
 		/**
 		 * Indicates the extent to which bounding volumes intersect or contain one another.
 		 */ 
-        enum class ContainmentType : uint32_t
+        enum class ContainmentType : std::int32_t
 		{
 			/**
 			 * Indicates that one bounding volume completely contains the other.

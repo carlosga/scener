@@ -4,8 +4,8 @@
 #ifndef BASICEFFECT_HPP
 #define BASICEFFECT_HPP
 
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <Framework/Matrix.hpp>
@@ -304,7 +304,7 @@ namespace SceneR
             SceneR::Framework::Matrix  world;
             SceneR::Framework::Matrix  worldView;
             bool                       oneLight;
-            uint32_t                   shaderIndex;
+            std::uint32_t              shaderIndex;
 
             EffectDirtyFlags           dirtyFlags;
 
@@ -320,8 +320,8 @@ namespace SceneR
             EffectParameter            worldViewProjParam;
 
         private:
-            static uint32_t VSIndices[32];
-            static uint32_t PSIndices[32];
+            static std::uint32_t VSIndices[32];
+            static std::uint32_t PSIndices[32];
         };
     }
 }

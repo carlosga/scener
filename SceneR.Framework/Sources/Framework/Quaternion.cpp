@@ -270,14 +270,14 @@ float Quaternion::Length() const
     return Math::Sqrt(this->LengthSquared());
 }
 
-float& Quaternion::operator[](const size_t& index)
+float& Quaternion::operator[](const std::size_t& index)
 {
     assert(index < 4);
 
     return (this->quaternion[index]);
 }
 
-const float& Quaternion::operator[](const size_t& index) const
+const float& Quaternion::operator[](const std::size_t& index) const
 {
     assert(index < 4);
 

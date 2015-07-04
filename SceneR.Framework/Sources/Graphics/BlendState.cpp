@@ -160,12 +160,12 @@ void BlendState::ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels&
     this->colorWriteChannels3 = colorWriteChannels3;
 }
 
-uint32_t BlendState::MultiSampleMask() const
+std::uint32_t BlendState::MultiSampleMask() const
 {
     return this->multiSampleMask;
 }
 
-void BlendState::MultiSampleMask(const uint32_t& multiSampleMask)
+void BlendState::MultiSampleMask(const std::uint32_t& multiSampleMask)
 {
     this->multiSampleMask = multiSampleMask;
 }

@@ -4,7 +4,7 @@
 #ifndef INDEXELEMENTSIZE_HPP
 #define INDEXELEMENTSIZE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines the element size for IndexBuffer instances
          */
-        enum class IndexElementSize : uint32_t
+        enum class IndexElementSize : std::uint32_t
         {
             /**
              * Sixteen bits

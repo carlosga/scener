@@ -15,6 +15,10 @@ Component::Component(SceneR::Framework::Renderer& renderer)
 {
 }
 
+Component::~Component()
+{
+}
+
 SceneR::Framework::Renderer& Component::Renderer()
 {
     return this->renderer;
@@ -34,12 +38,12 @@ void Component::Enabled(const bool& enabled)
     this->enabled = enabled;
 }
 
-uint32_t Component::UpdateOrder() const
+std::uint32_t Component::UpdateOrder() const
 {
     return this->updateOrder;
 }
 
-void Component::UpdateOrder(const uint32_t& updateOrder)
+void Component::UpdateOrder(const std::uint32_t& updateOrder)
 {
     this->updateOrder = updateOrder;
 }

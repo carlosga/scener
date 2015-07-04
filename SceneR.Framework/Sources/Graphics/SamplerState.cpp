@@ -81,22 +81,22 @@ void SamplerState::Filter(const TextureFilter& filter)
     this->filter = filter;
 }
 
-const int32_t& SamplerState::MaxAnisotropy() const
+const std::int32_t& SamplerState::MaxAnisotropy() const
 {
     return this->maxAnisotropy;
 }
 
-void SamplerState::MaxAnisotropy(const int32_t& maxAnisotropy)
+void SamplerState::MaxAnisotropy(const std::int32_t& maxAnisotropy)
 {
     this->maxAnisotropy = maxAnisotropy;
 }
 
-uint32_t SamplerState::MaxMipLevel() const
+std::uint32_t SamplerState::MaxMipLevel() const
 {
     return this->maxMipLevel;
 }
 
-void SamplerState::MaxMipLevel(const uint32_t& maxMipLevel)
+void SamplerState::MaxMipLevel(const std::uint32_t& maxMipLevel)
 {
     this->maxMipLevel = maxMipLevel;
 }

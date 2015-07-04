@@ -4,7 +4,8 @@
 #ifndef INDEXBUFFER_HPP
 #define INDEXBUFFER_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 #include <vector>
 
 #include <Graphics/BufferObject.hpp>
@@ -32,7 +33,7 @@ namespace SceneR
              */
             IndexBuffer(GraphicsDevice&                           graphicsDevice
                       , const SceneR::Graphics::IndexElementSize& indexElementSize
-                      , const uint32_t&                           indexCount);
+                      , const std::size_t&                        indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -46,7 +47,7 @@ namespace SceneR
             /**
              * Gets the number of indices in the buffer.
              */
-            uint32_t IndexCount() const;
+            std::size_t IndexCount() const;
 
             /**
              * Gets the size (in bits) of each index.
@@ -56,13 +57,13 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            std::vector<uint8_t> GetData() const;
+            std::vector<std::uint8_t> GetData() const;
 
             /**
              * Gets the indices buffer data
              */
-            std::vector<uint8_t> GetData(const uint32_t& startIndex
-                                       , const uint32_t& elementCount) const;
+            std::vector<std::uint8_t> GetData(const std::size_t& startIndex
+                                            , const std::size_t& elementCount) const;
 
             /**
              * Sets the indices buffer data
@@ -72,11 +73,11 @@ namespace SceneR
         private:
             void Activate() const;
             void Deactivate() const;
-            uint32_t GetElementSizeInBytes() const;
+            std::size_t GetElementSizeInBytes() const;
 
         private:
             BufferObject                       ibo;
-            uint32_t                           indexCount;
+            std::size_t                        indexCount;
             SceneR::Graphics::IndexElementSize indexElementSize;
 
             friend class GraphicsDevice;

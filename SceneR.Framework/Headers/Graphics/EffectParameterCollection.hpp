@@ -4,8 +4,9 @@
 #ifndef EFFECTPARAMETERCOLLECTION_HPP
 #define EFFECTPARAMETERCOLLECTION_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -45,19 +46,19 @@ namespace SceneR
             /**
              * Gets the number of EffectParameter objects in this EffectParameterCollection.
              */
-            size_t Count() const;
+            std::size_t Count() const;
 
         public:
-            EffectParameter& operator[](const size_t& parameterIndex);
-            const EffectParameter& operator[](const size_t& parameterIndex) const;
+            EffectParameter& operator[](const std::size_t& parameterIndex);
+            const EffectParameter& operator[](const std::size_t& parameterIndex) const;
             EffectParameter& operator[](const std::u16string& parameterName);
             const EffectParameter& operator[](const std::u16string& parameterName) const;
 
         private:
             EffectParameter& Add(const std::u16string&                name
-                               , const uint32_t&                      index
-                               , const uint32_t&                      offset
-                               , const uint32_t&                      type
+                               , const std::size_t&                   index
+                               , const std::size_t&                   offset
+                               , const std::uint32_t&                 type
                                , std::shared_ptr<UniformBufferObject> uniformBuffer);
 
             void Clear();

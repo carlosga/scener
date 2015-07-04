@@ -4,7 +4,7 @@
 #ifndef CULLMODE_HPP
 #define CULLMODE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines winding orders that may be used for face culling.
          */
-        enum class CullMode : uint32_t
+        enum class CullMode : std::uint32_t
         {
             /**
              * Cull back faces with clockwise vertices.

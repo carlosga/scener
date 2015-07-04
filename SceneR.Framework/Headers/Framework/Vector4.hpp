@@ -4,7 +4,7 @@
 #ifndef VECTOR4_HPP
 #define VECTOR4_HPP
 
-#include <stddef.h>
+#include <cstddef>
 
 namespace SceneR
 {
@@ -279,10 +279,7 @@ namespace SceneR
              * @param z The Z value of the new Vector4 structure.
              * @param w The W value of the new Vector4 structure.
              */
-            Vector4(const float& x
-                  , const float& y
-                  , const float& z
-                  , const float& w);
+            Vector4(const float& x, const float& y, const float& z, const float& w);
 
             /**
              * Initializes a new instance of the Vector4 class (Copy constructor)
@@ -353,8 +350,8 @@ namespace SceneR
             float Length() const;
 
         public:
-            float& operator[](const size_t& index);
-            const float& operator[](const size_t& index) const;
+            float& operator[](const std::size_t& index);
+            const float& operator[](const std::size_t& index) const;
             Vector4& operator=(const Vector4& vector);
             bool operator==(const Vector4& vector) const;
             bool operator!=(const Vector4& vector) const;

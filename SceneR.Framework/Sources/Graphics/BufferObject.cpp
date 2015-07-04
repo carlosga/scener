@@ -29,7 +29,7 @@ void BufferObject::Dispose()
     }
 }
 
-uint32_t BufferObject::Id() const
+std::uint32_t BufferObject::Id() const
 {
     return this->id;
 }
@@ -57,17 +57,17 @@ void BufferObject::Deactivate() const
     }
 }
 
-void BufferObject::GetData(const uint32_t& offset, const uint32_t& size, void* data) const
+void BufferObject::GetData(const std::size_t& offset, const std::size_t& size, void* data) const
 {
     glGetNamedBufferSubDataEXT(this->id, offset, size, data);
 }
 
-void BufferObject::BufferData(const uint32_t& size, const void* data) const
+void BufferObject::BufferData(const std::size_t& size, const void* data) const
 {
     glNamedBufferDataEXT(this->id, size, data, static_cast<GLenum>(this->usage));
 }
 
-void BufferObject::BufferData(const uint32_t& offset, const uint32_t& size, const void *data) const
+void BufferObject::BufferData(const std::size_t& offset, const std::size_t& size, const void *data) const
 {
     glNamedBufferSubDataEXT(this->id, offset, size, data);
 }
@@ -77,7 +77,7 @@ void BufferObject::Invalidate() const
     glInvalidateBufferData(this->id);
 }
 
-void BufferObject::Invalidate(const uint32_t& offset, const uint32_t& length) const
+void BufferObject::Invalidate(const std::size_t& offset, const std::size_t& length) const
 {
     glInvalidateBufferSubData(this->id, offset, length);
 }

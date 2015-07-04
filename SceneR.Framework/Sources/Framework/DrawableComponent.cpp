@@ -16,6 +16,10 @@ DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
 {
 }
 
+DrawableComponent::~DrawableComponent()
+{
+}
+
 void DrawableComponent::Draw(const RenderTime& renderTime)
 {
 }
@@ -35,12 +39,12 @@ void DrawableComponent::Visible(const bool& visible)
     this->visible = visible;
 }
 
-uint32_t DrawableComponent::DrawOrder() const
+std::uint32_t DrawableComponent::DrawOrder() const
 {
     return this->drawOrder;
 }
 
-void DrawableComponent::DrawOrder(const uint32_t& drawOrder)
+void DrawableComponent::DrawOrder(const std::uint32_t& drawOrder)
 {
     this->drawOrder = drawOrder;
 }

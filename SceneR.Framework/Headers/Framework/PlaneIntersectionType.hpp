@@ -4,7 +4,7 @@
 #ifndef PLANEINTERSECTIONTYPE_HPP
 #define PLANEINTERSECTIONTYPE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
 	    /**
 	     * Describes the intersection between a plane and a bounding volume.
 	     */
-        enum class PlaneIntersectionType : uint32_t
+        enum class PlaneIntersectionType : std::uint32_t
 		{
 			/**
 			 * There is no intersection, and the bounding volume is in the negative half-space of the Plane.

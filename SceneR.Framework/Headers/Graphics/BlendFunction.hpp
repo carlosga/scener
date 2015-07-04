@@ -4,7 +4,7 @@
 #ifndef BLENDFUNCTION_HPP
 #define BLENDFUNCTION_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines how to combine a source color with the destination color already on the render target for color blending.
          */
-        enum class BlendFunction : uint32_t
+        enum class BlendFunction : std::uint32_t
         {
             /**
              * The result is the destination added to the source.

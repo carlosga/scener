@@ -4,8 +4,8 @@
 #ifndef UTF8ENCODING_HPP
 #define UTF8ENCODING_HPP
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <System/Text/UTF8Decoder.hpp>
 #include <System/Text/UTF8Encoder.hpp>
@@ -36,31 +36,31 @@ namespace System
 
             bool IsSingleByte() const override;
 
-            size_t GetByteCount(const std::vector<char16_t>& chars
-                                    , const size_t&          index
-                                    , const size_t&          count) const override;
+            std::size_t GetByteCount(const std::vector<char16_t>& chars
+                                   , const std::size_t&           index
+                                   , const std::size_t&           count) const override;
 
-            size_t GetBytes(const std::vector<char16_t>& chars
-                                , const size_t&          charIndex
-                                , const size_t&          charCount
-                                , std::vector<uint8_t>&  bytes
-                                , const size_t&          byteIndex) const override;
+            std::size_t GetBytes(const std::vector<char16_t>& chars
+                               , const std::size_t&           charIndex
+                               , const std::size_t&           charCount
+                               , std::vector<std::uint8_t>&   bytes
+                               , const std::size_t&           byteIndex) const override;
 
-            size_t GetCharCount(const std::vector<uint8_t>& bytes
-                                    , const size_t&         index
-                                    , const size_t&         count) const override;
+            std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes
+                                   , const std::size_t&               index
+                                   , const std::size_t&               count) const override;
 
-            size_t GetChars(const std::vector<uint8_t>& bytes
-                          , const size_t&               byteIndex
-                          , const size_t&               byteCount
-                          , std::vector<char16_t>&      chars
-                          , const size_t&               charIndex) const override;
+            std::size_t GetChars(const std::vector<std::uint8_t>& bytes
+                               , const std::size_t&               byteIndex
+                               , const std::size_t&               byteCount
+                               , std::vector<char16_t>&           chars
+                               , const std::size_t&               charIndex) const override;
 
-            size_t GetMaxByteCount(const size_t& charCount) override;
+            std::size_t GetMaxByteCount(const std::size_t& charCount) override;
 
-            size_t GetMaxCharCount(const size_t& byteCount) override;
+            std::size_t GetMaxCharCount(const std::size_t& byteCount) override;
 
-            std::vector<uint8_t> GetPreamble() const override;
+            std::vector<std::uint8_t> GetPreamble() const override;
 
             const Decoder& GetDecoder() const override;
 

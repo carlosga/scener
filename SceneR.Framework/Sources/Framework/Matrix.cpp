@@ -1013,17 +1013,17 @@ float Matrix::SubMatrixDeterminant()
          + this->m13 * (this->m21 * this->m32 - this->m31 * this->m22);
 }
 
-Matrix Matrix::SubMatrix(const uint32_t& row, const uint32_t& column) const
+Matrix Matrix::SubMatrix(const std::uint32_t& row, const std::uint32_t& column) const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    uint32_t si;
-    uint32_t sj;
-    Matrix   result;
+    std::uint32_t si;
+    std::uint32_t sj;
+    Matrix        result;
 
     // loop through 3x3 submatrix
-    for (uint32_t di = 0; di < 3; di++)
+    for (std::uint32_t di = 0; di < 3; di++)
     {
-        for (uint32_t dj = 0; dj < 3; dj++)
+        for (std::uint32_t dj = 0; dj < 3; dj++)
         {
             // map 3x3 element (destination) to 4x4 element (source)
             si = di + ((di >= row) ? 1 : 0);

@@ -24,7 +24,7 @@ const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
     return this->children;
 }
 
-uint64_t ModelBone::Index() const
+std::size_t ModelBone::Index() const
 {
     return this->index;
 }

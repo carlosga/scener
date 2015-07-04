@@ -4,8 +4,8 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -588,8 +588,8 @@ namespace SceneR
             bool IsIdentity() const;
 
         public:
-            float& operator[](const size_t& index);
-            const float& operator[](const size_t& index) const;
+            float& operator[](const std::size_t& index);
+            const float& operator[](const std::size_t& index) const;
             Matrix& operator=(const Matrix& matrix);
             bool operator==(const Matrix& matrix) const;
             bool operator!=(const Matrix& matrix) const;
@@ -605,7 +605,7 @@ namespace SceneR
 
         private:
             float SubMatrixDeterminant();
-            Matrix SubMatrix(const uint32_t& row, const uint32_t& column) const;
+            Matrix SubMatrix(const std::uint32_t& row, const std::uint32_t& column) const;
 
         private:
             union

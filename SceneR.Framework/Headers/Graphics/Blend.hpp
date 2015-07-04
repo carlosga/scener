@@ -4,7 +4,7 @@
 #ifndef BLEND_HPP
 #define BLEND_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines color blending factors.
          */
-        enum class Blend : uint32_t
+        enum class Blend : std::uint32_t
         {
             /**
              * Each component of the color is multiplied by (0, 0, 0, 0).

@@ -4,7 +4,7 @@
 #ifndef SAMPLERSTATE_HPP
 #define SAMPLERSTATE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <Graphics/TextureFilter.hpp>
 #include <Graphics/TextureTarget.hpp>
@@ -88,22 +88,22 @@ namespace SceneR
             /**
              * Gets the maximum anisotropy. The default value is 0.
              */
-            const int32_t& MaxAnisotropy() const;
+            const std::int32_t& MaxAnisotropy() const;
 
             /**
              * Sets the maximum anisotropy. The default value is 0.
              */
-            void MaxAnisotropy(const int32_t& maxAnisotropy);
+            void MaxAnisotropy(const std::int32_t& maxAnisotropy);
 
             /**
              * Gets the level of detail (LOD) index of the largest map to use.
              */
-            uint32_t MaxMipLevel() const;
+            std::uint32_t MaxMipLevel() const;
 
             /**
              * Sets the level of detail (LOD) index of the largest map to use.
              */
-            void MaxMipLevel(const uint32_t& maxMipLevel);
+            void MaxMipLevel(const std::uint32_t& maxMipLevel);
 
             /**
              * Gets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
@@ -127,8 +127,8 @@ namespace SceneR
             TextureAddressMode addressV;
             TextureAddressMode addressW;
             TextureFilter      filter;
-            int32_t            maxAnisotropy;
-            uint32_t           maxMipLevel;
+            std::int32_t        maxAnisotropy;
+            std::uint32_t      maxMipLevel;
             float              mipMapLevelOfDetailBias;
 
             friend class BasicEffect;

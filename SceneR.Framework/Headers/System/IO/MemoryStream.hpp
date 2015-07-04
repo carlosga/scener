@@ -4,8 +4,8 @@
 #ifndef MEMORYSTREAM_HPP
 #define MEMORYSTREAM_HPP
 
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 #include <sstream>
 #include <vector>
 
@@ -50,12 +50,12 @@ namespace System
             /**
              * Returns the current position of the reader.
              */
-            size_t Position() override;
+            std::size_t Position() override;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            size_t Length() override;
+            std::size_t Length() override;
 
             /**
              * Closes the current stream
@@ -65,17 +65,17 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            uint8_t ReadByte() override;
+            std::uint8_t ReadByte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            size_t Read(char* buffer, const size_t& offset, const size_t& count) override;
+            std::size_t Read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
 
             /**
              * Sets the position within the current stream.
              */
-            size_t Seek(const size_t& offset, const std::ios::seekdir& origin) override;
+            std::size_t Seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
 
         private:
             MemoryStream() = delete;

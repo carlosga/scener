@@ -4,7 +4,7 @@
 #ifndef DRAWABLECOMPONENT_HPP
 #define DRAWABLECOMPONENT_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <Framework/IDrawable.hpp>
 #include <Framework/Component.hpp>
@@ -31,9 +31,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this DrawableComponent.
              */
-            virtual ~DrawableComponent()
-            {
-            }
+            virtual ~DrawableComponent();
 
         public:
             /**
@@ -60,12 +58,12 @@ namespace SceneR
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual uint32_t DrawOrder() const override;
+            virtual std::uint32_t DrawOrder() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            void DrawOrder(const uint32_t& drawOrder);
+            void DrawOrder(const std::uint32_t& drawOrder);
 
             /**
              * Called when the component should be initialized.
@@ -79,8 +77,8 @@ namespace SceneR
             virtual void UnloadContent();
 
         private:
-            bool     visible;
-            uint32_t drawOrder;
+            bool          visible;
+            std::uint32_t drawOrder;
         };
     }
 }

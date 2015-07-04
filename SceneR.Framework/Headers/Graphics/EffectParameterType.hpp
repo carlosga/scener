@@ -4,7 +4,7 @@
 #ifndef EFFECTPARAMETERTYPE_HPP
 #define EFFECTPARAMETERTYPE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines types that can be used for effect parameters or shader constants.
          */
-        enum class EffectParameterType : uint32_t
+        enum class EffectParameterType : std::uint32_t
         {
             /**
              * Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE)

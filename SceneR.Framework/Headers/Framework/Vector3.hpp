@@ -4,7 +4,7 @@
 #ifndef VECTOR3_HPP
 #define VECTOR3_HPP
 
-#include <stddef.h>
+#include <cstddef>
 
 namespace SceneR
 {
@@ -103,11 +103,11 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static Vector3 Barycentric(const Vector3&        value1
-                                     , const Vector3&        value2
-                                     , const Vector3&        value3
-                                     , const float& amount1
-                                     , const float& amount2);
+            static Vector3 Barycentric(const Vector3& value1
+                                     , const Vector3& value2
+                                     , const Vector3& value3
+                                     , const float&   amount1
+                                     , const float&   amount2);
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -117,11 +117,11 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static Vector3 CatmullRom(const Vector3&        value1
-                                    , const Vector3&        value2
-                                    , const Vector3&        value3
-                                    , const Vector3&        value4
-                                    , const float& amount);
+            static Vector3 CatmullRom(const Vector3& value1
+                                    , const Vector3& value2
+                                    , const Vector3& value3
+                                    , const Vector3& value4
+                                    , const float&   amount);
 
             /**
              * Restricts a value to be within a specified range.
@@ -162,11 +162,11 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static Vector3 Hermite(const Vector3&        value1
-                                 , const Vector3&        tangent1
-                                 , const Vector3&        value2
-                                 , const Vector3&        tangent2
-                                 , const float& amount);
+            static Vector3 Hermite(const Vector3& value1
+                                 , const Vector3& tangent1
+                                 , const Vector3& value2
+                                 , const Vector3& tangent2
+                                 , const float&   amount);
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -175,9 +175,9 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 Lerp(const Vector3&        value1
-                              , const Vector3&        value2
-                              , const float& amount);
+            static Vector3 Lerp(const Vector3& value1
+                              , const Vector3& value2
+                              , const float&   amount);
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
@@ -226,9 +226,9 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 SmoothStep(const Vector3&        value1
-                                    , const Vector3&        value2
-                                    , const float& amount);
+            static Vector3 SmoothStep(const Vector3& value1
+                                    , const Vector3& value2
+                                    , const float&   amount);
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
@@ -349,8 +349,8 @@ namespace SceneR
             float Length() const;
 
         public:
-            float& operator[](const size_t& index);
-            const float& operator[](const size_t& index) const;
+            float& operator[](const std::size_t& index);
+            const float& operator[](const std::size_t& index) const;
             Vector3& operator=(const Vector3& vector);
             bool operator==(const Vector3& vector) const;
             bool operator!=(const Vector3& vector) const;

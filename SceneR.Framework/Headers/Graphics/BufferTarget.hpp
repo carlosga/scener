@@ -4,7 +4,7 @@
 #ifndef BUFFERTARGET_HPP
 #define BUFFERTARGET_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines opengl buffer object targets
          */
-        enum class BufferTarget : uint32_t
+        enum class BufferTarget : std::uint32_t
         {
             /**
              * A buffer used as a source for vertex data.

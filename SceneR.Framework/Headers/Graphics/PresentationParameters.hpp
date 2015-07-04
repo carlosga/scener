@@ -4,7 +4,8 @@
 #ifndef PRESENTATIONPARAMETERS_HPP
 #define PRESENTATIONPARAMETERS_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <Framework/PresentInterval.hpp>
 
@@ -48,32 +49,32 @@ namespace SceneR
             /**
              * Gets the height of a swap chain's back buffers, in pixels.
              */
-            uint32_t BackBufferHeight() const;
+            std::size_t BackBufferHeight() const;
 
             /**
              * Sets the height of a swap chain's back buffers, in pixels.
              */
-            void BackBufferHeight(const uint32_t& backBufferHeight);
+            void BackBufferHeight(const std::size_t& backBufferHeight);
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            uint32_t BackBufferWidth() const;
+            std::size_t BackBufferWidth() const;
 
             /**
              * Gets the width of a swap chain's back buffers, in pixels.
              */
-            void BackBufferWidth(const uint32_t& backBufferWidth);
+            void BackBufferWidth(const std::size_t& backBufferWidth);
 
             /**
              * Gets the number of sample locations during multisampling.
              */
-            uint32_t MultiSampleCount() const;
+            std::uint32_t MultiSampleCount() const;
 
             /**
              * Sets the number of sample locations during multisampling.
              */
-            void MultiSampleCount(const uint32_t& multiSampleCount);
+            void MultiSampleCount(const std::uint32_t& multiSampleCount);
 
             /**
              * Gets the swap buffer interval.
@@ -90,9 +91,9 @@ namespace SceneR
 
         private:
             bool                               fullScreen;
-            uint32_t                           backBufferHeight;
-            uint32_t                           backBufferWidth;
-            uint32_t                           multiSampleCount;
+            std::size_t                        backBufferHeight;
+            std::size_t                        backBufferWidth;
+            std::uint32_t                      multiSampleCount;
             SceneR::Framework::PresentInterval presentInterval;
         };
     }

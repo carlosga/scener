@@ -4,7 +4,7 @@
 #ifndef COMPAREFUNCTION_HPP
 #define COMPAREFUNCTION_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -16,7 +16,7 @@ namespace SceneR
          * Specifies the functions used to compare each incoming pixel depth value
          * with the depth value present in the depth buffer.
          */
-        enum class CompareFunction : uint32_t
+        enum class CompareFunction : std::uint32_t
         {
             /**
              * Always passes.

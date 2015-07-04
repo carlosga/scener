@@ -15,16 +15,16 @@ UTF8Decoder::~UTF8Decoder()
 {
 }
 
-size_t UTF8Decoder::GetCharCount(const std::vector<uint8_t>& bytes
-                               , const size_t&               index
-                               , const size_t&               count) const
+std::size_t UTF8Decoder::GetCharCount(const std::vector<uint8_t>& bytes
+                                    , const std::size_t&          index
+                                    , const std::size_t&          count) const
 {
-    size_t result = 0;
+    std::size_t result = 0;
 
-    for (size_t i = index; i < (index + count);)
+    for (std::size_t i = index; i < (index + count);)
     {
-        auto   buffer    = bytes[i];
-        size_t byteCount = 1;
+        auto        buffer    = bytes[i];
+        std::size_t byteCount = 1;
 
         // http://xbox.create.msdn.com/en-US/sample/xnb_format
         // Decode UTF-8.
@@ -43,11 +43,11 @@ size_t UTF8Decoder::GetCharCount(const std::vector<uint8_t>& bytes
     return result;
 }
 
-size_t UTF8Decoder::GetChars(const std::vector<uint8_t>& bytes
-                           , const size_t&               byteIndex
-                           , const size_t&               byteCount
-                           , std::vector<char16_t>&      chars
-                           , const size_t&               charIndex) const
+std::size_t UTF8Decoder::GetChars(const std::vector<uint8_t>& bytes
+                                , const std::size_t&          byteIndex
+                                , const std::size_t&          byteCount
+                                , std::vector<char16_t>&      chars
+                                , const std::size_t&          charIndex) const
 {
     auto        from     = (char*)&bytes[0] + byteIndex;
     auto        fromEnd  = from + byteCount;
@@ -75,7 +75,7 @@ size_t UTF8Decoder::GetChars(const std::vector<uint8_t>& bytes
         }
     }
 
-    return static_cast<size_t>(toNext - toStart);
+    return static_cast<std::size_t>(toNext - toStart);
 }
 
 void UTF8Decoder::Reset()

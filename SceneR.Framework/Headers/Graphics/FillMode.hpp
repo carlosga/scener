@@ -4,7 +4,7 @@
 #ifndef FILLMODE_HPP
 #define FILLMODE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Describes options for filling the vertices and lines that define a primitive.
          */
-        enum class FillMode : uint32_t
+        enum class FillMode : std::uint32_t
         {
             /**
              * Draw solid faces for each primitive.

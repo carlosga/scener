@@ -4,8 +4,8 @@
 #ifndef EFFECT_HPP
 #define EFFECT_HPP
 
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <Graphics/EffectParameterCollection.hpp>
@@ -97,28 +97,28 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const int32_t& value) const;
+            void SetValue(const std::u16string& uniformName, const std::int32_t& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of int32_t
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<int32_t>& value) const;
+            void SetValue(const std::u16string& uniformName, const std::vector<std::int32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an uint32_t.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const uint32_t& value) const;
+            void SetValue(const std::u16string& uniformName, const std::uint32_t& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of uint32_t.
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<uint32_t>& value) const;
+            void SetValue(const std::u16string& uniformName, const std::vector<std::uint32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
@@ -249,7 +249,7 @@ namespace SceneR
             /**
              * Activates the shader subroutine with the given index.
              */
-            void ActivateSubroutine(const uint32_t& subroutineIndex) const;
+            void ActivateSubroutine(const std::uint32_t& subroutineIndex) const;
 
             /**
              * Activates the shader subroutine with the given shader type and index.
@@ -273,7 +273,7 @@ namespace SceneR
 
         protected:
             EffectParameterCollection            parameters;
-            uint32_t                             id;
+            std::uint32_t                        id;
             std::vector<std::shared_ptr<Shader>> shaders;
             std::shared_ptr<UniformBufferObject> uniformBuffer;
         };

@@ -4,7 +4,7 @@
 #ifndef IDRAWABLE_HPP
 #define IDRAWABLE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -32,7 +32,7 @@ namespace SceneR
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual uint32_t DrawOrder() const = 0;
+            virtual std::uint32_t DrawOrder() const = 0;
 
             /**
              * Called when the component should be drawn.

@@ -4,8 +4,9 @@
 #ifndef EFFECTPARAMETER_HPP
 #define EFFECTPARAMETER_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <Graphics/Effect.hpp>
@@ -49,9 +50,9 @@ namespace SceneR
              * @param type the parameter raw type.
              */
             EffectParameter(const std::u16string&                      name
-                          , const uint32_t&                            index
-                          , const uint32_t&                            offset
-                          , const uint32_t&                            type
+                          , const std::size_t&                         index
+                          , const std::size_t&                         offset
+                          , const std::uint32_t&                       type
                           , const std::shared_ptr<UniformBufferObject> uniformBuffer);
 
             /**
@@ -68,7 +69,7 @@ namespace SceneR
             /**
              * Gets the number of columns in the parameter description.
              */
-            const int32_t& ColumnCount() const;
+            std::size_t ColumnCount() const;
 
             /**
              * Gets the collection of effect parameters.
@@ -93,7 +94,7 @@ namespace SceneR
             /**
              * Gets the number of rows in the parameter description.
              */
-            const int32_t& RowCount() const;
+            std::size_t RowCount() const;
 
             /**
              * Gets the collection of structure members.
@@ -114,12 +115,12 @@ namespace SceneR
             /**
              * Gets the value of the EffectParameter as an int32_t.
              */
-            int32_t GetValueInt32() const;
+            std::int32_t GetValueInt32() const;
 
             /**
              *  Gets the value of the EffectParameter as an array of int32_t.
              */
-            std::vector<int32_t> GetValueInt32Array() const;
+            std::vector<std::int32_t> GetValueInt32Array() const;
 
             /**
              * Gets the value of the EffectParameter as a Matrix.
@@ -202,25 +203,25 @@ namespace SceneR
              * Sets the value of the EffectParameter as a int32_t.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const int32_t& value) const;
+            void SetValue(const std::int32_t& value) const;
 
             /**
              *  Sets the value of the EffectParameter as an array of int32_t.
              *  @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<int32_t>& value) const;
+            void SetValue(const std::vector<std::int32_t>& value) const;
 
             /**
-             * Sets the value of the EffectParameter as a uint32_t.
+             * Sets the value of the EffectParameter as a std::uint32_t.
              * @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const uint32_t& value) const;
+            void SetValue(const std::uint32_t& value) const;
 
             /**
-             *  Sets the value of the EffectParameter as an array of uint32_t.
+             *  Sets the value of the EffectParameter as an array of std::uint32_t.
              *  @param value the value to assign to the EffectParameter.
              */
-            void SetValue(const std::vector<uint32_t>& value) const;
+            void SetValue(const std::vector<std::uint32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
@@ -322,18 +323,18 @@ namespace SceneR
             EffectParameter& operator=(const EffectParameter& parameter);
 
         private:
-            void Describe(const int32_t& type);
+            void Describe(const std::int32_t& type);
 
         private:
-            int32_t                              columnCount;
+            std::size_t                          columnCount;
             EffectParameterCollection            elements;
             std::u16string                       name;
             EffectParameterClass                 parameterClass;
             EffectParameterType                  parameterType;
-            int32_t                              rowCount;
+            std::size_t                          rowCount;
             EffectParameterCollection            structureMembers;
-            uint32_t                             index;
-            uint32_t                             offset;
+            std::size_t                          index;
+            std::size_t                          offset;
             std::shared_ptr<UniformBufferObject> uniformBuffer;
         };
     }

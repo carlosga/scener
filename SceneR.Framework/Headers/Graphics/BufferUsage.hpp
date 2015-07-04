@@ -4,7 +4,7 @@
 #ifndef BUFFERUSAGE_HPP
 #define BUFFERUSAGE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -12,7 +12,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class BufferUsage : uint32_t
+        enum class BufferUsage : std::uint32_t
         {
             StreamDraw  = GL_STREAM_DRAW,
             StreamRead  = GL_STREAM_READ,

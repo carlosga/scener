@@ -4,7 +4,7 @@
 #ifndef QUATERNION_HPP
 #define QUATERNION_HPP
 
-#include <stddef.h>
+#include <cstddef>
 
 namespace SceneR
 {
@@ -125,10 +125,7 @@ namespace SceneR
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
-            Quaternion(const float& x
-                     , const float& y
-                     , const float& z
-                     , const float& w);
+            Quaternion(const float& x, const float& y, const float& z, const float& w);
 
             /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
@@ -205,8 +202,8 @@ namespace SceneR
             float Length() const;
 
         public:
-            float& operator[](const size_t& index);
-            const float& operator[](const size_t& index) const;
+            float& operator[](const std::size_t& index);
+            const float& operator[](const std::size_t& index) const;
             Quaternion& operator=(const Quaternion& value);
             bool operator==(const Quaternion& value) const;
             bool operator!=(const Quaternion& value) const;

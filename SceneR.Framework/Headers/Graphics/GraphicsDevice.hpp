@@ -4,8 +4,8 @@
 #ifndef GRAPHICSDEVICE_HPP
 #define GRAPHICSDEVICE_HPP
 
+#include <cstddef>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <System/IDisposable.hpp>
@@ -35,8 +35,8 @@ namespace SceneR
         class GraphicsDevice final : System::IDisposable
         {
         private:
-                static uint32_t GetElementCount(const PrimitiveType& primitiveType
-                                              , const uint32_t&      primitiveCount);
+                static std::size_t GetElementCount(const PrimitiveType& primitiveType
+                                                 , const std::size_t&   primitiveCount);
 
         public:
             /**
@@ -81,11 +81,11 @@ namespace SceneR
              *                       primitiveCount and primitiveType.
              */
             void DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                     , const uint32_t&      baseVertex
-                                     , const uint32_t&      minVertexIndex
-                                     , const uint32_t&      numVertices
-                                     , const uint32_t&      startIndex
-                                     , const uint32_t&      primitiveCount) const;
+                                     , const std::size_t&   baseVertex
+                                     , const std::size_t&   minVertexIndex
+                                     , const std::size_t&   numVertices
+                                     , const std::size_t&   startIndex
+                                     , const std::size_t&   primitiveCount) const;
 
             /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -99,8 +99,8 @@ namespace SceneR
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
             void DrawPrimitives(const PrimitiveType& primitiveType
-                              , const uint32_t&      startVertex
-                              , const uint32_t&      primitiveCount) const;
+                              , const std::size_t&   startVertex
+                              , const std::size_t&   primitiveCount) const;
 
             /**
              * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the

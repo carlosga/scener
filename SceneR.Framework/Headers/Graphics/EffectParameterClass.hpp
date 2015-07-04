@@ -4,7 +4,7 @@
 #ifndef EFFECTPARAMETERCLASS_HPP
 #define EFFECTPARAMETERCLASS_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines classes that can be used for effect parameters or shader constants.
          */
-        enum class EffectParameterClass : uint32_t
+        enum class EffectParameterClass : std::uint32_t
         {
             /**
              * Constant is a matrix.

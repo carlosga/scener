@@ -4,7 +4,7 @@
 #ifndef VECTOR2_HPP
 #define VECTOR2_HPP
 
-#include <stddef.h>
+#include <cstddef>
 
 namespace SceneR
 {
@@ -247,8 +247,8 @@ namespace SceneR
             float Length() const;
 
         public:
-            float& operator[](const size_t& index);
-            const float& operator[](const size_t& index) const;
+            float& operator[](const std::size_t& index);
+            const float& operator[](const std::size_t& index) const;
             Vector2& operator=(const Vector2& vector);
             bool operator==(const Vector2& vector) const;
             bool operator!=(const Vector2& vector) const;

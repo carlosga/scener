@@ -4,7 +4,7 @@
 #ifndef DEPTHSTENCILSTATE_HPP
 #define DEPTHSTENCILSTATE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <Graphics/CompareFunction.hpp>
 #include <Graphics/StencilOperation.hpp>
@@ -127,12 +127,12 @@ namespace SceneR
             /**
              * Specifies a reference value to use for the stencil test.
              */
-            int32_t ReferenceStencil() const;
+            std::int32_t ReferenceStencil() const;
 
             /**
              * Specifies a reference value to use for the stencil test.
              */
-            void ReferenceStencil(const int32_t& referenceStencil);
+            void ReferenceStencil(const std::int32_t& referenceStencil);
 
             /**
              * Gets the stencil operation to perform if the stencil test passes and
@@ -181,14 +181,14 @@ namespace SceneR
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            uint32_t StencilMask() const;
+            std::uint32_t StencilMask() const;
 
             /**
              * Sets the mask applied to the reference value and
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            void StencilMask(const uint32_t& stencilMask);
+            void StencilMask(const std::uint32_t& stencilMask);
 
             /**
              * Gets the stencil operation to perform if the stencil test passes
@@ -203,12 +203,12 @@ namespace SceneR
             /**
              * Gets the write mask applied to values written into the stencil buffer.
              */
-            uint32_t StencilWriteMask() const;
+            std::uint32_t StencilWriteMask() const;
 
             /**
              * Sets the write mask applied to values written into the stencil buffer.
              */
-            void StencilWriteMask(const uint32_t& stencilWriteMask);
+            void StencilWriteMask(const std::uint32_t& stencilWriteMask);
 
             /**
              * Gets a value indicating wheter two-sided stenciling is enabled.
@@ -234,14 +234,14 @@ namespace SceneR
             bool             depthBufferEnable;
             CompareFunction  depthBufferFunction;
             bool             depthBufferWriteEnable;
-            int32_t          referenceStencil;
+            std::int32_t     referenceStencil;
             StencilOperation stencilDepthBufferFail;
             bool             stencilEnable;
             StencilOperation stencilFail;
             CompareFunction  stencilFunction;
-            uint32_t         stencilMask;
+            std::uint32_t    stencilMask;
             StencilOperation stencilPass;
-            uint32_t         stencilWriteMask;
+            std::uint32_t    stencilWriteMask;
             bool             twoSidedStencilMode;
 
             friend class SceneR::Framework::GraphicsDeviceManager;

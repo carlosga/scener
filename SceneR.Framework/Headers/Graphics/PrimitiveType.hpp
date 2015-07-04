@@ -4,7 +4,7 @@
 #ifndef PRIMITIVETYPE_HPP
 #define PRIMITIVETYPE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines the primitives types
          */
-        enum class PrimitiveType : uint32_t
+        enum class PrimitiveType : std::uint32_t
         {
             /**
              * Renders the vertices as a collection of isolated points. This value is unsupported for indexed

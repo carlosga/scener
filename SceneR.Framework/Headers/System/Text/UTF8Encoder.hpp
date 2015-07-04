@@ -5,8 +5,8 @@
 #define UTF8ENCODER_HPP
 
 #include <codecvt>
-#include <stddef.h>
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <System/Text/Encoder.hpp>
 
@@ -31,17 +31,17 @@ namespace System
             ~UTF8Encoder() override;
 
         public:
-            size_t GetByteCount(const std::vector<char16_t>& chars
-                              , const size_t&                index
-                              , const size_t&                count
-                              , const bool&                  flush) const override;
+            std::size_t GetByteCount(const std::vector<char16_t>& chars
+                                   , const std::size_t&           index
+                                   , const std::size_t&           count
+                                   , const bool&                  flush) const override;
 
-            size_t GetBytes(const std::vector<char16_t>& chars
-                                , const size_t&          charIndex
-                                , const size_t&          charCount
-                                , std::vector<uint8_t>&  bytes
-                                , const size_t&          byteIndex
-                                , const bool&            flush) const override;
+            std::size_t GetBytes(const std::vector<char16_t>& chars
+                                , const std::size_t&          charIndex
+                                , const std::size_t&          charCount
+                                , std::vector<uint8_t>&       bytes
+                                , const std::size_t&          byteIndex
+                                , const bool&                 flush) const override;
 
         private:
             std::codecvt_utf8<char16_t> converter;

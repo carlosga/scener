@@ -16,12 +16,12 @@ UTF8Encoder::~UTF8Encoder()
 {
 }
 
-size_t UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
-                               , const size_t&                index
-                               , const size_t&                count
-                               , const bool&                  flush) const
+std::size_t UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
+                                    , const std::size_t&           index
+                                    , const std::size_t&           count
+                                    , const bool&                  flush) const
 {
-    size_t byteCount = 0;
+    std::size_t byteCount = 0;
 
     /**
      * Unicode code points
@@ -30,10 +30,10 @@ size_t UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
      * 0800-FFFF       (16 bits)
      * 010000-10FFFF   (21 bits)
      */
-    for (size_t i = index; i < (index + count); i++)
+    for (std::size_t i = index; i < (index + count); i++)
     {
-        char16_t buffer = chars[i];
-        size_t   offset = 1;
+        char16_t    buffer = chars[i];
+        std::size_t offset = 1;
 
         if (((buffer >> 7) & 0xff) & 0x7F)
         {
@@ -60,12 +60,12 @@ size_t UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
     return byteCount;
 }
 
-size_t UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
-                           , const size_t&                charIndex
-                           , const size_t&                charCount
-                           , std::vector<uint8_t>&        bytes
-                           , const size_t&                byteIndex
-                           , const bool&                  flush) const
+std::size_t UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
+                                , const std::size_t&           charIndex
+                                , const std::size_t&           charCount
+                                , std::vector<uint8_t>&        bytes
+                                , const std::size_t&           byteIndex
+                                , const bool&                  flush) const
 {
     auto            from     = const_cast<char16_t*>(&chars[0] + charIndex);
     auto            fromEnd  = from + charCount;
@@ -94,5 +94,5 @@ size_t UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
         }
     }
 
-    return static_cast<size_t>(toNext - toStart);
+    return static_cast<std::size_t>(toNext - toStart);
 }

@@ -4,7 +4,7 @@
 #ifndef IUPDATEABLE_HPP
 #define IUPDATEABLE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -32,7 +32,7 @@ namespace SceneR
             /**
              * Gets the order in which to update this object relative to other objects.
              */
-            virtual uint32_t UpdateOrder() const = 0;
+            virtual std::uint32_t UpdateOrder() const = 0;
 
             /**
              * Called when the component should be updated.

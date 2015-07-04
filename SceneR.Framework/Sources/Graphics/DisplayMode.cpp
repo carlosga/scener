@@ -4,6 +4,7 @@
 #include <Graphics/DisplayMode.hpp>
 
 #include <cassert>
+#include <cstdint>
 
 using namespace SceneR::Graphics;
 
@@ -17,7 +18,7 @@ DisplayMode::DisplayMode(const GLFWvidmode* mode)
 
     this->aspectRatio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
 
-    int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
+    std::int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
 
     switch (bitDepth)
     {
@@ -50,12 +51,12 @@ const SurfaceFormat& DisplayMode::Format() const
     return this->format;
 }
 
-size_t DisplayMode::Height() const
+std::size_t DisplayMode::Height() const
 {
     return this->height;
 }
 
-size_t DisplayMode::Width() const
+std::size_t DisplayMode::Width() const
 {
     return this->width;
 }
