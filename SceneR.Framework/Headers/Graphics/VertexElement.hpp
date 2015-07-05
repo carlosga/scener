@@ -4,7 +4,8 @@
 #ifndef VERTEXELEMENT_HPP
 #define VERTEXELEMENT_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
@@ -22,10 +23,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const uint32_t&                              offset
+            VertexElement(const std::size_t&                           offset
                         , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
                         , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
-                        , const uint32_t&                              usageIndex);
+                        , const std::uint32_t&                         usageIndex);
 
             /**
              * @brief Copy constructor
@@ -42,12 +43,12 @@ namespace SceneR
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            uint32_t Offset() const;
+            std::size_t Offset() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            uint32_t UsageIndex() const;
+            std::uint32_t UsageIndex() const;
 
             /**
              * Gets or sets the format of this vertex element.
@@ -63,10 +64,10 @@ namespace SceneR
             VertexElement& operator=(const VertexElement& element);
 
         private:
-            uint32_t                              offset;
+            std::size_t                           offset;
             SceneR::Graphics::VertexElementFormat vertexElementFormat;
             SceneR::Graphics::VertexElementUsage  vertexElementUsage;
-            uint32_t                              usageIndex;
+            std::uint32_t                         usageIndex;
         };
     }
 }

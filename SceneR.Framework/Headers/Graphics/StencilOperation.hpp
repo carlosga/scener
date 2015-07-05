@@ -4,7 +4,7 @@
 #ifndef STENCILOPERATION_HPP
 #define STENCILOPERATION_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines stencil buffer operations.
          */
-        enum class StencilOperation : uint32_t
+        enum class StencilOperation : std::uint32_t
         {
             /**
              * Decrements the stencil-buffer entry, wrapping to the maximum value if the new value is less than 0.

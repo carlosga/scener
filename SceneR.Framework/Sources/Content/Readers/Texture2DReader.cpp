@@ -36,7 +36,7 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
 
     texture->DeclareStorage(mipmapCount);
 
-    for (uint32_t i = 0; i < mipmapCount; i++)
+    for (std::uint32_t i = 0; i < mipmapCount; i++)
     {
         auto data = input.ReadBytes(input.ReadUInt32());
 
@@ -46,7 +46,7 @@ std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
     return texture;
 }
 
-SurfaceFormat Texture2DReader::DecodeFormat(const uint32_t& format) const
+SurfaceFormat Texture2DReader::DecodeFormat(const std::uint32_t& format) const
 {
     switch (format)
     {

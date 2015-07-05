@@ -10,6 +10,8 @@
 #ifndef ANIMATIONPLAYER_HPP
 #define ANIMATIONPLAYER_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -90,7 +92,7 @@ namespace SceneR
             // Information about the currently playing animation clip.
             AnimationClip    currentClipValue;
             System::TimeSpan currentTimeValue;
-            size_t           currentKeyframe;
+            std::size_t      currentKeyframe;
 
             // Backlink to the bind pose and skeleton hierarchy data.
             std::shared_ptr<SkinningData> skinningDataValue;

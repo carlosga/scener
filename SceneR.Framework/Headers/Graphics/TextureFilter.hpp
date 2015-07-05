@@ -4,7 +4,7 @@
 #ifndef TEXTUREFILTER_HPP
 #define TEXTUREFILTER_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines filtering types during texture sampling.
          */
-        enum class TextureFilter : uint32_t
+        enum class TextureFilter : std::uint32_t
         {
             /**
              * Use linear filtering.

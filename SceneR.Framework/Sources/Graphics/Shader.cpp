@@ -3,6 +3,7 @@
 
 #include <Graphics/Shader.hpp>
 
+#include <cstddef>
 #include <iostream>
 
 #include <System/Text/Encoding.hpp>
@@ -116,7 +117,7 @@ void Shader::VerifyCompilationState()
 
         if (infoLogLength)
         {
-            auto compileErrorMessage = std::string("", static_cast<size_t>(infoLogLength));
+            auto compileErrorMessage = std::string("", static_cast<std::size_t>(infoLogLength));
 
             glGetShaderInfoLog(this->id, infoLogLength, NULL, &compileErrorMessage[0]);
 

@@ -24,7 +24,7 @@ namespace System
             /**
              * Initializes a new instance of the MemoryStream class.
              */
-            MemoryStream(const std::vector<uint8_t>& buffer);
+            MemoryStream(const std::vector<std::uint8_t>& buffer);
 
             /**
              * Releases all resources being used by this MemoryStream.

@@ -3,6 +3,7 @@
 
 #include <MatrixTest.hpp>
 
+#include <cstdint>
 #include <vector>
 
 #include <EqualityHelper.hpp>
@@ -722,20 +723,20 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    const uint32_t rotCount = 16;
+    const std::uint32_t rotCount = 16;
 
-    for (uint32_t i = 0; i < rotCount; ++i)
+    for (std::uint32_t i = 0; i < rotCount; ++i)
     {
         float latitude = (2.0f * Math::Pi) * ((float)i / (float)rotCount);
 
-        for (uint32_t j = 0; j < rotCount; ++j)
+        for (std::uint32_t j = 0; j < rotCount; ++j)
         {
             float longitude = -Math::PiOver2 + Math::Pi * ((float)j / (float)rotCount);
 
             auto m    = Matrix::CreateRotationZ(longitude) * Matrix::CreateRotationY(latitude);
             auto axis = Vector3 { m.M11(), m.M12(), m.M13() };
 
-            for (uint32_t k = 0; k < rotCount; ++k)
+            for (std::uint32_t k = 0; k < rotCount; ++k)
             {
                 float rot = (2.0f * Math::Pi) * ((float)k / (float)rotCount);
 

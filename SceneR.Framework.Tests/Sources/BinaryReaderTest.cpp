@@ -3,6 +3,9 @@
 
 #include <BinaryReaderTest.hpp>
 
+#include <cstddef>
+#include <cstdint>
+
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/FileStream.hpp>
 
@@ -24,7 +27,7 @@ TEST_F(BinaryReaderTest, ReadByte)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    uint8_t value = reader.ReadByte();
+    auto value = reader.ReadByte();
 
     reader.Close();
 
@@ -36,9 +39,9 @@ TEST_F(BinaryReaderTest, ReadBytes)
 {
     FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
-    size_t       length = reader.BaseStream().Length();
+    std::size_t  length = reader.BaseStream().Length();
 
-    std::vector<uint8_t> buffer = reader.ReadBytes(length);
+    auto buffer = reader.ReadBytes(length);
 
     reader.Close();
 
@@ -51,7 +54,7 @@ TEST_F(BinaryReaderTest, ReadInt16)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    int16_t value = reader.ReadInt16();
+    auto value = reader.ReadInt16();
 
     reader.Close();
 
@@ -64,7 +67,7 @@ TEST_F(BinaryReaderTest, ReadUInt16)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    uint16_t value = reader.ReadUInt16();
+    auto value = reader.ReadUInt16();
 
     reader.Close();
 
@@ -77,7 +80,7 @@ TEST_F(BinaryReaderTest, ReadInt32)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    int32_t value = reader.ReadInt32();
+    auto value = reader.ReadInt32();
 
     reader.Close();
 
@@ -90,7 +93,7 @@ TEST_F(BinaryReaderTest, ReadUInt32)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    uint32_t value = reader.ReadUInt32();
+    auto value = reader.ReadUInt32();
 
     reader.Close();
 
@@ -103,7 +106,7 @@ TEST_F(BinaryReaderTest, ReadInt64)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    uint64_t value = reader.ReadInt64();
+    auto value = reader.ReadInt64();
 
     reader.Close();
 
@@ -116,7 +119,7 @@ TEST_F(BinaryReaderTest, ReadUInt64)
     FileStream stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    uint64_t value = reader.ReadUInt64();
+    auto value = reader.ReadUInt64();
 
     reader.Close();
 

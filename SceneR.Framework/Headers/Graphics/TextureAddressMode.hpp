@@ -4,7 +4,7 @@
 #ifndef TEXTUREADDRESSMODE_HPP
 #define TEXTUREADDRESSMODE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Defines modes for addressing texels using texture coordinates that are outside of the typical range of 0.0 to 1.0.
          */
-        enum class TextureAddressMode : uint32_t
+        enum class TextureAddressMode : std::uint32_t
         {
             /**
              * Texture coordinates outside the range [0.0, 1.0] are set to the texture color at 0.0 or 1.0, respectively.

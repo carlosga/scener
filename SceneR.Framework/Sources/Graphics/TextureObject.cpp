@@ -10,7 +10,7 @@ using namespace System;
 using namespace SceneR::Graphics;
 
 TextureObject::TextureObject(const TextureTarget& target)
-    : texId  { 0 }
+    : id  { 0 }
     , target { target }
 {
     this->Create();
@@ -22,21 +22,21 @@ TextureObject::~TextureObject()
 
 void TextureObject::Dispose()
 {
-    if (this->texId != 0)
+    if (this->id != 0)
     {
-        glDeleteTextures(1, &this->texId);
-        this->texId = 0;
+        glDeleteTextures(1, &this->id);
+        this->id = 0;
     }
 }
 
 void TextureObject::Activate() const
 {
-    glBindTexture(static_cast<GLenum>(this->target), this->texId);
+    glBindTexture(static_cast<GLenum>(this->target), this->id);
 }
 
 void TextureObject::Create()
 {
-    glGenTextures(1, &this->texId);
+    glGenTextures(1, &this->id);
 }
 
 void TextureObject::Deactivate() const
@@ -45,11 +45,11 @@ void TextureObject::Deactivate() const
 }
 
 void TextureObject::Declare2DStorage(const SurfaceFormat& format
-                                   , const uint32_t&      levels
-                                   , const uint32_t&      width
-                                   , const uint32_t&      height) const
+                                   , const std::size_t&   levels
+                                   , const std::size_t&   width
+                                   , const std::size_t&   height) const
 {
-    glTextureStorage2DEXT(this->texId
+    glTextureStorage2DEXT(this->id
                         , static_cast<GLenum>(this->target)
                         , static_cast<GLint>(levels)
                         , static_cast<GLenum>(format)
@@ -58,15 +58,15 @@ void TextureObject::Declare2DStorage(const SurfaceFormat& format
 }
 
 void TextureObject::TextureSubImage2D(const SurfaceFormat& format
-                                    , const uint32_t&      level
-                                    , const uint32_t&      width
-                                    , const uint32_t&      height
-                                    , const size_t&        size
+                                    , const std::size_t&   level
+                                    , const std::size_t&   width
+                                    , const std::size_t&   height
+                                    , const std::size_t&   size
                                     , const void*          data) const
 {
     if (Texture::IsCompressedSurfaceFormat(format))
     {
-        glCompressedTextureSubImage2DEXT(this->texId
+        glCompressedTextureSubImage2DEXT(this->id
                                        , static_cast<GLenum>(this->target)
                                        , static_cast<GLint>(level)
                                        , 0
@@ -79,7 +79,7 @@ void TextureObject::TextureSubImage2D(const SurfaceFormat& format
     }
     else
     {
-        glTextureSubImage2DEXT(this->texId
+        glTextureSubImage2DEXT(this->id
                              , static_cast<GLenum>(this->target)
                              , static_cast<GLint>(level)
                              , 0

@@ -4,7 +4,7 @@
 #ifndef TEXTURE_HPP
 #define TEXTURE_HPP
 
-#include <stdint.h>
+#include <cstddef>
 
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/SurfaceFormat.hpp>
@@ -47,7 +47,7 @@ namespace SceneR
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            virtual uint32_t LevelCount() const = 0;
+            virtual std::size_t LevelCount() const = 0;
 
             /**
              * Activates the texture object

@@ -4,7 +4,7 @@
 #ifndef VERTEXELEMENTUSAGE_HPP
 #define VERTEXELEMENTUSAGE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines usage for vertex elements.
          */
-        enum class VertexElementUsage : uint32_t
+        enum class VertexElementUsage : std::uint32_t
         {
             /**
              * Position data.

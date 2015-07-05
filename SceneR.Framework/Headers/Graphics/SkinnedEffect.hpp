@@ -4,8 +4,9 @@
 #ifndef SKINNEDEFFECT_HPP
 #define SKINNEDEFFECT_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <Framework/Matrix.hpp>
@@ -257,7 +258,7 @@ namespace SceneR
             /**
              * Gets the array of bone transform matrices of this SkinnedEffect.
              */
-            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const uint32_t& count) const;
+            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const std::size_t& count) const;
 
             /**
              * Sets an array of bone transform matrices for a SkinnedEffect.
@@ -267,12 +268,12 @@ namespace SceneR
             /**
              * Gets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            uint32_t WeightsPerVertex() const;
+            std::size_t WeightsPerVertex() const;
 
             /**
              * Sets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            void WeightsPerVertex(const uint32_t& weightsPerVertex);
+            void WeightsPerVertex(const std::size_t& weightsPerVertex);
 
         public:
             /**
@@ -311,11 +312,11 @@ namespace SceneR
             bool                                   textureEnabled;
             std::shared_ptr<Texture2D>             texture;
             SceneR::Framework::Matrix              view;
-            uint32_t                               weightsPerVertex;
+            std::size_t                            weightsPerVertex;
             SceneR::Framework::Matrix              world;
             SceneR::Framework::Matrix              worldView;
             bool                                   oneLight;
-            uint32_t                               shaderIndex;
+            std::uint32_t                          shaderIndex;
 
             EffectDirtyFlags                       dirtyFlags;
 
@@ -332,8 +333,8 @@ namespace SceneR
             EffectParameter                        bonesParam;
 
         private:
-            static uint32_t VSIndices[18];
-            static uint32_t PSIndices[18];
+            static std::uint32_t VSIndices[18];
+            static std::uint32_t PSIndices[18];
         };
     }
 }

@@ -3,6 +3,8 @@
 
 #include <Content/Readers/VertexDeclarationReader.hpp>
 
+#include <cstdint>
+
 #include <Content/ContentReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
@@ -24,7 +26,7 @@ std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
     auto elementCount = input.ReadUInt32();
     auto elements     = std::vector<VertexElement>();
 
-    for (uint32_t i = 0; i < elementCount; i++)
+    for (std::uint32_t i = 0; i < elementCount; i++)
     {
         elements.push_back({ input.ReadUInt32()                                   // Offset
                            , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format

@@ -4,8 +4,9 @@
 #ifndef BINARYREADER_HPP
 #define BINARYREADER_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <System/Text/Encoding.hpp>
@@ -51,7 +52,7 @@ namespace System
             /**
              * Returns the next available character, or -1 if no more characters are available.
              */
-            int32_t PeekChar();
+            std::int32_t PeekChar();
 
             /**
              * Reads the next character from the current stream.
@@ -66,7 +67,7 @@ namespace System
             /**
              * Reads a 7-bit encoded unsigned int
              */
-            uint32_t Read7BitEncodedInt();
+            std::uint32_t Read7BitEncodedInt();
 
             /**
              * Reads a Boolean value from the current stream.
@@ -76,42 +77,42 @@ namespace System
             /**
              * Reads the next byte from the current stream.
              */
-            uint8_t ReadByte();
+            std::uint8_t ReadByte();
 
             /**
              * Reads the specified number of bytes from the underliying stream
              */
-            std::vector<uint8_t> ReadBytes(const size_t& count);
+            std::vector<std::uint8_t> ReadBytes(const std::size_t& count);
 
             /**
              * Reads a 2-byte signed integer from the current stream.
              */
-            int16_t ReadInt16();
+            std::int16_t ReadInt16();
 
             /**
              * Reads a 2-byte unsigned integer from the current stream.
              */
-            uint16_t ReadUInt16();
+            std::uint16_t ReadUInt16();
 
             /**
              * Reads a 4-byte signed integer from the current stream.
              */
-            int32_t ReadInt32();
+            std::int32_t ReadInt32();
 
             /**
              * Reads a 4-byte unsigned integer from the current stream.
              */
-            uint32_t ReadUInt32();
+            std::uint32_t ReadUInt32();
 
             /**
              * Reads a 8-byte signed integer from the current stream.
              */
-            int64_t ReadInt64();
+            std::int64_t ReadInt64();
 
             /**
              * Reads a 8-byte unsigned integer from the current stream.
              */
-            uint64_t ReadUInt64();
+            std::uint64_t ReadUInt64();
 
             /**
              * Reads a float value from the currently open stream.

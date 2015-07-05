@@ -4,7 +4,7 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -79,7 +79,7 @@ namespace SceneR
 
         private:
             std::u16string           name;
-            uint32_t                 id;
+            std::uint32_t            id;
             ShaderType               type;
             std::string              source;
             std::vector<std::string> includes;

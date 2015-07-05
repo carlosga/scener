@@ -6,12 +6,12 @@
 using namespace System;
 using namespace System::IO;
 
-MemoryStream::MemoryStream(const std::vector<uint8_t>& buffer)
+MemoryStream::MemoryStream(const std::vector<std::uint8_t>& buffer)
     : stream { std::ios::in | std::ios::out | std::ios::binary }
     , mode   { std::ios::in | std::ios::out | std::ios::binary }
 {
     // TODO: There should be a better way of doing this
-    for (size_t i = 0; i < buffer.size(); i++)
+    for (std::size_t i = 0; i < buffer.size(); i++)
     {
         this->stream << buffer[i];
     }

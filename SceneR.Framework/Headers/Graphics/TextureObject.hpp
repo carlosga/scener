@@ -4,7 +4,8 @@
 #ifndef TEXTUREOBJECT_HPP
 #define TEXTUREOBJECT_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/SurfaceFormat.hpp>
@@ -57,9 +58,9 @@ namespace SceneR
              * @param height texture height
              */
             void Declare2DStorage(const SurfaceFormat& format
-                                , const uint32_t&      levels
-                                , const uint32_t&      width
-                                , const uint32_t&      height) const;
+                                , const std::size_t&   levels
+                                , const std::size_t&   width
+                                , const std::size_t&   height) const;
 
             /**
              * Adds texture data to the texture object
@@ -71,14 +72,14 @@ namespace SceneR
              * @param data mipmap data
              */
             void TextureSubImage2D(const SurfaceFormat& format
-                                 , const uint32_t&      level
-                                 , const uint32_t&      width
-                                 , const uint32_t&      height
-                                 , const size_t&        size
+                                 , const std::size_t&   level
+                                 , const std::size_t&   width
+                                 , const std::size_t&   height
+                                 , const std::size_t&   size
                                  , const void*          data) const;
 
         private:
-            uint32_t      texId;
+            std::uint32_t id;
             TextureTarget target;
         };
     }

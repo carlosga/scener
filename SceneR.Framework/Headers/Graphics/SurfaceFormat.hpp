@@ -4,7 +4,7 @@
 #ifndef SURFACEFORMAT_HPP
 #define SURFACEFORMAT_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -12,7 +12,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        enum class SurfaceFormat : uint32_t
+        enum class SurfaceFormat : std::uint32_t
         {
             /**
              * (Unsigned format) 32-bit ARGB pixel format with alpha, using 8 bits per channel.

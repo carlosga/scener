@@ -61,7 +61,7 @@ std::vector<std::uint8_t> UniformBufferObject::GetData() const
 
 std::vector<std::uint8_t> UniformBufferObject::GetData(const std::size_t& startIndex, const std::size_t& elementCount) const
 {
-    auto data = std::vector<uint8_t>(elementCount, 0);
+    auto data = std::vector<std::uint8_t>(elementCount, 0);
 
     this->bufferObject.GetData(startIndex, elementCount, data.data());
 

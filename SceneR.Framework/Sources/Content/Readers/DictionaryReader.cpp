@@ -3,6 +3,7 @@
 
 #include <Content/Readers/DictionaryReader.hpp>
 
+#include <cstdint>
 #include <map>
 
 #include <Content/ContentReader.hpp>
@@ -23,7 +24,7 @@ std::shared_ptr<void> DictionaryReader::Read(ContentReader& input)
     auto dictionary = std::make_shared<std::map<std::u16string, std::shared_ptr<void>>>();
     auto count      = input.ReadUInt32();
 
-    for (uint32_t i = 0; i < count; i++)
+    for (std::uint32_t i = 0; i < count; i++)
     {
         auto key   = *input.ReadObject<std::u16string>();
         auto value = nullptr; //input.ReadObject();

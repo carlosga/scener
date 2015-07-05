@@ -524,13 +524,13 @@ Matrix Matrix::Invert(const Matrix& matrix)
     if (matrix.HasInverse())
     {
         // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        auto    mdet = matrix.Determinant();
-        Matrix  mtemp;
-        int32_t sign;
+        auto         mdet = matrix.Determinant();
+        Matrix       mtemp;
+        std::int32_t sign;
 
-        for (uint32_t i = 0; i < 4; i++)
+        for (std::uint32_t i = 0; i < 4; i++)
         {
-            for (uint32_t j = 0; j < 4; j++)
+            for (std::uint32_t j = 0; j < 4; j++)
             {
                 sign               = 1 - ((i + j) % 2) * 2;
                 mtemp              = matrix.SubMatrix(i, j);
@@ -766,12 +766,12 @@ void Matrix::Translation(const Vector3& translation)
 float Matrix::Determinant() const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    int32_t i      = 1;
-    float  result = 0;
-    float  det    = 0;
-    Matrix  msub;
+    std::int32_t i      = 1;
+    float        result = 0;
+    float        det    = 0;
+    Matrix       msub;
 
-    for (uint32_t n = 0; n < 4; n++, i *= -1)
+    for (std::uint32_t n = 0; n < 4; n++, i *= -1)
     {
         msub    = this->SubMatrix(0, n);
         det     = msub.SubMatrixDeterminant();

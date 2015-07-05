@@ -3,6 +3,8 @@
 
 #include <Content/Readers/KeyframeListReader.hpp>
 
+#include <cstdint>
+
 #include <Content/ContentReader.hpp>
 #include <Graphics/Keyframe.hpp>
 
@@ -25,7 +27,7 @@ std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
 
     keyframes->reserve(keyframeCount);
 
-    for (uint32_t i = 0; i < keyframeCount; i++)
+    for (std::uint32_t i = 0; i < keyframeCount; i++)
     {
         keyframes->push_back(*input.ReadObject<Keyframe>());
     }

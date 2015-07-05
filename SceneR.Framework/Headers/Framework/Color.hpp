@@ -131,7 +131,7 @@ namespace SceneR
             /**
              * Gets the color packed value.
              */
-            uint32_t PackedValue() const;
+            std::uint32_t PackedValue() const;
 
         public:
             float& operator[](const std::size_t& index);

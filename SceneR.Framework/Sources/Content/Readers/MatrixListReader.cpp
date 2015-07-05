@@ -3,6 +3,8 @@
 
 #include <Content/Readers/MatrixListReader.hpp>
 
+#include <cstdint>
+
 #include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
 
@@ -25,7 +27,7 @@ std::shared_ptr<void> MatrixListReader::Read(ContentReader& input)
 
     matrices->reserve(matrixCount);
 
-    for (uint32_t i = 0; i < matrixCount; i++)
+    for (std::uint32_t i = 0; i < matrixCount; i++)
     {
         matrices->push_back(input.ReadMatrix());
     }

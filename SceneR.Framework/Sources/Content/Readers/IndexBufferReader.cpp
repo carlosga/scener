@@ -3,6 +3,8 @@
 
 #include <Content/Readers/IndexBufferReader.hpp>
 
+#include <cstdint>
+
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/RendererServiceContainer.hpp>
@@ -27,7 +29,7 @@ std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
     auto  isSixteenBits = input.ReadBoolean();
     auto  dataSize      = input.ReadUInt32();
     auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
-    auto  elementBytes  = ((isSixteenBits) ? sizeof(uint16_t) : sizeof(uint32_t));
+    auto  elementBytes  = ((isSixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
     auto  indexCount    = (dataSize / elementBytes);
     auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
     auto  data          = input.ReadBytes(dataSize);

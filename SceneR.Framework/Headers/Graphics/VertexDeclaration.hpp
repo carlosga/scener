@@ -4,7 +4,8 @@
 #ifndef VERTEXDECLARATION_HPP
 #define VERTEXDECLARATION_HPP
 
-#include <stdint.h>
+#include <cstddef>
+#include <cstdint>
 #include <vector>
 
 #include <Graphics/VertexElementFormat.hpp>
@@ -29,7 +30,7 @@ namespace SceneR
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */
-            VertexDeclaration(const uint32_t&                   vertexStride
+            VertexDeclaration(const std::size_t&                vertexStride
                             , const std::vector<VertexElement>& vertexElements);
 
             /**
@@ -48,7 +49,7 @@ namespace SceneR
              * Gets the number of bytes per element.
              * @return the number of bytes per element.
              */
-            uint32_t VertexStride() const;
+            std::size_t VertexStride() const;
 
             /**
              * Gets the vertex elements.
@@ -65,13 +66,13 @@ namespace SceneR
              * @param vaoiId Specifies the name of the vertex array object for glDisableVertexArrayAttrib and glEnableVertexArrayAttrib functions.
              * @param bindingIndex The index of the vertex buffer binding with which to associate the generic vertex attribute.
              */
-            void Declare(const uint32_t& vaoId, const uint32_t& bindingIndex​) const;
+            void Declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const;
 
-            uint32_t GetElementCount(const VertexElementFormat& vertexFormat) const;
-            uint32_t GetElementType(const VertexElementFormat& vertexFormat) const;
+            std::size_t GetElementCount(const VertexElementFormat& vertexFormat) const;
+            std::uint32_t GetElementType(const VertexElementFormat& vertexFormat) const;
 
         private:
-            uint32_t                   vertexStride;
+            std::size_t                   vertexStride;
             std::vector<VertexElement> vertexElements;
 
             friend class VertexBuffer;

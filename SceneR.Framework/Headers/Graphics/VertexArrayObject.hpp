@@ -4,7 +4,7 @@
 #ifndef VERTEXARRAYOBJECT_HPP
 #define VERTEXARRAYOBJECT_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/IDisposable.hpp>
 
@@ -35,7 +35,7 @@ namespace SceneR
             /**
              * Gets the vertex array object identifier.
              */
-            uint32_t Id() const;
+            std::uint32_t Id() const;
 
             /**
              * Activates this vertex array object.
@@ -51,7 +51,7 @@ namespace SceneR
             void Create();
 
         private:
-            uint32_t id;
+            std::uint32_t id;
         };
     }
 }

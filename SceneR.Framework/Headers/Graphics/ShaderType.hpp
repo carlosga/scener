@@ -4,7 +4,7 @@
 #ifndef SHADERTYPE_HPP
 #define SHADERTYPE_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Declares the supported shader types
          */
-        enum class ShaderType : uint32_t
+        enum class ShaderType : std::uint32_t
         {
             /**
              * A shader that is intended to run on the programmable vertex processor.

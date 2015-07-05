@@ -4,7 +4,7 @@
 #ifndef VERTEXELEMENTFORMAT_HPP
 #define VERTEXELEMENTFORMAT_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 namespace SceneR
 {
@@ -13,7 +13,7 @@ namespace SceneR
         /**
          * Defines vertex element formats.
          */
-        enum class VertexElementFormat : uint32_t
+        enum class VertexElementFormat : std::uint32_t
         {
             /**
              * Single-component, 32-bit floating-point, expanded to (float, 0, 0, 1).

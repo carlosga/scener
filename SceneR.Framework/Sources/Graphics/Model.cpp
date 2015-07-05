@@ -3,6 +3,7 @@
 
 #include <Graphics/Model.hpp>
 
+#include <cstddef>
 #include <cassert>
 
 #include <Framework/Vector3.hpp>
@@ -34,7 +35,7 @@ void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTra
 {
     assert(destinationBoneTransforms.size() == this->bones.size());
 
-    for (uint32_t boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
+    for (std::size_t boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
     {
         auto bone = this->bones[boneIndex];
 
@@ -55,7 +56,7 @@ void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransfor
 {
     assert(sourceBoneTransforms.size() == this->bones.size());
 
-    for (uint32_t i = 0; i < sourceBoneTransforms.size(); i++)
+    for (std::size_t i = 0; i < sourceBoneTransforms.size(); i++)
     {
         this->bones[i]->Transform(sourceBoneTransforms[i]);
     }
@@ -65,7 +66,7 @@ void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
 {
     assert(destinationBoneTransforms.size() == this->bones.size());
 
-    for (uint32_t i = 0; i < this->bones.size(); i++)
+    for (std::size_t i = 0; i < this->bones.size(); i++)
     {
         destinationBoneTransforms[i] = this->bones[i]->Transform();
     }

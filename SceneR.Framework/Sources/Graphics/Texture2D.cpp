@@ -8,16 +8,16 @@
 using namespace System;
 using namespace SceneR::Graphics;
 
-Texture2D::Texture2D(GraphicsDevice& graphicsDevice
-                   , const uint32_t& width
-                   , const uint32_t& height)
+Texture2D::Texture2D(GraphicsDevice&    graphicsDevice
+                   , const std::size_t& width
+                   , const std::size_t& height)
     : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
 {
 }
 
 Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
-                   , const uint32_t&      width
-                   , const uint32_t&      height
+                   , const std::size_t&   width
+                   , const std::size_t&   height
                    , const bool&          mipmap
                    , const SurfaceFormat& format)
     : Texture      { graphicsDevice }
@@ -46,22 +46,22 @@ const SurfaceFormat& Texture2D::Format() const
     return this->format;
 }
 
-uint32_t Texture2D::Height() const
+std::size_t Texture2D::Height() const
 {
     return this->height;
 }
 
-uint32_t Texture2D::LevelCount() const
+std::size_t Texture2D::LevelCount() const
 {
     return this->mipmapLevels;
 }
 
-uint32_t Texture2D::Width() const
+std::size_t Texture2D::Width() const
 {
     return this->width;
 }
 
-void Texture2D::SetData(const uint32_t& level, const size_t& size, const void* data)
+void Texture2D::SetData(const std::size_t& level, const std::size_t& size, const void* data)
 {
     // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
     if (this->mipmapWidth == 0)
@@ -79,7 +79,7 @@ void Texture2D::SetData(const uint32_t& level, const size_t& size, const void* d
     this->mipmapHeight >>= 1;
 }
 
-void Texture2D::DeclareStorage(const uint32_t& mipMapLevels)
+void Texture2D::DeclareStorage(const std::size_t& mipMapLevels)
 {
     this->object.Declare2DStorage(this->format, mipMapLevels, this->width, this->height);
     this->mipmapLevels = mipMapLevels;

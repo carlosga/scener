@@ -10,7 +10,7 @@
 #ifndef KEYFRAME_HPP
 #define KEYFRAME_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/TimeSpan.hpp>
 #include <Framework/Matrix.hpp>
@@ -24,7 +24,7 @@ namespace SceneR
         public:
             Keyframe();
 
-            Keyframe(const uint32_t&                  bone
+            Keyframe(const std::uint32_t&             bone
                    , const System::TimeSpan&          time
                    , const SceneR::Framework::Matrix& transform);
 
@@ -33,7 +33,7 @@ namespace SceneR
             ~Keyframe();
 
         public:
-            uint32_t Bone() const;
+            std::uint32_t Bone() const;
 
             const System::TimeSpan& Time() const;
 
@@ -43,7 +43,7 @@ namespace SceneR
             Keyframe& operator=(const Keyframe& keyframe);
 
         private:
-            uint32_t                  bone;
+            std::uint32_t             bone;
             System::TimeSpan          time;
             SceneR::Framework::Matrix transform;
         };

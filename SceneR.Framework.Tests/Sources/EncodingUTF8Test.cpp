@@ -3,6 +3,9 @@
 
 #include <EncodingUTF8Test.hpp>
 
+#include <cstddef>
+#include <cstdint>
+
 #include <System/Text/Encoding.hpp>
 
 using namespace System;
@@ -48,7 +51,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 {
     char16_t tmp[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
     auto     chars = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
-    auto     bytes = std::vector<uint8_t> { };
+    auto     bytes = std::vector<std::uint8_t> { };
 
     bytes.reserve(Encoding::UTF8.GetByteCount(chars, 2, 3));
 
@@ -67,8 +70,8 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 
 TEST_F(EncodingUTF8Test, GetByteCountFromString)
 {
-    auto     s     = u"za\u0306\u01FD\u03B2";
-    uint32_t count = Encoding::UTF8.GetByteCount(s);
+    auto s     = u"za\u0306\u01FD\u03B2";
+    auto count = Encoding::UTF8.GetByteCount(s);
 
     EXPECT_TRUE(8 == count);
 }
@@ -93,7 +96,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromString)
 TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
 {
     auto s     = u"za\u0306\u01FD\u03B2";
-    auto bytes = std::vector<uint8_t>();
+    auto bytes = std::vector<std::uint8_t>();
 
     bytes.reserve(Encoding::UTF8.GetByteCount(s));
 
@@ -113,7 +116,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
 TEST_F(EncodingUTF8Test, GetByteCountFromCharArrayPointer)
 {
     char16_t chars[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
-    uint32_t count   = Encoding::UTF8.GetByteCount(&chars[0], 5);
+    auto     count   = Encoding::UTF8.GetByteCount(&chars[0], 5);
 
     EXPECT_TRUE(8 == count);
 }
@@ -122,7 +125,7 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArrayPointer)
 {
     char16_t chars[]   = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
     auto     byteCount = Encoding::UTF8.GetByteCount(&chars[0], 5);
-    auto     bytes     = std::vector<uint8_t>(byteCount);
+    auto     bytes     = std::vector<std::uint8_t>(byteCount);
     auto     count     = Encoding::UTF8.GetBytes(&chars[0], 5, &bytes[0], byteCount);
 
     EXPECT_TRUE(8 == count);

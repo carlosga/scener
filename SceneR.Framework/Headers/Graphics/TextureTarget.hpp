@@ -4,7 +4,7 @@
 #ifndef TEXTURETARGET_HPP
 #define TEXTURETARGET_HPP
 
-#include <stdint.h>
+#include <cstdint>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Declares OpenGL texture targets
          */
-        enum class TextureTarget : uint32_t
+        enum class TextureTarget : std::uint32_t
         {
             /**
              * One-dimensional texture image.

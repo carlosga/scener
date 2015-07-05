@@ -5,6 +5,7 @@
 #define TIMESPAN_HPP
 
 #include <chrono>
+#include <cstdint>
 #include <ratio>
 
 namespace System
@@ -16,13 +17,13 @@ namespace System
     {
     public:
         using Clock                = std::chrono::high_resolution_clock;
-        using DaysDuration         = std::chrono::duration<double , std::ratio<86400>>;
-        using HoursDuration        = std::chrono::duration<double , std::ratio<3600>>;
-        using MinutesDuration      = std::chrono::duration<double , std::ratio<60>>;
+        using DaysDuration         = std::chrono::duration<double      , std::ratio<86400>>;
+        using HoursDuration        = std::chrono::duration<double      , std::ratio<3600>>;
+        using MinutesDuration      = std::chrono::duration<double      , std::ratio<60>>;
         using SecondsDuration      = std::chrono::duration<double>;
-        using MillisecondsDuration = std::chrono::duration<double , std::ratio<1, 1000>>;
-        using MicrosecondsDuration = std::chrono::duration<double , std::ratio<1, 1000000>>;
-        using TicksDuration        = std::chrono::duration<int64_t, std::ratio<1, 10000000>>;
+        using MillisecondsDuration = std::chrono::duration<double      , std::ratio<1, 1000>>;
+        using MicrosecondsDuration = std::chrono::duration<double      , std::ratio<1, 1000000>>;
+        using TicksDuration        = std::chrono::duration<std::int64_t, std::ratio<1, 10000000>>;
 
     public:
         /**
@@ -38,27 +39,27 @@ namespace System
         /**
          * Represents the number of ticks in 1 day.
          */
-        constexpr static const int64_t TicksPerDay = 864000000000;
+        constexpr static const std::int64_t TicksPerDay = 864000000000;
 
         /**
          * Represents the number of ticks in 1 hour.
          */
-        constexpr static const int64_t TicksPerHour = 36000000000;
+        constexpr static const std::int64_t TicksPerHour = 36000000000;
 
         /**
          * Represents the number of ticks in 1 millisecond.
          */
-        constexpr static const int64_t TicksPerMillisecond = 10000;
+        constexpr static const std::int64_t TicksPerMillisecond = 10000;
 
         /**
          * Represents the number of ticks in 1 minute.
          */
-        constexpr static const int64_t TicksPerMinute = 600000000;
+        constexpr static const std::int64_t TicksPerMinute = 600000000;
 
         /**
          * Represents the number of ticks in 1 second.
          */
-        constexpr static const int64_t TicksPerSecond = 10000000;
+        constexpr static const std::int64_t TicksPerSecond = 10000000;
 
         /**
          * Represents the zero TimeSpan value. This field is read-only.
@@ -99,37 +100,35 @@ namespace System
         /**
          * Returns a TimeSpan that represents a specified time.
          */
-        static TimeSpan FromTicks(const int64_t& value);
+        static TimeSpan FromTicks(const std::int64_t& value);
 
     public:
         /**
          * Initializes a new instance of the TimeSpan class with the given ticks value.
          */
-        TimeSpan(const int64_t& ticks);
+        TimeSpan(const std::int64_t& ticks);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given hours, minutes and seconds.
          */
-        TimeSpan(const int32_t& hours
-               , const int32_t& minutes
-               , const int32_t& seconds);
+        TimeSpan(const std::int32_t& hours, const std::int32_t& minutes, const std::int32_t& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes and seconds.
          */
-        TimeSpan(const int32_t& days
-               , const int32_t& hours
-               , const int32_t& minutes
-               , const int32_t& seconds);
+        TimeSpan(const std::int32_t& days
+               , const std::int32_t& hours
+               , const std::int32_t& minutes
+               , const std::int32_t& seconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given days, hours, minutes, seconds and milliseconds.
          */
-        TimeSpan(const int32_t& days
-               , const int32_t& hours
-               , const int32_t& minutes
-               , const int32_t& seconds
-               , const int32_t& milliseconds);
+        TimeSpan(const std::int32_t& days
+               , const std::int32_t& hours
+               , const std::int32_t& minutes
+               , const std::int32_t& seconds
+               , const std::int32_t& milliseconds);
 
         /**
          * Initializes a new instance of the TimeSpan class with the given timespan.
@@ -155,32 +154,32 @@ namespace System
         /**
          * Gets the days component of the time interval represented by the current TimeSpan structure.
          */
-        int32_t Days() const;
+        std::int32_t Days() const;
 
         /**
          * Gets the hours component of the time interval represented by the current TimeSpan structure.
          */
-        int32_t Hours() const;
+        std::int32_t Hours() const;
 
         /**
          * Gets the milliseconds component of the time interval represented by the current TimeSpan structure.
          */
-        int32_t Milliseconds() const;
+        std::int32_t Milliseconds() const;
 
         /**
          * Gets the minutes component of the time interval represented by the current TimeSpan structure.
          */
-        int32_t Minutes() const;
+        std::int32_t Minutes() const;
 
         /**
          * Gets the seconds component of the time interval represented by the current TimeSpan structure.
          */
-        int32_t Seconds() const;
+        std::int32_t Seconds() const;
 
         /**
          * Gets the number of ticks that represent the value of the current TimeSpan structure.
          */
-        int64_t Ticks() const;
+        std::int64_t Ticks() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional days.

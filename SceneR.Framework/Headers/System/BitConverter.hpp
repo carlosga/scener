@@ -5,8 +5,9 @@
 #define BITCONVERTER_HPP
 
 #include <cassert>
+#include <cstddef>
+#include <cstdint>
 #include <stdexcept>
-#include <stdint.h>
 #include <string>
 #include <vector>
 
@@ -28,9 +29,9 @@ namespace System
         //
         // Returns:
         //     A 64-bit signed integer whose value is equivalent to value.
-        static int64_t DoubleToInt64Bits(const double& value)
+        static std::int64_t DoubleToInt64Bits(const double& value)
         {
-            return static_cast<int64_t>(value);
+            return static_cast<std::int64_t>(value);
         }
 
         //
@@ -44,7 +45,7 @@ namespace System
         //
         // Returns:
         //     A double-precision floating point number whose value is equivalent to value.
-        static double Int64BitsToDouble(const int64_t& value)
+        static double Int64BitsToDouble(const std::int64_t& value)
         {
             return static_cast<double>(value);
         }
@@ -59,7 +60,7 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 1.
-        static std::vector<uint8_t> GetBytes(const bool& value)
+        static std::vector<std::uint8_t> GetBytes(const bool& value)
         {
             return GetBytes<bool>(value);
         }
@@ -74,9 +75,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 2.
-        static std::vector<uint8_t> GetBytes(const char16_t& value)
+        static std::vector<std::uint8_t> GetBytes(const char16_t& value)
         {
-            return GetBytes<int16_t>(static_cast<int16_t>(value));
+            return GetBytes<std::int16_t>(static_cast<std::int16_t>(value));
         }
 
         //
@@ -90,9 +91,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 8.
-        static std::vector<uint8_t> GetBytes(const double& value)
+        static std::vector<std::uint8_t> GetBytes(const double& value)
         {
-            return GetBytes<int64_t>(static_cast<int64_t>(value));
+            return GetBytes<std::int64_t>(static_cast<std::int64_t>(value));
         }
 
         //
@@ -106,9 +107,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 4.
-        static std::vector<uint8_t> GetBytes(const float& value)
+        static std::vector<std::uint8_t> GetBytes(const float& value)
         {
-            return GetBytes<int32_t>(static_cast<int32_t>(value));
+            return GetBytes<std::int32_t>(static_cast<std::int32_t>(value));
         }
 
         //
@@ -121,9 +122,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 4.
-        static std::vector<uint8_t> GetBytes(const int32_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int32_t& value)
         {
-            return GetBytes<int32_t>(value);
+            return GetBytes<std::int32_t>(value);
         }
 
         //
@@ -136,9 +137,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 8.
-        static std::vector<uint8_t> GetBytes(const int64_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int64_t& value)
         {
-            return GetBytes<int64_t>(value);
+            return GetBytes<std::int64_t>(value);
         }
 
         //
@@ -151,9 +152,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 2.
-        static std::vector<uint8_t> GetBytes(const int16_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int16_t& value)
         {
-            return GetBytes<int16_t>(value);
+            return GetBytes<std::int16_t>(value);
         }
 
         //
@@ -166,9 +167,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 4.
-        static std::vector<uint8_t> GetBytes(const uint32_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int32_t& value)
         {
-            return GetBytes<uint32_t>(value);
+            return GetBytes<std::int32_t>(value);
         }
 
         //
@@ -181,9 +182,9 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 8.
-        static std::vector<uint8_t> GetBytes(const int64_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int64_t& value)
         {
-            return GetBytes<int64_t>(value);
+            return GetBytes<std::int64_t>(value);
         }
 
         //
@@ -196,15 +197,15 @@ namespace System
         //
         // Returns:
         //     An array of bytes with length 2.
-        static std::vector<uint8_t> GetBytes(const uint16_t& value)
+        static std::vector<std::uint8_t> GetBytes(const std::int16_t& value)
         {
-            return GetBytes<uint16_t>(value);
+            return GetBytes<std::int16_t>(value);
         }
 
         //
         // Summary:
-        //     Returns a Boolean value converted from one uint8_t at a specified position in
-        //     a uint8_t array.
+        //     Returns a Boolean value converted from one std::uint8_t at a specified position in
+        //     a std::uint8_t array.
         //
         // Parameters:
         //   value:
@@ -222,7 +223,7 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static bool ToBoolean(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static bool ToBoolean(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             assert(startIndex <= (value.size() - 1));
 
@@ -232,7 +233,7 @@ namespace System
         //
         // Summary:
         //     Returns a Unicode char16_tacter converted from two bytes at a specified position
-        //     in a uint8_t array.
+        //     in a std::uint8_t array.
         //
         // Parameters:
         //   value:
@@ -253,14 +254,14 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static char16_t ToChar(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static char16_t ToChar(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             throw std::runtime_error("Not implemented");
         }
 
         //
         // Summary:
-        //     Returns a double-precision floating point32_t number converted from eight bytes
+        //     Returns a double-precision floating point number converted from eight bytes
         //     at a specified position in a byte array.
         //
         // Parameters:
@@ -271,7 +272,7 @@ namespace System
         //     The starting position within value.
         //
         // Returns:
-        //     A double precision floating point32_t number formed by eight bytes beginning
+        //     A double precision floating point number formed by eight bytes beginning
         //     at startIndex.
         //
         // Exceptions:
@@ -284,7 +285,7 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static double ToDouble(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static double ToDouble(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             return ToValue<double>(value, startIndex);
         }
@@ -292,7 +293,7 @@ namespace System
         //
         // Summary:
         //     Returns a 16-bit signed integer converted from two bytes at a specified position
-        //     in a uint8_t array.
+        //     in a std::uint8_t array.
         //
         // Parameters:
         //   value:
@@ -313,9 +314,9 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static int16_t ToInt16(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int16_t ToInt16(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<int16_t>(value, startIndex);
+            return ToValue<std::int16_t>(value, startIndex);
         }
 
         //
@@ -343,9 +344,9 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static int32_t ToInt32(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int32_t ToInt32(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<int32_t>(value, startIndex);
+            return ToValue<std::int32_t>(value, startIndex);
         }
 
         //
@@ -373,14 +374,14 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static int64_t ToInt64(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int64_t ToInt64(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<int64_t>(value, startIndex);
+            return ToValue<std::int64_t>(value, startIndex);
         }
 
         //
         // Summary:
-        //     Returns a single-precision floating point32_t number converted from four bytes
+        //     Returns a single-precision floating point number converted from four bytes
         //     at a specified position in a byte array.
         //
         // Parameters:
@@ -391,7 +392,7 @@ namespace System
         //     The starting position within value.
         //
         // Returns:
-        //     A single-precision floating point32_t number formed by four bytes beginning at
+        //     A single-precision floating point number formed by four bytes beginning at
         //     startIndex.
         //
         // Exceptions:
@@ -404,7 +405,7 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static float ToSingle(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static float ToSingle(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             return ToValue<float>(value, startIndex);
         }
@@ -425,7 +426,7 @@ namespace System
         // Exceptions:
         //   System.ArgumentNullException:
         //     value is null.
-        static std::u16string ToString(const std::vector<uint8_t>& value)
+        static std::u16string ToString(const std::vector<std::uint8_t>& value)
         {
             throw std::runtime_error("Not implemented");
         }
@@ -453,7 +454,7 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static std::u16string ToString(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::u16string ToString(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             throw std::runtime_error("Not implemented");
         }
@@ -490,7 +491,7 @@ namespace System
         //     The combination of startIndex and length does not specify a position within
         //     value; that is, the startIndex parameter is greater than the length of value
         //     minus the length parameter.
-        static std::u16string ToString(const std::vector<uint8_t>& value, const uint32_t& startIndex, int32_t length)
+        static std::u16string ToString(const std::vector<std::uint8_t>& value, const std::size_t& startIndex, std::size_t length)
         {
             throw std::runtime_error("Not implemented");
         }
@@ -519,9 +520,9 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static uint16_t ToUInt16(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int16_t ToUInt16(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<uint16_t>(value, startIndex);
+            return ToValue<std::int16_t>(value, startIndex);
         }
 
         //
@@ -549,9 +550,9 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static int32_t ToUInt32(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int32_t ToUInt32(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<int32_t>(value, startIndex);
+            return ToValue<std::int32_t>(value, startIndex);
         }
 
         //
@@ -579,14 +580,14 @@ namespace System
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        static int64_t ToUInt64(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static std::int64_t ToUInt64(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
-            return ToValue<int64_t>(value, startIndex);
+            return ToValue<std::int64_t>(value, startIndex);
         }
 
     private:
         template <typename T>
-        static T ToValue(const std::vector<uint8_t>& value, const uint32_t& startIndex)
+        static T ToValue(const std::vector<std::uint8_t>& value, const std::size_t& startIndex)
         {
             assert(startIndex <= (value.size() - 1));
 
@@ -605,14 +606,14 @@ namespace System
         }
 
         template <typename T>
-        static std::vector<uint8_t> GetBytes(const T& value)
+        static std::vector<std::uint8_t> GetBytes(const T& value)
         {
-            std::vector<uint8_t> result(0);
-            int shift = 0;
+            std::vector<std::uint8_t> result(0);
+            int32_t shift = 0;
 
             for (int i = 0; i < sizeof(T); i++)
             {
-                result.push_back((uint8_t)((value >> shift) & 0xff));
+                result.push_back((std::uint8_t)((value >> shift) & 0xff));
                 shift  += 8;
             }
 

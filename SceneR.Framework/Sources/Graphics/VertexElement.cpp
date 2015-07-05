@@ -5,10 +5,10 @@
 
 using namespace SceneR::Graphics;
 
-VertexElement::VertexElement(const uint32_t&                              offset
+VertexElement::VertexElement(const std::size_t&                           offset
                            , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
                            , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
-                           , const uint32_t&                              usageIndex)
+                           , const std::uint32_t&                         usageIndex)
     : offset              { offset }
     , vertexElementFormat { vertexElementFormat }
     , vertexElementUsage  { vertexElementUsage }
@@ -28,12 +28,12 @@ VertexElement::~VertexElement()
 {
 }
 
-uint32_t VertexElement::Offset() const
+std::size_t VertexElement::Offset() const
 {
     return this->offset;
 }
 
-uint32_t VertexElement::UsageIndex() const
+std::uint32_t VertexElement::UsageIndex() const
 {
     return this->usageIndex;
 }

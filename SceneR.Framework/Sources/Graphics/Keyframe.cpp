@@ -18,7 +18,7 @@ Keyframe::Keyframe()
 {
 }
 
-Keyframe::Keyframe(const uint32_t& bone, const TimeSpan& time, const Matrix& transform)
+Keyframe::Keyframe(const std::uint32_t& bone, const TimeSpan& time, const Matrix& transform)
     : bone      { bone }
     , time      { time }
     , transform { transform }
@@ -36,7 +36,7 @@ Keyframe::~Keyframe()
 {
 }
 
-uint32_t Keyframe::Bone() const
+std::uint32_t Keyframe::Bone() const
 {
     return this->bone;
 }

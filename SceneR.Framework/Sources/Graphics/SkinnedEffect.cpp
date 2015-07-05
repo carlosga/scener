@@ -379,7 +379,7 @@ void SkinnedEffect::World(const Matrix& world)
     this->dirtyFlags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
 }
 
-std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const uint32_t& count) const
+std::vector<Matrix> SkinnedEffect::GetBoneTransforms(const std::size_t& count) const
 {
     assert(count < this->boneTransforms.size());
 
@@ -397,12 +397,12 @@ void SkinnedEffect::SetBoneTransforms(const std::vector<Matrix>& boneTransforms)
     this->bonesParam.SetValue(this->boneTransforms);
 }
 
-uint32_t SkinnedEffect::WeightsPerVertex() const
+std::size_t SkinnedEffect::WeightsPerVertex() const
 {
     return this->weightsPerVertex;
 }
 
-void SkinnedEffect::WeightsPerVertex(const uint32_t& weightsPerVertex)
+void SkinnedEffect::WeightsPerVertex(const std::size_t& weightsPerVertex)
 {
     assert(weightsPerVertex == 1 || weightsPerVertex == 2 || weightsPerVertex == 4);
 
@@ -577,7 +577,7 @@ void SkinnedEffect::CacheEffectParameters()
     */
 }
 
-uint32_t SkinnedEffect::VSIndices[18] =
+std::uint32_t SkinnedEffect::VSIndices[18] =
 {
     0,      // vertex lighting, one bone
     0,      // vertex lighting, one bone, no fog
@@ -601,7 +601,7 @@ uint32_t SkinnedEffect::VSIndices[18] =
     8,      // pixel lighting, four bones, no fog
 };
 
-uint32_t SkinnedEffect::PSIndices[18] =
+std::uint32_t SkinnedEffect::PSIndices[18] =
 {
     0,      // vertex lighting, one bone
     1,      // vertex lighting, one bone, no fog

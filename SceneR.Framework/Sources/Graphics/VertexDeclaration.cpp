@@ -6,7 +6,7 @@
 
 using namespace SceneR::Graphics;
 
-VertexDeclaration::VertexDeclaration(const uint32_t&                   vertexStride
+VertexDeclaration::VertexDeclaration(const std::size_t&                vertexStride
                                    , const std::vector<VertexElement>& vertexElements)
     : vertexStride   { vertexStride }
     , vertexElements { vertexElements }
@@ -23,7 +23,7 @@ VertexDeclaration::~VertexDeclaration()
 {
 }
 
-uint32_t VertexDeclaration::VertexStride() const
+std::size_t VertexDeclaration::VertexStride() const
 {
     return this->vertexStride;
 }
@@ -44,14 +44,14 @@ VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declara
     return *this;
 }
 
-void VertexDeclaration::Declare(const uint32_t& vaoId, const uint32_t& bindingIndex​) const
+void VertexDeclaration::Declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const
 {
     // ... declare vertex elements
     for (const auto& ve : this->vertexElements)
     {
         auto elementType  = this->GetElementType(ve.VertexElementFormat());
         auto elementCount = this->GetElementCount(ve.VertexElementFormat());
-        auto usageIndex   = static_cast<uint32_t>(ve.VertexElementUsage());
+        auto usageIndex   = static_cast<std::uint32_t>(ve.VertexElementUsage());
 
         if (elementType == GL_FLOAT)
         {
@@ -77,7 +77,7 @@ void VertexDeclaration::Declare(const uint32_t& vaoId, const uint32_t& bindingIn
     }
 }
 
-uint32_t VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFormat) const
+std::size_t VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFormat) const
 {
     // TODO: Review this to see if it can match the XNA VertexElementFormat specificacion.
     switch (vertexFormat)
@@ -105,7 +105,7 @@ uint32_t VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFor
     }
 }
 
-uint32_t VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat) const
+std::uint32_t VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat) const
 {
     switch (vertexFormat)
     {

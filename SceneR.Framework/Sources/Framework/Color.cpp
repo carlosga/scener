@@ -109,12 +109,12 @@ float Color::A() const
     return this->a;
 }
 
-uint32_t Color::PackedValue() const
+std::uint32_t Color::PackedValue() const
 {
-    return ((static_cast<uint32_t>(this->r) * 255) << 24)
-         + ((static_cast<uint32_t>(this->g) * 255) << 16)
-         + ((static_cast<uint32_t>(this->b) * 255) << 8)
-         +  (static_cast<uint32_t>(this->a) * 255);
+    return ((static_cast<std::uint32_t>(this->r) * 255) << 24)
+         + ((static_cast<std::uint32_t>(this->g) * 255) << 16)
+         + ((static_cast<std::uint32_t>(this->b) * 255) << 8)
+         +  (static_cast<std::uint32_t>(this->a) * 255);
 }
 
 float& Color::operator[](const std::size_t& index)

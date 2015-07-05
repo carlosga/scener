@@ -3,6 +3,7 @@
 
 #include <Framework/RendererWindow.hpp>
 
+#include <cstddef>
 #include <iostream>
 
 #include <System/Graphics/Platform.hpp>
@@ -72,7 +73,7 @@ void RendererWindow::Open()
 {
     GLFWmonitor* monitor     = nullptr;
     GLFWwindow*  windowShare = nullptr;
-    auto         profile     = static_cast<int32_t>(this->renderer.graphicsDeviceManager.GraphicsProfile());
+    auto         profile     = static_cast<std::int32_t>(this->renderer.graphicsDeviceManager.GraphicsProfile());
     auto         tmp         = System::Text::Encoding::Convert(this->title);
     auto         fullscreen  = this->renderer.graphicsDeviceManager.FullScreen();
     auto         width       = this->renderer.graphicsDeviceManager.PreferredBackBufferWidth();
@@ -95,7 +96,7 @@ void RendererWindow::Open()
     glfwWindowHint(GLFW_ALPHA_BITS            , 8);
     glfwWindowHint(GLFW_DEPTH_BITS            , 24);
     glfwWindowHint(GLFW_STENCIL_BITS          , 24);
-    glfwWindowHint(GLFW_SAMPLES               , static_cast<int32_t>(sampleCount));
+    glfwWindowHint(GLFW_SAMPLES               , static_cast<std::int32_t>(sampleCount));
     glfwWindowHint(GLFW_SRGB_CAPABLE          , GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT  , GL_TRUE);
 
@@ -107,11 +108,11 @@ void RendererWindow::Open()
     // Create a new window
     this->handle = glfwCreateWindow
     (
-        static_cast<int32_t>(width)  // width
-      , static_cast<int32_t>(height) // height
-      , tmp.c_str()                  // title
-      , monitor                      // monitor
-      , windowShare                  // share
+        static_cast<std::int32_t>(width)    // width
+      , static_cast<std::int32_t>(height)   // height
+      , tmp.c_str()                         // title
+      , monitor                             // monitor
+      , windowShare                         // share
     );
 
     // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.

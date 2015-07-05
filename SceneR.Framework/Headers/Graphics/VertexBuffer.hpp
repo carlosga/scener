@@ -4,8 +4,9 @@
 #ifndef VERTEXBUFFER_HPP
 #define VERTEXBUFFER_HPP
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
-#include <stdint.h>
 #include <vector>
 
 #include <Graphics/BufferObject.hpp>
@@ -30,7 +31,7 @@ namespace SceneR
              * @param graphicsDevice the graphics device.
              */
             VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                       , const uint32_t&                                             vertexCount
+                       , const std::size_t&                                          vertexCount
                        , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration);
 
             /**
@@ -45,17 +46,17 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            uint32_t VertexCount() const;
+            std::size_t VertexCount() const;
 
             /**
              * Gets the vertex buffer data
              */
-            std::vector<uint8_t> GetData() const;
+            std::vector<std::uint8_t> GetData() const;
 
             /**
              * Gets the vertex buffer data
              */
-            std::vector<uint8_t> GetData(const uint32_t& startIndex, const uint32_t& elementCount) const;
+            std::vector<std::uint8_t> GetData(const std::size_t& startIndex, const std::size_t& elementCount) const;
 
             /**
              * Sets the vertex buffer data
@@ -72,9 +73,9 @@ namespace SceneR
             void Deactivate();
 
         private:
-            uint32_t                                             bindingIndex;
+            std::uint32_t                                        bindingIndex;
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
-            uint32_t                                             vertexCount;
+            std::size_t                                          vertexCount;
             VertexArrayObject                                    vao;
             BufferObject                                         vbo;
 

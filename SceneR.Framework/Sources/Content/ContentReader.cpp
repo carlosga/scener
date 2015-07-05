@@ -4,6 +4,7 @@
 #include <Content/ContentReader.hpp>
 
 #include <cassert>
+#include <cstdint>
 #include <stdexcept>
 
 #include <Framework/Color.hpp>
@@ -125,7 +126,7 @@ void ContentReader::ReadManifest()
 
     typeReaders.clear();
 
-    for (uint32_t i = 0; i < typeReaderCount; i++)
+    for (std::uint32_t i = 0; i < typeReaderCount; i++)
     {
         // Read the type reader name.
         auto readerName = this->ReadString();
@@ -146,7 +147,7 @@ void ContentReader::ReadManifest()
 
 void ContentReader::ReadSharedResources()
 {
-    for (uint32_t i = 0; i < this->sharedResourceCount; i++)
+    for (std::uint32_t i = 0; i < this->sharedResourceCount; i++)
     {
         auto sharedResourceType = this->Read7BitEncodedInt();
 
