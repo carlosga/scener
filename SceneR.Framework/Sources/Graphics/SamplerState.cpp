@@ -178,6 +178,7 @@ void SamplerState::GetMinMaxFilters(GLenum& minfilter, GLenum& magfilter) const
     case TextureFilter::MinLinearMagPointMipLinear:
         minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
         magfilter = GL_NEAREST;
+        break;
 
     case TextureFilter::MinLinearMagPointMipPoint:
         minfilter = ((this->maxMipLevel != 0) ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
