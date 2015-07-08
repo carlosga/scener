@@ -107,7 +107,7 @@ void Viewport::Update(const float& width, const float& height)
 void Viewport::Update(const float& x, const float& y, const float& width, const float& height)
 {
     this->x      = x;
-    this->x      = y;
+    this->y      = y;
     this->width  = width;
     this->height = height;
 
