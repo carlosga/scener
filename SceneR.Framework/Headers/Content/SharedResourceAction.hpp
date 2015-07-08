@@ -4,6 +4,7 @@
 #ifndef SHAREDRESOURCEACTION_HPP
 #define SHAREDRESOURCEACTION_HPP
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 
@@ -22,7 +23,7 @@ namespace SceneR
              * @param sharedResourceId the shared resource id.
              * @param callback the shared resource fixup action callback.
              */
-            SharedResourceAction(const uint32_t&                                          sharedResourceId
+            SharedResourceAction(const std::uint32_t&                                     sharedResourceId
                                , const std::function<void(const std::shared_ptr<void>&)>& callback);
 
             /**
@@ -39,7 +40,7 @@ namespace SceneR
             /**
              * Gets the shared resource id.
              */
-            uint32_t Id() const;
+            std::uint32_t Id() const;
 
             /**
              * Gets the shared resource fixup action callback.
@@ -53,7 +54,7 @@ namespace SceneR
             SharedResourceAction() = delete;
 
         private:
-            uint32_t                                          id;
+            std::uint32_t                                     id;
             std::function<void(const std::shared_ptr<void>&)> callback;
         };
     }

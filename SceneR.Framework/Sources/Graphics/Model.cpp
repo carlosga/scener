@@ -4,6 +4,7 @@
 #include <Graphics/Model.hpp>
 
 #include <cstddef>
+#include <cstdint>
 #include <cassert>
 
 #include <Framework/Vector3.hpp>
@@ -45,7 +46,7 @@ void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTra
         }
         else
         {
-            uint32_t parentBoneIndex = bone->Parent()->Index();
+            std::uint32_t parentBoneIndex = bone->Parent()->Index();
 
             destinationBoneTransforms[boneIndex] = bone->Transform() * destinationBoneTransforms[parentBoneIndex];
         }

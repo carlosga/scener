@@ -1190,9 +1190,9 @@ TEST_F(Vector3Test, Sqrt)
     auto a = Vector3 { -2.5f, 2.0f, 0.5f };
     auto b = Vector3 { 5.5f, 4.5f, 16.5f };
 
-    EXPECT_TRUE(2 == (int)Vector3::SquareRoot(b).X());
-    EXPECT_TRUE(2 == (int)Vector3::SquareRoot(b).Y());
-    EXPECT_TRUE(4 == (int)Vector3::SquareRoot(b).Z());
+    EXPECT_TRUE(2 == (std::int32_t)Vector3::SquareRoot(b).X());
+    EXPECT_TRUE(2 == (std::int32_t)Vector3::SquareRoot(b).Y());
+    EXPECT_TRUE(4 == (std::int32_t)Vector3::SquareRoot(b).Z());
     EXPECT_TRUE(Math::IsNaN(Vector3::SquareRoot(a).X()));
 }
 

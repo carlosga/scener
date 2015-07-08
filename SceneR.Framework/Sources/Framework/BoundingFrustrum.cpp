@@ -10,7 +10,7 @@
 
 using namespace SceneR::Framework;
 
-const uint32_t BoundingFrustrum::CornerCount = 8;
+const std::uint32_t BoundingFrustrum::CornerCount = 8;
 
 BoundingFrustrum::BoundingFrustrum(const SceneR::Framework::Matrix& value)
     : bottom { 0.0f, 0.0f, 0.0f, 0.0f }

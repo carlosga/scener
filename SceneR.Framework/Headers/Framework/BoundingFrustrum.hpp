@@ -4,6 +4,7 @@
 #ifndef BOUNDINGFRUSTRUM_HPP
 #define BOUNDINGFRUSTRUM_HPP
 
+#include <cstdint>
 #include <vector>
 
 #include <Framework/PlaneIntersectionType.hpp>
@@ -30,7 +31,7 @@ namespace SceneR
             /**
              * Specifies the total number of corners (8) in the BoundingFrustrum.
              */
-            static const uint32_t CornerCount;
+            static const std::uint32_t CornerCount;
 
         public:
             /**

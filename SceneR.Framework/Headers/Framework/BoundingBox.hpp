@@ -4,6 +4,7 @@
 #ifndef BOUNDINGBOX_HPP
 #define BOUNDINGBOX_HPP
 
+#include <cstdint>
 #include <vector>
 
 #include <Framework/PlaneIntersectionType.hpp>
@@ -28,7 +29,7 @@ namespace SceneR
             /**
              * Specifies the total number of corners (8) in the BoundingBox.
              */
-            static const uint32_t CornerCount;
+            static const std::uint32_t CornerCount;
 
         public:
             //Public Method Static    CreateFromPoints    Creates the smallest BoundingBox that will contain a group of points.

@@ -609,9 +609,9 @@ namespace System
         static std::vector<std::uint8_t> GetBytes(const T& value)
         {
             std::vector<std::uint8_t> result(0);
-            int32_t shift = 0;
+            std::int32_t shift = 0;
 
-            for (int i = 0; i < sizeof(T); i++)
+            for (std::size_t i = 0; i < sizeof(T); i++)
             {
                 result.push_back((std::uint8_t)((value >> shift) & 0xff));
                 shift  += 8;

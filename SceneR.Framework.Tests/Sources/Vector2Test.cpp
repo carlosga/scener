@@ -768,8 +768,8 @@ TEST_F(Vector2Test, Sqrt)
     auto v1 = Vector2 { -2.5f, 2.0f };
     auto v2 = Vector2 { 5.5f, 4.5f };
 
-    EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).X());
-    EXPECT_TRUE(2 == (int)Vector2::SquareRoot(v2).Y());
+    EXPECT_TRUE(2 == (std::int32_t)Vector2::SquareRoot(v2).X());
+    EXPECT_TRUE(2 == (std::int32_t)Vector2::SquareRoot(v2).Y());
     EXPECT_TRUE(Math::IsNaN(Vector2::SquareRoot(v1).X()));
 }
 

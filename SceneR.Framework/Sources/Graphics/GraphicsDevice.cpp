@@ -3,6 +3,8 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 
+#include <cstdint>
+
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Effect.hpp>
@@ -107,7 +109,7 @@ void GraphicsDevice::Dispose()
 
 void GraphicsDevice::Clear(const Color& color) const
 {
-    uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
+    std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
     glClearColor(color.R(), color.G(), color.B(), color.A());
 

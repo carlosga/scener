@@ -4,6 +4,7 @@
 #ifndef CONTENTREADER_HPP
 #define CONTENTREADER_HPP
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 
@@ -131,7 +132,7 @@ namespace SceneR
             std::u16string                    assetName;
             SceneR::Content::ContentManager&  contentManager;
             std::vector<ContentTypeReader*>   typeReaders;
-            uint32_t                          sharedResourceCount;
+            std::uint32_t                     sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;
 
             friend class ContentManager;

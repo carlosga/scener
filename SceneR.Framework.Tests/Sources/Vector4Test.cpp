@@ -1104,10 +1104,10 @@ TEST_F(Vector4Test, SquareRoot)
     Vector4 v1 { -2.5f, 2.0f, 3.0f, 3.3f };
     Vector4 v2 { 5.5f, 4.5f, 6.5f, 7.5f };
 
-    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).X());
-    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).Y());
-    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).Z());
-    EXPECT_TRUE(2 == (int)Vector4::SquareRoot(v2).W());
+    EXPECT_TRUE(2 == (std::int32_t)Vector4::SquareRoot(v2).X());
+    EXPECT_TRUE(2 == (std::int32_t)Vector4::SquareRoot(v2).Y());
+    EXPECT_TRUE(2 == (std::int32_t)Vector4::SquareRoot(v2).Z());
+    EXPECT_TRUE(2 == (std::int32_t)Vector4::SquareRoot(v2).W());
     EXPECT_TRUE(Math::IsNaN(Vector4::SquareRoot(v1).X()));
 }
 

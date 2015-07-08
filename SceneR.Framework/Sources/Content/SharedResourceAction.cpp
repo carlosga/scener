@@ -5,7 +5,7 @@
 
 using namespace SceneR::Content;
 
-SharedResourceAction::SharedResourceAction(const uint32_t&                                          sharedResourceId
+SharedResourceAction::SharedResourceAction(const std::uint32_t&                                     sharedResourceId
                                          , const std::function<void(const std::shared_ptr<void>&)>& callback)
     : id       { sharedResourceId }
     , callback { callback }
@@ -22,7 +22,7 @@ SharedResourceAction::~SharedResourceAction()
 {
 }
 
-uint32_t SharedResourceAction::Id() const
+std::uint32_t SharedResourceAction::Id() const
 {
     return this->id;
 }
