@@ -129,7 +129,7 @@ namespace SceneR
 
         const float& Color::operator[](const std::size_t& index) const
         {
-            assert(index >= 0 && index < 4);
+            assert(index < 4);
 
             return (this->color[index]);
         }
