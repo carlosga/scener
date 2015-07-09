@@ -11,30 +11,36 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-IndexBufferReader::IndexBufferReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::IndexBuffer;
+        using SceneR::Graphics::IndexElementSize;
 
-IndexBufferReader::~IndexBufferReader()
-{
-}
+        IndexBufferReader::IndexBufferReader()
+        {
+        }
 
-std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
-{
-    auto& gdService     = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  isSixteenBits = input.ReadBoolean();
-    auto  dataSize      = input.ReadUInt32();
-    auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
-    auto  elementBytes  = ((isSixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
-    auto  indexCount    = (dataSize / elementBytes);
-    auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
-    auto  data          = input.ReadBytes(dataSize);
+        IndexBufferReader::~IndexBufferReader()
+        {
+        }
 
-    buffer->SetData(data.data());
+        std::shared_ptr<void> IndexBufferReader::Read(ContentReader& input)
+        {
+            auto& gdService     = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+            auto  isSixteenBits = input.ReadBoolean();
+            auto  dataSize      = input.ReadUInt32();
+            auto  elementSize   = ((isSixteenBits) ? IndexElementSize::SixteenBits : IndexElementSize::ThirtyTwoBits);
+            auto  elementBytes  = ((isSixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
+            auto  indexCount    = (dataSize / elementBytes);
+            auto  buffer        = std::make_shared<IndexBuffer>(gdService.CurrentGraphicsDevice(), elementSize, indexCount);
+            auto  data          = input.ReadBytes(dataSize);
 
-    return buffer;
+            buffer->SetData(data.data());
+
+            return buffer;
+        }
+    }
 }

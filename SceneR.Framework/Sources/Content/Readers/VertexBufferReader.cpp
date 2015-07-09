@@ -10,35 +10,40 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/VertexBuffer.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-VertexBufferReader::VertexBufferReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::VertexBuffer;
+        using SceneR::Graphics::VertexDeclaration;
 
-VertexBufferReader::~VertexBufferReader()
-{
-}
+        VertexBufferReader::VertexBufferReader()
+        {
+        }
 
-std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
-{
-    auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  vDecl       = this->ReadVertexDeclaration(input);
-    auto  vertexCount = input.ReadUInt32();
-    auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice(), vertexCount, vDecl);
-    auto  data        = input.ReadBytes(buffer->VertexCount() * vDecl->VertexStride());
+        VertexBufferReader::~VertexBufferReader()
+        {
+        }
 
-    buffer->SetData(data.data());
+        std::shared_ptr<void> VertexBufferReader::Read(ContentReader& input)
+        {
+            auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+            auto  vDecl       = this->ReadVertexDeclaration(input);
+            auto  vertexCount = input.ReadUInt32();
+            auto  buffer      = std::make_shared<VertexBuffer>(gdService.CurrentGraphicsDevice(), vertexCount, vDecl);
+            auto  data        = input.ReadBytes(buffer->VertexCount() * vDecl->VertexStride());
 
-    return buffer;
-}
+            buffer->SetData(data.data());
 
-std::shared_ptr<VertexDeclaration> VertexBufferReader::ReadVertexDeclaration(ContentReader& input)
-{
-    VertexDeclarationReader reader;
+            return buffer;
+        }
 
-    return std::static_pointer_cast<VertexDeclaration>(reader.Read(input));
+        std::shared_ptr<VertexDeclaration> VertexBufferReader::ReadVertexDeclaration(ContentReader& input)
+        {
+            VertexDeclarationReader reader;
+
+            return std::static_pointer_cast<VertexDeclaration>(reader.Read(input));
+        }
+    }
 }

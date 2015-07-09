@@ -3,8 +3,12 @@
 
 #include <Framework/IDrawable.hpp>
 
-using namespace SceneR::Framework;
-
-IDrawable::~IDrawable()
+namespace SceneR
 {
+    namespace Framework
+    {
+        IDrawable::~IDrawable()
+        {
+        }
+    }
 }

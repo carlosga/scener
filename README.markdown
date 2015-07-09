@@ -1,3 +1,5 @@
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/5704/badge.svg)](https://scan.coverity.com/projects/5704)
+
 ### SceneR - OpenGL 3D model renderer
 
 #### C++ learning project.
@@ -7,11 +9,8 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
     * [**MIT LICENSE**](http://opensource.org/licenses/MIT)
 * Development platform.
     * **Linux**.
-* IDE. 
-    * [**QT Creator.**](http://qt-project.org/)
-    * [**CLion EAP.**](http://www.jetbrains.com/clion/)
 * C++ Compiler.
-    * [**Clang 3.5.**](http://clang.llvm.org/)
+    * [**Clang**](http://clang.llvm.org/)
 * C++ Standard Library.
     * [**libC++**](http://libcxx.llvm.org/)
 * Third party dependencies.

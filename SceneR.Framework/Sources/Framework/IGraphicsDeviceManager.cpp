@@ -3,8 +3,12 @@
 
 #include <Framework/IGraphicsDeviceManager.hpp>
 
-using namespace SceneR::Framework;
-
-IGraphicsDeviceManager::~IGraphicsDeviceManager()
+namespace SceneR
 {
+    namespace Framework
+    {
+        IGraphicsDeviceManager::~IGraphicsDeviceManager()
+        {
+        }
+    }
 }

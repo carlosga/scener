@@ -5,59 +5,63 @@
 
 #include <Framework/Renderer.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
-    : Component { renderer }
-    , visible   { true }
-    , drawOrder { 0 }
+namespace SceneR
 {
-}
+    namespace Framework
+    {
+        using SceneR::Graphics::GraphicsDevice;
 
-DrawableComponent::~DrawableComponent()
-{
-}
+        DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
+            : Component { renderer }
+            , visible   { true }
+            , drawOrder { 0 }
+        {
+        }
 
-void DrawableComponent::Draw(const RenderTime& renderTime)
-{
-}
+        DrawableComponent::~DrawableComponent()
+        {
+        }
 
-GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
-{
-    return this->renderer.CurrentGraphicsDevice();
-}
+        void DrawableComponent::Draw(const RenderTime& renderTime)
+        {
+        }
 
-bool DrawableComponent::Visible() const
-{
-    return this->visible;
-}
+        GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
+        {
+            return this->renderer.CurrentGraphicsDevice();
+        }
 
-void DrawableComponent::Visible(const bool& visible)
-{
-    this->visible = visible;
-}
+        bool DrawableComponent::Visible() const
+        {
+            return this->visible;
+        }
 
-std::uint32_t DrawableComponent::DrawOrder() const
-{
-    return this->drawOrder;
-}
+        void DrawableComponent::Visible(const bool& visible)
+        {
+            this->visible = visible;
+        }
 
-void DrawableComponent::DrawOrder(const std::uint32_t& drawOrder)
-{
-    this->drawOrder = drawOrder;
-}
+        std::uint32_t DrawableComponent::DrawOrder() const
+        {
+            return this->drawOrder;
+        }
 
-void DrawableComponent::Initialize()
-{
-    this->LoadContent();
-}
+        void DrawableComponent::DrawOrder(const std::uint32_t& drawOrder)
+        {
+            this->drawOrder = drawOrder;
+        }
 
-void DrawableComponent::LoadContent()
-{
-}
+        void DrawableComponent::Initialize()
+        {
+            this->LoadContent();
+        }
 
-void DrawableComponent::UnloadContent()
-{
+        void DrawableComponent::LoadContent()
+        {
+        }
+
+        void DrawableComponent::UnloadContent()
+        {
+        }
+    }
 }

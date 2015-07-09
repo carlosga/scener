@@ -7,17 +7,21 @@
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 
-using namespace SceneR::Content;
-
-ExternalReferenceReader::ExternalReferenceReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        ExternalReferenceReader::ExternalReferenceReader()
+        {
+        }
 
-ExternalReferenceReader::~ExternalReferenceReader()
-{
-}
+        ExternalReferenceReader::~ExternalReferenceReader()
+        {
+        }
 
-std::shared_ptr<void> ExternalReferenceReader::Read(ContentReader& input)
-{
-    return nullptr;
+        std::shared_ptr<void> ExternalReferenceReader::Read(ContentReader& input)
+        {
+            return nullptr;
+        }
+    }
 }

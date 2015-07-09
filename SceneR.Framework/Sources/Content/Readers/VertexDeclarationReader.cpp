@@ -4,35 +4,43 @@
 #include <Content/Readers/VertexDeclarationReader.hpp>
 
 #include <cstdint>
+#include <vector>
 
 #include <Content/ContentReader.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-VertexDeclarationReader::VertexDeclarationReader()
+namespace SceneR
 {
-}
-
-VertexDeclarationReader::~VertexDeclarationReader()
-{
-}
-
-std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
-{
-    auto vertexStride = input.ReadUInt32();
-    auto elementCount = input.ReadUInt32();
-    auto elements     = std::vector<VertexElement>();
-
-    for (std::uint32_t i = 0; i < elementCount; i++)
+    namespace Content
     {
-        elements.push_back({ input.ReadUInt32()                                   // Offset
-                           , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format
-                           , static_cast<VertexElementUsage>(input.ReadUInt32())  // Element usage
-                           , input.ReadUInt32() });	                              // Usage index
-    }
+        using SceneR::Graphics::VertexDeclaration;
+        using SceneR::Graphics::VertexElement;
+        using SceneR::Graphics::VertexElementFormat;
+        using SceneR::Graphics::VertexElementUsage;
 
-    return std::make_shared<VertexDeclaration>(vertexStride, elements);
+        VertexDeclarationReader::VertexDeclarationReader()
+        {
+        }
+
+        VertexDeclarationReader::~VertexDeclarationReader()
+        {
+        }
+
+        std::shared_ptr<void> VertexDeclarationReader::Read(ContentReader& input)
+        {
+            auto vertexStride = input.ReadUInt32();
+            auto elementCount = input.ReadUInt32();
+            auto elements     = std::vector<VertexElement>();
+
+            for (std::uint32_t i = 0; i < elementCount; i++)
+            {
+                elements.push_back({ input.ReadUInt32()                                   // Offset
+                                   , static_cast<VertexElementFormat>(input.ReadUInt32()) // Element format
+                                   , static_cast<VertexElementUsage>(input.ReadUInt32())  // Element usage
+                                   , input.ReadUInt32() });	                              // Usage index
+            }
+
+            return std::make_shared<VertexDeclaration>(vertexStride, elements);
+        }
+    }
 }

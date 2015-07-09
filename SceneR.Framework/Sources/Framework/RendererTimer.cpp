@@ -3,41 +3,46 @@
 
 #include <Framework/RendererTimer.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-
-RendererTimer::RendererTimer()
-    : start        { TimeSpan::Clock::now() }
-    , lastTimeStep { TimeSpan::Clock::now() }
+namespace SceneR
 {
-}
+    namespace Framework
+    {
+        using System::TimeSpan;
 
-RendererTimer::~RendererTimer()
-{
-}
+        RendererTimer::RendererTimer()
+            : start        { TimeSpan::Clock::now() }
+            , lastTimeStep { TimeSpan::Clock::now() }
+        {
+        }
 
-void RendererTimer::Reset()
-{
-    this->start        = this->CurrentTime();
-    this->lastTimeStep = this->CurrentTime();
-}
+        RendererTimer::~RendererTimer()
+        {
+        }
 
-void SceneR::Framework::RendererTimer::UpdateTimeStep()
-{
-    this->lastTimeStep = this->CurrentTime();
-}
+        void RendererTimer::Reset()
+        {
+            this->start        = this->CurrentTime();
+            this->lastTimeStep = this->CurrentTime();
+        }
 
-TimeSpan RendererTimer::ElapsedTime() const
-{
-    return TimeSpan::FromDuration(this->CurrentTime() - this->start);
-}
+        void RendererTimer::UpdateTimeStep()
+        {
+            this->lastTimeStep = this->CurrentTime();
+        }
 
-TimeSpan RendererTimer::ElapsedTimeStepTime() const
-{
-    return TimeSpan::FromDuration(this->CurrentTime() - this->lastTimeStep);
-}
+        TimeSpan RendererTimer::ElapsedTime() const
+        {
+            return TimeSpan::FromDuration(this->CurrentTime() - this->start);
+        }
 
-TimeSpan::Clock::time_point RendererTimer::CurrentTime() const
-{
-    return TimeSpan::Clock::now();
+        TimeSpan RendererTimer::ElapsedTimeStepTime() const
+        {
+            return TimeSpan::FromDuration(this->CurrentTime() - this->lastTimeStep);
+        }
+
+        TimeSpan::Clock::time_point RendererTimer::CurrentTime() const
+        {
+            return TimeSpan::Clock::now();
+        }
+    }
 }

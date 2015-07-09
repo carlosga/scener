@@ -3,20 +3,25 @@
 
 #include <Content/Readers/StringReader.hpp>
 
+#include <string>
+
 #include <Content/ContentReader.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-
-StringReader::StringReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        StringReader::StringReader()
+        {
+        }
 
-StringReader::~StringReader()
-{
-}
+        StringReader::~StringReader()
+        {
+        }
 
-std::shared_ptr<void> StringReader::Read(ContentReader& input)
-{
-    return std::make_shared<std::u16string>(input.ReadString());
+        std::shared_ptr<void> StringReader::Read(ContentReader& input)
+        {
+            return std::make_shared<std::u16string>(input.ReadString());
+        }
+    }
 }

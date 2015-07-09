@@ -3,8 +3,12 @@
 
 #include <Content/ContentTypeReader.hpp>
 
-using namespace SceneR::Content;
-
-ContentTypeReader::~ContentTypeReader()
+namespace SceneR
 {
+    namespace Content
+    {
+        ContentTypeReader::~ContentTypeReader()
+        {
+        }
+    }
 }

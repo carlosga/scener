@@ -9,92 +9,98 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Texture2D.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-Texture2DReader::Texture2DReader()
+namespace SceneR
 {
-}
-
-Texture2DReader::~Texture2DReader()
-{
-}
-
-std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
-{
-    auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  format      = input.ReadUInt32();
-    auto  width       = input.ReadUInt32();
-    auto  height      = input.ReadUInt32();
-    auto  mipmapCount = input.ReadUInt32();
-    auto  texture     = std::make_shared<Texture2D>(gdService.CurrentGraphicsDevice()
-                                                  , width
-                                                  , height
-                                                  , (mipmapCount >= 1)
-                                                  , this->DecodeFormat(format));
-
-    texture->DeclareStorage(mipmapCount);
-
-    for (std::uint32_t i = 0; i < mipmapCount; i++)
+    namespace Content
     {
-        auto data = input.ReadBytes(input.ReadUInt32());
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::SurfaceFormat;
+        using SceneR::Graphics::Texture2D;
 
-        texture->SetData(i, data.size(), data.data());
-    }
+        Texture2DReader::Texture2DReader()
+        {
+        }
 
-    return texture;
-}
+        Texture2DReader::~Texture2DReader()
+        {
+        }
 
-SurfaceFormat Texture2DReader::DecodeFormat(const std::uint32_t& format) const
-{
-    switch (format)
-    {
-        case 0: // Color
-            return SurfaceFormat::Color;
+        std::shared_ptr<void> Texture2DReader::Read(ContentReader& input)
+        {
+            auto& gdService   = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+            auto  format      = input.ReadUInt32();
+            auto  width       = input.ReadUInt32();
+            auto  height      = input.ReadUInt32();
+            auto  mipmapCount = input.ReadUInt32();
+            auto  texture     = std::make_shared<Texture2D>(gdService.CurrentGraphicsDevice()
+                                                          , width
+                                                          , height
+                                                          , (mipmapCount >= 1)
+                                                          , this->DecodeFormat(format));
 
-        case 1: // Bgr565
-            return SurfaceFormat::Bgr565;
+            texture->DeclareStorage(mipmapCount);
 
-        case 2: // Bgra5551
-            return SurfaceFormat::Bgra5551;
+            for (std::uint32_t i = 0; i < mipmapCount; i++)
+            {
+                auto data = input.ReadBytes(input.ReadUInt32());
 
-        case 3: // Bgra4444
-            return SurfaceFormat::Bgra4444;
+                texture->SetData(i, data.size(), data.data());
+            }
 
-        case 4: // Dxt1
-            return SurfaceFormat::Dxt1;
+            return texture;
+        }
 
-        case 5: // Dxt3
-            return SurfaceFormat::Dxt3;
+        SurfaceFormat Texture2DReader::DecodeFormat(const std::uint32_t& format) const
+        {
+            switch (format)
+            {
+                case 0: // Color
+                    return SurfaceFormat::Color;
 
-        case 6: // Dxt5
-            return SurfaceFormat::Dxt5;
+                case 1: // Bgr565
+                    return SurfaceFormat::Bgr565;
 
-        case 7: // NormalizedByte2
-            return SurfaceFormat::NormalizedByte2;
+                case 2: // Bgra5551
+                    return SurfaceFormat::Bgra5551;
 
-        case 8: // NormalizedByte4
-            return SurfaceFormat::NormalizedByte4;
+                case 3: // Bgra4444
+                    return SurfaceFormat::Bgra4444;
 
-        case 9: // Rgba1010102
-            return SurfaceFormat::Rgba1010102;
+                case 4: // Dxt1
+                    return SurfaceFormat::Dxt1;
 
-        case 10: // Rg32
-            return SurfaceFormat::Rg32;
+                case 5: // Dxt3
+                    return SurfaceFormat::Dxt3;
 
-        case 11: // Rgba64
-            return SurfaceFormat::Rgba64;
+                case 6: // Dxt5
+                    return SurfaceFormat::Dxt5;
 
-        case 12: // Alpha8
-        case 13: // Single
-        case 14: // Vector2
-        case 15: // Vector4
-        case 16: // HalfSingle
-        case 17: // HalfVector2
-        case 18: // HalfVector4
-        case 19: // HdrBlendable
-        default:
-            throw std::runtime_error("Unsuported texture format");
+                case 7: // NormalizedByte2
+                    return SurfaceFormat::NormalizedByte2;
+
+                case 8: // NormalizedByte4
+                    return SurfaceFormat::NormalizedByte4;
+
+                case 9: // Rgba1010102
+                    return SurfaceFormat::Rgba1010102;
+
+                case 10: // Rg32
+                    return SurfaceFormat::Rg32;
+
+                case 11: // Rgba64
+                    return SurfaceFormat::Rgba64;
+
+                case 12: // Alpha8
+                case 13: // Single
+                case 14: // Vector2
+                case 15: // Vector4
+                case 16: // HalfSingle
+                case 17: // HalfVector2
+                case 18: // HalfVector4
+                case 19: // HdrBlendable
+                default:
+                    throw std::runtime_error("Unsuported texture format");
+            }
+        }
     }
 }

@@ -5,34 +5,38 @@
 
 #include <cstdint>
 #include <map>
-#include <memory>
+#include <string>
 
 #include <Content/ContentReader.hpp>
 #include <Graphics/AnimationClip.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-AnimationClipMapReader::AnimationClipMapReader()
+namespace SceneR
 {
-}
-
-AnimationClipMapReader::~AnimationClipMapReader()
-{
-}
-
-std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
-{
-    auto clipCount      = input.ReadUInt32();
-    auto animationClips = std::make_shared<std::map<std::u16string, AnimationClip>>();
-
-    for (std::uint32_t i = 0; i < clipCount; i++)
+    namespace Content
     {
-        auto clipName = *input.ReadObject<std::u16string>();
+        using SceneR::Graphics::AnimationClip;
 
-        animationClips->emplace(clipName, *input.ReadObject<AnimationClip>());
+        AnimationClipMapReader::AnimationClipMapReader()
+        {
+        }
+
+        AnimationClipMapReader::~AnimationClipMapReader()
+        {
+        }
+
+        std::shared_ptr<void> AnimationClipMapReader::Read(ContentReader& input)
+        {
+            auto clipCount      = input.ReadUInt32();
+            auto animationClips = std::make_shared<std::map<std::u16string, AnimationClip>>();
+
+            for (std::uint32_t i = 0; i < clipCount; i++)
+            {
+                auto clipName = *input.ReadObject<std::u16string>();
+
+                animationClips->emplace(clipName, *input.ReadObject<AnimationClip>());
+            }
+
+            return animationClips;
+        }
     }
-
-    return animationClips;
 }

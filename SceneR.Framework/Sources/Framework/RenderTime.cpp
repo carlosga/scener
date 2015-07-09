@@ -3,59 +3,63 @@
 
 #include <Framework/RenderTime.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-
-RenderTime::RenderTime()
-    : RenderTime { TimeSpan::Zero, TimeSpan::Zero, false }
+namespace SceneR
 {
-}
+    namespace Framework
+    {
+        using System::TimeSpan;
 
-RenderTime::RenderTime(const TimeSpan& totalRenderTime
-                     , const TimeSpan& elapsedRenderTime)
-    : RenderTime { totalRenderTime, elapsedRenderTime, false }
-{
-}
+        RenderTime::RenderTime()
+            : RenderTime { TimeSpan::Zero, TimeSpan::Zero, false }
+        {
+        }
 
-RenderTime::RenderTime(const TimeSpan& totalRenderTime
-                     , const TimeSpan& elapsedRenderTime
-                     , const bool&     isRunningSlowly)
-    : totalRenderTime   { totalRenderTime }
-    , elapsedRenderTime { elapsedRenderTime }
-    , isRunningSlowly   { isRunningSlowly }
-{
-}
+        RenderTime::RenderTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime)
+            : RenderTime { totalRenderTime, elapsedRenderTime, false }
+        {
+        }
 
-RenderTime::~RenderTime()
-{
-}
+        RenderTime::RenderTime(const TimeSpan& totalRenderTime
+                             , const TimeSpan& elapsedRenderTime
+                             , const bool&     isRunningSlowly)
+            : totalRenderTime   { totalRenderTime }
+            , elapsedRenderTime { elapsedRenderTime }
+            , isRunningSlowly   { isRunningSlowly }
+        {
+        }
 
-const TimeSpan& RenderTime::ElapsedRenderTime() const
-{
-    return this->elapsedRenderTime;
-}
+        RenderTime::~RenderTime()
+        {
+        }
 
-void RenderTime::ElapsedRenderTime(const TimeSpan& elapsedRenderTime)
-{
-    this->elapsedRenderTime = elapsedRenderTime;
-}
+        const TimeSpan& RenderTime::ElapsedRenderTime() const
+        {
+            return this->elapsedRenderTime;
+        }
 
-bool RenderTime::IsRunningSlowly() const
-{
-    return this->isRunningSlowly;
-}
+        void RenderTime::ElapsedRenderTime(const TimeSpan& elapsedRenderTime)
+        {
+            this->elapsedRenderTime = elapsedRenderTime;
+        }
 
-void RenderTime::IsRunningSlowly(const bool& isRunningSlowly)
-{
-    this->isRunningSlowly = isRunningSlowly;
-}
+        bool RenderTime::IsRunningSlowly() const
+        {
+            return this->isRunningSlowly;
+        }
 
-const TimeSpan& RenderTime::TotalRenderTime() const
-{
-    return this->totalRenderTime;
-}
+        void RenderTime::IsRunningSlowly(const bool& isRunningSlowly)
+        {
+            this->isRunningSlowly = isRunningSlowly;
+        }
 
-void RenderTime::TotalRenderTime(const TimeSpan& totalRenderTime)
-{
-    this->totalRenderTime = totalRenderTime;
+        const TimeSpan& RenderTime::TotalRenderTime() const
+        {
+            return this->totalRenderTime;
+        }
+
+        void RenderTime::TotalRenderTime(const TimeSpan& totalRenderTime)
+        {
+            this->totalRenderTime = totalRenderTime;
+        }
+    }
 }

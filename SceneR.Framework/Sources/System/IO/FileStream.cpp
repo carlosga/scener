@@ -5,83 +5,87 @@
 
 #include <System/Text/Encoding.hpp>
 
-using namespace System;
-using namespace System::IO;
-using namespace System::Text;
-
-FileStream::FileStream(const std::u16string& path)
-    : FileStream { path, std::ios::in | std::ios::binary }
+namespace System
 {
-}
-
-FileStream::FileStream(const std::u16string& path, const std::ios::openmode& mode)
-    : stream { Encoding::Convert(path), mode }
-    , mode   { mode }
-{
-}
-
-FileStream::~FileStream()
-{
-    this->Close();
-}
-
-bool FileStream::CanRead()
-{
-    return ((this->mode & std::ios::in) == std::ios::in);
-}
-
-bool FileStream::CanSeek()
-{
-    return true;
-}
-
-bool FileStream::CanWrite()
-{
-    return ((this->mode & std::ios::out) == std::ios::out);
-}
-
-std::size_t FileStream::Position()
-{
-    return this->stream.tellg();
-}
-
-std::size_t FileStream::Length()
-{
-    auto position = this->Position();
-    this->Seek(0, std::ios::end);
-    auto result = this->Position();
-    this->Seek(position, std::ios::beg);
-
-    return result;
-}
-
-void FileStream::Close()
-{
-    if (this->stream.is_open())
+    namespace IO
     {
-        this->stream.close();
+        using System::Text::Encoding;
+
+        FileStream::FileStream(const std::u16string& path)
+            : FileStream { path, std::ios::in | std::ios::binary }
+        {
+        }
+
+        FileStream::FileStream(const std::u16string& path, const std::ios::openmode& mode)
+            : stream { Encoding::Convert(path), mode }
+            , mode   { mode }
+        {
+        }
+
+        FileStream::~FileStream()
+        {
+            this->Close();
+        }
+
+        bool FileStream::CanRead()
+        {
+            return ((this->mode & std::ios::in) == std::ios::in);
+        }
+
+        bool FileStream::CanSeek()
+        {
+            return true;
+        }
+
+        bool FileStream::CanWrite()
+        {
+            return ((this->mode & std::ios::out) == std::ios::out);
+        }
+
+        std::size_t FileStream::Position()
+        {
+            return this->stream.tellg();
+        }
+
+        std::size_t FileStream::Length()
+        {
+            auto position = this->Position();
+            this->Seek(0, std::ios::end);
+            auto result = this->Position();
+            this->Seek(position, std::ios::beg);
+
+            return result;
+        }
+
+        void FileStream::Close()
+        {
+            if (this->stream.is_open())
+            {
+                this->stream.close();
+            }
+        }
+
+        std::uint8_t FileStream::ReadByte()
+        {
+            std::uint8_t buffer;
+
+            this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        std::size_t FileStream::Read(char* buffer, const std::size_t& offset, const std::size_t& count)
+        {
+            this->stream.read(buffer + offset, count);
+
+            return this->stream.gcount();
+        }
+
+        std::size_t FileStream::Seek(const std::size_t& offset, const std::ios::seekdir& origin)
+        {
+            this->stream.seekg(offset, origin);
+
+            return this->Position();
+        }
     }
-}
-
-std::uint8_t FileStream::ReadByte()
-{
-    std::uint8_t buffer;
-
-    this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-    return buffer;
-}
-
-std::size_t FileStream::Read(char* buffer, const std::size_t& offset, const std::size_t& count)
-{
-    this->stream.read(buffer + offset, count);
-
-    return this->stream.gcount();
-}
-
-std::size_t FileStream::Seek(const std::size_t& offset, const std::ios::seekdir& origin)
-{
-    this->stream.seekg(offset, origin);
-
-    return this->Position();
 }

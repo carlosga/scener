@@ -3,8 +3,9 @@
 
 #include <System/IDisposable.hpp>
 
-using namespace System;
-
-IDisposable::~IDisposable()
+namespace System
 {
+    IDisposable::~IDisposable()
+    {
+    }
 }

@@ -3,33 +3,37 @@
 
 #include <Content/ContentLoadException.hpp>
 
-using namespace SceneR::Content;
-
-ContentLoadException::ContentLoadException(const std::string m)
-    : msg(m)
+namespace SceneR
 {
-}
-
-ContentLoadException::ContentLoadException(const ContentLoadException& exception)
-    : msg(exception.msg)
-{
-}
-
-ContentLoadException::~ContentLoadException() noexcept
-{
-}
-
-const char* ContentLoadException::what() const noexcept
-{
-    return this->msg.c_str();
-}
-
-ContentLoadException& ContentLoadException::operator=(const ContentLoadException& exception)
-{
-    if (this != &exception)
+    namespace Content
     {
-        this->msg = exception.msg;
-    }
+        ContentLoadException::ContentLoadException(const std::string m)
+            : msg(m)
+        {
+        }
 
-    return *this;
+        ContentLoadException::ContentLoadException(const ContentLoadException& exception)
+            : msg(exception.msg)
+        {
+        }
+
+        ContentLoadException::~ContentLoadException() noexcept
+        {
+        }
+
+        const char* ContentLoadException::what() const noexcept
+        {
+            return this->msg.c_str();
+        }
+
+        ContentLoadException& ContentLoadException::operator=(const ContentLoadException& exception)
+        {
+            if (this != &exception)
+            {
+                this->msg = exception.msg;
+            }
+
+            return *this;
+        }
+    }
 }

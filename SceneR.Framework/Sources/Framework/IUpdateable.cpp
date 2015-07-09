@@ -3,8 +3,12 @@
 
 #include <Framework/IUpdateable.hpp>
 
-using namespace SceneR::Framework;
-
-IUpdateable::~IUpdateable()
+namespace SceneR
 {
+    namespace Framework
+    {
+        IUpdateable::~IUpdateable()
+        {
+        }
+    }
 }

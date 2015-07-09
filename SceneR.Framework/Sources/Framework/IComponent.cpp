@@ -3,8 +3,12 @@
 
 #include <Framework/IComponent.hpp>
 
-using namespace SceneR::Framework;
-
-IComponent::~IComponent()
+namespace SceneR
 {
+    namespace Framework
+    {
+        IComponent::~IComponent()
+        {
+        }
+    }
 }

@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <fstream>
+#include <string>
 
 #include <System/IO/Stream.hpp>
 

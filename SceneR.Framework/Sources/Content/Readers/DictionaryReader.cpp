@@ -5,32 +5,36 @@
 
 #include <cstdint>
 #include <map>
+#include <string>
 
 #include <Content/ContentReader.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-
-DictionaryReader::DictionaryReader()
+namespace SceneR
 {
-}
-
-DictionaryReader::~DictionaryReader()
-{
-}
-
-std::shared_ptr<void> DictionaryReader::Read(ContentReader& input)
-{
-    auto dictionary = std::make_shared<std::map<std::u16string, std::shared_ptr<void>>>();
-    auto count      = input.ReadUInt32();
-
-    for (std::uint32_t i = 0; i < count; i++)
+    namespace Content
     {
-        auto key   = *input.ReadObject<std::u16string>();
-        auto value = nullptr; //input.ReadObject();
+        DictionaryReader::DictionaryReader()
+        {
+        }
 
-        dictionary->emplace(key, value);
+        DictionaryReader::~DictionaryReader()
+        {
+        }
+
+        std::shared_ptr<void> DictionaryReader::Read(ContentReader& input)
+        {
+            auto dictionary = std::make_shared<std::map<std::u16string, std::shared_ptr<void>>>();
+            auto count      = input.ReadUInt32();
+
+            for (std::uint32_t i = 0; i < count; i++)
+            {
+                auto key   = *input.ReadObject<std::u16string>();
+                auto value = nullptr; //input.ReadObject();
+
+                dictionary->emplace(key, value);
+            }
+
+            return dictionary;
+        }
     }
-
-    return dictionary;
 }

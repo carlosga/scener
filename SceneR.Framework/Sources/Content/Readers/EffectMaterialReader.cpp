@@ -5,30 +5,34 @@
 
 #include <Content/ContentReader.hpp>
 
-using namespace SceneR::Content;
-
-EffectMaterialReader::EffectMaterialReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        EffectMaterialReader::EffectMaterialReader()
+        {
+        }
 
-EffectMaterialReader::~EffectMaterialReader()
-{
-}
+        EffectMaterialReader::~EffectMaterialReader()
+        {
+        }
 
-std::shared_ptr<void> EffectMaterialReader::Read(ContentReader& input)
-{
-    // ExternalReference                  Effect       Pointer to a separate .xnb file which contains an object of type Effect
-    // Object: Dictionary<String, Object> Parameters   Named parameter values. Supported types:
-    //                                                     Int32
-    //                                                     Boolean
-    //                                                     Single
-    //                                                     Vector2
-    //                                                     Vector3
-    //                                                     Vector4
-    //                                                     Matrix
-    //                                                     Arrays of any of the above
-    //                                                     Texture (commonly stored as an ExternalReference which points to a separate .xnb file)
-    //                                                     String
+        std::shared_ptr<void> EffectMaterialReader::Read(ContentReader& input)
+        {
+            // ExternalReference                  Effect       Pointer to a separate .xnb file which contains an object of type Effect
+            // Object: Dictionary<String, Object> Parameters   Named parameter values. Supported types:
+            //                                                     Int32
+            //                                                     Boolean
+            //                                                     Single
+            //                                                     Vector2
+            //                                                     Vector3
+            //                                                     Vector4
+            //                                                     Matrix
+            //                                                     Arrays of any of the above
+            //                                                     Texture (commonly stored as an ExternalReference which points to a separate .xnb file)
+            //                                                     String
 
-    return nullptr;
+            return nullptr;
+        }
+    }
 }

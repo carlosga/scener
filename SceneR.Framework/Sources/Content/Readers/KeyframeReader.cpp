@@ -5,23 +5,28 @@
 
 #include <Content/ContentReader.hpp>
 #include <Graphics/Keyframe.hpp>
+#include <System/TimeSpan.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-KeyframeReader::KeyframeReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        using System::TimeSpan;
+        using SceneR::Graphics::Keyframe;
 
-KeyframeReader::~KeyframeReader()
-{
-}
+        KeyframeReader::KeyframeReader()
+        {
+        }
 
-std::shared_ptr<void> KeyframeReader::Read(ContentReader& input)
-{
-    return std::make_shared<Keyframe>(input.ReadInt32()
-                                    , TimeSpan { input.ReadInt64() }
-                                    , input.ReadMatrix());
+        KeyframeReader::~KeyframeReader()
+        {
+        }
+
+        std::shared_ptr<void> KeyframeReader::Read(ContentReader& input)
+        {
+            return std::make_shared<Keyframe>(input.ReadInt32()
+                                            , TimeSpan { input.ReadInt64() }
+                                            , input.ReadMatrix());
+        }
+    }
 }

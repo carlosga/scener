@@ -4,33 +4,38 @@
 #include <Content/Readers/KeyframeListReader.hpp>
 
 #include <cstdint>
+#include <vector>
 
 #include <Content/ContentReader.hpp>
 #include <Graphics/Keyframe.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-KeyframeListReader::KeyframeListReader()
+namespace SceneR
 {
-}
-
-KeyframeListReader::~KeyframeListReader()
-{
-}
-
-std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
-{
-    auto keyframes     = std::make_shared<std::vector<Keyframe>>();
-    auto keyframeCount = input.ReadUInt32();
-
-    keyframes->reserve(keyframeCount);
-
-    for (std::uint32_t i = 0; i < keyframeCount; i++)
+    namespace Content
     {
-        keyframes->push_back(*input.ReadObject<Keyframe>());
-    }
+        using SceneR::Graphics::Keyframe;
 
-    return keyframes;
+        KeyframeListReader::KeyframeListReader()
+        {
+        }
+
+        KeyframeListReader::~KeyframeListReader()
+        {
+        }
+
+        std::shared_ptr<void> KeyframeListReader::Read(ContentReader& input)
+        {
+            auto keyframes     = std::make_shared<std::vector<Keyframe>>();
+            auto keyframeCount = input.ReadUInt32();
+
+            keyframes->reserve(keyframeCount);
+
+            for (std::uint32_t i = 0; i < keyframeCount; i++)
+            {
+                keyframes->push_back(*input.ReadObject<Keyframe>());
+            }
+
+            return keyframes;
+        }
+    }
 }

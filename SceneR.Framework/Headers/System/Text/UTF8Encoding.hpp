@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 #include <System/Text/UTF8Decoder.hpp>
 #include <System/Text/UTF8Encoder.hpp>

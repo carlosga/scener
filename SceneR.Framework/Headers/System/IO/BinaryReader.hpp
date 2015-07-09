@@ -7,12 +7,18 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <string>
 #include <vector>
 
-#include <System/Text/Encoding.hpp>
+// #include <System/Text/Encoding.hpp>
 
 namespace System
 {
+    namespace Text
+    {
+        class Encoding;
+    }
+
     namespace IO
     {
         class Stream;

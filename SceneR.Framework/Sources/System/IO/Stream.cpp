@@ -3,8 +3,12 @@
 
 #include <System/IO/Stream.hpp>
 
-using namespace System::IO;
-
-Stream::~Stream()
+namespace System
 {
+    namespace IO
+    {
+        Stream::~Stream()
+        {
+        }
+    }
 }

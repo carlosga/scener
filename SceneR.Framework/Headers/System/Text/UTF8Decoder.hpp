@@ -7,6 +7,7 @@
 #include <codecvt>
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 #include <System/Text/Decoder.hpp>
 

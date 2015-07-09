@@ -6,20 +6,24 @@
 #include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Framework;
-
-MatrixReader::MatrixReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        using SceneR::Framework::Matrix;
 
-MatrixReader::~MatrixReader()
-{
-}
+        MatrixReader::MatrixReader()
+        {
+        }
+
+        MatrixReader::~MatrixReader()
+        {
+        }
 
 
-std::shared_ptr<void> MatrixReader::Read(ContentReader& input)
-{
-    return std::make_shared<Matrix>(input.ReadMatrix());
+        std::shared_ptr<void> MatrixReader::Read(ContentReader& input)
+        {
+            return std::make_shared<Matrix>(input.ReadMatrix());
+        }
+    }
 }

@@ -10,49 +10,55 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SkinnedEffect.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Graphics;
-
-SkinnedEffectReader::SkinnedEffectReader()
+namespace SceneR
 {
-}
-
-SkinnedEffectReader::~SkinnedEffectReader()
-{
-}
-
-std::shared_ptr<void> SkinnedEffectReader::Read(ContentReader& input)
-{
-    auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-    auto  effect    = std::make_shared<SkinnedEffect>(gdService.CurrentGraphicsDevice());
-
-    // Pointer to a separate .xnb file which contains an object of type Texture2D
-    auto texture = input.ReadExternalReference<Texture2D>();
-
-    if (texture != nullptr)
+    namespace Content
     {
-        effect->Texture(texture);
-        effect->TextureEnabled(true);
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::SkinnedEffect;
+        using SceneR::Graphics::Texture2D;
+
+        SkinnedEffectReader::SkinnedEffectReader()
+        {
+        }
+
+        SkinnedEffectReader::~SkinnedEffectReader()
+        {
+        }
+
+        std::shared_ptr<void> SkinnedEffectReader::Read(ContentReader& input)
+        {
+            auto& gdService = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+            auto  effect    = std::make_shared<SkinnedEffect>(gdService.CurrentGraphicsDevice());
+
+            // Pointer to a separate .xnb file which contains an object of type Texture2D
+            auto texture = input.ReadExternalReference<Texture2D>();
+
+            if (texture != nullptr)
+            {
+                effect->Texture(texture);
+                effect->TextureEnabled(true);
+            }
+
+            // Weights per vertex (1, 2, or 4)
+            effect->WeightsPerVertex(input.ReadUInt32());
+
+            // Diffuse color
+            effect->DiffuseColor(input.ReadVector3());
+
+            // Emissive color
+            effect->EmissiveColor(input.ReadVector3());
+
+            // Specular color
+            effect->SpecularColor(input.ReadVector3());
+
+            // Specular power
+            effect->SpecularPower(input.ReadSingle());
+
+            // Alpha
+            effect->Alpha(input.ReadSingle());
+
+            return effect;
+        }
     }
-
-    // Weights per vertex (1, 2, or 4)
-    effect->WeightsPerVertex(input.ReadUInt32());
-
-    // Diffuse color
-    effect->DiffuseColor(input.ReadVector3());
-
-    // Emissive color
-    effect->EmissiveColor(input.ReadVector3());
-
-    // Specular color
-    effect->SpecularColor(input.ReadVector3());
-
-    // Specular power
-    effect->SpecularPower(input.ReadSingle());
-
-    // Alpha
-    effect->Alpha(input.ReadSingle());
-
-    return effect;
 }

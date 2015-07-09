@@ -37,18 +37,18 @@ namespace System
             /**
              * Converts an entire byte array from one encoding to another.
              */
-            static std::vector<std::uint8_t> Convert(const Encoding&             srcEncoding
-                                              , const Encoding&             dstEncoding
-                                              , const std::vector<std::uint8_t>& bytes);
+            static std::vector<std::uint8_t> Convert(const Encoding&                  srcEncoding
+                                                   , const Encoding&                  dstEncoding
+                                                   , const std::vector<std::uint8_t>& bytes);
 
             /*
              * Converts a range of bytes in a byte array from one encoding to another.
              */
-            static std::vector<std::uint8_t> Convert(const Encoding&             srcEncoding
-                                              , const Encoding&             dstEncoding
-                                              , const std::vector<std::uint8_t>& bytes
-                                              , const std::size_t&               index
-                                              , const std::size_t&               count);
+            static std::vector<std::uint8_t> Convert(const Encoding&                  srcEncoding
+                                                   , const Encoding&                  dstEncoding
+                                                   , const std::vector<std::uint8_t>& bytes
+                                                   , const std::size_t&               index
+                                                   , const std::size_t&               count);
 
             /**
              * Converts a UTF-16 encoded string to a regular UTF-8 encoded string.

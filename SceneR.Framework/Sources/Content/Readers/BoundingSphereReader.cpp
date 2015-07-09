@@ -6,20 +6,24 @@
 #include <Content/ContentReader.hpp>
 #include <Framework/BoundingSphere.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-using namespace SceneR::Framework;
-
-BoundingSphereReader::BoundingSphereReader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        using SceneR::Framework::BoundingSphere;
 
-BoundingSphereReader::~BoundingSphereReader()
-{
-}
+        BoundingSphereReader::BoundingSphereReader()
+        {
+        }
 
-std::shared_ptr<void> BoundingSphereReader::Read(ContentReader& input)
-{
-    return std::make_shared<BoundingSphere>(input.ReadVector3()	    // Center
-                                          , input.ReadSingle());	// Radius
+        BoundingSphereReader::~BoundingSphereReader()
+        {
+        }
+
+        std::shared_ptr<void> BoundingSphereReader::Read(ContentReader& input)
+        {
+            return std::make_shared<BoundingSphere>(input.ReadVector3()	    // Center
+                                                  , input.ReadSingle());	// Radius
+        }
+    }
 }

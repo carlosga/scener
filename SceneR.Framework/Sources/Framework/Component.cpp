@@ -5,45 +5,48 @@
 
 #include <Framework/Renderer.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-
-Component::Component(SceneR::Framework::Renderer& renderer)
-    : renderer    ( renderer )
-    , enabled     { true }
-    , updateOrder { 0 }
+namespace SceneR
 {
-}
+    namespace Framework
+    {
+        Component::Component(SceneR::Framework::Renderer& renderer)
+            : renderer    ( renderer )
+            , enabled     { true }
+            , updateOrder { 0 }
+        {
+        }
 
-Component::~Component()
-{
-}
+        Component::~Component()
+        {
+        }
 
-SceneR::Framework::Renderer& Component::Renderer()
-{
-    return this->renderer;
-}
+        SceneR::Framework::Renderer& Component::Renderer()
+        {
+            return this->renderer;
+        }
 
-void Component::Update(const RenderTime& renderTime)
-{
-}
+        void Component::Update(const RenderTime& renderTime)
+        {
+        }
 
-bool Component::Enabled() const
-{
-    return this->enabled;
-}
+        bool Component::Enabled() const
+        {
+            return this->enabled;
+        }
 
-void Component::Enabled(const bool& enabled)
-{
-    this->enabled = enabled;
-}
+        void Component::Enabled(const bool& enabled)
+        {
+            this->enabled = enabled;
+        }
 
-std::uint32_t Component::UpdateOrder() const
-{
-    return this->updateOrder;
-}
+        std::uint32_t Component::UpdateOrder() const
+        {
+            return this->updateOrder;
+        }
 
-void Component::UpdateOrder(const std::uint32_t& updateOrder)
-{
-    this->updateOrder = updateOrder;
+        void Component::UpdateOrder(const std::uint32_t& updateOrder)
+        {
+            this->updateOrder = updateOrder;
+        }
+    }
 }

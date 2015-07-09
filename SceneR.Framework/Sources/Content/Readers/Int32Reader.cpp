@@ -3,20 +3,25 @@
 
 #include <Content/Readers/Int32Reader.hpp>
 
+#include <cstdint>
+
 #include <Content/ContentReader.hpp>
 
-using namespace System;
-using namespace SceneR::Content;
-
-Int32Reader::Int32Reader()
+namespace SceneR
 {
-}
+    namespace Content
+    {
+        Int32Reader::Int32Reader()
+        {
+        }
 
-Int32Reader::~Int32Reader()
-{
-}
+        Int32Reader::~Int32Reader()
+        {
+        }
 
-std::shared_ptr<void> Int32Reader::Read(ContentReader& input)
-{
-    return std::make_shared<std::uint32_t>(input.ReadUInt32());
+        std::shared_ptr<void> Int32Reader::Read(ContentReader& input)
+        {
+            return std::make_shared<std::uint32_t>(input.ReadUInt32());
+        }
+    }
 }
