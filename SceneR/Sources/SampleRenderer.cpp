@@ -7,31 +7,36 @@
 #include <Marcus.hpp>
 #include <SampleModel.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Sample;
-
-SampleRenderer::SampleRenderer()
-    : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/")
+namespace SceneR
 {
-}
+    namespace Sample
+    {
+        using SceneR::Framework::Color;
+        using SceneR::Framework::RenderTime;
 
-void SampleRenderer::BeginRun()
-{
-    this->graphicsDeviceManager.PreferredBackBufferWidth(1600);
-    this->graphicsDeviceManager.PreferredBackBufferHeight(900);
-    this->graphicsDeviceManager.WindowTitle(u"SceneR");
+        SampleRenderer::SampleRenderer()
+            : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/")
+        {
+        }
 
-    this->Components().push_back(std::make_shared<Camera>(*this));
-    // this->Components().push_back(std::make_shared<Marcus>(*this));
-    this->Components().push_back(std::make_shared<SampleModel>(*this));
+        void SampleRenderer::BeginRun()
+        {
+            this->graphicsDeviceManager.PreferredBackBufferWidth(1600);
+            this->graphicsDeviceManager.PreferredBackBufferHeight(900);
+            this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
-    Renderer::BeginRun();
-}
+            this->Components().push_back(std::make_shared<Camera>(*this));
+            // this->Components().push_back(std::make_shared<Marcus>(*this));
+            this->Components().push_back(std::make_shared<SampleModel>(*this));
 
-void SampleRenderer::Draw(const RenderTime& renderTime)
-{
-    this->graphicsDeviceManager.CurrentGraphicsDevice().Clear(Color::Black);
+            Renderer::BeginRun();
+        }
 
-    Renderer::Draw(renderTime);
+        void SampleRenderer::Draw(const RenderTime& renderTime)
+        {
+            this->graphicsDeviceManager.CurrentGraphicsDevice().Clear(Color::Black);
+
+            Renderer::Draw(renderTime);
+        }
+    }
 }

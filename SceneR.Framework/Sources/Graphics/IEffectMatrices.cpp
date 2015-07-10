@@ -3,8 +3,12 @@
 
 #include <Graphics/IEffectMatrices.hpp>
 
-using namespace SceneR::Graphics;
-
-IEffectMatrices::~IEffectMatrices()
+namespace SceneR
 {
+    namespace Graphics
+    {
+        IEffectMatrices::~IEffectMatrices()
+        {
+        }
+    }
 }

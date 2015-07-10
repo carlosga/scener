@@ -9,48 +9,53 @@
 
 #include <Graphics/AnimationClip.hpp>
 
-using namespace System;
-using namespace SceneR::Graphics;
-
-AnimationClip::AnimationClip()
-    : duration  { TimeSpan::Zero }
-    , keyframes ( 0 )
+namespace SceneR
 {
-}
-
-AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyframe>& keyframes)
-    : duration  { duration }
-    , keyframes ( keyframes )
-{
-}
-
-AnimationClip::AnimationClip(const AnimationClip& clip)
-    : duration  { clip.duration }
-    , keyframes ( clip.keyframes )
-{
-}
-
-AnimationClip::~AnimationClip()
-{
-}
-
-const TimeSpan& AnimationClip::Duration() const
-{
-    return this->duration;
-}
-
-const std::vector<Keyframe>& AnimationClip::Keyframes() const
-{
-    return this->keyframes;
-}
-
-AnimationClip &AnimationClip::operator=(const AnimationClip& clip)
-{
-    if (this != &clip)
+    namespace Graphics
     {
-        this->duration  = clip.duration;
-        this->keyframes = std::vector<Keyframe>(clip.keyframes);
-    }
+        using System::TimeSpan;
 
-    return *this;
+        AnimationClip::AnimationClip()
+            : duration  { TimeSpan::Zero }
+            , keyframes ( 0 )
+        {
+        }
+
+        AnimationClip::AnimationClip(const TimeSpan& duration, const std::vector<Keyframe>& keyframes)
+            : duration  { duration }
+            , keyframes ( keyframes )
+        {
+        }
+
+        AnimationClip::AnimationClip(const AnimationClip& clip)
+            : duration  { clip.duration }
+            , keyframes ( clip.keyframes )
+        {
+        }
+
+        AnimationClip::~AnimationClip()
+        {
+        }
+
+        const TimeSpan& AnimationClip::Duration() const
+        {
+            return this->duration;
+        }
+
+        const std::vector<Keyframe>& AnimationClip::Keyframes() const
+        {
+            return this->keyframes;
+        }
+
+        AnimationClip &AnimationClip::operator=(const AnimationClip& clip)
+        {
+            if (this != &clip)
+            {
+                this->duration  = clip.duration;
+                this->keyframes = std::vector<Keyframe>(clip.keyframes);
+            }
+
+            return *this;
+        }
+    }
 }

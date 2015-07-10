@@ -3,8 +3,12 @@
 
 #include <Graphics/IEffectLights.hpp>
 
-using namespace SceneR::Graphics;
-
-IEffectLights::~IEffectLights()
+namespace SceneR
 {
+    namespace Graphics
+    {
+        IEffectLights::~IEffectLights()
+        {
+        }
+    }
 }

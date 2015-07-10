@@ -9,62 +9,66 @@
 
 #include <Graphics/SkinningData.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-SkinningData::SkinningData()
-    : animationClips    ( )
-    , bindPose          ( 0 )
-    , inverseBindPose   ( 0 )
-    , skeletonHierarchy ( 0 )
+namespace SceneR
 {
-}
+    namespace Graphics
+    {
+        using SceneR::Framework::Matrix;
 
-SkinningData::SkinningData(const std::map<std::u16string, AnimationClip>& animationClips
-                         , const std::vector<Matrix>&                     bindPose
-                         , const std::vector<Matrix>&                     inverseBindPose
-                         , const std::vector<std::size_t>&                skeletonHierarchy)
-    : animationClips    { animationClips }
-    , bindPose          { bindPose }
-    , inverseBindPose   { inverseBindPose }
-    , skeletonHierarchy { skeletonHierarchy }
-{
-}
+        SkinningData::SkinningData()
+            : animationClips    ( )
+            , bindPose          ( 0 )
+            , inverseBindPose   ( 0 )
+            , skeletonHierarchy ( 0 )
+        {
+        }
 
-SkinningData::SkinningData(const SkinningData& skinningData)
-    : animationClips    { skinningData.animationClips }
-    , bindPose          { skinningData.bindPose }
-    , inverseBindPose   { skinningData.inverseBindPose }
-    , skeletonHierarchy { skinningData.skeletonHierarchy }
-{
-}
+        SkinningData::SkinningData(const std::map<std::u16string, AnimationClip>& animationClips
+                                 , const std::vector<Matrix>&                     bindPose
+                                 , const std::vector<Matrix>&                     inverseBindPose
+                                 , const std::vector<std::size_t>&                skeletonHierarchy)
+            : animationClips    { animationClips }
+            , bindPose          { bindPose }
+            , inverseBindPose   { inverseBindPose }
+            , skeletonHierarchy { skeletonHierarchy }
+        {
+        }
 
-SkinningData::~SkinningData()
-{
-}
+        SkinningData::SkinningData(const SkinningData& skinningData)
+            : animationClips    { skinningData.animationClips }
+            , bindPose          { skinningData.bindPose }
+            , inverseBindPose   { skinningData.inverseBindPose }
+            , skeletonHierarchy { skinningData.skeletonHierarchy }
+        {
+        }
 
-const std::map<std::u16string, AnimationClip>& SkinningData::AnimationClips() const
-{
-    return this->animationClips;
-}
+        SkinningData::~SkinningData()
+        {
+        }
 
-const AnimationClip& SkinningData::AnimationClips(const std::u16string& clipName)
-{
-    return this->animationClips[clipName];
-}
+        const std::map<std::u16string, AnimationClip>& SkinningData::AnimationClips() const
+        {
+            return this->animationClips;
+        }
 
-const std::vector<Matrix>& SkinningData::BindPose() const
-{
-    return this->bindPose;
-}
+        const AnimationClip& SkinningData::AnimationClips(const std::u16string& clipName)
+        {
+            return this->animationClips[clipName];
+        }
 
-const std::vector<Matrix>& SkinningData::InverseBindPose() const
-{
-    return this->inverseBindPose;
-}
+        const std::vector<Matrix>& SkinningData::BindPose() const
+        {
+            return this->bindPose;
+        }
 
-const std::vector<std::size_t>& SkinningData::SkeletonHierarchy() const
-{
-    return this->skeletonHierarchy;
+        const std::vector<Matrix>& SkinningData::InverseBindPose() const
+        {
+            return this->inverseBindPose;
+        }
+
+        const std::vector<std::size_t>& SkinningData::SkeletonHierarchy() const
+        {
+            return this->skeletonHierarchy;
+        }
+    }
 }

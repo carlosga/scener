@@ -3,8 +3,12 @@
 
 #include <Graphics/IGraphicsDeviceService.hpp>
 
-using namespace SceneR::Graphics;
-
-IGraphicsDeviceService::~IGraphicsDeviceService()
+namespace SceneR
 {
+    namespace Graphics
+    {
+        IGraphicsDeviceService::~IGraphicsDeviceService()
+        {
+        }
+    }
 }

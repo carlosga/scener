@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <Graphics/EffectParameterCollection.hpp>
@@ -146,7 +147,8 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValueTranspose(const std::u16string& uniformName, const std::vector<SceneR::Framework::Matrix>& value) const;
+            void SetValueTranspose(const std::u16string&                         uniformName
+                                 , const std::vector<SceneR::Framework::Matrix>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Quaternion.
@@ -160,7 +162,8 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Quaternion>& value) const;
+            void SetValue(const std::u16string&                             uniformName
+                        , const std::vector<SceneR::Framework::Quaternion>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a float.
@@ -188,7 +191,8 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Vector2>& value) const;
+            void SetValue(const std::u16string&                          uniformName
+                        , const std::vector<SceneR::Framework::Vector2>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector3.
@@ -202,7 +206,8 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Vector3>& value) const;
+            void SetValue(const std::u16string&                          uniformName
+                        , const std::vector<SceneR::Framework::Vector3>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector4.
@@ -216,7 +221,8 @@ namespace SceneR
              * @param location the uniform location
              * @param value the value to assign to the shader uniform.
              */
-            void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Vector4>& value) const;
+            void SetValue(const std::u16string&                          uniformName
+                        , const std::vector<SceneR::Framework::Vector4>& value) const;
 
         protected:
             /**

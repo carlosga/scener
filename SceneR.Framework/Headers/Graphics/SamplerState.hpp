@@ -127,7 +127,7 @@ namespace SceneR
             TextureAddressMode addressV;
             TextureAddressMode addressW;
             TextureFilter      filter;
-            std::int32_t        maxAnisotropy;
+            std::int32_t       maxAnisotropy;
             std::uint32_t      maxMipLevel;
             float              mipMapLevelOfDetailBias;
 

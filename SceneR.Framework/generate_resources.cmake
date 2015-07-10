@@ -48,7 +48,10 @@ function(generate_resources_source dir output)
     file(GLOB bins ${dir}/*)
     # Write header
     file(APPEND ${output} "#include <Graphics/Resources.hpp>\n\n")
-    file(APPEND ${output} "using namespace SceneR::Graphics;\n\n")
+    file(APPEND ${output} "namespace SceneR\n")
+    file(APPEND ${output} "{\n")
+    file(APPEND ${output} "namespace Graphics\n")
+    file(APPEND ${output} "{\n")
     # Iterate through input files
     foreach(bin ${bins})
         # Get short filename
@@ -64,6 +67,8 @@ function(generate_resources_source dir output)
         file(APPEND ${output} "const unsigned Resources::${filename}_size     = sizeof(${filename});\n")
         file(APPEND ${output} "const std::string Resources::${filename}String = std::string(Resources::${filename}, Resources::${filename} + Resources::${filename}_size);\n")
     endforeach()
+    file(APPEND ${output} "}\n")
+    file(APPEND ${output} "}\n")
 endfunction()
 
 function(check_state dir output)

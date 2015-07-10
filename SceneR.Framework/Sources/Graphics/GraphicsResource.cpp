@@ -3,41 +3,44 @@
 
 #include <Graphics/GraphicsResource.hpp>
 
-using namespace System;
-using namespace SceneR::Graphics;
-
-GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
-    : graphicsDevice ( graphicsDevice )
-    , name           { u""  }
-    , tag            { u""  }
+namespace SceneR
 {
-}
+    namespace Graphics
+    {
+        GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
+            : graphicsDevice ( graphicsDevice )
+            , name           { u""  }
+            , tag            { u""  }
+        {
+        }
 
-GraphicsResource::~GraphicsResource()
-{
-}
+        GraphicsResource::~GraphicsResource()
+        {
+        }
 
-GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
-{
-    return this->graphicsDevice;
-}
+        GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
+        {
+            return this->graphicsDevice;
+        }
 
-const std::u16string& GraphicsResource::Name() const
-{
-    return this->name;
-}
+        const std::u16string& GraphicsResource::Name() const
+        {
+            return this->name;
+        }
 
-void GraphicsResource::Name(const std::u16string& name)
-{
-    this->name = name;
-}
+        void GraphicsResource::Name(const std::u16string& name)
+        {
+            this->name = name;
+        }
 
-const std::u16string& GraphicsResource::Tag() const
-{
-    return this->tag;
-}
+        const std::u16string& GraphicsResource::Tag() const
+        {
+            return this->tag;
+        }
 
-void GraphicsResource::Tag(const std::u16string& tag)
-{
-    this->tag = tag;
+        void GraphicsResource::Tag(const std::u16string& tag)
+        {
+            this->tag = tag;
+        }
+    }
 }

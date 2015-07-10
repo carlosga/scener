@@ -3,8 +3,12 @@
 
 #include <Graphics/IEffectFog.hpp>
 
-using namespace SceneR::Graphics;
-
-IEffectFog::~IEffectFog()
+namespace SceneR
 {
+    namespace Graphics
+    {
+        IEffectFog::~IEffectFog()
+        {
+        }
+    }
 }

@@ -31,8 +31,8 @@ namespace System
              */
             for (std::size_t i = index; i < (index + count); i++)
             {
-                char16_t    buffer = chars[i];
-                std::size_t offset = 1;
+                std::uint32_t buffer = static_cast<std::uint32_t>(chars[i]);
+                std::size_t   offset = 1;
 
                 if (((buffer >> 7) & 0xff) & 0x7F)
                 {

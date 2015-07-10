@@ -5,47 +5,50 @@
 
 #include <System/Graphics/Platform.hpp>
 
-using namespace System;
-using namespace SceneR::Graphics;
-
-VertexArrayObject::VertexArrayObject()
-    : id { 0 }
+namespace SceneR
 {
-    this->Create();
-}
-
-VertexArrayObject::~VertexArrayObject()
-{
-}
-
-void VertexArrayObject::Dispose()
-{
-    if (this->id != 0)
+    namespace Graphics
     {
-        glDeleteVertexArrays(1, &this->id);
-        this->id = 0;
-    }
-}
+        VertexArrayObject::VertexArrayObject()
+            : id { 0 }
+        {
+            this->Create();
+        }
 
-std::uint32_t VertexArrayObject::Id() const
-{
-    return this->id;
-}
+        VertexArrayObject::~VertexArrayObject()
+        {
+        }
 
-void VertexArrayObject::Create()
-{
-    glGenVertexArrays(1, &this->id);
-}
+        void VertexArrayObject::Dispose()
+        {
+            if (this->id != 0)
+            {
+                glDeleteVertexArrays(1, &this->id);
+                this->id = 0;
+            }
+        }
 
-void VertexArrayObject::Activate() const
-{
-    glBindVertexArray(this->id);
-}
+        std::uint32_t VertexArrayObject::Id() const
+        {
+            return this->id;
+        }
 
-void VertexArrayObject::Deactivate() const
-{
-    if (this->id != 0)
-    {
-        glBindVertexArray(0);
+        void VertexArrayObject::Create()
+        {
+            glGenVertexArrays(1, &this->id);
+        }
+
+        void VertexArrayObject::Activate() const
+        {
+            glBindVertexArray(this->id);
+        }
+
+        void VertexArrayObject::Deactivate() const
+        {
+            if (this->id != 0)
+            {
+                glBindVertexArray(0);
+            }
+        }
     }
 }

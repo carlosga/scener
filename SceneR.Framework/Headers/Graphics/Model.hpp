@@ -9,7 +9,6 @@
 #include <vector>
 
 #include <System/IDisposable.hpp>
-#include <Framework/Matrix.hpp>
 
 namespace SceneR
 {

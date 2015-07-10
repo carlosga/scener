@@ -6,70 +6,74 @@
 #include <cassert>
 #include <cstdint>
 
-using namespace SceneR::Graphics;
-
-DisplayMode::DisplayMode(const GLFWvidmode* mode)
-    : aspectRatio { 0.0f }
-    , format      { SurfaceFormat::Color }
-    , height      ( mode->height )
-    , width       ( mode->width )
+namespace SceneR
 {
-    assert(mode->width != 0 && mode->height != 0);
-
-    this->aspectRatio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
-
-    std::int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
-
-    switch (bitDepth)
+    namespace Graphics
     {
-      case 16:
-      case 8:
-          this->format = SurfaceFormat::Bgr565;
-          break;
+        DisplayMode::DisplayMode(const GLFWvidmode* mode)
+            : aspectRatio { 0.0f }
+            , format      { SurfaceFormat::Color }
+            , height      ( mode->height )
+            , width       ( mode->width )
+        {
+            assert(mode->width != 0 && mode->height != 0);
+
+            this->aspectRatio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
+
+            std::int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
+
+            switch (bitDepth)
+            {
+              case 16:
+              case 8:
+                  this->format = SurfaceFormat::Bgr565;
+                  break;
+            }
+        }
+
+        DisplayMode::DisplayMode(const DisplayMode& displayMode)
+            : aspectRatio { displayMode.aspectRatio }
+            , format      { displayMode.format }
+            , height      ( displayMode.height )
+            , width       ( displayMode.width )
+        {
+        }
+
+        DisplayMode::~DisplayMode()
+        {
+        }
+
+        float DisplayMode::AspectRatio() const
+        {
+            return this->aspectRatio;
+        }
+
+        const SurfaceFormat& DisplayMode::Format() const
+        {
+            return this->format;
+        }
+
+        std::size_t DisplayMode::Height() const
+        {
+            return this->height;
+        }
+
+        std::size_t DisplayMode::Width() const
+        {
+            return this->width;
+        }
+
+        DisplayMode& DisplayMode::operator=(const DisplayMode& displayMode)
+        {
+            if (this != &displayMode)
+            {
+                this->aspectRatio = displayMode.aspectRatio;
+                this->format      = displayMode.format;
+                this->height      = displayMode.height;
+                this->width       = displayMode.width;
+            }
+
+            return *this;
+        }
     }
-}
-
-DisplayMode::DisplayMode(const DisplayMode& displayMode)
-    : aspectRatio { displayMode.aspectRatio }
-    , format      { displayMode.format }
-    , height      ( displayMode.height )
-    , width       ( displayMode.width )
-{
-}
-
-DisplayMode::~DisplayMode()
-{
-}
-
-float DisplayMode::AspectRatio() const
-{
-    return this->aspectRatio;
-}
-
-const SurfaceFormat& DisplayMode::Format() const
-{
-    return this->format;
-}
-
-std::size_t DisplayMode::Height() const
-{
-    return this->height;
-}
-
-std::size_t DisplayMode::Width() const
-{
-    return this->width;
-}
-
-DisplayMode& DisplayMode::operator=(const DisplayMode& displayMode)
-{
-    if (this != &displayMode)
-    {
-        this->aspectRatio = displayMode.aspectRatio;
-        this->format      = displayMode.format;
-        this->height      = displayMode.height;
-        this->width       = displayMode.width;
-    }
-
-    return *this;
 }

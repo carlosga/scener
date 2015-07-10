@@ -9,56 +9,61 @@
 
 #include <Graphics/Keyframe.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-Keyframe::Keyframe()
-    : Keyframe { 0, TimeSpan::Zero, Matrix::Identity }
+namespace SceneR
 {
-}
-
-Keyframe::Keyframe(const std::uint32_t& bone, const TimeSpan& time, const Matrix& transform)
-    : bone      { bone }
-    , time      { time }
-    , transform { transform }
-{
-}
-
-Keyframe::Keyframe(const Keyframe& keyframe)
-    : bone      { keyframe.bone }
-    , time      { keyframe.time }
-    , transform { keyframe.transform }
-{
-}
-
-Keyframe::~Keyframe()
-{
-}
-
-std::uint32_t Keyframe::Bone() const
-{
-    return this->bone;
-}
-
-const TimeSpan& Keyframe::Time() const
-{
-    return this->time;
-}
-
-const Matrix& Keyframe::Transform() const
-{
-    return this->transform;
-}
-
-Keyframe& Keyframe::operator=(const Keyframe& keyframe)
-{
-    if (this != &keyframe)
+    namespace Graphics
     {
-        this->bone      = keyframe.bone;
-        this->time      = keyframe.time;
-        this->transform = keyframe.transform;
-    }
+        using System::TimeSpan;
+        using SceneR::Framework::Matrix;
 
-    return *this;
+        Keyframe::Keyframe()
+            : Keyframe { 0, TimeSpan::Zero, Matrix::Identity }
+        {
+        }
+
+        Keyframe::Keyframe(const std::uint32_t& bone, const TimeSpan& time, const Matrix& transform)
+            : bone      { bone }
+            , time      { time }
+            , transform { transform }
+        {
+        }
+
+        Keyframe::Keyframe(const Keyframe& keyframe)
+            : bone      { keyframe.bone }
+            , time      { keyframe.time }
+            , transform { keyframe.transform }
+        {
+        }
+
+        Keyframe::~Keyframe()
+        {
+        }
+
+        std::uint32_t Keyframe::Bone() const
+        {
+            return this->bone;
+        }
+
+        const TimeSpan& Keyframe::Time() const
+        {
+            return this->time;
+        }
+
+        const Matrix& Keyframe::Transform() const
+        {
+            return this->transform;
+        }
+
+        Keyframe& Keyframe::operator=(const Keyframe& keyframe)
+        {
+            if (this != &keyframe)
+            {
+                this->bone      = keyframe.bone;
+                this->time      = keyframe.time;
+                this->transform = keyframe.transform;
+            }
+
+            return *this;
+        }
+    }
 }

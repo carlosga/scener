@@ -11,7 +11,6 @@
 #define ANIMATIONPLAYER_HPP
 
 #include <cstddef>
-#include <cstdint>
 #include <memory>
 #include <vector>
 

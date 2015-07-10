@@ -2,6 +2,7 @@
 #define SHADER_MANAGER
 
 #include <map>
+#include <string>
 
 namespace SceneR
 {

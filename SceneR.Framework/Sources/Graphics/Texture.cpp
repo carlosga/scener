@@ -5,20 +5,24 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 
-using namespace SceneR::Graphics;
-
-bool Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
+namespace SceneR
 {
-    return (format == SurfaceFormat::Dxt1
-         || format == SurfaceFormat::Dxt3
-         || format == SurfaceFormat::Dxt5);
-}
+    namespace Graphics
+    {
+        bool Texture::IsCompressedSurfaceFormat(const SurfaceFormat& format)
+        {
+            return (format == SurfaceFormat::Dxt1
+                 || format == SurfaceFormat::Dxt3
+                 || format == SurfaceFormat::Dxt5);
+        }
 
-Texture::Texture(GraphicsDevice& graphicsDevice)
-    : GraphicsResource { graphicsDevice }
-{
-}
+        Texture::Texture(GraphicsDevice& graphicsDevice)
+            : GraphicsResource { graphicsDevice }
+        {
+        }
 
-Texture::~Texture()
-{
+        Texture::~Texture()
+        {
+        }
+    }
 }

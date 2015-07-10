@@ -3,53 +3,58 @@
 
 #include <Graphics/ModelBone.hpp>
 
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-ModelBone::ModelBone()
-    : children  ( 0 )
-    , index     ( 0 )
-    , name      { u"" }
-    , parent    { nullptr }
-    , transform { Matrix::Identity }
+namespace SceneR
 {
-}
+    namespace Graphics
+    {
+        using SceneR::Framework::Matrix;
 
-ModelBone::~ModelBone()
-{
-}
+        ModelBone::ModelBone()
+            : children  ( 0 )
+            , index     ( 0 )
+            , name      { u"" }
+            , parent    { nullptr }
+            , transform { Matrix::Identity }
+        {
+        }
 
-const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
-{
-    return this->children;
-}
+        ModelBone::~ModelBone()
+        {
+        }
 
-std::size_t ModelBone::Index() const
-{
-    return this->index;
-}
+        const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
+        {
+            return this->children;
+        }
 
-const std::u16string& ModelBone::Name() const
-{
-    return this->name;
-}
+        std::size_t ModelBone::Index() const
+        {
+            return this->index;
+        }
 
-void ModelBone::Name(const std::u16string& name)
-{
-    this->name = name;
-}
+        const std::u16string& ModelBone::Name() const
+        {
+            return this->name;
+        }
 
-const std::shared_ptr<ModelBone>& ModelBone::Parent() const
-{
-    return this->parent;
-}
+        void ModelBone::Name(const std::u16string& name)
+        {
+            this->name = name;
+        }
 
-const Matrix& ModelBone::Transform() const
-{
-    return this->transform;
-}
+        const std::shared_ptr<ModelBone>& ModelBone::Parent() const
+        {
+            return this->parent;
+        }
 
-void ModelBone::Transform(const Matrix& transform)
-{
-    this->transform = transform;
+        const Matrix& ModelBone::Transform() const
+        {
+            return this->transform;
+        }
+
+        void ModelBone::Transform(const Matrix& transform)
+        {
+            this->transform = transform;
+        }
+    }
 }

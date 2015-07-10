@@ -5,43 +5,45 @@
 
 #include <Graphics/GraphicsDevice.hpp>
 
-using namespace System;
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-
-EffectMaterial::EffectMaterial(GraphicsDevice& graphicsDevice)
-    : Effect { graphicsDevice }
+namespace SceneR
 {
-    this->Initialize();
-}
+    namespace Graphics
+    {
+        EffectMaterial::EffectMaterial(GraphicsDevice& graphicsDevice)
+            : Effect { graphicsDevice }
+        {
+            this->Initialize();
+        }
 
-EffectMaterial::EffectMaterial(const EffectMaterial& effect)
-    : Effect { effect }
-{
-    this->Initialize();
-}
+        EffectMaterial::EffectMaterial(const EffectMaterial& effect)
+            : Effect { effect }
+        {
+            this->Initialize();
+        }
 
-EffectMaterial::~EffectMaterial()
-{
-}
+        EffectMaterial::~EffectMaterial()
+        {
+        }
 
-void EffectMaterial::Dispose()
-{
-    Effect::Dispose();
-}
+        void EffectMaterial::Dispose()
+        {
+            Effect::Dispose();
+        }
 
-void EffectMaterial::Begin()
-{
-}
+        void EffectMaterial::Begin()
+        {
+        }
 
-void EffectMaterial::End()
-{
-}
+        void EffectMaterial::End()
+        {
+        }
 
-void EffectMaterial::OnApply()
-{
-}
+        void EffectMaterial::OnApply()
+        {
+        }
 
-void EffectMaterial::Initialize()
-{
+        void EffectMaterial::Initialize()
+        {
+        }
+    }
 }
