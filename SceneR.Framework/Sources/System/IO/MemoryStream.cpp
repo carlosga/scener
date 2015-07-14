@@ -11,11 +11,9 @@ namespace System
             : stream { std::ios::in | std::ios::out | std::ios::binary }
             , mode   { std::ios::in | std::ios::out | std::ios::binary }
         {
-            // TODO: There should be a better way of doing this
-            for (std::size_t i = 0; i < buffer.size(); i++)
-            {
-                this->stream << buffer[i];
-            }
+            this->Seek(0, std::ios_base::beg);
+
+            this->stream.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
 
             this->Seek(0, std::ios_base::beg);
         }
