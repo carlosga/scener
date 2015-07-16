@@ -61,7 +61,10 @@ namespace System
     {
     }
 
-    TimeSpan::TimeSpan(const std::int32_t& days, const std::int32_t& hours, const std::int32_t& minutes, const std::int32_t& seconds)
+    TimeSpan::TimeSpan(const std::int32_t& days
+                     , const std::int32_t& hours
+                     , const std::int32_t& minutes
+                     , const std::int32_t& seconds)
         : TimeSpan { days, hours, minutes, seconds, 0 }
     {
     }

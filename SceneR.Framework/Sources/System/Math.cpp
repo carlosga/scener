@@ -139,10 +139,10 @@ namespace System
     }
 
     float Math::Barycentric(const float& value1
-                           , const float& value2
-                           , const float& value3
-                           , const float& amount1
-                           , const float& amount2)
+                          , const float& value2
+                          , const float& value3
+                          , const float& amount1
+                          , const float& amount2)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.Math.barycentric(v=xnagamestudio.40).aspx
         //  Pa = ((1 - b2 - b3) * V1a) + (b2 * V2a) + (b3 * V3a);
@@ -154,10 +154,10 @@ namespace System
     }
 
     float Math::CatmullRom(const float& value1
-                          , const float& value2
-                          , const float& value3
-                          , const float& value4
-                          , const float& amount)
+                         , const float& value2
+                         , const float& value3
+                         , const float& value4
+                         , const float& amount)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324331(v=vs.85).aspx
         // Q(s) = [(-s3 + 2s2 - s)p1 + (3s3 - 5s2 + 2)p2 + (-3s3 + 4s2 + s)p3 + (s3 - s2)p4] / 2;
@@ -189,10 +189,10 @@ namespace System
     }
 
     float Math::Hermite(const float& value1
-                       , const float& tangent1
-                       , const float& value2
-                       , const float& tangent2
-                       , const float& amount)
+                      , const float& tangent1
+                      , const float& value2
+                      , const float& tangent2
+                      , const float& amount)
     {
         // Reference: http://cubic.org/docs/hermite.htm
         // h1(s) =  2s^3 - 3s^2 + 1
