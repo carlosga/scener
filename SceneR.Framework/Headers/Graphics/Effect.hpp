@@ -81,70 +81,70 @@ namespace SceneR
         public:
             /**
              * Sets the value of the EffectParameter as a boolean.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const bool& value) const;
 
             /**
              * Gets the value of the EffectParameter as an array of booleans.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<bool>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an int32_t.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::int32_t& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of int32_t
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<std::int32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as an uint32_t.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::uint32_t& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of uint32_t.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<std::uint32_t>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const SceneR::Framework::Matrix& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Matrix.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Matrix>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Matrix transpose.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValueTranspose(const std::u16string& uniformName, const SceneR::Framework::Matrix& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Matrix transpose.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValueTranspose(const std::u16string&                         uniformName
@@ -152,14 +152,14 @@ namespace SceneR
 
             /**
              * Sets the value of the EffectParameter as a Quaternion.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const SceneR::Framework::Quaternion& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Quaternion.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string&                             uniformName
@@ -167,28 +167,28 @@ namespace SceneR
 
             /**
              * Sets the value of the EffectParameter as a float.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const float& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of float.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const std::vector<float>& value) const;
 
             /**
              * Sets the value of the EffectParameter as a Vector2.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector2& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector2.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string&                          uniformName
@@ -196,14 +196,14 @@ namespace SceneR
 
             /**
              * Sets the value of the EffectParameter as a Vector3.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector3& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector3.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string&                          uniformName
@@ -211,14 +211,14 @@ namespace SceneR
 
             /**
              * Sets the value of the EffectParameter as a Vector4.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector4& value) const;
 
             /**
              * Sets the value of the EffectParameter as an array of Vector4.
-             * @param location the uniform location
+             * @param uniformName the uniform name
              * @param value the value to assign to the shader uniform.
              */
             void SetValue(const std::u16string&                          uniformName
