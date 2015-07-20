@@ -26,7 +26,7 @@ AlignOperands: false
 AlignTrailingComments: true
 
 # Allow putting all parameters of a function declaration onto the next line even if BinPackParameters is false.
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 
 # Allows contracting simple braced statements to a single line.
 AllowShortBlocksOnASingleLine: false
@@ -65,6 +65,9 @@ AlwaysBreakBeforeMultilineStrings: false
 
 # If true, always break after the template<...> of a template declaration.
 AlwaysBreakTemplateDeclarations: true
+
+# If false, a function call’s arguments will either be all on the same line or will have one line each.
+BinPackArguments: false
 
 # If false, a function call’s arguments will either be all on the same line or will have one line each.
 BinPackParameters: false
@@ -106,7 +109,7 @@ ColumnLimit: 120
 CommentPragmas: ''
 
 # If the constructor initializers don’t fit on a line, put each initializer on its own line.
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
 
 # The number of characters to use for indentation of constructor initializer lists.
 ConstructorInitializerIndentWidth: 4
@@ -145,7 +148,7 @@ ExperimentalAutoDetectBinPacking: false
 #
 # For example: BOOST_FOREACH.
 # (std::vector<std::string>)
-ForEachMacros:
+# ForEachMacros:
 
 # Indent case labels one level from the switch statement.
 #
@@ -191,7 +194,7 @@ MaxEmptyLinesToKeep: 1
 # NI_None (in configuration: None) Don’t indent in namespaces.
 # NI_Inner (in configuration: Inner) Indent only in inner namespaces (nested in other namespaces).
 # NI_All (in configuration: All) Indent in all namespaces.
-NamespaceIndentation: All
+NamespaceIndentation: None
 
 # The number of characters to use for indentation of ObjC blocks.
 #(unsigned)
