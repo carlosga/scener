@@ -46,8 +46,9 @@ namespace SceneR
 
         EffectParameter& EffectParameterCollection::operator[](const std::u16string& parameterName)
         {
-            auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
-                                   [&](const EffectParameter& parameter) -> bool
+            auto it = std::find_if(this->parameters.begin()
+                                 , this->parameters.end()
+                                 , [&](const EffectParameter& parameter) -> bool
                                    {
                                        return (parameter.Name() == parameterName);
                                    });
@@ -59,8 +60,9 @@ namespace SceneR
 
         const EffectParameter& EffectParameterCollection::operator[](const std::u16string& parameterName) const
         {
-            auto it = std::find_if(this->parameters.begin(), this->parameters.end(),
-                                   [&](const EffectParameter& parameter) -> bool
+            auto it = std::find_if(this->parameters.begin()
+                                 , this->parameters.end()
+                                 , [&](const EffectParameter& parameter) -> bool
                                    {
                                        return parameter.Name() == parameterName;
                                    });
