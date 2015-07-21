@@ -19,7 +19,7 @@ namespace SceneR
         struct VertexPositionColor final
         {
         private:
-            static const VertexDeclaration& Declaration;
+            static const VertexDeclaration Declaration;
 
         public:
             /**

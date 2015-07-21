@@ -92,12 +92,12 @@ namespace SceneR
             this->maxAnisotropy = maxAnisotropy;
         }
 
-        std::uint32_t SamplerState::MaxMipLevel() const
+        std::size_t SamplerState::MaxMipLevel() const
         {
             return this->maxMipLevel;
         }
 
-        void SamplerState::MaxMipLevel(const std::uint32_t& maxMipLevel)
+        void SamplerState::MaxMipLevel(const std::size_t& maxMipLevel)
         {
             this->maxMipLevel = maxMipLevel;
         }

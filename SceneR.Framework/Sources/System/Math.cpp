@@ -135,7 +135,7 @@ namespace System
         //
         // to take care for edge cases
 
-        return (a == b);
+        return (Math::Abs(a - b) < 1e-5);
     }
 
     float Math::Barycentric(const float& value1
@@ -240,12 +240,12 @@ namespace System
 
     float Math::ToRadians(const float& degrees)
     {
-        return (degrees * Math::Pi / 180.0);
+        return static_cast<float>(degrees * Math::Pi / 180.0);
     }
 
     float Math::ToDegrees(const float& radians)
     {
-        return (radians * 180.0 / Math::Pi);
+        return static_cast<float>(radians * 180.0 / Math::Pi);
     }
 
     float Math::WrapAngle(const float& angle)

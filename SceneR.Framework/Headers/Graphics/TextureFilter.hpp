@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
              */
-            MinPointMagLinearMipPoint = 8,
+            MinPointMagLinearMipPoint = 8
         };
     }
 }

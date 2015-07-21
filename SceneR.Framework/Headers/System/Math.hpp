@@ -18,37 +18,37 @@ namespace System
         /**
          * Represents the mathematical constant e.
          */
-        constexpr static const float E = M_E;
+        constexpr static const float E = static_cast<float>(M_E);
 
         /**
          * Represents the log base ten of e.
          */
-        constexpr static const float Log10E = M_LOG10E;
+        constexpr static const float Log10E = static_cast<float>(M_LOG10E);
 
         /**
          * Represents the log base two of e.
          */
-        constexpr static const float Log2E = M_LOG2E;
+        constexpr static const float Log2E = static_cast<float>(M_LOG2E);
 
         /**
          * Represents the value of PI
          */
-        constexpr static const float Pi = M_PI;
+        constexpr static const float Pi = static_cast<float>(M_PI);
 
         /**
          * Represents the value of PI divided by 2
          */
-        constexpr static const float PiOver2 = M_PI_2;
+        constexpr static const float PiOver2 = static_cast<float>(M_PI_2);
 
         /**
          * Represents the value of PI divided by 4
          */
-        constexpr static const float PiOver4 = M_PI_4;
+        constexpr static const float PiOver4 = static_cast<float>(M_PI_4);
 
         /**
          * Represents the value of pi times two.
          */
-        constexpr static const float TwoPi = M_2_PI;
+        constexpr static const float TwoPi = static_cast<float>(M_2_PI);
 
         /**
          * Represents negative infinity.

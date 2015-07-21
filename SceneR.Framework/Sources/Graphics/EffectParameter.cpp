@@ -30,7 +30,7 @@ namespace SceneR
         EffectParameter::EffectParameter(const std::u16string&                      name
                                        , const std::size_t&                         index
                                        , const std::size_t&                         offset
-                                       , const std::uint32_t&                       type
+                                       , const std::int32_t&                        type
                                        , const std::shared_ptr<UniformBufferObject> uniformBuffer)
             : columnCount       { 0 }
             , elements          {  }

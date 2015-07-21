@@ -12,7 +12,7 @@ namespace SceneR
         using SceneR::Framework::Color;
         using SceneR::Framework::Vector3;
 
-        const VertexDeclaration& VertexPositionColor::Declaration
+        const VertexDeclaration VertexPositionColor::Declaration
         {
             28
           , {

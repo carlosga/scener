@@ -10,6 +10,7 @@
 #include <Graphics/BasicEffect.hpp>
 
 #include <System/IO/File.hpp>
+#include <System/Math.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/EffectHelpers.hpp>
 #include <Graphics/GraphicsDevice.hpp>
@@ -20,6 +21,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        using System::Math;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Vector3;
 
@@ -134,7 +136,7 @@ namespace SceneR
 
         void BasicEffect::Alpha(const float& alpha)
         {
-            if (this->alpha != alpha)
+            if (!Math::Equal(this->alpha, alpha))
             {
                 this->alpha = alpha;
                 this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
@@ -241,7 +243,7 @@ namespace SceneR
 
         void BasicEffect::FogEnd(const float& fogEnd)
         {
-            if (this->fogEnd != fogEnd)
+            if (!Math::Equal(this->fogEnd, fogEnd))
             {
                 this->fogEnd = fogEnd;
                 this->dirtyFlags |= EffectDirtyFlags::Fog;
@@ -255,7 +257,7 @@ namespace SceneR
 
         void BasicEffect::FogStart(const float& fogStart)
         {
-            if (this->fogStart != fogStart)
+            if (!Math::Equal(this->fogStart, fogStart))
             {
                 this->fogStart = fogStart;
                 this->dirtyFlags |= EffectDirtyFlags::Fog;
@@ -323,7 +325,7 @@ namespace SceneR
 
         void BasicEffect::SpecularPower(const float& specularPower)
         {
-            if (this->specularPower != specularPower)
+            if (!Math::Equal(this->specularPower, specularPower))
             {
                 this->specularPower = specularPower;
 

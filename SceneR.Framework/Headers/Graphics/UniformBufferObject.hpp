@@ -27,7 +27,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the UniformBufferObject class.
              * @param name the name of the uniform buffer object.
-             * @oaram programId the handle of the shader program.
+             * @param programId the handle of the shader program.
              */
             UniformBufferObject(const std::u16string& name, const std::uint32_t& programId);
 

@@ -2,11 +2,8 @@ cmake_minimum_required(VERSION 3.2.2)
 project(SceneR_Framework_Tests)
 enable_language(CXX)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall")
 
 # Reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -68,7 +65,7 @@ set(SOURCE_FILES
 add_executable(SceneR_Framework_Tests Sources/TestRunner.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
 # target libs
-target_link_libraries(SceneR_Framework_Tests gtest SceneR_Framework)
+target_link_libraries(SceneR_Framework_Tests c++abi gtest SceneR_Framework)
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework_Tests PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

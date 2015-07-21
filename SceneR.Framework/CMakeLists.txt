@@ -2,17 +2,14 @@ cmake_minimum_required(VERSION 3.2.2)
 project(SceneR_Framework)
 enable_language(CXX)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
-# set(CMAKE_VERBOSE_MAKEFILE on)
-
 set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
 
 # enable c++11 & clang standard library
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++11 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter ")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
 
-#-Weverything -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+# -Weverything -Wno-reserved-id-macro -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
+
+#
 
 # Reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -336,7 +333,7 @@ target_include_directories(SceneR_Framework
                            PRIVATE ../../regal/include)
 
 # target links
-target_link_libraries(SceneR_Framework pthread ${GLFW_LIBRARIES} Regal)
+target_link_libraries(SceneR_Framework c++abi pthread ${GLFW_LIBRARIES} Regal)
 
 # install target
 install(TARGETS SceneR_Framework

@@ -46,7 +46,7 @@ namespace SceneR
             std::shared_ptr<void> Read(ContentReader& input) override;
 
         private:
-            std::int32_t ReadBoneReference(ContentReader& input, const std::uint32_t& boneCount) const;
+            std::uint32_t ReadBoneReference(ContentReader& input, const std::uint32_t& boneCount) const;
             std::u16string ReadString(ContentReader& input) const;
             std::shared_ptr<SceneR::Framework::BoundingSphere> ReadBoundingSphere(ContentReader& input) const;
         };

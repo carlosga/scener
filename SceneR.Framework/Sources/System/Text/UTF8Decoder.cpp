@@ -3,6 +3,8 @@
 
 #include <System/Text/UTF8Decoder.hpp>
 
+#include <memory>
+
 namespace System
 {
     namespace Text

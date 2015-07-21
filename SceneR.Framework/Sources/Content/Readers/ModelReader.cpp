@@ -157,9 +157,9 @@ namespace SceneR
             return model;
         }
 
-        std::int32_t ModelReader::ReadBoneReference(ContentReader& input, const std::uint32_t& boneCount) const
+        std::uint32_t ModelReader::ReadBoneReference(ContentReader& input, const std::uint32_t& boneCount) const
         {
-            std::int32_t boneReference;
+            std::uint32_t boneReference;
 
             if (boneCount < 255)
             {
@@ -170,7 +170,7 @@ namespace SceneR
                 boneReference = input.ReadUInt32();
             }
 
-            return boneReference - 1;
+            return ((boneReference == 0 ) ? 0 : boneReference - 1);
         }
 
         std::u16string ModelReader::ReadString(ContentReader& input) const
