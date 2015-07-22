@@ -240,9 +240,7 @@ namespace System
          * @param min the min value.
          * @param max the max value.
          */
-        static float Clamp(const float& value
-                         , const float& min
-                         , const float& max);
+        static float Clamp(const float& value, const float& min, const float& max);
 
         /**
          * Calculates a hermite spline interpolation.
@@ -265,9 +263,7 @@ namespace System
          * @param amount value between 0 and 1 indicating the weight of value2.
          * @returns the linear interpolation of the two vectors.
          */
-        static float Lerp(const float& value1
-                        , const float& value2
-                        , const float& amount);
+        static float Lerp(const float& value1, const float& value2, const float& amount);
 
         /**
          * Returns the lesser of two values
@@ -289,9 +285,7 @@ namespace System
          * @param value2 second vector
          * @param amount weighting value.
          */
-        static float SmoothStep(const float& value1
-                              , const float& value2
-                              , const float& amount);
+        static float SmoothStep(const float& value1, const float& value2, const float& amount);
 
         /**
          * Converts the given value in degrees to radians.
