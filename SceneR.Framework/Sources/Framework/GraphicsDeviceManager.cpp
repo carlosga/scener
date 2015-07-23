@@ -84,6 +84,7 @@ namespace SceneR
 
         void GraphicsDeviceManager::CreateDevice()
         {
+            // GLFW Initialization
             if (!glfwInit())
             {
                 throw std::runtime_error("glfwInit failed");

@@ -9,27 +9,27 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall"
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
 include_directories(Headers
-                    ../SceneR.Framework/Headers
                     ../../regal/include
+                    ../SceneR.Framework/Headers
                     ../../gtest-1.7.0/include)
+
+# PkgConfig
+find_package(PkgConfig REQUIRED)
 
 # pthread
 find_package(Threads REQUIRED)
 
-# glfw
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
-
 # Regal
-# Google Tests
 # SceneR Framework
-link_directories(../../regal/lib/linux/
-                 ../../gtest-1.7.0
-                 ../SceneR.Framework/build/${CMAKE_BUILD_TYPE})
+# Google Tests
+link_directories(../../regal/include
+                 ../SceneR.Framework/build/${CMAKE_BUILD_TYPE}
+                 ../../gtest-1.7.0)
 
 # header files
 set(HEADER_FILES

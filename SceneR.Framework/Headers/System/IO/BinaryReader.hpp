@@ -6,11 +6,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <string>
 #include <vector>
-
-// #include <System/Text/Encoding.hpp>
 
 namespace System
 {

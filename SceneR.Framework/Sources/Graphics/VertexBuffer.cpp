@@ -19,9 +19,13 @@ namespace SceneR
             , vao               { }
             , vbo               { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
         {
-            this->vao.Activate();
             this->vertexDeclaration->Declare(this->vao.Id(), this->bindingIndex);
-            this->vao.Deactivate();
+
+            glVertexArrayVertexBuffer(this->vao.Id()
+                                    , this->bindingIndex
+                                    , this->vbo.Id()
+                                    , 0
+                                    , static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
         }
 
         VertexBuffer::~VertexBuffer()
@@ -68,17 +72,11 @@ namespace SceneR
 
         void VertexBuffer::Activate()
         {
-            auto stride = this->vertexDeclaration->VertexStride();
-
-            // glVertexArrayVertexBuffer(this->vao.Id(), this->bindingIndex, this->vbo.Id(), 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
             this->vao.Activate();
-            glBindVertexBuffer(this->bindingIndex, this->vbo.Id(), 0, static_cast<GLsizei>(stride));
         }
 
         void VertexBuffer::Deactivate()
         {
-            // glVertexArrayVertexBuffer(0, this->bindingIndex, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
-            glBindVertexBuffer(this->bindingIndex, 0, 0, static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
             this->vao.Deactivate();
         }
     }

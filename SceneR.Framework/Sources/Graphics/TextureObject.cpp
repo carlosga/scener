@@ -30,19 +30,24 @@ namespace SceneR
             }
         }
 
+        std::uint32_t TextureObject::Id() const
+        {
+            return this->id;
+        }
+
         void TextureObject::Activate() const
         {
-            glBindTexture(static_cast<GLenum>(this->target), this->id);
+            glBindTextureUnit(0, this->id);
         }
 
         void TextureObject::Create()
         {
-            glGenTextures(1, &this->id);
+            glCreateTextures(static_cast<GLenum>(this->target), 1, &this->id);
         }
 
         void TextureObject::Deactivate() const
         {
-            glBindTexture(static_cast<GLenum>(this->target), 0);
+            glBindTextureUnit(0, 0);
         }
 
         void TextureObject::Declare2DStorage(const SurfaceFormat& format
@@ -50,12 +55,11 @@ namespace SceneR
                                            , const std::size_t&   width
                                            , const std::size_t&   height) const
         {
-            glTextureStorage2DEXT(this->id
-                                , static_cast<GLenum>(this->target)
-                                , static_cast<GLint>(levels)
-                                , static_cast<GLenum>(format)
-                                , static_cast<GLint>(width)
-                                , static_cast<GLint>(height));
+            glTextureStorage2D(this->id
+                             , static_cast<GLint>(levels)
+                             , static_cast<GLenum>(format)
+                             , static_cast<GLint>(width)
+                             , static_cast<GLint>(height));
         }
 
         void TextureObject::TextureSubImage2D(const SurfaceFormat& format
@@ -67,29 +71,27 @@ namespace SceneR
         {
             if (Texture::IsCompressedSurfaceFormat(format))
             {
-                glCompressedTextureSubImage2DEXT(this->id
-                                               , static_cast<GLenum>(this->target)
-                                               , static_cast<GLint>(level)
-                                               , 0
-                                               , 0
-                                               , static_cast<GLint>(width)
-                                               , static_cast<GLint>(height)
-                                               , static_cast<GLenum>(format)
-                                               , size
-                                               , data);
+                glCompressedTextureSubImage2D(this->id
+                                            , static_cast<GLint>(level)
+                                            , 0
+                                            , 0
+                                            , static_cast<GLint>(width)
+                                            , static_cast<GLint>(height)
+                                            , static_cast<GLenum>(format)
+                                            , size
+                                            , data);
             }
             else
             {
-                glTextureSubImage2DEXT(this->id
-                                     , static_cast<GLenum>(this->target)
-                                     , static_cast<GLint>(level)
-                                     , 0
-                                     , 0
-                                     , static_cast<GLint>(width)
-                                     , static_cast<GLint>(height)
-                                     , static_cast<GLenum>(format)
-                                     , GL_UNSIGNED_BYTE
-                                     , data);
+                glTextureSubImage2D(this->id
+                                  , static_cast<GLint>(level)
+                                  , 0
+                                  , 0
+                                  , static_cast<GLint>(width)
+                                  , static_cast<GLint>(height)
+                                  , static_cast<GLenum>(format)
+                                  , GL_UNSIGNED_BYTE
+                                  , data);
             }
         }
     }

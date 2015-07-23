@@ -35,7 +35,7 @@ namespace SceneR
 
         void VertexArrayObject::Create()
         {
-            glGenVertexArrays(1, &this->id);
+            glCreateVertexArrays(1, &this->id);
         }
 
         void VertexArrayObject::Activate() const

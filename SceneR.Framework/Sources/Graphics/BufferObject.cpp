@@ -60,17 +60,17 @@ namespace SceneR
 
         void BufferObject::GetData(const std::size_t& offset, const std::size_t& size, void* data) const
         {
-            glGetNamedBufferSubDataEXT(this->id, offset, size, data);
+            glGetNamedBufferSubData(this->id, offset, size, data);
         }
 
         void BufferObject::BufferData(const std::size_t& size, const void* data) const
         {
-            glNamedBufferDataEXT(this->id, size, data, static_cast<GLenum>(this->usage));
+            glNamedBufferData(this->id, size, data, static_cast<GLenum>(this->usage));
         }
 
         void BufferObject::BufferData(const std::size_t& offset, const std::size_t& size, const void *data) const
         {
-            glNamedBufferSubDataEXT(this->id, offset, size, data);
+            glNamedBufferSubData(this->id, offset, size, data);
         }
 
         void BufferObject::Invalidate() const
@@ -85,9 +85,7 @@ namespace SceneR
 
         void BufferObject::Create()
         {
-            glGenBuffers(1, &this->id);
-            this->Activate();
-            this->Deactivate();
+            glCreateBuffers(1, &this->id);
         }
     }
 }

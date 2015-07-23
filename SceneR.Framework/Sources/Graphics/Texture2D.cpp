@@ -42,6 +42,11 @@ namespace SceneR
             this->object.Dispose();
         }
 
+        std::uint32_t Texture2D::Id() const
+        {
+            return this->object.Id();
+        }
+
         const SurfaceFormat& Texture2D::Format() const
         {
             return this->format;

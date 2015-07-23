@@ -18,17 +18,29 @@ namespace SceneR
     {
         using System::Text::Encoding;
 
+#ifdef _USE_GLEW_
         void RendererWindow::DebugCallback(GLenum        source
                                          , GLenum        type
                                          , GLuint        id
                                          , GLenum        severity
                                          , GLsizei       length
                                          , const GLchar* message
-                                         , const void*   userParam)
+                                         , void*         userParam)
         {
             std::cout << message << std::endl;
         }
-
+#else
+    void RendererWindow::DebugCallback(GLenum        source
+                                     , GLenum        type
+                                     , GLuint        id
+                                     , GLenum        severity
+                                     , GLsizei       length
+                                     , const GLchar* message
+                                     , const void*   userParam)
+    {
+        std::cout << message << std::endl;
+    }
+#endif
         RendererWindow::RendererWindow(Renderer& renderer)
             : title             { u"" }
             , allowUserResizing { false }
@@ -88,7 +100,7 @@ namespace SceneR
             glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
             glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 5);
             glfwWindowHint(GLFW_RESIZABLE             , (allowResize ? GL_TRUE : GL_FALSE));
             glfwWindowHint(GLFW_RED_BITS              , 8);
             glfwWindowHint(GLFW_GREEN_BITS            , 8);
@@ -124,8 +136,18 @@ namespace SceneR
             // Set the new window context as the current context
             glfwMakeContextCurrent(this->handle);
 
+#ifdef _USE_GLEW_
+            // GLEW Initialization
+            glewExperimental = GL_TRUE;
+
+            if (glewInit() != GLEW_OK)
+            {
+                throw std::runtime_error("glewInit failed");
+            }
+#else
             // Disable regal emulation as it prevents the shaders to be compiled correctly
             glDisable(GL_EMULATION_REGAL);
+#endif
 
             // Initialize input
             this->InitializeInput();

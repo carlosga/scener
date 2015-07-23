@@ -40,6 +40,11 @@ namespace SceneR
 
         public:
             /**
+             * Gets the texture identifier
+             */
+            virtual std::uint32_t Id() const = 0;
+
+            /**
              * Gets the format of the texture data.
              */
             virtual const SurfaceFormat& Format() const = 0;

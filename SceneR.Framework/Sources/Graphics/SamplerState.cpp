@@ -129,25 +129,24 @@ namespace SceneR
             return *this;
         }
 
-        void SamplerState::OnApply(const TextureTarget& target) const
+        void SamplerState::OnApply(const std::uint32_t& textureId) const
         {
-            auto   glTarget  = static_cast<GLenum>(target);
             GLenum minfilter;
             GLenum magfilter;
 
             this->GetMinMaxFilters(minfilter, magfilter);
 
-            glTexParameteri(glTarget, GL_TEXTURE_WRAP_S    , static_cast<GLint>(this->addressU));
-            glTexParameteri(glTarget, GL_TEXTURE_WRAP_T    , static_cast<GLint>(this->addressV));
-            glTexParameteri(glTarget, GL_TEXTURE_WRAP_R    , static_cast<GLint>(this->addressW));
-            glTexParameterf(glTarget, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
-            glTexParameteri(glTarget, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(this->maxMipLevel));
-            glTexParameteri(glTarget, GL_TEXTURE_MIN_FILTER, minfilter);
-            glTexParameteri(glTarget, GL_TEXTURE_MAG_FILTER, magfilter);
+            glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(this->addressU));
+            glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(this->addressV));
+            glTextureParameteri(textureId, GL_TEXTURE_WRAP_R    , static_cast<GLint>(this->addressW));
+            glTextureParameteri(textureId, GL_TEXTURE_LOD_BIAS  , this->mipMapLevelOfDetailBias);
+            glTextureParameteri(textureId, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(this->maxMipLevel));
+            glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, minfilter);
+            glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, magfilter);
 
             if (this->filter == TextureFilter::Anisotropic)
             {
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, this->maxAnisotropy);
+                glTextureParameteri(textureId, GL_TEXTURE_MAX_ANISOTROPY_EXT, this->maxAnisotropy);
             }
         }
 

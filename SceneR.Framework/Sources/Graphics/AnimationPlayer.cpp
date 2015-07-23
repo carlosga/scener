@@ -94,7 +94,8 @@ namespace SceneR
             if (currentTime < this->currentTimeValue)
             {
                 this->currentKeyframe = 0;
-                this->boneTransforms.assign(this->skinningDataValue->BindPose().begin(), this->skinningDataValue->BindPose().end());
+                this->boneTransforms.assign(this->skinningDataValue->BindPose().begin()
+                                          , this->skinningDataValue->BindPose().end());
             }
 
             this->currentTimeValue = currentTime;
@@ -137,7 +138,8 @@ namespace SceneR
         {
             for (std::uint32_t bone = 0; bone < this->skinTransforms.size(); bone++)
             {
-                this->skinTransforms[bone] = this->skinningDataValue->InverseBindPose()[bone] * this->worldTransforms[bone];
+                this->skinTransforms[bone] = this->skinningDataValue->InverseBindPose()[bone]
+                                           * this->worldTransforms[bone];
             }
         }
 

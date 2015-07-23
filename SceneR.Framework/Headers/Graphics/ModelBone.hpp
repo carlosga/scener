@@ -4,7 +4,7 @@
 #ifndef MODELBONE_HPP
 #define MODELBONE_HPP
 
-#include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Gets the index of this bone in the Bones collection.
              */
-            std::size_t Index() const;
+            std::uint32_t Index() const;
 
             /**
              * Gets the bone name
@@ -77,7 +77,7 @@ namespace SceneR
 
         private:
             std::vector<std::shared_ptr<ModelBone>> children;
-            std::size_t                             index;
+            std::uint32_t                           index;
             std::u16string                          name;
             std::shared_ptr<ModelBone>              parent;
             SceneR::Framework::Matrix               transform;

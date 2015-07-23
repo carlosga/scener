@@ -37,6 +37,11 @@ namespace SceneR
 
         public:
             /**
+             * Gets the texture object identifier
+             */
+            std::uint32_t Id() const;
+
+            /**
              * Activates the texture object.
              */
             void Activate() const;

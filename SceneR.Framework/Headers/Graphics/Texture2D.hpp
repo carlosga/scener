@@ -5,6 +5,7 @@
 #define TEXTURE2D_HPP
 
 #include <cstddef>
+#include <cstdint>
 
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureObject.hpp>
@@ -65,6 +66,8 @@ namespace SceneR
             void Dispose() override;
 
         public:
+            std::uint32_t Id() const override;
+
             /**
              * Gets the format of the texture data.
              */

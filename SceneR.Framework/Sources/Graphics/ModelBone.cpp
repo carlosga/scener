@@ -27,7 +27,7 @@ namespace SceneR
             return this->children;
         }
 
-        std::size_t ModelBone::Index() const
+        std::uint32_t ModelBone::Index() const
         {
             return this->index;
         }

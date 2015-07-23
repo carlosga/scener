@@ -10,7 +10,7 @@
 #ifndef SKINNINGDATA_HPP
 #define SKINNINGDATA_HPP
 
-#include <cstddef>
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
@@ -30,7 +30,7 @@ namespace SceneR
             SkinningData(const std::map<std::u16string, AnimationClip>& animationClips
                        , const std::vector<SceneR::Framework::Matrix>&  bindPose
                        , const std::vector<SceneR::Framework::Matrix>&  inverseBindPose
-                       , const std::vector<std::size_t>&                skeletonHierarchy);
+                       , const std::vector<std::uint32_t>&              skeletonHierarchy);
 
             SkinningData(const SkinningData& skinningData);
 
@@ -48,13 +48,13 @@ namespace SceneR
 
             const std::vector<SceneR::Framework::Matrix>& InverseBindPose() const;
 
-            const std::vector<std::size_t>& SkeletonHierarchy() const;
+            const std::vector<std::uint32_t>& SkeletonHierarchy() const;
 
         private:
             std::map<std::u16string, AnimationClip> animationClips;
             std::vector<SceneR::Framework::Matrix>  bindPose;
             std::vector<SceneR::Framework::Matrix>  inverseBindPose;
-            std::vector<std::size_t>                skeletonHierarchy;
+            std::vector<std::uint32_t>              skeletonHierarchy;
         };
     }
 }

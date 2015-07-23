@@ -9,22 +9,29 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall 
 
 # -Weverything -Wno-reserved-id-macro -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
-#
-
 # Reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
 include_directories(Headers)
 
+# PkgConfig
+find_package(PkgConfig REQUIRED)
+
 # pthread
 find_package(Threads REQUIRED)
 
+# OpenGL
+find_package(OpenGL REQUIRED)
+
+# glew
+# find_package(GLEW REQUIRED)
+
 # glfw
-find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
 
 # Regal
@@ -329,11 +336,19 @@ set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS 
 
 # target include directories
 target_include_directories(SceneR_Framework
-                           PRIVATE ${GLFW_INCLUDE_DIRS}
-                           PRIVATE ../../regal/include)
+                           PRIVATE ${OPENGL_INCLUDE_DIRS}
+                           PRIVATE ../../regal/include
+                           # PRIVATE ${GLEW_INCLUDE_DIRS}
+                           PRIVATE ${GLFW_INCLUDE_DIRS})
 
 # target links
-target_link_libraries(SceneR_Framework c++abi pthread ${GLFW_LIBRARIES} Regal)
+target_link_libraries(SceneR_Framework
+                      c++abi
+                      pthread
+                      ${OPENGL_LIBRARIES}
+                      #${GLEW_LIBRARIES}
+                      Regal
+                      ${GLFW_LIBRARIES})
 
 # install target
 install(TARGETS SceneR_Framework

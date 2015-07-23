@@ -3,7 +3,7 @@
 
 #include <Content/Readers/SkinningDataReader.hpp>
 
-#include <cstddef>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -45,7 +45,7 @@ namespace SceneR
 
             // 4. Read the skeleton hierarchy.
             //    For each bone in the skeleton, stores the index of the parent bone.
-            auto skeletonHierarchy = *input.ReadObject<std::vector<std::size_t>>();
+            auto skeletonHierarchy = *input.ReadObject<std::vector<std::uint32_t>>();
 
             return std::make_shared<SkinningData>(animationClips, bindPose, inverseBindPose, skeletonHierarchy);
         }

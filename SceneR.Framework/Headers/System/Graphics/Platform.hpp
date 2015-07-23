@@ -4,7 +4,11 @@
 #ifndef PLATFORM_HPP
 #define PLATFORM_HPP
 
+#ifdef _USE_GLEW_
+#include <GL/glew.h>
+#else
 #include <GL/Regal.h>
+#endif
 #include <GLFW/glfw3.h>
 
 #ifdef __linux__

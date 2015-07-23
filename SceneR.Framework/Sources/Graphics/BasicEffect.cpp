@@ -416,10 +416,10 @@ namespace SceneR
             {
                 SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
 
-                this->texture->Activate();
-
                 sampler.MaxMipLevel(this->texture->LevelCount());
-                sampler.OnApply(TextureTarget::Texture2D);
+                sampler.OnApply(this->texture->Id());
+
+                this->texture->Activate();
             }
 
             // Recompute the world+view+projection matrix or fog vector

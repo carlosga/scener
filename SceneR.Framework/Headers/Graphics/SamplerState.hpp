@@ -120,7 +120,7 @@ namespace SceneR
             SamplerState& operator=(const SamplerState& samplerState);
 
         private:
-            void OnApply(const TextureTarget& target) const;
+            void OnApply(const std::uint32_t& textureId) const;
             void GetMinMaxFilters(GLenum& minfilter, GLenum& maxfilter) const;
 
         private:

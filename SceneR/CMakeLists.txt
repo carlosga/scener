@@ -6,9 +6,6 @@ enable_language(CXX)
 
 set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
-
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall")
 
@@ -16,6 +13,7 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall"
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
@@ -43,8 +41,9 @@ set(SOURCE_FILES
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
 
 # target include directories
-target_include_directories(SceneR PRIVATE ../../regal/include
-                                  PUBLIC ../SceneR.Framework/Headers)
+target_include_directories(SceneR
+                           PRIVATE ../../regal/include
+                           PUBLIC ../SceneR.Framework/Headers)
 
 # target libs
 target_link_libraries(SceneR c++abi SceneR_Framework)
