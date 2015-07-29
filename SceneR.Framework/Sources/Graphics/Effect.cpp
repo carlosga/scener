@@ -105,7 +105,7 @@ namespace SceneR
         void Effect::Build()
         {
             // Compile the shaders ...
-            for (auto &s : this->shaders)
+            for (auto& s : this->shaders)
             {
                 s->Compile();
             }
@@ -119,7 +119,7 @@ namespace SceneR
             }
 
             // ... attach the shaders to the new shader program
-            for (auto &s : this->shaders)
+            for (const auto& s : this->shaders)
             {
                 // Attach the shader
                 glAttachShader(this->id, s->id);

@@ -287,14 +287,14 @@ namespace SceneR
             return Math::Sqrt(this->LengthSquared());
         }
 
-        float& Vector3::operator[](const size_t& index)
+        float& Vector3::operator[](const std::size_t& index)
         {
             assert(index < 3);
 
             return (this->vector[index]);
         }
 
-        const float& Vector3::operator[](const size_t& index) const
+        const float& Vector3::operator[](const std::size_t& index) const
         {
             assert(index < 3);
 

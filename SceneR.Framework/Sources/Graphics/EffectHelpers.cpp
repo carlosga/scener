@@ -9,6 +9,7 @@
 
 #include <Graphics/EffectHelpers.hpp>
 
+#include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
@@ -18,6 +19,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        using System::Math;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
@@ -102,7 +104,7 @@ namespace SceneR
                                        , const float&     fogEnd
                                        , EffectParameter& fogVectorParam)
         {
-            if (fogStart == fogEnd)
+            if (Math::Equal(fogStart, fogEnd))
             {
                 // Degenerate case: force everything to 100% fogged if start and end are the same.
                 fogVectorParam.SetValue(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });

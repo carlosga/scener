@@ -30,14 +30,14 @@ namespace SceneR
             return this->parameters.size();
         }
 
-        EffectParameter& EffectParameterCollection::operator[](const size_t& parameterIndex)
+        EffectParameter& EffectParameterCollection::operator[](const std::size_t& parameterIndex)
         {
             assert(parameterIndex < this->parameters.size());
 
             return this->parameters[parameterIndex];
         }
 
-        const EffectParameter& EffectParameterCollection::operator[](const size_t& parameterIndex) const
+        const EffectParameter& EffectParameterCollection::operator[](const std::size_t& parameterIndex) const
         {
             assert(parameterIndex < this->parameters.size());
 
@@ -75,7 +75,7 @@ namespace SceneR
         EffectParameter& EffectParameterCollection::Add(const std::u16string&                      name
                                                       , const std::size_t&                         index
                                                       , const std::size_t&                         offset
-                                                      , const std::uint32_t&                       type
+                                                      , const std::int32_t&                        type
                                                       , const std::shared_ptr<UniformBufferObject> uniformBuffer)
         {
             this->parameters.push_back({ name, index, offset, type, uniformBuffer});

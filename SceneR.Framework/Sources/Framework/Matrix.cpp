@@ -793,14 +793,14 @@ namespace SceneR
             return (*this == Matrix::Identity);
         }
 
-        float& Matrix::operator[](const size_t& index)
+        float& Matrix::operator[](const std::size_t& index)
         {
             assert(index < 16);
 
             return this->matrix[index];
         }
 
-        const float& Matrix::operator[](const size_t& index) const
+        const float& Matrix::operator[](const std::size_t& index) const
         {
             assert(index < 16);
 

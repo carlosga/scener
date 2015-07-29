@@ -555,20 +555,6 @@ namespace SceneR
             this->worldParam                 = this->parameters[u"World"];
             this->worldViewProjParam         = this->parameters[u"WorldViewProj"];
             this->worldInverseTransposeParam = this->parameters[u"WorldInverseTranspose"];
-
-            /*
-            this->light0 = DirectionalLight { this->parameters[u"DirLight0Direction"].GetValueVector3()
-                                            , this->parameters[u"DirLight0DiffuseColor"].GetValueVector3()
-                                            , this->parameters[u"DirLight0SpecularColor"].GetValueVector3() };
-
-            this->light1 = DirectionalLight { this->parameters[u"DirLight1Direction"].GetValueVector3()
-                                            , this->parameters[u"DirLight1DiffuseColor"].GetValueVector3()
-                                            , this->parameters[u"DirLight1SpecularColor"].GetValueVector3() };
-
-            this->light2 = DirectionalLight { this->parameters[u"DirLight2Direction"].GetValueVector3()
-                                            , this->parameters[u"DirLight2DiffuseColor"].GetValueVector3()
-                                            , this->parameters[u"DirLight2SpecularColor"].GetValueVector3() };
-            */
         }
 
         std::uint32_t BasicEffect::VSIndices[32] =

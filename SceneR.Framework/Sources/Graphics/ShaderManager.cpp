@@ -81,8 +81,7 @@ namespace SceneR
                 {
                     const char* rpath = this->GetPathReference(path);
 
-                    glNamedStringARB(GL_SHADER_INCLUDE_ARB
-                                   , path.size()
+                    glNamedStringARB(GL_SHADER_INCLUDE_ARB, path.size()
                                    , rpath
                                    , shaderInclude.size()
                                    , shaderInclude.c_str());

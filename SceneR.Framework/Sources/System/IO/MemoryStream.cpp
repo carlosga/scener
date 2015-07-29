@@ -73,7 +73,7 @@ namespace System
             return this->stream.gcount();
         }
 
-        std::size_t MemoryStream::Seek(const size_t& offset, const std::ios::seekdir& origin)
+        std::size_t MemoryStream::Seek(const std::size_t& offset, const std::ios::seekdir& origin)
         {
             this->stream.seekg(offset, origin);
 
