@@ -25,7 +25,7 @@ namespace SceneR
         {
         }
 
-        size_t EffectParameterCollection::Count() const
+        std::size_t EffectParameterCollection::Count() const
         {
             return this->parameters.size();
         }

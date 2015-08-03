@@ -260,7 +260,7 @@ namespace SceneR
             /**
              * Activates the shader subroutine with the given shader type and index.
              */
-            void ActivateSubroutine(const ShaderType& type, const uint32_t& subroutineIndex) const;
+            void ActivateSubroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
 
         protected:
             /**
