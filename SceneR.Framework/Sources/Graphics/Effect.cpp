@@ -89,15 +89,17 @@ namespace SceneR
             glUseProgram(0);
         }
 
-        void Effect::AddShader(const std::u16string& name, const ShaderType& type, const std::string& source)
+        void Effect::AddShader(const std::u16string&            name
+                             , const ShaderType&                type
+                             , const std::vector<std::uint8_t>& source)
         {
             this->AddShader(name, type, source, std::vector<std::string>());
         }
 
-        void Effect::AddShader(const std::u16string&           name
-                             , const ShaderType&               type
-                             , const std::string&              source
-                             , const std::vector<std::string>& includes)
+        void Effect::AddShader(const std::u16string&            name
+                             , const ShaderType&                type
+                             , const std::vector<std::uint8_t>& source
+                             , const std::vector<std::string>&  includes)
         {
             this->shaders.push_back(std::make_shared<Shader>(name, type, source, includes));
         }

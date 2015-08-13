@@ -538,8 +538,8 @@ namespace SceneR
                                                             , ShaderManager::CommonIncludePath
                                                             , ShaderManager::LightingIncludePath };
 
-            this->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vertString, includes);
-            this->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_fragString, includes);
+            this->AddShader(u"VSBasicEffect", ShaderType::Vertex, Resources::BasicEffect_vert, includes);
+            this->AddShader(u"FSBasicEffect", ShaderType::Fragment, Resources::BasicEffect_frag, includes);
             this->Build();
         }
 

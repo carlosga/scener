@@ -29,7 +29,27 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
+            Shader(const std::u16string& name, const ShaderType& type, const std::vector<std::uint8_t>& source);
+
+            /**
+             * Initializes a new instance of the Shader class.
+             * @param name the name of the shader.
+             * @param type the type of the shader.
+             * @param source the source code for the shader.
+             */
             Shader(const std::u16string& name, const ShaderType& type, const std::string& source);
+
+            /**
+             * Initializes a new instance of the Shader class.
+             * @param name the name of the shader.
+             * @param type the type of the shader
+             * @param source the source code for the shader.
+             * @param includes the shader includes references.
+             */
+            Shader(const std::u16string&            name
+                 , const ShaderType&                type
+                 , const std::vector<std::uint8_t>& source
+                 , const std::vector<std::string>&  includes);
 
             /**
              * Initializes a new instance of the Shader class.

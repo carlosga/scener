@@ -1,8 +1,10 @@
 #ifndef SHADER_MANAGER
 #define SHADER_MANAGER
 
+#include <cstdint>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace SceneR
 {
@@ -54,7 +56,7 @@ namespace SceneR
         private:
             void LoadShaderIncludes();
             void UnloadShaderIncludes();
-            void LoadInclude(const std::string& path, const std::string& shaderInclude);
+            void LoadInclude(const std::string& path, const std::vector<std::uint8_t>& shaderInclude);
             void UnloadInclude(const std::string& path);
             bool IsIncludeRegistered(const std::string& path) const;
             bool IsIncludeDeclared(const std::string& path) const;

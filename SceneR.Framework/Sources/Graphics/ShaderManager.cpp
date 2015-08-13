@@ -54,11 +54,11 @@ namespace SceneR
 
         void ShaderManager::LoadShaderIncludes()
         {
-            this->LoadInclude(StructuresIncludePath   , Resources::Structures_glslString);
-            this->LoadInclude(CommonIncludePath       , Resources::Common_glslString);
-            this->LoadInclude(LightingIncludePath     , Resources::Lighting_glslString);
-            this->LoadInclude(BasicEffectIncludePath  , Resources::BasicEffect_glslString);
-            this->LoadInclude(SkinnedEffectIncludePath, Resources::SkinnedEffect_glslString);
+            this->LoadInclude(StructuresIncludePath   , Resources::Structures_glsl);
+            this->LoadInclude(CommonIncludePath       , Resources::Common_glsl);
+            this->LoadInclude(LightingIncludePath     , Resources::Lighting_glsl);
+            this->LoadInclude(BasicEffectIncludePath  , Resources::BasicEffect_glsl);
+            this->LoadInclude(SkinnedEffectIncludePath, Resources::SkinnedEffect_glsl);
         }
 
         void ShaderManager::UnloadShaderIncludes()
@@ -71,20 +71,19 @@ namespace SceneR
             ShaderIncludes.clear();
         }
 
-        void ShaderManager::LoadInclude(const std::string& path, const std::string& shaderInclude)
+        void ShaderManager::LoadInclude(const std::string& path, const std::vector<std::uint8_t>& shaderInclude)
         {
             if (!this->IsIncludeRegistered(path))
             {
-                ShaderIncludes.emplace(path, shaderInclude);
+                auto source = std::string(shaderInclude.begin(), shaderInclude.end());
+
+                ShaderIncludes.emplace(path, source);
 
                 if (!this->IsIncludeDeclared(path))
                 {
                     const char* rpath = this->GetPathReference(path);
 
-                    glNamedStringARB(GL_SHADER_INCLUDE_ARB, path.size()
-                                   , rpath
-                                   , shaderInclude.size()
-                                   , shaderInclude.c_str());
+                    glNamedStringARB(GL_SHADER_INCLUDE_ARB, path.size(), rpath, source.size(), source.c_str());
                 }
             }
         }

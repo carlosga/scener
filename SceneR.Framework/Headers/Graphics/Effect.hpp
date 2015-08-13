@@ -231,9 +231,9 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the shader sources.
              */
-            void AddShader(const std::u16string& name
-                         , const ShaderType&     type
-                         , const std::string&    source);
+            void AddShader(const std::u16string&            name
+                         , const ShaderType&                type
+                         , const std::vector<std::uint8_t>& source);
 
             /**
              * @brief Adds the given shader sources and includes to the shader program for later compilation
@@ -242,10 +242,10 @@ namespace SceneR
              * @param source the shader sources.
              * @param includes the shader sources for "include" files.
              */
-            void AddShader(const std::u16string&           name
-                         , const ShaderType&               type
-                         , const std::string&              source
-                         , const std::vector<std::string>& includes);
+            void AddShader(const std::u16string&            name
+                         , const ShaderType&                type
+                         , const std::vector<std::uint8_t>& source
+                         , const std::vector<std::string>&  includes);
 
             /**
              * Compiles and links the shader program sources.

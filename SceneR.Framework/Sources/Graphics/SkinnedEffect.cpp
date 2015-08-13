@@ -546,8 +546,8 @@ namespace SceneR
                                                             , ShaderManager::CommonIncludePath
                                                             , ShaderManager::LightingIncludePath };
 
-            this->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vertString, includes);
-            this->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_fragString, includes);
+            this->AddShader(u"VSSkinnedEffect", ShaderType::Vertex, Resources::SkinnedEffect_vert, includes);
+            this->AddShader(u"FSSkinnedEffect", ShaderType::Fragment, Resources::SkinnedEffect_frag, includes);
             this->Build();
         }
 
