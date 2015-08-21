@@ -1,3 +1,6 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 #include <Input/Mouse.hpp>
 
 #include <System/Graphics/Platform.hpp>
@@ -31,13 +34,13 @@ namespace SceneR
             glfwSetInputMode(WindowHandle, GLFW_STICKY_MOUSE_BUTTONS, 1);
 
             // Cursor position callback
-            glfwSetCursorPosCallback(WindowHandle, Mouse::CursorPositionCallback);
+            // glfwSetCursorPosCallback(WindowHandle, Mouse::CursorPositionCallback);
 
             // Mouse buttons callback
-            glfwSetMouseButtonCallback(WindowHandle, Mouse::MouseButtonCallback);
+            // glfwSetMouseButtonCallback(WindowHandle, Mouse::MouseButtonCallback);
 
             // Mouse scrolling callback
-            glfwSetScrollCallback(WindowHandle, Mouse::ScrollCallback);
+            // glfwSetScrollCallback(WindowHandle, Mouse::ScrollCallback);
         }
 
         void Mouse::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)

@@ -1,3 +1,6 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 #include <Input/KeyboardState.hpp>
 #include <System/Graphics/Platform.hpp>
 
@@ -20,7 +23,7 @@ namespace SceneR
 
         KeyState KeyboardState::GetKeyState(const Keys& key)
         {
-            return KeyState::Down;
+            return (IsKeyDown(key) ? KeyState::Down : KeyState::Up);
         }
 
         std::vector<Keys> KeyboardState::GetPressedKeys()
