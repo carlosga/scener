@@ -11,12 +11,16 @@
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
+#include <Input/Keyboard.hpp>
+#include <Input/Mouse.hpp>
 
 namespace SceneR
 {
     namespace Framework
     {
         using System::Text::Encoding;
+        using SceneR::Input::Keyboard;
+        using SceneR::Input::Mouse;
 
 #ifdef _USE_GLEW_
         void RendererWindow::DebugCallback(GLenum        source
@@ -170,11 +174,11 @@ namespace SceneR
 
         void RendererWindow::InitializeInput() const
         {
-            // Enable sticky keys
-            glfwSetInputMode(this->handle, GLFW_STICKY_KEYS, GL_TRUE);
+            // Initialize keyboard input
+            Keyboard::Initialize(this->handle);
 
-            // Enable mouse cursor (only needed for fullscreen mode)
-            glfwSetInputMode(this->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            // Initialize mouse input
+            Mouse::Initialize(this->handle);
         }
 
         bool RendererWindow::ShouldClose() const

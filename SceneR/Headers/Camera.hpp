@@ -6,6 +6,7 @@
 
 #include <Framework/DrawableComponent.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/Vector3.hpp>
 
 namespace SceneR
 {
@@ -28,7 +29,9 @@ namespace SceneR
             SceneR::Framework::Matrix Projection;
 
         private:
-            float rotation;
+            SceneR::Framework::Vector3 _position;
+            SceneR::Framework::Matrix  _rotationTransform;
+            float                      _rotation;
         };
     }
 }

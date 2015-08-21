@@ -164,6 +164,14 @@ set(HEADER_FILES
     Headers/Graphics/VertexPositionColorTexture.hpp
     Headers/Graphics/VertexPositionNormalTexture.hpp
     Headers/Graphics/Viewport.hpp
+    Headers/Input/Buttons.hpp
+    Headers/Input/ButtonState.hpp
+    Headers/Input/Keys.hpp
+    Headers/Input/KeyState.hpp
+    Headers/Input/Keyboard.hpp
+    Headers/Input/KeyboardState.hpp
+    Headers/Input/Mouse.hpp
+    Headers/Input/MouseState.hpp
     Headers/System/IDisposable.hpp
     Headers/System/BitConverter.hpp
     Headers/System/Math.hpp
@@ -282,6 +290,10 @@ set(SOURCE_FILES
     Sources/Graphics/VertexPositionColorTexture.cpp
     Sources/Graphics/VertexPositionNormalTexture.cpp
     Sources/Graphics/Viewport.cpp
+    Sources/Input/Keyboard.cpp
+    Sources/Input/KeyboardState.cpp
+    Sources/Input/Mouse.cpp
+    Sources/Input/MouseState.cpp
     Sources/System/IDisposable.cpp
     Sources/System/Math.cpp
     Sources/System/TimeSpan.cpp

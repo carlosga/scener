@@ -12,89 +12,89 @@ struct GLFWwindow;
 
 namespace SceneR
 {
-    namespace Framework
+    namespace Framework{
+    class Renderer;
+
+    /**
+     * The window associated with a renderer.
+     */
+    class RendererWindow
     {
-        class Renderer;
+    public:
+        /**
+         * Initializes a new instance of the RendererWindow class.
+         * @param renderer the renderer instance owning the renderer window.
+         */
+        RendererWindow(Renderer& renderer);
 
         /**
-         * The window associated with a renderer.
+         * Releases all resource being used by the current RendererWindow
          */
-        class RendererWindow
-        {
-        public:
-            /**
-             * Initializes a new instance of the RendererWindow class.
-             * @param renderer the renderer instance owning the renderer window.
-             */
-            RendererWindow(Renderer& renderer);
+        ~RendererWindow();
 
-            /**
-             * Releases all resource being used by the current RendererWindow
-             */
-            ~RendererWindow();
+    public:
+        /**
+         * Gets the renderer window title
+         * @return the renderer window title
+         */
+        const std::u16string& Title() const;
 
-        public:
-            /**
-             * Gets the renderer window title
-             * @return the renderer window title
-             */
-            const std::u16string& Title() const;
+        /**
+         * Sets the renderer window title
+         * @param title the renderer window title
+         */
+        void Title(const std::u16string& title);
 
-            /**
-             * Sets the renderer window title
-             * @param title the renderer window title
-             */
-            void Title(const std::u16string& title);
+        /**
+         * Specifies whether to allow the user to resize the renderer window.
+         * @return whether to allow the user to resize the renderer window.
+         */
+        bool AllowUserResizing() const;
 
-            /**
-             * Specifies whether to allow the user to resize the renderer window.
-             * @return whether to allow the user to resize the renderer window.
-             */
-            bool AllowUserResizing() const;
+        /**
+         * Specifies whether to allow the user to resize the renderer window.
+         */
+        void AllowUserResizing(const bool& allowUserResizing);
 
-            /**
-             * Specifies whether to allow the user to resize the renderer window.
-             */
-            void AllowUserResizing(const bool& allowUserResizing);
-
-        private:
-            void Open();
-            void Close();
-            void InitializeInput() const;
-            bool ShouldClose() const;
-            void EnableDebugOutput() const;
+    private:
+        void Open();
+        void Close();
+        void InitializeInput() const;
+        bool ShouldClose() const;
+        void EnableDebugOutput() const;
 #ifdef _USE_GLEW_
-            static void DebugCallback(GLenum        source
-                                    , GLenum        type
-                                    , GLuint        id
-                                    , GLenum        severity
-                                    , GLsizei       length
-                                    , const GLchar* message
-                                    , void*         userParam);
+        static void DebugCallback(GLenum        source
+                                , GLenum        type
+                                , GLuint        id
+                                , GLenum        severity
+                                , GLsizei       length
+                                , const GLchar* message
+                                , void*         userParam);
 #else
-            static void DebugCallback(GLenum        source
-                                    , GLenum        type
-                                    , GLuint        id
-                                    , GLenum        severity
-                                    , GLsizei       length
-                                    , const GLchar* message
-                                    , const void*   userParam);
+        static void DebugCallback(GLenum        source
+                                , GLenum        type
+                                , GLuint        id
+                                , GLenum        severity
+                                , GLsizei       length
+                                , const GLchar* message
+                                , const void*   userParam);
 #endif
 
-        private:
-            RendererWindow() = delete;
-            RendererWindow(const RendererWindow& window) = delete;
-            RendererWindow& operator=(const RendererWindow& window) = delete;
+    private:
+        RendererWindow() = delete;
+        RendererWindow(const RendererWindow& window) = delete;
+        RendererWindow& operator=(const RendererWindow& window) = delete;
 
-        private:
-            std::u16string title;
-            bool           allowUserResizing;
-            GLFWwindow*    handle;
-            Renderer&      renderer;
+    private:
+        std::u16string title;
+        bool           allowUserResizing;
+        GLFWwindow*    handle;
+        Renderer&      renderer;
 
-            friend class Renderer;
-        };
-    }
+        friend class Renderer;
+    };
+}
+
 }
 
 #endif  /* RENDERERWINDOW_HPP */
