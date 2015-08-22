@@ -2,7 +2,6 @@
 #define RESOURCES_HPP
 
 #include <cstdint>
-
 #include <vector>
 
 namespace SceneR
