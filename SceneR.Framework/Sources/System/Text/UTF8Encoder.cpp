@@ -107,7 +107,6 @@ namespace System
             else if (r == std::codecvt_base::ok)
             {
                 auto count = static_cast<std::size_t>(toNext - toStart);
-                auto index = byteIndex;
 
                 if ((byteIndex + count) > bytes.size())
                 {
@@ -115,11 +114,6 @@ namespace System
                 }
 
                 std::copy_n(to.begin(), count, bytes.begin() + byteIndex);
-
-//                for (auto position = toStart; position < toNext; position++, index++)
-//                {
-//                    bytes[index] = static_cast<std::uint8_t>(*position);
-//                }
             }
 
             return static_cast<std::size_t>(toNext - toStart);
