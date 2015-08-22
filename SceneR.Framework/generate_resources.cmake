@@ -60,7 +60,7 @@ function(generate_resources_source dir output)
         # Convert hex data for C compatibility
         string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
         # Append data to output file
-        file(APPEND ${output} "const std::vector<std::uint8_t> Resources::${filename} = ""{${filedata}}"";\n")
+        file(APPEND ${output} "const std::vector<std::uint8_t> Resources::${filename} = { ${filedata} };\n")
     endforeach()
     file(APPEND ${output} "}\n")
     file(APPEND ${output} "}\n")
