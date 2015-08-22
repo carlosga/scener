@@ -135,7 +135,7 @@ namespace System
         //
         // to take care for edge cases
 
-        return (Math::Abs(a - b) < 1e-5);
+        return (a == b);
     }
 
     float Math::Barycentric(const float& value1

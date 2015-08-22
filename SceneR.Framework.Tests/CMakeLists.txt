@@ -42,6 +42,7 @@ set(HEADER_FILES
     Headers/PlaneTest.hpp
     Headers/QuaternionTest.hpp
     Headers/TimeSpanTest.hpp
+    Headers/UTF8EncodingTest.hpp
     Headers/Vector2Test.hpp
     Headers/Vector3Test.hpp
     Headers/Vector4Test.hpp)
@@ -57,6 +58,7 @@ set(SOURCE_FILES
     Sources/PlaneTest.cpp
     Sources/QuaternionTest.cpp
     Sources/TimeSpanTest.cpp
+    Sources/UTF8EncodingTest.cpp
     Sources/Vector2Test.cpp
     Sources/Vector3Test.cpp
     Sources/Vector4Test.cpp)

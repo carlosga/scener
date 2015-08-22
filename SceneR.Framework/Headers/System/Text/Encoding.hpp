@@ -95,18 +95,18 @@ namespace System
              * Calculates the number of bytes produced by encoding all
              * the characters in the specified character array.
              */
-            virtual std::size_t GetByteCount(const std::vector<char16_t>& chars) const;
+            std::size_t GetByteCount(const std::vector<char16_t>& chars) const;
 
             /**
              * Calculates the number of bytes produced by encoding the characters in the specified string.
              */
-            virtual std::size_t GetByteCount(const std::u16string& s) const;
+            std::size_t GetByteCount(const std::u16string& s) const;
 
             /**
              * Calculates the number of bytes produced by encoding a set of characters
              * starting at the specified character pointer.
              */
-            virtual std::size_t GetByteCount(const char16_t* chars, const std::size_t& count) const;
+            std::size_t GetByteCount(const char16_t* chars, const std::size_t& count) const;
 
             /**
              * When overridden in a derived class, calculates the number of bytes produced
@@ -119,29 +119,29 @@ namespace System
             /**
              * Encodes all the characters in the specified character array into a sequence of bytes.
              */
-            virtual std::vector<std::uint8_t> GetBytes(const std::vector<char16_t>& chars) const;
+            std::vector<std::uint8_t> GetBytes(const std::vector<char16_t>& chars) const;
 
             /**
              * Encodes all the characters in the specified string into a sequence of bytes.
              */
-            virtual std::vector<std::uint8_t> GetBytes(const std::u16string& s) const;
+            std::vector<std::uint8_t> GetBytes(const std::u16string& s) const;
 
             /**
              * Encodes a set of characters from the specified character array into a sequence of bytes.
              */
-            virtual std::vector<std::uint8_t> GetBytes(const std::vector<char16_t>& chars
-                                                     , const std::size_t&           index
-                                                     , const std::size_t&           count) const;
+            std::vector<std::uint8_t> GetBytes(const std::vector<char16_t>& chars
+                                             , const std::size_t&           index
+                                             , const std::size_t&           count) const;
 
             /**
              * Encodes a set of characters starting at the specified
              * character pointer into a sequence of bytes that are stored
              * starting at the specified byte pointer.
              */
-            virtual std::size_t GetBytes(const char16_t*    chars
-                                       , const std::size_t& charCount
-                                       , std::uint8_t*      bytes
-                                       , const std::size_t& byteCount) const;
+            std::size_t GetBytes(const char16_t*    chars
+                               , const std::size_t& charCount
+                               , std::uint8_t*      bytes
+                               , const std::size_t& byteCount) const;
 
             /**
              * When overridden in a derived class, encodes a set of characters from the
@@ -156,23 +156,23 @@ namespace System
             /**
              * Encodes a set of characters from the specified string into the specified byte array.
              */
-            virtual std::size_t GetBytes(const std::u16string&      s
-                                       , const std::size_t&         charIndex
-                                       , const std::size_t&         charCount
-                                       , std::vector<std::uint8_t>& bytes
-                                       , const std::size_t&         byteIndex) const;
+            std::size_t GetBytes(const std::u16string&      s
+                               , const std::size_t&         charIndex
+                               , const std::size_t&         charCount
+                               , std::vector<std::uint8_t>& bytes
+                               , const std::size_t&         byteIndex) const;
 
             /**
              * Calculates the number of characters produced by decoding
              * all the bytesin the specified byte array.
              */
-            virtual std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes) const;
+            std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes) const;
 
             /**
              * Calculates the number of characters produced by decoding a sequence
              * of bytes starting at the specified byte pointer.
              */
-            virtual std::size_t GetCharCount(const std::uint8_t* bytes, const std::size_t& count) const;
+            std::size_t GetCharCount(const std::uint8_t* bytes, const std::size_t& count) const;
 
             /**
              * When overridden in a derived class, calculates the number of characters produced
@@ -185,24 +185,24 @@ namespace System
             /**
              * Decodes all the bytes in the specified byte array into a set of characters.
              */
-            virtual std::vector<char16_t> GetChars(const std::vector<std::uint8_t>& bytes) const;
+            std::vector<char16_t> GetChars(const std::vector<std::uint8_t>& bytes) const;
 
             /**
              * Decodes a sequence of bytes from the specified byte array into a set of characters.
              */
-            virtual std::vector<char16_t> GetChars(const std::vector<std::uint8_t>& bytes
-                                                 , const std::size_t&               index
-                                                 , const std::size_t&               count) const;
+            std::vector<char16_t> GetChars(const std::vector<std::uint8_t>& bytes
+                                         , const std::size_t&               index
+                                         , const std::size_t&               count) const;
 
             /**
              * Decodes a sequence of bytes starting at the specified byte pointer
              * into a set of characters that are stored starting at the specified
              * character pointer.
              */
-            virtual std::size_t GetChars(const std::uint8_t* bytes
-                                       , const std::size_t&  byteCount
-                                       , char16_t*           chars
-                                       , const std::size_t&  charCount) const;
+            std::size_t GetChars(const std::uint8_t* bytes
+                               , const std::size_t&  byteCount
+                               , char16_t*           chars
+                               , const std::size_t&  charCount) const;
 
             /**
              * When overridden in a derived class, decodes a sequence of bytes from the
@@ -247,14 +247,14 @@ namespace System
             /**
              * Decodes all the bytes in the specified byte array into a string.
              */
-            virtual std::u16string GetString(const std::vector<std::uint8_t>& bytes) const;
+            std::u16string GetString(const std::vector<std::uint8_t>& bytes) const;
 
             /**
              * Decodes a sequence of bytes from the specified byte array into a string.
              */
-            virtual std::u16string GetString(const std::vector<std::uint8_t>& bytes
-                                           , const std::size_t&               index
-                                           , const std::size_t&               count) const;
+            std::u16string GetString(const std::vector<std::uint8_t>& bytes
+                                   , const std::size_t&               index
+                                   , const std::size_t&               count) const;
         };
     }
 }

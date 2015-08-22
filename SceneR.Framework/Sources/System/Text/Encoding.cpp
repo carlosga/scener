@@ -3,6 +3,7 @@
 
 #include <System/Text/Encoding.hpp>
 
+#include <cassert>
 #include <locale>
 
 #include <System/Text/UTF8Encoding.hpp>
@@ -72,6 +73,8 @@ namespace System
 
         std::size_t Encoding::GetByteCount(const char16_t* chars, const std::size_t& count) const
         {
+            assert(chars != nullptr);
+
             auto temp = std::vector<char16_t>(chars, chars + count);
 
             return this->GetByteCount(temp, 0, count);

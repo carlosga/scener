@@ -3,6 +3,8 @@
 
 #include <System/Text/UTF8Encoder.hpp>
 
+#include <cassert>
+
 namespace System
 {
     namespace Text
@@ -20,6 +22,10 @@ namespace System
                                             , const std::size_t&           count
                                             , const bool&                  flush) const
         {
+            assert(index <= chars.size());
+            assert(count <= chars.size());
+            assert((index + count) <= chars.size());
+
             std::size_t byteCount = 0;
 
             /**
