@@ -44,7 +44,7 @@ namespace System
                                 , const bool&                 flush) const override;
 
         private:
-            std::codecvt_utf8<char16_t> converter;
+            std::codecvt_utf8_utf16<char16_t> converter;
         };
     }
 }

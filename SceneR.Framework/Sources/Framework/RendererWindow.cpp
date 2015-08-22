@@ -34,22 +34,22 @@ namespace SceneR
             std::cout << message << std::endl;
         }
 #else
-    void RendererWindow::DebugCallback(GLenum        source
-                                     , GLenum        type
-                                     , GLuint        id
-                                     , GLenum        severity
-                                     , GLsizei       length
-                                     , const GLchar* message
-                                     , const void*   userParam)
-    {
-        std::cout << message << std::endl;
-    }
+        void RendererWindow::DebugCallback(GLenum        source
+                                         , GLenum        type
+                                         , GLuint        id
+                                         , GLenum        severity
+                                         , GLsizei       length
+                                         , const GLchar* message
+                                         , const void*   userParam)
+        {
+            std::cout << message << std::endl;
+        }
 #endif
+
         RendererWindow::RendererWindow(Renderer& renderer)
-            : title             { u"" }
-            , allowUserResizing { false }
-            , handle            { nullptr }
-            , renderer          ( renderer )
+            : title          { u"" }
+            , handle         { nullptr }
+            , renderer       ( renderer )
         {
         }
 
@@ -77,12 +77,12 @@ namespace SceneR
 
         bool RendererWindow::AllowUserResizing() const
         {
-            return this->allowUserResizing;
+            return this->renderer.graphicsDeviceManager.AllowUserResizing();
         }
 
         void RendererWindow::AllowUserResizing(const bool& allowUserResizing)
         {
-            this->allowUserResizing = allowUserResizing;
+            this->renderer.graphicsDeviceManager.AllowUserResizing(allowUserResizing);
         }
 
         void RendererWindow::Open()
@@ -158,7 +158,26 @@ namespace SceneR
 
             // Enable debug output
             this->EnableDebugOutput();
+
+            if (allowResize)
+            {
+//                std::function<void(GLFWwindow*, int, int)> _callback
+//                        = [](GLFWwindow* window, int width, int height)
+//                          {
+//                              std::cout << "width: " << width << std::endl;
+//                              std::cout << "height: " << height << std::endl;
+//                          };
+
+//                auto t  = *_callback.target<void(*)(GLFWwindow*, int, int)>();
+
+//                glfwSetWindowSizeCallback(this->handle, t);
+            }
         }
+
+//        void RendererWindow::WindowSizeCallback(GLFWwindow* window, int width, int height)
+//        {
+//            auto a = 1;
+//        }
 
         void RendererWindow::Close()
         {

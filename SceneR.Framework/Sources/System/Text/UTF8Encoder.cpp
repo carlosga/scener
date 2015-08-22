@@ -4,6 +4,10 @@
 #include <System/Text/UTF8Encoder.hpp>
 
 #include <cassert>
+#include <iostream>
+#include <string>
+#include <locale>
+#include <iomanip>
 
 namespace System
 {
@@ -22,9 +26,10 @@ namespace System
                                             , const std::size_t&           count
                                             , const bool&                  flush) const
         {
-            assert(index <= chars.size());
-            assert(count <= chars.size());
-            assert((index + count) <= chars.size());
+            if (index > chars.size() || count > chars.size() || (index + count) > chars.size())
+            {
+                throw std::invalid_argument("index and count do not denote a valid range in chars.");
+            }
 
             std::size_t byteCount = 0;
 
@@ -72,15 +77,23 @@ namespace System
                                         , const std::size_t&           byteIndex
                                         , const bool&                  flush) const
         {
-            auto            from     = const_cast<char16_t*>(&chars[0] + charIndex);
-            auto            fromEnd  = from + charCount;
+            if (charIndex > chars.size() || charCount > chars.size() || (charIndex + charCount) > chars.size())
+            {
+                throw std::invalid_argument("charIndex and charCount do not denote a valid range in chars.");
+            }
+            if (byteIndex > bytes.size())
+            {
+                throw std::invalid_argument("byteIndex do not denote a valid offset in bytes.");
+            }
+
+            const char16_t* from     = chars.data() + charIndex;
+            const char16_t* fromEnd  = from + charCount;
             const char16_t* fromNext = nullptr;
             auto            size     = charCount * this->converter.max_length();
-            auto            to       = std::vector<char>(size);
-            auto            toStart  = &to[0];
-            auto            toEnd    = toStart + size;
+            auto            to       = std::vector<char>(size, 0);
+            char*           toStart  = &to[0];
+            char*           toEnd    = toStart + size;
             char*           toNext   = nullptr;
-            auto            iterator = bytes.begin() + byteIndex;
             auto            state    = std::mbstate_t();
             auto            r        = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
@@ -93,10 +106,20 @@ namespace System
             }
             else if (r == std::codecvt_base::ok)
             {
-                for (auto position = toStart; position < toNext; position++)
+                auto count = static_cast<std::size_t>(toNext - toStart);
+                auto index = byteIndex;
+
+                if ((byteIndex + count) > bytes.size())
                 {
-                    bytes.emplace(iterator++, static_cast<std::uint8_t>(*position));
+                    throw std::invalid_argument("bytes does not have enough capacity from byteIndex to the end of the array to accommodate the resulting bytes.");
                 }
+
+                std::copy_n(to.begin(), count, bytes.begin() + byteIndex);
+
+//                for (auto position = toStart; position < toNext; position++, index++)
+//                {
+//                    bytes[index] = static_cast<std::uint8_t>(*position);
+//                }
             }
 
             return static_cast<std::size_t>(toNext - toStart);

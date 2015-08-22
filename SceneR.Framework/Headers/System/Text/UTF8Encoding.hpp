@@ -19,7 +19,7 @@ namespace System
         /**
          * Represents a UTF-8 encoding of Unicode characters.
          */
-        class UTF8Encoding final : public Encoding
+        class UTF8Encoding final : public virtual Encoding
         {
         public:
             /**
@@ -36,6 +36,12 @@ namespace System
             std::u16string EncodingName() const override;
 
             bool IsSingleByte() const override;
+
+            using Encoding::GetByteCount;
+            using Encoding::GetBytes;
+            using Encoding::GetCharCount;
+            using Encoding::GetChars;
+            using Encoding::GetString;
 
             std::size_t GetByteCount(const std::vector<char16_t>& chars
                                    , const std::size_t&           index

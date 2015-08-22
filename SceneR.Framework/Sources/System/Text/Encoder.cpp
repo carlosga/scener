@@ -28,11 +28,24 @@ namespace System
                                     , const std::size_t& byteCount
                                     , const bool&        flush) const
         {
+            if (chars == nullptr)
+            {
+                throw std::runtime_error("chars is null");
+            }
+            if (bytes == nullptr)
+            {
+                throw std::runtime_error("bytes is null");
+            }
+
             auto vchars = std::vector<char16_t>(chars, chars + charCount);
-            auto vbytes = std::vector<std::uint8_t>();
+            auto bcount = this->GetByteCount(vchars, 0, charCount, flush);
 
-            vbytes.reserve(this->GetByteCount(vchars, 0, charCount, flush));
+            if (bcount > byteCount)
+            {
+                throw std::runtime_error("byteCount is less than the resulting number of bytes.");
+            }
 
+            auto vbytes     = std::vector<std::uint8_t>(bcount, 0);
             auto totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
             auto result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
 

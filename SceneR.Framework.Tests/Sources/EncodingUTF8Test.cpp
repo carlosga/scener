@@ -49,11 +49,10 @@ TEST_F(EncodingUTF8Test, GetBytesFromCharArray)
 
 TEST_F(EncodingUTF8Test, GetBytesFromCharArrayRange)
 {
-    char16_t tmp[] = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
-    auto     chars = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
-    auto     bytes = std::vector<std::uint8_t> { };
-
-    bytes.reserve(Encoding::UTF8.GetByteCount(chars, 2, 3));
+    char16_t tmp[]  = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
+    auto     chars  = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
+    auto     bcount = Encoding::UTF8.GetByteCount(chars, 2, 3);
+    auto     bytes  = std::vector<std::uint8_t>(bcount, 0);
 
     auto byteCount = Encoding::UTF8.GetBytes(chars, 2, 3, bytes, 0);
 
@@ -95,15 +94,15 @@ TEST_F(EncodingUTF8Test, GetBytesFromString)
 
 TEST_F(EncodingUTF8Test, GetBytesFromStringRange)
 {
-    auto s     = u"za\u0306\u01FD\u03B2";
-    auto bytes = std::vector<std::uint8_t>();
+    std::u16string s = u"za\u0306\u01FD\u03B2";
+    std::vector<char16_t> chars(s.begin(), s.end());
 
-    bytes.reserve(Encoding::UTF8.GetByteCount(s));
-
-    auto count = Encoding::UTF8.GetBytes(s, 2, 3, bytes, 0);
+    auto bcount = Encoding::UTF8.GetByteCount(chars, 2, 3);
+    auto bytes  = std::vector<std::uint8_t>(bcount, 0);
+    auto byteCount = Encoding::UTF8.GetBytes(s, 2, 3, bytes, 0);
 
     EXPECT_TRUE(6 == bytes.size());
-    EXPECT_TRUE(6 == count);
+    EXPECT_TRUE(6 == byteCount);
 
     EXPECT_TRUE(0xCC == bytes[0]);
     EXPECT_TRUE(0x86 == bytes[1]);
@@ -124,11 +123,11 @@ TEST_F(EncodingUTF8Test, GetByteCountFromCharArrayPointer)
 TEST_F(EncodingUTF8Test, GetBytesFromCharArrayPointer)
 {
     char16_t chars[]   = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
-    auto     byteCount = Encoding::UTF8.GetByteCount(&chars[0], 5);
-    auto     bytes     = std::vector<std::uint8_t>(byteCount);
-    auto     count     = Encoding::UTF8.GetBytes(&chars[0], 5, &bytes[0], byteCount);
+    auto     bcount    = Encoding::UTF8.GetByteCount(&chars[0], 5);
+    auto     bytes     = std::vector<std::uint8_t>(bcount, 0);
+    auto     byteCount = Encoding::UTF8.GetBytes(&chars[0], 5, bytes.data(), bcount);
 
-    EXPECT_TRUE(8 == count);
+    EXPECT_TRUE(8 == bcount);
     EXPECT_TRUE(8 == byteCount);
     EXPECT_TRUE(8 == bytes.size());
 

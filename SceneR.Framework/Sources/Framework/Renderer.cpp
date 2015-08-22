@@ -232,6 +232,7 @@ namespace SceneR
         void Renderer::CreateDevice()
         {
             this->graphicsDeviceManager.CreateDevice();
+            this->rendererWindow.AllowUserResizing(true);
             this->rendererWindow.Open();
             this->graphicsDeviceManager.ApplyChanges();
         }

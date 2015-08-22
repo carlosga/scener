@@ -73,7 +73,10 @@ namespace System
 
         std::size_t Encoding::GetByteCount(const char16_t* chars, const std::size_t& count) const
         {
-            assert(chars != nullptr);
+            if (chars == nullptr)
+            {
+                throw std::runtime_error("chars cannot be null");
+            }
 
             auto temp = std::vector<char16_t>(chars, chars + count);
 
@@ -96,9 +99,8 @@ namespace System
                                                    , const std::size_t&           index
                                                    , const std::size_t&           count) const
         {
-            auto result = std::vector<std::uint8_t>();
-
-            result.reserve(this->GetByteCount(chars, index, count));
+            auto byteCount = this->GetByteCount(chars, index, count);
+            auto result    = std::vector<std::uint8_t>(byteCount, 0);
 
             this->GetBytes(chars, index, count, result, 0);
 
@@ -145,9 +147,8 @@ namespace System
                                                , const std::size_t&               index
                                                , const std::size_t&               count) const
         {
-            auto result = std::vector<char16_t>();
-
-            result.reserve(this->GetCharCount(bytes, index, count));
+            auto charCount = this->GetCharCount(bytes, index, count);
+            auto result    = std::vector<char16_t>(charCount, 0);
 
             this->GetChars(bytes, index, count, result, 0);
 

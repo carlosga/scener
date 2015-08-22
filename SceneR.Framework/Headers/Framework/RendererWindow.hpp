@@ -4,6 +4,7 @@
 #ifndef RENDERERWINDOW_HPP
 #define RENDERERWINDOW_HPP
 
+#include <functional>
 #include <string>
 
 #include <System/Graphics/Platform.hpp>
@@ -87,7 +88,6 @@ namespace SceneR
 
     private:
         std::u16string title;
-        bool           allowUserResizing;
         GLFWwindow*    handle;
         Renderer&      renderer;
 
