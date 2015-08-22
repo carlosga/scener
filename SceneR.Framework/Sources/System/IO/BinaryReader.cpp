@@ -109,7 +109,7 @@ namespace System
 
         std::vector<std::uint8_t> BinaryReader::ReadBytes(const std::size_t& count)
         {
-            auto buffer = std::vector<std::uint8_t>(count);
+            auto buffer = std::vector<std::uint8_t>(count, 0);
             auto readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
 
             if (readed < count)

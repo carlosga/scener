@@ -91,7 +91,7 @@ namespace System
             const char16_t* fromNext = nullptr;
             auto            size     = charCount * this->converter.max_length();
             auto            to       = std::vector<char>(size, 0);
-            char*           toStart  = &to[0];
+            char*           toStart  = to.data();
             char*           toEnd    = toStart + size;
             char*           toNext   = nullptr;
             auto            state    = std::mbstate_t();

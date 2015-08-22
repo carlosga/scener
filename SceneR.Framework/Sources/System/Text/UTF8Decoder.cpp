@@ -52,14 +52,22 @@ namespace System
                                         , std::vector<char16_t>&           chars
                                         , const std::size_t&               charIndex) const
         {
-            auto        from     = (char*)&bytes[0] + byteIndex;
+            if (byteIndex > bytes.size() || byteCount > bytes.size() || (byteIndex + byteCount) > bytes.size())
+            {
+                throw std::invalid_argument("byteIndex and byteCount do not denote a valid range in bytes.");
+            }
+            if (charIndex > chars.size())
+            {
+                throw std::invalid_argument("charIndex do not denote a valid offset in chars.");
+            }
+
+            auto        from     = (char*)bytes.data() + byteIndex;
             auto        fromEnd  = from + byteCount;
             const char* fromNext = nullptr;
             auto        to       = std::vector<char16_t>(byteCount);
-            auto        toStart  = &to[0];
-            auto        toEnd    = toStart + byteCount;
+            char16_t*   toStart  = to.data();
+            char16_t*   toEnd    = toStart + byteCount;
             char16_t*   toNext   = nullptr;
-            auto        iterator = chars.begin() + charIndex;
             auto        state    = std::mbstate_t();
             auto        status   = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
@@ -72,10 +80,14 @@ namespace System
             }
             else if (status == std::codecvt_base::ok)
             {
-                for (auto position = toStart; position < toNext; position++)
+                auto count = static_cast<std::size_t>(toNext - toStart);
+
+                if ((byteIndex + count) > bytes.size())
                 {
-                    chars.emplace(iterator++, *position);
+                    throw std::invalid_argument("chars does not have enough capacity from charIndex to the end of the array to accommodate the resulting chars.");
                 }
+
+                std::copy_n(to.begin(), count, chars.begin() + charIndex);
             }
 
             return static_cast<std::size_t>(toNext - toStart);

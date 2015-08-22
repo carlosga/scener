@@ -26,8 +26,8 @@ namespace SceneR
             this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
             this->Components().push_back(std::make_shared<Camera>(*this));
-            this->Components().push_back(std::make_shared<Marcus>(*this));
-            // this->Components().push_back(std::make_shared<SampleModel>(*this));
+            // this->Components().push_back(std::make_shared<Marcus>(*this));
+            this->Components().push_back(std::make_shared<SampleModel>(*this));
 
             Renderer::BeginRun();
         }
