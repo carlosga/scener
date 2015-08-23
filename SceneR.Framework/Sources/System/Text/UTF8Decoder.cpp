@@ -31,8 +31,8 @@ namespace System
 
             for (std::size_t i = index; i < (index + count);)
             {
-                auto        buffer    = bytes[i];
-                std::size_t byteCount = 1;
+                std::uint32_t buffer    = bytes[i];
+                std::size_t   byteCount = 1;
 
                 // http://xbox.create.msdn.com/en-US/sample/xnb_format
                 // Decode UTF-8.

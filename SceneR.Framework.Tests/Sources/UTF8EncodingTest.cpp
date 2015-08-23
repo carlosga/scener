@@ -128,7 +128,14 @@ TEST_F(UTF8EncodingTest, GetBytesWithNonNullChars)
 
     bytes.resize(byteCount, 0);
 
+    EXPECT_TRUE(3 == byteCount);
+
     auto bytesEncodedCount = utf8.GetBytes(chars, 1, 2, bytes, 0);
+
+    EXPECT_TRUE(  3  == bytesEncodedCount);
+    EXPECT_TRUE( 37 == bytes[0]);
+    EXPECT_TRUE(206 == bytes[1]);
+    EXPECT_TRUE(160 == bytes[2]);
 }
 
 // PosTest2: Verify method GetBytes(std::vector<char16_t>,Int32,Int32,std::vector<std::uint8_t>,Int32) with null chars
@@ -437,7 +444,6 @@ TEST_F(UTF8EncodingTest, GetCharCountWithInvalidRange)
 //---------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------
 
-/*
 // PosTest1: Verify method GetChars with non-null chars
 TEST_F(UTF8EncodingTest, GetCharsWithNonNullChars)
 {
@@ -447,13 +453,19 @@ TEST_F(UTF8EncodingTest, GetCharsWithNonNullChars)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 1, 2);
+    int charCount = utf8.GetCharCount(bytes, 2, 2);
+
+    EXPECT_TRUE(1 == charCount);
 
     chars.resize(charCount);
 
-    int charsEncodedCount = utf8.GetChars(bytes, 1, 2, chars, 0);
+    int charsEncodedCount = utf8.GetChars(bytes, 2, 2, chars, 0);
+
+    EXPECT_TRUE(1 == charsEncodedCount);
+    EXPECT_TRUE(u'\u03a0' == chars[0]);
 }
 
+/*
 // PosTest2: Verify method GetChars with null chars
 TEST_F(UTF8EncodingTest, GetCharsWithEmptyChars)
 {
@@ -501,7 +513,6 @@ TEST_F(UTF8EncodingTest, GetCharsWithByteCountLessThanZero)
     EXPECT_ANY_THROW({ utf8.GetChars(bytes, 1, -2, chars, 0); });
 }
 
-/*
 // NegTest5: ArgumentOutOfRangeException is not thrown when charIndex is less than zero
 [Fact]
 public void NegTest5()

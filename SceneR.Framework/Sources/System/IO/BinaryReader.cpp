@@ -51,7 +51,7 @@ namespace System
             // Decode UTF-8.
             if (buffer & 0x80)
             {
-                int byteCount = 1;
+                std::uint32_t byteCount = 1;
 
                 while (buffer & (0x80 >> byteCount))
                 {
