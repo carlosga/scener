@@ -167,21 +167,18 @@ TEST_F(UTF8EncodingTest, GetBytesWhenCharsIsNull)
 
     bytes.resize(byteCount, 0);
 
-    // TODO: review
-    // EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, 2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, bytes.data(), 0); });
 }
 
 // NegTest2: ArgumentNullException is not thrown when bytes is a null reference
 TEST_F(UTF8EncodingTest, GetBytesWhenBytesIsNull)
 {
-//    std::int8_t*          bytes = nullptr;
-//    std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
+    std::uint8_t*         bytes = nullptr;
+    std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-//    UTF8Encoding utf8;
+    UTF8Encoding utf8;
 
-//    auto byteCount = utf8.GetByteCount(chars, 1, 2);
-
-//    EXPECT_ANY_THROW({ int bytesEncodedCount = utf8.GetBytes(chars.data(), 2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.GetBytes(chars.data(), 2, bytes, 0); });
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when charIndex is less than zero
