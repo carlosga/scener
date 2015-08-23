@@ -22,6 +22,11 @@ namespace System
                                             , const std::size_t&               index
                                             , const std::size_t&               count) const
         {
+            if (index > bytes.size() || count > bytes.size() || (index + count) > bytes.size())
+            {
+                throw std::invalid_argument("index and count do not denote a valid range in bytes.");
+            }
+
             std::size_t result = 0;
 
             for (std::size_t i = index; i < (index + count);)
