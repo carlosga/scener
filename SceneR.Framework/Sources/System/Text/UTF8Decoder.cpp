@@ -87,7 +87,7 @@ namespace System
             {
                 auto count = static_cast<std::size_t>(toNext - toStart);
 
-                if ((byteIndex + count) > bytes.size())
+                if ((charIndex + count) > chars.size())
                 {
                     throw std::invalid_argument("chars does not have enough capacity from charIndex to the end of the array to accommodate the resulting chars.");
                 }
