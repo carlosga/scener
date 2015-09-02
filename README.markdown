@@ -14,7 +14,8 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
 * C++ Standard Library.
     * [**libC++**](http://libcxx.llvm.org/)
 * Third party dependencies.
-    * [**Google Test 1.7**](https://code.google.com/p/googletest/)
-    * [**OpenGL 4.4**](https://www.khronos.org/opengl/)
+    * [**Google Test**](https://code.google.com/p/googletest/)
+    * [**OpenGL*](https://www.khronos.org/opengl/)
     * [**Regal**](https://github.com/p3/regal)
-    * [**GLFW 3.x**](http://www.glfw.org/)
+    * [**GLFW**](http://www.glfw.org/)
+    * [**json11**](https://github.com/dropbox/json11)
