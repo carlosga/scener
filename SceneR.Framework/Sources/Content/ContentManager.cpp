@@ -8,6 +8,8 @@
 #include <System/IO/Path.hpp>
 #include <Content/ContentReader.hpp>
 
+#include <GLTF/Model.hpp>
+
 namespace SceneR
 {
     namespace Content
@@ -17,6 +19,7 @@ namespace SceneR
         using System::IO::Path;
         using System::IO::Stream;
         using SceneR::Framework::RendererServiceContainer;
+        using SceneR::GLTF::Model;
 
         ContentResourceManager ContentManager::ResourceManager;
 
@@ -42,6 +45,21 @@ namespace SceneR
             return this->rootDirectory;
         }
 
+        std::shared_ptr<Model> ContentManager::LoadModel(const std::u16string& assetName)
+        {
+            auto stream = this->OpenStream(assetName);
+            SceneR::Content::ContentReader reader(assetName, *stream);
+
+            auto isValid = reader.ReadHeader();
+
+            if (!isValid)
+            {
+                throw ContentLoadException("Requested file is not valid binary GLTF.");
+            }
+
+            return reader.LoadModel();
+        }
+
         void ContentManager::Unload()
         {
             this->ResourceManager.Clear();
@@ -49,8 +67,8 @@ namespace SceneR
 
         std::shared_ptr<Stream> ContentManager::OpenStream(const std::u16string& assetName) noexcept(false)
         {
-            auto filename  = assetName + u".bgltf";
-            auto path      = Path::Combine(this->rootDirectory, filename);
+            const auto filename  = assetName + u".bgltf";
+            const auto path      = Path::Combine(this->rootDirectory, filename);
 
             if (!File::Exists(path))
             {

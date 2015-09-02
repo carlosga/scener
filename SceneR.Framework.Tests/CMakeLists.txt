@@ -27,7 +27,7 @@ find_package(Threads REQUIRED)
 # Regal
 # SceneR Framework
 # Google Tests
-link_directories(../../regal/include
+link_directories(../../regal/lib/linux/
                  ../SceneR.Framework/build/${CMAKE_BUILD_TYPE}
                  ../../gtest-1.7.0)
 

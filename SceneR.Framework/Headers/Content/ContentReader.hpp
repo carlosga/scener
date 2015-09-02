@@ -12,7 +12,7 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <Content/SharedResourceAction.hpp>
+#include <GLTF/Model.hpp>
 
 namespace json11
 {
@@ -23,13 +23,12 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentManager;
         class ContentTypeReader;
 
        /**
          * Reads application content from disk
          */
-        class ContentReader final : public System::IO::BinaryReader
+        class ContentReader final
         {
         private:
             static ContentTypeReaderManager TypeReaderManager;
@@ -41,9 +40,8 @@ namespace SceneR
              * @param contentManager the content that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string&            assetName
-                        , SceneR::Content::ContentManager& contentManager
-                        , System::IO::Stream&              stream);
+            ContentReader(const std::u16string& assetName
+                        , System::IO::Stream&   stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -56,101 +54,25 @@ namespace SceneR
              */
             const std::u16string& AssetName() const;
 
-            /**
-             * Gets the content manager that owns this ContentReader.
-             */
-            SceneR::Content::ContentManager& ContentManager();
-
          public:
-            template <typename T>
-            std::shared_ptr<T> Load();
+            std::shared_ptr<SceneR::GLTF::Model> LoadModel();
 
             /**
              * Reads a single object from the current stream.
              */
-            template <typename T>
-            std::shared_ptr<T> ReadObject(const std::string& key, const json11::Json& value);
-
-            /**
-             * Reads a shared resource ID, and records it for subsequent fix-up.
-             */
-            void ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup);
-
-            /**
-             * Reads a link to an external file.
-             * @returns The asset stored in the external file.
-             */
-            template <class T>
-            std::shared_ptr<T> ReadExternalReference();
-
-            void ReadSharedResources();
+            void ReadObject(const std::string& key, const json11::Json& value, SceneR::GLTF::Model* root);
 
         private:
             bool ReadHeader();
 
         private:
-            std::u16string                    assetName;
-            SceneR::Content::ContentManager&  contentManager;
-            std::size_t                       sharedResourceCount;
-            std::vector<SharedResourceAction> fixupActions;
+            std::u16string           assetName;
+            std::size_t              sharedResourceCount;
+            System::IO::BinaryReader assetReader;
 
             friend class ContentManager;
         };
     }
-}
-
-#include <System/IO/Path.hpp>
-#include <Content/ContentManager.hpp>
-#include <Content/ContentTypeReader.hpp>
-#include <Content/json11.hpp>
-
-template <typename T>
-std::shared_ptr<T> SceneR::Content::ContentReader::Load()
-{
-    std::string err;
-
-    auto jsonOffset = ReadUInt32();
-    auto jsonLength = ReadUInt32();
-    auto external   = ReadBytes(jsonOffset - BaseStream().Position());
-    auto jsonBin    = ReadBytes(jsonLength);
-
-    auto str  = std::string(jsonBin.begin(), jsonBin.end());
-    auto json = json11::Json::parse(str.c_str(), err);
-
-    if (!err.empty())
-    {
-        throw ContentLoadException(err);
-    }
-
-    return this->ReadObject<T>("gltf", json);
-}
-
-template <class T>
-std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject(const std::string& key, const json11::Json& value)
-{
-    auto typeReader = TypeReaderManager.GetByReaderName(key);
-
-    if (typeReader == nullptr)
-    {
-        throw ContentLoadException("Unknown type reader");
-    }
-
-    return std::static_pointer_cast<T>(typeReader->Read(*this, value));
-}
-
-template <class T>
-std::shared_ptr<T> SceneR::Content::ContentReader::ReadExternalReference()
-{
-    auto assetName = this->ReadString();
-
-    if (assetName.size() > 0)
-    {
-        assetName = System::IO::Path::Combine(System::IO::Path::GetDirectoryName(this->assetName), assetName);
-
-        return this->contentManager.Load<T>(assetName);
-    }
-
-    return nullptr;
 }
 
 #endif  /* CONTENTREADER_HPP */

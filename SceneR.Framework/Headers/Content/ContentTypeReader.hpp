@@ -13,6 +13,22 @@ namespace json11
 
 namespace SceneR
 {
+    namespace GLTF
+    {
+        class Model;
+    }
+}
+
+namespace System
+{
+    namespace IO
+    {
+        class BinaryReader;
+    }
+}
+
+namespace SceneR
+{
     namespace Content
     {
         class ContentReader;
@@ -32,7 +48,9 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input, const json11::Json& value) = 0;
+            virtual void Read(const json11::Json&       value
+                            , System::IO::BinaryReader& reader
+                            , SceneR::GLTF::Model*      root) = 0;
         };
     }
 }

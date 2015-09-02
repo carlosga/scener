@@ -37,3 +37,6 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 CMakeLists.txt.user
+
+# Clion / IntelliJ IDEA
+.idea

@@ -14,9 +14,9 @@ int main()
     using SceneR::GLTF::Model;
 
     RendererServiceContainer container;
-    ContentManager manager(container, u"../../Content/");
+    ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content");
 
-    manager.Load<Model>(u"marcus");
+    manager.LoadModel(u"marcus");
 
     // SceneR::Sample::SampleRenderer renderer;
     //     renderer.Run();

@@ -1,65 +1,31 @@
-#ifndef GLTFMODEL
-#define GLTFMODEL
+#ifndef GLTFMODEL_HPP
+#define GLTFMODEL_HPP
 
 #include <cstddef>
 #include <string>
-#include <vector>
+#include <map>
+#include <memory>
+
+#include <GLTF/Buffer.hpp>
+#include <GLTF/BufferView.hpp>
+#include <GLTF/Accessor.hpp>
 
 namespace SceneR
 {
     namespace GLTF
     {
-        enum class BufferType : std::uint8_t
-        {
-            ArrayBuffer = 0
-          , Text        = 1
-        };
-
-        enum class BufferViewTarget : std::uint32_t
-        {
-            ArrayBuffer        = 34962
-          , ElementArrayBuffer = 34963
-          , AnimationOrSkin    = 0
-        };
-
-        class Buffer
-        {
-        public:
-            Buffer();
-            ~Buffer();
-
-        public:
-            std::string   uri;
-            std::uint64_t byteLength;
-            BufferType    type;
-        };
-
-        class BufferView
-        {
-        public:
-            BufferView();
-            ~BufferView();
-
-        public:
-            std::string      buffer;
-            std::uint64_t    byteOffset;
-            std::uint64_t    byteLength;
-            BufferViewTarget target;
-        };
-
         class Model
         {
         public:
-            Model();
+            Model() = default;
+            ~Model() = default;
 
-            ~Model();
-
-        public:
-            std::vector<Buffer>     buffers;
-            std::vector<BufferView> bufferViews;
+            std::map<std::string, std::shared_ptr<Buffer>>     buffers;
+            std::map<std::string, std::shared_ptr<BufferView>> bufferViews;
+            std::map<std::string, std::shared_ptr<Accessor>>   accessors;
         };
     }
 }
 
-#endif // GLTFMODEL
+#endif // GLTFMODEL_HPP
 

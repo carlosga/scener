@@ -13,6 +13,14 @@
 
 namespace SceneR
 {
+    namespace GLTF
+    {
+        class Model;
+    }
+}
+
+namespace SceneR
+{
     namespace Content
     {
         class ContentReader;
@@ -52,8 +60,7 @@ namespace SceneR
             /**
              * Loads a the given asset.
              */
-            template <class T>
-            std::shared_ptr<T> Load(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::GLTF::Model> LoadModel(const std::u16string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
@@ -79,28 +86,6 @@ namespace SceneR
             std::u16string                               rootDirectory;
         };
     }
-}
-
-#include "ContentReader.hpp"
-
-template <class T>
-std::shared_ptr<T> SceneR::Content::ContentManager::Load(const std::u16string& assetName)
-{
-    auto stream = this->OpenStream(assetName);
-    SceneR::Content::ContentReader reader(assetName, *this, *stream);
-
-    auto isValid = reader.ReadHeader();
-
-    if (!isValid)
-    {
-        throw ContentLoadException("Requested file is not valid binary GLTF.");
-    }
-
-    auto asset = reader.Load<T>();
-
-    // reader.ReadSharedResources();
-
-    return asset;
 }
 
 #endif  /* CONTENTMANAGER_HPP */

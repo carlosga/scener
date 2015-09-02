@@ -44,26 +44,26 @@ namespace SceneR
 
         void Marcus::LoadContent()
         {
-            this->model         = this->renderer.Content().Load<Model>(u"Marcus/marcus");
-            this->animatedModel = std::make_shared<AnimatedModel>(this->model);
-
-            for (const auto& mesh : this->model->Meshes())
-            {
-                for (auto& effect : mesh->Effects())
-                {
-                    auto seffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
-
-                    if (seffect.get() != nullptr)
-                    {
-                        seffect->EnableDefaultLighting();
-                        seffect->SpecularColor({ 0.15f, 0.15f, 0.15f });
-                        seffect->PreferPerPixelLighting(true);
-                    }
-                }
-            }
-
-            // Start default animation clip
-            this->animatedModel->PlayFirstClip();
+//            this->model         = this->renderer.Content().Load<Model>(u"Marcus/marcus");
+//            this->animatedModel = std::make_shared<AnimatedModel>(this->model);
+//
+//            for (const auto& mesh : this->model->Meshes())
+//            {
+//                for (auto& effect : mesh->Effects())
+//                {
+//                    auto seffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
+//
+//                    if (seffect.get() != nullptr)
+//                    {
+//                        seffect->EnableDefaultLighting();
+//                        seffect->SpecularColor({ 0.15f, 0.15f, 0.15f });
+//                        seffect->PreferPerPixelLighting(true);
+//                    }
+//                }
+//            }
+//
+//            // Start default animation clip
+//            this->animatedModel->PlayFirstClip();
         }
 
         void Marcus::UnloadContent()

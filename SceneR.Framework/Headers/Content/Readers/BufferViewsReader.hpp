@@ -1,14 +1,15 @@
-#ifndef BUFFERVIEWSSREADER
-#define BUFFERVIEWSSREADER
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "../ContentTypeReader.hpp"
+#ifndef BUFFERVIEWSSREADER_HPP
+#define BUFFERVIEWSSREADER_HPP
+
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-
         /**
          * Buffer views reader
          */
@@ -23,15 +24,17 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~BufferViewsReader() override;
+            ~BufferViewsReader();
 
         public:
             /**
              * Reads the buffers contents from the given ContentReader.
              */
-            std::shared_ptr<void> Read(ContentReader& input, const json11::Json& value) override;
+            void Read(const json11::Json&       value
+                    , System::IO::BinaryReader& reader
+                    , SceneR::GLTF::Model*      root) override;
         };
     }
 }
 
-#endif // BUFFERVIEWSSREADER
+#endif // BUFFERVIEWSSREADER_HPP

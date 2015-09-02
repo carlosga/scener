@@ -39,13 +39,9 @@ link_directories(../../regal/lib/linux/)
 
 # header files
 set(HEADER_FILES
-    Headers/Content/Readers/ModelReader.hpp
-    Headers/Content/Readers/BufferReader.hpp
-    Headers/Content/Readers/BuffersReader.hpp
-    Headers/Content/Readers/BufferViewReader.hpp
-    Headers/Content/Readers/BufferViewsReader.hpp
     Headers/Content/Readers/AccessorsReader.hpp
-    Headers/Content/Readers/AccessorReader.hpp
+    Headers/Content/Readers/BuffersReader.hpp
+    Headers/Content/Readers/BufferViewsReader.hpp
     Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
@@ -53,7 +49,13 @@ set(HEADER_FILES
     Headers/Content/ContentReader.hpp
     Headers/Content/ContentTypeReader.hpp
     Headers/Content/ContentTypeReaderManager.hpp
-    Headers/Content/SharedResourceAction.hpp
+    Headers/GLTF/AttributeType.hpp
+    Headers/GLTF/ComponentType.hpp
+    Headers/GLTF/Accessor.hpp
+    Headers/GLTF/BufferType.hpp
+    Headers/GLTF/BufferViewTarget.hpp
+    Headers/GLTF/Buffer.hpp
+    Headers/GLTF/BufferView.hpp
     Headers/GLTF/Model.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
@@ -178,19 +180,15 @@ set(HEADER_FILES
 
 # source files
 set(SOURCE_FILES
-    Sources/Content/Readers/ModelReader.cpp
-    Sources/Content/Readers/BufferReader.cpp
+    Sources/Content/Readers/AccessorsReader.cpp
     Sources/Content/Readers/BuffersReader.cpp
-    Sources/Content/Readers/BufferViewReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
     Sources/Content/ContentTypeReaderManager.cpp
-    Sources/Content/SharedResourceAction.cpp
     Sources/Content/ContentTypeReader.cpp
     Sources/Content/json11.cpp
-    Sources/GLTF/Model.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustrum.cpp
     Sources/Framework/BoundingSphere.cpp

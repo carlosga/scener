@@ -3,11 +3,9 @@
 
 #include <Content/ContentTypeReaderManager.hpp>
 
-#include <Content/Readers/ModelReader.hpp>
+#include <Content/Readers/AccessorsReader.hpp>
 #include <Content/Readers/BuffersReader.hpp>
-#include <Content/Readers/BufferReader.hpp>
 #include <Content/Readers/BufferViewsReader.hpp>
-#include <Content/Readers/BufferViewReader.hpp>
 
 namespace SceneR
 {
@@ -38,13 +36,10 @@ namespace SceneR
 
         void ContentTypeReaderManager::RegisterKnownTypeReaders()
         {
-            this->RegisterTypeReader<ModelReader>("gltf");
             this->RegisterTypeReader<BuffersReader>("buffers");
-            this->RegisterTypeReader<BufferReader>("buffer");
             this->RegisterTypeReader<BufferViewsReader>("bufferViews");
-            this->RegisterTypeReader<BufferViewReader>("bufferView");
+            this->RegisterTypeReader<AccessorsReader>("accessors");
 
-//            this->RegisterTypeReader<AccessorsReader>(u"accessors");
 //            this->RegisterTypeReader<AnimationsReader>(u"animations");
 //            this->RegisterTypeReader<BufferViewsReader>(u"bufferViews");
 //            this->RegisterTypeReader<CamerasReader>(u"cameras");
