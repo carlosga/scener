@@ -5,6 +5,7 @@
 
 #include <cassert>
 #include <locale>
+#include <stdexcept>
 
 #include <System/Text/UTF8Encoding.hpp>
 

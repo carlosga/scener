@@ -3,6 +3,8 @@
 
 #include <System/Text/Decoder.hpp>
 
+#include <algorithm>
+
 namespace System
 {
     namespace Text

@@ -3,6 +3,9 @@
 
 #include <System/Text/Encoder.hpp>
 
+#include <algorithm>
+#include <stdexcept>
+
 namespace System
 {
     namespace Text
