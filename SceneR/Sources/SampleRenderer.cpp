@@ -5,7 +5,6 @@
 
 #include <Camera.hpp>
 #include <Marcus.hpp>
-#include <SampleModel.hpp>
 
 namespace SceneR
 {
@@ -26,8 +25,7 @@ namespace SceneR
             this->graphicsDeviceManager.WindowTitle(u"SceneR");
 
             this->Components().push_back(std::make_shared<Camera>(*this));
-            // this->Components().push_back(std::make_shared<Marcus>(*this));
-            this->Components().push_back(std::make_shared<SampleModel>(*this));
+            this->Components().push_back(std::make_shared<Marcus>(*this));
 
             Renderer::BeginRun();
         }

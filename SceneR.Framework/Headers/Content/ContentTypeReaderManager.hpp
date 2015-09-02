@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-#include <Content/ContentTypeReader.hpp>
+#include "ContentTypeReader.hpp"
 
 namespace SceneR
 {
@@ -33,13 +33,13 @@ namespace SceneR
             /**
              * Gets the content type reader for the specified content tpe
              */
-            ContentTypeReader* GetByReaderName(const std::u16string& name);
+            ContentTypeReader* GetByReaderName(const std::string& name);
 
         private:
             void RegisterKnownTypeReaders();
 
             template<class T>
-            void RegisterTypeReader(const std::u16string& name)
+            void RegisterTypeReader(const std::string& name)
             {
                 this->readers[name] = new T;
             }
@@ -49,7 +49,7 @@ namespace SceneR
             ContentTypeReaderManager& operator=(const ContentTypeReaderManager& manager) = delete;
 
         private:
-            std::map<std::u16string, ContentTypeReader*> readers;
+            std::map<std::string, ContentTypeReader*> readers;
         };
     }
 }

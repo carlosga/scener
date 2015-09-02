@@ -7,24 +7,14 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include <Framework/Color.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Quaternion.hpp>
-#include <Framework/Vector2.hpp>
-#include <Framework/Vector3.hpp>
-#include <Framework/Vector4.hpp>
+#include <Content/json11.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using System::IO::Stream;
-        using SceneR::Framework::Color;
-        using SceneR::Framework::Matrix;
-        using SceneR::Framework::Quaternion;
-        using SceneR::Framework::Vector2;
-        using SceneR::Framework::Vector3;
-        using SceneR::Framework::Vector4;
+        using json11::Json;
 
         ContentTypeReaderManager ContentReader::TypeReaderManager;
 
@@ -34,18 +24,14 @@ namespace SceneR
             : BinaryReader        { stream }
             , assetName           { assetName }
             , contentManager      ( contentManager )
-            , typeReaders         ( 0 )
             , sharedResourceCount { 0 }
             , fixupActions        { }
         {
-            this->ReadHeader();
-            this->ReadManifest();
         }
 
         ContentReader::~ContentReader()
         {
             BinaryReader::Close();
-            this->typeReaders.clear();
             this->fixupActions.clear();
             this->sharedResourceCount = 0;
         }
@@ -60,39 +46,6 @@ namespace SceneR
             return this->contentManager;
         }
 
-        Color ContentReader::ReadColor()
-        {
-            return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
-        }
-
-        Matrix ContentReader::ReadMatrix()
-        {
-            return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                   , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                   , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle()
-                   , this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
-        }
-
-        Vector2 ContentReader::ReadVector2()
-        {
-            return { this->ReadSingle(), this->ReadSingle() };
-        }
-
-        Vector3 ContentReader::ReadVector3()
-        {
-            return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
-        }
-
-        Vector4 ContentReader::ReadVector4()
-        {
-            return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
-        }
-
-        Quaternion ContentReader::ReadQuaternion()
-        {
-            return { this->ReadSingle(), this->ReadSingle(), this->ReadSingle(), this->ReadSingle() };
-        }
-
         void ContentReader::ReadSharedResource(const std::function<void(const std::shared_ptr<void>&)>& fixup)
         {
             auto sharedResourceId = this->Read7BitEncodedInt();
@@ -103,57 +56,39 @@ namespace SceneR
             }
         }
 
-        void ContentReader::ReadHeader()
+        bool ContentReader::ReadHeader()
         {
-            this->ReadByte();   // ‘X’
-            this->ReadByte();   // ‘N’
-            this->ReadByte();   // ‘B’
-            this->ReadByte();   // Target platform
-            this->ReadByte();   // XNB format version
-            this->ReadByte();   // Flag bits
-                                // Bit 0x01 = content is for HiDef profile (otherwise Reach)
-                                // Bit 0x80 = asset data is compressed
-            this->ReadUInt32(); // Compressed file size
-                                // Total size of the (optionally compressed) .xnb file as stored on disk (including this header block)
+            // Binary glTF layout
+            //
+            // -------------------------------
+            // 20-byte header
+            // -------------------------------
+            // magic         unsigned char[4]
+            // version       uint32
+            // length        uint32
+            // jsonOffset    uint32
+            // jsonLength    uint32
+            // -------------------------------
+            // body
+            //  JSON UTF-8
+            // -------------------------------
+            auto magic = ReadBytes(4);
+            auto mstr = std::string(magic.begin(), magic.end());
 
-            /*
-            if (false)  // Compressed files not supported
+            if (mstr != "glTF")
             {
-                this->ReadUInt32(); // Decompressed data size
-                                    // Only included for compressed .xnb files, where it indicates the expanded size of
-                                    // the compressed data which starts immediately after this field (unlike the compressed
-                                    // file size, this does not include the uncompressed portion of the header)
-            }
-            */
-        }
-
-        void ContentReader::ReadManifest()
-        {
-            auto typeReaderCount = this->Read7BitEncodedInt();
-
-            typeReaders.clear();
-
-            for (std::uint32_t i = 0; i < typeReaderCount; i++)
-            {
-                // Read the type reader name.
-                auto readerName = this->ReadString();
-
-                // Read the type reader version.
-                this->ReadInt32();
-
-                // Look up and store this type reader implementation class.
-                auto reader = ContentReader::TypeReaderManager.GetByReaderName(readerName);
-
-                assert(reader != nullptr);
-
-                this->typeReaders.push_back(reader);
+                return false;
             }
 
-            this->sharedResourceCount = this->Read7BitEncodedInt();
+            ReadUInt32();   // version
+            ReadUInt32();   // file length
+
+            return true;
         }
 
         void ContentReader::ReadSharedResources()
         {
+            /*
             for (std::size_t i = 0; i < this->sharedResourceCount; i++)
             {
                 auto sharedResourceType = this->Read7BitEncodedInt();
@@ -172,6 +107,7 @@ namespace SceneR
                     }
                 }
             }
+            */
         }
     }
 }

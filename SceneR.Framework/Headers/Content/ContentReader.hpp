@@ -1,4 +1,4 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+﻿// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifndef CONTENTREADER_HPP
@@ -14,17 +14,9 @@
 #include <Content/ContentTypeReaderManager.hpp>
 #include <Content/SharedResourceAction.hpp>
 
-namespace SceneR
+namespace json11
 {
-    namespace Framework
-    {
-        struct Color;
-        struct Matrix;
-        struct Quaternion;
-        struct Vector2;
-        struct Vector3;
-        struct Vector4;
-    }
+    class Json;
 }
 
 namespace SceneR
@@ -69,48 +61,15 @@ namespace SceneR
              */
             SceneR::Content::ContentManager& ContentManager();
 
-            /**
-             * Reads a Color value from the current stream.
-             */
-            SceneR::Framework::Color ReadColor();
-
-            /**
-             * Reads a Matrix value from the current stream.
-             */
-            SceneR::Framework::Matrix ReadMatrix();
-
-            /**
-             * Reads a Vector2 value from the current stream.
-             */
-            SceneR::Framework::Vector2 ReadVector2();
-
-            /**
-             * Reads a Vector3 value from the current stream.
-             */
-            SceneR::Framework::Vector3 ReadVector3();
-
-            /**
-             * Reads a Vector4 value from the current stream.
-             */
-            SceneR::Framework::Vector4 ReadVector4();
-
-            /**
-             * Reads a Quaternion value from the current stream.
-             */
-            SceneR::Framework::Quaternion ReadQuaternion();
-
-        public:
-            /**
-             * Reads a single object from the current stream.
-             */
+         public:
             template <typename T>
-            std::shared_ptr<T> ReadObject();
+            std::shared_ptr<T> Load();
 
             /**
              * Reads a single object from the current stream.
              */
             template <typename T>
-            std::shared_ptr<T> ReadObject(ContentTypeReader* typeReader);
+            std::shared_ptr<T> ReadObject(const std::string& key, const json11::Json& value);
 
             /**
              * Reads a shared resource ID, and records it for subsequent fix-up.
@@ -124,15 +83,14 @@ namespace SceneR
             template <class T>
             std::shared_ptr<T> ReadExternalReference();
 
-        private:
-            void ReadHeader();
-            void ReadManifest();
             void ReadSharedResources();
+
+        private:
+            bool ReadHeader();
 
         private:
             std::u16string                    assetName;
             SceneR::Content::ContentManager&  contentManager;
-            std::vector<ContentTypeReader*>   typeReaders;
             std::size_t                       sharedResourceCount;
             std::vector<SharedResourceAction> fixupActions;
 
@@ -144,27 +102,40 @@ namespace SceneR
 #include <System/IO/Path.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentTypeReader.hpp>
+#include <Content/json11.hpp>
 
-template <class T>
-std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject()
+template <typename T>
+std::shared_ptr<T> SceneR::Content::ContentReader::Load()
 {
-    auto readerId = this->Read7BitEncodedInt();
+    std::string err;
 
-    // A reader id 0 means a NULL object
-    if (readerId == 0)
+    auto jsonOffset = ReadUInt32();
+    auto jsonLength = ReadUInt32();
+    auto external   = ReadBytes(jsonOffset - BaseStream().Position());
+    auto jsonBin    = ReadBytes(jsonLength);
+
+    auto str  = std::string(jsonBin.begin(), jsonBin.end());
+    auto json = json11::Json::parse(str.c_str(), err);
+
+    if (!err.empty())
     {
-        return nullptr;
+        throw ContentLoadException(err);
     }
-    else
-    {
-        return this->ReadObject<T>(this->typeReaders[readerId - 1]);
-    }
+
+    return this->ReadObject<T>("gltf", json);
 }
 
 template <class T>
-std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject(SceneR::Content::ContentTypeReader* typeReader)
+std::shared_ptr<T> SceneR::Content::ContentReader::ReadObject(const std::string& key, const json11::Json& value)
 {
-    return std::static_pointer_cast<T>(typeReader->Read(*this));
+    auto typeReader = TypeReaderManager.GetByReaderName(key);
+
+    if (typeReader == nullptr)
+    {
+        throw ContentLoadException("Unknown type reader");
+    }
+
+    return std::static_pointer_cast<T>(typeReader->Read(*this, value));
 }
 
 template <class T>

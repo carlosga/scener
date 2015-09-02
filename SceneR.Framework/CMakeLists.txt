@@ -39,29 +39,14 @@ link_directories(../../regal/lib/linux/)
 
 # header files
 set(HEADER_FILES
-    Headers/Content/Readers/AnimationClipMapReader.hpp
-    Headers/Content/Readers/AnimationClipReader.hpp
-    Headers/Content/Readers/BasicEffectReader.hpp
-    Headers/Content/Readers/BoundingSphereReader.hpp
-    Headers/Content/Readers/DictionaryReader.hpp
-    Headers/Content/Readers/EffectMaterialReader.hpp
-    Headers/Content/Readers/ExternalReferenceReader.hpp
-    Headers/Content/Readers/IndexBufferReader.hpp
-    Headers/Content/Readers/Int32ListReader.hpp
-    Headers/Content/Readers/Int32Reader.hpp
-    Headers/Content/Readers/KeyframeListReader.hpp
-    Headers/Content/Readers/KeyframeReader.hpp
-    Headers/Content/Readers/MatrixListReader.hpp
-    Headers/Content/Readers/MatrixReader.hpp
     Headers/Content/Readers/ModelReader.hpp
-    Headers/Content/Readers/SkinnedEffectReader.hpp
-    Headers/Content/Readers/SkinningDataReader.hpp
-    Headers/Content/Readers/StringReader.hpp
-    Headers/Content/Readers/Texture2DReader.hpp
-    Headers/Content/Readers/TextureReader.hpp
-    Headers/Content/Readers/TimeSpanReader.hpp
-    Headers/Content/Readers/VertexBufferReader.hpp
-    Headers/Content/Readers/VertexDeclarationReader.hpp
+    Headers/Content/Readers/BufferReader.hpp
+    Headers/Content/Readers/BuffersReader.hpp
+    Headers/Content/Readers/BufferViewReader.hpp
+    Headers/Content/Readers/BufferViewsReader.hpp
+    Headers/Content/Readers/AccessorsReader.hpp
+    Headers/Content/Readers/AccessorReader.hpp
+    Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
     Headers/Content/ContentManager.hpp
@@ -69,6 +54,7 @@ set(HEADER_FILES
     Headers/Content/ContentTypeReader.hpp
     Headers/Content/ContentTypeReaderManager.hpp
     Headers/Content/SharedResourceAction.hpp
+    Headers/GLTF/Model.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -192,35 +178,19 @@ set(HEADER_FILES
 
 # source files
 set(SOURCE_FILES
-    Sources/Content/Readers/AnimationClipMapReader.cpp
-    Sources/Content/Readers/AnimationClipReader.cpp
-    Sources/Content/Readers/BasicEffectReader.cpp
-    Sources/Content/Readers/BoundingSphereReader.cpp
-    Sources/Content/Readers/DictionaryReader.cpp
-    Sources/Content/Readers/EffectMaterialReader.cpp
-    Sources/Content/Readers/ExternalReferenceReader.cpp
-    Sources/Content/Readers/IndexBufferReader.cpp
-    Sources/Content/Readers/Int32ListReader.cpp
-    Sources/Content/Readers/Int32Reader.cpp
-    Sources/Content/Readers/KeyframeListReader.cpp
-    Sources/Content/Readers/KeyframeReader.cpp
-    Sources/Content/Readers/MatrixListReader.cpp
-    Sources/Content/Readers/MatrixReader.cpp
     Sources/Content/Readers/ModelReader.cpp
-    Sources/Content/Readers/SkinnedEffectReader.cpp
-    Sources/Content/Readers/SkinningDataReader.cpp
-    Sources/Content/Readers/StringReader.cpp
-    Sources/Content/Readers/Texture2DReader.cpp
-    Sources/Content/Readers/TextureReader.cpp
-    Sources/Content/Readers/TimeSpanReader.cpp
-    Sources/Content/Readers/VertexBufferReader.cpp
-    Sources/Content/Readers/VertexDeclarationReader.cpp
+    Sources/Content/Readers/BufferReader.cpp
+    Sources/Content/Readers/BuffersReader.cpp
+    Sources/Content/Readers/BufferViewReader.cpp
+    Sources/Content/Readers/BufferViewsReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
     Sources/Content/ContentTypeReaderManager.cpp
     Sources/Content/SharedResourceAction.cpp
     Sources/Content/ContentTypeReader.cpp
+    Sources/Content/json11.cpp
+    Sources/GLTF/Model.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustrum.cpp
     Sources/Framework/BoundingSphere.cpp

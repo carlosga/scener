@@ -6,6 +6,11 @@
 
 #include <memory>
 
+namespace json11
+{
+    class Json;
+}
+
 namespace SceneR
 {
     namespace Content
@@ -27,7 +32,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual std::shared_ptr<void> Read(ContentReader& input) = 0;
+            virtual std::shared_ptr<void> Read(ContentReader& input, const json11::Json& value) = 0;
         };
     }
 }

@@ -27,14 +27,12 @@ link_directories(../../regal/lib/linux/
 set(HEADER_FILES
     Headers/Camera.hpp
     Headers/Marcus.hpp
-    Headers/SampleModel.hpp
     Headers/SampleRenderer.hpp)
 
 # source files
 set(SOURCE_FILES
     Sources/Camera.cpp
     Sources/Marcus.cpp
-    Sources/SampleModel.cpp
     Sources/SampleRenderer.cpp)
 
 # add execlutable

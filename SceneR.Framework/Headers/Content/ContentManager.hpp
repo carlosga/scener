@@ -81,29 +81,24 @@ namespace SceneR
     }
 }
 
-#include <Content/ContentReader.hpp>
+#include "ContentReader.hpp"
 
 template <class T>
 std::shared_ptr<T> SceneR::Content::ContentManager::Load(const std::u16string& assetName)
 {
-    return this->ReadAsset<T>(assetName);
-}
-
-template <class T>
-std::shared_ptr<T> SceneR::Content::ContentManager::ReadAsset(const std::u16string& assetName)
-{
-    if (SceneR::Content::ContentManager::ResourceManager.HasResource(assetName))
-    {
-        return SceneR::Content::ContentManager::ResourceManager.GetResource<T>(assetName);
-    }
-
     auto stream = this->OpenStream(assetName);
     SceneR::Content::ContentReader reader(assetName, *this, *stream);
-    auto asset  = reader.ReadObject<T>();
 
-    reader.ReadSharedResources();
+    auto isValid = reader.ReadHeader();
 
-    SceneR::Content::ContentManager::ResourceManager.AddResource<T>(assetName, asset);
+    if (!isValid)
+    {
+        throw ContentLoadException("Requested file is not valid binary GLTF.");
+    }
+
+    auto asset = reader.Load<T>();
+
+    // reader.ReadSharedResources();
 
     return asset;
 }

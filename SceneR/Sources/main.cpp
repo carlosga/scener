@@ -1,15 +1,26 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <SampleRenderer.hpp>
+// #include <SampleRenderer.hpp>
+
+#include <Framework/RendererServiceContainer.hpp>
+#include <Content/ContentManager.hpp>
+#include <GLTF/Model.hpp>
 
 int main()
 {
-    SceneR::Sample::SampleRenderer renderer;
+    using SceneR::Content::ContentManager;
+    using SceneR::Framework::RendererServiceContainer;
+    using SceneR::GLTF::Model;
 
-    renderer.Run();
+    RendererServiceContainer container;
+    ContentManager manager(container, u"../../Content/");
 
-    renderer.Exit();
+    manager.Load<Model>(u"marcus");
+
+    // SceneR::Sample::SampleRenderer renderer;
+    //     renderer.Run();
+    // renderer.Exit();
 
     return 0;
 }

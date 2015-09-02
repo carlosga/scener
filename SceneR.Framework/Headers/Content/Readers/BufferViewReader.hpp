@@ -1,5 +1,5 @@
-#ifndef GLTFREADER
-#define GLTFREADER
+#ifndef BUFFERVIEWREADER
+#define BUFFERVIEWREADER
 
 #include "../ContentTypeReader.hpp"
 
@@ -10,29 +10,29 @@ namespace SceneR
         class ContentReader;
 
         /**
-         * GLTF reader
+         * Buffers view reader
          */
-        class ModelReader final : public ContentTypeReader
+        class BufferViewReader final : public ContentTypeReader
         {
         public:
             /**
-             * Initializes a news instance of the ModelReader class.
+             * Initializes a news instance of the BufferViewReader class.
              */
-            ModelReader();
+            BufferViewReader();
 
             /**
              * Destructor
              */
-            ~ModelReader() override;
+            ~BufferViewReader() override;
 
         public:
             /**
-             * Reads the buffers contents from the given ContentReader.
+             * Reads the buffer view contents from the given ContentReader.
              */
             std::shared_ptr<void> Read(ContentReader& input, const json11::Json& value) override;
         };
     }
 }
 
-#endif // GLTFREADER
+#endif // BUFFERVIEWREADER
 

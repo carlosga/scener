@@ -49,7 +49,7 @@ namespace SceneR
 
         std::shared_ptr<Stream> ContentManager::OpenStream(const std::u16string& assetName) noexcept(false)
         {
-            auto filename  = assetName + u".xnb";
+            auto filename  = assetName + u".bgltf";
             auto path      = Path::Combine(this->rootDirectory, filename);
 
             if (!File::Exists(path))

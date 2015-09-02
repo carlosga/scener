@@ -1,5 +1,5 @@
-#ifndef GLTFREADER
-#define GLTFREADER
+#ifndef BUFFERREADER
+#define BUFFERREADER
 
 #include "../ContentTypeReader.hpp"
 
@@ -10,20 +10,20 @@ namespace SceneR
         class ContentReader;
 
         /**
-         * GLTF reader
+         * Buffers reader
          */
-        class ModelReader final : public ContentTypeReader
+        class BufferReader final : public ContentTypeReader
         {
         public:
             /**
-             * Initializes a news instance of the ModelReader class.
+             * Initializes a news instance of the BufferReader class.
              */
-            ModelReader();
+            BufferReader();
 
             /**
              * Destructor
              */
-            ~ModelReader() override;
+            ~BufferReader() override;
 
         public:
             /**
@@ -34,5 +34,5 @@ namespace SceneR
     }
 }
 
-#endif // GLTFREADER
+#endif // BUFFERREADER
 

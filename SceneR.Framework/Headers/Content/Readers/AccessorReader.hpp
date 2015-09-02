@@ -1,0 +1,5 @@
+#ifndef ACCESSORREADER
+#define ACCESSORREADER
+
+#endif // ACCESSORREADER
+
