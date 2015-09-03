@@ -69,7 +69,7 @@ namespace SceneR
             ReadObject("buffers"     , json, gltf.get());
             ReadObject("bufferViews" , json, gltf.get());
             ReadObject("accessors"   , json, gltf.get());
-            //ReadObject("techniques"  , json, gltf.get());
+            ReadObject("techniques"  , json, gltf.get());
             ReadObject("materials"   , json, gltf.get());
             ReadObject("meshes"      , json, gltf.get());
 

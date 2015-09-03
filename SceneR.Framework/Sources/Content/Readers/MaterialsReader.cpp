@@ -36,8 +36,6 @@ namespace SceneR
                 const auto& instanceTechnique = item.second["instanceTechnique"];
                 const auto& values            = instanceTechnique["values"].object_items();
 
-                std::cout << item.second.dump() << std::endl;
-
                 for (const auto& mvalue : values)
                 {
                     if (mvalue.first == "ambient")
