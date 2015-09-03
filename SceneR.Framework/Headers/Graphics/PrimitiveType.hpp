@@ -23,6 +23,11 @@ namespace SceneR
              */
             PointList = GL_POINTS,
             /**
+             * Renders a connected group of line segments from the first vertex to the last, then back to the first.
+             * Vertices n and n + 1 define line n. The last line, however, is defined by vertices N and 1 . N lines are drawn.
+             */
+            LineLoop  = GL_LINE_LOOP,
+            /**
              * Renders the vertices as a list of isolated straight line segments.
              * Calls that use this primitive type fail if the count is less than two or is odd.
              */

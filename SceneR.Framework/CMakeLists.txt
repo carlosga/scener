@@ -42,6 +42,7 @@ set(HEADER_FILES
     Headers/Content/Readers/AccessorsReader.hpp
     Headers/Content/Readers/BuffersReader.hpp
     Headers/Content/Readers/BufferViewsReader.hpp
+    Headers/Content/Readers/MeshesReader.hpp
     Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
@@ -56,7 +57,11 @@ set(HEADER_FILES
     Headers/GLTF/BufferViewTarget.hpp
     Headers/GLTF/Buffer.hpp
     Headers/GLTF/BufferView.hpp
+    Headers/GLTF/Material.hpp
+    Headers/GLTF/MaterialTechnique.hpp
     Headers/GLTF/Model.hpp
+    Headers/GLTF/ModelMesh.hpp
+    Headers/GLTF/ModelMeshPart.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -183,6 +188,7 @@ set(SOURCE_FILES
     Sources/Content/Readers/AccessorsReader.cpp
     Sources/Content/Readers/BuffersReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
+    Sources/Content/Readers/MeshesReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp

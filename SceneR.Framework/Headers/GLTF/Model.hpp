@@ -1,3 +1,6 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 #ifndef GLTFMODEL_HPP
 #define GLTFMODEL_HPP
 
@@ -9,6 +12,8 @@
 #include <GLTF/Buffer.hpp>
 #include <GLTF/BufferView.hpp>
 #include <GLTF/Accessor.hpp>
+#include <GLTF/Material.hpp>
+#include <GLTF/ModelMesh.hpp>
 
 namespace SceneR
 {
@@ -23,6 +28,8 @@ namespace SceneR
             std::map<std::string, std::shared_ptr<Buffer>>     buffers;
             std::map<std::string, std::shared_ptr<BufferView>> bufferViews;
             std::map<std::string, std::shared_ptr<Accessor>>   accessors;
+            std::map<std::string, std::shared_ptr<Material>>   materials;
+            std::map<std::string, std::shared_ptr<ModelMesh>>  meshes;
         };
     }
 }

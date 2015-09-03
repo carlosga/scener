@@ -6,6 +6,7 @@
 #include <Content/Readers/AccessorsReader.hpp>
 #include <Content/Readers/BuffersReader.hpp>
 #include <Content/Readers/BufferViewsReader.hpp>
+#include <Content/Readers/MeshesReader.hpp>
 
 namespace SceneR
 {
@@ -39,6 +40,7 @@ namespace SceneR
             this->RegisterTypeReader<BuffersReader>("buffers");
             this->RegisterTypeReader<BufferViewsReader>("bufferViews");
             this->RegisterTypeReader<AccessorsReader>("accessors");
+            this->RegisterTypeReader<MeshesReader>("meshes");
 
 //            this->RegisterTypeReader<AnimationsReader>(u"animations");
 //            this->RegisterTypeReader<BufferViewsReader>(u"bufferViews");
