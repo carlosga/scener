@@ -48,6 +48,10 @@ namespace SceneR
 
             void ReadTechniquePasses(const json11::Json& value, std::shared_ptr<SceneR::GLTF::Technique> technique);
 
+            void ReadTechniquePassProgram(const json11::Json&                          value
+                                        , std::shared_ptr<SceneR::GLTF::Technique>     technique
+                                        , std::shared_ptr<SceneR::GLTF::TechniquePass> pass);
+
             void ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<SceneR::GLTF::TechniquePass> pass);
         };
     }

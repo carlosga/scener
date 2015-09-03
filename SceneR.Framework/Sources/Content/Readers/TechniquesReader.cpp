@@ -6,6 +6,10 @@
 #include <iostream>
 
 #include <GLTF/Model.hpp>
+#include <GLTF/TechniqueParameter.hpp>
+#include <GLTF/TechniquePass.hpp>
+#include <GLTF/TechniquePassInstanceProgram.hpp>
+#include <GLTF/TechniquePassStates.hpp>
 #include <Content/json11.hpp>
 
 namespace SceneR
@@ -17,6 +21,7 @@ namespace SceneR
         using SceneR::GLTF::TechniqueParameter;
         using SceneR::GLTF::TechniqueParameterType;
         using SceneR::GLTF::TechniquePass;
+        using SceneR::GLTF::TechniquePassInstanceProgram;
         using SceneR::GLTF::TechniquePassStates;
         using json11::Json;
 
@@ -132,10 +137,41 @@ namespace SceneR
                     tpass->parameters.push_back(technique->parameters[paramRef.string_value()]);
                 }
 
+                this->ReadTechniquePassProgram(pass.second["instanceProgram"], technique, tpass);
                 this->ReadTechniquePassStates(pass.second["states"], tpass);
 
                 technique->passes[pass.first] = tpass;
             }
+        }
+
+        void TechniquesReader::ReadTechniquePassProgram(const json11::Json&            value
+                                                      , std::shared_ptr<Technique>     technique
+                                                      , std::shared_ptr<TechniquePass> pass)
+        {
+            TechniquePassInstanceProgram program;
+
+            program.name = value["program"].string_value();
+
+            const auto& attributes = value["attributes"].object_items();
+            const auto& uniforms   = value["uniforms"].object_items();
+
+            for (const auto& attribute : attributes)
+            {
+                const std::string attName  = attribute.first;
+                const std::string paramRef = attribute.second.string_value();
+
+                program.attributes[attName] = technique->parameters[paramRef];
+            }
+
+            for (const auto& uniform : uniforms)
+            {
+                const std::string uniformName = uniform.first;
+                const std::string paramRef    = uniform.second.string_value();
+
+                program.uniforms[uniformName] = technique->parameters[paramRef];
+            }
+
+            pass->program = program;
         }
 
         void TechniquesReader::ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<TechniquePass> pass)
@@ -168,35 +204,6 @@ namespace SceneR
         //          },
         //          "type":"COLLADA-1.4.1/commonProfile"
         //       },
-        //       "instanceProgram":{
-        //          "attributes":{
-        //             "a_joint":"joint",
-        //             "a_normal":"normal",
-        //             "a_position":"position",
-        //             "a_texbinormal":"texbinormal",
-        //             "a_texcoord0":"texcoord0",
-        //             "a_textangent":"textangent",
-        //             "a_weight":"weight"
-        //          },
-        //          "program":"program_0",
-        //          "uniforms":{
-        //             "u_ambient":"ambient",
-        //             "u_bump":"bump",
-        //             "u_diffuse":"diffuse",
-        //             "u_emission":"emission",
-        //             "u_jointMat":"jointMat",
-        //             "u_light0Color":"light0Color",
-        //             "u_light1Color":"light1Color",
-        //             "u_light1ConstantAttenuation":"light1ConstantAttenuation",
-        //             "u_light1LinearAttenuation":"light1LinearAttenuation",
-        //             "u_light1QuadraticAttenuation":"light1QuadraticAttenuation",
-        //             "u_light1Transform":"light1Transform",
-        //             "u_modelViewMatrix":"modelViewMatrix",
-        //             "u_normalMatrix":"normalMatrix",
-        //             "u_projectionMatrix":"projectionMatrix",
-        //             "u_shininess":"shininess",
-        //             "u_specular":"specular"
-        //          }
         //       },
         //    }
     }

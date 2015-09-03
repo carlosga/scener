@@ -16,7 +16,7 @@ int main()
     RendererServiceContainer container;
     ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content");
 
-    manager.LoadModel(u"marcus");
+    manager.LoadModel(u"WildCentaur");
 
     // SceneR::Sample::SampleRenderer renderer;
     //     renderer.Run();

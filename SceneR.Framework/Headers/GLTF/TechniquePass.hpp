@@ -8,13 +8,15 @@
 #include <string>
 #include <vector>
 
-#include <GLTF/TechiqueParameter.hpp>
+#include <GLTF/TechniquePassInstanceProgram.hpp>
 #include <GLTF/TechniquePassStates.hpp>
 
 namespace SceneR
 {
     namespace GLTF
     {
+        class TechniqueParameter;
+
         class TechniquePass
         {
         public:
@@ -24,6 +26,7 @@ namespace SceneR
         public:
             std::string                                      lightingModel;
             std::vector<std::shared_ptr<TechniqueParameter>> parameters;
+            TechniquePassInstanceProgram                     program;
             TechniquePassStates                              states;
         };
     }

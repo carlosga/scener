@@ -64,9 +64,9 @@ set(HEADER_FILES
     Headers/GLTF/ModelMeshPart.hpp
     Headers/GLTF/RenderingStateType.hpp
     Headers/GLTF/Technique.hpp
-    Headers/GLTF/TechiqueParameter.hpp
+    Headers/GLTF/TechniqueParameter.hpp
     Headers/GLTF/TechniqueParameterType.hpp
-    Headers/GLTF/TechiquePass.hpp
+    Headers/GLTF/TechniquePass.hpp
     Headers/GLTF/TechniquePassInstanceProgram.hpp
     Headers/GLTF/TechniquePassStates.hpp
     Headers/Framework/BoundingBox.hpp

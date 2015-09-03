@@ -8,13 +8,13 @@
 #include <memory>
 #include <string>
 
-#include <GLTF/TechiqueParameter.hpp>
-#include <GLTF/TechiquePass.hpp>
-
 namespace SceneR
 {
     namespace GLTF
     {
+        class TechniqueParameter;
+        class TechniquePass;
+
         class Technique
         {
         public:
