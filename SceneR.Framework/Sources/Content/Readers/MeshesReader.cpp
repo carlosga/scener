@@ -3,6 +3,8 @@
 
 #include <Content/Readers/MeshesReader.hpp>
 
+#include <iostream>
+
 #include <System/IO/BinaryReader.hpp>
 #include <GLTF/Model.hpp>
 #include <Content/json11.hpp>
@@ -41,11 +43,46 @@ namespace SceneR
                 {
                     auto meshPart = std::make_shared<ModelMeshPart>();
 
-                    for (const auto& primitiveAttribute : primitiveItem["attributes"].object_items())
+                    for (const auto& attribute : primitiveItem["attributes"].object_items())
                     {
-                        auto accessor = root->accessors[primitiveAttribute.second.string_value()];
+                        auto accessor = root->accessors[attribute.second.string_value()];
 
-                        meshPart->attributes[primitiveAttribute.first] = accessor;
+                        if (attribute.first == "JOINT")
+                        {
+                            meshPart->joint = accessor;
+                        }
+                        else if (attribute.first == "NORMAL")
+                        {
+                            meshPart->normal = accessor;
+                        }
+                        else if (attribute.first == "POSITION")
+                        {
+                            meshPart->position = accessor;
+                        }
+                        else if (attribute.first == "TEXBINORMAL")
+                        {
+                            meshPart->textureBinormal = accessor;
+                        }
+                        else if (attribute.first == "TEXCOORD_0")
+                        {
+                            meshPart->textureCoordinates = accessor;
+                        }
+                        else if (attribute.first == "TEXCOORD_0")
+                        {
+                            meshPart->textureCoordinates = accessor;
+                        }
+                        else if (attribute.first == "TEXTANGENT")
+                        {
+                            meshPart->textureTangent = accessor;
+                        }
+                        else if (attribute.first == "WEIGHT")
+                        {
+                            meshPart->weight = accessor;
+                        }
+                        else
+                        {
+                            std::cout << "unknown attribute [" << attribute.first << "]" << std::endl;
+                        }
                     }
 
                     meshPart->indices  = root->accessors[primitiveItem["indices"].string_value()];

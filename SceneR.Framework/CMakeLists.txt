@@ -43,6 +43,8 @@ set(HEADER_FILES
     Headers/Content/Readers/BuffersReader.hpp
     Headers/Content/Readers/BufferViewsReader.hpp
     Headers/Content/Readers/MeshesReader.hpp
+    Headers/Content/Readers/MaterialsReader.hpp
+    Headers/Content/Readers/TechniquesReader.hpp
     Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
@@ -58,10 +60,16 @@ set(HEADER_FILES
     Headers/GLTF/Buffer.hpp
     Headers/GLTF/BufferView.hpp
     Headers/GLTF/Material.hpp
-    Headers/GLTF/MaterialTechnique.hpp
     Headers/GLTF/Model.hpp
     Headers/GLTF/ModelMesh.hpp
     Headers/GLTF/ModelMeshPart.hpp
+    Headers/GLTF/Technique.hpp
+    Headers/GLTF/TechiqueParameter.hpp
+    Headers/GLTF/TechniqueParameterType.hpp
+    Headers/GLTF/TechiquePass.hpp
+    Headers/GLTF/TechniquePassDetails.hpp
+    Headers/GLTF/TechniquePassInstanceProgram.hpp
+    Headers/GLTF/TechniquePassStates.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -189,6 +197,7 @@ set(SOURCE_FILES
     Sources/Content/Readers/BuffersReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
     Sources/Content/Readers/MeshesReader.cpp
+    Sources/Content/Readers/MaterialsReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
@@ -280,7 +289,7 @@ set(SOURCE_FILES
     Sources/System/Text/Encoding.cpp
     Sources/System/Text/UTF8Decoder.cpp
     Sources/System/Text/UTF8Encoder.cpp
-    Sources/System/Text/UTF8Encoding.cpp)
+    Sources/System/Text/UTF8Encoding.cpp Sources/Content/Readers/TechniquesReader.cpp)
 
 #set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
 #set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)

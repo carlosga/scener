@@ -3,8 +3,6 @@
 
 #include <Content/Readers/BuffersReader.hpp>
 
-#include <iostream>
-
 #include <System/IO/BinaryReader.hpp>
 #include <Content/json11.hpp>
 #include <GLTF/Model.hpp>
@@ -33,8 +31,6 @@ namespace SceneR
             for (const auto& item : value["buffers"].object_items())
             {
                 auto buffer = std::make_shared<Buffer>();
-
-                std::cout << item.second.dump() << std::endl;
 
                 buffer->uri        = item.second["uri"].string_value();
                 buffer->byteLength = item.second["byteLength"].int_value();

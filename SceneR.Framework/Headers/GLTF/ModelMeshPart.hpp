@@ -21,36 +21,16 @@ namespace SceneR
             ~ModelMeshPart() = default;
 
         public:
-//            "properties" : {
-//                "attributes" : {
-//                    "properties" : {
-//                    },
-//                    "additionalProperties" : {
-//                        "$ref" : "meshPrimitiveAttribute.schema.json"
-//                    },
-//                    "default" : {}
-//                },
-//                "indices" : {
-//                    "extends" : { "$ref" : "glTFid.schema.json" },
-//                    "description" : "The id (JSON property name) of the accessor that contains the indices.",
-//                            "required" : true
-//                },
-//                "material" : {
-//                    "extends" : { "$ref" : "glTFid.schema.json" },
-//                    "description" : "The id (JSON property name) of the material to apply to this primitive when rendering.",
-//                            "required" : true
-//                },
-//                "primitive" : {
-//                    "type" : "integer",
-//                            "description" : "The type of primitives to render.  Allowed values are 0 (POINTS), 1 (LINES), 2 (LINE_LOOP), 3 (LINE_STRIP), 4 (TRIANGLES), 5 (TRIANGLE_STRIP), and 6 (TRIANGLE_FAN).",
-//                            "enum" : [0, 1, 2, 3, 4, 5, 6],
-//                    "default" : 4
-//                }
-
-            std::map<std::string, std::shared_ptr<Accessor>> attributes;
-            std::shared_ptr<Accessor>                        indices;
-            std::shared_ptr<Material>                        material;
-            SceneR::Graphics::PrimitiveType                  type;
+            std::shared_ptr<Accessor>       joint;
+            std::shared_ptr<Accessor>       normal;
+            std::shared_ptr<Accessor>       position;
+            std::shared_ptr<Accessor>       textureBinormal;
+            std::shared_ptr<Accessor>       textureCoordinates;
+            std::shared_ptr<Accessor>       textureTangent;
+            std::shared_ptr<Accessor>       weight;
+            std::shared_ptr<Accessor>       indices;
+            std::shared_ptr<Material>       material;
+            SceneR::Graphics::PrimitiveType type;
         };
     }
 }

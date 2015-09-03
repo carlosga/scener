@@ -5,7 +5,8 @@
 #define MATERIAL_HPP
 
 #include <memory>
-#include <GLTF/MaterialTechnique.hpp>
+#include <Framework/Vector3.hpp>
+#include <GLTF/Technique.hpp>
 
 namespace SceneR
 {
@@ -14,11 +15,18 @@ namespace SceneR
         class Material
         {
         public:
-            Material();
-            ~Material();
+            Material() = default;
+            ~Material() = default;
 
         public:
-            std::shared_ptr<MaterialTechnique> instanceTechnique;
+            std::shared_ptr<Technique> instanceTechnique;
+
+            std::string                ambient;
+            std::string                bump;
+            std::string                diffuse;
+            SceneR::Framework::Vector3 emission;
+            float                      shininess;
+            SceneR::Framework::Vector3 specular;
         };
     }
 }

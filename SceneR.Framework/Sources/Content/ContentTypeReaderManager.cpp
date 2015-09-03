@@ -6,7 +6,9 @@
 #include <Content/Readers/AccessorsReader.hpp>
 #include <Content/Readers/BuffersReader.hpp>
 #include <Content/Readers/BufferViewsReader.hpp>
+#include <Content/Readers/MaterialsReader.hpp>
 #include <Content/Readers/MeshesReader.hpp>
+#include <Content/Readers/TechniquesReader.hpp>
 
 namespace SceneR
 {
@@ -41,20 +43,20 @@ namespace SceneR
             this->RegisterTypeReader<BufferViewsReader>("bufferViews");
             this->RegisterTypeReader<AccessorsReader>("accessors");
             this->RegisterTypeReader<MeshesReader>("meshes");
+            this->RegisterTypeReader<MaterialsReader>("materials");
+            this->RegisterTypeReader<TechniquesReader>("techniques");
 
 //            this->RegisterTypeReader<AnimationsReader>(u"animations");
 //            this->RegisterTypeReader<BufferViewsReader>(u"bufferViews");
 //            this->RegisterTypeReader<CamerasReader>(u"cameras");
 //            this->RegisterTypeReader<LightsReader>(u"lights");
 //            this->RegisterTypeReader<ImagesReader>(u"images");
-//            this->RegisterTypeReader<MaterialsReader>(u"materials");
-//            this->RegisterTypeReader<MeshesReader>(u"meshes");
 //            this->RegisterTypeReader<NodesReader>(u"nodes");
 //            this->RegisterTypeReader<ProgramsReader>(u"programs");
 //            this->RegisterTypeReader<SamplersReader>(u"samplers");
 //            this->RegisterTypeReader<ShadersReader>(u"shaders");
 //            this->RegisterTypeReader<SkinsReader>(u"skins");
-//            this->RegisterTypeReader<TechniquesReader>(u"techniques");
+
 //            this->RegisterTypeReader<TexturesReader>(u"textures");
         }
     }
