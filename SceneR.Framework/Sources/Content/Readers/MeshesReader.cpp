@@ -15,9 +15,6 @@ namespace SceneR
     {
         using System::IO::BinaryReader;
         using SceneR::GLTF::Accessor;
-        using SceneR::GLTF::Buffer;
-        using SceneR::GLTF::BufferView;
-        using SceneR::GLTF::BufferViewTarget;
         using SceneR::GLTF::ModelMesh;
         using SceneR::GLTF::ModelMeshPart;
         using SceneR::Graphics::PrimitiveType;
