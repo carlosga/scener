@@ -1,6 +1,8 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 #ifndef TECHNIQUEPASSINSTANCEPROGRAM_HPP
 #define TECHNIQUEPASSINSTANCEPROGRAM_HPP
-
 
 namespace SceneR
 {
@@ -9,8 +11,8 @@ namespace SceneR
         class TechniquePassInstanceProgram
         {
         public:
-            TechniquePassInstanceProgram();
-            ~TechniquePassInstanceProgram();
+            TechniquePassInstanceProgram() = default;
+            ~TechniquePassInstanceProgram() = default;
         };
     }
 }

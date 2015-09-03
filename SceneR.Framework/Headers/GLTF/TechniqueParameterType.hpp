@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace GLTF
     {
-        enum class TechiqueParameterType : std::uint32_t
+        enum class TechniqueParameterType : std::uint32_t
         {
             Byte          = 5120
           , UnsignedByte  = 5121
@@ -18,7 +18,7 @@ namespace SceneR
           , UnsignedShort = 5123
           , Int           = 5124
           , UnsignedInt   = 5125
-          , FLOAT         = 5126
+          , Float         = 5126
           , Vector2Float  = 35664
           , Vector3Float  = 35665
           , Vector4Float  = 35666

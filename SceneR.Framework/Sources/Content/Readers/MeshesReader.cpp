@@ -6,15 +6,15 @@
 #include <iostream>
 
 #include <System/IO/BinaryReader.hpp>
-#include <GLTF/Model.hpp>
 #include <Content/json11.hpp>
+#include <GLTF/Model.hpp>
+#include <Graphics/PrimitiveType.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using System::IO::BinaryReader;
-        using SceneR::GLTF::Accessor;
         using SceneR::GLTF::ModelMesh;
         using SceneR::GLTF::ModelMeshPart;
         using SceneR::Graphics::PrimitiveType;
@@ -39,6 +39,10 @@ namespace SceneR
                 for (const auto& primitiveItem : item.second["primitives"].array_items())
                 {
                     auto meshPart = std::make_shared<ModelMeshPart>();
+
+                    meshPart->indices  = root->accessors[primitiveItem["indices"].string_value()];
+                    meshPart->material = root->materials[primitiveItem["material"].string_value()];
+                    meshPart->type     = static_cast<PrimitiveType>(primitiveItem["primitive"].int_value());
 
                     for (const auto& attribute : primitiveItem["attributes"].object_items())
                     {
@@ -80,40 +84,6 @@ namespace SceneR
                         {
                             std::cout << "unknown attribute [" << attribute.first << "]" << std::endl;
                         }
-                    }
-
-                    meshPart->indices  = root->accessors[primitiveItem["indices"].string_value()];
-                    meshPart->material = root->materials[primitiveItem["material"].string_value()];
-
-                    int primitiveType = primitiveItem["primitive"].int_value();
-
-                    if (primitiveType == 0)         // 0 (POINTS)
-                    {
-                        meshPart->type = PrimitiveType::PointList;
-                    }
-                    else if (primitiveType == 1)    // 1 (LINES)
-                    {
-                        meshPart->type = PrimitiveType::LineList;
-                    }
-                    else if (primitiveType == 2)    // 2 (LINE_LOOP)
-                    {
-                        meshPart->type = PrimitiveType::LineLoop;
-                    }
-                    else if (primitiveType == 3)    // 3 (LINE_STRIP)
-                    {
-                        meshPart->type = PrimitiveType::LineStrip;
-                    }
-                    else if (primitiveType == 5)    // 5 (TRIANGLE_STRIP)
-                    {
-                        meshPart->type = PrimitiveType::TriangleStrip;
-                    }
-                    else if (primitiveType == 6)    // 6 (TRIANGLE_FAN)
-                    {
-                        meshPart->type = PrimitiveType::TriangleStrip;
-                    }
-                    else                            // 4 (TRIANGLES)
-                    {
-                        meshPart->type = PrimitiveType::LineStrip;
                     }
 
                     mesh->meshParts.push_back(meshPart);

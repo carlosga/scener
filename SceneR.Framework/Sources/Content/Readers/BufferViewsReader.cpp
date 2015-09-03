@@ -3,6 +3,8 @@
 
 #include <Content/Readers/BufferViewsReader.hpp>
 
+#include <iostream>
+
 #include <System/IO/BinaryReader.hpp>
 #include <GLTF/Model.hpp>
 #include <Content/json11.hpp>
@@ -14,7 +16,7 @@ namespace SceneR
         using System::IO::BinaryReader;
         using SceneR::GLTF::Buffer;
         using SceneR::GLTF::BufferView;
-        using SceneR::GLTF::BufferViewTarget;
+        using SceneR::Graphics::BufferTarget;
         using json11::Json;
 
         BufferViewsReader::BufferViewsReader()
@@ -33,22 +35,24 @@ namespace SceneR
             {
                 auto bufferView = std::make_shared<BufferView>();
 
+                std::cout << item.second.dump() << std::endl;
+
                 bufferView->buffer     = root->buffers[item.second["buffer"].string_value()];
                 bufferView->byteOffset = item.second["byteOffset"].int_value();
                 bufferView->byteLength = item.second["byteLength"].int_value();
 
-                const auto& target = value["target"];
+                const auto& target = item.second["target"];
 
                 if (target.is_null())
                 {
-                    bufferView->target = BufferViewTarget::AnimationOrSkin;
+                    bufferView->target = BufferTarget::AnimationOrSkin;
                 }
                 else
                 {
-                    bufferView->target = static_cast<BufferViewTarget>(target.int_value());
+                    bufferView->target = static_cast<BufferTarget>(target.int_value());
                 }
 
-                root->bufferViews.emplace(item.first, bufferView);
+                root->bufferViews[item.first] = bufferView;
             }
         }
     }

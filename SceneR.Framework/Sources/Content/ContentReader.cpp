@@ -3,6 +3,8 @@
 
 #include <Content/ContentReader.hpp>
 
+#include <iostream>
+
 #include <System/IO/BinaryReader.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentTypeReader.hpp>
@@ -48,16 +50,15 @@ namespace SceneR
 
             auto jsonOffset = this->assetReader.ReadUInt32();
             auto jsonLength = this->assetReader.ReadUInt32();
+            auto dataOffset = this->assetReader.BaseStream().Position();
+            auto dataLength = jsonOffset - dataOffset;
 
-            // this->assetReader.BaseStream().Seek(jsonOffset - this->assetReader.BaseStream().Position(), std::ios::beg);
             this->assetReader.BaseStream().Seek(jsonOffset, std::ios::beg);
 
-            // auto external   = this->assetReader.ReadBytes(jsonOffset - this->assetReader.BaseStream().Position());
+            auto buffer = this->assetReader.ReadBytes(jsonLength);
+            auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), err);
 
-            auto jsonBin = this->assetReader.ReadBytes(jsonLength);
-
-            auto str  = std::string(jsonBin.begin(), jsonBin.end());
-            auto json = json11::Json::parse(str.c_str(), err);
+            buffer.clear();
 
             if (!err.empty())
             {
@@ -73,18 +74,20 @@ namespace SceneR
             ReadObject("materials"   , json, gltf.get());
             ReadObject("meshes"      , json, gltf.get());
 
-//    ReadObject("lights", json, gltf.get());
-//    ReadObject("cameras", json, gltf.get());
-//    ReadObject("nodes", json, gltf.get());
-//    ReadObject("images", json, gltf.get());
-//    ReadObject("textures", json, gltf.get());
-//    ReadObject("shaders", json, gltf.get());
-//    ReadObject("programs", json, gltf.get());
-//    ReadObject("samplers", json, gltf.get());
-//    ReadObject("techniques", json, gltf.get());
-//    ReadObject("materials", json, gltf.get());
-//    ReadObject("animations", json, gltf.get());
-//    ReadObject("skins", json, gltf.get());
+            // ReadObject("lights", json, gltf.get());
+            // ReadObject("cameras", json, gltf.get());
+            // ReadObject("nodes", json, gltf.get());
+            // ReadObject("images", json, gltf.get());
+            // ReadObject("textures", json, gltf.get());
+            // ReadObject("shaders", json, gltf.get());
+            // ReadObject("programs", json, gltf.get());
+            // ReadObject("samplers", json, gltf.get());
+            // ReadObject("animations", json, gltf.get());
+            // ReadObject("skins", json, gltf.get());
+
+            this->assetReader.BaseStream().Seek(dataOffset, std::ios::beg);
+
+            // TODO: Process external data references
 
             return gltf;
         }

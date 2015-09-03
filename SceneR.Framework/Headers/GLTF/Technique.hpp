@@ -22,32 +22,21 @@ namespace SceneR
             ~Technique() = default;
 
         public:
-            std::vector<TechniqueParameter>             parameters;
-            std::shared_ptr<TechniquePass>              pass;
-            std::vector<std::shared_ptr<TechniquePass>> passes;
+            std::vector<std::shared_ptr<TechniqueParameter>> parameters;
+            std::shared_ptr<TechniquePass>                   pass = nullptr;
+            std::vector<std::shared_ptr<TechniquePass>>      passes;
 
-//            "parameters" : {
-//                "properties" : {
-//                },
-//                "additionalProperties" : {
-//                    "$ref" : "techniqueParameters.schema.json"
-//                },
-//                "default" : {}
-//            },
-//            "pass" : {
-//                "extends" : { "$ref" : "glTFid.schema.json" },
-//                "description" : "The id (JSON property name) of the default pass to use.",
-//                    "required" : true
-//            },
-//            "passes" : {
-//                "properties" : {
-//                },
-//                "additionalProperties" : {
-//                    "$ref" : "techniquePass.schema.json"
-//                },
-//                "required" : true
-//            }
-
+            std::shared_ptr<TechniqueParameter>              modelViewMatrix    = nullptr;
+            std::shared_ptr<TechniqueParameter>              projectionMatrix   = nullptr;
+            std::shared_ptr<TechniqueParameter>              normalMatrix       = nullptr;
+            std::shared_ptr<TechniqueParameter>              position           = nullptr;
+            std::shared_ptr<TechniqueParameter>              normal             = nullptr;
+            std::shared_ptr<TechniqueParameter>              texCoord           = nullptr;
+            std::shared_ptr<TechniqueParameter>              texBinormal        = nullptr;
+            std::shared_ptr<TechniqueParameter>              texTangent         = nullptr;
+            std::shared_ptr<TechniqueParameter>              joint              = nullptr;
+            std::shared_ptr<TechniqueParameter>              jointMatrix        = nullptr;
+            std::shared_ptr<TechniqueParameter>              weight             = nullptr;
         };
     }
 }

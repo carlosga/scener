@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-#include <GLTF/BufferViewTarget.hpp>
+#include <Graphics/BufferTarget.hpp>
 
 namespace SceneR
 {
@@ -20,10 +20,10 @@ namespace SceneR
             ~BufferView() = default;
 
         public:
-            std::shared_ptr<Buffer> buffer;
-            std::uint64_t           byteOffset;
-            std::uint64_t           byteLength;
-            BufferViewTarget        target;
+            std::shared_ptr<Buffer>        buffer;
+            std::uint64_t                  byteOffset;
+            std::uint64_t                  byteLength;
+            SceneR::Graphics::BufferTarget target;
         };
     }
 }

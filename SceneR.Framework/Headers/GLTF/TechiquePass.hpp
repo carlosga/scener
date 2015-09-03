@@ -17,8 +17,8 @@ namespace SceneR
         class TechniquePass
         {
         public:
-            TechniquePass();
-            ~TechniquePass();
+            TechniquePass() = default;
+            ~TechniquePass() = default;
 
         public:
             TechniquePassDetails         details;

@@ -18,6 +18,10 @@ namespace SceneR
         enum class BufferTarget : std::uint32_t
         {
             /**
+             * GLTF Buffer used for animation or skin data.
+             */
+            AnimationOrSkin = 0,
+            /**
              * A buffer used as a source for vertex data.
              */
             ArrayBuffer = GL_ARRAY_BUFFER,

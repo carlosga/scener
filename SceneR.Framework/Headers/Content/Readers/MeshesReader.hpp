@@ -31,8 +31,8 @@ namespace SceneR
              * Reads the buffers contents from the given ContentReader.
              */
             void Read(const json11::Json&       value
-                , System::IO::BinaryReader& reader
-                , SceneR::GLTF::Model*      root) override;
+                    , System::IO::BinaryReader& reader
+                    , SceneR::GLTF::Model*      root) override;
         };
     }
 }

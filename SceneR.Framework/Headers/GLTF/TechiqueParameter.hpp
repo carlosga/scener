@@ -20,11 +20,11 @@ namespace SceneR
             ~TechniqueParameter() = default;
 
         public:
-            std::uint32_t         count;
-            TechiqueParameterType type;
-            std::string           semantic;
-            std::string           node;
-            std::string           value;
+            std::uint32_t          count;
+            TechniqueParameterType type;
+            std::string            semantic;
+            std::string            node;
+            std::string            value;
         };
     }
 }

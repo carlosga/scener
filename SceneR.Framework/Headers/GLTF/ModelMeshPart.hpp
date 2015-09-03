@@ -21,15 +21,15 @@ namespace SceneR
             ~ModelMeshPart() = default;
 
         public:
-            std::shared_ptr<Accessor>       joint;
-            std::shared_ptr<Accessor>       normal;
-            std::shared_ptr<Accessor>       position;
-            std::shared_ptr<Accessor>       textureBinormal;
-            std::shared_ptr<Accessor>       textureCoordinates;
-            std::shared_ptr<Accessor>       textureTangent;
-            std::shared_ptr<Accessor>       weight;
-            std::shared_ptr<Accessor>       indices;
-            std::shared_ptr<Material>       material;
+            std::shared_ptr<Accessor>       joint              = nullptr;
+            std::shared_ptr<Accessor>       normal             = nullptr;
+            std::shared_ptr<Accessor>       position           = nullptr;
+            std::shared_ptr<Accessor>       textureBinormal    = nullptr;
+            std::shared_ptr<Accessor>       textureCoordinates = nullptr;
+            std::shared_ptr<Accessor>       textureTangent     = nullptr;
+            std::shared_ptr<Accessor>       weight             = nullptr;
+            std::shared_ptr<Accessor>       indices            = nullptr;
+            std::shared_ptr<Material>       material           = nullptr;
             SceneR::Graphics::PrimitiveType type;
         };
     }

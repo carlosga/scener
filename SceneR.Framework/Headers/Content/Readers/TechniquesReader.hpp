@@ -4,7 +4,17 @@
 #ifndef TECHNIQUESREADER_HPP
 #define TECHNIQUESREADER_HPP
 
+#include <memory>
+
 #include <Content/ContentTypeReader.hpp>
+
+namespace SceneR
+{
+    namespace GLTF
+    {
+        class Technique;
+    }
+}
 
 namespace SceneR
 {
@@ -33,6 +43,14 @@ namespace SceneR
             void Read(const json11::Json&       value
                     , System::IO::BinaryReader& reader
                     , SceneR::GLTF::Model*      root) override;
+        private:
+            void ReadTechniqueParameters(const json11::Json&                      value
+                                       , SceneR::GLTF::Model*                     root
+                                       , std::shared_ptr<SceneR::GLTF::Technique> technique);
+
+            void ReadTechniquePasses(const json11::Json&                      value
+                                   , SceneR::GLTF::Model*                     root
+                                   , std::shared_ptr<SceneR::GLTF::Technique> technique);
         };
     }
 }
