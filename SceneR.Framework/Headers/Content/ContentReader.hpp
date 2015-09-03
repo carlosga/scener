@@ -55,7 +55,7 @@ namespace SceneR
             const std::u16string& AssetName() const;
 
          public:
-            std::shared_ptr<SceneR::GLTF::Model> LoadModel();
+            std::shared_ptr<SceneR::GLTF::Model> ReadAsset();
 
             /**
              * Reads a single object from the current stream.

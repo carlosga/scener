@@ -24,6 +24,9 @@ namespace SceneR
             case PrimitiveType::LineList:
                 return primitiveCount * 2;
 
+            case PrimitiveType::LineLoop:
+                return primitiveCount;
+
             case PrimitiveType::LineStrip:
                 return primitiveCount + 1;
 

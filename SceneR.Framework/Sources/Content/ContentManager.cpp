@@ -57,7 +57,7 @@ namespace SceneR
                 throw ContentLoadException("Requested file is not valid binary GLTF.");
             }
 
-            return reader.LoadModel();
+            return reader.ReadAsset();
         }
 
         void ContentManager::Unload()

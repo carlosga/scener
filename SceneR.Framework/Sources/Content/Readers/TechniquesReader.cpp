@@ -6,17 +6,18 @@
 #include <iostream>
 
 #include <GLTF/Model.hpp>
-#include <GLTF/TechniqueParameterType.hpp>
 #include <Content/json11.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        using SceneR::GLTF::RenderingStateType;
         using SceneR::GLTF::Technique;
         using SceneR::GLTF::TechniqueParameter;
         using SceneR::GLTF::TechniqueParameterType;
         using SceneR::GLTF::TechniquePass;
+        using SceneR::GLTF::TechniquePassStates;
         using json11::Json;
 
         TechniquesReader::TechniquesReader()
@@ -33,20 +34,19 @@ namespace SceneR
             {
                 auto technique = std::make_shared<Technique>();
 
-                this->ReadTechniqueParameters(item.second, root, technique);
-                this->ReadTechniquePasses(item.second, root, technique);
+                this->ReadTechniqueParameters(item.second["parameters"], technique);
+                this->ReadTechniquePasses(item.second["passes"], technique);
+
+                // Default pass
+                technique->pass = technique->passes[item.second["pass"].string_value()];
 
                 root->techniques[item.first] = technique;
             }
         }
 
-        void TechniquesReader::ReadTechniqueParameters(const json11::Json&        value
-                                                     , SceneR::GLTF::Model*       root
-                                                     , std::shared_ptr<Technique> technique)
+        void TechniquesReader::ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<Technique> technique)
         {
-            const auto& parameters = value["parameters"].object_items();
-
-            for (const auto& parameter : parameters)
+            for (const auto& parameter : value.object_items())
             {
                 auto tparameter = std::make_shared<TechniqueParameter>();
 
@@ -110,28 +110,45 @@ namespace SceneR
                     std::cout << "unknown semantic [" << tparameter->semantic << "]" << std::endl;
                 }
 
-                technique->parameters.push_back(tparameter);
+                technique->parameters[parameter.first] = tparameter;
             }
         }
 
-        void TechniquesReader::ReadTechniquePasses(const json11::Json&                      value
-                                                 , SceneR::GLTF::Model*                     root
-                                                 , std::shared_ptr<SceneR::GLTF::Technique> technique)
+        void TechniquesReader::ReadTechniquePasses(const json11::Json& value, std::shared_ptr<Technique> technique)
         {
-            const auto  defaultPass = value["pass"].string_value();
-            const auto& passes      = value["passes"].object_items();
-
-            for (const auto& pass : passes)
+            for (const auto& pass : value.object_items())
             {
                 auto       tpass    = std::make_shared<TechniquePass>();
                 const auto passName = pass.first;
 
-                if (passName == defaultPass)
+                // Process only common profile details
+                const auto& commonProfile = pass.second["details"]["commonProfile"];
+                const auto& parameters    = commonProfile["parameters"];
+
+                tpass->lightingModel = commonProfile["lightingModel"].string_value();
+
+                for (const auto& paramRef : parameters.array_items())
                 {
-                    technique->pass = tpass;
+                    tpass->parameters.push_back(technique->parameters[paramRef.string_value()]);
                 }
 
-                technique->passes.push_back(tpass);
+                this->ReadTechniquePassStates(pass.second["states"], tpass);
+
+                technique->passes[pass.first] = tpass;
+            }
+        }
+
+        void TechniquesReader::ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<TechniquePass> pass)
+        {
+            TechniquePassStates passStates;
+
+            std::cout << value.dump() << std::endl;
+
+            passStates.enabled = RenderingStateType::None;
+
+            for (const auto& state : value["enable"].array_items())
+            {
+                passStates.enabled |= static_cast<RenderingStateType>(state.int_value());
             }
         }
 
@@ -143,25 +160,6 @@ namespace SceneR
         //             "extras":{
         //                "doubleSided":false
         //             },
-        //             "lightingModel":"Blinn",
-        //             "parameters":[
-        //                "ambient",
-        //                "bump",
-        //                "diffuse",
-        //                "emission",
-        //                "jointMat",
-        //                "light0Color",
-        //                "light1Color",
-        //                "light1ConstantAttenuation",
-        //                "light1LinearAttenuation",
-        //                "light1QuadraticAttenuation",
-        //                "light1Transform",
-        //                "modelViewMatrix",
-        //                "normalMatrix",
-        //                "projectionMatrix",
-        //                "shininess",
-        //                "specular"
-        //             ],
         //             "texcoordBindings":{
         //                "ambient":"TEXCOORD_0",
         //                "bump":"TEXCOORD_0",
@@ -200,12 +198,6 @@ namespace SceneR
         //             "u_specular":"specular"
         //          }
         //       },
-        //       "states":{
-        //          "enable":[
-        //             2884,
-        //             2929
-        //          ]
-        //       }
         //    }
     }
 }

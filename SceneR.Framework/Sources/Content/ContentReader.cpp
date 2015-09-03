@@ -9,6 +9,7 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Content/json11.hpp>
+#include <Graphics/BufferObject.hpp>
 #include <GLTF/Model.hpp>
 
 namespace SceneR
@@ -39,7 +40,7 @@ namespace SceneR
             return this->assetName;
         }
 
-        std::shared_ptr<SceneR::GLTF::Model> SceneR::Content::ContentReader::LoadModel()
+        std::shared_ptr<SceneR::GLTF::Model> ContentReader::ReadAsset()
         {
             using SceneR::GLTF::Model;
             using SceneR::GLTF::Accessor;
@@ -85,9 +86,17 @@ namespace SceneR
             // ReadObject("animations", json, gltf.get());
             // ReadObject("skins", json, gltf.get());
 
-            this->assetReader.BaseStream().Seek(dataOffset, std::ios::beg);
-
             // TODO: Process external data references
+            // Binary GLTF has a single buffer with everything on it
+
+//            this->assetReader.BaseStream().Seek(dataOffset, std::ios::beg);
+
+//            const auto data = this->assetReader.ReadBytes(dataLength);
+
+//            for (const auto bufferView : gltf->bufferViews)
+//            {
+//                bufferView.SetData(data, bufferView->byteOffset, bufferView->byteLength);
+//            }
 
             return gltf;
         }

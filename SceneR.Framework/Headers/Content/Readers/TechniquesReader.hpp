@@ -13,6 +13,7 @@ namespace SceneR
     namespace GLTF
     {
         class Technique;
+        class TechniquePass;
     }
 }
 
@@ -43,13 +44,11 @@ namespace SceneR
             void Read(const json11::Json& value, SceneR::GLTF::Model* root) override;
 
         private:
-            void ReadTechniqueParameters(const json11::Json&                      value
-                                       , SceneR::GLTF::Model*                     root
-                                       , std::shared_ptr<SceneR::GLTF::Technique> technique);
+            void ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<SceneR::GLTF::Technique> technique);
 
-            void ReadTechniquePasses(const json11::Json&                      value
-                                   , SceneR::GLTF::Model*                     root
-                                   , std::shared_ptr<SceneR::GLTF::Technique> technique);
+            void ReadTechniquePasses(const json11::Json& value, std::shared_ptr<SceneR::GLTF::Technique> technique);
+
+            void ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<SceneR::GLTF::TechniquePass> pass);
         };
     }
 }

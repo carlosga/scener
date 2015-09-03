@@ -4,10 +4,11 @@
 #ifndef TECHIQUEPASS_HPP
 #define TECHIQUEPASS_HPP
 
+#include <memory>
 #include <string>
+#include <vector>
 
-#include <GLTF/TechniquePassDetails.hpp>
-#include <GLTF/TechniquePassInstanceProgram.hpp>
+#include <GLTF/TechiqueParameter.hpp>
 #include <GLTF/TechniquePassStates.hpp>
 
 namespace SceneR
@@ -21,9 +22,9 @@ namespace SceneR
             ~TechniquePass() = default;
 
         public:
-            TechniquePassDetails         details;
-            TechniquePassInstanceProgram instanceProgram;
-            TechniquePassStates          states;
+            std::string                                      lightingModel;
+            std::vector<std::shared_ptr<TechniqueParameter>> parameters;
+            TechniquePassStates                              states;
         };
     }
 }

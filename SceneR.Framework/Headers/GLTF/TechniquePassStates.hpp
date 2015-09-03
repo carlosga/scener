@@ -4,6 +4,8 @@
 #ifndef TECHNIQUEPASSSTATES_HPP
 #define TECHNIQUEPASSSTATES_HPP
 
+#include "RenderingStateType.hpp"
+
 namespace SceneR
 {
     namespace GLTF
@@ -13,6 +15,9 @@ namespace SceneR
         public:
             TechniquePassStates() = default;
             ~TechniquePassStates() = default;
+
+        public:
+            RenderingStateType enabled;
         };
     }
 }
