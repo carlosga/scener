@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-#include <System/IO/BinaryReader.hpp>
 #include <Content/json11.hpp>
 #include <GLTF/Model.hpp>
 
@@ -25,9 +24,7 @@ namespace SceneR
         {
         }
 
-        void MaterialsReader::Read(const json11::Json&       value
-                                 , System::IO::BinaryReader& reader
-                                 , SceneR::GLTF::Model*      root)
+        void MaterialsReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["materials"].object_items())
             {
@@ -76,6 +73,7 @@ namespace SceneR
                     }
                 }
 
+                // TODO: Decode material instance technique
                 // material->instanceTechnique = root->techniques[item.second["instanceTechnique"].string_value()];
 
                 root->materials[item.first] = material;

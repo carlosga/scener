@@ -3,7 +3,6 @@
 
 #include <Content/Readers/AccessorsReader.hpp>
 
-#include <System/IO/BinaryReader.hpp>
 #include <Content/ContentReader.hpp>
 #include <Content/json11.hpp>
 #include <GLTF/Model.hpp>
@@ -27,9 +26,7 @@ namespace SceneR
 
         }
 
-        void AccessorsReader::Read(const json11::Json&       value
-                                 , System::IO::BinaryReader& reader
-                                 , SceneR::GLTF::Model*      root)
+        void AccessorsReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["accessors"].object_items())
             {

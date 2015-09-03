@@ -3,7 +3,6 @@
 
 #include <Content/Readers/BuffersReader.hpp>
 
-#include <System/IO/BinaryReader.hpp>
 #include <Content/json11.hpp>
 #include <GLTF/Model.hpp>
 
@@ -24,9 +23,7 @@ namespace SceneR
         {
         }
 
-        void BuffersReader::Read(const json11::Json&       value
-                               , System::IO::BinaryReader& reader
-                               , SceneR::GLTF::Model*      root)
+        void BuffersReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["buffers"].object_items())
             {

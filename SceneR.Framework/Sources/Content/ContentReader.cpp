@@ -131,7 +131,7 @@ namespace SceneR
                 throw ContentLoadException("Unknown type reader");
             }
 
-            typeReader->Read(value, this->assetReader, root);
+            typeReader->Read(value, root);
         }
     }
 }

@@ -19,14 +19,6 @@ namespace SceneR
     }
 }
 
-namespace System
-{
-    namespace IO
-    {
-        class BinaryReader;
-    }
-}
-
 namespace SceneR
 {
     namespace Content
@@ -48,9 +40,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual void Read(const json11::Json&       value
-                            , System::IO::BinaryReader& reader
-                            , SceneR::GLTF::Model*      root) = 0;
+            virtual void Read(const json11::Json& value, SceneR::GLTF::Model* root) = 0;
         };
     }
 }

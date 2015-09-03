@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-#include <System/IO/BinaryReader.hpp>
 #include <GLTF/Model.hpp>
 #include <GLTF/TechniqueParameterType.hpp>
 #include <Content/json11.hpp>
@@ -14,7 +13,6 @@ namespace SceneR
 {
     namespace Content
     {
-        using System::IO::BinaryReader;
         using SceneR::GLTF::Technique;
         using SceneR::GLTF::TechniqueParameter;
         using SceneR::GLTF::TechniqueParameterType;
@@ -29,9 +27,7 @@ namespace SceneR
         {
         }
 
-        void TechniquesReader::Read(const json11::Json&       value
-                                  , System::IO::BinaryReader& reader
-                                  , SceneR::GLTF::Model*      root)
+        void TechniquesReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["techniques"].object_items())
             {

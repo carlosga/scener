@@ -3,9 +3,6 @@
 
 #include <Content/Readers/BufferViewsReader.hpp>
 
-#include <iostream>
-
-#include <System/IO/BinaryReader.hpp>
 #include <GLTF/Model.hpp>
 #include <Content/json11.hpp>
 
@@ -13,7 +10,6 @@ namespace SceneR
 {
     namespace Content
     {
-        using System::IO::BinaryReader;
         using SceneR::GLTF::Buffer;
         using SceneR::GLTF::BufferView;
         using SceneR::Graphics::BufferTarget;
@@ -27,15 +23,11 @@ namespace SceneR
         {
         }
 
-        void BufferViewsReader::Read(const json11::Json&       value
-                                   , System::IO::BinaryReader& reader
-                                   , SceneR::GLTF::Model*      root)
+        void BufferViewsReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["bufferViews"].object_items())
             {
                 auto bufferView = std::make_shared<BufferView>();
-
-                std::cout << item.second.dump() << std::endl;
 
                 bufferView->buffer     = root->buffers[item.second["buffer"].string_value()];
                 bufferView->byteOffset = item.second["byteOffset"].int_value();

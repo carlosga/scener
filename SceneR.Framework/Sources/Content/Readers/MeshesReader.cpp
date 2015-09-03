@@ -28,9 +28,7 @@ namespace SceneR
         {
         }
 
-        void MeshesReader::Read(const json11::Json&       value
-                              , System::IO::BinaryReader& reader
-                              , SceneR::GLTF::Model*      root)
+        void MeshesReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
         {
             for (const auto& item : value["meshes"].object_items())
             {
