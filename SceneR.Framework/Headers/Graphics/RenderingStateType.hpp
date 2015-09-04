@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef RENDERSTATETYPE_HPP
-#define RENDERSTATETYPE_HPP
+#ifndef RENDERINGSTATETYPE_HPP
+#define RENDERINGSTATETYPE_HPP
 
 #include <cstdint>
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Graphics
     {
         /**
          * Fixed-function rendering states.
@@ -65,4 +65,4 @@ namespace SceneR
     }
 }
 
-#endif //RENDERSTATETYPE_HPP
+#endif // RENDERINGSTATETYPE_HPP

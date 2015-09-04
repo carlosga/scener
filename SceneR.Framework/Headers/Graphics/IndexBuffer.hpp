@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <Graphics/BufferObject.hpp>
+#include "BufferView.hpp"
 #include <Graphics/IndexElementSize.hpp>
 #include <Graphics/GraphicsResource.hpp>
 
@@ -76,7 +76,7 @@ namespace SceneR
             std::size_t GetElementSizeInBytes() const;
 
         private:
-            BufferObject                       ibo;
+            BufferView                         ibo;
             std::size_t                        indexCount;
             SceneR::Graphics::IndexElementSize indexElementSize;
 

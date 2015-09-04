@@ -7,8 +7,7 @@
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
 #include <Content/ContentReader.hpp>
-
-#include <GLTF/Model.hpp>
+#include <Graphics/Model.hpp>
 
 namespace SceneR
 {
@@ -19,7 +18,7 @@ namespace SceneR
         using System::IO::Path;
         using System::IO::Stream;
         using SceneR::Framework::RendererServiceContainer;
-        using SceneR::GLTF::Model;
+        using SceneR::Graphics::Model;
 
         ContentResourceManager ContentManager::ResourceManager;
 

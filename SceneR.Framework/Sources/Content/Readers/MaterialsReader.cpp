@@ -6,15 +6,16 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
-#include <GLTF/Model.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/Material.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using json11::Json;
-        using SceneR::GLTF::Model;
-        using SceneR::GLTF::Material;
+        using SceneR::Graphics::Model;
+        using SceneR::Graphics::Material;
 
         MaterialsReader::MaterialsReader()
         {
@@ -24,7 +25,7 @@ namespace SceneR
         {
         }
 
-        void MaterialsReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
+        void MaterialsReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
         {
             for (const auto& item : value["materials"].object_items())
             {

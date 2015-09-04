@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include <Graphics/BufferObject.hpp>
+#include "BufferView.hpp"
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/VertexArrayObject.hpp>
 
@@ -77,7 +77,7 @@ namespace SceneR
             std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
             std::size_t                                          vertexCount;
             VertexArrayObject                                    vao;
-            BufferObject                                         vbo;
+            BufferView                                           vbo;
 
             friend class GraphicsDevice;
         };

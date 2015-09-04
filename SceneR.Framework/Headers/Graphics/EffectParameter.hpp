@@ -15,6 +15,11 @@
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class TechniquesReader;
+    }
+
     namespace Framework
     {
         struct Matrix;
@@ -73,11 +78,6 @@ namespace SceneR
             std::size_t ColumnCount() const;
 
             /**
-             * Gets the collection of effect parameters.
-             */
-            EffectParameterCollection& Elements();
-
-            /**
              * Gets the name of the parameter.
              */
             const std::u16string& Name() const;
@@ -96,11 +96,6 @@ namespace SceneR
              * Gets the number of rows in the parameter description.
              */
             std::size_t RowCount() const;
-
-            /**
-             * Gets the collection of structure members.
-             */
-            EffectParameterCollection& StructureMembers();
 
         public:
             /**
@@ -327,16 +322,22 @@ namespace SceneR
             void Describe(const std::int32_t& type);
 
         private:
+            std::uint32_t                        count;
+            std::string                          semantic;
+            std::string                          node;
+            std::string                          value;
+            EffectParameterType                  type;
+
             std::size_t                          columnCount;
-            EffectParameterCollection            elements;
             std::u16string                       name;
             EffectParameterClass                 parameterClass;
             EffectParameterType                  parameterType;
             std::size_t                          rowCount;
-            EffectParameterCollection            structureMembers;
             std::size_t                          index;
             std::size_t                          offset;
             std::shared_ptr<UniformBufferObject> uniformBuffer;
+
+            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

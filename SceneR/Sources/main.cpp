@@ -3,15 +3,15 @@
 
 // #include <SampleRenderer.hpp>
 
-#include <Framework/RendererServiceContainer.hpp>
 #include <Content/ContentManager.hpp>
-#include <GLTF/Model.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/Model.hpp>
 
 int main()
 {
     using SceneR::Content::ContentManager;
     using SceneR::Framework::RendererServiceContainer;
-    using SceneR::GLTF::Model;
+    using SceneR::Graphics::Model;
 
     RendererServiceContainer container;
     ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content");

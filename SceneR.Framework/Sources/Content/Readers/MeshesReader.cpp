@@ -7,7 +7,9 @@
 
 #include <System/IO/BinaryReader.hpp>
 #include <Content/json11.hpp>
-#include <GLTF/Model.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/PrimitiveType.hpp>
 
 namespace SceneR
@@ -15,8 +17,9 @@ namespace SceneR
     namespace Content
     {
         using System::IO::BinaryReader;
-        using SceneR::GLTF::ModelMesh;
-        using SceneR::GLTF::ModelMeshPart;
+        using SceneR::Graphics::Model;
+        using SceneR::Graphics::ModelMesh;
+        using SceneR::Graphics::ModelMeshPart;
         using SceneR::Graphics::PrimitiveType;
         using json11::Json;
 
@@ -28,7 +31,7 @@ namespace SceneR
         {
         }
 
-        void MeshesReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
+        void MeshesReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
         {
             for (const auto& item : value["meshes"].object_items())
             {

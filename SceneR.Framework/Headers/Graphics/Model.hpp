@@ -4,6 +4,7 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -14,7 +15,13 @@ namespace SceneR
 {
     namespace Content
     {
+        class AccessorsReader;
+        class BuffersReader;
+        class BufferViewsReader;
+        class MaterialsReader;
+        class MeshesReader;
         class ModelReader;
+        class TechniquesReader;
     }
 }
 
@@ -30,9 +37,13 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Accessor;
+        class Buffer;
+        class BufferView;
+        class Effect;
+        class Material;
         class ModelBone;
         class ModelMesh;
-        class SkinningData;
 
         /**
          * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
@@ -48,7 +59,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this Model.
              */
-            ~Model() override;
+            ~Model();
 
         public:
             void Dispose() override;
@@ -96,12 +107,12 @@ namespace SceneR
             /**
              * Gets a collection of ModelMesh objects which composes the current model.
              */
-            const std::vector<std::shared_ptr<ModelMesh>>& Meshes() const;
+            const std::map<std::string, std::shared_ptr<ModelMesh>>& Meshes() const;
 
             /**
-             * Getsthe model skinning data
+             * Gets the model skinning data
              */
-            const std::shared_ptr<SkinningData>& Skinning() const;
+            // const std::shared_ptr<SkinningData>& Skinning() const;
 
             /**
              * Gets the model tag
@@ -114,13 +125,25 @@ namespace SceneR
             void Tag(const std::u16string& tag);
 
         private:
-            std::vector<std::shared_ptr<ModelBone>> bones;
-            std::vector<std::shared_ptr<ModelMesh>> meshes;
-            std::shared_ptr<ModelBone>              root;
-            std::shared_ptr<SkinningData>           skinning;
-            std::u16string                          tag;
+            // std::shared_ptr<SkinningData>           skinning;
 
+            std::u16string                                     tag;
+            std::vector<std::shared_ptr<ModelBone>>            bones;
+            std::shared_ptr<ModelBone>                         root;
+            std::map<std::string, std::shared_ptr<ModelMesh>>  meshes;
+            std::map<std::string, std::shared_ptr<Buffer>>     buffers;
+            std::map<std::string, std::shared_ptr<BufferView>> bufferViews;
+            std::map<std::string, std::shared_ptr<Accessor>>   accessors;
+            std::map<std::string, std::shared_ptr<Effect>>     techniques;
+            std::map<std::string, std::shared_ptr<Material>>   materials;
+
+            friend class SceneR::Content::AccessorsReader;
+            friend class SceneR::Content::BuffersReader;
+            friend class SceneR::Content::BufferViewsReader;
+            friend class SceneR::Content::MaterialsReader;
+            friend class SceneR::Content::MeshesReader;
             friend class SceneR::Content::ModelReader;
+            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

@@ -4,20 +4,30 @@
 #ifndef TECHNIQUEPASSSTATES_HPP
 #define TECHNIQUEPASSSTATES_HPP
 
-#include "RenderingStateType.hpp"
+#include <Graphics/RenderingStateType.hpp>
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Content
     {
-        class TechniquePassStates
+        class TechniquesReader;
+    }
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class EffectPassStates
         {
         public:
-            TechniquePassStates() = default;
-            ~TechniquePassStates() = default;
+            EffectPassStates() = default;
+            ~EffectPassStates() = default;
 
         public:
             RenderingStateType enabled;
+
+            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

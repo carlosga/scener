@@ -5,12 +5,9 @@
 
 #include <iostream>
 
-#include <System/IO/BinaryReader.hpp>
 #include <Content/ContentLoadException.hpp>
-#include <Content/ContentTypeReader.hpp>
 #include <Content/json11.hpp>
-#include <Graphics/BufferObject.hpp>
-#include <GLTF/Model.hpp>
+#include <Graphics/Model.hpp>
 
 namespace SceneR
 {
@@ -40,12 +37,9 @@ namespace SceneR
             return this->assetName;
         }
 
-        std::shared_ptr<SceneR::GLTF::Model> ContentReader::ReadAsset()
+        std::shared_ptr<SceneR::Graphics::Model> ContentReader::ReadAsset()
         {
-            using SceneR::GLTF::Model;
-            using SceneR::GLTF::Accessor;
-            using SceneR::GLTF::Buffer;
-            using SceneR::GLTF::BufferView;
+            using SceneR::Graphics::Model;
 
             std::string err;
 
@@ -131,7 +125,7 @@ namespace SceneR
             return true;
         }
 
-        void ContentReader::ReadObject(const std::string& key, const json11::Json& value, SceneR::GLTF::Model* root)
+        void ContentReader::ReadObject(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root)
         {
             auto typeReader = TypeReaderManager.GetByReaderName(key);
 

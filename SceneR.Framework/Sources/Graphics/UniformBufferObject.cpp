@@ -18,7 +18,7 @@ namespace SceneR
             , index        { 0 }
             , bindingPoint { 0 }
             , size         { 0 }
-            , bufferObject { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
+            , bufferView{ BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
         {
         }
 
@@ -28,7 +28,7 @@ namespace SceneR
 
         void UniformBufferObject::Dispose()
         {
-            this->bufferObject.Dispose();
+            this->bufferView.Dispose();
         }
 
         std::int32_t UniformBufferObject::BindingPoint() const
@@ -48,14 +48,14 @@ namespace SceneR
 
         void UniformBufferObject::Activate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target())
+            glBindBufferBase(static_cast<GLenum>(this->bufferView.Target())
                            , this->bindingPoint
-                           , this->bufferObject.Id());
+                           , this->bufferView.Id());
         }
 
         void UniformBufferObject::Deactivate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferObject.Target()), 0, 0);
+            glBindBufferBase(static_cast<GLenum>(this->bufferView.Target()), 0, 0);
         }
 
         std::vector<std::uint8_t> UniformBufferObject::GetData() const
@@ -68,14 +68,14 @@ namespace SceneR
         {
             auto data = std::vector<std::uint8_t>(elementCount, 0);
 
-            this->bufferObject.GetData(startIndex, elementCount, data.data());
+            this->bufferView.GetData(startIndex, elementCount, data.data());
 
             return data;
         }
 
         void UniformBufferObject::SetData(const void* data)
         {
-            this->bufferObject.BufferData(0, this->size, data);
+            this->bufferView.BufferData(0, this->size, data);
         }
 
         void UniformBufferObject::SetData(const std::size_t& startIndex
@@ -87,7 +87,7 @@ namespace SceneR
                 return;
             }
 
-            this->bufferObject.BufferData(startIndex, elementCount, data);
+            this->bufferView.BufferData(startIndex, elementCount, data);
         }
 
         void UniformBufferObject::Describe()
@@ -112,7 +112,7 @@ namespace SceneR
             // Initialize the buffer object
             std::vector<std::uint8_t> data(this->size, 0);
 
-            this->bufferObject.BufferData(this->size, data.data());
+            this->bufferView.BufferData(this->size, data.data());
         }
     }
 }

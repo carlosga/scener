@@ -12,11 +12,18 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
-#include <GLTF/Model.hpp>
 
 namespace json11
 {
     class Json;
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Model;
+    }
 }
 
 namespace SceneR
@@ -40,8 +47,7 @@ namespace SceneR
              * @param contentManager the content that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string& assetName
-                        , System::IO::Stream&   stream);
+            ContentReader(const std::u16string& assetName, System::IO::Stream& stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -55,12 +61,12 @@ namespace SceneR
             const std::u16string& AssetName() const;
 
          public:
-            std::shared_ptr<SceneR::GLTF::Model> ReadAsset();
+            std::shared_ptr<SceneR::Graphics::Model> ReadAsset();
 
             /**
              * Reads a single object from the current stream.
              */
-            void ReadObject(const std::string& key, const json11::Json& value, SceneR::GLTF::Model* root);
+            void ReadObject(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root);
 
         private:
             bool ReadHeader();

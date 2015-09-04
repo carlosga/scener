@@ -13,7 +13,7 @@
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Graphics
     {
         class Model;
     }
@@ -60,7 +60,7 @@ namespace SceneR
             /**
              * Loads a the given asset.
              */
-            std::shared_ptr<SceneR::GLTF::Model> LoadModel(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::Graphics::Model> LoadModel(const std::u16string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.

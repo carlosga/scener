@@ -13,7 +13,7 @@ namespace json11
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Graphics
     {
         class Model;
     }
@@ -40,7 +40,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual void Read(const json11::Json& value, SceneR::GLTF::Model* root) = 0;
+            virtual void Read(const json11::Json& value, SceneR::Graphics::Model* root) = 0;
         };
     }
 }

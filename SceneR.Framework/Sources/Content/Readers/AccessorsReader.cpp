@@ -5,17 +5,21 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/json11.hpp>
-#include <GLTF/Model.hpp>
+#include <Graphics/Accessor.hpp>
+#include <Graphics/AttributeType.hpp>
+#include <Graphics/BufferView.hpp>
+#include <Graphics/ComponentType.hpp>
+#include <Graphics/Model.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using json11::Json;
-        using SceneR::GLTF::Model;
-        using SceneR::GLTF::Accessor;
-        using SceneR::GLTF::AttributeType;
-        using SceneR::GLTF::ComponentType;
+        using SceneR::Graphics::Model;
+        using SceneR::Graphics::Accessor;
+        using SceneR::Graphics::AttributeType;
+        using SceneR::Graphics::ComponentType;
 
         AccessorsReader::AccessorsReader()
         {
@@ -26,7 +30,7 @@ namespace SceneR
 
         }
 
-        void AccessorsReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
+        void AccessorsReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
         {
             for (const auto& item : value["accessors"].object_items())
             {

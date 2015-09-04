@@ -10,7 +10,6 @@
 #include <Framework/Matrix.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <Graphics/SkinnedEffect.hpp>
 
 namespace SceneR
 {
@@ -19,10 +18,10 @@ namespace SceneR
         using SceneR::Framework::Matrix;
 
         Model::Model()
-            : bones  ( 0 )
-            , meshes ( 0 )
+            : tag    { u"" }
+            , bones  { }
             , root   { nullptr }
-            , tag    { u"" }
+            , meshes { }
         {
         }
 
@@ -77,26 +76,26 @@ namespace SceneR
 
         void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
         {
-            auto boneTransforms = std::vector<Matrix>(this->bones.size());
+//            auto boneTransforms = std::vector<Matrix>(this->bones.size());
 
-            this->CopyAbsoluteBoneTransformsTo(boneTransforms);
+//            this->CopyAbsoluteBoneTransformsTo(boneTransforms);
 
-            for (auto& mesh : this->meshes)
-            {
-                for (auto& effect : mesh->Effects())
-                {
-                    auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
+//            for (auto& mesh : this->meshes)
+//            {
+//                for (auto& effect : mesh->Effects())
+//                {
+//                    auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
-                    if (mEffect.get() != nullptr)
-                    {
-                        mEffect->World(boneTransforms[mesh->ParentBone()->Index()] * world);
-                        mEffect->View(view);
-                        mEffect->Projection(projection);
-                    }
-                }
+//                    if (mEffect.get() != nullptr)
+//                    {
+//                        mEffect->World(boneTransforms[mesh->ParentBone()->Index()] * world);
+//                        mEffect->View(view);
+//                        mEffect->Projection(projection);
+//                    }
+//                }
 
-                mesh->Draw();
-            }
+//                mesh->Draw();
+//            }
         }
 
         const std::shared_ptr<ModelBone>& Model::Root() const
@@ -109,14 +108,9 @@ namespace SceneR
             return this->bones;
         }
 
-        const std::vector<std::shared_ptr<ModelMesh>>& Model::Meshes() const
+        const std::map<std::string, std::shared_ptr<ModelMesh>>& Model::Meshes() const
         {
             return this->meshes;
-        }
-
-        const std::shared_ptr<SkinningData>& Model::Skinning() const
-        {
-            return this->skinning;
         }
 
         const std::u16string& Model::Tag() const

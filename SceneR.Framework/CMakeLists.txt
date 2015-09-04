@@ -52,23 +52,6 @@ set(HEADER_FILES
     Headers/Content/ContentReader.hpp
     Headers/Content/ContentTypeReader.hpp
     Headers/Content/ContentTypeReaderManager.hpp
-    Headers/GLTF/AttributeType.hpp
-    Headers/GLTF/ComponentType.hpp
-    Headers/GLTF/Accessor.hpp
-    Headers/GLTF/BufferType.hpp
-    Headers/GLTF/Buffer.hpp
-    Headers/GLTF/BufferView.hpp
-    Headers/GLTF/Material.hpp
-    Headers/GLTF/Model.hpp
-    Headers/GLTF/ModelMesh.hpp
-    Headers/GLTF/ModelMeshPart.hpp
-    Headers/GLTF/RenderingStateType.hpp
-    Headers/GLTF/Technique.hpp
-    Headers/GLTF/TechniqueParameter.hpp
-    Headers/GLTF/TechniqueParameterType.hpp
-    Headers/GLTF/TechniquePass.hpp
-    Headers/GLTF/TechniquePassInstanceProgram.hpp
-    Headers/GLTF/TechniquePassStates.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -95,18 +78,18 @@ set(HEADER_FILES
     Headers/Framework/Vector2.hpp
     Headers/Framework/Vector3.hpp
     Headers/Framework/Vector4.hpp
-    Headers/Graphics/Resources.hpp
-    Headers/Graphics/AnimatedModel.hpp
-    Headers/Graphics/AnimationClip.hpp
-    Headers/Graphics/AnimationPlayer.hpp
-    Headers/Graphics/BasicEffect.hpp
+    Headers/Graphics/Accessor.hpp
+    Headers/Graphics/AttributeType.hpp
     Headers/Graphics/Blend.hpp
     Headers/Graphics/BlendFunction.hpp
     Headers/Graphics/BlendState.hpp
-    Headers/Graphics/BufferObject.hpp
+    Headers/Graphics/Buffer.hpp
     Headers/Graphics/BufferTarget.hpp
     Headers/Graphics/BufferUsage.hpp
+    Headers/Graphics/BufferView.hpp
+    Headers/Graphics/BufferType.hpp
     Headers/Graphics/ColorWriteChannels.hpp
+    Headers/Graphics/ComponentType.hpp
     Headers/Graphics/CompareFunction.hpp
     Headers/Graphics/CullMode.hpp
     Headers/Graphics/DepthStencilState.hpp
@@ -115,10 +98,11 @@ set(HEADER_FILES
     Headers/Graphics/Effect.hpp
     Headers/Graphics/EffectDirtyFlags.hpp
     Headers/Graphics/EffectHelpers.hpp
-    Headers/Graphics/EffectMaterial.hpp
+    Headers/Graphics/EffectPass.hpp
+    Headers/Graphics/EffectPassInstanceProgram.hpp
+    Headers/Graphics/EffectPassStates.hpp
     Headers/Graphics/EffectParameter.hpp
     Headers/Graphics/EffectParameterClass.hpp
-    Headers/Graphics/EffectParameterCollection.hpp
     Headers/Graphics/EffectParameterType.hpp
     Headers/Graphics/FillMode.hpp
     Headers/Graphics/GraphicsAdapter.hpp
@@ -131,7 +115,7 @@ set(HEADER_FILES
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
     Headers/Graphics/IndexElementSize.hpp
-    Headers/Graphics/Keyframe.hpp
+    Headers/Graphics/Material.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
     Headers/Graphics/ModelMesh.hpp
@@ -139,12 +123,12 @@ set(HEADER_FILES
     Headers/Graphics/PresentationParameters.hpp
     Headers/Graphics/PrimitiveType.hpp
     Headers/Graphics/RasterizerState.hpp
+    Headers/Graphics/RenderingStateType.hpp
+    Headers/Graphics/Resources.hpp
     Headers/Graphics/SamplerState.hpp
     Headers/Graphics/Shader.hpp
     Headers/Graphics/ShaderManager.hpp
     Headers/Graphics/ShaderType.hpp
-    Headers/Graphics/SkinnedEffect.hpp
-    Headers/Graphics/SkinningData.hpp
     Headers/Graphics/StencilOperation.hpp
     Headers/Graphics/SurfaceFormat.hpp
     Headers/Graphics/Texture.hpp
@@ -227,20 +211,14 @@ set(SOURCE_FILES
     Sources/Framework/Vector3.cpp
     Sources/Framework/Vector4.cpp
     Sources/Graphics/Resources.cpp
-    Sources/Graphics/AnimatedModel.cpp
-    Sources/Graphics/AnimationClip.cpp
-    Sources/Graphics/AnimationPlayer.cpp
-    Sources/Graphics/BasicEffect.cpp
     Sources/Graphics/BlendState.cpp
-    Sources/Graphics/BufferObject.cpp
+    Sources/Graphics/BufferView.cpp
     Sources/Graphics/DepthStencilState.cpp
     Sources/Graphics/DirectionalLight.cpp
     Sources/Graphics/DisplayMode.cpp
     Sources/Graphics/Effect.cpp
     Sources/Graphics/EffectHelpers.cpp
-    Sources/Graphics/EffectMaterial.cpp
     Sources/Graphics/EffectParameter.cpp
-    Sources/Graphics/EffectParameterCollection.cpp
     Sources/Graphics/GraphicsAdapter.cpp
     Sources/Graphics/GraphicsDevice.cpp
     Sources/Graphics/GraphicsResource.cpp
@@ -249,7 +227,6 @@ set(SOURCE_FILES
     Sources/Graphics/IEffectMatrices.cpp
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
-    Sources/Graphics/Keyframe.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp
@@ -259,8 +236,6 @@ set(SOURCE_FILES
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp
     Sources/Graphics/ShaderManager.cpp
-    Sources/Graphics/SkinnedEffect.cpp
-    Sources/Graphics/SkinningData.cpp
     Sources/Graphics/Texture.cpp
     Sources/Graphics/Texture2D.cpp
     Sources/Graphics/TextureObject.cpp

@@ -6,12 +6,21 @@
 
 #include <memory>
 #include <Framework/Vector3.hpp>
-#include <GLTF/Technique.hpp>
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Content
     {
+        class MaterialsReader;
+    }
+}
+
+namespace SceneR
+{
+    namespace Graphics
+    {
+        class Effect;
+
         class Material
         {
         public:
@@ -19,14 +28,15 @@ namespace SceneR
             ~Material() = default;
 
         public:
-            std::shared_ptr<Technique> instanceTechnique;
-
+            std::shared_ptr<Effect>    instanceTechnique;
             std::string                ambient;
             std::string                bump;
             std::string                diffuse;
             SceneR::Framework::Vector3 emission;
             float                      shininess;
             SceneR::Framework::Vector3 specular;
+
+            friend class SceneR::Content::MaterialsReader;
         };
     }
 }

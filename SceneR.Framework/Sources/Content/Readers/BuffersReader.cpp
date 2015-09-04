@@ -4,16 +4,18 @@
 #include <Content/Readers/BuffersReader.hpp>
 
 #include <Content/json11.hpp>
-#include <GLTF/Model.hpp>
+#include <Graphics/Buffer.hpp>
+#include <Graphics/BufferType.hpp>
+#include <Graphics/Model.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using json11::Json;
-        using SceneR::GLTF::Model;
-        using SceneR::GLTF::Buffer;
-        using SceneR::GLTF::BufferType;
+        using SceneR::Graphics::Model;
+        using SceneR::Graphics::Buffer;
+        using SceneR::Graphics::BufferType;
 
         BuffersReader::BuffersReader()
         {
@@ -23,7 +25,7 @@ namespace SceneR
         {
         }
 
-        void BuffersReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
+        void BuffersReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
         {
             for (const auto& item : value["buffers"].object_items())
             {

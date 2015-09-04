@@ -5,24 +5,28 @@
 
 #include <iostream>
 
-#include <GLTF/Model.hpp>
-#include <GLTF/TechniqueParameter.hpp>
-#include <GLTF/TechniquePass.hpp>
-#include <GLTF/TechniquePassInstanceProgram.hpp>
-#include <GLTF/TechniquePassStates.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectPass.hpp>
+#include <Graphics/EffectPassInstanceProgram.hpp>
+#include <Graphics/EffectPassStates.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/RenderingStateType.hpp>
 #include <Content/json11.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
-        using SceneR::GLTF::RenderingStateType;
-        using SceneR::GLTF::Technique;
-        using SceneR::GLTF::TechniqueParameter;
-        using SceneR::GLTF::TechniqueParameterType;
-        using SceneR::GLTF::TechniquePass;
-        using SceneR::GLTF::TechniquePassInstanceProgram;
-        using SceneR::GLTF::TechniquePassStates;
+        using SceneR::Graphics::Effect;
+        using SceneR::Graphics::EffectParameter;
+        using SceneR::Graphics::EffectParameterType;
+        using SceneR::Graphics::EffectPass;
+        using SceneR::Graphics::EffectPassInstanceProgram;
+        using SceneR::Graphics::EffectPassStates;
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::RenderingStateType;
         using json11::Json;
 
         TechniquesReader::TechniquesReader()
@@ -33,30 +37,33 @@ namespace SceneR
         {
         }
 
-        void TechniquesReader::Read(const json11::Json& value, SceneR::GLTF::Model* root)
+        void TechniquesReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
         {
-            for (const auto& item : value["techniques"].object_items())
-            {
-                auto technique = std::make_shared<Technique>();
+//            const auto& gdService      = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
+//            const auto& graphicsDevice = gdService.CurrentGraphicsDevice();
 
-                this->ReadTechniqueParameters(item.second["parameters"], technique);
-                this->ReadTechniquePasses(item.second["passes"], technique);
+//            for (const auto& item : value["techniques"].object_items())
+//            {
+//                auto technique = std::make_shared<Effect>(graphicsDevice);
 
-                // Default pass
-                technique->pass = technique->passes[item.second["pass"].string_value()];
+//                this->ReadTechniqueParameters(item.second["parameters"], technique);
+//                this->ReadTechniquePasses(item.second["passes"], technique);
 
-                root->techniques[item.first] = technique;
-            }
+//                // Default pass
+//                technique->pass = technique->passes[item.second["pass"].string_value()];
+
+//                root->techniques[item.first] = technique;
+//            }
         }
 
-        void TechniquesReader::ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<Technique> technique)
+        void TechniquesReader::ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& parameter : value.object_items())
             {
-                auto tparameter = std::make_shared<TechniqueParameter>();
+                auto tparameter = std::make_shared<EffectParameter>();
 
                 tparameter->count    = parameter.second["count"].int_value();
-                tparameter->type     = static_cast<TechniqueParameterType>(parameter.second["type"].int_value());
+                tparameter->type     = static_cast<EffectParameterType>(parameter.second["type"].int_value());
                 tparameter->semantic = parameter.second["semantic"].string_value();
                 tparameter->node     = parameter.second["node"].int_value();
 
@@ -68,47 +75,47 @@ namespace SceneR
                 }
                 else if (tparameter->semantic == "MODELVIEW")
                 {
-                    technique->modelViewMatrix = tparameter;
+                    technique->modelViewMatrixParam = tparameter;
                 }
                 else if (tparameter->semantic == "PROJECTION")
                 {
-                    technique->projectionMatrix = tparameter;
+                    technique->projectionMatrixParam = tparameter;
                 }
                 else if (tparameter->semantic == "MODELVIEWINVERSETRANSPOSE")
                 {
-                    technique->normalMatrix = tparameter;
+                    technique->normalMatrixParam = tparameter;
                 }
                 else if (tparameter->semantic == "POSITION")
                 {
-                    technique->position = tparameter;
+                    technique->positionParam = tparameter;
                 }
                 else if (tparameter->semantic == "NORMAL")
                 {
-                    technique->normal = tparameter;
+                    technique->normalParam = tparameter;
                 }
                 else if (tparameter->semantic == "TEXCOORD_0")
                 {
-                    technique->texCoord = tparameter;
+                    technique->texCoordParam = tparameter;
                 }
                 else if (tparameter->semantic == "TEXBINORMAL")
                 {
-                    technique->texBinormal = tparameter;
+                    technique->texBinormalParam = tparameter;
                 }
                 else if (tparameter->semantic == "TEXTANGENT")
                 {
-                    technique->texTangent = tparameter;
+                    technique->texTangentParam = tparameter;
                 }
                 else if (tparameter->semantic == "JOINT")
                 {
-                    technique->joint = tparameter;
+                    technique->jointParam = tparameter;
                 }
                 else if (tparameter->semantic == "JOINTMATRIX")
                 {
-                    technique->jointMatrix = tparameter;
+                    technique->jointMatrixParam = tparameter;
                 }
                 else if (tparameter->semantic == "WEIGHT")
                 {
-                    technique->weight = tparameter;
+                    technique->weightParam = tparameter;
                 }
                 else
                 {
@@ -119,11 +126,11 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::ReadTechniquePasses(const json11::Json& value, std::shared_ptr<Technique> technique)
+        void TechniquesReader::ReadTechniquePasses(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& pass : value.object_items())
             {
-                auto       tpass    = std::make_shared<TechniquePass>();
+                auto       tpass    = std::make_shared<EffectPass>();
                 const auto passName = pass.first;
 
                 // Process only common profile details
@@ -144,11 +151,11 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::ReadTechniquePassProgram(const json11::Json&            value
-                                                      , std::shared_ptr<Technique>     technique
-                                                      , std::shared_ptr<TechniquePass> pass)
+        void TechniquesReader::ReadTechniquePassProgram(const json11::Json&         value
+                                                      , std::shared_ptr<Effect>     technique
+                                                      , std::shared_ptr<EffectPass> pass)
         {
-            TechniquePassInstanceProgram program;
+            EffectPassInstanceProgram program;
 
             program.name = value["program"].string_value();
 
@@ -174,9 +181,9 @@ namespace SceneR
             pass->program = program;
         }
 
-        void TechniquesReader::ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<TechniquePass> pass)
+        void TechniquesReader::ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<EffectPass> pass)
         {
-            TechniquePassStates passStates;
+            EffectPassStates passStates;
 
             std::cout << value.dump() << std::endl;
 

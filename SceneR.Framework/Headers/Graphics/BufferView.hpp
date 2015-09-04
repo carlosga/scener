@@ -1,11 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFEROBJECT_HPP
-#define BUFFEROBJECT_HPP
+#ifndef BUFFERVIEW_HPP
+#define BUFFERVIEW_HPP
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
@@ -13,25 +14,36 @@
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class AccessorsReader;
+        class BufferViewsReader;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
+        class Buffer;
+
         /**
          * Represents an OpenGL buffer object.
          */
-        class BufferObject : System::IDisposable
+        class BufferView : System::IDisposable
         {
         public:
             /**
-             * Initializes a new instance of the BufferObject class.
+             * Initializes a new instance of the BufferView class.
              * @param target the buffer target.
              * @param usage the buffer usage.
              */
-            BufferObject(const BufferTarget& target, const BufferUsage& usage);
+            BufferView(const BufferTarget& target, const BufferUsage& usage);
 
             /**
-             * Releases all resources being used by this BufferObject.
+             * Releases all resources being used by this BufferView.
              */
-            ~BufferObject();
+            ~BufferView();
 
         public:
             void Dispose();
@@ -105,11 +117,17 @@ namespace SceneR
             void Create();
 
         private:
-            std::uint32_t id;
-            BufferTarget  target;
-            BufferUsage   usage;
+            std::uint32_t           id;
+            BufferTarget            target;
+            BufferUsage             usage;
+            std::shared_ptr<Buffer> buffer;
+            std::uint64_t           byteOffset;
+            std::uint64_t           byteLength;
+
+            friend class SceneR::Content::AccessorsReader;
+            friend class SceneR::Content::BufferViewsReader;
         };
     }
 }
 
-#endif /* BUFFEROBJECT_HPP */
+#endif /* BUFFERVIEW_HPP */

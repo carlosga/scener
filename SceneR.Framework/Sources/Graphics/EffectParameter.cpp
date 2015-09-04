@@ -32,31 +32,27 @@ namespace SceneR
                                        , const std::size_t&                         offset
                                        , const std::int32_t&                        type
                                        , const std::shared_ptr<UniformBufferObject> uniformBuffer)
-            : columnCount       { 0 }
-            , elements          {  }
-            , name              { name }
-            , parameterClass    { EffectParameterClass::Object }
-            , parameterType     { EffectParameterType::Single }
-            , rowCount          { 0 }
-            , structureMembers  {  }
-            , index             { index }
-            , offset            { offset }
-            , uniformBuffer     { uniformBuffer }
+            : columnCount    { 0 }
+            , name           { name }
+            , parameterClass { EffectParameterClass::Object }
+            , parameterType  { EffectParameterType::Single }
+            , rowCount       { 0 }
+            , index          { index }
+            , offset         { offset }
+            , uniformBuffer  { uniformBuffer }
         {
             this->Describe(type);
         }
 
         EffectParameter::EffectParameter(const EffectParameter& parameter)
-            : columnCount      { parameter.columnCount }
-            , elements         { parameter.elements }
-            , name             { parameter.name }
-            , parameterClass   { parameter.parameterClass }
-            , parameterType    { parameter.parameterType }
-            , rowCount         { parameter.rowCount }
-            , structureMembers { parameter.structureMembers }
-            , index            { parameter.index }
-            , offset           { parameter.offset }
-            , uniformBuffer    { parameter.uniformBuffer }
+            : columnCount    { parameter.columnCount }
+            , name           { parameter.name }
+            , parameterClass { parameter.parameterClass }
+            , parameterType  { parameter.parameterType }
+            , rowCount       { parameter.rowCount }
+            , index          { parameter.index }
+            , offset         { parameter.offset }
+            , uniformBuffer  { parameter.uniformBuffer }
         {
         }
 
@@ -67,11 +63,6 @@ namespace SceneR
         std::size_t EffectParameter::ColumnCount() const
         {
             return this->columnCount;
-        }
-
-        EffectParameterCollection& EffectParameter::Elements()
-        {
-            return this->elements;
         }
 
         const std::u16string& EffectParameter::Name() const
@@ -92,11 +83,6 @@ namespace SceneR
         std::size_t EffectParameter::RowCount() const
         {
             return this->rowCount;
-        }
-
-        EffectParameterCollection& EffectParameter::StructureMembers()
-        {
-            return this->structureMembers;
         }
 
         bool EffectParameter::GetValueBoolean() const
@@ -346,11 +332,7 @@ namespace SceneR
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Texture
-             && this->parameterType != EffectParameterType::Texture1D
-             && this->parameterType != EffectParameterType::Texture2D
-             && this->parameterType != EffectParameterType::Texture3D
-             && this->parameterType != EffectParameterType::TextureCube)
+            if (this->parameterType != EffectParameterType::Sampler2D)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
@@ -422,16 +404,14 @@ namespace SceneR
         {
             if (this != &parameter)
             {
-                this->columnCount       = parameter.columnCount;
-                this->elements          = parameter.elements;
-                this->name              = parameter.name;
-                this->parameterClass    = parameter.parameterClass;
-                this->parameterType     = parameter.parameterType;
-                this->rowCount          = parameter.rowCount;
-                this->structureMembers  = parameter.structureMembers;
-                this->index             = parameter.index;
-                this->offset            = parameter.offset;
-                this->uniformBuffer     = parameter.uniformBuffer;
+                this->columnCount    = parameter.columnCount;
+                this->name           = parameter.name;
+                this->parameterClass = parameter.parameterClass;
+                this->parameterType  = parameter.parameterType;
+                this->rowCount       = parameter.rowCount;
+                this->index          = parameter.index;
+                this->offset         = parameter.offset;
+                this->uniformBuffer  = parameter.uniformBuffer;
             }
 
             return *this;

@@ -1,3 +1,6 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 #ifndef COMPONENTTYPE_HPP
 #define COMPONENTTYPE_HPP
 
@@ -5,7 +8,7 @@
 
 namespace SceneR
 {
-    namespace GLTF
+    namespace Graphics
     {
         enum class ComponentType : std::uint32_t
         {

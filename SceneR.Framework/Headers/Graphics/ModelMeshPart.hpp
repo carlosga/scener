@@ -8,11 +8,14 @@
 #include <memory>
 #include <string>
 
+#include <Graphics/PrimitiveType.hpp>
+
 namespace SceneR
 {
     namespace Content
     {
         class ModelReader;
+        class MeshesReader;
     }
 }
 
@@ -20,8 +23,10 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class Accessor;
         class Effect;
         class IndexBuffer;
+        class Material;
         class VertexBuffer;
 
         /**
@@ -92,6 +97,17 @@ namespace SceneR
             void Tag(const std::u16string& tag);
 
         private:
+            std::shared_ptr<Accessor> joint              = nullptr;
+            std::shared_ptr<Accessor> normal             = nullptr;
+            std::shared_ptr<Accessor> position           = nullptr;
+            std::shared_ptr<Accessor> textureBinormal    = nullptr;
+            std::shared_ptr<Accessor> textureCoordinates = nullptr;
+            std::shared_ptr<Accessor> textureTangent     = nullptr;
+            std::shared_ptr<Accessor> weight             = nullptr;
+            std::shared_ptr<Accessor> indices            = nullptr;
+            std::shared_ptr<Material> material           = nullptr;
+            PrimitiveType             type;
+
             std::shared_ptr<SceneR::Graphics::Effect>       effect;
             std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
             std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
@@ -101,6 +117,7 @@ namespace SceneR
             std::size_t                                     primitiveCount;
             std::u16string                                  tag;
 
+            friend class SceneR::Content::MeshesReader;
             friend class SceneR::Content::ModelReader;
         };
     }

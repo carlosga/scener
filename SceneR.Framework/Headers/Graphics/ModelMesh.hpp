@@ -15,6 +15,7 @@ namespace SceneR
     namespace Content
     {
         class ModelReader;
+        class MeshesReader;
     }
 }
 
@@ -94,6 +95,7 @@ namespace SceneR
             std::shared_ptr<ModelBone>                  parentBone;
             std::u16string                              tag;
 
+            friend class SceneR::Content::MeshesReader;
             friend class SceneR::Content::ModelReader;
         };
     }
