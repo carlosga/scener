@@ -5,12 +5,11 @@
 
 #include <iostream>
 
-#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/EffectPassInstanceProgram.hpp>
 #include <Graphics/EffectPassStates.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/RenderingStateType.hpp>
 #include <Content/json11.hpp>
@@ -25,7 +24,7 @@ namespace SceneR
         using SceneR::Graphics::EffectPass;
         using SceneR::Graphics::EffectPassInstanceProgram;
         using SceneR::Graphics::EffectPassStates;
-        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::RenderingStateType;
         using json11::Json;
 
@@ -37,26 +36,25 @@ namespace SceneR
         {
         }
 
-        void TechniquesReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void TechniquesReader::read(const json11::Json&               value
+                                  , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                                  , SceneR::Graphics::Model*          root)
         {
-//            const auto& gdService      = input.ContentManager().ServiceProvider().GetService<IGraphicsDeviceService>();
-//            const auto& graphicsDevice = gdService.CurrentGraphicsDevice();
+            for (const auto& item : value["techniques"].object_items())
+            {
+                auto technique = std::make_shared<Effect>(graphicsDevice);
 
-//            for (const auto& item : value["techniques"].object_items())
-//            {
-//                auto technique = std::make_shared<Effect>(graphicsDevice);
+                read_technique_parameters(item.second["parameters"], technique);
+                read_technique_passes(item.second["passes"], technique);
 
-//                this->ReadTechniqueParameters(item.second["parameters"], technique);
-//                this->ReadTechniquePasses(item.second["passes"], technique);
+                // Default pass
+                technique->pass = technique->passes[item.second["pass"].string_value()];
 
-//                // Default pass
-//                technique->pass = technique->passes[item.second["pass"].string_value()];
-
-//                root->techniques[item.first] = technique;
-//            }
+                root->_techniques[item.first] = technique;
+            }
         }
 
-        void TechniquesReader::ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::read_technique_parameters(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& parameter : value.object_items())
             {
@@ -126,7 +124,7 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::ReadTechniquePasses(const json11::Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::read_technique_passes(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& pass : value.object_items())
             {
@@ -144,16 +142,16 @@ namespace SceneR
                     tpass->parameters.push_back(technique->parameters[paramRef.string_value()]);
                 }
 
-                this->ReadTechniquePassProgram(pass.second["instanceProgram"], technique, tpass);
-                this->ReadTechniquePassStates(pass.second["states"], tpass);
+                read_technique_pass_program(pass.second["instanceProgram"], technique, tpass);
+                read_technique_pass_states(pass.second["states"], tpass);
 
                 technique->passes[pass.first] = tpass;
             }
         }
 
-        void TechniquesReader::ReadTechniquePassProgram(const json11::Json&         value
-                                                      , std::shared_ptr<Effect>     technique
-                                                      , std::shared_ptr<EffectPass> pass)
+        void TechniquesReader::read_technique_pass_program(const json11::Json&         value
+                                                         , std::shared_ptr<Effect>     technique
+                                                         , std::shared_ptr<EffectPass> pass)
         {
             EffectPassInstanceProgram program;
 
@@ -181,7 +179,7 @@ namespace SceneR
             pass->program = program;
         }
 
-        void TechniquesReader::ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<EffectPass> pass)
+        void TechniquesReader::read_technique_pass_states(const json11::Json& value, std::shared_ptr<EffectPass> pass)
         {
             EffectPassStates passStates;
 

@@ -13,7 +13,7 @@ namespace SceneR
         class RenderTime;
 
         /**
-         * Defines an interface for a component that should be updated in Renderer.Update.
+         * Defines an interface for a component that should be updated in Renderer.update.
          */
         class IUpdateable
         {

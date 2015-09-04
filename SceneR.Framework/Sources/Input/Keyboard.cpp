@@ -24,7 +24,7 @@ namespace SceneR
             // Enable sticky keys
             glfwSetInputMode(WindowHandle, GLFW_STICKY_KEYS, 1);
 
-            // Initialize key callback
+            // initialize key callback
             // glfwSetKeyCallback(WindowHandle, Keyboard::KeyCallback);
         }
 

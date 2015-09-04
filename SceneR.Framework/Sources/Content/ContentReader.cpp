@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+#include <Graphics/GraphicsDevice.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/json11.hpp>
 #include <Graphics/Model.hpp>
@@ -14,43 +15,44 @@ namespace SceneR
     namespace Content
     {
         using System::IO::Stream;
+        using SceneR::Graphics::GraphicsDevice;
         using json11::Json;
 
         ContentTypeReaderManager ContentReader::TypeReaderManager;
 
         ContentReader::ContentReader(const std::u16string& assetName
+                                   , GraphicsDevice&       graphicsDevice
                                    , Stream&               stream)
-            : assetName           { assetName }
-            , sharedResourceCount { 0 }
-            , assetReader         { stream }
+            : _asset_name      { assetName }
+            , _asset_reader    { stream }
+            , _graphics_device { graphicsDevice }
         {
         }
 
         ContentReader::~ContentReader()
         {
-            this->assetReader.Close();
-            this->sharedResourceCount = 0;
+            _asset_reader.Close();
         }
 
-        const std::u16string& ContentReader::AssetName() const
+        const std::u16string& ContentReader::asset_name() const
         {
-            return this->assetName;
+            return _asset_name;
         }
 
-        std::shared_ptr<SceneR::Graphics::Model> ContentReader::ReadAsset()
+        std::shared_ptr<SceneR::Graphics::Model> ContentReader::read_asset()
         {
             using SceneR::Graphics::Model;
 
             std::string err;
 
-            auto jsonOffset = this->assetReader.ReadUInt32();
-            auto jsonLength = this->assetReader.ReadUInt32();
-            auto dataOffset = this->assetReader.BaseStream().Position();
+            auto jsonOffset = _asset_reader.ReadUInt32();
+            auto jsonLength = _asset_reader.ReadUInt32();
+            auto dataOffset = _asset_reader.BaseStream().Position();
             auto dataLength = jsonOffset - dataOffset;
 
-            this->assetReader.BaseStream().Seek(jsonOffset, std::ios::beg);
+            _asset_reader.BaseStream().Seek(jsonOffset, std::ios::beg);
 
-            auto buffer = this->assetReader.ReadBytes(jsonLength);
+            auto buffer = _asset_reader.ReadBytes(jsonLength);
             auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), err);
 
             buffer.clear();
@@ -62,23 +64,31 @@ namespace SceneR
 
             auto gltf = std::make_shared<Model>();
 
-            ReadObject("buffers"     , json, gltf.get());
-            ReadObject("bufferViews" , json, gltf.get());
-            ReadObject("accessors"   , json, gltf.get());
-            ReadObject("techniques"  , json, gltf.get());
-            ReadObject("materials"   , json, gltf.get());
-            ReadObject("meshes"      , json, gltf.get());
+            const auto nodes = std::vector<std::string>
+            {
+                "buffers"
+              , "buffers"
+              , "bufferViews"
+              , "accessors"
+              , "techniques"
+              , "materials"
+              , "meshes"
+//              , "lights"
+//              , "cameras"
+//              , "nodes"
+//              , "images"
+//              , "textures"
+//              , "shaders"
+//              , "programs"
+//              , "samplers"
+//              , "animations"
+//              , "skins"
+            };
 
-            // ReadObject("lights", json, gltf.get());
-            // ReadObject("cameras", json, gltf.get());
-            // ReadObject("nodes", json, gltf.get());
-            // ReadObject("images", json, gltf.get());
-            // ReadObject("textures", json, gltf.get());
-            // ReadObject("shaders", json, gltf.get());
-            // ReadObject("programs", json, gltf.get());
-            // ReadObject("samplers", json, gltf.get());
-            // ReadObject("animations", json, gltf.get());
-            // ReadObject("skins", json, gltf.get());
+            for (const auto& node : nodes)
+            {
+                read_object(node, json, gltf.get());
+            }
 
             // TODO: Process external data references
             // Binary GLTF has a single buffer with everything on it
@@ -95,7 +105,7 @@ namespace SceneR
             return gltf;
         }
 
-        bool ContentReader::ReadHeader()
+        bool ContentReader::read_header()
         {
             // Binary glTF layout
             //
@@ -111,7 +121,7 @@ namespace SceneR
             // body
             //  JSON UTF-8
             // -------------------------------
-            auto magic = this->assetReader.ReadBytes(4);
+            auto magic = _asset_reader.ReadBytes(4);
             auto mstr  = std::string(magic.begin(), magic.end());
 
             if (mstr != "glTF")
@@ -119,22 +129,22 @@ namespace SceneR
                 return false;
             }
 
-            this->assetReader.ReadUInt32();   // version
-            this->assetReader.ReadUInt32();   // file length
+            _asset_reader.ReadUInt32();   // version
+            _asset_reader.ReadUInt32();   // file length
 
             return true;
         }
 
-        void ContentReader::ReadObject(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root)
+        void ContentReader::read_object(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root)
         {
-            auto typeReader = TypeReaderManager.GetByReaderName(key);
+            auto typeReader = TypeReaderManager.get_by_reader_name(key);
 
             if (typeReader == nullptr)
             {
                 throw ContentLoadException("Unknown type reader");
             }
 
-            typeReader->Read(value, root);
+            typeReader->read(value, _graphics_device, root);
         }
     }
 }

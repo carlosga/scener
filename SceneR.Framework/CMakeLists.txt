@@ -210,6 +210,7 @@ set(SOURCE_FILES
     Sources/Framework/Vector2.cpp
     Sources/Framework/Vector3.cpp
     Sources/Framework/Vector4.cpp
+    Sources/Graphics/Accessor.cpp
     Sources/Graphics/Resources.cpp
     Sources/Graphics/BlendState.cpp
     Sources/Graphics/BufferView.cpp
@@ -264,7 +265,7 @@ set(SOURCE_FILES
     Sources/System/Text/Encoding.cpp
     Sources/System/Text/UTF8Decoder.cpp
     Sources/System/Text/UTF8Encoder.cpp
-    Sources/System/Text/UTF8Encoding.cpp)
+    Sources/System/Text/UTF8Encoding.cpp Sources/Graphics/Buffer.cpp)
 
 #set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
 #set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)
@@ -275,7 +276,7 @@ set(GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cma
 # add script files ( so they appear in the IDE )
 add_custom_target(SCRIPT_FILES SOURCES ${GENERATE_RESOURCES_SCRIPT})
 
-# add content files
+# add content_manager files
 add_custom_target(CONTENT_FILES SOURCES
                   Resources/BasicEffect.frag
                   Resources/BasicEffect.glsl

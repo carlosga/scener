@@ -30,18 +30,33 @@ namespace SceneR
         class Accessor
         {
         public:
-            Accessor() = default;
-            ~Accessor() = default;
+            Accessor();
+            ~Accessor();
 
         public:
-            std::shared_ptr<BufferView> bufferView;
-            std::uint64_t               byteOffset;
-            std::uint8_t                byteStride;
-            ComponentType               componentType;
-            std::uint64_t               count;
-            AttributeType               type;
-            std::vector<float>          max;
-            std::vector<float>          min;
+            const AttributeType& attribute_type() const;
+
+            const ComponentType& component_type() const;
+
+            const std::size_t& byte_offset() const;
+
+            const std::size_t& byte_stride() const;
+
+            const std::size_t& count() const;
+
+            const std::vector<float>& max() const;
+
+            const std::vector<float>& min() const;
+
+        private:
+            AttributeType               _attribute_type;
+            ComponentType               _component_type;
+            std::size_t                 _byte_offset;
+            std::size_t                 _byte_stride;
+            std::size_t                 _count;
+            std::vector<float>          _max;
+            std::vector<float>          _min;
+            std::shared_ptr<BufferView> _buffer_view;
 
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::MeshesReader;

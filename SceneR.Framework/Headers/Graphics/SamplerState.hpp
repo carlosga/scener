@@ -43,7 +43,7 @@ namespace SceneR
             ~SamplerState();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

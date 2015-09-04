@@ -23,7 +23,7 @@ namespace SceneR
         }
 
         SamplerState::SamplerState(const SamplerState& samplerState)
-            : GraphicsResource        { samplerState.graphicsDevice }
+            : GraphicsResource        { samplerState._graphics_device }
             , addressU                { samplerState.addressU }
             , addressV                { samplerState.addressV }
             , addressW                { samplerState.addressW }
@@ -38,7 +38,7 @@ namespace SceneR
         {
         }
 
-        void SamplerState::Dispose()
+        void SamplerState::dispose()
         {
         }
 
@@ -116,7 +116,7 @@ namespace SceneR
         {
             if (this != &samplerState)
             {
-                this->graphicsDevice          = samplerState.graphicsDevice;
+                _graphics_device              = samplerState._graphics_device;
                 this->addressU                = samplerState.addressU;
                 this->addressV                = samplerState.addressV;
                 this->addressW                = samplerState.addressW;

@@ -28,7 +28,7 @@ namespace SceneR
         }
 
         BlendState::BlendState(const BlendState& blendState)
-            : GraphicsResource      { blendState.graphicsDevice }
+            : GraphicsResource      { blendState._graphics_device }
             , alphaBlendFunction    { blendState.alphaBlendFunction }
             , alphaDestinationBlend { blendState.alphaDestinationBlend }
             , alphaSourceBlend      { blendState.alphaSourceBlend }
@@ -48,7 +48,7 @@ namespace SceneR
         {
         }
 
-        void BlendState::Dispose()
+        void BlendState::dispose()
         {
         }
 
@@ -176,7 +176,7 @@ namespace SceneR
         {
             if (this != &blendState)
             {
-                this->graphicsDevice        = blendState.graphicsDevice;
+                this->_graphics_device      = blendState._graphics_device;
                 this->alphaBlendFunction    = blendState.alphaBlendFunction;
                 this->alphaDestinationBlend = blendState.alphaDestinationBlend;
                 this->alphaSourceBlend      = blendState.alphaSourceBlend;

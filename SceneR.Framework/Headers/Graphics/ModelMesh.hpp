@@ -43,57 +43,40 @@ namespace SceneR
             ~ModelMesh();
 
         public:
-            const SceneR::Framework::BoundingSphere& BoundingSphere() const;
-
-            /**
-             * Draws all of the ModelMeshPart objects in this mesh.
-             */
-            void Draw();
+            const SceneR::Framework::BoundingSphere& bounding_sphere() const;
 
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<std::shared_ptr<Effect>> Effects() const;
+            std::vector<std::shared_ptr<Effect>> effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
              * Each part of a mesh is composed of a set of primitives that share the same material.
              */
-            const std::vector<std::shared_ptr<ModelMeshPart>>& MeshParts() const;
-
-            /**
-             * Gets the model mesh name
-             */
-            const std::u16string& Name() const;
-
-            /**
-             * Sets the model mesh name
-             */
-            void Name(const std::u16string& name);
+            const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const;
 
             /**
              * Gets the parent bone for this mesh. The parent bone of a mesh contains a
              * transformation matrix that describes how the mesh is located relative to
              * any parent meshes in a model.
              */
-            const std::shared_ptr<ModelBone>& ParentBone() const;
+            const std::shared_ptr<ModelBone>& parent_bone() const;
 
+        public:
             /**
-             * Gets the model mesh tag
+             * Draws all of the ModelMeshPart objects in this mesh.
              */
-            const std::u16string& Tag() const;
+            void draw();
 
-            /**
-             * Sets the model mesh tag
-             */
-            void Tag(const std::u16string& tag);
+        public:
+            std::u16string name;
+            std::u16string tag;
 
         private:
-            SceneR::Framework::BoundingSphere           boundingSphere;
-            std::vector<std::shared_ptr<ModelMeshPart>> meshParts;
-            std::u16string                              name;
-            std::shared_ptr<ModelBone>                  parentBone;
-            std::u16string                              tag;
+            std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
+            std::shared_ptr<ModelBone>                  _parent_bone;
+            SceneR::Framework::BoundingSphere           _bounding_sphere;
 
             friend class SceneR::Content::MeshesReader;
             friend class SceneR::Content::ModelReader;

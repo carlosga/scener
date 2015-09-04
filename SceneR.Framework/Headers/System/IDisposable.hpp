@@ -19,7 +19,7 @@ namespace System
          * @brief Performs application-defined tasks associated with freeing, releasing,
          *        or resetting unmanaged resources.
          */
-        virtual void Dispose() = 0;
+        virtual void dispose() = 0;
     };
 }
 

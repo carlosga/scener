@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Material.hpp>
 
@@ -14,6 +15,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
+        using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
         using SceneR::Graphics::Material;
 
@@ -25,7 +27,9 @@ namespace SceneR
         {
         }
 
-        void MaterialsReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void MaterialsReader::read(const json11::Json&               value
+                                 , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                                 , SceneR::Graphics::Model*          root)
         {
             for (const auto& item : value["materials"].object_items())
             {
@@ -38,35 +42,35 @@ namespace SceneR
                 {
                     if (mvalue.first == "ambient")
                     {
-                        material->ambient = mvalue.second.string_value();
+                        material->_ambient = mvalue.second.string_value();
                     }
                     else if (mvalue.first == "bump")
                     {
-                        material->bump = mvalue.second.string_value();
+                        material->_bump = mvalue.second.string_value();
                     }
                     else if (mvalue.first == "diffuse")
                     {
-                        material->diffuse = mvalue.second.string_value();
+                        material->_diffuse = mvalue.second.string_value();
                     }
                     else if (mvalue.first == "emission")
                     {
                         const auto& array = mvalue.second.array_items();
 
-                        material->emission = { array[0].number_value()
-                                             , array[1].number_value()
-                                             , array[2].number_value() };
+                        material->_emission = { array[0].number_value()
+                                              , array[1].number_value()
+                                              , array[2].number_value() };
                     }
                     else if (mvalue.first == "shininess")
                     {
-                        material->shininess = mvalue.second.number_value();
+                        material->_shininess = mvalue.second.number_value();
                     }
                     else if (mvalue.first == "specular")
                     {
                         const auto& array = mvalue.second.array_items();
 
-                        material->specular = { array[0].number_value()
-                                             , array[1].number_value()
-                                             , array[2].number_value() };
+                        material->_specular = { array[0].number_value()
+                                              , array[1].number_value()
+                                              , array[2].number_value() };
                     }
                     else
                     {
@@ -77,7 +81,7 @@ namespace SceneR
                 // TODO: Decode material instance technique
                 // material->instanceTechnique = root->techniques[item.second["instanceTechnique"].string_value()];
 
-                root->materials[item.first] = material;
+                root->_materials[item.first] = material;
             }
         }
     }

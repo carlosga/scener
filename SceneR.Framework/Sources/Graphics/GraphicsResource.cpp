@@ -8,9 +8,9 @@ namespace SceneR
     namespace Graphics
     {
         GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
-            : graphicsDevice ( graphicsDevice )
-            , name           { u""  }
-            , tag            { u""  }
+            : name             { }
+            , tag              { }
+            , _graphics_device { graphicsDevice }
         {
         }
 
@@ -18,29 +18,9 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice& GraphicsResource::CurrentGraphicsDevice()
+        GraphicsDevice& GraphicsResource::graphics_device() const
         {
-            return this->graphicsDevice;
-        }
-
-        const std::u16string& GraphicsResource::Name() const
-        {
-            return this->name;
-        }
-
-        void GraphicsResource::Name(const std::u16string& name)
-        {
-            this->name = name;
-        }
-
-        const std::u16string& GraphicsResource::Tag() const
-        {
-            return this->tag;
-        }
-
-        void GraphicsResource::Tag(const std::u16string& tag)
-        {
-            this->tag = tag;
+            return _graphics_device;
         }
     }
 }

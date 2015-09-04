@@ -40,7 +40,7 @@ namespace SceneR
             ~VertexBuffer() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

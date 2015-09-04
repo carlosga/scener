@@ -22,6 +22,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
         class Model;
     }
 }
@@ -33,7 +34,7 @@ namespace SceneR
         class ContentTypeReader;
 
        /**
-         * Reads application content from disk
+         * Reads application content_manager from disk
          */
         class ContentReader final
         {
@@ -44,10 +45,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentReader.
              * @param assetName the name of the asset to be readed.
-             * @param contentManager the content that owns this ContentReader.
+             * @param contentManager the content_manager that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string& assetName, System::IO::Stream& stream);
+            ContentReader(const std::u16string&             assetName
+                        , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                        , System::IO::Stream&               stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -58,25 +61,25 @@ namespace SceneR
             /**
              * Gets the name of the asset currently being read by this ContentReader.
              */
-            const std::u16string& AssetName() const;
+            const std::u16string& asset_name() const;
 
          public:
-            std::shared_ptr<SceneR::Graphics::Model> ReadAsset();
+            std::shared_ptr<SceneR::Graphics::Model> read_asset();
+
+            /**
+             * Reads the header from the current stream.
+             */
+            bool read_header();
 
             /**
              * Reads a single object from the current stream.
              */
-            void ReadObject(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root);
+            void read_object(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root);
 
         private:
-            bool ReadHeader();
-
-        private:
-            std::u16string           assetName;
-            std::size_t              sharedResourceCount;
-            System::IO::BinaryReader assetReader;
-
-            friend class ContentManager;
+            std::u16string                    _asset_name;
+            System::IO::BinaryReader          _asset_reader;
+            SceneR::Graphics::GraphicsDevice& _graphics_device;
         };
     }
 }

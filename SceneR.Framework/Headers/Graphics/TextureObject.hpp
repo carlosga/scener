@@ -33,7 +33,7 @@ namespace SceneR
             ~TextureObject();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

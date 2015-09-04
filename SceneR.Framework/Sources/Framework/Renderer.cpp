@@ -17,20 +17,20 @@ namespace SceneR
         using SceneR::Graphics::GraphicsDevice;
 
         Renderer::Renderer(const std::u16string& rootDirectory)
-            : components            ( 0 )
-            , services              { }
-            , graphicsDeviceManager { *this }
-            , rendererWindow        { *this }
-            , contentManager        { this->services, rootDirectory }
-            , shaderManager         { }
-            , isFixedTimeStep       { true }
-            , targetElapsedTime     { 10000000L / 60L }
-            , timer                 { }
-            , renderTime            { }
-            , totalRenderTime       { TimeSpan::Zero }
-            , isRunningSlowly       { false }
-            , drawableComponents    ( 0 )
-            , updateableComponents  ( 0 )
+            : is_fixed_time_step        { true }
+            , target_elapsed_time       { 10000000L / 60L }
+            , _components               ( 0 )
+            , _services                 { }
+            , _graphics_device_manager  { *this }
+            , _renderer_window          { *this }
+            , _content_manager          { _services, rootDirectory }
+            , _shader_manager           { }
+            , _timer                    { }
+            , _render_time              { }
+            , _total_tender_time        { TimeSpan::Zero }
+            , _is_running_slowly        { false }
+            , _drawable_components      ( 0 )
+            , _updateable_components    ( 0 )
         {
         }
 
@@ -38,67 +38,67 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice& Renderer::CurrentGraphicsDevice()
+        GraphicsDevice& Renderer::graphics_device()
         {
-            return this->graphicsDeviceManager.CurrentGraphicsDevice();
+            return _graphics_device_manager.graphics_device();
         }
 
-        RendererWindow& Renderer::Window()
+        RendererWindow& Renderer::window()
         {
-            return this->rendererWindow;
+            return _renderer_window;
         }
 
-        ContentManager& Renderer::Content()
+        ContentManager& Renderer::content_manager()
         {
-            return this->contentManager;
+            return _content_manager;
         }
 
-        std::vector<std::shared_ptr<IComponent>>& Renderer::Components()
+        std::vector<std::shared_ptr<IComponent>>& Renderer::components()
         {
-            return this->components;
+            return _components;
         }
 
-        RendererServiceContainer& Renderer::Services()
+        RendererServiceContainer& Renderer::services()
         {
-            return this->services;
+            return _services;
         }
 
-        void Renderer::Run()
+        void Renderer::run()
         {
-            this->BeginRun();
-            this->CreateDevice();
-            this->shaderManager.Load();
-            this->LoadContent();
-            this->Initialize();
-            this->PostProcessComponents();
-            this->StartEventLoop();
-            this->UnloadContent();
-            this->EndRun();
+            begin_run();
+            create_device();
+            _shader_manager.Load();
+            load_content();
+            initialize();
+            post_process_components();
+            start_event_loop();
+            unload_content();
+            end_run();
         }
 
-        void Renderer::Exit()
+        void Renderer::exit()
         {
-            this->contentManager.Unload();
-            this->shaderManager.Unload();
-            this->graphicsDeviceManager.Dispose();
-            this->services.Clear();
-            this->rendererWindow.Close();
+            _content_manager.unload();
+            _shader_manager.Unload();
+            _graphics_device_manager.dispose();
+            _services.clear();
+            _renderer_window.close();
 
             glfwTerminate();
         }
 
-        bool Renderer::BeginDraw()
+        bool Renderer::begin_draw()
         {
             return true;
         }
 
-        void Renderer::BeginRun()
+        void Renderer::begin_run()
         {
         }
 
-        void Renderer::Draw(const RenderTime& renderTime)
+        void Renderer::draw(const RenderTime &renderTime)
         {
-            for (auto& component : this->drawableComponents)
+            for (auto& component : _drawable_components)
             {
                 if (component->Visible())
                 {
@@ -107,59 +107,39 @@ namespace SceneR
             }
         }
 
-        void Renderer::EndDraw()
+        void Renderer::end_draw()
         {
-            this->graphicsDeviceManager.CurrentGraphicsDevice().Present();
+            _graphics_device_manager.graphics_device().present();
         }
 
-        void Renderer::EndRun()
+        void Renderer::end_run()
         {
         }
 
-        void Renderer::Initialize()
+        void Renderer::initialize()
         {
-            for (auto& component : this->components)
+            for (auto& component : _components)
             {
                 component->Initialize();
             }
         }
 
-        bool Renderer::IsFixedTimeStep() const
-        {
-            return this->isFixedTimeStep;
-        }
-
-        void Renderer::IsFixedTimeStep(const bool& isFixedTimeStep)
-        {
-            this->isFixedTimeStep = isFixedTimeStep;
-        }
-
-        void Renderer::LoadContent()
+        void Renderer::load_content()
         {
         }
 
-        const TimeSpan& Renderer::TargetElapsedTime() const
+        void Renderer::unload_content()
         {
-            return this->targetElapsedTime;
+            _drawable_components.clear();
+            _updateable_components.clear();
+            _components.clear();
         }
 
-        void Renderer::TargetElapsedTime(const TimeSpan& targetElapsedTime)
-        {
-            this->targetElapsedTime = targetElapsedTime;
-        }
-
-        void Renderer::UnloadContent()
-        {
-            this->drawableComponents.clear();
-            this->updateableComponents.clear();
-            this->components.clear();
-        }
-
-        void Renderer::Update(const RenderTime& renderTime)
+        void Renderer::update(const RenderTime &renderTime)
         {
             glfwPollEvents();
 
-            for (auto& component : this->updateableComponents)
+            for (auto& component : _updateable_components)
             {
                 if (component->Enabled())
                 {
@@ -168,16 +148,15 @@ namespace SceneR
             }
         }
 
-        void Renderer::StartEventLoop()
+        void Renderer::start_event_loop()
         {
-            this->timer.Reset();
+            _timer.Reset();
 
             do
             {
+                time_step();
 
-                this->TimeStep();
-
-            } while (!this->rendererWindow.ShouldClose());
+            } while (!_renderer_window.should_close());
         }
 
         /**
@@ -185,85 +164,85 @@ namespace SceneR
          *      http://gafferongames.com/game-physics/fix-your-timestep/
          *      http://msdn.microsoft.com/en-us/library/bb203873.aspx
          */
-        void Renderer::TimeStep()
+        void Renderer::time_step()
         {
-            if (this->IsFixedTimeStep())
+            if (is_fixed_time_step)
             {
-                this->FixedTimeStep();
+                fixed_time_step();
             }
             else
             {
-                this->VariableTimeStep();
+                variable_time_step();
             }
         }
 
-        void Renderer::PostProcessComponents()
+        void Renderer::post_process_components()
         {
-            for (auto& component : this->components)
+            for (auto& component : _components)
             {
                 auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
 
                 if (drawable != nullptr)
                 {
-                    this->drawableComponents.push_back(drawable);
+                    _drawable_components.push_back(drawable);
                 }
 
                 auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
 
                 if (updateable != nullptr)
                 {
-                    this->updateableComponents.push_back(updateable);
+                    _updateable_components.push_back(updateable);
                 }
             }
 
-            std::sort(this->drawableComponents.begin(), this->drawableComponents.end(),
+            std::sort(_drawable_components.begin(), _drawable_components.end(),
                       [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b) -> bool
                       {
                           return (a->DrawOrder() < b->DrawOrder());
                       });
 
-            std::sort(this->updateableComponents.begin(), this->updateableComponents.end(),
+            std::sort(_updateable_components.begin(), _updateable_components.end(),
                       [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b) -> bool
                       {
                           return (a->UpdateOrder() < b->UpdateOrder());
                       });
         }
 
-        void Renderer::CreateDevice()
+        void Renderer::create_device()
         {
-            this->graphicsDeviceManager.CreateDevice();
-            this->rendererWindow.AllowUserResizing(true);
-            this->rendererWindow.Open();
-            this->graphicsDeviceManager.ApplyChanges();
+            _graphics_device_manager.create_device();
+            _renderer_window.allow_user_resizing(true);
+            _renderer_window.open();
+            _graphics_device_manager.apply_changes();
         }
 
-        void Renderer::FixedTimeStep()
+        void Renderer::fixed_time_step()
         {
-            this->renderTime.ElapsedRenderTime(this->timer.ElapsedTimeStepTime());
-            this->renderTime.TotalRenderTime(this->timer.ElapsedTime());
-            this->renderTime.IsRunningSlowly(this->isRunningSlowly);
+            _render_time.ElapsedRenderTime(_timer.ElapsedTimeStepTime());
+            _render_time.TotalRenderTime(_timer.ElapsedTime());
+            _render_time.IsRunningSlowly(_is_running_slowly);
 
-            this->timer.UpdateTimeStep();
+            _timer.UpdateTimeStep();
 
-            this->Update(this->renderTime);
+            this->update(_render_time);
 
-            this->isRunningSlowly = (this->timer.ElapsedTimeStepTime() > this->targetElapsedTime);
+            _is_running_slowly = (_timer.ElapsedTimeStepTime() > target_elapsed_time);
 
-            if (!this->isRunningSlowly)
+            if (!_is_running_slowly)
             {
-                if (this->BeginDraw())
+                if (this->begin_draw())
                 {
-                    this->Draw(this->renderTime);
-                    this->EndDraw();
+                    this->draw(_render_time);
+                    this->end_draw();
                 }
 
-                auto interval = this->targetElapsedTime - this->timer.ElapsedTimeStepTime();
+                auto interval = (target_elapsed_time - _timer.ElapsedTimeStepTime());
 
                 std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
             }
         }
 
-        void Renderer::VariableTimeStep()
+        void Renderer::variable_time_step()
         {
         }
     }

@@ -16,8 +16,8 @@ namespace SceneR
     {
         using SceneR::Framework::Color;
 
-        std::size_t GraphicsDevice::GetElementCount(const PrimitiveType& primitiveType
-                                                  , const std::size_t&   primitiveCount)
+        std::size_t GraphicsDevice::get_element_count(const PrimitiveType& primitiveType
+                                                    , const std::size_t&   primitiveCount)
         {
             switch (primitiveType)
             {
@@ -46,33 +46,33 @@ namespace SceneR
 
         GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
                                      , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
-            : blendState             { *this }
-            , depthStencilState      { *this }
-            , effect                 { nullptr }
-            , graphicsAdapter        { adapter }
-            , graphicsProfile        { graphicsProfile }
-            , indexBuffer            { nullptr }
-            , presentationParameters { }
-            , rasterizerState        { *this }
-            , samplerStates          ( )
-            , vertexBuffer           { nullptr }
-            , viewport               { }
+            : effect                   { nullptr }
+            , index_buffer             { nullptr }
+            , vertex_buffer            { nullptr }
+            , _blend_state             { *this }
+            , _depth_stencil_state     { *this }
+            , _graphics_adapter        { adapter }
+            , _graphics_profile        { graphicsProfile }
+            , _presentation_parameters { }
+            , _rasterizer_state        { *this }
+            , _sampler_states          ( )
+            , _viewport                { }
         {
-            this->samplerStates.push_back(SamplerState(*this));
+            _sampler_states.push_back(SamplerState(*this));
         }
 
         GraphicsDevice::GraphicsDevice(const GraphicsDevice& device)
-            : blendState             { device.blendState }
-            , depthStencilState      { device.depthStencilState }
-            , effect                 { device.effect }
-            , graphicsAdapter        { device.graphicsAdapter }
-            , graphicsProfile        { device.graphicsProfile }
-            , indexBuffer            { device.indexBuffer }
-            , presentationParameters { device.presentationParameters }
-            , rasterizerState        { device.rasterizerState }
-            , samplerStates          { device.samplerStates }
-            , vertexBuffer           { device.vertexBuffer }
-            , viewport               { device.viewport }
+            : effect                   { device.effect }
+            , index_buffer             { device.index_buffer }
+            , vertex_buffer            { device.vertex_buffer }
+            , _blend_state             { device._blend_state }
+            , _depth_stencil_state     { device._depth_stencil_state }
+            , _graphics_adapter        { device._graphics_adapter }
+            , _graphics_profile        { device._graphics_profile }
+            , _presentation_parameters { device._presentation_parameters }
+            , _rasterizer_state        { device._rasterizer_state }
+            , _sampler_states          { device._sampler_states }
+            , _viewport                { device._viewport }
         {
         }
 
@@ -80,51 +80,48 @@ namespace SceneR
         {
         }
 
-        void GraphicsDevice::Dispose()
+        void GraphicsDevice::dispose()
         {
-            this->blendState.Dispose();
-            this->depthStencilState.Dispose();
-            this->rasterizerState.Dispose();
+            _blend_state.dispose();
+            _depth_stencil_state.dispose();
+            _rasterizer_state.dispose();
 
-            if (this->samplerStates.size() > 0)
+            if (_sampler_states.size() > 0)
             {
-                for (auto& sampler : this->samplerStates)
+                for (auto& sampler : _sampler_states)
                 {
-                    sampler.Dispose();
+                    sampler.dispose();
                 }
 
-                this->samplerStates.clear();
+                _sampler_states.clear();
             }
 
-            if (this->effect)
+            if (effect)
             {
-                this->effect->Dispose();
-                this->effect = nullptr;
+                effect = nullptr;
             }
-            if (this->indexBuffer)
+            if (index_buffer)
             {
-                this->indexBuffer->Dispose();
-                this->indexBuffer = nullptr;
+                index_buffer = nullptr;
             }
-            if (this->vertexBuffer)
+            if (vertex_buffer)
             {
-                this->vertexBuffer->Dispose();
-                this->vertexBuffer = nullptr;
+                vertex_buffer = nullptr;
             }
         }
 
-        void GraphicsDevice::Clear(const Color& color) const
+        void GraphicsDevice::clear(const Color& color) const
         {
             std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
             glClearColor(color.R(), color.G(), color.B(), color.A());
 
-            if (this->depthStencilState.DepthBufferEnable())
+            if (_depth_stencil_state.DepthBufferEnable())
             {
                 bufferBits |= GL_DEPTH_BUFFER_BIT;
                 glClearDepth(1.0f);
             }
-            if (this->depthStencilState.StencilEnable())
+            if (_depth_stencil_state.StencilEnable())
             {
                 bufferBits |= GL_STENCIL_BUFFER_BIT;
                 glClearStencil(1);
@@ -133,167 +130,133 @@ namespace SceneR
             glClear(bufferBits);
         }
 
-        void GraphicsDevice::DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                                 , const std::size_t&   baseVertex
-                                                 , const std::size_t&   minVertexIndex
-                                                 , const std::size_t&   numVertices
-                                                 , const std::size_t&   startIndex
-                                                 , const std::size_t&   primitiveCount) const
+        void GraphicsDevice::draw_indexed_primitives(const PrimitiveType& primitiveType
+                                                   , const std::size_t&   baseVertex
+                                                   , const std::size_t&   minVertexIndex
+                                                   , const std::size_t&   numVertices
+                                                   , const std::size_t&   startIndex
+                                                   , const std::size_t&   primitiveCount) const
         {
-            if (this->indexBuffer.get() == nullptr)
+            if (index_buffer.get() == nullptr)
             {
                 throw std::runtime_error("Set the IndexBuffer before calling DrawIndexedPrimitives");
             }
-            if (this->vertexBuffer.get() == nullptr)
+            if (vertex_buffer.get() == nullptr)
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }
-            if (this->effect.get() == nullptr)
+            if (effect.get() == nullptr)
             {
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
-            auto offset = startIndex * ((this->indexBuffer->IndexElementSize() == IndexElementSize::SixteenBits) ? 2 : 4);
+            auto offset = startIndex * ((index_buffer->index_element_size() == IndexElementSize::SixteenBits) ? 2 : 4);
 
-            this->effect->Begin();
-
-            this->vertexBuffer->Activate();
-            this->indexBuffer->Activate();
+            effect->Begin();
+            vertex_buffer->Activate();
+            index_buffer->activate();
 
             glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
-                                   , static_cast<GLsizei>(GetElementCount(primitiveType, primitiveCount))
-                                   , static_cast<GLenum>(this->indexBuffer->IndexElementSize())
+                                   , static_cast<GLsizei>(get_element_count(primitiveType, primitiveCount))
+                                   , static_cast<GLenum>(index_buffer->index_element_size())
                                    , reinterpret_cast<void*>(offset)
                                    , static_cast<GLint>(baseVertex));
 
-            this->indexBuffer->Deactivate();
-            this->vertexBuffer->Deactivate();
-
-            this->effect->End();
+            index_buffer->deactivate();
+            vertex_buffer->Deactivate();
+            effect->End();
         }
 
-        void GraphicsDevice::DrawPrimitives(const PrimitiveType& primitiveType
-                                          , const std::size_t&   startVertex
-                                          , const std::size_t&   primitiveCount) const
+        void GraphicsDevice::draw_primitives(const PrimitiveType& primitiveType
+                                           , const std::size_t&   startVertex
+                                           , const std::size_t&   primitiveCount) const
         {
-            if (this->vertexBuffer.get() == nullptr)
+            if (vertex_buffer.get() == nullptr)
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }
-            if (this->effect.get() == nullptr)
+            if (effect.get() == nullptr)
             {
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
-            this->effect->Begin();
-
-            this->vertexBuffer->Activate();
+            effect->Begin();
+            vertex_buffer->Activate();
 
             glDrawArrays(static_cast<GLenum>(primitiveType)
                        , static_cast<GLint>(startVertex)
                        , static_cast<GLsizei>(primitiveCount));
 
-            this->vertexBuffer->Deactivate();
-
-            this->effect->End();
+            vertex_buffer->Deactivate();
+            effect->End();
         }
 
-        void GraphicsDevice::Present()
+        void GraphicsDevice::present()
         {
             glfwSwapBuffers(glfwGetCurrentContext());
         }
 
-        const std::shared_ptr<SceneR::Graphics::Effect>& GraphicsDevice::Effect()
+        const GraphicsAdapter& GraphicsDevice::adapter() const
         {
-            return this->effect;
+            return _graphics_adapter;
         }
 
-        void GraphicsDevice::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect)
+        const GraphicsProfile& GraphicsDevice::graphics_profile() const
         {
-            this->effect = effect;
+            return _graphics_profile;
         }
 
-        const GraphicsAdapter& GraphicsDevice::Adapter() const
+        BlendState& GraphicsDevice::blend_state()
         {
-            return this->graphicsAdapter;
+            return _blend_state;
         }
 
-        const SceneR::Graphics::GraphicsProfile& GraphicsDevice::GraphicsProfile() const
+        SceneR::Graphics::DepthStencilState& GraphicsDevice::depth_stencil_state()
         {
-            return this->graphicsProfile;
+            return _depth_stencil_state;
         }
 
-        SceneR::Graphics::BlendState& GraphicsDevice::BlendState()
+        SceneR::Graphics::PresentationParameters& GraphicsDevice::presentation_parameters()
         {
-            return this->blendState;
+            return _presentation_parameters;
         }
 
-        SceneR::Graphics::DepthStencilState& GraphicsDevice::DepthStencilState()
+        RasterizerState& GraphicsDevice::rasterizer_state()
         {
-            return this->depthStencilState;
+            return _rasterizer_state;
         }
 
-        SceneR::Graphics::PresentationParameters& GraphicsDevice::PresentationParameters()
+        std::vector<SamplerState>& GraphicsDevice::sampler_states()
         {
-            return this->presentationParameters;
+            return _sampler_states;
         }
 
-        std::shared_ptr<SceneR::Graphics::IndexBuffer> GraphicsDevice::IndexBuffer()
+        Viewport& GraphicsDevice::viewport()
         {
-            return this->indexBuffer;
+           return _viewport;
         }
 
-        void GraphicsDevice::IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBuffer>& indexBuffer)
+        void GraphicsDevice::viewport(const Viewport& viewport)
         {
-            this->indexBuffer = indexBuffer;
-        }
-
-        SceneR::Graphics::RasterizerState& GraphicsDevice::RasterizerState()
-        {
-            return this->rasterizerState;
-        }
-
-        std::vector<SceneR::Graphics::SamplerState>& GraphicsDevice::SamplerStates()
-        {
-            return samplerStates;
-        }
-
-        std::shared_ptr<SceneR::Graphics::VertexBuffer> GraphicsDevice::VertexBuffer()
-        {
-            return this->vertexBuffer;
-        }
-
-        void GraphicsDevice::VertexBuffer(const std::shared_ptr<SceneR::Graphics::VertexBuffer>& vertexBuffer)
-        {
-            this->vertexBuffer = vertexBuffer;
-        }
-
-        SceneR::Graphics::Viewport& GraphicsDevice::Viewport()
-        {
-           return this->viewport;
-        }
-
-        void GraphicsDevice::Viewport(SceneR::Graphics::Viewport& viewport)
-        {
-            this->viewport = viewport;
-            this->viewport.Update();
+            _viewport = viewport;
+            _viewport.update();
         }
 
         GraphicsDevice&GraphicsDevice::operator=(const GraphicsDevice& device)
         {
             if (this != &device)
             {
-                this->blendState             = device.blendState;
-                this->depthStencilState      = device.depthStencilState;
-                this->effect                 = device.effect;
-                this->graphicsAdapter        = device.graphicsAdapter;
-                this->graphicsProfile        = device.graphicsProfile;
-                this->indexBuffer            = device.indexBuffer;
-                this->presentationParameters = device.presentationParameters;
-                this->rasterizerState        = device.rasterizerState;
-                this->samplerStates          = device.samplerStates;
-                this->vertexBuffer           = device.vertexBuffer;
-                this->viewport               = device.viewport;
+                effect                   = std::move(device.effect);
+                index_buffer             = std::move(device.index_buffer);
+                vertex_buffer            = device.vertex_buffer;
+                _blend_state             = device._blend_state;
+                _depth_stencil_state     = device._depth_stencil_state;
+                _graphics_adapter        = device._graphics_adapter;
+                _graphics_profile        = device._graphics_profile;
+                _presentation_parameters = device._presentation_parameters;
+                _rasterizer_state        = device._rasterizer_state;
+                _sampler_states          = device._sampler_states;
+                _viewport                = device._viewport;
             }
 
             return *this;

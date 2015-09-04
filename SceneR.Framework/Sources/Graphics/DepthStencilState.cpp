@@ -31,7 +31,7 @@ namespace SceneR
         }
 
         DepthStencilState::DepthStencilState(const DepthStencilState& depthStencilState)
-            : GraphicsResource                       { depthStencilState.graphicsDevice }
+            : GraphicsResource                       { depthStencilState._graphics_device }
             , counterClockwiseStencilDepthBufferFail { depthStencilState.counterClockwiseStencilDepthBufferFail }
             , counterClockwiseStencilFail            { depthStencilState.counterClockwiseStencilFail }
             , counterClockwiseStencilFunction        { depthStencilState.counterClockwiseStencilFunction }
@@ -55,7 +55,7 @@ namespace SceneR
         {
         }
 
-        void DepthStencilState::Dispose()
+        void DepthStencilState::dispose()
         {
         }
 
@@ -223,7 +223,7 @@ namespace SceneR
         {
             if (this != &depthStencilState)
             {
-                this->graphicsDevice                         = depthStencilState.graphicsDevice;
+                this->_graphics_device                       = depthStencilState._graphics_device;
                 this->counterClockwiseStencilDepthBufferFail = depthStencilState.counterClockwiseStencilDepthBufferFail;
                 this->counterClockwiseStencilFail            = depthStencilState.counterClockwiseStencilFail;
                 this->counterClockwiseStencilFunction        = depthStencilState.counterClockwiseStencilFunction;

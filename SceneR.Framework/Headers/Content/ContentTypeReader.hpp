@@ -4,8 +4,6 @@
 #ifndef CONTENTTYPEREADER_HPP
 #define CONTENTTYPEREADER_HPP
 
-#include <memory>
-
 namespace json11
 {
     class Json;
@@ -15,6 +13,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class GraphicsDevice;
         class Model;
     }
 }
@@ -26,7 +25,7 @@ namespace SceneR
         class ContentReader;
 
         /**
-         * Interface for content type reader implementations.
+         * Interface for content_manager type reader implementations.
          */
         class ContentTypeReader
         {
@@ -40,7 +39,9 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual void Read(const json11::Json& value, SceneR::Graphics::Model* root) = 0;
+            virtual void read(const json11::Json&               value
+                            , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                            , SceneR::Graphics::Model*          root) = 0;
         };
     }
 }

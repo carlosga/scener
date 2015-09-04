@@ -69,7 +69,7 @@ namespace SceneR
             ~Shader() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

@@ -28,7 +28,7 @@ namespace SceneR
 
         GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
         {
-            return this->renderer.CurrentGraphicsDevice();
+            return this->renderer.graphics_device();
         }
 
         bool DrawableComponent::Visible() const

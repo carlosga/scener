@@ -25,7 +25,7 @@ namespace SceneR
             /**
              * Retrieves a graphics device.
              */
-            virtual GraphicsDevice& CurrentGraphicsDevice() = 0;
+            virtual GraphicsDevice& graphics_device() const = 0;
         };
     }
 }

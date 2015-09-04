@@ -5,8 +5,8 @@
 
 #include <iostream>
 
-#include <System/IO/BinaryReader.hpp>
 #include <Content/json11.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
@@ -16,7 +16,7 @@ namespace SceneR
 {
     namespace Content
     {
-        using System::IO::BinaryReader;
+        using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
         using SceneR::Graphics::ModelMesh;
         using SceneR::Graphics::ModelMeshPart;
@@ -31,7 +31,9 @@ namespace SceneR
         {
         }
 
-        void MeshesReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void MeshesReader::read(const json11::Json&               value
+                              , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                              , SceneR::Graphics::Model*          root)
         {
             for (const auto& item : value["meshes"].object_items())
             {
@@ -41,45 +43,45 @@ namespace SceneR
                 {
                     auto meshPart = std::make_shared<ModelMeshPart>();
 
-                    meshPart->indices  = root->accessors[primitiveItem["indices"].string_value()];
-                    meshPart->material = root->materials[primitiveItem["material"].string_value()];
-                    meshPart->type     = static_cast<PrimitiveType>(primitiveItem["primitive"].int_value());
+                    meshPart->_indices  = root->_accessors[primitiveItem["indices"].string_value()];
+                    meshPart->_material = root->_materials[primitiveItem["material"].string_value()];
+                    meshPart->_type     = static_cast<PrimitiveType>(primitiveItem["primitive"].int_value());
 
                     for (const auto& attribute : primitiveItem["attributes"].object_items())
                     {
-                        auto accessor = root->accessors[attribute.second.string_value()];
+                        auto accessor = root->_accessors[attribute.second.string_value()];
 
                         if (attribute.first == "JOINT")
                         {
-                            meshPart->joint = accessor;
+                            meshPart->_joint = accessor;
                         }
                         else if (attribute.first == "NORMAL")
                         {
-                            meshPart->normal = accessor;
+                            meshPart->_normal = accessor;
                         }
                         else if (attribute.first == "POSITION")
                         {
-                            meshPart->position = accessor;
+                            meshPart->_position = accessor;
                         }
                         else if (attribute.first == "TEXBINORMAL")
                         {
-                            meshPart->textureBinormal = accessor;
+                            meshPart->_textureBinormal = accessor;
                         }
                         else if (attribute.first == "TEXCOORD_0")
                         {
-                            meshPart->textureCoordinates = accessor;
+                            meshPart->_textureCoordinates = accessor;
                         }
                         else if (attribute.first == "TEXCOORD_0")
                         {
-                            meshPart->textureCoordinates = accessor;
+                            meshPart->_textureCoordinates = accessor;
                         }
                         else if (attribute.first == "TEXTANGENT")
                         {
-                            meshPart->textureTangent = accessor;
+                            meshPart->_textureTangent = accessor;
                         }
                         else if (attribute.first == "WEIGHT")
                         {
-                            meshPart->weight = accessor;
+                            meshPart->_weight = accessor;
                         }
                         else
                         {
@@ -87,10 +89,10 @@ namespace SceneR
                         }
                     }
 
-                    mesh->meshParts.push_back(meshPart);
+                    mesh->_mesh_parts.push_back(meshPart);
                 }
 
-                root->meshes[item.first] = mesh;
+                root->_meshes[item.first] = mesh;
             }
         }
     }

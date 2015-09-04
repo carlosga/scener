@@ -41,18 +41,20 @@ namespace SceneR
             /**
              * Reads the buffers contents from the given ContentReader.
              */
-            void Read(const json11::Json& value, SceneR::Graphics::Model* root) override;
+            void read(const json11::Json&               value
+                    , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                    , SceneR::Graphics::Model*          root) override;
 
         private:
-            void ReadTechniqueParameters(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
+            void read_technique_parameters(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
 
-            void ReadTechniquePasses(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
+            void read_technique_passes(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
 
-            void ReadTechniquePassProgram(const json11::Json&                           value
-                                        , std::shared_ptr<SceneR::Graphics::Effect>     technique
-                                        , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+            void read_technique_pass_program(const json11::Json&                           value
+                                           , std::shared_ptr<SceneR::Graphics::Effect>     technique
+                                           , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
 
-            void ReadTechniquePassStates(const json11::Json& value, std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+            void read_technique_pass_states(const json11::Json& value, std::shared_ptr<SceneR::Graphics::EffectPass> pass);
         };
     }
 }

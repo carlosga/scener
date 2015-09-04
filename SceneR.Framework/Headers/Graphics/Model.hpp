@@ -62,26 +62,41 @@ namespace SceneR
             ~Model();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**
              * Copies a transform of each bone in a model relative to all parent bones of the bone into a given array.
              * @param destinationBoneTransforms The array to receive bone transforms.
              */
-            void CopyAbsoluteBoneTransformsTo(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
+            void copy_absolute_bone_transforms_to(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
 
             /**
              * Copies an array of transforms into each bone in the model.
              * @param sourceBoneTransforms the new bone transforms.
              */
-            void CopyBoneTransformsFrom(const std::vector<SceneR::Framework::Matrix>& sourceBoneTransforms);
+            void copy_bone_transforms_from(const std::vector<SceneR::Framework::Matrix>& sourceBoneTransforms);
 
             /**
              * Copies each bone transform relative only to the parent bone of the model to a given array.
              * @param destinationBoneTransforms the array to receive bone transforms.
              */
-            void CopyBoneTransformsTo(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
+            void copy_bone_transforms_to(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
+
+            /**
+             * Gets the root bone for the current model.
+             */
+            const std::shared_ptr<ModelBone>& root() const;
+
+            /**
+             * Gets the collection of bones associated to the current model
+             */
+            const std::vector<std::shared_ptr<ModelBone>>& bones() const;
+
+            /**
+             * Gets a collection of ModelMesh objects which composes the current model.
+             */
+            const std::map<std::string, std::shared_ptr<ModelMesh>>& meshes() const;
 
             /**
              * Render a model after applying the given matrix transformations.
@@ -90,52 +105,31 @@ namespace SceneR
              * @param view the view matrix
              * @param projection the projection matrix
              */
-            void Draw(const SceneR::Framework::Matrix& world
+            void draw(const SceneR::Framework::Matrix& world
                     , const SceneR::Framework::Matrix& view
                     , const SceneR::Framework::Matrix& projection);
 
+        public:
             /**
-             * Gets the root bone for the current model.
+             * Gets or sets the model tag
              */
-            const std::shared_ptr<ModelBone>& Root() const;
+            std::u16string tag;
 
-            /**
-             * Gets the collection of bones associated to the current model
-             */
-            const std::vector<std::shared_ptr<ModelBone>>& Bones() const;
-
-            /**
-             * Gets a collection of ModelMesh objects which composes the current model.
-             */
-            const std::map<std::string, std::shared_ptr<ModelMesh>>& Meshes() const;
+        private:
+            std::vector<std::shared_ptr<ModelBone>>            _bones;
+            std::shared_ptr<ModelBone>                         _root;
+            std::map<std::string, std::shared_ptr<ModelMesh>>  _meshes;
+            std::map<std::string, std::shared_ptr<Buffer>>     _buffers;
+            std::map<std::string, std::shared_ptr<BufferView>> _bufferViews;
+            std::map<std::string, std::shared_ptr<Accessor>>   _accessors;
+            std::map<std::string, std::shared_ptr<Effect>>     _techniques;
+            std::map<std::string, std::shared_ptr<Material>>   _materials;
 
             /**
              * Gets the model skinning data
              */
             // const std::shared_ptr<SkinningData>& Skinning() const;
-
-            /**
-             * Gets the model tag
-             */
-            const std::u16string& Tag() const;
-
-            /**
-             * Sets the model tag
-             */
-            void Tag(const std::u16string& tag);
-
-        private:
             // std::shared_ptr<SkinningData>           skinning;
-
-            std::u16string                                     tag;
-            std::vector<std::shared_ptr<ModelBone>>            bones;
-            std::shared_ptr<ModelBone>                         root;
-            std::map<std::string, std::shared_ptr<ModelMesh>>  meshes;
-            std::map<std::string, std::shared_ptr<Buffer>>     buffers;
-            std::map<std::string, std::shared_ptr<BufferView>> bufferViews;
-            std::map<std::string, std::shared_ptr<Accessor>>   accessors;
-            std::map<std::string, std::shared_ptr<Effect>>     techniques;
-            std::map<std::string, std::shared_ptr<Material>>   materials;
 
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::BuffersReader;

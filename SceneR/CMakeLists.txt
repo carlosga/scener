@@ -52,5 +52,5 @@ set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 # install executable file
 install(TARGETS SceneR RUNTIME DESTINATION bin)
 
-# install content files
-install(DIRECTORY Content/ DESTINATION bin/Content)
+# install content_manager files
+install(DIRECTORY Content/ DESTINATION bin/content_manager)

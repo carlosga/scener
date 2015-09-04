@@ -6,7 +6,10 @@
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
+#include <System/IO/Stream.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
 
 namespace SceneR
@@ -18,56 +21,60 @@ namespace SceneR
         using System::IO::Path;
         using System::IO::Stream;
         using SceneR::Framework::RendererServiceContainer;
+        using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Model;
 
         ContentResourceManager ContentManager::ResourceManager;
 
         ContentManager::ContentManager(RendererServiceContainer& serviceProvider
                                      , const std::u16string&     rootDirectory)
-            : serviceProvider ( serviceProvider )
-            , rootDirectory   { rootDirectory }
+            : _service_provider ( serviceProvider )
+            , _root_directory   { rootDirectory }
         {
         }
 
         ContentManager::~ContentManager()
         {
-            this->Unload();
+            unload();
         }
 
-        RendererServiceContainer& ContentManager::ServiceProvider()
+        RendererServiceContainer& ContentManager::service_provider()
         {
-            return this->serviceProvider;
+            return _service_provider;
         }
 
-        const std::u16string& ContentManager::RootDirectory()
+        const std::u16string& ContentManager::root_directory()
         {
-            return this->rootDirectory;
+            return _root_directory;
         }
 
-        std::shared_ptr<Model> ContentManager::LoadModel(const std::u16string& assetName)
+        std::shared_ptr<Model> ContentManager::load_model(const std::u16string& assetName)
         {
-            auto stream = this->OpenStream(assetName);
-            SceneR::Content::ContentReader reader(assetName, *stream);
+            auto& gdService = _service_provider.get_service<IGraphicsDeviceService>();
+            auto& device    = gdService.graphics_device();
+            auto  stream    = open_stream(assetName);
 
-            auto isValid = reader.ReadHeader();
+            ContentReader reader(assetName, device, *stream);
+
+            auto isValid = reader.read_header();
 
             if (!isValid)
             {
                 throw ContentLoadException("Requested file is not valid binary GLTF.");
             }
 
-            return reader.ReadAsset();
+            return reader.read_asset();
         }
 
-        void ContentManager::Unload()
+        void ContentManager::unload()
         {
-            this->ResourceManager.Clear();
+            ResourceManager.clear();
         }
 
-        std::shared_ptr<Stream> ContentManager::OpenStream(const std::u16string& assetName) noexcept(false)
+        std::shared_ptr<Stream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
         {
             const auto filename  = assetName + u".bgltf";
-            const auto path      = Path::Combine(this->rootDirectory, filename);
+            const auto path      = Path::Combine(_root_directory, filename);
 
             if (!File::Exists(path))
             {

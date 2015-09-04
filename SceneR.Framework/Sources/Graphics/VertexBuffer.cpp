@@ -23,7 +23,7 @@ namespace SceneR
 
             glVertexArrayVertexBuffer(this->vao.Id()
                                     , this->bindingIndex
-                                    , this->vbo.Id()
+                                    , this->vbo.id()
                                     , 0
                                     , static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
         }
@@ -32,10 +32,10 @@ namespace SceneR
         {
         }
 
-        void VertexBuffer::Dispose()
+        void VertexBuffer::dispose()
         {
-            this->vao.Dispose();
-            this->vbo.Dispose();
+            this->vao.dispose();
+            this->vbo.dispose();
         }
 
         std::size_t VertexBuffer::VertexCount() const
@@ -55,14 +55,14 @@ namespace SceneR
             auto size   = (elementCount * this->vertexDeclaration->VertexStride());
             auto data   = std::vector<std::uint8_t>(size, 0);
 
-            this->vbo.GetData(offset, size, data.data());
+            this->vbo.get_data(offset, size, data.data());
 
             return data;
         }
 
         void VertexBuffer::SetData(const void* data)
         {
-            this->vbo.BufferData(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
+            this->vbo.buffer_data(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
         }
 
         std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration() const

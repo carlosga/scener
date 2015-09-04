@@ -37,7 +37,7 @@ namespace SceneR
             ~UniformBufferObject();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

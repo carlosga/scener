@@ -16,11 +16,11 @@ namespace SceneR
         enum class FillMode : std::uint32_t
         {
             /**
-             * Draw solid faces for each primitive.
+             * draw solid faces for each primitive.
              */
             Solid = 1,
             /**
-             * Draw lines connecting the vertices that define a primitive face.
+             * draw lines connecting the vertices that define a primitive face.
              */
             WireFrame = 2
         };

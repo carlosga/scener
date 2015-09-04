@@ -26,9 +26,9 @@ namespace SceneR
         {
         }
 
-        void UniformBufferObject::Dispose()
+        void UniformBufferObject::dispose()
         {
-            this->bufferView.Dispose();
+            this->bufferView.dispose();
         }
 
         std::int32_t UniformBufferObject::BindingPoint() const
@@ -48,14 +48,14 @@ namespace SceneR
 
         void UniformBufferObject::Activate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferView.Target())
+            glBindBufferBase(static_cast<GLenum>(this->bufferView.target())
                            , this->bindingPoint
-                           , this->bufferView.Id());
+                           , this->bufferView.id());
         }
 
         void UniformBufferObject::Deactivate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferView.Target()), 0, 0);
+            glBindBufferBase(static_cast<GLenum>(this->bufferView.target()), 0, 0);
         }
 
         std::vector<std::uint8_t> UniformBufferObject::GetData() const
@@ -68,14 +68,14 @@ namespace SceneR
         {
             auto data = std::vector<std::uint8_t>(elementCount, 0);
 
-            this->bufferView.GetData(startIndex, elementCount, data.data());
+            this->bufferView.get_data(startIndex, elementCount, data.data());
 
             return data;
         }
 
         void UniformBufferObject::SetData(const void* data)
         {
-            this->bufferView.BufferData(0, this->size, data);
+            this->bufferView.buffer_data(0, this->size, data);
         }
 
         void UniformBufferObject::SetData(const std::size_t& startIndex
@@ -87,7 +87,7 @@ namespace SceneR
                 return;
             }
 
-            this->bufferView.BufferData(startIndex, elementCount, data);
+            this->bufferView.buffer_data(startIndex, elementCount, data);
         }
 
         void UniformBufferObject::Describe()
@@ -105,14 +105,14 @@ namespace SceneR
             // Get uniform block data size
             glGetActiveUniformBlockiv(this->programId, this->index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
 
-            // Update class members
+            // update class members
             this->bindingPoint = binding;
             this->size         = blockSize;
 
-            // Initialize the buffer object
+            // initialize the buffer object
             std::vector<std::uint8_t> data(this->size, 0);
 
-            this->bufferView.BufferData(this->size, data.data());
+            this->bufferView.buffer_data(this->size, data.data());
         }
     }
 }

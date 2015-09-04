@@ -32,43 +32,21 @@ namespace SceneR
             ~GraphicsResource() override;
 
         public:
-            void Dispose() override = 0;
+            void dispose() override = 0;
 
         public:
             /**
              * Gets the graphics associated to this resources
              * @return the graphics associated to this resources
              */
-            GraphicsDevice& CurrentGraphicsDevice();
+            GraphicsDevice& graphics_device() const;
 
-            /**
-             * Gets the graphics resource name
-             * @return the graphics resource name
-             */
-            const std::u16string& Name() const;
-
-            /**
-             * Sets the graphics resource name
-             * @param name the new graphics resource name
-             */
-            void Name(const std::u16string& name);
-
-            /**
-             * Gets the graphics resource identifier
-             * @return the graphics resource identifier
-             */
-            const std::u16string& Tag() const;
-
-            /**
-             * Sets the graphics resource tag
-             * @param tag the graphics resource tag
-             */
-            void Tag(const std::u16string& tag);
+        public:
+            std::u16string name;
+            std::u16string tag;
 
         protected:
-            GraphicsDevice& graphicsDevice;
-            std::u16string  name;
-            std::u16string  tag;
+            GraphicsDevice& _graphics_device;
         };
     }
 }

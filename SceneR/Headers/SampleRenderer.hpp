@@ -24,8 +24,8 @@ namespace SceneR
             SampleRenderer();
 
         protected:
-            virtual void BeginRun() override;
-            virtual void Draw(const SceneR::Framework::RenderTime& renderTime) override;
+            virtual void begin_run() override;
+            virtual void draw(const SceneR::Framework::RenderTime &renderTime) override;
         };
     }
 }

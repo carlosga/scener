@@ -25,23 +25,23 @@ namespace SceneR
             /**
              * Releases all resources being used by this IGraphicsDeviceManager instance
              */
-            virtual void Dispose() override = 0;
+            virtual void dispose() override = 0;
 
         public:
            /**
              * Starts the drawing of a frame
              */
-            virtual bool BeginDraw() = 0;
+            virtual bool begin_draw() = 0;
 
             /**
              * Called to ensure that the device manager has created a valid device.
              */
-            virtual void CreateDevice() = 0;
+            virtual void create_device() = 0;
 
             /**
              * Called by the game at the end of drawing; presents the final rendering.
              */
-            virtual void EndDraw() = 0;
+            virtual void end_draw() = 0;
         };
     }
 }

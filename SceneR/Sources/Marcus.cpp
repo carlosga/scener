@@ -40,7 +40,7 @@ namespace SceneR
 
         void Marcus::LoadContent()
         {
-//            this->model         = this->renderer.Content().Load<Model>(u"Marcus/marcus");
+//            this->model         = this->renderer.content_manager().Load<Model>(u"Marcus/marcus");
 //
 //            for (const auto& mesh : this->model->Meshes())
 //            {
@@ -63,20 +63,20 @@ namespace SceneR
 
         void Marcus::UnloadContent()
         {
-            this->world         = Matrix::Identity;
-            this->model         = nullptr;
+            this->world = Matrix::Identity;
+            this->model = nullptr;
         }
 
         void Marcus::Update(const RenderTime& renderTime)
         {
-            // this->model->Update(renderTime);
+            // this->model->update(renderTime);
         }
 
         void Marcus::Draw(const RenderTime& renderTime)
         {
-            const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.Components()[0]);
+            const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.components()[0]);
 
-            this->model->Draw(this->world, camera->View, camera->Projection);
+            this->model->draw(this->world, camera->View, camera->Projection);
         }
     }
 }

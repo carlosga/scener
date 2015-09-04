@@ -33,35 +33,35 @@ namespace SceneR
 
         public:
             template <class T>
-            void AddResource(std::u16string name, std::shared_ptr<T> resource)
+            void add_resource(std::u16string name, std::shared_ptr<T> resource)
             {
-                if (!this->HasResource(name))
+                if (!has_resource(name))
                 {
-                    this->resources[name] = std::static_pointer_cast<void>(resource);
+                    _resources[name] = std::static_pointer_cast<void>(resource);
                 }
             }
 
             template <class T>
-            std::shared_ptr<T> GetResource(const std::u16string& name) const
+            std::shared_ptr<T> get_resource(const std::u16string& name) const
             {
-                if (this->HasResource(name))
+                if (has_resource(name))
                 {
-                    return std::static_pointer_cast<T>(this->resources.find(name)->second);
+                    return std::static_pointer_cast<T>(_resources.find(name)->second);
                 }
 
                 return nullptr;
             }
 
-            bool HasResource(const std::u16string& name) const
+            bool has_resource(const std::u16string& name) const
             {
-                return (this->resources.find(name) != this->resources.end());
+                return (_resources.find(name) != _resources.end());
             }
 
-            void Clear()
+            void clear()
             {
-                if (this->resources.size() > 0)
+                if (_resources.size() > 0)
                 {
-                    for (auto& kvp : resources)
+                    for (auto& kvp : _resources)
                     {
                         if (kvp.second.get() != nullptr)
                         {
@@ -69,12 +69,12 @@ namespace SceneR
 
                             if (disposable.get() != nullptr)
                             {
-                                disposable->Dispose();
+                                disposable->dispose();
                             }
                         }
                     }
 
-                    this->resources.clear();
+                    _resources.clear();
                 }
             }
 
@@ -83,7 +83,7 @@ namespace SceneR
             ContentResourceManager& operator=(const ContentResourceManager& manager) = delete;
 
         private:
-            std::map<std::u16string, std::shared_ptr<void>> resources;
+            std::map<std::u16string, std::shared_ptr<void>> _resources;
         };
     }
 }

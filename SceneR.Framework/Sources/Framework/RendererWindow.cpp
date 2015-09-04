@@ -23,82 +23,82 @@ namespace SceneR
         using SceneR::Input::Mouse;
 
 #ifdef _USE_GLEW_
-        void RendererWindow::DebugCallback(GLenum        source
-                                         , GLenum        type
-                                         , GLuint        id
-                                         , GLenum        severity
-                                         , GLsizei       length
-                                         , const GLchar* message
-                                         , void*         userParam)
+        void RendererWindow::debug_callback(GLenum        source
+                                          , GLenum        type
+                                          , GLuint        id
+                                          , GLenum        severity
+                                          , GLsizei       length
+                                          , const GLchar* message
+                                          , void*         userParam)
         {
             std::cout << message << std::endl;
         }
 #else
-        void RendererWindow::DebugCallback(GLenum        source
-                                         , GLenum        type
-                                         , GLuint        id
-                                         , GLenum        severity
-                                         , GLsizei       length
-                                         , const GLchar* message
-                                         , const void*   userParam)
+        void RendererWindow::debug_callback(GLenum        source
+                                          , GLenum        type
+                                          , GLuint        id
+                                          , GLenum        severity
+                                          , GLsizei       length
+                                          , const GLchar* message
+                                          , const void*   userParam)
         {
             std::cout << message << std::endl;
         }
 #endif
 
         RendererWindow::RendererWindow(Renderer& renderer)
-            : title          { u"" }
-            , handle         { nullptr }
-            , renderer       ( renderer )
+            : _title    {  }
+            , _handle   { nullptr }
+            , _renderer { renderer }
         {
         }
 
         RendererWindow::~RendererWindow()
         {
-            this->Close();
+            close();
         }
 
-        const std::u16string& RendererWindow::Title() const
+        const std::u16string& RendererWindow::title() const
         {
-            return this->title;
+            return _title;
         }
 
-        void RendererWindow::Title(const std::u16string& title)
+        void RendererWindow::title(const std::u16string& title)
         {
-            this->title = title;
+            _title = title;
 
-            if (this->handle != nullptr)
+            if (_handle != nullptr)
             {
-                auto tmp = Encoding::Convert(this->title);
+                auto tmp = Encoding::Convert(_title);
 
-                glfwSetWindowTitle(this->handle, tmp.c_str());
+                glfwSetWindowTitle(_handle, tmp.c_str());
             }
         }
 
-        bool RendererWindow::AllowUserResizing() const
+        bool RendererWindow::allow_user_resizing() const
         {
-            return this->renderer.graphicsDeviceManager.AllowUserResizing();
+            return _renderer._graphics_device_manager.allow_user_resizing;
         }
 
-        void RendererWindow::AllowUserResizing(const bool& allowUserResizing)
+        void RendererWindow::allow_user_resizing(const bool& allowUserResizing)
         {
-            this->renderer.graphicsDeviceManager.AllowUserResizing(allowUserResizing);
+            _renderer._graphics_device_manager.allow_user_resizing = allowUserResizing;
         }
 
-        void RendererWindow::Open()
+        void RendererWindow::open()
         {
             GLFWmonitor* monitor     = nullptr;
             GLFWwindow*  windowShare = nullptr;
-            auto         profile     = static_cast<std::int32_t>(this->renderer.graphicsDeviceManager.GraphicsProfile());
-            auto         tmp         = System::Text::Encoding::Convert(this->title);
-            auto         fullscreen  = this->renderer.graphicsDeviceManager.FullScreen();
-            auto         width       = this->renderer.graphicsDeviceManager.PreferredBackBufferWidth();
-            auto         height      = this->renderer.graphicsDeviceManager.PreferredBackBufferHeight();
-            auto         allowResize = this->renderer.graphicsDeviceManager.AllowUserResizing();
-            auto         sampleCount = this->renderer.graphicsDeviceManager
-                                                     .CurrentGraphicsDevice()
-                                                     .PresentationParameters()
-                                                     .MultiSampleCount();
+            auto         profile     = static_cast<std::int32_t>(_renderer._graphics_device_manager.graphics_profile);
+            auto         tmp         = System::Text::Encoding::Convert(_title);
+            auto         fullscreen  = _renderer._graphics_device_manager.full_screen;
+            auto         width       = _renderer._graphics_device_manager.preferred_back_buffer_width;
+            auto         height      = _renderer._graphics_device_manager.preferred_back_buffer_height;
+            auto         allowResize = _renderer._graphics_device_manager.allow_user_resizing;
+            auto         sampleCount = _renderer._graphics_device_manager
+                                                .graphics_device()
+                                                .presentation_parameters()
+                                                .MultiSampleCount();
 
             // Set the window and context hints
             glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
@@ -118,11 +118,11 @@ namespace SceneR
 
             if (fullscreen)
             {
-                monitor = this->renderer.graphicsDeviceManager.CurrentGraphicsDevice().Adapter().MonitorHandle();
+                monitor = _renderer._graphics_device_manager.graphics_device().adapter().MonitorHandle();
             }
 
             // Create a new window
-            this->handle = glfwCreateWindow
+            _handle = glfwCreateWindow
             (
                 static_cast<std::int32_t>(width)    // width
               , static_cast<std::int32_t>(height)   // height
@@ -132,13 +132,13 @@ namespace SceneR
             );
 
             // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
-            if (!this->handle)
+            if (!_handle)
             {
                 throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.4");
             }
 
             // Set the new window context as the current context
-            glfwMakeContextCurrent(this->handle);
+            glfwMakeContextCurrent(_handle);
 
 #ifdef _USE_GLEW_
             // GLEW Initialization
@@ -152,12 +152,11 @@ namespace SceneR
             // Disable regal emulation as it prevents the shaders to be compiled correctly
             glDisable(GL_EMULATION_REGAL);
 #endif
-
-            // Initialize input
-            this->InitializeInput();
+            // initialize input
+            initialize_input();
 
             // Enable debug output
-            this->EnableDebugOutput();
+            enable_debug_output();
 
             if (allowResize)
             {
@@ -179,36 +178,37 @@ namespace SceneR
 //            auto a = 1;
 //        }
 
-        void RendererWindow::Close()
+        void RendererWindow::close()
         {
-            if (this->handle)
+            if (_handle)
             {
                 // Close window
-                glfwDestroyWindow(this->handle);
+                glfwDestroyWindow(_handle);
 
                 // Reset the window pointer
-                this->handle = nullptr;
+                _handle = nullptr;
             }
         }
 
-        void RendererWindow::InitializeInput() const
+        void RendererWindow::initialize_input() const
         {
-            // Initialize keyboard input
-            Keyboard::Initialize(this->handle);
+            // initialize keyboard input
+            Keyboard::Initialize(_handle);
 
-            // Initialize mouse input
-            Mouse::Initialize(this->handle);
+            // initialize mouse input
+            Mouse::Initialize(_handle);
         }
 
-        bool RendererWindow::ShouldClose() const
+        bool RendererWindow::should_close() const
         {
-            auto fullScreen = this->renderer.CurrentGraphicsDevice().PresentationParameters().FullScreen();
+            auto fullScreen   = _renderer._graphics_device_manager.full_screen;
+            auto shouldClose  = glfwWindowShouldClose(_handle);
+            auto isEscPressed = (glfwGetKey(_handle, GLFW_KEY_ESCAPE) == GLFW_PRESS);
 
-            return ((!fullScreen && glfwGetKey(this->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-                 || glfwWindowShouldClose(this->handle));
+            return ((!fullScreen && isEscPressed) || shouldClose);
         }
 
-        void RendererWindow::EnableDebugOutput() const
+        void RendererWindow::enable_debug_output() const
         {
             GLuint unusedIds = 0;
 
@@ -216,7 +216,7 @@ namespace SceneR
             // Other OpenGL 4.x debugging functions:
             //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-            glDebugMessageCallback(RendererWindow::DebugCallback, nullptr);
+            glDebugMessageCallback(RendererWindow::debug_callback, nullptr);
             glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
         }
     }

@@ -41,44 +41,43 @@ namespace SceneR
             ~IndexBuffer() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**
              * Gets the number of indices in the buffer.
              */
-            std::size_t IndexCount() const;
+            std::size_t index_count() const;
 
             /**
              * Gets the size (in bits) of each index.
              */
-            const SceneR::Graphics::IndexElementSize& IndexElementSize() const;
+            const SceneR::Graphics::IndexElementSize& index_element_size() const;
 
             /**
              * Gets the indices buffer data
              */
-            std::vector<std::uint8_t> GetData() const;
+            std::vector<std::uint8_t> get_data() const;
 
             /**
              * Gets the indices buffer data
              */
-            std::vector<std::uint8_t> GetData(const std::size_t& startIndex
-                                            , const std::size_t& elementCount) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& startIndex, const std::size_t& elementCount) const;
 
             /**
              * Sets the indices buffer data
              */
-            void SetData(const void* data);
+            void set_data(const void* data);
 
         private:
-            void Activate() const;
-            void Deactivate() const;
-            std::size_t GetElementSizeInBytes() const;
+            void activate() const;
+            void deactivate() const;
+            std::size_t get_element_size_in_bytes() const;
 
         private:
-            BufferView                         ibo;
-            std::size_t                        indexCount;
-            SceneR::Graphics::IndexElementSize indexElementSize;
+            BufferView                         _ibo;
+            std::size_t                        _indexCount;
+            SceneR::Graphics::IndexElementSize _indexElementSize;
 
             friend class GraphicsDevice;
         };

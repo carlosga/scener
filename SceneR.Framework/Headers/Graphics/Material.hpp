@@ -28,13 +28,15 @@ namespace SceneR
             ~Material() = default;
 
         public:
-            std::shared_ptr<Effect>    instanceTechnique;
-            std::string                ambient;
-            std::string                bump;
-            std::string                diffuse;
-            SceneR::Framework::Vector3 emission;
-            float                      shininess;
-            SceneR::Framework::Vector3 specular;
+
+        private:
+            std::shared_ptr<Effect>    _instanceTechnique;
+            std::string                _ambient;
+            std::string                _bump;
+            std::string                _diffuse;
+            SceneR::Framework::Vector3 _emission;
+            float                      _shininess;
+            SceneR::Framework::Vector3 _specular;
 
             friend class SceneR::Content::MaterialsReader;
         };

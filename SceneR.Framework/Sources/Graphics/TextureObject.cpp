@@ -21,7 +21,7 @@ namespace SceneR
         {
         }
 
-        void TextureObject::Dispose()
+        void TextureObject::dispose()
         {
             if (this->id != 0)
             {

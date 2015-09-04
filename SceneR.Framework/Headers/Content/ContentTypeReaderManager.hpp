@@ -14,7 +14,7 @@ namespace SceneR
     namespace Content
     {
         /**
-         * Content type reader manager.
+         * content_manager type reader manager.
          */
         class ContentTypeReaderManager final
         {
@@ -31,17 +31,17 @@ namespace SceneR
 
         public:
             /**
-             * Gets the content type reader for the specified content tpe
+             * Gets the content type reader for the specified content_manager tpe
              */
-            ContentTypeReader* GetByReaderName(const std::string& name);
+            ContentTypeReader* get_by_reader_name(const std::string& name);
 
         private:
-            void RegisterKnownTypeReaders();
+            void register_known_type_readers();
 
             template<class T>
-            void RegisterTypeReader(const std::string& name)
+            void register_type_reader(const std::string& name)
             {
-                this->readers[name] = new T;
+                _readers[name] = new T;
             }
 
         private:
@@ -49,7 +49,7 @@ namespace SceneR
             ContentTypeReaderManager& operator=(const ContentTypeReaderManager& manager) = delete;
 
         private:
-            std::map<std::string, ContentTypeReader*> readers;
+            std::map<std::string, ContentTypeReader*> _readers;
         };
     }
 }

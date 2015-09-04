@@ -40,11 +40,11 @@ namespace SceneR
              * Adds a service to the RendererServiceContainer.
              */
             template <class T>
-            void AddService(T& service)
+            void add_service(T& service)
             {
-                if (!this->IsRegistered<T>())
+                if (!is_registered<T>())
                 {
-                    this->instanceMap[this->GetTypeName<T>()] = static_cast<void*>(&service);
+                    _instanceMap[get_type_name<T>()] = static_cast<void*>(&service);
                 }
             }
 
@@ -52,42 +52,42 @@ namespace SceneR
              * Gets the service object of the specified identifier.
              */
             template <class T>
-            T& GetService() const
+            T& get_service() const
             {
-                if (!this->IsRegistered<T>())
+                if (!is_registered<T>())
                 {
                     throw std::runtime_error("Service not registered");
                 }
 
-                return *(static_cast<T*>(this->instanceMap.find(this->GetTypeName<T>())->second));
+                return *(static_cast<T*>(_instanceMap.find(get_type_name<T>())->second));
             }
 
             /**
              * Removes the object providing a specified service.
              */
             template <class T>
-            void RemoveService()
+            void remove_service()
             {
-                if (this->IsRegistered<T>())
+                if (is_registered<T>())
                 {
-                    this->instanceMap.erase(this->GetTypeName<T>());
+                    _instanceMap.erase(get_type_name<T>());
                 }
             }
 
-            void Clear()
+            void clear()
             {
-                this->instanceMap.clear();
+                _instanceMap.clear();
             }
 
         private:
             template <class T>
-            bool IsRegistered() const
+            bool is_registered() const
             {
-                return (this->instanceMap.find(this->GetTypeName<T>()) != this->instanceMap.end());
+                return (_instanceMap.find(get_type_name<T>()) != _instanceMap.end());
             }
 
             template <class T>
-            std::string GetTypeName() const
+            std::string get_type_name() const
             {
                 return typeid(T).name();
             }
@@ -97,7 +97,7 @@ namespace SceneR
             RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
 
         private:
-            std::map<std::string, void*> instanceMap;
+            std::map<std::string, void*> _instanceMap;
         };
     }
 }

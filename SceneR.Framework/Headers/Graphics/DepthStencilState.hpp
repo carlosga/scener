@@ -47,7 +47,7 @@ namespace SceneR
             ~DepthStencilState();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

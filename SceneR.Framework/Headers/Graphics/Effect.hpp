@@ -69,7 +69,7 @@ namespace SceneR
             ~Effect();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

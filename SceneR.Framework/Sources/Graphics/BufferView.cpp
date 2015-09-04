@@ -10,82 +10,88 @@ namespace SceneR
     namespace Graphics
     {
         BufferView::BufferView(const BufferTarget& target, const BufferUsage& usage)
-            : id     { 0 }
-            , target { target }
-            , usage  { usage }
+            : _id          { 0 }
+            , _target      { target }
+            , _usage       { usage }
+            , _byte_offset { 0 }
+            , _byte_length { 0 }
         {
-            this->Create();
         }
 
         BufferView::~BufferView()
         {
         }
 
-        void BufferView::Dispose()
+        void BufferView::dispose()
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
-                glDeleteBuffers(1, &this->id);
-                this->id = 0;
+                glDeleteBuffers(1, &_id);
+                _id = 0;
             }
         }
 
-        std::uint32_t BufferView::Id() const
+        std::uint32_t BufferView::id() const
         {
-            return this->id;
+            return _id;
         }
 
-        const BufferTarget&BufferView::Target() const
+        const BufferTarget&BufferView::target() const
         {
-            return this->target;
+            return _target;
         }
 
-        const BufferUsage&BufferView::Usage() const
+        const BufferUsage&BufferView::usage() const
         {
-            return this->usage;
+            return _usage;
         }
 
-        void BufferView::Activate() const
+        void BufferView::activate() const
         {
-            glBindBuffer(static_cast<GLenum>(this->target), this->id);
+            glBindBuffer(static_cast<GLenum>(_target), _id);
         }
 
-        void BufferView::Deactivate() const
+        void BufferView::create()
         {
-            if (this->id != 0)
+            glCreateBuffers(1, &_id);
+        }
+
+        void BufferView::deactivate() const
+        {
+            if (_id != 0)
             {
-                glBindBuffer(static_cast<GLenum>(this->target), 0);
+                glBindBuffer(static_cast<GLenum>(_target), 0);
             }
         }
 
-        void BufferView::GetData(const std::size_t& offset, const std::size_t& size, void* data) const
+        void BufferView::get_data(void* data) const
         {
-            glGetNamedBufferSubData(this->id, offset, size, data);
+            glGetNamedBufferSubData(_id, _byte_offset, _byte_length, data);
         }
 
-        void BufferView::BufferData(const std::size_t& size, const void* data) const
+        void BufferView::get_data(const std::size_t& offset, const std::size_t& size, void* data) const
         {
-            glNamedBufferData(this->id, size, data, static_cast<GLenum>(this->usage));
+            glGetNamedBufferSubData(_id, offset, size, data);
         }
 
-        void BufferView::BufferData(const std::size_t& offset, const std::size_t& size, const void *data) const
+        void BufferView::buffer_data(const std::size_t& size, const void* data) const
         {
-            glNamedBufferSubData(this->id, offset, size, data);
+            glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
         }
 
-        void BufferView::Invalidate() const
+        void BufferView::buffer_data(const std::size_t& offset, const std::size_t& size, const void *data) const
         {
-            glInvalidateBufferData(this->id);
+            glNamedBufferSubData(_id, offset, size, data);
         }
 
-        void BufferView::Invalidate(const std::size_t& offset, const std::size_t& length) const
+        void BufferView::invalidate() const
         {
-            glInvalidateBufferSubData(this->id, offset, length);
+            glInvalidateBufferData(_id);
         }
 
-        void BufferView::Create()
+        void BufferView::invalidate(const std::size_t& offset, const std::size_t& length) const
         {
-            glCreateBuffers(1, &this->id);
+            glInvalidateBufferSubData(_id, offset, length);
         }
     }
 }

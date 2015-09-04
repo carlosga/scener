@@ -16,35 +16,35 @@ namespace SceneR
     {
         ContentTypeReaderManager::ContentTypeReaderManager()
         {
-            this->RegisterKnownTypeReaders();
+            register_known_type_readers();
         }
 
         ContentTypeReaderManager::~ContentTypeReaderManager()
         {
-            if (this->readers.size() > 0)
+            if (_readers.size() > 0)
             {
-                for (auto& reader : this->readers)
+                for (auto& reader : _readers)
                 {
                     delete reader.second;
                 }
 
-                this->readers.clear();
+                _readers.clear();
             }
         }
 
-        ContentTypeReader* ContentTypeReaderManager::GetByReaderName(const std::string& name)
+        ContentTypeReader* ContentTypeReaderManager::get_by_reader_name(const std::string& name)
         {
-            return this->readers[name];
+            return _readers[name];
         }
 
-        void ContentTypeReaderManager::RegisterKnownTypeReaders()
+        void ContentTypeReaderManager::register_known_type_readers()
         {
-            this->RegisterTypeReader<BuffersReader>("buffers");
-            this->RegisterTypeReader<BufferViewsReader>("bufferViews");
-            this->RegisterTypeReader<AccessorsReader>("accessors");
-            this->RegisterTypeReader<MeshesReader>("meshes");
-            this->RegisterTypeReader<MaterialsReader>("materials");
-            this->RegisterTypeReader<TechniquesReader>("techniques");
+            register_type_reader<BuffersReader>("buffers");
+            register_type_reader<BufferViewsReader>("bufferViews");
+            register_type_reader<AccessorsReader>("accessors");
+            register_type_reader<MeshesReader>("meshes");
+            register_type_reader<MaterialsReader>("materials");
+            register_type_reader<TechniquesReader>("techniques");
 
 //            this->RegisterTypeReader<AnimationsReader>(u"animations");
 //            this->RegisterTypeReader<BufferViewsReader>(u"bufferViews");

@@ -12,14 +12,14 @@ namespace SceneR
     namespace Graphics
     {
         ModelMeshPart::ModelMeshPart()
-            : effect         { nullptr }
-            , indexBuffer    { nullptr }
-            , vertexBuffer   { nullptr }
-            , startIndex     { 0 }
-            , vertexOffset   { 0 }
-            , vertexCount    { 0 }
-            , primitiveCount { 0 }
-            , tag            { u"" }
+            : effect            { nullptr }
+            , tag               {  }
+            , _index_buffer     { nullptr }
+            , _vertex_buffer    { nullptr }
+            , _start_index      { 0 }
+            , _vertex_offset    { 0 }
+            , _vertex_count     { 0 }
+            , _primitive_count  { 0 }
         {
         }
 
@@ -27,54 +27,34 @@ namespace SceneR
         {
         }
 
-        const std::shared_ptr<SceneR::Graphics::Effect>& ModelMeshPart::Effect() const
+        const std::shared_ptr<IndexBuffer>& ModelMeshPart::index_buffer() const
         {
-            return this->effect;
+            return _index_buffer;
         }
 
-        void ModelMeshPart::Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect)
+        const std::shared_ptr<VertexBuffer>& ModelMeshPart::vertex_buffer() const
         {
-            this->effect = effect;
+            return _vertex_buffer;
         }
 
-        const std::shared_ptr<SceneR::Graphics::IndexBuffer>& ModelMeshPart::IndexBuffer() const
+        std::size_t ModelMeshPart::start_index() const
         {
-            return this->indexBuffer;
+            return _start_index;
         }
 
-        const std::shared_ptr<SceneR::Graphics::VertexBuffer>& ModelMeshPart::VertexBuffer() const
+        std::size_t ModelMeshPart::vertex_offset() const
         {
-            return this->vertexBuffer;
+            return _vertex_offset;
         }
 
-        std::size_t ModelMeshPart::StartIndex() const
+        std::size_t ModelMeshPart::vertex_count() const
         {
-            return this->startIndex;
+            return _vertex_count;
         }
 
-        std::size_t ModelMeshPart::VertexOffset() const
+        std::size_t ModelMeshPart::primitive_count() const
         {
-            return this->vertexOffset;
-        }
-
-        std::size_t ModelMeshPart::VertexCount() const
-        {
-            return this->vertexCount;
-        }
-
-        std::size_t ModelMeshPart::PrimitiveCount() const
-        {
-            return this->primitiveCount;
-        }
-
-        const std::u16string& ModelMeshPart::Tag() const
-        {
-            return this->tag;
-        }
-
-        void ModelMeshPart::Tag(const std::u16string& tag)
-        {
-            this->tag = tag;
+            return _primitive_count;
         }
     }
 }

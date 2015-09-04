@@ -10,10 +10,10 @@ namespace SceneR
         IndexBuffer::IndexBuffer(GraphicsDevice&                   graphicsDevice
                                , const Graphics::IndexElementSize& indexElementSize
                                , const std::size_t&                indexCount)
-            : GraphicsResource { graphicsDevice }
-            , ibo              { BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw }
-            , indexCount       { indexCount }
-            , indexElementSize { indexElementSize }
+            : GraphicsResource  { graphicsDevice }
+            , _ibo              { BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw }
+            , _indexCount       { indexCount }
+            , _indexElementSize { indexElementSize }
         {
         }
 
@@ -21,55 +21,55 @@ namespace SceneR
         {
         }
 
-        void IndexBuffer::Dispose()
+        void IndexBuffer::dispose()
         {
-            this->ibo.Dispose();
+            _ibo.dispose();
         }
 
-        std::size_t IndexBuffer::IndexCount() const
+        std::size_t IndexBuffer::index_count() const
         {
-            return this->indexCount;
+            return _indexCount;
         }
 
-        const Graphics::IndexElementSize& IndexBuffer::IndexElementSize() const
+        const IndexElementSize& IndexBuffer::index_element_size() const
         {
-            return this->indexElementSize;
+            return _indexElementSize;
         }
 
-        std::vector<std::uint8_t> IndexBuffer::GetData() const
+        std::vector<std::uint8_t> IndexBuffer::get_data() const
         {
-            return this->GetData(0, this->indexCount);
+            return get_data(0, _indexCount);
         }
 
-        std::vector<std::uint8_t> IndexBuffer::GetData(const std::size_t& startIndex, const std::size_t& elementCount) const
+        std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex, const std::size_t& elementCount) const
         {
-            auto offset = (startIndex * this->GetElementSizeInBytes());
-            auto size   = (elementCount * this->GetElementSizeInBytes());
+            auto offset = (startIndex * get_element_size_in_bytes());
+            auto size   = (elementCount * get_element_size_in_bytes());
             auto data   = std::vector<std::uint8_t>(size);
 
-            this->ibo.GetData(offset, size, data.data());
+            _ibo.get_data(offset, size, data.data());
 
             return data;
         }
 
-        void IndexBuffer::SetData(const void* data)
+        void IndexBuffer::set_data(const void* data)
         {
-            this->ibo.BufferData(this->indexCount * this->GetElementSizeInBytes(), data);
+            _ibo.buffer_data(_indexCount * get_element_size_in_bytes(), data);
         }
 
-        void IndexBuffer::Activate() const
+        void IndexBuffer::activate() const
         {
-            this->ibo.Activate();
+            _ibo.activate();
         }
 
-        void IndexBuffer::Deactivate() const
+        void IndexBuffer::deactivate() const
         {
-            this->ibo.Deactivate();
+            _ibo.deactivate();
         }
 
-        std::size_t IndexBuffer::GetElementSizeInBytes() const
+        std::size_t IndexBuffer::get_element_size_in_bytes() const
         {
-            return ((this->indexElementSize == Graphics::IndexElementSize::SixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
+            return ((_indexElementSize == IndexElementSize::SixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
         }
     }
 }

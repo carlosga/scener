@@ -20,7 +20,7 @@ namespace SceneR
              * Initializes a new instance of the ContentLoadException class with the given message
              * @param m the exception message
              */
-            ContentLoadException(const std::string m = "Content Load Exception");
+            ContentLoadException(const std::string m = "content_manager Load Exception");
 
             /**
              * @brief Copy constructor.

@@ -46,33 +46,44 @@ namespace SceneR
             ~BufferView();
 
         public:
-            void Dispose();
+            void dispose();
 
         public:
             /**
              * Gets the buffer object identifier.
              */
-            std::uint32_t Id() const;
+            std::uint32_t id() const;
 
             /**
              * Gets the buffer object target.
              */
-            const BufferTarget& Target() const;
+            const BufferTarget& target() const;
 
             /**
              * Gets the buffer object usage.
              */
-            const BufferUsage& Usage() const;
+            const BufferUsage& usage() const;
 
             /**
              * Activates the buffer object.
              */
-            void Activate() const;
+            void activate() const;
+
+            /**
+             * Creates the buffer object.
+             */
+            void create();
 
             /**
              * Deactivates the buffer object.
              */
-            void Deactivate() const;
+            void deactivate() const;
+
+            /**
+             * Gets buffer data from object's data store.
+             * @param data specifies a pointer to the new data that will be copied into the data store.
+             */
+            void get_data(void* data) const;
 
             /**
              * Gets a subset of data from a buffer object's data store.
@@ -80,7 +91,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void GetData(const std::size_t& offset, const std::size_t& size, void *data) const;
+            void get_data(const std::size_t& offset, const std::size_t& size, void *data) const;
 
             /**
              * Creates and initializes the buffer object data store.
@@ -88,7 +99,7 @@ namespace SceneR
              * @param data specifies a pointer to data that will be copied into the data store for initialization,
              *             or NULL if no data is to be copied.
              */
-            void BufferData(const std::size_t& size, const void* data) const;
+            void buffer_data(const std::size_t& size, const void* data) const;
 
             /**
              * Updates a subset of a buffer object's data store
@@ -96,33 +107,26 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void BufferData(const std::size_t& offset, const std::size_t& size, const void *data) const;
+            void buffer_data(const std::size_t& offset, const std::size_t& size, const void *data) const;
 
             /**
-             * Invalidate the content of a buffer object's data store
+             * Invalidate the content_manager of a buffer object's data store
              */
-            void Invalidate() const;
+            void invalidate() const;
 
             /**
              *  Invalidate a region of a buffer object's data store
              *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
              *  @param length the length of the range within the buffer's data store to be invalidated.
              */
-            void Invalidate(const std::size_t& offset, const std::size_t& length) const;
+            void invalidate(const std::size_t& offset, const std::size_t& length) const;
 
         private:
-            /**
-             * Creates the buffer object.
-             */
-            void Create();
-
-        private:
-            std::uint32_t           id;
-            BufferTarget            target;
-            BufferUsage             usage;
-            std::shared_ptr<Buffer> buffer;
-            std::uint64_t           byteOffset;
-            std::uint64_t           byteLength;
+            std::uint32_t _id;
+            BufferTarget  _target;
+            BufferUsage   _usage;
+            std::size_t   _byte_offset;
+            std::size_t   _byte_length;
 
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::BufferViewsReader;

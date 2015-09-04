@@ -12,11 +12,11 @@ namespace SceneR
     {
         enum class ComponentType : std::uint32_t
         {
-            Byte          = 5120
-          , UnsignedByte  = 5121
-          , Short         = 5122
-          , UnsignedShort = 5123
-          , Float         = 5126
+            Byte   = 5120
+          , UByte  = 5121
+          , Int16  = 5122
+          , UInt16 = 5123
+          , Single = 5126
         };
     }
 }

@@ -32,29 +32,6 @@ namespace SceneR
         class BlendState final : public SceneR::Graphics::GraphicsResource
         {
         public:
-//            /**
-//             * A built-in state object with settings for additive blend, that is adding the destination data to the source data without using alpha.
-//             */
-//            static const BlendState& Additive;
-//
-//            /**
-//             *  A built-in state object with settings for alpha blend, that is blending the source and destination data using alpha.
-//             */
-//            static const BlendState& AlphaBlend;
-//
-//            /**
-//             * A built-in state object with settings for blending with non-premultipled alpha,
-//             * that is blending source and destination data using alpha while assuming the color
-//             * data contains no alpha information.
-//             */
-//            static const BlendState& NonPremultiplied;
-//
-//            /**
-//             * A built-in state object with settings for opaque blend, that is overwriting the source with the destination data.
-//             */
-//            static const BlendState& Opaque;
-
-        public:
             /**
              * Initializes a new instance of the BlendState class.
              */
@@ -72,7 +49,7 @@ namespace SceneR
             ~BlendState() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

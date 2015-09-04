@@ -43,109 +43,70 @@ namespace SceneR
             ~GraphicsDeviceManager() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**
              * Applies any changes to device-related propertie.
              */
-            void ApplyChanges();
+            void apply_changes();
 
             /**
              * Starts the drawing of a frame.
              */
-            bool BeginDraw() override;
+            bool begin_draw() override;
 
             /**
              * Called by the renderer at the end of drawing; presents the final rendering.
              */
-            void EndDraw() override;
+            void end_draw() override;
 
             /**
              * Creates the graphics device.
              */
-            void CreateDevice() override;
+            void create_device() override;
 
             /**
              * Gets the graphics device.
              * @return the graphics device.
              */
-            SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice() override;
+            SceneR::Graphics::GraphicsDevice& graphics_device() const override;
 
+        public:
             /**
-             * Gets the graphics profile, which determines the graphics feature set.
+             * Gets or sets a value indicating whether to allow the user to resize the device window.
              */
-            const SceneR::Graphics::GraphicsProfile& GraphicsProfile() const;
+            bool allow_user_resizing;
 
             /**
-             * Gets the graphics profile, which determines the graphics feature set.
+             * Gets or sets the graphics profile, which determines the graphics feature set.
              */
-            void GraphicsProfile(const SceneR::Graphics::GraphicsProfile& graphicsProfile);
+            SceneR::Graphics::GraphicsProfile graphics_profile;
 
             /**
-             * Gets a value indicating whether to allow the user to reSystem::Size the device window.
+             * Gets or sets the device window title.
              */
-            bool AllowUserResizing() const;
+            std::u16string window_title;
 
             /**
-             * Geta a value indicating whether to allow the user to reSystem::Size the device window.
+             * Gets or sets a value that indicates whether the device should start in full-screen mode.
              */
-            void AllowUserResizing(const bool& allowUserResizing);
+            bool full_screen;
 
             /**
-             * Gets the window title.
-             * @return the window title.
+             * Gets or sets the preferred back-buffer width.
              */
-            const std::u16string& WindowTitle() const;
+            std::uint32_t preferred_back_buffer_width;
 
             /**
-             * Sets the window title.
-             * @param windowTitle the window title.
-             */
-            void WindowTitle(const std::u16string& windowTitle);
-
-            /**
-             * Gets a value that indicates whether the device should start in full-screen mode.
-             * @return a value that indicates whether the device should start in full-screen mode.
-             */
-            bool FullScreen() const;
-
-            /**
-             * Sets a value that indicates whether the device should start in full-screen mode.
-             */
-            void FullScreen(const bool& fullScreen);
-
-            /**
-             * Gets the preferred back-buffer height.
+             * Gets or sets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
              */
-            std::uint32_t PreferredBackBufferHeight() const;
-
-            /**
-             * Sets the preferred back-buffer height.
-             */
-            void PreferredBackBufferHeight(const std::uint32_t& preferredBackBufferHeight);
-
-            /**
-             * Gets the preferred back-buffer width.
-             * @return the preferred back-buffer width.
-             */
-            std::uint32_t PreferredBackBufferWidth() const;
-
-            /**
-             * Sets the preferred back-buffer width.
-             */
-            void PreferredBackBufferWidth(const std::uint32_t& preferredBackBufferWidth);
+            std::uint32_t preferred_back_buffer_height;
 
         private:
-            Renderer&                                         renderer;
-            std::shared_ptr<SceneR::Graphics::GraphicsDevice> graphicsDevice;
-            bool                                              allowUserResizing;
-            bool                                              fullScreen;
-            SceneR::Graphics::GraphicsProfile                 graphicsProfile;
-            std::uint32_t                                     preferredBackBufferWidth;
-            std::uint32_t                                     preferredBackBufferHeight;
-            std::u16string                                    windowTitle;
+            std::shared_ptr<SceneR::Graphics::GraphicsDevice> _graphics_device;
+            Renderer&                                         _renderer;
         };
     }
 }

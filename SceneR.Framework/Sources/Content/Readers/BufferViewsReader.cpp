@@ -8,6 +8,7 @@
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/BufferView.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 
 namespace SceneR
@@ -18,6 +19,7 @@ namespace SceneR
         using SceneR::Graphics::BufferView;
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
+        using SceneR::Graphics::GraphicsDevice;
         using json11::Json;
 
         BufferViewsReader::BufferViewsReader()
@@ -28,7 +30,9 @@ namespace SceneR
         {
         }
 
-        void BufferViewsReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void BufferViewsReader::read(const json11::Json&               value
+                                   , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                                   , SceneR::Graphics::Model*          root)
         {
             for (const auto& item : value["bufferViews"].object_items())
             {
@@ -43,11 +47,10 @@ namespace SceneR
 
                 auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
-                bufferView->buffer     = root->buffers[item.second["buffer"].string_value()];
-                bufferView->byteOffset = item.second["byteOffset"].int_value();
-                bufferView->byteLength = item.second["byteLength"].int_value();
+                bufferView->_byte_offset = item.second["byteOffset"].int_value();
+                bufferView->_byte_length = item.second["byteLength"].int_value();
 
-                root->bufferViews[item.first] = bufferView;
+                root->_bufferViews[item.first] = bufferView;
             }
         }
     }

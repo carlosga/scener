@@ -32,7 +32,7 @@ namespace SceneR
 
         void Camera::Initialize()
         {
-            auto aspect = this->renderer.CurrentGraphicsDevice().Viewport().AspectRatio();
+            auto aspect = this->renderer.graphics_device().viewport().aspect_ratio();
 
             _position          = { 0.0f, 0.0f, 500.0f };
             _rotation          = 0.0f;

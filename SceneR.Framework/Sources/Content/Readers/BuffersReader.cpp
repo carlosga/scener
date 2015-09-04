@@ -6,6 +6,7 @@
 #include <Content/json11.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferType.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 
 namespace SceneR
@@ -13,9 +14,10 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::Model;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferType;
+        using SceneR::Graphics::GraphicsDevice;
+        using SceneR::Graphics::Model;
 
         BuffersReader::BuffersReader()
         {
@@ -25,27 +27,29 @@ namespace SceneR
         {
         }
 
-        void BuffersReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void BuffersReader::read(const json11::Json&               value
+                               , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                               , SceneR::Graphics::Model*          root)
         {
             for (const auto& item : value["buffers"].object_items())
             {
                 auto buffer = std::make_shared<Buffer>();
 
-                buffer->uri        = item.second["uri"].string_value();
-                buffer->byteLength = item.second["byteLength"].int_value();
+                buffer->_uri         = item.second["uri"].string_value();
+                buffer->_byte_length = item.second["byteLength"].int_value();
 
                 const auto type = item.second["type"].string_value();
 
                 if (type == "arraybuffer")
                 {
-                    buffer->type = BufferType::ArrayBuffer;
+                    buffer->_type = BufferType::ArrayBuffer;
                 }
                 else
                 {
-                    buffer->type = BufferType::Text;
+                    buffer->_type = BufferType::Text;
                 }
 
-                root->buffers[item.first] = buffer;
+                root->_buffers[item.first] = buffer;
             }
         }
     }

@@ -37,9 +37,9 @@ namespace SceneR
         {
         }
 
-        void Texture2D::Dispose()
+        void Texture2D::dispose()
         {
-            this->object.Dispose();
+            this->object.dispose();
         }
 
         std::uint32_t Texture2D::Id() const

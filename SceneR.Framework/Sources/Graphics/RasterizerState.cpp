@@ -10,24 +10,24 @@ namespace SceneR
     namespace Graphics
     {
         RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
-            : GraphicsResource     { graphicsDevice }
-            , cullMode             { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
-            , depthBias            { 0.0f }
-            , fillMode             { SceneR::Graphics::FillMode::Solid }
-            , multiSampleAntiAlias { true }
-            , scissorTestEnable    { false }
-            , slopeScaleDepthBias  { 0.0f }
+            : GraphicsResource         { graphicsDevice }
+            , cull_mode                { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
+            , depth_bias               { 0.0f }
+            , fill_mode                { SceneR::Graphics::FillMode::Solid }
+            , multi_sample_anti_alias  { true }
+            , scissor_test_enable      { false }
+            , slope_scale_depth_bias   { 0.0f }
         {
         }
 
         RasterizerState::RasterizerState(const RasterizerState& rasterizerState)
-            : GraphicsResource     { rasterizerState.graphicsDevice }
-            , cullMode             { rasterizerState.cullMode }
-            , depthBias            { rasterizerState.depthBias }
-            , fillMode             { rasterizerState.fillMode }
-            , multiSampleAntiAlias { rasterizerState.multiSampleAntiAlias }
-            , scissorTestEnable    { rasterizerState.scissorTestEnable }
-            , slopeScaleDepthBias  { rasterizerState.slopeScaleDepthBias }
+            : GraphicsResource         { rasterizerState._graphics_device }
+            , cull_mode                { rasterizerState.cull_mode }
+            , depth_bias               { rasterizerState.depth_bias }
+            , fill_mode                { rasterizerState.fill_mode }
+            , multi_sample_anti_alias  { rasterizerState.multi_sample_anti_alias }
+            , scissor_test_enable      { rasterizerState.scissor_test_enable }
+            , slope_scale_depth_bias   { rasterizerState.slope_scale_depth_bias }
         {
         }
 
@@ -35,101 +35,41 @@ namespace SceneR
         {
         }
 
-        void RasterizerState::Dispose()
+        void RasterizerState::dispose()
         {
-        }
-
-        const SceneR::Graphics::CullMode& RasterizerState::CullMode() const
-        {
-            return this->cullMode;
-        }
-
-        void RasterizerState::CullMode(const SceneR::Graphics::CullMode& cullMode)
-        {
-            this->cullMode = cullMode;
-        }
-
-        float RasterizerState::DepthBias() const
-        {
-            return this->depthBias;
-        }
-
-        void RasterizerState::DepthBias(const float& depthBias)
-        {
-            this->depthBias = depthBias;
-        }
-
-        const SceneR::Graphics::FillMode& RasterizerState::FillMode() const
-        {
-            return this->fillMode;
-        }
-
-        void RasterizerState::FillMode(const SceneR::Graphics::FillMode& fillMode)
-        {
-            this->fillMode = fillMode;
-        }
-
-        bool RasterizerState::MultiSampleAntiAlias() const
-        {
-            return this->multiSampleAntiAlias;
-        }
-
-        void RasterizerState::MultiSampleAntiAlias(const bool& multiSampleAntiAlias)
-        {
-            this->multiSampleAntiAlias = multiSampleAntiAlias;
-        }
-
-        bool RasterizerState::ScissorTestEnable() const
-        {
-            return this->scissorTestEnable;
-        }
-
-        void RasterizerState::ScissorTestEnable(const bool& scissorTestEnable)
-        {
-            this->scissorTestEnable = scissorTestEnable;
-        }
-
-        float RasterizerState::SlopeScaleDepthBias() const
-        {
-            return this->slopeScaleDepthBias;
-        }
-
-        void RasterizerState::SlopeScaleDepthBias(const float& slopeScaleDepthBias)
-        {
-            this->slopeScaleDepthBias = slopeScaleDepthBias;
         }
 
         RasterizerState&RasterizerState::operator=(const RasterizerState& rasterizerState)
         {
             if (this != &rasterizerState)
             {
-                this->graphicsDevice       = rasterizerState.graphicsDevice;
-                this->cullMode             = rasterizerState.cullMode;
-                this->depthBias            = rasterizerState.depthBias;
-                this->fillMode             = rasterizerState.fillMode;
-                this->multiSampleAntiAlias = rasterizerState.multiSampleAntiAlias;
-                this->scissorTestEnable    = rasterizerState.scissorTestEnable;
-                this->slopeScaleDepthBias  = rasterizerState.slopeScaleDepthBias;
+                _graphics_device        = rasterizerState._graphics_device;
+                cull_mode               = rasterizerState.cull_mode;
+                depth_bias              = rasterizerState.depth_bias;
+                fill_mode               = rasterizerState.fill_mode;
+                multi_sample_anti_alias = rasterizerState.multi_sample_anti_alias;
+                scissor_test_enable     = rasterizerState.scissor_test_enable;
+                slope_scale_depth_bias  = rasterizerState.slope_scale_depth_bias;
             }
 
             return *this;
         }
 
-        void RasterizerState::Apply() const
+        void RasterizerState::apply() const
         {
              glDisable(GL_DITHER);
 
             // Specify whether front- or back-facing facets can be culled
-            if (this->cullMode == CullMode::None)
+            if (cull_mode == CullMode::None)
             {
                 glDisable(GL_CULL_FACE);
             }
             else
             {
                 glEnable(GL_CULL_FACE);
-                glFrontFace(static_cast<GLenum>(this->cullMode));
+                glFrontFace(static_cast<GLenum>(cull_mode));
 
-                switch (this->cullMode)
+                switch (cull_mode)
                 {
                     case SceneR::Graphics::CullMode::CullClockwiseFace:
                         glCullFace(GL_BACK);
@@ -146,7 +86,7 @@ namespace SceneR
             }
 
             //  Select a polygon rasterization mode
-            if (this->fillMode == FillMode::Solid)
+            if (fill_mode == FillMode::Solid)
             {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             }
@@ -156,7 +96,7 @@ namespace SceneR
             }
 
             // Enable or disable the scissor test
-            if (this->scissorTestEnable)
+            if (scissor_test_enable)
             {
                 glEnable(GL_SCISSOR_TEST);
             }
@@ -166,10 +106,10 @@ namespace SceneR
             }
 
             // set the scale and units used to calculate depth values if needed
-            if (this->depthBias != 0.0f || this->slopeScaleDepthBias != 0.0f)
+            if (depth_bias != 0.0f || slope_scale_depth_bias != 0.0f)
             {
                 glEnable(GL_POLYGON_OFFSET_FILL);
-                glPolygonOffset(this->slopeScaleDepthBias, this->depthBias);
+                glPolygonOffset(slope_scale_depth_bias, depth_bias);
             }
             else
             {
@@ -177,7 +117,7 @@ namespace SceneR
             }
 
             // Enable multisample
-            if (this->multiSampleAntiAlias)
+            if (multi_sample_anti_alias)
             {
                 glEnable(GL_MULTISAMPLE);
             }

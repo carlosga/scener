@@ -44,41 +44,20 @@ namespace SceneR
             ~Viewport();
 
         public:
-            float X() const;
+            float aspect_ratio() const;
 
-            float Y() const;
-
-            float Width() const;
-
-            float Height() const;
-
-            float AspectRatio() const;
-
-            float MinDepth() const;
-
-            void MinDepth(const float& minDepth);
-
-            float MaxDepth() const;
-
-            void MaxDepth(const float& maxDepth);
-
-            void Update() const;
-
-            void Update(const float& x    , const float& y
-                      , const float& width, const float& height);
-
-            void Update(const float& width, const float& height);
+            void update() const;
 
         public:
             Viewport& operator=(const Viewport& viewport);
 
-        private:
+        public:
             float x;
             float y;
             float width;
             float height;
-            float minDepth;
-            float maxDepth;
+            float min_depth;
+            float max_depth;
         };
     }
 }

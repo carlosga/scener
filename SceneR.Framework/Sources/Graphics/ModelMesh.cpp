@@ -17,11 +17,11 @@ namespace SceneR
         using SceneR::Framework::Vector3;
 
         ModelMesh::ModelMesh()
-            : boundingSphere { Vector3::Zero, 0.0f }
-            , meshParts      ( 0 )
-            , name           { u"" }
-            , parentBone     { nullptr }
-            , tag            { u"" }
+            : name             { }
+            , tag              { }
+            , _mesh_parts      ( 0 )
+            , _parent_bone     { nullptr }
+            , _bounding_sphere { Vector3::Zero, 0.0f }
         {
         }
 
@@ -29,77 +29,57 @@ namespace SceneR
         {
         }
 
-        const SceneR::Framework::BoundingSphere& ModelMesh::BoundingSphere() const
+        const BoundingSphere& ModelMesh::bounding_sphere() const
         {
-            return this->boundingSphere;
+            return _bounding_sphere;
         }
 
-        void ModelMesh::Draw()
-        {
-            for (const auto& meshPart : this->meshParts)
-            {
-                auto& graphicsDevice = meshPart->VertexBuffer()->CurrentGraphicsDevice();
-
-                if (meshPart->Effect().get() != nullptr)
-                {
-                    graphicsDevice.Effect(meshPart->Effect());
-                }
-
-                graphicsDevice.VertexBuffer(meshPart->VertexBuffer());
-                graphicsDevice.IndexBuffer(meshPart->IndexBuffer());
-
-                graphicsDevice.DrawIndexedPrimitives(PrimitiveType::TriangleList
-                                                   , meshPart->VertexOffset()
-                                                   , 0
-                                                   , meshPart->VertexCount()
-                                                   , meshPart->StartIndex()
-                                                   , meshPart->PrimitiveCount());
-            }
-        }
-
-        std::vector<std::shared_ptr<Effect>> ModelMesh::Effects() const
+        std::vector<std::shared_ptr<Effect>> ModelMesh::effects() const
         {
             auto effects = std::vector<std::shared_ptr<Effect>>(0);
 
-            for (const auto& meshPart : this->meshParts)
+            for (const auto& meshPart : _mesh_parts)
             {
-                if (meshPart->Effect().get() != nullptr)
+                if (meshPart->effect.get() != nullptr)
                 {
-                    effects.push_back(meshPart->Effect());
+                    effects.push_back(meshPart->effect);
                 }
             }
 
             return effects;
         }
 
-        const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::MeshParts() const
+        const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const
         {
-            return this->meshParts;
+            return _mesh_parts;
         }
 
-        const std::u16string& ModelMesh::Name() const
+        const std::shared_ptr<ModelBone>& ModelMesh::parent_bone() const
         {
-            return this->name;
+            return _parent_bone;
         }
 
-        void ModelMesh::Name(const std::u16string& name)
+        void ModelMesh::draw()
         {
-            this->name = name;
-        }
+            for (const auto& meshPart : _mesh_parts)
+            {
+                auto& graphicsDevice = meshPart->vertex_buffer()->graphics_device();
 
-        const std::shared_ptr<ModelBone>& ModelMesh::ParentBone() const
-        {
-            return this->parentBone;
-        }
+                if (meshPart->effect.get() != nullptr)
+                {
+                    graphicsDevice.effect = meshPart->effect;
+                }
 
-        const std::u16string& ModelMesh::Tag() const
-        {
-            return this->tag;
-        }
+                graphicsDevice.vertex_buffer = meshPart->vertex_buffer();
+                graphicsDevice.index_buffer  = meshPart->index_buffer();
 
-        void ModelMesh::Tag(const std::u16string& tag)
-        {
-            this->tag = tag;
+                graphicsDevice.draw_indexed_primitives(PrimitiveType::TriangleList
+                                                     , meshPart->vertex_offset()
+                                                     , 0
+                                                     , meshPart->vertex_count()
+                                                     , meshPart->start_index()
+                                                     , meshPart->primitive_count());
+            }
         }
     }
 }

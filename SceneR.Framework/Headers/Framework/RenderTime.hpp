@@ -33,7 +33,7 @@ namespace SceneR
              * Initializes a new instance of the RenderTime class.
              * @param totalRenderTime the amount of render time since the start of the game.
              * @param elapsedRenderTime the amount of elapsed render time since the last update.
-             * @param isRunningSlowly a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             * @param isRunningSlowly a value indicating that the render loop is taking longer than its target_elapsed_time.
              */
             RenderTime(const System::TimeSpan& totalRenderTime
                      , const System::TimeSpan& elapsedRenderTime
@@ -56,12 +56,12 @@ namespace SceneR
             void ElapsedRenderTime(const System::TimeSpan& elapsedRenderTime);
 
             /**
-             * Gets a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             * Gets a value indicating that the render loop is taking longer than its target_elapsed_time.
              */
             bool IsRunningSlowly() const;
 
             /**
-             * Sets a value indicating that the render loop is taking longer than its TargetElapsedTime.
+             * Sets a value indicating that the render loop is taking longer than its target_elapsed_time.
              */
             void IsRunningSlowly(const bool& isRunningSlowly);
 

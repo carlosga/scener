@@ -26,7 +26,7 @@ namespace SceneR
         class ContentReader;
 
         /**
-         * The ContentManager is used at runtime to load application content from files.
+         * The ContentManager is used at runtime to load application content_manager from files.
          */
         class ContentManager final
         {
@@ -49,41 +49,41 @@ namespace SceneR
             /**
              * Gets the graphics device
              */
-            SceneR::Framework::RendererServiceContainer& ServiceProvider();
+            SceneR::Framework::RendererServiceContainer& service_provider();
 
             /**
              * Gets the root directory associated with this ContentManager.
              */
-            const std::u16string& RootDirectory();
+            const std::u16string& root_directory();
 
         public:
             /**
              * Loads a the given asset.
              */
-            std::shared_ptr<SceneR::Graphics::Model> LoadModel(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::Graphics::Model> load_model(const std::u16string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
             */
-            void Unload();
+            void unload();
 
         private:
             /**
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
-            std::shared_ptr<System::IO::Stream> OpenStream(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<System::IO::Stream> open_stream(const std::u16string& assetName) noexcept(false);
 
             /**
              * Low-level worker method that reads asset data.
              * @param assetName the name of the asset to be loaded from disk.
              */
             template <class T>
-            std::shared_ptr<T> ReadAsset(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<T> read_asset(const std::u16string& assetName) noexcept(false);
 
         private:
-            SceneR::Framework::RendererServiceContainer& serviceProvider;
-            std::u16string                               rootDirectory;
+            SceneR::Framework::RendererServiceContainer& _service_provider;
+            std::u16string                               _root_directory;
         };
     }
 }

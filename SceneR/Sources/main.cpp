@@ -14,13 +14,13 @@ int main()
     using SceneR::Graphics::Model;
 
     RendererServiceContainer container;
-    ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content");
+    ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/content_manager");
 
-    manager.LoadModel(u"WildCentaur");
+    manager.load_model(u"WildCentaur");
 
     // SceneR::Sample::SampleRenderer renderer;
     //     renderer.Run();
-    // renderer.Exit();
+    // renderer.exit();
 
     return 0;
 }

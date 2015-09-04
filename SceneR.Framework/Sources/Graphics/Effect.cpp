@@ -63,13 +63,12 @@ namespace SceneR
         {
         }
 
-        void Effect::Dispose()
+        void Effect::dispose()
         {
             if (this->id != 0)
             {
                 if (this->texture)
                 {
-                    this->texture->Dispose();
                     this->texture = nullptr;
                 }
 
@@ -81,14 +80,14 @@ namespace SceneR
                 {
                     for (auto& shader : this->shaders)
                     {
-                        shader->Dispose();
+                        shader->dispose();
                     }
 
                     this->shaders.clear();
                 }
 
-                // Dispose the uniform buffer object
-                this->uniformBuffer->Dispose();
+                // dispose the uniform buffer object
+                this->uniformBuffer->dispose();
                 this->uniformBuffer = nullptr;
 
                 // Delete the shader program
@@ -385,7 +384,7 @@ namespace SceneR
 //
 //            if (this->textureEnabled)
 //            {
-//                SamplerState& sampler = this->CurrentGraphicsDevice().SamplerStates()[0];
+//                SamplerState& sampler = this->graphics_device().SamplerStates()[0];
 //
 //                sampler.MaxMipLevel(this->texture->LevelCount());
 //                sampler.OnApply(this->texture->Id());
@@ -628,7 +627,7 @@ namespace SceneR
 //                    msg += linkErrorMessage;
 //                }
 //
-//                //this->Dispose();
+//                //this->dispose();
 //
 //                throw std::runtime_error(msg);
 //            }

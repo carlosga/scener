@@ -43,44 +43,39 @@ namespace SceneR
             /**
              * Gets the collection of children bones.
              */
-            const std::vector<std::shared_ptr<ModelBone>>& Children() const;
+            const std::vector<std::shared_ptr<ModelBone>>& children() const;
 
             /**
              * Gets the index of this bone in the Bones collection.
              */
-            std::uint32_t Index() const;
-
-            /**
-             * Gets the bone name
-             */
-            const std::u16string& Name() const;
-
-            /**
-             * Gets the bone name
-             */
-            void Name(const std::u16string& name);
+            std::uint32_t index() const;
 
             /**
              * Gets the parent of the current bone
              */
-            const std::shared_ptr<ModelBone>& Parent() const;
+            const std::shared_ptr<ModelBone>& parent() const;
 
             /**
              * Gets the matrix used to transform this bone relative to its parent bone.
              */
-            const SceneR::Framework::Matrix& Transform() const;
+            const SceneR::Framework::Matrix& transform() const;
 
             /**
              * Sets the matrix used to transform this bone relative to its parent bone.
              */
-            void Transform(const SceneR::Framework::Matrix& transform);
+            void transform(const SceneR::Framework::Matrix& transform);
+
+        public:
+            /**
+             * Gets or sets the bone name
+             */
+            std::u16string name;
 
         private:
-            std::vector<std::shared_ptr<ModelBone>> children;
-            std::uint32_t                           index;
-            std::u16string                          name;
-            std::shared_ptr<ModelBone>              parent;
-            SceneR::Framework::Matrix               transform;
+            std::vector<std::shared_ptr<ModelBone>> _children;
+            std::uint32_t                           _index;
+            std::shared_ptr<ModelBone>              _parent;
+            SceneR::Framework::Matrix               _transform;
 
             friend class SceneR::Content::ModelReader;
         };

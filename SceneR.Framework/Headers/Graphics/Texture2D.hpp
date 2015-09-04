@@ -63,7 +63,7 @@ namespace SceneR
             ~Texture2D() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             std::uint32_t Id() const override;

@@ -10,11 +10,11 @@ namespace SceneR
         using SceneR::Framework::Matrix;
 
         ModelBone::ModelBone()
-            : children  ( 0 )
-            , index     ( 0 )
-            , name      { u"" }
-            , parent    { nullptr }
-            , transform { Matrix::Identity }
+            : name       {  }
+            , _children  ( 0 )
+            , _index     ( 0 )
+            , _parent    { nullptr }
+            , _transform { Matrix::Identity }
         {
         }
 
@@ -22,39 +22,29 @@ namespace SceneR
         {
         }
 
-        const std::vector<std::shared_ptr<ModelBone>>& ModelBone::Children() const
+        const std::vector<std::shared_ptr<ModelBone>>& ModelBone::children() const
         {
-            return this->children;
+            return _children;
         }
 
-        std::uint32_t ModelBone::Index() const
+        std::uint32_t ModelBone::index() const
         {
-            return this->index;
+            return _index;
         }
 
-        const std::u16string& ModelBone::Name() const
+        const std::shared_ptr<ModelBone>& ModelBone::parent() const
         {
-            return this->name;
+            return _parent;
         }
 
-        void ModelBone::Name(const std::u16string& name)
+        const Matrix& ModelBone::transform() const
         {
-            this->name = name;
+            return _transform;
         }
 
-        const std::shared_ptr<ModelBone>& ModelBone::Parent() const
+        void ModelBone::transform(const Matrix& transform)
         {
-            return this->parent;
-        }
-
-        const Matrix& ModelBone::Transform() const
-        {
-            return this->transform;
-        }
-
-        void ModelBone::Transform(const Matrix& transform)
-        {
-            this->transform = transform;
+            _transform = transform;
         }
     }
 }

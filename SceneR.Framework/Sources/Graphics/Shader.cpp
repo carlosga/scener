@@ -47,7 +47,7 @@ namespace SceneR
         {
         }
 
-        void Shader::Dispose()
+        void Shader::dispose()
         {
             if (this->id != 0)
             {
@@ -136,7 +136,7 @@ namespace SceneR
                     msg += compileErrorMessage;
                 }
 
-                this->Dispose();
+                this->dispose();
 
                 throw std::runtime_error(msg);
             }

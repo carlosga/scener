@@ -29,7 +29,7 @@ namespace SceneR
             ~VertexArrayObject();
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**

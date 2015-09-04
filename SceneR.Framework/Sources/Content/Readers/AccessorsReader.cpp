@@ -8,6 +8,7 @@
 #include <Graphics/Accessor.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/BufferView.hpp>
+#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ComponentType.hpp>
 #include <Graphics/Model.hpp>
 
@@ -16,10 +17,11 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::Model;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::AttributeType;
         using SceneR::Graphics::ComponentType;
+        using SceneR::Graphics::GraphicsDevice;
+        using SceneR::Graphics::Model;
 
         AccessorsReader::AccessorsReader()
         {
@@ -30,59 +32,61 @@ namespace SceneR
 
         }
 
-        void AccessorsReader::Read(const json11::Json& value, SceneR::Graphics::Model* root)
+        void AccessorsReader::read(const json11::Json&               value
+                                 , SceneR::Graphics::GraphicsDevice& graphicsDevice
+                                 , SceneR::Graphics::Model*          root)
         {
             for (const auto& item : value["accessors"].object_items())
             {
                 auto accessor = std::make_shared<Accessor>();
 
-                accessor->bufferView    = root->bufferViews[item.second["bufferView"].string_value()];
-                accessor->byteOffset    = item.second["byteOffset"].int_value();
-                accessor->byteStride    = item.second["byteStride"].int_value();
-                accessor->componentType = static_cast<ComponentType>(item.second["componentType"].int_value());
-                accessor->count         = item.second["count"].int_value();
+                accessor->_buffer_view    = root->_bufferViews[item.second["bufferView"].string_value()];
+                accessor->_byte_offset    = item.second["byteOffset"].int_value();
+                accessor->_byte_stride    = item.second["byteStride"].int_value();
+                accessor->_component_type = static_cast<ComponentType>(item.second["componentType"].int_value());
+                accessor->_count          = item.second["count"].int_value();
 
                 std::string attType = item.second["type"].string_value();
 
                 if (attType == "SCALAR")
                 {
-                    accessor->type = AttributeType::Scalar;
+                    accessor->_attribute_type = AttributeType::Scalar;
                 }
                 else if (attType == "VEC2")
                 {
-                    accessor->type = AttributeType::Vector2;
+                    accessor->_attribute_type = AttributeType::Vector2;
                 }
                 else if (attType == "VEC3")
                 {
-                    accessor->type = AttributeType::Vector3;
+                    accessor->_attribute_type = AttributeType::Vector3;
                 }
                 else if (attType == "VEC4")
                 {
-                    accessor->type = AttributeType::Vector4;
+                    accessor->_attribute_type = AttributeType::Vector4;
                 }
                 else if (attType == "MAT2")
                 {
-                    accessor->type = AttributeType::Matrix2;
+                    accessor->_attribute_type = AttributeType::Matrix2;
                 }
                 else if (attType == "MAT3")
                 {
-                    accessor->type = AttributeType::Matrix3;
+                    accessor->_attribute_type = AttributeType::Matrix3;
                 }
                 else if (attType == "MAT4")
                 {
-                    accessor->type = AttributeType::Matrix4;
+                    accessor->_attribute_type = AttributeType::Matrix4;
                 }
 
                 for (const auto& item : item.second["max"].array_items())
                 {
-                    accessor->max.push_back(item.number_value());
+                    accessor->_max.push_back(item.number_value());
                 }
                 for (const auto& item : item.second["min"].array_items())
                 {
-                    accessor->min.push_back(item.number_value());
+                    accessor->_min.push_back(item.number_value());
                 }
 
-                root->accessors.emplace(item.first, accessor);
+                root->_accessors.emplace(item.first, accessor);
             }
         }
     }

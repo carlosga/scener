@@ -14,27 +14,27 @@ namespace SceneR
         using SceneR::Framework::RenderTime;
 
         SampleRenderer::SampleRenderer()
-            : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/Content/")
+            : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/content_manager/")
         {
         }
 
-        void SampleRenderer::BeginRun()
+        void SampleRenderer::begin_run()
         {
-            this->graphicsDeviceManager.PreferredBackBufferWidth(1600);
-            this->graphicsDeviceManager.PreferredBackBufferHeight(900);
-            this->graphicsDeviceManager.WindowTitle(u"SceneR");
+            _graphics_device_manager.preferred_back_buffer_width  = 1600;
+            _graphics_device_manager.preferred_back_buffer_height = 900;
+            _graphics_device_manager.window_title                 = u"SceneR";
 
-            this->Components().push_back(std::make_shared<Camera>(*this));
-            this->Components().push_back(std::make_shared<Marcus>(*this));
+            this->components().push_back(std::make_shared<Camera>(*this));
+            this->components().push_back(std::make_shared<Marcus>(*this));
 
-            Renderer::BeginRun();
+            Renderer::begin_run();
         }
 
-        void SampleRenderer::Draw(const RenderTime& renderTime)
+        void SampleRenderer::draw(const RenderTime &renderTime)
         {
-            this->graphicsDeviceManager.CurrentGraphicsDevice().Clear(Color::Black);
+            _graphics_device_manager.graphics_device().clear(Color::Black);
 
-            Renderer::Draw(renderTime);
+            Renderer::draw(renderTime);
         }
     }
 }

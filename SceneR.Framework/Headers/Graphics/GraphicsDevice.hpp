@@ -35,8 +35,8 @@ namespace SceneR
         class GraphicsDevice final : System::IDisposable
         {
         private:
-                static std::size_t GetElementCount(const PrimitiveType& primitiveType
-                                                 , const std::size_t&   primitiveCount);
+                static std::size_t get_element_count(const PrimitiveType& primitiveType
+                                                   , const std::size_t&   primitiveCount);
 
         public:
             /**
@@ -59,13 +59,13 @@ namespace SceneR
             ~GraphicsDevice() override;
 
         public:
-            void Dispose() override;
+            void dispose() override;
 
         public:
             /**
              * Clears the resouce buffer
              */
-            void Clear(const SceneR::Framework::Color& color) const;
+            void clear(const SceneR::Framework::Color& color) const;
 
             /**
              * Renders the specified geometric primitive, based on indexing into an array of vertices.
@@ -80,12 +80,12 @@ namespace SceneR
              * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
              *                       primitiveCount and primitiveType.
              */
-            void DrawIndexedPrimitives(const PrimitiveType& primitiveType
-                                     , const std::size_t&   baseVertex
-                                     , const std::size_t&   minVertexIndex
-                                     , const std::size_t&   numVertices
-                                     , const std::size_t&   startIndex
-                                     , const std::size_t&   primitiveCount) const;
+            void draw_indexed_primitives(const PrimitiveType& primitiveType
+                                       , const std::size_t&   baseVertex
+                                       , const std::size_t&   minVertexIndex
+                                       , const std::size_t&   numVertices
+                                       , const std::size_t&   startIndex
+                                       , const std::size_t&   primitiveCount) const;
 
             /**
              * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -98,94 +98,62 @@ namespace SceneR
              *                       determined by the primitive type. If it is a line list, each primitive has two
              *                       vertices. If it is a triangle list, each primitive has three vertices.
              */
-            void DrawPrimitives(const PrimitiveType& primitiveType
-                              , const std::size_t&   startVertex
-                              , const std::size_t&   primitiveCount) const;
+            void draw_primitives(const PrimitiveType& primitiveType
+                               , const std::size_t&   startVertex
+                               , const std::size_t&   primitiveCount) const;
 
             /**
              * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
              * GraphicsDevice.
              */
-            void Present();
-
-            /**
-             * Gets the effect used before drawing
-             */
-            const std::shared_ptr<SceneR::Graphics::Effect>& Effect();
-
-            /**
-             * Sets the effect used before drawing
-             */
-            void Effect(const std::shared_ptr<SceneR::Graphics::Effect>& effect);
+            void present();
 
             /**
              * Gets the display adapter.
              */
-            const GraphicsAdapter& Adapter() const;
+            const GraphicsAdapter& adapter() const;
 
             /**
              * Gets the graphics profile.
              * @return the graphics profile.
              */
-            const SceneR::Graphics::GraphicsProfile& GraphicsProfile() const;
+            const SceneR::Graphics::GraphicsProfile& graphics_profile() const;
 
             /**
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
              * The default value is BlendState.Opaque.
              */
-            SceneR::Graphics::BlendState& BlendState();
+            SceneR::Graphics::BlendState& blend_state();
 
             /**
              * Gets the depth-stencil state.
              */
-            SceneR::Graphics::DepthStencilState& DepthStencilState();
+            SceneR::Graphics::DepthStencilState& depth_stencil_state();
 
             /**
              * Gets the presentation parameters associated with this graphics device.
              */
-            SceneR::Graphics::PresentationParameters& PresentationParameters();
-
-            /**
-             * Gets the index buffer.
-             * @return the index data
-             */
-            std::shared_ptr<SceneR::Graphics::IndexBuffer> IndexBuffer();
-
-            /**
-             * Sets the index buffer.
-             * @param indexBuffer the index data
-             */
-            void IndexBuffer(const std::shared_ptr<SceneR::Graphics::IndexBuffer>& indexBuffer);
+            SceneR::Graphics::PresentationParameters& presentation_parameters();
 
             /**
              * Gets rasterizer state.
              */
-            SceneR::Graphics::RasterizerState& RasterizerState();
+            SceneR::Graphics::RasterizerState& rasterizer_state();
 
             /**
              * Retrieves a collection of SamplerState objects for the current GraphicsDevice.
              */
-            std::vector<SceneR::Graphics::SamplerState>& SamplerStates();
-
-            /**
-             * Gets the current vertex buffer.
-             */
-            std::shared_ptr<SceneR::Graphics::VertexBuffer> VertexBuffer();
-
-            /**
-             * Sets or binds a vertex buffer to the device.
-             */
-            void VertexBuffer(const std::shared_ptr<SceneR::Graphics::VertexBuffer>& vertexBuffer);
+            std::vector<SceneR::Graphics::SamplerState>& sampler_states();
 
             /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
              */
-            SceneR::Graphics::Viewport& Viewport();
+            Viewport& viewport();
 
             /**
              * Sets the viewport identifying the portion of the render target to receive draw calls.
              */
-            void Viewport(SceneR::Graphics::Viewport& viewport);
+            void viewport(const Viewport& viewport);
 
         public:
             GraphicsDevice& operator=(const GraphicsDevice& device);
@@ -193,18 +161,31 @@ namespace SceneR
         private:
             GraphicsDevice() = delete;
 
+        public:
+            /**
+             * Gets or sets the effect used before drawing.
+             */
+            std::shared_ptr<SceneR::Graphics::Effect> effect;
+
+            /**
+             * Gets or sets the index buffer.
+             */
+            std::shared_ptr<SceneR::Graphics::IndexBuffer> index_buffer;
+
+            /**
+             * Sets or binds a vertex buffer to the device.
+             */
+            std::shared_ptr<SceneR::Graphics::VertexBuffer> vertex_buffer;
+
         private:
-            SceneR::Graphics::BlendState                    blendState;
-            SceneR::Graphics::DepthStencilState             depthStencilState;
-            std::shared_ptr<SceneR::Graphics::Effect>       effect;
-            GraphicsAdapter                                 graphicsAdapter;
-            SceneR::Graphics::GraphicsProfile               graphicsProfile;
-            std::shared_ptr<SceneR::Graphics::IndexBuffer>  indexBuffer;
-            SceneR::Graphics::PresentationParameters        presentationParameters;
-            SceneR::Graphics::RasterizerState               rasterizerState;
-            std::vector<SceneR::Graphics::SamplerState>     samplerStates;
-            std::shared_ptr<SceneR::Graphics::VertexBuffer> vertexBuffer;
-            SceneR::Graphics::Viewport                      viewport;
+            SceneR::Graphics::BlendState                _blend_state;
+            SceneR::Graphics::DepthStencilState         _depth_stencil_state;
+            GraphicsAdapter                             _graphics_adapter;
+            SceneR::Graphics::GraphicsProfile           _graphics_profile;
+            SceneR::Graphics::PresentationParameters    _presentation_parameters;
+            SceneR::Graphics::RasterizerState           _rasterizer_state;
+            std::vector<SceneR::Graphics::SamplerState> _sampler_states;
+            SceneR::Graphics::Viewport                  _viewport;
         };
     }
 }

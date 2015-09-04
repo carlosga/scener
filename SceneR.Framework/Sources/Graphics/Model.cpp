@@ -18,10 +18,10 @@ namespace SceneR
         using SceneR::Framework::Matrix;
 
         Model::Model()
-            : tag    { u"" }
-            , bones  { }
-            , root   { nullptr }
-            , meshes { }
+            : tag     { }
+            , _bones  { }
+            , _root   { nullptr }
+            , _meshes { }
         {
         }
 
@@ -29,58 +29,73 @@ namespace SceneR
         {
         }
 
-        void Model::Dispose()
+        void Model::dispose()
         {
         }
 
-        void Model::CopyAbsoluteBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
+        void Model::copy_absolute_bone_transforms_to(std::vector<Matrix>& destinationBoneTransforms)
         {
-            assert(destinationBoneTransforms.size() == this->bones.size());
+            assert(destinationBoneTransforms.size() == _bones.size());
 
-            for (std::size_t boneIndex = 0; boneIndex < this->bones.size(); boneIndex++)
+            for (std::size_t boneIndex = 0; boneIndex < _bones.size(); boneIndex++)
             {
-                auto bone = this->bones[boneIndex];
+                auto bone = _bones[boneIndex];
 
-                if (bone->Parent().get() == nullptr)
+                if (bone->parent().get() == nullptr)
                 {
-                    destinationBoneTransforms[boneIndex] = bone->Transform();
+                    destinationBoneTransforms[boneIndex] = bone->transform();
                 }
                 else
                 {
-                    std::uint32_t parentBoneIndex = bone->Parent()->Index();
+                    std::uint32_t parentBoneIndex = bone->parent()->index();
 
-                    destinationBoneTransforms[boneIndex] = bone->Transform() * destinationBoneTransforms[parentBoneIndex];
+                    destinationBoneTransforms[boneIndex] = bone->transform() * destinationBoneTransforms[parentBoneIndex];
                 }
             }
         }
 
-        void Model::CopyBoneTransformsFrom(const std::vector<Matrix>& sourceBoneTransforms)
+        void Model::copy_bone_transforms_from(const std::vector<Matrix>& sourceBoneTransforms)
         {
-            assert(sourceBoneTransforms.size() == this->bones.size());
+            assert(sourceBoneTransforms.size() == _bones.size());
 
             for (std::size_t i = 0; i < sourceBoneTransforms.size(); i++)
             {
-                this->bones[i]->Transform(sourceBoneTransforms[i]);
+                _bones[i]->transform(sourceBoneTransforms[i]);
             }
         }
 
-        void Model::CopyBoneTransformsTo(std::vector<Matrix>& destinationBoneTransforms)
+        void Model::copy_bone_transforms_to(std::vector<Matrix>& destinationBoneTransforms)
         {
-            assert(destinationBoneTransforms.size() == this->bones.size());
+            assert(destinationBoneTransforms.size() == _bones.size());
 
-            for (std::size_t i = 0; i < this->bones.size(); i++)
+            for (std::size_t i = 0; i < _bones.size(); i++)
             {
-                destinationBoneTransforms[i] = this->bones[i]->Transform();
+                destinationBoneTransforms[i] = _bones[i]->transform();
             }
         }
 
-        void Model::Draw(const Matrix& world, const Matrix& view, const Matrix& projection)
+        const std::shared_ptr<ModelBone>& Model::root() const
         {
-//            auto boneTransforms = std::vector<Matrix>(this->bones.size());
+            return _root;
+        }
 
-//            this->CopyAbsoluteBoneTransformsTo(boneTransforms);
+        const std::vector<std::shared_ptr<ModelBone>>& Model::bones() const
+        {
+            return _bones;
+        }
 
-//            for (auto& mesh : this->meshes)
+        const std::map<std::string, std::shared_ptr<ModelMesh>>& Model::meshes() const
+        {
+            return _meshes;
+        }
+
+        void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection)
+        {
+//            auto boneTransforms = std::vector<Matrix>(_bones.size());
+
+//            _CopyAbsoluteBoneTransformsTo(boneTransforms);
+
+//            for (auto& mesh : _meshes)
 //            {
 //                for (auto& effect : mesh->Effects())
 //                {
@@ -94,33 +109,8 @@ namespace SceneR
 //                    }
 //                }
 
-//                mesh->Draw();
+//                mesh->draw();
 //            }
-        }
-
-        const std::shared_ptr<ModelBone>& Model::Root() const
-        {
-            return this->root;
-        }
-
-        const std::vector<std::shared_ptr<ModelBone>>& Model::Bones() const
-        {
-            return this->bones;
-        }
-
-        const std::map<std::string, std::shared_ptr<ModelMesh>>& Model::Meshes() const
-        {
-            return this->meshes;
-        }
-
-        const std::u16string& Model::Tag() const
-        {
-            return this->tag;
-        }
-
-        void Model::Tag(const std::u16string& tag)
-        {
-            this->tag = tag;
         }
     }
 }

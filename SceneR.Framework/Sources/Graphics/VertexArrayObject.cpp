@@ -19,7 +19,7 @@ namespace SceneR
         {
         }
 
-        void VertexArrayObject::Dispose()
+        void VertexArrayObject::dispose()
         {
             if (this->id != 0)
             {
