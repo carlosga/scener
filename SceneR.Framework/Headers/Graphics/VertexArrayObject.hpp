@@ -35,23 +35,23 @@ namespace SceneR
             /**
              * Gets the vertex array object identifier.
              */
-            std::uint32_t Id() const;
+            std::uint32_t id() const;
 
             /**
              * Activates this vertex array object.
              */
-            void Activate() const;
+            void activate() const;
 
             /**
              * Deactivates this vertex array object.
              */
-            void Deactivate() const;
+            void deactivate() const;
 
         private:
-            void Create();
+            void create();
 
         private:
-            std::uint32_t id;
+            std::uint32_t _id;
         };
     }
 }

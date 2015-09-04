@@ -12,20 +12,18 @@ namespace SceneR
         VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
                                  , const std::size_t&                                          vertexCount
                                  , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
-            : GraphicsResource  { graphicsDevice }
-            , bindingIndex      { 0 }
-            , vertexDeclaration { vertexDeclaration }
-            , vertexCount       { vertexCount }
-            , vao               { }
-            , vbo               { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
+            : GraphicsResource    { graphicsDevice }
+            , _binding_index      { 0 }
+            , _vertex_declaration { vertexDeclaration }
+            , _vertex_count       { vertexCount }
+            , _vao                { }
+            , _vbo                { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
         {
-            this->vertexDeclaration->Declare(this->vao.Id(), this->bindingIndex);
+            _vertex_declaration->declare(_vao.id(), _binding_index);
 
-            glVertexArrayVertexBuffer(this->vao.Id()
-                                    , this->bindingIndex
-                                    , this->vbo.id()
-                                    , 0
-                                    , static_cast<GLsizei>(this->vertexDeclaration->VertexStride()));
+            auto vertexStride = static_cast<GLsizei>(_vertex_declaration->vertex_stride());
+
+            glVertexArrayVertexBuffer(_vao.id(), _binding_index, _vbo.id(), 0, vertexStride);
         }
 
         VertexBuffer::~VertexBuffer()
@@ -34,50 +32,50 @@ namespace SceneR
 
         void VertexBuffer::dispose()
         {
-            this->vao.dispose();
-            this->vbo.dispose();
+            _vao.dispose();
+            _vbo.dispose();
         }
 
-        std::size_t VertexBuffer::VertexCount() const
+        std::size_t VertexBuffer::vertex_count() const
         {
-            return this->vertexCount;
+            return _vertex_count;
         }
 
-        std::vector<std::uint8_t> VertexBuffer::GetData() const
+        std::vector<std::uint8_t> VertexBuffer::get_data() const
         {
-            return this->GetData(0, this->vertexCount);
+            return get_data(0, _vertex_count);
         }
 
-        std::vector<std::uint8_t> VertexBuffer::GetData(const std::size_t& startIndex
-                                                      , const std::size_t& elementCount) const
+        std::vector<std::uint8_t> VertexBuffer::get_data(const std::size_t& startIndex
+                                                       , const std::size_t& elementCount) const
         {
-            auto offset = (startIndex * this->vertexDeclaration->VertexStride());
-            auto size   = (elementCount * this->vertexDeclaration->VertexStride());
+            auto offset = (startIndex * _vertex_declaration->vertex_stride());
+            auto size   = (elementCount * _vertex_declaration->vertex_stride());
             auto data   = std::vector<std::uint8_t>(size, 0);
 
-            this->vbo.get_data(offset, size, data.data());
+            _vbo.get_data(offset, size, data.data());
 
             return data;
         }
 
-        void VertexBuffer::SetData(const void* data)
+        void VertexBuffer::set_data(const void* data)
         {
-            this->vbo.buffer_data(this->vertexCount * this->vertexDeclaration->VertexStride(), data);
+            _vbo.buffer_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
         }
 
-        std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::VertexDeclaration() const
+        std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::vertex_declaration() const
         {
-            return this->vertexDeclaration;
+            return _vertex_declaration;
         }
 
-        void VertexBuffer::Activate()
+        void VertexBuffer::activate()
         {
-            this->vao.Activate();
+            _vao.activate();
         }
 
-        void VertexBuffer::Deactivate()
+        void VertexBuffer::deactivate()
         {
-            this->vao.Deactivate();
+            _vao.deactivate();
         }
     }
 }

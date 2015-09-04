@@ -13,7 +13,7 @@ namespace SceneR
         using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
 
-        const VertexDeclaration& VertexPositionColorTexture::Declaration
+        const VertexDeclaration VertexPositionColorTexture::declaration =
         {
             36
           , {
@@ -23,37 +23,17 @@ namespace SceneR
             }
         };
 
-        const VertexDeclaration& VertexPositionColorTexture::GetVertexDeclaration()
-        {
-            return VertexPositionColorTexture::Declaration;
-        }
-
         VertexPositionColorTexture::VertexPositionColorTexture(const Vector3&                  position
                                                              , const SceneR::Framework::Color& color
                                                              , const Vector2&                  textureCoordinate)
-            : position          { position }
-            , color             { color }
-            , textureCoordinate { textureCoordinate }
+            : position           { position }
+            , color              { color }
+            , texture_coordinate { textureCoordinate }
         {
         }
 
         VertexPositionColorTexture::~VertexPositionColorTexture()
         {
-        }
-
-        const Vector3& VertexPositionColorTexture::Position() const
-        {
-            return this->position;
-        }
-
-        const SceneR::Framework::Color& VertexPositionColorTexture::Color() const
-        {
-            return this->color;
-        }
-
-        const Vector2& VertexPositionColorTexture::TextureCoordinate() const
-        {
-            return this->textureCoordinate;
         }
     }
 }

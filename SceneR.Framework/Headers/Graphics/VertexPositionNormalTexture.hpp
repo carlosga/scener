@@ -18,14 +18,11 @@ namespace SceneR
          */
         struct VertexPositionNormalTexture final
         {
-        private:
-            static const VertexDeclaration& Declaration;
-
         public:
             /**
              * Gets the vertex declaration
              */
-            static const VertexDeclaration& GetVertexDeclaration();
+            static const VertexDeclaration declaration;
 
         public:
             /**
@@ -41,26 +38,21 @@ namespace SceneR
              */
             ~VertexPositionNormalTexture();
 
-        public:
+        private:
             /**
              * Gets the vertex position
              */
-            const SceneR::Framework::Vector3& Position() const;
+            SceneR::Framework::Vector3 position;
 
             /**
              * Gets the vertex normal
              */
-            const SceneR::Framework::Vector3& Normal() const;
+            SceneR::Framework::Vector3 normal;
 
             /**
              * Gets the vertex texture coordinates
              */
-            const SceneR::Framework::Vector2& TextureCoordinate() const;
-
-        private:
-            SceneR::Framework::Vector3 position;
-            SceneR::Framework::Vector3 normal;
-            SceneR::Framework::Vector2 textureCoordinate;
+            SceneR::Framework::Vector2 texture_coordinate;
         };
     }
 }

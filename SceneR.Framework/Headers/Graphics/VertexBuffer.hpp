@@ -46,38 +46,38 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            std::size_t VertexCount() const;
+            std::size_t vertex_count() const;
 
             /**
              * Gets the vertex buffer data
              */
-            std::vector<std::uint8_t> GetData() const;
+            std::vector<std::uint8_t> get_data() const;
 
             /**
              * Gets the vertex buffer data
              */
-            std::vector<std::uint8_t> GetData(const std::size_t& startIndex, const std::size_t& elementCount) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& startIndex, const std::size_t& elementCount) const;
 
             /**
              * Sets the vertex buffer data
              */
-            void SetData(const void* data);
+            void set_data(const void* data);
 
             /**
              * Defines per-vertex data in a buffer.
              */
-            std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexDeclaration() const;
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertex_declaration() const;
 
         private:
-            void Activate();
-            void Deactivate();
+            void activate();
+            void deactivate();
 
         private:
-            std::uint32_t                                        bindingIndex;
-            std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration;
-            std::size_t                                          vertexCount;
-            VertexArrayObject                                    vao;
-            BufferView                                           vbo;
+            std::uint32_t                                        _binding_index;
+            std::shared_ptr<SceneR::Graphics::VertexDeclaration> _vertex_declaration;
+            std::size_t                                          _vertex_count;
+            VertexArrayObject                                    _vao;
+            BufferView                                           _vbo;
 
             friend class GraphicsDevice;
         };

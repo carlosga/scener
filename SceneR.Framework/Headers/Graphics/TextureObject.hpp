@@ -39,22 +39,22 @@ namespace SceneR
             /**
              * Gets the texture object identifier
              */
-            std::uint32_t Id() const;
+            std::uint32_t id() const;
 
             /**
              * Activates the texture object.
              */
-            void Activate() const;
+            void activate() const;
 
             /**
              * Creates the texture object.
              */
-            void Create();
+            void create();
 
             /**
              * Deactivates the texture object.
              */
-            void Deactivate() const;
+            void deactivate() const;
 
             /**
              * Declares the texture storage parameters.
@@ -62,10 +62,10 @@ namespace SceneR
              * @param width texture width
              * @param height texture height
              */
-            void Declare2DStorage(const SurfaceFormat& format
-                                , const std::size_t&   levels
-                                , const std::size_t&   width
-                                , const std::size_t&   height) const;
+            void declare_2D_storage(const SurfaceFormat& format
+                                  , const std::size_t&   levels
+                                  , const std::size_t&   width
+                                  , const std::size_t&   height) const;
 
             /**
              * Adds texture data to the texture object
@@ -76,16 +76,16 @@ namespace SceneR
              * @param size mipmap data size
              * @param data mipmap data
              */
-            void TextureSubImage2D(const SurfaceFormat& format
-                                 , const std::size_t&   level
-                                 , const std::size_t&   width
-                                 , const std::size_t&   height
-                                 , const std::size_t&   size
-                                 , const void*          data) const;
+            void texture_sub_image_2D(const SurfaceFormat& format
+                                    , const std::size_t&   level
+                                    , const std::size_t&   width
+                                    , const std::size_t&   height
+                                    , const std::size_t&   size
+                                    , const void*          data) const;
 
         private:
-            std::uint32_t id;
-            TextureTarget target;
+            std::uint32_t _id;
+            TextureTarget _target;
         };
     }
 }

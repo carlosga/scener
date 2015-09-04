@@ -21,15 +21,15 @@ namespace SceneR
                            , const std::size_t&   height
                            , const bool&          mipmap
                            , const SurfaceFormat& format)
-            : Texture      { graphicsDevice }
-            , format       { format }
-            , height       { height }
-            , mipmap       { mipmap }
-            , mipmapLevels { 0 }
-            , mipmapHeight { height }
-            , mipmapWidth  { width }
-            , width        { width }
-            , object       { TextureTarget::Texture2D }
+            : Texture        { graphicsDevice }
+            , _format        { format }
+            , _height        { height }
+            , _mipmap        { mipmap }
+            , _mipmap_levels { 0 }
+            , _mipmap_height { height }
+            , _mipmap_width  { width }
+            , _width         { width }
+            , _object        { TextureTarget::Texture2D }
         {
         }
 
@@ -39,66 +39,66 @@ namespace SceneR
 
         void Texture2D::dispose()
         {
-            this->object.dispose();
+            _object.dispose();
         }
 
-        std::uint32_t Texture2D::Id() const
+        std::uint32_t Texture2D::id() const
         {
-            return this->object.Id();
+            return _object.id();
         }
 
-        const SurfaceFormat& Texture2D::Format() const
+        const SurfaceFormat& Texture2D::format() const
         {
-            return this->format;
+            return _format;
         }
 
-        std::size_t Texture2D::Height() const
+        std::size_t Texture2D::height() const
         {
-            return this->height;
+            return _height;
         }
 
-        std::size_t Texture2D::LevelCount() const
+        std::size_t Texture2D::level_count() const
         {
-            return this->mipmapLevels;
+            return _mipmap_levels;
         }
 
-        std::size_t Texture2D::Width() const
+        std::size_t Texture2D::width() const
         {
-            return this->width;
+            return _width;
         }
 
-        void Texture2D::SetData(const std::size_t& level, const std::size_t& size, const void* data)
+        void Texture2D::set_data(const std::size_t& level, const std::size_t& size, const void* data)
         {
             // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
-            if (this->mipmapWidth == 0)
+            if (_mipmap_width == 0)
             {
-                this->mipmapWidth = 1;
+                _mipmap_width = 1;
             }
-            if (this->mipmapHeight == 0)
+            if (_mipmap_height == 0)
             {
-                this->mipmapHeight = 1;
+                _mipmap_height = 1;
             }
 
-            this->object.TextureSubImage2D(this->format, level, this->mipmapWidth, this->mipmapHeight, size, data);
+            _object.texture_sub_image_2D(_format, level, _mipmap_width, _mipmap_height, size, data);
 
-            this->mipmapWidth  >>= 1;
-            this->mipmapHeight >>= 1;
+            _mipmap_width  >>= 1;
+            _mipmap_height >>= 1;
         }
 
-        void Texture2D::DeclareStorage(const std::size_t& mipMapLevels)
+        void Texture2D::declare_storage(const std::size_t& mipMapLevels)
         {
-            this->object.Declare2DStorage(this->format, mipMapLevels, this->width, this->height);
-            this->mipmapLevels = mipMapLevels;
+            _object.declare_2D_storage(_format, mipMapLevels, _width, _height);
+            _mipmap_levels = mipMapLevels;
         }
 
-        void Texture2D::Activate() const
+        void Texture2D::activate() const
         {
-            this->object.Activate();
+            _object.activate();
         }
 
-        void Texture2D::Deactivate() const
+        void Texture2D::deactivate() const
         {
-            this->object.Deactivate();
+            _object.deactivate();
         }
     }
 }

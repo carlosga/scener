@@ -12,7 +12,7 @@ namespace SceneR
         using SceneR::Framework::Color;
         using SceneR::Framework::Vector3;
 
-        const VertexDeclaration VertexPositionColor::Declaration
+        const VertexDeclaration VertexPositionColor::declaration =
         {
             28
           , {
@@ -20,11 +20,6 @@ namespace SceneR
               , { 12, VertexElementFormat::Vector4, VertexElementUsage::Color, 3 }
             }
         };
-
-        const VertexDeclaration& VertexPositionColor::GetVertexDeclaration()
-        {
-            return VertexPositionColor::Declaration;
-        }
 
         VertexPositionColor::VertexPositionColor(const Vector3&                  position
                                                , const SceneR::Framework::Color& color)
@@ -35,16 +30,6 @@ namespace SceneR
 
         VertexPositionColor::~VertexPositionColor()
         {
-        }
-
-        const Vector3& VertexPositionColor::Position() const
-        {
-            return this->position;
-        }
-
-        const SceneR::Framework::Color& VertexPositionColor::Color() const
-        {
-            return this->color;
         }
     }
 }

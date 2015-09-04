@@ -153,7 +153,7 @@ namespace SceneR
             auto offset = startIndex * ((index_buffer->index_element_size() == IndexElementSize::SixteenBits) ? 2 : 4);
 
             effect->Begin();
-            vertex_buffer->Activate();
+            vertex_buffer->activate();
             index_buffer->activate();
 
             glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
@@ -163,7 +163,7 @@ namespace SceneR
                                    , static_cast<GLint>(baseVertex));
 
             index_buffer->deactivate();
-            vertex_buffer->Deactivate();
+            vertex_buffer->deactivate();
             effect->End();
         }
 
@@ -181,13 +181,13 @@ namespace SceneR
             }
 
             effect->Begin();
-            vertex_buffer->Activate();
+            vertex_buffer->activate();
 
             glDrawArrays(static_cast<GLenum>(primitiveType)
                        , static_cast<GLint>(startVertex)
                        , static_cast<GLsizei>(primitiveCount));
 
-            vertex_buffer->Deactivate();
+            vertex_buffer->deactivate();
             effect->End();
         }
 

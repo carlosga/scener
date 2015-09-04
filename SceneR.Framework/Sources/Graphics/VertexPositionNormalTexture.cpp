@@ -12,7 +12,7 @@ namespace SceneR
         using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
 
-        const VertexDeclaration& VertexPositionNormalTexture::Declaration
+        const VertexDeclaration VertexPositionNormalTexture::declaration =
         {
             32
           , {
@@ -22,37 +22,17 @@ namespace SceneR
             }
         };
 
-        const VertexDeclaration& VertexPositionNormalTexture::GetVertexDeclaration()
-        {
-            return VertexPositionNormalTexture::Declaration;
-        }
-
         VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3& position
                                                                , const Vector3& normal
                                                                , const Vector2& textureCoordinate)
-            : position          { position }
-            , normal            { normal }
-            , textureCoordinate { textureCoordinate }
+            : position           { position }
+            , normal             { normal }
+            , texture_coordinate { textureCoordinate }
         {
         }
 
         VertexPositionNormalTexture::~VertexPositionNormalTexture()
         {
-        }
-
-        const Vector3& VertexPositionNormalTexture::Position() const
-        {
-            return this->position;
-        }
-
-        const Vector3& VertexPositionNormalTexture::Normal() const
-        {
-            return this->normal;
-        }
-
-        const Vector2& VertexPositionNormalTexture::TextureCoordinate() const
-        {
-            return this->textureCoordinate;
         }
     }
 }

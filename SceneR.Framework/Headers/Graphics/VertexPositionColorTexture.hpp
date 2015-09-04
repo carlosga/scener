@@ -20,13 +20,7 @@ namespace SceneR
         struct VertexPositionColorTexture final
         {
         private:
-            static const VertexDeclaration& Declaration;
-
-        public:
-            /**
-             * Gets the vertex declaration.
-             */
-            static const VertexDeclaration& GetVertexDeclaration();
+            static const VertexDeclaration declaration;
 
         public:
             /**
@@ -50,22 +44,17 @@ namespace SceneR
             /**
              * Gets the vertex position
              */
-            const SceneR::Framework::Vector3& Position() const;
+            const SceneR::Framework::Vector3 position;
 
             /**
              * Gets the vertex color
              */
-            const SceneR::Framework::Color& Color() const;
+            const SceneR::Framework::Color color;
 
             /**
              * Gets the vertex texture coordinates
              */
-            const SceneR::Framework::Vector2& TextureCoordinate() const;
-
-        private:
-            SceneR::Framework::Vector3 position;
-            SceneR::Framework::Color   color;
-            SceneR::Framework::Vector2 textureCoordinate;
+            const SceneR::Framework::Vector2 texture_coordinate;
         };
     }
 }

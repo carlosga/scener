@@ -43,31 +43,31 @@ namespace SceneR
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            std::size_t Offset() const;
+            std::size_t offset() const;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            std::uint32_t UsageIndex() const;
+            std::uint32_t usage_index() const;
 
             /**
              * Gets or sets the format of this vertex element.
              */
-            const SceneR::Graphics::VertexElementFormat& VertexElementFormat() const;
+            const SceneR::Graphics::VertexElementFormat& vertex_element_format() const;
 
             /**
              * Gets a value describing how the vertex element is to be used.
              */
-            const SceneR::Graphics::VertexElementUsage& VertexElementUsage() const;
+            const SceneR::Graphics::VertexElementUsage& vertex_element_usage() const;
 
         public:
             VertexElement& operator=(const VertexElement& element);
 
         private:
-            std::size_t                           offset;
-            SceneR::Graphics::VertexElementFormat vertexElementFormat;
-            SceneR::Graphics::VertexElementUsage  vertexElementUsage;
-            std::uint32_t                         usageIndex;
+            std::size_t                           _offset;
+            SceneR::Graphics::VertexElementFormat _vertex_element_format;
+            SceneR::Graphics::VertexElementUsage  _vertex_element_usage;
+            std::uint32_t                         _usage_index;
         };
     }
 }

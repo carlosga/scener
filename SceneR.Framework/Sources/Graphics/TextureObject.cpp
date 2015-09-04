@@ -11,10 +11,10 @@ namespace SceneR
     namespace Graphics
     {
         TextureObject::TextureObject(const TextureTarget& target)
-            : id  { 0 }
-            , target { target }
+            : _id     { 0 }
+            , _target { target }
         {
-            this->Create();
+            create();
         }
 
         TextureObject::~TextureObject()
@@ -23,75 +23,64 @@ namespace SceneR
 
         void TextureObject::dispose()
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
-                glDeleteTextures(1, &this->id);
-                this->id = 0;
+                glDeleteTextures(1, &_id);
+                _id = 0;
             }
         }
 
-        std::uint32_t TextureObject::Id() const
+        std::uint32_t TextureObject::id() const
         {
-            return this->id;
+            return _id;
         }
 
-        void TextureObject::Activate() const
+        void TextureObject::activate() const
         {
-            glBindTextureUnit(0, this->id);
+            glBindTextureUnit(0, _id);
         }
 
-        void TextureObject::Create()
+        void TextureObject::create()
         {
-            glCreateTextures(static_cast<GLenum>(this->target), 1, &this->id);
+            glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
         }
 
-        void TextureObject::Deactivate() const
+        void TextureObject::deactivate() const
         {
             glBindTextureUnit(0, 0);
         }
 
-        void TextureObject::Declare2DStorage(const SurfaceFormat& format
-                                           , const std::size_t&   levels
-                                           , const std::size_t&   width
-                                           , const std::size_t&   height) const
+        void TextureObject::declare_2D_storage(const SurfaceFormat& format
+                                             , const std::size_t&   levels
+                                             , const std::size_t&   width
+                                             , const std::size_t&   height) const
         {
-            glTextureStorage2D(this->id
+            glTextureStorage2D(_id
                              , static_cast<GLint>(levels)
                              , static_cast<GLenum>(format)
                              , static_cast<GLint>(width)
                              , static_cast<GLint>(height));
         }
 
-        void TextureObject::TextureSubImage2D(const SurfaceFormat& format
-                                            , const std::size_t&   level
-                                            , const std::size_t&   width
-                                            , const std::size_t&   height
-                                            , const std::size_t&   size
-                                            , const void*          data) const
+        void TextureObject::texture_sub_image_2D(const SurfaceFormat& format
+                                               , const std::size_t&   level
+                                               , const std::size_t&   width
+                                               , const std::size_t&   height
+                                               , const std::size_t&   size
+                                               , const void*          data) const
         {
-            if (Texture::IsCompressedSurfaceFormat(format))
+            auto si_level  = static_cast<GLint>(level);
+            auto si_width  = static_cast<GLint>(width);
+            auto si_height = static_cast<GLint>(height);
+            auto si_format = static_cast<GLenum>(format);
+
+            if (Texture::is_compressed_surface_format(format))
             {
-                glCompressedTextureSubImage2D(this->id
-                                            , static_cast<GLint>(level)
-                                            , 0
-                                            , 0
-                                            , static_cast<GLint>(width)
-                                            , static_cast<GLint>(height)
-                                            , static_cast<GLenum>(format)
-                                            , size
-                                            , data);
+                glCompressedTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, size, data);
             }
             else
             {
-                glTextureSubImage2D(this->id
-                                  , static_cast<GLint>(level)
-                                  , 0
-                                  , 0
-                                  , static_cast<GLint>(width)
-                                  , static_cast<GLint>(height)
-                                  , static_cast<GLenum>(format)
-                                  , GL_UNSIGNED_BYTE
-                                  , data);
+                glTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, GL_UNSIGNED_BYTE, data);
             }
         }
     }

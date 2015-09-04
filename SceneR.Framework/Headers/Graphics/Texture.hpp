@@ -21,7 +21,7 @@ namespace SceneR
         class Texture : public GraphicsResource
         {
         public:
-            static bool IsCompressedSurfaceFormat(const SurfaceFormat& format);
+            static bool is_compressed_surface_format(const SurfaceFormat& format);
 
         public:
             /**
@@ -42,27 +42,27 @@ namespace SceneR
             /**
              * Gets the texture identifier
              */
-            virtual std::uint32_t Id() const = 0;
+            virtual std::uint32_t id() const = 0;
 
             /**
              * Gets the format of the texture data.
              */
-            virtual const SurfaceFormat& Format() const = 0;
+            virtual const SurfaceFormat& format() const = 0;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            virtual std::size_t LevelCount() const = 0;
+            virtual std::size_t level_count() const = 0;
 
             /**
              * Activates the texture object
              */
-            virtual void Activate() const = 0;
+            virtual void activate() const = 0;
 
             /**
              * Deactivates the texture object
              */
-            virtual void Deactivate() const = 0;
+            virtual void deactivate() const = 0;
         };
     }
 }

@@ -11,14 +11,14 @@ namespace SceneR
     {
         VertexDeclaration::VertexDeclaration(const std::size_t&                vertexStride
                                            , const std::vector<VertexElement>& vertexElements)
-            : vertexStride   { vertexStride }
-            , vertexElements { vertexElements }
+            : _vertex_stride   { vertexStride }
+            , _vertex_elements { vertexElements }
         {
         }
 
         VertexDeclaration::VertexDeclaration(const VertexDeclaration& declaration)
-            : vertexStride   { declaration.vertexStride }
-            , vertexElements { declaration.vertexElements }
+            : _vertex_stride   { declaration._vertex_stride }
+            , _vertex_elements { declaration._vertex_elements }
         {
         }
 
@@ -26,35 +26,35 @@ namespace SceneR
         {
         }
 
-        std::size_t VertexDeclaration::VertexStride() const
+        std::size_t VertexDeclaration::vertex_stride() const
         {
-            return this->vertexStride;
+            return _vertex_stride;
         }
 
-        const std::vector<VertexElement>& VertexDeclaration::VertexElements() const
+        const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const
         {
-            return this->vertexElements;
+            return _vertex_elements;
         }
 
         VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declaration)
         {
             if (this != &declaration)
             {
-                this->vertexStride   = declaration.vertexStride;
-                this->vertexElements = declaration.vertexElements;
+                _vertex_stride   = declaration._vertex_stride;
+                _vertex_elements = declaration._vertex_elements;
             }
 
             return *this;
         }
 
-        void VertexDeclaration::Declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const
+        void VertexDeclaration::declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const
         {
             // ... declare vertex elements
-            for (const auto& ve : this->vertexElements)
+            for (const auto& ve : _vertex_elements)
             {
-                auto elementType  = this->GetElementType(ve.VertexElementFormat());
-                auto elementCount = this->GetElementCount(ve.VertexElementFormat());
-                auto usageIndex   = static_cast<std::uint32_t>(ve.VertexElementUsage());
+                auto elementType  = get_element_type(ve.vertex_element_format());
+                auto elementCount = get_element_count(ve.vertex_element_format());
+                auto usageIndex   = static_cast<std::uint32_t>(ve.vertex_element_usage());
 
                 if (elementType == GL_FLOAT)
                 {
@@ -63,7 +63,7 @@ namespace SceneR
                                             , static_cast<GLint>(elementCount)
                                             , elementType
                                             , false
-                                            , ve.Offset());
+                                            , ve.offset());
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace SceneR
                                              , usageIndex
                                              , static_cast<GLint>(elementCount)
                                              , elementType
-                                             , ve.Offset());
+                                             , ve.offset());
                 }
 
                 glEnableVertexArrayAttrib(vaoId, usageIndex);
@@ -79,7 +79,7 @@ namespace SceneR
             }
         }
 
-        std::size_t VertexDeclaration::GetElementCount(const VertexElementFormat& vertexFormat) const
+        std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vertexFormat) const
         {
             // TODO: Review this to see if it can match the XNA VertexElementFormat specificacion.
             switch (vertexFormat)
@@ -107,7 +107,7 @@ namespace SceneR
             }
         }
 
-        std::uint32_t VertexDeclaration::GetElementType(const VertexElementFormat& vertexFormat) const
+        std::uint32_t VertexDeclaration::get_element_type(const VertexElementFormat& vertexFormat) const
         {
             switch (vertexFormat)
             {

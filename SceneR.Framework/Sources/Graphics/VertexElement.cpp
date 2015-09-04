@@ -11,18 +11,18 @@ namespace SceneR
                                    , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
                                    , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
                                    , const std::uint32_t&                         usageIndex)
-            : offset              { offset }
-            , vertexElementFormat { vertexElementFormat }
-            , vertexElementUsage  { vertexElementUsage }
-            , usageIndex          { usageIndex }
+            : _offset              { offset }
+            , _vertex_element_format { vertexElementFormat }
+            , _vertex_element_usage  { vertexElementUsage }
+            , _usage_index           { usageIndex }
         {
         }
 
         VertexElement::VertexElement(const VertexElement& element)
-            : offset              { element.offset }
-            , vertexElementFormat { element.vertexElementFormat }
-            , vertexElementUsage  { element.vertexElementUsage }
-            , usageIndex          { element.usageIndex }
+            : _offset                { element._offset }
+            , _vertex_element_format { element._vertex_element_format }
+            , _vertex_element_usage  { element._vertex_element_usage }
+            , _usage_index           { element._usage_index }
         {
         }
 
@@ -30,34 +30,34 @@ namespace SceneR
         {
         }
 
-        std::size_t VertexElement::Offset() const
+        std::size_t VertexElement::offset() const
         {
-            return this->offset;
+            return _offset;
         }
 
-        std::uint32_t VertexElement::UsageIndex() const
+        std::uint32_t VertexElement::usage_index() const
         {
-            return this->usageIndex;
+            return _usage_index;
         }
 
-        const SceneR::Graphics::VertexElementFormat& VertexElement::VertexElementFormat() const
+        const SceneR::Graphics::VertexElementFormat& VertexElement::vertex_element_format() const
         {
-            return this->vertexElementFormat;
+            return _vertex_element_format;
         }
 
-        const SceneR::Graphics::VertexElementUsage& VertexElement::VertexElementUsage() const
+        const SceneR::Graphics::VertexElementUsage& VertexElement::vertex_element_usage() const
         {
-            return this->vertexElementUsage;
+            return _vertex_element_usage;
         }
 
         VertexElement& VertexElement::operator=(const VertexElement& element)
         {
             if (this != &element)
             {
-                this->offset              = element.offset;
-                this->vertexElementFormat = element.vertexElementFormat;
-                this->vertexElementUsage  = element.vertexElementUsage;
-                this->usageIndex          = element.usageIndex;
+                _offset                = element._offset;
+                _vertex_element_format = element._vertex_element_format;
+                _vertex_element_usage  = element._vertex_element_usage;
+                _usage_index           = element._usage_index;
             }
 
             return *this;

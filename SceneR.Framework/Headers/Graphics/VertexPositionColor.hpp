@@ -6,6 +6,7 @@
 
 #include <Framework/Color.hpp>
 #include <Framework/Vector3.hpp>
+#include "VertexDeclaration.hpp"
 
 namespace SceneR
 {
@@ -19,13 +20,10 @@ namespace SceneR
         struct VertexPositionColor final
         {
         private:
-            static const VertexDeclaration Declaration;
-
-        public:
             /**
              * Vertex declaration, which defines per-vertex data.
              */
-            static const VertexDeclaration& GetVertexDeclaration();
+            static const VertexDeclaration declaration;
 
         public:
             /**
@@ -40,20 +38,16 @@ namespace SceneR
              */
             ~VertexPositionColor();
 
-        public:
+        private:
             /**
              * Gets the vertex position.
              */
-            const SceneR::Framework::Vector3& Position() const;
+            const SceneR::Framework::Vector3 position;
 
             /**
              * Gets the vertex color.
              */
-            const SceneR::Framework::Color& Color() const;
-
-        private:
-            SceneR::Framework::Vector3 position;
-            SceneR::Framework::Color   color;
+            const SceneR::Framework::Color color;
         };
     }
 }

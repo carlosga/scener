@@ -10,9 +10,9 @@ namespace SceneR
     namespace Graphics
     {
         VertexArrayObject::VertexArrayObject()
-            : id { 0 }
+            : _id { 0 }
         {
-            this->Create();
+            this->create();
         }
 
         VertexArrayObject::~VertexArrayObject()
@@ -21,31 +21,31 @@ namespace SceneR
 
         void VertexArrayObject::dispose()
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
-                glDeleteVertexArrays(1, &this->id);
-                this->id = 0;
+                glDeleteVertexArrays(1, &_id);
+                _id = 0;
             }
         }
 
-        std::uint32_t VertexArrayObject::Id() const
+        std::uint32_t VertexArrayObject::id() const
         {
-            return this->id;
+            return _id;
         }
 
-        void VertexArrayObject::Create()
+        void VertexArrayObject::create()
         {
-            glCreateVertexArrays(1, &this->id);
+            glCreateVertexArrays(1, &_id);
         }
 
-        void VertexArrayObject::Activate() const
+        void VertexArrayObject::activate() const
         {
-            glBindVertexArray(this->id);
+            glBindVertexArray(_id);
         }
 
-        void VertexArrayObject::Deactivate() const
+        void VertexArrayObject::deactivate() const
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
                 glBindVertexArray(0);
             }
