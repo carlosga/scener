@@ -69,19 +69,19 @@ namespace SceneR
             glGetNamedBufferSubData(_id, _byte_offset, _byte_length, data);
         }
 
-        void BufferView::get_data(const std::size_t& offset, const std::size_t& size, void* data) const
+        void BufferView::get_data(const std::size_t& offset, const std::size_t& count, void* data) const
         {
-            glGetNamedBufferSubData(_id, offset, size, data);
+            glGetNamedBufferSubData(_id, offset, count, data);
         }
 
-        void BufferView::buffer_data(const std::size_t& size, const void* data) const
+        void BufferView::set_data(const std::size_t& count, const void* data) const
         {
-            glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
+            glNamedBufferData(_id, count, data, static_cast<GLenum>(_usage));
         }
 
-        void BufferView::buffer_data(const std::size_t& offset, const std::size_t& size, const void *data) const
+        void BufferView::set_data(const std::size_t& offset, const std::size_t& count, const void *data) const
         {
-            glNamedBufferSubData(_id, offset, size, data);
+            glNamedBufferSubData(_id, offset, count, data);
         }
 
         void BufferView::invalidate() const

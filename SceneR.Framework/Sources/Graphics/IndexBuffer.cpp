@@ -54,7 +54,7 @@ namespace SceneR
 
         void IndexBuffer::set_data(const void* data)
         {
-            _ibo.buffer_data(_indexCount * get_element_size_in_bytes(), data);
+            _ibo.set_data(_indexCount * get_element_size_in_bytes(), data);
         }
 
         void IndexBuffer::activate() const

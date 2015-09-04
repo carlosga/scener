@@ -72,7 +72,7 @@ namespace SceneR
 
         void UniformBufferObject::set_data(const void* data)
         {
-            _buffer_view.buffer_data(0, _size, data);
+            _buffer_view.set_data(0, _size, data);
         }
 
         void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data)
@@ -82,7 +82,7 @@ namespace SceneR
                 return;
             }
 
-            _buffer_view.buffer_data(offset, count, data);
+            _buffer_view.set_data(offset, count, data);
         }
 
         void UniformBufferObject::describe()
@@ -107,7 +107,7 @@ namespace SceneR
             // initialize the buffer object
             std::vector<std::uint8_t> data(_size, 0);
 
-            _buffer_view.buffer_data(_size, data.data());
+            _buffer_view.set_data(_size, data.data());
         }
     }
 }

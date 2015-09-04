@@ -118,7 +118,7 @@ namespace SceneR
 
             if (fullscreen)
             {
-                monitor = _renderer._graphics_device_manager.graphics_device().adapter().MonitorHandle();
+                monitor = _renderer._graphics_device_manager.graphics_device().adapter().monitor_handle();
             }
 
             // Create a new window

@@ -88,26 +88,26 @@ namespace SceneR
             /**
              * Gets a subset of data from a buffer object's data store.
              * @param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
-             * @param size specifies the size in bytes of the data store region being replaced.
+             * @param count specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void get_data(const std::size_t& offset, const std::size_t& size, void *data) const;
+            void get_data(const std::size_t& offset, const std::size_t& count, void *data) const;
 
             /**
              * Creates and initializes the buffer object data store.
-             * @param size specifies the size in bytes of the buffer object's new data store.
+             * @param count specifies the size in bytes of the buffer object's new data store.
              * @param data specifies a pointer to data that will be copied into the data store for initialization,
              *             or NULL if no data is to be copied.
              */
-            void buffer_data(const std::size_t& size, const void* data) const;
+            void set_data(const std::size_t& count, const void* data) const;
 
             /**
              * Updates a subset of a buffer object's data store
              * @param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
-             * @param size specifies the size in bytes of the data store region being replaced.
+             * @param count specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void buffer_data(const std::size_t& offset, const std::size_t& size, const void *data) const;
+            void set_data(const std::size_t& offset, const std::size_t& count, const void *data) const;
 
             /**
              * Invalidate the content_manager of a buffer object's data store

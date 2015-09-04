@@ -60,7 +60,7 @@ namespace SceneR
 
         void VertexBuffer::set_data(const void* data)
         {
-            _vbo.buffer_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
+            _vbo.set_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
         }
 
         std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::vertex_declaration() const

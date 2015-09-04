@@ -95,7 +95,7 @@ namespace SceneR
                 throw std::runtime_error("glfwInit failed");
             }
 
-            _graphics_device = std::make_shared<GraphicsDevice>(GraphicsAdapter::DefaultAdapter()
+            _graphics_device = std::make_shared<GraphicsDevice>(GraphicsAdapter::default_adapter()
                                                               , Graphics::GraphicsProfile::HiDef);
         }
 
