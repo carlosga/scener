@@ -157,7 +157,7 @@ namespace SceneR
 
         void Effect::EnableDefaultLighting()
         {
-            this->AmbientLightColor(EffectHelpers::EnableDefaultLighting(this->light0, this->light1, this->light2));
+            this->AmbientLightColor(EffectHelpers::enable_default_lighting(this->light0, this->light1, this->light2));
         }
 
         const Vector3& Effect::EmissiveColor() const

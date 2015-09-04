@@ -50,7 +50,7 @@ namespace SceneR
 //
 //                    if (seffect.get() != nullptr)
 //                    {
-//                        seffect->EnableDefaultLighting();
+//                        seffect->enable_default_lighting();
 //                        seffect->SpecularColor({ 0.15f, 0.15f, 0.15f });
 //                        seffect->PreferPerPixelLighting(true);
 //                    }

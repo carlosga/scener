@@ -13,12 +13,12 @@ namespace SceneR
         using System::Text::Encoding;
 
         UniformBufferObject::UniformBufferObject(const std::u16string& name, const std::uint32_t& programId)
-            : name         { name }
-            , programId    { programId }
-            , index        { 0 }
-            , bindingPoint { 0 }
-            , size         { 0 }
-            , bufferView{ BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
+            : _name          { name }
+            , _program_id    { programId }
+            , _index         { 0 }
+            , _binding_point { 0 }
+            , _size          { 0 }
+            , _buffer_view   { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
         {
         }
 
@@ -28,91 +28,86 @@ namespace SceneR
 
         void UniformBufferObject::dispose()
         {
-            this->bufferView.dispose();
+            _buffer_view.dispose();
         }
 
-        std::int32_t UniformBufferObject::BindingPoint() const
+        std::int32_t UniformBufferObject::binding_point() const
         {
-            return this->bindingPoint;
+            return _binding_point;
         }
 
-        std::size_t UniformBufferObject::Index() const
+        std::size_t UniformBufferObject::index() const
         {
-            return this->index;
+            return _index;
         }
 
-        std::size_t UniformBufferObject::Size() const
+        std::size_t UniformBufferObject::size() const
         {
-            return this->size;
+            return _size;
         }
 
-        void UniformBufferObject::Activate()
+        void UniformBufferObject::activate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferView.target())
-                           , this->bindingPoint
-                           , this->bufferView.id());
+            glBindBufferBase(static_cast<GLenum>(_buffer_view.target()), _binding_point, _buffer_view.id());
         }
 
-        void UniformBufferObject::Deactivate()
+        void UniformBufferObject::deactivate()
         {
-            glBindBufferBase(static_cast<GLenum>(this->bufferView.target()), 0, 0);
+            glBindBufferBase(static_cast<GLenum>(_buffer_view.target()), 0, 0);
         }
 
-        std::vector<std::uint8_t> UniformBufferObject::GetData() const
+        std::vector<std::uint8_t> UniformBufferObject::get_data() const
         {
-            return this->GetData(0, this->size);
+            return get_data(0, _size);
         }
 
-        std::vector<std::uint8_t> UniformBufferObject::GetData(const std::size_t& startIndex
-                                                             , const std::size_t& elementCount) const
+        std::vector<std::uint8_t> UniformBufferObject::get_data(const std::size_t& offset, const std::size_t& count) const
         {
-            auto data = std::vector<std::uint8_t>(elementCount, 0);
+            auto data = std::vector<std::uint8_t>(count, 0);
 
-            this->bufferView.get_data(startIndex, elementCount, data.data());
+            _buffer_view.get_data(offset, count, data.data());
 
             return data;
         }
 
-        void UniformBufferObject::SetData(const void* data)
+        void UniformBufferObject::set_data(const void* data)
         {
-            this->bufferView.buffer_data(0, this->size, data);
+            _buffer_view.buffer_data(0, _size, data);
         }
 
-        void UniformBufferObject::SetData(const std::size_t& startIndex
-                                        , const std::size_t& elementCount
-                                        , const void*        data)
+        void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data)
         {
             if (data == nullptr)
             {
                 return;
             }
 
-            this->bufferView.buffer_data(startIndex, elementCount, data);
+            _buffer_view.buffer_data(offset, count, data);
         }
 
-        void UniformBufferObject::Describe()
+        void UniformBufferObject::describe()
         {
-            std::string  tmp       = Encoding::Convert(this->name);
+            std::string  tmp       = Encoding::Convert(_name);
             std::int32_t binding   = 0;
             std::int32_t blockSize = 0;
 
             // Get the uniform block index
-            this->index = glGetUniformBlockIndex(this->programId, tmp.c_str());
+            _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
 
             // Get the binding point
-            glGetActiveUniformBlockiv(this->programId, this->index, GL_UNIFORM_BLOCK_BINDING, &binding);
+            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
 
             // Get uniform block data size
-            glGetActiveUniformBlockiv(this->programId, this->index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
 
             // update class members
-            this->bindingPoint = binding;
-            this->size         = blockSize;
+            _binding_point = binding;
+            _size          = blockSize;
 
             // initialize the buffer object
-            std::vector<std::uint8_t> data(this->size, 0);
+            std::vector<std::uint8_t> data(_size, 0);
 
-            this->bufferView.buffer_data(this->size, data.data());
+            _buffer_view.buffer_data(_size, data.data());
         }
     }
 }

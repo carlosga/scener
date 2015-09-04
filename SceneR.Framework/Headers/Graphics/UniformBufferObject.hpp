@@ -43,63 +43,62 @@ namespace SceneR
             /**
              * Gets the uniform buffer binding point.
              */
-            std::int32_t BindingPoint() const;
+            std::int32_t binding_point() const;
 
             /**
              * Gets the uniform buffer block index.
              */
-            std::size_t Index() const;
+            std::size_t index() const;
 
             /**
              * Gets the uniform buffer block data size.
              */
-            std::size_t Size() const;
+            std::size_t size() const;
 
         public:
             /**
              * Activates the uniform buffer object.
              */
-            void Activate();
+            void activate();
 
             /**
              * Deactivates the uniform buffer object.
              */
-            void Deactivate();
+            void deactivate();
 
-        public:
             /**
              * @brief Describe the uniform buffer object.
              */
-            void Describe();
+            void describe();
 
         public:
             /**
              * Gets the uniform buffer data
              */
-            std::vector<std::uint8_t> GetData() const;
+            std::vector<std::uint8_t> get_data() const;
 
             /**
              * Gets the uniform buffer data
              */
-            std::vector<std::uint8_t> GetData(const std::size_t& startIndex, const std::size_t& elementCount) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
 
             /**
              * Sets the uniform buffer data
              */
-            void SetData(const void* data);
+            void set_data(const void* data);
 
             /**
              * Sets the uniform buffer data
              */
-            void SetData(const std::size_t& startIndex, const std::size_t& elementCount, const void *data);
+            void set_data(const std::size_t& offset, const std::size_t& count, const void *data);
 
         private:
-            std::u16string name;
-            std::uint32_t  programId;
-            std::size_t    index;
-            std::int32_t   bindingPoint;
-            std::size_t    size;
-            BufferView     bufferView;
+            std::u16string _name;
+            std::uint32_t  _program_id;
+            std::size_t    _index;
+            std::int32_t   _binding_point;
+            std::size_t    _size;
+            BufferView     _buffer_view;
         };
     }
 }

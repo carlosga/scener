@@ -73,14 +73,7 @@ namespace SceneR
              * #param assetName the name of the asset being read.
              */
             std::shared_ptr<System::IO::Stream> open_stream(const std::u16string& assetName) noexcept(false);
-
-            /**
-             * Low-level worker method that reads asset data.
-             * @param assetName the name of the asset to be loaded from disk.
-             */
-            template <class T>
-            std::shared_ptr<T> read_asset(const std::u16string& assetName) noexcept(false);
-
+            
         private:
             SceneR::Framework::RendererServiceContainer& _service_provider;
             std::u16string                               _root_directory;

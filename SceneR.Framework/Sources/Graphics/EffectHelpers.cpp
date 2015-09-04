@@ -24,41 +24,40 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
 
-        Vector3 EffectHelpers::EnableDefaultLighting(DirectionalLight& light0
-                                                   , DirectionalLight& light1
-                                                   , DirectionalLight& light2)
+        Vector3 EffectHelpers::enable_default_lighting(DirectionalLight &light0, DirectionalLight &light1,
+                                                       DirectionalLight &light2)
         {
             // Key light.
-            light0.Direction({ -0.5265408f, -0.5735765f, -0.6275069f });
-            light0.DiffuseColor({ 1.0f, 0.9607844f, 0.8078432f });
-            light0.SpecularColor({ 1.0f, 0.9607844f, 0.8078432f });
-            light0.Enabled(true);
+            light0.direction      = { -0.5265408f, -0.5735765f, -0.6275069f };
+            light0.diffuse_color  = { 1.0f, 0.9607844f, 0.8078432f };
+            light0.specular_color = { 1.0f, 0.9607844f, 0.8078432f };
+            light0.enabled        = true;
 
             // Fill light.
-            light1.Direction({ 0.7198464f, 0.3420201f, 0.6040227f });
-            light1.DiffuseColor({ 0.9647059f, 0.7607844f, 0.4078432f });
-            light1.SpecularColor(Vector3::Zero);
-            light1.Enabled(true);
+            light1.direction      = { 0.7198464f, 0.3420201f, 0.6040227f };
+            light1.diffuse_color  = { 0.9647059f, 0.7607844f, 0.4078432f };
+            light1.specular_color = Vector3::Zero;
+            light1.enabled        = true;
 
             // Back light.
-            light2.Direction({ 0.4545195f, -0.7660444f, 0.4545195f });
-            light2.DiffuseColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-            light2.SpecularColor({ 0.3231373f, 0.3607844f, 0.3937255f });
-            light2.Enabled(true);
+            light2.direction      = { 0.4545195f, -0.7660444f, 0.4545195f };
+            light2.diffuse_color  = { 0.3231373f, 0.3607844f, 0.3937255f };
+            light2.specular_color = { 0.3231373f, 0.3607844f, 0.3937255f };
+            light1.enabled        = true;
 
             return { 0.05333332f, 0.09882354f, 0.1819608f };
         }
 
-        EffectDirtyFlags EffectHelpers::SetWorldViewProjAndFog(const EffectDirtyFlags& dirtyFlags
-                                                             , const Matrix&           world
-                                                             , const Matrix&           view
-                                                             , const Matrix&           projection
-                                                             , Matrix&                 worldView
-                                                             , const bool&             fogEnabled
-                                                             , const float&            fogStart
-                                                             , const float&            fogEnd
-                                                             , EffectParameter&        worldViewProjParam
-                                                             , EffectParameter&        fogVectorParam)
+        EffectDirtyFlags EffectHelpers::set_world_view_proj_and_fog(const EffectDirtyFlags& dirtyFlags
+                                                                  , const Matrix&           world
+                                                                  , const Matrix&           view
+                                                                  , const Matrix&           projection
+                                                                  , Matrix&                 worldView
+                                                                  , const bool&             fogEnabled
+                                                                  , const float&            fogStart
+                                                                  , const float&            fogEnd
+                                                                  , EffectParameter&        worldViewProjParam
+                                                                  , EffectParameter&        fogVectorParam)
         {
             auto result = dirtyFlags;
 
@@ -70,7 +69,7 @@ namespace SceneR
                 worldView     = world * view;
                 worldViewProj = worldView * projection;
 
-                worldViewProjParam.SetValueTranspose(worldViewProj);
+                worldViewProjParam.set_value_transpose(worldViewProj);
 
                 result &= ~EffectDirtyFlags::WorldViewProj;
             }
@@ -80,7 +79,7 @@ namespace SceneR
                 // Recompute the fog vector?
                 if ((dirtyFlags & (EffectDirtyFlags::Fog | EffectDirtyFlags::FogEnable)) != 0)
                 {
-                    SetFogVector(worldView, fogStart, fogEnd, fogVectorParam);
+                    set_fog_vector(worldView, fogStart, fogEnd, fogVectorParam);
 
                     result &= ~(EffectDirtyFlags::Fog | EffectDirtyFlags::FogEnable);
                 }
@@ -90,7 +89,7 @@ namespace SceneR
                 // When fog is disabled, make sure the fog vector is reset to zero.
                 if ((dirtyFlags & EffectDirtyFlags::FogEnable) != 0)
                 {
-                    fogVectorParam.SetValue(Vector4::Zero);
+                    fogVectorParam.set_value(Vector4::Zero);
 
                     result &= ~EffectDirtyFlags::FogEnable;
                 }
@@ -99,15 +98,15 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::SetFogVector(const Matrix&    worldView
-                                       , const float&     fogStart
-                                       , const float&     fogEnd
-                                       , EffectParameter& fogVectorParam)
+        void EffectHelpers::set_fog_vector(const Matrix&    worldView
+                                         , const float&     fogStart
+                                         , const float&     fogEnd
+                                         , EffectParameter& fogVectorParam)
         {
             if (Math::Equal(fogStart, fogEnd))
             {
                 // Degenerate case: force everything to 100% fogged if start and end are the same.
-                fogVectorParam.SetValue(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });
+                fogVectorParam.set_value(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });
             }
             else
             {
@@ -123,16 +122,16 @@ namespace SceneR
                                     , worldView.M33() * scale
                                     , (worldView.M43() + fogStart) * scale };
 
-                fogVectorParam.SetValue(fogVector);
+                fogVectorParam.set_value(fogVector);
             }
         }
 
-        EffectDirtyFlags EffectHelpers::SetLightingMatrices(const EffectDirtyFlags& dirtyFlags
-                                                          , const Matrix&           world
-                                                          , const Matrix&           view
-                                                          , EffectParameter&        worldParam
-                                                          , EffectParameter&        worldInverseTransposeParam
-                                                          , EffectParameter&        eyePositionParam)
+        EffectDirtyFlags EffectHelpers::set_lighting_matrices(const EffectDirtyFlags& dirtyFlags
+                                                            , const Matrix&           world
+                                                            , const Matrix&           view
+                                                            , EffectParameter&        worldParam
+                                                            , EffectParameter&        worldInverseTransposeParam
+                                                            , EffectParameter&        eyePositionParam)
         {
             auto result = dirtyFlags;
 
@@ -142,8 +141,8 @@ namespace SceneR
                 auto worldTranspose        = Matrix::Invert(world);
                 auto worldInverseTranspose = Matrix::Transpose(worldTranspose);
 
-                worldParam.SetValueTranspose(world);
-                worldInverseTransposeParam.SetValueTranspose(worldInverseTranspose);
+                worldParam.set_value_transpose(world);
+                worldInverseTransposeParam.set_value_transpose(worldInverseTranspose);
 
                 result &= ~EffectDirtyFlags::World;
             }
@@ -153,7 +152,7 @@ namespace SceneR
             {
                 auto viewInverse = Matrix::Invert(view);
 
-                eyePositionParam.SetValue(viewInverse.Translation());
+                eyePositionParam.set_value(viewInverse.Translation());
 
                 result &= ~EffectDirtyFlags::EyePosition;
             }
@@ -161,13 +160,13 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::SetMaterialColor(const bool&      lightingEnabled
-                                           , const float&     alpha
-                                           , const Vector3&   diffuseColor
-                                           , const Vector3&   emissiveColor
-                                           , const Vector3&   ambientLightColor
-                                           , EffectParameter& diffuseColorParam
-                                           , EffectParameter& emissiveColorParam)
+        void EffectHelpers::set_material_color(const bool&      lightingEnabled
+                                             , const float&     alpha
+                                             , const Vector3&   diffuseColor
+                                             , const Vector3&   emissiveColor
+                                             , const Vector3&   ambientLightColor
+                                             , EffectParameter& diffuseColorParam
+                                             , EffectParameter& emissiveColorParam)
         {
             // Desired lighting model:
             //
@@ -192,12 +191,12 @@ namespace SceneR
 
             if (lightingEnabled)
             {
-                diffuseColorParam.SetValue(Vector4 { diffuseColor * alpha, alpha });
-                emissiveColorParam.SetValue(Vector3 { (emissiveColor + ambientLightColor * diffuseColor) * alpha });
+                diffuseColorParam.set_value(Vector4 { diffuseColor * alpha, alpha });
+                emissiveColorParam.set_value(Vector3 { (emissiveColor + ambientLightColor * diffuseColor) * alpha });
             }
             else
             {
-                diffuseColorParam.SetValue(Vector4 { (diffuseColor + emissiveColor) * alpha, alpha });
+                diffuseColorParam.set_value(Vector4 { (diffuseColor + emissiveColor) * alpha, alpha });
             }
         }
     }

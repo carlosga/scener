@@ -40,31 +40,31 @@ namespace SceneR
             /**
              * Gets the aspect ratio used by the graphics device.
              */
-            float AspectRatio() const;
+            float aspect_ratio() const;
 
             /**
              * Gets a value indicating the surface format of the display mode.
              */
-            const SurfaceFormat& Format() const;
+            const SurfaceFormat& format() const;
 
             /**
              * Gets a value indicating the screen height, in pixels.
              */
-            std::size_t Height() const;
+            std::size_t height() const;
 
             /**
              * Gets a value indicating the screen width, in pixels.
              */
-            std::size_t Width() const;
+            std::size_t width() const;
 
         public:
             DisplayMode& operator=(const DisplayMode& displayMode);
 
         private:
-            float         aspectRatio;
-            SurfaceFormat format;
-            std::size_t   height;
-            std::size_t   width;
+            float         _aspect_ratio;
+            SurfaceFormat _format;
+            std::size_t   _height;
+            std::size_t   _width;
         };
     }
 }

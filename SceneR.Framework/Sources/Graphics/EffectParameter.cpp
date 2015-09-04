@@ -32,27 +32,27 @@ namespace SceneR
                                        , const std::size_t&                         offset
                                        , const std::int32_t&                        type
                                        , const std::shared_ptr<UniformBufferObject> uniformBuffer)
-            : columnCount    { 0 }
-            , name           { name }
-            , parameterClass { EffectParameterClass::Object }
-            , parameterType  { EffectParameterType::Single }
-            , rowCount       { 0 }
-            , index          { index }
-            , offset         { offset }
-            , uniformBuffer  { uniformBuffer }
+            : _column_count    { 0 }
+            , _name            { name }
+            , _parameter_class { EffectParameterClass::Object }
+            , _parameter_type  { EffectParameterType::Single }
+            , _row_count       { 0 }
+            , _index           { index }
+            , _offset          { offset }
+            , _uniform_buffer  { uniformBuffer }
         {
-            this->Describe(type);
+            describe(type);
         }
 
         EffectParameter::EffectParameter(const EffectParameter& parameter)
-            : columnCount    { parameter.columnCount }
-            , name           { parameter.name }
-            , parameterClass { parameter.parameterClass }
-            , parameterType  { parameter.parameterType }
-            , rowCount       { parameter.rowCount }
-            , index          { parameter.index }
-            , offset         { parameter.offset }
-            , uniformBuffer  { parameter.uniformBuffer }
+            : _column_count    { parameter._column_count }
+            , _name            { parameter._name }
+            , _parameter_class { parameter._parameter_class }
+            , _parameter_type  { parameter._parameter_type }
+            , _row_count       { parameter._row_count }
+            , _index           { parameter._index }
+            , _offset          { parameter._offset }
+            , _uniform_buffer  { parameter._uniform_buffer }
         {
         }
 
@@ -60,213 +60,271 @@ namespace SceneR
         {
         }
 
-        std::size_t EffectParameter::ColumnCount() const
+        std::size_t EffectParameter::column_count() const
         {
-            return this->columnCount;
+            return _column_count;
         }
 
-        const std::u16string& EffectParameter::Name() const
+        const std::u16string& EffectParameter::name() const
         {
-            return this->name;
+            return _name;
         }
 
-        const EffectParameterClass& EffectParameter::ParameterClass() const
+        const EffectParameterClass& EffectParameter::parameter_class() const
         {
-            return this->parameterClass;
+            return _parameter_class;
         }
 
-        const EffectParameterType& EffectParameter::ParameterType() const
+        const EffectParameterType& EffectParameter::parameter_type() const
         {
-            return this->parameterType;
+            return _parameter_type;
         }
 
-        std::size_t EffectParameter::RowCount() const
+        std::size_t EffectParameter::row_count() const
         {
-            return this->rowCount;
+            return _row_count;
         }
 
-        bool EffectParameter::GetValueBoolean() const
+        template <>
+        std::vector<bool> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<bool> EffectParameter::GetValueBooleanArray() const
+        /**
+         * Gets the value of the EffectParameter as an int32_t.
+         */
+        template<>
+        std::int32_t EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::int32_t EffectParameter::GetValueInt32() const
+        /**
+         *  Gets the value of the EffectParameter as an array of int32_t.
+         */
+        template<>
+        std::vector<std::int32_t> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<std::int32_t> EffectParameter::GetValueInt32Array() const
+        /**
+         * Gets the value of the EffectParameter as a Matrix.
+         */
+        template<>
+        SceneR::Framework::Matrix EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        Matrix EffectParameter::GetValueMatrix() const
+        /**
+         * Gets the value of the EffectParameter as an array of Matrix.
+         */
+        template<>
+        std::vector<SceneR::Framework::Matrix> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Matrix> EffectParameter::GetValueMatrixArray() const
+        /**
+         * Gets the value of the EffectParameter as a Matrix transpose.
+         */
+        template<>
+        SceneR::Framework::Matrix EffectParameter::get_value_transpose() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        Matrix EffectParameter::GetValueMatrixTranspose() const
+        /**
+         * Gets the value of the EffectParameter as an array of Matrix transpose.
+         */
+        template<>
+        std::vector<SceneR::Framework::Matrix> EffectParameter::get_value_transpose() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Matrix> EffectParameter::GetValueMatrixTransposeArray()
+        /**
+         * Gets the value of the EffectParameter as a Quaternion.
+         */
+        template<>
+        SceneR::Framework::Quaternion EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        Quaternion EffectParameter::GetValueQuaternion() const
+        /**
+         * Gets the value of the EffectParameter as an array of Quaternion.
+         */
+        template<>
+        std::vector<SceneR::Framework::Quaternion> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Quaternion> EffectParameter::GetValueQuaternionArray() const
+        /**
+         * Gets the value of the EffectParameter as a float.
+         */
+        template<>
+        float EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        float EffectParameter::GetValueFloat() const
+        /**
+         * Gets the value of the EffectParameter as an array of float.
+         */
+        template<>
+        std::vector<float> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<float> EffectParameter::GetValueFloatArray() const
+        /**
+         * Gets the value of the EffectParameter as an String.
+         */
+        template<>
+        std::u16string EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::u16string EffectParameter::GetValueString() const
+        /**
+         * Gets the value of the EffectParameter as a Vector3.
+         */
+        template<>
+        SceneR::Framework::Vector3 EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        Vector3 EffectParameter::GetValueVector3() const
+        /**
+         * Gets the value of the EffectParameter as an array of Vector3.
+         */
+        template<>
+        std::vector<SceneR::Framework::Vector3> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Vector3> EffectParameter::GetValueVector3Array() const
+        template<>
+        void EffectParameter::set_value(const bool& value) const
         {
-            throw std::runtime_error("Not implemented");
-        }
-
-        void EffectParameter::SetValue(const bool& value) const
-        {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Bool)
+            if (_parameter_type != EffectParameterType::Bool)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            this->uniformBuffer->SetData(this->offset, 1, &value);
+            _uniform_buffer->set_data(_offset, 1, &value);
         }
 
-        void EffectParameter::SetValue(const std::vector<bool>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<bool>& value) const
         {
-            if (this->parameterType != EffectParameterType::Bool)
+            if (_parameter_type != EffectParameterType::Bool)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            //this->uniformBuffer->SetData(this->offset, value.size(), value.data());
+            //_uniform_buffer->set_data(_offset, value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const std::int32_t& value) const
+        template<>
+        void EffectParameter::set_value(const std::int32_t& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Int32)
+            if (_parameter_type != EffectParameterType::Int32)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(std::int32_t), &value);
+            _uniform_buffer->set_data(_offset, sizeof(std::int32_t), &value);
         }
 
-        void EffectParameter::SetValue(const std::vector<std::int32_t>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<std::int32_t>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Int32)
+            if (_parameter_type != EffectParameterType::Int32)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(std::int32_t) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(std::int32_t) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const std::uint32_t& value) const
+        template<>
+        void EffectParameter::set_value(const std::uint32_t& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(std::uint32_t), &value);
+            _uniform_buffer->set_data(_offset, sizeof(std::uint32_t), &value);
         }
 
-        void EffectParameter::SetValue(const std::vector<std::uint32_t>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<std::uint32_t>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(std::uint32_t) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(std::uint32_t) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const Matrix& value) const
+        template<>
+        void EffectParameter::set_value(const Matrix& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Matrix)
+            if (_parameter_class != EffectParameterClass::Matrix)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Matrix), &value[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Matrix), &value[0]);
         }
 
-        void EffectParameter::SetValue(const std::vector<Matrix>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<Matrix>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Matrix)
+            if (_parameter_class != EffectParameterClass::Matrix)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Matrix) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValueTranspose(const Matrix& value) const
+        template<>
+        void EffectParameter::set_value_transpose(const Matrix& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Matrix)
+            if (_parameter_class != EffectParameterClass::Matrix)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
             const auto transpose = Matrix::Transpose(value);
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Matrix), &transpose[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Matrix), &transpose[0]);
         }
 
-        void EffectParameter::SetValueTranspose(const std::vector<Matrix>& value) const
+        template<>
+        void EffectParameter::set_value_transpose(const std::vector<Matrix>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Matrix)
+            if (_parameter_class != EffectParameterClass::Matrix)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
@@ -280,265 +338,277 @@ namespace SceneR
                 transposed.push_back(Matrix::Transpose(matrix));
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Matrix) * transposed.size(), transposed.data());
+            _uniform_buffer->set_data(_offset, sizeof(Matrix) * transposed.size(), transposed.data());
         }
 
-        void EffectParameter::SetValue(const Quaternion& value) const
+        template<>
+        void EffectParameter::set_value(const Quaternion& value) const
         {
-            this->uniformBuffer->SetData(this->offset, sizeof(Quaternion), &value[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Quaternion), &value[0]);
         }
 
-        void EffectParameter::SetValue(const std::vector<Quaternion>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<Quaternion>& value) const
         {
-            this->uniformBuffer->SetData(this->offset, sizeof(Quaternion) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Quaternion) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const float& value) const
+        template<>
+        void EffectParameter::set_value(const float& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Scalar)
+            if (_parameter_class != EffectParameterClass::Scalar)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Single)
-            {
-                throw std::runtime_error("Invalid effect parameter class.");
-            }
-
-            this->uniformBuffer->SetData(this->offset, sizeof(float), &value);
-        }
-
-        void EffectParameter::SetValue(const std::vector<float>& value) const
-        {
-            if (this->parameterClass != EffectParameterClass::Scalar)
-            {
-                throw std::runtime_error("Invalid effect parameter class.");
-            }
-            if (this->parameterType != EffectParameterType::Single)
+            if (_parameter_type != EffectParameterType::Single)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(float) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(float), &value);
         }
 
-        void EffectParameter::SetValue(const std::u16string& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<float>& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+            if (_parameter_type != EffectParameterType::Single)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+
+            _uniform_buffer->set_data(_offset, sizeof(float) * value.size(), value.data());
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::u16string& value) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        void EffectParameter::SetValue(const SceneR::Graphics::Texture& value) const
+        template<>
+        void EffectParameter::set_value(const SceneR::Graphics::Texture& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Object)
+            if (_parameter_class != EffectParameterClass::Object)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (this->parameterType != EffectParameterType::Sampler2D)
+            if (_parameter_type != EffectParameterType::Sampler2D)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            // this->uniformBuffer->SetData(this->offset,(this->name, 0);
+            // _uniform_buffer->set_data(_offset,(_name, 0);
         }
 
-        void EffectParameter::SetValue(const SceneR::Framework::Vector2& value) const
+        template<>
+        void EffectParameter::set_value(const SceneR::Framework::Vector2& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector2), &value[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Vector2), &value[0]);
         }
 
-        void EffectParameter::SetValue(const std::vector<SceneR::Framework::Vector2>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<SceneR::Framework::Vector2>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector2) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Vector2) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const Vector3& value) const
+        template<>
+        void EffectParameter::set_value(const Vector3& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector3), &value[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Vector3), &value[0]);
         }
 
-        void EffectParameter::SetValue(const std::vector<Vector3>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<Vector3>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector3) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Vector3) * value.size(), value.data());
         }
 
-        void EffectParameter::SetValue(const Vector4& value) const
+        template<>
+        void EffectParameter::set_value(const Vector4& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector4), &value[0]);
+            _uniform_buffer->set_data(_offset, sizeof(Vector4), &value[0]);
         }
 
-        void EffectParameter::SetValue(const std::vector<Vector4>& value) const
+        template<>
+        void EffectParameter::set_value(const std::vector<Vector4>& value) const
         {
-            if (this->parameterClass != EffectParameterClass::Vector)
+            if (_parameter_class != EffectParameterClass::Vector)
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            this->uniformBuffer->SetData(this->offset, sizeof(Vector4) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Vector4) * value.size(), value.data());
         }
 
         EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
         {
             if (this != &parameter)
             {
-                this->columnCount    = parameter.columnCount;
-                this->name           = parameter.name;
-                this->parameterClass = parameter.parameterClass;
-                this->parameterType  = parameter.parameterType;
-                this->rowCount       = parameter.rowCount;
-                this->index          = parameter.index;
-                this->offset         = parameter.offset;
-                this->uniformBuffer  = parameter.uniformBuffer;
+                _column_count    = parameter._column_count;
+                _name            = parameter._name;
+                _parameter_class = parameter._parameter_class;
+                _parameter_type  = parameter._parameter_type;
+                _row_count       = parameter._row_count;
+                _index           = parameter._index;
+                _offset          = parameter._offset;
+                _uniform_buffer  = parameter._uniform_buffer;
             }
 
             return *this;
         }
 
-        void EffectParameter::Describe(const std::int32_t& type)
+        void EffectParameter::describe(const std::int32_t& type)
         {
             switch (type)
             {
                 case GL_FLOAT:
-                    this->parameterClass = EffectParameterClass::Scalar;
-                    this->parameterType  = EffectParameterType::Single;
+                    _parameter_class = EffectParameterClass::Scalar;
+                    _parameter_type  = EffectParameterType::Single;
                     break;
 
                 case GL_FLOAT_VEC2:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 1;
-                    this->columnCount    = 2;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 1;
+                    _column_count    = 2;
                     break;
 
                 case GL_FLOAT_VEC3:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 1;
-                    this->columnCount    = 3;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 1;
+                    _column_count    = 3;
                     break;
 
                 case GL_FLOAT_VEC4:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 1;
-                    this->columnCount    = 4;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 1;
+                    _column_count    = 4;
                     break;
 
                 case GL_INT:
-                    this->parameterClass = EffectParameterClass::Scalar;
-                    this->parameterType  = EffectParameterType::Int32;
+                    _parameter_class = EffectParameterClass::Scalar;
+                    _parameter_type  = EffectParameterType::Int32;
                     break;
 
                 case GL_INT_VEC2:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Int32;
-                    this->rowCount       = 1;
-                    this->columnCount    = 2;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Int32;
+                    _row_count       = 1;
+                    _column_count    = 2;
                     break;
 
                 case GL_INT_VEC3:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Int32;
-                    this->rowCount       = 1;
-                    this->columnCount    = 3;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Int32;
+                    _row_count       = 1;
+                    _column_count    = 3;
                     break;
 
                 case GL_INT_VEC4:
-                    this->parameterClass = EffectParameterClass::Vector;
-                    this->parameterType  = EffectParameterType::Int32;
-                    this->rowCount       = 1;
-                    this->columnCount    = 4;
+                    _parameter_class = EffectParameterClass::Vector;
+                    _parameter_type  = EffectParameterType::Int32;
+                    _row_count       = 1;
+                    _column_count    = 4;
                     break;
 
                 case GL_BOOL:
-                    this->parameterClass = EffectParameterClass::Scalar;
-                    this->parameterType  = EffectParameterType::Bool;
+                    _parameter_class = EffectParameterClass::Scalar;
+                    _parameter_type  = EffectParameterType::Bool;
                     break;
 
                 case GL_FLOAT_MAT2	: // mat2
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 2;
-                    this->columnCount    = 2;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 2;
+                    _column_count    = 2;
                     break;
 
                 case GL_FLOAT_MAT3	: // mat3
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 3;
-                    this->columnCount    = 3;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 3;
+                    _column_count    = 3;
                     break;
 
                 case GL_FLOAT_MAT4	: // mat4
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 4;
-                    this->columnCount    = 4;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 4;
+                    _column_count    = 4;
                     break;
 
                 case GL_FLOAT_MAT2x3: // mat2x3
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 3;
-                    this->columnCount    = 2;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 3;
+                    _column_count    = 2;
                     break;
 
                 case GL_FLOAT_MAT2x4: // mat2x4
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 4;
-                    this->columnCount    = 2;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 4;
+                    _column_count    = 2;
                     break;
 
                 case GL_FLOAT_MAT3x2: // mat3x2
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 2;
-                    this->columnCount    = 3;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 2;
+                    _column_count    = 3;
                     break;
 
                 case GL_FLOAT_MAT3x4: // mat3x4
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 4;
-                    this->columnCount    = 3;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 4;
+                    _column_count    = 3;
                     break;
 
                 case GL_FLOAT_MAT4x2: // mat4x2
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 2;
-                    this->columnCount    = 4;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 2;
+                    _column_count    = 4;
                     break;
 
                 case GL_FLOAT_MAT4x3: // mat4x3
-                    this->parameterClass = EffectParameterClass::Matrix;
-                    this->parameterType  = EffectParameterType::Single;
-                    this->rowCount       = 3;
-                    this->columnCount    = 4;
+                    _parameter_class = EffectParameterClass::Matrix;
+                    _parameter_type  = EffectParameterType::Single;
+                    _row_count       = 3;
+                    _column_count    = 4;
                     break;
             }
         }

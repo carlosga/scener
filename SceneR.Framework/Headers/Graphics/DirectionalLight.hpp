@@ -43,59 +43,12 @@ namespace SceneR
             ~DirectionalLight();
 
         public:
-            /**
-             * Gets the diffuse color of the light.
-             * @return the diffuse color of the light.
-             */
-             const SceneR::Framework::Vector3& DiffuseColor() const;
-
-            /**
-             * Sets the diffuse color of the light.
-             * @param diffuseColor the diffuse color of the light.
-             */
-             void DiffuseColor(const SceneR::Framework::Vector3& diffuseColor);
-
-            /**
-             * Gets the vector along which the light's effect will be seen on models in a 3-D scene.
-             * @return the vector along which the light's effect will be seen on models in a 3-D scene.
-             */
-            const SceneR::Framework::Vector3& Direction() const;
-
-            /**
-             * Sets the vector along which the light's effect will be seen on models in a 3-D scene.
-             */
-            void Direction(const SceneR::Framework::Vector3& direction);
-
-            /**
-             * Gets a value indicating wheter the light is enabled.
-             * @return true if the light is enabled; otherwise false.
-             */
-            bool Enabled() const;
-
-            /**
-             * Sets a value indicating wheter the light is enabled.
-             */
-            void Enabled(const bool& enabled);
-
-            /**
-             * Gets the specular color of the light.
-             * @return the specular color of the light.
-             */
-             const SceneR::Framework::Vector3& SpecularColor() const;
-
-            /**
-             * Sets the specular color of the light.
-             * @param specularColor the specular color of the light.
-             */
-             void SpecularColor(const SceneR::Framework::Vector3& specularColor);
-
-        public:
              DirectionalLight& operator=(const DirectionalLight& light);
 
-        private:
+        public:
             SceneR::Framework::Vector3 direction;
-            SceneR::Framework::Vector3 diffuseColor;
-            SceneR::Framework::Vector3 specularColor;
+            SceneR::Framework::Vector3 diffuse_color;
+            SceneR::Framework::Vector3 specular_color;
             bool                       enabled;
         };
     }

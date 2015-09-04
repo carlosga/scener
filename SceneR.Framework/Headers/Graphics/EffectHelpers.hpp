@@ -39,54 +39,54 @@ namespace SceneR
                 /// <summary>
                 /// Sets up the standard key/fill/back lighting rig.
                 /// </summary>
-                static SceneR::Framework::Vector3 EnableDefaultLighting(DirectionalLight& light0
-                                                                      , DirectionalLight& light1
-                                                                      , DirectionalLight& light2);
+                static SceneR::Framework::Vector3 enable_default_lighting(DirectionalLight& light0
+                                                                        , DirectionalLight& light1
+                                                                        , DirectionalLight& light2);
 
                 /// <summary>
                 /// Lazily recomputes the world+view+projection matrix and
                 /// fog vector based on the current effect parameter settings.
                 /// </summary>
-                static EffectDirtyFlags SetWorldViewProjAndFog(const EffectDirtyFlags&          dirtyFlags
-                                                             , const SceneR::Framework::Matrix& world
-                                                             , const SceneR::Framework::Matrix& view
-                                                             , const SceneR::Framework::Matrix& projection
-                                                             , SceneR::Framework::Matrix&       worldView
-                                                             , const bool&                      fogEnabled
-                                                             , const float&                     fogStart
-                                                             , const float&                     fogEnd
-                                                             , EffectParameter&                 worldViewProjParam
-                                                             , EffectParameter&                 fogVectorParam);
+                static EffectDirtyFlags set_world_view_proj_and_fog(const EffectDirtyFlags&          dirtyFlags
+                                                                  , const SceneR::Framework::Matrix& world
+                                                                  , const SceneR::Framework::Matrix& view
+                                                                  , const SceneR::Framework::Matrix& projection
+                                                                  , SceneR::Framework::Matrix&       worldView
+                                                                  , const bool&                      fogEnabled
+                                                                  , const float&                     fogStart
+                                                                  , const float&                     fogEnd
+                                                                  , EffectParameter&                 worldViewProjParam
+                                                                  , EffectParameter&                 fogVectorParam);
 
                 /// <summary>
                 /// Sets a vector which can be dotted with the object space vertex position to compute fog amount.
                 /// </summary>
-                static void SetFogVector(const SceneR::Framework::Matrix& worldView
-                                       , const float&                     fogStart
-                                       , const float&                     fogEnd
-                                       , EffectParameter&                 fogVectorParam);
+                static void set_fog_vector(const SceneR::Framework::Matrix& worldView
+                                         , const float&                     fogStart
+                                         , const float&                     fogEnd
+                                         , EffectParameter&                 fogVectorParam);
 
                 /// <summary>
                 /// Lazily recomputes the world inverse transpose matrix and
                 /// eye position based on the current effect parameter settings.
                 /// </summary>
-                static EffectDirtyFlags SetLightingMatrices(const EffectDirtyFlags&          dirtyFlags
-                                                          , const SceneR::Framework::Matrix& world
-                                                          , const SceneR::Framework::Matrix& view
-                                                          , EffectParameter&                 worldParam
-                                                          , EffectParameter&                 worldInverseTransposeParam
-                                                          , EffectParameter&                 eyePositionParam);
+                static EffectDirtyFlags set_lighting_matrices(const EffectDirtyFlags&          dirtyFlags
+                                                            , const SceneR::Framework::Matrix& world
+                                                            , const SceneR::Framework::Matrix& view
+                                                            , EffectParameter&                 worldParam
+                                                            , EffectParameter&                 worldInverseTransposeParam
+                                                            , EffectParameter&                 eyePositionParam);
 
                 /// <summary>
                 /// Sets the diffuse/emissive/alpha material color parameters.
                 /// </summary>
-                static void SetMaterialColor(const bool&                       lightingEnabled
-                                           , const float&                      alpha
-                                           , const SceneR::Framework::Vector3& diffuseColor
-                                           , const SceneR::Framework::Vector3& emissiveColor
-                                           , const SceneR::Framework::Vector3& ambientLightColor
-                                           , EffectParameter&                  diffuseColorParam
-                                           , EffectParameter&                  emissiveColorParam);
+                static void set_material_color(const bool&                       lightingEnabled
+                                             , const float&                      alpha
+                                             , const SceneR::Framework::Vector3& diffuseColor
+                                             , const SceneR::Framework::Vector3& emissiveColor
+                                             , const SceneR::Framework::Vector3& ambientLightColor
+                                             , EffectParameter&                  diffuseColorParam
+                                             , EffectParameter&                  emissiveColorParam);
 
         private:
             EffectHelpers() = delete;

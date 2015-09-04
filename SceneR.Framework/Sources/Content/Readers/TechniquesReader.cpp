@@ -60,64 +60,64 @@ namespace SceneR
             {
                 auto tparameter = std::make_shared<EffectParameter>();
 
-                tparameter->count    = parameter.second["count"].int_value();
-                tparameter->type     = static_cast<EffectParameterType>(parameter.second["type"].int_value());
-                tparameter->semantic = parameter.second["semantic"].string_value();
-                tparameter->node     = parameter.second["node"].int_value();
+                tparameter->_count    = parameter.second["count"].int_value();
+                tparameter->_type     = static_cast<EffectParameterType>(parameter.second["type"].int_value());
+                tparameter->_semantic = parameter.second["semantic"].string_value();
+                tparameter->_node     = parameter.second["node"].int_value();
 
                 // TODO: Handle parameter value
 
-                if (tparameter->semantic.empty())
+                if (tparameter->_semantic.empty())
                 {
                     // no semantic informed
                 }
-                else if (tparameter->semantic == "MODELVIEW")
+                else if (tparameter->_semantic == "MODELVIEW")
                 {
                     technique->modelViewMatrixParam = tparameter;
                 }
-                else if (tparameter->semantic == "PROJECTION")
+                else if (tparameter->_semantic == "PROJECTION")
                 {
                     technique->projectionMatrixParam = tparameter;
                 }
-                else if (tparameter->semantic == "MODELVIEWINVERSETRANSPOSE")
+                else if (tparameter->_semantic == "MODELVIEWINVERSETRANSPOSE")
                 {
                     technique->normalMatrixParam = tparameter;
                 }
-                else if (tparameter->semantic == "POSITION")
+                else if (tparameter->_semantic == "POSITION")
                 {
                     technique->positionParam = tparameter;
                 }
-                else if (tparameter->semantic == "NORMAL")
+                else if (tparameter->_semantic == "NORMAL")
                 {
                     technique->normalParam = tparameter;
                 }
-                else if (tparameter->semantic == "TEXCOORD_0")
+                else if (tparameter->_semantic == "TEXCOORD_0")
                 {
                     technique->texCoordParam = tparameter;
                 }
-                else if (tparameter->semantic == "TEXBINORMAL")
+                else if (tparameter->_semantic == "TEXBINORMAL")
                 {
                     technique->texBinormalParam = tparameter;
                 }
-                else if (tparameter->semantic == "TEXTANGENT")
+                else if (tparameter->_semantic == "TEXTANGENT")
                 {
                     technique->texTangentParam = tparameter;
                 }
-                else if (tparameter->semantic == "JOINT")
+                else if (tparameter->_semantic == "JOINT")
                 {
                     technique->jointParam = tparameter;
                 }
-                else if (tparameter->semantic == "JOINTMATRIX")
+                else if (tparameter->_semantic == "JOINTMATRIX")
                 {
                     technique->jointMatrixParam = tparameter;
                 }
-                else if (tparameter->semantic == "WEIGHT")
+                else if (tparameter->_semantic == "WEIGHT")
                 {
                     technique->weightParam = tparameter;
                 }
                 else
                 {
-                    std::cout << "unknown semantic [" << tparameter->semantic << "]" << std::endl;
+                    std::cout << "unknown semantic [" << tparameter->_semantic << "]" << std::endl;
                 }
 
                 technique->parameters[parameter.first] = tparameter;

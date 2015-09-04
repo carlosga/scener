@@ -11,14 +11,14 @@ namespace SceneR
     namespace Graphics
     {
         DisplayMode::DisplayMode(const GLFWvidmode* mode)
-            : aspectRatio { 0.0f }
-            , format      { SurfaceFormat::Color }
-            , height      ( mode->height )
-            , width       ( mode->width )
+            : _aspect_ratio { 0.0f }
+            , _format       { SurfaceFormat::Color }
+            , _height       ( mode->height )
+            , _width        ( mode->width )
         {
             assert(mode->width != 0 && mode->height != 0);
 
-            this->aspectRatio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
+            _aspect_ratio = static_cast<float>(mode->width) / static_cast<float>(mode->height);
 
             std::int32_t bitDepth = mode->redBits + mode->blueBits + mode->greenBits;
 
@@ -26,16 +26,16 @@ namespace SceneR
             {
               case 16:
               case 8:
-                  this->format = SurfaceFormat::Bgr565;
+                  _format = SurfaceFormat::Bgr565;
                   break;
             }
         }
 
         DisplayMode::DisplayMode(const DisplayMode& displayMode)
-            : aspectRatio { displayMode.aspectRatio }
-            , format      { displayMode.format }
-            , height      ( displayMode.height )
-            , width       ( displayMode.width )
+            : _aspect_ratio { displayMode._aspect_ratio }
+            , _format       { displayMode._format }
+            , _height       { displayMode._height }
+            , _width        { displayMode._width }
         {
         }
 
@@ -43,34 +43,34 @@ namespace SceneR
         {
         }
 
-        float DisplayMode::AspectRatio() const
+        float DisplayMode::aspect_ratio() const
         {
-            return this->aspectRatio;
+            return _aspect_ratio;
         }
 
-        const SurfaceFormat& DisplayMode::Format() const
+        const SurfaceFormat& DisplayMode::format() const
         {
-            return this->format;
+            return _format;
         }
 
-        std::size_t DisplayMode::Height() const
+        std::size_t DisplayMode::height() const
         {
-            return this->height;
+            return _height;
         }
 
-        std::size_t DisplayMode::Width() const
+        std::size_t DisplayMode::width() const
         {
-            return this->width;
+            return _width;
         }
 
         DisplayMode& DisplayMode::operator=(const DisplayMode& displayMode)
         {
             if (this != &displayMode)
             {
-                this->aspectRatio = displayMode.aspectRatio;
-                this->format      = displayMode.format;
-                this->height      = displayMode.height;
-                this->width       = displayMode.width;
+                _aspect_ratio = displayMode._aspect_ratio;
+                _format       = displayMode._format;
+                _height       = displayMode._height;
+                _width        = displayMode._width;
             }
 
             return *this;
