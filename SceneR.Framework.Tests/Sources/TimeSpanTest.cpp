@@ -99,14 +99,14 @@ TEST_F(TimeSpanTest, FromTicks)
 
 TEST_F(TimeSpanTest, Zero)
 {
-    auto interval = TimeSpan::Zero;
+    auto interval = TimeSpan::zero;
 
-    EXPECT_TRUE(interval.Ticks()        == 0);
-    EXPECT_TRUE(interval.Days()         == 0);
-    EXPECT_TRUE(interval.Hours()        == 0);
-    EXPECT_TRUE(interval.Minutes()      == 0);
-    EXPECT_TRUE(interval.Seconds()      == 0);
-    EXPECT_TRUE(interval.Milliseconds() == 0);
+    EXPECT_TRUE(interval.ticks()        == 0);
+    EXPECT_TRUE(interval.days()         == 0);
+    EXPECT_TRUE(interval.hours()        == 0);
+    EXPECT_TRUE(interval.minutes()      == 0);
+    EXPECT_TRUE(interval.seconds()      == 0);
+    EXPECT_TRUE(interval.milli_seconds() == 0);
 }
 
 TEST_F(TimeSpanTest, Days)
