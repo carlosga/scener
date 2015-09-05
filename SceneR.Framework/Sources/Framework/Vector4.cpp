@@ -26,7 +26,7 @@ namespace SceneR
 
         Vector4 Vector4::Abs(const Vector4 &value)
         {
-            return { Math::Abs(value.X()), Math::Abs(value.Y()), Math::Abs(value.Z()), Math::Abs(value.W()) };
+            return {Math::abs(value.X()), Math::abs(value.Y()), Math::abs(value.Z()), Math::abs(value.W()) };
         }
 
         Vector4 Vector4::Barycentric(const Vector4& value1
@@ -35,10 +35,10 @@ namespace SceneR
                                    , const float&   amount1
                                    , const float&   amount2)
         {
-            return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-                   , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
-                   , Math::Barycentric(value1.z, value2.z, value3.z, amount1, amount2)
-                   , Math::Barycentric(value1.w, value2.w, value3.w, amount1, amount2) };
+            return {Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+                   , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+                   , Math::barycentric(value1.z, value2.z, value3.z, amount1, amount2)
+                   , Math::barycentric(value1.w, value2.w, value3.w, amount1, amount2) };
         }
 
         Vector4 Vector4::CatmullRom(const Vector4& value1
@@ -47,18 +47,18 @@ namespace SceneR
                                   , const Vector4& value4
                                   , const float&   amount)
         {
-            return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-                   , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
-                   , Math::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount)
-                   , Math::CatmullRom(value1.w, value2.w, value3.w, value4.w, amount) };
+            return {Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
+                   , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount)
+                   , Math::catmull_rom(value1.z, value2.z, value3.z, value4.z, amount)
+                   , Math::catmull_rom(value1.w, value2.w, value3.w, value4.w, amount) };
         }
 
         Vector4 Vector4::Clamp(const Vector4& value1, const Vector4& min, const Vector4& max)
         {
-            return { Math::Clamp(value1.x, min.x, max.x)
-                   , Math::Clamp(value1.y, min.y, max.y)
-                   , Math::Clamp(value1.z, min.z, max.z)
-                   , Math::Clamp(value1.w, min.w, max.w) };
+            return {Math::clamp(value1.x, min.x, max.x)
+                   , Math::clamp(value1.y, min.y, max.y)
+                   , Math::clamp(value1.z, min.z, max.z)
+                   , Math::clamp(value1.w, min.w, max.w) };
         }
 
         float Vector4::Distance(const Vector4& value1, const Vector4& value2)
@@ -88,36 +88,36 @@ namespace SceneR
                                , const Vector4& tangent2
                                , const float&   amount)
         {
-            return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-                   , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
-                   , Math::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount)
-                   , Math::Hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount) };
+            return {Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+                   , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+                   , Math::hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount)
+                   , Math::hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount) };
         }
 
         Vector4 Vector4::Lerp(const Vector4& value1
                             , const Vector4& value2
                             , const float&   amount)
         {
-            return { Math::Lerp(value1.x, value2.x, amount)
-                   , Math::Lerp(value1.y, value2.y, amount)
-                   , Math::Lerp(value1.z, value2.z, amount)
-                   , Math::Lerp(value1.w, value2.w, amount) };
+            return { Math::lerp(value1.x, value2.x, amount)
+                   , Math::lerp(value1.y, value2.y, amount)
+                   , Math::lerp(value1.z, value2.z, amount)
+                   , Math::lerp(value1.w, value2.w, amount) };
         }
 
         Vector4 Vector4::Min(const Vector4& value1, const Vector4& value2)
         {
-            return { Math::Min(value1.x, value2.x)
-                   , Math::Min(value1.y, value2.y)
-                   , Math::Min(value1.z, value2.z)
-                   , Math::Min(value1.w, value2.w)};
+            return { Math::min(value1.x, value2.x)
+                   , Math::min(value1.y, value2.y)
+                   , Math::min(value1.z, value2.z)
+                   , Math::min(value1.w, value2.w)};
         }
 
         Vector4 Vector4::Max(const Vector4& value1, const Vector4& value2)
         {
-            return { Math::Max(value1.x, value2.x)
-                   , Math::Max(value1.y, value2.y)
-                   , Math::Max(value1.z, value2.z)
-                   , Math::Max(value1.w, value2.w)};
+            return { Math::max(value1.x, value2.x)
+                   , Math::max(value1.y, value2.y)
+                   , Math::max(value1.z, value2.z)
+                   , Math::max(value1.w, value2.w)};
         }
 
         Vector4 Vector4::Negate(const Vector4& value)
@@ -132,7 +132,7 @@ namespace SceneR
 
         Vector4 Vector4::SquareRoot(const Vector4 &value)
         {
-            return { Math::Sqrt(value.X()), Math::Sqrt(value.Y()), Math::Sqrt(value.Z()), Math::Sqrt(value.W()) };
+            return {Math::sqrt(value.X()), Math::sqrt(value.Y()), Math::sqrt(value.Z()), Math::sqrt(value.W()) };
         }
 
         Vector4 Vector4::Transform(const Vector2& position, const Matrix& matrix)
@@ -167,10 +167,10 @@ namespace SceneR
 
         Vector4 Vector4::SmoothStep(const Vector4& value1, const Vector4& value2, const float& amount)
         {
-            return { Math::SmoothStep(value1.x, value2.x, amount)
-                   , Math::SmoothStep(value1.y, value2.y, amount)
-                   , Math::SmoothStep(value1.z, value2.z, amount)
-                   , Math::SmoothStep(value1.w, value2.w, amount) };
+            return { Math::smooth_step(value1.x, value2.x, amount)
+                   , Math::smooth_step(value1.y, value2.y, amount)
+                   , Math::smooth_step(value1.z, value2.z, amount)
+                   , Math::smooth_step(value1.w, value2.w, amount) };
         }
 
         Vector4::Vector4()
@@ -268,7 +268,7 @@ namespace SceneR
 
         float Vector4::Length() const
         {
-            return Math::Sqrt(this->LengthSquared());
+            return Math::sqrt(this->LengthSquared());
         }
 
         float& Vector4::operator[](const std::size_t& index)
@@ -300,10 +300,10 @@ namespace SceneR
 
         bool Vector4::operator==(const Vector4& vector) const
         {
-            return (Math::Equal(this->x, vector.x)
-                 && Math::Equal(this->y, vector.y)
-                 && Math::Equal(this->z, vector.z)
-                 && Math::Equal(this->w, vector.w));
+            return (Math::equal(this->x, vector.x)
+                 && Math::equal(this->y, vector.y)
+                 && Math::equal(this->z, vector.z)
+                 && Math::equal(this->w, vector.w));
         }
 
         bool Vector4::operator!=(const Vector4& vector) const

@@ -36,12 +36,12 @@ namespace SceneR
             return _id;
         }
 
-        const BufferTarget&BufferView::target() const
+        const BufferTarget& BufferView::target() const
         {
             return _target;
         }
 
-        const BufferUsage&BufferView::usage() const
+        const BufferUsage& BufferView::usage() const
         {
             return _usage;
         }

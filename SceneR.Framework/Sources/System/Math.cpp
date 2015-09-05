@@ -5,128 +5,128 @@
 
 namespace System
 {
-    const float Math::E;
-    const float Math::Log10E;
-    const float Math::Log2E;
-    const float Math::Pi;
-    const float Math::PiOver2;
-    const float Math::PiOver4;
-    const float Math::TwoPi;
-    const float Math::NegativeInfinity;
-    const float Math::PositiveInfinity;
-    const float Math::NaN;
-    const float Math::Epsilon;
-    const float Math::MinValue;
-    const float Math::MaxValue;
+    const float Math::e;
+    const float Math::log_10E;
+    const float Math::log_2E;
+    const float Math::pi;
+    const float Math::pi_over_2;
+    const float Math::pi_over_4;
+    const float Math::two_pi;
+    const float Math::negative_infinity;
+    const float Math::positive_infinity;
+    const float Math::nan;
+    const float Math::epsilon;
+    const float Math::min_value;
+    const float Math::max_value;
 
-    bool Math::IsInfinity(const float& f)
+    bool Math::is_infinity(const float& f)
     {
-        return Math::IsPositiveInfinity(f) || Math::IsNegativeInfinity(f);
+        return Math::is_positive_infinity(f) || Math::is_negative_infinity(f);
     }
 
-    bool Math::IsNegativeInfinity(const float& f)
+    bool Math::is_negative_infinity(const float& f)
     {
-        return (Math::Equal(f, Math::NegativeInfinity));
+        return (Math::equal(f, Math::negative_infinity));
     }
 
-    bool Math::IsPositiveInfinity(const float& f)
+    bool Math::is_positive_infinity(const float& f)
     {
-        return (Math::Equal(f, Math::PositiveInfinity));
+        return (Math::equal(f, Math::positive_infinity));
     }
 
-    bool Math::IsNaN(const float& f)
+    bool Math::is_nan(const float& f)
     {
         return std::isnan(f);
     }
 
-    float Math::Abs(const float& value)
+    float Math::abs(const float& value)
     {
         return std::abs(value);
     }
 
-    float Math::Acos(const float& value)
+    float Math::acos(const float& value)
     {
         return std::acos(value);
     }
 
-    float Math::Asin(const float& value)
+    float Math::asin(const float& value)
     {
         return std::asin(value);
     }
 
-    float Math::Atan(const float& value)
+    float Math::atan(const float& value)
     {
         return std::atan(value);
     }
 
-    float Math::Atan2(const float& x, const float& y)
+    float Math::atan2(const float& x, const float& y)
     {
         return std::atan2(x, y);
     }
 
-    float Math::Ceiling(const float& value)
+    float Math::ceiling(const float& value)
     {
         return std::ceil(value);
     }
 
-    float Math::Cos(const float& value)
+    float Math::cos(const float& value)
     {
         return std::cos(value);
     }
 
-    float Math::Cosh(const float& value)
+    float Math::cosh(const float& value)
     {
         return std::cosh(value);
     }
 
-    float Math::Exp(const float& d)
+    float Math::exp(const float& d)
     {
         return std::exp(d);
     }
 
-    float Math::Floor(const float& value)
+    float Math::floor(const float& value)
     {
         return std::floor(value);
     }
 
-    float Math::IEEERemainder(const float& x, const float& y)
+    float Math::ieee_remainder(const float& x, const float& y)
     {
         // Reference: https://msdn.microsoft.com/es-es/library/system.math.ieeeremainder%28v=vs.110%29.aspx
-        // IEEERemainder = dividend - (divisor * Math.Round(dividend / divisor))
-        return x - (y * Math::Round(x / y));
+        // ieee_remainder = dividend - (divisor * Math.round(dividend / divisor))
+        return x - (y * Math::round(x / y));
     }
 
-    float Math::Round(const float& a)
+    float Math::round(const float& a)
     {
         return std::round(a);
     }
 
-    float Math::Sin(const float& value)
+    float Math::sin(const float& value)
     {
         return std::sin(value);
     }
 
-    float Math::Sinh(const float& value)
+    float Math::sinh(const float& value)
     {
         return std::sinh(value);
     }
 
-    float Math::Sqrt(const float& value)
+    float Math::sqrt(const float& value)
     {
         return std::sqrt(value);
     }
 
-    float Math::Tan(const float& value)
+    float Math::tan(const float& value)
     {
         return std::tan(value);
     }
 
-    float Math::Tanh(const float& value)
+    float Math::tanh(const float& value)
     {
         return std::tanh(value);
     }
 
-    bool Math::Equal(const float& a, const float& b)
+    bool Math::equal(const float& a, const float& b)
     {
         // TODO: Take a look at
         //
@@ -138,11 +138,8 @@ namespace System
         return (a == b);
     }
 
-    float Math::Barycentric(const float& value1
-                          , const float& value2
-                          , const float& value3
-                          , const float& amount1
-                          , const float& amount2)
+    float Math::barycentric(const float& value1, const float& value2, const float& value3, const float& amount1,
+                            const float& amount2)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.Math.barycentric(v=xnagamestudio.40).aspx
         //  Pa = ((1 - b2 - b3) * V1a) + (b2 * V2a) + (b3 * V3a);
@@ -153,11 +150,8 @@ namespace System
         return ((1 - amount1 - amount2) * value1) + (amount1 * value2) + (amount2 * value3);
     }
 
-    float Math::CatmullRom(const float& value1
-                         , const float& value2
-                         , const float& value3
-                         , const float& value4
-                         , const float& amount)
+    float Math::catmull_rom(const float& value1, const float& value2, const float& value3, const float& value4,
+                            const float& amount)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324331(v=vs.85).aspx
         // Q(s) = [(-s3 + 2s2 - s)p1 + (3s3 - 5s2 + 2)p2 + (-3s3 + 4s2 + s)p3 + (s3 - s2)p4] / 2;
@@ -172,7 +166,7 @@ namespace System
               + (s3 - s2) * value4) / 2;
     }
 
-    float Math::Clamp(const float& value, const float& min, const float& max)
+    float Math::clamp(const float& value, const float& min, const float& max)
     {
         float maxValue = ((max < min) ? min : max);
 
@@ -188,11 +182,8 @@ namespace System
         return value;
     }
 
-    float Math::Hermite(const float& value1
-                      , const float& tangent1
-                      , const float& value2
-                      , const float& tangent2
-                      , const float& amount)
+    float Math::hermite(const float& value1, const float& tangent1, const float& value2, const float& tangent2,
+                        const float& amount)
     {
         // Reference: http://cubic.org/docs/hermite.htm
         // h1(s) =  2s^3 - 3s^2 + 1
@@ -212,54 +203,54 @@ namespace System
              + (s3    - s2)                    * tangent2;
     }
 
-    float Math::Lerp(const float& value1, const float& value2, const float& amount)
+    float Math::lerp(const float& value1, const float& value2, const float& amount)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
         return (value1 + (value2 - value1) * amount);
     }
 
-    float Math::Min(const float& value1, const float& value2)
+    float Math::min(const float& value1, const float& value2)
     {
         return ((value1 < value2) ? value1 : value2);
     }
 
-    float Math::Max(const float& value1, const float& value2)
+    float Math::max(const float& value1, const float& value2)
     {
         return ((value1 > value2) ? value1 : value2);
     }
 
-    float Math::SmoothStep(const float& value1, const float& value2, const float& amount)
+    float Math::smooth_step(const float& value1, const float& value2, const float& amount)
     {
         // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
-        float t = Math::Clamp(amount, 0.0f, 1.0f);
+        float t = Math::clamp(amount, 0.0f, 1.0f);
 
         t = t * t * (3.0f - 2.0f * t);
 
-        return Math::Lerp(value1, value2, t);
+        return Math::lerp(value1, value2, t);
     }
 
-    float Math::ToRadians(const float& degrees)
+    float Math::to_radians(const float& degrees)
     {
-        return static_cast<float>(degrees * Math::Pi / 180.0);
+        return static_cast<float>(degrees * Math::pi / 180.0);
     }
 
-    float Math::ToDegrees(const float& radians)
+    float Math::to_degrees(const float& radians)
     {
-        return static_cast<float>(radians * 180.0 / Math::Pi);
+        return static_cast<float>(radians * 180.0 / Math::pi);
     }
 
-    float Math::WrapAngle(const float& angle)
+    float Math::wrap_angle(const float& angle)
     {
-        float result = Math::IEEERemainder(angle, Math::TwoPi);
+        float result = Math::ieee_remainder(angle, Math::two_pi);
 
-        if (result < -Math::Pi)
+        if (result < -Math::pi)
         {
-            result += Math::TwoPi;
+            result += Math::two_pi;
         }
 
-        if (result > Math::Pi)
+        if (result > Math::pi)
         {
-            result -= Math::TwoPi;
+            result -= Math::two_pi;
         }
 
         return result;

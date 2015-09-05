@@ -15,25 +15,25 @@ namespace SceneR
         const std::uint32_t BoundingFrustrum::CornerCount = 8;
 
         BoundingFrustrum::BoundingFrustrum(const SceneR::Framework::Matrix& value)
-            : bottom { 0.0f, 0.0f, 0.0f, 0.0f }
-            , far    { 0.0f, 0.0f, 0.0f, 0.0f }
-            , left   { 0.0f, 0.0f, 0.0f, 0.0f }
-            , near   { 0.0f, 0.0f, 0.0f, 0.0f }
-            , right  { 0.0f, 0.0f, 0.0f, 0.0f }
-            , top    { 0.0f, 0.0f, 0.0f, 0.0f }
-            , value  { value }
+            : _bottom { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _far    { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _left   { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _near   { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _right  { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _top    { 0.0f, 0.0f, 0.0f, 0.0f }
+            , _value  { value }
         {
-            this->UpdatePlanes();
+            update_planes();
         }
 
         BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum)
-            : bottom { frustrum.bottom }
-            , far    { frustrum.far }
-            , left   { frustrum.left }
-            , near   { frustrum.near }
-            , right  { frustrum.right }
-            , top    { frustrum.top }
-            , value  { frustrum.value }
+            : _bottom { frustrum._bottom }
+            , _far    { frustrum._far }
+            , _left   { frustrum._left }
+            , _near   { frustrum._near }
+            , _right  { frustrum._right }
+            , _top    { frustrum._top }
+            , _value  { frustrum._value }
         {
         }
 
@@ -41,93 +41,93 @@ namespace SceneR
         {
         }
 
-        const Plane& BoundingFrustrum::Bottom() const
+        const Plane& BoundingFrustrum::bottom() const
         {
-            return this->bottom;
+            return _bottom;
         }
 
-        const Plane& BoundingFrustrum::Far() const
+        const Plane& BoundingFrustrum::far() const
         {
-            return this->far;
+            return _far;
         }
 
-        const Plane& BoundingFrustrum::Left() const
+        const Plane& BoundingFrustrum::left() const
         {
-            return this->left;
+            return _left;
         }
 
-        const SceneR::Framework::Matrix& BoundingFrustrum::Matrix() const
+        const Matrix& BoundingFrustrum::matrix() const
         {
-            return this->value;
+            return _value;
         }
 
-        void BoundingFrustrum::Matrix(const SceneR::Framework::Matrix& matrix)
+        void BoundingFrustrum::matrix(const Matrix& matrix)
         {
-            this->value = matrix;
-            this->UpdatePlanes();
+            _value = matrix;
+            update_planes();
         }
 
-        const Plane& BoundingFrustrum::Near() const
+        const Plane& BoundingFrustrum::near() const
         {
-            return this->near;
+            return _near;
         }
 
-        const Plane& BoundingFrustrum::Right() const
+        const Plane& BoundingFrustrum::right() const
         {
-            return this->right;
+            return _right;
         }
 
-        const Plane& BoundingFrustrum::Top() const
+        const Plane& BoundingFrustrum::top() const
         {
-            return this->top;
+            return _top;
         }
 
-        ContainmentType BoundingFrustrum::Contains(const BoundingBox& box) const
-        {
-            throw std::runtime_error("Not implemented");
-        }
-
-        ContainmentType BoundingFrustrum::Contains(const BoundingFrustrum& frustrum) const
+        ContainmentType BoundingFrustrum::contains(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        ContainmentType BoundingFrustrum::Contains(const BoundingSphere& sphere) const
+        ContainmentType BoundingFrustrum::contains(const BoundingFrustrum& frustrum) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        ContainmentType BoundingFrustrum::Contains(const Vector3& point) const
+        ContainmentType BoundingFrustrum::contains(const BoundingSphere& sphere) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Vector3> BoundingFrustrum::GetCorners()
+        ContainmentType BoundingFrustrum::contains(const Vector3& point) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingFrustrum::Intersects(const BoundingBox& box) const
+        std::vector<Vector3> BoundingFrustrum::get_corners()
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingFrustrum::Intersects(const BoundingFrustrum& frustrum) const
+        bool BoundingFrustrum::intersects(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingFrustrum::Intersects(const BoundingSphere& sphere) const
+        bool BoundingFrustrum::intersects(const BoundingFrustrum& frustrum) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        PlaneIntersectionType BoundingFrustrum::Intersects(const Plane& plane) const
+        bool BoundingFrustrum::intersects(const BoundingSphere& sphere) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        float BoundingFrustrum::Intersects(const Ray& ray) const
+        PlaneIntersectionType BoundingFrustrum::intersects(const Plane& plane) const
+        {
+            throw std::runtime_error("Not implemented");
+        }
+
+        float BoundingFrustrum::intersects(const Ray& ray) const
         {
             throw std::runtime_error("Not implemented");
         }
@@ -136,7 +136,9 @@ namespace SceneR
         {
             if (this != &frustrum)
             {
-                this->value = frustrum.value;
+                _value = frustrum._value;
+
+                update_planes();
             }
 
             return *this;
@@ -144,7 +146,7 @@ namespace SceneR
 
         bool BoundingFrustrum::operator==(const BoundingFrustrum& frustrum) const
         {
-            return (this->value == frustrum.value);
+            return (_value == frustrum._value);
         }
 
         bool BoundingFrustrum::operator!=(const BoundingFrustrum& frustrum) const
@@ -152,43 +154,43 @@ namespace SceneR
             return !(*this == frustrum);
         }
 
-        void BoundingFrustrum::UpdatePlanes()
+        void BoundingFrustrum::update_planes()
         {
             // http://www.chadvernon.com/blog/resources/directx9/frustum-culling/
 
             // Left plane
-            this->left = Plane::Normalize({ this->value.M14() + this->value.M11()
-                                          , this->value.M24() + this->value.M21()
-                                          , this->value.M34() + this->value.M31()
-                                          , this->value.M44() + this->value.M41() });
+            _left = Plane::Normalize({ _value.M14() + _value.M11()
+                                     , _value.M24() + _value.M21()
+                                     , _value.M34() + _value.M31()
+                                     , _value.M44() + _value.M41() });
 
             // Right plane
-            this->right = Plane::Normalize({ this->value.M14() - this->value.M11()
-                                           , this->value.M24() - this->value.M21()
-                                           , this->value.M34() - this->value.M31()
-                                           , this->value.M44() - this->value.M41() });
+            _right = Plane::Normalize({ _value.M14() - _value.M11()
+                                      , _value.M24() - _value.M21()
+                                      , _value.M34() - _value.M31()
+                                      , _value.M44() - _value.M41() });
 
             // Top plane
-            this->top = Plane::Normalize({ this->value.M14() - this->value.M12()
-                                         , this->value.M24() - this->value.M22()
-                                         , this->value.M34() - this->value.M32()
-                                         , this->value.M44() - this->value.M42() });
+            _top = Plane::Normalize({ _value.M14() - _value.M12()
+                                    , _value.M24() - _value.M22()
+                                    , _value.M34() - _value.M32()
+                                    , _value.M44() - _value.M42() });
 
             // Bottom plane
-            this->bottom = Plane::Normalize({ this->value.M14() + this->value.M12()
-                                            , this->value.M24() + this->value.M22()
-                                            , this->value.M34() + this->value.M32()
-                                            , this->value.M44() + this->value.M42() });
+            _bottom = Plane::Normalize({ _value.M14() + _value.M12()
+                                       , _value.M24() + _value.M22()
+                                       , _value.M34() + _value.M32()
+                                       , _value.M44() + _value.M42() });
 
             // Near plane
-            this->near = Plane::Normalize({ this->value.M13(), this->value.M23(), this->value.M33(), this->value.M43() });
+            _near = Plane::Normalize({ _value.M13(), _value.M23(), _value.M33(), _value.M43() });
 
 
             // Far plane
-            this->far = Plane::Normalize({ this->value.M14() - this->value.M13()
-                                         , this->value.M24() - this->value.M23()
-                                         , this->value.M34() - this->value.M33()
-                                         , this->value.M44() - this->value.M43() });
+            _far = Plane::Normalize({ _value.M14() - _value.M13()
+                                    , _value.M24() - _value.M23()
+                                    , _value.M34() - _value.M33()
+                                    , _value.M44() - _value.M43() });
         }
     }
 }

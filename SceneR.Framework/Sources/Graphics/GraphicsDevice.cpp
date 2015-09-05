@@ -114,7 +114,7 @@ namespace SceneR
         {
             std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
-            glClearColor(color.R(), color.G(), color.B(), color.A());
+            glClearColor(color.r, color.g, color.b, color.a);
 
             if (_depth_stencil_state.depth_buffer_enable)
             {

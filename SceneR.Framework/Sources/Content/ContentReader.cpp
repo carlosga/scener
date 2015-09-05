@@ -31,7 +31,7 @@ namespace SceneR
 
         ContentReader::~ContentReader()
         {
-            _asset_reader.Close();
+            _asset_reader.close();
         }
 
         const std::u16string& ContentReader::asset_name() const
@@ -45,14 +45,14 @@ namespace SceneR
 
             std::string err;
 
-            auto jsonOffset = _asset_reader.ReadUInt32();
-            auto jsonLength = _asset_reader.ReadUInt32();
-            auto dataOffset = _asset_reader.BaseStream().Position();
+            auto jsonOffset = _asset_reader.read<std::uint32_t>();
+            auto jsonLength = _asset_reader.read<std::uint32_t>();
+            auto dataOffset = _asset_reader.base_stream().position();
             auto dataLength = jsonOffset - dataOffset;
 
-            _asset_reader.BaseStream().Seek(jsonOffset, std::ios::beg);
+            _asset_reader.base_stream().seek(jsonOffset, std::ios::beg);
 
-            auto buffer = _asset_reader.ReadBytes(jsonLength);
+            auto buffer = _asset_reader.read_bytes(jsonLength);
             auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), err);
 
             buffer.clear();
@@ -121,7 +121,7 @@ namespace SceneR
             // body
             //  JSON UTF-8
             // -------------------------------
-            auto magic = _asset_reader.ReadBytes(4);
+            auto magic = _asset_reader.read_bytes(4);
             auto mstr  = std::string(magic.begin(), magic.end());
 
             if (mstr != "glTF")
@@ -129,8 +129,8 @@ namespace SceneR
                 return false;
             }
 
-            _asset_reader.ReadUInt32();   // version
-            _asset_reader.ReadUInt32();   // file length
+            _asset_reader.read<std::uint32_t>();   // version
+            _asset_reader.read<std::uint32_t>();   // file length
 
             return true;
         }

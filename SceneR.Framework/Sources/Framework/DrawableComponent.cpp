@@ -12,9 +12,9 @@ namespace SceneR
         using SceneR::Graphics::GraphicsDevice;
 
         DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
-            : Component { renderer }
-            , visible   { true }
-            , drawOrder { 0 }
+            : Component   { renderer }
+            , _visible    { true }
+            , _draw_order { 0 }
         {
         }
 
@@ -22,45 +22,45 @@ namespace SceneR
         {
         }
 
-        void DrawableComponent::Draw(const RenderTime& renderTime)
+        GraphicsDevice& DrawableComponent::graphics_device()
+        {
+            return _renderer.graphics_device();
+        }
+
+        void DrawableComponent::draw(const RenderTime& renderTime)
         {
         }
 
-        GraphicsDevice& DrawableComponent::CurrentGraphicsDevice()
+        bool DrawableComponent::visible() const
         {
-            return this->renderer.graphics_device();
+            return _visible;
         }
 
-        bool DrawableComponent::Visible() const
+        void DrawableComponent::visible(const bool& visible)
         {
-            return this->visible;
+            _visible = visible;
         }
 
-        void DrawableComponent::Visible(const bool& visible)
+        std::uint32_t DrawableComponent::draw_order() const
         {
-            this->visible = visible;
+            return _draw_order;
         }
 
-        std::uint32_t DrawableComponent::DrawOrder() const
+        void DrawableComponent::draw_order(const std::uint32_t& drawOrder)
         {
-            return this->drawOrder;
+            _draw_order = drawOrder;
         }
 
-        void DrawableComponent::DrawOrder(const std::uint32_t& drawOrder)
+        void DrawableComponent::initialize()
         {
-            this->drawOrder = drawOrder;
+            this->load_content();
         }
 
-        void DrawableComponent::Initialize()
-        {
-            this->LoadContent();
-        }
-
-        void DrawableComponent::LoadContent()
+        void DrawableComponent::load_content()
         {
         }
 
-        void DrawableComponent::UnloadContent()
+        void DrawableComponent::unload_content()
         {
         }
     }

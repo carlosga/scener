@@ -10,9 +10,9 @@ namespace SceneR
     namespace Framework
     {
         Component::Component(SceneR::Framework::Renderer& renderer)
-            : renderer    ( renderer )
-            , enabled     { true }
-            , updateOrder { 0 }
+            : _renderer    ( renderer )
+            , _enabled     { true }
+            , _update_order { 0 }
         {
         }
 
@@ -20,33 +20,33 @@ namespace SceneR
         {
         }
 
-        SceneR::Framework::Renderer& Component::Renderer()
+        SceneR::Framework::Renderer& Component::renderer()
         {
-            return this->renderer;
+            return _renderer;
         }
 
-        void Component::Update(const RenderTime& renderTime)
+        void Component::update(const RenderTime& renderTime)
         {
         }
 
-        bool Component::Enabled() const
+        bool Component::enabled() const
         {
-            return this->enabled;
+            return _enabled;
         }
 
-        void Component::Enabled(const bool& enabled)
+        void Component::enabled(const bool& enabled)
         {
-            this->enabled = enabled;
+            _enabled = enabled;
         }
 
-        std::uint32_t Component::UpdateOrder() const
+        std::uint32_t Component::update_order() const
         {
-            return this->updateOrder;
+            return _update_order;
         }
 
-        void Component::UpdateOrder(const std::uint32_t& updateOrder)
+        void Component::update_order(const std::uint32_t& updateOrder)
         {
-            this->updateOrder = updateOrder;
+            _update_order = updateOrder;
         }
     }
 }

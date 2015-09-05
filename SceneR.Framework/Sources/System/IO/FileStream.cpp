@@ -11,81 +11,76 @@ namespace System
     {
         using System::Text::Encoding;
 
-        FileStream::FileStream(const std::u16string& path)
-            : FileStream { path, std::ios::in | std::ios::binary }
-        {
-        }
-
         FileStream::FileStream(const std::u16string& path, const std::ios::openmode& mode)
-            : stream { Encoding::Convert(path), mode }
-            , mode   { mode }
+            : _stream { Encoding::Convert(path), mode }
+            , _mode   { mode }
         {
         }
 
         FileStream::~FileStream()
         {
-            this->Close();
+            close();
         }
 
-        bool FileStream::CanRead()
+        bool FileStream::can_read()
         {
-            return ((this->mode & std::ios::in) == std::ios::in);
+            return ((_mode & std::ios::in) == std::ios::in);
         }
 
-        bool FileStream::CanSeek()
+        bool FileStream::can_seek()
         {
             return true;
         }
 
-        bool FileStream::CanWrite()
+        bool FileStream::can_write()
         {
-            return ((this->mode & std::ios::out) == std::ios::out);
+            return ((_mode & std::ios::out) == std::ios::out);
         }
 
-        std::size_t FileStream::Position()
+        std::size_t FileStream::position()
         {
-            return this->stream.tellg();
+            return _stream.tellg();
         }
 
-        std::size_t FileStream::Length()
+        std::size_t FileStream::length()
         {
-            auto position = this->Position();
-            this->Seek(0, std::ios::end);
-            auto result = this->Position();
-            this->Seek(position, std::ios::beg);
+            auto original = position();
+            seek(0, std::ios::end);
+            auto result = position();
+            seek(original, std::ios::beg);
 
             return result;
         }
 
-        void FileStream::Close()
+        void FileStream::close()
         {
-            if (this->stream.is_open())
+            if (_stream.is_open())
             {
-                this->stream.close();
+                _stream.close();
             }
         }
 
-        std::uint8_t FileStream::ReadByte()
+        std::uint8_t FileStream::read_byte()
         {
             std::uint8_t buffer;
 
-            this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+            read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
             return buffer;
         }
 
-        std::size_t FileStream::Read(char* buffer, const std::size_t& offset, const std::size_t& count)
+        std::size_t FileStream::read(char* buffer, const std::size_t& offset, const std::size_t& count)
         {
-            this->stream.read(buffer + offset, count);
+            _stream.read(buffer + offset, count);
 
-            return this->stream.gcount();
+            return _stream.gcount();
         }
 
-        std::size_t FileStream::Seek(const std::size_t& offset, const std::ios::seekdir& origin)
+        std::size_t FileStream::seek(const std::size_t& offset, const std::ios::seekdir& origin)
         {
-            this->stream.seekg(offset, origin);
+            _stream.seekg(offset, origin);
 
-            return this->Position();
+            return position();
         }
     }
 }

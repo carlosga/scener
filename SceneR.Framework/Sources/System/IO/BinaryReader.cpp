@@ -3,6 +3,8 @@
 
 #include <System/IO/BinaryReader.hpp>
 
+#include <string>
+
 #include <System/IO/Stream.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -12,40 +14,31 @@ namespace System
     {
         using System::Text::Encoding;
 
-        BinaryReader::BinaryReader(Stream& stream)
-            : BinaryReader ( stream, Encoding::UTF8 )
-        {
-        }
-
         BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding)
-            : stream   { stream }
-            , encoding { encoding }
+            : _stream   { stream }
+            , _encoding { encoding }
         {
         }
 
         BinaryReader::~BinaryReader()
         {
-            this->Close();
+            close();
         }
 
-        Stream& BinaryReader::BaseStream()
+        Stream& BinaryReader::base_stream()
         {
-            return this->stream;
+            return _stream;
         }
 
-        void BinaryReader::Close()
+        void BinaryReader::close()
         {
-            this->stream.Close();
+            _stream.close();
         }
 
-        std::int32_t BinaryReader::PeekChar()
+        template<>
+        char16_t BinaryReader::read()
         {
-            return -1;
-        }
-
-        char16_t BinaryReader::ReadChar()
-        {
-            char16_t buffer = this->ReadByte();
+            char16_t buffer = static_cast<std::uint32_t>(_stream.read_byte());
 
             // http://xbox.create.msdn.com/en-US/sample/xnb_format
             // Decode UTF-8.
@@ -63,19 +56,117 @@ namespace System
                 while (--byteCount)
                 {
                     buffer <<= 6;
-                    buffer |= this->ReadByte() & 0x3F;
+                    buffer  |= static_cast<std::uint32_t>(_stream.read_byte()) & 0x3F;
                 }
             }
 
             return buffer;
         }
 
-        std::u16string BinaryReader::ReadString()
+        template<>
+        std::u16string BinaryReader::read()
         {
-            return this->encoding.GetString(this->ReadBytes(this->Read7BitEncodedInt()));
+            return _encoding.GetString(read_bytes(read_7_bit_encoded_int()));
         }
 
-        std::uint32_t BinaryReader::Read7BitEncodedInt()
+        template<>
+        bool BinaryReader::read()
+        {
+            return static_cast<bool>(_stream.read_byte());
+        }
+
+        template <>
+        std::uint8_t BinaryReader::read()
+        {
+            return _stream.read_byte();
+        }
+
+        template <>
+        std::int16_t BinaryReader::read()
+        {
+            std::int16_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        std::uint16_t BinaryReader::read()
+        {
+            std::uint16_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        std::int32_t BinaryReader::read()
+        {
+            std::int32_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        std::uint32_t BinaryReader::read()
+        {
+            std::uint32_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        std::int64_t BinaryReader::read()
+        {
+            std::int64_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        std::uint64_t BinaryReader::read()
+        {
+            std::uint64_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        float BinaryReader::read()
+        {
+            float buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
+        double BinaryReader::read()
+        {
+            double buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        std::int32_t BinaryReader::peek_char()
+        {
+            return -1;
+        }
+
+        std::uint32_t BinaryReader::read_7_bit_encoded_int()
         {
             std::uint32_t result   = 0;
             std::uint32_t bitsRead = 0;
@@ -83,111 +174,23 @@ namespace System
 
             do
             {
-                value = this->ReadByte();
-
-                result |= (value & 0x7f) << bitsRead;
-
+                value     = read<std::uint8_t>();
+                result   |= (value & 0x7f) << bitsRead;
                 bitsRead += 7;
             } while (value & 0x80);
 
             return result;
         }
 
-        bool BinaryReader::ReadBoolean()
-        {
-            return static_cast<bool>(this->ReadByte());
-        }
-
-        std::uint8_t BinaryReader::ReadByte()
-        {
-            std::uint8_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::vector<std::uint8_t> BinaryReader::ReadBytes(const std::size_t& count)
+        std::vector<std::uint8_t> BinaryReader::read_bytes(const std::size_t& count)
         {
             auto buffer = std::vector<std::uint8_t>(count, 0);
-            auto readed = this->stream.Read(reinterpret_cast<char*>(&buffer[0]), 0, count);
+            auto readed = _stream.read(reinterpret_cast<char*>(&buffer[0]), 0, count);
 
             if (readed < count)
             {
                 buffer.resize(readed);
             }
-
-            return buffer;
-        }
-
-        std::int16_t BinaryReader::ReadInt16()
-        {
-            std::int16_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::uint16_t BinaryReader::ReadUInt16()
-        {
-            std::uint16_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::int32_t BinaryReader::ReadInt32()
-        {
-            std::int32_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::uint32_t BinaryReader::ReadUInt32()
-        {
-            std::uint32_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::int64_t BinaryReader::ReadInt64()
-        {
-            std::int64_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        std::uint64_t BinaryReader::ReadUInt64()
-        {
-            std::uint64_t buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        float BinaryReader::ReadSingle()
-        {
-            float buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
-
-            return buffer;
-        }
-
-        double BinaryReader::ReadDouble()
-        {
-            double buffer;
-
-            this->stream.Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
             return buffer;
         }

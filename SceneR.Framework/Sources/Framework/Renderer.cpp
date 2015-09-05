@@ -100,9 +100,9 @@ namespace SceneR
         {
             for (auto& component : _drawable_components)
             {
-                if (component->Visible())
+                if (component->visible())
                 {
-                    component->Draw(renderTime);
+                    component->draw(renderTime);
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace SceneR
         {
             for (auto& component : _components)
             {
-                component->Initialize();
+                component->initialize();
             }
         }
 
@@ -141,9 +141,9 @@ namespace SceneR
 
             for (auto& component : _updateable_components)
             {
-                if (component->Enabled())
+                if (component->enabled())
                 {
-                    component->Update(renderTime);
+                    component->update(renderTime);
                 }
             }
         }
@@ -198,13 +198,13 @@ namespace SceneR
             std::sort(_drawable_components.begin(), _drawable_components.end(),
                       [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b) -> bool
                       {
-                          return (a->DrawOrder() < b->DrawOrder());
+                          return (a->draw_order() < b->draw_order());
                       });
 
             std::sort(_updateable_components.begin(), _updateable_components.end(),
                       [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b) -> bool
                       {
-                          return (a->UpdateOrder() < b->UpdateOrder());
+                          return (a->update_order() < b->update_order());
                       });
         }
 

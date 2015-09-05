@@ -144,7 +144,7 @@ namespace SceneR
 
         PlaneIntersectionType Plane::Intersects(const BoundingSphere& sphere) const
         {
-            return sphere.Intersects(*this);
+            return sphere.intersects(*this);
         }
 
         Plane& Plane::operator=(const Plane& plane)
@@ -160,7 +160,7 @@ namespace SceneR
 
         bool Plane::operator==(const Plane& plane) const
         {
-            return (this->normal == plane.normal && Math::Equal(this->d, plane.d));
+            return (this->normal == plane.normal && Math::equal(this->d, plane.d));
         }
 
         bool Plane::operator!=(const Plane& plane) const

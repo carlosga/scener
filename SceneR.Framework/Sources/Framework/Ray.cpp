@@ -45,7 +45,7 @@ namespace SceneR
 
         bool Ray::Intersects(const BoundingBox& boundingBox)
         {
-            return (boundingBox.Intersects(*this) == 0.0f);
+            return (boundingBox.intersects(*this) == 0.0f);
         }
 
         bool Ray::Intersects(const BoundingFrustum& frustum)
@@ -55,7 +55,7 @@ namespace SceneR
 
         bool Ray::Intersects(const BoundingSphere& sphere)
         {
-            return sphere.Intersects(*this);
+            return sphere.intersects(*this);
         }
 
         bool Ray::Intersects(const Plane& plane)
@@ -63,7 +63,7 @@ namespace SceneR
             // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
             auto denom = Vector3::Dot(plane.Normal(), this->direction);
 
-            if (Math::Abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
+            if (Math::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
             {
                 return false;
             }

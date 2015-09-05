@@ -55,49 +55,49 @@ namespace SceneR
              * Gets the bottom plane of the BoundingFrustum.
              * @return the bottom plane of the BoundingFrustum.
              */
-            const Plane& Bottom() const;
+            const Plane& bottom() const;
 
             /**
              * Gets the far plane of the BoundingFrustum.
              * @return the far plane of the BoundingFrustum.
              */
-            const Plane& Far() const;
+            const Plane& far() const;
 
             /**
              * Gets the left plane of the BoundingFrustum.
              * @return the left plane of the BoundingFrustum.
              */
-            const Plane& Left() const;
+            const Plane& left() const;
 
             /**
              * Gets the Matrix that describes this bounding frustum.
              * @return the Matrix that describes this bounding frustum.
              */
-            const SceneR::Framework::Matrix& Matrix() const;
+            const SceneR::Framework::Matrix& matrix() const;
 
             /**
              * Sets the Matrix that describes this bounding frustum.
              * @param matrix the Matrix that describes this bounding frustum.
              */
-            void Matrix(const SceneR::Framework::Matrix& matrix);
+            void matrix(const SceneR::Framework::Matrix& matrix);
 
             /**
              * Gets the near plane of the BoundingFrustum.
              * @return the near plane of the BoundingFrustum.
              */
-            const Plane& Near() const;
+            const Plane& near() const;
 
             /**
              * Gets the right plane of the BoundingFrustum.
              * @return the right plane of the BoundingFrustum.
              */
-            const Plane& Right() const;
+            const Plane& right() const;
 
             /**
              * Gets the top plane of the BoundingFrustum.
              * @return the top plane of the BoundingFrustum.
              */
-            const Plane& Top() const;
+            const Plane& top() const;
 
         public:
             /**
@@ -105,68 +105,68 @@ namespace SceneR
              * @param box the BoundingBox to test for overlap.
              * @returns the extent of overlap
              */
-            ContainmentType Contains(const BoundingBox& box) const;
+            ContainmentType contains(const BoundingBox& box) const;
 
             /**
              * Checks whether the current BoundingFrustrum contains another BoundingFrustrum.
              * @param box the BoundingFrustrum to test for overlap.
              * @returns the extent of overlap
              */
-            ContainmentType Contains(const BoundingFrustrum& box) const;
+            ContainmentType contains(const BoundingFrustrum& box) const;
 
             /**
              * Checks whether the current BoundingFrustrum contains a BoundingSphere.
              * @param sphere the BoundingSphere to test for overlap.
              * @returns the extent of overlap
              */
-            ContainmentType Contains(const BoundingSphere& sphere) const;
+            ContainmentType contains(const BoundingSphere& sphere) const;
 
             /**
              * Checks whether the current BoundingFrustrum contains a point.
              * @param point the point to test for overlap.
              * @returns the extent of overlap
              */
-            ContainmentType Contains(const Vector3& point) const;
+            ContainmentType contains(const Vector3& point) const;
 
             /**
              * Gets the list of points that make up the corners of the BoundingFrustrum.
              */
-            std::vector<Vector3> GetCorners();
+            std::vector<Vector3> get_corners();
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified BoundingBox.
              * @param box the BoundingBox to test for intersection with.
              * @returns true if the BoundingFrustrum and BoundingBox intersect; false otherwise.
              */
-            bool Intersects(const BoundingBox& box) const;
+            bool intersects(const BoundingBox& box) const;
 
             /**
              * Checks whether the current BoundingFrustrum intersects with another BoundingFrustum.
              * @param frustrum the BoundingFrustum to test for intersection with.
              * @returns true if both BoundingFrustrum's intersect; false otherwise.
              */
-            bool Intersects(const BoundingFrustrum& frustrum) const;
+            bool intersects(const BoundingFrustrum& frustrum) const;
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified BoundingSphere.
              * @param sphere the BoundingSphere to test for intersection with.
              * @returns true if the BoundingFrustrum and BoundingSphere intersect; false otherwise.
              */
-            bool Intersects(const BoundingSphere& sphere) const;
+            bool intersects(const BoundingSphere& sphere) const;
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified Plane.
              * @param plane the Plane to test for intersection with.
              * @returns the relationship between the Plane and the BoundingFrustrum.
              */
-            PlaneIntersectionType Intersects(const Plane& plane) const;
+            PlaneIntersectionType intersects(const Plane& plane) const;
 
             /**
              * Checks whether the current BoundingFrustrum intersects a specified Ray.
              * @param ray the Ray to test for intersection with.
              * @returns distance at which the ray intersects the BoundingFrustrum, or 0 if there is no intersection.
              */
-            float Intersects(const Ray& ray) const;
+            float intersects(const Ray& ray) const;
 
         public:
             BoundingFrustrum& operator=(const BoundingFrustrum& frustrum);
@@ -174,16 +174,16 @@ namespace SceneR
             bool operator!=(const BoundingFrustrum& frustrum) const;
 
         private:
-            void UpdatePlanes();
+            void update_planes();
 
         private:
-            Plane bottom;
-            Plane far;
-            Plane left;
-            Plane near;
-            Plane right;
-            Plane top;
-            SceneR::Framework::Matrix value;
+            Plane _bottom;
+            Plane _far;
+            Plane _left;
+            Plane _near;
+            Plane _right;
+            Plane _top;
+            SceneR::Framework::Matrix _value;
         };
     }
 }

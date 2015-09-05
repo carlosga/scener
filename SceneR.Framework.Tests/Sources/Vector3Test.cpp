@@ -352,7 +352,7 @@ TEST_F(Vector3Test, Distance)
     auto a = Vector3 { 1.0f, 2.0f, 3.0f };
     auto b = Vector3 { 4.0f, 5.0f, 6.0f };
 
-    auto expected = Math::Sqrt(27.0f);
+    auto expected = Math::sqrt(27.0f);
     auto actual   = Vector3::Distance(a, b);
 
     EXPECT_TRUE(expected == actual);
@@ -424,7 +424,7 @@ TEST_F(Vector3Test, Length2)
     auto a        = Vector2 { 1.0f, 2.0f };
     auto z        = 3.0f;
     auto target   = Vector3 { a, z };
-    auto expected = Math::Sqrt(14.0f);
+    auto expected = Math::sqrt(14.0f);
     auto actual   = target.Length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
@@ -678,9 +678,9 @@ TEST_F(Vector3Test, ReflectWhenNormalAndSourceArePerpendicular)
 TEST_F(Vector3Test, Transform1)
 {
     auto v = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
+           * Matrix::CreateRotationY(Math::to_radians(30.0f))
+           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -692,7 +692,7 @@ TEST_F(Vector3Test, Transform1)
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
 
-// A test for Clamp (Vector3f, Vector3f, Vector3f)
+// A test for clamp (Vector3f, Vector3f, Vector3f)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, Clamp)
 {
@@ -761,9 +761,9 @@ TEST_F(Vector3Test, Clamp)
 TEST_F(Vector3Test, TransformNormal1)
 {
     auto v = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
+           * Matrix::CreateRotationY(Math::to_radians(30.0f))
+           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -780,9 +780,9 @@ TEST_F(Vector3Test, TransformNormal1)
 TEST_F(Vector3Test, TransformByQuaternion)
 {
     auto v = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
+           * Matrix::CreateRotationY(Math::to_radians(30.0f))
+           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
     auto q = Quaternion::CreateFromRotationMatrix(m);
 
     auto expected = Vector3::Transform(v, m);
@@ -853,9 +853,9 @@ TEST_F(Vector3Test, NormalizeVectorOfLengthZero)
     auto a      = Vector3 { 0.0f, 0.0f, 0.0f };
     auto actual = Vector3::Normalize(a);
 
-    EXPECT_TRUE(Math::IsNaN(actual.X())
-             && Math::IsNaN(actual.Y())
-             && Math::IsNaN(actual.Z()));
+    EXPECT_TRUE(Math::is_nan(actual.X())
+             && Math::is_nan(actual.Y())
+             && Math::is_nan(actual.Z()));
 }
 
 // A test for operator - (Vector3f)
@@ -872,12 +872,12 @@ TEST_F(Vector3Test, UnaryNegation)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, UnaryNegationWithSpecialValues)
 {
-    auto a = -Vector3 { Math::NaN, Math::PositiveInfinity, Math::NegativeInfinity };
+    auto a = -Vector3 { Math::nan, Math::positive_infinity, Math::negative_infinity};
     auto b = -Vector3 { 0.0f, 0.0f, 0.0f };
 
-    EXPECT_TRUE(Math::IsNaN(a.X()));
-    EXPECT_TRUE(Math::IsNegativeInfinity(a.Y()));
-    EXPECT_TRUE(Math::IsPositiveInfinity(a.Z()));
+    EXPECT_TRUE(Math::is_nan(a.X()));
+    EXPECT_TRUE(Math::is_negative_infinity(a.Y()));
+    EXPECT_TRUE(Math::is_positive_infinity(a.Z()));
     EXPECT_TRUE(0.0f == b.X());
     EXPECT_TRUE(0.0f == b.Y());
     EXPECT_TRUE(0.0f == b.Z());
@@ -948,13 +948,13 @@ TEST_F(Vector3Test, VectorDivisionOperator)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, ScalarDivisionByZero)
 {
-    auto a      = Vector3 { -2.0f, 3.0f, Math::MaxValue };
+    auto a      = Vector3 { -2.0f, 3.0f, Math::max_value};
     auto div    = 0.0f;
     auto actual = a / div;
 
-    EXPECT_TRUE(Math::IsNegativeInfinity(actual.X()));
-    EXPECT_TRUE(Math::IsPositiveInfinity(actual.Y()));
-    EXPECT_TRUE(Math::IsPositiveInfinity(actual.Z()));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.X()));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.Z()));
 }
 
 // A test for operator / (Vector3f, Vector3f)
@@ -962,13 +962,13 @@ TEST_F(Vector3Test, ScalarDivisionByZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, VectorDivisionByZero)
 {
-    auto a  = Vector3 { 0.047f, -3.0f, Math::NegativeInfinity };
+    auto a  = Vector3 { 0.047f, -3.0f, Math::negative_infinity};
     auto b      = Vector3 { };
     auto actual = a / b;
 
-    EXPECT_TRUE(Math::IsPositiveInfinity(actual.X()));
-    EXPECT_TRUE(Math::IsNegativeInfinity(actual.Y()));
-    EXPECT_TRUE(Math::IsNegativeInfinity(actual.Z()));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.X()));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.Z()));
 }
 
 // A test for operator + (Vector3f, Vector3f)
@@ -1028,11 +1028,11 @@ TEST_F(Vector3Test, Constructor2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, ConstructorWithSpecialFloatValues)
 {
-    auto target = Vector3 { Math::NaN, Math::MaxValue, Math::PositiveInfinity };
+    auto target = Vector3 { Math::nan, Math::max_value, Math::positive_infinity};
 
-    EXPECT_TRUE(Math::IsNaN(target.X()));
-    EXPECT_TRUE(Math::MaxValue == target.Y());
-    EXPECT_TRUE(Math::IsPositiveInfinity(target.Z()));
+    EXPECT_TRUE(Math::is_nan(target.X()));
+    EXPECT_TRUE(Math::max_value == target.Y());
+    EXPECT_TRUE(Math::is_positive_infinity(target.Z()));
 }
 
 // A test for negate (Vector3f)
@@ -1156,9 +1156,9 @@ TEST_F(Vector3Test, Constructor4)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, EqualsNaN)
 {
-    auto a = Vector3 { Math::NaN, 0, 0 };
-    auto b = Vector3 { 0, Math::NaN, 0 };
-    auto c = Vector3 { 0, 0, Math::NaN };
+    auto a = Vector3 { Math::nan, 0, 0 };
+    auto b = Vector3 { 0, Math::nan, 0 };
+    auto c = Vector3 { 0, 0, Math::nan};
 
     EXPECT_FALSE(a == Vector3::Zero);
     EXPECT_FALSE(b == Vector3::Zero);
@@ -1173,15 +1173,15 @@ TEST_F(Vector3Test, EqualsNaN)
 TEST_F(Vector3Test, Abs)
 {
     auto v1 = Vector3 { -2.5f, 2.0f, 0.5f };
-    auto v3 = Vector3::Abs({ 0.0f, Math::NegativeInfinity, Math::NaN });
+    auto v3 = Vector3::Abs({ 0.0f, Math::negative_infinity, Math::nan});
     auto v  = Vector3::Abs(v1);
 
     EXPECT_TRUE(2.5f == v.X());
     EXPECT_TRUE(2.0f == v.Y());
     EXPECT_TRUE(0.5f == v.Z());
     EXPECT_TRUE(0.0f == v3.X());
-    EXPECT_TRUE(Math::PositiveInfinity == v3.Y());
-    EXPECT_TRUE(Math::IsNaN(v3.Z()));
+    EXPECT_TRUE(Math::positive_infinity == v3.Y());
+    EXPECT_TRUE(Math::is_nan(v3.Z()));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -1193,7 +1193,7 @@ TEST_F(Vector3Test, Sqrt)
     EXPECT_TRUE(2 == (std::int32_t)Vector3::SquareRoot(b).X());
     EXPECT_TRUE(2 == (std::int32_t)Vector3::SquareRoot(b).Y());
     EXPECT_TRUE(4 == (std::int32_t)Vector3::SquareRoot(b).Z());
-    EXPECT_TRUE(Math::IsNaN(Vector3::SquareRoot(a).X()));
+    EXPECT_TRUE(Math::is_nan(Vector3::SquareRoot(a).X()));
 }
 
 // A test to make sure these types are blittable directly into GPU buffer memory layouts

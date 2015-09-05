@@ -21,12 +21,12 @@ namespace SceneR
 
         Vector2 Vector2::Abs(const Vector2& value)
         {
-            return Vector2 { Math::Abs(value.X()), Math::Abs(value.Y()) };
+            return Vector2 {Math::abs(value.X()), Math::abs(value.Y()) };
         }
 
         Vector2 Vector2::SquareRoot(const Vector2& value)
         {
-            return Vector2 { Math::Sqrt(value.X()), Math::Sqrt(value.Y()) };
+            return Vector2 {Math::sqrt(value.X()), Math::sqrt(value.Y()) };
         }
 
         Vector2 Vector2::Barycentric(const Vector2& value1
@@ -35,8 +35,8 @@ namespace SceneR
                                    , const float&   amount1
                                    , const float&   amount2)
         {
-            return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-                   , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
+            return {Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+                   , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
         }
 
         Vector2 Vector2::CatmullRom(const Vector2& value1
@@ -45,14 +45,14 @@ namespace SceneR
                                   , const Vector2& value4
                                   , const float&   amount)
         {
-            return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-                   , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount) };
+            return {Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
+                   , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount) };
         }
 
         Vector2 Vector2::Clamp(const Vector2& value1, const Vector2& min, const Vector2& max)
         {
-            return { Math::Clamp(value1.x, min.x, max.x)
-                   , Math::Clamp(value1.y, min.y, max.y) };
+            return {Math::clamp(value1.x, min.x, max.x)
+                   , Math::clamp(value1.y, min.y, max.y) };
         }
 
         float Vector2::Distance(const Vector2& value1, const Vector2& value2)
@@ -82,26 +82,26 @@ namespace SceneR
                                , const Vector2& tangent2
                                , const float&   amount)
         {
-            return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-                   , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
+            return {Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+                   , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
         }
 
         Vector2 Vector2::Lerp(const Vector2& value1, const Vector2& value2, const float& amount)
         {
-            return { Math::Lerp(value1.x, value2.x, amount)
-                   , Math::Lerp(value1.y, value2.y, amount) };
+            return { Math::lerp(value1.x, value2.x, amount)
+                   , Math::lerp(value1.y, value2.y, amount) };
         }
 
         Vector2 Vector2::Min(const Vector2& value1, const Vector2& value2)
         {
-            return { Math::Min(value1.x, value2.x)
-                   , Math::Min(value1.y, value2.y) };
+            return { Math::min(value1.x, value2.x)
+                   , Math::min(value1.y, value2.y) };
         }
 
         Vector2 Vector2::Max(const Vector2& value1, const Vector2& value2)
         {
-            return { Math::Max(value1.x, value2.x)
-                   , Math::Max(value1.y, value2.y) };
+            return { Math::max(value1.x, value2.x)
+                   , Math::max(value1.y, value2.y) };
         }
 
         Vector2 Vector2::Negate(const Vector2& value)
@@ -121,8 +121,8 @@ namespace SceneR
 
         Vector2 Vector2::SmoothStep(const Vector2& value1, const Vector2& value2, const float& amount)
         {
-            return { Math::SmoothStep(value1.x, value2.x, amount)
-                   , Math::SmoothStep(value1.y, value2.y, amount) };
+            return { Math::smooth_step(value1.x, value2.x, amount)
+                   , Math::smooth_step(value1.y, value2.y, amount) };
         }
 
         Vector2 Vector2::Transform(const Vector2& position, const Matrix& matrix)
@@ -193,7 +193,7 @@ namespace SceneR
 
         float Vector2::Length() const
         {
-            return Math::Sqrt(this->LengthSquared());
+            return Math::sqrt(this->LengthSquared());
         }
 
         float& Vector2::operator[](const std::size_t& index)
@@ -223,7 +223,7 @@ namespace SceneR
 
         bool Vector2::operator==(const Vector2& vector) const
         {
-            return (Math::Equal(this->x, vector.x) && Math::Equal(this->y, vector.y));
+            return (Math::equal(this->x, vector.x) && Math::equal(this->y, vector.y));
         }
 
         bool Vector2::operator!=(const Vector2& vector) const

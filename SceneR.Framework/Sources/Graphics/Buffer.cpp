@@ -17,7 +17,7 @@ namespace SceneR
         {
         }
 
-        const std::string &Buffer::uri() const
+        const std::string& Buffer::uri() const
         {
             return _uri;
         }
@@ -27,7 +27,7 @@ namespace SceneR
             return _byte_length;
         }
 
-        const BufferType &Buffer::type() const
+        const BufferType& Buffer::type() const
         {
             return _type;
         }

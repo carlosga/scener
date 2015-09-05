@@ -91,117 +91,78 @@ namespace SceneR
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an int32_t.
-         */
         template<>
         std::int32_t EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         *  Gets the value of the EffectParameter as an array of int32_t.
-         */
         template<>
         std::vector<std::int32_t> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as a Matrix.
-         */
         template<>
         SceneR::Framework::Matrix EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an array of Matrix.
-         */
         template<>
         std::vector<SceneR::Framework::Matrix> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as a Matrix transpose.
-         */
         template<>
         SceneR::Framework::Matrix EffectParameter::get_value_transpose() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an array of Matrix transpose.
-         */
         template<>
         std::vector<SceneR::Framework::Matrix> EffectParameter::get_value_transpose() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as a Quaternion.
-         */
         template<>
         SceneR::Framework::Quaternion EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an array of Quaternion.
-         */
         template<>
         std::vector<SceneR::Framework::Quaternion> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as a float.
-         */
         template<>
         float EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an array of float.
-         */
         template<>
         std::vector<float> EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an String.
-         */
         template<>
         std::u16string EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as a Vector3.
-         */
         template<>
         SceneR::Framework::Vector3 EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        /**
-         * Gets the value of the EffectParameter as an array of Vector3.
-         */
         template<>
         std::vector<SceneR::Framework::Vector3> EffectParameter::get_value() const
         {

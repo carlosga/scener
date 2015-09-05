@@ -7,55 +7,21 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
+
 namespace SceneR
 {
     namespace Framework
     {
-        struct Vector3;
-        struct Vector4;
-
         /**
          * Describes a color in terms of red, green, blue and alpha components.
          */
         struct Color
         {
         public:
-            static const Color AliceBlue;
-            static const Color AntiqueWhite;
-            static const Color Aqua;
-            static const Color Aquamarine;
-            static const Color Azure;
-            static const Color Beige;
-            static const Color Bisque;
-            static const Color Black;
-            static const Color BlanchedAlmond;
-            static const Color Blue;
-            static const Color BlueViolet;
-            static const Color Brown;
-            static const Color BurlyWood;
-            static const Color CadetBlue;
-            static const Color Chartreuse;
-            static const Color Chocolate;
-            static const Color Coral;
-            static const Color CornflowerBlue;
-            static const Color Cornsilk;
-            static const Color Crimson;
-            static const Color Cyan;
-            static const Color DarkBlue;
-            static const Color DarkCyan;
-            static const Color DarkGoldenrod;
-            static const Color DarkGray;
-            static const Color DarkGreen;
-            static const Color DarkKhaki;
-            static const Color DarkMagenta;
-            static const Color DarkOliveGreen;
-            static const Color DarkOrange;
-            static const Color DarkOrchid;
-            static const Color DarkRed;
-            static const Color DarkSalmon;
-            static const Color DarkSeaGreen;
-            static const Color DarkSlateBlue;
-            static const Color White;
+            static const Color black;
+            static const Color white;
 
         public:
             /**
@@ -105,33 +71,9 @@ namespace SceneR
 
         public:
             /**
-             * Gets the red component value of the color.
-             * @return the red component value of the color.
-             */
-            float R() const;
-
-            /**
-             * Gets the green component value of the color.
-             * @return the green component value of the color.
-             */
-            float G() const;
-
-            /**
-             * Gets the blue component value of the color.
-             * @return the blue component value of the color.
-             */
-            float B() const;
-
-            /**
-             * Gets the alpha component value of the color.
-             * @return the alpha component value of the color.
-             */
-            float A() const;
-
-            /**
              * Gets the color packed value.
              */
-            std::uint32_t PackedValue() const;
+            std::uint32_t packed_value() const;
 
         public:
             float& operator[](const std::size_t& index);
@@ -148,10 +90,10 @@ namespace SceneR
             const Color operator-(const Color& color) const;
             const Color operator+(const Color& color) const;
 
-        private:
+        public:
             union
             {
-                float color[4];
+                float data[4];
                 struct
                 {
                     float r;
@@ -159,6 +101,8 @@ namespace SceneR
                     float b;
                     float a;
                 };
+                SceneR::Framework::Vector3 rgb;
+                SceneR::Framework::Vector4 rgba;
             };
         };
     }

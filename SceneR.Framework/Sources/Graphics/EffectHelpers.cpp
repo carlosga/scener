@@ -103,7 +103,7 @@ namespace SceneR
                                          , const float&     fogEnd
                                          , EffectParameter& fogVectorParam)
         {
-            if (Math::Equal(fogStart, fogEnd))
+            if (Math::equal(fogStart, fogEnd))
             {
                 // Degenerate case: force everything to 100% fogged if start and end are the same.
                 fogVectorParam.set_value(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });

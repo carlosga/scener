@@ -29,22 +29,22 @@ namespace SceneR
             /**
              * Creates the smallest BoundingSphere that can contain a specified BoundingBox.
              */
-            static BoundingSphere CreateFromBoundingBox(const BoundingBox& box);
+            static BoundingSphere create_from_bounding_box(const BoundingBox& box);
 
             /**
              * Creates the smallest BoundingSphere that can contain a specified BoundingFrustum.
              */
-            static BoundingSphere CreateFromFrustum(const BoundingFrustum& frustum);
+            static BoundingSphere create_from_frustum(const BoundingFrustum& frustum);
 
             /**
              * Creates a BoundingSphere that can contain a specified list of points.
              */
-            static BoundingSphere CreateFromPoints(const std::vector<Vector3>& points);
+            static BoundingSphere create_from_points(const std::vector<Vector3>& points);
 
             /**
              * Creates a BoundingSphere that contains the two specified BoundingSphere instances.
              */
-            static BoundingSphere CreateMerged(const BoundingSphere& original, const BoundingSphere& additional);
+            static BoundingSphere create_merged(const BoundingSphere& original, const BoundingSphere& additional);
 
         public:
             /**
@@ -67,58 +67,58 @@ namespace SceneR
             /**
              * Gets the center of the sphere.
              */
-            const Vector3& Center() const;
+            const Vector3& center() const;
 
             /**
              * * Gets the radius of the sphere.
              */
-            float Radius() const;
+            float radius() const;
 
         public:
             /**
              * Checks whether the current BoundingSphere contains the specified BoundingBox.
              */
-            ContainmentType Contains(const BoundingBox& boundingBox) const;
+            ContainmentType contains(const BoundingBox& boundingBox) const;
 
             /**
              * Checks whether the current BoundingSphere contains the specified BoundingFrustum.
              */
-            ContainmentType Contains(const BoundingFrustum& frustrum) const;
+            ContainmentType contains(const BoundingFrustum& frustrum) const;
 
             /**
              * Checks whether the current BoundingSphere contains the specified BoundingSphere.
              */
-            ContainmentType Contains(const BoundingSphere& sphere) const;
+            ContainmentType contains(const BoundingSphere& sphere) const;
 
             /**
              * Checks whether the current BoundingSphere contains the specified point.
              */
-            ContainmentType Contains(const Vector3& point) const;
+            ContainmentType contains(const Vector3& point) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingBox.
              */
-            bool Intersects(const BoundingBox& boundingBox) const;
+            bool intersects(const BoundingBox& boundingBox) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingFrustum.
              */
-            bool Intersects(const BoundingFrustum& frustrum) const;
+            bool intersects(const BoundingFrustum& frustrum) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified BoundingSphere.
              */
-            bool Intersects(const BoundingSphere& sphere) const;
+            bool intersects(const BoundingSphere& sphere) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified Plane.
              */
-            PlaneIntersectionType Intersects(const Plane& plane) const;
+            PlaneIntersectionType intersects(const Plane& plane) const;
 
             /**
              * Checks whether the current BoundingSphere intersects with a specified Ray.
              */
-            bool Intersects(const Ray& ray) const;
+            bool intersects(const Ray& ray) const;
 
             /**
              * 	 Checks whether the current BoundingSphere intersects a Ray.
@@ -134,7 +134,7 @@ namespace SceneR
              * This is because there is no way to shear or non-uniformly scale a sphere.
              * Such an operation would cause the sphere to lose its shape as a sphere.
              */
-            BoundingSphere Transform(const Matrix& matrix) const;
+            BoundingSphere transform(const Matrix& matrix) const;
 
         public:
             BoundingSphere& operator=(const BoundingSphere& sphere);
@@ -142,8 +142,8 @@ namespace SceneR
             bool operator!=(const BoundingSphere& sphere) const;
 
         public:
-            Vector3 center;
-            float   radius;
+            Vector3 _center;
+            float   _radius;
         };
     }
 }

@@ -8,76 +8,76 @@ namespace System
     namespace IO
     {
         MemoryStream::MemoryStream(const std::vector<std::uint8_t>& buffer)
-            : stream { std::ios::in | std::ios::out | std::ios::binary }
-            , mode   { std::ios::in | std::ios::out | std::ios::binary }
+            : _stream { std::ios::in | std::ios::out | std::ios::binary }
+            , _mode   { std::ios::in | std::ios::out | std::ios::binary }
         {
-            this->Seek(0, std::ios_base::beg);
+            seek(0, std::ios_base::beg);
 
-            this->stream.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
+            _stream.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
 
-            this->Seek(0, std::ios_base::beg);
+            seek(0, std::ios_base::beg);
         }
 
         MemoryStream::~MemoryStream()
         {
-            this->Close();
+            this->close();
         }
 
-        bool MemoryStream::CanRead()
+        bool MemoryStream::can_read()
         {
-            return ((this->mode & std::ios::in) == std::ios::in);
+            return ((_mode & std::ios::in) == std::ios::in);
         }
 
-        bool MemoryStream::CanSeek()
+        bool MemoryStream::can_seek()
         {
             return true;
         }
 
-        bool MemoryStream::CanWrite()
+        bool MemoryStream::can_write()
         {
-            return ((this->mode & std::ios::out) == std::ios::out);
+            return ((_mode & std::ios::out) == std::ios::out);
         }
 
-        std::size_t MemoryStream::Position()
+        std::size_t MemoryStream::position()
         {
-            return this->stream.tellg();
+            return _stream.tellg();
         }
 
-        std::size_t MemoryStream::Length()
+        std::size_t MemoryStream::length()
         {
-            auto position = this->Position();
-            this->Seek(0, std::ios::end);
-            auto result = this->Position();
-            this->Seek(position, std::ios::beg);
+            auto original = position();
+            seek(0, std::ios::end);
+            auto result = position();
+            seek(original, std::ios::beg);
 
             return result;
         }
 
-        void MemoryStream::Close()
+        void MemoryStream::close()
         {
         }
 
-        std::uint8_t MemoryStream::ReadByte()
+        std::uint8_t MemoryStream::read_byte()
         {
             std::uint8_t buffer;
 
-            this->Read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+            read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
 
             return buffer;
         }
 
-        std::size_t MemoryStream::Read(char* buffer, const std::size_t& offset, const std::size_t& count)
+        std::size_t MemoryStream::read(char* buffer, const std::size_t& offset, const std::size_t& count)
         {
-            this->stream.read(buffer + offset, count);
+            _stream.read(buffer + offset, count);
 
-            return this->stream.gcount();
+            return _stream.gcount();
         }
 
-        std::size_t MemoryStream::Seek(const std::size_t& offset, const std::ios::seekdir& origin)
+        std::size_t MemoryStream::seek(const std::size_t& offset, const std::ios::seekdir& origin)
         {
-            this->stream.seekg(offset, origin);
+            _stream.seekg(offset, origin);
 
-            return this->Position();
+            return position();
         }
     }
 }

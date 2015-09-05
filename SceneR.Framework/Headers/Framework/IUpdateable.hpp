@@ -27,17 +27,17 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual bool Enabled() const = 0;
+            virtual bool enabled() const = 0;
 
             /**
              * Gets the order in which to update this object relative to other objects.
              */
-            virtual std::uint32_t UpdateOrder() const = 0;
+            virtual std::uint32_t update_order() const = 0;
 
             /**
              * Called when the component should be updated.
              */
-            virtual void Update(const RenderTime& renderTime) = 0;
+            virtual void update(const RenderTime& renderTime) = 0;
         };
     }
 }

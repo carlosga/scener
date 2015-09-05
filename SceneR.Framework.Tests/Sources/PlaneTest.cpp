@@ -15,7 +15,7 @@ using namespace SceneR::Framework;
 TEST_F(PlaneTest, TransformPlaneByQuaternion)
 {
     Plane      pin(1.0f, 0.0f, 0.0f, 0.0f);
-    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, Math::PiOver2);
+    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, Math::pi_over_2);
     Plane      pout = Plane::Transform(pin, q);
 
     EXPECT_TRUE(0.0f        == pout.Normal().X());
@@ -114,7 +114,7 @@ TEST_F(PlaneTest, CreateFromVertices2)
     Vector3 point3 { 1.0f, 1.0f, 0.0f };
 
     Plane target   = Plane::CreateFromVertices(point1, point2, point3);
-    auto  invRoot2 = (1.0f / Math::Sqrt(2.0f));
+    auto  invRoot2 = (1.0f / Math::sqrt(2.0f));
 
     Plane expected { { invRoot2, 0, invRoot2 }, -invRoot2 };
 
@@ -188,7 +188,7 @@ TEST_F(PlaneTest, Normalize)
     Plane target { 1, 2, 3, 4 };
 
     float f        = target.Normal().LengthSquared();
-    float invF     = 1.0f / Math::Sqrt(f);
+    float invF     = 1.0f / Math::sqrt(f);
     Plane expected { target.Normal() * invF, target.D() * invF };
 
     auto actual = Plane::Normalize(target);
@@ -206,9 +206,9 @@ TEST_F(PlaneTest, Normalize)
 TEST_F(PlaneTest, TransformByMatrix)
 {
     auto target = Plane::Normalize({ 1, 2, 3, 4 });
-    auto m      = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
+                * Matrix::CreateRotationY(Math::to_radians(30.0f))
+                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -239,9 +239,9 @@ TEST_F(PlaneTest, TransformByMatrix)
 TEST_F(PlaneTest, TransformByQuaternion)
 {
     auto target = Plane::Normalize({ 1, 2, 3, 4 });
-    auto m      = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
+                * Matrix::CreateRotationY(Math::to_radians(30.0f))
+                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     m.M41(10.0f);
     m.M42(20.0f);
@@ -271,10 +271,10 @@ TEST_F(PlaneTest, TransformByQuaternion)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(PlaneTest, EqualsNaN)
 {
-    Plane a = { Math::NaN, 0, 0, 0 };
-    Plane b = { 0, Math::NaN, 0, 0 };
-    Plane c = { 0, 0, Math::NaN, 0 };
-    Plane d = { 0, 0, 0, Math::NaN };
+    Plane a = { Math::nan, 0, 0, 0 };
+    Plane b = { 0, Math::nan, 0, 0 };
+    Plane c = { 0, 0, Math::nan, 0 };
+    Plane d = { 0, 0, 0, Math::nan};
     Plane z = { 0, 0, 0, 0 };
 
     EXPECT_FALSE(a == z);

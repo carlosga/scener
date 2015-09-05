@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <ios>
 
+#include <System/Text/Encoding.hpp>
+
 namespace System
 {
     namespace IO
@@ -27,47 +29,47 @@ namespace System
             /**
              * Gets a value indicating whether the current stream supports reading.
              */
-            virtual bool CanRead() = 0;
+            virtual bool can_read() = 0;
 
             /**
              * Gets a value indicating whether the current stream supports seeking.
              */
-            virtual bool CanSeek() = 0;
+            virtual bool can_seek() = 0;
 
             /**
              * Gets a value indicating whether the current stream supports writing.
              */
-            virtual bool CanWrite() = 0;
+            virtual bool can_write() = 0;
 
             /**
              * Returns the current position of the reader.
              */
-            virtual std::size_t Position() = 0;
+            virtual std::size_t position() = 0;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            virtual std::size_t Length() = 0;
+            virtual std::size_t length() = 0;
 
             /**
              * Closes the current stream
              */
-            virtual void Close() = 0;
+            virtual void close() = 0;
 
             /**
-             * Reads a byte from the stream or returns -1 if at the end of the stream.
+             * Reads a byte from the stream.
              */
-            virtual std::uint8_t ReadByte() = 0;
+            virtual std::uint8_t read_byte() = 0;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            virtual std::size_t Read(char* buffer, const std::size_t& offset, const std::size_t& count) = 0;
+            virtual std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) = 0;
 
             /**
              * Sets the position within the current stream.
              */
-            virtual std::size_t Seek(const std::size_t& offset, const std::ios::seekdir& origin) = 0;
+            virtual std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) = 0;
         };
     }
 }

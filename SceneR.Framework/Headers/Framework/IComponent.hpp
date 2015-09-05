@@ -25,7 +25,7 @@ namespace SceneR
              * This method can be used for tasks like querying for
              * services the component needs and setting up non-graphics resources.
              */
-            virtual void Initialize() = 0;
+            virtual void initialize() = 0;
         };
     }
 }

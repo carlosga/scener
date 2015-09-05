@@ -30,14 +30,14 @@ namespace SceneR
 
         Vector3 Vector3::Abs(const Vector3& value)
         {
-            return { Math::Abs(value.X()), Math::Abs(value.Y()), Math::Abs(value.Z()) };
+            return {Math::abs(value.X()), Math::abs(value.Y()), Math::abs(value.Z()) };
         }
 
         float Vector3::AngleBetween(const Vector3& left, const Vector3& right)
         {
             float lengthSquared = left.LengthSquared() * right.LengthSquared();
 
-            return Math::Acos(Vector3::Dot(left, right) / Math::Sqrt(lengthSquared));
+            return Math::acos(Vector3::Dot(left, right) / Math::sqrt(lengthSquared));
         }
 
         Vector3 Vector3::Barycentric(const Vector3& value1
@@ -46,9 +46,9 @@ namespace SceneR
                                    , const float&   amount1
                                    , const float&   amount2)
         {
-            return { Math::Barycentric(value1.x, value2.x, value3.x, amount1, amount2)
-                   , Math::Barycentric(value1.y, value2.y, value3.y, amount1, amount2)
-                   , Math::Barycentric(value1.z, value2.z, value3.z, amount1, amount2) };
+            return {Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+                   , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2)
+                   , Math::barycentric(value1.z, value2.z, value3.z, amount1, amount2) };
         }
 
         Vector3 Vector3::CatmullRom(const Vector3& value1
@@ -57,16 +57,16 @@ namespace SceneR
                                   , const Vector3& value4
                                   , const float&   amount)
         {
-            return { Math::CatmullRom(value1.x, value2.x, value3.x, value4.x, amount)
-                   , Math::CatmullRom(value1.y, value2.y, value3.y, value4.y, amount)
-                   , Math::CatmullRom(value1.z, value2.z, value3.z, value4.z, amount) };
+            return {Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
+                   , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount)
+                   , Math::catmull_rom(value1.z, value2.z, value3.z, value4.z, amount) };
         }
 
         Vector3 Vector3::Clamp(const Vector3& value1, const Vector3& min, const Vector3& max)
         {
-            return { Math::Clamp(value1.x, min.x, max.x)
-                   , Math::Clamp(value1.y, min.y, max.y)
-                   , Math::Clamp(value1.z, min.z, max.z) };
+            return {Math::clamp(value1.x, min.x, max.x)
+                   , Math::clamp(value1.y, min.y, max.y)
+                   , Math::clamp(value1.z, min.z, max.z) };
         }
 
         Vector3 Vector3::Cross(const Vector3& left, const Vector3& right)
@@ -110,30 +110,30 @@ namespace SceneR
                                , const Vector3& tangent2
                                , const float&  amount)
         {
-            return { Math::Hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
-                   , Math::Hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
-                   , Math::Hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
+            return {Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+                   , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
+                   , Math::hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
         }
 
         Vector3 Vector3::Lerp(const Vector3& value1, const Vector3& value2, const float& amount)
         {
-            return { Math::Lerp(value1.x, value2.x, amount)
-                   , Math::Lerp(value1.y, value2.y, amount)
-                   , Math::Lerp(value1.z, value2.z, amount) };
+            return { Math::lerp(value1.x, value2.x, amount)
+                   , Math::lerp(value1.y, value2.y, amount)
+                   , Math::lerp(value1.z, value2.z, amount) };
         }
 
         Vector3 Vector3::Min(const Vector3& value1, const Vector3& value2)
         {
-            return { Math::Min(value1.x, value2.x)
-                   , Math::Min(value1.y, value2.y)
-                   , Math::Min(value1.z, value2.z) };
+            return { Math::min(value1.x, value2.x)
+                   , Math::min(value1.y, value2.y)
+                   , Math::min(value1.z, value2.z) };
         }
 
         Vector3 Vector3::Max(const Vector3& value1, const Vector3& value2)
         {
-            return { Math::Max(value1.x, value2.x)
-                   , Math::Max(value1.y, value2.y)
-                   , Math::Max(value1.z, value2.z) };
+            return { Math::max(value1.x, value2.x)
+                   , Math::max(value1.y, value2.y)
+                   , Math::max(value1.z, value2.z) };
         }
 
         Vector3 Vector3::Negate(const Vector3& value)
@@ -162,14 +162,14 @@ namespace SceneR
 
         Vector3 Vector3::SmoothStep(const Vector3& value1, const Vector3& value2, const float& amount)
         {
-            return { Math::SmoothStep(value1.x, value2.x, amount)
-                   , Math::SmoothStep(value1.y, value2.y, amount)
-                   , Math::SmoothStep(value1.z, value2.z, amount) };
+            return { Math::smooth_step(value1.x, value2.x, amount)
+                   , Math::smooth_step(value1.y, value2.y, amount)
+                   , Math::smooth_step(value1.z, value2.z, amount) };
         }
 
         Vector3 Vector3::SquareRoot(const Vector3& value)
         {
-            return { Math::Sqrt(value.X()), Math::Sqrt(value.Y()), Math::Sqrt(value.Z()) };
+            return {Math::sqrt(value.X()), Math::sqrt(value.Y()), Math::sqrt(value.Z()) };
         }
 
         Vector3 Vector3::Transform(const Vector3& position, const Matrix& matrix)
@@ -284,7 +284,7 @@ namespace SceneR
             //
             // |a| = sqrt(x^2 + y^2 + z^2)
 
-            return Math::Sqrt(this->LengthSquared());
+            return Math::sqrt(this->LengthSquared());
         }
 
         float& Vector3::operator[](const std::size_t& index)
@@ -315,9 +315,9 @@ namespace SceneR
 
         bool Vector3::operator==(const Vector3& vector) const
         {
-            return (Math::Equal(this->x, vector.x)
-                 && Math::Equal(this->y, vector.y)
-                 && Math::Equal(this->z, vector.z));
+            return (Math::equal(this->x, vector.x)
+                 && Math::equal(this->y, vector.y)
+                 && Math::equal(this->z, vector.z));
         }
 
         bool Vector3::operator!=(const Vector3& vector) const

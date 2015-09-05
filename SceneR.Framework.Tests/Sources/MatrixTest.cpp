@@ -42,9 +42,9 @@ Matrix MatrixTest::GenerateMatrixNumberFrom1To16()
 
 Matrix MatrixTest::GenerateTestMatrix()
 {
-    auto m = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-           * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
+           * Matrix::CreateRotationY(Math::to_radians(30.0f))
+           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     // m.Translation({ 111.0f, 222.0f, 333.0f });
 
@@ -57,9 +57,9 @@ void MatrixTest::Decompose(const float&   yaw
                          , const Vector3& expectedTranslation
                          , const Vector3& expectedScales)
 {
-    auto expectedRotation = Quaternion::CreateFromYawPitchRoll(Math::ToRadians(yaw)
-                                                             , Math::ToRadians(pitch)
-                                                             , Math::ToRadians(roll));
+    auto expectedRotation = Quaternion::CreateFromYawPitchRoll(Math::to_radians(yaw)
+                                                             , Math::to_radians(pitch)
+                                                             , Math::to_radians(roll));
 
     auto m = Matrix::CreateScale(expectedScales)
            * Matrix::CreateFromQuaternion(expectedRotation)
@@ -79,9 +79,9 @@ void MatrixTest::Decompose(const float&   yaw
 
     if (scaleIsZeroOrNegative)
     {
-        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.X()), Math::Abs(scales.X())));
-        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.Y()), Math::Abs(scales.Y())));
-        EXPECT_TRUE(EqualityHelper::Equal(Math::Abs(expectedScales.Z()), Math::Abs(scales.Z())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.X()), Math::abs(scales.X())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.Y()), Math::abs(scales.Y())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.Z()), Math::abs(scales.Z())));
     }
     else
     {
@@ -292,7 +292,7 @@ TEST_F(MatrixTest, Inverse)
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
 {
-    auto fieldOfView = Math::PiOver4;
+    auto fieldOfView = Math::pi_over_4;
     auto aspectRatio = 768.0f / 480.0f;
     auto perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
 
@@ -352,9 +352,9 @@ TEST_F(MatrixTest, Identity)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Determinant1)
 {
-    auto target = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto target = Matrix::CreateRotationX(Math::to_radians(30.0f))
+                * Matrix::CreateRotationY(Math::to_radians(30.0f))
+                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     float val = 1.0f;
     float det = target.Determinant();
@@ -391,16 +391,16 @@ TEST_F(MatrixTest, Determinant2)
     float t    = 1.0f / detI;
 
     // only accurate to 3 precision
-    EXPECT_TRUE(Math::Abs(detA - t) < 1e-3);
+    EXPECT_TRUE(Math::abs(detA - t) < 1e-3);
 }
 
 // A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Invert)
 {
-    auto mtx = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-             * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-             * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto mtx = Matrix::CreateRotationX(Math::to_radians(30.0f))
+             * Matrix::CreateRotationY(Math::to_radians(30.0f))
+             * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     auto expected = Matrix { 0.74999994f , -0.216506317f, 0.62499994f  , 0.0f
                            , 0.433012635f, 0.87499994f  , -0.216506317f, 0.0f
@@ -576,9 +576,9 @@ TEST_F(MatrixTest, ScaleDecompose1)
 TEST_F(MatrixTest, TransformByQuaternion)
 {
     auto target = MatrixTest::GenerateMatrixNumberFrom1To16();
-    auto m      = Matrix::CreateRotationX(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationY(Math::ToRadians(30.0f))
-                * Matrix::CreateRotationZ(Math::ToRadians(30.0f));
+    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
+                * Matrix::CreateRotationY(Math::to_radians(30.0f))
+                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
 
     auto q        = Quaternion::CreateFromRotationMatrix(m);
     auto expected = target * m;
@@ -591,7 +591,7 @@ TEST_F(MatrixTest, TransformByQuaternion)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationX)
 {
-    float radians = Math::ToRadians(30.0f);
+    float radians = Math::to_radians(30.0f);
     Matrix expected;
 
     expected.M11(1.0f);
@@ -623,7 +623,7 @@ TEST_F(MatrixTest, CreateRotationXOfZeroDegree)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationXCenter)
 {
-    float radians = Math::ToRadians(30.0f);
+    float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
     auto rotateAroundZero         = Matrix::CreateRotationX(radians, Vector3::Zero);
@@ -643,7 +643,7 @@ TEST_F(MatrixTest, CreateRotationXCenter)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationY)
 {
-    float radians = Math::ToRadians(60.0f);
+    float radians = Math::to_radians(60.0f);
     Matrix expected;
 
     expected.M11(0.49999997f);
@@ -663,7 +663,7 @@ TEST_F(MatrixTest, CreateRotationY)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationYForNegativeAngle)
 {
-    float radians = Math::ToRadians(-300.0f);
+    float radians = Math::to_radians(-300.0f);
     Matrix expected;
 
     expected.M11(0.49999997f);
@@ -682,7 +682,7 @@ TEST_F(MatrixTest, CreateRotationYForNegativeAngle)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationYCenter)
 {
-    float radians = Math::ToRadians(30.0f);
+    float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
     auto rotateAroundZero         = Matrix::CreateRotationY(radians, Vector3::Zero);
@@ -702,7 +702,7 @@ TEST_F(MatrixTest, CreateRotationYCenter)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromAxisAngle)
 {
-    float radians  = Math::ToRadians(-30.0f);
+    float radians  = Math::to_radians(-30.0f);
     auto   expected = Matrix::CreateRotationX(radians);
     auto   actual   = Matrix::CreateFromAxisAngle(Vector3::UnitX, radians);
 
@@ -727,18 +727,18 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
 
     for (std::uint32_t i = 0; i < rotCount; ++i)
     {
-        float latitude = (2.0f * Math::Pi) * ((float)i / (float)rotCount);
+        float latitude = (2.0f * Math::pi) * ((float)i / (float)rotCount);
 
         for (std::uint32_t j = 0; j < rotCount; ++j)
         {
-            float longitude = -Math::PiOver2 + Math::Pi * ((float)j / (float)rotCount);
+            float longitude = -Math::pi_over_2 + Math::pi * ((float)j / (float)rotCount);
 
             auto m    = Matrix::CreateRotationZ(longitude) * Matrix::CreateRotationY(latitude);
             auto axis = Vector3 { m.M11(), m.M12(), m.M13() };
 
             for (std::uint32_t k = 0; k < rotCount; ++k)
             {
-                float rot = (2.0f * Math::Pi) * ((float)k / (float)rotCount);
+                float rot = (2.0f * Math::pi) * ((float)k / (float)rotCount);
 
                 expected = Matrix::CreateFromQuaternion(Quaternion::CreateFromAxisAngle(axis, rot));
                 actual   = Matrix::CreateFromAxisAngle(axis, rot);
@@ -752,9 +752,9 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromYawPitchRoll)
 {
-    float yawAngle   = Math::ToRadians(30.0f);
-    float pitchAngle = Math::ToRadians(40.0f);
-    float rollAngle  = Math::ToRadians(50.0f);
+    float yawAngle   = Math::to_radians(30.0f);
+    float pitchAngle = Math::to_radians(40.0f);
+    float rollAngle  = Math::to_radians(50.0f);
 
     auto yaw      = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
     auto pitch    = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
@@ -777,9 +777,9 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll2)
         {
             for (float rollAngle = -720.0f; rollAngle <= 720.0f; rollAngle += step)
             {
-                float yawRad   = Math::ToRadians(yawAngle);
-                float pitchRad = Math::ToRadians(pitchAngle);
-                float rollRad  = Math::ToRadians(rollAngle);
+                float yawRad   = Math::to_radians(yawAngle);
+                float pitchRad = Math::to_radians(pitchAngle);
+                float rollRad  = Math::to_radians(rollAngle);
 
                 auto yaw   = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawRad);
                 auto pitch = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
@@ -909,7 +909,7 @@ TEST_F(MatrixTest, CreateShadowVariousPlaneProjections)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationZ)
 {
-    float radians = Math::ToRadians(50.0f);
+    float radians = Math::to_radians(50.0f);
 
     Matrix expected;
 
@@ -929,7 +929,7 @@ TEST_F(MatrixTest, CreateRotationZ)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateRotationZCenter)
 {
-    float radians = Math::ToRadians(30.0f);
+    float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
     auto rotateAroundZero         = Matrix::CreateRotationZ(radians, Vector3::Zero);
@@ -1128,7 +1128,7 @@ TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsBeyondFarPlane)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView1)
 {
-    float fieldOfView = Math::ToRadians(30.0f);
+    float fieldOfView = Math::to_radians(30.0f);
     float aspectRatio = 1280.0f / 720.0f;
     float zNearPlane  = 1.5f;
     float zFarPlane   = 1000.0f;
@@ -1159,7 +1159,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::Pi + 0.01f, 1, 1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi + 0.01f, 1, 1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1167,7 +1167,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, 1, -1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, -1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1175,7 +1175,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, 1, 1, -10), std::out_of_range);
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, 1, -10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1183,7 +1183,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsLargerThanFarPlane)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::PiOver4, 1, 10, 1), std::out_of_range);
+    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, 10, 1), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1253,22 +1253,22 @@ TEST_F(MatrixTest, InvertNonInvertibleMatrix)
     auto actual = Matrix::Invert(a);
 
     // all the elements in Actual is NaN
-    EXPECT_TRUE(Math::IsNaN(actual.M11())
-             && Math::IsNaN(actual.M12())
-             && Math::IsNaN(actual.M13())
-             && Math::IsNaN(actual.M14())
-             && Math::IsNaN(actual.M21())
-             && Math::IsNaN(actual.M22())
-             && Math::IsNaN(actual.M23())
-             && Math::IsNaN(actual.M24())
-             && Math::IsNaN(actual.M31())
-             && Math::IsNaN(actual.M32())
-             && Math::IsNaN(actual.M33())
-             && Math::IsNaN(actual.M34())
-             && Math::IsNaN(actual.M41())
-             && Math::IsNaN(actual.M42())
-             && Math::IsNaN(actual.M43())
-             && Math::IsNaN(actual.M44()));
+    EXPECT_TRUE(Math::is_nan(actual.M11())
+             && Math::is_nan(actual.M12())
+             && Math::is_nan(actual.M13())
+             && Math::is_nan(actual.M14())
+             && Math::is_nan(actual.M21())
+             && Math::is_nan(actual.M22())
+             && Math::is_nan(actual.M23())
+             && Math::is_nan(actual.M24())
+             && Math::is_nan(actual.M31())
+             && Math::is_nan(actual.M32())
+             && Math::is_nan(actual.M33())
+             && Math::is_nan(actual.M34())
+             && Math::is_nan(actual.M41())
+             && Math::is_nan(actual.M42())
+             && Math::is_nan(actual.M43())
+             && Math::is_nan(actual.M44()));
 }
 
 // A test for operator - (Matrix)
@@ -1417,7 +1417,7 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
 TEST_F(MatrixTest, CreateFromQuaternion)
 {
     auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto q    = Quaternion::CreateFromAxisAngle(axis, Math::ToRadians(30.0f));
+    auto q    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
 
     Matrix expected = { 0.875595033f, 0.420031041f, -0.2385524f , 0.0f
                       , -0.38175258f, 0.904303849f, 0.1910483f  , 0.0f
@@ -1778,22 +1778,22 @@ TEST_F(MatrixTest, IsIdentity)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, EqualsNan)
 {
-    Matrix a = { Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix b = { 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix c = { 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix d = { 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix e = { 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix f = { 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix g = { 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix h = { 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix i = { 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0, 0 };
-    Matrix j = { 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0, 0 };
-    Matrix k = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0, 0 };
-    Matrix l = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0, 0 };
-    Matrix m = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0, 0 };
-    Matrix n = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0, 0 };
-    Matrix o = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN, 0 };
-    Matrix p = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::NaN };
+    Matrix a = { Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix b = { 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix c = { 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix d = { 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix e = { 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix f = { 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix g = { 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix h = { 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix i = { 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0, 0 };
+    Matrix j = { 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0, 0 };
+    Matrix k = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0, 0 };
+    Matrix l = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0, 0 };
+    Matrix m = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0, 0 };
+    Matrix n = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0, 0 };
+    Matrix o = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan, 0 };
+    Matrix p = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Math::nan};
 
     EXPECT_FALSE(a == Matrix {});
     EXPECT_FALSE(b == Matrix {});
@@ -2262,7 +2262,7 @@ public void MatrixCreateConstrainedBillboardTooCloseTest2()
     // Passes Vector3f.Rgiht as camera face direction. Result must be same as -90 degrees rotate along y-axis.
     Matrix expected = Matrix.CreateRotationY(MathHelper.ToRadians(-90.0f)) * Matrix.CreateTranslation(objectPosition);
     Matrix actual = Matrix.CreateConstrainedBillboard(objectPosition, cameraPosition, cameraUpVector, new Vector3(1, 0, 0), new Vector3(0, 0, -1));
-    Assert.True(MathHelper.Equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
+    Assert.True(MathHelper.equal(expected, actual), "Matrix.CreateConstrainedBillboard did not return the expected value.");
 }
 
 // A test for CreateConstrainedBillboard (Vector3f, Vector3f, Vector3f, Vector3f?)

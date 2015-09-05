@@ -46,9 +46,9 @@ namespace SceneR
 
         void GraphicsDeviceManager::apply_changes()
         {
-            _graphics_device->presentation_parameters().BackBufferWidth(preferred_back_buffer_width);
-            _graphics_device->presentation_parameters().BackBufferHeight(preferred_back_buffer_height);
-            _graphics_device->presentation_parameters().FullScreen(full_screen);
+            _graphics_device->presentation_parameters().back_buffer_width  = preferred_back_buffer_width;
+            _graphics_device->presentation_parameters().back_buffer_height = preferred_back_buffer_height;
+            _graphics_device->presentation_parameters().full_screen        = full_screen;
 
             _renderer.window().title(window_title);
             _renderer.window().allow_user_resizing(allow_user_resizing);
@@ -61,7 +61,7 @@ namespace SceneR
             _graphics_device->rasterizer_state().apply();
             _graphics_device->depth_stencil_state().apply();
 
-            switch (_graphics_device->presentation_parameters().PresentInterval())
+            switch (_graphics_device->presentation_parameters().present_interval)
             {
                 case PresentInterval::Default:
                 case PresentInterval::One:

@@ -33,7 +33,7 @@ namespace SceneR
 
         public:
             template <class T>
-            void add_resource(std::u16string name, std::shared_ptr<T> resource)
+            void add_resource(const std::u16string& name, std::shared_ptr<T> resource)
             {
                 if (!has_resource(name))
                 {

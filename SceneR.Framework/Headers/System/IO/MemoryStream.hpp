@@ -35,47 +35,47 @@ namespace System
             /**
              * Gets a value indicating whether the current stream supports reading.
              */
-            bool CanRead() override;
+            bool can_read() override;
 
             /**
              * Gets a value indicating whether the current stream supports seeking.
              */
-            bool CanSeek() override;
+            bool can_seek() override;
 
             /**
              * Gets a value indicating whether the current stream supports writing.
              */
-            bool CanWrite() override;
+            bool can_write() override;
 
             /**
              * Returns the current position of the reader.
              */
-            std::size_t Position() override;
+            std::size_t position() override;
 
             /**
              * Returns the length in bytes of the stream.
              */
-            std::size_t Length() override;
+            std::size_t length() override;
 
             /**
              * Closes the current stream
              */
-            void Close() override;
+            void close() override;
 
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            std::uint8_t ReadByte() override;
+            std::uint8_t read_byte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.
              */
-            std::size_t Read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
+            std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
 
             /**
              * Sets the position within the current stream.
              */
-            std::size_t Seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
+            std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
 
         private:
             MemoryStream() = delete;
@@ -83,8 +83,8 @@ namespace System
             MemoryStream& operator=(const MemoryStream& stream) = delete;
 
         private:
-            std::stringstream  stream;
-            std::ios::openmode mode;
+            std::stringstream  _stream;
+            std::ios::openmode _mode;
         };
     }
 }

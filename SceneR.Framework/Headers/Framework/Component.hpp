@@ -37,41 +37,41 @@ namespace SceneR
             /**
              * Gets the Renderer associated with this Component.
              */
-            SceneR::Framework::Renderer& Renderer();
+            SceneR::Framework::Renderer& renderer();
 
             /**
              * Called when the component should be updated.
              */
-            virtual void Update(const RenderTime& renderTime) override;
+            virtual void update(const RenderTime& renderTime) override;
 
             /**
              * Gets a value indicating whether the component is enabled.
              */
-            bool Enabled() const override;
+            bool enabled() const override;
 
             /**
              * Sets a value indicating whether the component is enabled.
              */
-            void Enabled(const bool& enabled);
+            void enabled(const bool& enabled);
 
             /**
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual std::uint32_t UpdateOrder() const override;
+            virtual std::uint32_t update_order() const override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            void UpdateOrder(const std::uint32_t& updateOrder);
+            void update_order(const std::uint32_t& updateOrder);
 
         protected:
-            SceneR::Framework::Renderer& renderer;
+            SceneR::Framework::Renderer& _renderer;
 
         private:
-            bool          enabled;
-            std::uint32_t updateOrder;
+            bool          _enabled;
+            std::uint32_t _update_order;
         };
     }
 }

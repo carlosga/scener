@@ -30,12 +30,12 @@ namespace SceneR
             // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
 
             float theta = angle / 2;
-            float rSin  = Math::Sin(theta);
+            float rSin  = Math::sin(theta);
 
             return { axisOfRotation.X() * rSin
                    , axisOfRotation.Y() * rSin
                    , axisOfRotation.Z() * rSin
-                   , Math::Cos(theta) };
+                   , Math::cos(theta) };
         }
 
         Quaternion Quaternion::CreateFromYawPitchRoll(const float& yaw, const float& pitch, const float& roll)
@@ -73,7 +73,7 @@ namespace SceneR
 
             if (tr > 0.0f)
             {
-                float s = Math::Sqrt(tr + 1.0f);
+                float s = Math::sqrt(tr + 1.0f);
                 result.w = s * 0.5f;
                 s = 0.5f / s;
                 result.x = (matrix.M23() - matrix.M32()) * s;
@@ -84,7 +84,7 @@ namespace SceneR
             {
                 if ((matrix.M11() >= matrix.M22()) && (matrix.M11() >= matrix.M33()))
                 {
-                    float s  = Math::Sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
+                    float s  = Math::sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
                     float s2 = 0.5f / s;
                     result.w  = (matrix.M23() - matrix.M32()) * s2;
                     result.x  = 0.5f * s;
@@ -93,7 +93,7 @@ namespace SceneR
                 }
                 else if (matrix.M22() > matrix.M33())
                 {
-                    float s  = Math::Sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
+                    float s  = Math::sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
                     float s2 = 0.5f / s;
                     result.w  = (matrix.M31() - matrix.M13()) * s2;
                     result.x  = (matrix.M21() + matrix.M12()) * s2;
@@ -102,7 +102,7 @@ namespace SceneR
                 }
                 else
                 {
-                    float s  = Math::Sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
+                    float s  = Math::sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
                     float s2 = 0.5f / s;
                     result.w  = (matrix.M12() - matrix.M21()) * s2;
                     result.x  = (matrix.M31() + matrix.M13()) * s2;
@@ -162,13 +162,13 @@ namespace SceneR
                 flip     = true;
             }
 
-            float theta    = Math::Acos(cosTheta);
-            float sinTheta = Math::Sin(theta);
+            float theta    = Math::acos(cosTheta);
+            float sinTheta = Math::sin(theta);
 
             if (sinTheta > 0.005f)
             {
-                w1 = Math::Sin((1.0f - amount) * theta) / sinTheta;
-                w2 = Math::Sin(amount * theta) / sinTheta;
+                w1 = Math::sin((1.0f - amount) * theta) / sinTheta;
+                w2 = Math::sin(amount * theta) / sinTheta;
             }
             else
             {
@@ -270,7 +270,7 @@ namespace SceneR
 
         float Quaternion::Length() const
         {
-            return Math::Sqrt(this->LengthSquared());
+            return Math::sqrt(this->LengthSquared());
         }
 
         float& Quaternion::operator[](const std::size_t& index)
@@ -302,10 +302,10 @@ namespace SceneR
 
         bool Quaternion::operator==(const Quaternion& value) const
         {
-            return (Math::Equal(this->x, value.x)
-                 && Math::Equal(this->y, value.y)
-                 && Math::Equal(this->z, value.z)
-                 && Math::Equal(this->w, value.w));
+            return (Math::equal(this->x, value.x)
+                 && Math::equal(this->y, value.y)
+                 && Math::equal(this->z, value.z)
+                 && Math::equal(this->w, value.w));
         }
 
         bool Quaternion::operator!=(const Quaternion& value) const

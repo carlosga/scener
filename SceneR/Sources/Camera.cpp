@@ -25,24 +25,24 @@ namespace SceneR
 
         Camera::Camera(SampleRenderer& renderer)
             : Component  { renderer }
-            , View       { Matrix::Identity }
-            , Projection { Matrix::Identity }
+            , view       { Matrix::Identity }
+            , projection { Matrix::Identity }
         {
         }
 
-        void Camera::Initialize()
+        void Camera::initialize()
         {
-            auto aspect = this->renderer.graphics_device().viewport().aspect_ratio();
+            auto aspect = _renderer.graphics_device().viewport().aspect_ratio();
 
             _position          = { 0.0f, 0.0f, 500.0f };
             _rotation          = 0.0f;
             _rotationTransform = Matrix::Identity;
 
-            this->Projection = Matrix::CreatePerspectiveFieldOfView(Math::ToRadians(27), aspect, 0.5f, 10000.0f);
-            this->View       = Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
+            projection = Matrix::CreatePerspectiveFieldOfView(Math::to_radians(27), aspect, 0.5f, 10000.0f);
+            view       = Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
         }
 
-        void Camera::Update(const RenderTime& renderTime)
+        void Camera::update(const RenderTime& renderTime)
         {
             auto currentKeyboardState = Keyboard::get_state();
             auto currentPosition      = _position;
@@ -86,7 +86,7 @@ namespace SceneR
 
             if (currentRotation != newRotation)
             {
-                _rotation = Math::SmoothStep(currentRotation, newRotation, Math::PiOver2);
+                _rotation = Math::smooth_step(currentRotation, newRotation, Math::pi_over_2);
             }
 
             if (currentRotation != _rotation)
@@ -94,10 +94,10 @@ namespace SceneR
                 _rotationTransform = Matrix::CreateRotationY(_rotation, Vector3::Zero);
             }
 
-            _position = Vector3::Lerp(currentPosition, newPosition, Math::PiOver2);
+            _position = Vector3::Lerp(currentPosition, newPosition, Math::pi_over_2);
 
-            this->View = _rotationTransform
-                       * Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
+            view = _rotationTransform
+                 * Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
         }
     }
 }

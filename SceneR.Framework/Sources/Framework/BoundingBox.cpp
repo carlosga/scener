@@ -19,14 +19,14 @@ namespace SceneR
         const std::uint32_t BoundingBox::CornerCount = 8;
 
         BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
-            : min { min }
-            , max { max }
+            : _min { min }
+            , _max { max }
         {
         }
 
         BoundingBox::BoundingBox(const BoundingBox& boundingBox)
-            : min { boundingBox.min }
-            , max { boundingBox.max }
+            : _min { boundingBox._min }
+            , _max { boundingBox._max }
         {
         }
 
@@ -34,82 +34,82 @@ namespace SceneR
         {
         }
 
-        const Vector3& BoundingBox::Max() const
+        const Vector3& BoundingBox::max() const
         {
-            return max;
+            return _max;
         }
 
-        void BoundingBox::Max(const Vector3& max)
+        void BoundingBox::max(const Vector3& max)
         {
-            this->max = max;
+            _max = max;
         }
 
-        const Vector3& BoundingBox::Min() const
+        const Vector3& BoundingBox::min() const
         {
-            return min;
+            return _min;
         }
 
-        void BoundingBox::Min(const Vector3& min)
+        void BoundingBox::min(const Vector3& min)
         {
-            this->min = min;
+            _min = min;
         }
 
-        ContainmentType BoundingBox::Contains(const BoundingBox& box) const
-        {
-            throw std::runtime_error("Not implemented");
-        }
-
-        ContainmentType BoundingBox::Contains(const BoundingFrustrum& frustrum) const
+        ContainmentType BoundingBox::contains(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        ContainmentType BoundingBox::Contains(const BoundingSphere& sphere) const
+        ContainmentType BoundingBox::contains(const BoundingFrustrum& frustrum) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        ContainmentType BoundingBox::Contains(const Vector3& point) const
+        ContainmentType BoundingBox::contains(const BoundingSphere& sphere) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        std::vector<Vector3> BoundingBox::GetCorners() const
+        ContainmentType BoundingBox::contains(const Vector3& point) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingBox::Intersects(const BoundingBox& box) const
+        std::vector<Vector3> BoundingBox::get_corners() const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingBox::Intersects(const BoundingFrustrum& frustrum) const
+        bool BoundingBox::intersects(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool BoundingBox::Intersects(const BoundingSphere& sphere) const
+        bool BoundingBox::intersects(const BoundingFrustrum& frustrum) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        PlaneIntersectionType BoundingBox::Intersects(const Plane& plane) const
+        bool BoundingBox::intersects(const BoundingSphere& sphere) const
         {
             throw std::runtime_error("Not implemented");
         }
 
-        float BoundingBox::Intersects(const Ray& ray) const
+        PlaneIntersectionType BoundingBox::intersects(const Plane& plane) const
+        {
+            throw std::runtime_error("Not implemented");
+        }
+
+        float BoundingBox::intersects(const Ray& ray) const
         {
             // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
-            auto tmin = (this->min - ray.Position()) / ray.Direction();
-            auto tmax = (this->max - ray.Position()) / ray.Direction();
+            auto tmin = (_min - ray.Position()) / ray.Direction();
+            auto tmax = (_max - ray.Position()) / ray.Direction();
 
             auto tnear = Vector3::Min(tmin, tmax);
             auto tfar  = Vector3::Min(tmin, tmax);
 
-            auto enter = Math::Max(Math::Max(tnear.X(), 0.0f), Math::Max(tnear.Y(), tnear.Z()));
-            auto exit  = Math::Min(tfar.X(), Math::Min(tfar.Y(), tfar.Z()));
+            auto enter = Math::max(Math::max(tnear.X(), 0.0f), Math::max(tnear.Y(), tnear.Z()));
+            auto exit  = Math::min(tfar.X(), Math::min(tfar.Y(), tfar.Z()));
 
             return (enter - exit);
         }
@@ -118,8 +118,8 @@ namespace SceneR
         {
             if (this != &box)
             {
-                this->min = box.min;
-                this->max = box.max;
+                _min = box._min;
+                _max = box._max;
             }
 
             return *this;
@@ -127,7 +127,7 @@ namespace SceneR
 
         bool BoundingBox::operator==(const BoundingBox& box) const
         {
-            return (this->min == box.min && this->max == box.max);
+            return (_min == box._min && _max == box._max);
         }
 
         bool BoundingBox::operator!=(const BoundingBox& box) const

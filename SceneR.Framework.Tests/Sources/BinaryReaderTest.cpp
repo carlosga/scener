@@ -15,21 +15,21 @@ using namespace System::IO;
 // Tests the default c'tor.
 TEST_F(BinaryReaderTest, DefaultConstructor)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    reader.Close();
+    reader.close();
 }
 
 // Tests ReadByte().
 TEST_F(BinaryReaderTest, ReadByte)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadByte();
+    auto value = reader.read<std::uint8_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -39,11 +39,11 @@ TEST_F(BinaryReaderTest, ReadBytes)
 {
     FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
-    std::size_t  length = reader.BaseStream().Length();
+    std::size_t  length = reader.base_stream().length();
 
-    auto buffer = reader.ReadBytes(length);
+    auto buffer = reader.read_bytes(length);
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(buffer.size() == length);
 }
@@ -51,12 +51,12 @@ TEST_F(BinaryReaderTest, ReadBytes)
 // Tests ReadInt16().
 TEST_F(BinaryReaderTest, ReadInt16)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadInt16();
+    auto value = reader.read<std::int16_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -64,12 +64,12 @@ TEST_F(BinaryReaderTest, ReadInt16)
 // Tests ReadUInt16().
 TEST_F(BinaryReaderTest, ReadUInt16)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadUInt16();
+    auto value = reader.read<std::uint16_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -77,12 +77,12 @@ TEST_F(BinaryReaderTest, ReadUInt16)
 // Tests ReadInt32().
 TEST_F(BinaryReaderTest, ReadInt32)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadInt32();
+    auto value = reader.read<std::int32_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -90,12 +90,12 @@ TEST_F(BinaryReaderTest, ReadInt32)
 // Tests ReadInt32().
 TEST_F(BinaryReaderTest, ReadUInt32)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadUInt32();
+    auto value = reader.read<std::uint32_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -103,12 +103,12 @@ TEST_F(BinaryReaderTest, ReadUInt32)
 // Tests ReadInt64().
 TEST_F(BinaryReaderTest, ReadInt64)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadInt64();
+    auto value = reader.read<std::int64_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -116,12 +116,12 @@ TEST_F(BinaryReaderTest, ReadInt64)
 // Tests ReadUInt64().
 TEST_F(BinaryReaderTest, ReadUInt64)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadUInt64();
+    auto value = reader.read<std::uint64_t>();
 
-    reader.Close();
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -129,10 +129,12 @@ TEST_F(BinaryReaderTest, ReadUInt64)
 // Tests ReadSingle().
 TEST_F(BinaryReaderTest, ReadSingle)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadSingle();
+    auto value = reader.read<float>();
+
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }
@@ -140,10 +142,12 @@ TEST_F(BinaryReaderTest, ReadSingle)
 // Tests ReadDouble().
 TEST_F(BinaryReaderTest, ReadDouble)
 {
-    FileStream stream(BinaryReaderTest::TEST_FILE);
+    FileStream   stream(BinaryReaderTest::TEST_FILE);
     BinaryReader reader(stream);
 
-    auto value = reader.ReadDouble();
+    auto value = reader.read<double>();
+
+    reader.close();
 
     EXPECT_TRUE(value != 0);
 }

@@ -105,7 +105,7 @@ namespace SceneR
 
         void Effect::alpha(const float& alpha)
         {
-            if (Math::Equal(_alpha, alpha))
+            if (Math::equal(_alpha, alpha))
             {
                 _alpha        = alpha;
                 _dirty_flags |= EffectDirtyFlags::MaterialColor;
@@ -210,7 +210,7 @@ namespace SceneR
 
         void Effect::fog_end(const float& fogEnd)
         {
-            if (!Math::Equal(_fog_end, fogEnd))
+            if (!Math::equal(_fog_end, fogEnd))
             {
                 _fog_end      = fogEnd;
                 _dirty_flags |= EffectDirtyFlags::Fog;
@@ -224,7 +224,7 @@ namespace SceneR
 
         void Effect::fog_start(const float& fogStart)
         {
-            if (!Math::Equal(_fog_start, fogStart))
+            if (!Math::equal(_fog_start, fogStart))
             {
                 _fog_start    = fogStart;
                 _dirty_flags |= EffectDirtyFlags::Fog;
@@ -288,7 +288,7 @@ namespace SceneR
 
         void Effect::specular_power(const float& specularPower)
         {
-//            if (!Math::Equal(_specularPower, specularPower))
+//            if (!Math::equal(_specularPower, specularPower))
 //            {
 //                _specularPower = specularPower;
 //

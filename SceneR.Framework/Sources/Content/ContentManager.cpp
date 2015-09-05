@@ -74,9 +74,9 @@ namespace SceneR
         std::shared_ptr<Stream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
         {
             const auto filename  = assetName + u".bgltf";
-            const auto path      = Path::Combine(_root_directory, filename);
+            const auto path      = Path::combine(_root_directory, filename);
 
-            if (!File::Exists(path))
+            if (!File::exists(path))
             {
                 throw ContentLoadException("the asset file doesn't exists.");
             }

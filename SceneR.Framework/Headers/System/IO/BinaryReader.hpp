@@ -4,10 +4,9 @@
 #ifndef BINARYREADER_HPP
 #define BINARYREADER_HPP
 
-#include <cstddef>
 #include <cstdint>
-#include <string>
 #include <vector>
+#include <System/Text/Encoding.hpp>
 
 namespace System
 {
@@ -29,12 +28,7 @@ namespace System
             /**
              * Initializes a new instance of the BinaryReader class with the given stream.
              */
-            BinaryReader(Stream& stream);
-
-            /**
-             * Initializes a new instance of the BinaryReader class with the given stream.
-             */
-            BinaryReader(Stream& stream, const System::Text::Encoding& encoding);
+            BinaryReader(Stream& stream, const System::Text::Encoding& encoding = System::Text::Encoding::UTF8);
 
             /**
              * Releases all resources being used by this BinaryReader.
@@ -45,87 +39,33 @@ namespace System
             /**
              * Gets the underliying Stream.
              */
-            Stream& BaseStream();
+            Stream& base_stream();
 
             /**
              * Closes the current reader and the underlying stream.
              */
-            void Close();
+            void close();
+
+            /**
+             * Reads data from the current stream.
+             */
+            template <typename T>
+            T read();
 
             /**
              * Returns the next available character, or -1 if no more characters are available.
              */
-            std::int32_t PeekChar();
-
-            /**
-             * Reads the next character from the current stream.
-             */
-            char16_t ReadChar();
-
-            /**
-             * Reads a string from the current stream. The string is prefixed with the length.
-             */
-            std::u16string ReadString();
+            std::int32_t peek_char();
 
             /**
              * Reads a 7-bit encoded unsigned int
              */
-            std::uint32_t Read7BitEncodedInt();
-
-            /**
-             * Reads a Boolean value from the current stream.
-             */
-            bool ReadBoolean();
-
-            /**
-             * Reads the next byte from the current stream.
-             */
-            std::uint8_t ReadByte();
+            std::uint32_t read_7_bit_encoded_int();
 
             /**
              * Reads the specified number of bytes from the underliying stream
              */
-            std::vector<std::uint8_t> ReadBytes(const std::size_t& count);
-
-            /**
-             * Reads a 2-byte signed integer from the current stream.
-             */
-            std::int16_t ReadInt16();
-
-            /**
-             * Reads a 2-byte unsigned integer from the current stream.
-             */
-            std::uint16_t ReadUInt16();
-
-            /**
-             * Reads a 4-byte signed integer from the current stream.
-             */
-            std::int32_t ReadInt32();
-
-            /**
-             * Reads a 4-byte unsigned integer from the current stream.
-             */
-            std::uint32_t ReadUInt32();
-
-            /**
-             * Reads a 8-byte signed integer from the current stream.
-             */
-            std::int64_t ReadInt64();
-
-            /**
-             * Reads a 8-byte unsigned integer from the current stream.
-             */
-            std::uint64_t ReadUInt64();
-
-            /**
-             * Reads a float value from the currently open stream.
-             */
-            float ReadSingle();
-
-            /**
-             * Reads a double value from the currently open stream.
-             */
-            double ReadDouble();
+            std::vector<std::uint8_t> read_bytes(const std::size_t& count);
 
         public:
             BinaryReader() = delete;
@@ -133,8 +73,8 @@ namespace System
             BinaryReader& operator=(const BinaryReader& reader) = delete;
 
         private:
-            Stream&                       stream;
-            const System::Text::Encoding& encoding;
+            Stream&                       _stream;
+            const System::Text::Encoding& _encoding;
         };
     }
 }

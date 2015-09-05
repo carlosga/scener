@@ -32,7 +32,7 @@ namespace SceneR
 
         void SampleRenderer::draw(const RenderTime &renderTime)
         {
-            _graphics_device_manager.graphics_device().clear(Color::Black);
+            _graphics_device_manager.graphics_device().clear(Color::black);
 
             Renderer::draw(renderTime);
         }

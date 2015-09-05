@@ -35,17 +35,17 @@ namespace SceneR
             ~Marcus() = default;
 
         public:
-            void Initialize() override;
-            void Update(const SceneR::Framework::RenderTime& renderTime) override;
-            void Draw(const SceneR::Framework::RenderTime& renderTime) override;
+            void initialize() override;
+            void update(const SceneR::Framework::RenderTime& renderTime) override;
+            void draw(const SceneR::Framework::RenderTime& renderTime) override;
 
         protected:
-            void LoadContent() override;
-            void UnloadContent() override;
+            void load_content() override;
+            void unload_content() override;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Model> model;
-            SceneR::Framework::Matrix                world;
+            std::shared_ptr<SceneR::Graphics::Model> _model;
+            SceneR::Framework::Matrix                _world;
         };
     }
 }

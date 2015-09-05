@@ -101,7 +101,7 @@ namespace SceneR
             auto         sampleCount = _renderer._graphics_device_manager
                                                 .graphics_device()
                                                 .presentation_parameters()
-                                                .MultiSampleCount();
+                                                .multi_sample_count;
 
             // Set the window and context hints
             glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);

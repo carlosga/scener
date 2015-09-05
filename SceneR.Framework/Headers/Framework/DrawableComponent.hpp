@@ -37,48 +37,48 @@ namespace SceneR
             /**
              * The GraphicsDevice the DrawableComponent is associated with.
              */
-            SceneR::Graphics::GraphicsDevice& CurrentGraphicsDevice();
+            SceneR::Graphics::GraphicsDevice& graphics_device();
 
             /**
              * Called when the component should be drawn.
              */
-            virtual void Draw(const RenderTime& renderTime) override;
+            virtual void draw(const RenderTime& renderTime) override;
 
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual bool Visible() const override;
+            virtual bool visible() const override;
 
             /**
              * Sets a value indicating whether this object is enabled.
              * @param visible a value indicating whether this object is enabled.
              */
-            virtual void Visible(const bool& visible);
+            virtual void visible(const bool& visible);
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual std::uint32_t DrawOrder() const override;
+            virtual std::uint32_t draw_order() const override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            void DrawOrder(const std::uint32_t& drawOrder);
+            void draw_order(const std::uint32_t& drawOrder);
 
             /**
              * Called when the component should be initialized.
              * This method can be used for tasks like querying for
              * services the component needs and setting up non-graphics resources.
              */
-            virtual void Initialize() override;
+            virtual void initialize() override;
 
         protected:
-            virtual void LoadContent();
-            virtual void UnloadContent();
+            virtual void load_content();
+            virtual void unload_content();
 
         private:
-            bool          visible;
-            std::uint32_t drawOrder;
+            bool          _visible;
+            std::uint32_t _draw_order;
         };
     }
 }

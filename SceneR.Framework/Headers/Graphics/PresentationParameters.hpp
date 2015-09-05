@@ -36,65 +36,33 @@ namespace SceneR
             ~PresentationParameters();
 
         public:
-            /**
-             * Gets a value indicating whether an application is running in a full screen mode.
-             */
-            bool FullScreen() const;
-
-            /**
-             * Sets a value indicating whether an application is running in a full screen mode.
-             */
-            void FullScreen(const bool& fullScreen);
-
-            /**
-             * Gets the height of a swap chain's back buffers, in pixels.
-             */
-            std::size_t BackBufferHeight() const;
-
-            /**
-             * Sets the height of a swap chain's back buffers, in pixels.
-             */
-            void BackBufferHeight(const std::size_t& backBufferHeight);
-
-            /**
-             * Gets the width of a swap chain's back buffers, in pixels.
-             */
-            std::size_t BackBufferWidth() const;
-
-            /**
-             * Gets the width of a swap chain's back buffers, in pixels.
-             */
-            void BackBufferWidth(const std::size_t& backBufferWidth);
-
-            /**
-             * Gets the number of sample locations during multisampling.
-             */
-            std::uint32_t MultiSampleCount() const;
-
-            /**
-             * Sets the number of sample locations during multisampling.
-             */
-            void MultiSampleCount(const std::uint32_t& multiSampleCount);
-
-            /**
-             * Gets the swap buffer interval.
-             */
-            const SceneR::Framework::PresentInterval& PresentInterval() const;
-
-            /**
-             * Sets the swap buffer interval.
-             */
-            void PresentInterval(const SceneR::Framework::PresentInterval& presentInterval);
-
-        public:
             PresentationParameters& operator=(const PresentationParameters& parameters);
 
-        private:
-            bool                               fullScreen;
-            std::size_t                        backBufferHeight;
-            std::size_t                        backBufferWidth;
-            std::uint32_t                      multiSampleCount;
-            SceneR::Framework::PresentInterval presentInterval;
+        public:
+            /**
+             * Gets or sets a value indicating whether an application is running in a full screen mode.
+             */
+            bool full_screen;
+
+            /**
+             * Gets or sets the height of a swap chain's back buffers, in pixels.
+             */
+            std::size_t back_buffer_height;
+
+            /**
+             * Gets or sets the width of a swap chain's back buffers, in pixels.
+             */
+            std::size_t back_buffer_width;
+
+            /**
+             * Gets or sets the number of sample locations during multisampling.
+             */
+            std::uint32_t multi_sample_count;
+
+            /**
+             * Gets or sets the swap buffer interval.
+             */
+            SceneR::Framework::PresentInterval present_interval;
         };
     }
 }

@@ -21,12 +21,12 @@ namespace SceneR
             ~Camera() = default;
 
         public:
-            void Initialize() override;
-            void Update(const SceneR::Framework::RenderTime& renderTime) override;
+            void initialize() override;
+            void update(const SceneR::Framework::RenderTime& renderTime) override;
 
         public:
-            SceneR::Framework::Matrix View;
-            SceneR::Framework::Matrix Projection;
+            SceneR::Framework::Matrix view;
+            SceneR::Framework::Matrix projection;
 
         private:
             SceneR::Framework::Vector3 _position;

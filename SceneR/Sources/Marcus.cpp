@@ -24,21 +24,21 @@ namespace SceneR
 
         Marcus::Marcus(SampleRenderer& renderer)
             : DrawableComponent { renderer }
-            , model             { nullptr }
-            , world             { Matrix::Identity }
+            , _model            { nullptr }
+            , _world            { Matrix::Identity }
         {
         }
 
-        void Marcus::Initialize()
+        void Marcus::initialize()
         {
-            this->world = Matrix::CreateRotationX(-Math::PiOver2)
-                        * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
-                        * Matrix::CreateScale(2.0f);
+            _world = Matrix::CreateRotationX(-Math::pi_over_2)
+                   * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
+                   * Matrix::CreateScale(2.0f);
 
-            DrawableComponent::Initialize();
+            DrawableComponent::initialize();
         }
 
-        void Marcus::LoadContent()
+        void Marcus::load_content()
         {
 //            this->model         = this->renderer.content_manager().Load<Model>(u"Marcus/marcus");
 //
@@ -61,22 +61,22 @@ namespace SceneR
 //            this->animatedModel->PlayFirstClip();
         }
 
-        void Marcus::UnloadContent()
+        void Marcus::unload_content()
         {
-            this->world = Matrix::Identity;
-            this->model = nullptr;
+            _world = Matrix::Identity;
+            _model = nullptr;
         }
 
-        void Marcus::Update(const RenderTime& renderTime)
+        void Marcus::update(const RenderTime& renderTime)
         {
             // this->model->update(renderTime);
         }
 
-        void Marcus::Draw(const RenderTime& renderTime)
+        void Marcus::draw(const RenderTime& renderTime)
         {
-            const auto camera = std::dynamic_pointer_cast<Camera>(this->renderer.components()[0]);
+            const auto camera = std::dynamic_pointer_cast<Camera>(_renderer.components()[0]);
 
-            this->model->draw(this->world, camera->View, camera->Projection);
+            _model->draw(_world, camera->view, camera->projection);
         }
     }
 }

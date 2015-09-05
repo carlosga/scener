@@ -15,7 +15,7 @@ namespace SceneR
             , alpha_blend_function    { BlendFunction::Add }
             , alpha_destination_blend { Blend::Zero }
             , alpha_source_blend      { Blend::One }
-            , blend_factor            { Color::White }
+            , blend_factor            { Color::white }
             , color_blend_function    { BlendFunction::Add }
             , color_destination_blend { Blend::Zero }
             , color_source_blend      { Blend::One }
@@ -105,10 +105,10 @@ namespace SceneR
                       , (color_write_channels & ColorWriteChannels::Blue)  == Graphics::ColorWriteChannels::Blue
                       , (color_write_channels & ColorWriteChannels::Alpha) == Graphics::ColorWriteChannels::Alpha);
 
-            glBlendColor(blend_factor.R() / 255
-                       , blend_factor.G() / 255
-                       , blend_factor.B() / 255
-                       , blend_factor.A() / 255);
+            glBlendColor(blend_factor.r / 255
+                       , blend_factor.g / 255
+                       , blend_factor.b / 255
+                       , blend_factor.a / 255);
 
             if (multi_sample_mask != 0)
             {

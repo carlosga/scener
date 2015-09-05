@@ -27,8 +27,8 @@ namespace SceneR
         {
             // http://mathworld.wolfram.com/RodriguesRotationFormula.html
             auto  naxis = Vector3::Normalize(axis);
-            float cos   = Math::Cos(angle);
-            float sin   = Math::Sin(angle);
+            float cos   = Math::cos(angle);
+            float sin   = Math::sin(angle);
             float cos_1 = 1.0f - cos;
             float x     = naxis.X();
             float y     = naxis.Y();
@@ -208,7 +208,7 @@ namespace SceneR
             // yScale = cot(fovY/2)
             // xScale = yScale / aspect ratio
 
-            if (fieldOfView <= 0.0f || fieldOfView >= Math::Pi)
+            if (fieldOfView <= 0.0f || fieldOfView >= Math::pi)
             {
                 throw std::out_of_range("fieldOfView should be a positive value less than MathHelper::Pi");
             }
@@ -228,7 +228,7 @@ namespace SceneR
                 throw std::out_of_range("zNear should be greather than zFar.");
             }
 
-            float yScale     = 1.0f / Math::Tan(fieldOfView / 2);
+            float yScale     = 1.0f / Math::tan(fieldOfView / 2);
             float xScale     = yScale / aspectRatio;
             float nearSubFar = zNear - zFar;
 
@@ -282,8 +282,8 @@ namespace SceneR
         Matrix Matrix::CreateRotationX(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
 
             return { 1.0f, 0.0f, 0.0f, 0.0f
                    , 0.0f,  cos,  sin, 0.0f
@@ -300,8 +300,8 @@ namespace SceneR
             // r20	r21	r22	z - r20*x - r21*y - r22*z
             // 0	0	0	1
 
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
             float y   = center.Y();
             float z   = center.Z();
 
@@ -314,8 +314,8 @@ namespace SceneR
         Matrix Matrix::CreateRotationY(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
 
             return {  cos, 0.0f, -sin, 0.0f
                    , 0.0f, 1.0f, 0.0f, 0.0f
@@ -332,8 +332,8 @@ namespace SceneR
             // r20	r21	r22	z - r20*x - r21*y - r22*z
             // 0	0	0	1
 
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
             float x   = center.X();
             float z   = center.Z();
 
@@ -346,8 +346,8 @@ namespace SceneR
         Matrix Matrix::CreateRotationZ(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
 
             return {  cos,  sin, 0.0f, 0.0f
                    , -sin,  cos, 0.0f, 0.0f
@@ -364,8 +364,8 @@ namespace SceneR
             // r20	r21	r22	z - r20*x - r21*y - r22*z
             // 0	0	0	1
 
-            float cos = Math::Cos(angle);
-            float sin = Math::Sin(angle);
+            float cos = Math::cos(angle);
+            float sin = Math::sin(angle);
             float x   = center.X();
             float y   = center.Y();
 
@@ -785,7 +785,7 @@ namespace SceneR
 
         bool Matrix::HasInverse() const
         {
-            return (Math::Abs(this->Determinant()) > 0.0005f);
+            return (Math::abs(this->Determinant()) > 0.0005f);
         }
 
         bool Matrix::IsIdentity() const
@@ -837,22 +837,22 @@ namespace SceneR
 
         bool Matrix::operator==(const Matrix& matrix) const
         {
-            return (Math::Equal(this->m11, matrix.m11)
-                 && Math::Equal(this->m12, matrix.m12)
-                 && Math::Equal(this->m13, matrix.m13)
-                 && Math::Equal(this->m14, matrix.m14)
-                 && Math::Equal(this->m21, matrix.m21)
-                 && Math::Equal(this->m22, matrix.m22)
-                 && Math::Equal(this->m23, matrix.m23)
-                 && Math::Equal(this->m24, matrix.m24)
-                 && Math::Equal(this->m31, matrix.m31)
-                 && Math::Equal(this->m32, matrix.m32)
-                 && Math::Equal(this->m33, matrix.m33)
-                 && Math::Equal(this->m34, matrix.m34)
-                 && Math::Equal(this->m41, matrix.m41)
-                 && Math::Equal(this->m42, matrix.m42)
-                 && Math::Equal(this->m43, matrix.m43)
-                 && Math::Equal(this->m44, matrix.m44));
+            return (Math::equal(this->m11, matrix.m11)
+                 && Math::equal(this->m12, matrix.m12)
+                 && Math::equal(this->m13, matrix.m13)
+                 && Math::equal(this->m14, matrix.m14)
+                 && Math::equal(this->m21, matrix.m21)
+                 && Math::equal(this->m22, matrix.m22)
+                 && Math::equal(this->m23, matrix.m23)
+                 && Math::equal(this->m24, matrix.m24)
+                 && Math::equal(this->m31, matrix.m31)
+                 && Math::equal(this->m32, matrix.m32)
+                 && Math::equal(this->m33, matrix.m33)
+                 && Math::equal(this->m34, matrix.m34)
+                 && Math::equal(this->m41, matrix.m41)
+                 && Math::equal(this->m42, matrix.m42)
+                 && Math::equal(this->m43, matrix.m43)
+                 && Math::equal(this->m44, matrix.m44));
         }
 
         bool Matrix::operator!=(const Matrix& matrix) const
