@@ -22,41 +22,41 @@ namespace SceneR
 
         Effect::Effect(GraphicsDevice& graphicsDevice)
             : GraphicsResource           { graphicsDevice }
-            , alpha                      { 1.0 }
-            , ambientLightColor          { Vector3::Zero }
-            , boneTransforms             ( 0 )
-            , diffuseColor               { Vector3::One }
-            , light0                     { }
-            , light1                     { }
-            , light2                     { }
-            , lightingEnabled            { true }
-            , emissiveColor              { Vector3::Zero }
-            , fogEnabled                 { false }
-            , fogColor                   { Vector3::Zero }
-            , fogEnd                     { 1.0f }
-            , fogStart                   { 0.0f }
-            , preferPerPixelLighting     { false }
-            , projection                 { Matrix::Identity }
-            , specularColor              { Vector3::One }
-            , specularPower              { 16.0f }
-            , textureEnabled             { false }
-            , texture                    { nullptr }
-            , view                       { Matrix::Identity }
-            , weightsPerVertex           { 2 }
-            , world                      { Matrix::Identity }
-            , worldView                  { Matrix::Identity }
-            , oneLight                   { false }
-            , shaderIndex                { 0 }
-            , dirtyFlags                 { EffectDirtyFlags::All }
-            , passes                     { }
-            , parameters                 { }
+            , _alpha                     { 1.0 }
+            , _ambient_light_color       { Vector3::Zero }
+            , _bone_transforms           ( 0 )
+            , _diffuse_color             { Vector3::One }
+            , _light_0                   { }
+            , _light_1                   { }
+            , _light_2                   { }
+            , _lighting_enabled          { true }
+            , _emissive_color            { Vector3::Zero }
+            , _fog_enabled               { false }
+            , _fog_color                 { Vector3::Zero }
+            , _fog_end                   { 1.0f }
+            , _fog_start                 { 0.0f }
+            , _prefer_per_pixel_lighting { false }
+            , _projection                { Matrix::Identity }
+            , _specular_color            { Vector3::One }
+            , _specular_power            { 16.0f }
+            , _texture_enabled           { false }
+            , _texture                   { nullptr }
+            , _view                      { Matrix::Identity }
+            , _weights_per_vertex        { 2 }
+            , _world                     { Matrix::Identity }
+            , _world_view                { Matrix::Identity }
+            , _one_light                 { false }
+            , _shader_index              { 0 }
+            , _dirty_flags               { EffectDirtyFlags::All }
+            , _passes                    { }
+            , _parameters                { }
         {
-            // this->Name(u"Effect");
+            // _Name(u"Effect");
 
-            // this->CreateShader();
-            // this->CacheEffectParameters();
+            // _CreateShader();
+            // _CacheEffectParameters();
 
-            // this->light0.Enabled(true);
+            // _light0.Enabled(true);
         }
 
         Effect::~Effect()
@@ -65,593 +65,593 @@ namespace SceneR
 
         void Effect::dispose()
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
-                if (this->texture)
+                if (_texture)
                 {
-                    this->texture = nullptr;
+                    _texture = nullptr;
                 }
 
                 // Clear parameter collection
-                // this->parameters.Clear();
+                // _parameters.Clear();
 
                 // Dipose all the shader instances
-                if (this->shaders.size() > 0)
+                if (_shaders.size() > 0)
                 {
-                    for (auto& shader : this->shaders)
+                    for (auto& shader : _shaders)
                     {
                         shader->dispose();
                     }
 
-                    this->shaders.clear();
+                    _shaders.clear();
                 }
 
                 // dispose the uniform buffer object
-                this->uniformBuffer->dispose();
-                this->uniformBuffer = nullptr;
+                _uniform_buffer->dispose();
+                _uniform_buffer = nullptr;
 
                 // Delete the shader program
-                glDeleteProgram(this->id);
+                glDeleteProgram(_id);
 
                 // Reset the shader program name
-                this->id = 0;
+                _id = 0;
             }
         }
 
-        float Effect::Alpha() const
+        float Effect::alpha() const
         {
-            return this->alpha;
+            return _alpha;
         }
 
-        void Effect::Alpha(const float& alpha)
+        void Effect::alpha(const float& alpha)
         {
-            if (Math::Equal(this->alpha, alpha))
+            if (Math::Equal(_alpha, alpha))
             {
-                this->alpha = alpha;
-                this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+                _alpha        = alpha;
+                _dirty_flags |= EffectDirtyFlags::MaterialColor;
             }
         }
 
-        const Vector3& Effect::AmbientLightColor() const
+        const Vector3& Effect::ambient_light_color() const
         {
-            return this->ambientLightColor;
+            return _ambient_light_color;
         }
 
-        void Effect::AmbientLightColor(const Vector3& ambientLightColor)
+        void Effect::ambient_light_color(const Vector3& ambientLightColor)
         {
-            if (this->ambientLightColor != ambientLightColor)
+            if (_ambient_light_color != ambientLightColor)
             {
-                this->ambientLightColor = ambientLightColor;
-                this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+                _ambient_light_color = ambientLightColor;
+                _dirty_flags        |= EffectDirtyFlags::MaterialColor;
             }
         }
 
-        const Vector3& Effect::DiffuseColor() const
+        const Vector3& Effect::diffuse_color() const
         {
-            return this->diffuseColor;
+            return _diffuse_color;
         }
 
-        void Effect::DiffuseColor(const Vector3& diffuseColor)
+        void Effect::diffuse_color(const Vector3& diffuseColor)
         {
-            if (this->diffuseColor != diffuseColor)
+            if (_diffuse_color != diffuseColor)
             {
-                this->diffuseColor = diffuseColor;
-                this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+                _diffuse_color = diffuseColor;
+                _dirty_flags  |= EffectDirtyFlags::MaterialColor;
             }
         }
 
-        const DirectionalLight& Effect::DirectionalLight0() const
+        const DirectionalLight& Effect::directional_light_0() const
         {
-            return this->light0;
+            return _light_0;
         }
 
-        const DirectionalLight& Effect::DirectionalLight1() const
+        const DirectionalLight& Effect::directional_light_1() const
         {
-            return this->light1;
+            return _light_1;
         }
 
-        const DirectionalLight& Effect::DirectionalLight2() const
+        const DirectionalLight& Effect::directional_light_2() const
         {
-            return this->light2;
+            return _light_2;
         }
 
-        void Effect::EnableDefaultLighting()
+        void Effect::enable_default_lighting()
         {
-            this->AmbientLightColor(EffectHelpers::enable_default_lighting(this->light0, this->light1, this->light2));
+            ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
         }
 
-        const Vector3& Effect::EmissiveColor() const
+        const Vector3& Effect::emissive_color() const
         {
-            return this->emissiveColor;
+            return _emissive_color;
         }
 
-        void Effect::EmissiveColor(const Vector3& emissiveColor)
+        void Effect::emissive_color(const Vector3& emissiveColor)
         {
-            if (this->emissiveColor != emissiveColor)
+            if (_emissive_color != emissiveColor)
             {
-                this->emissiveColor = emissiveColor;
-                this->dirtyFlags |= EffectDirtyFlags::MaterialColor;
+                _emissive_color = emissiveColor;
+                _dirty_flags   |= EffectDirtyFlags::MaterialColor;
             }
         }
 
-        const Vector3& Effect::FogColor() const
+        const Vector3& Effect::fog_color() const
         {
-            return this->fogColor;
+            return _fog_color;
         }
 
-        void Effect::FogColor(const Vector3& fogColor)
+        void Effect::fog_color(const Vector3& fogColor)
         {
-//            if (this->fogColor != fogColor)
+//            if (_fogColor != fogColor)
 //            {
-//                this->fogColor = fogColor;
+//                _fogColor = fogColor;
 //
-//                this->fogColorParam.SetValue(this->fogColor);
+//                _fogColorParam.SetValue(_fogColor);
 //            }
         }
 
-        bool Effect::FogEnabled() const
+        bool Effect::fog_enabled() const
         {
-            return this->fogEnabled;
+            return _fog_enabled;
         }
 
-        void Effect::FogEnabled(const bool& fogEnabled)
+        void Effect::fog_enabled(const bool& fogEnabled)
         {
-            if (this->fogEnabled != fogEnabled)
+            if (_fog_enabled != fogEnabled)
             {
-                this->fogEnabled = fogEnabled;
-                this->dirtyFlags |= EffectDirtyFlags::Fog;
+                _fog_enabled  = fogEnabled;
+                _dirty_flags |= EffectDirtyFlags::Fog;
             }
         }
 
-        float Effect::FogEnd() const
+        float Effect::fog_end() const
         {
-            return this->fogEnd;
+            return _fog_end;
         }
 
-        void Effect::FogEnd(const float& fogEnd)
+        void Effect::fog_end(const float& fogEnd)
         {
-            if (!Math::Equal(this->fogEnd, fogEnd))
+            if (!Math::Equal(_fog_end, fogEnd))
             {
-                this->fogEnd = fogEnd;
-                this->dirtyFlags |= EffectDirtyFlags::Fog;
+                _fog_end      = fogEnd;
+                _dirty_flags |= EffectDirtyFlags::Fog;
             }
         }
 
-        float Effect::FogStart() const
+        float Effect::fog_start() const
         {
-            return this->fogStart;
+            return _fog_start;
         }
 
-        void Effect::FogStart(const float& fogStart)
+        void Effect::fog_start(const float& fogStart)
         {
-            if (!Math::Equal(this->fogStart, fogStart))
+            if (!Math::Equal(_fog_start, fogStart))
             {
-                this->fogStart = fogStart;
-                this->dirtyFlags |= EffectDirtyFlags::Fog;
+                _fog_start    = fogStart;
+                _dirty_flags |= EffectDirtyFlags::Fog;
             }
         }
 
-        bool Effect::LightingEnabled() const
+        bool Effect::lighting_enabled() const
         {
-            return this->lightingEnabled;
+            return _lighting_enabled;
         }
 
-        void Effect::LightingEnabled(const bool& lightingEnabled)
+        void Effect::lighting_enabled(const bool& lightingEnabled)
         {
             assert(false);
         }
 
-        bool Effect::PreferPerPixelLighting() const
+        bool Effect::prefer_per_pixel_lighting() const
         {
-            return this->preferPerPixelLighting;
+            return _prefer_per_pixel_lighting;
         }
 
-        void Effect::PreferPerPixelLighting(const bool& preferPerPixelLighting)
+        void Effect::prefer_per_pixel_lighting(const bool& preferPerPixelLighting)
         {
-            if (this->preferPerPixelLighting != preferPerPixelLighting)
+            if (_prefer_per_pixel_lighting != preferPerPixelLighting)
             {
-                this->preferPerPixelLighting = preferPerPixelLighting;
-                this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+                _prefer_per_pixel_lighting = preferPerPixelLighting;
+                _dirty_flags              |= EffectDirtyFlags::ShaderIndex;
             }
         }
 
-        const Matrix& Effect::Projection() const
+        const Matrix& Effect::projection() const
         {
-            return this->projection;
+            return _projection;
         }
 
-        void Effect::Projection(const Matrix& projection)
+        void Effect::projection(const Matrix& projection)
         {
-            this->projection = projection;
-            this->dirtyFlags |= EffectDirtyFlags::WorldViewProj;
+            _projection   = projection;
+            _dirty_flags |= EffectDirtyFlags::WorldViewProj;
         }
 
-        const Vector3& Effect::SpecularColor() const
+        const Vector3& Effect::specular_color() const
         {
-            return this->specularColor;
+            return _specular_color;
         }
 
-        void Effect::SpecularColor(const Vector3& specularColor)
+        void Effect::specular_color(const Vector3& specularColor)
         {
-//            if (this->specularColor != specularColor)
+//            if (_specularColor != specularColor)
 //            {
-//                this->specularColor = specularColor;
+//                _specularColor = specularColor;
 //
-//                this->specularColorParam.SetValue(this->specularColor);
+//                _specularColorParam.SetValue(_specularColor);
 //            }
         }
 
-        float Effect::SpecularPower() const
+        float Effect::specular_power() const
         {
-            return this->specularPower;
+            return _specular_power;
         }
 
-        void Effect::SpecularPower(const float& specularPower)
+        void Effect::specular_power(const float& specularPower)
         {
-//            if (!Math::Equal(this->specularPower, specularPower))
+//            if (!Math::Equal(_specularPower, specularPower))
 //            {
-//                this->specularPower = specularPower;
+//                _specularPower = specularPower;
 //
-//                this->specularPowerParam.SetValue(this->specularPower);
+//                _specularPowerParam.SetValue(_specularPower);
 //            }
         }
 
-        const std::shared_ptr<Texture2D>& Effect::Texture() const
+        const std::shared_ptr<Texture2D>& Effect::texture() const
         {
-            return this->texture;
+            return _texture;
         }
 
-        void Effect::Texture(const std::shared_ptr<Texture2D>& texture)
+        void Effect::texture(const std::shared_ptr<Texture2D>& texture)
         {
-            if (this->texture != texture)
+            if (_texture != texture)
             {
-                this->texture = texture;
-                this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+                _texture      = texture;
+                _dirty_flags |= EffectDirtyFlags::ShaderIndex;
             }
         }
 
-        bool Effect::TextureEnabled() const
+        bool Effect::texture_enabled() const
         {
-            return this->textureEnabled;
+            return _texture_enabled;
         }
 
-        void Effect::TextureEnabled(const bool& textureEnabled)
+        void Effect::texture_enabled(const bool& textureEnabled)
         {
-            if (this->textureEnabled != textureEnabled)
+            if (_texture_enabled != textureEnabled)
             {
-                this->textureEnabled = textureEnabled;
-                this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+                _texture_enabled = textureEnabled;
+                _dirty_flags    |= EffectDirtyFlags::ShaderIndex;
             }
         }
 
-        const Matrix& Effect::View() const
+        const Matrix& Effect::view() const
         {
-            return this->view;
+            return _view;
         }
 
-        void Effect::View(const Matrix& view)
+        void Effect::view(const Matrix& view)
         {
-            this->view = view;
-            this->dirtyFlags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
+            _view         = view;
+            _dirty_flags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
         }
 
-        const Matrix& Effect::World() const
+        const Matrix& Effect::world() const
         {
-            return this->world;
+            return _world;
         }
 
-        void Effect::World(const Matrix& world)
+        void Effect::world(const Matrix& world)
         {
-            this->world = world;
-            this->dirtyFlags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
+            _world        = world;
+            _dirty_flags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
         }
 
-        std::vector<Matrix> Effect::GetBoneTransforms(const std::size_t& count) const
+        std::vector<Matrix> Effect::bone_transforms(const std::size_t& count) const
         {
-            assert(count < this->boneTransforms.size());
+            assert(count < _bone_transforms.size());
 
             std::vector<Matrix> transforms;
 
             transforms.reserve(count);
-            transforms.assign(this->boneTransforms.begin(), this->boneTransforms.begin() + count);
+            transforms.assign(_bone_transforms.begin(), _bone_transforms.begin() + count);
 
             return transforms;
         }
 
-        void Effect::SetBoneTransforms(const std::vector<Matrix>& boneTransforms)
+        void Effect::bone_transforms(const std::vector<Matrix>& boneTransforms)
         {
-//            this->boneTransforms = boneTransforms;
-//            this->bonesParam.SetValue(this->boneTransforms);
+            _bone_transforms = boneTransforms;
+//            _bonesParam.SetValue(_boneTransforms);
         }
 
-        std::size_t Effect::WeightsPerVertex() const
+        std::size_t Effect::weights_per_vertex() const
         {
-            return this->weightsPerVertex;
+            return _weights_per_vertex;
         }
 
-        void Effect::WeightsPerVertex(const std::size_t& weightsPerVertex)
+        void Effect::weights_per_vertex(const std::size_t& weightsPerVertex)
         {
             assert(weightsPerVertex == 1 || weightsPerVertex == 2 || weightsPerVertex == 4);
 
-            this->weightsPerVertex = weightsPerVertex;
-            this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+            _weights_per_vertex = weightsPerVertex;
+            _dirty_flags       |= EffectDirtyFlags::ShaderIndex;
         }
 
-        void Effect::OnApply()
+        void Effect::apply()
         {
-//            this->ActivateSubroutine(ShaderType::Vertex, VSIndices[this->shaderIndex]);
-//            this->ActivateSubroutine(ShaderType::Fragment, PSIndices[this->shaderIndex]);
+//            _ActivateSubroutine(ShaderType::Vertex, VSIndices[_shaderIndex]);
+//            _ActivateSubroutine(ShaderType::Fragment, PSIndices[_shaderIndex]);
 //
-//            if (this->textureEnabled)
+//            if (_textureEnabled)
 //            {
-//                SamplerState& sampler = this->graphics_device().SamplerStates()[0];
+//                SamplerState& sampler = _graphics_device().SamplerStates()[0];
 //
-//                sampler.MaxMipLevel(this->texture->LevelCount());
-//                sampler.OnApply(this->texture->Id());
+//                sampler.MaxMipLevel(_texture->LevelCount());
+//                sampler.OnApply(_texture->Id());
 //
-//                this->texture->Activate();
+//                _texture->Activate();
 //            }
 //
 //            // Recompute the world+view+projection matrix or fog vector
-//            this->dirtyFlags = EffectHelpers::SetWorldViewProjAndFog(this->dirtyFlags
-//                , this->world
-//                , this->view
-//                , this->projection
-//                , this->worldView
-//                , this->fogEnabled
-//                , this->fogStart
-//                , this->fogEnd
-//                , this->worldViewProjParam
-//                , this->fogVectorParam);
+//            _dirtyFlags = EffectHelpers::SetWorldViewProjAndFog(_dirtyFlags
+//                , _world
+//                , _view
+//                , _projection
+//                , _worldView
+//                , _fogEnabled
+//                , _fogStart
+//                , _fogEnd
+//                , _worldViewProjParam
+//                , _fogVectorParam);
 //
 //            // Recompute the diffuse/emissive/alpha material color parameters
 //            if ((dirtyFlags & EffectDirtyFlags::MaterialColor) != 0)
 //            {
-//                EffectHelpers::SetMaterialColor(this->lightingEnabled
-//                    , this->alpha
-//                    , this->diffuseColor
-//                    , this->emissiveColor
-//                    , this->ambientLightColor
-//                    , this->diffuseColorParam
-//                    , this->emissiveColorParam);
+//                EffectHelpers::SetMaterialColor(_lightingEnabled
+//                    , _alpha
+//                    , _diffuseColor
+//                    , _emissiveColor
+//                    , _ambientLightColor
+//                    , _diffuseColorParam
+//                    , _emissiveColorParam);
 //
-//                this->dirtyFlags &= ~EffectDirtyFlags::MaterialColor;
+//                _dirtyFlags &= ~EffectDirtyFlags::MaterialColor;
 //            }
 //
-//            if (this->lightingEnabled)
+//            if (_lightingEnabled)
 //            {
 //                // Recompute the world inverse transpose and eye position
-//                this->dirtyFlags = EffectHelpers::SetLightingMatrices(this->dirtyFlags
-//                    , this->world
-//                    , this->view
-//                    , this->worldParam
-//                    , this->worldInverseTransposeParam
-//                    , this->eyePositionParam);
+//                _dirtyFlags = EffectHelpers::SetLightingMatrices(_dirtyFlags
+//                    , _world
+//                    , _view
+//                    , _worldParam
+//                    , _worldInverseTransposeParam
+//                    , _eyePositionParam);
 //
 //                // Check if we can use the only-bother-with-the-first-light shader optimization.
-//                bool newOneLight = !this->light1.Enabled() && !this->light2.Enabled();
+//                bool newOneLight = !_light1.Enabled() && !_light2.Enabled();
 //
-//                if (this->oneLight != newOneLight)
+//                if (_oneLight != newOneLight)
 //                {
-//                    this->oneLight    = newOneLight;
-//                    this->dirtyFlags |= EffectDirtyFlags::ShaderIndex;
+//                    _oneLight    = newOneLight;
+//                    _dirtyFlags |= EffectDirtyFlags::ShaderIndex;
 //                }
 //                else
 //                {
-//                    if (this->light0.Enabled())
+//                    if (_light0.Enabled())
 //                    {
-//                        this->parameters[u"DirLight0Direction"].SetValue(this->light0.Direction());
-//                        this->parameters[u"DirLight0DiffuseColor"].SetValue(this->light0.DiffuseColor());
-//                        this->parameters[u"DirLight0SpecularColor"].SetValue(this->light0.SpecularColor());
+//                        _parameters[u"DirLight0Direction"].SetValue(_light0.Direction());
+//                        _parameters[u"DirLight0DiffuseColor"].SetValue(_light0.DiffuseColor());
+//                        _parameters[u"DirLight0SpecularColor"].SetValue(_light0.SpecularColor());
 //                    }
 //
-//                    if (this->light1.Enabled())
+//                    if (_light1.Enabled())
 //                    {
-//                        this->parameters[u"DirLight1Direction"].SetValue(this->light1.Direction());
-//                        this->parameters[u"DirLight1DiffuseColor"].SetValue(this->light1.DiffuseColor());
-//                        this->parameters[u"DirLight1SpecularColor"].SetValue(this->light1.SpecularColor());
+//                        _parameters[u"DirLight1Direction"].SetValue(_light1.Direction());
+//                        _parameters[u"DirLight1DiffuseColor"].SetValue(_light1.DiffuseColor());
+//                        _parameters[u"DirLight1SpecularColor"].SetValue(_light1.SpecularColor());
 //                    }
 //
-//                    if (this->light2.Enabled())
+//                    if (_light2.Enabled())
 //                    {
-//                        this->parameters[u"DirLight2Direction"].SetValue(this->light2.Direction());
-//                        this->parameters[u"DirLight2DiffuseColor"].SetValue(this->light2.DiffuseColor());
-//                        this->parameters[u"DirLight2SpecularColor"].SetValue(this->light2.SpecularColor());
+//                        _parameters[u"DirLight2Direction"].SetValue(_light2.Direction());
+//                        _parameters[u"DirLight2DiffuseColor"].SetValue(_light2.DiffuseColor());
+//                        _parameters[u"DirLight2SpecularColor"].SetValue(_light2.SpecularColor());
 //                    }
 //                }
 //            }
 //
 //            // Recompute the shader index
-//            if ((this->dirtyFlags & EffectDirtyFlags::ShaderIndex) != 0)
+//            if ((_dirtyFlags & EffectDirtyFlags::ShaderIndex) != 0)
 //            {
-//                this->shaderIndex = 0;
+//                _shaderIndex = 0;
 //
-//                if (!this->fogEnabled)
+//                if (!_fogEnabled)
 //                {
-//                    this->shaderIndex += 1;
+//                    _shaderIndex += 1;
 //                }
 //
-//                if (this->weightsPerVertex == 2)
+//                if (_weightsPerVertex == 2)
 //                {
-//                    this->shaderIndex += 2;
+//                    _shaderIndex += 2;
 //                }
 //                else if (weightsPerVertex == 4)
 //                {
-//                    this->shaderIndex += 4;
+//                    _shaderIndex += 4;
 //                }
 //
-//                if (this->preferPerPixelLighting)
+//                if (_preferPerPixelLighting)
 //                {
-//                    this->shaderIndex += 12;
+//                    _shaderIndex += 12;
 //                }
-//                else if (this->oneLight)
+//                else if (_oneLight)
 //                {
-//                    this->shaderIndex += 6;
+//                    _shaderIndex += 6;
 //                }
 //
-//                this->dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
+//                _dirtyFlags &= ~EffectDirtyFlags::ShaderIndex;
 //            }
         }
 
-        void Effect::CreateShader()
+        void Effect::create_shader()
         {
 //            const auto& includes = std::vector<std::string> { ShaderManager::EffectIncludePath
 //                , ShaderManager::StructuresIncludePath
 //                , ShaderManager::CommonIncludePath
 //                , ShaderManager::LightingIncludePath };
 //
-//            this->AddShader(u"VSEffect", ShaderType::Vertex, Resources::Effect_vert, includes);
-//            this->AddShader(u"FSEffect", ShaderType::Fragment, Resources::Effect_frag, includes);
-//            this->Build();
+//            _AddShader(u"VSEffect", ShaderType::Vertex, Resources::Effect_vert, includes);
+//            _AddShader(u"FSEffect", ShaderType::Fragment, Resources::Effect_frag, includes);
+//            _Build();
         }
 
-        void Effect::CacheEffectParameters()
+        void Effect::cache_effect_parameters()
         {
-//            this->diffuseColorParam          = this->parameters[u"DiffuseColor"];
-//            this->emissiveColorParam         = this->parameters[u"EmissiveColor"];
-//            this->specularColorParam         = this->parameters[u"SpecularColor"];
-//            this->specularPowerParam         = this->parameters[u"SpecularPower"];
-//            this->fogColorParam              = this->parameters[u"FogColor"];
-//            this->fogVectorParam             = this->parameters[u"FogVector"];
-//            this->eyePositionParam           = this->parameters[u"EyePosition"];
-//            this->worldParam                 = this->parameters[u"World"];
-//            this->worldViewProjParam         = this->parameters[u"WorldViewProj"];
-//            this->worldInverseTransposeParam = this->parameters[u"WorldInverseTranspose"];
-//            this->bonesParam                 = this->parameters[u"Bones[0]"];
+//            _diffuseColorParam          = _parameters[u"DiffuseColor"];
+//            _emissiveColorParam         = _parameters[u"EmissiveColor"];
+//            _specularColorParam         = _parameters[u"SpecularColor"];
+//            _specularPowerParam         = _parameters[u"SpecularPower"];
+//            _fogColorParam              = _parameters[u"FogColor"];
+//            _fogVectorParam             = _parameters[u"FogVector"];
+//            _eyePositionParam           = _parameters[u"EyePosition"];
+//            _worldParam                 = _parameters[u"World"];
+//            _worldViewProjParam         = _parameters[u"WorldViewProj"];
+//            _worldInverseTransposeParam = _parameters[u"WorldInverseTranspose"];
+//            _bonesParam                 = _parameters[u"Bones[0]"];
         }
 
-        void Effect::Begin()
+        void Effect::begin()
         {
-//            glUseProgram(this->id);
-//            this->uniformBuffer->Activate();
+//            glUseProgram(_id);
+//            _uniformBuffer->Activate();
 //
-//            this->OnApply();
+//            _OnApply();
         }
 
-        void Effect::End()
+        void Effect::end()
         {
-//            if (this->textureEnabled)
+//            if (_textureEnabled)
 //            {
-//                this->texture->Deactivate();
+//                _texture->Deactivate();
 //            }
 //
-//            this->uniformBuffer->Deactivate();
+//            _uniformBuffer->Deactivate();
 //
 //            glUseProgram(0);
         }
 
-        void Effect::AddShader(const std::u16string&            name
+        void Effect::add_shader(const std::u16string&            name
                              , const ShaderType&                type
                              , const std::vector<std::uint8_t>& source)
         {
-//            this->AddShader(name, type, source, std::vector<std::string>());
+            add_shader(name, type, source, std::vector<std::string>());
         }
 
-        void Effect::AddShader(const std::u16string&            name
-                             , const ShaderType&                type
-                             , const std::vector<std::uint8_t>& source
-                             , const std::vector<std::string>&  includes)
+        void Effect::add_shader(const std::u16string&            name
+                              , const ShaderType&                type
+                              , const std::vector<std::uint8_t>& source
+                              , const std::vector<std::string>&  includes)
         {
-//            this->shaders.push_back(std::make_shared<Shader>(name, type, source, includes));
+//            _shaders.push_back(std::make_shared<Shader>(name, type, source, includes));
         }
 
-        void Effect::Build()
+        void Effect::build_program()
         {
 //            // Compile the shaders ...
-//            for (auto& s : this->shaders)
+//            for (auto& s : _shaders)
 //            {
 //                s->Compile();
 //            }
 //
 //            // ... Create the program object
-//            this->id = glCreateProgram();
+//            _id = glCreateProgram();
 //
-//            if (this->id == 0)
+//            if (_id == 0)
 //            {
 //                throw std::runtime_error("glCreateProgram failed");
 //            }
 //
 //            // ... attach the shaders to the new shader program
-//            for (const auto& s : this->shaders)
+//            for (const auto& s : _shaders)
 //            {
 //                // Attach the shader
-//                glAttachShader(this->id, s->id);
+//                glAttachShader(_id, s->id);
 //            }
 //
 //            // ... link the shader program
-//            glLinkProgram(this->id);
+//            glLinkProgram(_id);
 //
 //            // ... verify program linking
-//            this->VerifyLinkingState();
+//            _VerifyLinkingState();
 //
 //            // ... fill uniform buffer info
-//            this->uniformBuffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", this->id);
-//            this->uniformBuffer->Describe();
+//            _uniformBuffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", _id);
+//            _uniformBuffer->Describe();
 //
 //            // ... describe efffect parameters
-//            this->DescribeParameters();
+//            _DescribeParameters();
         }
 
-        void Effect::ActivateSubroutine(const std::uint32_t& subroutineIndex) const
+        void Effect::activate_subroutine(const std::uint32_t& subroutineIndex) const
         {
-//            for (const auto& shader : this->shaders)
-//            {
-//                this->ActivateSubroutine(shader->Type(), subroutineIndex);
-//            }
+            for (const auto& shader : _shaders)
+            {
+                activate_subroutine(shader->type(), subroutineIndex);
+            }
         }
 
-        void Effect::ActivateSubroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
+        void Effect::activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
         {
-//            glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
+            glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
         }
 
-        void Effect::VerifyLinkingState()
+        void Effect::verify_linking_state()
         {
-//            // ... verify program linking
-//            GLint status;
-//            glGetProgramiv(this->id, GL_LINK_STATUS, &status);
-//
-//            if (status == GL_FALSE)
-//            {
-//                auto msg = std::string("Program linking failure: ");
-//
-//                GLint infoLogLength;
-//                glGetProgramiv(this->id, GL_INFO_LOG_LENGTH, &infoLogLength);
-//
-//                if (infoLogLength)
-//                {
-//                    std::string linkErrorMessage("", static_cast<std::size_t>(infoLogLength));
-//
-//                    glGetProgramInfoLog(this->id, infoLogLength, NULL, &linkErrorMessage[0]);
-//
-//                    msg += linkErrorMessage;
-//                }
-//
-//                //this->dispose();
-//
-//                throw std::runtime_error(msg);
-//            }
+            // ... verify program linking
+            GLint status;
+            glGetProgramiv(_id, GL_LINK_STATUS, &status);
+
+            if (status == GL_FALSE)
+            {
+                auto msg = std::string("Program linking failure: ");
+
+                GLint infoLogLength;
+                glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+                if (infoLogLength)
+                {
+                    std::string linkErrorMessage("", static_cast<std::size_t>(infoLogLength));
+
+                    glGetProgramInfoLog(_id, infoLogLength, NULL, &linkErrorMessage[0]);
+
+                    msg += linkErrorMessage;
+                }
+
+                //_dispose();
+
+                throw std::runtime_error(msg);
+            }
         }
 
-        void Effect::DescribeParameters()
+        void Effect::describe_parameters()
         {
 //            // Check the number of active uniforms
 //            std::int32_t activeUniforms = 0;
 //
-//            glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+//            glGetActiveUniformBlockiv(_id, _uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
 //
 //            std::vector<std::int32_t> indices(activeUniforms, 0);
 //            std::vector<std::int32_t> nameLengths(activeUniforms, 0);
 //            std::vector<std::int32_t> offsets(activeUniforms, 0);
 //            std::vector<std::int32_t> types(activeUniforms, 0);
 //
-//            glGetActiveUniformBlockiv(this->id, this->uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
+//            glGetActiveUniformBlockiv(_id, _uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
 //
 //            GLuint* address = reinterpret_cast<GLuint*>(indices.data());
 //
-//            glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_NAME_LENGTH, nameLengths.data());
-//            glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
-//            glGetActiveUniformsiv(this->id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
+//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_NAME_LENGTH, nameLengths.data());
+//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
+//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
 //
 //            for (std::int32_t i = 0; i < activeUniforms; i++)
 //            {
@@ -660,13 +660,13 @@ namespace SceneR
 //                GLenum  type   = GL_ZERO;
 //                auto    name   = std::vector<char>(nameLengths[i], 0);
 //
-//                glGetActiveUniform(this->id, indices[i], nameLengths[i], &length, &size, &type, name.data());
+//                glGetActiveUniform(_id, indices[i], nameLengths[i], &length, &size, &type, name.data());
 //
-//                this->parameters.Add({ name.begin(), name.begin() + length }
+//                _parameters.Add({ name.begin(), name.begin() + length }
 //                                   , static_cast<std::uint32_t>(indices[i])
 //                                   , static_cast<std::uint32_t>(offsets[i])
 //                                   , static_cast<std::uint32_t>(types[i])
-//                                   , this->uniformBuffer);
+//                                   , _uniformBuffer);
 //            }
         }
 

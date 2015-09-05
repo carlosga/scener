@@ -46,39 +46,19 @@ namespace SceneR
 
         public:
             /**
-             * Gets the amount of elapsed render time since the last update.
+             * Gets or sets the amount of elapsed render time since the last update.
              */
-            const System::TimeSpan& ElapsedRenderTime() const;
+            System::TimeSpan total_render_time;
 
             /**
-             * Gets the amount of elapsed render time since the last update.
+             * Gets or sets a value indicating that the render loop is taking longer than its target_elapsed_time.
              */
-            void ElapsedRenderTime(const System::TimeSpan& elapsedRenderTime);
+            System::TimeSpan elapsed_render_time;
 
             /**
-             * Gets a value indicating that the render loop is taking longer than its target_elapsed_time.
+             * Gets or sets the amount of render time since the start of the renderer.
              */
-            bool IsRunningSlowly() const;
-
-            /**
-             * Sets a value indicating that the render loop is taking longer than its target_elapsed_time.
-             */
-            void IsRunningSlowly(const bool& isRunningSlowly);
-
-            /**
-             * Gets the amount of render time since the start of the renderer.
-             */
-            const System::TimeSpan& TotalRenderTime() const;
-
-            /**
-             * Gets the amount of render time since the start of the renderer.
-             */
-            void TotalRenderTime(const System::TimeSpan& totalRenderTime);
-
-        private:
-            System::TimeSpan totalRenderTime;
-            System::TimeSpan elapsedRenderTime;
-            bool             isRunningSlowly;
+            bool is_running_slowly;
         };
     }
 }

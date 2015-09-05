@@ -12,6 +12,7 @@
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Input/Keyboard.hpp>
+#include <Input/KeyboardState.hpp>
 #include <Input/Mouse.hpp>
 
 namespace SceneR
@@ -20,6 +21,8 @@ namespace SceneR
     {
         using System::Text::Encoding;
         using SceneR::Input::Keyboard;
+        using SceneR::Input::KeyboardState;
+        using SceneR::Input::Keys;
         using SceneR::Input::Mouse;
 
 #ifdef _USE_GLEW_
@@ -193,17 +196,18 @@ namespace SceneR
         void RendererWindow::initialize_input() const
         {
             // initialize keyboard input
-            Keyboard::Initialize(_handle);
+            Keyboard::initialize(_handle);
 
             // initialize mouse input
-            Mouse::Initialize(_handle);
+            Mouse::initialize(_handle);
         }
 
         bool RendererWindow::should_close() const
         {
-            auto fullScreen   = _renderer._graphics_device_manager.full_screen;
-            auto shouldClose  = glfwWindowShouldClose(_handle);
-            auto isEscPressed = (glfwGetKey(_handle, GLFW_KEY_ESCAPE) == GLFW_PRESS);
+            auto fullScreen    = _renderer._graphics_device_manager.full_screen;
+            auto shouldClose   = glfwWindowShouldClose(_handle);
+            auto keyboardState = Keyboard::get_state();
+            auto isEscPressed  = keyboardState.is_key_down(Keys::Escape);
 
             return ((!fullScreen && isEscPressed) || shouldClose);
         }

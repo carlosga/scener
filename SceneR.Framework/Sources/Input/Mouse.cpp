@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Input
     {
-        MouseState Mouse::GetState()
+        MouseState Mouse::get_state()
         {
             // glfwGetCursorPos(window, &xpos, &ypos);
             // int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
@@ -18,45 +18,45 @@ namespace SceneR
             return MouseState();
         }
 
-        void Mouse::SetPosition(const int& x, const int& y)
+        void Mouse::set_position(const int &x, const int &y)
         {
-            glfwSetCursorPos(WindowHandle, x, y);
+            glfwSetCursorPos(window_handle, x, y);
         }
 
-        void Mouse::Initialize(GLFWwindow* window)
+        void Mouse::initialize(GLFWwindow *window)
         {
-            WindowHandle = window;
+            window_handle = window;
 
             // Enable mouse cursor (only needed for fullscreen mode)
-            glfwSetInputMode(WindowHandle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetInputMode(window_handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
             // Enable mouse sticky buttons
-            glfwSetInputMode(WindowHandle, GLFW_STICKY_MOUSE_BUTTONS, 1);
+            glfwSetInputMode(window_handle, GLFW_STICKY_MOUSE_BUTTONS, 1);
 
             // Cursor position callback
-            // glfwSetCursorPosCallback(WindowHandle, Mouse::CursorPositionCallback);
+            // glfwSetCursorPosCallback(window_handle, Mouse::cursor_position_callback);
 
             // Mouse buttons callback
-            // glfwSetMouseButtonCallback(WindowHandle, Mouse::MouseButtonCallback);
+            // glfwSetMouseButtonCallback(window_handle, Mouse::mouse_button_callback);
 
             // Mouse scrolling callback
-            // glfwSetScrollCallback(WindowHandle, Mouse::ScrollCallback);
+            // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
         }
 
-        void Mouse::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos)
+        void Mouse::cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
         {
         }
 
-        void Mouse::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+        void Mouse::mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
         {
 //            if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 //                popup_menu();
         }
 
-        void Mouse::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+        void Mouse::scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset)
         {
         }
 
-        GLFWwindow* Mouse::WindowHandle;
+        GLFWwindow* Mouse::window_handle;
     }
 }

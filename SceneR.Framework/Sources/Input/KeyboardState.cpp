@@ -13,7 +13,7 @@ namespace SceneR
         //KeyboardState(Keys[] keys);
 
         KeyboardState::KeyboardState(GLFWwindow* windowHandle)
-            : _windowHandle(windowHandle)
+            : _window_handle(windowHandle)
         {
         }
 
@@ -21,24 +21,24 @@ namespace SceneR
         {
         }
 
-        KeyState KeyboardState::GetKeyState(const Keys& key)
+        KeyState KeyboardState::get_key_state(const Keys &key)
         {
-            return (IsKeyDown(key) ? KeyState::Down : KeyState::Up);
+            return (is_key_down(key) ? KeyState::Down : KeyState::Up);
         }
 
-        std::vector<Keys> KeyboardState::GetPressedKeys()
+        std::vector<Keys> KeyboardState::get_pressed_keys()
         {
             return { };
         }
 
-        bool KeyboardState::IsKeyDown(const Keys& key)
+        bool KeyboardState::is_key_down(const Keys &key)
         {
-            return (glfwGetKey(_windowHandle, static_cast<int>(key)) == GLFW_PRESS);
+            return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
         }
 
-        bool KeyboardState::IsKeyUp(const Keys& key)
+        bool KeyboardState::is_key_up(const Keys &key)
         {
-            return (glfwGetKey(_windowHandle, static_cast<int>(key)) == GLFW_RELEASE);
+            return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);
         }
     }
 }

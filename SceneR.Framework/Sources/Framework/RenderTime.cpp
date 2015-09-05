@@ -10,7 +10,7 @@ namespace SceneR
         using System::TimeSpan;
 
         RenderTime::RenderTime()
-            : RenderTime { TimeSpan::Zero, TimeSpan::Zero, false }
+            : RenderTime { TimeSpan::zero, TimeSpan::zero, false }
         {
         }
 
@@ -22,44 +22,14 @@ namespace SceneR
         RenderTime::RenderTime(const TimeSpan& totalRenderTime
                              , const TimeSpan& elapsedRenderTime
                              , const bool&     isRunningSlowly)
-            : totalRenderTime   { totalRenderTime }
-            , elapsedRenderTime { elapsedRenderTime }
-            , isRunningSlowly   { isRunningSlowly }
+            : total_render_time   { totalRenderTime }
+            , elapsed_render_time { elapsedRenderTime }
+            , is_running_slowly   { isRunningSlowly }
         {
         }
 
         RenderTime::~RenderTime()
         {
-        }
-
-        const TimeSpan& RenderTime::ElapsedRenderTime() const
-        {
-            return this->elapsedRenderTime;
-        }
-
-        void RenderTime::ElapsedRenderTime(const TimeSpan& elapsedRenderTime)
-        {
-            this->elapsedRenderTime = elapsedRenderTime;
-        }
-
-        bool RenderTime::IsRunningSlowly() const
-        {
-            return this->isRunningSlowly;
-        }
-
-        void RenderTime::IsRunningSlowly(const bool& isRunningSlowly)
-        {
-            this->isRunningSlowly = isRunningSlowly;
-        }
-
-        const TimeSpan& RenderTime::TotalRenderTime() const
-        {
-            return this->totalRenderTime;
-        }
-
-        void RenderTime::TotalRenderTime(const TimeSpan& totalRenderTime)
-        {
-            this->totalRenderTime = totalRenderTime;
         }
     }
 }

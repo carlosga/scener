@@ -934,7 +934,7 @@ TEST_F(Vector4Test, ConstructorWithSpecialFloatingValues)
     EXPECT_TRUE(EqualityHelper::Equal(Math::Epsilon, target.W()));
 }
 
-// A test for Negate (Vector4f)
+// A test for negate (Vector4f)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector4Test, Negate)
 {

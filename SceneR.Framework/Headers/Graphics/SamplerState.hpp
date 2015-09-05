@@ -46,95 +46,47 @@ namespace SceneR
             void dispose() override;
 
         public:
-            /**
-             *  Gets the texture-address mode for the u-coordinate.
-             */
-            const TextureAddressMode& AddressU() const;
-
-            /**
-             * Sets the texture-address mode for the u-coordinate.
-             */
-            void AddressU(const TextureAddressMode& addressU);
-
-            /**
-             *  Gets the texture-address mode for the v-coordinate.
-             */
-            const TextureAddressMode& AddressV() const;
-
-            /**
-             * Sets the texture-address mode for the v-coordinate.
-             */
-            void AddressV(const TextureAddressMode& addressV);
-
-            /**
-             *  Gets the texture-address mode for the w-coordinate.
-             */
-            const TextureAddressMode& AddressW() const;
-
-            /**
-             * Sets the texture-address mode for the w-coordinate.
-             */
-            void AddressW(const TextureAddressMode& addressW);
-
-            /**
-             *  Gets the type of filtering during sampling.
-             */
-            const TextureFilter& Filter() const;
-
-            /**
-             * Sets the type of filtering during sampling.
-             */
-            void Filter(const TextureFilter& filter);
-
-            /**
-             * Gets the maximum anisotropy. The default value is 0.
-             */
-            const std::int32_t& MaxAnisotropy() const;
-
-            /**
-             * Sets the maximum anisotropy. The default value is 0.
-             */
-            void MaxAnisotropy(const std::int32_t& maxAnisotropy);
-
-            /**
-             * Gets the level of detail (LOD) index of the largest map to use.
-             */
-            std::size_t MaxMipLevel() const;
-
-            /**
-             * Sets the level of detail (LOD) index of the largest map to use.
-             */
-            void MaxMipLevel(const std::size_t& maxMipLevel);
-
-            /**
-             * Gets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
-             */
-            float MipMapLevelOfDetailBias() const;
-
-            /**
-             * Sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
-             */
-            void MipMapLevelOfDetailBias(const float& mipMapLevelOfDetailBias);
-
-        public:
             SamplerState& operator=(const SamplerState& samplerState);
 
         private:
-            void OnApply(const std::uint32_t& textureId) const;
-            void GetMinMaxFilters(GLenum& minfilter, GLenum& maxfilter) const;
+            void apply(const std::uint32_t& textureId) const;
+            void get_min_max_filters(GLenum& minfilter, GLenum& magfilter) const;
 
         private:
-            TextureAddressMode addressU;
-            TextureAddressMode addressV;
-            TextureAddressMode addressW;
-            TextureFilter      filter;
-            std::int32_t       maxAnisotropy;
-            std::size_t        maxMipLevel;
-            float              mipMapLevelOfDetailBias;
+            /**
+             * Gets or sets the texture-address mode for the u-coordinate.
+             */
+            TextureAddressMode address_U;
 
-            friend class BasicEffect;
-            friend class SkinnedEffect;
-            friend class EffectMaterial;
+            /**
+             * Gets or sets the texture-address mode for the v-coordinate.
+             */
+            TextureAddressMode address_V;
+
+            /**
+             * Gets or sets the texture-address mode for the w-coordinate.
+             */
+            TextureAddressMode address_W;
+
+            /**
+             * Gets or sets the type of filtering during sampling.
+             */
+            TextureFilter filter;
+
+            /**
+             * Gets or sets the maximum anisotropy. The default value is 0.
+             */
+            std::int32_t max_anisotropy;
+
+            /**
+             * Gets or sets the level of detail (LOD) index of the largest map to use.
+             */
+            std::size_t max_mip_level;
+
+            /**
+             * Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
+             */
+            float mip_map_level_of_detail_bias;
         };
     }
 }

@@ -11,27 +11,27 @@ namespace SceneR
     namespace Input
     {
         // Returns the current keyboard state.
-        KeyboardState Keyboard::GetState()
+        KeyboardState Keyboard::get_state()
         {
-            return KeyboardState(Keyboard::WindowHandle);
+            return KeyboardState(Keyboard::window_handle);
         }
 
         // Gets or sets the window used for mouse processing.
-        void Keyboard::Initialize(GLFWwindow* window)
+        void Keyboard::initialize(GLFWwindow *window)
         {
-            WindowHandle = window;
+            window_handle = window;
 
             // Enable sticky keys
-            glfwSetInputMode(WindowHandle, GLFW_STICKY_KEYS, 1);
+            glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
 
             // initialize key callback
-            // glfwSetKeyCallback(WindowHandle, Keyboard::KeyCallback);
+            // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
         }
 
-        void Keyboard::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+        void Keyboard::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
         {
         }
 
-        GLFWwindow* Keyboard::WindowHandle;
+        GLFWwindow* Keyboard::window_handle;
     }
 }

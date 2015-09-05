@@ -10,44 +10,44 @@ namespace SceneR
     namespace Graphics
     {
         DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
-            : GraphicsResource                       { graphicsDevice }
-            , counterClockwiseStencilDepthBufferFail { StencilOperation::Keep }
-            , counterClockwiseStencilFail            { StencilOperation::Keep }
-            , counterClockwiseStencilFunction        { CompareFunction::Always }
-            , counterClockwiseStencilPass            { StencilOperation::Keep }
-            , depthBufferEnable                      { true }
-            , depthBufferFunction                    { CompareFunction::LessEqual }
-            , depthBufferWriteEnable                 { true }
-            , referenceStencil                       { 0 }
-            , stencilDepthBufferFail                 { StencilOperation::Keep }
-            , stencilEnable                          { false }
-            , stencilFail                            { StencilOperation::Keep }
-            , stencilFunction                        { CompareFunction::Always }
-            , stencilMask                            { 0 }
-            , stencilPass                            { StencilOperation::Keep }
-            , stencilWriteMask                       { 0 }
-            , twoSidedStencilMode                    { false }
+            : GraphicsResource                            { graphicsDevice }
+            , counter_clockwise_stencil_depth_buffer_fail { StencilOperation::Keep }
+            , counter_clockwise_stencil_fail              { StencilOperation::Keep }
+            , counter_clockwise_stencil_function          { CompareFunction::Always }
+            , counter_clockwise_stencil_pass              { StencilOperation::Keep }
+            , depth_buffer_enable                         { true }
+            , depth_buffer_function                       { CompareFunction::LessEqual }
+            , depth_buffer_write_enable                   { true }
+            , reference_stencil                           { 0 }
+            , stencil_depth_buffer_fail                   { StencilOperation::Keep }
+            , stencil_enable                              { false }
+            , stencil_fail                                { StencilOperation::Keep }
+            , stencil_function                            { CompareFunction::Always }
+            , stencil_mask                                { 0 }
+            , stencil_pass                                { StencilOperation::Keep }
+            , stencil_write_mask                          { 0 }
+            , two_sided_stencil_mode                      { false }
         {
         }
 
-        DepthStencilState::DepthStencilState(const DepthStencilState& depthStencilState)
-            : GraphicsResource                       { depthStencilState._graphics_device }
-            , counterClockwiseStencilDepthBufferFail { depthStencilState.counterClockwiseStencilDepthBufferFail }
-            , counterClockwiseStencilFail            { depthStencilState.counterClockwiseStencilFail }
-            , counterClockwiseStencilFunction        { depthStencilState.counterClockwiseStencilFunction }
-            , counterClockwiseStencilPass            { depthStencilState.counterClockwiseStencilPass }
-            , depthBufferEnable                      { depthStencilState.depthBufferEnable }
-            , depthBufferFunction                    { depthStencilState.depthBufferFunction }
-            , depthBufferWriteEnable                 { depthStencilState.depthBufferWriteEnable }
-            , referenceStencil                       { depthStencilState.referenceStencil }
-            , stencilDepthBufferFail                 { depthStencilState.stencilDepthBufferFail }
-            , stencilEnable                          { depthStencilState.stencilEnable }
-            , stencilFail                            { depthStencilState.stencilFail }
-            , stencilFunction                        { depthStencilState.stencilFunction }
-            , stencilMask                            { depthStencilState.stencilMask }
-            , stencilPass                            { depthStencilState.stencilPass }
-            , stencilWriteMask                       { depthStencilState.stencilWriteMask }
-            , twoSidedStencilMode                    { depthStencilState.twoSidedStencilMode }
+        DepthStencilState::DepthStencilState(const DepthStencilState& state)
+            : GraphicsResource                            { state._graphics_device }
+            , counter_clockwise_stencil_depth_buffer_fail { state.counter_clockwise_stencil_depth_buffer_fail }
+            , counter_clockwise_stencil_fail              { state.counter_clockwise_stencil_fail }
+            , counter_clockwise_stencil_function          { state.counter_clockwise_stencil_function }
+            , counter_clockwise_stencil_pass              { state.counter_clockwise_stencil_pass }
+            , depth_buffer_enable                         { state.depth_buffer_enable }
+            , depth_buffer_function                       { state.depth_buffer_function }
+            , depth_buffer_write_enable                   { state.depth_buffer_write_enable }
+            , reference_stencil                           { state.reference_stencil }
+            , stencil_depth_buffer_fail                   { state.stencil_depth_buffer_fail }
+            , stencil_enable                              { state.stencil_enable }
+            , stencil_fail                                { state.stencil_fail }
+            , stencil_function                            { state.stencil_function }
+            , stencil_mask                                { state.stencil_mask }
+            , stencil_pass                                { state.stencil_pass }
+            , stencil_write_mask                          { state.stencil_write_mask }
+            , two_sided_stencil_mode                      { state.two_sided_stencil_mode }
         {
         }
 
@@ -59,195 +59,35 @@ namespace SceneR
         {
         }
 
-        const StencilOperation& DepthStencilState::CounterClockwiseStencilDepthBufferFail() const
+        DepthStencilState&DepthStencilState::operator=(const DepthStencilState& state)
         {
-            return this->counterClockwiseStencilDepthBufferFail;
-        }
-
-        void DepthStencilState::CounterClockwiseStencilDepthBufferFail(const StencilOperation& counterClockwiseStencilDepthBufferFail)
-        {
-            this->counterClockwiseStencilDepthBufferFail = counterClockwiseStencilDepthBufferFail;
-        }
-
-        const StencilOperation& DepthStencilState::CounterClockwiseStencilFail() const
-        {
-            return this->counterClockwiseStencilFail;
-        }
-
-        void DepthStencilState::CounterClockwiseStencilFail(const StencilOperation& counterClockwiseStencilFail)
-        {
-            this->counterClockwiseStencilFail = counterClockwiseStencilFail;
-        }
-
-        const CompareFunction& DepthStencilState::CounterClockwiseStencilFunction() const
-        {
-            return this->counterClockwiseStencilFunction;
-        }
-
-        void DepthStencilState::CounterClockwiseStencilFunction(const CompareFunction& counterClockwiseStencilFunction)
-        {
-            this->counterClockwiseStencilFunction = counterClockwiseStencilFunction;
-        }
-
-        const StencilOperation& DepthStencilState::CounterClockwiseStencilPass() const
-        {
-            return this->counterClockwiseStencilPass;
-        }
-
-        void DepthStencilState::CounterClockwiseStencilPass(const StencilOperation& counterClockwiseStencilPass)
-        {
-            this->counterClockwiseStencilPass = counterClockwiseStencilPass;
-        }
-
-        const CompareFunction& SceneR::Graphics::DepthStencilState::DepthBufferFunction() const
-        {
-            return this->depthBufferFunction;
-        }
-
-        void DepthStencilState::DepthBufferFunction(const CompareFunction& depthBufferFunction)
-        {
-            this->depthBufferFunction = depthBufferFunction;
-        }
-
-        bool DepthStencilState::DepthBufferEnable() const
-        {
-            return this->depthBufferEnable;
-        }
-
-        void DepthStencilState::DepthBufferEnable(const bool& depthBufferEnable)
-        {
-            this->depthBufferEnable = depthBufferEnable;
-        }
-
-        bool DepthStencilState::DepthBufferWriteEnable() const
-        {
-            return this->depthBufferWriteEnable;
-        }
-
-        void DepthStencilState::DepthBufferWriteEnable(const bool& depthBufferWriteEnable)
-        {
-            this->depthBufferWriteEnable = depthBufferWriteEnable;
-        }
-
-        std::int32_t DepthStencilState::ReferenceStencil() const
-        {
-            return this->referenceStencil;
-        }
-
-        void DepthStencilState::ReferenceStencil(const std::int32_t& referenceStencil)
-        {
-            this->referenceStencil = referenceStencil;
-        }
-
-        const StencilOperation& DepthStencilState::StencilDepthBufferFail() const
-        {
-            return this->stencilDepthBufferFail;
-        }
-
-        void DepthStencilState::StencilDepthBufferFail(const StencilOperation& stencilDepthBufferFail)
-        {
-            this->stencilDepthBufferFail = stencilDepthBufferFail;
-        }
-
-        bool DepthStencilState::StencilEnable() const
-        {
-            return this->stencilEnable;
-        }
-
-        void DepthStencilState::StencilEnable(const bool& stencilEnable)
-        {
-            this->stencilEnable = stencilEnable;
-        }
-
-        const StencilOperation& DepthStencilState::StencilFail() const
-        {
-            return this->stencilFail;
-        }
-
-        void DepthStencilState::StencilFail(const StencilOperation& stencilFail)
-        {
-            this->stencilFail = stencilFail;
-        }
-
-        const CompareFunction& DepthStencilState::StencilFunction() const
-        {
-            return this->stencilFunction;
-        }
-
-        void DepthStencilState::StencilFunction(const CompareFunction& stencilFunction)
-        {
-            this->stencilFunction = stencilFunction;
-        }
-
-        std::uint32_t DepthStencilState::StencilMask() const
-        {
-            return this->stencilMask;
-        }
-
-        void DepthStencilState::StencilMask(const std::uint32_t& stencilMask)
-        {
-            this->stencilMask = stencilMask;
-        }
-
-        const StencilOperation& DepthStencilState::StencilPass() const
-        {
-            return this->stencilPass;
-        }
-
-        void DepthStencilState::StencilPass(const StencilOperation& stencilPass)
-        {
-            this->stencilPass = stencilPass;
-        }
-
-        std::uint32_t DepthStencilState::StencilWriteMask() const
-        {
-            return this->stencilWriteMask;
-        }
-
-        void DepthStencilState::StencilWriteMask(const std::uint32_t& stencilWriteMask)
-        {
-            this->stencilWriteMask = stencilWriteMask;
-        }
-
-        bool DepthStencilState::TwoSidedStencilMode() const
-        {
-            return this->twoSidedStencilMode;
-        }
-
-        void DepthStencilState::TwoSidedStencilMode(const bool& twoSidedStencilMode)
-        {
-            this->twoSidedStencilMode = twoSidedStencilMode;
-        }
-
-        DepthStencilState&DepthStencilState::operator=(const DepthStencilState& depthStencilState)
-        {
-            if (this != &depthStencilState)
+            if (this != &state)
             {
-                this->_graphics_device                       = depthStencilState._graphics_device;
-                this->counterClockwiseStencilDepthBufferFail = depthStencilState.counterClockwiseStencilDepthBufferFail;
-                this->counterClockwiseStencilFail            = depthStencilState.counterClockwiseStencilFail;
-                this->counterClockwiseStencilFunction        = depthStencilState.counterClockwiseStencilFunction;
-                this->counterClockwiseStencilPass            = depthStencilState.counterClockwiseStencilPass;
-                this->depthBufferEnable                      = depthStencilState.depthBufferEnable;
-                this->depthBufferFunction                    = depthStencilState.depthBufferFunction;
-                this->depthBufferWriteEnable                 = depthStencilState.depthBufferWriteEnable;
-                this->referenceStencil                       = depthStencilState.referenceStencil;
-                this->stencilDepthBufferFail                 = depthStencilState.stencilDepthBufferFail;
-                this->stencilEnable                          = depthStencilState.stencilEnable;
-                this->stencilFail                            = depthStencilState.stencilFail;
-                this->stencilFunction                        = depthStencilState.stencilFunction;
-                this->stencilMask                            = depthStencilState.stencilMask;
-                this->stencilPass                            = depthStencilState.stencilPass;
-                this->stencilWriteMask                       = depthStencilState.stencilWriteMask;
-                this->twoSidedStencilMode                    = depthStencilState.twoSidedStencilMode;
+                _graphics_device                            = state._graphics_device;
+                counter_clockwise_stencil_depth_buffer_fail = state.counter_clockwise_stencil_depth_buffer_fail;
+                counter_clockwise_stencil_fail              = state.counter_clockwise_stencil_fail;
+                counter_clockwise_stencil_function          = state.counter_clockwise_stencil_function;
+                counter_clockwise_stencil_pass              = state.counter_clockwise_stencil_pass;
+                depth_buffer_enable                         = state.depth_buffer_enable;
+                depth_buffer_function                       = state.depth_buffer_function;
+                depth_buffer_write_enable                   = state.depth_buffer_write_enable;
+                reference_stencil                           = state.reference_stencil;
+                stencil_depth_buffer_fail                   = state.stencil_depth_buffer_fail;
+                stencil_enable                              = state.stencil_enable;
+                stencil_fail                                = state.stencil_fail;
+                stencil_function                            = state.stencil_function;
+                stencil_mask                                = state.stencil_mask;
+                stencil_pass                                = state.stencil_pass;
+                stencil_write_mask                          = state.stencil_write_mask;
+                two_sided_stencil_mode                      = state.two_sided_stencil_mode;
             }
 
             return *this;
         }
 
-        void DepthStencilState::Apply() const
+        void DepthStencilState::apply() const
         {
-            if (this->depthBufferEnable)
+            if (depth_buffer_enable)
             {
                 glEnable(GL_DEPTH_TEST);
             }
@@ -256,10 +96,10 @@ namespace SceneR
                 glDisable(GL_DEPTH_TEST);
             }
 
-            glDepthMask(this->depthBufferWriteEnable);
-            glDepthFunc(static_cast<GLenum>(this->depthBufferFunction));
+            glDepthMask(depth_buffer_write_enable);
+            glDepthFunc(static_cast<GLenum>(depth_buffer_function));
 
-            if (this->stencilEnable)
+            if (stencil_enable)
             {
                 glEnable(GL_STENCIL_TEST);
             }
@@ -268,39 +108,39 @@ namespace SceneR
                 glDisable(GL_STENCIL_TEST);
             }
 
-            glStencilMask(this->stencilWriteMask);
+            glStencilMask(stencil_write_mask);
 
-            if (this->twoSidedStencilMode)
+            if (two_sided_stencil_mode)
             {
                 glStencilFuncSeparate(GL_FRONT
-                                    , static_cast<GLenum>(this->stencilFunction)
-                                    , this->referenceStencil
-                                    , this->stencilMask);
+                                    , static_cast<GLenum>(stencil_function)
+                                    , reference_stencil
+                                    , stencil_mask);
 
                 glStencilFuncSeparate(GL_BACK
-                                    , static_cast<GLenum>(this->counterClockwiseStencilFunction)
-                                    , this->referenceStencil
-                                    , this->stencilMask);
+                                    , static_cast<GLenum>(counter_clockwise_stencil_function)
+                                    , reference_stencil
+                                    , stencil_mask);
 
                 glStencilOpSeparate(GL_FRONT
-                                  , static_cast<GLenum>(this->stencilFail)
-                                  , static_cast<GLenum>(this->stencilDepthBufferFail)
-                                  , static_cast<GLenum>(this->stencilPass));
+                                  , static_cast<GLenum>(stencil_fail)
+                                  , static_cast<GLenum>(stencil_depth_buffer_fail)
+                                  , static_cast<GLenum>(stencil_pass));
 
                 glStencilOpSeparate(GL_BACK
-                                  , static_cast<GLenum>(this->counterClockwiseStencilFail)
-                                  , static_cast<GLenum>(this->counterClockwiseStencilDepthBufferFail)
-                                  , static_cast<GLenum>(this->counterClockwiseStencilPass));
+                                  , static_cast<GLenum>(counter_clockwise_stencil_fail)
+                                  , static_cast<GLenum>(counter_clockwise_stencil_depth_buffer_fail)
+                                  , static_cast<GLenum>(counter_clockwise_stencil_pass));
             }
             else
             {
-                glStencilFunc(static_cast<GLenum>(this->stencilFunction)
-                            , this->referenceStencil
-                            , this->stencilMask);
+                glStencilFunc(static_cast<GLenum>(stencil_function)
+                            , reference_stencil
+                            , stencil_mask);
 
-                glStencilOp(static_cast<GLenum>(this->stencilFail)
-                          , static_cast<GLenum>(this->stencilDepthBufferFail)
-                          , static_cast<GLenum>(this->stencilPass));
+                glStencilOp(static_cast<GLenum>(stencil_fail)
+                          , static_cast<GLenum>(stencil_depth_buffer_fail)
+                          , static_cast<GLenum>(stencil_pass));
             }
         }
     }

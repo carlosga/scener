@@ -32,28 +32,28 @@ namespace SceneR
             ~MouseState();
 
             // Returns the state of the left mouse button.
-            const ButtonState& LeftButton() const;
+            const ButtonState& left_button() const;
 
             // Returns the state of the middle mouse button.
-            const ButtonState& MiddleButton() const;
+            const ButtonState& middle_button() const;
 
             // Returns the state of the right mouse button.
-            const ButtonState& RightButton() const;
+            const ButtonState& right_button() const;
 
             // Gets the cumulative mouse scroll wheel value since the game was started.
-            int ScrollWheelValue() const;
+            int scroll_wheel_value() const;
 
             // Specifies the horizontal position of the mouse cursor.
-            int X() const;
+            int x() const;
 
             // Returns the state of XBUTTON1.
-            const ButtonState& XButton1() const;
+            const ButtonState& xbutton_1() const;
 
             // Returns the state of XBUTTON2.
-            const ButtonState& XButton2() const;
+            const ButtonState& xbutton_2() const;
 
             // Specifies the vertical position of the mouse cursor.
-            int Y() const;
+            int y() const;
 
             // Determines whether two MouseState instances are equal.
             // public static bool op_Equality (MouseState left,MouseState right)
@@ -64,12 +64,12 @@ namespace SceneR
         private:
             int         _x;
             int         _y;
-            int         _scrollWheel;
-            ButtonState _leftButton;
-            ButtonState _middleButton;
-            ButtonState _rightButton;
-            ButtonState _xButton1;
-            ButtonState _xButton2;
+            int         _scroll_wheel;
+            ButtonState _left_button;
+            ButtonState _middle_button;
+            ButtonState _right_button;
+            ButtonState _xbutton_1;
+            ButtonState _xbutton_2;
         };
     }
 }

@@ -57,9 +57,9 @@ namespace SceneR
             _graphics_device->viewport().height = preferred_back_buffer_height;
             _graphics_device->viewport().update();
 
-            _graphics_device->blend_state().Apply();
+            _graphics_device->blend_state().apply();
             _graphics_device->rasterizer_state().apply();
-            _graphics_device->depth_stencil_state().Apply();
+            _graphics_device->depth_stencil_state().apply();
 
             switch (_graphics_device->presentation_parameters().PresentInterval())
             {

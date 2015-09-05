@@ -50,199 +50,96 @@ namespace SceneR
             void dispose() override;
 
         public:
+            DepthStencilState& operator=(const DepthStencilState& depthStencilState);
+
+        private:
+            void apply() const;
+
+        public:
             /**
-             * Gets the stencil operation to perform if the stencil test passes and the depth-buffer
+             * Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer
              * test fails for a counterclockwise triangle.
              */
-            const StencilOperation& CounterClockwiseStencilDepthBufferFail() const;
+            StencilOperation counter_clockwise_stencil_depth_buffer_fail;
 
             /**
-             * Sets the stencil operation to perform if the stencil test passes and the depth-buffer
-             * test fails for a counterclockwise triangle.
+             * Gets or sets the stencil operation to perform if the stencil test fails for a counterclockwise triangle.
              */
-            void CounterClockwiseStencilDepthBufferFail(const StencilOperation& counterClockwiseStencilDepthBufferFail);
+            StencilOperation counter_clockwise_stencil_fail;
 
             /**
-             * Gets the stencil operation to perform if the stencil test fails for a counterclockwise triangle.
+             * Gets or sets the comparison function to use for counterclockwise stencil tests.
              */
-            const StencilOperation& CounterClockwiseStencilFail() const;
+            CompareFunction counter_clockwise_stencil_function;
 
             /**
-             * Sets the stencil operation to perform if the stencil test fails for a counterclockwise triangle.
-             */
-            void CounterClockwiseStencilFail(const StencilOperation& counterClockwiseStencilFail);
-
-            /**
-             * Gets the comparison function to use for counterclockwise stencil tests.
-             */
-            const CompareFunction& CounterClockwiseStencilFunction() const;
-
-            /**
-             * Sets the comparison function to use for counterclockwise stencil tests.
-             */
-            void CounterClockwiseStencilFunction(const CompareFunction& counterClockwiseStencilFunction);
-
-            /**
-             * Gets the stencil operation to perform if the stencil and depth-tests pass for a
+             * Gets or sets the stencil operation to perform if the stencil and depth-tests pass for a
              * counterclockwise triangle.
              */
-            const StencilOperation& CounterClockwiseStencilPass() const;
+            StencilOperation counter_clockwise_stencil_pass;
 
             /**
-             * Sets the stencil operation to perform if the stencil and depth-tests pass for a
-             * counterclockwise triangle.
+             * Gets or sets a value indicating where depth buffer is enabled
              */
-            void CounterClockwiseStencilPass(const StencilOperation& counterClockwiseStencilPass);
+            bool depth_buffer_enable;
 
             /**
-             * Gets a value indicating where depth buffer is enabled
+             * Gets or sets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
              */
-            bool DepthBufferEnable() const;
+            CompareFunction depth_buffer_function;
 
             /**
-             * Gets a value indicating where depth buffer is enabled
+             *  Gets or sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            void DepthBufferEnable(const bool& depthTestEnable);
+            bool depth_buffer_write_enable;
 
             /**
-             * Gets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
+             * Gets or sets a reference value to use for the stencil test.
              */
-            const CompareFunction& DepthBufferFunction() const;
+            std::int32_t reference_stencil;
 
             /**
-             * Sets the comparison function for the depth-buffer test. The default is CompareFunction.LessEqual
-             */
-            void DepthBufferFunction(const CompareFunction& depthBufferFunction);
-
-            /**
-             *  Gets a value indicating whether writing to the depth buffer is allowed. The default is true.
-             */
-            bool DepthBufferWriteEnable() const;
-
-            /**
-             *  Sets a value indicating whether writing to the depth buffer is allowed. The default is true.
-             */
-            void DepthBufferWriteEnable(const bool& depthBufferWriteEnable);
-
-            /**
-             * Specifies a reference value to use for the stencil test.
-             */
-            std::int32_t ReferenceStencil() const;
-
-            /**
-             * Specifies a reference value to use for the stencil test.
-             */
-            void ReferenceStencil(const std::int32_t& referenceStencil);
-
-            /**
-             * Gets the stencil operation to perform if the stencil test passes and
+             * Gets or sets the stencil operation to perform if the stencil test passes and
              * the depth-test fails.
              */
-            const StencilOperation& StencilDepthBufferFail() const;
-
-            /**
-             * Sets the stencil operation to perform if the stencil test passes and
-             * the depth-test fails.
-             */
-            void StencilDepthBufferFail(const StencilOperation& stencilDepthBufferFail);
-
-            /**
-             * Gets a value indicating whether the stencil test is enabled.
-             */
-            bool StencilEnable() const;
+            StencilOperation stencil_depth_buffer_fail;
 
             /**
              * Enables or disables the stencil test.
              */
-            void StencilEnable(const bool& stencilEnable);
+            bool stencil_enable;
 
             /**
-             * Gets the stencil operation to perform if the stencil test fails.
+             * Gets or sets the stencil operation to perform if the stencil test fails.
              */
-            const StencilOperation& StencilFail() const;
+            StencilOperation stencil_fail;
 
             /**
-             * Sets the stencil operation to perform if the stencil test fails.
+             * Gets or sets the comparison function for the stencil test.
              */
-            void StencilFail(const StencilOperation& stencilFail);
+            CompareFunction stencil_function;
 
             /**
-             * Gets the comparison function for the stencil test.
-             */
-            const CompareFunction& StencilFunction() const;
-
-            /**
-             * Sets the comparison function for the stencil test.
-             */
-            void StencilFunction(const CompareFunction& stencilFunction);
-
-            /**
-             * Gets the mask applied to the reference value and
+             * Gets or sets the mask applied to the reference value and
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            std::uint32_t StencilMask() const;
+            std::uint32_t stencil_mask;
 
             /**
-             * Sets the mask applied to the reference value and
-             * each stencil buffer entry to determine the significant bits
-             * for the stencil test.
+             * Gets or sets the stencil operation to perform if the stencil test passes
              */
-            void StencilMask(const std::uint32_t& stencilMask);
+            StencilOperation stencil_pass;
 
             /**
-             * Gets the stencil operation to perform if the stencil test passes
+             * Gets or sets the write mask applied to values written into the stencil buffer.
              */
-            const StencilOperation& StencilPass() const;
-
-            /**
-             * Sets the stencil operation to perform if the stencil test passes
-             */
-            void StencilPass(const StencilOperation& stencilPass);
-
-            /**
-             * Gets the write mask applied to values written into the stencil buffer.
-             */
-            std::uint32_t StencilWriteMask() const;
-
-            /**
-             * Sets the write mask applied to values written into the stencil buffer.
-             */
-            void StencilWriteMask(const std::uint32_t& stencilWriteMask);
-
-            /**
-             * Gets a value indicating wheter two-sided stenciling is enabled.
-             */
-            bool TwoSidedStencilMode() const;
+            std::uint32_t stencil_write_mask;
 
             /**
              * Enables or disables two-sided stenciling.
              */
-            void TwoSidedStencilMode(const bool& twoSidedStencilMode);
-
-        public:
-            DepthStencilState& operator=(const DepthStencilState& depthStencilState);
-
-        private:
-            void Apply() const;
-
-        private:
-            StencilOperation counterClockwiseStencilDepthBufferFail;
-            StencilOperation counterClockwiseStencilFail;
-            CompareFunction  counterClockwiseStencilFunction;
-            StencilOperation counterClockwiseStencilPass;
-            bool             depthBufferEnable;
-            CompareFunction  depthBufferFunction;
-            bool             depthBufferWriteEnable;
-            std::int32_t     referenceStencil;
-            StencilOperation stencilDepthBufferFail;
-            bool             stencilEnable;
-            StencilOperation stencilFail;
-            CompareFunction  stencilFunction;
-            std::uint32_t    stencilMask;
-            StencilOperation stencilPass;
-            std::uint32_t    stencilWriteMask;
-            bool             twoSidedStencilMode;
+            bool two_sided_stencil_mode;
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

@@ -16,91 +16,91 @@ namespace System
     struct TimeSpan
     {
     public:
-        using Clock                = std::chrono::high_resolution_clock;
-        using DaysDuration         = std::chrono::duration<double      , std::ratio<86400>>;
-        using HoursDuration        = std::chrono::duration<double      , std::ratio<3600>>;
-        using MinutesDuration      = std::chrono::duration<double      , std::ratio<60>>;
-        using SecondsDuration      = std::chrono::duration<double>;
-        using MillisecondsDuration = std::chrono::duration<double      , std::ratio<1, 1000>>;
-        using MicrosecondsDuration = std::chrono::duration<double      , std::ratio<1, 1000000>>;
-        using TicksDuration        = std::chrono::duration<std::int64_t, std::ratio<1, 10000000>>;
+        using clock                  = std::chrono::high_resolution_clock;
+        using days_duration          = std::chrono::duration<double      , std::ratio<86400>>;
+        using hours_duration         = std::chrono::duration<double      , std::ratio<3600>>;
+        using minutes_duration       = std::chrono::duration<double      , std::ratio<60>>;
+        using seconds_duration       = std::chrono::duration<double>;
+        using milli_seconds_duration = std::chrono::duration<double      , std::ratio<1, 1000>>;
+        using micro_seconds_duration = std::chrono::duration<double      , std::ratio<1, 1000000>>;
+        using ticks_duration         = std::chrono::duration<std::int64_t, std::ratio<1, 10000000>>;
 
     public:
         /**
          * Represents the maximum TimeSpan value.
          */
-        static const TimeSpan MaxValue;
+        static const TimeSpan max_value;
 
         /**
          * Represents the minimum TimeSpan value.
          */
-        static const TimeSpan MinValue;
+        static const TimeSpan min_value;
 
         /**
          * Represents the number of ticks in 1 day.
          */
-        constexpr static const std::int64_t TicksPerDay = 864000000000;
+        constexpr static const std::int64_t ticks_per_day = 864000000000;
 
         /**
          * Represents the number of ticks in 1 hour.
          */
-        constexpr static const std::int64_t TicksPerHour = 36000000000;
+        constexpr static const std::int64_t ticks_per_hour = 36000000000;
 
         /**
          * Represents the number of ticks in 1 millisecond.
          */
-        constexpr static const std::int64_t TicksPerMillisecond = 10000;
+        constexpr static const std::int64_t ticks_per_millisecond = 10000;
 
         /**
          * Represents the number of ticks in 1 minute.
          */
-        constexpr static const std::int64_t TicksPerMinute = 600000000;
+        constexpr static const std::int64_t ticks_per_minute = 600000000;
 
         /**
          * Represents the number of ticks in 1 second.
          */
-        constexpr static const std::int64_t TicksPerSecond = 10000000;
+        constexpr static const std::int64_t ticks_per_second = 10000000;
 
         /**
          * Represents the zero TimeSpan value. This field is read-only.
          */
-        static const TimeSpan Zero;
+        static const TimeSpan zero;
 
     public:
         /**
          * Returns a TimeSpan that represents a specified number of days.
          */
-        static TimeSpan FromDays(const double& value);
+        static TimeSpan from_days(const double &value);
 
         /**
          * Returns a TimeSpan that represents a specified duration.
          */
-        static TimeSpan FromDuration(const TimeSpan::Clock::duration& value);
+        static TimeSpan from_duration(const TimeSpan::clock::duration& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of hours.
          */
-        static TimeSpan FromHours(const double& value);
+        static TimeSpan from_hours(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of milliseconds.
          */
-        static TimeSpan FromMilliseconds(const double& value);
+        static TimeSpan from_milliseconds(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of minutes.
          */
-        static TimeSpan FromMinutes(const double& value);
+        static TimeSpan from_minutes(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified number of seconds.
          */
-        static TimeSpan FromSeconds(const double& value);
+        static TimeSpan from_seconds(const double& value);
 
         /**
          * Returns a TimeSpan that represents a specified time.
          */
-        static TimeSpan FromTicks(const std::int64_t& value);
+        static TimeSpan from_ticks(const std::int64_t& value);
 
     public:
         /**
@@ -144,75 +144,75 @@ namespace System
         /**
          * Returns a new TimeSpan object whose value is the absolute value of this instance.
          */
-        TimeSpan Duration() const;
+        TimeSpan duration() const;
 
         /**
          * Returns a new TimeSpan object whose value is the negated value of this instance.
          */
-        TimeSpan Negate() const;
+        TimeSpan negate() const;
 
         /**
          * Gets the days component of the time interval represented by the current TimeSpan structure.
          */
-        std::int32_t Days() const;
+        std::int32_t days() const;
 
         /**
          * Gets the hours component of the time interval represented by the current TimeSpan structure.
          */
-        std::int32_t Hours() const;
+        std::int32_t hours() const;
 
         /**
          * Gets the milliseconds component of the time interval represented by the current TimeSpan structure.
          */
-        std::int32_t Milliseconds() const;
+        std::int32_t milli_seconds() const;
 
         /**
          * Gets the minutes component of the time interval represented by the current TimeSpan structure.
          */
-        std::int32_t Minutes() const;
+        std::int32_t minutes() const;
 
         /**
          * Gets the seconds component of the time interval represented by the current TimeSpan structure.
          */
-        std::int32_t Seconds() const;
+        std::int32_t seconds() const;
 
         /**
          * Gets the number of ticks that represent the value of the current TimeSpan structure.
          */
-        std::int64_t Ticks() const;
+        std::int64_t ticks() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional days.
          */
-        double TotalDays() const;
+        double total_days() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional hours.
          */
-        double TotalHours() const;
+        double total_hours() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional milliseconds.
          */
-        double TotalMilliseconds() const;
+        double total_milli_seconds() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional minutes.
          */
-        double TotalMinutes() const;
+        double total_minutes() const;
 
         /**
          * Gets the value of the current TimeSpan structure expressed in whole and fractional seconds.
          */
-        double TotalSeconds() const;
+        double total_seconds() const;
 
         /**
          * Returns a TimeSpan that represents a specified duration type.
          */
         template <class _Duration>
-        TimeSpan::Clock::duration ToDuration() const
+        inline TimeSpan::clock::duration ToDuration() const
         {
-            return std::chrono::duration_cast<_Duration>(this->ticks);
+            return std::chrono::duration_cast<_Duration>(_ticks);
         }
 
     public:
@@ -229,7 +229,7 @@ namespace System
         const TimeSpan operator+(const TimeSpan& t2) const;
 
     private:
-        TimeSpan::TicksDuration ticks;
+        TimeSpan::ticks_duration _ticks;
     };
 }
 

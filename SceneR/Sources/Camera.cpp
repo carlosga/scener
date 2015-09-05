@@ -44,44 +44,44 @@ namespace SceneR
 
         void Camera::Update(const RenderTime& renderTime)
         {
-            auto currentKeyboardState = Keyboard::GetState();
+            auto currentKeyboardState = Keyboard::get_state();
             auto currentPosition      = _position;
             auto newPosition          = _position;
             auto currentRotation      = _rotation;
             auto newRotation          = _rotation;
 
-            if (currentKeyboardState.IsKeyDown(Keys::D))
+            if (currentKeyboardState.is_key_down(Keys::D))
             {
                 newPosition += Vector3 { 1.0f, 0.0f, 0.0f };
             }
-            if (currentKeyboardState.IsKeyDown(Keys::A))
+            if (currentKeyboardState.is_key_down(Keys::A))
             {
                 newPosition += Vector3 { -1.0f, 0.0f, 0.0f };
             }
-            if (currentKeyboardState.IsKeyDown(Keys::W))
+            if (currentKeyboardState.is_key_down(Keys::W))
             {
                 newPosition += Vector3 { 0.0f, 0.0f, 1.0f };
             }
-            if (currentKeyboardState.IsKeyDown(Keys::S))
+            if (currentKeyboardState.is_key_down(Keys::S))
             {
                 newPosition += Vector3 { 0.0f, 0.0f, -1.0f };
             }
-            if (currentKeyboardState.IsKeyDown(Keys::Z))
+            if (currentKeyboardState.is_key_down(Keys::Z))
             {
                 newPosition += Vector3 { 0.0f, 1.0f, 0.0f };
             }
-            if (currentKeyboardState.IsKeyDown(Keys::C))
+            if (currentKeyboardState.is_key_down(Keys::C))
             {
                 newPosition += Vector3 { 0.0f, -1.0f, 0.0f };
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys::Q))
+            if (currentKeyboardState.is_key_down(Keys::Q))
             {
-                newRotation = currentRotation + renderTime.ElapsedRenderTime().TotalSeconds();
+                newRotation = currentRotation + renderTime.elapsed_render_time.total_seconds();
             }
-            if (currentKeyboardState.IsKeyDown(Keys::E))
+            if (currentKeyboardState.is_key_down(Keys::E))
             {
-                newRotation = currentRotation - renderTime.ElapsedRenderTime().TotalSeconds();
+                newRotation = currentRotation - renderTime.elapsed_render_time.total_seconds();
             }
 
             if (currentRotation != newRotation)

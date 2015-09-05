@@ -1526,7 +1526,7 @@ TEST_F(MatrixTest, Multiply)
     EXPECT_TRUE(expected == actual);
 }
 
-// A test for Negate (Matrix)
+// A test for negate (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Negate)
 {

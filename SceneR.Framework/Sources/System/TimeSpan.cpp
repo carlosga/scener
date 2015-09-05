@@ -7,52 +7,52 @@
 
 namespace System
 {
-    const TimeSpan     TimeSpan::MaxValue            { INT64_MAX };
-    const TimeSpan     TimeSpan::MinValue            { INT64_MIN };
-    const std::int64_t TimeSpan::TicksPerDay;
-    const std::int64_t TimeSpan::TicksPerHour;
-    const std::int64_t TimeSpan::TicksPerMillisecond;
-    const std::int64_t TimeSpan::TicksPerMinute;
-    const std::int64_t TimeSpan::TicksPerSecond;
-    const TimeSpan     TimeSpan::Zero                { 0 };
+    const TimeSpan     TimeSpan::max_value { INT64_MAX };
+    const TimeSpan     TimeSpan::min_value { INT64_MIN };
+    const std::int64_t TimeSpan::ticks_per_day;
+    const std::int64_t TimeSpan::ticks_per_hour;
+    const std::int64_t TimeSpan::ticks_per_millisecond;
+    const std::int64_t TimeSpan::ticks_per_minute;
+    const std::int64_t TimeSpan::ticks_per_second;
+    const TimeSpan     TimeSpan::zero      { 0 };
 
-    TimeSpan TimeSpan::FromDays(const double& value)
+    TimeSpan TimeSpan::from_days(const double& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(DaysDuration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(days_duration(value)).count() };
     }
 
-    TimeSpan TimeSpan::FromDuration(const TimeSpan::Clock::duration& value)
+    TimeSpan TimeSpan::from_duration(const TimeSpan::clock::duration& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(value).count() };
+        return { std::chrono::duration_cast<ticks_duration>(value).count() };
     }
 
-    TimeSpan TimeSpan::FromHours(const double& value)
+    TimeSpan TimeSpan::from_hours(const double& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(HoursDuration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(hours_duration(value)).count() };
     }
 
-    TimeSpan TimeSpan::FromMilliseconds(const double& value)
+    TimeSpan TimeSpan::from_milliseconds(const double& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(MillisecondsDuration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(value)).count() };
     }
 
-    TimeSpan TimeSpan::FromMinutes(const double& value)
+    TimeSpan TimeSpan::from_minutes(const double& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(MinutesDuration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(minutes_duration(value)).count() };
     }
 
-    TimeSpan TimeSpan::FromSeconds(const double& value)
+    TimeSpan TimeSpan::from_seconds(const double& value)
     {
-        return { std::chrono::duration_cast<TicksDuration>(SecondsDuration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(seconds_duration(value)).count() };
     }
 
-    TimeSpan TimeSpan::FromTicks(const std::int64_t& value)
+    TimeSpan TimeSpan::from_ticks(const std::int64_t& value)
     {
         return { value };
     }
 
     TimeSpan::TimeSpan(const std::int64_t& ticks)
-        : ticks { TicksDuration(ticks) }
+        : _ticks { ticks_duration(ticks) }
     {
     }
 
@@ -75,15 +75,15 @@ namespace System
                      , const std::int32_t& seconds
                      , const std::int32_t& milliseconds)
     {
-        this->ticks = (std::chrono::duration_cast<TicksDuration>(DaysDuration(days))
-                     + std::chrono::duration_cast<TicksDuration>(HoursDuration(hours))
-                     + std::chrono::duration_cast<TicksDuration>(MinutesDuration(minutes))
-                     + std::chrono::duration_cast<TicksDuration>(SecondsDuration(seconds))
-                     + std::chrono::duration_cast<TicksDuration>(MillisecondsDuration(milliseconds)));
+        _ticks = (std::chrono::duration_cast<ticks_duration>(days_duration(days))
+                + std::chrono::duration_cast<ticks_duration>(hours_duration(hours))
+                + std::chrono::duration_cast<ticks_duration>(minutes_duration(minutes))
+                + std::chrono::duration_cast<ticks_duration>(seconds_duration(seconds))
+                + std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(milliseconds)));
     }
 
     TimeSpan::TimeSpan(const TimeSpan& interval)
-        : ticks { interval.ticks }
+        : _ticks { interval._ticks }
     {
     }
 
@@ -91,76 +91,76 @@ namespace System
     {
     }
 
-    TimeSpan TimeSpan::Duration() const
+    TimeSpan TimeSpan::duration() const
     {
-        return { std::abs(this->ticks.count()) };
+        return { std::abs(_ticks.count()) };
     }
 
-    TimeSpan TimeSpan::Negate() const
+    TimeSpan TimeSpan::negate() const
     {
-        return { -this->ticks.count() };
+        return { -_ticks.count() };
     }
 
-    std::int32_t TimeSpan::Days() const
+    std::int32_t TimeSpan::days() const
     {
-        return (this->ticks.count() / TimeSpan::TicksPerDay);
+        return (_ticks.count() / TimeSpan::ticks_per_day);
     }
 
-    std::int32_t TimeSpan::Hours() const
+    std::int32_t TimeSpan::hours() const
     {
-        return (this->ticks.count() % TimeSpan::TicksPerDay / TimeSpan::TicksPerHour);
+        return (_ticks.count() % TimeSpan::ticks_per_day / TimeSpan::ticks_per_hour);
     }
 
-    std::int32_t TimeSpan::Milliseconds() const
+    std::int32_t TimeSpan::milli_seconds() const
     {
-        return (this->ticks.count() % TimeSpan::TicksPerSecond / TimeSpan::TicksPerMillisecond);
+        return (_ticks.count() % TimeSpan::ticks_per_second / TimeSpan::ticks_per_millisecond);
     }
 
-    std::int32_t TimeSpan::Minutes() const
+    std::int32_t TimeSpan::minutes() const
     {
-        return (this->ticks.count() % TimeSpan::TicksPerHour / TimeSpan::TicksPerMinute);
+        return (_ticks.count() % TimeSpan::ticks_per_hour / TimeSpan::ticks_per_minute);
     }
 
-    std::int32_t TimeSpan::Seconds() const
+    std::int32_t TimeSpan::seconds() const
     {
-        return (this->ticks.count() % TimeSpan::TicksPerMinute / TimeSpan::TicksPerSecond);
+        return (_ticks.count() % TimeSpan::ticks_per_minute / TimeSpan::ticks_per_second);
     }
 
-    std::int64_t TimeSpan::Ticks() const
+    std::int64_t TimeSpan::ticks() const
     {
-        return this->ticks.count();
+        return _ticks.count();
     }
 
-    double TimeSpan::TotalDays() const
+    double TimeSpan::total_days() const
     {
-        return std::chrono::duration_cast<DaysDuration>(this->ticks).count();
+        return std::chrono::duration_cast<days_duration>(_ticks).count();
     }
 
-    double TimeSpan::TotalHours() const
+    double TimeSpan::total_hours() const
     {
-        return std::chrono::duration_cast<HoursDuration>(this->ticks).count();
+        return std::chrono::duration_cast<hours_duration>(_ticks).count();
     }
 
-    double TimeSpan::TotalMilliseconds() const
+    double TimeSpan::total_milli_seconds() const
     {
-        return std::chrono::duration_cast<MillisecondsDuration>(this->ticks).count();
+        return std::chrono::duration_cast<milli_seconds_duration>(_ticks).count();
     }
 
-    double TimeSpan::TotalMinutes() const
+    double TimeSpan::total_minutes() const
     {
-        return std::chrono::duration_cast<MinutesDuration>(this->ticks).count();
+        return std::chrono::duration_cast<minutes_duration>(_ticks).count();
     }
 
-    double TimeSpan::TotalSeconds() const
+    double TimeSpan::total_seconds() const
     {
-        return std::chrono::duration_cast<SecondsDuration>(this->ticks).count();
+        return std::chrono::duration_cast<seconds_duration>(_ticks).count();
     }
 
     TimeSpan& TimeSpan::operator=(const TimeSpan& t2)
     {
         if (this != &t2)
         {
-            this->ticks = t2.ticks;
+            _ticks = t2._ticks;
         }
 
         return *this;
@@ -168,7 +168,7 @@ namespace System
 
     bool TimeSpan::operator==(const TimeSpan& t2) const
     {
-        return (this->ticks == t2.ticks);
+        return (_ticks == t2._ticks);
     }
 
     bool TimeSpan::operator!=(const TimeSpan& t2) const
@@ -178,34 +178,34 @@ namespace System
 
     bool TimeSpan::operator>(const TimeSpan& t2) const
     {
-        return (this->ticks > t2.ticks);
+        return (_ticks > t2._ticks);
     }
 
     bool TimeSpan::operator>=(const TimeSpan& t2) const
     {
-        return (this->ticks >= t2.ticks);
+        return (_ticks >= t2._ticks);
     }
 
     bool TimeSpan::operator<(const TimeSpan& t2) const
     {
-        return (this->ticks < t2.ticks);
+        return (_ticks < t2._ticks);
     }
 
     bool TimeSpan::operator<=(const TimeSpan& t2) const
     {
-        return (this->ticks <= t2.ticks);
+        return (_ticks <= t2._ticks);
     }
 
     TimeSpan& TimeSpan::operator-=(const TimeSpan& t2)
     {
-        this->ticks -= t2.ticks;
+        _ticks -= t2._ticks;
 
         return *this;
     }
 
     TimeSpan& TimeSpan::operator+=(const TimeSpan& t2)
     {
-        this->ticks += t2.ticks;
+        _ticks += t2._ticks;
 
         return *this;
     }

@@ -528,7 +528,7 @@ TEST_F(QuaternionTest, InvertZeroLengthQuaternion)
     EXPECT_TRUE(Math::IsNaN(actual.W()));
 }
 
-// A test for Negate (Quaternion)
+// A test for negate (Quaternion)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Negate)
 {

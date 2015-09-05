@@ -76,382 +76,236 @@ namespace SceneR
              * Gets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            float Alpha() const;
+            float alpha() const;
 
             /**
              * Sets the material alpha which determines its transparency.
              * Range is between 1 (fully opaque) and 0 (fully transparent).
              */
-            void Alpha(const float& alpha);
+            void alpha(const float& alpha);
 
             /**
              * Gets the ambient light for the current effect
              */
-            const SceneR::Framework::Vector3& AmbientLightColor() const override;
+            const SceneR::Framework::Vector3& ambient_light_color() const override;
 
             /**
              * Gets the ambient light for the current effect
              */
-            void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) override;
+            void ambient_light_color(const SceneR::Framework::Vector3& ambientLightColor) override;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Vector3& DiffuseColor() const;
+            const SceneR::Framework::Vector3& diffuse_color() const;
 
             /**
              * Gets the ambient color for a light, the range of color values is from 0 to 1.
              */
-            void DiffuseColor(const SceneR::Framework::Vector3& diffuseColor);
+            void diffuse_color(const SceneR::Framework::Vector3& diffuseColor);
 
             /**
              * Gets the first directional light
              */
-            const DirectionalLight& DirectionalLight0() const override;
+            const DirectionalLight& directional_light_0() const override;
 
             /**
              * Gets the second directional light
              */
-            const DirectionalLight& DirectionalLight1() const override;
+            const DirectionalLight& directional_light_1() const override;
 
             /**
              * Gets the third directional light
              */
-            const DirectionalLight& DirectionalLight2() const override;
+            const DirectionalLight& directional_light_2() const override;
 
             /**
              * Enables default lighting for this effect.
              */
-            void EnableDefaultLighting() override;
+            void enable_default_lighting() override;
 
             /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Vector3& EmissiveColor() const;
+            const SceneR::Framework::Vector3& emissive_color() const;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void EmissiveColor(const SceneR::Framework::Vector3& emissiveColor);
+            void emissive_color(const SceneR::Framework::Vector3& emissiveColor);
 
             /**
              * Gets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Vector3& FogColor() const override;
+            const SceneR::Framework::Vector3& fog_color() const override;
 
             /**
              * Sets the emissive color for a material,
              * the range of color values is from 0 to 1.
              */
-            void FogColor(const SceneR::Framework::Vector3& fogColor) override;
+            void fog_color(const SceneR::Framework::Vector3& fogColor) override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            bool FogEnabled() const override;
+            bool fog_enabled() const override;
 
             /**
              * Gets a value indicating whether for is enabled for the current effect.
              */
-            void FogEnabled(const bool& fogEnabled) override;
+            void fog_enabled(const bool& fogEnabled) override;
 
             /**
              * Gets maximum z value for fog, which ranges from 0 to 1.
              */
-            float FogEnd() const override;
+            float fog_end() const override;
 
             /**
              * Sets maximum z value for fog, which ranges from 0 to 1.
              */
-            void FogEnd(const float& fogEnd) override;
+            void fog_end(const float& fogEnd) override;
 
             /**
              * Gets minimum z value for fog, which ranges from 0 to 1.
              */
-            float FogStart() const override;
+            float fog_start() const override;
 
             /**
              * Sets minimum z value for fog, which ranges from 0 to 1.
              */
-            void FogStart(const float& fogStart) override;
+            void fog_start(const float& fogStart) override;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            bool LightingEnabled() const override;
+            bool lighting_enabled() const override;
 
             /**
              * Sets a value indicating wheter lighting is enabled for the current effect.
              */
-            void LightingEnabled(const bool& lightingEnabled) override;
+            void lighting_enabled(const bool& lightingEnabled) override;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            bool PreferPerPixelLighting() const;
+            bool prefer_per_pixel_lighting() const;
 
             /**
              * Gets a value indicating that per-pixel lighting should be used if it is
              * available for the current adapter.
              */
-            void PreferPerPixelLighting(const bool& preferPerPixelLighting);
+            void prefer_per_pixel_lighting(const bool& preferPerPixelLighting);
 
             /**
              * Gets the projection matrix in the current effect.
              */
-            const SceneR::Framework::Matrix& Projection() const override;
+            const SceneR::Framework::Matrix& projection() const override;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            void Projection(const SceneR::Framework::Matrix& projection) override;
+            void projection(const SceneR::Framework::Matrix& projection) override;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            const SceneR::Framework::Vector3& SpecularColor() const;
+            const SceneR::Framework::Vector3& specular_color() const;
 
             /**
              * Gets the specular color for a material,
              * the range of color values is from 0 to 1.
              */
-            void SpecularColor(const SceneR::Framework::Vector3& specularColor);
+            void specular_color(const SceneR::Framework::Vector3& specularColor);
 
             /**
              * Gets specular power of this effect material.
              */
-            float SpecularPower() const;
+            float specular_power() const;
 
             /**
              * Sets specular power of this effect material.
              */
-            void SpecularPower(const float& specularPower);
+            void specular_power(const float& specularPower);
 
             /**
              * Gets a texture to be applied by this effect.
              */
-            const std::shared_ptr<Texture2D>& Texture() const;
+            const std::shared_ptr<Texture2D>& texture() const;
 
             /**
              * Sets a texture to be applied by this effect.
              */
-            void Texture(const std::shared_ptr<Texture2D>& texture);
+            void texture(const std::shared_ptr<Texture2D>& texture);
 
             /**
              * Gets a value indicating wheter textures are enabled for this effect
              */
-            bool TextureEnabled() const;
+            bool texture_enabled() const;
 
             /**
              * Sets a value indicating wheter textures are enabled for this effect
              */
-            void TextureEnabled(const bool& textureEnabled);
+            void texture_enabled(const bool& textureEnabled);
 
             /**
              * Gets the view matrix in the current effect.
              */
-            const SceneR::Framework::Matrix& View() const override;
+            const SceneR::Framework::Matrix& view() const override;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            void View(const SceneR::Framework::Matrix& view) override;
+            void view(const SceneR::Framework::Matrix& view) override;
 
             /**
              * Gets the world matrix in the current effect.
              */
-            const SceneR::Framework::Matrix& World() const override;
+            const SceneR::Framework::Matrix& world() const override;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            void World(const SceneR::Framework::Matrix& world) override;
+            void world(const SceneR::Framework::Matrix& world) override;
 
         public:
             /**
              * Gets the array of bone transform matrices of this SkinnedEffect.
              */
-            std::vector<SceneR::Framework::Matrix> GetBoneTransforms(const std::size_t& count) const;
+            std::vector<SceneR::Framework::Matrix> bone_transforms(const std::size_t& count) const;
 
             /**
              * Sets an array of bone transform matrices for a SkinnedEffect.
              */
-            void SetBoneTransforms(const std::vector<SceneR::Framework::Matrix>& boneTransforms);
+            void bone_transforms(const std::vector<SceneR::Framework::Matrix>& boneTransforms);
 
             /**
              * Gets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            std::size_t WeightsPerVertex() const;
+            std::size_t weights_per_vertex() const;
 
             /**
              * Sets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
              */
-            void WeightsPerVertex(const std::size_t& weightsPerVertex);
+            void weights_per_vertex(const std::size_t& weightsPerVertex);
 
         public:
             /**
              * Starts the application of the effect state just prior to rendering the effect.
              */
-            void Begin();
+            void begin();
 
             /**
              * Ends the application of the effect state just after rendering the effect.
              */
-            void End();
+            void end();
 
         private:
-            /**
-             * Sets the value of the EffectParameter as a boolean.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const bool& value) const;
-
-            /**
-             * Gets the value of the EffectParameter as an array of booleans.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::vector<bool>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an int32_t.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::int32_t& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of int32_t
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::vector<std::int32_t>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an uint32_t.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::uint32_t& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of uint32_t.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::vector<std::uint32_t>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Matrix.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const SceneR::Framework::Matrix& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Matrix.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::vector<SceneR::Framework::Matrix>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Matrix transpose.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValueTranspose(const std::u16string& uniformName, const SceneR::Framework::Matrix& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Matrix transpose.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValueTranspose(const std::u16string&                         uniformName
-                                 , const std::vector<SceneR::Framework::Matrix>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Quaternion.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const SceneR::Framework::Quaternion& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Quaternion.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string&                             uniformName
-                , const std::vector<SceneR::Framework::Quaternion>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a float.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const float& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of float.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const std::vector<float>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Vector2.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector2& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Vector2.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string&                          uniformName
-                , const std::vector<SceneR::Framework::Vector2>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Vector3.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector3& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Vector3.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string&                          uniformName
-                , const std::vector<SceneR::Framework::Vector3>& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as a Vector4.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string& uniformName, const SceneR::Framework::Vector4& value) const;
-
-            /**
-             * Sets the value of the EffectParameter as an array of Vector4.
-             * @param uniformName the uniform name
-             * @param value the value to assign to the shader uniform.
-             */
-            void SetValue(const std::u16string&                          uniformName
-                , const std::vector<SceneR::Framework::Vector4>& value) const;
-
-        private:
-            void CreateShader();
+            void create_shader();
 
             /**
              * @brief Adds the given shader sources to the shader program for later compilation.
@@ -459,7 +313,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the shader sources.
              */
-            void AddShader(const std::u16string&            name
+            void add_shader(const std::u16string&            name
                          , const ShaderType&                type
                          , const std::vector<std::uint8_t>& source);
 
@@ -470,100 +324,100 @@ namespace SceneR
              * @param source the shader sources.
              * @param includes the shader sources for "include" files.
              */
-            void AddShader(const std::u16string&            name
-                         , const ShaderType&                type
-                         , const std::vector<std::uint8_t>& source
-                         , const std::vector<std::string>&  includes);
+            void add_shader(const std::u16string&            name
+                          , const ShaderType&                type
+                          , const std::vector<std::uint8_t>& source
+                          , const std::vector<std::string>&  includes);
 
             /**
              * Compiles and links the shader program sources.
              */
-            void Build();
+            void build_program();
 
             /**
              * Activates the shader subroutine with the given index.
              */
-            void ActivateSubroutine(const std::uint32_t& subroutineIndex) const;
+            void activate_subroutine(const std::uint32_t& subroutineIndex) const;
 
             /**
              * Activates the shader subroutine with the given shader type and index.
              */
-            void ActivateSubroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
+            void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
 
             /**
              * Verify if the shader program has been linked correctly.
              */
-            void VerifyLinkingState();
+            void verify_linking_state();
 
         private:
             /**
              * Computes derived parameter values immediately before applying the effect.
              */
-            void OnApply();
+            void apply();
 
-            void DescribeParameters();
-            void CacheEffectParameters();
-
-        private:
-            float                                  alpha;
-            SceneR::Framework::Vector3             ambientLightColor;
-            std::vector<SceneR::Framework::Matrix> boneTransforms;
-            SceneR::Framework::Vector3             diffuseColor;
-            DirectionalLight                       light0;
-            DirectionalLight                       light1;
-            DirectionalLight                       light2;
-            bool                                   lightingEnabled;
-            SceneR::Framework::Vector3             emissiveColor;
-            bool                                   fogEnabled;
-            SceneR::Framework::Vector3             fogColor;
-            float                                  fogEnd;
-            float                                  fogStart;
-            bool                                   preferPerPixelLighting;
-            SceneR::Framework::Matrix              projection;
-            SceneR::Framework::Vector3             specularColor;
-            float                                  specularPower;
-            bool                                   textureEnabled;
-            std::shared_ptr<Texture2D>             texture;
-            SceneR::Framework::Matrix              view;
-            std::size_t                            weightsPerVertex;
-            SceneR::Framework::Matrix              world;
-            SceneR::Framework::Matrix              worldView;
-            bool                                   oneLight;
-            std::uint32_t                          shaderIndex;
-
-            EffectDirtyFlags                       dirtyFlags;
-
-            std::uint32_t                          id;
-            std::vector<std::shared_ptr<Shader>>   shaders;
-            std::shared_ptr<UniformBufferObject>   uniformBuffer;
+            void describe_parameters();
+            void cache_effect_parameters();
 
         private:
-            std::map<std::string, std::shared_ptr<EffectPass>>      passes;
-            std::map<std::string, std::shared_ptr<EffectParameter>> parameters;
+            float                                  _alpha;
+            SceneR::Framework::Vector3             _ambient_light_color;
+            std::vector<SceneR::Framework::Matrix> _bone_transforms;
+            SceneR::Framework::Vector3             _diffuse_color;
+            DirectionalLight                       _light_0;
+            DirectionalLight                       _light_1;
+            DirectionalLight                       _light_2;
+            bool                                   _lighting_enabled;
+            SceneR::Framework::Vector3             _emissive_color;
+            bool                                   _fog_enabled;
+            SceneR::Framework::Vector3             _fog_color;
+            float                                  _fog_end;
+            float                                  _fog_start;
+            bool                                   _prefer_per_pixel_lighting;
+            SceneR::Framework::Matrix              _projection;
+            SceneR::Framework::Vector3             _specular_color;
+            float                                  _specular_power;
+            bool                                   _texture_enabled;
+            std::shared_ptr<Texture2D>             _texture;
+            SceneR::Framework::Matrix              _view;
+            std::size_t                            _weights_per_vertex;
+            SceneR::Framework::Matrix              _world;
+            SceneR::Framework::Matrix              _world_view;
+            bool                                   _one_light;
+            std::uint32_t                          _shader_index;
 
-            std::shared_ptr<EffectPass>      pass                  = nullptr;
-            std::shared_ptr<EffectParameter> modelViewMatrixParam  = nullptr;
-            std::shared_ptr<EffectParameter> projectionMatrixParam = nullptr;
-            std::shared_ptr<EffectParameter> normalMatrixParam     = nullptr;
-            std::shared_ptr<EffectParameter> positionParam         = nullptr;
-            std::shared_ptr<EffectParameter> normalParam           = nullptr;
-            std::shared_ptr<EffectParameter> texCoordParam         = nullptr;
-            std::shared_ptr<EffectParameter> texBinormalParam      = nullptr;
-            std::shared_ptr<EffectParameter> texTangentParam       = nullptr;
-            std::shared_ptr<EffectParameter> jointParam            = nullptr;
-            std::shared_ptr<EffectParameter> jointMatrixParam      = nullptr;
-            std::shared_ptr<EffectParameter> weightParam           = nullptr;
-//            EffectParameter                        bonesParam;
-//            EffectParameter                        fogColorParam;
-//            EffectParameter                        fogVectorParam;
-//            EffectParameter                        eyePositionParam;
-//            EffectParameter                        diffuseColorParam;
-//            EffectParameter                        emissiveColorParam;
-//            EffectParameter                        specularColorParam;
-//            EffectParameter                        specularPowerParam;
-//            EffectParameter                        worldParam;
-//            EffectParameter                        worldInverseTransposeParam;
-//            EffectParameter                        worldViewProjParam;
+            EffectDirtyFlags                       _dirty_flags;
+
+            std::uint32_t                          _id;
+            std::vector<std::shared_ptr<Shader>>   _shaders;
+            std::shared_ptr<UniformBufferObject>   _uniform_buffer;
+
+        private:
+            std::map<std::string, std::shared_ptr<EffectPass>>      _passes;
+            std::map<std::string, std::shared_ptr<EffectParameter>> _parameters;
+
+            std::shared_ptr<EffectPass>      _pass                    = nullptr;
+            std::shared_ptr<EffectParameter> _model_view_matrix_param = nullptr;
+            std::shared_ptr<EffectParameter> _projection_matrix_param = nullptr;
+            std::shared_ptr<EffectParameter> _normal_matrix_param     = nullptr;
+            std::shared_ptr<EffectParameter> _position_param          = nullptr;
+            std::shared_ptr<EffectParameter> _normal_param            = nullptr;
+            std::shared_ptr<EffectParameter> _tex_coord_param         = nullptr;
+            std::shared_ptr<EffectParameter> _tex_binormal_param      = nullptr;
+            std::shared_ptr<EffectParameter> _tex_tangent_param       = nullptr;
+            std::shared_ptr<EffectParameter> _joint_param             = nullptr;
+            std::shared_ptr<EffectParameter> _joint_matrix_param      = nullptr;
+            std::shared_ptr<EffectParameter> _weight_param            = nullptr;
+//            EffectParameter                        _bonesParam;
+//            EffectParameter                        _fogColorParam;
+//            EffectParameter                        _fogVectorParam;
+//            EffectParameter                        _eyePositionParam;
+//            EffectParameter                        _diffuseColorParam;
+//            EffectParameter                        _emissiveColorParam;
+//            EffectParameter                        _specularColorParam;
+//            EffectParameter                        _specularPowerParam;
+//            EffectParameter                        _worldParam;
+//            EffectParameter                        _worldInverseTransposeParam;
+//            EffectParameter                        _worldViewProjParam;
 
             static std::uint32_t VSIndices[18];
             static std::uint32_t PSIndices[18];

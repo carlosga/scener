@@ -48,7 +48,7 @@ namespace SceneR
                 read_technique_passes(item.second["passes"], technique);
 
                 // Default pass
-                technique->pass = technique->passes[item.second["pass"].string_value()];
+                technique->_pass = technique->_passes[item.second["pass"].string_value()];
 
                 root->_techniques[item.first] = technique;
             }
@@ -73,54 +73,54 @@ namespace SceneR
                 }
                 else if (tparameter->_semantic == "MODELVIEW")
                 {
-                    technique->modelViewMatrixParam = tparameter;
+                    technique->_model_view_matrix_param = tparameter;
                 }
                 else if (tparameter->_semantic == "PROJECTION")
                 {
-                    technique->projectionMatrixParam = tparameter;
+                    technique->_projection_matrix_param = tparameter;
                 }
                 else if (tparameter->_semantic == "MODELVIEWINVERSETRANSPOSE")
                 {
-                    technique->normalMatrixParam = tparameter;
+                    technique->_normal_matrix_param = tparameter;
                 }
                 else if (tparameter->_semantic == "POSITION")
                 {
-                    technique->positionParam = tparameter;
+                    technique->_position_param = tparameter;
                 }
                 else if (tparameter->_semantic == "NORMAL")
                 {
-                    technique->normalParam = tparameter;
+                    technique->_normal_param = tparameter;
                 }
                 else if (tparameter->_semantic == "TEXCOORD_0")
                 {
-                    technique->texCoordParam = tparameter;
+                    technique->_tex_coord_param = tparameter;
                 }
                 else if (tparameter->_semantic == "TEXBINORMAL")
                 {
-                    technique->texBinormalParam = tparameter;
+                    technique->_tex_binormal_param = tparameter;
                 }
                 else if (tparameter->_semantic == "TEXTANGENT")
                 {
-                    technique->texTangentParam = tparameter;
+                    technique->_tex_tangent_param = tparameter;
                 }
                 else if (tparameter->_semantic == "JOINT")
                 {
-                    technique->jointParam = tparameter;
+                    technique->_joint_param = tparameter;
                 }
                 else if (tparameter->_semantic == "JOINTMATRIX")
                 {
-                    technique->jointMatrixParam = tparameter;
+                    technique->_joint_matrix_param = tparameter;
                 }
                 else if (tparameter->_semantic == "WEIGHT")
                 {
-                    technique->weightParam = tparameter;
+                    technique->_weight_param = tparameter;
                 }
                 else
                 {
                     std::cout << "unknown semantic [" << tparameter->_semantic << "]" << std::endl;
                 }
 
-                technique->parameters[parameter.first] = tparameter;
+                technique->_parameters[parameter.first] = tparameter;
             }
         }
 
@@ -135,17 +135,17 @@ namespace SceneR
                 const auto& commonProfile = pass.second["details"]["commonProfile"];
                 const auto& parameters    = commonProfile["parameters"];
 
-                tpass->lightingModel = commonProfile["lightingModel"].string_value();
+                tpass->_lighting_model = commonProfile["lightingModel"].string_value();
 
                 for (const auto& paramRef : parameters.array_items())
                 {
-                    tpass->parameters.push_back(technique->parameters[paramRef.string_value()]);
+                    tpass->_parameters.push_back(technique->_parameters[paramRef.string_value()]);
                 }
 
                 read_technique_pass_program(pass.second["instanceProgram"], technique, tpass);
                 read_technique_pass_states(pass.second["states"], tpass);
 
-                technique->passes[pass.first] = tpass;
+                technique->_passes[pass.first] = tpass;
             }
         }
 
@@ -155,7 +155,7 @@ namespace SceneR
         {
             EffectPassInstanceProgram program;
 
-            program.name = value["program"].string_value();
+            program._name = value["program"].string_value();
 
             const auto& attributes = value["attributes"].object_items();
             const auto& uniforms   = value["uniforms"].object_items();
@@ -165,7 +165,7 @@ namespace SceneR
                 const std::string attName  = attribute.first;
                 const std::string paramRef = attribute.second.string_value();
 
-                program.attributes[attName] = technique->parameters[paramRef];
+                program._attributes[attName] = technique->_parameters[paramRef];
             }
 
             for (const auto& uniform : uniforms)
@@ -173,10 +173,10 @@ namespace SceneR
                 const std::string uniformName = uniform.first;
                 const std::string paramRef    = uniform.second.string_value();
 
-                program.uniforms[uniformName] = technique->parameters[paramRef];
+                program._uniforms[uniformName] = technique->_parameters[paramRef];
             }
 
-            pass->program = program;
+            pass->_program = program;
         }
 
         void TechniquesReader::read_technique_pass_states(const json11::Json& value, std::shared_ptr<EffectPass> pass)

@@ -27,7 +27,7 @@ namespace SceneR
             , _shader_manager           { }
             , _timer                    { }
             , _render_time              { }
-            , _total_tender_time        { TimeSpan::Zero }
+            , _total_tender_time        { TimeSpan::zero }
             , _is_running_slowly        { false }
             , _drawable_components      ( 0 )
             , _updateable_components    ( 0 )
@@ -150,7 +150,7 @@ namespace SceneR
 
         void Renderer::start_event_loop()
         {
-            _timer.Reset();
+            _timer.reset();
 
             do
             {
@@ -218,15 +218,15 @@ namespace SceneR
 
         void Renderer::fixed_time_step()
         {
-            _render_time.ElapsedRenderTime(_timer.ElapsedTimeStepTime());
-            _render_time.TotalRenderTime(_timer.ElapsedTime());
-            _render_time.IsRunningSlowly(_is_running_slowly);
+            _render_time.elapsed_render_time = _timer.elapsed_time_step_time();
+            _render_time.total_render_time   = _timer.elapsed_time();
+            _render_time.is_running_slowly   = _is_running_slowly;
 
-            _timer.UpdateTimeStep();
+            _timer.update_time_step();
 
             this->update(_render_time);
 
-            _is_running_slowly = (_timer.ElapsedTimeStepTime() > target_elapsed_time);
+            _is_running_slowly = (_timer.elapsed_time_step_time() > target_elapsed_time);
 
             if (!_is_running_slowly)
             {
@@ -236,7 +236,7 @@ namespace SceneR
                     this->end_draw();
                 }
 
-                auto interval = (target_elapsed_time - _timer.ElapsedTimeStepTime());
+                auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());
 
                 std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
             }

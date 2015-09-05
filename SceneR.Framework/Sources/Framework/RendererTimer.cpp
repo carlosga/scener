@@ -10,8 +10,8 @@ namespace SceneR
         using System::TimeSpan;
 
         RendererTimer::RendererTimer()
-            : start        { TimeSpan::Clock::now() }
-            , lastTimeStep { TimeSpan::Clock::now() }
+            : _start          { TimeSpan::clock::now() }
+            , _last_time_step { TimeSpan::clock::now() }
         {
         }
 
@@ -19,30 +19,30 @@ namespace SceneR
         {
         }
 
-        void RendererTimer::Reset()
+        void RendererTimer::reset()
         {
-            this->start        = this->CurrentTime();
-            this->lastTimeStep = this->CurrentTime();
+            _start          = current_time();
+            _last_time_step = current_time();
         }
 
-        void RendererTimer::UpdateTimeStep()
+        void RendererTimer::update_time_step()
         {
-            this->lastTimeStep = this->CurrentTime();
+            _last_time_step = current_time();
         }
 
-        TimeSpan RendererTimer::ElapsedTime() const
+        TimeSpan RendererTimer::elapsed_time() const
         {
-            return TimeSpan::FromDuration(this->CurrentTime() - this->start);
+            return TimeSpan::from_duration(current_time() - _start);
         }
 
-        TimeSpan RendererTimer::ElapsedTimeStepTime() const
+        TimeSpan RendererTimer::elapsed_time_step_time() const
         {
-            return TimeSpan::FromDuration(this->CurrentTime() - this->lastTimeStep);
+            return TimeSpan::from_duration(current_time() - _last_time_step);
         }
 
-        TimeSpan::Clock::time_point RendererTimer::CurrentTime() const
+        TimeSpan::clock::time_point RendererTimer::current_time() const
         {
-            return TimeSpan::Clock::now();
+            return TimeSpan::clock::now();
         }
     }
 }

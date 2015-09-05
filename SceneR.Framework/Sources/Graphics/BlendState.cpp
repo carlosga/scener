@@ -11,36 +11,36 @@ namespace SceneR
         using SceneR::Framework::Color;
 
         BlendState::BlendState(GraphicsDevice& graphicsDevice)
-            : GraphicsResource      { graphicsDevice }
-            , alphaBlendFunction    { BlendFunction::Add }
-            , alphaDestinationBlend { Blend::Zero }
-            , alphaSourceBlend      { Blend::One }
-            , blendFactor           { Color::White }
-            , colorBlendFunction    { BlendFunction::Add }
-            , colorDestinationBlend { Blend::Zero }
-            , colorSourceBlend      { Blend::One }
-            , colorWriteChannels    { SceneR::Graphics::ColorWriteChannels::All }
-            , colorWriteChannels1   { SceneR::Graphics::ColorWriteChannels::All }
-            , colorWriteChannels2   { SceneR::Graphics::ColorWriteChannels::All }
-            , colorWriteChannels3   { SceneR::Graphics::ColorWriteChannels::All }
-            , multiSampleMask       { 0 }
+            : GraphicsResource        { graphicsDevice }
+            , alpha_blend_function    { BlendFunction::Add }
+            , alpha_destination_blend { Blend::Zero }
+            , alpha_source_blend      { Blend::One }
+            , blend_factor            { Color::White }
+            , color_blend_function    { BlendFunction::Add }
+            , color_destination_blend { Blend::Zero }
+            , color_source_blend      { Blend::One }
+            , color_write_channels    { SceneR::Graphics::ColorWriteChannels::All }
+            , color_write_channels_1  { SceneR::Graphics::ColorWriteChannels::All }
+            , color_write_channels_2  { SceneR::Graphics::ColorWriteChannels::All }
+            , color_write_channels_3  { SceneR::Graphics::ColorWriteChannels::All }
+            , multi_sample_mask       { 0 }
         {
         }
 
         BlendState::BlendState(const BlendState& blendState)
-            : GraphicsResource      { blendState._graphics_device }
-            , alphaBlendFunction    { blendState.alphaBlendFunction }
-            , alphaDestinationBlend { blendState.alphaDestinationBlend }
-            , alphaSourceBlend      { blendState.alphaSourceBlend }
-            , blendFactor           { blendState.blendFactor }
-            , colorBlendFunction    { blendState.colorBlendFunction }
-            , colorDestinationBlend { blendState.colorDestinationBlend }
-            , colorSourceBlend      { blendState.colorSourceBlend }
-            , colorWriteChannels    { blendState.colorWriteChannels }
-            , colorWriteChannels1   { blendState.colorWriteChannels1 }
-            , colorWriteChannels2   { blendState.colorWriteChannels2 }
-            , colorWriteChannels3   { blendState.colorWriteChannels3 }
-            , multiSampleMask       { blendState.multiSampleMask }
+            : GraphicsResource        { blendState._graphics_device }
+            , alpha_blend_function    { blendState.alpha_blend_function }
+            , alpha_destination_blend { blendState.alpha_destination_blend }
+            , alpha_source_blend      { blendState.alpha_source_blend }
+            , blend_factor            { blendState.blend_factor }
+            , color_blend_function    { blendState.color_blend_function }
+            , color_destination_blend { blendState.color_destination_blend }
+            , color_source_blend      { blendState.color_source_blend }
+            , color_write_channels    { blendState.color_write_channels }
+            , color_write_channels_1  { blendState.color_write_channels_1 }
+            , color_write_channels_2  { blendState.color_write_channels_2 }
+            , color_write_channels_3  { blendState.color_write_channels_3 }
+            , multi_sample_mask       { blendState.multi_sample_mask }
         {
         }
 
@@ -52,156 +52,36 @@ namespace SceneR
         {
         }
 
-        const BlendFunction& BlendState::AlphaBlendFunction() const
-        {
-            return this->alphaBlendFunction;
-        }
-
-        void BlendState::AlphaBlendFunction(const BlendFunction& alphaBlendFunction)
-        {
-            this->alphaBlendFunction = alphaBlendFunction;
-        }
-
-        const Blend& BlendState::AlphaDestinationBlend() const
-        {
-            return this->alphaDestinationBlend;
-        }
-
-        void BlendState::AlphaDestinationBlend(const Blend& alphaDestinationBlend)
-        {
-            this->alphaDestinationBlend = alphaDestinationBlend;
-        }
-
-        const Blend& BlendState::AlphaSourceBlend() const
-        {
-            return this->alphaSourceBlend;
-        }
-
-        void BlendState::AlphaSourceBlend(const Blend& alphaSourceBlend)
-        {
-            this->alphaSourceBlend = alphaSourceBlend;
-        }
-
-        const Color& BlendState::BlendFactor() const
-        {
-            return blendFactor;
-        }
-
-        void BlendState::BlendFactor(const Color& blendFactor)
-        {
-            this->blendFactor = blendFactor;
-        }
-
-        const BlendFunction& BlendState::ColorBlendFunction() const
-        {
-            return colorBlendFunction;
-        }
-
-        void BlendState::ColorBlendFunction(const BlendFunction& colorBlendFunction)
-        {
-            this->colorBlendFunction = colorBlendFunction;
-        }
-
-        const Blend& BlendState::ColorDestinationBlend() const
-        {
-            return colorDestinationBlend;
-        }
-
-        void BlendState::ColorDestinationBlend(const Blend& colorDestinationBlend)
-        {
-            this->colorDestinationBlend = colorDestinationBlend;
-        }
-
-        const Blend& BlendState::ColorSourceBlend() const
-        {
-            return colorSourceBlend;
-        }
-
-        void BlendState::ColorSourceBlend(const Blend& colorSourceBlend)
-        {
-            this->colorSourceBlend = colorSourceBlend;
-        }
-
-        const SceneR::Graphics::ColorWriteChannels& BlendState::ColorWriteChannels() const
-        {
-            return colorWriteChannels;
-        }
-
-        void BlendState::ColorWriteChannels(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels)
-        {
-            this->colorWriteChannels = colorWriteChannels;
-        }
-
-        const SceneR::Graphics::ColorWriteChannels& BlendState::ColorWriteChannels1() const
-        {
-            return colorWriteChannels1;
-        }
-
-        void BlendState::ColorWriteChannels1(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels1)
-        {
-            this->colorWriteChannels1 = colorWriteChannels1;
-        }
-
-        const SceneR::Graphics::ColorWriteChannels& BlendState::ColorWriteChannels2() const
-        {
-            return colorWriteChannels2;
-        }
-
-        void BlendState::ColorWriteChannels2(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels2)
-        {
-            this->colorWriteChannels2 = colorWriteChannels2;
-        }
-
-        const SceneR::Graphics::ColorWriteChannels& BlendState::ColorWriteChannels3() const
-        {
-            return colorWriteChannels3;
-        }
-
-        void BlendState::ColorWriteChannels3(const SceneR::Graphics::ColorWriteChannels& colorWriteChannels3)
-        {
-            this->colorWriteChannels3 = colorWriteChannels3;
-        }
-
-        std::uint32_t BlendState::MultiSampleMask() const
-        {
-            return this->multiSampleMask;
-        }
-
-        void BlendState::MultiSampleMask(const std::uint32_t& multiSampleMask)
-        {
-            this->multiSampleMask = multiSampleMask;
-        }
-
         BlendState&BlendState::operator=(const BlendState& blendState)
         {
             if (this != &blendState)
             {
-                this->_graphics_device      = blendState._graphics_device;
-                this->alphaBlendFunction    = blendState.alphaBlendFunction;
-                this->alphaDestinationBlend = blendState.alphaDestinationBlend;
-                this->alphaSourceBlend      = blendState.alphaSourceBlend;
-                this->blendFactor           = blendState.blendFactor;
-                this->colorBlendFunction    = blendState.colorBlendFunction;
-                this->colorDestinationBlend = blendState.colorDestinationBlend;
-                this->colorSourceBlend      = blendState.colorSourceBlend;
-                this->colorWriteChannels    = blendState.colorWriteChannels;
-                this->colorWriteChannels1   = blendState.colorWriteChannels1;
-                this->colorWriteChannels2   = blendState.colorWriteChannels2;
-                this->colorWriteChannels3   = blendState.colorWriteChannels3;
-                this->multiSampleMask       = blendState.multiSampleMask;
+                _graphics_device        = blendState._graphics_device;
+                alpha_blend_function    = blendState.alpha_blend_function;
+                alpha_destination_blend = blendState.alpha_destination_blend;
+                alpha_source_blend      = blendState.alpha_source_blend;
+                blend_factor            = blendState.blend_factor;
+                color_blend_function    = blendState.color_blend_function;
+                color_destination_blend = blendState.color_destination_blend;
+                color_source_blend      = blendState.color_source_blend;
+                color_write_channels    = blendState.color_write_channels;
+                color_write_channels_1  = blendState.color_write_channels_1;
+                color_write_channels_2  = blendState.color_write_channels_2;
+                color_write_channels_3  = blendState.color_write_channels_3;
+                multi_sample_mask       = blendState.multi_sample_mask;
             }
 
             return *this;
         }
 
-        void BlendState::Apply() const
+        void BlendState::apply() const
         {
             // http://www.opengl.org/wiki/Blending
 
-            auto blendEnabled = !(this->colorSourceBlend      == Blend::One
-                               && this->colorDestinationBlend == Blend::Zero
-                               && this->alphaSourceBlend      == Blend::One
-                               && this->alphaDestinationBlend == Blend::Zero);
+            auto blendEnabled = !(color_source_blend      == Blend::One
+                               && color_destination_blend == Blend::Zero
+                               && alpha_source_blend      == Blend::One
+                               && alpha_destination_blend == Blend::Zero);
 
             if (!blendEnabled)
             {
@@ -212,27 +92,27 @@ namespace SceneR
                 glEnable(GL_BLEND);
             }
 
-            glBlendEquationSeparate(static_cast<GLenum>(this->colorBlendFunction)
-                                  , static_cast<GLenum>(this->alphaBlendFunction));
+            glBlendEquationSeparate(static_cast<GLenum>(color_blend_function)
+                                  , static_cast<GLenum>(alpha_blend_function));
 
-            glBlendFuncSeparate(static_cast<GLenum>(this->colorSourceBlend)
-                              , static_cast<GLenum>(this->colorDestinationBlend)
-                              , static_cast<GLenum>(this->alphaSourceBlend)
-                              , static_cast<GLenum>(this->alphaDestinationBlend));
+            glBlendFuncSeparate(static_cast<GLenum>(color_source_blend)
+                              , static_cast<GLenum>(color_destination_blend)
+                              , static_cast<GLenum>(alpha_source_blend)
+                              , static_cast<GLenum>(alpha_destination_blend));
 
-            glColorMask((this->colorWriteChannels & Graphics::ColorWriteChannels::Red)   == Graphics::ColorWriteChannels::Red
-                      , (this->colorWriteChannels & Graphics::ColorWriteChannels::Green) == Graphics::ColorWriteChannels::Green
-                      , (this->colorWriteChannels & Graphics::ColorWriteChannels::Blue)  == Graphics::ColorWriteChannels::Blue
-                      , (this->colorWriteChannels & Graphics::ColorWriteChannels::Alpha) == Graphics::ColorWriteChannels::Alpha);
+            glColorMask((color_write_channels & ColorWriteChannels::Red)   == Graphics::ColorWriteChannels::Red
+                      , (color_write_channels & ColorWriteChannels::Green) == Graphics::ColorWriteChannels::Green
+                      , (color_write_channels & ColorWriteChannels::Blue)  == Graphics::ColorWriteChannels::Blue
+                      , (color_write_channels & ColorWriteChannels::Alpha) == Graphics::ColorWriteChannels::Alpha);
 
-            glBlendColor(this->blendFactor.R() / 255
-                       , this->blendFactor.G() / 255
-                       , this->blendFactor.B() / 255
-                       , this->blendFactor.A() / 255);
+            glBlendColor(blend_factor.R() / 255
+                       , blend_factor.G() / 255
+                       , blend_factor.B() / 255
+                       , blend_factor.A() / 255);
 
-            if (this->multiSampleMask != 0)
+            if (multi_sample_mask != 0)
             {
-                glSampleCoverage(this->multiSampleMask, GL_FALSE);
+                glSampleCoverage(multi_sample_mask, GL_FALSE);
             }
         }
     }

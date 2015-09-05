@@ -1035,7 +1035,7 @@ TEST_F(Vector3Test, ConstructorWithSpecialFloatValues)
     EXPECT_TRUE(Math::IsPositiveInfinity(target.Z()));
 }
 
-// A test for Negate (Vector3f)
+// A test for negate (Vector3f)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector3Test, Negate)
 {

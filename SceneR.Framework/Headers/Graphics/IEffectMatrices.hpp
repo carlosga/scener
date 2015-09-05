@@ -31,32 +31,32 @@ namespace SceneR
             /**
              * Gets the projection matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& Projection() const = 0;
+            virtual const SceneR::Framework::Matrix& projection() const = 0;
 
             /**
              * Sets the projection matrix in the current effect.
              */
-            virtual void Projection(const SceneR::Framework::Matrix& projection) = 0;
+            virtual void projection(const SceneR::Framework::Matrix& projection) = 0;
 
             /**
              * Gets the view matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& View() const = 0;
+            virtual const SceneR::Framework::Matrix& view() const = 0;
 
             /**
              * Sets the view matrix in the current effect.
              */
-            virtual void View(const SceneR::Framework::Matrix& view) = 0;
+            virtual void view(const SceneR::Framework::Matrix& view) = 0;
 
             /**
              * Gets the world matrix in the current effect.
              */
-            virtual const SceneR::Framework::Matrix& World() const = 0;
+            virtual const SceneR::Framework::Matrix& world() const = 0;
 
             /**
              * Sets the world matrix in the current effect.
              */
-            virtual void World(const SceneR::Framework::Matrix& world) = 0;
+            virtual void world(const SceneR::Framework::Matrix& world) = 0;
         };
     }
 }

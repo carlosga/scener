@@ -28,19 +28,19 @@ namespace SceneR
             //KeyboardState(Keys[] keys);
 
             // Returns the state of a particular key.
-            KeyState GetKeyState(const Keys& key);
+            KeyState get_key_state(const Keys &key);
 
             // Gets an array of values that correspond to the keyboard keys that are currently being pressed
-            std::vector<Keys> GetPressedKeys();
+            std::vector<Keys> get_pressed_keys();
 
             // Returns whether a specified key is currently being pressed.
             // Enumerated value that specifies the key to query.
-            bool IsKeyDown(const Keys& key);
+            bool is_key_down(const Keys &key);
 
             // Returns whether a specified key is currently not pressed.
             // Enumerated value that specifies the key to query.
             // true if the key specified by key is not pressed; false otherwise.
-            bool IsKeyUp(const Keys& key);
+            bool is_key_up(const Keys &key);
 
             // Compares two objects to determine whether they are the same.
             // static bool op_Equality (KeyboardState a,KeyboardState b)
@@ -48,7 +48,7 @@ namespace SceneR
             // Compares two objects to determine whether they are different.
             // static bool op_Inequality (KeyboardState a,KeyboardState b)
         private:
-            GLFWwindow* _windowHandle;
+            GLFWwindow* _window_handle;
         };
     }
 }

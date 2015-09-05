@@ -36,44 +36,44 @@ namespace SceneR
             /**
              * Gets the ambient light for the current effect
              */
-            virtual const SceneR::Framework::Vector3& AmbientLightColor() const = 0;
+            virtual const SceneR::Framework::Vector3& ambient_light_color() const = 0;
 
             /**
              * Gets the ambient light for the current effect
              */
-            virtual void AmbientLightColor(const SceneR::Framework::Vector3& ambientLightColor) = 0;
+            virtual void ambient_light_color(const SceneR::Framework::Vector3& ambientLightColor) = 0;
 
             /**
              * Gets the first directional light
              */
-            virtual const DirectionalLight& DirectionalLight0() const = 0;
+            virtual const DirectionalLight& directional_light_0() const = 0;
 
             /**
              * Gets the second directional light
              */
-            virtual const DirectionalLight& DirectionalLight1() const = 0;
+            virtual const DirectionalLight& directional_light_1() const = 0;
 
             /**
              * Gets the third directional light
              */
-            virtual const DirectionalLight& DirectionalLight2() const = 0;
+            virtual const DirectionalLight& directional_light_2() const = 0;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual bool LightingEnabled() const = 0;
+            virtual bool lighting_enabled() const = 0;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
              */
-            virtual void LightingEnabled(const bool& lightingEnabled) = 0;
+            virtual void lighting_enabled(const bool& lightingEnabled) = 0;
 
             /**
              * Enables default lighting for the current effect.
              * http://xboxforums.create.msdn.com/forums/t/25547.aspx
              * http://blogs.msdn.com/b/shawnhar/archive/2007/04/09/the-standard-lighting-rig.aspx
              */
-            virtual void EnableDefaultLighting() = 0;
+            virtual void enable_default_lighting() = 0;
         };
     }
 }

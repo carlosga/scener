@@ -116,12 +116,12 @@ namespace SceneR
 
             glClearColor(color.R(), color.G(), color.B(), color.A());
 
-            if (_depth_stencil_state.DepthBufferEnable())
+            if (_depth_stencil_state.depth_buffer_enable)
             {
                 bufferBits |= GL_DEPTH_BUFFER_BIT;
                 glClearDepth(1.0f);
             }
-            if (_depth_stencil_state.StencilEnable())
+            if (_depth_stencil_state.stencil_enable)
             {
                 bufferBits |= GL_STENCIL_BUFFER_BIT;
                 glClearStencil(1);
@@ -152,7 +152,7 @@ namespace SceneR
 
             auto offset = startIndex * ((index_buffer->index_element_size() == IndexElementSize::SixteenBits) ? 2 : 4);
 
-            effect->Begin();
+            effect->begin();
             vertex_buffer->activate();
             index_buffer->activate();
 
@@ -164,7 +164,7 @@ namespace SceneR
 
             index_buffer->deactivate();
             vertex_buffer->deactivate();
-            effect->End();
+            effect->end();
         }
 
         void GraphicsDevice::draw_primitives(const PrimitiveType& primitiveType
@@ -180,7 +180,7 @@ namespace SceneR
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
-            effect->Begin();
+            effect->begin();
             vertex_buffer->activate();
 
             glDrawArrays(static_cast<GLenum>(primitiveType)
@@ -188,7 +188,7 @@ namespace SceneR
                        , static_cast<GLsizei>(primitiveCount));
 
             vertex_buffer->deactivate();
-            effect->End();
+            effect->end();
         }
 
         void GraphicsDevice::present()

@@ -32,10 +32,10 @@ namespace SceneR
             ~EffectPass() = default;
 
         public:
-            std::string                                   lightingModel;
-            std::vector<std::shared_ptr<EffectParameter>> parameters;
-            EffectPassInstanceProgram                     program;
-            EffectPassStates                              states;
+            std::string                                   _lighting_model;
+            std::vector<std::shared_ptr<EffectParameter>> _parameters;
+            EffectPassInstanceProgram                     _program;
+            EffectPassStates                              _states;
 
             friend class SceneR::Content::TechiquesReader;
         };

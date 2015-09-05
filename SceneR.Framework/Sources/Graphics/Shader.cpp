@@ -34,11 +34,11 @@ namespace SceneR
                      , const ShaderType&               type
                      , const std::string&              source
                      , const std::vector<std::string>& includes)
-            : name     { name }
-            , id       { 0 }
-            , type     { type }
-            , source   { source }
-            , includes { includes }
+            : _name     { name }
+            , _id       { 0 }
+            , _type     { type }
+            , _source   { source }
+            , _includes { includes }
         {
 
         }
@@ -49,26 +49,26 @@ namespace SceneR
 
         void Shader::dispose()
         {
-            if (this->id != 0)
+            if (_id != 0)
             {
-                glDeleteShader(this->id);
-                this->id = 0;
+                glDeleteShader(_id);
+                _id = 0;
             }
         }
 
-        const std::u16string& Shader::Name() const
+        const std::u16string& Shader::name() const
         {
-            return this->name;
+            return _name;
         }
 
-        const ShaderType& Shader::Type() const
+        const ShaderType& Shader::type() const
         {
-            return this->type;
+            return _type;
         }
 
-        void Shader::Compile()
+        void Shader::compile()
         {
-            if (this->IsCompiled())
+            if (is_compiled())
             {
                 return;
             }
@@ -78,39 +78,39 @@ namespace SceneR
             std::vector<const char*> cpaths(0);
 
             // process includes
-            for (const auto& path : this->includes)
+            for (const auto& path : _includes)
             {
                 cpaths.push_back(manager.GetPathReference(path));
             }
 
             // create the shader object
-            this->id = glCreateShader(static_cast<GLenum>(this->type));
+            _id = glCreateShader(static_cast<GLenum>(_type));
 
-            if (this->id == 0)
+            if (_id == 0)
             {
                 throw std::runtime_error("glCreateShader failed");
             }
 
             // root shader
-            const char* cstring = this->source.c_str();
+            const char* cstring = _source.c_str();
 
-            glShaderSource(this->id, 1, (const GLchar**)&cstring, NULL);
+            glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
 
             // Compile the shader source
-            glCompileShaderIncludeARB(this->id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
+            glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
 
             // Verify compilation state
-            this->VerifyCompilationState();
+            verify_compilation_state();
         }
 
-        bool Shader::IsCompiled() const
+        bool Shader::is_compiled() const
         {
             bool result = false;
 
-            if (this->id != 0)
+            if (_id != 0)
             {
                 GLint status;
-                glGetShaderiv(this->id, GL_COMPILE_STATUS, &status);
+                glGetShaderiv(_id, GL_COMPILE_STATUS, &status);
 
                 result = (status == GL_TRUE);
             }
@@ -118,25 +118,25 @@ namespace SceneR
             return result;
         }
 
-        void Shader::VerifyCompilationState()
+        void Shader::verify_compilation_state()
         {
-            if (!this->IsCompiled())
+            if (!is_compiled())
             {
                 std::string msg("Compile failure in shader:\n");
 
                 GLint infoLogLength;
-                glGetShaderiv(this->id, GL_INFO_LOG_LENGTH, &infoLogLength);
+                glGetShaderiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
 
                 if (infoLogLength)
                 {
                     auto compileErrorMessage = std::string("", static_cast<std::size_t>(infoLogLength));
 
-                    glGetShaderInfoLog(this->id, infoLogLength, NULL, &compileErrorMessage[0]);
+                    glGetShaderInfoLog(_id, infoLogLength, NULL, &compileErrorMessage[0]);
 
                     msg += compileErrorMessage;
                 }
 
-                this->dispose();
+                dispose();
 
                 throw std::runtime_error(msg);
             }

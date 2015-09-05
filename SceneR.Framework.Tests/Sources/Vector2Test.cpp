@@ -475,7 +475,7 @@ TEST_F(Vector2Test, UnaryNegation)
 }
 
 // A test for operator - (Vector2f)
-// Negate test with special float value
+// negate test with special float value
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
 {
@@ -487,7 +487,7 @@ TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
 }
 
 // A test for operator - (Vector2f)
-// Negate test with special float value
+// negate test with special float value
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, UnaryNegationWithNanValue)
 {
@@ -646,7 +646,7 @@ TEST_F(Vector2Test, Constructor4)
     EXPECT_TRUE(expected == target);
 }
 
-// A test for Negate (Vector2f)
+// A test for negate (Vector2f)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Negate)
 {

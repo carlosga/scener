@@ -71,12 +71,12 @@ namespace System
         constexpr static const float Epsilon = std::numeric_limits<float>::epsilon();
 
         /**
-         * @brief MinValue Represents the smallest possible value of Single.
+         * @brief min_value Represents the smallest possible value of Single.
          */
         constexpr static const float MinValue = std::numeric_limits<float>::lowest();
 
         /**
-         * @brief MaxValue Represents the largest possible value of Single. This field is constant.
+         * @brief max_value Represents the largest possible value of Single. This field is constant.
          */
         constexpr static const float MaxValue = std::numeric_limits<float>::max();
 

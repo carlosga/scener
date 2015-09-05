@@ -29,9 +29,9 @@ namespace SceneR
             ~EffectPassInstanceProgram() = default;
 
         public:
-            std::string                                                name;
-            std::map<std::string, std::shared_ptr<EffectParameter>> attributes;
-            std::map<std::string, std::shared_ptr<EffectParameter>> uniforms;
+            std::string                                             _name;
+            std::map<std::string, std::shared_ptr<EffectParameter>> _attributes;
+            std::map<std::string, std::shared_ptr<EffectParameter>> _uniforms;
 
             friend class SceneR::Content::TechniquesReader;
         };
