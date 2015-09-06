@@ -47,15 +47,15 @@ namespace SceneR
         {
             for (const auto& item : value["techniques"].object_items())
             {
-                auto technique = std::make_shared<Effect>(graphicsDevice);
+                auto effect = std::make_shared<Effect>(graphicsDevice);
 
-                read_technique_parameters(item.second["parameters"], technique);
-                read_technique_passes(item.second["passes"], technique);
+                read_technique_parameters(item.second["parameters"], effect);
+                read_technique_passes(item.second["passes"], effect);
 
-                // Default pass
-                technique->_pass = technique->_passes[item.second["pass"].string_value()];
+                effect->name  = Encoding::convert(item.first);
+                effect->_pass = effect->_passes[item.second["pass"].string_value()];
 
-                root->_techniques[item.first] = technique;
+                root->_effects.push_back(effect);
             }
         }
 

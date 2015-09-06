@@ -7,7 +7,8 @@ namespace SceneR
         using SceneR::Graphics::BufferType;
 
         Buffer::Buffer()
-            : _uri         { }
+            : _name        { }
+            , _uri         { }
             , _byte_length { 0 }
             , _type        { BufferType::ArrayBuffer }
         {
@@ -17,7 +18,12 @@ namespace SceneR
         {
         }
 
-        const std::string& Buffer::uri() const
+        const std::u16string Buffer::name() const
+        {
+            return _name;
+        }
+
+        const std::u16string& Buffer::uri() const
         {
             return _uri;
         }

@@ -10,6 +10,7 @@
 #include <Graphics/BufferView.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -20,6 +21,7 @@ namespace SceneR
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
         using SceneR::Graphics::GraphicsDevice;
+        using System::Text::Encoding;
         using json11::Json;
 
         BufferViewsReader::BufferViewsReader()
@@ -47,10 +49,11 @@ namespace SceneR
 
                 auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
+                bufferView->_name        = Encoding::convert(item.first);
                 bufferView->_byte_offset = item.second["byteOffset"].int_value();
                 bufferView->_byte_length = item.second["byteLength"].int_value();
 
-                root->_bufferViews[item.first] = bufferView;
+                root->_buffer_views.push_back(bufferView);
             }
         }
     }

@@ -46,8 +46,8 @@ namespace SceneR
             , _world_view                { Matrix::Identity }
             , _one_light                 { false }
             , _dirty_flags               { EffectDirtyFlags::All }
-            , _passes                    { }
-            , _parameters                { }
+            , _passes                    ()
+            , _parameters                ()
         {
         }
 

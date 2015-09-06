@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <string>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
@@ -16,6 +17,7 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
         class AccessorsReader;
         class BufferViewsReader;
     }
@@ -63,6 +65,12 @@ namespace SceneR
              * Gets the buffer object usage.
              */
             const BufferUsage& usage() const;
+
+            /**
+             * Gets the buffer name.
+             * @return the buffer name.
+             */
+            const std::u16string& name() const;
 
             /**
              * Activates the buffer object.
@@ -122,12 +130,14 @@ namespace SceneR
             void invalidate(const std::size_t& offset, const std::size_t& length) const;
 
         private:
-            std::uint32_t _id;
-            BufferTarget  _target;
-            BufferUsage   _usage;
-            std::size_t   _byte_offset;
-            std::size_t   _byte_length;
+            std::uint32_t  _id;
+            BufferTarget   _target;
+            BufferUsage    _usage;
+            std::size_t    _byte_offset;
+            std::size_t    _byte_length;
+            std::u16string _name;
 
+            friend class SceneR::Content::ContentReader;
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::BufferViewsReader;
         };

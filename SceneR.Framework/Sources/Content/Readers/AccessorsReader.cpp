@@ -3,14 +3,21 @@
 
 #include <Content/Readers/AccessorsReader.hpp>
 
+#include <algorithm>
+
 #include <Content/ContentReader.hpp>
 #include <Content/json11.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ComponentType.hpp>
 #include <Graphics/Model.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -19,9 +26,11 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::AttributeType;
+        using SceneR::Graphics::BufferView;
         using SceneR::Graphics::ComponentType;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
+        using System::Text::Encoding;
 
         AccessorsReader::AccessorsReader()
         {
@@ -36,17 +45,11 @@ namespace SceneR
                                  , SceneR::Graphics::GraphicsDevice& graphicsDevice
                                  , SceneR::Graphics::Model*          root)
         {
-            for (const auto& item : value["accessors"].object_items())
+            for (const auto& source : value["accessors"].object_items())
             {
                 auto accessor = std::make_shared<Accessor>();
-
-                accessor->_buffer_view    = root->_bufferViews[item.second["bufferView"].string_value()];
-                accessor->_byte_offset    = item.second["byteOffset"].int_value();
-                accessor->_byte_stride    = item.second["byteStride"].int_value();
-                accessor->_component_type = static_cast<ComponentType>(item.second["componentType"].int_value());
-                accessor->_count          = item.second["count"].int_value();
-
-                std::string attType = item.second["type"].string_value();
+                auto viewName = Encoding::convert(source.second["bufferView"].string_value());
+                auto attType  = source.second["type"].string_value();
 
                 if (attType == "SCALAR")
                 {
@@ -77,16 +80,26 @@ namespace SceneR
                     accessor->_attribute_type = AttributeType::Matrix4;
                 }
 
-                for (const auto& item : item.second["max"].array_items())
+                accessor->_name            = Encoding::convert(source.first);
+                accessor->_buffer_view     = root->find_buffer_view(viewName);
+                accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
+                accessor->_byte_offset     = source.second["byteOffset"].int_value();
+                accessor->_byte_stride     = source.second["byteStride"].int_value();
+                accessor->_attribute_count = source.second["count"].int_value();
+                accessor->_byte_length     = accessor->_attribute_count
+                                           * accessor->get_attribute_type_count()
+                                           * accessor->get_component_size_in_bytes();
+
+                for (const auto& item : source.second["max"].array_items())
                 {
                     accessor->_max.push_back(item.number_value());
                 }
-                for (const auto& item : item.second["min"].array_items())
+                for (const auto& item : source.second["min"].array_items())
                 {
                     accessor->_min.push_back(item.number_value());
                 }
 
-                root->_accessors.emplace(item.first, accessor);
+                root->_accessors.push_back(accessor);
             }
         }
     }

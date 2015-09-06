@@ -38,25 +38,36 @@ namespace SceneR
 
             const ComponentType& component_type() const;
 
-            const std::size_t& byte_offset() const;
+            std::size_t byte_offset() const;
 
-            const std::size_t& byte_stride() const;
+            std::size_t byte_length() const;
 
-            const std::size_t& count() const;
+            std::size_t byte_stride() const;
+
+            std::size_t attribute_count() const;
 
             const std::vector<float>& max() const;
 
             const std::vector<float>& min() const;
 
+            const std::u16string& name() const;
+
+        private:
+            std::size_t get_attribute_type_count() const;
+
+            std::size_t get_component_size_in_bytes() const;
+
         private:
             AttributeType               _attribute_type;
             ComponentType               _component_type;
             std::size_t                 _byte_offset;
+            std::size_t                 _byte_length;
             std::size_t                 _byte_stride;
-            std::size_t                 _count;
+            std::size_t                 _attribute_count;
             std::vector<float>          _max;
             std::vector<float>          _min;
             std::shared_ptr<BufferView> _buffer_view;
+            std::u16string              _name;
 
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::MeshesReader;

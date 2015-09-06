@@ -15,6 +15,7 @@ namespace SceneR
             , _usage       { usage }
             , _byte_offset { 0 }
             , _byte_length { 0 }
+            , _name        { }
         {
         }
 
@@ -44,6 +45,11 @@ namespace SceneR
         const BufferUsage& BufferView::usage() const
         {
             return _usage;
+        }
+
+        const std::u16string& BufferView::name() const
+        {
+            return _name;
         }
 
         void BufferView::activate() const

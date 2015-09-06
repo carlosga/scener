@@ -17,8 +17,8 @@ namespace SceneR
         using SceneR::Framework::Vector3;
 
         ModelMesh::ModelMesh()
-            : name             { }
-            , tag              { }
+            : tag              { }
+            , _name            { }
             , _mesh_parts      ( 0 )
             , _parent_bone     { nullptr }
             , _bounding_sphere { Vector3::zero, 0.0f }
@@ -32,6 +32,11 @@ namespace SceneR
         const BoundingSphere& ModelMesh::bounding_sphere() const
         {
             return _bounding_sphere;
+        }
+
+        const std::u16string& ModelMesh::name() const
+        {
+            return _name;
         }
 
         std::vector<std::shared_ptr<Effect>> ModelMesh::effects() const

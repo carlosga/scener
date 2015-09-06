@@ -8,6 +8,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/json11.hpp>
+#include <Graphics/BufferView.hpp>
 #include <Graphics/Model.hpp>
 
 namespace SceneR
@@ -15,6 +16,7 @@ namespace SceneR
     namespace Content
     {
         using System::IO::Stream;
+        using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::GraphicsDevice;
         using json11::Json;
 
@@ -87,17 +89,16 @@ namespace SceneR
                 read_object(node, json, gltf.get());
             }
 
-            // TODO: Process external data references
-            // Binary GLTF has a single buffer with everything on it
+            // Binary GLTF has a single buffer, so all buffer views data comes from the same buffer
+            for (const auto& bufferView : gltf->_buffer_views)
+            {
+                _asset_reader.base_stream().seek(dataOffset + bufferView->_byte_offset, std::ios::beg);
 
-//            this->assetReader.BaseStream().Seek(dataOffset, std::ios::beg);
+                const auto data = _asset_reader.read_bytes(bufferView->_byte_length);
 
-//            const auto data = this->assetReader.ReadBytes(dataLength);
-
-//            for (const auto bufferView : gltf->bufferViews)
-//            {
-//                bufferView.SetData(data, bufferView->byteOffset, bufferView->byteLength);
-//            }
+                bufferView->create();
+                bufferView->set_data(bufferView->_byte_length, data.data());
+            }
 
             return gltf;
         }

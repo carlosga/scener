@@ -8,6 +8,7 @@
 #include <Graphics/BufferType.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -18,6 +19,7 @@ namespace SceneR
         using SceneR::Graphics::BufferType;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
+        using System::Text::Encoding;
 
         BuffersReader::BuffersReader()
         {
@@ -35,7 +37,8 @@ namespace SceneR
             {
                 auto buffer = std::make_shared<Buffer>();
 
-                buffer->_uri         = item.second["uri"].string_value();
+                buffer->_name        = Encoding::convert(item.first);
+                buffer->_uri         = Encoding::convert(item.second["uri"].string_value());
                 buffer->_byte_length = item.second["byteLength"].int_value();
 
                 const auto type = item.second["type"].string_value();
@@ -49,7 +52,7 @@ namespace SceneR
                     buffer->_type = BufferType::Text;
                 }
 
-                root->_buffers[item.first] = buffer;
+                root->_buffers.push_back(buffer);
             }
         }
     }

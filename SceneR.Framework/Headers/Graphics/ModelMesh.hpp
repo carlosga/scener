@@ -43,7 +43,17 @@ namespace SceneR
             ~ModelMesh();
 
         public:
+            /**
+             * Gets the BoundingSphere that contains this mesh.
+             * @return The BoundingSphere that contains this mesh.
+             */
             const SceneR::Framework::BoundingSphere& bounding_sphere() const;
+
+            /**
+             * Gets the name of this mesh.
+             * @return The name of this mesh.
+             */
+            const std::u16string& name() const;
 
             /**
              * Gets the list of efects of each mesh part.
@@ -70,10 +80,10 @@ namespace SceneR
             void draw();
 
         public:
-            std::u16string name;
             std::u16string tag;
 
         private:
+            std::u16string                              _name;
             std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
             std::shared_ptr<ModelBone>                  _parent_bone;
             SceneR::Framework::BoundingSphere           _bounding_sphere;

@@ -5,6 +5,8 @@
 #define MATERIAL_HPP
 
 #include <memory>
+#include <string>
+
 #include <Framework/Vector3.hpp>
 
 namespace SceneR
@@ -24,10 +26,11 @@ namespace SceneR
         class Material
         {
         public:
-            Material() = default;
-            ~Material() = default;
+            Material();
+            ~Material();
 
         public:
+            const std::u16string& name() const;
 
         private:
             std::shared_ptr<Effect>    _instanceTechnique;
@@ -37,6 +40,7 @@ namespace SceneR
             SceneR::Framework::Vector3 _emission;
             float                      _shininess;
             SceneR::Framework::Vector3 _specular;
+            std::u16string              _name;
 
             friend class SceneR::Content::MaterialsReader;
         };

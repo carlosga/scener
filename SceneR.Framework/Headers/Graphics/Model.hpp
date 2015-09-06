@@ -4,7 +4,6 @@
 #ifndef MODEL_HPP
 #define MODEL_HPP
 
-#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -15,6 +14,7 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
         class AccessorsReader;
         class BuffersReader;
         class BufferViewsReader;
@@ -96,7 +96,7 @@ namespace SceneR
             /**
              * Gets a collection of ModelMesh objects which composes the current model.
              */
-            const std::map<std::string, std::shared_ptr<ModelMesh>>& meshes() const;
+            const std::vector<std::shared_ptr<ModelMesh>>& meshes() const;
 
             /**
              * Render a model after applying the given matrix transformations.
@@ -109,28 +109,28 @@ namespace SceneR
                     , const SceneR::Framework::Matrix& view
                     , const SceneR::Framework::Matrix& projection);
 
-        public:
-            /**
-             * Gets or sets the model tag
-             */
-            std::u16string tag;
+        private:
+            std::shared_ptr<BufferView> find_buffer_view(const std::u16string& name) const;
+
+            std::shared_ptr<Accessor> find_accessor(const std::u16string& name) const;
+
+            std::shared_ptr<Material> find_material(const std::u16string& name) const;
+
+            std::shared_ptr<Effect> find_effect(const std::u16string& name) const;
 
         private:
-            std::vector<std::shared_ptr<ModelBone>>            _bones;
-            std::shared_ptr<ModelBone>                         _root;
-            std::map<std::string, std::shared_ptr<ModelMesh>>  _meshes;
-            std::map<std::string, std::shared_ptr<Buffer>>     _buffers;
-            std::map<std::string, std::shared_ptr<BufferView>> _bufferViews;
-            std::map<std::string, std::shared_ptr<Accessor>>   _accessors;
-            std::map<std::string, std::shared_ptr<Effect>>     _techniques;
-            std::map<std::string, std::shared_ptr<Material>>   _materials;
+            std::u16string                           _name;
+            std::vector<std::shared_ptr<ModelBone>>  _bones;
+            std::shared_ptr<ModelBone>               _root;
 
-            /**
-             * Gets the model skinning data
-             */
-            // const std::shared_ptr<SkinningData>& Skinning() const;
-            // std::shared_ptr<SkinningData>           skinning;
+            std::vector<std::shared_ptr<Accessor>>   _accessors;
+            std::vector<std::shared_ptr<Buffer>>     _buffers;
+            std::vector<std::shared_ptr<BufferView>> _buffer_views;
+            std::vector<std::shared_ptr<Effect>>     _effects;
+            std::vector<std::shared_ptr<Material>>   _materials;
+            std::vector<std::shared_ptr<ModelMesh>>  _meshes;
 
+            friend class SceneR::Content::ContentReader;
             friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::BuffersReader;
             friend class SceneR::Content::BufferViewsReader;

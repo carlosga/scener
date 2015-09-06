@@ -264,7 +264,7 @@ set(SOURCE_FILES
     Sources/System/Text/Encoding.cpp
     Sources/System/Text/UTF8Decoder.cpp
     Sources/System/Text/UTF8Encoder.cpp
-    Sources/System/Text/UTF8Encoding.cpp Sources/Graphics/Buffer.cpp Sources/Graphics/EffectPass.cpp Sources/Graphics/EffectPassInstanceProgram.cpp)
+    Sources/System/Text/UTF8Encoding.cpp Sources/Graphics/Buffer.cpp Sources/Graphics/EffectPass.cpp Sources/Graphics/EffectPassInstanceProgram.cpp Sources/Graphics/Material.cpp)
 
 #set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
 #set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)

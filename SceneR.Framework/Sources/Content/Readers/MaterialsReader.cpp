@@ -9,6 +9,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Material.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -18,6 +19,7 @@ namespace SceneR
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
         using SceneR::Graphics::Material;
+        using System::Text::Encoding;
 
         MaterialsReader::MaterialsReader()
         {
@@ -78,10 +80,12 @@ namespace SceneR
                     }
                 }
 
+                material->_name = Encoding::convert(item.first);
+
                 // TODO: Decode material instance technique
                 // material->instanceTechnique = root->techniques[item.second["instanceTechnique"].string_value()];
 
-                root->_materials[item.first] = material;
+                root->_materials.push_back(material);
             }
         }
     }

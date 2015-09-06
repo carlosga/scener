@@ -31,7 +31,9 @@ namespace SceneR
             ~Buffer();
 
         public:
-            const std::string& uri() const;
+            const std::u16string name() const;
+
+            const std::u16string& uri() const;
 
             std::size_t byte_length() const;
 
@@ -69,9 +71,10 @@ namespace SceneR
             void set_data(const void* buffer, const std::size_t& offset, const std::size_t& count);
 
         private:
-            std::string _uri;
-            std::size_t _byte_length;
-            BufferType  _type;
+            std::u16string _name;
+            std::u16string _uri;
+            std::size_t    _byte_length;
+            BufferType     _type;
 
             friend class SceneR::Content::BuffersReader;
             friend class SceneR::Content::BufferViewsReader;
