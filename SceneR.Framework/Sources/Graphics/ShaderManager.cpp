@@ -11,18 +11,18 @@ namespace SceneR
 {
     namespace Graphics
     {
-        const std::string ShaderManager::IncludesRootPath         = "/SceneR/";
-        const std::string ShaderManager::StructuresIncludePath    = "/SceneR/Structures.glsl";
-        const std::string ShaderManager::CommonIncludePath        = "/SceneR/Common.glsl";
-        const std::string ShaderManager::LightingIncludePath      = "/SceneR/Lighting.glsl";
-        const std::string ShaderManager::BasicEffectIncludePath   = "/SceneR/BasicEffect.glsl";
-        const std::string ShaderManager::SkinnedEffectIncludePath = "/SceneR/SkinnedEffect.glsl";
+        const std::string ShaderManager::includes_root_path          = "/SceneR/";
+        const std::string ShaderManager::structures_include_path     = "/SceneR/Structures.glsl";
+        const std::string ShaderManager::common_include_path         = "/SceneR/Common.glsl";
+        const std::string ShaderManager::lighting_include_path       = "/SceneR/Lighting.glsl";
+        const std::string ShaderManager::basic_effect_include_path   = "/SceneR/BasicEffect.glsl";
+        const std::string ShaderManager::skinned_effect_include_path = "/SceneR/SkinnedEffect.glsl";
 
-        std::map<std::string, std::string> ShaderManager::ShaderIncludes;
+        std::map<std::string, std::string> ShaderManager::_shader_includes;
 
-        std::string ShaderManager::FormatIncludePath(const std::string& path)
+        std::string ShaderManager::format_include_path(const std::string& path)
         {
-            return IncludesRootPath + path;
+            return includes_root_path + path;
         }
 
         ShaderManager::ShaderManager()
@@ -33,79 +33,79 @@ namespace SceneR
         {
         }
 
-        void ShaderManager::Load()
+        void ShaderManager::load()
         {
-            this->LoadShaderIncludes();
+            load_shader_includes();
         }
 
-        void ShaderManager::Unload()
+        void ShaderManager::unload()
         {
-            this->UnloadShaderIncludes();
+            unload_shader_includes();
         }
 
-        const char* ShaderManager::GetPathReference(const std::string& path)
+        const char* ShaderManager::get_path_reference(const std::string& path)
         {
-            assert (this->IsIncludeRegistered(path));
+            assert (is_include_registered(path));
 
-            const auto& item = ShaderIncludes.find(path);
+            const auto& item = _shader_includes.find(path);
 
             return item->first.c_str();
         }
 
-        void ShaderManager::LoadShaderIncludes()
+        void ShaderManager::load_shader_includes()
         {
-            this->LoadInclude(StructuresIncludePath   , Resources::Structures_glsl);
-            this->LoadInclude(CommonIncludePath       , Resources::Common_glsl);
-            this->LoadInclude(LightingIncludePath     , Resources::Lighting_glsl);
-            this->LoadInclude(BasicEffectIncludePath  , Resources::BasicEffect_glsl);
-            this->LoadInclude(SkinnedEffectIncludePath, Resources::SkinnedEffect_glsl);
+            load_include(structures_include_path    , Resources::Structures_glsl);
+            load_include(common_include_path        , Resources::Common_glsl);
+            load_include(lighting_include_path      , Resources::Lighting_glsl);
+            load_include(basic_effect_include_path  , Resources::BasicEffect_glsl);
+            load_include(skinned_effect_include_path, Resources::SkinnedEffect_glsl);
         }
 
-        void ShaderManager::UnloadShaderIncludes()
+        void ShaderManager::unload_shader_includes()
         {
-            for (const auto& kvp : ShaderIncludes)
+            for (const auto& kvp : _shader_includes)
             {
-                this->UnloadInclude(kvp.first);
+                unload_include(kvp.first);
             }
 
-            ShaderIncludes.clear();
+            _shader_includes.clear();
         }
 
-        void ShaderManager::LoadInclude(const std::string& path, const std::vector<std::uint8_t>& shaderInclude)
+        void ShaderManager::load_include(const std::string& path, const std::vector<std::uint8_t>& shaderInclude)
         {
-            if (!this->IsIncludeRegistered(path))
+            if (!is_include_registered(path))
             {
                 auto source = std::string(shaderInclude.begin(), shaderInclude.end());
 
-                ShaderIncludes.emplace(path, source);
+                _shader_includes.emplace(path, source);
 
-                if (!this->IsIncludeDeclared(path))
+                if (!is_include_declared(path))
                 {
-                    const char* rpath = this->GetPathReference(path);
+                    const char* rpath = get_path_reference(path);
 
                     glNamedStringARB(GL_SHADER_INCLUDE_ARB, path.size(), rpath, source.size(), source.c_str());
                 }
             }
         }
 
-        void ShaderManager::UnloadInclude(const std::string& path)
+        void ShaderManager::unload_include(const std::string& path)
         {
-            if (this->IsIncludeDeclared(path))
+            if (is_include_declared(path))
             {
                 glDeleteNamedStringARB(path.size(), path.c_str());
             }
-            if (this->IsIncludeRegistered(path))
+            if (is_include_registered(path))
             {
-                ShaderIncludes.erase(path);
+                _shader_includes.erase(path);
             }
         }
 
-        bool ShaderManager::IsIncludeRegistered(const std::string& path) const
+        bool ShaderManager::is_include_registered(const std::string& path) const
         {
-            return (ShaderIncludes.find(path) != ShaderIncludes.end());
+            return (_shader_includes.find(path) != _shader_includes.end());
         }
 
-        bool ShaderManager::IsIncludeDeclared(const std::string& path) const
+        bool ShaderManager::is_include_declared(const std::string& path) const
         {
             return (glIsNamedStringARB(path.size(), path.c_str()));
         }

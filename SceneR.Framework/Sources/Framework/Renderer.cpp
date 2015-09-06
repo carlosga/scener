@@ -67,7 +67,7 @@ namespace SceneR
         {
             begin_run();
             create_device();
-            _shader_manager.Load();
+            _shader_manager.load();
             load_content();
             initialize();
             post_process_components();
@@ -79,7 +79,7 @@ namespace SceneR
         void Renderer::exit()
         {
             _content_manager.unload();
-            _shader_manager.Unload();
+            _shader_manager.unload();
             _graphics_device_manager.dispose();
             _services.clear();
             _renderer_window.close();

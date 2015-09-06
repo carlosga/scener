@@ -19,15 +19,14 @@ namespace SceneR
             /**
              * @brief Root path for shader includes.
              */
-            static const std::string IncludesRootPath;
+            static const std::string includes_root_path;
+            static const std::string structures_include_path;
+            static const std::string common_include_path;
+            static const std::string lighting_include_path;
+            static const std::string basic_effect_include_path;
+            static const std::string skinned_effect_include_path;
 
-            static const std::string StructuresIncludePath;
-            static const std::string CommonIncludePath;
-            static const std::string LightingIncludePath;
-            static const std::string BasicEffectIncludePath;
-            static const std::string SkinnedEffectIncludePath;
-
-            static std::string FormatIncludePath(const std::string& path);
+            static std::string format_include_path(const std::string& path);
 
         public:
             /**
@@ -44,25 +43,25 @@ namespace SceneR
             /**
              * @brief Loads system shaders and includes
              */
-            void Load();
+            void load();
 
             /**
              * @brief Unloads system shaders and includes
              */
-            void Unload();
+            void unload();
 
-            const char* GetPathReference(const std::string& path);
-
-        private:
-            void LoadShaderIncludes();
-            void UnloadShaderIncludes();
-            void LoadInclude(const std::string& path, const std::vector<std::uint8_t>& shaderInclude);
-            void UnloadInclude(const std::string& path);
-            bool IsIncludeRegistered(const std::string& path) const;
-            bool IsIncludeDeclared(const std::string& path) const;
+            const char* get_path_reference(const std::string& path);
 
         private:
-            static std::map<std::string, std::string> ShaderIncludes;
+            void load_shader_includes();
+            void unload_shader_includes();
+            void load_include(const std::string& path, const std::vector<std::uint8_t>& shaderInclude);
+            void unload_include(const std::string& path);
+            bool is_include_registered(const std::string& path) const;
+            bool is_include_declared(const std::string& path) const;
+
+        private:
+            static std::map<std::string, std::string> _shader_includes;
         };
     }
 }

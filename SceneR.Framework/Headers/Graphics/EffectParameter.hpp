@@ -11,7 +11,8 @@
 #include <vector>
 
 #include <Graphics/Effect.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
 
 namespace SceneR
 {

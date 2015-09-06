@@ -80,7 +80,7 @@ namespace SceneR
             // process includes
             for (const auto& path : _includes)
             {
-                cpaths.push_back(manager.GetPathReference(path));
+                cpaths.push_back(manager.get_path_reference(path));
             }
 
             // create the shader object
