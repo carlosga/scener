@@ -14,137 +14,137 @@ namespace SceneR
     {
         using System::Math;
 
-        const Vector2 Vector2::One   { 1.0f, 1.0f };
-        const Vector2 Vector2::UnitX { 1.0f, 0.0f };
-        const Vector2 Vector2::UnitY { 0.0f, 1.0f };
-        const Vector2 Vector2::Zero  { 0.0f, 0.0f };
+        const Vector2 Vector2::one    { 1.0f, 1.0f };
+        const Vector2 Vector2::unit_x { 1.0f, 0.0f };
+        const Vector2 Vector2::unit_y { 0.0f, 1.0f };
+        const Vector2 Vector2::zero   { 0.0f, 0.0f };
 
-        Vector2 Vector2::Abs(const Vector2& value)
+        Vector2 Vector2::abs(const Vector2& value)
         {
-            return Vector2 {Math::abs(value.X()), Math::abs(value.Y()) };
+            return { Math::abs(value.x), Math::abs(value.y) };
         }
 
-        Vector2 Vector2::SquareRoot(const Vector2& value)
+        Vector2 Vector2::square_root(const Vector2& value)
         {
-            return Vector2 {Math::sqrt(value.X()), Math::sqrt(value.Y()) };
+            return { Math::sqrt(value.x), Math::sqrt(value.y) };
         }
 
-        Vector2 Vector2::Barycentric(const Vector2& value1
+        Vector2 Vector2::barycentric(const Vector2& value1
                                    , const Vector2& value2
                                    , const Vector2& value3
                                    , const float&   amount1
                                    , const float&   amount2)
         {
-            return {Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
+            return { Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
                    , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
         }
 
-        Vector2 Vector2::CatmullRom(const Vector2& value1
-                                  , const Vector2& value2
-                                  , const Vector2& value3
-                                  , const Vector2& value4
-                                  , const float&   amount)
+        Vector2 Vector2::catmull_rom(const Vector2& value1
+                                   , const Vector2& value2
+                                   , const Vector2& value3
+                                   , const Vector2& value4
+                                   , const float&   amount)
         {
-            return {Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
+            return { Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
                    , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount) };
         }
 
-        Vector2 Vector2::Clamp(const Vector2& value1, const Vector2& min, const Vector2& max)
+        Vector2 Vector2::clamp(const Vector2& value1, const Vector2& min, const Vector2& max)
         {
-            return {Math::clamp(value1.x, min.x, max.x)
+            return { Math::clamp(value1.x, min.x, max.x)
                    , Math::clamp(value1.y, min.y, max.y) };
         }
 
-        float Vector2::Distance(const Vector2& value1, const Vector2& value2)
+        float Vector2::distance(const Vector2& value1, const Vector2& value2)
         {
             auto d = value2 - value1;
 
-            return d.Length();
+            return d.length();
         }
 
-        float Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2)
+        float Vector2::distance_squared(const Vector2& value1, const Vector2& value2)
         {
             auto d = value2 - value1;
 
-            return d.LengthSquared();
+            return d.length_squared();
         }
 
-        float Vector2::DotProduct(const Vector2& left, const Vector2& right)
+        float Vector2::dot(const Vector2& left, const Vector2& right)
         {
             auto dotProduct = left * right;
 
             return (dotProduct.x + dotProduct.y);
         }
 
-        Vector2 Vector2::Hermite(const Vector2& value1
+        Vector2 Vector2::hermite(const Vector2& value1
                                , const Vector2& tangent1
                                , const Vector2& value2
                                , const Vector2& tangent2
                                , const float&   amount)
         {
-            return {Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
+            return { Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
                    , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
         }
 
-        Vector2 Vector2::Lerp(const Vector2& value1, const Vector2& value2, const float& amount)
+        Vector2 Vector2::lerp(const Vector2& value1, const Vector2& value2, const float& amount)
         {
             return { Math::lerp(value1.x, value2.x, amount)
                    , Math::lerp(value1.y, value2.y, amount) };
         }
 
-        Vector2 Vector2::Min(const Vector2& value1, const Vector2& value2)
+        Vector2 Vector2::min(const Vector2& value1, const Vector2& value2)
         {
             return { Math::min(value1.x, value2.x)
                    , Math::min(value1.y, value2.y) };
         }
 
-        Vector2 Vector2::Max(const Vector2& value1, const Vector2& value2)
+        Vector2 Vector2::max(const Vector2& value1, const Vector2& value2)
         {
             return { Math::max(value1.x, value2.x)
                    , Math::max(value1.y, value2.y) };
         }
 
-        Vector2 Vector2::Negate(const Vector2& value)
+        Vector2 Vector2::negate(const Vector2& value)
         {
             return value * -1;
         }
 
-        Vector2 Vector2::Normalize(const Vector2& value)
+        Vector2 Vector2::normalize(const Vector2& value)
         {
             // To find the unit vector of another vector, we use the modulus operator
             // and scalar multiplication like so:
             // b = a / |a|
             //
             // Where |a| is the modulus of a
-            return (value / value.Length());
+            return (value / value.length());
         }
 
-        Vector2 Vector2::SmoothStep(const Vector2& value1, const Vector2& value2, const float& amount)
+        Vector2 Vector2::smooth_step(const Vector2& value1, const Vector2& value2, const float& amount)
         {
             return { Math::smooth_step(value1.x, value2.x, amount)
                    , Math::smooth_step(value1.y, value2.y, amount) };
         }
 
-        Vector2 Vector2::Transform(const Vector2& position, const Matrix& matrix)
+        Vector2 Vector2::transform(const Vector2& position, const Matrix& matrix)
         {
-            float x = (position.X() * matrix.M11())
-                    + (position.Y() * matrix.M21())
-                    +                 matrix.M41();
+            float x = (position.x * matrix.m11)
+                    + (position.y * matrix.m21)
+                    +               matrix.m41;
 
-            float y = (position.X() * matrix.M12())
-                    + (position.Y() * matrix.M22())
-                    +                 matrix.M42();
+            float y = (position.x * matrix.m12)
+                    + (position.y * matrix.m22)
+                    +               matrix.m42;
 
             return { x, y };
         }
 
-        Vector2 Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix)
+        Vector2 Vector2::transform_normal(const Vector2& normal, const Matrix& matrix)
         {
-            float x = (normal.x * matrix.M11())
-                    + (normal.y * matrix.M21());
+            float x = (normal.x * matrix.m11)
+                    + (normal.y * matrix.m21);
 
-            float y = (normal.x * matrix.M12())
-                    + (normal.y * matrix.M22());
+            float y = (normal.x * matrix.m12)
+                    + (normal.y * matrix.m22);
 
             return { x, y };
         }
@@ -175,47 +175,36 @@ namespace SceneR
         {
         }
 
-        float Vector2::X() const
+        float Vector2::length_squared() const
         {
-            return this->x;
+            return (x * x) + (y * y);
         }
 
-        float Vector2::Y() const
+        float Vector2::length() const
         {
-            return this->y;
-        }
-
-        float Vector2::LengthSquared() const
-        {
-            return (this->x * this->x)
-                 + (this->y * this->y);
-        }
-
-        float Vector2::Length() const
-        {
-            return Math::sqrt(this->LengthSquared());
+            return Math::sqrt(length_squared());
         }
 
         float& Vector2::operator[](const std::size_t& index)
         {
             assert(index < 2);
 
-            return (this->coords[index]);
+            return (data[index]);
         }
 
         const float& Vector2::operator[](const std::size_t& index) const
         {
             assert(index < 2);
 
-            return (this->coords[index]);
+            return (data[index]);
         }
 
         Vector2& Vector2::operator=(const Vector2& vector)
         {
             if (this != &vector)
             {
-                this->x = vector.x;
-                this->y = vector.y;
+                x = vector.x;
+                y = vector.y;
             }
 
             return *this;
@@ -223,7 +212,7 @@ namespace SceneR
 
         bool Vector2::operator==(const Vector2& vector) const
         {
-            return (Math::equal(this->x, vector.x) && Math::equal(this->y, vector.y));
+            return (Math::equal(x, vector.x) && Math::equal(y, vector.y));
         }
 
         bool Vector2::operator!=(const Vector2& vector) const
@@ -233,48 +222,48 @@ namespace SceneR
 
         Vector2& Vector2::operator*=(const Vector2& vector)
         {
-            this->x *= vector.x;
-            this->y *= vector.y;
+            x *= vector.x;
+            y *= vector.y;
 
             return *this;
         }
 
         Vector2& Vector2::operator*=(const float& value)
         {
-            this->x *= value;
-            this->y *= value;
+            x *= value;
+            y *= value;
 
             return *this;
         }
 
         Vector2& Vector2::operator/=(const Vector2& vector)
         {
-            this->x /= vector.x;
-            this->y /= vector.y;
+            x /= vector.x;
+            y /= vector.y;
 
             return *this;
         }
 
         Vector2& Vector2::operator/=(const float& value)
         {
-            this->x /= value;
-            this->y /= value;
+            x /= value;
+            y /= value;
 
             return *this;
         }
 
         Vector2& Vector2::operator-=(const Vector2& vector)
         {
-            this->x -= vector.x;
-            this->y -= vector.y;
+            x -= vector.x;
+            y -= vector.y;
 
             return *this;
         }
 
         Vector2& Vector2::operator+=(const Vector2& vector)
         {
-            this->x += vector.x;
-            this->y += vector.y;
+            x += vector.x;
+            y += vector.y;
 
             return *this;
         }
@@ -326,7 +315,7 @@ namespace SceneR
 
         const Vector2 Vector2::operator-() const
         {
-            return Vector2 { -this->x, -this->y };
+            return Vector2 { -x, -y };
         }
 
         const Vector2 Vector2::operator+(const Vector2& vector) const

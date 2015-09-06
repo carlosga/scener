@@ -66,7 +66,7 @@ namespace System
         template<>
         std::u16string BinaryReader::read()
         {
-            return _encoding.GetString(read_bytes(read_7_bit_encoded_int()));
+            return _encoding.get_string(read_bytes(read_7_bit_encoded_int()));
         }
 
         template<>

@@ -40,43 +40,39 @@ namespace SceneR
 
         public:
             /**
-             * Unit vector specifying the direction the Ray is pointing.
-             */
-            const Vector3& Direction() const;
-
-            /**
-             * Specifies the starting point of the Ray.
-             */
-            const Vector3& Position() const;
-
-        public:
-            /**
              * Checks whether the Ray intersects a specified BoundingBox.
              */
-            bool Intersects(const BoundingBox& boundingBox);
+            bool intersects(const BoundingBox& boundingBox);
 
             /**
              * Checks whether the Ray intersects a specified BoundingFrustum.
              */
-            bool Intersects(const BoundingFrustum& frustum);
+            bool intersects(const BoundingFrustum& frustum);
 
             /**
              * Checks whether the Ray intersects a specified BoundingSphere.
              */
-            bool Intersects(const BoundingSphere& sphere);
+            bool intersects(const BoundingSphere& sphere);
 
             /**
              * Determines whether this Ray intersects a specified Plane.
              */
-            bool Intersects(const Plane& plane);
+            bool intersects(const Plane& plane);
 
         public:
             Ray& operator=(const Ray& ray);
             bool operator==(const Ray& ray) const;
             bool operator!=(const Ray& ray) const;
 
-        private:
+        public:
+            /**
+             * Unit vector specifying the direction the Ray is pointing.
+             */
             Vector3 direction;
+
+            /**
+             * Specifies the starting point of the Ray.
+             */
             Vector3 position;
         };
     }

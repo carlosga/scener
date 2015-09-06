@@ -6,14 +6,15 @@
 
 #include <cstddef>
 
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+
 namespace SceneR
 {
     namespace Framework
     {
         struct Matrix;
         struct Quaternion;
-        struct Vector2;
-        struct Vector3;
 
         /**
          * Represents an x-, y-, z- and w-coordinate vector.
@@ -24,32 +25,32 @@ namespace SceneR
             /**
              * Returns a Vector4 with ones in all of its components.
              */
-            static const Vector4 One;
+            static const Vector4 one;
 
             /**
              * Returns the x unit Vector4 (1, 0, 0, 0).
              */
-            static const Vector4 UnitX;
+            static const Vector4 unit_x;
 
             /**
              * Returns the y unit Vector4 (0, 1, 0, 0).
              */
-            static const Vector4 UnitY;
+            static const Vector4 unit_y;
 
             /**
              * Returns the z unit Vector4 (0, 0, 1, 0).
              */
-            static const Vector4 UnitZ;
+            static const Vector4 unit_z;
 
             /**
              * Returns the w unit Vector4 (0, 0, 0, 1).
              */
-            static const Vector4 UnitW;
+            static const Vector4 unit_w;
 
             /**
              * Returns a Vector4 with all of its components set to zero.
              */
-            static const Vector4 Zero;
+            static const Vector4 zero;
 
         public:
             /**
@@ -57,7 +58,7 @@ namespace SceneR
              * @param value A vector.
              * @return The absolute value vector.
              */
-            static Vector4 Abs(const Vector4& value);
+            static Vector4 abs(const Vector4& value);
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -70,7 +71,7 @@ namespace SceneR
              * @param amount2 the normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3,
              *                the coordinate of which is specified in value3.
              */
-            static Vector4 Barycentric(const Vector4& value1
+            static Vector4 barycentric(const Vector4& value1
                                      , const Vector4& value2
                                      , const Vector4& value3
                                      , const float&   amount1
@@ -84,26 +85,26 @@ namespace SceneR
              * @param value4 the fourth position in the interpolation.
              * @param amount weighting factor.
              */
-            static Vector4 CatmullRom(const Vector4& value1
-                                    , const Vector4& value2
-                                    , const Vector4& value3
-                                    , const Vector4& value4
-                                    , const float&   amount);
+            static Vector4 catmull_rom(const Vector4& value1
+                                     , const Vector4& value2
+                                     , const Vector4& value3
+                                     , const Vector4& value4
+                                     , const float&   amount);
 
             /**
              * Restricts a value to be within a specified range.
              */
-            static Vector4 Clamp(const Vector4& value1, const Vector4& min, const Vector4& max);
+            static Vector4 clamp(const Vector4& value1, const Vector4& min, const Vector4& max);
 
             /**
              * Calculates the distance between two vectors.
              */
-            static float Distance(const Vector4& value1, const Vector4& value2);
+            static float distance(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static float DistanceSquared(const Vector4& value1, const Vector4& value2);
+            static float distance_squared(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates the dot product of two Vector4 structures.
@@ -111,7 +112,7 @@ namespace SceneR
              * @param value2 The second Vector4 structure to evaluate.
              * @return The dot product of the given vectors.
              */
-            static float Dot(const Vector4& value1, const Vector4& value2);
+            static float dot(const Vector4& value1, const Vector4& value2);
 
             /**
              * Calculates a hermite spline interpolation.
@@ -121,7 +122,7 @@ namespace SceneR
              * @param tangent2 source tangent 2.
              * @param amount weighting factor.
              */
-            static Vector4 Hermite(const Vector4& value1
+            static Vector4 hermite(const Vector4& value1
                                  , const Vector4& tangent1
                                  , const Vector4& value2
                                  , const Vector4& tangent2
@@ -134,24 +135,21 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 Lerp(const Vector4& value1
-                              , const Vector4& value2
-                              , const float&   amount);
-
+            static Vector4 lerp(const Vector4& value1, const Vector4& value2, const float& amount);
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector4 Min(const Vector4& value1, const Vector4& value2);
+            static Vector4 min(const Vector4& value1, const Vector4& value2);
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector4 Max(const Vector4& value1, const Vector4& value2);
+            static Vector4 max(const Vector4& value1, const Vector4& value2);
 
             /**
              * Negates a Vector4.
@@ -159,7 +157,7 @@ namespace SceneR
              * The vector has the same magnitude as before, but its direction is now opposite.
              * @param value the vector to be negated
              */
-            static Vector4 Negate(const Vector4& value);
+            static Vector4 negate(const Vector4& value);
 
             /**
              * Normalizes the specified Vector4.
@@ -169,14 +167,14 @@ namespace SceneR
              * A Vector4 is normalized by dividing the Vector4 by its magnitude.
              * @param value the vector to normalize
              */
-            static Vector4 Normalize(const Vector4& value);
+            static Vector4 normalize(const Vector4& value);
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
              * @param value A vector.
              * @return The square root vector.
              */
-            static Vector4 SquareRoot(const Vector4& value);
+            static Vector4 square_root(const Vector4& value);
 
             /**
              * @brief Transforms a two-dimensional vector by a specified 4x4 matrix.
@@ -184,7 +182,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector2& position, const Matrix& matrix);
+            static Vector4 transform(const Vector2& position, const Matrix& matrix);
 
             /**
              * @brief Transforms a three-dimensional vector by a specified 4x4 matrix.
@@ -192,7 +190,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector3& position, const Matrix& matrix);
+            static Vector4 transform(const Vector3& position, const Matrix& matrix);
 
             /**
              * @brief Transforms a four-dimensional vector by a specified 4x4 matrix.
@@ -200,7 +198,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector4& position, const Matrix& matrix);
+            static Vector4 transform(const Vector4& position, const Matrix& matrix);
 
             /**
              * @brief Transforms a two-dimensional vector by a specified quaternion.
@@ -208,7 +206,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector2& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector2& value, const Quaternion& rotation);
 
             /**
              * @brief Transforms a three-dimensional vector by a specified quaternion.
@@ -216,7 +214,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector3& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector3& value, const Quaternion& rotation);
 
             /**
              * @brief Transforms a four-dimensional vector by a specified quaternion.
@@ -224,7 +222,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 Transform(const Vector4& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector4& value, const Quaternion& rotation);
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -233,9 +231,7 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 SmoothStep(const Vector4& value1
-                                    , const Vector4& value2
-                                    , const float&   amount);
+            static Vector4 smooth_step(const Vector4& value1, const Vector4& value2, const float& amount);
 
         public:
             /**
@@ -285,7 +281,7 @@ namespace SceneR
              * Initializes a new instance of the Vector4 class (Copy constructor)
              * @param vector The Vector4 to be copied.
              */
-            Vector4(const Vector4& vector);
+            Vector4(const Vector4& data);
 
             /**
              * Destructor
@@ -294,86 +290,44 @@ namespace SceneR
 
         public:
             /**
-             * Gets the x-coordinate value.
-             */
-            float X() const;
-
-            /**
-             * Gets the y-coordinate value.
-             */
-            float Y() const;
-
-            /**
-             * Gets the z-coordinate value.
-             */
-            float Z() const;
-
-            /**
-             * Gets the w-coordinate value.
-             */
-            float W() const;
-
-        public:
-            /**
-             * Sets the x-coordinate value.
-             */
-            void X(const float& x);
-
-            /**
-             * Sets the y-coordinate value.
-             */
-            void Y(const float& y);
-
-            /**
-             * Sets the z-coordinate value.
-             */
-            void Z(const float& z);
-
-            /**
-             * Sets the w-coordinate value.
-             */
-            void W(const float& w);
-
-        public:
-            /**
              * Gets the square of the length of this Vector4.
              *
              * @return the square of the length of this Vector4.
              */
-            float LengthSquared() const;
+            float length_squared() const;
 
             /**
              * Gets the length of this Vector4.
              *
              * @return the length of this Vector4.
              */
-            float Length() const;
+            float length() const;
 
         public:
             float& operator[](const std::size_t& index);
             const float& operator[](const std::size_t& index) const;
-            Vector4& operator=(const Vector4& vector);
-            bool operator==(const Vector4& vector) const;
-            bool operator!=(const Vector4& vector) const;
-            Vector4& operator*=(const Vector4& vector);
+            Vector4& operator=(const Vector4& data);
+            bool operator==(const Vector4& data) const;
+            bool operator!=(const Vector4& data) const;
+            Vector4& operator*=(const Vector4& data);
             Vector4& operator*=(const float& value);
-            Vector4& operator/=(const Vector4& vector);
+            Vector4& operator/=(const Vector4& data);
             Vector4& operator/=(const float& value);
-            Vector4& operator-=(const Vector4& vector);
-            Vector4& operator+=(const Vector4& vector);
-            const Vector4 operator*(const Vector4& vector) const;
+            Vector4& operator-=(const Vector4& data);
+            Vector4& operator+=(const Vector4& data);
+            const Vector4 operator*(const Vector4& data) const;
             const Vector4 operator*(const float& value) const;
             const Vector4 operator*(const Matrix& matrix) const;
-            const Vector4 operator/(const Vector4& vector) const;
+            const Vector4 operator/(const Vector4& data) const;
             const Vector4 operator/(const float& value) const;
-            const Vector4 operator-(const Vector4& vector) const;
+            const Vector4 operator-(const Vector4& data) const;
             const Vector4 operator-() const;
-            const Vector4 operator+(const Vector4& vector) const;
+            const Vector4 operator+(const Vector4& data) const;
 
-        private:
+        public:
             union
             {
-                float vector[4];
+                float data[4];
                 struct
                 {
                     float x;
@@ -381,12 +335,14 @@ namespace SceneR
                     float z;
                     float w;
                 };
+                Vector2 xy;
+                Vector3 xyz;
             };
         };
 
         inline Vector4 operator*(const float& value, const Vector4& vector)
         {
-            return { value * vector.X(), value * vector.Y(), value * vector.Z(), value * vector.W() };
+            return { value * vector.x, value * vector.y, value * vector.z, value * vector.w };
         }
     }
 }

@@ -36,7 +36,7 @@ namespace SceneR
             // Fill light.
             light1.direction      = { 0.7198464f, 0.3420201f, 0.6040227f };
             light1.diffuse_color  = { 0.9647059f, 0.7607844f, 0.4078432f };
-            light1.specular_color = Vector3::Zero;
+            light1.specular_color = Vector3::zero;
             light1.enabled        = true;
 
             // Back light.
@@ -89,7 +89,7 @@ namespace SceneR
                 // When fog is disabled, make sure the fog vector is reset to zero.
                 if ((dirtyFlags & EffectDirtyFlags::FogEnable) != 0)
                 {
-                    fogVectorParam.set_value(Vector4::Zero);
+                    fogVectorParam.set_value(Vector4::zero);
 
                     result &= ~EffectDirtyFlags::FogEnable;
                 }
@@ -117,10 +117,10 @@ namespace SceneR
 
                 float scale = 1.0f / (fogStart - fogEnd);
 
-                Vector4 fogVector = { worldView.M13() * scale
-                                    , worldView.M23() * scale
-                                    , worldView.M33() * scale
-                                    , (worldView.M43() + fogStart) * scale };
+                Vector4 fogVector = {  worldView.m13 * scale
+                                    ,  worldView.m23 * scale
+                                    ,  worldView.m33 * scale
+                                    , (worldView.m43 + fogStart) * scale };
 
                 fogVectorParam.set_value(fogVector);
             }
@@ -138,8 +138,8 @@ namespace SceneR
             // Set the world and world inverse transpose matrices.
             if ((dirtyFlags & EffectDirtyFlags::World) != 0)
             {
-                auto worldTranspose        = Matrix::Invert(world);
-                auto worldInverseTranspose = Matrix::Transpose(worldTranspose);
+                auto worldTranspose        = Matrix::invert(world);
+                auto worldInverseTranspose = Matrix::transpose(worldTranspose);
 
                 worldParam.set_value_transpose(world);
                 worldInverseTransposeParam.set_value_transpose(worldInverseTranspose);
@@ -150,9 +150,9 @@ namespace SceneR
             // Set the eye position.
             if ((dirtyFlags & EffectDirtyFlags::EyePosition) != 0)
             {
-                auto viewInverse = Matrix::Invert(view);
+                auto viewInverse = Matrix::invert(view);
 
-                eyePositionParam.set_value(viewInverse.Translation());
+                eyePositionParam.set_value(viewInverse.translation());
 
                 result &= ~EffectDirtyFlags::EyePosition;
             }

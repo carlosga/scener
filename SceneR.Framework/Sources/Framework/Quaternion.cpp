@@ -17,14 +17,14 @@ namespace SceneR
 
         const Quaternion Quaternion::Identity { 0.0f, 0.0f, 0.0f, 1.0f };
 
-        Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
+        Quaternion Quaternion::conjugate(const Quaternion& quaternion)
         {
             // The conjugate of a quaternion is defined by
             // q* = (w + xi + yj + zk) = w -xi -yj -zk
             return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
         }
 
-        Quaternion Quaternion::CreateFromAxisAngle(const Vector3& axisOfRotation, const float& angle)
+        Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, const float& angle)
         {
             // The quaternion in terms of axis-angle is:
             // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
@@ -32,13 +32,13 @@ namespace SceneR
             float theta = angle / 2;
             float rSin  = Math::sin(theta);
 
-            return { axisOfRotation.X() * rSin
-                   , axisOfRotation.Y() * rSin
-                   , axisOfRotation.Z() * rSin
+            return { axisOfRotation.x * rSin
+                   , axisOfRotation.y * rSin
+                   , axisOfRotation.z * rSin
                    , Math::cos(theta) };
         }
 
-        Quaternion Quaternion::CreateFromYawPitchRoll(const float& yaw, const float& pitch, const float& roll)
+        Quaternion Quaternion::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll)
         {
             // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
             // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
@@ -49,14 +49,14 @@ namespace SceneR
             // quaternion_multiply( &qt, &qx, &qy );
             // quaternion_multiply( &q,  &qt, &qz );
 
-            auto qy = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yaw);
-            auto qx = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitch);
-            auto qz = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, roll);
+            auto qy = Quaternion::create_from_axis_angle(Vector3::unit_y, yaw);
+            auto qx = Quaternion::create_from_axis_angle(Vector3::unit_x, pitch);
+            auto qz = Quaternion::create_from_axis_angle(Vector3::unit_z, roll);
 
             return (qy * qx) * qz; // yaw * pitch * roll
         }
 
-        float Quaternion::Dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
+        float Quaternion::dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
         {
             return (quaternion1.x * quaternion2.x)
                  + (quaternion1.y * quaternion2.y)
@@ -64,49 +64,49 @@ namespace SceneR
                  + (quaternion1.w * quaternion2.w);
         }
 
-        Quaternion Quaternion::CreateFromRotationMatrix(const Matrix& matrix)
+        Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix)
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
-            auto   result = Quaternion { };
-            float tr     = matrix.M11() + matrix.M22() + matrix.M33();
+            auto  result = Quaternion { };
+            float tr     = matrix.m11 + matrix.m22 + matrix.m33;
 
             if (tr > 0.0f)
             {
                 float s = Math::sqrt(tr + 1.0f);
                 result.w = s * 0.5f;
                 s = 0.5f / s;
-                result.x = (matrix.M23() - matrix.M32()) * s;
-                result.y = (matrix.M31() - matrix.M13()) * s;
-                result.z = (matrix.M12() - matrix.M21()) * s;
+                result.x = (matrix.m23 - matrix.m32) * s;
+                result.y = (matrix.m31 - matrix.m13) * s;
+                result.z = (matrix.m12 - matrix.m21) * s;
             }
             else
             {
-                if ((matrix.M11() >= matrix.M22()) && (matrix.M11() >= matrix.M33()))
+                if ((matrix.m11 >= matrix.m22) && (matrix.m11 >= matrix.m33))
                 {
-                    float s  = Math::sqrt(1.0f + matrix.M11() - matrix.M22() - matrix.M33());
+                    float s  = Math::sqrt(1.0f + matrix.m11 - matrix.m22 - matrix.m33);
                     float s2 = 0.5f / s;
-                    result.w  = (matrix.M23() - matrix.M32()) * s2;
+                    result.w  = (matrix.m23 - matrix.m32) * s2;
                     result.x  = 0.5f * s;
-                    result.y  = (matrix.M12() + matrix.M21()) * s2;
-                    result.z  = (matrix.M13() + matrix.M31()) * s2;
+                    result.y  = (matrix.m12 + matrix.m21) * s2;
+                    result.z  = (matrix.m13 + matrix.m31) * s2;
                 }
-                else if (matrix.M22() > matrix.M33())
+                else if (matrix.m22 > matrix.m33)
                 {
-                    float s  = Math::sqrt(1.0f + matrix.M22() - matrix.M11() - matrix.M33());
+                    float s  = Math::sqrt(1.0f + matrix.m22 - matrix.m11 - matrix.m33);
                     float s2 = 0.5f / s;
-                    result.w  = (matrix.M31() - matrix.M13()) * s2;
-                    result.x  = (matrix.M21() + matrix.M12()) * s2;
+                    result.w  = (matrix.m31 - matrix.m13) * s2;
+                    result.x  = (matrix.m21 + matrix.m12) * s2;
                     result.y  = 0.5f * s;
-                    result.z  = (matrix.M32() + matrix.M23()) * s2;
+                    result.z  = (matrix.m32 + matrix.m23) * s2;
                 }
                 else
                 {
-                    float s  = Math::sqrt(1.0f + matrix.M33() - matrix.M11() - matrix.M22());
+                    float s  = Math::sqrt(1.0f + matrix.m33 - matrix.m11 - matrix.m22);
                     float s2 = 0.5f / s;
-                    result.w  = (matrix.M12() - matrix.M21()) * s2;
-                    result.x  = (matrix.M31() + matrix.M13()) * s2;
-                    result.y  = (matrix.M32() + matrix.M23()) * s2;
+                    result.w  = (matrix.m12 - matrix.m21) * s2;
+                    result.x  = (matrix.m31 + matrix.m13) * s2;
+                    result.y  = (matrix.m32 + matrix.m23) * s2;
                     result.z  = 0.5f * s;
                 }
             }
@@ -114,7 +114,7 @@ namespace SceneR
             return result;
         }
 
-        Quaternion Quaternion::Inverse(const Quaternion& value)
+        Quaternion Quaternion::inverse(const Quaternion& value)
         {
             // The multiplicative inverse of a quaternion q is constructed as
             // q^-1 = q* / N(q)
@@ -122,37 +122,37 @@ namespace SceneR
             // Where:
             //  q* is the quaternion Conjugate
             //  N(q) is the quaternion norm
-            return Quaternion::Conjugate(value) / value.LengthSquared();
+            return Quaternion::conjugate(value) / value.length_squared();
         }
 
-        Quaternion Quaternion::Lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
+        Quaternion Quaternion::lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
         {
             float amount1 = 1.0f - amount;
             float amount2 = amount;
 
-            if (Quaternion::Dot(quaternion1, quaternion2) < 0.0f)
+            if (Quaternion::dot(quaternion1, quaternion2) < 0.0f)
             {
                 amount2 = -amount2;
             }
 
-            return Quaternion::Normalize(quaternion1 * amount1 + quaternion2 * amount2);
+            return Quaternion::normalize(quaternion1 * amount1 + quaternion2 * amount2);
         }
 
-        Quaternion Quaternion::Negate(const Quaternion & value)
+        Quaternion Quaternion::negate(const Quaternion & value)
         {
             return value * -1.0f;
         }
 
-        Quaternion Quaternion::Normalize(const Quaternion& value)
+        Quaternion Quaternion::normalize(const Quaternion& value)
         {
-            return value / value.Length();
+            return value / value.length();
         }
 
-        Quaternion Quaternion::Slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
+        Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
         {
             float w1;
             float w2;
-            float cosTheta = Quaternion::Dot(quaternion1, quaternion2);
+            float cosTheta = Quaternion::dot(quaternion1, quaternion2);
             bool  flip     = false;
 
             if (cosTheta < 0.0f)
@@ -191,7 +191,7 @@ namespace SceneR
         }
 
         Quaternion::Quaternion(const Vector3& value, const float& w)
-            : Quaternion { value.X(), value.Y(), value.Z(), w }
+            : Quaternion { value.x, value.y, value.z, w }
         {
         }
 
@@ -215,52 +215,12 @@ namespace SceneR
         {
         }
 
-        float Quaternion::X() const
-        {
-            return this->x;
-        }
-
-        float Quaternion::Y() const
-        {
-            return this->y;
-        }
-
-        float Quaternion::Z() const
-        {
-            return this->z;
-        }
-
-        float Quaternion::W() const
-        {
-            return this->w;
-        }
-
-        void Quaternion::X(const float& x)
-        {
-            this->x = x;
-        }
-
-        void Quaternion::Y(const float& y)
-        {
-            this->y = y;
-        }
-
-        void Quaternion::Z(const float& z)
-        {
-            this->z = z;
-        }
-
-        void Quaternion::W(const float& w)
-        {
-            this->w = w;
-        }
-
-        bool Quaternion::IsIdentity() const
+        bool Quaternion::is_identity() const
         {
             return (*this == Quaternion::Identity);
         }
 
-        float Quaternion::LengthSquared() const
+        float Quaternion::length_squared() const
         {
             return (this->x * this->x)
                  + (this->y * this->y)
@@ -268,23 +228,23 @@ namespace SceneR
                  + (this->w * this->w);
         }
 
-        float Quaternion::Length() const
+        float Quaternion::length() const
         {
-            return Math::sqrt(this->LengthSquared());
+            return Math::sqrt(this->length_squared());
         }
 
         float& Quaternion::operator[](const std::size_t& index)
         {
             assert(index < 4);
 
-            return (this->quaternion[index]);
+            return (this->data[index]);
         }
 
         const float& Quaternion::operator[](const std::size_t& index) const
         {
             assert(index < 4);
 
-            return (this->quaternion[index]);
+            return (this->data[index]);
         }
 
         Quaternion& Quaternion::operator=(const Quaternion& value)
@@ -323,60 +283,60 @@ namespace SceneR
 
             Quaternion q0 = *this;
 
-            this->w = (q0.w * q1.w - q0.x * q1.x - q0.y * q1.y - q0.z * q1.z);
-            this->x = (q0.w * q1.x + q0.x * q1.w + q0.y * q1.z - q0.z * q1.y);
-            this->y = (q0.w * q1.y - q0.x * q1.z + q0.y * q1.w + q0.z * q1.x);
-            this->z = (q0.w * q1.z + q0.x * q1.y - q0.y * q1.x + q0.z * q1.w);
+            w = (q0.w * q1.w - q0.x * q1.x - q0.y * q1.y - q0.z * q1.z);
+            x = (q0.w * q1.x + q0.x * q1.w + q0.y * q1.z - q0.z * q1.y);
+            y = (q0.w * q1.y - q0.x * q1.z + q0.y * q1.w + q0.z * q1.x);
+            z = (q0.w * q1.z + q0.x * q1.y - q0.y * q1.x + q0.z * q1.w);
 
             return *this;
         }
 
         Quaternion& Quaternion::operator*=(const float& value)
         {
-            this->x *= value;
-            this->y *= value;
-            this->z *= value;
-            this->w *= value;
+            x *= value;
+            y *= value;
+            z *= value;
+            w *= value;
 
             return *this;
         }
 
         Quaternion& Quaternion::operator/=(const Quaternion& value)
         {
-            this->x /= value.x;
-            this->y /= value.y;
-            this->z /= value.z;
-            this->w /= value.w;
+            x /= value.x;
+            y /= value.y;
+            z /= value.z;
+            w /= value.w;
 
             return *this;
         }
 
         Quaternion& Quaternion::operator/=(const float& value)
         {
-            this->x /= value;
-            this->y /= value;
-            this->z /= value;
-            this->w /= value;
+            x /= value;
+            y /= value;
+            z /= value;
+            w /= value;
 
             return *this;
         }
 
         Quaternion& Quaternion::operator-=(const Quaternion& value)
         {
-            this->x -= value.x;
-            this->y -= value.y;
-            this->z -= value.z;
-            this->w -= value.w;
+            x -= value.x;
+            y -= value.y;
+            z -= value.z;
+            w -= value.w;
 
             return *this;
         }
 
         Quaternion& Quaternion::operator+=(const Quaternion& value)
         {
-            this->x += value.x;
-            this->y += value.y;
-            this->z += value.z;
-            this->w += value.w;
+            x += value.x;
+            y += value.y;
+            z += value.z;
+            w += value.w;
 
             return *this;
         }
@@ -402,15 +362,15 @@ namespace SceneR
         const Quaternion Quaternion::operator/(const Quaternion& r) const
         {
             // http://es.mathworks.com/help/aeroblks/quaterniondivision.html
-            auto q              = *this;
-            auto lengthSuquared = r.LengthSquared();
+            auto q             = *this;
+            auto lengthSquared = r.length_squared();
 
-            auto x = (r.x * q.x + r.y * q.y + r.z * q.z + r.w * q.w) / lengthSuquared;
-            auto y = (r.x * q.y - r.y * q.x - r.z * q.w + r.w * q.z) / lengthSuquared;
-            auto z = (r.x * q.z + r.y * q.w - r.z * q.x - r.w * q.y) / lengthSuquared;
-            auto w = (r.x * q.w - r.y * q.z + r.z * q.y - r.w * q.x) / lengthSuquared;
+            auto qx = (r.x * q.x + r.y * q.y + r.z * q.z + r.w * q.w) / lengthSquared;
+            auto qy = (r.x * q.y - r.y * q.x - r.z * q.w + r.w * q.z) / lengthSquared;
+            auto qz = (r.x * q.z + r.y * q.w - r.z * q.x - r.w * q.y) / lengthSquared;
+            auto qw = (r.x * q.w - r.y * q.z + r.z * q.y - r.w * q.x) / lengthSquared;
 
-            return Quaternion::Conjugate({ w, z, y, x });
+            return Quaternion::conjugate({ qw, qz, qy, qx });
         }
 
         const Quaternion Quaternion::operator/(const float& value) const
@@ -433,7 +393,7 @@ namespace SceneR
 
         const Quaternion Quaternion::operator-() const
         {
-            return Quaternion { -this->x, -this->y, -this->z, -this->w };
+            return Quaternion { -x, -y, -z, -w };
         }
 
         const Quaternion Quaternion::operator+(const Quaternion& value) const

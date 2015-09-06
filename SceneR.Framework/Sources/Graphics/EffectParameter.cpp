@@ -277,7 +277,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            const auto transpose = Matrix::Transpose(value);
+            const auto transpose = Matrix::transpose(value);
 
             _uniform_buffer->set_data(_offset, sizeof(Matrix), &transpose[0]);
         }
@@ -296,7 +296,7 @@ namespace SceneR
 
             for (const auto& matrix : value)
             {
-                transposed.push_back(Matrix::Transpose(matrix));
+                transposed.push_back(Matrix::transpose(matrix));
             }
 
             _uniform_buffer->set_data(_offset, sizeof(Matrix) * transposed.size(), transposed.data());

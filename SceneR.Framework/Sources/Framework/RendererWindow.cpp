@@ -72,7 +72,7 @@ namespace SceneR
 
             if (_handle != nullptr)
             {
-                auto tmp = Encoding::Convert(_title);
+                auto tmp = Encoding::convert(_title);
 
                 glfwSetWindowTitle(_handle, tmp.c_str());
             }
@@ -93,7 +93,7 @@ namespace SceneR
             GLFWmonitor* monitor     = nullptr;
             GLFWwindow*  windowShare = nullptr;
             auto         profile     = static_cast<std::int32_t>(_renderer._graphics_device_manager.graphics_profile);
-            auto         tmp         = System::Text::Encoding::Convert(_title);
+            auto         tmp         = System::Text::Encoding::convert(_title);
             auto         fullscreen  = _renderer._graphics_device_manager.full_screen;
             auto         width       = _renderer._graphics_device_manager.preferred_back_buffer_width;
             auto         height      = _renderer._graphics_device_manager.preferred_back_buffer_height;

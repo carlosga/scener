@@ -20,31 +20,31 @@ Matrix MatrixTest::GenerateMatrixNumberFrom1To16()
 {
     Matrix a;
 
-    a.M11(1.0f);
-    a.M12(2.0f);
-    a.M13(3.0f);
-    a.M14(4.0f);
-    a.M21(5.0f);
-    a.M22(6.0f);
-    a.M23(7.0f);
-    a.M24(8.0f);
-    a.M31(9.0f);
-    a.M32(10.0f);
-    a.M33(11.0f);
-    a.M34(12.0f);
-    a.M41(13.0f);
-    a.M42(14.0f);
-    a.M43(15.0f);
-    a.M44(16.0f);
+    a.m11 = 1.0f;
+    a.m12 = 2.0f;
+    a.m13 = 3.0f;
+    a.m14 = 4.0f;
+    a.m21 = 5.0f;
+    a.m22 = 6.0f;
+    a.m23 = 7.0f;
+    a.m24 = 8.0f;
+    a.m31 = 9.0f;
+    a.m32 = 10.0f;
+    a.m33 = 11.0f;
+    a.m34 = 12.0f;
+    a.m41 = 13.0f;
+    a.m42 = 14.0f;
+    a.m43 = 15.0f;
+    a.m44 = 16.0f;
 
     return a;
 }
 
 Matrix MatrixTest::GenerateTestMatrix()
 {
-    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
-           * Matrix::CreateRotationY(Math::to_radians(30.0f))
-           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto m = Matrix::create_rotation_x(Math::to_radians(30.0f))
+           * Matrix::create_rotation_y(Math::to_radians(30.0f))
+           * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
     // m.Translation({ 111.0f, 222.0f, 333.0f });
 
@@ -57,31 +57,31 @@ void MatrixTest::Decompose(const float&   yaw
                          , const Vector3& expectedTranslation
                          , const Vector3& expectedScales)
 {
-    auto expectedRotation = Quaternion::CreateFromYawPitchRoll(Math::to_radians(yaw)
+    auto expectedRotation = Quaternion::create_from_yaw_pitch_roll(Math::to_radians(yaw)
                                                              , Math::to_radians(pitch)
                                                              , Math::to_radians(roll));
 
-    auto m = Matrix::CreateScale(expectedScales)
-           * Matrix::CreateFromQuaternion(expectedRotation)
-           * Matrix::CreateTranslation(expectedTranslation);
+    auto m = Matrix::create_scale(expectedScales)
+           * Matrix::create_from_quaternion(expectedRotation)
+           * Matrix::create_translation(expectedTranslation);
 
     Vector3    scales;
     Quaternion rotation;
     Vector3    translation;
 
-    bool actualResult = Matrix::Decompose(m, scales, rotation, translation);
+    bool actualResult = Matrix::decompose(m, scales, rotation, translation);
 
     EXPECT_TRUE(actualResult);
 
-    bool scaleIsZeroOrNegative = expectedScales.X() <= 0
-                              || expectedScales.Y() <= 0
-                              || expectedScales.Z() <= 0;
+    bool scaleIsZeroOrNegative = expectedScales.x <= 0
+                              || expectedScales.y <= 0
+                              || expectedScales.z <= 0;
 
     if (scaleIsZeroOrNegative)
     {
-        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.X()), Math::abs(scales.X())));
-        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.Y()), Math::abs(scales.Y())));
-        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.Z()), Math::abs(scales.Z())));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.x), Math::abs(scales.x)));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.y), Math::abs(scales.y)));
+        EXPECT_TRUE(EqualityHelper::Equal(Math::abs(expectedScales.z), Math::abs(scales.z)));
     }
     else
     {
@@ -94,24 +94,24 @@ void MatrixTest::Decompose(const float&   yaw
 
 void MatrixTest::DecomposeScale(const float& sx, const float& sy, const float& sz)
 {
-    auto m              = Matrix::CreateScale(sx, sy, sz);
+    auto m              = Matrix::create_scale(sx, sy, sz);
     auto expectedScales = Vector3 { sx, sy, sz };
 
     Vector3    scales;
     Quaternion rotation;
     Vector3    translation;
 
-    bool actualResult = Matrix::Decompose(m, scales, rotation, translation);
+    bool actualResult = Matrix::decompose(m, scales, rotation, translation);
 
     EXPECT_TRUE(actualResult);
     EXPECT_TRUE(EqualityHelper::Equal(expectedScales, scales));
     EXPECT_TRUE(EqualityHelper::EqualRotation(Quaternion::Identity, rotation));
-    EXPECT_TRUE(EqualityHelper::Equal(Vector3::Zero, translation));
+    EXPECT_TRUE(EqualityHelper::Equal(Vector3::zero, translation));
 }
 
 void MatrixTest::CreateReflection(const Plane& plane, const Matrix& expected)
 {
-    auto actual = Matrix::CreateReflection(plane);
+    auto actual = Matrix::create_reflection(plane);
 
     EXPECT_TRUE(EqualityHelper::Equal(actual, expected));
 }
@@ -120,22 +120,22 @@ TEST_F(MatrixTest, DefaultConstructor)
 {
     auto matrix = Matrix { };
 
-    EXPECT_TRUE(0.0f == matrix.M11());
-    EXPECT_TRUE(0.0f == matrix.M12());
-    EXPECT_TRUE(0.0f == matrix.M13());
-    EXPECT_TRUE(0.0f == matrix.M14());
-    EXPECT_TRUE(0.0f == matrix.M21());
-    EXPECT_TRUE(0.0f == matrix.M22());
-    EXPECT_TRUE(0.0f == matrix.M23());
-    EXPECT_TRUE(0.0f == matrix.M24());
-    EXPECT_TRUE(0.0f == matrix.M31());
-    EXPECT_TRUE(0.0f == matrix.M32());
-    EXPECT_TRUE(0.0f == matrix.M33());
-    EXPECT_TRUE(0.0f == matrix.M34());
-    EXPECT_TRUE(0.0f == matrix.M41());
-    EXPECT_TRUE(0.0f == matrix.M42());
-    EXPECT_TRUE(0.0f == matrix.M43());
-    EXPECT_TRUE(0.0f == matrix.M44());
+    EXPECT_TRUE(0.0f == matrix.m11);
+    EXPECT_TRUE(0.0f == matrix.m12);
+    EXPECT_TRUE(0.0f == matrix.m13);
+    EXPECT_TRUE(0.0f == matrix.m14);
+    EXPECT_TRUE(0.0f == matrix.m21);
+    EXPECT_TRUE(0.0f == matrix.m22);
+    EXPECT_TRUE(0.0f == matrix.m23);
+    EXPECT_TRUE(0.0f == matrix.m24);
+    EXPECT_TRUE(0.0f == matrix.m31);
+    EXPECT_TRUE(0.0f == matrix.m32);
+    EXPECT_TRUE(0.0f == matrix.m33);
+    EXPECT_TRUE(0.0f == matrix.m34);
+    EXPECT_TRUE(0.0f == matrix.m41);
+    EXPECT_TRUE(0.0f == matrix.m42);
+    EXPECT_TRUE(0.0f == matrix.m43);
+    EXPECT_TRUE(0.0f == matrix.m44);
 }
 
 TEST_F(MatrixTest, MatrixConstructor)
@@ -145,22 +145,22 @@ TEST_F(MatrixTest, MatrixConstructor)
                          , 30.0f, 30.0f, 30.0f, 0.0f
                          , 5.0f , 10.0f, 15.0f, 1.0f };
 
-    EXPECT_TRUE(10.0f == matrix.M11());
-    EXPECT_TRUE(10.0f == matrix.M12());
-    EXPECT_TRUE(10.0f == matrix.M13());
-    EXPECT_TRUE(0.0f  == matrix.M14());
-    EXPECT_TRUE(20.0f == matrix.M21());
-    EXPECT_TRUE(20.0f == matrix.M22());
-    EXPECT_TRUE(20.0f == matrix.M23());
-    EXPECT_TRUE(0.0f  == matrix.M24());
-    EXPECT_TRUE(30.0f == matrix.M31());
-    EXPECT_TRUE(30.0f == matrix.M32());
-    EXPECT_TRUE(30.0f == matrix.M33());
-    EXPECT_TRUE(0.0f  == matrix.M34());
-    EXPECT_TRUE(5.0f  == matrix.M41());
-    EXPECT_TRUE(10.0f == matrix.M42());
-    EXPECT_TRUE(15.0f == matrix.M43());
-    EXPECT_TRUE(1.0f  == matrix.M44());
+    EXPECT_TRUE(10.0f == matrix.m11);
+    EXPECT_TRUE(10.0f == matrix.m12);
+    EXPECT_TRUE(10.0f == matrix.m13);
+    EXPECT_TRUE(0.0f  == matrix.m14);
+    EXPECT_TRUE(20.0f == matrix.m21);
+    EXPECT_TRUE(20.0f == matrix.m22);
+    EXPECT_TRUE(20.0f == matrix.m23);
+    EXPECT_TRUE(0.0f  == matrix.m24);
+    EXPECT_TRUE(30.0f == matrix.m31);
+    EXPECT_TRUE(30.0f == matrix.m32);
+    EXPECT_TRUE(30.0f == matrix.m33);
+    EXPECT_TRUE(0.0f  == matrix.m34);
+    EXPECT_TRUE(5.0f  == matrix.m41);
+    EXPECT_TRUE(10.0f == matrix.m42);
+    EXPECT_TRUE(15.0f == matrix.m43);
+    EXPECT_TRUE(1.0f  == matrix.m44);
 }
 
 TEST_F(MatrixTest, CopyConstuctor)
@@ -172,22 +172,22 @@ TEST_F(MatrixTest, CopyConstuctor)
 
     auto matrix1 = Matrix { matrix };
 
-    EXPECT_TRUE(matrix.M11() == matrix1.M11());
-    EXPECT_TRUE(matrix.M12() == matrix1.M12());
-    EXPECT_TRUE(matrix.M13() == matrix1.M13());
-    EXPECT_TRUE(matrix.M14() == matrix1.M14());
-    EXPECT_TRUE(matrix.M21() == matrix1.M21());
-    EXPECT_TRUE(matrix.M22() == matrix1.M22());
-    EXPECT_TRUE(matrix.M23() == matrix1.M23());
-    EXPECT_TRUE(matrix.M24() == matrix1.M24());
-    EXPECT_TRUE(matrix.M31() == matrix1.M31());
-    EXPECT_TRUE(matrix.M32() == matrix1.M32());
-    EXPECT_TRUE(matrix.M33() == matrix1.M33());
-    EXPECT_TRUE(matrix.M34() == matrix1.M34());
-    EXPECT_TRUE(matrix.M41() == matrix1.M41());
-    EXPECT_TRUE(matrix.M42() == matrix1.M42());
-    EXPECT_TRUE(matrix.M43() == matrix1.M43());
-    EXPECT_TRUE(matrix.M44() == matrix1.M44());
+    EXPECT_TRUE(matrix.m11 == matrix1.m11);
+    EXPECT_TRUE(matrix.m12 == matrix1.m12);
+    EXPECT_TRUE(matrix.m13 == matrix1.m13);
+    EXPECT_TRUE(matrix.m14 == matrix1.m14);
+    EXPECT_TRUE(matrix.m21 == matrix1.m21);
+    EXPECT_TRUE(matrix.m22 == matrix1.m22);
+    EXPECT_TRUE(matrix.m23 == matrix1.m23);
+    EXPECT_TRUE(matrix.m24 == matrix1.m24);
+    EXPECT_TRUE(matrix.m31 == matrix1.m31);
+    EXPECT_TRUE(matrix.m32 == matrix1.m32);
+    EXPECT_TRUE(matrix.m33 == matrix1.m33);
+    EXPECT_TRUE(matrix.m34 == matrix1.m34);
+    EXPECT_TRUE(matrix.m41 == matrix1.m41);
+    EXPECT_TRUE(matrix.m42 == matrix1.m42);
+    EXPECT_TRUE(matrix.m43 == matrix1.m43);
+    EXPECT_TRUE(matrix.m44 == matrix1.m44);
 }
 
 TEST_F(MatrixTest, MatrixMultiplication)
@@ -208,22 +208,22 @@ TEST_F(MatrixTest, MatrixMultiplication)
     // 34  44  54  64
     // 82 108 134 160
 
-    EXPECT_TRUE(34.0f  == result.M11());
-    EXPECT_TRUE(44.0f  == result.M12());
-    EXPECT_TRUE(54.0f  == result.M13());
-    EXPECT_TRUE(64.0f  == result.M14());
-    EXPECT_TRUE(82.0f  == result.M21());
-    EXPECT_TRUE(108.0f == result.M22());
-    EXPECT_TRUE(134.0f == result.M23());
-    EXPECT_TRUE(160.0f == result.M24());
-    EXPECT_TRUE(34.0f  == result.M31());
-    EXPECT_TRUE(44.0f  == result.M32());
-    EXPECT_TRUE(54.0f  == result.M33());
-    EXPECT_TRUE(64.0f  == result.M34());
-    EXPECT_TRUE(82.0f  == result.M41());
-    EXPECT_TRUE(108.0f == result.M42());
-    EXPECT_TRUE(134.0f == result.M43());
-    EXPECT_TRUE(160.0f == result.M44());
+    EXPECT_TRUE(34.0f  == result.m11);
+    EXPECT_TRUE(44.0f  == result.m12);
+    EXPECT_TRUE(54.0f  == result.m13);
+    EXPECT_TRUE(64.0f  == result.m14);
+    EXPECT_TRUE(82.0f  == result.m21);
+    EXPECT_TRUE(108.0f == result.m22);
+    EXPECT_TRUE(134.0f == result.m23);
+    EXPECT_TRUE(160.0f == result.m24);
+    EXPECT_TRUE(34.0f  == result.m31);
+    EXPECT_TRUE(44.0f  == result.m32);
+    EXPECT_TRUE(54.0f  == result.m33);
+    EXPECT_TRUE(64.0f  == result.m34);
+    EXPECT_TRUE(82.0f  == result.m41);
+    EXPECT_TRUE(108.0f == result.m42);
+    EXPECT_TRUE(134.0f == result.m43);
+    EXPECT_TRUE(160.0f == result.m44);
 }
 
 TEST_F(MatrixTest, MatrixTranspose)
@@ -233,24 +233,24 @@ TEST_F(MatrixTest, MatrixTranspose)
                          , 0.0f, 0.0f, 1.0f, 10.0f
                          , 0.0f, 0.0f, 0.0f, 1.0f };
 
-    auto transposed = Matrix::Transpose(source);
+    auto transposed = Matrix::transpose(source);
 
-    EXPECT_TRUE(1.0f  == transposed.M11());
-    EXPECT_TRUE(0.0f  == transposed.M12());
-    EXPECT_TRUE(0.0f  == transposed.M13());
-    EXPECT_TRUE(0.0f  == transposed.M14());
-    EXPECT_TRUE(0.0f  == transposed.M21());
-    EXPECT_TRUE(1.0f  == transposed.M22());
-    EXPECT_TRUE(0.0f  == transposed.M23());
-    EXPECT_TRUE(0.0f  == transposed.M24());
-    EXPECT_TRUE(0.0f  == transposed.M31());
-    EXPECT_TRUE(0.0f  == transposed.M32());
-    EXPECT_TRUE(1.0f  == transposed.M33());
-    EXPECT_TRUE(0.0f  == transposed.M34());
-    EXPECT_TRUE(10.0f == transposed.M41());
-    EXPECT_TRUE(10.0f == transposed.M42());
-    EXPECT_TRUE(10.0f == transposed.M43());
-    EXPECT_TRUE(1.0f  == transposed.M44());
+    EXPECT_TRUE(1.0f  == transposed.m11);
+    EXPECT_TRUE(0.0f  == transposed.m12);
+    EXPECT_TRUE(0.0f  == transposed.m13);
+    EXPECT_TRUE(0.0f  == transposed.m14);
+    EXPECT_TRUE(0.0f  == transposed.m21);
+    EXPECT_TRUE(1.0f  == transposed.m22);
+    EXPECT_TRUE(0.0f  == transposed.m23);
+    EXPECT_TRUE(0.0f  == transposed.m24);
+    EXPECT_TRUE(0.0f  == transposed.m31);
+    EXPECT_TRUE(0.0f  == transposed.m32);
+    EXPECT_TRUE(1.0f  == transposed.m33);
+    EXPECT_TRUE(0.0f  == transposed.m34);
+    EXPECT_TRUE(10.0f == transposed.m41);
+    EXPECT_TRUE(10.0f == transposed.m42);
+    EXPECT_TRUE(10.0f == transposed.m43);
+    EXPECT_TRUE(1.0f  == transposed.m44);
 }
 
 TEST_F(MatrixTest, Determinant)
@@ -260,7 +260,7 @@ TEST_F(MatrixTest, Determinant)
                          , 1.0f, 1.0f, 5.0f , 0.0f
                          , 0.0f, 0.0f, 0.0f , 1.0f };
 
-    EXPECT_TRUE(-2.0f == matrix.Determinant());
+    EXPECT_TRUE(-2.0f == matrix.determinant());
 }
 
 TEST_F(MatrixTest, Inverse)
@@ -270,70 +270,70 @@ TEST_F(MatrixTest, Inverse)
                          , 1.0f, 1.0f, 5.0f , 0.0f
                          , 0.0f, 0.0f, 0.0f , 1.0f };
 
-    auto inverse = Matrix::Invert(matrix);
+    auto inverse = Matrix::invert(matrix);
 
-    EXPECT_TRUE(-6.5f == inverse.M11());
-    EXPECT_TRUE(05.5f == inverse.M12());
-    EXPECT_TRUE(08.5f == inverse.M13());
-    EXPECT_TRUE(00.0f == inverse.M14());
-    EXPECT_TRUE(04.0f == inverse.M21());
-    EXPECT_TRUE(-3.0f == inverse.M22());
-    EXPECT_TRUE(-5.0f == inverse.M23());
-    EXPECT_TRUE(00.0f == inverse.M24());
-    EXPECT_TRUE(00.5f == inverse.M31());
-    EXPECT_TRUE(-0.5f == inverse.M32());
-    EXPECT_TRUE(-0.5f == inverse.M33());
-    EXPECT_TRUE(00.0f == inverse.M34());
-    EXPECT_TRUE(00.0f == inverse.M41());
-    EXPECT_TRUE(00.0f == inverse.M42());
-    EXPECT_TRUE(00.0f == inverse.M43());
-    EXPECT_TRUE(01.0f == inverse.M44());
+    EXPECT_TRUE(-6.5f == inverse.m11);
+    EXPECT_TRUE(05.5f == inverse.m12);
+    EXPECT_TRUE(08.5f == inverse.m13);
+    EXPECT_TRUE(00.0f == inverse.m14);
+    EXPECT_TRUE(04.0f == inverse.m21);
+    EXPECT_TRUE(-3.0f == inverse.m22);
+    EXPECT_TRUE(-5.0f == inverse.m23);
+    EXPECT_TRUE(00.0f == inverse.m24);
+    EXPECT_TRUE(00.5f == inverse.m31);
+    EXPECT_TRUE(-0.5f == inverse.m32);
+    EXPECT_TRUE(-0.5f == inverse.m33);
+    EXPECT_TRUE(00.0f == inverse.m34);
+    EXPECT_TRUE(00.0f == inverse.m41);
+    EXPECT_TRUE(00.0f == inverse.m42);
+    EXPECT_TRUE(00.0f == inverse.m43);
+    EXPECT_TRUE(01.0f == inverse.m44);
 }
 
 TEST_F(MatrixTest, CreatePerspectiveFieldOfView)
 {
     auto fieldOfView = Math::pi_over_4;
     auto aspectRatio = 768.0f / 480.0f;
-    auto perspective = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, 0.1f, 100.0f);
+    auto perspective = Matrix::create_perspective_field_of_view(fieldOfView, aspectRatio, 0.1f, 100.0f);
 
-    EXPECT_TRUE(1.50888336f == perspective.M11());
-    EXPECT_TRUE(00.0f       == perspective.M12());
-    EXPECT_TRUE(00.0f       == perspective.M13());
-    EXPECT_TRUE(00.0f       == perspective.M14());
-    EXPECT_TRUE(00.0f       == perspective.M21());
-    EXPECT_TRUE(2.41421342f == perspective.M22());
-    EXPECT_TRUE(00.0f       == perspective.M23());
-    EXPECT_TRUE(00.0f       == perspective.M24());
-    EXPECT_TRUE(00.0f       == perspective.M31());
-    EXPECT_TRUE(00.0f       == perspective.M32());
-    EXPECT_TRUE(-1.001001f  == perspective.M33());
-    EXPECT_TRUE(-1.0f       == perspective.M34());
-    EXPECT_TRUE(00.0f       == perspective.M41());
-    EXPECT_TRUE(00.0f       == perspective.M42());
-    EXPECT_TRUE(-0.1001001f == perspective.M43());
-    EXPECT_TRUE(00.0f       == perspective.M44());
+    EXPECT_TRUE(1.50888336f == perspective.m11);
+    EXPECT_TRUE(00.0f       == perspective.m12);
+    EXPECT_TRUE(00.0f       == perspective.m13);
+    EXPECT_TRUE(00.0f       == perspective.m14);
+    EXPECT_TRUE(00.0f       == perspective.m21);
+    EXPECT_TRUE(2.41421342f == perspective.m22);
+    EXPECT_TRUE(00.0f       == perspective.m23);
+    EXPECT_TRUE(00.0f       == perspective.m24);
+    EXPECT_TRUE(00.0f       == perspective.m31);
+    EXPECT_TRUE(00.0f       == perspective.m32);
+    EXPECT_TRUE(-1.001001f  == perspective.m33);
+    EXPECT_TRUE(-1.0f       == perspective.m34);
+    EXPECT_TRUE(00.0f       == perspective.m41);
+    EXPECT_TRUE(00.0f       == perspective.m42);
+    EXPECT_TRUE(-0.1001001f == perspective.m43);
+    EXPECT_TRUE(00.0f       == perspective.m44);
 }
 
 TEST_F(MatrixTest, CreateLookAt)
 {
-    auto lookAt = Matrix::CreateLookAt({ 0.0f, 1.0f, -5.0f }, Vector3::UnitY, Vector3::Up);
+    auto lookAt = Matrix::create_look_at({ 0.0f, 1.0f, -5.0f }, Vector3::unit_y, Vector3::up);
 
-    EXPECT_TRUE(-1.0f == lookAt.M11());
-    EXPECT_TRUE(00.0f == lookAt.M12());
-    EXPECT_TRUE(00.0f == lookAt.M13());
-    EXPECT_TRUE(00.0f == lookAt.M14());
-    EXPECT_TRUE(00.0f == lookAt.M21());
-    EXPECT_TRUE(01.0f == lookAt.M22());
-    EXPECT_TRUE(00.0f == lookAt.M23());
-    EXPECT_TRUE(00.0f == lookAt.M24());
-    EXPECT_TRUE(00.0f == lookAt.M31());
-    EXPECT_TRUE(00.0f == lookAt.M32());
-    EXPECT_TRUE(-1.0f == lookAt.M33());
-    EXPECT_TRUE(00.0f == lookAt.M34());
-    EXPECT_TRUE(00.0f == lookAt.M41());
-    EXPECT_TRUE(-1.0f == lookAt.M42());
-    EXPECT_TRUE(-5.0f == lookAt.M43());
-    EXPECT_TRUE(01.0f == lookAt.M44());
+    EXPECT_TRUE(-1.0f == lookAt.m11);
+    EXPECT_TRUE(00.0f == lookAt.m12);
+    EXPECT_TRUE(00.0f == lookAt.m13);
+    EXPECT_TRUE(00.0f == lookAt.m14);
+    EXPECT_TRUE(00.0f == lookAt.m21);
+    EXPECT_TRUE(01.0f == lookAt.m22);
+    EXPECT_TRUE(00.0f == lookAt.m23);
+    EXPECT_TRUE(00.0f == lookAt.m24);
+    EXPECT_TRUE(00.0f == lookAt.m31);
+    EXPECT_TRUE(00.0f == lookAt.m32);
+    EXPECT_TRUE(-1.0f == lookAt.m33);
+    EXPECT_TRUE(00.0f == lookAt.m34);
+    EXPECT_TRUE(00.0f == lookAt.m41);
+    EXPECT_TRUE(-1.0f == lookAt.m42);
+    EXPECT_TRUE(-5.0f == lookAt.m43);
+    EXPECT_TRUE(01.0f == lookAt.m44);
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -341,10 +341,10 @@ TEST_F(MatrixTest, Identity)
 {
     Matrix val;
 
-    val.M11(1.0f);
-    val.M22(1.0f);
-    val.M33(1.0f);
-    val.M44(1.0f);
+    val.m11 = 1.0f;
+    val.m22 = 1.0f;
+    val.m33 = 1.0f;
+    val.m44 = 1.0f;
 
     EXPECT_TRUE(EqualityHelper::Equal(val, Matrix::Identity));
 }
@@ -352,12 +352,12 @@ TEST_F(MatrixTest, Identity)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Determinant1)
 {
-    auto target = Matrix::CreateRotationX(Math::to_radians(30.0f))
-                * Matrix::CreateRotationY(Math::to_radians(30.0f))
-                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto target = Matrix::create_rotation_x(Math::to_radians(30.0f))
+                * Matrix::create_rotation_y(Math::to_radians(30.0f))
+                * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
     float val = 1.0f;
-    float det = target.Determinant();
+    float det = target.determinant();
 
     EXPECT_TRUE(val == det);
 }
@@ -368,26 +368,26 @@ TEST_F(MatrixTest, Determinant2)
 {
     Matrix a;
 
-    a.M11(5.0f);
-    a.M12(2.0f);
-    a.M13(8.25f);
-    a.M14(1.0f);
-    a.M21(12.0f);
-    a.M22(6.8f);
-    a.M23(2.14f);
-    a.M24(9.6f);
-    a.M31(6.5f);
-    a.M32(1.0f);
-    a.M33(3.14f);
-    a.M34(2.22f);
-    a.M41(0.0f);
-    a.M42(0.86f);
-    a.M43(4.0f);
-    a.M44(1.0f);
+    a.m11 = 5.0f;
+    a.m12 = 2.0f;
+    a.m13 = 8.25f;
+    a.m14 = 1.0f;
+    a.m21 = 12.0f;
+    a.m22 = 6.8f;
+    a.m23 = 2.14f;
+    a.m24 = 9.6f;
+    a.m31 = 6.5f;
+    a.m32 = 1.0f;
+    a.m33 = 3.14f;
+    a.m34 = 2.22f;
+    a.m41 = 0.0f;
+    a.m42 = 0.86f;
+    a.m43 = 4.0f;
+    a.m44 = 1.0f;
 
-    auto   i    = Matrix::Invert(a);
-    float detA = a.Determinant();
-    float detI = i.Determinant();
+    auto  i    = Matrix::invert(a);
+    float detA = a.determinant();
+    float detI = i.determinant();
     float t    = 1.0f / detI;
 
     // only accurate to 3 precision
@@ -398,16 +398,16 @@ TEST_F(MatrixTest, Determinant2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, Invert)
 {
-    auto mtx = Matrix::CreateRotationX(Math::to_radians(30.0f))
-             * Matrix::CreateRotationY(Math::to_radians(30.0f))
-             * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto mtx = Matrix::create_rotation_x(Math::to_radians(30.0f))
+             * Matrix::create_rotation_y(Math::to_radians(30.0f))
+             * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
     auto expected = Matrix { 0.74999994f , -0.216506317f, 0.62499994f  , 0.0f
                            , 0.433012635f, 0.87499994f  , -0.216506317f, 0.0f
                            , -0.49999997f, 0.433012635f , 0.74999994f  , 0.0f
                            , 0.0f        , 0.0f         , 0.0f         , 0.99999994f };
 
-    auto actual = Matrix::Invert(mtx);
+    auto actual = Matrix::invert(mtx);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
@@ -422,7 +422,7 @@ TEST_F(MatrixTest, Invert)
 TEST_F(MatrixTest, InvertIdentityMatrix)
 {
     auto mtx    = Matrix::Identity;
-    auto actual = Matrix::Invert(mtx);
+    auto actual = Matrix::invert(mtx);
 
     EXPECT_TRUE(EqualityHelper::Equal(actual, Matrix::Identity));
 }
@@ -431,8 +431,8 @@ TEST_F(MatrixTest, InvertIdentityMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertTranslationMatrix)
 {
-    auto mtx    = Matrix::CreateTranslation(23, 42, 666);
-    auto actual = Matrix::Invert(mtx);
+    auto mtx    = Matrix::create_translation(23, 42, 666);
+    auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
@@ -442,8 +442,8 @@ TEST_F(MatrixTest, InvertTranslationMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertRotationMatrix)
 {
-    auto mtx    = Matrix::CreateFromYawPitchRoll(3, 4, 5);
-    auto actual = Matrix::Invert(mtx);
+    auto mtx    = Matrix::create_from_yaw_pitch_roll(3, 4, 5);
+    auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
@@ -453,8 +453,8 @@ TEST_F(MatrixTest, InvertRotationMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertScaleMatrix)
 {
-    auto mtx    = Matrix::CreateScale(23, 42, -666);
-    auto actual = Matrix::Invert(mtx);
+    auto mtx    = Matrix::create_scale(23, 42, -666);
+    auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
@@ -464,8 +464,8 @@ TEST_F(MatrixTest, InvertScaleMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertProjectionMatrix)
 {
-    auto mtx    = Matrix::CreatePerspectiveFieldOfView(1, 1.333f, 0.1f, 666);
-    auto actual = Matrix::Invert(mtx);
+    auto mtx    = Matrix::create_perspective_field_of_view(1, 1.333f, 0.1f, 666);
+    auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
@@ -475,11 +475,11 @@ TEST_F(MatrixTest, InvertProjectionMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertAffineMatrix)
 {
-    auto mtx = Matrix::CreateFromYawPitchRoll(3, 4, 5)
-             * Matrix::CreateScale(23, 42, -666)
-             * Matrix::CreateTranslation(17, 53, 89);
+    auto mtx = Matrix::create_from_yaw_pitch_roll(3, 4, 5)
+             * Matrix::create_scale(23, 42, -666)
+             * Matrix::create_translation(17, 53, 89);
 
-    auto actual = Matrix::Invert(mtx);
+    auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
     EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
@@ -512,22 +512,22 @@ TEST_F(MatrixTest, VariousScaledMatrixDecomposition)
     MatrixTest::Decompose(10.0f, 20.0f, 30.0f, { 10, 20, 30 }, { 2, 3, 4 });
 
     // Various scales.
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 1, 2, 3 });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 1, 3, 2 });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 2, 1, 3 });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 2, 3, 1 });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 3, 1, 2 });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 3, 2, 1 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 1, 2, 3 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 1, 3, 2 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 2, 1, 3 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 2, 3, 1 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 3, 1, 2 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 3, 2, 1 });
 
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { -2, 1, 1 });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { -2, 1, 1 });
 
     // Small scales.
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 1e-4f, 2e-4f, 3e-4f });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 1e-4f, 3e-4f, 2e-4f });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 2e-4f, 1e-4f, 3e-4f });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 2e-4f, 3e-4f, 1e-4f });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 3e-4f, 1e-4f, 2e-4f });
-    MatrixTest::Decompose(0, 0, 0, Vector3::Zero, { 3e-4f, 2e-4f, 1e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 1e-4f, 2e-4f, 3e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 1e-4f, 3e-4f, 2e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 2e-4f, 1e-4f, 3e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 2e-4f, 3e-4f, 1e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 3e-4f, 1e-4f, 2e-4f });
+    MatrixTest::Decompose(0, 0, 0, Vector3::zero, { 3e-4f, 2e-4f, 1e-4f });
 
     // Zero scales.
     MatrixTest::Decompose(0, 0, 0, { 10, 20, 30 }, { 0, 0, 0 });
@@ -567,7 +567,7 @@ TEST_F(MatrixTest, ScaleDecompose1)
     Quaternion rotation;
     Vector3    translation;
 
-    EXPECT_FALSE(Matrix::Decompose(MatrixTest::GenerateMatrixNumberFrom1To16(), scales, rotation, translation));
+    EXPECT_FALSE(Matrix::decompose(MatrixTest::GenerateMatrixNumberFrom1To16(), scales, rotation, translation));
     //EXPECT_FALSE(Matrix::Decompose(new Matrix(Matrix3x2.CreateSkew(1, 2)), out scales, out rotation, out translation));
 }
 
@@ -576,13 +576,13 @@ TEST_F(MatrixTest, ScaleDecompose1)
 TEST_F(MatrixTest, TransformByQuaternion)
 {
     auto target = MatrixTest::GenerateMatrixNumberFrom1To16();
-    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
-                * Matrix::CreateRotationY(Math::to_radians(30.0f))
-                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto m      = Matrix::create_rotation_x(Math::to_radians(30.0f))
+                * Matrix::create_rotation_y(Math::to_radians(30.0f))
+                * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
-    auto q        = Quaternion::CreateFromRotationMatrix(m);
+    auto q        = Quaternion::create_from_rotation_matrix(m);
     auto expected = target * m;
-    auto actual   = Matrix::Transform(target, q);
+    auto actual   = Matrix::transform(target, q);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -594,14 +594,14 @@ TEST_F(MatrixTest, CreateRotationX)
     float radians = Math::to_radians(30.0f);
     Matrix expected;
 
-    expected.M11(1.0f);
-    expected.M22(0.8660254f);
-    expected.M23(0.5f);
-    expected.M32(-0.5f);
-    expected.M33(0.8660254f);
-    expected.M44(1.0f);
+    expected.m11 = 1.0f;
+    expected.m22 = 0.8660254f;
+    expected.m23 = 0.5f;
+    expected.m32 = -0.5f;
+    expected.m33 = 0.8660254f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateRotationX(radians);
+    auto actual = Matrix::create_rotation_x(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -614,7 +614,7 @@ TEST_F(MatrixTest, CreateRotationXOfZeroDegree)
     float radians = 0;
 
     auto expected = Matrix::Identity;
-    auto actual   = Matrix::CreateRotationX(radians);
+    auto actual   = Matrix::create_rotation_x(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -626,15 +626,15 @@ TEST_F(MatrixTest, CreateRotationXCenter)
     float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
-    auto rotateAroundZero         = Matrix::CreateRotationX(radians, Vector3::Zero);
-    auto rotateAroundZeroExpected = Matrix::CreateRotationX(radians);
+    auto rotateAroundZero         = Matrix::create_rotation_x(radians, Vector3::zero);
+    auto rotateAroundZeroExpected = Matrix::create_rotation_x(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
 
-    auto rotateAroundCenter         = Matrix::CreateRotationX(radians, center);
-    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                    * Matrix::CreateRotationX(radians)
-                                    * Matrix::CreateTranslation(center);
+    auto rotateAroundCenter         = Matrix::create_rotation_x(radians, center);
+    auto rotateAroundCenterExpected = Matrix::create_translation(-center)
+                                    * Matrix::create_rotation_x(radians)
+                                    * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
@@ -646,14 +646,14 @@ TEST_F(MatrixTest, CreateRotationY)
     float radians = Math::to_radians(60.0f);
     Matrix expected;
 
-    expected.M11(0.49999997f);
-    expected.M13(-0.866025448f);
-    expected.M22(1.0f);
-    expected.M31(0.866025448f);
-    expected.M33(0.49999997f);
-    expected.M44(1.0f);
+    expected.m11 = 0.49999997f;
+    expected.m13 = -0.866025448f;
+    expected.m22 = 1.0f;
+    expected.m31 = 0.866025448f;
+    expected.m33 = 0.49999997f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateRotationY(radians);
+    auto actual = Matrix::create_rotation_y(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -666,14 +666,14 @@ TEST_F(MatrixTest, CreateRotationYForNegativeAngle)
     float radians = Math::to_radians(-300.0f);
     Matrix expected;
 
-    expected.M11(0.49999997f);
-    expected.M13(-0.866025448f);
-    expected.M22(1.0f);
-    expected.M31(0.866025448f);
-    expected.M33(0.49999997f);
-    expected.M44(1.0f);
+    expected.m11 = 0.49999997f;
+    expected.m13 = -0.866025448f;
+    expected.m22 = 1.0f;
+    expected.m31 = 0.866025448f;
+    expected.m33 = 0.49999997f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateRotationY(radians);
+    auto actual = Matrix::create_rotation_y(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -685,15 +685,15 @@ TEST_F(MatrixTest, CreateRotationYCenter)
     float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
-    auto rotateAroundZero         = Matrix::CreateRotationY(radians, Vector3::Zero);
-    auto rotateAroundZeroExpected = Matrix::CreateRotationY(radians);
+    auto rotateAroundZero         = Matrix::create_rotation_y(radians, Vector3::zero);
+    auto rotateAroundZeroExpected = Matrix::create_rotation_y(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
 
-    auto rotateAroundCenter         = Matrix::CreateRotationY(radians, center);
-    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                    * Matrix::CreateRotationY(radians)
-                                    * Matrix::CreateTranslation(center);
+    auto rotateAroundCenter         = Matrix::create_rotation_y(radians, center);
+    auto rotateAroundCenterExpected = Matrix::create_translation(-center)
+                                    * Matrix::create_rotation_y(radians)
+                                    * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
@@ -703,23 +703,23 @@ TEST_F(MatrixTest, CreateRotationYCenter)
 TEST_F(MatrixTest, CreateFromAxisAngle)
 {
     float radians  = Math::to_radians(-30.0f);
-    auto   expected = Matrix::CreateRotationX(radians);
-    auto   actual   = Matrix::CreateFromAxisAngle(Vector3::UnitX, radians);
+    auto   expected = Matrix::create_rotation_x(radians);
+    auto   actual   = Matrix::create_from_axis_angle(Vector3::unit_x, radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    expected = Matrix::CreateRotationY(radians);
-    actual   = Matrix::CreateFromAxisAngle(Vector3::UnitY, radians);
+    expected = Matrix::create_rotation_y(radians);
+    actual   = Matrix::create_from_axis_angle(Vector3::unit_y, radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    expected = Matrix::CreateRotationZ(radians);
-    actual   = Matrix::CreateFromAxisAngle(Vector3::UnitZ, radians);
+    expected = Matrix::create_rotation_z(radians);
+    actual   = Matrix::create_from_axis_angle(Vector3::unit_z, radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    expected = Matrix::CreateFromQuaternion(Quaternion::CreateFromAxisAngle(Vector3::Normalize(Vector3::One), radians));
-    actual   = Matrix::CreateFromAxisAngle(Vector3::Normalize(Vector3::One), radians);
+    expected = Matrix::create_from_quaternion(Quaternion::create_from_axis_angle(Vector3::normalize(Vector3::one), radians));
+    actual   = Matrix::create_from_axis_angle(Vector3::normalize(Vector3::one), radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
@@ -733,15 +733,15 @@ TEST_F(MatrixTest, CreateFromAxisAngle)
         {
             float longitude = -Math::pi_over_2 + Math::pi * ((float)j / (float)rotCount);
 
-            auto m    = Matrix::CreateRotationZ(longitude) * Matrix::CreateRotationY(latitude);
-            auto axis = Vector3 { m.M11(), m.M12(), m.M13() };
+            auto m    = Matrix::create_rotation_z(longitude) * Matrix::create_rotation_y(latitude);
+            auto axis = Vector3 { m.m11, m.m12, m.m13 };
 
             for (std::uint32_t k = 0; k < rotCount; ++k)
             {
                 float rot = (2.0f * Math::pi) * ((float)k / (float)rotCount);
 
-                expected = Matrix::CreateFromQuaternion(Quaternion::CreateFromAxisAngle(axis, rot));
-                actual   = Matrix::CreateFromAxisAngle(axis, rot);
+                expected = Matrix::create_from_quaternion(Quaternion::create_from_axis_angle(axis, rot));
+                actual   = Matrix::create_from_axis_angle(axis, rot);
 
                 EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
@@ -756,11 +756,11 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll)
     float pitchAngle = Math::to_radians(40.0f);
     float rollAngle  = Math::to_radians(50.0f);
 
-    auto yaw      = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
-    auto pitch    = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
-    auto roll     = Matrix::CreateFromAxisAngle(Vector3::UnitZ, rollAngle);
+    auto yaw      = Matrix::create_from_axis_angle(Vector3::unit_y, yawAngle);
+    auto pitch    = Matrix::create_from_axis_angle(Vector3::unit_x, pitchAngle);
+    auto roll     = Matrix::create_from_axis_angle(Vector3::unit_z, rollAngle);
     auto expected = roll * pitch * yaw;
-    auto actual   = Matrix::CreateFromYawPitchRoll(yawAngle, pitchAngle, rollAngle);
+    auto actual   = Matrix::create_from_yaw_pitch_roll(yawAngle, pitchAngle, rollAngle);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -781,12 +781,12 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll2)
                 float pitchRad = Math::to_radians(pitchAngle);
                 float rollRad  = Math::to_radians(rollAngle);
 
-                auto yaw   = Matrix::CreateFromAxisAngle(Vector3::UnitY, yawRad);
-                auto pitch = Matrix::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
-                auto roll  = Matrix::CreateFromAxisAngle(Vector3::UnitZ, rollRad);
+                auto yaw   = Matrix::create_from_axis_angle(Vector3::unit_y, yawRad);
+                auto pitch = Matrix::create_from_axis_angle(Vector3::unit_x, pitchRad);
+                auto roll  = Matrix::create_from_axis_angle(Vector3::unit_z, rollRad);
 
                 auto expected = roll * pitch * yaw;
-                auto actual   = Matrix::CreateFromYawPitchRoll(yawRad, pitchRad, rollRad);
+                auto actual   = Matrix::create_from_yaw_pitch_roll(yawRad, pitchRad, rollRad);
 
                 EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
@@ -798,10 +798,10 @@ TEST_F(MatrixTest, CreateFromYawPitchRoll2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateShadow)
 {
-    auto lightDir = Vector3::UnitY;
-    auto plane    = Plane { Vector3::UnitY, 0 };
-    auto expected = Matrix::CreateScale(1, 0, 1);
-    auto actual   = Matrix::CreateShadow(lightDir, plane);
+    auto lightDir = Vector3::unit_y;
+    auto plane    = Plane { Vector3::unit_y, 0 };
+    auto expected = Matrix::create_scale(1, 0, 1);
+    auto actual   = Matrix::create_shadow(lightDir, plane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -830,7 +830,7 @@ TEST_F(MatrixTest, CreateShadowVariousPlaneProjections)
 
     for (auto& p : planes)
     {
-        auto plane = Plane::Normalize(p);
+        auto plane = Plane::normalize(p);
 
         // Try various direction of light directions.
         auto testDirections = std::vector<Vector3>();
@@ -867,36 +867,36 @@ TEST_F(MatrixTest, CreateShadowVariousPlaneProjections)
 
         for (auto& lightDirInfo : testDirections)
         {
-            if (lightDirInfo.Length() < 0.1f)
+            if (lightDirInfo.length() < 0.1f)
             {
                 continue;
             }
 
-            auto lightDir = Vector3::Normalize(lightDirInfo);
+            auto lightDir = Vector3::normalize(lightDirInfo);
 
-            if (Plane::DotNormal(plane, lightDir) < 0.1f)
+            if (Plane::dot_normal(plane, lightDir) < 0.1f)
             {
                 continue;
             }
 
-            auto m  = Matrix::CreateShadow(lightDir, plane);
-            auto pp = -plane.D() * plane.Normal(); // origin of the plane.
+            auto m  = Matrix::create_shadow(lightDir, plane);
+            auto pp = -plane.d * plane.normal; // origin of the plane.
 
             for (auto& point : points)
             {
-                auto v4 = Vector4::Transform(point, m);
-                auto sp = Vector3 { v4.X(), v4.Y(), v4.Z() } / v4.W();
+                auto v4 = Vector4::transform(point, m);
+                auto sp = Vector3 { v4.x, v4.y, v4.z } / v4.w;
 
                 // Make sure transformed position is on the plane.
                 auto   v = sp - pp;
-                float d = Vector3::Dot(v, plane.Normal());
+                float d = Vector3::dot(v, plane.normal);
 
                 EXPECT_TRUE(EqualityHelper::Equal(d, 0));
 
                 // make sure direction between transformed position and original position are same as light direction.
-                if (Vector3::Dot(point - pp, plane.Normal()) > 0.0001f)
+                if (Vector3::dot(point - pp, plane.normal) > 0.0001f)
                 {
-                    auto dir = Vector3::Normalize(point - sp);
+                    auto dir = Vector3::normalize(point - sp);
 
                     EXPECT_TRUE(EqualityHelper::Equal(dir, lightDir));
                 }
@@ -913,14 +913,14 @@ TEST_F(MatrixTest, CreateRotationZ)
 
     Matrix expected;
 
-    expected.M11(0.642787635f);
-    expected.M12(0.766044438f);
-    expected.M21(-0.766044438f);
-    expected.M22(0.642787635f);
-    expected.M33(1.0f);
-    expected.M44(1.0f);
+    expected.m11 = 0.642787635f;
+    expected.m12 = 0.766044438f;
+    expected.m21 = -0.766044438f;
+    expected.m22 = 0.642787635f;
+    expected.m33 = 1.0f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateRotationZ(radians);
+    auto actual = Matrix::create_rotation_z(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -932,15 +932,15 @@ TEST_F(MatrixTest, CreateRotationZCenter)
     float radians = Math::to_radians(30.0f);
     auto   center  = Vector3 { 23, 42, 66 };
 
-    auto rotateAroundZero         = Matrix::CreateRotationZ(radians, Vector3::Zero);
-    auto rotateAroundZeroExpected = Matrix::CreateRotationZ(radians);
+    auto rotateAroundZero         = Matrix::create_rotation_z(radians, Vector3::zero);
+    auto rotateAroundZeroExpected = Matrix::create_rotation_z(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundZero, rotateAroundZeroExpected));
 
-    auto rotateAroundCenter         = Matrix::CreateRotationZ(radians, center);
-    auto rotateAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                    * Matrix::CreateRotationZ(radians)
-                                    * Matrix::CreateTranslation(center);
+    auto rotateAroundCenter         = Matrix::create_rotation_z(radians, center);
+    auto rotateAroundCenterExpected = Matrix::create_translation(-center)
+                                    * Matrix::create_rotation_z(radians)
+                                    * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(rotateAroundCenter, rotateAroundCenterExpected));
 }
@@ -955,24 +955,24 @@ TEST_F(MatrixTest, CreateLookAt2)
 
     Matrix expected;
 
-    expected.M11(0.979457f);
-    expected.M12(-0.0928267762f);
-    expected.M13(0.179017f);
+    expected.m11 = 0.979457f;
+    expected.m12 = -0.0928267762f;
+    expected.m13 = 0.179017f;
 
-    expected.M21(0.0f);
-    expected.M22(0.8877481f);
-    expected.M23(0.460329473f);
+    expected.m21 = 0.0f;
+    expected.m22 = 0.8877481f;
+    expected.m23 = 0.460329473f;
 
-    expected.M31(-0.201652914f);
-    expected.M32(-0.450872928f);
-    expected.M33(0.8695112f);
+    expected.m31 = -0.201652914f;
+    expected.m32 = -0.450872928f;
+    expected.m33 = 0.8695112f;
 
-    expected.M41(-3.74498272f);
-    expected.M42(-3.30050683f);
-    expected.M43(-37.0820961f);
-    expected.M44(1.0f);
+    expected.m41 = -3.74498272f;
+    expected.m42 = -3.30050683f;
+    expected.m43 = -37.0820961f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateLookAt(cameraPosition, cameraTarget, cameraUpVector);
+    auto actual = Matrix::create_look_at(cameraPosition, cameraTarget, cameraUpVector);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -987,34 +987,34 @@ TEST_F(MatrixTest, CreateWorld)
 
     Matrix expected;
 
-    expected.M11(0.799999952f);
-    expected.M12(0);
-    expected.M13(0.599999964f);
-    expected.M14(0);
+    expected.m11 = 0.799999952f;
+    expected.m12 = 0;
+    expected.m13 = 0.599999964f;
+    expected.m14 = 0;
 
-    expected.M21(-0.2228344f);
-    expected.M22(0.928476632f);
-    expected.M23(0.297112525f);
-    expected.M24(0);
+    expected.m21 = -0.2228344f;
+    expected.m22 = 0.928476632f;
+    expected.m23 = 0.297112525f;
+    expected.m24 = 0;
 
-    expected.M31(-0.557086f);
-    expected.M32(-0.371390671f);
-    expected.M33(0.742781341f);
-    expected.M34(0);
+    expected.m31 = -0.557086f;
+    expected.m32 = -0.371390671f;
+    expected.m33 = 0.742781341f;
+    expected.m34 = 0;
 
-    expected.M41(10);
-    expected.M42(20);
-    expected.M43(30);
-    expected.M44(1.0f);
+    expected.m41 = 10;
+    expected.m42 = 20;
+    expected.m43 = 30;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateWorld(objectPosition, objectForwardDirection, objectUpVector);
+    auto actual = Matrix::create_world(objectPosition, objectForwardDirection, objectUpVector);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
-    EXPECT_TRUE(objectPosition == actual.Translation());
-    EXPECT_TRUE(Vector3::Dot(Vector3::Normalize(objectUpVector), { actual.M21(), actual.M22(), actual.M23() }) > 0);
+    EXPECT_TRUE(objectPosition == actual.translation());
+    EXPECT_TRUE(Vector3::dot(Vector3::normalize(objectUpVector), { actual.m21, actual.m22, actual.m23 }) > 0);
     EXPECT_TRUE(
-        Vector3::Dot(Vector3::Normalize(objectForwardDirection), { -actual.M31(), -actual.M32(), -actual.M33() }) > 0.999f);
+        Vector3::dot(Vector3::normalize(objectForwardDirection), { -actual.m31, -actual.m32, -actual.m33 }) > 0.999f);
 }
 
 // A test for CreateOrtho (float, float, float, float)
@@ -1028,13 +1028,13 @@ TEST_F(MatrixTest, CreateOrtho)
 
     Matrix expected;
 
-    expected.M11(0.02f);
-    expected.M22(0.01f);
-    expected.M33(-0.00100150227f);
-    expected.M43(-0.00150225335f);
-    expected.M44(1.0f);
+    expected.m11 = 0.02f;
+    expected.m22 = 0.01f;
+    expected.m33 = -0.00100150227f;
+    expected.m43 = -0.00150225335f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateOrthographic(width, height, zNearPlane, zFarPlane);
+    auto actual = Matrix::create_orthographic(width, height, zNearPlane, zFarPlane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1052,15 +1052,15 @@ TEST_F(MatrixTest, CreateOrthoOffCenter)
 
     Matrix expected;
 
-    expected.M11(0.025f);
-    expected.M22(0.0125f);
-    expected.M33(-0.00100150227f);
-    expected.M41(-1.25f);
-    expected.M42(-1.25f);
-    expected.M43(-0.00150225335f);
-    expected.M44(1.0f);
+    expected.m11 = 0.025f;
+    expected.m22 = 0.0125f;
+    expected.m33 = -0.00100150227f;
+    expected.m41 = -1.25f;
+    expected.m42 = -1.25f;
+    expected.m43 = -0.00150225335f;
+    expected.m44 = 1.0f;
 
-    auto actual = Matrix::CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
+    auto actual = Matrix::create_orthographic_off_center(left, right, bottom, top, zNearPlane, zFarPlane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1076,13 +1076,13 @@ TEST_F(MatrixTest, CreatePerspective)
 
     Matrix expected;
 
-    expected.M11(0.03f);
-    expected.M22(0.015f);
-    expected.M33(-1.00150228f);
-    expected.M34(-1.0f);
-    expected.M43(-1.50225341f);
+    expected.m11 = 0.03f;
+    expected.m22 = 0.015f;
+    expected.m33 = -1.00150228f;
+    expected.m34 = -1.0f;
+    expected.m43 = -1.50225341f;
 
-    auto actual = Matrix::CreatePerspective(width, height, zNearPlane, zFarPlane);
+    auto actual = Matrix::create_perspective(width, height, zNearPlane, zFarPlane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1097,7 +1097,7 @@ TEST_F(MatrixTest, CreatePerspectiveWhereZnearEqualsZfar)
     float zNearPlane = 0.0f;
     float zFarPlane  = 0.0f;
 
-    ASSERT_THROW(Matrix::CreatePerspective(width, height, zNearPlane, zFarPlane), std::out_of_range);
+    ASSERT_THROW(Matrix::create_perspective(width, height, zNearPlane, zFarPlane), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1105,7 +1105,7 @@ TEST_F(MatrixTest, CreatePerspectiveWhereZnearEqualsZfar)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsNegative)
 {
-    ASSERT_THROW(Matrix::CreatePerspective(10, 10, -10, 10), std::out_of_range);
+    ASSERT_THROW(Matrix::create_perspective(10, 10, -10, 10), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1113,7 +1113,7 @@ TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereFarPlaneIsNegative)
 {
-    ASSERT_THROW(Matrix::CreatePerspective(10, 10, 10, -10), std::out_of_range);
+    ASSERT_THROW(Matrix::create_perspective(10, 10, 10, -10), std::out_of_range);
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1121,7 +1121,7 @@ TEST_F(MatrixTest, CreatePerspectiveWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsBeyondFarPlane)
 {
-    ASSERT_THROW(Matrix::CreatePerspective(10, 10, 10, 1), std::out_of_range);
+    ASSERT_THROW(Matrix::create_perspective(10, 10, 10, 1), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1135,13 +1135,13 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfView1)
 
     Matrix expected;
 
-    expected.M11(2.09927845f);
-    expected.M22(3.73205066f);
-    expected.M33(-1.00150228f);
-    expected.M34(-1.0f);
-    expected.M43(-1.50225341f);
+    expected.m11 = 2.09927845f;
+    expected.m22 = 3.73205066f;
+    expected.m33 = -1.00150228f;
+    expected.m34 = -1.0f;
+    expected.m43 = -1.50225341f;
 
-    auto actual = Matrix::CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, zNearPlane, zFarPlane);
+    auto actual = Matrix::create_perspective_field_of_view(fieldOfView, aspectRatio, zNearPlane, zFarPlane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1151,7 +1151,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfView1)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(-1, 1, 1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_field_of_view(-1, 1, 1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1159,7 +1159,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi + 0.01f, 1, 1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_field_of_view(Math::pi + 0.01f, 1, 1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1167,7 +1167,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, -1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_field_of_view(Math::pi_over_4, 1, -1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1175,7 +1175,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, 1, -10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_field_of_view(Math::pi_over_4, 1, 1, -10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1183,7 +1183,7 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsLargerThanFarPlane)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveFieldOfView(Math::pi_over_4, 1, 10, 1), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_field_of_view(Math::pi_over_4, 1, 10, 1), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1199,15 +1199,15 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenter)
 
     Matrix expected;
 
-    expected.M11(0.0375f);
-    expected.M22(0.01875f);
-    expected.M31(1.25f);
-    expected.M32(1.25f);
-    expected.M33(-1.00150228f);
-    expected.M34(-1.0f);
-    expected.M43(-1.50225341f);
+    expected.m11 = 0.0375f;
+    expected.m22 = 0.01875f;
+    expected.m31 = 1.25f;
+    expected.m32 = 1.25f;
+    expected.m33 = -1.00150228f;
+    expected.m34 = -1.0f;
+    expected.m43 = -1.50225341f;
 
-    auto actual = Matrix::CreatePerspectiveOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
+    auto actual = Matrix::create_perspective_off_center(left, right, bottom, top, zNearPlane, zFarPlane);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1217,7 +1217,7 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenter)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, -1, 10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, -1, 10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1225,7 +1225,7 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereFarPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, 1, -10), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 1, -10), std::out_of_range);
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1233,7 +1233,7 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsLargerThanFarPlane)
 {
-    EXPECT_THROW(Matrix::CreatePerspectiveOffCenter(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), std::out_of_range);
+    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), std::out_of_range);
 }
 
 // A test for Invert (Matrix)
@@ -1246,29 +1246,29 @@ TEST_F(MatrixTest, InvertNonInvertibleMatrix)
                , 9.0f , 10.0f, 11.0f, 12.0f
                , 13.0f, 14.0f, 15.0f, 16.0f };
 
-    float detA = a.Determinant();
+    float detA = a.determinant();
 
     EXPECT_TRUE(EqualityHelper::Equal(detA, 0.0f));
 
-    auto actual = Matrix::Invert(a);
+    auto actual = Matrix::invert(a);
 
     // all the elements in Actual is NaN
-    EXPECT_TRUE(Math::is_nan(actual.M11())
-             && Math::is_nan(actual.M12())
-             && Math::is_nan(actual.M13())
-             && Math::is_nan(actual.M14())
-             && Math::is_nan(actual.M21())
-             && Math::is_nan(actual.M22())
-             && Math::is_nan(actual.M23())
-             && Math::is_nan(actual.M24())
-             && Math::is_nan(actual.M31())
-             && Math::is_nan(actual.M32())
-             && Math::is_nan(actual.M33())
-             && Math::is_nan(actual.M34())
-             && Math::is_nan(actual.M41())
-             && Math::is_nan(actual.M42())
-             && Math::is_nan(actual.M43())
-             && Math::is_nan(actual.M44()));
+    EXPECT_TRUE(Math::is_nan(actual.m11)
+             && Math::is_nan(actual.m12)
+             && Math::is_nan(actual.m13)
+             && Math::is_nan(actual.m14)
+             && Math::is_nan(actual.m21)
+             && Math::is_nan(actual.m22)
+             && Math::is_nan(actual.m23)
+             && Math::is_nan(actual.m24)
+             && Math::is_nan(actual.m31)
+             && Math::is_nan(actual.m32)
+             && Math::is_nan(actual.m33)
+             && Math::is_nan(actual.m34)
+             && Math::is_nan(actual.m41)
+             && Math::is_nan(actual.m42)
+             && Math::is_nan(actual.m43)
+             && Math::is_nan(actual.m44));
 }
 
 // A test for operator - (Matrix)
@@ -1279,22 +1279,22 @@ TEST_F(MatrixTest, UnaryNegation)
 
     Matrix expected;
 
-    expected.M11(-1.0f);
-    expected.M12(-2.0f);
-    expected.M13(-3.0f);
-    expected.M14(-4.0f);
-    expected.M21(-5.0f);
-    expected.M22(-6.0f);
-    expected.M23(-7.0f);
-    expected.M24(-8.0f);
-    expected.M31(-9.0f);
-    expected.M32(-10.0f);
-    expected.M33(-11.0f);
-    expected.M34(-12.0f);
-    expected.M41(-13.0f);
-    expected.M42(-14.0f);
-    expected.M43(-15.0f);
-    expected.M44(-16.0f);
+    expected.m11 = -1.0f;
+    expected.m12 = -2.0f;
+    expected.m13 = -3.0f;
+    expected.m14 = -4.0f;
+    expected.m21 = -5.0f;
+    expected.m22 = -6.0f;
+    expected.m23 = -7.0f;
+    expected.m24 = -8.0f;
+    expected.m31 = -9.0f;
+    expected.m32 = -10.0f;
+    expected.m33 = -11.0f;
+    expected.m34 = -12.0f;
+    expected.m41 = -13.0f;
+    expected.m42 = -14.0f;
+    expected.m43 = -15.0f;
+    expected.m44 = -16.0f;
 
     auto actual = -a;
 
@@ -1324,25 +1324,25 @@ TEST_F(MatrixTest, MultiplyTest1)
 
     Matrix expected;
 
-    expected.M11(a.M11() * b.M11() + a.M12() * b.M21() + a.M13() * b.M31() + a.M14() * b.M41());
-    expected.M12(a.M11() * b.M12() + a.M12() * b.M22() + a.M13() * b.M32() + a.M14() * b.M42());
-    expected.M13(a.M11() * b.M13() + a.M12() * b.M23() + a.M13() * b.M33() + a.M14() * b.M43());
-    expected.M14(a.M11() * b.M14() + a.M12() * b.M24() + a.M13() * b.M34() + a.M14() * b.M44());
+    expected.m11 = (a.m11 * b.m11 + a.m12 * b.m21 + a.m13 * b.m31 + a.m14 * b.m41);
+    expected.m12 = (a.m11 * b.m12 + a.m12 * b.m22 + a.m13 * b.m32 + a.m14 * b.m42);
+    expected.m13 = (a.m11 * b.m13 + a.m12 * b.m23 + a.m13 * b.m33 + a.m14 * b.m43);
+    expected.m14 = (a.m11 * b.m14 + a.m12 * b.m24 + a.m13 * b.m34 + a.m14 * b.m44);
 
-    expected.M21(a.M21() * b.M11() + a.M22() * b.M21() + a.M23() * b.M31() + a.M24() * b.M41());
-    expected.M22(a.M21() * b.M12() + a.M22() * b.M22() + a.M23() * b.M32() + a.M24() * b.M42());
-    expected.M23(a.M21() * b.M13() + a.M22() * b.M23() + a.M23() * b.M33() + a.M24() * b.M43());
-    expected.M24(a.M21() * b.M14() + a.M22() * b.M24() + a.M23() * b.M34() + a.M24() * b.M44());
+    expected.m21 = (a.m21 * b.m11 + a.m22 * b.m21 + a.m23 * b.m31 + a.m24 * b.m41);
+    expected.m22 = (a.m21 * b.m12 + a.m22 * b.m22 + a.m23 * b.m32 + a.m24 * b.m42);
+    expected.m23 = (a.m21 * b.m13 + a.m22 * b.m23 + a.m23 * b.m33 + a.m24 * b.m43);
+    expected.m24 = (a.m21 * b.m14 + a.m22 * b.m24 + a.m23 * b.m34 + a.m24 * b.m44);
 
-    expected.M31(a.M31() * b.M11() + a.M32() * b.M21() + a.M33() * b.M31() + a.M34() * b.M41());
-    expected.M32(a.M31() * b.M12() + a.M32() * b.M22() + a.M33() * b.M32() + a.M34() * b.M42());
-    expected.M33(a.M31() * b.M13() + a.M32() * b.M23() + a.M33() * b.M33() + a.M34() * b.M43());
-    expected.M34(a.M31() * b.M14() + a.M32() * b.M24() + a.M33() * b.M34() + a.M34() * b.M44());
+    expected.m31 = (a.m31 * b.m11 + a.m32 * b.m21 + a.m33 * b.m31 + a.m34 * b.m41);
+    expected.m32 = (a.m31 * b.m12 + a.m32 * b.m22 + a.m33 * b.m32 + a.m34 * b.m42);
+    expected.m33 = (a.m31 * b.m13 + a.m32 * b.m23 + a.m33 * b.m33 + a.m34 * b.m43);
+    expected.m34 = (a.m31 * b.m14 + a.m32 * b.m24 + a.m33 * b.m34 + a.m34 * b.m44);
 
-    expected.M41(a.M41() * b.M11() + a.M42() * b.M21() + a.M43() * b.M31() + a.M44() * b.M41());
-    expected.M42(a.M41() * b.M12() + a.M42() * b.M22() + a.M43() * b.M32() + a.M44() * b.M42());
-    expected.M43(a.M41() * b.M13() + a.M42() * b.M23() + a.M43() * b.M33() + a.M44() * b.M43());
-    expected.M44(a.M41() * b.M14() + a.M42() * b.M24() + a.M43() * b.M34() + a.M44() * b.M44());
+    expected.m41 = (a.m41 * b.m11 + a.m42 * b.m21 + a.m43 * b.m31 + a.m44 * b.m41);
+    expected.m42 = (a.m41 * b.m12 + a.m42 * b.m22 + a.m43 * b.m32 + a.m44 * b.m42);
+    expected.m43 = (a.m41 * b.m13 + a.m42 * b.m23 + a.m43 * b.m33 + a.m44 * b.m43);
+    expected.m44 = (a.m41 * b.m14 + a.m42 * b.m24 + a.m43 * b.m34 + a.m44 * b.m44);
 
     auto actual = a * b;
 
@@ -1374,10 +1374,10 @@ TEST_F(MatrixTest, Addition)
     auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
     auto b = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix expected = { a.M11() + b.M11(), a.M12() + b.M12(), a.M13() + b.M13(), a.M14() + b.M14()
-                      , a.M21() + b.M21(), a.M22() + b.M22(), a.M23() + b.M23(), a.M24() + b.M24()
-                      , a.M31() + b.M31(), a.M32() + b.M32(), a.M33() + b.M33(), a.M34() + b.M34()
-                      , a.M41() + b.M41(), a.M42() + b.M42(), a.M43() + b.M43(), a.M44() + b.M44() };
+    Matrix expected = { a.m11 + b.m11, a.m12 + b.m12, a.m13 + b.m13, a.m14 + b.m14
+                      , a.m21 + b.m21, a.m22 + b.m22, a.m23 + b.m23, a.m24 + b.m24
+                      , a.m31 + b.m31, a.m32 + b.m32, a.m33 + b.m33, a.m34 + b.m34
+                      , a.m41 + b.m41, a.m42 + b.m42, a.m43 + b.m43, a.m44 + b.m44 };
 
     auto actual = a + b;
 
@@ -1390,12 +1390,12 @@ TEST_F(MatrixTest, Transpose)
 {
     auto a = MatrixTest::GenerateMatrixNumberFrom1To16();
 
-    Matrix expected = { a.M11(), a.M21(), a.M31(), a.M41()
-                      , a.M12(), a.M22(), a.M32(), a.M42()
-                      , a.M13(), a.M23(), a.M33(), a.M43()
-                      , a.M14(), a.M24(), a.M34(), a.M44() };
+    Matrix expected = { a.m11, a.m21, a.m31, a.m41
+                      , a.m12, a.m22, a.m32, a.m42
+                      , a.m13, a.m23, a.m33, a.m43
+                      , a.m14, a.m24, a.m34, a.m44 };
 
-    auto actual = Matrix::Transpose(a);
+    auto actual = Matrix::transpose(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1407,7 +1407,7 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
 {
     auto a        = Matrix::Identity;
     auto expected = Matrix::Identity;
-    auto actual   = Matrix::Transpose(a);
+    auto actual   = Matrix::transpose(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -1416,15 +1416,15 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateFromQuaternion)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto q    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto q    = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
 
     Matrix expected = { 0.875595033f, 0.420031041f, -0.2385524f , 0.0f
                       , -0.38175258f, 0.904303849f, 0.1910483f  , 0.0f
                       , 0.295970082f, -0.07621294f, 0.952151954f, 0.0f
                       , 0.0f        , 0.0f        , 0.0f        , 1.0f };
 
-    auto target = Matrix::CreateFromQuaternion(q);
+    auto target = Matrix::create_from_quaternion(q);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, target));
 }
@@ -1436,14 +1436,14 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertXAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
-        auto expected = Matrix::CreateRotationX(angle);
-        auto actual   = Matrix::CreateFromQuaternion(quat);
+        auto quat     = Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
+        auto expected = Matrix::create_rotation_x(angle);
+        auto actual   = Matrix::create_from_quaternion(quat);
 
         EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+        auto q2 = Quaternion::create_from_rotation_matrix(actual);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
@@ -1456,14 +1456,14 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertYAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
-        auto expected = Matrix::CreateRotationY(angle);
-        auto actual   = Matrix::CreateFromQuaternion(quat);
+        auto quat     = Quaternion::create_from_axis_angle(Vector3::unit_y, angle);
+        auto expected = Matrix::create_rotation_y(angle);
+        auto actual   = Matrix::create_from_quaternion(quat);
 
         EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+        auto q2 = Quaternion::create_from_rotation_matrix(actual);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
@@ -1476,14 +1476,14 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertZAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto quat     = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle);
-        auto expected = Matrix::CreateRotationZ(angle);
-        auto actual   = Matrix::CreateFromQuaternion(quat);
+        auto quat     = Quaternion::create_from_axis_angle(Vector3::unit_z, angle);
+        auto expected = Matrix::create_rotation_z(angle);
+        auto actual   = Matrix::create_from_quaternion(quat);
 
         EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+        auto q2 = Quaternion::create_from_rotation_matrix(actual);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
@@ -1496,20 +1496,20 @@ TEST_F(MatrixTest, CreateFromQuaternionConvertXYZAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto quat = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
-                  * Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle)
-                  * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
+        auto quat = Quaternion::create_from_axis_angle(Vector3::unit_z, angle)
+                  * Quaternion::create_from_axis_angle(Vector3::unit_y, angle)
+                  * Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
 
-        auto expected = Matrix::CreateRotationX(angle)
-                      * Matrix::CreateRotationY(angle)
-                      * Matrix::CreateRotationZ(angle);
+        auto expected = Matrix::create_rotation_x(angle)
+                      * Matrix::create_rotation_y(angle)
+                      * Matrix::create_rotation_z(angle);
 
-        auto actual = Matrix::CreateFromQuaternion(quat);
+        auto actual = Matrix::create_from_quaternion(quat);
 
         EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
         // make sure convert back to quaternion is same as we passed quaternion.
-        auto q2 = Quaternion::CreateFromRotationMatrix(actual);
+        auto q2 = Quaternion::create_from_rotation_matrix(actual);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(quat, q2));
     }
@@ -1536,7 +1536,7 @@ TEST_F(MatrixTest, Negate)
                            , -9.0f , -10.0f, -11.0f, -12.0f
                            , -13.0f, -14.0f, -15.0f, -16.0f };
 
-    auto actual = Matrix::Negate(m);
+    auto actual = Matrix::negate(m);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1555,7 +1555,7 @@ TEST_F(MatrixTest, Inequality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.M11(11.0f);
+    b.m11 = 11.0f;
 
     expected = true;
     actual   = a != b;
@@ -1577,7 +1577,7 @@ TEST_F(MatrixTest, Equality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.M11(11.0f);
+    b.m11 = 11.0f;
 
     expected = false;
     actual   = a == b;
@@ -1595,7 +1595,7 @@ TEST_F(MatrixTest, CreateScale)
                            , 0.0f, 0.0f, 4.0f, 0.0f
                            , 0.0f, 0.0f, 0.0f, 1.0f  };
 
-    auto actual = Matrix::CreateScale(scales);
+    auto actual = Matrix::create_scale(scales);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1607,15 +1607,15 @@ TEST_F(MatrixTest, CreateScaleCenter)
     auto scale  = Vector3 { 3, 4, 5 };
     auto center = Vector3 { 23, 42, 666 };
 
-    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
-    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
+    auto scaleAroundZero         = Matrix::create_scale(scale, Vector3::zero);
+    auto scaleAroundZeroExpected = Matrix::create_scale(scale);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
 
-    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
-    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                   * Matrix::CreateScale(scale)
-                                   * Matrix::CreateTranslation(center);
+    auto scaleAroundCenter         = Matrix::create_scale(scale, center);
+    auto scaleAroundCenterExpected = Matrix::create_translation(-center)
+                                   * Matrix::create_scale(scale)
+                                   * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
@@ -1630,7 +1630,7 @@ TEST_F(MatrixTest, CreateScale2)
                       , 0.0f, 0.0f, 2.0f, 0.0f
                       , 0.0f, 0.0f, 0.0f, 1.0f };
 
-    auto actual = Matrix::CreateScale(scale);
+    auto actual = Matrix::create_scale(scale);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1642,15 +1642,15 @@ TEST_F(MatrixTest, CreateScale3)
     float scale  = 5;
     auto   center = Vector3 { 23, 42, 666 };
 
-    auto scaleAroundZero         = Matrix::CreateScale(scale, Vector3::Zero);
-    auto scaleAroundZeroExpected = Matrix::CreateScale(scale);
+    auto scaleAroundZero         = Matrix::create_scale(scale, Vector3::zero);
+    auto scaleAroundZeroExpected = Matrix::create_scale(scale);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
 
-    auto scaleAroundCenter         = Matrix::CreateScale(scale, center);
-    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                   * Matrix::CreateScale(scale)
-                                   * Matrix::CreateTranslation(center);
+    auto scaleAroundCenter         = Matrix::create_scale(scale, center);
+    auto scaleAroundCenterExpected = Matrix::create_translation(-center)
+                                   * Matrix::create_scale(scale)
+                                   * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
@@ -1667,7 +1667,7 @@ TEST_F(MatrixTest, CreateScale4)
                       , 0.0f, 0.0f, 4.0f, 0.0f
                       , 0.0f, 0.0f, 0.0f, 1.0f };
 
-    auto actual = Matrix::CreateScale(xScale, yScale, zScale);
+    auto actual = Matrix::create_scale(xScale, yScale, zScale);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1679,15 +1679,15 @@ TEST_F(MatrixTest, CreateScale5)
     auto scale  = Vector3 { 3, 4, 5 };
     auto center = Vector3 { 23, 42, 666 };
 
-    auto scaleAroundZero         = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z(), Vector3::Zero);
-    auto scaleAroundZeroExpected = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z());
+    auto scaleAroundZero         = Matrix::create_scale(scale.x, scale.y, scale.z, Vector3::zero);
+    auto scaleAroundZeroExpected = Matrix::create_scale(scale.x, scale.y, scale.z);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundZero, scaleAroundZeroExpected));
 
-    auto scaleAroundCenter         = Matrix::CreateScale(scale.X(), scale.Y(), scale.Z(), center);
-    auto scaleAroundCenterExpected = Matrix::CreateTranslation(-center)
-                                   * Matrix::CreateScale(scale.X(), scale.Y(), scale.Z())
-                                   * Matrix::CreateTranslation(center);
+    auto scaleAroundCenter         = Matrix::create_scale(scale.x, scale.y, scale.z, center);
+    auto scaleAroundCenterExpected = Matrix::create_translation(-center)
+                                   * Matrix::create_scale(scale.x, scale.y, scale.z)
+                                   * Matrix::create_translation(center);
 
     EXPECT_TRUE(EqualityHelper::Equal(scaleAroundCenter, scaleAroundCenterExpected));
 }
@@ -1702,7 +1702,7 @@ TEST_F(MatrixTest, CreateTranslation)
                        , 0.0f, 0.0f, 1.0f, 0.0f
                        , 2.0f, 3.0f, 4.0f, 1.0f };
 
-    auto actual = Matrix::CreateTranslation(position);
+    auto actual = Matrix::create_translation(position);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1719,7 +1719,7 @@ TEST_F(MatrixTest, CreateTranslation1)
                        , 0.0f, 0.0f, 1.0f, 0.0f
                        , 2.0f, 3.0f, 4.0f, 1.0f };
 
-    auto actual = Matrix::CreateTranslation(xPosition, yPosition, zPosition);
+    auto actual = Matrix::create_translation(xPosition, yPosition, zPosition);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -1732,46 +1732,46 @@ TEST_F(MatrixTest, CreateTranslation2)
     auto b = a;
 
     // Transfomed vector that has same semantics of property must be same.
-    auto val = Vector3 { a.M41(), a.M42(), a.M43() };
+    auto val = Vector3 { a.m41, a.m42, a.m43 };
 
-    EXPECT_TRUE(val == a.Translation());
+    EXPECT_TRUE(val == a.translation());
 
     // Set value and get value must be same.
     val = Vector3 { 1.0f, 2.0f, 3.0f };
 
-    a.Translation(val);
+    a.translation(val);
 
-    EXPECT_TRUE(val == a.Translation());
+    EXPECT_TRUE(val == a.translation());
 
     // Make sure it only modifies expected value of matrix.
-    EXPECT_TRUE(a.M11() == b.M11() && a.M12() == b.M12() && a.M13() == b.M13() && a.M14() == b.M14()
-             && a.M21() == b.M21() && a.M22() == b.M22() && a.M23() == b.M23() && a.M24() == b.M24()
-             && a.M31() == b.M31() && a.M32() == b.M32() && a.M33() == b.M33() && a.M34() == b.M34()
-             && a.M41() != b.M41() && a.M42() != b.M42() && a.M43() != b.M43() && a.M44() == b.M44());
+    EXPECT_TRUE(a.m11 == b.m11 && a.m12 == b.m12 && a.m13 == b.m13 && a.m14 == b.m14
+             && a.m21 == b.m21 && a.m22 == b.m22 && a.m23 == b.m23 && a.m24 == b.m24
+             && a.m31 == b.m31 && a.m32 == b.m32 && a.m33 == b.m33 && a.m34 == b.m34
+             && a.m41 != b.m41 && a.m42 != b.m42 && a.m43 != b.m43 && a.m44 == b.m44);
 }
 
 // A test for IsIdentity
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, IsIdentity)
 {
-    EXPECT_TRUE(Matrix::Identity.IsIdentity());
-    EXPECT_TRUE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1).IsIdentity());
-    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0).IsIdentity());
+    EXPECT_TRUE( Matrix::Identity.is_identity());
+    EXPECT_TRUE( Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1).is_identity());
+    EXPECT_FALSE(Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0).is_identity());
 }
 
 // A test for Matrix comparison involving NaN values
@@ -1829,33 +1829,33 @@ TEST_F(MatrixTest, EqualsNan)
     EXPECT_TRUE(o != Matrix {});
     EXPECT_TRUE(p != Matrix {});
 
-    EXPECT_FALSE(a.IsIdentity());
-    EXPECT_FALSE(b.IsIdentity());
-    EXPECT_FALSE(c.IsIdentity());
-    EXPECT_FALSE(d.IsIdentity());
-    EXPECT_FALSE(e.IsIdentity());
-    EXPECT_FALSE(f.IsIdentity());
-    EXPECT_FALSE(g.IsIdentity());
-    EXPECT_FALSE(h.IsIdentity());
-    EXPECT_FALSE(i.IsIdentity());
-    EXPECT_FALSE(j.IsIdentity());
-    EXPECT_FALSE(k.IsIdentity());
-    EXPECT_FALSE(l.IsIdentity());
-    EXPECT_FALSE(m.IsIdentity());
-    EXPECT_FALSE(n.IsIdentity());
-    EXPECT_FALSE(o.IsIdentity());
-    EXPECT_FALSE(p.IsIdentity());
+    EXPECT_FALSE(a.is_identity());
+    EXPECT_FALSE(b.is_identity());
+    EXPECT_FALSE(c.is_identity());
+    EXPECT_FALSE(d.is_identity());
+    EXPECT_FALSE(e.is_identity());
+    EXPECT_FALSE(f.is_identity());
+    EXPECT_FALSE(g.is_identity());
+    EXPECT_FALSE(h.is_identity());
+    EXPECT_FALSE(i.is_identity());
+    EXPECT_FALSE(j.is_identity());
+    EXPECT_FALSE(k.is_identity());
+    EXPECT_FALSE(l.is_identity());
+    EXPECT_FALSE(m.is_identity());
+    EXPECT_FALSE(n.is_identity());
+    EXPECT_FALSE(o.is_identity());
+    EXPECT_FALSE(p.is_identity());
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreateReflection)
 {
     // XY plane.
-    MatrixTest::CreateReflection({ Vector3::UnitZ, 0 }, Matrix::CreateScale(1, 1, -1));
+    MatrixTest::CreateReflection({ Vector3::unit_z, 0 }, Matrix::create_scale(1, 1, -1));
     // XZ plane.
-    MatrixTest::CreateReflection({ Vector3::UnitY, 0 }, Matrix::CreateScale(1, -1, 1));
+    MatrixTest::CreateReflection({ Vector3::unit_y, 0 }, Matrix::create_scale(1, -1, 1));
     // YZ plane.
-    MatrixTest::CreateReflection({ Vector3::UnitX, 0 }, Matrix::CreateScale(-1, 1, 1));
+    MatrixTest::CreateReflection({ Vector3::unit_x, 0 }, Matrix::create_scale(-1, 1, 1));
 
     // Complex cases.
     auto planes = std::vector<Plane>();
@@ -1875,18 +1875,18 @@ TEST_F(MatrixTest, CreateReflection)
 
     for (auto& p : planes)
     {
-        auto plane = Plane::Normalize(p);
-        auto m     = Matrix::CreateReflection(plane);
-        auto pp    = -plane.D() * plane.Normal(); // Position on the plane.
+        auto plane = Plane::normalize(p);
+        auto m     = Matrix::create_reflection(plane);
+        auto pp    = -plane.d * plane.normal; // Position on the plane.
 
         for (auto& point : points)
         {
-            auto rp = Vector3::Transform(point, m);
+            auto rp = Vector3::transform(point, m);
 
             // Manually compute reflection point and compare results.
             auto   v  = point - pp;
-            float d  = Vector3::Dot(v, plane.Normal());
-            auto   vp = point - 2.0f * d * plane.Normal();
+            float d  = Vector3::dot(v, plane.normal);
+            auto   vp = point - 2.0f * d * plane.normal;
 
             EXPECT_TRUE(EqualityHelper::Equal(rp, vp));
         }

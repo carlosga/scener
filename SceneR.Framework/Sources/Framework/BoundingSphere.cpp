@@ -106,15 +106,15 @@ namespace SceneR
         {
             // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
             auto rad2 = _radius * _radius;
-            auto l    = _center - ray.Position();
-            auto tPX  = Vector3::Dot(l, ray.Direction());
+            auto l    = _center - ray.position;
+            auto tPX  = Vector3::dot(l, ray.direction);
 
             if (tPX < 0.0)
             {
                 return false;
             }
 
-            auto dsq = Vector3::Dot(l, l) - tPX * tPX;
+            auto dsq = Vector3::dot(l, l) - tPX * tPX;
 
             if (dsq > rad2)
             {

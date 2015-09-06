@@ -31,7 +31,7 @@ namespace SceneR
              * @param quaternion the Quaternion of which to return the conjugate.
              * @returns the quaternion conjugate
              */
-            static Quaternion Conjugate(const Quaternion& quaternion);
+            static Quaternion conjugate(const Quaternion& data);
 
             /**
              * Creates a Quaternion from a vector and an angle to rotate about the vector.
@@ -39,13 +39,13 @@ namespace SceneR
              * @param axisOfRotation Vector3 that represents the axis of rotation.
              * @param angle Angle to rotate around the specified axis, in radians.
              */
-            static Quaternion CreateFromAxisAngle(const Vector3& axisOfRotation, const float& angle);
+            static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, const float& angle);
 
             /**
              * Creates a Quaternion from a rotation Matrix.
              * @param matrix the rotation matrix
              */
-            static Quaternion CreateFromRotationMatrix(const Matrix& matrix);
+            static Quaternion create_from_rotation_matrix(const Matrix& matrix);
 
             /**
              * Creates a new quaternion with a specified yaw, pitch, and roll.
@@ -54,19 +54,19 @@ namespace SceneR
              * @param pitch Pitch around the x-axis, in radians.
              * @param roll Roll around the z-axis, in radians.
              */
-            static Quaternion CreateFromYawPitchRoll(const float& yaw
+            static Quaternion create_from_yaw_pitch_roll(const float& yaw
                                                    , const float& pitch
                                                    , const float& roll);
 
             /**
              * Calculates the dot product oof two quaternions
              */
-            static float Dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
+            static float dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
 
             /**
              * Calculates the invers of the specified quaternion.
              */
-            static Quaternion Inverse(const Quaternion& value);
+            static Quaternion inverse(const Quaternion& value);
 
             /**
              * Calculates the linear interpolation between two quaternions.
@@ -75,14 +75,14 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Lerp(const Quaternion& quaternion1
+            static Quaternion lerp(const Quaternion& quaternion1
                                  , const Quaternion& quaternion2
                                  , const float&      amount);
 
             /**
              * Negates the specified Quaternion.
              */
-            static Quaternion Negate(const Quaternion& value);
+            static Quaternion negate(const Quaternion& value);
 
             /**
              * Normalizes the specified Quaternion.
@@ -92,7 +92,7 @@ namespace SceneR
              * @param value the quaternion to normalize.
              * @returns A Quaternion is normalized by dividing the Quaternion by its magnitude.
              */
-            static Quaternion Normalize(const Quaternion& value);
+            static Quaternion normalize(const Quaternion& value);
 
             /**
              * Calculates the spherical interpolation between two quaternions.
@@ -101,7 +101,7 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion Slerp(const Quaternion& quaternion1
+            static Quaternion slerp(const Quaternion& quaternion1
                                   , const Quaternion& quaternion2
                                   , const float&      amount);
 
@@ -140,66 +140,24 @@ namespace SceneR
 
         public:
             /**
-             * Gets the x-coordinate value.
-             */
-            float X() const;
-
-            /**
-             * Gets the y-coordinate value.
-             */
-            float Y() const;
-
-            /**
-             * Gets the z-coordinate value.
-             */
-            float Z() const;
-
-            /**
-             * Gets the w-coordinate value.
-             */
-            float W() const;
-
-        public:
-            /**
-             * Sets the x-coordinate value.
-             */
-            void X(const float& x);
-
-            /**
-             * Sets the y-coordinate value.
-             */
-            void Y(const float& y);
-
-            /**
-             * Sets the z-coordinate value.
-             */
-            void Z(const float& z);
-
-            /**
-             * Sets the w-coordinate value.
-             */
-            void W(const float& w);
-
-        public:
-            /**
              * Gets a value that indicates whether the specified quaternion is an Identity quaternion.
              * @return a value that indicates whether the specified quaternion is an Identity quaternion.
              */
-            bool IsIdentity() const;
+            bool is_identity() const;
 
             /**
              * Gets the square of the length of this Quaternion.
              *
              * @return the square of the length of this Quaternion.
              */
-            float LengthSquared() const;
+            float length_squared() const;
 
             /**
              * Gets the length of this Quaternion.
              *
              * @return the length of this Quaternion.
              */
-            float Length() const;
+            float length() const;
 
         public:
             float& operator[](const std::size_t& index);
@@ -221,10 +179,10 @@ namespace SceneR
             const Quaternion operator-() const;
             const Quaternion operator+(const Quaternion& value) const;
 
-        private:
+        public:
             union
             {
-                float quaternion[4];
+                float data[4];
                 struct
                 {
                     float x;

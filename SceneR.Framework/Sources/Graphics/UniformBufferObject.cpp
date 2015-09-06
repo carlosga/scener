@@ -87,7 +87,7 @@ namespace SceneR
 
         void UniformBufferObject::describe()
         {
-            std::string  tmp       = Encoding::Convert(_name);
+            std::string  tmp       = Encoding::convert(_name);
             std::int32_t binding   = 0;
             std::int32_t blockSize = 0;
 

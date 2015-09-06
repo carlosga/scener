@@ -19,39 +19,19 @@ namespace SceneR
         const std::uint32_t BoundingBox::CornerCount = 8;
 
         BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
-            : _min { min }
-            , _max { max }
+            : min { min }
+            , max { max }
         {
         }
 
         BoundingBox::BoundingBox(const BoundingBox& boundingBox)
-            : _min { boundingBox._min }
-            , _max { boundingBox._max }
+            : min { boundingBox.min }
+            , max { boundingBox.max }
         {
         }
 
         BoundingBox::~BoundingBox()
         {
-        }
-
-        const Vector3& BoundingBox::max() const
-        {
-            return _max;
-        }
-
-        void BoundingBox::max(const Vector3& max)
-        {
-            _max = max;
-        }
-
-        const Vector3& BoundingBox::min() const
-        {
-            return _min;
-        }
-
-        void BoundingBox::min(const Vector3& min)
-        {
-            _min = min;
         }
 
         ContainmentType BoundingBox::contains(const BoundingBox& box) const
@@ -102,14 +82,14 @@ namespace SceneR
         float BoundingBox::intersects(const Ray& ray) const
         {
             // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
-            auto tmin = (_min - ray.Position()) / ray.Direction();
-            auto tmax = (_max - ray.Position()) / ray.Direction();
+            auto tmin = (min - ray.position) / ray.direction;
+            auto tmax = (max - ray.position) / ray.direction;
 
-            auto tnear = Vector3::Min(tmin, tmax);
-            auto tfar  = Vector3::Min(tmin, tmax);
+            auto tnear = Vector3::min(tmin, tmax);
+            auto tfar  = Vector3::min(tmin, tmax);
 
-            auto enter = Math::max(Math::max(tnear.X(), 0.0f), Math::max(tnear.Y(), tnear.Z()));
-            auto exit  = Math::min(tfar.X(), Math::min(tfar.Y(), tfar.Z()));
+            auto enter = Math::max(Math::max(tnear.x, 0.0f), Math::max(tnear.y, tnear.z));
+            auto exit  = Math::min(tfar.x, Math::min(tfar.y, tfar.z));
 
             return (enter - exit);
         }
@@ -118,8 +98,8 @@ namespace SceneR
         {
             if (this != &box)
             {
-                _min = box._min;
-                _max = box._max;
+                min = box.min;
+                max = box.max;
             }
 
             return *this;
@@ -127,7 +107,7 @@ namespace SceneR
 
         bool BoundingBox::operator==(const BoundingBox& box) const
         {
-            return (_min == box._min && _max == box._max);
+            return (min == box.min && max == box.max);
         }
 
         bool BoundingBox::operator!=(const BoundingBox& box) const

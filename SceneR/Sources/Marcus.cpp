@@ -31,9 +31,9 @@ namespace SceneR
 
         void Marcus::initialize()
         {
-            _world = Matrix::CreateRotationX(-Math::pi_over_2)
-                   * Matrix::CreateTranslation({ 0.0f, -40.0f, 0.0f })
-                   * Matrix::CreateScale(2.0f);
+            _world = Matrix::create_rotation_x(-Math::pi_over_2)
+                   * Matrix::create_translation({ 0.0f, -40.0f, 0.0f })
+                   * Matrix::create_scale(2.0f);
 
             DrawableComponent::initialize();
         }

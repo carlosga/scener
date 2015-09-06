@@ -21,10 +21,10 @@ namespace System
         {
         }
 
-        std::size_t UTF8Encoder::GetByteCount(const std::vector<char16_t>& chars
-                                            , const std::size_t&           index
-                                            , const std::size_t&           count
-                                            , const bool&                  flush) const
+        std::size_t UTF8Encoder::get_byte_count(const std::vector<char16_t>& chars
+                                              , const std::size_t&           index
+                                              , const std::size_t&           count
+                                              , const bool&                  flush) const
         {
             if (index > chars.size() || count > chars.size() || (index + count) > chars.size())
             {
@@ -70,12 +70,12 @@ namespace System
             return byteCount;
         }
 
-        std::size_t UTF8Encoder::GetBytes(const std::vector<char16_t>& chars
-                                        , const std::size_t&           charIndex
-                                        , const std::size_t&           charCount
-                                        , std::vector<std::uint8_t>&   bytes
-                                        , const std::size_t&           byteIndex
-                                        , const bool&                  flush) const
+        std::size_t UTF8Encoder::get_bytes(const std::vector<char16_t>& chars
+                                         , const std::size_t&           charIndex
+                                         , const std::size_t&           charCount
+                                         , std::vector<std::uint8_t>&   bytes
+                                         , const std::size_t&           byteIndex
+                                         , const bool&                  flush) const
         {
             if (charIndex > chars.size() || charCount > chars.size() || (charIndex + charCount) > chars.size())
             {
@@ -89,13 +89,13 @@ namespace System
             const char16_t* from     = chars.data() + charIndex;
             const char16_t* fromEnd  = from + charCount;
             const char16_t* fromNext = nullptr;
-            auto            size     = charCount * this->converter.max_length();
+            auto            size     = charCount * _converter.max_length();
             auto            to       = std::vector<char>(size, 0);
             char*           toStart  = to.data();
             char*           toEnd    = toStart + size;
             char*           toNext   = nullptr;
             auto            state    = std::mbstate_t();
-            auto            r        = this->converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+            auto            r        = _converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
             if (r == std::codecvt_base::error)
             {

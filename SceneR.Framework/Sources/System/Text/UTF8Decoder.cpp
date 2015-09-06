@@ -18,9 +18,9 @@ namespace System
         {
         }
 
-        std::size_t UTF8Decoder::GetCharCount(const std::vector<std::uint8_t>& bytes
-                                            , const std::size_t&               index
-                                            , const std::size_t&               count) const
+        std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
+                                              , const std::size_t&               index
+                                              , const std::size_t&               count) const
         {
             if (index > bytes.size() || count > bytes.size() || (index + count) > bytes.size())
             {
@@ -51,11 +51,11 @@ namespace System
             return result;
         }
 
-        std::size_t UTF8Decoder::GetChars(const std::vector<std::uint8_t>& bytes
-                                        , const std::size_t&               byteIndex
-                                        , const std::size_t&               byteCount
-                                        , std::vector<char16_t>&           chars
-                                        , const std::size_t&               charIndex) const
+        std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
+                                         , const std::size_t&               byteIndex
+                                         , const std::size_t&               byteCount
+                                         , std::vector<char16_t>&           chars
+                                         , const std::size_t&               charIndex) const
         {
             if (byteIndex > bytes.size() || byteCount > bytes.size() || (byteIndex + byteCount) > bytes.size())
             {
@@ -74,7 +74,7 @@ namespace System
             char16_t*   toEnd    = toStart + byteCount;
             char16_t*   toNext   = nullptr;
             auto        state    = std::mbstate_t();
-            auto        status   = this->converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+            auto        status   = _converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
             if (status == std::codecvt_base::error)
             {
@@ -98,7 +98,7 @@ namespace System
             return static_cast<std::size_t>(toNext - toStart);
         }
 
-        void UTF8Decoder::Reset()
+        void UTF8Decoder::reset()
         {
         }
     }

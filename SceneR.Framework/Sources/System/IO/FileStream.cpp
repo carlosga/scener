@@ -12,7 +12,7 @@ namespace System
         using System::Text::Encoding;
 
         FileStream::FileStream(const std::u16string& path, const std::ios::openmode& mode)
-            : _stream { Encoding::Convert(path), mode }
+            : _stream { Encoding::convert(path), mode }
             , _mode   { mode }
         {
         }

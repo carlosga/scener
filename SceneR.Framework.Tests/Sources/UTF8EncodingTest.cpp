@@ -28,7 +28,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNonNullChar)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     EXPECT_TRUE(3 == byteCount);
 }
@@ -40,7 +40,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNullChar)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 0, 0);
+    auto byteCount = utf8.get_byte_count(chars, 0, 0);
 
     EXPECT_TRUE(0 == byteCount);
 }
@@ -52,7 +52,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNullReferenceChar)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetByteCount(chars, 0); });
+    EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 0); });
 }
 
 // NegTest2: ArgumentOutOfRangeException is not thrown when index is less than zero
@@ -62,7 +62,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenIndexLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetByteCount(chars, -1, 2); });
+    EXPECT_ANY_THROW({ utf8.get_byte_count(chars, -1, 2); });
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when count is less than zero
@@ -72,7 +72,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenCountLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetByteCount(chars, 1, -2); });
+    EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 1, -2); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when index and count do not denote a valid range in chars
@@ -82,7 +82,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenIndexWithInvalidRangeOfChars)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetByteCount(chars, 1, chars.size()); });
+    EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 1, chars.size()); });
 }
 
 // PosTest1: Verify method GetByteCount(string) with non-null string
@@ -92,7 +92,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNonNullString)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars);
+    auto byteCount = utf8.get_byte_count(chars);
 
     EXPECT_TRUE(chars.size() == byteCount);
 }
@@ -105,7 +105,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithEmptyString)
     UTF8Encoding utf8;
     Encoding* encoding = &utf8;
 
-    auto byteCount = encoding->GetByteCount(chars);
+    auto byteCount = encoding->get_byte_count(chars);
 
     EXPECT_TRUE(0 == byteCount);
 }
@@ -124,13 +124,13 @@ TEST_F(UTF8EncodingTest, GetBytesWithNonNullChars)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount, 0);
 
     EXPECT_TRUE(3 == byteCount);
 
-    auto bytesEncodedCount = utf8.GetBytes(chars, 1, 2, bytes, 0);
+    auto bytesEncodedCount = utf8.get_bytes(chars, 1, 2, bytes, 0);
 
     EXPECT_TRUE(  3  == bytesEncodedCount);
     EXPECT_TRUE( 37 == bytes[0]);
@@ -146,11 +146,11 @@ TEST_F(UTF8EncodingTest, GetBytesWithNullChars)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 0, 0);
+    auto byteCount = utf8.get_byte_count(chars, 0, 0);
 
     bytes.resize(byteCount, 0);
 
-    auto bytesEncodedCount = utf8.GetBytes(chars, 0, 0, bytes, 0);
+    auto bytesEncodedCount = utf8.get_bytes(chars, 0, 0, bytes, 0);
 
     EXPECT_TRUE(0 == bytesEncodedCount);
 }
@@ -167,7 +167,7 @@ TEST_F(UTF8EncodingTest, GetBytesWhenCharsIsNull)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, bytes.data(), 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, bytes.data(), 0); });
 }
 
 // NegTest2: ArgumentNullException is not thrown when bytes is a null reference
@@ -178,7 +178,7 @@ TEST_F(UTF8EncodingTest, GetBytesWhenBytesIsNull)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars.data(), 2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars.data(), 2, bytes, 0); });
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when charIndex is less than zero
@@ -189,11 +189,11 @@ TEST_F(UTF8EncodingTest, GetBytesWithCharIndexLessThanZero)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, -1, 2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, -1, 2, bytes, 0); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when charCount is less than zero
@@ -204,11 +204,11 @@ TEST_F(UTF8EncodingTest, GetBytesWithCharCountLessThanZero)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, -2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, -2, bytes, 0); });
 }
 
 // PosTest1: Verify method GetBytes(Char[],Int32,Int32,Byte[],Int32) with non-null chars
@@ -223,7 +223,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithNonNullString)
 
     bytes.resize(byteCount, 0);
 
-    auto bytesEncodedCount = utf8.GetBytes(chars, 1, 2, bytes, 0);
+    auto bytesEncodedCount = utf8.get_bytes(chars, 1, 2, bytes, 0);
 
     EXPECT_TRUE(bytesEncodedCount == 2);
 }
@@ -240,7 +240,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithEmptyString)
 
     bytes.resize(byteCount, 0);
 
-    auto bytesEncodedCount = utf8.GetBytes(chars, 0, byteCount, bytes, 0);
+    auto bytesEncodedCount = utf8.get_bytes(chars, 0, byteCount, bytes, 0);
 
     EXPECT_TRUE(0 == bytesEncodedCount);
 }
@@ -257,7 +257,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithCharIndexLessThanZero)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, -1, 2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, -1, 2, bytes, 0); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when charCount is less than zero
@@ -272,7 +272,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithCharCountLessThanZero)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, -2, bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, -2, bytes, 0); });
 }
 
 // NegTest5: ArgumentOutOfRangeException is not thrown when byteIndex is less than zero
@@ -287,7 +287,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWhenByteIndexIsLessThanZero)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, 2, bytes, -1); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, 2, bytes, -1); });
 }
 
 // NegTest6: ArgumentOutOfRangeException is not thrown when charIndex and charCount do not denote a valid range in chars
@@ -302,7 +302,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithInvalidCharRange)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, chars.size(), bytes, 0); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, chars.size(), bytes, 0); });
 }
 
 // NegTest7: ArgumentException is not thrown when bytes does not have enough capacity
@@ -318,7 +318,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithInvalidBufferSize)
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, 2, bytes, bytes.size()); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, 2, bytes, bytes.size()); });
 }
 
 // NegTest5: ArgumentOutOfRangeException is not thrown when byteIndex is less than zero
@@ -329,11 +329,11 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenByteIndexIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, 2, bytes, -1); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, 2, bytes, -1); });
 }
 
 // NegTest6: ArgumentOutOfRangeException is not thrown when charIndex and charCount do not denote a valid range in chars
@@ -344,11 +344,11 @@ TEST_F(UTF8EncodingTest, GetByteCountInvalidRange)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({ utf8.GetBytes(chars, 1, chars.size(), bytes, 1); });
+    EXPECT_ANY_THROW({ utf8.get_bytes(chars, 1, chars.size(), bytes, 1); });
 }
 
 // NegTest7: ArgumentException is not thrown when bytes does not have enough capacity from
@@ -360,11 +360,11 @@ TEST_F(UTF8EncodingTest, GetByteCountInvalidBufferSize)
 
     UTF8Encoding utf8;
 
-    auto byteCount = utf8.GetByteCount(chars, 1, 2);
+    auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
     bytes.resize(byteCount, 0);
 
-    EXPECT_ANY_THROW({  utf8.GetBytes(chars, 1, 2, bytes, bytes.size()); });
+    EXPECT_ANY_THROW({  utf8.get_bytes(chars, 1, 2, bytes, bytes.size()); });
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -382,7 +382,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithNonNullBuffer)
 
     UTF8Encoding utf8;
 
-    auto charCount = utf8.GetCharCount(bytes, 2, 8);
+    auto charCount = utf8.get_char_count(bytes, 2, 8);
 
     ASSERT_TRUE(8 == charCount);
 }
@@ -394,7 +394,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithEmptyBuffer)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 0, 0);
+    int charCount = utf8.get_char_count(bytes, 0, 0);
 
     ASSERT_TRUE(0 == charCount);
 }
@@ -408,7 +408,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWhenIndexLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetCharCount(bytes, -1, 8); });
+    EXPECT_ANY_THROW({ utf8.get_char_count(bytes, -1, 8); });
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when count is less than zero
@@ -420,7 +420,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWhenCountLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetCharCount(bytes, 2, -1); });
+    EXPECT_ANY_THROW({ utf8.get_char_count(bytes, 2, -1); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when index and count do not denote a valid range in bytes
@@ -432,7 +432,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithInvalidRange)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetCharCount(bytes, 2, bytes.size()); });
+    EXPECT_ANY_THROW({ utf8.get_char_count(bytes, 2, bytes.size()); });
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -450,13 +450,13 @@ TEST_F(UTF8EncodingTest, GetCharsWithNonNullChars)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
     chars.resize(charCount);
 
-    int charsEncodedCount = utf8.GetChars(bytes, 2, 2, chars, 0);
+    int charsEncodedCount = utf8.get_chars(bytes, 2, 2, chars, 0);
 
     EXPECT_TRUE(1 == charsEncodedCount);
     EXPECT_TRUE(u'\u03a0' == chars[0]);
@@ -471,11 +471,11 @@ TEST_F(UTF8EncodingTest, GetCharsWithEmptyChars)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    int charsEncodedCount = utf8.GetChars(bytes, 0, 0, chars, 0);
+    int charsEncodedCount = utf8.get_chars(bytes, 0, 0, chars, 0);
 
     EXPECT_TRUE(0 == charsEncodedCount);
 }
@@ -489,11 +489,11 @@ TEST_F(UTF8EncodingTest, GetCharsWhenByteIndexIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    EXPECT_ANY_THROW({ utf8.GetChars(bytes, -1, 2, chars, 0); });
+    EXPECT_ANY_THROW({ utf8.get_chars(bytes, -1, 2, chars, 0); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when byteCount is less than zero
@@ -505,11 +505,11 @@ TEST_F(UTF8EncodingTest, GetCharsWhenByteCountIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    EXPECT_ANY_THROW({ utf8.GetChars(bytes, 1, -2, chars, 0); });
+    EXPECT_ANY_THROW({ utf8.get_chars(bytes, 1, -2, chars, 0); });
 }
 
 // NegTest5: ArgumentOutOfRangeException is not thrown when charIndex is less than zero
@@ -521,11 +521,11 @@ TEST_F(UTF8EncodingTest, GetCharsWhenCharIndexIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    EXPECT_ANY_THROW({ utf8.GetChars(bytes, 2, 2, chars, -1); });
+    EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, -1); });
 }
 
 // NegTest6: ArgumentOutOfRangeException is not thrown when byteIndex and byteCount do not denote a valid range in chars
@@ -537,11 +537,11 @@ TEST_F(UTF8EncodingTest, GetCharsWithInvalidRangeInChars)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    EXPECT_ANY_THROW({ utf8.GetChars(bytes, 2, 2, chars, 1); });
+    EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, 1); });
 }
 
 // NegTest7: ArgumentException is not thrown when chars does not have enough capacity from charIndex to the end of the
@@ -554,11 +554,11 @@ TEST_F(UTF8EncodingTest, GetCharsWithNotEnoughSpaceInChars)
 
     UTF8Encoding utf8;
 
-    int charCount = utf8.GetCharCount(bytes, 2, 2);
+    int charCount = utf8.get_char_count(bytes, 2, 2);
 
     EXPECT_TRUE(1 == charCount);
 
-    EXPECT_ANY_THROW({ utf8.GetChars(bytes, 2, 2, chars, chars.size()); });
+    EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, chars.size()); });
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -575,7 +575,7 @@ TEST_F(UTF8EncodingTest, GetString)
 
     UTF8Encoding utf8;
 
-    auto str = utf8.GetString(bytes, 0, bytes.size());
+    auto str = utf8.get_string(bytes, 0, bytes.size());
 
     EXPECT_TRUE(u"UTF8 Encoding Example" == str);
 }
@@ -589,7 +589,7 @@ TEST_F(UTF8EncodingTest, GetStringWhenIndexIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetString(bytes, -1, bytes.size()); });
+    EXPECT_ANY_THROW({ utf8.get_string(bytes, -1, bytes.size()); });
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when count is less than zero
@@ -601,7 +601,7 @@ TEST_F(UTF8EncodingTest, GetStringWhenCountIsLessThanZero)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({ utf8.GetString(bytes, 0, -1); });
+    EXPECT_ANY_THROW({ utf8.get_string(bytes, 0, -1); });
 }
 
 // NegTest4: ArgumentOutOfRangeException is not thrown when index and count do not denote a valid range in bytes
@@ -613,5 +613,5 @@ TEST_F(UTF8EncodingTest, GetStringWhenByteRangeIsInvalid)
 
     UTF8Encoding utf8;
 
-    EXPECT_ANY_THROW({  utf8.GetString(bytes, 1, bytes.size()); });
+    EXPECT_ANY_THROW({  utf8.get_string(bytes, 1, bytes.size()); });
 }

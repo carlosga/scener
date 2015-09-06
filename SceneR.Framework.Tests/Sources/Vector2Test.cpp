@@ -18,15 +18,15 @@ TEST_F(Vector2Test, IndividualCoordinatesConstructor)
     auto vector = Vector2 { x, y };
 
     // vector2 is equal to (20.0, 30.0)
-    EXPECT_TRUE(x == vector.X());
-    EXPECT_TRUE(y == vector.Y());
+    EXPECT_TRUE(x == vector.x);
+    EXPECT_TRUE(y == vector.y);
 }
 
 TEST_F(Vector2Test, Magnitude)
 {
     auto vector = Vector2 { 20.0f, 30.0f };
 
-    EXPECT_TRUE(36.05551275463989f == vector.Length());
+    EXPECT_TRUE(36.05551275463989f == vector.length());
 }
 
 TEST_F(Vector2Test, Length)
@@ -34,17 +34,17 @@ TEST_F(Vector2Test, Length)
     auto vector1 = Vector2 { 1.0f, 1.0f };
     auto vector2 = Vector2 { 3.0f, 3.0f };
 
-    EXPECT_TRUE(2.82842708f == Vector2::Distance(vector1, vector2));
+    EXPECT_TRUE(2.82842708f == Vector2::distance(vector1, vector2));
 }
 
 TEST_F(Vector2Test, Lerp)
 {
     auto vector1 = Vector2 { 5.0f, 10.0f };
     auto vector2 = Vector2 { 0.0f, -20.0f };
-    auto result  = Vector2::Lerp(vector1, vector2, 0.4f);
+    auto result  = Vector2::lerp(vector1, vector2, 0.4f);
 
-    EXPECT_TRUE(3.0f  == result.X());
-    EXPECT_TRUE(-2.0f == result.Y());
+    EXPECT_TRUE(3.0f  == result.x);
+    EXPECT_TRUE(-2.0f == result.y);
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -54,7 +54,7 @@ TEST_F(Vector2Test, Distance)
     auto b = Vector2 { 3.0f, 4.0f };
 
     auto expected = Math::sqrt(8.0f);
-    auto actual   = Vector2::Distance(a, b);
+    auto actual   = Vector2::distance(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -67,7 +67,7 @@ TEST_F(Vector2Test, Distance2)
     auto a = Vector2 { 1.051f, 2.05f };
     auto b = Vector2 { 1.051f, 2.05f };
 
-    auto actual = Vector2::Distance(a, b);
+    auto actual = Vector2::distance(a, b);
 
     EXPECT_TRUE(0.0f == actual);
 }
@@ -80,7 +80,7 @@ TEST_F(Vector2Test, DistanceSquared)
     auto b = Vector2 { 3.0f, 4.0f };
 
     auto expected = 8.0f;
-    auto actual   = Vector2::DistanceSquared(a, b);
+    auto actual   = Vector2::distance_squared(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -93,7 +93,7 @@ TEST_F(Vector2Test, Dot)
     auto b = Vector2 { 3.0f, 4.0f };
 
     auto expected = 11.0f;
-    auto actual   = Vector2::DotProduct(a, b);
+    auto actual   = Vector2::dot(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -106,7 +106,7 @@ TEST_F(Vector2Test, DotWithPerpendicularVector)
     auto b = Vector2 { -1.55f, 1.55f };
 
     auto expected = 0.0f;
-    auto actual   = Vector2::DotProduct(a, b);
+    auto actual   = Vector2::dot(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -119,7 +119,7 @@ TEST_F(Vector2Test, DotWithSpecialFloatValues)
     auto a = Vector2 { Math::min_value, Math::min_value};
     auto b = Vector2 { Math::max_value, Math::max_value};
 
-    auto actual = Vector2::DotProduct(a, b);
+    auto actual = Vector2::dot(a, b);
 
     EXPECT_TRUE(Math::is_negative_infinity(actual));
 }
@@ -132,7 +132,7 @@ TEST_F(Vector2Test, Length2)
     auto target = a;
 
     auto expected = Math::sqrt(20.0f);
-    auto actual   = target.Length();
+    auto actual   = target.length();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -145,7 +145,7 @@ TEST_F(Vector2Test, ZeroLength)
     auto target = Vector2 { 0.0f, 0.0f };
 
     auto expected = 0.0f;
-    auto actual   = target.Length();
+    auto actual   = target.length();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -158,7 +158,7 @@ TEST_F(Vector2Test, LengthSquared1)
     auto target = a;
 
     auto expected = 20.0f;
-    auto actual   = target.LengthSquared();
+    auto actual   = target.length_squared();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -171,7 +171,7 @@ TEST_F(Vector2Test, ZeroLengthSquared)
     auto a = Vector2 { 0.0f, 0.0f };
 
     auto expected = 0.0f;
-    auto actual   = a.LengthSquared();
+    auto actual   = a.length_squared();
 
     EXPECT_TRUE(expected == actual);
 }
@@ -184,7 +184,7 @@ TEST_F(Vector2Test, Min)
     auto b = Vector2 { 2.0f, 1.0f };
 
     auto expected = Vector2 { -1.0f, 1.0f };
-    auto actual   = Vector2::Min(a, b);
+    auto actual   = Vector2::min(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -196,17 +196,17 @@ TEST_F(Vector2Test, MinMaxCodeCoverage)
     auto max = Vector2 { 1.0f, 1.0f };
 
     // Min.
-    auto actual = Vector2::Min(min, max);
+    auto actual = Vector2::min(min, max);
     EXPECT_TRUE(actual == min);
 
-    actual = Vector2::Min(max, min);
+    actual = Vector2::min(max, min);
     EXPECT_TRUE(actual == min);
 
     // Max.
-    actual = Vector2::Max(min, max);
+    actual = Vector2::max(min, max);
     EXPECT_TRUE(actual == max);
 
-    actual = Vector2::Max(max, min);
+    actual = Vector2::max(max, min);
     EXPECT_TRUE(actual == max);
 }
 
@@ -218,7 +218,7 @@ TEST_F(Vector2Test, Max)
     auto b = Vector2 { 2.0f, 1.0f };
 
     auto expected = Vector2 { 2.0f, 4.0f };
-    auto actual   = Vector2::Max(a, b);
+    auto actual   = Vector2::max(a, b);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -234,7 +234,7 @@ TEST_F(Vector2Test, Clamp)
     // Normal case.
     // Case N1: specified value is in the range.
     auto expected = Vector2(0.5f, 0.3f);
-    auto actual   = Vector2::Clamp(a, min, max);
+    auto actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
@@ -242,21 +242,21 @@ TEST_F(Vector2Test, Clamp)
     // Case N2: specified value is bigger than max value.
     a        = Vector2 { 2.0f, 3.0f };
     expected = max;
-    actual   = Vector2::Clamp(a, min, max);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
     // Case N3: specified value is smaller than max value.
     a        = Vector2 { -1.0f, -2.0f };
     expected = min;
-    actual   = Vector2::Clamp(a, min, max);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
     // Case N4: combination case.
     a        = Vector2(-2.0f, 4.0f);
-    expected = Vector2(min.X(), max.Y());
-    actual   = Vector2::Clamp(a, min, max);
+    expected = Vector2(min.x, max.y);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
@@ -267,7 +267,7 @@ TEST_F(Vector2Test, Clamp)
     // Case W1: specified value is in the range.
     a        = Vector2 { 0.5f, 0.3f };
     expected = min;
-    actual   = Vector2::Clamp(a, min, max);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
@@ -275,14 +275,14 @@ TEST_F(Vector2Test, Clamp)
     // Case W2: specified value is bigger than max and min value.
     a        = Vector2 { 2.0f, 3.0f };
     expected = min;
-    actual   = Vector2::Clamp(a, min, max);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 
     // Case W3: specified value is smaller than min and max value.
     a        = Vector2 { -1.0f, -2.0f };
     expected = min;
-    actual   = Vector2::Clamp(a, min, max);
+    actual   = Vector2::clamp(a, min, max);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -296,7 +296,7 @@ TEST_F(Vector2Test, Lerp2)
     auto t = 0.5f;
 
     auto expected = Vector2 { 2.0f, 3.0f };
-    auto actual   = Vector2::Lerp(a, b, t);
+    auto actual   = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -310,8 +310,8 @@ TEST_F(Vector2Test, LerpWithFactorZero)
     auto b = Vector2 { 3.18f, 4.25f };
     auto t = 0.0f;
 
-    auto expected = Vector2::Zero;
-    auto actual   = Vector2::Lerp(a, b, t);
+    auto expected = Vector2::zero;
+    auto actual   = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -326,7 +326,7 @@ TEST_F(Vector2Test, LerpWithFactorOne)
     auto t = 1.0f;
 
     auto expected = Vector2(3.18f, 4.25f);
-    auto actual = Vector2::Lerp(a, b, t);
+    auto actual = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -341,7 +341,7 @@ TEST_F(Vector2Test, LerpWithFactorGreaterThanOne)
     auto t = 2.0f;
 
     auto expected = b * 2.0f;
-    auto actual   = Vector2::Lerp(a, b, t);
+    auto actual   = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -356,7 +356,7 @@ TEST_F(Vector2Test, LerpWithFactorLessThanZero)
     auto t = -2.0f;
 
     auto expected = -(b * 2.0f);
-    auto actual   = Vector2::Lerp(a, b, t);
+    auto actual   = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -370,10 +370,10 @@ TEST_F(Vector2Test, LerpWithSpecialFloatValue)
     auto b = Vector2 { Math::positive_infinity, Math::negative_infinity};
     auto t = 0.408f;
 
-    auto actual = Vector2::Lerp(a, b, t);
+    auto actual = Vector2::lerp(a, b, t);
 
-    EXPECT_TRUE(Math::is_positive_infinity(actual.X()));
-    EXPECT_TRUE(Math::is_negative_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.x));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.y));
 }
 
 // A test for Lerp (Vector2f, Vector2f, float)
@@ -386,7 +386,7 @@ TEST_F(Vector2Test, LerpFromSamePoint)
     auto t = 0.5f;
 
     auto expected = Vector2 { 1.0f, 2.0f };
-    auto actual   = Vector2::Lerp(a, b, t);
+    auto actual   = Vector2::lerp(a, b, t);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -396,16 +396,16 @@ TEST_F(Vector2Test, LerpFromSamePoint)
 TEST_F(Vector2Test, Transform)
 {
     auto v = Vector2 { 1.0f, 2.0f };
-    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
-           * Matrix::CreateRotationY(Math::to_radians(30.0f))
-           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto m = Matrix::create_rotation_x(Math::to_radians(30.0f))
+           * Matrix::create_rotation_y(Math::to_radians(30.0f))
+           * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
-    m.M41(10.0f);
-    m.M42(20.0f);
-    m.M43(30.0f);
+    m.m41 = 10.0f;
+    m.m42 = 20.0f;
+    m.m43 = 30.0f;
 
     auto expected = Vector2 { 10.316987f, 22.183012f };
-    auto actual   = Vector2::Transform(v, m);
+    auto actual   = Vector2::transform(v, m);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -415,16 +415,16 @@ TEST_F(Vector2Test, Transform)
 TEST_F(Vector2Test, TransformNormal)
 {
     auto v = Vector2 { 1.0f, 2.0f };
-    auto m = Matrix::CreateRotationX(Math::to_radians(30.0f))
-           * Matrix::CreateRotationY(Math::to_radians(30.0f))
-           * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto m = Matrix::create_rotation_x(Math::to_radians(30.0f))
+           * Matrix::create_rotation_y(Math::to_radians(30.0f))
+           * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
-    m.M41(10.0f);
-    m.M42(20.0f);
-    m.M43(30.0f);
+    m.m41 = 10.0f;
+    m.m42 = 20.0f;
+    m.m43 = 30.0f;
 
     auto expected = Vector2 { 0.3169873f, 2.18301272f };
-    auto actual   = Vector2::TransformNormal(v, m);
+    auto actual   = Vector2::transform_normal(v, m);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -435,7 +435,7 @@ TEST_F(Vector2Test, Normalize)
 {
     auto a        = Vector2 { 2.0f, 3.0f };
     auto expected = Vector2 { 0.554700196225229122018341733457f, 0.8320502943378436830275126001855f };
-    auto actual   = Vector2::Normalize(a);
+    auto actual   = Vector2::normalize(a);
 
     EXPECT_TRUE(expected == actual);
 };
@@ -446,9 +446,9 @@ TEST_F(Vector2Test, Normalize)
 TEST_F(Vector2Test, NormalizeZeroLengthVector)
 {
     Vector2 a; // no parameter, default to 0.0f
-    Vector2 actual = Vector2::Normalize(a);
+    Vector2 actual = Vector2::normalize(a);
 
-    EXPECT_TRUE(Math::is_nan(actual.X()) && Math::is_nan(actual.Y()));
+    EXPECT_TRUE(Math::is_nan(actual.x) && Math::is_nan(actual.y));
 }
 
 // A test for Normalize (Vector2f)
@@ -457,7 +457,7 @@ TEST_F(Vector2Test, NormalizeZeroLengthVector)
 TEST_F(Vector2Test, NormalizeInfiniteLengthVector)
 {
     auto a        = Vector2 { Math::max_value, Math::max_value};
-    auto actual   = Vector2::Normalize(a);
+    auto actual   = Vector2::normalize(a);
     auto expected = Vector2 { 0, 0 };
 
     EXPECT_TRUE(expected == actual);
@@ -482,8 +482,8 @@ TEST_F(Vector2Test, UnaryNegationWithInfinityValues)
     auto a      = Vector2 { Math::positive_infinity, Math::negative_infinity};
     auto actual = -a;
 
-    EXPECT_TRUE(Math::is_negative_infinity(actual.X()));
-    EXPECT_TRUE(Math::is_positive_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.x));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.y));
 }
 
 // A test for operator - (Vector2f)
@@ -494,8 +494,8 @@ TEST_F(Vector2Test, UnaryNegationWithNanValue)
     auto a      = Vector2 { Math::nan, 0.0f };
     auto actual = -a;
 
-    EXPECT_TRUE(Math::is_nan(actual.X()));
-    EXPECT_TRUE(0.0f == actual.Y());
+    EXPECT_TRUE(Math::is_nan(actual.x));
+    EXPECT_TRUE(0.0f == actual.y);
 }
 
 // A test for operator - (Vector2f, Vector2f)
@@ -566,8 +566,8 @@ TEST_F(Vector2Test, Division2)
     auto div    = 0.0f;
     auto actual = a / div;
 
-    EXPECT_TRUE(Math::is_negative_infinity(actual.X()));
-    EXPECT_TRUE(Math::is_positive_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.x));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.y));
 }
 
 // A test for operator / (Vector2f, Vector2f)
@@ -579,8 +579,8 @@ TEST_F(Vector2Test, DivisionByZero)
     auto b      = Vector2 { };
     auto actual = a / b;
 
-    EXPECT_TRUE(Math::is_positive_infinity(actual.X()));
-    EXPECT_TRUE(Math::is_negative_infinity(actual.Y()));
+    EXPECT_TRUE(Math::is_positive_infinity(actual.x));
+    EXPECT_TRUE(Math::is_negative_infinity(actual.y));
 }
 
 // A test for operator + (Vector2f, Vector2f)
@@ -603,8 +603,8 @@ TEST_F(Vector2Test, Constructor)
     auto y      = 2.0f;
     auto target = Vector2 { x, y };
 
-    EXPECT_TRUE(x == target.X());
-    EXPECT_TRUE(y == target.Y());
+    EXPECT_TRUE(x == target.x);
+    EXPECT_TRUE(y == target.y);
 }
 
 // A test for Vector2f ()
@@ -614,8 +614,8 @@ TEST_F(Vector2Test, DefaultConstructor)
 {
     auto target = Vector2 { };
 
-    EXPECT_TRUE(0.0f == target.X());
-    EXPECT_TRUE(0.0f == target.Y());
+    EXPECT_TRUE(0.0f == target.x);
+    EXPECT_TRUE(0.0f == target.y);
 }
 
 // A test for Vector2f (float, float)
@@ -625,8 +625,8 @@ TEST_F(Vector2Test, ConstructorWithSpecialValues)
 {
     auto target = Vector2 { Math::nan, Math::max_value};
 
-    EXPECT_TRUE(Math::is_nan(target.X()));
-    EXPECT_TRUE(Math::max_value == target.Y());
+    EXPECT_TRUE(Math::is_nan(target.x));
+    EXPECT_TRUE(Math::max_value == target.y);
 }
 
 // A test for Vector2f (float)
@@ -652,7 +652,7 @@ TEST_F(Vector2Test, Negate)
 {
     auto a        = Vector2 { 1.0f, 2.0f };
     auto expected = Vector2 { -1.0f, -2.0f };
-    auto actual   = Vector2::Negate(a);
+    auto actual   = Vector2::negate(a);
 
     EXPECT_TRUE(expected == actual);
 }
@@ -705,7 +705,7 @@ TEST_F(Vector2Test, UnitX)
 {
     auto actual = Vector2 { 1.0f, 0.0f };
 
-    EXPECT_TRUE(Vector2::UnitX == actual);
+    EXPECT_TRUE(Vector2::unit_x == actual);
 }
 
 // A test for UnitY
@@ -714,7 +714,7 @@ TEST_F(Vector2Test, UnitY)
 {
     auto actual = Vector2 { 0.0f, 1.0f };
 
-    EXPECT_TRUE(Vector2::UnitY == actual);
+    EXPECT_TRUE(Vector2::unit_y == actual);
 }
 
 // A test for One
@@ -723,7 +723,7 @@ TEST_F(Vector2Test, One)
 {
     auto actual = Vector2 { 1.0f, 1.0f };
 
-    EXPECT_TRUE(Vector2::One == actual);
+    EXPECT_TRUE(Vector2::one == actual);
 }
 
 // A test for Zero
@@ -732,7 +732,7 @@ TEST_F(Vector2Test, Zero)
 {
     auto actual = Vector2 { 0.0f, 0.0f };
 
-    EXPECT_TRUE(Vector2::Zero == actual);
+    EXPECT_TRUE(Vector2::zero == actual);
 }
 
 // A test for Vector2f comparison involving NaN values
@@ -742,24 +742,24 @@ TEST_F(Vector2Test, Equals)
     auto a = Vector2 { Math::nan, 0.0f };
     auto b = Vector2 { 0, Math::nan};
 
-    EXPECT_FALSE(a == Vector2::Zero);
-    EXPECT_FALSE(b == Vector2::Zero);
+    EXPECT_FALSE(a == Vector2::zero);
+    EXPECT_FALSE(b == Vector2::zero);
 
-    EXPECT_TRUE(a != Vector2::Zero);
-    EXPECT_TRUE(b != Vector2::Zero);
+    EXPECT_TRUE(a != Vector2::zero);
+    EXPECT_TRUE(b != Vector2::zero);
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(Vector2Test, Abs)
 {
     auto v1 = Vector2 { -2.5f, 2.0f };
-    auto v3 = Vector2::Abs(Vector2 { 0.0f, Math::negative_infinity});
-    auto v  = Vector2::Abs(v1);
+    auto v3 = Vector2::abs(Vector2 { 0.0f, Math::negative_infinity});
+    auto v  = Vector2::abs(v1);
 
-    EXPECT_TRUE(2.5f == v.X());
-    EXPECT_TRUE(2.0f == v.Y());
-    EXPECT_TRUE(0.0f == v3.X());
-    EXPECT_TRUE(Math::positive_infinity == v3.Y());
+    EXPECT_TRUE(2.5f == v.x);
+    EXPECT_TRUE(2.0f == v.y);
+    EXPECT_TRUE(0.0f == v3.x);
+    EXPECT_TRUE(Math::positive_infinity == v3.y);
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -768,9 +768,9 @@ TEST_F(Vector2Test, Sqrt)
     auto v1 = Vector2 { -2.5f, 2.0f };
     auto v2 = Vector2 { 5.5f, 4.5f };
 
-    EXPECT_TRUE(2 == (std::int32_t)Vector2::SquareRoot(v2).X());
-    EXPECT_TRUE(2 == (std::int32_t)Vector2::SquareRoot(v2).Y());
-    EXPECT_TRUE(Math::is_nan(Vector2::SquareRoot(v1).X()));
+    EXPECT_TRUE(2 == (std::int32_t)Vector2::square_root(v2).x);
+    EXPECT_TRUE(2 == (std::int32_t)Vector2::square_root(v2).y);
+    EXPECT_TRUE(Math::is_nan(Vector2::square_root(v1).x));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite

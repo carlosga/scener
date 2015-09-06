@@ -33,42 +33,32 @@ namespace SceneR
         {
         }
 
-        const Vector3& Ray::Direction() const
-        {
-            return this->direction;
-        }
-
-        const Vector3& Ray::Position() const
-        {
-            return this->position;
-        }
-
-        bool Ray::Intersects(const BoundingBox& boundingBox)
+        bool Ray::intersects(const BoundingBox& boundingBox)
         {
             return (boundingBox.intersects(*this) == 0.0f);
         }
 
-        bool Ray::Intersects(const BoundingFrustum& frustum)
+        bool Ray::intersects(const BoundingFrustum& frustum)
         {
             throw std::runtime_error("Not implemented");
         }
 
-        bool Ray::Intersects(const BoundingSphere& sphere)
+        bool Ray::intersects(const BoundingSphere& sphere)
         {
             return sphere.intersects(*this);
         }
 
-        bool Ray::Intersects(const Plane& plane)
+        bool Ray::intersects(const Plane& plane)
         {
             // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
-            auto denom = Vector3::Dot(plane.Normal(), this->direction);
+            auto denom = Vector3::dot(plane.normal, direction);
 
             if (Math::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
             {
                 return false;
             }
 
-            auto t = -(Vector3::Dot(this->position, plane.Normal()) + plane.D()) / denom;
+            auto t = -(Vector3::dot(position, plane.normal) + plane.d) / denom;
 
             return (t > 0.0f);
         }
@@ -77,8 +67,8 @@ namespace SceneR
         {
             if (this != &ray)
             {
-                this->direction = ray.direction;
-                this->position  = ray.position;
+                direction = ray.direction;
+                position  = ray.position;
             }
 
             return *this;
@@ -86,12 +76,12 @@ namespace SceneR
 
         bool Ray::operator ==(const Ray& ray) const
         {
-            return (this->direction == ray.direction && this->position == ray.position);
+            return (direction == ray.direction && position == ray.position);
         }
 
         bool Ray::operator !=(const Ray& ray) const
         {
-            return (this->direction != ray.direction || this->position != ray.position);
+            return (direction != ray.direction || position != ray.position);
         }
     }
 }

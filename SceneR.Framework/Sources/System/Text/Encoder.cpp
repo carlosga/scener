@@ -18,14 +18,14 @@ namespace System
         {
         }
 
-        std::size_t Encoder::GetByteCount(const char16_t* chars, const std::size_t& count, const bool& flush) const
+        std::size_t Encoder::get_byte_count(const char16_t* chars, const std::size_t& count, const bool& flush) const
         {
             auto vchars = std::vector<char16_t>(chars, chars + count);
 
-            return this->GetByteCount(vchars, 0, count, flush);
+            return this->get_byte_count(vchars, 0, count, flush);
         }
 
-        std::size_t Encoder::GetBytes(const char16_t*    chars
+        std::size_t Encoder::get_bytes(const char16_t*    chars
                                     , const std::size_t& charCount
                                     , std::uint8_t*      bytes
                                     , const std::size_t& byteCount
@@ -41,7 +41,7 @@ namespace System
             }
 
             auto vchars = std::vector<char16_t>(chars, chars + charCount);
-            auto bcount = this->GetByteCount(vchars, 0, charCount, flush);
+            auto bcount = this->get_byte_count(vchars, 0, charCount, flush);
 
             if (bcount > byteCount)
             {
@@ -49,7 +49,7 @@ namespace System
             }
 
             auto vbytes     = std::vector<std::uint8_t>(bcount, 0);
-            auto totalBytes = this->GetBytes(vchars, 0, charCount, vbytes, 0, flush);
+            auto totalBytes = this->get_bytes(vchars, 0, charCount, vbytes, 0, flush);
             auto result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
 
             std::copy_n(vbytes.begin(), result, bytes);
@@ -57,7 +57,7 @@ namespace System
             return result;
         }
 
-        void Encoder::Reset()
+        void Encoder::reset()
         {
         }
     }

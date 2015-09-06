@@ -31,7 +31,7 @@ namespace SceneR
              * @param point3 The third point defining the plane.
              * @return The plane containing the three points.
              */
-            static Plane CreateFromVertices(const Vector3& point1, const Vector3& point2, const Vector3& point3);
+            static Plane create_from_vertices(const Vector3& point1, const Vector3& point2, const Vector3& point3);
 
             /**
              * Calculates the dot product of a specified Vector4 and this Plane.
@@ -39,7 +39,7 @@ namespace SceneR
              * @param plane The plane.
              * @param value The four-dimensional vector.
              */
-            static float Dot(const Plane& plane, const Vector4& value);
+            static float dot(const Plane& plane, const Vector4& value);
 
             /**
              * Returns the dot product of a specified three-dimensional vector and the Normal vector of this plane.
@@ -47,7 +47,7 @@ namespace SceneR
              * @param v The three-dimensional vector.
              * @returns The dot product.
              */
-            static float DotNormal(const Plane& p, const Vector3& v);
+            static float dot_normal(const Plane& p, const Vector3& v);
 
             /**
              * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
@@ -55,13 +55,13 @@ namespace SceneR
              * @param value The three-dimensional vector.
              * @returns The dot product
              */
-            static float DotCoordinate(const Plane& p, const Vector3& value);
+            static float dot_coordinate(const Plane& p, const Vector3& value);
 
             /**
              * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
              * @param value the Plane to normalize.
              */
-            static Plane Normalize(const Plane& value);
+            static Plane normalize(const Plane& value);
 
             /**
              *  Transforms a normalized Plane by a Matrix.
@@ -69,7 +69,7 @@ namespace SceneR
              *  @param matrix the transform Matrix to apply to the Plane.
              *  @returns a new Plane that results from applying the transform.
              */
-            static Plane Transform(const Plane& plane, const Matrix& matrix);
+            static Plane transform(const Plane& plane, const Matrix& matrix);
 
             /**
              * Transforms a normalized Plane by a Quaternion rotation.
@@ -77,7 +77,7 @@ namespace SceneR
              * @param rotation the Quaternion rotation to apply to the Plane.
              * @returns a new Plane that results from applying the rotation.
              */
-            static Plane Transform(const Plane& plane, const Quaternion& rotation);
+            static Plane transform(const Plane& plane, const Quaternion& rotation);
 
         public:
             /**
@@ -112,56 +112,41 @@ namespace SceneR
 
         public:
             /**
-             * Gets The normal vector of the Plane.
-             */
-            const Vector3& Normal() const;
-
-            /**
-             * 	Gets the distance of the Plane along its normal from the origin.
-             */
-            float D() const;
-
-        public:
-            /**
-             * Sets The normal vector of the Plane.
-             */
-            void Normal(const Vector3& normal);
-
-            /**
-             * 	Gets the distance of the Plane along its normal from the origin.
-             */
-            void D(const float& d);
-
-        public:
-            /**
              * Checks whether the current Plane intersects a specified BoundingBox.
              * @param box the BoundingBox to test for intersection with.
              * @returns the relationship between the Plane and the BoundingBox.
              */
-            PlaneIntersectionType Intersects(const BoundingBox& box) const;
+            PlaneIntersectionType intersects(const BoundingBox& box) const;
 
             /**
              * Checks whether the current Plane intersects a specified BoundingFrustum.
              * @param frustrum the BoundingFrustum to test for intersection with.
              * @returns the relationship between the Plane and the BoundingFrustum.
              */
-            PlaneIntersectionType Intersects(const BoundingFrustrum& frustrum) const;
+            PlaneIntersectionType intersects(const BoundingFrustrum& frustrum) const;
 
             /**
              * Checks whether the current Plane intersects a specified BoundingSphere.
              * @param sphere the BoundingSphere to test for intersection with.
              * @returns the relationship between the Plane and the BoundingSphere.
              */
-            PlaneIntersectionType Intersects(const BoundingSphere& sphere) const;
+            PlaneIntersectionType intersects(const BoundingSphere& sphere) const;
 
         public:
             Plane& operator=(const Plane& plane);
             bool operator==(const Plane& plane) const;
             bool operator!=(const Plane& plane) const;
 
-        private:
+        public:
+            /**
+             * Gets or Sets The normal vector of the Plane.
+             */
             Vector3 normal;
-            float   d;
+
+            /**
+             * 	Gets the distance of the Plane along its normal from the origin.
+             */
+            float d;
         };
     }
 }

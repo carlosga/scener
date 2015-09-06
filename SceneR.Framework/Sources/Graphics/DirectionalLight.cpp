@@ -10,7 +10,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
 
         DirectionalLight::DirectionalLight()
-            : DirectionalLight { { 0.0f, -1.0f, 0.0f }, Vector3::One, Vector3::Zero }
+            : DirectionalLight { { 0.0f, -1.0f, 0.0f }, Vector3::one, Vector3::zero }
         {
         }
 

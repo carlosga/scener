@@ -33,49 +33,49 @@ namespace System
             ~UTF8Encoding() override;
 
         public:
-            std::u16string EncodingName() const override;
+            std::u16string encoding_name() const override;
 
-            bool IsSingleByte() const override;
+            bool is_single_byte() const override;
 
-            using Encoding::GetByteCount;
-            using Encoding::GetBytes;
-            using Encoding::GetCharCount;
-            using Encoding::GetChars;
-            using Encoding::GetString;
+            using Encoding::get_byte_count;
+            using Encoding::get_bytes;
+            using Encoding::get_char_count;
+            using Encoding::get_chars;
+            using Encoding::get_string;
 
-            std::size_t GetByteCount(const std::vector<char16_t>& chars
-                                   , const std::size_t&           index
-                                   , const std::size_t&           count) const override;
+            std::size_t get_byte_count(const std::vector<char16_t>& chars
+                                     , const std::size_t&           index
+                                     , const std::size_t&           count) const override;
 
-            std::size_t GetBytes(const std::vector<char16_t>& chars
-                               , const std::size_t&           charIndex
-                               , const std::size_t&           charCount
-                               , std::vector<std::uint8_t>&   bytes
-                               , const std::size_t&           byteIndex) const override;
+            std::size_t get_bytes(const std::vector<char16_t>& chars
+                                , const std::size_t&           charIndex
+                                , const std::size_t&           charCount
+                                , std::vector<std::uint8_t>&   bytes
+                                , const std::size_t&           byteIndex) const override;
 
-            std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes
-                                   , const std::size_t&               index
-                                   , const std::size_t&               count) const override;
+            std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
+                                    , const std::size_t&               index
+                                    , const std::size_t&               count) const override;
 
-            std::size_t GetChars(const std::vector<std::uint8_t>& bytes
-                               , const std::size_t&               byteIndex
-                               , const std::size_t&               byteCount
-                               , std::vector<char16_t>&           chars
-                               , const std::size_t&               charIndex) const override;
+            std::size_t get_chars(const std::vector<std::uint8_t>& bytes
+                                , const std::size_t&               byteIndex
+                                , const std::size_t&               byteCount
+                                , std::vector<char16_t>&           chars
+                                , const std::size_t&               charIndex) const override;
 
-            std::size_t GetMaxByteCount(const std::size_t& charCount) override;
+            std::size_t get_max_byte_count(const std::size_t& charCount) override;
 
-            std::size_t GetMaxCharCount(const std::size_t& byteCount) override;
+            std::size_t get_max_char_count(const std::size_t& byteCount) override;
 
-            std::vector<std::uint8_t> GetPreamble() const override;
+            std::vector<std::uint8_t> get_preamble() const override;
 
-            const Decoder& GetDecoder() const override;
+            const Decoder& get_decoder() const override;
 
-            const Encoder& GetEncoder() const override;
+            const Encoder& get_encoder() const override;
 
         private:
-            UTF8Encoder encoder;
-            UTF8Decoder decoder;
+            UTF8Encoder _encoder;
+            UTF8Decoder _decoder;
         };
     }
 }

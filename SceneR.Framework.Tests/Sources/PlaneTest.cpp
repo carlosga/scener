@@ -15,13 +15,13 @@ using namespace SceneR::Framework;
 TEST_F(PlaneTest, TransformPlaneByQuaternion)
 {
     Plane      pin(1.0f, 0.0f, 0.0f, 0.0f);
-    Quaternion q    = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, Math::pi_over_2);
-    Plane      pout = Plane::Transform(pin, q);
+    Quaternion q    = Quaternion::create_from_axis_angle(Vector3::unit_z, Math::pi_over_2);
+    Plane      pout = Plane::transform(pin, q);
 
-    EXPECT_TRUE(0.0f        == pout.Normal().X());
-    EXPECT_TRUE(0.99999994f == pout.Normal().Y());
-    EXPECT_TRUE(0.0f        == pout.Normal().Z());
-    EXPECT_TRUE(0.0f        == pout.D());
+    EXPECT_TRUE(0.0f        == pout.normal.x);
+    EXPECT_TRUE(0.99999994f == pout.normal.y);
+    EXPECT_TRUE(0.0f        == pout.normal.z);
+    EXPECT_TRUE(0.0f        == pout.d);
 }
 
 // A test to make sure these types are blittable directly into GPU buffer memory layouts
@@ -45,7 +45,7 @@ TEST_F(PlaneTest, Inequality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.Normal({ 10.0f, b.Normal().Y(), b.Normal().Z() });
+    b.normal = { 10.0f, b.normal.y, b.normal.z };
 
     expected = true;
     actual   = a != b;
@@ -67,7 +67,7 @@ TEST_F(PlaneTest, Equality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.Normal({ 10.0f, b.Normal().Y(), b.Normal().Z() });
+    b.normal = { 10.0f, b.normal.y, b.normal.z };
 
     expected = false;
     actual   = a == b;
@@ -85,10 +85,10 @@ TEST_F(PlaneTest, Constructor)
     auto  d = 4.0f;
     Plane target { a, b, c, d };
 
-    EXPECT_TRUE(target.Normal().X() == a
-             && target.Normal().Y() == b
-             && target.Normal().Z() == c
-             && target.D() == d);
+    EXPECT_TRUE(target.normal.x == a
+             && target.normal.y == b
+             && target.normal.z == c
+             && target.d == d);
 }
 
 // A test for Plane.CreateFromVertices
@@ -99,7 +99,7 @@ TEST_F(PlaneTest, CreateFromVertices)
     Vector3 point2 { 0.0f, 0.0f, 1.0f };
     Vector3 point3 { 1.0f, 0.0f, 1.0f };
 
-    Plane target   = Plane::CreateFromVertices(point1, point2, point3);
+    Plane target   = Plane::create_from_vertices(point1, point2, point3);
     Plane expected = {{ 0, 0, 1 }, -1.0f };
 
     EXPECT_TRUE(target == expected);
@@ -113,7 +113,7 @@ TEST_F(PlaneTest, CreateFromVertices2)
     Vector3 point2 { 1.0f, 0.0f, 0.0f };
     Vector3 point3 { 1.0f, 1.0f, 0.0f };
 
-    Plane target   = Plane::CreateFromVertices(point1, point2, point3);
+    Plane target   = Plane::create_from_vertices(point1, point2, point3);
     auto  invRoot2 = (1.0f / Math::sqrt(2.0f));
 
     Plane expected { { invRoot2, 0, invRoot2 }, -invRoot2 };
@@ -130,7 +130,7 @@ TEST_F(PlaneTest, ConstructorFromVector3AndScalar)
 
     Plane target = { normal, d };
 
-    EXPECT_TRUE(target.Normal() == normal && target.D() == d);
+    EXPECT_TRUE(target.normal == normal && target.d == d);
 }
 
 // A test for Plane (Vector4f)
@@ -140,10 +140,10 @@ TEST_F(PlaneTest, ConstructorFromVector4)
     Vector4 value { 1.0f, 2.0f, 3.0f, 4.0f };
     Plane   target { value };
 
-    EXPECT_TRUE(target.Normal().X() == value.X()
-             && target.Normal().Y() == value.Y()
-             && target.Normal().Z() == value.Z()
-             && target.D()          == value.W());
+    EXPECT_TRUE(target.normal.x == value.x
+             && target.normal.y == value.y
+             && target.normal.z == value.z
+             && target.d        == value.w);
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -153,7 +153,7 @@ TEST_F(PlaneTest, Dot)
     Vector4 value  { 5, 4, 3, 2 };
 
     float expected = 10 + 12 + 12 + 10;
-    float actual   = Plane::Dot(target, value);
+    float actual   = Plane::dot(target, value);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -165,7 +165,7 @@ TEST_F(PlaneTest, DotCoordinate)
     Vector3 value  { 5, 4, 3 };
 
     float expected = 10 + 12 + 12 + 5;
-    float actual   = Plane::DotCoordinate(target, value);
+    float actual   = Plane::dot_coordinate(target, value);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -177,7 +177,7 @@ TEST_F(PlaneTest, DotNormal)
     Vector3 value  { 5, 4, 3 };
 
     float expected = 10 + 12 + 12;
-    float actual   = Plane::DotNormal(target, value);
+    float actual   = Plane::dot_normal(target, value);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -187,16 +187,16 @@ TEST_F(PlaneTest, Normalize)
 {
     Plane target { 1, 2, 3, 4 };
 
-    float f        = target.Normal().LengthSquared();
+    float f        = target.normal.length_squared();
     float invF     = 1.0f / Math::sqrt(f);
-    Plane expected { target.Normal() * invF, target.D() * invF };
+    Plane expected { target.normal * invF, target.d * invF };
 
-    auto actual = Plane::Normalize(target);
+    auto actual = Plane::normalize(target);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // normalize, normalized normal.
-    actual = Plane::Normalize(actual);
+    actual = Plane::normalize(actual);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -205,31 +205,31 @@ TEST_F(PlaneTest, Normalize)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(PlaneTest, TransformByMatrix)
 {
-    auto target = Plane::Normalize({ 1, 2, 3, 4 });
-    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
-                * Matrix::CreateRotationY(Math::to_radians(30.0f))
-                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto target = Plane::normalize({ 1, 2, 3, 4 });
+    auto m      = Matrix::create_rotation_x(Math::to_radians(30.0f))
+                * Matrix::create_rotation_y(Math::to_radians(30.0f))
+                * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
-    m.M41(10.0f);
-    m.M42(20.0f);
-    m.M43(30.0f);
+    m.m41 = 10.0f;
+    m.m42 = 20.0f;
+    m.m43 = 30.0f;
 
     Plane expected;
 
-    auto inv = Matrix::Invert(m);
-    auto itm = Matrix::Transpose(inv);
-    auto x   = target.Normal().X();
-    auto y   = target.Normal().Y();
-    auto z   = target.Normal().Z();
-    auto w   = target.D();
+    auto inv = Matrix::invert(m);
+    auto itm = Matrix::transpose(inv);
+    auto x   = target.normal.x;
+    auto y   = target.normal.y;
+    auto z   = target.normal.z;
+    auto w   = target.d;
 
-    expected.Normal({ x * itm.M11() + y * itm.M21() + z * itm.M31() + w * itm.M41()
-                    , x * itm.M12() + y * itm.M22() + z * itm.M32() + w * itm.M42()
-                    , x * itm.M13() + y * itm.M23() + z * itm.M33() + w * itm.M43() });
+    expected.normal = { x * itm.m11 + y * itm.m21 + z * itm.m31 + w * itm.m41
+                      , x * itm.m12 + y * itm.m22 + z * itm.m32 + w * itm.m42
+                      , x * itm.m13 + y * itm.m23 + z * itm.m33 + w * itm.m43 };
 
-    expected.D(x * itm.M14() + y * itm.M24() + z * itm.M34() + w * itm.M44());
+    expected.d = (x * itm.m14 + y * itm.m24 + z * itm.m34 + w * itm.m44);
 
-    auto actual = Plane::Transform(target, m);
+    auto actual = Plane::transform(target, m);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -238,31 +238,31 @@ TEST_F(PlaneTest, TransformByMatrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(PlaneTest, TransformByQuaternion)
 {
-    auto target = Plane::Normalize({ 1, 2, 3, 4 });
-    auto m      = Matrix::CreateRotationX(Math::to_radians(30.0f))
-                * Matrix::CreateRotationY(Math::to_radians(30.0f))
-                * Matrix::CreateRotationZ(Math::to_radians(30.0f));
+    auto target = Plane::normalize({ 1, 2, 3, 4 });
+    auto m      = Matrix::create_rotation_x(Math::to_radians(30.0f))
+                * Matrix::create_rotation_y(Math::to_radians(30.0f))
+                * Matrix::create_rotation_z(Math::to_radians(30.0f));
 
-    m.M41(10.0f);
-    m.M42(20.0f);
-    m.M43(30.0f);
+    m.m41 = 10.0f;
+    m.m42 = 20.0f;
+    m.m43 = 30.0f;
 
-    auto q = Quaternion::CreateFromRotationMatrix(m);
+    auto q = Quaternion::create_from_rotation_matrix(m);
 
     Plane expected;
 
-    auto x = target.Normal().X();
-    auto y = target.Normal().Y();
-    auto z = target.Normal().Z();
-    auto w = target.D();
+    auto x = target.normal.x;
+    auto y = target.normal.y;
+    auto z = target.normal.z;
+    auto w = target.d;
 
-    expected.Normal({ x * m.M11() + y * m.M21() + z * m.M31() + w * m.M41()
-                    , x * m.M12() + y * m.M22() + z * m.M32() + w * m.M42()
-                    , x * m.M13() + y * m.M23() + z * m.M33() + w * m.M43() });
+    expected.normal = { x * m.m11 + y * m.m21 + z * m.m31 + w * m.m41
+                      , x * m.m12 + y * m.m22 + z * m.m32 + w * m.m42
+                      , x * m.m13 + y * m.m23 + z * m.m33 + w * m.m43 };
 
-    expected.D(x * m.M14() + y * m.M24() + z * m.M34() + w * m.M44());
+    expected.d = (x * m.m14 + y * m.m24 + z * m.m34 + w * m.m44);
 
-    auto actual = Plane::Transform(target, q);
+    auto actual = Plane::transform(target, q);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }

@@ -32,20 +32,20 @@ namespace System
             ~UTF8Decoder() override;
 
         public:
-            std::size_t GetCharCount(const std::vector<std::uint8_t>& bytes
-                                   , const std::size_t&               index
-                                   , const std::size_t&               count) const override;
+            std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
+                                     , const std::size_t&               index
+                                     , const std::size_t&               count) const override;
 
-            std::size_t GetChars(const std::vector<std::uint8_t>& bytes
-                               , const std::size_t&               byteIndex
-                               , const std::size_t&               byteCount
-                               , std::vector<char16_t>&           chars
-                               , const std::size_t&               charIndex) const override;
+            std::size_t get_chars(const std::vector<std::uint8_t>& bytes
+                                , const std::size_t&               byteIndex
+                                , const std::size_t&               byteCount
+                                , std::vector<char16_t>&           chars
+                                , const std::size_t&               charIndex) const override;
 
-            void Reset() override;
+            void reset() override;
 
         private:
-            std::codecvt_utf8_utf16<char16_t> converter;
+            std::codecvt_utf8_utf16<char16_t> _converter;
         };
     }
 }

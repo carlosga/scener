@@ -21,7 +21,7 @@ namespace SceneR
             , tag              { }
             , _mesh_parts      ( 0 )
             , _parent_bone     { nullptr }
-            , _bounding_sphere { Vector3::Zero, 0.0f }
+            , _bounding_sphere { Vector3::zero, 0.0f }
         {
         }
 

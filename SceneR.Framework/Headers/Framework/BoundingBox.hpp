@@ -56,27 +56,6 @@ namespace SceneR
 
         public:
             /**
-             * Gets the maximum point the BoundingBox contains.
-             */
-            const Vector3& max() const;
-
-            /**
-             * Sets the maximum point the BoundingBox contains.
-             */
-            void max(const Vector3& _max);
-
-            /**
-             * Gets the minimum point the BoundingBox contains.
-             */
-            const Vector3& min() const;
-
-            /**
-             * Sets the minimum point the BoundingBox contains.
-             */
-            void min(const Vector3& _min);
-
-        public:
-            /**
              * Checks whether the current BoundingBox contains another BoundingBox.
              * @param box the BoundingBox to test for overlap.
              * @returns the extent of overlap
@@ -149,9 +128,9 @@ namespace SceneR
             bool operator==(const BoundingBox& box) const;
             bool operator!=(const BoundingBox& box) const;
 
-        private:
-            Vector3 _min;
-            Vector3 _max;
+        public:
+            Vector3 min;
+            Vector3 max;
         };
     }
 }

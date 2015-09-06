@@ -159,38 +159,38 @@ namespace SceneR
             // http://www.chadvernon.com/blog/resources/directx9/frustum-culling/
 
             // Left plane
-            _left = Plane::Normalize({ _value.M14() + _value.M11()
-                                     , _value.M24() + _value.M21()
-                                     , _value.M34() + _value.M31()
-                                     , _value.M44() + _value.M41() });
+            _left = Plane::normalize({ _value.m14 + _value.m11
+                                     , _value.m24 + _value.m21
+                                     , _value.m34 + _value.m31
+                                     , _value.m44 + _value.m41 });
 
             // Right plane
-            _right = Plane::Normalize({ _value.M14() - _value.M11()
-                                      , _value.M24() - _value.M21()
-                                      , _value.M34() - _value.M31()
-                                      , _value.M44() - _value.M41() });
+            _right = Plane::normalize({ _value.m14 - _value.m11
+                                      , _value.m24 - _value.m21
+                                      , _value.m34 - _value.m31
+                                      , _value.m44 - _value.m41 });
 
             // Top plane
-            _top = Plane::Normalize({ _value.M14() - _value.M12()
-                                    , _value.M24() - _value.M22()
-                                    , _value.M34() - _value.M32()
-                                    , _value.M44() - _value.M42() });
+            _top = Plane::normalize({ _value.m14 - _value.m12
+                                    , _value.m24 - _value.m22
+                                    , _value.m34 - _value.m32
+                                    , _value.m44 - _value.m42 });
 
             // Bottom plane
-            _bottom = Plane::Normalize({ _value.M14() + _value.M12()
-                                       , _value.M24() + _value.M22()
-                                       , _value.M34() + _value.M32()
-                                       , _value.M44() + _value.M42() });
+            _bottom = Plane::normalize({ _value.m14 + _value.m12
+                                       , _value.m24 + _value.m22
+                                       , _value.m34 + _value.m32
+                                       , _value.m44 + _value.m42 });
 
             // Near plane
-            _near = Plane::Normalize({ _value.M13(), _value.M23(), _value.M33(), _value.M43() });
+            _near = Plane::normalize({ _value.m13, _value.m23, _value.m33, _value.m43 });
 
 
             // Far plane
-            _far = Plane::Normalize({ _value.M14() - _value.M13()
-                                    , _value.M24() - _value.M23()
-                                    , _value.M34() - _value.M33()
-                                    , _value.M44() - _value.M43() });
+            _far = Plane::normalize({ _value.m14 - _value.m13
+                                    , _value.m24 - _value.m23
+                                    , _value.m34 - _value.m33
+                                    , _value.m44 - _value.m43 });
         }
     }
 }

@@ -23,21 +23,21 @@ namespace SceneR
         Effect::Effect(GraphicsDevice& graphicsDevice)
             : GraphicsResource           { graphicsDevice }
             , _alpha                     { 1.0 }
-            , _ambient_light_color       { Vector3::Zero }
+            , _ambient_light_color       { Vector3::zero }
             , _bone_transforms           ( 0 )
-            , _diffuse_color             { Vector3::One }
+            , _diffuse_color             { Vector3::one }
             , _light_0                   { }
             , _light_1                   { }
             , _light_2                   { }
             , _lighting_enabled          { true }
-            , _emissive_color            { Vector3::Zero }
+            , _emissive_color            { Vector3::zero }
             , _fog_enabled               { false }
-            , _fog_color                 { Vector3::Zero }
+            , _fog_color                 { Vector3::zero }
             , _fog_end                   { 1.0f }
             , _fog_start                 { 0.0f }
             , _prefer_per_pixel_lighting { false }
             , _projection                { Matrix::Identity }
-            , _specular_color            { Vector3::One }
+            , _specular_color            { Vector3::one }
             , _specular_power            { 16.0f }
             , _texture_enabled           { false }
             , _texture                   { nullptr }

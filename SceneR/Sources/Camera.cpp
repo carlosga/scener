@@ -38,8 +38,8 @@ namespace SceneR
             _rotation          = 0.0f;
             _rotationTransform = Matrix::Identity;
 
-            projection = Matrix::CreatePerspectiveFieldOfView(Math::to_radians(27), aspect, 0.5f, 10000.0f);
-            view       = Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
+            projection = Matrix::create_perspective_field_of_view(Math::to_radians(27), aspect, 0.5f, 10000.0f);
+            view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
         }
 
         void Camera::update(const RenderTime& renderTime)
@@ -91,13 +91,13 @@ namespace SceneR
 
             if (currentRotation != _rotation)
             {
-                _rotationTransform = Matrix::CreateRotationY(_rotation, Vector3::Zero);
+                _rotationTransform = Matrix::create_rotation_y(_rotation, Vector3::zero);
             }
 
-            _position = Vector3::Lerp(currentPosition, newPosition, Math::pi_over_2);
+            _position = Vector3::lerp(currentPosition, newPosition, Math::pi_over_2);
 
             view = _rotationTransform
-                 * Matrix::CreateLookAt(_position, Vector3::Zero, Vector3::Up);
+                 * Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
         }
     }
 }

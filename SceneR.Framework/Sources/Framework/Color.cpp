@@ -6,8 +6,6 @@
 #include <cassert>
 
 #include <System/Math.hpp>
-#include <Framework/Vector3.hpp>
-#include <Framework/Vector4.hpp>
 
 namespace SceneR
 {
@@ -24,12 +22,12 @@ namespace SceneR
         }
 
         Color::Color(const Vector3& vector)
-            : Color ( vector.X(), vector.Y(), vector.Z(), 1.0f )
+            : Color ( vector.x, vector.y, vector.z, 1.0f )
         {
         }
 
         Color::Color(const Vector4& vector)
-            : Color ( vector.X(), vector.Y(), vector.Z(), vector.W() )
+            : Color ( vector.x, vector.y, vector.z, vector.w )
         {
         }
 

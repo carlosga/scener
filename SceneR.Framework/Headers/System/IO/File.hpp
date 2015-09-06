@@ -28,7 +28,7 @@ namespace System
             static bool exists(const std::u16string& path)
             {
                 auto result = true;
-                auto file   = std::fstream(System::Text::Encoding::Convert(path), std::ios::in);
+                auto file   = std::fstream(System::Text::Encoding::convert(path), std::ios::in);
 
                 if (!file || !file.good())
                 {
@@ -47,7 +47,7 @@ namespace System
              */
             static std::u16string read_all_text(const std::u16string& path)
             {
-                auto stream = std::wifstream(System::Text::Encoding::Convert(path), std::ios::in | std::ios::binary);
+                auto stream = std::wifstream(System::Text::Encoding::convert(path), std::ios::in | std::ios::binary);
 
                 assert(stream.is_open());
 

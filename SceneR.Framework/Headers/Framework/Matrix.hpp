@@ -7,13 +7,14 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <Framework/Vector4.hpp>
+
 namespace SceneR
 {
     namespace Framework
     {
         struct Plane;
         struct Vector3;
-        struct Vector4;
         struct Quaternion;
 
         /**
@@ -34,14 +35,14 @@ namespace SceneR
              * @param axis Vector3 that specifies the axis around which to rotate.
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateFromAxisAngle(const Vector3& axis, const float& angle);
+            static Matrix create_from_axis_angle(const Vector3& axis, const float& angle);
 
             /**
              * Creates a rotation Matrix from a Quaternion.
              *
              * @param quaternion Quaternion to create the Matrix from.
              */
-            static Matrix CreateFromQuaternion(const Quaternion& quaternion);
+            static Matrix create_from_quaternion(const Quaternion& quaternion);
 
             /**
              * Creates a new matrix with a specified yaw, pitch, and roll.
@@ -51,9 +52,7 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in radians.
              * @param roll Roll around the x-axis, in radians.
              */
-            static Matrix CreateFromYawPitchRoll(const float& yaw
-                                               , const float& pitch
-                                               , const float& roll);
+            static Matrix create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll);
 
             /**
              * Creates a perspective projection matrix.
@@ -65,9 +64,9 @@ namespace SceneR
              * @param zNear The distances to the near-depth clipping plane. Must be positive.
              * @param zFar The distances to the far-depth clipping plane. Must be positive.
              */
-            static Matrix CreateFrustum(const float& left  , const float& right
-                                      , const float& bottom, const float& top
-                                      , const float& zNear , const float& zFar);
+            static Matrix create_frustum(const float& left  , const float& right
+                                       , const float& bottom, const float& top
+                                       , const float& zNear , const float& zFar);
 
             /**
              * Creates a view matrix
@@ -76,9 +75,9 @@ namespace SceneR
              * @param cameraTarget The target towards which the camera is pointing.
              * @param cameraUpVector The direction that is "up" from the camera's point of view.
              */
-            static Matrix CreateLookAt(const Vector3& cameraPosition
-                                     , const Vector3& cameraTarget
-                                     , const Vector3& cameraUpVector);
+            static Matrix create_look_at(const Vector3& cameraPosition
+                                       , const Vector3& cameraTarget
+                                       , const Vector3& cameraUpVector);
 
             /**
              * Creates an orthogonal matrix
@@ -88,7 +87,7 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographic(const float& width
+            static Matrix create_orthographic(const float& width
                                            , const float& height
                                            , const float& zNear
                                            , const float& zFar);
@@ -103,12 +102,12 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreateOrthographicOffCenter(const float& left
-                                                    , const float& right
-                                                    , const float& bottom
-                                                    , const float& top
-                                                    , const float& zNear
-                                                    , const float& zFar);
+            static Matrix create_orthographic_off_center(const float& left
+                                                       , const float& right
+                                                       , const float& bottom
+                                                       , const float& top
+                                                       , const float& zNear
+                                                       , const float& zFar);
 
             /**
              * Builds a perspective projection matrix.
@@ -118,10 +117,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspective(const float& width
-                                          , const float& height
-                                          , const float& zNear
-                                          , const float& zFar);
+            static Matrix create_perspective(const float& width
+                                           , const float& height
+                                           , const float& zNear
+                                           , const float& zFar);
 
             /**
              * Builds a perspective projection matrix based on a field of view and returns by value.
@@ -131,10 +130,10 @@ namespace SceneR
              * @param zNear Distance to the near view plane.
              * @param zFar Distance to the far view plane.
              */
-            static Matrix CreatePerspectiveFieldOfView(const float& fieldOfView
-                                                     , const float& aspectRatio
-                                                     , const float& zNear
-                                                     , const float& zFar);
+            static Matrix create_perspective_field_of_view(const float& fieldOfView
+                                                         , const float& aspectRatio
+                                                         , const float& zNear
+                                                         , const float& zFar);
 
             /**
              * Builds a customized, right-handed perspective projection matrix.
@@ -145,19 +144,19 @@ namespace SceneR
              * @param zNear Minimum z-value of the view volume.
              * @param zFar Maximun z-value of the view volume.
              */
-            static Matrix CreatePerspectiveOffCenter(const float& left
-                                                   , const float& right
-                                                   , const float& bottom
-                                                   , const float& top
-                                                   , const float& zNear
-                                                   , const float& zFar);
+            static Matrix create_perspective_off_center(const float& left
+                                                      , const float& right
+                                                      , const float& bottom
+                                                      , const float& top
+                                                      , const float& zNear
+                                                      , const float& zFar);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationX(const float& angle);
+            static Matrix create_rotation_x(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the X-axis, from a center point.
@@ -165,14 +164,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationX(const float& angle, const Vector3& center);
+            static Matrix create_rotation_x(const float& angle, const Vector3& center);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationY(const float& angle);
+            static Matrix create_rotation_y(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the Y-axis, from a center point.
@@ -180,14 +179,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationY(const float& angle, const Vector3& center);
+            static Matrix create_rotation_y(const float& angle, const Vector3& center);
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix CreateRotationZ(const float& angle);
+            static Matrix create_rotation_z(const float& angle);
 
             /**
              * Creates a matrix for rotating points around the Z-axis, from a center point.
@@ -195,14 +194,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix CreateRotationZ(const float& angle, const Vector3& center);
+            static Matrix create_rotation_z(const float& angle, const Vector3& center);
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis.
              *
              * @param scale Amount to scale by.
              */
-            static Matrix CreateScale(const float& scale);
+            static Matrix create_scale(const float& scale);
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis with a center point.
@@ -210,14 +209,14 @@ namespace SceneR
              * @param scale Amount to scale by.
              * @param center The center point
              */
-            static Matrix CreateScale(const float& scale, const Vector3& center);
+            static Matrix create_scale(const float& scale, const Vector3& center);
 
             /**
              * Creates a scaling matrix from the specified vector scale.
              *
              * @param scales Amounts to scale by on the x, y, and z axes.
              */
-            static Matrix CreateScale(const Vector3& scales);
+            static Matrix create_scale(const Vector3& scales);
 
             /**
              * Creates a scaling matrix from the specified X, Y, and Z components.
@@ -226,9 +225,7 @@ namespace SceneR
              * @param yScale The value to scale by on the Y axis.
              * @param zScale The value to scale by on the Z axis.
              */
-            static Matrix CreateScale(const float& xScale
-                                    , const float& yScale
-                                    , const float& zScale);
+            static Matrix create_scale(const float& xScale, const float& yScale, const float& zScale);
 
             /**
              * Creates a scaling matrix with a center point.
@@ -236,7 +233,7 @@ namespace SceneR
              * @param scales The vector that contains the amount to scale on each axis.
              * @param center The center point
              */
-            static Matrix CreateScale(const Vector3& scales, const Vector3& center);
+            static Matrix create_scale(const Vector3& scales, const Vector3& center);
 
             /**
              * Creates a scaling matrix that is offset by a given center point.
@@ -246,17 +243,17 @@ namespace SceneR
              * @param zScale The value to scale by on the Z axis.
              * @param center The center point.
              */
-            static Matrix CreateScale(const float&   xScale
-                                    , const float&   yScale
-                                    , const float&   zScale
-                                    , const Vector3& center);
+            static Matrix create_scale(const float& xScale
+                                     , const float& yScale
+                                     , const float& zScale
+                                     , const Vector3& center);
 
             /**
              * Creates a translation Matrix
              *
              * @param position Amounts to translate by on the x, y, and z-axis.
              */
-            static Matrix CreateTranslation(const Vector3& position);
+            static Matrix create_translation(const Vector3& position);
 
             /**
              * Creates a translation Matrix
@@ -265,9 +262,7 @@ namespace SceneR
              * @param yPosition Value to translate by on the y-axis.
              * @param zPosition Value to translate by on the z-axis.
              */
-            static Matrix CreateTranslation(const float& xPosition
-                                          , const float& yPosition
-                                          , const float& zPosition);
+            static Matrix create_translation(const float& xPosition, const float& yPosition, const float& zPosition);
 
 
             /**
@@ -275,7 +270,7 @@ namespace SceneR
              * @param plane The plane
              * @return A new matrix expressing the reflection.
              */
-            static Matrix CreateReflection(const Plane& plane);
+            static Matrix create_reflection(const Plane& plane);
 
             /**
              * Creates a matrix that flattens geometry into a specified plane as if casting a shadow from a specified light source.
@@ -283,7 +278,7 @@ namespace SceneR
              * @param plane The plane onto which the new matrix should flatten geometry so as to cast a shadow.
              * @return A new matrix that can be used to flatten geometry onto the specified plane from the specified direction.
              */
-            static Matrix CreateShadow(const Vector3& lightDirection, const Plane& plane);
+            static Matrix create_shadow(const Vector3& lightDirection, const Plane& plane);
 
             /**
              * Creates a World Matrix
@@ -292,7 +287,7 @@ namespace SceneR
              * @param forward Forward direction of the object.
              * @param up Upward direction of the object; usually [0, 1, 0].
              */
-            static Matrix CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up);
+            static Matrix create_world(const Vector3& position, const Vector3& forward, const Vector3& up);
 
             /**
             * Extracts the scalar, translation, and rotation components from a 3D scale/rotate/translate (SRT) Matrix.
@@ -304,19 +299,19 @@ namespace SceneR
             *
             * @returns true if the Matrix can be decomposed; false otherwise.
             */
-            static bool Decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation);
+            static bool decompose(const Matrix& data, Vector3& scale, Quaternion& rotation, Vector3& translation);
 
             /**
              * Inverts the given Matrix structure.
              * @param matrix the matrix to invert.
              */
-            static Matrix Invert(const Matrix& matrix);
+            static Matrix invert(const Matrix& data);
 
             /**
             * Negates the given Matrix structure.
             * @param matrix the matrix to negate.
             */
-            static Matrix Negate(const Matrix& matrix);
+            static Matrix negate(const Matrix& data);
 
             /**
              * Transforms a Matrix by applying a Quaternion rotation.
@@ -325,14 +320,14 @@ namespace SceneR
              * @param rotation the quaternion rotation
              * @returns thr transformed matrix
              */
-            static Matrix Transform(const Matrix& value, const Quaternion& rotation);
+            static Matrix transform(const Matrix& value, const Quaternion& rotation);
 
             /**
              * Returns the tranpose of the given matrix.
              * @param source the source matrix.
              * @returns Transposed matrix.
              */
-            static Matrix Transpose(const Matrix& source);
+            static Matrix transpose(const Matrix& source);
 
         public:
             /**
@@ -370,7 +365,7 @@ namespace SceneR
              *
              * @param matrix The Matrix to be copied.
              */
-            Matrix(const Matrix& matrix);
+            Matrix(const Matrix& data);
 
             /**
              * Destructor
@@ -379,238 +374,60 @@ namespace SceneR
 
         public:
             /**
-             * Gets the value of the first row and first column of this Matrix.
-             * @return the value of the first row and first column of this Matrix.
-             */
-            float M11() const;
-
-            /**
-             * Gets the value of the first row and second column of this Matrix.
-             * @return the value of the first row and second column of this Matrix.
-             */
-            float M12() const;
-
-            /**
-             * Gets the value of the first row and third column of this Matrix.
-             * @return the value of the first row and third column of this Matrix.
-             */
-            float M13() const;
-
-            /**
-             * Gets the value of the first row and fourth column of this Matrix
-             * @return the value of the first row and fourth column of this Matrix
-             */
-            float M14() const;
-
-            /**
-             * Gets the value of the second row and first column of this Matrix
-             * @return the value of the second row and first column of this Matrix
-             */
-            float M21() const;
-
-            /**
-             * Gets the value of the second row and second column of this Matrix
-             * @return the value of the second row and second column of this Matrix
-             */
-            float M22() const;
-
-            /**
-             * Gets the value of the second row and third column of this Matrix
-             * @return the value of the second row and third column of this Matrix
-             */
-            float M23() const;
-
-            /**
-             * Gets the value of the second row and fourth column of this Matrix
-             * @return the value of the second row and fourth column of this Matrix
-             */
-            float M24() const;
-
-            /**
-             * Gets the value of the third row and first column of this Matrix
-             * @return the value of the third row and first column of this Matrix
-             */
-            float M31() const;
-
-            /**
-             * Gets the value of the third row and second column of this Matrix
-             * @return the value of the third row and second column of this Matrix
-             */
-            float M32() const;
-
-            /**
-             * Gets the value of the third row and third column of this Matrix
-             * @return the value of the third row and third column of this Matrix
-             */
-            float M33() const;
-
-            /**
-             * Gets the value of the third row and fourth column of this Matrix
-             * @return the value of the third row and fourth column of this Matrix
-             */
-            float M34() const;
-
-            /**
-             * Gets the value of the fourth row and first column of this Matrix
-             * @return the value of the fourth row and first column of this Matrix
-             */
-            float M41() const;
-
-            /**
-             * Gets the value of the fourth row and second column of this Matrix
-             * @return the value of the fourth row and second column of this Matrix
-             */
-            float M42() const;
-
-            /**
-             * Gets the value of the fourth row and third column of this Matrix
-             * @return the value of the fourth row and third column of this Matrix
-             */
-            float M43() const;
-
-            /**
-             * Gets the value of the fourth row and fourth column of this Matrix
-             * @return the value of the fourth row and fourth column of this Matrix
-             */
-            float M44() const;
-
-        public:
-            /**
-             * Sets the value of the first row and first column of this Matrix.
-             */
-            void M11(const float& value);
-
-            /**
-             * Sets the value of the first row and second column of this Matrix.
-             */
-            void M12(const float& value);
-
-            /**
-             * Sets the value of the first row and third column of this Matrix.
-             */
-            void M13(const float& value);
-
-            /**
-             * Sets the value of the first row and fourth column of this Matrix
-             */
-            void M14(const float& value);
-
-            /**
-             * Sets the value of the second row and first column of this Matrix
-             */
-            void M21(const float& value);
-
-            /**
-             * Sets the value of the second row and second column of this Matrix
-             */
-            void M22(const float& value);
-
-            /**
-             * Gets the value of the second row and third column of this Matrix
-             */
-            void M23(const float& value);
-
-            /**
-             * Sets the value of the second row and fourth column of this Matrix
-             */
-            void M24(const float& value);
-
-            /**
-             * Sets the value of the third row and first column of this Matrix
-             */
-            void M31(const float& value);
-
-            /**
-             * Sets the value of the third row and second column of this Matrix
-             */
-            void M32(const float& value);
-
-            /**
-             * Gets the value of the third row and third column of this Matrix
-             */
-            void M33(const float& value);
-
-            /**
-             * Gets the value of the third row and fourth column of this Matrix
-             */
-            void M34(const float& value);
-
-            /**
-             * Sets the value of the fourth row and first column of this Matrix
-             */
-            void M41(const float& value);
-
-            /**
-             * Sets the value of the fourth row and second column of this Matrix
-             */
-            void M42(const float& value);
-
-            /**
-             * Sets the value of the fourth row and third column of this Matrix
-             */
-            void M43(const float& value);
-
-            /**
-             * Sets the value of the fourth row and fourth column of this Matrix
-             */
-            void M44(const float& value);
-
-        public:
-            /**
              * Gets the translation component of this matrix.
              * @returns The translation component of the current instance.
             */
-            Vector3 Translation() const;
+            Vector3 translation() const;
 
             /**
              * Sets the translation component of this matrix.
              * @param translation the translation component for this matrix.
             */
-            void Translation(const Vector3& translation);
+            void translation(const Vector3& translation);
 
         public:
             /**
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
-            float Determinant() const;
+            float determinant() const;
 
             /**
              * Gets a value that indicates whether this Matrix is invertible.
              * @return a value that indicates whether this Matrix is invertible.
              */
-            bool HasInverse() const;
+            bool has_inverse() const;
 
             /**
              * Determines whether this Matrix structure is an identity Matrix.
              * @return a value indicating wheter the current matix is an identity matrix.
              */
-            bool IsIdentity() const;
+            bool is_identity() const;
 
         public:
             float& operator[](const std::size_t& index);
             const float& operator[](const std::size_t& index) const;
-            Matrix& operator=(const Matrix& matrix);
-            bool operator==(const Matrix& matrix) const;
-            bool operator!=(const Matrix& matrix) const;
-            Matrix& operator*=(const Matrix& matrix);
+            Matrix& operator=(const Matrix& data);
+            bool operator==(const Matrix& data) const;
+            bool operator!=(const Matrix& data) const;
+            Matrix& operator*=(const Matrix& data);
             Matrix& operator*=(const float& value);
-            Matrix& operator+=(const Matrix& matrix);
-            Matrix& operator-=(const Matrix& matrix);
-            const Matrix operator*(const Matrix& matrix) const;
+            Matrix& operator+=(const Matrix& data);
+            Matrix& operator-=(const Matrix& data);
+            const Matrix operator*(const Matrix& data) const;
             const Matrix operator*(const float& value) const;
-            const Matrix operator+(const Matrix& matrix) const;
-            const Matrix operator-(const Matrix& matrix) const;
+            const Matrix operator+(const Matrix& data) const;
+            const Matrix operator-(const Matrix& data) const;
             const Matrix operator-() const;
 
         private:
-            float SubMatrixDeterminant();
-            Matrix SubMatrix(const std::uint32_t& row, const std::uint32_t& column) const;
+            float sub_matrix_determinant();
+            Matrix sub_matrix(const std::uint32_t& row, const std::uint32_t& column) const;
 
-        private:
+        public:
             union
             {
-                float matrix[16];
+                float data[16];
                 struct
                 {
                     float m11;
@@ -630,6 +447,10 @@ namespace SceneR
                     float m43;
                     float m44;
                 };
+                Vector4 row_1;
+                Vector4 row_2;
+                Vector4 row_3;
+                Vector4 row_4;
             };
         };
     }

@@ -23,16 +23,16 @@ namespace SceneR
                                       , 0.0f, 0.0f, 1.0f, 0.0f
                                       , 0.0f, 0.0f, 0.0f, 1.0f };
 
-        Matrix Matrix::CreateFromAxisAngle(const Vector3& axis, const float&  angle)
+        Matrix Matrix::create_from_axis_angle(const Vector3& axis, const float&  angle)
         {
             // http://mathworld.wolfram.com/RodriguesRotationFormula.html
-            auto  naxis = Vector3::Normalize(axis);
+            auto  naxis = Vector3::normalize(axis);
             float cos   = Math::cos(angle);
             float sin   = Math::sin(angle);
             float cos_1 = 1.0f - cos;
-            float x     = naxis.X();
-            float y     = naxis.Y();
-            float z     = naxis.Z();
+            float x     = naxis.x;
+            float y     = naxis.y;
+            float z     = naxis.z;
             float xx    = x * x;
             float yy    = y * y;
             float zz    = z * z;
@@ -46,7 +46,7 @@ namespace SceneR
                    , 0.0f                 , 0.0f                 , 0.0f                 , 1.0f };
         }
 
-        Matrix Matrix::CreateFromQuaternion(const Quaternion& quaternion)
+        Matrix Matrix::create_from_quaternion(const Quaternion& quaternion)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             //            http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
@@ -55,15 +55,15 @@ namespace SceneR
             // 2xy + 2zw        1 - 2xx - 2zz   2yz - 2xw
             // 2xz - 2yw        2yz + 2xw       1 - 2xx - 2yy
 
-            float xx = quaternion.X() * quaternion.X();
-            float yy = quaternion.Y() * quaternion.Y();
-            float zz = quaternion.Z() * quaternion.Z();
-            float xy = quaternion.X() * quaternion.Y();
-            float zw = quaternion.Z() * quaternion.W();
-            float xz = quaternion.X() * quaternion.Z();
-            float yw = quaternion.Y() * quaternion.W();
-            float yz = quaternion.Y() * quaternion.Z();
-            float xw = quaternion.X() * quaternion.W();
+            float xx = quaternion.x * quaternion.x;
+            float yy = quaternion.y * quaternion.y;
+            float zz = quaternion.z * quaternion.z;
+            float xy = quaternion.x * quaternion.y;
+            float zw = quaternion.z * quaternion.w;
+            float xz = quaternion.x * quaternion.z;
+            float yw = quaternion.y * quaternion.w;
+            float yz = quaternion.y * quaternion.z;
+            float xw = quaternion.x * quaternion.w;
 
             return { 1.0f - 2.0f * (yy + zz), 2.0f * (xy + zw)       , 2.0f * (xz - yw)       , 0.0f
                    , 2.0f * (xy - zw)       , 1.0f - 2.0f * (xx + zz), 2.0f * (yz + xw)       , 0.0f
@@ -71,14 +71,14 @@ namespace SceneR
                    , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
         }
 
-        Matrix Matrix::CreateFromYawPitchRoll(const float& yaw, const float& pitch, const float& roll)
+        Matrix Matrix::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll)
         {
-            return Matrix::CreateFromAxisAngle(Vector3::UnitZ, roll)
-                 * Matrix::CreateFromAxisAngle(Vector3::UnitX, pitch)
-                 * Matrix::CreateFromAxisAngle(Vector3::UnitY, yaw);
+            return Matrix::create_from_axis_angle(Vector3::unit_z, roll)
+                 * Matrix::create_from_axis_angle(Vector3::unit_x, pitch)
+                 * Matrix::create_from_axis_angle(Vector3::unit_y, yaw);
         }
 
-        Matrix Matrix::CreateFrustum(const float& left  , const float& right
+        Matrix Matrix::create_frustum(const float& left  , const float& right
                                    , const float& bottom, const float& top
                                    , const float& zNear , const float& zFar)
         {
@@ -100,7 +100,9 @@ namespace SceneR
                    , 0.0f                      , 0.0f                      , -1.0f                         , 0.0f };
         }
 
-        Matrix Matrix::CreateLookAt(const Vector3& cameraPosition, const Vector3& cameraTarget, const Vector3& cameraUpVector)
+        Matrix Matrix::create_look_at(const Vector3& cameraPosition
+                                    , const Vector3& cameraTarget
+                                    , const Vector3& cameraUpVector)
         {
             // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb281711(v=vs.85).aspx
             // zaxis = normal(cameraPosition - cameraTarget)
@@ -112,20 +114,23 @@ namespace SceneR
             //  xaxis.z                    yaxis.z                     zaxis.z                     0
             // -dot(xaxis, cameraPosition) -dot(yaxis, cameraPosition) -dot(zaxis, cameraPosition) 1
 
-            auto zAxis = Vector3::Normalize(cameraPosition - cameraTarget);
-            auto xAxis = Vector3::Normalize(Vector3::Cross(cameraUpVector, zAxis));
-            auto yAxis = Vector3::Cross(zAxis, xAxis);
-            auto dx    = Vector3::Dot(xAxis, cameraPosition);
-            auto dy    = Vector3::Dot(yAxis, cameraPosition);
-            auto dz    = Vector3::Dot(zAxis, cameraPosition);
+            auto zAxis = Vector3::normalize(cameraPosition - cameraTarget);
+            auto xAxis = Vector3::normalize(Vector3::cross(cameraUpVector, zAxis));
+            auto yAxis = Vector3::cross(zAxis, xAxis);
+            auto dx    = Vector3::dot(xAxis, cameraPosition);
+            auto dy    = Vector3::dot(yAxis, cameraPosition);
+            auto dz    = Vector3::dot(zAxis, cameraPosition);
 
-            return { xAxis.X(), yAxis.X(), zAxis.X(), 0.0f
-                   , xAxis.Y(), yAxis.Y(), zAxis.Y(), 0.0f
-                   , xAxis.Z(), yAxis.Z(), zAxis.Z(), 0.0f
+            return { xAxis.x, yAxis.x, zAxis.x, 0.0f
+                   , xAxis.y, yAxis.y, zAxis.y, 0.0f
+                   , xAxis.z, yAxis.z, zAxis.z, 0.0f
                    , -dx      , -dy      , -dz      , 1.0f };
         }
 
-        Matrix Matrix::CreateOrthographic(const float& width, const float& height, const float& zNear, const float& zFar)
+        Matrix Matrix::create_orthographic(const float& width
+                                         , const float& height
+                                         , const float& zNear
+                                         , const float& zFar)
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
             // 2/w  0    0           0
@@ -141,9 +146,9 @@ namespace SceneR
                    , 0.0f        , 0.0f         , zNear / nearSubFar, 1.0f };
         }
 
-        Matrix Matrix::CreateOrthographicOffCenter(const float& left  , const float& right
-                                                 , const float& bottom, const float& top
-                                                 , const float& zNear , const float& zFar)
+        Matrix Matrix::create_orthographic_off_center(const float& left  , const float& right
+                                                    , const float& bottom, const float& top
+                                                    , const float& zNear , const float& zFar)
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
             // 2/(r-l)      0            0           0
@@ -163,8 +168,10 @@ namespace SceneR
                    , leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f };
         }
 
-        Matrix Matrix::CreatePerspective(const float& width, const float& height
-                                       , const float& zNear, const float& zFar)
+        Matrix Matrix::create_perspective(const float& width
+                                        , const float& height
+                                        , const float& zNear
+                                        , const float& zFar)
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
             // 2*zn/w  0       0              0
@@ -195,8 +202,10 @@ namespace SceneR
                    , 0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f };
         }
 
-        Matrix Matrix::CreatePerspectiveFieldOfView(const float& fieldOfView, const float& aspectRatio,
-                                                    const float& zNear      , const float& zFar)
+        Matrix Matrix::create_perspective_field_of_view(const float& fieldOfView
+                                                      , const float& aspectRatio
+                                                      , const float& zNear
+                                                      , const float& zFar)
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
             // xScale     0          0              0
@@ -238,12 +247,12 @@ namespace SceneR
                    , 0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f };
         }
 
-        Matrix Matrix::CreatePerspectiveOffCenter(const float& left
-                                                , const float& right
-                                                , const float& bottom
-                                                , const float& top
-                                                , const float& zNear
-                                                , const float& zFar)
+        Matrix Matrix::create_perspective_off_center(const float& left
+                                                   , const float& right
+                                                   , const float& bottom
+                                                   , const float& top
+                                                   , const float& zNear
+                                                   , const float& zFar)
         {
             if (zNear <= 0.0f)
             {
@@ -279,7 +288,7 @@ namespace SceneR
                    , 0.0f                        , 0.0f                        , zNear * zFar / nearSubFar, 0.0f};
         }
 
-        Matrix Matrix::CreateRotationX(const float& angle)
+        Matrix Matrix::create_rotation_x(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -291,7 +300,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::CreateRotationX(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_x(const float& angle, const Vector3& center)
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -302,8 +311,8 @@ namespace SceneR
 
             float cos = Math::cos(angle);
             float sin = Math::sin(angle);
-            float y   = center.Y();
-            float z   = center.Z();
+            float y   = center.y;
+            float z   = center.z;
 
             return { 1.0f, 0.0f                 , 0.0f                 , 0.0f
                    , 0.0f,  cos                 , sin                  , 0.0f
@@ -311,7 +320,7 @@ namespace SceneR
                    , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
         }
 
-        Matrix Matrix::CreateRotationY(const float& angle)
+        Matrix Matrix::create_rotation_y(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -323,7 +332,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::CreateRotationY(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_y(const float& angle, const Vector3& center)
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -334,8 +343,8 @@ namespace SceneR
 
             float cos = Math::cos(angle);
             float sin = Math::sin(angle);
-            float x   = center.X();
-            float z   = center.Z();
+            float x   = center.x;
+            float z   = center.z;
 
             return { cos                  , 0.0f, -sin                 , 0.0f
                    , 0.0f                 , 1.0f, 0.0f                 , 0.0f
@@ -343,7 +352,7 @@ namespace SceneR
                    , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
         }
 
-        Matrix Matrix::CreateRotationZ(const float& angle)
+        Matrix Matrix::create_rotation_z(const float& angle)
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -355,7 +364,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::CreateRotationZ(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_z(const float& angle, const Vector3& center)
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -366,8 +375,8 @@ namespace SceneR
 
             float cos = Math::cos(angle);
             float sin = Math::sin(angle);
-            float x   = center.X();
-            float y   = center.Y();
+            float x   = center.x;
+            float y   = center.y;
 
             return { cos                  , sin                  , 0.0f, 0.0f
                    , -sin                 , cos                  , 0.0f, 0.0f
@@ -375,22 +384,22 @@ namespace SceneR
                    , x - cos * x + sin * y, y - sin * x - cos * y, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::CreateScale(const float& scale)
+        Matrix Matrix::create_scale(const float& scale)
         {
-            return Matrix::CreateScale(scale, scale, scale);
+            return Matrix::create_scale(scale, scale, scale);
         }
 
-        Matrix Matrix::CreateScale(const float& scale, const Vector3& center)
+        Matrix Matrix::create_scale(const float& scale, const Vector3& center)
         {
-            return Matrix::CreateScale(scale, scale, scale, center);
+            return Matrix::create_scale(scale, scale, scale, center);
         }
 
-        Matrix Matrix::CreateScale(const Vector3& scales)
+        Matrix Matrix::create_scale(const Vector3& scales)
         {
-            return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z());
+            return Matrix::create_scale(scales.x, scales.y, scales.z);
         }
 
-        Matrix Matrix::CreateScale(const float& xScale, const float& yScale, const float& zScale)
+        Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale)
         {
             return { xScale, 0.0f  , 0.0f  , 0.0f
                    , 0.0f  , yScale, 0.0f  , 0.0f
@@ -398,12 +407,12 @@ namespace SceneR
                    , 0.0f  , 0.0f  , 0.0f  , 1.0f };
         }
 
-        Matrix Matrix::CreateScale(const Vector3& scales, const Vector3& center)
+        Matrix Matrix::create_scale(const Vector3& scales, const Vector3& center)
         {
-            return Matrix::CreateScale(scales.X(), scales.Y(), scales.Z(), center);
+            return Matrix::create_scale(scales.x, scales.y, scales.z, center);
         }
 
-        Matrix Matrix::CreateScale(const float& xScale, const float& yScale, const float& zScale, const Vector3& center)
+        Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale, const Vector3& center)
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -412,9 +421,9 @@ namespace SceneR
             // s20	s21	s22	z - s20*x - s21*y - s22*z
             // 0	0	0	1
 
-            float x  = center.X();
-            float y  = center.Y();
-            float z  = center.Z();
+            float x  = center.x;
+            float y  = center.y;
+            float z  = center.z;
 
             return { xScale        , 0.0f          , 0.0f          , 0.0f
                    , 0.0f          , yScale        , 0.0f          , 0.0f
@@ -422,12 +431,12 @@ namespace SceneR
                    , x - xScale * x, y - yScale * y, z - zScale * z, 1.0f };
         }
 
-        Matrix Matrix::CreateTranslation(const Vector3& position)
+        Matrix Matrix::create_translation(const Vector3& position)
         {
-            return Matrix::CreateTranslation(position.X(), position.Y(), position.Z());
+            return Matrix::create_translation(position.x, position.y, position.z);
         }
 
-        Matrix Matrix::CreateTranslation(const float& x, const float& y, const float& z)
+        Matrix Matrix::create_translation(const float& x, const float& y, const float& z)
         {
             return { 1.0f, 0.0f, 0.0f, 0.0f
                    , 0.0f, 1.0f, 0.0f, 0.0f
@@ -435,7 +444,7 @@ namespace SceneR
                 , x   , y   , z   , 1.0f };
         }
 
-        Matrix Matrix::CreateReflection(const Plane &plane)
+        Matrix Matrix::create_reflection(const Plane &plane)
         {
             // Reference: https://msdn.microsoft.com/en-us/library/bb205356(v=vs.85).aspx
             // P = normalize(Plane);
@@ -445,11 +454,11 @@ namespace SceneR
             // -2 * P.a * P.c      -2 * P.b * P.c      -2 * P.c * P.c + 1    0
             // -2 * P.a * P.d      -2 * P.b * P.d      -2 * P.c * P.d        1
 
-            auto P = Plane::Normalize(plane);
-            auto a = -P.Normal().X();
-            auto b = -P.Normal().Y();
-            auto c = -P.Normal().Z();
-            auto d = -P.D();
+            auto P = Plane::normalize(plane);
+            auto a = -P.normal.x;
+            auto b = -P.normal.y;
+            auto c = -P.normal.z;
+            auto d = -P.d;
 
             return { -2 * a * a + 1, -2 * b * a    , -2 * c * a    , 0.0f
                    , -2 * a * b    , -2 * b * b + 1, -2 * c * b    , 0.0f
@@ -457,7 +466,7 @@ namespace SceneR
                    , -2 * a * d    , -2 * b * d    , -2 * c * d    , 1.0f };
         }
 
-        Matrix Matrix::CreateShadow(const Vector3& lightDirection, const Plane& plane)
+        Matrix Matrix::create_shadow(const Vector3& lightDirection, const Plane& plane)
         {
             // Reference: https://msdn.microsoft.com/en-us/library/bb205364(v=vs.85).aspx
 
@@ -473,33 +482,33 @@ namespace SceneR
             // If the light's w-component is 0, the ray from the origin to the light represents a directional light.
             // If it is 1, the light is a point light.
 
-            auto P = Plane::Normalize(plane);
+            auto P = Plane::normalize(plane);
             auto L = Vector4 { lightDirection, 0.0f };
-            auto a = -P.Normal().X();
-            auto b = -P.Normal().Y();
-            auto c = -P.Normal().Z();
-            auto d = -P.D();
-            auto D = Plane::Dot(P, L);
+            auto a = -P.normal.x;
+            auto b = -P.normal.y;
+            auto c = -P.normal.z;
+            auto d = -P.d;
+            auto D = Plane::dot(P, L);
 
-            return { a * L.X() + D, a * L.Y()    , a * L.Z()    , a * L.W()
-                   , b * L.X()    , b * L.Y() + D, b * L.Z()    , b * L.W()
-                   , c * L.X()    , c * L.Y()    , c * L.Z() + D, c * L.W()
-                   , d * L.X()    , d * L.Y()    , d * L.Z()    , d * L.W() + D };
+            return { a * L.x + D, a * L.y    , a * L.z    , a * L.w
+                   , b * L.x    , b * L.y + D, b * L.z    , b * L.w
+                   , c * L.x    , c * L.y    , c * L.z + D, c * L.w
+                   , d * L.x    , d * L.y    , d * L.z    , d * L.w + D };
         }
 
-        Matrix Matrix::CreateWorld(const Vector3& position, const Vector3& forward, const Vector3& up)
+        Matrix Matrix::create_world(const Vector3& position, const Vector3& forward, const Vector3& up)
         {
-            auto nf    = Vector3::Normalize(forward);
-            auto right = Vector3::Normalize(Vector3::Cross(nf, Vector3::Normalize(up)));
-            auto upv   = Vector3::Normalize(Vector3::Cross(right, nf));
+            auto nf    = Vector3::normalize(forward);
+            auto right = Vector3::normalize(Vector3::cross(nf, Vector3::normalize(up)));
+            auto upv   = Vector3::normalize(Vector3::cross(right, nf));
 
-            return { right.X()   , right.Y()   , right.Z()   , 0.0f
-                   , upv.X()     , upv.Y()     , upv.Z()     , 0.0f
-                   , -nf.X()     , -nf.Y()     , -nf.Z()     , 0.0f
-                   , position.X(), position.Y(), position.Z(), 1.0f };
+            return { right.x   , right.y   , right.z   , 0.0f
+                   , upv.x     , upv.y     , upv.z     , 0.0f
+                   , -nf.x     , -nf.y     , -nf.z     , 0.0f
+                   , position.x, position.y, position.z, 1.0f };
         }
 
-        bool Matrix::Decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation)
+        bool Matrix::decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation)
         {
             translation = { matrix.m41, matrix.m42, matrix.m43 };
 
@@ -507,26 +516,26 @@ namespace SceneR
             auto v2 = Vector3 { matrix.m21, matrix.m22, matrix.m23 };
             auto v3 = Vector3 { matrix.m31, matrix.m32, matrix.m33 };
 
-            scale = { v1.Length(), v2.Length(), v3.Length() };
+            scale = { v1.length(), v2.length(), v3.length() };
 
-            if (matrix.Determinant() < 0.0f)
+            if (matrix.determinant() < 0.0f)
             {
                 scale *= -1;
             }
 
-            rotation = Quaternion::CreateFromRotationMatrix(matrix);
+            rotation = Quaternion::create_from_rotation_matrix(matrix);
 
-            return (scale != Vector3::Zero && rotation != Quaternion::Identity && translation != Vector3::Zero);
+            return (scale != Vector3::zero && rotation != Quaternion::Identity && translation != Vector3::zero);
         }
 
-        Matrix Matrix::Invert(const Matrix& matrix)
+        Matrix Matrix::invert(const Matrix& matrix)
         {
             Matrix inverse = Matrix::Identity;
 
-            if (matrix.HasInverse())
+            if (matrix.has_inverse())
             {
                 // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-                auto         mdet = matrix.Determinant();
+                auto         mdet = matrix.determinant();
                 Matrix       mtemp;
                 std::int32_t sign;
 
@@ -535,8 +544,8 @@ namespace SceneR
                     for (std::uint32_t j = 0; j < 4; j++)
                     {
                         sign               = 1 - ((i + j) % 2) * 2;
-                        mtemp              = matrix.SubMatrix(i, j);
-                        inverse[i + j * 4] = (mtemp.SubMatrixDeterminant() * sign) / mdet;
+                        mtemp              = matrix.sub_matrix(i, j);
+                        inverse[i + j * 4] = (mtemp.sub_matrix_determinant() * sign) / mdet;
                     }
                 }
             }
@@ -544,17 +553,17 @@ namespace SceneR
             return inverse;
         }
 
-        Matrix Matrix::Negate(const Matrix& matrix)
+        Matrix Matrix::negate(const Matrix& matrix)
         {
             return matrix * -1;
         }
 
-        Matrix Matrix::Transform(const Matrix& value, const Quaternion& rotation)
+        Matrix Matrix::transform(const Matrix& value, const Quaternion& rotation)
         {
-            return value * Matrix::CreateFromQuaternion(rotation);
+            return value * Matrix::create_from_quaternion(rotation);
         }
 
-        Matrix Matrix::Transpose(const Matrix& source)
+        Matrix Matrix::transpose(const Matrix& source)
         {
             return { source.m11, source.m21, source.m31, source.m41
                    , source.m12, source.m22, source.m32, source.m42
@@ -593,179 +602,19 @@ namespace SceneR
         {
         }
 
-        float Matrix::M11() const
-        {
-            return this->m11;
-        }
-
-        float Matrix::M12() const
-        {
-            return this->m12;
-        }
-
-        float Matrix::M13() const
-        {
-            return this->m13;
-        }
-
-        float Matrix::M14() const
-        {
-            return this->m14;
-        }
-
-        float Matrix::M21() const
-        {
-            return this->m21;
-        }
-
-        float Matrix::M22() const
-        {
-            return this->m22;
-        }
-
-        float Matrix::M23() const
-        {
-            return this->m23;
-        }
-
-        float Matrix::M24() const
-        {
-            return this->m24;
-        }
-
-        float Matrix::M31() const
-        {
-            return this->m31;
-        }
-
-        float Matrix::M32() const
-        {
-            return this->m32;
-        }
-
-        float Matrix::M33() const
-        {
-            return this->m33;
-        }
-
-        float Matrix::M34() const
-        {
-            return this->m34;
-        }
-
-        float Matrix::M41() const
-        {
-            return this->m41;
-        }
-
-        float Matrix::M42() const
-        {
-            return this->m42;
-        }
-
-        float Matrix::M43() const
-        {
-            return this->m43;
-        }
-
-        float Matrix::M44() const
-        {
-            return this->m44;
-        }
-
-        void Matrix::M11(const float& value)
-        {
-            this->m11 = value;
-        }
-
-        void Matrix::M12(const float& value)
-        {
-            this->m12 = value;
-        }
-
-        void Matrix::M13(const float& value)
-        {
-            this->m13 = value;
-        }
-
-        void Matrix::M14(const float& value)
-        {
-            this->m14 = value;
-        }
-
-        void Matrix::M21(const float& value)
-        {
-            this->m21 = value;
-        }
-
-        void Matrix::M22(const float& value)
-        {
-            this->m22 = value;
-        }
-
-        void Matrix::M23(const float& value)
-        {
-            this->m23 = value;
-        }
-
-        void Matrix::M24(const float& value)
-        {
-            this->m24 = value;
-        }
-
-        void Matrix::M31(const float& value)
-        {
-            this->m31 = value;
-        }
-
-        void Matrix::M32(const float& value)
-        {
-            this->m32 = value;
-        }
-
-        void Matrix::M33(const float& value)
-        {
-            this->m33 = value;
-        }
-
-        void Matrix::M34(const float& value)
-        {
-            this->m34 = value;
-        }
-
-        void Matrix::M41(const float& value)
-        {
-            this->m41 = value;
-        }
-
-        void Matrix::M42(const float& value)
-        {
-            this->m42 = value;
-        }
-
-        void Matrix::M43(const float& value)
-        {
-            this->m43 = value;
-        }
-
-        void Matrix::M44(const float& value)
-        {
-            this->m44 = value;
-        }
-
-        Vector3 Matrix::Translation() const
+        Vector3 Matrix::translation() const
         {
             return { this->m41, this->m42, this->m43 };
         }
 
-        void Matrix::Translation(const Vector3& translation)
+        void Matrix::translation(const Vector3& translation)
         {
-            this->m41 = translation.X();
-            this->m42 = translation.Y();
-            this->m43 = translation.Z();
+            this->m41 = translation.x;
+            this->m42 = translation.y;
+            this->m43 = translation.z;
         }
 
-        float Matrix::Determinant() const
+        float Matrix::determinant() const
         {
             // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
             std::int32_t i      = 1;
@@ -775,20 +624,20 @@ namespace SceneR
 
             for (std::uint32_t n = 0; n < 4; n++, i *= -1)
             {
-                msub    = this->SubMatrix(0, n);
-                det     = msub.SubMatrixDeterminant();
-                result += this->matrix[n] * det * i;
+                msub    = this->sub_matrix(0, n);
+                det     = msub.sub_matrix_determinant();
+                result += this->data[n] * det * i;
             }
 
             return result;
         }
 
-        bool Matrix::HasInverse() const
+        bool Matrix::has_inverse() const
         {
-            return (Math::abs(this->Determinant()) > 0.0005f);
+            return (Math::abs(this->determinant()) > 0.0005f);
         }
 
-        bool Matrix::IsIdentity() const
+        bool Matrix::is_identity() const
         {
             return (*this == Matrix::Identity);
         }
@@ -797,39 +646,39 @@ namespace SceneR
         {
             assert(index < 16);
 
-            return this->matrix[index];
+            return this->data[index];
         }
 
         const float& Matrix::operator[](const std::size_t& index) const
         {
             assert(index < 16);
 
-            return this->matrix[index];
+            return this->data[index];
         }
 
         Matrix& Matrix::operator=(const Matrix& matrix)
         {
             if (this != &matrix)
             {
-                this->m11 = matrix.m11;
-                this->m12 = matrix.m12;
-                this->m13 = matrix.m13;
-                this->m14 = matrix.m14;
+                m11 = matrix.m11;
+                m12 = matrix.m12;
+                m13 = matrix.m13;
+                m14 = matrix.m14;
 
-                this->m21 = matrix.m21;
-                this->m22 = matrix.m22;
-                this->m23 = matrix.m23;
-                this->m24 = matrix.m24;
+                m21 = matrix.m21;
+                m22 = matrix.m22;
+                m23 = matrix.m23;
+                m24 = matrix.m24;
 
-                this->m31 = matrix.m31;
-                this->m32 = matrix.m32;
-                this->m33 = matrix.m33;
-                this->m34 = matrix.m34;
+                m31 = matrix.m31;
+                m32 = matrix.m32;
+                m33 = matrix.m33;
+                m34 = matrix.m34;
 
-                this->m41 = matrix.m41;
-                this->m42 = matrix.m42;
-                this->m43 = matrix.m43;
-                this->m44 = matrix.m44;
+                m41 = matrix.m41;
+                m42 = matrix.m42;
+                m43 = matrix.m43;
+                m44 = matrix.m44;
             }
 
             return *this;
@@ -837,22 +686,22 @@ namespace SceneR
 
         bool Matrix::operator==(const Matrix& matrix) const
         {
-            return (Math::equal(this->m11, matrix.m11)
-                 && Math::equal(this->m12, matrix.m12)
-                 && Math::equal(this->m13, matrix.m13)
-                 && Math::equal(this->m14, matrix.m14)
-                 && Math::equal(this->m21, matrix.m21)
-                 && Math::equal(this->m22, matrix.m22)
-                 && Math::equal(this->m23, matrix.m23)
-                 && Math::equal(this->m24, matrix.m24)
-                 && Math::equal(this->m31, matrix.m31)
-                 && Math::equal(this->m32, matrix.m32)
-                 && Math::equal(this->m33, matrix.m33)
-                 && Math::equal(this->m34, matrix.m34)
-                 && Math::equal(this->m41, matrix.m41)
-                 && Math::equal(this->m42, matrix.m42)
-                 && Math::equal(this->m43, matrix.m43)
-                 && Math::equal(this->m44, matrix.m44));
+            return (Math::equal(m11, matrix.m11)
+                 && Math::equal(m12, matrix.m12)
+                 && Math::equal(m13, matrix.m13)
+                 && Math::equal(m14, matrix.m14)
+                 && Math::equal(m21, matrix.m21)
+                 && Math::equal(m22, matrix.m22)
+                 && Math::equal(m23, matrix.m23)
+                 && Math::equal(m24, matrix.m24)
+                 && Math::equal(m31, matrix.m31)
+                 && Math::equal(m32, matrix.m32)
+                 && Math::equal(m33, matrix.m33)
+                 && Math::equal(m34, matrix.m34)
+                 && Math::equal(m41, matrix.m41)
+                 && Math::equal(m42, matrix.m42)
+                 && Math::equal(m43, matrix.m43)
+                 && Math::equal(m44, matrix.m44));
         }
 
         bool Matrix::operator!=(const Matrix& matrix) const
@@ -864,100 +713,100 @@ namespace SceneR
         {
             auto left = *this;
 
-            this->m11 = ((left.m11 * right.m11) + (left.m12 * right.m21) + (left.m13 * right.m31) + (left.m14 * right.m41));
-            this->m12 = ((left.m11 * right.m12) + (left.m12 * right.m22) + (left.m13 * right.m32) + (left.m14 * right.m42));
-            this->m13 = ((left.m11 * right.m13) + (left.m12 * right.m23) + (left.m13 * right.m33) + (left.m14 * right.m43));
-            this->m14 = ((left.m11 * right.m14) + (left.m12 * right.m24) + (left.m13 * right.m34) + (left.m14 * right.m44));
+            m11 = ((left.m11 * right.m11) + (left.m12 * right.m21) + (left.m13 * right.m31) + (left.m14 * right.m41));
+            m12 = ((left.m11 * right.m12) + (left.m12 * right.m22) + (left.m13 * right.m32) + (left.m14 * right.m42));
+            m13 = ((left.m11 * right.m13) + (left.m12 * right.m23) + (left.m13 * right.m33) + (left.m14 * right.m43));
+            m14 = ((left.m11 * right.m14) + (left.m12 * right.m24) + (left.m13 * right.m34) + (left.m14 * right.m44));
 
-            this->m21 = ((left.m21 * right.m11) + (left.m22 * right.m21) + (left.m23 * right.m31) + (left.m24 * right.m41));
-            this->m22 = ((left.m21 * right.m12) + (left.m22 * right.m22) + (left.m23 * right.m32) + (left.m24 * right.m42));
-            this->m23 = ((left.m21 * right.m13) + (left.m22 * right.m23) + (left.m23 * right.m33) + (left.m24 * right.m43));
-            this->m24 = ((left.m21 * right.m14) + (left.m22 * right.m24) + (left.m23 * right.m34) + (left.m24 * right.m44));
+            m21 = ((left.m21 * right.m11) + (left.m22 * right.m21) + (left.m23 * right.m31) + (left.m24 * right.m41));
+            m22 = ((left.m21 * right.m12) + (left.m22 * right.m22) + (left.m23 * right.m32) + (left.m24 * right.m42));
+            m23 = ((left.m21 * right.m13) + (left.m22 * right.m23) + (left.m23 * right.m33) + (left.m24 * right.m43));
+            m24 = ((left.m21 * right.m14) + (left.m22 * right.m24) + (left.m23 * right.m34) + (left.m24 * right.m44));
 
-            this->m31 = ((left.m31 * right.m11) + (left.m32 * right.m21) + (left.m33 * right.m31) + (left.m34 * right.m41));
-            this->m32 = ((left.m31 * right.m12) + (left.m32 * right.m22) + (left.m33 * right.m32) + (left.m34 * right.m42));
-            this->m33 = ((left.m31 * right.m13) + (left.m32 * right.m23) + (left.m33 * right.m33) + (left.m34 * right.m43));
-            this->m34 = ((left.m31 * right.m14) + (left.m32 * right.m24) + (left.m33 * right.m34) + (left.m34 * right.m44));
+            m31 = ((left.m31 * right.m11) + (left.m32 * right.m21) + (left.m33 * right.m31) + (left.m34 * right.m41));
+            m32 = ((left.m31 * right.m12) + (left.m32 * right.m22) + (left.m33 * right.m32) + (left.m34 * right.m42));
+            m33 = ((left.m31 * right.m13) + (left.m32 * right.m23) + (left.m33 * right.m33) + (left.m34 * right.m43));
+            m34 = ((left.m31 * right.m14) + (left.m32 * right.m24) + (left.m33 * right.m34) + (left.m34 * right.m44));
 
-            this->m41 = ((left.m41 * right.m11) + (left.m42 * right.m21) + (left.m43 * right.m31) + (left.m44 * right.m41));
-            this->m42 = ((left.m41 * right.m12) + (left.m42 * right.m22) + (left.m43 * right.m32) + (left.m44 * right.m42));
-            this->m43 = ((left.m41 * right.m13) + (left.m42 * right.m23) + (left.m43 * right.m33) + (left.m44 * right.m43));
-            this->m44 = ((left.m41 * right.m14) + (left.m42 * right.m24) + (left.m43 * right.m34) + (left.m44 * right.m44));
+            m41 = ((left.m41 * right.m11) + (left.m42 * right.m21) + (left.m43 * right.m31) + (left.m44 * right.m41));
+            m42 = ((left.m41 * right.m12) + (left.m42 * right.m22) + (left.m43 * right.m32) + (left.m44 * right.m42));
+            m43 = ((left.m41 * right.m13) + (left.m42 * right.m23) + (left.m43 * right.m33) + (left.m44 * right.m43));
+            m44 = ((left.m41 * right.m14) + (left.m42 * right.m24) + (left.m43 * right.m34) + (left.m44 * right.m44));
 
             return *this;
         }
 
         Matrix& Matrix::operator*=(const float& value)
         {
-            this->m11 *= value;
-            this->m12 *= value;
-            this->m13 *= value;
-            this->m14 *= value;
+            m11 *= value;
+            m12 *= value;
+            m13 *= value;
+            m14 *= value;
 
-            this->m21 *= value;
-            this->m22 *= value;
-            this->m23 *= value;
-            this->m24 *= value;
+            m21 *= value;
+            m22 *= value;
+            m23 *= value;
+            m24 *= value;
 
-            this->m31 *= value;
-            this->m32 *= value;
-            this->m33 *= value;
-            this->m34 *= value;
+            m31 *= value;
+            m32 *= value;
+            m33 *= value;
+            m34 *= value;
 
-            this->m41 *= value;
-            this->m42 *= value;
-            this->m43 *= value;
-            this->m44 *= value;
+            m41 *= value;
+            m42 *= value;
+            m43 *= value;
+            m44 *= value;
 
             return *this;
         }
 
         Matrix& Matrix::operator+=(const Matrix& matrix)
         {
-            this->m11 += matrix.m11;
-            this->m12 += matrix.m12;
-            this->m13 += matrix.m13;
-            this->m14 += matrix.m14;
+            m11 += matrix.m11;
+            m12 += matrix.m12;
+            m13 += matrix.m13;
+            m14 += matrix.m14;
 
-            this->m21 += matrix.m21;
-            this->m22 += matrix.m22;
-            this->m23 += matrix.m23;
-            this->m24 += matrix.m24;
+            m21 += matrix.m21;
+            m22 += matrix.m22;
+            m23 += matrix.m23;
+            m24 += matrix.m24;
 
-            this->m31 += matrix.m31;
-            this->m32 += matrix.m32;
-            this->m33 += matrix.m33;
-            this->m34 += matrix.m34;
+            m31 += matrix.m31;
+            m32 += matrix.m32;
+            m33 += matrix.m33;
+            m34 += matrix.m34;
 
-            this->m41 += matrix.m41;
-            this->m42 += matrix.m42;
-            this->m43 += matrix.m43;
-            this->m44 += matrix.m44;
+            m41 += matrix.m41;
+            m42 += matrix.m42;
+            m43 += matrix.m43;
+            m44 += matrix.m44;
 
             return *this;
         }
 
         Matrix& Matrix::operator-=(const Matrix& matrix)
         {
-            this->m11 -= matrix.m11;
-            this->m12 -= matrix.m12;
-            this->m13 -= matrix.m13;
-            this->m14 -= matrix.m14;
+            m11 -= matrix.m11;
+            m12 -= matrix.m12;
+            m13 -= matrix.m13;
+            m14 -= matrix.m14;
 
-            this->m21 -= matrix.m21;
-            this->m22 -= matrix.m22;
-            this->m23 -= matrix.m23;
-            this->m24 -= matrix.m24;
+            m21 -= matrix.m21;
+            m22 -= matrix.m22;
+            m23 -= matrix.m23;
+            m24 -= matrix.m24;
 
-            this->m31 -= matrix.m31;
-            this->m32 -= matrix.m32;
-            this->m33 -= matrix.m33;
-            this->m34 -= matrix.m34;
+            m31 -= matrix.m31;
+            m32 -= matrix.m32;
+            m33 -= matrix.m33;
+            m34 -= matrix.m34;
 
-            this->m41 -= matrix.m41;
-            this->m42 -= matrix.m42;
-            this->m43 -= matrix.m43;
-            this->m44 -= matrix.m44;
+            m41 -= matrix.m41;
+            m42 -= matrix.m42;
+            m43 -= matrix.m43;
+            m44 -= matrix.m44;
 
             return *this;
         }
@@ -1007,7 +856,7 @@ namespace SceneR
             return result;
         }
 
-        float Matrix::SubMatrixDeterminant()
+        float Matrix::sub_matrix_determinant()
         {
             // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q23
             return this->m11 * (this->m22 * this->m33 - this->m32 * this->m23)
@@ -1015,7 +864,7 @@ namespace SceneR
                  + this->m13 * (this->m21 * this->m32 - this->m31 * this->m22);
         }
 
-        Matrix Matrix::SubMatrix(const std::uint32_t& row, const std::uint32_t& column) const
+        Matrix Matrix::sub_matrix(const std::uint32_t& row, const std::uint32_t& column) const
         {
             // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
             std::uint32_t si;
@@ -1032,7 +881,7 @@ namespace SceneR
                     sj = dj + ((dj >= column) ? 1 : 0);
 
                     // copy element
-                    result[di * 4 + dj] = this->matrix[si * 4 + sj];
+                    result[di * 4 + dj] = this->data[si * 4 + sj];
                 }
             }
 

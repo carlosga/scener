@@ -28,7 +28,7 @@ namespace System
             /**
              * Initializes a new instance of the BinaryReader class with the given stream.
              */
-            BinaryReader(Stream& stream, const System::Text::Encoding& encoding = System::Text::Encoding::UTF8);
+            BinaryReader(Stream& stream, const System::Text::Encoding& encoding = System::Text::Encoding::utf8);
 
             /**
              * Releases all resources being used by this BinaryReader.

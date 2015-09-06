@@ -17,20 +17,20 @@ TEST_F(QuaternionTest, XCoordinate)
 {
     auto q = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
 
-    EXPECT_TRUE(1.0f == q.X());
-    EXPECT_TRUE(2.0f == q.Y());
-    EXPECT_TRUE(3.0f == q.Z());
-    EXPECT_TRUE(4.0f == q.W());
+    EXPECT_TRUE(1.0f == q.x);
+    EXPECT_TRUE(2.0f == q.y);
+    EXPECT_TRUE(3.0f == q.z);
+    EXPECT_TRUE(4.0f == q.w);
 }
 
 TEST_F(QuaternionTest, QuaternionConjugate)
 {
-    auto actual = Quaternion::Conjugate({ 5.0f, 6.0f, 7.0f, 8.0f });
+    auto actual = Quaternion::conjugate({ 5.0f, 6.0f, 7.0f, 8.0f });
 
-    EXPECT_TRUE(-5.0f == actual.X());
-    EXPECT_TRUE(-6.0f == actual.Y());
-    EXPECT_TRUE(-7.0f == actual.Z());
-    EXPECT_TRUE(8.0f  == actual.W());
+    EXPECT_TRUE(-5.0f == actual.x);
+    EXPECT_TRUE(-6.0f == actual.y);
+    EXPECT_TRUE(-7.0f == actual.z);
+    EXPECT_TRUE(8.0f  == actual.w);
 }
 
 TEST_F(QuaternionTest, QuaternionMultiplication)
@@ -40,21 +40,21 @@ TEST_F(QuaternionTest, QuaternionMultiplication)
     auto qr = q1 * q2;
 
     // quaternion Result is equal to (24, 48, 48, -6)
-    EXPECT_TRUE(24.0f == qr.X());
-    EXPECT_TRUE(48.0f == qr.Y());
-    EXPECT_TRUE(48.0f == qr.Z());
-    EXPECT_TRUE(-6.0f == qr.W());
+    EXPECT_TRUE(24.0f == qr.x);
+    EXPECT_TRUE(48.0f == qr.y);
+    EXPECT_TRUE(48.0f == qr.z);
+    EXPECT_TRUE(-6.0f == qr.w);
 }
 
 TEST_F(QuaternionTest, CalculateQuaternionFromAxisAngle)
 {
-    auto result = Quaternion::CreateFromAxisAngle({ 1.0f, 0.0f, 0.0f }, Math::pi_over_2);
+    auto result = Quaternion::create_from_axis_angle({ 1.0f, 0.0f, 0.0f }, Math::pi_over_2);
 
     // quaternion Result is equal to (0.707106769, 0, 0, 0.707106769)
-    EXPECT_TRUE(0.707106769f == result.X());
-    EXPECT_TRUE(0.0f         == result.Y());
-    EXPECT_TRUE(0.0f         == result.Z());
-    EXPECT_TRUE(0.707106769f == result.W());
+    EXPECT_TRUE(0.707106769f == result.x);
+    EXPECT_TRUE(0.0f         == result.y);
+    EXPECT_TRUE(0.0f         == result.z);
+    EXPECT_TRUE(0.707106769f == result.w);
 }
 
 // A test for Dot (Quaternion, Quaternion)
@@ -65,7 +65,7 @@ TEST_F(QuaternionTest, Dot)
     auto b = Quaternion { 5.0f, 6.0f, 7.0f, 8.0f };
 
     auto expected = 70.0f;
-    auto actual   = Quaternion::Dot(a, b);
+    auto actual   = Quaternion::dot(a, b);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -78,7 +78,7 @@ TEST_F(QuaternionTest, Length)
     auto w        = 4.0f;
     auto target   = Quaternion { v, w };
     auto expected = 5.477226f;
-    auto actual   = target.Length();
+    auto actual   = target.length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -91,7 +91,7 @@ TEST_F(QuaternionTest, LengthSquared)
     auto w        = 4.0f;
     auto target   = Quaternion { v, w };
     auto expected = 30.0f;
-    auto actual   = target.LengthSquared();
+    auto actual   = target.length_squared();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -100,18 +100,18 @@ TEST_F(QuaternionTest, LengthSquared)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Lerp)
 {
-    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis     = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b        = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t        = 0.5f;
-    auto expected = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(20.0f));
-    auto actual   = Quaternion::Lerp(a, b, t);
+    auto expected = Quaternion::create_from_axis_angle(axis, Math::to_radians(20.0f));
+    auto actual   = Quaternion::lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // Case a and b are same.
     expected = a;
-    actual   = Quaternion::Lerp(a, a, t);
+    actual   = Quaternion::lerp(a, a, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -121,12 +121,12 @@ TEST_F(QuaternionTest, Lerp)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithInterpolateZero)
 {
-    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis     = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b        = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t        = 0.0f;
-    auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
-    auto actual   = Quaternion::Lerp(a, b, t);
+    auto expected = Quaternion { a.x, a.y, a.z, a.w };
+    auto actual   = Quaternion::lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -136,12 +136,12 @@ TEST_F(QuaternionTest, LerpWithInterpolateZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithInterpolateOne)
 {
-    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b        = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis     = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a        = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b        = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t        = 1.0f;
-    auto expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
-    auto actual   = Quaternion::Lerp(a, b, t);
+    auto expected = Quaternion { b.x, b.y, b.z, b.w };
+    auto actual   = Quaternion::lerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -151,11 +151,11 @@ TEST_F(QuaternionTest, LerpWithInterpolateOne)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, LerpWithQuaternionsWithMoreThan90Degrees)
 {
-    auto axis   = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a      = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b      = Quaternion::Negate(a);
+    auto axis   = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a      = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b      = Quaternion::negate(a);
     auto t      = 1.0f;
-    auto actual = Quaternion::Lerp(a, b, t);
+    auto actual = Quaternion::lerp(a, b, t);
 
     // Note that in quaternion world, Q == -Q. In the case of quaternions dot product is zero,
     // one of the quaternion will be flipped to compute the shortest distance. When t = 1, we
@@ -169,7 +169,7 @@ TEST_F(QuaternionTest, Conjugate)
 {
     auto a        = Quaternion { 1, 2, 3, 4 };
     auto expected = Quaternion { -1, -2, -3, 4 };
-    auto actual   = Quaternion::Conjugate(a);
+    auto actual   = Quaternion::conjugate(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -180,7 +180,7 @@ TEST_F(QuaternionTest, Normalize)
 {
     auto a        = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
     auto expected = Quaternion { 0.182574168f, 0.365148336f, 0.5477225f, 0.7302967f };
-    auto actual   = Quaternion::Normalize(a);
+    auto actual   = Quaternion::normalize(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -191,12 +191,12 @@ TEST_F(QuaternionTest, Normalize)
 TEST_F(QuaternionTest, NormalizeZeroLengthQuaternion)
 {
     auto a      = Quaternion { 0.0f, 0.0f, -0.0f, 0.0f };
-    auto actual = Quaternion::Normalize(a);
+    auto actual = Quaternion::normalize(a);
 
-    EXPECT_TRUE(Math::is_nan(actual.X()));
-    EXPECT_TRUE(Math::is_nan(actual.Y()));
-    EXPECT_TRUE(Math::is_nan(actual.Z()));
-    EXPECT_TRUE(Math::is_nan(actual.W()));
+    EXPECT_TRUE(Math::is_nan(actual.x));
+    EXPECT_TRUE(Math::is_nan(actual.y));
+    EXPECT_TRUE(Math::is_nan(actual.z));
+    EXPECT_TRUE(Math::is_nan(actual.w));
 }
 
 // A test for Concatenate(Quaternion, Quaternion)
@@ -282,10 +282,10 @@ TEST_F(QuaternionTest, Constructor)
 
     auto target = Quaternion { x, y, z, w };
 
-    EXPECT_TRUE(x == target.X());
-    EXPECT_TRUE(y == target.Y());
-    EXPECT_TRUE(z == target.Z());
-    EXPECT_TRUE(w == target.W());
+    EXPECT_TRUE(x == target.x);
+    EXPECT_TRUE(y == target.y);
+    EXPECT_TRUE(z == target.z);
+    EXPECT_TRUE(w == target.w);
 }
 
 // A test for Quaternion (Vector3f, float)
@@ -296,20 +296,20 @@ TEST_F(QuaternionTest, ConstructorWithVector3)
     auto w      = 4.0f;
     auto target = Quaternion { v, w };
 
-    EXPECT_TRUE(v.X() == target.X());
-    EXPECT_TRUE(v.Y() == target.Y());
-    EXPECT_TRUE(v.Z() == target.Z());
-    EXPECT_TRUE(w     == target.W());
+    EXPECT_TRUE(v.x == target.x);
+    EXPECT_TRUE(v.y == target.y);
+    EXPECT_TRUE(v.z == target.z);
+    EXPECT_TRUE(w   == target.w);
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, CreateFromAxisAngle)
 {
-    auto axis     = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
+    auto axis     = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
     auto angle    = Math::to_radians(30.0f);
     auto expected = Quaternion(0.0691723f, 0.1383446f, 0.207516879f, 0.9659258f);
-    auto actual   = Quaternion::CreateFromAxisAngle(axis, angle);
+    auto actual   = Quaternion::create_from_axis_angle(axis, angle);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -322,12 +322,12 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
     auto axis   = Vector3 { };
     auto angle  = Math::to_radians(-30.0f);
     auto cos    = Math::cos(angle / 2.0f);
-    auto actual = Quaternion::CreateFromAxisAngle(axis, angle);
+    auto actual = Quaternion::create_from_axis_angle(axis, angle);
 
-    EXPECT_TRUE(0.0f == actual.X());
-    EXPECT_TRUE(0.0f == actual.Y());
-    EXPECT_TRUE(0.0f == actual.Z());
-    EXPECT_TRUE(EqualityHelper::Equal(cos, actual.W()));
+    EXPECT_TRUE(0.0f == actual.x);
+    EXPECT_TRUE(0.0f == actual.y);
+    EXPECT_TRUE(0.0f == actual.z);
+    EXPECT_TRUE(EqualityHelper::Equal(cos, actual.w));
 }
 
 // A test for CreateFromAxisAngle (Vector3f, float)
@@ -337,8 +337,8 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And750)
     auto axis    = Vector3 { 1.0f, 0.0f, 0.0f };
     auto angle1  = Math::to_radians(30.0f);
     auto angle2  = Math::to_radians(750.0f);
-    auto actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
-    auto actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
+    auto actual1 = Quaternion::create_from_axis_angle(axis, angle1);
+    auto actual2 = Quaternion::create_from_axis_angle(axis, angle2);
 
     EXPECT_TRUE(EqualityHelper::Equal(actual1, actual2));
 }
@@ -350,11 +350,11 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfAngle30And390)
     auto axis    = Vector3 { 1.0f, 0.0f, 0.0f };
     auto angle1  = Math::to_radians(30.0f);
     auto angle2  = Math::to_radians(390.0f);
-    auto actual1 = Quaternion::CreateFromAxisAngle(axis, angle1);
-    auto actual2 = Quaternion::CreateFromAxisAngle(axis, angle2);
+    auto actual1 = Quaternion::create_from_axis_angle(axis, angle1);
+    auto actual2 = Quaternion::create_from_axis_angle(axis, angle2);
 
-    actual1.X(-actual1.X());
-    actual1.W(-actual1.W());
+    actual1.x = -actual1.x;
+    actual1.w = -actual1.w;
 
     EXPECT_TRUE(EqualityHelper::Equal(actual1, actual2));
 }
@@ -367,11 +367,11 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll)
     auto pitchAngle = Math::to_radians(40.0f);
     auto rollAngle  = Math::to_radians(50.0f);
 
-    auto yaw      = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawAngle);
-    auto pitch    = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchAngle);
-    auto roll     = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, rollAngle);
+    auto yaw      = Quaternion::create_from_axis_angle(Vector3::unit_y, yawAngle);
+    auto pitch    = Quaternion::create_from_axis_angle(Vector3::unit_x, pitchAngle);
+    auto roll     = Quaternion::create_from_axis_angle(Vector3::unit_z, rollAngle);
     auto expected = yaw * pitch * roll;
-    auto actual   = Quaternion::CreateFromYawPitchRoll(yawAngle, pitchAngle, rollAngle);
+    auto actual   = Quaternion::create_from_yaw_pitch_roll(yawAngle, pitchAngle, rollAngle);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -392,12 +392,12 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
                 auto pitchRad = Math::to_radians(pitchAngle);
                 auto rollRad  = Math::to_radians(rollAngle);
 
-                auto yaw   = Quaternion::CreateFromAxisAngle(Vector3::UnitY, yawRad);
-                auto pitch = Quaternion::CreateFromAxisAngle(Vector3::UnitX, pitchRad);
-                auto roll  = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, rollRad);
+                auto yaw   = Quaternion::create_from_axis_angle(Vector3::unit_y, yawRad);
+                auto pitch = Quaternion::create_from_axis_angle(Vector3::unit_x, pitchRad);
+                auto roll  = Quaternion::create_from_axis_angle(Vector3::unit_z, rollRad);
 
                 auto expected = yaw * pitch * roll;
-                auto actual   = Quaternion::CreateFromYawPitchRoll(yawRad, pitchRad, rollRad);
+                auto actual   = Quaternion::create_from_yaw_pitch_roll(yawRad, pitchRad, rollRad);
 
                 EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
             }
@@ -409,19 +409,19 @@ TEST_F(QuaternionTest, CreateFromYawPitchRoll2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, Slerp)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a    = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b    = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t    = 0.5f;
 
-    auto expected = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(20.0f));
-    auto actual   = Quaternion::Slerp(a, b, t);
+    auto expected = Quaternion::create_from_axis_angle(axis, Math::to_radians(20.0f));
+    auto actual   = Quaternion::slerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // Case a and b are same.
     expected = a;
-    actual   = Quaternion::Slerp(a, a, t);
+    actual   = Quaternion::slerp(a, a, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -431,13 +431,13 @@ TEST_F(QuaternionTest, Slerp)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, SlerpWithInterpolateZero)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a    = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b    = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t    = 0.0f;
 
-    auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
-    auto actual   = Quaternion::Slerp(a, b, t);
+    auto expected = Quaternion { a.x, a.y, a.z, a.w };
+    auto actual   = Quaternion::slerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -447,13 +447,13 @@ TEST_F(QuaternionTest, SlerpWithInterpolateZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, SlerpWithInterpolateOne)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a    = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b    = Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t    = 1.0f;
 
-    auto expected = Quaternion { b.X(), b.Y(), b.Z(), b.W() };
-    auto actual   = Quaternion::Slerp(a, b, t);
+    auto expected = Quaternion { b.x, b.y, b.z, b.w };
+    auto actual   = Quaternion::slerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -463,13 +463,13 @@ TEST_F(QuaternionTest, SlerpWithInterpolateOne)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a    = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
     auto b    = -a;
     auto t    = 1.0f;
 
     auto expected = a;
-    auto actual   = Quaternion::Slerp(a, b, t);
+    auto actual   = Quaternion::slerp(a, b, t);
 
     // Note that in quaternion world, Q == -Q. In the case of quaternions dot product is zero,
     // one of the quaternion will be flipped to compute the shortest distance. When t = 1, we
@@ -482,13 +482,13 @@ TEST_F(QuaternionTest, SlerpWithDotProductLessThanZero)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, SlerpWithFlippedQuaternion)
 {
-    auto axis = Vector3::Normalize({ 1.0f, 2.0f, 3.0f });
-    auto a    = Quaternion::CreateFromAxisAngle(axis, Math::to_radians(10.0f));
-    auto b    = -Quaternion::CreateFromAxisAngle(axis, Math::to_radians(30.0f));
+    auto axis = Vector3::normalize({ 1.0f, 2.0f, 3.0f });
+    auto a    = Quaternion::create_from_axis_angle(axis, Math::to_radians(10.0f));
+    auto b    = -Quaternion::create_from_axis_angle(axis, Math::to_radians(30.0f));
     auto t    = 0.0f;
 
-    auto expected = Quaternion { a.X(), a.Y(), a.Z(), a.W() };
-    auto actual   = Quaternion::Slerp(a, b, t);
+    auto expected = Quaternion { a.x, a.y, a.z, a.w };
+    auto actual   = Quaternion::slerp(a, b, t);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -510,7 +510,7 @@ TEST_F(QuaternionTest, Inverse)
 {
     auto a        = Quaternion { 5.0f, 6.0f, 7.0f, 8.0f };
     auto expected = Quaternion { -0.0287356321f, -0.03448276f, -0.0402298868f, 0.04597701f };
-    auto actual   = Quaternion::Inverse(a);
+    auto actual   = Quaternion::inverse(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -520,12 +520,12 @@ TEST_F(QuaternionTest, Inverse)
 TEST_F(QuaternionTest, InvertZeroLengthQuaternion)
 {
     auto a      = Quaternion { };
-    auto actual = Quaternion::Inverse(a);
+    auto actual = Quaternion::inverse(a);
 
-    EXPECT_TRUE(Math::is_nan(actual.X()));
-    EXPECT_TRUE(Math::is_nan(actual.Y()));
-    EXPECT_TRUE(Math::is_nan(actual.Z()));
-    EXPECT_TRUE(Math::is_nan(actual.W()));
+    EXPECT_TRUE(Math::is_nan(actual.x));
+    EXPECT_TRUE(Math::is_nan(actual.y));
+    EXPECT_TRUE(Math::is_nan(actual.z));
+    EXPECT_TRUE(Math::is_nan(actual.w));
 }
 
 // A test for negate (Quaternion)
@@ -534,7 +534,7 @@ TEST_F(QuaternionTest, Negate)
 {
     auto a        = Quaternion { 1.0f, 2.0f, 3.0f, 4.0f };
     auto expected = Quaternion { -1.0f, -2.0f, -3.0f, -4.0f };
-    auto actual   = Quaternion::Negate(a);
+    auto actual   = Quaternion::negate(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 }
@@ -553,7 +553,7 @@ TEST_F(QuaternionTest, Inequality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.X(10.0f);
+    b.x = 10.0f;
 
     expected = true;
     actual   = a != b;
@@ -575,7 +575,7 @@ TEST_F(QuaternionTest, Equality)
     EXPECT_TRUE(expected == actual);
 
     // case 2: compare between different values
-    b.X(10.0f);
+    b.x = 10.0f;
 
     expected = false;
     actual   = a == b;
@@ -589,12 +589,12 @@ TEST_F(QuaternionTest, ConvertIdentityMatrix)
 {
     auto matrix   = Matrix::Identity;
     auto expected = Quaternion { 0.0f, 0.0f, 0.0f, 1.0f };
-    auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+    auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
-    auto m2 = Matrix::CreateFromQuaternion(actual);
+    auto m2 = Matrix::create_from_quaternion(actual);
 
     EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
@@ -605,14 +605,14 @@ TEST_F(QuaternionTest, ConvertXAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto matrix   = Matrix::CreateRotationX(angle);
-        auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
-        auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+        auto matrix   = Matrix::create_rotation_x(angle);
+        auto expected = Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
+        auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
-        auto m2 = Matrix::CreateFromQuaternion(actual);
+        auto m2 = Matrix::create_from_quaternion(actual);
 
         EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
@@ -624,14 +624,14 @@ TEST_F(QuaternionTest, ConvertYAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto matrix   = Matrix::CreateRotationY(angle);
-        auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
-        auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+        auto matrix   = Matrix::create_rotation_y(angle);
+        auto expected = Quaternion::create_from_axis_angle(Vector3::unit_y, angle);
+        auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
-        auto m2 = Matrix::CreateFromQuaternion(actual);
+        auto m2 = Matrix::create_from_quaternion(actual);
 
         EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
@@ -643,14 +643,14 @@ TEST_F(QuaternionTest, ConvertZAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto matrix   = Matrix::CreateRotationZ(angle);
-        auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle);
-        auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+        auto matrix   = Matrix::create_rotation_z(angle);
+        auto expected = Quaternion::create_from_axis_angle(Vector3::unit_z, angle);
+        auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
-        auto m2 = Matrix::CreateFromQuaternion(actual);
+        auto m2 = Matrix::create_from_quaternion(actual);
 
         EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
@@ -662,20 +662,20 @@ TEST_F(QuaternionTest, ConvertXYZAxisRotationMatrix)
 {
     for (float angle = 0.0f; angle < 720.0f; angle += 10.0f)
     {
-        auto matrix   = Matrix::CreateRotationX(angle)
-                      * Matrix::CreateRotationY(angle)
-                      * Matrix::CreateRotationZ(angle);
+        auto matrix   = Matrix::create_rotation_x(angle)
+                      * Matrix::create_rotation_y(angle)
+                      * Matrix::create_rotation_z(angle);
 
-        auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
-                      * Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle)
-                      * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
+        auto expected = Quaternion::create_from_axis_angle(Vector3::unit_z, angle)
+                      * Quaternion::create_from_axis_angle(Vector3::unit_y, angle)
+                      * Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
 
-        auto actual = Quaternion::CreateFromRotationMatrix(matrix);
+        auto actual = Quaternion::create_from_rotation_matrix(matrix);
 
         EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
         // make sure convert back to matrix is same as we passed matrix.
-        auto m2 = Matrix::CreateFromQuaternion(actual);
+        auto m2 = Matrix::create_from_quaternion(actual);
 
         EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
     }
@@ -686,17 +686,17 @@ TEST_F(QuaternionTest, ConvertXYZAxisRotationMatrix)
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
 {
     auto angle  = Math::to_radians(180.0f);
-    auto matrix = Matrix::CreateRotationY(angle)
-                * Matrix::CreateRotationZ(angle);
+    auto matrix = Matrix::create_rotation_y(angle)
+                * Matrix::create_rotation_z(angle);
 
-    auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
-                  * Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle);
-    auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+    auto expected = Quaternion::create_from_axis_angle(Vector3::unit_z, angle)
+                  * Quaternion::create_from_axis_angle(Vector3::unit_y, angle);
+    auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
     EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
-    auto m2 = Matrix::CreateFromQuaternion(actual);
+    auto m2 = Matrix::create_from_quaternion(actual);
 
     EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
@@ -706,17 +706,17 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnXAxis)
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
 {
     auto angle  = Math::to_radians(180.0f);
-    auto matrix = Matrix::CreateRotationX(angle)
-                * Matrix::CreateRotationZ(angle);
+    auto matrix = Matrix::create_rotation_x(angle)
+                * Matrix::create_rotation_z(angle);
 
-    auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitZ, angle)
-                  * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
-    auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+    auto expected = Quaternion::create_from_axis_angle(Vector3::unit_z, angle)
+                  * Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
+    auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
     EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
-    auto m2 = Matrix::CreateFromQuaternion(actual);
+    auto m2 = Matrix::create_from_quaternion(actual);
 
     EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
@@ -726,17 +726,17 @@ TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnYAxis)
 TEST_F(QuaternionTest, FromRotationMatrixWithScaledMatrixOnZAxis)
 {
     auto angle  = Math::to_radians(180.0f);
-    auto matrix = Matrix::CreateRotationX(angle)
-                * Matrix::CreateRotationY(angle);
+    auto matrix = Matrix::create_rotation_x(angle)
+                * Matrix::create_rotation_y(angle);
 
-    auto expected = Quaternion::CreateFromAxisAngle(Vector3::UnitY, angle)
-                  * Quaternion::CreateFromAxisAngle(Vector3::UnitX, angle);
-    auto actual   = Quaternion::CreateFromRotationMatrix(matrix);
+    auto expected = Quaternion::create_from_axis_angle(Vector3::unit_y, angle)
+                  * Quaternion::create_from_axis_angle(Vector3::unit_x, angle);
+    auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
     EXPECT_TRUE(EqualityHelper::EqualRotation(expected, actual));
 
     // make sure convert back to matrix is same as we passed matrix.
-    auto m2 = Matrix::CreateFromQuaternion(actual);
+    auto m2 = Matrix::create_from_quaternion(actual);
 
     EXPECT_TRUE(EqualityHelper::Equal(matrix, m2));
 }
@@ -753,12 +753,12 @@ TEST_F(QuaternionTest, Identity)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, IsIdentity)
 {
-    EXPECT_TRUE (Quaternion::Identity.IsIdentity());
-    EXPECT_TRUE (Quaternion(0, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Quaternion(1, 0, 0, 1).IsIdentity());
-    EXPECT_FALSE(Quaternion(0, 1, 0, 1).IsIdentity());
-    EXPECT_FALSE(Quaternion(0, 0, 1, 1).IsIdentity());
-    EXPECT_FALSE(Quaternion(0, 0, 0, 0).IsIdentity());
+    EXPECT_TRUE (Quaternion::Identity.is_identity());
+    EXPECT_TRUE (Quaternion(0, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Quaternion(1, 0, 0, 1).is_identity());
+    EXPECT_FALSE(Quaternion(0, 1, 0, 1).is_identity());
+    EXPECT_FALSE(Quaternion(0, 0, 1, 1).is_identity());
+    EXPECT_FALSE(Quaternion(0, 0, 0, 0).is_identity());
 }
 
 // A test for Quaternion comparison involving NaN values
@@ -781,8 +781,8 @@ TEST_F(QuaternionTest, EqualsNan)
     EXPECT_TRUE(c != z);
     EXPECT_TRUE(d != z);
 
-    EXPECT_FALSE(a.IsIdentity());
-    EXPECT_FALSE(b.IsIdentity());
-    EXPECT_FALSE(c.IsIdentity());
-    EXPECT_FALSE(d.IsIdentity());
+    EXPECT_FALSE(a.is_identity());
+    EXPECT_FALSE(b.is_identity());
+    EXPECT_FALSE(c.is_identity());
+    EXPECT_FALSE(d.is_identity());
 }
