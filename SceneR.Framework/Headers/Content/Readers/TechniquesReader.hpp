@@ -13,6 +13,7 @@ namespace SceneR
     namespace Graphics
     {
         class Effect;
+        class EffectParameter;
         class EffectPass;
     }
 }
@@ -46,7 +47,8 @@ namespace SceneR
                     , SceneR::Graphics::Model*          root) override;
 
         private:
-            void read_technique_parameters(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
+            void read_technique_parameters(const json11::Json&                       value
+                                         , std::shared_ptr<SceneR::Graphics::Effect> technique);
 
             void read_technique_passes(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
 
@@ -54,7 +56,13 @@ namespace SceneR
                                            , std::shared_ptr<SceneR::Graphics::Effect>     technique
                                            , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
 
-            void read_technique_pass_states(const json11::Json& value, std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+            void read_technique_pass_states(const json11::Json&                           value
+                                          , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+
+            void cache_parameters(std::shared_ptr<SceneR::Graphics::Effect> technique);
+
+            void describe_parameter(const std::int32_t&                                type
+                                  , std::shared_ptr<SceneR::Graphics::EffectParameter> parameter);
         };
     }
 }

@@ -15,27 +15,74 @@ namespace SceneR
          */
         enum class EffectParameterType : std::uint32_t
         {
-              Byte          = 5120
-            , UByte         = 5121
-            , Int16         = 5122
-            , UInt16        = 5123
-            , Int32         = 5124
-            , UInt32        = 5125
-            , Single        = 5126
-            , Vector2Float  = 35664
-            , Vector3Float  = 35665
-            , Vector4Float  = 35666
-            , Vector2Int    = 35667
-            , Vector3Int    = 35668
-            , Vector4Int    = 35669
-            , Bool          = 35670
-            , Vector2Bool   = 35671
-            , Vector3Bool   = 35672
-            , Vector4Bool   = 35673
-            , Matrix2Float  = 35674
-            , Matrix3Float  = 35675
-            , Matrix4Float  = 35676
-            , Sampler2D     = 35678
+            /**
+             * Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE)
+             * before being written into the constant table; otherwise, the value will be set to 0 in the constant
+             * table.
+             */
+            Bool = 1,
+            /**
+             * Parameter is a signed byte. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            Byte = 2,
+            /**
+             * Parameter is an unsigned byte. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            UByte = 2,
+            /**
+             * Parameter is an signed 16-bit integer. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            Int16 = 3,
+            /**
+             * Parameter is an unsigned 16-bit integer. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            UInt16 = 3,
+            /**
+             * Parameter is an signed 32-bit integer. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            Int32 = 3,
+            /**
+             * Parameter is an unsigned 32-bit integer. Any floating-point values passed in will be rounded off
+             * (to zero decimal places) before being written into the constant table.
+             */
+            UInt32 = 3,
+            /**
+             * Parameter is a floating-point number.
+             */
+            Single = 4,
+            /**
+             * Parameter is a string.
+             */
+            String = 5,
+            /**
+             * Parameter is a texture.
+             */
+            Texture = 6,
+            /**
+             * Parameter is a 1D texture.
+             */
+            Texture1D = 7,
+            /**
+             * Parameter is a 2D texture.
+             */
+            Texture2D = 8,
+            /**
+             * Parameter is a 3D texture.
+             */
+            Texture3D = 9,
+            /**
+             * Parameter is a cube texture.
+             */
+            TextureCube = 10,
+            /**
+             * Parameter is a void pointer.
+             */
+            Void = 11
         };
     }
 }

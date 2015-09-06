@@ -1,26 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// #include <SampleRenderer.hpp>
-
-#include <Content/ContentManager.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/Model.hpp>
+#include <SampleRenderer.hpp>
 
 int main()
 {
-    using SceneR::Content::ContentManager;
-    using SceneR::Framework::RendererServiceContainer;
-    using SceneR::Graphics::Model;
+    SceneR::Sample::SampleRenderer renderer;
 
-    RendererServiceContainer container;
-    ContentManager manager(container, u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/content_manager");
+    renderer.run();
 
-    manager.load_model(u"WildCentaur");
-
-    // SceneR::Sample::SampleRenderer renderer;
-    //     renderer.Run();
-    // renderer.exit();
+    renderer.exit();
 
     return 0;
 }

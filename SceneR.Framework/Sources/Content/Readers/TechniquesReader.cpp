@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+#include <Content/json11.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/EffectPassInstanceProgram.hpp>
@@ -12,7 +13,9 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/RenderingStateType.hpp>
-#include <Content/json11.hpp>
+
+#include <System/Graphics/Platform.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -20,12 +23,14 @@ namespace SceneR
     {
         using SceneR::Graphics::Effect;
         using SceneR::Graphics::EffectParameter;
+        using SceneR::Graphics::EffectParameterClass;
         using SceneR::Graphics::EffectParameterType;
         using SceneR::Graphics::EffectPass;
         using SceneR::Graphics::EffectPassInstanceProgram;
         using SceneR::Graphics::EffectPassStates;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::RenderingStateType;
+        using System::Text::Encoding;
         using json11::Json;
 
         TechniquesReader::TechniquesReader()
@@ -56,96 +61,47 @@ namespace SceneR
 
         void TechniquesReader::read_technique_parameters(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
-            for (const auto& parameter : value.object_items())
+            for (const auto& source : value.object_items())
             {
-                auto tparameter = std::make_shared<EffectParameter>();
+                auto parameter = std::make_shared<EffectParameter>();
+                auto type      = source.second["type"].int_value();
 
-                tparameter->_count    = parameter.second["count"].int_value();
-                tparameter->_type     = static_cast<EffectParameterType>(parameter.second["type"].int_value());
-                tparameter->_semantic = parameter.second["semantic"].string_value();
-                tparameter->_node     = parameter.second["node"].int_value();
+                parameter->_count    = source.second["count"].int_value();
+                parameter->_semantic = Encoding::convert(source.second["semantic"].string_value());
+                parameter->_node     = Encoding::convert(source.second["node"].string_value());
+
+                describe_parameter(type, parameter);
 
                 // TODO: Handle parameter value
 
-                if (tparameter->_semantic.empty())
-                {
-                    // no semantic informed
-                }
-                else if (tparameter->_semantic == "MODELVIEW")
-                {
-                    technique->_model_view_matrix_param = tparameter;
-                }
-                else if (tparameter->_semantic == "PROJECTION")
-                {
-                    technique->_projection_matrix_param = tparameter;
-                }
-                else if (tparameter->_semantic == "MODELVIEWINVERSETRANSPOSE")
-                {
-                    technique->_normal_matrix_param = tparameter;
-                }
-                else if (tparameter->_semantic == "POSITION")
-                {
-                    technique->_position_param = tparameter;
-                }
-                else if (tparameter->_semantic == "NORMAL")
-                {
-                    technique->_normal_param = tparameter;
-                }
-                else if (tparameter->_semantic == "TEXCOORD_0")
-                {
-                    technique->_tex_coord_param = tparameter;
-                }
-                else if (tparameter->_semantic == "TEXBINORMAL")
-                {
-                    technique->_tex_binormal_param = tparameter;
-                }
-                else if (tparameter->_semantic == "TEXTANGENT")
-                {
-                    technique->_tex_tangent_param = tparameter;
-                }
-                else if (tparameter->_semantic == "JOINT")
-                {
-                    technique->_joint_param = tparameter;
-                }
-                else if (tparameter->_semantic == "JOINTMATRIX")
-                {
-                    technique->_joint_matrix_param = tparameter;
-                }
-                else if (tparameter->_semantic == "WEIGHT")
-                {
-                    technique->_weight_param = tparameter;
-                }
-                else
-                {
-                    std::cout << "unknown semantic [" << tparameter->_semantic << "]" << std::endl;
-                }
-
-                technique->_parameters[parameter.first] = tparameter;
+                technique->_parameters[source.first] = parameter;
             }
+
+            cache_parameters(technique);
         }
 
         void TechniquesReader::read_technique_passes(const json11::Json& value, std::shared_ptr<Effect> technique)
         {
-            for (const auto& pass : value.object_items())
+            for (const auto& source : value.object_items())
             {
-                auto       tpass    = std::make_shared<EffectPass>();
-                const auto passName = pass.first;
+                auto       pass     = std::make_shared<EffectPass>();
+                const auto passName = source.first;
 
                 // Process only common profile details
-                const auto& commonProfile = pass.second["details"]["commonProfile"];
+                const auto& commonProfile = source.second["details"]["commonProfile"];
                 const auto& parameters    = commonProfile["parameters"];
 
-                tpass->_lighting_model = commonProfile["lightingModel"].string_value();
+                pass->_lighting_model = commonProfile["lightingModel"].string_value();
 
                 for (const auto& paramRef : parameters.array_items())
                 {
-                    tpass->_parameters.push_back(technique->_parameters[paramRef.string_value()]);
+                    pass->_parameters.push_back(technique->_parameters[paramRef.string_value()]);
                 }
 
-                read_technique_pass_program(pass.second["instanceProgram"], technique, tpass);
-                read_technique_pass_states(pass.second["states"], tpass);
+                read_technique_pass_program(source.second["instanceProgram"], technique, pass);
+                read_technique_pass_states(source.second["states"], pass);
 
-                technique->_passes[pass.first] = tpass;
+                technique->_passes[source.first] = pass;
             }
         }
 
@@ -190,6 +146,200 @@ namespace SceneR
             for (const auto& state : value["enable"].array_items())
             {
                 passStates.enabled |= static_cast<RenderingStateType>(state.int_value());
+            }
+        }
+
+        void TechniquesReader::cache_parameters(std::shared_ptr<Effect> technique)
+        {
+            for (auto parameter : technique->_parameters)
+            {
+                if (parameter.second->_semantic.empty())
+                {
+                    // no semantic informed
+                }
+                else if (parameter.second->_semantic == u"MODELVIEW")
+                {
+                    technique->_model_view_matrix_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"PROJECTION")
+                {
+                    technique->_projection_matrix_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"MODELVIEWINVERSETRANSPOSE")
+                {
+                    technique->_normal_matrix_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"POSITION")
+                {
+                    technique->_position_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"NORMAL")
+                {
+                    technique->_normal_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"TEXCOORD_0")
+                {
+                    technique->_tex_coord_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"TEXBINORMAL")
+                {
+                    technique->_tex_binormal_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"TEXTANGENT")
+                {
+                    technique->_tex_tangent_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"JOINT")
+                {
+                    technique->_joint_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"JOINTMATRIX")
+                {
+                    technique->_joint_matrix_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == u"WEIGHT")
+                {
+                    technique->_weight_param = parameter.second;
+                }
+                else
+                {
+                    std::cout << "unknown semantic [" << Encoding::convert(parameter.second->_semantic) << "]" << std::endl;
+                }
+            }
+        }
+
+        void TechniquesReader::describe_parameter(const std::int32_t& type, std::shared_ptr<EffectParameter> parameter)
+        {
+            switch (type)
+            {
+            case GL_BYTE:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Byte;
+                break;
+
+            case GL_UNSIGNED_BYTE:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Byte;
+                break;
+
+            case GL_SHORT:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Int16;
+                break;
+
+            case GL_UNSIGNED_SHORT:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::UInt16;
+                break;
+
+            case GL_INT:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Int32;
+                break;
+
+            case GL_UNSIGNED_INT:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::UInt32;
+                break;
+
+            case GL_FLOAT:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                break;
+
+            case GL_FLOAT_VEC2:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 2;
+                break;
+
+            case GL_FLOAT_VEC3:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 3;
+                break;
+
+            case GL_FLOAT_VEC4:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 4;
+                break;
+
+            case GL_INT_VEC2:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Int32;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 2;
+                break;
+
+            case GL_INT_VEC3:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Int32;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 3;
+                break;
+
+            case GL_INT_VEC4:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Int32;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 4;
+                break;
+
+            case GL_BOOL:
+                parameter->_parameter_class = EffectParameterClass::Scalar;
+                parameter->_parameter_type  = EffectParameterType::Bool;
+                break;
+
+            case GL_BOOL_VEC2:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Bool;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 2;
+                break;
+
+            case GL_BOOL_VEC3:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Bool;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 3;
+                break;
+
+            case GL_BOOL_VEC4:
+                parameter->_parameter_class = EffectParameterClass::Vector;
+                parameter->_parameter_type  = EffectParameterType::Bool;
+                parameter->_row_count       = 1;
+                parameter->_column_count    = 4;
+                break;
+
+            case GL_FLOAT_MAT2	: // mat2
+                parameter->_parameter_class = EffectParameterClass::Matrix;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 2;
+                parameter->_column_count    = 2;
+                break;
+
+            case GL_FLOAT_MAT3	: // mat3
+                parameter->_parameter_class = EffectParameterClass::Matrix;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 3;
+                parameter->_column_count    = 3;
+                break;
+
+            case GL_FLOAT_MAT4	: // mat4
+                parameter->_parameter_class = EffectParameterClass::Matrix;
+                parameter->_parameter_type  = EffectParameterType::Single;
+                parameter->_row_count       = 4;
+                parameter->_column_count    = 4;
+                break;
+
+            case GL_SAMPLER_2D:
+                parameter->_parameter_class = EffectParameterClass::Object;
+                parameter->_parameter_type  = EffectParameterType::Texture2D;
+                break;
             }
         }
 

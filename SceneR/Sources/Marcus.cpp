@@ -40,7 +40,7 @@ namespace SceneR
 
         void Marcus::load_content()
         {
-//            this->model         = this->renderer.content_manager().Load<Model>(u"Marcus/marcus");
+            _model = _renderer.content_manager().load_model(u"marcus");
 //
 //            for (const auto& mesh : this->model->Meshes())
 //            {

@@ -14,7 +14,7 @@ namespace SceneR
         using SceneR::Framework::RenderTime;
 
         SampleRenderer::SampleRenderer()
-            : Renderer(u"/home/carlos/development/projects/cpp/opengl/scener/SceneR/content_manager/")
+            : Renderer(u"../../Content/")
         {
         }
 

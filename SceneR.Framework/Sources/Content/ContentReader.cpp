@@ -55,8 +55,6 @@ namespace SceneR
             auto buffer = _asset_reader.read_bytes(jsonLength);
             auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), err);
 
-            buffer.clear();
-
             if (!err.empty())
             {
                 throw ContentLoadException(err);
@@ -67,7 +65,6 @@ namespace SceneR
             const auto nodes = std::vector<std::string>
             {
                 "buffers"
-              , "buffers"
               , "bufferViews"
               , "accessors"
               , "techniques"

@@ -8,7 +8,6 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/EffectParameterCollection.hpp>
 #include <Graphics/Texture.hpp>
 #include <Graphics/UniformBufferObject.hpp>
 
@@ -23,36 +22,32 @@ namespace SceneR
         using SceneR::Framework::Vector4;
 
         EffectParameter::EffectParameter()
-            : EffectParameter { u"", 0, 0, 0, nullptr }
+            : _name             { }
+            , _column_count     { 0 }
+            , _row_count        { 0 }
+            , _count            { 0 }
+            , _offset           { 0 }
+            , _semantic         {  }
+            , _node             {  }
+            , _value            {  }
+            , _parameter_class  { EffectParameterClass::Scalar }
+            , _parameter_type   { EffectParameterType::Single }
+            , _uniform_buffer   { nullptr }
         {
-        }
-
-        EffectParameter::EffectParameter(const std::u16string&                      name
-                                       , const std::size_t&                         index
-                                       , const std::size_t&                         offset
-                                       , const std::int32_t&                        type
-                                       , const std::shared_ptr<UniformBufferObject> uniformBuffer)
-            : _column_count    { 0 }
-            , _name            { name }
-            , _parameter_class { EffectParameterClass::Object }
-            , _parameter_type  { EffectParameterType::Single }
-            , _row_count       { 0 }
-            , _index           { index }
-            , _offset          { offset }
-            , _uniform_buffer  { uniformBuffer }
-        {
-            describe(type);
         }
 
         EffectParameter::EffectParameter(const EffectParameter& parameter)
-            : _column_count    { parameter._column_count }
-            , _name            { parameter._name }
-            , _parameter_class { parameter._parameter_class }
-            , _parameter_type  { parameter._parameter_type }
-            , _row_count       { parameter._row_count }
-            , _index           { parameter._index }
-            , _offset          { parameter._offset }
-            , _uniform_buffer  { parameter._uniform_buffer }
+            : _name             { parameter._name }
+            , _column_count     { parameter._column_count }
+            , _row_count        { parameter._row_count }
+            , _count            { parameter._count }
+            , _offset           { parameter._offset }
+            , _semantic         { parameter._semantic }
+            , _node             { parameter._node }
+            , _value            { parameter._value }
+            , _parameter_class  { parameter._parameter_class }
+            , _parameter_type   { parameter._parameter_type }
+            , _uniform_buffer   { parameter._uniform_buffer }
         {
         }
 
@@ -83,6 +78,11 @@ namespace SceneR
         std::size_t EffectParameter::row_count() const
         {
             return _row_count;
+        }
+
+        std::u16string EffectParameter::semantic() const
+        {
+            return _semantic;
         }
 
         template <>
@@ -357,7 +357,7 @@ namespace SceneR
             {
                 throw std::runtime_error("Invalid effect parameter class.");
             }
-            if (_parameter_type != EffectParameterType::Sampler2D)
+            if (_parameter_type != EffectParameterType::Texture2D)
             {
                 throw std::runtime_error("Invalid effect parameter type.");
             }
@@ -435,211 +435,20 @@ namespace SceneR
         {
             if (this != &parameter)
             {
-                _column_count    = parameter._column_count;
-                _name            = parameter._name;
-                _parameter_class = parameter._parameter_class;
-                _parameter_type  = parameter._parameter_type;
-                _row_count       = parameter._row_count;
-                _index           = parameter._index;
-                _offset          = parameter._offset;
-                _uniform_buffer  = parameter._uniform_buffer;
+                _name             = parameter._name;
+                _column_count     = parameter._column_count;
+                _row_count        = parameter._row_count;
+                _count            = parameter._count;
+                _offset           = parameter._offset;
+                _semantic         = parameter._semantic;
+                _node             = parameter._node;
+                _value            = parameter._value;
+                _parameter_class  = parameter._parameter_class;
+                _parameter_type   = parameter._parameter_type;
+                _uniform_buffer   = parameter._uniform_buffer;
             }
 
             return *this;
         }
-
-        void EffectParameter::describe(const std::int32_t& type)
-        {
-            switch (type)
-            {
-                case GL_FLOAT:
-                    _parameter_class = EffectParameterClass::Scalar;
-                    _parameter_type  = EffectParameterType::Single;
-                    break;
-
-                case GL_FLOAT_VEC2:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 1;
-                    _column_count    = 2;
-                    break;
-
-                case GL_FLOAT_VEC3:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 1;
-                    _column_count    = 3;
-                    break;
-
-                case GL_FLOAT_VEC4:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 1;
-                    _column_count    = 4;
-                    break;
-
-                case GL_INT:
-                    _parameter_class = EffectParameterClass::Scalar;
-                    _parameter_type  = EffectParameterType::Int32;
-                    break;
-
-                case GL_INT_VEC2:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Int32;
-                    _row_count       = 1;
-                    _column_count    = 2;
-                    break;
-
-                case GL_INT_VEC3:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Int32;
-                    _row_count       = 1;
-                    _column_count    = 3;
-                    break;
-
-                case GL_INT_VEC4:
-                    _parameter_class = EffectParameterClass::Vector;
-                    _parameter_type  = EffectParameterType::Int32;
-                    _row_count       = 1;
-                    _column_count    = 4;
-                    break;
-
-                case GL_BOOL:
-                    _parameter_class = EffectParameterClass::Scalar;
-                    _parameter_type  = EffectParameterType::Bool;
-                    break;
-
-                case GL_FLOAT_MAT2	: // mat2
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 2;
-                    _column_count    = 2;
-                    break;
-
-                case GL_FLOAT_MAT3	: // mat3
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 3;
-                    _column_count    = 3;
-                    break;
-
-                case GL_FLOAT_MAT4	: // mat4
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 4;
-                    _column_count    = 4;
-                    break;
-
-                case GL_FLOAT_MAT2x3: // mat2x3
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 3;
-                    _column_count    = 2;
-                    break;
-
-                case GL_FLOAT_MAT2x4: // mat2x4
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 4;
-                    _column_count    = 2;
-                    break;
-
-                case GL_FLOAT_MAT3x2: // mat3x2
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 2;
-                    _column_count    = 3;
-                    break;
-
-                case GL_FLOAT_MAT3x4: // mat3x4
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 4;
-                    _column_count    = 3;
-                    break;
-
-                case GL_FLOAT_MAT4x2: // mat4x2
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 2;
-                    _column_count    = 4;
-                    break;
-
-                case GL_FLOAT_MAT4x3: // mat4x3
-                    _parameter_class = EffectParameterClass::Matrix;
-                    _parameter_type  = EffectParameterType::Single;
-                    _row_count       = 3;
-                    _column_count    = 4;
-                    break;
-            }
-        }
-
-        //GL_SAMPLER_1D   sampler1D
-        //GL_SAMPLER_2D   sampler2D
-        //GL_SAMPLER_3D   sampler3D
-        //GL_SAMPLER_CUBE samplerCube
-        //GL_SAMPLER_1D_SHADOW    sampler1DShadow
-        //GL_SAMPLER_2D_SHADOW    sampler2DShadow
-        //GL_SAMPLER_1D_ARRAY sampler1DArray
-        //GL_SAMPLER_2D_ARRAY sampler2DArray
-        //GL_SAMPLER_1D_ARRAY_SHADOW  sampler1DArrayShadow
-        //GL_SAMPLER_2D_ARRAY_SHADOW  sampler2DArrayShadow
-        //GL_SAMPLER_2D_MULTISAMPLE   sampler2DMS
-        //GL_SAMPLER_2D_MULTISAMPLE_ARRAY sampler2DMSArray
-        //GL_SAMPLER_CUBE_SHADOW  samplerCubeShadow
-        //GL_SAMPLER_BUFFER   samplerBuffer
-        //GL_SAMPLER_2D_RECT  sampler2DRect
-        //GL_SAMPLER_2D_RECT_SHADOW   sampler2DRectShadow
-        //GL_INT_SAMPLER_1D   isampler1D
-        //GL_INT_SAMPLER_2D   isampler2D
-        //GL_INT_SAMPLER_3D   isampler3D
-        //GL_INT_SAMPLER_CUBE isamplerCube
-        //GL_INT_SAMPLER_1D_ARRAY isampler1DArray
-        //GL_INT_SAMPLER_2D_ARRAY isampler2DArray
-        //GL_INT_SAMPLER_2D_MULTISAMPLE   isampler2DMS
-        //GL_INT_SAMPLER_2D_MULTISAMPLE_ARRAY isampler2DMSArray
-        //GL_INT_SAMPLER_BUFFER   isamplerBuffer
-        //GL_INT_SAMPLER_2D_RECT  isampler2DRect
-        //GL_UNSIGNED_INT_SAMPLER_1D  usampler1D
-        //GL_UNSIGNED_INT_SAMPLER_2D  usampler2D
-        //GL_UNSIGNED_INT_SAMPLER_3D  usampler3D
-        //GL_UNSIGNED_INT_SAMPLER_CUBE    usamplerCube
-        //GL_UNSIGNED_INT_SAMPLER_1D_ARRAY    usampler2DArray
-        //GL_UNSIGNED_INT_SAMPLER_2D_ARRAY    usampler2DArray
-        //GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE  usampler2DMS
-        //GL_UNSIGNED_INT_SAMPLER_2D_MULTISAMPLE_ARRAY    usampler2DMSArray
-        //GL_UNSIGNED_INT_SAMPLER_BUFFER  usamplerBuffer
-        //GL_UNSIGNED_INT_SAMPLER_2D_RECT usampler2DRect
-        //GL_IMAGE_1D image1D
-        //GL_IMAGE_2D image2D
-        //GL_IMAGE_3D image3D
-        //GL_IMAGE_2D_RECT    image2DRect
-        //GL_IMAGE_CUBE   imageCube
-        //GL_IMAGE_BUFFER imageBuffer
-        //GL_IMAGE_1D_ARRAY   image1DArray
-        //GL_IMAGE_2D_ARRAY   image2DArray
-        //GL_IMAGE_2D_MULTISAMPLE image2DMS
-        //GL_IMAGE_2D_MULTISAMPLE_ARRAY   image2DMSArray
-        //GL_INT_IMAGE_1D iimage1D
-        //GL_INT_IMAGE_2D iimage2D
-        //GL_INT_IMAGE_3D iimage3D
-        //GL_INT_IMAGE_2D_RECT    iimage2DRect
-        //GL_INT_IMAGE_CUBE   iimageCube
-        //GL_INT_IMAGE_BUFFER iimageBuffer
-        //GL_INT_IMAGE_1D_ARRAY   iimage1DArray
-        //GL_INT_IMAGE_2D_ARRAY   iimage2DArray
-        //GL_INT_IMAGE_2D_MULTISAMPLE iimage2DMS
-        //GL_INT_IMAGE_2D_MULTISAMPLE_ARRAY   iimage2DMSArray
-        //GL_UNSIGNED_INT_IMAGE_1D    uimage1D
-        //GL_UNSIGNED_INT_IMAGE_2D    uimage2D
-        //GL_UNSIGNED_INT_IMAGE_3D    uimage3D
-        //GL_UNSIGNED_INT_IMAGE_2D_RECT   uimage2DRect
-        //GL_UNSIGNED_INT_IMAGE_CUBE  uimageCube
-        //GL_UNSIGNED_INT_IMAGE_BUFFER    uimageBuffer
-        //GL_UNSIGNED_INT_IMAGE_1D_ARRAY  uimage1DArray
-        //GL_UNSIGNED_INT_IMAGE_2D_ARRAY  uimage2DArray
-        //GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE    uimage2DMS
-        //GL_UNSIGNED_INT_IMAGE_2D_MULTISAMPLE_ARRAY  uimage2DMSArray
-        //GL_UNSIGNED_INT_ATOMIC_COUNTER  atomic_uint
     }
 }

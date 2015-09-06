@@ -49,19 +49,6 @@ namespace SceneR
             EffectParameter();
 
             /**
-             * Initializes a new instance of the EffectParameter class.
-             * @param name the parameter name.
-             * @param index the parameter index.
-             * @param offset the parameter offset.
-             * @param type the parameter raw type.
-             */
-            EffectParameter(const std::u16string&                      name
-                          , const std::size_t&                         index
-                          , const std::size_t&                         offset
-                          , const std::int32_t&                        type
-                          , const std::shared_ptr<UniformBufferObject> uniformBuffer);
-
-            /**
              * Copy constructor.
              */
             EffectParameter(const EffectParameter& parameter);
@@ -96,6 +83,12 @@ namespace SceneR
              * Gets the number of rows in the parameter description.
              */
             std::size_t row_count() const;
+
+            /**
+             * Gets the semantic meaning, or usage, of the parameter.
+             * @return the semantic meaning, or usage, of the parameter.
+             */
+            std::u16string semantic() const;
 
         public:
             /**
@@ -132,19 +125,18 @@ namespace SceneR
             void describe(const std::int32_t& type);
 
         private:
-            std::uint32_t                        _count;
-            std::string                          _semantic;
-            std::string                          _node;
-            std::string                          _value;
-            EffectParameterType                  _type;
+            std::u16string _name;
+            std::size_t    _column_count;
+            std::size_t    _row_count;
+            std::size_t    _count;
+            std::size_t    _offset;
+            std::u16string _semantic;
+            std::u16string _node;
+            std::u16string _value;
 
-            std::size_t                          _column_count;
-            std::u16string                       _name;
-            EffectParameterClass                 _parameter_class;
-            EffectParameterType                  _parameter_type;
-            std::size_t                          _row_count;
-            std::size_t                          _index;
-            std::size_t                          _offset;
+            EffectParameterClass _parameter_class;
+            EffectParameterType  _parameter_type;
+
             std::shared_ptr<UniformBufferObject> _uniform_buffer;
 
             friend class SceneR::Content::TechniquesReader;
