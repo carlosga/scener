@@ -7,9 +7,8 @@
 
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectHelpers.hpp>
+#include <Graphics/EffectPass.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Shader.hpp>
-#include <Graphics/UniformBufferObject.hpp>
 #include <System/Math.hpp>
 
 namespace SceneR
@@ -46,17 +45,10 @@ namespace SceneR
             , _world                     { Matrix::Identity }
             , _world_view                { Matrix::Identity }
             , _one_light                 { false }
-            , _shader_index              { 0 }
             , _dirty_flags               { EffectDirtyFlags::All }
             , _passes                    { }
             , _parameters                { }
         {
-            // _Name(u"Effect");
-
-            // _CreateShader();
-            // _CacheEffectParameters();
-
-            // _light0.Enabled(true);
         }
 
         Effect::~Effect()
@@ -65,37 +57,6 @@ namespace SceneR
 
         void Effect::dispose()
         {
-            if (_id != 0)
-            {
-                if (_texture)
-                {
-                    _texture = nullptr;
-                }
-
-                // Clear parameter collection
-                // _parameters.Clear();
-
-                // Dipose all the shader instances
-                if (_shaders.size() > 0)
-                {
-                    for (auto& shader : _shaders)
-                    {
-                        shader->dispose();
-                    }
-
-                    _shaders.clear();
-                }
-
-                // dispose the uniform buffer object
-                _uniform_buffer->dispose();
-                _uniform_buffer = nullptr;
-
-                // Delete the shader program
-                glDeleteProgram(_id);
-
-                // Reset the shader program name
-                _id = 0;
-            }
         }
 
         float Effect::alpha() const
@@ -493,229 +454,16 @@ namespace SceneR
 //            }
         }
 
-        void Effect::create_shader()
-        {
-//            const auto& includes = std::vector<std::string> { ShaderManager::EffectIncludePath
-//                , ShaderManager::StructuresIncludePath
-//                , ShaderManager::CommonIncludePath
-//                , ShaderManager::LightingIncludePath };
-//
-//            _AddShader(u"VSEffect", ShaderType::Vertex, Resources::Effect_vert, includes);
-//            _AddShader(u"FSEffect", ShaderType::Fragment, Resources::Effect_frag, includes);
-//            _Build();
-        }
-
-        void Effect::cache_effect_parameters()
-        {
-//            _diffuseColorParam          = _parameters[u"DiffuseColor"];
-//            _emissiveColorParam         = _parameters[u"EmissiveColor"];
-//            _specularColorParam         = _parameters[u"SpecularColor"];
-//            _specularPowerParam         = _parameters[u"SpecularPower"];
-//            _fogColorParam              = _parameters[u"FogColor"];
-//            _fogVectorParam             = _parameters[u"FogVector"];
-//            _eyePositionParam           = _parameters[u"EyePosition"];
-//            _worldParam                 = _parameters[u"World"];
-//            _worldViewProjParam         = _parameters[u"WorldViewProj"];
-//            _worldInverseTransposeParam = _parameters[u"WorldInverseTranspose"];
-//            _bonesParam                 = _parameters[u"Bones[0]"];
-        }
-
         void Effect::begin()
         {
-//            glUseProgram(_id);
-//            _uniformBuffer->Activate();
-//
-//            _OnApply();
+            if (_pass.get() != nullptr)
+            {
+                _pass->apply();
+            }
         }
 
         void Effect::end()
         {
-//            if (_textureEnabled)
-//            {
-//                _texture->Deactivate();
-//            }
-//
-//            _uniformBuffer->Deactivate();
-//
-//            glUseProgram(0);
         }
-
-        void Effect::add_shader(const std::u16string&            name
-                             , const ShaderType&                type
-                             , const std::vector<std::uint8_t>& source)
-        {
-            add_shader(name, type, source, std::vector<std::string>());
-        }
-
-        void Effect::add_shader(const std::u16string&            name
-                              , const ShaderType&                type
-                              , const std::vector<std::uint8_t>& source
-                              , const std::vector<std::string>&  includes)
-        {
-//            _shaders.push_back(std::make_shared<Shader>(name, type, source, includes));
-        }
-
-        void Effect::build_program()
-        {
-//            // Compile the shaders ...
-//            for (auto& s : _shaders)
-//            {
-//                s->Compile();
-//            }
-//
-//            // ... Create the program object
-//            _id = glCreateProgram();
-//
-//            if (_id == 0)
-//            {
-//                throw std::runtime_error("glCreateProgram failed");
-//            }
-//
-//            // ... attach the shaders to the new shader program
-//            for (const auto& s : _shaders)
-//            {
-//                // Attach the shader
-//                glAttachShader(_id, s->id);
-//            }
-//
-//            // ... link the shader program
-//            glLinkProgram(_id);
-//
-//            // ... verify program linking
-//            _VerifyLinkingState();
-//
-//            // ... fill uniform buffer info
-//            _uniformBuffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", _id);
-//            _uniformBuffer->Describe();
-//
-//            // ... describe efffect parameters
-//            _DescribeParameters();
-        }
-
-        void Effect::activate_subroutine(const std::uint32_t& subroutineIndex) const
-        {
-            for (const auto& shader : _shaders)
-            {
-                activate_subroutine(shader->type(), subroutineIndex);
-            }
-        }
-
-        void Effect::activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
-        {
-            glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
-        }
-
-        void Effect::verify_linking_state()
-        {
-            // ... verify program linking
-            GLint status;
-            glGetProgramiv(_id, GL_LINK_STATUS, &status);
-
-            if (status == GL_FALSE)
-            {
-                auto msg = std::string("Program linking failure: ");
-
-                GLint infoLogLength;
-                glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-                if (infoLogLength)
-                {
-                    std::string linkErrorMessage("", static_cast<std::size_t>(infoLogLength));
-
-                    glGetProgramInfoLog(_id, infoLogLength, NULL, &linkErrorMessage[0]);
-
-                    msg += linkErrorMessage;
-                }
-
-                //_dispose();
-
-                throw std::runtime_error(msg);
-            }
-        }
-
-        void Effect::describe_parameters()
-        {
-//            // Check the number of active uniforms
-//            std::int32_t activeUniforms = 0;
-//
-//            glGetActiveUniformBlockiv(_id, _uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
-//
-//            std::vector<std::int32_t> indices(activeUniforms, 0);
-//            std::vector<std::int32_t> nameLengths(activeUniforms, 0);
-//            std::vector<std::int32_t> offsets(activeUniforms, 0);
-//            std::vector<std::int32_t> types(activeUniforms, 0);
-//
-//            glGetActiveUniformBlockiv(_id, _uniformBuffer->Index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
-//
-//            GLuint* address = reinterpret_cast<GLuint*>(indices.data());
-//
-//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_NAME_LENGTH, nameLengths.data());
-//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
-//            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
-//
-//            for (std::int32_t i = 0; i < activeUniforms; i++)
-//            {
-//                GLsizei length = 0;
-//                GLint   size   = 0;
-//                GLenum  type   = GL_ZERO;
-//                auto    name   = std::vector<char>(nameLengths[i], 0);
-//
-//                glGetActiveUniform(_id, indices[i], nameLengths[i], &length, &size, &type, name.data());
-//
-//                _parameters.Add({ name.begin(), name.begin() + length }
-//                                   , static_cast<std::uint32_t>(indices[i])
-//                                   , static_cast<std::uint32_t>(offsets[i])
-//                                   , static_cast<std::uint32_t>(types[i])
-//                                   , _uniformBuffer);
-//            }
-        }
-
-        std::uint32_t Effect::VSIndices[18] =
-        {
-            0,      // vertex lighting, one bone
-            0,      // vertex lighting, one bone, no fog
-            1,      // vertex lighting, two bones
-            1,      // vertex lighting, two bones, no fog
-            2,      // vertex lighting, four bones
-            2,      // vertex lighting, four bones, no fog
-
-            3,      // one light, one bone
-            3,      // one light, one bone, no fog
-            4,      // one light, two bones
-            4,      // one light, two bones, no fog
-            5,      // one light, four bones
-            5,      // one light, four bones, no fog
-
-            6,      // pixel lighting, one bone
-            6,      // pixel lighting, one bone, no fog
-            7,      // pixel lighting, two bones
-            7,      // pixel lighting, two bones, no fog
-            8,      // pixel lighting, four bones
-            8,      // pixel lighting, four bones, no fog
-        };
-
-        std::uint32_t Effect::PSIndices[18] =
-        {
-            0,      // vertex lighting, one bone
-            1,      // vertex lighting, one bone, no fog
-            0,      // vertex lighting, two bones
-            1,      // vertex lighting, two bones, no fog
-            0,      // vertex lighting, four bones
-            1,      // vertex lighting, four bones, no fog
-
-            0,      // one light, one bone
-            1,      // one light, one bone, no fog
-            0,      // one light, two bones
-            1,      // one light, two bones, no fog
-            0,      // one light, four bones
-            1,      // one light, four bones, no fog
-
-            2,      // pixel lighting, one bone
-            2,      // pixel lighting, one bone, no fog
-            2,      // pixel lighting, two bones
-            2,      // pixel lighting, two bones, no fog
-            2,      // pixel lighting, four bones
-            2,      // pixel lighting, four bones, no fog
-        };
     }
 }

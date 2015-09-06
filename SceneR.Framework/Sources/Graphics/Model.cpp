@@ -95,22 +95,23 @@ namespace SceneR
 
 //            _CopyAbsoluteBoneTransformsTo(boneTransforms);
 
-//            for (auto& mesh : _meshes)
-//            {
-//                for (auto& effect : mesh->Effects())
-//                {
-//                    auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
+            for (const auto& mesh : _meshes)
+            {
+                for (auto& effect : mesh.second->effects())
+                {
+                    auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
 
-//                    if (mEffect.get() != nullptr)
-//                    {
-//                        mEffect->World(boneTransforms[mesh->ParentBone()->Index()] * world);
-//                        mEffect->View(view);
-//                        mEffect->Projection(projection);
-//                    }
-//                }
+                    if (mEffect.get() != nullptr)
+                    {
+                        // mEffect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
+                        mEffect->world(world);
+                        mEffect->view(view);
+                        mEffect->projection(projection);
+                    }
+                }
 
-//                mesh->draw();
-//            }
+                mesh.second->draw();
+            }
         }
     }
 }

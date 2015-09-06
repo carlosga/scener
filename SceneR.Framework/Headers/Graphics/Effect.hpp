@@ -16,13 +16,11 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/DirectionalLight.hpp>
-#include <Graphics/EffectParameterType.hpp>
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/IEffectMatrices.hpp>
 #include <Graphics/IEffectLights.hpp>
 #include <Graphics/IEffectFog.hpp>
-#include <Graphics/ShaderType.hpp>
 #include <Graphics/Texture2D.hpp>
 
 namespace SceneR
@@ -38,7 +36,6 @@ namespace SceneR
     namespace Graphics
     {
         class GrapicsDevice;
-        class Shader;
         class UniformBufferObject;
         class EffectPass;
         class EffectParameter;
@@ -305,58 +302,10 @@ namespace SceneR
             void end();
 
         private:
-            void create_shader();
-
-            /**
-             * @brief Adds the given shader sources to the shader program for later compilation.
-             * @param name the name of the shader.
-             * @param type the type of the shader.
-             * @param source the shader sources.
-             */
-            void add_shader(const std::u16string&            name
-                         , const ShaderType&                type
-                         , const std::vector<std::uint8_t>& source);
-
-            /**
-             * @brief Adds the given shader sources and includes to the shader program for later compilation
-             * @param name the name of the shader.
-             * @param type the type of the shader.
-             * @param source the shader sources.
-             * @param includes the shader sources for "include" files.
-             */
-            void add_shader(const std::u16string&            name
-                          , const ShaderType&                type
-                          , const std::vector<std::uint8_t>& source
-                          , const std::vector<std::string>&  includes);
-
-            /**
-             * Compiles and links the shader program sources.
-             */
-            void build_program();
-
-            /**
-             * Activates the shader subroutine with the given index.
-             */
-            void activate_subroutine(const std::uint32_t& subroutineIndex) const;
-
-            /**
-             * Activates the shader subroutine with the given shader type and index.
-             */
-            void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
-
-            /**
-             * Verify if the shader program has been linked correctly.
-             */
-            void verify_linking_state();
-
-        private:
             /**
              * Computes derived parameter values immediately before applying the effect.
              */
             void apply();
-
-            void describe_parameters();
-            void cache_effect_parameters();
 
         private:
             float                                  _alpha;
@@ -383,13 +332,8 @@ namespace SceneR
             SceneR::Framework::Matrix              _world;
             SceneR::Framework::Matrix              _world_view;
             bool                                   _one_light;
-            std::uint32_t                          _shader_index;
 
             EffectDirtyFlags                       _dirty_flags;
-
-            std::uint32_t                          _id;
-            std::vector<std::shared_ptr<Shader>>   _shaders;
-            std::shared_ptr<UniformBufferObject>   _uniform_buffer;
 
         private:
             std::map<std::string, std::shared_ptr<EffectPass>>      _passes;
@@ -407,20 +351,6 @@ namespace SceneR
             std::shared_ptr<EffectParameter> _joint_param             = nullptr;
             std::shared_ptr<EffectParameter> _joint_matrix_param      = nullptr;
             std::shared_ptr<EffectParameter> _weight_param            = nullptr;
-//            EffectParameter                        _bonesParam;
-//            EffectParameter                        _fogColorParam;
-//            EffectParameter                        _fogVectorParam;
-//            EffectParameter                        _eyePositionParam;
-//            EffectParameter                        _diffuseColorParam;
-//            EffectParameter                        _emissiveColorParam;
-//            EffectParameter                        _specularColorParam;
-//            EffectParameter                        _specularPowerParam;
-//            EffectParameter                        _worldParam;
-//            EffectParameter                        _worldInverseTransposeParam;
-//            EffectParameter                        _worldViewProjParam;
-
-            static std::uint32_t VSIndices[18];
-            static std::uint32_t PSIndices[18];
 
             friend class SceneR::Content::TechniquesReader;
         };

@@ -24,8 +24,9 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
 
-        Vector3 EffectHelpers::enable_default_lighting(DirectionalLight &light0, DirectionalLight &light1,
-                                                       DirectionalLight &light2)
+        Vector3 EffectHelpers::enable_default_lighting(DirectionalLight& light0
+                                                     , DirectionalLight& light1
+                                                     , DirectionalLight& light2)
         {
             // Key light.
             light0.direction      = { -0.5265408f, -0.5735765f, -0.6275069f };
@@ -48,16 +49,16 @@ namespace SceneR
             return { 0.05333332f, 0.09882354f, 0.1819608f };
         }
 
-        EffectDirtyFlags EffectHelpers::set_world_view_proj_and_fog(const EffectDirtyFlags& dirtyFlags
-                                                                  , const Matrix&           world
-                                                                  , const Matrix&           view
-                                                                  , const Matrix&           projection
-                                                                  , Matrix&                 worldView
-                                                                  , const bool&             fogEnabled
-                                                                  , const float&            fogStart
-                                                                  , const float&            fogEnd
-                                                                  , EffectParameter&        worldViewProjParam
-                                                                  , EffectParameter&        fogVectorParam)
+        EffectDirtyFlags EffectHelpers::set_world_view_proj_and_fog(const EffectDirtyFlags&          dirtyFlags
+                                                                  , const Matrix&                    world
+                                                                  , const Matrix&                    view
+                                                                  , const Matrix&                    projection
+                                                                  , Matrix&                          worldView
+                                                                  , const bool&                      fogEnabled
+                                                                  , const float&                     fogStart
+                                                                  , const float&                     fogEnd
+                                                                  , std::shared_ptr<EffectParameter> worldViewProjParam
+                                                                  , std::shared_ptr<EffectParameter> fogVectorParam)
         {
             auto result = dirtyFlags;
 
@@ -69,7 +70,7 @@ namespace SceneR
                 worldView     = world * view;
                 worldViewProj = worldView * projection;
 
-                worldViewProjParam.set_value_transpose(worldViewProj);
+                worldViewProjParam->set_value_transpose(worldViewProj);
 
                 result &= ~EffectDirtyFlags::WorldViewProj;
             }
@@ -89,7 +90,7 @@ namespace SceneR
                 // When fog is disabled, make sure the fog vector is reset to zero.
                 if ((dirtyFlags & EffectDirtyFlags::FogEnable) != 0)
                 {
-                    fogVectorParam.set_value(Vector4::zero);
+                    fogVectorParam->set_value(Vector4::zero);
 
                     result &= ~EffectDirtyFlags::FogEnable;
                 }
@@ -98,15 +99,15 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::set_fog_vector(const Matrix&    worldView
-                                         , const float&     fogStart
-                                         , const float&     fogEnd
-                                         , EffectParameter& fogVectorParam)
+        void EffectHelpers::set_fog_vector(const Matrix&                    worldView
+                                         , const float&                     fogStart
+                                         , const float&                     fogEnd
+                                         , std::shared_ptr<EffectParameter> fogVectorParam)
         {
             if (Math::equal(fogStart, fogEnd))
             {
                 // Degenerate case: force everything to 100% fogged if start and end are the same.
-                fogVectorParam.set_value(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });
+                fogVectorParam->set_value(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });
             }
             else
             {
@@ -122,16 +123,16 @@ namespace SceneR
                                     ,  worldView.m33 * scale
                                     , (worldView.m43 + fogStart) * scale };
 
-                fogVectorParam.set_value(fogVector);
+                fogVectorParam->set_value(fogVector);
             }
         }
 
-        EffectDirtyFlags EffectHelpers::set_lighting_matrices(const EffectDirtyFlags& dirtyFlags
-                                                            , const Matrix&           world
-                                                            , const Matrix&           view
-                                                            , EffectParameter&        worldParam
-                                                            , EffectParameter&        worldInverseTransposeParam
-                                                            , EffectParameter&        eyePositionParam)
+        EffectDirtyFlags EffectHelpers::set_lighting_matrices(const EffectDirtyFlags&          dirtyFlags
+                                                            , const Matrix&                    world
+                                                            , const Matrix&                    view
+                                                            , std::shared_ptr<EffectParameter> worldParam
+                                                            , std::shared_ptr<EffectParameter> worldInverseTransposeParam
+                                                            , std::shared_ptr<EffectParameter> eyePositionParam)
         {
             auto result = dirtyFlags;
 
@@ -141,8 +142,8 @@ namespace SceneR
                 auto worldTranspose        = Matrix::invert(world);
                 auto worldInverseTranspose = Matrix::transpose(worldTranspose);
 
-                worldParam.set_value_transpose(world);
-                worldInverseTransposeParam.set_value_transpose(worldInverseTranspose);
+                worldParam->set_value_transpose(world);
+                worldInverseTransposeParam->set_value_transpose(worldInverseTranspose);
 
                 result &= ~EffectDirtyFlags::World;
             }
@@ -152,7 +153,7 @@ namespace SceneR
             {
                 auto viewInverse = Matrix::invert(view);
 
-                eyePositionParam.set_value(viewInverse.translation());
+                eyePositionParam->set_value(viewInverse.translation());
 
                 result &= ~EffectDirtyFlags::EyePosition;
             }
@@ -160,13 +161,13 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::set_material_color(const bool&      lightingEnabled
-                                             , const float&     alpha
-                                             , const Vector3&   diffuseColor
-                                             , const Vector3&   emissiveColor
-                                             , const Vector3&   ambientLightColor
-                                             , EffectParameter& diffuseColorParam
-                                             , EffectParameter& emissiveColorParam)
+        void EffectHelpers::set_material_color(const bool&                      lightingEnabled
+                                             , const float&                     alpha
+                                             , const Vector3&                   diffuseColor
+                                             , const Vector3&                   emissiveColor
+                                             , const Vector3&                   ambientLightColor
+                                             , std::shared_ptr<EffectParameter> diffuseColorParam
+                                             , std::shared_ptr<EffectParameter> emissiveColorParam)
         {
             // Desired lighting model:
             //
@@ -191,12 +192,12 @@ namespace SceneR
 
             if (lightingEnabled)
             {
-                diffuseColorParam.set_value(Vector4 { diffuseColor * alpha, alpha });
-                emissiveColorParam.set_value(Vector3 { (emissiveColor + ambientLightColor * diffuseColor) * alpha });
+                diffuseColorParam->set_value(Vector4 { diffuseColor * alpha, alpha });
+                emissiveColorParam->set_value(Vector3 { (emissiveColor + ambientLightColor * diffuseColor) * alpha });
             }
             else
             {
-                diffuseColorParam.set_value(Vector4 { (diffuseColor + emissiveColor) * alpha, alpha });
+                diffuseColorParam->set_value(Vector4 { (diffuseColor + emissiveColor) * alpha, alpha });
             }
         }
     }

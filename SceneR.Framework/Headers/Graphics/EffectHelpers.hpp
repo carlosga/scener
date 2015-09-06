@@ -10,6 +10,8 @@
 #ifndef EFFECTHELPERS_HPP
 #define EFFECTHELPERS_HPP
 
+#include <memory>
+
 #include <Framework/Matrix.hpp>
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectParameter.hpp>
@@ -55,8 +57,8 @@ namespace SceneR
                                                                   , const bool&                      fogEnabled
                                                                   , const float&                     fogStart
                                                                   , const float&                     fogEnd
-                                                                  , EffectParameter&                 worldViewProjParam
-                                                                  , EffectParameter&                 fogVectorParam);
+                                                                  , std::shared_ptr<EffectParameter> worldViewProjParam
+                                                                  , std::shared_ptr<EffectParameter> fogVectorParam);
 
                 /// <summary>
                 /// Sets a vector which can be dotted with the object space vertex position to compute fog amount.
@@ -64,7 +66,7 @@ namespace SceneR
                 static void set_fog_vector(const SceneR::Framework::Matrix& worldView
                                          , const float&                     fogStart
                                          , const float&                     fogEnd
-                                         , EffectParameter&                 fogVectorParam);
+                                         , std::shared_ptr<EffectParameter> fogVectorParam);
 
                 /// <summary>
                 /// Lazily recomputes the world inverse transpose matrix and
@@ -73,9 +75,9 @@ namespace SceneR
                 static EffectDirtyFlags set_lighting_matrices(const EffectDirtyFlags&          dirtyFlags
                                                             , const SceneR::Framework::Matrix& world
                                                             , const SceneR::Framework::Matrix& view
-                                                            , EffectParameter&                 worldParam
-                                                            , EffectParameter&                 worldInverseTransposeParam
-                                                            , EffectParameter&                 eyePositionParam);
+                                                            , std::shared_ptr<EffectParameter> worldParam
+                                                            , std::shared_ptr<EffectParameter> worldInverseTransposeParam
+                                                            , std::shared_ptr<EffectParameter> eyePositionParam);
 
                 /// <summary>
                 /// Sets the diffuse/emissive/alpha material color parameters.
@@ -85,8 +87,8 @@ namespace SceneR
                                              , const SceneR::Framework::Vector3& diffuseColor
                                              , const SceneR::Framework::Vector3& emissiveColor
                                              , const SceneR::Framework::Vector3& ambientLightColor
-                                             , EffectParameter&                  diffuseColorParam
-                                             , EffectParameter&                  emissiveColorParam);
+                                             , std::shared_ptr<EffectParameter>  diffuseColorParam
+                                             , std::shared_ptr<EffectParameter>  emissiveColorParam);
 
         private:
             EffectHelpers() = delete;

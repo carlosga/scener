@@ -28,8 +28,11 @@ namespace SceneR
         class EffectPass
         {
         public:
-            EffectPass() = default;
-            ~EffectPass() = default;
+            EffectPass();
+            ~EffectPass();
+
+        public:
+            void apply();
 
         public:
             std::string                                   _lighting_model;
