@@ -65,7 +65,7 @@ namespace System
             /**
              * Reads a byte from the stream or returns -1 if at the end of the stream.
              */
-            std::uint8_t read_byte() override;
+            std::uint32_t read_byte() override;
 
             /**
              * Reads a sequence of bytes from the current stream.

@@ -59,7 +59,7 @@ namespace System
             /**
              * Reads a byte from the stream.
              */
-            virtual std::uint8_t read_byte() = 0;
+            virtual std::uint32_t read_byte() = 0;
 
             /**
              * Reads a sequence of bytes from the current stream.

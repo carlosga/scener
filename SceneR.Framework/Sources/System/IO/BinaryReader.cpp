@@ -38,7 +38,7 @@ namespace System
         template<>
         char16_t BinaryReader::read()
         {
-            char16_t buffer = static_cast<std::uint32_t>(_stream.read_byte());
+            auto buffer = _stream.read_byte();
 
             // http://xbox.create.msdn.com/en-US/sample/xnb_format
             // Decode UTF-8.
@@ -56,11 +56,11 @@ namespace System
                 while (--byteCount)
                 {
                     buffer <<= 6;
-                    buffer  |= static_cast<std::uint32_t>(_stream.read_byte()) & 0x3F;
+                    buffer  |= _stream.read_byte() & 0x3F;
                 }
             }
 
-            return buffer;
+            return static_cast<char16_t>(buffer);
         }
 
         template<>
@@ -76,9 +76,23 @@ namespace System
         }
 
         template <>
+        std::int8_t BinaryReader::read()
+        {
+            std::int8_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
+        }
+
+        template <>
         std::uint8_t BinaryReader::read()
         {
-            return _stream.read_byte();
+            std::uint8_t buffer;
+
+            _stream.read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
+
+            return buffer;
         }
 
         template <>
@@ -163,7 +177,21 @@ namespace System
 
         std::int32_t BinaryReader::peek_char()
         {
-            return -1;
+            std::int32_t nextChar = -1;
+
+            if (_stream.can_seek())
+            {
+                auto position = _stream.position();
+
+                if (position != _stream.length())
+                {
+                    nextChar = _stream.read_byte();
+
+                    _stream.seek(position, std::ios::beg);
+                }
+            }
+
+            return nextChar;
         }
 
         std::uint32_t BinaryReader::read_7_bit_encoded_int()

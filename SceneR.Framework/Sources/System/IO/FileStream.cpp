@@ -60,7 +60,7 @@ namespace System
             }
         }
 
-        std::uint8_t FileStream::read_byte()
+        std::uint32_t FileStream::read_byte()
         {
             std::uint8_t buffer;
 

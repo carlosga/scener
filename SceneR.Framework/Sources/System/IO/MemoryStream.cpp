@@ -57,7 +57,7 @@ namespace System
         {
         }
 
-        std::uint8_t MemoryStream::read_byte()
+        std::uint32_t MemoryStream::read_byte()
         {
             std::uint8_t buffer;
 
