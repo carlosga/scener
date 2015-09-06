@@ -181,7 +181,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            _uniform_buffer->set_data(_offset, 1, &value);
+            // _uniform_buffer->set_data(_offset, 1, &value);
         }
 
         template<>
@@ -192,7 +192,111 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            //_uniform_buffer->set_data(_offset, value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, value.size(), value.data());
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::int8_t& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+            if (_parameter_type != EffectParameterType::Byte)
+            {
+                throw std::runtime_error("Invalid effect parameter type.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::int8_t), &value);
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::vector<std::int8_t>& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+            if (_parameter_type != EffectParameterType::Byte)
+            {
+                throw std::runtime_error("Invalid effect parameter type.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::int8_t) * value.size(), value.data());
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::uint8_t& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint8_t), &value);
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::vector<std::uint8_t>& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint8_t) * value.size(), value.data());
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::int16_t& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+            if (_parameter_type != EffectParameterType::Int16)
+            {
+                throw std::runtime_error("Invalid effect parameter type.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::int16_t), &value);
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::vector<std::int16_t>& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+            if (_parameter_type != EffectParameterType::Int16)
+            {
+                throw std::runtime_error("Invalid effect parameter type.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::int16_t) * value.size(), value.data());
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::uint16_t& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint16_t), &value);
+        }
+
+        template<>
+        void EffectParameter::set_value(const std::vector<std::uint16_t>& value) const
+        {
+            if (_parameter_class != EffectParameterClass::Scalar)
+            {
+                throw std::runtime_error("Invalid effect parameter class.");
+            }
+
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint16_t) * value.size(), value.data());
         }
 
         template<>
@@ -207,7 +311,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(std::int32_t), &value);
+            // _uniform_buffer->set_data(_offset, sizeof(std::int32_t), &value);
         }
 
         template<>
@@ -222,7 +326,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(std::int32_t) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(std::int32_t) * value.size(), value.data());
         }
 
         template<>
@@ -233,7 +337,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(std::uint32_t), &value);
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint32_t), &value);
         }
 
         template<>
@@ -244,7 +348,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(std::uint32_t) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(std::uint32_t) * value.size(), value.data());
         }
 
         template<>
@@ -255,7 +359,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Matrix), &value[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Matrix), &value[0]);
         }
 
         template<>
@@ -266,7 +370,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
         }
 
         template<>
@@ -279,7 +383,7 @@ namespace SceneR
 
             const auto transpose = Matrix::transpose(value);
 
-            _uniform_buffer->set_data(_offset, sizeof(Matrix), &transpose[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Matrix), &transpose[0]);
         }
 
         template<>
@@ -299,19 +403,19 @@ namespace SceneR
                 transposed.push_back(Matrix::transpose(matrix));
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Matrix) * transposed.size(), transposed.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Matrix) * transposed.size(), transposed.data());
         }
 
         template<>
         void EffectParameter::set_value(const Quaternion& value) const
         {
-            _uniform_buffer->set_data(_offset, sizeof(Quaternion), &value[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Quaternion), &value[0]);
         }
 
         template<>
         void EffectParameter::set_value(const std::vector<Quaternion>& value) const
         {
-            _uniform_buffer->set_data(_offset, sizeof(Quaternion) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Quaternion) * value.size(), value.data());
         }
 
         template<>
@@ -326,7 +430,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(float), &value);
+            // _uniform_buffer->set_data(_offset, sizeof(float), &value);
         }
 
         template<>
@@ -341,7 +445,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(float) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(float) * value.size(), value.data());
         }
 
         template<>
@@ -362,7 +466,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter type.");
             }
 
-            // _uniform_buffer->set_data(_offset,(_name, 0);
+            // // _uniform_buffer->set_data(_offset,(_name, 0);
         }
 
         template<>
@@ -373,7 +477,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector2), &value[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Vector2), &value[0]);
         }
 
         template<>
@@ -384,7 +488,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector2) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Vector2) * value.size(), value.data());
         }
 
         template<>
@@ -395,7 +499,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector3), &value[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Vector3), &value[0]);
         }
 
         template<>
@@ -406,7 +510,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector3) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Vector3) * value.size(), value.data());
         }
 
         template<>
@@ -417,7 +521,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector4), &value[0]);
+            // _uniform_buffer->set_data(_offset, sizeof(Vector4), &value[0]);
         }
 
         template<>
@@ -428,7 +532,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            _uniform_buffer->set_data(_offset, sizeof(Vector4) * value.size(), value.data());
+            // _uniform_buffer->set_data(_offset, sizeof(Vector4) * value.size(), value.data());
         }
 
         EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)

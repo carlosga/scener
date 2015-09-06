@@ -3,11 +3,10 @@
 
 #include <Content/ContentReader.hpp>
 
-#include <iostream>
-
 #include <Graphics/GraphicsDevice.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/json11.hpp>
+#include <Graphics/Accessor.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/Model.hpp>
 
@@ -50,7 +49,6 @@ namespace SceneR
             auto jsonOffset = _asset_reader.read<std::uint32_t>();
             auto jsonLength = _asset_reader.read<std::uint32_t>();
             auto dataOffset = _asset_reader.base_stream().position();
-            auto dataLength = jsonOffset - dataOffset;
 
             _asset_reader.base_stream().seek(jsonOffset, std::ios::beg);
 
@@ -90,7 +88,7 @@ namespace SceneR
             }
 
             // Binary GLTF has a single buffer, so all buffer views data comes from the same buffer
-            for (const auto& bufferView : gltf->_buffer_views)
+            for (const auto bufferView : gltf->_buffer_views)
             {
                 _asset_reader.base_stream().seek(dataOffset + bufferView->_byte_offset, std::ios::beg);
 

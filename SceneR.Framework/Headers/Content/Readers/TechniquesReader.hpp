@@ -5,6 +5,7 @@
 #define TECHNIQUESREADER_HPP
 
 #include <memory>
+#include <vector>
 
 #include <Content/ContentTypeReader.hpp>
 
@@ -61,8 +62,17 @@ namespace SceneR
 
             void cache_parameters(std::shared_ptr<SceneR::Graphics::Effect> technique);
 
-            void describe_parameter(const std::int32_t&                                type
-                                  , std::shared_ptr<SceneR::Graphics::EffectParameter> parameter);
+            void describe_parameter(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
+                                  , const std::int32_t&                                type);
+
+            void set_parameter_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
+                                   , const json11::Json&                                value);
+
+            void set_parameter_numeric_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
+                                           , const json11::Json&                                value);
+
+            void set_parameter_vector_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
+                                          , std::vector<float>                                 data);
         };
     }
 }

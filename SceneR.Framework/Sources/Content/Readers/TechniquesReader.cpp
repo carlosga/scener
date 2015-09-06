@@ -6,6 +6,10 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/EffectPassInstanceProgram.hpp>
@@ -17,22 +21,15 @@
 #include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
 
+using namespace SceneR::Framework;
+using namespace SceneR::Graphics;
+using System::Text::Encoding;
+using json11::Json;
+
 namespace SceneR
 {
     namespace Content
     {
-        using SceneR::Graphics::Effect;
-        using SceneR::Graphics::EffectParameter;
-        using SceneR::Graphics::EffectParameterClass;
-        using SceneR::Graphics::EffectParameterType;
-        using SceneR::Graphics::EffectPass;
-        using SceneR::Graphics::EffectPassInstanceProgram;
-        using SceneR::Graphics::EffectPassStates;
-        using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::RenderingStateType;
-        using System::Text::Encoding;
-        using json11::Json;
-
         TechniquesReader::TechniquesReader()
         {
         }
@@ -70,9 +67,20 @@ namespace SceneR
                 parameter->_semantic = Encoding::convert(source.second["semantic"].string_value());
                 parameter->_node     = Encoding::convert(source.second["node"].string_value());
 
-                describe_parameter(type, parameter);
+                describe_parameter(parameter, type);
 
-                // TODO: Handle parameter value
+                auto node  = source.second["node"].string_value();
+
+                set_parameter_value(parameter, source.second["value"]);
+
+//                "node" : {
+//                    "extends" : { "$ref" : "glTFid.schema.json" },
+//                    "description" : "The id (JSON property name) of the node whose transform is used as the parameter's value."
+//                },
+//                "value" : {
+//                    "type" : ["number", "boolean", "string", { "$ref" : "arrayValues.schema.json" }],
+//                    "description" : "Material values, when specified, override this."
+//                }
 
                 technique->_parameters[source.first] = parameter;
             }
@@ -208,7 +216,7 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::describe_parameter(const std::int32_t& type, std::shared_ptr<EffectParameter> parameter)
+        void TechniquesReader::describe_parameter(std::shared_ptr<EffectParameter> parameter, const std::int32_t& type)
         {
             switch (type)
             {
@@ -339,6 +347,90 @@ namespace SceneR
             case GL_SAMPLER_2D:
                 parameter->_parameter_class = EffectParameterClass::Object;
                 parameter->_parameter_type  = EffectParameterType::Texture2D;
+                break;
+            }
+        }
+
+        void TechniquesReader::set_parameter_value(std::shared_ptr<EffectParameter> parameter
+                                                 , const json11::Json&              value)
+        {
+            if (value.is_null())
+            {
+            }
+            else if (value.is_string())
+            {
+                //parameter->set_value(value.string_value());
+            }
+            else if (value.is_bool())
+            {
+                parameter->set_value(value.bool_value());
+            }
+            else if (value.is_number())
+            {
+                set_parameter_numeric_value(parameter, value);
+            }
+            else if (value.is_array())
+            {
+                std::vector<float> data;
+
+                for (const auto& dataValue : value.array_items())
+                {
+                    data.push_back(dataValue.number_value());
+                }
+
+                if (parameter->parameter_class() == EffectParameterClass::Vector)
+                {
+                    set_parameter_vector_value(parameter, data);
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Matrix)
+                {
+                    // TODO: Handle matrix values
+                }
+            }
+        }
+
+        void TechniquesReader::set_parameter_numeric_value(std::shared_ptr<EffectParameter> parameter
+                                                         , const json11::Json&              value)
+        {
+            switch (parameter->parameter_type())
+            {
+            case EffectParameterType::Byte:
+                parameter->set_value(static_cast<std::int8_t>(value.is_number()));
+                break;
+            case EffectParameterType::UByte:
+                parameter->set_value(static_cast<std::uint8_t>(value.is_number()));
+                break;
+            case EffectParameterType::Int16:
+                parameter->set_value(static_cast<std::int16_t>(value.is_number()));
+                break;
+            case EffectParameterType::UInt16:
+                parameter->set_value(static_cast<std::uint16_t>(value.is_number()));
+                break;
+            case EffectParameterType::Int32:
+                parameter->set_value(static_cast<std::int32_t>(value.is_number()));
+                break;
+            case EffectParameterType::UInt32:
+                parameter->set_value(static_cast<std::uint32_t>(value.is_number()));
+                break;
+            case EffectParameterType::Single:
+                parameter->set_value(static_cast<float>(value.is_number()));
+                break;
+            }
+        }
+
+        void TechniquesReader::set_parameter_vector_value(std::shared_ptr<EffectParameter> parameter
+                                                        , std::vector<float>               data)
+        {
+            switch (parameter->column_count())
+            {
+            case 2:
+                parameter->set_value(Vector2(data[0], data[1]));
+                break;
+            case 3:
+                parameter->set_value(Vector3(data[0], data[1], data[2]));
+                break;
+            case 4:
+                parameter->set_value(Vector4(data[0], data[1], data[2], data[3]));
                 break;
             }
         }

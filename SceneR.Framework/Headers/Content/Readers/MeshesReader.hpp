@@ -47,7 +47,7 @@ namespace SceneR
                     , SceneR::Graphics::Model*          root) override;
 
             std::shared_ptr<SceneR::Graphics::ModelMeshPart> read_mesh_part(const SceneR::Graphics::Model* root
-                                                                                , const json11::Json& source) const;
+                                                                          , const json11::Json&            source) const;
 
             void read_mesh_part_attribute(std::pair<std::string, json11::Json>             attribute
                                         , const Graphics::Model*                           root

@@ -1,19 +1,21 @@
 #include <Graphics/Accessor.hpp>
 
+#include <Graphics/BufferView.hpp>
+
 namespace SceneR
 {
     namespace Graphics
     {
         Accessor::Accessor()
-            : _attribute_type { AttributeType::Scalar }
-            , _component_type { ComponentType::Single }
-            , _byte_offset    { 0 }
-            , _byte_length    { 0 }
-            , _byte_stride    { 0 }
-            , _attribute_count          { 0 }
-            , _max            { 0 }
-            , _min            { 0 }
-            , _buffer_view    { nullptr }
+            : _attribute_type  { AttributeType::Scalar }
+            , _component_type  { ComponentType::Single }
+            , _byte_offset     { 0 }
+            , _byte_length     { 0 }
+            , _byte_stride     { 0 }
+            , _attribute_count { 0 }
+            , _max             { 0 }
+            , _min             { 0 }
+            , _buffer_view     { nullptr }
         {
         }
 
@@ -66,6 +68,15 @@ namespace SceneR
             return _name;
         }
 
+        std::vector<std::uint8_t> Accessor::get_data() const
+        {
+            std::vector<std::uint8_t> data(_byte_length, 0);
+
+            _buffer_view->get_data(_byte_offset, _byte_length, data.data());
+
+            return data;
+        }
+
         std::size_t Accessor::get_attribute_type_count() const
         {
             switch (_attribute_type)
@@ -92,7 +103,6 @@ namespace SceneR
                 return 4;
             }
         }
-
 
         std::size_t Accessor::get_component_size_in_bytes() const
         {

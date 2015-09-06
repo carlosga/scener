@@ -52,6 +52,8 @@ namespace SceneR
 
             const std::u16string& name() const;
 
+            std::vector<std::uint8_t> get_data() const;
+
         private:
             std::size_t get_attribute_type_count() const;
 
