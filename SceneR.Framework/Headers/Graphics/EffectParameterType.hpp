@@ -30,59 +30,59 @@ namespace SceneR
              * Parameter is an unsigned byte. Any floating-point values passed in will be rounded off
              * (to zero decimal places) before being written into the constant table.
              */
-            UByte = 2,
+            UByte = 3,
             /**
              * Parameter is an signed 16-bit integer. Any floating-point values passed in will be rounded off
              * (to zero decimal places) before being written into the constant table.
              */
-            Int16 = 3,
+            Int16 = 4,
             /**
              * Parameter is an unsigned 16-bit integer. Any floating-point values passed in will be rounded off
              * (to zero decimal places) before being written into the constant table.
              */
-            UInt16 = 3,
+            UInt16 = 5,
             /**
              * Parameter is an signed 32-bit integer. Any floating-point values passed in will be rounded off
              * (to zero decimal places) before being written into the constant table.
              */
-            Int32 = 3,
+            Int32 = 6,
             /**
              * Parameter is an unsigned 32-bit integer. Any floating-point values passed in will be rounded off
              * (to zero decimal places) before being written into the constant table.
              */
-            UInt32 = 3,
+            UInt32 = 7,
             /**
              * Parameter is a floating-point number.
              */
-            Single = 4,
+            Single = 8,
             /**
              * Parameter is a string.
              */
-            String = 5,
+            String = 9,
             /**
              * Parameter is a texture.
              */
-            Texture = 6,
+            Texture = 10,
             /**
              * Parameter is a 1D texture.
              */
-            Texture1D = 7,
+            Texture1D = 11,
             /**
              * Parameter is a 2D texture.
              */
-            Texture2D = 8,
+            Texture2D = 12,
             /**
              * Parameter is a 3D texture.
              */
-            Texture3D = 9,
+            Texture3D = 13,
             /**
              * Parameter is a cube texture.
              */
-            TextureCube = 10,
+            TextureCube = 14,
             /**
              * Parameter is a void pointer.
              */
-            Void = 11
+            Void = 15
         };
     }
 }
