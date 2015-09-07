@@ -12,9 +12,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Accessor;
-        class Material;
-        class ModelMeshPart;
+        class ModelMesh;
     }
 }
 
@@ -42,16 +40,12 @@ namespace SceneR
             /**
              * Reads the buffers contents from the given ContentReader.
              */
-            void read(const json11::Json&               value
-                    , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                    , SceneR::Graphics::Model*          root) override;
+            void read(const json11::Json& value, ContentReaderContext& context) override;
 
-            std::shared_ptr<SceneR::Graphics::ModelMeshPart> read_mesh_part(const SceneR::Graphics::Model* root
-                                                                          , const json11::Json&            source) const;
-
-            void read_mesh_part_attribute(std::pair<std::string, json11::Json>             attribute
-                                        , const Graphics::Model*                           root
-                                        , std::shared_ptr<SceneR::Graphics::ModelMeshPart> meshPart) const;
+        private:
+            void read_mesh_part(const json11::Json&                          source
+                              , ContentReaderContext&                        context
+                              , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const;
         };
     }
 }

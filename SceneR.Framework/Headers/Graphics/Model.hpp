@@ -14,14 +14,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-        class AccessorsReader;
-        class BuffersReader;
-        class BufferViewsReader;
-        class MaterialsReader;
         class MeshesReader;
-        class ModelReader;
-        class TechniquesReader;
     }
 }
 
@@ -37,11 +30,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Accessor;
-        class Buffer;
-        class BufferView;
-        class Effect;
-        class Material;
         class ModelBone;
         class ModelMesh;
 
@@ -65,6 +53,12 @@ namespace SceneR
             void dispose() override;
 
         public:
+            /**
+             * Gets the model name.
+             * @return the model name.
+             */
+            const std::u16string name() const;
+
             /**
              * Copies a transform of each bone in a model relative to all parent bones of the bone into a given array.
              * @param destinationBoneTransforms The array to receive bone transforms.
@@ -110,34 +104,12 @@ namespace SceneR
                     , const SceneR::Framework::Matrix& projection);
 
         private:
-            std::shared_ptr<BufferView> find_buffer_view(const std::u16string& name) const;
-
-            std::shared_ptr<Accessor> find_accessor(const std::u16string& name) const;
-
-            std::shared_ptr<Material> find_material(const std::u16string& name) const;
-
-            std::shared_ptr<Effect> find_effect(const std::u16string& name) const;
-
-        private:
             std::u16string                           _name;
             std::vector<std::shared_ptr<ModelBone>>  _bones;
             std::shared_ptr<ModelBone>               _root;
-
-            std::vector<std::shared_ptr<Accessor>>   _accessors;
-            std::vector<std::shared_ptr<Buffer>>     _buffers;
-            std::vector<std::shared_ptr<BufferView>> _buffer_views;
-            std::vector<std::shared_ptr<Effect>>     _effects;
-            std::vector<std::shared_ptr<Material>>   _materials;
             std::vector<std::shared_ptr<ModelMesh>>  _meshes;
 
-            friend class SceneR::Content::ContentReader;
-            friend class SceneR::Content::AccessorsReader;
-            friend class SceneR::Content::BuffersReader;
-            friend class SceneR::Content::BufferViewsReader;
-            friend class SceneR::Content::MaterialsReader;
             friend class SceneR::Content::MeshesReader;
-            friend class SceneR::Content::ModelReader;
-            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

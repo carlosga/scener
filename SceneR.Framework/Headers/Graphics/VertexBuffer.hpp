@@ -9,15 +9,23 @@
 #include <memory>
 #include <vector>
 
-#include "BufferView.hpp"
 #include <Graphics/GraphicsResource.hpp>
-#include <Graphics/VertexArrayObject.hpp>
+
+namespace SceneR
+{
+    namespace Content
+    {
+        class MeshesReader;
+    }
+}
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class BufferView;
         class GraphicsDevice;
+        class VertexArrayObject;
         class VertexDeclaration;
 
         /**
@@ -30,9 +38,9 @@ namespace SceneR
              * Initializes a new instance of the VertexBuffer class.
              * @param graphicsDevice the graphics device.
              */
-            VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                       , const std::size_t&                                          vertexCount
-                       , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration);
+            VertexBuffer(GraphicsDevice&                                      graphicsDevice
+                       , const std::size_t&                                   vertexCount
+                       , std::unique_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration);
 
             /**
              * Releases all resources being used by the current VertexBuffer
@@ -66,20 +74,22 @@ namespace SceneR
             /**
              * Defines per-vertex data in a buffer.
              */
-            std::shared_ptr<SceneR::Graphics::VertexDeclaration> vertex_declaration() const;
+            SceneR::Graphics::VertexDeclaration* vertex_declaration() const;
 
         private:
             void activate();
             void deactivate();
+            void initialize();
 
         private:
             std::uint32_t                                        _binding_index;
-            std::shared_ptr<SceneR::Graphics::VertexDeclaration> _vertex_declaration;
             std::size_t                                          _vertex_count;
-            VertexArrayObject                                    _vao;
-            BufferView                                           _vbo;
+            std::unique_ptr<SceneR::Graphics::VertexDeclaration> _vertex_declaration;
+            std::unique_ptr<VertexArrayObject>                   _vao;
+            std::unique_ptr<BufferView>                          _vbo;
 
-            friend class GraphicsDevice;
+            friend class SceneR::Content::MeshesReader;
+            friend class SceneR::Graphics::GraphicsDevice;
         };
     }
 }

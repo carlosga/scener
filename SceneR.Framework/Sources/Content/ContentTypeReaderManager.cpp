@@ -4,7 +4,6 @@
 #include <Content/ContentTypeReaderManager.hpp>
 
 #include <Content/Readers/AccessorsReader.hpp>
-#include <Content/Readers/BuffersReader.hpp>
 #include <Content/Readers/BufferViewsReader.hpp>
 #include <Content/Readers/MaterialsReader.hpp>
 #include <Content/Readers/MeshesReader.hpp>
@@ -39,7 +38,6 @@ namespace SceneR
 
         void ContentTypeReaderManager::register_known_type_readers()
         {
-            register_type_reader<BuffersReader>("buffers");
             register_type_reader<BufferViewsReader>("bufferViews");
             register_type_reader<AccessorsReader>("accessors");
             register_type_reader<MeshesReader>("meshes");

@@ -12,7 +12,6 @@ namespace SceneR
         VertexArrayObject::VertexArrayObject()
             : _id { 0 }
         {
-            this->create();
         }
 
         VertexArrayObject::~VertexArrayObject()

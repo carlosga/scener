@@ -6,30 +6,37 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
-#include <Framework/Matrix.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <Graphics/Effect.hpp>
 #include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/EffectPassInstanceProgram.hpp>
 #include <Graphics/EffectPassStates.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Model.hpp>
 #include <Graphics/RenderingStateType.hpp>
-
-#include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
-
-using namespace SceneR::Framework;
-using namespace SceneR::Graphics;
-using System::Text::Encoding;
-using json11::Json;
 
 namespace SceneR
 {
     namespace Content
     {
+        using json11::Json;
+        using SceneR::Framework::Vector2;
+        using SceneR::Framework::Vector3;
+        using SceneR::Framework::Vector4;
+        using SceneR::Graphics::Effect;
+        using SceneR::Graphics::EffectParameter;
+        using SceneR::Graphics::EffectParameterClass;
+        using SceneR::Graphics::EffectParameterType;
+        using SceneR::Graphics::EffectPass;
+        using SceneR::Graphics::EffectPassInstanceProgram;
+        using SceneR::Graphics::EffectPassStates;
+        using SceneR::Graphics::RenderingStateType;
+        using System::Text::Encoding;
+
         TechniquesReader::TechniquesReader()
         {
         }
@@ -38,13 +45,11 @@ namespace SceneR
         {
         }
 
-        void TechniquesReader::read(const json11::Json&               value
-                                  , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                                  , SceneR::Graphics::Model*          root)
+        void TechniquesReader::read(const json11::Json& value, ContentReaderContext& context)
         {
             for (const auto& item : value["techniques"].object_items())
             {
-                auto effect = std::make_shared<Effect>(graphicsDevice);
+                auto effect = std::make_shared<Effect>(context.graphics_device);
 
                 read_technique_parameters(item.second["parameters"], effect);
                 read_technique_passes(item.second["passes"], effect);
@@ -52,11 +57,11 @@ namespace SceneR
                 effect->name  = Encoding::convert(item.first);
                 effect->_pass = effect->_passes[item.second["pass"].string_value()];
 
-                root->_effects.push_back(effect);
+                context.effects.push_back(effect);
             }
         }
 
-        void TechniquesReader::read_technique_parameters(const json11::Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::read_technique_parameters(const Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& source : value.object_items())
             {
@@ -73,14 +78,7 @@ namespace SceneR
 
                 set_parameter_value(parameter, source.second["value"]);
 
-//                "node" : {
-//                    "extends" : { "$ref" : "glTFid.schema.json" },
-//                    "description" : "The id (JSON property name) of the node whose transform is used as the parameter's value."
-//                },
-//                "value" : {
-//                    "type" : ["number", "boolean", "string", { "$ref" : "arrayValues.schema.json" }],
-//                    "description" : "Material values, when specified, override this."
-//                }
+                // TODO : Node reference
 
                 technique->_parameters[source.first] = parameter;
             }
@@ -88,7 +86,7 @@ namespace SceneR
             cache_parameters(technique);
         }
 
-        void TechniquesReader::read_technique_passes(const json11::Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::read_technique_passes(const Json& value, std::shared_ptr<Effect> technique)
         {
             for (const auto& source : value.object_items())
             {
@@ -113,7 +111,7 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::read_technique_pass_program(const json11::Json&         value
+        void TechniquesReader::read_technique_pass_program(const Json&                 value
                                                          , std::shared_ptr<Effect>     technique
                                                          , std::shared_ptr<EffectPass> pass)
         {
@@ -143,7 +141,7 @@ namespace SceneR
             pass->_program = program;
         }
 
-        void TechniquesReader::read_technique_pass_states(const json11::Json& value, std::shared_ptr<EffectPass> pass)
+        void TechniquesReader::read_technique_pass_states(const Json& value, std::shared_ptr<EffectPass> pass)
         {
             EffectPassStates passStates;
 
@@ -352,7 +350,7 @@ namespace SceneR
         }
 
         void TechniquesReader::set_parameter_value(std::shared_ptr<EffectParameter> parameter
-                                                 , const json11::Json&              value)
+                                                 , const Json&                      value)
         {
             if (value.is_null())
             {
@@ -434,24 +432,5 @@ namespace SceneR
                 break;
             }
         }
-
-        // "pass":"defaultPass",
-        // "passes":{
-        //    "defaultPass":{
-        //       "details":{
-        //          "commonProfile":{
-        //             "extras":{
-        //                "doubleSided":false
-        //             },
-        //             "texcoordBindings":{
-        //                "ambient":"TEXCOORD_0",
-        //                "bump":"TEXCOORD_0",
-        //                "diffuse":"TEXCOORD_0"
-        //             }
-        //          },
-        //          "type":"COLLADA-1.4.1/commonProfile"
-        //       },
-        //       },
-        //    }
     }
 }

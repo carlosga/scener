@@ -6,8 +6,6 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Model.hpp>
 #include <Graphics/Material.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -16,8 +14,6 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::Model;
         using SceneR::Graphics::Material;
         using System::Text::Encoding;
 
@@ -29,9 +25,7 @@ namespace SceneR
         {
         }
 
-        void MaterialsReader::read(const json11::Json&               value
-                                 , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                                 , SceneR::Graphics::Model*          root)
+        void MaterialsReader::read(const json11::Json& value, ContentReaderContext& context)
         {
             for (const auto& item : value["materials"].object_items())
             {
@@ -85,7 +79,7 @@ namespace SceneR
                 // TODO: Decode material instance technique
                 // material->instanceTechnique = root->techniques[item.second["instanceTechnique"].string_value()];
 
-                root->_materials.push_back(material);
+                context.materials.push_back(material);
             }
         }
     }

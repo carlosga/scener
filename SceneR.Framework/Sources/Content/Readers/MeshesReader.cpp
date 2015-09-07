@@ -7,28 +7,35 @@
 
 #include <Content/json11.hpp>
 #include <Graphics/Accessor.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Material.hpp>
+#include <Graphics/IndexBuffer.hpp>
+#include <Graphics/IndexElementSize.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
-#include <Graphics/PrimitiveType.hpp>
+#include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 #include <System/Text/Encoding.hpp>
+
+using json11::Json;
+using SceneR::Graphics::Accessor;
+using SceneR::Graphics::AttributeType;
+using SceneR::Graphics::IndexBuffer;
+using SceneR::Graphics::IndexElementSize;
+using SceneR::Graphics::Model;
+using SceneR::Graphics::ModelMesh;
+using SceneR::Graphics::ModelMeshPart;
+using SceneR::Graphics::PrimitiveType;
+using SceneR::Graphics::VertexBuffer;
+using SceneR::Graphics::VertexDeclaration;
+using SceneR::Graphics::VertexElement;
+using SceneR::Graphics::VertexElementFormat;
+using SceneR::Graphics::VertexElementUsage;
+using System::Text::Encoding;
 
 namespace SceneR
 {
     namespace Content
     {
-        using SceneR::Graphics::Accessor;
-        using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::Material;
-        using SceneR::Graphics::Model;
-        using SceneR::Graphics::ModelMesh;
-        using SceneR::Graphics::ModelMeshPart;
-        using SceneR::Graphics::PrimitiveType;
-        using System::Text::Encoding;
-        using json11::Json;
-
         MeshesReader::MeshesReader()
         {
         }
@@ -37,9 +44,7 @@ namespace SceneR
         {
         }
 
-        void MeshesReader::read(const json11::Json&               value
-                              , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                              , SceneR::Graphics::Model*          root)
+        void MeshesReader::read(const Json& value, ContentReaderContext& context)
         {
             for (const auto& item : value["meshes"].object_items())
             {
@@ -47,75 +52,136 @@ namespace SceneR
 
                 for (const auto& source : item.second["primitives"].array_items())
                 {
-                    mesh->_mesh_parts.push_back(read_mesh_part(root, source));
+                    read_mesh_part(source, context, mesh);
                 }
 
                 mesh->_name = Encoding::convert(item.first);
-                root->_meshes.push_back(mesh);
+
+                context.model->_meshes.push_back(mesh);
             }
         }
 
-        std::shared_ptr<ModelMeshPart> MeshesReader::read_mesh_part(const Model* root, const Json& source) const
+        void MeshesReader::read_mesh_part(const json11::Json&                          source
+                                        , ContentReaderContext&                        context
+                                        , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const
         {
-            auto meshPart = std::__1::make_shared<ModelMeshPart>();
-            auto indices  = Encoding::convert(source["indices"].string_value());
-            auto material = Encoding::convert(source["material"].string_value());
+            auto meshPart     = std::make_shared<ModelMeshPart>();
+            auto elemenSize   = IndexElementSize::SixteenBits;
+            auto indices      = context.find_accessor(Encoding::convert(source["indices"].string_value()));
+            auto indexCount   = indices->attribute_count();
+            auto indexData    = indices->get_data();
+            auto vertexStride = 0;
+            auto vertexCount  = 0;
+            auto usageIndex   = 0;
+            auto elements     = std::vector<VertexElement>();
+            auto vertexData   = std::vector<std::uint8_t>(0);
+            auto material     = Encoding::convert(source["material"].string_value());
 
-            meshPart->_indices  = root->find_accessor(indices);
-            meshPart->_material = root->find_material(material);
-            meshPart->_type     = static_cast<PrimitiveType>(source["primitive"].int_value());
+            // Index buffer
+            meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, elemenSize, indexCount);
 
+            meshPart->_index_buffer->initialize();
+            meshPart->_index_buffer->set_data(indexData.data());
+
+            // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                read_mesh_part_attribute(attribute, root, meshPart);
+                auto name     = Encoding::convert(attribute.second.string_value());
+                auto accessor = context.find_accessor(name);
+                auto usage    = VertexElementUsage::Position;
+                auto format   = VertexElementFormat::Vector3;
+
+                switch (accessor->attribute_type())
+                {
+                case AttributeType::Vector2:
+                    format = VertexElementFormat::Vector2;
+                    break;
+                case AttributeType::Vector3:
+                    format = VertexElementFormat::Vector3;
+                    break;
+                case AttributeType::Vector4:
+                    format = VertexElementFormat::Vector4;
+                    break;
+                case AttributeType::Scalar:
+                    format = VertexElementFormat::Single;
+                    break;
+                }
+
+                if (attribute.first == "JOINT")
+                {
+                    usage = VertexElementUsage::BlendIndices;
+                }
+                else if (attribute.first == "NORMAL")
+                {
+                    usage = VertexElementUsage::Normal;
+                }
+                else if (attribute.first == "POSITION")
+                {
+                    usage       = VertexElementUsage::Position;
+                    vertexCount = accessor->attribute_count();
+                }
+                else if (attribute.first == "TEXBINORMAL")
+                {
+                    usage = VertexElementUsage::Binormal;
+                }
+                else if (attribute.first == "TEXCOORD_0")
+                {
+                    usage = VertexElementUsage::TextureCoordinate;
+                }
+                else if (attribute.first == "TEXTANGENT")
+                {
+                    usage = VertexElementUsage::Tangent;
+                }
+                else if (attribute.first == "WEIGHT")
+                {
+                    usage = VertexElementUsage::BlendWeight;
+                }
+                else
+                {
+                    std::cout << "unknown attribute [" << attribute.first << "]" << std::endl;
+                }
+
+                auto accessorData = accessor->get_data();
+
+                vertexData.insert(vertexData.end(), accessorData.begin(), accessorData.end());
+                elements.push_back({ vertexStride, format, usage, ++usageIndex });
+
+                vertexStride += accessor->byte_stride();
             }
 
-            return meshPart;
-        }
+            auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 
-        void MeshesReader::read_mesh_part_attribute(std::pair<std::string, json11::Json> attribute
-                                                  , const Model*                         root
-                                                  , std::shared_ptr<ModelMeshPart>       meshPart) const
-        {
-            auto name     = Encoding::convert(attribute.second.string_value());
-            auto accessor = root->find_accessor(name);
+            meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(context.graphics_device, vertexCount, std::move(declaration));
+            meshPart->_primitive_type  = static_cast<PrimitiveType>(source["primitive"].int_value());
+            meshPart->_vertex_count    = vertexCount;
+            meshPart->_start_index     = 0;
+            meshPart->_vertex_offset   = 0;
+            meshPart->_primitive_count = 0;
 
-            if (attribute.first == "JOINT")
+            switch (meshPart->_primitive_type)
             {
-                meshPart->_joint = accessor;
+            case PrimitiveType::LineList:
+                meshPart->_primitive_count = (vertexCount / 2);
+                break;
+            case PrimitiveType::TriangleList:
+                meshPart->_primitive_count = (vertexCount  / 3);
+                break;
+            case PrimitiveType::LineLoop:
+            case PrimitiveType::LineStrip:
+            case PrimitiveType::PointList:
+            case PrimitiveType::TriangleFan:
+            case PrimitiveType::TriangleStrip:
+                meshPart->_primitive_count = (vertexCount  / 3);
+                break;
             }
-            else if (attribute.first == "NORMAL")
-            {
-                meshPart->_normal = accessor;
-            }
-            else if (attribute.first == "POSITION")
-            {
-                meshPart->_position = accessor;
-            }
-            else if (attribute.first == "TEXBINORMAL")
-            {
-                meshPart->_textureBinormal = accessor;
-            }
-            else if (attribute.first == "TEXCOORD_0")
-            {
-                meshPart->_textureCoordinates = accessor;
-            }
-            else if (attribute.first == "TEXCOORD_0")
-            {
-                meshPart->_textureCoordinates = accessor;
-            }
-            else if (attribute.first == "TEXTANGENT")
-            {
-                meshPart->_textureTangent = accessor;
-            }
-            else if (attribute.first == "WEIGHT")
-            {
-                meshPart->_weight = accessor;
-            }
-            else
-            {
-                std::__1::cout << "unknown attribute [" << attribute.first << "]" << std::__1::endl;
-            }
+
+            meshPart->_vertex_buffer->initialize();
+            meshPart->_vertex_buffer->set_data(vertexData.data());
+
+            // Material
+            // TODO: process material
+
+            mesh->_mesh_parts.push_back(meshPart);
         }
     }
 }

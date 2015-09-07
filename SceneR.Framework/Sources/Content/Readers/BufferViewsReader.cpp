@@ -4,25 +4,20 @@
 #include <Content/Readers/BufferViewsReader.hpp>
 
 #include <Content/json11.hpp>
-#include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/BufferView.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Model.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
-        using SceneR::Graphics::Buffer;
-        using SceneR::Graphics::BufferView;
+        using json11::Json;
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
-        using SceneR::Graphics::GraphicsDevice;
+        using SceneR::Graphics::BufferView;
         using System::Text::Encoding;
-        using json11::Json;
 
         BufferViewsReader::BufferViewsReader()
         {
@@ -32,9 +27,7 @@ namespace SceneR
         {
         }
 
-        void BufferViewsReader::read(const json11::Json&               value
-                                   , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                                   , SceneR::Graphics::Model*          root)
+        void BufferViewsReader::read(const json11::Json& value, ContentReaderContext& context)
         {
             for (const auto& item : value["bufferViews"].object_items())
             {
@@ -53,7 +46,7 @@ namespace SceneR
                 bufferView->_byte_offset = item.second["byteOffset"].int_value();
                 bufferView->_byte_length = item.second["byteLength"].int_value();
 
-                root->_buffer_views.push_back(bufferView);
+                context.buffer_views.push_back(bufferView);
             }
         }
     }

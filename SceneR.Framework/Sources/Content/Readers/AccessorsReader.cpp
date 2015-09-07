@@ -5,18 +5,10 @@
 
 #include <algorithm>
 
-#include <Content/ContentReader.hpp>
 #include <Content/json11.hpp>
-#include <Framework/Matrix.hpp>
-#include <Framework/Vector2.hpp>
-#include <Framework/Vector3.hpp>
-#include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/AttributeType.hpp>
-#include <Graphics/BufferView.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ComponentType.hpp>
-#include <Graphics/Model.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
@@ -26,10 +18,7 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::AttributeType;
-        using SceneR::Graphics::BufferView;
         using SceneR::Graphics::ComponentType;
-        using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::Model;
         using System::Text::Encoding;
 
         AccessorsReader::AccessorsReader()
@@ -41,9 +30,7 @@ namespace SceneR
 
         }
 
-        void AccessorsReader::read(const json11::Json&               value
-                                 , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                                 , SceneR::Graphics::Model*          root)
+        void AccessorsReader::read(const Json& value, ContentReaderContext& context)
         {
             for (const auto& source : value["accessors"].object_items())
             {
@@ -81,7 +68,7 @@ namespace SceneR
                 }
 
                 accessor->_name            = Encoding::convert(source.first);
-                accessor->_buffer_view     = root->find_buffer_view(viewName);
+                accessor->_buffer_view     = context.find_buffer_view(viewName);
                 accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
                 accessor->_byte_offset     = source.second["byteOffset"].int_value();
                 accessor->_byte_stride     = source.second["byteStride"].int_value();
@@ -99,7 +86,7 @@ namespace SceneR
                     accessor->_min.push_back(item.number_value());
                 }
 
-                root->_accessors.push_back(accessor);
+                context.accessors.push_back(accessor);
             }
         }
     }

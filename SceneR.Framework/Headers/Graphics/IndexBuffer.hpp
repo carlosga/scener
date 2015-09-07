@@ -6,16 +6,25 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
-#include "BufferView.hpp"
 #include <Graphics/IndexElementSize.hpp>
 #include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class MeshesReader;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
+        class BufferView;
         class GraphicsDevice;
 
         /**
@@ -72,14 +81,16 @@ namespace SceneR
         private:
             void activate() const;
             void deactivate() const;
+            void initialize();
             std::size_t get_element_size_in_bytes() const;
 
         private:
-            BufferView                         _ibo;
+            std::unique_ptr<BufferView>        _ibo;
             std::size_t                        _indexCount;
             SceneR::Graphics::IndexElementSize _indexElementSize;
 
-            friend class GraphicsDevice;
+            friend class SceneR::Graphics::GraphicsDevice;
+            friend class SceneR::Content::MeshesReader;
         };
     }
 }

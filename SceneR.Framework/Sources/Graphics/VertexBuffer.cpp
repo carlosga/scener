@@ -3,27 +3,32 @@
 
 #include <Graphics/VertexBuffer.hpp>
 
+#include <Graphics/BufferTarget.hpp>
+#include <Graphics/BufferUsage.hpp>
+#include <Graphics/BufferView.hpp>
+#include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        VertexBuffer::VertexBuffer(GraphicsDevice&                                             graphicsDevice
-                                 , const std::size_t&                                          vertexCount
-                                 , const std::shared_ptr<SceneR::Graphics::VertexDeclaration>& vertexDeclaration)
+        using SceneR::Graphics::BufferTarget;
+        using SceneR::Graphics::BufferUsage;
+        using SceneR::Graphics::BufferView;
+        using SceneR::Graphics::VertexArrayObject;
+        using SceneR::Graphics::VertexDeclaration;
+
+        VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
+                                 , const std::size_t&                                   vertexCount
+                                 , std::unique_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)
             : GraphicsResource    { graphicsDevice }
             , _binding_index      { 0 }
-            , _vertex_declaration { vertexDeclaration }
             , _vertex_count       { vertexCount }
-            , _vao                { }
-            , _vbo                { BufferTarget::ArrayBuffer, BufferUsage::StaticDraw }
+            , _vertex_declaration { std::move(vertexDeclaration) }
+            , _vao                { nullptr }
+            , _vbo                { nullptr }
         {
-            _vertex_declaration->declare(_vao.id(), _binding_index);
-
-            auto vertexStride = static_cast<GLsizei>(_vertex_declaration->vertex_stride());
-
-            glVertexArrayVertexBuffer(_vao.id(), _binding_index, _vbo.id(), 0, vertexStride);
         }
 
         VertexBuffer::~VertexBuffer()
@@ -32,8 +37,16 @@ namespace SceneR
 
         void VertexBuffer::dispose()
         {
-            _vao.dispose();
-            _vbo.dispose();
+            if (_vao.get())
+            {
+                _vao->dispose();
+                _vao.release();
+            }
+            if (_vbo.get())
+            {
+                _vbo->dispose();
+                _vbo.release();
+            }
         }
 
         std::size_t VertexBuffer::vertex_count() const
@@ -53,29 +66,42 @@ namespace SceneR
             auto size   = (elementCount * _vertex_declaration->vertex_stride());
             auto data   = std::vector<std::uint8_t>(size, 0);
 
-            _vbo.get_data(offset, size, data.data());
+            _vbo->get_data(offset, size, data.data());
 
             return data;
         }
 
         void VertexBuffer::set_data(const void* data)
         {
-            _vbo.set_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
+            _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
         }
 
-        std::shared_ptr<SceneR::Graphics::VertexDeclaration> VertexBuffer::vertex_declaration() const
+        SceneR::Graphics::VertexDeclaration* VertexBuffer::vertex_declaration() const
         {
-            return _vertex_declaration;
+            return _vertex_declaration.get();
         }
 
         void VertexBuffer::activate()
         {
-            _vao.activate();
+            _vao->activate();
         }
 
         void VertexBuffer::deactivate()
         {
-            _vao.deactivate();
+            _vao->deactivate();
+        }
+
+        void VertexBuffer::initialize()
+        {
+            _vao = std::make_unique<VertexArrayObject>();
+            _vbo = std::make_unique<BufferView>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
+
+            _vao->create();
+            _vbo->create();
+
+            _vertex_declaration->declare(_vao->id(), _binding_index);
+
+            glVertexArrayVertexBuffer(_vao->id(), _binding_index, _vbo->id(), 0, _vertex_declaration->vertex_stride());
         }
     }
 }

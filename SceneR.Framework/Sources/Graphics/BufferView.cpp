@@ -47,6 +47,16 @@ namespace SceneR
             return _usage;
         }
 
+        std::size_t BufferView::byte_offset() const
+        {
+            return _byte_offset;
+        }
+
+        std::size_t BufferView::byte_length() const
+        {
+            return _byte_length;
+        }
+
         const std::u16string& BufferView::name() const
         {
             return _name;

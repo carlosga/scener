@@ -17,8 +17,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
 
         ModelMesh::ModelMesh()
-            : tag              { }
-            , _name            { }
+            : _name            { }
             , _mesh_parts      ( 0 )
             , _parent_bone     { nullptr }
             , _bounding_sphere { Vector3::zero, 0.0f }
@@ -75,10 +74,10 @@ namespace SceneR
                     graphicsDevice.effect = meshPart->effect;
                 }
 
-                graphicsDevice.vertex_buffer = meshPart->vertex_buffer();
                 graphicsDevice.index_buffer  = meshPart->index_buffer();
+                graphicsDevice.vertex_buffer = meshPart->vertex_buffer();
 
-                graphicsDevice.draw_indexed_primitives(PrimitiveType::TriangleList
+                graphicsDevice.draw_indexed_primitives(meshPart->primitive_type()
                                                      , meshPart->vertex_offset()
                                                      , 0
                                                      , meshPart->vertex_count()

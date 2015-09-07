@@ -13,14 +13,6 @@
 
 namespace SceneR
 {
-    namespace Content
-    {
-        class ModelReader;
-    }
-}
-
-namespace SceneR
-{
     namespace Graphics
     {
         /**
@@ -76,8 +68,6 @@ namespace SceneR
             std::uint32_t                           _index;
             std::shared_ptr<ModelBone>              _parent;
             SceneR::Framework::Matrix               _transform;
-
-            friend class SceneR::Content::ModelReader;
         };
     }
 }

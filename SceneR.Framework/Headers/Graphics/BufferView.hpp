@@ -17,8 +17,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-        class AccessorsReader;
         class BufferViewsReader;
     }
 }
@@ -27,8 +25,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Buffer;
-
         /**
          * Represents an OpenGL buffer object.
          */
@@ -65,6 +61,9 @@ namespace SceneR
              * Gets the buffer object usage.
              */
             const BufferUsage& usage() const;
+
+            std::size_t byte_offset() const;
+            std::size_t byte_length() const;
 
             /**
              * Gets the buffer name.
@@ -137,8 +136,6 @@ namespace SceneR
             std::size_t    _byte_length;
             std::u16string _name;
 
-            friend class SceneR::Content::ContentReader;
-            friend class SceneR::Content::AccessorsReader;
             friend class SceneR::Content::BufferViewsReader;
         };
     }

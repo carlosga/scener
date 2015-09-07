@@ -54,7 +54,10 @@ namespace SceneR
 
             std::vector<std::uint8_t> get_data() const;
 
-        private:
+            void activate() const;
+
+            void deactivate() const;
+
             std::size_t get_attribute_type_count() const;
 
             std::size_t get_component_size_in_bytes() const;
@@ -72,7 +75,6 @@ namespace SceneR
             std::u16string              _name;
 
             friend class SceneR::Content::AccessorsReader;
-            friend class SceneR::Content::MeshesReader;
         };
     }
 }

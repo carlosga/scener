@@ -14,7 +14,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ModelReader;
         class MeshesReader;
     }
 }
@@ -23,10 +22,8 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Accessor;
         class Effect;
         class IndexBuffer;
-        class Material;
         class VertexBuffer;
 
         /**
@@ -49,12 +46,12 @@ namespace SceneR
             /**
              * Gets the index buffer for this mesh part.
              */
-            const std::shared_ptr<SceneR::Graphics::IndexBuffer>& index_buffer() const;
+            SceneR::Graphics::IndexBuffer* index_buffer() const;
 
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            const std::shared_ptr<SceneR::Graphics::VertexBuffer>& vertex_buffer() const;
+            SceneR::Graphics::VertexBuffer* vertex_buffer() const;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
@@ -76,38 +73,27 @@ namespace SceneR
              */
             std::size_t primitive_count() const;
 
-        public:
             /**
-             * Gets or sets the tag for this mesh part.
+             * Gets the type of primitives to render.
              */
-            std::shared_ptr<SceneR::Graphics::Effect> effect;
+            const SceneR::Graphics::PrimitiveType& primitive_type() const;
 
+        public:
             /**
              * Gets or sets the material Effect for this mesh part.
              */
-            std::u16string tag;
+            std::shared_ptr<SceneR::Graphics::Effect> effect;
 
         private:
-            std::shared_ptr<SceneR::Graphics::IndexBuffer>  _index_buffer;
-            std::shared_ptr<SceneR::Graphics::VertexBuffer> _vertex_buffer;
+            std::unique_ptr<SceneR::Graphics::IndexBuffer>  _index_buffer;
+            std::unique_ptr<SceneR::Graphics::VertexBuffer> _vertex_buffer;
             std::size_t                                     _start_index;
             std::size_t                                     _vertex_offset;
             std::size_t                                     _vertex_count;
             std::size_t                                     _primitive_count;
-
-            std::shared_ptr<Accessor> _joint              = nullptr;
-            std::shared_ptr<Accessor> _normal             = nullptr;
-            std::shared_ptr<Accessor> _position           = nullptr;
-            std::shared_ptr<Accessor> _textureBinormal    = nullptr;
-            std::shared_ptr<Accessor> _textureCoordinates = nullptr;
-            std::shared_ptr<Accessor> _textureTangent     = nullptr;
-            std::shared_ptr<Accessor> _weight             = nullptr;
-            std::shared_ptr<Accessor> _indices            = nullptr;
-            std::shared_ptr<Material> _material           = nullptr;
-            PrimitiveType             _type;
+            SceneR::Graphics::PrimitiveType                 _primitive_type;
 
             friend class SceneR::Content::MeshesReader;
-            friend class SceneR::Content::ModelReader;
         };
     }
 }

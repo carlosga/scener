@@ -137,11 +137,11 @@ namespace SceneR
                                                    , const std::size_t&   startIndex
                                                    , const std::size_t&   primitiveCount) const
         {
-            if (index_buffer.get() == nullptr)
+            if (index_buffer == nullptr)
             {
                 throw std::runtime_error("Set the IndexBuffer before calling DrawIndexedPrimitives");
             }
-            if (vertex_buffer.get() == nullptr)
+            if (vertex_buffer == nullptr)
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }
@@ -171,7 +171,7 @@ namespace SceneR
                                            , const std::size_t&   startVertex
                                            , const std::size_t&   primitiveCount) const
         {
-            if (vertex_buffer.get() == nullptr)
+            if (vertex_buffer == nullptr)
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }

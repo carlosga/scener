@@ -12,6 +12,7 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <Content/ContentTypeReaderManager.hpp>
+#include <Content/ContentReaderContext.hpp>
 
 namespace json11
 {
@@ -74,7 +75,7 @@ namespace SceneR
             /**
              * Reads a single object from the current stream.
              */
-            void read_object(const std::string& key, const json11::Json& value, SceneR::Graphics::Model* root);
+            void read_object(const std::string& key, const json11::Json& value, ContentReaderContext& context);
 
         private:
             std::u16string                    _asset_name;

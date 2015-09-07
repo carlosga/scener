@@ -63,7 +63,7 @@ namespace SceneR
             return _min;
         }
 
-        const std::u16string &Accessor::name() const
+        const std::u16string& Accessor::name() const
         {
             return _name;
         }
@@ -75,6 +75,16 @@ namespace SceneR
             _buffer_view->get_data(_byte_offset, _byte_length, data.data());
 
             return data;
+        }
+
+        void Accessor::activate() const
+        {
+            _buffer_view->activate();
+        }
+
+        void Accessor::deactivate() const
+        {
+            _buffer_view->deactivate();
         }
 
         std::size_t Accessor::get_attribute_type_count() const

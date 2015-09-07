@@ -170,12 +170,12 @@ namespace SceneR
             /**
              * Gets or sets the index buffer.
              */
-            std::shared_ptr<SceneR::Graphics::IndexBuffer> index_buffer;
+            SceneR::Graphics::IndexBuffer* index_buffer;
 
             /**
              * Sets or binds a vertex buffer to the device.
              */
-            std::shared_ptr<SceneR::Graphics::VertexBuffer> vertex_buffer;
+            SceneR::Graphics::VertexBuffer* vertex_buffer;
 
         private:
             SceneR::Graphics::BlendState                _blend_state;

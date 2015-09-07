@@ -4,6 +4,8 @@
 #ifndef CONTENTTYPEREADER_HPP
 #define CONTENTTYPEREADER_HPP
 
+#include <Content/ContentReaderContext.hpp>
+
 namespace json11
 {
     class Json;
@@ -39,9 +41,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            virtual void read(const json11::Json&               value
-                            , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                            , SceneR::Graphics::Model*          root) = 0;
+            virtual void read(const json11::Json& value, ContentReaderContext& context) = 0;
         };
     }
 }

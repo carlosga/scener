@@ -43,12 +43,14 @@ namespace SceneR
             void activate() const;
 
             /**
+             * Creates the vertex array object.
+             */
+            void create();
+
+            /**
              * Deactivates this vertex array object.
              */
             void deactivate() const;
-
-        private:
-            void create();
 
         private:
             std::uint32_t _id;

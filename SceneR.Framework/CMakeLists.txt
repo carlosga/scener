@@ -40,7 +40,6 @@ link_directories(../../regal/lib/linux/)
 # header files
 set(HEADER_FILES
     Headers/Content/Readers/AccessorsReader.hpp
-    Headers/Content/Readers/BuffersReader.hpp
     Headers/Content/Readers/BufferViewsReader.hpp
     Headers/Content/Readers/MeshesReader.hpp
     Headers/Content/Readers/MaterialsReader.hpp
@@ -50,6 +49,7 @@ set(HEADER_FILES
     Headers/Content/ContentLoadException.hpp
     Headers/Content/ContentManager.hpp
     Headers/Content/ContentReader.hpp
+    Headers/Content/ContentReaderContext.hpp
     Headers/Content/ContentTypeReader.hpp
     Headers/Content/ContentTypeReaderManager.hpp
     Headers/Framework/BoundingBox.hpp
@@ -83,7 +83,6 @@ set(HEADER_FILES
     Headers/Graphics/Blend.hpp
     Headers/Graphics/BlendFunction.hpp
     Headers/Graphics/BlendState.hpp
-    Headers/Graphics/Buffer.hpp
     Headers/Graphics/BufferTarget.hpp
     Headers/Graphics/BufferUsage.hpp
     Headers/Graphics/BufferView.hpp
@@ -176,7 +175,6 @@ set(HEADER_FILES
 # source files
 set(SOURCE_FILES
     Sources/Content/Readers/AccessorsReader.cpp
-    Sources/Content/Readers/BuffersReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
     Sources/Content/Readers/MeshesReader.cpp
     Sources/Content/Readers/MaterialsReader.cpp
@@ -184,6 +182,7 @@ set(SOURCE_FILES
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
+    Sources/Content/ContentReaderContext.cpp
     Sources/Content/ContentTypeReaderManager.cpp
     Sources/Content/ContentTypeReader.cpp
     Sources/Content/json11.cpp
@@ -219,6 +218,8 @@ set(SOURCE_FILES
     Sources/Graphics/Effect.cpp
     Sources/Graphics/EffectHelpers.cpp
     Sources/Graphics/EffectParameter.cpp
+    Sources/Graphics/EffectPass.cpp
+    Sources/Graphics/EffectPassInstanceProgram.cpp
     Sources/Graphics/GraphicsAdapter.cpp
     Sources/Graphics/GraphicsDevice.cpp
     Sources/Graphics/GraphicsResource.cpp
@@ -227,6 +228,7 @@ set(SOURCE_FILES
     Sources/Graphics/IEffectMatrices.cpp
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
+    Sources/Graphics/Material.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp
@@ -264,7 +266,7 @@ set(SOURCE_FILES
     Sources/System/Text/Encoding.cpp
     Sources/System/Text/UTF8Decoder.cpp
     Sources/System/Text/UTF8Encoder.cpp
-    Sources/System/Text/UTF8Encoding.cpp Sources/Graphics/Buffer.cpp Sources/Graphics/EffectPass.cpp Sources/Graphics/EffectPassInstanceProgram.cpp Sources/Graphics/Material.cpp)
+    Sources/System/Text/UTF8Encoding.cpp)
 
 #set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
 #set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)

@@ -14,7 +14,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ModelReader;
         class MeshesReader;
     }
 }
@@ -79,9 +78,6 @@ namespace SceneR
              */
             void draw();
 
-        public:
-            std::u16string tag;
-
         private:
             std::u16string                              _name;
             std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
@@ -89,7 +85,6 @@ namespace SceneR
             SceneR::Framework::BoundingSphere           _bounding_sphere;
 
             friend class SceneR::Content::MeshesReader;
-            friend class SceneR::Content::ModelReader;
         };
     }
 }

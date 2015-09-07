@@ -12,14 +12,14 @@ namespace SceneR
     namespace Graphics
     {
         ModelMeshPart::ModelMeshPart()
-            : effect            { nullptr }
-            , tag               {  }
-            , _index_buffer     { nullptr }
-            , _vertex_buffer    { nullptr }
-            , _start_index      { 0 }
-            , _vertex_offset    { 0 }
-            , _vertex_count     { 0 }
-            , _primitive_count  { 0 }
+            : effect           { nullptr }
+            , _index_buffer    { nullptr }
+            , _vertex_buffer   { nullptr }
+            , _start_index     { 0 }
+            , _vertex_offset   { 0 }
+            , _vertex_count    { 0 }
+            , _primitive_count { 0 }
+            , _primitive_type  { PrimitiveType::TriangleList }
         {
         }
 
@@ -27,14 +27,14 @@ namespace SceneR
         {
         }
 
-        const std::shared_ptr<IndexBuffer>& ModelMeshPart::index_buffer() const
+        IndexBuffer* ModelMeshPart::index_buffer() const
         {
-            return _index_buffer;
+            return _index_buffer.get();
         }
 
-        const std::shared_ptr<VertexBuffer>& ModelMeshPart::vertex_buffer() const
+        VertexBuffer* ModelMeshPart::vertex_buffer() const
         {
-            return _vertex_buffer;
+            return _vertex_buffer.get();
         }
 
         std::size_t ModelMeshPart::start_index() const
@@ -55,6 +55,11 @@ namespace SceneR
         std::size_t ModelMeshPart::primitive_count() const
         {
             return _primitive_count;
+        }
+
+        const PrimitiveType& ModelMeshPart::primitive_type() const
+        {
+            return _primitive_type;
         }
     }
 }
