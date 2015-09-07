@@ -58,20 +58,11 @@ namespace SceneR
 
                 if (elementType == GL_FLOAT)
                 {
-                    glVertexArrayAttribFormat(vaoId
-                                            , usageIndex
-                                            , static_cast<GLint>(elementCount)
-                                            , elementType
-                                            , false
-                                            , ve.offset());
+                    glVertexArrayAttribFormat(vaoId, usageIndex, elementCount, elementType, false, ve.offset());
                 }
                 else
                 {
-                    glVertexArrayAttribIFormat(vaoId
-                                             , usageIndex
-                                             , static_cast<GLint>(elementCount)
-                                             , elementType
-                                             , ve.offset());
+                    glVertexArrayAttribIFormat(vaoId, usageIndex, elementCount, elementType, ve.offset());
                 }
 
                 glEnableVertexArrayAttrib(vaoId, usageIndex);

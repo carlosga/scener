@@ -45,6 +45,7 @@ namespace SceneR
                 bufferView->_name        = Encoding::convert(item.first);
                 bufferView->_byte_offset = item.second["byteOffset"].int_value();
                 bufferView->_byte_length = item.second["byteLength"].int_value();
+                bufferView->_buffer      = context.find_buffer(Encoding::convert(item.second["buffer"].string_value()));
 
                 context.buffer_views.push_back(bufferView);
             }

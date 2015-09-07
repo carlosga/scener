@@ -13,6 +13,7 @@ namespace SceneR
     namespace Graphics
     {
         class Accessor;
+        class Buffer;
         class BufferView;
         class Effect;
         class GraphicsDevice;
@@ -32,6 +33,8 @@ namespace SceneR
             ~ContentReaderContext();
 
         public:
+            std::shared_ptr<SceneR::Graphics::Buffer> find_buffer(const std::u16string& name) const;
+
             std::shared_ptr<SceneR::Graphics::BufferView> find_buffer_view(const std::u16string& name) const;
 
             std::shared_ptr<SceneR::Graphics::Accessor> find_accessor(const std::u16string& name) const;
@@ -44,6 +47,7 @@ namespace SceneR
             SceneR::Graphics::GraphicsDevice&                          graphics_device;
             std::shared_ptr<SceneR::Graphics::Model>                   model;
             std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>   accessors;
+            std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>     buffers;
             std::vector<std::shared_ptr<SceneR::Graphics::BufferView>> buffer_views;
             std::vector<std::shared_ptr<SceneR::Graphics::Effect>>     effects;
             std::vector<std::shared_ptr<SceneR::Graphics::Material>>   materials;

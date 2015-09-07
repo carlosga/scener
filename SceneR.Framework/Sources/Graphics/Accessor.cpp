@@ -72,19 +72,16 @@ namespace SceneR
         {
             std::vector<std::uint8_t> data(_byte_length, 0);
 
-            _buffer_view->get_data(_byte_offset, _byte_length, data.data());
+            _buffer_view->get_data(_byte_offset, _byte_length, data.begin());
 
             return data;
         }
 
-        void Accessor::activate() const
+        void Accessor::get_data(const std::size_t&                  elementOffset
+                              , const std::size_t&                  elementCount
+                              , std::vector<std::uint8_t>::iterator data) const
         {
-            _buffer_view->activate();
-        }
-
-        void Accessor::deactivate() const
-        {
-            _buffer_view->deactivate();
+            _buffer_view->get_data(_byte_offset + (elementOffset * _byte_stride), elementCount * _byte_stride, data);
         }
 
         std::size_t Accessor::get_attribute_type_count() const

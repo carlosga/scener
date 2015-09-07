@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include "BufferView.hpp"
 #include <Graphics/BufferUsage.hpp>
+#include <Graphics/BufferObject.hpp>
 
 namespace SceneR
 {
@@ -98,7 +98,7 @@ namespace SceneR
             std::size_t    _index;
             std::int32_t   _binding_point;
             std::size_t    _size;
-            BufferView     _buffer_view;
+            BufferObject   _buffer_object;
         };
     }
 }

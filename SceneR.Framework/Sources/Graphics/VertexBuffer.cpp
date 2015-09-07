@@ -5,7 +5,7 @@
 
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
-#include <Graphics/BufferView.hpp>
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
@@ -15,7 +15,7 @@ namespace SceneR
     {
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
-        using SceneR::Graphics::BufferView;
+        using SceneR::Graphics::BufferObject;
         using SceneR::Graphics::VertexArrayObject;
         using SceneR::Graphics::VertexDeclaration;
 
@@ -94,7 +94,7 @@ namespace SceneR
         void VertexBuffer::initialize()
         {
             _vao = std::make_unique<VertexArrayObject>();
-            _vbo = std::make_unique<BufferView>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
+            _vbo = std::make_unique<BufferObject>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
 
             _vao->create();
             _vbo->create();

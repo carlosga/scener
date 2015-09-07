@@ -18,7 +18,7 @@ namespace SceneR
             , _index         { 0 }
             , _binding_point { 0 }
             , _size          { 0 }
-            , _buffer_view   { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
+            , _buffer_object { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
         {
         }
 
@@ -28,7 +28,7 @@ namespace SceneR
 
         void UniformBufferObject::dispose()
         {
-            _buffer_view.dispose();
+            _buffer_object.dispose();
         }
 
         std::int32_t UniformBufferObject::binding_point() const
@@ -48,12 +48,12 @@ namespace SceneR
 
         void UniformBufferObject::activate()
         {
-            glBindBufferBase(static_cast<GLenum>(_buffer_view.target()), _binding_point, _buffer_view.id());
+            glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
         }
 
         void UniformBufferObject::deactivate()
         {
-            glBindBufferBase(static_cast<GLenum>(_buffer_view.target()), 0, 0);
+            glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
         }
 
         std::vector<std::uint8_t> UniformBufferObject::get_data() const
@@ -65,14 +65,14 @@ namespace SceneR
         {
             auto data = std::vector<std::uint8_t>(count, 0);
 
-            _buffer_view.get_data(offset, count, data.data());
+            _buffer_object.get_data(offset, count, data.data());
 
             return data;
         }
 
         void UniformBufferObject::set_data(const void* data)
         {
-            _buffer_view.set_data(0, _size, data);
+            _buffer_object.set_data(0, _size, data);
         }
 
         void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data)
@@ -82,7 +82,7 @@ namespace SceneR
                 return;
             }
 
-            _buffer_view.set_data(offset, count, data);
+            _buffer_object.set_data(offset, count, data);
         }
 
         void UniformBufferObject::describe()
@@ -107,7 +107,7 @@ namespace SceneR
             // initialize the buffer object
             std::vector<std::uint8_t> data(_size, 0);
 
-            _buffer_view.set_data(_size, data.data());
+            _buffer_object.set_data(_size, data.data());
         }
     }
 }

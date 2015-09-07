@@ -4,12 +4,14 @@
 #include <Content/ContentReaderContext.hpp>
 
 #include <Graphics/Accessor.hpp>
+#include <Graphics/Buffer.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Material.hpp>
 
 using SceneR::Graphics::Accessor;
+using SceneR::Graphics::Buffer;
 using SceneR::Graphics::BufferView;
 using SceneR::Graphics::Effect;
 using SceneR::Graphics::GraphicsDevice;
@@ -30,6 +32,18 @@ namespace SceneR
 
         ContentReaderContext::~ContentReaderContext()
         {
+        }
+
+        std::shared_ptr<SceneR::Graphics::Buffer> ContentReaderContext::find_buffer(const std::u16string& name) const
+        {
+            auto it = find_if(buffers.begin()
+                            , buffers.end()
+                            , [&](std::shared_ptr<Buffer> buffer) -> bool
+                {
+                    return (buffer->name() == name);
+                });
+
+            return ((it != buffers.end()) ? *it : nullptr);
         }
 
         std::shared_ptr<BufferView> ContentReaderContext::find_buffer_view(const std::u16string& name) const

@@ -3,13 +3,13 @@
 
 #include <Graphics/IndexBuffer.hpp>
 
-#include <Graphics/BufferView.hpp>
+#include <Graphics/BufferObject.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        using SceneR::Graphics::BufferView;
+        using SceneR::Graphics::BufferObject;
 
         IndexBuffer::IndexBuffer(GraphicsDevice&                   graphicsDevice
                                , const Graphics::IndexElementSize& indexElementSize
@@ -77,7 +77,7 @@ namespace SceneR
 
         void IndexBuffer::initialize()
         {
-            _ibo = std::make_unique<BufferView>(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw);
+            _ibo = std::make_unique<BufferObject>(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw);
             _ibo->create();
         }
 

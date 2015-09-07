@@ -24,7 +24,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BufferView;
+        class BufferObject;
         class GraphicsDevice;
 
         /**
@@ -85,7 +85,7 @@ namespace SceneR
             std::size_t get_element_size_in_bytes() const;
 
         private:
-            std::unique_ptr<BufferView>        _ibo;
+            std::unique_ptr<BufferObject>      _ibo;
             std::size_t                        _indexCount;
             SceneR::Graphics::IndexElementSize _indexElementSize;
 

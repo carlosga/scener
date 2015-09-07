@@ -40,6 +40,7 @@ link_directories(../../regal/lib/linux/)
 # header files
 set(HEADER_FILES
     Headers/Content/Readers/AccessorsReader.hpp
+    Headers/Content/Readers/BuffersReader.hpp
     Headers/Content/Readers/BufferViewsReader.hpp
     Headers/Content/Readers/MeshesReader.hpp
     Headers/Content/Readers/MaterialsReader.hpp
@@ -83,6 +84,8 @@ set(HEADER_FILES
     Headers/Graphics/Blend.hpp
     Headers/Graphics/BlendFunction.hpp
     Headers/Graphics/BlendState.hpp
+    Headers/Graphics/Buffer.hpp
+    Headers/Graphics/BufferObject.hpp
     Headers/Graphics/BufferTarget.hpp
     Headers/Graphics/BufferUsage.hpp
     Headers/Graphics/BufferView.hpp
@@ -175,6 +178,7 @@ set(HEADER_FILES
 # source files
 set(SOURCE_FILES
     Sources/Content/Readers/AccessorsReader.cpp
+    Sources/Content/Readers/BuffersReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
     Sources/Content/Readers/MeshesReader.cpp
     Sources/Content/Readers/MaterialsReader.cpp
@@ -210,6 +214,8 @@ set(SOURCE_FILES
     Sources/Framework/Vector4.cpp
     Sources/Graphics/Accessor.cpp
     Sources/Graphics/Resources.cpp
+    Sources/Graphics/Buffer.cpp
+    Sources/Graphics/BufferObject.cpp
     Sources/Graphics/BlendState.cpp
     Sources/Graphics/BufferView.cpp
     Sources/Graphics/DepthStencilState.cpp

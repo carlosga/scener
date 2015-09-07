@@ -54,9 +54,9 @@ namespace SceneR
 
             std::vector<std::uint8_t> get_data() const;
 
-            void activate() const;
-
-            void deactivate() const;
+            void get_data(const std::size_t&                  elementOffset
+                        , const std::size_t&                  elementCount
+                        , std::vector<std::uint8_t>::iterator data) const;
 
             std::size_t get_attribute_type_count() const;
 

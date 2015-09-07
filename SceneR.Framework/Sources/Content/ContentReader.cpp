@@ -6,8 +6,7 @@
 #include <Graphics/GraphicsDevice.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/json11.hpp>
-#include <Graphics/Accessor.hpp>
-#include <Graphics/BufferView.hpp>
+#include <Graphics/Buffer.hpp>
 #include <Graphics/Model.hpp>
 
 namespace SceneR
@@ -15,7 +14,7 @@ namespace SceneR
     namespace Content
     {
         using System::IO::Stream;
-        using SceneR::Graphics::BufferTarget;
+        using SceneR::Graphics::Buffer;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Model;
         using json11::Json;
@@ -64,20 +63,20 @@ namespace SceneR
 
             context.model = std::make_shared<Model>();
 
-            read_object("bufferViews", json, context);
-            read_object("accessors"  , json, context);
+            read_object("buffers", json, context);
 
-            // Binary GLTF has a single buffer, so all buffer views data comes from the same buffer
-            for (const auto bufferView : context.buffer_views)
+            // Set buffers data
+            for (auto buffer : context.buffers)
             {
-                _asset_reader.base_stream().seek(dataOffset + bufferView->byte_offset(), std::ios::beg);
+                _asset_reader.base_stream().seek(dataOffset, std::ios::beg);
 
-                const auto data = _asset_reader.read_bytes(bufferView->byte_length());
+                const auto data = _asset_reader.read_bytes(buffer->byte_length());
 
-                bufferView->create();
-                bufferView->set_data(bufferView->byte_length(), data.data());
+                buffer->set_data(data);
             }
 
+            read_object("bufferViews", json, context);
+            read_object("accessors"  , json, context);
             read_object("techniques" , json, context);
             read_object("materials"  , json, context);
             read_object("meshes"     , json, context);

@@ -70,12 +70,12 @@ namespace SceneR
             auto indices      = context.find_accessor(Encoding::convert(source["indices"].string_value()));
             auto indexCount   = indices->attribute_count();
             auto indexData    = indices->get_data();
-            auto vertexStride = 0;
-            auto vertexCount  = 0;
-            auto usageIndex   = 0;
+            auto vertexStride = std::size_t(0);
+            auto vertexCount  = std::size_t(0);
+            auto usageIndex   = std::size_t(0);
             auto elements     = std::vector<VertexElement>();
-            auto vertexData   = std::vector<std::uint8_t>(0);
             auto material     = Encoding::convert(source["material"].string_value());
+            auto accessors    = std::vector<std::shared_ptr<Accessor>>(0);
 
             // Index buffer
             meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, elemenSize, indexCount);
@@ -141,9 +141,7 @@ namespace SceneR
                     std::cout << "unknown attribute [" << attribute.first << "]" << std::endl;
                 }
 
-                auto accessorData = accessor->get_data();
-
-                vertexData.insert(vertexData.end(), accessorData.begin(), accessorData.end());
+                accessors.push_back(accessor);
                 elements.push_back({ vertexStride, format, usage, ++usageIndex });
 
                 vertexStride += accessor->byte_stride();
@@ -171,10 +169,26 @@ namespace SceneR
             case PrimitiveType::PointList:
             case PrimitiveType::TriangleFan:
             case PrimitiveType::TriangleStrip:
-                meshPart->_primitive_count = (vertexCount  / 3);
+                // TODO: Fix
+                meshPart->_primitive_count = vertexCount;
                 break;
             }
 
+            // Build interleaved data array
+            auto vertexData = std::vector<std::uint8_t>(vertexStride * vertexCount, 0);
+            auto position   = vertexData.begin();
+
+            for (std::size_t i = 0; i < vertexCount; i++)
+            {
+                for (auto accessor : accessors)
+                {
+                    accessor->get_data(i, 1, position);
+
+                    position += accessor->byte_stride();
+                }
+            }
+
+            // Initialize vertex buffer
             meshPart->_vertex_buffer->initialize();
             meshPart->_vertex_buffer->set_data(vertexData.data());
 

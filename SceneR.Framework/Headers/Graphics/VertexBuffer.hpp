@@ -23,7 +23,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BufferView;
+        class BufferObject;
         class GraphicsDevice;
         class VertexArrayObject;
         class VertexDeclaration;
@@ -82,11 +82,11 @@ namespace SceneR
             void initialize();
 
         private:
-            std::uint32_t                                        _binding_index;
-            std::size_t                                          _vertex_count;
-            std::unique_ptr<SceneR::Graphics::VertexDeclaration> _vertex_declaration;
-            std::unique_ptr<VertexArrayObject>                   _vao;
-            std::unique_ptr<BufferView>                          _vbo;
+            std::uint32_t                      _binding_index;
+            std::size_t                        _vertex_count;
+            std::unique_ptr<VertexDeclaration> _vertex_declaration;
+            std::unique_ptr<VertexArrayObject> _vao;
+            std::unique_ptr<BufferObject>      _vbo;
 
             friend class SceneR::Content::MeshesReader;
             friend class SceneR::Graphics::GraphicsDevice;
