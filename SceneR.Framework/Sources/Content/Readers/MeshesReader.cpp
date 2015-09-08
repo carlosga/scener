@@ -178,7 +178,7 @@ namespace SceneR
             auto vertexData = std::vector<std::uint8_t>(vertexStride * vertexCount, 0);
             auto position   = vertexData.begin();
 
-            for (std::size_t i = 0; i < (vertexCount - 1); i++)
+            for (std::size_t i = 0; i < vertexCount; i++)
             {
                 for (auto accessor : accessors)
                 {

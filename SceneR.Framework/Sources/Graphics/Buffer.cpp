@@ -48,7 +48,7 @@ namespace SceneR
                             , const std::size_t&                  count
                             , std::vector<std::uint8_t>::iterator data) const
         {
-            assert(offset < _data.size() && (offset + count) < _data.size());
+            assert(offset < _data.size() && (offset + count) <= _data.size());
 
             std::copy_n(_data.begin() + offset, count, data);
         }
