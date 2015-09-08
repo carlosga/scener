@@ -6,7 +6,6 @@
 
 #include <memory>
 
-#include <System/IO/Stream.hpp>
 #include <Content/ContentResourceManager.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Framework/RendererServiceContainer.hpp>
@@ -16,6 +15,14 @@ namespace SceneR
     namespace Graphics
     {
         class Model;
+    }
+}
+
+namespace System
+{
+    namespace IO
+    {
+        class Stream;
     }
 }
 
@@ -73,7 +80,7 @@ namespace SceneR
              * #param assetName the name of the asset being read.
              */
             std::shared_ptr<System::IO::Stream> open_stream(const std::u16string& assetName) noexcept(false);
-            
+
         private:
             SceneR::Framework::RendererServiceContainer& _service_provider;
             std::u16string                               _root_directory;

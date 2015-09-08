@@ -3,6 +3,7 @@
 
 #include <Content/Readers/BuffersReader.hpp>
 
+#include <Content/ContentReader.hpp>
 #include <Content/json11.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferType.hpp>
@@ -34,20 +35,12 @@ namespace SceneR
             for (const auto& item : value["buffers"].object_items())
             {
                 auto buffer = std::make_shared<Buffer>();
-                auto type   = item.second["type"].string_value();
 
                 buffer->_name        = Encoding::convert(item.first);
                 buffer->_uri         = Encoding::convert(item.second["uri"].string_value());
                 buffer->_byte_length = item.second["byteLength"].int_value();
 
-                if (type == "arraybuffer")
-                {
-                    buffer->_type = BufferType::ArrayBuffer;
-                }
-                else
-                {
-                    buffer->_type = BufferType::Text;
-                }
+                buffer->set_data(context.content_reader->read_external_reference(buffer->_uri));
 
                 context.buffers.push_back(buffer);
             }

@@ -3,30 +3,44 @@
 
 #include <Content/ContentReader.hpp>
 
-#include <Graphics/GraphicsDevice.hpp>
-#include <Content/ContentLoadException.hpp>
+#include <cassert>
+
 #include <Content/json11.hpp>
+#include <Content/ContentLoadException.hpp>
+#include <Content/ContentManager.hpp>
 #include <Graphics/Buffer.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/File.hpp>
+#include <System/IO/FileStream.hpp>
+#include <System/IO/Path.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        using json11::Json;
         using System::IO::Stream;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::GraphicsDevice;
+        using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Model;
-        using json11::Json;
+        using System::IO::BinaryReader;
+        using System::IO::File;
+        using System::IO::FileStream;
+        using System::IO::Path;
 
         ContentTypeReaderManager ContentReader::TypeReaderManager;
 
         ContentReader::ContentReader(const std::u16string& assetName
-                                   , GraphicsDevice&       graphicsDevice
+                                   , ContentManager*       contentManager
                                    , Stream&               stream)
             : _asset_name      { assetName }
             , _asset_reader    { stream }
-            , _graphics_device { graphicsDevice }
+            , _content_manager { contentManager }
         {
         }
 
@@ -42,39 +56,20 @@ namespace SceneR
 
         std::shared_ptr<SceneR::Graphics::Model> ContentReader::read_asset()
         {
-            using SceneR::Graphics::Model;
+            auto  errors    = std::string();
+            auto& gdService = _content_manager->service_provider().get_service<IGraphicsDeviceService>();
+            auto  context   = ContentReaderContext(gdService.graphics_device());
 
-            std::string err;
+            context.content_reader = this;
 
-            auto jsonOffset = _asset_reader.read<std::uint32_t>();
-            auto jsonLength = _asset_reader.read<std::uint32_t>();
-            auto dataOffset = _asset_reader.base_stream().position();
-            auto context    = ContentReaderContext(_graphics_device);
+            auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
+            auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
 
-            _asset_reader.base_stream().seek(jsonOffset, std::ios::beg);
-
-            auto buffer = _asset_reader.read_bytes(jsonLength);
-            auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), err);
-
-            if (!err.empty())
-            {
-                throw ContentLoadException(err);
-            }
+            assert(errors.empty());
 
             context.model = std::make_shared<Model>();
 
-            read_object("buffers", json, context);
-
-            // Set buffers data
-            for (auto buffer : context.buffers)
-            {
-                _asset_reader.base_stream().seek(dataOffset, std::ios::beg);
-
-                const auto data = _asset_reader.read_bytes(buffer->byte_length());
-
-                buffer->set_data(data);
-            }
-
+            read_object("buffers"    , json, context);
             read_object("bufferViews", json, context);
             read_object("accessors"  , json, context);
             read_object("techniques" , json, context);
@@ -110,16 +105,16 @@ namespace SceneR
             // body
             //  JSON UTF-8
             // -------------------------------
-            auto magic = _asset_reader.read_bytes(4);
-            auto mstr  = std::string(magic.begin(), magic.end());
+//            auto magic = _asset_reader.read_bytes(4);
+//            auto mstr  = std::string(magic.begin(), magic.end());
 
-            if (mstr != "glTF")
-            {
-                return false;
-            }
+//            if (mstr != "glTF")
+//            {
+//                return false;
+//            }
 
-            _asset_reader.read<std::uint32_t>();   // version
-            _asset_reader.read<std::uint32_t>();   // file length
+//            _asset_reader.read<std::uint32_t>();   // version
+//            _asset_reader.read<std::uint32_t>();   // file length
 
             return true;
         }
@@ -134,6 +129,23 @@ namespace SceneR
             }
 
             typeReader->read(value, context);
+        }
+
+        /**
+         * Reads a link to an external file.
+         * @returns The asset stored in the external file.
+         */
+        std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
+        {
+            auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
+            auto assetPath = Path::combine(_content_manager->root_directory(), assetRoot);
+
+            assert(File::exists(assetPath));
+
+            FileStream   stream(assetPath);
+            BinaryReader reader(stream);
+
+            return reader.read_bytes(stream.length());
         }
     }
 }

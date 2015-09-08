@@ -26,6 +26,8 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         class ContentReaderContext
         {
         public:
@@ -44,6 +46,7 @@ namespace SceneR
             std::shared_ptr<SceneR::Graphics::Effect> find_effect(const std::u16string& name) const;
 
         public:
+            ContentReader*                                             content_reader;
             SceneR::Graphics::GraphicsDevice&                          graphics_device;
             std::shared_ptr<SceneR::Graphics::Model>                   model;
             std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>   accessors;

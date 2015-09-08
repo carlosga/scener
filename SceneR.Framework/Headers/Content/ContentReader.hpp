@@ -32,6 +32,7 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentManager;
         class ContentTypeReader;
 
        /**
@@ -49,9 +50,9 @@ namespace SceneR
              * @param contentManager the content_manager that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string&             assetName
-                        , SceneR::Graphics::GraphicsDevice& graphicsDevice
-                        , System::IO::Stream&               stream);
+            ContentReader(const std::u16string&            assetName
+                        , SceneR::Content::ContentManager* contentManager
+                        , System::IO::Stream&              stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -77,10 +78,12 @@ namespace SceneR
              */
             void read_object(const std::string& key, const json11::Json& value, ContentReaderContext& context);
 
+            std::vector<std::uint8_t> read_external_reference(const std::u16string& assetName) const;
+
         private:
-            std::u16string                    _asset_name;
-            System::IO::BinaryReader          _asset_reader;
-            SceneR::Graphics::GraphicsDevice& _graphics_device;
+            std::u16string                   _asset_name;
+            System::IO::BinaryReader         _asset_reader;
+            SceneR::Content::ContentManager* _content_manager;
         };
     }
 }

@@ -54,7 +54,7 @@ namespace SceneR
             auto& device    = gdService.graphics_device();
             auto  stream    = open_stream(assetName);
 
-            ContentReader reader(assetName, device, *stream);
+            ContentReader reader(assetName, this, *stream);
 
             auto isValid = reader.read_header();
 
@@ -73,7 +73,7 @@ namespace SceneR
 
         std::shared_ptr<Stream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
         {
-            const auto filename  = assetName + u".bgltf";
+            const auto filename  = assetName + u".gltf";
             const auto path      = Path::combine(_root_directory, filename);
 
             if (!File::exists(path))

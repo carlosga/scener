@@ -37,7 +37,7 @@ namespace SceneR
                 if (!item.second["target"].is_null())
                 {
                     bufferTarget = static_cast<BufferTarget>(item.second["target"].int_value());
-                    bufferUsage  = BufferUsage::DynamicDraw;
+                    bufferUsage  = BufferUsage::StaticDraw;
                 }
 
                 auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
