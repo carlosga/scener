@@ -8,7 +8,6 @@
 #include <Content/json11.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <Graphics/IndexElementSize.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
@@ -21,7 +20,6 @@ using SceneR::Graphics::Accessor;
 using SceneR::Graphics::AttributeType;
 using SceneR::Graphics::ComponentType;
 using SceneR::Graphics::IndexBuffer;
-using SceneR::Graphics::IndexElementSize;
 using SceneR::Graphics::Model;
 using SceneR::Graphics::ModelMesh;
 using SceneR::Graphics::ModelMeshPart;
