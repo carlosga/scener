@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICSPROFILE_HPP
-#define GRAPHICSPROFILE_HPP
+#ifndef GRAPHICS_GRAPHICSPROFILE_HPP
+#define GRAPHICS_GRAPHICSPROFILE_HPP
 
 #include <cstdint>
 
@@ -29,4 +29,4 @@ namespace SceneR
     }
 }
 
-#endif  /* GRAPHICSPROFILE_HPP */
+#endif  // GRAPHICS_GRAPHICSPROFILE_HPP

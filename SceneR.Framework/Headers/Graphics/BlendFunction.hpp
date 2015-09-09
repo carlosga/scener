@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BLENDFUNCTION_HPP
-#define BLENDFUNCTION_HPP
+#ifndef GRAPHICS_BLENDFUNCTION_HPP
+#define GRAPHICS_BLENDFUNCTION_HPP
 
 #include <cstdint>
 
@@ -46,4 +46,4 @@ namespace SceneR
     }
 }
 
-#endif /* BLENDFUNCTION_HPP */
+#endif // GRAPHICS_BLENDFUNCTION_HPP

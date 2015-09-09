@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SURFACEFORMAT_HPP
-#define SURFACEFORMAT_HPP
+#ifndef GRAPHICS_SURFACEFORMAT_HPP
+#define GRAPHICS_SURFACEFORMAT_HPP
 
 #include <cstdint>
 
@@ -74,4 +74,4 @@ namespace SceneR
     }
 }
 
-#endif /* SURFACEFORMAT_HPP */
+#endif // GRAPHICS_SURFACEFORMAT_HPP

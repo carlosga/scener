@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MATRIX_HPP
-#define MATRIX_HPP
+#ifndef FRAMEWORK_MATRIX_HPP
+#define FRAMEWORK_MATRIX_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -456,4 +456,4 @@ namespace SceneR
     }
 }
 
-#endif  /* MATRIX_HPP */
+#endif  // FRAMEWORK_MATRIX_HPP

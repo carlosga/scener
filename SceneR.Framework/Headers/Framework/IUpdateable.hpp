@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IUPDATEABLE_HPP
-#define IUPDATEABLE_HPP
+#ifndef FRAMEWORK_IUPDATEABLE_HPP
+#define FRAMEWORK_IUPDATEABLE_HPP
 
 #include <cstdint>
 
@@ -42,4 +42,4 @@ namespace SceneR
     }
 }
 
-#endif /* IUPDATEABLE_HPP */
+#endif // FRAMEWORK_IUPDATEABLE_HPP

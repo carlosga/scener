@@ -1,5 +1,8 @@
-#ifndef IDISPOSABLE_HPP
-#define IDISPOSABLE_HPP
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+#ifndef SYSTEM_IDISPOSABLE_HPP
+#define SYSTEM_IDISPOSABLE_HPP
 
 namespace System
 {
@@ -23,4 +26,4 @@ namespace System
     };
 }
 
-#endif // IDISPOSABLE_HPP
+#endif // SYSTEM_IDISPOSABLE_HPP

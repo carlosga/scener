@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENTLOADEXCEPTION_HPP
-#define CONTENTLOADEXCEPTION_HPP
+#ifndef CONTENT_CONTENTLOADEXCEPTION_HPP
+#define CONTENT_CONTENTLOADEXCEPTION_HPP
 
 #include <string>
 
@@ -49,4 +49,4 @@ namespace SceneR
     }
 }
 
-#endif  /* CONTENTLOADEXCEPTION_HPP */
+#endif  // CONTENT_CONTENTLOADEXCEPTION_HPP

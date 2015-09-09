@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IEFFECTFOG_HPP
-#define IEFFECTFOG_HPP
+#ifndef GRAPHICS_IEFFECTFOG_HPP
+#define GRAPHICS_IEFFECTFOG_HPP
 
 namespace SceneR
 {
@@ -71,4 +71,4 @@ namespace SceneR
     }
 }
 
-#endif  /* IEFFECTFOG_HPP */
+#endif  // GRAPHICS_IEFFECTFOG_HPP

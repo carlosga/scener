@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BOUNDINGFRUSTRUM_HPP
-#define BOUNDINGFRUSTRUM_HPP
+#ifndef FRAMEWORK_BOUNDINGFRUSTRUM_HPP
+#define FRAMEWORK_BOUNDINGFRUSTRUM_HPP
 
 #include <cstdint>
 #include <vector>
@@ -188,4 +188,4 @@ namespace SceneR
     }
 }
 
-#endif // BOUNDINGFRUSTRUM_HPP
+#endif // FRAMEWORK_BOUNDINGFRUSTRUM_HPP

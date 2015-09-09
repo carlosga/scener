@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MOUSE_STATE_HPP
-#define MOUSE_STATE_HPP
+#ifndef INPUT_MOUSE_STATE_HPP
+#define INPUT_MOUSE_STATE_HPP
 
 #include <cstdint>
 
@@ -74,4 +74,4 @@ namespace SceneR
     }
 }
 
-#endif // MOUSE_HPP
+#endif  // INPUT_MOUSE_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef EFFECTPARAMETERTYPE_HPP
-#define EFFECTPARAMETERTYPE_HPP
+#ifndef GRAPHICS_EFFECTPARAMETERTYPE_HPP
+#define GRAPHICS_EFFECTPARAMETERTYPE_HPP
 
 #include <cstdint>
 
@@ -87,4 +87,4 @@ namespace SceneR
     }
 }
 
-#endif  /* EFFECTPARAMETERTYPE_HPP */
+#endif  // GRAPHICS_EFFECTPARAMETERTYPE_HPP

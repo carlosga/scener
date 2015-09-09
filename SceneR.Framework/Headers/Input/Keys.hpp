@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef KEYS_HPP
-#define KEYS_HPP
+#ifndef INPUT_KEYS_HPP
+#define INPUT_KEYS_HPP
 
 #include <cstdint>
 #include <System/Graphics/Platform.hpp>
@@ -401,4 +401,4 @@ namespace SceneR
     }
 }
 
-#endif // KEYS_HPP
+#endif  // INPUT_KEYS_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef DEPTHSTENCILSTATE_HPP
-#define DEPTHSTENCILSTATE_HPP
+#ifndef GRAPHICS_DEPTHSTENCILSTATE_HPP
+#define GRAPHICS_DEPTHSTENCILSTATE_HPP
 
 #include <cstdint>
 
@@ -146,4 +146,4 @@ namespace SceneR
     }
 }
 
-#endif  /* DEPTHSTENCILSTATE_HPP */
+#endif  // GRAPHICS_DEPTHSTENCILSTATE_HPP

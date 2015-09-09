@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef RAY_HPP
-#define RAY_HPP
+#ifndef FRAMEWORK_RAY_HPP
+#define FRAMEWORK_RAY_HPP
 
 #include <Framework/Vector3.hpp>
 
@@ -78,4 +78,4 @@ namespace SceneR
     }
 }
 
-#endif // RAY_HPP
+#endif // FRAMEWORK_RAY_HPP

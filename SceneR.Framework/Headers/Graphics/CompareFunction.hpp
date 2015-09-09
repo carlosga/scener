@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef COMPAREFUNCTION_HPP
-#define COMPAREFUNCTION_HPP
+#ifndef GRAPHICS_COMPAREFUNCTION_HPP
+#define GRAPHICS_COMPAREFUNCTION_HPP
 
 #include <cstdint>
 
@@ -54,4 +54,4 @@ namespace SceneR
     }
 }
 
-#endif  /* COMPAREFUNCTION_HPP */
+#endif  // GRAPHICS_COMPAREFUNCTION_HPP

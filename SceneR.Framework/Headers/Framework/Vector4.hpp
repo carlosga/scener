@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef VECTOR4_HPP
-#define VECTOR4_HPP
+#ifndef FRAMEWORK_VECTOR4_HPP
+#define FRAMEWORK_VECTOR4_HPP
 
 #include <cstddef>
 
@@ -347,4 +347,4 @@ namespace SceneR
     }
 }
 
-#endif  /* VECTOR4_HPP */
+#endif  // FRAMEWORK_VECTOR4_HPP

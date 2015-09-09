@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef FILESTREAM_HPP
-#define FILESTREAM_HPP
+#ifndef SYSTEM_IO_FILESTREAM_HPP
+#define SYSTEM_IO_FILESTREAM_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -89,4 +89,4 @@ namespace System
     }
 }
 
-#endif  /* FILESTREAM_HPP */
+#endif  // SYSTEM_IO_FILESTREAM_HPP

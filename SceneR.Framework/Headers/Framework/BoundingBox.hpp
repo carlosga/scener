@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BOUNDINGBOX_HPP
-#define BOUNDINGBOX_HPP
+#ifndef FRAMEWORK_BOUNDINGBOX_HPP
+#define FRAMEWORK_BOUNDINGBOX_HPP
 
 #include <cstdint>
 #include <vector>
@@ -135,4 +135,4 @@ namespace SceneR
     }
 }
 
-#endif // BOUNDINGBOX_HPP
+#endif // FRAMEWORK_BOUNDINGBOX_HPP

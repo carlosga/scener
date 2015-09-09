@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MATERIAL_HPP
-#define MATERIAL_HPP
+#ifndef GRAPHICS_MATERIAL_HPP
+#define GRAPHICS_MATERIAL_HPP
 
 #include <memory>
 #include <string>
@@ -47,4 +47,4 @@ namespace SceneR
     }
 }
 
-#endif // MATERIAL_HPP
+#endif  // GRAPHICS_MATERIAL_HPP

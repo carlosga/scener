@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef KEYSTATE_HPP
-#define KEYSTATE_HPP
+#ifndef INPUT_KEYSTATE_HPP
+#define INPUT_KEYSTATE_HPP
 
 #include <cstdint>
 
@@ -21,4 +21,4 @@ namespace SceneR
     }
 }
 
-#endif // KEYSTATE_HPP
+#endif  // INPUT_KEYSTATE_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef COLOR_HPP
-#define COLOR_HPP
+#ifndef FRAMEWORK_COLOR_HPP
+#define FRAMEWORK_COLOR_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -108,4 +108,4 @@ namespace SceneR
     }
 }
 
-#endif  /* COLOR_HPP */
+#endif  // FRAMEWORK_COLOR_HPP

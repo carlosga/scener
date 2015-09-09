@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENTMANAGER_HPP
-#define CONTENTMANAGER_HPP
+#ifndef CONTENT_CONTENTMANAGER_HPP
+#define CONTENT_CONTENTMANAGER_HPP
 
 #include <memory>
 
@@ -88,4 +88,4 @@ namespace SceneR
     }
 }
 
-#endif  /* CONTENTMANAGER_HPP */
+#endif  // CONTENT_CONTENTMANAGER_HPP

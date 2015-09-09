@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef PRESENTATIONPARAMETERS_HPP
-#define PRESENTATIONPARAMETERS_HPP
+#ifndef GRAPHICS_PRESENTATIONPARAMETERS_HPP
+#define GRAPHICS_PRESENTATIONPARAMETERS_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -67,4 +67,4 @@ namespace SceneR
     }
 }
 
-#endif  /* PRESENTATIONPARAMETERS_HPP */
+#endif  // GRAPHICS_PRESENTATIONPARAMETERS_HPP

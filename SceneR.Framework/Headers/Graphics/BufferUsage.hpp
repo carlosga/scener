@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFERUSAGE_HPP
-#define BUFFERUSAGE_HPP
+#ifndef GRAPHICS_BUFFERUSAGE_HPP
+#define GRAPHICS_BUFFERUSAGE_HPP
 
 #include <cstdint>
 
@@ -27,4 +27,4 @@ namespace SceneR
     }
 }
 
-#endif // BUFFERUSAGE_HPP
+#endif // GRAPHICS_BUFFERUSAGE_HPP

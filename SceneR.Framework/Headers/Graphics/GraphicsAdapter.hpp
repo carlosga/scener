@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICSADAPTER_HPP
-#define GRAPHICSADAPTER_HPP
+#ifndef GRAPHICS_GRAPHICSADAPTER_HPP
+#define GRAPHICS_GRAPHICSADAPTER_HPP
 
 #include <cstdint>
 #include <string>
@@ -123,4 +123,4 @@ namespace SceneR
     }
 }
 
-#endif /* GRAPHICSADAPTER_HPP_ */
+#endif  // GRAPHICS_GRAPHICSADAPTER_HPP

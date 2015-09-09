@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef PRESENTINTERVAL_HPP
-#define PRESENTINTERVAL_HPP
+#ifndef FRAMEWORK_PRESENTINTERVAL_HPP
+#define FRAMEWORK_PRESENTINTERVAL_HPP
 
 #include <cstdint>
 
@@ -36,4 +36,4 @@ namespace SceneR
     }
 }
 
-#endif /* PRESENTINTERVAL_HPP */
+#endif // FRAMEWORK_PRESENTINTERVAL_HPP

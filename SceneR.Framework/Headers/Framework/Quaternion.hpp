@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef QUATERNION_HPP
-#define QUATERNION_HPP
+#ifndef FRAMEWORK_QUATERNION_HPP
+#define FRAMEWORK_QUATERNION_HPP
 
 #include <cstddef>
 
@@ -195,4 +195,4 @@ namespace SceneR
     }
 }
 
-#endif  /* QUATERNION_HPP */
+#endif  // FRAMEWORK_QUATERNION_HPP

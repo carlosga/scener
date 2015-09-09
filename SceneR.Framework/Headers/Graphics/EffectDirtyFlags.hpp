@@ -7,8 +7,8 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //---------------------------------------------------------------------------------------------------
 
-#ifndef EFFECTDIRTYFLAGS_HPP
-#define EFFECTDIRTYFLAGS_HPP
+#ifndef GRAPHICS_EFFECTDIRTYFLAGS_HPP
+#define GRAPHICS_EFFECTDIRTYFLAGS_HPP
 
 #include <cstdint>
 
@@ -73,4 +73,4 @@ namespace SceneR
     }
 }
 
-#endif /* EFFECTDIRTYFLAGS_HPP */
+#endif  // GRAPHICS_EFFECTDIRTYFLAGS_HPP

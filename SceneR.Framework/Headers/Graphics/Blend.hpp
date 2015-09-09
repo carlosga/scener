@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BLEND_HPP
-#define BLEND_HPP
+#ifndef GRAPHICS_BLEND_HPP
+#define GRAPHICS_BLEND_HPP
 
 #include <cstdint>
 
@@ -74,4 +74,4 @@ namespace SceneR
     }
 }
 
-#endif /* BLEND_HPP */
+#endif // GRAPHICS_BLEND_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef TIMESPAN_HPP
-#define TIMESPAN_HPP
+#ifndef SYSTEM_TIMESPAN_HPP
+#define SYSTEM_TIMESPAN_HPP
 
 #include <chrono>
 #include <cstdint>
@@ -233,4 +233,4 @@ namespace System
     };
 }
 
-#endif /* TIMESPAN_HPP */
+#endif  // SYSTEM_TIMESPAN_HPP

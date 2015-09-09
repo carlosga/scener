@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef STENCILOPERATION_HPP
-#define STENCILOPERATION_HPP
+#ifndef GRAPHICS_STENCILOPERATION_HPP
+#define GRAPHICS_STENCILOPERATION_HPP
 
 #include <cstdint>
 
@@ -53,4 +53,4 @@ namespace SceneR
     }
 }
 
-#endif /* STENCILOPERATION_HPP */
+#endif  // GRAPHICS_STENCILOPERATION_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef VERTEXBUFFER_HPP
-#define VERTEXBUFFER_HPP
+#ifndef GRAPHICS_VERTEXBUFFER_HPP
+#define GRAPHICS_VERTEXBUFFER_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -94,4 +94,4 @@ namespace SceneR
     }
 }
 
-#endif  /* VERTEXBUFFER_HPP */
+#endif  // GRAPHICS_VERTEXBUFFER_HPP

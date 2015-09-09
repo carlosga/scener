@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef TEXTURETARGET_HPP
-#define TEXTURETARGET_HPP
+#ifndef GRAPHICS_TEXTURETARGET_HPP
+#define GRAPHICS_TEXTURETARGET_HPP
 
 #include <cstdint>
 
@@ -70,4 +70,4 @@ namespace SceneR
     }
 }
 
-#endif /* TEXTURETARGET_HPP */
+#endif  // GRAPHICS_TEXTURETARGET_HPP

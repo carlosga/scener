@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFERTYPE_HPP
-#define BUFFERTYPE_HPP
+#ifndef GRAPHICS_BUFFERTYPE_HPP
+#define GRAPHICS_BUFFERTYPE_HPP
 
 #include <cstdint>
 
@@ -18,4 +18,4 @@ namespace SceneR
     }
 }
 
-#endif // BUFFERTYPE_HPP
+#endif // GRAPHICS_BUFFERTYPE_HPP

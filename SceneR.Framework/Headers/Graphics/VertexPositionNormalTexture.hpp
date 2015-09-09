@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef VERTEXPOSITIONNORMALTEXTURE_HPP
-#define VERTEXPOSITIONNORMALTEXTURE_HPP
+#ifndef GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_HPP
+#define GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_HPP
 
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
@@ -57,4 +57,4 @@ namespace SceneR
     }
 }
 
-#endif  /* VERTEXPOSITIONNORMALTEXTURE_HPP */
+#endif  // GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_HPP

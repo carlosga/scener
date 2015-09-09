@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef VERTEXPOSITIONCOLOR_HPP
-#define VERTEXPOSITIONCOLOR_HPP
+#ifndef GRAPHICS_VERTEXPOSITIONCOLOR_HPP
+#define GRAPHICS_VERTEXPOSITIONCOLOR_HPP
 
 #include <Framework/Color.hpp>
 #include <Framework/Vector3.hpp>
@@ -52,4 +52,4 @@ namespace SceneR
     }
 }
 
-#endif  /* VERTEXPOSITIONCOLOR_HPP */
+#endif  // GRAPHICS_VERTEXPOSITIONCOLOR_HPP

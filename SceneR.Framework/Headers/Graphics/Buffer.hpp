@@ -1,5 +1,8 @@
-#ifndef BUFFER_HPP
-#define BUFFER_HPP
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+#ifndef GRAPHICS_BUFFER_HPP
+#define GRAPHICS_BUFFER_HPP
 
 #include <cstdint>
 #include <cstddef>
@@ -76,4 +79,4 @@ namespace SceneR
     }
 }
 
-#endif // BUFFER_HPP
+#endif // GRAPHICS_BUFFER_HPP

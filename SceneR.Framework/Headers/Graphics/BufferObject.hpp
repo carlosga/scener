@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFEROBJECT_HPP
-#define BUFFEROBJECT_HPP
+#ifndef GRAPHICS_BUFFEROBJECT_HPP
+#define GRAPHICS_BUFFEROBJECT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -111,4 +111,4 @@ namespace SceneR
     }
 }
 
-#endif /* BUFFEROBJECT_HPP */
+#endif  // GRAPHICS_BUFFEROBJECT_HPP */

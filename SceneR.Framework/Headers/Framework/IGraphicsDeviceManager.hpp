@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IGRAPHICSDEVICEMANAGER_HPP
-#define IGRAPHICSDEVICEMANAGER_HPP
+#ifndef FRAMEWORK_IGRAPHICSDEVICEMANAGER_HPP
+#define FRAMEWORK_IGRAPHICSDEVICEMANAGER_HPP
 
 #include <System/IDisposable.hpp>
 
@@ -46,4 +46,4 @@ namespace SceneR
     }
 }
 
-#endif  /* IGRAPHICSDEVICEMANAGER_HPP */
+#endif  // FRAMEWORK_IGRAPHICSDEVICEMANAGER_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MODELBONE_HPP
-#define MODELBONE_HPP
+#ifndef GRAPHICS_MODELBONE_HPP
+#define GRAPHICS_MODELBONE_HPP
 
 #include <cstdint>
 #include <memory>
@@ -72,4 +72,4 @@ namespace SceneR
     }
 }
 
-#endif  /* MODELBONE_HPP */
+#endif  // GRAPHICS_MODELBONE_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUTTONS_HPP
-#define BUTTONS_HPP
+#ifndef INPUT_BUTTONS_HPP
+#define INPUT_BUTTONS_HPP
 
 #include <cstdint>
 
@@ -179,4 +179,4 @@ namespace SceneR
     }
 }
 
-#endif // BUTTONS_HPP
+#endif  // INPUT_BUTTONS_HPP

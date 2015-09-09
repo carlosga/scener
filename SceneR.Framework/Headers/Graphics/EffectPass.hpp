@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef EFFECTPASS_HPP
-#define EFFECTPASS_HPP
+#ifndef GRAPHICS_EFFECTPASS_HPP
+#define GRAPHICS_EFFECTPASS_HPP
 
 #include <memory>
 #include <string>
@@ -45,4 +45,4 @@ namespace SceneR
     }
 }
 
-#endif // EFFECTPASS_HPP
+#endif  // GRAPHICS_EFFECTPASS_HPP

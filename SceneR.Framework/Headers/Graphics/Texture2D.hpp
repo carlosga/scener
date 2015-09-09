@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef TEXTURE2D_HPP
-#define TEXTURE2D_HPP
+#ifndef GRAPHICS_TEXTURE2D_HPP
+#define GRAPHICS_TEXTURE2D_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -124,4 +124,4 @@ namespace SceneR
     }
 }
 
-#endif  /* TEXTURE2D_HPP */
+#endif  // GRAPHICS_TEXTURE2D_HPP

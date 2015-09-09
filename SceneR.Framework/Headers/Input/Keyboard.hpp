@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef KEYBOARD_HPP
-#define KEYBOARD_HPP
+#ifndef INPUT_KEYBOARD_HPP
+#define INPUT_KEYBOARD_HPP
 
 #include <cstdint>
 #include <vector>
@@ -41,4 +41,4 @@ namespace SceneR
     }
 }
 
-#endif // KEYBOARD_HPP
+#endif  // INPUT_KEYBOARD_HPP

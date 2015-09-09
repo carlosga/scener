@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef INDEXBUFFER_HPP
-#define INDEXBUFFER_HPP
+#ifndef GRAPHICS_INDEXBUFFER_HPP
+#define GRAPHICS_INDEXBUFFER_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -100,4 +100,4 @@ namespace SceneR
     }
 }
 
-#endif  /* INDEXBUFFER_HPP */
+#endif  // GRAPHICS_INDEXBUFFER_HPP

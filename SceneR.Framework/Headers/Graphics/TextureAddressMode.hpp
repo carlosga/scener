@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef TEXTUREADDRESSMODE_HPP
-#define TEXTUREADDRESSMODE_HPP
+#ifndef GRAPHICS_TEXTUREADDRESSMODE_HPP
+#define GRAPHICS_TEXTUREADDRESSMODE_HPP
 
 #include <cstdint>
 
@@ -37,4 +37,4 @@ namespace SceneR
     }
 }
 
-#endif /* TEXTUREADDRESSMODE_HPP */
+#endif  // GRAPHICS_TEXTUREADDRESSMODE_HPP

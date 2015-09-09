@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IEFFECTLIGHTS_HPP
-#define IEFFECTLIGHTS_HPP
+#ifndef GRAPHICS_IEFFECTLIGHTS_HPP
+#define GRAPHICS_IEFFECTLIGHTS_HPP
 
 #include <memory>
 
@@ -78,4 +78,4 @@ namespace SceneR
     }
 }
 
-#endif  /* IEFFECTLIGHTS_HPP */
+#endif  // GRAPHICS_IEFFECTLIGHTS_HPP

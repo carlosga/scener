@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef KEYBOARD_STATE
-#define KEYBOARD_STATE
+#ifndef INPUT_KEYBOARD_STATE
+#define INPUT_KEYBOARD_STATE
 
 #include <vector>
 
@@ -53,4 +53,4 @@ namespace SceneR
     }
 }
 
-#endif  // KEYBOARD_STATE
+#endif  // INPUT_KEYBOARD_STATE

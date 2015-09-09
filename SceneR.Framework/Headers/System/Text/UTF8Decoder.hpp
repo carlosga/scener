@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef UTF8DECODER_HPP
-#define UTF8DECODER_HPP
+#ifndef SYSTEM_TEXT_UTF8DECODER_HPP
+#define SYSTEM_TEXT_UTF8DECODER_HPP
 
 #include <codecvt>
 #include <cstddef>
@@ -50,4 +50,4 @@ namespace System
     }
 }
 
-#endif // UTF8DECODER_HPP
+#endif  // SYSTEM_TEXT_UTF8DECODER_HPP

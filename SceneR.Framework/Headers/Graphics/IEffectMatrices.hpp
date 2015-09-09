@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IEFFECTMATRICES_HPP
-#define IEFFECTMATRICES_HPP
+#ifndef GRAPHICS_IEFFECTMATRICES_HPP
+#define GRAPHICS_IEFFECTMATRICES_HPP
 
 namespace SceneR
 {
@@ -61,4 +61,4 @@ namespace SceneR
     }
 }
 
-#endif  /* IEFFECTMATRICES_HPP */
+#endif  // GRAPHICS_IEFFECTMATRICES_HPP

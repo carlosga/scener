@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IDRAWABLE_HPP
-#define IDRAWABLE_HPP
+#ifndef FRAMEWORK_IDRAWABLE_HPP
+#define FRAMEWORK_IDRAWABLE_HPP
 
 #include <cstdint>
 
@@ -42,4 +42,4 @@ namespace SceneR
     }
 }
 
-#endif /* IDRAWABLE_HPP */
+#endif // FRAMEWORK_IDRAWABLE_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef ICOMPONENT_HPP
-#define ICOMPONENT_HPP
+#ifndef FRAMEWORK_ICOMPONENT_HPP
+#define FRAMEWORK_ICOMPONENT_HPP
 
 namespace SceneR
 {
@@ -30,4 +30,4 @@ namespace SceneR
     }
 }
 
-#endif /* ICOMPONENT_HPP */
+#endif // FRAMEWORK_ICOMPONENT_HPP

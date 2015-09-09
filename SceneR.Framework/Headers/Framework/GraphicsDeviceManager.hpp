@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICSDEVICEMANAGER_HPP
-#define GRAPHICSDEVICEMANAGER_HPP
+#ifndef FRAMEWORK_GRAPHICSDEVICEMANAGER_HPP
+#define FRAMEWORK_GRAPHICSDEVICEMANAGER_HPP
 
 #include <cstdint>
 #include <memory>
@@ -111,4 +111,4 @@ namespace SceneR
     }
 }
 
-#endif  /* GRAPHICSDEVICEMANAGER_HPP */
+#endif  // FRAMEWORK_GRAPHICSDEVICEMANAGER_HPP

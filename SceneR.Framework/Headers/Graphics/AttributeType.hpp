@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef ATTRIBUTETYPE_HPP
-#define ATTRIBUTETYPE_HPP
+#ifndef GRAPHICS_ATTRIBUTETYPE_HPP
+#define GRAPHICS_ATTRIBUTETYPE_HPP
 
 #include <cstdint>
 
@@ -23,4 +23,4 @@ namespace SceneR
     }
 }
 
-#endif // ATTRIBUTETYPE_HPP
+#endif // GRAPHICS_ATTRIBUTETYPE_HPP

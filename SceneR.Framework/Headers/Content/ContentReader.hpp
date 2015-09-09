@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENTREADER_HPP
-#define CONTENTREADER_HPP
+#ifndef CONTENT_CONTENTREADER_HPP
+#define CONTENT_CONTENTREADER_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -88,4 +88,4 @@ namespace SceneR
     }
 }
 
-#endif  /* CONTENTREADER_HPP */
+#endif  // CONTENT_CONTENTREADER_HPP

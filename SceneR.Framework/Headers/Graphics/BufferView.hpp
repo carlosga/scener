@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFERVIEW_HPP
-#define BUFFERVIEW_HPP
+#ifndef GRAPHICS_UFFERVIEW_HPP
+#define GRAPHICS_UFFERVIEW_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -94,4 +94,4 @@ namespace SceneR
     }
 }
 
-#endif /* BUFFERVIEW_HPP */
+#endif // GRAPHICS_BUFFERVIEW_HPP

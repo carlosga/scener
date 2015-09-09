@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef RENDERERTIMER_HPP
-#define RENDERERTIMER_HPP
+#ifndef FRAMEWORK_RENDERERTIMER_HPP
+#define FRAMEWORK_RENDERERTIMER_HPP
 
 #include <System/TimeSpan.hpp>
 
@@ -61,4 +61,4 @@ namespace SceneR
     }
 }
 
-#endif /* RENDERERTIMER_HPP */
+#endif // FRAMEWORK_RENDERERTIMER_HPP

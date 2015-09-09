@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef PATH_HPP
-#define PATH_HPP
+#ifndef SYSTEM_IO_PATH_HPP
+#define SYSTEM_IO_PATH_HPP
 
 #include <algorithm>
 
@@ -118,4 +118,4 @@ namespace System
     }
 }
 
-#endif // PATH_HPP
+#endif  // SYSTEM_IO_PATH_HPP

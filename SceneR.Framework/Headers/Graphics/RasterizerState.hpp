@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef RASTERIZERSTATE_HPP
-#define RASTERIZERSTATE_HPP
+#ifndef GRAPHICS_RASTERIZERSTATE_HPP
+#define GRAPHICS_RASTERIZERSTATE_HPP
 
 #include <Graphics/CullMode.hpp>
 #include <Graphics/FillMode.hpp>
@@ -96,4 +96,4 @@ namespace SceneR
     }
 }
 
-#endif  /* RASTERIZERSTATE_HPP */
+#endif  // GRAPHICS_RASTERIZERSTATE_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef DIRECTIONALLIGHT_HPP
-#define DIRECTIONALLIGHT_HPP
+#ifndef GRAPHICS_DIRECTIONALLIGHT_HPP
+#define GRAPHICS_DIRECTIONALLIGHT_HPP
 
 #include <Framework/Vector3.hpp>
 
@@ -54,4 +54,4 @@ namespace SceneR
     }
 }
 
-#endif  /* DIRECTIONALLIGHT_HPP */
+#endif  // GRAPHICS_DIRECTIONALLIGHT_HPP

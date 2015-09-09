@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef PRIMITIVETYPE_HPP
-#define PRIMITIVETYPE_HPP
+#ifndef GRAPHICS_PRIMITIVETYPE_HPP
+#define GRAPHICS_PRIMITIVETYPE_HPP
 
 #include <cstdint>
 
@@ -56,4 +56,4 @@ namespace SceneR
     }
 }
 
-#endif  /* PRIMITIVETYPE_HPP */
+#endif  // GRAPHICS_PRIMITIVETYPE_HPP

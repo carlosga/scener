@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MATH_HPP
-#define MATH_HPP
+#ifndef SYSTEM_MATH_HPP
+#define SYSTEM_MATH_HPP
 
 #include <cmath>
 #include <limits>
@@ -312,4 +312,4 @@ namespace System
     };
 }
 
-#endif /* MATH_HPP */
+#endif  // SYSTEM_MATH_HPP

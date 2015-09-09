@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MODELMESHPART_HPP
-#define MODELMESHPART_HPP
+#ifndef GRAPHICS_MODELMESHPART_HPP
+#define GRAPHICS_MODELMESHPART_HPP
 
 #include <cstddef>
 #include <memory>
@@ -98,4 +98,4 @@ namespace SceneR
     }
 }
 
-#endif  /* MODELMESHPART_HPP */
+#endif  // GRAPHICS_MODELMESHPART_HPP

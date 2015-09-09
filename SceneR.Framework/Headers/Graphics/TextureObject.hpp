@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef TEXTUREOBJECT_HPP
-#define TEXTUREOBJECT_HPP
+#ifndef GRAPHICS_TEXTUREOBJECT_HPP
+#define GRAPHICS_TEXTUREOBJECT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -90,4 +90,4 @@ namespace SceneR
     }
 }
 
-#endif /* TEXTUREOBJECT_HPP */
+#endif  // GRAPHICS_TEXTUREOBJECT_HPP

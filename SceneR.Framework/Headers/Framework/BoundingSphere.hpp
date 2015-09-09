@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BOUNDINGSPHERE_HPP
-#define BOUNDINGSPHERE_HPP
+#ifndef FRAMEWORK_BOUNDINGSPHERE_HPP
+#define FRAMEWORK_BOUNDINGSPHERE_HPP
 
 #include <vector>
 
@@ -148,4 +148,4 @@ namespace SceneR
     }
 }
 
-#endif // BOUNDINGSPHERE_HPP
+#endif // FRAMEWORK_BOUNDINGSPHERE_HPP

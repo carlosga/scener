@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef UNIFORMBUFFEROBJECT_HPP
-#define UNIFORMBUFFEROBJECT_HPP
+#ifndef GRAPHICS_UNIFORMBUFFEROBJECT_HPP
+#define GRAPHICS_UNIFORMBUFFEROBJECT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -103,4 +103,4 @@ namespace SceneR
     }
 }
 
-#endif /* UNIFORMBUFFEROBJECT_HPP */
+#endif  // GRAPHICS_UNIFORMBUFFEROBJECT_HPP

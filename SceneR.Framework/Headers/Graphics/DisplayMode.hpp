@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef DISPLAYMODE_HPP
-#define DISPLAYMODE_HPP
+#ifndef GRAPHICS_DISPLAYMODE_HPP
+#define GRAPHICS_DISPLAYMODE_HPP
 
 #include <cstddef>
 
@@ -69,4 +69,4 @@ namespace SceneR
     }
 }
 
-#endif /* DISPLAYMODE_HPP */
+#endif  // GRAPHICS_DISPLAYMODE_HPP

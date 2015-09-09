@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef STREAM_HPP
-#define STREAM_HPP
+#ifndef SYSTEM_IO_STREAM_HPP
+#define SYSTEM_IO_STREAM_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -74,4 +74,4 @@ namespace System
     }
 }
 
-#endif  /* STREAM_HPP */
+#endif  // SYSTEM_IO_STREAM_HPP

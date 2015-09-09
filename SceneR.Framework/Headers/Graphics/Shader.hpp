@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SHADER_HPP
-#define SHADER_HPP
+#ifndef GRAPHICS_SHADER_HPP
+#define GRAPHICS_SHADER_HPP
 
 #include <cstdint>
 #include <string>
@@ -109,4 +109,4 @@ namespace SceneR
     }
 }
 
-#endif  /* SHADER_HPP */
+#endif  // GRAPHICS_SHADER_HPP

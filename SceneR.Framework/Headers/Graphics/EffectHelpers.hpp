@@ -7,8 +7,8 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //---------------------------------------------------------------------------------------------------
 
-#ifndef EFFECTHELPERS_HPP
-#define EFFECTHELPERS_HPP
+#ifndef GRAPHICS_EFFECTHELPERS_HPP
+#define GRAPHICS_EFFECTHELPERS_HPP
 
 #include <memory>
 
@@ -97,4 +97,4 @@ namespace SceneR
     }
 }
 
-#endif /* EFFECTHELPERS_HPP */
+#endif  // GRAPHICS_EFFECTHELPERS_HPP

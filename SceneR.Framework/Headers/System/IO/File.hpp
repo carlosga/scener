@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef FILE_HPP
-#define FILE_HPP
+#ifndef SYSTEM_IO_FILE_HPP
+#define SYSTEM_IO_FILE_HPP
 
 #include <fstream>
 #include <sstream>
@@ -71,4 +71,4 @@ namespace System
     }
 }
 
-#endif  /* FILE_HPP */
+#endif  // SYSTEM_IO_FILE_HPP

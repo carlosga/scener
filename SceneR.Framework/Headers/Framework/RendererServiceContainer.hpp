@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef RENDERERSERVICECONTAINER_HPP
-#define RENDERERSERVICECONTAINER_HPP
+#ifndef FRAMEWORK_RENDERERSERVICECONTAINER_HPP
+#define FRAMEWORK_RENDERERSERVICECONTAINER_HPP
 
 #include <map>
 #include <string>
@@ -102,4 +102,4 @@ namespace SceneR
     }
 }
 
-#endif /* RENDERERSERVICECONTAINER_HPP */
+#endif // FRAMEWORK_RENDERERSERVICECONTAINER_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef IGRAPHICSDEVICESERVICE_HPP
-#define IGRAPHICSDEVICESERVICE_HPP
+#ifndef GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
+#define GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
 
 namespace SceneR
 {
@@ -30,4 +30,4 @@ namespace SceneR
     }
 }
 
-#endif /* IGRAPHICSDEVICESERVICE_HPP */
+#endif  // GRAPHICS_IGRAPHICSDEVICESERVICE_HPP

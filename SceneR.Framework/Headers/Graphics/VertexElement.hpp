@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef VERTEXELEMENT_HPP
-#define VERTEXELEMENT_HPP
+#ifndef GRAPHICS_VERTEXELEMENT_HPP
+#define GRAPHICS_VERTEXELEMENT_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -72,4 +72,4 @@ namespace SceneR
     }
 }
 
-#endif  /* VERTEXELEMENT_HPP */
+#endif  // GRAPHICS_VERTEXELEMENT_HPP

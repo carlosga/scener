@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BUFFERTARGET_HPP
-#define BUFFERTARGET_HPP
+#ifndef GRAPHICS_BUFFERTARGET_HPP
+#define GRAPHICS_BUFFERTARGET_HPP
 
 #include <cstdint>
 
@@ -77,4 +77,4 @@ namespace SceneR
     }
 }
 
-#endif // BUFFERTARGET_HPP
+#endif // GRAPHICS_BUFFERTARGET_HPP

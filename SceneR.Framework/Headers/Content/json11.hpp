@@ -48,6 +48,9 @@
  * THE SOFTWARE.
  */
 
+#ifndef CONTENT_JSON11
+#define CONTENT_JSON11
+
 #pragma once
 
 #include <string>
@@ -198,3 +201,5 @@ protected:
 };
 
 } // namespace json11
+
+#endif // CONTENT_JSON11

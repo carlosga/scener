@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef DECODER_HPP
-#define DECODER_HPP
+#ifndef SYSTEM_TEXT_DECODER_HPP
+#define SYSTEM_TEXT_DECODER_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -100,4 +100,4 @@ namespace System
     }
 }
 
-#endif // DECODER_HPP
+#endif  // SYSTEM_TEXT_DECODER_HPP

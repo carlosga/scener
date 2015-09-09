@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef BINARYREADER_HPP
-#define BINARYREADER_HPP
+#ifndef SYSTEM_IO_BINARYREADER_HPP
+#define SYSTEM_IO_BINARYREADER_HPP
 
 #include <cstdint>
 #include <vector>
@@ -79,4 +79,4 @@ namespace System
     }
 }
 
-#endif  /* BINARYREADER_HPP */
+#endif  // SYSTEM_IO_BINARYREADER_HPP

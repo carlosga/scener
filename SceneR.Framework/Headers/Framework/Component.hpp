@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef COMPONENT_HPP
-#define COMPONENT_HPP
+#ifndef FRAMEWORK_COMPONENT_HPP
+#define FRAMEWORK_COMPONENT_HPP
 
 #include <cstdint>
 
@@ -76,4 +76,4 @@ namespace SceneR
     }
 }
 
-#endif /* COMPONENT_HPP */
+#endif // FRAMEWORK_COMPONENT_HPP
