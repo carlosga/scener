@@ -9,7 +9,6 @@ namespace SceneR
     {
         GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
             : name             { }
-            , tag              { }
             , _graphics_device { graphicsDevice }
         {
         }

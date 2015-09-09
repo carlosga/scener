@@ -15,7 +15,8 @@ namespace SceneR
             , address_U                     { TextureAddressMode::Wrap }
             , address_V                     { TextureAddressMode::Wrap }
             , address_W                     { TextureAddressMode::Wrap }
-            , filter                        { TextureFilter::Linear }
+            , mag_filter                    { TextureFilter::Linear }
+            , min_filter                    { TextureFilter::Linear }
             , max_anisotropy                { 4 }
             , max_mip_level                 { 0 }
             , mip_map_level_of_detail_bias  { 0 }
@@ -27,7 +28,8 @@ namespace SceneR
             , address_U                     { samplerState.address_U }
             , address_V                     { samplerState.address_V }
             , address_W                     { samplerState.address_W }
-            , filter                        { samplerState.filter }
+            , mag_filter                    { samplerState.mag_filter }
+            , min_filter                    { samplerState.min_filter }
             , max_anisotropy                { samplerState.max_anisotropy }
             , max_mip_level                 { samplerState.max_mip_level }
             , mip_map_level_of_detail_bias  { samplerState.mip_map_level_of_detail_bias }
@@ -50,7 +52,8 @@ namespace SceneR
                 address_U                    = samplerState.address_U;
                 address_V                    = samplerState.address_V;
                 address_W                    = samplerState.address_W;
-                filter                       = samplerState.filter;
+                min_filter                   = samplerState.min_filter;
+                mag_filter                   = samplerState.mag_filter;
                 max_anisotropy               = samplerState.max_anisotropy;
                 max_mip_level                = samplerState.max_mip_level;
                 mip_map_level_of_detail_bias = samplerState.mip_map_level_of_detail_bias;
@@ -61,70 +64,18 @@ namespace SceneR
 
         void SamplerState::apply(const std::uint32_t& textureId) const
         {
-            GLenum minfilter;
-            GLenum magfilter;
-
-            get_min_max_filters(minfilter, magfilter);
-
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(address_U));
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(address_V));
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_R    , static_cast<GLint>(address_W));
             glTextureParameteri(textureId, GL_TEXTURE_LOD_BIAS  , mip_map_level_of_detail_bias);
             glTextureParameteri(textureId, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(max_mip_level));
-            glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, minfilter);
-            glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, magfilter);
+            glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(min_filter));
+            glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(mag_filter));
 
-            if (this->filter == TextureFilter::Anisotropic)
-            {
-                glTextureParameteri(textureId, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
-            }
-        }
-
-        void SamplerState::get_min_max_filters(GLenum& minfilter, GLenum& magfilter) const
-        {
-            switch (this->filter)
-            {
-            case TextureFilter::Point:
-                minfilter = ((max_mip_level != 0) ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST);
-                magfilter = GL_NEAREST;
-                break;
-
-            case TextureFilter::Linear:
-            case TextureFilter::Anisotropic:
-                minfilter = ((max_mip_level != 0) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-                magfilter = GL_LINEAR;
-                break;
-
-            case TextureFilter::PointMipLinear:
-                minfilter = ((max_mip_level != 0) ? GL_NEAREST_MIPMAP_LINEAR : GL_NEAREST);
-                magfilter = GL_NEAREST;
-                break;
-
-            case TextureFilter::LinearMipPoint:
-                minfilter = ((max_mip_level != 0) ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
-                magfilter = GL_LINEAR;
-                break;
-
-            case TextureFilter::MinLinearMagPointMipLinear:
-                minfilter = ((max_mip_level != 0) ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-                magfilter = GL_NEAREST;
-                break;
-
-            case TextureFilter::MinLinearMagPointMipPoint:
-                minfilter = ((max_mip_level != 0) ? GL_LINEAR_MIPMAP_NEAREST : GL_LINEAR);
-                magfilter = GL_NEAREST;
-                break;
-
-            case TextureFilter::MinPointMagLinearMipLinear:
-                minfilter = ((max_mip_level != 0) ? GL_NEAREST_MIPMAP_LINEAR : GL_NEAREST);
-                magfilter = GL_LINEAR;
-                break;
-
-            case TextureFilter::MinPointMagLinearMipPoint:
-                minfilter = ((max_mip_level != 0) ? GL_NEAREST_MIPMAP_NEAREST : GL_NEAREST);
-                magfilter = GL_LINEAR;
-                break;
-            }
+//            if (this->filter == TextureFilter::Anisotropic)
+//            {
+//                glTextureParameteri(textureId, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
+//            }
         }
     }
 }

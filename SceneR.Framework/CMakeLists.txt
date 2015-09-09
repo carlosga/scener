@@ -124,13 +124,16 @@ set(HEADER_FILES
     Headers/Graphics/IEffectMatrices.hpp
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
+    Headers/Graphics/InstanceSkin.hpp
     Headers/Graphics/Material.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
     Headers/Graphics/ModelMesh.hpp
     Headers/Graphics/ModelMeshPart.hpp
+    Headers/Graphics/Node.hpp
     Headers/Graphics/PresentationParameters.hpp
     Headers/Graphics/PrimitiveType.hpp
+    Headers/Graphics/Program.hpp
     Headers/Graphics/RasterizerState.hpp
     Headers/Graphics/RenderingStateType.hpp
     Headers/Graphics/Resources.hpp
@@ -249,12 +252,15 @@ set(SOURCE_FILES
     Sources/Graphics/IEffectMatrices.cpp
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
+    Sources/Graphics/InstanceSkin.cpp
     Sources/Graphics/Material.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp
     Sources/Graphics/ModelMeshPart.cpp
+    Sources/Graphics/Node.cpp
     Sources/Graphics/PresentationParameters.cpp
+    Sources/Graphics/Program.cpp
     Sources/Graphics/RasterizerState.cpp
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp

@@ -4,6 +4,7 @@
 #include <Content/Readers/BufferViewsReader.hpp>
 
 #include <Content/json11.hpp>
+#include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <Graphics/BufferView.hpp>
@@ -14,6 +15,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
+        using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
         using SceneR::Graphics::BufferView;
@@ -43,9 +45,9 @@ namespace SceneR
                 auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
                 bufferView->_name        = Encoding::convert(item.first);
+                bufferView->_buffer      = context.find_object<Buffer>(item.second["buffer"].string_value());
                 bufferView->_byte_offset = item.second["byteOffset"].int_value();
                 bufferView->_byte_length = item.second["byteLength"].int_value();
-                bufferView->_buffer      = context.find_buffer(Encoding::convert(item.second["buffer"].string_value()));
 
                 context.buffer_views.push_back(bufferView);
             }

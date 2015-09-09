@@ -4,12 +4,19 @@
 #include <Content/Readers/ShadersReader.hpp>
 
 #include <Content/json11.hpp>
+#include <Content/ContentReader.hpp>
+#include <Graphics/Shader.hpp>
+#include <Graphics/ShaderType.hpp>
+#include <System/IO/File.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        using SceneR::Graphics::Shader;
+        using SceneR::Graphics::ShaderType;
+        using System::IO::File;
         using System::Text::Encoding;
 
         ShadersReader::ShadersReader()
@@ -24,7 +31,18 @@ namespace SceneR
 
         void ShadersReader::read(const json11::Json& value, ContentReaderContext& context)
         {
+            for (const auto& source : value["shaders"].object_items())
+            {
+                auto name   = Encoding::convert(source.first);
+                auto type   = static_cast<ShaderType>(source.second["type"].int_value());
+                auto uri    = Encoding::convert(source.second["uri"].string_value());
+                auto code   = context.content_reader->read_external_reference(uri);
+                auto shader = std::make_shared<Shader>(name, type, code);
 
+                shader->compile();
+
+                context.shaders.push_back(shader);
+            }
         }
     }
 }

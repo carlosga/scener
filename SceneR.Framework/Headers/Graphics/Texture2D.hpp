@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureObject.hpp>
@@ -15,7 +16,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class Texture2DReader;
+        class TexturesReader;
     }
 }
 
@@ -24,6 +25,7 @@ namespace SceneR
     namespace Graphics
     {
         class GraphicsDevice;
+        class SamplerState;
 
         /**
          * Represents a 2D texture.
@@ -89,6 +91,12 @@ namespace SceneR
             std::size_t width() const;
 
             /**
+             * Gets the texure sampler state.
+             * @return the texure sampler state.
+             */
+            std::shared_ptr<SamplerState> sampler_state() const;
+
+            /**
              * Sets mipmap data to the texture.
              * @param level the mipmap level.
              * @param size the size of the mipmap data.
@@ -110,16 +118,17 @@ namespace SceneR
             void declare_storage(const std::size_t& mipMapLevels);
 
         private:
-            SurfaceFormat _format;
-            std::size_t   _height;
-            bool          _mipmap;
-            std::size_t   _mipmap_levels;
-            std::size_t   _mipmap_height;
-            std::size_t   _mipmap_width;
-            std::size_t   _width;
-            TextureObject _object;
+            SurfaceFormat                 _format;
+            std::size_t                   _height;
+            bool                          _mipmap;
+            std::size_t                   _mipmap_levels;
+            std::size_t                   _mipmap_height;
+            std::size_t                   _mipmap_width;
+            std::size_t                   _width;
+            TextureObject                 _object;
+            std::shared_ptr<SamplerState> _sampler_state;
 
-            friend class SceneR::Content::Texture2DReader;
+            friend class SceneR::Content::TexturesReader;
         };
     }
 }

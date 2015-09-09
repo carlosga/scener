@@ -14,6 +14,14 @@
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class SamplersReader;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
         class BasicEffect;
@@ -71,7 +79,12 @@ namespace SceneR
             /**
              * Gets or sets the type of filtering during sampling.
              */
-            TextureFilter filter;
+            TextureFilter mag_filter;
+
+            /**
+             * Gets or sets the type of filtering during sampling.
+             */
+            TextureFilter min_filter;
 
             /**
              * Gets or sets the maximum anisotropy. The default value is 0.
@@ -87,6 +100,8 @@ namespace SceneR
              * Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
              */
             float mip_map_level_of_detail_bias;
+
+            friend class SceneR::Content::SamplersReader;
         };
     }
 }

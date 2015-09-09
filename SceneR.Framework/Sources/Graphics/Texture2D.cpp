@@ -4,6 +4,7 @@
 #include <Graphics/Texture2D.hpp>
 
 #include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/SamplerState.hpp>
 
 namespace SceneR
 {
@@ -65,6 +66,11 @@ namespace SceneR
         std::size_t Texture2D::width() const
         {
             return _width;
+        }
+
+        std::shared_ptr<SamplerState> Texture2D::sampler_state() const
+        {
+            return _sampler_state;
         }
 
         void Texture2D::set_data(const std::size_t& level, const std::size_t& size, const void* data)

@@ -70,7 +70,7 @@ namespace SceneR
             auto vertexCount   = std::size_t(0);
             auto usageIndex    = std::size_t(0);
             auto elements      = std::vector<VertexElement>();
-            auto indices       = context.find_accessor(Encoding::convert(source["indices"].string_value()));
+            auto indices       = context.find_object<Accessor>(source["indices"].string_value());
             auto componentType = indices->component_type();
             auto indexCount    = indices->attribute_count();
             auto indexData     = indices->get_data();
@@ -84,7 +84,7 @@ namespace SceneR
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                auto accessor = context.find_accessor(Encoding::convert(attribute.second.string_value()));
+                auto accessor = context.find_object<Accessor>(attribute.second.string_value());
                 auto format   = get_vertex_element_format(accessor->attribute_type());
                 auto usage    = get_vertex_element_usage(attribute.first);
 

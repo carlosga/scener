@@ -15,42 +15,12 @@ namespace SceneR
          */
         enum class TextureFilter : std::uint32_t
         {
-            /**
-             * Use linear filtering.
-             */
-            Linear = 0,
-            /**
-             * Use point filtering.
-             */
-            Point = 1,
-            /**
-             * Use anisotropic filtering.
-             */
-            Anisotropic = 2,
-            /**
-             * Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
-             */
-            LinearMipPoint = 3,
-            /**
-             * Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
-             */
-            PointMipLinear = 4,
-            /**
-             * Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
-             */
-            MinLinearMagPointMipLinear = 5,
-            /**
-             * Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
-             */
-            MinLinearMagPointMipPoint = 6,
-            /**
-             * Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
-             */
-            MinPointMagLinearMipLinear = 7,
-            /**
-             * Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
-             */
-            MinPointMagLinearMipPoint = 8
+            Nearest              = 9728,    // GL_NEAREST
+            Linear               = 9729,    // GL_LINEAR,
+            NearestMipMapNearest = 9984,    // GL_NEAREST_MIPMAP_NEAREST,
+            LinearMipMapNearest  = 9985,    // GL_LINEAR_MIPMAP_NEAREST,
+            NearestMipMapLinear  = 9986,    // GL_NEAREST_MIPMAP_LINEAR
+            LinearMipMapLinear   = 9987     // GL_LINEAR_MIPMAP_LINEAR,
         };
     }
 }

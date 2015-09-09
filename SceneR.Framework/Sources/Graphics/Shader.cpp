@@ -56,6 +56,10 @@ namespace SceneR
             }
         }
 
+        std::uint32_t Shader::id() const
+        {
+            return _id;
+        }
         const std::u16string& Shader::name() const
         {
             return _name;
@@ -78,9 +82,12 @@ namespace SceneR
             std::vector<const char*> cpaths(0);
 
             // process includes
-            for (const auto& path : _includes)
+            if (_includes.size() > 0)
             {
-                cpaths.push_back(manager.get_path_reference(path));
+                for (const auto& path : _includes)
+                {
+                    cpaths.push_back(manager.get_path_reference(path));
+                }
             }
 
             // create the shader object
@@ -97,7 +104,14 @@ namespace SceneR
             glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
 
             // Compile the shader source
-            glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
+            if (cpaths.size() > 0)
+            {
+                glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
+            }
+            else
+            {
+                glCompileShader(_id);
+            }
 
             // Verify compilation state
             verify_compilation_state();

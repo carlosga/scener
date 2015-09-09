@@ -43,7 +43,6 @@ namespace SceneR
 
         public:
             std::u16string name;
-            std::u16string tag;
 
         protected:
             GraphicsDevice& _graphics_device;

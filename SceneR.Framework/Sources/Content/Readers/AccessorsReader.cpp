@@ -7,6 +7,7 @@
 
 #include <Content/json11.hpp>
 #include <Graphics/Accessor.hpp>
+#include <Graphics/BufferView.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
 #include <System/Text/Encoding.hpp>
@@ -17,6 +18,7 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Graphics::Accessor;
+        using SceneR::Graphics::BufferView;
         using SceneR::Graphics::AttributeType;
         using SceneR::Graphics::ComponentType;
         using System::Text::Encoding;
@@ -35,7 +37,6 @@ namespace SceneR
             for (const auto& source : value["accessors"].object_items())
             {
                 auto accessor = std::make_shared<Accessor>();
-                auto viewName = Encoding::convert(source.second["bufferView"].string_value());
                 auto attType  = source.second["type"].string_value();
 
                 if (attType == "SCALAR")
@@ -68,7 +69,7 @@ namespace SceneR
                 }
 
                 accessor->_name            = Encoding::convert(source.first);
-                accessor->_buffer_view     = context.find_buffer_view(viewName);
+                accessor->_buffer_view     = context.find_object<BufferView>(source.second["bufferView"].string_value());
                 accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
                 accessor->_byte_offset     = source.second["byteOffset"].int_value();
                 accessor->_byte_stride     = source.second["byteStride"].int_value();

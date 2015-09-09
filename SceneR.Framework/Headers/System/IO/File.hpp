@@ -5,11 +5,12 @@
 #define SYSTEM_IO_FILE_HPP
 
 #include <fstream>
-#include <sstream>
 #include <string>
 
 #include <cassert>
 
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/FileStream.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace System
@@ -45,22 +46,30 @@ namespace System
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
-            static std::u16string read_all_text(const std::u16string& path)
+            static std::u16string read_all_text(const std::u16string&         path
+                                              , const System::Text::Encoding& encoding = System::Text::Encoding::utf8)
             {
-                auto stream = std::wifstream(System::Text::Encoding::convert(path), std::ios::in | std::ios::binary);
+                auto buffer = read_all_bytes(path);
 
-                assert(stream.is_open());
+                return encoding.get_string(buffer, 0, buffer.size());
+            }
 
-                stream.seekg(0, std::ios_base::beg);
-                std::wstringstream buffer;
+            /**
+             * Opens a binary file, reads the contents of the file into a byte array, and then closes the file.
+             */
+            static std::vector<std::uint8_t> read_all_bytes(const std::u16string& path)
+            {
+                assert(exists(path));
 
-                buffer << stream.rdbuf();
+                System::IO::FileStream   stream(path);
+                System::IO::BinaryReader reader(stream);
 
+                auto buffer = reader.read_bytes(stream.length());
+
+                reader.close();
                 stream.close();
 
-                auto text = buffer.str();
-
-                return std::u16string(text.begin(), text.end());
+                return buffer;
             }
 
         private:

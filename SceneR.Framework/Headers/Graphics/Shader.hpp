@@ -73,6 +73,11 @@ namespace SceneR
 
         public:
             /**
+             * Gets the shader identififer.
+             */
+            std::uint32_t id() const;
+
+            /**
              * @brief Gets the name of the shader.
              * @return the name of the shader.
              */

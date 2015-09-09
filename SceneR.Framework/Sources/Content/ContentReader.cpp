@@ -8,13 +8,10 @@
 #include <Content/json11.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
-#include <Graphics/Buffer.hpp>
-#include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
-#include <System/IO/FileStream.hpp>
 #include <System/IO/Path.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -73,50 +70,24 @@ namespace SceneR
             read_object("bufferViews", json, context);
             read_object("accessors"  , json, context);
             read_object("meshes"     , json, context);
-
-//            read_object("lights"     , json, context);
-//            read_object("cameras"    , json, context);
-//            read_object("nodes"      , json, context);
-//            read_object("images"     , json, context);
-//            read_object("textures"   , json, context);
-//            read_object("shaders"    , json, context);
-//            read_object("programs"   , json, context);
-//            read_object("samplers"   , json, context);
-//            read_object("techniques" , json, context);
-//            read_object("materials"  , json, context);
-//            read_object("animations" , json, context);
-//            read_object("skins"      , json, context);
+            // read_object("lights"     , json, context);
+            // read_object("cameras"    , json, context);
+            // read_object("nodes"      , json, context);
+            read_object("images"     , json, context);
+            read_object("textures"   , json, context);
+            read_object("shaders"    , json, context);
+            read_object("programs"   , json, context);
+            read_object("samplers"   , json, context);
+            read_object("techniques" , json, context);
+            read_object("materials"  , json, context);
+            // read_object("animations" , json, context);
+            // read_object("skins"      , json, context);
 
             return context.model;
         }
 
         bool ContentReader::read_header()
         {
-            // Binary glTF layout
-            //
-            // -------------------------------
-            // 20-byte header
-            // -------------------------------
-            // magic         unsigned char[4]
-            // version       uint32
-            // length        uint32
-            // jsonOffset    uint32
-            // jsonLength    uint32
-            // -------------------------------
-            // body
-            //  JSON UTF-8
-            // -------------------------------
-//            auto magic = _asset_reader.read_bytes(4);
-//            auto mstr  = std::string(magic.begin(), magic.end());
-
-//            if (mstr != "glTF")
-//            {
-//                return false;
-//            }
-
-//            _asset_reader.read<std::uint32_t>();   // version
-//            _asset_reader.read<std::uint32_t>();   // file length
-
             return true;
         }
 
@@ -134,7 +105,7 @@ namespace SceneR
 
         /**
          * Reads a link to an external file.
-         * @returns The asset stored in the external file.
+         * @returns The contents stored in the external file.
          */
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {
@@ -143,10 +114,7 @@ namespace SceneR
 
             assert(File::exists(assetPath));
 
-            FileStream   stream(assetPath);
-            BinaryReader reader(stream);
-
-            return reader.read_bytes(stream.length());
+            return File::read_all_bytes(assetPath);
         }
     }
 }
