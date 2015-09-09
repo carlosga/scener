@@ -11,13 +11,13 @@ namespace SceneR
     {
         using SceneR::Graphics::BufferObject;
 
-        IndexBuffer::IndexBuffer(GraphicsDevice&                   graphicsDevice
-                               , const Graphics::IndexElementSize& indexElementSize
-                               , const std::size_t&                indexCount)
+        IndexBuffer::IndexBuffer(GraphicsDevice&      graphicsDevice
+                               , const ComponentType& indexElementType
+                               , const std::size_t&   indexCount)
             : GraphicsResource  { graphicsDevice }
             , _ibo              { nullptr }
             , _indexCount       { indexCount }
-            , _indexElementSize { indexElementSize }
+            , _indexElementType { indexElementType }
         {
         }
 
@@ -39,9 +39,24 @@ namespace SceneR
             return _indexCount;
         }
 
-        const IndexElementSize& IndexBuffer::index_element_size() const
+        const ComponentType& IndexBuffer::index_element_type() const
         {
-            return _indexElementSize;
+            return _indexElementType;
+        }
+
+        std::size_t IndexBuffer::element_size_in_bytes() const
+        {
+            switch (_indexElementType)
+            {
+            case ComponentType::Byte:
+            case ComponentType::UByte:
+                return sizeof(std::uint8_t);
+            case ComponentType::Int16:
+            case ComponentType::UInt16:
+                return sizeof(std::uint16_t);
+            case ComponentType::Single:
+                return sizeof(float);
+            }
         }
 
         std::vector<std::uint8_t> IndexBuffer::get_data() const
@@ -51,8 +66,8 @@ namespace SceneR
 
         std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex, const std::size_t& elementCount) const
         {
-            auto offset = (startIndex * get_element_size_in_bytes());
-            auto size   = (elementCount * get_element_size_in_bytes());
+            auto offset = (startIndex * element_size_in_bytes());
+            auto size   = (elementCount * element_size_in_bytes());
             auto data   = std::vector<std::uint8_t>(size);
 
             _ibo->get_data(offset, size, data.data());
@@ -62,7 +77,7 @@ namespace SceneR
 
         void IndexBuffer::set_data(const void* data)
         {
-            _ibo->set_data(_indexCount * get_element_size_in_bytes(), data);
+            _ibo->set_data(_indexCount * element_size_in_bytes(), data);
         }
 
         void IndexBuffer::activate() const
@@ -79,11 +94,6 @@ namespace SceneR
         {
             _ibo = std::make_unique<BufferObject>(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw);
             _ibo->create();
-        }
-
-        std::size_t IndexBuffer::get_element_size_in_bytes() const
-        {
-            return ((_indexElementSize == IndexElementSize::SixteenBits) ? sizeof(std::uint16_t) : sizeof(std::uint32_t));
         }
     }
 }

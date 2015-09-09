@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MATERIALREADER_HPP
-#define MATERIALREADER_HPP
+#ifndef CONTENT_READERS_MATERIALREADER_HPP
+#define CONTENT_READERS_MATERIALREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 
@@ -28,11 +28,11 @@ namespace SceneR
 
         public:
             /**
-             * Reads the buffers contents from the given ContentReader.
+             * Reads the materials contents.
              */
             void read(const json11::Json& value, ContentReaderContext& context) override;
         };
     }
 }
 
-#endif // MATERIALREADER_HPP
+#endif // CONTENT_READERS_MATERIALREADER_HPP

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_BUFFERVIEWSSREADER_HPP
-#define CONTENT_READERS_BUFFERVIEWSSREADER_HPP
+#ifndef CONTENT_READERS_SHADERSREADER_HPP
+#define CONTENT_READERS_SHADERSREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 
@@ -10,29 +10,26 @@ namespace SceneR
 {
     namespace Content
     {
-        /**
-         * Buffer views reader
-         */
-        class BufferViewsReader final : public ContentTypeReader
+        class ShadersReader final : public ContentTypeReader
         {
         public:
             /**
-             * Initializes a news instance of the BufferViewsReader class.
+             * Initializes a news instance of the ShadersReader class.
              */
-            BufferViewsReader();
+            ShadersReader();
 
             /**
              * Destructor
              */
-            ~BufferViewsReader();
+            ~ShadersReader();
 
         public:
             /**
-             * Reads the buffer views contents.
+             * Reads the shaders contents.
              */
             void read(const json11::Json& value, ContentReaderContext& context) override;
         };
     }
 }
 
-#endif // CONTENT_READERS_BUFFERVIEWSSREADER_HPP
+#endif //CONTENT_READERS_SHADERSREADER_HPP

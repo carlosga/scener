@@ -19,6 +19,7 @@
 using json11::Json;
 using SceneR::Graphics::Accessor;
 using SceneR::Graphics::AttributeType;
+using SceneR::Graphics::ComponentType;
 using SceneR::Graphics::IndexBuffer;
 using SceneR::Graphics::IndexElementSize;
 using SceneR::Graphics::Model;
@@ -65,80 +66,33 @@ namespace SceneR
                                         , ContentReaderContext&                        context
                                         , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const
         {
-            auto meshPart     = std::make_shared<ModelMeshPart>();
-            auto elemenSize   = IndexElementSize::SixteenBits;
-            auto indices      = context.find_accessor(Encoding::convert(source["indices"].string_value()));
-            auto indexCount   = indices->attribute_count();
-            auto indexData    = indices->get_data();
-            auto vertexStride = std::size_t(0);
-            auto vertexCount  = std::size_t(0);
-            auto usageIndex   = std::size_t(0);
-            auto elements     = std::vector<VertexElement>();
-            auto material     = Encoding::convert(source["material"].string_value());
-            auto accessors    = std::vector<std::shared_ptr<Accessor>>(0);
+            auto meshPart      = std::make_shared<ModelMeshPart>();
+            auto accessors     = std::vector<std::shared_ptr<Accessor>>(0);
+            auto vertexStride  = std::size_t(0);
+            auto vertexCount   = std::size_t(0);
+            auto usageIndex    = std::size_t(0);
+            auto elements      = std::vector<VertexElement>();
+            auto indices       = context.find_accessor(Encoding::convert(source["indices"].string_value()));
+            auto componentType = indices->component_type();
+            auto indexCount    = indices->attribute_count();
+            auto indexData     = indices->get_data();
+            auto material      = Encoding::convert(source["material"].string_value());
 
             // Index buffer
-            meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, elemenSize, indexCount);
-
+            meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, componentType, indexCount);
             meshPart->_index_buffer->initialize();
             meshPart->_index_buffer->set_data(indexData.data());
 
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                auto name     = Encoding::convert(attribute.second.string_value());
-                auto accessor = context.find_accessor(name);
-                auto usage    = VertexElementUsage::Position;
-                auto format   = VertexElementFormat::Vector3;
+                auto accessor = context.find_accessor(Encoding::convert(attribute.second.string_value()));
+                auto format   = get_vertex_element_format(accessor->attribute_type());
+                auto usage    = get_vertex_element_usage(attribute.first);
 
-                switch (accessor->attribute_type())
+                if (usage == VertexElementUsage::Position)
                 {
-                case AttributeType::Vector2:
-                    format = VertexElementFormat::Vector2;
-                    break;
-                case AttributeType::Vector3:
-                    format = VertexElementFormat::Vector3;
-                    break;
-                case AttributeType::Vector4:
-                    format = VertexElementFormat::Vector4;
-                    break;
-                case AttributeType::Scalar:
-                    format = VertexElementFormat::Single;
-                    break;
-                }
-
-                if (attribute.first == "JOINT")
-                {
-                    usage = VertexElementUsage::BlendIndices;
-                }
-                else if (attribute.first == "NORMAL")
-                {
-                    usage = VertexElementUsage::Normal;
-                }
-                else if (attribute.first == "POSITION")
-                {
-                    usage       = VertexElementUsage::Position;
                     vertexCount = accessor->attribute_count();
-                }
-                else if (attribute.first == "TEXBINORMAL")
-                {
-                    usage = VertexElementUsage::Binormal;
-                }
-                else if (attribute.first == "TEXCOORD_0")
-                {
-                    usage = VertexElementUsage::TextureCoordinate;
-                }
-                else if (attribute.first == "TEXTANGENT")
-                {
-                    usage = VertexElementUsage::Tangent;
-                }
-                else if (attribute.first == "WEIGHT")
-                {
-                    usage = VertexElementUsage::BlendWeight;
-                }
-                else
-                {
-                    std::cout << "unknown attribute [" << attribute.first << "]" << std::endl;
                 }
 
                 accessors.push_back(accessor);
@@ -196,6 +150,61 @@ namespace SceneR
             // TODO: process material
 
             mesh->_mesh_parts.push_back(meshPart);
+        }
+
+        VertexElementFormat MeshesReader::get_vertex_element_format(const AttributeType& type) const
+        {
+            switch (type)
+            {
+            case AttributeType::Vector2:
+                return VertexElementFormat::Vector2;
+            case AttributeType::Vector3:
+                return VertexElementFormat::Vector3;
+            case AttributeType::Vector4:
+                return VertexElementFormat::Vector4;
+            case AttributeType::Scalar:
+                return VertexElementFormat::Single;
+            }
+        }
+
+        VertexElementUsage MeshesReader::get_vertex_element_usage(const std::string& semantic) const
+        {
+            VertexElementUsage usage = VertexElementUsage::Color;
+
+            if (semantic == "JOINT")
+            {
+                usage = VertexElementUsage::BlendIndices;
+            }
+            else if (semantic == "NORMAL")
+            {
+                usage = VertexElementUsage::Normal;
+            }
+            else if (semantic == "POSITION")
+            {
+                usage = VertexElementUsage::Position;
+            }
+            else if (semantic == "TEXBINORMAL")
+            {
+                usage = VertexElementUsage::Binormal;
+            }
+            else if (semantic == "TEXCOORD_0")
+            {
+                usage = VertexElementUsage::TextureCoordinate;
+            }
+            else if (semantic == "TEXTANGENT")
+            {
+                usage = VertexElementUsage::Tangent;
+            }
+            else if (semantic == "WEIGHT")
+            {
+                usage = VertexElementUsage::BlendWeight;
+            }
+            else
+            {
+                std::cout << "unknown attribute [" << semantic << "]" << std::endl;
+            }
+
+            return usage;
         }
     }
 }

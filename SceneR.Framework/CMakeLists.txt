@@ -40,11 +40,19 @@ link_directories(../../regal/lib/linux/)
 # header files
 set(HEADER_FILES
     Headers/Content/Readers/AccessorsReader.hpp
+    Headers/Content/Readers/AnimationsReader.hpp
     Headers/Content/Readers/BuffersReader.hpp
     Headers/Content/Readers/BufferViewsReader.hpp
-    Headers/Content/Readers/MeshesReader.hpp
+    Headers/Content/Readers/ImagesReader.hpp
     Headers/Content/Readers/MaterialsReader.hpp
+    Headers/Content/Readers/MeshesReader.hpp
+    Headers/Content/Readers/NodesReader.hpp
+    Headers/Content/Readers/ProgramsReader.hpp
+    Headers/Content/Readers/SamplersReader.hpp
+    Headers/Content/Readers/ShadersReader.hpp
+    Headers/Content/Readers/SkinsReader.hpp
     Headers/Content/Readers/TechniquesReader.hpp
+    Headers/Content/Readers/TexturesReader.hpp
     Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
@@ -116,7 +124,6 @@ set(HEADER_FILES
     Headers/Graphics/IEffectMatrices.hpp
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
-    Headers/Graphics/IndexElementSize.hpp
     Headers/Graphics/Material.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
@@ -178,11 +185,19 @@ set(HEADER_FILES
 # source files
 set(SOURCE_FILES
     Sources/Content/Readers/AccessorsReader.cpp
+    Sources/Content/Readers/AnimationsReader.cpp
     Sources/Content/Readers/BuffersReader.cpp
     Sources/Content/Readers/BufferViewsReader.cpp
-    Sources/Content/Readers/MeshesReader.cpp
+    Sources/Content/Readers/ImagesReader.cpp
     Sources/Content/Readers/MaterialsReader.cpp
+    Sources/Content/Readers/MeshesReader.cpp
+    Sources/Content/Readers/NodesReader.cpp
+    Sources/Content/Readers/ProgramsReader.cpp
+    Sources/Content/Readers/SamplersReader.cpp
+    Sources/Content/Readers/ShadersReader.cpp
+    Sources/Content/Readers/SkinsReader.cpp
     Sources/Content/Readers/TechniquesReader.cpp
+    Sources/Content/Readers/TexturesReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp

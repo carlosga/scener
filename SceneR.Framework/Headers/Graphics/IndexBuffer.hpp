@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include <Graphics/IndexElementSize.hpp>
+#include <Graphics/ComponentType.hpp>
 #include <Graphics/GraphicsResource.hpp>
 
 namespace SceneR
@@ -37,12 +37,12 @@ namespace SceneR
              * Initializes a new instance of the IndexBuffer class.
              *
              * @param graphicsDevice the graphics device
-             * @param indexElementSize the size (in bits) of each index.
+             * @param indexElementType the type of each index.
              * @param indexCount the number of indices.
              */
-            IndexBuffer(GraphicsDevice&                           graphicsDevice
-                      , const SceneR::Graphics::IndexElementSize& indexElementSize
-                      , const std::size_t&                        indexCount);
+            IndexBuffer(GraphicsDevice&                        graphicsDevice
+                      , const SceneR::Graphics::ComponentType& indexElementType
+                      , const std::size_t&                     indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -59,9 +59,15 @@ namespace SceneR
             std::size_t index_count() const;
 
             /**
-             * Gets the size (in bits) of each index.
+             * Gets the type of each index.
              */
-            const SceneR::Graphics::IndexElementSize& index_element_size() const;
+            const SceneR::Graphics::ComponentType& index_element_type() const;
+
+            /**
+             * Gets the size (in bytes) of each index.
+             * @return the size (in bytes) of each index.
+             */
+            std::size_t element_size_in_bytes() const;
 
             /**
              * Gets the indices buffer data
@@ -82,12 +88,11 @@ namespace SceneR
             void activate() const;
             void deactivate() const;
             void initialize();
-            std::size_t get_element_size_in_bytes() const;
 
         private:
-            std::unique_ptr<BufferObject>      _ibo;
-            std::size_t                        _indexCount;
-            SceneR::Graphics::IndexElementSize _indexElementSize;
+            std::unique_ptr<BufferObject>   _ibo;
+            std::size_t                     _indexCount;
+            SceneR::Graphics::ComponentType _indexElementType;
 
             friend class SceneR::Graphics::GraphicsDevice;
             friend class SceneR::Content::MeshesReader;

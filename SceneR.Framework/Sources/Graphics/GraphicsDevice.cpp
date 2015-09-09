@@ -150,7 +150,7 @@ namespace SceneR
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
-            auto offset = startIndex * ((index_buffer->index_element_size() == IndexElementSize::SixteenBits) ? 2 : 4);
+            auto offset = startIndex * index_buffer->element_size_in_bytes();;
 
             effect->begin();
             vertex_buffer->activate();
@@ -158,7 +158,7 @@ namespace SceneR
 
             glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
                                    , static_cast<GLsizei>(get_element_count(primitiveType, primitiveCount))
-                                   , static_cast<GLenum>(index_buffer->index_element_size())
+                                   , static_cast<GLenum>(index_buffer->index_element_type())
                                    , reinterpret_cast<void*>(offset)
                                    , static_cast<GLint>(baseVertex));
 

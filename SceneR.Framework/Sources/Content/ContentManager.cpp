@@ -50,18 +50,9 @@ namespace SceneR
 
         std::shared_ptr<Model> ContentManager::load_model(const std::u16string& assetName)
         {
-            auto& gdService = _service_provider.get_service<IGraphicsDeviceService>();
-            auto& device    = gdService.graphics_device();
-            auto  stream    = open_stream(assetName);
+            auto stream = open_stream(assetName);
 
             ContentReader reader(assetName, this, *stream);
-
-            auto isValid = reader.read_header();
-
-            if (!isValid)
-            {
-                throw ContentLoadException("Requested file is not valid binary GLTF.");
-            }
 
             return reader.read_asset();
         }
