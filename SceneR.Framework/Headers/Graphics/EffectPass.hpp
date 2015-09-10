@@ -8,14 +8,14 @@
 #include <string>
 #include <vector>
 
-#include <Graphics/EffectPassInstanceProgram.hpp>
 #include <Graphics/EffectPassStates.hpp>
+#include <Graphics/Program.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
-        class TechiquesReader;
+        class TechniquesReader;
     }
 }
 
@@ -24,23 +24,44 @@ namespace SceneR
     namespace Graphics
     {
         class EffectParameter;
+        class Program;
 
+        /**
+         * @brief Contains rendering state for drawing with an effect; an effect can contain one or more passes.
+         */
         class EffectPass
         {
         public:
+            /**
+             * Initializes a new instance of the EffectPass class.
+             */
             EffectPass();
+
+            /**
+             * Destructor.
+             */
             ~EffectPass();
 
         public:
+            /**
+             * Gets the name of this pass.
+             * @return The name of this pass.
+             */
+            const std::u16string& name() const;
+
+            /**
+             * Begins this pass.
+             */
             void apply();
 
-        public:
-            std::string                                   _lighting_model;
+        private:
+            std::u16string                                _name;
+            std::u16string                                _lighting_model;
             std::vector<std::shared_ptr<EffectParameter>> _parameters;
-            EffectPassInstanceProgram                     _program;
+            std::shared_ptr<Program>                      _program;
             EffectPassStates                              _states;
 
-            friend class SceneR::Content::TechiquesReader;
+            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

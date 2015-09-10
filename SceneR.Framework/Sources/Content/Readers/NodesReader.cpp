@@ -79,7 +79,7 @@ namespace SceneR
 
             if (!source.second["instanceSkin"].is_null())
             {
-               //node->instance_skin = read_instance_skin(source.second["instanceSkin"], context);
+                node->instance_skin = read_instance_skin(source.second["instanceSkin"], context);
             }
 
             for (const auto& mesh : source.second["meshes"].array_items())
@@ -98,7 +98,7 @@ namespace SceneR
         std::shared_ptr<InstanceSkin> NodesReader::read_instance_skin(const json11::Json&   source
                                                                     , ContentReaderContext& context)
         {
-            auto instanceSkin = std::shared_ptr<InstanceSkin>();
+            auto instanceSkin = std::make_shared<InstanceSkin>();
 
             for (const auto& skeleton : source["skeletons"].array_items())
             {

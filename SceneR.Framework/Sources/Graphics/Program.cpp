@@ -4,13 +4,17 @@
 #include <Graphics/Program.hpp>
 
 #include <cassert>
+#include <iostream>
 
 #include <Graphics/Shader.hpp>
+#include <Graphics/UniformBufferObject.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        using SceneR::Graphics::UniformBufferObject;
+
         Program::Program()
             : name ()
         {
@@ -24,6 +28,10 @@ namespace SceneR
         {
             if (_id != 0)
             {
+                // Delete the uniform buffer object
+                _uniform_buffer->dispose();
+                _uniform_buffer.reset();
+
                 // Delete the shader program
                 glDeleteProgram(_id);
 
@@ -37,12 +45,22 @@ namespace SceneR
             return _id;
         }
 
+        std::shared_ptr<UniformBufferObject> Program::uniform_buffer() const
+        {
+            return _uniform_buffer;
+        }
+
         void Program::create()
         {
             // ... Create the program object
             _id = glCreateProgram();
 
             assert(_id != 0);
+        }
+
+        void Program::activate() const
+        {
+            glUseProgram(_id);
         }
 
         void Program::add_shader(std::shared_ptr<Shader> shader)
@@ -57,6 +75,11 @@ namespace SceneR
             glAttachShader(_id, shader->id());
         }
 
+        void Program::deactivate() const
+        {
+            glUseProgram(0);
+        }
+
         void Program::link()
         {
             // ... link the shader program
@@ -64,6 +87,49 @@ namespace SceneR
 
             // ... verify program linking state
             verify_linking_state();
+
+            // ... fill uniform buffer info
+            _uniform_buffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", _id);
+            _uniform_buffer->describe();
+        }
+
+        std::map<std::string, std::size_t> Program::get_uniform_offsets() const
+        {
+            std::map<std::string, std::size_t> uniformOffsets;
+
+            // Check the number of active uniforms
+            std::int32_t activeUniforms = 0;
+
+            glGetActiveUniformBlockiv(_id, _uniform_buffer->index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeUniforms);
+
+            std::vector<std::int32_t> indices(activeUniforms, 0);
+            std::vector<std::int32_t> nameLengths(activeUniforms, 0);
+            std::vector<std::int32_t> offsets(activeUniforms, 0);
+            std::vector<std::int32_t> types(activeUniforms, 0);
+
+            glGetActiveUniformBlockiv(_id, _uniform_buffer->index(), GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices.data());
+
+            GLuint* address = reinterpret_cast<GLuint*>(indices.data());
+
+            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_NAME_LENGTH, nameLengths.data());
+            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
+            glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
+
+            for (std::int32_t i = 0; i < activeUniforms; i++)
+            {
+                GLsizei length = 0;
+                GLint   size   = 0;
+                GLenum  type   = GL_ZERO;
+                auto    name   = std::vector<char>(nameLengths[i], 0);
+
+                glGetActiveUniform(_id, indices[i], nameLengths[i], &length, &size, &type, name.data());
+
+                std::string uniformName = { name.begin(), name.begin() + length };
+
+                uniformOffsets[uniformName] = offsets[i];
+            }
+
+            return uniformOffsets;
         }
 
         void Program::verify_linking_state()
@@ -87,6 +153,8 @@ namespace SceneR
 
                     msg += linkErrorMessage;
                 }
+
+                std::cout << msg << std::endl;
 
                 dispose();
 

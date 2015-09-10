@@ -4,6 +4,7 @@
 #ifndef GRAPHICS_PROGRAM_HPP
 #define GRAPHICS_PROGRAM_HPP
 
+#include <map>
 #include <memory>
 #include <vector>
 #include <string>
@@ -11,9 +12,19 @@
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class TechniquesReader;
+    }
+}
+
+namespace SceneR
+{
     namespace Graphics
     {
+        class EffectParameter;
         class Shader;
+        class UniformBufferObject;
 
         class Program final : public System::IDisposable
         {
@@ -27,11 +38,19 @@ namespace SceneR
         public:
             std::uint32_t id() const;
 
+            std::shared_ptr<UniformBufferObject> uniform_buffer() const;
+
             void create();
+
+            void activate() const;
 
             void add_shader(std::shared_ptr<Shader> shader);
 
+            void deactivate() const;
+
             void link();
+
+            std::map<std::string, std::size_t> get_uniform_offsets() const;
 
         private:
             void verify_linking_state();
@@ -40,7 +59,10 @@ namespace SceneR
             std::u16string name;
 
         private:
-            std::uint32_t _id;
+            std::uint32_t                        _id;
+            std::shared_ptr<UniformBufferObject> _uniform_buffer;
+
+            friend class SceneR::Content::TechniquesReader;
         };
     }
 }

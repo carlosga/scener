@@ -6,7 +6,9 @@
 #include <Content/json11.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
+#include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferView.hpp>
@@ -27,7 +29,9 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Quaternion;
+        using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
+        using SceneR::Framework::Vector4;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferView;
@@ -60,6 +64,7 @@ namespace SceneR
         {
             Matrix matrix;
 
+            #pragma unroll(16)
             for (int i = 0; i < 16; i++)
             {
                 matrix.data[i] = values[i].number_value();
@@ -71,27 +76,34 @@ namespace SceneR
         template<>
         Quaternion ContentReaderContext::convert(const std::vector<json11::Json>& values) const
         {
-            Quaternion quaternion;
+            return { values[1].number_value()
+                   , values[2].number_value()
+                   , values[3].number_value()
+                   , values[0].number_value(),};
+        }
 
-            for (int i = 0; i < 4; i++)
-            {
-                quaternion.data[i] = values[i].number_value();
-            }
-
-            return quaternion;
+        template<>
+        Vector2 ContentReaderContext::convert(const std::vector<json11::Json>& values) const
+        {
+            return Vector2 { values[0].number_value()
+                          ,  values[1].number_value() };
         }
 
         template<>
         Vector3 ContentReaderContext::convert(const std::vector<json11::Json>& values) const
         {
-            Vector3 vector;
+            return Vector3 { values[0].number_value()
+                          ,  values[1].number_value()
+                          ,  values[2].number_value()};
+        }
 
-            for (int i = 0; i < 3; i++)
-            {
-                vector.data[i] = values[i].number_value();
-            }
-
-            return vector;
+        template<>
+        Vector4 ContentReaderContext::convert(const std::vector<json11::Json>& values) const
+        {
+            return Vector4 { values[0].number_value()
+                          ,  values[1].number_value()
+                          ,  values[2].number_value()
+                          ,  values[3].number_value()};
         }
 
         template <>

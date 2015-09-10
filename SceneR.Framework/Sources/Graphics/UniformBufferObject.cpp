@@ -3,6 +3,7 @@
 
 #include <Graphics/UniformBufferObject.hpp>
 
+#include <Graphics/BufferObject.hpp>
 #include <System/Graphics/Platform.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -10,6 +11,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        using SceneR::Graphics::BufferObject;
         using System::Text::Encoding;
 
         UniformBufferObject::UniformBufferObject(const std::u16string& name, const std::uint32_t& programId)
@@ -18,7 +20,7 @@ namespace SceneR
             , _index         { 0 }
             , _binding_point { 0 }
             , _size          { 0 }
-            , _buffer_object { BufferTarget::UniformBuffer, BufferUsage::DynamicDraw }
+            , _buffer_object { std::make_unique<BufferObject>(BufferTarget::UniformBuffer, BufferUsage::DynamicDraw) }
         {
         }
 
@@ -28,7 +30,11 @@ namespace SceneR
 
         void UniformBufferObject::dispose()
         {
-            _buffer_object.dispose();
+            if (_buffer_object.get() != nullptr)
+            {
+                _buffer_object->dispose();
+                _buffer_object.release();
+            }
         }
 
         std::int32_t UniformBufferObject::binding_point() const
@@ -48,12 +54,12 @@ namespace SceneR
 
         void UniformBufferObject::activate()
         {
-            glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
+            glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
         }
 
         void UniformBufferObject::deactivate()
         {
-            glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
+            glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
         }
 
         std::vector<std::uint8_t> UniformBufferObject::get_data() const
@@ -65,14 +71,14 @@ namespace SceneR
         {
             auto data = std::vector<std::uint8_t>(count, 0);
 
-            _buffer_object.get_data(offset, count, data.data());
+            _buffer_object->get_data(offset, count, data.data());
 
             return data;
         }
 
         void UniformBufferObject::set_data(const void* data)
         {
-            _buffer_object.set_data(0, _size, data);
+            _buffer_object->set_data(0, _size, data);
         }
 
         void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data)
@@ -82,7 +88,7 @@ namespace SceneR
                 return;
             }
 
-            _buffer_object.set_data(offset, count, data);
+            _buffer_object->set_data(offset, count, data);
         }
 
         void UniformBufferObject::describe()
@@ -90,6 +96,9 @@ namespace SceneR
             std::string  tmp       = Encoding::convert(_name);
             std::int32_t binding   = 0;
             std::int32_t blockSize = 0;
+
+            // Create the buffer object
+            _buffer_object->create();
 
             // Get the uniform block index
             _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
@@ -107,7 +116,7 @@ namespace SceneR
             // initialize the buffer object
             std::vector<std::uint8_t> data(_size, 0);
 
-            _buffer_object.set_data(_size, data.data());
+            _buffer_object->set_data(_size, data.data());
         }
     }
 }

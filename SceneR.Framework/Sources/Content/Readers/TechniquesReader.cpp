@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Framework/Matrix.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
@@ -14,8 +15,9 @@
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <Graphics/EffectPass.hpp>
-#include <Graphics/EffectPassInstanceProgram.hpp>
 #include <Graphics/EffectPassStates.hpp>
+#include <Graphics/Node.hpp>
+#include <Graphics/Program.hpp>
 #include <Graphics/RenderingStateType.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -24,6 +26,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
+        using SceneR::Framework::Matrix;
         using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
@@ -32,8 +35,9 @@ namespace SceneR
         using SceneR::Graphics::EffectParameterClass;
         using SceneR::Graphics::EffectParameterType;
         using SceneR::Graphics::EffectPass;
-        using SceneR::Graphics::EffectPassInstanceProgram;
         using SceneR::Graphics::EffectPassStates;
+        using SceneR::Graphics::Node;
+        using SceneR::Graphics::Program;
         using SceneR::Graphics::RenderingStateType;
         using System::Text::Encoding;
 
@@ -51,8 +55,10 @@ namespace SceneR
             {
                 auto effect = std::make_shared<Effect>(context.graphics_device);
 
-                read_technique_parameters(item.second["parameters"], effect);
-                read_technique_passes(item.second["passes"], effect);
+                read_technique_parameters(item.second["parameters"], context, effect);
+                read_technique_passes(item.second["passes"], context, effect);
+                cache_technique_parameters(effect);
+                set_parameter_values(item.second["parameters"], context, effect);
 
                 effect->name  = Encoding::convert(item.first);
                 effect->_pass = effect->_passes[item.second["pass"].string_value()];
@@ -61,7 +67,9 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::read_technique_parameters(const Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::read_technique_parameters(const Json&             value
+                                                       , ContentReaderContext&   context
+                                                       , std::shared_ptr<Effect> effect)
         {
             for (const auto& source : value.object_items())
             {
@@ -72,21 +80,76 @@ namespace SceneR
                 parameter->_semantic = Encoding::convert(source.second["semantic"].string_value());
                 parameter->_node     = Encoding::convert(source.second["node"].string_value());
 
-                describe_parameter(parameter, type);
+                describe_technique_parameter(parameter, type);
 
-                auto node  = source.second["node"].string_value();
-
-                set_parameter_value(parameter, source.second["value"]);
-
-                // TODO : Node reference
-
-                technique->_parameters[source.first] = parameter;
+                effect->_parameters[source.first] = parameter;
             }
-
-            cache_parameters(technique);
         }
 
-        void TechniquesReader::read_technique_passes(const Json& value, std::shared_ptr<Effect> technique)
+        void TechniquesReader::set_parameter_values(const Json&             value
+                                                  , ContentReaderContext&   context
+                                                  , std::shared_ptr<Effect> effect)
+        {
+            for (const auto& source : value.object_items())
+            {
+                auto parameter = effect->_parameters[source.first];
+                auto nodeId    = source.second["node"].string_value();
+
+                if (!nodeId.empty())
+                {
+                    auto node = context.find_object<Node>(nodeId);
+
+                    parameter->set_value<Matrix>(node->matrix);
+                }
+                else
+                {
+                    const auto& paramValue = source.second["value"];
+
+                    if (paramValue.is_null())
+                    {
+
+                    }
+                    else if (paramValue.is_string())
+                    {
+                        parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));
+                    }
+                    else if (paramValue.is_bool())
+                    {
+                        parameter->set_value<bool>(paramValue.bool_value());
+                    }
+                    else if (paramValue.is_number())
+                    {
+                        set_parameter_numeric_value(parameter, paramValue);
+                    }
+                    else if (paramValue.is_array())
+                    {
+                        if (parameter->parameter_class() == EffectParameterClass::Vector)
+                        {
+                            switch (parameter->column_count())
+                            {
+                            case 2:
+                                parameter->set_value<Vector2>(context.convert<Vector2>(paramValue.array_items()));
+                                break;
+                            case 3:
+                                parameter->set_value<Vector3>(context.convert<Vector3>(paramValue.array_items()));
+                                break;
+                            case 4:
+                                parameter->set_value<Vector4>(context.convert<Vector4>(paramValue.array_items()));
+                                break;
+                            }
+                        }
+                        else if (parameter->parameter_class() == EffectParameterClass::Matrix)
+                        {
+                            parameter->set_value<Matrix>(context.convert<Matrix>(paramValue.array_items()));
+                        }
+                    }
+                }
+            }
+        }
+
+        void TechniquesReader::read_technique_passes(const Json&             value
+                                                   , ContentReaderContext&   context
+                                                   , std::shared_ptr<Effect> effect)
         {
             for (const auto& source : value.object_items())
             {
@@ -97,51 +160,55 @@ namespace SceneR
                 const auto& commonProfile = source.second["details"]["commonProfile"];
                 const auto& parameters    = commonProfile["parameters"];
 
-                pass->_lighting_model = commonProfile["lightingModel"].string_value();
+                pass->_name           = Encoding::convert(source.first);
+                pass->_lighting_model = Encoding::convert(commonProfile["lightingModel"].string_value());
 
                 for (const auto& paramRef : parameters.array_items())
                 {
-                    pass->_parameters.push_back(technique->_parameters[paramRef.string_value()]);
+                    pass->_parameters.push_back(effect->_parameters[paramRef.string_value()]);
                 }
 
-                read_technique_pass_program(source.second["instanceProgram"], technique, pass);
+                read_technique_pass_program(source.second["instanceProgram"], context, effect, pass);
                 read_technique_pass_states(source.second["states"], pass);
 
-                technique->_passes[source.first] = pass;
+                effect->_passes[source.first] = pass;
             }
         }
 
         void TechniquesReader::read_technique_pass_program(const Json&                 value
-                                                         , std::shared_ptr<Effect>     technique
-                                                         , std::shared_ptr<EffectPass> pass)
+                                                         , ContentReaderContext&       context
+                                                         , std::shared_ptr<Effect>     effect
+                                                         , std::shared_ptr<EffectPass> effectPass)
         {
-            EffectPassInstanceProgram program;
+            // Pass program
+            effectPass->_program = context.find_object<Program>(value["program"].string_value());
 
-            program._name = value["program"].string_value();
+            // Attributes
+            // const auto& attributes = value["attributes"].object_items();
 
-            const auto& attributes = value["attributes"].object_items();
-            const auto& uniforms   = value["uniforms"].object_items();
+            // for (const auto& attribute : attributes)
+            // {
+            //     const auto attName  = attribute.first;
+            //     const auto paramRef = attribute.second.string_value();
 
-            for (const auto& attribute : attributes)
-            {
-                const std::string attName  = attribute.first;
-                const std::string paramRef = attribute.second.string_value();
+            //     effectPass->_program->_attributes[attName] = effect->_parameters[paramRef];
+            // }
 
-                program._attributes[attName] = technique->_parameters[paramRef];
-            }
+            // Uniforms
+            const auto& uniforms = value["uniforms"].object_items();
+            auto        offsets  = effectPass->_program->get_uniform_offsets();
 
             for (const auto& uniform : uniforms)
             {
-                const std::string uniformName = uniform.first;
-                const std::string paramRef    = uniform.second.string_value();
+                auto uniformName = uniform.first;
+                auto parameter   = effect->_parameters[uniform.second.string_value()];
 
-                program._uniforms[uniformName] = technique->_parameters[paramRef];
+                parameter->_offset         = offsets[uniformName];
+                parameter->_uniform_buffer = effectPass->_program->uniform_buffer();
             }
-
-            pass->_program = program;
         }
 
-        void TechniquesReader::read_technique_pass_states(const Json& value, std::shared_ptr<EffectPass> pass)
+        void TechniquesReader::read_technique_pass_states(const Json& value, std::shared_ptr<EffectPass> effectPass)
         {
             EffectPassStates passStates;
 
@@ -155,7 +222,7 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::cache_parameters(std::shared_ptr<Effect> technique)
+        void TechniquesReader::cache_technique_parameters(std::shared_ptr<Effect> technique)
         {
             for (auto parameter : technique->_parameters)
             {
@@ -214,7 +281,8 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::describe_parameter(std::shared_ptr<EffectParameter> parameter, const std::int32_t& type)
+        void TechniquesReader::describe_technique_parameter(std::shared_ptr<EffectParameter> parameter
+                                                          , const std::int32_t&              type)
         {
             switch (type)
             {
@@ -349,44 +417,6 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::set_parameter_value(std::shared_ptr<EffectParameter> parameter
-                                                 , const Json&                      value)
-        {
-            if (value.is_null())
-            {
-            }
-            else if (value.is_string())
-            {
-                //parameter->set_value(value.string_value());
-            }
-            else if (value.is_bool())
-            {
-                parameter->set_value(value.bool_value());
-            }
-            else if (value.is_number())
-            {
-                set_parameter_numeric_value(parameter, value);
-            }
-            else if (value.is_array())
-            {
-                std::vector<float> data;
-
-                for (const auto& dataValue : value.array_items())
-                {
-                    data.push_back(dataValue.number_value());
-                }
-
-                if (parameter->parameter_class() == EffectParameterClass::Vector)
-                {
-                    set_parameter_vector_value(parameter, data);
-                }
-                else if (parameter->parameter_class() == EffectParameterClass::Matrix)
-                {
-                    // TODO: Handle matrix values
-                }
-            }
-        }
-
         void TechniquesReader::set_parameter_numeric_value(std::shared_ptr<EffectParameter> parameter
                                                          , const json11::Json&              value)
         {
@@ -412,23 +442,6 @@ namespace SceneR
                 break;
             case EffectParameterType::Single:
                 parameter->set_value(static_cast<float>(value.is_number()));
-                break;
-            }
-        }
-
-        void TechniquesReader::set_parameter_vector_value(std::shared_ptr<EffectParameter> parameter
-                                                        , std::vector<float>               data)
-        {
-            switch (parameter->column_count())
-            {
-            case 2:
-                parameter->set_value(Vector2(data[0], data[1]));
-                break;
-            case 3:
-                parameter->set_value(Vector3(data[0], data[1], data[2]));
-                break;
-            case 4:
-                parameter->set_value(Vector4(data[0], data[1], data[2], data[3]));
                 break;
             }
         }

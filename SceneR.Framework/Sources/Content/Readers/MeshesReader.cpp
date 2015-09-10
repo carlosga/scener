@@ -3,6 +3,7 @@
 
 #include <Content/Readers/MeshesReader.hpp>
 
+#include <algorithm>
 #include <iostream>
 
 #include <Content/json11.hpp>
@@ -66,11 +67,10 @@ namespace SceneR
                                         , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const
         {
             auto meshPart      = std::make_shared<ModelMeshPart>();
-            auto accessors     = std::vector<std::shared_ptr<Accessor>>(0);
+            auto accessors     = std::vector<std::shared_ptr<Accessor>>(12);
+            auto elements      = std::vector<VertexElement>();
             auto vertexStride  = std::size_t(0);
             auto vertexCount   = std::size_t(0);
-            auto usageIndex    = std::size_t(0);
-            auto elements      = std::vector<VertexElement>();
             auto indices       = context.find_object<Accessor>(source["indices"].string_value());
             auto componentType = indices->component_type();
             auto indexCount    = indices->attribute_count();
@@ -85,20 +85,40 @@ namespace SceneR
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                auto accessor = context.find_object<Accessor>(attribute.second.string_value());
-                auto format   = get_vertex_element_format(accessor->attribute_type());
-                auto usage    = get_vertex_element_usage(attribute.first);
+                auto accessor   = context.find_object<Accessor>(attribute.second.string_value());
+                auto format     = get_vertex_element_format(accessor->attribute_type());
+                auto usage      = get_vertex_element_usage(attribute.first);
+                auto usageIndex = static_cast<std::uint32_t>(usage);
 
                 if (usage == VertexElementUsage::Position)
                 {
                     vertexCount = accessor->attribute_count();
                 }
 
-                accessors.push_back(accessor);
-                elements.push_back({ vertexStride, format, usage, ++usageIndex });
+                accessors[usageIndex] = accessor;
+                elements.push_back({ vertexStride, format, usage, usageIndex });
 
                 vertexStride += accessor->byte_stride();
             }
+
+            // Remove empty slots from accessors vector
+            auto items = std::remove_if(accessors.begin()
+                                      , accessors.end()
+                                      , [] (std::shared_ptr<Accessor> accessor) -> bool
+                                        {
+                                            return (accessor == nullptr);
+                                        });
+
+            accessors.erase(items);
+            accessors.resize(source["attributes"].object_items().size());
+
+            // Sort vertex elements based on usage index
+            std::sort(elements.begin()
+                    , elements.end()
+                    , [] (const VertexElement& a, const VertexElement& b) -> bool
+                      {
+                          return (a.usage_index() < b.usage_index());
+                      });
 
             auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 

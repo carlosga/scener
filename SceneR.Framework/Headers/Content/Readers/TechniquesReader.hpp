@@ -47,30 +47,32 @@ namespace SceneR
 
         private:
             void read_technique_parameters(const json11::Json&                       value
-                                         , std::shared_ptr<SceneR::Graphics::Effect> technique);
+                                         , ContentReaderContext&                     context
+                                         , std::shared_ptr<SceneR::Graphics::Effect> effect);
 
-            void read_technique_passes(const json11::Json& value, std::shared_ptr<SceneR::Graphics::Effect> technique);
+            void set_parameter_values(const json11::Json&                       value
+                                    , ContentReaderContext&                     context
+                                    , std::shared_ptr<SceneR::Graphics::Effect> effect);
+
+            void read_technique_passes(const json11::Json&                       value
+                                     , ContentReaderContext&                     context
+                                     , std::shared_ptr<SceneR::Graphics::Effect> effect);
 
             void read_technique_pass_program(const json11::Json&                           value
-                                           , std::shared_ptr<SceneR::Graphics::Effect>     technique
-                                           , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+                                           , ContentReaderContext&                         context
+                                           , std::shared_ptr<SceneR::Graphics::Effect>     effect
+                                           , std::shared_ptr<SceneR::Graphics::EffectPass> effectPass);
 
             void read_technique_pass_states(const json11::Json&                           value
-                                          , std::shared_ptr<SceneR::Graphics::EffectPass> pass);
+                                          , std::shared_ptr<SceneR::Graphics::EffectPass> effectPass);
 
-            void cache_parameters(std::shared_ptr<SceneR::Graphics::Effect> technique);
+            void cache_technique_parameters(std::shared_ptr<SceneR::Graphics::Effect> effect);
 
-            void describe_parameter(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
-                                  , const std::int32_t&                                type);
-
-            void set_parameter_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
-                                   , const json11::Json&                                value);
+            void describe_technique_parameter(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
+                                            , const std::int32_t&                                type);
 
             void set_parameter_numeric_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
                                            , const json11::Json&                                value);
-
-            void set_parameter_vector_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
-                                          , std::vector<float>                                 data);
         };
     }
 }

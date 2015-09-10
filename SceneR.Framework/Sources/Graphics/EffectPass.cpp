@@ -8,12 +8,20 @@ namespace SceneR
     namespace Graphics
     {
         EffectPass::EffectPass()
+            : _lighting_model ()
+            , _parameters     ()
+            , _program        { nullptr }
+            , _states         {}
         {
-
         }
 
         EffectPass::~EffectPass()
         {
+        }
+
+        const std::u16string& EffectPass::name() const
+        {
+            return _name;
         }
 
         void EffectPass::apply()
