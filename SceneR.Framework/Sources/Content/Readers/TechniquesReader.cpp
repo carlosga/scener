@@ -92,8 +92,9 @@ namespace SceneR
         {
             for (const auto& source : value.object_items())
             {
-                auto parameter = effect->_parameters[source.first];
-                auto nodeId    = source.second["node"].string_value();
+                auto        parameter  = effect->_parameters[source.first];
+                auto        nodeId     = source.second["node"].string_value();
+                const auto& paramValue = source.second["value"];
 
                 if (!nodeId.empty())
                 {
@@ -101,48 +102,60 @@ namespace SceneR
 
                     parameter->set_value<Matrix>(node->matrix);
                 }
-                else
+                else if (paramValue.is_null())
                 {
-                    const auto& paramValue = source.second["value"];
-
-                    if (paramValue.is_null())
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Scalar)
+                {
+                    switch (parameter->parameter_type())
                     {
-
-                    }
-                    else if (paramValue.is_string())
-                    {
+                    case EffectParameterType::Bool:
+                        parameter->set_value(paramValue.bool_value());
+                        break;
+                    case EffectParameterType::Byte:
+                        parameter->set_value(static_cast<std::int8_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UByte:
+                        parameter->set_value(static_cast<std::uint8_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Int16:
+                        parameter->set_value(static_cast<std::int16_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UInt16:
+                        parameter->set_value(static_cast<std::uint16_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Int32:
+                        parameter->set_value(static_cast<std::int32_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UInt32:
+                        parameter->set_value(static_cast<std::uint32_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Single:
+                        parameter->set_value(static_cast<float>(paramValue.number_value()));
+                        break;
+                    case EffectParameterType::String:
                         parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));
+                        break;
                     }
-                    else if (paramValue.is_bool())
+                }
+                else  if (parameter->parameter_class() == EffectParameterClass::Vector)
+                {
+                    switch (parameter->column_count())
                     {
-                        parameter->set_value<bool>(paramValue.bool_value());
+                    case 2:
+                        parameter->set_value<Vector2>(context.convert<Vector2>(paramValue.array_items()));
+                        break;
+                    case 3:
+                        parameter->set_value<Vector3>(context.convert<Vector3>(paramValue.array_items()));
+                        break;
+                    case 4:
+                        parameter->set_value<Vector4>(context.convert<Vector4>(paramValue.array_items()));
+                        break;
                     }
-                    else if (paramValue.is_number())
-                    {
-                        set_parameter_numeric_value(parameter, paramValue);
-                    }
-                    else if (paramValue.is_array())
-                    {
-                        if (parameter->parameter_class() == EffectParameterClass::Vector)
-                        {
-                            switch (parameter->column_count())
-                            {
-                            case 2:
-                                parameter->set_value<Vector2>(context.convert<Vector2>(paramValue.array_items()));
-                                break;
-                            case 3:
-                                parameter->set_value<Vector3>(context.convert<Vector3>(paramValue.array_items()));
-                                break;
-                            case 4:
-                                parameter->set_value<Vector4>(context.convert<Vector4>(paramValue.array_items()));
-                                break;
-                            }
-                        }
-                        else if (parameter->parameter_class() == EffectParameterClass::Matrix)
-                        {
-                            parameter->set_value<Matrix>(context.convert<Matrix>(paramValue.array_items()));
-                        }
-                    }
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Matrix)
+                {
+                    parameter->set_value<Matrix>(context.convert<Matrix>(paramValue.array_items()));
                 }
             }
         }
@@ -184,15 +197,7 @@ namespace SceneR
             effectPass->_program = context.find_object<Program>(value["program"].string_value());
 
             // Attributes
-            // const auto& attributes = value["attributes"].object_items();
-
-            // for (const auto& attribute : attributes)
-            // {
-            //     const auto attName  = attribute.first;
-            //     const auto paramRef = attribute.second.string_value();
-
-            //     effectPass->_program->_attributes[attName] = effect->_parameters[paramRef];
-            // }
+            // ignored, they should be passed in the vertex buffer
 
             // Uniforms
             const auto& uniforms = value["uniforms"].object_items();
@@ -413,35 +418,6 @@ namespace SceneR
             case GL_SAMPLER_2D:
                 parameter->_parameter_class = EffectParameterClass::Object;
                 parameter->_parameter_type  = EffectParameterType::Texture2D;
-                break;
-            }
-        }
-
-        void TechniquesReader::set_parameter_numeric_value(std::shared_ptr<EffectParameter> parameter
-                                                         , const json11::Json&              value)
-        {
-            switch (parameter->parameter_type())
-            {
-            case EffectParameterType::Byte:
-                parameter->set_value(static_cast<std::int8_t>(value.is_number()));
-                break;
-            case EffectParameterType::UByte:
-                parameter->set_value(static_cast<std::uint8_t>(value.is_number()));
-                break;
-            case EffectParameterType::Int16:
-                parameter->set_value(static_cast<std::int16_t>(value.is_number()));
-                break;
-            case EffectParameterType::UInt16:
-                parameter->set_value(static_cast<std::uint16_t>(value.is_number()));
-                break;
-            case EffectParameterType::Int32:
-                parameter->set_value(static_cast<std::int32_t>(value.is_number()));
-                break;
-            case EffectParameterType::UInt32:
-                parameter->set_value(static_cast<std::uint32_t>(value.is_number()));
-                break;
-            case EffectParameterType::Single:
-                parameter->set_value(static_cast<float>(value.is_number()));
                 break;
             }
         }

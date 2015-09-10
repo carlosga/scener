@@ -70,9 +70,6 @@ namespace SceneR
 
             void describe_technique_parameter(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
                                             , const std::int32_t&                                type);
-
-            void set_parameter_numeric_value(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
-                                           , const json11::Json&                                value);
         };
     }
 }
