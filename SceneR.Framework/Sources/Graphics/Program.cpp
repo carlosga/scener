@@ -4,7 +4,6 @@
 #include <Graphics/Program.hpp>
 
 #include <cassert>
-#include <iostream>
 
 #include <Graphics/Shader.hpp>
 #include <Graphics/UniformBufferObject.hpp>
@@ -132,6 +131,11 @@ namespace SceneR
             return uniformOffsets;
         }
 
+        void Program::activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
+        {
+            glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
+        }
+
         void Program::verify_linking_state()
         {
             // ... verify program linking
@@ -153,8 +157,6 @@ namespace SceneR
 
                     msg += linkErrorMessage;
                 }
-
-                std::cout << msg << std::endl;
 
                 dispose();
 

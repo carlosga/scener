@@ -109,7 +109,6 @@ set(HEADER_FILES
     Headers/Graphics/EffectDirtyFlags.hpp
     Headers/Graphics/EffectHelpers.hpp
     Headers/Graphics/EffectPass.hpp
-    Headers/Graphics/EffectPassInstanceProgram.hpp
     Headers/Graphics/EffectPassStates.hpp
     Headers/Graphics/EffectParameter.hpp
     Headers/Graphics/EffectParameterClass.hpp
@@ -243,7 +242,6 @@ set(SOURCE_FILES
     Sources/Graphics/EffectHelpers.cpp
     Sources/Graphics/EffectParameter.cpp
     Sources/Graphics/EffectPass.cpp
-    Sources/Graphics/EffectPassInstanceProgram.cpp
     Sources/Graphics/GraphicsAdapter.cpp
     Sources/Graphics/GraphicsDevice.cpp
     Sources/Graphics/GraphicsResource.cpp

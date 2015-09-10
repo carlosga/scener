@@ -4,11 +4,14 @@
 #ifndef GRAPHICS_PROGRAM_HPP
 #define GRAPHICS_PROGRAM_HPP
 
+#include <cstddef>
 #include <map>
 #include <memory>
 #include <vector>
 #include <string>
 #include <System/IDisposable.hpp>
+
+#include <Graphics/ShaderType.hpp>
 
 namespace SceneR
 {
@@ -51,6 +54,8 @@ namespace SceneR
             void link();
 
             std::map<std::string, std::size_t> get_uniform_offsets() const;
+
+            void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
 
         private:
             void verify_linking_state();
