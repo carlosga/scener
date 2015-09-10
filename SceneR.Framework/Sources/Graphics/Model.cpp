@@ -6,7 +6,7 @@
 #include <cassert>
 
 #include <Framework/Matrix.hpp>
-#include <Graphics/Effect.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 

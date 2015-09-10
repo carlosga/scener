@@ -18,7 +18,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class BufferViewsReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -89,7 +89,7 @@ namespace SceneR
             std::u16string          _name;
             std::shared_ptr<Buffer> _buffer;
 
-            friend class SceneR::Content::BufferViewsReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

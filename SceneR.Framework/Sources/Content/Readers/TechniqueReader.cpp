@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/TechniquesReader.hpp>
+#include <Content/Readers/TechniqueReader.hpp>
 
 #include <iostream>
 
@@ -10,12 +10,12 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/Effect.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/EffectPassStates.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/Node.hpp>
 #include <Graphics/Program.hpp>
 #include <Graphics/RenderingStateType.hpp>
@@ -30,7 +30,7 @@ namespace SceneR
         using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
-        using SceneR::Graphics::Effect;
+        using SceneR::Graphics::EffectTechnique;
         using SceneR::Graphics::EffectParameter;
         using SceneR::Graphics::EffectParameterClass;
         using SceneR::Graphics::EffectParameterType;
@@ -41,35 +41,33 @@ namespace SceneR
         using SceneR::Graphics::RenderingStateType;
         using System::Text::Encoding;
 
-        TechniquesReader::TechniquesReader()
+        ContentTypeReader<EffectTechnique>::ContentTypeReader()
         {
         }
 
-        TechniquesReader::~TechniquesReader()
+        ContentTypeReader<EffectTechnique>::~ContentTypeReader()
         {
         }
 
-        void TechniquesReader::read(const json11::Json& value, ContentReaderContext& context)
+        std::shared_ptr<EffectTechnique> ContentTypeReader<EffectTechnique>::read(const std::pair<std::string, Json>& source
+                                                                                , ContentReaderContext&               context)
         {
-            for (const auto& item : value["techniques"].object_items())
-            {
-                auto effect = std::make_shared<Effect>(context.graphics_device);
+            auto effect = std::make_shared<EffectTechnique>(context.graphics_device);
 
-                read_technique_parameters(item.second["parameters"], context, effect);
-                read_technique_passes(item.second["passes"], context, effect);
-                cache_technique_parameters(effect);
-                set_parameter_values(item.second["parameters"], context, effect);
+            read_technique_parameters(source.second["parameters"], context, effect);
+            read_technique_passes(source.second["passes"], context, effect);
+            cache_technique_parameters(effect);
+            set_parameter_values(source.second["parameters"], context, effect);
 
-                effect->name  = Encoding::convert(item.first);
-                effect->_pass = effect->_passes[item.second["pass"].string_value()];
+            effect->name  = Encoding::convert(source.first);
+            effect->_pass = effect->_passes[source.second["pass"].string_value()];
 
-                context.effects.push_back(effect);
-            }
+            return effect;
         }
 
-        void TechniquesReader::read_technique_parameters(const Json&             value
-                                                       , ContentReaderContext&   context
-                                                       , std::shared_ptr<Effect> effect)
+        void ContentTypeReader<EffectTechnique>::read_technique_parameters(const Json&                      value
+                                                                         , ContentReaderContext&            context
+                                                                         , std::shared_ptr<EffectTechnique> effect)
         {
             for (const auto& source : value.object_items())
             {
@@ -86,9 +84,9 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::set_parameter_values(const Json&             value
-                                                  , ContentReaderContext&   context
-                                                  , std::shared_ptr<Effect> effect)
+        void ContentTypeReader<EffectTechnique>::set_parameter_values(const Json&                      value
+                                                                    , ContentReaderContext&            context
+                                                                    , std::shared_ptr<EffectTechnique> effect)
         {
             for (const auto& source : value.object_items())
             {
@@ -160,9 +158,9 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::read_technique_passes(const Json&             value
-                                                   , ContentReaderContext&   context
-                                                   , std::shared_ptr<Effect> effect)
+        void ContentTypeReader<EffectTechnique>::read_technique_passes(const Json&                      value
+                                                                     , ContentReaderContext&            context
+                                                                     , std::shared_ptr<EffectTechnique> effect)
         {
             for (const auto& source : value.object_items())
             {
@@ -188,10 +186,10 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::read_technique_pass_program(const Json&                 value
-                                                         , ContentReaderContext&       context
-                                                         , std::shared_ptr<Effect>     effect
-                                                         , std::shared_ptr<EffectPass> effectPass)
+        void ContentTypeReader<EffectTechnique>::read_technique_pass_program(const Json&                      value
+                                                                           , ContentReaderContext&            context
+                                                                           , std::shared_ptr<EffectTechnique> effect
+                                                                           , std::shared_ptr<EffectPass>      effectPass)
         {
             // Pass program
             effectPass->_program = context.find_object<Program>(value["program"].string_value());
@@ -213,7 +211,8 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::read_technique_pass_states(const Json& value, std::shared_ptr<EffectPass> effectPass)
+        void ContentTypeReader<EffectTechnique>::read_technique_pass_states(const Json&                 value
+                                                                          , std::shared_ptr<EffectPass> effectPass)
         {
             EffectPassStates passStates;
 
@@ -227,7 +226,7 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::cache_technique_parameters(std::shared_ptr<Effect> technique)
+        void ContentTypeReader<EffectTechnique>::cache_technique_parameters(std::shared_ptr<EffectTechnique> technique)
         {
             for (auto parameter : technique->_parameters)
             {
@@ -286,8 +285,8 @@ namespace SceneR
             }
         }
 
-        void TechniquesReader::describe_technique_parameter(std::shared_ptr<EffectParameter> parameter
-                                                          , const std::int32_t&              type)
+        void ContentTypeReader<EffectTechnique>::describe_technique_parameter(std::shared_ptr<EffectParameter> parameter
+                                                                            , const std::int32_t&              type)
         {
             switch (type)
             {

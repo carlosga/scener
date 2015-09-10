@@ -15,7 +15,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TechniquesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -61,7 +61,7 @@ namespace SceneR
             std::shared_ptr<Program>                      _program;
             EffectPassStates                              _states;
 
-            friend class SceneR::Content::TechniquesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

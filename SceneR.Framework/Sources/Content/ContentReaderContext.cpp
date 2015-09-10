@@ -12,9 +12,9 @@
 #include <Graphics/Accessor.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferView.hpp>
-#include <Graphics/Effect.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Material.hpp>
+#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/Node.hpp>
 #include <Graphics/SamplerState.hpp>
@@ -35,9 +35,9 @@ namespace SceneR
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferView;
-        using SceneR::Graphics::Effect;
+        using SceneR::Graphics::EffectTechnique;
         using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::Material;
+        using SceneR::Graphics::EffectMaterial;
         using SceneR::Graphics::ModelMesh;
         using SceneR::Graphics::Node;
         using SceneR::Graphics::Program;
@@ -149,12 +149,12 @@ namespace SceneR
         }
 
         template <>
-        std::shared_ptr<Effect> ContentReaderContext::find_object(const std::string &name) const
+        std::shared_ptr<EffectTechnique> ContentReaderContext::find_object(const std::string &name) const
         {
             auto oname = Encoding::convert(name);
             auto it = find_if(effects.begin()
                             , effects.end()
-                            , [&](std::shared_ptr<Effect> effect) -> bool
+                            , [&](std::shared_ptr<EffectTechnique> effect) -> bool
                 {
                     return (effect->name == oname);
                 });
@@ -163,12 +163,12 @@ namespace SceneR
         }
 
         template <>
-        std::shared_ptr<Material> ContentReaderContext::find_object(const std::string& name) const
+        std::shared_ptr<EffectMaterial> ContentReaderContext::find_object(const std::string& name) const
         {
             auto oname = Encoding::convert(name);
             auto it = find_if(materials.begin()
                             , materials.end()
-                            , [&](std::shared_ptr<Material> material) -> bool
+                            , [&](std::shared_ptr<EffectMaterial> material) -> bool
                 {
                     return (material->name() == oname);
                 });

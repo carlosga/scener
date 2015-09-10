@@ -39,20 +39,17 @@ link_directories(../../regal/lib/linux/)
 
 # header files
 set(HEADER_FILES
-    Headers/Content/Readers/AccessorsReader.hpp
-    Headers/Content/Readers/AnimationsReader.hpp
-    Headers/Content/Readers/BuffersReader.hpp
-    Headers/Content/Readers/BufferViewsReader.hpp
-    Headers/Content/Readers/ImagesReader.hpp
-    Headers/Content/Readers/MaterialsReader.hpp
-    Headers/Content/Readers/MeshesReader.hpp
-    Headers/Content/Readers/NodesReader.hpp
-    Headers/Content/Readers/ProgramsReader.hpp
-    Headers/Content/Readers/SamplersReader.hpp
-    Headers/Content/Readers/ShadersReader.hpp
-    Headers/Content/Readers/SkinsReader.hpp
-    Headers/Content/Readers/TechniquesReader.hpp
-    Headers/Content/Readers/TexturesReader.hpp
+    Headers/Content/Readers/AccessorReader.hpp
+    Headers/Content/Readers/BufferReader.hpp
+    Headers/Content/Readers/BufferViewReader.hpp
+    Headers/Content/Readers/MaterialReader.hpp
+    Headers/Content/Readers/MeshReader.hpp
+    Headers/Content/Readers/NodeReader.hpp
+    Headers/Content/Readers/ProgramReader.hpp
+    Headers/Content/Readers/SamplerReader.hpp
+    Headers/Content/Readers/ShaderReader.hpp
+    Headers/Content/Readers/TechniqueReader.hpp
+    Headers/Content/Readers/TextureReader.hpp
     Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
@@ -60,7 +57,6 @@ set(HEADER_FILES
     Headers/Content/ContentReader.hpp
     Headers/Content/ContentReaderContext.hpp
     Headers/Content/ContentTypeReader.hpp
-    Headers/Content/ContentTypeReaderManager.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
     Headers/Framework/BoundingSphere.hpp
@@ -105,7 +101,7 @@ set(HEADER_FILES
     Headers/Graphics/DepthStencilState.hpp
     Headers/Graphics/DirectionalLight.hpp
     Headers/Graphics/DisplayMode.hpp
-    Headers/Graphics/Effect.hpp
+    Headers/Graphics/EffectTechnique.hpp
     Headers/Graphics/EffectDirtyFlags.hpp
     Headers/Graphics/EffectHelpers.hpp
     Headers/Graphics/EffectPass.hpp
@@ -124,7 +120,7 @@ set(HEADER_FILES
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
     Headers/Graphics/InstanceSkin.hpp
-    Headers/Graphics/Material.hpp
+    Headers/Graphics/EffectMaterial.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
     Headers/Graphics/ModelMesh.hpp
@@ -180,30 +176,25 @@ set(HEADER_FILES
     Headers/System/Text/Encoding.hpp
     Headers/System/Text/UTF8Decoder.hpp
     Headers/System/Text/UTF8Encoder.hpp
-    Headers/System/Text/UTF8Encoding.hpp)
+    Headers/System/Text/UTF8Encoding.hpp Headers/Content/TypeReaders.hpp)
 
 # source files
 set(SOURCE_FILES
-    Sources/Content/Readers/AccessorsReader.cpp
-    Sources/Content/Readers/AnimationsReader.cpp
-    Sources/Content/Readers/BuffersReader.cpp
-    Sources/Content/Readers/BufferViewsReader.cpp
-    Sources/Content/Readers/ImagesReader.cpp
-    Sources/Content/Readers/MaterialsReader.cpp
-    Sources/Content/Readers/MeshesReader.cpp
-    Sources/Content/Readers/NodesReader.cpp
-    Sources/Content/Readers/ProgramsReader.cpp
-    Sources/Content/Readers/SamplersReader.cpp
-    Sources/Content/Readers/ShadersReader.cpp
-    Sources/Content/Readers/SkinsReader.cpp
-    Sources/Content/Readers/TechniquesReader.cpp
-    Sources/Content/Readers/TexturesReader.cpp
+    Sources/Content/Readers/AccessorReader.cpp
+    Sources/Content/Readers/BufferReader.cpp
+    Sources/Content/Readers/BufferViewReader.cpp
+    Sources/Content/Readers/MaterialReader.cpp
+    Sources/Content/Readers/MeshReader.cpp
+    Sources/Content/Readers/NodeReader.cpp
+    Sources/Content/Readers/ProgramReader.cpp
+    Sources/Content/Readers/SamplerReader.cpp
+    Sources/Content/Readers/ShaderReader.cpp
+    Sources/Content/Readers/TechniqueReader.cpp
+    Sources/Content/Readers/TextureReader.cpp
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
     Sources/Content/ContentReaderContext.cpp
-    Sources/Content/ContentTypeReaderManager.cpp
-    Sources/Content/ContentTypeReader.cpp
     Sources/Content/json11.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustrum.cpp
@@ -235,7 +226,7 @@ set(SOURCE_FILES
     Sources/Graphics/DepthStencilState.cpp
     Sources/Graphics/DirectionalLight.cpp
     Sources/Graphics/DisplayMode.cpp
-    Sources/Graphics/Effect.cpp
+    Sources/Graphics/EffectTechnique.cpp
     Sources/Graphics/EffectHelpers.cpp
     Sources/Graphics/EffectParameter.cpp
     Sources/Graphics/EffectPass.cpp
@@ -248,7 +239,7 @@ set(SOURCE_FILES
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
     Sources/Graphics/InstanceSkin.cpp
-    Sources/Graphics/Material.cpp
+    Sources/Graphics/EffectMaterial.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp

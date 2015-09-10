@@ -14,7 +14,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class MeshesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -22,7 +22,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class Effect;
+        class EffectTechnique;
         class IndexBuffer;
         class VertexBuffer;
 
@@ -80,9 +80,9 @@ namespace SceneR
 
         public:
             /**
-             * Gets or sets the material Effect for this mesh part.
+             * Gets or sets the material EffectTechnique for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::Effect> effect;
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> effect;
 
         private:
             std::unique_ptr<SceneR::Graphics::IndexBuffer>  _index_buffer;
@@ -93,7 +93,7 @@ namespace SceneR
             std::size_t                                     _primitive_count;
             SceneR::Graphics::PrimitiveType                 _primitive_type;
 
-            friend class SceneR::Content::MeshesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

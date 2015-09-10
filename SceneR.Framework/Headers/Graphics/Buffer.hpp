@@ -15,7 +15,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class BuffersReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -74,7 +74,7 @@ namespace SceneR
             BufferType                _type;
             std::vector<std::uint8_t> _data;
 
-            friend class SceneR::Content::BuffersReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

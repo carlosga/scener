@@ -38,9 +38,9 @@ namespace SceneR
             return _name;
         }
 
-        std::vector<std::shared_ptr<Effect>> ModelMesh::effects() const
+        std::vector<std::shared_ptr<EffectTechnique>> ModelMesh::effects() const
         {
-            auto effects = std::vector<std::shared_ptr<Effect>>(0);
+            auto effects = std::vector<std::shared_ptr<EffectTechnique>>(0);
 
             for (const auto& meshPart : _mesh_parts)
             {

@@ -7,7 +7,7 @@
 
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/IndexBuffer.hpp>
-#include <Graphics/Effect.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
 namespace SceneR

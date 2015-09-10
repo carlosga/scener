@@ -18,7 +18,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TechniquesReader;
+        class TechniqueReader;
     }
 }
 
@@ -68,7 +68,7 @@ namespace SceneR
             std::uint32_t                        _id;
             std::shared_ptr<UniformBufferObject> _uniform_buffer;
 
-            friend class SceneR::Content::TechniquesReader;
+            friend class SceneR::Content::TechniqueReader;
         };
     }
 }

@@ -5,6 +5,7 @@
 #define CONTENT_READERS_BUFFERSREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
+#include <Graphics/Buffer.hpp>
 
 namespace SceneR
 {
@@ -13,24 +14,26 @@ namespace SceneR
         /**
          * Buffers reader
          */
-        class BuffersReader final : public ContentTypeReader
+        template <>
+        class ContentTypeReader<SceneR::Graphics::Buffer>
         {
         public:
             /**
              * Initializes a news instance of the BuffersReader class.
              */
-            BuffersReader();
+            ContentTypeReader();
 
             /**
              * Destructor
              */
-            ~BuffersReader();
+            ~ContentTypeReader();
 
         public:
             /**
              * Reads the buffers contents.
              */
-            void read(const json11::Json& value, ContentReaderContext& context) override;
+            std::shared_ptr<SceneR::Graphics::Buffer> read(const std::pair<std::string, json11::Json>& source
+                                                         , ContentReaderContext&                       context);
         };
     }
 }

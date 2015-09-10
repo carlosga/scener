@@ -1,12 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/MeshesReader.hpp>
+#include <Content/Readers/MeshReader.hpp>
 
 #include <algorithm>
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Content/Readers/MaterialReader.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
@@ -36,35 +37,32 @@ namespace SceneR
 {
     namespace Content
     {
-        MeshesReader::MeshesReader()
+        ContentTypeReader<ModelMesh>::ContentTypeReader()
         {
         }
 
-        MeshesReader::~MeshesReader()
+        ContentTypeReader<ModelMesh>::~ContentTypeReader()
         {
         }
 
-        void MeshesReader::read(const Json& value, ContentReaderContext& context)
+        std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(const std::pair<std::string, Json>& source
+                                                                    , ContentReaderContext&               context)
         {
-            for (const auto& item : value["meshes"].object_items())
+            auto mesh = std::make_shared<ModelMesh>();
+
+            for (const auto& primitive : source.second["primitives"].array_items())
             {
-                auto mesh = std::make_shared<ModelMesh>();
-
-                for (const auto& source : item.second["primitives"].array_items())
-                {
-                    read_mesh_part(source, context, mesh);
-                }
-
-                mesh->_name = Encoding::convert(item.first);
-
-                context.meshes.push_back(mesh);
-                context.model->_meshes.push_back(mesh);
+                read_mesh_part(primitive, context, mesh);
             }
+
+            mesh->_name = Encoding::convert(source.first);
+
+            return mesh;
         }
 
-        void MeshesReader::read_mesh_part(const json11::Json&                          source
-                                        , ContentReaderContext&                        context
-                                        , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const
+        void ContentTypeReader<ModelMesh>::read_mesh_part(const json11::Json&        source
+                                                        , ContentReaderContext&      context
+                                                        , std::shared_ptr<ModelMesh> mesh) const
         {
             auto meshPart      = std::make_shared<ModelMeshPart>();
             auto accessors     = std::vector<std::shared_ptr<Accessor>>(12);
@@ -165,13 +163,13 @@ namespace SceneR
             meshPart->_vertex_buffer->initialize();
             meshPart->_vertex_buffer->set_data(vertexData.data());
 
-            // Material
+            // EffectMaterial
             // TODO: process material
 
             mesh->_mesh_parts.push_back(meshPart);
         }
 
-        VertexElementFormat MeshesReader::get_vertex_element_format(const AttributeType& type) const
+        VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(const AttributeType& type) const
         {
             switch (type)
             {
@@ -186,7 +184,7 @@ namespace SceneR
             }
         }
 
-        VertexElementUsage MeshesReader::get_vertex_element_usage(const std::string& semantic) const
+        VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
         {
             VertexElementUsage usage = VertexElementUsage::Color;
 

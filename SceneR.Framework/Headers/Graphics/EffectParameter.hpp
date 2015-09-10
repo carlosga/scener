@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include <Graphics/Effect.hpp>
+#include "EffectTechnique.hpp"
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 
@@ -18,7 +18,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TechniquesReader;
+        template <typename T> class ContentTypeReader;
     }
 
     namespace Framework
@@ -39,7 +39,7 @@ namespace SceneR
         class UniformBufferObject;
 
         /**
-         * Represents an Effect parameter.
+         * Represents an EffectTechnique parameter.
          */
         class EffectParameter final
         {
@@ -140,7 +140,7 @@ namespace SceneR
 
             std::shared_ptr<UniformBufferObject> _uniform_buffer;
 
-            friend class SceneR::Content::TechniquesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

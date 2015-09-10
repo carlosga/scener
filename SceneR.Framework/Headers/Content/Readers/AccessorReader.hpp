@@ -5,6 +5,7 @@
 #define CONTENT_READERS_ACCESSORSREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
+#include <Graphics/Accessor.hpp>
 
 namespace SceneR
 {
@@ -13,24 +14,26 @@ namespace SceneR
         /**
          * Accessors reader
          */
-        class AccessorsReader final : public ContentTypeReader
+        template <>
+        class ContentTypeReader<SceneR::Graphics::Accessor>
         {
         public:
             /**
-             * Initializes a news instance of the BufferReader class.
+             * Initializes a news instance of the ContentTypeReader class.
              */
-            AccessorsReader();
+            ContentTypeReader();
 
             /**
              * Destructor
              */
-            ~AccessorsReader();
+            ~ContentTypeReader();
 
         public:
             /**
              * Reads the accessors contents.
              */
-            void read(const json11::Json& value, ContentReaderContext& context) override;
+            std::shared_ptr<SceneR::Graphics::Accessor> read(const std::pair<std::string, json11::Json>& source
+                                                           , ContentReaderContext&                       context);
         };
     }
 }

@@ -15,7 +15,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class MeshesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -88,8 +88,8 @@ namespace SceneR
             std::unique_ptr<VertexArrayObject> _vao;
             std::unique_ptr<BufferObject>      _vbo;
 
-            friend class SceneR::Content::MeshesReader;
             friend class SceneR::Graphics::GraphicsDevice;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

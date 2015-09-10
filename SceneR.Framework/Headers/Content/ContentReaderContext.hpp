@@ -21,9 +21,9 @@ namespace SceneR
         class Accessor;
         class Buffer;
         class BufferView;
-        class Effect;
+        class EffectTechnique;
         class GraphicsDevice;
-        class Material;
+        class EffectMaterial;
         class Model;
         class ModelMesh;
         class Node;
@@ -61,9 +61,9 @@ namespace SceneR
             std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>     accessors;
             std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>       buffers;
             std::vector<std::shared_ptr<SceneR::Graphics::BufferView>>   buffer_views;
-            std::vector<std::shared_ptr<SceneR::Graphics::Effect>>       effects;
+            std::vector<std::shared_ptr<SceneR::Graphics::EffectTechnique>>       effects;
             std::map<std::string, std::vector<std::uint8_t>>             images;
-            std::vector<std::shared_ptr<SceneR::Graphics::Material>>     materials;
+            std::vector<std::shared_ptr<SceneR::Graphics::EffectMaterial>>     materials;
             std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>>    meshes;
             std::vector<std::shared_ptr<SceneR::Graphics::Node>>         nodes;
             std::vector<std::shared_ptr<SceneR::Graphics::Program>>      programs;

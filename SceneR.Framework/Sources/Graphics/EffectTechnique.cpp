@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Effect.hpp>
+#include <Graphics/EffectTechnique.hpp>
 
 #include <cassert>
 
@@ -19,7 +19,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using System::Math;
 
-        Effect::Effect(GraphicsDevice& graphicsDevice)
+        EffectTechnique::EffectTechnique(GraphicsDevice& graphicsDevice)
             : GraphicsResource           { graphicsDevice }
             , _alpha                     { 1.0 }
             , _ambient_light_color       { Vector3::zero }
@@ -51,20 +51,20 @@ namespace SceneR
         {
         }
 
-        Effect::~Effect()
+        EffectTechnique::~EffectTechnique()
         {
         }
 
-        void Effect::dispose()
+        void EffectTechnique::dispose()
         {
         }
 
-        float Effect::alpha() const
+        float EffectTechnique::alpha() const
         {
             return _alpha;
         }
 
-        void Effect::alpha(const float& alpha)
+        void EffectTechnique::alpha(const float& alpha)
         {
             if (Math::equal(_alpha, alpha))
             {
@@ -73,12 +73,12 @@ namespace SceneR
             }
         }
 
-        const Vector3& Effect::ambient_light_color() const
+        const Vector3& EffectTechnique::ambient_light_color() const
         {
             return _ambient_light_color;
         }
 
-        void Effect::ambient_light_color(const Vector3& ambientLightColor)
+        void EffectTechnique::ambient_light_color(const Vector3& ambientLightColor)
         {
             if (_ambient_light_color != ambientLightColor)
             {
@@ -87,12 +87,12 @@ namespace SceneR
             }
         }
 
-        const Vector3& Effect::diffuse_color() const
+        const Vector3& EffectTechnique::diffuse_color() const
         {
             return _diffuse_color;
         }
 
-        void Effect::diffuse_color(const Vector3& diffuseColor)
+        void EffectTechnique::diffuse_color(const Vector3& diffuseColor)
         {
             if (_diffuse_color != diffuseColor)
             {
@@ -101,32 +101,32 @@ namespace SceneR
             }
         }
 
-        const DirectionalLight& Effect::directional_light_0() const
+        const DirectionalLight& EffectTechnique::directional_light_0() const
         {
             return _light_0;
         }
 
-        const DirectionalLight& Effect::directional_light_1() const
+        const DirectionalLight& EffectTechnique::directional_light_1() const
         {
             return _light_1;
         }
 
-        const DirectionalLight& Effect::directional_light_2() const
+        const DirectionalLight& EffectTechnique::directional_light_2() const
         {
             return _light_2;
         }
 
-        void Effect::enable_default_lighting()
+        void EffectTechnique::enable_default_lighting()
         {
             ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
         }
 
-        const Vector3& Effect::emissive_color() const
+        const Vector3& EffectTechnique::emissive_color() const
         {
             return _emissive_color;
         }
 
-        void Effect::emissive_color(const Vector3& emissiveColor)
+        void EffectTechnique::emissive_color(const Vector3& emissiveColor)
         {
             if (_emissive_color != emissiveColor)
             {
@@ -135,12 +135,12 @@ namespace SceneR
             }
         }
 
-        const Vector3& Effect::fog_color() const
+        const Vector3& EffectTechnique::fog_color() const
         {
             return _fog_color;
         }
 
-        void Effect::fog_color(const Vector3& fogColor)
+        void EffectTechnique::fog_color(const Vector3& fogColor)
         {
 //            if (_fogColor != fogColor)
 //            {
@@ -150,12 +150,12 @@ namespace SceneR
 //            }
         }
 
-        bool Effect::fog_enabled() const
+        bool EffectTechnique::fog_enabled() const
         {
             return _fog_enabled;
         }
 
-        void Effect::fog_enabled(const bool& fogEnabled)
+        void EffectTechnique::fog_enabled(const bool& fogEnabled)
         {
             if (_fog_enabled != fogEnabled)
             {
@@ -164,12 +164,12 @@ namespace SceneR
             }
         }
 
-        float Effect::fog_end() const
+        float EffectTechnique::fog_end() const
         {
             return _fog_end;
         }
 
-        void Effect::fog_end(const float& fogEnd)
+        void EffectTechnique::fog_end(const float& fogEnd)
         {
             if (!Math::equal(_fog_end, fogEnd))
             {
@@ -178,12 +178,12 @@ namespace SceneR
             }
         }
 
-        float Effect::fog_start() const
+        float EffectTechnique::fog_start() const
         {
             return _fog_start;
         }
 
-        void Effect::fog_start(const float& fogStart)
+        void EffectTechnique::fog_start(const float& fogStart)
         {
             if (!Math::equal(_fog_start, fogStart))
             {
@@ -192,22 +192,22 @@ namespace SceneR
             }
         }
 
-        bool Effect::lighting_enabled() const
+        bool EffectTechnique::lighting_enabled() const
         {
             return _lighting_enabled;
         }
 
-        void Effect::lighting_enabled(const bool& lightingEnabled)
+        void EffectTechnique::lighting_enabled(const bool& lightingEnabled)
         {
             assert(false);
         }
 
-        bool Effect::prefer_per_pixel_lighting() const
+        bool EffectTechnique::prefer_per_pixel_lighting() const
         {
             return _prefer_per_pixel_lighting;
         }
 
-        void Effect::prefer_per_pixel_lighting(const bool& preferPerPixelLighting)
+        void EffectTechnique::prefer_per_pixel_lighting(const bool& preferPerPixelLighting)
         {
             if (_prefer_per_pixel_lighting != preferPerPixelLighting)
             {
@@ -216,23 +216,23 @@ namespace SceneR
             }
         }
 
-        const Matrix& Effect::projection() const
+        const Matrix& EffectTechnique::projection() const
         {
             return _projection;
         }
 
-        void Effect::projection(const Matrix& projection)
+        void EffectTechnique::projection(const Matrix& projection)
         {
             _projection   = projection;
             _dirty_flags |= EffectDirtyFlags::WorldViewProj;
         }
 
-        const Vector3& Effect::specular_color() const
+        const Vector3& EffectTechnique::specular_color() const
         {
             return _specular_color;
         }
 
-        void Effect::specular_color(const Vector3& specularColor)
+        void EffectTechnique::specular_color(const Vector3& specularColor)
         {
 //            if (_specularColor != specularColor)
 //            {
@@ -242,12 +242,12 @@ namespace SceneR
 //            }
         }
 
-        float Effect::specular_power() const
+        float EffectTechnique::specular_power() const
         {
             return _specular_power;
         }
 
-        void Effect::specular_power(const float& specularPower)
+        void EffectTechnique::specular_power(const float& specularPower)
         {
 //            if (!Math::equal(_specularPower, specularPower))
 //            {
@@ -257,12 +257,12 @@ namespace SceneR
 //            }
         }
 
-        const std::shared_ptr<Texture2D>& Effect::texture() const
+        const std::shared_ptr<Texture2D>& EffectTechnique::texture() const
         {
             return _texture;
         }
 
-        void Effect::texture(const std::shared_ptr<Texture2D>& texture)
+        void EffectTechnique::texture(const std::shared_ptr<Texture2D>& texture)
         {
             if (_texture != texture)
             {
@@ -271,12 +271,12 @@ namespace SceneR
             }
         }
 
-        bool Effect::texture_enabled() const
+        bool EffectTechnique::texture_enabled() const
         {
             return _texture_enabled;
         }
 
-        void Effect::texture_enabled(const bool& textureEnabled)
+        void EffectTechnique::texture_enabled(const bool& textureEnabled)
         {
             if (_texture_enabled != textureEnabled)
             {
@@ -285,29 +285,29 @@ namespace SceneR
             }
         }
 
-        const Matrix& Effect::view() const
+        const Matrix& EffectTechnique::view() const
         {
             return _view;
         }
 
-        void Effect::view(const Matrix& view)
+        void EffectTechnique::view(const Matrix& view)
         {
             _view         = view;
             _dirty_flags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
         }
 
-        const Matrix& Effect::world() const
+        const Matrix& EffectTechnique::world() const
         {
             return _world;
         }
 
-        void Effect::world(const Matrix& world)
+        void EffectTechnique::world(const Matrix& world)
         {
             _world        = world;
             _dirty_flags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
         }
 
-        std::vector<Matrix> Effect::bone_transforms(const std::size_t& count) const
+        std::vector<Matrix> EffectTechnique::bone_transforms(const std::size_t& count) const
         {
             assert(count < _bone_transforms.size());
 
@@ -319,18 +319,18 @@ namespace SceneR
             return transforms;
         }
 
-        void Effect::bone_transforms(const std::vector<Matrix>& boneTransforms)
+        void EffectTechnique::bone_transforms(const std::vector<Matrix>& boneTransforms)
         {
             _bone_transforms = boneTransforms;
 //            _bonesParam.SetValue(_boneTransforms);
         }
 
-        std::size_t Effect::weights_per_vertex() const
+        std::size_t EffectTechnique::weights_per_vertex() const
         {
             return _weights_per_vertex;
         }
 
-        void Effect::weights_per_vertex(const std::size_t& weightsPerVertex)
+        void EffectTechnique::weights_per_vertex(const std::size_t& weightsPerVertex)
         {
             assert(weightsPerVertex == 1 || weightsPerVertex == 2 || weightsPerVertex == 4);
 
@@ -338,7 +338,7 @@ namespace SceneR
             _dirty_flags       |= EffectDirtyFlags::ShaderIndex;
         }
 
-        void Effect::apply()
+        void EffectTechnique::apply()
         {
 //            _ActivateSubroutine(ShaderType::Vertex, VSIndices[_shaderIndex]);
 //            _ActivateSubroutine(ShaderType::Fragment, PSIndices[_shaderIndex]);
@@ -454,7 +454,7 @@ namespace SceneR
 //            }
         }
 
-        void Effect::begin()
+        void EffectTechnique::begin()
         {
             if (_pass.get() != nullptr)
             {
@@ -462,7 +462,7 @@ namespace SceneR
             }
         }
 
-        void Effect::end()
+        void EffectTechnique::end()
         {
         }
     }

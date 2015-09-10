@@ -27,7 +27,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TechniquesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -42,27 +42,27 @@ namespace SceneR
         /**
          * Used to set and query effects, and to choose techniques.
          */
-        class Effect : public GraphicsResource, public IEffectMatrices, public IEffectLights, public IEffectFog
+        class EffectTechnique : public GraphicsResource, public IEffectMatrices, public IEffectLights, public IEffectFog
         {
         public:
             /**
-             * Initializes a new instance of the Effect class
+             * Initializes a new instance of the EffectTechnique class
              *
              * @param graphicsDevice the graphics device
              */
-            Effect(GraphicsDevice& graphicsDevice);
+            EffectTechnique(GraphicsDevice& graphicsDevice);
 
             /**
-             * Initializes a new instance of the Effect class.
+             * Initializes a new instance of the EffectTechnique class.
              *
              * @param effect the effect to be copied
              */
-            Effect(const Effect& effect);
+            EffectTechnique(const EffectTechnique& effect);
 
             /**
              * Destructor
              */
-            ~Effect();
+            ~EffectTechnique();
 
         public:
             void dispose() override;
@@ -351,7 +351,7 @@ namespace SceneR
             std::shared_ptr<EffectParameter> _joint_matrix_param      = nullptr;
             std::shared_ptr<EffectParameter> _weight_param            = nullptr;
 
-            friend class SceneR::Content::TechniquesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

@@ -16,7 +16,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class SamplersReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -101,7 +101,7 @@ namespace SceneR
              */
             float mip_map_level_of_detail_bias;
 
-            friend class SceneR::Content::SamplersReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

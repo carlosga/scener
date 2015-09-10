@@ -16,7 +16,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TexturesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -128,7 +128,7 @@ namespace SceneR
             TextureObject                 _object;
             std::shared_ptr<SamplerState> _sampler_state;
 
-            friend class SceneR::Content::TexturesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

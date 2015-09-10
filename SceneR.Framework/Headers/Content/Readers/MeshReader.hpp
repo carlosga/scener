@@ -9,17 +9,9 @@
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/AttributeType.hpp>
-#include <Graphics/ComponentType.hpp>
+#include <Graphics/ModelMesh.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
-
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class ModelMesh;
-    }
-}
 
 namespace SceneR
 {
@@ -28,24 +20,26 @@ namespace SceneR
         /**
          * Meshes reader
          */
-        class MeshesReader final : public ContentTypeReader
+        template<>
+        class ContentTypeReader<SceneR::Graphics::ModelMesh>
         {
         public:
             /**
-             * Initializes a news instance of the MeshesReader class.
+             * Initializes a news instance of the ContentTypeReader class.
              */
-            MeshesReader();
+            ContentTypeReader();
 
             /**
              * Destructor
              */
-            ~MeshesReader();
+            ~ContentTypeReader();
 
         public:
             /**
              * Reads the meshes contents.
              */
-            void read(const json11::Json& value, ContentReaderContext& context) override;
+            std::shared_ptr<SceneR::Graphics::ModelMesh> read(const std::pair<std::string, json11::Json>& source
+                                                            , ContentReaderContext&                       context);
 
         private:
             void read_mesh_part(const json11::Json&                          source

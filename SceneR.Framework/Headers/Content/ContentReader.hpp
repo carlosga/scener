@@ -5,12 +5,12 @@
 #define CONTENT_CONTENTREADER_HPP
 
 #include <cstdint>
+#include <memory>
 #include <vector>
 #include <string>
 
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
-#include <Content/ContentTypeReaderManager.hpp>
 #include <Content/ContentReaderContext.hpp>
 
 namespace json11
@@ -29,9 +29,6 @@ namespace SceneR
          */
         class ContentReader final
         {
-        private:
-            static ContentTypeReaderManager TypeReaderManager;
-
         public:
             /**
              * Initializes a new instance of the ContentReader.
@@ -65,7 +62,8 @@ namespace SceneR
             /**
              * Reads a single object from the current stream.
              */
-            void read_object(const std::string& key, const json11::Json& value, ContentReaderContext& context);
+            template <typename T>
+            std::shared_ptr<T> read_object(const std::pair<std::string, json11::Json>& source, ContentReaderContext& context);
 
             /**
              * Reads a link to an external file.

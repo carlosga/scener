@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/NodesReader.hpp>
+#include <Content/Readers/NodeReader.hpp>
 
 #include <Content/json11.hpp>
 #include <Framework/Matrix.hpp>
@@ -9,13 +9,13 @@
 #include <Framework/Vector3.hpp>
 #include <Graphics/InstanceSkin.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <Graphics/Node.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        using json11::Json;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
@@ -24,26 +24,18 @@ namespace SceneR
         using SceneR::Graphics::Node;
         using System::Text::Encoding;
 
-        NodesReader::NodesReader()
+        ContentTypeReader<Node>::ContentTypeReader()
         {
 
         }
 
-        NodesReader::~NodesReader()
+        ContentTypeReader<Node>::~ContentTypeReader()
         {
 
         }
 
-        void NodesReader::read(const json11::Json& value, ContentReaderContext& context)
-        {
-            for (const auto& source : value["nodes"].object_items())
-            {
-                context.nodes.push_back(read_node(source, context));
-            }
-        }
-
-        std::shared_ptr<Node> NodesReader::read_node(const std::pair<std::string, json11::Json>& source
-                                                   , ContentReaderContext&                       context)
+        std::shared_ptr<Node> ContentTypeReader<Node>::read(const std::pair<std::string, Json>& source
+                                                          , ContentReaderContext&               context)
         {
             auto node        = std::make_shared<Node>();
             auto matrix      = Matrix::identity;
@@ -95,8 +87,8 @@ namespace SceneR
             return node;
         }
 
-        std::shared_ptr<InstanceSkin> NodesReader::read_instance_skin(const json11::Json&   source
-                                                                    , ContentReaderContext& context)
+        std::shared_ptr<InstanceSkin> ContentTypeReader<Node>::read_instance_skin(const Json&           source
+                                                                                , ContentReaderContext& context)
         {
             auto instanceSkin = std::make_shared<InstanceSkin>();
 
@@ -117,4 +109,3 @@ namespace SceneR
         }
     }
 }
-

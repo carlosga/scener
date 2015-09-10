@@ -8,13 +8,13 @@
 #include <vector>
 
 #include <Framework/BoundingSphere.hpp>
-#include <Graphics/Effect.hpp>
+#include "EffectTechnique.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
-        class MeshesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -57,7 +57,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<std::shared_ptr<Effect>> effects() const;
+            std::vector<std::shared_ptr<EffectTechnique>> effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
@@ -84,7 +84,7 @@ namespace SceneR
             std::shared_ptr<ModelBone>                  _parent_bone;
             SceneR::Framework::BoundingSphere           _bounding_sphere;
 
-            friend class SceneR::Content::MeshesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

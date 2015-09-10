@@ -16,7 +16,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class MeshesReader;
+        template <typename T> class ContentTypeReader;
     }
 }
 
@@ -95,7 +95,7 @@ namespace SceneR
             SceneR::Graphics::ComponentType _indexElementType;
 
             friend class SceneR::Graphics::GraphicsDevice;
-            friend class SceneR::Content::MeshesReader;
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

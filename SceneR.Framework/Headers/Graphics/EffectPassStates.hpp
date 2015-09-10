@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class TechniquesReader;
+        class TechniqueReader;
     }
 }
 
@@ -27,7 +27,7 @@ namespace SceneR
         public:
             RenderingStateType enabled;
 
-            friend class SceneR::Content::TechniquesReader;
+            friend class SceneR::Content::TechniqueReader;
         };
     }
 }

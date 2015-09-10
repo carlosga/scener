@@ -4,6 +4,8 @@
 #ifndef CONTENT_CONTENTTYPEREADER_HPP
 #define CONTENT_CONTENTTYPEREADER_HPP
 
+#include <memory>
+
 #include <Content/ContentReaderContext.hpp>
 
 namespace json11
@@ -16,21 +18,27 @@ namespace SceneR
     namespace Content
     {
         /**
-         * Interface for content_manager type reader implementations.
+         * Interface for content type reader implementations.
          */
+        template <typename T>
         class ContentTypeReader
         {
         public:
             /**
+             * Initializes a new instance of the ContentTypeReader class.
+             */
+            ContentTypeReader();
+
+            /**
              * Releases all resources being used by this ContentTypeReader.
              */
-            virtual ~ContentTypeReader();
+            ~ContentTypeReader();
 
         public:
             /**
              * Reads a object from the current stream.
              */
-            virtual void read(const json11::Json& value, ContentReaderContext& context) = 0;
+            std::shared_ptr<T> read(const std::pair<std::string, json11::Json>& source, ContentReaderContext& context);
         };
     }
 }

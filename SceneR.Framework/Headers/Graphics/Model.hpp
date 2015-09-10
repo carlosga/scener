@@ -14,7 +14,7 @@ namespace SceneR
 {
     namespace Content
     {
-        class MeshesReader;
+        class ContentReader;
     }
 }
 
@@ -109,7 +109,7 @@ namespace SceneR
             std::shared_ptr<ModelBone>               _root;
             std::vector<std::shared_ptr<ModelMesh>>  _meshes;
 
-            friend class SceneR::Content::MeshesReader;
+            friend class SceneR::Content::ContentReader;
         };
     }
 }
