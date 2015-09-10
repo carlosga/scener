@@ -15,9 +15,9 @@ namespace SceneR
 {
     namespace Graphics
     {
-        using System::Math;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Vector3;
+        using System::Math;
 
         Effect::Effect(GraphicsDevice& graphicsDevice)
             : GraphicsResource           { graphicsDevice }

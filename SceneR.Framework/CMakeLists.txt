@@ -135,10 +135,8 @@ set(HEADER_FILES
     Headers/Graphics/Program.hpp
     Headers/Graphics/RasterizerState.hpp
     Headers/Graphics/RenderingStateType.hpp
-    Headers/Graphics/Resources.hpp
     Headers/Graphics/SamplerState.hpp
     Headers/Graphics/Shader.hpp
-    Headers/Graphics/ShaderManager.hpp
     Headers/Graphics/ShaderType.hpp
     Headers/Graphics/StencilOperation.hpp
     Headers/Graphics/SurfaceFormat.hpp
@@ -230,7 +228,6 @@ set(SOURCE_FILES
     Sources/Framework/Vector3.cpp
     Sources/Framework/Vector4.cpp
     Sources/Graphics/Accessor.cpp
-    Sources/Graphics/Resources.cpp
     Sources/Graphics/Buffer.cpp
     Sources/Graphics/BufferObject.cpp
     Sources/Graphics/BlendState.cpp
@@ -262,7 +259,6 @@ set(SOURCE_FILES
     Sources/Graphics/RasterizerState.cpp
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp
-    Sources/Graphics/ShaderManager.cpp
     Sources/Graphics/Texture.cpp
     Sources/Graphics/Texture2D.cpp
     Sources/Graphics/TextureObject.cpp
@@ -315,18 +311,18 @@ add_custom_target(CONTENT_FILES SOURCES
                   Resources/Structures.glsl)
 
 # generate resource sources files before build
-add_custom_target(RESOURCES_GENERATION
-                  COMMAND ${CMAKE_COMMAND}
-                       -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
-                       -P ${GENERATE_RESOURCES_SCRIPT}
-                  DEPENDS CONTENT_FILES
-                  COMMENT "generating resource files")
+#add_custom_target(RESOURCES_GENERATION
+#                  COMMAND ${CMAKE_COMMAND}
+#                       -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
+#                       -P ${GENERATE_RESOURCES_SCRIPT}
+#                  DEPENDS CONTENT_FILES
+#                  COMMENT "generating resource files")
 
 # library output
 add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # target dependencies
-add_dependencies(SceneR_Framework RESOURCES_GENERATION)
+#add_dependencies(SceneR_Framework RESOURCES_GENERATION)
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)

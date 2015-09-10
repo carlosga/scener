@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 
-#include <System/TimeSpan.hpp>
 #include <Content/ContentManager.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
@@ -17,7 +16,7 @@
 #include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
 #include <Framework/RendererWindow.hpp>
-#include <Graphics/ShaderManager.hpp>
+#include <System/TimeSpan.hpp>
 
 namespace SceneR
 {
@@ -171,7 +170,6 @@ namespace SceneR
         private:
             RendererWindow                            _renderer_window;
             SceneR::Content::ContentManager           _content_manager;
-            SceneR::Graphics::ShaderManager           _shader_manager;
             RendererTimer                             _timer;
             RenderTime                                _render_time;
             System::TimeSpan                          _total_tender_time;

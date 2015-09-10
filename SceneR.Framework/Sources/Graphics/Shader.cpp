@@ -5,9 +5,6 @@
 
 #include <cstddef>
 
-#include <System/Text/Encoding.hpp>
-#include <Graphics/ShaderManager.hpp>
-
 namespace SceneR
 {
     namespace Graphics
@@ -18,29 +15,11 @@ namespace SceneR
         }
 
         Shader::Shader(const std::u16string& name, const ShaderType& type, const std::string& source)
-            : Shader { name, type, source, std::vector<std::string>() }
-        {
-        }
-
-        Shader::Shader(const std::u16string&            name
-                     , const ShaderType&                type
-                     , const std::vector<std::uint8_t>& source
-                     , const std::vector<std::string>&  includes)
-            : Shader { name, type, std::string(source.begin(), source.end()), includes }
-        {
-        }
-
-        Shader::Shader(const std::u16string&           name
-                     , const ShaderType&               type
-                     , const std::string&              source
-                     , const std::vector<std::string>& includes)
             : _name     { name }
             , _id       { 0 }
             , _type     { type }
             , _source   { source }
-            , _includes { includes }
         {
-
         }
 
         Shader::~Shader()
@@ -77,19 +56,6 @@ namespace SceneR
                 return;
             }
 
-            ShaderManager manager;
-
-            std::vector<const char*> cpaths(0);
-
-            // process includes
-            if (_includes.size() > 0)
-            {
-                for (const auto& path : _includes)
-                {
-                    cpaths.push_back(manager.get_path_reference(path));
-                }
-            }
-
             // create the shader object
             _id = glCreateShader(static_cast<GLenum>(_type));
 
@@ -104,14 +70,7 @@ namespace SceneR
             glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
 
             // Compile the shader source
-            if (cpaths.size() > 0)
-            {
-                glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
-            }
-            else
-            {
-                glCompileShader(_id);
-            }
+            glCompileShader(_id);
 
             // Verify compilation state
             verify_compilation_state();

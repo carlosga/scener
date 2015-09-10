@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-#include "ContentTypeReader.hpp"
+#include <Content/ContentTypeReader.hpp>
 
 namespace SceneR
 {

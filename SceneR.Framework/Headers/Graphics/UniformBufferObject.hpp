@@ -65,14 +65,14 @@ namespace SceneR
             void activate();
 
             /**
+             * Creates the uniform buffer object.
+             */
+            void create();
+
+            /**
              * Deactivates the uniform buffer object.
              */
             void deactivate();
-
-            /**
-             * @brief Describe the uniform buffer object.
-             */
-            void describe();
 
         public:
             /**

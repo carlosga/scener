@@ -11,7 +11,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        using SceneR::Graphics::BufferObject;
         using System::Text::Encoding;
 
         UniformBufferObject::UniformBufferObject(const std::u16string& name, const std::uint32_t& programId)
@@ -57,6 +56,34 @@ namespace SceneR
             glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
         }
 
+        void UniformBufferObject::create()
+        {
+            std::string  tmp       = Encoding::convert(_name);
+            std::int32_t binding   = 0;
+            std::int32_t blockSize = 0;
+
+            // Create the buffer object
+            _buffer_object->create();
+
+            // Get the uniform block index
+            _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
+
+            // Get the binding point
+            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
+
+            // Get uniform block data size
+            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+            // update class members
+            _binding_point = binding;
+            _size          = blockSize;
+
+            // initialize the buffer object
+            std::vector<std::uint8_t> data(_size, 0);
+
+            _buffer_object->set_data(_size, data.data());
+        }
+
         void UniformBufferObject::deactivate()
         {
             glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
@@ -89,34 +116,6 @@ namespace SceneR
             }
 
             _buffer_object->set_data(offset, count, data);
-        }
-
-        void UniformBufferObject::describe()
-        {
-            std::string  tmp       = Encoding::convert(_name);
-            std::int32_t binding   = 0;
-            std::int32_t blockSize = 0;
-
-            // Create the buffer object
-            _buffer_object->create();
-
-            // Get the uniform block index
-            _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
-
-            // Get the binding point
-            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
-
-            // Get uniform block data size
-            glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
-
-            // update class members
-            _binding_point = binding;
-            _size          = blockSize;
-
-            // initialize the buffer object
-            std::vector<std::uint8_t> data(_size, 0);
-
-            _buffer_object->set_data(_size, data.data());
         }
     }
 }

@@ -12,8 +12,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        using SceneR::Graphics::UniformBufferObject;
-
         Program::Program()
             : name ()
         {
@@ -89,7 +87,7 @@ namespace SceneR
 
             // ... fill uniform buffer info
             _uniform_buffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", _id);
-            _uniform_buffer->describe();
+            _uniform_buffer->create();
         }
 
         std::map<std::string, std::size_t> Program::get_uniform_offsets() const

@@ -9,8 +9,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        using SceneR::Graphics::BufferObject;
-
         IndexBuffer::IndexBuffer(GraphicsDevice&      graphicsDevice
                                , const ComponentType& indexElementType
                                , const std::size_t&   indexCount)

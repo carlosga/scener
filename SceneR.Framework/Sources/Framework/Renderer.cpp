@@ -12,25 +12,24 @@ namespace SceneR
 {
     namespace Framework
     {
-        using System::TimeSpan;
         using SceneR::Content::ContentManager;
         using SceneR::Graphics::GraphicsDevice;
+        using System::TimeSpan;
 
         Renderer::Renderer(const std::u16string& rootDirectory)
-            : is_fixed_time_step        { true }
-            , target_elapsed_time       { 10000000L / 60L }
-            , _components               ( 0 )
-            , _services                 { }
-            , _graphics_device_manager  { *this }
-            , _renderer_window          { *this }
-            , _content_manager          { _services, rootDirectory }
-            , _shader_manager           { }
-            , _timer                    { }
-            , _render_time              { }
-            , _total_tender_time        { TimeSpan::zero }
-            , _is_running_slowly        { false }
-            , _drawable_components      ( 0 )
-            , _updateable_components    ( 0 )
+            : is_fixed_time_step       { true }
+            , target_elapsed_time      { 10000000L / 60L }
+            , _components              ( 0 )
+            , _services                { }
+            , _graphics_device_manager { *this }
+            , _renderer_window         { *this }
+            , _content_manager         { _services, rootDirectory }
+            , _timer                   { }
+            , _render_time             { }
+            , _total_tender_time       { TimeSpan::zero }
+            , _is_running_slowly       { false }
+            , _drawable_components     ( 0 )
+            , _updateable_components   ( 0 )
         {
         }
 
@@ -67,7 +66,6 @@ namespace SceneR
         {
             begin_run();
             create_device();
-            _shader_manager.load();
             load_content();
             initialize();
             post_process_components();
@@ -79,7 +77,6 @@ namespace SceneR
         void Renderer::exit()
         {
             _content_manager.unload();
-            _shader_manager.unload();
             _graphics_device_manager.dispose();
             _services.clear();
             _renderer_window.close();

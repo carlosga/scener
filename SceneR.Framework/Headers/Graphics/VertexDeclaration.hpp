@@ -8,8 +8,6 @@
 #include <cstdint>
 #include <vector>
 
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
 #include <Graphics/VertexElement.hpp>
 
 namespace SceneR
@@ -69,6 +67,7 @@ namespace SceneR
             void declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex) const;
 
             std::size_t get_element_count(const VertexElementFormat& vertexFormat) const;
+
             std::uint32_t get_element_type(const VertexElementFormat& vertexFormat) const;
 
         private:

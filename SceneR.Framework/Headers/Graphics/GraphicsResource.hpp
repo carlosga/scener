@@ -36,12 +36,15 @@ namespace SceneR
 
         public:
             /**
-             * Gets the graphics associated to this resources
-             * @return the graphics associated to this resources
+             * Gets the GraphicsDevice associated with this GraphicsResource.
+             * @return The GraphicsDevice associated with this GraphicsResource.
              */
             GraphicsDevice& graphics_device() const;
 
         public:
+            /**
+             * Gets or sets the name of the resource.
+             */
             std::u16string name;
 
         protected:

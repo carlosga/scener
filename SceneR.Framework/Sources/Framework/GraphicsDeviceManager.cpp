@@ -4,10 +4,10 @@
 #include <Framework/GraphicsDeviceManager.hpp>
 
 #include <Framework/PresentInterval.hpp>
+#include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
-#include <Framework/Renderer.hpp>
 
 namespace SceneR
 {

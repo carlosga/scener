@@ -4,10 +4,9 @@
 #ifndef CONTENT_CONTENTREADER_HPP
 #define CONTENT_CONTENTREADER_HPP
 
-#include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <vector>
+#include <string>
 
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
@@ -21,19 +20,9 @@ namespace json11
 
 namespace SceneR
 {
-    namespace Graphics
-    {
-        class GraphicsDevice;
-        class Model;
-    }
-}
-
-namespace SceneR
-{
     namespace Content
     {
         class ContentManager;
-        class ContentTypeReader;
 
        /**
          * Reads application content_manager from disk
@@ -78,6 +67,10 @@ namespace SceneR
              */
             void read_object(const std::string& key, const json11::Json& value, ContentReaderContext& context);
 
+            /**
+             * Reads a link to an external file.
+             * @returns The contents stored in the external file.
+             */
             std::vector<std::uint8_t> read_external_reference(const std::u16string& assetName) const;
 
         private:

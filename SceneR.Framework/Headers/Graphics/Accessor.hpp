@@ -4,6 +4,7 @@
 #ifndef GRAPHICS_ACCESSOR_HPP
 #define GRAPHICS_ACCESSOR_HPP
 
+#include <cstddef>
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -12,12 +13,11 @@
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
 
-namespace  SceneR
+namespace SceneR
 {
     namespace Content
     {
         class AccessorsReader;
-        class MeshesReader;
     }
 }
 

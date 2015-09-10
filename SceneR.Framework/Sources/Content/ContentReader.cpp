@@ -20,15 +20,12 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using System::IO::Stream;
-        using SceneR::Graphics::Buffer;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Model;
-        using System::IO::BinaryReader;
         using System::IO::File;
-        using System::IO::FileStream;
         using System::IO::Path;
+        using System::IO::Stream;
 
         ContentTypeReaderManager ContentReader::TypeReaderManager;
 
@@ -53,18 +50,16 @@ namespace SceneR
 
         std::shared_ptr<SceneR::Graphics::Model> ContentReader::read_asset()
         {
-            auto  errors    = std::string();
             auto& gdService = _content_manager->service_provider().get_service<IGraphicsDeviceService>();
             auto  context   = ContentReaderContext(gdService.graphics_device());
-
-            context.content_reader = this;
-
-            auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
-            auto json   = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
+            auto  buffer    = _asset_reader.read_bytes(_asset_reader.base_stream().length());
+            auto  errors    = std::string();
+            auto  json      = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
 
             assert(errors.empty());
 
-            context.model = std::make_shared<Model>();
+            context.content_reader = this;
+            context.model          = std::make_shared<Model>();
 
             read_object("buffers"    , json, context);
             read_object("bufferViews", json, context);
@@ -103,10 +98,6 @@ namespace SceneR
             typeReader->read(value, context);
         }
 
-        /**
-         * Reads a link to an external file.
-         * @returns The contents stored in the external file.
-         */
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {
             auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);

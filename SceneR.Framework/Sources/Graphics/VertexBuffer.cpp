@@ -13,12 +13,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        using SceneR::Graphics::BufferTarget;
-        using SceneR::Graphics::BufferUsage;
-        using SceneR::Graphics::BufferObject;
-        using SceneR::Graphics::VertexArrayObject;
-        using SceneR::Graphics::VertexDeclaration;
-
         VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
                                  , const std::size_t&                                   vertexCount
                                  , std::unique_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)

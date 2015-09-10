@@ -15,8 +15,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-
         /**
          * Interface for content_manager type reader implementations.
          */

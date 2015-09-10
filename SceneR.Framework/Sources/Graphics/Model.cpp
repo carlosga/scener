@@ -15,7 +15,6 @@ namespace SceneR
     namespace Graphics
     {
         using SceneR::Framework::Matrix;
-        using SceneR::Graphics::Effect;
 
         Model::Model()
             : _name   ()

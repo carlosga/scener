@@ -9,20 +9,20 @@
 
 #include <Graphics/EffectHelpers.hpp>
 
-#include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/DirectionalLight.hpp>
+#include <System/Math.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        using System::Math;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
+        using System::Math;
 
         Vector3 EffectHelpers::enable_default_lighting(DirectionalLight& light0
                                                      , DirectionalLight& light1

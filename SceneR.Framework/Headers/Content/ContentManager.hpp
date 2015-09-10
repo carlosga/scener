@@ -7,7 +7,6 @@
 #include <memory>
 
 #include <Content/ContentResourceManager.hpp>
-#include <Content/ContentLoadException.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 
 namespace SceneR
@@ -30,8 +29,6 @@ namespace SceneR
 {
     namespace Content
     {
-        class ContentReader;
-
         /**
          * The ContentManager is used at runtime to load application content_manager from files.
          */

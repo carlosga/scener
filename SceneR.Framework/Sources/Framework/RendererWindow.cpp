@@ -6,24 +6,23 @@
 #include <cstddef>
 #include <iostream>
 
-#include <System/Graphics/Platform.hpp>
-#include <System/Text/Encoding.hpp>
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Input/Keyboard.hpp>
 #include <Input/KeyboardState.hpp>
 #include <Input/Mouse.hpp>
+#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Framework
     {
-        using System::Text::Encoding;
         using SceneR::Input::Keyboard;
         using SceneR::Input::KeyboardState;
         using SceneR::Input::Keys;
         using SceneR::Input::Mouse;
+        using System::Text::Encoding;
 
 #ifdef _USE_GLEW_
         void RendererWindow::debug_callback(GLenum        source

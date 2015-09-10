@@ -5,13 +5,14 @@
 #define GRAPHICS_PROGRAM_HPP
 
 #include <cstddef>
+#include <cstdint>
 #include <map>
 #include <memory>
 #include <vector>
 #include <string>
-#include <System/IDisposable.hpp>
 
 #include <Graphics/ShaderType.hpp>
+#include <System/IDisposable.hpp>
 
 namespace SceneR
 {

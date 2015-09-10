@@ -36,7 +36,6 @@ namespace SceneR
     namespace Graphics
     {
         class GrapicsDevice;
-        class UniformBufferObject;
         class EffectPass;
         class EffectParameter;
 

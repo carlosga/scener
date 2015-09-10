@@ -3,26 +3,27 @@
 
 #include <Content/ContentManager.hpp>
 
+#include <Content/ContentReader.hpp>
+#include <Content/ContentLoadException.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Model.hpp>
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
 #include <System/IO/Stream.hpp>
-#include <Content/ContentReader.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/Model.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
+        using SceneR::Framework::RendererServiceContainer;
+        using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Graphics::Model;
         using System::IO::File;
         using System::IO::FileStream;
         using System::IO::Path;
         using System::IO::Stream;
-        using SceneR::Framework::RendererServiceContainer;
-        using SceneR::Graphics::IGraphicsDeviceService;
-        using SceneR::Graphics::Model;
 
         ContentResourceManager ContentManager::ResourceManager;
 
