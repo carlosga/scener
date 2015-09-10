@@ -105,7 +105,7 @@ void MatrixTest::DecomposeScale(const float& sx, const float& sy, const float& s
 
     EXPECT_TRUE(actualResult);
     EXPECT_TRUE(EqualityHelper::Equal(expectedScales, scales));
-    EXPECT_TRUE(EqualityHelper::EqualRotation(Quaternion::Identity, rotation));
+    EXPECT_TRUE(EqualityHelper::EqualRotation(Quaternion::identity, rotation));
     EXPECT_TRUE(EqualityHelper::Equal(Vector3::zero, translation));
 }
 
@@ -346,7 +346,7 @@ TEST_F(MatrixTest, Identity)
     val.m33 = 1.0f;
     val.m44 = 1.0f;
 
-    EXPECT_TRUE(EqualityHelper::Equal(val, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(val, Matrix::identity));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
@@ -414,17 +414,17 @@ TEST_F(MatrixTest, Invert)
     // Make sure M*M is identity matrix
     auto i = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(Matrix::Identity, i));
+    EXPECT_TRUE(EqualityHelper::Equal(Matrix::identity, i));
 }
 
 // A test for Invert (Matrix)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, InvertIdentityMatrix)
 {
-    auto mtx    = Matrix::Identity;
+    auto mtx    = Matrix::identity;
     auto actual = Matrix::invert(mtx);
 
-    EXPECT_TRUE(EqualityHelper::Equal(actual, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(actual, Matrix::identity));
 }
 
 // A test for Invert (Matrix)
@@ -435,7 +435,7 @@ TEST_F(MatrixTest, InvertTranslationMatrix)
     auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::identity));
 }
 
 // A test for Invert (Matrix)
@@ -446,7 +446,7 @@ TEST_F(MatrixTest, InvertRotationMatrix)
     auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::identity));
 }
 
 // A test for Invert (Matrix)
@@ -457,7 +457,7 @@ TEST_F(MatrixTest, InvertScaleMatrix)
     auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::identity));
 }
 
 // A test for Invert (Matrix)
@@ -468,7 +468,7 @@ TEST_F(MatrixTest, InvertProjectionMatrix)
     auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::identity));
 }
 
 // A test for Invert (Matrix)
@@ -482,7 +482,7 @@ TEST_F(MatrixTest, InvertAffineMatrix)
     auto actual = Matrix::invert(mtx);
     auto i      = mtx * actual;
 
-    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::Identity));
+    EXPECT_TRUE(EqualityHelper::Equal(i, Matrix::identity));
 }
 
 // Various rotation decompose test.
@@ -613,7 +613,7 @@ TEST_F(MatrixTest, CreateRotationXOfZeroDegree)
 {
     float radians = 0;
 
-    auto expected = Matrix::Identity;
+    auto expected = Matrix::identity;
     auto actual   = Matrix::create_rotation_x(radians);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
@@ -1359,7 +1359,7 @@ TEST_F(MatrixTest, MultiplyTest2)
                , 9.0f , 10.0f , 11.0f, 12.0f
                , 13.0f, -14.0f, 15.0f, -16.0f };
 
-    auto b = Matrix::Identity;
+    auto b = Matrix::identity;
 
     auto expected = a;
     auto actual   = a * b;
@@ -1405,8 +1405,8 @@ TEST_F(MatrixTest, Transpose)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, TransposeIdentityMatrix)
 {
-    auto a        = Matrix::Identity;
-    auto expected = Matrix::Identity;
+    auto a        = Matrix::identity;
+    auto expected = Matrix::identity;
     auto actual   = Matrix::transpose(a);
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));
@@ -1754,7 +1754,7 @@ TEST_F(MatrixTest, CreateTranslation2)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, IsIdentity)
 {
-    EXPECT_TRUE( Matrix::Identity.is_identity());
+    EXPECT_TRUE( Matrix::identity.is_identity());
     EXPECT_TRUE( Matrix(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
     EXPECT_FALSE(Matrix(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());
     EXPECT_FALSE(Matrix(1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1).is_identity());

@@ -13,15 +13,6 @@ namespace json11
 
 namespace SceneR
 {
-    namespace Graphics
-    {
-        class GraphicsDevice;
-        class Model;
-    }
-}
-
-namespace SceneR
-{
     namespace Content
     {
         class ContentReader;

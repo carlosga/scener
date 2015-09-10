@@ -8,6 +8,9 @@ namespace SceneR
     namespace Graphics
     {
         InstanceSkin::InstanceSkin()
+            : skeletons ()
+            , skin      ()
+            , meshes    ()
         {
         }
 

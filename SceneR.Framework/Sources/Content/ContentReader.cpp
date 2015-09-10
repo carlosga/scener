@@ -72,7 +72,7 @@ namespace SceneR
             read_object("meshes"     , json, context);
             // read_object("lights"     , json, context);
             // read_object("cameras"    , json, context);
-            // read_object("nodes"      , json, context);
+            read_object("nodes"      , json, context);
             read_object("images"     , json, context);
             read_object("textures"   , json, context);
             read_object("shaders"    , json, context);

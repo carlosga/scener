@@ -56,6 +56,7 @@ namespace SceneR
 
                 mesh->_name = Encoding::convert(item.first);
 
+                context.meshes.push_back(mesh);
                 context.model->_meshes.push_back(mesh);
             }
         }

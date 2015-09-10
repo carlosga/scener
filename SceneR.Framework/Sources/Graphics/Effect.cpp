@@ -35,15 +35,15 @@ namespace SceneR
             , _fog_end                   { 1.0f }
             , _fog_start                 { 0.0f }
             , _prefer_per_pixel_lighting { false }
-            , _projection                { Matrix::Identity }
+            , _projection                { Matrix::identity }
             , _specular_color            { Vector3::one }
             , _specular_power            { 16.0f }
             , _texture_enabled           { false }
             , _texture                   { nullptr }
-            , _view                      { Matrix::Identity }
+            , _view                      { Matrix::identity }
             , _weights_per_vertex        { 2 }
-            , _world                     { Matrix::Identity }
-            , _world_view                { Matrix::Identity }
+            , _world                     { Matrix::identity }
+            , _world_view                { Matrix::identity }
             , _one_light                 { false }
             , _dirty_flags               { EffectDirtyFlags::All }
             , _passes                    ()

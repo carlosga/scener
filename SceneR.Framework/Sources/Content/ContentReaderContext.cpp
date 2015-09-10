@@ -3,12 +3,18 @@
 
 #include <Content/ContentReaderContext.hpp>
 
+#include <Content/json11.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Quaternion.hpp>
+#include <Framework/Vector3.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/Effect.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/Material.hpp>
+#include <Graphics/ModelMesh.hpp>
+#include <Graphics/Node.hpp>
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/Program.hpp>
 #include <Graphics/Shader.hpp>
@@ -19,12 +25,17 @@ namespace SceneR
 {
     namespace Content
     {
+        using SceneR::Framework::Matrix;
+        using SceneR::Framework::Quaternion;
+        using SceneR::Framework::Vector3;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferView;
         using SceneR::Graphics::Effect;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::Material;
+        using SceneR::Graphics::ModelMesh;
+        using SceneR::Graphics::Node;
         using SceneR::Graphics::Program;
         using SceneR::Graphics::SamplerState;
         using SceneR::Graphics::Shader;
@@ -42,6 +53,45 @@ namespace SceneR
 
         ContentReaderContext::~ContentReaderContext()
         {
+        }
+
+        template<>
+        Matrix ContentReaderContext::convert(const std::vector<json11::Json>& values) const
+        {
+            Matrix matrix;
+
+            for (int i = 0; i < 16; i++)
+            {
+                matrix.data[i] = values[i].number_value();
+            }
+
+            return Matrix::transpose(matrix);
+        }
+
+        template<>
+        Quaternion ContentReaderContext::convert(const std::vector<json11::Json>& values) const
+        {
+            Quaternion quaternion;
+
+            for (int i = 0; i < 4; i++)
+            {
+                quaternion.data[i] = values[i].number_value();
+            }
+
+            return quaternion;
+        }
+
+        template<>
+        Vector3 ContentReaderContext::convert(const std::vector<json11::Json>& values) const
+        {
+            Vector3 vector;
+
+            for (int i = 0; i < 3; i++)
+            {
+                vector.data[i] = values[i].number_value();
+            }
+
+            return vector;
         }
 
         template <>
@@ -112,6 +162,34 @@ namespace SceneR
                 });
 
             return ((it != materials.end()) ? *it : nullptr);
+        }
+
+        template <>
+        std::shared_ptr<ModelMesh> ContentReaderContext::find_object(const std::string& name) const
+        {
+            auto oname = Encoding::convert(name);
+            auto it = find_if(meshes.begin()
+                            , meshes.end()
+                            , [&](std::shared_ptr<ModelMesh> mesh) -> bool
+                {
+                    return (mesh->name() == oname);
+                });
+
+            return ((it != meshes.end()) ? *it : nullptr);
+        }
+
+        template <>
+        std::shared_ptr<Node> ContentReaderContext::find_object(const std::string& name) const
+        {
+            auto oname = Encoding::convert(name);
+            auto it = find_if(nodes.begin()
+                            , nodes.end()
+                            , [&](std::shared_ptr<Node> node) -> bool
+                {
+                    return (node->name == oname);
+                });
+
+            return ((it != nodes.end()) ? *it : nullptr);
         }
 
         template <>

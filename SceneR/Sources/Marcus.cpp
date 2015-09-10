@@ -25,7 +25,7 @@ namespace SceneR
         Marcus::Marcus(SampleRenderer& renderer)
             : DrawableComponent { renderer }
             , _model            { nullptr }
-            , _world            { Matrix::Identity }
+            , _world            { Matrix::identity }
         {
         }
 
@@ -63,7 +63,7 @@ namespace SceneR
 
         void Marcus::unload_content()
         {
-            _world = Matrix::Identity;
+            _world = Matrix::identity;
             _model = nullptr;
         }
 

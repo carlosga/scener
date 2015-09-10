@@ -25,8 +25,8 @@ namespace SceneR
 
         Camera::Camera(SampleRenderer& renderer)
             : Component  { renderer }
-            , view       { Matrix::Identity }
-            , projection { Matrix::Identity }
+            , view       { Matrix::identity }
+            , projection { Matrix::identity }
         {
         }
 
@@ -36,7 +36,7 @@ namespace SceneR
 
             _position          = { 0.0f, 0.0f, 500.0f };
             _rotation          = 0.0f;
-            _rotationTransform = Matrix::Identity;
+            _rotationTransform = Matrix::identity;
 
             projection = Matrix::create_perspective_field_of_view(Math::to_radians(27), aspect, 0.5f, 10000.0f);
             view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);

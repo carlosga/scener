@@ -29,7 +29,7 @@ namespace SceneR
             /**
              * The id (JSON property name) of the skin referenced by this node.
              */
-            std::vector<std::string> skin;
+            std::string skin;
 
             /**
              * The ids (JSON property names) of source meshes.

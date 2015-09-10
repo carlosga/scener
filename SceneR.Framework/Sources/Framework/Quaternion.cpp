@@ -15,7 +15,7 @@ namespace SceneR
     {
         using System::Math;
 
-        const Quaternion Quaternion::Identity { 0.0f, 0.0f, 0.0f, 1.0f };
+        const Quaternion Quaternion::identity { 0.0f, 0.0f, 0.0f, 1.0f };
 
         Quaternion Quaternion::conjugate(const Quaternion& quaternion)
         {
@@ -217,7 +217,7 @@ namespace SceneR
 
         bool Quaternion::is_identity() const
         {
-            return (*this == Quaternion::Identity);
+            return (*this == Quaternion::identity);
         }
 
         float Quaternion::length_squared() const

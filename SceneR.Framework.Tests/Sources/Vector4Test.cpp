@@ -435,7 +435,7 @@ TEST_F(Vector4Test, TransformWithZeroMatrix)
 TEST_F(Vector4Test, TransformWithIdentityMatrix)
 {
     auto v        = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
-    auto m        = Matrix::Identity;
+    auto m        = Matrix::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
     auto actual   = Vector4::transform(v, m);
 
@@ -480,7 +480,7 @@ TEST_F(Vector4Test, TransformVector3WithZeroMatrix)
 TEST_F(Vector4Test, TransformVector3WithIdentityMatrix)
 {
     auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto m        = Matrix::Identity;
+    auto m        = Matrix::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 1.0f };
     auto actual   = Vector4::transform(v, m);
 
@@ -526,7 +526,7 @@ TEST_F(Vector4Test, TransformVector2WithZeroMatrix)
 TEST_F(Vector4Test, TransformVector2WithIdentityMatrix)
 {
     auto v        = Vector2 { 1.0f, 2.0f };
-    auto m        = Matrix::Identity;
+    auto m        = Matrix::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 0, 1.0f };
     auto actual   = Vector4::transform(v, m);
 
@@ -608,7 +608,7 @@ TEST_F(Vector4Test, TransformWithZeroQuaternion)
 TEST_F(Vector4Test, TransformWithIdentityQuaternion)
 {
     auto v        = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
-    auto q        = Quaternion::Identity;
+    auto q        = Quaternion::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 0.0f };
     auto actual   = Vector4::transform(v, q);
 
@@ -634,7 +634,7 @@ TEST_F(Vector4Test, TransformVector3WithZeroQuaternion)
 TEST_F(Vector4Test, TransformVector3WithIdentityQuaternion)
 {
     auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto q        = Quaternion::Identity;
+    auto q        = Quaternion::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 3.0f, 1.0f };
     auto actual   = Vector4::transform(v, q);
 
@@ -660,7 +660,7 @@ TEST_F(Vector4Test, TransformVector2WithZeroQuaternion)
 TEST_F(Vector4Test, TransformVector2WithIdentityQuaternion)
 {
     auto v        = Vector2 { 1.0f, 2.0f };
-    auto q        = Quaternion::Identity;
+    auto q        = Quaternion::identity;
     auto expected = Vector4 { 1.0f, 2.0f, 0, 1.0f };
     auto actual   = Vector4::transform(v, q);
 

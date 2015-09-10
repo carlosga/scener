@@ -27,6 +27,11 @@ namespace SceneR
 
         public:
             /**
+             * @brief Gets or sets the node name.
+             */
+            std::u16string name;
+
+            /**
              * The id (JSON property name) of the camera referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.
              */
             std::string camera;
@@ -34,12 +39,12 @@ namespace SceneR
             /**
              * An instance of a skin.
              */
-            std::shared_ptr<InstanceSkin> instanceSkin;
+            std::shared_ptr<InstanceSkin> instance_skin;
 
             /**
              * Name used when this node is a joint in a skin.  When this node is a skin, instanceSkin will also be defined.
              */
-            std::string jointName;
+            std::string joint_name;
 
             /**
              * The id (JSON property name) of the light referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.

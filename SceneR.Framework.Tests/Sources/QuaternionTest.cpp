@@ -587,7 +587,7 @@ TEST_F(QuaternionTest, Equality)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, ConvertIdentityMatrix)
 {
-    auto matrix   = Matrix::Identity;
+    auto matrix   = Matrix::identity;
     auto expected = Quaternion { 0.0f, 0.0f, 0.0f, 1.0f };
     auto actual   = Quaternion::create_from_rotation_matrix(matrix);
 
@@ -747,13 +747,13 @@ TEST_F(QuaternionTest, Identity)
 {
     auto actual = Quaternion { 0.0f, 0.0f, 0.0f, 1.0f };
 
-    EXPECT_TRUE(EqualityHelper::Equal(Quaternion::Identity, actual));
+    EXPECT_TRUE(EqualityHelper::Equal(Quaternion::identity, actual));
 }
 
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(QuaternionTest, IsIdentity)
 {
-    EXPECT_TRUE (Quaternion::Identity.is_identity());
+    EXPECT_TRUE (Quaternion::identity.is_identity());
     EXPECT_TRUE (Quaternion(0, 0, 0, 1).is_identity());
     EXPECT_FALSE(Quaternion(1, 0, 0, 1).is_identity());
     EXPECT_FALSE(Quaternion(0, 1, 0, 1).is_identity());

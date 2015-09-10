@@ -810,7 +810,7 @@ TEST_F(Vector3Test, TransformByZeroQuaternion)
 TEST_F(Vector3Test, TransformByIdentityQuaternion)
 {
     auto v        = Vector3 { 1.0f, 2.0f, 3.0f };
-    auto q        = Quaternion::Identity;
+    auto q        = Quaternion::identity;
     auto expected = v;
 
     auto actual = Vector3::transform(v, q);

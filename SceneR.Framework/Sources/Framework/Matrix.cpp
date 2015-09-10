@@ -18,7 +18,7 @@ namespace SceneR
     {
         using System::Math;
 
-        const Matrix Matrix::Identity { 1.0f, 0.0f, 0.0f, 0.0f
+        const Matrix Matrix::identity { 1.0f, 0.0f, 0.0f, 0.0f
                                       , 0.0f, 1.0f, 0.0f, 0.0f
                                       , 0.0f, 0.0f, 1.0f, 0.0f
                                       , 0.0f, 0.0f, 0.0f, 1.0f };
@@ -525,12 +525,12 @@ namespace SceneR
 
             rotation = Quaternion::create_from_rotation_matrix(matrix);
 
-            return (scale != Vector3::zero && rotation != Quaternion::Identity && translation != Vector3::zero);
+            return (scale != Vector3::zero && rotation != Quaternion::identity && translation != Vector3::zero);
         }
 
         Matrix Matrix::invert(const Matrix& matrix)
         {
-            Matrix inverse = Matrix::Identity;
+            Matrix inverse = Matrix::identity;
 
             if (matrix.has_inverse())
             {
@@ -639,7 +639,7 @@ namespace SceneR
 
         bool Matrix::is_identity() const
         {
-            return (*this == Matrix::Identity);
+            return (*this == Matrix::identity);
         }
 
         float& Matrix::operator[](const std::size_t& index)

@@ -22,7 +22,7 @@ namespace SceneR
             /**
              * Returns the identity quaternion.
              */
-            static const Quaternion Identity;
+            static const Quaternion identity;
 
         public:
             /**

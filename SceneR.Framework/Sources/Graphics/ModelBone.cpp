@@ -14,7 +14,7 @@ namespace SceneR
             , _children  ( 0 )
             , _index     ( 0 )
             , _parent    { nullptr }
-            , _transform { Matrix::Identity }
+            , _transform { Matrix::identity }
         {
         }
 
