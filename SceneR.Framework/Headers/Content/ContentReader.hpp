@@ -11,6 +11,7 @@
 
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
+#include <Content/ContentTypeReader.hpp>
 #include <Content/ContentReaderContext.hpp>
 
 namespace json11
@@ -62,8 +63,13 @@ namespace SceneR
             /**
              * Reads a single object from the current stream.
              */
-            template <typename T>
-            std::shared_ptr<T> read_object(const std::pair<std::string, json11::Json>& source, ContentReaderContext& context);
+            template<typename T>
+            inline std::shared_ptr<T> read_object(const std::pair<std::string, json11::Json>& source
+                                                , ContentReaderContext&                       context)
+            {
+                ContentTypeReader<T> reader;
+                return reader.read(source, context);
+            }
 
             /**
              * Reads a link to an external file.

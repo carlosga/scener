@@ -53,11 +53,12 @@ namespace SceneR
             auto  buffer    = _asset_reader.read_bytes(_asset_reader.base_stream().length());
             auto  errors    = std::string();
             auto  json      = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
+            auto  model     = std::make_shared<Model>();
 
             assert(errors.empty());
 
             context.content_reader = this;
-            context.model          = std::make_shared<Model>();
+            context.root           = json;
 
             // Buffers
             for (const auto& buffer : json["buffers"].object_items())
@@ -65,7 +66,7 @@ namespace SceneR
                 context.buffers.push_back(read_object<SceneR::Graphics::Buffer>(buffer, context));
             }
             // Buffer Views
-            for (const auto& bufferView : json["buffersViews"].object_items())
+            for (const auto& bufferView : json["bufferViews"].object_items())
             {
                 context.buffer_views.push_back(read_object<SceneR::Graphics::BufferView>(bufferView, context));
             }
@@ -123,7 +124,7 @@ namespace SceneR
             // read_object("animations" , json, context);
             // read_object("skins"      , json, context);
 
-            return context.model;
+            return model;
         }
 
         bool ContentReader::read_header()
@@ -131,13 +132,13 @@ namespace SceneR
             return true;
         }
 
-        template<typename T>
-        std::shared_ptr<T> ContentReader::read_object(const std::pair<std::string, json11::Json>& source
-                                                    , ContentReaderContext&                       context)
-        {
-            ContentTypeReader<T> reader;
-            return reader.read(source, context);
-        }
+//        template<typename T>
+//        std::shared_ptr<T> ContentReader::read_object(const std::pair<std::string, json11::Json>& source
+//                                                    , ContentReaderContext&                       context)
+//        {
+//            ContentTypeReader<T> reader;
+//            return reader.read(source, context);
+//        }
 
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {

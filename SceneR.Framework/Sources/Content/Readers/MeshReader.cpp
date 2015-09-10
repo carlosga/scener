@@ -7,8 +7,9 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
-#include <Content/Readers/MaterialReader.hpp>
+#include <Content/ContentReader.hpp>
 #include <Graphics/Accessor.hpp>
+#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -18,9 +19,11 @@
 #include <System/Text/Encoding.hpp>
 
 using json11::Json;
+using SceneR::Content::ContentTypeReader;
 using SceneR::Graphics::Accessor;
 using SceneR::Graphics::AttributeType;
 using SceneR::Graphics::ComponentType;
+using SceneR::Graphics::EffectMaterial;
 using SceneR::Graphics::IndexBuffer;
 using SceneR::Graphics::Model;
 using SceneR::Graphics::ModelMesh;
@@ -73,7 +76,6 @@ namespace SceneR
             auto componentType = indices->component_type();
             auto indexCount    = indices->attribute_count();
             auto indexData     = indices->get_data();
-            auto material      = Encoding::convert(source["material"].string_value());
 
             // Index buffer
             meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, componentType, indexCount);
@@ -165,6 +167,12 @@ namespace SceneR
 
             // EffectMaterial
             // TODO: process material
+            auto material = source["material"].string_value();
+            if (!material.empty())
+            {
+                auto pair   = std::pair<std::string, Json>(material, context.root["materials"][material]);
+                auto effect = context.content_reader->read_object<EffectMaterial>(pair, context);
+            }
 
             mesh->_mesh_parts.push_back(meshPart);
         }

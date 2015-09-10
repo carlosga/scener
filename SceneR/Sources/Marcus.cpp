@@ -6,21 +6,21 @@
 #include <Camera.hpp>
 #include <SampleRenderer.hpp>
 
-#include <System/Math.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <System/Math.hpp>
 
 namespace SceneR
 {
     namespace Sample
     {
-        using System::Math;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::RenderTime;
         using SceneR::Graphics::Model;
         using SceneR::Graphics::SkinnedEffect;
+        using System::Math;
 
         Marcus::Marcus(SampleRenderer& renderer)
             : DrawableComponent { renderer }
