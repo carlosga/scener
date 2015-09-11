@@ -7,9 +7,11 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/EffectMaterial.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -24,6 +26,7 @@ using SceneR::Graphics::Accessor;
 using SceneR::Graphics::AttributeType;
 using SceneR::Graphics::ComponentType;
 using SceneR::Graphics::EffectMaterial;
+using SceneR::Graphics::IGraphicsDeviceService;
 using SceneR::Graphics::IndexBuffer;
 using SceneR::Graphics::Model;
 using SceneR::Graphics::ModelMesh;
@@ -48,14 +51,14 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(const std::pair<std::string, Json>& source
-                                                                    , ContentReaderContext&               context)
+        std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(ContentReader*                      input
+                                                                    , const std::pair<std::string, Json>& source)
         {
             auto mesh = std::make_shared<ModelMesh>();
 
             for (const auto& primitive : source.second["primitives"].array_items())
             {
-                read_mesh_part(primitive, context, mesh);
+                read_mesh_part(input, primitive, mesh);
             }
 
             mesh->_name = Encoding::convert(source.first);
@@ -63,29 +66,30 @@ namespace SceneR
             return mesh;
         }
 
-        void ContentTypeReader<ModelMesh>::read_mesh_part(const json11::Json&        source
-                                                        , ContentReaderContext&      context
+        void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader*             input
+                                                        , const json11::Json&        source
                                                         , std::shared_ptr<ModelMesh> mesh) const
         {
-            auto meshPart      = std::make_shared<ModelMeshPart>();
-            auto accessors     = std::vector<std::shared_ptr<Accessor>>(12);
-            auto elements      = std::vector<VertexElement>();
-            auto vertexStride  = std::size_t(0);
-            auto vertexCount   = std::size_t(0);
-            auto indices       = context.find_object<Accessor>(source["indices"].string_value());
-            auto componentType = indices->component_type();
-            auto indexCount    = indices->attribute_count();
-            auto indexData     = indices->get_data();
+            auto& gdService     = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+            auto  meshPart      = std::make_shared<ModelMeshPart>();
+            auto  accessors     = std::vector<std::shared_ptr<Accessor>>(12);
+            auto  elements      = std::vector<VertexElement>();
+            auto  vertexStride  = std::size_t(0);
+            auto  vertexCount   = std::size_t(0);
+            auto  indices       = input->find_object<Accessor>(source["indices"].string_value());
+            auto  componentType = indices->component_type();
+            auto  indexCount    = indices->attribute_count();
+            auto  indexData     = indices->get_data();
 
             // Index buffer
-            meshPart->_index_buffer = std::make_unique<IndexBuffer>(context.graphics_device, componentType, indexCount);
+            meshPart->_index_buffer = std::make_unique<IndexBuffer>(gdService.graphics_device(), componentType, indexCount);
             meshPart->_index_buffer->initialize();
             meshPart->_index_buffer->set_data(indexData.data());
 
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                auto accessor   = context.find_object<Accessor>(attribute.second.string_value());
+                auto accessor   = input->find_object<Accessor>(attribute.second.string_value());
                 auto format     = get_vertex_element_format(accessor->attribute_type());
                 auto usage      = get_vertex_element_usage(attribute.first);
                 auto usageIndex = static_cast<std::uint32_t>(usage);
@@ -122,7 +126,7 @@ namespace SceneR
 
             auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 
-            meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(context.graphics_device, vertexCount, std::move(declaration));
+            meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(gdService.graphics_device(), vertexCount, std::move(declaration));
             meshPart->_primitive_type  = static_cast<PrimitiveType>(source["primitive"].int_value());
             meshPart->_vertex_count    = vertexCount;
             meshPart->_start_index     = 0;
@@ -167,11 +171,10 @@ namespace SceneR
 
             // EffectMaterial
             // TODO: process material
-            auto material = source["material"].string_value();
-            if (!material.empty())
+            auto materialRef = source["material"].string_value();
+            if (!materialRef.empty())
             {
-                auto pair   = std::pair<std::string, Json>(material, context.root["materials"][material]);
-                auto effect = context.content_reader->read_object<EffectMaterial>(pair, context);
+                auto effect = input->read_object<EffectMaterial>("materials", materialRef);
             }
 
             mesh->_mesh_parts.push_back(meshPart);

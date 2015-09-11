@@ -27,13 +27,13 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<Shader> ContentTypeReader<Shader>::read(const std::pair<std::string, Json>& source
-                                                              , ContentReaderContext&               context)
+        std::shared_ptr<Shader> ContentTypeReader<Shader>::read(ContentReader*                      input
+                                                              , const std::pair<std::string, Json>& source)
         {
             auto name   = Encoding::convert(source.first);
             auto type   = static_cast<ShaderType>(source.second["type"].int_value());
             auto uri    = Encoding::convert(source.second["uri"].string_value());
-            auto code   = context.content_reader->read_external_reference(uri);
+            auto code   = input->read_external_reference(uri);
             auto shader = std::make_shared<Shader>(name, type, code);
 
             shader->compile();

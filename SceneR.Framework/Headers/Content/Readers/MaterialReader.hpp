@@ -22,8 +22,8 @@ namespace SceneR
             ~ContentTypeReader();
 
         public:
-            std::shared_ptr<SceneR::Graphics::EffectMaterial> read(const std::pair<std::string, json11::Json>& value
-                                                                 , ContentReaderContext&                       context);
+            std::shared_ptr<SceneR::Graphics::EffectMaterial> read(ContentReader*                              input
+                                                                 , const std::pair<std::string, json11::Json>& value);
         };
     }
 }

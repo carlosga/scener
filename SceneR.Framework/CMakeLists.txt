@@ -55,7 +55,6 @@ set(HEADER_FILES
     Headers/Content/ContentLoadException.hpp
     Headers/Content/ContentManager.hpp
     Headers/Content/ContentReader.hpp
-    Headers/Content/ContentReaderContext.hpp
     Headers/Content/ContentTypeReader.hpp
     Headers/Framework/BoundingBox.hpp
     Headers/Framework/BoundingFrustrum.hpp
@@ -194,7 +193,6 @@ set(SOURCE_FILES
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
-    Sources/Content/ContentReaderContext.cpp
     Sources/Content/json11.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustrum.cpp

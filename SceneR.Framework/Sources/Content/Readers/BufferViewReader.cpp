@@ -4,6 +4,7 @@
 #include <Content/Readers/BufferViewReader.hpp>
 
 #include <Content/json11.hpp>
+#include <Content/ContentReader.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
@@ -28,8 +29,8 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(const std::pair<std::string, Json>& source
-                                                                      , ContentReaderContext&               context)
+        std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(ContentReader*                      input
+                                                                      , const std::pair<std::string, Json>& source)
         {
             auto bufferTarget = BufferTarget::AnimationOrSkin;
             auto bufferUsage  = BufferUsage::DynamicRead;
@@ -43,7 +44,7 @@ namespace SceneR
             auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
             bufferView->_name        = Encoding::convert(source.first);
-            bufferView->_buffer      = context.find_object<Buffer>(source.second["buffer"].string_value());
+            bufferView->_buffer      = input->find_object<Buffer>(source.second["buffer"].string_value());
             bufferView->_byte_offset = source.second["byteOffset"].int_value();
             bufferView->_byte_length = source.second["byteLength"].int_value();
 

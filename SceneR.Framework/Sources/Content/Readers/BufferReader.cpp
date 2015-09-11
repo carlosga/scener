@@ -28,8 +28,8 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(const std::pair<std::string, Json>& source
-                                                              , ContentReaderContext&               context)
+        std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(ContentReader*                      input
+                                                              , const std::pair<std::string, Json>& source)
         {
             auto buffer = std::make_shared<Buffer>();
 
@@ -37,7 +37,7 @@ namespace SceneR
             buffer->_uri         = Encoding::convert(source.second["uri"].string_value());
             buffer->_byte_length = source.second["byteLength"].int_value();
 
-            buffer->set_data(context.content_reader->read_external_reference(buffer->_uri));
+            buffer->set_data(input->read_external_reference(buffer->_uri));
 
             return buffer;
         }

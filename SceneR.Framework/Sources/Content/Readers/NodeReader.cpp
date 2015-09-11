@@ -4,6 +4,7 @@
 #include <Content/Readers/NodeReader.hpp>
 
 #include <Content/json11.hpp>
+#include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
@@ -34,8 +35,8 @@ namespace SceneR
 
         }
 
-        std::shared_ptr<Node> ContentTypeReader<Node>::read(const std::pair<std::string, Json>& source
-                                                          , ContentReaderContext&               context)
+        std::shared_ptr<Node> ContentTypeReader<Node>::read(ContentReader*                      input
+                                                          , const std::pair<std::string, Json>& source)
         {
             auto node        = std::make_shared<Node>();
             auto matrix      = Matrix::identity;
@@ -45,19 +46,19 @@ namespace SceneR
 
             if (!source.second["matrix"].is_null())
             {
-                matrix = context.convert<Matrix>(source.second["matrix"].array_items());
+                matrix = input->convert<Matrix>(source.second["matrix"].array_items());
             }
             if (!source.second["rotation"].is_null())
             {
-                rotation = context.convert<Quaternion>(source.second["rotation"].array_items());
+                rotation = input->convert<Quaternion>(source.second["rotation"].array_items());
             }
             if (!source.second["scale"].is_null())
             {
-                scale = context.convert<Vector3>(source.second["scale"].array_items());
+                scale = input->convert<Vector3>(source.second["scale"].array_items());
             }
             if (!source.second["translation"].is_null())
             {
-                translation = context.convert<Vector3>(source.second["translation"].array_items());
+                translation = input->convert<Vector3>(source.second["translation"].array_items());
             }
 
             node->name        = Encoding::convert(source.first);
@@ -71,12 +72,12 @@ namespace SceneR
 
             if (!source.second["instanceSkin"].is_null())
             {
-                node->instance_skin = read_instance_skin(source.second["instanceSkin"], context);
+                node->instance_skin = read_instance_skin(input, source.second["instanceSkin"]);
             }
 
             for (const auto& mesh : source.second["meshes"].array_items())
             {
-                node->meshes.push_back(context.find_object<ModelMesh>(mesh.string_value()));
+                node->meshes.push_back(input->find_object<ModelMesh>(mesh.string_value()));
             }
 
             for (const auto& child : source.second["children"].array_items())
@@ -87,8 +88,8 @@ namespace SceneR
             return node;
         }
 
-        std::shared_ptr<InstanceSkin> ContentTypeReader<Node>::read_instance_skin(const Json&           source
-                                                                                , ContentReaderContext& context)
+        std::shared_ptr<InstanceSkin> ContentTypeReader<Node>::read_instance_skin(ContentReader* input
+                                                                                , const Json&    source)
         {
             auto instanceSkin = std::make_shared<InstanceSkin>();
 

@@ -6,8 +6,6 @@
 
 #include <memory>
 
-#include <Content/ContentReaderContext.hpp>
-
 namespace json11
 {
     class Json;
@@ -17,6 +15,8 @@ namespace SceneR
 {
     namespace Content
     {
+        class ContentReader;
+
         /**
          * Interface for content type reader implementations.
          */
@@ -38,7 +38,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            std::shared_ptr<T> read(const std::pair<std::string, json11::Json>& source, ContentReaderContext& context);
+            std::shared_ptr<T> read(ContentReader* input, const std::pair<std::string, json11::Json>& source);
         };
     }
 }

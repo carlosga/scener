@@ -39,12 +39,12 @@ namespace SceneR
             unload();
         }
 
-        RendererServiceContainer& ContentManager::service_provider()
+        RendererServiceContainer& ContentManager::service_provider() const
         {
             return _service_provider;
         }
 
-        const std::u16string& ContentManager::root_directory()
+        const std::u16string& ContentManager::root_directory() const
         {
             return _root_directory;
         }

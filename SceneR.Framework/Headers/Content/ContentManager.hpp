@@ -53,12 +53,12 @@ namespace SceneR
             /**
              * Gets the graphics device
              */
-            SceneR::Framework::RendererServiceContainer& service_provider();
+            SceneR::Framework::RendererServiceContainer& service_provider() const;
 
             /**
              * Gets the root directory associated with this ContentManager.
              */
-            const std::u16string& root_directory();
+            const std::u16string& root_directory() const;
 
         public:
             /**

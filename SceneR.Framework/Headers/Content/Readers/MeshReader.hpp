@@ -38,12 +38,12 @@ namespace SceneR
             /**
              * Reads the meshes contents.
              */
-            std::shared_ptr<SceneR::Graphics::ModelMesh> read(const std::pair<std::string, json11::Json>& source
-                                                            , ContentReaderContext&                       context);
+            std::shared_ptr<SceneR::Graphics::ModelMesh> read(ContentReader*                              input
+                                                            , const std::pair<std::string, json11::Json>& source);
 
         private:
-            void read_mesh_part(const json11::Json&                          source
-                              , ContentReaderContext&                        context
+            void read_mesh_part(ContentReader*                               input
+                              , const json11::Json&                          source
                               , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const;
 
             SceneR::Graphics::VertexElementFormat get_vertex_element_format(const SceneR::Graphics::AttributeType& type) const;

@@ -32,8 +32,8 @@ namespace SceneR
             /**
              * Reads the accessors contents.
              */
-            std::shared_ptr<SceneR::Graphics::Accessor> read(const std::pair<std::string, json11::Json>& source
-                                                           , ContentReaderContext&                       context);
+            std::shared_ptr<SceneR::Graphics::Accessor> read(ContentReader*                              input
+                                                           , const std::pair<std::string, json11::Json>& source);
         };
     }
 }

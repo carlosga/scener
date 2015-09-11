@@ -4,6 +4,9 @@
 #include <Content/Readers/SamplerReader.hpp>
 
 #include <Content/json11.hpp>
+#include <Content/ContentManager.hpp>
+#include <Content/ContentReader.hpp>
+#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
 #include <System/Text/Encoding.hpp>
@@ -13,6 +16,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
+        using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::SamplerState;
         using SceneR::Graphics::TextureAddressMode;
         using SceneR::Graphics::TextureFilter;
@@ -26,10 +30,11 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<SamplerState> ContentTypeReader<SamplerState>::read(const std::pair<std::string, Json>& source
-                                                                          , ContentReaderContext&               context)
+        std::shared_ptr<SamplerState> ContentTypeReader<SamplerState>::read(ContentReader*                      input
+                                                                          , const std::pair<std::string, Json>& source)
         {
-            auto sampler = std::make_shared<SamplerState>(context.graphics_device);
+            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+            auto  sampler   = std::make_shared<SamplerState>(gdService.graphics_device());
 
             sampler->name       = Encoding::convert(source.first);
             sampler->mag_filter = static_cast<TextureFilter>(source.second["magFilter"].int_value());

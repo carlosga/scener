@@ -32,12 +32,12 @@ namespace SceneR
             ~ContentTypeReader();
 
         public:
-            std::shared_ptr<SceneR::Graphics::Node> read(const std::pair<std::string, json11::Json>& source
-                                                       , ContentReaderContext&                       context);
+            std::shared_ptr<SceneR::Graphics::Node> read(ContentReader*                              input
+                                                       , const std::pair<std::string, json11::Json>& source);
 
         private:
-            std::shared_ptr<SceneR::Graphics::InstanceSkin> read_instance_skin(const json11::Json&   source
-                                                                             , ContentReaderContext& context);
+            std::shared_ptr<SceneR::Graphics::InstanceSkin> read_instance_skin(ContentReader*        input
+                                                                             , const json11::Json&   source);
         };
     }
 }

@@ -6,6 +6,7 @@
 #include <algorithm>
 
 #include <Content/json11.hpp>
+#include <Content/ContentReader.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
@@ -30,8 +31,8 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(const std::pair<std::string, Json>& source
-                                                                  , ContentReaderContext&               context)
+        std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(ContentReader*                      input
+                                                                  , const std::pair<std::string, Json>& source)
         {
             auto accessor = std::make_shared<Accessor>();
             auto attType  = source.second["type"].string_value();
@@ -66,7 +67,7 @@ namespace SceneR
             }
 
             accessor->_name            = Encoding::convert(source.first);
-            accessor->_buffer_view     = context.find_object<BufferView>(source.second["bufferView"].string_value());
+            accessor->_buffer_view     = input->find_object<BufferView>(source.second["bufferView"].string_value());
             accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
             accessor->_byte_offset     = source.second["byteOffset"].int_value();
             accessor->_byte_stride     = source.second["byteStride"].int_value();

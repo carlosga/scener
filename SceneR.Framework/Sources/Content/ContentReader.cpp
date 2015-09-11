@@ -5,12 +5,9 @@
 
 #include <cassert>
 
-#include <Content/json11.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
-#include <Content/TypeReaders.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/Model.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
@@ -46,65 +43,40 @@ namespace SceneR
             return _asset_name;
         }
 
+        ContentManager* ContentReader::content_manager() const
+        {
+            return _content_manager;
+        }
+
         std::shared_ptr<Model> ContentReader::read_asset()
         {
-            auto& gdService = _content_manager->service_provider().get_service<IGraphicsDeviceService>();
-            auto  context   = ContentReaderContext(gdService.graphics_device());
-            auto  buffer    = _asset_reader.read_bytes(_asset_reader.base_stream().length());
-            auto  errors    = std::string();
-            auto  json      = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
-            auto  model     = std::make_shared<Model>();
+            auto broot  = _asset_reader.read_bytes(_asset_reader.base_stream().length());
+            auto errors = std::string();
+            auto model  = std::make_shared<Model>();
+
+            _root = json11::Json::parse(reinterpret_cast<char*>(broot.data()), errors);
 
             assert(errors.empty());
 
-            context.content_reader = this;
-            context.root           = json;
-
             // Buffers
-            for (const auto& buffer : json["buffers"].object_items())
+            for (const auto& buffer : _root["buffers"].object_items())
             {
-                context.buffers.push_back(read_object<SceneR::Graphics::Buffer>(buffer, context));
+                _buffers.push_back(read_object<SceneR::Graphics::Buffer>(buffer));
             }
             // Buffer Views
-            for (const auto& bufferView : json["bufferViews"].object_items())
+            for (const auto& bufferView : _root["bufferViews"].object_items())
             {
-                context.buffer_views.push_back(read_object<SceneR::Graphics::BufferView>(bufferView, context));
+                _buffer_views.push_back(read_object<SceneR::Graphics::BufferView>(bufferView));
             }
             // Accessors
-            for (const auto& accessor : json["accessors"].object_items())
+            for (const auto& accessor : _root["accessors"].object_items())
             {
-                context.accessors.push_back(read_object<SceneR::Graphics::Accessor>(accessor, context));
+                _accessors.push_back(read_object<SceneR::Graphics::Accessor>(accessor));
             }
             // Meshes
-            for (const auto& mesh : json["meshes"].object_items())
+            for (const auto& mesh : _root["meshes"].object_items())
             {
-                context.meshes.push_back(read_object<SceneR::Graphics::ModelMesh>(mesh, context));
-            }
-            // Images
-            for (const auto& image : json["images"].object_items())
-            {
-                auto uri  = Encoding::convert(image.second["uri"].string_value());
-                context.images[image.first] = read_external_reference(uri);
-            }
-            // Textures
-            for (const auto& texture : json["textures"].object_items())
-            {
-                context.textures.push_back(read_object<SceneR::Graphics::Texture2D>(texture, context));
-            }
-            // Shaders
-            for (const auto& shader : json["shaders"].object_items())
-            {
-                context.shaders.push_back(read_object<SceneR::Graphics::Shader>(shader, context));
-            }
-            // Programs
-            for (const auto& program : json["programs"].object_items())
-            {
-                context.programs.push_back(read_object<SceneR::Graphics::Program>(program, context));
-            }
-            // Samplers
-            for (const auto& sampler : json["samplers"].object_items())
-            {
-                context.samplers.push_back(read_object<SceneR::Graphics::SamplerState>(sampler, context));
+                _meshes.push_back(read_object<SceneR::Graphics::ModelMesh>(mesh));
             }
 
             // read_object("buffers"    , json, context);
@@ -132,13 +104,10 @@ namespace SceneR
             return true;
         }
 
-//        template<typename T>
-//        std::shared_ptr<T> ContentReader::read_object(const std::pair<std::string, json11::Json>& source
-//                                                    , ContentReaderContext&                       context)
-//        {
-//            ContentTypeReader<T> reader;
-//            return reader.read(source, context);
-//        }
+        std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const
+        {
+            return read_external_reference(Encoding::convert(assetName));
+        }
 
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {

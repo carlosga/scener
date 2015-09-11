@@ -6,6 +6,8 @@
 #include <iostream>
 
 #include <Content/json11.hpp>
+#include <Content/ContentReader.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
@@ -14,6 +16,7 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Graphics::EffectMaterial;
+        using SceneR::Graphics::EffectTechnique;
         using System::Text::Encoding;
 
         ContentTypeReader<EffectMaterial>::ContentTypeReader()
@@ -24,13 +27,16 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<EffectMaterial> ContentTypeReader<EffectMaterial>::read(const std::pair<std::string, Json>& source
-                                                                              , ContentReaderContext&               context)
+        std::shared_ptr<EffectMaterial> ContentTypeReader<EffectMaterial>::read(ContentReader*                      input
+                                                                              , const std::pair<std::string, Json>& source)
         {
             auto effect = std::make_shared<EffectMaterial>();
 
-            const auto& instanceTechnique = source.second["instanceTechnique"];
-            const auto& values            = instanceTechnique["values"].object_items();
+            const auto& itechnique = source.second["instanceTechnique"];
+            const auto& values     = itechnique["values"].object_items();
+            const auto  technique  = itechnique["technique"].string_value();
+
+            effect->_technique = input->read_object<EffectTechnique>("techniques", technique);
 
             for (const auto& value : values)
             {

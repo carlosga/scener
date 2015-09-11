@@ -19,8 +19,8 @@ namespace SceneR
             ~ContentTypeReader();
 
         public:
-            std::shared_ptr<SceneR::Graphics::Texture2D> read(const std::pair<std::string, json11::Json>& source
-                                                            , ContentReaderContext&                       context);
+            std::shared_ptr<SceneR::Graphics::Texture2D> read(ContentReader*                              input
+                                                            , const std::pair<std::string, json11::Json>& source);
         };
     }
 }
