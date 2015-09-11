@@ -17,7 +17,7 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # include directories
-include_directories(Headers)
+include_directories(Headers ../externals/json11)
 
 # PkgConfig
 find_package(PkgConfig REQUIRED)
@@ -39,6 +39,7 @@ link_directories(../../regal/lib/linux/)
 
 # header files
 set(HEADER_FILES
+    ../externals/json11/json11.hpp
     Headers/Content/Readers/AccessorReader.hpp
     Headers/Content/Readers/BufferReader.hpp
     Headers/Content/Readers/BufferViewReader.hpp
@@ -51,7 +52,6 @@ set(HEADER_FILES
     Headers/Content/Readers/ShaderReader.hpp
     Headers/Content/Readers/TechniqueReader.hpp
     Headers/Content/Readers/TextureReader.hpp
-    Headers/Content/json11.hpp
     Headers/Content/ContentResourceManager.hpp
     Headers/Content/ContentLoadException.hpp
     Headers/Content/ContentManager.hpp
@@ -180,6 +180,7 @@ set(HEADER_FILES
 
 # source files
 set(SOURCE_FILES
+    ../externals/json11/json11.cpp
     Sources/Content/Readers/AccessorReader.cpp
     Sources/Content/Readers/BufferReader.cpp
     Sources/Content/Readers/BufferViewReader.cpp
@@ -195,7 +196,6 @@ set(SOURCE_FILES
     Sources/Content/ContentLoadException.cpp
     Sources/Content/ContentManager.cpp
     Sources/Content/ContentReader.cpp
-    Sources/Content/json11.cpp
     Sources/Framework/BoundingBox.cpp
     Sources/Framework/BoundingFrustrum.cpp
     Sources/Framework/BoundingSphere.cpp
@@ -335,11 +335,10 @@ target_link_libraries(SceneR_Framework
                       ${GLFW_LIBRARIES})
 
 # install target
-install(TARGETS SceneR_Framework
-        RUNTIME DESTINATION bin COMPONENT libraries
-        LIBRARY DESTINATION lib COMPONENT libraries
-        ARCHIVE DESTINATION lib/static COMPONENT libraries)
+# install(TARGETS SceneR_Framework
+#         RUNTIME DESTINATION bin COMPONENT libraries
+#         LIBRARY DESTINATION lib COMPONENT libraries
+#         ARCHIVE DESTINATION lib/static COMPONENT libraries)
 
 # install header files
-install(DIRECTORY Headers/ DESTINATION include
-        FILES_MATCHING PATTERN "*.hpp")
+# install(DIRECTORY Headers/ DESTINATION include FILES_MATCHING PATTERN "*.hpp")

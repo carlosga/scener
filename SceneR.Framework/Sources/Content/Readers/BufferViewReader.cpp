@@ -3,7 +3,7 @@
 
 #include <Content/Readers/BufferViewReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>

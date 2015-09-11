@@ -50,7 +50,8 @@ target_link_libraries(SceneR c++abi SceneR_Framework)
 set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
 
 # install executable file
-install(TARGETS SceneR RUNTIME DESTINATION bin)
+# install(TARGETS SceneR RUNTIME DESTINATION bin)
 
 # install content_manager files
-install(DIRECTORY Content/ DESTINATION bin/content_manager)
+# install(DIRECTORY Content/ DESTINATION bin/content_manager)
+

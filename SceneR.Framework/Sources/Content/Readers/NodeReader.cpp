@@ -3,7 +3,7 @@
 
 #include <Content/Readers/NodeReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>

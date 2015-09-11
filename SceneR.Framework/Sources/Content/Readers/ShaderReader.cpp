@@ -3,7 +3,7 @@
 
 #include <Content/Readers/ShaderReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/ShaderType.hpp>
 #include <System/IO/File.hpp>

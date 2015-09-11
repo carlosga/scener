@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentTypeReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>

@@ -3,7 +3,7 @@
 
 #include <Content/Readers/ExternalReferenceReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <System/IO/File.hpp>
 

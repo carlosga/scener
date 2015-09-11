@@ -3,7 +3,7 @@
 
 #include <Content/Readers/ProgramReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/Shader.hpp>
 #include <System/Text/Encoding.hpp>

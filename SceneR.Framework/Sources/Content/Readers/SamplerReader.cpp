@@ -3,7 +3,7 @@
 
 #include <Content/Readers/SamplerReader.hpp>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>

@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-#include <Content/json11.hpp>
+#include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/BufferView.hpp>
 #include <Graphics/AttributeType.hpp>
