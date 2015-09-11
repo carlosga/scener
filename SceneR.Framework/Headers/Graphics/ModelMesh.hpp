@@ -6,9 +6,9 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 #include <Framework/BoundingSphere.hpp>
-#include "EffectTechnique.hpp"
 
 namespace SceneR
 {
@@ -22,6 +22,7 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class EffectMaterial;
         class ModelBone;
         class ModelMeshPart;
 
@@ -57,7 +58,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<std::shared_ptr<EffectTechnique>> effects() const;
+            std::vector<std::shared_ptr<EffectMaterial>> effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.

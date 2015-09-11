@@ -7,6 +7,7 @@
 
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/IndexBuffer.hpp>
+#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 
@@ -152,7 +153,7 @@ namespace SceneR
 
             auto offset = startIndex * index_buffer->element_size_in_bytes();;
 
-            effect->begin();
+            effect->technique()->begin();
             vertex_buffer->activate();
             index_buffer->activate();
 
@@ -164,7 +165,7 @@ namespace SceneR
 
             index_buffer->deactivate();
             vertex_buffer->deactivate();
-            effect->end();
+            effect->technique()->end();
         }
 
         void GraphicsDevice::draw_primitives(const PrimitiveType& primitiveType
@@ -180,7 +181,7 @@ namespace SceneR
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
-            effect->begin();
+            effect->technique()->begin();
             vertex_buffer->activate();
 
             glDrawArrays(static_cast<GLenum>(primitiveType)
@@ -188,7 +189,7 @@ namespace SceneR
                        , static_cast<GLsizei>(primitiveCount));
 
             vertex_buffer->deactivate();
-            effect->end();
+            effect->technique()->end();
         }
 
         void GraphicsDevice::present()

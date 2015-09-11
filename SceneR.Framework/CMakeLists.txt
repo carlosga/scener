@@ -42,6 +42,7 @@ set(HEADER_FILES
     Headers/Content/Readers/AccessorReader.hpp
     Headers/Content/Readers/BufferReader.hpp
     Headers/Content/Readers/BufferViewReader.hpp
+    Headers/Content/Readers/ExternalReferenceReader.hpp
     Headers/Content/Readers/MaterialReader.hpp
     Headers/Content/Readers/MeshReader.hpp
     Headers/Content/Readers/NodeReader.hpp
@@ -175,13 +176,14 @@ set(HEADER_FILES
     Headers/System/Text/Encoding.hpp
     Headers/System/Text/UTF8Decoder.hpp
     Headers/System/Text/UTF8Encoder.hpp
-    Headers/System/Text/UTF8Encoding.hpp Headers/Content/TypeReaders.hpp)
+    Headers/System/Text/UTF8Encoding.hpp)
 
 # source files
 set(SOURCE_FILES
     Sources/Content/Readers/AccessorReader.cpp
     Sources/Content/Readers/BufferReader.cpp
     Sources/Content/Readers/BufferViewReader.cpp
+    Sources/Content/Readers/ExternalReferenceReader.cpp
     Sources/Content/Readers/MaterialReader.cpp
     Sources/Content/Readers/MeshReader.cpp
     Sources/Content/Readers/NodeReader.cpp

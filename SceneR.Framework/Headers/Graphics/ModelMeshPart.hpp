@@ -22,7 +22,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class EffectTechnique;
+        class EffectMaterial;
         class IndexBuffer;
         class VertexBuffer;
 
@@ -80,9 +80,9 @@ namespace SceneR
 
         public:
             /**
-             * Gets or sets the material EffectTechnique for this mesh part.
+             * Gets or sets the material EffectMaterial for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> effect;
+            std::shared_ptr<SceneR::Graphics::EffectMaterial> effect;
 
         private:
             std::unique_ptr<SceneR::Graphics::IndexBuffer>  _index_buffer;

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_SAMPLERSREADER_HPP
-#define CONTENT_READERS_SAMPLERSREADER_HPP
+#ifndef CONTENT_READERS_SAMPLERREADER_HPP
+#define CONTENT_READERS_SAMPLERREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/SamplerState.hpp>
@@ -25,4 +25,4 @@ namespace SceneR
     }
 }
 
-#endif //CONTENT_READERS_SAMPLERSREADER_HPP
+#endif //CONTENT_READERS_SAMPLERREADER_HPP

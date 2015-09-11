@@ -6,6 +6,7 @@
 #include <cassert>
 
 #include <Framework/Matrix.hpp>
+#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -99,19 +100,14 @@ namespace SceneR
 
 //            _CopyAbsoluteBoneTransformsTo(boneTransforms);
 
-            for (const auto& mesh : _meshes)
+            for (const auto mesh : _meshes)
             {
-                for (auto& effect : mesh->effects())
+                for (auto effect : mesh->effects())
                 {
-                    auto mEffect = std::dynamic_pointer_cast<IEffectMatrices>(effect);
-
-                    if (mEffect.get() != nullptr)
-                    {
-                        // mEffect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
-                        mEffect->world(world);
-                        mEffect->view(view);
-                        mEffect->projection(projection);
-                    }
+                    // effect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
+                    effect->technique()->world(world);
+                    effect->technique()->view(view);
+                    effect->technique()->projection(projection);
                 }
 
                 mesh->draw();

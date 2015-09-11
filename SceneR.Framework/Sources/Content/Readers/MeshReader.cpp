@@ -174,7 +174,7 @@ namespace SceneR
             auto materialRef = source["material"].string_value();
             if (!materialRef.empty())
             {
-                auto effect = input->read_object<EffectMaterial>("materials", materialRef);
+                meshPart->effect = input->read_object<EffectMaterial>("materials", materialRef);
             }
 
             mesh->_mesh_parts.push_back(meshPart);

@@ -19,6 +19,11 @@ namespace SceneR
         {
             return _name;
         }
+
+        std::shared_ptr<EffectTechnique> EffectMaterial::technique() const
+        {
+            return _technique;
+        }
     }
 }
 

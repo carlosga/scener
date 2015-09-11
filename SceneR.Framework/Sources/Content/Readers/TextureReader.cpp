@@ -35,13 +35,14 @@ namespace SceneR
                                                                                       , const std::pair<std::string, Json>& source)
         {
             // TODO: Detect width and height, generate mipmaps and set texture data
-            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto  texture   = std::make_shared<Texture2D>(gdService.graphics_device(), 0, 0);
-            auto  image     = input->read_external_reference(source.second["source"].string_value());
+            auto& gdService  = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+            auto  texture    = std::make_shared<Texture2D>(gdService.graphics_device(), 0, 0);
+            auto  imageRef   = source.second["source"].string_value();
+            auto  samplerRef = source.second["sampler"].string_value();
+            auto  image      = input->read_object<std::vector<std::uint8_t>>("images", imageRef);
 
-            // TODO: Read Sampler State reference
-            // texture->name           = Encoding::convert(source.first);
-            // texture->_sampler_state = context.find_object<SamplerState>(source.second["sampler"].string_value());
+            texture->name           = Encoding::convert(source.first);
+            texture->_sampler_state = input->read_object<SamplerState>("samplers", samplerRef);
 
             switch (source.second["type"].int_value())
             {

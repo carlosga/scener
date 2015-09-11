@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_EFFECT_HPP
-#define GRAPHICS_EFFECT_HPP
+#ifndef GRAPHICS_EFFECTTECHNIQUE_HPP
+#define GRAPHICS_EFFECTTECHNIQUE_HPP
 
 #include <cstdint>
 #include <map>
@@ -356,4 +356,4 @@ namespace SceneR
     }
 }
 
-#endif  // GRAPHICS_EFFECT_HPP
+#endif  // GRAPHICS_EFFECTTECHNIQUE_HPP

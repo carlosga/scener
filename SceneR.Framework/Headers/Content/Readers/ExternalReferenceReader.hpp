@@ -1,21 +1,25 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_BUFFERVIEWREADER_HPP
-#define CONTENT_READERS_BUFFERVIEWREADER_HPP
+#ifndef CONTENT_READERS_EXTERNALREFERENCE_HPP
+#define CONTENT_READERS_EXTERNALREFERENCE_HPP
+
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include <Content/ContentTypeReader.hpp>
-#include <Graphics/BufferView.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         /**
-         * Buffer views reader
+         * Image reader
          */
-        template <>
-        class ContentTypeReader<SceneR::Graphics::BufferView>
+        template<>
+        class ContentTypeReader<std::vector<std::uint8_t>>
         {
         public:
             /**
@@ -30,12 +34,12 @@ namespace SceneR
 
         public:
             /**
-             * Reads the buffer views contents.
+             * Reads the meshes contents.
              */
-            std::shared_ptr<SceneR::Graphics::BufferView> read(ContentReader*                              input
-                                                             , const std::pair<std::string, json11::Json>& value);
+            std::shared_ptr<std::vector<std::uint8_t>> read(ContentReader*                              input
+                                                          , const std::pair<std::string, json11::Json>& source);
         };
     }
 }
 
-#endif // CONTENT_READERS_BUFFERVIEWREADER_HPP
+#endif  // CONTENT_READERS_EXTERNALREFERENCE_HPP

@@ -24,7 +24,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class EffectTechnique;
+        class EffectMaterial;
         class IndexBuffer;
         class VertexBuffer;
 
@@ -165,7 +165,7 @@ namespace SceneR
             /**
              * Gets or sets the effect used before drawing.
              */
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> effect;
+            std::shared_ptr<SceneR::Graphics::EffectMaterial> effect;
 
             /**
              * Gets or sets the index buffer.

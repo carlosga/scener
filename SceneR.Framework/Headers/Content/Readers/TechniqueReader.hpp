@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_TECHNIQUESREADER_HPP
-#define CONTENT_READERS_TECHNIQUESREADER_HPP
+#ifndef CONTENT_READERS_TECHNIQUEREADER_HPP
+#define CONTENT_READERS_TECHNIQUEREADER_HPP
 
 #include <memory>
 #include <vector>
@@ -69,4 +69,4 @@ namespace SceneR
     }
 }
 
-#endif //TECHNIQUESREADER_HPP
+#endif //TECHNIQUEREADER_HPP
