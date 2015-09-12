@@ -73,6 +73,16 @@ namespace SceneR
             {
                 _accessors.push_back(read_object<SceneR::Graphics::Accessor>(accessor));
             }
+            // Samplers
+            for (const auto& sampler : _root["samplers"].object_items())
+            {
+                _samplers.push_back(read_object<SceneR::Graphics::SamplerState>(sampler));
+            }
+            // Textures
+            for (const auto& texture : _root["textures"].object_items())
+            {
+                _textures.push_back(read_object<SceneR::Graphics::Texture2D>(texture));
+            }
             // Meshes
             for (const auto& mesh : _root["meshes"].object_items())
             {
@@ -104,6 +114,13 @@ namespace SceneR
             return true;
         }
 
+        std::u16string ContentReader::get_asset_path(const std::u16string& assetName) const
+        {
+            auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
+
+            return Path::combine(_content_manager->root_directory(), assetRoot);
+        }
+
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const
         {
             return read_external_reference(Encoding::convert(assetName));
@@ -111,8 +128,7 @@ namespace SceneR
 
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {
-            auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
-            auto assetPath = Path::combine(_content_manager->root_directory(), assetRoot);
+            auto assetPath = get_asset_path(assetName);
 
             assert(File::exists(assetPath));
 

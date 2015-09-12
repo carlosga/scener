@@ -118,7 +118,7 @@ namespace SceneR
                 }
                 else if (parameter->parameter_class() == EffectParameterClass::Object)
                 {
-                    auto texture = input->read_object<Texture2D>("textures", paramValue.string_value());
+                    auto texture = input->find_object<Texture2D>(paramValue.string_value());
 
                     // TODO: Set parameter value
                     // parameter->set_value<Texture2D>(texture);

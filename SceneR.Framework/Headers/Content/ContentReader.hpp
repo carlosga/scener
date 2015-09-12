@@ -22,6 +22,8 @@
 #include <Graphics/BufferView.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <Graphics/SamplerState.hpp>
+#include <Graphics/Texture2D.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <System/Text/Encoding.hpp>
@@ -107,6 +109,8 @@ namespace SceneR
              */
             std::vector<std::uint8_t> read_external_reference(const std::u16string& assetName) const;
 
+            std::u16string get_asset_path(const std::u16string& assetName) const;
+
             template <typename T>
             inline T convert(const std::vector<json11::Json>& values) const;
 
@@ -119,10 +123,12 @@ namespace SceneR
             SceneR::Content::ContentManager* _content_manager;
             json11::Json                     _root;
 
-            std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>   _accessors;
-            std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>     _buffers;
-            std::vector<std::shared_ptr<SceneR::Graphics::BufferView>> _buffer_views;
-            std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>>  _meshes;
+            std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>     _accessors;
+            std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>       _buffers;
+            std::vector<std::shared_ptr<SceneR::Graphics::BufferView>>   _buffer_views;
+            std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>>    _meshes;
+            std::vector<std::shared_ptr<SceneR::Graphics::SamplerState>> _samplers;
+            std::vector<std::shared_ptr<SceneR::Graphics::Texture2D>>    _textures;
         };
     }
 }
@@ -228,6 +234,34 @@ inline std::shared_ptr<SceneR::Graphics::ModelMesh> SceneR::Content::ContentRead
         });
 
     return ((it != _meshes.end()) ? *it : nullptr);
+}
+
+template <>
+inline std::shared_ptr<SceneR::Graphics::SamplerState> SceneR::Content::ContentReader::find_object(const std::string& name) const
+{
+    auto oname = System::Text::Encoding::convert(name);
+    auto it = find_if(_samplers.begin()
+                    , _samplers.end()
+                    , [&](std::shared_ptr<SceneR::Graphics::SamplerState> sampler) -> bool
+        {
+            return (sampler->name == oname);
+        });
+
+    return ((it != _samplers.end()) ? *it : nullptr);
+}
+
+template <>
+inline std::shared_ptr<SceneR::Graphics::Texture2D> SceneR::Content::ContentReader::find_object(const std::string& name) const
+{
+    auto oname = System::Text::Encoding::convert(name);
+    auto it = find_if(_textures.begin()
+                    , _textures.end()
+                    , [&](std::shared_ptr<SceneR::Graphics::Texture2D> texture) -> bool
+        {
+            return (texture->name == oname);
+        });
+
+    return ((it != _textures.end()) ? *it : nullptr);
 }
 
 #endif  // CONTENT_CONTENTREADER_HPP

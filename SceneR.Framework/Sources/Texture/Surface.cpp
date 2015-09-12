@@ -1,0 +1,132 @@
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+#include <Texture/Surface.hpp>
+
+#include <cassert>
+
+#include <System/Math.hpp>
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/File.hpp>
+#include <System/IO/FileStream.hpp>
+#include <Texture/Dds.hpp>
+
+namespace SceneR
+{
+    namespace Texture
+    {
+        using namespace SceneR::DDS;
+        using SceneR::Graphics::SurfaceFormat;
+        using System::Math;
+        using System::IO::BinaryReader;
+        using System::IO::FileStream;
+        using System::Text::Encoding;
+
+        Surface::Surface()
+        {
+        }
+
+        Surface::~Surface()
+        {
+        }
+
+        void Surface::load(const std::u16string& filename)
+        {
+            assert(System::IO::File::exists(filename));
+
+            FileStream   stream (filename);
+            BinaryReader reader (stream);
+            std::size_t  blockSize = 16;
+            DDS_HEADER   ddsheader;
+
+            assert(stream.length() >= 128);
+
+            auto rawHeader = reader.read_bytes(128);
+
+            std::copy_n(rawHeader.begin(), 128, ddsheader.data);
+
+            // ensure contents are in DDS format
+            assert(ddsheader.dwMagic == 0x20534444);
+
+            // ensure required flags are meet
+            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_CAPS)        == DDS_HEADER_FLAGS::DDSD_CAPS);
+            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_HEIGHT)      == DDS_HEADER_FLAGS::DDSD_HEIGHT);
+            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_WIDTH)       == DDS_HEADER_FLAGS::DDSD_WIDTH);
+            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_PIXELFORMAT) == DDS_HEADER_FLAGS::DDSD_PIXELFORMAT);
+
+            if (ddsheader.dwMipMapCount > 0)
+            {
+                assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT) == DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT);
+                assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE) == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
+            }
+
+            // ensure pixel format size is correct
+            assert(ddsheader.ddspf.dwSize == 32);
+
+            // ensure the texture is in compressed format
+            assert((ddsheader.ddspf.dwFlags & DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC) == DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC);
+
+            // check DXTn format
+            assert(ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1
+                || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3
+                || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5);
+
+            // process dds contents
+            _height = ddsheader.dwHeight;
+            _width  = ddsheader.dwWidth;
+
+            if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1)
+            {
+                _format   = SurfaceFormat::Dxt1;
+                blockSize = 8;
+            }
+            else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3)
+            {
+                _format = SurfaceFormat::Dxt3;
+            }
+            else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5)
+            {
+                _format = SurfaceFormat::Dxt5;
+            }
+
+            auto mipmapWidth  = _width;
+            auto mipmapHeight = _height;
+
+            for (std::size_t level = 0; level < ddsheader.dwMipMapCount; level++)
+            {
+                SurfaceMipmap mipmap;
+                std::size_t   size = Math::max(4, mipmapWidth) / 4 * Math::max(4, mipmapHeight) / 4 * blockSize;
+
+                mipmap._index  = level;
+                mipmap._width  = mipmapWidth;
+                mipmap._height = mipmapHeight;
+                mipmap._data   = reader.read_bytes(size);
+
+                _mipmaps.push_back(mipmap);
+
+                mipmapWidth  = Math::max(1, mipmapWidth  >>= 1);
+                mipmapHeight = Math::max(1, mipmapHeight >>= 1);
+            }
+        }
+
+        const SceneR::Graphics::SurfaceFormat& Surface::format() const
+        {
+            return _format;
+        }
+
+        Surface::size_type Surface::width() const
+        {
+            return _width;
+        }
+
+        Surface::size_type Surface::height() const
+        {
+            return _height;
+        }
+
+        const std::vector<SurfaceMipmap>& Surface::mipmaps() const
+        {
+            return _mipmaps;
+        }
+    }
+}

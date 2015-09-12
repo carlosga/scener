@@ -4,7 +4,7 @@
 #include <SampleRenderer.hpp>
 
 #include <Camera.hpp>
-#include <Marcus.hpp>
+#include <EarthShaker.hpp>
 
 namespace SceneR
 {
@@ -25,7 +25,7 @@ namespace SceneR
             _graphics_device_manager.window_title                 = u"SceneR";
 
             this->components().push_back(std::make_shared<Camera>(*this));
-            this->components().push_back(std::make_shared<Marcus>(*this));
+            this->components().push_back(std::make_shared<EarthShaker>(*this));
 
             Renderer::begin_run();
         }

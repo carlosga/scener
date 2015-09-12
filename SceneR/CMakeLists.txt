@@ -4,8 +4,6 @@ enable_language(CXX)
 
 # set(CMAKE_VERBOSE_MAKEFILE on)
 
-set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
-
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall")
 
@@ -26,14 +24,23 @@ link_directories(../../regal/lib/linux/
 # header files
 set(HEADER_FILES
     Headers/Camera.hpp
-    Headers/Marcus.hpp
+        Headers/EarthShaker.hpp
     Headers/SampleRenderer.hpp)
 
 # source files
 set(SOURCE_FILES
     Sources/Camera.cpp
-    Sources/Marcus.cpp
+        Sources/EarthShaker.cpp
     Sources/SampleRenderer.cpp)
+
+add_custom_target(CONTENT_FILES SOURCES
+                 Content/earthshaker/earthshaker.gltf
+                 Content/earthshaker/earthshaker0FS.glsl
+                 Content/earthshaker/earthshaker0VS.glsl
+                 Content/earthshaker/earthshaker1FS.glsl
+                 Content/earthshaker/earthshaker1VS.glsl
+                 Content/earthshaker/earthshaker2FS.glsl
+                 Content/earthshaker/earthshaker2VS.glsl)
 
 # add execlutable
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
@@ -48,10 +55,3 @@ target_link_libraries(SceneR c++abi SceneR_Framework)
 
 # enable 64 bit build
 set_target_properties(SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
-
-# install executable file
-# install(TARGETS SceneR RUNTIME DESTINATION bin)
-
-# install content_manager files
-# install(DIRECTORY Content/ DESTINATION bin/content_manager)
-

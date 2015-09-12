@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Marcus.hpp>
+#include "EarthShaker.hpp"
 
 #include <Camera.hpp>
 #include <SampleRenderer.hpp>
@@ -22,14 +22,14 @@ namespace SceneR
         using SceneR::Graphics::SkinnedEffect;
         using System::Math;
 
-        Marcus::Marcus(SampleRenderer& renderer)
+        EarthShaker::EarthShaker(SampleRenderer& renderer)
             : DrawableComponent { renderer }
             , _model            { nullptr }
             , _world            { Matrix::identity }
         {
         }
 
-        void Marcus::initialize()
+        void EarthShaker::initialize()
         {
             _world = Matrix::create_rotation_x(-Math::pi_over_2)
                    * Matrix::create_translation({ 0.0f, -40.0f, 0.0f })
@@ -38,9 +38,9 @@ namespace SceneR
             DrawableComponent::initialize();
         }
 
-        void Marcus::load_content()
+        void EarthShaker::load_content()
         {
-            _model = _renderer.content_manager().load_model(u"marcus/marcus");
+            _model = _renderer.content_manager().load_model(u"earthshaker/earthshaker");
 //
 //            for (const auto& mesh : this->model->Meshes())
 //            {
@@ -61,18 +61,18 @@ namespace SceneR
 //            this->animatedModel->PlayFirstClip();
         }
 
-        void Marcus::unload_content()
+        void EarthShaker::unload_content()
         {
             _world = Matrix::identity;
             _model = nullptr;
         }
 
-        void Marcus::update(const RenderTime& renderTime)
+        void EarthShaker::update(const RenderTime& renderTime)
         {
             // this->model->update(renderTime);
         }
 
-        void Marcus::draw(const RenderTime& renderTime)
+        void EarthShaker::draw(const RenderTime& renderTime)
         {
             const auto camera = std::dynamic_pointer_cast<Camera>(_renderer.components()[0]);
 

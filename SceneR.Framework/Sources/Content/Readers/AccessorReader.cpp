@@ -7,7 +7,6 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <Graphics/BufferView.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
 #include <System/Text/Encoding.hpp>

@@ -2,11 +2,8 @@ cmake_minimum_required(VERSION 3.2.2)
 project(SceneR_Framework)
 enable_language(CXX)
 
-set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/installed" CACHE PATH "default install path" FORCE)
-
 # enable c++11 & clang standard library
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++14 -stdlib=libc++ -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
-
 # -Weverything -Wno-reserved-id-macro -Wno-shadow -Wno-c++98-compat -Wno-padded -Wno-unused-parameter -Wno-nested-anon-types -Wno-gnu-anonymous-struct
 
 # Reconfigure final output directory
@@ -44,6 +41,7 @@ set(HEADER_FILES
     Headers/Content/Readers/BufferReader.hpp
     Headers/Content/Readers/BufferViewReader.hpp
     Headers/Content/Readers/ExternalReferenceReader.hpp
+    Headers/Content/Readers/ImageReader.hpp
     Headers/Content/Readers/MaterialReader.hpp
     Headers/Content/Readers/MeshReader.hpp
     Headers/Content/Readers/NodeReader.hpp
@@ -176,7 +174,15 @@ set(HEADER_FILES
     Headers/System/Text/Encoding.hpp
     Headers/System/Text/UTF8Decoder.hpp
     Headers/System/Text/UTF8Encoder.hpp
-    Headers/System/Text/UTF8Encoding.hpp)
+    Headers/System/Text/UTF8Encoding.hpp
+    Headers/Texture/DdsHeaderFlags.hpp
+    Headers/Texture/DdsPixelFormatFlags.hpp
+    Headers/Texture/DdsPixelFormat.hpp
+    Headers/Texture/DdsCaps.hpp
+    Headers/Texture/DdsCaps2.hpp
+    Headers/Texture/Dds.hpp
+    Headers/Texture/Surface.hpp
+    Headers/Texture/SurfaceMipmap.hpp Headers/Texture/DdsFourCC.hpp)
 
 # source files
 set(SOURCE_FILES
@@ -185,6 +191,7 @@ set(SOURCE_FILES
     Sources/Content/Readers/BufferReader.cpp
     Sources/Content/Readers/BufferViewReader.cpp
     Sources/Content/Readers/ExternalReferenceReader.cpp
+    Sources/Content/Readers/ImageReader.cpp
     Sources/Content/Readers/MaterialReader.cpp
     Sources/Content/Readers/MeshReader.cpp
     Sources/Content/Readers/NodeReader.cpp
@@ -278,10 +285,9 @@ set(SOURCE_FILES
     Sources/System/Text/Encoding.cpp
     Sources/System/Text/UTF8Decoder.cpp
     Sources/System/Text/UTF8Encoder.cpp
-    Sources/System/Text/UTF8Encoding.cpp)
-
-#set_source_files_properties(Headers/Graphics/Resources.hpp PROPERTIES GENERATED TRUE)
-#set_source_files_properties(Sources/Graphics/Resources.cpp PROPERTIES GENERATED TRUE)
+    Sources/System/Text/UTF8Encoding.cpp
+    Sources/Texture/Surface.cpp
+    Sources/Texture/SurfaceMipmap.cpp)
 
 # resource script file
 set(GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
@@ -290,7 +296,7 @@ set(GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cma
 add_custom_target(SCRIPT_FILES SOURCES ${GENERATE_RESOURCES_SCRIPT})
 
 # add content_manager files
-add_custom_target(CONTENT_FILES SOURCES
+add_custom_target(RESOURCE_FILES SOURCES
                   Resources/BasicEffect.frag
                   Resources/BasicEffect.glsl
                   Resources/BasicEffect.vert
@@ -301,19 +307,8 @@ add_custom_target(CONTENT_FILES SOURCES
                   Resources/SkinnedEffect.frag
                   Resources/Structures.glsl)
 
-# generate resource sources files before build
-#add_custom_target(RESOURCES_GENERATION
-#                  COMMAND ${CMAKE_COMMAND}
-#                       -D ROOT_DIRECTORY=${CMAKE_CURRENT_SOURCE_DIR}
-#                       -P ${GENERATE_RESOURCES_SCRIPT}
-#                  DEPENDS CONTENT_FILES
-#                  COMMENT "generating resource files")
-
 # library output
 add_library(SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
-
-# target dependencies
-#add_dependencies(SceneR_Framework RESOURCES_GENERATION)
 
 # enable 64 bit build
 set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
@@ -333,12 +328,3 @@ target_link_libraries(SceneR_Framework
                       #${GLEW_LIBRARIES}
                       Regal
                       ${GLFW_LIBRARIES})
-
-# install target
-# install(TARGETS SceneR_Framework
-#         RUNTIME DESTINATION bin COMPONENT libraries
-#         LIBRARY DESTINATION lib COMPONENT libraries
-#         ARCHIVE DESTINATION lib/static COMPONENT libraries)
-
-# install header files
-# install(DIRECTORY Headers/ DESTINATION include FILES_MATCHING PATTERN "*.hpp")

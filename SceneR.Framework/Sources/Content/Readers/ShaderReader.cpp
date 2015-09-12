@@ -6,7 +6,6 @@
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/ShaderType.hpp>
-#include <System/IO/File.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
@@ -16,7 +15,6 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Shader;
         using SceneR::Graphics::ShaderType;
-        using System::IO::File;
         using System::Text::Encoding;
 
         ContentTypeReader<Shader>::ContentTypeReader()

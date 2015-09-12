@@ -10,6 +10,8 @@
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <Texture/Surface.hpp>
+#include <Texture/SurfaceMipmap.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
@@ -21,6 +23,8 @@ namespace SceneR
         using SceneR::Graphics::SamplerState;
         using SceneR::Graphics::SurfaceFormat;
         using SceneR::Graphics::Texture2D;
+        using SceneR::Texture::Surface;
+        using SceneR::Texture::SurfaceMipmap;
         using System::Text::Encoding;
 
         ContentTypeReader<Texture2D>::ContentTypeReader()
@@ -31,36 +35,26 @@ namespace SceneR
         {
         }
 
-        std::shared_ptr<SceneR::Graphics::Texture2D> ContentTypeReader<Texture2D>::read(ContentReader*                      input
-                                                                                      , const std::pair<std::string, Json>& source)
+        std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(ContentReader*                      input
+                                                                    , const std::pair<std::string, Json>& source)
         {
-            // TODO: Detect width and height, generate mipmaps and set texture data
-            auto& gdService  = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto  texture    = std::make_shared<Texture2D>(gdService.graphics_device(), 0, 0);
-            auto  imageRef   = source.second["source"].string_value();
-            auto  samplerRef = source.second["sampler"].string_value();
-            auto  image      = input->read_object<std::vector<std::uint8_t>>("images", imageRef);
+            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+            auto  surface   = input->read_object<Surface>("images", source.second["source"].string_value());
+            auto  texture   = std::make_shared<Texture2D>(gdService.graphics_device()
+                                                        , surface->width()
+                                                        , surface->height()
+                                                        , surface->mipmaps().size()
+                                                        , surface->format());
+
+            texture->declare_storage(surface->mipmaps().size());
 
             texture->name           = Encoding::convert(source.first);
-            texture->_sampler_state = input->read_object<SamplerState>("samplers", samplerRef);
+            texture->_sampler_state = input->find_object<SamplerState>(source.second["sampler"].string_value());
 
-            switch (source.second["type"].int_value())
+            for (const auto& mipmap : surface->mipmaps())
             {
-            case 5121:  // (UNSIGNED_BYTE)
-                texture->_format = SurfaceFormat::Color;
-                break;
-            case 33635: // (UNSIGNED_SHORT_5_6_5)
-                texture->_format = SurfaceFormat::Bgr565;
-                break;
-            case 32819: // (UNSIGNED_SHORT_4_4_4_4)
-                texture->_format = SurfaceFormat::Bgra4444;
-                break;
-            case 32820: // (UNSIGNED_SHORT_5_5_5_1)
-                texture->_format = SurfaceFormat::Bgra5551;
-                break;
+                texture->set_data(mipmap.index(), mipmap.data().size(), mipmap.data().data());
             }
-
-            // texture->set_data(image);
 
             return texture;
         }

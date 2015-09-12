@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef MARCUS_HPP
-#define MARCUS_HPP
+#ifndef EARTHSHAKER_HPP
+#define EARTHSHAKER_HPP
 
 #include <memory>
 
@@ -28,11 +28,11 @@ namespace SceneR
     {
         class SampleRenderer;
 
-        class Marcus : public SceneR::Framework::DrawableComponent
+        class EarthShaker : public SceneR::Framework::DrawableComponent
         {
         public:
-            Marcus(SampleRenderer& renderer);
-            ~Marcus() = default;
+            EarthShaker(SampleRenderer& renderer);
+            ~EarthShaker() = default;
 
         public:
             void initialize() override;
@@ -50,4 +50,4 @@ namespace SceneR
     }
 }
 
-#endif /* MARCUS_HPP */
+#endif // EARTHSHAKER_HPP

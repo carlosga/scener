@@ -36,4 +36,4 @@ namespace SceneR
     }
 }
 
-#endif /* CAMERA_HPP */
+#endif  // CAMERA_HPP

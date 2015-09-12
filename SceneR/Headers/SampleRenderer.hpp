@@ -30,4 +30,4 @@ namespace SceneR
     }
 }
 
-#endif /* SAMPLERENDERER_HPP */
+#endif  // SAMPLERENDERER_HPP
