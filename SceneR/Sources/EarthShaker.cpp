@@ -33,26 +33,20 @@ namespace SceneR
 
         void EarthShaker::initialize()
         {
-            _world = Matrix::create_rotation_x(-Math::pi_over_2)
-                   * Matrix::create_translation({ 0.0f, 0.0f, 0.0f })
-                   * Matrix::create_scale(2.0f);
+            _world = Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
 
             DrawableComponent::initialize();
         }
 
         void EarthShaker::load_content()
         {
-            // _model = _renderer.content_manager().load_model(u"cube/cube");
             _model = _renderer.content_manager().load_model(u"earthshaker/earthshaker");
 
             for (auto mesh : _model->meshes())
             {
                 for (auto effect : mesh->effects())
                 {
-                    // effect->technique()->enable_default_lighting();
-                    // effect->technique()->SpecularColor({ 0.15f, 0.15f, 0.15f });
-                    // effect->technique()->PreferPerPixelLighting(true);
-                    effect->technique()->texture_enabled(false);
+                    effect->technique()->texture_enabled(true);
                 }
             }
 //

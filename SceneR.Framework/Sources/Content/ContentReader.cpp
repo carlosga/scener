@@ -92,23 +92,6 @@ namespace SceneR
                 model->_meshes.push_back(meshInstance);
             }
 
-            // read_object("buffers"    , json, context);
-            // read_object("bufferViews", json, context);
-            // read_object("accessors"  , json, context);
-            // read_object("meshes"     , json, context);
-            // read_object("lights"     , json, context);
-            // read_object("cameras"    , json, context);
-            // read_object("nodes"      , json, context);
-            // read_object("images"     , json, context);
-            // read_object("textures"   , json, context);
-            // read_object("shaders"    , json, context);
-            // read_object("programs"   , json, context);
-            // read_object("samplers"   , json, context);
-            // read_object("techniques" , json, context);
-            // read_object("materials"  , json, context);
-            // read_object("animations" , json, context);
-            // read_object("skins"      , json, context);
-
             return model;
         }
 

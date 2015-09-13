@@ -15,7 +15,7 @@ namespace SceneR
             , alpha_blend_function    { BlendFunction::Add }
             , alpha_destination_blend { Blend::Zero }
             , alpha_source_blend      { Blend::One }
-            , blend_factor            { Color::white }
+            , blend_factor            { Color::black }
             , color_blend_function    { BlendFunction::Add }
             , color_destination_blend { Blend::Zero }
             , color_source_blend      { Blend::One }

@@ -57,8 +57,6 @@ namespace SceneR
 
         void RasterizerState::apply() const
         {
-             glDisable(GL_DITHER);
-
             // Specify whether front- or back-facing facets can be culled
             if (cull_mode == CullMode::None)
             {
@@ -72,11 +70,12 @@ namespace SceneR
                 switch (cull_mode)
                 {
                     case SceneR::Graphics::CullMode::CullClockwiseFace:
-                        glCullFace(GL_BACK);
+                        glCullFace(GL_FRONT);
+
                         break;
 
                     case SceneR::Graphics::CullMode::CullCounterClockwiseFace:
-                        glCullFace(GL_FRONT);
+                        glCullFace(GL_BACK);
                         break;
 
                     default:

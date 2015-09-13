@@ -16,7 +16,7 @@ namespace SceneR
             , counter_clockwise_stencil_function          { CompareFunction::Always }
             , counter_clockwise_stencil_pass              { StencilOperation::Keep }
             , depth_buffer_enable                         { true }
-            , depth_buffer_function                       { CompareFunction::LessEqual }
+            , depth_buffer_function                       { CompareFunction::Less }
             , depth_buffer_write_enable                   { true }
             , reference_stencil                           { 0 }
             , stencil_depth_buffer_fail                   { StencilOperation::Keep }
@@ -98,6 +98,7 @@ namespace SceneR
 
             glDepthMask(depth_buffer_write_enable);
             glDepthFunc(static_cast<GLenum>(depth_buffer_function));
+            glDepthRange(0.0f, 1.0f);
 
             if (stencil_enable)
             {
@@ -112,10 +113,7 @@ namespace SceneR
 
             if (two_sided_stencil_mode)
             {
-                glStencilFuncSeparate(GL_FRONT
-                                    , static_cast<GLenum>(stencil_function)
-                                    , reference_stencil
-                                    , stencil_mask);
+                glStencilFuncSeparate(GL_FRONT, static_cast<GLenum>(stencil_function), reference_stencil, stencil_mask);
 
                 glStencilFuncSeparate(GL_BACK
                                     , static_cast<GLenum>(counter_clockwise_stencil_function)
@@ -134,9 +132,7 @@ namespace SceneR
             }
             else
             {
-                glStencilFunc(static_cast<GLenum>(stencil_function)
-                            , reference_stencil
-                            , stencil_mask);
+                glStencilFunc(static_cast<GLenum>(stencil_function), reference_stencil, stencil_mask);
 
                 glStencilOp(static_cast<GLenum>(stencil_fail)
                           , static_cast<GLenum>(stencil_depth_buffer_fail)

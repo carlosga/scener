@@ -34,11 +34,11 @@ namespace SceneR
         {
             auto aspect = _renderer.graphics_device().viewport().aspect_ratio();
 
-            _position          = { 0.0f, 0.0f, 100.0f };
+            _position          = { 0.0f, 0.0f, 500.0f };
             _rotation          = 0.0f;
             _rotationTransform = Matrix::identity;
 
-            projection = Matrix::create_perspective_field_of_view(Math::to_radians(27), aspect, 0.1f, 100.0f);
+            projection = Matrix::create_perspective_field_of_view(Math::to_radians(27), aspect, 0.1f, 1000.0f);
             view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
         }
 

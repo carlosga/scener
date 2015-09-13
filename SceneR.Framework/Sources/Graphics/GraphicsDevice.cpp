@@ -163,11 +163,6 @@ namespace SceneR
                                    , reinterpret_cast<void*>(offset)
                                    , static_cast<GLint>(baseVertex));
 
-//            glDrawElements(static_cast<GLenum>(primitiveType)
-//                         , static_cast<GLsizei>(get_element_count(primitiveType, primitiveCount))
-//                         , static_cast<GLenum>(index_buffer->index_element_type())
-//                         , reinterpret_cast<void*>(offset));
-
             index_buffer->deactivate();
             vertex_buffer->deactivate();
             effect->technique()->end();
