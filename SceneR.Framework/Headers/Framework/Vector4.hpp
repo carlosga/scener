@@ -6,15 +6,14 @@
 
 #include <cstddef>
 
-#include <Framework/Vector2.hpp>
-#include <Framework/Vector3.hpp>
-
 namespace SceneR
 {
     namespace Framework
     {
         struct Matrix;
         struct Quaternion;
+        struct Vector2;
+        struct Vector3;
 
         /**
          * Represents an x-, y-, z- and w-coordinate vector.
@@ -335,8 +334,6 @@ namespace SceneR
                     float z;
                     float w;
                 };
-                Vector2 xy;
-                Vector3 xyz;
             };
         };
 

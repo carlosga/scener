@@ -86,7 +86,10 @@ namespace SceneR
             // Meshes
             for (const auto& mesh : _root["meshes"].object_items())
             {
-                _meshes.push_back(read_object<SceneR::Graphics::ModelMesh>(mesh));
+                auto meshInstance = read_object<SceneR::Graphics::ModelMesh>(mesh);
+
+                _meshes.push_back(meshInstance);
+                model->_meshes.push_back(meshInstance);
             }
 
             // read_object("buffers"    , json, context);

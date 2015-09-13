@@ -34,6 +34,10 @@ set(SOURCE_FILES
     Sources/SampleRenderer.cpp)
 
 add_custom_target(CONTENT_FILES SOURCES
+                 Content/cube/cube.bin
+                 Content/cube/cube.gltf
+                 Content/cube/cube0FS.glsl
+                 Content/cube/cube0VS.glsl
                  Content/earthshaker/earthshaker.gltf
                  Content/earthshaker/earthshaker0FS.glsl
                  Content/earthshaker/earthshaker0VS.glsl

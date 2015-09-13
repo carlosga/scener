@@ -8,6 +8,8 @@
 #include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
 
 namespace SceneR
 {

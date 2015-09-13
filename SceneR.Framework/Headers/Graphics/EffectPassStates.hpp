@@ -25,7 +25,7 @@ namespace SceneR
             ~EffectPassStates() = default;
 
         public:
-            RenderingStateType enabled;
+            RenderingStateType enabled = RenderingStateType::None;
 
             friend class SceneR::Content::TechniqueReader;
         };

@@ -3,8 +3,6 @@
 
 #include <Content/Readers/TechniqueReader.hpp>
 
-#include <iostream>
-
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
@@ -76,12 +74,27 @@ namespace SceneR
         {
             for (const auto& source : value.object_items())
             {
+                auto semantic = Encoding::convert(source.second["semantic"].string_value());
+
+                if (semantic == u"POSITION"
+                 || semantic == u"NORMAL"
+                 || semantic == u"COLOR"
+                 || semantic == u"TEXCOORD_0"
+                 || semantic == u"TEXBINORMAL"
+                 || semantic == u"TEXTANGENT"
+                 || semantic == u"JOINT"
+                 || semantic == u"WEIGHT")
+                {
+                    // Vertex Buffer
+                    continue;
+                }
+
                 auto parameter = std::make_shared<EffectParameter>();
                 auto type      = source.second["type"].int_value();
 
                 parameter->_name     = Encoding::convert(source.first);
                 parameter->_count    = source.second["count"].int_value();
-                parameter->_semantic = Encoding::convert(source.second["semantic"].string_value());
+                parameter->_semantic = semantic;
                 parameter->_node     = Encoding::convert(source.second["node"].string_value());
 
                 describe_technique_parameter(parameter, type);
@@ -96,18 +109,20 @@ namespace SceneR
         {
             for (const auto& source : value.object_items())
             {
-                auto        parameter  = effect->_parameters[source.first];
                 auto        nodeId     = source.second["node"].string_value();
                 const auto& paramValue = source.second["value"];
+                auto        parameter  = effect->_parameters[source.first];
+
+                if (parameter == nullptr || paramValue.is_null())
+                {
+                    continue;
+                }
 
                 if (!nodeId.empty())
                 {
                     // TODO: Read node reference
                     // auto node = context.find_object<Node>(nodeId);
                     // parameter->set_value<Matrix>(node->matrix);
-                }
-                else if (paramValue.is_null())
-                {
                 }
                 else if (parameter->parameter_class() == EffectParameterClass::Scalar)
                 {
@@ -168,9 +183,11 @@ namespace SceneR
                                                                      , const Json&                      value
                                                                      , std::shared_ptr<EffectTechnique> effect)
         {
+            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+
             for (const auto& source : value.object_items())
             {
-                auto pass = std::make_shared<EffectPass>();
+                auto pass = std::make_shared<EffectPass>(gdService.graphics_device());
 
                 // Process only common profile details
                 const auto& commonProfile = source.second["details"]["commonProfile"];
@@ -221,15 +238,9 @@ namespace SceneR
         void ContentTypeReader<EffectTechnique>::read_technique_pass_states(const Json&                 value
                                                                           , std::shared_ptr<EffectPass> effectPass)
         {
-            EffectPassStates passStates;
-
-            std::cout << value.dump() << std::endl;
-
-            passStates.enabled = RenderingStateType::None;
-
             for (const auto& state : value["enable"].array_items())
             {
-                passStates.enabled |= static_cast<RenderingStateType>(state.int_value());
+                effectPass->_states.enabled |= static_cast<RenderingStateType>(state.int_value());
             }
         }
 
@@ -243,51 +254,19 @@ namespace SceneR
                 }
                 else if (parameter.second->_semantic == u"MODELVIEW")
                 {
-                    technique->_model_view_matrix_param = parameter.second;
+                    technique->_world_param = parameter.second;
                 }
                 else if (parameter.second->_semantic == u"PROJECTION")
                 {
-                    technique->_projection_matrix_param = parameter.second;
+                    technique->_world_view_proj_param = parameter.second;
                 }
                 else if (parameter.second->_semantic == u"MODELVIEWINVERSETRANSPOSE")
                 {
-                    technique->_normal_matrix_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"POSITION")
-                {
-                    technique->_position_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"NORMAL")
-                {
-                    technique->_normal_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"TEXCOORD_0")
-                {
-                    technique->_tex_coord_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"TEXBINORMAL")
-                {
-                    technique->_tex_binormal_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"TEXTANGENT")
-                {
-                    technique->_tex_tangent_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"JOINT")
-                {
-                    technique->_joint_param = parameter.second;
+                    technique->_world_inverse_transpose_param = parameter.second;
                 }
                 else if (parameter.second->_semantic == u"JOINTMATRIX")
                 {
-                    technique->_joint_matrix_param = parameter.second;
-                }
-                else if (parameter.second->_semantic == u"WEIGHT")
-                {
-                    technique->_weight_param = parameter.second;
-                }
-                else
-                {
-                    std::cout << "unknown semantic [" << Encoding::convert(parameter.second->_semantic) << "]" << std::endl;
+                    technique->_bones_param = parameter.second;
                 }
             }
         }

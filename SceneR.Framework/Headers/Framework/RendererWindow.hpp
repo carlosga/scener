@@ -59,17 +59,7 @@ namespace SceneR
             void close();
             void initialize_input() const;
             bool should_close() const;
-            void enable_debug_output() const;
 
-    #ifdef _USE_GLEW_
-            static void debug_callback(GLenum        source
-                                     , GLenum        type
-                                     , GLuint        id
-                                     , GLenum        severity
-                                     , GLsizei       length
-                                     , const GLchar* message
-                                     , void*         userParam);
-    #else
             static void debug_callback(GLenum        source
                                      , GLenum        type
                                      , GLuint        id
@@ -77,7 +67,8 @@ namespace SceneR
                                      , GLsizei       length
                                      , const GLchar* message
                                      , const void*   userParam);
-    #endif
+
+            void enable_debug_output() const;
 
         private:
             RendererWindow() = delete;

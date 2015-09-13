@@ -13,6 +13,12 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
+# GLEW configuration
+set (GLEW_BASE_DIR ../../glew)
+set (GLEW_INCLUDE_DIRS ${GLEW_BASE_DIR}/include)
+set (GLEW_LIB_DIRS ${GLEW_BASE_DIR}/lib)
+set (GLEW_LIBRARIES GLEW)
+
 # include directories
 include_directories(Headers ../externals/json11)
 
@@ -25,14 +31,12 @@ find_package(Threads REQUIRED)
 # OpenGL
 find_package(OpenGL REQUIRED)
 
-# glew
-# find_package(GLEW REQUIRED)
-
 # glfw
 pkg_search_module(GLFW REQUIRED glfw3)
 
-# Regal
-link_directories(../../regal/lib/linux/)
+# glew
+# find_package(GLEW REQUIRED)
+link_directories(${GLEW_LIB_DIRS})
 
 # header files
 set(HEADER_FILES
@@ -316,8 +320,7 @@ set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS 
 # target include directories
 target_include_directories(SceneR_Framework
                            PRIVATE ${OPENGL_INCLUDE_DIRS}
-                           PRIVATE ../../regal/include
-                           # PRIVATE ${GLEW_INCLUDE_DIRS}
+                           PRIVATE ${GLEW_INCLUDE_DIRS}
                            PRIVATE ${GLFW_INCLUDE_DIRS})
 
 # target links
@@ -325,6 +328,5 @@ target_link_libraries(SceneR_Framework
                       c++abi
                       pthread
                       ${OPENGL_LIBRARIES}
-                      #${GLEW_LIBRARIES}
-                      Regal
+                      ${GLEW_LIBRARIES}
                       ${GLFW_LIBRARIES})

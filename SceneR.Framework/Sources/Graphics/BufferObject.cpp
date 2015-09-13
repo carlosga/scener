@@ -64,17 +64,17 @@ namespace SceneR
 
         void BufferObject::get_data(const std::size_t& offset, const std::size_t& size, void* data) const
         {
-            glGetNamedBufferSubData(_id, offset, size, data);
+            glGetNamedBufferSubDataEXT(_id, offset, size, data);
         }
 
         void BufferObject::set_data(const std::size_t& size, const void* data) const
         {
-            glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
+            glNamedBufferDataEXT(_id, size, data, static_cast<GLenum>(_usage));
         }
 
         void BufferObject::set_data(const std::size_t& offset, const std::size_t& size, const void *data) const
         {
-            glNamedBufferSubData(_id, offset, size, data);
+            glNamedBufferSubDataEXT(_id, offset, size, data);
         }
 
         void BufferObject::invalidate() const

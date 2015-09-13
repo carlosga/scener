@@ -24,6 +24,7 @@ namespace SceneR
     namespace Graphics
     {
         class EffectParameter;
+        class GraphicsDevice;
         class Program;
 
         /**
@@ -35,7 +36,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectPass class.
              */
-            EffectPass();
+            EffectPass(GraphicsDevice& graphicsDevice);
 
             /**
              * Destructor.
@@ -55,6 +56,7 @@ namespace SceneR
             void apply();
 
         private:
+            GraphicsDevice&                               _graphics_device;
             std::u16string                                _name;
             std::u16string                                _lighting_model;
             std::vector<std::shared_ptr<EffectParameter>> _parameters;

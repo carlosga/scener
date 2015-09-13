@@ -56,6 +56,9 @@ namespace SceneR
                 texture->set_data(mipmap.index(), mipmap.data().size(), mipmap.data().data());
             }
 
+            texture->_sampler_state->max_mip_level = texture->level_count();
+            texture->_sampler_state->apply(texture->id());
+
             return texture;
         }
     }

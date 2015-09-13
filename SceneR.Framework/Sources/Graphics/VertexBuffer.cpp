@@ -91,11 +91,14 @@ namespace SceneR
             _vbo = std::make_unique<BufferObject>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
 
             _vao->create();
+            _vao->activate();
             _vbo->create();
 
             _vertex_declaration->declare(_vao->id(), _binding_index);
 
             glVertexArrayVertexBuffer(_vao->id(), _binding_index, _vbo->id(), 0, _vertex_declaration->vertex_stride());
+
+            _vao->deactivate();
         }
     }
 }

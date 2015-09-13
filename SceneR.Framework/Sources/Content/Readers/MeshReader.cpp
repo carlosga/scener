@@ -72,7 +72,7 @@ namespace SceneR
         {
             auto& gdService     = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
             auto  meshPart      = std::make_shared<ModelMeshPart>();
-            auto  accessors     = std::vector<std::shared_ptr<Accessor>>(12);
+            auto  accessors     = std::vector<std::shared_ptr<Accessor>>();
             auto  elements      = std::vector<VertexElement>();
             auto  vertexStride  = std::size_t(0);
             auto  vertexCount   = std::size_t(0);
@@ -99,30 +99,11 @@ namespace SceneR
                     vertexCount = accessor->attribute_count();
                 }
 
-                accessors[usageIndex] = accessor;
+                accessors.push_back(accessor);
                 elements.push_back({ vertexStride, format, usage, usageIndex });
 
                 vertexStride += accessor->byte_stride();
             }
-
-            // Remove empty slots from accessors vector
-            auto items = std::remove_if(accessors.begin()
-                                      , accessors.end()
-                                      , [] (std::shared_ptr<Accessor> accessor) -> bool
-                                        {
-                                            return (accessor == nullptr);
-                                        });
-
-            accessors.erase(items);
-            accessors.resize(source["attributes"].object_items().size());
-
-            // Sort vertex elements based on usage index
-            std::sort(elements.begin()
-                    , elements.end()
-                    , [] (const VertexElement& a, const VertexElement& b) -> bool
-                      {
-                          return (a.usage_index() < b.usage_index());
-                      });
 
             auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 
@@ -169,8 +150,7 @@ namespace SceneR
             meshPart->_vertex_buffer->initialize();
             meshPart->_vertex_buffer->set_data(vertexData.data());
 
-            // EffectMaterial
-            // TODO: process material
+            // Effect Material
             auto materialRef = source["material"].string_value();
             if (!materialRef.empty())
             {

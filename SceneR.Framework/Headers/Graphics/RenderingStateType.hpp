@@ -15,7 +15,7 @@ namespace SceneR
          */
         enum class RenderingStateType : std::uint32_t
         {
-            None                  = 0
+            None                  = 1
           , Blend                 = 3042
           , CullFace              = 2884
           , DepthTest             = 2929

@@ -49,16 +49,12 @@ namespace SceneR
             return { 0.05333332f, 0.09882354f, 0.1819608f };
         }
 
-        EffectDirtyFlags EffectHelpers::set_world_view_proj_and_fog(const EffectDirtyFlags&          dirtyFlags
-                                                                  , const Matrix&                    world
-                                                                  , const Matrix&                    view
-                                                                  , const Matrix&                    projection
-                                                                  , Matrix&                          worldView
-                                                                  , const bool&                      fogEnabled
-                                                                  , const float&                     fogStart
-                                                                  , const float&                     fogEnd
-                                                                  , std::shared_ptr<EffectParameter> worldViewProjParam
-                                                                  , std::shared_ptr<EffectParameter> fogVectorParam)
+        EffectDirtyFlags EffectHelpers::set_world_view_proj(const EffectDirtyFlags&          dirtyFlags
+                                                          , const Matrix&                    world
+                                                          , const Matrix&                    view
+                                                          , const Matrix&                    projection
+                                                          , Matrix&                          worldView
+                                                          , std::shared_ptr<EffectParameter> worldViewProjParam)
         {
             auto result = dirtyFlags;
 
@@ -73,27 +69,6 @@ namespace SceneR
                 worldViewProjParam->set_value_transpose(worldViewProj);
 
                 result &= ~EffectDirtyFlags::WorldViewProj;
-            }
-
-            if (fogEnabled)
-            {
-                // Recompute the fog vector?
-                if ((dirtyFlags & (EffectDirtyFlags::Fog | EffectDirtyFlags::FogEnable)) != 0)
-                {
-                    set_fog_vector(worldView, fogStart, fogEnd, fogVectorParam);
-
-                    result &= ~(EffectDirtyFlags::Fog | EffectDirtyFlags::FogEnable);
-                }
-            }
-            else
-            {
-                // When fog is disabled, make sure the fog vector is reset to zero.
-                if ((dirtyFlags & EffectDirtyFlags::FogEnable) != 0)
-                {
-                    fogVectorParam->set_value(Vector4::zero);
-
-                    result &= ~EffectDirtyFlags::FogEnable;
-                }
             }
 
             return result;
@@ -142,20 +117,23 @@ namespace SceneR
                 auto worldTranspose        = Matrix::invert(world);
                 auto worldInverseTranspose = Matrix::transpose(worldTranspose);
 
-                worldParam->set_value_transpose(world);
+                worldParam->set_value(world);
                 worldInverseTransposeParam->set_value_transpose(worldInverseTranspose);
 
                 result &= ~EffectDirtyFlags::World;
             }
 
             // Set the eye position.
-            if ((dirtyFlags & EffectDirtyFlags::EyePosition) != 0)
+            if (eyePositionParam != nullptr)
             {
-                auto viewInverse = Matrix::invert(view);
+                if ((dirtyFlags & EffectDirtyFlags::EyePosition) != 0)
+                {
+                    auto viewInverse = Matrix::invert(view);
 
-                eyePositionParam->set_value(viewInverse.translation());
+                    eyePositionParam->set_value(viewInverse.translation());
 
-                result &= ~EffectDirtyFlags::EyePosition;
+                    result &= ~EffectDirtyFlags::EyePosition;
+                }
             }
 
             return result;

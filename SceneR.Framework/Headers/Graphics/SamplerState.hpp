@@ -27,6 +27,7 @@ namespace SceneR
         class BasicEffect;
         class GraphicsDevice;
         class SkinnedEffect;
+        class EffectTechnique;
 
         /**
          * Contains sampler state, which determines how to sample texture data.
@@ -60,7 +61,7 @@ namespace SceneR
             void apply(const std::uint32_t& textureId) const;
             void get_min_max_filters(GLenum& minfilter, GLenum& magfilter) const;
 
-        private:
+        public:
             /**
              * Gets or sets the texture-address mode for the u-coordinate.
              */

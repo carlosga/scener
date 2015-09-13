@@ -58,6 +58,7 @@ namespace SceneR
         void Program::activate() const
         {
             glUseProgram(_id);
+            _uniform_buffer->activate();
         }
 
         void Program::add_shader(std::shared_ptr<Shader> shader)
@@ -74,6 +75,7 @@ namespace SceneR
 
         void Program::deactivate() const
         {
+            _uniform_buffer->deactivate();
             glUseProgram(0);
         }
 

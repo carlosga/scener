@@ -46,19 +46,14 @@ namespace SceneR
                                                                         , DirectionalLight& light2);
 
                 /// <summary>
-                /// Lazily recomputes the world+view+projection matrix and
-                /// fog vector based on the current effect parameter settings.
+                /// Lazily recomputes the world+view+projection matrix based on the current effect parameter settings.
                 /// </summary>
-                static EffectDirtyFlags set_world_view_proj_and_fog(const EffectDirtyFlags&          dirtyFlags
-                                                                  , const SceneR::Framework::Matrix& world
-                                                                  , const SceneR::Framework::Matrix& view
-                                                                  , const SceneR::Framework::Matrix& projection
-                                                                  , SceneR::Framework::Matrix&       worldView
-                                                                  , const bool&                      fogEnabled
-                                                                  , const float&                     fogStart
-                                                                  , const float&                     fogEnd
-                                                                  , std::shared_ptr<EffectParameter> worldViewProjParam
-                                                                  , std::shared_ptr<EffectParameter> fogVectorParam);
+                static EffectDirtyFlags set_world_view_proj(const EffectDirtyFlags&          dirtyFlags
+                                                          , const SceneR::Framework::Matrix& world
+                                                          , const SceneR::Framework::Matrix& view
+                                                          , const SceneR::Framework::Matrix& projection
+                                                          , SceneR::Framework::Matrix&       worldView
+                                                          , std::shared_ptr<EffectParameter> worldViewProjParam);
 
                 /// <summary>
                 /// Sets a vector which can be dotted with the object space vertex position to compute fog amount.

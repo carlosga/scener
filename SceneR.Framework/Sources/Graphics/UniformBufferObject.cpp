@@ -62,9 +62,6 @@ namespace SceneR
             std::int32_t binding   = 0;
             std::int32_t blockSize = 0;
 
-            // Create the buffer object
-            _buffer_object->create();
-
             // Get the uniform block index
             _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
 
@@ -77,6 +74,9 @@ namespace SceneR
             // update class members
             _binding_point = binding;
             _size          = blockSize;
+
+            // Create the buffer object
+            _buffer_object->create();
 
             // initialize the buffer object
             std::vector<std::uint8_t> data(_size, 0);

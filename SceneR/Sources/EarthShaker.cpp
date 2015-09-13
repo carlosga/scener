@@ -8,6 +8,8 @@
 
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
+#include <Graphics/EffectMaterial.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <System/Math.hpp>
@@ -19,7 +21,7 @@ namespace SceneR
         using SceneR::Framework::Matrix;
         using SceneR::Framework::RenderTime;
         using SceneR::Graphics::Model;
-        using SceneR::Graphics::SkinnedEffect;
+        using SceneR::Graphics::EffectTechnique;
         using System::Math;
 
         EarthShaker::EarthShaker(SampleRenderer& renderer)
@@ -32,7 +34,7 @@ namespace SceneR
         void EarthShaker::initialize()
         {
             _world = Matrix::create_rotation_x(-Math::pi_over_2)
-                   * Matrix::create_translation({ 0.0f, -40.0f, 0.0f })
+                   * Matrix::create_translation({ 0.0f, 0.0f, 0.0f })
                    * Matrix::create_scale(2.0f);
 
             DrawableComponent::initialize();
@@ -40,22 +42,19 @@ namespace SceneR
 
         void EarthShaker::load_content()
         {
+            // _model = _renderer.content_manager().load_model(u"cube/cube");
             _model = _renderer.content_manager().load_model(u"earthshaker/earthshaker");
-//
-//            for (const auto& mesh : this->model->Meshes())
-//            {
-//                for (auto& effect : mesh->Effects())
-//                {
-//                    auto seffect = std::dynamic_pointer_cast<SkinnedEffect>(effect);
-//
-//                    if (seffect.get() != nullptr)
-//                    {
-//                        seffect->enable_default_lighting();
-//                        seffect->SpecularColor({ 0.15f, 0.15f, 0.15f });
-//                        seffect->PreferPerPixelLighting(true);
-//                    }
-//                }
-//            }
+
+            for (auto mesh : _model->meshes())
+            {
+                for (auto effect : mesh->effects())
+                {
+                    // effect->technique()->enable_default_lighting();
+                    // effect->technique()->SpecularColor({ 0.15f, 0.15f, 0.15f });
+                    // effect->technique()->PreferPerPixelLighting(true);
+                    effect->technique()->texture_enabled(false);
+                }
+            }
 //
 //            // Start default animation clip
 //            this->animatedModel->PlayFirstClip();

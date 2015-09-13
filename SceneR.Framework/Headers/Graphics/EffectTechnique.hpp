@@ -229,14 +229,9 @@ namespace SceneR
             void specular_power(const float& specularPower);
 
             /**
-             * Gets a texture to be applied by this effect.
+             * Gets the textures to be applied by this effect.
              */
-            const std::shared_ptr<Texture2D>& texture() const;
-
-            /**
-             * Sets a texture to be applied by this effect.
-             */
-            void texture(const std::shared_ptr<Texture2D>& texture);
+            std::vector<std::shared_ptr<Texture2D>>& textures();
 
             /**
              * Gets a value indicating wheter textures are enabled for this effect
@@ -301,55 +296,42 @@ namespace SceneR
             void end();
 
         private:
-            /**
-             * Computes derived parameter values immediately before applying the effect.
-             */
-            void apply();
+            float                                   _alpha;
+            SceneR::Framework::Vector3              _ambient_light_color;
+            std::vector<SceneR::Framework::Matrix>  _bone_transforms;
+            SceneR::Framework::Vector3              _diffuse_color;
+            DirectionalLight                        _light_0;
+            DirectionalLight                        _light_1;
+            DirectionalLight                        _light_2;
+            bool                                    _lighting_enabled;
+            SceneR::Framework::Vector3              _emissive_color;
+            bool                                    _fog_enabled;
+            SceneR::Framework::Vector3              _fog_color;
+            float                                   _fog_end;
+            float                                   _fog_start;
+            bool                                    _prefer_per_pixel_lighting;
+            SceneR::Framework::Matrix               _projection;
+            SceneR::Framework::Vector3              _specular_color;
+            float                                   _specular_power;
+            bool                                    _texture_enabled;
+            std::vector<std::shared_ptr<Texture2D>> _textures;
+            SceneR::Framework::Matrix               _view;
+            std::size_t                             _weights_per_vertex;
+            SceneR::Framework::Matrix               _world;
+            SceneR::Framework::Matrix               _world_view;
+            bool                                    _one_light;
 
-        private:
-            float                                  _alpha;
-            SceneR::Framework::Vector3             _ambient_light_color;
-            std::vector<SceneR::Framework::Matrix> _bone_transforms;
-            SceneR::Framework::Vector3             _diffuse_color;
-            DirectionalLight                       _light_0;
-            DirectionalLight                       _light_1;
-            DirectionalLight                       _light_2;
-            bool                                   _lighting_enabled;
-            SceneR::Framework::Vector3             _emissive_color;
-            bool                                   _fog_enabled;
-            SceneR::Framework::Vector3             _fog_color;
-            float                                  _fog_end;
-            float                                  _fog_start;
-            bool                                   _prefer_per_pixel_lighting;
-            SceneR::Framework::Matrix              _projection;
-            SceneR::Framework::Vector3             _specular_color;
-            float                                  _specular_power;
-            bool                                   _texture_enabled;
-            std::shared_ptr<Texture2D>             _texture;
-            SceneR::Framework::Matrix              _view;
-            std::size_t                            _weights_per_vertex;
-            SceneR::Framework::Matrix              _world;
-            SceneR::Framework::Matrix              _world_view;
-            bool                                   _one_light;
-
-            EffectDirtyFlags                       _dirty_flags;
+            EffectDirtyFlags                        _dirty_flags;
 
         private:
             std::map<std::string, std::shared_ptr<EffectPass>>      _passes;
             std::map<std::string, std::shared_ptr<EffectParameter>> _parameters;
 
-            std::shared_ptr<EffectPass>      _pass                    = nullptr;
-            std::shared_ptr<EffectParameter> _model_view_matrix_param = nullptr;
-            std::shared_ptr<EffectParameter> _projection_matrix_param = nullptr;
-            std::shared_ptr<EffectParameter> _normal_matrix_param     = nullptr;
-            std::shared_ptr<EffectParameter> _position_param          = nullptr;
-            std::shared_ptr<EffectParameter> _normal_param            = nullptr;
-            std::shared_ptr<EffectParameter> _tex_coord_param         = nullptr;
-            std::shared_ptr<EffectParameter> _tex_binormal_param      = nullptr;
-            std::shared_ptr<EffectParameter> _tex_tangent_param       = nullptr;
-            std::shared_ptr<EffectParameter> _joint_param             = nullptr;
-            std::shared_ptr<EffectParameter> _joint_matrix_param      = nullptr;
-            std::shared_ptr<EffectParameter> _weight_param            = nullptr;
+            std::shared_ptr<EffectPass>      _pass                          = nullptr;
+            std::shared_ptr<EffectParameter> _world_param                   = nullptr;
+            std::shared_ptr<EffectParameter> _world_view_proj_param         = nullptr;
+            std::shared_ptr<EffectParameter> _world_inverse_transpose_param = nullptr;
+            std::shared_ptr<EffectParameter> _bones_param                   = nullptr;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

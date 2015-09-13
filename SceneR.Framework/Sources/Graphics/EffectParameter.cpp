@@ -370,7 +370,7 @@ namespace SceneR
                 throw std::runtime_error("Invalid effect parameter class.");
             }
 
-            // _uniform_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
+            _uniform_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
         }
 
         template<>
