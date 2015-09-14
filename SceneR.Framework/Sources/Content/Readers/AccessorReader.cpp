@@ -3,8 +3,6 @@
 
 #include <Content/Readers/AccessorReader.hpp>
 
-#include <algorithm>
-
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/AttributeType.hpp>

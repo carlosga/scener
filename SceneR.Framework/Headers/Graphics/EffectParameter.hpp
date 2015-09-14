@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "EffectTechnique.hpp"
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 

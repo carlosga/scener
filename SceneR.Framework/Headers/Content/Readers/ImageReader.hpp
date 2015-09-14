@@ -4,11 +4,6 @@
 #ifndef CONTENT_READERS_IMAGEREADER_HPP
 #define CONTENT_READERS_IMAGEREADER_HPP
 
-#include <cstdint>
-#include <memory>
-#include <string>
-#include <vector>
-
 #include <Content/ContentTypeReader.hpp>
 #include <Texture/Surface.hpp>
 

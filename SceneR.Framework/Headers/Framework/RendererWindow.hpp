@@ -4,7 +4,6 @@
 #ifndef FRAMEWORK_RENDERERWINDOW_HPP
 #define FRAMEWORK_RENDERERWINDOW_HPP
 
-#include <functional>
 #include <string>
 
 #include <System/Graphics/Platform.hpp>

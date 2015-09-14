@@ -5,7 +5,6 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <System/IO/File.hpp>
 
 namespace SceneR
 {

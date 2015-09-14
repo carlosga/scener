@@ -5,6 +5,8 @@
 #define CONTENT_CONTENTTYPEREADER_HPP
 
 #include <memory>
+#include <string>
+#include <utility>
 
 namespace json11
 {

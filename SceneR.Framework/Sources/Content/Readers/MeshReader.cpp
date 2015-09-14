@@ -3,7 +3,6 @@
 
 #include <Content/Readers/MeshReader.hpp>
 
-#include <algorithm>
 #include <iostream>
 
 #include <json11.hpp>

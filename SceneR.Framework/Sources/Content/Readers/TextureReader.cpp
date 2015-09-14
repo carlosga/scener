@@ -11,7 +11,6 @@
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Texture/Surface.hpp>
-#include <Texture/SurfaceMipmap.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR

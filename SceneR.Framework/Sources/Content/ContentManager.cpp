@@ -5,25 +5,18 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/ContentLoadException.hpp>
-#include <Framework/RendererServiceContainer.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
-#include <System/IO/Stream.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using SceneR::Framework::RendererServiceContainer;
-        using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Model;
-        using System::IO::File;
         using System::IO::FileStream;
-        using System::IO::Path;
-        using System::IO::Stream;
 
         ContentResourceManager ContentManager::ResourceManager;
 
@@ -49,13 +42,22 @@ namespace SceneR
             return _root_directory;
         }
 
-        std::shared_ptr<Model> ContentManager::load_model(const std::u16string& assetName)
+        std::shared_ptr<Model> ContentManager::load(const std::u16string& assetName)
         {
+            if (ResourceManager.has_resource(assetName))
+            {
+                return ResourceManager.get_resource<Model>(assetName);
+            }
+
             auto stream = open_stream(assetName);
 
             ContentReader reader(assetName, this, *stream);
 
-            return reader.read_asset();
+            auto asset = reader.read_asset();
+
+            ResourceManager.add_resource<Model>(assetName, asset);
+
+            return asset;
         }
 
         void ContentManager::unload()
@@ -63,12 +65,12 @@ namespace SceneR
             ResourceManager.clear();
         }
 
-        std::shared_ptr<Stream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
+        std::shared_ptr<FileStream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
         {
             const auto filename  = assetName + u".gltf";
-            const auto path      = Path::combine(_root_directory, filename);
+            const auto path      = System::IO::Path::combine(_root_directory, filename);
 
-            if (!File::exists(path))
+            if (!System::IO::File::exists(path))
             {
                 throw ContentLoadException("the asset file doesn't exists.");
             }

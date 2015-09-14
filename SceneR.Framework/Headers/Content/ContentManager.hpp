@@ -21,7 +21,7 @@ namespace System
 {
     namespace IO
     {
-        class Stream;
+        class FileStream;
     }
 }
 
@@ -64,7 +64,7 @@ namespace SceneR
             /**
              * Loads a the given asset.
              */
-            std::shared_ptr<SceneR::Graphics::Model> load_model(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::Graphics::Model> load(const std::u16string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
@@ -76,7 +76,7 @@ namespace SceneR
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
-            std::shared_ptr<System::IO::Stream> open_stream(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<System::IO::FileStream> open_stream(const std::u16string& assetName) noexcept(false);
 
         private:
             SceneR::Framework::RendererServiceContainer& _service_provider;

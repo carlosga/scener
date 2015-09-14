@@ -5,8 +5,6 @@
 #define CONTENT_READERS_EXTERNALREFERENCE_HPP
 
 #include <cstdint>
-#include <memory>
-#include <string>
 #include <vector>
 
 #include <Content/ContentTypeReader.hpp>

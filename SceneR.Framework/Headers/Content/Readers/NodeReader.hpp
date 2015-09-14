@@ -4,10 +4,6 @@
 #ifndef CONTENT_READERS_NODEREADER_HPP
 #define CONTENT_READERS_NODEREADER_HPP
 
-#include <map>
-#include <memory>
-#include <string>
-
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/Node.hpp>
 

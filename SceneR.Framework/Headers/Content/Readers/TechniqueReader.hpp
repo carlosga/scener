@@ -4,9 +4,6 @@
 #ifndef CONTENT_READERS_TECHNIQUEREADER_HPP
 #define CONTENT_READERS_TECHNIQUEREADER_HPP
 
-#include <memory>
-#include <vector>
-
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/EffectTechnique.hpp>
 

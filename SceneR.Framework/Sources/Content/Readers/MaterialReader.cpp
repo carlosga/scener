@@ -18,7 +18,6 @@
 #include <Graphics/Texture2D.hpp>
 #include <System/Text/Encoding.hpp>
 
-
 namespace SceneR
 {
     namespace Content

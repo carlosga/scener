@@ -5,8 +5,6 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/Model.hpp>
 #include <System/Text/Encoding.hpp>
 
 namespace SceneR
@@ -16,8 +14,6 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Buffer;
         using SceneR::Graphics::BufferType;
-        using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::Model;
         using System::Text::Encoding;
 
         ContentTypeReader<Buffer>::ContentTypeReader()

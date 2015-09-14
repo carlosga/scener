@@ -4,9 +4,6 @@
 #ifndef CONTENT_READERS_MESHREADER_HPP
 #define CONTENT_READERS_MESHREADER_HPP
 
-#include <memory>
-#include <string>
-
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ModelMesh.hpp>

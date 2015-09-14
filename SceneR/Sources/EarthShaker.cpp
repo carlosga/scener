@@ -40,7 +40,7 @@ namespace SceneR
 
         void EarthShaker::load_content()
         {
-            _model = _renderer.content_manager().load_model(u"earthshaker/earthshaker");
+            _model = _renderer.content_manager().load(u"earthshaker/earthshaker");
 
             for (auto mesh : _model->meshes())
             {

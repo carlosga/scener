@@ -23,10 +23,20 @@ namespace SceneR
 {
     namespace Graphics
     {
+        /**
+         * GLTF Buffer
+         */
         class Buffer final
         {
         public:
+            /**
+             * Initializes a new instance of the Buffer class.
+             */
             Buffer();
+
+            /**
+             * Destructor.
+             */
             ~Buffer();
 
         public:
@@ -51,19 +61,19 @@ namespace SceneR
             SceneR::Graphics::BufferType type() const;
 
             /**
-             * Gets the buffer data
+             * Gets the buffer data.
              */
             std::vector<std::uint8_t> get_data() const;
 
             /**
-             * Gets the buffer data
+             * Gets the buffer data.
              */
             void get_data(const std::size_t&                  offset
                         , const std::size_t&                  count
                         , std::vector<std::uint8_t>::iterator data) const;
 
             /**
-             * Sets the buffer data
+             * Sets the buffer data.
              */
             void set_data(const std::vector<std::uint8_t>& buffer);
 

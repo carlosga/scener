@@ -29,7 +29,7 @@ namespace SceneR
         class Buffer;
 
         /**
-         * Represents an OpenGL buffer object.
+         * GLTF Buffer View
          */
         class BufferView : System::IDisposable
         {
@@ -60,7 +60,14 @@ namespace SceneR
              */
             const BufferUsage& usage() const;
 
+            /**
+             * Gets the offset into the buffer in bytes.
+             */
             std::size_t byte_offset() const;
+
+            /**
+             * Gets the length of the buffer-view in bytes.
+             */
             std::size_t byte_length() const;
 
             /**

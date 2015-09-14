@@ -21,5 +21,4 @@ namespace SceneR
     }
 }
 
-
 #endif  // TEXTURE_DDSFOURCC_HPP
