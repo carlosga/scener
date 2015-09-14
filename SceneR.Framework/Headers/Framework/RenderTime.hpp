@@ -26,8 +26,7 @@ namespace SceneR
              * @param totalRenderTime the amount of render time since the start of the game.
              * @param elapsedRenderTime the amount of elapsed render time since the last update.
              */
-            RenderTime(const System::TimeSpan& totalRenderTime
-                     , const System::TimeSpan& elapsedRenderTime);
+            RenderTime(const System::TimeSpan& totalRenderTime, const System::TimeSpan& elapsedRenderTime);
 
             /**
              * Initializes a new instance of the RenderTime class.

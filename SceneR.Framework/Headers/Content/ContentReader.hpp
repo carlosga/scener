@@ -46,9 +46,7 @@ namespace SceneR
              * @param contentManager the content_manager that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string&            assetName
-                        , SceneR::Content::ContentManager* contentManager
-                        , System::IO::Stream&              stream);
+            ContentReader(const std::u16string& assetName, ContentManager* contentManager, System::IO::Stream& stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.

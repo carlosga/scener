@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the DrawableComponent class.
              */
-            DrawableComponent(SceneR::Framework::Renderer& renderer);
+            DrawableComponent(Renderer& renderer);
 
             /**
              * Releases all resources being used by this DrawableComponent.

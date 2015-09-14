@@ -12,6 +12,9 @@ namespace SceneR
 {
     namespace Graphics
     {
+        /**
+         * OpenGL Buffer usages.
+         */
         enum class BufferUsage : std::uint32_t
         {
             StreamDraw  = GL_STREAM_DRAW,

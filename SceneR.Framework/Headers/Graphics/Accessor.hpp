@@ -19,18 +19,15 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class BufferView;
 
         /**
-         * GLTF Accessor.
+         * GLTF. A typed accessor into a buffer-view.
          */
-        class Accessor
+        class Accessor final
         {
         public:
             /**
@@ -70,7 +67,8 @@ namespace SceneR
             std::size_t byte_stride() const;
 
             /**
-             * Gets the number of attributes referenced by this accessor, not to be confused with the number of bytes or number of components.
+             * Gets the number of attributes referenced by this accessor,
+             * not to be confused with the number of bytes or number of components.
              */
             std::size_t attribute_count() const;
 

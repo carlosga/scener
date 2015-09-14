@@ -12,7 +12,7 @@ namespace System
     /**
      * Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.
      */
-    class Math
+    class Math final
     {
     public:
         /**

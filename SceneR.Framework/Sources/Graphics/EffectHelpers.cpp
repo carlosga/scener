@@ -13,6 +13,7 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/DirectionalLight.hpp>
+#include <Graphics/EffectParameter.hpp>
 #include <System/Math.hpp>
 
 namespace SceneR
@@ -66,7 +67,7 @@ namespace SceneR
                 worldView     = world * view;
                 worldViewProj = worldView * projection;
 
-                worldViewProjParam->set_value_transpose(worldViewProj);
+                worldViewProjParam->set_value_transpose<Matrix>(worldViewProj);
 
                 result &= ~EffectDirtyFlags::WorldViewProj;
             }
@@ -82,7 +83,7 @@ namespace SceneR
             if (Math::equal(fogStart, fogEnd))
             {
                 // Degenerate case: force everything to 100% fogged if start and end are the same.
-                fogVectorParam->set_value(Vector4 { 0.0f, 0.0f, 0.0f, 1.0f });
+                fogVectorParam->set_value<Vector4>({ 0.0f, 0.0f, 0.0f, 1.0f });
             }
             else
             {
@@ -93,12 +94,10 @@ namespace SceneR
 
                 float scale = 1.0f / (fogStart - fogEnd);
 
-                Vector4 fogVector = {  worldView.m13 * scale
-                                    ,  worldView.m23 * scale
-                                    ,  worldView.m33 * scale
-                                    , (worldView.m43 + fogStart) * scale };
-
-                fogVectorParam->set_value(fogVector);
+                fogVectorParam->set_value<Vector4>({  worldView.m13 * scale
+                                                   ,  worldView.m23 * scale
+                                                   ,  worldView.m33 * scale
+                                                   , (worldView.m43 + fogStart) * scale });
             }
         }
 
@@ -117,8 +116,8 @@ namespace SceneR
                 auto worldTranspose        = Matrix::invert(world);
                 auto worldInverseTranspose = Matrix::transpose(worldTranspose);
 
-                worldParam->set_value(world);
-                worldInverseTransposeParam->set_value_transpose(worldInverseTranspose);
+                worldParam->set_value<Matrix>(world);
+                worldInverseTransposeParam->set_value_transpose<Matrix>(worldInverseTranspose);
 
                 result &= ~EffectDirtyFlags::World;
             }
@@ -130,7 +129,7 @@ namespace SceneR
                 {
                     auto viewInverse = Matrix::invert(view);
 
-                    eyePositionParam->set_value(viewInverse.translation());
+                    eyePositionParam->set_value<Vector3>(viewInverse.translation());
 
                     result &= ~EffectDirtyFlags::EyePosition;
                 }
@@ -170,12 +169,12 @@ namespace SceneR
 
             if (lightingEnabled)
             {
-                diffuseColorParam->set_value(Vector4 { diffuseColor * alpha, alpha });
-                emissiveColorParam->set_value(Vector3 { (emissiveColor + ambientLightColor * diffuseColor) * alpha });
+                diffuseColorParam->set_value<Vector4>({ diffuseColor * alpha, alpha });
+                emissiveColorParam->set_value<Vector3>({ (emissiveColor + ambientLightColor * diffuseColor) * alpha });
             }
             else
             {
-                diffuseColorParam->set_value(Vector4 { (diffuseColor + emissiveColor) * alpha, alpha });
+                diffuseColorParam->set_value<Vector4>({ (diffuseColor + emissiveColor) * alpha, alpha });
             }
         }
     }

@@ -62,7 +62,8 @@ namespace SceneR
             return get_data(0, _indexCount);
         }
 
-        std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex, const std::size_t& elementCount) const
+        std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex
+                                                      , const std::size_t& elementCount) const
         {
             auto offset = (startIndex * element_size_in_bytes());
             auto size   = (elementCount * element_size_in_bytes());

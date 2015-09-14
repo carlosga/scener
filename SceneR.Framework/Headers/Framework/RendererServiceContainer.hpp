@@ -44,7 +44,7 @@ namespace SceneR
             {
                 if (!is_registered<T>())
                 {
-                    _instanceMap[get_type_name<T>()] = static_cast<void*>(&service);
+                    _instance_map[get_type_name<T>()] = static_cast<void*>(&service);
                 }
             }
 
@@ -59,7 +59,7 @@ namespace SceneR
                     throw std::runtime_error("Service not registered");
                 }
 
-                return *(static_cast<T*>(_instanceMap.find(get_type_name<T>())->second));
+                return *(static_cast<T*>(_instance_map.find(get_type_name<T>())->second));
             }
 
             /**
@@ -70,20 +70,20 @@ namespace SceneR
             {
                 if (is_registered<T>())
                 {
-                    _instanceMap.erase(get_type_name<T>());
+                    _instance_map.erase(get_type_name<T>());
                 }
             }
 
             void clear()
             {
-                _instanceMap.clear();
+                _instance_map.clear();
             }
 
         private:
             template <class T>
             bool is_registered() const
             {
-                return (_instanceMap.find(get_type_name<T>()) != _instanceMap.end());
+                return (_instance_map.find(get_type_name<T>()) != _instance_map.end());
             }
 
             template <class T>
@@ -97,7 +97,7 @@ namespace SceneR
             RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
 
         private:
-            std::map<std::string, void*> _instanceMap;
+            std::map<std::string, void*> _instance_map;
         };
     }
 }

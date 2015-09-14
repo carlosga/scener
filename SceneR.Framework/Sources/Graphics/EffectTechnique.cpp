@@ -7,6 +7,7 @@
 
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectHelpers.hpp>
+#include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <System/Math.hpp>

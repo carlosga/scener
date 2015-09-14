@@ -28,8 +28,7 @@ namespace SceneR
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */
-            VertexDeclaration(const std::size_t&                vertexStride
-                            , const std::vector<VertexElement>& vertexElements);
+            VertexDeclaration(const std::size_t& vertexStride, const std::vector<VertexElement>& vertexElements);
 
             /**
              * @brief Copy constructor

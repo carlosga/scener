@@ -18,10 +18,7 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class GraphicsDevice;
@@ -40,9 +37,7 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice&    graphicsDevice
-                    , const std::size_t& width
-                    , const std::size_t& height);
+            Texture2D(GraphicsDevice& graphicsDevice, const std::size_t& width, const std::size_t& height);
 
             /**
              * Creates a new instance of the Texture2D class.

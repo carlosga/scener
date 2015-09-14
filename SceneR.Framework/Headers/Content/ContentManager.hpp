@@ -9,14 +9,6 @@
 #include <Content/ContentResourceManager.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class Model;
-    }
-}
-
 namespace System
 {
     namespace IO
@@ -27,6 +19,11 @@ namespace System
 
 namespace SceneR
 {
+    namespace Graphics
+    {
+        class Model;
+    }
+
     namespace Content
     {
         /**
@@ -34,9 +31,6 @@ namespace SceneR
          */
         class ContentManager final
         {
-        private:
-            static ContentResourceManager ResourceManager;
-
         public:
             /**
              * Initializes a new instance of the ContentManagerClass
@@ -77,6 +71,9 @@ namespace SceneR
              * #param assetName the name of the asset being read.
              */
             std::shared_ptr<System::IO::FileStream> open_stream(const std::u16string& assetName) noexcept(false);
+
+        private:
+            static ContentResourceManager resource_manager;
 
         private:
             SceneR::Framework::RendererServiceContainer& _service_provider;

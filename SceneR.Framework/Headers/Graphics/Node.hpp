@@ -19,10 +19,20 @@ namespace SceneR
         class InstanceSkin;
         class ModelMesh;
 
-        class Node
+        /**
+         * GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
+         */
+        class Node final
         {
         public:
+            /**
+             * Initializes a new instance of the Node class.
+             */
             Node();
+
+            /**
+             * Destructor.
+             */
             ~Node();
 
         public:

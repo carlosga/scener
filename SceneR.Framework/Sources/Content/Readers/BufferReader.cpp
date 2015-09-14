@@ -13,7 +13,6 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Graphics::Buffer;
-        using SceneR::Graphics::BufferType;
         using System::Text::Encoding;
 
         ContentTypeReader<Buffer>::ContentTypeReader()

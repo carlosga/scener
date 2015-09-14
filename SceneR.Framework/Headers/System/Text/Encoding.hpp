@@ -15,13 +15,7 @@ namespace System
     {
         class Decoder;
         class Encoder;
-    }
-}
 
-namespace System
-{
-    namespace Text
-    {
         /**
          * Represents a character encoding.
          */

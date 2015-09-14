@@ -18,7 +18,7 @@ namespace System
         /**
          * A Stream around a file, supporting read operations.
          */
-        class FileStream : public Stream
+        class FileStream  final : public Stream
         {
         public:
             /**

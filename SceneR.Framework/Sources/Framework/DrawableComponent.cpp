@@ -11,7 +11,7 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        DrawableComponent::DrawableComponent(SceneR::Framework::Renderer& renderer)
+        DrawableComponent::DrawableComponent(Renderer& renderer)
             : Component   { renderer }
             , _visible    { true }
             , _draw_order { 0 }

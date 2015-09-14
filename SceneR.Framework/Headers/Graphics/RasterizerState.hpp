@@ -14,10 +14,7 @@ namespace SceneR
     {
         class GraphicsDeviceManager;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class GraphicsDevice;

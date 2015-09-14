@@ -95,7 +95,6 @@ set(HEADER_FILES
     Headers/Graphics/BufferTarget.hpp
     Headers/Graphics/BufferUsage.hpp
     Headers/Graphics/BufferView.hpp
-    Headers/Graphics/BufferType.hpp
     Headers/Graphics/ColorWriteChannels.hpp
     Headers/Graphics/ComponentType.hpp
     Headers/Graphics/CompareFunction.hpp
@@ -179,14 +178,15 @@ set(HEADER_FILES
     Headers/System/Text/UTF8Decoder.hpp
     Headers/System/Text/UTF8Encoder.hpp
     Headers/System/Text/UTF8Encoding.hpp
+    Headers/Texture/DdsCaps.hpp
+    Headers/Texture/DdsCaps2.hpp
+    Headers/Texture/DdsFourCC.hpp
     Headers/Texture/DdsHeaderFlags.hpp
     Headers/Texture/DdsPixelFormatFlags.hpp
     Headers/Texture/DdsPixelFormat.hpp
-    Headers/Texture/DdsCaps.hpp
-    Headers/Texture/DdsCaps2.hpp
     Headers/Texture/Dds.hpp
     Headers/Texture/Surface.hpp
-    Headers/Texture/SurfaceMipmap.hpp Headers/Texture/DdsFourCC.hpp)
+    Headers/Texture/SurfaceMipmap.hpp)
 
 # source files
 set(SOURCE_FILES

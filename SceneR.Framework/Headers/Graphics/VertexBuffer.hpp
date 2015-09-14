@@ -17,10 +17,7 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class BufferObject;
@@ -38,9 +35,9 @@ namespace SceneR
              * Initializes a new instance of the VertexBuffer class.
              * @param graphicsDevice the graphics device.
              */
-            VertexBuffer(GraphicsDevice&                                      graphicsDevice
-                       , const std::size_t&                                   vertexCount
-                       , std::unique_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration);
+            VertexBuffer(GraphicsDevice&                    graphicsDevice
+                       , const std::size_t&                 vertexCount
+                       , std::unique_ptr<VertexDeclaration> vertexDeclaration);
 
             /**
              * Releases all resources being used by the current VertexBuffer

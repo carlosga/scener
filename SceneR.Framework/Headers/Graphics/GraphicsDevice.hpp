@@ -44,8 +44,7 @@ namespace SceneR
              * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsAdapter&                   adapter
-                         , const SceneR::Graphics::GraphicsProfile& graphicsProfile);
+            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile);
 
             /**
              * @brief GraphicsDevice Initializes a new instance of the GraphicsDevice class. Copy constructor.
@@ -117,33 +116,33 @@ namespace SceneR
              * Gets the graphics profile.
              * @return the graphics profile.
              */
-            const SceneR::Graphics::GraphicsProfile& graphics_profile() const;
+            const GraphicsProfile& graphics_profile() const;
 
             /**
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
              * The default value is BlendState.Opaque.
              */
-            SceneR::Graphics::BlendState& blend_state();
+            BlendState& blend_state();
 
             /**
              * Gets the depth-stencil state.
              */
-            SceneR::Graphics::DepthStencilState& depth_stencil_state();
+            DepthStencilState& depth_stencil_state();
 
             /**
              * Gets the presentation parameters associated with this graphics device.
              */
-            SceneR::Graphics::PresentationParameters& presentation_parameters();
+            PresentationParameters& presentation_parameters();
 
             /**
              * Gets rasterizer state.
              */
-            SceneR::Graphics::RasterizerState& rasterizer_state();
+            RasterizerState& rasterizer_state();
 
             /**
              * Retrieves a collection of SamplerState objects for the current GraphicsDevice.
              */
-            std::vector<SceneR::Graphics::SamplerState>& sampler_states();
+            std::vector<SamplerState>& sampler_states();
 
             /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
@@ -165,27 +164,27 @@ namespace SceneR
             /**
              * Gets or sets the effect used before drawing.
              */
-            std::shared_ptr<SceneR::Graphics::EffectMaterial> effect;
+            std::shared_ptr<EffectMaterial> effect;
 
             /**
              * Gets or sets the index buffer.
              */
-            SceneR::Graphics::IndexBuffer* index_buffer;
+            IndexBuffer* index_buffer;
 
             /**
              * Sets or binds a vertex buffer to the device.
              */
-            SceneR::Graphics::VertexBuffer* vertex_buffer;
+            VertexBuffer* vertex_buffer;
 
         private:
-            SceneR::Graphics::BlendState                _blend_state;
-            SceneR::Graphics::DepthStencilState         _depth_stencil_state;
-            GraphicsAdapter                             _graphics_adapter;
-            SceneR::Graphics::GraphicsProfile           _graphics_profile;
-            SceneR::Graphics::PresentationParameters    _presentation_parameters;
-            SceneR::Graphics::RasterizerState           _rasterizer_state;
-            std::vector<SceneR::Graphics::SamplerState> _sampler_states;
-            SceneR::Graphics::Viewport                  _viewport;
+            BlendState                _blend_state;
+            DepthStencilState         _depth_stencil_state;
+            GraphicsAdapter           _graphics_adapter;
+            GraphicsProfile           _graphics_profile;
+            PresentationParameters    _presentation_parameters;
+            RasterizerState           _rasterizer_state;
+            std::vector<SamplerState> _sampler_states;
+            Viewport                  _viewport;
         };
     }
 }

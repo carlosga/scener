@@ -10,9 +10,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Texture2D::Texture2D(GraphicsDevice&    graphicsDevice
-                           , const std::size_t& width
-                           , const std::size_t& height)
+        Texture2D::Texture2D(GraphicsDevice& graphicsDevice, const std::size_t& width, const std::size_t& height)
             : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
         {
         }

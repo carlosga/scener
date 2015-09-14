@@ -7,11 +7,11 @@ namespace SceneR
 {
     namespace Graphics
     {
-        VertexElement::VertexElement(const std::size_t&                           offset
-                                   , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
-                                   , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
-                                   , const std::uint32_t&                         usageIndex)
-            : _offset              { offset }
+        VertexElement::VertexElement(const std::size_t&         offset
+                                   , const VertexElementFormat& vertexElementFormat
+                                   , const VertexElementUsage&  vertexElementUsage
+                                   , const std::uint32_t&       usageIndex)
+            : _offset                { offset }
             , _vertex_element_format { vertexElementFormat }
             , _vertex_element_usage  { vertexElementUsage }
             , _usage_index           { usageIndex }

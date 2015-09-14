@@ -10,10 +10,7 @@ namespace SceneR
     {
         struct Vector3;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         /**

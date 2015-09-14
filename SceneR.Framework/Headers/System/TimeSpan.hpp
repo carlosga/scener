@@ -13,7 +13,7 @@ namespace System
     /**
      * Represents a time interval.
      */
-    struct TimeSpan
+    struct TimeSpan final
     {
     public:
         using clock                  = std::chrono::high_resolution_clock;

@@ -14,7 +14,7 @@ namespace SceneR
         class ModelMesh;
         class ModelBone;
 
-        class InstanceSkin
+        class InstanceSkin final
         {
         public:
             InstanceSkin();

@@ -88,9 +88,9 @@ namespace SceneR
              * @param zFar Maximun z-value of the view volume.
              */
             static Matrix create_orthographic(const float& width
-                                           , const float& height
-                                           , const float& zNear
-                                           , const float& zFar);
+                                            , const float& height
+                                            , const float& zNear
+                                            , const float& zFar);
 
             /**
              * Builds a customized, orthogonal projection matrix.
@@ -447,10 +447,6 @@ namespace SceneR
                     float m43;
                     float m44;
                 };
-                Vector4 row_1;
-                Vector4 row_2;
-                Vector4 row_3;
-                Vector4 row_4;
             };
         };
     }

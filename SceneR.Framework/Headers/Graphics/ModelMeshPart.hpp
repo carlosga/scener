@@ -16,10 +16,7 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class EffectMaterial;
@@ -29,7 +26,7 @@ namespace SceneR
         /**
          * Represents a a subdivision of a ModelMesh object.
          */
-        class ModelMeshPart
+        class ModelMeshPart final
         {
         public:
             /**
@@ -46,12 +43,12 @@ namespace SceneR
             /**
              * Gets the index buffer for this mesh part.
              */
-            SceneR::Graphics::IndexBuffer* index_buffer() const;
+            IndexBuffer* index_buffer() const;
 
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            SceneR::Graphics::VertexBuffer* vertex_buffer() const;
+            VertexBuffer* vertex_buffer() const;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
@@ -76,22 +73,22 @@ namespace SceneR
             /**
              * Gets the type of primitives to render.
              */
-            const SceneR::Graphics::PrimitiveType& primitive_type() const;
+            const PrimitiveType& primitive_type() const;
 
         public:
             /**
              * Gets or sets the material EffectMaterial for this mesh part.
              */
-            std::shared_ptr<SceneR::Graphics::EffectMaterial> effect;
+            std::shared_ptr<EffectMaterial> effect;
 
         private:
-            std::unique_ptr<SceneR::Graphics::IndexBuffer>  _index_buffer;
-            std::unique_ptr<SceneR::Graphics::VertexBuffer> _vertex_buffer;
-            std::size_t                                     _start_index;
-            std::size_t                                     _vertex_offset;
-            std::size_t                                     _vertex_count;
-            std::size_t                                     _primitive_count;
-            SceneR::Graphics::PrimitiveType                 _primitive_type;
+            std::unique_ptr<IndexBuffer>    _index_buffer;
+            std::unique_ptr<VertexBuffer>   _vertex_buffer;
+            std::size_t                     _start_index;
+            std::size_t                     _vertex_offset;
+            std::size_t                     _vertex_count;
+            std::size_t                     _primitive_count;
+            SceneR::Graphics::PrimitiveType _primitive_type;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

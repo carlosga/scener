@@ -14,10 +14,7 @@ namespace SceneR
         class EffectParameter;
         class EffectPass;
     }
-}
 
-namespace SceneR
-{
     namespace Content
     {
         /**

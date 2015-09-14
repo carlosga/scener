@@ -13,10 +13,7 @@ namespace SceneR
     {
         class InstanceSkin;
     }
-}
 
-namespace SceneR
-{
     namespace Content
     {
         template <>

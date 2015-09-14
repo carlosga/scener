@@ -18,8 +18,6 @@ namespace SceneR
         using SceneR::Graphics::Model;
         using System::IO::FileStream;
 
-        ContentResourceManager ContentManager::ResourceManager;
-
         ContentManager::ContentManager(RendererServiceContainer& serviceProvider
                                      , const std::u16string&     rootDirectory)
             : _service_provider ( serviceProvider )
@@ -44,9 +42,9 @@ namespace SceneR
 
         std::shared_ptr<Model> ContentManager::load(const std::u16string& assetName)
         {
-            if (ResourceManager.has_resource(assetName))
+            if (resource_manager.has_resource(assetName))
             {
-                return ResourceManager.get_resource<Model>(assetName);
+                return resource_manager.get_resource<Model>(assetName);
             }
 
             auto stream = open_stream(assetName);
@@ -55,14 +53,14 @@ namespace SceneR
 
             auto asset = reader.read_asset();
 
-            ResourceManager.add_resource<Model>(assetName, asset);
+            resource_manager.add_resource<Model>(assetName, asset);
 
             return asset;
         }
 
         void ContentManager::unload()
         {
-            ResourceManager.clear();
+            resource_manager.clear();
         }
 
         std::shared_ptr<FileStream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
@@ -77,5 +75,7 @@ namespace SceneR
 
             return std::make_shared<FileStream>(path);
         }
+
+        ContentResourceManager ContentManager::resource_manager;
     }
 }

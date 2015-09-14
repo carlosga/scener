@@ -138,7 +138,7 @@ namespace SceneR
             return _vendor_id;
         }
 
-        GraphicsAdapter&GraphicsAdapter::operator=(const GraphicsAdapter& adapter)
+        GraphicsAdapter& GraphicsAdapter::operator=(const GraphicsAdapter& adapter)
         {
             if (this != &adapter)
             {

@@ -54,9 +54,7 @@ namespace SceneR
              * @param pitch Pitch around the x-axis, in radians.
              * @param roll Roll around the z-axis, in radians.
              */
-            static Quaternion create_from_yaw_pitch_roll(const float& yaw
-                                                   , const float& pitch
-                                                   , const float& roll);
+            static Quaternion create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll);
 
             /**
              * Calculates the dot product oof two quaternions
@@ -75,9 +73,7 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion lerp(const Quaternion& quaternion1
-                                 , const Quaternion& quaternion2
-                                 , const float&      amount);
+            static Quaternion lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount);
 
             /**
              * Negates the specified Quaternion.
@@ -101,9 +97,7 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion slerp(const Quaternion& quaternion1
-                                  , const Quaternion& quaternion2
-                                  , const float&      amount);
+            static Quaternion slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount);
 
         public:
             /**

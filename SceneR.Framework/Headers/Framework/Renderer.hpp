@@ -24,10 +24,7 @@ namespace SceneR
     {
         class GraphicsDevice;
     }
-}
 
-namespace SceneR
-{
     namespace Framework
     {
         /**

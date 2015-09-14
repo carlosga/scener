@@ -7,23 +7,16 @@
 #include <memory>
 #include <string>
 
-#include <Framework/Vector3.hpp>
-#include <Graphics/IEffectMatrices.hpp>
-
 namespace SceneR
 {
     namespace Content
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class EffectTechnique;
-        class Texture2D;
 
         class EffectMaterial
         {

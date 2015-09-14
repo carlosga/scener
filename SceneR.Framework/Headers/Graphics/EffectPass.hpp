@@ -17,10 +17,7 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class EffectParameter;

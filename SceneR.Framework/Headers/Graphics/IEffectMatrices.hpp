@@ -10,10 +10,7 @@ namespace SceneR
     {
         struct Matrix;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         /**

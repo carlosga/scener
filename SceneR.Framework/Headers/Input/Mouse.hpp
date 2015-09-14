@@ -36,12 +36,13 @@ namespace SceneR
             static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
             static void scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset);
 
-            static GLFWwindow*window_handle;
-
         private:
             Mouse() = delete;
             Mouse(const Mouse& mouse) = delete;
             Mouse& operator=(const Mouse& mouse) = delete;
+
+        private:
+            static GLFWwindow* window_handle;
         };
     }
 }

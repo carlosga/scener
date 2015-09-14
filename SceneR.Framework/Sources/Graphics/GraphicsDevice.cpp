@@ -45,8 +45,7 @@ namespace SceneR
             }
         }
 
-        GraphicsDevice::GraphicsDevice(const GraphicsAdapter&                   adapter
-                                     , const SceneR::Graphics::GraphicsProfile& graphicsProfile)
+        GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile)
             : effect                   { nullptr }
             , index_buffer             { nullptr }
             , vertex_buffer            { nullptr }
@@ -212,12 +211,12 @@ namespace SceneR
             return _blend_state;
         }
 
-        SceneR::Graphics::DepthStencilState& GraphicsDevice::depth_stencil_state()
+        DepthStencilState& GraphicsDevice::depth_stencil_state()
         {
             return _depth_stencil_state;
         }
 
-        SceneR::Graphics::PresentationParameters& GraphicsDevice::presentation_parameters()
+        PresentationParameters& GraphicsDevice::presentation_parameters()
         {
             return _presentation_parameters;
         }
@@ -243,7 +242,7 @@ namespace SceneR
             _viewport.update();
         }
 
-        GraphicsDevice&GraphicsDevice::operator=(const GraphicsDevice& device)
+        GraphicsDevice& GraphicsDevice::operator=(const GraphicsDevice& device)
         {
             if (this != &device)
             {

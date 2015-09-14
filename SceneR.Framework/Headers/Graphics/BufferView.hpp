@@ -20,18 +20,15 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class Buffer;
 
         /**
-         * GLTF Buffer View
+         * GLTF. A view into a buffer.
          */
-        class BufferView : System::IDisposable
+        class BufferView final : System::IDisposable
         {
         public:
             /**

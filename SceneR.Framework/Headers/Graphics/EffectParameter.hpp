@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 
-#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 
@@ -24,18 +23,10 @@ namespace SceneR
     namespace Framework
     {
         struct Matrix;
-        struct Quaternion;
-        struct Vector2;
-        struct Vector3;
-        struct Vector4;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
-        class Texture;
         class UniformBufferObject;
 
         /**
@@ -121,9 +112,6 @@ namespace SceneR
 
         public:
             EffectParameter& operator=(const EffectParameter& parameter);
-
-        private:
-            void describe(const std::int32_t& type);
 
         private:
             std::u16string _name;

@@ -34,11 +34,6 @@ namespace SceneR
             return _byte_length;
         }
 
-        SceneR::Graphics::BufferType Buffer::type() const
-        {
-            return _type;
-        }
-
         std::vector<std::uint8_t> Buffer::get_data() const
         {
             return _data;

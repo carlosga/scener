@@ -16,18 +16,12 @@ namespace SceneR
     {
         class ContentReader;
     }
-}
 
-namespace SceneR
-{
     namespace Framework
     {
         struct Matrix;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class ModelBone;
@@ -36,7 +30,7 @@ namespace SceneR
         /**
          * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
          */
-        class Model : System::IDisposable
+        class Model final : System::IDisposable
         {
         public:
             /**

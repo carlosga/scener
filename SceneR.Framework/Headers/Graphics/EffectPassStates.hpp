@@ -12,10 +12,7 @@ namespace SceneR
     {
         class TechniqueReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class EffectPassStates

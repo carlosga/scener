@@ -18,7 +18,7 @@ namespace SceneR
         /**
          * Represents bone data for a model.
          */
-        class ModelBone
+        class ModelBone final
         {
         public:
             /**

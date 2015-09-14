@@ -16,10 +16,7 @@ namespace SceneR
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         class EffectMaterial;
@@ -29,7 +26,7 @@ namespace SceneR
         /**
          * Represents a mesh that is part of a Model.
          */
-        class ModelMesh
+        class ModelMesh final
         {
         public:
             /**

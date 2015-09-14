@@ -22,7 +22,7 @@ namespace System
         /**
          * Reads primitive data types as binary values in a specific encoding.
          */
-        class BinaryReader
+        class BinaryReader final
         {
         public:
             /**

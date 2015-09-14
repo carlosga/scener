@@ -68,28 +68,28 @@ namespace SceneR
                     switch (parameter->parameter_type())
                     {
                     case EffectParameterType::Bool:
-                        parameter->set_value(paramValue.bool_value());
+                        parameter->set_value<bool>(paramValue.bool_value());
                         break;
                     case EffectParameterType::Byte:
-                        parameter->set_value(static_cast<std::int8_t>(paramValue.int_value()));
+                        parameter->set_value<std::int8_t>(static_cast<std::int8_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::UByte:
-                        parameter->set_value(static_cast<std::uint8_t>(paramValue.int_value()));
+                        parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::Int16:
-                        parameter->set_value(static_cast<std::int16_t>(paramValue.int_value()));
+                        parameter->set_value<std::int16_t>(static_cast<std::int16_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::UInt16:
-                        parameter->set_value(static_cast<std::uint16_t>(paramValue.int_value()));
+                        parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::Int32:
-                        parameter->set_value(static_cast<std::int32_t>(paramValue.int_value()));
+                        parameter->set_value<std::int32_t>(static_cast<std::int32_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::UInt32:
-                        parameter->set_value(static_cast<std::uint32_t>(paramValue.int_value()));
+                        parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(paramValue.int_value()));
                         break;
                     case EffectParameterType::Single:
-                        parameter->set_value(static_cast<float>(paramValue.number_value()));
+                        parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                         break;
                     case EffectParameterType::String:
                         parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));

@@ -23,10 +23,10 @@ namespace SceneR
             /**
              * Initializes a new instance of the vertex element class
              */
-            VertexElement(const std::size_t&                           offset
-                        , const SceneR::Graphics::VertexElementFormat& vertexElementFormat
-                        , const SceneR::Graphics::VertexElementUsage&  vertexElementUsage
-                        , const std::uint32_t&                         usageIndex);
+            VertexElement(const std::size_t&         offset
+                        , const VertexElementFormat& vertexElementFormat
+                        , const VertexElementUsage&  vertexElementUsage
+                        , const std::uint32_t&       usageIndex);
 
             /**
              * @brief Copy constructor
@@ -53,21 +53,21 @@ namespace SceneR
             /**
              * Gets or sets the format of this vertex element.
              */
-            const SceneR::Graphics::VertexElementFormat& vertex_element_format() const;
+            const VertexElementFormat& vertex_element_format() const;
 
             /**
              * Gets a value describing how the vertex element is to be used.
              */
-            const SceneR::Graphics::VertexElementUsage& vertex_element_usage() const;
+            const VertexElementUsage& vertex_element_usage() const;
 
         public:
             VertexElement& operator=(const VertexElement& element);
 
         private:
-            std::size_t                           _offset;
-            SceneR::Graphics::VertexElementFormat _vertex_element_format;
-            SceneR::Graphics::VertexElementUsage  _vertex_element_usage;
-            std::uint32_t                         _usage_index;
+            std::size_t         _offset;
+            VertexElementFormat _vertex_element_format;
+            VertexElementUsage  _vertex_element_usage;
+            std::uint32_t       _usage_index;
         };
     }
 }

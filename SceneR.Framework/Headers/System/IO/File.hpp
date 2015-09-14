@@ -20,7 +20,7 @@ namespace System
         /**
          * Provides static methods for file access handling.
          */
-        class File
+        class File final
         {
         public:
             /**

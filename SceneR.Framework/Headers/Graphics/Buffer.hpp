@@ -9,22 +9,17 @@
 #include <vector>
 #include <string>
 
-#include <Graphics/BufferType.hpp>
-
 namespace SceneR
 {
     namespace Content
     {
         template <typename T> class ContentTypeReader;
     }
-}
 
-namespace SceneR
-{
     namespace Graphics
     {
         /**
-         * GLTF Buffer
+         * GLTF. Buffers contain geometry, animation, or skins.
          */
         class Buffer final
         {
@@ -56,11 +51,6 @@ namespace SceneR
             std::size_t byte_length() const;
 
             /**
-             * Gets the buffer uri.
-             */
-            SceneR::Graphics::BufferType type() const;
-
-            /**
              * Gets the buffer data.
              */
             std::vector<std::uint8_t> get_data() const;
@@ -81,7 +71,6 @@ namespace SceneR
             std::u16string            _name;
             std::u16string            _uri;
             std::size_t               _byte_length;
-            BufferType                _type;
             std::vector<std::uint8_t> _data;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;

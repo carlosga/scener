@@ -34,11 +34,14 @@ namespace SceneR
             ~RendererWindow();
 
         public:
+            /**
+             * Gets the renderer window title.
+             */
             const std::u16string& title() const;
 
             /**
-             * Sets the renderer window title
-             * @param title the renderer window title
+             * Sets the renderer window title.
+             * @param title the renderer window title.
              */
             void title(const std::u16string& title);
 

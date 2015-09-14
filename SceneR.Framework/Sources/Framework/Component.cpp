@@ -9,9 +9,9 @@ namespace SceneR
 {
     namespace Framework
     {
-        Component::Component(SceneR::Framework::Renderer& renderer)
-            : _renderer    ( renderer )
-            , _enabled     { true }
+        Component::Component(Renderer& renderer)
+            : _renderer     ( renderer )
+            , _enabled      { true }
             , _update_order { 0 }
         {
         }
@@ -20,7 +20,7 @@ namespace SceneR
         {
         }
 
-        SceneR::Framework::Renderer& Component::renderer()
+        Renderer& Component::renderer()
         {
             return _renderer;
         }

@@ -31,12 +31,13 @@ namespace SceneR
         private:
             static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-            static GLFWwindow* window_handle;
-
         private:
             Keyboard() = delete;
             Keyboard(const Keyboard& keyboard) = delete;
             Keyboard& operator=(const Keyboard& keyboard) = delete;
+
+        private:
+            static GLFWwindow* window_handle;
         };
     }
 }

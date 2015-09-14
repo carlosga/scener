@@ -18,7 +18,7 @@ namespace System
         /**
          * A Stream around a in memory buffer, supporting read operations.
          */
-        class MemoryStream : public Stream
+        class MemoryStream final : public Stream
         {
         public:
             /**
