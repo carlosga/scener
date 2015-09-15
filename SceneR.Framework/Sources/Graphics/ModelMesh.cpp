@@ -33,7 +33,7 @@ namespace SceneR
             return _bounding_sphere;
         }
 
-        const std::u16string& ModelMesh::name() const
+        const std::string& ModelMesh::name() const
         {
             return _name;
         }

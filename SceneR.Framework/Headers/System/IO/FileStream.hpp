@@ -24,7 +24,7 @@ namespace System
             /**
              * Initializes a new instance of the FileStream class with the specified and opening mode.
              */
-            FileStream(const std::u16string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary);
+            FileStream(const std::string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary);
 
             /**
              * Releases all resources being used by this FileStream.

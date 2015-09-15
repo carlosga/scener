@@ -36,7 +36,7 @@ namespace SceneR
              * Initializes a new instance of the ContentManagerClass
              */
             ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider
-                         , const std::u16string&                        rootDirectory);
+                         , const std::string&                           rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -52,13 +52,13 @@ namespace SceneR
             /**
              * Gets the root directory associated with this ContentManager.
              */
-            const std::u16string& root_directory() const;
+            const std::string& root_directory() const;
 
         public:
             /**
              * Loads a the given asset.
              */
-            std::shared_ptr<SceneR::Graphics::Model> load(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::Graphics::Model> load(const std::string& assetName) noexcept(false);
 
             /**
             * Disposes all data that was loaded by this ContentManager.
@@ -70,14 +70,14 @@ namespace SceneR
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
-            std::shared_ptr<System::IO::FileStream> open_stream(const std::u16string& assetName) noexcept(false);
+            std::shared_ptr<System::IO::FileStream> open_stream(const std::string& assetName) noexcept(false);
 
         private:
             static ContentResourceManager resource_manager;
 
         private:
             SceneR::Framework::RendererServiceContainer& _service_provider;
-            std::u16string                               _root_directory;
+            std::string                                  _root_directory;
         };
     }
 }

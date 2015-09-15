@@ -24,23 +24,22 @@ namespace System
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const std::u16string change_extension(const std::u16string& path
-                                                       , const std::u16string& extension)
+            static const std::string change_extension(const std::string& path, const std::string& extension)
             {
-                return get_file_name_without_extension(path) + u"." + extension;
+                return get_file_name_without_extension(path) + "." + extension;
             }
 
             /**
              * Returns the directory information for the specified path string.
              * @param path the path of a file or directory.
              */
-            static const std::u16string get_directory_name(const std::u16string& path)
+            static const std::string get_directory_name(const std::string& path)
             {
                 auto result        = path.find_last_of(Path::directory_separator());
                 auto directoryName = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (std::u16string::npos != result)
+                if (std::string::npos != result)
                 {
                     directoryName.erase(result);
                 }
@@ -53,13 +52,13 @@ namespace System
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const std::u16string get_file_name_without_extension(const std::u16string& path)
+            static const std::string get_file_name_without_extension(const std::string& path)
             {
                 auto result               = path.find_last_of('.');
                 auto pathWithoutExtension = path;
 
                 // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (std::u16string::npos != result)
+                if (std::string::npos != result)
                 {
                     pathWithoutExtension.erase(result);
                 }
@@ -73,20 +72,20 @@ namespace System
              * @param path1 The first path to combine
              * @param path2 The second path to combine
              */
-            static const std::u16string combine(const std::u16string& path1, const std::u16string& path2)
+            static const std::string combine(const std::string& path1, const std::string& path2)
             {
-                std::u16string separator = u"";
-                std::u16string cpath1    = path1;
-                std::u16string cpath2    = path2;
+                std::string separator = "";
+                std::string cpath1    = path1;
+                std::string cpath2    = path2;
 
 #if __unix__
                 if (!cpath1.empty())
                 {
-                    std::replace(cpath1.begin(), cpath1.end(), u'\\', Path::directory_separator()[0]);
+                    std::replace(cpath1.begin(), cpath1.end(), '\\', Path::directory_separator()[0]);
                 }
                 if (!cpath2.empty())
                 {
-                    std::replace(cpath2.begin(), cpath2.end(), u'\\', Path::directory_separator()[0]);
+                    std::replace(cpath2.begin(), cpath2.end(), '\\', Path::directory_separator()[0]);
                 }
 #endif
 
@@ -95,18 +94,18 @@ namespace System
                     separator = Path::directory_separator();
                 }
 
-                return std::u16string(cpath1 + separator + cpath2);
+                return std::string(cpath1 + separator + cpath2);
             }
 
             /**
              * Gets platform specific string with the directory separator.
              */
-            static const std::u16string directory_separator()
+            static const std::string directory_separator()
             {
 #if __unix__
-                return u"/";
+                return "/";
 #else
-                return u"\\";
+                return "\\";
 #endif
             }
 

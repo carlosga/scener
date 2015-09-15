@@ -26,10 +26,10 @@ namespace System
             /**
              * Checks whether the given file exists.
              */
-            static bool exists(const std::u16string& path)
+            static bool exists(const std::string& path)
             {
                 auto result = true;
-                auto file   = std::fstream(System::Text::Encoding::convert(path), std::ios::in);
+                auto file   = std::fstream(path, std::ios::in);
 
                 if (!file || !file.good())
                 {
@@ -46,18 +46,18 @@ namespace System
             /**
              * Opens a text file, reads all lines of the file, and then closes the file.
              */
-            static std::u16string read_all_text(const std::u16string&         path
-                                              , const System::Text::Encoding& encoding = System::Text::Encoding::utf8)
+            static std::string read_all_text(const std::string&            path
+                                           , const System::Text::Encoding& encoding = System::Text::Encoding::utf8)
             {
                 auto buffer = read_all_bytes(path);
 
-                return encoding.get_string(buffer, 0, buffer.size());
+                return std::string(buffer.begin(), buffer.end());
             }
 
             /**
              * Opens a binary file, reads the contents of the file into a byte array, and then closes the file.
              */
-            static std::vector<std::uint8_t> read_all_bytes(const std::u16string& path)
+            static std::vector<std::uint8_t> read_all_bytes(const std::string& path)
             {
                 assert(exists(path));
 

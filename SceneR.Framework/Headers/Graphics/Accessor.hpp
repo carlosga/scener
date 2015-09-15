@@ -85,7 +85,7 @@ namespace SceneR
             /**
              * Gets the accessor name.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Gets the accessor data.
@@ -113,7 +113,7 @@ namespace SceneR
             std::vector<float>          _max;
             std::vector<float>          _min;
             std::shared_ptr<BufferView> _buffer_view;
-            std::u16string              _name;
+            std::string                 _name;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

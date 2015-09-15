@@ -9,7 +9,6 @@
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -20,7 +19,6 @@ namespace SceneR
         using SceneR::Graphics::SamplerState;
         using SceneR::Graphics::TextureAddressMode;
         using SceneR::Graphics::TextureFilter;
-        using System::Text::Encoding;
 
         ContentTypeReader<SamplerState>::ContentTypeReader()
         {
@@ -36,7 +34,7 @@ namespace SceneR
             auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
             auto  sampler   = std::make_shared<SamplerState>(gdService.graphics_device());
 
-            sampler->name       = Encoding::convert(source.first);
+            sampler->name       = source.first;
             sampler->mag_filter = static_cast<TextureFilter>(source.second["magFilter"].int_value());
             sampler->min_filter = static_cast<TextureFilter>(source.second["minFilter"].int_value());
             sampler->address_U  = static_cast<TextureAddressMode>(source.second["wrapS"].int_value());

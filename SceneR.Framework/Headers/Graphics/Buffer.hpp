@@ -38,12 +38,12 @@ namespace SceneR
             /**
              * Gets the buffer name.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Gets the buffer uri.
              */
-            const std::u16string& uri() const;
+            const std::string& uri() const;
 
             /**
              * Gets the buffer uri.
@@ -68,8 +68,8 @@ namespace SceneR
             void set_data(const std::vector<std::uint8_t>& buffer);
 
         private:
-            std::u16string            _name;
-            std::u16string            _uri;
+            std::string               _name;
+            std::string               _uri;
             std::size_t               _byte_length;
             std::vector<std::uint8_t> _data;
 

@@ -12,7 +12,6 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -25,9 +24,8 @@ namespace SceneR
         using System::IO::File;
         using System::IO::Path;
         using System::IO::Stream;
-        using System::Text::Encoding;
 
-        ContentReader::ContentReader(const std::u16string& assetName, ContentManager* contentManager, Stream& stream)
+        ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream)
             : _asset_name      { assetName }
             , _asset_reader    { stream }
             , _content_manager { contentManager }
@@ -39,7 +37,7 @@ namespace SceneR
             _asset_reader.close();
         }
 
-        const std::u16string& ContentReader::asset_name() const
+        const std::string& ContentReader::asset_name() const
         {
             return _asset_name;
         }
@@ -84,7 +82,7 @@ namespace SceneR
             return true;
         }
 
-        std::u16string ContentReader::get_asset_path(const std::u16string& assetName) const
+        std::string ContentReader::get_asset_path(const std::string& assetName) const
         {
             auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
 
@@ -92,11 +90,6 @@ namespace SceneR
         }
 
         std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const
-        {
-            return read_external_reference(Encoding::convert(assetName));
-        }
-
-        std::vector<std::uint8_t> ContentReader::read_external_reference(const std::u16string& assetName) const
         {
             auto assetPath = get_asset_path(assetName);
 

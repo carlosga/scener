@@ -71,7 +71,7 @@ namespace SceneR
              * Gets the buffer name.
              * @return the buffer name.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Gets buffer data from object's data store.
@@ -90,7 +90,7 @@ namespace SceneR
             BufferUsage             _usage;
             std::size_t             _byte_offset;
             std::size_t             _byte_length;
-            std::u16string          _name;
+            std::string             _name;
             std::shared_ptr<Buffer> _buffer;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;

@@ -20,7 +20,6 @@ namespace SceneR
         using System::Math;
         using System::IO::BinaryReader;
         using System::IO::FileStream;
-        using System::Text::Encoding;
 
         Surface::Surface()
         {
@@ -30,7 +29,7 @@ namespace SceneR
         {
         }
 
-        void Surface::load(const std::u16string& filename)
+        void Surface::load(const std::string& filename)
         {
             assert(System::IO::File::exists(filename));
 

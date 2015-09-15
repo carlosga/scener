@@ -10,7 +10,6 @@
 #include <Framework/Vector3.hpp>
 #include <Graphics/InstanceSkin.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -23,7 +22,6 @@ namespace SceneR
         using SceneR::Graphics::InstanceSkin;
         using SceneR::Graphics::ModelMesh;
         using SceneR::Graphics::Node;
-        using System::Text::Encoding;
 
         ContentTypeReader<Node>::ContentTypeReader()
         {

@@ -88,7 +88,7 @@ namespace SceneR
             verify_linking_state();
 
             // ... fill uniform buffer info
-            _uniform_buffer = std::make_shared<UniformBufferObject>(u"ConstantBuffer", _id);
+            _uniform_buffer = std::make_shared<UniformBufferObject>("ConstantBuffer", _id);
             _uniform_buffer->create();
         }
 

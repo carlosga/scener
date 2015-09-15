@@ -51,7 +51,7 @@ namespace SceneR
              * Gets the model name.
              * @return the model name.
              */
-            const std::u16string name() const;
+            const std::string name() const;
 
             /**
              * Copies a transform of each bone in a model relative to all parent bones of the bone into a given array.
@@ -98,7 +98,7 @@ namespace SceneR
                     , const SceneR::Framework::Matrix& projection);
 
         private:
-            std::u16string                           _name;
+            std::string                              _name;
             std::vector<std::shared_ptr<ModelBone>>  _bones;
             std::shared_ptr<ModelBone>               _root;
             std::vector<std::shared_ptr<ModelMesh>>  _meshes;

@@ -45,7 +45,7 @@ namespace SceneR
              * Gets the name of this pass.
              * @return The name of this pass.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Begins this pass.
@@ -54,8 +54,8 @@ namespace SceneR
 
         private:
             GraphicsDevice&                               _graphics_device;
-            std::u16string                                _name;
-            std::u16string                                _lighting_model;
+            std::string                                   _name;
+            std::string                                   _lighting_model;
             std::vector<std::shared_ptr<EffectParameter>> _parameters;
             std::shared_ptr<Program>                      _program;
             EffectPassStates                              _states;

@@ -16,7 +16,7 @@ namespace SceneR
         using SceneR::Graphics::GraphicsDevice;
         using System::TimeSpan;
 
-        Renderer::Renderer(const std::u16string& rootDirectory)
+        Renderer::Renderer(const std::string& rootDirectory)
             : is_fixed_time_step       { true }
             , target_elapsed_time      { 10000000L / 60L }
             , _components              ( 0 )

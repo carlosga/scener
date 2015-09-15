@@ -7,7 +7,6 @@
 #include <Content/ContentReader.hpp>
 #include <Graphics/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -18,7 +17,6 @@ namespace SceneR
         using SceneR::Graphics::BufferView;
         using SceneR::Graphics::AttributeType;
         using SceneR::Graphics::ComponentType;
-        using System::Text::Encoding;
 
         ContentTypeReader<Accessor>::ContentTypeReader()
         {
@@ -63,12 +61,13 @@ namespace SceneR
                 accessor->_attribute_type = AttributeType::Matrix4;
             }
 
-            accessor->_name            = Encoding::convert(source.first);
-            accessor->_buffer_view     = input->read_object<BufferView>("bufferViews", source.second["bufferView"].string_value());
+            accessor->_name            = source.first;
             accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
             accessor->_byte_offset     = source.second["byteOffset"].int_value();
             accessor->_byte_stride     = source.second["byteStride"].int_value();
             accessor->_attribute_count = source.second["count"].int_value();
+            accessor->_buffer_view     = input->read_object<BufferView>("bufferViews"
+                                                                      , source.second["bufferView"].string_value());
             accessor->_byte_length     = accessor->_attribute_count
                                        * accessor->get_attribute_type_count()
                                        * accessor->get_component_size_in_bytes();

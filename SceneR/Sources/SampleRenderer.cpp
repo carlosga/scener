@@ -14,7 +14,7 @@ namespace SceneR
         using SceneR::Framework::RenderTime;
 
         SampleRenderer::SampleRenderer()
-            : Renderer(u"../../Content/")
+            : Renderer("../../Content/")
         {
         }
 
@@ -22,7 +22,7 @@ namespace SceneR
         {
             _graphics_device_manager.preferred_back_buffer_width  = 1600;
             _graphics_device_manager.preferred_back_buffer_height = 900;
-            _graphics_device_manager.window_title                 = u"SceneR";
+            _graphics_device_manager.window_title                 = "SceneR";
 
             this->components().push_back(std::make_shared<Camera>(*this));
             this->components().push_back(std::make_shared<EarthShaker>(*this));

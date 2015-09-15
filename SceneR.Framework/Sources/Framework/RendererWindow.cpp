@@ -12,7 +12,6 @@
 #include <Input/Keyboard.hpp>
 #include <Input/KeyboardState.hpp>
 #include <Input/Mouse.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -22,7 +21,6 @@ namespace SceneR
         using SceneR::Input::KeyboardState;
         using SceneR::Input::Keys;
         using SceneR::Input::Mouse;
-        using System::Text::Encoding;
 
         RendererWindow::RendererWindow(Renderer& renderer)
             : _title    {  }
@@ -36,21 +34,15 @@ namespace SceneR
             close();
         }
 
-        const std::u16string& RendererWindow::title() const
+        const std::string& RendererWindow::title() const
         {
             return _title;
         }
 
-        void RendererWindow::title(const std::u16string& title)
+        void RendererWindow::title(const std::string& title)
         {
             _title = title;
-
-            if (_handle != nullptr)
-            {
-                auto tmp = Encoding::convert(_title);
-
-                glfwSetWindowTitle(_handle, tmp.c_str());
-            }
+            glfwSetWindowTitle(_handle, _title.c_str());
         }
 
         bool RendererWindow::allow_user_resizing() const
@@ -68,7 +60,6 @@ namespace SceneR
             GLFWmonitor* monitor     = nullptr;
             GLFWwindow*  windowShare = nullptr;
             auto         profile     = static_cast<std::int32_t>(_renderer._graphics_device_manager.graphics_profile);
-            auto         tmp         = System::Text::Encoding::convert(_title);
             auto         fullscreen  = _renderer._graphics_device_manager.full_screen;
             auto         width       = _renderer._graphics_device_manager.preferred_back_buffer_width;
             auto         height      = _renderer._graphics_device_manager.preferred_back_buffer_height;
@@ -104,7 +95,7 @@ namespace SceneR
             (
                 static_cast<std::int32_t>(width)    // width
               , static_cast<std::int32_t>(height)   // height
-              , tmp.c_str()                         // title
+              , _title.c_str()                      // title
               , monitor                             // monitor
               , windowShare                         // share
             );

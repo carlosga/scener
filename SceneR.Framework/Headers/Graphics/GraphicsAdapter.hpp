@@ -58,7 +58,7 @@ namespace SceneR
             /**
              * Retrieves a string used for presentation to the user.
              */
-            const std::u16string& description() const;
+            const std::string& description() const;
 
             /**
              * Retrieves a value that is used to help identify a particular chip set.
@@ -68,7 +68,7 @@ namespace SceneR
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
              */
-            const std::u16string& device_name() const;
+            const std::string& device_name() const;
 
             /**
              * Determines if this instance of GraphicsAdapter is the default adapter.
@@ -109,9 +109,9 @@ namespace SceneR
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
 
         private:
-            std::u16string           _description;
+            std::string              _description;
             std::int32_t             _device_id;
-            std::u16string           _device_name;
+            std::string              _device_name;
             bool                     _is_default_adapter;
             bool                     _is_wide_screen;
             GLFWmonitor*             _monitor_handle;

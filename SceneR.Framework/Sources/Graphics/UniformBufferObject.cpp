@@ -5,15 +5,12 @@
 
 #include <Graphics/BufferObject.hpp>
 #include <System/Graphics/Platform.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        using System::Text::Encoding;
-
-        UniformBufferObject::UniformBufferObject(const std::u16string& name, const std::uint32_t& programId)
+        UniformBufferObject::UniformBufferObject(const std::string& name, const std::uint32_t& programId)
             : _name          { name }
             , _program_id    { programId }
             , _index         { 0 }
@@ -58,12 +55,11 @@ namespace SceneR
 
         void UniformBufferObject::create()
         {
-            std::string  tmp       = Encoding::convert(_name);
             std::int32_t binding   = 0;
             std::int32_t blockSize = 0;
 
             // Get the uniform block index
-            _index = glGetUniformBlockIndex(_program_id, tmp.c_str());
+            _index = glGetUniformBlockIndex(_program_id, _name.c_str());
 
             // Get the binding point
             glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);

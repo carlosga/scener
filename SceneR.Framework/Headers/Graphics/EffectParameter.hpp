@@ -59,7 +59,7 @@ namespace SceneR
             /**
              * Gets the name of the parameter.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Gets the class of the parameter.
@@ -80,7 +80,7 @@ namespace SceneR
              * Gets the semantic meaning, or usage, of the parameter.
              * @return the semantic meaning, or usage, of the parameter.
              */
-            std::u16string semantic() const;
+            std::string semantic() const;
 
         public:
             /**
@@ -114,14 +114,14 @@ namespace SceneR
             EffectParameter& operator=(const EffectParameter& parameter);
 
         private:
-            std::u16string _name;
-            std::size_t    _column_count;
-            std::size_t    _row_count;
-            std::size_t    _count;
-            std::size_t    _offset;
-            std::u16string _semantic;
-            std::u16string _node;
-            std::u16string _value;
+            std::string _name;
+            std::size_t _column_count;
+            std::size_t _row_count;
+            std::size_t _count;
+            std::size_t _offset;
+            std::string _semantic;
+            std::string _node;
+            std::string _value;
 
             EffectParameterClass _parameter_class;
             EffectParameterType  _parameter_type;

@@ -32,7 +32,7 @@ namespace SceneR
         {
         }
 
-        const std::u16string Model::name() const
+        const std::string Model::name() const
         {
             return _name;
         }

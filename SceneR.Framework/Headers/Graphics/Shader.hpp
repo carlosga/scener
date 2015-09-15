@@ -5,6 +5,7 @@
 #define GRAPHICS_SHADER_HPP
 
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -29,7 +30,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
-            Shader(const std::u16string& name, const ShaderType& type, const std::vector<std::uint8_t>& source);
+            Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source);
 
             /**
              * Initializes a new instance of the Shader class.
@@ -37,7 +38,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
-            Shader(const std::u16string& name, const ShaderType& type, const std::string& source);
+            Shader(const std::string& name, const ShaderType& type, const std::string& source);
 
             /**
              * Destructor
@@ -57,7 +58,7 @@ namespace SceneR
              * @brief Gets the name of the shader.
              * @return the name of the shader.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * @brief Gets the type of the shader.
@@ -85,7 +86,7 @@ namespace SceneR
             void verify_compilation_state();
 
         private:
-            std::u16string                              _name;
+            std::string                                 _name;
             std::uint32_t                               _id;
             ShaderType                                  _type;
             std::string                                 _source;

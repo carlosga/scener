@@ -12,7 +12,6 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Texture::Surface;
-        using System::Text::Encoding;
 
         ContentTypeReader<Surface>::ContentTypeReader()
         {
@@ -27,7 +26,7 @@ namespace SceneR
         {
             auto surface = std::make_shared<Surface>();
 
-            surface->load(input->get_asset_path(Encoding::convert(source.second["uri"].string_value())));
+            surface->load(input->get_asset_path(source.second["uri"].string_value()));
 
             return surface;
         }

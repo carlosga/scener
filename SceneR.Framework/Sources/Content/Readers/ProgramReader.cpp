@@ -6,7 +6,6 @@
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
 #include <Graphics/Shader.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -15,7 +14,6 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Program;
         using SceneR::Graphics::Shader;
-        using System::Text::Encoding;
 
         ContentTypeReader<Program>::ContentTypeReader()
         {
@@ -32,7 +30,7 @@ namespace SceneR
             auto vertexShader   = source.second["vertexShader"].string_value();
             auto fragmentShader = source.second["fragmentShader"].string_value();
 
-            program->name = Encoding::convert(source.first);
+            program->name = source.first;
             program->create();
             program->add_shader(input->read_object<Shader>("shaders", vertexShader));
             program->add_shader(input->read_object<Shader>("shaders", fragmentShader));

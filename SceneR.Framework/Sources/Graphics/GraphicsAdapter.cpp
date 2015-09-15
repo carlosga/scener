@@ -88,7 +88,7 @@ namespace SceneR
             return DisplayMode(glfwGetVideoMode(_monitor_handle));
         }
 
-        const std::u16string& GraphicsAdapter::description() const
+        const std::string& GraphicsAdapter::description() const
         {
             return _description;
         }
@@ -98,7 +98,7 @@ namespace SceneR
             return _device_id;
         }
 
-        const std::u16string& GraphicsAdapter::device_name() const
+        const std::string& GraphicsAdapter::device_name() const
         {
             return _device_name;
         }

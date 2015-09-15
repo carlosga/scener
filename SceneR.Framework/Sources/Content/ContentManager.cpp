@@ -18,8 +18,7 @@ namespace SceneR
         using SceneR::Graphics::Model;
         using System::IO::FileStream;
 
-        ContentManager::ContentManager(RendererServiceContainer& serviceProvider
-                                     , const std::u16string&     rootDirectory)
+        ContentManager::ContentManager(RendererServiceContainer& serviceProvider, const std::string& rootDirectory)
             : _service_provider ( serviceProvider )
             , _root_directory   { rootDirectory }
         {
@@ -35,12 +34,12 @@ namespace SceneR
             return _service_provider;
         }
 
-        const std::u16string& ContentManager::root_directory() const
+        const std::string& ContentManager::root_directory() const
         {
             return _root_directory;
         }
 
-        std::shared_ptr<Model> ContentManager::load(const std::u16string& assetName)
+        std::shared_ptr<Model> ContentManager::load(const std::string& assetName)
         {
             if (resource_manager.has_resource(assetName))
             {
@@ -63,9 +62,9 @@ namespace SceneR
             resource_manager.clear();
         }
 
-        std::shared_ptr<FileStream> ContentManager::open_stream(const std::u16string& assetName) noexcept(false)
+        std::shared_ptr<FileStream> ContentManager::open_stream(const std::string& assetName) noexcept(false)
         {
-            const auto filename  = assetName + u".gltf";
+            const auto filename  = assetName + ".gltf";
             const auto path      = System::IO::Path::combine(_root_directory, filename);
 
             if (!System::IO::File::exists(path))

@@ -19,12 +19,12 @@ namespace SceneR
         {
         }
 
-        const std::u16string& Buffer::name() const
+        const std::string& Buffer::name() const
         {
             return _name;
         }
 
-        const std::u16string& Buffer::uri() const
+        const std::string& Buffer::uri() const
         {
             return _uri;
         }

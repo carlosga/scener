@@ -37,13 +37,13 @@ namespace SceneR
             /**
              * Gets the renderer window title.
              */
-            const std::u16string& title() const;
+            const std::string& title() const;
 
             /**
              * Sets the renderer window title.
              * @param title the renderer window title.
              */
-            void title(const std::u16string& title);
+            void title(const std::string& title);
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
@@ -78,9 +78,9 @@ namespace SceneR
             RendererWindow& operator=(const RendererWindow& window) = delete;
 
         private:
-            std::u16string _title;
-            GLFWwindow*    _handle;
-            Renderer&      _renderer;
+            std::string _title;
+            GLFWwindow* _handle;
+            Renderer&   _renderer;
 
             friend class Renderer;
         };

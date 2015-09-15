@@ -33,7 +33,7 @@ namespace SceneR
 
         public:
             template <class T>
-            void add_resource(const std::u16string& name, std::shared_ptr<T> resource)
+            void add_resource(const std::string& name, std::shared_ptr<T> resource)
             {
                 if (!has_resource(name))
                 {
@@ -42,7 +42,7 @@ namespace SceneR
             }
 
             template <class T>
-            std::shared_ptr<T> get_resource(const std::u16string& name) const
+            std::shared_ptr<T> get_resource(const std::string& name) const
             {
                 if (has_resource(name))
                 {
@@ -52,7 +52,7 @@ namespace SceneR
                 return nullptr;
             }
 
-            bool has_resource(const std::u16string& name) const
+            bool has_resource(const std::string& name) const
             {
                 return (_resources.find(name) != _resources.end());
             }
@@ -83,7 +83,7 @@ namespace SceneR
             ContentResourceManager& operator=(const ContentResourceManager& manager) = delete;
 
         private:
-            std::map<std::u16string, std::shared_ptr<void>> _resources;
+            std::map<std::string, std::shared_ptr<void>> _resources;
         };
     }
 }

@@ -60,7 +60,7 @@ namespace SceneR
             return _column_count;
         }
 
-        const std::u16string& EffectParameter::name() const
+        const std::string& EffectParameter::name() const
         {
             return _name;
         }
@@ -80,7 +80,7 @@ namespace SceneR
             return _row_count;
         }
 
-        std::u16string EffectParameter::semantic() const
+        std::string EffectParameter::semantic() const
         {
             return _semantic;
         }
@@ -152,7 +152,7 @@ namespace SceneR
         }
 
         template<>
-        std::u16string EffectParameter::get_value() const
+        std::string EffectParameter::get_value() const
         {
             throw std::runtime_error("Not implemented");
         }
@@ -449,7 +449,7 @@ namespace SceneR
         }
 
         template<>
-        void EffectParameter::set_value(const std::u16string& value) const
+        void EffectParameter::set_value(const std::string& value) const
         {
             throw std::runtime_error("Not implemented");
         }

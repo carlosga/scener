@@ -61,7 +61,7 @@ namespace SceneR
             /**
              * Gets or sets the bone name
              */
-            std::u16string name;
+            std::string name;
 
         private:
             std::vector<std::shared_ptr<ModelBone>> _children;

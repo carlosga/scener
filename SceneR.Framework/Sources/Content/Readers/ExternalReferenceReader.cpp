@@ -11,7 +11,6 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using System::Text::Encoding;
 
         ContentTypeReader<std::vector<std::uint8_t>>::ContentTypeReader()
         {
@@ -24,7 +23,7 @@ namespace SceneR
         std::shared_ptr<std::vector<std::uint8_t>> ContentTypeReader<std::vector<std::uint8_t>>::read(
             ContentReader* input, const std::pair<std::string, Json>& source)
         {
-            auto contents = input->read_external_reference(Encoding::convert(source.second["uri"].string_value()));
+            auto contents = input->read_external_reference(source.second["uri"].string_value());
 
             return std::make_shared<std::vector<std::uint8_t>>(contents.begin(), contents.end());
         }

@@ -11,7 +11,6 @@
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Texture/Surface.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -24,7 +23,6 @@ namespace SceneR
         using SceneR::Graphics::Texture2D;
         using SceneR::Texture::Surface;
         using SceneR::Texture::SurfaceMipmap;
-        using System::Text::Encoding;
 
         ContentTypeReader<Texture2D>::ContentTypeReader()
         {
@@ -47,7 +45,7 @@ namespace SceneR
 
             texture->declare_storage(surface->mipmaps().size());
 
-            texture->name           = Encoding::convert(source.first);
+            texture->name           = source.first;
             texture->_sampler_state = input->read_object<SamplerState>("samplers", source.second["sampler"].string_value());
 
             for (const auto& mipmap : surface->mipmaps())

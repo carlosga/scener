@@ -23,7 +23,7 @@ namespace SceneR
             ~Surface();
 
         public:
-            void load(const std::u16string& filename);
+            void load(const std::string& filename);
 
         public:
             const SceneR::Graphics::SurfaceFormat& format() const;

@@ -25,7 +25,6 @@
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexDeclaration.hpp>
-#include <System/Text/Encoding.hpp>
 
 using json11::Json;
 using SceneR::Content::ContentTypeReader;
@@ -52,7 +51,6 @@ using SceneR::Graphics::VertexDeclaration;
 using SceneR::Graphics::VertexElement;
 using SceneR::Graphics::VertexElementFormat;
 using SceneR::Graphics::VertexElementUsage;
-using System::Text::Encoding;
 
 namespace SceneR
 {
@@ -71,12 +69,12 @@ namespace SceneR
         {
             auto mesh = std::make_shared<ModelMesh>();
 
+            mesh->_name = source.first;
+
             for (const auto& primitive : source.second["primitives"].array_items())
             {
                 read_mesh_part(input, primitive, mesh);
             }
-
-            mesh->_name = Encoding::convert(source.first);
 
             return mesh;
         }
@@ -233,7 +231,7 @@ namespace SceneR
         std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
                                                                                    , const std::string& name) const
         {
-            const auto& material   = input->get_node("materials", name);
+            const auto& material   = input->_root["materials"][name];
             const auto& itechnique = material["instanceTechnique"];
             const auto& values     = itechnique["values"].object_items();
             auto        technique  = input->read_object<EffectTechnique>("techniques"
@@ -276,7 +274,7 @@ namespace SceneR
                         parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                         break;
                     case EffectParameterType::String:
-                        parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));
+                        parameter->set_value<std::string>(paramValue.string_value());
                         break;
                     }
                 }

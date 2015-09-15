@@ -63,7 +63,7 @@ namespace SceneR
             return _min;
         }
 
-        const std::u16string& Accessor::name() const
+        const std::string& Accessor::name() const
         {
             return _name;
         }

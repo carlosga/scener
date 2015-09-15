@@ -28,7 +28,7 @@ namespace SceneR
         {
         }
 
-        const std::u16string& EffectPass::name() const
+        const std::string& EffectPass::name() const
         {
             return _name;
         }

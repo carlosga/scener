@@ -8,7 +8,6 @@
 #include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -19,7 +18,6 @@ namespace SceneR
         using SceneR::Graphics::BufferTarget;
         using SceneR::Graphics::BufferUsage;
         using SceneR::Graphics::BufferView;
-        using System::Text::Encoding;
 
         ContentTypeReader<BufferView>::ContentTypeReader()
         {
@@ -43,7 +41,7 @@ namespace SceneR
 
             auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
-            bufferView->_name        = Encoding::convert(source.first);
+            bufferView->_name        = source.first;
             bufferView->_buffer      = input->read_object<Buffer>("buffers", source.second["buffer"].string_value());
             bufferView->_byte_offset = source.second["byteOffset"].int_value();
             bufferView->_byte_length = source.second["byteLength"].int_value();

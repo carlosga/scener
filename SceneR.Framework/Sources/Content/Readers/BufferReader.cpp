@@ -5,7 +5,6 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -13,7 +12,6 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Graphics::Buffer;
-        using System::Text::Encoding;
 
         ContentTypeReader<Buffer>::ContentTypeReader()
         {
@@ -28,8 +26,8 @@ namespace SceneR
         {
             auto buffer = std::make_shared<Buffer>();
 
-            buffer->_name        = Encoding::convert(source.first);
-            buffer->_uri         = Encoding::convert(source.second["uri"].string_value());
+            buffer->_name        = source.first;
+            buffer->_uri         = source.second["uri"].string_value();
             buffer->_byte_length = source.second["byteLength"].int_value();
 
             buffer->set_data(input->read_external_reference(buffer->_uri));

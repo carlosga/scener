@@ -7,7 +7,6 @@
 #include <Content/ContentReader.hpp>
 #include <Graphics/ShaderInclude.hpp>
 #include <Graphics/ShaderType.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -17,7 +16,6 @@ namespace SceneR
         using SceneR::Graphics::Shader;
         using SceneR::Graphics::ShaderInclude;
         using SceneR::Graphics::ShaderType;
-        using System::Text::Encoding;
 
         ContentTypeReader<Shader>::ContentTypeReader()
         {
@@ -30,10 +28,9 @@ namespace SceneR
         std::shared_ptr<Shader> ContentTypeReader<Shader>::read(ContentReader*                      input
                                                               , const std::pair<std::string, Json>& source)
         {
-            auto name   = Encoding::convert(source.first);
+            auto name   = source.first;
             auto type   = static_cast<ShaderType>(source.second["type"].int_value());
-            auto uri    = Encoding::convert(source.second["uri"].string_value());
-            auto code   = input->read_external_reference(uri);
+            auto code   = input->read_external_reference(source.second["uri"].string_value());
             auto shader = std::make_shared<Shader>(name, type, code);
             auto extras = source.second["extras"];
 

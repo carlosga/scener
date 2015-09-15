@@ -12,12 +12,12 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Shader::Shader(const std::u16string& name, const ShaderType& type, const std::vector<std::uint8_t>& source)
+        Shader::Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source)
             : Shader { name, type, std::string(source.begin(), source.end()) }
         {
         }
 
-        Shader::Shader(const std::u16string& name, const ShaderType& type, const std::string& source)
+        Shader::Shader(const std::string& name, const ShaderType& type, const std::string& source)
             : _name     { name }
             , _id       { 0 }
             , _type     { type }
@@ -48,7 +48,7 @@ namespace SceneR
         {
             return _id;
         }
-        const std::u16string& Shader::name() const
+        const std::string& Shader::name() const
         {
             return _name;
         }

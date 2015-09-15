@@ -83,7 +83,7 @@ namespace SceneR
             /**
              * Gets or sets the device window title.
              */
-            std::u16string window_title;
+            std::string window_title;
 
             /**
              * Gets or sets a value that indicates whether the device should start in full-screen mode.

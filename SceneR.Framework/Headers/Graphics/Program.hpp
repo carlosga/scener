@@ -59,7 +59,7 @@ namespace SceneR
             void verify_linking_state();
 
         public:
-            std::u16string name;
+            std::string name;
 
         private:
             std::uint32_t                        _id;

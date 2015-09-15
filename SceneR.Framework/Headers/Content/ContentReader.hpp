@@ -51,7 +51,7 @@ namespace SceneR
              * @param contentManager the content_manager that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::u16string& assetName, ContentManager* contentManager, System::IO::Stream& stream);
+            ContentReader(const std::string& assetName, ContentManager* contentManager, System::IO::Stream& stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.
@@ -62,7 +62,7 @@ namespace SceneR
             /**
              * Gets the name of the asset currently being read by this ContentReader.
              */
-            const std::u16string& asset_name() const;
+            const std::string& asset_name() const;
 
             /**
              * Gets the content manager that owns this ContentReader.
@@ -116,23 +116,12 @@ namespace SceneR
              */
             std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const;
 
-            /**
-             * Reads a link to an external file.
-             * @returns The contents stored in the external file.
-             */
-            std::vector<std::uint8_t> read_external_reference(const std::u16string& assetName) const;
-
-            std::u16string get_asset_path(const std::u16string& assetName) const;
+        private:
+            std::string get_asset_path(const std::string& assetName) const;
 
             template <typename T>
             inline T convert(const std::vector<json11::Json>& values) const;
 
-            inline const json11::Json& get_node(const std::string& rootKey, const std::string& key) const
-            {
-                return _root[rootKey][key];
-            }
-
-        private:
             template <typename T>
             inline std::shared_ptr<T> get_object(const std::string& name);
 
@@ -140,7 +129,7 @@ namespace SceneR
             inline void cache_object(const std::string& name, std::shared_ptr<T> object);
 
         private:
-            std::u16string                   _asset_name;
+            std::string                   _asset_name;
             System::IO::BinaryReader         _asset_reader;
             SceneR::Content::ContentManager* _content_manager;
             json11::Json                     _root;
@@ -158,6 +147,8 @@ namespace SceneR
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::EffectTechnique>> _techniques;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures;
+
+            template <typename T> friend class ContentTypeReader;
         };
     }
 }

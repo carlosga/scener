@@ -20,7 +20,6 @@
 #include <Graphics/Node.hpp>
 #include <Graphics/Program.hpp>
 #include <Graphics/RenderingStateType.hpp>
-#include <System/Text/Encoding.hpp>
 
 namespace SceneR
 {
@@ -41,7 +40,6 @@ namespace SceneR
         using SceneR::Graphics::Node;
         using SceneR::Graphics::Program;
         using SceneR::Graphics::RenderingStateType;
-        using System::Text::Encoding;
 
         ContentTypeReader<EffectTechnique>::ContentTypeReader()
         {
@@ -62,7 +60,7 @@ namespace SceneR
             cache_technique_parameters(effect);
             set_parameter_values(input, source.second["parameters"], effect);
 
-            effect->name  = Encoding::convert(source.first);
+            effect->name  = source.first;
             effect->_pass = effect->_passes[source.second["pass"].string_value()];
 
             return effect;
@@ -74,16 +72,16 @@ namespace SceneR
         {
             for (const auto& source : value.object_items())
             {
-                auto semantic = Encoding::convert(source.second["semantic"].string_value());
+                auto semantic = source.second["semantic"].string_value();
 
-                if (semantic == u"POSITION"
-                 || semantic == u"NORMAL"
-                 || semantic == u"COLOR"
-                 || semantic == u"TEXCOORD_0"
-                 || semantic == u"TEXBINORMAL"
-                 || semantic == u"TEXTANGENT"
-                 || semantic == u"JOINT"
-                 || semantic == u"WEIGHT")
+                if (semantic == "POSITION"
+                 || semantic == "NORMAL"
+                 || semantic == "COLOR"
+                 || semantic == "TEXCOORD_0"
+                 || semantic == "TEXBINORMAL"
+                 || semantic == "TEXTANGENT"
+                 || semantic == "JOINT"
+                 || semantic == "WEIGHT")
                 {
                     // Vertex Buffer
                     continue;
@@ -92,10 +90,10 @@ namespace SceneR
                 auto parameter = std::make_shared<EffectParameter>();
                 auto type      = source.second["type"].int_value();
 
-                parameter->_name     = Encoding::convert(source.first);
+                parameter->_name     = source.first;
                 parameter->_count    = source.second["count"].int_value();
                 parameter->_semantic = semantic;
-                parameter->_node     = Encoding::convert(source.second["node"].string_value());
+                parameter->_node     = source.second["node"].string_value();
 
                 describe_technique_parameter(parameter, type);
 
@@ -153,7 +151,7 @@ namespace SceneR
                         parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                         break;
                     case EffectParameterType::String:
-                        parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));
+                        parameter->set_value<std::string>(paramValue.string_value());
                         break;
                     }
                 }
@@ -193,8 +191,8 @@ namespace SceneR
                 const auto& commonProfile = source.second["details"]["commonProfile"];
                 const auto& parameters    = commonProfile["parameters"];
 
-                pass->_name           = Encoding::convert(source.first);
-                pass->_lighting_model = Encoding::convert(commonProfile["lightingModel"].string_value());
+                pass->_name           = source.first;
+                pass->_lighting_model = commonProfile["lightingModel"].string_value();
 
                 for (const auto& paramRef : parameters.array_items())
                 {
@@ -252,19 +250,19 @@ namespace SceneR
                 {
                     // no semantic informed
                 }
-                else if (parameter.second->_semantic == u"MODELVIEW")
+                else if (parameter.second->_semantic == "MODELVIEW")
                 {
                     technique->_world_param = parameter.second;
                 }
-                else if (parameter.second->_semantic == u"PROJECTION")
+                else if (parameter.second->_semantic == "PROJECTION")
                 {
                     technique->_world_view_proj_param = parameter.second;
                 }
-                else if (parameter.second->_semantic == u"MODELVIEWINVERSETRANSPOSE")
+                else if (parameter.second->_semantic == "MODELVIEWINVERSETRANSPOSE")
                 {
                     technique->_world_inverse_transpose_param = parameter.second;
                 }
-                else if (parameter.second->_semantic == u"JOINTMATRIX")
+                else if (parameter.second->_semantic == "JOINTMATRIX")
                 {
                     technique->_bones_param = parameter.second;
                 }

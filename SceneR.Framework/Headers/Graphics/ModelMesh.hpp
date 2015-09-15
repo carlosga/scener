@@ -51,7 +51,7 @@ namespace SceneR
              * Gets the name of this mesh.
              * @return The name of this mesh.
              */
-            const std::u16string& name() const;
+            const std::string& name() const;
 
             /**
              * Gets the list of efects of each mesh part.
@@ -78,7 +78,7 @@ namespace SceneR
             void draw();
 
         private:
-            std::u16string                              _name;
+            std::string                                 _name;
             std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
             std::shared_ptr<ModelBone>                  _parent_bone;
             SceneR::Framework::BoundingSphere           _bounding_sphere;

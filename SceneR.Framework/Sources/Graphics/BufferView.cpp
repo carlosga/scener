@@ -49,7 +49,7 @@ namespace SceneR
             return _byte_length;
         }
 
-        const std::u16string& BufferView::name() const
+        const std::string& BufferView::name() const
         {
             return _name;
         }

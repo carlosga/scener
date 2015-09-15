@@ -32,7 +32,7 @@ namespace SceneR
              * @param name the name of the uniform buffer object.
              * @param programId the handle of the shader program.
              */
-            UniformBufferObject(const std::u16string& name, const std::uint32_t& programId);
+            UniformBufferObject(const std::string& name, const std::uint32_t& programId);
 
             /**
              * Releases all resources being used by this UniformBufferObject.
@@ -96,7 +96,7 @@ namespace SceneR
             void set_data(const std::size_t& offset, const std::size_t& count, const void *data);
 
         private:
-            std::u16string                _name;
+            std::string                   _name;
             std::uint32_t                 _program_id;
             std::size_t                   _index;
             std::int32_t                  _binding_point;

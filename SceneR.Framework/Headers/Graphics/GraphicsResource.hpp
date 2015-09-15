@@ -45,7 +45,7 @@ namespace SceneR
             /**
              * Gets or sets the name of the resource.
              */
-            std::u16string name;
+            std::string name;
 
         protected:
             GraphicsDevice& _graphics_device;
