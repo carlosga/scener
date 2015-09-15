@@ -3,7 +3,10 @@
 
 #include <Graphics/Shader.hpp>
 
+#include <cassert>
 #include <cstddef>
+
+#include <Graphics/ShaderInclude.hpp>
 
 namespace SceneR
 {
@@ -30,6 +33,12 @@ namespace SceneR
         {
             if (_id != 0)
             {
+                for (auto include : _includes)
+                {
+                    include->remove();
+                }
+
+                _includes.clear();
                 glDeleteShader(_id);
                 _id = 0;
             }
@@ -47,6 +56,14 @@ namespace SceneR
         const ShaderType& Shader::type() const
         {
             return _type;
+        }
+
+        void Shader::add_include(std::shared_ptr<ShaderInclude> include)
+        {
+            assert(!is_compiled());
+            assert(include->is_declared());
+
+            _includes.push_back(include);
         }
 
         void Shader::compile()
@@ -69,8 +86,24 @@ namespace SceneR
 
             glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
 
-            // Compile the shader source
-            glCompileShader(_id);
+            if (_includes.size() == 0)
+            {
+                // Compile the shader source
+                glCompileShader(_id);
+            }
+            else
+            {
+                std::vector<const char*> cpaths(0);
+
+                // process include paths
+                for (const auto& include : _includes)
+                {
+                    cpaths.push_back(include->path.c_str());
+                }
+
+                // Compile the shader source
+                glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
+            }
 
             // Verify compilation state
             verify_compilation_state();

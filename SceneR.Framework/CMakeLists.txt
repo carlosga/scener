@@ -51,6 +51,7 @@ set(HEADER_FILES
     Headers/Content/Readers/NodeReader.hpp
     Headers/Content/Readers/ProgramReader.hpp
     Headers/Content/Readers/SamplerReader.hpp
+    Headers/Content/Readers/ShaderIncludeReader.hpp
     Headers/Content/Readers/ShaderReader.hpp
     Headers/Content/Readers/TechniqueReader.hpp
     Headers/Content/Readers/TextureReader.hpp
@@ -134,6 +135,7 @@ set(HEADER_FILES
     Headers/Graphics/RenderingStateType.hpp
     Headers/Graphics/SamplerState.hpp
     Headers/Graphics/Shader.hpp
+    Headers/Graphics/ShaderInclude.hpp
     Headers/Graphics/ShaderType.hpp
     Headers/Graphics/StencilOperation.hpp
     Headers/Graphics/SurfaceFormat.hpp
@@ -201,6 +203,7 @@ set(SOURCE_FILES
     Sources/Content/Readers/NodeReader.cpp
     Sources/Content/Readers/ProgramReader.cpp
     Sources/Content/Readers/SamplerReader.cpp
+    Sources/Content/Readers/ShaderIncludeReader.cpp
     Sources/Content/Readers/ShaderReader.cpp
     Sources/Content/Readers/TechniqueReader.cpp
     Sources/Content/Readers/TextureReader.cpp
@@ -261,6 +264,7 @@ set(SOURCE_FILES
     Sources/Graphics/RasterizerState.cpp
     Sources/Graphics/SamplerState.cpp
     Sources/Graphics/Shader.cpp
+    Sources/Graphics/ShaderInclude.cpp
     Sources/Graphics/Texture.cpp
     Sources/Graphics/Texture2D.cpp
     Sources/Graphics/TextureObject.cpp

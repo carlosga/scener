@@ -15,6 +15,8 @@ namespace SceneR
 {
     namespace Graphics
     {
+        class ShaderInclude;
+
         /**
          * Represents a shader
          */
@@ -64,6 +66,12 @@ namespace SceneR
             const ShaderType& type() const;
 
             /**
+             * Adds a shader include reference.
+             * @param include the shader include reference.
+             */
+            void add_include(std::shared_ptr<ShaderInclude> include);
+
+            /**
              * Performs the compilation of the shader source code.
              */
             void compile();
@@ -77,10 +85,11 @@ namespace SceneR
             void verify_compilation_state();
 
         private:
-            std::u16string _name;
-            std::uint32_t  _id;
-            ShaderType     _type;
-            std::string    _source;
+            std::u16string                              _name;
+            std::uint32_t                               _id;
+            ShaderType                                  _type;
+            std::string                                 _source;
+            std::vector<std::shared_ptr<ShaderInclude>> _includes;
         };
     }
 }

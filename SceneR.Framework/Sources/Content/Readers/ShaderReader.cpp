@@ -5,6 +5,7 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
+#include <Graphics/ShaderInclude.hpp>
 #include <Graphics/ShaderType.hpp>
 #include <System/Text/Encoding.hpp>
 
@@ -14,6 +15,7 @@ namespace SceneR
     {
         using json11::Json;
         using SceneR::Graphics::Shader;
+        using SceneR::Graphics::ShaderInclude;
         using SceneR::Graphics::ShaderType;
         using System::Text::Encoding;
 
@@ -33,6 +35,20 @@ namespace SceneR
             auto uri    = Encoding::convert(source.second["uri"].string_value());
             auto code   = input->read_external_reference(uri);
             auto shader = std::make_shared<Shader>(name, type, code);
+            auto extras = source.second["extras"];
+
+            if (!extras.is_null())
+            {
+                const auto& includes = source.second["extras"]["includes"];
+
+                if (!includes.is_null())
+                {
+                    for (const auto& include : includes.object_items())
+                    {
+                        shader->add_include(input->read_object<ShaderInclude>(include));
+                    }
+                }
+            }
 
             shader->compile();
 
