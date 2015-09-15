@@ -4,6 +4,7 @@
 #ifndef GRAPHICS_INSTANCESKIN_HPP
 #define GRAPHICS_INSTANCESKIN_HPP
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -13,6 +14,7 @@ namespace SceneR
     {
         class ModelMesh;
         class ModelBone;
+        class Node;
 
         class InstanceSkin final
         {
@@ -24,7 +26,7 @@ namespace SceneR
             /**
              * Joint name (jointName property) of skeleton nodes.
              */
-            std::vector<std::string> skeletons;
+            std::vector<std::shared_ptr<Node>> skeletons;
 
             /**
              * The id (JSON property name) of the skin referenced by this node.
@@ -34,7 +36,7 @@ namespace SceneR
             /**
              * The ids (JSON property names) of source meshes.
              */
-            std::vector<std::string> meshes;
+            std::vector<std::shared_ptr<ModelMesh>> meshes;
         };
     }
 }

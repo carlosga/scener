@@ -8,6 +8,7 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Node.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
@@ -90,6 +91,11 @@ namespace SceneR
 
                 _meshes.push_back(meshInstance);
                 model->_meshes.push_back(meshInstance);
+            }
+            // Nodes
+            for (const auto& node : _root["nodes"].object_items())
+            {
+                _nodes.push_back(read_object<SceneR::Graphics::Node>(node));
             }
 
             return model;

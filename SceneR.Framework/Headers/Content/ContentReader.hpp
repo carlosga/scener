@@ -22,6 +22,7 @@
 #include <Graphics/BufferView.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <Graphics/Node.hpp>
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <System/IO/BinaryReader.hpp>
@@ -125,6 +126,7 @@ namespace SceneR
             std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>       _buffers;
             std::vector<std::shared_ptr<SceneR::Graphics::BufferView>>   _buffer_views;
             std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>>    _meshes;
+            std::vector<std::shared_ptr<SceneR::Graphics::Node>>         _nodes;
             std::vector<std::shared_ptr<SceneR::Graphics::SamplerState>> _samplers;
             std::vector<std::shared_ptr<SceneR::Graphics::Texture2D>>    _textures;
         };
@@ -232,6 +234,20 @@ inline std::shared_ptr<SceneR::Graphics::ModelMesh> SceneR::Content::ContentRead
         });
 
     return ((it != _meshes.end()) ? *it : nullptr);
+}
+
+template <>
+inline std::shared_ptr<SceneR::Graphics::Node> SceneR::Content::ContentReader::find_object(const std::string& name) const
+{
+    // auto oname = System::Text::Encoding::convert(name);
+    auto it = find_if(_nodes.begin()
+                    , _nodes.end()
+                    , [&](std::shared_ptr<SceneR::Graphics::Node> node) -> bool
+        {
+            return (node->name == name);
+        });
+
+    return ((it != _nodes.end()) ? *it : nullptr);
 }
 
 template <>

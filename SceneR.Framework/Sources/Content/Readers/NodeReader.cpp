@@ -38,6 +38,13 @@ namespace SceneR
         std::shared_ptr<Node> ContentTypeReader<Node>::read(ContentReader*                      input
                                                           , const std::pair<std::string, Json>& source)
         {
+            auto nodeInstance = input->find_object<Node>(source.first);
+
+            if (nodeInstance != nullptr)
+            {
+                return nodeInstance;
+            }
+
             auto node        = std::make_shared<Node>();
             auto matrix      = Matrix::identity;
             auto rotation    = Quaternion::identity;
@@ -61,7 +68,7 @@ namespace SceneR
                 translation = input->convert<Vector3>(source.second["translation"].array_items());
             }
 
-            node->name        = Encoding::convert(source.first);
+            node->name        = source.first;
             node->camera      = source.second["camera"].string_value();
             node->joint_name  = source.second["jointName"].string_value();
             node->light       = source.second["light"].string_value();
@@ -82,7 +89,7 @@ namespace SceneR
 
             for (const auto& child : source.second["children"].array_items())
             {
-                node->children.push_back(child.string_value());
+                node->children.push_back(input->read_object<Node>("nodes", child.string_value()));
             }
 
             return node;
@@ -95,15 +102,14 @@ namespace SceneR
 
             for (const auto& skeleton : source["skeletons"].array_items())
             {
-                instanceSkin->skeletons.push_back(skeleton.string_value());
+                instanceSkin->skeletons.push_back(input->read_object<Node>("nodes", skeleton.string_value()));
             }
 
             instanceSkin->skin = source["skin"].string_value();
 
             for (const auto& mesh : source["meshes"].array_items())
             {
-                // instanceSkin->meshes.push_back(context.find_object<ModelMesh>(mesh.string_value()));
-                instanceSkin->meshes.push_back(mesh.string_value());
+                instanceSkin->meshes.push_back(input->find_object<ModelMesh>(mesh.string_value()));
             }
 
             return instanceSkin;

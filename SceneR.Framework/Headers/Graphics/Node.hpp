@@ -39,7 +39,7 @@ namespace SceneR
             /**
              * @brief Gets or sets the node name.
              */
-            std::u16string name;
+            std::string name;
 
             /**
              * The id (JSON property name) of the camera referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.
@@ -89,7 +89,7 @@ namespace SceneR
             /**
              * The ids (JSON property name) of this node's children.
              */
-            std::vector<std::string> children;
+            std::vector<std::shared_ptr<Node>> children;
         };
     }
 }
