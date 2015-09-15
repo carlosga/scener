@@ -59,43 +59,21 @@ namespace SceneR
 
             assert(errors.empty());
 
-            // Buffers
-            for (const auto& buffer : _root["buffers"].object_items())
-            {
-                _buffers.push_back(read_object<SceneR::Graphics::Buffer>(buffer));
-            }
-            // Buffer Views
-            for (const auto& bufferView : _root["bufferViews"].object_items())
-            {
-                _buffer_views.push_back(read_object<SceneR::Graphics::BufferView>(bufferView));
-            }
-            // Accessors
-            for (const auto& accessor : _root["accessors"].object_items())
-            {
-                _accessors.push_back(read_object<SceneR::Graphics::Accessor>(accessor));
-            }
-            // Samplers
-            for (const auto& sampler : _root["samplers"].object_items())
-            {
-                _samplers.push_back(read_object<SceneR::Graphics::SamplerState>(sampler));
-            }
-            // Textures
-            for (const auto& texture : _root["textures"].object_items())
-            {
-                _textures.push_back(read_object<SceneR::Graphics::Texture2D>(texture));
-            }
             // Meshes
             for (const auto& mesh : _root["meshes"].object_items())
             {
-                auto meshInstance = read_object<SceneR::Graphics::ModelMesh>(mesh);
-
-                _meshes.push_back(meshInstance);
-                model->_meshes.push_back(meshInstance);
+                model->_meshes.push_back(read_object<SceneR::Graphics::ModelMesh>(mesh));
             }
             // Nodes
             for (const auto& node : _root["nodes"].object_items())
             {
-                _nodes.push_back(read_object<SceneR::Graphics::Node>(node));
+                read_object<SceneR::Graphics::Node>(node);
+            }
+
+            // cleanup
+            for (auto shader : _shaders)
+            {
+                shader.second->dispose();
             }
 
             return model;

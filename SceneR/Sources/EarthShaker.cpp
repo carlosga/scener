@@ -8,7 +8,6 @@
 
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
-#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -46,7 +45,7 @@ namespace SceneR
             {
                 for (auto effect : mesh->effects())
                 {
-                    effect->technique()->texture_enabled(true);
+                    effect->texture_enabled(true);
                 }
             }
 //

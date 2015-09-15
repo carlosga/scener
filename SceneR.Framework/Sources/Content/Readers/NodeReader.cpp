@@ -38,13 +38,6 @@ namespace SceneR
         std::shared_ptr<Node> ContentTypeReader<Node>::read(ContentReader*                      input
                                                           , const std::pair<std::string, Json>& source)
         {
-            auto nodeInstance = input->find_object<Node>(source.first);
-
-            if (nodeInstance != nullptr)
-            {
-                return nodeInstance;
-            }
-
             auto node        = std::make_shared<Node>();
             auto matrix      = Matrix::identity;
             auto rotation    = Quaternion::identity;
@@ -84,7 +77,7 @@ namespace SceneR
 
             for (const auto& mesh : source.second["meshes"].array_items())
             {
-                node->meshes.push_back(input->find_object<ModelMesh>(mesh.string_value()));
+                node->meshes.push_back(input->read_object<ModelMesh>("meshes", mesh.string_value()));
             }
 
             for (const auto& child : source.second["children"].array_items())
@@ -109,7 +102,7 @@ namespace SceneR
 
             for (const auto& mesh : source["meshes"].array_items())
             {
-                instanceSkin->meshes.push_back(input->find_object<ModelMesh>(mesh.string_value()));
+                instanceSkin->meshes.push_back(input->read_object<ModelMesh>("meshes", mesh.string_value()));
             }
 
             return instanceSkin;

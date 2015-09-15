@@ -44,7 +44,7 @@ namespace SceneR
             auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
 
             bufferView->_name        = Encoding::convert(source.first);
-            bufferView->_buffer      = input->find_object<Buffer>(source.second["buffer"].string_value());
+            bufferView->_buffer      = input->read_object<Buffer>("buffers", source.second["buffer"].string_value());
             bufferView->_byte_offset = source.second["byteOffset"].int_value();
             bufferView->_byte_length = source.second["byteLength"].int_value();
 

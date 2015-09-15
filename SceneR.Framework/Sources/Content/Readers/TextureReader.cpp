@@ -48,7 +48,7 @@ namespace SceneR
             texture->declare_storage(surface->mipmaps().size());
 
             texture->name           = Encoding::convert(source.first);
-            texture->_sampler_state = input->find_object<SamplerState>(source.second["sampler"].string_value());
+            texture->_sampler_state = input->read_object<SamplerState>("samplers", source.second["sampler"].string_value());
 
             for (const auto& mipmap : surface->mipmaps())
             {

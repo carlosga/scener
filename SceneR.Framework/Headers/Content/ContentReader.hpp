@@ -23,11 +23,15 @@
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/Node.hpp>
+#include <Graphics/Program.hpp>
 #include <Graphics/SamplerState.hpp>
+#include <Graphics/Shader.hpp>
+#include <Graphics/ShaderInclude.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 #include <System/Text/Encoding.hpp>
+#include <Texture/Surface.hpp>
 
 namespace SceneR
 {
@@ -92,8 +96,18 @@ namespace SceneR
             template<typename T>
             inline std::shared_ptr<T> read_object(const std::pair<std::string, json11::Json>& source)
             {
+                auto instance = get_object<T>(source.first);
+                if (instance != nullptr)
+                {
+                    return instance;
+                }
+
                 ContentTypeReader<T> reader;
-                return reader.read(this, source);
+                std::shared_ptr<T>   object = reader.read(this, source);
+
+                cache_object<T>(source.first, object);
+
+                return object;
             }
 
             /**
@@ -113,8 +127,17 @@ namespace SceneR
             template <typename T>
             inline T convert(const std::vector<json11::Json>& values) const;
 
+            inline const json11::Json& get_node(const std::string& rootKey, const std::string& key) const
+            {
+                return _root[rootKey][key];
+            }
+
+        private:
             template <typename T>
-            inline std::shared_ptr<T> find_object(const std::string& name) const;
+            inline std::shared_ptr<T> get_object(const std::string& name);
+
+            template <typename T>
+            inline void cache_object(const std::string& name, std::shared_ptr<T> object);
 
         private:
             std::u16string                   _asset_name;
@@ -122,13 +145,19 @@ namespace SceneR
             SceneR::Content::ContentManager* _content_manager;
             json11::Json                     _root;
 
-            std::vector<std::shared_ptr<SceneR::Graphics::Accessor>>     _accessors;
-            std::vector<std::shared_ptr<SceneR::Graphics::Buffer>>       _buffers;
-            std::vector<std::shared_ptr<SceneR::Graphics::BufferView>>   _buffer_views;
-            std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>>    _meshes;
-            std::vector<std::shared_ptr<SceneR::Graphics::Node>>         _nodes;
-            std::vector<std::shared_ptr<SceneR::Graphics::SamplerState>> _samplers;
-            std::vector<std::shared_ptr<SceneR::Graphics::Texture2D>>    _textures;
+        private:
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Accessor>>        _accessors;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Buffer>>          _buffers;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::BufferView>>      _bufferViews;
+            std::map<std::string, std::shared_ptr<SceneR::Texture::Surface>>          _images;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Node>>            _nodes;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Program>>         _programs;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::EffectTechnique>> _techniques;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures;
         };
     }
 }
@@ -180,102 +209,172 @@ inline SceneR::Framework::Vector4 SceneR::Content::ContentReader::convert(const 
            , values[3].number_value()};
 }
 
+// Accessors
 template <>
-inline std::shared_ptr<SceneR::Graphics::Accessor> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline std::shared_ptr<SceneR::Graphics::Accessor> SceneR::Content::ContentReader::get_object(const std::string& name)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_accessors.begin()
-                    , _accessors.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::Accessor> accessor) -> bool
-        {
-            return (accessor->name() == oname);
-        });
-
-    return ((it != _accessors.end()) ? *it : nullptr);
+    return _accessors[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::Buffer> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                          name
+                                                       , std::shared_ptr<SceneR::Graphics::Accessor> object)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_buffers.begin()
-                    , _buffers.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::Buffer> buffer) -> bool
-        {
-            return (buffer->name() == oname);
-        });
+    _accessors[name] = object;
+}
 
-    return ((it != _buffers.end()) ? *it : nullptr);
+// Buffers
+template <>
+inline std::shared_ptr<SceneR::Graphics::Buffer> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _buffers[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::BufferView> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
+                                                       , std::shared_ptr<SceneR::Graphics::Buffer> object)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_buffer_views.begin()
-                    , _buffer_views.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::BufferView> bufferView) -> bool
-        {
-            return (bufferView->name() == oname);
-        });
+    _buffers[name] = object;
+}
 
-    return ((it != _buffer_views.end()) ? *it : nullptr);
+// Buffer Views
+template <>
+inline std::shared_ptr<SceneR::Graphics::BufferView> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _bufferViews[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::ModelMesh> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                            name
+                                                       , std::shared_ptr<SceneR::Graphics::BufferView> object)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_meshes.begin()
-                    , _meshes.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) -> bool
-        {
-            return (mesh->name() == oname);
-        });
+    _bufferViews[name] = object;
+}
 
-    return ((it != _meshes.end()) ? *it : nullptr);
+// Images
+template <>
+inline std::shared_ptr<SceneR::Texture::Surface> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _images[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::Node> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
+                                                       , std::shared_ptr<SceneR::Texture::Surface> object)
 {
-    // auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_nodes.begin()
-                    , _nodes.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::Node> node) -> bool
-        {
-            return (node->name == name);
-        });
+    _images[name] = object;
+}
 
-    return ((it != _nodes.end()) ? *it : nullptr);
+// Meshes
+template <>
+inline std::shared_ptr<SceneR::Graphics::ModelMesh> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _meshes[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::SamplerState> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                           name
+                                                       , std::shared_ptr<SceneR::Graphics::ModelMesh> object)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_samplers.begin()
-                    , _samplers.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::SamplerState> sampler) -> bool
-        {
-            return (sampler->name == oname);
-        });
+    _meshes[name] = object;
+}
 
-    return ((it != _samplers.end()) ? *it : nullptr);
+// Nodes
+template <>
+inline std::shared_ptr<SceneR::Graphics::Node> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _nodes[name];
 }
 
 template <>
-inline std::shared_ptr<SceneR::Graphics::Texture2D> SceneR::Content::ContentReader::find_object(const std::string& name) const
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                      name
+                                                       , std::shared_ptr<SceneR::Graphics::Node> object)
 {
-    auto oname = System::Text::Encoding::convert(name);
-    auto it = find_if(_textures.begin()
-                    , _textures.end()
-                    , [&](std::shared_ptr<SceneR::Graphics::Texture2D> texture) -> bool
-        {
-            return (texture->name == oname);
-        });
+    _nodes[name] = object;
+}
 
-    return ((it != _textures.end()) ? *it : nullptr);
+// Programs
+template <>
+inline std::shared_ptr<SceneR::Graphics::Program> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _programs[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                         name
+                                                       , std::shared_ptr<SceneR::Graphics::Program> object)
+{
+    _programs[name] = object;
+}
+
+// Samplers
+template <>
+inline std::shared_ptr<SceneR::Graphics::SamplerState> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _samplers[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                              name
+                                                       , std::shared_ptr<SceneR::Graphics::SamplerState> object)
+{
+    _samplers[name] = object;
+}
+
+// Shaders
+template <>
+inline std::shared_ptr<SceneR::Graphics::Shader> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _shaders[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
+                                                       , std::shared_ptr<SceneR::Graphics::Shader> object)
+{
+    _shaders[name] = object;
+}
+
+// Shader Includes
+template <>
+inline std::shared_ptr<SceneR::Graphics::ShaderInclude> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _shader_includes[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                               name
+                                                       , std::shared_ptr<SceneR::Graphics::ShaderInclude> object)
+{
+    _shader_includes[name] = object;
+}
+
+// Techniques
+template <>
+inline std::shared_ptr<SceneR::Graphics::EffectTechnique> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _techniques[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                                 name
+                                                       , std::shared_ptr<SceneR::Graphics::EffectTechnique> object)
+{
+    _techniques[name] = object;
+}
+
+// Textures
+template <>
+inline std::shared_ptr<SceneR::Graphics::Texture2D> SceneR::Content::ContentReader::get_object(const std::string& name)
+{
+    return _textures[name];
+}
+
+template <>
+inline void SceneR::Content::ContentReader::cache_object(const std::string&                           name
+                                                       , std::shared_ptr<SceneR::Graphics::Texture2D> object)
+{
+    _textures[name] = object;
 }
 
 #endif  // CONTENT_CONTENTREADER_HPP

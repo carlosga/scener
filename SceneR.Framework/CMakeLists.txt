@@ -46,7 +46,6 @@ set(HEADER_FILES
     Headers/Content/Readers/BufferViewReader.hpp
     Headers/Content/Readers/ExternalReferenceReader.hpp
     Headers/Content/Readers/ImageReader.hpp
-    Headers/Content/Readers/MaterialReader.hpp
     Headers/Content/Readers/MeshReader.hpp
     Headers/Content/Readers/NodeReader.hpp
     Headers/Content/Readers/ProgramReader.hpp
@@ -122,7 +121,6 @@ set(HEADER_FILES
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
     Headers/Graphics/InstanceSkin.hpp
-    Headers/Graphics/EffectMaterial.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
     Headers/Graphics/ModelMesh.hpp
@@ -198,7 +196,6 @@ set(SOURCE_FILES
     Sources/Content/Readers/BufferViewReader.cpp
     Sources/Content/Readers/ExternalReferenceReader.cpp
     Sources/Content/Readers/ImageReader.cpp
-    Sources/Content/Readers/MaterialReader.cpp
     Sources/Content/Readers/MeshReader.cpp
     Sources/Content/Readers/NodeReader.cpp
     Sources/Content/Readers/ProgramReader.cpp
@@ -253,7 +250,6 @@ set(SOURCE_FILES
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
     Sources/Graphics/InstanceSkin.cpp
-    Sources/Graphics/EffectMaterial.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp

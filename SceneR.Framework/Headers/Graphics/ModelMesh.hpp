@@ -20,7 +20,7 @@ namespace SceneR
 
     namespace Graphics
     {
-        class EffectMaterial;
+        class EffectTechnique;
         class ModelBone;
         class ModelMeshPart;
 
@@ -56,7 +56,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<std::shared_ptr<EffectMaterial>> effects() const;
+            std::vector<std::shared_ptr<EffectTechnique>> effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.

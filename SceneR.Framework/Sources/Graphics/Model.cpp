@@ -6,7 +6,6 @@
 #include <cassert>
 
 #include <Framework/Matrix.hpp>
-#include <Graphics/EffectMaterial.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
@@ -105,9 +104,9 @@ namespace SceneR
                 for (auto effect : mesh->effects())
                 {
                     // effect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
-                    effect->technique()->world(world);
-                    effect->technique()->view(view);
-                    effect->technique()->projection(projection);
+                    effect->world(world);
+                    effect->view(view);
+                    effect->projection(projection);
                 }
 
                 mesh->draw();

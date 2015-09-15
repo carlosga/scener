@@ -8,29 +8,45 @@
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/Matrix.hpp>
+#include <Framework/Vector2.hpp>
+#include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
-#include <Graphics/EffectMaterial.hpp>
+#include <Graphics/EffectParameter.hpp>
+#include <Graphics/EffectParameterClass.hpp>
+#include <Graphics/EffectParameterType.hpp>
+#include <Graphics/EffectTechnique.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/IndexBuffer.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
+#include <Graphics/Texture2D.hpp>
 #include <Graphics/VertexBuffer.hpp>
 #include <Graphics/VertexDeclaration.hpp>
 #include <System/Text/Encoding.hpp>
 
 using json11::Json;
 using SceneR::Content::ContentTypeReader;
+using SceneR::Framework::Matrix;
+using SceneR::Framework::Vector2;
+using SceneR::Framework::Vector3;
+using SceneR::Framework::Vector4;
 using SceneR::Graphics::Accessor;
 using SceneR::Graphics::AttributeType;
 using SceneR::Graphics::ComponentType;
-using SceneR::Graphics::EffectMaterial;
+using SceneR::Graphics::EffectParameter;
+using SceneR::Graphics::EffectParameterClass;
+using SceneR::Graphics::EffectParameterType;
+using SceneR::Graphics::EffectTechnique;
 using SceneR::Graphics::IGraphicsDeviceService;
 using SceneR::Graphics::IndexBuffer;
 using SceneR::Graphics::Model;
 using SceneR::Graphics::ModelMesh;
 using SceneR::Graphics::ModelMeshPart;
 using SceneR::Graphics::PrimitiveType;
+using SceneR::Graphics::Texture2D;
 using SceneR::Graphics::VertexBuffer;
 using SceneR::Graphics::VertexDeclaration;
 using SceneR::Graphics::VertexElement;
@@ -75,7 +91,7 @@ namespace SceneR
             auto  elements      = std::vector<VertexElement>();
             auto  vertexStride  = std::size_t(0);
             auto  vertexCount   = std::size_t(0);
-            auto  indices       = input->find_object<Accessor>(source["indices"].string_value());
+            auto  indices       = input->read_object<Accessor>("accessors", source["indices"].string_value());
             auto  componentType = indices->component_type();
             auto  indexCount    = indices->attribute_count();
             auto  indexData     = indices->get_data();
@@ -88,7 +104,7 @@ namespace SceneR
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                auto accessor   = input->find_object<Accessor>(attribute.second.string_value());
+                auto accessor   = input->read_object<Accessor>("accessors", attribute.second.string_value());
                 auto format     = get_vertex_element_format(accessor->attribute_type());
                 auto usage      = get_vertex_element_usage(attribute.first);
                 auto usageIndex = static_cast<std::uint32_t>(usage);
@@ -153,7 +169,7 @@ namespace SceneR
             auto materialRef = source["material"].string_value();
             if (!materialRef.empty())
             {
-                meshPart->effect = input->read_object<EffectMaterial>("materials", materialRef);
+                meshPart->effect = read_material(input, materialRef);
             }
 
             mesh->_mesh_parts.push_back(meshPart);
@@ -212,6 +228,84 @@ namespace SceneR
             }
 
             return usage;
+        }
+
+        std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
+                                                                                   , const std::string& name) const
+        {
+            const auto& material   = input->get_node("materials", name);
+            const auto& itechnique = material["instanceTechnique"];
+            const auto& values     = itechnique["values"].object_items();
+            auto        technique  = input->read_object<EffectTechnique>("techniques"
+                                                                       , itechnique["technique"].string_value());
+
+            for (const auto& value : values)
+            {
+                auto        parameter  = technique->_parameters[value.first];
+                const auto& paramValue = value.second;
+
+                if (paramValue.is_null())
+                {
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Scalar)
+                {
+                    switch (parameter->parameter_type())
+                    {
+                    case EffectParameterType::Bool:
+                        parameter->set_value<bool>(paramValue.bool_value());
+                        break;
+                    case EffectParameterType::Byte:
+                        parameter->set_value<std::int8_t>(static_cast<std::int8_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UByte:
+                        parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Int16:
+                        parameter->set_value<std::int16_t>(static_cast<std::int16_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UInt16:
+                        parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Int32:
+                        parameter->set_value<std::int32_t>(static_cast<std::int32_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::UInt32:
+                        parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(paramValue.int_value()));
+                        break;
+                    case EffectParameterType::Single:
+                        parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
+                        break;
+                    case EffectParameterType::String:
+                        parameter->set_value<std::u16string>(Encoding::convert(paramValue.string_value()));
+                        break;
+                    }
+                }
+                else  if (parameter->parameter_class() == EffectParameterClass::Vector)
+                {
+                    switch (parameter->column_count())
+                    {
+                    case 2:
+                        parameter->set_value<Vector2>(input->convert<Vector2>(paramValue.array_items()));
+                        break;
+                    case 3:
+                        parameter->set_value<Vector3>(input->convert<Vector3>(paramValue.array_items()));
+                        break;
+                    case 4:
+                        parameter->set_value<Vector4>(input->convert<Vector4>(paramValue.array_items()));
+                        break;
+                    }
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Matrix)
+                {
+                    parameter->set_value<Matrix>(input->convert<Matrix>(paramValue.array_items()));
+                }
+                else if (parameter->parameter_class() == EffectParameterClass::Object)
+                {
+                    technique->textures().push_back(input->read_object<Texture2D>("textures", paramValue.string_value()));
+                }
+            }
+
+            return technique;
         }
     }
 }

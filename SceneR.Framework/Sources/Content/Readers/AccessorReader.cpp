@@ -64,7 +64,7 @@ namespace SceneR
             }
 
             accessor->_name            = Encoding::convert(source.first);
-            accessor->_buffer_view     = input->find_object<BufferView>(source.second["bufferView"].string_value());
+            accessor->_buffer_view     = input->read_object<BufferView>("bufferViews", source.second["bufferView"].string_value());
             accessor->_component_type  = static_cast<ComponentType>(source.second["componentType"].int_value());
             accessor->_byte_offset     = source.second["byteOffset"].int_value();
             accessor->_byte_stride     = source.second["byteStride"].int_value();

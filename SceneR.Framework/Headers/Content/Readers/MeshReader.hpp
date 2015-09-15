@@ -12,6 +12,11 @@
 
 namespace SceneR
 {
+    namespace Graphics
+    {
+        class EffectTechnique;
+    }
+
     namespace Content
     {
         /**
@@ -46,6 +51,8 @@ namespace SceneR
             SceneR::Graphics::VertexElementFormat get_vertex_element_format(const SceneR::Graphics::AttributeType& type) const;
 
             SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
+
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& name) const;
         };
     }
 }

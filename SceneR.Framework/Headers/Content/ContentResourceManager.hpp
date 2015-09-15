@@ -61,7 +61,7 @@ namespace SceneR
             {
                 if (_resources.size() > 0)
                 {
-                    for (auto& kvp : _resources)
+                    for (auto kvp : _resources)
                     {
                         if (kvp.second.get() != nullptr)
                         {
