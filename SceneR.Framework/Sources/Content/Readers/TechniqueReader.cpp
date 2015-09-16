@@ -212,9 +212,7 @@ namespace SceneR
                                                                            , std::shared_ptr<EffectPass>      effectPass)
         {
             // Pass program
-            auto programRef = value["program"].string_value();
-
-            effectPass->_program = input->read_object<Program>("programs", programRef);
+            effectPass->_program = input->read_object<Program>("programs", value["program"].string_value());
 
             // Attributes
             // ignored, they should be passed in the vertex buffer
@@ -266,6 +264,21 @@ namespace SceneR
                 {
                     technique->_bones_param = parameter.second;
                 }
+
+                // LOCAL (FLOAT_MAT4)
+                // MODEL (FLOAT_MAT4)
+                // VIEW (FLOAT_MAT4)
+                // PROJECTION (FLOAT_MAT4)
+                // MODELVIEW (FLOAT_MAT4)
+                // MODELVIEWPROJECTION (FLOAT_MAT4)
+                // MODELINVERSE (FLOAT_MAT4)
+                // VIEWINVERSE (FLOAT_MAT4)
+                // PROJECTIONINVERSE (FLOAT_MAT4)
+                // MODELVIEWINVERSE (FLOAT_MAT4)
+                // MODELVIEWPROJECTIONINVERSE (FLOAT_MAT4)
+                // MODELINVERSETRANSPOSE (FLOAT_MAT3)
+                // MODELVIEWINVERSETRANSPOSE (FLOAT_MAT3)
+                // VIEWPORT (FLOAT_VEC4)
             }
         }
 

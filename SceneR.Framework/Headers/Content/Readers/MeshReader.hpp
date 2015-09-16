@@ -52,7 +52,8 @@ namespace SceneR
 
             SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
 
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& name) const;
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(ContentReader*     input
+                                                                           , const std::string& name) const;
         };
     }
 }

@@ -15,7 +15,6 @@ namespace SceneR
     namespace Content
     {
         template <typename T> class ContentTypeReader;
-        class NodesReader;
     }
 
     namespace Graphics
@@ -84,7 +83,6 @@ namespace SceneR
             SceneR::Framework::BoundingSphere           _bounding_sphere;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
-            template <typename T> friend class NodesReader;
         };
     }
 }

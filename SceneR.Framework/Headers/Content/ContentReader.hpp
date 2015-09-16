@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <map>
 #include <memory>
 #include <vector>
 #include <string>
@@ -17,24 +18,32 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/Accessor.hpp>
-#include <Graphics/Buffer.hpp>
-#include <Graphics/BufferView.hpp>
-#include <Graphics/Model.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <Graphics/Node.hpp>
-#include <Graphics/Program.hpp>
-#include <Graphics/SamplerState.hpp>
-#include <Graphics/Shader.hpp>
-#include <Graphics/ShaderInclude.hpp>
-#include <Graphics/Texture2D.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
-#include <System/Text/Encoding.hpp>
-#include <Texture/Surface.hpp>
 
 namespace SceneR
 {
+    namespace Graphics
+    {
+        class Accessor;
+        class Buffer;
+        class BufferView;
+        class EffectTechnique;
+        class Model;
+        class ModelMesh;
+        class Node;
+        class Program;
+        class SamplerState;
+        class Shader;
+        class ShaderInclude;
+        class Texture2D;
+    }
+
+    namespace Texture
+    {
+        class Surface;
+    }
+
     namespace Content
     {
         class ContentManager;
@@ -129,7 +138,7 @@ namespace SceneR
             inline void cache_object(const std::string& name, std::shared_ptr<T> object);
 
         private:
-            std::string                   _asset_name;
+            std::string                      _asset_name;
             System::IO::BinaryReader         _asset_reader;
             SceneR::Content::ContentManager* _content_manager;
             json11::Json                     _root;

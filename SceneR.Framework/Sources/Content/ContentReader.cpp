@@ -8,8 +8,9 @@
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Model.hpp>
+#include <Graphics/Shader.hpp>
 #include <Graphics/Node.hpp>
-#include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/Path.hpp>
 

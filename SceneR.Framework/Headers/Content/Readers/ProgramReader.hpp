@@ -22,9 +22,6 @@ namespace SceneR
         public:
             std::shared_ptr<SceneR::Graphics::Program> read(ContentReader*                              input
                                                           , const std::pair<std::string, json11::Json>& value);
-
-        private:
-            std::shared_ptr<SceneR::Graphics::Shader> read_shader(const std::string& shaderRef);
         };
     }
 }
