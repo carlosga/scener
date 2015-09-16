@@ -55,10 +55,8 @@ namespace SceneR
             , _graphics_profile        { graphicsProfile }
             , _presentation_parameters { }
             , _rasterizer_state        { *this }
-            , _sampler_states          ( )
             , _viewport                { }
         {
-            _sampler_states.push_back(SamplerState(*this));
         }
 
         GraphicsDevice::GraphicsDevice(const GraphicsDevice& device)
@@ -71,7 +69,6 @@ namespace SceneR
             , _graphics_profile        { device._graphics_profile }
             , _presentation_parameters { device._presentation_parameters }
             , _rasterizer_state        { device._rasterizer_state }
-            , _sampler_states          { device._sampler_states }
             , _viewport                { device._viewport }
         {
         }
@@ -85,16 +82,6 @@ namespace SceneR
             _blend_state.dispose();
             _depth_stencil_state.dispose();
             _rasterizer_state.dispose();
-
-            if (_sampler_states.size() > 0)
-            {
-                for (auto& sampler : _sampler_states)
-                {
-                    sampler.dispose();
-                }
-
-                _sampler_states.clear();
-            }
 
             if (effect)
             {
@@ -226,11 +213,6 @@ namespace SceneR
             return _rasterizer_state;
         }
 
-        std::vector<SamplerState>& GraphicsDevice::sampler_states()
-        {
-            return _sampler_states;
-        }
-
         Viewport& GraphicsDevice::viewport()
         {
            return _viewport;
@@ -255,7 +237,6 @@ namespace SceneR
                 _graphics_profile        = device._graphics_profile;
                 _presentation_parameters = device._presentation_parameters;
                 _rasterizer_state        = device._rasterizer_state;
-                _sampler_states          = device._sampler_states;
                 _viewport                = device._viewport;
             }
 

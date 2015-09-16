@@ -6,7 +6,6 @@
 
 #include <cstddef>
 #include <memory>
-#include <vector>
 
 #include <System/IDisposable.hpp>
 #include <Framework/Color.hpp>
@@ -17,7 +16,6 @@
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
-#include <Graphics/SamplerState.hpp>
 #include <Graphics/Viewport.hpp>
 
 namespace SceneR
@@ -140,11 +138,6 @@ namespace SceneR
             RasterizerState& rasterizer_state();
 
             /**
-             * Retrieves a collection of SamplerState objects for the current GraphicsDevice.
-             */
-            std::vector<SamplerState>& sampler_states();
-
-            /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
              */
             Viewport& viewport();
@@ -183,7 +176,6 @@ namespace SceneR
             GraphicsProfile           _graphics_profile;
             PresentationParameters    _presentation_parameters;
             RasterizerState           _rasterizer_state;
-            std::vector<SamplerState> _sampler_states;
             Viewport                  _viewport;
         };
     }
