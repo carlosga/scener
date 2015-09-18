@@ -3,14 +3,16 @@
 #pragma optionNV (unroll all)
 
 layout(location = 0) in vec3 a_position;
+layout(location = 2) in vec2 a_texcoord0;
 layout(location = 3) in vec3 a_normal;
 layout(location = 6) in vec4 a_joint;
 layout(location = 7) in vec4 a_weight;
-layout(location = 2) in vec2 a_texcoord0;
 
 #include "/earthshaker/earthshaker0CB.glsl"
 
+out vec3 v_light0Direction;
 out vec3 v_normal;
+out vec3 v_position;
 out vec2 v_texcoord0;
 
 void main(void)
@@ -29,7 +31,8 @@ void main(void)
     //vec3  Pos_ws = (a_position * u_modelViewMatrix).xyz;
     vec4 pos_ps = vec4(a_position, 1.0) * u_projectionMatrix;
 
-    v_normal    = normalize(a_normal * mat3x3(u_normalMatrix));
-    v_texcoord0 = a_texcoord0;
-    gl_Position = pos_ps;
+    v_light0Direction = u_light0Transform[3].xyz - pos_ps.xyz;
+    v_normal          = normalize(a_normal * mat3x3(u_normalMatrix));
+    v_texcoord0       = a_texcoord0;
+    gl_Position       = pos_ps;
 }
