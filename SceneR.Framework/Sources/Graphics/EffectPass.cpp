@@ -33,9 +33,14 @@ namespace SceneR
             return _name;
         }
 
-        void EffectPass::apply()
+        void EffectPass::begin()
         {
             _program->activate();
+        }
+
+        void EffectPass::end()
+        {
+            _program->deactivate();
         }
     }
 }

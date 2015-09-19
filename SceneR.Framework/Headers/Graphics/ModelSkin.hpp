@@ -31,30 +31,37 @@ namespace SceneR
 
         public:
             /**
+             * Describes how to pose the skin's geometry for use with the joints.
              * Floating-point 4x4 transformation matrix stored in column-major order.
              */
             const SceneR::Framework::Matrix& bindShapeMatrix() const;
 
             /**
-             * Inverse-bind matrices.
+             * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint
              */
             const std::vector<SceneR::Framework::Matrix>& inverseBindMatrices() const;
 
             /**
-             * Joints if this skin.
+             * Joints used to animate the skin
              */
             const std::vector<std::shared_ptr<ModelBone>>& joints() const;
 
             /**
-             * The id (JSON property name) of the skin referenced by this node.
+             * The skin name.
              */
             const std::string& name() const;
+
+            /**
+             * Contains one or more skeletons, each of which is the root of a node hierarchy.
+             */
+            const std::vector<std::shared_ptr<ModelBone>>& skeletons() const;
 
         private:
             SceneR::Framework::Matrix               _bindShapeMatrix;
             std::vector<SceneR::Framework::Matrix>  _inverseBindMatrices;
             std::vector<std::shared_ptr<ModelBone>> _joints;
             std::string                             _name;
+            std::vector<std::shared_ptr<ModelBone>> _skeletons;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

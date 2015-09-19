@@ -50,7 +50,12 @@ namespace SceneR
             /**
              * Begins this pass.
              */
-            void apply();
+            void begin();
+
+            /**
+             * Ends this pass.
+             */
+            void end();
 
         private:
             GraphicsDevice&                               _graphics_device;

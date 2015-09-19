@@ -128,8 +128,10 @@ namespace SceneR
             MemoryStream stream(accessor->get_data());
             BinaryReader reader(stream);
 
+            // Bind shape matrix
             skin->_bindShapeMatrix = input->convert<Matrix>(skinRef["bindShapeMatrix"].array_items());
 
+            // Inverse bind matrices
             for (std::size_t i = 0; i < accessor->attribute_count(); i++)
             {
                 Matrix matrix = { reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
@@ -140,6 +142,15 @@ namespace SceneR
                 skin->_inverseBindMatrices.push_back(Matrix::transpose(matrix));
             }
 
+            // Skeleton roots
+            for (const auto& skeleton : source["skeletons"].array_items())
+            {
+                auto node = input->read_object<Node>("nodes", skeleton.string_value());
+
+                skin->_skeletons.push_back(node->joint);
+            }
+
+            // Joints
             for (const auto& jointName : skinRef["jointNames"].array_items())
             {
                 auto node = input->read_object<Node>("nodes", jointName.string_value());
@@ -147,6 +158,7 @@ namespace SceneR
                 skin->_joints.push_back(node->joint);
             }
 
+            // The meshes for the skin instance
             for (const auto& meshRef : source["meshes"].array_items())
             {
                 auto mesh = input->read_object<ModelMesh>("meshes", meshRef.string_value());

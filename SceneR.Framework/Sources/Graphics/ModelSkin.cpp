@@ -45,5 +45,10 @@ namespace SceneR
         {
             return _name;
         }
+
+        const std::vector<std::shared_ptr<ModelBone> > &ModelSkin::skeletons() const
+        {
+            return _skeletons;
+        }
     }
 }

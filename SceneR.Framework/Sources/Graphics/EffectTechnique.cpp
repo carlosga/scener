@@ -343,13 +343,13 @@ namespace SceneR
         {
             if (_pass != nullptr)
             {
-                _pass->apply();
+                _pass->begin();
             }
             else
             {
                 for (const auto& pass : _passes)
                 {
-                    pass.second->apply();
+                    pass.second->begin();
                 }
             }
 
@@ -474,6 +474,18 @@ namespace SceneR
                 for (auto texture : _textures)
                 {
                     texture->deactivate();
+                }
+            }
+
+            if (_pass != nullptr)
+            {
+                _pass->end();
+            }
+            else
+            {
+                for (const auto& pass : _passes)
+                {
+                    pass.second->end();
                 }
             }
         }
