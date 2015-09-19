@@ -212,7 +212,7 @@ namespace SceneR
                                                                            , std::shared_ptr<EffectPass>      effectPass)
         {
             // Pass program
-            effectPass->_program = input->read_object<Program>("programs", value["program"].string_value());
+            effectPass->_program = input->read_object_instance<Program>("programs", value["program"].string_value());
 
             // Attributes
             // ignored, they should be passed in the vertex buffer

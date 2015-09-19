@@ -18,7 +18,7 @@ void main(void)
     vec3 normal       = normalize(v_normal);
     vec4 color        = vec4(0., 0., 0., 0.);
     vec4 diffuse      = texture2D(u_diffuse, v_texcoord0);
-    vec3 diffuseLight = vec3(0.6, 0.6, 0.6);
+    vec3 diffuseLight = vec3(0.8, 0.8, 0.8);
     vec4 emission     = u_emission;
     vec4 ambient      = u_ambient;
     vec4 specular     = u_specular;

@@ -164,7 +164,6 @@ namespace SceneR
             std::map<std::string, std::shared_ptr<SceneR::Texture::Surface>>          _images;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Node>>            _nodes;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Program>>         _programs;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes;
@@ -304,20 +303,6 @@ inline void SceneR::Content::ContentReader::cache_object(const std::string&     
                                                        , std::shared_ptr<SceneR::Graphics::Node> object)
 {
     _nodes[name] = object;
-}
-
-// Programs
-template <>
-inline std::shared_ptr<SceneR::Graphics::Program> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _programs[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                         name
-                                                       , std::shared_ptr<SceneR::Graphics::Program> object)
-{
-    _programs[name] = object;
 }
 
 // Samplers
