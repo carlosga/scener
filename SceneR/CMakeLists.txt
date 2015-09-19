@@ -37,16 +37,7 @@ add_custom_target(CONTENT_FILES SOURCES
                   Content/earthshaker/earthshaker.gltf
                   Content/earthshaker/earthshaker0CB.glsl
                   Content/earthshaker/earthshaker0FS.glsl
-                  Content/earthshaker/earthshaker0VS.glsl
-                  Content/earthshaker/earthshaker1CB.glsl
-                  Content/earthshaker/earthshaker1FS.glsl
-                  Content/earthshaker/earthshaker1VS.glsl
-                  Content/earthshaker/earthshaker2CB.glsl
-                  Content/earthshaker/earthshaker2FS.glsl
-                  Content/earthshaker/earthshaker2VS.glsl
-                  Content/earthshaker/earthshaker3CB.glsl
-                  Content/earthshaker/earthshaker3FS.glsl
-                  Content/earthshaker/earthshaker3VS.glsl)
+                  Content/earthshaker/earthshaker0VS.glsl)
 
 # add execlutable
 add_executable(SceneR Sources/main.cpp ${HEADER_FILES} ${SOURCE_FILES})
