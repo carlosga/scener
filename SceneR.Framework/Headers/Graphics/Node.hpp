@@ -16,7 +16,8 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class InstanceSkin;
+        class ModelSkin;
+        class ModelBone;
         class ModelMesh;
 
         /**
@@ -49,12 +50,12 @@ namespace SceneR
             /**
              * An instance of a skin.
              */
-            std::shared_ptr<InstanceSkin> instance_skin;
+            std::shared_ptr<ModelSkin> instance_skin;
 
             /**
-             * Name used when this node is a joint in a skin.  When this node is a skin, instanceSkin will also be defined.
+             * A joint in a skin.
              */
-            std::string joint_name;
+            std::shared_ptr<SceneR::Graphics::ModelBone> joint;
 
             /**
              * The id (JSON property name) of the light referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.

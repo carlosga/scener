@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_MESHREADER_HPP
-#define CONTENT_READERS_MESHREADER_HPP
+#ifndef CONTENT_READERS_MODELMESHREADER_HPP
+#define CONTENT_READERS_MODELMESHREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/AttributeType.hpp>
@@ -58,4 +58,4 @@ namespace SceneR
     }
 }
 
-#endif //CONTENT_READERS_MESHREADER_HPP
+#endif  // CONTENT_READERS_MODELMESHREADER_HPP

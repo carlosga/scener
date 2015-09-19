@@ -54,24 +54,6 @@ namespace SceneR
             const std::string name() const;
 
             /**
-             * Copies a transform of each bone in a model relative to all parent bones of the bone into a given array.
-             * @param destinationBoneTransforms The array to receive bone transforms.
-             */
-            void copy_absolute_bone_transforms_to(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
-
-            /**
-             * Copies an array of transforms into each bone in the model.
-             * @param sourceBoneTransforms the new bone transforms.
-             */
-            void copy_bone_transforms_from(const std::vector<SceneR::Framework::Matrix>& sourceBoneTransforms);
-
-            /**
-             * Copies each bone transform relative only to the parent bone of the model to a given array.
-             * @param destinationBoneTransforms the array to receive bone transforms.
-             */
-            void copy_bone_transforms_to(std::vector<SceneR::Framework::Matrix>& destinationBoneTransforms);
-
-            /**
              * Gets the root bone for the current model.
              */
             const std::shared_ptr<ModelBone>& root() const;

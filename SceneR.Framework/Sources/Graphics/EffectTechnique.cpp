@@ -469,6 +469,13 @@ namespace SceneR
 
         void EffectTechnique::end()
         {
+            if (_texture_enabled)
+            {
+                for (auto texture : _textures)
+                {
+                    texture->deactivate();
+                }
+            }
         }
     }
 }

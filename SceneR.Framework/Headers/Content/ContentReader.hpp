@@ -111,10 +111,24 @@ namespace SceneR
                     return instance;
                 }
 
-                ContentTypeReader<T> reader;
-                std::shared_ptr<T>   object = reader.read(this, source);
+                std::shared_ptr<T> object = read_object_instance<T>(source);
 
                 cache_object<T>(source.first, object);
+
+                return object;
+            }
+
+            template<typename T>
+            inline std::shared_ptr<T> read_object_instance(const std::string& rootKey, const std::string& key)
+            {
+                return read_object_instance<T>({ key, _root[rootKey][key] });
+            }
+
+            template<typename T>
+            inline std::shared_ptr<T> read_object_instance(const std::pair<std::string, json11::Json>& source)
+            {
+                ContentTypeReader<T> reader;
+                std::shared_ptr<T>   object = reader.read(this, source);
 
                 return object;
             }
@@ -154,7 +168,6 @@ namespace SceneR
             std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::EffectTechnique>> _techniques;
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures;
 
             template <typename T> friend class ContentTypeReader;
@@ -347,20 +360,6 @@ inline void SceneR::Content::ContentReader::cache_object(const std::string&     
                                                        , std::shared_ptr<SceneR::Graphics::ShaderInclude> object)
 {
     _shader_includes[name] = object;
-}
-
-// Techniques
-template <>
-inline std::shared_ptr<SceneR::Graphics::EffectTechnique> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _techniques[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                                 name
-                                                       , std::shared_ptr<SceneR::Graphics::EffectTechnique> object)
-{
-    _techniques[name] = object;
 }
 
 // Textures

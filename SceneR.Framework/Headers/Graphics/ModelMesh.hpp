@@ -20,6 +20,7 @@ namespace SceneR
     namespace Graphics
     {
         class EffectTechnique;
+        class ModelSkin;
         class ModelBone;
         class ModelMeshPart;
 
@@ -70,6 +71,11 @@ namespace SceneR
              */
             const std::shared_ptr<ModelBone>& parent_bone() const;
 
+            /**
+             * Joints and matrices defining a skin.
+             */
+            std::shared_ptr<ModelSkin> skin() const;
+
         public:
             /**
              * Draws all of the ModelMeshPart objects in this mesh.
@@ -81,6 +87,7 @@ namespace SceneR
             std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
             std::shared_ptr<ModelBone>                  _parent_bone;
             SceneR::Framework::BoundingSphere           _bounding_sphere;
+            std::shared_ptr<ModelSkin>                  _skin;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

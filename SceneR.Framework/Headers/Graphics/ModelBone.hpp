@@ -13,8 +13,15 @@
 
 namespace SceneR
 {
+    namespace Content
+    {
+        template <typename T> class ContentTypeReader;
+    }
+
     namespace Graphics
     {
+        class ModelSkin;
+
         /**
          * Represents bone data for a model.
          */
@@ -38,9 +45,9 @@ namespace SceneR
             const std::vector<std::shared_ptr<ModelBone>>& children() const;
 
             /**
-             * Gets the index of this bone in the Bones collection.
+             * Gets the name of this bone.
              */
-            std::uint32_t index() const;
+            const std::string& name() const;
 
             /**
              * Gets the parent of the current bone
@@ -57,17 +64,13 @@ namespace SceneR
              */
             void transform(const SceneR::Framework::Matrix& transform);
 
-        public:
-            /**
-             * Gets or sets the bone name
-             */
-            std::string name;
-
         private:
             std::vector<std::shared_ptr<ModelBone>> _children;
-            std::uint32_t                           _index;
+            std::string                             _name;
             std::shared_ptr<ModelBone>              _parent;
             SceneR::Framework::Matrix               _transform;
+
+            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

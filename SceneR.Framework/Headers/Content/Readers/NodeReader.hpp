@@ -11,7 +11,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class InstanceSkin;
+        class ModelSkin;
     }
 
     namespace Content
@@ -29,8 +29,8 @@ namespace SceneR
                                                        , const std::pair<std::string, json11::Json>& source);
 
         private:
-            std::shared_ptr<SceneR::Graphics::InstanceSkin> read_instance_skin(ContentReader*        input
-                                                                             , const json11::Json&   source);
+            std::shared_ptr<SceneR::Graphics::ModelSkin> read_instance_skin(ContentReader*      input
+                                                                          , const json11::Json& source);
         };
     }
 }

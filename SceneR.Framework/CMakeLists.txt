@@ -13,6 +13,11 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 message (STATUS "Ouput Directory: " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
+# External dependencies
+set (EXTERNALS_BASE_DIR ../externals)
+set (JSON11_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json11)
+set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
+
 # GLEW configuration
 set (GLEW_BASE_DIR ../../glew)
 set (GLEW_INCLUDE_DIRS ${GLEW_BASE_DIR}/include)
@@ -20,7 +25,7 @@ set (GLEW_LIB_DIRS ${GLEW_BASE_DIR}/lib)
 set (GLEW_LIBRARIES GLEW)
 
 # include directories
-include_directories(Headers ../externals/json11)
+include_directories(Headers ${JSON11_INCLUDE_DIRS})
 
 # PkgConfig
 find_package(PkgConfig REQUIRED)
@@ -40,13 +45,13 @@ link_directories(${GLEW_LIB_DIRS})
 
 # header files
 set(HEADER_FILES
-    ../externals/json11/json11.hpp
+    ${JSON11_INCLUDE_DIRS}/json11.hpp
     Headers/Content/Readers/AccessorReader.hpp
     Headers/Content/Readers/BufferReader.hpp
     Headers/Content/Readers/BufferViewReader.hpp
     Headers/Content/Readers/ExternalReferenceReader.hpp
     Headers/Content/Readers/ImageReader.hpp
-    Headers/Content/Readers/MeshReader.hpp
+    Headers/Content/Readers/ModelMeshReader.hpp
     Headers/Content/Readers/NodeReader.hpp
     Headers/Content/Readers/ProgramReader.hpp
     Headers/Content/Readers/SamplerReader.hpp
@@ -120,7 +125,7 @@ set(HEADER_FILES
     Headers/Graphics/IEffectMatrices.hpp
     Headers/Graphics/IGraphicsDeviceService.hpp
     Headers/Graphics/IndexBuffer.hpp
-    Headers/Graphics/InstanceSkin.hpp
+    Headers/Graphics/ModelSkin.hpp
     Headers/Graphics/Model.hpp
     Headers/Graphics/ModelBone.hpp
     Headers/Graphics/ModelMesh.hpp
@@ -190,13 +195,13 @@ set(HEADER_FILES
 
 # source files
 set(SOURCE_FILES
-    ../externals/json11/json11.cpp
+    ${JSON11_SOURCE_DIRS}/json11.cpp
     Sources/Content/Readers/AccessorReader.cpp
     Sources/Content/Readers/BufferReader.cpp
     Sources/Content/Readers/BufferViewReader.cpp
     Sources/Content/Readers/ExternalReferenceReader.cpp
     Sources/Content/Readers/ImageReader.cpp
-    Sources/Content/Readers/MeshReader.cpp
+    Sources/Content/Readers/ModelMeshReader.cpp
     Sources/Content/Readers/NodeReader.cpp
     Sources/Content/Readers/ProgramReader.cpp
     Sources/Content/Readers/SamplerReader.cpp
@@ -249,7 +254,7 @@ set(SOURCE_FILES
     Sources/Graphics/IEffectMatrices.cpp
     Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
-    Sources/Graphics/InstanceSkin.cpp
+    Sources/Graphics/ModelSkin.cpp
     Sources/Graphics/Model.cpp
     Sources/Graphics/ModelBone.cpp
     Sources/Graphics/ModelMesh.cpp
@@ -321,7 +326,8 @@ set_target_properties(SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS 
 target_include_directories(SceneR_Framework
                            PRIVATE ${OPENGL_INCLUDE_DIRS}
                            PRIVATE ${GLEW_INCLUDE_DIRS}
-                           PRIVATE ${GLFW_INCLUDE_DIRS})
+                           PRIVATE ${GLFW_INCLUDE_DIRS}
+                           PRIVATE ${JSON11_INCLUDE_DIRS})
 
 # target links
 target_link_libraries(SceneR_Framework

@@ -56,40 +56,40 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 // VS Input macros
 //
 #define SetVSInputParams \
-    vin.Position = vec4(VertexPosition, 1.0f);
+    vin.Position = vec4(a_position, 1.0f);
 
 #define SetVSInputVcParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Color    = VertexColor;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Color    = a_color;
 
 #define SetVSInputTxParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.TexCoord = VertexTexCoord.st;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.TexCoord = a_texcoord0.st;
 
 #define SetVSInputTxVcParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.TexCoord = VertexTexCoord.st; \
-    vin.Color    = VertexColor;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.TexCoord = a_texcoord0.st; \
+    vin.Color    = a_color;
 
 #define SetVSInputNmParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Normal   = VertexNormal;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal;
 
 #define SetVSInputNmVcParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Normal   = VertexNormal; \
-    vin.Color    = VertexColor;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal; \
+    vin.Color    = a_color;
 
 #define SetVSInputNmTxParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Normal   = VertexNormal; \
-    vin.TexCoord = VertexTexCoord.st;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal; \
+    vin.TexCoord = a_texcoord0.st;
 
 #define SetVSInputNmTxVcParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Normal   = VertexNormal; \
-    vin.TexCoord = VertexTexCoord.st; \
-    vin.Color    = VertexColor;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal; \
+    vin.TexCoord = a_texcoord0.st; \
+    vin.Color    = a_color;
 
 //
 // VS Output macros
@@ -97,45 +97,45 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 #define SetCommonVSOutputParams \
     gl_Position = cout.Pos_ps; \
     Diffuse     = cout.Diffuse; \
-    Specular    = vec4(cout.Specular, cout.FogFactor);
+    v_specular  = vec4(cout.Specular, cout.FogFactor);
 
 #define SetCommonVSOutputParamsNoFog \
     gl_Position = cout.Pos_ps; \
-    Diffuse     = cout.Diffuse;
+    v_diffuse   = cout.Diffuse;
 
 //
 // PS Input macros
 //
 #define SetPSInputParams \
-    pin.Diffuse  = Diffuse; \
-    pin.Specular = vec4(SpecularColor, SpecularPower);
+    pin.Diffuse  = v_diffuse; \
+    pin.Specular = vec4(u_specular_color, u_specular_power);
 
 #define SetPSInputNoFogParams \
-    pin.Diffuse  = Diffuse;
+    pin.Diffuse  = v_diffuse;
 
 #define SetPSInputTxParams \
-    pin.Diffuse  = Diffuse; \
-    pin.Specular = vec4(SpecularColor, SpecularPower); \
-    pin.TexCoord = TexCoord.st;
+    pin.Diffuse  = v_diffuse; \
+    pin.Specular = vec4(u_specular_color, u_specular_power); \
+    pin.TexCoord = v_texcoord0.st;
 
 #define SetPSInputTxNoFogParams \
-    pin.Diffuse  = Diffuse; \
-    pin.TexCoord = TexCoord.st;
+    pin.Diffuse  = v_diffuse; \
+    pin.TexCoord = v_texcoord0.st;
 
 #define SetPSInputPixelLightingParams \
-    pin.PositionWS = PositionWS; \
-    pin.NormalWS   = NormalWS; \
-    pin.Diffuse    = Diffuse;
+    pin.PositionWS = v_position; \
+    pin.NormalWS   = v_normal; \
+    pin.Diffuse    = v_diffuse;
 
 #define SetPSInputPixelLightingTxParams \
-    pin.TexCoord   = TexCoord; \
-    pin.PositionWS = PositionWS; \
-    pin.NormalWS   = NormalWS; \
-    pin.Diffuse    = Diffuse;
+    pin.TexCoord   = v_texcoord0; \
+    pin.PositionWS = v_position; \
+    pin.NormalWS   = v_normal; \
+    pin.Diffuse    = v_diffuse;
 
 #define SetVSInputNmTxWeightsParams \
-    vin.Position = vec4(VertexPosition, 1.0f); \
-    vin.Normal   = VertexNormal; \
-    vin.TexCoord = VertexCoord.st; \
-    vin.Indices  = BlendIndices; \
-    vin.Weights  = BlendWeights;
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal; \
+    vin.TexCoord = v_texcoord0.st; \
+    vin.Indices  = a_joint; \
+    vin.Weights  = a_weight;

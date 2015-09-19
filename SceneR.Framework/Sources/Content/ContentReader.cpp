@@ -7,6 +7,7 @@
 
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
+#include <Framework/Matrix.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Shader.hpp>
@@ -19,6 +20,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
+        using SceneR::Framework::Matrix;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Model;

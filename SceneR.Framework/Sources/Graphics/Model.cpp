@@ -9,6 +9,7 @@
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
+#include <Graphics/ModelSkin.hpp>
 
 namespace SceneR
 {
@@ -37,47 +38,6 @@ namespace SceneR
             return _name;
         }
 
-        void Model::copy_absolute_bone_transforms_to(std::vector<Matrix>& destinationBoneTransforms)
-        {
-            assert(destinationBoneTransforms.size() == _bones.size());
-
-            for (std::size_t boneIndex = 0; boneIndex < _bones.size(); boneIndex++)
-            {
-                auto bone = _bones[boneIndex];
-
-                if (bone->parent().get() == nullptr)
-                {
-                    destinationBoneTransforms[boneIndex] = bone->transform();
-                }
-                else
-                {
-                    std::uint32_t parentBoneIndex = bone->parent()->index();
-
-                    destinationBoneTransforms[boneIndex] = bone->transform() * destinationBoneTransforms[parentBoneIndex];
-                }
-            }
-        }
-
-        void Model::copy_bone_transforms_from(const std::vector<Matrix>& sourceBoneTransforms)
-        {
-            assert(sourceBoneTransforms.size() == _bones.size());
-
-            for (std::size_t i = 0; i < sourceBoneTransforms.size(); i++)
-            {
-                _bones[i]->transform(sourceBoneTransforms[i]);
-            }
-        }
-
-        void Model::copy_bone_transforms_to(std::vector<Matrix>& destinationBoneTransforms)
-        {
-            assert(destinationBoneTransforms.size() == _bones.size());
-
-            for (std::size_t i = 0; i < _bones.size(); i++)
-            {
-                destinationBoneTransforms[i] = _bones[i]->transform();
-            }
-        }
-
         const std::shared_ptr<ModelBone>& Model::root() const
         {
             return _root;
@@ -95,15 +55,13 @@ namespace SceneR
 
         void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection)
         {
-//            auto boneTransforms = std::vector<Matrix>(_bones.size());
-
-//            _CopyAbsoluteBoneTransformsTo(boneTransforms);
+            auto boneTransforms = std::vector<Matrix>();
 
             for (const auto mesh : _meshes)
             {
-                for (auto effect : mesh->effects())
+                for (const auto effect : mesh->effects())
                 {
-                    // effect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
+                    //effect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
                     effect->world(world);
                     effect->view(view);
                     effect->projection(projection);

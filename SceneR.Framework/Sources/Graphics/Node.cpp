@@ -19,7 +19,7 @@ namespace SceneR
             : name          ()
             , camera        ()
             , instance_skin { nullptr }
-            , joint_name    ()
+            , joint         { nullptr }
             , light         ()
             , matrix        { Matrix::identity }
             , meshes        ()

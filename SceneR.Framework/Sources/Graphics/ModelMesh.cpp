@@ -63,6 +63,11 @@ namespace SceneR
             return _parent_bone;
         }
 
+        std::shared_ptr<ModelSkin> ModelMesh::skin() const
+        {
+            return _skin;
+        }
+
         void ModelMesh::draw()
         {
             for (const auto& meshPart : _mesh_parts)

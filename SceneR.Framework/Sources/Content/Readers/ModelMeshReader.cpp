@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/MeshReader.hpp>
+#include <Content/Readers/ModelMeshReader.hpp>
 
 #include <iostream>
 
@@ -231,11 +231,11 @@ namespace SceneR
         std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
                                                                                    , const std::string& name) const
         {
-            const auto& material   = input->_root["materials"][name];
-            const auto& itechnique = material["instanceTechnique"];
-            const auto& values     = itechnique["values"].object_items();
-            auto        technique  = input->read_object<EffectTechnique>("techniques"
-                                                                       , itechnique["technique"].string_value());
+            const auto& material     = input->_root["materials"][name];
+            const auto& itechnique   = material["instanceTechnique"];
+            const auto& values       = itechnique["values"].object_items();
+            const auto  techniqueRef = itechnique["technique"].string_value();
+            auto        technique    = input->read_object_instance<EffectTechnique>("techniques", techniqueRef);
 
             for (const auto& value : values)
             {
