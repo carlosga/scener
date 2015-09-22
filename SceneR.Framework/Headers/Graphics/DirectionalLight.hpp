@@ -35,15 +35,15 @@ namespace SceneR
             /**
              * Copy constructor.
              */
-            DirectionalLight(const DirectionalLight& light);
+            DirectionalLight(const DirectionalLight& light) = default;
 
             /**
              * Releases all resources being used by this DirectionalLight.
              */
-            ~DirectionalLight();
+            ~DirectionalLight() = default;
 
         public:
-             DirectionalLight& operator=(const DirectionalLight& light);
+             DirectionalLight& operator=(const DirectionalLight& light) = default;
 
         public:
             SceneR::Framework::Vector3 direction;

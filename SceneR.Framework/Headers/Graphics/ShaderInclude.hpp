@@ -20,7 +20,7 @@ namespace SceneR
 
             ShaderInclude(const std::string& name, const std::string& path, const std::string& 	source);
 
-            ~ShaderInclude();
+            ~ShaderInclude() = default;
 
         public:
             void dispose() override;

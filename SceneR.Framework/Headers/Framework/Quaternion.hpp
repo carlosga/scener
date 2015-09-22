@@ -154,9 +154,10 @@ namespace SceneR
             float length() const;
 
         public:
+            Quaternion& operator=(const Quaternion& value) = default;
+
             float& operator[](const std::size_t& index);
             const float& operator[](const std::size_t& index) const;
-            Quaternion& operator=(const Quaternion& value);
             bool operator==(const Quaternion& value) const;
             bool operator!=(const Quaternion& value) const;
             Quaternion& operator*=(const Quaternion& value);

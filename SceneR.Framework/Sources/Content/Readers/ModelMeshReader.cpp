@@ -14,6 +14,7 @@
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
@@ -24,7 +25,9 @@
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/Texture2D.hpp>
+#include <Graphics/VertexArrayObject.hpp>
 #include <Graphics/VertexBuffer.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 using json11::Json;
 using SceneR::Content::ContentTypeReader;

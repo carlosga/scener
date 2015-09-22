@@ -67,11 +67,11 @@ namespace SceneR
             void update_order(const std::uint32_t& updateOrder);
 
         protected:
-            Renderer* _renderer;
+            Renderer* _renderer = nullptr;
 
         private:
-            bool          _enabled;
-            std::uint32_t _update_order;
+            bool          _enabled      = true;
+            std::uint32_t _update_order = 0;
         };
     }
 }

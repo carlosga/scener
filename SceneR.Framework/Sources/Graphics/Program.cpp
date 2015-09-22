@@ -6,21 +6,11 @@
 #include <cassert>
 
 #include <Graphics/Shader.hpp>
-#include <Graphics/UniformBufferObject.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        Program::Program()
-            : name ()
-        {
-        }
-
-        Program::~Program()
-        {
-        }
-
         void Program::dispose()
         {
             if (_id != 0)
@@ -42,9 +32,9 @@ namespace SceneR
             return _id;
         }
 
-        std::shared_ptr<UniformBufferObject> Program::uniform_buffer() const
+        UniformBufferObject* Program::uniform_buffer() const
         {
-            return _uniform_buffer;
+            return _uniform_buffer.get();
         }
 
         void Program::create()
@@ -88,7 +78,7 @@ namespace SceneR
             verify_linking_state();
 
             // ... fill uniform buffer info
-            _uniform_buffer = std::make_shared<UniformBufferObject>("ConstantBuffer", _id);
+            _uniform_buffer = std::make_unique<UniformBufferObject>("ConstantBuffer", _id);
             _uniform_buffer->create();
         }
 

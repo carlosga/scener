@@ -21,7 +21,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the VertexArrayObject class.
              */
-            VertexArrayObject();
+            VertexArrayObject() = default;
 
             /**
              * Releases all resources being used by this VertexArrayObject.
@@ -53,7 +53,7 @@ namespace SceneR
             void unbind() const;
 
         private:
-            std::uint32_t _id;
+            std::uint32_t _id = 0;
         };
     }
 }

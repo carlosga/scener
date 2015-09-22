@@ -155,9 +155,6 @@ set(HEADER_FILES
     Headers/Graphics/VertexElement.hpp
     Headers/Graphics/VertexElementFormat.hpp
     Headers/Graphics/VertexElementUsage.hpp
-    Headers/Graphics/VertexPositionColor.hpp
-    Headers/Graphics/VertexPositionColorTexture.hpp
-    Headers/Graphics/VertexPositionNormalTexture.hpp
     Headers/Graphics/Viewport.hpp
     Headers/Input/Buttons.hpp
     Headers/Input/ButtonState.hpp
@@ -266,9 +263,6 @@ set(SOURCE_FILES
     Sources/Graphics/VertexBuffer.cpp
     Sources/Graphics/VertexDeclaration.cpp
     Sources/Graphics/VertexElement.cpp
-    Sources/Graphics/VertexPositionColor.cpp
-    Sources/Graphics/VertexPositionColorTexture.cpp
-    Sources/Graphics/VertexPositionNormalTexture.cpp
     Sources/Graphics/Viewport.cpp
     Sources/Input/Keyboard.cpp
     Sources/Input/KeyboardState.cpp

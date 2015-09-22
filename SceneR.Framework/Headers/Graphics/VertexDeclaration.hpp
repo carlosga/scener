@@ -34,12 +34,12 @@ namespace SceneR
              * @brief Copy constructor
              * @param declaration the vertex declaration to copy from
              */
-            VertexDeclaration(const VertexDeclaration& declaration);
+            VertexDeclaration(const VertexDeclaration& declaration) = default;
 
             /**
              * Destructor
              */
-            ~VertexDeclaration();
+            ~VertexDeclaration() = default;
 
         public:
             /**
@@ -55,7 +55,7 @@ namespace SceneR
             const std::vector<VertexElement>& vertex_elements() const;
 
         public:
-            VertexDeclaration& operator=(const VertexDeclaration& declaration);
+            VertexDeclaration& operator=(const VertexDeclaration& declaration) = default;
 
         private:
             /**

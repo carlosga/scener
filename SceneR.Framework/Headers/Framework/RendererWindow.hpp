@@ -78,9 +78,9 @@ namespace SceneR
             RendererWindow& operator=(const RendererWindow& window) = delete;
 
         private:
-            std::string _title;
-            GLFWwindow* _handle;
-            Renderer*   _renderer;
+            std::string _title    = { };
+            GLFWwindow* _handle   = nullptr;
+            Renderer*   _renderer = nullptr;
 
             friend class Renderer;
         };

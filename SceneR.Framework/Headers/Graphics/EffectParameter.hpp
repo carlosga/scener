@@ -38,17 +38,17 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectParameter class.
              */
-            EffectParameter();
+            EffectParameter() = default;
 
             /**
              * Copy constructor.
              */
-            EffectParameter(const EffectParameter& parameter);
+            EffectParameter(const EffectParameter& parameter) = default;
 
             /**
              * Destructor
              */
-            ~EffectParameter();
+            ~EffectParameter() = default;
 
         public:
             /**
@@ -111,22 +111,21 @@ namespace SceneR
             void set_value_transpose(const T& value) const;
 
         public:
-            EffectParameter& operator=(const EffectParameter& parameter);
+            EffectParameter& operator=(const EffectParameter& parameter) = default;
 
         private:
-            std::string _name;
-            std::size_t _column_count;
-            std::size_t _row_count;
-            std::size_t _count;
-            std::size_t _offset;
-            std::string _semantic;
-            std::string _node;
-            std::string _value;
+            std::string _name         = { };
+            std::size_t _column_count = { 0 };
+            std::size_t _row_count    = { 0 };
+            std::size_t _count        = { 0 };
+            std::size_t _offset       = { 0 };
+            std::string _semantic     = { };
+            std::string _node         = { };
+            std::string _value        = { };
 
-            EffectParameterClass _parameter_class;
-            EffectParameterType  _parameter_type;
-
-            std::shared_ptr<UniformBufferObject> _uniform_buffer;
+            EffectParameterClass _parameter_class = EffectParameterClass::Scalar;
+            EffectParameterType  _parameter_type  = EffectParameterType::Single;
+            UniformBufferObject* _uniform_buffer  = nullptr;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

@@ -233,9 +233,10 @@ namespace SceneR
             float length() const;
 
         public:
+            Vector2& operator=(const Vector2& vector) = default;
+
             float& operator[](const std::size_t& index);
             const float& operator[](const std::size_t& index) const;
-            Vector2& operator=(const Vector2& vector);
             bool operator==(const Vector2& vector) const;
             bool operator!=(const Vector2& vector) const;
             Vector2& operator*=(const Vector2& vector);

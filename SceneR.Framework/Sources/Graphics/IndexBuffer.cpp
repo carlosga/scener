@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        IndexBuffer::IndexBuffer(GraphicsDevice*      graphicsDevice
+        IndexBuffer::IndexBuffer(GraphicsDevice* graphicsDevice
                                , const ComponentType& indexElementType
                                , const std::size_t&   indexCount)
             : GraphicsResource  { graphicsDevice }

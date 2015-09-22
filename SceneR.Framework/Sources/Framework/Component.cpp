@@ -10,9 +10,7 @@ namespace SceneR
     namespace Framework
     {
         Component::Component(Renderer* renderer)
-            : _renderer     ( renderer )
-            , _enabled      { true }
-            , _update_order { 0 }
+            : _renderer ( renderer )
         {
         }
 

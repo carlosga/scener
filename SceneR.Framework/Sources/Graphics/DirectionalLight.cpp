@@ -23,30 +23,5 @@ namespace SceneR
             , enabled        { false }
         {
         }
-
-        DirectionalLight::DirectionalLight(const DirectionalLight& light)
-            : direction      { light.direction }
-            , diffuse_color  { light.diffuse_color }
-            , specular_color { light.specular_color }
-            , enabled        { light.enabled }
-        {
-        }
-
-        DirectionalLight::~DirectionalLight()
-        {
-        }
-
-        DirectionalLight&DirectionalLight::operator=(const DirectionalLight& light)
-        {
-            if (this != &light)
-            {
-                this->direction      = light.direction;
-                this->diffuse_color  = light.diffuse_color;
-                this->specular_color = light.specular_color;
-                this->enabled        = light.enabled;
-            }
-
-            return *this;
-        }
     }
 }

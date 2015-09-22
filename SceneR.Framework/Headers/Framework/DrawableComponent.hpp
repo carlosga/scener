@@ -77,8 +77,8 @@ namespace SceneR
             virtual void unload_content();
 
         private:
-            bool          _visible;
-            std::uint32_t _draw_order;
+            bool          _visible    = true;
+            std::uint32_t _draw_order = 0;
         };
     }
 }

@@ -231,19 +231,6 @@ namespace SceneR
             return data[index];
         }
 
-        Vector4& Vector4::operator=(const Vector4& vector)
-        {
-            if (this != &vector)
-            {
-                x = vector.x;
-                y = vector.y;
-                z = vector.z;
-                w = vector.w;
-            }
-
-            return *this;
-        }
-
         bool Vector4::operator==(const Vector4& vector) const
         {
             return (Math::equal(x, vector.x)

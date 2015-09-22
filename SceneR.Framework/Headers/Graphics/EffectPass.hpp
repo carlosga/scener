@@ -38,7 +38,7 @@ namespace SceneR
             /**
              * Destructor.
              */
-            ~EffectPass();
+            ~EffectPass() = default;
 
         public:
             /**
@@ -58,12 +58,12 @@ namespace SceneR
             void end();
 
         private:
-            GraphicsDevice*                               _graphics_device;
-            std::string                                   _name;
-            std::string                                   _lighting_model;
-            std::vector<std::shared_ptr<EffectParameter>> _parameters;
-            std::shared_ptr<Program>                      _program;
-            EffectPassStates                              _states;
+            GraphicsDevice*                               _graphics_device  = nullptr;
+            std::string                                   _name             = { };
+            std::string                                   _lighting_model   = { };
+            std::vector<std::shared_ptr<EffectParameter>> _parameters       = { };
+            std::shared_ptr<Program>                      _program          = nullptr;
+            EffectPassStates                              _states           = { };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

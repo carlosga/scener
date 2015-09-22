@@ -18,18 +18,6 @@ namespace SceneR
         {
         }
 
-        VertexElement::VertexElement(const VertexElement& element)
-            : _offset                { element._offset }
-            , _vertex_element_format { element._vertex_element_format }
-            , _vertex_element_usage  { element._vertex_element_usage }
-            , _usage_index           { element._usage_index }
-        {
-        }
-
-        VertexElement::~VertexElement()
-        {
-        }
-
         std::size_t VertexElement::offset() const
         {
             return _offset;
@@ -48,19 +36,6 @@ namespace SceneR
         const SceneR::Graphics::VertexElementUsage& VertexElement::vertex_element_usage() const
         {
             return _vertex_element_usage;
-        }
-
-        VertexElement& VertexElement::operator=(const VertexElement& element)
-        {
-            if (this != &element)
-            {
-                _offset                = element._offset;
-                _vertex_element_format = element._vertex_element_format;
-                _vertex_element_usage  = element._vertex_element_usage;
-                _usage_index           = element._usage_index;
-            }
-
-            return *this;
         }
     }
 }

@@ -52,10 +52,6 @@ namespace SceneR
         {
         }
 
-        EffectTechnique::~EffectTechnique()
-        {
-        }
-
         void EffectTechnique::dispose()
         {
         }

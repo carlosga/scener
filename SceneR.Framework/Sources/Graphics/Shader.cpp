@@ -18,14 +18,10 @@ namespace SceneR
         }
 
         Shader::Shader(const std::string& name, const ShaderType& type, const std::string& source)
-            : _name     { name }
-            , _id       { 0 }
-            , _type     { type }
-            , _source   { source }
-        {
-        }
-
-        Shader::~Shader()
+            : _name   { name }
+            , _id     { 0 }
+            , _type   { type }
+            , _source { source }
         {
         }
 

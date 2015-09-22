@@ -10,45 +10,12 @@ namespace SceneR
     namespace Graphics
     {
         RasterizerState::RasterizerState(GraphicsDevice* graphicsDevice)
-            : GraphicsResource         { graphicsDevice }
-            , cull_mode                { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
-            , depth_bias               { 0.0f }
-            , fill_mode                { SceneR::Graphics::FillMode::Solid }
-            , multi_sample_anti_alias  { true }
-            , scissor_test_enable      { false }
-            , slope_scale_depth_bias   { 0.0f }
-        {
-        }
-
-        RasterizerState::RasterizerState(const RasterizerState& rasterizerState)
-            : GraphicsResource         { rasterizerState._graphics_device }
-            , cull_mode                { rasterizerState.cull_mode }
-            , depth_bias               { rasterizerState.depth_bias }
-            , fill_mode                { rasterizerState.fill_mode }
-            , multi_sample_anti_alias  { rasterizerState.multi_sample_anti_alias }
-            , scissor_test_enable      { rasterizerState.scissor_test_enable }
-            , slope_scale_depth_bias   { rasterizerState.slope_scale_depth_bias }
+            : GraphicsResource { graphicsDevice }
         {
         }
 
         void RasterizerState::dispose()
         {
-        }
-
-        RasterizerState& RasterizerState::operator=(const RasterizerState& rasterizerState)
-        {
-            if (this != &rasterizerState)
-            {
-                _graphics_device        = rasterizerState._graphics_device;
-                cull_mode               = rasterizerState.cull_mode;
-                depth_bias              = rasterizerState.depth_bias;
-                fill_mode               = rasterizerState.fill_mode;
-                multi_sample_anti_alias = rasterizerState.multi_sample_anti_alias;
-                scissor_test_enable     = rasterizerState.scissor_test_enable;
-                slope_scale_depth_bias  = rasterizerState.slope_scale_depth_bias;
-            }
-
-            return *this;
         }
 
         void RasterizerState::apply() const

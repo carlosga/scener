@@ -235,19 +235,6 @@ namespace SceneR
             return (this->data[index]);
         }
 
-        Quaternion& Quaternion::operator=(const Quaternion& value)
-        {
-            if (this != &value)
-            {
-                this->x = value.x;
-                this->y = value.y;
-                this->z = value.z;
-                this->w = value.w;
-            }
-
-            return *this;
-        }
-
         bool Quaternion::operator==(const Quaternion& value) const
         {
             return (Math::equal(this->x, value.x)

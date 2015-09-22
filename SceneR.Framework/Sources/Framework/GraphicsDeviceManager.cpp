@@ -21,14 +21,7 @@ namespace SceneR
         using SceneR::Framework::RendererWindow;
 
         GraphicsDeviceManager::GraphicsDeviceManager(Renderer* renderer)
-            : allow_user_resizing          { false }
-            , graphics_profile             { SceneR::Graphics::GraphicsProfile::HiDef }
-            , window_title                 {  }
-            , full_screen                  { false }
-            , preferred_back_buffer_width  { 0 }
-            , preferred_back_buffer_height { 0 }
-            , _graphics_device             { nullptr }
-            , _renderer                    { renderer }
+            : _renderer { renderer }
         {
             _renderer->services()->add_service<IGraphicsDeviceService>(*this);
         }

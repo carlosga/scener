@@ -11,38 +11,12 @@ namespace SceneR
     namespace Graphics
     {
         SamplerState::SamplerState(GraphicsDevice* graphicsDevice)
-            : GraphicsResource              { graphicsDevice }
-            , address_U                     { TextureAddressMode::Wrap }
-            , address_V                     { TextureAddressMode::Wrap }
-            , address_W                     { TextureAddressMode::Wrap }
-            , mag_filter                    { TextureFilter::Linear }
-            , min_filter                    { TextureFilter::Linear }
-            , max_anisotropy                { 4 }
-            , max_mip_level                 { 0 }
-            , mip_map_level_of_detail_bias  { 0 }
+            : GraphicsResource { graphicsDevice }
         {
         }
 
         void SamplerState::dispose()
         {
-        }
-
-        SamplerState&SamplerState::operator=(const SamplerState& samplerState)
-        {
-            if (this != &samplerState)
-            {
-                _graphics_device             = samplerState._graphics_device;
-                address_U                    = samplerState.address_U;
-                address_V                    = samplerState.address_V;
-                address_W                    = samplerState.address_W;
-                min_filter                   = samplerState.min_filter;
-                mag_filter                   = samplerState.mag_filter;
-                max_anisotropy               = samplerState.max_anisotropy;
-                max_mip_level                = samplerState.max_mip_level;
-                mip_map_level_of_detail_bias = samplerState.mip_map_level_of_detail_bias;
-            }
-
-            return *this;
         }
 
         void SamplerState::apply(const std::uint32_t& textureId) const

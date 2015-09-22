@@ -21,40 +21,6 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
 
-        EffectParameter::EffectParameter()
-            : _name             { }
-            , _column_count     { 0 }
-            , _row_count        { 0 }
-            , _count            { 0 }
-            , _offset           { 0 }
-            , _semantic         {  }
-            , _node             {  }
-            , _value            {  }
-            , _parameter_class  { EffectParameterClass::Scalar }
-            , _parameter_type   { EffectParameterType::Single }
-            , _uniform_buffer   { nullptr }
-        {
-        }
-
-        EffectParameter::EffectParameter(const EffectParameter& parameter)
-            : _name             { parameter._name }
-            , _column_count     { parameter._column_count }
-            , _row_count        { parameter._row_count }
-            , _count            { parameter._count }
-            , _offset           { parameter._offset }
-            , _semantic         { parameter._semantic }
-            , _node             { parameter._node }
-            , _value            { parameter._value }
-            , _parameter_class  { parameter._parameter_class }
-            , _parameter_type   { parameter._parameter_type }
-            , _uniform_buffer   { parameter._uniform_buffer }
-        {
-        }
-
-        EffectParameter::~EffectParameter()
-        {
-        }
-
         std::size_t EffectParameter::column_count() const
         {
             return _column_count;
@@ -531,26 +497,6 @@ namespace SceneR
             }
 
             _uniform_buffer->set_data(_offset, sizeof(Vector4) * value.size(), value.data());
-        }
-
-        EffectParameter&EffectParameter::operator=(const EffectParameter& parameter)
-        {
-            if (this != &parameter)
-            {
-                _name             = parameter._name;
-                _column_count     = parameter._column_count;
-                _row_count        = parameter._row_count;
-                _count            = parameter._count;
-                _offset           = parameter._offset;
-                _semantic         = parameter._semantic;
-                _node             = parameter._node;
-                _value            = parameter._value;
-                _parameter_class  = parameter._parameter_class;
-                _parameter_type   = parameter._parameter_type;
-                _uniform_buffer   = parameter._uniform_buffer;
-            }
-
-            return *this;
         }
     }
 }

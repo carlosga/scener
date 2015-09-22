@@ -16,16 +16,6 @@ namespace SceneR
         {
         }
 
-        VertexDeclaration::VertexDeclaration(const VertexDeclaration& declaration)
-            : _vertex_stride   { declaration._vertex_stride }
-            , _vertex_elements { declaration._vertex_elements }
-        {
-        }
-
-        VertexDeclaration::~VertexDeclaration()
-        {
-        }
-
         std::size_t VertexDeclaration::vertex_stride() const
         {
             return _vertex_stride;
@@ -34,17 +24,6 @@ namespace SceneR
         const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const
         {
             return _vertex_elements;
-        }
-
-        VertexDeclaration& VertexDeclaration::operator=(const VertexDeclaration& declaration)
-        {
-            if (this != &declaration)
-            {
-                _vertex_stride   = declaration._vertex_stride;
-                _vertex_elements = declaration._vertex_elements;
-            }
-
-            return *this;
         }
 
         void VertexDeclaration::declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const

@@ -12,6 +12,7 @@
 #include <string>
 
 #include <Graphics/ShaderType.hpp>
+#include <Graphics/UniformBufferObject.hpp>
 #include <System/IDisposable.hpp>
 
 namespace SceneR
@@ -25,13 +26,13 @@ namespace SceneR
     {
         class EffectParameter;
         class Shader;
-        class UniformBufferObject;
 
         class Program final : public System::IDisposable
         {
         public:
-            Program();
-            ~Program();
+            Program() = default;
+
+            ~Program() = default;
 
         public:
             void dispose() override;
@@ -39,7 +40,7 @@ namespace SceneR
         public:
             std::uint32_t id() const;
 
-            std::shared_ptr<UniformBufferObject> uniform_buffer() const;
+            UniformBufferObject* uniform_buffer() const;
 
             void create();
 
@@ -59,11 +60,11 @@ namespace SceneR
             void verify_linking_state();
 
         public:
-            std::string name;
+            std::string name = { };
 
         private:
-            std::uint32_t                        _id;
-            std::shared_ptr<UniformBufferObject> _uniform_buffer;
+            std::uint32_t                        _id             = 0;
+            std::unique_ptr<UniformBufferObject> _uniform_buffer = nullptr;
 
             friend class SceneR::Content::TechniqueReader;
         };

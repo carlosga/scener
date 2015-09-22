@@ -405,9 +405,10 @@ namespace SceneR
             bool is_identity() const;
 
         public:
+            Matrix& operator=(const Matrix& data) = default;
+
             float& operator[](const std::size_t& index);
             const float& operator[](const std::size_t& index) const;
-            Matrix& operator=(const Matrix& data);
             bool operator==(const Matrix& data) const;
             bool operator!=(const Matrix& data) const;
             Matrix& operator*=(const Matrix& data);

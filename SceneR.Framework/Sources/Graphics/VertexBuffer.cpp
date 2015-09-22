@@ -3,12 +3,6 @@
 
 #include <Graphics/VertexBuffer.hpp>
 
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/VertexArrayObject.hpp>
-#include <Graphics/VertexDeclaration.hpp>
-
 namespace SceneR
 {
     namespace Graphics

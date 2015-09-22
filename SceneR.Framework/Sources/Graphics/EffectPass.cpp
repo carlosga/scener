@@ -16,15 +16,6 @@ namespace SceneR
 
         EffectPass::EffectPass(GraphicsDevice* graphicsDevice)
             : _graphics_device { graphicsDevice }
-            , _name            ()
-            , _lighting_model  ()
-            , _parameters      ()
-            , _program         { nullptr }
-            , _states          { }
-        {
-        }
-
-        EffectPass::~EffectPass()
         {
         }
 

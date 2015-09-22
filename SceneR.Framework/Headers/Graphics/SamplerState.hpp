@@ -21,11 +21,6 @@ namespace SceneR
 
     namespace Graphics
     {
-        class BasicEffect;
-        class GraphicsDevice;
-        class SkinnedEffect;
-        class EffectTechnique;
-
         /**
          * Contains sampler state, which determines how to sample texture data.
          */
@@ -52,7 +47,7 @@ namespace SceneR
             void dispose() override;
 
         public:
-            SamplerState& operator=(const SamplerState& samplerState);
+            SamplerState& operator=(const SamplerState& samplerState) = default;
 
         private:
             void apply(const std::uint32_t& textureId) const;
@@ -62,42 +57,42 @@ namespace SceneR
             /**
              * Gets or sets the texture-address mode for the u-coordinate.
              */
-            TextureAddressMode address_U;
+            TextureAddressMode address_U = { TextureAddressMode::Wrap };
 
             /**
              * Gets or sets the texture-address mode for the v-coordinate.
              */
-            TextureAddressMode address_V;
+            TextureAddressMode address_V = { TextureAddressMode::Wrap };
 
             /**
              * Gets or sets the texture-address mode for the w-coordinate.
              */
-            TextureAddressMode address_W;
+            TextureAddressMode address_W = { TextureAddressMode::Wrap };
 
             /**
              * Gets or sets the type of filtering during sampling.
              */
-            TextureFilter mag_filter;
+            TextureFilter mag_filter = { TextureFilter::Linear };
 
             /**
              * Gets or sets the type of filtering during sampling.
              */
-            TextureFilter min_filter;
+            TextureFilter min_filter = { TextureFilter::Linear };
 
             /**
              * Gets or sets the maximum anisotropy. The default value is 0.
              */
-            std::int32_t max_anisotropy;
+            std::int32_t max_anisotropy = 4;
 
             /**
              * Gets or sets the level of detail (LOD) index of the largest map to use.
              */
-            std::size_t max_mip_level;
+            std::size_t max_mip_level = 0;
 
             /**
              * Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
              */
-            float mip_map_level_of_detail_bias;
+            float mip_map_level_of_detail_bias = 0;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

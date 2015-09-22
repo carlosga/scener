@@ -20,10 +20,6 @@ namespace SceneR
         {
         }
 
-        ShaderInclude::~ShaderInclude()
-        {
-        }
-
         void ShaderInclude::dispose()
         {
             remove();

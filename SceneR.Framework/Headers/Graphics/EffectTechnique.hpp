@@ -54,12 +54,12 @@ namespace SceneR
              *
              * @param effect the effect to be copied
              */
-            EffectTechnique(const EffectTechnique& effect);
+            EffectTechnique(const EffectTechnique& effect) = default;
 
             /**
              * Destructor
              */
-            ~EffectTechnique();
+            ~EffectTechnique() = default;
 
         public:
             void dispose() override;

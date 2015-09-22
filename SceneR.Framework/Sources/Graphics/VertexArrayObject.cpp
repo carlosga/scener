@@ -9,11 +9,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        VertexArrayObject::VertexArrayObject()
-            : _id { 0 }
-        {
-        }
-
         void VertexArrayObject::dispose()
         {
             if (_id != 0)

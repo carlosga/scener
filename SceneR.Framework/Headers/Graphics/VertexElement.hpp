@@ -32,12 +32,12 @@ namespace SceneR
              * @brief Copy constructor
              * @param element the vertex element to copy from
              */
-            VertexElement(const VertexElement& element);
+            VertexElement(const VertexElement& element) = default;
 
             /**
              * Releases all resources being used by this VertexElement.
              */
-            ~VertexElement();
+            ~VertexElement() = default;
 
         public:
             /**
@@ -61,7 +61,7 @@ namespace SceneR
             const VertexElementUsage& vertex_element_usage() const;
 
         public:
-            VertexElement& operator=(const VertexElement& element);
+            VertexElement& operator=(const VertexElement& element) = default;
 
         private:
             std::size_t         _offset;

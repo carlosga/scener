@@ -25,9 +25,7 @@ namespace SceneR
         using SceneR::Input::Mouse;
 
         RendererWindow::RendererWindow(Renderer* renderer)
-            : _title    {  }
-            , _handle   { nullptr }
-            , _renderer { renderer }
+            : _title {  }
         {
         }
 
