@@ -72,22 +72,22 @@ namespace SceneR
         {
             for (const auto& meshPart : _mesh_parts)
             {
-                auto& graphicsDevice = meshPart->vertex_buffer()->graphics_device();
+                auto graphicsDevice = meshPart->vertex_buffer()->graphics_device();
 
                 if (meshPart->effect.get() != nullptr)
                 {
-                    graphicsDevice.effect = meshPart->effect;
+                    graphicsDevice->effect = meshPart->effect.get();
                 }
 
-                graphicsDevice.index_buffer  = meshPart->index_buffer();
-                graphicsDevice.vertex_buffer = meshPart->vertex_buffer();
+                graphicsDevice->index_buffer  = meshPart->index_buffer();
+                graphicsDevice->vertex_buffer = meshPart->vertex_buffer();
 
-                graphicsDevice.draw_indexed_primitives(meshPart->primitive_type()
-                                                     , meshPart->vertex_offset()
-                                                     , 0
-                                                     , meshPart->vertex_count()
-                                                     , meshPart->start_index()
-                                                     , meshPart->primitive_count());
+                graphicsDevice->draw_indexed_primitives(meshPart->primitive_type()
+                                                      , meshPart->vertex_offset()
+                                                      , 0
+                                                      , meshPart->vertex_count()
+                                                      , meshPart->start_index()
+                                                      , meshPart->primitive_count());
             }
         }
     }

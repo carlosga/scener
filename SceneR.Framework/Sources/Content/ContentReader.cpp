@@ -35,11 +35,6 @@ namespace SceneR
         {
         }
 
-        ContentReader::~ContentReader()
-        {
-            _asset_reader.close();
-        }
-
         const std::string& ContentReader::asset_name() const
         {
             return _asset_name;

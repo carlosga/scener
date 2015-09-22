@@ -33,7 +33,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectPass class.
              */
-            EffectPass(GraphicsDevice& graphicsDevice);
+            EffectPass(GraphicsDevice* graphicsDevice);
 
             /**
              * Destructor.
@@ -58,7 +58,7 @@ namespace SceneR
             void end();
 
         private:
-            GraphicsDevice&                               _graphics_device;
+            GraphicsDevice*                               _graphics_device;
             std::string                                   _name;
             std::string                                   _lighting_model;
             std::vector<std::shared_ptr<EffectParameter>> _parameters;

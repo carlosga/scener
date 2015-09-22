@@ -31,12 +31,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Ray structure with the given position an direction.
              */
-            Ray(const Ray& ray);
+            Ray(const Ray& ray) = default;
 
             /**
              * Releases all resources being used by this Ray.
              */
-            ~Ray();
+            ~Ray() = default;
 
         public:
             /**

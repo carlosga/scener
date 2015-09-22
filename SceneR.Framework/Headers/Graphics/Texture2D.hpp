@@ -37,7 +37,7 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice& graphicsDevice, const std::size_t& width, const std::size_t& height);
+            Texture2D(GraphicsDevice* graphicsDevice, const std::size_t& width, const std::size_t& height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -48,7 +48,7 @@ namespace SceneR
              * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice&      graphicsDevice
+            Texture2D(GraphicsDevice*      graphicsDevice
                     , const std::size_t&   width
                     , const std::size_t&   height
                     , const bool&          mipmap
@@ -57,7 +57,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            ~Texture2D() override;
+            ~Texture2D() = default;
 
         public:
             void dispose() override;
@@ -102,12 +102,12 @@ namespace SceneR
             /**
              * Activates the texture object
              */
-            void activate() const override;
+            void bind() const override;
 
             /**
              * Deactivates the texture object
              */
-            void deactivate() const override;
+            void unbind() const override;
 
         private:
             void declare_storage(const std::size_t& mipMapLevels);

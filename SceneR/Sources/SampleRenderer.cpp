@@ -3,6 +3,8 @@
 
 #include <SampleRenderer.hpp>
 
+#include <Framework/GraphicsDeviceManager.hpp>
+
 #include <Camera.hpp>
 #include <EarthShaker.hpp>
 
@@ -20,19 +22,19 @@ namespace SceneR
 
         void SampleRenderer::begin_run()
         {
-            _graphics_device_manager.preferred_back_buffer_width  = 1600;
-            _graphics_device_manager.preferred_back_buffer_height = 900;
-            _graphics_device_manager.window_title                 = "SceneR";
-
-            this->components().push_back(std::make_shared<Camera>(*this));
-            this->components().push_back(std::make_shared<EarthShaker>(*this));
-
             Renderer::begin_run();
+
+            _graphics_device_manager->preferred_back_buffer_width  = 1600;
+            _graphics_device_manager->preferred_back_buffer_height = 900;
+            _graphics_device_manager->window_title                 = "SceneR";
+
+            components().push_back(std::make_shared<Camera>(this));
+            components().push_back(std::make_shared<EarthShaker>(this));
         }
 
         void SampleRenderer::draw(const RenderTime &renderTime)
         {
-            _graphics_device_manager.graphics_device().clear(Color::black);
+            graphics_device()->clear(Color::black);
 
             Renderer::draw(renderTime);
         }

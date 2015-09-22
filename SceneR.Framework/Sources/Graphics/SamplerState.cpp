@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        SamplerState::SamplerState(GraphicsDevice& graphicsDevice)
+        SamplerState::SamplerState(GraphicsDevice* graphicsDevice)
             : GraphicsResource              { graphicsDevice }
             , address_U                     { TextureAddressMode::Wrap }
             , address_V                     { TextureAddressMode::Wrap }
@@ -20,23 +20,6 @@ namespace SceneR
             , max_anisotropy                { 4 }
             , max_mip_level                 { 0 }
             , mip_map_level_of_detail_bias  { 0 }
-        {
-        }
-
-        SamplerState::SamplerState(const SamplerState& samplerState)
-            : GraphicsResource              { samplerState._graphics_device }
-            , address_U                     { samplerState.address_U }
-            , address_V                     { samplerState.address_V }
-            , address_W                     { samplerState.address_W }
-            , mag_filter                    { samplerState.mag_filter }
-            , min_filter                    { samplerState.min_filter }
-            , max_anisotropy                { samplerState.max_anisotropy }
-            , max_mip_level                 { samplerState.max_mip_level }
-            , mip_map_level_of_detail_bias  { samplerState.mip_map_level_of_detail_bias }
-        {
-        }
-
-        SamplerState::~SamplerState()
         {
         }
 

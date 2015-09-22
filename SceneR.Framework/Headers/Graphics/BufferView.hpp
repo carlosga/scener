@@ -41,7 +41,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BufferView.
              */
-            ~BufferView();
+            ~BufferView() = default;
 
         public:
             void dispose();

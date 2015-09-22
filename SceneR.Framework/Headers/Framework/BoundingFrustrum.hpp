@@ -48,7 +48,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BoundingFrustrum
              */
-            ~BoundingFrustrum();
+            ~BoundingFrustrum() = default;
 
         public:
             /**

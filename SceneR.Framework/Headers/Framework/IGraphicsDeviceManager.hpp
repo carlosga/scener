@@ -19,7 +19,7 @@ namespace SceneR
             /**
              * Destructor
              */
-            virtual ~IGraphicsDeviceManager();
+            virtual ~IGraphicsDeviceManager() = default;
 
         public:
             /**

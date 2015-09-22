@@ -21,12 +21,12 @@ namespace SceneR
             /**
              * Initializes a news instance of the ContentTypeReader class.
              */
-            ContentTypeReader();
+            ContentTypeReader() = default;
 
             /**
              * Destructor
              */
-            ~ContentTypeReader();
+            ~ContentTypeReader() = default;
 
         public:
             /**

@@ -24,8 +24,9 @@ namespace SceneR
         class ContentTypeReader<SceneR::Graphics::EffectTechnique>
         {
         public:
-            ContentTypeReader();
-            ~ContentTypeReader();
+            ContentTypeReader() = default;
+
+            ~ContentTypeReader() = default;
 
         public:
             /**

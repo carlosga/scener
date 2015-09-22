@@ -17,7 +17,7 @@ namespace SceneR
         class Camera : public SceneR::Framework::Component
         {
         public:
-            Camera(SampleRenderer& renderer);
+            Camera(SampleRenderer* renderer);
             ~Camera() = default;
 
         public:

@@ -9,7 +9,10 @@
 #include <memory>
 #include <vector>
 
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
+#include <Graphics/VertexArrayObject.hpp>
+#include <Graphics/VertexDeclaration.hpp>
 
 namespace SceneR
 {
@@ -20,9 +23,7 @@ namespace SceneR
 
     namespace Graphics
     {
-        class BufferObject;
         class GraphicsDevice;
-        class VertexArrayObject;
         class VertexDeclaration;
 
         /**
@@ -35,14 +36,14 @@ namespace SceneR
              * Initializes a new instance of the VertexBuffer class.
              * @param graphicsDevice the graphics device.
              */
-            VertexBuffer(GraphicsDevice&                    graphicsDevice
+            VertexBuffer(GraphicsDevice*                    graphicsDevice
                        , const std::size_t&                 vertexCount
                        , std::unique_ptr<VertexDeclaration> vertexDeclaration);
 
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            ~VertexBuffer() override;
+            ~VertexBuffer() = default;
 
         public:
             void dispose() override;
@@ -74,8 +75,8 @@ namespace SceneR
             SceneR::Graphics::VertexDeclaration* vertex_declaration() const;
 
         private:
-            void activate();
-            void deactivate();
+            void bind();
+            void unbind();
             void initialize();
 
         private:

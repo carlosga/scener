@@ -590,18 +590,6 @@ namespace SceneR
         {
         }
 
-        Matrix::Matrix(const Matrix& matrix)
-            : m11 { matrix.m11 }, m12 { matrix.m12 }, m13 { matrix.m13 }, m14 { matrix.m14 }
-            , m21 { matrix.m21 }, m22 { matrix.m22 }, m23 { matrix.m23 }, m24 { matrix.m24 }
-            , m31 { matrix.m31 }, m32 { matrix.m32 }, m33 { matrix.m33 }, m34 { matrix.m34 }
-            , m41 { matrix.m41 }, m42 { matrix.m42 }, m43 { matrix.m43 }, m44 { matrix.m44 }
-        {
-        }
-
-        Matrix::~Matrix()
-        {
-        }
-
         Vector3 Matrix::translation() const
         {
             return { this->m41, this->m42, this->m43 };

@@ -5,6 +5,8 @@
 
 #include <Framework/PresentInterval.hpp>
 #include <Framework/Renderer.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsProfile.hpp>
@@ -15,12 +17,12 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsAdapter;
         using SceneR::Graphics::GraphicsDevice;
-        using SceneR::Graphics::GraphicsProfile;
         using SceneR::Graphics::IGraphicsDeviceService;
+        using SceneR::Framework::RendererWindow;
 
-        GraphicsDeviceManager::GraphicsDeviceManager(Renderer& renderer)
+        GraphicsDeviceManager::GraphicsDeviceManager(Renderer* renderer)
             : allow_user_resizing          { false }
-            , graphics_profile             { GraphicsProfile::HiDef }
+            , graphics_profile             { SceneR::Graphics::GraphicsProfile::HiDef }
             , window_title                 {  }
             , full_screen                  { false }
             , preferred_back_buffer_width  { 0 }
@@ -28,16 +30,12 @@ namespace SceneR
             , _graphics_device             { nullptr }
             , _renderer                    { renderer }
         {
-            _renderer.services().add_service<IGraphicsDeviceService>(*this);
-        }
-
-        GraphicsDeviceManager::~GraphicsDeviceManager()
-        {
+            _renderer->services()->add_service<IGraphicsDeviceService>(*this);
         }
 
         void GraphicsDeviceManager::dispose()
         {
-            if (_graphics_device)
+            if (_graphics_device.get())
             {
                 _graphics_device->dispose();
                 _graphics_device = nullptr;
@@ -50,8 +48,8 @@ namespace SceneR
             _graphics_device->presentation_parameters().back_buffer_height = preferred_back_buffer_height;
             _graphics_device->presentation_parameters().full_screen        = full_screen;
 
-            _renderer.window().title(window_title);
-            _renderer.window().allow_user_resizing(allow_user_resizing);
+            _renderer->window()->title(window_title);
+            _renderer->window()->allow_user_resizing(allow_user_resizing);
 
             _graphics_device->viewport().width  = preferred_back_buffer_width;
             _graphics_device->viewport().height = preferred_back_buffer_height;
@@ -95,13 +93,13 @@ namespace SceneR
                 throw std::runtime_error("glfwInit failed");
             }
 
-            _graphics_device = std::make_shared<GraphicsDevice>(GraphicsAdapter::default_adapter()
-                                                              , Graphics::GraphicsProfile::HiDef);
+            _graphics_device = std::make_unique<GraphicsDevice>(GraphicsAdapter::default_adapter()
+                                                              , SceneR::Graphics::GraphicsProfile::HiDef);
         }
 
-        GraphicsDevice& GraphicsDeviceManager::graphics_device() const
+        GraphicsDevice* GraphicsDeviceManager::graphics_device() const
         {
-            return *_graphics_device;
+            return _graphics_device.get();
         }
     }
 }

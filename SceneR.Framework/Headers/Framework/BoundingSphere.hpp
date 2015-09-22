@@ -61,7 +61,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BoundingSphere.
              */
-            ~BoundingSphere();
+            ~BoundingSphere() = default;
 
         public:
             /**

@@ -7,6 +7,7 @@
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
@@ -41,19 +42,11 @@ namespace SceneR
         using SceneR::Graphics::Program;
         using SceneR::Graphics::RenderingStateType;
 
-        ContentTypeReader<EffectTechnique>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<EffectTechnique>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<EffectTechnique> ContentTypeReader<EffectTechnique>::read(ContentReader*                      input
                                                                                 , const std::pair<std::string, Json>& source)
         {
-            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto effect     = std::make_shared<EffectTechnique>(gdService.graphics_device());
+            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+            auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());
 
             read_technique_parameters(input, source.second["parameters"], effect);
             read_technique_passes(input, source.second["passes"], effect);
@@ -181,11 +174,11 @@ namespace SceneR
                                                                      , const Json&                      value
                                                                      , std::shared_ptr<EffectTechnique> effect)
         {
-            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
+            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
 
             for (const auto& source : value.object_items())
             {
-                auto pass = std::make_shared<EffectPass>(gdService.graphics_device());
+                auto pass = std::make_shared<EffectPass>(gdService->graphics_device());
 
                 // Process only common profile details
                 const auto& commonProfile = source.second["details"]["commonProfile"];

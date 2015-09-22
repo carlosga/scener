@@ -289,12 +289,12 @@ namespace SceneR
              * Initializes a new instance of the Vector3 class (Copy constructor)
              * @param vector The Vector3 to be copied.
              */
-            Vector3(const Vector3& data);
+            Vector3(const Vector3& data) = default;
 
             /**
              * Destructor
              */
-            ~Vector3();
+            ~Vector3() = default;
 
         public:
             /**

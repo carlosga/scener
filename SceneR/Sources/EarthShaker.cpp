@@ -6,6 +6,7 @@
 #include <Camera.hpp>
 #include <SampleRenderer.hpp>
 
+#include <Content/ContentManager.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/Vector3.hpp>
 #include <Graphics/EffectTechnique.hpp>
@@ -23,7 +24,7 @@ namespace SceneR
         using SceneR::Graphics::EffectTechnique;
         using System::Math;
 
-        EarthShaker::EarthShaker(SampleRenderer& renderer)
+        EarthShaker::EarthShaker(SampleRenderer* renderer)
             : DrawableComponent { renderer }
             , _model            { nullptr }
             , _world            { Matrix::identity }
@@ -39,7 +40,7 @@ namespace SceneR
 
         void EarthShaker::load_content()
         {
-            _model = _renderer.content_manager().load("earthshaker/earthshaker");
+            _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
             for (auto mesh : _model->meshes())
             {
@@ -66,7 +67,7 @@ namespace SceneR
 
         void EarthShaker::draw(const RenderTime& renderTime)
         {
-            const auto camera = std::dynamic_pointer_cast<Camera>(_renderer.components()[0]);
+            const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
 
             _model->draw(_world, camera->view, camera->projection);
         }

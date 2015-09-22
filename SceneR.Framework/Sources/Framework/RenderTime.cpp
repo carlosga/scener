@@ -27,9 +27,5 @@ namespace SceneR
             , is_running_slowly   { isRunningSlowly }
         {
         }
-
-        RenderTime::~RenderTime()
-        {
-        }
     }
 }

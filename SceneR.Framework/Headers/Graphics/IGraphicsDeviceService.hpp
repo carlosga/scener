@@ -19,13 +19,13 @@ namespace SceneR
             /**
              * Destructor
              */
-            virtual ~IGraphicsDeviceService();
+            virtual ~IGraphicsDeviceService() = default;
 
         public:
             /**
              * Retrieves a graphics device.
              */
-            virtual GraphicsDevice& graphics_device() const = 0;
+            virtual GraphicsDevice* graphics_device() const = 0;
         };
     }
 }

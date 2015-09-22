@@ -20,7 +20,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using System::Math;
 
-        EffectTechnique::EffectTechnique(GraphicsDevice& graphicsDevice)
+        EffectTechnique::EffectTechnique(GraphicsDevice* graphicsDevice)
             : GraphicsResource           { graphicsDevice }
             , _alpha                     { 1.0 }
             , _ambient_light_color       { Vector3::zero }
@@ -373,7 +373,7 @@ namespace SceneR
             {
                 for (auto texture : _textures)
                 {
-                    texture->activate();
+                    texture->bind();
                 }
             }
 
@@ -473,7 +473,7 @@ namespace SceneR
             {
                 for (auto texture : _textures)
                 {
-                    texture->deactivate();
+                    texture->unbind();
                 }
             }
 

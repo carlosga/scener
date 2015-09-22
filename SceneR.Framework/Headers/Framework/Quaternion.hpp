@@ -123,14 +123,14 @@ namespace SceneR
 
             /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
-             * @param vector The Quaternion to be copied.
+             * @param quaternion The Quaternion to be copied.
              */
-            Quaternion(const Quaternion& vector);
+            Quaternion(const Quaternion& quaternion) = default;
 
             /**
              * Destructor
              */
-            ~Quaternion();
+            ~Quaternion() = default;
 
         public:
             /**

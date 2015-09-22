@@ -24,16 +24,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the RendererServiceContainer class.
              */
-            RendererServiceContainer()
-            {
-            }
+            RendererServiceContainer() = default;
 
             /**
              * Releases all the resources being used by this RendererServiceContainer.
              */
-            ~RendererServiceContainer()
-            {
-            }
+            ~RendererServiceContainer() = default;
 
         public:
             /**
@@ -44,7 +40,7 @@ namespace SceneR
             {
                 if (!is_registered<T>())
                 {
-                    _instance_map[get_type_name<T>()] = static_cast<void*>(&service);
+                    _instance_map[get_type_name<T>()] = reinterpret_cast<void*>(&service);
                 }
             }
 
@@ -52,14 +48,14 @@ namespace SceneR
              * Gets the service object of the specified identifier.
              */
             template <class T>
-            T& get_service() const
+            T* get_service() const
             {
                 if (!is_registered<T>())
                 {
                     throw std::runtime_error("Service not registered");
                 }
 
-                return *(static_cast<T*>(_instance_map.find(get_type_name<T>())->second));
+                return (reinterpret_cast<T*>(_instance_map.find(get_type_name<T>())->second));
             }
 
             /**

@@ -9,6 +9,7 @@
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
 #include <Framework/Matrix.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
@@ -24,7 +25,6 @@
 #include <Graphics/ModelMeshPart.hpp>
 #include <Graphics/Texture2D.hpp>
 #include <Graphics/VertexBuffer.hpp>
-#include <Graphics/VertexDeclaration.hpp>
 
 using json11::Json;
 using SceneR::Content::ContentTypeReader;
@@ -56,14 +56,6 @@ namespace SceneR
 {
     namespace Content
     {
-        ContentTypeReader<ModelMesh>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<ModelMesh>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(ContentReader*                      input
                                                                     , const std::pair<std::string, Json>& source)
         {
@@ -83,19 +75,19 @@ namespace SceneR
                                                         , const json11::Json&        source
                                                         , std::shared_ptr<ModelMesh> mesh) const
         {
-            auto& gdService     = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto  meshPart      = std::make_shared<ModelMeshPart>();
-            auto  accessors     = std::vector<std::shared_ptr<Accessor>>();
-            auto  elements      = std::vector<VertexElement>();
-            auto  vertexStride  = std::size_t(0);
-            auto  vertexCount   = std::size_t(0);
-            auto  indices       = input->read_object<Accessor>("accessors", source["indices"].string_value());
-            auto  componentType = indices->component_type();
-            auto  indexCount    = indices->attribute_count();
-            auto  indexData     = indices->get_data();
+            auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+            auto meshPart      = std::make_shared<ModelMeshPart>();
+            auto accessors     = std::vector<std::shared_ptr<Accessor>>();
+            auto elements      = std::vector<VertexElement>();
+            auto vertexStride  = std::size_t(0);
+            auto vertexCount   = std::size_t(0);
+            auto indices       = input->read_object<Accessor>("accessors", source["indices"].string_value());
+            auto componentType = indices->component_type();
+            auto indexCount    = indices->attribute_count();
+            auto indexData     = indices->get_data();
 
             // Index buffer
-            meshPart->_index_buffer = std::make_unique<IndexBuffer>(gdService.graphics_device(), componentType, indexCount);
+            meshPart->_index_buffer = std::make_unique<IndexBuffer>(gdService->graphics_device(), componentType, indexCount);
             meshPart->_index_buffer->initialize();
             meshPart->_index_buffer->set_data(indexData.data());
 
@@ -120,12 +112,14 @@ namespace SceneR
 
             auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 
-            meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(gdService.graphics_device(), vertexCount, std::move(declaration));
             meshPart->_primitive_type  = static_cast<PrimitiveType>(source["primitive"].int_value());
             meshPart->_vertex_count    = vertexCount;
             meshPart->_start_index     = 0;
             meshPart->_vertex_offset   = 0;
             meshPart->_primitive_count = 0;
+            meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(gdService->graphics_device()
+                                                                      , vertexCount
+                                                                      , std::move(declaration));
 
             switch (meshPart->_primitive_type)
             {

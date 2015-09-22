@@ -165,16 +165,6 @@ namespace SceneR
         {
         }
 
-        Vector2::Vector2(const Vector2& vector)
-            : x { vector.x }
-            , y { vector.y }
-        {
-        }
-
-        Vector2::~Vector2()
-        {
-        }
-
         float Vector2::length_squared() const
         {
             return (x * x) + (y * y);

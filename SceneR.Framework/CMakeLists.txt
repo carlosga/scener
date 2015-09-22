@@ -219,10 +219,6 @@ set(SOURCE_FILES
     Sources/Framework/Component.cpp
     Sources/Framework/DrawableComponent.cpp
     Sources/Framework/GraphicsDeviceManager.cpp
-    Sources/Framework/IComponent.cpp
-    Sources/Framework/IDrawable.cpp
-    Sources/Framework/IUpdateable.cpp
-    Sources/Framework/IGraphicsDeviceManager.cpp
     Sources/Framework/Matrix.cpp
     Sources/Framework/Plane.cpp
     Sources/Framework/Quaternion.cpp
@@ -249,10 +245,6 @@ set(SOURCE_FILES
     Sources/Graphics/GraphicsAdapter.cpp
     Sources/Graphics/GraphicsDevice.cpp
     Sources/Graphics/GraphicsResource.cpp
-    Sources/Graphics/IEffectFog.cpp
-    Sources/Graphics/IEffectLights.cpp
-    Sources/Graphics/IEffectMatrices.cpp
-    Sources/Graphics/IGraphicsDeviceService.cpp
     Sources/Graphics/IndexBuffer.cpp
     Sources/Graphics/ModelSkin.cpp
     Sources/Graphics/Model.cpp

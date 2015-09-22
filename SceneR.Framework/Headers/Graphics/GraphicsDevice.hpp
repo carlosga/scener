@@ -157,7 +157,7 @@ namespace SceneR
             /**
              * Gets or sets the effect used before drawing.
              */
-            std::shared_ptr<EffectTechnique> effect;
+            EffectTechnique* effect;
 
             /**
              * Gets or sets the index buffer.

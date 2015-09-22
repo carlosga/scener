@@ -203,18 +203,6 @@ namespace SceneR
         {
         }
 
-        Quaternion::Quaternion(const Quaternion& quaternion)
-            : x { quaternion.x }
-            , y { quaternion.y }
-            , z { quaternion.z }
-            , w { quaternion.w }
-        {
-        }
-
-        Quaternion::~Quaternion()
-        {
-        }
-
         bool Quaternion::is_identity() const
         {
             return (*this == Quaternion::identity);

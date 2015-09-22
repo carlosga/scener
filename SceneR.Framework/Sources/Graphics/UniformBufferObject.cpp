@@ -48,7 +48,7 @@ namespace SceneR
             return _size;
         }
 
-        void UniformBufferObject::activate()
+        void UniformBufferObject::bind() const
         {
             glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
         }
@@ -80,7 +80,7 @@ namespace SceneR
             _buffer_object->set_data(_size, data.data());
         }
 
-        void UniformBufferObject::deactivate()
+        void UniformBufferObject::unbind() const
         {
             glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
         }

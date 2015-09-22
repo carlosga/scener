@@ -15,14 +15,6 @@ namespace SceneR
         using SceneR::Graphics::Program;
         using SceneR::Graphics::Shader;
 
-        ContentTypeReader<Program>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<Program>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<Program> ContentTypeReader<Program>::read(ContentReader*                      input
                                                                 , const std::pair<std::string, Json>& source)
         {

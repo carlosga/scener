@@ -7,7 +7,6 @@
 #include <memory>
 
 #include <Content/ContentResourceManager.hpp>
-#include <Framework/RendererServiceContainer.hpp>
 
 namespace System
 {
@@ -19,6 +18,11 @@ namespace System
 
 namespace SceneR
 {
+    namespace Framework
+    {
+        class RendererServiceContainer;
+    }
+
     namespace Graphics
     {
         class Model;
@@ -35,7 +39,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(SceneR::Framework::RendererServiceContainer& serviceProvider
+            ContentManager(SceneR::Framework::RendererServiceContainer* serviceProvider
                          , const std::string&                           rootDirectory);
 
             /**
@@ -47,7 +51,7 @@ namespace SceneR
             /**
              * Gets the graphics device
              */
-            SceneR::Framework::RendererServiceContainer& service_provider() const;
+            SceneR::Framework::RendererServiceContainer* service_provider() const;
 
             /**
              * Gets the root directory associated with this ContentManager.
@@ -76,7 +80,7 @@ namespace SceneR
             static ContentResourceManager resource_manager;
 
         private:
-            SceneR::Framework::RendererServiceContainer& _service_provider;
+            SceneR::Framework::RendererServiceContainer* _service_provider;
             std::string                                  _root_directory;
         };
     }

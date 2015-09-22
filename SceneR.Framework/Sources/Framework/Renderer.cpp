@@ -6,6 +6,10 @@
 #include <algorithm>
 #include <thread>
 
+#include <Content/ContentManager.hpp>
+#include <Framework/GraphicsDeviceManager.hpp>
+#include <Framework/RendererServiceContainer.hpp>
+#include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 
 namespace SceneR
@@ -21,15 +25,16 @@ namespace SceneR
             , target_elapsed_time      { 10000000L / 60L }
             , _components              ( 0 )
             , _services                { }
-            , _graphics_device_manager { *this }
-            , _renderer_window         { *this }
-            , _content_manager         { _services, rootDirectory }
+            , _graphics_device_manager { nullptr }
+            , _content_manager         { nullptr }
+            , _renderer_window         { nullptr }
             , _timer                   { }
             , _render_time             { }
             , _total_tender_time       { TimeSpan::zero }
             , _is_running_slowly       { false }
             , _drawable_components     ( 0 )
             , _updateable_components   ( 0 )
+            , _root_directory          { rootDirectory }
         {
         }
 
@@ -37,29 +42,34 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice& Renderer::graphics_device()
+        GraphicsDevice* Renderer::graphics_device() const
         {
-            return _graphics_device_manager.graphics_device();
+            if (!_graphics_device_manager.get())
+            {
+                return nullptr;
+            }
+
+            return _graphics_device_manager->graphics_device();
         }
 
-        RendererWindow& Renderer::window()
+        RendererWindow* Renderer::window() const
         {
-            return _renderer_window;
+            return _renderer_window.get();
         }
 
-        ContentManager& Renderer::content_manager()
+        ContentManager* Renderer::content_manager() const
         {
-            return _content_manager;
+            return _content_manager.get();
+        }
+
+        RendererServiceContainer* Renderer::services() const
+        {
+            return _services.get();
         }
 
         std::vector<std::shared_ptr<IComponent>>& Renderer::components()
         {
             return _components;
-        }
-
-        RendererServiceContainer& Renderer::services()
-        {
-            return _services;
         }
 
         void Renderer::run()
@@ -76,10 +86,10 @@ namespace SceneR
 
         void Renderer::exit()
         {
-            _content_manager.unload();
-            _graphics_device_manager.dispose();
-            _services.clear();
-            _renderer_window.close();
+            _content_manager->unload();
+            _graphics_device_manager->dispose();
+            _services->clear();
+            _renderer_window->close();
 
             glfwTerminate();
         }
@@ -91,6 +101,10 @@ namespace SceneR
 
         void Renderer::begin_run()
         {
+            _services                = std::make_unique<RendererServiceContainer>();
+            _graphics_device_manager = std::make_unique<GraphicsDeviceManager>(this);
+            _content_manager         = std::make_unique<ContentManager>(_services.get(), _root_directory);
+            _renderer_window         = std::make_unique<RendererWindow>(this);
         }
 
         void Renderer::draw(const RenderTime &renderTime)
@@ -106,7 +120,7 @@ namespace SceneR
 
         void Renderer::end_draw()
         {
-            _graphics_device_manager.graphics_device().present();
+            _graphics_device_manager->graphics_device()->present();
         }
 
         void Renderer::end_run()
@@ -153,7 +167,7 @@ namespace SceneR
             {
                 time_step();
 
-            } while (!_renderer_window.should_close());
+            } while (!_renderer_window->should_close());
         }
 
         /**
@@ -207,10 +221,10 @@ namespace SceneR
 
         void Renderer::create_device()
         {
-            _graphics_device_manager.create_device();
-            _renderer_window.allow_user_resizing(true);
-            _renderer_window.open();
-            _graphics_device_manager.apply_changes();
+            _graphics_device_manager->create_device();
+            _renderer_window->allow_user_resizing(true);
+            _renderer_window->open();
+            _graphics_device_manager->apply_changes();
         }
 
         void Renderer::fixed_time_step()
@@ -221,16 +235,16 @@ namespace SceneR
 
             _timer.update_time_step();
 
-            this->update(_render_time);
+            update(_render_time);
 
             _is_running_slowly = (_timer.elapsed_time_step_time() > target_elapsed_time);
 
             if (!_is_running_slowly)
             {
-                if (this->begin_draw())
+                if (begin_draw())
                 {
-                    this->draw(_render_time);
-                    this->end_draw();
+                    draw(_render_time);
+                    end_draw();
                 }
 
                 auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());

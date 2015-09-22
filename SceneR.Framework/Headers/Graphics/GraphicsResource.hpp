@@ -24,12 +24,12 @@ namespace SceneR
              * Initializes a new instance of the GraphicsResource class
              * @param graphicsDevice the graphics associated to this resources
              */
-            GraphicsResource(GraphicsDevice& graphicsDevice);
+            GraphicsResource(GraphicsDevice* graphicsDevice);
 
             /**
              * Destructor
              */
-            ~GraphicsResource() override;
+            ~GraphicsResource() override = default;
 
         public:
             void dispose() override = 0;
@@ -39,7 +39,7 @@ namespace SceneR
              * Gets the GraphicsDevice associated with this GraphicsResource.
              * @return The GraphicsDevice associated with this GraphicsResource.
              */
-            GraphicsDevice& graphics_device() const;
+            GraphicsDevice* graphics_device() const;
 
         public:
             /**
@@ -48,7 +48,7 @@ namespace SceneR
             std::string name;
 
         protected:
-            GraphicsDevice& _graphics_device;
+            GraphicsDevice* _graphics_device;
         };
     }
 }

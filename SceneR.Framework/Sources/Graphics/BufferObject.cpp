@@ -16,10 +16,6 @@ namespace SceneR
         {
         }
 
-        BufferObject::~BufferObject()
-        {
-        }
-
         void BufferObject::dispose()
         {
             if (_id != 0)
@@ -44,7 +40,7 @@ namespace SceneR
             return _usage;
         }
 
-        void BufferObject::activate() const
+        void BufferObject::bind() const
         {
             glBindBuffer(static_cast<GLenum>(_target), _id);
         }
@@ -54,7 +50,7 @@ namespace SceneR
             glCreateBuffers(1, &_id);
         }
 
-        void BufferObject::deactivate() const
+        void BufferObject::unbind() const
         {
             if (_id != 0)
             {

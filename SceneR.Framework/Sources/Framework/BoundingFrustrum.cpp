@@ -37,10 +37,6 @@ namespace SceneR
         {
         }
 
-        BoundingFrustrum::~BoundingFrustrum()
-        {
-        }
-
         const Plane& BoundingFrustrum::bottom() const
         {
             return _bottom;

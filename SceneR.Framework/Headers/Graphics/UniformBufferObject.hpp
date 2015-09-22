@@ -62,7 +62,7 @@ namespace SceneR
             /**
              * Activates the uniform buffer object.
              */
-            void activate();
+            void bind() const;
 
             /**
              * Creates the uniform buffer object.
@@ -72,7 +72,7 @@ namespace SceneR
             /**
              * Deactivates the uniform buffer object.
              */
-            void deactivate();
+            void unbind() const;
 
         public:
             /**

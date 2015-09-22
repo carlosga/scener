@@ -15,7 +15,7 @@ namespace System
         /**
          * Destructor
          */
-        virtual ~IDisposable();
+        virtual ~IDisposable() = default;
 
     public:
         /**

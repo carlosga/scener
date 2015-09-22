@@ -7,17 +7,13 @@ namespace SceneR
 {
     namespace Graphics
     {
-        GraphicsResource::GraphicsResource(GraphicsDevice& graphicsDevice)
+        GraphicsResource::GraphicsResource(GraphicsDevice* graphicsDevice)
             : name             { }
             , _graphics_device { graphicsDevice }
         {
         }
 
-        GraphicsResource::~GraphicsResource()
-        {
-        }
-
-        GraphicsDevice& GraphicsResource::graphics_device() const
+        GraphicsDevice* GraphicsResource::graphics_device() const
         {
             return _graphics_device;
         }

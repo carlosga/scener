@@ -13,7 +13,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        VertexBuffer::VertexBuffer(GraphicsDevice&                                      graphicsDevice
+        VertexBuffer::VertexBuffer(GraphicsDevice*                                      graphicsDevice
                                  , const std::size_t&                                   vertexCount
                                  , std::unique_ptr<SceneR::Graphics::VertexDeclaration> vertexDeclaration)
             : GraphicsResource    { graphicsDevice }
@@ -22,10 +22,6 @@ namespace SceneR
             , _vertex_declaration { std::move(vertexDeclaration) }
             , _vao                { nullptr }
             , _vbo                { nullptr }
-        {
-        }
-
-        VertexBuffer::~VertexBuffer()
         {
         }
 
@@ -75,14 +71,14 @@ namespace SceneR
             return _vertex_declaration.get();
         }
 
-        void VertexBuffer::activate()
+        void VertexBuffer::bind()
         {
-            _vao->activate();
+            _vao->bind();
         }
 
-        void VertexBuffer::deactivate()
+        void VertexBuffer::unbind()
         {
-            _vao->deactivate();
+            _vao->unbind();
         }
 
         void VertexBuffer::initialize()
@@ -91,14 +87,14 @@ namespace SceneR
             _vbo = std::make_unique<BufferObject>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
 
             _vao->create();
-            _vao->activate();
+            _vao->bind();
             _vbo->create();
 
             _vertex_declaration->declare(_vao->id(), _binding_index);
 
             glVertexArrayVertexBuffer(_vao->id(), _binding_index, _vbo->id(), 0, _vertex_declaration->vertex_stride());
 
-            _vao->deactivate();
+            _vao->unbind();
         }
     }
 }

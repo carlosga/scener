@@ -20,9 +20,9 @@ namespace SceneR
         class ContentTypeReader<SceneR::Graphics::Node>
         {
         public:
-            ContentTypeReader();
+            ContentTypeReader() = default;
 
-            ~ContentTypeReader();
+            ~ContentTypeReader() = default;
 
         public:
             std::shared_ptr<SceneR::Graphics::Node> read(ContentReader*                              input

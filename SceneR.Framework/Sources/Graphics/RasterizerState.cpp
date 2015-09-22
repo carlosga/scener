@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        RasterizerState::RasterizerState(GraphicsDevice& graphicsDevice)
+        RasterizerState::RasterizerState(GraphicsDevice* graphicsDevice)
             : GraphicsResource         { graphicsDevice }
             , cull_mode                { SceneR::Graphics::CullMode::CullCounterClockwiseFace }
             , depth_bias               { 0.0f }
@@ -31,15 +31,11 @@ namespace SceneR
         {
         }
 
-        RasterizerState::~RasterizerState()
-        {
-        }
-
         void RasterizerState::dispose()
         {
         }
 
-        RasterizerState&RasterizerState::operator=(const RasterizerState& rasterizerState)
+        RasterizerState& RasterizerState::operator=(const RasterizerState& rasterizerState)
         {
             if (this != &rasterizerState)
             {

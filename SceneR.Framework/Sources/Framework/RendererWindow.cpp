@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <iostream>
 
+#include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
 #include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
@@ -17,12 +18,13 @@ namespace SceneR
 {
     namespace Framework
     {
+        using SceneR::Framework::IGraphicsDeviceManager;
         using SceneR::Input::Keyboard;
         using SceneR::Input::KeyboardState;
         using SceneR::Input::Keys;
         using SceneR::Input::Mouse;
 
-        RendererWindow::RendererWindow(Renderer& renderer)
+        RendererWindow::RendererWindow(Renderer* renderer)
             : _title    {  }
             , _handle   { nullptr }
             , _renderer { renderer }
@@ -47,27 +49,24 @@ namespace SceneR
 
         bool RendererWindow::allow_user_resizing() const
         {
-            return _renderer._graphics_device_manager.allow_user_resizing;
+            return _renderer->_graphics_device_manager->allow_user_resizing;
         }
 
         void RendererWindow::allow_user_resizing(const bool& allowUserResizing)
         {
-            _renderer._graphics_device_manager.allow_user_resizing = allowUserResizing;
+            _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
         }
 
         void RendererWindow::open()
         {
             GLFWmonitor* monitor     = nullptr;
             GLFWwindow*  windowShare = nullptr;
-            auto         profile     = static_cast<std::int32_t>(_renderer._graphics_device_manager.graphics_profile);
-            auto         fullscreen  = _renderer._graphics_device_manager.full_screen;
-            auto         width       = _renderer._graphics_device_manager.preferred_back_buffer_width;
-            auto         height      = _renderer._graphics_device_manager.preferred_back_buffer_height;
-            auto         allowResize = _renderer._graphics_device_manager.allow_user_resizing;
-            auto         sampleCount = _renderer._graphics_device_manager
-                                                .graphics_device()
-                                                .presentation_parameters()
-                                                .multi_sample_count;
+            auto         profile     = static_cast<std::int32_t>(_renderer->_graphics_device_manager->graphics_profile);
+            auto         width       = _renderer->_graphics_device_manager->preferred_back_buffer_width;
+            auto         height      = _renderer->_graphics_device_manager->preferred_back_buffer_height;
+            auto         sampleCount = _renderer->_graphics_device_manager->preferred_back_buffer_width;
+            auto         allowResize = _renderer->_graphics_device_manager->allow_user_resizing;
+            auto         fullscreen  = _renderer->_graphics_device_manager->full_screen;
 
             // Set the window and context hints
             glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
@@ -87,7 +86,7 @@ namespace SceneR
 
             if (fullscreen)
             {
-                monitor = _renderer._graphics_device_manager.graphics_device().adapter().monitor_handle();
+                monitor = _renderer->graphics_device()->adapter().monitor_handle();
             }
 
             // Create a new window
@@ -103,7 +102,7 @@ namespace SceneR
             // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
             if (!_handle)
             {
-                throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.4");
+                throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.5");
             }
 
             // Set the new window context as the current context
@@ -166,7 +165,7 @@ namespace SceneR
 
         bool RendererWindow::should_close() const
         {
-            auto fullScreen    = _renderer._graphics_device_manager.full_screen;
+            auto fullScreen    = _renderer->_graphics_device_manager->full_screen;
             auto shouldClose   = glfwWindowShouldClose(_handle);
             auto keyboardState = Keyboard::get_state();
             auto isEscPressed  = keyboardState.is_key_down(Keys::Escape);

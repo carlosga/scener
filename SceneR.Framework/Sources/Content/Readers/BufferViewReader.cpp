@@ -19,14 +19,6 @@ namespace SceneR
         using SceneR::Graphics::BufferUsage;
         using SceneR::Graphics::BufferView;
 
-        ContentTypeReader<BufferView>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<BufferView>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(ContentReader*                      input
                                                                       , const std::pair<std::string, Json>& source)
         {

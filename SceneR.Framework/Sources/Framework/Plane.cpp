@@ -102,16 +102,6 @@ namespace SceneR
         {
         }
 
-        Plane::Plane(const Plane& value)
-            : normal { value.normal }
-            , d      { value.d }
-        {
-        }
-
-        Plane::~Plane()
-        {
-        }
-
         PlaneIntersectionType Plane::intersects(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");

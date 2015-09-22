@@ -13,14 +13,6 @@ namespace SceneR
         using json11::Json;
         using SceneR::Texture::Surface;
 
-        ContentTypeReader<Surface>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<Surface>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<Surface> ContentTypeReader<Surface>::read(ContentReader*                      input
                                                                 , const std::pair<std::string, Json>& source)
         {

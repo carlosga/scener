@@ -65,7 +65,7 @@ namespace SceneR
             /**
              * Releases all resources used by the current instance of the ContentReader class.
              */
-            ~ContentReader();
+            ~ContentReader() = default;
 
         public:
             /**

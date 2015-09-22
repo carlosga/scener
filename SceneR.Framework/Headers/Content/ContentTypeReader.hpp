@@ -29,12 +29,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentTypeReader class.
              */
-            ContentTypeReader();
+            ContentTypeReader() = default;
 
             /**
              * Releases all resources being used by this ContentTypeReader.
              */
-            ~ContentTypeReader();
+            ~ContentTypeReader() = default;
 
         public:
             /**

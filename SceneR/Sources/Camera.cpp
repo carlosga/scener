@@ -23,7 +23,7 @@ namespace SceneR
         using SceneR::Input::Keyboard;
         using SceneR::Input::KeyboardState;
 
-        Camera::Camera(SampleRenderer& renderer)
+        Camera::Camera(SampleRenderer* renderer)
             : Component  { renderer }
             , view       { Matrix::identity }
             , projection { Matrix::identity }
@@ -32,7 +32,7 @@ namespace SceneR
 
         void Camera::initialize()
         {
-            auto aspect = _renderer.graphics_device().viewport().aspect_ratio();
+            auto aspect = _renderer->graphics_device()->viewport().aspect_ratio();
 
             _position          = { 0.0f, 0.0f, 500.0f };
             _rotation          = 0.0f;

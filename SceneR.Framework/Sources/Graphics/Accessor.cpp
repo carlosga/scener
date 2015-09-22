@@ -6,23 +6,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Accessor::Accessor()
-            : _attribute_type  { AttributeType::Scalar }
-            , _component_type  { ComponentType::Single }
-            , _byte_offset     { 0 }
-            , _byte_length     { 0 }
-            , _byte_stride     { 0 }
-            , _attribute_count { 0 }
-            , _max             { 0 }
-            , _min             { 0 }
-            , _buffer_view     { nullptr }
-        {
-        }
-
-        Accessor::~Accessor()
-        {
-        }
-
         const AttributeType& Accessor::attribute_type() const
         {
             return _attribute_type;

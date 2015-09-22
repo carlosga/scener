@@ -18,14 +18,6 @@ namespace SceneR
         using SceneR::Graphics::AttributeType;
         using SceneR::Graphics::ComponentType;
 
-        ContentTypeReader<Accessor>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<Accessor>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(ContentReader*                      input
                                                                   , const std::pair<std::string, Json>& source)
         {

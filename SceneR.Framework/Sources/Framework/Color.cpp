@@ -44,18 +44,6 @@ namespace SceneR
         {
         }
 
-        Color::Color(const Color& color)
-            : r { color.r }
-            , g { color.g }
-            , b { color.b }
-            , a { color.a }
-        {
-        }
-
-        Color::~Color()
-        {
-        }
-
         std::uint32_t Color::packed_value() const
         {
             return ((static_cast<std::uint32_t>(r) * 255) << 24)

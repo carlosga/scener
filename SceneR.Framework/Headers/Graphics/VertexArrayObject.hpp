@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexArrayObject.
              */
-            ~VertexArrayObject();
+            ~VertexArrayObject() = default;
 
         public:
             void dispose() override;
@@ -40,7 +40,7 @@ namespace SceneR
             /**
              * Activates this vertex array object.
              */
-            void activate() const;
+            void bind() const;
 
             /**
              * Creates the vertex array object.
@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * Deactivates this vertex array object.
              */
-            void deactivate() const;
+            void unbind() const;
 
         private:
             std::uint32_t _id;

@@ -5,21 +5,23 @@
 #define FRAMEWORK_RENDERER_HPP
 
 #include <memory>
+#include <string>
 #include <vector>
 
-#include <Content/ContentManager.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
-#include <Framework/GraphicsDeviceManager.hpp>
-#include <Framework/RendererServiceContainer.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
-#include <Framework/RendererWindow.hpp>
 #include <System/TimeSpan.hpp>
 
 namespace SceneR
 {
+    namespace Content
+    {
+        class ContentManager;
+    }
+
     namespace Graphics
     {
         class GraphicsDevice;
@@ -27,6 +29,10 @@ namespace SceneR
 
     namespace Framework
     {
+        class RendererWindow;
+        class GraphicsDeviceManager;
+        class RendererServiceContainer;
+
         /**
          * Provides basic graphics device initialization, and rendering code.
          */
@@ -48,29 +54,29 @@ namespace SceneR
              * Gets the current graphics device
              * @return the current graphics device
              */
-            SceneR::Graphics::GraphicsDevice& graphics_device();
+            SceneR::Graphics::GraphicsDevice* graphics_device() const;
 
             /**
              * Gets the underlying operating system window.
              * @return the underlying operating system window.
              */
-            RendererWindow& window();
+            RendererWindow* window() const;
 
             /**
              * Gets the current content manager
              * @return the current content_manager manager
              */
-            SceneR::Content::ContentManager& content_manager();
+            SceneR::Content::ContentManager* content_manager() const;
+
+            /**
+             * Gets the collection of services owned by the renderer.
+             */
+            RendererServiceContainer* services() const;
 
             /**
              * Gets the collection of components owned by the renderer.
              */
             std::vector<std::shared_ptr<IComponent>>& components();
-
-            /**
-             * Gets the collection of services owned by the renderer.
-             */
-            RendererServiceContainer& services();
 
             /**
              * Call this method to initialize the renderer, begin running the rendering loop,
@@ -161,20 +167,22 @@ namespace SceneR
 
         protected:
             std::vector<std::shared_ptr<IComponent>>  _components;
-            RendererServiceContainer                  _services;
-            GraphicsDeviceManager                     _graphics_device_manager;
+            std::unique_ptr<RendererServiceContainer> _services;
+            std::unique_ptr<GraphicsDeviceManager>    _graphics_device_manager;
 
         private:
-            RendererWindow                            _renderer_window;
-            SceneR::Content::ContentManager           _content_manager;
+            std::unique_ptr<SceneR::Content::ContentManager> _content_manager;
+
+            std::unique_ptr<RendererWindow>           _renderer_window;
             RendererTimer                             _timer;
             RenderTime                                _render_time;
             System::TimeSpan                          _total_tender_time;
             bool                                      _is_running_slowly;
             std::vector<std::shared_ptr<IDrawable>>   _drawable_components;
             std::vector<std::shared_ptr<IUpdateable>> _updateable_components;
+            std::string                               _root_directory;
 
-            friend class RendererWindow;
+            friend class SceneR::Framework::RendererWindow;
         };
     }
 }

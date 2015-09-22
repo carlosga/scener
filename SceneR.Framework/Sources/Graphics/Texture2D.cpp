@@ -10,12 +10,12 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Texture2D::Texture2D(GraphicsDevice& graphicsDevice, const std::size_t& width, const std::size_t& height)
+        Texture2D::Texture2D(GraphicsDevice* graphicsDevice, const std::size_t& width, const std::size_t& height)
             : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
         {
         }
 
-        Texture2D::Texture2D(GraphicsDevice&      graphicsDevice
+        Texture2D::Texture2D(GraphicsDevice*      graphicsDevice
                            , const std::size_t&   width
                            , const std::size_t&   height
                            , const bool&          mipmap
@@ -29,10 +29,6 @@ namespace SceneR
             , _mipmap_width  { width }
             , _width         { width }
             , _object        { TextureTarget::Texture2D }
-        {
-        }
-
-        Texture2D::~Texture2D()
         {
         }
 
@@ -95,12 +91,12 @@ namespace SceneR
             _mipmap_levels = mipMapLevels;
         }
 
-        void Texture2D::activate() const
+        void Texture2D::bind() const
         {
             _object.activate();
         }
 
-        void Texture2D::deactivate() const
+        void Texture2D::unbind() const
         {
             _object.deactivate();
         }

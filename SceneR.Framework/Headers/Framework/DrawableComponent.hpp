@@ -26,18 +26,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the DrawableComponent class.
              */
-            DrawableComponent(Renderer& renderer);
+            DrawableComponent(Renderer* renderer);
 
             /**
              * Releases all resources being used by this DrawableComponent.
              */
-            virtual ~DrawableComponent();
+            virtual ~DrawableComponent() = default;
 
         public:
             /**
              * The GraphicsDevice the DrawableComponent is associated with.
              */
-            SceneR::Graphics::GraphicsDevice& graphics_device();
+            SceneR::Graphics::GraphicsDevice* graphics_device();
 
             /**
              * Called when the component should be drawn.

@@ -15,12 +15,13 @@ namespace SceneR
         class ContentTypeReader<SceneR::Graphics::ShaderInclude>
         {
         public:
-            ContentTypeReader();
-            ~ContentTypeReader();
+            ContentTypeReader() = default;
+
+            ~ContentTypeReader() = default;
 
         public:
             std::shared_ptr<SceneR::Graphics::ShaderInclude> read(ContentReader*                              input
-                                                         		, const std::pair<std::string, json11::Json>& source);
+                                                                , const std::pair<std::string, json11::Json>& source);
         };
     }
 }

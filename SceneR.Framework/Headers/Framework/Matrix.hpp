@@ -365,12 +365,12 @@ namespace SceneR
              *
              * @param matrix The Matrix to be copied.
              */
-            Matrix(const Matrix& data);
+            Matrix(const Matrix& data) = default;
 
             /**
              * Destructor
              */
-            ~Matrix();
+            ~Matrix() = default;
 
         public:
             /**

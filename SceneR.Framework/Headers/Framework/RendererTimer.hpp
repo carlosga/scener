@@ -19,12 +19,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the RendererTimer class.
              */
-            RendererTimer();
+            RendererTimer() = default;
 
             /**
              * Releases all resources being used by this RendererTimer.
              */
-            ~RendererTimer();
+            ~RendererTimer() = default;
 
         public:
             /**
@@ -55,8 +55,8 @@ namespace SceneR
             RendererTimer& operator=(const RendererTimer& timer) = delete;
 
         private:
-            System::TimeSpan::clock::time_point _start;
-            System::TimeSpan::clock::time_point _last_time_step;
+            System::TimeSpan::clock::time_point _start          = System::TimeSpan::clock::now();
+            System::TimeSpan::clock::time_point _last_time_step = System::TimeSpan::clock::now();
         };
     }
 }

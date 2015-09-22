@@ -49,12 +49,12 @@ namespace SceneR
             : effect                   { nullptr }
             , index_buffer             { nullptr }
             , vertex_buffer            { nullptr }
-            , _blend_state             { *this }
-            , _depth_stencil_state     { *this }
+            , _blend_state             { this }
+            , _depth_stencil_state     { this }
             , _graphics_adapter        { adapter }
             , _graphics_profile        { graphicsProfile }
             , _presentation_parameters { }
-            , _rasterizer_state        { *this }
+            , _rasterizer_state        { this }
             , _viewport                { }
         {
         }
@@ -132,7 +132,7 @@ namespace SceneR
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }
-            if (effect.get() == nullptr)
+            if (effect == nullptr)
             {
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
@@ -140,8 +140,8 @@ namespace SceneR
             auto offset = startIndex * index_buffer->element_size_in_bytes();
 
             effect->begin();
-            vertex_buffer->activate();
-            index_buffer->activate();
+            vertex_buffer->bind();
+            index_buffer->bind();
 
             glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
                                    , static_cast<GLsizei>(get_element_count(primitiveType, primitiveCount))
@@ -149,8 +149,8 @@ namespace SceneR
                                    , reinterpret_cast<void*>(offset)
                                    , static_cast<GLint>(baseVertex));
 
-            index_buffer->deactivate();
-            vertex_buffer->deactivate();
+            index_buffer->unbind();
+            vertex_buffer->unbind();
             effect->end();
         }
 
@@ -162,19 +162,19 @@ namespace SceneR
             {
                 throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
             }
-            if (effect.get() == nullptr)
+            if (effect == nullptr)
             {
                 throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
             }
 
             effect->begin();
-            vertex_buffer->activate();
+            vertex_buffer->bind();
 
             glDrawArrays(static_cast<GLenum>(primitiveType)
                        , static_cast<GLint>(startVertex)
                        , static_cast<GLsizei>(primitiveCount));
 
-            vertex_buffer->deactivate();
+            vertex_buffer->unbind();
             effect->end();
         }
 

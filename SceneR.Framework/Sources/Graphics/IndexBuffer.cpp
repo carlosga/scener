@@ -9,17 +9,13 @@ namespace SceneR
 {
     namespace Graphics
     {
-        IndexBuffer::IndexBuffer(GraphicsDevice&      graphicsDevice
+        IndexBuffer::IndexBuffer(GraphicsDevice*      graphicsDevice
                                , const ComponentType& indexElementType
                                , const std::size_t&   indexCount)
             : GraphicsResource  { graphicsDevice }
             , _ibo              { nullptr }
             , _indexCount       { indexCount }
             , _indexElementType { indexElementType }
-        {
-        }
-
-        IndexBuffer::~IndexBuffer()
         {
         }
 
@@ -79,14 +75,14 @@ namespace SceneR
             _ibo->set_data(_indexCount * element_size_in_bytes(), data);
         }
 
-        void IndexBuffer::activate() const
+        void IndexBuffer::bind() const
         {
-            _ibo->activate();
+            _ibo->bind();
         }
 
-        void IndexBuffer::deactivate() const
+        void IndexBuffer::unbind() const
         {
-            _ibo->deactivate();
+            _ibo->unbind();
         }
 
         void IndexBuffer::initialize()

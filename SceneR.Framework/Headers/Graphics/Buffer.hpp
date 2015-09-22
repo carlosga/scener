@@ -27,12 +27,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Buffer class.
              */
-            Buffer();
+            Buffer() = default;
 
             /**
              * Destructor.
              */
-            ~Buffer();
+            ~Buffer() = default;
 
         public:
             /**
@@ -68,9 +68,9 @@ namespace SceneR
             void set_data(const std::vector<std::uint8_t>& buffer);
 
         private:
-            std::string               _name;
-            std::string               _uri;
-            std::size_t               _byte_length;
+            std::string               _name        { };
+            std::string               _uri         { };
+            std::size_t               _byte_length { 0 };
             std::vector<std::uint8_t> _data;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;

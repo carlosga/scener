@@ -5,6 +5,7 @@
 
 #include <Content/ContentReader.hpp>
 #include <Content/ContentLoadException.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/Model.hpp>
 #include <System/IO/FileStream.hpp>
 #include <System/IO/File.hpp>
@@ -18,7 +19,7 @@ namespace SceneR
         using SceneR::Graphics::Model;
         using System::IO::FileStream;
 
-        ContentManager::ContentManager(RendererServiceContainer& serviceProvider, const std::string& rootDirectory)
+        ContentManager::ContentManager(RendererServiceContainer* serviceProvider, const std::string& rootDirectory)
             : _service_provider ( serviceProvider )
             , _root_directory   { rootDirectory }
         {
@@ -29,7 +30,7 @@ namespace SceneR
             unload();
         }
 
-        RendererServiceContainer& ContentManager::service_provider() const
+        RendererServiceContainer* ContentManager::service_provider() const
         {
             return _service_provider;
         }

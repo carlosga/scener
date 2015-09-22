@@ -62,12 +62,12 @@ namespace SceneR
              * Initializes a new instance of the Color class (Copy constructor)
              * @param color The Color to be copied.
              */
-            Color(const Color& color);
+            Color(const Color& color) = default;
 
             /**
              * Destructor
              */
-            ~Color();
+            ~Color() = default;
 
         public:
             /**

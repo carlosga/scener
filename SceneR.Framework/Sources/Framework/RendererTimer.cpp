@@ -9,16 +9,6 @@ namespace SceneR
     {
         using System::TimeSpan;
 
-        RendererTimer::RendererTimer()
-            : _start          { TimeSpan::clock::now() }
-            , _last_time_step { TimeSpan::clock::now() }
-        {
-        }
-
-        RendererTimer::~RendererTimer()
-        {
-        }
-
         void RendererTimer::reset()
         {
             _start          = current_time();

@@ -35,18 +35,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the SamplerState class.
              */
-            SamplerState(GraphicsDevice& graphicsDevice);
+            SamplerState(GraphicsDevice* graphicsDevice);
 
             /**
              * @brief Copy constructor.
              * @param samplerState The sampler state to copy from.
              */
-            SamplerState(const SamplerState& samplerState);
+            SamplerState(const SamplerState& samplerState) = default;
 
             /**
              * Destructor
              */
-            ~SamplerState();
+            ~SamplerState() = default;
 
         public:
             void dispose() override;

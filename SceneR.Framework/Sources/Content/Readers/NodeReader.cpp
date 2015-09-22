@@ -27,16 +27,6 @@ namespace SceneR
         using System::IO::BinaryReader;
         using System::IO::MemoryStream;
 
-        ContentTypeReader<Node>::ContentTypeReader()
-        {
-
-        }
-
-        ContentTypeReader<Node>::~ContentTypeReader()
-        {
-
-        }
-
         std::shared_ptr<Node> ContentTypeReader<Node>::read(ContentReader*                      input
                                                           , const std::pair<std::string, Json>& source)
         {

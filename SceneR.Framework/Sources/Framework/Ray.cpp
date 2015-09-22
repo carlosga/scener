@@ -23,16 +23,6 @@ namespace SceneR
         {
         }
 
-        Ray::Ray(const Ray& ray)
-            : direction { ray.direction }
-            , position  { ray.position }
-        {
-        }
-
-        Ray::~Ray()
-        {
-        }
-
         bool Ray::intersects(const BoundingBox& boundingBox)
         {
             return (boundingBox.intersects(*this) == 0.0f);

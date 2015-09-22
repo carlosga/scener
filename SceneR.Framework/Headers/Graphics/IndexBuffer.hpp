@@ -37,14 +37,14 @@ namespace SceneR
              * @param indexElementType the type of each index.
              * @param indexCount the number of indices.
              */
-            IndexBuffer(GraphicsDevice&      graphicsDevice
+            IndexBuffer(GraphicsDevice*      graphicsDevice
                       , const ComponentType& indexElementType
                       , const std::size_t&   indexCount);
 
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            ~IndexBuffer() override;
+            ~IndexBuffer() = default;
 
         public:
             void dispose() override;
@@ -82,8 +82,8 @@ namespace SceneR
             void set_data(const void* data);
 
         private:
-            void activate() const;
-            void deactivate() const;
+            void bind() const;
+            void unbind() const;
             void initialize();
 
         private:

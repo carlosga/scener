@@ -13,14 +13,6 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Buffer;
 
-        ContentTypeReader<Buffer>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<Buffer>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(ContentReader*                      input
                                                               , const std::pair<std::string, Json>& source)
         {

@@ -7,18 +7,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Buffer::Buffer()
-            : _name        { }
-            , _uri         { }
-            , _byte_length { 0 }
-            , _data        (0)
-        {
-        }
-
-        Buffer::~Buffer()
-        {
-        }
-
         const std::string& Buffer::name() const
         {
             return _name;

@@ -9,18 +9,14 @@ namespace SceneR
 {
     namespace Framework
     {
-        Component::Component(Renderer& renderer)
+        Component::Component(Renderer* renderer)
             : _renderer     ( renderer )
             , _enabled      { true }
             , _update_order { 0 }
         {
         }
 
-        Component::~Component()
-        {
-        }
-
-        Renderer& Component::renderer()
+        Renderer* Component::renderer()
         {
             return _renderer;
         }

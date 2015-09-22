@@ -221,17 +221,6 @@ namespace SceneR
         {
         }
 
-        Vector3::Vector3(const Vector3& vector)
-            : x { vector.x }
-            , y { vector.y }
-            , z { vector.z }
-        {
-        }
-
-        Vector3::~Vector3()
-        {
-        }
-
         float Vector3::length_squared() const
         {
             return (x * x) + (y * y) + (z * z);

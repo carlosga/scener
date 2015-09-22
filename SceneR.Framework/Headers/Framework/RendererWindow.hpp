@@ -26,7 +26,7 @@ namespace SceneR
              * Initializes a new instance of the RendererWindow class.
              * @param renderer the renderer instance owning the renderer window.
              */
-            RendererWindow(Renderer& renderer);
+            RendererWindow(Renderer* renderer);
 
             /**
              * Releases all resource being used by the current RendererWindow
@@ -80,7 +80,7 @@ namespace SceneR
         private:
             std::string _title;
             GLFWwindow* _handle;
-            Renderer&   _renderer;
+            Renderer*   _renderer;
 
             friend class Renderer;
         };

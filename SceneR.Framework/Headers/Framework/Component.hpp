@@ -26,18 +26,18 @@ namespace SceneR
              * Initializes a new instance of the Component class.
              * @param renderer the renderer that owns the component.
              */
-            Component(Renderer& renderer);
+            Component(Renderer* renderer);
 
             /**
              * Releases all resources being used by this component instance.
              */
-            virtual ~Component();
+            virtual ~Component() = default;
 
         public:
             /**
              * Gets the Renderer associated with this Component.
              */
-            Renderer& renderer();
+            Renderer* renderer();
 
             /**
              * Called when the component should be updated.
@@ -67,7 +67,7 @@ namespace SceneR
             void update_order(const std::uint32_t& updateOrder);
 
         protected:
-            Renderer& _renderer;
+            Renderer* _renderer;
 
         private:
             bool          _enabled;

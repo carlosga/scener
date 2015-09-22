@@ -15,8 +15,9 @@ namespace SceneR
         class ContentTypeReader<SceneR::Graphics::Texture2D>
         {
         public:
-            ContentTypeReader();
-            ~ContentTypeReader();
+            ContentTypeReader() = default;
+
+            ~ContentTypeReader() = default;
 
         public:
             std::shared_ptr<SceneR::Graphics::Texture2D> read(ContentReader*                              input

@@ -28,7 +28,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the RasterizerState class.
              */
-            RasterizerState(GraphicsDevice& graphicsDevice);
+            RasterizerState(GraphicsDevice* graphicsDevice);
 
             /**
              * @brief Copy constructor.
@@ -39,7 +39,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this RasterizerState
              */
-            ~RasterizerState() override;
+            ~RasterizerState() = default;
 
         public:
             void dispose() override;

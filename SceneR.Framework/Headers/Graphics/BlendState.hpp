@@ -32,18 +32,18 @@ namespace SceneR
             /**
              * Initializes a new instance of the BlendState class.
              */
-            BlendState(GraphicsDevice& graphicsDevice);
+            BlendState(GraphicsDevice* graphicsDevice);
 
             /**
              * @brief Copy constructor.
              * @param blendState The blend state to copy from.
              */
-            BlendState(const BlendState& blendState);
+            BlendState(const BlendState& blendState) = default;
 
             /**
              * Releases all resources being used by this BlendState.
              */
-            ~BlendState() override;
+            ~BlendState() override = default;
 
         public:
             void dispose() override;

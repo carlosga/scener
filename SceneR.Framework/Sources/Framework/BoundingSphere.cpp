@@ -48,10 +48,6 @@ namespace SceneR
         {
         }
 
-        BoundingSphere::~BoundingSphere()
-        {
-        }
-
         const Vector3& BoundingSphere::center() const
         {
             return _center;

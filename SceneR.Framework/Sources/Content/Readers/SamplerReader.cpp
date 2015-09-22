@@ -6,6 +6,7 @@
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/TextureAddressMode.hpp>
 #include <Graphics/TextureFilter.hpp>
@@ -20,19 +21,11 @@ namespace SceneR
         using SceneR::Graphics::TextureAddressMode;
         using SceneR::Graphics::TextureFilter;
 
-        ContentTypeReader<SamplerState>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<SamplerState>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<SamplerState> ContentTypeReader<SamplerState>::read(ContentReader*                      input
                                                                           , const std::pair<std::string, Json>& source)
         {
-            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto  sampler   = std::make_shared<SamplerState>(gdService.graphics_device());
+            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+            auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());
 
             sampler->name       = source.first;
             sampler->mag_filter = static_cast<TextureFilter>(source.second["magFilter"].int_value());

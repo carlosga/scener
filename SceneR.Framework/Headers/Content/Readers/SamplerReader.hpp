@@ -15,8 +15,9 @@ namespace SceneR
         class ContentTypeReader<SceneR::Graphics::SamplerState>
         {
         public:
-            ContentTypeReader();
-            ~ContentTypeReader();
+            ContentTypeReader() = default;
+
+            ~ContentTypeReader() = default;
 
         public:
             std::shared_ptr<SceneR::Graphics::SamplerState> read(ContentReader*                              input

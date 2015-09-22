@@ -21,10 +21,6 @@ namespace SceneR
         {
         }
 
-        BufferView::~BufferView()
-        {
-        }
-
         void BufferView::dispose()
         {
         }

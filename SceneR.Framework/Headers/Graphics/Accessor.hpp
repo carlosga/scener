@@ -33,12 +33,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Accessor class.
              */
-            Accessor();
+            Accessor() = default;
 
             /**
              * Destructor.
              */
-            ~Accessor();
+            ~Accessor() = default;
 
         public:
             /**
@@ -104,16 +104,16 @@ namespace SceneR
             std::size_t get_component_size_in_bytes() const;
 
         private:
-            AttributeType               _attribute_type;
-            ComponentType               _component_type;
-            std::size_t                 _byte_offset;
-            std::size_t                 _byte_length;
-            std::size_t                 _byte_stride;
-            std::size_t                 _attribute_count;
-            std::vector<float>          _max;
-            std::vector<float>          _min;
-            std::shared_ptr<BufferView> _buffer_view;
-            std::string                 _name;
+            AttributeType               _attribute_type  { AttributeType::Scalar };
+            ComponentType               _component_type  { ComponentType::Single };
+            std::size_t                 _byte_offset     { 0 };
+            std::size_t                 _byte_length     { 0 };
+            std::size_t                 _byte_stride     { 0 };
+            std::size_t                 _attribute_count { 0 };
+            std::vector<float>          _max             { 0 };
+            std::vector<float>          _min             { 0 };
+            std::shared_ptr<BufferView> _buffer_view     { nullptr };
+            std::string                 _name            { };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

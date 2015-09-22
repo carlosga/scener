@@ -27,7 +27,7 @@ namespace SceneR
             /**
              * Releases all resource sbeing used by this IEffectsLights instance
              */
-            virtual ~IEffectLights();
+            virtual ~IEffectLights() = default;
 
         public:
             /**

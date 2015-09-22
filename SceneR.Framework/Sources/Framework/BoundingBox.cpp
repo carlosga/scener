@@ -30,10 +30,6 @@ namespace SceneR
         {
         }
 
-        BoundingBox::~BoundingBox()
-        {
-        }
-
         ContainmentType BoundingBox::contains(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");

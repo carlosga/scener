@@ -6,6 +6,7 @@
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Framework/RendererServiceContainer.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/SamplerState.hpp>
 #include <Graphics/SurfaceFormat.hpp>
@@ -24,20 +25,12 @@ namespace SceneR
         using SceneR::Texture::Surface;
         using SceneR::Texture::SurfaceMipmap;
 
-        ContentTypeReader<Texture2D>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<Texture2D>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(ContentReader*                      input
                                                                     , const std::pair<std::string, Json>& source)
         {
-            auto& gdService = input->content_manager()->service_provider().get_service<IGraphicsDeviceService>();
-            auto  surface   = input->read_object<Surface>("images", source.second["source"].string_value());
-            auto  texture   = std::make_shared<Texture2D>(gdService.graphics_device()
+            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+            auto surface   = input->read_object<Surface>("images", source.second["source"].string_value());
+            auto texture   = std::make_shared<Texture2D>(gdService->graphics_device()
                                                         , surface->width()
                                                         , surface->height()
                                                         , surface->mipmaps().size()

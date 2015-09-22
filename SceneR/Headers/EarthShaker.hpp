@@ -31,7 +31,7 @@ namespace SceneR
         class EarthShaker : public SceneR::Framework::DrawableComponent
         {
         public:
-            EarthShaker(SampleRenderer& renderer);
+            EarthShaker(SampleRenderer* renderer);
             ~EarthShaker() = default;
 
         public:

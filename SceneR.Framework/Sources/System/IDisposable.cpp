@@ -5,7 +5,7 @@
 
 namespace System
 {
-    IDisposable::~IDisposable()
-    {
-    }
+//    IDisposable::~IDisposable()
+//    {
+//    }
 }

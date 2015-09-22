@@ -12,14 +12,6 @@ namespace SceneR
     {
         using json11::Json;
 
-        ContentTypeReader<std::vector<std::uint8_t>>::ContentTypeReader()
-        {
-        }
-
-        ContentTypeReader<std::vector<std::uint8_t>>::~ContentTypeReader()
-        {
-        }
-
         std::shared_ptr<std::vector<std::uint8_t>> ContentTypeReader<std::vector<std::uint8_t>>::read(
             ContentReader* input, const std::pair<std::string, Json>& source)
         {

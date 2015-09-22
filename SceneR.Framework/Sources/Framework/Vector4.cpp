@@ -204,18 +204,6 @@ namespace SceneR
         {
         }
 
-        Vector4::Vector4(const Vector4& vector)
-            : x { vector.x }
-            , y { vector.y }
-            , z { vector.z }
-            , w { vector.w }
-        {
-        }
-
-        Vector4::~Vector4()
-        {
-        }
-
         float Vector4::length_squared() const
         {
             return (x * x)

@@ -20,16 +20,12 @@ namespace SceneR
             /**
             * Initializes a new instance of the ContentResourceManager
             */
-            ContentResourceManager()
-            {
-            }
+            ContentResourceManager() = default;
 
             /**
             * Releases all resources being used by the ContentResourceManager class.
             */
-            ~ContentResourceManager()
-            {
-            }
+            ~ContentResourceManager() = default;
 
         public:
             template <class T>

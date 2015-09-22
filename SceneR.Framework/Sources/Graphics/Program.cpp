@@ -55,10 +55,10 @@ namespace SceneR
             assert(_id != 0);
         }
 
-        void Program::activate() const
+        void Program::bind() const
         {
             glUseProgram(_id);
-            _uniform_buffer->activate();
+            _uniform_buffer->bind();
         }
 
         void Program::add_shader(std::shared_ptr<Shader> shader)
@@ -73,9 +73,9 @@ namespace SceneR
             glAttachShader(_id, shader->id());
         }
 
-        void Program::deactivate() const
+        void Program::unbind() const
         {
-            _uniform_buffer->deactivate();
+            _uniform_buffer->unbind();
             glUseProgram(0);
         }
 

@@ -47,7 +47,7 @@ namespace SceneR
              *
              * @param graphicsDevice the graphics device
              */
-            EffectTechnique(GraphicsDevice& graphicsDevice);
+            EffectTechnique(GraphicsDevice* graphicsDevice);
 
             /**
              * Initializes a new instance of the EffectTechnique class.

@@ -14,7 +14,7 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        EffectPass::EffectPass(GraphicsDevice& graphicsDevice)
+        EffectPass::EffectPass(GraphicsDevice* graphicsDevice)
             : _graphics_device { graphicsDevice }
             , _name            ()
             , _lighting_model  ()
@@ -35,12 +35,12 @@ namespace SceneR
 
         void EffectPass::begin()
         {
-            _program->activate();
+            _program->bind();
         }
 
         void EffectPass::end()
         {
-            _program->deactivate();
+            _program->unbind();
         }
     }
 }

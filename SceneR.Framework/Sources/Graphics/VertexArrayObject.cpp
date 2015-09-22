@@ -14,10 +14,6 @@ namespace SceneR
         {
         }
 
-        VertexArrayObject::~VertexArrayObject()
-        {
-        }
-
         void VertexArrayObject::dispose()
         {
             if (_id != 0)
@@ -32,17 +28,17 @@ namespace SceneR
             return _id;
         }
 
+        void VertexArrayObject::bind() const
+        {
+            glBindVertexArray(_id);
+        }
+
         void VertexArrayObject::create()
         {
             glCreateVertexArrays(1, &_id);
         }
 
-        void VertexArrayObject::activate() const
-        {
-            glBindVertexArray(_id);
-        }
-
-        void VertexArrayObject::deactivate() const
+        void VertexArrayObject::unbind() const
         {
             if (_id != 0)
             {

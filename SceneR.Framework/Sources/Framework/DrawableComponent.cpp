@@ -11,20 +11,16 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        DrawableComponent::DrawableComponent(Renderer& renderer)
+        DrawableComponent::DrawableComponent(Renderer* renderer)
             : Component   { renderer }
             , _visible    { true }
             , _draw_order { 0 }
         {
         }
 
-        DrawableComponent::~DrawableComponent()
+        GraphicsDevice* DrawableComponent::graphics_device()
         {
-        }
-
-        GraphicsDevice& DrawableComponent::graphics_device()
-        {
-            return _renderer.graphics_device();
+            return _renderer->graphics_device();
         }
 
         void DrawableComponent::draw(const RenderTime& renderTime)

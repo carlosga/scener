@@ -21,7 +21,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this IUpdateable instance.
              */
-            virtual ~IUpdateable();
+            virtual ~IUpdateable() = default;
 
         public:
             /**

@@ -32,12 +32,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the GraphicsDeviceManager class
              */
-            GraphicsDeviceManager(Renderer& renderer);
+            GraphicsDeviceManager(Renderer* renderer);
 
             /**
              * Destructor
              */
-            ~GraphicsDeviceManager() override;
+            ~GraphicsDeviceManager() = default;
 
         public:
             void dispose() override;
@@ -67,7 +67,7 @@ namespace SceneR
              * Gets the graphics device.
              * @return the graphics device.
              */
-            SceneR::Graphics::GraphicsDevice& graphics_device() const override;
+            SceneR::Graphics::GraphicsDevice* graphics_device() const override;
 
         public:
             /**
@@ -102,8 +102,8 @@ namespace SceneR
             std::uint32_t preferred_back_buffer_height;
 
         private:
-            std::shared_ptr<SceneR::Graphics::GraphicsDevice> _graphics_device;
-            Renderer&                                         _renderer;
+            std::unique_ptr<SceneR::Graphics::GraphicsDevice> _graphics_device;
+            Renderer*                                         _renderer;
         };
     }
 }

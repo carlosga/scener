@@ -31,7 +31,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this BufferObject.
              */
-            ~BufferObject();
+            ~BufferObject() = default;
 
         public:
             void dispose();
@@ -55,7 +55,7 @@ namespace SceneR
             /**
              * Activates the buffer object.
              */
-            void activate() const;
+            void bind() const;
 
             /**
              * Creates the buffer object.
@@ -65,7 +65,7 @@ namespace SceneR
             /**
              * Deactivates the buffer object.
              */
-            void deactivate() const;
+            void unbind() const;
 
             /**
              * Gets a subset of data from a buffer object's data store.

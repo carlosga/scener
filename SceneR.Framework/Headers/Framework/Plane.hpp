@@ -103,12 +103,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Plane structure. Copy constructor
              */
-            Plane(const Plane& value);
+            Plane(const Plane& value) = default;
 
             /**
              * Releases all resources being used by this Plane.
              */
-            ~Plane();
+            ~Plane() = default;
 
         public:
             /**

@@ -10,7 +10,7 @@ namespace SceneR
     {
         using SceneR::Framework::Color;
 
-        BlendState::BlendState(GraphicsDevice& graphicsDevice)
+        BlendState::BlendState(GraphicsDevice* graphicsDevice)
             : GraphicsResource        { graphicsDevice }
             , alpha_blend_function    { BlendFunction::Add }
             , alpha_destination_blend { Blend::Zero }
@@ -24,27 +24,6 @@ namespace SceneR
             , color_write_channels_2  { SceneR::Graphics::ColorWriteChannels::All }
             , color_write_channels_3  { SceneR::Graphics::ColorWriteChannels::All }
             , multi_sample_mask       { 0 }
-        {
-        }
-
-        BlendState::BlendState(const BlendState& blendState)
-            : GraphicsResource        { blendState._graphics_device }
-            , alpha_blend_function    { blendState.alpha_blend_function }
-            , alpha_destination_blend { blendState.alpha_destination_blend }
-            , alpha_source_blend      { blendState.alpha_source_blend }
-            , blend_factor            { blendState.blend_factor }
-            , color_blend_function    { blendState.color_blend_function }
-            , color_destination_blend { blendState.color_destination_blend }
-            , color_source_blend      { blendState.color_source_blend }
-            , color_write_channels    { blendState.color_write_channels }
-            , color_write_channels_1  { blendState.color_write_channels_1 }
-            , color_write_channels_2  { blendState.color_write_channels_2 }
-            , color_write_channels_3  { blendState.color_write_channels_3 }
-            , multi_sample_mask       { blendState.multi_sample_mask }
-        {
-        }
-
-        BlendState::~BlendState()
         {
         }
 

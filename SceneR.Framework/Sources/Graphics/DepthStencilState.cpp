@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        DepthStencilState::DepthStencilState(GraphicsDevice& graphicsDevice)
+        DepthStencilState::DepthStencilState(GraphicsDevice* graphicsDevice)
             : GraphicsResource                            { graphicsDevice }
             , counter_clockwise_stencil_depth_buffer_fail { StencilOperation::Keep }
             , counter_clockwise_stencil_fail              { StencilOperation::Keep }

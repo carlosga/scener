@@ -43,11 +43,11 @@ namespace SceneR
 
             void create();
 
-            void activate() const;
+            void bind() const;
 
             void add_shader(std::shared_ptr<Shader> shader);
 
-            void deactivate() const;
+            void unbind() const;
 
             void link();
 
