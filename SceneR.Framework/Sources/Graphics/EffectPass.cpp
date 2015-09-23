@@ -14,7 +14,7 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        EffectPass::EffectPass(GraphicsDevice* graphicsDevice)
+        EffectPass::EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : _graphics_device { graphicsDevice }
         {
         }

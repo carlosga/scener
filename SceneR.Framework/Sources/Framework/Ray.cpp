@@ -3,8 +3,6 @@
 
 #include <Framework/Ray.hpp>
 
-#include <stdexcept>
-
 #include <System/Math.hpp>
 #include <Framework/BoundingFrustrum.hpp>
 #include <Framework/BoundingSphere.hpp>

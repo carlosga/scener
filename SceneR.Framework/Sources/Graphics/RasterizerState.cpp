@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        RasterizerState::RasterizerState(GraphicsDevice* graphicsDevice)
+        RasterizerState::RasterizerState(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource { graphicsDevice }
         {
         }

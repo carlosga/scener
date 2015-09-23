@@ -16,18 +16,6 @@ namespace SceneR
         using SceneR::Framework::BoundingSphere;
         using SceneR::Framework::Vector3;
 
-        ModelMesh::ModelMesh()
-            : _name            { }
-            , _mesh_parts      ( 0 )
-            , _parent_bone     { nullptr }
-            , _bounding_sphere { Vector3::zero, 0.0f }
-        {
-        }
-
-        ModelMesh::~ModelMesh()
-        {
-        }
-
         const BoundingSphere& ModelMesh::bounding_sphere() const
         {
             return _bounding_sphere;
@@ -63,9 +51,9 @@ namespace SceneR
             return _parent_bone;
         }
 
-        std::shared_ptr<ModelSkin> ModelMesh::skin() const
+        ModelSkin* ModelMesh::skin() const
         {
-            return _skin;
+            return _skin.get();
         }
 
         void ModelMesh::draw()

@@ -27,7 +27,7 @@ namespace SceneR
         using System::IO::BinaryReader;
         using System::IO::MemoryStream;
 
-        std::shared_ptr<Node> ContentTypeReader<Node>::read(ContentReader*                      input
+        std::shared_ptr<Node> ContentTypeReader<Node>::read(Guide::not_null<ContentReader*>     input
                                                           , const std::pair<std::string, Json>& source)
         {
             auto node = std::make_shared<Node>();
@@ -109,7 +109,8 @@ namespace SceneR
             return node;
         }
 
-        std::shared_ptr<ModelSkin> ContentTypeReader<Node>::read_instance_skin(ContentReader* input, const Json& source)
+        std::shared_ptr<ModelSkin> ContentTypeReader<Node>::read_instance_skin(Guide::not_null<ContentReader*> input
+                                                                             , const Json&                     source)
         {
             auto skin     = std::make_shared<ModelSkin>();
             auto skinRef  = input->_root["skins"][source["skin"].string_value()];

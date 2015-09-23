@@ -44,14 +44,12 @@ namespace SceneR
         public:
             /**
              * Initializes a new instance of the EffectTechnique class
-             *
              * @param graphicsDevice the graphics device
              */
-            EffectTechnique(GraphicsDevice* graphicsDevice);
+            EffectTechnique(Guide::not_null<GraphicsDevice*> graphicsDevice);
 
             /**
              * Initializes a new instance of the EffectTechnique class.
-             *
              * @param effect the effect to be copied
              */
             EffectTechnique(const EffectTechnique& effect) = default;

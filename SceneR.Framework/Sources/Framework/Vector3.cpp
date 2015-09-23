@@ -3,7 +3,7 @@
 
 #include <Framework/Vector3.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
@@ -246,14 +246,14 @@ namespace SceneR
 
         float& Vector3::operator[](const std::size_t& index)
         {
-            assert(index < 3);
+            Expects(index < 3);
 
             return (data[index]);
         }
 
         const float& Vector3::operator[](const std::size_t& index) const
         {
-            assert(index < 3);
+            Expects(index < 3);
 
             return (data[index]);
         }

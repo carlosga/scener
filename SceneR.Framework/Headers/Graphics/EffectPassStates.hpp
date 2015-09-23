@@ -19,6 +19,7 @@ namespace SceneR
         {
         public:
             EffectPassStates() = default;
+
             ~EffectPassStates() = default;
 
         public:

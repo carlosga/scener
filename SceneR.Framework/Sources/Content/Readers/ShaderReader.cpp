@@ -17,7 +17,7 @@ namespace SceneR
         using SceneR::Graphics::ShaderInclude;
         using SceneR::Graphics::ShaderType;
 
-        std::shared_ptr<Shader> ContentTypeReader<Shader>::read(ContentReader*                      input
+        std::shared_ptr<Shader> ContentTypeReader<Shader>::read(Guide::not_null<ContentReader*>     input
                                                               , const std::pair<std::string, Json>& source)
         {
             auto name   = source.first;

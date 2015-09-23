@@ -3,8 +3,6 @@
 
 #include <Content/ContentReader.hpp>
 
-#include <cassert>
-
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
 #include <Framework/Matrix.hpp>
@@ -28,7 +26,9 @@ namespace SceneR
         using System::IO::Path;
         using System::IO::Stream;
 
-        ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream)
+        ContentReader::ContentReader(const std::string&               assetName
+                                   , Guide::not_null<ContentManager*> contentManager
+                                   , Stream&                          stream)
             : _asset_name      { assetName }
             , _asset_reader    { stream }
             , _content_manager { contentManager }
@@ -53,7 +53,7 @@ namespace SceneR
 
             _root = json11::Json::parse(reinterpret_cast<char*>(broot.data()), errors);
 
-            assert(errors.empty());
+            Expects(errors.empty());
 
             // Meshes
             for (const auto& mesh : _root["meshes"].object_items())
@@ -91,7 +91,7 @@ namespace SceneR
         {
             auto assetPath = get_asset_path(assetName);
 
-            assert(File::exists(assetPath));
+            Ensures(File::exists(assetPath));
 
             return File::read_all_bytes(assetPath);
         }

@@ -6,6 +6,8 @@
 
 #include <cstdint>
 
+#include <gsl.h>
+
 #include <Framework/IComponent.hpp>
 #include <Framework/IUpdateable.hpp>
 
@@ -26,7 +28,7 @@ namespace SceneR
              * Initializes a new instance of the Component class.
              * @param renderer the renderer that owns the component.
              */
-            Component(Renderer* renderer);
+            Component(Guide::not_null<Renderer*> renderer);
 
             /**
              * Releases all resources being used by this component instance.

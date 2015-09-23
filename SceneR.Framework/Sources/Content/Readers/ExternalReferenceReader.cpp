@@ -13,7 +13,7 @@ namespace SceneR
         using json11::Json;
 
         std::shared_ptr<std::vector<std::uint8_t>> ContentTypeReader<std::vector<std::uint8_t>>::read(
-            ContentReader* input, const std::pair<std::string, Json>& source)
+            Guide::not_null<ContentReader*> input, const std::pair<std::string, Json>& source)
         {
             auto contents = input->read_external_reference(source.second["uri"].string_value());
 

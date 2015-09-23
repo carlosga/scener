@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        DepthStencilState::DepthStencilState(GraphicsDevice* graphicsDevice)
+        DepthStencilState::DepthStencilState(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource { graphicsDevice }
         {
         }

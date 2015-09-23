@@ -20,7 +20,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using System::Math;
 
-        EffectTechnique::EffectTechnique(GraphicsDevice* graphicsDevice)
+        EffectTechnique::EffectTechnique(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource           { graphicsDevice }
             , _alpha                     { 1.0 }
             , _ambient_light_color       { Vector3::zero }
@@ -355,14 +355,14 @@ namespace SceneR
                                                             , _view
                                                             , _projection
                                                             , _world_view
-                                                            , _world_view_proj_param);
+                                                            , _world_view_proj_param.get());
 
             // Recompute the world inverse transpose and eye position
             _dirty_flags = EffectHelpers::set_lighting_matrices(_dirty_flags
                                                               , _world
                                                               , _view
-                                                              , _world_param
-                                                              , _world_inverse_transpose_param
+                                                              , _world_param.get()
+                                                              , _world_inverse_transpose_param.get()
                                                               , nullptr);
 
             if (_texture_enabled)

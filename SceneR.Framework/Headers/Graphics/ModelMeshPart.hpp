@@ -32,12 +32,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ModelMeshPart class.
              */
-            ModelMeshPart();
+            ModelMeshPart() = default;
 
             /**
              * Releases all resources being used by this ModelMeshPart.
              */
-            ~ModelMeshPart();
+            ~ModelMeshPart() = default;
 
         public:
             /**
@@ -79,16 +79,16 @@ namespace SceneR
             /**
              * Gets or sets the effect for this mesh part.
              */
-            std::shared_ptr<EffectTechnique> effect;
+            std::shared_ptr<EffectTechnique> effect = { nullptr };
 
         private:
-            std::unique_ptr<IndexBuffer>    _index_buffer;
-            std::unique_ptr<VertexBuffer>   _vertex_buffer;
-            std::size_t                     _start_index;
-            std::size_t                     _vertex_offset;
-            std::size_t                     _vertex_count;
-            std::size_t                     _primitive_count;
-            SceneR::Graphics::PrimitiveType _primitive_type;
+            std::unique_ptr<IndexBuffer>    _index_buffer       = { nullptr };
+            std::unique_ptr<VertexBuffer>   _vertex_buffer      = { nullptr };
+            std::size_t                     _start_index        = { 0 };
+            std::size_t                     _vertex_offset      = { 0 };
+            std::size_t                     _vertex_count       = { 0 };
+            std::size_t                     _primitive_count    = { 0 };
+            SceneR::Graphics::PrimitiveType _primitive_type     = { PrimitiveType::TriangleList };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

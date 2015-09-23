@@ -9,9 +9,9 @@ namespace SceneR
 {
     namespace Graphics
     {
-        IndexBuffer::IndexBuffer(GraphicsDevice* graphicsDevice
-                               , const ComponentType& indexElementType
-                               , const std::size_t&   indexCount)
+        IndexBuffer::IndexBuffer(Guide::not_null<GraphicsDevice*> graphicsDevice
+                               , const ComponentType&             indexElementType
+                               , const std::size_t&               indexCount)
             : GraphicsResource  { graphicsDevice }
             , _ibo              { nullptr }
             , _indexCount       { indexCount }

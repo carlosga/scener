@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        SamplerState::SamplerState(GraphicsDevice* graphicsDevice)
+        SamplerState::SamplerState(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource { graphicsDevice }
         {
         }

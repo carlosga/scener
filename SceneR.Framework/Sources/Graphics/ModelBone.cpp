@@ -9,18 +9,6 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        ModelBone::ModelBone()
-            : _children  ( 0 )
-            , _name      { }
-            , _parent    { nullptr }
-            , _transform { Matrix::identity }
-        {
-        }
-
-        ModelBone::~ModelBone()
-        {
-        }
-
         const std::vector<std::shared_ptr<ModelBone>>& ModelBone::children() const
         {
             return _children;

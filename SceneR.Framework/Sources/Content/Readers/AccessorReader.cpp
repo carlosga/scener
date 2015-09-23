@@ -18,7 +18,7 @@ namespace SceneR
         using SceneR::Graphics::AttributeType;
         using SceneR::Graphics::ComponentType;
 
-        std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(ContentReader*                      input
+        std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(Guide::not_null<ContentReader*>     input
                                                                   , const std::pair<std::string, Json>& source)
         {
             auto accessor = std::make_shared<Accessor>();

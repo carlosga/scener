@@ -26,8 +26,9 @@ namespace SceneR
         class ModelSkin final
         {
         public:
-            ModelSkin();
-            ~ModelSkin();
+            ModelSkin() = default;
+
+            ~ModelSkin() = default;
 
         public:
             /**
@@ -57,11 +58,11 @@ namespace SceneR
             const std::vector<std::shared_ptr<ModelBone>>& skeletons() const;
 
         private:
-            SceneR::Framework::Matrix               _bindShapeMatrix;
-            std::vector<SceneR::Framework::Matrix>  _inverseBindMatrices;
-            std::vector<std::shared_ptr<ModelBone>> _joints;
-            std::string                             _name;
-            std::vector<std::shared_ptr<ModelBone>> _skeletons;
+            SceneR::Framework::Matrix               _bindShapeMatrix     = { SceneR::Framework::Matrix::identity };
+            std::vector<SceneR::Framework::Matrix>  _inverseBindMatrices = { };
+            std::vector<std::shared_ptr<ModelBone>> _joints              = { };
+            std::string                             _name                = { };
+            std::vector<std::shared_ptr<ModelBone>> _skeletons           = { };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

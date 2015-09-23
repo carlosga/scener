@@ -15,7 +15,7 @@ namespace SceneR
         using SceneR::Graphics::Program;
         using SceneR::Graphics::Shader;
 
-        std::shared_ptr<Program> ContentTypeReader<Program>::read(ContentReader*                      input
+        std::shared_ptr<Program> ContentTypeReader<Program>::read(Guide::not_null<ContentReader*>     input
                                                                 , const std::pair<std::string, Json>& source)
         {
             auto program        = std::make_shared<Program>();

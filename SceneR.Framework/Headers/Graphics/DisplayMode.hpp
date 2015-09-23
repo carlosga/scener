@@ -29,12 +29,12 @@ namespace SceneR
              * @brief Coopy constructor
              * @param displayMode thge display mode to copy from.
              */
-            DisplayMode(const DisplayMode& displayMode);
+            DisplayMode(const DisplayMode& displayMode) = default;
 
             /**
              * Destructor
              */
-            ~DisplayMode();
+            ~DisplayMode() = default;
 
         public:
             /**
@@ -58,7 +58,7 @@ namespace SceneR
             std::size_t width() const;
 
         public:
-            DisplayMode& operator=(const DisplayMode& displayMode);
+            DisplayMode& operator=(const DisplayMode& displayMode) = default;
 
         private:
             float         _aspect_ratio;

@@ -59,24 +59,6 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice::GraphicsDevice(const GraphicsDevice& device)
-            : effect                   { device.effect }
-            , index_buffer             { device.index_buffer }
-            , vertex_buffer            { device.vertex_buffer }
-            , _blend_state             { device._blend_state }
-            , _depth_stencil_state     { device._depth_stencil_state }
-            , _graphics_adapter        { device._graphics_adapter }
-            , _graphics_profile        { device._graphics_profile }
-            , _presentation_parameters { device._presentation_parameters }
-            , _rasterizer_state        { device._rasterizer_state }
-            , _viewport                { device._viewport }
-        {
-        }
-
-        GraphicsDevice::~GraphicsDevice()
-        {
-        }
-
         void GraphicsDevice::dispose()
         {
             _blend_state.dispose();
@@ -222,25 +204,6 @@ namespace SceneR
         {
             _viewport = viewport;
             _viewport.update();
-        }
-
-        GraphicsDevice& GraphicsDevice::operator=(const GraphicsDevice& device)
-        {
-            if (this != &device)
-            {
-                effect                   = std::move(device.effect);
-                index_buffer             = std::move(device.index_buffer);
-                vertex_buffer            = device.vertex_buffer;
-                _blend_state             = device._blend_state;
-                _depth_stencil_state     = device._depth_stencil_state;
-                _graphics_adapter        = device._graphics_adapter;
-                _graphics_profile        = device._graphics_profile;
-                _presentation_parameters = device._presentation_parameters;
-                _rasterizer_state        = device._rasterizer_state;
-                _viewport                = device._viewport;
-            }
-
-            return *this;
         }
     }
 }

@@ -6,6 +6,8 @@
 
 #include <string>
 
+#include <gsl.h>
+
 #include <System/Graphics/Platform.hpp>
 
 struct GLFWwindow;
@@ -26,7 +28,7 @@ namespace SceneR
              * Initializes a new instance of the RendererWindow class.
              * @param renderer the renderer instance owning the renderer window.
              */
-            RendererWindow(Renderer* renderer);
+            RendererWindow(Guide::not_null<Renderer*> renderer);
 
             /**
              * Releases all resource being used by the current RendererWindow

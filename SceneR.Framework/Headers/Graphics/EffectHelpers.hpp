@@ -12,6 +12,8 @@
 
 #include <memory>
 
+#include <gsl.h>
+
 #include <Framework/Matrix.hpp>
 #include <Graphics/EffectDirtyFlags.hpp>
 
@@ -44,31 +46,31 @@ namespace SceneR
             /// <summary>
             /// Lazily recomputes the world+view+projection matrix based on the current effect parameter settings.
             /// </summary>
-            static EffectDirtyFlags set_world_view_proj(const EffectDirtyFlags&          dirtyFlags
-                                                      , const SceneR::Framework::Matrix& world
-                                                      , const SceneR::Framework::Matrix& view
-                                                      , const SceneR::Framework::Matrix& projection
-                                                      , SceneR::Framework::Matrix&       worldView
-                                                      , std::shared_ptr<EffectParameter> worldViewProjParam);
+            static EffectDirtyFlags set_world_view_proj(const EffectDirtyFlags&           dirtyFlags
+                                                      , const SceneR::Framework::Matrix&  world
+                                                      , const SceneR::Framework::Matrix&  view
+                                                      , const SceneR::Framework::Matrix&  projection
+                                                      , SceneR::Framework::Matrix&        worldView
+                                                      , Guide::not_null<EffectParameter*> worldViewProjParam);
 
             /// <summary>
             /// Sets a vector which can be dotted with the object space vertex position to compute fog amount.
             /// </summary>
-            static void set_fog_vector(const SceneR::Framework::Matrix& worldView
-                                     , const float&                     fogStart
-                                     , const float&                     fogEnd
-                                     , std::shared_ptr<EffectParameter> fogVectorParam);
+            static void set_fog_vector(const SceneR::Framework::Matrix&  worldView
+                                     , const float&                      fogStart
+                                     , const float&                      fogEnd
+                                     , Guide::not_null<EffectParameter*> fogVectorParam);
 
             /// <summary>
             /// Lazily recomputes the world inverse transpose matrix and
             /// eye position based on the current effect parameter settings.
             /// </summary>
-            static EffectDirtyFlags set_lighting_matrices(const EffectDirtyFlags&          dirtyFlags
-                                                        , const SceneR::Framework::Matrix& world
-                                                        , const SceneR::Framework::Matrix& view
-                                                        , std::shared_ptr<EffectParameter> worldParam
-                                                        , std::shared_ptr<EffectParameter> worldInverseTransposeParam
-                                                        , std::shared_ptr<EffectParameter> eyePositionParam);
+            static EffectDirtyFlags set_lighting_matrices(const EffectDirtyFlags&             dirtyFlags
+                                                        , const SceneR::Framework::Matrix&    world
+                                                        , const SceneR::Framework::Matrix&    view
+                                                        , Guide::not_null<EffectParameter*>   worldParam
+                                                        , Guide::not_null<EffectParameter*>   worldInverseTransposeParam
+                                                        , Guide::maybe_null<EffectParameter*> eyePositionParam);
 
             /// <summary>
             /// Sets the diffuse/emissive/alpha material color parameters.
@@ -78,8 +80,8 @@ namespace SceneR
                                          , const SceneR::Framework::Vector3& diffuseColor
                                          , const SceneR::Framework::Vector3& emissiveColor
                                          , const SceneR::Framework::Vector3& ambientLightColor
-                                         , std::shared_ptr<EffectParameter>  diffuseColorParam
-                                         , std::shared_ptr<EffectParameter>  emissiveColorParam);
+                                         , Guide::not_null<EffectParameter*> diffuseColorParam
+                                         , Guide::not_null<EffectParameter*> emissiveColorParam);
 
         private:
             EffectHelpers() = delete;

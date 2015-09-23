@@ -42,12 +42,12 @@ namespace SceneR
              * @brief Copy constructor.
              * @param adapter The graphics adapter to copy from.
              */
-            GraphicsAdapter(const GraphicsAdapter& adapter);
+            GraphicsAdapter(const GraphicsAdapter& adapter) = default;
 
             /**
              * Destructor
              */
-            ~GraphicsAdapter();
+            ~GraphicsAdapter() = default;
 
         public:
             /**
@@ -106,7 +106,7 @@ namespace SceneR
             std::int32_t vendor_id() const;
 
         public:
-            GraphicsAdapter& operator=(const GraphicsAdapter& adapter);
+            GraphicsAdapter& operator=(const GraphicsAdapter& adapter) = default;
 
         private:
             std::string              _description;

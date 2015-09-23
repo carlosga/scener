@@ -18,7 +18,7 @@ namespace SceneR
                         , const std::string&               path
                         , const std::vector<std::uint8_t>& source);
 
-            ShaderInclude(const std::string& name, const std::string& path, const std::string& 	source);
+            ShaderInclude(const std::string& name, const std::string& path, const std::string& source);
 
             ~ShaderInclude() = default;
 

@@ -3,8 +3,9 @@
 
 #include <Framework/Matrix.hpp>
 
-#include <cassert>
 #include <stdexcept>
+
+#include <gsl.h>
 
 #include <System/Math.hpp>
 #include <Framework/Quaternion.hpp>
@@ -632,14 +633,14 @@ namespace SceneR
 
         float& Matrix::operator[](const std::size_t& index)
         {
-            assert(index < 16);
+            Expects(index < 16);
 
             return this->data[index];
         }
 
         const float& Matrix::operator[](const std::size_t& index) const
         {
-            assert(index < 16);
+            Expects(index < 16);
 
             return this->data[index];
         }

@@ -59,7 +59,7 @@ namespace SceneR
 {
     namespace Content
     {
-        std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(ContentReader*                      input
+        std::shared_ptr<ModelMesh> ContentTypeReader<ModelMesh>::read(Guide::not_null<ContentReader*>     input
                                                                     , const std::pair<std::string, Json>& source)
         {
             auto mesh = std::make_shared<ModelMesh>();
@@ -74,9 +74,9 @@ namespace SceneR
             return mesh;
         }
 
-        void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader*             input
-                                                        , const json11::Json&        source
-                                                        , std::shared_ptr<ModelMesh> mesh) const
+        void ContentTypeReader<ModelMesh>::read_mesh_part(Guide::not_null<ContentReader*> input
+                                                        , const json11::Json&             source
+                                                        , std::shared_ptr<ModelMesh>      mesh) const
         {
             auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto meshPart      = std::make_shared<ModelMeshPart>();
@@ -225,8 +225,8 @@ namespace SceneR
             return usage;
         }
 
-        std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
-                                                                                   , const std::string& name) const
+        std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(
+                Guide::not_null<ContentReader*> input, const std::string& name) const
         {
             const auto& material     = input->_root["materials"][name];
             const auto& itechnique   = material["instanceTechnique"];

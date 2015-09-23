@@ -42,8 +42,8 @@ namespace SceneR
         using SceneR::Graphics::Program;
         using SceneR::Graphics::RenderingStateType;
 
-        std::shared_ptr<EffectTechnique> ContentTypeReader<EffectTechnique>::read(ContentReader*                      input
-                                                                                , const std::pair<std::string, Json>& source)
+        std::shared_ptr<EffectTechnique> ContentTypeReader<EffectTechnique>::read(
+                Guide::not_null<ContentReader*> input, const std::pair<std::string, Json>& source)
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());

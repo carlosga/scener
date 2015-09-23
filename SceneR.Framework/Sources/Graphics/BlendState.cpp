@@ -10,7 +10,7 @@ namespace SceneR
     {
         using SceneR::Framework::Color;
 
-        BlendState::BlendState(GraphicsDevice* graphicsDevice)
+        BlendState::BlendState(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource { graphicsDevice }
         {
         }

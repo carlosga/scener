@@ -14,18 +14,6 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        ModelSkin::ModelSkin()
-            : _bindShapeMatrix()
-            , _inverseBindMatrices(0)
-            , _joints(0)
-            , _name()
-        {
-        }
-
-        ModelSkin::~ModelSkin()
-        {
-        }
-
         const Matrix& ModelSkin::bindShapeMatrix() const
         {
             return _bindShapeMatrix;

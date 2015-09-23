@@ -8,6 +8,8 @@
 #include <memory>
 #include <string>
 
+#include <gsl.h>
+
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/GraphicsProfile.hpp>
@@ -32,7 +34,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the GraphicsDeviceManager class
              */
-            GraphicsDeviceManager(Renderer* renderer);
+            GraphicsDeviceManager(Guide::not_null<Renderer*> renderer);
 
             /**
              * Destructor

@@ -33,12 +33,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ModelMesh class.
              */
-            ModelMesh();
+            ModelMesh() = default;
 
             /**
              * Releases all resources being used by this ModelMesh.
              */
-            ~ModelMesh();
+            ~ModelMesh() = default;
 
         public:
             /**
@@ -74,7 +74,7 @@ namespace SceneR
             /**
              * Joints and matrices defining a skin.
              */
-            std::shared_ptr<ModelSkin> skin() const;
+            ModelSkin* skin() const;
 
         public:
             /**
@@ -83,11 +83,11 @@ namespace SceneR
             void draw();
 
         private:
-            std::string                                 _name;
-            std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts;
-            std::shared_ptr<ModelBone>                  _parent_bone;
-            SceneR::Framework::BoundingSphere           _bounding_sphere;
-            std::shared_ptr<ModelSkin>                  _skin;
+            std::string                                 _name            = { };
+            std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      = { };
+            std::shared_ptr<ModelBone>                  _parent_bone     = { nullptr };
+            SceneR::Framework::BoundingSphere           _bounding_sphere = { SceneR::Framework::Vector3::zero, 0.0f };
+            std::shared_ptr<ModelSkin>                  _skin            = { nullptr };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

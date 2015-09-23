@@ -32,7 +32,7 @@ namespace SceneR
             /**
              * Reads the techniques contents.
              */
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read(ContentReader*                              input
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> read(Guide::not_null<ContentReader*>             input
                                                                   , const std::pair<std::string, json11::Json>& source);
 
         private:

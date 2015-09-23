@@ -65,24 +65,6 @@ namespace SceneR
         {
         }
 
-        GraphicsAdapter::GraphicsAdapter(const GraphicsAdapter& adapter)
-            : _description             { adapter._description }
-            , _device_id               { adapter._device_id }
-            , _device_name             { adapter._device_name }
-            , _is_default_adapter      { adapter._is_default_adapter }
-            , _is_wide_screen          { adapter._is_wide_screen }
-            , _monitor_handle          { adapter._monitor_handle }
-            , _revision                { adapter._revision }
-            , _sub_system_id           { adapter._sub_system_id }
-            , _supported_display_modes ( adapter._supported_display_modes )
-            , _vendor_id               { adapter._vendor_id }
-        {
-        }
-
-        GraphicsAdapter::~GraphicsAdapter()
-        {
-        }
-
         DisplayMode GraphicsAdapter::current_display_mode() const
         {
             return DisplayMode(glfwGetVideoMode(_monitor_handle));
@@ -136,25 +118,6 @@ namespace SceneR
         std::int32_t GraphicsAdapter::vendor_id() const
         {
             return _vendor_id;
-        }
-
-        GraphicsAdapter& GraphicsAdapter::operator=(const GraphicsAdapter& adapter)
-        {
-            if (this != &adapter)
-            {
-                _description             = adapter._description;
-                _device_id               = adapter._device_id;
-                _device_name             = adapter._device_name;
-                _is_default_adapter      = adapter._is_default_adapter;
-                _is_wide_screen          = adapter._is_wide_screen;
-                _monitor_handle          = adapter._monitor_handle;
-                _revision                = adapter._revision;
-                _sub_system_id           = adapter._sub_system_id;
-                _supported_display_modes = adapter._supported_display_modes;
-                _vendor_id               = adapter._vendor_id;
-            }
-
-            return *this;
         }
     }
 }

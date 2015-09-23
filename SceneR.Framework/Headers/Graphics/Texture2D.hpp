@@ -37,7 +37,9 @@ namespace SceneR
              * @param width the texture width, in pixels
              * @param height the texture height, in pixels
              */
-            Texture2D(GraphicsDevice* graphicsDevice, const std::size_t& width, const std::size_t& height);
+            Texture2D(Guide::not_null<GraphicsDevice*> graphicsDevice
+                    , const std::size_t&               width
+                    , const std::size_t&               height);
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -48,11 +50,11 @@ namespace SceneR
              * @param mipmap true to generate a full mipmap chain; false otherwise.
              * @param format texture data format
              */
-            Texture2D(GraphicsDevice*      graphicsDevice
-                    , const std::size_t&   width
-                    , const std::size_t&   height
-                    , const bool&          mipmap
-                    , const SurfaceFormat& format);
+            Texture2D(Guide::not_null<GraphicsDevice*> graphicsDevice
+                    , const std::size_t&               width
+                    , const std::size_t&               height
+                    , const bool&                      mipmap
+                    , const SurfaceFormat&             format);
 
             /**
              * Releases all resources being used by this texture.

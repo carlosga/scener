@@ -3,7 +3,7 @@
 
 #include <Framework/Quaternion.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <System/Math.hpp>
 #include <Framework/Vector3.hpp>
@@ -223,14 +223,14 @@ namespace SceneR
 
         float& Quaternion::operator[](const std::size_t& index)
         {
-            assert(index < 4);
+            Expects(index < 4);
 
             return (this->data[index]);
         }
 
         const float& Quaternion::operator[](const std::size_t& index) const
         {
-            assert(index < 4);
+            Expects(index < 4);
 
             return (this->data[index]);
         }

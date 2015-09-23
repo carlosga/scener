@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include <gsl.h>
+
 #include <Graphics/EffectPassStates.hpp>
 #include <Graphics/Program.hpp>
 
@@ -33,7 +35,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectPass class.
              */
-            EffectPass(GraphicsDevice* graphicsDevice);
+            EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice);
 
             /**
              * Destructor.

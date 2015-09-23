@@ -11,22 +11,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        ModelMeshPart::ModelMeshPart()
-            : effect           { nullptr }
-            , _index_buffer    { nullptr }
-            , _vertex_buffer   { nullptr }
-            , _start_index     { 0 }
-            , _vertex_offset   { 0 }
-            , _vertex_count    { 0 }
-            , _primitive_count { 0 }
-            , _primitive_type  { PrimitiveType::TriangleList }
-        {
-        }
-
-        ModelMeshPart::~ModelMeshPart()
-        {
-        }
-
         IndexBuffer* ModelMeshPart::index_buffer() const
         {
             return _index_buffer.get();

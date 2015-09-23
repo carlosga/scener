@@ -31,18 +31,6 @@ namespace SceneR
             }
         }
 
-        DisplayMode::DisplayMode(const DisplayMode& displayMode)
-            : _aspect_ratio { displayMode._aspect_ratio }
-            , _format       { displayMode._format }
-            , _height       { displayMode._height }
-            , _width        { displayMode._width }
-        {
-        }
-
-        DisplayMode::~DisplayMode()
-        {
-        }
-
         float DisplayMode::aspect_ratio() const
         {
             return _aspect_ratio;
@@ -61,19 +49,6 @@ namespace SceneR
         std::size_t DisplayMode::width() const
         {
             return _width;
-        }
-
-        DisplayMode& DisplayMode::operator=(const DisplayMode& displayMode)
-        {
-            if (this != &displayMode)
-            {
-                _aspect_ratio = displayMode._aspect_ratio;
-                _format       = displayMode._format;
-                _height       = displayMode._height;
-                _width        = displayMode._width;
-            }
-
-            return *this;
         }
     }
 }

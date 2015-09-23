@@ -11,7 +11,9 @@
 #include <vector>
 #include <string>
 
+#include <gsl.h>
 #include <json11.hpp>
+
 #include <Content/ContentTypeReader.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
@@ -60,7 +62,9 @@ namespace SceneR
              * @param contentManager the content_manager that owns this ContentReader.
              * @param stream the base stream.
              */
-            ContentReader(const std::string& assetName, ContentManager* contentManager, System::IO::Stream& stream);
+            ContentReader(const std::string&               assetName
+                        , Guide::not_null<ContentManager*> contentManager
+                        , System::IO::Stream&              stream);
 
             /**
              * Releases all resources used by the current instance of the ContentReader class.

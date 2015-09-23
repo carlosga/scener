@@ -3,7 +3,7 @@
 
 #include <Framework/Vector4.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <System/Math.hpp>
 #include <Framework/Matrix.hpp>
@@ -219,14 +219,14 @@ namespace SceneR
 
         float& Vector4::operator[](const std::size_t& index)
         {
-            assert(index < 4);
+            Expects(index < 4);
 
             return data[index];
         }
 
         const float& Vector4::operator[](const std::size_t& index) const
         {
-            assert(index < 4);
+            Expects(index < 4);
 
             return data[index];
         }

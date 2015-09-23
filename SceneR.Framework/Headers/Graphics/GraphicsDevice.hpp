@@ -48,12 +48,12 @@ namespace SceneR
              * @brief GraphicsDevice Initializes a new instance of the GraphicsDevice class. Copy constructor.
              * @param device the graphics device to copy from.
              */
-            GraphicsDevice(const GraphicsDevice& device);
+            GraphicsDevice(const GraphicsDevice& device) = default;
 
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            ~GraphicsDevice() override;
+            ~GraphicsDevice() override = default;
 
         public:
             void dispose() override;
@@ -148,7 +148,7 @@ namespace SceneR
             void viewport(const Viewport& viewport);
 
         public:
-            GraphicsDevice& operator=(const GraphicsDevice& device);
+            GraphicsDevice& operator=(const GraphicsDevice& device) = default;
 
         private:
             GraphicsDevice() = delete;

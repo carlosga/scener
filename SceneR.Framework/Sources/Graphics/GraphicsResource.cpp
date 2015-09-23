@@ -7,7 +7,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        GraphicsResource::GraphicsResource(GraphicsDevice* graphicsDevice)
+        GraphicsResource::GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : name             { }
             , _graphics_device { graphicsDevice }
         {

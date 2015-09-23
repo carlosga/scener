@@ -16,7 +16,7 @@ namespace SceneR
                  || format == SurfaceFormat::Dxt5);
         }
 
-        Texture::Texture(GraphicsDevice* graphicsDevice)
+        Texture::Texture(Guide::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource { graphicsDevice }
         {
         }

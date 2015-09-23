@@ -31,12 +31,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the ModelBone class.
              */
-            ModelBone();
+            ModelBone() = default;
 
             /**
              * Releases all resources being used by this ModelBone.
              */
-            ~ModelBone();
+            ~ModelBone() = default;
 
         public:
             /**
@@ -65,10 +65,10 @@ namespace SceneR
             void transform(const SceneR::Framework::Matrix& transform);
 
         private:
-            std::vector<std::shared_ptr<ModelBone>> _children;
-            std::string                             _name;
-            std::shared_ptr<ModelBone>              _parent;
-            SceneR::Framework::Matrix               _transform;
+            std::vector<std::shared_ptr<ModelBone>> _children   = { };
+            std::string                             _name       = { };
+            std::shared_ptr<ModelBone>              _parent     = { nullptr };
+            SceneR::Framework::Matrix               _transform  = { SceneR::Framework::Matrix::identity };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

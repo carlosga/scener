@@ -24,8 +24,8 @@ namespace SceneR
         using SceneR::Input::Keys;
         using SceneR::Input::Mouse;
 
-        RendererWindow::RendererWindow(Renderer* renderer)
-            : _title {  }
+        RendererWindow::RendererWindow(Guide::not_null<Renderer*> renderer)
+            : _renderer { renderer }
         {
         }
 

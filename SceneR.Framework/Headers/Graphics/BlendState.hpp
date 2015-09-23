@@ -32,7 +32,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the BlendState class.
              */
-            BlendState(GraphicsDevice* graphicsDevice);
+            BlendState(Guide::not_null<GraphicsDevice*> graphicsDevice);
 
             /**
              * @brief Copy constructor.

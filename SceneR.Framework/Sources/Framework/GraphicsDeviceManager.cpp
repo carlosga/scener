@@ -20,7 +20,7 @@ namespace SceneR
         using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Framework::RendererWindow;
 
-        GraphicsDeviceManager::GraphicsDeviceManager(Renderer* renderer)
+        GraphicsDeviceManager::GraphicsDeviceManager(Guide::not_null<Renderer*> renderer)
             : _renderer { renderer }
         {
             _renderer->services()->add_service<IGraphicsDeviceService>(*this);
