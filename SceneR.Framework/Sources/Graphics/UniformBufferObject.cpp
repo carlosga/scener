@@ -3,6 +3,8 @@
 
 #include <Graphics/UniformBufferObject.hpp>
 
+#include <gsl.h>
+
 #include <Graphics/BufferObject.hpp>
 #include <System/Graphics/Platform.hpp>
 
@@ -92,25 +94,16 @@ namespace SceneR
 
         std::vector<std::uint8_t> UniformBufferObject::get_data(const std::size_t& offset, const std::size_t& count) const
         {
-            auto data = std::vector<std::uint8_t>(count, 0);
-
-            _buffer_object->get_data(offset, count, data.data());
-
-            return data;
+            return _buffer_object->get_data(offset, count);
         }
 
-        void UniformBufferObject::set_data(const void* data)
+        void UniformBufferObject::set_data(const void* data) const
         {
-            _buffer_object->set_data(0, _size, data);
+            set_data(0, _size, data);
         }
 
-        void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data)
+        void UniformBufferObject::set_data(const std::size_t& offset, const std::size_t& count, const void* data) const
         {
-            if (data == nullptr)
-            {
-                return;
-            }
-
             _buffer_object->set_data(offset, count, data);
         }
     }

@@ -16,7 +16,7 @@ namespace SceneR
         using SceneR::Graphics::Shader;
 
         std::shared_ptr<Program> ContentTypeReader<Program>::read(Guide::not_null<ContentReader*>     input
-                                                                , const std::pair<std::string, Json>& source)
+                                                                , const std::pair<std::string, Json>& source) const
         {
             auto program        = std::make_shared<Program>();
             auto vertexShader   = source.second["vertexShader"].string_value();

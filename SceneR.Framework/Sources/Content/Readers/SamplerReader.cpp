@@ -22,7 +22,7 @@ namespace SceneR
         using SceneR::Graphics::TextureFilter;
 
         std::shared_ptr<SamplerState> ContentTypeReader<SamplerState>::read(Guide::not_null<ContentReader*>     input
-                                                                          , const std::pair<std::string, Json>& source)
+                                                                          , const std::pair<std::string, Json>& source) const
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());

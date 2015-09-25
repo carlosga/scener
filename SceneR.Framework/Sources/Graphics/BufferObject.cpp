@@ -3,8 +3,6 @@
 
 #include <Graphics/BufferObject.hpp>
 
-#include <vector>
-
 namespace SceneR
 {
     namespace Graphics
@@ -58,9 +56,13 @@ namespace SceneR
             }
         }
 
-        void BufferObject::get_data(const std::size_t& offset, const std::size_t& size, void* data) const
+        std::vector<std::uint8_t> BufferObject::get_data(const std::size_t& offset, const std::size_t& size) const
         {
-            glGetNamedBufferSubDataEXT(_id, offset, size, data);
+            auto data = std::vector<std::uint8_t>(size, 0);
+
+            glGetNamedBufferSubDataEXT(_id, offset, size, data.data());
+
+            return data;
         }
 
         void BufferObject::set_data(const std::size_t& size, const void* data) const
@@ -68,7 +70,7 @@ namespace SceneR
             glNamedBufferDataEXT(_id, size, data, static_cast<GLenum>(_usage));
         }
 
-        void BufferObject::set_data(const std::size_t& offset, const std::size_t& size, const void *data) const
+        void BufferObject::set_data(const std::size_t& offset, const std::size_t& size, const void* data) const
         {
             glNamedBufferSubDataEXT(_id, offset, size, data);
         }

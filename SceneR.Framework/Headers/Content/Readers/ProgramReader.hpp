@@ -21,7 +21,7 @@ namespace SceneR
 
         public:
             std::shared_ptr<SceneR::Graphics::Program> read(Guide::not_null<ContentReader*>             input
-                                                          , const std::pair<std::string, json11::Json>& value);
+                                                          , const std::pair<std::string, json11::Json>& value) const;
         };
     }
 }

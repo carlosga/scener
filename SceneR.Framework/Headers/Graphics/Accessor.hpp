@@ -10,7 +10,10 @@
 #include <string>
 #include <vector>
 
+#include <gsl.h>
+
 #include <Graphics/AttributeType.hpp>
+#include <Graphics/BufferView.hpp>
 #include <Graphics/ComponentType.hpp>
 
 namespace SceneR
@@ -22,8 +25,6 @@ namespace SceneR
 
     namespace Graphics
     {
-        class BufferView;
-
         /**
          * GLTF. A typed accessor into a buffer-view.
          */
@@ -90,14 +91,13 @@ namespace SceneR
             /**
              * Gets the accessor data.
              */
-            std::vector<std::uint8_t> get_data() const;
+            const Guide::array_view<std::uint8_t> get_data() const;
 
             /**
              * Gets the accessor data.
              */
-            void get_data(const std::size_t&                  elementOffset
-                        , const std::size_t&                  elementCount
-                        , std::vector<std::uint8_t>::iterator data) const;
+            const Guide::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
+                                                         , const std::size_t& elementCount) const;
 
             std::size_t get_attribute_type_count() const;
 

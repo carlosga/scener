@@ -63,16 +63,13 @@ namespace SceneR
         {
             auto offset = (startIndex * element_size_in_bytes());
             auto size   = (elementCount * element_size_in_bytes());
-            auto data   = std::vector<std::uint8_t>(size);
 
-            _ibo->get_data(offset, size, data.data());
-
-            return data;
+            return _ibo->get_data(offset, size);
         }
 
-        void IndexBuffer::set_data(const void* data)
+        void IndexBuffer::set_data(const Guide::array_view<std::uint8_t>& data) const
         {
-            _ibo->set_data(_indexCount * element_size_in_bytes(), data);
+            _ibo->set_data(_indexCount * element_size_in_bytes(), data.data());
         }
 
         void IndexBuffer::bind() const

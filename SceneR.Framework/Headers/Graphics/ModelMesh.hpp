@@ -56,7 +56,7 @@ namespace SceneR
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<std::shared_ptr<EffectTechnique>> effects() const;
+            std::vector<EffectTechnique*> effects() const;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
@@ -69,7 +69,7 @@ namespace SceneR
              * transformation matrix that describes how the mesh is located relative to
              * any parent meshes in a model.
              */
-            const std::shared_ptr<ModelBone>& parent_bone() const;
+            ModelBone* parent_bone() const;
 
             /**
              * Joints and matrices defining a skin.

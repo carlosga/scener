@@ -5,8 +5,6 @@
 
 #include <vector>
 
-#include <Graphics/Buffer.hpp>
-
 namespace SceneR
 {
     namespace Graphics
@@ -50,20 +48,15 @@ namespace SceneR
             return _name;
         }
 
-        std::vector<std::uint8_t> BufferView::get_data() const
+        const Guide::array_view<std::uint8_t> BufferView::get_data() const
         {
-            std::vector<std::uint8_t> data(_byte_length, 0);
-
-            get_data(0, _byte_length, data.begin());
-
-            return data;
+            return get_data(0, _byte_length);
         }
 
-        void BufferView::get_data(const std::size_t&                  offset
-                                , const std::size_t&                  count
-                                , std::vector<std::uint8_t>::iterator data) const
+        const Guide::array_view<std::uint8_t> BufferView::get_data(const std::size_t& offset
+                                                                 , const std::size_t& count) const
         {
-            return _buffer->get_data(_byte_offset + offset, count, data);
+            return _buffer->get_data(_byte_offset + offset, count);
         }
     }
 }

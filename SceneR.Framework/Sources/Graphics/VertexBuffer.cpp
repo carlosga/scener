@@ -48,16 +48,13 @@ namespace SceneR
         {
             auto offset = (startIndex * _vertex_declaration->vertex_stride());
             auto size   = (elementCount * _vertex_declaration->vertex_stride());
-            auto data   = std::vector<std::uint8_t>(size, 0);
 
-            _vbo->get_data(offset, size, data.data());
-
-            return data;
+            return _vbo->get_data(offset, size);
         }
 
-        void VertexBuffer::set_data(const void* data)
+        void VertexBuffer::set_data(const Guide::array_view<std::uint8_t>& data) const
         {
-            _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data);
+            _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data.data());
         }
 
         VertexDeclaration* VertexBuffer::vertex_declaration() const

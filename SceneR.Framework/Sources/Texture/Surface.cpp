@@ -3,7 +3,7 @@
 
 #include <Texture/Surface.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <System/Math.hpp>
 #include <System/IO/BinaryReader.hpp>
@@ -31,7 +31,7 @@ namespace SceneR
 
         void Surface::load(const std::string& filename)
         {
-            assert(System::IO::File::exists(filename));
+            Ensures(System::IO::File::exists(filename));
 
             FileStream   stream (filename);
             BinaryReader reader (stream);
@@ -45,28 +45,28 @@ namespace SceneR
             std::copy_n(rawHeader.begin(), 128, ddsheader.data);
 
             // ensure contents are in DDS format
-            assert(ddsheader.dwMagic == 0x20534444);
+            Ensures(ddsheader.dwMagic == 0x20534444);
 
             // ensure required flags are meet
-            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_CAPS)        == DDS_HEADER_FLAGS::DDSD_CAPS);
-            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_HEIGHT)      == DDS_HEADER_FLAGS::DDSD_HEIGHT);
-            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_WIDTH)       == DDS_HEADER_FLAGS::DDSD_WIDTH);
-            assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_PIXELFORMAT) == DDS_HEADER_FLAGS::DDSD_PIXELFORMAT);
+            Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_PIXELFORMAT) == DDS_HEADER_FLAGS::DDSD_PIXELFORMAT);
+            Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_CAPS)        == DDS_HEADER_FLAGS::DDSD_CAPS);
+            Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_HEIGHT)      == DDS_HEADER_FLAGS::DDSD_HEIGHT);
+            Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_WIDTH)       == DDS_HEADER_FLAGS::DDSD_WIDTH);
 
             if (ddsheader.dwMipMapCount > 0)
             {
-                assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT) == DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT);
-                assert((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE) == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
+                Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT) == DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT);
+                Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE) == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
             }
 
             // ensure pixel format size is correct
-            assert(ddsheader.ddspf.dwSize == 32);
+            Ensures(ddsheader.ddspf.dwSize == 32);
 
             // ensure the texture is in compressed format
-            assert((ddsheader.ddspf.dwFlags & DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC) == DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC);
+            Ensures((ddsheader.ddspf.dwFlags & DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC) == DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC);
 
             // check DXTn format
-            assert(ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1
+            Ensures(ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1
                 || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3
                 || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5);
 

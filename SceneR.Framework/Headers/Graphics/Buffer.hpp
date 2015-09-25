@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 
+#include <gsl.h>
+
 namespace SceneR
 {
     namespace Content
@@ -53,14 +55,7 @@ namespace SceneR
             /**
              * Gets the buffer data.
              */
-            std::vector<std::uint8_t> get_data() const;
-
-            /**
-             * Gets the buffer data.
-             */
-            void get_data(const std::size_t&                  offset
-                        , const std::size_t&                  count
-                        , std::vector<std::uint8_t>::iterator data) const;
+            const Guide::array_view<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count);
 
             /**
              * Sets the buffer data.

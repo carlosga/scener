@@ -62,12 +62,11 @@ namespace SceneR
                              , static_cast<GLint>(height));
         }
 
-        void TextureObject::texture_sub_image_2D(const SurfaceFormat& format
-                                               , const std::size_t&   level
-                                               , const std::size_t&   width
-                                               , const std::size_t&   height
-                                               , const std::size_t&   size
-                                               , const void*          data) const
+        void TextureObject::texture_sub_image_2D(const SurfaceFormat&             format
+                                               , const std::size_t&               level
+                                               , const std::size_t&               width
+                                               , const std::size_t&               height
+                                               , const std::vector<std::uint8_t>& data) const
         {
             auto si_level  = static_cast<GLint>(level);
             auto si_width  = static_cast<GLint>(width);
@@ -76,11 +75,11 @@ namespace SceneR
 
             if (Texture::is_compressed_surface_format(format))
             {
-                glCompressedTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, size, data);
+                glCompressedTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, data.size(), data.data());
             }
             else
             {
-                glTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, GL_UNSIGNED_BYTE, data);
+                glTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, GL_UNSIGNED_BYTE, data.data());
             }
         }
     }

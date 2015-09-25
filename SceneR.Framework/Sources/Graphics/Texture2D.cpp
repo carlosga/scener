@@ -27,8 +27,6 @@ namespace SceneR
             , _height        { height }
             , _mipmap        { mipmap }
             , _mipmap_levels { 0 }
-            , _mipmap_height { height }
-            , _mipmap_width  { width }
             , _width         { width }
             , _object        { TextureTarget::Texture2D }
         {
@@ -64,27 +62,17 @@ namespace SceneR
             return _width;
         }
 
-        std::shared_ptr<SamplerState> Texture2D::sampler_state() const
+        SamplerState* Texture2D::sampler_state() const
         {
-            return _sampler_state;
+            return _sampler_state.get();
         }
 
-        void Texture2D::set_data(const std::size_t& level, const std::size_t& size, const void* data)
+        void Texture2D::set_data(const std::size_t&               level
+                               , const std::size_t&               width
+                               , const std::size_t&               height
+                               , const std::vector<std::uint8_t>& data) const
         {
-            // http://www.oldunreal.com/editing/s3tc/ARB_texture_compression.pdf
-            if (_mipmap_width == 0)
-            {
-                _mipmap_width = 1;
-            }
-            if (_mipmap_height == 0)
-            {
-                _mipmap_height = 1;
-            }
-
-            _object.texture_sub_image_2D(_format, level, _mipmap_width, _mipmap_height, size, data);
-
-            _mipmap_width  >>= 1;
-            _mipmap_height >>= 1;
+            _object.texture_sub_image_2D(_format, level, width, height, data);
         }
 
         void Texture2D::declare_storage(const std::size_t& mipMapLevels)

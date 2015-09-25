@@ -18,7 +18,7 @@ namespace SceneR
         using SceneR::Graphics::ShaderType;
 
         std::shared_ptr<Shader> ContentTypeReader<Shader>::read(Guide::not_null<ContentReader*>     input
-                                                              , const std::pair<std::string, Json>& source)
+                                                              , const std::pair<std::string, Json>& source) const
         {
             auto name   = source.first;
             auto type   = static_cast<ShaderType>(source.second["type"].int_value());

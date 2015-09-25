@@ -33,7 +33,7 @@ namespace SceneR
              * Reads the buffer views contents.
              */
             std::shared_ptr<SceneR::Graphics::BufferView> read(Guide::not_null<ContentReader*>             input
-                                                             , const std::pair<std::string, json11::Json>& value);
+                                                             , const std::pair<std::string, json11::Json>& value) const;
         };
     }
 }

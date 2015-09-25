@@ -7,14 +7,6 @@ namespace SceneR
 {
     namespace Texture
     {
-        SurfaceMipmap::SurfaceMipmap()
-        {
-        }
-
-        SurfaceMipmap::~SurfaceMipmap()
-        {
-        }
-
         SurfaceMipmap::index_type SurfaceMipmap::index() const
         {
             return _index;
@@ -30,7 +22,7 @@ namespace SceneR
             return _height;
         }
 
-        const std::vector<std::uint8_t>& SurfaceMipmap::data() const
+        const std::vector<std::uint8_t>& SurfaceMipmap::get_data() const
         {
             return _data;
         }

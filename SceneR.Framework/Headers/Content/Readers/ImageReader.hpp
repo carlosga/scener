@@ -33,7 +33,7 @@ namespace SceneR
              * Reads the meshes contents.
              */
             std::shared_ptr<SceneR::Texture::Surface> read(Guide::not_null<ContentReader*>             input
-                                                         , const std::pair<std::string, json11::Json>& source);
+                                                         , const std::pair<std::string, json11::Json>& source) const;
         };
     }
 }

@@ -3,6 +3,8 @@
 
 #include <Graphics/ModelMesh.hpp>
 
+#include <gsl.h>
+
 #include <Framework/Vector3.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Graphics/ModelMeshPart.hpp>
@@ -26,16 +28,17 @@ namespace SceneR
             return _name;
         }
 
-        std::vector<std::shared_ptr<EffectTechnique>> ModelMesh::effects() const
+        std::vector<EffectTechnique*> ModelMesh::effects() const
         {
-            auto effects = std::vector<std::shared_ptr<EffectTechnique>>(0);
+            auto effects = std::vector<EffectTechnique*>(0);
 
-            for (const auto& meshPart : _mesh_parts)
+            for (const auto meshPart : _mesh_parts)
             {
-                if (meshPart->effect.get() != nullptr)
-                {
-                    effects.push_back(meshPart->effect);
-                }
+                auto effect = meshPart->effect.get();
+
+                Ensures(effect != nullptr);
+
+                effects.push_back(effect);
             }
 
             return effects;
@@ -46,9 +49,9 @@ namespace SceneR
             return _mesh_parts;
         }
 
-        const std::shared_ptr<ModelBone>& ModelMesh::parent_bone() const
+        ModelBone* ModelMesh::parent_bone() const
         {
-            return _parent_bone;
+            return _parent_bone.get();
         }
 
         ModelSkin* ModelMesh::skin() const

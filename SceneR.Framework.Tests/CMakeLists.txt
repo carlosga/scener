@@ -10,8 +10,16 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
+# External dependencies
+#
+# Base directory
+set (EXTERNALS_BASE_DIR  ../externals)
+# Microsoft/GSL
+set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
+
 # include directories
 include_directories (Headers
+                     ${GSL_INCLUDE_DIRS}
                      ../../gtest-1.7.0/include
                      ../SceneR.Framework/Headers)
 
@@ -27,12 +35,14 @@ link_directories (../../gtest-1.7.0
 
 # header files
 set (HEADER_FILES
+     ${GSL_INCLUDE_DIRS}/gsl.h
      Headers/EqualityHelper.hpp
      Headers/BinaryReaderTest.hpp
      Headers/EncodingUTF8Test.hpp
      Headers/FileStreamTest.hpp
      Headers/MathTest.hpp
      Headers/MatrixTest.hpp
+     Headers/MemoryStreamTest.hpp
      Headers/PlaneTest.hpp
      Headers/QuaternionTest.hpp
      Headers/TimeSpanTest.hpp
@@ -49,6 +59,7 @@ set (SOURCE_FILES
      Sources/FileStreamTest.cpp
      Sources/MathTest.cpp
      Sources/MatrixTest.cpp
+     Sources/MemoryStreamTest.cpp
      Sources/PlaneTest.cpp
      Sources/QuaternionTest.cpp
      Sources/TimeSpanTest.cpp

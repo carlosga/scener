@@ -41,7 +41,7 @@ namespace SceneR
              * Reads the meshes contents.
              */
             std::shared_ptr<SceneR::Graphics::ModelMesh> read(Guide::not_null<ContentReader*>             input
-                                                            , const std::pair<std::string, json11::Json>& source);
+                                                            , const std::pair<std::string, json11::Json>& source) const;
 
         private:
             void read_mesh_part(Guide::not_null<ContentReader*>              input

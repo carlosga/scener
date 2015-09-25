@@ -1,7 +1,5 @@
 #include <Graphics/Accessor.hpp>
 
-#include <Graphics/BufferView.hpp>
-
 namespace SceneR
 {
     namespace Graphics
@@ -28,7 +26,7 @@ namespace SceneR
 
         std::size_t Accessor::byte_stride() const
         {
-            return _byte_stride;
+            return ((_byte_stride > 0) ? _byte_stride : get_attribute_type_count() * get_component_size_in_bytes());
         }
 
         std::size_t Accessor::attribute_count() const
@@ -51,20 +49,15 @@ namespace SceneR
             return _name;
         }
 
-        std::vector<std::uint8_t> Accessor::get_data() const
+        const Guide::array_view<std::uint8_t> Accessor::get_data() const
         {
-            std::vector<std::uint8_t> data(_byte_length, 0);
-
-            _buffer_view->get_data(_byte_offset, _byte_length, data.begin());
-
-            return data;
+            return get_data(0, _attribute_count);
         }
 
-        void Accessor::get_data(const std::size_t&                  elementOffset
-                              , const std::size_t&                  elementCount
-                              , std::vector<std::uint8_t>::iterator data) const
+        const Guide::array_view<std::uint8_t> Accessor::get_data(const std::size_t& elementOffset
+                                                               , const std::size_t& elementCount) const
         {
-            _buffer_view->get_data(_byte_offset + (elementOffset * _byte_stride), elementCount * _byte_stride, data);
+            return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
         }
 
         std::size_t Accessor::get_attribute_type_count() const

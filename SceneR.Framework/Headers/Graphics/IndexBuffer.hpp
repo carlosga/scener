@@ -9,6 +9,8 @@
 #include <memory>
 #include <vector>
 
+#include <gsl.h>
+
 #include <Graphics/ComponentType.hpp>
 #include <Graphics/GraphicsResource.hpp>
 
@@ -79,7 +81,7 @@ namespace SceneR
             /**
              * Sets the indices buffer data
              */
-            void set_data(const void* data);
+            void set_data(const Guide::array_view<std::uint8_t>& data) const;
 
         private:
             void bind() const;

@@ -6,8 +6,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <sstream>
-#include <vector>
+
+#include <gsl.h>
 
 #include <System/IO/Stream.hpp>
 
@@ -24,12 +24,12 @@ namespace System
             /**
              * Initializes a new instance of the MemoryStream class.
              */
-            MemoryStream(const std::vector<std::uint8_t>& buffer);
+            MemoryStream(const Guide::array_view<std::uint8_t>& buffer);
 
             /**
              * Releases all resources being used by this MemoryStream.
              */
-            ~MemoryStream() override;
+            ~MemoryStream() override = default;
 
         public:
             /**
@@ -83,8 +83,8 @@ namespace System
             MemoryStream& operator=(const MemoryStream& stream) = delete;
 
         private:
-            std::stringstream  _stream;
-            std::ios::openmode _mode;
+            Guide::array_view<std::uint8_t>           _buffer;
+            Guide::array_view<std::uint8_t>::iterator _position;
         };
     }
 }

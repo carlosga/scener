@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <memory>
 
+#include <vector>
+
 #include <Graphics/SurfaceFormat.hpp>
 #include <Graphics/TextureObject.hpp>
 #include <Graphics/Texture.hpp>
@@ -91,15 +93,17 @@ namespace SceneR
              * Gets the texure sampler state.
              * @return the texure sampler state.
              */
-            std::shared_ptr<SamplerState> sampler_state() const;
+            SamplerState* sampler_state() const;
 
             /**
              * Sets mipmap data to the texture.
              * @param level the mipmap level.
-             * @param size the size of the mipmap data.
              * @param data pointer with the mipmap data.
              */
-            void set_data(const std::size_t& level, const std::size_t& size, const void* data);
+            void set_data(const std::size_t&               level
+                        , const std::size_t&               width
+                        , const std::size_t&               height
+                        , const std::vector<std::uint8_t>& data) const;
 
             /**
              * Activates the texture object
@@ -119,8 +123,6 @@ namespace SceneR
             std::size_t                   _height;
             bool                          _mipmap;
             std::size_t                   _mipmap_levels;
-            std::size_t                   _mipmap_height;
-            std::size_t                   _mipmap_width;
             std::size_t                   _width;
             TextureObject                 _object;
             std::shared_ptr<SamplerState> _sampler_state;

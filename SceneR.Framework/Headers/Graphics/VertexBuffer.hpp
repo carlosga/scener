@@ -67,7 +67,7 @@ namespace SceneR
             /**
              * Sets the vertex buffer data
              */
-            void set_data(const void* data);
+            void set_data(const Guide::array_view<std::uint8_t>& data) const;
 
             /**
              * Defines per-vertex data in a buffer.

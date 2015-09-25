@@ -1,7 +1,7 @@
-#include <Graphics/Buffer.hpp>
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <algorithm>
-#include <cassert>
+#include <Graphics/Buffer.hpp>
 
 namespace SceneR
 {
@@ -22,25 +22,15 @@ namespace SceneR
             return _byte_length;
         }
 
-        std::vector<std::uint8_t> Buffer::get_data() const
+        const Guide::array_view<std::uint8_t> Buffer::get_data(const std::size_t& offset, const std::size_t& count)
         {
-            return _data;
-        }
+            Expects(offset < _data.size() && (offset + count) <= _data.size());
 
-        void Buffer::get_data(const std::size_t&                  offset
-                            , const std::size_t&                  count
-                            , std::vector<std::uint8_t>::iterator data) const
-        {
-            assert(offset < _data.size() && (offset + count) <= _data.size());
-
-            std::copy_n(_data.begin() + offset, count, data);
+            return Guide::as_array_view(_data.data() + offset, count);
         }
 
         void Buffer::set_data(const std::vector<std::uint8_t>& buffer)
         {
-            _data.clear();
-            _data.resize(buffer.size(), 0);
-
             _data.assign(buffer.begin(), buffer.end());
         }
     }

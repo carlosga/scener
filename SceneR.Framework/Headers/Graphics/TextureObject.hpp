@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/SurfaceFormat.hpp>
@@ -73,15 +74,13 @@ namespace SceneR
              * @param level mipmap level index
              * @param width mipmap width
              * @param height mipmap height
-             * @param size mipmap data size
              * @param data mipmap data
              */
-            void texture_sub_image_2D(const SurfaceFormat& format
-                                    , const std::size_t&   level
-                                    , const std::size_t&   width
-                                    , const std::size_t&   height
-                                    , const std::size_t&   size
-                                    , const void*          data) const;
+            void texture_sub_image_2D(const SurfaceFormat&             format
+                                    , const std::size_t&               level
+                                    , const std::size_t&               width
+                                    , const std::size_t&               height
+                                    , const std::vector<std::uint8_t>& data) const;
 
         private:
             std::uint32_t _id;

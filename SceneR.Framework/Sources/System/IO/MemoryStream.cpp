@@ -3,29 +3,21 @@
 
 #include <System/IO/MemoryStream.hpp>
 
+#include <algorithm>
+
 namespace System
 {
     namespace IO
     {
-        MemoryStream::MemoryStream(const std::vector<std::uint8_t>& buffer)
-            : _stream { std::ios::in | std::ios::out | std::ios::binary }
-            , _mode   { std::ios::in | std::ios::out | std::ios::binary }
+        MemoryStream::MemoryStream(const Guide::array_view<std::uint8_t>& buffer)
+            : _buffer   { buffer }
+            , _position { _buffer.begin() }
         {
-            seek(0, std::ios_base::beg);
-
-            _stream.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
-
-            seek(0, std::ios_base::beg);
-        }
-
-        MemoryStream::~MemoryStream()
-        {
-            this->close();
         }
 
         bool MemoryStream::can_read()
         {
-            return ((_mode & std::ios::in) == std::ios::in);
+            return true;
         }
 
         bool MemoryStream::can_seek()
@@ -35,22 +27,17 @@ namespace System
 
         bool MemoryStream::can_write()
         {
-            return ((_mode & std::ios::out) == std::ios::out);
+            return false;
         }
 
         std::size_t MemoryStream::position()
         {
-            return _stream.tellg();
+            return std::distance(_position, _buffer.begin());
         }
 
         std::size_t MemoryStream::length()
         {
-            auto original = position();
-            seek(0, std::ios::end);
-            auto result = position();
-            seek(original, std::ios::beg);
-
-            return result;
+            return _buffer.size();
         }
 
         void MemoryStream::close()
@@ -68,14 +55,27 @@ namespace System
 
         std::size_t MemoryStream::read(char* buffer, const std::size_t& offset, const std::size_t& count)
         {
-            _stream.read(buffer + offset, count);
+            Ensures(_position + count <= _buffer.end());
 
-            return _stream.gcount();
+            std::copy_n(_position, count, buffer + offset);
+
+            _position += count;
+
+            return count;
         }
 
         std::size_t MemoryStream::seek(const std::size_t& offset, const std::ios::seekdir& origin)
         {
-            _stream.seekg(offset, origin);
+            Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
+
+            if (origin == std::ios_base::beg && offset < _buffer.size())
+            {
+                _position = _buffer.begin() + offset;
+            }
+            else if (origin == std::ios_base::cur && ((_position + offset) <= _buffer.end()))
+            {
+                _position += offset;
+            }
 
             return position();
         }

@@ -21,14 +21,14 @@ namespace SceneR
             typedef std::size_t index_type;
 
         public:
-            SurfaceMipmap();
-            ~SurfaceMipmap();
+            SurfaceMipmap() = default;
+            ~SurfaceMipmap() = default;
 
         public:
             index_type index() const;
             size_type  width() const;
             size_type  height() const;
-            const std::vector<std::uint8_t>& data() const;
+            const std::vector<std::uint8_t>& get_data() const;
 
         private:
             index_type                _index;

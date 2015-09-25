@@ -88,12 +88,12 @@ namespace SceneR
             /**
              * Sets the uniform buffer data
              */
-            void set_data(const void* data);
+            void set_data(const void* data) const;
 
             /**
              * Sets the uniform buffer data
              */
-            void set_data(const std::size_t& offset, const std::size_t& count, const void *data);
+            void set_data(const std::size_t& offset, const std::size_t& count, const void *data) const;
 
         private:
             std::string                   _name;

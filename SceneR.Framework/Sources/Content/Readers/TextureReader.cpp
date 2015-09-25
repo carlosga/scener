@@ -26,7 +26,7 @@ namespace SceneR
         using SceneR::Texture::SurfaceMipmap;
 
         std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(Guide::not_null<ContentReader*>     input
-                                                                    , const std::pair<std::string, Json>& source)
+                                                                    , const std::pair<std::string, Json>& source) const
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto surface   = input->read_object<Surface>("images", source.second["source"].string_value());
@@ -43,7 +43,7 @@ namespace SceneR
 
             for (const auto& mipmap : surface->mipmaps())
             {
-                texture->set_data(mipmap.index(), mipmap.data().size(), mipmap.data().data());
+                texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_data());
             }
 
             texture->_sampler_state->max_mip_level = texture->level_count();

@@ -55,7 +55,7 @@ namespace SceneR
 
         void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection)
         {
-            auto boneTransforms = std::vector<Matrix>();
+            //auto boneTransforms = std::vector<Matrix>();
 
             for (const auto mesh : _meshes)
             {

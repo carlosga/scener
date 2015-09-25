@@ -10,7 +10,10 @@
 #include <string>
 #include <vector>
 
+#include <gsl.h>
+
 #include <System/IDisposable.hpp>
+#include <Graphics/Buffer.hpp>
 #include <Graphics/BufferTarget.hpp>
 #include <Graphics/BufferUsage.hpp>
 
@@ -23,8 +26,6 @@ namespace SceneR
 
     namespace Graphics
     {
-        class Buffer;
-
         /**
          * GLTF. A view into a buffer.
          */
@@ -76,14 +77,12 @@ namespace SceneR
             /**
              * Gets buffer data from object's data store.
              */
-            std::vector<std::uint8_t> get_data() const;
+            const Guide::array_view<std::uint8_t> get_data() const;
 
             /**
              * Gets buffer data from object's data store.
              */
-            void get_data(const std::size_t&                  offset
-                        , const std::size_t&                  count
-                        , std::vector<std::uint8_t>::iterator data) const;
+            const Guide::array_view<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
 
         private:
             BufferTarget            _target;

@@ -38,7 +38,7 @@ namespace System
         template<>
         char16_t BinaryReader::read()
         {
-            auto buffer = _stream.read_byte();
+            std::uint32_t buffer = _stream.read_byte();
 
             // http://xbox.create.msdn.com/en-US/sample/xnb_format
             // Decode UTF-8.

@@ -43,7 +43,7 @@ namespace SceneR
              * Reads a object from the current stream.
              */
             std::shared_ptr<T> read(Guide::not_null<ContentReader*>             input
-                                  , const std::pair<std::string, json11::Json>& source);
+                                  , const std::pair<std::string, json11::Json>& source) const;
         };
     }
 }

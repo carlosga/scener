@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 #include <System/IDisposable.hpp>
 #include <Graphics/BufferTarget.hpp>
@@ -73,7 +74,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void get_data(const std::size_t& offset, const std::size_t& size, void *data) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& size) const;
 
             /**
              * Creates and initializes the buffer object data store.
@@ -89,7 +90,7 @@ namespace SceneR
              * @param size specifies the size in bytes of the data store region being replaced.
              * @param data specifies a pointer to the new data that will be copied into the data store.
              */
-            void set_data(const std::size_t& offset, const std::size_t& size, const void *data) const;
+            void set_data(const std::size_t& offset, const std::size_t& size, const void* data) const;
 
             /**
              * Invalidate the content of a buffer object's data store

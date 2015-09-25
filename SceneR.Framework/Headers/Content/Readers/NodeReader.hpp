@@ -26,11 +26,11 @@ namespace SceneR
 
         public:
             std::shared_ptr<SceneR::Graphics::Node> read(Guide::not_null<ContentReader*>             input
-                                                       , const std::pair<std::string, json11::Json>& source);
+                                                       , const std::pair<std::string, json11::Json>& source) const;
 
         private:
             std::shared_ptr<SceneR::Graphics::ModelSkin> read_instance_skin(Guide::not_null<ContentReader*> input
-                                                                          , const json11::Json&             source);
+                                                                          , const json11::Json&             source) const;
         };
     }
 }
