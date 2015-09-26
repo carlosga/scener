@@ -142,9 +142,13 @@ namespace SceneR
             }
 
             // Joints
+            std::size_t boneIndex = 0;
+
             for (const auto& jointName : skinRef["jointNames"].array_items())
             {
                 auto node = input->read_object<Node>("nodes", jointName.string_value());
+
+                node->joint->_index = boneIndex;
 
                 skin->_joints.push_back(node->joint);
             }

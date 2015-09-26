@@ -75,12 +75,12 @@ namespace SceneR
             /**
              * Gets the name of the asset currently being read by this ContentReader.
              */
-            const std::string& asset_name() const;
+            const std::string& asset_name() const noexcept;
 
             /**
              * Gets the content manager that owns this ContentReader.
              */
-            ContentManager* content_manager() const;
+            ContentManager* content_manager() const noexcept;
 
          public:
             /**
@@ -144,22 +144,22 @@ namespace SceneR
             std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const;
 
         private:
-            std::string get_asset_path(const std::string& assetName) const;
+            std::string get_asset_path(const std::string& assetName) const noexcept;
 
             template <typename T>
-            inline T convert(const std::vector<json11::Json>& values) const;
+            inline T convert(const std::vector<json11::Json>& values) const noexcept;
 
             template <typename T>
-            inline std::shared_ptr<T> get_object(const std::string& name);
+            inline std::shared_ptr<T> get_object(const std::string& name) noexcept;
 
             template <typename T>
-            inline void cache_object(const std::string& name, std::shared_ptr<T> object);
+            inline void cache_object(const std::string& name, std::shared_ptr<T> object) noexcept;
 
         private:
-            std::string                      _asset_name;
-            System::IO::BinaryReader         _asset_reader;
-            SceneR::Content::ContentManager* _content_manager;
-            json11::Json                     _root;
+            std::string              _asset_name;
+            System::IO::BinaryReader _asset_reader;
+            ContentManager*          _content_manager;
+            json11::Json             _root;
 
         private:
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Accessor>>        _accessors;
@@ -178,191 +178,197 @@ namespace SceneR
     }
 }
 
-template<>
-inline SceneR::Framework::Matrix SceneR::Content::ContentReader::convert(const std::vector<json11::Json>& values) const
+namespace SceneR
 {
-    SceneR::Framework::Matrix matrix;
-
-    #pragma unroll(16)
-    for (int i = 0; i < 16; i++)
+    namespace Content
     {
-        matrix.data[i] = values[i].number_value();
+        template<>
+        inline SceneR::Framework::Matrix ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
+        {
+            SceneR::Framework::Matrix matrix;
+
+            #pragma unroll(16)
+            for (int i = 0; i < 16; i++)
+            {
+                matrix.data[i] = values[i].number_value();
+            }
+
+            return SceneR::Framework::Matrix::transpose(matrix);
+        }
+
+        template<>
+        inline SceneR::Framework::Quaternion ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
+        {
+            return { values[1].number_value()
+                   , values[2].number_value()
+                   , values[3].number_value()
+                   , values[0].number_value(),};
+        }
+
+        template<>
+        inline SceneR::Framework::Vector2 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
+        {
+            return { values[0].number_value()
+                   , values[1].number_value() };
+        }
+
+        template<>
+        inline SceneR::Framework::Vector3 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
+        {
+            return { values[0].number_value()
+                   , values[1].number_value()
+                   , values[2].number_value()};
+        }
+
+        template<>
+        inline SceneR::Framework::Vector4 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
+        {
+            return { values[0].number_value()
+                   , values[1].number_value()
+                   , values[2].number_value()
+                   , values[3].number_value()};
+        }
+
+        // Accessors
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::Accessor> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _accessors[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                          name
+                                              , std::shared_ptr<SceneR::Graphics::Accessor> object) noexcept
+        {
+            _accessors[name] = object;
+        }
+
+        // Buffers
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::Buffer> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _buffers[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                        name
+                                              , std::shared_ptr<SceneR::Graphics::Buffer> object) noexcept
+        {
+            _buffers[name] = object;
+        }
+
+        // Buffer Views
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::BufferView> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _bufferViews[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                            name
+                                              , std::shared_ptr<SceneR::Graphics::BufferView> object) noexcept
+        {
+            _bufferViews[name] = object;
+        }
+
+        // Images
+        template <>
+        inline std::shared_ptr<SceneR::Texture::Surface> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _images[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                        name
+                                              , std::shared_ptr<SceneR::Texture::Surface> object) noexcept
+        {
+            _images[name] = object;
+        }
+
+        // Meshes
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::ModelMesh> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _meshes[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                           name
+                                              , std::shared_ptr<SceneR::Graphics::ModelMesh> object) noexcept
+        {
+            _meshes[name] = object;
+        }
+
+        // Nodes
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::Node> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _nodes[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                      name
+                                              , std::shared_ptr<SceneR::Graphics::Node> object) noexcept
+        {
+            _nodes[name] = object;
+        }
+
+        // Samplers
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::SamplerState> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _samplers[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                              name
+                                              , std::shared_ptr<SceneR::Graphics::SamplerState> object) noexcept
+        {
+            _samplers[name] = object;
+        }
+
+        // Shaders
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::Shader> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _shaders[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                        name
+                                              , std::shared_ptr<SceneR::Graphics::Shader> object) noexcept
+        {
+            _shaders[name] = object;
+        }
+
+        // Shader Includes
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::ShaderInclude> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _shader_includes[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                               name
+                                              , std::shared_ptr<SceneR::Graphics::ShaderInclude> object) noexcept
+        {
+            _shader_includes[name] = object;
+        }
+
+        // Textures
+        template <>
+        inline std::shared_ptr<SceneR::Graphics::Texture2D> ContentReader::get_object(const std::string& name) noexcept
+        {
+            return _textures[name];
+        }
+
+        template <>
+        inline void ContentReader::cache_object(const std::string&                           name
+                                              , std::shared_ptr<SceneR::Graphics::Texture2D> object) noexcept
+        {
+            _textures[name] = object;
+        }
     }
-
-    return SceneR::Framework::Matrix::transpose(matrix);
-}
-
-template<>
-inline SceneR::Framework::Quaternion SceneR::Content::ContentReader::convert(const std::vector<json11::Json>& values) const
-{
-    return { values[1].number_value()
-           , values[2].number_value()
-           , values[3].number_value()
-           , values[0].number_value(),};
-}
-
-template<>
-inline SceneR::Framework::Vector2 SceneR::Content::ContentReader::convert(const std::vector<json11::Json>& values) const
-{
-    return { values[0].number_value()
-           , values[1].number_value() };
-}
-
-template<>
-inline SceneR::Framework::Vector3 SceneR::Content::ContentReader::convert(const std::vector<json11::Json>& values) const
-{
-    return { values[0].number_value()
-           , values[1].number_value()
-           , values[2].number_value()};
-}
-
-template<>
-inline SceneR::Framework::Vector4 SceneR::Content::ContentReader::convert(const std::vector<json11::Json>& values) const
-{
-    return { values[0].number_value()
-           , values[1].number_value()
-           , values[2].number_value()
-           , values[3].number_value()};
-}
-
-// Accessors
-template <>
-inline std::shared_ptr<SceneR::Graphics::Accessor> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _accessors[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                          name
-                                                       , std::shared_ptr<SceneR::Graphics::Accessor> object)
-{
-    _accessors[name] = object;
-}
-
-// Buffers
-template <>
-inline std::shared_ptr<SceneR::Graphics::Buffer> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _buffers[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
-                                                       , std::shared_ptr<SceneR::Graphics::Buffer> object)
-{
-    _buffers[name] = object;
-}
-
-// Buffer Views
-template <>
-inline std::shared_ptr<SceneR::Graphics::BufferView> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _bufferViews[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                            name
-                                                       , std::shared_ptr<SceneR::Graphics::BufferView> object)
-{
-    _bufferViews[name] = object;
-}
-
-// Images
-template <>
-inline std::shared_ptr<SceneR::Texture::Surface> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _images[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
-                                                       , std::shared_ptr<SceneR::Texture::Surface> object)
-{
-    _images[name] = object;
-}
-
-// Meshes
-template <>
-inline std::shared_ptr<SceneR::Graphics::ModelMesh> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _meshes[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                           name
-                                                       , std::shared_ptr<SceneR::Graphics::ModelMesh> object)
-{
-    _meshes[name] = object;
-}
-
-// Nodes
-template <>
-inline std::shared_ptr<SceneR::Graphics::Node> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _nodes[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                      name
-                                                       , std::shared_ptr<SceneR::Graphics::Node> object)
-{
-    _nodes[name] = object;
-}
-
-// Samplers
-template <>
-inline std::shared_ptr<SceneR::Graphics::SamplerState> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _samplers[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                              name
-                                                       , std::shared_ptr<SceneR::Graphics::SamplerState> object)
-{
-    _samplers[name] = object;
-}
-
-// Shaders
-template <>
-inline std::shared_ptr<SceneR::Graphics::Shader> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _shaders[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                        name
-                                                       , std::shared_ptr<SceneR::Graphics::Shader> object)
-{
-    _shaders[name] = object;
-}
-
-// Shader Includes
-template <>
-inline std::shared_ptr<SceneR::Graphics::ShaderInclude> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _shader_includes[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                               name
-                                                       , std::shared_ptr<SceneR::Graphics::ShaderInclude> object)
-{
-    _shader_includes[name] = object;
-}
-
-// Textures
-template <>
-inline std::shared_ptr<SceneR::Graphics::Texture2D> SceneR::Content::ContentReader::get_object(const std::string& name)
-{
-    return _textures[name];
-}
-
-template <>
-inline void SceneR::Content::ContentReader::cache_object(const std::string&                           name
-                                                       , std::shared_ptr<SceneR::Graphics::Texture2D> object)
-{
-    _textures[name] = object;
 }
 
 #endif  // CONTENT_CONTENTREADER_HPP

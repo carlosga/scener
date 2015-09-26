@@ -14,7 +14,7 @@ namespace SceneR
     {
         using System::Math;
 
-        Ray::Ray(const Vector3& position, const Vector3& direction)
+        Ray::Ray(const Vector3& position, const Vector3& direction) noexcept
             : direction { direction }
             , position  { position }
 
@@ -49,17 +49,6 @@ namespace SceneR
             auto t = -(Vector3::dot(position, plane.normal) + plane.d) / denom;
 
             return (t > 0.0f);
-        }
-
-        Ray& Ray::operator=(const Ray& ray)
-        {
-            if (this != &ray)
-            {
-                direction = ray.direction;
-                position  = ray.position;
-            }
-
-            return *this;
         }
 
         bool Ray::operator ==(const Ray& ray) const

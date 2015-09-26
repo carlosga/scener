@@ -117,17 +117,6 @@ namespace SceneR
             return sphere.intersects(*this);
         }
 
-        Plane& Plane::operator=(const Plane& plane)
-        {
-            if (this != &plane)
-            {
-                normal = plane.normal;
-                d      = plane.d;
-            }
-
-            return *this;
-        }
-
         bool Plane::operator==(const Plane& plane) const
         {
             return (normal == plane.normal && Math::equal(d, plane.d));

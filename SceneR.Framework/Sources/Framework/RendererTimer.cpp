@@ -9,28 +9,28 @@ namespace SceneR
     {
         using System::TimeSpan;
 
-        void RendererTimer::reset()
+        void RendererTimer::reset() noexcept
         {
             _start          = current_time();
             _last_time_step = current_time();
         }
 
-        void RendererTimer::update_time_step()
+        void RendererTimer::update_time_step() noexcept
         {
             _last_time_step = current_time();
         }
 
-        TimeSpan RendererTimer::elapsed_time() const
+        TimeSpan RendererTimer::elapsed_time() const noexcept
         {
             return TimeSpan::from_duration(current_time() - _start);
         }
 
-        TimeSpan RendererTimer::elapsed_time_step_time() const
+        TimeSpan RendererTimer::elapsed_time_step_time() const noexcept
         {
             return TimeSpan::from_duration(current_time() - _last_time_step);
         }
 
-        TimeSpan::clock::time_point RendererTimer::current_time() const
+        TimeSpan::clock::time_point RendererTimer::current_time() const noexcept
         {
             return TimeSpan::clock::now();
         }

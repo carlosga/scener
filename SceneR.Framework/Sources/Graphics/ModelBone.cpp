@@ -9,27 +9,35 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        const std::vector<std::shared_ptr<ModelBone>>& ModelBone::children() const
+        /**
+         * Gets the index of this bone in the Bones collection.
+         */
+        ModelBone::index_type ModelBone::index() const noexcept
+        {
+            return _index;
+        }
+
+        const std::vector<std::shared_ptr<ModelBone>>& ModelBone::children() const noexcept
         {
             return _children;
         }
 
-        const std::string &ModelBone::name() const
+        const std::string& ModelBone::name() const noexcept
         {
             return _name;
         }
 
-        const std::shared_ptr<ModelBone>& ModelBone::parent() const
+        ModelBone* ModelBone::parent() const noexcept
         {
-            return _parent;
+            return _parent.get();
         }
 
-        const Matrix& ModelBone::transform() const
+        const Matrix& ModelBone::transform() const noexcept
         {
             return _transform;
         }
 
-        void ModelBone::transform(const Matrix& transform)
+        void ModelBone::transform(const Matrix& transform) noexcept
         {
             _transform = transform;
         }

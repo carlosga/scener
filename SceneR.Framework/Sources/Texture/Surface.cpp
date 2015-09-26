@@ -67,8 +67,8 @@ namespace SceneR
 
             // check DXTn format
             Ensures(ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1
-                || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3
-                || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5);
+                 || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3
+                 || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5);
 
             // process dds contents
             _height = ddsheader.dwHeight;

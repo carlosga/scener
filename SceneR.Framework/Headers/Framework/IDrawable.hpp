@@ -27,12 +27,12 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is visible.
              */
-            virtual bool visible() const = 0;
+            virtual bool visible() const noexcept = 0;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual std::uint32_t draw_order() const = 0;
+            virtual std::uint32_t draw_order() const noexcept = 0;
 
             /**
              * Called when the component should be drawn.

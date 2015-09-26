@@ -54,29 +54,29 @@ namespace SceneR
              * Gets the current graphics device
              * @return the current graphics device
              */
-            SceneR::Graphics::GraphicsDevice* graphics_device() const;
+            SceneR::Graphics::GraphicsDevice* graphics_device() const noexcept;
 
             /**
              * Gets the underlying operating system window.
              * @return the underlying operating system window.
              */
-            RendererWindow* window() const;
+            RendererWindow* window() const noexcept;
 
             /**
              * Gets the current content manager
              * @return the current content_manager manager
              */
-            SceneR::Content::ContentManager* content_manager() const;
+            SceneR::Content::ContentManager* content_manager() const noexcept;
 
             /**
              * Gets the collection of services owned by the renderer.
              */
-            RendererServiceContainer* services() const;
+            RendererServiceContainer* services() const noexcept;
 
             /**
              * Gets the collection of components owned by the renderer.
              */
-            std::vector<std::shared_ptr<IComponent>>& components();
+            std::vector<std::shared_ptr<IComponent>>& components() noexcept;
 
             /**
              * Call this method to initialize the renderer, begin running the rendering loop,

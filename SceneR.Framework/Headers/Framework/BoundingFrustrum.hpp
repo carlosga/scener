@@ -55,49 +55,49 @@ namespace SceneR
              * Gets the bottom plane of the BoundingFrustum.
              * @return the bottom plane of the BoundingFrustum.
              */
-            const Plane& bottom() const;
+            const Plane& bottom() const noexcept;
 
             /**
              * Gets the far plane of the BoundingFrustum.
              * @return the far plane of the BoundingFrustum.
              */
-            const Plane& far() const;
+            const Plane& far() const noexcept;
 
             /**
              * Gets the left plane of the BoundingFrustum.
              * @return the left plane of the BoundingFrustum.
              */
-            const Plane& left() const;
+            const Plane& left() const noexcept;
 
             /**
              * Gets the Matrix that describes this bounding frustum.
              * @return the Matrix that describes this bounding frustum.
              */
-            const SceneR::Framework::Matrix& matrix() const;
+            const Matrix& matrix() const noexcept;
 
             /**
              * Sets the Matrix that describes this bounding frustum.
              * @param matrix the Matrix that describes this bounding frustum.
              */
-            void matrix(const SceneR::Framework::Matrix& matrix);
+            void matrix(const Matrix& matrix) noexcept;
 
             /**
              * Gets the near plane of the BoundingFrustum.
              * @return the near plane of the BoundingFrustum.
              */
-            const Plane& near() const;
+            const Plane& near() const noexcept;
 
             /**
              * Gets the right plane of the BoundingFrustum.
              * @return the right plane of the BoundingFrustum.
              */
-            const Plane& right() const;
+            const Plane& right() const noexcept;
 
             /**
              * Gets the top plane of the BoundingFrustum.
              * @return the top plane of the BoundingFrustum.
              */
-            const Plane& top() const;
+            const Plane& top() const noexcept;
 
         public:
             /**

@@ -42,18 +42,12 @@ namespace SceneR
         {
         }
 
-        BoundingSphere::BoundingSphere(const BoundingSphere& sphere)
-            : _center { sphere._center }
-            , _radius { sphere._radius }
-        {
-        }
-
-        const Vector3& BoundingSphere::center() const
+        const Vector3& BoundingSphere::center() const noexcept
         {
             return _center;
         }
 
-        float BoundingSphere::radius() const
+        float BoundingSphere::radius() const noexcept
         {
             return _radius;
         }
@@ -131,17 +125,6 @@ namespace SceneR
         BoundingSphere BoundingSphere::transform(const Matrix& matrix) const
         {
             throw std::runtime_error("Not implemented");
-        }
-
-        BoundingSphere& BoundingSphere::operator=(const BoundingSphere& sphere)
-        {
-            if (this != &sphere)
-            {
-                _center = sphere._center;
-                _radius = sphere._radius;
-            }
-
-            return *this;
         }
 
         bool BoundingSphere::operator==(const BoundingSphere& sphere) const

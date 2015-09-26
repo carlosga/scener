@@ -56,7 +56,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the BoundingSphere class.
              */
-            BoundingSphere(const BoundingSphere& sphere);
+            BoundingSphere(const BoundingSphere& sphere) = default;
 
             /**
              * Releases all resources being used by this BoundingSphere.
@@ -67,12 +67,12 @@ namespace SceneR
             /**
              * Gets the center of the sphere.
              */
-            const Vector3& center() const;
+            const Vector3& center() const noexcept;
 
             /**
              * * Gets the radius of the sphere.
              */
-            float radius() const;
+            float radius() const noexcept;
 
         public:
             /**
@@ -137,7 +137,8 @@ namespace SceneR
             BoundingSphere transform(const Matrix& matrix) const;
 
         public:
-            BoundingSphere& operator=(const BoundingSphere& sphere);
+            BoundingSphere& operator=(const BoundingSphere& sphere) = default;
+
             bool operator==(const BoundingSphere& sphere) const;
             bool operator!=(const BoundingSphere& sphere) const;
 

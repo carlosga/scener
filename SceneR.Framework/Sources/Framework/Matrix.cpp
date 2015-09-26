@@ -3,8 +3,6 @@
 
 #include <Framework/Matrix.hpp>
 
-#include <stdexcept>
-
 #include <gsl.h>
 
 #include <System/Math.hpp>
@@ -24,7 +22,7 @@ namespace SceneR
                                       , 0.0f, 0.0f, 1.0f, 0.0f
                                       , 0.0f, 0.0f, 0.0f, 1.0f };
 
-        Matrix Matrix::create_from_axis_angle(const Vector3& axis, const float&  angle)
+        Matrix Matrix::create_from_axis_angle(const Vector3& axis, const float&  angle) noexcept
         {
             // http://mathworld.wolfram.com/RodriguesRotationFormula.html
             auto  naxis = Vector3::normalize(axis);
@@ -47,7 +45,7 @@ namespace SceneR
                    , 0.0f                 , 0.0f                 , 0.0f                 , 1.0f };
         }
 
-        Matrix Matrix::create_from_quaternion(const Quaternion& quaternion)
+        Matrix Matrix::create_from_quaternion(const Quaternion& quaternion) noexcept
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             //            http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
@@ -72,7 +70,7 @@ namespace SceneR
                    , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
         }
 
-        Matrix Matrix::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll)
+        Matrix Matrix::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept
         {
             return Matrix::create_from_axis_angle(Vector3::unit_z, roll)
                  * Matrix::create_from_axis_angle(Vector3::unit_x, pitch)
@@ -80,13 +78,10 @@ namespace SceneR
         }
 
         Matrix Matrix::create_frustum(const float& left  , const float& right
-                                   , const float& bottom, const float& top
-                                   , const float& zNear , const float& zFar)
+                                    , const float& bottom, const float& top
+                                    , const float& zNear , const float& zFar) noexcept
         {
-            if (zNear < 0 || zFar < 0)
-            {
-                throw std::invalid_argument("zNear and zFar should be positive values.");
-            }
+            Expects (zNear < 0 || zFar < 0);
 
             float rightSubLeft  = right - left;
             float rightPlusLeft = right + left;
@@ -103,7 +98,7 @@ namespace SceneR
 
         Matrix Matrix::create_look_at(const Vector3& cameraPosition
                                     , const Vector3& cameraTarget
-                                    , const Vector3& cameraUpVector)
+                                    , const Vector3& cameraUpVector) noexcept
         {
             // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb281711(v=vs.85).aspx
             // zaxis = normal(cameraPosition - cameraTarget)
@@ -125,13 +120,13 @@ namespace SceneR
             return { xAxis.x, yAxis.x, zAxis.x, 0.0f
                    , xAxis.y, yAxis.y, zAxis.y, 0.0f
                    , xAxis.z, yAxis.z, zAxis.z, 0.0f
-                   , -dx      , -dy      , -dz      , 1.0f };
+                   , -dx    , -dy    , -dz    , 1.0f };
         }
 
         Matrix Matrix::create_orthographic(const float& width
                                          , const float& height
                                          , const float& zNear
-                                         , const float& zFar)
+                                         , const float& zFar) noexcept
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
             // 2/w  0    0           0
@@ -149,7 +144,7 @@ namespace SceneR
 
         Matrix Matrix::create_orthographic_off_center(const float& left  , const float& right
                                                     , const float& bottom, const float& top
-                                                    , const float& zNear , const float& zFar)
+                                                    , const float& zNear , const float& zFar) noexcept
         {
             // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
             // 2/(r-l)      0            0           0
@@ -172,28 +167,15 @@ namespace SceneR
         Matrix Matrix::create_perspective(const float& width
                                         , const float& height
                                         , const float& zNear
-                                        , const float& zFar)
+                                        , const float& zFar) noexcept
         {
+            Expects (zNear <= 0.0f && zFar <= 0.0f && zNear >= zFar);
+
             // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
             // 2*zn/w  0       0              0
             // 0       2*zn/h  0              0
             // 0       0       zf/(zn-zf)    -1
             // 0       0       zn*zf/(zn-zf)  0
-
-            if (zNear <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zFar <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zNear >= zFar)
-            {
-                throw std::out_of_range("zNear should be greather than zFar.");
-            }
 
             float nearSubFar = zNear - zFar;
 
@@ -206,8 +188,13 @@ namespace SceneR
         Matrix Matrix::create_perspective_field_of_view(const float& fieldOfView
                                                       , const float& aspectRatio
                                                       , const float& zNear
-                                                      , const float& zFar)
+                                                      , const float& zFar) noexcept
         {
+            Expects(fieldOfView <= 0.0f || fieldOfView >= Math::pi);
+            Expects(zNear <= 0.0f);
+            Expects(zFar <= 0.0f);
+            Expects(zNear >= zFar);
+
             // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
             // xScale     0          0              0
             // 0        yScale       0              0
@@ -217,26 +204,6 @@ namespace SceneR
             // where:
             // yScale = cot(fovY/2)
             // xScale = yScale / aspect ratio
-
-            if (fieldOfView <= 0.0f || fieldOfView >= Math::pi)
-            {
-                throw std::out_of_range("fieldOfView should be a positive value less than MathHelper::Pi");
-            }
-
-            if (zNear <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zFar <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zNear >= zFar)
-            {
-                throw std::out_of_range("zNear should be greather than zFar.");
-            }
 
             float yScale     = 1.0f / Math::tan(fieldOfView / 2);
             float xScale     = yScale / aspectRatio;
@@ -253,22 +220,11 @@ namespace SceneR
                                                    , const float& bottom
                                                    , const float& top
                                                    , const float& zNear
-                                                   , const float& zFar)
+                                                   , const float& zFar) noexcept
         {
-            if (zNear <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zFar <= 0.0f)
-            {
-                throw std::out_of_range("zNear should be a positive value.");
-            }
-
-            if (zNear >= zFar)
-            {
-                throw std::out_of_range("zNear should be greather than zFar.");
-            }
+            Expects(zNear <= 0.0f);
+            Expects(zFar <= 0.0f);
+            Expects(zNear >= zFar);
 
             // Reference : https://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
 
@@ -289,7 +245,7 @@ namespace SceneR
                    , 0.0f                        , 0.0f                        , zNear * zFar / nearSubFar, 0.0f};
         }
 
-        Matrix Matrix::create_rotation_x(const float& angle)
+        Matrix Matrix::create_rotation_x(const float& angle) noexcept
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -301,7 +257,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::create_rotation_x(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_x(const float& angle, const Vector3& center) noexcept
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -321,7 +277,7 @@ namespace SceneR
                    , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
         }
 
-        Matrix Matrix::create_rotation_y(const float& angle)
+        Matrix Matrix::create_rotation_y(const float& angle) noexcept
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -333,7 +289,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::create_rotation_y(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_y(const float& angle, const Vector3& center) noexcept
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -353,7 +309,7 @@ namespace SceneR
                    , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
         }
 
-        Matrix Matrix::create_rotation_z(const float& angle)
+        Matrix Matrix::create_rotation_z(const float& angle) noexcept
         {
             // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
             float cos = Math::cos(angle);
@@ -365,7 +321,7 @@ namespace SceneR
                    , 0.0f, 0.0f, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::create_rotation_z(const float& angle, const Vector3& center)
+        Matrix Matrix::create_rotation_z(const float& angle, const Vector3& center) noexcept
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -385,22 +341,22 @@ namespace SceneR
                    , x - cos * x + sin * y, y - sin * x - cos * y, 0.0f, 1.0f };
         }
 
-        Matrix Matrix::create_scale(const float& scale)
+        Matrix Matrix::create_scale(const float& scale) noexcept
         {
             return Matrix::create_scale(scale, scale, scale);
         }
 
-        Matrix Matrix::create_scale(const float& scale, const Vector3& center)
+        Matrix Matrix::create_scale(const float& scale, const Vector3& center) noexcept
         {
             return Matrix::create_scale(scale, scale, scale, center);
         }
 
-        Matrix Matrix::create_scale(const Vector3& scales)
+        Matrix Matrix::create_scale(const Vector3& scales) noexcept
         {
             return Matrix::create_scale(scales.x, scales.y, scales.z);
         }
 
-        Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale)
+        Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale) noexcept
         {
             return { xScale, 0.0f  , 0.0f  , 0.0f
                    , 0.0f  , yScale, 0.0f  , 0.0f
@@ -408,12 +364,15 @@ namespace SceneR
                    , 0.0f  , 0.0f  , 0.0f  , 1.0f };
         }
 
-        Matrix Matrix::create_scale(const Vector3& scales, const Vector3& center)
+        Matrix Matrix::create_scale(const Vector3& scales, const Vector3& center) noexcept
         {
             return Matrix::create_scale(scales.x, scales.y, scales.z, center);
         }
 
-        Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale, const Vector3& center)
+        Matrix Matrix::create_scale(const float&   xScale
+                                  , const float&   yScale
+                                  , const float&   zScale
+                                  , const Vector3& center) noexcept
         {
             // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
             //
@@ -432,20 +391,20 @@ namespace SceneR
                    , x - xScale * x, y - yScale * y, z - zScale * z, 1.0f };
         }
 
-        Matrix Matrix::create_translation(const Vector3& position)
+        Matrix Matrix::create_translation(const Vector3& position) noexcept
         {
             return Matrix::create_translation(position.x, position.y, position.z);
         }
 
-        Matrix Matrix::create_translation(const float& x, const float& y, const float& z)
+        Matrix Matrix::create_translation(const float& x, const float& y, const float& z) noexcept
         {
             return { 1.0f, 0.0f, 0.0f, 0.0f
                    , 0.0f, 1.0f, 0.0f, 0.0f
                    , 0.0f, 0.0f, 1.0f, 0.0f
-                , x   , y   , z   , 1.0f };
+                   , x   , y   , z   , 1.0f };
         }
 
-        Matrix Matrix::create_reflection(const Plane &plane)
+        Matrix Matrix::create_reflection(const Plane &plane) noexcept
         {
             // Reference: https://msdn.microsoft.com/en-us/library/bb205356(v=vs.85).aspx
             // P = normalize(Plane);
@@ -467,7 +426,7 @@ namespace SceneR
                    , -2 * a * d    , -2 * b * d    , -2 * c * d    , 1.0f };
         }
 
-        Matrix Matrix::create_shadow(const Vector3& lightDirection, const Plane& plane)
+        Matrix Matrix::create_shadow(const Vector3& lightDirection, const Plane& plane) noexcept
         {
             // Reference: https://msdn.microsoft.com/en-us/library/bb205364(v=vs.85).aspx
 
@@ -497,7 +456,7 @@ namespace SceneR
                    , d * L.x    , d * L.y    , d * L.z    , d * L.w + D };
         }
 
-        Matrix Matrix::create_world(const Vector3& position, const Vector3& forward, const Vector3& up)
+        Matrix Matrix::create_world(const Vector3& position, const Vector3& forward, const Vector3& up) noexcept
         {
             auto nf    = Vector3::normalize(forward);
             auto right = Vector3::normalize(Vector3::cross(nf, Vector3::normalize(up)));
@@ -509,7 +468,7 @@ namespace SceneR
                    , position.x, position.y, position.z, 1.0f };
         }
 
-        bool Matrix::decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation)
+        bool Matrix::decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept
         {
             translation = { matrix.m41, matrix.m42, matrix.m43 };
 
@@ -529,7 +488,7 @@ namespace SceneR
             return (scale != Vector3::zero && rotation != Quaternion::identity && translation != Vector3::zero);
         }
 
-        Matrix Matrix::invert(const Matrix& matrix)
+        Matrix Matrix::invert(const Matrix& matrix) noexcept
         {
             Matrix inverse = Matrix::identity;
 
@@ -554,17 +513,17 @@ namespace SceneR
             return inverse;
         }
 
-        Matrix Matrix::negate(const Matrix& matrix)
+        Matrix Matrix::negate(const Matrix& matrix) noexcept
         {
             return matrix * -1;
         }
 
-        Matrix Matrix::transform(const Matrix& value, const Quaternion& rotation)
+        Matrix Matrix::transform(const Matrix& value, const Quaternion& rotation) noexcept
         {
             return value * Matrix::create_from_quaternion(rotation);
         }
 
-        Matrix Matrix::transpose(const Matrix& source)
+        Matrix Matrix::transpose(const Matrix& source) noexcept
         {
             return { source.m11, source.m21, source.m31, source.m41
                    , source.m12, source.m22, source.m32, source.m42
@@ -572,7 +531,7 @@ namespace SceneR
                    , source.m14, source.m24, source.m34, source.m44 };
         }
 
-        Matrix::Matrix()
+        Matrix::Matrix() noexcept
             : Matrix { 0.0f, 0.0f, 0.0f, 0.0f
                      , 0.0f, 0.0f, 0.0f, 0.0f
                      , 0.0f, 0.0f, 0.0f, 0.0f
@@ -583,7 +542,7 @@ namespace SceneR
         Matrix::Matrix(const float& m11, const float& m12, const float& m13, const float& m14
                      , const float& m21, const float& m22, const float& m23, const float& m24
                      , const float& m31, const float& m32, const float& m33, const float& m34
-                     , const float& m41, const float& m42, const float& m43, const float& m44)
+                     , const float& m41, const float& m42, const float& m43, const float& m44) noexcept
             : m11 { m11 }, m12 { m12 }, m13 { m13 }, m14 { m14 }
             , m21 { m21 }, m22 { m22 }, m23 { m23 }, m24 { m24 }
             , m31 { m31 }, m32 { m32 }, m33 { m33 }, m34 { m34 }
@@ -591,19 +550,19 @@ namespace SceneR
         {
         }
 
-        Vector3 Matrix::translation() const
+        Vector3 Matrix::translation() const noexcept
         {
             return { this->m41, this->m42, this->m43 };
         }
 
-        void Matrix::translation(const Vector3& translation)
+        void Matrix::translation(const Vector3& translation) noexcept
         {
             this->m41 = translation.x;
             this->m42 = translation.y;
             this->m43 = translation.z;
         }
 
-        float Matrix::determinant() const
+        float Matrix::determinant() const noexcept
         {
             // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
             std::int32_t i      = 1;
@@ -621,12 +580,12 @@ namespace SceneR
             return result;
         }
 
-        bool Matrix::has_inverse() const
+        bool Matrix::has_inverse() const noexcept
         {
             return (Math::abs(this->determinant()) > 0.0005f);
         }
 
-        bool Matrix::is_identity() const
+        bool Matrix::is_identity() const noexcept
         {
             return (*this == Matrix::identity);
         }

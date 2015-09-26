@@ -37,43 +37,43 @@ namespace SceneR
         {
         }
 
-        const Plane& BoundingFrustrum::bottom() const
+        const Plane& BoundingFrustrum::bottom() const noexcept
         {
             return _bottom;
         }
 
-        const Plane& BoundingFrustrum::far() const
+        const Plane& BoundingFrustrum::far() const noexcept
         {
             return _far;
         }
 
-        const Plane& BoundingFrustrum::left() const
+        const Plane& BoundingFrustrum::left() const noexcept
         {
             return _left;
         }
 
-        const Matrix& BoundingFrustrum::matrix() const
+        const Matrix& BoundingFrustrum::matrix() const noexcept
         {
             return _value;
         }
 
-        void BoundingFrustrum::matrix(const Matrix& matrix)
+        void BoundingFrustrum::matrix(const Matrix& matrix) noexcept
         {
             _value = matrix;
             update_planes();
         }
 
-        const Plane& BoundingFrustrum::near() const
+        const Plane& BoundingFrustrum::near() const noexcept
         {
             return _near;
         }
 
-        const Plane& BoundingFrustrum::right() const
+        const Plane& BoundingFrustrum::right() const noexcept
         {
             return _right;
         }
 
-        const Plane& BoundingFrustrum::top() const
+        const Plane& BoundingFrustrum::top() const noexcept
         {
             return _top;
         }

@@ -26,7 +26,7 @@ namespace SceneR
              * @param position the ray starting.
              * @param direction unit vector describing he ray direction.
              */
-            Ray(const Vector3& position, const Vector3& direction);
+            Ray(const Vector3& position, const Vector3& direction) noexcept;
 
             /**
              * Initializes a new instance of the Ray structure with the given position an direction.
@@ -60,7 +60,8 @@ namespace SceneR
             bool intersects(const Plane& plane);
 
         public:
-            Ray& operator=(const Ray& ray);
+            Ray& operator=(const Ray& ray) = default;
+
             bool operator==(const Ray& ray) const;
             bool operator!=(const Ray& ray) const;
 

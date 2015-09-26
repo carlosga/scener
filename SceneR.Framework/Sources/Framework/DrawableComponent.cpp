@@ -16,7 +16,7 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice* DrawableComponent::graphics_device()
+        GraphicsDevice* DrawableComponent::graphics_device() noexcept
         {
             return _renderer->graphics_device();
         }
@@ -25,22 +25,22 @@ namespace SceneR
         {
         }
 
-        bool DrawableComponent::visible() const
+        bool DrawableComponent::visible() const noexcept
         {
             return _visible;
         }
 
-        void DrawableComponent::visible(const bool& visible)
+        void DrawableComponent::visible(const bool& visible) noexcept
         {
             _visible = visible;
         }
 
-        std::uint32_t DrawableComponent::draw_order() const
+        std::uint32_t DrawableComponent::draw_order() const noexcept
         {
             return _draw_order;
         }
 
-        void DrawableComponent::draw_order(const std::uint32_t& drawOrder)
+        void DrawableComponent::draw_order(const std::uint32_t& drawOrder) noexcept
         {
             _draw_order = drawOrder;
         }

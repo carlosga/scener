@@ -24,12 +24,6 @@ namespace SceneR
         {
         }
 
-        BoundingBox::BoundingBox(const BoundingBox& boundingBox)
-            : min { boundingBox.min }
-            , max { boundingBox.max }
-        {
-        }
-
         ContainmentType BoundingBox::contains(const BoundingBox& box) const
         {
             throw std::runtime_error("Not implemented");
@@ -88,17 +82,6 @@ namespace SceneR
             auto exit  = Math::min(tfar.x, Math::min(tfar.y, tfar.z));
 
             return (enter - exit);
-        }
-
-        BoundingBox& BoundingBox::operator=(const BoundingBox& box)
-        {
-            if (this != &box)
-            {
-                min = box.min;
-                max = box.max;
-            }
-
-            return *this;
         }
 
         bool BoundingBox::operator==(const BoundingBox& box) const

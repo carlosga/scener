@@ -34,23 +34,23 @@ namespace SceneR
             close();
         }
 
-        const std::string& RendererWindow::title() const
+        const std::string& RendererWindow::title() const noexcept
         {
             return _title;
         }
 
-        void RendererWindow::title(const std::string& title)
+        void RendererWindow::title(const std::string& title) noexcept
         {
             _title = title;
             glfwSetWindowTitle(_handle, _title.c_str());
         }
 
-        bool RendererWindow::allow_user_resizing() const
+        bool RendererWindow::allow_user_resizing() const noexcept
         {
             return _renderer->_graphics_device_manager->allow_user_resizing;
         }
 
-        void RendererWindow::allow_user_resizing(const bool& allowUserResizing)
+        void RendererWindow::allow_user_resizing(const bool& allowUserResizing) noexcept
         {
             _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
         }
@@ -140,7 +140,7 @@ namespace SceneR
 //            auto a = 1;
 //        }
 
-        void RendererWindow::close()
+        void RendererWindow::close() noexcept
         {
             if (_handle)
             {
@@ -152,7 +152,7 @@ namespace SceneR
             }
         }
 
-        void RendererWindow::initialize_input() const
+        void RendererWindow::initialize_input() const noexcept
         {
             // initialize keyboard input
             Keyboard::initialize(_handle);
@@ -161,7 +161,7 @@ namespace SceneR
             Mouse::initialize(_handle);
         }
 
-        bool RendererWindow::should_close() const
+        bool RendererWindow::should_close() const noexcept
         {
             auto fullScreen    = _renderer->_graphics_device_manager->full_screen;
             auto shouldClose   = glfwWindowShouldClose(_handle);
@@ -177,12 +177,12 @@ namespace SceneR
                                           , GLenum        severity
                                           , GLsizei       length
                                           , const GLchar* message
-                                          , const void*   userParam)
+                                          , const void*   userParam) noexcept
         {
             std::cout << message << std::endl;
         }
 
-        void RendererWindow::enable_debug_output() const
+        void RendererWindow::enable_debug_output() const noexcept
         {
             GLuint unusedIds = 0;
 

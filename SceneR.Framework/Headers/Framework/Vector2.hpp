@@ -44,14 +44,14 @@ namespace SceneR
              * @param value A vector.
              * @return The absolute value vector.
              */
-            static Vector2 abs(const Vector2& value);
+            static Vector2 abs(const Vector2& value) noexcept;
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
              * @param value A vector.
              * @return The square root vector.
              */
-            static Vector2 square_root(const Vector2& value);
+            static Vector2 square_root(const Vector2& value) noexcept;
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -68,7 +68,7 @@ namespace SceneR
                                      , const Vector2& value2
                                      , const Vector2& value3
                                      , const float&   amount1
-                                     , const float&   amount2);
+                                     , const float&   amount2) noexcept;
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -82,22 +82,22 @@ namespace SceneR
                                      , const Vector2& value2
                                      , const Vector2& value3
                                      , const Vector2& value4
-                                     , const float&   amount);
+                                     , const float&   amount) noexcept;
 
             /**
              * Restricts a value to be within a specified range.
              */
-            static Vector2 clamp(const Vector2& value1, const Vector2& min, const Vector2& max);
+            static Vector2 clamp(const Vector2& value1, const Vector2& min, const Vector2& max) noexcept;
 
             /**
              * Calculates the distance between two vectors.
              */
-            static float distance(const Vector2& value1, const Vector2& value2);
+            static float distance(const Vector2& value1, const Vector2& value2) noexcept;
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static float distance_squared(const Vector2& value1, const Vector2& value2);
+            static float distance_squared(const Vector2& value1, const Vector2& value2) noexcept;
 
             /**
              * Calculates the dot product of two Vector2 structures.
@@ -105,7 +105,7 @@ namespace SceneR
              * @param right The second Vector2 to evaluate.
              * @return The dot product of the given vectors.
              */
-            static float dot(const Vector2& left, const Vector2& right);
+            static float dot(const Vector2& left, const Vector2& right) noexcept;
 
             /**
              * Calculates a hermite spline interpolation.
@@ -119,7 +119,7 @@ namespace SceneR
                                  , const Vector2& tangent1
                                  , const Vector2& value2
                                  , const Vector2& tangent2
-                                 , const float&   amount);
+                                 , const float&   amount) noexcept;
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -128,27 +128,27 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector2 lerp(const Vector2& value1, const Vector2& value2, const float& amount);
+            static Vector2 lerp(const Vector2& value1, const Vector2& value2, const float& amount) noexcept;
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector2 min(const Vector2& value1, const Vector2& value2);
+            static Vector2 min(const Vector2& value1, const Vector2& value2) noexcept;
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector2 max(const Vector2& value1, const Vector2& value2);
+            static Vector2 max(const Vector2& value1, const Vector2& value2) noexcept;
 
             /**
              * Negates a Vector2.
              * The vector has the same magnitude as before, but its direction is now opposite.
              */
-            static Vector2 negate(const Vector2& value);
+            static Vector2 negate(const Vector2& value) noexcept;
 
             /**
             * Normalizes the specified 2D Vector.
@@ -159,7 +159,7 @@ namespace SceneR
             * @param value the vector to be normalized.
             * @returns the normalized vector.
             */
-            static Vector2 normalize(const Vector2& value);
+            static Vector2 normalize(const Vector2& value) noexcept;
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -168,7 +168,7 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector2 smooth_step(const Vector2& value1, const Vector2& value2, const float& amount);
+            static Vector2 smooth_step(const Vector2& value1, const Vector2& value2, const float& amount) noexcept;
 
             /**
             * Transforms a 2D vector by the given matrix.
@@ -176,7 +176,7 @@ namespace SceneR
             * @param matrix the transformation matrix.
             * @return the transformed vector.
             */
-            static Vector2 transform(const Vector2& position, const Matrix& matrix);
+            static Vector2 transform(const Vector2& position, const Matrix& matrix) noexcept;
 
             /**
              * This method transforms the vector normal (x, y, 0) of the source vector,
@@ -185,26 +185,26 @@ namespace SceneR
              * function should be the transpose of the inverse of the matrix you would use to
              * transform a coordinate.
              */
-            static Vector2 transform_normal(const Vector2& normal, const Matrix& matrix);
+            static Vector2 transform_normal(const Vector2& normal, const Matrix& matrix) noexcept;
 
         public:
             /**
              * Initializes a new instance of the Vector2 class.
              */
-            Vector2();
+            Vector2() noexcept;
 
             /**
             * Initializes a new instance of the Vector2 class with the given value.
             * @param value value value for the x and y components of the vector.
             */
-            Vector2(const float& value);
+            Vector2(const float& value) noexcept;
 
             /**
              * Initializes a new instance of the Vector2 class with the given texture coordinates.
              * @param x the x-coordinate value.
              * @param y the y-coordinate value.
              */
-            Vector2(const float& x, const float& y);
+            Vector2(const float& x, const float& y) noexcept;
 
             /**
              * Initializes a new instance of the Vector2 class (Copy constructor)
@@ -223,14 +223,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector2.
              */
-            float length_squared() const;
+            float length_squared() const noexcept;
 
             /**
              * Gets the length of this Vector2.
              *
              * @return the length of this Vector2.
              */
-            float length() const;
+            float length() const noexcept;
 
         public:
             Vector2& operator=(const Vector2& vector) = default;

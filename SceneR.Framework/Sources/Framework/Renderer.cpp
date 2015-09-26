@@ -42,7 +42,7 @@ namespace SceneR
         {
         }
 
-        GraphicsDevice* Renderer::graphics_device() const
+        GraphicsDevice* Renderer::graphics_device() const noexcept
         {
             if (!_graphics_device_manager.get())
             {
@@ -52,22 +52,22 @@ namespace SceneR
             return _graphics_device_manager->graphics_device();
         }
 
-        RendererWindow* Renderer::window() const
+        RendererWindow* Renderer::window() const noexcept
         {
             return _renderer_window.get();
         }
 
-        ContentManager* Renderer::content_manager() const
+        ContentManager* Renderer::content_manager() const noexcept
         {
             return _content_manager.get();
         }
 
-        RendererServiceContainer* Renderer::services() const
+        RendererServiceContainer* Renderer::services() const noexcept
         {
             return _services.get();
         }
 
-        std::vector<std::shared_ptr<IComponent>>& Renderer::components()
+        std::vector<std::shared_ptr<IComponent>>& Renderer::components() noexcept
         {
             return _components;
         }

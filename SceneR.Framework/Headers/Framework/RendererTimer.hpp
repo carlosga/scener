@@ -30,25 +30,25 @@ namespace SceneR
             /**
              * Resets the renderer time points.
              */
-            void reset();
+            void reset() noexcept;
 
             /*
              * Updates the last time step time point.
              */
-            void update_time_step();
+            void update_time_step() noexcept;
 
             /*
              * Gets the time elapsed since the last timer reset.
              */
-            System::TimeSpan elapsed_time() const;
+            System::TimeSpan elapsed_time() const noexcept;
 
             /*
              * Gets the time elapsed since the last time step update.
              */
-            System::TimeSpan elapsed_time_step_time() const;
+            System::TimeSpan elapsed_time_step_time() const noexcept;
 
         private:
-            System::TimeSpan::clock::time_point current_time() const;
+            System::TimeSpan::clock::time_point current_time() const noexcept;
 
         private:
             RendererTimer(const RendererTimer& timer) = delete;

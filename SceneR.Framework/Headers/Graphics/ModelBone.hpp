@@ -28,6 +28,9 @@ namespace SceneR
         class ModelBone final
         {
         public:
+            typedef std::size_t index_type;
+
+        public:
             /**
              * Initializes a new instance of the ModelBone class.
              */
@@ -40,35 +43,41 @@ namespace SceneR
 
         public:
             /**
+             * Gets the index of this bone in the Bones collection.
+             */
+            index_type index() const noexcept;
+
+            /**
              * Gets the collection of children bones.
              */
-            const std::vector<std::shared_ptr<ModelBone>>& children() const;
+            const std::vector<std::shared_ptr<ModelBone>>& children() const noexcept;
 
             /**
              * Gets the name of this bone.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets the parent of the current bone
              */
-            const std::shared_ptr<ModelBone>& parent() const;
+            ModelBone* parent() const noexcept;
 
             /**
              * Gets the matrix used to transform this bone relative to its parent bone.
              */
-            const SceneR::Framework::Matrix& transform() const;
+            const SceneR::Framework::Matrix& transform() const noexcept;
 
             /**
              * Sets the matrix used to transform this bone relative to its parent bone.
              */
-            void transform(const SceneR::Framework::Matrix& transform);
+            void transform(const SceneR::Framework::Matrix& transform) noexcept;
 
         private:
-            std::vector<std::shared_ptr<ModelBone>> _children   = { };
-            std::string                             _name       = { };
-            std::shared_ptr<ModelBone>              _parent     = { nullptr };
-            SceneR::Framework::Matrix               _transform  = { SceneR::Framework::Matrix::identity };
+            index_type                              _index     { 0 };
+            std::vector<std::shared_ptr<ModelBone>> _children  { };
+            std::string                             _name      { };
+            std::shared_ptr<ModelBone>              _parent    { nullptr };
+            SceneR::Framework::Matrix               _transform { SceneR::Framework::Matrix::identity };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

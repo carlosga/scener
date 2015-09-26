@@ -44,7 +44,7 @@ namespace SceneR
         {
         }
 
-        std::uint32_t Color::packed_value() const
+        std::uint32_t Color::packed_value() const noexcept
         {
             return ((static_cast<std::uint32_t>(r) * 255) << 24)
                  + ((static_cast<std::uint32_t>(g) * 255) << 16)

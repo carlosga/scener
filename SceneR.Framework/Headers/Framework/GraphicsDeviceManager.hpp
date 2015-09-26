@@ -69,7 +69,7 @@ namespace SceneR
              * Gets the graphics device.
              * @return the graphics device.
              */
-            SceneR::Graphics::GraphicsDevice* graphics_device() const override;
+            SceneR::Graphics::GraphicsDevice* graphics_device() const noexcept override;
 
         public:
             /**

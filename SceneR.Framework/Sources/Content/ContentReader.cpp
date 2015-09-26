@@ -35,12 +35,12 @@ namespace SceneR
         {
         }
 
-        const std::string& ContentReader::asset_name() const
+        const std::string& ContentReader::asset_name() const noexcept
         {
             return _asset_name;
         }
 
-        ContentManager* ContentReader::content_manager() const
+        ContentManager* ContentReader::content_manager() const noexcept
         {
             return _content_manager;
         }
@@ -80,7 +80,7 @@ namespace SceneR
             return true;
         }
 
-        std::string ContentReader::get_asset_path(const std::string& assetName) const
+        std::string ContentReader::get_asset_path(const std::string& assetName) const noexcept
         {
             auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
 

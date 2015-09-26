@@ -47,7 +47,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the BoundingBox class.
              */
-            BoundingBox(const BoundingBox& boundingBox);
+            BoundingBox(const BoundingBox& boundingBox) = default;
 
             /**
              * Releases all resources being used by this BoundingBox.

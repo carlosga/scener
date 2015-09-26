@@ -53,7 +53,6 @@ set (HEADER_FILES
      Headers/Content/Readers/AccessorReader.hpp
      Headers/Content/Readers/BufferReader.hpp
      Headers/Content/Readers/BufferViewReader.hpp
-     Headers/Content/Readers/ExternalReferenceReader.hpp
      Headers/Content/Readers/ImageReader.hpp
      Headers/Content/Readers/ModelMeshReader.hpp
      Headers/Content/Readers/NodeReader.hpp
@@ -200,7 +199,6 @@ set (SOURCE_FILES
      Sources/Content/Readers/AccessorReader.cpp
      Sources/Content/Readers/BufferReader.cpp
      Sources/Content/Readers/BufferViewReader.cpp
-     Sources/Content/Readers/ExternalReferenceReader.cpp
      Sources/Content/Readers/ImageReader.cpp
      Sources/Content/Readers/ModelMeshReader.cpp
      Sources/Content/Readers/NodeReader.cpp

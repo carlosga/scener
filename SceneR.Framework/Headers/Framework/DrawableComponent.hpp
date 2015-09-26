@@ -37,7 +37,7 @@ namespace SceneR
             /**
              * The GraphicsDevice the DrawableComponent is associated with.
              */
-            SceneR::Graphics::GraphicsDevice* graphics_device();
+            SceneR::Graphics::GraphicsDevice* graphics_device() noexcept;
 
             /**
              * Called when the component should be drawn.
@@ -47,23 +47,23 @@ namespace SceneR
             /**
              * Gets a value indicating whether this object is enabled.
              */
-            virtual bool visible() const override;
+            virtual bool visible() const noexcept override;
 
             /**
              * Sets a value indicating whether this object is enabled.
              * @param visible a value indicating whether this object is enabled.
              */
-            virtual void visible(const bool& visible);
+            virtual void visible(const bool& visible) noexcept;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            virtual std::uint32_t draw_order() const override;
+            virtual std::uint32_t draw_order() const noexcept override;
 
             /**
              * The order in which to draw this object relative to other objects.
              */
-            void draw_order(const std::uint32_t& drawOrder);
+            void draw_order(const std::uint32_t& drawOrder) noexcept;
 
             /**
              * Called when the component should be initialized.

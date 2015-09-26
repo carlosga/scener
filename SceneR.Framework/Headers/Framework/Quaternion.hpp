@@ -31,7 +31,7 @@ namespace SceneR
              * @param quaternion the Quaternion of which to return the conjugate.
              * @returns the quaternion conjugate
              */
-            static Quaternion conjugate(const Quaternion& data);
+            static Quaternion conjugate(const Quaternion& data) noexcept;
 
             /**
              * Creates a Quaternion from a vector and an angle to rotate about the vector.
@@ -39,13 +39,13 @@ namespace SceneR
              * @param axisOfRotation Vector3 that represents the axis of rotation.
              * @param angle Angle to rotate around the specified axis, in radians.
              */
-            static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, const float& angle);
+            static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, const float& angle) noexcept;
 
             /**
              * Creates a Quaternion from a rotation Matrix.
              * @param matrix the rotation matrix
              */
-            static Quaternion create_from_rotation_matrix(const Matrix& matrix);
+            static Quaternion create_from_rotation_matrix(const Matrix& matrix) noexcept;
 
             /**
              * Creates a new quaternion with a specified yaw, pitch, and roll.
@@ -54,17 +54,17 @@ namespace SceneR
              * @param pitch Pitch around the x-axis, in radians.
              * @param roll Roll around the z-axis, in radians.
              */
-            static Quaternion create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll);
+            static Quaternion create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept;
 
             /**
              * Calculates the dot product oof two quaternions
              */
-            static float dot(const Quaternion& quaternion1, const Quaternion& quaternion2);
+            static float dot(const Quaternion& quaternion1, const Quaternion& quaternion2) noexcept;
 
             /**
              * Calculates the invers of the specified quaternion.
              */
-            static Quaternion inverse(const Quaternion& value);
+            static Quaternion inverse(const Quaternion& value) noexcept;
 
             /**
              * Calculates the linear interpolation between two quaternions.
@@ -73,12 +73,12 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount);
+            static Quaternion lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept;
 
             /**
              * Negates the specified Quaternion.
              */
-            static Quaternion negate(const Quaternion& value);
+            static Quaternion negate(const Quaternion& value) noexcept;
 
             /**
              * Normalizes the specified Quaternion.
@@ -88,7 +88,7 @@ namespace SceneR
              * @param value the quaternion to normalize.
              * @returns A Quaternion is normalized by dividing the Quaternion by its magnitude.
              */
-            static Quaternion normalize(const Quaternion& value);
+            static Quaternion normalize(const Quaternion& value) noexcept;
 
             /**
              * Calculates the spherical interpolation between two quaternions.
@@ -97,20 +97,20 @@ namespace SceneR
              * @param quaternion2 second quaternion
              * @param amount Value indicating how far to interpolate between the quaternions.
              */
-            static Quaternion slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount);
+            static Quaternion slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept;
 
         public:
             /**
              * Initializes a new instance of the Quaternion class.
              */
-            Quaternion();
+            Quaternion() noexcept;
 
             /**
              * Initializes a new instance of the Quaternion class.
              * @param value a vector containing the values to initialize x, y, and z components with.
              * @param w value for the w-component of the vector.
              */
-            Quaternion(const Vector3& value, const float& w);
+            Quaternion(const Vector3& value, const float& w) noexcept;
 
             /**
              * Initializes a new instance of the Quaternion class.
@@ -119,7 +119,7 @@ namespace SceneR
              * @param z    The Z value of the new Quaternion structure.
              * @param w    The W value of the new Quaternion structure.
              */
-            Quaternion(const float& x, const float& y, const float& z, const float& w);
+            Quaternion(const float& x, const float& y, const float& z, const float& w) noexcept;
 
             /**
              * Initializes a new instance of the Quaternion class (Copy constructor)
@@ -137,21 +137,21 @@ namespace SceneR
              * Gets a value that indicates whether the specified quaternion is an Identity quaternion.
              * @return a value that indicates whether the specified quaternion is an Identity quaternion.
              */
-            bool is_identity() const;
+            bool is_identity() const noexcept;
 
             /**
              * Gets the square of the length of this Quaternion.
              *
              * @return the square of the length of this Quaternion.
              */
-            float length_squared() const;
+            float length_squared() const noexcept;
 
             /**
              * Gets the length of this Quaternion.
              *
              * @return the length of this Quaternion.
              */
-            float length() const;
+            float length() const noexcept;
 
         public:
             Quaternion& operator=(const Quaternion& value) = default;

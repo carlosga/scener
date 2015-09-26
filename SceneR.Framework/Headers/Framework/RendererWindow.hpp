@@ -39,30 +39,30 @@ namespace SceneR
             /**
              * Gets the renderer window title.
              */
-            const std::string& title() const;
+            const std::string& title() const noexcept;
 
             /**
              * Sets the renderer window title.
              * @param title the renderer window title.
              */
-            void title(const std::string& title);
+            void title(const std::string& title) noexcept;
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
              * @return whether to allow the user to resize the renderer window.
              */
-            bool allow_user_resizing() const;
+            bool allow_user_resizing() const noexcept;
 
             /**
              * Specifies whether to allow the user to resize the renderer window.
              */
-            void allow_user_resizing(const bool& allowUserResizing);
+            void allow_user_resizing(const bool& allowUserResizing) noexcept;
 
         private:
             void open();
-            void close();
-            void initialize_input() const;
-            bool should_close() const;
+            void close() noexcept;
+            void initialize_input() const noexcept;
+            bool should_close() const noexcept;
 
             static void debug_callback(GLenum        source
                                      , GLenum        type
@@ -70,9 +70,9 @@ namespace SceneR
                                      , GLenum        severity
                                      , GLsizei       length
                                      , const GLchar* message
-                                     , const void*   userParam);
+                                     , const void*   userParam) noexcept;
 
-            void enable_debug_output() const;
+            void enable_debug_output() const noexcept;
 
         private:
             RendererWindow() = delete;

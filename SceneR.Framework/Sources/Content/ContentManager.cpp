@@ -31,12 +31,12 @@ namespace SceneR
             unload();
         }
 
-        RendererServiceContainer* ContentManager::service_provider() const
+        RendererServiceContainer* ContentManager::service_provider() const noexcept
         {
             return _service_provider;
         }
 
-        const std::string& ContentManager::root_directory() const
+        const std::string& ContentManager::root_directory() const noexcept
         {
             return _root_directory;
         }

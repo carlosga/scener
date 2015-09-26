@@ -17,14 +17,14 @@ namespace SceneR
 
         const Quaternion Quaternion::identity { 0.0f, 0.0f, 0.0f, 1.0f };
 
-        Quaternion Quaternion::conjugate(const Quaternion& quaternion)
+        Quaternion Quaternion::conjugate(const Quaternion& quaternion) noexcept
         {
             // The conjugate of a quaternion is defined by
             // q* = (w + xi + yj + zk) = w -xi -yj -zk
             return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
         }
 
-        Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, const float& angle)
+        Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, const float& angle) noexcept
         {
             // The quaternion in terms of axis-angle is:
             // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
@@ -38,7 +38,7 @@ namespace SceneR
                    , Math::cos(theta) };
         }
 
-        Quaternion Quaternion::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll)
+        Quaternion Quaternion::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept
         {
             // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
             // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
@@ -56,7 +56,7 @@ namespace SceneR
             return (qy * qx) * qz; // yaw * pitch * roll
         }
 
-        float Quaternion::dot(const Quaternion& quaternion1, const Quaternion& quaternion2)
+        float Quaternion::dot(const Quaternion& quaternion1, const Quaternion& quaternion2) noexcept
         {
             return (quaternion1.x * quaternion2.x)
                  + (quaternion1.y * quaternion2.y)
@@ -64,7 +64,7 @@ namespace SceneR
                  + (quaternion1.w * quaternion2.w);
         }
 
-        Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix)
+        Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix) noexcept
         {
             // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 
@@ -114,7 +114,7 @@ namespace SceneR
             return result;
         }
 
-        Quaternion Quaternion::inverse(const Quaternion& value)
+        Quaternion Quaternion::inverse(const Quaternion& value) noexcept
         {
             // The multiplicative inverse of a quaternion q is constructed as
             // q^-1 = q* / N(q)
@@ -125,7 +125,7 @@ namespace SceneR
             return Quaternion::conjugate(value) / value.length_squared();
         }
 
-        Quaternion Quaternion::lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
+        Quaternion Quaternion::lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept
         {
             float amount1 = 1.0f - amount;
             float amount2 = amount;
@@ -138,17 +138,17 @@ namespace SceneR
             return Quaternion::normalize(quaternion1 * amount1 + quaternion2 * amount2);
         }
 
-        Quaternion Quaternion::negate(const Quaternion & value)
+        Quaternion Quaternion::negate(const Quaternion & value) noexcept
         {
             return value * -1.0f;
         }
 
-        Quaternion Quaternion::normalize(const Quaternion& value)
+        Quaternion Quaternion::normalize(const Quaternion& value) noexcept
         {
             return value / value.length();
         }
 
-        Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount)
+        Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept
         {
             float w1;
             float w2;
@@ -185,17 +185,17 @@ namespace SceneR
             return (quaternion1 * w1 + quaternion2 * w2);
         }
 
-        Quaternion::Quaternion()
+        Quaternion::Quaternion() noexcept
             : Quaternion { 0.0f, 0.0f, 0.0f, 0.0f }
         {
         }
 
-        Quaternion::Quaternion(const Vector3& value, const float& w)
+        Quaternion::Quaternion(const Vector3& value, const float& w) noexcept
             : Quaternion { value.x, value.y, value.z, w }
         {
         }
 
-        Quaternion::Quaternion(const float& x, const float& y, const float& z, const float& w)
+        Quaternion::Quaternion(const float& x, const float& y, const float& z, const float& w) noexcept
             : x { x }
             , y { y }
             , z { z }
@@ -203,12 +203,12 @@ namespace SceneR
         {
         }
 
-        bool Quaternion::is_identity() const
+        bool Quaternion::is_identity() const noexcept
         {
             return (*this == Quaternion::identity);
         }
 
-        float Quaternion::length_squared() const
+        float Quaternion::length_squared() const noexcept
         {
             return (this->x * this->x)
                  + (this->y * this->y)
@@ -216,7 +216,7 @@ namespace SceneR
                  + (this->w * this->w);
         }
 
-        float Quaternion::length() const
+        float Quaternion::length() const noexcept
         {
             return Math::sqrt(this->length_squared());
         }

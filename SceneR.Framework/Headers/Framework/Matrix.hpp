@@ -35,14 +35,14 @@ namespace SceneR
              * @param axis Vector3 that specifies the axis around which to rotate.
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix create_from_axis_angle(const Vector3& axis, const float& angle);
+            static Matrix create_from_axis_angle(const Vector3& axis, const float& angle) noexcept;
 
             /**
              * Creates a rotation Matrix from a Quaternion.
              *
              * @param quaternion Quaternion to create the Matrix from.
              */
-            static Matrix create_from_quaternion(const Quaternion& quaternion);
+            static Matrix create_from_quaternion(const Quaternion& quaternion) noexcept;
 
             /**
              * Creates a new matrix with a specified yaw, pitch, and roll.
@@ -52,7 +52,7 @@ namespace SceneR
              * @param pitch Pitch around the z-axis, in radians.
              * @param roll Roll around the x-axis, in radians.
              */
-            static Matrix create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll);
+            static Matrix create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept;
 
             /**
              * Creates a perspective projection matrix.
@@ -66,7 +66,7 @@ namespace SceneR
              */
             static Matrix create_frustum(const float& left  , const float& right
                                        , const float& bottom, const float& top
-                                       , const float& zNear , const float& zFar);
+                                       , const float& zNear , const float& zFar) noexcept;
 
             /**
              * Creates a view matrix
@@ -77,7 +77,7 @@ namespace SceneR
              */
             static Matrix create_look_at(const Vector3& cameraPosition
                                        , const Vector3& cameraTarget
-                                       , const Vector3& cameraUpVector);
+                                       , const Vector3& cameraUpVector) noexcept;
 
             /**
              * Creates an orthogonal matrix
@@ -90,7 +90,7 @@ namespace SceneR
             static Matrix create_orthographic(const float& width
                                             , const float& height
                                             , const float& zNear
-                                            , const float& zFar);
+                                            , const float& zFar) noexcept;
 
             /**
              * Builds a customized, orthogonal projection matrix.
@@ -107,7 +107,7 @@ namespace SceneR
                                                        , const float& bottom
                                                        , const float& top
                                                        , const float& zNear
-                                                       , const float& zFar);
+                                                       , const float& zFar) noexcept;
 
             /**
              * Builds a perspective projection matrix.
@@ -120,7 +120,7 @@ namespace SceneR
             static Matrix create_perspective(const float& width
                                            , const float& height
                                            , const float& zNear
-                                           , const float& zFar);
+                                           , const float& zFar) noexcept;
 
             /**
              * Builds a perspective projection matrix based on a field of view and returns by value.
@@ -133,7 +133,7 @@ namespace SceneR
             static Matrix create_perspective_field_of_view(const float& fieldOfView
                                                          , const float& aspectRatio
                                                          , const float& zNear
-                                                         , const float& zFar);
+                                                         , const float& zFar) noexcept;
 
             /**
              * Builds a customized, right-handed perspective projection matrix.
@@ -149,14 +149,14 @@ namespace SceneR
                                                       , const float& bottom
                                                       , const float& top
                                                       , const float& zNear
-                                                      , const float& zFar);
+                                                      , const float& zFar) noexcept;
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix create_rotation_x(const float& angle);
+            static Matrix create_rotation_x(const float& angle) noexcept;
 
             /**
              * Creates a matrix for rotating points around the X-axis, from a center point.
@@ -164,14 +164,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix create_rotation_x(const float& angle, const Vector3& center);
+            static Matrix create_rotation_x(const float& angle, const Vector3& center) noexcept;
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix create_rotation_y(const float& angle);
+            static Matrix create_rotation_y(const float& angle) noexcept;
 
             /**
              * Creates a matrix for rotating points around the Y-axis, from a center point.
@@ -179,14 +179,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix create_rotation_y(const float& angle, const Vector3& center);
+            static Matrix create_rotation_y(const float& angle, const Vector3& center) noexcept;
 
             /**
              * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
              *
              * @param angle Value that specifies the angle of rotation, in radians.
              */
-            static Matrix create_rotation_z(const float& angle);
+            static Matrix create_rotation_z(const float& angle) noexcept;
 
             /**
              * Creates a matrix for rotating points around the Z-axis, from a center point.
@@ -194,14 +194,14 @@ namespace SceneR
              * @param center The center point.
              * @returns The rotation matrix.
              */
-            static Matrix create_rotation_z(const float& angle, const Vector3& center);
+            static Matrix create_rotation_z(const float& angle, const Vector3& center) noexcept;
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis.
              *
              * @param scale Amount to scale by.
              */
-            static Matrix create_scale(const float& scale);
+            static Matrix create_scale(const float& scale) noexcept;
 
             /**
              * Creates a uniform scaling matrix that scales equally on each axis with a center point.
@@ -209,14 +209,14 @@ namespace SceneR
              * @param scale Amount to scale by.
              * @param center The center point
              */
-            static Matrix create_scale(const float& scale, const Vector3& center);
+            static Matrix create_scale(const float& scale, const Vector3& center) noexcept;
 
             /**
              * Creates a scaling matrix from the specified vector scale.
              *
              * @param scales Amounts to scale by on the x, y, and z axes.
              */
-            static Matrix create_scale(const Vector3& scales);
+            static Matrix create_scale(const Vector3& scales) noexcept;
 
             /**
              * Creates a scaling matrix from the specified X, Y, and Z components.
@@ -225,7 +225,7 @@ namespace SceneR
              * @param yScale The value to scale by on the Y axis.
              * @param zScale The value to scale by on the Z axis.
              */
-            static Matrix create_scale(const float& xScale, const float& yScale, const float& zScale);
+            static Matrix create_scale(const float& xScale, const float& yScale, const float& zScale) noexcept;
 
             /**
              * Creates a scaling matrix with a center point.
@@ -233,7 +233,7 @@ namespace SceneR
              * @param scales The vector that contains the amount to scale on each axis.
              * @param center The center point
              */
-            static Matrix create_scale(const Vector3& scales, const Vector3& center);
+            static Matrix create_scale(const Vector3& scales, const Vector3& center) noexcept;
 
             /**
              * Creates a scaling matrix that is offset by a given center point.
@@ -243,17 +243,17 @@ namespace SceneR
              * @param zScale The value to scale by on the Z axis.
              * @param center The center point.
              */
-            static Matrix create_scale(const float& xScale
-                                     , const float& yScale
-                                     , const float& zScale
-                                     , const Vector3& center);
+            static Matrix create_scale(const float&   xScale
+                                     , const float&   yScale
+                                     , const float&   zScale
+                                     , const Vector3& center) noexcept;
 
             /**
              * Creates a translation Matrix
              *
              * @param position Amounts to translate by on the x, y, and z-axis.
              */
-            static Matrix create_translation(const Vector3& position);
+            static Matrix create_translation(const Vector3& position) noexcept;
 
             /**
              * Creates a translation Matrix
@@ -262,7 +262,9 @@ namespace SceneR
              * @param yPosition Value to translate by on the y-axis.
              * @param zPosition Value to translate by on the z-axis.
              */
-            static Matrix create_translation(const float& xPosition, const float& yPosition, const float& zPosition);
+            static Matrix create_translation(const float& xPosition
+                                           , const float& yPosition
+                                           , const float& zPosition) noexcept;
 
 
             /**
@@ -270,7 +272,7 @@ namespace SceneR
              * @param plane The plane
              * @return A new matrix expressing the reflection.
              */
-            static Matrix create_reflection(const Plane& plane);
+            static Matrix create_reflection(const Plane& plane) noexcept;
 
             /**
              * Creates a matrix that flattens geometry into a specified plane as if casting a shadow from a specified light source.
@@ -278,7 +280,7 @@ namespace SceneR
              * @param plane The plane onto which the new matrix should flatten geometry so as to cast a shadow.
              * @return A new matrix that can be used to flatten geometry onto the specified plane from the specified direction.
              */
-            static Matrix create_shadow(const Vector3& lightDirection, const Plane& plane);
+            static Matrix create_shadow(const Vector3& lightDirection, const Plane& plane) noexcept;
 
             /**
              * Creates a World Matrix
@@ -287,7 +289,7 @@ namespace SceneR
              * @param forward Forward direction of the object.
              * @param up Upward direction of the object; usually [0, 1, 0].
              */
-            static Matrix create_world(const Vector3& position, const Vector3& forward, const Vector3& up);
+            static Matrix create_world(const Vector3& position, const Vector3& forward, const Vector3& up) noexcept;
 
             /**
             * Extracts the scalar, translation, and rotation components from a 3D scale/rotate/translate (SRT) Matrix.
@@ -299,19 +301,19 @@ namespace SceneR
             *
             * @returns true if the Matrix can be decomposed; false otherwise.
             */
-            static bool decompose(const Matrix& data, Vector3& scale, Quaternion& rotation, Vector3& translation);
+            static bool decompose(const Matrix& data, Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept;
 
             /**
              * Inverts the given Matrix structure.
              * @param matrix the matrix to invert.
              */
-            static Matrix invert(const Matrix& data);
+            static Matrix invert(const Matrix& data) noexcept;
 
             /**
             * Negates the given Matrix structure.
             * @param matrix the matrix to negate.
             */
-            static Matrix negate(const Matrix& data);
+            static Matrix negate(const Matrix& data) noexcept;
 
             /**
              * Transforms a Matrix by applying a Quaternion rotation.
@@ -320,20 +322,20 @@ namespace SceneR
              * @param rotation the quaternion rotation
              * @returns thr transformed matrix
              */
-            static Matrix transform(const Matrix& value, const Quaternion& rotation);
+            static Matrix transform(const Matrix& value, const Quaternion& rotation) noexcept;
 
             /**
              * Returns the tranpose of the given matrix.
              * @param source the source matrix.
              * @returns Transposed matrix.
              */
-            static Matrix transpose(const Matrix& source);
+            static Matrix transpose(const Matrix& source) noexcept;
 
         public:
             /**
              * Initializes a new instance of the Matrix class.
              */
-            Matrix();
+            Matrix() noexcept;
 
             /**
              * Initializes a new instance of the Matrix class with the given initial values.
@@ -358,7 +360,7 @@ namespace SceneR
             Matrix(const float& m11, const float& m12, const float& m13, const float& m14
                  , const float& m21, const float& m22, const float& m23, const float& m24
                  , const float& m31, const float& m32, const float& m33, const float& m34
-                 , const float& m41, const float& m42, const float& m43, const float& m44);
+                 , const float& m41, const float& m42, const float& m43, const float& m44) noexcept;
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
@@ -377,32 +379,32 @@ namespace SceneR
              * Gets the translation component of this matrix.
              * @returns The translation component of the current instance.
             */
-            Vector3 translation() const;
+            Vector3 translation() const noexcept;
 
             /**
              * Sets the translation component of this matrix.
              * @param translation the translation component for this matrix.
             */
-            void translation(const Vector3& translation);
+            void translation(const Vector3& translation) noexcept;
 
         public:
             /**
              * Retrieves the determinant of this Matrix.
              * @return the determinant of this Matrix.
              */
-            float determinant() const;
+            float determinant() const noexcept;
 
             /**
              * Gets a value that indicates whether this Matrix is invertible.
              * @return a value that indicates whether this Matrix is invertible.
              */
-            bool has_inverse() const;
+            bool has_inverse() const noexcept;
 
             /**
              * Determines whether this Matrix structure is an identity Matrix.
              * @return a value indicating wheter the current matix is an identity matrix.
              */
-            bool is_identity() const;
+            bool is_identity() const noexcept;
 
         public:
             Matrix& operator=(const Matrix& data) = default;

@@ -14,7 +14,7 @@ namespace SceneR
         {
         }
 
-        Renderer* Component::renderer()
+        Renderer* Component::renderer() noexcept
         {
             return _renderer;
         }
@@ -23,22 +23,22 @@ namespace SceneR
         {
         }
 
-        bool Component::enabled() const
+        bool Component::enabled() const noexcept
         {
             return _enabled;
         }
 
-        void Component::enabled(const bool& enabled)
+        void Component::enabled(const bool& enabled) noexcept
         {
             _enabled = enabled;
         }
 
-        std::uint32_t Component::update_order() const
+        std::uint32_t Component::update_order() const noexcept
         {
             return _update_order;
         }
 
-        void Component::update_order(const std::uint32_t& updateOrder)
+        void Component::update_order(const std::uint32_t& updateOrder) noexcept
         {
             _update_order = updateOrder;
         }

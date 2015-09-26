@@ -39,7 +39,7 @@ namespace SceneR
             /**
              * Gets the Renderer associated with this Component.
              */
-            Renderer* renderer();
+            Renderer* renderer() noexcept;
 
             /**
              * Called when the component should be updated.
@@ -49,24 +49,24 @@ namespace SceneR
             /**
              * Gets a value indicating whether the component is enabled.
              */
-            bool enabled() const override;
+            bool enabled() const noexcept override;
 
             /**
              * Sets a value indicating whether the component is enabled.
              */
-            void enabled(const bool& enabled);
+            void enabled(const bool& enabled) noexcept;
 
             /**
              * Gets the order in which to update this object relative to other objects.
              * @returns the order in which to update this object relative to other objects.
              */
-            virtual std::uint32_t update_order() const override;
+            virtual std::uint32_t update_order() const noexcept override;
 
             /**
              * Sets the order in which to update this object relative to other objects.
              * @param updateOrder the order in which to update this object relative to other objects.
              */
-            void update_order(const std::uint32_t& updateOrder);
+            void update_order(const std::uint32_t& updateOrder) noexcept;
 
         protected:
             Renderer* _renderer = nullptr;

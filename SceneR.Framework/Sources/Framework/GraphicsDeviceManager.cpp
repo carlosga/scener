@@ -90,7 +90,7 @@ namespace SceneR
                                                               , SceneR::Graphics::GraphicsProfile::HiDef);
         }
 
-        GraphicsDevice* GraphicsDeviceManager::graphics_device() const
+        GraphicsDevice* GraphicsDeviceManager::graphics_device() const noexcept
         {
             return _graphics_device.get();
         }

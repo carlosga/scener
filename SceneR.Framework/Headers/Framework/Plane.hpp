@@ -133,7 +133,8 @@ namespace SceneR
             PlaneIntersectionType intersects(const BoundingSphere& sphere) const;
 
         public:
-            Plane& operator=(const Plane& plane);
+            Plane& operator=(const Plane& plane) = default;
+
             bool operator==(const Plane& plane) const;
             bool operator!=(const Plane& plane) const;
 

@@ -31,7 +31,7 @@ namespace SceneR
 
         void Buffer::set_data(const std::vector<std::uint8_t>& buffer)
         {
-            _data.assign(buffer.begin(), buffer.end());
+            _data = std::move(buffer);
         }
     }
 }
