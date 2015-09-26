@@ -41,7 +41,7 @@ namespace SceneR
              */
             IndexBuffer(Guide::not_null<GraphicsDevice*> graphicsDevice
                       , const ComponentType&             indexElementType
-                      , const std::size_t&               indexCount);
+                      , const std::size_t&               indexCount) noexcept;
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -55,18 +55,18 @@ namespace SceneR
             /**
              * Gets the number of indices in the buffer.
              */
-            std::size_t index_count() const;
+            std::size_t index_count() const noexcept;
 
             /**
              * Gets the type of each index.
              */
-            const ComponentType& index_element_type() const;
+            const ComponentType& index_element_type() const noexcept;
 
             /**
              * Gets the size (in bytes) of each index.
              * @return the size (in bytes) of each index.
              */
-            std::size_t element_size_in_bytes() const;
+            std::size_t element_size_in_bytes() const noexcept;
 
             /**
              * Gets the indices buffer data

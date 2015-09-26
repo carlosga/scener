@@ -11,13 +11,13 @@ namespace SceneR
     namespace Input
     {
         // Returns the current keyboard state.
-        KeyboardState Keyboard::get_state()
+        KeyboardState Keyboard::get_state() noexcept
         {
             return KeyboardState(Keyboard::window_handle);
         }
 
         // Gets or sets the window used for mouse processing.
-        void Keyboard::initialize(GLFWwindow *window)
+        void Keyboard::initialize(GLFWwindow *window) noexcept
         {
             window_handle = window;
 
@@ -28,7 +28,7 @@ namespace SceneR
             // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
         }
 
-        void Keyboard::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
+        void Keyboard::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) noexcept
         {
         }
 

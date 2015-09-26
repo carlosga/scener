@@ -43,37 +43,37 @@ namespace SceneR
             /**
              * Gets the index buffer for this mesh part.
              */
-            IndexBuffer* index_buffer() const;
+            IndexBuffer* index_buffer() const noexcept;
 
             /**
              * Gets the vertex buffer for this mesh part.
              */
-            VertexBuffer* vertex_buffer() const;
+            VertexBuffer* vertex_buffer() const noexcept;
 
             /**
              * Gets the location in the index array at which to start reading vertices.
              */
-            std::size_t start_index() const;
+            std::size_t start_index() const noexcept;
 
             /**
              * Gets the offset (in vertices) from the top of vertex buffer.
              */
-            std::size_t vertex_offset() const;
+            std::size_t vertex_offset() const noexcept;
 
             /**
              * Gets the number of vertices used during a draw call.
              */
-            std::size_t vertex_count() const;
+            std::size_t vertex_count() const noexcept;
 
             /**
              * Gets the number of primitives to render.
              */
-            std::size_t primitive_count() const;
+            std::size_t primitive_count() const noexcept;
 
             /**
              * Gets the type of primitives to render.
              */
-            const PrimitiveType& primitive_type() const;
+            const PrimitiveType& primitive_type() const noexcept;
 
         public:
             /**

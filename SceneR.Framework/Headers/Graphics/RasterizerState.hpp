@@ -28,7 +28,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the RasterizerState class.
              */
-            RasterizerState(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            RasterizerState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * @brief Copy constructor.

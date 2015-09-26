@@ -41,7 +41,7 @@ namespace SceneR
              */
             Texture2D(Guide::not_null<GraphicsDevice*> graphicsDevice
                     , const std::size_t&               width
-                    , const std::size_t&               height);
+                    , const std::size_t&               height) noexcept;
 
             /**
              * Creates a new instance of the Texture2D class.
@@ -56,7 +56,7 @@ namespace SceneR
                     , const std::size_t&               width
                     , const std::size_t&               height
                     , const bool&                      mipmap
-                    , const SurfaceFormat&             format);
+                    , const SurfaceFormat&             format) noexcept;
 
             /**
              * Releases all resources being used by this texture.
@@ -67,33 +67,33 @@ namespace SceneR
             void dispose() override;
 
         public:
-            std::uint32_t id() const override;
+            std::uint32_t id() const noexcept override;
 
             /**
              * Gets the format of the texture data.
              */
-            const SurfaceFormat& format() const override;
+            const SurfaceFormat& format() const noexcept override;
 
             /**
              * Gets the texture height, in pixels
              */
-            std::size_t height() const;
+            std::size_t height() const noexcept;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            std::size_t level_count() const override;
+            std::size_t level_count() const noexcept override;
 
             /**
              * Gets the texture width, in pixels
              */
-            std::size_t width() const;
+            std::size_t width() const noexcept;
 
             /**
              * Gets the texure sampler state.
              * @return the texure sampler state.
              */
-            SamplerState* sampler_state() const;
+            SamplerState* sampler_state() const noexcept;
 
             /**
              * Sets mipmap data to the texture.

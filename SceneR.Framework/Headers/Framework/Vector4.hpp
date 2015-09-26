@@ -57,7 +57,7 @@ namespace SceneR
              * @param value A vector.
              * @return The absolute value vector.
              */
-            static Vector4 abs(const Vector4& value);
+            static Vector4 abs(const Vector4& value) noexcept;
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -74,7 +74,7 @@ namespace SceneR
                                      , const Vector4& value2
                                      , const Vector4& value3
                                      , const float&   amount1
-                                     , const float&   amount2);
+                                     , const float&   amount2) noexcept;
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -88,22 +88,22 @@ namespace SceneR
                                      , const Vector4& value2
                                      , const Vector4& value3
                                      , const Vector4& value4
-                                     , const float&   amount);
+                                     , const float&   amount) noexcept;
 
             /**
              * Restricts a value to be within a specified range.
              */
-            static Vector4 clamp(const Vector4& value1, const Vector4& min, const Vector4& max);
+            static Vector4 clamp(const Vector4& value1, const Vector4& min, const Vector4& max) noexcept;
 
             /**
              * Calculates the distance between two vectors.
              */
-            static float distance(const Vector4& value1, const Vector4& value2);
+            static float distance(const Vector4& value1, const Vector4& value2) noexcept;
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static float distance_squared(const Vector4& value1, const Vector4& value2);
+            static float distance_squared(const Vector4& value1, const Vector4& value2) noexcept;
 
             /**
              * Calculates the dot product of two Vector4 structures.
@@ -111,7 +111,7 @@ namespace SceneR
              * @param value2 The second Vector4 structure to evaluate.
              * @return The dot product of the given vectors.
              */
-            static float dot(const Vector4& value1, const Vector4& value2);
+            static float dot(const Vector4& value1, const Vector4& value2) noexcept;
 
             /**
              * Calculates a hermite spline interpolation.
@@ -125,7 +125,7 @@ namespace SceneR
                                  , const Vector4& tangent1
                                  , const Vector4& value2
                                  , const Vector4& tangent2
-                                 , const float&   amount);
+                                 , const float&   amount) noexcept;
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -134,21 +134,21 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 lerp(const Vector4& value1, const Vector4& value2, const float& amount);
+            static Vector4 lerp(const Vector4& value1, const Vector4& value2, const float& amount) noexcept;
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector4 min(const Vector4& value1, const Vector4& value2);
+            static Vector4 min(const Vector4& value1, const Vector4& value2) noexcept;
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector4 max(const Vector4& value1, const Vector4& value2);
+            static Vector4 max(const Vector4& value1, const Vector4& value2) noexcept;
 
             /**
              * Negates a Vector4.
@@ -156,7 +156,7 @@ namespace SceneR
              * The vector has the same magnitude as before, but its direction is now opposite.
              * @param value the vector to be negated
              */
-            static Vector4 negate(const Vector4& value);
+            static Vector4 negate(const Vector4& value) noexcept;
 
             /**
              * Normalizes the specified Vector4.
@@ -166,14 +166,14 @@ namespace SceneR
              * A Vector4 is normalized by dividing the Vector4 by its magnitude.
              * @param value the vector to normalize
              */
-            static Vector4 normalize(const Vector4& value);
+            static Vector4 normalize(const Vector4& value) noexcept;
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
              * @param value A vector.
              * @return The square root vector.
              */
-            static Vector4 square_root(const Vector4& value);
+            static Vector4 square_root(const Vector4& value) noexcept;
 
             /**
              * @brief Transforms a two-dimensional vector by a specified 4x4 matrix.
@@ -181,7 +181,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector2& position, const Matrix& matrix);
+            static Vector4 transform(const Vector2& position, const Matrix& matrix) noexcept;
 
             /**
              * @brief Transforms a three-dimensional vector by a specified 4x4 matrix.
@@ -189,7 +189,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector3& position, const Matrix& matrix);
+            static Vector4 transform(const Vector3& position, const Matrix& matrix) noexcept;
 
             /**
              * @brief Transforms a four-dimensional vector by a specified 4x4 matrix.
@@ -197,7 +197,7 @@ namespace SceneR
              * @param matrix The transformation matrix.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector4& position, const Matrix& matrix);
+            static Vector4 transform(const Vector4& position, const Matrix& matrix) noexcept;
 
             /**
              * @brief Transforms a two-dimensional vector by a specified quaternion.
@@ -205,7 +205,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector2& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector2& value, const Quaternion& rotation) noexcept;
 
             /**
              * @brief Transforms a three-dimensional vector by a specified quaternion.
@@ -213,7 +213,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector3& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector3& value, const Quaternion& rotation) noexcept;
 
             /**
              * @brief Transforms a four-dimensional vector by a specified quaternion.
@@ -221,7 +221,7 @@ namespace SceneR
              * @param rotation The transformation quaternion.
              * @return The transformed vector
              */
-            static Vector4 transform(const Vector4& value, const Quaternion& rotation);
+            static Vector4 transform(const Vector4& value, const Quaternion& rotation) noexcept;
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -230,26 +230,26 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector4 smooth_step(const Vector4& value1, const Vector4& value2, const float& amount);
+            static Vector4 smooth_step(const Vector4& value1, const Vector4& value2, const float& amount) noexcept;
 
         public:
             /**
              * Initializes a new instance of the Vector4 class.
              */
-            Vector4();
+            Vector4() noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class.
              * @param value the value for the x, y, z and w components of the vector.
              */
-            Vector4(const float& value);
+            Vector4(const float& value) noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class.
              * @param value a vector containing the values to initialize x, y, and z components with.
              * @param w value for the w-component of the vector.
              */
-            Vector4(const Vector3& value, const float& w);
+            Vector4(const Vector3& value, const float& w) noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -257,7 +257,7 @@ namespace SceneR
              * @param y The Y value of the new Vector4 structure.
              * @param z The Z value of the new Vector4 structure.
              */
-            Vector4(const float& x, const float& y, const float& z);
+            Vector4(const float& x, const float& y, const float& z) noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -265,7 +265,7 @@ namespace SceneR
              * @param z value for the z-component of the vector.
              * @param w value for the w-component of the vector.
              */
-            Vector4(const Vector2& value, const float& z, const float& w);
+            Vector4(const Vector2& value, const float& z, const float& w) noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class.
@@ -274,7 +274,7 @@ namespace SceneR
              * @param z The Z value of the new Vector4 structure.
              * @param w The W value of the new Vector4 structure.
              */
-            Vector4(const float& x, const float& y, const float& z, const float& w);
+            Vector4(const float& x, const float& y, const float& z, const float& w) noexcept;
 
             /**
              * Initializes a new instance of the Vector4 class (Copy constructor)
@@ -293,14 +293,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector4.
              */
-            float length_squared() const;
+            float length_squared() const noexcept;
 
             /**
              * Gets the length of this Vector4.
              *
              * @return the length of this Vector4.
              */
-            float length() const;
+            float length() const noexcept;
 
         public:
             Vector4& operator=(const Vector4& data) = default;
@@ -338,7 +338,7 @@ namespace SceneR
             };
         };
 
-        inline Vector4 operator*(const float& value, const Vector4& vector)
+        inline Vector4 operator*(const float& value, const Vector4& vector) noexcept
         {
             return { value * vector.x, value * vector.y, value * vector.z, value * vector.w };
         }

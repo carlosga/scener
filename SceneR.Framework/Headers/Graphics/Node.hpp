@@ -29,12 +29,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Node class.
              */
-            Node();
+            Node() noexcept;
 
             /**
              * Destructor.
              */
-            ~Node();
+            ~Node() = default;
 
         public:
             /**

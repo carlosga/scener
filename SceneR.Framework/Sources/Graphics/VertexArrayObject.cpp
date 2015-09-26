@@ -18,7 +18,7 @@ namespace SceneR
             }
         }
 
-        std::uint32_t VertexArrayObject::id() const
+        std::uint32_t VertexArrayObject::id() const noexcept
         {
             return _id;
         }

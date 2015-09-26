@@ -45,36 +45,36 @@ namespace SceneR
              * Gets the BoundingSphere that contains this mesh.
              * @return The BoundingSphere that contains this mesh.
              */
-            const SceneR::Framework::BoundingSphere& bounding_sphere() const;
+            const SceneR::Framework::BoundingSphere& bounding_sphere() const noexcept;
 
             /**
              * Gets the name of this mesh.
              * @return The name of this mesh.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets the list of efects of each mesh part.
              */
-            std::vector<EffectTechnique*> effects() const;
+            std::vector<EffectTechnique*> effects() const noexcept;
 
             /**
              * Gets the ModelMeshPart objects that make up this mesh.
              * Each part of a mesh is composed of a set of primitives that share the same material.
              */
-            const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const;
+            const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const noexcept;
 
             /**
              * Gets the parent bone for this mesh. The parent bone of a mesh contains a
              * transformation matrix that describes how the mesh is located relative to
              * any parent meshes in a model.
              */
-            ModelBone* parent_bone() const;
+            ModelBone* parent_bone() const noexcept;
 
             /**
              * Joints and matrices defining a skin.
              */
-            ModelSkin* skin() const;
+            ModelSkin* skin() const noexcept;
 
         public:
             /**

@@ -7,18 +7,18 @@ namespace SceneR
 {
     namespace Input
     {
-        MouseState::MouseState()
+        MouseState::MouseState() noexcept
         {
         }
 
-        MouseState::MouseState(const int&         x
-                             , const int&         y
-                             , const int&         scrollWheel
-                             , const ButtonState& leftButton
-                             , const ButtonState& middleButton
-                             , const ButtonState& rightButton
-                             , const ButtonState& xButton1
-                             , const ButtonState& xButton2)
+        MouseState::MouseState(const std::uint32_t& x
+                             , const std::uint32_t& y
+                             , const std::uint32_t& scrollWheel
+                             , const ButtonState&   leftButton
+                             , const ButtonState&   middleButton
+                             , const ButtonState&   rightButton
+                             , const ButtonState&   xButton1
+                             , const ButtonState&   xButton2) noexcept
         {
             _x             = x;
             _y             = y;
@@ -30,54 +30,50 @@ namespace SceneR
             _xbutton_2     = xButton2;
         }
 
-        MouseState::~MouseState()
-        {
-        }
-
         // Returns the state of the left mouse button.
-        const ButtonState& MouseState::left_button() const
+        const ButtonState& MouseState::left_button() const noexcept
         {
             return _left_button;
         }
 
         // Returns the state of the middle mouse button.
-        const ButtonState& MouseState::middle_button() const
+        const ButtonState& MouseState::middle_button() const noexcept
         {
             return _middle_button;
         }
 
         // Returns the state of the right mouse button.
-        const ButtonState& MouseState::right_button() const
+        const ButtonState& MouseState::right_button() const noexcept
         {
             return _right_button;
         }
 
         // Gets the cumulative mouse scroll wheel value since the game was started.
-        int MouseState::scroll_wheel_value() const
+        std::uint32_t MouseState::scroll_wheel_value() const noexcept
         {
             return _scroll_wheel;
         }
 
         // Specifies the horizontal position of the mouse cursor.
-        int MouseState::x() const
+        std::uint32_t MouseState::x() const noexcept
         {
             return _x;
         }
 
         // Returns the state of XBUTTON1.
-        const ButtonState& MouseState::xbutton_1() const
+        const ButtonState& MouseState::xbutton_1() const noexcept
         {
             return _xbutton_1;
         }
 
         // Returns the state of XBUTTON2.
-        const ButtonState& MouseState::xbutton_2() const
+        const ButtonState& MouseState::xbutton_2() const noexcept
         {
             return _xbutton_2;
         }
 
         // Specifies the vertical position of the mouse cursor.
-        int MouseState::y() const
+        std::uint32_t MouseState::y() const noexcept
         {
             return _y;
         }

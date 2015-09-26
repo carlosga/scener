@@ -17,7 +17,7 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        Model::Model()
+        Model::Model() noexcept
             : _name   ()
             , _bones  (0)
             , _root   ()
@@ -25,30 +25,26 @@ namespace SceneR
         {
         }
 
-        Model::~Model()
-        {
-        }
-
         void Model::dispose()
         {
         }
 
-        const std::string Model::name() const
+        const std::string Model::name() const noexcept
         {
             return _name;
         }
 
-        const std::shared_ptr<ModelBone>& Model::root() const
+        const std::shared_ptr<ModelBone>& Model::root() const noexcept
         {
             return _root;
         }
 
-        const std::vector<std::shared_ptr<ModelBone>>& Model::bones() const
+        const std::vector<std::shared_ptr<ModelBone>>& Model::bones() const noexcept
         {
             return _bones;
         }
 
-        const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const
+        const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
         {
             return _meshes;
         }

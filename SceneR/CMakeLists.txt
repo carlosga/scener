@@ -61,4 +61,4 @@ target_include_directories (SceneR
 target_link_libraries (SceneR c++abi SceneR_Framework)
 
 # enable 64 bit build
-set_target_properties (SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
+set_target_properties (SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)

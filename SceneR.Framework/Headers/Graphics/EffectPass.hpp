@@ -35,7 +35,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the EffectPass class.
              */
-            EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Destructor.
@@ -47,7 +47,7 @@ namespace SceneR
              * Gets the name of this pass.
              * @return The name of this pass.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Begins this pass.

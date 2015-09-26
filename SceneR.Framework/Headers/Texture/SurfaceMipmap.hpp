@@ -25,10 +25,10 @@ namespace SceneR
             ~SurfaceMipmap() = default;
 
         public:
-            index_type index() const;
-            size_type  width() const;
-            size_type  height() const;
-            const std::vector<std::uint8_t>& get_data() const;
+            index_type index() const noexcept;
+            size_type  width() const noexcept;
+            size_type  height() const noexcept;
+            const std::vector<std::uint8_t>& get_data() const noexcept;
 
         private:
             index_type                _index;

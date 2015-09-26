@@ -12,7 +12,7 @@ namespace SceneR
     {
         Texture2D::Texture2D(Guide::not_null<GraphicsDevice*> graphicsDevice
                            , const std::size_t&               width
-                           , const std::size_t&               height)
+                           , const std::size_t&               height) noexcept
             : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
         {
         }
@@ -21,7 +21,7 @@ namespace SceneR
                            , const std::size_t&               width
                            , const std::size_t&               height
                            , const bool&                      mipmap
-                           , const SurfaceFormat&             format)
+                           , const SurfaceFormat&             format) noexcept
             : Texture        { graphicsDevice }
             , _format        { format }
             , _height        { height }
@@ -37,32 +37,32 @@ namespace SceneR
             _object.dispose();
         }
 
-        std::uint32_t Texture2D::id() const
+        std::uint32_t Texture2D::id() const noexcept
         {
             return _object.id();
         }
 
-        const SurfaceFormat& Texture2D::format() const
+        const SurfaceFormat& Texture2D::format() const noexcept
         {
             return _format;
         }
 
-        std::size_t Texture2D::height() const
+        std::size_t Texture2D::height() const noexcept
         {
             return _height;
         }
 
-        std::size_t Texture2D::level_count() const
+        std::size_t Texture2D::level_count() const noexcept
         {
             return _mipmap_levels;
         }
 
-        std::size_t Texture2D::width() const
+        std::size_t Texture2D::width() const noexcept
         {
             return _width;
         }
 
-        SamplerState* Texture2D::sampler_state() const
+        SamplerState* Texture2D::sampler_state() const noexcept
         {
             return _sampler_state.get();
         }

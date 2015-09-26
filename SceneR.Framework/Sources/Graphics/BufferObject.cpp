@@ -7,7 +7,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage)
+        BufferObject::BufferObject(const BufferTarget& target, const BufferUsage& usage) noexcept
             : _id     { 0 }
             , _target { target }
             , _usage  { usage }
@@ -23,17 +23,17 @@ namespace SceneR
             }
         }
 
-        std::uint32_t BufferObject::id() const
+        std::uint32_t BufferObject::id() const noexcept
         {
             return _id;
         }
 
-        const BufferTarget& BufferObject::target() const
+        const BufferTarget& BufferObject::target() const noexcept
         {
             return _target;
         }
 
-        const BufferUsage& BufferObject::usage() const
+        const BufferUsage& BufferObject::usage() const noexcept
         {
             return _usage;
         }

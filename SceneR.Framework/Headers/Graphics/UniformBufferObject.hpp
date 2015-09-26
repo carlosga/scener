@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include <Graphics/BufferObject.hpp>
 #include <Graphics/BufferUsage.hpp>
 #include <System/IDisposable.hpp>
 
@@ -17,8 +18,6 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class BufferObject;
-
         /**
          * Represents an OpenGL Uniform Buffer Object
          *
@@ -32,12 +31,12 @@ namespace SceneR
              * @param name the name of the uniform buffer object.
              * @param programId the handle of the shader program.
              */
-            UniformBufferObject(const std::string& name, const std::uint32_t& programId);
+            UniformBufferObject(const std::string& name, const std::uint32_t& programId) noexcept;
 
             /**
              * Releases all resources being used by this UniformBufferObject.
              */
-            ~UniformBufferObject();
+            ~UniformBufferObject() = default;
 
         public:
             void dispose() override;
@@ -46,17 +45,17 @@ namespace SceneR
             /**
              * Gets the uniform buffer binding point.
              */
-            std::int32_t binding_point() const;
+            std::int32_t binding_point() const noexcept;
 
             /**
              * Gets the uniform buffer block index.
              */
-            std::size_t index() const;
+            std::size_t index() const noexcept;
 
             /**
              * Gets the uniform buffer block data size.
              */
-            std::size_t size() const;
+            std::size_t size() const noexcept;
 
         public:
             /**

@@ -17,43 +17,43 @@ namespace SceneR
         struct MouseState
         {
         public:
-            MouseState();
+            MouseState() noexcept;
 
             //Initializes a new instance of the MouseState class.
-            MouseState(const int& x
-                     , const int& y
-                     , const int& scrollWheel
-                     , const ButtonState& leftButton
-                     , const ButtonState& middleButton
-                     , const ButtonState& rightButton
-                     , const ButtonState& xButton1
-                     , const ButtonState& xButton2);
+            MouseState(const std::uint32_t& x
+                     , const std::uint32_t& y
+                     , const std::uint32_t& scrollWheel
+                     , const ButtonState&   leftButton
+                     , const ButtonState&   middleButton
+                     , const ButtonState&   rightButton
+                     , const ButtonState&   xButton1
+                     , const ButtonState&   xButton2) noexcept;
 
-            ~MouseState();
+            ~MouseState() = default;
 
             // Returns the state of the left mouse button.
-            const ButtonState& left_button() const;
+            const ButtonState& left_button() const noexcept;
 
             // Returns the state of the middle mouse button.
-            const ButtonState& middle_button() const;
+            const ButtonState& middle_button() const noexcept;
 
             // Returns the state of the right mouse button.
-            const ButtonState& right_button() const;
+            const ButtonState& right_button() const noexcept;
 
             // Gets the cumulative mouse scroll wheel value since the game was started.
-            int scroll_wheel_value() const;
+            std::uint32_t scroll_wheel_value() const noexcept;
 
             // Specifies the horizontal position of the mouse cursor.
-            int x() const;
+            std::uint32_t x() const noexcept;
 
             // Returns the state of XBUTTON1.
-            const ButtonState& xbutton_1() const;
+            const ButtonState& xbutton_1() const noexcept;
 
             // Returns the state of XBUTTON2.
-            const ButtonState& xbutton_2() const;
+            const ButtonState& xbutton_2() const noexcept;
 
             // Specifies the vertical position of the mouse cursor.
-            int y() const;
+            std::uint32_t y() const noexcept;
 
             // Determines whether two MouseState instances are equal.
             // public static bool op_Equality (MouseState left,MouseState right)
@@ -62,14 +62,14 @@ namespace SceneR
             // public static bool op_Inequality (MouseState left,MouseState right)
 
         private:
-            int         _x;
-            int         _y;
-            int         _scroll_wheel;
-            ButtonState _left_button;
-            ButtonState _middle_button;
-            ButtonState _right_button;
-            ButtonState _xbutton_1;
-            ButtonState _xbutton_2;
+            std::uint32_t _x;
+            std::uint32_t _y;
+            std::uint32_t _scroll_wheel;
+            ButtonState   _left_button;
+            ButtonState   _middle_button;
+            ButtonState   _right_button;
+            ButtonState   _xbutton_1;
+            ButtonState   _xbutton_2;
         };
     }
 }

@@ -37,7 +37,7 @@ namespace SceneR
              * @param target the buffer target.
              * @param usage the buffer usage.
              */
-            BufferView(const BufferTarget& target, const BufferUsage& usage);
+            BufferView(const BufferTarget& target, const BufferUsage& usage) noexcept;
 
             /**
              * Releases all resources being used by this BufferView.
@@ -51,28 +51,28 @@ namespace SceneR
             /**
              * Gets the buffer object target.
              */
-            const BufferTarget& target() const;
+            const BufferTarget& target() const noexcept;
 
             /**
              * Gets the buffer object usage.
              */
-            const BufferUsage& usage() const;
+            const BufferUsage& usage() const noexcept;
 
             /**
              * Gets the offset into the buffer in bytes.
              */
-            std::size_t byte_offset() const;
+            std::size_t byte_offset() const noexcept;
 
             /**
              * Gets the length of the buffer-view in bytes.
              */
-            std::size_t byte_length() const;
+            std::size_t byte_length() const noexcept;
 
             /**
              * Gets the buffer name.
              * @return the buffer name.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets buffer data from object's data store.

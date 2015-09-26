@@ -26,12 +26,12 @@ namespace SceneR
              * Initializes a new instance of the TextureObject class.
              * @param target the texturer target.
              */
-            TextureObject(const TextureTarget& target);
+            TextureObject(const TextureTarget& target) noexcept;
 
             /**
              * Releases all resources being used by this TextureObject.
              */
-            ~TextureObject();
+            ~TextureObject() = default;
 
         public:
             void dispose() override;
@@ -40,7 +40,7 @@ namespace SceneR
             /**
              * Gets the texture object identifier
              */
-            std::uint32_t id() const;
+            std::uint32_t id() const noexcept;
 
             /**
              * Activates the texture object.

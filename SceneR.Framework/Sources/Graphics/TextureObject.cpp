@@ -10,15 +10,11 @@ namespace SceneR
 {
     namespace Graphics
     {
-        TextureObject::TextureObject(const TextureTarget& target)
+        TextureObject::TextureObject(const TextureTarget& target) noexcept
             : _id     { 0 }
             , _target { target }
         {
             create();
-        }
-
-        TextureObject::~TextureObject()
-        {
         }
 
         void TextureObject::dispose()
@@ -30,7 +26,7 @@ namespace SceneR
             }
         }
 
-        std::uint32_t TextureObject::id() const
+        std::uint32_t TextureObject::id() const noexcept
         {
             return _id;
         }

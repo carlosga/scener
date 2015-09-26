@@ -45,48 +45,48 @@ namespace SceneR
             /**
              * Specifies if the attribute is a scalar, vector, or matrix.
              */
-            const AttributeType& attribute_type() const;
+            const AttributeType& attribute_type() const noexcept;
 
             /**
              * Gets the data type of the components referenced by this accessor.
              */
-            const ComponentType& component_type() const;
+            const ComponentType& component_type() const noexcept;
 
             /**
              * Gets the offset relative to the buffer-view in bytes.
              */
-            std::size_t byte_offset() const;
+            std::size_t byte_offset() const noexcept;
 
             /**
              * Gets the size, in bytes, of the data referenced by this accessor.
              */
-            std::size_t byte_length() const;
+            std::size_t byte_length() const noexcept;
 
             /**
              * Gets the stride, in bytes, between attributes referenced by this accessor.
              */
-            std::size_t byte_stride() const;
+            std::size_t byte_stride() const noexcept;
 
             /**
              * Gets the number of attributes referenced by this accessor,
              * not to be confused with the number of bytes or number of components.
              */
-            std::size_t attribute_count() const;
+            std::size_t attribute_count() const noexcept;
 
             /**
              * Gets the maximum value of each component in this attribute.
              */
-            const std::vector<float>& max() const;
+            const std::vector<float>& max() const noexcept;
 
             /**
              * Gets the minimum value of each component in this attribute.
              */
-            const std::vector<float>& min() const;
+            const std::vector<float>& min() const noexcept;
 
             /**
              * Gets the accessor name.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets the accessor data.
@@ -99,9 +99,9 @@ namespace SceneR
             const Guide::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
                                                          , const std::size_t& elementCount) const;
 
-            std::size_t get_attribute_type_count() const;
+            std::size_t get_attribute_type_count() const noexcept;
 
-            std::size_t get_component_size_in_bytes() const;
+            std::size_t get_component_size_in_bytes() const noexcept;
 
         private:
             AttributeType               _attribute_type  { AttributeType::Scalar };

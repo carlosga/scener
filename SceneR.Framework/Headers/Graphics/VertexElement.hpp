@@ -26,7 +26,7 @@ namespace SceneR
             VertexElement(const std::size_t&         offset
                         , const VertexElementFormat& vertexElementFormat
                         , const VertexElementUsage&  vertexElementUsage
-                        , const std::uint32_t&       usageIndex);
+                        , const std::uint32_t&       usageIndex) noexcept;
 
             /**
              * @brief Copy constructor
@@ -43,22 +43,22 @@ namespace SceneR
             /**
              * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
              */
-            std::size_t offset() const;
+            std::size_t offset() const noexcept;
 
             /**
              * Gets the usage data to allow the user to specify multiple usage types.
              */
-            std::uint32_t usage_index() const;
+            std::uint32_t usage_index() const noexcept;
 
             /**
              * Gets or sets the format of this vertex element.
              */
-            const VertexElementFormat& vertex_element_format() const;
+            const VertexElementFormat& vertex_element_format() const noexcept;
 
             /**
              * Gets a value describing how the vertex element is to be used.
              */
-            const VertexElementUsage& vertex_element_usage() const;
+            const VertexElementUsage& vertex_element_usage() const noexcept;
 
         public:
             VertexElement& operator=(const VertexElement& element) = default;

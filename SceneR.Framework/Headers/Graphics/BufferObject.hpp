@@ -27,7 +27,7 @@ namespace SceneR
              * @param target the buffer target.
              * @param usage the buffer usage.
              */
-            BufferObject(const BufferTarget& target, const BufferUsage& usage);
+            BufferObject(const BufferTarget& target, const BufferUsage& usage) noexcept;
 
             /**
              * Releases all resources being used by this BufferObject.
@@ -41,17 +41,17 @@ namespace SceneR
             /**
              * Gets the buffer object identifier.
              */
-            std::uint32_t id() const;
+            std::uint32_t id() const noexcept;
 
             /**
              * Gets the buffer object target.
              */
-            const BufferTarget& target() const;
+            const BufferTarget& target() const noexcept;
 
             /**
              * Gets the buffer object usage.
              */
-            const BufferUsage& usage() const;
+            const BufferUsage& usage() const noexcept;
 
             /**
              * Activates the buffer object.

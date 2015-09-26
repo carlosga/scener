@@ -15,7 +15,7 @@ namespace SceneR
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
 
-        Node::Node()
+        Node::Node() noexcept
             : name          ()
             , camera        ()
             , instance_skin { nullptr }
@@ -27,10 +27,6 @@ namespace SceneR
             , scale         { Vector3::one }
             , translation   { Vector3::zero }
             , children      ()
-        {
-        }
-
-        Node::~Node()
         {
         }
     }

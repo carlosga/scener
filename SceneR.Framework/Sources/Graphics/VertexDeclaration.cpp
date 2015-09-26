@@ -10,18 +10,18 @@ namespace SceneR
     namespace Graphics
     {
         VertexDeclaration::VertexDeclaration(const std::size_t&                vertexStride
-                                           , const std::vector<VertexElement>& vertexElements)
+                                           , const std::vector<VertexElement>& vertexElements) noexcept
             : _vertex_stride   { vertexStride }
             , _vertex_elements { vertexElements }
         {
         }
 
-        std::size_t VertexDeclaration::vertex_stride() const
+        std::size_t VertexDeclaration::vertex_stride() const noexcept
         {
             return _vertex_stride;
         }
 
-        const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const
+        const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const noexcept
         {
             return _vertex_elements;
         }
@@ -49,9 +49,8 @@ namespace SceneR
             }
         }
 
-        std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vertexFormat) const
+        std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vertexFormat) const noexcept
         {
-            // TODO: Review this to see if it can match the XNA VertexElementFormat specificacion.
             switch (vertexFormat)
             {
                 case VertexElementFormat::Single:
@@ -77,7 +76,7 @@ namespace SceneR
             }
         }
 
-        std::uint32_t VertexDeclaration::get_element_type(const VertexElementFormat& vertexFormat) const
+        std::uint32_t VertexDeclaration::get_element_type(const VertexElementFormat& vertexFormat) const noexcept
         {
             switch (vertexFormat)
             {

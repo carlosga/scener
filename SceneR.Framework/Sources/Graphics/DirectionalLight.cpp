@@ -9,14 +9,14 @@ namespace SceneR
     {
         using SceneR::Framework::Vector3;
 
-        DirectionalLight::DirectionalLight()
+        DirectionalLight::DirectionalLight() noexcept
             : DirectionalLight { { 0.0f, -1.0f, 0.0f }, Vector3::one, Vector3::zero }
         {
         }
 
         DirectionalLight::DirectionalLight(const Vector3& direction
                                          , const Vector3& diffuseColor
-                                         , const Vector3& specularColor)
+                                         , const Vector3& specularColor) noexcept
             : direction      { direction }
             , diffuse_color  { diffuseColor }
             , specular_color { specularColor }

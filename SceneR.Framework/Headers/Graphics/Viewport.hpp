@@ -17,39 +17,39 @@ namespace SceneR
             /**
              * Initializes a new instance of the ViewPort class
              */
-            Viewport();
+            Viewport() noexcept;
 
             /**
              * Initializes a new instance of the ViewPort class
              */
             Viewport(const float& x    , const float& y
-                   , const float& width, const float& height);
+                   , const float& width, const float& height) noexcept;
 
             /**
              * Initializes a new instance of the ViewPort class
              */
             Viewport(const float& x       , const float& y,
                      const float& width   , const float& height,
-                     const float& minDepth, const float& maxDepth);
+                     const float& minDepth, const float& maxDepth) noexcept;
 
             /**
              * @brief Copy constructor
              * @param viewport the instance to copy from
              */
-            Viewport(const Viewport& viewport);
+            Viewport(const Viewport& viewport) = default;
 
             /**
              * destructor
              */
-            ~Viewport();
+            ~Viewport() = default;
 
         public:
-            float aspect_ratio() const;
+            float aspect_ratio() const noexcept;
 
             void update() const;
 
         public:
-            Viewport& operator=(const Viewport& viewport);
+            Viewport& operator=(const Viewport& viewport) = default;
 
         public:
             float x;

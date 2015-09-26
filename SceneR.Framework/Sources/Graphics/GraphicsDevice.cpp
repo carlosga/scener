@@ -18,7 +18,7 @@ namespace SceneR
         using SceneR::Framework::Color;
 
         std::size_t GraphicsDevice::get_element_count(const PrimitiveType& primitiveType
-                                                    , const std::size_t&   primitiveCount)
+                                                    , const std::size_t&   primitiveCount) noexcept
         {
             switch (primitiveType)
             {
@@ -45,7 +45,7 @@ namespace SceneR
             }
         }
 
-        GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile)
+        GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile) noexcept
             : effect                   { nullptr }
             , index_buffer             { nullptr }
             , vertex_buffer            { nullptr }
@@ -165,42 +165,42 @@ namespace SceneR
             glfwSwapBuffers(glfwGetCurrentContext());
         }
 
-        const GraphicsAdapter& GraphicsDevice::adapter() const
+        const GraphicsAdapter& GraphicsDevice::adapter() const noexcept
         {
             return _graphics_adapter;
         }
 
-        const GraphicsProfile& GraphicsDevice::graphics_profile() const
+        const GraphicsProfile& GraphicsDevice::graphics_profile() const noexcept
         {
             return _graphics_profile;
         }
 
-        BlendState& GraphicsDevice::blend_state()
+        BlendState& GraphicsDevice::blend_state() noexcept
         {
             return _blend_state;
         }
 
-        DepthStencilState& GraphicsDevice::depth_stencil_state()
+        DepthStencilState& GraphicsDevice::depth_stencil_state() noexcept
         {
             return _depth_stencil_state;
         }
 
-        PresentationParameters& GraphicsDevice::presentation_parameters()
+        PresentationParameters& GraphicsDevice::presentation_parameters() noexcept
         {
             return _presentation_parameters;
         }
 
-        RasterizerState& GraphicsDevice::rasterizer_state()
+        RasterizerState& GraphicsDevice::rasterizer_state() noexcept
         {
             return _rasterizer_state;
         }
 
-        Viewport& GraphicsDevice::viewport()
+        Viewport& GraphicsDevice::viewport() noexcept
         {
            return _viewport;
         }
 
-        void GraphicsDevice::viewport(const Viewport& viewport)
+        void GraphicsDevice::viewport(const Viewport& viewport) noexcept
         {
             _viewport = viewport;
             _viewport.update();

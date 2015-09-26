@@ -38,9 +38,9 @@ namespace SceneR
             void dispose() override;
 
         public:
-            std::uint32_t id() const;
+            std::uint32_t id() const noexcept;
 
-            UniformBufferObject* uniform_buffer() const;
+            UniformBufferObject* uniform_buffer() const noexcept;
 
             void create();
 

@@ -21,32 +21,32 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
 
-        std::size_t EffectParameter::column_count() const
+        std::size_t EffectParameter::column_count() const noexcept
         {
             return _column_count;
         }
 
-        const std::string& EffectParameter::name() const
+        const std::string& EffectParameter::name() const noexcept
         {
             return _name;
         }
 
-        const EffectParameterClass& EffectParameter::parameter_class() const
+        const EffectParameterClass& EffectParameter::parameter_class() const noexcept
         {
             return _parameter_class;
         }
 
-        const EffectParameterType& EffectParameter::parameter_type() const
+        const EffectParameterType& EffectParameter::parameter_type() const noexcept
         {
             return _parameter_type;
         }
 
-        std::size_t EffectParameter::row_count() const
+        std::size_t EffectParameter::row_count() const noexcept
         {
             return _row_count;
         }
 
-        std::string EffectParameter::semantic() const
+        std::string EffectParameter::semantic() const noexcept
         {
             return _semantic;
         }

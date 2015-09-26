@@ -11,7 +11,7 @@ namespace SceneR
     {
         IndexBuffer::IndexBuffer(Guide::not_null<GraphicsDevice*> graphicsDevice
                                , const ComponentType&             indexElementType
-                               , const std::size_t&               indexCount)
+                               , const std::size_t&               indexCount) noexcept
             : GraphicsResource  { graphicsDevice }
             , _ibo              { nullptr }
             , _indexCount       { indexCount }
@@ -28,17 +28,17 @@ namespace SceneR
             }
         }
 
-        std::size_t IndexBuffer::index_count() const
+        std::size_t IndexBuffer::index_count() const noexcept
         {
             return _indexCount;
         }
 
-        const ComponentType& IndexBuffer::index_element_type() const
+        const ComponentType& IndexBuffer::index_element_type() const noexcept
         {
             return _indexElementType;
         }
 
-        std::size_t IndexBuffer::element_size_in_bytes() const
+        std::size_t IndexBuffer::element_size_in_bytes() const noexcept
         {
             switch (_indexElementType)
             {

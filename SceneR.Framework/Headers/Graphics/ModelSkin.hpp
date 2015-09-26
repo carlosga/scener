@@ -35,27 +35,27 @@ namespace SceneR
              * Describes how to pose the skin's geometry for use with the joints.
              * Floating-point 4x4 transformation matrix stored in column-major order.
              */
-            const SceneR::Framework::Matrix& bindShapeMatrix() const;
+            const SceneR::Framework::Matrix& bindShapeMatrix() const noexcept;
 
             /**
              * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint
              */
-            const std::vector<SceneR::Framework::Matrix>& inverseBindMatrices() const;
+            const std::vector<SceneR::Framework::Matrix>& inverseBindMatrices() const noexcept;
 
             /**
              * Joints used to animate the skin
              */
-            const std::vector<std::shared_ptr<ModelBone>>& joints() const;
+            const std::vector<std::shared_ptr<ModelBone>>& joints() const noexcept;
 
             /**
              * The skin name.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Contains one or more skeletons, each of which is the root of a node hierarchy.
              */
-            const std::vector<std::shared_ptr<ModelBone>>& skeletons() const;
+            const std::vector<std::shared_ptr<ModelBone>>& skeletons() const noexcept;
 
         private:
             SceneR::Framework::Matrix               _bindShapeMatrix     = { SceneR::Framework::Matrix::identity };

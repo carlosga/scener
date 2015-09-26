@@ -38,7 +38,7 @@ namespace SceneR
              */
             VertexBuffer(Guide::not_null<GraphicsDevice*>   graphicsDevice
                        , const std::size_t&                 vertexCount
-                       , std::unique_ptr<VertexDeclaration> vertexDeclaration);
+                       , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept;
 
             /**
              * Releases all resources being used by the current VertexBuffer
@@ -52,7 +52,7 @@ namespace SceneR
             /**
              * Gets the number of vertex for the current buffer
              */
-            std::size_t vertex_count() const;
+            std::size_t vertex_count() const noexcept;
 
             /**
              * Gets the vertex buffer data
@@ -72,7 +72,7 @@ namespace SceneR
             /**
              * Defines per-vertex data in a buffer.
              */
-            SceneR::Graphics::VertexDeclaration* vertex_declaration() const;
+            SceneR::Graphics::VertexDeclaration* vertex_declaration() const noexcept;
 
         private:
             void bind();

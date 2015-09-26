@@ -36,7 +36,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the GraphicsAdapter class.
              */
-            GraphicsAdapter();
+            GraphicsAdapter() noexcept;
 
             /**
              * @brief Copy constructor.
@@ -53,57 +53,57 @@ namespace SceneR
             /**
              * Gets the current display mode.
              */
-            DisplayMode current_display_mode() const;
+            DisplayMode current_display_mode() const noexcept;
 
             /**
              * Retrieves a string used for presentation to the user.
              */
-            const std::string& description() const;
+            const std::string& description() const noexcept;
 
             /**
              * Retrieves a value that is used to help identify a particular chip set.
              */
-            std::int32_t device_id() const;
+            std::int32_t device_id() const noexcept;
 
             /**
              * Retrieves a string that contains the device name for a Microsoft Windows Graphics Device Interface (GDI).
              */
-            const std::string& device_name() const;
+            const std::string& device_name() const noexcept;
 
             /**
              * Determines if this instance of GraphicsAdapter is the default adapter.
              */
-            bool is_default_adapter() const;
+            bool is_default_adapter() const noexcept;
 
             /**
              * Determines if the graphics adapter is in widescreen mode.
              */
-            bool is_wide_screen() const;
+            bool is_wide_screen() const noexcept;
 
             /**
              * Retrieves the handle of the monitor associated with the Microsoft Direct3D object.
              */
-            GLFWmonitor* monitor_handle() const;
+            GLFWmonitor* monitor_handle() const noexcept;
 
             /**
              * Retrieves a value used to help identify the revision level of a particular chip set.
              */
-            std::int32_t revision() const;
+            std::int32_t revision() const noexcept;
 
             /**
              * Retrieves a value used to identify the subsystem.
              */
-            std::int32_t sub_system_id() const;
+            std::int32_t sub_system_id() const noexcept;
 
             /**
              * Returns a collection of supported display modes for the current adapter.
              */
-            const std::vector<DisplayMode>& supported_display_modes() const;
+            const std::vector<DisplayMode>& supported_display_modes() const noexcept;
 
             /**
              * Retrieves a value used to identify the manufacturer.
              */
-            std::int32_t vendor_id() const;
+            std::int32_t vendor_id() const noexcept;
 
         public:
             GraphicsAdapter& operator=(const GraphicsAdapter& adapter) = default;

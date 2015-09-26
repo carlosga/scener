@@ -7,13 +7,13 @@ namespace SceneR
 {
     namespace Graphics
     {
-        GraphicsResource::GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice)
+        GraphicsResource::GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept
             : name             { }
             , _graphics_device { graphicsDevice }
         {
         }
 
-        GraphicsDevice* GraphicsResource::graphics_device() const
+        GraphicsDevice* GraphicsResource::graphics_device() const noexcept
         {
             return _graphics_device;
         }

@@ -23,13 +23,13 @@ namespace SceneR
         {
         public:
             // Returns the current keyboard state.
-            static KeyboardState get_state();
+            static KeyboardState get_state() noexcept;
 
             // Gets or sets the window used for mouse processing.
-            static void initialize(GLFWwindow *window);
+            static void initialize(GLFWwindow *window) noexcept;
 
         private:
-            static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods);
+            static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) noexcept;
 
         private:
             Keyboard() = delete;

@@ -51,7 +51,7 @@ namespace SceneR
             return adapters;
         }
 
-        GraphicsAdapter::GraphicsAdapter()
+        GraphicsAdapter::GraphicsAdapter() noexcept
             : _description             { }
             , _device_id               { 0 }
             , _device_name             { }
@@ -65,57 +65,57 @@ namespace SceneR
         {
         }
 
-        DisplayMode GraphicsAdapter::current_display_mode() const
+        DisplayMode GraphicsAdapter::current_display_mode() const noexcept
         {
-            return DisplayMode(glfwGetVideoMode(_monitor_handle));
+            return { glfwGetVideoMode(_monitor_handle) };
         }
 
-        const std::string& GraphicsAdapter::description() const
+        const std::string& GraphicsAdapter::description() const noexcept
         {
             return _description;
         }
 
-        std::int32_t GraphicsAdapter::device_id() const
+        std::int32_t GraphicsAdapter::device_id() const noexcept
         {
             return _device_id;
         }
 
-        const std::string& GraphicsAdapter::device_name() const
+        const std::string& GraphicsAdapter::device_name() const noexcept
         {
             return _device_name;
         }
 
-        bool GraphicsAdapter::is_default_adapter() const
+        bool GraphicsAdapter::is_default_adapter() const noexcept
         {
             return _is_default_adapter;
         }
 
-        bool GraphicsAdapter::is_wide_screen() const
+        bool GraphicsAdapter::is_wide_screen() const noexcept
         {
             return _is_wide_screen;
         }
 
-        GLFWmonitor* GraphicsAdapter::monitor_handle() const
+        GLFWmonitor* GraphicsAdapter::monitor_handle() const noexcept
         {
             return _monitor_handle;
         }
 
-        std::int32_t GraphicsAdapter::revision() const
+        std::int32_t GraphicsAdapter::revision() const noexcept
         {
             return _revision;
         }
 
-        std::int32_t GraphicsAdapter::sub_system_id() const
+        std::int32_t GraphicsAdapter::sub_system_id() const noexcept
         {
             return _sub_system_id;
         }
 
-        const std::vector<DisplayMode>& GraphicsAdapter::supported_display_modes() const
+        const std::vector<DisplayMode>& GraphicsAdapter::supported_display_modes() const noexcept
         {
             return _supported_display_modes;
         }
 
-        std::int32_t GraphicsAdapter::vendor_id() const
+        std::int32_t GraphicsAdapter::vendor_id() const noexcept
         {
             return _vendor_id;
         }

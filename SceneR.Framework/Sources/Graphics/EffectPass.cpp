@@ -14,12 +14,12 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        EffectPass::EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice)
+        EffectPass::EffectPass(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept
             : _graphics_device { graphicsDevice }
         {
         }
 
-        const std::string& EffectPass::name() const
+        const std::string& EffectPass::name() const noexcept
         {
             return _name;
         }

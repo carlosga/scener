@@ -7,17 +7,17 @@ namespace SceneR
 {
     namespace Graphics
     {
-        const std::string& Buffer::name() const
+        const std::string& Buffer::name() const noexcept
         {
             return _name;
         }
 
-        const std::string& Buffer::uri() const
+        const std::string& Buffer::uri() const noexcept
         {
             return _uri;
         }
 
-        std::size_t Buffer::byte_length() const
+        std::size_t Buffer::byte_length() const noexcept
         {
             return _byte_length;
         }

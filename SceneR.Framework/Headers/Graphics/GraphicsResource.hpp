@@ -25,7 +25,7 @@ namespace SceneR
              * Initializes a new instance of the GraphicsResource class
              * @param graphicsDevice the graphics associated to this resources
              */
-            GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Destructor
@@ -40,7 +40,7 @@ namespace SceneR
              * Gets the GraphicsDevice associated with this GraphicsResource.
              * @return The GraphicsDevice associated with this GraphicsResource.
              */
-            GraphicsDevice* graphics_device() const;
+            GraphicsDevice* graphics_device() const noexcept;
 
         public:
             /**

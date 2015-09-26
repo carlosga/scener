@@ -30,7 +30,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
-            Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source);
+            Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source) noexcept;
 
             /**
              * Initializes a new instance of the Shader class.
@@ -38,7 +38,7 @@ namespace SceneR
              * @param type the type of the shader.
              * @param source the source code for the shader.
              */
-            Shader(const std::string& name, const ShaderType& type, const std::string& source);
+            Shader(const std::string& name, const ShaderType& type, const std::string& source) noexcept;
 
             /**
              * Destructor
@@ -52,19 +52,19 @@ namespace SceneR
             /**
              * Gets the shader identififer.
              */
-            std::uint32_t id() const;
+            std::uint32_t id() const noexcept;
 
             /**
              * @brief Gets the name of the shader.
              * @return the name of the shader.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * @brief Gets the type of the shader.
              * @return the type of the shader.
              */
-            const ShaderType& type() const;
+            const ShaderType& type() const noexcept;
 
             /**
              * Adds a shader include reference.

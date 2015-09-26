@@ -169,7 +169,7 @@ namespace SceneR
                                         , const float& zNear
                                         , const float& zFar) noexcept
         {
-            Expects (zNear <= 0.0f && zFar <= 0.0f && zNear >= zFar);
+            Expects(zNear >= 0.0f && zFar >= 0.0f && zNear <= zFar);
 
             // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
             // 2*zn/w  0       0              0
@@ -190,10 +190,10 @@ namespace SceneR
                                                       , const float& zNear
                                                       , const float& zFar) noexcept
         {
-            Expects(fieldOfView <= 0.0f || fieldOfView >= Math::pi);
-            Expects(zNear <= 0.0f);
-            Expects(zFar <= 0.0f);
-            Expects(zNear >= zFar);
+            Expects(fieldOfView >= 0.0f && fieldOfView <= Math::pi);
+            Expects(zNear >= 0.0f);
+            Expects(zFar >= 0.0f);
+            Expects(zNear <= zFar);
 
             // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
             // xScale     0          0              0
@@ -222,9 +222,9 @@ namespace SceneR
                                                    , const float& zNear
                                                    , const float& zFar) noexcept
         {
-            Expects(zNear <= 0.0f);
-            Expects(zFar <= 0.0f);
-            Expects(zNear >= zFar);
+            Expects(zNear >= 0.0f);
+            Expects(zFar >= 0.0f);
+            Expects(zNear <= zFar);
 
             // Reference : https://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
 
@@ -552,14 +552,14 @@ namespace SceneR
 
         Vector3 Matrix::translation() const noexcept
         {
-            return { this->m41, this->m42, this->m43 };
+            return { m41, m42, m43 };
         }
 
         void Matrix::translation(const Vector3& translation) noexcept
         {
-            this->m41 = translation.x;
-            this->m42 = translation.y;
-            this->m43 = translation.z;
+            m41 = translation.x;
+            m42 = translation.y;
+            m43 = translation.z;
         }
 
         float Matrix::determinant() const noexcept
@@ -572,9 +572,9 @@ namespace SceneR
 
             for (std::uint32_t n = 0; n < 4; n++, i *= -1)
             {
-                msub    = this->sub_matrix(0, n);
+                msub    = sub_matrix(0, n);
                 det     = msub.sub_matrix_determinant();
-                result += this->data[n] * det * i;
+                result += data[n] * det * i;
             }
 
             return result;
@@ -582,7 +582,7 @@ namespace SceneR
 
         bool Matrix::has_inverse() const noexcept
         {
-            return (Math::abs(this->determinant()) > 0.0005f);
+            return (Math::abs(determinant()) > 0.0005f);
         }
 
         bool Matrix::is_identity() const noexcept
@@ -594,14 +594,14 @@ namespace SceneR
         {
             Expects(index < 16);
 
-            return this->data[index];
+            return data[index];
         }
 
         const float& Matrix::operator[](const std::size_t& index) const
         {
             Expects(index < 16);
 
-            return this->data[index];
+            return data[index];
         }
 
         bool Matrix::operator==(const Matrix& matrix) const
@@ -779,9 +779,9 @@ namespace SceneR
         float Matrix::sub_matrix_determinant()
         {
             // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q23
-            return this->m11 * (this->m22 * this->m33 - this->m32 * this->m23)
-                 - this->m12 * (this->m21 * this->m33 - this->m31 * this->m23)
-                 + this->m13 * (this->m21 * this->m32 - this->m31 * this->m22);
+            return m11 * (m22 * m33 - m32 * m23)
+                 - m12 * (m21 * m33 - m31 * m23)
+                 + m13 * (m21 * m32 - m31 * m22);
         }
 
         Matrix Matrix::sub_matrix(const std::uint32_t& row, const std::uint32_t& column) const
@@ -801,7 +801,7 @@ namespace SceneR
                     sj = dj + ((dj >= column) ? 1 : 0);
 
                     // copy element
-                    result[di * 4 + dj] = this->data[si * 4 + sj];
+                    result[di * 4 + dj] = data[si * 4 + sj];
                 }
             }
 

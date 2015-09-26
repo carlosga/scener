@@ -21,11 +21,7 @@ namespace SceneR
         using System::IO::BinaryReader;
         using System::IO::FileStream;
 
-        Surface::Surface()
-        {
-        }
-
-        Surface::~Surface()
+        Surface::Surface() noexcept
         {
         }
 
@@ -108,22 +104,22 @@ namespace SceneR
             }
         }
 
-        const SceneR::Graphics::SurfaceFormat& Surface::format() const
+        const SceneR::Graphics::SurfaceFormat& Surface::format() const noexcept
         {
             return _format;
         }
 
-        Surface::size_type Surface::width() const
+        Surface::size_type Surface::width() const noexcept
         {
             return _width;
         }
 
-        Surface::size_type Surface::height() const
+        Surface::size_type Surface::height() const noexcept
         {
             return _height;
         }
 
-        const std::vector<SurfaceMipmap>& Surface::mipmaps() const
+        const std::vector<SurfaceMipmap>& Surface::mipmaps() const noexcept
         {
             return _mipmaps;
         }

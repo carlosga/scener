@@ -21,14 +21,14 @@ namespace SceneR
         class Texture : public GraphicsResource
         {
         public:
-            static bool is_compressed_surface_format(const SurfaceFormat& format);
+            static bool is_compressed_surface_format(const SurfaceFormat& format) noexcept;
 
         public:
             /**
              * @brief Initializes a new instance of the Texture class.
              * @param graphicsDevice the graphics device.
              */
-            Texture(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            Texture(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Releases all resources being used by this texture.
@@ -42,17 +42,17 @@ namespace SceneR
             /**
              * Gets the texture identifier
              */
-            virtual std::uint32_t id() const = 0;
+            virtual std::uint32_t id() const noexcept = 0;
 
             /**
              * Gets the format of the texture data.
              */
-            virtual const SurfaceFormat& format() const = 0;
+            virtual const SurfaceFormat& format() const noexcept = 0;
 
             /**
              * Gets the number of texture levels in a multilevel texture.
              */
-            virtual std::size_t level_count() const = 0;
+            virtual std::size_t level_count() const noexcept = 0;
 
             /**
              * Activates the texture object

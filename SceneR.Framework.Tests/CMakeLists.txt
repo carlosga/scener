@@ -76,4 +76,4 @@ add_executable (SceneR_Framework_Tests ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries (SceneR_Framework_Tests c++abi gtest SceneR_Framework)
 
 # enable 64 bit build
-set_target_properties (SceneR_Framework_Tests PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64)
+set_target_properties (SceneR_Framework_Tests PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)

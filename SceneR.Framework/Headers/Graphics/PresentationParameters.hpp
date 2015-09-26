@@ -22,21 +22,21 @@ namespace SceneR
             /**
              * Initializes a new instance of the PresentationParameters class.
              */
-            PresentationParameters();
+            PresentationParameters() noexcept;
 
             /**
              * @brief Copy constructor.
              * @param parameters the presentation parameters to copy from.
              */
-            PresentationParameters(const PresentationParameters& parameters);
+            PresentationParameters(const PresentationParameters& parameters) noexcept;
 
             /**
              * Releases all resources being used by this PesentatationParameters.
              */
-            ~PresentationParameters();
+            ~PresentationParameters() = default;
 
         public:
-            PresentationParameters& operator=(const PresentationParameters& parameters);
+            PresentationParameters& operator=(const PresentationParameters& parameters) = default;
 
         public:
             /**

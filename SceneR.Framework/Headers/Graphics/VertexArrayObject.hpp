@@ -35,7 +35,7 @@ namespace SceneR
             /**
              * Gets the vertex array object identifier.
              */
-            std::uint32_t id() const;
+            std::uint32_t id() const noexcept;
 
             /**
              * Activates this vertex array object.

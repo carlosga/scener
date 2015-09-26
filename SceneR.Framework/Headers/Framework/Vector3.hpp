@@ -81,7 +81,7 @@ namespace SceneR
              * @param value A vector.
              * @return The absolute value vector.
              */
-            static Vector3 abs(const Vector3& value);
+            static Vector3 abs(const Vector3& value) noexcept;
 
             /**
              * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
@@ -90,7 +90,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The angle, in radians, needed to rotate the left vector into the right vector.
              */
-            static float angle_between(const Vector3& left, const Vector3& right);
+            static float angle_between(const Vector3& left, const Vector3& right) noexcept;
 
             /**
              * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -107,7 +107,7 @@ namespace SceneR
                                      , const Vector3& value2
                                      , const Vector3& value3
                                      , const float&   amount1
-                                     , const float&   amount2);
+                                     , const float&   amount2) noexcept;
 
             /**
              * Performs a Catmull-Rom interpolation using the specified positions.
@@ -121,12 +121,12 @@ namespace SceneR
                                      , const Vector3& value2
                                      , const Vector3& value3
                                      , const Vector3& value4
-                                     , const float&   amount);
+                                     , const float&   amount) noexcept;
 
             /**
              * Restricts a value to be within a specified range.
              */
-            static Vector3 clamp(const Vector3& value1, const Vector3& min, const Vector3& max);
+            static Vector3 clamp(const Vector3& value1, const Vector3& min, const Vector3& max) noexcept;
 
             /**
              * Calculates the cross product of two Vector3 structures.
@@ -134,17 +134,17 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The cross product of this Vector3 and vectorb.
              */
-            static Vector3 cross(const Vector3& left, const Vector3& right);
+            static Vector3 cross(const Vector3& left, const Vector3& right) noexcept;
 
             /**
              * Calculates the distance between two vectors.
              */
-            static float distance(const Vector3& value1, const Vector3& value2);
+            static float distance(const Vector3& value1, const Vector3& value2) noexcept;
 
             /**
              * Calculates the distance between two vectors squared.
              */
-            static float distance_squared(const Vector3& value1, const Vector3& value2);
+            static float distance_squared(const Vector3& value1, const Vector3& value2) noexcept;
 
             /**
              * Calculates the dot product of two Vector3 structures.
@@ -152,7 +152,7 @@ namespace SceneR
              * @param right The second Vector3 to evaluate.
              * @return The dot product of the given vectors.
              */
-            static float dot(const Vector3& left, const Vector3& right);
+            static float dot(const Vector3& left, const Vector3& right) noexcept;
 
             /**
              * Calculates a hermite spline interpolation.
@@ -166,7 +166,7 @@ namespace SceneR
                                  , const Vector3& tangent1
                                  , const Vector3& value2
                                  , const Vector3& tangent2
-                                 , const float&   amount);
+                                 , const float&   amount) noexcept;
 
             /**
              * Performs a linear interpolation between two vectors.
@@ -175,28 +175,28 @@ namespace SceneR
              * @param amount Value between 0 and 1 indicating the weight of value2.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 lerp(const Vector3& value1, const Vector3& value2, const float& amount);
+            static Vector3 lerp(const Vector3& value1, const Vector3& value2, const float& amount) noexcept;
 
             /**
              * Returns a vector that contains the lowest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector3 min(const Vector3& value1, const Vector3& value2);
+            static Vector3 min(const Vector3& value1, const Vector3& value2) noexcept;
 
             /**
              * Returns a vector that contains the highest value from each matching pair of components.
              * @param value1 the first vector
              * @param value2 the second vector
              */
-            static Vector3 max(const Vector3& value1, const Vector3& value2);
+            static Vector3 max(const Vector3& value1, const Vector3& value2) noexcept;
 
             /**
              * Negates a Vector3. The vector has the same magnitude as before, but its direction is now opposite.
              * @param value the vector to be negated.
              * @returns the negated vector.
              */
-            static Vector3 negate(const Vector3& value);
+            static Vector3 negate(const Vector3& value) noexcept;
 
             /**
              * Normalizes the specified 3D Vector.
@@ -207,7 +207,7 @@ namespace SceneR
              * @param value the vector to be normalized.
              * @returns the normalized vector.
              */
-            static Vector3 normalize(const Vector3& value);
+            static Vector3 normalize(const Vector3& value) noexcept;
 
             /**
              * @brief Returns the reflection of a vector off a surface that has the specified normal.
@@ -215,7 +215,7 @@ namespace SceneR
              * @param normal Normal of the surface.
              * @return The reflected vector.
              */
-            static Vector3 reflect(const Vector3& data, const Vector3& normal);
+            static Vector3 reflect(const Vector3& data, const Vector3& normal) noexcept;
 
             /**
              * Performs a cubic interpolation between two vectors.
@@ -224,14 +224,14 @@ namespace SceneR
              * @param amount Weighting value.
              * @returns the linear interpolation of the two vectors.
              */
-            static Vector3 smooth_step(const Vector3& value1, const Vector3& value2, const float& amount);
+            static Vector3 smooth_step(const Vector3& value1, const Vector3& value2, const float& amount) noexcept;
 
             /**
              * @brief Returns a vector whose elements are the square root of each of a specified vector's elements.
              * @param value A vector.
              * @return The square root vector.
              */
-            static Vector3 square_root(const Vector3& value);
+            static Vector3 square_root(const Vector3& value) noexcept;
 
             /**
              * Transforms a 3D vector by the given matrix.
@@ -239,7 +239,7 @@ namespace SceneR
              * @param matrix the transformation matrix.
              * @return the transformed vector.
              */
-            static Vector3 transform(const Vector3& position, const Matrix& matrix);
+            static Vector3 transform(const Vector3& position, const Matrix& matrix) noexcept;
 
             /**
              * @brief Transforms a vector by the specified Quaternion rotation value.
@@ -247,7 +247,7 @@ namespace SceneR
              * @param rotation The rotation to apply.
              * @return The transformed vector.
              */
-            static Vector3 transform(const Vector3& value, const Quaternion& rotation);
+            static Vector3 transform(const Vector3& value, const Quaternion& rotation) noexcept;
 
             /**
              * This method transforms the vector normal (x, y, z, 0) of the source vector,
@@ -256,26 +256,26 @@ namespace SceneR
              * function should be the transpose of the inverse of the matrix you would use to
              * transform a coordinate.
              */
-            static Vector3 transform_normal(const Vector3& normal, const Matrix& matrix);
+            static Vector3 transform_normal(const Vector3& normal, const Matrix& matrix) noexcept;
 
         public:
             /**
              * Initializes a new instance of the Vector3 class.
              */
-            Vector3();
+            Vector3() noexcept;
 
             /**
              * Initializes a new instance of the Vector3 class.
              * @param value the value for the x, y and z components of the vector.
              */
-            Vector3(const float& value);
+            Vector3(const float& value) noexcept;
 
             /**
              * Initializes a new instance of the Vector3 class.
              * @param value a vector containing the values to initialize x and y components with.
              * @param z value for the z-component of the vector.
              */
-            Vector3(const Vector2& value, const float& z);
+            Vector3(const Vector2& value, const float& z) noexcept;
 
             /**
              * Initializes a new instance of the Vector3 class.
@@ -283,7 +283,7 @@ namespace SceneR
              * @param y The Y value of the new Vector3 structure.
              * @param z The Z value of the new Vector3 structure.
              */
-            Vector3(const float& x, const float& y, const float& z);
+            Vector3(const float& x, const float& y, const float& z) noexcept;
 
             /**
              * Initializes a new instance of the Vector3 class (Copy constructor)
@@ -302,14 +302,14 @@ namespace SceneR
              *
              * @return the square of the length of this Vector3.
              */
-            float length_squared() const;
+            float length_squared() const noexcept;
 
             /**
              * Gets the length of this Vector3.
              *
              * @return the length of this Vector3.
              */
-            float length() const;
+            float length() const noexcept;
 
         public:
             Vector3& operator=(const Vector3& data) = default;

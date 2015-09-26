@@ -8,12 +8,12 @@ namespace SceneR
     {
         ShaderInclude::ShaderInclude(const std::string& 			  name
                                    , const std::string& 			  path
-                                   , const std::vector<std::uint8_t>& source)
+                                   , const std::vector<std::uint8_t>& source) noexcept
                 : ShaderInclude(name, path, std::string(source.begin(), source.end()))
         {
         }
 
-        ShaderInclude::ShaderInclude(const std::string& name, const std::string& path, const std::string& source)
+        ShaderInclude::ShaderInclude(const std::string& name, const std::string& path, const std::string& source) noexcept
                 : name(name)
                 , path(path)
                 , source(source)

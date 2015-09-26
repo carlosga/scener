@@ -19,28 +19,28 @@ namespace SceneR
         struct KeyboardState
         {
         public:
-            KeyboardState(GLFWwindow* windowHandle);
+            KeyboardState(GLFWwindow* windowHandle) noexcept;
 
-            ~KeyboardState();
+            ~KeyboardState() = default;
 
             // Initializes a new instance of the KeyboardState class.
             // Array or parameter list of Keys to initialize as pressed.
             //KeyboardState(Keys[] keys);
 
             // Returns the state of a particular key.
-            KeyState get_key_state(const Keys &key);
+            KeyState get_key_state(const Keys &key) noexcept;
 
             // Gets an array of values that correspond to the keyboard keys that are currently being pressed
-            std::vector<Keys> get_pressed_keys();
+            std::vector<Keys> get_pressed_keys() noexcept;
 
             // Returns whether a specified key is currently being pressed.
             // Enumerated value that specifies the key to query.
-            bool is_key_down(const Keys &key);
+            bool is_key_down(const Keys &key) noexcept;
 
             // Returns whether a specified key is currently not pressed.
             // Enumerated value that specifies the key to query.
             // true if the key specified by key is not pressed; false otherwise.
-            bool is_key_up(const Keys &key);
+            bool is_key_up(const Keys &key) noexcept;
 
             // Compares two objects to determine whether they are the same.
             // static bool op_Equality (KeyboardState a,KeyboardState b)

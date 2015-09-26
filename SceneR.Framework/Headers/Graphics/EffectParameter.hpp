@@ -54,33 +54,33 @@ namespace SceneR
             /**
              * Gets the number of columns in the parameter description.
              */
-            std::size_t column_count() const;
+            std::size_t column_count() const noexcept;
 
             /**
              * Gets the name of the parameter.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets the class of the parameter.
              */
-            const EffectParameterClass& parameter_class() const;
+            const EffectParameterClass& parameter_class() const noexcept;
 
             /**
              * Gets the type of the parameter.
              */
-            const EffectParameterType& parameter_type() const;
+            const EffectParameterType& parameter_type() const noexcept;
 
             /**
              * Gets the number of rows in the parameter description.
              */
-            std::size_t row_count() const;
+            std::size_t row_count() const noexcept;
 
             /**
              * Gets the semantic meaning, or usage, of the parameter.
              * @return the semantic meaning, or usage, of the parameter.
              */
-            std::string semantic() const;
+            std::string semantic() const noexcept;
 
         public:
             /**

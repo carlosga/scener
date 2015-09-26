@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        BufferView::BufferView(const BufferTarget& target, const BufferUsage& usage)
+        BufferView::BufferView(const BufferTarget& target, const BufferUsage& usage) noexcept
             : _target      { target }
             , _usage       { usage }
             , _byte_offset { 0 }
@@ -23,27 +23,27 @@ namespace SceneR
         {
         }
 
-        const BufferTarget& BufferView::target() const
+        const BufferTarget& BufferView::target() const noexcept
         {
             return _target;
         }
 
-        const BufferUsage& BufferView::usage() const
+        const BufferUsage& BufferView::usage() const noexcept
         {
             return _usage;
         }
 
-        std::size_t BufferView::byte_offset() const
+        std::size_t BufferView::byte_offset() const noexcept
         {
             return _byte_offset;
         }
 
-        std::size_t BufferView::byte_length() const
+        std::size_t BufferView::byte_length() const noexcept
         {
             return _byte_length;
         }
 
-        const std::string& BufferView::name() const
+        const std::string& BufferView::name() const noexcept
         {
             return _name;
         }

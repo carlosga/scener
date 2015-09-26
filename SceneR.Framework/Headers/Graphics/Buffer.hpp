@@ -40,17 +40,17 @@ namespace SceneR
             /**
              * Gets the buffer name.
              */
-            const std::string& name() const;
+            const std::string& name() const noexcept;
 
             /**
              * Gets the buffer uri.
              */
-            const std::string& uri() const;
+            const std::string& uri() const noexcept;
 
             /**
              * Gets the buffer uri.
              */
-            std::size_t byte_length() const;
+            std::size_t byte_length() const noexcept;
 
             /**
              * Gets the buffer data.

@@ -9,14 +9,14 @@ namespace SceneR
 {
     namespace Graphics
     {
-        bool Texture::is_compressed_surface_format(const SurfaceFormat& format)
+        bool Texture::is_compressed_surface_format(const SurfaceFormat& format) noexcept
         {
             return (format == SurfaceFormat::Dxt1
                  || format == SurfaceFormat::Dxt3
                  || format == SurfaceFormat::Dxt5);
         }
 
-        Texture::Texture(Guide::not_null<GraphicsDevice*> graphicsDevice)
+        Texture::Texture(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept
             : GraphicsResource { graphicsDevice }
         {
         }

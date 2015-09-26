@@ -22,19 +22,24 @@ namespace SceneR
         {
         public:
             // Gets the current state of the mouse, including mouse position and buttons pressed.
-            static MouseState get_state();
+            static MouseState get_state() noexcept;
 
             // Sets the position of the mouse cursor relative to the upper-left corner of the window.
-            static void set_position(const int &x, const int &y);
+            static void set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept;
 
             // Gets or sets the window used for mouse processing.
             // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-            static void initialize(GLFWwindow *window);
+            static void initialize(GLFWwindow* window) noexcept;
 
         private:
-            static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos);
-            static void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
-            static void scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset);
+            static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) noexcept;
+
+            static void mouse_button_callback(GLFWwindow*   window
+                                            , std::uint32_t button
+                                            , std::uint32_t action
+                                            , std::uint32_t mods) noexcept;
+
+            static void scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset) noexcept;
 
         private:
             Mouse() = delete;

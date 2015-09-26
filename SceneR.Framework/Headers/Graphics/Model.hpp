@@ -36,12 +36,12 @@ namespace SceneR
             /**
              * Initializes a new instance of the Model class.
              */
-            Model();
+            Model() noexcept;
 
             /**
              * Releases all resources being used by this Model.
              */
-            ~Model();
+            ~Model() = default;
 
         public:
             void dispose() override;
@@ -51,22 +51,22 @@ namespace SceneR
              * Gets the model name.
              * @return the model name.
              */
-            const std::string name() const;
+            const std::string name() const noexcept;
 
             /**
              * Gets the root bone for the current model.
              */
-            const std::shared_ptr<ModelBone>& root() const;
+            const std::shared_ptr<ModelBone>& root() const noexcept;
 
             /**
              * Gets the collection of bones associated to the current model
              */
-            const std::vector<std::shared_ptr<ModelBone>>& bones() const;
+            const std::vector<std::shared_ptr<ModelBone>>& bones() const noexcept;
 
             /**
              * Gets a collection of ModelMesh objects which composes the current model.
              */
-            const std::vector<std::shared_ptr<ModelMesh>>& meshes() const;
+            const std::vector<std::shared_ptr<ModelMesh>>& meshes() const noexcept;
 
             /**
              * Render a model after applying the given matrix transformations.

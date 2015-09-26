@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Input
     {
-        MouseState Mouse::get_state()
+        MouseState Mouse::get_state() noexcept
         {
             // glfwGetCursorPos(window, &xpos, &ypos);
             // int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
@@ -18,12 +18,12 @@ namespace SceneR
             return MouseState();
         }
 
-        void Mouse::set_position(const int &x, const int &y)
+        void Mouse::set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept
         {
             glfwSetCursorPos(window_handle, x, y);
         }
 
-        void Mouse::initialize(GLFWwindow *window)
+        void Mouse::initialize(GLFWwindow* window) noexcept
         {
             window_handle = window;
 
@@ -43,17 +43,20 @@ namespace SceneR
             // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
         }
 
-        void Mouse::cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
+        void Mouse::cursor_position_callback(GLFWwindow* window, double xpos, double ypos) noexcept
         {
         }
 
-        void Mouse::mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
+        void Mouse::mouse_button_callback(GLFWwindow*   window
+                                        , std::uint32_t button
+                                        , std::uint32_t action
+                                        , std::uint32_t mods) noexcept
         {
 //            if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 //                popup_menu();
         }
 
-        void Mouse::scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset)
+        void Mouse::scroll_wheel_callback(GLFWwindow* window, double xoffset, double yoffset) noexcept
         {
         }
 

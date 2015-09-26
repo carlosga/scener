@@ -28,7 +28,7 @@ namespace SceneR
              * @param vertexStride The number of bytes per element.
              * @param vertexElements vertex elements.
              */
-            VertexDeclaration(const std::size_t& vertexStride, const std::vector<VertexElement>& vertexElements);
+            VertexDeclaration(const std::size_t& vertexStride, const std::vector<VertexElement>& vertexElements) noexcept;
 
             /**
              * @brief Copy constructor
@@ -46,13 +46,13 @@ namespace SceneR
              * Gets the number of bytes per element.
              * @return the number of bytes per element.
              */
-            std::size_t vertex_stride() const;
+            std::size_t vertex_stride() const noexcept;
 
             /**
              * Gets the vertex elements.
              * @return the vertex elements.
              */
-            const std::vector<VertexElement>& vertex_elements() const;
+            const std::vector<VertexElement>& vertex_elements() const noexcept;
 
         public:
             VertexDeclaration& operator=(const VertexDeclaration& declaration) = default;
@@ -65,9 +65,9 @@ namespace SceneR
              */
             void declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex) const;
 
-            std::size_t get_element_count(const VertexElementFormat& vertexFormat) const;
+            std::size_t get_element_count(const VertexElementFormat& vertexFormat) const noexcept;
 
-            std::uint32_t get_element_type(const VertexElementFormat& vertexFormat) const;
+            std::uint32_t get_element_type(const VertexElementFormat& vertexFormat) const noexcept;
 
         private:
             std::size_t                _vertex_stride;

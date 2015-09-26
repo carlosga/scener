@@ -4,47 +4,47 @@ namespace SceneR
 {
     namespace Graphics
     {
-        const AttributeType& Accessor::attribute_type() const
+        const AttributeType& Accessor::attribute_type() const noexcept
         {
             return _attribute_type;
         }
 
-        const ComponentType& Accessor::component_type() const
+        const ComponentType& Accessor::component_type() const noexcept
         {
             return _component_type;
         }
 
-        std::size_t Accessor::byte_offset() const
+        std::size_t Accessor::byte_offset() const noexcept
         {
             return _byte_offset;
         }
 
-        std::size_t Accessor::byte_length() const
+        std::size_t Accessor::byte_length() const noexcept
         {
             return _byte_length;
         }
 
-        std::size_t Accessor::byte_stride() const
+        std::size_t Accessor::byte_stride() const noexcept
         {
             return ((_byte_stride > 0) ? _byte_stride : get_attribute_type_count() * get_component_size_in_bytes());
         }
 
-        std::size_t Accessor::attribute_count() const
+        std::size_t Accessor::attribute_count() const noexcept
         {
             return _attribute_count;
         }
 
-        const std::vector<float>& Accessor::max() const
+        const std::vector<float>& Accessor::max() const noexcept
         {
             return _max;
         }
 
-        const std::vector<float>& Accessor::min() const
+        const std::vector<float>& Accessor::min() const noexcept
         {
             return _min;
         }
 
-        const std::string& Accessor::name() const
+        const std::string& Accessor::name() const noexcept
         {
             return _name;
         }
@@ -60,7 +60,7 @@ namespace SceneR
             return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
         }
 
-        std::size_t Accessor::get_attribute_type_count() const
+        std::size_t Accessor::get_attribute_type_count() const noexcept
         {
             switch (_attribute_type)
             {
@@ -87,7 +87,7 @@ namespace SceneR
             }
         }
 
-        std::size_t Accessor::get_component_size_in_bytes() const
+        std::size_t Accessor::get_component_size_in_bytes() const noexcept
         {
             switch (_component_type)
             {

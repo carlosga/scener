@@ -3,7 +3,7 @@
 
 #include <Graphics/Program.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <Graphics/Shader.hpp>
 
@@ -27,12 +27,12 @@ namespace SceneR
             }
         }
 
-        std::uint32_t Program::id() const
+        std::uint32_t Program::id() const noexcept
         {
             return _id;
         }
 
-        UniformBufferObject* Program::uniform_buffer() const
+        UniformBufferObject* Program::uniform_buffer() const noexcept
         {
             return _uniform_buffer.get();
         }
@@ -42,7 +42,7 @@ namespace SceneR
             // ... Create the program object
             _id = glCreateProgram();
 
-            assert(_id != 0);
+            Ensures(_id != 0);
         }
 
         void Program::bind() const

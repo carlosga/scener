@@ -18,17 +18,17 @@ namespace SceneR
         using SceneR::Framework::BoundingSphere;
         using SceneR::Framework::Vector3;
 
-        const BoundingSphere& ModelMesh::bounding_sphere() const
+        const BoundingSphere& ModelMesh::bounding_sphere() const noexcept
         {
             return _bounding_sphere;
         }
 
-        const std::string& ModelMesh::name() const
+        const std::string& ModelMesh::name() const noexcept
         {
             return _name;
         }
 
-        std::vector<EffectTechnique*> ModelMesh::effects() const
+        std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
         {
             auto effects = std::vector<EffectTechnique*>(0);
 
@@ -44,17 +44,17 @@ namespace SceneR
             return effects;
         }
 
-        const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const
+        const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const noexcept
         {
             return _mesh_parts;
         }
 
-        ModelBone* ModelMesh::parent_bone() const
+        ModelBone* ModelMesh::parent_bone() const noexcept
         {
             return _parent_bone.get();
         }
 
-        ModelSkin* ModelMesh::skin() const
+        ModelSkin* ModelMesh::skin() const noexcept
         {
             return _skin.get();
         }

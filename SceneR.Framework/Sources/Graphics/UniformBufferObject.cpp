@@ -12,17 +12,13 @@ namespace SceneR
 {
     namespace Graphics
     {
-        UniformBufferObject::UniformBufferObject(const std::string& name, const std::uint32_t& programId)
+        UniformBufferObject::UniformBufferObject(const std::string& name, const std::uint32_t& programId) noexcept
             : _name          { name }
             , _program_id    { programId }
             , _index         { 0 }
             , _binding_point { 0 }
             , _size          { 0 }
             , _buffer_object { std::make_unique<BufferObject>(BufferTarget::UniformBuffer, BufferUsage::DynamicDraw) }
-        {
-        }
-
-        UniformBufferObject::~UniformBufferObject()
         {
         }
 
@@ -35,17 +31,17 @@ namespace SceneR
             }
         }
 
-        std::int32_t UniformBufferObject::binding_point() const
+        std::int32_t UniformBufferObject::binding_point() const noexcept
         {
             return _binding_point;
         }
 
-        std::size_t UniformBufferObject::index() const
+        std::size_t UniformBufferObject::index() const noexcept
         {
             return _index;
         }
 
-        std::size_t UniformBufferObject::size() const
+        std::size_t UniformBufferObject::size() const noexcept
         {
             return _size;
         }

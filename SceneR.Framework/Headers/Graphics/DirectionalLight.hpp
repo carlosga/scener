@@ -20,7 +20,7 @@ namespace SceneR
              * Creates an instance of a light that projects its effect in a specified direction.
              * This contructor creates an instance of a white light projected along a Vector3 of value (0, 0, -1).
              */
-            DirectionalLight();
+            DirectionalLight() noexcept;
 
             /**
              * Creates an instance of a light that projects its effect along a specified Vector3 with a specified color.
@@ -30,7 +30,7 @@ namespace SceneR
              */
             DirectionalLight(const SceneR::Framework::Vector3& direction
                            , const SceneR::Framework::Vector3& diffuseColor
-                           , const SceneR::Framework::Vector3& specularColor);
+                           , const SceneR::Framework::Vector3& specularColor) noexcept;
 
             /**
              * Copy constructor.

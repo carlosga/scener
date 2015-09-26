@@ -14,27 +14,27 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        const Matrix& ModelSkin::bindShapeMatrix() const
+        const Matrix& ModelSkin::bindShapeMatrix() const noexcept
         {
             return _bindShapeMatrix;
         }
 
-        const std::vector<Matrix>& ModelSkin::inverseBindMatrices() const
+        const std::vector<Matrix>& ModelSkin::inverseBindMatrices() const noexcept
         {
             return _inverseBindMatrices;
         }
 
-        const std::vector<std::shared_ptr<ModelBone>>& ModelSkin::joints() const
+        const std::vector<std::shared_ptr<ModelBone>>& ModelSkin::joints() const noexcept
         {
             return _joints;
         }
 
-        const std::string& ModelSkin::name() const
+        const std::string& ModelSkin::name() const noexcept
         {
             return _name;
         }
 
-        const std::vector<std::shared_ptr<ModelBone> > &ModelSkin::skeletons() const
+        const std::vector<std::shared_ptr<ModelBone>> &ModelSkin::skeletons() const noexcept
         {
             return _skeletons;
         }

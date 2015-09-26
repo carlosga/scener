@@ -9,7 +9,7 @@ namespace SceneR
     {
         VertexBuffer::VertexBuffer(Guide::not_null<GraphicsDevice*>   graphicsDevice
                                  , const std::size_t&                 vertexCount
-                                 , std::unique_ptr<VertexDeclaration> vertexDeclaration)
+                                 , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept
             : GraphicsResource    { graphicsDevice }
             , _binding_index      { 0 }
             , _vertex_count       { vertexCount }
@@ -33,7 +33,7 @@ namespace SceneR
             }
         }
 
-        std::size_t VertexBuffer::vertex_count() const
+        std::size_t VertexBuffer::vertex_count() const noexcept
         {
             return _vertex_count;
         }
@@ -57,7 +57,7 @@ namespace SceneR
             _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data.data());
         }
 
-        VertexDeclaration* VertexBuffer::vertex_declaration() const
+        VertexDeclaration* VertexBuffer::vertex_declaration() const noexcept
         {
             return _vertex_declaration.get();
         }

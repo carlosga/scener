@@ -3,7 +3,7 @@
 
 #include <Graphics/Viewport.hpp>
 
-#include <cassert>
+#include <gsl.h>
 
 #include <System/Graphics/Platform.hpp>
 
@@ -11,20 +11,20 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Viewport::Viewport()
+        Viewport::Viewport() noexcept
             : Viewport { 0.0f, 0.0f, 0.0f, 0.0f }
         {
         }
 
         Viewport::Viewport(const float& x    , const float& y
-                         , const float& width, const float& height)
+                         , const float& width, const float& height) noexcept
             : Viewport { x, y, width, height, 0.0f, 1.0f }
         {
         }
 
         Viewport::Viewport(const float& x       , const float& y
                          , const float& width   , const float& height
-                         , const float& minDepth, const float& maxDepth)
+                         , const float& minDepth, const float& maxDepth) noexcept
             : x         { x }
             , y         { y }
             , width     { width }
@@ -34,23 +34,9 @@ namespace SceneR
         {
         }
 
-        Viewport::Viewport(const Viewport& viewport)
-            : x         { viewport.x }
-            , y         { viewport.y }
-            , width     { viewport.width }
-            , height    { viewport.height }
-            , min_depth { viewport.min_depth }
-            , max_depth { viewport.max_depth }
+        float Viewport::aspect_ratio() const noexcept
         {
-        }
-
-        Viewport::~Viewport()
-        {
-        }
-
-        float Viewport::aspect_ratio() const
-        {
-            assert(width > 0 && height > 0);
+            Expects(width > 0 && height > 0);
 
             return (width / height);
         }
@@ -59,21 +45,6 @@ namespace SceneR
         {
             glViewportIndexedf(0, x, y, width, height);
             glDepthRangeIndexed(0, min_depth, max_depth);
-        }
-
-        Viewport& Viewport::operator=(const Viewport& viewport)
-        {
-            if (this != &viewport)
-            {
-                x         = viewport.x;
-                y         = viewport.y;
-                width     = viewport.width;
-                height    = viewport.height;
-                min_depth = viewport.min_depth;
-                max_depth = viewport.max_depth;
-            }
-
-            return *this;
         }
     }
 }

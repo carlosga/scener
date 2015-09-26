@@ -30,7 +30,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the SamplerState class.
              */
-            SamplerState(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            SamplerState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * @brief Copy constructor.
@@ -51,7 +51,6 @@ namespace SceneR
 
         private:
             void apply(const std::uint32_t& textureId) const;
-            void get_min_max_filters(GLenum& minfilter, GLenum& magfilter) const;
 
         public:
             /**

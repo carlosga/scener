@@ -34,7 +34,7 @@ namespace SceneR
         {
         private:
                 static std::size_t get_element_count(const PrimitiveType& primitiveType
-                                                   , const std::size_t&   primitiveCount);
+                                                   , const std::size_t&   primitiveCount) noexcept;
 
         public:
             /**
@@ -42,7 +42,7 @@ namespace SceneR
              * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile);
+            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile) noexcept;
 
             /**
              * @brief GraphicsDevice Initializes a new instance of the GraphicsDevice class. Copy constructor.
@@ -108,44 +108,44 @@ namespace SceneR
             /**
              * Gets the display adapter.
              */
-            const GraphicsAdapter& adapter() const;
+            const GraphicsAdapter& adapter() const noexcept;
 
             /**
              * Gets the graphics profile.
              * @return the graphics profile.
              */
-            const GraphicsProfile& graphics_profile() const;
+            const GraphicsProfile& graphics_profile() const noexcept;
 
             /**
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
              * The default value is BlendState.Opaque.
              */
-            BlendState& blend_state();
+            BlendState& blend_state() noexcept;
 
             /**
              * Gets the depth-stencil state.
              */
-            DepthStencilState& depth_stencil_state();
+            DepthStencilState& depth_stencil_state() noexcept;
 
             /**
              * Gets the presentation parameters associated with this graphics device.
              */
-            PresentationParameters& presentation_parameters();
+            PresentationParameters& presentation_parameters() noexcept;
 
             /**
              * Gets rasterizer state.
              */
-            RasterizerState& rasterizer_state();
+            RasterizerState& rasterizer_state() noexcept;
 
             /**
              * Gets the viewport identifying the portion of the render target to receive draw calls.
              */
-            Viewport& viewport();
+            Viewport& viewport() noexcept;
 
             /**
              * Sets the viewport identifying the portion of the render target to receive draw calls.
              */
-            void viewport(const Viewport& viewport);
+            void viewport(const Viewport& viewport) noexcept;
 
         public:
             GraphicsDevice& operator=(const GraphicsDevice& device) = default;
