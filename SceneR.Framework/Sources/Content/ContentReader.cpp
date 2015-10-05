@@ -26,9 +26,9 @@ namespace SceneR
         using System::IO::Path;
         using System::IO::Stream;
 
-        ContentReader::ContentReader(const std::string&               assetName
-                                   , Guide::not_null<ContentManager*> contentManager
-                                   , Stream&                          stream)
+        ContentReader::ContentReader(const std::string&             assetName
+                                   , gsl::not_null<ContentManager*> contentManager
+                                   , Stream&                        stream)
             : _asset_name      { assetName }
             , _asset_reader    { stream }
             , _content_manager { contentManager }

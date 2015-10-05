@@ -20,7 +20,7 @@ namespace SceneR
         using SceneR::Framework::Vector3;
         using System::Math;
 
-        EffectTechnique::EffectTechnique(Guide::not_null<GraphicsDevice*> graphicsDevice)
+        EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice)
             : GraphicsResource           { graphicsDevice }
             , _alpha                     { 1.0 }
             , _ambient_light_color       { Vector3::zero }

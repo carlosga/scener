@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        SamplerState::SamplerState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept
+        SamplerState::SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
             : GraphicsResource { graphicsDevice }
         {
         }

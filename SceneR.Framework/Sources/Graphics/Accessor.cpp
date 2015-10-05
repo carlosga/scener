@@ -49,13 +49,13 @@ namespace SceneR
             return _name;
         }
 
-        const Guide::array_view<std::uint8_t> Accessor::get_data() const
+        const gsl::array_view<std::uint8_t> Accessor::get_data() const
         {
             return get_data(0, _attribute_count);
         }
 
-        const Guide::array_view<std::uint8_t> Accessor::get_data(const std::size_t& elementOffset
-                                                               , const std::size_t& elementCount) const
+        const gsl::array_view<std::uint8_t> Accessor::get_data(const std::size_t& elementOffset
+                                                             , const std::size_t& elementCount) const
         {
             return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
         }

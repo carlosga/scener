@@ -9,9 +9,9 @@ namespace SceneR
 {
     namespace Graphics
     {
-        IndexBuffer::IndexBuffer(Guide::not_null<GraphicsDevice*> graphicsDevice
-                               , const ComponentType&             indexElementType
-                               , const std::size_t&               indexCount) noexcept
+        IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
+                               , const ComponentType&           indexElementType
+                               , const std::size_t&             indexCount) noexcept
             : GraphicsResource  { graphicsDevice }
             , _ibo              { nullptr }
             , _indexCount       { indexCount }
@@ -67,7 +67,7 @@ namespace SceneR
             return _ibo->get_data(offset, size);
         }
 
-        void IndexBuffer::set_data(const Guide::array_view<std::uint8_t>& data) const
+        void IndexBuffer::set_data(const gsl::array_view<std::uint8_t>& data) const
         {
             _ibo->set_data(_indexCount * element_size_in_bytes(), data.data());
         }

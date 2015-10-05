@@ -36,7 +36,7 @@ namespace SceneR
              * Initializes a new instance of the VertexBuffer class.
              * @param graphicsDevice the graphics device.
              */
-            VertexBuffer(Guide::not_null<GraphicsDevice*>   graphicsDevice
+            VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
                        , const std::size_t&                 vertexCount
                        , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept;
 
@@ -67,7 +67,7 @@ namespace SceneR
             /**
              * Sets the vertex buffer data
              */
-            void set_data(const Guide::array_view<std::uint8_t>& data) const;
+            void set_data(const gsl::array_view<std::uint8_t>& data) const;
 
             /**
              * Defines per-vertex data in a buffer.

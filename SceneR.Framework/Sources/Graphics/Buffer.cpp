@@ -22,11 +22,11 @@ namespace SceneR
             return _byte_length;
         }
 
-        const Guide::array_view<std::uint8_t> Buffer::get_data(const std::size_t& offset, const std::size_t& count)
+        const gsl::array_view<std::uint8_t> Buffer::get_data(const std::size_t& offset, const std::size_t& count)
         {
             Expects(offset < _data.size() && (offset + count) <= _data.size());
 
-            return Guide::as_array_view(_data.data() + offset, count);
+            return gsl::as_array_view(_data.data() + offset, count);
         }
 
         void Buffer::set_data(const std::vector<std::uint8_t>& buffer)

@@ -46,7 +46,7 @@ namespace SceneR
              * Initializes a new instance of the EffectTechnique class
              * @param graphicsDevice the graphics device
              */
-            EffectTechnique(Guide::not_null<GraphicsDevice*> graphicsDevice);
+            EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice);
 
             /**
              * Initializes a new instance of the EffectTechnique class.

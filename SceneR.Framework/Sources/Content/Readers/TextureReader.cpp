@@ -25,7 +25,7 @@ namespace SceneR
         using SceneR::Texture::Surface;
         using SceneR::Texture::SurfaceMipmap;
 
-        std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(Guide::not_null<ContentReader*>     input
+        std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(gsl::not_null<ContentReader*>       input
                                                                     , const std::pair<std::string, Json>& source) const
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();

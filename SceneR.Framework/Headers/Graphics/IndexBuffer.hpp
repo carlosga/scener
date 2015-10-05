@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 
+#include <functional>
 #include <gsl.h>
 
 #include <Graphics/ComponentType.hpp>
@@ -39,9 +40,9 @@ namespace SceneR
              * @param indexElementType the type of each index.
              * @param indexCount the number of indices.
              */
-            IndexBuffer(Guide::not_null<GraphicsDevice*> graphicsDevice
-                      , const ComponentType&             indexElementType
-                      , const std::size_t&               indexCount) noexcept;
+            IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
+                      , const ComponentType&           indexElementType
+                      , const std::size_t&             indexCount) noexcept;
 
             /**
              * Releases all resources being used by this indexbuffer instance
@@ -81,7 +82,7 @@ namespace SceneR
             /**
              * Sets the indices buffer data
              */
-            void set_data(const Guide::array_view<std::uint8_t>& data) const;
+            void set_data(const gsl::array_view<std::uint8_t>& data) const;
 
         private:
             void bind() const;

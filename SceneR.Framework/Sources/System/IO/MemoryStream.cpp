@@ -9,7 +9,7 @@ namespace System
 {
     namespace IO
     {
-        MemoryStream::MemoryStream(const Guide::array_view<std::uint8_t>& buffer)
+        MemoryStream::MemoryStream(const gsl::array_view<std::uint8_t>& buffer)
             : _buffer   { buffer }
             , _position { _buffer.begin() }
         {

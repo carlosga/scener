@@ -11,7 +11,7 @@ namespace SceneR
     {
         using SceneR::Graphics::GraphicsDevice;
 
-        DrawableComponent::DrawableComponent(Guide::not_null<Renderer*> renderer)
+        DrawableComponent::DrawableComponent(gsl::not_null<Renderer*> renderer)
             : Component { renderer }
         {
         }

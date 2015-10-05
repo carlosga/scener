@@ -19,8 +19,8 @@ namespace SceneR
         using SceneR::Graphics::Model;
         using System::IO::FileStream;
 
-        ContentManager::ContentManager(Guide::not_null<RendererServiceContainer*> serviceProvider
-                                     , const std::string&                         rootDirectory)
+        ContentManager::ContentManager(gsl::not_null<RendererServiceContainer*> serviceProvider
+                                     , const std::string&                       rootDirectory)
             : _service_provider ( serviceProvider )
             , _root_directory   { rootDirectory }
         {

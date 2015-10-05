@@ -7,7 +7,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        VertexBuffer::VertexBuffer(Guide::not_null<GraphicsDevice*>   graphicsDevice
+        VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
                                  , const std::size_t&                 vertexCount
                                  , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept
             : GraphicsResource    { graphicsDevice }
@@ -52,7 +52,7 @@ namespace SceneR
             return _vbo->get_data(offset, size);
         }
 
-        void VertexBuffer::set_data(const Guide::array_view<std::uint8_t>& data) const
+        void VertexBuffer::set_data(const gsl::array_view<std::uint8_t>& data) const
         {
             _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data.data());
         }

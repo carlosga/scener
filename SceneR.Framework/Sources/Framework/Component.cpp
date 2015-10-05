@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Framework
     {
-        Component::Component(Guide::not_null<Renderer*> renderer)
+        Component::Component(gsl::not_null<Renderer*> renderer)
             : _renderer ( renderer )
         {
         }

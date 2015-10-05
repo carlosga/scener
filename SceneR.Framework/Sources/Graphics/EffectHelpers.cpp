@@ -50,12 +50,12 @@ namespace SceneR
             return { 0.05333332f, 0.09882354f, 0.1819608f };
         }
 
-        EffectDirtyFlags EffectHelpers::set_world_view_proj(const EffectDirtyFlags&           dirtyFlags
-                                                          , const Matrix&                     world
-                                                          , const Matrix&                     view
-                                                          , const Matrix&                     projection
-                                                          , Matrix&                           worldView
-                                                          , Guide::not_null<EffectParameter*> worldViewProjParam)
+        EffectDirtyFlags EffectHelpers::set_world_view_proj(const EffectDirtyFlags&         dirtyFlags
+                                                          , const Matrix&                   world
+                                                          , const Matrix&                   view
+                                                          , const Matrix&                   projection
+                                                          , Matrix&                         worldView
+                                                          , gsl::not_null<EffectParameter*> worldViewProjParam)
         {
             auto result = dirtyFlags;
 
@@ -75,10 +75,10 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::set_fog_vector(const Matrix&                     worldView
-                                         , const float&                      fogStart
-                                         , const float&                      fogEnd
-                                         , Guide::not_null<EffectParameter*> fogVectorParam)
+        void EffectHelpers::set_fog_vector(const Matrix&                   worldView
+                                         , const float&                    fogStart
+                                         , const float&                    fogEnd
+                                         , gsl::not_null<EffectParameter*> fogVectorParam)
         {
             if (Math::equal(fogStart, fogEnd))
             {
@@ -101,12 +101,12 @@ namespace SceneR
             }
         }
 
-        EffectDirtyFlags EffectHelpers::set_lighting_matrices(const EffectDirtyFlags&             dirtyFlags
-                                                            , const Matrix&                       world
-                                                            , const Matrix&                       view
-                                                            , Guide::not_null<EffectParameter*>   worldParam
-                                                            , Guide::not_null<EffectParameter*>   worldInverseTransposeParam
-                                                            , Guide::maybe_null<EffectParameter*> eyePositionParam)
+        EffectDirtyFlags EffectHelpers::set_lighting_matrices(const EffectDirtyFlags&           dirtyFlags
+                                                            , const Matrix&                     world
+                                                            , const Matrix&                     view
+                                                            , gsl::not_null<EffectParameter*>   worldParam
+                                                            , gsl::not_null<EffectParameter*>   worldInverseTransposeParam
+                                                            , gsl::maybe_null<EffectParameter*> eyePositionParam)
         {
             auto result = dirtyFlags;
 
@@ -138,13 +138,13 @@ namespace SceneR
             return result;
         }
 
-        void EffectHelpers::set_material_color(const bool&                       lightingEnabled
-                                             , const float&                      alpha
-                                             , const Vector3&                    diffuseColor
-                                             , const Vector3&                    emissiveColor
-                                             , const Vector3&                    ambientLightColor
-                                             , Guide::not_null<EffectParameter*> diffuseColorParam
-                                             , Guide::not_null<EffectParameter*> emissiveColorParam)
+        void EffectHelpers::set_material_color(const bool&                     lightingEnabled
+                                             , const float&                    alpha
+                                             , const Vector3&                  diffuseColor
+                                             , const Vector3&                  emissiveColor
+                                             , const Vector3&                  ambientLightColor
+                                             , gsl::not_null<EffectParameter*> diffuseColorParam
+                                             , gsl::not_null<EffectParameter*> emissiveColorParam)
         {
             // Desired lighting model:
             //

@@ -31,7 +31,7 @@ namespace SceneR
              * Initializes a new instance of the DepthStencilState class
              * with the given GraphcisDevice
              */
-            DepthStencilState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+            DepthStencilState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Initializes a new instance of the DepthStencilState class. Copy constructor.

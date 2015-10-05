@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include <functional>
 #include <gsl.h>
 
 #include <System/IDisposable.hpp>
@@ -77,12 +78,12 @@ namespace SceneR
             /**
              * Gets buffer data from object's data store.
              */
-            const Guide::array_view<std::uint8_t> get_data() const;
+            const gsl::array_view<std::uint8_t> get_data() const;
 
             /**
              * Gets buffer data from object's data store.
              */
-            const Guide::array_view<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
+            const gsl::array_view<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
 
         private:
             BufferTarget            _target;

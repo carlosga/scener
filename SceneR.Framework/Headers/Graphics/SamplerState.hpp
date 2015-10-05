@@ -30,7 +30,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the SamplerState class.
              */
-            SamplerState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+            SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * @brief Copy constructor.

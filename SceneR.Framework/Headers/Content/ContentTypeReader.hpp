@@ -8,6 +8,7 @@
 #include <string>
 #include <utility>
 
+#include <functional>
 #include <gsl.h>
 
 namespace json11
@@ -42,7 +43,7 @@ namespace SceneR
             /**
              * Reads a object from the current stream.
              */
-            std::shared_ptr<T> read(Guide::not_null<ContentReader*>             input
+            std::shared_ptr<T> read(gsl::not_null<ContentReader*>               input
                                   , const std::pair<std::string, json11::Json>& source) const;
         };
     }

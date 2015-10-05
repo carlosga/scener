@@ -13,7 +13,7 @@ namespace SceneR
         using json11::Json;
         using SceneR::Texture::Surface;
 
-        std::shared_ptr<Surface> ContentTypeReader<Surface>::read(Guide::not_null<ContentReader*>     input
+        std::shared_ptr<Surface> ContentTypeReader<Surface>::read(gsl::not_null<ContentReader*>       input
                                                                 , const std::pair<std::string, Json>& source) const
         {
             auto surface = std::make_shared<Surface>();

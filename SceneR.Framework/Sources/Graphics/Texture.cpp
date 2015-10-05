@@ -16,7 +16,7 @@ namespace SceneR
                  || format == SurfaceFormat::Dxt5);
         }
 
-        Texture::Texture(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept
+        Texture::Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
             : GraphicsResource { graphicsDevice }
         {
         }

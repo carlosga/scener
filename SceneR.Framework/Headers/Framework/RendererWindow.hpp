@@ -6,6 +6,7 @@
 
 #include <string>
 
+#include <functional>
 #include <gsl.h>
 
 #include <System/Graphics/Platform.hpp>
@@ -28,7 +29,7 @@ namespace SceneR
              * Initializes a new instance of the RendererWindow class.
              * @param renderer the renderer instance owning the renderer window.
              */
-            RendererWindow(Guide::not_null<Renderer*> renderer);
+            RendererWindow(gsl::not_null<Renderer*> renderer);
 
             /**
              * Releases all resource being used by the current RendererWindow

@@ -19,7 +19,7 @@ namespace SceneR
         using SceneR::Graphics::BufferUsage;
         using SceneR::Graphics::BufferView;
 
-        std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(Guide::not_null<ContentReader*>     input
+        std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(gsl::not_null<ContentReader*>       input
                                                                       , const std::pair<std::string, Json>& source) const
         {
             auto bufferTarget = BufferTarget::AnimationOrSkin;

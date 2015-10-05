@@ -6,7 +6,9 @@
 
 #include <string>
 
+#include <functional>
 #include <gsl.h>
+
 #include <System/IDisposable.hpp>
 
 namespace SceneR
@@ -25,7 +27,7 @@ namespace SceneR
              * Initializes a new instance of the GraphicsResource class
              * @param graphicsDevice the graphics associated to this resources
              */
-            GraphicsResource(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+            GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Destructor

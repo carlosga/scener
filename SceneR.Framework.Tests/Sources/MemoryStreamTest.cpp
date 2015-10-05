@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <functional>
 #include <gsl.h>
 
 #include <System/IO/BinaryReader.hpp>
@@ -13,7 +14,7 @@
 
 using namespace System;
 using namespace System::IO;
-using namespace Guide;
+using namespace gsl;
 
 TEST_F(MemoryStreamTest, DefaultConstructor)
 {

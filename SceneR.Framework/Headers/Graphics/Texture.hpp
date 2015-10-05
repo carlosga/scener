@@ -28,7 +28,7 @@ namespace SceneR
              * @brief Initializes a new instance of the Texture class.
              * @param graphicsDevice the graphics device.
              */
-            Texture(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+            Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * Releases all resources being used by this texture.

@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 
+#include <functional>
 #include <gsl.h>
 
 #include <Graphics/AttributeType.hpp>
@@ -91,13 +92,13 @@ namespace SceneR
             /**
              * Gets the accessor data.
              */
-            const Guide::array_view<std::uint8_t> get_data() const;
+            const gsl::array_view<std::uint8_t> get_data() const;
 
             /**
              * Gets the accessor data.
              */
-            const Guide::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
-                                                         , const std::size_t& elementCount) const;
+            const gsl::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
+                                                       , const std::size_t& elementCount) const;
 
             std::size_t get_attribute_type_count() const noexcept;
 

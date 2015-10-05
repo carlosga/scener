@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <functional>
 #include <gsl.h>
 
 #include <System/IO/Stream.hpp>
@@ -24,7 +25,7 @@ namespace System
             /**
              * Initializes a new instance of the MemoryStream class.
              */
-            MemoryStream(const Guide::array_view<std::uint8_t>& buffer);
+            MemoryStream(const gsl::array_view<std::uint8_t>& buffer);
 
             /**
              * Releases all resources being used by this MemoryStream.
@@ -83,8 +84,8 @@ namespace System
             MemoryStream& operator=(const MemoryStream& stream) = delete;
 
         private:
-            Guide::array_view<std::uint8_t>           _buffer;
-            Guide::array_view<std::uint8_t>::iterator _position;
+            gsl::array_view<std::uint8_t>           _buffer;
+            gsl::array_view<std::uint8_t>::iterator _position;
         };
     }
 }

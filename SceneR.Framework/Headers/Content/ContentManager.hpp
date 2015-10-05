@@ -6,6 +6,7 @@
 
 #include <memory>
 
+#include <functional>
 #include <gsl.h>
 
 #include <Content/ContentResourceManager.hpp>
@@ -41,8 +42,8 @@ namespace SceneR
             /**
              * Initializes a new instance of the ContentManagerClass
              */
-            ContentManager(Guide::not_null<SceneR::Framework::RendererServiceContainer*> serviceProvider
-                         , const std::string&                                            rootDirectory);
+            ContentManager(gsl::not_null<SceneR::Framework::RendererServiceContainer*> serviceProvider
+                         , const std::string&                                          rootDirectory);
 
             /**
              * Releases all resources being used by the ContentManager class.

@@ -26,7 +26,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the DrawableComponent class.
              */
-            DrawableComponent(Guide::not_null<Renderer*> renderer);
+            DrawableComponent(gsl::not_null<Renderer*> renderer);
 
             /**
              * Releases all resources being used by this DrawableComponent.

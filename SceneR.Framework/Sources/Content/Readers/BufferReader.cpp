@@ -13,7 +13,7 @@ namespace SceneR
         using json11::Json;
         using SceneR::Graphics::Buffer;
 
-        std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(Guide::not_null<ContentReader*>     input
+        std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(gsl::not_null<ContentReader*>       input
                                                               , const std::pair<std::string, Json>& source) const
         {
             auto buffer = std::make_shared<Buffer>();

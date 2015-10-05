@@ -20,7 +20,7 @@ namespace SceneR
             ~ContentTypeReader() = default;
 
         public:
-            std::shared_ptr<SceneR::Graphics::ShaderInclude> read(Guide::not_null<ContentReader*>             input
+            std::shared_ptr<SceneR::Graphics::ShaderInclude> read(gsl::not_null<ContentReader*>               input
                                                                 , const std::pair<std::string, json11::Json>& source) const;
         };
     }

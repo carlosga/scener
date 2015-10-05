@@ -40,11 +40,11 @@ namespace SceneR
             /**
              * Reads the meshes contents.
              */
-            std::shared_ptr<SceneR::Graphics::ModelMesh> read(Guide::not_null<ContentReader*>             input
+            std::shared_ptr<SceneR::Graphics::ModelMesh> read(gsl::not_null<ContentReader*>               input
                                                             , const std::pair<std::string, json11::Json>& source) const;
 
         private:
-            void read_mesh_part(Guide::not_null<ContentReader*>              input
+            void read_mesh_part(gsl::not_null<ContentReader*>                input
                               , const json11::Json&                          source
                               , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const;
 
@@ -52,8 +52,8 @@ namespace SceneR
 
             SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
 
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(Guide::not_null<ContentReader*> input
-                                                                           , const std::string&              name) const;
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(gsl::not_null<ContentReader*> input
+                                                                           , const std::string&            name) const;
         };
     }
 }

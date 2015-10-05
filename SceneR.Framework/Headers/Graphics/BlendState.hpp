@@ -6,6 +6,9 @@
 
 #include <cstdint>
 
+#include <functional>
+#include <gsl.h>
+
 #include <Framework/Color.hpp>
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/BlendFunction.hpp>
@@ -32,7 +35,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the BlendState class.
              */
-            BlendState(Guide::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+            BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
             /**
              * @brief Copy constructor.
