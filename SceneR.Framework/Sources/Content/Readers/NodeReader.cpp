@@ -62,8 +62,7 @@ namespace SceneR
 
             if (!source.second["jointName"].is_null())
             {
-                node->joint = std::make_shared<ModelBone>();
-
+                node->joint        = std::make_shared<ModelBone>();
                 node->joint->_name = source.second["jointName"].string_value();
 
                 if (!source.second["matrix"].is_null())
@@ -136,7 +135,9 @@ namespace SceneR
             // Skeleton roots
             for (const auto& skeleton : source["skeletons"].array_items())
             {
-                auto node = input->read_object<Node>("nodes", skeleton.string_value());
+                auto node = input->find_joint_node(skeleton.string_value());
+
+                Ensures(node.get() != nullptr && node->joint.get() != nullptr);
 
                 skin->_skeletons.push_back(node->joint);
             }
@@ -146,7 +147,9 @@ namespace SceneR
 
             for (const auto& jointName : skinRef["jointNames"].array_items())
             {
-                auto node = input->read_object<Node>("nodes", jointName.string_value());
+                auto node = input->find_joint_node(jointName.string_value());
+
+                Ensures(node.get() != nullptr && node->joint.get() != nullptr);
 
                 node->joint->_index = boneIndex;
 

@@ -20,6 +20,8 @@
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
+#include <Graphics/ModelBone.hpp>
+#include <Graphics/Node.hpp>
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/Stream.hpp>
 
@@ -135,6 +137,24 @@ namespace SceneR
                 std::shared_ptr<T>   object = reader.read(this, source);
 
                 return object;
+            }
+
+            inline std::shared_ptr<SceneR::Graphics::Node> find_joint_node(const std::string& jointName) const
+            {
+                for (const auto node : _nodes)
+                {
+                    if (node.second.get())
+                    {
+                        auto joint = node.second->joint;
+
+                        if (joint.get() && joint->name() == jointName)
+                        {
+                            return node.second;
+                        }
+                    }
+                }
+
+                return nullptr;
             }
 
             /**

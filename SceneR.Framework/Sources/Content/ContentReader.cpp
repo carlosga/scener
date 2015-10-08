@@ -60,10 +60,21 @@ namespace SceneR
             {
                 model->_meshes.push_back(read_object<SceneR::Graphics::ModelMesh>(mesh));
             }
-            // Nodes
+            // Nodes ( joints )
             for (const auto& node : _root["nodes"].object_items())
             {
-                read_object<SceneR::Graphics::Node>(node);
+                if (!node.second["jointName"].is_null())
+                {
+                    read_object<SceneR::Graphics::Node>(node);
+                }
+            }
+            // Nodes ( not joints )
+            for (const auto& node : _root["nodes"].object_items())
+            {
+                if (node.second["jointName"].is_null())
+                {
+                    read_object<SceneR::Graphics::Node>(node);
+                }
             }
 
             // cleanup
