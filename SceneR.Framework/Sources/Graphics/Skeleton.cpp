@@ -36,14 +36,80 @@ namespace SceneR
             return _name;
         }
 
-        void Skeleton::update(const TimeSpan& time, const bool& relativeToCurrentTime, const Matrix& rootTransform)
+        const std::vector<Matrix>& Skeleton::bone_transforms() const noexcept
         {
-            //this->update_bone_transforms(time, relativeToCurrentTime);
+            return _bone_transforms;
+        }
+
+        const std::vector<Matrix>& Skeleton::world_transforms() const noexcept
+        {
+            return _world_transforms;
+        }
+
+        const std::vector<Matrix>& Skeleton::skin_transforms() const noexcept
+        {
+            return _skin_transforms;
+        }
+
+        void Skeleton::update(const TimeSpan& time, const bool& relativeToCurrentTime, const Matrix& rootTransform) noexcept
+        {
+            this->update_bone_transforms(time, relativeToCurrentTime);
             this->update_world_transforms(rootTransform);
             this->update_skin_transforms();
         }
 
-        void Skeleton::update_world_transforms(const Matrix& rootTransform)
+        void Skeleton::update_bone_transforms(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
+        {
+//            auto currentTime = TimeSpan(time);
+
+//            // Update the animation position.
+//            if (relativeToCurrentTime)
+//            {
+//                currentTime += this->currentTimeValue;
+
+//                // If we reached the end, loop back to the start.
+//                while (currentTime >= this->currentClipValue.Duration())
+//                {
+//                    currentTime -= this->currentClipValue.Duration();
+//                }
+//            }
+
+//            if ((currentTime < TimeSpan::Zero) || (currentTime >= this->currentClipValue.Duration()))
+//            {
+//                throw std::runtime_error("time");
+//            }
+
+//            // If the position moved backwards, reset the keyframe index.
+//            if (currentTime < this->currentTimeValue)
+//            {
+//                this->currentKeyframe = 0;
+//                this->boneTransforms.assign(this->skinningDataValue->BindPose().begin()
+//                                          , this->skinningDataValue->BindPose().end());
+//            }
+
+//            this->currentTimeValue = currentTime;
+
+//            // Read keyframe matrices.
+//            const auto& keyframes = this->currentClipValue.Keyframes();
+
+//            while (currentKeyframe < keyframes.size())
+//            {
+//                auto& keyframe = keyframes[this->currentKeyframe];
+
+//                // Stop when we've read up to the current time position.
+//                if (keyframe.Time() > this->currentTimeValue)
+//                {
+//                    break;
+//                }
+
+//                // Use this keyframe.
+//                this->boneTransforms[keyframe.Bone()] = keyframe.Transform();
+
+//                this->currentKeyframe++;
+//            }
+        }
+
+        void Skeleton::update_world_transforms(const Matrix& rootTransform) noexcept
         {
             // Root bone.
             _world_transforms[0] = _bone_transforms[0] * rootTransform;
@@ -57,27 +123,12 @@ namespace SceneR
             }
         }
 
-        void Skeleton::update_skin_transforms()
+        void Skeleton::update_skin_transforms() noexcept
         {
             for (std::size_t bone = 0; bone < _skin_transforms.size(); ++bone)
             {
                 _skin_transforms[bone] = _bind_shape_matrix * _inverse_bind_matrices[bone] * _world_transforms[bone];
             }
-        }
-
-        const std::vector<Matrix>& Skeleton::bone_transforms() const
-        {
-            return _bone_transforms;
-        }
-
-        const std::vector<Matrix>& Skeleton::world_transforms() const
-        {
-            return _world_transforms;
-        }
-
-        const std::vector<Matrix>& Skeleton::skin_transforms() const
-        {
-            return _skin_transforms;
         }
     }
 }

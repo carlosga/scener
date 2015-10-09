@@ -43,36 +43,57 @@ namespace SceneR
             const SceneR::Framework::Matrix& bind_shape_matrix() const noexcept;
 
             /**
-             * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint
+             * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint.
              */
             const std::vector<SceneR::Framework::Matrix>& inverse_bind_matrices() const noexcept;
 
             /**
-             * Joints used to animate the skin
+             * Joints used to animate the skin.
              */
             const std::vector<std::shared_ptr<ModelBone>>& joints() const noexcept;
 
             /**
-             * The skin name.
+             * The skeleton name.
              */
             const std::string& name() const noexcept;
 
             /**
-             * Contains one or more skeletons, each of which is the root of a node hierarchy.
+             * Gets the current bone transform matrices, relative to their parent bones.
              */
-            const std::vector<std::shared_ptr<ModelBone>>& skeletons() const noexcept;
+            const std::vector<SceneR::Framework::Matrix>& bone_transforms() const noexcept;
 
+            /**
+             * Gets the current bone transform matrices, in absolute format.
+             */
+            const std::vector<SceneR::Framework::Matrix>& world_transforms() const noexcept;
 
+            /**
+             * Gets the current bone transform matrices, relative to the skinning bind pose.
+             */
+            const std::vector<SceneR::Framework::Matrix>& skin_transforms() const noexcept;
+
+            /**
+             * Advances the current animation position.
+             */
             void update(const System::TimeSpan&          time
                       , const bool&                      relativeToCurrentTime
-                      , const SceneR::Framework::Matrix& rootTransform);
+                      , const SceneR::Framework::Matrix& rootTransform) noexcept;
 
-            const std::vector<SceneR::Framework::Matrix>& bone_transforms() const;
-            const std::vector<SceneR::Framework::Matrix>& world_transforms() const;
-            const std::vector<SceneR::Framework::Matrix>& skin_transforms() const;
+        private:
+            /**
+             * Helper used by the Update method to refresh the BoneTransforms data.
+             */
+            void update_bone_transforms(const System::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
 
-            void update_world_transforms(const SceneR::Framework::Matrix& rootTransform);
-            void update_skin_transforms();
+            /**
+             * Helper used by the Update method to refresh the WorldTransforms data.
+             */
+            void update_world_transforms(const SceneR::Framework::Matrix& rootTransform) noexcept;
+
+            /**
+             * Helper used by the Update method to refresh the SkinTransforms data.
+             */
+            void update_skin_transforms() noexcept;
 
         private:
             SceneR::Framework::Matrix               _bind_shape_matrix     = { SceneR::Framework::Matrix::identity };
