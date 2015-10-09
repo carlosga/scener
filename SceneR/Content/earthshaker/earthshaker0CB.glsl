@@ -2,7 +2,7 @@ layout (binding = 0, std140) uniform ConstantBuffer
 {
     // Vertex Shader
     mat4 u_jointMat[58];
-    mat3 u_normalMatrix;
+    mat4 u_normalMatrix;
     mat4 u_modelViewMatrix;
     mat4 u_projectionMatrix;
     mat4 u_light0Transform;

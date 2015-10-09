@@ -136,6 +136,6 @@ CommonVSOutput ComputeCommonVSOutput(vec4 position)
 #define SetVSInputNmTxWeightsParams \
     vin.Position = vec4(a_position, 1.0f); \
     vin.Normal   = a_normal; \
-    vin.TexCoord = v_texcoord0.st; \
+    vin.TexCoord = a_texcoord0.st; \
     vin.Indices  = a_joint; \
     vin.Weights  = a_weight;

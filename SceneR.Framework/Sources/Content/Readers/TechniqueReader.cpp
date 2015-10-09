@@ -241,37 +241,58 @@ namespace SceneR
                 {
                     // no semantic informed
                 }
-                else if (parameter.second->_semantic == "MODELVIEW")
+                else if (parameter.second->_semantic == "MODEL")
                 {
                     technique->_world_param = parameter.second;
                 }
+                else if (parameter.second->_semantic == "VIEW")
+                {
+                    technique->_view_param = parameter.second;
+                }
                 else if (parameter.second->_semantic == "PROJECTION")
                 {
-                    technique->_world_view_proj_param = parameter.second;
+                    technique->_projection_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELVIEW")
+                {
+                    technique->_world_view_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELVIEWPROJECTION")
+                {
+                    technique->_world_view_projection_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELINVERSE")
+                {
+                    technique->_world_inverse_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "VIEWINVERSE")
+                {
+                    technique->_view_inverse_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "PROJECTIONINVERSE")
+                {
+                    technique->_projection_inverse_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELVIEWINVERSE")
+                {
+                    technique->_world_view_inverse_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELVIEWPROJECTIONINVERSE")
+                {
+                    technique->_world_view_projection_inverse_param = parameter.second;
+                }
+                else if (parameter.second->_semantic == "MODELINVERSETRANSPOSE")
+                {
+                    technique->_world_inverse_transpose_param = parameter.second;
                 }
                 else if (parameter.second->_semantic == "MODELVIEWINVERSETRANSPOSE")
                 {
-                    technique->_world_inverse_transpose_param = parameter.second;
+                    technique->_world_view_inverse_transpose_param = parameter.second;
                 }
                 else if (parameter.second->_semantic == "JOINTMATRIX")
                 {
                     technique->_bones_param = parameter.second;
                 }
-
-                // LOCAL (FLOAT_MAT4)
-                // MODEL (FLOAT_MAT4)
-                // VIEW (FLOAT_MAT4)
-                // PROJECTION (FLOAT_MAT4)
-                // MODELVIEW (FLOAT_MAT4)
-                // MODELVIEWPROJECTION (FLOAT_MAT4)
-                // MODELINVERSE (FLOAT_MAT4)
-                // VIEWINVERSE (FLOAT_MAT4)
-                // PROJECTIONINVERSE (FLOAT_MAT4)
-                // MODELVIEWINVERSE (FLOAT_MAT4)
-                // MODELVIEWPROJECTIONINVERSE (FLOAT_MAT4)
-                // MODELINVERSETRANSPOSE (FLOAT_MAT3)
-                // MODELVIEWINVERSETRANSPOSE (FLOAT_MAT3)
-                // VIEWPORT (FLOAT_VEC4)
             }
         }
 

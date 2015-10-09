@@ -6,10 +6,10 @@
 #include <cassert>
 
 #include <Framework/Matrix.hpp>
+#include <Framework/RenderTime.hpp>
 #include <Graphics/EffectTechnique.hpp>
-#include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <Graphics/ModelSkin.hpp>
+#include <Graphics/Skeleton.hpp>
 
 namespace SceneR
 {
@@ -19,8 +19,6 @@ namespace SceneR
 
         Model::Model() noexcept
             : _name   ()
-            , _bones  (0)
-            , _root   ()
             , _meshes (0)
         {
         }
@@ -34,30 +32,33 @@ namespace SceneR
             return _name;
         }
 
-        const std::shared_ptr<ModelBone>& Model::root() const noexcept
-        {
-            return _root;
-        }
-
-        const std::vector<std::shared_ptr<ModelBone>>& Model::bones() const noexcept
-        {
-            return _bones;
-        }
-
         const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
         {
             return _meshes;
         }
 
+        void Model::update(const SceneR::Framework::RenderTime& renderTime)
+        {
+            for (const auto mesh : _meshes)
+            {
+                if (mesh->skeleton())
+                {
+                    mesh->skeleton()->update(renderTime.elapsed_render_time, true, Matrix::identity);
+                }
+            }
+        }
+
         void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection)
         {
-            //auto boneTransforms = std::vector<Matrix>();
-
             for (const auto mesh : _meshes)
             {
                 for (const auto effect : mesh->effects())
                 {
-                    //effect->world(boneTransforms[mesh->ParentBone()->Index()] * world);
+                    if (mesh->skeleton())
+                    {
+                        effect->bone_transforms(mesh->skeleton()->skin_transforms());
+                    }
+
                     effect->world(world);
                     effect->view(view);
                     effect->projection(projection);

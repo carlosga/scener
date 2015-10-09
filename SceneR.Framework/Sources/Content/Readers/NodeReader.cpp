@@ -8,7 +8,7 @@
 #include <Graphics/Accessor.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
-#include <Graphics/ModelSkin.hpp>
+#include <Graphics/Skeleton.hpp>
 #include <System/IO/MemoryStream.hpp>
 
 namespace SceneR
@@ -22,7 +22,7 @@ namespace SceneR
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::ModelBone;
         using SceneR::Graphics::ModelMesh;
-        using SceneR::Graphics::ModelSkin;
+        using SceneR::Graphics::Skeleton;
         using SceneR::Graphics::Node;
         using System::IO::BinaryReader;
         using System::IO::MemoryStream;
@@ -71,10 +71,12 @@ namespace SceneR
                 }
                 else
                 {
-                    // rotation * translation * scale
-                    node->joint->_transform = Matrix::transform(node->matrix, node->rotation)
-                                            * Matrix::create_translation(node->translation)
-                                            * Matrix::create_scale(node->scale);
+                    auto axis = Vector3 { node->rotation.x, node->rotation.y, node->rotation.z };
+                    auto q    = Quaternion::create_from_axis_angle(axis, node->rotation.w);
+
+                    node->joint->_transform = Matrix::create_scale(node->scale)
+                                            * Matrix::create_from_quaternion(q)
+                                            * Matrix::create_translation(node->translation);
                 }
 
                 for (const auto& child : source.second["children"].array_items())
@@ -108,18 +110,21 @@ namespace SceneR
             return node;
         }
 
-        std::shared_ptr<ModelSkin> ContentTypeReader<Node>::read_instance_skin(gsl::not_null<ContentReader*> input
+        std::shared_ptr<Skeleton> ContentTypeReader<Node>::read_instance_skin(gsl::not_null<ContentReader*> input
                                                                              , const Json&                   source) const
         {
-            auto skin     = std::make_shared<ModelSkin>();
-            auto skinRef  = input->_root["skins"][source["skin"].string_value()];
-            auto accessor = input->read_object<Accessor>("accessors", skinRef["inverseBindMatrices"].string_value());
+            auto skeleton = std::make_shared<Skeleton>();
+            auto skin     = input->_root["skins"][source["skin"].string_value()];
+            auto accessor = input->read_object<Accessor>("accessors", skin["inverseBindMatrices"].string_value());
 
             MemoryStream stream(accessor->get_data());
             BinaryReader reader(stream);
 
+            // Name
+            skeleton->_name = source["skin"].string_value();
+
             // Bind shape matrix
-            skin->_bindShapeMatrix = input->convert<Matrix>(skinRef["bindShapeMatrix"].array_items());
+            skeleton->_bind_shape_matrix = input->convert<Matrix>(skin["bindShapeMatrix"].array_items());
 
             // Inverse bind matrices
             for (std::size_t i = 0; i < accessor->attribute_count(); i++)
@@ -129,42 +134,36 @@ namespace SceneR
                                 , reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
                                 , reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>() };
 
-                skin->_inverseBindMatrices.push_back(Matrix::transpose(matrix));
-            }
-
-            // Skeleton roots
-            for (const auto& skeleton : source["skeletons"].array_items())
-            {
-                auto node = input->find_joint_node(skeleton.string_value());
-
-                Ensures(node.get() != nullptr && node->joint.get() != nullptr);
-
-                skin->_skeletons.push_back(node->joint);
+                skeleton->_inverse_bind_matrices.push_back(matrix);
             }
 
             // Joints
             std::size_t boneIndex = 0;
 
-            for (const auto& jointName : skinRef["jointNames"].array_items())
+            for (const auto& jointName : skin["jointNames"].array_items())
             {
                 auto node = input->find_joint_node(jointName.string_value());
 
                 Ensures(node.get() != nullptr && node->joint.get() != nullptr);
 
-                node->joint->_index = boneIndex;
+                node->joint->_index = boneIndex++;
 
-                skin->_joints.push_back(node->joint);
+                skeleton->_joints.push_back(node->joint);
+                skeleton->_bone_transforms.push_back(node->joint->transform());
             }
+
+            skeleton->_world_transforms = std::vector<Matrix>(skeleton->_bone_transforms.size());
+            skeleton->_skin_transforms  = std::vector<Matrix>(skeleton->_bone_transforms.size());
 
             // The meshes for the skin instance
             for (const auto& meshRef : source["meshes"].array_items())
             {
                 auto mesh = input->read_object<ModelMesh>("meshes", meshRef.string_value());
 
-                mesh->_skin = skin;
+                mesh->_skeleton = skeleton;
             }
 
-            return skin;
+            return skeleton;
         }
     }
 }

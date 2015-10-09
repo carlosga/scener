@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+#include <Framework/RenderTime.hpp>
+
 #include <System/IDisposable.hpp>
 
 namespace SceneR
@@ -54,19 +56,16 @@ namespace SceneR
             const std::string name() const noexcept;
 
             /**
-             * Gets the root bone for the current model.
-             */
-            const std::shared_ptr<ModelBone>& root() const noexcept;
-
-            /**
-             * Gets the collection of bones associated to the current model
-             */
-            const std::vector<std::shared_ptr<ModelBone>>& bones() const noexcept;
-
-            /**
              * Gets a collection of ModelMesh objects which composes the current model.
              */
             const std::vector<std::shared_ptr<ModelMesh>>& meshes() const noexcept;
+
+            /**
+             * Advances the animation by given time and updates the model
+             * skin accordingly.
+             * @param renderTime elapsed time
+             */
+            void update(const SceneR::Framework::RenderTime& renderTime);
 
             /**
              * Render a model after applying the given matrix transformations.
@@ -81,8 +80,6 @@ namespace SceneR
 
         private:
             std::string                              _name;
-            std::vector<std::shared_ptr<ModelBone>>  _bones;
-            std::shared_ptr<ModelBone>               _root;
             std::vector<std::shared_ptr<ModelMesh>>  _meshes;
 
             friend class SceneR::Content::ContentReader;

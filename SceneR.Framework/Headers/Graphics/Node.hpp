@@ -16,7 +16,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        class ModelSkin;
+        class Skeleton;
         class ModelBone;
         class ModelMesh;
 
@@ -50,7 +50,7 @@ namespace SceneR
             /**
              * An instance of a skin.
              */
-            std::shared_ptr<ModelSkin> instance_skin;
+            std::shared_ptr<Skeleton> instance_skin;
 
             /**
              * A joint in a skin.

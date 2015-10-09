@@ -6192,7 +6192,7 @@
                         "uri": "earthshaker0CB.glsl"
                     }
                 }
-            }            
+            }
         },
         "earthshaker0VS": {
             "type": 35633,
@@ -6204,7 +6204,7 @@
                         "uri": "earthshaker0CB.glsl"
                     }
                 }
-            }            
+            }
         }
     },
     "skins": {
@@ -6585,7 +6585,7 @@
                 },
                 "normalMatrix": {
                     "semantic": "MODELVIEWINVERSETRANSPOSE",
-                    "type": 35675
+                    "type": 35676
                 },
                 "position": {
                     "semantic": "POSITION",

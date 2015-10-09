@@ -213,16 +213,16 @@ namespace SceneR
                 matrix.data[i] = values[i].number_value();
             }
 
-            return SceneR::Framework::Matrix::transpose(matrix);
+            return matrix;
         }
 
         template<>
         inline SceneR::Framework::Quaternion ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
         {
-            return { values[1].number_value()
+            return { values[0].number_value()
+                   , values[1].number_value()
                    , values[2].number_value()
-                   , values[3].number_value()
-                   , values[0].number_value(),};
+                   , values[3].number_value() };
         }
 
         template<>

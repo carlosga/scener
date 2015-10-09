@@ -6,7 +6,6 @@
 #include <cassert>
 
 #include <Graphics/EffectDirtyFlags.hpp>
-#include <Graphics/EffectHelpers.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
 #include <Graphics/GraphicsDevice.hpp>
@@ -31,10 +30,6 @@ namespace SceneR
             , _light_2                   { }
             , _lighting_enabled          { true }
             , _emissive_color            { Vector3::zero }
-            , _fog_enabled               { false }
-            , _fog_color                 { Vector3::zero }
-            , _fog_end                   { 1.0f }
-            , _fog_start                 { 0.0f }
             , _prefer_per_pixel_lighting { false }
             , _projection                { Matrix::identity }
             , _specular_color            { Vector3::one }
@@ -42,10 +37,7 @@ namespace SceneR
             , _texture_enabled           { false }
             , _textures                  ( 0 )
             , _view                      { Matrix::identity }
-            , _weights_per_vertex        { 2 }
             , _world                     { Matrix::identity }
-            , _world_view                { Matrix::identity }
-            , _one_light                 { false }
             , _dirty_flags               { EffectDirtyFlags::All }
             , _passes                    ()
             , _parameters                ()
@@ -115,7 +107,7 @@ namespace SceneR
 
         void EffectTechnique::enable_default_lighting()
         {
-            ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
+            //ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
         }
 
         const Vector3& EffectTechnique::emissive_color() const
@@ -129,63 +121,6 @@ namespace SceneR
             {
                 _emissive_color = emissiveColor;
                 _dirty_flags   |= EffectDirtyFlags::MaterialColor;
-            }
-        }
-
-        const Vector3& EffectTechnique::fog_color() const
-        {
-            return _fog_color;
-        }
-
-        void EffectTechnique::fog_color(const Vector3& fogColor)
-        {
-//            if (_fogColor != fogColor)
-//            {
-//                _fogColor = fogColor;
-//
-//                _fogColorParam.SetValue(_fogColor);
-//            }
-        }
-
-        bool EffectTechnique::fog_enabled() const
-        {
-            return _fog_enabled;
-        }
-
-        void EffectTechnique::fog_enabled(const bool& fogEnabled)
-        {
-            if (_fog_enabled != fogEnabled)
-            {
-                _fog_enabled  = fogEnabled;
-                _dirty_flags |= EffectDirtyFlags::Fog;
-            }
-        }
-
-        float EffectTechnique::fog_end() const
-        {
-            return _fog_end;
-        }
-
-        void EffectTechnique::fog_end(const float& fogEnd)
-        {
-            if (!Math::equal(_fog_end, fogEnd))
-            {
-                _fog_end      = fogEnd;
-                _dirty_flags |= EffectDirtyFlags::Fog;
-            }
-        }
-
-        float EffectTechnique::fog_start() const
-        {
-            return _fog_start;
-        }
-
-        void EffectTechnique::fog_start(const float& fogStart)
-        {
-            if (!Math::equal(_fog_start, fogStart))
-            {
-                _fog_start    = fogStart;
-                _dirty_flags |= EffectDirtyFlags::Fog;
             }
         }
 
@@ -322,19 +257,6 @@ namespace SceneR
             _bones_param->set_value(_bone_transforms);
         }
 
-        std::size_t EffectTechnique::weights_per_vertex() const
-        {
-            return _weights_per_vertex;
-        }
-
-        void EffectTechnique::weights_per_vertex(const std::size_t& weightsPerVertex)
-        {
-            assert(weightsPerVertex == 1 || weightsPerVertex == 2 || weightsPerVertex == 4);
-
-            _weights_per_vertex = weightsPerVertex;
-            _dirty_flags       |= EffectDirtyFlags::ShaderIndex;
-        }
-
         void EffectTechnique::begin()
         {
             if (_pass != nullptr)
@@ -349,21 +271,13 @@ namespace SceneR
                 }
             }
 
-            // Recompute the world+view+projection matrix or fog vector
-            _dirty_flags = EffectHelpers::set_world_view_proj(_dirty_flags
-                                                            , _world
-                                                            , _view
-                                                            , _projection
-                                                            , _world_view
-                                                            , _world_view_proj_param.get());
+            if ((_dirty_flags & EffectDirtyFlags::WorldViewProj) != 0 || (_dirty_flags & EffectDirtyFlags::World) != 0)
+            {
+                set_world_view_proj();
 
-            // Recompute the world inverse transpose and eye position
-            _dirty_flags = EffectHelpers::set_lighting_matrices(_dirty_flags
-                                                              , _world
-                                                              , _view
-                                                              , _world_param.get()
-                                                              , _world_inverse_transpose_param.get()
-                                                              , nullptr);
+                _dirty_flags &= ~EffectDirtyFlags::WorldViewProj;
+                _dirty_flags &= ~EffectDirtyFlags::World;
+            }
 
             if (_texture_enabled)
             {
@@ -372,95 +286,6 @@ namespace SceneR
                     texture->bind();
                 }
             }
-
-//
-//            // Recompute the diffuse/emissive/alpha material color parameters
-//            if ((dirtyFlags & EffectDirtyFlags::MaterialColor) != 0)
-//            {
-//                EffectHelpers::SetMaterialColor(_lightingEnabled
-//                    , _alpha
-//                    , _diffuseColor
-//                    , _emissiveColor
-//                    , _ambientLightColor
-//                    , _diffuseColorParam
-//                    , _emissiveColorParam);
-//
-//                _dirty_flags &= ~EffectDirtyFlags::MaterialColor;
-//            }
-//
-//            if (_lightingEnabled)
-//            {
-//                // Recompute the world inverse transpose and eye position
-//                _dirty_flags = EffectHelpers::SetLightingMatrices(_dirty_flags
-//                    , _world
-//                    , _view
-//                    , _worldParam
-//                    , _worldInverseTransposeParam
-//                    , _eyePositionParam);
-//
-//                // Check if we can use the only-bother-with-the-first-light shader optimization.
-//                bool newOneLight = !_light1.Enabled() && !_light2.Enabled();
-//
-//                if (_oneLight != newOneLight)
-//                {
-//                    _oneLight    = newOneLight;
-//                    _dirty_flags |= EffectDirtyFlags::ShaderIndex;
-//                }
-//                else
-//                {
-//                    if (_light0.Enabled())
-//                    {
-//                        _parameters[u"DirLight0Direction"].SetValue(_light0.Direction());
-//                        _parameters[u"DirLight0DiffuseColor"].SetValue(_light0.DiffuseColor());
-//                        _parameters[u"DirLight0SpecularColor"].SetValue(_light0.SpecularColor());
-//                    }
-//
-//                    if (_light1.Enabled())
-//                    {
-//                        _parameters[u"DirLight1Direction"].SetValue(_light1.Direction());
-//                        _parameters[u"DirLight1DiffuseColor"].SetValue(_light1.DiffuseColor());
-//                        _parameters[u"DirLight1SpecularColor"].SetValue(_light1.SpecularColor());
-//                    }
-//
-//                    if (_light2.Enabled())
-//                    {
-//                        _parameters[u"DirLight2Direction"].SetValue(_light2.Direction());
-//                        _parameters[u"DirLight2DiffuseColor"].SetValue(_light2.DiffuseColor());
-//                        _parameters[u"DirLight2SpecularColor"].SetValue(_light2.SpecularColor());
-//                    }
-//                }
-//            }
-//
-//            // Recompute the shader index
-//            if ((_dirty_flags & EffectDirtyFlags::ShaderIndex) != 0)
-//            {
-//                _shaderIndex = 0;
-//
-//                if (!_fogEnabled)
-//                {
-//                    _shaderIndex += 1;
-//                }
-//
-//                if (_weightsPerVertex == 2)
-//                {
-//                    _shaderIndex += 2;
-//                }
-//                else if (weightsPerVertex == 4)
-//                {
-//                    _shaderIndex += 4;
-//                }
-//
-//                if (_preferPerPixelLighting)
-//                {
-//                    _shaderIndex += 12;
-//                }
-//                else if (_oneLight)
-//                {
-//                    _shaderIndex += 6;
-//                }
-//
-//                _dirty_flags &= ~EffectDirtyFlags::ShaderIndex;
-//            }
         }
 
         void EffectTechnique::end()
@@ -483,6 +308,61 @@ namespace SceneR
                 {
                     pass.second->end();
                 }
+            }
+        }
+
+        void EffectTechnique::set_world_view_proj() const
+        {
+            auto worldView     = _world * _view;
+            auto worldViewProj = worldView * _projection;
+
+            if (_world_param.get())
+            {
+                _world_param->set_value(_world);
+            }
+            if (_view_param.get())
+            {
+                _view_param->set_value(_view);
+            }
+            if (_projection_param.get())
+            {
+                _projection_param->set_value_transpose(_projection);
+            }
+            if (_world_view_param.get())
+            {
+                _world_view_param->set_value_transpose(worldView);
+            }
+            if (_world_view_projection_param.get())
+            {
+                _world_view_projection_param->set_value(worldViewProj);
+            }
+            if (_world_inverse_param.get())
+            {
+                _world_inverse_param->set_value(Matrix::invert(_world));
+            }
+            if (_view_inverse_param.get())
+            {
+                _view_inverse_param->set_value(Matrix::invert(_view));
+            }
+            if (_projection_inverse_param.get())
+            {
+                _projection_inverse_param->set_value(Matrix::invert(_projection));
+            }
+            if (_world_view_inverse_param.get())
+            {
+                _world_view_inverse_param->set_value(Matrix::invert(worldView));
+            }
+            if (_world_view_projection_inverse_param.get())
+            {
+                _world_view_projection_inverse_param->set_value(Matrix::invert(worldViewProj));
+            }
+            if (_world_inverse_transpose_param.get())
+            {
+                _world_inverse_transpose_param->set_value(Matrix::transpose(Matrix::invert(_world)));
+            }
+            if (_world_view_inverse_transpose_param.get())
+            {
+                _world_view_inverse_transpose_param->set_value(Matrix::transpose(Matrix::invert(worldView)));
             }
         }
     }

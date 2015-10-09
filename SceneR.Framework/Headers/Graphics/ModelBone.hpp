@@ -20,7 +20,7 @@ namespace SceneR
 
     namespace Graphics
     {
-        class ModelSkin;
+        class Skeleton;
 
         /**
          * Represents bone data for a model.

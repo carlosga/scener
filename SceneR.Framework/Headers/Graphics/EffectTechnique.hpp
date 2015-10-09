@@ -39,7 +39,7 @@ namespace SceneR
         /**
          * Used to set and query effects, and to choose techniques.
          */
-        class EffectTechnique : public GraphicsResource, public IEffectMatrices, public IEffectLights, public IEffectFog
+        class EffectTechnique : public GraphicsResource, public IEffectMatrices, public IEffectLights
         {
         public:
             /**
@@ -126,48 +126,6 @@ namespace SceneR
              * the range of color values is from 0 to 1.
              */
             void emissive_color(const SceneR::Framework::Vector3& emissiveColor);
-
-            /**
-             * Gets the emissive color for a material,
-             * the range of color values is from 0 to 1.
-             */
-            const SceneR::Framework::Vector3& fog_color() const override;
-
-            /**
-             * Sets the emissive color for a material,
-             * the range of color values is from 0 to 1.
-             */
-            void fog_color(const SceneR::Framework::Vector3& fogColor) override;
-
-            /**
-             * Gets a value indicating whether for is enabled for the current effect.
-             */
-            bool fog_enabled() const override;
-
-            /**
-             * Gets a value indicating whether for is enabled for the current effect.
-             */
-            void fog_enabled(const bool& fogEnabled) override;
-
-            /**
-             * Gets maximum z value for fog, which ranges from 0 to 1.
-             */
-            float fog_end() const override;
-
-            /**
-             * Sets maximum z value for fog, which ranges from 0 to 1.
-             */
-            void fog_end(const float& fogEnd) override;
-
-            /**
-             * Gets minimum z value for fog, which ranges from 0 to 1.
-             */
-            float fog_start() const override;
-
-            /**
-             * Sets minimum z value for fog, which ranges from 0 to 1.
-             */
-            void fog_start(const float& fogStart) override;
 
             /**
              * Gets a value indicating wheter lighting is enabled for the current effect.
@@ -269,16 +227,6 @@ namespace SceneR
              */
             void bone_transforms(const std::vector<SceneR::Framework::Matrix>& boneTransforms);
 
-            /**
-             * Gets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
-             */
-            std::size_t weights_per_vertex() const;
-
-            /**
-             * Sets the number of per-vertex skinning weights to evaluate, which is either 1, 2, or 4.
-             */
-            void weights_per_vertex(const std::size_t& weightsPerVertex);
-
         public:
             /**
              * Starts the application of the effect state just prior to rendering the effect.
@@ -291,6 +239,9 @@ namespace SceneR
             void end();
 
         private:
+            void set_world_view_proj() const;
+
+        private:
             float                                   _alpha;
             SceneR::Framework::Vector3              _ambient_light_color;
             std::vector<SceneR::Framework::Matrix>  _bone_transforms;
@@ -300,10 +251,6 @@ namespace SceneR
             DirectionalLight                        _light_2;
             bool                                    _lighting_enabled;
             SceneR::Framework::Vector3              _emissive_color;
-            bool                                    _fog_enabled;
-            SceneR::Framework::Vector3              _fog_color;
-            float                                   _fog_end;
-            float                                   _fog_start;
             bool                                    _prefer_per_pixel_lighting;
             SceneR::Framework::Matrix               _projection;
             SceneR::Framework::Vector3              _specular_color;
@@ -311,10 +258,7 @@ namespace SceneR
             bool                                    _texture_enabled;
             std::vector<std::shared_ptr<Texture2D>> _textures;
             SceneR::Framework::Matrix               _view;
-            std::size_t                             _weights_per_vertex;
             SceneR::Framework::Matrix               _world;
-            SceneR::Framework::Matrix               _world_view;
-            bool                                    _one_light;
 
             EffectDirtyFlags                        _dirty_flags;
 
@@ -323,10 +267,32 @@ namespace SceneR
             std::map<std::string, std::shared_ptr<EffectParameter>> _parameters;
 
             std::shared_ptr<EffectPass>      _pass                          = nullptr;
-            std::shared_ptr<EffectParameter> _world_param                   = nullptr;
-            std::shared_ptr<EffectParameter> _world_view_proj_param         = nullptr;
-            std::shared_ptr<EffectParameter> _world_inverse_transpose_param = nullptr;
             std::shared_ptr<EffectParameter> _bones_param                   = nullptr;
+
+            /// Transforms from model to world coordinates using the transform's node and all of its parents.
+            std::shared_ptr<EffectParameter> _world_param                   = nullptr;
+            /// Transforms from world to view coordinates using the active camera node.
+            std::shared_ptr<EffectParameter> _view_param                    = nullptr;
+            /// Transforms from view to clip coordinates using the active camera node.
+            std::shared_ptr<EffectParameter> _projection_param              = nullptr;
+            /// Combined WORLD and VIEW.
+            std::shared_ptr<EffectParameter> _world_view_param              = nullptr;
+            /// Combined WORLD, VIEW, and PROJECTION.
+            std::shared_ptr<EffectParameter> _world_view_projection_param   = nullptr;
+            /// Inverse of WORLD.
+            std::shared_ptr<EffectParameter> _world_inverse_param           = nullptr;
+            /// Inverse of VIEW.
+            std::shared_ptr<EffectParameter> _view_inverse_param            = nullptr;
+            /// Inverse of PROJECTION.
+            std::shared_ptr<EffectParameter> _projection_inverse_param      = nullptr;
+            /// Inverse of WORLDVIEW.
+            std::shared_ptr<EffectParameter> _world_view_inverse_param      = nullptr;
+            /// Inverse of MODELVIEWPROJECTION
+            std::shared_ptr<EffectParameter> _world_view_projection_inverse_param = nullptr;
+            /// The inverse-transpose of MODEL without the translation. This translates normals in model coordinates to world coordinates.
+            std::shared_ptr<EffectParameter> _world_inverse_transpose_param = nullptr;
+            /// The inverse-transpose of MODELVIEW without the translation. This translates normals in model coordinates to eye coordinates.
+            std::shared_ptr<EffectParameter> _world_view_inverse_transpose_param = nullptr;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

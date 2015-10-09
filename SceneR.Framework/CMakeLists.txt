@@ -112,7 +112,6 @@ set (HEADER_FILES
      Headers/Graphics/DisplayMode.hpp
      Headers/Graphics/EffectTechnique.hpp
      Headers/Graphics/EffectDirtyFlags.hpp
-     Headers/Graphics/EffectHelpers.hpp
      Headers/Graphics/EffectPass.hpp
      Headers/Graphics/EffectPassStates.hpp
      Headers/Graphics/EffectParameter.hpp
@@ -128,7 +127,6 @@ set (HEADER_FILES
      Headers/Graphics/IEffectMatrices.hpp
      Headers/Graphics/IGraphicsDeviceService.hpp
      Headers/Graphics/IndexBuffer.hpp
-     Headers/Graphics/ModelSkin.hpp
      Headers/Graphics/Model.hpp
      Headers/Graphics/ModelBone.hpp
      Headers/Graphics/ModelMesh.hpp
@@ -143,6 +141,7 @@ set (HEADER_FILES
      Headers/Graphics/Shader.hpp
      Headers/Graphics/ShaderInclude.hpp
      Headers/Graphics/ShaderType.hpp
+     Headers/Graphics/Skeleton.hpp
      Headers/Graphics/StencilOperation.hpp
      Headers/Graphics/SurfaceFormat.hpp
      Headers/Graphics/Texture.hpp
@@ -238,14 +237,12 @@ set (SOURCE_FILES
      Sources/Graphics/DirectionalLight.cpp
      Sources/Graphics/DisplayMode.cpp
      Sources/Graphics/EffectTechnique.cpp
-     Sources/Graphics/EffectHelpers.cpp
      Sources/Graphics/EffectParameter.cpp
      Sources/Graphics/EffectPass.cpp
      Sources/Graphics/GraphicsAdapter.cpp
      Sources/Graphics/GraphicsDevice.cpp
      Sources/Graphics/GraphicsResource.cpp
      Sources/Graphics/IndexBuffer.cpp
-     Sources/Graphics/ModelSkin.cpp
      Sources/Graphics/Model.cpp
      Sources/Graphics/ModelBone.cpp
      Sources/Graphics/ModelMesh.cpp
@@ -257,6 +254,7 @@ set (SOURCE_FILES
      Sources/Graphics/SamplerState.cpp
      Sources/Graphics/Shader.cpp
      Sources/Graphics/ShaderInclude.cpp
+     Sources/Graphics/Skeleton.cpp
      Sources/Graphics/Texture.cpp
      Sources/Graphics/Texture2D.cpp
      Sources/Graphics/TextureObject.cpp

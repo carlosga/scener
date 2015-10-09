@@ -62,7 +62,7 @@ namespace SceneR
 
         void EarthShaker::update(const RenderTime& renderTime)
         {
-            // this->model->update(renderTime);
+            _model->update(renderTime);
         }
 
         void EarthShaker::draw(const RenderTime& renderTime)

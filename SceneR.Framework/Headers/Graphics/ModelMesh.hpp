@@ -20,7 +20,7 @@ namespace SceneR
     namespace Graphics
     {
         class EffectTechnique;
-        class ModelSkin;
+        class Skeleton;
         class ModelBone;
         class ModelMeshPart;
 
@@ -65,16 +65,9 @@ namespace SceneR
             const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const noexcept;
 
             /**
-             * Gets the parent bone for this mesh. The parent bone of a mesh contains a
-             * transformation matrix that describes how the mesh is located relative to
-             * any parent meshes in a model.
-             */
-            ModelBone* parent_bone() const noexcept;
-
-            /**
              * Joints and matrices defining a skin.
              */
-            ModelSkin* skin() const noexcept;
+            Skeleton* skeleton() const noexcept;
 
         public:
             /**
@@ -85,9 +78,8 @@ namespace SceneR
         private:
             std::string                                 _name            = { };
             std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      = { };
-            std::shared_ptr<ModelBone>                  _parent_bone     = { nullptr };
             SceneR::Framework::BoundingSphere           _bounding_sphere = { SceneR::Framework::Vector3::zero, 0.0f };
-            std::shared_ptr<ModelSkin>                  _skin            = { nullptr };
+            std::shared_ptr<Skeleton>                   _skeleton        = { nullptr };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

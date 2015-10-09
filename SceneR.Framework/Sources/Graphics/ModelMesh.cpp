@@ -50,14 +50,9 @@ namespace SceneR
             return _mesh_parts;
         }
 
-        ModelBone* ModelMesh::parent_bone() const noexcept
+        Skeleton* ModelMesh::skeleton() const noexcept
         {
-            return _parent_bone.get();
-        }
-
-        ModelSkin* ModelMesh::skin() const noexcept
-        {
-            return _skin.get();
+            return _skeleton.get();
         }
 
         void ModelMesh::draw()

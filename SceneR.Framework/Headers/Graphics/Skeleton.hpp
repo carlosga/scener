@@ -10,6 +10,11 @@
 
 #include <Framework/Matrix.hpp>
 
+namespace System
+{
+    struct TimeSpan;
+}
+
 namespace SceneR
 {
     namespace Content
@@ -23,24 +28,24 @@ namespace SceneR
         class ModelBone;
         class Node;
 
-        class ModelSkin final
+        class Skeleton final
         {
         public:
-            ModelSkin() = default;
+            Skeleton() = default;
 
-            ~ModelSkin() = default;
+            ~Skeleton() = default;
 
         public:
             /**
              * Describes how to pose the skin's geometry for use with the joints.
              * Floating-point 4x4 transformation matrix stored in column-major order.
              */
-            const SceneR::Framework::Matrix& bindShapeMatrix() const noexcept;
+            const SceneR::Framework::Matrix& bind_shape_matrix() const noexcept;
 
             /**
              * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint
              */
-            const std::vector<SceneR::Framework::Matrix>& inverseBindMatrices() const noexcept;
+            const std::vector<SceneR::Framework::Matrix>& inverse_bind_matrices() const noexcept;
 
             /**
              * Joints used to animate the skin
@@ -57,12 +62,27 @@ namespace SceneR
              */
             const std::vector<std::shared_ptr<ModelBone>>& skeletons() const noexcept;
 
+
+            void update(const System::TimeSpan&          time
+                      , const bool&                      relativeToCurrentTime
+                      , const SceneR::Framework::Matrix& rootTransform);
+
+            const std::vector<SceneR::Framework::Matrix>& bone_transforms() const;
+            const std::vector<SceneR::Framework::Matrix>& world_transforms() const;
+            const std::vector<SceneR::Framework::Matrix>& skin_transforms() const;
+
+            void update_world_transforms(const SceneR::Framework::Matrix& rootTransform);
+            void update_skin_transforms();
+
         private:
-            SceneR::Framework::Matrix               _bindShapeMatrix     = { SceneR::Framework::Matrix::identity };
-            std::vector<SceneR::Framework::Matrix>  _inverseBindMatrices = { };
-            std::vector<std::shared_ptr<ModelBone>> _joints              = { };
-            std::string                             _name                = { };
-            std::vector<std::shared_ptr<ModelBone>> _skeletons           = { };
+            SceneR::Framework::Matrix               _bind_shape_matrix     = { SceneR::Framework::Matrix::identity };
+            std::vector<SceneR::Framework::Matrix>  _inverse_bind_matrices = { };
+            std::vector<std::shared_ptr<ModelBone>> _joints                = { };
+            std::string                             _name                  = { };
+
+            std::vector<SceneR::Framework::Matrix> _bone_transforms;
+            std::vector<SceneR::Framework::Matrix> _world_transforms;
+            std::vector<SceneR::Framework::Matrix> _skin_transforms;
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

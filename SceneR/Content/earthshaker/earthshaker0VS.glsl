@@ -15,24 +15,43 @@ out vec3 v_normal;
 out vec3 v_position;
 out vec2 v_texcoord0;
 
+struct VSInputNmTxWeights
+{
+    vec4 Position;
+    vec3 Normal;
+    vec4 Indices;
+    vec4 Weights;
+};
+
+#define SetVSInputNmTxWeightsParams \
+    vin.Position = vec4(a_position, 1.0f); \
+    vin.Normal   = a_normal; \
+    vin.Indices  = a_joint; \
+    vin.Weights  = a_weight;
+
+void skin(inout VSInputNmTxWeights vin, uint boneCount)
+{
+    mat4 skinning = mat4(0.0f);
+
+    for (int i = 0; i < boneCount; i++)
+    {
+        skinning += u_jointMat[int(vin.Indices[i])] * vin.Weights[i];
+    }
+
+    vin.Position = vin.Position * skinning * u_modelViewMatrix;
+    vin.Normal   = vin.Normal * mat3(skinning) * mat3(u_normalMatrix);
+}
+
 void main(void)
 {
-//    mat4 skinMat = a_weight.x * u_jointMat[int(a_joint.x)];
-//    skinMat += a_weight.y * u_jointMat[int(a_joint.y)];
-//    skinMat += a_weight.z * u_jointMat[int(a_joint.z)];
-//    skinMat += a_weight.w * u_jointMat[int(a_joint.w)];
+    VSInputNmTxWeights vin;
+    SetVSInputNmTxWeightsParams;
 
-//    vec4 pos = u_modelViewMatrix * skinMat * vec4(a_position,1.0);
-//    v_normal          = u_normalMatrix * mat3(skinMat)* a_normal;
-//    v_texcoord0       = a_texcoord0;
-//    v_light0Direction = u_light0Transform[3].xyz - pos.xyz;
-//    gl_Position       = u_projectionMatrix * pos;
+    skin(vin, 4);
 
-    //vec3  Pos_ws = (a_position * u_modelViewMatrix).xyz;
-    vec4 pos_ps = vec4(a_position, 1.0) * u_projectionMatrix;
-
-    v_light0Direction = u_light0Transform[3].xyz - pos_ps.xyz;
-    v_normal          = normalize(a_normal * mat3x3(u_normalMatrix));
+    v_normal          = vin.Normal;
+    v_light0Direction = u_light0Transform[3].xyz - vin.Position.xyz;
     v_texcoord0       = a_texcoord0;
-    gl_Position       = pos_ps;
+    v_position        = vin.Position.xyz;
+    gl_Position       = vin.Position * u_projectionMatrix;
 }
