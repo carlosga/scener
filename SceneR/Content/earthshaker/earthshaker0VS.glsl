@@ -29,7 +29,7 @@ struct VSInputNmTxWeights
     vin.Indices  = a_joint; \
     vin.Weights  = a_weight;
 
-void skin(inout VSInputNmTxWeights vin, uint boneCount)
+void skin(inout VSInputNmTxWeights vin, int boneCount)
 {
     mat4 skinning = mat4(0.0f);
 

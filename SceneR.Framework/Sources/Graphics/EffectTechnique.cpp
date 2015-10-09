@@ -3,8 +3,6 @@
 
 #include <Graphics/EffectTechnique.hpp>
 
-#include <cassert>
-
 #include <Graphics/EffectDirtyFlags.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectPass.hpp>
@@ -131,7 +129,7 @@ namespace SceneR
 
         void EffectTechnique::lighting_enabled(const bool& lightingEnabled)
         {
-            assert(false);
+            _lighting_enabled = lightingEnabled;
         }
 
         bool EffectTechnique::prefer_per_pixel_lighting() const
@@ -241,7 +239,7 @@ namespace SceneR
 
         std::vector<Matrix> EffectTechnique::bone_transforms(const std::size_t& count) const
         {
-            assert(count < _bone_transforms.size());
+            Expects(count >= _bone_transforms.size());
 
             std::vector<Matrix> transforms;
 

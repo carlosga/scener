@@ -71,7 +71,7 @@ namespace SceneR
                 }
                 else
                 {
-                    auto axis = Vector3 { node->rotation.x, node->rotation.y, node->rotation.z };
+                    auto axis = Vector3::normalize({ node->rotation.x, node->rotation.y, node->rotation.z });
                     auto q    = Quaternion::create_from_axis_angle(axis, node->rotation.w);
 
                     node->joint->_transform = Matrix::create_scale(node->scale)
@@ -111,14 +111,11 @@ namespace SceneR
         }
 
         std::shared_ptr<Skeleton> ContentTypeReader<Node>::read_instance_skin(gsl::not_null<ContentReader*> input
-                                                                             , const Json&                   source) const
+                                                                            , const Json&                   source) const
         {
             auto skeleton = std::make_shared<Skeleton>();
             auto skin     = input->_root["skins"][source["skin"].string_value()];
             auto accessor = input->read_object<Accessor>("accessors", skin["inverseBindMatrices"].string_value());
-
-            MemoryStream stream(accessor->get_data());
-            BinaryReader reader(stream);
 
             // Name
             skeleton->_name = source["skin"].string_value();
@@ -127,6 +124,9 @@ namespace SceneR
             skeleton->_bind_shape_matrix = input->convert<Matrix>(skin["bindShapeMatrix"].array_items());
 
             // Inverse bind matrices
+            MemoryStream stream(accessor->get_data());
+            BinaryReader reader(stream);
+
             for (std::size_t i = 0; i < accessor->attribute_count(); i++)
             {
                 Matrix matrix = { reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
@@ -159,6 +159,8 @@ namespace SceneR
             for (const auto& meshRef : source["meshes"].array_items())
             {
                 auto mesh = input->read_object<ModelMesh>("meshes", meshRef.string_value());
+
+                Ensures(mesh.get() != nullptr);
 
                 mesh->_skeleton = skeleton;
             }

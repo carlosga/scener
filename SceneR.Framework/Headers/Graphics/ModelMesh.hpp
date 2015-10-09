@@ -73,7 +73,7 @@ namespace SceneR
             /**
              * Draws all of the ModelMeshPart objects in this mesh.
              */
-            void draw();
+            void draw() noexcept;
 
         private:
             std::string                                 _name            = { };

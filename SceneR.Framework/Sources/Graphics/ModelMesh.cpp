@@ -55,7 +55,7 @@ namespace SceneR
             return _skeleton.get();
         }
 
-        void ModelMesh::draw()
+        void ModelMesh::draw() noexcept
         {
             for (const auto& meshPart : _mesh_parts)
             {
