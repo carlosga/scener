@@ -37,7 +37,7 @@ namespace SceneR
             return _meshes;
         }
 
-        void Model::update(const SceneR::Framework::RenderTime& renderTime)
+        void Model::update(const SceneR::Framework::RenderTime& renderTime) noexcept
         {
             for (const auto mesh : _meshes)
             {
@@ -48,7 +48,7 @@ namespace SceneR
             }
         }
 
-        void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection)
+        void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection) noexcept
         {
             for (const auto mesh : _meshes)
             {

@@ -65,7 +65,7 @@ namespace SceneR
              * skin accordingly.
              * @param renderTime elapsed time
              */
-            void update(const SceneR::Framework::RenderTime& renderTime);
+            void update(const SceneR::Framework::RenderTime& renderTime) noexcept;
 
             /**
              * Render a model after applying the given matrix transformations.
@@ -76,7 +76,7 @@ namespace SceneR
              */
             void draw(const SceneR::Framework::Matrix& world
                     , const SceneR::Framework::Matrix& view
-                    , const SceneR::Framework::Matrix& projection);
+                    , const SceneR::Framework::Matrix& projection) noexcept;
 
         private:
             std::string                              _name;
