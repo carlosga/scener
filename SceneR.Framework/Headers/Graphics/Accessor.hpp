@@ -101,10 +101,6 @@ namespace SceneR
             const gsl::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
                                                        , const std::size_t& elementCount) const;
 
-            std::size_t get_attribute_type_count() const noexcept;
-
-            std::size_t get_component_size_in_bytes() const noexcept;
-
             template <typename T>
             T get_element(const std::size_t& elementOffset) const noexcept
             {
@@ -115,6 +111,10 @@ namespace SceneR
 
                 return result;
             }
+
+        private:
+            std::size_t get_attribute_type_count() const noexcept;
+            std::size_t get_component_size_in_bytes() const noexcept;
 
         private:
             AttributeType               _attribute_type  { AttributeType::Scalar };

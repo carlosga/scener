@@ -4,6 +4,7 @@
 #include <Framework/Renderer.hpp>
 
 #include <algorithm>
+#include <iostream>
 #include <thread>
 
 #include <Content/ContentManager.hpp>
@@ -250,6 +251,10 @@ namespace SceneR
                 auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());
 
                 std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
+            }
+            else
+            {
+                std::cout << "runnin slowly" << std::endl;
             }
         }
 

@@ -12,7 +12,6 @@
 #include <gsl.h>
 
 #include <Graphics/EffectPassStates.hpp>
-#include <Graphics/Program.hpp>
 
 namespace SceneR
 {
@@ -53,20 +52,20 @@ namespace SceneR
             /**
              * Begins this pass.
              */
-            void begin();
+            void begin() noexcept;
 
             /**
              * Ends this pass.
              */
-            void end();
+            void end() noexcept;
 
         private:
-            GraphicsDevice*                               _graphics_device  = nullptr;
-            std::string                                   _name             = { };
-            std::string                                   _lighting_model   = { };
-            std::vector<std::shared_ptr<EffectParameter>> _parameters       = { };
-            std::shared_ptr<Program>                      _program          = nullptr;
-            EffectPassStates                              _states           = { };
+            GraphicsDevice*                               _graphics_device  { nullptr };
+            std::string                                   _name             { };
+            std::string                                   _lighting_model   { };
+            std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
+            std::shared_ptr<Program>                      _program          { nullptr };
+            EffectPassStates                              _states           { };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

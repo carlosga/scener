@@ -76,10 +76,10 @@ namespace SceneR
             void draw() noexcept;
 
         private:
-            std::string                                 _name            = { };
-            std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      = { };
-            SceneR::Framework::BoundingSphere           _bounding_sphere = { SceneR::Framework::Vector3::zero, 0.0f };
-            std::shared_ptr<Skeleton>                   _skeleton        = { nullptr };
+            std::string                                 _name            { };
+            std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      { };
+            SceneR::Framework::BoundingSphere           _bounding_sphere { SceneR::Framework::Vector3::zero, 0.0f };
+            std::shared_ptr<Skeleton>                   _skeleton        { nullptr };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

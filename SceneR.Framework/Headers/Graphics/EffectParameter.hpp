@@ -5,8 +5,6 @@
 #define GRAPHICS_EFFECTPARAMETER_HPP
 
 #include <cstddef>
-#include <cstdint>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -114,14 +112,14 @@ namespace SceneR
             EffectParameter& operator=(const EffectParameter& parameter) = default;
 
         private:
-            std::string _name         = { };
-            std::size_t _column_count = { 0 };
-            std::size_t _row_count    = { 0 };
-            std::size_t _count        = { 0 };
-            std::size_t _offset       = { 0 };
-            std::string _semantic     = { };
-            std::string _node         = { };
-            std::string _value        = { };
+            std::string _name         { };
+            std::size_t _column_count { 0 };
+            std::size_t _row_count    { 0 };
+            std::size_t _count        { 0 };
+            std::size_t _offset       { 0 };
+            std::string _semantic     { };
+            std::string _node         { };
+            std::string _value        { };
 
             EffectParameterClass _parameter_class = EffectParameterClass::Scalar;
             EffectParameterType  _parameter_type  = EffectParameterType::Single;

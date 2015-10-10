@@ -3,10 +3,8 @@
 
 #include <Graphics/EffectPass.hpp>
 
-#include <Graphics/BlendState.hpp>
-#include <Graphics/DepthStencilState.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/RasterizerState.hpp>
+#include <Graphics/Program.hpp>
 
 namespace SceneR
 {
@@ -24,12 +22,12 @@ namespace SceneR
             return _name;
         }
 
-        void EffectPass::begin()
+        void EffectPass::begin() noexcept
         {
             _program->bind();
         }
 
-        void EffectPass::end()
+        void EffectPass::end() noexcept
         {
             _program->unbind();
         }

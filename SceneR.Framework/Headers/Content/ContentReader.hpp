@@ -182,16 +182,16 @@ namespace SceneR
             json11::Json             _root;
 
         private:
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Accessor>>        _accessors;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Buffer>>          _buffers;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::BufferView>>      _bufferViews;
-            std::map<std::string, std::shared_ptr<SceneR::Texture::Surface>>          _images;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Node>>            _nodes;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes;
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures;
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Accessor>>      _accessors       { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Buffer>>        _buffers         { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::BufferView>>    _bufferViews     { };
+            std::map<std::string, std::shared_ptr<SceneR::Texture::Surface>>        _images          { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>     _meshes          { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Node>>          _nodes           { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>  _samplers        { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>        _shaders         { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>> _shader_includes { };
+            std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>     _textures        { };
 
             template <typename T> friend class ContentTypeReader;
         };

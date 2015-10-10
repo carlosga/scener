@@ -44,12 +44,13 @@ namespace SceneR
                 parameters[p.first] = accessor;
             }
 
-            auto times = parameters["TIME"];
+            Ensures(parameters.count("TIME") == 1);
 
-            animation->_name = source.first;
-
+            auto times     = parameters["TIME"];
             auto targetRef = source.second["channels"][0]["target"]["id"].string_value();
             auto target    = input->read_object<Node>("nodes", targetRef);
+
+            animation->_name = source.first;
 
             // Process only bone animations
             Ensures(target && target->joint);

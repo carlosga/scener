@@ -3,9 +3,6 @@
 
 #include <Graphics/Animation.hpp>
 
-#include <functional>
-#include <gsl.h>
-
 #include <System/Math.hpp>
 
 namespace SceneR

@@ -18,6 +18,7 @@ namespace SceneR
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
+        using SceneR::Framework::Vector4;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::ModelBone;
         using SceneR::Graphics::ModelMesh;
@@ -45,7 +46,10 @@ namespace SceneR
             {
                 if (!source.second["rotation"].is_null())
                 {
-                    node->rotation = input->convert<Quaternion>(source.second["rotation"].array_items());
+                    auto vector = input->convert<Vector4>(source.second["rotation"].array_items());
+                    auto axis   = Vector3::normalize({ vector.x, vector.y, vector.z });
+
+                    node->rotation = Quaternion::create_from_axis_angle(axis, vector.w);
                 }
                 if (!source.second["scale"].is_null())
                 {
@@ -68,11 +72,8 @@ namespace SceneR
                 }
                 else
                 {
-                    auto axis = Vector3::normalize({ node->rotation.x, node->rotation.y, node->rotation.z });
-                    auto q    = Quaternion::create_from_axis_angle(axis, node->rotation.w);
-
                     node->joint->_transform = Matrix::create_scale(node->scale)
-                                            * Matrix::create_from_quaternion(q)
+                                            * Matrix::create_from_quaternion(node->rotation)
                                             * Matrix::create_translation(node->translation);
                 }
 

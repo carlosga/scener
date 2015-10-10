@@ -4,8 +4,6 @@
 #ifndef GRAPHICS_KEYFRAME_HPP
 #define GRAPHICS_KEYFRAME_HPP
 
-#include <memory>
-
 #include <System/TimeSpan.hpp>
 #include <Framework/Matrix.hpp>
 

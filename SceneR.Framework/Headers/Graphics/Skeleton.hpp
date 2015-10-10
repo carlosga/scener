@@ -26,13 +26,11 @@ namespace SceneR
     {
         class ModelMesh;
         class ModelBone;
-        class Node;
 
         class Skeleton final
         {
         public:
             Skeleton() = default;
-
             ~Skeleton() = default;
 
         public:

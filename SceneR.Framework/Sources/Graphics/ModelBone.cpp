@@ -9,9 +9,6 @@ namespace SceneR
     {
         using SceneR::Framework::Matrix;
 
-        /**
-         * Gets the index of this bone in the Bones collection.
-         */
         ModelBone::index_type ModelBone::index() const noexcept
         {
             return _index;

@@ -26,7 +26,6 @@ namespace SceneR
 
     namespace Graphics
     {
-        class ModelBone;
         class ModelMesh;
 
         /**

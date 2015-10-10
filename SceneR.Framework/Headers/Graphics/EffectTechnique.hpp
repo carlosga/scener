@@ -20,7 +20,6 @@
 #include <Graphics/GraphicsResource.hpp>
 #include <Graphics/IEffectMatrices.hpp>
 #include <Graphics/IEffectLights.hpp>
-#include <Graphics/IEffectFog.hpp>
 #include <Graphics/Texture2D.hpp>
 
 namespace SceneR

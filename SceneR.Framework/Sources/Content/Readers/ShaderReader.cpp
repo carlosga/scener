@@ -28,7 +28,7 @@ namespace SceneR
 
             if (!extras.is_null())
             {
-                const auto& includes = source.second["extras"]["includes"];
+                const auto& includes = extras["includes"];
 
                 if (!includes.is_null())
                 {

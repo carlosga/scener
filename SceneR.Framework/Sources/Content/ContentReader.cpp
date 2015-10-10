@@ -33,6 +33,7 @@ namespace SceneR
             : _asset_name      { assetName }
             , _asset_reader    { stream }
             , _content_manager { contentManager }
+            , _root            { }
         {
         }
 
