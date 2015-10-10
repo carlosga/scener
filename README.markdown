@@ -20,3 +20,5 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
     * [**json11**](https://github.com/dropbox/json11)
     * [**GSL**](https://github.com/Microsoft/GSL)
     * [**Google Test**](https://code.google.com/p/googletest/)
+* Asset format
+    * [**glTF**](https://github.com/KhronosGroup/glTF)
