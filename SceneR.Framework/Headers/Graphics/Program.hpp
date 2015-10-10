@@ -60,11 +60,11 @@ namespace SceneR
             void verify_linking_state();
 
         public:
-            std::string name = { };
+            std::string name { };
 
         private:
-            std::uint32_t                        _id             = 0;
-            std::unique_ptr<UniformBufferObject> _uniform_buffer = nullptr;
+            std::uint32_t                        _id             { 0 };
+            std::unique_ptr<UniformBufferObject> _uniform_buffer { nullptr };
 
             friend class SceneR::Content::TechniqueReader;
         };

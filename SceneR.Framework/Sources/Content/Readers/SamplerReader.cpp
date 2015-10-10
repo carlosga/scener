@@ -30,8 +30,8 @@ namespace SceneR
             sampler->name       = source.first;
             sampler->mag_filter = static_cast<TextureFilter>(source.second["magFilter"].int_value());
             sampler->min_filter = static_cast<TextureFilter>(source.second["minFilter"].int_value());
-            sampler->address_U  = static_cast<TextureAddressMode>(source.second["wrapS"].int_value());
-            sampler->address_V  = static_cast<TextureAddressMode>(source.second["wrapT"].int_value());
+            sampler->address_u  = static_cast<TextureAddressMode>(source.second["wrapS"].int_value());
+            sampler->address_v  = static_cast<TextureAddressMode>(source.second["wrapT"].int_value());
 
             return sampler;
         }

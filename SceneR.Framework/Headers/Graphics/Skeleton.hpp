@@ -94,10 +94,10 @@ namespace SceneR
             void update_skin_transforms() noexcept;
 
         private:
-            SceneR::Framework::Matrix               _bind_shape_matrix     = { SceneR::Framework::Matrix::identity };
-            std::vector<SceneR::Framework::Matrix>  _inverse_bind_matrices = { };
-            std::vector<std::shared_ptr<ModelBone>> _joints                = { };
-            std::string                             _name                  = { };
+            SceneR::Framework::Matrix               _bind_shape_matrix     { SceneR::Framework::Matrix::identity };
+            std::vector<SceneR::Framework::Matrix>  _inverse_bind_matrices { };
+            std::vector<std::shared_ptr<ModelBone>> _joints                { };
+            std::string                             _name                  { };
 
             std::vector<SceneR::Framework::Matrix> _bone_transforms;
             std::vector<SceneR::Framework::Matrix> _world_transforms;

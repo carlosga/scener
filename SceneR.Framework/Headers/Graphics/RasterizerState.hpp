@@ -55,30 +55,30 @@ namespace SceneR
              * Specifies the conditions for culling or removing triangles.
              * The default value is CullMode.CullCounterClockwiseFace.
              */
-            CullMode cull_mode = CullMode::CullCounterClockwiseFace;
+            CullMode cull_mode { CullMode::CullCounterClockwiseFace };
 
             /**
              * Gets or sets the depth bias for polygons, which is the amount of bias to apply to the depth
              * of a primitive to alleviate depth testing problems for primitives of similar depth.
              * The default value is 0.
              */
-            float depth_bias = 0.0f;
+            float depth_bias { 0.0f };
 
             /**
              * Gets or sets the fill mode, which defines how a triangle is filled during rendering.
              * The default is FillMode.Solid.
              */
-            FillMode fill_mode = FillMode::Solid;
+            FillMode fill_mode { FillMode::Solid };
 
             /**
              * Enables or disables multisample antialiasing. The default is true.
              */
-            bool multi_sample_anti_alias = { true };
+            bool multi_sample_anti_alias { true };
 
             /**
              * Enables or disables scissor testing. The default is false.
              */
-            bool scissor_test_enable = { false };
+            bool scissor_test_enable { false };
 
             /**
              * Gets a bias value that takes into account the slope of a polygon.
@@ -86,7 +86,7 @@ namespace SceneR
              * and other rendering artifacts caused by z-fighting.
              * The default is 0.
              */
-            float slope_scale_depth_bias = { 0.0f };
+            float slope_scale_depth_bias { 0.0f };
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

@@ -76,12 +76,12 @@ namespace SceneR
             /**
              * Gets or sets a value indicating whether to allow the user to resize the device window.
              */
-            bool allow_user_resizing = false;
+            bool allow_user_resizing { false };
 
             /**
              * Gets or sets the graphics profile, which determines the graphics feature set.
              */
-            SceneR::Graphics::GraphicsProfile graphics_profile = SceneR::Graphics::GraphicsProfile::HiDef;
+            SceneR::Graphics::GraphicsProfile graphics_profile { SceneR::Graphics::GraphicsProfile::HiDef };
 
             /**
              * Gets or sets the device window title.
@@ -91,22 +91,22 @@ namespace SceneR
             /**
              * Gets or sets a value that indicates whether the device should start in full-screen mode.
              */
-            bool full_screen = false;
+            bool full_screen { false };
 
             /**
              * Gets or sets the preferred back-buffer width.
              */
-            std::uint32_t preferred_back_buffer_width = 0;
+            std::uint32_t preferred_back_buffer_width { 0 };
 
             /**
              * Gets or sets the preferred back-buffer height.
              * @return the the preferred back-buffer height.
              */
-            std::uint32_t preferred_back_buffer_height = 0;
+            std::uint32_t preferred_back_buffer_height { 0 };
 
        private:
-            std::unique_ptr<SceneR::Graphics::GraphicsDevice> _graphics_device = nullptr;
-            Renderer*                                         _renderer        = nullptr;
+            std::unique_ptr<SceneR::Graphics::GraphicsDevice> _graphics_device { nullptr };
+            Renderer*                                         _renderer        { nullptr };
         };
     }
 }

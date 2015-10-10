@@ -101,8 +101,6 @@ namespace SceneR
                     float b;
                     float a;
                 };
-                SceneR::Framework::Vector3 rgb;
-                SceneR::Framework::Vector4 rgba;
             };
         };
     }

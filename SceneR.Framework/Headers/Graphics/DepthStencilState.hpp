@@ -57,85 +57,85 @@ namespace SceneR
              * Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer
              * test fails for a counterclockwise triangle.
              */
-            StencilOperation counter_clockwise_stencil_depth_buffer_fail = { StencilOperation::Keep };
+            StencilOperation counter_clockwise_stencil_depth_buffer_fail { StencilOperation::Keep };
 
             /**
              * Gets or sets the stencil operation to perform if the stencil test fails for a counterclockwise triangle.
              */
-            StencilOperation counter_clockwise_stencil_fail = { StencilOperation::Keep };
+            StencilOperation counter_clockwise_stencil_fail { StencilOperation::Keep };
 
             /**
              * Gets or sets the comparison function to use for counterclockwise stencil tests.
              */
-            CompareFunction counter_clockwise_stencil_function = { CompareFunction::Always };
+            CompareFunction counter_clockwise_stencil_function { CompareFunction::Always };
 
             /**
              * Gets or sets the stencil operation to perform if the stencil and depth-tests pass for a
              * counterclockwise triangle.
              */
-            StencilOperation counter_clockwise_stencil_pass = { StencilOperation::Keep };
+            StencilOperation counter_clockwise_stencil_pass { StencilOperation::Keep };
 
             /**
              * Gets or sets a value indicating where depth buffer is enabled
              */
-            bool depth_buffer_enable = { true };
+            bool depth_buffer_enable { true };
 
             /**
              * Gets or sets the comparison function for the depth-buffer test. The default is CompareFunction.Less
              */
-            CompareFunction depth_buffer_function = { CompareFunction::Less };
+            CompareFunction depth_buffer_function { CompareFunction::Less };
 
             /**
              *  Gets or sets a value indicating whether writing to the depth buffer is allowed. The default is true.
              */
-            bool depth_buffer_write_enable = { true };
+            bool depth_buffer_write_enable { true };
 
             /**
              * Gets or sets a reference value to use for the stencil test.
              */
-            std::int32_t reference_stencil = { 0 };
+            std::int32_t reference_stencil { 0 };
 
             /**
              * Gets or sets the stencil operation to perform if the stencil test passes and the depth-test fails.
              */
-            StencilOperation stencil_depth_buffer_fail = { StencilOperation::Keep };
+            StencilOperation stencil_depth_buffer_fail { StencilOperation::Keep };
 
             /**
              * Enables or disables the stencil test.
              */
-            bool stencil_enable = { false };
+            bool stencil_enable { false };
 
             /**
              * Gets or sets the stencil operation to perform if the stencil test fails.
              */
-            StencilOperation stencil_fail = { StencilOperation::Keep };
+            StencilOperation stencil_fail { StencilOperation::Keep };
 
             /**
              * Gets or sets the comparison function for the stencil test.
              */
-            CompareFunction stencil_function = { CompareFunction::Always };
+            CompareFunction stencil_function { CompareFunction::Always };
 
             /**
              * Gets or sets the mask applied to the reference value and
              * each stencil buffer entry to determine the significant bits
              * for the stencil test.
              */
-            std::uint32_t stencil_mask = { 0 };
+            std::uint32_t stencil_mask { 0 };
 
             /**
              * Gets or sets the stencil operation to perform if the stencil test passes
              */
-            StencilOperation stencil_pass = { StencilOperation::Keep };
+            StencilOperation stencil_pass { StencilOperation::Keep };
 
             /**
              * Gets or sets the write mask applied to values written into the stencil buffer.
              */
-            std::uint32_t stencil_write_mask = { 0 };
+            std::uint32_t stencil_write_mask { 0 };
 
             /**
              * Enables or disables two-sided stenciling.
              */
-            bool two_sided_stencil_mode = { false };
+            bool two_sided_stencil_mode { false };
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };

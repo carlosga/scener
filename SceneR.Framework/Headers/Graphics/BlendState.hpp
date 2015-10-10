@@ -61,63 +61,63 @@ namespace SceneR
             /**
              * Gets or sets the arithmetic operation when blending alpha values.
              */
-            BlendFunction alpha_blend_function = { BlendFunction::Add };
+            BlendFunction alpha_blend_function { BlendFunction::Add };
 
             /**
              * Gets or sets the blend factor for the destination alpha,
              * which is the percentage of the destination alpha included in the blended result.
              */
-            Blend alpha_destination_blend = { Blend::Zero };
+            Blend alpha_destination_blend { Blend::Zero };
 
             /**
              * Gets or sets the alpha blend factor.
              */
-            Blend alpha_source_blend = { Blend::One };
+            Blend alpha_source_blend { Blend::One };
 
             /**
              * Gets or sets the four-component (RGBA) blend factor for alpha blending.
              */
-            SceneR::Framework::Color blend_factor = { SceneR::Framework::Color::black };
+            SceneR::Framework::Color blend_factor { SceneR::Framework::Color::black };
 
             /**
              * Gets or sets the arithmetic operation when blending color values.
              */
-            BlendFunction color_blend_function = { BlendFunction::Add };
+            BlendFunction color_blend_function { BlendFunction::Add };
 
             /**
              * Gets or sets the blend factor for the destination color.
              */
-            Blend color_destination_blend = { Blend::Zero };
+            Blend color_destination_blend { Blend::Zero };
 
             /**
              * Gets Sets the blend factor for the source color.
              */
-            Blend color_source_blend = { Blend::One };
+            Blend color_source_blend { Blend::One };
 
             /**
              * Gets or sets which color channels (RGBA) are enabled for writing during color blending.
              */
-            ColorWriteChannels color_write_channels = { ColorWriteChannels::All };
+            ColorWriteChannels color_write_channels { ColorWriteChannels::All };
 
             /**
              * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
              */
-            ColorWriteChannels color_write_channels_1 = { ColorWriteChannels::All };
+            ColorWriteChannels color_write_channels_1 { ColorWriteChannels::All };
 
             /**
              * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
              */
-            ColorWriteChannels color_write_channels_2 = { ColorWriteChannels::All };
+            ColorWriteChannels color_write_channels_2 { ColorWriteChannels::All };
 
             /**
              * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
              */
-            ColorWriteChannels color_write_channels_3 = { ColorWriteChannels::All };
+            ColorWriteChannels color_write_channels_3 { ColorWriteChannels::All };
 
             /**
              * Gets or setsa bitmask which defines which samples can be written during multisampling.
              */
-            std::uint32_t multi_sample_mask = { 0 };
+            std::uint32_t multi_sample_mask { 0 };
 
             friend class SceneR::Framework::GraphicsDeviceManager;
         };
