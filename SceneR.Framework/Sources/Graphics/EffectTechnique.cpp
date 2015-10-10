@@ -252,7 +252,7 @@ namespace SceneR
         void EffectTechnique::bone_transforms(const std::vector<Matrix>& boneTransforms)
         {
             _bone_transforms = boneTransforms;
-            _bones_param->set_value(_bone_transforms);
+            _bones_param->set_value_transpose(_bone_transforms);
         }
 
         void EffectTechnique::begin()

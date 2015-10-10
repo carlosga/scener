@@ -64,35 +64,10 @@ namespace SceneR
         {
             for (const auto joint : _joints)
             {
-                joint->animation()->update(TimeSpan::from_seconds(0), relativeToCurrentTime);
+                joint->animation()->update(time, relativeToCurrentTime);
 
-                if (joint->animation()->current_keyframe() == 0)
-                {
-                    _bone_transforms[joint->index()] = joint->transform();
-                }
-
-                const auto& keyframe = joint->animation()->keyframes()[0];
-
-                _bone_transforms[joint->index()] = keyframe.transform();
-
-//                const auto& keyframes = joint->animation()->keyframes();
-
-//                while (joint->animation()->current_keyframe() < keyframes.size())
-//                {
-//                    const auto& keyframe = keyframes[joint->animation()->current_keyframe()];
-
-//                    // Stop when we've read up to the current time position.
-//                    if (keyframe.time() > joint->animation()->current_time())
-//                    {
-//                        break;
-//                    }
-
-//                    // Use this keyframe.
-//                    _bone_transforms[joint->index()] = keyframe.transform();
-
-//                    // Update animation position
-//                    joint->animation()->advance();
-//                }
+                // Use this keyframe.
+                _bone_transforms[joint->index()] = joint->animation()->current_keyframe().transform();
             }
         }
 

@@ -33,7 +33,8 @@ namespace SceneR
 
         void EarthShaker::initialize()
         {
-            _world = Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
+            _world = Matrix::create_rotation_x(-Math::pi_over_2)
+                   * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
 
             DrawableComponent::initialize();
         }

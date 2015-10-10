@@ -6,6 +6,8 @@
 #include <functional>
 #include <gsl.h>
 
+#include <System/Math.hpp>
+
 namespace SceneR
 {
     namespace Graphics
@@ -40,9 +42,9 @@ namespace SceneR
             return _keyframes;
         }
 
-        std::size_t Animation::current_keyframe() const noexcept
+        const Keyframe& Animation::current_keyframe() const noexcept
         {
-            return _current_keyframe;
+            return _keyframes[_current_keyframe];
         }
 
         void Animation::update(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
@@ -61,8 +63,6 @@ namespace SceneR
                 }
             }
 
-            Ensures((currentTime > TimeSpan::zero) || (currentTime <= duration()));
-
             // If the position moved backwards, reset the keyframe index.
             if (currentTime < _current_time)
             {
@@ -70,11 +70,19 @@ namespace SceneR
             }
 
             _current_time = currentTime;
-        }
 
-        void Animation::advance() noexcept
-        {
-            ++_current_keyframe;
+            while (_current_keyframe < _keyframes.size())
+            {
+                const auto& keyframe = _keyframes[_current_keyframe];
+
+                // Stop when we've read up to the current time position.
+                if (keyframe.time() > _current_time)
+                {
+                    break;
+                }
+
+                ++_current_keyframe;
+            }
         }
     }
 }

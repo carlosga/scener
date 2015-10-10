@@ -31,10 +31,9 @@ namespace SceneR
             const System::TimeSpan& duration() const noexcept;
             const std::string& name() const noexcept;
             const std::vector<Keyframe>& keyframes() const noexcept;
-            std::size_t current_keyframe() const noexcept;
+            const Keyframe& current_keyframe() const noexcept;
 
             void update(const System::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
-            void advance() noexcept;
 
         private:
             std::string           _name;
