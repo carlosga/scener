@@ -6,6 +6,8 @@
 #include <algorithm>
 
 #include <Framework/Matrix.hpp>
+#include <Graphics/Animation.hpp>
+#include <Graphics/Keyframe.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <System/TimeSpan.hpp>
 
@@ -60,53 +62,34 @@ namespace SceneR
 
         void Skeleton::update_bone_transforms(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
         {
-//            auto currentTime = TimeSpan(time);
+            for (auto joint : _joints)
+            {
+                joint->animation()->update(time, relativeToCurrentTime);
 
-//            // Update the animation position.
-//            if (relativeToCurrentTime)
-//            {
-//                currentTime += this->currentTimeValue;
+                if (joint->animation()->current_keyframe() == 0)
+                {
+                    _bone_transforms[joint->index()] = joint->transform();
+                }
 
-//                // If we reached the end, loop back to the start.
-//                while (currentTime >= this->currentClipValue.Duration())
-//                {
-//                    currentTime -= this->currentClipValue.Duration();
-//                }
-//            }
+                const auto& keyframes = joint->animation()->keyframes();
 
-//            if ((currentTime < TimeSpan::Zero) || (currentTime >= this->currentClipValue.Duration()))
-//            {
-//                throw std::runtime_error("time");
-//            }
+                while (joint->animation()->current_keyframe() < keyframes.size())
+                {
+                    const auto& keyframe = keyframes[joint->animation()->current_keyframe()];
 
-//            // If the position moved backwards, reset the keyframe index.
-//            if (currentTime < this->currentTimeValue)
-//            {
-//                this->currentKeyframe = 0;
-//                this->boneTransforms.assign(this->skinningDataValue->BindPose().begin()
-//                                          , this->skinningDataValue->BindPose().end());
-//            }
+                    // Stop when we've read up to the current time position.
+                    if (keyframe.time() > joint->animation()->current_time())
+                    {
+                        break;
+                    }
 
-//            this->currentTimeValue = currentTime;
+                    // Use this keyframe.
+                    _bone_transforms[joint->index()] = keyframe.transform();
 
-//            // Read keyframe matrices.
-//            const auto& keyframes = this->currentClipValue.Keyframes();
-
-//            while (currentKeyframe < keyframes.size())
-//            {
-//                auto& keyframe = keyframes[this->currentKeyframe];
-
-//                // Stop when we've read up to the current time position.
-//                if (keyframe.Time() > this->currentTimeValue)
-//                {
-//                    break;
-//                }
-
-//                // Use this keyframe.
-//                this->boneTransforms[keyframe.Bone()] = keyframe.Transform();
-
-//                this->currentKeyframe++;
-//            }
+                    // Update animation position
+                    joint->animation()->advance();
+                }
+            }
         }
 
         void Skeleton::update_world_transforms(const Matrix& rootTransform) noexcept

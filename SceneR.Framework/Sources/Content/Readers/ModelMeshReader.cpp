@@ -184,6 +184,8 @@ namespace SceneR
             case AttributeType::Scalar:
                 return VertexElementFormat::Single;
             }
+
+            throw std::runtime_error("unsupported attribute type");
         }
 
         VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
@@ -273,6 +275,9 @@ namespace SceneR
                         break;
                     case EffectParameterType::String:
                         parameter->set_value<std::string>(paramValue.string_value());
+                        break;
+                    default:
+                        std::cout << "unknown parameter type" << std::endl;
                         break;
                     }
                 }

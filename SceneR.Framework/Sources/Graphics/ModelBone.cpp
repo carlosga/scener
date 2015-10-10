@@ -32,6 +32,11 @@ namespace SceneR
             return _parent.get();
         }
 
+        Animation* ModelBone::animation() const noexcept
+        {
+            return _animation.get();
+        }
+
         const Matrix& ModelBone::transform() const noexcept
         {
             return _transform;

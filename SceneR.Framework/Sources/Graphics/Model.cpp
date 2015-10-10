@@ -3,8 +3,6 @@
 
 #include <Graphics/Model.hpp>
 
-#include <cassert>
-
 #include <Framework/Matrix.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Graphics/EffectTechnique.hpp>

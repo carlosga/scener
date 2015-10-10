@@ -7,6 +7,7 @@
 #include <Content/ContentManager.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
+#include <Graphics/Animation.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Shader.hpp>
 #include <Graphics/Node.hpp>
@@ -75,6 +76,11 @@ namespace SceneR
                 {
                     read_object<SceneR::Graphics::Node>(node);
                 }
+            }
+            // Animations
+            for (const auto& node : _root["animations"].object_items())
+            {
+                read_object_instance<SceneR::Graphics::Animation>(node);
             }
 
             // cleanup

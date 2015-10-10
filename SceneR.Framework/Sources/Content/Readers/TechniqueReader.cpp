@@ -3,6 +3,8 @@
 
 #include <Content/Readers/TechniqueReader.hpp>
 
+#include <iostream>
+
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
@@ -145,6 +147,9 @@ namespace SceneR
                         break;
                     case EffectParameterType::String:
                         parameter->set_value<std::string>(paramValue.string_value());
+                        break;
+                    default:
+                        std::cout << "unknown parameter type" << std::endl;
                         break;
                     }
                 }

@@ -20,7 +20,7 @@ namespace SceneR
 
     namespace Graphics
     {
-        class Skeleton;
+        class Animation;
 
         /**
          * Represents bone data for a model.
@@ -63,6 +63,11 @@ namespace SceneR
             ModelBone* parent() const noexcept;
 
             /**
+             * Gets the bone animation
+             */
+            Animation* animation() const noexcept;
+
+            /**
              * Gets the matrix used to transform this bone relative to its parent bone.
              */
             const SceneR::Framework::Matrix& transform() const noexcept;
@@ -77,6 +82,7 @@ namespace SceneR
             std::vector<std::shared_ptr<ModelBone>> _children  { };
             std::string                             _name      { };
             std::shared_ptr<ModelBone>              _parent    { nullptr };
+            std::shared_ptr<Animation>              _animation { nullptr };
             SceneR::Framework::Matrix               _transform { SceneR::Framework::Matrix::identity };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
