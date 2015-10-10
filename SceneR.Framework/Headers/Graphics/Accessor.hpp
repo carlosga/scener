@@ -4,6 +4,7 @@
 #ifndef GRAPHICS_ACCESSOR_HPP
 #define GRAPHICS_ACCESSOR_HPP
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -103,6 +104,17 @@ namespace SceneR
             std::size_t get_attribute_type_count() const noexcept;
 
             std::size_t get_component_size_in_bytes() const noexcept;
+
+            template <typename T>
+            T get_element(const std::size_t& elementOffset) const noexcept
+            {
+                T    result;
+                auto buffer = get_data(elementOffset, 1);
+
+                std::copy_n(buffer.begin(), sizeof(T), reinterpret_cast<char*>(&result));
+
+                return result;
+            }
 
         private:
             AttributeType               _attribute_type  { AttributeType::Scalar };

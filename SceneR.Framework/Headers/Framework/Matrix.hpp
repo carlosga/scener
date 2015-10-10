@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 #include <Framework/Vector4.hpp>
 
@@ -405,6 +406,8 @@ namespace SceneR
              * @return a value indicating wheter the current matix is an identity matrix.
              */
             bool is_identity() const noexcept;
+
+            std::string to_string() const noexcept;
 
         public:
             Matrix& operator=(const Matrix& data) = default;

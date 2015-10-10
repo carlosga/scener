@@ -8,10 +8,10 @@
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
+#include <Framework/Vector4.hpp>
 #include <Graphics/Accessor.hpp>
 #include <Graphics/Keyframe.hpp>
 #include <Graphics/Node.hpp>
-#include <System/BitConverter.hpp>
 #include <System/TimeSpan.hpp>
 
 namespace SceneR
@@ -22,11 +22,11 @@ namespace SceneR
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
+        using SceneR::Framework::Vector4;
         using SceneR::Graphics::Accessor;
         using SceneR::Graphics::Animation;
         using SceneR::Graphics::Keyframe;
         using SceneR::Graphics::Node;
-        using System::BitConverter;
         using System::TimeSpan;
 
         std::shared_ptr<Animation> ContentTypeReader<Animation>::read(gsl::not_null<ContentReader*>       input
@@ -67,32 +67,22 @@ namespace SceneR
 
                     if (path == "scale")
                     {
-                        auto vector = accessor->get_data(i, 1);
-
-                        scale = { BitConverter::to_single(vector, 0)
-                                , BitConverter::to_single(vector, 4)
-                                , BitConverter::to_single(vector, 8)};
+                        scale = accessor->get_element<Vector3>(i);
                     }
                     else if (path == "translation")
                     {
-                        auto vector = accessor->get_data(i, 1);
-
-                        translation = { BitConverter::to_single(vector, 0)
-                                      , BitConverter::to_single(vector, 4)
-                                      , BitConverter::to_single(vector, 8)};
+                        translation = accessor->get_element<Vector3>(i);
                     }
                     else if (path == "rotation")
                     {
-                        auto vector = accessor->get_data(i, 1);
-                        auto axis   = Vector3::normalize({ BitConverter::to_single(vector, 0)
-                                                         , BitConverter::to_single(vector, 4)
-                                                         , BitConverter::to_single(vector, 8) });
+                        auto vector = accessor->get_element<Vector4>(i);
+                        auto axis   = Vector3::normalize({ vector.x, vector.y, vector.z });
 
-                        rotation = Quaternion::create_from_axis_angle(axis, BitConverter::to_single(vector, 12));
+                        rotation = Quaternion::create_from_axis_angle(axis, vector.w);
                     }
                 }
 
-                auto time      = TimeSpan::from_seconds(BitConverter::to_single(times->get_data(i, 1)));
+                auto time      = TimeSpan::from_seconds(times->get_element<float>(i));
                 auto transform = Matrix::create_scale(scale)
                                * Matrix::create_from_quaternion(rotation)
                                * Matrix::create_translation(translation);

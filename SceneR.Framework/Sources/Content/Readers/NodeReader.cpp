@@ -9,7 +9,6 @@
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/Skeleton.hpp>
-#include <System/IO/MemoryStream.hpp>
 
 namespace SceneR
 {
@@ -24,8 +23,6 @@ namespace SceneR
         using SceneR::Graphics::ModelMesh;
         using SceneR::Graphics::Skeleton;
         using SceneR::Graphics::Node;
-        using System::IO::BinaryReader;
-        using System::IO::MemoryStream;
 
         std::shared_ptr<Node> ContentTypeReader<Node>::read(gsl::not_null<ContentReader*>       input
                                                           , const std::pair<std::string, Json>& source) const
@@ -124,17 +121,9 @@ namespace SceneR
             skeleton->_bind_shape_matrix = input->convert<Matrix>(skin["bindShapeMatrix"].array_items());
 
             // Inverse bind matrices
-            MemoryStream stream(accessor->get_data());
-            BinaryReader reader(stream);
-
             for (std::size_t i = 0; i < accessor->attribute_count(); i++)
             {
-                Matrix matrix = { reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
-                                , reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
-                                , reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>()
-                                , reader.read<float>(), reader.read<float>(), reader.read<float>(), reader.read<float>() };
-
-                skeleton->_inverse_bind_matrices.push_back(matrix);
+                skeleton->_inverse_bind_matrices.push_back(accessor->get_element<Matrix>(i));
             }
 
             // Joints

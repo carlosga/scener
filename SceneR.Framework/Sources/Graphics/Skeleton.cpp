@@ -62,33 +62,37 @@ namespace SceneR
 
         void Skeleton::update_bone_transforms(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
         {
-            for (auto joint : _joints)
+            for (const auto joint : _joints)
             {
-                joint->animation()->update(time, relativeToCurrentTime);
+                joint->animation()->update(TimeSpan::from_seconds(0), relativeToCurrentTime);
 
                 if (joint->animation()->current_keyframe() == 0)
                 {
                     _bone_transforms[joint->index()] = joint->transform();
                 }
 
-                const auto& keyframes = joint->animation()->keyframes();
+                const auto& keyframe = joint->animation()->keyframes()[0];
 
-                while (joint->animation()->current_keyframe() < keyframes.size())
-                {
-                    const auto& keyframe = keyframes[joint->animation()->current_keyframe()];
+                _bone_transforms[joint->index()] = keyframe.transform();
 
-                    // Stop when we've read up to the current time position.
-                    if (keyframe.time() > joint->animation()->current_time())
-                    {
-                        break;
-                    }
+//                const auto& keyframes = joint->animation()->keyframes();
 
-                    // Use this keyframe.
-                    _bone_transforms[joint->index()] = keyframe.transform();
+//                while (joint->animation()->current_keyframe() < keyframes.size())
+//                {
+//                    const auto& keyframe = keyframes[joint->animation()->current_keyframe()];
 
-                    // Update animation position
-                    joint->animation()->advance();
-                }
+//                    // Stop when we've read up to the current time position.
+//                    if (keyframe.time() > joint->animation()->current_time())
+//                    {
+//                        break;
+//                    }
+
+//                    // Use this keyframe.
+//                    _bone_transforms[joint->index()] = keyframe.transform();
+
+//                    // Update animation position
+//                    joint->animation()->advance();
+//                }
             }
         }
 

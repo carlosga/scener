@@ -169,7 +169,6 @@ set (HEADER_FILES
         Headers/Input/Mouse.hpp
         Headers/Input/MouseState.hpp
         Headers/System/IDisposable.hpp
-        Headers/System/BitConverter.hpp
         Headers/System/Math.hpp
         Headers/System/TimeSpan.hpp
         Headers/System/Graphics/Platform.hpp
