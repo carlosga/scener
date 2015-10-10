@@ -254,7 +254,7 @@ namespace SceneR
             }
             else
             {
-                std::cout << "runnin slowly" << std::endl;
+                std::cout << "running slowly" << std::endl;
             }
         }
 
