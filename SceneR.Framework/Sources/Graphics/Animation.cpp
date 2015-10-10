@@ -57,19 +57,18 @@ namespace SceneR
                 currentTime += _current_time;
 
                 // If we reached the end, loop back to the start.
-                while (currentTime >= duration())
+                if (currentTime >= duration())
                 {
-                    currentTime = 0;
+                    currentTime       = 0;
+                    _current_time     = 0;
+                    _current_keyframe = 0;
                 }
             }
 
-            // If the position moved backwards, reset the keyframe index.
-            if (currentTime < _current_time)
-            {
-                _current_keyframe = 0;
-            }
-
-            _current_time = currentTime;
+            // _current_time = currentTime;
+            _current_time = TimeSpan::from_seconds(System::Math::lerp(_current_time.total_seconds()
+                                                                    , currentTime.total_seconds()
+                                                                    , System::Math::pi / 16));
 
             while (_current_keyframe < _keyframes.size())
             {
