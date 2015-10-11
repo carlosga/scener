@@ -36,31 +36,29 @@ namespace SceneR
                                                                   , const std::pair<std::string, json11::Json>& source) const;
 
         private:
-            void read_technique_parameters(ContentReader*                                     input
-                                         , const json11::Json&                                value
-                                         , std::shared_ptr<SceneR::Graphics::EffectTechnique> effect) const;
+            void read_parameters(ContentReader*                     input
+                               , const json11::Json&                value
+                               , SceneR::Graphics::EffectTechnique* effect) const;
 
-            void set_parameter_values(ContentReader*                                     input
-                                    , const json11::Json&                                value
-                                    , std::shared_ptr<SceneR::Graphics::EffectTechnique> effect) const;
+            void set_parameter_values(ContentReader*                     input
+                                    , const json11::Json&                value
+                                    , SceneR::Graphics::EffectTechnique* effect) const;
 
-            void read_technique_passes(ContentReader*                                     input
-                                     , const json11::Json&                                value
-                                     , const std::string&                                 defaultPass
-                                     , std::shared_ptr<SceneR::Graphics::EffectTechnique> effect) const;
+            void read_passes(ContentReader*                     input
+                           , const json11::Json&                value
+                           , const std::string&                 defaultPass
+                           , SceneR::Graphics::EffectTechnique* effect) const;
 
-            void read_technique_pass_program(ContentReader*                                     input
-                                           , const json11::Json&                                value
-                                           , std::shared_ptr<SceneR::Graphics::EffectTechnique> effect
-                                           , std::shared_ptr<SceneR::Graphics::EffectPass>      effectPass) const;
+            void read_pass_program(ContentReader*                     input
+                                 , const json11::Json&                value
+                                 , SceneR::Graphics::EffectTechnique* effect
+                                 , SceneR::Graphics::EffectPass*      effectPass) const;
 
-            void read_technique_pass_states(const json11::Json&                           value
-                                          , std::shared_ptr<SceneR::Graphics::EffectPass> effectPass) const;
+            void read_pass_states(const json11::Json& value, SceneR::Graphics::EffectPass* effectPass) const;
 
-            void cache_technique_parameters(std::shared_ptr<SceneR::Graphics::EffectTechnique> effect) const;
+            void cache_parameters(SceneR::Graphics::EffectTechnique* effect) const;
 
-            void describe_technique_parameter(std::shared_ptr<SceneR::Graphics::EffectParameter> parameter
-                                            , const std::int32_t&                                type) const;
+            void describe_parameter(SceneR::Graphics::EffectParameter* parameter, const std::int32_t& type) const;
         };
     }
 }
