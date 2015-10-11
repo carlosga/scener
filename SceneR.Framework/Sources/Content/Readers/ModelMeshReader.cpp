@@ -68,7 +68,7 @@ namespace SceneR
 
             for (const auto& primitive : source.second["primitives"].array_items())
             {
-                read_mesh_part(input, primitive, mesh);
+                read_mesh_part(input, primitive, mesh.get());
             }
 
             return mesh;
@@ -76,7 +76,7 @@ namespace SceneR
 
         void ContentTypeReader<ModelMesh>::read_mesh_part(gsl::not_null<ContentReader*> input
                                                         , const json11::Json&           source
-                                                        , std::shared_ptr<ModelMesh>    mesh) const
+                                                        , ModelMesh*                    mesh) const
         {
             auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto device        = gdService->graphics_device();
@@ -171,63 +171,6 @@ namespace SceneR
             mesh->_mesh_parts.push_back(meshPart);
         }
 
-        VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(const AttributeType& type) const
-        {
-            switch (type)
-            {
-            case AttributeType::Vector2:
-                return VertexElementFormat::Vector2;
-            case AttributeType::Vector3:
-                return VertexElementFormat::Vector3;
-            case AttributeType::Vector4:
-                return VertexElementFormat::Vector4;
-            case AttributeType::Scalar:
-                return VertexElementFormat::Single;
-            }
-
-            throw std::runtime_error("unsupported attribute type");
-        }
-
-        VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
-        {
-            VertexElementUsage usage = VertexElementUsage::Color;
-
-            if (semantic == "JOINT")
-            {
-                usage = VertexElementUsage::BlendIndices;
-            }
-            else if (semantic == "NORMAL")
-            {
-                usage = VertexElementUsage::Normal;
-            }
-            else if (semantic == "POSITION")
-            {
-                usage = VertexElementUsage::Position;
-            }
-            else if (semantic == "TEXBINORMAL")
-            {
-                usage = VertexElementUsage::Binormal;
-            }
-            else if (semantic == "TEXCOORD_0")
-            {
-                usage = VertexElementUsage::TextureCoordinate;
-            }
-            else if (semantic == "TEXTANGENT")
-            {
-                usage = VertexElementUsage::Tangent;
-            }
-            else if (semantic == "WEIGHT")
-            {
-                usage = VertexElementUsage::BlendWeight;
-            }
-            else
-            {
-                std::cout << "unknown attribute [" << semantic << "]" << std::endl;
-            }
-
-            return usage;
-        }
-
         std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(gsl::not_null<ContentReader*> input
                                                                                    , const std::string&            name) const
         {
@@ -307,6 +250,63 @@ namespace SceneR
             }
 
             return technique;
+        }
+
+        VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(const AttributeType& type) const
+        {
+            switch (type)
+            {
+            case AttributeType::Vector2:
+                return VertexElementFormat::Vector2;
+            case AttributeType::Vector3:
+                return VertexElementFormat::Vector3;
+            case AttributeType::Vector4:
+                return VertexElementFormat::Vector4;
+            case AttributeType::Scalar:
+                return VertexElementFormat::Single;
+            }
+
+            throw std::runtime_error("unsupported attribute type");
+        }
+
+        VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
+        {
+            VertexElementUsage usage = VertexElementUsage::Color;
+
+            if (semantic == "JOINT")
+            {
+                usage = VertexElementUsage::BlendIndices;
+            }
+            else if (semantic == "NORMAL")
+            {
+                usage = VertexElementUsage::Normal;
+            }
+            else if (semantic == "POSITION")
+            {
+                usage = VertexElementUsage::Position;
+            }
+            else if (semantic == "TEXBINORMAL")
+            {
+                usage = VertexElementUsage::Binormal;
+            }
+            else if (semantic == "TEXCOORD_0")
+            {
+                usage = VertexElementUsage::TextureCoordinate;
+            }
+            else if (semantic == "TEXTANGENT")
+            {
+                usage = VertexElementUsage::Tangent;
+            }
+            else if (semantic == "WEIGHT")
+            {
+                usage = VertexElementUsage::BlendWeight;
+            }
+            else
+            {
+                std::cout << "unknown attribute [" << semantic << "]" << std::endl;
+            }
+
+            return usage;
         }
     }
 }

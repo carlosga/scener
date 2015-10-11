@@ -44,16 +44,16 @@ namespace SceneR
                                                             , const std::pair<std::string, json11::Json>& source) const;
 
         private:
-            void read_mesh_part(gsl::not_null<ContentReader*>                input
-                              , const json11::Json&                          source
-                              , std::shared_ptr<SceneR::Graphics::ModelMesh> mesh) const;
+            void read_mesh_part(gsl::not_null<ContentReader*> input
+                              , const json11::Json&           source
+                              , SceneR::Graphics::ModelMesh*  mesh) const;
+
+            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(gsl::not_null<ContentReader*> input
+                                                                           , const std::string&            name) const;
 
             SceneR::Graphics::VertexElementFormat get_vertex_element_format(const SceneR::Graphics::AttributeType& type) const;
 
             SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
-
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(gsl::not_null<ContentReader*> input
-                                                                           , const std::string&            name) const;
         };
     }
 }
