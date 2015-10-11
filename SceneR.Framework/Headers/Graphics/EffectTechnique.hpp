@@ -262,7 +262,7 @@ namespace SceneR
             EffectDirtyFlags                        _dirty_flags;
 
         private:
-            std::map<std::string, std::shared_ptr<EffectPass>>      _passes;
+            std::vector<std::shared_ptr<EffectPass>>                _passes;
             std::map<std::string, std::shared_ptr<EffectParameter>> _parameters;
 
             std::shared_ptr<EffectPass>      _pass                          = nullptr;

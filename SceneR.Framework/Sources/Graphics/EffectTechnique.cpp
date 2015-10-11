@@ -265,7 +265,7 @@ namespace SceneR
             {
                 for (const auto& pass : _passes)
                 {
-                    pass.second->begin();
+                    pass->begin();
                 }
             }
 
@@ -304,7 +304,7 @@ namespace SceneR
             {
                 for (const auto& pass : _passes)
                 {
-                    pass.second->end();
+                    pass->end();
                 }
             }
         }

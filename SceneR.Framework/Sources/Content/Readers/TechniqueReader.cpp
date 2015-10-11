@@ -49,14 +49,14 @@ namespace SceneR
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
             auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());
+            auto pass      = source.second["pass"].string_value();
 
             read_technique_parameters(input, source.second["parameters"], effect);
-            read_technique_passes(input, source.second["passes"], effect);
+            read_technique_passes(input, source.second["passes"], pass, effect);
             cache_technique_parameters(effect);
             set_parameter_values(input, source.second["parameters"], effect);
 
             effect->name  = source.first;
-            effect->_pass = effect->_passes[source.second["pass"].string_value()];
 
             return effect;
         }
@@ -177,6 +177,7 @@ namespace SceneR
 
         void ContentTypeReader<EffectTechnique>::read_technique_passes(ContentReader*                   input
                                                                      , const Json&                      value
+                                                                     , const std::string&               defaultPass
                                                                      , std::shared_ptr<EffectTechnique> effect) const
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
@@ -200,7 +201,12 @@ namespace SceneR
                 read_technique_pass_program(input, source.second["instanceProgram"], effect, pass);
                 read_technique_pass_states(source.second["states"], pass);
 
-                effect->_passes[source.first] = pass;
+                effect->_passes.push_back(pass);
+
+                if (source.first == defaultPass)
+                {
+                    effect->_pass = pass;
+                }
             }
         }
 

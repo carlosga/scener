@@ -46,6 +46,7 @@ namespace SceneR
 
             void read_technique_passes(ContentReader*                                     input
                                      , const json11::Json&                                value
+                                     , const std::string&                                 defaultPass
                                      , std::shared_ptr<SceneR::Graphics::EffectTechnique> effect) const;
 
             void read_technique_pass_program(ContentReader*                                     input
