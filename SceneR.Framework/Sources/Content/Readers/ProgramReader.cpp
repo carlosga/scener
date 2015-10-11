@@ -24,8 +24,8 @@ namespace SceneR
 
             program->name = source.first;
             program->create();
-            program->add_shader(input->read_object<Shader>("shaders", vertexShader));
-            program->add_shader(input->read_object<Shader>("shaders", fragmentShader));
+            program->add_shader(input->read_object<Shader>(vertexShader));
+            program->add_shader(input->read_object<Shader>(fragmentShader));
             program->link();
 
             return program;

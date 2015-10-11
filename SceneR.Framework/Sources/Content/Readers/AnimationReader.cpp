@@ -39,7 +39,7 @@ namespace SceneR
             for (const auto& p : source.second["parameters"].object_items())
             {
                 auto ref      = p.second.string_value();
-                auto accessor = input->read_object<Accessor>("accessors", ref);
+                auto accessor = input->read_object<Accessor>(ref);
 
                 parameters[p.first] = accessor;
             }
@@ -48,7 +48,7 @@ namespace SceneR
 
             auto times     = parameters["TIME"];
             auto targetRef = source.second["channels"][0]["target"]["id"].string_value();
-            auto target    = input->read_object<Node>("nodes", targetRef);
+            auto target    = input->read_object<Node>(targetRef);
 
             animation->_name = source.first;
 

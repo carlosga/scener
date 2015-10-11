@@ -216,7 +216,7 @@ namespace SceneR
                                                                  , EffectPass*      effectPass) const
         {
             // Pass program
-            effectPass->_program = input->read_object_instance<Program>("programs", value["program"].string_value());
+            effectPass->_program = input->read_object_instance<Program>(value["program"].string_value());
 
             // Attributes
             // ignored, they should be passed in the vertex buffer

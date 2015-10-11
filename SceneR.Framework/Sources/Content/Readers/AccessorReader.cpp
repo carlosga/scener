@@ -58,8 +58,7 @@ namespace SceneR
             accessor->_byte_offset     = source.second["byteOffset"].int_value();
             accessor->_byte_stride     = source.second["byteStride"].int_value();
             accessor->_attribute_count = source.second["count"].int_value();
-            accessor->_buffer_view     = input->read_object<BufferView>("bufferViews"
-                                                                      , source.second["bufferView"].string_value());
+            accessor->_buffer_view     = input->read_object<BufferView>(source.second["bufferView"].string_value());
             accessor->_byte_length     = accessor->_attribute_count
                                        * accessor->get_attribute_type_count()
                                        * accessor->get_component_size_in_bytes();

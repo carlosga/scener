@@ -85,7 +85,7 @@ namespace SceneR
             auto elements      = std::vector<VertexElement>();
             auto vertexStride  = std::size_t(0);
             auto vertexCount   = std::size_t(0);
-            auto indices       = input->read_object<Accessor>("accessors", source["indices"].string_value());
+            auto indices       = input->read_object<Accessor>(source["indices"].string_value());
             auto componentType = indices->component_type();
             auto indexCount    = indices->attribute_count();
             auto indexData     = indices->get_data();
@@ -98,7 +98,7 @@ namespace SceneR
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
             {
-                const auto accessor   = input->read_object<Accessor>("accessors", attribute.second.string_value());
+                const auto accessor   = input->read_object<Accessor>(attribute.second.string_value());
                 const auto format     = get_vertex_element_format(accessor->attribute_type());
                 const auto usage      = get_vertex_element_usage(attribute.first);
                 const auto usageIndex = static_cast<std::uint32_t>(usage);
@@ -178,7 +178,7 @@ namespace SceneR
             const auto& itechnique   = material["instanceTechnique"];
             const auto& values       = itechnique["values"].object_items();
             const auto  techniqueRef = itechnique["technique"].string_value();
-            auto        technique    = input->read_object_instance<EffectTechnique>("techniques", techniqueRef);
+            auto        technique    = input->read_object_instance<EffectTechnique>(techniqueRef);
 
             for (const auto& value : values)
             {
@@ -245,7 +245,7 @@ namespace SceneR
                 }
                 else if (parameter->parameter_class() == EffectParameterClass::Object)
                 {
-                    technique->textures().push_back(input->read_object<Texture2D>("textures", paramValue.string_value()));
+                    technique->textures().push_back(input->read_object<Texture2D>(paramValue.string_value()));
                 }
             }
 

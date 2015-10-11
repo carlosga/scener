@@ -79,7 +79,7 @@ namespace SceneR
 
                 for (const auto& child : source.second["children"].array_items())
                 {
-                    auto childNode = input->read_object<Node>("nodes", child.string_value());
+                    auto childNode = input->read_object<Node>(child.string_value());
 
                     childNode->joint->_parent = node->joint;
 
@@ -91,13 +91,13 @@ namespace SceneR
             {
                 for (const auto& child : source.second["children"].array_items())
                 {
-                    node->children.push_back(input->read_object<Node>("nodes", child.string_value()));
+                    node->children.push_back(input->read_object<Node>(child.string_value()));
                 }
             }
 
             for (const auto& mesh : source.second["meshes"].array_items())
             {
-                node->meshes.push_back(input->read_object<ModelMesh>("meshes", mesh.string_value()));
+                node->meshes.push_back(input->read_object<ModelMesh>(mesh.string_value()));
             }
 
             if (!source.second["instanceSkin"].is_null())
@@ -113,7 +113,7 @@ namespace SceneR
         {
             auto skeleton = std::make_shared<Skeleton>();
             auto skin     = input->_root["skins"][source["skin"].string_value()];
-            auto accessor = input->read_object<Accessor>("accessors", skin["inverseBindMatrices"].string_value());
+            auto accessor = input->read_object<Accessor>(skin["inverseBindMatrices"].string_value());
 
             // Name
             skeleton->_name = source["skin"].string_value();
@@ -148,7 +148,7 @@ namespace SceneR
             // The meshes for the skin instance
             for (const auto& meshRef : source["meshes"].array_items())
             {
-                auto mesh = input->read_object<ModelMesh>("meshes", meshRef.string_value());
+                auto mesh = input->read_object<ModelMesh>(meshRef.string_value());
 
                 Ensures(mesh.get() != nullptr);
 

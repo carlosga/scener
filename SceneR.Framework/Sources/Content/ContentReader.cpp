@@ -49,11 +49,11 @@ namespace SceneR
 
         std::shared_ptr<Model> ContentReader::read_asset()
         {
-            auto broot  = _asset_reader.read_bytes(_asset_reader.base_stream().length());
+            auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
             auto errors = std::string();
             auto model  = std::make_shared<Model>();
 
-            _root = json11::Json::parse(reinterpret_cast<char*>(broot.data()), errors);
+            _root = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
 
             Expects(errors.empty());
 

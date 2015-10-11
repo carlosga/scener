@@ -29,7 +29,7 @@ namespace SceneR
                                                                     , const std::pair<std::string, Json>& source) const
         {
             auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-            auto surface   = input->read_object<Surface>("images", source.second["source"].string_value());
+            auto surface   = input->read_object<Surface>(source.second["source"].string_value());
             auto texture   = std::make_shared<Texture2D>(gdService->graphics_device()
                                                         , surface->width()
                                                         , surface->height()
@@ -39,7 +39,7 @@ namespace SceneR
             texture->declare_storage(surface->mipmaps().size());
 
             texture->name           = source.first;
-            texture->_sampler_state = input->read_object<SamplerState>("samplers", source.second["sampler"].string_value());
+            texture->_sampler_state = input->read_object<SamplerState>(source.second["sampler"].string_value());
 
             texture->_sampler_state->max_mip_level = texture->level_count();
             texture->_sampler_state->apply(texture->id());
