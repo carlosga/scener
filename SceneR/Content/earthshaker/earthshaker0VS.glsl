@@ -9,38 +9,14 @@ layout(location = 6) in vec4 a_joint;
 layout(location = 7) in vec4 a_weight;
 
 #include "/earthshaker/earthshaker0CB.glsl"
+#include "/earthshaker/structures.glsl"
+#include "/earthshaker/common.glsl"
+#include "/earthshaker/skinning.glsl"
 
 out vec3 v_light0Direction;
 out vec3 v_normal;
 out vec3 v_position;
 out vec2 v_texcoord0;
-
-struct VSInputNmTxWeights
-{
-    vec4 Position;
-    vec3 Normal;
-    vec4 Indices;
-    vec4 Weights;
-};
-
-#define SetVSInputNmTxWeightsParams \
-    vin.Position = vec4(a_position, 1.0f); \
-    vin.Normal   = a_normal; \
-    vin.Indices  = a_joint; \
-    vin.Weights  = a_weight;
-
-void skin(inout VSInputNmTxWeights vin, int boneCount)
-{
-    mat4 skinning = mat4(0.0f);
-
-    for (int i = 0; i < boneCount; i++)
-    {
-        skinning += u_jointMat[int(vin.Indices[i])] * vin.Weights[i];
-    }
-
-    vin.Position = vin.Position * skinning * u_modelViewMatrix;
-    vin.Normal   = vin.Normal * mat3(skinning) * mat3(u_normalMatrix);
-}
 
 void main(void)
 {

@@ -6202,6 +6202,18 @@
                     "earthshaker0CB": {
                         "rootPath": "/earthshaker/",
                         "uri": "earthshaker0CB.glsl"
+                    },
+                    "common": {
+                        "rootPath": "/earthshaker/",
+                        "uri": "common.glsl"
+                    },
+                    "structures": {
+                        "rootPath": "/earthshaker/",
+                        "uri": "structures.glsl"
+                    },
+                    "skinning": {
+                        "rootPath": "/earthshaker/",
+                        "uri": "skinning.glsl"
                     }
                 }
             }
