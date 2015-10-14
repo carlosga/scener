@@ -252,7 +252,7 @@ namespace SceneR
         void EffectTechnique::bone_transforms(const std::vector<Matrix>& boneTransforms)
         {
             _bone_transforms = boneTransforms;
-            _bones_param->set_value_transpose(_bone_transforms);
+            _bones_param->set_value(_bone_transforms);
         }
 
         void EffectTechnique::begin()
@@ -324,11 +324,11 @@ namespace SceneR
             }
             if (_projection_param.get())
             {
-                _projection_param->set_value_transpose(_projection);
+                _projection_param->set_value(_projection);
             }
             if (_world_view_param.get())
             {
-                _world_view_param->set_value_transpose(worldView);
+                _world_view_param->set_value(worldView);
             }
             if (_world_view_projection_param.get())
             {

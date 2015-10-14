@@ -50,9 +50,6 @@ namespace SceneR
                     effect->texture_enabled(true);
                 }
             }
-//
-//            // Start default animation clip
-//            this->animatedModel->PlayFirstClip();
         }
 
         void EarthShaker::unload_content()

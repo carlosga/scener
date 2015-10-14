@@ -8,9 +8,9 @@ void skin(inout VSInputNmTxWeights vin, int boneCount)
 
     for (int i = 0; i < boneCount; i++)
     {
-        skinning += u_jointMat[int(vin.Indices[i])] * vin.Weights[i];
+        skinning += vin.Weights[i] * u_jointMat[int(vin.Indices[i])];
     }
 
-    vin.Position = vin.Position * skinning * u_modelViewMatrix;
-    vin.Normal   = vin.Normal * mat3(skinning) * mat3(u_normalMatrix);
+    vin.Position = u_modelViewMatrix * skinning * vin.Position;
+    vin.Normal   = mat3(u_normalMatrix) * mat3(skinning) * vin.Normal;
 }

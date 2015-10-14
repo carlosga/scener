@@ -20,7 +20,7 @@ void main(void)
     vec4 ambient  = u_ambient;
     vec4 specular = u_specular;
 
-    diffuse.xyz *= max(dot(normal,vec3(0.8,0.8,1.)), 0.8);
+    diffuse.xyz *= max(dot(normal,vec3(1.,1.,1.)), 1.);
     color.xyz   += diffuse.xyz;
     color.xyz   += emission.xyz;
     FragColor    = vec4(color.rgb * diffuse.a, diffuse.a);

@@ -25,5 +25,5 @@ void main(void)
 
     v_normal    = vin.Normal;
     v_texcoord0 = a_texcoord0;
-    gl_Position = vin.Position * u_projectionMatrix;
+    gl_Position = u_projectionMatrix * vin.Position;
 }
