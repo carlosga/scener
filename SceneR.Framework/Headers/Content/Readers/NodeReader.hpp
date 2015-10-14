@@ -29,8 +29,8 @@ namespace SceneR
                                                        , const std::pair<std::string, json11::Json>& source) const;
 
         private:
-            std::shared_ptr<SceneR::Graphics::Skeleton> read_instance_skin(gsl::not_null<ContentReader*> input
-                                                                          , const json11::Json&           source) const;
+            std::shared_ptr<SceneR::Graphics::Skeleton> read_skeleton(gsl::not_null<ContentReader*> input
+                                                                    , const json11::Json&           source) const;
         };
     }
 }

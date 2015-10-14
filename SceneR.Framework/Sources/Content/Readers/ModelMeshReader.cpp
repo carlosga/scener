@@ -116,7 +116,7 @@ namespace SceneR
 
             auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
 
-            meshPart->_primitive_type  = static_cast<PrimitiveType>(source["primitive"].int_value());
+            meshPart->_primitive_type  = static_cast<PrimitiveType>(source["mode"].int_value());
             meshPart->_vertex_count    = vertexCount;
             meshPart->_start_index     = 0;
             meshPart->_vertex_offset   = 0;

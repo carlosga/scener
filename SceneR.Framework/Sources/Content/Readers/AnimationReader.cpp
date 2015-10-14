@@ -32,9 +32,8 @@ namespace SceneR
         std::shared_ptr<Animation> ContentTypeReader<Animation>::read(gsl::not_null<ContentReader*>       input
                                                                     , const std::pair<std::string, Json>& source) const
         {
-            auto        animation  = std::make_shared<Animation>();
-            std::size_t count      = source.second["count"].int_value();
-            auto        parameters = std::map<std::string, std::shared_ptr<Accessor>>();
+            auto animation  = std::make_shared<Animation>();
+            auto parameters = std::map<std::string, std::shared_ptr<Accessor>>();
 
             for (const auto& p : source.second["parameters"].object_items())
             {
@@ -46,9 +45,10 @@ namespace SceneR
 
             Ensures(parameters.count("TIME") == 1);
 
-            auto times     = parameters["TIME"];
+            auto keyframes = parameters["TIME"];
             auto targetRef = source.second["channels"][0]["target"]["id"].string_value();
             auto target    = input->read_object<Node>(targetRef);
+            auto count     = keyframes->attribute_count();
 
             animation->_name = source.first;
 
@@ -76,14 +76,11 @@ namespace SceneR
                     }
                     else if (path == "rotation")
                     {
-                        auto vector = accessor->get_element<Vector4>(i);
-                        auto axis   = Vector3::normalize({ vector.x, vector.y, vector.z });
-
-                        rotation = Quaternion::create_from_axis_angle(axis, vector.w);
+                        rotation = accessor->get_element<Quaternion>(i);
                     }
                 }
 
-                auto time      = TimeSpan::from_seconds(times->get_element<float>(i));
+                auto time      = TimeSpan::from_seconds(keyframes->get_element<float>(i));
                 auto transform = Matrix::create_scale(scale)
                                * Matrix::create_from_quaternion(rotation)
                                * Matrix::create_translation(translation);

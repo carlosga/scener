@@ -1,19 +1,14 @@
 layout (binding = 0, std140) uniform ConstantBuffer
 {
     // Vertex Shader
-    mat4 u_jointMat[58];
-    mat4 u_normalMatrix;
-    mat4 u_modelViewMatrix;
-    mat4 u_projectionMatrix;
-    mat4 u_light0Transform;
+    uniform mat4 u_jointMat[57];
+    uniform mat4 u_normalMatrix;
+    uniform mat4 u_modelViewMatrix;
+    uniform mat4 u_projectionMatrix;
 
     // Fragment Shader
-    vec4  u_ambient;
-    vec4  u_emission;
-    vec4  u_specular;
-    float u_shininess;
-    float u_light0ConstantAttenuation;
-    float u_light0LinearAttenuation;
-    float u_light0QuadraticAttenuation;
-    vec3  u_light0Color;
+    uniform vec4 u_ambient;
+    uniform vec4 u_emission;
+    uniform vec4 u_specular;
+    uniform float u_shininess;
 };

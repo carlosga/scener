@@ -46,10 +46,7 @@ namespace SceneR
             {
                 if (!source.second["rotation"].is_null())
                 {
-                    auto vector = input->convert<Vector4>(source.second["rotation"].array_items());
-                    auto axis   = Vector3::normalize({ vector.x, vector.y, vector.z });
-
-                    node->rotation = Quaternion::create_from_axis_angle(axis, vector.w);
+                    node->rotation = input->convert<Quaternion>(source.second["rotation"].array_items());
                 }
                 if (!source.second["scale"].is_null())
                 {
@@ -100,16 +97,16 @@ namespace SceneR
                 node->meshes.push_back(input->read_object<ModelMesh>(mesh.string_value()));
             }
 
-            if (!source.second["instanceSkin"].is_null())
+            if (!source.second["skin"].is_null())
             {
-                node->instance_skin = read_instance_skin(input, source.second["instanceSkin"]);
+                node->instance_skin = read_skeleton(input, source.second);
             }
 
             return node;
         }
 
-        std::shared_ptr<Skeleton> ContentTypeReader<Node>::read_instance_skin(gsl::not_null<ContentReader*> input
-                                                                            , const Json&                   source) const
+        std::shared_ptr<Skeleton> ContentTypeReader<Node>::read_skeleton(gsl::not_null<ContentReader*> input
+                                                                       , const Json&                   source) const
         {
             auto skeleton = std::make_shared<Skeleton>();
             auto skin     = input->_root["skins"][source["skin"].string_value()];

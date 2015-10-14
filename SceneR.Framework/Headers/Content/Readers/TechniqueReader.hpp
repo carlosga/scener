@@ -40,21 +40,13 @@ namespace SceneR
                                , const json11::Json&                value
                                , SceneR::Graphics::EffectTechnique* effect) const;
 
-            void set_parameter_values(ContentReader*                     input
-                                    , const json11::Json&                value
-                                    , SceneR::Graphics::EffectTechnique* effect) const;
+            void add_default_pass(ContentReader*      input
+                                , const json11::Json& source
+                                , SceneR::Graphics::EffectTechnique* effect) const;
 
-            void read_passes(ContentReader*                     input
-                           , const json11::Json&                value
-                           , const std::string&                 defaultPass
-                           , SceneR::Graphics::EffectTechnique* effect) const;
-
-            void read_pass_program(ContentReader*                     input
-                                 , const json11::Json&                value
-                                 , SceneR::Graphics::EffectTechnique* effect
-                                 , SceneR::Graphics::EffectPass*      effectPass) const;
-
-            void read_pass_states(const json11::Json& value, SceneR::Graphics::EffectPass* effectPass) const;
+            void read_pass_program(ContentReader*                input
+                                 , const std::string&            programName
+                                 , SceneR::Graphics::EffectPass* effectPass) const;
 
             void cache_parameters(SceneR::Graphics::EffectTechnique* effect) const;
 

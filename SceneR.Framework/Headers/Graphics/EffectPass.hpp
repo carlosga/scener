@@ -62,7 +62,6 @@ namespace SceneR
         private:
             GraphicsDevice*                               _graphics_device  { nullptr };
             std::string                                   _name             { };
-            std::string                                   _lighting_model   { };
             std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
             std::shared_ptr<Program>                      _program          { nullptr };
             EffectPassStates                              _states           { };
