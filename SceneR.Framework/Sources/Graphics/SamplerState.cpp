@@ -24,10 +24,10 @@ namespace SceneR
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(address_u));
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(address_v));
             glTextureParameteri(textureId, GL_TEXTURE_WRAP_R    , static_cast<GLint>(address_w));
-            glTextureParameteri(textureId, GL_TEXTURE_LOD_BIAS  , mip_map_level_of_detail_bias);
-            glTextureParameteri(textureId, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(max_mip_level));
             glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(min_filter));
             glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(mag_filter));
+            glTextureParameteri(textureId, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(max_mip_level));
+            glTextureParameteri(textureId, GL_TEXTURE_LOD_BIAS  , mip_map_level_of_detail_bias);
         }
     }
 }
