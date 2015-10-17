@@ -9,7 +9,6 @@
 #include <vector>
 #include <string>
 
-#include <functional>
 #include <gsl.h>
 
 namespace SceneR

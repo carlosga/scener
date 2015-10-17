@@ -8,7 +8,6 @@
 #include <string>
 #include <utility>
 
-#include <functional>
 #include <gsl.h>
 
 namespace json11

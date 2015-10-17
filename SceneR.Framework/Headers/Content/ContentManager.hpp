@@ -6,7 +6,6 @@
 
 #include <memory>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Content/ContentResourceManager.hpp>

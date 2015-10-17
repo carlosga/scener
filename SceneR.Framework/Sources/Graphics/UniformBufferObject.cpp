@@ -3,7 +3,6 @@
 
 #include <Graphics/UniformBufferObject.hpp>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Graphics/BufferObject.hpp>

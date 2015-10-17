@@ -6,7 +6,6 @@
 
 #include <string>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/IDisposable.hpp>

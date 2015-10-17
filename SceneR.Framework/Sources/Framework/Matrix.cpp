@@ -5,7 +5,6 @@
 
 #include <sstream>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/Math.hpp>

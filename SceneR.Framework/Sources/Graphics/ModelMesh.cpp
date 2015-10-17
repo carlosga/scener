@@ -3,7 +3,6 @@
 
 #include <Graphics/ModelMesh.hpp>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Framework/Vector3.hpp>

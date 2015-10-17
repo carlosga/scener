@@ -10,7 +10,6 @@
 #include <string>
 #include <vector>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/IDisposable.hpp>

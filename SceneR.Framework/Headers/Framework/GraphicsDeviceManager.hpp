@@ -8,7 +8,6 @@
 #include <memory>
 #include <string>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Framework/IGraphicsDeviceManager.hpp>

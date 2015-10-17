@@ -3,7 +3,6 @@
 
 #include <Graphics/Viewport.hpp>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/Graphics/Platform.hpp>

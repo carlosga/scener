@@ -3,7 +3,6 @@
 
 #include <Texture/Surface.hpp>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/Math.hpp>

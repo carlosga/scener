@@ -3,7 +3,6 @@
 
 #include <Framework/Vector3.hpp>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/Math.hpp>

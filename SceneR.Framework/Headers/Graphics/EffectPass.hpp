@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Graphics/EffectPassStates.hpp>

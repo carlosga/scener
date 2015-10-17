@@ -11,7 +11,6 @@
 #include <string>
 #include <vector>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Graphics/AttributeType.hpp>

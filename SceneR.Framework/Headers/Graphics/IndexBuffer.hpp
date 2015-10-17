@@ -9,7 +9,6 @@
 #include <memory>
 #include <vector>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Graphics/ComponentType.hpp>

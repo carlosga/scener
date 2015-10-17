@@ -6,7 +6,6 @@
 
 #include <cstdint>
 
-#include <functional>
 #include <gsl.h>
 
 #include <Framework/IComponent.hpp>

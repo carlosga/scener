@@ -7,7 +7,6 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <functional>
 #include <gsl.h>
 
 #include <System/IO/Stream.hpp>
