@@ -1,9 +1,7 @@
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/5704/badge.svg)](https://scan.coverity.com/projects/5704)
-
 ### SceneR - OpenGL 3D model renderer
 
 #### C++ learning project.
-The API is inspired on a subset of the Microsoft XNA 4 API.
+The API is inspired on a subset of the Microsoft XNA 4 API. Uses [**glTF**](https://github.com/KhronosGroup/glTF) as the asset format. 
 
 * License.
     * [**MIT LICENSE**](http://opensource.org/licenses/MIT)
@@ -20,5 +18,3 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
     * [**json11**](https://github.com/dropbox/json11)
     * [**GSL**](https://github.com/Microsoft/GSL)
     * [**Google Test**](https://code.google.com/p/googletest/)
-* Asset format
-    * [**glTF**](https://github.com/KhronosGroup/glTF)
