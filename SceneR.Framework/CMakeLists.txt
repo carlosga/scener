@@ -287,24 +287,6 @@ set (SOURCE_FILES
         Sources/Texture/Surface.cpp
         Sources/Texture/SurfaceMipmap.cpp Sources/Graphics/Animation.cpp)
 
-# resource script file
-set (GENERATE_RESOURCES_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/generate_resources.cmake)
-
-# add script files ( so they appear in the IDE )
-add_custom_target (SCRIPT_FILES SOURCES ${GENERATE_RESOURCES_SCRIPT})
-
-# add content_manager files
-add_custom_target (RESOURCE_FILES SOURCES
-                   Resources/BasicEffect.frag
-                   Resources/BasicEffect.glsl
-                   Resources/BasicEffect.vert
-                   Resources/Common.glsl
-                   Resources/Lighting.glsl
-                   Resources/SkinnedEffect.vert
-                   Resources/SkinnedEffect.glsl
-                   Resources/SkinnedEffect.frag
-                   Resources/Structures.glsl)
-
 # library output
 add_library (SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
