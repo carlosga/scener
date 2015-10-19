@@ -136,7 +136,7 @@ namespace SceneR
                 node->joint->_index = boneIndex++;
 
                 skeleton->_joints.push_back(node->joint);
-                skeleton->_bone_transforms.push_back(node->joint->transform());
+                skeleton->_bone_transforms.push_back(skeleton->_bind_shape_matrix * node->joint->transform());
             }
 
             skeleton->_world_transforms = std::vector<Matrix>(skeleton->_bone_transforms.size());

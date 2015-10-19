@@ -89,7 +89,7 @@ namespace SceneR
         {
             for (std::size_t bone = 0; bone < _skin_transforms.size(); ++bone)
             {
-                _skin_transforms[bone] = _bind_shape_matrix * _inverse_bind_matrices[bone] * _world_transforms[bone];
+                _skin_transforms[bone] = _inverse_bind_matrices[bone] * _world_transforms[bone];
             }
         }
     }
