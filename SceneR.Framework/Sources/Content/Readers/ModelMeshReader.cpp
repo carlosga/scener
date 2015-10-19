@@ -174,11 +174,9 @@ namespace SceneR
         std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(gsl::not_null<ContentReader*> input
                                                                                    , const std::string&            name) const
         {
-            const auto& material     = input->_root["materials"][name];
-            const auto& itechnique   = material["instanceTechnique"];
-            const auto& values       = itechnique["values"].object_items();
-            const auto  techniqueRef = itechnique["technique"].string_value();
-            auto        technique    = input->read_object_instance<EffectTechnique>(techniqueRef);
+            const auto& material  = input->_root["materials"][name];
+            const auto& values    = material["values"].object_items();
+            auto        technique = input->read_object_instance<EffectTechnique>(material["technique"].string_value());
 
             for (const auto& value : values)
             {

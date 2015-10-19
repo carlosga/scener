@@ -40,6 +40,10 @@ namespace SceneR
                                , const json11::Json&                value
                                , SceneR::Graphics::EffectTechnique* effect) const;
 
+            void set_parameter_values(ContentReader*                     input
+                                    , const json11::Json&                value
+                                    , SceneR::Graphics::EffectTechnique* effect) const;
+
             void add_default_pass(ContentReader*      input
                                 , const json11::Json& source
                                 , SceneR::Graphics::EffectTechnique* effect) const;

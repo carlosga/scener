@@ -4358,7 +4358,7 @@
         }
     },
     "asset": {
-        "generator": "collada2gltf@fb40b4c4c9cc303d8e925ed1ebe60b33873aa895",
+        "generator": "collada2gltf@f84fec6f4e36c2979b28fdc5b51b42d8555328fd",
         "premultipliedAlpha": true,
         "profile": {
             "api": "WebGL",
@@ -4412,116 +4412,108 @@
     },
     "materials": {
         "belt-effect": {
-            "instanceTechnique": {
-                "technique": "technique0",
-                "values": {
-                    "ambient": [
-                        0,
-                        0,
-                        0,
-                        1
-                    ],
-                    "diffuse": "texture_belt_color_dds",
-                    "emission": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "shininess": 50,
-                    "specular": [
-                        0.5,
-                        0.5,
-                        0.5,
-                        1
-                    ]
-                }
-            },
-            "name": "belt"
+            "name": "belt",
+            "technique": "technique0",
+            "values": {
+                "ambient": [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "diffuse": "texture_belt_color_dds",
+                "emission": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "shininess": 50,
+                "specular": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1
+                ]
+            }
         },
         "bracers-effect": {
-            "instanceTechnique": {
-                "technique": "technique0",
-                "values": {
-                    "ambient": [
-                        0,
-                        0,
-                        0,
-                        1
-                    ],
-                    "diffuse": "texture_bracers_color_dds",
-                    "emission": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "shininess": 50,
-                    "specular": [
-                        0.5,
-                        0.5,
-                        0.5,
-                        1
-                    ]
-                }
-            },
-            "name": "bracers"
+            "name": "bracers",
+            "technique": "technique0",
+            "values": {
+                "ambient": [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "diffuse": "texture_bracers_color_dds",
+                "emission": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "shininess": 50,
+                "specular": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1
+                ]
+            }
         },
         "earthshaker-effect": {
-            "instanceTechnique": {
-                "technique": "technique0",
-                "values": {
-                    "ambient": [
-                        0,
-                        0,
-                        0,
-                        1
-                    ],
-                    "diffuse": "texture_earthshaker_color_dds",
-                    "emission": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "shininess": 50,
-                    "specular": [
-                        0.5,
-                        0.5,
-                        0.5,
-                        1
-                    ]
-                }
-            },
-            "name": "earthshaker"
+            "name": "earthshaker",
+            "technique": "technique0",
+            "values": {
+                "ambient": [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "diffuse": "texture_earthshaker_color_dds",
+                "emission": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "shininess": 50,
+                "specular": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1
+                ]
+            }
         },
         "totem-effect": {
-            "instanceTechnique": {
-                "technique": "technique0",
-                "values": {
-                    "ambient": [
-                        0,
-                        0,
-                        0,
-                        1
-                    ],
-                    "diffuse": "texture_totem_color_dds",
-                    "emission": [
-                        1,
-                        1,
-                        1,
-                        1
-                    ],
-                    "shininess": 50,
-                    "specular": [
-                        0.5,
-                        0.5,
-                        0.5,
-                        1
-                    ]
-                }
-            },
-            "name": "totem"
+            "name": "totem",
+            "technique": "technique0",
+            "values": {
+                "ambient": [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "diffuse": "texture_totem_color_dds",
+                "emission": [
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "shininess": 50,
+                "specular": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1
+                ]
+            }
         }
     },
     "meshes": {
@@ -4728,6 +4720,28 @@
                 -1.52588e-05,
                 -4.95911e-05
             ]
+        },
+        "Point": {
+            "children": [],
+            "matrix": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                -2.06933,
+                -1.26353,
+                3.79998,
+                1
+            ],
+            "name": "Point"
         },
         "ankle_L": {
             "children": [
@@ -5566,13 +5580,14 @@
                 7.62939e-06
             ]
         },
-        "node_61": {
+        "node_62": {
             "children": [
                 "earthshaker_skeleton",
                 "earthshaker_body",
                 "earthshaker_arms",
                 "earthshaker_belt",
-                "earthshaker_weapon"
+                "earthshaker_weapon",
+                "Point"
             ],
             "matrix": [
                 1,
@@ -6080,7 +6095,7 @@
     "scenes": {
         "defaultScene": {
             "nodes": [
-                "node_61"
+                "node_62"
             ]
         }
     },
@@ -6100,7 +6115,7 @@
                     }
                 }
             }
-        },
+        },            
         "earthshaker0VS": {
             "type": 35633,
             "uri": "earthshaker0VS.glsl",
@@ -6123,7 +6138,7 @@
                         "uri": "skinning.glsl"
                     }
                 }
-            }
+            }            
         }
     },
     "skins": {
@@ -6480,6 +6495,31 @@
                     "semantic": "JOINTMATRIX",
                     "type": 35676
                 },
+                "light0Color": {
+                    "type": 35665,
+                    "value": [
+                        1,
+                        1,
+                        1
+                    ]
+                },
+                "light0ConstantAttenuation": {
+                    "type": 5126,
+                    "value": 1
+                },
+                "light0LinearAttenuation": {
+                    "type": 5126,
+                    "value": 0
+                },
+                "light0QuadraticAttenuation": {
+                    "type": 5126,
+                    "value": 0.00159997
+                },
+                "light0Transform": {
+                    "node": "Point",
+                    "semantic": "MODELVIEW",
+                    "type": 35676
+                },
                 "modelViewMatrix": {
                     "semantic": "MODELVIEW",
                     "type": 35676
@@ -6518,8 +6558,8 @@
             "program": "program_0",
             "states": {
                 "enable": [
-                    2884,
-                    2929
+                    2929,
+                    2884
                 ]
             },
             "uniforms": {
@@ -6527,6 +6567,11 @@
                 "u_diffuse": "diffuse",
                 "u_emission": "emission",
                 "u_jointMat": "jointMat",
+                "u_light0Color": "light0Color",
+                "u_light0ConstantAttenuation": "light0ConstantAttenuation",
+                "u_light0LinearAttenuation": "light0LinearAttenuation",
+                "u_light0QuadraticAttenuation": "light0QuadraticAttenuation",
+                "u_light0Transform": "light0Transform",
                 "u_modelViewMatrix": "modelViewMatrix",
                 "u_normalMatrix": "normalMatrix",
                 "u_projectionMatrix": "projectionMatrix",
