@@ -4,6 +4,10 @@
 #ifndef SYSTEM_GRAPHICS_PLATFORM_HPP
 #define SYSTEM_GRAPHICS_PLATFORM_HPP
 
+#ifndef GLEW_NO_GLU
+#define GLEW_NO_GLU
+#endif
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
