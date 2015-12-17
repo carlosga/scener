@@ -67,7 +67,7 @@ namespace SceneR
             return _ibo->get_data(offset, size);
         }
 
-        void IndexBuffer::set_data(const gsl::array_view<std::uint8_t>& data) const
+        void IndexBuffer::set_data(const gsl::span<std::uint8_t>& data) const
         {
             _ibo->set_data(_indexCount * element_size_in_bytes(), data.data());
         }

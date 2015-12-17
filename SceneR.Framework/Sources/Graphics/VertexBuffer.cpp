@@ -52,7 +52,7 @@ namespace SceneR
             return _vbo->get_data(offset, size);
         }
 
-        void VertexBuffer::set_data(const gsl::array_view<std::uint8_t>& data) const
+        void VertexBuffer::set_data(const gsl::span<std::uint8_t>& data) const
         {
             _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data.data());
         }
@@ -78,14 +78,11 @@ namespace SceneR
             _vbo = std::make_unique<BufferObject>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
 
             _vao->create();
-            _vao->bind();
             _vbo->create();
 
             _vertex_declaration->declare(_vao->id(), _binding_index);
 
             glVertexArrayVertexBuffer(_vao->id(), _binding_index, _vbo->id(), 0, _vertex_declaration->vertex_stride());
-
-            _vao->unbind();
         }
     }
 }

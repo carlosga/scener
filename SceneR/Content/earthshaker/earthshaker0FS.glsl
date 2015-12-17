@@ -1,6 +1,4 @@
-#version 440 core
-#extension GL_ARB_shading_language_include : require
-#pragma optionNV (unroll all)
+#version 430 core
 
 in vec3 v_normal;
 in vec2 v_texcoord0;
@@ -9,8 +7,8 @@ in vec3 v_position;
 
 layout (binding = 0) uniform sampler2D u_diffuse;
 
-#include "/earthshaker/earthshaker0CB.glsl"
-#include "/earthshaker/common.glsl"
+#include "earthshaker0CB.glsl"
+#include "common.glsl"
 
 layout (location = 0) out vec4 FragColor;
 
@@ -18,16 +16,11 @@ void main(void)
 {
     vec3 normal       = normalize(v_normal);
     vec4 color        = vec4(0., 0., 0., 0.);
-    vec4 diffuse      = vec4(0., 0., 0., 1.);
+    vec4 emission     = vec4(0., 0., 0., 0.);   // u_emission
+    vec4 ambient      = u_ambient;
+    vec4 specular     = u_specular;
+    vec4 diffuse      = sample_texture(u_diffuse, v_texcoord0);
     vec3 diffuseLight = vec3(1., 1., 1.);
-    vec4 emission     = vec4(0., 0., 0., 0.);
-    vec4 ambient;
-    vec4 specular;
-
-    ambient  = u_ambient;
-    diffuse  = sample_texture(u_diffuse, v_texcoord0);
-    // emission = u_emission;
-    specular = u_specular;
 
     vec3 specularLight = vec3(0., 0., 0.);
     {

@@ -6102,43 +6102,11 @@
     "shaders": {
         "earthshaker0FS": {
             "type": 35632,
-            "uri": "earthshaker0FS.glsl",
-            "extras": {
-                "includes": {
-                    "earthshaker0CB": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "earthshaker0CB.glsl"
-                    },
-                    "common": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "common.glsl"
-                    }
-                }
-            }
+            "uri": "earthshaker0FS.glsl"
         },            
         "earthshaker0VS": {
             "type": 35633,
-            "uri": "earthshaker0VS.glsl",
-            "extras": {
-                "includes": {
-                    "earthshaker0CB": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "earthshaker0CB.glsl"
-                    },
-                    "common": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "common.glsl"
-                    },
-                    "structures": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "structures.glsl"
-                    },
-                    "skinning": {
-                        "rootPath": "/earthshaker/",
-                        "uri": "skinning.glsl"
-                    }
-                }
-            }            
+            "uri": "earthshaker0VS.glsl"
         }
     },
     "skins": {

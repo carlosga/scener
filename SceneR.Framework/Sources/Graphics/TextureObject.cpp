@@ -31,7 +31,7 @@ namespace SceneR
             return _id;
         }
 
-        void TextureObject::activate() const
+        void TextureObject::bind() const
         {
             glBindTextureUnit(0, _id);
         }
@@ -41,7 +41,7 @@ namespace SceneR
             glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
         }
 
-        void TextureObject::deactivate() const
+        void TextureObject::unbind() const
         {
             glBindTextureUnit(0, 0);
         }

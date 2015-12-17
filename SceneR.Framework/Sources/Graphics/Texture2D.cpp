@@ -83,12 +83,12 @@ namespace SceneR
 
         void Texture2D::bind() const
         {
-            _object.activate();
+            _object.bind();
         }
 
         void Texture2D::unbind() const
         {
-            _object.deactivate();
+            _object.unbind();
         }
     }
 }

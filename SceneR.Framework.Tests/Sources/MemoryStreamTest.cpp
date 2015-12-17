@@ -18,14 +18,14 @@ using namespace gsl;
 TEST_F(MemoryStreamTest, DefaultConstructor)
 {
     std::vector<std::uint8_t> vec(3);
-    auto dv = as_array_view(vec);
+    auto dv = as_span(vec);
     MemoryStream stream(dv);
 }
 
 TEST_F(MemoryStreamTest, Read)
 {
     std::vector<std::uint8_t> vec = { 1, 2, 3 };
-    auto dv = as_array_view(vec);
+    auto dv = as_span(vec);
     MemoryStream stream(dv);
     std::vector<std::uint8_t> out(3, 0);
 

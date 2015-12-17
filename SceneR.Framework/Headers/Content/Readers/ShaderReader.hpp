@@ -22,6 +22,10 @@ namespace SceneR
         public:
             std::shared_ptr<SceneR::Graphics::Shader> read(gsl::not_null<ContentReader*>               input
                                                          , const std::pair<std::string, json11::Json>& source) const;
+
+        private:
+            std::string load_shader_with_includes(gsl::not_null<ContentReader*> input
+                                                , const std::string&            uri) const;
         };
     }
 }

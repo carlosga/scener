@@ -17,11 +17,6 @@
 
 namespace SceneR
 {
-    namespace Content
-    {
-        class TechniqueReader;
-    }
-
     namespace Graphics
     {
         class EffectParameter;
@@ -65,8 +60,6 @@ namespace SceneR
         private:
             std::uint32_t                        _id             { 0 };
             std::unique_ptr<UniformBufferObject> _uniform_buffer { nullptr };
-
-            friend class SceneR::Content::TechniqueReader;
         };
     }
 }

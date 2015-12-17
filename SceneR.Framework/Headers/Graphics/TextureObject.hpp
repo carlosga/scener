@@ -43,9 +43,9 @@ namespace SceneR
             std::uint32_t id() const noexcept;
 
             /**
-             * Activates the texture object.
+             * Binds the texture object.
              */
-            void activate() const;
+            void bind() const;
 
             /**
              * Creates the texture object.
@@ -53,9 +53,9 @@ namespace SceneR
             void create();
 
             /**
-             * Deactivates the texture object.
+             * Unbinds the texture object.
              */
-            void deactivate() const;
+            void unbind() const;
 
             /**
              * Declares the texture storage parameters.

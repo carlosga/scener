@@ -115,6 +115,12 @@ namespace SceneR
 
                 std::string uniformName = { name.begin(), name.begin() + length };
 
+                auto pos = uniformName.find("[0]");
+                if (pos != std::string::npos)
+                {
+                    uniformName.replace(pos, pos + 3, "");
+                }
+
                 uniformOffsets[uniformName] = offsets[i];
             }
 

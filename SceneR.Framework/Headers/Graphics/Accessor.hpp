@@ -92,13 +92,13 @@ namespace SceneR
             /**
              * Gets the accessor data.
              */
-            const gsl::array_view<std::uint8_t> get_data() const;
+            const gsl::span<std::uint8_t> get_data() const;
 
             /**
              * Gets the accessor data.
              */
-            const gsl::array_view<std::uint8_t> get_data(const std::size_t& elementOffset
-                                                       , const std::size_t& elementCount) const;
+            const gsl::span<std::uint8_t> get_data(const std::size_t& elementOffset
+                                                 , const std::size_t& elementCount) const;
 
             template <typename T>
             T get_element(const std::size_t& elementOffset) const noexcept

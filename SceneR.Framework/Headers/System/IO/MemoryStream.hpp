@@ -24,7 +24,7 @@ namespace System
             /**
              * Initializes a new instance of the MemoryStream class.
              */
-            MemoryStream(const gsl::array_view<std::uint8_t>& buffer);
+            MemoryStream(const gsl::span<std::uint8_t>& buffer);
 
             /**
              * Releases all resources being used by this MemoryStream.
@@ -83,8 +83,8 @@ namespace System
             MemoryStream& operator=(const MemoryStream& stream) = delete;
 
         private:
-            gsl::array_view<std::uint8_t>           _buffer;
-            gsl::array_view<std::uint8_t>::iterator _position;
+            gsl::span<std::uint8_t>           _buffer;
+            gsl::span<std::uint8_t>::iterator _position;
         };
     }
 }

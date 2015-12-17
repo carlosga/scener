@@ -55,7 +55,7 @@ namespace SceneR
             /**
              * Gets the buffer data.
              */
-            const gsl::array_view<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count);
+            const gsl::span<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count);
 
             /**
              * Sets the buffer data.

@@ -141,7 +141,7 @@ namespace SceneR
                         break;
                     }
                 }
-                else  if (parameter->parameter_class() == EffectParameterClass::Vector)
+                else if (parameter->parameter_class() == EffectParameterClass::Vector)
                 {
                     switch (parameter->column_count())
                     {
@@ -198,8 +198,11 @@ namespace SceneR
 
             for (auto parameter : effectPass->_parameters)
             {
-                parameter->_offset         = offsets[parameter->_uniform_name];
-                parameter->_uniform_buffer = effectPass->_program->uniform_buffer();
+                if (offsets.find(parameter->_uniform_name) != offsets.end())
+                {
+                    parameter->_offset         = offsets[parameter->_uniform_name];
+                    parameter->_uniform_buffer = effectPass->_program->uniform_buffer();
+                }
             }
         }
 

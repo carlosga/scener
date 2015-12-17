@@ -81,7 +81,7 @@ namespace SceneR
             /**
              * Sets the indices buffer data
              */
-            void set_data(const gsl::array_view<std::uint8_t>& data) const;
+            void set_data(const gsl::span<std::uint8_t>& data) const;
 
         private:
             void bind() const;
