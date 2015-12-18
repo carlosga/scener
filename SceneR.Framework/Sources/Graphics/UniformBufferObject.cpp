@@ -80,8 +80,6 @@ namespace SceneR
 
         void UniformBufferObject::unbind() const
         {
-            auto buffer = get_data();
-
             glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
         }
 
