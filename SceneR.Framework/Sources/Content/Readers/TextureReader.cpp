@@ -36,18 +36,19 @@ namespace SceneR
                                                         , surface->mipmaps().size()
                                                         , surface->format());
 
+            texture->name = source.first;
+
             texture->declare_storage(surface->mipmaps().size());
-
-            texture->name           = source.first;
-            texture->_sampler_state = input->read_object<SamplerState>(source.second["sampler"].string_value());
-
-            texture->_sampler_state->max_mip_level = texture->level_count();
-            texture->_sampler_state->apply(texture->id());
 
             for (const auto& mipmap : surface->mipmaps())
             {
                 texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_data());
             }
+
+            texture->_sampler_state = input->read_object<SamplerState>(source.second["sampler"].string_value());
+
+            texture->_sampler_state->max_mip_level = texture->level_count();
+            texture->_sampler_state->apply(texture->id());
 
             return texture;
         }
