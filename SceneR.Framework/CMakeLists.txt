@@ -4,7 +4,6 @@ project (SceneR_Framework)
 include_directories (${JSON11_INCLUDE_DIRS}
                      ${GSL_INCLUDE_DIRS}
                      ${OPENGL_INCLUDE_DIRS}
-                     ${GLEW_INCLUDE_DIRS}
                      ${GLFW_INCLUDE_DIRS}
                      Headers)
 
@@ -19,9 +18,6 @@ find_package (OpenGL REQUIRED)
 
 # glfw
 pkg_search_module (GLFW REQUIRED glfw3)
-
-# glew
-link_directories (${GLEW_LIB_DIRS})
 
 # header files
 set (HEADER_FILES
@@ -147,6 +143,8 @@ set (HEADER_FILES
      Headers/System/IDisposable.hpp
      Headers/System/Math.hpp
      Headers/System/TimeSpan.hpp
+     Headers/System/Graphics/glad/glad.hpp
+     Headers/System/Graphics/glad/glad_glx.hpp
      Headers/System/Graphics/Platform.hpp
      Headers/System/IO/BinaryReader.hpp
      Headers/System/IO/File.hpp
@@ -248,6 +246,8 @@ set (SOURCE_FILES
      Sources/Input/KeyboardState.cpp
      Sources/Input/Mouse.cpp
      Sources/Input/MouseState.cpp
+     Sources/System/Graphics/glad/glad.cpp
+     Sources/System/Graphics/glad/glad_glx.cpp
      Sources/System/IDisposable.cpp
      Sources/System/Math.cpp
      Sources/System/TimeSpan.cpp
@@ -285,5 +285,4 @@ target_link_libraries (SceneR_Framework
                        rt
                        m
                        ${OPENGL_LIBRARIES}
-                       ${GLEW_LIBRARIES}
                        ${GLFW_LIBRARIES})

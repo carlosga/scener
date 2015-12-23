@@ -106,12 +106,10 @@ namespace SceneR
             // Set the new window context as the current context
             glfwMakeContextCurrent(_handle);
 
-            // GLEW Initialization
-            glewExperimental = GL_TRUE;
-
-            if (glewInit() != GLEW_OK)
+            // GLAD Initialization
+            if (!gladLoadGL())
             {
-                throw std::runtime_error("glewInit failed");
+                throw std::runtime_error("gladLoadGL failed");
             }
 
             // initialize input

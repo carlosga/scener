@@ -4,7 +4,6 @@ project (SceneR_Framework_Tests)
 include_directories (${JSON11_INCLUDE_DIRS}
                      ${GSL_INCLUDE_DIRS}
                      ${OPENGL_INCLUDE_DIRS}
-                     ${GLEW_INCLUDE_DIRS}
                      ${GLFW_INCLUDE_DIRS}
                      ${GOOGLE_TEST_INCLUDE_DIRS}
                      ${SCENER_FRAMEWORK_INCLUDE_DIRS}
@@ -23,7 +22,7 @@ find_package (OpenGL REQUIRED)
 pkg_search_module (GLFW REQUIRED glfw3)
 
 # link directories
-link_directories (${GOOGLE_TEST_LIB_DIRS} ${GLEW_LIB_DIRS} ${SCENER_FRAMEWORK_LIB_DIRS})
+link_directories (${GOOGLE_TEST_LIB_DIRS} ${SCENER_FRAMEWORK_LIB_DIRS})
 
 # header files
 set (HEADER_FILES
@@ -72,6 +71,5 @@ target_link_libraries (SceneR_Framework_Tests
                        pthread
                        ${GOOGLE_TEST_LIBRARIES}
                        ${OPENGL_LIBRARIES}
-                       ${GLEW_LIBRARIES}
                        ${GLFW_LIBRARIES}
                        SceneR_Framework)

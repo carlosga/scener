@@ -21,12 +21,6 @@ set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
 # Microsoft/GSL
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 
-# GLEW configuration
-set (GLEW_BASE_DIR      ../../glew)
-set (GLEW_INCLUDE_DIRS  ${GLEW_BASE_DIR}/include)
-set (GLEW_LIB_DIRS      ${GLEW_BASE_DIR}/lib)
-set (GLEW_LIBRARIES     GLEW)
-
 # Google Test configuration
 set (GOOGLE_TEST_BASE_DIR      ../../gtest-1.7.0)
 set (GOOGLE_TEST_INCLUDE_DIRS  ${GOOGLE_TEST_BASE_DIR}/include)

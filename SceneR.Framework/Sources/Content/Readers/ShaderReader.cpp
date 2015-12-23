@@ -27,7 +27,7 @@ namespace SceneR
 
             std::shared_ptr<Shader> shader = nullptr;
 
-            if (GLEW_ARB_shading_language_include)
+            if (GLAD_GL_ARB_shading_language_include)
             {
                 auto extras = source.second["extras"];
 

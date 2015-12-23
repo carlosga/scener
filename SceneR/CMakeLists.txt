@@ -4,7 +4,6 @@ project (SceneR)
 include_directories (${JSON11_INCLUDE_DIRS}
                      ${GSL_INCLUDE_DIRS}
                      ${OPENGL_INCLUDE_DIRS}
-                     ${GLEW_INCLUDE_DIRS}
                      ${GLFW_INCLUDE_DIRS}
                      ${SCENER_FRAMEWORK_INCLUDE_DIRS}
                      Headers)
@@ -22,7 +21,7 @@ find_package (OpenGL REQUIRED)
 pkg_search_module (GLFW REQUIRED glfw3)
 
 # link directories
-link_directories (${GLEW_LIB_DIRS} ${SCENER_FRAMEWORK_LIB_DIRS})
+link_directories (${SCENER_FRAMEWORK_LIB_DIRS})
 
 # header files
 set (HEADER_FILES
@@ -57,7 +56,6 @@ target_link_libraries (SceneR
                        c++abi
                        pthread
                        ${OPENGL_LIBRARIES}
-                       ${GLEW_LIBRARIES}
                        ${GLFW_LIBRARIES}
                        SceneR_Framework)
 

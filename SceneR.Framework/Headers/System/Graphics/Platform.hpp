@@ -4,11 +4,7 @@
 #ifndef SYSTEM_GRAPHICS_PLATFORM_HPP
 #define SYSTEM_GRAPHICS_PLATFORM_HPP
 
-#ifndef GLEW_NO_GLU
-#define GLEW_NO_GLU
-#endif
-
-#include <GL/glew.h>
+#include <System/Graphics/glad/glad.hpp>
 #include <GLFW/glfw3.h>
 
 #ifdef __linux__
