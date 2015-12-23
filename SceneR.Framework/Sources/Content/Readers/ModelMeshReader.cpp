@@ -3,17 +3,15 @@
 
 #include <Content/Readers/ModelMeshReader.hpp>
 
-#include <iostream>
-
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/Readers/Accessor.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/Accessor.hpp>
 #include <Graphics/BufferObject.hpp>
 #include <Graphics/EffectParameter.hpp>
 #include <Graphics/EffectParameterClass.hpp>
@@ -30,13 +28,13 @@
 #include <Graphics/VertexDeclaration.hpp>
 
 using json11::Json;
+using SceneR::Content::Accessor;
+using SceneR::Content::AttributeType;
 using SceneR::Content::ContentTypeReader;
 using SceneR::Framework::Matrix;
 using SceneR::Framework::Vector2;
 using SceneR::Framework::Vector3;
 using SceneR::Framework::Vector4;
-using SceneR::Graphics::Accessor;
-using SceneR::Graphics::AttributeType;
 using SceneR::Graphics::ComponentType;
 using SceneR::Graphics::EffectParameter;
 using SceneR::Graphics::EffectParameterClass;
@@ -88,12 +86,11 @@ namespace SceneR
             auto indices       = input->read_object<Accessor>(source["indices"].string_value());
             auto componentType = indices->component_type();
             auto indexCount    = indices->attribute_count();
-            auto indexData     = indices->get_data();
 
             // Index buffer
             meshPart->_index_buffer = std::make_unique<IndexBuffer>(device, componentType, indexCount);
             meshPart->_index_buffer->initialize();
-            meshPart->_index_buffer->set_data(indexData);
+            meshPart->_index_buffer->set_data(indices->get_data());
 
             // Vertex buffer
             for (const auto& attribute : source["attributes"].object_items())
@@ -185,8 +182,10 @@ namespace SceneR
 
                 if (paramValue.is_null())
                 {
+                    continue;
                 }
-                else if (parameter->parameter_class() == EffectParameterClass::Scalar)
+
+                if (parameter->parameter_class() == EffectParameterClass::Scalar)
                 {
                     switch (parameter->parameter_type())
                     {
@@ -218,11 +217,11 @@ namespace SceneR
                         parameter->set_value<std::string>(paramValue.string_value());
                         break;
                     default:
-                        std::cout << "unknown parameter type" << std::endl;
+                        throw std::runtime_error("unknown parameter type");
                         break;
                     }
                 }
-                else  if (parameter->parameter_class() == EffectParameterClass::Vector)
+                else if (parameter->parameter_class() == EffectParameterClass::Vector)
                 {
                     switch (parameter->column_count())
                     {
@@ -262,9 +261,12 @@ namespace SceneR
                 return VertexElementFormat::Vector4;
             case AttributeType::Scalar:
                 return VertexElementFormat::Single;
-            }
-
-            throw std::runtime_error("unsupported attribute type");
+            case AttributeType::Matrix2:
+            case AttributeType::Matrix3:
+            case AttributeType::Matrix4:
+            default:
+                throw std::runtime_error("unsupported attribute type");
+            }            
         }
 
         VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
@@ -301,7 +303,7 @@ namespace SceneR
             }
             else
             {
-                std::cout << "unknown attribute [" << semantic << "]" << std::endl;
+                throw std::runtime_error("unknown attribute [" + semantic + "]");
             }
 
             return usage;

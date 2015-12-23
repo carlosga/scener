@@ -19,7 +19,7 @@ namespace SceneR
             typedef std::size_t size_type;
 
         public:
-            Surface() noexcept;
+            Surface() = default;
 
             ~Surface() = default;
 
@@ -31,6 +31,9 @@ namespace SceneR
             size_type width() const noexcept;
             size_type height() const noexcept;
             const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
+
+        private:
+            std::vector<std::uint8_t> read_file(const std::string& filename) const noexcept;
 
         private:
             SceneR::Graphics::SurfaceFormat _format;

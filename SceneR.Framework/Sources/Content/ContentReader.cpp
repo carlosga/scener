@@ -3,16 +3,16 @@
 
 #include <Content/ContentReader.hpp>
 
+#include <System/IO/File.hpp>
+#include <System/IO/Path.hpp>
 #include <Content/ContentLoadException.hpp>
 #include <Content/ContentManager.hpp>
+#include <Content/Readers/Node.hpp>
 #include <Framework/Matrix.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Animation.hpp>
 #include <Graphics/Model.hpp>
 #include <Graphics/Shader.hpp>
-#include <Graphics/Node.hpp>
-#include <System/IO/File.hpp>
-#include <System/IO/Path.hpp>
 
 namespace SceneR
 {
@@ -67,7 +67,7 @@ namespace SceneR
             {
                 if (!node.second["jointName"].is_null())
                 {
-                    read_object<SceneR::Graphics::Node>(node);
+                    read_object<Node>(node);
                 }
             }
             // Nodes ( not joints )
@@ -75,7 +75,7 @@ namespace SceneR
             {
                 if (node.second["jointName"].is_null())
                 {
-                    read_object<SceneR::Graphics::Node>(node);
+                    read_object<Node>(node);
                 }
             }
             // Animations

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_BUFFER_HPP
-#define GRAPHICS_BUFFER_HPP
+#ifndef CONTENT_READERS_BUFFER_HPP
+#define CONTENT_READERS_BUFFER_HPP
 
 #include <cstdint>
 #include <cstddef>
@@ -16,10 +16,7 @@ namespace SceneR
     namespace Content
     {
         template <typename T> class ContentTypeReader;
-    }
 
-    namespace Graphics
-    {
         /**
          * GLTF. Buffers contain geometry, animation, or skins.
          */
@@ -63,14 +60,14 @@ namespace SceneR
             void set_data(const std::vector<std::uint8_t>& buffer);
 
         private:
+            std::size_t               _byte_length { 0 };
+            std::vector<std::uint8_t> _data        { 0 };
             std::string               _name        { };
             std::string               _uri         { };
-            std::size_t               _byte_length { 0 };
-            std::vector<std::uint8_t> _data;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class ContentTypeReader;
         };
     }
 }
 
-#endif // GRAPHICS_BUFFER_HPP
+#endif // CONTENT_READERS_BUFFER_HPP

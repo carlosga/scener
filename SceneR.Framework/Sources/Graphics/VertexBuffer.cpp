@@ -21,15 +21,15 @@ namespace SceneR
 
         void VertexBuffer::dispose()
         {
-            if (_vao.get())
+            if (_vao != nullptr)
             {
                 _vao->dispose();
-                _vao.release();
+                _vao = nullptr;
             }
-            if (_vbo.get())
+            if (_vbo != nullptr)
             {
                 _vbo->dispose();
-                _vbo.release();
+                _vbo = nullptr;
             }
         }
 
@@ -46,7 +46,7 @@ namespace SceneR
         std::vector<std::uint8_t> VertexBuffer::get_data(const std::size_t& startIndex
                                                        , const std::size_t& elementCount) const
         {
-            auto offset = (startIndex * _vertex_declaration->vertex_stride());
+            auto offset = (startIndex   * _vertex_declaration->vertex_stride());
             auto size   = (elementCount * _vertex_declaration->vertex_stride());
 
             return _vbo->get_data(offset, size);

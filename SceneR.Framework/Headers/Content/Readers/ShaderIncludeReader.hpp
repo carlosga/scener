@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_READERS_SHADERREADER_HPP
-#define CONTENT_READERS_SHADERREADER_HPP
+#ifndef CONTENT_READERS_SHADERINCLUDEREADER_HPP
+#define CONTENT_READERS_SHADERINCLUDEREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
 #include <Graphics/ShaderInclude.hpp>
@@ -26,4 +26,4 @@ namespace SceneR
     }
 }
 
-#endif //CONTENT_READERS_SHADERREADER_HPP
+#endif // CONTENT_READERS_SHADERINCLUDEREADER_HPP

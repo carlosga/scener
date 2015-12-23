@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <Graphics/Accessor.hpp>
+#include <Content/Readers/Accessor.hpp>
 #include <Graphics/ModelBone.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/Skeleton.hpp>
@@ -19,11 +19,11 @@ namespace SceneR
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
-        using SceneR::Graphics::Accessor;
+        using SceneR::Content::Accessor;
+        using SceneR::Content::Node;
         using SceneR::Graphics::ModelBone;
         using SceneR::Graphics::ModelMesh;
         using SceneR::Graphics::Skeleton;
-        using SceneR::Graphics::Node;
 
         std::shared_ptr<Node> ContentTypeReader<Node>::read(gsl::not_null<ContentReader*>       input
                                                           , const std::pair<std::string, Json>& source) const

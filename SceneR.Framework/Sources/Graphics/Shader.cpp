@@ -3,8 +3,9 @@
 
 #include <Graphics/Shader.hpp>
 
-#include <cassert>
 #include <cstddef>
+
+#include <gsl_assert.h>
 
 #include <Graphics/ShaderInclude.hpp>
 
@@ -57,8 +58,8 @@ namespace SceneR
 
         void Shader::add_include(std::shared_ptr<ShaderInclude> include)
         {
-            assert(!is_compiled());
-            assert(include->is_declared());
+            Expects(!is_compiled());
+            Expects(include->is_declared());
 
             _includes.push_back(include);
         }
@@ -73,10 +74,7 @@ namespace SceneR
             // create the shader object
             _id = glCreateShader(static_cast<GLenum>(_type));
 
-            if (_id == 0)
-            {
-                throw std::runtime_error("glCreateShader failed");
-            }
+            Ensures(_id > 0);
 
             // root shader
             const char* cstring = _source.c_str();
@@ -123,26 +121,28 @@ namespace SceneR
 
         void Shader::verify_compilation_state()
         {
-            if (!is_compiled())
+            if (is_compiled())
             {
-                std::string msg("Compile failure in shader:\n");
-
-                GLint infoLogLength;
-                glGetShaderiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
-
-                if (infoLogLength)
-                {
-                    auto compileErrorMessage = std::string("", static_cast<std::size_t>(infoLogLength));
-
-                    glGetShaderInfoLog(_id, infoLogLength, NULL, &compileErrorMessage[0]);
-
-                    msg += compileErrorMessage;
-                }
-
-                dispose();
-
-                throw std::runtime_error(msg);
+                return;
             }
+
+            std::string msg("Compile failure in shader:\n");
+
+            GLint infoLogLength;
+            glGetShaderiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+            if (infoLogLength)
+            {
+                auto compileErrorMessage = std::string("", static_cast<std::size_t>(infoLogLength));
+
+                glGetShaderInfoLog(_id, infoLogLength, NULL, &compileErrorMessage[0]);
+
+                msg += compileErrorMessage;
+            }
+
+            dispose();
+
+            throw std::runtime_error(msg);
         }
     }
 }

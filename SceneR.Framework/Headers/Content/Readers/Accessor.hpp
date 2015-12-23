@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_ACCESSOR_HPP
-#define GRAPHICS_ACCESSOR_HPP
+#ifndef CONTENT_READERS_ACCESSOR_HPP
+#define CONTENT_READERS_ACCESSOR_HPP
 
 #include <algorithm>
 #include <cstddef>
@@ -13,8 +13,8 @@
 
 #include <gsl.h>
 
-#include <Graphics/AttributeType.hpp>
-#include <Graphics/BufferView.hpp>
+#include <Content/Readers/AttributeType.hpp>
+#include <Content/Readers/BufferView.hpp>
 #include <Graphics/ComponentType.hpp>
 
 namespace SceneR
@@ -22,10 +22,7 @@ namespace SceneR
     namespace Content
     {
         template <typename T> class ContentTypeReader;
-    }
 
-    namespace Graphics
-    {
         /**
          * GLTF. A typed accessor into a buffer-view.
          */
@@ -35,7 +32,7 @@ namespace SceneR
             /**
              * Initializes a new instance of the Accessor class.
              */
-            Accessor() = default;
+            Accessor() noexcept = default;
 
             /**
              * Destructor.
@@ -51,7 +48,7 @@ namespace SceneR
             /**
              * Gets the data type of the components referenced by this accessor.
              */
-            const ComponentType& component_type() const noexcept;
+            const SceneR::Graphics::ComponentType& component_type() const noexcept;
 
             /**
              * Gets the offset relative to the buffer-view in bytes.
@@ -116,20 +113,20 @@ namespace SceneR
             std::size_t get_component_size_in_bytes() const noexcept;
 
         private:
-            AttributeType               _attribute_type  { AttributeType::Scalar };
-            ComponentType               _component_type  { ComponentType::Single };
-            std::size_t                 _byte_offset     { 0 };
-            std::size_t                 _byte_length     { 0 };
-            std::size_t                 _byte_stride     { 0 };
-            std::size_t                 _attribute_count { 0 };
-            std::vector<float>          _max             { 0 };
-            std::vector<float>          _min             { 0 };
-            std::shared_ptr<BufferView> _buffer_view     { nullptr };
-            std::string                 _name            { };
+            AttributeType                   _attribute_type  { AttributeType::Scalar };
+            std::size_t                     _attribute_count { 0 };
+            std::shared_ptr<BufferView>     _buffer_view     { nullptr };
+            std::size_t                     _byte_offset     { 0 };
+            std::size_t                     _byte_length     { 0 };
+            std::size_t                     _byte_stride     { 0 };
+            SceneR::Graphics::ComponentType _component_type  { SceneR::Graphics::ComponentType::Single };
+            std::vector<float>              _max             { 0 };
+            std::vector<float>              _min             { 0 };
+            std::string                     _name            { };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class ContentTypeReader;
         };
     }
 }
 
-#endif // GRAPHICS_ACCESSOR_HPP
+#endif // CONTENT_READERS_ACCESSOR_HPP

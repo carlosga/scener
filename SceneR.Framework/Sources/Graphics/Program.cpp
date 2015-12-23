@@ -3,7 +3,7 @@
 
 #include <Graphics/Program.hpp>
 
-#include <gsl.h>
+#include <gsl_assert.h>
 
 #include <Graphics/Shader.hpp>
 
@@ -42,7 +42,7 @@ namespace SceneR
             // ... Create the program object
             _id = glCreateProgram();
 
-            Ensures(_id != 0);
+            Ensures(_id > 0);
         }
 
         void Program::bind() const

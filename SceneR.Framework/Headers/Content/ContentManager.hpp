@@ -42,7 +42,7 @@ namespace SceneR
              * Initializes a new instance of the ContentManagerClass
              */
             ContentManager(gsl::not_null<SceneR::Framework::RendererServiceContainer*> serviceProvider
-                         , const std::string&                                          rootDirectory);
+                         , const std::string&                                          rootDirectory) noexcept;
 
             /**
              * Releases all resources being used by the ContentManager class.
@@ -64,19 +64,19 @@ namespace SceneR
             /**
              * Loads a the given asset.
              */
-            std::shared_ptr<SceneR::Graphics::Model> load(const std::string& assetName) noexcept(false);
+            std::shared_ptr<SceneR::Graphics::Model> load(const std::string& assetName) noexcept;
 
             /**
             * Disposes all data that was loaded by this ContentManager.
             */
-            void unload();
+            void unload() noexcept;
 
         private:
             /**
              * Opens a stream for reading the specified asset.
              * #param assetName the name of the asset being read.
              */
-            std::shared_ptr<System::IO::FileStream> open_stream(const std::string& assetName) noexcept(false);
+            std::shared_ptr<System::IO::FileStream> open_stream(const std::string& assetName) noexcept;
 
         private:
             static ContentResourceManager resource_manager;

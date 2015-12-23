@@ -5,7 +5,7 @@
 #define CONTENT_READERS_BUFFERREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <Graphics/Buffer.hpp>
+#include <Content/Readers/Buffer.hpp>
 
 namespace SceneR
 {
@@ -15,7 +15,7 @@ namespace SceneR
          * Buffers reader
          */
         template <>
-        class ContentTypeReader<SceneR::Graphics::Buffer>
+        class ContentTypeReader<Buffer>
         {
         public:
             /**
@@ -32,8 +32,8 @@ namespace SceneR
             /**
              * Reads the buffers contents.
              */
-            std::shared_ptr<SceneR::Graphics::Buffer> read(gsl::not_null<ContentReader*>               input
-                                                         , const std::pair<std::string, json11::Json>& source) const;
+            std::shared_ptr<Buffer> read(gsl::not_null<ContentReader*>               input
+                                       , const std::pair<std::string, json11::Json>& source) const;
         };
     }
 }

@@ -5,7 +5,7 @@
 #define CONTENT_READERS_NODEREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <Graphics/Node.hpp>
+#include <Content/Readers/Node.hpp>
 
 namespace SceneR
 {
@@ -17,7 +17,7 @@ namespace SceneR
     namespace Content
     {
         template <>
-        class ContentTypeReader<SceneR::Graphics::Node>
+        class ContentTypeReader<Node>
         {
         public:
             ContentTypeReader() = default;
@@ -25,8 +25,8 @@ namespace SceneR
             ~ContentTypeReader() = default;
 
         public:
-            std::shared_ptr<SceneR::Graphics::Node> read(gsl::not_null<ContentReader*>               input
-                                                       , const std::pair<std::string, json11::Json>& source) const;
+            std::shared_ptr<Node> read(gsl::not_null<ContentReader*>               input
+                                     , const std::pair<std::string, json11::Json>& source) const;
 
         private:
             std::shared_ptr<SceneR::Graphics::Skeleton> read_skeleton(gsl::not_null<ContentReader*> input

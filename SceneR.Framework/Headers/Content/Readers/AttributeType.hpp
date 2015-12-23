@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_ATTRIBUTETYPE_HPP
-#define GRAPHICS_ATTRIBUTETYPE_HPP
+#ifndef CONTENT_READERS_ATTRIBUTETYPE_HPP
+#define CONTENT_READERS_ATTRIBUTETYPE_HPP
 
 #include <cstdint>
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Content
     {
         enum class AttributeType : std::uint8_t
         {
@@ -23,4 +23,4 @@ namespace SceneR
     }
 }
 
-#endif // GRAPHICS_ATTRIBUTETYPE_HPP
+#endif // CONTENT_READERS_ATTRIBUTETYPE_HPP

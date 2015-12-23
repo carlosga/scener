@@ -78,8 +78,8 @@ namespace SceneR
                     , const SceneR::Framework::Matrix& projection) noexcept;
 
         private:
-            std::string                              _name;
-            std::vector<std::shared_ptr<ModelMesh>>  _meshes;
+            std::string                             _name;
+            std::vector<std::shared_ptr<ModelMesh>> _meshes;
 
             friend class SceneR::Content::ContentReader;
         };

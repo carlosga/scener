@@ -35,10 +35,6 @@ namespace System
                 {
                     result = false;
                 }
-                else
-                {
-                    file.close();
-                }
 
                 return result;
             }
@@ -61,13 +57,10 @@ namespace System
             {
                 assert(exists(path));
 
-                System::IO::FileStream   stream(path);
-                System::IO::BinaryReader reader(stream);
+                FileStream   stream(path);
+                BinaryReader reader(stream);
 
                 auto buffer = reader.read_bytes(stream.length());
-
-                reader.close();
-                stream.close();
 
                 return buffer;
             }

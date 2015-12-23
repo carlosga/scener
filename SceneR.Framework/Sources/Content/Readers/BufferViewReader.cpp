@@ -5,33 +5,20 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <Graphics/Buffer.hpp>
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
+#include <Content/Readers/Buffer.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::Buffer;
-        using SceneR::Graphics::BufferTarget;
-        using SceneR::Graphics::BufferUsage;
-        using SceneR::Graphics::BufferView;
+        using SceneR::Content::Buffer;
+        using SceneR::Content::BufferView;
 
         std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(gsl::not_null<ContentReader*>       input
                                                                       , const std::pair<std::string, Json>& source) const
         {
-            auto bufferTarget = BufferTarget::AnimationOrSkin;
-            auto bufferUsage  = BufferUsage::DynamicRead;
-
-            if (!source.second["target"].is_null())
-            {
-                bufferTarget = static_cast<BufferTarget>(source.second["target"].int_value());
-                bufferUsage  = BufferUsage::StaticDraw;
-            }
-
-            auto bufferView = std::make_shared<BufferView>(bufferTarget, bufferUsage);
+            auto bufferView = std::make_shared<BufferView>();
 
             bufferView->_name        = source.first;
             bufferView->_buffer      = input->read_object<Buffer>(source.second["buffer"].string_value());

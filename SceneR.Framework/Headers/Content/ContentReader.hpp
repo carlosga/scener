@@ -14,28 +14,24 @@
 #include <gsl.h>
 #include <json11.hpp>
 
+#include <System/IO/BinaryReader.hpp>
+#include <System/IO/Stream.hpp>
 #include <Content/ContentTypeReader.hpp>
+#include <Content/Readers/Node.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector2.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
 #include <Graphics/ModelBone.hpp>
-#include <Graphics/Node.hpp>
-#include <System/IO/BinaryReader.hpp>
-#include <System/IO/Stream.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
-        class Accessor;
-        class Buffer;
-        class BufferView;
         class EffectTechnique;
         class Model;
         class ModelMesh;
-        class Node;
         class Program;
         class SamplerState;
         class Shader;
@@ -51,6 +47,10 @@ namespace SceneR
     namespace Content
     {
         class ContentManager;
+        class Accessor;
+        class Buffer;
+        class BufferView;
+        class Node;
 
        /**
          * Reads application content_manager from disk
@@ -114,7 +114,7 @@ namespace SceneR
             template<typename T>
             inline std::shared_ptr<T> read_object_instance(const std::pair<std::string, json11::Json>& source);
 
-            inline std::shared_ptr<SceneR::Graphics::Node> find_joint_node(const std::string& jointName) const
+            inline std::shared_ptr<SceneR::Content::Node> find_joint_node(const std::string& jointName) const
             {
                 for (const auto node : _nodes)
                 {
@@ -157,12 +157,12 @@ namespace SceneR
             json11::Json             _root;
 
         private:
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Accessor>>      _accessors       { };
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Buffer>>        _buffers         { };
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::BufferView>>    _bufferViews     { };
+            std::map<std::string, std::shared_ptr<SceneR::Content::Accessor>>       _accessors       { };
+            std::map<std::string, std::shared_ptr<SceneR::Content::Buffer>>         _buffers         { };
+            std::map<std::string, std::shared_ptr<SceneR::Content::BufferView>>     _bufferViews     { };
             std::map<std::string, std::shared_ptr<SceneR::Texture::Surface>>        _images          { };
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>     _meshes          { };
-            std::map<std::string, std::shared_ptr<SceneR::Graphics::Node>>          _nodes           { };
+            std::map<std::string, std::shared_ptr<SceneR::Content::Node>>           _nodes           { };
             std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>  _samplers        { };
             std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>        _shaders         { };
             std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>> _shader_includes { };
@@ -179,60 +179,60 @@ namespace SceneR
     {
         // Accessors
         template<>
-        inline std::shared_ptr<SceneR::Graphics::Accessor> ContentReader::read_object(const std::string& key)
+        inline std::shared_ptr<SceneR::Content::Accessor> ContentReader::read_object(const std::string& key)
         {
-            return read_object<SceneR::Graphics::Accessor>({ key, _root["accessors"][key] });
+            return read_object<SceneR::Content::Accessor>({ key, _root["accessors"][key] });
         }
 
         template <>
-        inline std::shared_ptr<SceneR::Graphics::Accessor> ContentReader::get_object(const std::string& name) noexcept
+        inline std::shared_ptr<SceneR::Content::Accessor> ContentReader::get_object(const std::string& name) noexcept
         {
             return _accessors[name];
         }
 
         template <>
-        inline void ContentReader::cache_object(const std::string&                          name
-                                              , std::shared_ptr<SceneR::Graphics::Accessor> object) noexcept
+        inline void ContentReader::cache_object(const std::string&                         name
+                                              , std::shared_ptr<SceneR::Content::Accessor> object) noexcept
         {
             _accessors[name] = object;
         }
 
         // Buffers
         template<>
-        inline std::shared_ptr<SceneR::Graphics::Buffer> ContentReader::read_object(const std::string& key)
+        inline std::shared_ptr<SceneR::Content::Buffer> ContentReader::read_object(const std::string& key)
         {
-            return read_object<SceneR::Graphics::Buffer>({ key, _root["buffers"][key] });
+            return read_object<SceneR::Content::Buffer>({ key, _root["buffers"][key] });
         }
 
         template <>
-        inline std::shared_ptr<SceneR::Graphics::Buffer> ContentReader::get_object(const std::string& name) noexcept
+        inline std::shared_ptr<SceneR::Content::Buffer> ContentReader::get_object(const std::string& name) noexcept
         {
             return _buffers[name];
         }
 
         template <>
         inline void ContentReader::cache_object(const std::string&                        name
-                                              , std::shared_ptr<SceneR::Graphics::Buffer> object) noexcept
+                                              , std::shared_ptr<SceneR::Content::Buffer> object) noexcept
         {
             _buffers[name] = object;
         }
 
         // Buffer Views
         template<>
-        inline std::shared_ptr<SceneR::Graphics::BufferView> ContentReader::read_object(const std::string& key)
+        inline std::shared_ptr<SceneR::Content::BufferView> ContentReader::read_object(const std::string& key)
         {
-            return read_object<SceneR::Graphics::BufferView>({ key, _root["bufferViews"][key] });
+            return read_object<SceneR::Content::BufferView>({ key, _root["bufferViews"][key] });
         }
 
         template <>
-        inline std::shared_ptr<SceneR::Graphics::BufferView> ContentReader::get_object(const std::string& name) noexcept
+        inline std::shared_ptr<SceneR::Content::BufferView> ContentReader::get_object(const std::string& name) noexcept
         {
             return _bufferViews[name];
         }
 
         template <>
         inline void ContentReader::cache_object(const std::string&                            name
-                                              , std::shared_ptr<SceneR::Graphics::BufferView> object) noexcept
+                                              , std::shared_ptr<SceneR::Content::BufferView> object) noexcept
         {
             _bufferViews[name] = object;
         }
@@ -286,20 +286,20 @@ namespace SceneR
 
         // Nodes
         template<>
-        inline std::shared_ptr<SceneR::Graphics::Node> ContentReader::read_object(const std::string& key)
+        inline std::shared_ptr<SceneR::Content::Node> ContentReader::read_object(const std::string& key)
         {
-            return read_object<SceneR::Graphics::Node>({ key, _root["nodes"][key] });
+            return read_object<SceneR::Content::Node>({ key, _root["nodes"][key] });
         }
 
         template <>
-        inline std::shared_ptr<SceneR::Graphics::Node> ContentReader::get_object(const std::string& name) noexcept
+        inline std::shared_ptr<SceneR::Content::Node> ContentReader::get_object(const std::string& name) noexcept
         {
             return _nodes[name];
         }
 
         template <>
-        inline void ContentReader::cache_object(const std::string&                      name
-                                              , std::shared_ptr<SceneR::Graphics::Node> object) noexcept
+        inline void ContentReader::cache_object(const std::string&                     name
+                                              , std::shared_ptr<SceneR::Content::Node> object) noexcept
         {
             _nodes[name] = object;
         }

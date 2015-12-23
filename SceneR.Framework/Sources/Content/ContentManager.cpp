@@ -20,7 +20,7 @@ namespace SceneR
         using System::IO::FileStream;
 
         ContentManager::ContentManager(gsl::not_null<RendererServiceContainer*> serviceProvider
-                                     , const std::string&                       rootDirectory)
+                                     , const std::string&                       rootDirectory) noexcept
             : _service_provider ( serviceProvider )
             , _root_directory   { rootDirectory }
         {
@@ -41,7 +41,7 @@ namespace SceneR
             return _root_directory;
         }
 
-        std::shared_ptr<Model> ContentManager::load(const std::string& assetName)
+        std::shared_ptr<Model> ContentManager::load(const std::string& assetName) noexcept
         {
             if (resource_manager.has_resource(assetName))
             {
@@ -59,20 +59,17 @@ namespace SceneR
             return asset;
         }
 
-        void ContentManager::unload()
+        void ContentManager::unload() noexcept
         {
             resource_manager.clear();
         }
 
-        std::shared_ptr<FileStream> ContentManager::open_stream(const std::string& assetName) noexcept(false)
+        std::shared_ptr<FileStream> ContentManager::open_stream(const std::string& assetName) noexcept
         {
             const auto filename  = assetName + ".gltf";
             const auto path      = System::IO::Path::combine(_root_directory, filename);
 
-            if (!System::IO::File::exists(path))
-            {
-                throw ContentLoadException("the asset file doesn't exists.");
-            }
+            Ensures(System::IO::File::exists(path));
 
             return std::make_shared<FileStream>(path);
         }

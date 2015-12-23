@@ -11,17 +11,17 @@ namespace SceneR
     namespace Graphics
     {
         Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-                           , const std::size_t&               width
-                           , const std::size_t&               height) noexcept
+                           , const std::size_t&             width
+                           , const std::size_t&             height) noexcept
             : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
         {
         }
 
         Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-                           , const std::size_t&               width
-                           , const std::size_t&               height
-                           , const bool&                      mipmap
-                           , const SurfaceFormat&             format) noexcept
+                           , const std::size_t&             width
+                           , const std::size_t&             height
+                           , const bool&                    mipmap
+                           , const SurfaceFormat&           format) noexcept
             : Texture        { graphicsDevice }
             , _format        { format }
             , _height        { height }

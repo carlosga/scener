@@ -4,30 +4,30 @@
 #include <Content/Readers/AnimationReader.hpp>
 
 #include <json11.hpp>
+#include <System/TimeSpan.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/Readers/Accessor.hpp>
+#include <Content/Readers/Node.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/Quaternion.hpp>
 #include <Framework/Vector3.hpp>
 #include <Framework/Vector4.hpp>
-#include <Graphics/Accessor.hpp>
 #include <Graphics/Keyframe.hpp>
-#include <Graphics/Node.hpp>
-#include <System/TimeSpan.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         using json11::Json;
+        using System::TimeSpan;
         using SceneR::Framework::Matrix;
         using SceneR::Framework::Quaternion;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
-        using SceneR::Graphics::Accessor;
+        using SceneR::Content::Accessor;
+        using SceneR::Content::Node;
         using SceneR::Graphics::Animation;
         using SceneR::Graphics::Keyframe;
-        using SceneR::Graphics::Node;
-        using System::TimeSpan;
 
         std::shared_ptr<Animation> ContentTypeReader<Animation>::read(gsl::not_null<ContentReader*>       input
                                                                     , const std::pair<std::string, Json>& source) const

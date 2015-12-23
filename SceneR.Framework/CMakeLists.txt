@@ -25,6 +25,11 @@ link_directories (${GLEW_LIB_DIRS})
 
 # header files
 set (HEADER_FILES
+     Headers/Content/Readers/Accessor.hpp
+     Headers/Content/Readers/AttributeType.hpp
+     Headers/Content/Readers/Buffer.hpp
+     Headers/Content/Readers/BufferView.hpp
+     Headers/Content/Readers/Node.hpp
      Headers/Content/Readers/AccessorReader.hpp
      Headers/Content/Readers/AnimationReader.hpp
      Headers/Content/Readers/BufferReader.hpp
@@ -69,20 +74,16 @@ set (HEADER_FILES
      Headers/Framework/Vector2.hpp
      Headers/Framework/Vector3.hpp
      Headers/Framework/Vector4.hpp
-     Headers/Graphics/Accessor.hpp
      Headers/Graphics/Animation.hpp
-     Headers/Graphics/AttributeType.hpp
      Headers/Graphics/Blend.hpp
      Headers/Graphics/BlendFunction.hpp
      Headers/Graphics/BlendState.hpp
-     Headers/Graphics/Buffer.hpp
      Headers/Graphics/BufferObject.hpp
      Headers/Graphics/BufferTarget.hpp
      Headers/Graphics/BufferUsage.hpp
-     Headers/Graphics/BufferView.hpp
      Headers/Graphics/ColorWriteChannels.hpp
-     Headers/Graphics/ComponentType.hpp
      Headers/Graphics/CompareFunction.hpp
+     Headers/Graphics/ComponentType.hpp
      Headers/Graphics/CullMode.hpp
      Headers/Graphics/DepthStencilState.hpp
      Headers/Graphics/DirectionalLight.hpp
@@ -109,7 +110,6 @@ set (HEADER_FILES
      Headers/Graphics/ModelBone.hpp
      Headers/Graphics/ModelMesh.hpp
      Headers/Graphics/ModelMeshPart.hpp
-     Headers/Graphics/Node.hpp
      Headers/Graphics/PresentationParameters.hpp
      Headers/Graphics/PrimitiveType.hpp
      Headers/Graphics/Program.hpp
@@ -172,6 +172,10 @@ set (HEADER_FILES
 
 # source files
 set (SOURCE_FILES
+     Sources/Content/Readers/Accessor.cpp
+     Sources/Content/Readers/Buffer.cpp
+     Sources/Content/Readers/BufferView.cpp
+     Sources/Content/Readers/Node.cpp
      Sources/Content/Readers/AccessorReader.cpp
      Sources/Content/Readers/AnimationReader.cpp
      Sources/Content/Readers/BufferReader.cpp
@@ -206,12 +210,9 @@ set (SOURCE_FILES
      Sources/Framework/Vector2.cpp
      Sources/Framework/Vector3.cpp
      Sources/Framework/Vector4.cpp
-     Sources/Graphics/Accessor.cpp
      Sources/Graphics/Animation.cpp
-     Sources/Graphics/Buffer.cpp
      Sources/Graphics/BufferObject.cpp
      Sources/Graphics/BlendState.cpp
-     Sources/Graphics/BufferView.cpp
      Sources/Graphics/DepthStencilState.cpp
      Sources/Graphics/DirectionalLight.cpp
      Sources/Graphics/DisplayMode.cpp
@@ -227,7 +228,6 @@ set (SOURCE_FILES
      Sources/Graphics/ModelBone.cpp
      Sources/Graphics/ModelMesh.cpp
      Sources/Graphics/ModelMeshPart.cpp
-     Sources/Graphics/Node.cpp
      Sources/Graphics/PresentationParameters.cpp
      Sources/Graphics/Program.cpp
      Sources/Graphics/RasterizerState.cpp

@@ -8,7 +8,6 @@
 #include <cstdint>
 #include <map>
 #include <memory>
-#include <vector>
 #include <string>
 
 #include <Graphics/ShaderType.hpp>

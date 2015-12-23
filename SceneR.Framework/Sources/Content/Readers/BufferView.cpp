@@ -1,38 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/BufferView.hpp>
-
-#include <vector>
+#include <Content/Readers/BufferView.hpp>
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Content
     {
-        BufferView::BufferView(const BufferTarget& target, const BufferUsage& usage) noexcept
-            : _target      { target }
-            , _usage       { usage }
-            , _byte_offset { 0 }
-            , _byte_length { 0 }
-            , _name        { }
-            , _buffer      { nullptr }
-        {
-        }
-
-        void BufferView::dispose()
-        {
-        }
-
-        const BufferTarget& BufferView::target() const noexcept
-        {
-            return _target;
-        }
-
-        const BufferUsage& BufferView::usage() const noexcept
-        {
-            return _usage;
-        }
-
         std::size_t BufferView::byte_offset() const noexcept
         {
             return _byte_offset;

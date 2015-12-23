@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 #include <Content/ContentReader.hpp>
-#include <Graphics/AttributeType.hpp>
+#include <Content/Readers/AttributeType.hpp>
 #include <Graphics/ComponentType.hpp>
 
 namespace SceneR
@@ -13,9 +13,9 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::Accessor;
-        using SceneR::Graphics::BufferView;
-        using SceneR::Graphics::AttributeType;
+        using SceneR::Content::Accessor;
+        using SceneR::Content::AttributeType;
+        using SceneR::Content::BufferView;
         using SceneR::Graphics::ComponentType;
 
         std::shared_ptr<Accessor> ContentTypeReader<Accessor>::read(gsl::not_null<ContentReader*>       input

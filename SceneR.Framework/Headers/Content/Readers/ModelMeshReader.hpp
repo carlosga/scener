@@ -5,7 +5,7 @@
 #define CONTENT_READERS_MODELMESHREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <Graphics/AttributeType.hpp>
+#include <Content/Readers/AttributeType.hpp>
 #include <Graphics/ModelMesh.hpp>
 #include <Graphics/VertexElementFormat.hpp>
 #include <Graphics/VertexElementUsage.hpp>
@@ -51,7 +51,7 @@ namespace SceneR
             std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(gsl::not_null<ContentReader*> input
                                                                            , const std::string&            name) const;
 
-            SceneR::Graphics::VertexElementFormat get_vertex_element_format(const SceneR::Graphics::AttributeType& type) const;
+            SceneR::Graphics::VertexElementFormat get_vertex_element_format(const AttributeType& type) const;
 
             SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
         };

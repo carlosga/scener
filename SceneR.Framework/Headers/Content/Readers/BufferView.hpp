@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_UFFERVIEW_HPP
-#define GRAPHICS_UFFERVIEW_HPP
+#ifndef CONTENT_READERS_BUFFERVIEW_HPP
+#define CONTENT_READERS_BUFFERVIEW_HPP
 
 #include <cstddef>
 #include <cstdint>
@@ -13,31 +13,24 @@
 #include <gsl.h>
 
 #include <System/IDisposable.hpp>
-#include <Graphics/Buffer.hpp>
-#include <Graphics/BufferTarget.hpp>
-#include <Graphics/BufferUsage.hpp>
+#include <Content/Readers/Buffer.hpp>
 
 namespace SceneR
 {
     namespace Content
     {
         template <typename T> class ContentTypeReader;
-    }
 
-    namespace Graphics
-    {
         /**
          * GLTF. A view into a buffer.
          */
-        class BufferView final : System::IDisposable
+        class BufferView final
         {
         public:
             /**
              * Initializes a new instance of the BufferView class.
-             * @param target the buffer target.
-             * @param usage the buffer usage.
              */
-            BufferView(const BufferTarget& target, const BufferUsage& usage) noexcept;
+            BufferView() noexcept = default;
 
             /**
              * Releases all resources being used by this BufferView.
@@ -45,19 +38,6 @@ namespace SceneR
             ~BufferView() = default;
 
         public:
-            void dispose();
-
-        public:
-            /**
-             * Gets the buffer object target.
-             */
-            const BufferTarget& target() const noexcept;
-
-            /**
-             * Gets the buffer object usage.
-             */
-            const BufferUsage& usage() const noexcept;
-
             /**
              * Gets the offset into the buffer in bytes.
              */
@@ -85,16 +65,14 @@ namespace SceneR
             const gsl::span<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
 
         private:
-            BufferTarget            _target;
-            BufferUsage             _usage;
-            std::size_t             _byte_offset;
-            std::size_t             _byte_length;
-            std::string             _name;
-            std::shared_ptr<Buffer> _buffer;
+            std::shared_ptr<Buffer> _buffer      { nullptr };
+            std::size_t             _byte_offset { 0 };
+            std::size_t             _byte_length { 0 };
+            std::string             _name        { };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class ContentTypeReader;
         };
     }
 }
 
-#endif // GRAPHICS_BUFFERVIEW_HPP
+#endif // CONTENT_READERS_BUFFERVIEW_HPP

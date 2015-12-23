@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Buffer.hpp>
+#include <Content/Readers//Buffer.hpp>
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Content
     {
         const std::string& Buffer::name() const noexcept
         {

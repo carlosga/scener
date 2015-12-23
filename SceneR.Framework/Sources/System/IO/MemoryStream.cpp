@@ -68,7 +68,7 @@ namespace System
         {
             Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
 
-            if (origin == std::ios_base::beg && offset < _buffer.size())
+            if (origin == std::ios_base::beg && offset < static_cast<std::size_t>(_buffer.size()))
             {
                 _position = _buffer.begin() + offset;
             }

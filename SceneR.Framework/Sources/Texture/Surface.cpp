@@ -9,6 +9,7 @@
 #include <System/IO/BinaryReader.hpp>
 #include <System/IO/File.hpp>
 #include <System/IO/FileStream.hpp>
+#include <System/IO/MemoryStream.hpp>
 #include <Texture/Dds.hpp>
 
 namespace SceneR
@@ -20,21 +21,19 @@ namespace SceneR
         using System::Math;
         using System::IO::BinaryReader;
         using System::IO::FileStream;
-
-        Surface::Surface() noexcept
-        {
-        }
+        using System::IO::MemoryStream;
 
         void Surface::load(const std::string& filename)
         {
-            Ensures(System::IO::File::exists(filename));
+            Expects(System::IO::File::exists(filename));
 
-            FileStream   stream (filename);
-            BinaryReader reader (stream);
-            std::size_t  blockSize = 16;
+            auto         buffer = read_file(filename);
+            MemoryStream stream(gsl::as_span(buffer));
+            BinaryReader reader(stream);
             DDS_HEADER   ddsheader;
+            std::size_t  blockSize = 16;
 
-            assert(stream.length() >= 128);
+            Ensures(stream.length() >= 128);
 
             auto rawHeader = reader.read_bytes(128);
 
@@ -52,7 +51,7 @@ namespace SceneR
             if (ddsheader.dwMipMapCount > 0)
             {
                 Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT) == DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT);
-                Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE) == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
+                Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE)  == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
             }
 
             // ensure pixel format size is correct
@@ -122,6 +121,14 @@ namespace SceneR
         const std::vector<SurfaceMipmap>& Surface::mipmaps() const noexcept
         {
             return _mipmaps;
+        }
+
+        std::vector<uint8_t> Surface::read_file(const std::string& filename) const noexcept
+        {
+            FileStream   stream(filename);
+            BinaryReader reader(stream);
+
+            return reader.read_bytes(stream.length());
         }
     }
 }

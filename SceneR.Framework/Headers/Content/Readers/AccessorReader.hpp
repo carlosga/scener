@@ -5,7 +5,7 @@
 #define CONTENT_READERS_ACCESSORREADER_HPP
 
 #include <Content/ContentTypeReader.hpp>
-#include <Graphics/Accessor.hpp>
+#include <Content/Readers/Accessor.hpp>
 
 namespace SceneR
 {
@@ -15,7 +15,7 @@ namespace SceneR
          * Accessors reader
          */
         template <>
-        class ContentTypeReader<SceneR::Graphics::Accessor>
+        class ContentTypeReader<Accessor>
         {
         public:
             /**
@@ -32,8 +32,8 @@ namespace SceneR
             /**
              * Reads the accessors contents.
              */
-            std::shared_ptr<SceneR::Graphics::Accessor> read(gsl::not_null<ContentReader*>               input
-                                                           , const std::pair<std::string, json11::Json>& source) const;
+            std::shared_ptr<Accessor> read(gsl::not_null<ContentReader*>               input
+                                         , const std::pair<std::string, json11::Json>& source) const;
         };
     }
 }

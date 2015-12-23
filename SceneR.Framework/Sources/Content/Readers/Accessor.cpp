@@ -1,9 +1,11 @@
-#include <Graphics/Accessor.hpp>
+#include <Content/Readers/Accessor.hpp>
 
 namespace SceneR
 {
-    namespace Graphics
+    namespace Content
     {
+        using SceneR::Graphics::ComponentType;       
+
         const AttributeType& Accessor::attribute_type() const noexcept
         {
             return _attribute_type;
@@ -55,7 +57,7 @@ namespace SceneR
         }
 
         const gsl::span<std::uint8_t> Accessor::get_data(const std::size_t& elementOffset
-                                                             , const std::size_t& elementCount) const
+                                                       , const std::size_t& elementCount) const
         {
             return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
         }

@@ -11,7 +11,7 @@ namespace SceneR
     namespace Content
     {
         using json11::Json;
-        using SceneR::Graphics::Buffer;
+        using SceneR::Content::Buffer;
 
         std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(gsl::not_null<ContentReader*>       input
                                                               , const std::pair<std::string, Json>& source) const

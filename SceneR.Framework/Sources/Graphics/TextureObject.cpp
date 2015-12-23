@@ -3,6 +3,8 @@
 
 #include <Graphics/TextureObject.hpp>
 
+#include <gsl_assert.h>
+
 #include <System/Graphics/Platform.hpp>
 #include <Graphics/Texture.hpp>
 
@@ -39,6 +41,8 @@ namespace SceneR
         void TextureObject::create()
         {
             glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
+
+            Ensures(_id > 0);
         }
 
         void TextureObject::unbind() const

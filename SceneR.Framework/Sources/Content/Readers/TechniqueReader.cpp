@@ -3,11 +3,10 @@
 
 #include <Content/Readers/TechniqueReader.hpp>
 
-#include <iostream>
-
 #include <json11.hpp>
 #include <Content/ContentManager.hpp>
 #include <Content/ContentReader.hpp>
+#include <Content/Readers/Node.hpp>
 #include <Framework/Matrix.hpp>
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/Vector2.hpp>
@@ -20,7 +19,6 @@
 #include <Graphics/EffectPassStates.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/Node.hpp>
 #include <Graphics/Program.hpp>
 #include <Graphics/RenderingStateType.hpp>
 
@@ -33,6 +31,7 @@ namespace SceneR
         using SceneR::Framework::Vector2;
         using SceneR::Framework::Vector3;
         using SceneR::Framework::Vector4;
+        using SceneR::Content::Node;
         using SceneR::Graphics::EffectTechnique;
         using SceneR::Graphics::EffectParameter;
         using SceneR::Graphics::EffectParameterClass;
@@ -40,7 +39,6 @@ namespace SceneR
         using SceneR::Graphics::EffectPass;
         using SceneR::Graphics::EffectPassStates;
         using SceneR::Graphics::IGraphicsDeviceService;
-        using SceneR::Graphics::Node;
         using SceneR::Graphics::Program;
         using SceneR::Graphics::RenderingStateType;
 
@@ -137,7 +135,7 @@ namespace SceneR
                         parameter->set_value<std::string>(paramValue.string_value());
                         break;
                     default:
-                        std::cout << "unknown parameter type" << std::endl;
+                        throw std::runtime_error("unknown parameter type");
                         break;
                     }
                 }

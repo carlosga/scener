@@ -3,6 +3,8 @@
 
 #include <Graphics/BufferObject.hpp>
 
+#include <gsl.h>
+
 namespace SceneR
 {
     namespace Graphics
@@ -46,6 +48,8 @@ namespace SceneR
         void BufferObject::create()
         {
             glCreateBuffers(1, &_id);
+
+            Ensures(_id > 0);
         }
 
         void BufferObject::unbind() const
@@ -60,19 +64,19 @@ namespace SceneR
         {
             auto data = std::vector<std::uint8_t>(size, 0);
 
-            glGetNamedBufferSubDataEXT(_id, offset, size, data.data());
+            glGetNamedBufferSubData(_id, offset, size, data.data());
 
             return data;
         }
 
         void BufferObject::set_data(const std::size_t& size, const void* data) const
         {
-            glNamedBufferDataEXT(_id, size, data, static_cast<GLenum>(_usage));
+            glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
         }
 
         void BufferObject::set_data(const std::size_t& offset, const std::size_t& size, const void* data) const
         {
-            glNamedBufferSubDataEXT(_id, offset, size, data);
+            glNamedBufferSubData(_id, offset, size, data);
         }
 
         void BufferObject::invalidate() const

@@ -5,7 +5,6 @@
 #define SYSTEM_IO_PATH_HPP
 
 #include <algorithm>
-
 #include <string>
 
 namespace System
@@ -24,7 +23,7 @@ namespace System
              * @param extension The new file extension
              * @return The file path with the new extension
              */
-            static const std::string change_extension(const std::string& path, const std::string& extension)
+            static std::string change_extension(const std::string& path, const std::string& extension)
             {
                 return get_file_name_without_extension(path) + "." + extension;
             }
@@ -33,15 +32,14 @@ namespace System
              * Returns the directory information for the specified path string.
              * @param path the path of a file or directory.
              */
-            static const std::string get_directory_name(const std::string& path)
+            static std::string get_directory_name(const std::string& path)
             {
-                auto result        = path.find_last_of(Path::directory_separator());
+                auto position      = path.find_last_of(Path::directory_separator());
                 auto directoryName = path;
 
-                // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (std::string::npos != result)
+                if (position != std::string::npos)
                 {
-                    directoryName.erase(result);
+                    directoryName.erase(position);
                 }
 
                 return directoryName;
@@ -52,15 +50,14 @@ namespace System
              * @param path The path of the file.
              * @return the file name of the specified path string without the extension.
              */
-            static const std::string get_file_name_without_extension(const std::string& path)
+            static std::string get_file_name_without_extension(const std::string& path)
             {
-                auto result               = path.find_last_of('.');
+                auto position             = path.find_last_of('.');
                 auto pathWithoutExtension = path;
 
-                // Does new_filename.erase(std::string::npos) working here in place of this following test?
-                if (std::string::npos != result)
+                if (position != std::string::npos)
                 {
-                    pathWithoutExtension.erase(result);
+                    pathWithoutExtension.erase(position);
                 }
 
                 return pathWithoutExtension;
@@ -72,24 +69,24 @@ namespace System
              * @param path1 The first path to combine
              * @param path2 The second path to combine
              */
-            static const std::string combine(const std::string& path1, const std::string& path2)
+            static std::string combine(const std::string& path1, const std::string& path2)
             {
-                std::string separator = "";
-                std::string cpath1    = path1;
-                std::string cpath2    = path2;
+                std::string separator { };
+                std::string cpath1    { path1 };
+                std::string cpath2    { path2 };
 
 #if __unix__
                 if (!cpath1.empty())
                 {
-                    std::replace(cpath1.begin(), cpath1.end(), '\\', Path::directory_separator()[0]);
+                    std::replace(cpath1.begin(), cpath1.end(), '\\', Path::directory_separator());
                 }
                 if (!cpath2.empty())
                 {
-                    std::replace(cpath2.begin(), cpath2.end(), '\\', Path::directory_separator()[0]);
+                    std::replace(cpath2.begin(), cpath2.end(), '\\', Path::directory_separator());
                 }
 #endif
 
-                if (!cpath1.empty() && cpath1.back() != Path::directory_separator()[0])
+                if (!cpath1.empty() && cpath1.back() != Path::directory_separator())
                 {
                     separator = Path::directory_separator();
                 }
@@ -100,12 +97,12 @@ namespace System
             /**
              * Gets platform specific string with the directory separator.
              */
-            static const std::string directory_separator()
+            static char directory_separator()
             {
 #if __unix__
-                return "/";
+                return '/';
 #else
-                return "\\";
+                return '\\';
 #endif
             }
 
