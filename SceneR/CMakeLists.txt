@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (SceneR_Framework)
+project (SceneR)
 enable_language(CXX)
 
 # include directories
@@ -24,16 +24,16 @@ file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Headers/*.hpp)
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
 
 # library output
-add_library (SceneR_Framework SHARED ${HEADER_FILES} ${SOURCE_FILES})
+add_library (SceneR SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # enable 64 bit build
-set_target_properties (SceneR_Framework PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
+set_target_properties (SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
 
 # target sources
-target_sources (SceneR_Framework PRIVATE ${JSON11_SOURCE_DIRS}/json11.cpp)
+target_sources (SceneR PRIVATE ${JSON11_SOURCE_DIRS}/json11.cpp)
 
 # target links
-target_link_libraries (SceneR_Framework
+target_link_libraries (SceneR
                        c++abi
                        pthread
                        ${X11_LIBRARIES})

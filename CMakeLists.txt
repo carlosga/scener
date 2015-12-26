@@ -23,10 +23,10 @@ set (GOOGLE_TEST_LIB_DIRS      ${GOOGLE_TEST_BASE_DIR})
 set (GOOGLE_TEST_LIBRARIES     gtest)
 
 # SceneR Framework
-set (SCENER_FRAMEWORK_BASE_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/SceneR.Framework)
+set (SCENER_FRAMEWORK_BASE_DIR     ${CMAKE_CURRENT_SOURCE_DIR}/SceneR)
 set (SCENER_FRAMEWORK_INCLUDE_DIRS ${SCENER_FRAMEWORK_BASE_DIR}/Headers)
 set (SCENER_FRAMEWORK_LIB_DIRS     ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-set (SCENER_FRAMEWORK_LIBRARIES    SceneR_Framework)
+set (SCENER_FRAMEWORK_LIBRARIES    SceneR)
 
 # Reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -34,6 +34,6 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 # Project subdirectories
-add_subdirectory(SceneR.Framework)
+add_subdirectory(SceneR)
 add_subdirectory(RendererSample)
 # add_subdirectory(SceneR.Framework.Tests)

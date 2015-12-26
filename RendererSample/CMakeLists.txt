@@ -26,7 +26,7 @@ file(GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Headers/*.hpp)
 # source files
 file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
 
-# Content files
+# content files
 add_custom_target (CONTENT_FILES SOURCES
                    Content/earthshaker/earthshaker.gltf
                    Content/earthshaker/earthshaker0CB.glsl
@@ -48,4 +48,7 @@ target_link_libraries (RendererSample
                        pthread
                        ${SCENER_FRAMEWORK_LIBRARIES})
 
-file (COPY Content DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+# copy content files
+add_custom_command (TARGET RendererSample PRE_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_CURRENT_SOURCE_DIR}/Content ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Content)
