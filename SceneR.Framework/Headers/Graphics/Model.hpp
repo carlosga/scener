@@ -42,10 +42,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this Model.
              */
-            ~Model() = default;
+            virtual ~Model() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**

@@ -41,10 +41,10 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~SamplerState() = default;
+            virtual ~SamplerState() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             SamplerState& operator=(const SamplerState& samplerState) = default;

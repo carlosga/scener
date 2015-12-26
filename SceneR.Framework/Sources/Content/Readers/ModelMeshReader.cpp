@@ -89,7 +89,6 @@ namespace SceneR
 
             // Index buffer
             meshPart->_index_buffer = std::make_unique<IndexBuffer>(device, componentType, indexCount);
-            meshPart->_index_buffer->initialize();
             meshPart->_index_buffer->set_data(indices->get_data());
 
             // Vertex buffer
@@ -155,7 +154,7 @@ namespace SceneR
             }
 
             // Initialize vertex buffer
-            meshPart->_vertex_buffer->initialize();
+            //meshPart->_vertex_buffer->initialize();
             meshPart->_vertex_buffer->set_data(vertexData);
 
             // Effect Material

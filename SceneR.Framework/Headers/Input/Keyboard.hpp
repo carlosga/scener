@@ -10,7 +10,15 @@
 #include <Input/Keys.hpp>
 #include <Input/KeyState.hpp>
 
-struct GLFWwindow;
+#include <System/Graphics/DisplaySurface.hpp>
+
+namespace System
+{
+    namespace Graphics
+    {
+        class DisplaySurface;
+    }
+}
 
 namespace SceneR
 {
@@ -26,10 +34,10 @@ namespace SceneR
             static KeyboardState get_state() noexcept;
 
             // Gets or sets the window used for mouse processing.
-            static void initialize(GLFWwindow *window) noexcept;
+            static void initialize(System::Graphics::DisplaySurface* surface) noexcept;
 
         private:
-            static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) noexcept;
+            static void key_callback(System::Graphics::DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept;
 
         private:
             Keyboard() = delete;
@@ -37,7 +45,7 @@ namespace SceneR
             Keyboard& operator=(const Keyboard& keyboard) = delete;
 
         private:
-            static GLFWwindow* window_handle;
+            static System::Graphics::DisplaySurface* surface;
         };
     }
 }

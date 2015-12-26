@@ -9,7 +9,13 @@
 #include <Input/Buttons.hpp>
 #include <Input/ButtonState.hpp>
 
-struct GLFWwindow;
+namespace System
+{
+    namespace Graphics
+    {
+        class DisplaySurface;
+    }
+}
 
 namespace SceneR
 {
@@ -29,17 +35,21 @@ namespace SceneR
 
             // Gets or sets the window used for mouse processing.
             // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-            static void initialize(GLFWwindow* window) noexcept;
+            static void initialize(System::Graphics::DisplaySurface* surface) noexcept;
 
         private:
-            static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) noexcept;
+            static void cursor_position_callback(System::Graphics::DisplaySurface* surface
+                                               , double                            xpos
+                                               , double                            ypos) noexcept;
 
-            static void mouse_button_callback(GLFWwindow*   window
-                                            , std::uint32_t button
-                                            , std::uint32_t action
-                                            , std::uint32_t mods) noexcept;
+            static void mouse_button_callback(System::Graphics::DisplaySurface* surface
+                                            , std::uint32_t                     button
+                                            , std::uint32_t                     action
+                                            , std::uint32_t                     mods) noexcept;
 
-            static void scroll_wheel_callback(GLFWwindow *window, double xoffset, double yoffset) noexcept;
+            static void scroll_wheel_callback(System::Graphics::DisplaySurface* surface
+                                            , double                            xoffset
+                                            , double                            yoffset) noexcept;
 
         private:
             Mouse() = delete;
@@ -47,7 +57,7 @@ namespace SceneR
             Mouse& operator=(const Mouse& mouse) = delete;
 
         private:
-            static GLFWwindow* window_handle;
+            static System::Graphics::DisplaySurface* surface;
         };
     }
 }

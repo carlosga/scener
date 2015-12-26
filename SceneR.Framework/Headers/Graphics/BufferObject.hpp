@@ -32,10 +32,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this BufferObject.
              */
-            ~BufferObject() = default;
+            virtual ~BufferObject() override = default;
 
         public:
-            void dispose();
+            virtual void dispose() override;
 
         public:
             /**

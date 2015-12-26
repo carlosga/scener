@@ -17,14 +17,15 @@ namespace SceneR
             , _indexCount       { indexCount }
             , _indexElementType { indexElementType }
         {
+            create();
         }
 
         void IndexBuffer::dispose()
         {
-            if (_ibo.get())
+            if (_ibo != nullptr)
             {
                 _ibo->dispose();
-                _ibo.release();
+                _ibo = nullptr;
             }
         }
 
@@ -53,36 +54,44 @@ namespace SceneR
             }
         }
 
-        std::vector<std::uint8_t> IndexBuffer::get_data() const
+        std::vector<std::uint8_t> IndexBuffer::get_data() const noexcept
         {
             return get_data(0, _indexCount);
         }
 
         std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex
-                                                      , const std::size_t& elementCount) const
+                                                      , const std::size_t& elementCount) const noexcept
         {
+            Expects(_ibo != nullptr);
+
             auto offset = (startIndex * element_size_in_bytes());
             auto size   = (elementCount * element_size_in_bytes());
 
             return _ibo->get_data(offset, size);
         }
 
-        void IndexBuffer::set_data(const gsl::span<std::uint8_t>& data) const
+        void IndexBuffer::set_data(const gsl::span<std::uint8_t>& data) const noexcept
         {
+            Expects(_ibo != nullptr);
+
             _ibo->set_data(_indexCount * element_size_in_bytes(), data.data());
         }
 
-        void IndexBuffer::bind() const
+        void IndexBuffer::bind() const noexcept
         {
+            Expects(_ibo != nullptr);
+
             _ibo->bind();
         }
 
-        void IndexBuffer::unbind() const
+        void IndexBuffer::unbind() const noexcept
         {
+            Expects(_ibo != nullptr);
+
             _ibo->unbind();
         }
 
-        void IndexBuffer::initialize()
+        void IndexBuffer::create() noexcept
         {
             _ibo = std::make_unique<BufferObject>(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw);
             _ibo->create();

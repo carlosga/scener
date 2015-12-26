@@ -9,7 +9,13 @@
 #include <Input/Keys.hpp>
 #include <Input/KeyState.hpp>
 
-struct GLFWwindow;
+namespace System
+{
+    namespace Graphics
+    {
+        class DisplaySurface;
+    }
+}
 
 namespace SceneR
 {
@@ -19,7 +25,7 @@ namespace SceneR
         struct KeyboardState
         {
         public:
-            KeyboardState(GLFWwindow* windowHandle) noexcept;
+            KeyboardState(System::Graphics::DisplaySurface* surface) noexcept;
 
             ~KeyboardState() = default;
 
@@ -48,7 +54,7 @@ namespace SceneR
             // Compares two objects to determine whether they are different.
             // static bool op_Inequality (KeyboardState a,KeyboardState b)
         private:
-            GLFWwindow* _window_handle;
+            System::Graphics::DisplaySurface* _surface;
         };
     }
 }

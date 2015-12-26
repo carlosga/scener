@@ -45,14 +45,12 @@ namespace SceneR
             }
         }
 
-        GraphicsDevice::GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile) noexcept
+        GraphicsDevice::GraphicsDevice() noexcept
             : effect                   { nullptr }
             , index_buffer             { nullptr }
             , vertex_buffer            { nullptr }
             , _blend_state             { this }
             , _depth_stencil_state     { this }
-            , _graphics_adapter        { adapter }
-            , _graphics_profile        { graphicsProfile }
             , _presentation_parameters { }
             , _rasterizer_state        { this }
             , _viewport                { }
@@ -162,17 +160,8 @@ namespace SceneR
 
         void GraphicsDevice::present()
         {
-            glfwSwapBuffers(glfwGetCurrentContext());
-        }
-
-        const GraphicsAdapter& GraphicsDevice::adapter() const noexcept
-        {
-            return _graphics_adapter;
-        }
-
-        const GraphicsProfile& GraphicsDevice::graphics_profile() const noexcept
-        {
-            return _graphics_profile;
+            // TODO
+            // glfwSwapBuffers(glfwGetCurrentContext());
         }
 
         BlendState& GraphicsDevice::blend_state() noexcept

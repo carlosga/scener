@@ -56,10 +56,10 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~EffectTechnique() = default;
+            virtual ~EffectTechnique() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**

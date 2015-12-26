@@ -31,10 +31,10 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~GraphicsResource() override = default;
+            virtual ~GraphicsResource() override = default;
 
         public:
-            void dispose() override = 0;
+            virtual void dispose() override = 0;
 
         public:
             /**

@@ -20,71 +20,71 @@ namespace SceneR
             /**
              * BACKSPACE key.
              */
-            Back = GLFW_KEY_BACKSPACE,
+            Back = 1,
             /**
              * TAB key.
              */
-            Tab = GLFW_KEY_TAB,
+            Tab = 2,
             /**
              * ENTER key.
              */
-            Enter = GLFW_KEY_ENTER,
+            Enter = 3,
             /**
              * CAPS LOCK key.
              */
-            CapsLock = GLFW_KEY_CAPS_LOCK,
+            CapsLock = 4,
             /**
              * ESC key.
              */
-            Escape = GLFW_KEY_ESCAPE,
+            Escape = 5,
             /**
              * SPACEBAR key.
              */
-            Space = GLFW_KEY_SPACE,
+            Space = 6,
             /**
              * PAGE UP key.
              */
-            PageUp = GLFW_KEY_PAGE_UP,
+            PageUp = 7,
             /**
              * PAGE DOWN key.
              */
-            PageDown = GLFW_KEY_PAGE_DOWN,
+            PageDown = 8,
             /**
              * END key.
              */
-            End = GLFW_KEY_END,
+            End = 9,
             /**
              * HOME key.
              */
-            Home = GLFW_KEY_HOME,
+            Home = 10,
             /**
              * LEFT ARROW key.
              */
-            Left = GLFW_KEY_LEFT,
+            Left = 11,
             /**
              * UP ARROW key.
              */
-            Up = GLFW_KEY_UP,
+            Up = 12,
             /**
              * RIGHT ARROW key.
              */
-            Right = GLFW_KEY_RIGHT,
+            Right = 13,
             /**
              * DOWN ARROW key.
              */
-            Down = GLFW_KEY_DOWN,
+            Down = 14,
             /**
              * PRINT SCREEN key.
              */
-            PrintScreen = GLFW_KEY_PRINT_SCREEN,
+            PrintScreen = 15,
             /**
              * INS key.
              */
-            Insert = GLFW_KEY_INSERT,
+            Insert = 16,
             /**
              * DEL key.
              */
-            Delete = GLFW_KEY_DELETE,
+            Delete = 17,
             /**
              * A key.
              */
@@ -192,211 +192,207 @@ namespace SceneR
             /**
              * Numeric keypad 0 key.
              */
-            NumPad0 = GLFW_KEY_KP_0,
+            NumPad0 = 18,
             /**
              * Numeric keypad 1 key.
              */
-            NumPad1 = GLFW_KEY_KP_1,
+            NumPad1 = 19,
             /**
              * Numeric keypad 2 key.
              */
-            NumPad2 = GLFW_KEY_KP_2,
+            NumPad2 = 20,
             /**
              * Numeric keypad 3 key.
              */
-            NumPad3 = GLFW_KEY_KP_3,
+            NumPad3 = 21,
             /**
              * Numeric keypad 4 key.
              */
-            NumPad4 = GLFW_KEY_KP_4,
+            NumPad4 = 22,
             /**
              * Numeric keypad 5 key.
              */
-            NumPad5 = GLFW_KEY_KP_5,
+            NumPad5 = 23,
             /**
              * Numeric keypad 6 key.
              */
-            NumPad6 = GLFW_KEY_KP_6,
+            NumPad6 = 24,
             /**
              * Numeric keypad 7 key.
              */
-            NumPad7 = GLFW_KEY_KP_7,
+            NumPad7 = 25,
             /**
              * Numeric keypad 8 key.
              */
-            NumPad8 = GLFW_KEY_KP_8,
+            NumPad8 = 26,
             /**
              * Numeric keypad 9 key.
              */
-            NumPad9 = GLFW_KEY_KP_9,
+            NumPad9 = 27,
             /**
              * Multiply key.
              */
-            Multiply = GLFW_KEY_KP_MULTIPLY,
+            Multiply = 28,
             /**
              * Add key.
              */
-            Add = GLFW_KEY_KP_ADD,
-            /**
-             * Separator key.
-             */
-            // Separator = 108,
+            Add = 29,
             /**
              * Subtract key.
              */
-            Subtract = GLFW_KEY_KP_SUBTRACT,
+            Subtract = 30,
             /**
              * Decimal key.
              */
-            Decimal = GLFW_KEY_KP_DECIMAL,
+            Decimal = 31,
             /**
              * Divide key.
              */
-            Divide = GLFW_KEY_KP_DIVIDE,
+            Divide = 32,
             /**
              * F1 key.
              */
-            F1 = GLFW_KEY_F1,
+            F1 = 33,
             /**
              * F2 key.
              */
-            F2 = GLFW_KEY_F2,
+            F2 = 34,
             /**
              * F3 key.
              */
-            F3 = GLFW_KEY_F3,
+            F3 = 35,
             /**
              * F4 key.
              */
-            F4 = GLFW_KEY_F4,
+            F4 = 36,
             /**
              * F5 key.
              */
-            F5 = GLFW_KEY_F5,
+            F5 = 37,
             /**
              * F6 key.
              */
-            F6 = GLFW_KEY_F6,
+            F6 = 38,
             /**
              * F7 key.
              */
-            F7 = GLFW_KEY_F7,
+            F7 = 39,
             /**
              * F8 key.
              */
-            F8 = GLFW_KEY_F8,
+            F8 = 40,
             /**
              * F9 key.
              */
-            F9 = GLFW_KEY_F9,
+            F9 = 41,
             /**
              * F10 key.
              */
-            F10 = GLFW_KEY_F10,
+            F10 = 42,
             /**
              * F11 key.
              */
-            F11 = GLFW_KEY_F11,
+            F11 = 43,
             /**
              * F12 key.
              */
-            F12 = GLFW_KEY_F12,
+            F12 = 44,
             /**
              * F13 key.
              */
-            F13 = GLFW_KEY_F13,
+            F13 = 45,
             /**
              * F14 key.
              */
-            F14 = GLFW_KEY_F14,
+            F14 = 46,
             /**
              * F15 key.
              */
-            F15 = GLFW_KEY_F15,
+            F15 = 47,
             /**
              * F16 key.
              */
-            F16 = GLFW_KEY_F16,
+            F16 = 48,
             /**
              * F17 key.
              */
-            F17 = GLFW_KEY_F17,
+            F17 = 49,
             /**
              * F18 key.
              */
-            F18 = GLFW_KEY_F18,
+            F18 = 50,
             /**
              * F19 key.
              */
-            F19 = GLFW_KEY_F19,
+            F19 = 51,
             /**
              * F20 key.
              */
-            F20 = GLFW_KEY_F20,
+            F20 = 52,
             /**
              * F21 key.
              */
-            F21 = GLFW_KEY_F21,
+            F21 = 53,
             /**
              * F22 key.
              */
-            F22 = GLFW_KEY_F22,
+            F22 = 54,
             /**
              * F23 key.
              */
-            F23 = GLFW_KEY_F23,
+            F23 = 55,
             /**
              * F24 key.
              */
-            F24 = GLFW_KEY_F24,
+            F24 = 56,
             /**
              * NUM LOCK key.
              */
-            NumLock = GLFW_KEY_NUM_LOCK,
+            NumLock = 57,
             /**
              * SCROLL LOCK key.
              */
-            Scroll = GLFW_KEY_SCROLL_LOCK,
+            Scroll = 58,
             /**
              * Left SHIFT key.
              */
-            LeftShift = GLFW_KEY_LEFT_SHIFT,
+            LeftShift = 59,
             /**
              * Right SHIFT key.
              */
-            RightShift = GLFW_KEY_RIGHT_SHIFT,
+            RightShift = 60,
             /**
              * Left CONTROL key.
              */
-            LeftControl = GLFW_KEY_LEFT_CONTROL,
+            LeftControl = 61,
             /**
              * Right CONTROL key.
              */
-            RightControl = GLFW_KEY_RIGHT_CONTROL,
+            RightControl = 62,
             /**
              * Left ALT key.
              */
-            LeftAlt = GLFW_KEY_LEFT_ALT,
+            LeftAlt = 63,
             /**
              * Right ALT key.
              */
-            RightAlt = GLFW_KEY_RIGHT_ALT,
+            RightAlt = 64,
             /**
              * The OEM Semicolon key on a US standard keyboard.
              */
-            OemSemicolon = GLFW_KEY_SEMICOLON,
+            OemSemicolon = 91,
             /**
              * For any country/region, the '.' key.
              */
-            OemPeriod = GLFW_KEY_PERIOD,
+            OemPeriod = 92,
             /**
              * The OEM angle bracket or backslash key on the RT 102 key keyboard.
              */
-            OemBackslash = GLFW_KEY_BACKSLASH,
+            OemBackslash = 93,
             /**
              * PAUSE key.
              */
-            Pause = GLFW_KEY_PAUSE,
+            Pause = 94
         };
     }
 }

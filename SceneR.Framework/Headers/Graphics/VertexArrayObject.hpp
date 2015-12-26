@@ -15,7 +15,7 @@ namespace SceneR
         /**
          * Represents an opengl vertex array object
          */
-        class VertexArrayObject : System::IDisposable
+        class VertexArrayObject final : System::IDisposable
         {
         public:
             /**
@@ -26,10 +26,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this VertexArrayObject.
              */
-            ~VertexArrayObject() = default;
+            virtual ~VertexArrayObject() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**

@@ -61,10 +61,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            ~Texture2D() = default;
+            virtual ~Texture2D() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             std::uint32_t id() const noexcept override;

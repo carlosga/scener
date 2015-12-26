@@ -8,14 +8,11 @@
 #include <Framework/RendererServiceContainer.hpp>
 #include <Framework/RendererWindow.hpp>
 #include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
-#include <Graphics/GraphicsProfile.hpp>
 
 namespace SceneR
 {
     namespace Framework
     {
-        using SceneR::Graphics::GraphicsAdapter;
         using SceneR::Graphics::GraphicsDevice;
         using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Framework::RendererWindow;
@@ -51,21 +48,6 @@ namespace SceneR
             _graphics_device->blend_state().apply();
             _graphics_device->rasterizer_state().apply();
             _graphics_device->depth_stencil_state().apply();
-
-            switch (_graphics_device->presentation_parameters().present_interval)
-            {
-                case PresentInterval::Default:
-                case PresentInterval::One:
-                    glfwSwapInterval(1);
-                    break;
-
-                case PresentInterval::Two:
-                    glfwSwapInterval(2);
-                    break;
-
-                case PresentInterval::Immediate:
-                    glfwSwapInterval(0);
-            }
         }
 
         bool GraphicsDeviceManager::begin_draw()
@@ -80,14 +62,7 @@ namespace SceneR
 
         void GraphicsDeviceManager::create_device()
         {
-            // GLFW Initialization
-            if (!glfwInit())
-            {
-                throw std::runtime_error("glfwInit failed");
-            }
-
-            _graphics_device = std::make_unique<GraphicsDevice>(GraphicsAdapter::default_adapter()
-                                                              , SceneR::Graphics::GraphicsProfile::HiDef);
+            _graphics_device = std::make_unique<GraphicsDevice>();
         }
 
         GraphicsDevice* GraphicsDeviceManager::graphics_device() const noexcept

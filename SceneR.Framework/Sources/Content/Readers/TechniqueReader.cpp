@@ -16,11 +16,9 @@
 #include <Graphics/EffectParameterClass.hpp>
 #include <Graphics/EffectParameterType.hpp>
 #include <Graphics/EffectPass.hpp>
-#include <Graphics/EffectPassStates.hpp>
 #include <Graphics/EffectTechnique.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
 #include <Graphics/Program.hpp>
-#include <Graphics/RenderingStateType.hpp>
 
 namespace SceneR
 {
@@ -37,10 +35,8 @@ namespace SceneR
         using SceneR::Graphics::EffectParameterClass;
         using SceneR::Graphics::EffectParameterType;
         using SceneR::Graphics::EffectPass;
-        using SceneR::Graphics::EffectPassStates;
         using SceneR::Graphics::IGraphicsDeviceService;
         using SceneR::Graphics::Program;
-        using SceneR::Graphics::RenderingStateType;
 
         std::shared_ptr<EffectTechnique> ContentTypeReader<EffectTechnique>::read(gsl::not_null<ContentReader*> input
                                                                                 , const std::pair<std::string, Json>& source) const

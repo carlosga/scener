@@ -9,21 +9,15 @@
 #include <memory>
 #include <vector>
 
-#include <Graphics/BufferObject.hpp>
 #include <Graphics/GraphicsResource.hpp>
-#include <Graphics/VertexArrayObject.hpp>
-#include <Graphics/VertexDeclaration.hpp>
 
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
+        class BufferObject;
         class GraphicsDevice;
+        class VertexArrayObject;
         class VertexDeclaration;
 
         /**
@@ -43,10 +37,10 @@ namespace SceneR
             /**
              * Releases all resources being used by the current VertexBuffer
              */
-            ~VertexBuffer() = default;
+            virtual ~VertexBuffer() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**
@@ -57,27 +51,28 @@ namespace SceneR
             /**
              * Gets the vertex buffer data
              */
-            std::vector<std::uint8_t> get_data() const;
+            std::vector<std::uint8_t> get_data() const noexcept;
 
             /**
              * Gets the vertex buffer data
              */
-            std::vector<std::uint8_t> get_data(const std::size_t& startIndex, const std::size_t& elementCount) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& startIndex
+                                             , const std::size_t& elementCount) const noexcept;
 
             /**
              * Sets the vertex buffer data
              */
-            void set_data(const gsl::span<std::uint8_t>& data) const;
+            void set_data(const gsl::span<std::uint8_t>& data) const noexcept;
 
             /**
              * Defines per-vertex data in a buffer.
              */
-            SceneR::Graphics::VertexDeclaration* vertex_declaration() const noexcept;
+            VertexDeclaration* vertex_declaration() const noexcept;
 
         private:
-            void bind();
-            void unbind();
-            void initialize();
+            void bind() noexcept;
+            void unbind() noexcept;
+            void create() noexcept;
 
         private:
             std::uint32_t                      _binding_index;
@@ -87,7 +82,6 @@ namespace SceneR
             std::unique_ptr<BufferObject>      _vbo;
 
             friend class SceneR::Graphics::GraphicsDevice;
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

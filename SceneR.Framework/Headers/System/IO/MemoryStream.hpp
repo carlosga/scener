@@ -29,7 +29,7 @@ namespace System
             /**
              * Releases all resources being used by this MemoryStream.
              */
-            ~MemoryStream() override = default;
+            virtual ~MemoryStream() override = default;
 
         public:
             /**

@@ -39,7 +39,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this RasterizerState
              */
-            ~RasterizerState() = default;
+            virtual ~RasterizerState() override = default;
 
         public:
             void dispose() override;

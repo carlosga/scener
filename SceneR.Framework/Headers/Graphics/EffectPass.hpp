@@ -10,8 +10,6 @@
 
 #include <gsl.h>
 
-#include <Graphics/EffectPassStates.hpp>
-
 namespace SceneR
 {
     namespace Content
@@ -63,7 +61,6 @@ namespace SceneR
             std::string                                   _name             { };
             std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
             std::shared_ptr<Program>                      _program          { nullptr };
-            EffectPassStates                              _states           { };
 
             template <typename T> friend class SceneR::Content::ContentTypeReader;
         };

@@ -43,10 +43,10 @@ namespace SceneR
             /**
              * Destructor
              */
-            ~Shader() override = default;
+            virtual ~Shader() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**

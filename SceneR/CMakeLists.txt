@@ -1,15 +1,12 @@
+cmake_minimum_required (VERSION 3.2.2)
 project (SceneR)
+enable_language(CXX)
 
 # include directories
 include_directories (${JSON11_INCLUDE_DIRS}
                      ${GSL_INCLUDE_DIRS}
-                     ${OPENGL_INCLUDE_DIRS}
-                     ${GLFW_INCLUDE_DIRS}
                      ${SCENER_FRAMEWORK_INCLUDE_DIRS}
-                     Headers)
-
-# PkgConfig
-find_package (PkgConfig REQUIRED)
+                     ${CMAKE_CURRENT_SOURCE_DIR}/Headers)
 
 # pthread
 find_package (Threads REQUIRED)
@@ -17,25 +14,19 @@ find_package (Threads REQUIRED)
 # OpenGL
 find_package (OpenGL REQUIRED)
 
-# glfw
-pkg_search_module (GLFW REQUIRED glfw3)
+# X11
+find_package (X11 REQUIRED)
 
 # link directories
 link_directories (${SCENER_FRAMEWORK_LIB_DIRS})
 
 # header files
-set (HEADER_FILES
-     Headers/Camera.hpp
-     Headers/EarthShaker.hpp
-     Headers/SampleRenderer.hpp)
+file(GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Headers/*.hpp)
 
 # source files
-set (SOURCE_FILES
-     Sources/Camera.cpp
-     Sources/EarthShaker.cpp
-     Sources/SampleRenderer.cpp
-     Sources/main.cpp)
+file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
 
+# Content files
 add_custom_target (CONTENT_FILES SOURCES
                    Content/earthshaker/earthshaker.gltf
                    Content/earthshaker/earthshaker0CB.glsl
@@ -55,8 +46,6 @@ set_target_properties (SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nos
 target_link_libraries (SceneR
                        c++abi
                        pthread
-                       ${OPENGL_LIBRARIES}
-                       ${GLFW_LIBRARIES}
-                       SceneR_Framework)
+                       ${SCENER_FRAMEWORK_LIBRARIES})
 
-file(COPY Content DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+file (COPY Content DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

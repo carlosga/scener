@@ -26,10 +26,10 @@ namespace SceneR
         public:
             Program() = default;
 
-            ~Program() = default;
+            virtual ~Program() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             std::uint32_t id() const noexcept;

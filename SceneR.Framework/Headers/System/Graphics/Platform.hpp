@@ -4,8 +4,8 @@
 #ifndef SYSTEM_GRAPHICS_PLATFORM_HPP
 #define SYSTEM_GRAPHICS_PLATFORM_HPP
 
-#include <System/Graphics/glad/glad.hpp>
-#include <GLFW/glfw3.h>
+#include <System/Graphics/glad.hpp>
+#include <System/Graphics/glad_glx.hpp>
 
 #ifdef __linux__
 // Prevent name collisions with X11 defines

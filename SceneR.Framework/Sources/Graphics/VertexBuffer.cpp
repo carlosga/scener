@@ -3,6 +3,11 @@
 
 #include <Graphics/VertexBuffer.hpp>
 
+#include <Graphics/BufferObject.hpp>
+#include <Graphics/GraphicsDevice.hpp>
+#include <Graphics/VertexArrayObject.hpp>
+#include <Graphics/VertexDeclaration.hpp>
+
 namespace SceneR
 {
     namespace Graphics
@@ -17,6 +22,7 @@ namespace SceneR
             , _vao                { nullptr }
             , _vbo                { nullptr }
         {
+            create();
         }
 
         void VertexBuffer::dispose()
@@ -38,22 +44,26 @@ namespace SceneR
             return _vertex_count;
         }
 
-        std::vector<std::uint8_t> VertexBuffer::get_data() const
+        std::vector<std::uint8_t> VertexBuffer::get_data() const noexcept
         {
             return get_data(0, _vertex_count);
         }
 
         std::vector<std::uint8_t> VertexBuffer::get_data(const std::size_t& startIndex
-                                                       , const std::size_t& elementCount) const
+                                                       , const std::size_t& elementCount) const noexcept
         {
+            Expects(_vbo != nullptr)
+
             auto offset = (startIndex   * _vertex_declaration->vertex_stride());
             auto size   = (elementCount * _vertex_declaration->vertex_stride());
 
             return _vbo->get_data(offset, size);
         }
 
-        void VertexBuffer::set_data(const gsl::span<std::uint8_t>& data) const
+        void VertexBuffer::set_data(const gsl::span<std::uint8_t>& data) const noexcept
         {
+            Expects(_vbo != nullptr)
+
             _vbo->set_data(_vertex_count * _vertex_declaration->vertex_stride(), data.data());
         }
 
@@ -62,17 +72,21 @@ namespace SceneR
             return _vertex_declaration.get();
         }
 
-        void VertexBuffer::bind()
+        void VertexBuffer::bind() noexcept
         {
+            Expects(_vao != nullptr)
+
             _vao->bind();
         }
 
-        void VertexBuffer::unbind()
+        void VertexBuffer::unbind() noexcept
         {
+            Expects(_vao != nullptr)
+
             _vao->unbind();
         }
 
-        void VertexBuffer::initialize()
+        void VertexBuffer::create() noexcept
         {
             _vao = std::make_unique<VertexArrayObject>();
             _vbo = std::make_unique<BufferObject>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);

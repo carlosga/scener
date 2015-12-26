@@ -25,6 +25,7 @@ namespace SceneR
 
         protected:
             virtual void begin_run() override;
+            virtual void load_content() override;
             virtual void draw(const SceneR::Framework::RenderTime &renderTime) override;
         };
     }

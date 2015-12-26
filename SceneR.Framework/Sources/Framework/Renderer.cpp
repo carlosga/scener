@@ -7,6 +7,7 @@
 #include <iostream>
 #include <thread>
 
+#include <System/Graphics/RenderContext.hpp>
 #include <Content/ContentManager.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/RendererServiceContainer.hpp>
@@ -17,25 +18,13 @@ namespace SceneR
 {
     namespace Framework
     {
+        using System::TimeSpan;
+        using System::Graphics::RenderContext;
         using SceneR::Content::ContentManager;
         using SceneR::Graphics::GraphicsDevice;
-        using System::TimeSpan;
 
         Renderer::Renderer(const std::string& rootDirectory)
-            : is_fixed_time_step       { true }
-            , target_elapsed_time      { 10000000L / 60L }
-            , _components              ( 0 )
-            , _services                { }
-            , _graphics_device_manager { nullptr }
-            , _content_manager         { nullptr }
-            , _renderer_window         { nullptr }
-            , _timer                   { }
-            , _render_time             { }
-            , _total_tender_time       { TimeSpan::zero }
-            , _is_running_slowly       { false }
-            , _drawable_components     ( 0 )
-            , _updateable_components   ( 0 )
-            , _root_directory          { rootDirectory }
+            : _root_directory { rootDirectory }
         {
         }
 
@@ -90,9 +79,8 @@ namespace SceneR
             _content_manager->unload();
             _graphics_device_manager->dispose();
             _services->clear();
+            _render_context->destroy();
             _renderer_window->close();
-
-            glfwTerminate();
         }
 
         bool Renderer::begin_draw()
@@ -121,7 +109,8 @@ namespace SceneR
 
         void Renderer::end_draw()
         {
-            _graphics_device_manager->graphics_device()->present();
+            _render_context->present();
+            // _graphics_device_manager->graphics_device()->present();
         }
 
         void Renderer::end_run()
@@ -130,7 +119,7 @@ namespace SceneR
 
         void Renderer::initialize()
         {
-            for (auto& component : _components)
+            for (auto component : _components)
             {
                 component->initialize();
             }
@@ -149,8 +138,6 @@ namespace SceneR
 
         void Renderer::update(const RenderTime &renderTime)
         {
-            glfwPollEvents();
-
             for (auto& component : _updateable_components)
             {
                 if (component->enabled())
@@ -164,8 +151,12 @@ namespace SceneR
         {
             _timer.reset();
 
+            _renderer_window->show();
+
             do
             {
+                _renderer_window->pool_events();
+
                 time_step();
 
             } while (!_renderer_window->should_close());
@@ -225,7 +216,26 @@ namespace SceneR
             _graphics_device_manager->create_device();
             _renderer_window->allow_user_resizing(true);
             _renderer_window->open();
+            _render_context = std::make_unique<RenderContext>(_renderer_window->display_device()
+                                                            , _renderer_window->display_surface());
+            _render_context->create();
             _graphics_device_manager->apply_changes();
+
+            switch (graphics_device()->presentation_parameters().present_interval)
+            {
+                case PresentInterval::Default:
+                case PresentInterval::One:
+                    _render_context->present_interval(1);
+                    break;
+
+                case PresentInterval::Two:
+                    _render_context->present_interval(2);
+                    break;
+
+                case PresentInterval::Immediate:
+                    _render_context->present_interval(0);
+                    break;
+            }
         }
 
         void Renderer::fixed_time_step()

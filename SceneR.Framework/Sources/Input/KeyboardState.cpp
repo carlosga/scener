@@ -2,18 +2,20 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <Input/KeyboardState.hpp>
-#include <System/Graphics/Platform.hpp>
+#include <System/Graphics/DisplaySurface.hpp>
 
 namespace SceneR
 {
     namespace Input
     {
+        using System::Graphics::DisplaySurface;
+
         // Initializes a new instance of the KeyboardState class.
         // Array or parameter list of Keys to initialize as pressed.
         //KeyboardState(Keys[] keys);
 
-        KeyboardState::KeyboardState(GLFWwindow* windowHandle) noexcept
-            : _window_handle(windowHandle)
+        KeyboardState::KeyboardState(DisplaySurface* surface) noexcept
+            : _surface(surface)
         {
         }
 
@@ -29,12 +31,14 @@ namespace SceneR
 
         bool KeyboardState::is_key_down(const Keys& key) noexcept
         {
-            return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
+            return false;
+            // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
         }
 
         bool KeyboardState::is_key_up(const Keys& key) noexcept
         {
-            return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);
+            return false;
+            // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);
         }
     }
 }

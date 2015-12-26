@@ -16,11 +16,6 @@
 
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class BufferObject;
@@ -46,10 +41,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this indexbuffer instance
              */
-            ~IndexBuffer() = default;
+            virtual ~IndexBuffer() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**
@@ -71,22 +66,23 @@ namespace SceneR
             /**
              * Gets the indices buffer data
              */
-            std::vector<std::uint8_t> get_data() const;
+            std::vector<std::uint8_t> get_data() const noexcept;
 
             /**
              * Gets the indices buffer data
              */
-            std::vector<std::uint8_t> get_data(const std::size_t& startIndex, const std::size_t& elementCount) const;
+            std::vector<std::uint8_t> get_data(const std::size_t& startIndex
+                                             , const std::size_t& elementCount) const noexcept;
 
             /**
              * Sets the indices buffer data
              */
-            void set_data(const gsl::span<std::uint8_t>& data) const;
+            void set_data(const gsl::span<std::uint8_t>& data) const noexcept;
 
         private:
-            void bind() const;
-            void unbind() const;
-            void initialize();
+            void bind() const noexcept;
+            void unbind() const noexcept;
+            void create() noexcept;
 
         private:
             std::unique_ptr<BufferObject> _ibo;
@@ -94,7 +90,6 @@ namespace SceneR
             ComponentType                 _indexElementType;
 
             friend class SceneR::Graphics::GraphicsDevice;
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
         };
     }
 }

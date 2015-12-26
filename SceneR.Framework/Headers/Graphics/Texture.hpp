@@ -33,7 +33,7 @@ namespace SceneR
             /**
              * Releases all resources being used by this texture.
              */
-            virtual ~Texture() = default;
+            virtual ~Texture() override = default;
 
         public:
             virtual void dispose() override = 0;

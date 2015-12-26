@@ -8,12 +8,20 @@
 #include <string>
 #include <vector>
 
+#include <System/TimeSpan.hpp>
 #include <Framework/IComponent.hpp>
 #include <Framework/IDrawable.hpp>
 #include <Framework/IUpdateable.hpp>
 #include <Framework/RenderTime.hpp>
 #include <Framework/RendererTimer.hpp>
-#include <System/TimeSpan.hpp>
+
+namespace System
+{
+    namespace Graphics
+    {
+        class RenderContext;
+    }
+}
 
 namespace SceneR
 {
@@ -158,31 +166,31 @@ namespace SceneR
              * A fixed-step Game tries to call its update method on the fixed interval specified in target_elapsed_time.
              * The default value is true.
              */
-            bool is_fixed_time_step;
+            bool is_fixed_time_step { true };
 
             /**
              * Gets or sets the target time between calls to update when is_fixed_time_step is true.
              */
-            System::TimeSpan target_elapsed_time;
+            System::TimeSpan target_elapsed_time { 10000000L / 60L };
 
         protected:
-            std::vector<std::shared_ptr<IComponent>>  _components;
-            std::unique_ptr<RendererServiceContainer> _services;
-            std::unique_ptr<GraphicsDeviceManager>    _graphics_device_manager;
+            std::vector<std::shared_ptr<IComponent>>  _components              { };
+            std::unique_ptr<RendererServiceContainer> _services                { nullptr};
+            std::unique_ptr<GraphicsDeviceManager>    _graphics_device_manager { nullptr };
 
         private:
-            std::unique_ptr<SceneR::Content::ContentManager> _content_manager;
+            bool                                             _is_running_slowly     { false };
+            std::string                                      _root_directory        { };
+            std::unique_ptr<SceneR::Content::ContentManager> _content_manager       { nullptr };
+            std::vector<std::shared_ptr<IDrawable>>          _drawable_components   { };
+            std::vector<std::shared_ptr<IUpdateable>>        _updateable_components { };
+            RendererTimer                                    _timer                 { };
+            RenderTime                                       _render_time           { };
+            System::TimeSpan                                 _total_tender_time     { System::TimeSpan::zero };
+            std::unique_ptr<System::Graphics::RenderContext> _render_context        { nullptr };
+            std::unique_ptr<RendererWindow>                  _renderer_window       { nullptr };
 
-            std::unique_ptr<RendererWindow>           _renderer_window;
-            RendererTimer                             _timer;
-            RenderTime                                _render_time;
-            System::TimeSpan                          _total_tender_time;
-            bool                                      _is_running_slowly;
-            std::vector<std::shared_ptr<IDrawable>>   _drawable_components;
-            std::vector<std::shared_ptr<IUpdateable>> _updateable_components;
-            std::string                               _root_directory;
-
-            friend class SceneR::Framework::RendererWindow;
+            friend class RendererWindow;
         };
     }
 }

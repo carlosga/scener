@@ -12,7 +12,6 @@
 
 #include <Framework/IGraphicsDeviceManager.hpp>
 #include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/GraphicsProfile.hpp>
 
 namespace SceneR
 {
@@ -76,11 +75,6 @@ namespace SceneR
              * Gets or sets a value indicating whether to allow the user to resize the device window.
              */
             bool allow_user_resizing { false };
-
-            /**
-             * Gets or sets the graphics profile, which determines the graphics feature set.
-             */
-            SceneR::Graphics::GraphicsProfile graphics_profile { SceneR::Graphics::GraphicsProfile::HiDef };
 
             /**
              * Gets or sets the device window title.

@@ -11,8 +11,6 @@
 #include <Framework/Color.hpp>
 #include <Graphics/BlendState.hpp>
 #include <Graphics/DepthStencilState.hpp>
-#include <Graphics/GraphicsProfile.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/PresentationParameters.hpp>
 #include <Graphics/PrimitiveType.hpp>
 #include <Graphics/RasterizerState.hpp>
@@ -42,7 +40,7 @@ namespace SceneR
              * @param adapter the display adapter.
              * @param graphicsProfile the graphics profile.
              */
-            GraphicsDevice(const GraphicsAdapter& adapter, const GraphicsProfile& graphicsProfile) noexcept;
+            GraphicsDevice() noexcept;
 
             /**
              * @brief GraphicsDevice Initializes a new instance of the GraphicsDevice class. Copy constructor.
@@ -53,10 +51,10 @@ namespace SceneR
             /**
              * Release all resources being used by the GraphicsDevice instance.
              */
-            ~GraphicsDevice() override = default;
+            virtual ~GraphicsDevice() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**
@@ -106,17 +104,6 @@ namespace SceneR
             void present();
 
             /**
-             * Gets the display adapter.
-             */
-            const GraphicsAdapter& adapter() const noexcept;
-
-            /**
-             * Gets the graphics profile.
-             * @return the graphics profile.
-             */
-            const GraphicsProfile& graphics_profile() const noexcept;
-
-            /**
              * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
              * The default value is BlendState.Opaque.
              */
@@ -150,9 +137,6 @@ namespace SceneR
         public:
             GraphicsDevice& operator=(const GraphicsDevice& device) = default;
 
-        private:
-            GraphicsDevice() = delete;
-
         public:
             /**
              * Gets or sets the effect used before drawing.
@@ -170,13 +154,11 @@ namespace SceneR
             VertexBuffer* vertex_buffer;
 
         private:
-            BlendState                _blend_state;
-            DepthStencilState         _depth_stencil_state;
-            GraphicsAdapter           _graphics_adapter;
-            GraphicsProfile           _graphics_profile;
-            PresentationParameters    _presentation_parameters;
-            RasterizerState           _rasterizer_state;
-            Viewport                  _viewport;
+            BlendState             _blend_state;
+            DepthStencilState      _depth_stencil_state;
+            PresentationParameters _presentation_parameters;
+            RasterizerState        _rasterizer_state;
+            Viewport               _viewport;
         };
     }
 }

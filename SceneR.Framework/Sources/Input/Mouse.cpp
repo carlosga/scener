@@ -3,13 +3,15 @@
 
 #include <Input/Mouse.hpp>
 
-#include <System/Graphics/Platform.hpp>
+#include <System/Graphics/DisplaySurface.hpp>
 #include <Input/MouseState.hpp>
 
 namespace SceneR
 {
     namespace Input
     {
+        using System::Graphics::DisplaySurface;
+
         MouseState Mouse::get_state() noexcept
         {
             // glfwGetCursorPos(window, &xpos, &ypos);
@@ -20,18 +22,18 @@ namespace SceneR
 
         void Mouse::set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept
         {
-            glfwSetCursorPos(window_handle, x, y);
+            // glfwSetCursorPos(window_handle, x, y);
         }
 
-        void Mouse::initialize(GLFWwindow* window) noexcept
+        void Mouse::initialize(DisplaySurface* surface) noexcept
         {
-            window_handle = window;
+            Mouse::surface = surface;
 
             // Enable mouse cursor (only needed for fullscreen mode)
-            glfwSetInputMode(window_handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            // glfwSetInputMode(window_handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
             // Enable mouse sticky buttons
-            glfwSetInputMode(window_handle, GLFW_STICKY_MOUSE_BUTTONS, 1);
+            // glfwSetInputMode(window_handle, GLFW_STICKY_MOUSE_BUTTONS, 1);
 
             // Cursor position callback
             // glfwSetCursorPosCallback(window_handle, Mouse::cursor_position_callback);
@@ -43,23 +45,27 @@ namespace SceneR
             // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
         }
 
-        void Mouse::cursor_position_callback(GLFWwindow* window, double xpos, double ypos) noexcept
+        void Mouse::cursor_position_callback(DisplaySurface* surface
+                                           , double          xpos
+                                           , double          ypos) noexcept
         {
         }
 
-        void Mouse::mouse_button_callback(GLFWwindow*   window
-                                        , std::uint32_t button
-                                        , std::uint32_t action
-                                        , std::uint32_t mods) noexcept
+        void Mouse::mouse_button_callback(DisplaySurface* surface
+                                        , std::uint32_t   button
+                                        , std::uint32_t   action
+                                        , std::uint32_t   mods) noexcept
         {
 //            if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 //                popup_menu();
         }
 
-        void Mouse::scroll_wheel_callback(GLFWwindow* window, double xoffset, double yoffset) noexcept
+        void Mouse::scroll_wheel_callback(DisplaySurface* surface
+                                        , double          xoffset
+                                        , double          yoffset) noexcept
         {
         }
 
-        GLFWwindow* Mouse::window_handle;
+        DisplaySurface* Mouse::surface;
     }
 }

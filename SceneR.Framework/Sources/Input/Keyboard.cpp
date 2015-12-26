@@ -10,28 +10,30 @@ namespace SceneR
 {
     namespace Input
     {
+        using System::Graphics::DisplaySurface;
+
         // Returns the current keyboard state.
         KeyboardState Keyboard::get_state() noexcept
         {
-            return KeyboardState(Keyboard::window_handle);
+            return KeyboardState(Keyboard::surface);
         }
 
         // Gets or sets the window used for mouse processing.
-        void Keyboard::initialize(GLFWwindow *window) noexcept
+        void Keyboard::initialize(DisplaySurface* surface) noexcept
         {
-            window_handle = window;
+            Keyboard::surface = surface;
 
             // Enable sticky keys
-            glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
+            // glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
 
             // initialize key callback
             // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
         }
 
-        void Keyboard::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) noexcept
+        void Keyboard::key_callback(DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept
         {
         }
 
-        GLFWwindow* Keyboard::window_handle;
+        DisplaySurface* Keyboard::surface;
     }
 }

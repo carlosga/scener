@@ -36,10 +36,10 @@ namespace SceneR
             /**
              * Releases all resources being used by this UniformBufferObject.
              */
-            ~UniformBufferObject() = default;
+            virtual ~UniformBufferObject() override = default;
 
         public:
-            void dispose() override;
+            virtual void dispose() override;
 
         public:
             /**

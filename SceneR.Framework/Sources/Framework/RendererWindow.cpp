@@ -6,9 +6,11 @@
 #include <cstddef>
 #include <iostream>
 
+#include <System/Graphics/Platform.hpp>
+#include <System/Graphics/DisplayDevice.hpp>
+#include <System/Graphics/DisplaySurface.hpp>
 #include <Framework/GraphicsDeviceManager.hpp>
 #include <Framework/Renderer.hpp>
-#include <Graphics/GraphicsAdapter.hpp>
 #include <Graphics/GraphicsDevice.hpp>
 #include <Input/Keyboard.hpp>
 #include <Input/KeyboardState.hpp>
@@ -18,6 +20,8 @@ namespace SceneR
 {
     namespace Framework
     {
+        using System::Graphics::DisplayDevice;
+        using System::Graphics::DisplaySurface;
         using SceneR::Framework::IGraphicsDeviceManager;
         using SceneR::Input::Keyboard;
         using SceneR::Input::KeyboardState;
@@ -42,7 +46,8 @@ namespace SceneR
         void RendererWindow::title(const std::string& title) noexcept
         {
             _title = title;
-            glfwSetWindowTitle(_handle, _title.c_str());
+            // TODO
+            // Set window title
         }
 
         bool RendererWindow::allow_user_resizing() const noexcept
@@ -55,141 +60,80 @@ namespace SceneR
             _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
         }
 
+        DisplayDevice* RendererWindow::display_device() const noexcept
+        {
+            return _displayDevice.get();
+        }
+
+        DisplaySurface* RendererWindow::display_surface() const noexcept
+        {
+            return _displaySurface.get();
+        }
+
         void RendererWindow::open()
         {
-            GLFWmonitor* monitor     = nullptr;
-            GLFWwindow*  windowShare = nullptr;
-            auto         profile     = static_cast<std::int32_t>(_renderer->_graphics_device_manager->graphics_profile);
-            auto         width       = _renderer->_graphics_device_manager->preferred_back_buffer_width;
-            auto         height      = _renderer->_graphics_device_manager->preferred_back_buffer_height;
-            auto         sampleCount = _renderer->_graphics_device_manager->preferred_back_buffer_width;
-            auto         allowResize = _renderer->_graphics_device_manager->allow_user_resizing;
-            auto         fullscreen  = _renderer->_graphics_device_manager->full_screen;
+            auto width  = _renderer->_graphics_device_manager->preferred_back_buffer_width;
+            auto height = _renderer->_graphics_device_manager->preferred_back_buffer_height;
 
-            // Set the window and context hints
-            glfwWindowHint(GLFW_OPENGL_PROFILE        , profile);
-            glfwWindowHint(GLFW_CLIENT_API            , GLFW_OPENGL_API);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR , 4);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR , 5);
-            glfwWindowHint(GLFW_RESIZABLE             , (allowResize ? GL_TRUE : GL_FALSE));
-            glfwWindowHint(GLFW_RED_BITS              , 8);
-            glfwWindowHint(GLFW_GREEN_BITS            , 8);
-            glfwWindowHint(GLFW_BLUE_BITS             , 8);
-            glfwWindowHint(GLFW_ALPHA_BITS            , 8);
-            glfwWindowHint(GLFW_DEPTH_BITS            , 24);
-            glfwWindowHint(GLFW_STENCIL_BITS          , 24);
-            glfwWindowHint(GLFW_SAMPLES               , static_cast<std::int32_t>(sampleCount));
-            glfwWindowHint(GLFW_SRGB_CAPABLE          , GL_TRUE);
-            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT  , GL_TRUE);
+            _displayDevice  = std::make_unique<DisplayDevice>();
+            _displaySurface = std::make_unique<DisplaySurface>(_displayDevice.get());
 
-            if (fullscreen)
+            if (!_displayDevice->open())
             {
-                monitor = _renderer->graphics_device()->adapter().monitor_handle();
+                throw std::runtime_error("An error has occurred while opening the display device.");
             }
 
-            // Create a new window
-            _handle = glfwCreateWindow
-            (
-                static_cast<std::int32_t>(width)    // width
-              , static_cast<std::int32_t>(height)   // height
-              , _title.c_str()                      // title
-              , monitor                             // monitor
-              , windowShare                         // share
-            );
-
-            // If glfwCreateWindow is failing for you, then you may need to lower the OpenGL version.
-            if (!_handle)
+            if (!_displaySurface->create(width, height))
             {
-                throw std::runtime_error("glfwOpenWindow failed. Can your hardware handle OpenGL 4.5");
-            }
-
-            // Set the new window context as the current context
-            glfwMakeContextCurrent(_handle);
-
-            // GLAD Initialization
-            if (!gladLoadGL())
-            {
-                throw std::runtime_error("gladLoadGL failed");
+                throw std::runtime_error("An error has occurred while creatring the display surface.");
             }
 
             // initialize input
             initialize_input();
-
-            // Enable debug output
-            enable_debug_output();
-
-            if (allowResize)
-            {
-//                std::function<void(GLFWwindow*, int, int)> _callback
-//                        = [](GLFWwindow* window, int width, int height)
-//                          {
-//                              std::cout << "width: " << width << std::endl;
-//                              std::cout << "height: " << height << std::endl;
-//                          };
-
-//                auto t  = *_callback.target<void(*)(GLFWwindow*, int, int)>();
-
-//                glfwSetWindowSizeCallback(this->handle, t);
-            }
         }
 
-//        void RendererWindow::WindowSizeCallback(GLFWwindow* window, int width, int height)
-//        {
-//            auto a = 1;
-//        }
+        void RendererWindow::show() const noexcept
+        {
+            _displaySurface->clear();
+            _displaySurface->show();
+        }
 
         void RendererWindow::close() noexcept
         {
-            if (_handle)
+            if (_displaySurface.get())
             {
-                // Close window
-                glfwDestroyWindow(_handle);
-
-                // Reset the window pointer
-                _handle = nullptr;
+                _displaySurface->destroy();
+                _displaySurface = nullptr;
+            }
+            if (_displayDevice.get())
+            {
+                _displayDevice->destroy();
+                _displayDevice = nullptr;
             }
         }
 
         void RendererWindow::initialize_input() const noexcept
         {
             // initialize keyboard input
-            Keyboard::initialize(_handle);
+            Keyboard::initialize(_displaySurface.get());
 
             // initialize mouse input
-            Mouse::initialize(_handle);
+            Mouse::initialize(_displaySurface.get());
         }
 
         bool RendererWindow::should_close() const noexcept
         {
             auto fullScreen    = _renderer->_graphics_device_manager->full_screen;
-            auto shouldClose   = glfwWindowShouldClose(_handle);
+            auto shouldClose   = _displaySurface->should_close();
             auto keyboardState = Keyboard::get_state();
             auto isEscPressed  = keyboardState.is_key_down(Keys::Escape);
 
             return ((!fullScreen && isEscPressed) || shouldClose);
         }
 
-        void RendererWindow::debug_callback(GLenum        source
-                                          , GLenum        type
-                                          , GLuint        id
-                                          , GLenum        severity
-                                          , GLsizei       length
-                                          , const GLchar* message
-                                          , const void*   userParam) noexcept
+        void RendererWindow::pool_events() const noexcept
         {
-            std::cout << message << std::endl;
-        }
-
-        void RendererWindow::enable_debug_output() const noexcept
-        {
-            GLuint unusedIds = 0;
-
-            // Enable debugging output
-            // Other OpenGL 4.x debugging functions:
-            //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
-            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-            glDebugMessageCallback(RendererWindow::debug_callback, nullptr);
-            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
+            _displaySurface->pool_events();
         }
     }
 }

@@ -4,13 +4,19 @@
 #ifndef FRAMEWORK_RENDERERWINDOW_HPP
 #define FRAMEWORK_RENDERERWINDOW_HPP
 
+#include <memory>
 #include <string>
 
 #include <gsl.h>
 
-#include <System/Graphics/Platform.hpp>
-
-struct GLFWwindow;
+namespace System
+{
+    namespace Graphics
+    {
+        class DisplayDevice;
+        class DisplaySurface;
+    }
+}
 
 namespace SceneR
 {
@@ -58,21 +64,17 @@ namespace SceneR
              */
             void allow_user_resizing(const bool& allowUserResizing) noexcept;
 
+            System::Graphics::DisplayDevice* display_device() const noexcept;
+
+            System::Graphics::DisplaySurface* display_surface() const noexcept;
+
         private:
             void open();
+            void show() const noexcept;
             void close() noexcept;
             void initialize_input() const noexcept;
             bool should_close() const noexcept;
-
-            static void debug_callback(GLenum        source
-                                     , GLenum        type
-                                     , GLuint        id
-                                     , GLenum        severity
-                                     , GLsizei       length
-                                     , const GLchar* message
-                                     , const void*   userParam) noexcept;
-
-            void enable_debug_output() const noexcept;
+            void pool_events() const noexcept;
 
         private:
             RendererWindow() = delete;
@@ -81,8 +83,10 @@ namespace SceneR
 
         private:
             std::string _title    { };
-            GLFWwindow* _handle   { nullptr };
             Renderer*   _renderer { nullptr };
+
+            std::unique_ptr<System::Graphics::DisplayDevice>  _displayDevice  { nullptr };
+            std::unique_ptr<System::Graphics::DisplaySurface> _displaySurface { nullptr };
 
             friend class Renderer;
         };
