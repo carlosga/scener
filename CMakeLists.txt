@@ -35,5 +35,5 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 # Project subdirectories
 add_subdirectory(SceneR.Framework)
-add_subdirectory(SceneR)
+add_subdirectory(RendererSample)
 # add_subdirectory(SceneR.Framework.Tests)
