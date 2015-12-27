@@ -4,7 +4,6 @@
 #include "BinaryReaderTest.hpp"
 
 #include <cstddef>
-#include <cstdint>
 
 #include <SceneR/IO/BinaryReader.hpp>
 #include <SceneR/IO/FileStream.hpp>

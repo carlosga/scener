@@ -22,9 +22,9 @@ add_library (SceneR SHARED ${HEADER_FILES} ${SOURCE_FILES} ${JSON11_SOURCE_DIRS}
 
 # include directories
 target_include_directories (SceneR
-                            PRIVATE SYSTEM ${X11_INCLUDE_DIR}
-                            PRIVATE SYSTEM ${JSON11_INCLUDE_DIRS}
-                            PRIVATE SYSTEM ${GSL_INCLUDE_DIRS})
+                            PRIVATE ${X11_INCLUDE_DIR}
+                            PRIVATE ${JSON11_INCLUDE_DIRS}
+                            PRIVATE ${GSL_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (SceneR c++abi pthread ${X11_LIBRARIES})
