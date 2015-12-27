@@ -23,9 +23,6 @@ file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
 # add execlutable
 add_executable (Tests ${HEADER_FILES} ${SOURCE_FILES})
 
-# enable 64 bit build
-set_target_properties (Tests PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
-
 # target links
 target_link_libraries (Tests
                        c++abi

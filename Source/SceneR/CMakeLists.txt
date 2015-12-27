@@ -24,13 +24,7 @@ file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # library output
-add_library (SceneR SHARED ${SOURCE_FILES})
-
-# enable 64 bit build
-set_target_properties (SceneR PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
-
-# target sources
-target_sources (SceneR PRIVATE ${JSON11_SOURCE_DIRS}/json11.cpp)
+add_library (SceneR SHARED ${HEADER_FILES} ${SOURCE_FILES} ${JSON11_SOURCE_DIRS}/json11.cpp)
 
 # target links
 target_link_libraries (SceneR c++abi pthread ${X11_LIBRARIES})
