@@ -8,7 +8,7 @@
 
 #include <cstdint>
 
-#include "Platform.hpp"
+#include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR
 {

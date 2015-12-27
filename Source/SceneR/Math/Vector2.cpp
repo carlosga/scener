@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "Vector2.hpp"
+#include "SceneR/Math/Vector2.hpp"
 
 #include <gsl.h>
 
-#include "Math.hpp"
-#include "Matrix.hpp"
+#include "SceneR/Math/Math.hpp"
+#include "SceneR/Math/Matrix.hpp"
 
 namespace SceneR
 {

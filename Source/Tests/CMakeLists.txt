@@ -20,8 +20,7 @@ add_executable (Tests ${SOURCE_FILES})
 # target include directories
 target_include_directories(Tests
                            PRIVATE ${GSL_INCLUDE_DIRS}
-                           PRIVATE ${GOOGLE_TEST_INCLUDE_DIRS}
-                           PRIVATE ${SCENER_INCLUDE_DIRS})
+                           PRIVATE ${GOOGLE_TEST_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (Tests

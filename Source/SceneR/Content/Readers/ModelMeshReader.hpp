@@ -4,7 +4,7 @@
 #ifndef SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 #define SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 
-#include "../ContentTypeReader.hpp"
+#include "SceneR/Content/ContentTypeReader.hpp"
 
 namespace SceneR
 {

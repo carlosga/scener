@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_SHADERINCLUDEREADER_HPP
 #define SCENER_CONTENT_READERS_SHADERINCLUDEREADER_HPP
 
-#include "../ContentTypeReader.hpp"
-#include "../../Graphics/ShaderInclude.hpp"
+#include "SceneR/Content/ContentTypeReader.hpp"
+#include "SceneR/Graphics/ShaderInclude.hpp"
 
 namespace SceneR
 {

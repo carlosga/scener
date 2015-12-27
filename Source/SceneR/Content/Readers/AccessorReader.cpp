@@ -5,9 +5,9 @@
 
 #include <json11.hpp>
 
-#include "AttributeType.hpp"
-#include "../ContentReader.hpp"
-#include "../../Graphics/ComponentType.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/Readers/AttributeType.hpp"
+#include "SceneR/Graphics/ComponentType.hpp"
 
 namespace SceneR
 {

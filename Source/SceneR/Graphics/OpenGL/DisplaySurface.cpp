@@ -3,11 +3,11 @@
 //
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 
-#include "DisplaySurface.hpp"
+#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
 #include <gsl_assert.h>
 
-#include "DisplayDevice.hpp"
+#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 
 namespace SceneR
 {

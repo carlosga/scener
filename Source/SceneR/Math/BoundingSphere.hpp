@@ -6,9 +6,9 @@
 
 #include <vector>
 
-#include "PlaneIntersectionType.hpp"
-#include "ContainmentType.hpp"
-#include "Vector3.hpp"
+#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "SceneR/Math/ContainmentType.hpp"
+#include "SceneR/Math/Vector3.hpp"
 
 namespace SceneR
 {

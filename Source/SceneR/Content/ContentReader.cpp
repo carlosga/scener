@@ -1,17 +1,17 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "ContentReader.hpp"
+#include "SceneR/Content/ContentReader.hpp"
 
-#include "ContentLoadException.hpp"
-#include "ContentManager.hpp"
-#include "../IO/File.hpp"
-#include "../IO/Path.hpp"
-#include "../Graphics/IGraphicsDeviceService.hpp"
-#include "../Graphics/Animation.hpp"
-#include "../Graphics/Model.hpp"
-#include "../Graphics/ModelMesh.hpp"
-#include "../Graphics/Shader.hpp"
+#include "SceneR/Content/ContentLoadException.hpp"
+#include "SceneR/Content/ContentManager.hpp"
+#include "SceneR/IO/File.hpp"
+#include "SceneR/IO/Path.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
+#include "SceneR/Graphics/Animation.hpp"
+#include "SceneR/Graphics/Model.hpp"
+#include "SceneR/Graphics/ModelMesh.hpp"
+#include "SceneR/Graphics/Shader.hpp"
 
 namespace SceneR
 {

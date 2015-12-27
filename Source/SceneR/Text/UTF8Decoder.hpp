@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "Decoder.hpp"
+#include "SceneR/Text/Decoder.hpp"
 
 namespace SceneR
 {

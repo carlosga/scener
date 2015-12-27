@@ -11,9 +11,9 @@
 
 #include <gsl.h>
 
-#include "AttributeType.hpp"
-#include "BufferView.hpp"
-#include "../../Graphics/ComponentType.hpp"
+#include "SceneR/Content/Readers/AttributeType.hpp"
+#include "SceneR/Content/Readers/BufferView.hpp"
+#include "SceneR/Graphics/ComponentType.hpp"
 
 namespace SceneR
 {

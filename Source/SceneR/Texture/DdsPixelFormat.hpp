@@ -6,8 +6,8 @@
 
 #include <cstdint>
 
-#include "DdsPixelFormatFlags.hpp"
-#include "DdsFourCC.hpp"
+#include "SceneR/Texture/DdsPixelFormatFlags.hpp"
+#include "SceneR/Texture/DdsFourCC.hpp"
 
 namespace SceneR
 {

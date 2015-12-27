@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "FileStream.hpp"
+#include "SceneR/IO/FileStream.hpp"
 
-#include "../Text/Encoding.hpp"
+#include "SceneR/Text/Encoding.hpp"
 
 namespace SceneR
 {

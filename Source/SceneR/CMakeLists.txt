@@ -28,7 +28,3 @@ target_include_directories (SceneR
 
 # target links
 target_link_libraries (SceneR c++abi pthread ${X11_LIBRARIES})
-
-file (COPY ${CMAKE_CURRENT_SOURCE_DIR}
-      DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/include
-      PATTERN *.hpp)

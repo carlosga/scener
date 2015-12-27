@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_ACCESSORREADER_HPP
 #define SCENER_CONTENT_READERS_ACCESSORREADER_HPP
 
-#include "../ContentTypeReader.hpp"
-#include "Accessor.hpp"
+#include "SceneR/Content/ContentTypeReader.hpp"
+#include "SceneR/Content/Readers/Accessor.hpp"
 
 namespace SceneR
 {

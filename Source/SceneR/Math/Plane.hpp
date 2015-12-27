@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include "Vector3.hpp"
+#include "SceneR/Math/Vector3.hpp"
 
 namespace SceneR
 {

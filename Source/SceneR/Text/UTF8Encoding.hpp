@@ -8,9 +8,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "UTF8Decoder.hpp"
-#include "UTF8Encoder.hpp"
-#include "Encoding.hpp"
+#include "SceneR/Text/Encoding.hpp"
+#include "SceneR/Text/UTF8Decoder.hpp"
+#include "SceneR/Text/UTF8Encoder.hpp"
 
 namespace SceneR
 {

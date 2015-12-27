@@ -7,8 +7,8 @@
 #include <memory>
 #include <map>
 
-#include "../Core/IDisposable.hpp"
-#include "../Graphics/GraphicsResource.hpp"
+#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/Graphics/GraphicsResource.hpp"
 
 namespace SceneR
 {

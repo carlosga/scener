@@ -4,7 +4,7 @@
 #ifndef SCENER_MATH_RAY_HPP
 #define SCENER_MATH_RAY_HPP
 
-#include "Vector3.hpp"
+#include "SceneR/Math/Vector3.hpp"
 
 namespace SceneR
 {

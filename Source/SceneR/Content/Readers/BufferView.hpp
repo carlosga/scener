@@ -12,7 +12,7 @@
 
 #include <gsl.h>
 
-#include "Buffer.hpp"
+#include "SceneR/Content/Readers/Buffer.hpp"
 
 namespace SceneR
 {

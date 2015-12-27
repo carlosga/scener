@@ -7,10 +7,10 @@
 #include <cstdint>
 #include <vector>
 
-#include "PlaneIntersectionType.hpp"
-#include "ContainmentType.hpp"
-#include "Matrix.hpp"
-#include "Plane.hpp"
+#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "SceneR/Math/ContainmentType.hpp"
+#include "SceneR/Math/Matrix.hpp"
+#include "SceneR/Math/Plane.hpp"
 
 namespace SceneR
 {

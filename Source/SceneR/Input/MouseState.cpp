@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "MouseState.hpp"
+#include "SceneR/Input/MouseState.hpp"
 
-#include "Buttons.hpp"
-#include "ButtonState.hpp"
+#include "SceneR/Input/Buttons.hpp"
+#include "SceneR/Input/ButtonState.hpp"
 
 namespace SceneR
 {

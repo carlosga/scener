@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "NodeReader.hpp"
+#include "SceneR/Content/Readers/NodeReader.hpp"
 
 #include <json11.hpp>
 
-#include "../ContentReader.hpp"
-#include "../Readers/Accessor.hpp"
-#include "../../Graphics/ModelBone.hpp"
-#include "../../Graphics/ModelMesh.hpp"
-#include "../../Graphics/Skeleton.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/Readers/Accessor.hpp"
+#include "SceneR/Graphics/ModelBone.hpp"
+#include "SceneR/Graphics/ModelMesh.hpp"
+#include "SceneR/Graphics/Skeleton.hpp"
 
 namespace SceneR
 {

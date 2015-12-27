@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "../Text/Encoding.hpp"
+#include "SceneR/Text/Encoding.hpp"
 
 namespace SceneR
 {

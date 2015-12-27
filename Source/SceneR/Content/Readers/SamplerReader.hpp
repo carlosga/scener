@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_SAMPLERREADER_HPP
 #define SCENER_CONTENT_READERS_SAMPLERREADER_HPP
 
-#include "../ContentTypeReader.hpp"
-#include "../../Graphics/SamplerState.hpp"
+#include "SceneR/Content/ContentTypeReader.hpp"
+#include "SceneR/Graphics/SamplerState.hpp"
 
 namespace SceneR
 {

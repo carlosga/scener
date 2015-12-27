@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "ProgramReader.hpp"
+#include "SceneR/Content/Readers/ProgramReader.hpp"
 
 #include <json11.hpp>
 
-#include "../ContentReader.hpp"
-#include "../../Graphics/Shader.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Graphics/Shader.hpp"
 
 namespace SceneR
 {

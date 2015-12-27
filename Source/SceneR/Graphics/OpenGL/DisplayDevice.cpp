@@ -3,7 +3,7 @@
 //
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 
-#include "DisplayDevice.hpp"
+#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 
 #include <iostream>
 #include <queue>

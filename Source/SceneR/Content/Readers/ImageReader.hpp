@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_IMAGEREADER_HPP
 #define SCENER_CONTENT_READERS_IMAGEREADER_HPP
 
-#include "../ContentTypeReader.hpp"
-#include "../../Texture/Surface.hpp"
+#include "SceneR/Content/ContentTypeReader.hpp"
+#include "SceneR/Texture/Surface.hpp"
 
 namespace SceneR
 {

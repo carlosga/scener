@@ -8,10 +8,10 @@
 #include <vector>
 #include <string>
 
-#include "DdsCaps.hpp"
-#include "DdsCaps2.hpp"
-#include "DdsHeaderFlags.hpp"
-#include "DdsPixelFormat.hpp"
+#include "SceneR/Texture/DdsCaps.hpp"
+#include "SceneR/Texture/DdsCaps2.hpp"
+#include "SceneR/Texture/DdsHeaderFlags.hpp"
+#include "SceneR/Texture/DdsPixelFormat.hpp"
 
 namespace SceneR
 {

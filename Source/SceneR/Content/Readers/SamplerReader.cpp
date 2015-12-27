@@ -1,16 +1,16 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SamplerReader.hpp"
+#include "SceneR/Content/Readers/SamplerReader.hpp"
 
 #include <json11.hpp>
 
-#include "../ContentManager.hpp"
-#include "../ContentReader.hpp"
-#include "../../Graphics/IGraphicsDeviceService.hpp"
-#include "../../Graphics/RendererServiceContainer.hpp"
-#include "../../Graphics/TextureAddressMode.hpp"
-#include "../../Graphics/TextureFilter.hpp"
+#include "SceneR/Content/ContentManager.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
+#include "SceneR/Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Graphics/TextureAddressMode.hpp"
+#include "SceneR/Graphics/TextureFilter.hpp"
 
 namespace SceneR
 {

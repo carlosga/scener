@@ -5,21 +5,21 @@
 
 #include <json11.hpp>
 
-#include "../ContentManager.hpp"
-#include "../ContentReader.hpp"
-#include "../Readers/Node.hpp"
-#include "../../Math/Matrix.hpp"
-#include "../../Math/Vector2.hpp"
-#include "../../Math/Vector3.hpp"
-#include "../../Math/Vector4.hpp"
-#include "../../Graphics/EffectParameter.hpp"
-#include "../../Graphics/EffectParameterClass.hpp"
-#include "../../Graphics/EffectParameterType.hpp"
-#include "../../Graphics/EffectPass.hpp"
-#include "../../Graphics/EffectTechnique.hpp"
-#include "../../Graphics/IGraphicsDeviceService.hpp"
-#include "../../Graphics/Program.hpp"
-#include "../../Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Content/ContentManager.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/Readers/Node.hpp"
+#include "SceneR/Math/Matrix.hpp"
+#include "SceneR/Math/Vector2.hpp"
+#include "SceneR/Math/Vector3.hpp"
+#include "SceneR/Math/Vector4.hpp"
+#include "SceneR/Graphics/EffectParameter.hpp"
+#include "SceneR/Graphics/EffectParameterClass.hpp"
+#include "SceneR/Graphics/EffectParameterType.hpp"
+#include "SceneR/Graphics/EffectPass.hpp"
+#include "SceneR/Graphics/EffectTechnique.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
+#include "SceneR/Graphics/Program.hpp"
+#include "SceneR/Graphics/RendererServiceContainer.hpp"
 
 namespace SceneR
 {

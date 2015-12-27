@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.2.2)
-enable_language(CXX)
+# common include directories
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # SceneR
 set (SCENER_INCLUDE_DIRS ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/include)

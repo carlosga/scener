@@ -3,10 +3,10 @@
 //
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 
-#include "RenderContext.hpp"
+#include "SceneR/Graphics/OpenGL/RenderContext.hpp"
 
-#include "DisplayDevice.hpp"
-#include "DisplaySurface.hpp"
+#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
+#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
 namespace SceneR
 {

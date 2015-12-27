@@ -1,17 +1,17 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "Plane.hpp"
+#include "SceneR/Math/Plane.hpp"
 
 #include <stdexcept>
 
-#include "Math.hpp"
-#include "BoundingFrustrum.hpp"
-#include "BoundingSphere.hpp"
-#include "BoundingBox.hpp"
-#include "PlaneIntersectionType.hpp"
-#include "Quaternion.hpp"
-#include "Vector4.hpp"
+#include "SceneR/Math/Math.hpp"
+#include "SceneR/Math/BoundingFrustrum.hpp"
+#include "SceneR/Math/BoundingSphere.hpp"
+#include "SceneR/Math/BoundingBox.hpp"
+#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "SceneR/Math/Quaternion.hpp"
+#include "SceneR/Math/Vector4.hpp"
 
 namespace SceneR
 {
