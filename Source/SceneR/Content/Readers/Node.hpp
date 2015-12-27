@@ -8,9 +8,9 @@
 #include <vector>
 #include <string>
 
-#include <Math/Matrix.hpp>
-#include <Math/Quaternion.hpp>
-#include <Math/Vector3.hpp>
+#include "../../Math/Matrix.hpp"
+#include "../../Math/Quaternion.hpp"
+#include "../../Math/Vector3.hpp"
 
 namespace SceneR
 {

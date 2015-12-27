@@ -7,10 +7,10 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <Graphics/TextureFilter.hpp>
-#include <Graphics/TextureTarget.hpp>
-#include <Graphics/TextureAddressMode.hpp>
-#include <Graphics/GraphicsResource.hpp>
+#include "TextureFilter.hpp"
+#include "TextureTarget.hpp"
+#include "TextureAddressMode.hpp"
+#include "GraphicsResource.hpp"
 
 namespace SceneR
 {

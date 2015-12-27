@@ -7,13 +7,13 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <Math/Vector3.hpp>
-#include <Math/Vector4.hpp>
-
 namespace SceneR
 {
     namespace Math
     {
+        struct Vector3;
+        struct Vector4;
+
         /**
          * Describes a color in terms of red, green, blue and alpha components.
          */

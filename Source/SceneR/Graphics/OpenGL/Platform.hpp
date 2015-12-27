@@ -4,8 +4,8 @@
 #ifndef SCENER_SYSTEM_GRAPHICS_PLATFORM_HPP
 #define SCENER_SYSTEM_GRAPHICS_PLATFORM_HPP
 
-#include <Graphics/OpenGL/glad.hpp>
-#include <Graphics/OpenGL/glad_glx.hpp>
+#include "glad.hpp"
+#include "glad_glx.hpp"
 
 #ifdef __linux__
 // Prevent name collisions with X11 defines

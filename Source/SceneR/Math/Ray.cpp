@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Math/Ray.hpp>
+#include "Ray.hpp"
 
-#include <Math/Math.hpp>
-#include <Math/BoundingFrustrum.hpp>
-#include <Math/BoundingSphere.hpp>
-#include <Math/BoundingBox.hpp>
+#include "Math.hpp"
+#include "BoundingFrustrum.hpp"
+#include "BoundingSphere.hpp"
+#include "BoundingBox.hpp"
 
 namespace SceneR
 {

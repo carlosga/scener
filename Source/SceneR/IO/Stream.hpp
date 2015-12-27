@@ -8,8 +8,6 @@
 #include <cstdint>
 #include <ios>
 
-#include <Text/Encoding.hpp>
-
 namespace SceneR
 {
     namespace IO

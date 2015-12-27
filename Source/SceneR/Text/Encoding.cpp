@@ -1,13 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Text/Encoding.hpp>
+#include "Encoding.hpp"
 
-#include <cassert>
 #include <locale>
-#include <stdexcept>
 
-#include <Text/UTF8Encoding.hpp>
+#include "UTF8Encoding.hpp"
 
 namespace SceneR
 {

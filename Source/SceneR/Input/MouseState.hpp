@@ -6,13 +6,13 @@
 
 #include <cstdint>
 
-#include <Input/Buttons.hpp>
-#include <Input/ButtonState.hpp>
-
 namespace SceneR
 {
     namespace Input
     {
+        enum class Buttons : std::uint32_t;
+        enum class ButtonState : std::uint32_t;
+
         // Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
         struct MouseState
         {

@@ -6,8 +6,8 @@
 
 #include <cstddef>
 
-#include <Graphics/GraphicsResource.hpp>
-#include <Graphics/SurfaceFormat.hpp>
+#include "GraphicsResource.hpp"
+#include "SurfaceFormat.hpp"
 
 namespace SceneR
 {

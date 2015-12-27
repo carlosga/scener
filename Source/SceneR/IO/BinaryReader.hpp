@@ -6,15 +6,11 @@
 
 #include <cstdint>
 #include <vector>
-#include <Text/Encoding.hpp>
+
+#include "../Text/Encoding.hpp"
 
 namespace SceneR
 {
-    namespace Text
-    {
-        class Encoding;
-    }
-
     namespace IO
     {
         class Stream;

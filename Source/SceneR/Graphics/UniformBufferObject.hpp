@@ -10,9 +10,9 @@
 #include <string>
 #include <vector>
 
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/BufferUsage.hpp>
-#include <Core/IDisposable.hpp>
+#include "../Core/IDisposable.hpp"
+#include "BufferObject.hpp"
+#include "BufferUsage.hpp"
 
 namespace SceneR
 {

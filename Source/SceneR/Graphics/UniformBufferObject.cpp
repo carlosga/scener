@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/UniformBufferObject.hpp>
+#include "UniformBufferObject.hpp"
 
 #include <gsl.h>
 
-#include <Graphics/BufferObject.hpp>
-#include <Graphics/OpenGL/Platform.hpp>
+#include "BufferObject.hpp"
+#include "OpenGL/Platform.hpp"
 
 namespace SceneR
 {

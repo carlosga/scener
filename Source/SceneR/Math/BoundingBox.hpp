@@ -7,9 +7,9 @@
 #include <cstdint>
 #include <vector>
 
-#include <Math/PlaneIntersectionType.hpp>
-#include <Math/ContainmentType.hpp>
-#include <Math/Vector3.hpp>
+#include "PlaneIntersectionType.hpp"
+#include "ContainmentType.hpp"
+#include "Vector3.hpp"
 
 namespace SceneR
 {

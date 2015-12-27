@@ -7,10 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <Input/Keys.hpp>
-#include <Input/KeyState.hpp>
-
-#include <Graphics/OpenGL/DisplaySurface.hpp>
+#include "../Graphics/OpenGL/DisplaySurface.hpp"
 
 namespace SceneR
 {
@@ -21,6 +18,9 @@ namespace SceneR
 
     namespace Input
     {
+        enum class Keys : std::uint32_t;
+        enum class KeyState : std::uint32_t;
+
         struct KeyboardState;
 
         // Allows retrieval of keystrokes from a keyboard input device.

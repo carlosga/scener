@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-#include <Math/BoundingSphere.hpp>
+#include "../Math/BoundingSphere.hpp"
 
 namespace SceneR
 {

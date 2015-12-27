@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Math/Vector4.hpp>
+#include "Vector4.hpp"
 
 #include <gsl.h>
 
-#include <Math/Math.hpp>
-#include <Math/Matrix.hpp>
-#include <Math/Quaternion.hpp>
-#include <Math/Vector2.hpp>
-#include <Math/Vector3.hpp>
+#include "Math.hpp"
+#include "Matrix.hpp"
+#include "Quaternion.hpp"
+#include "Vector2.hpp"
+#include "Vector3.hpp"
 
 namespace SceneR
 {

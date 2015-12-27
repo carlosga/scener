@@ -1,16 +1,16 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Texture/Surface.hpp>
+#include "Surface.hpp"
 
 #include <gsl.h>
 
-#include <Math/Math.hpp>
-#include <IO/BinaryReader.hpp>
-#include <IO/File.hpp>
-#include <IO/FileStream.hpp>
-#include <IO/MemoryStream.hpp>
-#include <Texture/Dds.hpp>
+#include "Dds.hpp"
+#include "../IO/BinaryReader.hpp"
+#include "../IO/File.hpp"
+#include "../IO/FileStream.hpp"
+#include "../IO/MemoryStream.hpp"
+#include "../Math/Math.hpp"
 
 namespace SceneR
 {

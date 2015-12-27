@@ -9,8 +9,8 @@
 #include <string>
 #include <vector>
 
-#include <Core/IDisposable.hpp>
-#include <Graphics/ShaderType.hpp>
+#include "../Core/IDisposable.hpp"
+#include "ShaderType.hpp"
 
 namespace SceneR
 {

@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_NODEREADER_HPP
 #define SCENER_CONTENT_READERS_NODEREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Content/Readers/Node.hpp>
+#include "../ContentTypeReader.hpp"
+#include "Node.hpp"
 
 namespace SceneR
 {

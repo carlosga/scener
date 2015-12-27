@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_TECHNIQUEREADER_HPP
 #define SCENER_CONTENT_READERS_TECHNIQUEREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Graphics/EffectTechnique.hpp>
+#include "../ContentTypeReader.hpp"
+#include "../../Graphics/EffectTechnique.hpp"
 
 namespace SceneR
 {

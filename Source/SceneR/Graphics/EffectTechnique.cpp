@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/EffectTechnique.hpp>
+#include "EffectTechnique.hpp"
 
-#include <Graphics/EffectDirtyFlags.hpp>
-#include <Graphics/EffectParameter.hpp>
-#include <Graphics/EffectPass.hpp>
-#include <Graphics/GraphicsDevice.hpp>
-#include <Math/Math.hpp>
+#include "EffectDirtyFlags.hpp"
+#include "EffectParameter.hpp"
+#include "EffectPass.hpp"
+#include "GraphicsDevice.hpp"
+#include "../Math/Math.hpp"
 
 namespace SceneR
 {

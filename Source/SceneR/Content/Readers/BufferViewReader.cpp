@@ -1,11 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/BufferViewReader.hpp>
+#include "BufferViewReader.hpp"
 
 #include <json11.hpp>
-#include <Content/ContentReader.hpp>
-#include <Content/Readers/Buffer.hpp>
+
+#include "Buffer.hpp"
+#include "../ContentReader.hpp"
 
 namespace SceneR
 {

@@ -7,10 +7,11 @@
 #include <cstdint>
 #include <vector>
 #include <string>
-#include <Texture/DdsCaps.hpp>
-#include <Texture/DdsCaps2.hpp>
-#include <Texture/DdsHeaderFlags.hpp>
-#include <Texture/DdsPixelFormat.hpp>
+
+#include "DdsCaps.hpp"
+#include "DdsCaps2.hpp"
+#include "DdsHeaderFlags.hpp"
+#include "DdsPixelFormat.hpp"
 
 namespace SceneR
 {

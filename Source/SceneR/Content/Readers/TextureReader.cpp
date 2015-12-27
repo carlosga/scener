@@ -1,17 +1,18 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/TextureReader.hpp>
+#include "TextureReader.hpp"
 
 #include <json11.hpp>
-#include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/RendererServiceContainer.hpp>
-#include <Graphics/SamplerState.hpp>
-#include <Graphics/SurfaceFormat.hpp>
-#include <Graphics/Texture2D.hpp>
-#include <Texture/Surface.hpp>
+
+#include "../ContentManager.hpp"
+#include "../ContentReader.hpp"
+#include "../../Graphics/IGraphicsDeviceService.hpp"
+#include "../../Graphics/RendererServiceContainer.hpp"
+#include "../../Graphics/SamplerState.hpp"
+#include "../../Graphics/SurfaceFormat.hpp"
+#include "../../Graphics/Texture2D.hpp"
+#include "../../Texture/Surface.hpp"
 
 namespace SceneR
 {

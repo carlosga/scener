@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-#include <Core/TimeSpan.hpp>
-#include <Graphics/Keyframe.hpp>
+#include "Keyframe.hpp"
 
 namespace SceneR
 {

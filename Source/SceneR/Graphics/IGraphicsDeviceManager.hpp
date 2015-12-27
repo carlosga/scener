@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 #define SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 
-#include <Core/IDisposable.hpp>
+#include "../Core/IDisposable.hpp"
 
 namespace SceneR
 {

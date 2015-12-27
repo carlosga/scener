@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef CONTENT_CONTENTRESOURCEMANAGER_HPP
-#define CONTENT_CONTENTRESOURCEMANAGER_HPP
+#ifndef SCENER_CONTENT_CONTENTRESOURCEMANAGER_HPP
+#define SCENER_CONTENT_CONTENTRESOURCEMANAGER_HPP
 
 #include <memory>
 #include <map>
 
-#include <Core/IDisposable.hpp>
-#include <Graphics/GraphicsResource.hpp>
+#include "../Core/IDisposable.hpp"
+#include "../Graphics/GraphicsResource.hpp"
 
 namespace SceneR
 {
@@ -84,4 +84,4 @@ namespace SceneR
     }
 }
 
-#endif  // CONTENT_CONTENTRESOURCEMANAGER_HPP
+#endif // SCENER_CONTENT_CONTENTRESOURCEMANAGER_HPP

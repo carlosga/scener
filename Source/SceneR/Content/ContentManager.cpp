@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/ContentManager.hpp>
+#include "ContentManager.hpp"
 
-#include <Content/ContentReader.hpp>
-#include <Content/ContentLoadException.hpp>
-#include <Graphics/Model.hpp>
-#include <Graphics/RendererServiceContainer.hpp>
-#include <IO/FileStream.hpp>
-#include <IO/File.hpp>
-#include <IO/Path.hpp>
+#include "ContentReader.hpp"
+#include "ContentLoadException.hpp"
+#include "../Graphics/Model.hpp"
+#include "../Graphics/RendererServiceContainer.hpp"
+#include "../IO/FileStream.hpp"
+#include "../IO/File.hpp"
+#include "../IO/Path.hpp"
 
 namespace SceneR
 {

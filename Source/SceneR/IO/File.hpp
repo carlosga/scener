@@ -9,9 +9,9 @@
 
 #include <cassert>
 
-#include <IO/BinaryReader.hpp>
-#include <IO/FileStream.hpp>
-#include <Text/Encoding.hpp>
+#include "BinaryReader.hpp"
+#include "FileStream.hpp"
+#include "../Text/Encoding.hpp"
 
 namespace SceneR
 {

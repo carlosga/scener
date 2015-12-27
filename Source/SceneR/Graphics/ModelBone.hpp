@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <Math/Matrix.hpp>
+#include "../Math/Matrix.hpp"
 
 namespace SceneR
 {

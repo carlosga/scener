@@ -4,13 +4,16 @@
 #ifndef SCENER_MATH_PLANE_HPP
 #define SCENER_MATH_PLANE_HPP
 
-#include <Math/PlaneIntersectionType.hpp>
-#include <Math/Vector3.hpp>
+#include <cstdint>
+
+#include "Vector3.hpp"
 
 namespace SceneR
 {
     namespace Math
     {
+        enum class PlaneIntersectionType : std::uint32_t;
+
         struct BoundingBox;
         struct BoundingFrustrum;
         struct BoundingSphere;

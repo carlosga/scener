@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_BLENDFUNCTION_HPP
-#define GRAPHICS_BLENDFUNCTION_HPP
+#ifndef SCENER_GRAPHICS_BLENDFUNCTION_HPP
+#define SCENER_GRAPHICS_BLENDFUNCTION_HPP
 
 #include <cstdint>
 
-#include <Graphics/OpenGL/Platform.hpp>
+#include "OpenGL/Platform.hpp"
 
 namespace SceneR
 {
@@ -46,4 +46,4 @@ namespace SceneR
     }
 }
 
-#endif // GRAPHICS_BLENDFUNCTION_HPP
+#endif // SCENER_GRAPHICS_BLENDFUNCTION_HPP

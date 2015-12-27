@@ -1,15 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Skeleton.hpp>
+#include "Skeleton.hpp"
 
 #include <algorithm>
 
-#include <Math/Matrix.hpp>
-#include <Graphics/Animation.hpp>
-#include <Graphics/Keyframe.hpp>
-#include <Graphics/ModelBone.hpp>
-#include <Core/TimeSpan.hpp>
+#include "Animation.hpp"
+#include "Keyframe.hpp"
+#include "ModelBone.hpp"
 
 namespace SceneR
 {

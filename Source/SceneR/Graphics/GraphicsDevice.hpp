@@ -7,14 +7,14 @@
 #include <cstddef>
 #include <memory>
 
-#include <Core/IDisposable.hpp>
-#include <Math/Color.hpp>
-#include <Graphics/BlendState.hpp>
-#include <Graphics/DepthStencilState.hpp>
-#include <Graphics/PresentationParameters.hpp>
-#include <Graphics/PrimitiveType.hpp>
-#include <Graphics/RasterizerState.hpp>
-#include <Graphics/Viewport.hpp>
+#include "BlendState.hpp"
+#include "DepthStencilState.hpp"
+#include "PresentationParameters.hpp"
+#include "PrimitiveType.hpp"
+#include "RasterizerState.hpp"
+#include "Viewport.hpp"
+#include "../Core/IDisposable.hpp"
+#include "../Math/Color.hpp"
 
 namespace SceneR
 {

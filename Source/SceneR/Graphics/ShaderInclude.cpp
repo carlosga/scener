@@ -1,6 +1,6 @@
-#include <Graphics/ShaderInclude.hpp>
+#include "ShaderInclude.hpp"
 
-#include <Graphics/OpenGL/Platform.hpp>
+#include "OpenGL/Platform.hpp"
 
 namespace SceneR
 {

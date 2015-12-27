@@ -1,19 +1,18 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_FRAMEWORK_RENDERER_HPP
-#define SCENER_FRAMEWORK_RENDERER_HPP
+#ifndef SCENER_GRAPHICS_RENDERER_HPP
+#define SCENER_GRAPHICS_RENDERER_HPP
 
 #include <memory>
 #include <string>
 #include <vector>
 
-#include <Core/TimeSpan.hpp>
-#include <Graphics/IComponent.hpp>
-#include <Graphics/IDrawable.hpp>
-#include <Graphics/IUpdateable.hpp>
-#include <Graphics/StepTime.hpp>
-#include <Graphics/StepTimer.hpp>
+#include "IComponent.hpp"
+#include "IDrawable.hpp"
+#include "IUpdateable.hpp"
+#include "StepTime.hpp"
+#include "StepTimer.hpp"
 
 namespace SceneR
 {
@@ -184,4 +183,4 @@ namespace SceneR
     }
 }
 
-#endif  // SCENER_FRAMEWORK_RENDERER_HPP
+#endif // SCENER_GRAPHICS_RENDERER_HPP

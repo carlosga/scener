@@ -14,16 +14,16 @@
 #include <gsl.h>
 #include <json11.hpp>
 
-#include <IO/BinaryReader.hpp>
-#include <IO/Stream.hpp>
-#include <Content/ContentTypeReader.hpp>
-#include <Content/Readers/Node.hpp>
-#include <Graphics/ModelBone.hpp>
-#include <Math/Matrix.hpp>
-#include <Math/Quaternion.hpp>
-#include <Math/Vector2.hpp>
-#include <Math/Vector3.hpp>
-#include <Math/Vector4.hpp>
+#include "ContentTypeReader.hpp"
+#include "Readers/Node.hpp"
+#include "../IO/BinaryReader.hpp"
+#include "../IO/Stream.hpp"
+#include "../Graphics/ModelBone.hpp"
+#include "../Math/Matrix.hpp"
+#include "../Math/Quaternion.hpp"
+#include "../Math/Vector2.hpp"
+#include "../Math/Vector3.hpp"
+#include "../Math/Vector4.hpp"
 
 namespace SceneR
 {

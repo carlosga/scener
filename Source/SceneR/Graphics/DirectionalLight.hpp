@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_DIRECTIONALLIGHT_HPP
 #define SCENER_GRAPHICS_DIRECTIONALLIGHT_HPP
 
-#include <Math/Vector3.hpp>
+#include "../Math/Vector3.hpp"
 
 namespace SceneR
 {

@@ -6,9 +6,6 @@
 
 #include <cstdint>
 
-#include <Input/Buttons.hpp>
-#include <Input/ButtonState.hpp>
-
 namespace SceneR
 {
     namespace Graphics
@@ -18,6 +15,9 @@ namespace SceneR
 
     namespace Input
     {
+        enum class Buttons : std::uint32_t;
+        enum class ButtonState : std::uint32_t;
+
         struct MouseState;
 
         // Allows retrieval of position and button clicks from a mouse input device.

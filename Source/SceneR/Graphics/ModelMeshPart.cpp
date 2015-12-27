@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/ModelMeshPart.hpp>
+#include "ModelMeshPart.hpp"
 
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/IndexBuffer.hpp>
-#include <Graphics/VertexBuffer.hpp>
+#include "EffectTechnique.hpp"
+#include "IndexBuffer.hpp"
+#include "VertexBuffer.hpp"
 
 namespace SceneR
 {

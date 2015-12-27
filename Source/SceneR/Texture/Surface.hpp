@@ -6,8 +6,9 @@
 
 #include <cstddef>
 #include <string>
-#include <Graphics/SurfaceFormat.hpp>
-#include <Texture/SurfaceMipmap.hpp>
+
+#include "SurfaceMipmap.hpp"
+#include "../Graphics/SurfaceFormat.hpp"
 
 namespace SceneR
 {

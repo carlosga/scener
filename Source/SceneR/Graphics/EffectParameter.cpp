@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/EffectParameter.hpp>
+#include "EffectParameter.hpp"
 
-#include <Math/Matrix.hpp>
-#include <Math/Quaternion.hpp>
-#include <Math/Vector2.hpp>
-#include <Math/Vector3.hpp>
-#include <Math/Vector4.hpp>
-#include <Graphics/Texture.hpp>
-#include <Graphics/UniformBufferObject.hpp>
+#include "Texture.hpp"
+#include "UniformBufferObject.hpp"
+#include "../Math/Matrix.hpp"
+#include "../Math/Quaternion.hpp"
+#include "../Math/Vector2.hpp"
+#include "../Math/Vector3.hpp"
+#include "../Math/Vector4.hpp"
 
 namespace SceneR
 {

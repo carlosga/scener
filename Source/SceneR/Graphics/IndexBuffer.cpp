@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/IndexBuffer.hpp>
+#include "IndexBuffer.hpp"
 
-#include <Graphics/BufferObject.hpp>
+#include "BufferObject.hpp"
 
 namespace SceneR
 {

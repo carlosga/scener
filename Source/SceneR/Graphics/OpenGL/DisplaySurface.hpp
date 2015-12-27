@@ -6,151 +6,38 @@
 #ifndef SCENER_CORE_GRAPHICS_DISPLAY_SURFACE_HPP
 #define SCENER_CORE_GRAPHICS_DISPLAY_SURFACE_HPP
 
+#include <queue>
+
 #include <X11/Xlib.h>
-
-#include <gsl_assert.h>
-
-#include <Graphics/OpenGL/DisplayDevice.hpp>
 
 namespace SceneR
 {
     namespace Graphics
     {
+        class DisplayDevice;
+
         class DisplaySurface final
         {
         public:
-            DisplaySurface(DisplayDevice* display)
-                : _display(display)
-            {
-            }
-
-            ~DisplaySurface()
-            {
-                destroy();
-            }
+            DisplaySurface(DisplayDevice* display);
+            ~DisplaySurface();
 
         public:
-            const Drawable& handle() const noexcept
-            {
-                return _drawable;
-            }
+            const Drawable& handle() const noexcept;
 
-            bool create(std::uint32_t width, std::uint32_t height) noexcept
-            {
-                auto visual = _display->visual_info();
-                auto root   = RootWindow(_display->handle(), _display->screen_id());
+            bool create(std::uint32_t width, std::uint32_t height) noexcept;
 
-                // Open the window
-                _drawable_attribs.border_pixel      = BlackPixel(_display->handle(), _display->screen_id());
-                _drawable_attribs.background_pixel  = BlackPixel(_display->handle(), _display->screen_id());
-                _drawable_attribs.override_redirect = true;
-                _drawable_attribs.colormap          = XCreateColormap(_display->handle(), root, visual->visual, AllocNone);
-                _drawable_attribs.event_mask        = ExposureMask;
+            void destroy() noexcept;
 
-                _drawable = XCreateWindow(_display->handle()
-                                        , root
-                                        , 0
-                                        , 0
-                                        , width
-                                        , height
-                                        , 0
-                                        , visual->depth
-                                        , InputOutput
-                                        , visual->visual, CWBackPixel | CWColormap | CWBorderPixel | CWEventMask
-                                        , &_drawable_attribs);
+            void clear() noexcept;
 
-                if (_drawable)
-                {
-                    // Redirect Close
-                    _atomWmDeleteDrawable = XInternAtom(_display->handle(), "WM_DELETE_WINDOW", False);
-                    XSetWMProtocols(_display->handle(), _drawable, &_atomWmDeleteDrawable, 1);
-                }
+            void show() noexcept;
 
-                return (_drawable != 0);
-            }
+            void pool_events() noexcept;
 
-            void destroy() noexcept
-            {
-                if (_display && _drawable)
-                {
-                    XFreeColormap(_display->handle(), _drawable_attribs.colormap);
-                    XDestroyWindow(_display->handle(), _drawable);
-                    _display  = nullptr;
-                    _drawable = 0;
-                }
-            }
+            bool should_close() const;
 
-            void clear() noexcept
-            {
-                Expects(_display  != nullptr);
-                Expects(_drawable != 0);
-
-                XClearWindow(_display->handle(), _drawable);
-            }
-
-            void show() noexcept
-            {
-                Expects(_display  != nullptr);
-                Expects(_drawable != 0);
-
-                XMapRaised(_display->handle(), _drawable);
-                XRaiseWindow(_display->handle(), _drawable);
-            }
-
-            void pool_events() noexcept
-            {
-                Expects(_display  != nullptr);
-                Expects(_drawable != 0);
-
-                XEvent ev;
-
-                // Enter message loop
-                while (XPending(_display->handle()) > 0)
-                {
-                    XNextEvent(_display->handle(), &ev);
-                    if (ev.type == Expose)
-                    {
-                        XWindowAttributes attribs;
-                        XGetWindowAttributes(_display->handle(), _drawable, &attribs);
-                        //Resize(attribs.width, attribs.height);
-                    }
-                    else if (ev.type == ClientMessage)
-                    {
-                        if (static_cast<Atom>(ev.xclient.data.l[0]) == _atomWmDeleteDrawable)
-                        {
-                            _should_close = true;
-                            break;
-                        }
-                        else
-                        {
-                            _events.push(ev);
-                        }
-                    }
-                    else if (ev.type == DestroyNotify)
-                    {
-                        _should_close = true;
-                        break;
-                    }
-                    else
-                    {
-                        _events.push(ev);
-                    }
-                }
-            }
-
-            bool should_close() const
-            {
-                return _should_close;
-            }
-
-            void swap_buffers() const
-            {
-                Expects(_display  != nullptr);
-                Expects(_drawable != 0);
-
-                // Present frame
-                glXSwapBuffers(_display->handle(), _drawable);
-            }
+            void swap_buffers() const;
 
         private:
             DisplayDevice*       _display;

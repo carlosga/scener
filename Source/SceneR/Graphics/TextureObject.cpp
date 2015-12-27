@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/TextureObject.hpp>
+#include "TextureObject.hpp"
 
 #include <gsl_assert.h>
 
-#include <Graphics/OpenGL/Platform.hpp>
-#include <Graphics/Texture.hpp>
+#include "OpenGL/Platform.hpp"
+#include "Texture.hpp"
 
 namespace SceneR
 {

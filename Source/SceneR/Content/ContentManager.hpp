@@ -8,7 +8,7 @@
 
 #include <gsl.h>
 
-#include <Content/ContentResourceManager.hpp>
+#include "ContentResourceManager.hpp"
 
 namespace SceneR
 {

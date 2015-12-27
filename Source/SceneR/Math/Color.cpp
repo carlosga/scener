@@ -1,11 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Math/Color.hpp>
+#include "Color.hpp"
 
 #include <gsl.h>
 
-#include <Math/Math.hpp>
+#include "Math.hpp"
+#include "Vector3.hpp"
+#include "Vector4.hpp"
 
 namespace SceneR
 {

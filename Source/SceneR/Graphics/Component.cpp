@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Component.hpp>
+#include "Component.hpp"
 
-#include <Graphics/Renderer.hpp>
+#include "Renderer.hpp"
 
 namespace SceneR
 {

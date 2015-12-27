@@ -10,7 +10,7 @@ namespace SceneR
 {
     namespace Content
     {
-        enum class AttributeType : std::uint8_t
+        enum class AttributeType : std::uint32_t
         {
             Scalar  = 0
           , Vector2 = 1

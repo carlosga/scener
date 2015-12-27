@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include <Graphics/GraphicsResource.hpp>
+#include "GraphicsResource.hpp"
 
 namespace SceneR
 {

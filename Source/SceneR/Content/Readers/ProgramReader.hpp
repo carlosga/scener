@@ -4,8 +4,9 @@
 #ifndef SCENER_CONTENT_READERS_PROGRAMREADER_HPP
 #define SCENER_CONTENT_READERS_PROGRAMREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Graphics/Program.hpp>
+#include "../ContentTypeReader.hpp"
+
+#include "../../Graphics/Program.hpp"
 
 namespace SceneR
 {

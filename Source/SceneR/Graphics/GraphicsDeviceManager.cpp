@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/GraphicsDeviceManager.hpp>
+#include "GraphicsDeviceManager.hpp"
 
-#include <Graphics/GraphicsDevice.hpp>
-#include <Graphics/PresentInterval.hpp>
-#include <Graphics/Renderer.hpp>
-#include <Graphics/RendererServiceContainer.hpp>
-#include <Graphics/RendererWindow.hpp>
+#include "GraphicsDevice.hpp"
+#include "PresentInterval.hpp"
+#include "Renderer.hpp"
+#include "RendererServiceContainer.hpp"
+#include "RendererWindow.hpp"
 
 namespace SceneR
 {

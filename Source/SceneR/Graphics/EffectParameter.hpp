@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterType.hpp>
+#include "EffectParameterClass.hpp"
+#include "EffectParameterType.hpp"
 
 namespace SceneR
 {

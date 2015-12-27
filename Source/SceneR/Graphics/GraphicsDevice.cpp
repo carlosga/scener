@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/GraphicsDevice.hpp>
+#include "GraphicsDevice.hpp"
 
 #include <cstdint>
 
-#include <Graphics/VertexBuffer.hpp>
-#include <Graphics/IndexBuffer.hpp>
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/VertexDeclaration.hpp>
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
+#include "EffectTechnique.hpp"
+#include "EffectTechnique.hpp"
+#include "VertexDeclaration.hpp"
 
 namespace SceneR
 {

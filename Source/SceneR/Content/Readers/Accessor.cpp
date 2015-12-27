@@ -1,10 +1,13 @@
-#include <Content/Readers/Accessor.hpp>
+// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+#include "Accessor.hpp"
 
 namespace SceneR
 {
     namespace Content
     {
-        using SceneR::Graphics::ComponentType;       
+        using SceneR::Graphics::ComponentType;
 
         const AttributeType& Accessor::attribute_type() const noexcept
         {

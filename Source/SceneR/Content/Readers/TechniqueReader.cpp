@@ -1,24 +1,25 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/TechniqueReader.hpp>
+#include "TechniqueReader.hpp"
 
 #include <json11.hpp>
-#include <Content/ContentManager.hpp>
-#include <Content/ContentReader.hpp>
-#include <Content/Readers/Node.hpp>
-#include <Math/Matrix.hpp>
-#include <Math/Vector2.hpp>
-#include <Math/Vector3.hpp>
-#include <Math/Vector4.hpp>
-#include <Graphics/EffectParameter.hpp>
-#include <Graphics/EffectParameterClass.hpp>
-#include <Graphics/EffectParameterType.hpp>
-#include <Graphics/EffectPass.hpp>
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/IGraphicsDeviceService.hpp>
-#include <Graphics/Program.hpp>
-#include <Graphics/RendererServiceContainer.hpp>
+
+#include "../ContentManager.hpp"
+#include "../ContentReader.hpp"
+#include "../Readers/Node.hpp"
+#include "../../Math/Matrix.hpp"
+#include "../../Math/Vector2.hpp"
+#include "../../Math/Vector3.hpp"
+#include "../../Math/Vector4.hpp"
+#include "../../Graphics/EffectParameter.hpp"
+#include "../../Graphics/EffectParameterClass.hpp"
+#include "../../Graphics/EffectParameterType.hpp"
+#include "../../Graphics/EffectPass.hpp"
+#include "../../Graphics/EffectTechnique.hpp"
+#include "../../Graphics/IGraphicsDeviceService.hpp"
+#include "../../Graphics/Program.hpp"
+#include "../../Graphics/RendererServiceContainer.hpp"
 
 namespace SceneR
 {

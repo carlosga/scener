@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2.2)
 enable_language(CXX)
 
 # SceneR
-set (SCENER_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/SceneR)
+set (SCENER_INCLUDE_DIRS ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/include)
 set (SCENER_LIB_DIRS     ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (SCENER_LIBRARIES    SceneR)
 

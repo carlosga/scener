@@ -6,9 +6,9 @@
 
 #include <cstdint>
 
-#include <Graphics/IDrawable.hpp>
-#include <Graphics/Component.hpp>
-#include <Graphics/GraphicsDevice.hpp>
+#include "IDrawable.hpp"
+#include "Component.hpp"
+#include "GraphicsDevice.hpp"
 
 namespace SceneR
 {

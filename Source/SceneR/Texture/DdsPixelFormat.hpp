@@ -5,8 +5,9 @@
 #define SCENER_TEXTURE_DDSPIXELFORMAT_HPP
 
 #include <cstdint>
-#include <Texture/DdsPixelFormatFlags.hpp>
-#include <Texture/DdsFourCC.hpp>
+
+#include "DdsPixelFormatFlags.hpp"
+#include "DdsFourCC.hpp"
 
 namespace SceneR
 {

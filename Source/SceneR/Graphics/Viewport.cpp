@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Viewport.hpp>
+#include "Viewport.hpp"
 
 #include <gsl.h>
 
-#include <Graphics/OpenGL/Platform.hpp>
+#include "OpenGL/Platform.hpp"
 
 namespace SceneR
 {

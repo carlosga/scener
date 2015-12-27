@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <Graphics/OpenGL/glad_glx.hpp>
+#include "glad_glx.hpp"
 
 namespace glad
 {

@@ -7,8 +7,8 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
+#include "VertexElementFormat.hpp"
+#include "VertexElementUsage.hpp"
 
 namespace SceneR
 {

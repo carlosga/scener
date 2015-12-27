@@ -1,13 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Model.hpp>
+#include "Model.hpp"
 
-#include <Math/Matrix.hpp>
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <Graphics/Skeleton.hpp>
-#include <Graphics/StepTime.hpp>
+#include "EffectTechnique.hpp"
+#include "ModelMesh.hpp"
+#include "Skeleton.hpp"
+#include "StepTime.hpp"
 
 namespace SceneR
 {
@@ -35,13 +34,13 @@ namespace SceneR
             return _meshes;
         }
 
-        void Model::update(const StepTime& renderTime) noexcept
+        void Model::update(const StepTime& elapsedtime) noexcept
         {
             for (const auto mesh : _meshes)
             {
                 if (mesh->skeleton())
                 {
-                    mesh->skeleton()->update(renderTime.elapsed_render_time, true, Matrix::identity);
+                    mesh->skeleton()->update(elapsedtime.elapsed_render_time, true, Matrix::identity);
                 }
             }
         }

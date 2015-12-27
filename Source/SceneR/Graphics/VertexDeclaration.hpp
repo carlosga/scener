@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <Graphics/VertexElement.hpp>
+#include "VertexElement.hpp"
 
 namespace SceneR
 {

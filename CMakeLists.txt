@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.2.2)
-project (SceneR)
+project (SceneR::Root)
 enable_language(CXX)
 
-set (CMAKE_VERBOSE_MAKEFILE on)
+# set (CMAKE_VERBOSE_MAKEFILE on)
 
 # external dependencies
 #

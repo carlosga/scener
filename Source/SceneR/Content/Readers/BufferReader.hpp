@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_BUFFERREADER_HPP
 #define SCENER_CONTENT_READERS_BUFFERREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Content/Readers/Buffer.hpp>
+#include "../ContentTypeReader.hpp"
+#include "Buffer.hpp"
 
 namespace SceneR
 {

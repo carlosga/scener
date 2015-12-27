@@ -1,10 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Input/Mouse.hpp>
+#include "Mouse.hpp"
 
-#include <Graphics/OpenGL/DisplaySurface.hpp>
-#include <Input/MouseState.hpp>
+#include "Buttons.hpp"
+#include "ButtonState.hpp"
+#include "MouseState.hpp"
+#include "../Graphics/OpenGL/DisplaySurface.hpp"
 
 namespace SceneR
 {

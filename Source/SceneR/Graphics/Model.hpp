@@ -8,8 +8,7 @@
 #include <string>
 #include <vector>
 
-#include <Core/IDisposable.hpp>
-#include <Graphics/StepTime.hpp>
+#include "../Core/IDisposable.hpp"
 
 namespace SceneR
 {
@@ -25,6 +24,7 @@ namespace SceneR
 
     namespace Graphics
     {
+        class StepTime;
         class ModelMesh;
 
         /**
@@ -61,9 +61,9 @@ namespace SceneR
             /**
              * Advances the animation by given time and updates the model
              * skin accordingly.
-             * @param renderTime elapsed time
+             * @param elapsedtime elapsed time
              */
-            void update(const StepTime& renderTime) noexcept;
+            void update(const StepTime& elapsedtime) noexcept;
 
             /**
              * Render a model after applying the given matrix transformations.

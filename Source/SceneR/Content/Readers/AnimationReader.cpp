@@ -1,18 +1,19 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/AnimationReader.hpp>
+#include "AnimationReader.hpp"
 
 #include <json11.hpp>
-#include <Core/TimeSpan.hpp>
-#include <Content/ContentReader.hpp>
-#include <Content/Readers/Accessor.hpp>
-#include <Content/Readers/Node.hpp>
-#include <Math/Matrix.hpp>
-#include <Math/Quaternion.hpp>
-#include <Math/Vector3.hpp>
-#include <Math/Vector4.hpp>
-#include <Graphics/Keyframe.hpp>
+
+#include "Accessor.hpp"
+#include "Node.hpp"
+#include "../ContentReader.hpp"
+#include "../../Core/TimeSpan.hpp"
+#include "../../Math/Matrix.hpp"
+#include "../../Math/Quaternion.hpp"
+#include "../../Math/Vector3.hpp"
+#include "../../Math/Vector4.hpp"
+#include "../../Graphics/Keyframe.hpp"
 
 namespace SceneR
 {

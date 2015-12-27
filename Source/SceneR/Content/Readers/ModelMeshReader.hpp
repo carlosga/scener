@@ -4,21 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 #define SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Content/Readers/AttributeType.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <Graphics/VertexElementFormat.hpp>
-#include <Graphics/VertexElementUsage.hpp>
+#include "../ContentTypeReader.hpp"
 
 namespace SceneR
 {
     namespace Graphics
     {
+        enum class VertexElementFormat : std::uint32_t;
+        enum class VertexElementUsage  : std::uint32_t;
+
         class EffectTechnique;
+        class ModelMesh;
     }
 
     namespace Content
     {
+        enum class AttributeType : std::uint32_t;
+
         /**
          * Meshes reader
          */

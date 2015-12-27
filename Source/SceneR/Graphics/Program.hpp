@@ -10,9 +10,9 @@
 #include <memory>
 #include <string>
 
-#include <Core/IDisposable.hpp>
-#include <Graphics/ShaderType.hpp>
-#include <Graphics/UniformBufferObject.hpp>
+#include "../Core/IDisposable.hpp"
+#include "ShaderType.hpp"
+#include "UniformBufferObject.hpp"
 
 namespace SceneR
 {

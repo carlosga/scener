@@ -4,8 +4,8 @@
 #ifndef SCENER_CONTENT_READERS_ANIMATIONREADER_HPP
 #define SCENER_CONTENT_READERS_ANIMATIONREADER_HPP
 
-#include <Content/ContentTypeReader.hpp>
-#include <Graphics/Animation.hpp>
+#include "../ContentTypeReader.hpp"
+#include "../../Graphics/Animation.hpp"
 
 namespace SceneR
 {

@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Graphics/Program.hpp>
+#include "Program.hpp"
 
 #include <gsl_assert.h>
 
-#include <Graphics/Shader.hpp>
+#include "Shader.hpp"
 
 namespace SceneR
 {

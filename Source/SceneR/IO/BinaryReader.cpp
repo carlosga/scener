@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <IO/BinaryReader.hpp>
+#include "BinaryReader.hpp"
 
 #include <string>
 
-#include <IO/Stream.hpp>
-#include <Text/Encoding.hpp>
+#include "Stream.hpp"
+#include "../Text/Encoding.hpp"
 
 namespace SceneR
 {

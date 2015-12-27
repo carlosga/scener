@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_SURFACEFORMAT_HPP
-#define GRAPHICS_SURFACEFORMAT_HPP
+#ifndef SCENER_GRAPHICS_SURFACEFORMAT_HPP
+#define SCENER_GRAPHICS_SURFACEFORMAT_HPP
 
 #include <cstdint>
 
-#include <Graphics/OpenGL/Platform.hpp>
+#include "OpenGL/Platform.hpp"
 
 namespace SceneR
 {
@@ -74,4 +74,4 @@ namespace SceneR
     }
 }
 
-#endif // GRAPHICS_SURFACEFORMAT_HPP
+#endif // SCENER_GRAPHICS_SURFACEFORMAT_HPP

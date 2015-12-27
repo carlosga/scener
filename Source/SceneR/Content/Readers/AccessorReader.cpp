@@ -1,12 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Content/Readers/AccessorReader.hpp>
+#include "AccessorReader.hpp"
 
 #include <json11.hpp>
-#include <Content/ContentReader.hpp>
-#include <Content/Readers/AttributeType.hpp>
-#include <Graphics/ComponentType.hpp>
+
+#include "AttributeType.hpp"
+#include "../ContentReader.hpp"
+#include "../../Graphics/ComponentType.hpp"
 
 namespace SceneR
 {
