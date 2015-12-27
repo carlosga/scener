@@ -1,21 +1,21 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "RendererWindow.hpp"
+#include "SceneR/Graphics/RendererWindow.hpp"
 
 #include <cstddef>
 #include <iostream>
 
-#include "OpenGL/Platform.hpp"
-#include "OpenGL/DisplayDevice.hpp"
-#include "OpenGL/DisplaySurface.hpp"
-#include "GraphicsDeviceManager.hpp"
-#include "Renderer.hpp"
-#include "GraphicsDevice.hpp"
-#include "../Input/Keyboard.hpp"
-#include "../Input/KeyboardState.hpp"
-#include "../Input/Keys.hpp"
-#include "../Input/Mouse.hpp"
+#include "SceneR/Graphics/OpenGL/Platform.hpp"
+#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
+#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
+#include "SceneR/Graphics/GraphicsDeviceManager.hpp"
+#include "SceneR/Graphics/Renderer.hpp"
+#include "SceneR/Graphics/GraphicsDevice.hpp"
+#include "SceneR/Input/Keyboard.hpp"
+#include "SceneR/Input/KeyboardState.hpp"
+#include "SceneR/Input/Keys.hpp"
+#include "SceneR/Input/Mouse.hpp"
 
 namespace SceneR
 {

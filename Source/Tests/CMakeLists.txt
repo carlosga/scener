@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (Tests)
+project (SceneR::Tests)
 enable_language(CXX)
 
 # pthread

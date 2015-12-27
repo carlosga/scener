@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "../Math/Matrix.hpp"
+#include "SceneR/Math/Matrix.hpp"
 
 namespace SceneR
 {

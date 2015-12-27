@@ -8,9 +8,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "../Core/IDisposable.hpp"
-#include "BufferTarget.hpp"
-#include "BufferUsage.hpp"
+#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/Graphics/BufferTarget.hpp"
+#include "SceneR/Graphics/BufferUsage.hpp"
 
 namespace SceneR
 {

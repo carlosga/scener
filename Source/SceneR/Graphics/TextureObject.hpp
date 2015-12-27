@@ -8,9 +8,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "../Core/IDisposable.hpp"
-#include "SurfaceFormat.hpp"
-#include "TextureTarget.hpp"
+#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/Graphics/SurfaceFormat.hpp"
+#include "SceneR/Graphics/TextureTarget.hpp"
 
 namespace SceneR
 {

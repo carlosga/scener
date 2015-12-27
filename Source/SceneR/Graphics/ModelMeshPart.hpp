@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-#include "PrimitiveType.hpp"
+#include "SceneR/Graphics/PrimitiveType.hpp"
 
 namespace SceneR
 {

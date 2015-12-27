@@ -10,8 +10,8 @@
 
 #include <gsl.h>
 
-#include "IGraphicsDeviceManager.hpp"
-#include "IGraphicsDeviceService.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceManager.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 
 namespace SceneR
 {

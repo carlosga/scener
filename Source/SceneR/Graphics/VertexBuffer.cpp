@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "VertexBuffer.hpp"
+#include "SceneR/Graphics/VertexBuffer.hpp"
 
-#include "BufferObject.hpp"
-#include "GraphicsDevice.hpp"
-#include "VertexArrayObject.hpp"
-#include "VertexDeclaration.hpp"
+#include "SceneR/Graphics/BufferObject.hpp"
+#include "SceneR/Graphics/GraphicsDevice.hpp"
+#include "SceneR/Graphics/VertexArrayObject.hpp"
+#include "SceneR/Graphics/VertexDeclaration.hpp"
 
 namespace SceneR
 {

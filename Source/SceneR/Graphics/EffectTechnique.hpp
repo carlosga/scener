@@ -10,17 +10,17 @@
 #include <string>
 #include <vector>
 
-#include "../Math/Matrix.hpp"
-#include "../Math/Quaternion.hpp"
-#include "../Math/Vector2.hpp"
-#include "../Math/Vector3.hpp"
-#include "../Math/Vector4.hpp"
-#include "DirectionalLight.hpp"
-#include "EffectDirtyFlags.hpp"
-#include "GraphicsResource.hpp"
-#include "IEffectMatrices.hpp"
-#include "IEffectLights.hpp"
-#include "Texture2D.hpp"
+#include "SceneR/Graphics/DirectionalLight.hpp"
+#include "SceneR/Graphics/EffectDirtyFlags.hpp"
+#include "SceneR/Graphics/GraphicsResource.hpp"
+#include "SceneR/Graphics/IEffectMatrices.hpp"
+#include "SceneR/Graphics/IEffectLights.hpp"
+#include "SceneR/Graphics/Texture2D.hpp"
+#include "SceneR/Math/Matrix.hpp"
+#include "SceneR/Math/Quaternion.hpp"
+#include "SceneR/Math/Vector2.hpp"
+#include "SceneR/Math/Vector3.hpp"
+#include "SceneR/Math/Vector4.hpp"
 
 namespace SceneR
 {

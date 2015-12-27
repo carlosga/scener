@@ -8,7 +8,7 @@
 
 #include <gsl.h>
 
-#include "../Core/IDisposable.hpp"
+#include "SceneR/Core/IDisposable.hpp"
 
 namespace SceneR
 {

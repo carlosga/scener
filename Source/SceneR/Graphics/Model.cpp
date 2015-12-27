@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "Model.hpp"
+#include "SceneR/Graphics/Model.hpp"
 
-#include "EffectTechnique.hpp"
-#include "ModelMesh.hpp"
-#include "Skeleton.hpp"
-#include "StepTime.hpp"
+#include "SceneR/Graphics/EffectTechnique.hpp"
+#include "SceneR/Graphics/ModelMesh.hpp"
+#include "SceneR/Graphics/Skeleton.hpp"
+#include "SceneR/Graphics/StepTime.hpp"
 
 namespace SceneR
 {

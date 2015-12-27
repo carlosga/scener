@@ -8,11 +8,11 @@
 #include <string>
 #include <vector>
 
-#include "IComponent.hpp"
-#include "IDrawable.hpp"
-#include "IUpdateable.hpp"
-#include "StepTime.hpp"
-#include "StepTimer.hpp"
+#include "SceneR/Graphics/IComponent.hpp"
+#include "SceneR/Graphics/IDrawable.hpp"
+#include "SceneR/Graphics/IUpdateable.hpp"
+#include "SceneR/Graphics/StepTime.hpp"
+#include "SceneR/Graphics/StepTimer.hpp"
 
 namespace SceneR
 {

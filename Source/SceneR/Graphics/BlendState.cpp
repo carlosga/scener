@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "BlendState.hpp"
+#include "SceneR/Graphics/BlendState.hpp"
 
-#include "GraphicsDevice.hpp"
+#include "SceneR/Graphics/GraphicsDevice.hpp"
 
 namespace SceneR
 {

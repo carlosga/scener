@@ -10,9 +10,9 @@
 
 #include <vector>
 
-#include "SurfaceFormat.hpp"
-#include "TextureObject.hpp"
-#include "Texture.hpp"
+#include "SceneR/Graphics/SurfaceFormat.hpp"
+#include "SceneR/Graphics/TextureObject.hpp"
+#include "SceneR/Graphics/Texture.hpp"
 
 namespace SceneR
 {

@@ -11,8 +11,8 @@
 
 #include <gsl.h>
 
-#include "ComponentType.hpp"
-#include "GraphicsResource.hpp"
+#include "SceneR/Graphics/ComponentType.hpp"
+#include "SceneR/Graphics/GraphicsResource.hpp"
 
 namespace SceneR
 {

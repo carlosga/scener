@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_RENDERTIME_HPP
 #define SCENER_GRAPHICS_RENDERTIME_HPP
 
-#include "../Core/TimeSpan.hpp"
+#include "SceneR/Core/TimeSpan.hpp"
 
 namespace SceneR
 {

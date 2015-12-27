@@ -1,18 +1,18 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "Renderer.hpp"
+#include "SceneR/Graphics/Renderer.hpp"
 
 #include <algorithm>
 #include <iostream>
 #include <thread>
 
-#include "OpenGL/RenderContext.hpp"
-#include "GraphicsDevice.hpp"
-#include "GraphicsDeviceManager.hpp"
-#include "RendererServiceContainer.hpp"
-#include "RendererWindow.hpp"
-#include "../Content/ContentManager.hpp"
+#include "SceneR/Content/ContentManager.hpp"
+#include "SceneR/Graphics/OpenGL/RenderContext.hpp"
+#include "SceneR/Graphics/GraphicsDevice.hpp"
+#include "SceneR/Graphics/GraphicsDeviceManager.hpp"
+#include "SceneR/Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Graphics/RendererWindow.hpp"
 
 namespace SceneR
 {

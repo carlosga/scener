@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "ModelMesh.hpp"
+#include "SceneR/Graphics/ModelMesh.hpp"
 
 #include <gsl.h>
 
-#include "GraphicsDevice.hpp"
-#include "ModelMeshPart.hpp"
-#include "ModelBone.hpp"
-#include "VertexBuffer.hpp"
+#include "SceneR/Graphics/GraphicsDevice.hpp"
+#include "SceneR/Graphics/ModelMeshPart.hpp"
+#include "SceneR/Graphics/ModelBone.hpp"
+#include "SceneR/Graphics/VertexBuffer.hpp"
 
 namespace SceneR
 {

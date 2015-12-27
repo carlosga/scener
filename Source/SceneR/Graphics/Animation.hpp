@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "Keyframe.hpp"
+#include "SceneR/Graphics/Keyframe.hpp"
 
 namespace SceneR
 {

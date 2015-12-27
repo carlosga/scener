@@ -4,8 +4,8 @@
 #ifndef SCENER_GRAPHICS_KEYFRAME_HPP
 #define SCENER_GRAPHICS_KEYFRAME_HPP
 
-#include "../Core/TimeSpan.hpp"
-#include "../Math/Matrix.hpp"
+#include "SceneR/Core/TimeSpan.hpp"
+#include "SceneR/Math/Matrix.hpp"
 
 namespace SceneR
 {
