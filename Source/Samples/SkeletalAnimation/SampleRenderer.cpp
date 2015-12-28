@@ -1,19 +1,19 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <SampleRenderer.hpp>
+#include "SkeletalAnimation/SampleRenderer.hpp"
 
-#include <Framework/GraphicsDeviceManager.hpp>
+#include <SceneR/Graphics/GraphicsDeviceManager.hpp>
 
-#include <Camera.hpp>
-#include <EarthShaker.hpp>
+#include "SkeletalAnimation/Camera.hpp"
+#include "SkeletalAnimation/EarthShaker.hpp"
 
 namespace SceneR
 {
     namespace Sample
     {
-        using SceneR::Framework::Color;
-        using SceneR::Framework::RenderTime;
+        using SceneR::Graphics::StepTime;
+        using SceneR::Math::Color;
 
         SampleRenderer::SampleRenderer()
             : Renderer("./Content")
@@ -37,7 +37,7 @@ namespace SceneR
             Renderer::_components.push_back(std::make_shared<EarthShaker>(this));
         }
 
-        void SampleRenderer::draw(const RenderTime &renderTime)
+        void SampleRenderer::draw(const StepTime &renderTime)
         {
             graphics_device()->clear(Color::black);
 

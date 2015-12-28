@@ -1,24 +1,20 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef EARTHSHAKER_HPP
-#define EARTHSHAKER_HPP
+#ifndef SKELETAL_ANIMATION_EARTHSHAKER_HPP
+#define SKELETAL_ANIMATION_EARTHSHAKER_HPP
 
 #include <memory>
 
-#include <Framework/DrawableComponent.hpp>
-#include <Framework/Matrix.hpp>
+#include <SceneR/Graphics/DrawableComponent.hpp>
+#include <SceneR/Math/Matrix.hpp>
 
 namespace SceneR
 {
-    namespace Framework
-    {
-        class RenderTime;
-    }
-
     namespace Graphics
     {
         class Model;
+        class StepTime;
     }
 }
 
@@ -28,7 +24,7 @@ namespace SceneR
     {
         class SampleRenderer;
 
-        class EarthShaker : public SceneR::Framework::DrawableComponent
+        class EarthShaker : public SceneR::Graphics::DrawableComponent
         {
         public:
             EarthShaker(SampleRenderer* renderer);
@@ -36,8 +32,8 @@ namespace SceneR
 
         public:
             void initialize() override;
-            void update(const SceneR::Framework::RenderTime& renderTime) override;
-            void draw(const SceneR::Framework::RenderTime& renderTime) override;
+            void update(const SceneR::Graphics::StepTime& renderTime) override;
+            void draw(const SceneR::Graphics::StepTime& renderTime) override;
 
         protected:
             void load_content() override;
@@ -45,9 +41,9 @@ namespace SceneR
 
         private:
             std::shared_ptr<SceneR::Graphics::Model> _model;
-            SceneR::Framework::Matrix                _world;
+            SceneR::Math::Matrix                     _world;
         };
     }
 }
 
-#endif // EARTHSHAKER_HPP
+#endif // SKELETAL_ANIMATION_EARTHSHAKER_HPP

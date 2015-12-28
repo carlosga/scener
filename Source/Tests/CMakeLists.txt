@@ -28,3 +28,6 @@ target_link_libraries (Tests
                        pthread
                        ${GOOGLE_TEST_LIBRARIES}
                        ${SCENER_LIBRARIES})
+
+# testing
+enable_testing()

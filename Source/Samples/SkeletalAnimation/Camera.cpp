@@ -1,27 +1,26 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <Camera.hpp>
+#include "SkeletalAnimation/Camera.hpp"
 
-#include <SampleRenderer.hpp>
+#include <SceneR/Input/Keys.hpp>
+#include <SceneR/Input/Keyboard.hpp>
+#include <SceneR/Input/KeyboardState.hpp>
+#include <SceneR/Math/Math.hpp>
+#include <SceneR/Math/Vector3.hpp>
 
-#include <System/Math.hpp>
-#include <Framework/Vector3.hpp>
-#include <Input/Keys.hpp>
-#include <Input/Keyboard.hpp>
-#include <Input/KeyboardState.hpp>
+#include "SkeletalAnimation/SampleRenderer.hpp"
 
 namespace SceneR
 {
     namespace Sample
     {
-        using System::Math;
-        using SceneR::Framework::Matrix;
-        using SceneR::Framework::RenderTime;
-        using SceneR::Framework::Vector3;
+        using SceneR::Graphics::StepTime;
         using SceneR::Input::Keys;
         using SceneR::Input::Keyboard;
         using SceneR::Input::KeyboardState;
+        using SceneR::Math::Matrix;
+        using SceneR::Math::Vector3;
 
         Camera::Camera(SampleRenderer* renderer)
             : Component  { renderer }
@@ -42,7 +41,7 @@ namespace SceneR
             view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
         }
 
-        void Camera::update(const RenderTime& renderTime)
+        void Camera::update(const StepTime& renderTime)
         {
             auto currentKeyboardState = Keyboard::get_state();
             auto currentPosition      = _position;

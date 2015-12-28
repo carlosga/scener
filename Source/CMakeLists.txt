@@ -1,5 +1,5 @@
 # common include directories
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories (${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/Samples)
 
 # SceneR
 set (SCENER_LIB_DIRS  ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -12,4 +12,4 @@ add_subdirectory(SceneR)
 add_subdirectory(Tests)
 
 # Samples subdirectories
-# add_subdirectory(Samples)
+add_subdirectory(Samples)

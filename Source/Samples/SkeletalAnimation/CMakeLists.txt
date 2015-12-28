@@ -1,12 +1,11 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (SkeletalAnimation)
+project (SceneR::Samples::SkeletalAnimation)
 enable_language(CXX)
 
 # include directories
 include_directories (${JSON11_INCLUDE_DIRS}
                      ${GSL_INCLUDE_DIRS}
-                     ${SCENER_FRAMEWORK_INCLUDE_DIRS}
-                     ${CMAKE_CURRENT_SOURCE_DIR}/Headers)
+                     ${SCENER_FRAMEWORK_INCLUDE_DIRS})
 
 # pthread
 find_package (Threads REQUIRED)
@@ -20,9 +19,6 @@ find_package (X11 REQUIRED)
 # link directories
 link_directories (${SCENER_FRAMEWORK_LIB_DIRS})
 
-# source files
-file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Sources/*.cpp)
-
 # content files
 add_custom_target (CONTENT_FILES SOURCES
                    Content/earthshaker/earthshaker.gltf
@@ -32,6 +28,9 @@ add_custom_target (CONTENT_FILES SOURCES
                    Content/earthshaker/structures.glsl
                    Content/earthshaker/common.glsl
                    Content/earthshaker/skinning.glsl)
+
+# source files
+file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # add execlutable
 add_executable (SkeletalAnimation ${SOURCE_FILES})
@@ -43,7 +42,7 @@ set_target_properties (SkeletalAnimation PROPERTIES COMPILE_FLAGS -m64 LINK_FLAG
 target_link_libraries (SkeletalAnimation
                        c++abi
                        pthread
-                       ${SCENER_FRAMEWORK_LIBRARIES})
+                       ${SCENER_LIBRARIES})
 
 # copy content files
 add_custom_command (TARGET SkeletalAnimation PRE_BUILD

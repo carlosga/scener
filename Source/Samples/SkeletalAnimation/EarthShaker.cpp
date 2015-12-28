@@ -1,28 +1,27 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "EarthShaker.hpp"
+#include "SkeletalAnimation/EarthShaker.hpp"
 
-#include <Camera.hpp>
-#include <SampleRenderer.hpp>
+#include <SceneR/Content/ContentManager.hpp>
+#include <SceneR/Graphics/EffectTechnique.hpp>
+#include <SceneR/Graphics/Model.hpp>
+#include <SceneR/Graphics/ModelMesh.hpp>
+#include <SceneR/Graphics/StepTime.hpp>
+#include <SceneR/Math/Math.hpp>
+#include <SceneR/Math/Vector3.hpp>
 
-#include <Content/ContentManager.hpp>
-#include <Framework/RenderTime.hpp>
-#include <Framework/Vector3.hpp>
-#include <Graphics/EffectTechnique.hpp>
-#include <Graphics/Model.hpp>
-#include <Graphics/ModelMesh.hpp>
-#include <System/Math.hpp>
+#include "SkeletalAnimation/SampleRenderer.hpp"
+#include "SkeletalAnimation/Camera.hpp"
 
 namespace SceneR
 {
     namespace Sample
     {
-        using SceneR::Framework::Matrix;
-        using SceneR::Framework::RenderTime;
         using SceneR::Graphics::Model;
         using SceneR::Graphics::EffectTechnique;
-        using System::Math;
+        using SceneR::Graphics::StepTime;
+        using SceneR::Math::Matrix;
 
         EarthShaker::EarthShaker(SampleRenderer* renderer)
             : DrawableComponent { renderer }
@@ -58,12 +57,12 @@ namespace SceneR
             _model = nullptr;
         }
 
-        void EarthShaker::update(const RenderTime& renderTime)
+        void EarthShaker::update(const StepTime& renderTime)
         {
             _model->update(renderTime);
         }
 
-        void EarthShaker::draw(const RenderTime& renderTime)
+        void EarthShaker::draw(const StepTime& renderTime)
         {
             const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
 
