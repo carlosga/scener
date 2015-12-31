@@ -20,6 +20,7 @@
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 #include "SceneR/Graphics/Program.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 
@@ -193,8 +194,8 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     in
     {
         if (offsets.find(parameter->_uniform_name) != offsets.end())
         {
-            parameter->_offset         = offsets[parameter->_uniform_name];
-            parameter->_uniform_buffer = effectPass->_program->uniform_buffer();
+            parameter->_offset          = offsets[parameter->_uniform_name];
+            parameter->_constant_buffer = effectPass->_program->constant_buffer();
         }
     }
 }

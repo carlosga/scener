@@ -7,41 +7,39 @@
 #include "SceneR/Input/KeyState.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Input {
+
+using SceneR::Graphics::OpenGL::DisplaySurface;
+
+// Initializes a new instance of the KeyboardState class.
+// Array or parameter list of Keys to initialize as pressed.
+//KeyboardState(Keys[] keys);
+
+KeyboardState::KeyboardState(DisplaySurface* surface) noexcept
+    : _surface(surface)
 {
-    namespace Input
-    {
-        using SceneR::Graphics::DisplaySurface;
-
-        // Initializes a new instance of the KeyboardState class.
-        // Array or parameter list of Keys to initialize as pressed.
-        //KeyboardState(Keys[] keys);
-
-        KeyboardState::KeyboardState(DisplaySurface* surface) noexcept
-            : _surface(surface)
-        {
-        }
-
-        KeyState KeyboardState::get_key_state(const Keys& key) noexcept
-        {
-            return (is_key_down(key) ? KeyState::Down : KeyState::Up);
-        }
-
-        std::vector<Keys> KeyboardState::get_pressed_keys() noexcept
-        {
-            return { };
-        }
-
-        bool KeyboardState::is_key_down(const Keys& key) noexcept
-        {
-            return false;
-            // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
-        }
-
-        bool KeyboardState::is_key_up(const Keys& key) noexcept
-        {
-            return false;
-            // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);
-        }
-    }
 }
+
+KeyState KeyboardState::get_key_state(const Keys& key) noexcept
+{
+    return (is_key_down(key) ? KeyState::Down : KeyState::Up);
+}
+
+std::vector<Keys> KeyboardState::get_pressed_keys() noexcept
+{
+    return { };
+}
+
+bool KeyboardState::is_key_down(const Keys& key) noexcept
+{
+    return false;
+    // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
+}
+
+bool KeyboardState::is_key_up(const Keys& key) noexcept
+{
+    return false;
+    // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);
+}
+
+}}

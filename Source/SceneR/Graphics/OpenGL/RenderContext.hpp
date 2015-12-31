@@ -3,53 +3,49 @@
 //
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 
-#ifndef SCENER_CORE_GRAPHICS_RENDER_CONTEXT
-#define SCENER_CORE_GRAPHICS_RENDER_CONTEXT
+#ifndef SCENER_GRAPHICS_OPENGL_RENDERCONTEXT_HPP
+#define SCENER_GRAPHICS_OPENGL_RENDERCONTEXT_HPP
 
-#include <algorithm>
-#include <iostream>
-#include <iterator>
+#include <cstdint>
 #include <string>
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { namespace OpenGL {
+
+class DisplayDevice;
+class DisplaySurface;
+
+class RenderContext final
 {
-    namespace Graphics
-    {
-        class DisplayDevice;
-        class DisplaySurface;
+public:
+    RenderContext(DisplayDevice* display, DisplaySurface* surface);
+    ~RenderContext();
 
-        class RenderContext final
-        {
-        public:
-            RenderContext(DisplayDevice* display, DisplaySurface* surface);
-            ~RenderContext();
+public:
+    bool create() noexcept;
 
-        public:
-            bool create() noexcept;
+    bool is_direct_context() noexcept;
 
-            bool is_direct_context() noexcept;
+    void make_current() const noexcept;
 
-            void make_current() const noexcept;
+    void destroy() noexcept;
 
-            void destroy() noexcept;
+    void enable_debug_output() const noexcept;
 
-            void enable_debug_output() const noexcept;
+    void present_interval(std::int32_t interval) const noexcept;
 
-            void present_interval(std::int32_t interval) const noexcept;
+    void present() const noexcept;
 
-            void present() const noexcept;
+private:
+    static bool isExtensionSupported(const std::string& extList, const std::string& extension) noexcept;
 
-        private:
-            static bool isExtensionSupported(const std::string& extList, const std::string& extension) noexcept;
+private:
+    DisplayDevice*  _display { nullptr };
+    DisplaySurface* _surface { nullptr };
+    GLXContext      _context { 0 };
+};
 
-        private:
-            DisplayDevice*  _display { nullptr };
-            DisplaySurface* _surface { nullptr };
-            GLXContext      _context { 0 };
-        };
-    }
-}
+}}}
 
-#endif // SCENER_CORE_GRAPHICS_RENDER_CONTEXT
+#endif // SCENER_GRAPHICS_OPENGL_RENDERCONTEXT_HPP

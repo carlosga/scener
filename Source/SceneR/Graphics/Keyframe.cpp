@@ -3,32 +3,30 @@
 
 #include "SceneR/Graphics/Keyframe.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+using SceneR::TimeSpan;
+using SceneR::Math::Matrix;
+
+Keyframe::Keyframe()
+    : Keyframe { TimeSpan::zero, Matrix::identity }
 {
-    namespace Graphics
-    {
-        using SceneR::TimeSpan;
-        using SceneR::Math::Matrix;
-
-        Keyframe::Keyframe()
-            : Keyframe { TimeSpan::zero, Matrix::identity }
-        {
-        }
-
-        Keyframe::Keyframe(const TimeSpan& time, const Matrix& transform)
-            : _time      { time }
-            , _transform { transform }
-        {
-        }
-
-        const TimeSpan& Keyframe::time() const noexcept
-        {
-            return _time;
-        }
-
-        const Matrix& Keyframe::transform() const noexcept
-        {
-            return _transform;
-        }
-    }
 }
+
+Keyframe::Keyframe(const TimeSpan& time, const Matrix& transform)
+    : _time      { time }
+    , _transform { transform }
+{
+}
+
+const TimeSpan& Keyframe::time() const noexcept
+{
+    return _time;
+}
+
+const Matrix& Keyframe::transform() const noexcept
+{
+    return _transform;
+}
+
+}}

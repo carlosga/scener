@@ -7,70 +7,68 @@
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //---------------------------------------------------------------------------------------------------
 
-#ifndef GRAPHICS_EFFECTDIRTYFLAGS_HPP
-#define GRAPHICS_EFFECTDIRTYFLAGS_HPP
+#ifndef SCENER_GRAPHICS_EFFECTDIRTYFLAGS_HPP
+#define SCENER_GRAPHICS_EFFECTDIRTYFLAGS_HPP
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+/**
+ * @brief Track which effect parameters need to be recomputed during the next OnApply.
+ */
+enum class EffectDirtyFlags : std::uint32_t
 {
-    namespace Graphics
-    {
-        /**
-         * @brief Track which effect parameters need to be recomputed during the next OnApply.
-         */
-        enum class EffectDirtyFlags : std::uint32_t
-        {
-            WorldViewProj   = 1,
-            World           = 2,
-            EyePosition     = 4,
-            MaterialColor   = 8,
-            Fog             = 16,
-            FogEnable       = 32,
-            AlphaTest       = 64,
-            ShaderIndex     = 128,
-            All             = WorldViewProj | World | EyePosition | MaterialColor | Fog | FogEnable | AlphaTest | ShaderIndex
-        };
+    WorldViewProj   = 1,
+    World           = 2,
+    EyePosition     = 4,
+    MaterialColor   = 8,
+    Fog             = 16,
+    FogEnable       = 32,
+    AlphaTest       = 64,
+    ShaderIndex     = 128,
+    All             = WorldViewProj | World | EyePosition | MaterialColor | Fog | FogEnable | AlphaTest | ShaderIndex
+};
 
-        inline constexpr EffectDirtyFlags operator&(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
-        {
-            return static_cast<EffectDirtyFlags>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
-        }
-
-        inline constexpr EffectDirtyFlags operator|(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
-        {
-            return static_cast<EffectDirtyFlags>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
-        }
-
-        inline constexpr EffectDirtyFlags operator~(const EffectDirtyFlags& value)
-        {
-            return static_cast<EffectDirtyFlags>(~static_cast<std::uint32_t>(value));
-        }
-
-        inline constexpr bool operator==(const EffectDirtyFlags& left, const std::uint32_t& right)
-        {
-            return (static_cast<std::uint32_t>(left) == right);
-        }
-
-        inline constexpr bool operator!=(const EffectDirtyFlags& left, const std::uint32_t& right)
-        {
-            return (static_cast<std::uint32_t>(left) != right);
-        }
-
-        inline EffectDirtyFlags& operator&=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
-        {
-            left = left & right;
-
-            return left;
-        }
-
-        inline EffectDirtyFlags& operator|=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
-        {
-            left = left | right;
-
-            return left;
-        }
-    }
+inline constexpr EffectDirtyFlags operator&(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
+{
+    return static_cast<EffectDirtyFlags>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
 }
 
-#endif  // GRAPHICS_EFFECTDIRTYFLAGS_HPP
+inline constexpr EffectDirtyFlags operator|(const EffectDirtyFlags& left, const EffectDirtyFlags& right)
+{
+    return static_cast<EffectDirtyFlags>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+}
+
+inline constexpr EffectDirtyFlags operator~(const EffectDirtyFlags& value)
+{
+    return static_cast<EffectDirtyFlags>(~static_cast<std::uint32_t>(value));
+}
+
+inline constexpr bool operator==(const EffectDirtyFlags& left, const std::uint32_t& right)
+{
+    return (static_cast<std::uint32_t>(left) == right);
+}
+
+inline constexpr bool operator!=(const EffectDirtyFlags& left, const std::uint32_t& right)
+{
+    return (static_cast<std::uint32_t>(left) != right);
+}
+
+inline EffectDirtyFlags& operator&=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
+{
+    left = left & right;
+
+    return left;
+}
+
+inline EffectDirtyFlags& operator|=(EffectDirtyFlags& left, const EffectDirtyFlags& right)
+{
+    left = left | right;
+
+    return left;
+}
+
+}}
+
+#endif // SCENER_GRAPHICS_EFFECTDIRTYFLAGS_HPP

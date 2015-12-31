@@ -9,41 +9,37 @@
 #include <SceneR/Graphics/DrawableComponent.hpp>
 #include <SceneR/Math/Matrix.hpp>
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+class  Model;
+struct StepTime;
+
+}}
+
+namespace SkeletalAnimation {
+
+class SampleRenderer;
+
+class EarthShaker : public SceneR::Graphics::DrawableComponent
 {
-    namespace Graphics
-    {
-        class Model;
-        class StepTime;
-    }
-}
+public:
+    EarthShaker(SampleRenderer* renderer);
+    ~EarthShaker() = default;
 
-namespace SceneR
-{
-    namespace Sample
-    {
-        class SampleRenderer;
+public:
+    void initialize() override;
+    void update(const SceneR::Graphics::StepTime& renderTime) override;
+    void draw(const SceneR::Graphics::StepTime& renderTime) override;
 
-        class EarthShaker : public SceneR::Graphics::DrawableComponent
-        {
-        public:
-            EarthShaker(SampleRenderer* renderer);
-            ~EarthShaker() = default;
+protected:
+    void load_content() override;
+    void unload_content() override;
 
-        public:
-            void initialize() override;
-            void update(const SceneR::Graphics::StepTime& renderTime) override;
-            void draw(const SceneR::Graphics::StepTime& renderTime) override;
+private:
+    std::shared_ptr<SceneR::Graphics::Model> _model;
+    SceneR::Math::Matrix                     _world;
+};
 
-        protected:
-            void load_content() override;
-            void unload_content() override;
-
-        private:
-            std::shared_ptr<SceneR::Graphics::Model> _model;
-            SceneR::Math::Matrix                     _world;
-        };
-    }
 }
 
 #endif // SKELETAL_ANIMATION_EARTHSHAKER_HPP

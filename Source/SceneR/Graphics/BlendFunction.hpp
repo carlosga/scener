@@ -8,42 +8,40 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+/**
+ * Defines how to combine a source color with the destination color already on the render target for color blending.
+ */
+enum class BlendFunction : std::uint32_t
 {
-    namespace Graphics
-    {
-        /**
-         * Defines how to combine a source color with the destination color already on the render target for color blending.
-         */
-        enum class BlendFunction : std::uint32_t
-        {
-            /**
-             * The result is the destination added to the source.
-             * Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
-             */
-            Add = GL_FUNC_ADD,
-            /**
-             * The result is the maximum of the source and destination.
-             * Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
-             */
-            Max = GL_MAX,
-            /**
-             * The result is the minimum of the source and destination.
-             * Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
-             */
-            Min = GL_MIN,
-            /**
-             * The result is the source subtracted from the destination.
-             * Result = (Destination Color * Destination Blend) − (Source Color * Source Blend)
-             */
-            ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
-            /**
-             * The result is the destination subtracted from the source.
-             * Result = (Source Color * Source Blend) − (Destination Color * Destination Blend)
-             */
-            Subtract = GL_FUNC_SUBTRACT
-        };
-    }
-}
+    /**
+     * The result is the destination added to the source.
+     * Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
+     */
+    Add = GL_FUNC_ADD,
+    /**
+     * The result is the maximum of the source and destination.
+     * Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+     */
+    Max = GL_MAX,
+    /**
+     * The result is the minimum of the source and destination.
+     * Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+     */
+    Min = GL_MIN,
+    /**
+     * The result is the source subtracted from the destination.
+     * Result = (Destination Color * Destination Blend) − (Source Color * Source Blend)
+     */
+    ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
+    /**
+     * The result is the destination subtracted from the source.
+     * Result = (Source Color * Source Blend) − (Destination Color * Destination Blend)
+     */
+    Subtract = GL_FUNC_SUBTRACT
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_BLENDFUNCTION_HPP

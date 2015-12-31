@@ -6,34 +6,32 @@
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+/**
+ * Defines flags that describe the relationship between the adapter refresh rate and
+ * the rate at which Present operations are completed.
+ */
+enum class PresentInterval : std::uint32_t
 {
-    namespace Graphics
-    {
-        /**
-         * Defines flags that describe the relationship between the adapter refresh rate and
-         * the rate at which Present operations are completed.
-         */
-        enum class PresentInterval : std::uint32_t
-        {
-            /**
-             * Equivalent to setting One.
-             */
-            Default = 1,
-            /**
-             * The driver waits for the vertical retrace period (the runtime will beam trace to prevent tearing).
-             */
-            One = 2,
-            /**
-             * The driver waits for the vertical retrace period.
-             */
-            Two = 3,
-            /**
-             * The runtime updates the window client area immediately.
-             */
-            Immediate = 4
-        };
-    }
-}
+    /**
+     * Equivalent to setting One.
+     */
+    Default = 1,
+    /**
+     * The driver waits for the vertical retrace period (the runtime will beam trace to prevent tearing).
+     */
+    One = 2,
+    /**
+     * The driver waits for the vertical retrace period.
+     */
+    Two = 3,
+    /**
+     * The runtime updates the window client area immediately.
+     */
+    Immediate = 4
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_PRESENTINTERVAL_HPP

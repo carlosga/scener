@@ -4,21 +4,13 @@
 #include "SceneR/Graphics/Texture.hpp"
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
+#include "SceneR/Graphics/SurfaceFormat.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+Texture::Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
+    : GraphicsResource { graphicsDevice }
 {
-    namespace Graphics
-    {
-        bool Texture::is_compressed_surface_format(const SurfaceFormat& format) noexcept
-        {
-            return (format == SurfaceFormat::Dxt1
-                 || format == SurfaceFormat::Dxt3
-                 || format == SurfaceFormat::Dxt5);
-        }
-
-        Texture::Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-            : GraphicsResource { graphicsDevice }
-        {
-        }
-    }
 }
+
+}}

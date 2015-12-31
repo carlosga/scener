@@ -6,18 +6,16 @@
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Input {
+
+enum class ButtonState : std::uint32_t
 {
-    namespace Input
-    {
-        enum class ButtonState : std::uint32_t
-        {
-            // The button is pressed.
-            Pressed
-            // The button is released.
-          , Released
-        };
-    }
-}
+    // The button is pressed.
+    Pressed
+    // The button is released.
+  , Released
+};
+
+}}
 
 #endif  // SCENER_INPUT_BUTTON_STATE_HPP

@@ -10,100 +10,94 @@
 
 #include "SceneR/Math/Matrix.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace SceneR { struct TimeSpan; }
 
-template <typename T> class ContentTypeReader;
+namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
-}}}
+namespace SceneR { namespace Graphics {
 
-namespace SceneR
+class ModelMesh;
+class ModelBone;
+
+class Skeleton final
 {
-    struct TimeSpan;
+public:
+    Skeleton() = default;
+    ~Skeleton() = default;
 
-    namespace Graphics
-    {
-        class ModelMesh;
-        class ModelBone;
+public:
+    /**
+     * Describes how to pose the skin's geometry for use with the joints.
+     * Floating-point 4x4 transformation matrix stored in column-major order.
+     */
+    const SceneR::Math::Matrix& bind_shape_matrix() const noexcept;
 
-        class Skeleton final
-        {
-        public:
-            Skeleton() = default;
-            ~Skeleton() = default;
+    /**
+     * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint.
+     */
+    const std::vector<SceneR::Math::Matrix>& inverse_bind_matrices() const noexcept;
 
-        public:
-            /**
-             * Describes how to pose the skin's geometry for use with the joints.
-             * Floating-point 4x4 transformation matrix stored in column-major order.
-             */
-            const SceneR::Math::Matrix& bind_shape_matrix() const noexcept;
+    /**
+     * Joints used to animate the skin.
+     */
+    const std::vector<std::shared_ptr<ModelBone>>& joints() const noexcept;
 
-            /**
-             * Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint.
-             */
-            const std::vector<SceneR::Math::Matrix>& inverse_bind_matrices() const noexcept;
+    /**
+     * The skeleton name.
+     */
+    const std::string& name() const noexcept;
 
-            /**
-             * Joints used to animate the skin.
-             */
-            const std::vector<std::shared_ptr<ModelBone>>& joints() const noexcept;
+    /**
+     * Gets the current bone transform matrices, relative to their parent bones.
+     */
+    const std::vector<SceneR::Math::Matrix>& bone_transforms() const noexcept;
 
-            /**
-             * The skeleton name.
-             */
-            const std::string& name() const noexcept;
+    /**
+     * Gets the current bone transform matrices, in absolute format.
+     */
+    const std::vector<SceneR::Math::Matrix>& world_transforms() const noexcept;
 
-            /**
-             * Gets the current bone transform matrices, relative to their parent bones.
-             */
-            const std::vector<SceneR::Math::Matrix>& bone_transforms() const noexcept;
+    /**
+     * Gets the current bone transform matrices, relative to the skinning bind pose.
+     */
+    const std::vector<SceneR::Math::Matrix>& skin_transforms() const noexcept;
 
-            /**
-             * Gets the current bone transform matrices, in absolute format.
-             */
-            const std::vector<SceneR::Math::Matrix>& world_transforms() const noexcept;
+    /**
+     * Advances the current animation position.
+     */
+    void update(const SceneR::TimeSpan&     time
+              , const bool&                 relativeToCurrentTime
+              , const SceneR::Math::Matrix& rootTransform) noexcept;
 
-            /**
-             * Gets the current bone transform matrices, relative to the skinning bind pose.
-             */
-            const std::vector<SceneR::Math::Matrix>& skin_transforms() const noexcept;
+private:
+    /**
+     * Helper used by the Update method to refresh the BoneTransforms data.
+     */
+    void update_bone_transforms(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
 
-            /**
-             * Advances the current animation position.
-             */
-            void update(const SceneR::TimeSpan&     time
-                      , const bool&                 relativeToCurrentTime
-                      , const SceneR::Math::Matrix& rootTransform) noexcept;
+    /**
+     * Helper used by the Update method to refresh the WorldTransforms data.
+     */
+    void update_world_transforms(const SceneR::Math::Matrix& rootTransform) noexcept;
 
-        private:
-            /**
-             * Helper used by the Update method to refresh the BoneTransforms data.
-             */
-            void update_bone_transforms(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
+    /**
+     * Helper used by the Update method to refresh the SkinTransforms data.
+     */
+    void update_skin_transforms() noexcept;
 
-            /**
-             * Helper used by the Update method to refresh the WorldTransforms data.
-             */
-            void update_world_transforms(const SceneR::Math::Matrix& rootTransform) noexcept;
+private:
+    SceneR::Math::Matrix                    _bind_shape_matrix     { SceneR::Math::Matrix::identity };
+    std::vector<SceneR::Math::Matrix>       _inverse_bind_matrices { };
+    std::vector<std::shared_ptr<ModelBone>> _joints                { };
+    std::string                             _name                  { };
 
-            /**
-             * Helper used by the Update method to refresh the SkinTransforms data.
-             */
-            void update_skin_transforms() noexcept;
+    std::vector<SceneR::Math::Matrix> _bone_transforms;
+    std::vector<SceneR::Math::Matrix> _world_transforms;
+    std::vector<SceneR::Math::Matrix> _skin_transforms;
 
-        private:
-            SceneR::Math::Matrix                    _bind_shape_matrix     { SceneR::Math::Matrix::identity };
-            std::vector<SceneR::Math::Matrix>       _inverse_bind_matrices { };
-            std::vector<std::shared_ptr<ModelBone>> _joints                { };
-            std::string                             _name                  { };
+    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+};
 
-            std::vector<SceneR::Math::Matrix> _bone_transforms;
-            std::vector<SceneR::Math::Matrix> _world_transforms;
-            std::vector<SceneR::Math::Matrix> _skin_transforms;
-
-            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
-        };
-    }
-}
+}}
 
 #endif // SCENER_GRAPHICS_SKELETON_HPP

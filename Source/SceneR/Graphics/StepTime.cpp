@@ -3,29 +3,27 @@
 
 #include "SceneR/Graphics/StepTime.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+using SceneR::TimeSpan;
+
+StepTime::StepTime()
+    : StepTime { TimeSpan::zero, TimeSpan::zero, false }
 {
-    namespace Graphics
-    {
-        using SceneR::TimeSpan;
-
-        StepTime::StepTime()
-            : StepTime { TimeSpan::zero, TimeSpan::zero, false }
-        {
-        }
-
-        StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime)
-            : StepTime { totalRenderTime, elapsedRenderTime, false }
-        {
-        }
-
-        StepTime::StepTime(const TimeSpan& totalRenderTime
-                         , const TimeSpan& elapsedRenderTime
-                         , const bool&     isRunningSlowly)
-            : total_render_time   { totalRenderTime }
-            , elapsed_render_time { elapsedRenderTime }
-            , is_running_slowly   { isRunningSlowly }
-        {
-        }
-    }
 }
+
+StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime)
+    : StepTime { totalRenderTime, elapsedRenderTime, false }
+{
+}
+
+StepTime::StepTime(const TimeSpan& totalRenderTime
+                 , const TimeSpan& elapsedRenderTime
+                 , const bool&     isRunningSlowly)
+    : total_render_time   { totalRenderTime }
+    , elapsed_render_time { elapsedRenderTime }
+    , is_running_slowly   { isRunningSlowly }
+{
+}
+
+}}

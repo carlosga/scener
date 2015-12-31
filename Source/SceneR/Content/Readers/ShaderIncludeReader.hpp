@@ -6,7 +6,7 @@
 
 #include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR { namespace Graphics { class ShaderInclude; } }
+namespace SceneR { namespace Graphics { struct ShaderInclude; } }
 
 namespace SceneR { namespace Content { namespace Readers {
 

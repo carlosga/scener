@@ -1,71 +1,66 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef GRAPHICS_IEFFECTFOG_HPP
-#define GRAPHICS_IEFFECTFOG_HPP
+#ifndef SCENER_GRAPHICS_IEFFECTFOG_HPP
+#define SCENER_GRAPHICS_IEFFECTFOG_HPP
 
-namespace SceneR
+namespace SceneR { namespace Math { struct Vector3; } }
+
+namespace SceneR { namespace Graphics {
+
+/**
+ * Defines fog parameters for the current effect.
+ */
+class IEffectFog
 {
-    namespace Framework
-    {
-        struct Vector3;
-    }
+public:
+    /**
+     * Releases all resource sbeing used by this IEffectFog instance
+     */
+    virtual ~IEffectFog() = default;
 
-    namespace Graphics
-    {
-        /**
-         * Defines fog parameters for the current effect.
-         */
-        class IEffectFog
-        {
-        public:
-            /**
-             * Releases all resource sbeing used by this IEffectFog instance
-             */
-            virtual ~IEffectFog() = default;
+public:
+    /**
+     *  Gets the fog color.
+     */
+    virtual const SceneR::Math::Vector3& fog_color() const = 0;
 
-        public:
-            /**
-             *  Gets the fog color.
-             */
-            virtual const SceneR::Framework::Vector3& fog_color() const = 0;
+    /**
+     *  Set the fog color.
+     */
+    virtual void fog_color(const SceneR::Math::Vector3& color) = 0;
 
-            /**
-             *  Set the fog color.
-             */
-            virtual void fog_color(const SceneR::Framework::Vector3& color) = 0;
+    /**
+     * Gets a value indicating whether for is enabled for the current effect.
+     */
+    virtual bool fog_enabled() const = 0;
 
-            /**
-             * Gets a value indicating whether for is enabled for the current effect.
-             */
-            virtual bool fog_enabled() const = 0;
+    /**
+     * Gets a value indicating whether for is enabled for the current effect.
+     */
+    virtual void fog_enabled(const bool& fogEnabled) = 0;
 
-            /**
-             * Gets a value indicating whether for is enabled for the current effect.
-             */
-            virtual void fog_enabled(const bool& fogEnabled) = 0;
+    /**
+     * Gets maximum z value for fog.
+     */
+    virtual float fog_end() const = 0;
 
-            /**
-             * Gets maximum z value for fog.
-             */
-            virtual float fog_end() const = 0;
+    /**
+     * Sets maximum z value for fog.
+     */
+    virtual void fog_end(const float& fogEnd) = 0;
 
-            /**
-             * Sets maximum z value for fog.
-             */
-            virtual void fog_end(const float& fogEnd) = 0;
+    /**
+     * Gets minimum z value for fog.
+     */
+    virtual float fog_start() const = 0;
 
-            /**
-             * Gets minimum z value for fog.
-             */
-            virtual float fog_start() const = 0;
+    /**
+     * Sets minimum z value for fog.
+     */
+    virtual void fog_start(const float& fogStart) = 0;
+};
 
-            /**
-             * Sets minimum z value for fog.
-             */
-            virtual void fog_start(const float& fogStart) = 0;
-        };
-    }
-}
+}}
 
-#endif  // GRAPHICS_IEFFECTFOG_HPP
+#endif // SCENER_GRAPHICS_IEFFECTFOG_HPP

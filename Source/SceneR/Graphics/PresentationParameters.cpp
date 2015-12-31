@@ -3,17 +3,15 @@
 
 #include "SceneR/Graphics/PresentationParameters.hpp"
 
-namespace SceneR
+namespace SceneR {  namespace Graphics {
+
+PresentationParameters::PresentationParameters() noexcept
+    : full_screen        { false }
+    , back_buffer_height { 0 }
+    , back_buffer_width  { 0 }
+    , multi_sample_count { 8 }
+    , present_interval   { PresentInterval::Default }
 {
-    namespace Graphics
-    {
-        PresentationParameters::PresentationParameters() noexcept
-            : full_screen        { false }
-            , back_buffer_height { 0 }
-            , back_buffer_width  { 0 }
-            , multi_sample_count { 8 }
-            , present_interval   { PresentInterval::Default }
-        {
-        }
-    }
 }
+
+}}

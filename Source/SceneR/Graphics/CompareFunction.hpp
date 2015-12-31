@@ -8,50 +8,48 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+/**
+ * Specifies the functions used to compare each incoming pixel depth value
+ * with the depth value present in the depth buffer.
+ */
+enum class CompareFunction : std::uint32_t
 {
-    namespace Graphics
-    {
-        /**
-         * Specifies the functions used to compare each incoming pixel depth value
-         * with the depth value present in the depth buffer.
-         */
-        enum class CompareFunction : std::uint32_t
-        {
-            /**
-             * Always passes.
-             */
-            Always = GL_ALWAYS,
-            /**
-             * Passes if the incoming depth value is equal to the stored depth value.
-             */
-            Equal = GL_EQUAL,
-            /**
-             * Passes if the incoming depth value is greater than the stored depth value.
-             */
-            Greater = GL_GREATER,
-            /**
-             * Passes if the incoming depth value is greater than or equal to the stored depth value.
-             */
-            GreaterEqual = GL_GEQUAL,
-            /**
-             * Passes if the incoming depth value is less than the stored depth value.
-             */
-            Less = GL_LESS,
-            /**
-             * Passes if the incoming depth value is less than or equal to the stored depth value.
-             */
-            LessEqual = GL_LEQUAL,
-            /**
-             * Never passes.
-             */
-            Never = GL_NEVER,
-            /**
-             * Passes if the incoming depth value is not equal to the stored depth value.
-             */
-            NotEqual = GL_NOTEQUAL
-        };
-    }
-}
+    /**
+     * Always passes.
+     */
+    Always = GL_ALWAYS,
+    /**
+     * Passes if the incoming depth value is equal to the stored depth value.
+     */
+    Equal = GL_EQUAL,
+    /**
+     * Passes if the incoming depth value is greater than the stored depth value.
+     */
+    Greater = GL_GREATER,
+    /**
+     * Passes if the incoming depth value is greater than or equal to the stored depth value.
+     */
+    GreaterEqual = GL_GEQUAL,
+    /**
+     * Passes if the incoming depth value is less than the stored depth value.
+     */
+    Less = GL_LESS,
+    /**
+     * Passes if the incoming depth value is less than or equal to the stored depth value.
+     */
+    LessEqual = GL_LEQUAL,
+    /**
+     * Never passes.
+     */
+    Never = GL_NEVER,
+    /**
+     * Passes if the incoming depth value is not equal to the stored depth value.
+     */
+    NotEqual = GL_NOTEQUAL
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_COMPAREFUNCTION_HPP

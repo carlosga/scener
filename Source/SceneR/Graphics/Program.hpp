@@ -11,56 +11,56 @@
 #include <string>
 
 #include "SceneR/IDisposable.hpp"
-#include "ShaderType.hpp"
-#include "UniformBufferObject.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { namespace OpenGL { class ConstantBuffer; } } }
+
+namespace SceneR { namespace Graphics {
+
+enum class ShaderType : std::uint32_t;
+
+class EffectParameter;
+class Shader;
+
+class Program final : public SceneR::IDisposable
 {
-    namespace Graphics
-    {
-        class EffectParameter;
-        class Shader;
+public:
+    Program() = default;
 
-        class Program final : public SceneR::IDisposable
-        {
-        public:
-            Program() = default;
+    virtual ~Program() override = default;
 
-            virtual ~Program() override = default;
+public:
+    virtual void dispose() override;
 
-        public:
-            virtual void dispose() override;
+public:
+    std::uint32_t id() const noexcept;
 
-        public:
-            std::uint32_t id() const noexcept;
+    SceneR::Graphics::OpenGL::ConstantBuffer* constant_buffer() const noexcept;
 
-            UniformBufferObject* uniform_buffer() const noexcept;
+    void create();
 
-            void create();
+    void bind() const;
 
-            void bind() const;
+    void add_shader(std::shared_ptr<Shader> shader);
 
-            void add_shader(std::shared_ptr<Shader> shader);
+    void unbind() const;
 
-            void unbind() const;
+    void link();
 
-            void link();
+    std::map<std::string, std::size_t> get_uniform_offsets() const;
 
-            std::map<std::string, std::size_t> get_uniform_offsets() const;
+    void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
 
-            void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
+private:
+    void verify_linking_state();
 
-        private:
-            void verify_linking_state();
+public:
+    std::string name { };
 
-        public:
-            std::string name { };
+private:
+    std::uint32_t                                             _id              { 0 };
+    std::unique_ptr<SceneR::Graphics::OpenGL::ConstantBuffer> _constant_buffer { nullptr };
+};
 
-        private:
-            std::uint32_t                        _id             { 0 };
-            std::unique_ptr<UniformBufferObject> _uniform_buffer { nullptr };
-        };
-    }
-}
+}}
 
 #endif // SCENER_GRAPHICS_PROGRAM_HPP

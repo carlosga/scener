@@ -6,30 +6,26 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/Program.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+EffectPass::EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
+    : _graphics_device { graphicsDevice }
 {
-    namespace Graphics
-    {
-        using SceneR::Graphics::GraphicsDevice;
-
-        EffectPass::EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-            : _graphics_device { graphicsDevice }
-        {
-        }
-
-        const std::string& EffectPass::name() const noexcept
-        {
-            return _name;
-        }
-
-        void EffectPass::begin() noexcept
-        {
-            _program->bind();
-        }
-
-        void EffectPass::end() noexcept
-        {
-            _program->unbind();
-        }
-    }
 }
+
+const std::string& EffectPass::name() const noexcept
+{
+    return _name;
+}
+
+void EffectPass::begin() noexcept
+{
+    _program->bind();
+}
+
+void EffectPass::end() noexcept
+{
+    _program->unbind();
+}
+
+}}

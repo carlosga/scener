@@ -6,30 +6,22 @@
 
 #include <SceneR/Graphics/Renderer.hpp>
 
-namespace SceneR
-{
-    namespace Graphics
-    {
-        class StepTime;
-    }
-}
+namespace SceneR { namespace Graphics { struct StepTime; } }
 
-namespace SceneR
-{
-    namespace Sample
-    {
-        class SampleRenderer : public SceneR::Graphics::Renderer
-        {
-        public:
-            SampleRenderer();
-            virtual ~SampleRenderer() = default;
+namespace SkeletalAnimation {
 
-        protected:
-            virtual void begin_run() override;
-            virtual void load_content() override;
-            virtual void draw(const SceneR::Graphics::StepTime &renderTime) override;
-        };
-    }
+class SampleRenderer : public SceneR::Graphics::Renderer
+{
+public:
+    SampleRenderer();
+    virtual ~SampleRenderer() = default;
+
+protected:
+    virtual void begin_run() override;
+    virtual void load_content() override;
+    virtual void draw(const SceneR::Graphics::StepTime &renderTime) override;
+};
+
 }
 
 #endif // SKELETAL_ANIMATION_SAMPLERENDERER_HPP

@@ -7,96 +7,89 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "SceneR/Graphics/TextureFilter.hpp"
-#include "SceneR/Graphics/TextureTarget.hpp"
-#include "SceneR/Graphics/TextureAddressMode.hpp"
 #include "SceneR/Graphics/GraphicsResource.hpp"
+#include "SceneR/Graphics/TextureFilter.hpp"
+#include "SceneR/Graphics/TextureAddressMode.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
-    template <typename T> class ContentTypeReader;
+namespace SceneR { namespace Graphics {
 
-}}}
-
-namespace SceneR
+/**
+ * Contains sampler state, which determines how to sample texture data.
+ */
+class SamplerState: public GraphicsResource
 {
-    namespace Graphics
-    {
-        /**
-         * Contains sampler state, which determines how to sample texture data.
-         */
-        class SamplerState: public GraphicsResource
-        {
-        public:
-            /**
-             * Initializes a new instance of the SamplerState class.
-             */
-            SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+public:
+    /**
+     * Initializes a new instance of the SamplerState class.
+     */
+    SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
-            /**
-             * @brief Copy constructor.
-             * @param samplerState The sampler state to copy from.
-             */
-            SamplerState(const SamplerState& samplerState) = default;
+    /**
+     * @brief Copy constructor.
+     * @param samplerState The sampler state to copy from.
+     */
+    SamplerState(const SamplerState& samplerState) = default;
 
-            /**
-             * Destructor
-             */
-            virtual ~SamplerState() override = default;
+    /**
+     * Destructor
+     */
+    virtual ~SamplerState() override = default;
 
-        public:
-            virtual void dispose() override;
+public:
+    virtual void dispose() override;
 
-        public:
-            SamplerState& operator=(const SamplerState& samplerState) = default;
+public:
+    SamplerState& operator=(const SamplerState& samplerState) = default;
 
-        private:
-            void apply(const std::uint32_t& textureId) const;
+public:
+    /**
+     * Gets or sets the texture-address mode for the u-coordinate.
+     */
+    TextureAddressMode address_u { TextureAddressMode::Wrap };
 
-        public:
-            /**
-             * Gets or sets the texture-address mode for the u-coordinate.
-             */
-            TextureAddressMode address_u { TextureAddressMode::Wrap };
+    /**
+     * Gets or sets the texture-address mode for the v-coordinate.
+     */
+    TextureAddressMode address_v { TextureAddressMode::Wrap };
 
-            /**
-             * Gets or sets the texture-address mode for the v-coordinate.
-             */
-            TextureAddressMode address_v { TextureAddressMode::Wrap };
+    /**
+     * Gets or sets the texture-address mode for the w-coordinate.
+     */
+    TextureAddressMode address_w { TextureAddressMode::Wrap };
 
-            /**
-             * Gets or sets the texture-address mode for the w-coordinate.
-             */
-            TextureAddressMode address_w { TextureAddressMode::Wrap };
+    /**
+     * Gets or sets the type of filtering during sampling.
+     */
+    TextureFilter mag_filter { TextureFilter::Linear };
 
-            /**
-             * Gets or sets the type of filtering during sampling.
-             */
-            TextureFilter mag_filter { TextureFilter::Linear };
+    /**
+     * Gets or sets the type of filtering during sampling.
+     */
+    TextureFilter min_filter { TextureFilter::Linear };
 
-            /**
-             * Gets or sets the type of filtering during sampling.
-             */
-            TextureFilter min_filter { TextureFilter::Linear };
+    /**
+     * Gets or sets the maximum anisotropy. The default value is 0.
+     */
+    std::int32_t max_anisotropy { 4 };
 
-            /**
-             * Gets or sets the maximum anisotropy. The default value is 0.
-             */
-            std::int32_t max_anisotropy { 4 };
+    /**
+     * Gets or sets the level of detail (LOD) index of the largest map to use.
+     */
+    std::size_t max_mip_level { 0 };
 
-            /**
-             * Gets or sets the level of detail (LOD) index of the largest map to use.
-             */
-            std::size_t max_mip_level { 0 };
+    /**
+     * Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
+     */
+    float mip_map_level_of_detail_bias { 0 };
 
-            /**
-             * Gets or sets the mipmap LOD bias, which ranges from -1.0 to +1.0. The default value is 0.
-             */
-            float mip_map_level_of_detail_bias { 0 };
+private:
+    void apply(const std::uint32_t& textureId) const;
 
-            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
-        };
-    }
-}
+    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_SAMPLERSTATE_HPP

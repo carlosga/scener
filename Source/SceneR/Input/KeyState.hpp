@@ -6,19 +6,17 @@
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Input {
+
+// Identifies the state of a keyboard key.
+enum class KeyState : std::uint32_t
 {
-    namespace Input
-    {
-        // Identifies the state of a keyboard key.
-        enum class KeyState : std::uint32_t
-        {
-            // Key is pressed.
-            Down
-            // Key is released.
-          , Up
-        };
-    }
-}
+    // Key is pressed.
+    Down
+    // Key is released.
+  , Up
+};
+
+}}
 
 #endif // SCENER_INPUT_KEYSTATE_HPP

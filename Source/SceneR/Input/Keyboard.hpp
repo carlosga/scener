@@ -9,42 +9,37 @@
 
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { namespace OpenGL { class DisplaySurface; } } }
+
+namespace SceneR { namespace Input {
+
+enum class Keys     : std::uint32_t;
+enum class KeyState : std::uint32_t;
+
+struct KeyboardState;
+
+// Allows retrieval of keystrokes from a keyboard input device.
+class Keyboard
 {
-    namespace Graphics
-    {
-        class DisplaySurface;
-    }
+public:
+    // Returns the current keyboard state.
+    static KeyboardState get_state() noexcept;
 
-    namespace Input
-    {
-        enum class Keys : std::uint32_t;
-        enum class KeyState : std::uint32_t;
+    // Gets or sets the window used for mouse processing.
+    static void initialize(Graphics::OpenGL::DisplaySurface* surface) noexcept;
 
-        struct KeyboardState;
+private:
+    static void key_callback(Graphics::OpenGL::DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept;
 
-        // Allows retrieval of keystrokes from a keyboard input device.
-        class Keyboard
-        {
-        public:
-            // Returns the current keyboard state.
-            static KeyboardState get_state() noexcept;
+private:
+    Keyboard() = delete;
+    Keyboard(const Keyboard& keyboard) = delete;
+    Keyboard& operator=(const Keyboard& keyboard) = delete;
 
-            // Gets or sets the window used for mouse processing.
-            static void initialize(SceneR::Graphics::DisplaySurface* surface) noexcept;
+private:
+    static Graphics::OpenGL::DisplaySurface* surface;
+};
 
-        private:
-            static void key_callback(SceneR::Graphics::DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept;
-
-        private:
-            Keyboard() = delete;
-            Keyboard(const Keyboard& keyboard) = delete;
-            Keyboard& operator=(const Keyboard& keyboard) = delete;
-
-        private:
-            static SceneR::Graphics::DisplaySurface* surface;
-        };
-    }
-}
+}}
 
 #endif // SCENER_INPUT_KEYBOARD_HPP

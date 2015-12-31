@@ -13,7 +13,6 @@
 #include "SceneR/Math/Vector2.hpp"
 #include "SceneR/Math/Vector3.hpp"
 #include "SceneR/Math/Vector4.hpp"
-#include "SceneR/Graphics/BufferObject.hpp"
 #include "SceneR/Graphics/EffectParameter.hpp"
 #include "SceneR/Graphics/EffectParameterClass.hpp"
 #include "SceneR/Graphics/EffectParameterType.hpp"
@@ -25,11 +24,12 @@
 #include "SceneR/Graphics/ModelMeshPart.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/Texture2D.hpp"
-#include "SceneR/Graphics/VertexArrayObject.hpp"
 #include "SceneR/Graphics/VertexBuffer.hpp"
 #include "SceneR/Graphics/VertexDeclaration.hpp"
 #include "SceneR/Graphics/VertexElementFormat.hpp"
 #include "SceneR/Graphics/VertexElementUsage.hpp"
+#include "SceneR/Graphics/OpenGL/Buffer.hpp"
+#include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
 
 using json11::Json;
 using SceneR::Content::GLTF::Accessor;

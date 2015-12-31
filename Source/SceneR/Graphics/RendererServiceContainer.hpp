@@ -7,95 +7,93 @@
 #include <map>
 #include <string>
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+/**
+ * Renderer services container.
+ *
+ * Implementation references:
+ *  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
+ *  http://blog.jsolutions.co.uk/?p=588
+ */
+class RendererServiceContainer final
 {
-    namespace Graphics
+public:
+    /**
+     * Initializes a new instance of the RendererServiceContainer class.
+     */
+    RendererServiceContainer() = default;
+
+    /**
+     * Releases all the resources being used by this RendererServiceContainer.
+     */
+    ~RendererServiceContainer() = default;
+
+public:
+    /**
+     * Adds a service to the RendererServiceContainer.
+     */
+    template <class T>
+    void add_service(T& service)
     {
-        /**
-         * Renderer services container.
-         *
-         * Implementation references:
-         *  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
-         *  http://blog.jsolutions.co.uk/?p=588
-         */
-        class RendererServiceContainer final
+        if (!is_registered<T>())
         {
-        public:
-            /**
-             * Initializes a new instance of the RendererServiceContainer class.
-             */
-            RendererServiceContainer() = default;
-
-            /**
-             * Releases all the resources being used by this RendererServiceContainer.
-             */
-            ~RendererServiceContainer() = default;
-
-        public:
-            /**
-             * Adds a service to the RendererServiceContainer.
-             */
-            template <class T>
-            void add_service(T& service)
-            {
-                if (!is_registered<T>())
-                {
-                    _instance_map[get_type_name<T>()] = reinterpret_cast<void*>(&service);
-                }
-            }
-
-            /**
-             * Gets the service object of the specified identifier.
-             */
-            template <class T>
-            T* get_service() const
-            {
-                if (!is_registered<T>())
-                {
-                    throw std::runtime_error("Service not registered");
-                }
-
-                return (reinterpret_cast<T*>(_instance_map.find(get_type_name<T>())->second));
-            }
-
-            /**
-             * Removes the object providing a specified service.
-             */
-            template <class T>
-            void remove_service()
-            {
-                if (is_registered<T>())
-                {
-                    _instance_map.erase(get_type_name<T>());
-                }
-            }
-
-            void clear()
-            {
-                _instance_map.clear();
-            }
-
-        private:
-            template <class T>
-            bool is_registered() const
-            {
-                return (_instance_map.find(get_type_name<T>()) != _instance_map.end());
-            }
-
-            template <class T>
-            std::string get_type_name() const
-            {
-                return typeid(T).name();
-            }
-
-        private:
-            RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
-            RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
-
-        private:
-            std::map<std::string, void*> _instance_map;
-        };
+            _instance_map[get_type_name<T>()] = reinterpret_cast<void*>(&service);
+        }
     }
-}
+
+    /**
+     * Gets the service object of the specified identifier.
+     */
+    template <class T>
+    T* get_service() const
+    {
+        if (!is_registered<T>())
+        {
+            throw std::runtime_error("Service not registered");
+        }
+
+        return (reinterpret_cast<T*>(_instance_map.find(get_type_name<T>())->second));
+    }
+
+    /**
+     * Removes the object providing a specified service.
+     */
+    template <class T>
+    void remove_service()
+    {
+        if (is_registered<T>())
+        {
+            _instance_map.erase(get_type_name<T>());
+        }
+    }
+
+    void clear()
+    {
+        _instance_map.clear();
+    }
+
+private:
+    template <class T>
+    bool is_registered() const
+    {
+        return (_instance_map.find(get_type_name<T>()) != _instance_map.end());
+    }
+
+    template <class T>
+    std::string get_type_name() const
+    {
+        return typeid(T).name();
+    }
+
+private:
+    RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
+    RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
+
+private:
+    std::map<std::string, void*> _instance_map;
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_RENDERERSERVICECONTAINER_HPP

@@ -4,30 +4,28 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
 #define SCENER_GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+class GraphicsDevice;
+
+/**
+ * Defines a mechanism for retrieving GraphicsDevice objects.
+ */
+class IGraphicsDeviceService
 {
-    namespace Graphics
-    {
-        class GraphicsDevice;
+public:
+    /**
+     * Destructor
+     */
+    virtual ~IGraphicsDeviceService() = default;
 
-        /**
-         * Defines a mechanism for retrieving GraphicsDevice objects.
-         */
-        class IGraphicsDeviceService
-        {
-        public:
-            /**
-             * Destructor
-             */
-            virtual ~IGraphicsDeviceService() = default;
+public:
+    /**
+     * Retrieves a graphics device.
+     */
+    virtual GraphicsDevice* graphics_device() const noexcept = 0;
+};
 
-        public:
-            /**
-             * Retrieves a graphics device.
-             */
-            virtual GraphicsDevice* graphics_device() const noexcept = 0;
-        };
-    }
-}
+}}
 
 #endif  // SCENER_GRAPHICS_IGRAPHICSDEVICESERVICE_HPP

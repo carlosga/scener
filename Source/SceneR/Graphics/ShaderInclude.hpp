@@ -10,37 +10,35 @@
 
 #include "SceneR/IDisposable.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+struct ShaderInclude : public SceneR::IDisposable
 {
-    namespace Graphics
-    {
-        class ShaderInclude : public SceneR::IDisposable
-        {
-        public:
-            ShaderInclude(const std::string&               name
-                        , const std::string&               path
-                        , const std::vector<std::uint8_t>& source) noexcept;
+public:
+    ShaderInclude(const std::string&               name
+                , const std::string&               path
+                , const std::vector<std::uint8_t>& source) noexcept;
 
-            ShaderInclude(const std::string& name, const std::string& path, const std::string& source) noexcept;
+    ShaderInclude(const std::string& name, const std::string& path, const std::string& source) noexcept;
 
-            virtual ~ShaderInclude() override = default;
+    virtual ~ShaderInclude() override = default;
 
-        public:
-            virtual void dispose() override;
+public:
+    virtual void dispose() override;
 
-        public:
-            void declare() const;
+public:
+    void declare() const;
 
-            void remove() const;
+    void remove() const;
 
-            bool is_declared() const;
+    bool is_declared() const;
 
-        public:
-            const std::string name;
-            const std::string path;
-            const std::string source;
-        };
-    }
-}
+public:
+    const std::string name;
+    const std::string path;
+    const std::string source;
+};
 
-#endif// SCENER_GRAPHICS_SHADERINCLUDE_HPP
+}}
+
+#endif // SCENER_GRAPHICS_SHADERINCLUDE_HPP

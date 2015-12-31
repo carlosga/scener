@@ -6,57 +6,52 @@
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Graphics { namespace OpenGL { class DisplaySurface; } } }
+
+namespace SceneR { namespace Input {
+
+enum class Buttons     : std::uint32_t;
+enum class ButtonState : std::uint32_t;
+
+struct MouseState;
+
+// Allows retrieval of position and button clicks from a mouse input device.
+class Mouse
 {
-    namespace Graphics
-    {
-        class DisplaySurface;
-    }
+public:
+    // Gets the current state of the mouse, including mouse position and buttons pressed.
+    static MouseState get_state() noexcept;
 
-    namespace Input
-    {
-        enum class Buttons : std::uint32_t;
-        enum class ButtonState : std::uint32_t;
+    // Sets the position of the mouse cursor relative to the upper-left corner of the window.
+    static void set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept;
 
-        struct MouseState;
+    // Gets or sets the window used for mouse processing.
+    // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
+    static void initialize(SceneR::Graphics::OpenGL::DisplaySurface* surface) noexcept;
 
-        // Allows retrieval of position and button clicks from a mouse input device.
-        class Mouse
-        {
-        public:
-            // Gets the current state of the mouse, including mouse position and buttons pressed.
-            static MouseState get_state() noexcept;
+private:
+    static void cursor_position_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+                                       , double                                    xpos
+                                       , double                                    ypos) noexcept;
 
-            // Sets the position of the mouse cursor relative to the upper-left corner of the window.
-            static void set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept;
+    static void mouse_button_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+                                    , std::uint32_t                             button
+                                    , std::uint32_t                             action
+                                    , std::uint32_t                             mods) noexcept;
 
-            // Gets or sets the window used for mouse processing.
-            // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-            static void initialize(SceneR::Graphics::DisplaySurface* surface) noexcept;
+    static void scroll_wheel_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+                                    , double                                    xoffset
+                                    , double                                    yoffset) noexcept;
 
-        private:
-            static void cursor_position_callback(SceneR::Graphics::DisplaySurface* surface
-                                               , double                            xpos
-                                               , double                            ypos) noexcept;
+private:
+    Mouse() = delete;
+    Mouse(const Mouse& mouse) = delete;
+    Mouse& operator=(const Mouse& mouse) = delete;
 
-            static void mouse_button_callback(SceneR::Graphics::DisplaySurface* surface
-                                            , std::uint32_t                     button
-                                            , std::uint32_t                     action
-                                            , std::uint32_t                     mods) noexcept;
+private:
+    static SceneR::Graphics::OpenGL::DisplaySurface* surface;
+};
 
-            static void scroll_wheel_callback(SceneR::Graphics::DisplaySurface* surface
-                                            , double                            xoffset
-                                            , double                            yoffset) noexcept;
-
-        private:
-            Mouse() = delete;
-            Mouse(const Mouse& mouse) = delete;
-            Mouse& operator=(const Mouse& mouse) = delete;
-
-        private:
-            static SceneR::Graphics::DisplaySurface* surface;
-        };
-    }
-}
+}}
 
 #endif // SCENER_INPUT_MOUSE_HPP

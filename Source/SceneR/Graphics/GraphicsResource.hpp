@@ -10,49 +10,47 @@
 
 #include "SceneR/IDisposable.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+class GraphicsDevice;
+
+/**
+ * Queries and prepares resources.
+ */
+class GraphicsResource : SceneR::IDisposable
 {
-    namespace Graphics
-    {
-        class GraphicsDevice;
+public:
+    /**
+     * Initializes a new instance of the GraphicsResource class
+     * @param graphicsDevice the graphics associated to this resources
+     */
+    GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
-        /**
-         * Queries and prepares resources.
-         */
-        class GraphicsResource : SceneR::IDisposable
-        {
-        public:
-            /**
-             * Initializes a new instance of the GraphicsResource class
-             * @param graphicsDevice the graphics associated to this resources
-             */
-            GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /**
+     * Destructor
+     */
+    virtual ~GraphicsResource() override = default;
 
-            /**
-             * Destructor
-             */
-            virtual ~GraphicsResource() override = default;
+public:
+    virtual void dispose() override = 0;
 
-        public:
-            virtual void dispose() override = 0;
+public:
+    /**
+     * Gets the GraphicsDevice associated with this GraphicsResource.
+     * @return The GraphicsDevice associated with this GraphicsResource.
+     */
+    GraphicsDevice* graphics_device() const noexcept;
 
-        public:
-            /**
-             * Gets the GraphicsDevice associated with this GraphicsResource.
-             * @return The GraphicsDevice associated with this GraphicsResource.
-             */
-            GraphicsDevice* graphics_device() const noexcept;
+public:
+    /**
+     * Gets or sets the name of the resource.
+     */
+    std::string name;
 
-        public:
-            /**
-             * Gets or sets the name of the resource.
-             */
-            std::string name;
+protected:
+    GraphicsDevice* _graphics_device;
+};
 
-        protected:
-            GraphicsDevice* _graphics_device;
-        };
-    }
-}
+}}
 
 #endif // SCENER_GRAPHICS_GRAPHICSRESOURCE_HPP

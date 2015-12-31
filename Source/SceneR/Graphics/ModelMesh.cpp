@@ -10,70 +10,68 @@
 #include "SceneR/Graphics/ModelBone.hpp"
 #include "SceneR/Graphics/VertexBuffer.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+using SceneR::Math::BoundingSphere;
+using SceneR::Math::Vector3;
+
+const BoundingSphere& ModelMesh::bounding_sphere() const noexcept
 {
-    namespace Graphics
+    return _bounding_sphere;
+}
+
+const std::string& ModelMesh::name() const noexcept
+{
+    return _name;
+}
+
+std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
+{
+    auto effects = std::vector<EffectTechnique*>(0);
+
+    for (const auto meshPart : _mesh_parts)
     {
-        using SceneR::Math::BoundingSphere;
-        using SceneR::Math::Vector3;
+        auto effect = meshPart->effect.get();
 
-        const BoundingSphere& ModelMesh::bounding_sphere() const noexcept
+        Ensures(effect != nullptr);
+
+        effects.push_back(effect);
+    }
+
+    return effects;
+}
+
+const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const noexcept
+{
+    return _mesh_parts;
+}
+
+Skeleton* ModelMesh::skeleton() const noexcept
+{
+    return _skeleton.get();
+}
+
+void ModelMesh::draw() noexcept
+{
+    for (const auto& meshPart : _mesh_parts)
+    {
+        auto graphicsDevice = meshPart->vertex_buffer()->graphics_device();
+
+        if (meshPart->effect.get() != nullptr)
         {
-            return _bounding_sphere;
+            graphicsDevice->effect = meshPart->effect.get();
         }
 
-        const std::string& ModelMesh::name() const noexcept
-        {
-            return _name;
-        }
+        graphicsDevice->index_buffer  = meshPart->index_buffer();
+        graphicsDevice->vertex_buffer = meshPart->vertex_buffer();
 
-        std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
-        {
-            auto effects = std::vector<EffectTechnique*>(0);
-
-            for (const auto meshPart : _mesh_parts)
-            {
-                auto effect = meshPart->effect.get();
-
-                Ensures(effect != nullptr);
-
-                effects.push_back(effect);
-            }
-
-            return effects;
-        }
-
-        const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const noexcept
-        {
-            return _mesh_parts;
-        }
-
-        Skeleton* ModelMesh::skeleton() const noexcept
-        {
-            return _skeleton.get();
-        }
-
-        void ModelMesh::draw() noexcept
-        {
-            for (const auto& meshPart : _mesh_parts)
-            {
-                auto graphicsDevice = meshPart->vertex_buffer()->graphics_device();
-
-                if (meshPart->effect.get() != nullptr)
-                {
-                    graphicsDevice->effect = meshPart->effect.get();
-                }
-
-                graphicsDevice->index_buffer  = meshPart->index_buffer();
-                graphicsDevice->vertex_buffer = meshPart->vertex_buffer();
-
-                graphicsDevice->draw_indexed_primitives(meshPart->primitive_type()
-                                                      , meshPart->vertex_offset()
-                                                      , 0
-                                                      , meshPart->vertex_count()
-                                                      , meshPart->start_index()
-                                                      , meshPart->primitive_count());
-            }
-        }
+        graphicsDevice->draw_indexed_primitives(meshPart->primitive_type()
+                                              , meshPart->vertex_offset()
+                                              , 0
+                                              , meshPart->vertex_count()
+                                              , meshPart->start_index()
+                                              , meshPart->primitive_count());
     }
 }
+
+}}

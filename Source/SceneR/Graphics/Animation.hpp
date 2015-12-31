@@ -10,40 +10,34 @@
 
 #include "SceneR/Graphics/Keyframe.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
-template <typename T> class ContentTypeReader;
+namespace SceneR { namespace Graphics {
 
-}}}
-
-namespace SceneR
+class Animation final
 {
-    namespace Graphics
-    {
-        class Animation final
-        {
-        public:
-            Animation();
-            ~Animation() = default;
+public:
+    Animation();
+    ~Animation() = default;
 
-        public:
-            const SceneR::TimeSpan& current_time() const noexcept;
-            const SceneR::TimeSpan& duration() const noexcept;
-            const std::string& name() const noexcept;
-            const std::vector<Keyframe>& keyframes() const noexcept;
-            const Keyframe& current_keyframe() const noexcept;
+public:
+    const SceneR::TimeSpan& current_time() const noexcept;
+    const SceneR::TimeSpan& duration() const noexcept;
+    const std::string& name() const noexcept;
+    const std::vector<Keyframe>& keyframes() const noexcept;
+    const Keyframe& current_keyframe() const noexcept;
 
-            void update(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
+    void update(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
 
-        private:
-            std::string           _name;
-            std::vector<Keyframe> _keyframes;
-            SceneR::TimeSpan      _current_time;
-            std::size_t           _current_keyframe;
+private:
+    std::string           _name;
+    std::vector<Keyframe> _keyframes;
+    SceneR::TimeSpan      _current_time;
+    std::size_t           _current_keyframe;
 
-            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
-        };
-    }
-}
+    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+};
+
+}}
 
 #endif // SCENER_GRAPHICS_ANIMATION_HPP

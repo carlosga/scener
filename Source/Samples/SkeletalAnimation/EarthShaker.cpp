@@ -14,59 +14,57 @@
 #include "SkeletalAnimation/SampleRenderer.hpp"
 #include "SkeletalAnimation/Camera.hpp"
 
-namespace SceneR
+namespace SkeletalAnimation {
+
+using SceneR::Graphics::Model;
+using SceneR::Graphics::EffectTechnique;
+using SceneR::Graphics::StepTime;
+using SceneR::Math::Matrix;
+
+EarthShaker::EarthShaker(SampleRenderer* renderer)
+    : DrawableComponent { renderer }
+    , _model            { nullptr }
+    , _world            { Matrix::identity }
 {
-    namespace Sample
+}
+
+void EarthShaker::initialize()
+{
+    _world = Matrix::create_rotation_x(-SceneR::Math::pi_over_2)
+           * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
+
+    DrawableComponent::initialize();
+}
+
+void EarthShaker::load_content()
+{
+    _model = _renderer->content_manager()->load("earthshaker/earthshaker");
+
+    for (auto mesh : _model->meshes())
     {
-        using SceneR::Graphics::Model;
-        using SceneR::Graphics::EffectTechnique;
-        using SceneR::Graphics::StepTime;
-        using SceneR::Math::Matrix;
-
-        EarthShaker::EarthShaker(SampleRenderer* renderer)
-            : DrawableComponent { renderer }
-            , _model            { nullptr }
-            , _world            { Matrix::identity }
+        for (auto effect : mesh->effects())
         {
-        }
-
-        void EarthShaker::initialize()
-        {
-            _world = Matrix::create_rotation_x(-Math::pi_over_2)
-                   * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
-
-            DrawableComponent::initialize();
-        }
-
-        void EarthShaker::load_content()
-        {
-            _model = _renderer->content_manager()->load("earthshaker/earthshaker");
-
-            for (auto mesh : _model->meshes())
-            {
-                for (auto effect : mesh->effects())
-                {
-                    effect->texture_enabled(true);
-                }
-            }
-        }
-
-        void EarthShaker::unload_content()
-        {
-            _world = Matrix::identity;
-            _model = nullptr;
-        }
-
-        void EarthShaker::update(const StepTime& renderTime)
-        {
-            _model->update(renderTime);
-        }
-
-        void EarthShaker::draw(const StepTime& renderTime)
-        {
-            const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
-
-            _model->draw(_world, camera->view, camera->projection);
+            effect->texture_enabled(true);
         }
     }
+}
+
+void EarthShaker::unload_content()
+{
+    _world = Matrix::identity;
+    _model = nullptr;
+}
+
+void EarthShaker::update(const StepTime& renderTime)
+{
+    _model->update(renderTime);
+}
+
+void EarthShaker::draw(const StepTime& renderTime)
+{
+    const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
+
+    _model->draw(_world, camera->view, camera->projection);
+}
+
 }

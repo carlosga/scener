@@ -8,32 +8,30 @@
 #include <SceneR/Math/Matrix.hpp>
 #include <SceneR/Math/Vector3.hpp>
 
-namespace SceneR
+namespace SkeletalAnimation {
+
+class SampleRenderer;
+
+class Camera : public SceneR::Graphics::Component
 {
-    namespace Sample
-    {
-        class SampleRenderer;
+public:
+    Camera(SampleRenderer* renderer);
+    ~Camera() = default;
 
-        class Camera : public SceneR::Graphics::Component
-        {
-        public:
-            Camera(SampleRenderer* renderer);
-            ~Camera() = default;
+public:
+    void initialize() override;
+    void update(const SceneR::Graphics::StepTime& renderTime) override;
 
-        public:
-            void initialize() override;
-            void update(const SceneR::Graphics::StepTime& renderTime) override;
+public:
+    SceneR::Math::Matrix view;
+    SceneR::Math::Matrix projection;
 
-        public:
-            SceneR::Math::Matrix view;
-            SceneR::Math::Matrix projection;
+private:
+    SceneR::Math::Vector3 _position;
+    SceneR::Math::Matrix  _rotationTransform;
+    float                 _rotation;
+};
 
-        private:
-            SceneR::Math::Vector3 _position;
-            SceneR::Math::Matrix  _rotationTransform;
-            float                 _rotation;
-        };
-    }
 }
 
 #endif // SKELETAL_ANIMATION_CAMERA_HPP

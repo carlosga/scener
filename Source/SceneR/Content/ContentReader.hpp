@@ -39,14 +39,14 @@ class BufferView;
 
 namespace SceneR { namespace Graphics {
 
-class EffectTechnique;
-class Model;
-class ModelMesh;
-class Program;
-class SamplerState;
-class Shader;
-class ShaderInclude;
-class Texture2D;
+class  EffectTechnique;
+class  Model;
+class  ModelMesh;
+class  Program;
+class  SamplerState;
+class  Shader;
+struct ShaderInclude;
+class  Texture2D;
 
 }}
 

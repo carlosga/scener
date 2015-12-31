@@ -3,19 +3,17 @@
 
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
-namespace SceneR
-{
-    namespace Graphics
-    {
-        GraphicsResource::GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-            : name             { }
-            , _graphics_device { graphicsDevice }
-        {
-        }
+namespace SceneR { namespace Graphics {
 
-        GraphicsDevice* GraphicsResource::graphics_device() const noexcept
-        {
-            return _graphics_device;
-        }
-    }
+GraphicsResource::GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
+    : name             { }
+    , _graphics_device { graphicsDevice }
+{
 }
+
+GraphicsDevice* GraphicsResource::graphics_device() const noexcept
+{
+    return _graphics_device;
+}
+
+}}

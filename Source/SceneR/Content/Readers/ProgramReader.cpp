@@ -8,6 +8,8 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Graphics/Program.hpp"
 #include "SceneR/Graphics/Shader.hpp"
+#include "SceneR/Graphics/OpenGL/Buffer.hpp"
+#include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

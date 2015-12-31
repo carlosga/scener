@@ -10,79 +10,71 @@
 
 #include "SceneR/IDisposable.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { class ContentReader; } }
+
+namespace SceneR { namespace Math { struct Matrix; } }
+
+namespace SceneR { namespace Graphics {
+
+class  ModelMesh;
+struct StepTime;
+
+/**
+ * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
+ */
+class Model final : SceneR::IDisposable
 {
-    namespace Content
-    {
-        class ContentReader;
-    }
+public:
+    /**
+     * Initializes a new instance of the Model class.
+     */
+    Model() noexcept;
 
-    namespace Math
-    {
-        struct Matrix;
-    }
+    /**
+     * Releases all resources being used by this Model.
+     */
+    virtual ~Model() override = default;
 
-    namespace Graphics
-    {
-        class StepTime;
-        class ModelMesh;
+public:
+    virtual void dispose() override;
 
-        /**
-         * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
-         */
-        class Model final : SceneR::IDisposable
-        {
-        public:
-            /**
-             * Initializes a new instance of the Model class.
-             */
-            Model() noexcept;
+public:
+    /**
+     * Gets the model name.
+     * @return the model name.
+     */
+    const std::string name() const noexcept;
 
-            /**
-             * Releases all resources being used by this Model.
-             */
-            virtual ~Model() override = default;
+    /**
+     * Gets a collection of ModelMesh objects which composes the current model.
+     */
+    const std::vector<std::shared_ptr<ModelMesh>>& meshes() const noexcept;
 
-        public:
-            virtual void dispose() override;
+    /**
+     * Advances the animation by given time and updates the model
+     * skin accordingly.
+     * @param elapsedtime elapsed time
+     */
+    void update(const StepTime& elapsedtime) noexcept;
 
-        public:
-            /**
-             * Gets the model name.
-             * @return the model name.
-             */
-            const std::string name() const noexcept;
+    /**
+     * Render a model after applying the given matrix transformations.
+     *
+     * @param world the world matrix
+     * @param view the view matrix
+     * @param projection the projection matrix
+     */
+    void draw(const SceneR::Math::Matrix& world
+            , const SceneR::Math::Matrix& view
+            , const SceneR::Math::Matrix& projection) noexcept;
 
-            /**
-             * Gets a collection of ModelMesh objects which composes the current model.
-             */
-            const std::vector<std::shared_ptr<ModelMesh>>& meshes() const noexcept;
+private:
+    std::string                             _name;
+    std::vector<std::shared_ptr<ModelMesh>> _meshes;
 
-            /**
-             * Advances the animation by given time and updates the model
-             * skin accordingly.
-             * @param elapsedtime elapsed time
-             */
-            void update(const StepTime& elapsedtime) noexcept;
+    friend class SceneR::Content::ContentReader;
+};
 
-            /**
-             * Render a model after applying the given matrix transformations.
-             *
-             * @param world the world matrix
-             * @param view the view matrix
-             * @param projection the projection matrix
-             */
-            void draw(const SceneR::Math::Matrix& world
-                    , const SceneR::Math::Matrix& view
-                    , const SceneR::Math::Matrix& projection) noexcept;
-
-        private:
-            std::string                             _name;
-            std::vector<std::shared_ptr<ModelMesh>> _meshes;
-
-            friend class SceneR::Content::ContentReader;
-        };
-    }
-}
+}}
 
 #endif // SCENER_GRAPHICS_MODEL_HPP
