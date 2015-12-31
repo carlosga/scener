@@ -4,60 +4,49 @@
 #ifndef SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 #define SCENER_CONTENT_READERS_MODELMESHREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+enum class VertexElementFormat : std::uint32_t;
+enum class VertexElementUsage  : std::uint32_t;
+
+class EffectTechnique;
+class ModelMesh;
+
+}}
+
+namespace SceneR { namespace Content { namespace GLTF {
+
+enum class AttributeType : std::uint32_t;
+
+}}}
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template<>
+class ContentTypeReader<Graphics::ModelMesh>
 {
-    namespace Graphics
-    {
-        enum class VertexElementFormat : std::uint32_t;
-        enum class VertexElementUsage  : std::uint32_t;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-        class EffectTechnique;
-        class ModelMesh;
-    }
+public:
+    /**
+     * Reads the meshes contents.
+     */
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
 
-    namespace Content
-    {
-        enum class AttributeType : std::uint32_t;
+private:
+    void read_mesh_part(ContentReader* input, const json11::Json& source, Graphics::ModelMesh* mesh) const;
 
-        /**
-         * Meshes reader
-         */
-        template<>
-        class ContentTypeReader<SceneR::Graphics::ModelMesh>
-        {
-        public:
-            /**
-             * Initializes a news instance of the ContentTypeReader class.
-             */
-            ContentTypeReader() = default;
+    std::shared_ptr<Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const;
 
-            /**
-             * Destructor
-             */
-            ~ContentTypeReader() = default;
+    Graphics::VertexElementFormat get_vertex_element_format(const GLTF::AttributeType& type) const;
 
-        public:
-            /**
-             * Reads the meshes contents.
-             */
-            std::shared_ptr<SceneR::Graphics::ModelMesh> read(gsl::not_null<ContentReader*>               input
-                                                            , const std::pair<std::string, json11::Json>& source) const;
+    Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
+};
 
-        private:
-            void read_mesh_part(gsl::not_null<ContentReader*> input
-                              , const json11::Json&           source
-                              , SceneR::Graphics::ModelMesh*  mesh) const;
-
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read_material(gsl::not_null<ContentReader*> input
-                                                                           , const std::string&            name) const;
-
-            SceneR::Graphics::VertexElementFormat get_vertex_element_format(const AttributeType& type) const;
-
-            SceneR::Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
-        };
-    }
-}
+}}}
 
 #endif  // SCENER_CONTENT_READERS_MODELMESHREADER_HPP

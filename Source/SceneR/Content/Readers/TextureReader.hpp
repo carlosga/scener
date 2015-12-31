@@ -4,26 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_TEXTUREREADER_HPP
 #define SCENER_CONTENT_READERS_TEXTUREREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Graphics/Texture2D.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { class Texture2D; } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<Graphics::Texture2D>
 {
-    namespace Content
-    {
-        template <>
-        class ContentTypeReader<SceneR::Graphics::Texture2D>
-        {
-        public:
-            ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-            ~ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
 
-        public:
-            std::shared_ptr<SceneR::Graphics::Texture2D> read(gsl::not_null<ContentReader*>               input
-                                                            , const std::pair<std::string, json11::Json>& source) const;
-        };
-    }
-}
+}}}
 
 #endif // SCENER_CONTENT_READERS_TEXTUREREADER_HPP

@@ -10,13 +10,14 @@
 
 #include <gsl.h>
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class EffectParameter;
@@ -62,7 +63,7 @@ namespace SceneR
             std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
             std::shared_ptr<Program>                      _program          { nullptr };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

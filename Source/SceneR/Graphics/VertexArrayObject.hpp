@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 
 namespace SceneR
 {

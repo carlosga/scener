@@ -10,14 +10,15 @@
 
 #include "SceneR/Math/Matrix.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
     struct TimeSpan;
-
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
 
     namespace Graphics
     {
@@ -100,7 +101,7 @@ namespace SceneR
             std::vector<SceneR::Math::Matrix> _world_transforms;
             std::vector<SceneR::Math::Matrix> _skin_transforms;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

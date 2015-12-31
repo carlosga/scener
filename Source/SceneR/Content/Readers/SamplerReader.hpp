@@ -4,26 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_SAMPLERREADER_HPP
 #define SCENER_CONTENT_READERS_SAMPLERREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Graphics/SamplerState.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { class SamplerState; } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<Graphics::SamplerState>
 {
-    namespace Content
-    {
-        template <>
-        class ContentTypeReader<SceneR::Graphics::SamplerState>
-        {
-        public:
-            ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-            ~ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
 
-        public:
-            std::shared_ptr<SceneR::Graphics::SamplerState> read(gsl::not_null<ContentReader*>               input
-                                                               , const std::pair<std::string, json11::Json>& value) const;
-        };
-    }
-}
+}}}
 
 #endif // SCENER_CONTENT_READERS_SAMPLERREADER_HPP

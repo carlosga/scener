@@ -11,13 +11,14 @@
 
 #include "SceneR/Math/Matrix.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class Animation;
@@ -85,7 +86,7 @@ namespace SceneR
             std::shared_ptr<Animation>              _animation { nullptr };
             SceneR::Math::Matrix                    _transform { SceneR::Math::Matrix::identity };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

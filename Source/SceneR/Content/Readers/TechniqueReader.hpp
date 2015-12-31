@@ -4,59 +4,50 @@
 #ifndef SCENER_CONTENT_READERS_TECHNIQUEREADER_HPP
 #define SCENER_CONTENT_READERS_TECHNIQUEREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Graphics/EffectTechnique.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+class EffectParameter;
+class EffectPass;
+class EffectTechnique;
+
+}}
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<Graphics::EffectTechnique>
 {
-    namespace Graphics
-    {
-        class EffectParameter;
-        class EffectPass;
-    }
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-    namespace Content
-    {
-        /**
-         * Techniques reader
-         */
-        template <>
-        class ContentTypeReader<SceneR::Graphics::EffectTechnique>
-        {
-        public:
-            ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
 
-            ~ContentTypeReader() = default;
+private:
+    void read_parameters(ContentReader*             input
+                       , const json11::Json&        source
+                       , Graphics::EffectTechnique* effect) const;
 
-        public:
-            /**
-             * Reads the techniques contents.
-             */
-            std::shared_ptr<SceneR::Graphics::EffectTechnique> read(gsl::not_null<ContentReader*>               input
-                                                                  , const std::pair<std::string, json11::Json>& source) const;
+    void set_parameter_values(ContentReader*             input
+                            , const json11::Json&        source
+                            , Graphics::EffectTechnique* effect) const;
 
-        private:
-            void read_parameters(ContentReader*                     input
-                               , const json11::Json&                value
-                               , SceneR::Graphics::EffectTechnique* effect) const;
+    void add_default_pass(ContentReader*             input
+                        , const json11::Json&        source
+                        , Graphics::EffectTechnique* effect) const;
 
-            void set_parameter_values(ContentReader*                     input
-                                    , const json11::Json&                value
-                                    , SceneR::Graphics::EffectTechnique* effect) const;
+    void read_pass_program(ContentReader*        input
+                         , const std::string&    name
+                         , Graphics::EffectPass* effectPass) const;
 
-            void add_default_pass(ContentReader*      input
-                                , const json11::Json& source
-                                , SceneR::Graphics::EffectTechnique* effect) const;
+    void cache_parameters(Graphics::EffectTechnique* effect) const;
 
-            void read_pass_program(ContentReader*                input
-                                 , const std::string&            programName
-                                 , SceneR::Graphics::EffectPass* effectPass) const;
+    void describe_parameter(Graphics::EffectParameter* parameter, const std::int32_t& type) const;
+};
 
-            void cache_parameters(SceneR::Graphics::EffectTechnique* effect) const;
-
-            void describe_parameter(SceneR::Graphics::EffectParameter* parameter, const std::int32_t& type) const;
-        };
-    }
-}
+}}}
 
 #endif // SCENER_TECHNIQUEREADER_HPP

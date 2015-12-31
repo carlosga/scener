@@ -10,13 +10,14 @@
 
 #include "SceneR/Graphics/PrimitiveType.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class EffectTechnique;
@@ -90,7 +91,7 @@ namespace SceneR
             std::size_t                     _primitive_count    = { 0 };
             SceneR::Graphics::PrimitiveType _primitive_type     = { PrimitiveType::TriangleList };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

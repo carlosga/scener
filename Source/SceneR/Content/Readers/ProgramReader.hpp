@@ -4,25 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_PROGRAMREADER_HPP
 #define SCENER_CONTENT_READERS_PROGRAMREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Graphics/Program.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { class Program; } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<Graphics::Program>
 {
-    namespace Content
-    {
-        template <>
-        class ContentTypeReader<SceneR::Graphics::Program>
-        {
-        public:
-            ContentTypeReader() = default;
-            ~ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-        public:
-            std::shared_ptr<SceneR::Graphics::Program> read(gsl::not_null<ContentReader*>               input
-                                                          , const std::pair<std::string, json11::Json>& value) const;
-        };
-    }
-}
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
+
+}}}
 
 #endif // SCENER_CONTENT_READERS_PROGRAMREADER_HPP

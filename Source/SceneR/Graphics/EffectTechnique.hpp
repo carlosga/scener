@@ -22,13 +22,14 @@
 #include "SceneR/Math/Vector3.hpp"
 #include "SceneR/Math/Vector4.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+    template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class GrapicsDevice;
@@ -293,7 +294,7 @@ namespace SceneR
             /// The inverse-transpose of MODELVIEW without the translation. This translates normals in model coordinates to eye coordinates.
             std::shared_ptr<EffectParameter> _world_view_inverse_transpose_param = nullptr;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

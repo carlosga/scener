@@ -9,33 +9,31 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Graphics/SamplerState.hpp"
 #include "SceneR/Graphics/TextureAddressMode.hpp"
 #include "SceneR/Graphics/TextureFilter.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Graphics::IGraphicsDeviceService;
+using SceneR::Graphics::SamplerState;
+using SceneR::Graphics::TextureAddressMode;
+using SceneR::Graphics::TextureFilter;
+
+auto ContentTypeReader<SamplerState>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
-    {
-        using json11::Json;
-        using SceneR::Graphics::IGraphicsDeviceService;
-        using SceneR::Graphics::SamplerState;
-        using SceneR::Graphics::TextureAddressMode;
-        using SceneR::Graphics::TextureFilter;
+    auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+    auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());
 
-        std::shared_ptr<SamplerState> ContentTypeReader<SamplerState>::read(gsl::not_null<ContentReader*>       input
-                                                                          , const std::pair<std::string, Json>& source) const
-        {
-            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-            auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());
+    sampler->name       = key;
+    sampler->mag_filter = static_cast<TextureFilter>(source["magFilter"].int_value());
+    sampler->min_filter = static_cast<TextureFilter>(source["minFilter"].int_value());
+    sampler->address_u  = static_cast<TextureAddressMode>(source["wrapS"].int_value());
+    sampler->address_v  = static_cast<TextureAddressMode>(source["wrapT"].int_value());
 
-            sampler->name       = source.first;
-            sampler->mag_filter = static_cast<TextureFilter>(source.second["magFilter"].int_value());
-            sampler->min_filter = static_cast<TextureFilter>(source.second["minFilter"].int_value());
-            sampler->address_u  = static_cast<TextureAddressMode>(source.second["wrapS"].int_value());
-            sampler->address_v  = static_cast<TextureAddressMode>(source.second["wrapT"].int_value());
-
-            return sampler;
-        }
-    }
+    return sampler;
 }
+
+}}}
 

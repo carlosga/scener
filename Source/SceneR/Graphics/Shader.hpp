@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/ShaderType.hpp"
 
 namespace SceneR

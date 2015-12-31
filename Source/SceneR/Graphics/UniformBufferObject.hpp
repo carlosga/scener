@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/BufferObject.hpp"
 #include "SceneR/Graphics/BufferUsage.hpp"
 

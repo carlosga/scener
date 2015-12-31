@@ -10,13 +10,14 @@
 
 #include "SceneR/Math/BoundingSphere.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class EffectTechnique;
@@ -81,7 +82,7 @@ namespace SceneR
             SceneR::Math::BoundingSphere                _bounding_sphere { SceneR::Math::Vector3::zero, 0.0f };
             std::shared_ptr<Skeleton>                   _skeleton        { nullptr };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

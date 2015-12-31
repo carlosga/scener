@@ -4,38 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_IMAGEREADER_HPP
 #define SCENER_CONTENT_READERS_IMAGEREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Texture/Surface.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace DDS { class Surface; } } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template<>
+class ContentTypeReader<DDS::Surface>
 {
-    namespace Content
-    {
-        /**
-         * Image reader
-         */
-        template<>
-        class ContentTypeReader<SceneR::Texture::Surface>
-        {
-        public:
-            /**
-             * Initializes a news instance of the ContentTypeReader class.
-             */
-            ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-            /**
-             * Destructor
-             */
-            ~ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
 
-        public:
-            /**
-             * Reads the meshes contents.
-             */
-            std::shared_ptr<SceneR::Texture::Surface> read(gsl::not_null<ContentReader*>               input
-                                                         , const std::pair<std::string, json11::Json>& source) const;
-        };
-    }
-}
+}}}
 
 #endif  // SCENER_CONTENT_READERS_IMAGEREADER_HPP

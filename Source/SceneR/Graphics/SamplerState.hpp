@@ -12,13 +12,14 @@
 #include "SceneR/Graphics/TextureAddressMode.hpp"
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+    template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         /**
@@ -93,7 +94,7 @@ namespace SceneR
              */
             float mip_map_level_of_detail_bias { 0 };
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

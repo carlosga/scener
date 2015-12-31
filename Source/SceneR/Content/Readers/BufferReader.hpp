@@ -4,38 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_BUFFERREADER_HPP
 #define SCENER_CONTENT_READERS_BUFFERREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Content/Readers/Buffer.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace GLTF { class Buffer; } } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<GLTF::Buffer>
 {
-    namespace Content
-    {
-        /**
-         * Buffers reader
-         */
-        template <>
-        class ContentTypeReader<Buffer>
-        {
-        public:
-            /**
-             * Initializes a news instance of the BuffersReader class.
-             */
-            ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-            /**
-             * Destructor
-             */
-            ~ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
 
-        public:
-            /**
-             * Reads the buffers contents.
-             */
-            std::shared_ptr<Buffer> read(gsl::not_null<ContentReader*>               input
-                                       , const std::pair<std::string, json11::Json>& source) const;
-        };
-    }
-}
+}}}
 
 #endif // SCENER_CONTENT_READERS_BUFFERREADER_HPP

@@ -1,58 +1,55 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "TextureReader.hpp"
+#include "SceneR/Content/Readers/TextureReader.hpp"
 
 #include <json11.hpp>
 
-#include "../ContentManager.hpp"
-#include "../ContentReader.hpp"
-#include "../../Graphics/IGraphicsDeviceService.hpp"
-#include "../../Graphics/RendererServiceContainer.hpp"
-#include "../../Graphics/SamplerState.hpp"
-#include "../../Graphics/SurfaceFormat.hpp"
-#include "../../Graphics/Texture2D.hpp"
-#include "../../Texture/Surface.hpp"
+#include "SceneR/Content/ContentManager.hpp"
+#include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/DDS/Surface.hpp"
+#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
+#include "SceneR/Graphics/RendererServiceContainer.hpp"
+#include "SceneR/Graphics/SamplerState.hpp"
+#include "SceneR/Graphics/SurfaceFormat.hpp"
+#include "SceneR/Graphics/Texture2D.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Content::DDS::Surface;
+using SceneR::Content::DDS::SurfaceMipmap;
+using SceneR::Graphics::IGraphicsDeviceService;
+using SceneR::Graphics::SamplerState;
+using SceneR::Graphics::SurfaceFormat;
+using SceneR::Graphics::Texture2D;
+
+auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
+    auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
+    auto surface   = input->read_object<Surface>(source["source"].string_value());
+    auto texture   = std::make_shared<Texture2D>(gdService->graphics_device()
+                                               , surface->width()
+                                               , surface->height()
+                                               , surface->mipmaps().size()
+                                               , surface->format());
+
+    texture->name = key;
+
+    texture->declare_storage(surface->mipmaps().size());
+
+    for (const auto& mipmap : surface->mipmaps())
     {
-        using json11::Json;
-        using SceneR::Graphics::IGraphicsDeviceService;
-        using SceneR::Graphics::SamplerState;
-        using SceneR::Graphics::SurfaceFormat;
-        using SceneR::Graphics::Texture2D;
-        using SceneR::Texture::Surface;
-        using SceneR::Texture::SurfaceMipmap;
-
-        std::shared_ptr<Texture2D> ContentTypeReader<Texture2D>::read(gsl::not_null<ContentReader*>       input
-                                                                    , const std::pair<std::string, Json>& source) const
-        {
-            auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-            auto surface   = input->read_object<Surface>(source.second["source"].string_value());
-            auto texture   = std::make_shared<Texture2D>(gdService->graphics_device()
-                                                        , surface->width()
-                                                        , surface->height()
-                                                        , surface->mipmaps().size()
-                                                        , surface->format());
-
-            texture->name = source.first;
-
-            texture->declare_storage(surface->mipmaps().size());
-
-            for (const auto& mipmap : surface->mipmaps())
-            {
-                texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_data());
-            }
-
-            texture->_sampler_state = input->read_object<SamplerState>(source.second["sampler"].string_value());
-
-            texture->_sampler_state->max_mip_level = texture->level_count();
-            texture->_sampler_state->apply(texture->id());
-
-            return texture;
-        }
+        texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_data());
     }
+
+    texture->_sampler_state = input->read_object<SamplerState>(source["sampler"].string_value());
+
+    texture->_sampler_state->max_mip_level = texture->level_count();
+    texture->_sampler_state->apply(texture->id());
+
+    return texture;
 }
+
+}}}
 

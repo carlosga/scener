@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <memory>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/BlendState.hpp"
 #include "SceneR/Graphics/DepthStencilState.hpp"
 #include "SceneR/Graphics/PresentationParameters.hpp"

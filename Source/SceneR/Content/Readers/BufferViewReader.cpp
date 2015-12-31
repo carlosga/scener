@@ -6,27 +6,25 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/Readers/Buffer.hpp"
+#include "SceneR/Content/GLTF/Buffer.hpp"
+#include "SceneR/Content/GLTF/BufferView.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Content::GLTF::Buffer;
+using SceneR::Content::GLTF::BufferView;
+
+auto ContentTypeReader<BufferView>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
-    {
-        using json11::Json;
-        using SceneR::Content::Buffer;
-        using SceneR::Content::BufferView;
+    auto bufferView = std::make_shared<BufferView>();
 
-        std::shared_ptr<BufferView> ContentTypeReader<BufferView>::read(gsl::not_null<ContentReader*>       input
-                                                                      , const std::pair<std::string, Json>& source) const
-        {
-            auto bufferView = std::make_shared<BufferView>();
+    bufferView->_name        = key;
+    bufferView->_buffer      = input->read_object<Buffer>(source["buffer"].string_value());
+    bufferView->_byte_offset = source["byteOffset"].int_value();
+    bufferView->_byte_length = source["byteLength"].int_value();
 
-            bufferView->_name        = source.first;
-            bufferView->_buffer      = input->read_object<Buffer>(source.second["buffer"].string_value());
-            bufferView->_byte_offset = source.second["byteOffset"].int_value();
-            bufferView->_byte_length = source.second["byteLength"].int_value();
-
-            return bufferView;
-        }
-    }
+    return bufferView;
 }
+
+}}}

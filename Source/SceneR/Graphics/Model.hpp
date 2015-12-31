@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 
 namespace SceneR
 {

@@ -6,23 +6,20 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/DDS/Surface.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Content::DDS::Surface;
+
+auto ContentTypeReader<Surface>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
-    {
-        using json11::Json;
-        using SceneR::Texture::Surface;
+    auto surface = std::make_shared<Surface>();
 
-        std::shared_ptr<Surface> ContentTypeReader<Surface>::read(gsl::not_null<ContentReader*>       input
-                                                                , const std::pair<std::string, Json>& source) const
-        {
-            auto surface = std::make_shared<Surface>();
+    surface->load(input->get_asset_path(source["uri"].string_value()));
 
-            surface->load(input->get_asset_path(source.second["uri"].string_value()));
-
-            return surface;
-        }
-    }
+    return surface;
 }
 
+}}}

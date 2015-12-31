@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-#include "../Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 #include "ShaderType.hpp"
 #include "UniformBufferObject.hpp"
 

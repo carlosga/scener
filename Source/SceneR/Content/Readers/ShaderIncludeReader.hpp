@@ -4,26 +4,23 @@
 #ifndef SCENER_CONTENT_READERS_SHADERINCLUDEREADER_HPP
 #define SCENER_CONTENT_READERS_SHADERINCLUDEREADER_HPP
 
-#include "SceneR/Content/ContentTypeReader.hpp"
-#include "SceneR/Graphics/ShaderInclude.hpp"
+#include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics { class ShaderInclude; } }
+
+namespace SceneR { namespace Content { namespace Readers {
+
+template <>
+class ContentTypeReader<Graphics::ShaderInclude>
 {
-    namespace Content
-    {
-        template <>
-        class ContentTypeReader<SceneR::Graphics::ShaderInclude>
-        {
-        public:
-            ContentTypeReader() = default;
+public:
+    ContentTypeReader() = default;
+    ~ContentTypeReader() = default;
 
-            ~ContentTypeReader() = default;
+public:
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+};
 
-        public:
-            std::shared_ptr<SceneR::Graphics::ShaderInclude> read(gsl::not_null<ContentReader*>               input
-                                                                , const std::pair<std::string, json11::Json>& source) const;
-        };
-    }
-}
+}}}
 
 #endif // SCENER_CONTENT_READERS_SHADERINCLUDEREADER_HPP

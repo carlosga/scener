@@ -11,13 +11,14 @@
 #include "SceneR/Graphics/EffectParameterClass.hpp"
 #include "SceneR/Graphics/EffectParameterType.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+    template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Math
     {
         struct Matrix;
@@ -125,7 +126,7 @@ namespace SceneR
             EffectParameterType  _parameter_type  = EffectParameterType::Single;
             UniformBufferObject* _uniform_buffer  = nullptr;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

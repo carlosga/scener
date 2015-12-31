@@ -6,47 +6,45 @@
 
 #include <string>
 
-namespace SceneR
+namespace SceneR { namespace Content {
+
+/**
+ * Exception used to report errors from the ContentManager.Load method.
+ */
+class ContentLoadException final : std::exception
 {
-    namespace Content
-    {
-        /**
-         * Exception used to report errors from the ContentManager.Load method.
-         */
-        class ContentLoadException final : std::exception
-        {
-        public:
-            /**
-             * Initializes a new instance of the ContentLoadException class with the given message
-             * @param m the exception message
-             */
-            ContentLoadException(const std::string m = "content_manager Load Exception");
+public:
+    /**
+     * Initializes a new instance of the ContentLoadException class with the given message
+     * @param m the exception message
+     */
+    ContentLoadException(const std::string m = "content_manager Load Exception");
 
-            /**
-             * @brief Copy constructor.
-             * @param exception the exception to copy from.
-             */
-            ContentLoadException(const ContentLoadException& exception);
+    /**
+     * @brief Copy constructor.
+     * @param exception the exception to copy from.
+     */
+    ContentLoadException(const ContentLoadException& exception);
 
-            /**
-             * Destructor
-             */
-            ~ContentLoadException() noexcept;
+    /**
+     * Destructor
+     */
+    ~ContentLoadException() noexcept;
 
-        public:
-            /**
-             * Gets the message that describes the error.
-             * @return  the message describing the error.
-             */
-            const char* what() const noexcept;
+public:
+    /**
+     * Gets the message that describes the error.
+     * @return  the message describing the error.
+     */
+    const char* what() const noexcept;
 
-        public:
-            ContentLoadException& operator=(const ContentLoadException& exception);
+public:
+    ContentLoadException& operator=(const ContentLoadException& exception);
 
-        private:
-            std::string msg;
-        };
-    }
-}
+private:
+    std::string msg;
+};
+
+}}
 
 #endif  // SCENER_CONTENT_CONTENTLOADEXCEPTION_HPP

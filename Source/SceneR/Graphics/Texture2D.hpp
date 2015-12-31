@@ -14,13 +14,14 @@
 #include "SceneR/Graphics/TextureObject.hpp"
 #include "SceneR/Graphics/Texture.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+    template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class GraphicsDevice;
@@ -127,7 +128,7 @@ namespace SceneR
             TextureObject                 _object;
             std::shared_ptr<SamplerState> _sampler_state;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

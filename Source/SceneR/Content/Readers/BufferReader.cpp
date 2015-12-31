@@ -6,26 +6,24 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Content/GLTF/Buffer.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Content::GLTF::Buffer;
+
+auto ContentTypeReader<Buffer>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
-    {
-        using json11::Json;
-        using SceneR::Content::Buffer;
+    auto buffer = std::make_shared<Buffer>();
 
-        std::shared_ptr<Buffer> ContentTypeReader<Buffer>::read(gsl::not_null<ContentReader*>       input
-                                                              , const std::pair<std::string, Json>& source) const
-        {
-            auto buffer = std::make_shared<Buffer>();
+    buffer->_name        = key;
+    buffer->_uri         = source["uri"].string_value();
+    buffer->_byte_length = source["byteLength"].int_value();
 
-            buffer->_name        = source.first;
-            buffer->_uri         = source.second["uri"].string_value();
-            buffer->_byte_length = source.second["byteLength"].int_value();
+    buffer->set_data(input->read_external_reference(buffer->_uri));
 
-            buffer->set_data(input->read_external_reference(buffer->_uri));
-
-            return buffer;
-        }
-    }
+    return buffer;
 }
+
+}}}

@@ -10,75 +10,71 @@
 
 #include "SceneR/Content/ContentResourceManager.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+class Model;
+class RendererServiceContainer;
+
+}}
+
+namespace SceneR { namespace IO { class FileStream; } }
+
+namespace SceneR { namespace Content {
+
+/**
+ * The ContentManager is used at runtime to load application content_manager from files.
+ */
+class ContentManager final
 {
-    namespace Graphics
-    {
-        class Model;
-        class RendererServiceContainer;
-    }
+public:
+    /**
+     * Initializes a new instance of the ContentManagerClass
+     */
+    ContentManager(gsl::not_null<Graphics::RendererServiceContainer*> serviceProvider
+                 , const std::string&                                 rootDirectory) noexcept;
 
-    namespace IO
-    {
-        class FileStream;
-    }
+    /**
+     * Releases all resources being used by the ContentManager class.
+     */
+    ~ContentManager();
 
-    namespace Content
-    {
-        /**
-         * The ContentManager is used at runtime to load application content_manager from files.
-         */
-        class ContentManager final
-        {
-        public:
-            /**
-             * Initializes a new instance of the ContentManagerClass
-             */
-            ContentManager(gsl::not_null<SceneR::Graphics::RendererServiceContainer*> serviceProvider
-                         , const std::string&                                         rootDirectory) noexcept;
+public:
+    /**
+     * Gets the graphics device
+     */
+    Graphics::RendererServiceContainer* service_provider() const noexcept;
 
-            /**
-             * Releases all resources being used by the ContentManager class.
-             */
-            ~ContentManager();
+    /**
+     * Gets the root directory associated with this ContentManager.
+     */
+    const std::string& root_directory() const noexcept;
 
-        public:
-            /**
-             * Gets the graphics device
-             */
-            SceneR::Graphics::RendererServiceContainer* service_provider() const noexcept;
+public:
+    /**
+     * Loads a the given asset.
+     */
+    std::shared_ptr<Graphics::Model> load(const std::string& assetName) noexcept;
 
-            /**
-             * Gets the root directory associated with this ContentManager.
-             */
-            const std::string& root_directory() const noexcept;
+    /**
+    * Disposes all data that was loaded by this ContentManager.
+    */
+    void unload() noexcept;
 
-        public:
-            /**
-             * Loads a the given asset.
-             */
-            std::shared_ptr<SceneR::Graphics::Model> load(const std::string& assetName) noexcept;
+private:
+    /**
+     * Opens a stream for reading the specified asset.
+     * #param assetName the name of the asset being read.
+     */
+    std::shared_ptr<IO::FileStream> open_stream(const std::string& assetName) noexcept;
 
-            /**
-            * Disposes all data that was loaded by this ContentManager.
-            */
-            void unload() noexcept;
+private:
+    static ContentResourceManager resource_manager;
 
-        private:
-            /**
-             * Opens a stream for reading the specified asset.
-             * #param assetName the name of the asset being read.
-             */
-            std::shared_ptr<SceneR::IO::FileStream> open_stream(const std::string& assetName) noexcept;
+private:
+    Graphics::RendererServiceContainer* _service_provider;
+    std::string                         _root_directory;
+};
 
-        private:
-            static ContentResourceManager resource_manager;
-
-        private:
-            SceneR::Graphics::RendererServiceContainer* _service_provider;
-            std::string                                 _root_directory;
-        };
-    }
-}
+}}
 
 #endif // SCENER_CONTENT_CONTENTMANAGER_HPP

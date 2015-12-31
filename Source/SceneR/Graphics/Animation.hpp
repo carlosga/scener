@@ -10,13 +10,14 @@
 
 #include "SceneR/Graphics/Keyframe.hpp"
 
+namespace SceneR { namespace Content { namespace Readers {
+
+template <typename T> class ContentTypeReader;
+
+}}}
+
 namespace SceneR
 {
-    namespace Content
-    {
-        template <typename T> class ContentTypeReader;
-    }
-
     namespace Graphics
     {
         class Animation final
@@ -40,7 +41,7 @@ namespace SceneR
             SceneR::TimeSpan      _current_time;
             std::size_t           _current_keyframe;
 
-            template <typename T> friend class SceneR::Content::ContentTypeReader;
+            template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
         };
     }
 }

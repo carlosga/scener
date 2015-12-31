@@ -9,7 +9,7 @@ set (SCENER_LIBRARIES SceneR)
 add_subdirectory(SceneR)
 
 # Tests subdirectories
-add_subdirectory(Tests)
+# add_subdirectory(Tests)
 
 # Samples subdirectories
 add_subdirectory(Samples)

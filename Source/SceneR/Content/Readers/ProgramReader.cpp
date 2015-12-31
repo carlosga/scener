@@ -6,31 +6,29 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
+#include "SceneR/Graphics/Program.hpp"
 #include "SceneR/Graphics/Shader.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Content { namespace Readers {
+
+using json11::Json;
+using SceneR::Graphics::Program;
+using SceneR::Graphics::Shader;
+
+auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& key, const Json& source) const
 {
-    namespace Content
-    {
-        using json11::Json;
-        using SceneR::Graphics::Program;
-        using SceneR::Graphics::Shader;
+    auto program        = std::make_shared<Program>();
+    auto vertexShader   = source["vertexShader"].string_value();
+    auto fragmentShader = source["fragmentShader"].string_value();
 
-        std::shared_ptr<Program> ContentTypeReader<Program>::read(gsl::not_null<ContentReader*>       input
-                                                                , const std::pair<std::string, Json>& source) const
-        {
-            auto program        = std::make_shared<Program>();
-            auto vertexShader   = source.second["vertexShader"].string_value();
-            auto fragmentShader = source.second["fragmentShader"].string_value();
+    program->name = key;
+    program->create();
+    program->add_shader(input->read_object<Shader>(vertexShader));
+    program->add_shader(input->read_object<Shader>(fragmentShader));
+    program->link();
 
-            program->name = source.first;
-            program->create();
-            program->add_shader(input->read_object<Shader>(vertexShader));
-            program->add_shader(input->read_object<Shader>(fragmentShader));
-            program->link();
-
-            return program;
-        }
-    }
+    return program;
 }
+
+}}}
 

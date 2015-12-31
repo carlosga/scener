@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Core/IDisposable.hpp"
+#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/BufferTarget.hpp"
 #include "SceneR/Graphics/BufferUsage.hpp"
 
