@@ -6,29 +6,27 @@
 
 #include <cstdint>
 
-namespace SceneR
+namespace SceneR { namespace Math {
+
+/**
+ * Describes the intersection between a plane and a bounding volume.
+ */
+enum class PlaneIntersectionType : std::uint32_t
 {
-    namespace Math
-    {
-        /**
-         * Describes the intersection between a plane and a bounding volume.
-         */
-        enum class PlaneIntersectionType : std::uint32_t
-        {
-            /**
-             * There is no intersection, and the bounding volume is in the negative half-space of the Plane.
-             */
-            Back = 0,
-            /**
-             * There is no intersection, and the bounding volume is in the positive half-space of the Plane.
-             */
-            Front = 1,
-            /**
-             * The Plane is intersected.
-             */
-            Intersecting = 2
-        };
-    }
-}
+    /**
+     * There is no intersection, and the bounding volume is in the negative half-space of the Plane.
+     */
+    Back = 0,
+    /**
+     * There is no intersection, and the bounding volume is in the positive half-space of the Plane.
+     */
+    Front = 1,
+    /**
+     * The Plane is intersected.
+     */
+    Intersecting = 2
+};
+
+}}
 
 #endif // SCENER_MATH_PLANEINTERSECTIONTYPE_HPP

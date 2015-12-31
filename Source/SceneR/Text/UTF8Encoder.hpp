@@ -10,43 +10,41 @@
 
 #include "SceneR/Text/Encoder.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Text {
+
+/**
+ * Converts a set of UTF-8 encoded characters into a sequence of bytes.
+ */
+class UTF8Encoder final : public Encoder
 {
-    namespace Text
-    {
-        /**
-         * Converts a set of UTF-8 encoded characters into a sequence of bytes.
-         */
-        class UTF8Encoder final : public Encoder
-        {
-        public:
-            /**
-             * Initializes a new instance of the UTF8Encoder class.
-             */
-             UTF8Encoder();
+public:
+    /**
+     * Initializes a new instance of the UTF8Encoder class.
+     */
+     UTF8Encoder() = default;
 
-            /**
-             * Releases all resources being used by this UTF8Encoder.
-             */
-            ~UTF8Encoder() override;
+    /**
+     * Releases all resources being used by this UTF8Encoder.
+     */
+    virtual ~UTF8Encoder() override = default;
 
-        public:
-            std::size_t get_byte_count(const std::vector<char16_t>& chars
-                                     , const std::size_t&           index
-                                     , const std::size_t&           count
-                                     , const bool&                  flush) const override;
+public:
+    std::size_t get_byte_count(const std::vector<char16_t>& chars
+                             , const std::size_t&           index
+                             , const std::size_t&           count
+                             , const bool&                  flush) const override;
 
-            std::size_t get_bytes(const std::vector<char16_t>& chars
-                                , const std::size_t&           charIndex
-                                , const std::size_t&           charCount
-                                , std::vector<std::uint8_t>&   bytes
-                                , const std::size_t&           byteIndex
-                                , const bool&                  flush) const override;
+    std::size_t get_bytes(const std::vector<char16_t>& chars
+                        , const std::size_t&           charIndex
+                        , const std::size_t&           charCount
+                        , std::vector<std::uint8_t>&   bytes
+                        , const std::size_t&           byteIndex
+                        , const bool&                  flush) const override;
 
-        private:
-            std::codecvt_utf8_utf16<char16_t> _converter;
-        };
-    }
-}
+private:
+    std::codecvt_utf8_utf16<char16_t> _converter;
+};
+
+}}
 
 #endif // SCENER_TEXT_UTF8ENCODER_HPP

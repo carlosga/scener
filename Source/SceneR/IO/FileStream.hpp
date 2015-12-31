@@ -11,82 +11,80 @@
 
 #include "SceneR/IO/Stream.hpp"
 
-namespace SceneR
+namespace SceneR { namespace IO {
+
+/**
+ * A Stream around a file, supporting read operations.
+ */
+class FileStream  final : public Stream
 {
-    namespace IO
-    {
-        /**
-         * A Stream around a file, supporting read operations.
-         */
-        class FileStream  final : public Stream
-        {
-        public:
-            /**
-             * Initializes a new instance of the FileStream class with the specified and opening mode.
-             */
-            FileStream(const std::string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary);
+public:
+    /**
+     * Initializes a new instance of the FileStream class with the specified and opening mode.
+     */
+    FileStream(const std::string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary);
 
-            /**
-             * Releases all resources being used by this FileStream.
-             */
-            ~FileStream() override;
+    /**
+     * Releases all resources being used by this FileStream.
+     */
+    ~FileStream() override;
 
-        public:
-            /**
-             * Gets a value indicating whether the current stream supports reading.
-             */
-            bool can_read() override;
+public:
+    /**
+     * Gets a value indicating whether the current stream supports reading.
+     */
+    bool can_read() override;
 
-            /**
-             * Gets a value indicating whether the current stream supports seeking.
-             */
-            bool can_seek() override;
+    /**
+     * Gets a value indicating whether the current stream supports seeking.
+     */
+    bool can_seek() override;
 
-            /**
-             * Gets a value indicating whether the current stream supports writing.
-             */
-            bool can_write() override;
+    /**
+     * Gets a value indicating whether the current stream supports writing.
+     */
+    bool can_write() override;
 
-            /**
-             * Returns the current position of the reader.
-             */
-            std::size_t position() override;
+    /**
+     * Returns the current position of the reader.
+     */
+    std::size_t position() override;
 
-            /**
-             * Returns the length in bytes of the stream.
-             */
-            std::size_t length() override;
+    /**
+     * Returns the length in bytes of the stream.
+     */
+    std::size_t length() override;
 
-            /**
-             * Closes the current stream
-             */
-            void close() override;
+    /**
+     * Closes the current stream
+     */
+    void close() override;
 
-            /**
-             * Reads a byte from the stream or returns -1 if at the end of the stream.
-             */
-            std::uint32_t read_byte() override;
+    /**
+     * Reads a byte from the stream or returns -1 if at the end of the stream.
+     */
+    std::uint32_t read_byte() override;
 
-            /**
-             * Reads a sequence of bytes from the current stream.
-             */
-            std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
+    /**
+     * Reads a sequence of bytes from the current stream.
+     */
+    std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
 
-            /**
-             * Sets the position within the current stream.
-             */
-            std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
+    /**
+     * Sets the position within the current stream.
+     */
+    std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
 
-        private:
-            FileStream() = delete;
-            FileStream(const FileStream& stream) = delete;
-            FileStream& operator=(const FileStream& stream) = delete;
+private:
+    FileStream() = delete;
+    FileStream(const FileStream& stream) = delete;
+    FileStream& operator=(const FileStream& stream) = delete;
 
-        private:
-            std::fstream       _stream;
-            std::ios::openmode _mode;
-        };
-    }
-}
+private:
+    std::fstream       _stream;
+    std::ios::openmode _mode;
+};
+
+}}
 
 #endif // SCENER_IO_FILESTREAM_HPP
