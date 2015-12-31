@@ -468,43 +468,111 @@ Matrix Matrix::create_world(const Vector3& position, const Vector3& forward, con
 
 bool Matrix::decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept
 {
-    translation = { matrix.m41, matrix.m42, matrix.m43 };
+    // http://callumhay.blogspot.fr/2010/10/decomposing-affine-transforms.html
 
-    auto v1 = Vector3 { matrix.m11, matrix.m12, matrix.m13 };
-    auto v2 = Vector3 { matrix.m21, matrix.m22, matrix.m23 };
-    auto v3 = Vector3 { matrix.m31, matrix.m32, matrix.m33 };
+    // Copy the matrix first - we'll use this to break down each component
+    Matrix mcopy = matrix;
+
+    // Start by extracting the translation (and/or any projection) from the given matrix
+    translation = mcopy.translation();
+
+    mcopy.translation({ 0.0f });
+    mcopy.m44 = 1.0;
+
+    // Extract the rotation component - this is done using polar decompostion, where
+    // we successively average the matrix with its inverse transpose until there is
+    // no/a very small difference between successive averages
+    float        norm  = 0.0f;
+    std::int32_t count = 0;
+
+    Matrix mrotation = mcopy;
+
+    do {
+        Matrix nextRotation;
+        Matrix currInvTranspose = Matrix::invert(Matrix::transpose(mrotation));
+
+        // Go through every component in the matrices and find the next matrix
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                // di * 4 + dj
+                nextRotation[i * 4 + j] = static_cast<float>(0.5f * (mrotation[i * 4 + j] + currInvTranspose[i * 4 + j]));
+            }
+        }
+
+        norm = 0.0;
+        for (int i = 0; i < 3; i++)
+        {
+            // map 3x3 element (destination) to 4x4 element (source)
+            auto si = i + ((i >= 3) ? 1 : 0);
+
+            float n = Math::abs(mrotation[si * 4 + 0] - nextRotation[si * 4 + 0])
+                    + Math::abs(mrotation[si * 4 + 1] - nextRotation[si * 4 + 1])
+                    + Math::abs(mrotation[si * 4 + 2] - nextRotation[si * 4 + 2]);
+
+            norm = Math::max(norm, n);
+        }
+
+        mrotation = nextRotation;
+    } while (count++ < 100 && norm > Math::epsilon);
+
+    // The scale is simply the removal of the rotation from the non-translated matrix
+    // auto scaleMatrix = Matrix::invert(mrotation) * mCopy;
+    // scale = { scaleMatrix.m11, scaleMatrix.m22, scaleMatrix.m33 };
+
+    // Extract the scale
+    auto v1 = Vector3 { mcopy.m11, mcopy.m12, mcopy.m13 };
+    auto v2 = Vector3 { mcopy.m21, mcopy.m22, mcopy.m23 };
+    auto v3 = Vector3 { mcopy.m31, mcopy.m32, mcopy.m33 };
 
     scale = { v1.length(), v2.length(), v3.length() };
 
-    if (matrix.determinant() < 0.0f)
+    // Calculate the normalized rotation matrix and take its determinant to determine whether
+    // it had a negative scale or not...
+    auto row1 = Vector3::normalize({ mcopy.m11, mcopy.m12, mcopy.m13 });
+    auto row2 = Vector3::normalize({ mcopy.m21, mcopy.m22, mcopy.m23 });
+    auto row3 = Vector3::normalize({ mcopy.m31, mcopy.m32, mcopy.m33 });
+
+    Matrix nRotation(row1.x, row1.y, row1.z, 0.0f
+                   , row2.x, row2.y, row2.z, 0.0f
+                   , row3.x, row3.y, row3.z, 0.0f
+                   ,   0.0f,   0.0f,   0.0f, 1.0f);
+
+    rotation = Quaternion::create_from_rotation_matrix(nRotation);
+
+    // Special consideration: if there's a single negative scale
+    // (all other combinations of negative scales will
+    // be part of the rotation matrix), the determinant of the
+    // normalized rotation matrix will be < 0.
+    // If this is the case we apply an arbitrary negative to one
+    // of the component of the scale.
+    auto determinant = nRotation.determinant();
+
+    if (determinant < 0.0)
     {
-        scale *= -1;
+        scale.x *= -1;
     }
 
-    rotation = Quaternion::create_from_rotation_matrix(matrix);
-
-    return (scale != Vector3::zero && rotation != Quaternion::identity && translation != Vector3::zero);
+    return (determinant > Math::epsilon);
 }
 
 Matrix Matrix::invert(const Matrix& matrix) noexcept
 {
     Matrix inverse = Matrix::identity;
 
-    if (matrix.has_inverse())
-    {
-        // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-        auto         mdet = matrix.determinant();
-        Matrix       mtemp;
-        std::int32_t sign;
+    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    auto         mdet = matrix.determinant();
+    Matrix       mtemp;
+    std::int32_t sign;
 
-        for (std::uint32_t i = 0; i < 4; i++)
+    for (std::uint32_t i = 0; i < 4; i++)
+    {
+        for (std::uint32_t j = 0; j < 4; j++)
         {
-            for (std::uint32_t j = 0; j < 4; j++)
-            {
-                sign               = 1 - ((i + j) % 2) * 2;
-                mtemp              = matrix.sub_matrix(i, j);
-                inverse[i + j * 4] = (mtemp.sub_matrix_determinant() * sign) / mdet;
-            }
+            sign               = 1 - ((i + j) % 2) * 2;
+            mtemp              = matrix.sub_matrix(i, j);
+            inverse[i + j * 4] = (mtemp.sub_matrix_determinant() * sign) / mdet;
         }
     }
 

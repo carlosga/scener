@@ -34,7 +34,7 @@ EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice)
     , _textures                  ( 0 )
     , _view                      { Matrix::identity }
     , _world                     { Matrix::identity }
-    , _dirty_flags               { EffectDirtyFlags::All }
+    , _dirty_flags               { EffectDirtyFlags::all }
     , _passes                    ()
     , _parameters                ()
 {
@@ -54,7 +54,7 @@ void EffectTechnique::alpha(const float& alpha)
     if (Math::equal(_alpha, alpha))
     {
         _alpha        = alpha;
-        _dirty_flags |= EffectDirtyFlags::MaterialColor;
+        _dirty_flags |= EffectDirtyFlags::material_color;
     }
 }
 
@@ -68,7 +68,7 @@ void EffectTechnique::ambient_light_color(const Vector3& ambientLightColor)
     if (_ambient_light_color != ambientLightColor)
     {
         _ambient_light_color = ambientLightColor;
-        _dirty_flags        |= EffectDirtyFlags::MaterialColor;
+        _dirty_flags        |= EffectDirtyFlags::material_color;
     }
 }
 
@@ -82,7 +82,7 @@ void EffectTechnique::diffuse_color(const Vector3& diffuseColor)
     if (_diffuse_color != diffuseColor)
     {
         _diffuse_color = diffuseColor;
-        _dirty_flags  |= EffectDirtyFlags::MaterialColor;
+        _dirty_flags  |= EffectDirtyFlags::material_color;
     }
 }
 
@@ -116,7 +116,7 @@ void EffectTechnique::emissive_color(const Vector3& emissiveColor)
     if (_emissive_color != emissiveColor)
     {
         _emissive_color = emissiveColor;
-        _dirty_flags   |= EffectDirtyFlags::MaterialColor;
+        _dirty_flags   |= EffectDirtyFlags::material_color;
     }
 }
 
@@ -140,7 +140,7 @@ void EffectTechnique::prefer_per_pixel_lighting(const bool& preferPerPixelLighti
     if (_prefer_per_pixel_lighting != preferPerPixelLighting)
     {
         _prefer_per_pixel_lighting = preferPerPixelLighting;
-        _dirty_flags              |= EffectDirtyFlags::ShaderIndex;
+        _dirty_flags              |= EffectDirtyFlags::shader_index;
     }
 }
 
@@ -154,7 +154,7 @@ void EffectTechnique::projection(const Matrix& projection)
     if (_projection != projection)
     {
         _projection   = projection;
-        _dirty_flags |= EffectDirtyFlags::WorldViewProj;
+        _dirty_flags |= EffectDirtyFlags::world_view_proj;
     }
 }
 
@@ -203,7 +203,7 @@ void EffectTechnique::texture_enabled(const bool& textureEnabled)
     if (_texture_enabled != textureEnabled)
     {
         _texture_enabled = textureEnabled;
-        _dirty_flags    |= EffectDirtyFlags::ShaderIndex;
+        _dirty_flags    |= EffectDirtyFlags::shader_index;
     }
 }
 
@@ -217,7 +217,7 @@ void EffectTechnique::view(const Matrix& view)
     if (view != _view)
     {
         _view         = view;
-        _dirty_flags |= EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::EyePosition | EffectDirtyFlags::Fog;
+        _dirty_flags |= EffectDirtyFlags::world_view_proj | EffectDirtyFlags::eye_position | EffectDirtyFlags::fog;
     }
 }
 
@@ -231,7 +231,7 @@ void EffectTechnique::world(const Matrix& world)
     if (_world != world)
     {
         _world        = world;
-        _dirty_flags |= EffectDirtyFlags::World | EffectDirtyFlags::WorldViewProj | EffectDirtyFlags::Fog;
+        _dirty_flags |= EffectDirtyFlags::world | EffectDirtyFlags::world_view_proj | EffectDirtyFlags::fog;
     }
 }
 
@@ -267,12 +267,12 @@ void EffectTechnique::begin()
         }
     }
 
-    if ((_dirty_flags & EffectDirtyFlags::WorldViewProj) != 0 || (_dirty_flags & EffectDirtyFlags::World) != 0)
+    if ((_dirty_flags & EffectDirtyFlags::world_view_proj) != 0 || (_dirty_flags & EffectDirtyFlags::world) != 0)
     {
         set_world_view_proj();
 
-        _dirty_flags &= ~EffectDirtyFlags::WorldViewProj;
-        _dirty_flags &= ~EffectDirtyFlags::World;
+        _dirty_flags &= ~EffectDirtyFlags::world_view_proj;
+        _dirty_flags &= ~EffectDirtyFlags::world;
     }
 
     if (_texture_enabled)

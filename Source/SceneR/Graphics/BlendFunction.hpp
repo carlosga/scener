@@ -19,27 +19,27 @@ enum class BlendFunction : std::uint32_t
      * The result is the destination added to the source.
      * Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
      */
-    Add = GL_FUNC_ADD,
+    add = GL_FUNC_ADD,
     /**
      * The result is the maximum of the source and destination.
      * Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
      */
-    Max = GL_MAX,
+    max = GL_MAX,
     /**
      * The result is the minimum of the source and destination.
      * Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
      */
-    Min = GL_MIN,
+    min = GL_MIN,
     /**
      * The result is the source subtracted from the destination.
      * Result = (Destination Color * Destination Blend) − (Source Color * Source Blend)
      */
-    ReverseSubtract = GL_FUNC_REVERSE_SUBTRACT,
+    reverse_subtract = GL_FUNC_REVERSE_SUBTRACT,
     /**
      * The result is the destination subtracted from the source.
      * Result = (Source Color * Source Blend) − (Destination Color * Destination Blend)
      */
-    Subtract = GL_FUNC_SUBTRACT
+    subtract = GL_FUNC_SUBTRACT
 };
 
 }}

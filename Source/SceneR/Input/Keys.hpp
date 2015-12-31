@@ -15,7 +15,7 @@ enum class Keys : std::uint32_t
     /**
      * Reserved.
      */
-    None = 0,
+    none = 0,
     /**
      * BACKSPACE key.
      */

@@ -15,21 +15,17 @@ namespace SceneR { namespace Graphics {
 enum class PresentInterval : std::uint32_t
 {
     /**
-     * Equivalent to setting One.
-     */
-    Default = 1,
-    /**
      * The driver waits for the vertical retrace period (the runtime will beam trace to prevent tearing).
      */
-    One = 2,
+    one = 1,
     /**
      * The driver waits for the vertical retrace period.
      */
-    Two = 3,
+    two = 2,
     /**
      * The runtime updates the window client area immediately.
      */
-    Immediate = 4
+    immediate = 3
 };
 
 }}

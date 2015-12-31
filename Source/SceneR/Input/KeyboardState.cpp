@@ -22,7 +22,7 @@ KeyboardState::KeyboardState(DisplaySurface* surface) noexcept
 
 KeyState KeyboardState::get_key_state(const Keys& key) noexcept
 {
-    return (is_key_down(key) ? KeyState::Down : KeyState::Up);
+    return (is_key_down(key) ? KeyState::down : KeyState::up);
 }
 
 std::vector<Keys> KeyboardState::get_pressed_keys() noexcept

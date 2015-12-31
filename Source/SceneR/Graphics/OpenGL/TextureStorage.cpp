@@ -12,9 +12,9 @@ namespace SceneR { namespace Graphics { namespace OpenGL {
 
 bool TextureStorage::is_compressed_surface_format(const SurfaceFormat& format) noexcept
 {
-    return (format == SurfaceFormat::Dxt1
-         || format == SurfaceFormat::Dxt3
-         || format == SurfaceFormat::Dxt5);
+    return (format == SurfaceFormat::dxt1
+         || format == SurfaceFormat::dxt3
+         || format == SurfaceFormat::dxt5);
 }
 
 TextureStorage::TextureStorage(const TextureTarget& target) noexcept

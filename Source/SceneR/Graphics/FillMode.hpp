@@ -16,11 +16,11 @@ enum class FillMode : std::uint32_t
     /**
      * draw solid faces for each primitive.
      */
-    Solid = 1,
+    solid = 1,
     /**
      * draw lines connecting the vertices that define a primitive face.
      */
-    WireFrame = 2
+    wire_frame = 2
 };
 
 }}

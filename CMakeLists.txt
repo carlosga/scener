@@ -17,9 +17,9 @@ set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 
 # Google Test configuration
-set (GOOGLE_TEST_BASE_DIR      ${CMAKE_CURRENT_SOURCE_DIR}/../gtest-1.7.0)
+set (GOOGLE_TEST_BASE_DIR      ${CMAKE_CURRENT_SOURCE_DIR}/../googletest)
 set (GOOGLE_TEST_INCLUDE_DIRS  ${GOOGLE_TEST_BASE_DIR}/include)
-set (GOOGLE_TEST_LIB_DIRS      ${GOOGLE_TEST_BASE_DIR})
+set (GOOGLE_TEST_LIB_DIRS      ${GOOGLE_TEST_BASE_DIR}/bin)
 set (GOOGLE_TEST_LIBRARIES     gtest)
 
 # compiler and linker configurations

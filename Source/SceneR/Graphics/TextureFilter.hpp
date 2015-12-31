@@ -13,12 +13,12 @@ namespace SceneR { namespace Graphics {
  */
 enum class TextureFilter : std::uint32_t
 {
-    Nearest              = 9728,    // GL_NEAREST
-    Linear               = 9729,    // GL_LINEAR
-    NearestMipMapNearest = 9984,    // GL_NEAREST_MIPMAP_NEAREST
-    LinearMipMapNearest  = 9985,    // GL_LINEAR_MIPMAP_NEAREST
-    NearestMipMapLinear  = 9986,    // GL_NEAREST_MIPMAP_LINEAR
-    LinearMipMapLinear   = 9987     // GL_LINEAR_MIPMAP_LINEAR
+    nearest                = 9728,    // GL_NEAREST
+    linear                 = 9729,    // GL_LINEAR
+    nearest_mipmap_nearest = 9984,    // GL_NEAREST_MIPMAP_NEAREST
+    linear_mipmap_nearest  = 9985,    // GL_LINEAR_MIPMAP_NEAREST
+    nearest_mipmap_linear  = 9986,    // GL_NEAREST_MIPMAP_LINEAR
+    linear_mipmap_linear   = 9987     // GL_LINEAR_MIPMAP_LINEAR
 };
 
 }}

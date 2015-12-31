@@ -47,27 +47,27 @@ public:
     /**
      * Gets or sets the texture-address mode for the u-coordinate.
      */
-    TextureAddressMode address_u { TextureAddressMode::Wrap };
+    TextureAddressMode address_u { TextureAddressMode::wrap };
 
     /**
      * Gets or sets the texture-address mode for the v-coordinate.
      */
-    TextureAddressMode address_v { TextureAddressMode::Wrap };
+    TextureAddressMode address_v { TextureAddressMode::wrap };
 
     /**
      * Gets or sets the texture-address mode for the w-coordinate.
      */
-    TextureAddressMode address_w { TextureAddressMode::Wrap };
+    TextureAddressMode address_w { TextureAddressMode::wrap };
 
     /**
      * Gets or sets the type of filtering during sampling.
      */
-    TextureFilter mag_filter { TextureFilter::Linear };
+    TextureFilter mag_filter { TextureFilter::linear };
 
     /**
      * Gets or sets the type of filtering during sampling.
      */
-    TextureFilter min_filter { TextureFilter::Linear };
+    TextureFilter min_filter { TextureFilter::linear };
 
     /**
      * Gets or sets the maximum anisotropy. The default value is 0.

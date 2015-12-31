@@ -19,35 +19,35 @@ enum class CompareFunction : std::uint32_t
     /**
      * Always passes.
      */
-    Always = GL_ALWAYS,
+    always = GL_ALWAYS,
     /**
      * Passes if the incoming depth value is equal to the stored depth value.
      */
-    Equal = GL_EQUAL,
+    equal = GL_EQUAL,
     /**
      * Passes if the incoming depth value is greater than the stored depth value.
      */
-    Greater = GL_GREATER,
+    greater = GL_GREATER,
     /**
      * Passes if the incoming depth value is greater than or equal to the stored depth value.
      */
-    GreaterEqual = GL_GEQUAL,
+    greater_equal = GL_GEQUAL,
     /**
      * Passes if the incoming depth value is less than the stored depth value.
      */
-    Less = GL_LESS,
+    less = GL_LESS,
     /**
      * Passes if the incoming depth value is less than or equal to the stored depth value.
      */
-    LessEqual = GL_LEQUAL,
+    less_equal = GL_LEQUAL,
     /**
      * Never passes.
      */
-    Never = GL_NEVER,
+    never = GL_NEVER,
     /**
      * Passes if the incoming depth value is not equal to the stored depth value.
      */
-    NotEqual = GL_NOTEQUAL
+    not_equal = GL_NOTEQUAL
 };
 
 }}

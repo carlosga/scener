@@ -18,59 +18,59 @@ enum class BufferTarget : std::uint32_t
     /**
      * GLTF Buffer used for animation or skin data.
      */
-    AnimationOrSkin = 0,
+    animation_or_skin = 0,
     /**
      * A buffer used as a source for vertex data.
      */
-    ArrayBuffer = GL_ARRAY_BUFFER,
+    array_buffer = GL_ARRAY_BUFFER,
     /**
      * An indexed buffer binding for buffers used as storage for atomic counters
      */
-    AtomicCounterBufer = GL_ATOMIC_COUNTER_BUFFER,
+    atomic_counter_bufer = GL_ATOMIC_COUNTER_BUFFER,
     /**
      * A buffer for reading buffer object data.
      */
-    CopyReadBuffer = GL_COPY_READ_BUFFER,
+    copy_read_buffer = GL_COPY_READ_BUFFER,
     /**
      * A buffer for writing buffer object data.
      */
-    CopyWriteBuffer = GL_COPY_WRITE_BUFFER,
+    copy_write_buffer = GL_COPY_WRITE_BUFFER,
     /**
      * A buffer used as the source for the indirect data when performing indirect rendering.
      */
-    DrawIndirectBuffer = GL_DRAW_INDIRECT_BUFFER,
+    draw_indirect_buffer = GL_DRAW_INDIRECT_BUFFER,
     /**
      * A buffer used as the source for indirect compute dispatch operations.
      */
-    DispatchIndirectBuffer = GL_DISPATCH_INDIRECT_BUFFER,
+    dispatch_indirect_buffer = GL_DISPATCH_INDIRECT_BUFFER,
     /**
      * A buffer used as the source of the indices used for indexed rendering.
      */
-    ElementArraybuffer = GL_ELEMENT_ARRAY_BUFFER,
+    element_array_buffer = GL_ELEMENT_ARRAY_BUFFER,
     /**
      * A buffer used for performing asynchronous pixel transfer operations.
      */
-    PixelPackBuffer = GL_PIXEL_PACK_BUFFER,
+    pixel_pack_buffer = GL_PIXEL_PACK_BUFFER,
     /**
      * A buffer used for performing asynchronous pixel transfer operations.
      */
-    PixelUnpackBuffer = GL_PIXEL_UNPACK_BUFFER,
+    pixel_unpack_buffer = GL_PIXEL_UNPACK_BUFFER,
     /**
      * An indexed buffer used as storage for shader storage blocks.
      */
-    ShaderStorageBuffer = GL_SHADER_STORAGE_BUFFER,
+    shader_storage_buffer = GL_SHADER_STORAGE_BUFFER,
     /**
      * A buffer used as as storage for textures.
      */
-    TextureBuffer = GL_TEXTURE_BUFFER,
+    texture_buffer = GL_TEXTURE_BUFFER,
     /**
      * An indexed buffer binding used for transform feedback operations.
      */
-    TransformFeedbackBuffer = GL_TRANSFORM_FEEDBACK_BUFFER,
+    transform_feedback_buffer = GL_TRANSFORM_FEEDBACK_BUFFER,
     /**
      * An indexed buffer binding used as storage for uniform blocks.
      */
-    UniformBuffer = GL_UNIFORM_BUFFER
+    uniform_buffer = GL_UNIFORM_BUFFER
 };
 
 }}}

@@ -94,7 +94,7 @@ void VertexBuffer::unbind() noexcept
 void VertexBuffer::create() noexcept
 {
     _vao = std::make_unique<VertexArrayObject>();
-    _vbo = std::make_unique<Buffer>(BufferTarget::ArrayBuffer, BufferUsage::StaticDraw);
+    _vbo = std::make_unique<Buffer>(BufferTarget::array_buffer, BufferUsage::static_draw);
 
     _vao->create();
     _vbo->create();

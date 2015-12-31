@@ -69,25 +69,25 @@ std::size_t Accessor::get_attribute_type_count() const noexcept
 {
     switch (_attribute_type)
     {
-    case AttributeType::Matrix2:
+    case AttributeType::matrix2:
         return 4;
 
-    case AttributeType::Matrix3:
+    case AttributeType::matrix3:
         return 9;
 
-    case AttributeType::Matrix4:
+    case AttributeType::matrix4:
         return 16;
 
-    case AttributeType::Scalar:
+    case AttributeType::scalar:
         return 1;
 
-    case AttributeType::Vector2:
+    case AttributeType::vector2:
         return 2;
 
-    case AttributeType::Vector3:
+    case AttributeType::vector3:
         return 3;
 
-    case AttributeType::Vector4:
+    case AttributeType::vector4:
         return 4;
     }
 }
@@ -96,19 +96,19 @@ std::size_t Accessor::get_component_size_in_bytes() const noexcept
 {
     switch (_component_type)
     {
-    case ComponentType::Byte:
+    case ComponentType::byte:
         return sizeof(std::int8_t);
 
-    case ComponentType::Int16:
+    case ComponentType::int16:
         return sizeof(std::int16_t);
 
-    case ComponentType::Single:
+    case ComponentType::single:
         return sizeof(float);
 
-    case ComponentType::UByte:
+    case ComponentType::ubyte:
         return sizeof(std::uint8_t);
 
-    case ComponentType::UInt16:
+    case ComponentType::uint16:
         return sizeof(std::uint16_t);
     }
 }

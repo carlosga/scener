@@ -46,7 +46,7 @@ public:
      * Specifies the conditions for culling or removing triangles.
      * The default value is CullMode.CullCounterClockwiseFace.
      */
-    CullMode cull_mode { CullMode::CullCounterClockwiseFace };
+    CullMode cull_mode { CullMode::cull_counter_clockwise_face };
 
     /**
      * Gets or sets the depth bias for polygons, which is the amount of bias to apply to the depth
@@ -59,7 +59,7 @@ public:
      * Gets or sets the fill mode, which defines how a triangle is filled during rendering.
      * The default is FillMode.Solid.
      */
-    FillMode fill_mode { FillMode::Solid };
+    FillMode fill_mode { FillMode::solid };
 
     /**
      * Enables or disables multisample antialiasing. The default is true.

@@ -114,13 +114,13 @@ private:
     std::size_t get_component_size_in_bytes() const noexcept;
 
 private:
-    AttributeType               _attribute_type  { AttributeType::Scalar };
+    AttributeType               _attribute_type  { AttributeType::scalar };
     std::size_t                 _attribute_count { 0 };
     std::shared_ptr<BufferView> _buffer_view     { nullptr };
     std::size_t                 _byte_offset     { 0 };
     std::size_t                 _byte_length     { 0 };
     std::size_t                 _byte_stride     { 0 };
-    Graphics::ComponentType     _component_type  { Graphics::ComponentType::Single };
+    Graphics::ComponentType     _component_type  { Graphics::ComponentType::single };
     std::vector<float>          _max             { 0 };
     std::vector<float>          _min             { 0 };
     std::string                 _name            { };

@@ -22,10 +22,10 @@ void BlendState::apply() const
 {
     // http://www.opengl.org/wiki/Blending
 
-    auto blendEnabled = !(color_source_blend      == Blend::One
-                       && color_destination_blend == Blend::Zero
-                       && alpha_source_blend      == Blend::One
-                       && alpha_destination_blend == Blend::Zero);
+    auto blendEnabled = !(color_source_blend      == Blend::one
+                       && color_destination_blend == Blend::zero
+                       && alpha_source_blend      == Blend::one
+                       && alpha_destination_blend == Blend::zero);
 
     if (!blendEnabled)
     {
@@ -44,10 +44,10 @@ void BlendState::apply() const
                       , static_cast<GLenum>(alpha_source_blend)
                       , static_cast<GLenum>(alpha_destination_blend));
 
-    glColorMask((color_write_channels & ColorWriteChannels::Red)   == Graphics::ColorWriteChannels::Red
-              , (color_write_channels & ColorWriteChannels::Green) == Graphics::ColorWriteChannels::Green
-              , (color_write_channels & ColorWriteChannels::Blue)  == Graphics::ColorWriteChannels::Blue
-              , (color_write_channels & ColorWriteChannels::Alpha) == Graphics::ColorWriteChannels::Alpha);
+    glColorMask((color_write_channels & ColorWriteChannels::red)   == Graphics::ColorWriteChannels::red
+              , (color_write_channels & ColorWriteChannels::green) == Graphics::ColorWriteChannels::green
+              , (color_write_channels & ColorWriteChannels::blue)  == Graphics::ColorWriteChannels::blue
+              , (color_write_channels & ColorWriteChannels::alpha) == Graphics::ColorWriteChannels::alpha);
 
     glBlendColor(blend_factor.r / 255
                , blend_factor.g / 255

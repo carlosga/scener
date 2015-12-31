@@ -67,16 +67,16 @@ void Surface::load(const std::string& filename)
 
     if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1)
     {
-        _format   = SurfaceFormat::Dxt1;
+        _format   = SurfaceFormat::dxt1;
         blockSize = 8;
     }
     else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3)
     {
-        _format = SurfaceFormat::Dxt3;
+        _format = SurfaceFormat::dxt3;
     }
     else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5)
     {
-        _format = SurfaceFormat::Dxt5;
+        _format = SurfaceFormat::dxt5;
     }
 
     auto mipmapWidth  = _width;

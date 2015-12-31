@@ -51,18 +51,18 @@ public:
     /**
      * Gets or sets the arithmetic operation when blending alpha values.
      */
-    BlendFunction alpha_blend_function { BlendFunction::Add };
+    BlendFunction alpha_blend_function { BlendFunction::add };
 
     /**
      * Gets or sets the blend factor for the destination alpha,
      * which is the percentage of the destination alpha included in the blended result.
      */
-    Blend alpha_destination_blend { Blend::Zero };
+    Blend alpha_destination_blend { Blend::zero };
 
     /**
      * Gets or sets the alpha blend factor.
      */
-    Blend alpha_source_blend { Blend::One };
+    Blend alpha_source_blend { Blend::one };
 
     /**
      * Gets or sets the four-component (RGBA) blend factor for alpha blending.
@@ -72,37 +72,37 @@ public:
     /**
      * Gets or sets the arithmetic operation when blending color values.
      */
-    BlendFunction color_blend_function { BlendFunction::Add };
+    BlendFunction color_blend_function { BlendFunction::add };
 
     /**
      * Gets or sets the blend factor for the destination color.
      */
-    Blend color_destination_blend { Blend::Zero };
+    Blend color_destination_blend { Blend::zero };
 
     /**
      * Gets Sets the blend factor for the source color.
      */
-    Blend color_source_blend { Blend::One };
+    Blend color_source_blend { Blend::one };
 
     /**
      * Gets or sets which color channels (RGBA) are enabled for writing during color blending.
      */
-    ColorWriteChannels color_write_channels { ColorWriteChannels::All };
+    ColorWriteChannels color_write_channels { ColorWriteChannels::all };
 
     /**
      * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
      */
-    ColorWriteChannels color_write_channels_1 { ColorWriteChannels::All };
+    ColorWriteChannels color_write_channels_1 { ColorWriteChannels::all };
 
     /**
      * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
      */
-    ColorWriteChannels color_write_channels_2 { ColorWriteChannels::All };
+    ColorWriteChannels color_write_channels_2 { ColorWriteChannels::all };
 
     /**
      * Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
      */
-    ColorWriteChannels color_write_channels_3 { ColorWriteChannels::All };
+    ColorWriteChannels color_write_channels_3 { ColorWriteChannels::all };
 
     /**
      * Gets or setsa bitmask which defines which samples can be written during multisampling.

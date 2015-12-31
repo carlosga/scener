@@ -7,20 +7,4 @@
 #include "SceneR/Graphics/OpenGL/glad.hpp"
 #include "SceneR/Graphics/OpenGL/glad_glx.hpp"
 
-#ifdef __linux__
-// Prevent name collisions with X11 defines
-#ifdef None
-    #undef None
-#endif
-#ifdef Always
-    #undef Always
-#endif
-#ifdef Bool
-    #undef Bool
-#endif
-#ifdef CurrentTime
-    #undef CurrentTime
-#endif
-#endif
-
 #endif // SCENER_SYSTEM_GRAPHICS_PLATFORM_HPP

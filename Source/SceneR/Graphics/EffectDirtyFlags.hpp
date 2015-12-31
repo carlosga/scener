@@ -19,15 +19,15 @@ namespace SceneR { namespace Graphics {
  */
 enum class EffectDirtyFlags : std::uint32_t
 {
-    WorldViewProj   = 1,
-    World           = 2,
-    EyePosition     = 4,
-    MaterialColor   = 8,
-    Fog             = 16,
-    FogEnable       = 32,
-    AlphaTest       = 64,
-    ShaderIndex     = 128,
-    All             = WorldViewProj | World | EyePosition | MaterialColor | Fog | FogEnable | AlphaTest | ShaderIndex
+    world_view_proj = 1,
+    world           = 2,
+    eye_position    = 4,
+    material_color  = 8,
+    fog             = 16,
+    fog_enable      = 32,
+    alpha_test      = 64,
+    shader_index    = 128,
+    all             = world_view_proj | world | eye_position | material_color | fog | fog_enable | alpha_test | shader_index
 };
 
 inline constexpr EffectDirtyFlags operator&(const EffectDirtyFlags& left, const EffectDirtyFlags& right)

@@ -51,24 +51,24 @@ std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vert
 {
     switch (vertexFormat)
     {
-        case VertexElementFormat::Single:
+        case VertexElementFormat::single:
             return 1;
 
-        case VertexElementFormat::Vector2:
-        case VertexElementFormat::Short2:
-        case VertexElementFormat::NormalizedShort2:
-        case VertexElementFormat::HalfVector2:
+        case VertexElementFormat::vector2:
+        case VertexElementFormat::short2:
+        case VertexElementFormat::normalized_short2:
+        case VertexElementFormat::half_vector2:
             return 2;
 
-        case VertexElementFormat::Vector3:
+        case VertexElementFormat::vector3:
             return 3;
 
-        case VertexElementFormat::Vector4:
-        case VertexElementFormat::Color:
-        case VertexElementFormat::Byte4:
-        case VertexElementFormat::Short4:
-        case VertexElementFormat::NormalizedShort4:
-        case VertexElementFormat::HalfVector4:
+        case VertexElementFormat::vector4:
+        case VertexElementFormat::color:
+        case VertexElementFormat::byte4:
+        case VertexElementFormat::short4:
+        case VertexElementFormat::normalized_short4:
+        case VertexElementFormat::half_vector4:
         default:
             return 4;
     }
@@ -78,22 +78,22 @@ std::uint32_t VertexDeclaration::get_element_type(const VertexElementFormat& ver
 {
     switch (vertexFormat)
     {
-        case VertexElementFormat::Byte4:
+        case VertexElementFormat::byte4:
             return GL_UNSIGNED_BYTE;
 
-        case VertexElementFormat::Short2:
-        case VertexElementFormat::NormalizedShort2:
-        case VertexElementFormat::HalfVector2:
-        case VertexElementFormat::Short4:
-        case VertexElementFormat::NormalizedShort4:
-        case VertexElementFormat::HalfVector4:
+        case VertexElementFormat::short2:
+        case VertexElementFormat::normalized_short2:
+        case VertexElementFormat::half_vector2:
+        case VertexElementFormat::short4:
+        case VertexElementFormat::normalized_short4:
+        case VertexElementFormat::half_vector4:
             return GL_UNSIGNED_SHORT;
 
-        case VertexElementFormat::Single:
-        case VertexElementFormat::Vector2:
-        case VertexElementFormat::Vector3:
-        case VertexElementFormat::Vector4:
-        case VertexElementFormat::Color:
+        case VertexElementFormat::single:
+        case VertexElementFormat::vector2:
+        case VertexElementFormat::vector3:
+        case VertexElementFormat::vector4:
+        case VertexElementFormat::color:
         default:
             return GL_FLOAT;
     }

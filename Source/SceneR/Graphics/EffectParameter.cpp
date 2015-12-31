@@ -131,8 +131,8 @@ std::vector<Vector3> EffectParameter::get_value() const
 template<>
 void EffectParameter::set_value(const bool& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Bool);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::boolean);
 
     // _uniform_buffer->set_data(_offset, 1, &value);
 }
@@ -140,7 +140,7 @@ void EffectParameter::set_value(const bool& value) const
 template<>
 void EffectParameter::set_value(const std::vector<bool>& value) const
 {
-    Expects(_parameter_type == EffectParameterType::Bool);
+    Expects(_parameter_type == EffectParameterType::boolean);
 
     // _uniform_buffer->set_data(_offset, value.size(), value.data());
 }
@@ -148,8 +148,8 @@ void EffectParameter::set_value(const std::vector<bool>& value) const
 template<>
 void EffectParameter::set_value(const std::int8_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Byte);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::byte);
 
     // _uniform_buffer->set_data(_offset, sizeof(std::int8_t), &value);
 }
@@ -157,8 +157,8 @@ void EffectParameter::set_value(const std::int8_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::int8_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Byte);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::byte);
 
     // _uniform_buffer->set_data(_offset, sizeof(std::int8_t) * value.size(), value.data());
 }
@@ -166,7 +166,7 @@ void EffectParameter::set_value(const std::vector<std::int8_t>& value) const
 template<>
 void EffectParameter::set_value(const std::uint8_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     // _uniform_buffer->set_data(_offset, sizeof(std::uint8_t), &value);
 }
@@ -174,7 +174,7 @@ void EffectParameter::set_value(const std::uint8_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::uint8_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     // _uniform_buffer->set_data(_offset, sizeof(std::uint8_t) * value.size(), value.data());
 }
@@ -182,8 +182,8 @@ void EffectParameter::set_value(const std::vector<std::uint8_t>& value) const
 template<>
 void EffectParameter::set_value(const std::int16_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Int16);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::int16);
 
     _constant_buffer->set_data(_offset, sizeof(std::int16_t), &value);
 }
@@ -191,8 +191,8 @@ void EffectParameter::set_value(const std::int16_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::int16_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Int16);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::int16);
 
     _constant_buffer->set_data(_offset, sizeof(std::int16_t) * value.size(), value.data());
 }
@@ -200,7 +200,7 @@ void EffectParameter::set_value(const std::vector<std::int16_t>& value) const
 template<>
 void EffectParameter::set_value(const std::uint16_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint16_t), &value);
 }
@@ -208,7 +208,7 @@ void EffectParameter::set_value(const std::uint16_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::uint16_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint16_t) * value.size(), value.data());
 }
@@ -216,8 +216,8 @@ void EffectParameter::set_value(const std::vector<std::uint16_t>& value) const
 template<>
 void EffectParameter::set_value(const std::int32_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Int32);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::int32);
 
     _constant_buffer->set_data(_offset, sizeof(std::int32_t), &value);
 }
@@ -225,8 +225,8 @@ void EffectParameter::set_value(const std::int32_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::int32_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Int32);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::int32);
 
     _constant_buffer->set_data(_offset, sizeof(std::int32_t) * value.size(), value.data());
 }
@@ -234,7 +234,7 @@ void EffectParameter::set_value(const std::vector<std::int32_t>& value) const
 template<>
 void EffectParameter::set_value(const std::uint32_t& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint32_t), &value);
 }
@@ -242,7 +242,7 @@ void EffectParameter::set_value(const std::uint32_t& value) const
 template<>
 void EffectParameter::set_value(const std::vector<std::uint32_t>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
+    Expects(_parameter_class == EffectParameterClass::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint32_t) * value.size(), value.data());
 }
@@ -250,7 +250,7 @@ void EffectParameter::set_value(const std::vector<std::uint32_t>& value) const
 template<>
 void EffectParameter::set_value(const Matrix& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Matrix);
+    Expects(_parameter_class == EffectParameterClass::matrix);
 
     _constant_buffer->set_data(_offset, sizeof(Matrix), &value[0]);
 }
@@ -258,7 +258,7 @@ void EffectParameter::set_value(const Matrix& value) const
 template<>
 void EffectParameter::set_value(const std::vector<Matrix>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Matrix);
+    Expects(_parameter_class == EffectParameterClass::matrix);
 
     _constant_buffer->set_data(_offset, sizeof(Matrix) * value.size(), value.data());
 }
@@ -266,7 +266,7 @@ void EffectParameter::set_value(const std::vector<Matrix>& value) const
 template<>
 void EffectParameter::set_value_transpose(const Matrix& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Matrix);
+    Expects(_parameter_class == EffectParameterClass::matrix);
 
     const auto transpose = Matrix::transpose(value);
 
@@ -276,7 +276,7 @@ void EffectParameter::set_value_transpose(const Matrix& value) const
 template<>
 void EffectParameter::set_value_transpose(const std::vector<Matrix>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Matrix);
+    Expects(_parameter_class == EffectParameterClass::matrix);
 
     std::vector<Matrix> transposed;
 
@@ -305,8 +305,8 @@ void EffectParameter::set_value(const std::vector<Quaternion>& value) const
 template<>
 void EffectParameter::set_value(const float& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Single);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::single);
 
     _constant_buffer->set_data(_offset, sizeof(float), &value);
 }
@@ -314,8 +314,8 @@ void EffectParameter::set_value(const float& value) const
 template<>
 void EffectParameter::set_value(const std::vector<float>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Scalar);
-    Expects(_parameter_type  == EffectParameterType::Single);
+    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_type  == EffectParameterType::single);
 
     _constant_buffer->set_data(_offset, sizeof(float) * value.size(), value.data());
 }
@@ -323,7 +323,7 @@ void EffectParameter::set_value(const std::vector<float>& value) const
 template<>
 void EffectParameter::set_value(const std::string& value) const
 {
-    Expects(_parameter_type  == EffectParameterType::String);
+    Expects(_parameter_type  == EffectParameterType::string);
 
     throw std::runtime_error("not implemented");
 }
@@ -331,7 +331,7 @@ void EffectParameter::set_value(const std::string& value) const
 template<>
 void EffectParameter::set_value(const Vector2& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector2), &value[0]);
 }
@@ -339,7 +339,7 @@ void EffectParameter::set_value(const Vector2& value) const
 template<>
 void EffectParameter::set_value(const std::vector<Vector2>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector2) * value.size(), value.data());
 }
@@ -347,7 +347,7 @@ void EffectParameter::set_value(const std::vector<Vector2>& value) const
 template<>
 void EffectParameter::set_value(const Vector3& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector3), &value[0]);
 }
@@ -355,7 +355,7 @@ void EffectParameter::set_value(const Vector3& value) const
 template<>
 void EffectParameter::set_value(const std::vector<Vector3>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector3) * value.size(), value.data());
 }
@@ -363,7 +363,7 @@ void EffectParameter::set_value(const std::vector<Vector3>& value) const
 template<>
 void EffectParameter::set_value(const Vector4& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector4), &value[0]);
 }
@@ -371,7 +371,7 @@ void EffectParameter::set_value(const Vector4& value) const
 template<>
 void EffectParameter::set_value(const std::vector<Vector4>& value) const
 {
-    Expects(_parameter_class == EffectParameterClass::Vector);
+    Expects(_parameter_class == EffectParameterClass::vector);
 
     _constant_buffer->set_data(_offset, sizeof(Vector4) * value.size(), value.data());
 }

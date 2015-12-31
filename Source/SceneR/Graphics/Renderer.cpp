@@ -221,16 +221,15 @@ void Renderer::create_device()
 
     switch (graphics_device()->presentation_parameters().present_interval)
     {
-        case PresentInterval::Default:
-        case PresentInterval::One:
+        case PresentInterval::one:
             _render_context->present_interval(1);
             break;
 
-        case PresentInterval::Two:
+        case PresentInterval::two:
             _render_context->present_interval(2);
             break;
 
-        case PresentInterval::Immediate:
+        case PresentInterval::immediate:
             _render_context->present_interval(0);
             break;
     }

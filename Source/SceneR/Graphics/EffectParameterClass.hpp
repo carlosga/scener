@@ -16,23 +16,23 @@ enum class EffectParameterClass : std::uint32_t
     /**
      * Constant is a matrix.
      */
-    Matrix = 1,
+    matrix = 1,
     /**
      * Constant is either a texture, a shader, or a string.
      */
-    Object = 2,
+    object = 2,
     /**
      * Constant is a scalar.
      */
-    Scalar = 3,
+    scalar = 3,
     /**
      * Constant is a structure.
      */
-    Struct = 4,
+    structure = 4,
     /**
      * Constant is a vector.
      */
-    Vector = 5
+    vector = 5
 };
 
 }}

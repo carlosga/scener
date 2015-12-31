@@ -10,11 +10,11 @@ namespace SceneR { namespace Graphics {
 
 enum class ComponentType : std::uint32_t
 {
-    Byte   = 5120
-  , UByte  = 5121
-  , Int16  = 5122
-  , UInt16 = 5123
-  , Single = 5126
+    byte   = 5120
+  , ubyte  = 5121
+  , int16  = 5122
+  , uint16 = 5123
+  , single = 5126
 };
 
 }}

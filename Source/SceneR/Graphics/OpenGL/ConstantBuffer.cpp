@@ -18,7 +18,7 @@ ConstantBuffer::ConstantBuffer(const std::string& name, const std::uint32_t& pro
     , _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
-    , _buffer_object { std::make_unique<Buffer>(BufferTarget::UniformBuffer, BufferUsage::DynamicDraw) }
+    , _buffer_object { std::make_unique<Buffer>(BufferTarget::uniform_buffer, BufferUsage::dynamic_draw) }
 {
 }
 

@@ -10,7 +10,7 @@ PresentationParameters::PresentationParameters() noexcept
     , back_buffer_height { 0 }
     , back_buffer_width  { 0 }
     , multi_sample_count { 8 }
-    , present_interval   { PresentInterval::Default }
+    , present_interval   { PresentInterval::one }
 {
 }
 

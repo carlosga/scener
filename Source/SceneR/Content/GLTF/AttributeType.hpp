@@ -10,13 +10,13 @@ namespace SceneR { namespace Content { namespace GLTF {
 
 enum class AttributeType : std::uint32_t
 {
-    Scalar  = 0
-  , Vector2 = 1
-  , Vector3 = 2
-  , Vector4 = 3
-  , Matrix2 = 4
-  , Matrix3 = 5
-  , Matrix4 = 7
+    scalar  = 0
+  , vector2 = 1
+  , vector3 = 2
+  , vector4 = 3
+  , matrix2 = 4
+  , matrix3 = 5
+  , matrix4 = 7
 };
 
 }}}

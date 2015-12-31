@@ -19,7 +19,7 @@ void RasterizerState::dispose()
 void RasterizerState::apply() const
 {
     // Specify whether front- or back-facing facets can be culled
-    if (cull_mode == CullMode::None)
+    if (cull_mode == CullMode::none)
     {
         glDisable(GL_CULL_FACE);
     }
@@ -30,12 +30,12 @@ void RasterizerState::apply() const
 
         switch (cull_mode)
         {
-            case SceneR::Graphics::CullMode::CullClockwiseFace:
+            case SceneR::Graphics::CullMode::cull_clockwise_face:
                 glCullFace(GL_FRONT);
 
                 break;
 
-            case SceneR::Graphics::CullMode::CullCounterClockwiseFace:
+            case SceneR::Graphics::CullMode::cull_counter_clockwise_face:
                 glCullFace(GL_BACK);
                 break;
 
@@ -46,7 +46,7 @@ void RasterizerState::apply() const
     }
 
     //  Select a polygon rasterization mode
-    if (fill_mode == FillMode::Solid)
+    if (fill_mode == FillMode::solid)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

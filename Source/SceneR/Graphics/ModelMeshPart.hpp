@@ -83,7 +83,7 @@ private:
     std::size_t                     _vertex_offset      = { 0 };
     std::size_t                     _vertex_count       = { 0 };
     std::size_t                     _primitive_count    = { 0 };
-    SceneR::Graphics::PrimitiveType _primitive_type     = { PrimitiveType::TriangleList };
+    SceneR::Graphics::PrimitiveType _primitive_type     = { PrimitiveType::triangle_list };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

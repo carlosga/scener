@@ -25,31 +25,31 @@ auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& 
 
     if (attType == "SCALAR")
     {
-        accessor->_attribute_type = AttributeType::Scalar;
+        accessor->_attribute_type = AttributeType::scalar;
     }
     else if (attType == "VEC2")
     {
-        accessor->_attribute_type = AttributeType::Vector2;
+        accessor->_attribute_type = AttributeType::vector2;
     }
     else if (attType == "VEC3")
     {
-        accessor->_attribute_type = AttributeType::Vector3;
+        accessor->_attribute_type = AttributeType::vector3;
     }
     else if (attType == "VEC4")
     {
-        accessor->_attribute_type = AttributeType::Vector4;
+        accessor->_attribute_type = AttributeType::vector4;
     }
     else if (attType == "MAT2")
     {
-        accessor->_attribute_type = AttributeType::Matrix2;
+        accessor->_attribute_type = AttributeType::matrix2;
     }
     else if (attType == "MAT3")
     {
-        accessor->_attribute_type = AttributeType::Matrix3;
+        accessor->_attribute_type = AttributeType::matrix3;
     }
     else if (attType == "MAT4")
     {
-        accessor->_attribute_type = AttributeType::Matrix4;
+        accessor->_attribute_type = AttributeType::matrix4;
     }
 
     accessor->_name            = key;

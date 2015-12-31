@@ -1091,12 +1091,14 @@ TEST_F(MatrixTest, CreatePerspective)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereZnearEqualsZfar)
 {
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
     float width      = 100.0f;
     float height     = 200.0f;
     float zNearPlane = 0.0f;
     float zFarPlane  = 0.0f;
 
-    ASSERT_THROW(Matrix::create_perspective(width, height, zNearPlane, zFarPlane), std::out_of_range);
+    EXPECT_DEATH(Matrix::create_perspective(width, height, zNearPlane, zFarPlane), "out of range");
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1104,7 +1106,9 @@ TEST_F(MatrixTest, CreatePerspectiveWhereZnearEqualsZfar)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsNegative)
 {
-    ASSERT_THROW(Matrix::create_perspective(10, 10, -10, 10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective(10, 10, -10, 10), "out of range");
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1112,7 +1116,9 @@ TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereFarPlaneIsNegative)
 {
-    ASSERT_THROW(Matrix::create_perspective(10, 10, 10, -10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective(10, 10, 10, -10), "out of range");
 }
 
 // A test for CreatePerspective (float, float, float, float)
@@ -1120,7 +1126,9 @@ TEST_F(MatrixTest, CreatePerspectiveWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveWhereNearPlaneIsBeyondFarPlane)
 {
-    ASSERT_THROW(Matrix::create_perspective(10, 10, 10, 1), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective(10, 10, 10, 1), "out of range");
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1150,7 +1158,9 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfView1)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 {
-    EXPECT_THROW(Matrix::create_perspective_field_of_view(-1, 1, 1, 10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_field_of_view(-1, 1, 1, 10), "out of range");
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1158,7 +1168,9 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 {
-    EXPECT_THROW(Matrix::create_perspective_field_of_view(SceneR::Math::pi + 0.01f, 1, 1, 10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_field_of_view(SceneR::Math::pi + 0.01f, 1, 1, 10), "out of range");
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1166,7 +1178,9 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFieldOfViewIsGreatherThanPi)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, -1, 10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, -1, 10), "out of range");
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1174,7 +1188,9 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, 1, -10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, 1, -10), "out of range");
 }
 
 // A test for CreatePerspectiveFieldOfView (float, float, float, float)
@@ -1182,7 +1198,9 @@ TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveFieldOfViewWhereNearPlaneIsLargerThanFarPlane)
 {
-    EXPECT_THROW(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, 10, 1), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_field_of_view(SceneR::Math::pi_over_4, 1, 10, 1), "out of range");
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1216,7 +1234,7 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenter)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, -1, 10), std::out_of_range);
+    EXPECT_DEATH(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, -1, 10), "out of range");
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1224,7 +1242,9 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereFarPlaneIsNegative)
 {
-    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 1, -10), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 1, -10), "out of range");
 }
 
 // A test for CreatePerspectiveOffCenter (float, float, float, float, float, float)
@@ -1232,7 +1252,9 @@ TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereFarPlaneIsNegative)
 // Ported from Microsoft .NET corefx System.Numerics.Vectors test suite
 TEST_F(MatrixTest, CreatePerspectiveOffCenterWhereNearPlaneIsLargerThanFarPlane)
 {
-    EXPECT_THROW(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), std::out_of_range);
+    ::testing::FLAGS_gtest_death_test_style = "threadsafe";
+
+    EXPECT_DEATH(Matrix::create_perspective_off_center(10.0f, 90.0f, 20.0f, 180.0f, 10, 1), "out of range");
 }
 
 // A test for Invert (Matrix)

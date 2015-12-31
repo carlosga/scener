@@ -16,15 +16,15 @@ enum class ContainmentType : std::uint32_t
     /**
      * Indicates that one bounding volume completely contains the other.
      */
-    Contains = 0,
+    contains = 0,
     /**
      * Indicates there is no overlap between the bounding volumes.
      */
-    Disjoint = 1,
+    disjoint = 1,
     /**
      * Indicates that the bounding volumes partially overlap.
      */
-    Intersects = 2
+    intersects = 2
 };
 
 }}

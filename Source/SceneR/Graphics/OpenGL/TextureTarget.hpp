@@ -18,52 +18,52 @@ enum class TextureTarget : std::uint32_t
     /**
      * One-dimensional texture image.
      */
-    Texture1D = GL_TEXTURE_1D,
+    texture_1d = GL_TEXTURE_1D,
     /**
      * Two-dimensional texture image.
      */
-    Texture2D = GL_TEXTURE_2D,
+    texture_2d = GL_TEXTURE_2D,
     /**
      * Three-dimensional texture image
      */
-    Texture3D = GL_TEXTURE_3D,
+    texture_3d = GL_TEXTURE_3D,
     /**
      * Array of one-dimensional texture images.
      */
-    Texture1DArray = GL_TEXTURE_1D_ARRAY,
+    texture_1d_Array = GL_TEXTURE_1D_ARRAY,
     /**
      * Array of two-dimensional texture images.
      */
-    Texture2DArray = GL_TEXTURE_2D_ARRAY,
+    texture_2d_array = GL_TEXTURE_2D_ARRAY,
     /**
      * Two-dimensional texture image without mipmapping.
      * Texture coordinates used for these textures are not normalized.
      */
-    TextureRect = GL_TEXTURE_RECTANGLE,
+    texture_rect = GL_TEXTURE_RECTANGLE,
     /**
      * A set of, exactly, 6 distinct sets of 2D images, all of the same size.
      * They act as 6 faces of a cube.
      */
-    TextureCubeMap = GL_TEXTURE_CUBE_MAP,
+    texture_cube_map = GL_TEXTURE_CUBE_MAP,
     /**
      * Array of multiple sets of cube maps, all within one texture.
      * The array length * 6 (number of cube faces) is part of the texture size.
      */
-    TextureCubeMapArray = GL_TEXTURE_CUBE_MAP_ARRAY,
+    texture_cube_map_array = GL_TEXTURE_CUBE_MAP_ARRAY,
     /**
      * One-dimensional texture image without mipmapping.
      * The storage for this data comes from a Buffer Object.
      */
-    TextureBuffer = GL_TEXTURE_BUFFER,
+    texture_buffer = GL_TEXTURE_BUFFER,
     /**
      * Two-dimensional texture image without mipmapping.
      * Each pixel in these images contains multiple samples instead of just one value.
      */
-    Texture2DMultiSample = GL_TEXTURE_2D_MULTISAMPLE,
+    texture_2d_multi_sample = GL_TEXTURE_2D_MULTISAMPLE,
     /**
      * Combines 2D array and 2D multisample types. No mipmapping.
      */
-    Texture2DMultiSampleArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
+    texture_2d_multi_sample_array = GL_TEXTURE_2D_MULTISAMPLE_ARRAY
 };
 
 }}}

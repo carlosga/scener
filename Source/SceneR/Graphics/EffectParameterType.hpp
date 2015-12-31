@@ -18,69 +18,69 @@ enum class EffectParameterType : std::uint32_t
      * before being written into the constant table; otherwise, the value will be set to 0 in the constant
      * table.
      */
-    Bool = 1,
+    boolean = 1,
     /**
      * Parameter is a signed byte. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    Byte = 2,
+    byte = 2,
     /**
      * Parameter is an unsigned byte. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    UByte = 3,
+    ubyte = 3,
     /**
      * Parameter is an signed 16-bit integer. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    Int16 = 4,
+    int16 = 4,
     /**
      * Parameter is an unsigned 16-bit integer. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    UInt16 = 5,
+    uint16 = 5,
     /**
      * Parameter is an signed 32-bit integer. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    Int32 = 6,
+    int32 = 6,
     /**
      * Parameter is an unsigned 32-bit integer. Any floating-point values passed in will be rounded off
      * (to zero decimal places) before being written into the constant table.
      */
-    UInt32 = 7,
+    uint32 = 7,
     /**
      * Parameter is a floating-point number.
      */
-    Single = 8,
+    single = 8,
     /**
      * Parameter is a string.
      */
-    String = 9,
+    string = 9,
     /**
      * Parameter is a texture.
      */
-    Texture = 10,
+    texture = 10,
     /**
      * Parameter is a 1D texture.
      */
-    Texture1D = 11,
+    texture_1d = 11,
     /**
      * Parameter is a 2D texture.
      */
-    Texture2D = 12,
+    texture_2d = 12,
     /**
      * Parameter is a 3D texture.
      */
-    Texture3D = 13,
+    texture_3d = 13,
     /**
      * Parameter is a cube texture.
      */
-    TextureCube = 14,
+    texture_cube = 14,
     /**
      * Parameter is a void pointer.
      */
-    Void = 15
+    void_pointer = 15
 };
 
 }}

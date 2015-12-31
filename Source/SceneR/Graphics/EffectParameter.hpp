@@ -117,8 +117,8 @@ private:
     std::string _value        { };
     std::string _uniform_name { };
 
-    EffectParameterClass    _parameter_class { EffectParameterClass::Scalar };
-    EffectParameterType     _parameter_type  { EffectParameterType::Single };
+    EffectParameterClass    _parameter_class { EffectParameterClass::scalar };
+    EffectParameterType     _parameter_type  { EffectParameterType::single };
     OpenGL::ConstantBuffer* _constant_buffer { nullptr };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;

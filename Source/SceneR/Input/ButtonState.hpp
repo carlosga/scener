@@ -11,9 +11,9 @@ namespace SceneR { namespace Input {
 enum class ButtonState : std::uint32_t
 {
     // The button is pressed.
-    Pressed
+    pressed
     // The button is released.
-  , Released
+  , released
 };
 
 }}

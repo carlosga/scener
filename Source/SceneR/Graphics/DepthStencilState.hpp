@@ -48,23 +48,23 @@ public:
      * Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer
      * test fails for a counterclockwise triangle.
      */
-    StencilOperation counter_clockwise_stencil_depth_buffer_fail { StencilOperation::Keep };
+    StencilOperation counter_clockwise_stencil_depth_buffer_fail { StencilOperation::keep };
 
     /**
      * Gets or sets the stencil operation to perform if the stencil test fails for a counterclockwise triangle.
      */
-    StencilOperation counter_clockwise_stencil_fail { StencilOperation::Keep };
+    StencilOperation counter_clockwise_stencil_fail { StencilOperation::keep };
 
     /**
      * Gets or sets the comparison function to use for counterclockwise stencil tests.
      */
-    CompareFunction counter_clockwise_stencil_function { CompareFunction::Always };
+    CompareFunction counter_clockwise_stencil_function { CompareFunction::always };
 
     /**
      * Gets or sets the stencil operation to perform if the stencil and depth-tests pass for a
      * counterclockwise triangle.
      */
-    StencilOperation counter_clockwise_stencil_pass { StencilOperation::Keep };
+    StencilOperation counter_clockwise_stencil_pass { StencilOperation::keep };
 
     /**
      * Gets or sets a value indicating where depth buffer is enabled
@@ -74,7 +74,7 @@ public:
     /**
      * Gets or sets the comparison function for the depth-buffer test. The default is CompareFunction.Less
      */
-    CompareFunction depth_buffer_function { CompareFunction::Less };
+    CompareFunction depth_buffer_function { CompareFunction::less };
 
     /**
      *  Gets or sets a value indicating whether writing to the depth buffer is allowed. The default is true.
@@ -89,7 +89,7 @@ public:
     /**
      * Gets or sets the stencil operation to perform if the stencil test passes and the depth-test fails.
      */
-    StencilOperation stencil_depth_buffer_fail { StencilOperation::Keep };
+    StencilOperation stencil_depth_buffer_fail { StencilOperation::keep };
 
     /**
      * Enables or disables the stencil test.
@@ -99,12 +99,12 @@ public:
     /**
      * Gets or sets the stencil operation to perform if the stencil test fails.
      */
-    StencilOperation stencil_fail { StencilOperation::Keep };
+    StencilOperation stencil_fail { StencilOperation::keep };
 
     /**
      * Gets or sets the comparison function for the stencil test.
      */
-    CompareFunction stencil_function { CompareFunction::Always };
+    CompareFunction stencil_function { CompareFunction::always };
 
     /**
      * Gets or sets the mask applied to the reference value and
@@ -116,7 +116,7 @@ public:
     /**
      * Gets or sets the stencil operation to perform if the stencil test passes
      */
-    StencilOperation stencil_pass { StencilOperation::Keep };
+    StencilOperation stencil_pass { StencilOperation::keep };
 
     /**
      * Gets or sets the write mask applied to values written into the stencil buffer.

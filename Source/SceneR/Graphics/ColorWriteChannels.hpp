@@ -16,27 +16,27 @@ enum class ColorWriteChannels : std::uint32_t
     /**
      * No channel selected.
      */
-    None = 0,
+    none = 0,
     /**
      * Alpha channel of a buffer.
      */
-    Alpha = 1,
+    alpha = 1,
     /**
      * Blue channel of a buffer.
      */
-    Blue = 2,
+    blue = 2,
     /**
      * Green channel of a buffer.
      */
-    Green = 4,
+    green = 4,
     /**
      * Red channel of a buffer.
      */
-    Red = 8,
+    red = 8,
     /**
      * All buffer channels.
      */
-    All = Red | Green | Blue | Alpha
+    all = red | green | blue | alpha
 };
 
 inline constexpr ColorWriteChannels operator&(const ColorWriteChannels& left, const ColorWriteChannels& right)

@@ -16,55 +16,55 @@ enum class VertexElementUsage : std::uint32_t
     /**
      * Position data.
      */
-    Position = 0,
+    position = 0,
     /**
      * Vertex data contains diffuse or specular color.
      */
-    Color = 1,
+    color = 1,
     /**
      * Texture coordinate data.
      */
-    TextureCoordinate = 2,
+    texture_coordinate = 2,
     /**
      * Vertex normal data.
      */
-    Normal = 3,
+    normal = 3,
     /**
      * Vertex binormal data.
      */
-    Binormal = 4,
+    binormal = 4,
     /**
      * Vertex tangent data.
      */
-    Tangent = 5,
+    tangent = 5,
     /**
      * Blending indices data.
      */
-    BlendIndices = 6,
+    blend_indices = 6,
     /**
      * Blending weight data.
      */
-    BlendWeight = 7,
+    blend_weight = 7,
     /**
      * Vertex data contains depth data.
      */
-    Depth = 8,
+    depth = 8,
     /**
      * Vertex data contains fog data.
      */
-    Fog = 9,
+    fog = 9,
     /**
      * Point size data.
      */
-    PointSize = 10,
+    point_size = 10,
     /**
      * Vertex data contains sampler data.
      */
-    Sample = 11,
+    sample = 11,
     /**
      * Single, positive floating-point value.
      */
-    TessellateFactor = 12
+    tessellate_factor = 12
 };
 
 }}

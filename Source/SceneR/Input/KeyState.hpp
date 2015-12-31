@@ -12,9 +12,9 @@ namespace SceneR { namespace Input {
 enum class KeyState : std::uint32_t
 {
     // Key is pressed.
-    Down
+    down
     // Key is released.
-  , Up
+  , up
 };
 
 }}

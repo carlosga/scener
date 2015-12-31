@@ -16,15 +16,15 @@ enum class PlaneIntersectionType : std::uint32_t
     /**
      * There is no intersection, and the bounding volume is in the negative half-space of the Plane.
      */
-    Back = 0,
+    back = 0,
     /**
      * There is no intersection, and the bounding volume is in the positive half-space of the Plane.
      */
-    Front = 1,
+    front = 1,
     /**
      * The Plane is intersected.
      */
-    Intersecting = 2
+    intersecting = 2
 };
 
 }}

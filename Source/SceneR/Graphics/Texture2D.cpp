@@ -15,7 +15,7 @@ using SceneR::Graphics::OpenGL::TextureStorage;
 Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
                    , const std::size_t&             width
                    , const std::size_t&             height) noexcept
-    : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::Color)
+    : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::color)
 {
 }
 
@@ -30,7 +30,7 @@ Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
     , _mipmap_levels { 0 }
     , _height        { height }
     , _width         { width }
-    , _storage       { TextureTarget::Texture2D }
+    , _storage       { TextureTarget::texture_2d }
 {
 }
 

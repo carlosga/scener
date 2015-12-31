@@ -3,7 +3,7 @@
 
 #include "TimeSpanTest.hpp"
 
-#include <SceneR/Core/TimeSpan.hpp>
+#include <SceneR/TimeSpan.hpp>
 
 using namespace SceneR;
 

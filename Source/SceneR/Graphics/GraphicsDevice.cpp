@@ -20,25 +20,25 @@ std::size_t GraphicsDevice::get_element_count(const PrimitiveType& primitiveType
 {
     switch (primitiveType)
     {
-    case PrimitiveType::LineList:
+    case PrimitiveType::line_list:
         return primitiveCount * 2;
 
-    case PrimitiveType::LineLoop:
+    case PrimitiveType::line_loop:
         return primitiveCount;
 
-    case PrimitiveType::LineStrip:
+    case PrimitiveType::line_strip:
         return primitiveCount + 1;
 
-    case PrimitiveType::PointList:
+    case PrimitiveType::point_list:
         return primitiveCount;
 
-    case PrimitiveType::TriangleFan:
+    case PrimitiveType::triangle_fan:
         return primitiveCount;
 
-    case PrimitiveType::TriangleList:
+    case PrimitiveType::triangle_list:
         return primitiveCount * 3;
 
-    case PrimitiveType::TriangleStrip:
+    case PrimitiveType::triangle_strip:
         return primitiveCount + 2;
     }
 }

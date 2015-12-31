@@ -18,15 +18,15 @@ enum class CullMode : std::uint32_t
     /**
      * Cull back faces with clockwise vertices.
      */
-    CullClockwiseFace = GL_CW,
+    cull_clockwise_face = GL_CW,
     /**
      * Cull front faces with counterclockwise vertices.
      */
-    CullCounterClockwiseFace = GL_CCW,
+    cull_counter_clockwise_face = GL_CCW,
     /**
      * Do not perform culling
      */
-    None = 0
+    none = 0
 };
 
 }}

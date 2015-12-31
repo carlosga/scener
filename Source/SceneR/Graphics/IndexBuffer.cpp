@@ -47,13 +47,13 @@ std::size_t IndexBuffer::element_size_in_bytes() const noexcept
 {
     switch (_indexElementType)
     {
-    case ComponentType::Byte:
-    case ComponentType::UByte:
+    case ComponentType::byte:
+    case ComponentType::ubyte:
         return sizeof(std::uint8_t);
-    case ComponentType::Int16:
-    case ComponentType::UInt16:
+    case ComponentType::int16:
+    case ComponentType::uint16:
         return sizeof(std::uint16_t);
-    case ComponentType::Single:
+    case ComponentType::single:
         return sizeof(float);
     }
 }
@@ -97,7 +97,7 @@ void IndexBuffer::unbind() const noexcept
 
 void IndexBuffer::create() noexcept
 {
-    _buffer = std::make_unique<Buffer>(BufferTarget::ElementArraybuffer, BufferUsage::StaticDraw);
+    _buffer = std::make_unique<Buffer>(BufferTarget::element_array_buffer, BufferUsage::static_draw);
     _buffer->create();
 }
 

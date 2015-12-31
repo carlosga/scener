@@ -18,23 +18,23 @@ enum class ShaderType : std::uint32_t
     /**
      * A shader that is intended to run on the programmable vertex processor.
      */
-    Vertex         = GL_VERTEX_SHADER,
+    vertex         = GL_VERTEX_SHADER,
     /**
      * A shader that is intended to run on the programmable tessellation processor in the control stage
      */
-    TessControl    = GL_TESS_CONTROL_SHADER,
+    tess_control    = GL_TESS_CONTROL_SHADER,
     /**
      * A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
      */
-    TessEvaluation = GL_TESS_EVALUATION_SHADER,
+    tess_evaluation = GL_TESS_EVALUATION_SHADER,
     /**
      * A shader that is intended to run on the programmable geometry processor.
      */
-    Geometry       = GL_GEOMETRY_SHADER,
+    geometry       = GL_GEOMETRY_SHADER,
     /**
      * A shader that is intended to run on the programmable fragment processor.
      */
-    Fragment       = GL_FRAGMENT_SHADER
+    fragment       = GL_FRAGMENT_SHADER
 };
 
 }}
