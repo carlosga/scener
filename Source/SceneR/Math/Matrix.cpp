@@ -159,7 +159,7 @@ Matrix Matrix::create_orthographic_off_center(float left  , float right
 
 Matrix Matrix::create_perspective(float width, float height, float zNear, float zFar) noexcept
 {
-    Expects(zNear >= 0.0f && zFar >= 0.0f && zNear <= zFar);
+    Expects(zNear >= 0.0f && zFar >= 0.0f && zNear < zFar);
 
     // Reference: http://msdn.microsoft.com/en-us/library/bb205355(v=vs.85).aspx
     // 2*zn/w  0       0              0
@@ -181,7 +181,7 @@ Matrix Matrix::create_perspective_field_of_view(float fieldOfView, float aspectR
     Expects(fieldOfView >= 0.0f && fieldOfView <= Math::pi);
     Expects(zNear >= 0.0f);
     Expects(zFar >= 0.0f);
-    Expects(zNear <= zFar);
+    Expects(zNear < zFar);
 
     // Reference: http://msdn.microsoft.com/en-us/library/bb205351(v=vs.85).aspx
     // xScale     0          0              0
@@ -209,7 +209,7 @@ Matrix Matrix::create_perspective_off_center(float left  , float right
 {
     Expects(zNear >= 0.0f);
     Expects(zFar >= 0.0f);
-    Expects(zNear <= zFar);
+    Expects(zNear < zFar);
 
     // Reference : https://msdn.microsoft.com/en-us/library/bb205354(v=vs.85).aspx
 

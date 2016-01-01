@@ -71,7 +71,7 @@ Plane Plane::transform(const Plane& plane, const Quaternion& rotation) noexcept
     //      Pout = q * Pin * conj(q)
     //
 
-    auto pout = (rotation * Quaternion(plane.normal, 0.0f) * Quaternion::conjugate(rotation));
+    auto pout = (rotation * Quaternion(plane.normal, plane.d) * Quaternion::conjugate(rotation));
 
     return { pout.x, pout.y, pout.z, pout.w };
 }

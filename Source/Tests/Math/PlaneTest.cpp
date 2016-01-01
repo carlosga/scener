@@ -241,12 +241,7 @@ TEST_F(PlaneTest, TransformByQuaternion)
     auto m      = Matrix::create_rotation_x(SceneR::Math::to_radians(30.0f))
                 * Matrix::create_rotation_y(SceneR::Math::to_radians(30.0f))
                 * Matrix::create_rotation_z(SceneR::Math::to_radians(30.0f));
-
-    m.m41 = 10.0f;
-    m.m42 = 20.0f;
-    m.m43 = 30.0f;
-
-    auto q = Quaternion::create_from_rotation_matrix(m);
+    auto q      = Quaternion::create_from_rotation_matrix(m);
 
     Plane expected;
 
