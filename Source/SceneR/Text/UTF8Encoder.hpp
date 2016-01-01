@@ -30,16 +30,16 @@ public:
 
 public:
     std::size_t get_byte_count(const std::vector<char16_t>& chars
-                             , const std::size_t&           index
-                             , const std::size_t&           count
-                             , const bool&                  flush) const override;
+                             , std::size_t                  index
+                             , std::size_t                  count
+                             , bool                         flush) const override;
 
     std::size_t get_bytes(const std::vector<char16_t>& chars
-                        , const std::size_t&           charIndex
-                        , const std::size_t&           charCount
+                        , std::size_t                  charIndex
+                        , std::size_t                  charCount
                         , std::vector<std::uint8_t>&   bytes
-                        , const std::size_t&           byteIndex
-                        , const bool&                  flush) const override;
+                        , std::size_t                  byteIndex
+                        , bool                         flush) const override;
 
 private:
     std::codecvt_utf8_utf16<char16_t> _converter;

@@ -15,44 +15,42 @@ bool UTF8Encoding::is_single_byte() const
     return false;
 }
 
-std::size_t UTF8Encoding::get_byte_count(const std::vector<char16_t>& chars
-                                       , const std::size_t&           index
-                                       , const std::size_t&           count) const
+std::size_t UTF8Encoding::get_byte_count(const std::vector<char16_t>& chars, std::size_t index, std::size_t count) const
 {
     return _encoder.get_byte_count(chars, index, count, false);
 }
 
 std::size_t UTF8Encoding::get_bytes(const std::vector<char16_t>& chars
-                                  , const std::size_t&           charIndex
-                                  , const std::size_t&           charCount
+                                  , std::size_t                  charIndex
+                                  , std::size_t                  charCount
                                   , std::vector<std::uint8_t>&   bytes
-                                  , const std::size_t&           byteIndex) const
+                                  , std::size_t                  byteIndex) const
 {
     return _encoder.get_bytes(chars, charIndex, charCount, bytes, byteIndex, false);
 }
 
 std::size_t UTF8Encoding::get_char_count(const std::vector<std::uint8_t>& bytes
-                                       , const std::size_t&               index
-                                       , const std::size_t&               count) const
+                                       , std::size_t                      index
+                                       , std::size_t                      count) const
 {
     return _decoder.get_char_count(bytes, index, count);
 }
 
 std::size_t UTF8Encoding::get_chars(const std::vector<std::uint8_t>& bytes
-                                  , const std::size_t&               byteIndex
-                                  , const std::size_t&               byteCount
+                                  , std::size_t                      byteIndex
+                                  , std::size_t                      byteCount
                                   , std::vector<char16_t>&           chars
-                                  , const std::size_t&               charIndex) const
+                                  , std::size_t                      charIndex) const
 {
     return _decoder.get_chars(bytes, byteIndex, byteCount, chars, charIndex);
 }
 
-std::size_t UTF8Encoding::get_max_byte_count(const std::size_t& charCount)
+std::size_t UTF8Encoding::get_max_byte_count(std::size_t charCount)
 {
     return (charCount * 4);
 }
 
-std::size_t UTF8Encoding::get_max_char_count(const std::size_t& byteCount)
+std::size_t UTF8Encoding::get_max_char_count(std::size_t byteCount)
 {
     return byteCount; // Every character could be 1 byte lenght
 }

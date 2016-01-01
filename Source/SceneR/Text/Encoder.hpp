@@ -33,9 +33,7 @@ public:
      * A parameter indicates whether to clear the internal state of the encoder
      * after the calculation.
      */
-    virtual std::size_t get_byte_count(const char16_t*    chars
-                                     , const std::size_t& count
-                                     , const bool&        flush) const;
+    virtual std::size_t get_byte_count(const char16_t* chars, std::size_t count, bool flush) const;
 
     /**
      * When overridden in a derived class, calculates the number of bytes produced
@@ -43,9 +41,9 @@ public:
      * indicates whether to clear the internal state of the encoder after the calculation.
      */
     virtual std::size_t get_byte_count(const std::vector<char16_t>& chars
-                                     , const std::size_t&           index
-                                     , const std::size_t&           count
-                                     , const bool&                  flush) const = 0;
+                                     , std::size_t                  index
+                                     , std::size_t                  count
+                                     , bool                         flush) const = 0;
 
     /**
      * When overridden in a derived class, encodes a set of characters starting
@@ -54,11 +52,11 @@ public:
      * A parameter indicates whether to clear the internal state of the encoder
      * after the conversion.
      */
-    virtual std::size_t get_bytes(const char16_t*    chars
-                                , const std::size_t& charCount
-                                , std::uint8_t*      bytes
-                                , const std::size_t& byteCount
-                                , const bool&        flush) const;
+    virtual std::size_t get_bytes(const char16_t* chars
+                                , std::size_t     charCount
+                                , std::uint8_t*   bytes
+                                , std::size_t     byteCount
+                                , bool            flush) const;
 
     /**
      * When overridden in a derived class, encodes a set of characters from the
@@ -67,11 +65,11 @@ public:
      * state of the encoder after the conversion.
      */
     virtual std::size_t get_bytes(const std::vector<char16_t>& chars
-                                , const std::size_t&           charIndex
-                                , const std::size_t&           charCount
+                                , std::size_t                  charIndex
+                                , std::size_t                  charCount
                                 , std::vector<std::uint8_t>&   bytes
-                                , const std::size_t&           byteIndex
-                                , const bool&                  flush) const = 0;
+                                , std::size_t                  byteIndex
+                                , bool                         flush) const = 0;
 
     /**
      * When overridden in a derived class, sets the encoder back to its initial

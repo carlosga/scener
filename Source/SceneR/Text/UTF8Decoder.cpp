@@ -8,8 +8,8 @@
 namespace SceneR { namespace Text {
 
 std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
-                                      , const std::size_t&               index
-                                      , const std::size_t&               count) const
+                                      , std::size_t                      index
+                                      , std::size_t                      count) const
 {
     if (index > bytes.size() || count > bytes.size() || (index + count) > bytes.size())
     {
@@ -41,10 +41,10 @@ std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
 }
 
 std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
-                                 , const std::size_t&               byteIndex
-                                 , const std::size_t&               byteCount
+                                 , std::size_t                      byteIndex
+                                 , std::size_t                      byteCount
                                  , std::vector<char16_t>&           chars
-                                 , const std::size_t&               charIndex) const
+                                 , std::size_t                      charIndex) const
 {
     if (byteIndex > bytes.size() || byteCount > bytes.size() || (byteIndex + byteCount) > bytes.size())
     {

@@ -30,15 +30,13 @@ public:
     virtual ~UTF8Decoder() override = default;
 
 public:
-    std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
-                             , const std::size_t&               index
-                             , const std::size_t&               count) const override;
+    std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;
 
     std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                        , const std::size_t&               byteIndex
-                        , const std::size_t&               byteCount
+                        , std::size_t                      byteIndex
+                        , std::size_t                      byteCount
                         , std::vector<char16_t>&           chars
-                        , const std::size_t&               charIndex) const override;
+                        , std::size_t                      charIndex) const override;
 
     void reset() override;
 

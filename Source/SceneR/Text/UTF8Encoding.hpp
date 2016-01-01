@@ -41,29 +41,25 @@ public:
     using Encoding::get_chars;
     using Encoding::get_string;
 
-    std::size_t get_byte_count(const std::vector<char16_t>& chars
-                             , const std::size_t&           index
-                             , const std::size_t&           count) const override;
+    std::size_t get_byte_count(const std::vector<char16_t>& chars, std::size_t index, std::size_t count) const override;
 
     std::size_t get_bytes(const std::vector<char16_t>& chars
-                        , const std::size_t&           charIndex
-                        , const std::size_t&           charCount
+                        , std::size_t                  charIndex
+                        , std::size_t                  charCount
                         , std::vector<std::uint8_t>&   bytes
-                        , const std::size_t&           byteIndex) const override;
+                        , std::size_t                  byteIndex) const override;
 
-    std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
-                            , const std::size_t&               index
-                            , const std::size_t&               count) const override;
+    std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;
 
     std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                        , const std::size_t&               byteIndex
-                        , const std::size_t&               byteCount
+                        , std::size_t                      byteIndex
+                        , std::size_t                      byteCount
                         , std::vector<char16_t>&           chars
-                        , const std::size_t&               charIndex) const override;
+                        , std::size_t                      charIndex) const override;
 
-    std::size_t get_max_byte_count(const std::size_t& charCount) override;
+    std::size_t get_max_byte_count(std::size_t charCount) override;
 
-    std::size_t get_max_char_count(const std::size_t& byteCount) override;
+    std::size_t get_max_char_count(std::size_t byteCount) override;
 
     std::vector<std::uint8_t> get_preamble() const override;
 

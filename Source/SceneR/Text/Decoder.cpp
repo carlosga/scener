@@ -13,7 +13,7 @@ Decoder::~Decoder()
 {
 }
 
-std::size_t Decoder::get_char_count(const std::uint8_t* bytes, const std::size_t& count, const bool& flush) const
+std::size_t Decoder::get_char_count(const std::uint8_t* bytes, std::size_t count, bool flush) const
 {
     auto vbytes = std::vector<std::uint8_t>(bytes, bytes + count);
 
@@ -21,18 +21,18 @@ std::size_t Decoder::get_char_count(const std::uint8_t* bytes, const std::size_t
 }
 
 std::size_t Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
-                                  , const std::size_t&               index
-                                  , const std::size_t&               count
-                                  , const bool&                      flush) const
+                                  , std::size_t                      index
+                                  , std::size_t                      count
+                                  , bool                             flush) const
 {
     return this->get_char_count(bytes, index, count);
 }
 
 std::size_t Decoder::get_chars(const std::uint8_t* bytes
-                             , const std::size_t&  byteCount
+                             , std::size_t         byteCount
                              , char16_t*           chars
-                             , const std::size_t&  charCount
-                             , const bool&         flush) const
+                             , std::size_t         charCount
+                             , bool                flush) const
 {
     auto vbytes = std::vector<std::uint8_t>(bytes, bytes + byteCount);
     auto vchars = std::vector<char16_t>();
@@ -48,11 +48,11 @@ std::size_t Decoder::get_chars(const std::uint8_t* bytes
 }
 
 std::size_t Decoder::get_chars(const std::vector<std::uint8_t>& bytes
-                             , const std::size_t&               byteIndex
-                             , const std::size_t&               byteCount
+                             , std::size_t                      byteIndex
+                             , std::size_t                      byteCount
                              , std::vector<char16_t>&           chars
-                             , const std::size_t&               charIndex
-                             , const bool&                      flush) const
+                             , std::size_t                      charIndex
+                             , bool                             flush) const
 {
     return this->get_chars(bytes, byteIndex, byteCount, chars, charIndex);
 }

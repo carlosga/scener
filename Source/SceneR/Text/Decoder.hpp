@@ -32,17 +32,15 @@ public:
      * starting at the specified byte pointer. A parameter indicates whether to clear
      * the internal state of the decoder after the calculation.
      */
-    virtual std::size_t get_char_count(const std::uint8_t* bytes
-                                     , const std::size_t&  count
-                                     , const bool&         flush) const;
+    virtual std::size_t get_char_count(const std::uint8_t* bytes, std::size_t count, bool flush) const;
 
     /**
      * When overridden in a derived class, calculates the number of characters produced
      * by decoding a sequence of bytes from the specified byte array.
      */
     virtual std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
-                                     , const std::size_t&               index
-                                     , const std::size_t&               count) const = 0;
+                                     , std::size_t                      index
+                                     , std::size_t                      count) const = 0;
 
     /**
      * Calculates the number of characters produced by decoding a sequence of bytes
@@ -50,9 +48,9 @@ public:
      * internal state of the decoder after the calculation.
      */
     virtual std::size_t get_char_count(const std::vector<std::uint8_t>& bytes
-                                     , const std::size_t&               index
-                                     , const std::size_t&               count
-                                     , const bool&                      flush) const;
+                                     , std::size_t                      index
+                                     , std::size_t                      count
+                                     , bool                             flush) const;
 
     /**
      * Decodes a sequence of bytes starting at the specified byte pointer and
@@ -62,10 +60,10 @@ public:
      * after the conversion.
      */
     virtual std::size_t get_chars(const std::uint8_t* bytes
-                                , const std::size_t&  byteCount
+                                , std::size_t         byteCount
                                 , char16_t*           chars
-                                , const std::size_t&  charCount
-                                , const bool&         flush) const;
+                                , std::size_t         charCount
+                                , bool                flush) const;
 
     /**
      * When overridden in a derived class, decodes a sequence of bytes from the
@@ -73,10 +71,10 @@ public:
      * character array.
      */
     virtual std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                                , const std::size_t&               byteIndex
-                                , const std::size_t&               byteCount
+                                , std::size_t                      byteIndex
+                                , std::size_t                      byteCount
                                 , std::vector<char16_t>&           chars
-                                , const std::size_t&               charIndex) const = 0;
+                                , std::size_t                      charIndex) const = 0;
 
     /**
      * Decodes a sequence of bytes from the specified byte array and any bytes
@@ -84,11 +82,11 @@ public:
      * A parameter indicates whether to clear the internal state of the decoder after the conversion.
      */
     virtual std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                                , const std::size_t&               byteIndex
-                                , const std::size_t&               byteCount
+                                , std::size_t                      byteIndex
+                                , std::size_t                      byteCount
                                 , std::vector<char16_t>&           chars
-                                , const std::size_t&               charIndex
-                                , const bool&                      flush) const;
+                                , std::size_t                      charIndex
+                                , bool                             flush) const;
 
     /**
      * Sets the encoder back to its initial state.

@@ -29,8 +29,8 @@ std::vector<std::uint8_t> Encoding::convert(const Encoding&                  src
 std::vector<std::uint8_t> Encoding::convert(const Encoding&                  srcEncoding
                                           , const Encoding&                  dstEncoding
                                           , const std::vector<std::uint8_t>& bytes
-                                          , const std::size_t&               index
-                                          , const std::size_t&               count)
+                                          , std::size_t                      index
+                                          , std::size_t                      count)
 {
     auto srcChars = srcEncoding.get_chars(bytes, index, count);
 
@@ -68,7 +68,7 @@ std::size_t Encoding::get_byte_count(const std::u16string& s) const
     return get_byte_count(temp, 0, temp.size());
 }
 
-std::size_t Encoding::get_byte_count(const char16_t* chars, const std::size_t& count) const
+std::size_t Encoding::get_byte_count(const char16_t* chars, std::size_t count) const
 {
     if (chars == nullptr)
     {
@@ -93,8 +93,8 @@ std::vector<std::uint8_t> Encoding::get_bytes(const std::u16string& s) const
 }
 
 std::vector<std::uint8_t> Encoding::get_bytes(const std::vector<char16_t>& chars
-                                            , const std::size_t&           index
-                                            , const std::size_t&           count) const
+                                            , std::size_t                  index
+                                            , std::size_t                  count) const
 {
     auto byteCount = get_byte_count(chars, index, count);
     auto result    = std::vector<std::uint8_t>(byteCount, 0);
@@ -104,19 +104,19 @@ std::vector<std::uint8_t> Encoding::get_bytes(const std::vector<char16_t>& chars
     return result;
 }
 
-std::size_t Encoding::get_bytes(const char16_t*    chars
-                              , const std::size_t& charCount
-                              , std::uint8_t*      bytes
-                              , const std::size_t& byteCount) const
+std::size_t Encoding::get_bytes(const char16_t* chars
+                              , std::size_t     charCount
+                              , std::uint8_t*   bytes
+                              , std::size_t     byteCount) const
 {
     return get_encoder().get_bytes(chars, charCount, bytes, byteCount, false);
 }
 
 std::size_t Encoding::get_bytes(const std::u16string&      s
-                              , const std::size_t&         charIndex
-                              , const std::size_t&         charCount
+                              , std::size_t                charIndex
+                              , std::size_t                charCount
                               , std::vector<std::uint8_t>& bytes
-                              , const std::size_t&         byteIndex) const
+                              , std::size_t                byteIndex) const
 {
     auto temp = std::vector<char16_t>(s.begin(), s.end());
 
@@ -141,8 +141,8 @@ std::vector<char16_t> Encoding::get_chars(const std::vector<std::uint8_t>& bytes
 }
 
 std::vector<char16_t> Encoding::get_chars(const std::vector<std::uint8_t>& bytes
-                                        , const std::size_t&               index
-                                        , const std::size_t&               count) const
+                                        , std::size_t                      index
+                                        , std::size_t                      count) const
 {
     auto charCount = get_char_count(bytes, index, count);
     auto result    = std::vector<char16_t>(charCount, 0);
@@ -153,9 +153,9 @@ std::vector<char16_t> Encoding::get_chars(const std::vector<std::uint8_t>& bytes
 }
 
 std::size_t Encoding::get_chars(const std::uint8_t* bytes
-                              , const std::size_t&  byteCount
-                              , char16_t*           chars
-                              , const std::size_t&  charCount) const
+                              , std::size_t         byteCount
+                              , char16_t*          chars
+                              , std::size_t         charCount) const
 {
     return get_decoder().get_chars(bytes, byteCount, chars, charCount, false);
 }
@@ -165,9 +165,7 @@ std::u16string Encoding::get_string(const std::vector<std::uint8_t>& bytes) cons
     return get_string(bytes, 0, bytes.size());
 }
 
-std::u16string Encoding::get_string(const std::vector<std::uint8_t>& bytes
-                                  , const std::size_t&               index
-                                  , const std::size_t&               count) const
+std::u16string Encoding::get_string(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const
 {
     auto chars = get_chars(bytes, index, count);
 
