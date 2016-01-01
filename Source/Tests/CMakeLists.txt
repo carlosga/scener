@@ -28,9 +28,6 @@ find_package (Threads REQUIRED)
 # link directories
 link_directories (${CMAKE_BINARY_DIR}/googletest-build ${SCENER_LIB_DIRS})
 
-# header files
-file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
-
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
@@ -48,17 +45,4 @@ target_link_libraries (TestRunner
                        ${SCENER_LIBRARIES})
 
 # unit tests
-enable_testing()
-add_test(NAME TimeSpanTest COMMAND TestRunner)
-add_test(NAME BinaryReaderTest COMMAND TestRunner)
-add_test(NAME FileStreamTest COMMAND TestRunner)
-add_test(NAME MemoryStreamTest COMMAND TestRunner)
-add_test(NAME MathTest COMMAND TestRunner)
-add_test(NAME MatrixTest COMMAND TestRunner)
-add_test(NAME PlaneTest COMMAND TestRunner)
-add_test(NAME QuaternionTest COMMAND TestRunner)
-add_test(NAME Vector2Test COMMAND TestRunner)
-add_test(NAME Vector3Test COMMAND TestRunner)
-add_test(NAME Vector4Test COMMAND TestRunner)
-add_test(NAME EncodingUTF8Test COMMAND TestRunner)
-add_test(NAME UTF8EncodingTest COMMAND TestRunner)
+add_test(NAME scener_test_runner COMMAND TestRunner)
