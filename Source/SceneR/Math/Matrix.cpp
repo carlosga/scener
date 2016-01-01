@@ -20,7 +20,7 @@ const Matrix Matrix::identity { 1.0f, 0.0f, 0.0f, 0.0f
                               , 0.0f, 0.0f, 1.0f, 0.0f
                               , 0.0f, 0.0f, 0.0f, 1.0f };
 
-Matrix Matrix::create_from_axis_angle(const Vector3& axis, const float&  angle) noexcept
+Matrix Matrix::create_from_axis_angle(const Vector3& axis, float angle) noexcept
 {
     // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto  naxis = Vector3::normalize(axis);
@@ -68,16 +68,14 @@ Matrix Matrix::create_from_quaternion(const Quaternion& quaternion) noexcept
            , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
 }
 
-Matrix Matrix::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept
+Matrix Matrix::create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept
 {
     return Matrix::create_from_axis_angle(Vector3::unit_z, roll)
          * Matrix::create_from_axis_angle(Vector3::unit_x, pitch)
          * Matrix::create_from_axis_angle(Vector3::unit_y, yaw);
 }
 
-Matrix Matrix::create_frustum(const float& left  , const float& right
-                            , const float& bottom, const float& top
-                            , const float& zNear , const float& zFar) noexcept
+Matrix Matrix::create_frustum(float left, float right, float bottom, float top, float zNear, float zFar) noexcept
 {
     Expects (zNear < 0 || zFar < 0);
 
@@ -121,10 +119,7 @@ Matrix Matrix::create_look_at(const Vector3& cameraPosition
            , -dx    , -dy    , -dz    , 1.0f };
 }
 
-Matrix Matrix::create_orthographic(const float& width
-                                 , const float& height
-                                 , const float& zNear
-                                 , const float& zFar) noexcept
+Matrix Matrix::create_orthographic(float width, float height, float zNear, float zFar) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205349(v=vs.85).aspx
     // 2/w  0    0           0
@@ -140,9 +135,9 @@ Matrix Matrix::create_orthographic(const float& width
            , 0.0f        , 0.0f         , zNear / nearSubFar, 1.0f };
 }
 
-Matrix Matrix::create_orthographic_off_center(const float& left  , const float& right
-                                            , const float& bottom, const float& top
-                                            , const float& zNear , const float& zFar) noexcept
+Matrix Matrix::create_orthographic_off_center(float left  , float right
+                                            , float bottom, float top
+                                            , float zNear , float zFar) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb205348(v=vs.85).aspx
     // 2/(r-l)      0            0           0
@@ -162,10 +157,7 @@ Matrix Matrix::create_orthographic_off_center(const float& left  , const float& 
            , leftPlusRight / leftSubRight, topPlusBottom / bottomSubTop, zNear / nearSubFar, 1.0f };
 }
 
-Matrix Matrix::create_perspective(const float& width
-                                , const float& height
-                                , const float& zNear
-                                , const float& zFar) noexcept
+Matrix Matrix::create_perspective(float width, float height, float zNear, float zFar) noexcept
 {
     Expects(zNear >= 0.0f && zFar >= 0.0f && zNear <= zFar);
 
@@ -183,10 +175,8 @@ Matrix Matrix::create_perspective(const float& width
            , 0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f };
 }
 
-Matrix Matrix::create_perspective_field_of_view(const float& fieldOfView
-                                              , const float& aspectRatio
-                                              , const float& zNear
-                                              , const float& zFar) noexcept
+Matrix Matrix::create_perspective_field_of_view(float fieldOfView, float aspectRatio
+                                              , float zNear      , float zFar) noexcept
 {
     Expects(fieldOfView >= 0.0f && fieldOfView <= Math::pi);
     Expects(zNear >= 0.0f);
@@ -213,12 +203,9 @@ Matrix Matrix::create_perspective_field_of_view(const float& fieldOfView
            , 0.0f  , 0.0f  , zNear * zFar / nearSubFar, 0.0f };
 }
 
-Matrix Matrix::create_perspective_off_center(const float& left
-                                           , const float& right
-                                           , const float& bottom
-                                           , const float& top
-                                           , const float& zNear
-                                           , const float& zFar) noexcept
+Matrix Matrix::create_perspective_off_center(float left  , float right
+                                           , float bottom, float top
+                                           , float zNear , float zFar) noexcept
 {
     Expects(zNear >= 0.0f);
     Expects(zFar >= 0.0f);
@@ -243,7 +230,7 @@ Matrix Matrix::create_perspective_off_center(const float& left
            , 0.0f                        , 0.0f                        , zNear * zFar / nearSubFar, 0.0f};
 }
 
-Matrix Matrix::create_rotation_x(const float& angle) noexcept
+Matrix Matrix::create_rotation_x(float angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     float cos = Math::cos(angle);
@@ -255,7 +242,7 @@ Matrix Matrix::create_rotation_x(const float& angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_x(const float& angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_x(float angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -275,7 +262,7 @@ Matrix Matrix::create_rotation_x(const float& angle, const Vector3& center) noex
            , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
 }
 
-Matrix Matrix::create_rotation_y(const float& angle) noexcept
+Matrix Matrix::create_rotation_y(float angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     float cos = Math::cos(angle);
@@ -287,7 +274,7 @@ Matrix Matrix::create_rotation_y(const float& angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_y(const float& angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_y(float angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -307,7 +294,7 @@ Matrix Matrix::create_rotation_y(const float& angle, const Vector3& center) noex
            , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
 }
 
-Matrix Matrix::create_rotation_z(const float& angle) noexcept
+Matrix Matrix::create_rotation_z(float angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
     float cos = Math::cos(angle);
@@ -319,7 +306,7 @@ Matrix Matrix::create_rotation_z(const float& angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_z(const float& angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_z(float angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -339,12 +326,12 @@ Matrix Matrix::create_rotation_z(const float& angle, const Vector3& center) noex
            , x - cos * x + sin * y, y - sin * x - cos * y, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_scale(const float& scale) noexcept
+Matrix Matrix::create_scale(float scale) noexcept
 {
     return Matrix::create_scale(scale, scale, scale);
 }
 
-Matrix Matrix::create_scale(const float& scale, const Vector3& center) noexcept
+Matrix Matrix::create_scale(float scale, const Vector3& center) noexcept
 {
     return Matrix::create_scale(scale, scale, scale, center);
 }
@@ -354,7 +341,7 @@ Matrix Matrix::create_scale(const Vector3& scales) noexcept
     return Matrix::create_scale(scales.x, scales.y, scales.z);
 }
 
-Matrix Matrix::create_scale(const float& xScale, const float& yScale, const float& zScale) noexcept
+Matrix Matrix::create_scale(float xScale, float yScale, float zScale) noexcept
 {
     return { xScale, 0.0f  , 0.0f  , 0.0f
            , 0.0f  , yScale, 0.0f  , 0.0f
@@ -367,10 +354,7 @@ Matrix Matrix::create_scale(const Vector3& scales, const Vector3& center) noexce
     return Matrix::create_scale(scales.x, scales.y, scales.z, center);
 }
 
-Matrix Matrix::create_scale(const float&   xScale
-                          , const float&   yScale
-                          , const float&   zScale
-                          , const Vector3& center) noexcept
+Matrix Matrix::create_scale(float xScale, float yScale, float zScale, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -394,7 +378,7 @@ Matrix Matrix::create_translation(const Vector3& position) noexcept
     return Matrix::create_translation(position.x, position.y, position.z);
 }
 
-Matrix Matrix::create_translation(const float& x, const float& y, const float& z) noexcept
+Matrix Matrix::create_translation(float x, float y, float z) noexcept
 {
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -605,10 +589,10 @@ Matrix::Matrix() noexcept
 {
 }
 
-Matrix::Matrix(const float& m11, const float& m12, const float& m13, const float& m14
-             , const float& m21, const float& m22, const float& m23, const float& m24
-             , const float& m31, const float& m32, const float& m33, const float& m34
-             , const float& m41, const float& m42, const float& m43, const float& m44) noexcept
+Matrix::Matrix(float m11, float m12, float m13, float m14
+             , float m21, float m22, float m23, float m24
+             , float m31, float m32, float m33, float m34
+             , float m41, float m42, float m43, float m44) noexcept
     : m11 { m11 }, m12 { m12 }, m13 { m13 }, m14 { m14 }
     , m21 { m21 }, m22 { m22 }, m23 { m23 }, m24 { m24 }
     , m31 { m31 }, m32 { m32 }, m33 { m33 }, m34 { m34 }
@@ -868,7 +852,7 @@ float Matrix::sub_matrix_determinant()
          + m13 * (m21 * m32 - m31 * m22);
 }
 
-Matrix Matrix::sub_matrix(const std::uint32_t& row, const std::uint32_t& column) const
+Matrix Matrix::sub_matrix(std::uint32_t row, std::uint32_t column) const
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
     std::uint32_t si;

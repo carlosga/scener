@@ -32,7 +32,7 @@ public:
      * @param point3 The third point defining the plane.
      * @return The plane containing the three points.
      */
-    static Plane create_from_vertices(const Vector3& point1, const Vector3& point2, const Vector3& point3);
+    static Plane create_from_vertices(const Vector3& point1, const Vector3& point2, const Vector3& point3) noexcept;
 
     /**
      * Calculates the dot product of a specified Vector4 and this Plane.
@@ -40,7 +40,7 @@ public:
      * @param plane The plane.
      * @param value The four-dimensional vector.
      */
-    static float dot(const Plane& plane, const Vector4& value);
+    static float dot(const Plane& plane, const Vector4& value) noexcept;
 
     /**
      * Returns the dot product of a specified three-dimensional vector and the Normal vector of this plane.
@@ -48,21 +48,22 @@ public:
      * @param v The three-dimensional vector.
      * @returns The dot product.
      */
-    static float dot_normal(const Plane& p, const Vector3& v);
+    static float dot_normal(const Plane& p, const Vector3& v) noexcept;
 
     /**
-     * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane plus the distance (D) value of the plane.
+     * Returns the dot product of a specified three-dimensional vector and the normal vector of this plane
+     * plus the distance (D) value of the plane.
      * @param p The plane
      * @param value The three-dimensional vector.
      * @returns The dot product
      */
-    static float dot_coordinate(const Plane& p, const Vector3& value);
+    static float dot_coordinate(const Plane& p, const Vector3& value) noexcept;
 
     /**
      * Changes the coefficients of the Normal vector of a Plane to make it of unit length.
      * @param value the Plane to normalize.
      */
-    static Plane normalize(const Plane& value);
+    static Plane normalize(const Plane& value) noexcept;
 
     /**
      *  Transforms a normalized Plane by a Matrix.
@@ -70,7 +71,7 @@ public:
      *  @param matrix the transform Matrix to apply to the Plane.
      *  @returns a new Plane that results from applying the transform.
      */
-    static Plane transform(const Plane& plane, const Matrix& matrix);
+    static Plane transform(const Plane& plane, const Matrix& matrix) noexcept;
 
     /**
      * Transforms a normalized Plane by a Quaternion rotation.
@@ -78,28 +79,28 @@ public:
      * @param rotation the Quaternion rotation to apply to the Plane.
      * @returns a new Plane that results from applying the rotation.
      */
-    static Plane transform(const Plane& plane, const Quaternion& rotation);
+    static Plane transform(const Plane& plane, const Quaternion& rotation) noexcept;
 
 public:
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane();
+    Plane() noexcept;
 
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane(const float& a, const float& b, const float& c, const float& d);
+    Plane(float a, float b, float c, float d) noexcept;
 
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane(const Vector3& normal, const float& d);
+    Plane(const Vector3& normal, float d) noexcept;
 
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane(const Vector4& value);
+    Plane(const Vector4& value) noexcept;
 
     /**
      * Initializes a new instance of the Plane structure. Copy constructor

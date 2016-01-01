@@ -20,7 +20,7 @@ Quaternion Quaternion::conjugate(const Quaternion& quaternion) noexcept
     return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
 }
 
-Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, const float& angle) noexcept
+Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, float angle) noexcept
 {
     // The quaternion in terms of axis-angle is:
     // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
@@ -34,7 +34,7 @@ Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, con
            , Math::cos(theta) };
 }
 
-Quaternion Quaternion::create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept
+Quaternion Quaternion::create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept
 {
     // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
     // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
@@ -121,7 +121,7 @@ Quaternion Quaternion::inverse(const Quaternion& value) noexcept
     return Quaternion::conjugate(value) / value.length_squared();
 }
 
-Quaternion Quaternion::lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept
+Quaternion Quaternion::lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, float amount) noexcept
 {
     float amount1 = 1.0f - amount;
     float amount2 = amount;
@@ -144,12 +144,12 @@ Quaternion Quaternion::normalize(const Quaternion& value) noexcept
     return value / value.length();
 }
 
-Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept
+Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, float amount) noexcept
 {
-    float w1;
-    float w2;
-    float cosTheta = Quaternion::dot(quaternion1, quaternion2);
     bool  flip     = false;
+    float cosTheta = Quaternion::dot(quaternion1, quaternion2);
+    float w1       = 0.0f;
+    float w2       = 0.0f;
 
     if (cosTheta < 0.0f)
     {
@@ -186,12 +186,12 @@ Quaternion::Quaternion() noexcept
 {
 }
 
-Quaternion::Quaternion(const Vector3& value, const float& w) noexcept
+Quaternion::Quaternion(const Vector3& value, float w) noexcept
     : Quaternion { value.x, value.y, value.z, w }
 {
 }
 
-Quaternion::Quaternion(const float& x, const float& y, const float& z, const float& w) noexcept
+Quaternion::Quaternion(float x, float y, float z, float w) noexcept
     : x { x }
     , y { y }
     , z { z }

@@ -5,114 +5,114 @@
 
 namespace SceneR {  namespace Math {
 
-bool is_infinity(const float& f)
+bool is_infinity(float f) noexcept
 {
     return is_positive_infinity(f) || is_negative_infinity(f);
 }
 
-bool is_negative_infinity(const float& f)
+bool is_negative_infinity(float f) noexcept
 {
     return (equal(f, negative_infinity));
 }
 
-bool is_positive_infinity(const float& f)
+bool is_positive_infinity(float f) noexcept
 {
     return (equal(f, positive_infinity));
 }
 
-bool is_nan(const float& f)
+bool is_nan(float f) noexcept
 {
     return std::isnan(f);
 }
 
-float abs(const float& value)
+float abs(float value) noexcept
 {
     return std::abs(value);
 }
 
-float acos(const float& value)
+float acos(float value) noexcept
 {
     return std::acos(value);
 }
 
-float asin(const float& value)
+float asin(float value) noexcept
 {
     return std::asin(value);
 }
 
-float atan(const float& value)
+float atan(float value) noexcept
 {
     return std::atan(value);
 }
 
-float atan2(const float& x, const float& y)
+float atan2(float x, float y) noexcept
 {
     return std::atan2(x, y);
 }
 
-float ceiling(const float& value)
+float ceiling(float value) noexcept
 {
     return std::ceil(value);
 }
 
-float cos(const float& value)
+float cos(float value) noexcept
 {
     return std::cos(value);
 }
 
-float cosh(const float& value)
+float cosh(float value) noexcept
 {
     return std::cosh(value);
 }
 
-float exp(const float& d)
+float exp(float d) noexcept
 {
     return std::exp(d);
 }
 
-float floor(const float& value)
+float floor(float value) noexcept
 {
     return std::floor(value);
 }
 
-float ieee_remainder(const float& x, const float& y)
+float ieee_remainder(float x, float y) noexcept
 {
     // Reference: https://msdn.microsoft.com/es-es/library/system.math.ieeeremainder%28v=vs.110%29.aspx
     // ieee_remainder = dividend - (divisor * Math.round(dividend / divisor))
     return x - (y * round(x / y));
 }
 
-float round(const float& a)
+float round(float a) noexcept
 {
     return std::round(a);
 }
 
-float sin(const float& value)
+float sin(float value) noexcept
 {
     return std::sin(value);
 }
 
-float sinh(const float& value)
+float sinh(float value) noexcept
 {
     return std::sinh(value);
 }
 
-float sqrt(const float& value)
+float sqrt(float value) noexcept
 {
     return std::sqrt(value);
 }
 
-float tan(const float& value)
+float tan(float value) noexcept
 {
     return std::tan(value);
 }
 
-float tanh(const float& value)
+float tanh(float value) noexcept
 {
     return std::tanh(value);
 }
 
-bool equal(const float& a, const float& b)
+bool equal(float a, float b) noexcept
 {
     // TODO: Take a look at
     //
@@ -124,8 +124,7 @@ bool equal(const float& a, const float& b)
     return (a == b);
 }
 
-float barycentric(const float& value1, const float& value2, const float& value3, const float& amount1,
-                        const float& amount2)
+float barycentric(float value1, float value2, float value3, float amount1, float amount2) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.Math.barycentric(v=xnagamestudio.40).aspx
     //  Pa = ((1 - b2 - b3) * V1a) + (b2 * V2a) + (b3 * V3a);
@@ -136,8 +135,7 @@ float barycentric(const float& value1, const float& value2, const float& value3,
     return ((1 - amount1 - amount2) * value1) + (amount1 * value2) + (amount2 * value3);
 }
 
-float catmull_rom(const float& value1, const float& value2, const float& value3, const float& value4,
-                        const float& amount)
+float catmull_rom(float value1, float value2, float value3, float value4, float amount) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/bb324331(v=vs.85).aspx
     // Q(s) = [(-s3 + 2s2 - s)p1 + (3s3 - 5s2 + 2)p2 + (-3s3 + 4s2 + s)p3 + (s3 - s2)p4] / 2;
@@ -152,7 +150,7 @@ float catmull_rom(const float& value1, const float& value2, const float& value3,
           + (s3 - s2) * value4) / 2;
 }
 
-float clamp(const float& value, const float& min, const float& max)
+float clamp(float value, float min, float max) noexcept
 {
     float maxValue = ((max < min) ? min : max);
 
@@ -168,8 +166,7 @@ float clamp(const float& value, const float& min, const float& max)
     return value;
 }
 
-float hermite(const float& value1, const float& tangent1, const float& value2, const float& tangent2,
-                    const float& amount)
+float hermite(float value1, float tangent1, float value2, float tangent2, float amount) noexcept
 {
     // Reference: http://cubic.org/docs/hermite.htm
     // h1(s) =  2s^3 - 3s^2 + 1
@@ -189,23 +186,23 @@ float hermite(const float& value1, const float& tangent1, const float& value2, c
          + (s3    - s2)                    * tangent2;
 }
 
-float lerp(const float& value1, const float& value2, const float& amount)
+float lerp(float value1, float value2, float amount) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     return (value1 + (value2 - value1) * amount);
 }
 
-float min(const float& value1, const float& value2)
+float min(float value1, float value2) noexcept
 {
     return ((value1 < value2) ? value1 : value2);
 }
 
-float max(const float& value1, const float& value2)
+float max(float value1, float value2) noexcept
 {
     return ((value1 > value2) ? value1 : value2);
 }
 
-float smooth_step(const float& value1, const float& value2, const float& amount)
+float smooth_step(float value1, float value2, float amount) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvectorlerp(v=vs.85).aspx
     float t = clamp(amount, 0.0f, 1.0f);
@@ -215,17 +212,17 @@ float smooth_step(const float& value1, const float& value2, const float& amount)
     return lerp(value1, value2, t);
 }
 
-float to_radians(const float& degrees)
+float to_radians(float degrees) noexcept
 {
     return static_cast<float>(degrees * pi / 180.0);
 }
 
-float to_degrees(const float& radians)
+float to_degrees(float radians) noexcept
 {
     return static_cast<float>(radians * 180.0 / pi);
 }
 
-float wrap_angle(const float& angle)
+float wrap_angle(float angle) noexcept
 {
     float result = ieee_remainder(angle, two_pi);
 

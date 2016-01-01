@@ -37,7 +37,7 @@ public:
      * @param axisOfRotation Vector3 that represents the axis of rotation.
      * @param angle Angle to rotate around the specified axis, in radians.
      */
-    static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, const float& angle) noexcept;
+    static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, float angle) noexcept;
 
     /**
      * Creates a Quaternion from a rotation Matrix.
@@ -52,7 +52,7 @@ public:
      * @param pitch Pitch around the x-axis, in radians.
      * @param roll Roll around the z-axis, in radians.
      */
-    static Quaternion create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept;
+    static Quaternion create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept;
 
     /**
      * Calculates the dot product oof two quaternions
@@ -71,7 +71,7 @@ public:
      * @param quaternion2 second quaternion
      * @param amount Value indicating how far to interpolate between the quaternions.
      */
-    static Quaternion lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept;
+    static Quaternion lerp(const Quaternion& quaternion1, const Quaternion& quaternion2, float amount) noexcept;
 
     /**
      * Negates the specified Quaternion.
@@ -95,7 +95,7 @@ public:
      * @param quaternion2 second quaternion
      * @param amount Value indicating how far to interpolate between the quaternions.
      */
-    static Quaternion slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, const float& amount) noexcept;
+    static Quaternion slerp(const Quaternion& quaternion1, const Quaternion& quaternion2, float amount) noexcept;
 
 public:
     /**
@@ -108,7 +108,7 @@ public:
      * @param value a vector containing the values to initialize x, y, and z components with.
      * @param w value for the w-component of the vector.
      */
-    Quaternion(const Vector3& value, const float& w) noexcept;
+    Quaternion(const Vector3& value, float w) noexcept;
 
     /**
      * Initializes a new instance of the Quaternion class.
@@ -117,7 +117,7 @@ public:
      * @param z    The Z value of the new Quaternion structure.
      * @param w    The W value of the new Quaternion structure.
      */
-    Quaternion(const float& x, const float& y, const float& z, const float& w) noexcept;
+    Quaternion(float x, float y, float z, float w) noexcept;
 
     /**
      * Initializes a new instance of the Quaternion class (Copy constructor)

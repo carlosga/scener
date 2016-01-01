@@ -14,27 +14,27 @@ namespace SceneR { namespace Math {
 const Color Color::black { 0x00, 0x00, 0x00, 0xFF };
 const Color Color::white { 0xFF, 0xFF, 0xFF, 0xFF };
 
-Color::Color()
+Color::Color() noexcept
     : Color ( 0.0f, 0.0f, 0.0f, 0.0f )
 {
 }
 
-Color::Color(const Vector3& vector)
+Color::Color(const Vector3& vector) noexcept
     : Color ( vector.x, vector.y, vector.z, 1.0f )
 {
 }
 
-Color::Color(const Vector4& vector)
+Color::Color(const Vector4& vector) noexcept
     : Color ( vector.x, vector.y, vector.z, vector.w )
 {
 }
 
-Color::Color(const float& r, const float& g, const float& b)
+Color::Color(float r, float g, float b) noexcept
     : Color ( r, g, b, 1.0f )
 {
 }
 
-Color::Color(const float& r, const float& g, const float& b, const float& a)
+Color::Color(float r, float g, float b, float a) noexcept
     : r { r }
     , g { g }
     , b { b }

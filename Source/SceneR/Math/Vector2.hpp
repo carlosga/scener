@@ -65,8 +65,8 @@ public:
     static Vector2 barycentric(const Vector2& value1
                              , const Vector2& value2
                              , const Vector2& value3
-                             , const float&   amount1
-                             , const float&   amount2) noexcept;
+                             , float          amount1
+                             , float          amount2) noexcept;
 
     /**
      * Performs a Catmull-Rom interpolation using the specified positions.
@@ -80,7 +80,7 @@ public:
                              , const Vector2& value2
                              , const Vector2& value3
                              , const Vector2& value4
-                             , const float&   amount) noexcept;
+                             , float          amount) noexcept;
 
     /**
      * Restricts a value to be within a specified range.
@@ -117,7 +117,7 @@ public:
                          , const Vector2& tangent1
                          , const Vector2& value2
                          , const Vector2& tangent2
-                         , const float&   amount) noexcept;
+                         , float          amount) noexcept;
 
     /**
      * Performs a linear interpolation between two vectors.
@@ -126,7 +126,7 @@ public:
      * @param amount Value between 0 and 1 indicating the weight of value2.
      * @returns the linear interpolation of the two vectors.
      */
-    static Vector2 lerp(const Vector2& value1, const Vector2& value2, const float& amount) noexcept;
+    static Vector2 lerp(const Vector2& value1, const Vector2& value2, float amount) noexcept;
 
     /**
      * Returns a vector that contains the lowest value from each matching pair of components.
@@ -166,7 +166,7 @@ public:
      * @param amount Weighting value.
      * @returns the linear interpolation of the two vectors.
      */
-    static Vector2 smooth_step(const Vector2& value1, const Vector2& value2, const float& amount) noexcept;
+    static Vector2 smooth_step(const Vector2& value1, const Vector2& value2, float amount) noexcept;
 
     /**
     * Transforms a 2D vector by the given matrix.
@@ -195,14 +195,14 @@ public:
     * Initializes a new instance of the Vector2 class with the given value.
     * @param value value value for the x and y components of the vector.
     */
-    Vector2(const float& value) noexcept;
+    Vector2(float value) noexcept;
 
     /**
      * Initializes a new instance of the Vector2 class with the given texture coordinates.
      * @param x the x-coordinate value.
      * @param y the y-coordinate value.
      */
-    Vector2(const float& x, const float& y) noexcept;
+    Vector2(float x, float y) noexcept;
 
     /**
      * Initializes a new instance of the Vector2 class (Copy constructor)

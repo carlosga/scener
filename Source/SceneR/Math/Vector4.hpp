@@ -71,8 +71,8 @@ public:
     static Vector4 barycentric(const Vector4& value1
                              , const Vector4& value2
                              , const Vector4& value3
-                             , const float&   amount1
-                             , const float&   amount2) noexcept;
+                             , float          amount1
+                             , float          amount2) noexcept;
 
     /**
      * Performs a Catmull-Rom interpolation using the specified positions.
@@ -86,7 +86,7 @@ public:
                              , const Vector4& value2
                              , const Vector4& value3
                              , const Vector4& value4
-                             , const float&   amount) noexcept;
+                             , float          amount) noexcept;
 
     /**
      * Restricts a value to be within a specified range.
@@ -123,7 +123,7 @@ public:
                          , const Vector4& tangent1
                          , const Vector4& value2
                          , const Vector4& tangent2
-                         , const float&   amount) noexcept;
+                         , float          amount) noexcept;
 
     /**
      * Performs a linear interpolation between two vectors.
@@ -132,7 +132,7 @@ public:
      * @param amount Value between 0 and 1 indicating the weight of value2.
      * @returns the linear interpolation of the two vectors.
      */
-    static Vector4 lerp(const Vector4& value1, const Vector4& value2, const float& amount) noexcept;
+    static Vector4 lerp(const Vector4& value1, const Vector4& value2, float amount) noexcept;
 
     /**
      * Returns a vector that contains the lowest value from each matching pair of components.
@@ -228,7 +228,7 @@ public:
      * @param amount Weighting value.
      * @returns the linear interpolation of the two vectors.
      */
-    static Vector4 smooth_step(const Vector4& value1, const Vector4& value2, const float& amount) noexcept;
+    static Vector4 smooth_step(const Vector4& value1, const Vector4& value2, float amount) noexcept;
 
 public:
     /**
@@ -240,14 +240,14 @@ public:
      * Initializes a new instance of the Vector4 class.
      * @param value the value for the x, y, z and w components of the vector.
      */
-    Vector4(const float& value) noexcept;
+    Vector4(float value) noexcept;
 
     /**
      * Initializes a new instance of the Vector4 class.
      * @param value a vector containing the values to initialize x, y, and z components with.
      * @param w value for the w-component of the vector.
      */
-    Vector4(const Vector3& value, const float& w) noexcept;
+    Vector4(const Vector3& value, float w) noexcept;
 
     /**
      * Initializes a new instance of the Vector4 class.
@@ -255,7 +255,7 @@ public:
      * @param y The Y value of the new Vector4 structure.
      * @param z The Z value of the new Vector4 structure.
      */
-    Vector4(const float& x, const float& y, const float& z) noexcept;
+    Vector4(float x, float y, float z) noexcept;
 
     /**
      * Initializes a new instance of the Vector4 class.
@@ -263,7 +263,7 @@ public:
      * @param z value for the z-component of the vector.
      * @param w value for the w-component of the vector.
      */
-    Vector4(const Vector2& value, const float& z, const float& w) noexcept;
+    Vector4(const Vector2& value, float z, float w) noexcept;
 
     /**
      * Initializes a new instance of the Vector4 class.
@@ -272,7 +272,7 @@ public:
      * @param z The Z value of the new Vector4 structure.
      * @param w The W value of the new Vector4 structure.
      */
-    Vector4(const float& x, const float& y, const float& z, const float& w) noexcept;
+    Vector4(float x, float y, float z, float w) noexcept;
 
     /**
      * Initializes a new instance of the Vector4 class (Copy constructor)

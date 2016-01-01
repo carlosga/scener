@@ -33,7 +33,7 @@ public:
      * @param axis Vector3 that specifies the axis around which to rotate.
      * @param angle Value that specifies the angle of rotation, in radians.
      */
-    static Matrix create_from_axis_angle(const Vector3& axis, const float& angle) noexcept;
+    static Matrix create_from_axis_angle(const Vector3& axis, float angle) noexcept;
 
     /**
      * Creates a rotation Matrix from a Quaternion.
@@ -50,7 +50,7 @@ public:
      * @param pitch Pitch around the z-axis, in radians.
      * @param roll Roll around the x-axis, in radians.
      */
-    static Matrix create_from_yaw_pitch_roll(const float& yaw, const float& pitch, const float& roll) noexcept;
+    static Matrix create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept;
 
     /**
      * Creates a perspective projection matrix.
@@ -62,9 +62,7 @@ public:
      * @param zNear The distances to the near-depth clipping plane. Must be positive.
      * @param zFar The distances to the far-depth clipping plane. Must be positive.
      */
-    static Matrix create_frustum(const float& left  , const float& right
-                               , const float& bottom, const float& top
-                               , const float& zNear , const float& zFar) noexcept;
+    static Matrix create_frustum(float left, float right, float bottom, float top, float zNear, float zFar) noexcept;
 
     /**
      * Creates a view matrix
@@ -85,10 +83,7 @@ public:
      * @param zNear Minimum z-value of the view volume.
      * @param zFar Maximun z-value of the view volume.
      */
-    static Matrix create_orthographic(const float& width
-                                    , const float& height
-                                    , const float& zNear
-                                    , const float& zFar) noexcept;
+    static Matrix create_orthographic(float width, float height, float zNear, float zFar) noexcept;
 
     /**
      * Builds a customized, orthogonal projection matrix.
@@ -100,12 +95,9 @@ public:
      * @param zNear Minimum z-value of the view volume.
      * @param zFar Maximun z-value of the view volume.
      */
-    static Matrix create_orthographic_off_center(const float& left
-                                               , const float& right
-                                               , const float& bottom
-                                               , const float& top
-                                               , const float& zNear
-                                               , const float& zFar) noexcept;
+    static Matrix create_orthographic_off_center(float left  , float right
+                                               , float bottom, float top
+                                               , float zNear , float zFar) noexcept;
 
     /**
      * Builds a perspective projection matrix.
@@ -115,10 +107,7 @@ public:
      * @param zNear Distance to the near view plane.
      * @param zFar Distance to the far view plane.
      */
-    static Matrix create_perspective(const float& width
-                                   , const float& height
-                                   , const float& zNear
-                                   , const float& zFar) noexcept;
+    static Matrix create_perspective(float width, float height, float zNear, float zFar) noexcept;
 
     /**
      * Builds a perspective projection matrix based on a field of view and returns by value.
@@ -128,10 +117,8 @@ public:
      * @param zNear Distance to the near view plane.
      * @param zFar Distance to the far view plane.
      */
-    static Matrix create_perspective_field_of_view(const float& fieldOfView
-                                                 , const float& aspectRatio
-                                                 , const float& zNear
-                                                 , const float& zFar) noexcept;
+    static Matrix create_perspective_field_of_view(float fieldOfView, float aspectRatio
+                                                 , float zNear      , float zFar) noexcept;
 
     /**
      * Builds a customized, right-handed perspective projection matrix.
@@ -142,19 +129,16 @@ public:
      * @param zNear Minimum z-value of the view volume.
      * @param zFar Maximun z-value of the view volume.
      */
-    static Matrix create_perspective_off_center(const float& left
-                                              , const float& right
-                                              , const float& bottom
-                                              , const float& top
-                                              , const float& zNear
-                                              , const float& zFar) noexcept;
+    static Matrix create_perspective_off_center(float left  , float right
+                                              , float bottom, float top
+                                              , float zNear , float zFar) noexcept;
 
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
      *
      * @param angle Value that specifies the angle of rotation, in radians.
      */
-    static Matrix create_rotation_x(const float& angle) noexcept;
+    static Matrix create_rotation_x(float angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the X-axis, from a center point.
@@ -162,14 +146,14 @@ public:
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_x(const float& angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_x(float angle, const Vector3& center) noexcept;
 
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
      *
      * @param angle Value that specifies the angle of rotation, in radians.
      */
-    static Matrix create_rotation_y(const float& angle) noexcept;
+    static Matrix create_rotation_y(float angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the Y-axis, from a center point.
@@ -177,14 +161,14 @@ public:
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_y(const float& angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_y(float angle, const Vector3& center) noexcept;
 
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
      *
      * @param angle Value that specifies the angle of rotation, in radians.
      */
-    static Matrix create_rotation_z(const float& angle) noexcept;
+    static Matrix create_rotation_z(float angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the Z-axis, from a center point.
@@ -192,14 +176,14 @@ public:
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_z(const float& angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_z(float angle, const Vector3& center) noexcept;
 
     /**
      * Creates a uniform scaling matrix that scales equally on each axis.
      *
      * @param scale Amount to scale by.
      */
-    static Matrix create_scale(const float& scale) noexcept;
+    static Matrix create_scale(float scale) noexcept;
 
     /**
      * Creates a uniform scaling matrix that scales equally on each axis with a center point.
@@ -207,7 +191,7 @@ public:
      * @param scale Amount to scale by.
      * @param center The center point
      */
-    static Matrix create_scale(const float& scale, const Vector3& center) noexcept;
+    static Matrix create_scale(float scale, const Vector3& center) noexcept;
 
     /**
      * Creates a scaling matrix from the specified vector scale.
@@ -223,7 +207,7 @@ public:
      * @param yScale The value to scale by on the Y axis.
      * @param zScale The value to scale by on the Z axis.
      */
-    static Matrix create_scale(const float& xScale, const float& yScale, const float& zScale) noexcept;
+    static Matrix create_scale(float xScale, float yScale, float zScale) noexcept;
 
     /**
      * Creates a scaling matrix with a center point.
@@ -241,10 +225,7 @@ public:
      * @param zScale The value to scale by on the Z axis.
      * @param center The center point.
      */
-    static Matrix create_scale(const float&   xScale
-                             , const float&   yScale
-                             , const float&   zScale
-                             , const Vector3& center) noexcept;
+    static Matrix create_scale(float xScale, float yScale, float zScale, const Vector3& center) noexcept;
 
     /**
      * Creates a translation Matrix
@@ -260,9 +241,7 @@ public:
      * @param yPosition Value to translate by on the y-axis.
      * @param zPosition Value to translate by on the z-axis.
      */
-    static Matrix create_translation(const float& xPosition
-                                   , const float& yPosition
-                                   , const float& zPosition) noexcept;
+    static Matrix create_translation(float xPosition, float yPosition, float zPosition) noexcept;
 
 
     /**
@@ -355,10 +334,10 @@ public:
      * @param m43 Value of the (4,3) field of the new matrix.
      * @param m44 Value of the (4,4) field of the new matrix.
      */
-    Matrix(const float& m11, const float& m12, const float& m13, const float& m14
-         , const float& m21, const float& m22, const float& m23, const float& m24
-         , const float& m31, const float& m32, const float& m33, const float& m34
-         , const float& m41, const float& m42, const float& m43, const float& m44) noexcept;
+    Matrix(float m11, float m12, float m13, float m14
+         , float m21, float m22, float m23, float m24
+         , float m31, float m32, float m33, float m34
+         , float m41, float m42, float m43, float m44) noexcept;
 
     /**
      * Initializes a new instance of the Vector3 class (Copy constructor)
@@ -425,7 +404,7 @@ public:
 
 private:
     float sub_matrix_determinant();
-    Matrix sub_matrix(const std::uint32_t& row, const std::uint32_t& column) const;
+    Matrix sub_matrix(std::uint32_t row, std::uint32_t column) const;
 
 public:
     union

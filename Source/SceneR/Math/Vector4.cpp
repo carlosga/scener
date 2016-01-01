@@ -28,8 +28,8 @@ Vector4 Vector4::abs(const Vector4 &value) noexcept
 Vector4 Vector4::barycentric(const Vector4& value1
                            , const Vector4& value2
                            , const Vector4& value3
-                           , const float&   amount1
-                           , const float&   amount2) noexcept
+                           , float          amount1
+                           , float          amount2) noexcept
 {
     return { Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2)
@@ -41,7 +41,7 @@ Vector4 Vector4::catmull_rom(const Vector4& value1
                            , const Vector4& value2
                            , const Vector4& value3
                            , const Vector4& value4
-                           , const float&   amount) noexcept
+                           , float          amount) noexcept
 {
     return { Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount)
@@ -82,7 +82,7 @@ Vector4 Vector4::hermite(const Vector4& value1
                        , const Vector4& tangent1
                        , const Vector4& value2
                        , const Vector4& tangent2
-                       , const float&   amount) noexcept
+                       , float          amount) noexcept
 {
     return { Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
@@ -90,7 +90,7 @@ Vector4 Vector4::hermite(const Vector4& value1
            , Math::hermite(value1.w, tangent1.w, value2.w, tangent2.w, amount) };
 }
 
-Vector4 Vector4::lerp(const Vector4& value1, const Vector4& value2, const float& amount) noexcept
+Vector4 Vector4::lerp(const Vector4& value1, const Vector4& value2, float amount) noexcept
 {
     return { Math::lerp(value1.x, value2.x, amount)
            , Math::lerp(value1.y, value2.y, amount)
@@ -159,7 +159,7 @@ Vector4 Vector4::transform(const Vector4& value, const Quaternion& rotation) noe
     return (value* Matrix::create_from_quaternion(rotation));
 }
 
-Vector4 Vector4::smooth_step(const Vector4& value1, const Vector4& value2, const float& amount) noexcept
+Vector4 Vector4::smooth_step(const Vector4& value1, const Vector4& value2, float amount) noexcept
 {
     return { Math::smooth_step(value1.x, value2.x, amount)
            , Math::smooth_step(value1.y, value2.y, amount)
@@ -172,27 +172,27 @@ Vector4::Vector4() noexcept
 {
 }
 
-Vector4::Vector4(const float& value) noexcept
+Vector4::Vector4(float value) noexcept
     : Vector4 { value, value, value, value }
 {
 }
 
-Vector4::Vector4(const Vector3& value, const float& w) noexcept
+Vector4::Vector4(const Vector3& value, float w) noexcept
     : Vector4 { value.x, value.y, value.z, w }
 {
 }
 
-Vector4::Vector4(const float& x, const float& y, const float& z) noexcept
+Vector4::Vector4(float x, float y, float z) noexcept
     : Vector4 { x, y, z, 0.0f }
 {
 }
 
-Vector4::Vector4(const Vector2& value, const float& z, const float& w) noexcept
+Vector4::Vector4(const Vector2& value, float z, float w) noexcept
     : Vector4 { value.x, value.y, z, w }
 {
 }
 
-Vector4::Vector4(const float& x, const float& y, const float& z, const float& w) noexcept
+Vector4::Vector4(float x, float y, float z, float w) noexcept
     : x { x }
     , y { y }
     , z { z }

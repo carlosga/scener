@@ -39,8 +39,8 @@ float Vector3::angle_between(const Vector3& left, const Vector3& right) noexcept
 Vector3 Vector3::barycentric(const Vector3& value1
                            , const Vector3& value2
                            , const Vector3& value3
-                           , const float&   amount1
-                           , const float&   amount2) noexcept
+                           , float          amount1
+                           , float          amount2) noexcept
 {
     return { Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2)
@@ -51,7 +51,7 @@ Vector3 Vector3::catmull_rom(const Vector3& value1
                            , const Vector3& value2
                            , const Vector3& value3
                            , const Vector3& value4
-                           , const float&   amount) noexcept
+                           , float          amount) noexcept
 {
     return { Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount)
@@ -104,14 +104,14 @@ Vector3 Vector3::hermite(const Vector3& value1
                        , const Vector3& tangent1
                        , const Vector3& value2
                        , const Vector3& tangent2
-                       , const float&   amount) noexcept
+                       , float          amount) noexcept
 {
     return { Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount)
            , Math::hermite(value1.z, tangent1.z, value2.z, tangent2.z, amount) };
 }
 
-Vector3 Vector3::lerp(const Vector3& value1, const Vector3& value2, const float& amount) noexcept
+Vector3 Vector3::lerp(const Vector3& value1, const Vector3& value2, float amount) noexcept
 {
     return { Math::lerp(value1.x, value2.x, amount)
            , Math::lerp(value1.y, value2.y, amount)
@@ -156,7 +156,7 @@ Vector3 Vector3::reflect(const Vector3& vector, const Vector3& normal) noexcept
     return vector - 2 * Vector3::dot(vector, normal) * normal;
 }
 
-Vector3 Vector3::smooth_step(const Vector3& value1, const Vector3& value2, const float& amount) noexcept
+Vector3 Vector3::smooth_step(const Vector3& value1, const Vector3& value2, float amount) noexcept
 {
     return { Math::smooth_step(value1.x, value2.x, amount)
            , Math::smooth_step(value1.y, value2.y, amount)
@@ -200,17 +200,17 @@ Vector3::Vector3() noexcept
 {
 }
 
-Vector3::Vector3(const float& value) noexcept
+Vector3::Vector3(float value) noexcept
     : Vector3 { value, value, value }
 {
 }
 
-Vector3::Vector3(const Vector2& value, const float& z) noexcept
+Vector3::Vector3(const Vector2& value, float z) noexcept
     : Vector3 { value.x, value.y, z }
 {
 }
 
-Vector3::Vector3(const float& x, const float& y, const float& z) noexcept
+Vector3::Vector3(float x, float y, float z) noexcept
     : x { x }
     , y { y }
     , z { z }

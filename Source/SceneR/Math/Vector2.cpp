@@ -28,8 +28,8 @@ Vector2 Vector2::square_root(const Vector2& value) noexcept
 Vector2 Vector2::barycentric(const Vector2& value1
                            , const Vector2& value2
                            , const Vector2& value3
-                           , const float&   amount1
-                           , const float&   amount2) noexcept
+                           , float          amount1
+                           , float          amount2) noexcept
 {
     return { Math::barycentric(value1.x, value2.x, value3.x, amount1, amount2)
            , Math::barycentric(value1.y, value2.y, value3.y, amount1, amount2) };
@@ -39,7 +39,7 @@ Vector2 Vector2::catmull_rom(const Vector2& value1
                            , const Vector2& value2
                            , const Vector2& value3
                            , const Vector2& value4
-                           , const float&   amount) noexcept
+                           , float          amount) noexcept
 {
     return { Math::catmull_rom(value1.x, value2.x, value3.x, value4.x, amount)
            , Math::catmull_rom(value1.y, value2.y, value3.y, value4.y, amount) };
@@ -76,13 +76,13 @@ Vector2 Vector2::hermite(const Vector2& value1
                        , const Vector2& tangent1
                        , const Vector2& value2
                        , const Vector2& tangent2
-                       , const float&   amount) noexcept
+                       , float          amount) noexcept
 {
     return { Math::hermite(value1.x, tangent1.x, value2.x, tangent2.x, amount)
            , Math::hermite(value1.y, tangent1.y, value2.y, tangent2.y, amount) };
 }
 
-Vector2 Vector2::lerp(const Vector2& value1, const Vector2& value2, const float& amount) noexcept
+Vector2 Vector2::lerp(const Vector2& value1, const Vector2& value2, float amount) noexcept
 {
     return { Math::lerp(value1.x, value2.x, amount)
            , Math::lerp(value1.y, value2.y, amount) };
@@ -115,7 +115,7 @@ Vector2 Vector2::normalize(const Vector2& value) noexcept
     return (value / value.length());
 }
 
-Vector2 Vector2::smooth_step(const Vector2& value1, const Vector2& value2, const float& amount) noexcept
+Vector2 Vector2::smooth_step(const Vector2& value1, const Vector2& value2, float amount) noexcept
 {
     return { Math::smooth_step(value1.x, value2.x, amount)
            , Math::smooth_step(value1.y, value2.y, amount) };
@@ -150,12 +150,12 @@ Vector2::Vector2() noexcept
 {
 }
 
-Vector2::Vector2(const float& value) noexcept
+Vector2::Vector2(float value) noexcept
     : Vector2 { value, value }
 {
 }
 
-Vector2::Vector2(const float& x, const float& y) noexcept
+Vector2::Vector2(float x, float y) noexcept
     : x { x }
     , y { y }
 {

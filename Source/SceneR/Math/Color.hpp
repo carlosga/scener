@@ -25,19 +25,19 @@ public:
     /**
      * Initializes a new instance of the Color class.
      */
-    Color();
+    Color() noexcept;
 
     /**
      * Initializes a new instance of the Color class.
      * @param vector A three-component color.
      */
-    Color(const Vector3& vector);
+    Color(const Vector3& vector) noexcept;
 
     /**
      * Initializes a new instance of the Color class.
      * @param vector A four-component color.
      */
-    Color(const Vector4& vector);
+    Color(const Vector4& vector) noexcept;
 
     /**
      * Initializes a new instance of the Color class with the given red, green and blue components.
@@ -45,7 +45,7 @@ public:
      * @param g The green component value of the color.
      * @param b The blue component value of the color.
      */
-    Color(const float& r, const float& g, const float& b);
+    Color(float r, float g, float b) noexcept;
 
     /**
      * Initializes a new instance of the Color class with the given red, green, blue and alpha components.
@@ -54,7 +54,7 @@ public:
      * @param b The blue component value of the color.
      * @param a The alpha component value of the color.
      */
-    Color(const float& r, const float& g, const float& b, const float& a);
+    Color(float r, float g, float b, float a) noexcept;
 
     /**
      * Initializes a new instance of the Color class (Copy constructor)

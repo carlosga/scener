@@ -397,34 +397,34 @@ inline Math::Matrix ContentReader::convert(const std::vector<json11::Json>& valu
 template<>
 inline Math::Quaternion ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
 {
-    return { values[0].number_value()
-           , values[1].number_value()
-           , values[2].number_value()
-           , values[3].number_value() };
+    return { static_cast<float>(values[0].number_value())
+           , static_cast<float>(values[1].number_value())
+           , static_cast<float>(values[2].number_value())
+           , static_cast<float>(values[3].number_value()) };
 }
 
 template<>
 inline Math::Vector2 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
 {
-    return { values[0].number_value()
-           , values[1].number_value() };
+    return { static_cast<float>(values[0].number_value())
+           , static_cast<float>(values[1].number_value()) };
 }
 
 template<>
 inline Math::Vector3 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
 {
-    return { values[0].number_value()
-           , values[1].number_value()
-           , values[2].number_value()};
+    return { static_cast<float>(values[0].number_value())
+           , static_cast<float>(values[1].number_value())
+           , static_cast<float>(values[2].number_value()) };
 }
 
 template<>
 inline Math::Vector4 ContentReader::convert(const std::vector<json11::Json>& values) const noexcept
 {
-    return { values[0].number_value()
-           , values[1].number_value()
-           , values[2].number_value()
-           , values[3].number_value()};
+    return { static_cast<float>(values[0].number_value())
+           , static_cast<float>(values[1].number_value())
+           , static_cast<float>(values[2].number_value())
+           , static_cast<float>(values[3].number_value()) };
 }
 
 }}

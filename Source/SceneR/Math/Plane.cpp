@@ -15,7 +15,7 @@
 
 namespace SceneR { namespace Math {
 
-Plane Plane::create_from_vertices(const Vector3& point1, const Vector3& point2, const Vector3& point3)
+Plane Plane::create_from_vertices(const Vector3& point1, const Vector3& point2, const Vector3& point3) noexcept
 {
     // http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanefrompoints(v=vs.85).aspx
     // http://en.wikipedia.org/wiki/Plane_%28geometry%29#Describing_a_plane_through_three_points
@@ -30,41 +30,41 @@ Plane Plane::create_from_vertices(const Vector3& point1, const Vector3& point2, 
     // where n is a unit normal vector to the plane,
     // r a position vector of a point of the plane and D0 the distance of the plane from the origin.
 
-    Vector3 n = Vector3::normalize(Vector3::cross(point2 - point1, point3 - point1));
-    float   d = -Vector3::dot(n, point1);
+    auto  n = Vector3::normalize(Vector3::cross(point2 - point1, point3 - point1));
+    float d = -Vector3::dot(n, point1);
 
     return { n, d };
 }
 
-float Plane::dot(const Plane& plane, const Vector4& value)
+float Plane::dot(const Plane& plane, const Vector4& value) noexcept
 {
     return Vector4::dot({ plane.normal, plane.d }, value);
 }
 
-float Plane::dot_normal(const Plane& p, const Vector3& v)
+float Plane::dot_normal(const Plane& p, const Vector3& v) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.plane.xmplanedotnormal(v=vs.85).aspx
     return Vector3::dot(p.normal, v);
 }
 
-float Plane::dot_coordinate(const Plane& p, const Vector3& value)
+float Plane::dot_coordinate(const Plane& p, const Vector3& value) noexcept
 {
     return Plane::dot_normal(p, value) + p.d;
 }
 
-Plane Plane::normalize(const Plane& value)
+Plane Plane::normalize(const Plane& value) noexcept
 {
     float reciprocalLength = 1.0f / value.normal.length();
 
     return { value.normal * reciprocalLength, value.d * reciprocalLength };
 }
 
-Plane Plane::transform(const Plane& plane, const Matrix& matrix)
+Plane Plane::transform(const Plane& plane, const Matrix& matrix) noexcept
 {
     return { Vector4 { plane.normal, plane.d } * Matrix::transpose(Matrix::invert(matrix)) };
 }
 
-Plane Plane::transform(const Plane& plane, const Quaternion& rotation)
+Plane Plane::transform(const Plane& plane, const Quaternion& rotation) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/transforms/
     //
@@ -76,24 +76,24 @@ Plane Plane::transform(const Plane& plane, const Quaternion& rotation)
     return { pout.x, pout.y, pout.z, pout.w };
 }
 
-Plane::Plane()
+Plane::Plane() noexcept
     : Plane { 0.0f, 0.0f, 0.0f, 0.0f }
 {
 }
 
-Plane::Plane(const float& a, const float& b, const float& c, const float& d)
+Plane::Plane(float a, float b, float c, float d) noexcept
     : normal { a, b, c }
     , d      { d }
 {
 }
 
-Plane::Plane(const Vector3& normal, const float& d)
+Plane::Plane(const Vector3& normal, float d) noexcept
     : normal { normal }
     , d      { d }
 {
 }
 
-Plane::Plane(const Vector4& value)
+Plane::Plane(const Vector4& value) noexcept
     : normal { value.x, value.y, value.z }
     , d      { value.w }
 {
