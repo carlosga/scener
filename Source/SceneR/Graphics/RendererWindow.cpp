@@ -53,7 +53,7 @@ bool RendererWindow::allow_user_resizing() const noexcept
     return _renderer->_graphics_device_manager->allow_user_resizing;
 }
 
-void RendererWindow::allow_user_resizing(const bool& allowUserResizing) noexcept
+void RendererWindow::allow_user_resizing(bool allowUserResizing) noexcept
 {
     _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
 }

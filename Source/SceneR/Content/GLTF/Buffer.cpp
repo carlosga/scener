@@ -20,7 +20,7 @@ std::size_t Buffer::byte_length() const noexcept
     return _byte_length;
 }
 
-const gsl::span<std::uint8_t> Buffer::get_data(const std::size_t& offset, const std::size_t& count)
+gsl::span<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count)
 {
     Expects(offset < _data.size() && (offset + count) <= _data.size());
 

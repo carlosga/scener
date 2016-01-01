@@ -245,7 +245,7 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
     return technique;
 }
 
-VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(const AttributeType& type) const
+VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(AttributeType type) const
 {
     switch (type)
     {

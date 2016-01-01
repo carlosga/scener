@@ -45,7 +45,8 @@ public:
     std::string name;
 
     /**
-     * The id (JSON property name) of the camera referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.
+     * The id (JSON property name) of the camera referenced by this node.
+     * A node will have either the camera, light, meshes, or instanceSkin property defined.
      */
     std::string camera;
 
@@ -60,32 +61,43 @@ public:
     std::shared_ptr<SceneR::Graphics::ModelBone> joint;
 
     /**
-     * The id (JSON property name) of the light referenced by this node.  A node will have either the camera, light, meshes, or instanceSkin property defined.
+     * The id (JSON property name) of the light referenced by this node.
+     * A node will have either the camera, light, meshes, or instanceSkin property defined.
      */
     std::string light;
 
     /**
-     * "A floating-point 4x4 transformation matrix stored in column-major order.  A node will have either a matrix property defined or any combination of rotation, scale, and translation properties defined.  If none are provided, the transform is the identity.  WebGL: see uniformMatrix4fv with the transpose parameter equal to false."
+     * A floating-point 4x4 transformation matrix stored in column-major order.
+     * A node will have either a matrix property defined or any combination of rotation, scale,
+     * and translation properties defined. If none are provided, the transform is the identity.
      */
     SceneR::Math::Matrix matrix;
 
     /**
-     * "The ids (JSON property name) of the meshes in this node.  Multiple meshes are allowed so each can share the same transform matrix.  A node will have either the camera, light, meshes, or instanceSkin property defined."
+     * The ids (JSON property name) of the meshes in this node.
+     * Multiple meshes are allowed so each can share the same transform matrix.
+     * A node will have either the camera, light, meshes, or instanceSkin property defined.
      */
     std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>> meshes;
 
     /**
-     * The node's quaternion rotation.  A node will have either a matrix property defined or any combination of rotation, scale, and translation properties defined.  If none are provided, the transform is the identity.
+     * The node's quaternion rotation.
+     * A node will have either a matrix property defined or any combination of rotation, scale,
+     * and translation properties defined. If none are provided, the transform is the identity.
      */
     SceneR::Math::Quaternion rotation;
 
     /**
-     * The node's non-uniform scale.  A node will have either a matrix property defined or any combination of rotation, scale, and translation properties defined.  If none are provided, the transform is the identity.
+     * The node's non-uniform scale.
+     * A node will have either a matrix property defined or any combination of rotation, scale,
+     * and translation properties defined. If none are provided, the transform is the identity.
      */
     SceneR::Math::Vector3 scale;
 
     /**
-     * The node's translation.  A node will have either a matrix property defined or any combination of rotation, scale, and translation properties defined.  If none are provided, the transform is the identity.
+     * The node's translation.
+     * A node will have either a matrix property defined or any combination of rotation, scale,
+     * and translation properties defined.  If none are provided, the transform is the identity.
      */
     SceneR::Math::Vector3 translation;
 

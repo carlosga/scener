@@ -15,8 +15,7 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::Math::Color;
 
-std::size_t GraphicsDevice::get_element_count(const PrimitiveType& primitiveType
-                                            , const std::size_t&   primitiveCount) noexcept
+std::size_t GraphicsDevice::get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept
 {
     switch (primitiveType)
     {
@@ -95,12 +94,12 @@ void GraphicsDevice::clear(const Color& color) const
     glClear(bufferBits);
 }
 
-void GraphicsDevice::draw_indexed_primitives(const PrimitiveType& primitiveType
-                                           , const std::size_t&   baseVertex
-                                           , const std::size_t&   minVertexIndex
-                                           , const std::size_t&   numVertices
-                                           , const std::size_t&   startIndex
-                                           , const std::size_t&   primitiveCount) const
+void GraphicsDevice::draw_indexed_primitives(PrimitiveType primitiveType
+                                           , std::size_t   baseVertex
+                                           , std::size_t   minVertexIndex
+                                           , std::size_t   numVertices
+                                           , std::size_t   startIndex
+                                           , std::size_t   primitiveCount) const
 {
     if (index_buffer == nullptr)
     {
@@ -132,9 +131,7 @@ void GraphicsDevice::draw_indexed_primitives(const PrimitiveType& primitiveType
     effect->end();
 }
 
-void GraphicsDevice::draw_primitives(const PrimitiveType& primitiveType
-                                   , const std::size_t&   startVertex
-                                   , const std::size_t&   primitiveCount) const
+void GraphicsDevice::draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const
 {
     if (vertex_buffer == nullptr)
     {

@@ -33,9 +33,7 @@ public:
      * @param indexElementType the type of each index.
      * @param indexCount the number of indices.
      */
-    IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
-              , const ComponentType&           indexElementType
-              , const std::size_t&             indexCount) noexcept;
+    IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice, ComponentType indexElementType, std::size_t indexCount) noexcept;
 
     /**
      * Releases all resources being used by this indexbuffer instance
@@ -54,7 +52,7 @@ public:
     /**
      * Gets the type of each index.
      */
-    const ComponentType& index_element_type() const noexcept;
+    ComponentType index_element_type() const noexcept;
 
     /**
      * Gets the size (in bytes) of each index.
@@ -70,8 +68,7 @@ public:
     /**
      * Gets the indices buffer data
      */
-    std::vector<std::uint8_t> get_data(const std::size_t& startIndex
-                                     , const std::size_t& elementCount) const noexcept;
+    std::vector<std::uint8_t> get_data(std::size_t startIndex, std::size_t elementCount) const noexcept;
 
     /**
      * Sets the indices buffer data

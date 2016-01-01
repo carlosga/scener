@@ -26,7 +26,7 @@ public:
      * @param vertexStride The number of bytes per element.
      * @param vertexElements vertex elements.
      */
-    VertexDeclaration(const std::size_t& vertexStride, const std::vector<VertexElement>& vertexElements) noexcept;
+    VertexDeclaration(std::size_t vertexStride, const std::vector<VertexElement>& vertexElements) noexcept;
 
     /**
      * @brief Copy constructor
@@ -61,11 +61,11 @@ private:
      * @param vaoId Specifies the name of the vertex array object for glDisableVertexArrayAttrib and glEnableVertexArrayAttrib functions.
      * @param bindingIndex The index of the vertex buffer binding with which to associate the generic vertex attribute.
      */
-    void declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex) const;
+    void declare(std::uint32_t vaoId, std::uint32_t bindingIndex) const noexcept;
 
-    std::size_t get_element_count(const VertexElementFormat& vertexFormat) const noexcept;
+    std::size_t get_element_count(VertexElementFormat vertexFormat) const noexcept;
 
-    std::uint32_t get_element_type(const VertexElementFormat& vertexFormat) const noexcept;
+    std::uint32_t get_element_type(VertexElementFormat vertexFormat) const noexcept;
 
 private:
     std::size_t                _vertex_stride;

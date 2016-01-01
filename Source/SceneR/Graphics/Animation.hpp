@@ -27,7 +27,7 @@ public:
     const std::vector<Keyframe>& keyframes() const noexcept;
     const Keyframe& current_keyframe() const noexcept;
 
-    void update(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
+    void update(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
 private:
     std::string           _name;

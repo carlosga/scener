@@ -18,25 +18,25 @@ public:
     MouseState() noexcept;
 
     //Initializes a new instance of the MouseState class.
-    MouseState(const std::uint32_t& x
-             , const std::uint32_t& y
-             , const std::uint32_t& scrollWheel
-             , const ButtonState&   leftButton
-             , const ButtonState&   middleButton
-             , const ButtonState&   rightButton
-             , const ButtonState&   xButton1
-             , const ButtonState&   xButton2) noexcept;
+    MouseState(std::uint32_t x
+             , std::uint32_t y
+             , std::uint32_t scrollWheel
+             , ButtonState   leftButton
+             , ButtonState   middleButton
+             , ButtonState   rightButton
+             , ButtonState   xButton1
+             , ButtonState   xButton2) noexcept;
 
     ~MouseState() = default;
 
     // Returns the state of the left mouse button.
-    const ButtonState& left_button() const noexcept;
+    ButtonState left_button() const noexcept;
 
     // Returns the state of the middle mouse button.
-    const ButtonState& middle_button() const noexcept;
+    ButtonState middle_button() const noexcept;
 
     // Returns the state of the right mouse button.
-    const ButtonState& right_button() const noexcept;
+    ButtonState right_button() const noexcept;
 
     // Gets the cumulative mouse scroll wheel value since the game was started.
     std::uint32_t scroll_wheel_value() const noexcept;
@@ -45,10 +45,10 @@ public:
     std::uint32_t x() const noexcept;
 
     // Returns the state of XBUTTON1.
-    const ButtonState& xbutton_1() const noexcept;
+    ButtonState xbutton_1() const noexcept;
 
     // Returns the state of XBUTTON2.
-    const ButtonState& xbutton_2() const noexcept;
+    ButtonState xbutton_2() const noexcept;
 
     // Specifies the vertical position of the mouse cursor.
     std::uint32_t y() const noexcept;

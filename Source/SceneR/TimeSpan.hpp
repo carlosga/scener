@@ -70,7 +70,7 @@ public:
     /**
      * Returns a TimeSpan that represents a specified number of days.
      */
-    static TimeSpan from_days(const double& value) noexcept;
+    static TimeSpan from_days(double value) noexcept;
 
     /**
      * Returns a TimeSpan that represents a specified duration.
@@ -80,55 +80,52 @@ public:
     /**
      * Returns a TimeSpan that represents a specified number of hours.
      */
-    static TimeSpan from_hours(const double& value) noexcept;
+    static TimeSpan from_hours(double value) noexcept;
 
     /**
      * Returns a TimeSpan that represents a specified number of milliseconds.
      */
-    static TimeSpan from_milliseconds(const double& value) noexcept;
+    static TimeSpan from_milliseconds(double value) noexcept;
 
     /**
      * Returns a TimeSpan that represents a specified number of minutes.
      */
-    static TimeSpan from_minutes(const double& value) noexcept;
+    static TimeSpan from_minutes(double value) noexcept;
 
     /**
      * Returns a TimeSpan that represents a specified number of seconds.
      */
-    static TimeSpan from_seconds(const double& value) noexcept;
+    static TimeSpan from_seconds(double value) noexcept;
 
     /**
      * Returns a TimeSpan that represents a specified time.
      */
-    static TimeSpan from_ticks(const std::int64_t& value) noexcept;
+    static TimeSpan from_ticks(std::int64_t value) noexcept;
 
 public:
     /**
      * Initializes a new instance of the TimeSpan class with the given ticks value.
      */
-    TimeSpan(const std::int64_t& ticks) noexcept;
+    TimeSpan(std::int64_t ticks) noexcept;
 
     /**
      * Initializes a new instance of the TimeSpan class with the given hours, minutes and seconds.
      */
-    TimeSpan(const std::int32_t& hours, const std::int32_t& minutes, const std::int32_t& seconds) noexcept;
+    TimeSpan(std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept;
 
     /**
      * Initializes a new instance of the TimeSpan class with the given days, hours, minutes and seconds.
      */
-    TimeSpan(const std::int32_t& days
-           , const std::int32_t& hours
-           , const std::int32_t& minutes
-           , const std::int32_t& seconds) noexcept;
+    TimeSpan(std::int32_t days, std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept;
 
     /**
      * Initializes a new instance of the TimeSpan class with the given days, hours, minutes, seconds and milliseconds.
      */
-    TimeSpan(const std::int32_t& days
-           , const std::int32_t& hours
-           , const std::int32_t& minutes
-           , const std::int32_t& seconds
-           , const std::int32_t& milliseconds) noexcept;
+    TimeSpan(std::int32_t days
+           , std::int32_t hours
+           , std::int32_t minutes
+           , std::int32_t seconds
+           , std::int32_t milliseconds) noexcept;
 
     /**
      * Initializes a new instance of the TimeSpan class with the given timespan.

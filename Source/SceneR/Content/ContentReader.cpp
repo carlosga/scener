@@ -22,9 +22,7 @@ using SceneR::IO::File;
 using SceneR::IO::Path;
 using SceneR::IO::Stream;
 
-ContentReader::ContentReader(const std::string& assetName
-                           , ContentManager*    contentManager
-                           , Stream&            stream)
+ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream)
     : _asset_name      { assetName }
     , _asset_reader    { stream }
     , _content_manager { contentManager }

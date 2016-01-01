@@ -12,7 +12,7 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-ConstantBuffer::ConstantBuffer(const std::string& name, const std::uint32_t& programId) noexcept
+ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept
     : _name          { name }
     , _program_id    { programId }
     , _index         { 0 }
@@ -88,7 +88,7 @@ std::vector<std::uint8_t> ConstantBuffer::get_data() const
     return get_data(0, _size);
 }
 
-std::vector<std::uint8_t> ConstantBuffer::get_data(const std::size_t& offset, const std::size_t& count) const
+std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const
 {
     return _buffer_object->get_data(offset, count);
 }
@@ -98,7 +98,7 @@ void ConstantBuffer::set_data(const void* data) const
     set_data(0, _size, data);
 }
 
-void ConstantBuffer::set_data(const std::size_t& offset, const std::size_t& count, const void* data) const
+void ConstantBuffer::set_data(std::size_t offset, std::size_t count, const void* data) const
 {
     _buffer_object->set_data(offset, count, data);
 }

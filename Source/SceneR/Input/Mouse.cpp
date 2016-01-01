@@ -14,15 +14,11 @@ using SceneR::Graphics::OpenGL::DisplaySurface;
 
 MouseState Mouse::get_state() noexcept
 {
-    // glfwGetCursorPos(window, &xpos, &ypos);
-    // int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-
     return MouseState();
 }
 
-void Mouse::set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept
+void Mouse::set_position(std::uint32_t x, std::uint32_t y) noexcept
 {
-    // glfwSetCursorPos(window_handle, x, y);
 }
 
 void Mouse::initialize(DisplaySurface* surface) noexcept
@@ -45,9 +41,7 @@ void Mouse::initialize(DisplaySurface* surface) noexcept
     // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
 }
 
-void Mouse::cursor_position_callback(DisplaySurface* surface
-                                   , double          xpos
-                                   , double          ypos) noexcept
+void Mouse::cursor_position_callback(DisplaySurface* surface, double xpos, double ypos) noexcept
 {
 }
 
@@ -60,9 +54,7 @@ void Mouse::mouse_button_callback(DisplaySurface* surface
 //                popup_menu();
 }
 
-void Mouse::scroll_wheel_callback(DisplaySurface* surface
-                                , double          xoffset
-                                , double          yoffset) noexcept
+void Mouse::scroll_wheel_callback(DisplaySurface* surface, double xoffset, double yoffset) noexcept
 {
 }
 

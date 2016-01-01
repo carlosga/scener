@@ -23,32 +23,32 @@ public:
     /**
      * Gets the projection matrix in the current effect.
      */
-    virtual const SceneR::Math::Matrix& projection() const = 0;
+    virtual const SceneR::Math::Matrix& projection() const noexcept = 0;
 
     /**
      * Sets the projection matrix in the current effect.
      */
-    virtual void projection(const SceneR::Math::Matrix& projection) = 0;
+    virtual void projection(const SceneR::Math::Matrix& projection) noexcept = 0;
 
     /**
      * Gets the view matrix in the current effect.
      */
-    virtual const SceneR::Math::Matrix& view() const = 0;
+    virtual const SceneR::Math::Matrix& view() const noexcept = 0;
 
     /**
      * Sets the view matrix in the current effect.
      */
-    virtual void view(const SceneR::Math::Matrix& view) = 0;
+    virtual void view(const SceneR::Math::Matrix& view) noexcept = 0;
 
     /**
      * Gets the world matrix in the current effect.
      */
-    virtual const SceneR::Math::Matrix& world() const = 0;
+    virtual const SceneR::Math::Matrix& world() const noexcept = 0;
 
     /**
      * Sets the world matrix in the current effect.
      */
-    virtual void world(const SceneR::Math::Matrix& world) = 0;
+    virtual void world(const SceneR::Math::Matrix& world) noexcept = 0;
 };
 
 }}

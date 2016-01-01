@@ -44,7 +44,7 @@ public:
     /**
      * Gets the format of the texture data.
      */
-    virtual const SurfaceFormat& format() const noexcept = 0;
+    virtual SurfaceFormat format() const noexcept = 0;
 
     /**
      * Gets the number of texture levels in a multilevel texture.

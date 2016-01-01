@@ -44,12 +44,12 @@ public:
     /**
      * Specifies if the attribute is a scalar, vector, or matrix.
      */
-    const AttributeType& attribute_type() const noexcept;
+    AttributeType attribute_type() const noexcept;
 
     /**
      * Gets the data type of the components referenced by this accessor.
      */
-    const SceneR::Graphics::ComponentType& component_type() const noexcept;
+    SceneR::Graphics::ComponentType component_type() const noexcept;
 
     /**
      * Gets the offset relative to the buffer-view in bytes.
@@ -90,16 +90,18 @@ public:
     /**
      * Gets the accessor data.
      */
-    const gsl::span<std::uint8_t> get_data() const;
+    gsl::span<std::uint8_t> get_data() const;
 
     /**
      * Gets the accessor data.
      */
-    const gsl::span<std::uint8_t> get_data(const std::size_t& elementOffset
-                                         , const std::size_t& elementCount) const;
+    gsl::span<std::uint8_t> get_data(std::size_t elementOffset, std::size_t elementCount) const;
 
+    /**
+     * Gets the element at the given offset from the accessor buffer.
+     */
     template <typename T>
-    T get_element(const std::size_t& elementOffset) const noexcept
+    T get_element(std::size_t elementOffset) const noexcept
     {
         T    result;
         auto buffer = get_data(elementOffset, 1);

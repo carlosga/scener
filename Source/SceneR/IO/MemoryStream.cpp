@@ -51,7 +51,7 @@ std::uint32_t MemoryStream::read_byte()
     return buffer;
 }
 
-std::size_t MemoryStream::read(char* buffer, const std::size_t& offset, const std::size_t& count)
+std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t count)
 {
     Ensures(_position + count <= _buffer.end());
 
@@ -62,7 +62,7 @@ std::size_t MemoryStream::read(char* buffer, const std::size_t& offset, const st
     return count;
 }
 
-std::size_t MemoryStream::seek(const std::size_t& offset, const std::ios::seekdir& origin)
+std::size_t MemoryStream::seek(std::size_t offset, const std::ios::seekdir& origin)
 {
     Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
 

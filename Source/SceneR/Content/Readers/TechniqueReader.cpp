@@ -264,8 +264,7 @@ void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* techn
     }
 }
 
-void ContentTypeReader<EffectTechnique>::describe_parameter(EffectParameter*    parameter
-                                                          , const std::int32_t& type) const
+void ContentTypeReader<EffectTechnique>::describe_parameter(EffectParameter* parameter, std::int32_t type) const
 {
     switch (type)
     {

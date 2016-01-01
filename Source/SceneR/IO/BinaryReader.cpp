@@ -210,7 +210,7 @@ std::uint32_t BinaryReader::read_7_bit_encoded_int()
     return result;
 }
 
-std::vector<std::uint8_t> BinaryReader::read_bytes(const std::size_t& count)
+std::vector<std::uint8_t> BinaryReader::read_bytes(std::size_t count)
 {
     auto buffer = std::vector<std::uint8_t>(count, 0);
     auto readed = _stream.read(reinterpret_cast<char*>(&buffer[0]), 0, count);

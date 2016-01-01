@@ -52,7 +52,7 @@ public:
     /**
      * Sets a value indicating whether the component is enabled.
      */
-    void enabled(const bool& enabled) noexcept;
+    void enabled(bool enabled) noexcept;
 
     /**
      * Gets the order in which to update this object relative to other objects.
@@ -64,7 +64,7 @@ public:
      * Sets the order in which to update this object relative to other objects.
      * @param updateOrder the order in which to update this object relative to other objects.
      */
-    void update_order(const std::uint32_t& updateOrder) noexcept;
+    void update_order(std::uint32_t updateOrder) noexcept;
 
 protected:
     Renderer* _renderer = nullptr;

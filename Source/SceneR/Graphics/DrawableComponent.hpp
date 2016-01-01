@@ -51,7 +51,7 @@ public:
      * Sets a value indicating whether this object is enabled.
      * @param visible a value indicating whether this object is enabled.
      */
-    virtual void visible(const bool& visible) noexcept;
+    virtual void visible(bool visible) noexcept;
 
     /**
      * The order in which to draw this object relative to other objects.
@@ -61,7 +61,7 @@ public:
     /**
      * The order in which to draw this object relative to other objects.
      */
-    void draw_order(const std::uint32_t& drawOrder) noexcept;
+    void draw_order(std::uint32_t drawOrder) noexcept;
 
     /**
      * Called when the component should be initialized.

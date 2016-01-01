@@ -130,7 +130,7 @@ std::map<std::string, std::size_t> Program::get_uniform_offsets() const
     return uniformOffsets;
 }
 
-void Program::activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const
+void Program::activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const
 {
     glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
 }

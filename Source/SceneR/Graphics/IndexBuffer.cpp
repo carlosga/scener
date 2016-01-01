@@ -14,8 +14,8 @@ using SceneR::Graphics::OpenGL::BufferTarget;
 using SceneR::Graphics::OpenGL::BufferUsage;
 
 IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
-                       , const ComponentType&           indexElementType
-                       , const std::size_t&             indexCount) noexcept
+                       , ComponentType                  indexElementType
+                       , std::size_t                    indexCount) noexcept
     : GraphicsResource  { graphicsDevice }
     , _buffer           { nullptr }
     , _indexCount       { indexCount }
@@ -38,7 +38,7 @@ std::size_t IndexBuffer::index_count() const noexcept
     return _indexCount;
 }
 
-const ComponentType& IndexBuffer::index_element_type() const noexcept
+ComponentType IndexBuffer::index_element_type() const noexcept
 {
     return _indexElementType;
 }
@@ -63,8 +63,7 @@ std::vector<std::uint8_t> IndexBuffer::get_data() const noexcept
     return get_data(0, _indexCount);
 }
 
-std::vector<std::uint8_t> IndexBuffer::get_data(const std::size_t& startIndex
-                                              , const std::size_t& elementCount) const noexcept
+std::vector<std::uint8_t> IndexBuffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
 {
     Expects(_buffer != nullptr);
 

@@ -17,11 +17,11 @@ namespace SceneR { namespace Content { namespace Readers {
 
 }}}
 
+namespace SceneR { namespace Graphics { namespace OpenGL { class ConstantBuffer; } } }
+
 namespace SceneR { namespace Math { struct Matrix; } }
 
 namespace SceneR { namespace Graphics {
-
-namespace OpenGL { class ConstantBuffer; }
 
 /**
  * Represents an EffectTechnique parameter.
@@ -58,12 +58,12 @@ public:
     /**
      * Gets the class of the parameter.
      */
-    const EffectParameterClass& parameter_class() const noexcept;
+    EffectParameterClass parameter_class() const noexcept;
 
     /**
      * Gets the type of the parameter.
      */
-    const EffectParameterType& parameter_type() const noexcept;
+    EffectParameterType parameter_type() const noexcept;
 
     /**
      * Gets the number of rows in the parameter description.

@@ -28,7 +28,7 @@ namespace SceneR
             return _enabled;
         }
 
-        void Component::enabled(const bool& enabled) noexcept
+        void Component::enabled(bool enabled) noexcept
         {
             _enabled = enabled;
         }
@@ -38,7 +38,7 @@ namespace SceneR
             return _update_order;
         }
 
-        void Component::update_order(const std::uint32_t& updateOrder) noexcept
+        void Component::update_order(std::uint32_t updateOrder) noexcept
         {
             _update_order = updateOrder;
         }

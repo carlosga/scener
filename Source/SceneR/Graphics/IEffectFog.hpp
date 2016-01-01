@@ -23,42 +23,42 @@ public:
     /**
      *  Gets the fog color.
      */
-    virtual const SceneR::Math::Vector3& fog_color() const = 0;
+    virtual const SceneR::Math::Vector3& fog_color() const noexcept = 0;
 
     /**
      *  Set the fog color.
      */
-    virtual void fog_color(const SceneR::Math::Vector3& color) = 0;
+    virtual void fog_color(const SceneR::Math::Vector3& color) noexcept = 0;
 
     /**
      * Gets a value indicating whether for is enabled for the current effect.
      */
-    virtual bool fog_enabled() const = 0;
+    virtual bool fog_enabled() const noexcept = 0;
 
     /**
      * Gets a value indicating whether for is enabled for the current effect.
      */
-    virtual void fog_enabled(const bool& fogEnabled) = 0;
+    virtual void fog_enabled(bool fogEnabled) noexcept = 0;
 
     /**
      * Gets maximum z value for fog.
      */
-    virtual float fog_end() const = 0;
+    virtual float fog_end() const noexcept = 0;
 
     /**
      * Sets maximum z value for fog.
      */
-    virtual void fog_end(const float& fogEnd) = 0;
+    virtual void fog_end(float fogEnd) noexcept = 0;
 
     /**
      * Gets minimum z value for fog.
      */
-    virtual float fog_start() const = 0;
+    virtual float fog_start() const noexcept = 0;
 
     /**
      * Sets minimum z value for fog.
      */
-    virtual void fog_start(const float& fogStart) = 0;
+    virtual void fog_start(float fogStart) noexcept = 0;
 };
 
 }}

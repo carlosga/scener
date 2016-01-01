@@ -21,10 +21,10 @@ public:
     /**
      * Initializes a new instance of the vertex element class
      */
-    VertexElement(const std::size_t&         offset
-                , const VertexElementFormat& vertexElementFormat
-                , const VertexElementUsage&  vertexElementUsage
-                , const std::uint32_t&       usageIndex) noexcept;
+    VertexElement(std::size_t         offset
+                , VertexElementFormat vertexElementFormat
+                , VertexElementUsage  vertexElementUsage
+                , std::uint32_t       usageIndex) noexcept;
 
     /**
      * @brief Copy constructor
@@ -51,12 +51,12 @@ public:
     /**
      * Gets or sets the format of this vertex element.
      */
-    const VertexElementFormat& vertex_element_format() const noexcept;
+    VertexElementFormat vertex_element_format() const noexcept;
 
     /**
      * Gets a value describing how the vertex element is to be used.
      */
-    const VertexElementUsage& vertex_element_usage() const noexcept;
+    VertexElementUsage vertex_element_usage() const noexcept;
 
 public:
     VertexElement& operator=(const VertexElement& element) = default;

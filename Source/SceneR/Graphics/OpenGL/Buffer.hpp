@@ -26,7 +26,7 @@ public:
      * @param target the buffer target.
      * @param usage the buffer usage.
      */
-    Buffer(const BufferTarget& target, const BufferUsage& usage) noexcept;
+    Buffer(BufferTarget target, BufferUsage usage) noexcept;
 
     /**
      * Releases all resources being used by this Buffer.
@@ -45,12 +45,12 @@ public:
     /**
      * Gets the buffer object target.
      */
-    const BufferTarget& target() const noexcept;
+    BufferTarget target() const noexcept;
 
     /**
      * Gets the buffer object usage.
      */
-    const BufferUsage& usage() const noexcept;
+    BufferUsage usage() const noexcept;
 
     /**
      * Activates the buffer object.
@@ -73,7 +73,7 @@ public:
      * @param size specifies the size in bytes of the data store region being replaced.
      * @param data specifies a pointer to the new data that will be copied into the data store.
      */
-    std::vector<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& size) const;
+    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t size) const;
 
     /**
      * Creates and initializes the buffer object data store.
@@ -81,7 +81,7 @@ public:
      * @param data specifies a pointer to data that will be copied into the data store for initialization,
      *             or NULL if no data is to be copied.
      */
-    void set_data(const std::size_t& size, const void* data) const;
+    void set_data(std::size_t size, const void* data) const;
 
     /**
      * Updates a subset of a buffer object's data store
@@ -89,7 +89,7 @@ public:
      * @param size specifies the size in bytes of the data store region being replaced.
      * @param data specifies a pointer to the new data that will be copied into the data store.
      */
-    void set_data(const std::size_t& offset, const std::size_t& size, const void* data) const;
+    void set_data(std::size_t offset, std::size_t size, const void* data) const;
 
     /**
      * Invalidate the content of a buffer object's data store
@@ -101,7 +101,7 @@ public:
      *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
      *  @param length the length of the range within the buffer's data store to be invalidated.
      */
-    void invalidate(const std::size_t& offset, const std::size_t& length) const;
+    void invalidate(std::size_t offset, std::size_t length) const;
 
 private:
     std::uint32_t _id;

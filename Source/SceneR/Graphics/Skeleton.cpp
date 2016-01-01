@@ -51,14 +51,14 @@ namespace SceneR
             return _skin_transforms;
         }
 
-        void Skeleton::update(const TimeSpan& time, const bool& relativeToCurrentTime, const Matrix& rootTransform) noexcept
+        void Skeleton::update(const TimeSpan& time, bool relativeToCurrentTime, const Matrix& rootTransform) noexcept
         {
             this->update_bone_transforms(time, relativeToCurrentTime);
             this->update_world_transforms(rootTransform);
             this->update_skin_transforms();
         }
 
-        void Skeleton::update_bone_transforms(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
+        void Skeleton::update_bone_transforms(const TimeSpan& time, bool relativeToCurrentTime) noexcept
         {
             for (const auto joint : _joints)
             {

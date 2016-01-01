@@ -27,25 +27,17 @@ public:
     auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
 
 private:
-    void read_parameters(ContentReader*             input
-                       , const json11::Json&        source
-                       , Graphics::EffectTechnique* effect) const;
+    void read_parameters(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
 
-    void set_parameter_values(ContentReader*             input
-                            , const json11::Json&        source
-                            , Graphics::EffectTechnique* effect) const;
+    void set_parameter_values(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
 
-    void add_default_pass(ContentReader*             input
-                        , const json11::Json&        source
-                        , Graphics::EffectTechnique* effect) const;
+    void add_default_pass(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
 
-    void read_pass_program(ContentReader*        input
-                         , const std::string&    name
-                         , Graphics::EffectPass* effectPass) const;
+    void read_pass_program(ContentReader* input, const std::string& name, Graphics::EffectPass* effectPass) const;
 
     void cache_parameters(Graphics::EffectTechnique* effect) const;
 
-    void describe_parameter(Graphics::EffectParameter* parameter, const std::int32_t& type) const;
+    void describe_parameter(Graphics::EffectParameter* parameter, std::int32_t type) const;
 };
 
 }}}

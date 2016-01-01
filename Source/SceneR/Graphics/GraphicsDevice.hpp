@@ -29,8 +29,7 @@ class VertexBuffer;
 class GraphicsDevice final : SceneR::IDisposable
 {
 private:
-    static std::size_t get_element_count(const PrimitiveType& primitiveType
-                                       , const std::size_t&   primitiveCount) noexcept;
+    static std::size_t get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept;
 
 public:
     /**
@@ -73,12 +72,12 @@ public:
      * @param primitiveCount Number of primitives to render. The number of vertices used is a function of
      *                       primitiveCount and primitiveType.
      */
-    void draw_indexed_primitives(const PrimitiveType& primitiveType
-                               , const std::size_t&   baseVertex
-                               , const std::size_t&   minVertexIndex
-                               , const std::size_t&   numVertices
-                               , const std::size_t&   startIndex
-                               , const std::size_t&   primitiveCount) const;
+    void draw_indexed_primitives(PrimitiveType primitiveType
+                               , std::size_t   baseVertex
+                               , std::size_t   minVertexIndex
+                               , std::size_t   numVertices
+                               , std::size_t   startIndex
+                               , std::size_t   primitiveCount) const;
 
     /**
      * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -91,9 +90,7 @@ public:
      *                       determined by the primitive type. If it is a line list, each primitive has two
      *                       vertices. If it is a triangle list, each primitive has three vertices.
      */
-    void draw_primitives(const PrimitiveType& primitiveType
-                       , const std::size_t&   startVertex
-                       , const std::size_t&   primitiveCount) const;
+    void draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const;
 
     /**
      * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the

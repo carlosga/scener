@@ -39,7 +39,7 @@ std::size_t ModelMeshPart::primitive_count() const noexcept
     return _primitive_count;
 }
 
-const PrimitiveType& ModelMeshPart::primitive_type() const noexcept
+PrimitiveType ModelMeshPart::primitive_type() const noexcept
 {
     return _primitive_type;
 }

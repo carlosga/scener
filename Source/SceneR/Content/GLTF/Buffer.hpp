@@ -54,7 +54,7 @@ public:
     /**
      * Gets the buffer data.
      */
-    const gsl::span<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count);
+    gsl::span<std::uint8_t> get_data(std::size_t offset, std::size_t count);
 
     /**
      * Sets the buffer data.

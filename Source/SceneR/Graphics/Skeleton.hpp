@@ -66,14 +66,14 @@ public:
      * Advances the current animation position.
      */
     void update(const SceneR::TimeSpan&     time
-              , const bool&                 relativeToCurrentTime
+              , bool                        relativeToCurrentTime
               , const SceneR::Math::Matrix& rootTransform) noexcept;
 
 private:
     /**
      * Helper used by the Update method to refresh the BoneTransforms data.
      */
-    void update_bone_transforms(const SceneR::TimeSpan& time, const bool& relativeToCurrentTime) noexcept;
+    void update_bone_transforms(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
     /**
      * Helper used by the Update method to refresh the WorldTransforms data.

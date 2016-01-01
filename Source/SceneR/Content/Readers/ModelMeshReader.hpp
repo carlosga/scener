@@ -42,7 +42,7 @@ private:
 
     std::shared_ptr<Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const;
 
-    Graphics::VertexElementFormat get_vertex_element_format(const GLTF::AttributeType& type) const;
+    Graphics::VertexElementFormat get_vertex_element_format(GLTF::AttributeType type) const;
 
     Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
 };

@@ -16,7 +16,7 @@ void SamplerState::dispose()
 {
 }
 
-void SamplerState::apply(const std::uint32_t& textureId) const
+void SamplerState::apply(std::uint32_t textureId) const
 {
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(address_u));
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(address_v));

@@ -10,14 +10,14 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-bool TextureStorage::is_compressed_surface_format(const SurfaceFormat& format) noexcept
+bool TextureStorage::is_compressed_surface_format(SurfaceFormat format) noexcept
 {
     return (format == SurfaceFormat::dxt1
          || format == SurfaceFormat::dxt3
          || format == SurfaceFormat::dxt5);
 }
 
-TextureStorage::TextureStorage(const TextureTarget& target) noexcept
+TextureStorage::TextureStorage(TextureTarget target) noexcept
     : _id     { 0 }
     , _target { target }
 {
@@ -55,10 +55,7 @@ void TextureStorage::unbind() const
     glBindTextureUnit(0, 0);
 }
 
-void TextureStorage::declare_storage(const SurfaceFormat& format
-                                   , const std::size_t&   levels
-                                   , const std::size_t&   width
-                                   , const std::size_t&   height) const
+void TextureStorage::declare_storage(SurfaceFormat format, std::size_t levels, std::size_t width, std::size_t height) const
 {
     glTextureStorage2D(_id
                      , static_cast<GLint>(levels)
@@ -67,10 +64,10 @@ void TextureStorage::declare_storage(const SurfaceFormat& format
                      , static_cast<GLint>(height));
 }
 
-void TextureStorage::set_data(const SurfaceFormat&             format
-                            , const std::size_t&               level
-                            , const std::size_t&               width
-                            , const std::size_t&               height
+void TextureStorage::set_data(SurfaceFormat                    format
+                            , std::size_t                      level
+                            , std::size_t                      width
+                            , std::size_t                      height
                             , const std::vector<std::uint8_t>& data) const
 {
     auto si_level  = static_cast<GLint>(level);

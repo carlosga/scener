@@ -68,12 +68,12 @@ public:
     /**
      * Reads a sequence of bytes from the current stream.
      */
-    std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) override;
+    std::size_t read(char* buffer, std::size_t offset, std::size_t count) override;
 
     /**
      * Sets the position within the current stream.
      */
-    std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) override;
+    std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) override;
 
 private:
     FileStream() = delete;

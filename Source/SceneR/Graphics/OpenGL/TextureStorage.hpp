@@ -25,14 +25,14 @@ namespace SceneR { namespace Graphics { namespace OpenGL {
 class TextureStorage : SceneR::IDisposable
 {
 private:
-    static bool is_compressed_surface_format(const SceneR::Graphics::SurfaceFormat& format) noexcept;
+    static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept;
 
 public:
     /**
      * Initializes a new instance of the TextureStorage class.
      * @param target the texturer target.
      */
-    TextureStorage(const TextureTarget& target) noexcept;
+    TextureStorage(TextureTarget target) noexcept;
 
     /**
      * Releases all resources being used by this TextureStorage.
@@ -69,10 +69,10 @@ public:
      * @param width texture width
      * @param height texture height
      */
-    void declare_storage(const SceneR::Graphics::SurfaceFormat& format
-                       , const std::size_t&                     levels
-                       , const std::size_t&                     width
-                       , const std::size_t&                     height) const;
+    void declare_storage(SceneR::Graphics::SurfaceFormat format
+                       , std::size_t                     levels
+                       , std::size_t                     width
+                       , std::size_t                     height) const;
 
     /**
      * Adds texture data to the texture object
@@ -82,11 +82,11 @@ public:
      * @param height mipmap height
      * @param data mipmap data
      */
-    void set_data(const SceneR::Graphics::SurfaceFormat& format
-                , const std::size_t&                     level
-                , const std::size_t&                     width
-                , const std::size_t&                     height
-                , const std::vector<std::uint8_t>&       data) const;
+    void set_data(SceneR::Graphics::SurfaceFormat  format
+                , std::size_t                      level
+                , std::size_t                      width
+                , std::size_t                      height
+                , const std::vector<std::uint8_t>& data) const;
 
 private:
     std::uint32_t _id;

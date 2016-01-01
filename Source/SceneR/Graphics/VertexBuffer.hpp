@@ -34,7 +34,7 @@ public:
      * @param graphicsDevice the graphics device.
      */
     VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
-               , const std::size_t&                 vertexCount
+               , std::size_t                        vertexCount
                , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept;
 
     /**
@@ -59,8 +59,7 @@ public:
     /**
      * Gets the vertex buffer data
      */
-    std::vector<std::uint8_t> get_data(const std::size_t& startIndex
-                                     , const std::size_t& elementCount) const noexcept;
+    std::vector<std::uint8_t> get_data(std::size_t startIndex, std::size_t elementCount) const noexcept;
 
     /**
      * Sets the vertex buffer data

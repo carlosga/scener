@@ -66,9 +66,7 @@ public:
      * @param contentManager the content_manager that owns this ContentReader.
      * @param stream the base stream.
      */
-    ContentReader(const std::string& assetName
-                , ContentManager*    contentManager
-                , IO::Stream&        stream);
+    ContentReader(const std::string& assetName, ContentManager* contentManager, IO::Stream& stream);
 
     /**
      * Releases all resources used by the current instance of the ContentReader class.

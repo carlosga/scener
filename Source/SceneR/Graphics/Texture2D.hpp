@@ -34,9 +34,7 @@ public:
      * @param width the texture width, in pixels
      * @param height the texture height, in pixels
      */
-    Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-            , const std::size_t&             width
-            , const std::size_t&             height) noexcept;
+    Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept;
 
     /**
      * Creates a new instance of the Texture2D class.
@@ -48,10 +46,10 @@ public:
      * @param format texture data format
      */
     Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-            , const std::size_t&             width
-            , const std::size_t&             height
-            , const bool&                    mipmap
-            , const SurfaceFormat&           format) noexcept;
+            , std::size_t                    width
+            , std::size_t                    height
+            , bool                           mipmap
+            , SurfaceFormat                  format) noexcept;
 
     /**
      * Releases all resources being used by this texture.
@@ -67,7 +65,7 @@ public:
     /**
      * Gets the format of the texture data.
      */
-    const SurfaceFormat& format() const noexcept override;
+    SurfaceFormat format() const noexcept override;
 
     /**
      * Gets the texture height, in pixels
@@ -95,10 +93,7 @@ public:
      * @param level the mipmap level.
      * @param data pointer with the mipmap data.
      */
-    void set_data(const std::size_t&               level
-                , const std::size_t&               width
-                , const std::size_t&               height
-                , const std::vector<std::uint8_t>& data) const;
+    void set_data(std::size_t level, std::size_t width, std::size_t height, const std::vector<std::uint8_t>& data) const;
 
     /**
      * Activates the texture object
@@ -111,7 +106,7 @@ public:
     void unbind() const override;
 
 private:
-    void declare_storage(const std::size_t& mipMapLevels);
+    void declare_storage(std::size_t mipMapLevels);
 
 private:
     SurfaceFormat                 _format;

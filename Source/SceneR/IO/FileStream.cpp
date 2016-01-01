@@ -67,14 +67,14 @@ std::uint32_t FileStream::read_byte()
     return buffer;
 }
 
-std::size_t FileStream::read(char* buffer, const std::size_t& offset, const std::size_t& count)
+std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count)
 {
     _stream.read(buffer + offset, count);
 
     return _stream.gcount();
 }
 
-std::size_t FileStream::seek(const std::size_t& offset, const std::ios::seekdir& origin)
+std::size_t FileStream::seek(std::size_t offset, const std::ios::seekdir& origin)
 {
     _stream.seekg(offset, origin);
 

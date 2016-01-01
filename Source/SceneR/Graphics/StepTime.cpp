@@ -17,9 +17,7 @@ StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRende
 {
 }
 
-StepTime::StepTime(const TimeSpan& totalRenderTime
-                 , const TimeSpan& elapsedRenderTime
-                 , const bool&     isRunningSlowly)
+StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime, bool isRunningSlowly)
     : total_render_time   { totalRenderTime }
     , elapsed_render_time { elapsedRenderTime }
     , is_running_slowly   { isRunningSlowly }

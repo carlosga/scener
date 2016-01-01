@@ -16,7 +16,7 @@ const std::int64_t TimeSpan::ticks_per_minute;
 const std::int64_t TimeSpan::ticks_per_second;
 const TimeSpan     TimeSpan::zero      { 0 };
 
-TimeSpan TimeSpan::from_days(const double& value) noexcept
+TimeSpan TimeSpan::from_days(double value) noexcept
 {
     return { std::chrono::duration_cast<ticks_duration>(days_duration(value)).count() };
 }
@@ -26,54 +26,51 @@ TimeSpan TimeSpan::from_duration(const TimeSpan::clock::duration& value) noexcep
     return { std::chrono::duration_cast<ticks_duration>(value).count() };
 }
 
-TimeSpan TimeSpan::from_hours(const double& value) noexcept
+TimeSpan TimeSpan::from_hours(double value) noexcept
 {
     return { std::chrono::duration_cast<ticks_duration>(hours_duration(value)).count() };
 }
 
-TimeSpan TimeSpan::from_milliseconds(const double& value) noexcept
+TimeSpan TimeSpan::from_milliseconds(double value) noexcept
 {
     return { std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(value)).count() };
 }
 
-TimeSpan TimeSpan::from_minutes(const double& value) noexcept
+TimeSpan TimeSpan::from_minutes(double value) noexcept
 {
     return { std::chrono::duration_cast<ticks_duration>(minutes_duration(value)).count() };
 }
 
-TimeSpan TimeSpan::from_seconds(const double& value) noexcept
+TimeSpan TimeSpan::from_seconds(double value) noexcept
 {
     return { std::chrono::duration_cast<ticks_duration>(seconds_duration(value)).count() };
 }
 
-TimeSpan TimeSpan::from_ticks(const std::int64_t& value) noexcept
+TimeSpan TimeSpan::from_ticks(std::int64_t value) noexcept
 {
     return { value };
 }
 
-TimeSpan::TimeSpan(const std::int64_t& ticks) noexcept
+TimeSpan::TimeSpan(std::int64_t ticks) noexcept
     : _ticks { ticks_duration(ticks) }
 {
 }
 
-TimeSpan::TimeSpan(const std::int32_t& hours, const std::int32_t& minutes, const std::int32_t& seconds) noexcept
+TimeSpan::TimeSpan(std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
     : TimeSpan { 0, hours, minutes, seconds, 0 }
 {
 }
 
-TimeSpan::TimeSpan(const std::int32_t& days
-                 , const std::int32_t& hours
-                 , const std::int32_t& minutes
-                 , const std::int32_t& seconds) noexcept
+TimeSpan::TimeSpan(std::int32_t days, std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
     : TimeSpan { days, hours, minutes, seconds, 0 }
 {
 }
 
-TimeSpan::TimeSpan(const std::int32_t& days
-                 , const std::int32_t& hours
-                 , const std::int32_t& minutes
-                 , const std::int32_t& seconds
-                 , const std::int32_t& milliseconds) noexcept
+TimeSpan::TimeSpan(std::int32_t days
+                 , std::int32_t hours
+                 , std::int32_t minutes
+                 , std::int32_t seconds
+                 , std::int32_t milliseconds) noexcept
 {
     _ticks = (std::chrono::duration_cast<ticks_duration>(days_duration(days))
             + std::chrono::duration_cast<ticks_duration>(hours_duration(hours))

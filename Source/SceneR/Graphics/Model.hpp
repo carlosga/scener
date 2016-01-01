@@ -43,7 +43,7 @@ public:
      * Gets the model name.
      * @return the model name.
      */
-    const std::string name() const noexcept;
+    const std::string& name() const noexcept;
 
     /**
      * Gets a collection of ModelMesh objects which composes the current model.

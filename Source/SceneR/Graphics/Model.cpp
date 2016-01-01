@@ -24,7 +24,7 @@ namespace SceneR
         {
         }
 
-        const std::string Model::name() const noexcept
+        const std::string& Model::name() const noexcept
         {
             return _name;
         }

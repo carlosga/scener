@@ -30,12 +30,12 @@ const std::string& EffectParameter::name() const noexcept
     return _name;
 }
 
-const EffectParameterClass& EffectParameter::parameter_class() const noexcept
+EffectParameterClass EffectParameter::parameter_class() const noexcept
 {
     return _parameter_class;
 }
 
-const EffectParameterType& EffectParameter::parameter_type() const noexcept
+EffectParameterType EffectParameter::parameter_type() const noexcept
 {
     return _parameter_type;
 }

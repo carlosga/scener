@@ -48,7 +48,7 @@ public:
 
     std::map<std::string, std::size_t> get_uniform_offsets() const;
 
-    void activate_subroutine(const ShaderType& type, const std::uint32_t& subroutineIndex) const;
+    void activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const;
 
 private:
     void verify_linking_state();

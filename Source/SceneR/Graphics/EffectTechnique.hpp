@@ -61,179 +61,179 @@ public:
      * Gets the material alpha which determines its transparency.
      * Range is between 1 (fully opaque) and 0 (fully transparent).
      */
-    float alpha() const;
+    float alpha() const noexcept;
 
     /**
      * Sets the material alpha which determines its transparency.
      * Range is between 1 (fully opaque) and 0 (fully transparent).
      */
-    void alpha(const float& alpha);
+    void alpha(float alpha) noexcept;
 
     /**
      * Gets the ambient light for the current effect
      */
-    const SceneR::Math::Vector3& ambient_light_color() const override;
+    const SceneR::Math::Vector3& ambient_light_color() const noexcept override;
 
     /**
      * Gets the ambient light for the current effect
      */
-    void ambient_light_color(const SceneR::Math::Vector3& ambientLightColor) override;
+    void ambient_light_color(const SceneR::Math::Vector3& ambientLightColor) noexcept override;
 
     /**
      * Gets the ambient color for a light, the range of color values is from 0 to 1.
      */
-    const SceneR::Math::Vector3& diffuse_color() const;
+    const SceneR::Math::Vector3& diffuse_color() const noexcept;
 
     /**
      * Gets the ambient color for a light, the range of color values is from 0 to 1.
      */
-    void diffuse_color(const SceneR::Math::Vector3& diffuseColor);
+    void diffuse_color(const SceneR::Math::Vector3& diffuseColor) noexcept;
 
     /**
      * Gets the first directional light
      */
-    const DirectionalLight& directional_light_0() const override;
+    const DirectionalLight& directional_light_0() const noexcept override;
 
     /**
      * Gets the second directional light
      */
-    const DirectionalLight& directional_light_1() const override;
+    const DirectionalLight& directional_light_1() const noexcept override;
 
     /**
      * Gets the third directional light
      */
-    const DirectionalLight& directional_light_2() const override;
+    const DirectionalLight& directional_light_2() const noexcept override;
 
     /**
      * Enables default lighting for this effect.
      */
-    void enable_default_lighting() override;
+    void enable_default_lighting() noexcept override;
 
     /**
      * Gets the emissive color for a material,
      * the range of color values is from 0 to 1.
      */
-    const SceneR::Math::Vector3& emissive_color() const;
+    const SceneR::Math::Vector3& emissive_color() const noexcept;
 
     /**
      * Sets the emissive color for a material,
      * the range of color values is from 0 to 1.
      */
-    void emissive_color(const SceneR::Math::Vector3& emissiveColor);
+    void emissive_color(const SceneR::Math::Vector3& emissiveColor) noexcept;
 
     /**
      * Gets a value indicating wheter lighting is enabled for the current effect.
      */
-    bool lighting_enabled() const override;
+    bool lighting_enabled() const noexcept override;
 
     /**
      * Sets a value indicating wheter lighting is enabled for the current effect.
      */
-    void lighting_enabled(const bool& lightingEnabled) override;
+    void lighting_enabled(bool lightingEnabled) noexcept override;
 
     /**
      * Gets a value indicating that per-pixel lighting should be used if it is
      * available for the current adapter.
      */
-    bool prefer_per_pixel_lighting() const;
+    bool prefer_per_pixel_lighting() const noexcept;
 
     /**
      * Gets a value indicating that per-pixel lighting should be used if it is
      * available for the current adapter.
      */
-    void prefer_per_pixel_lighting(const bool& preferPerPixelLighting);
+    void prefer_per_pixel_lighting(bool preferPerPixelLighting) noexcept;
 
     /**
      * Gets the projection matrix in the current effect.
      */
-    const SceneR::Math::Matrix& projection() const override;
+    const SceneR::Math::Matrix& projection() const noexcept override;
 
     /**
      * Sets the projection matrix in the current effect.
      */
-    void projection(const SceneR::Math::Matrix& projection) override;
+    void projection(const SceneR::Math::Matrix& projection) noexcept override;
 
     /**
      * Gets the specular color for a material,
      * the range of color values is from 0 to 1.
      */
-    const SceneR::Math::Vector3& specular_color() const;
+    const SceneR::Math::Vector3& specular_color() const noexcept;
 
     /**
      * Gets the specular color for a material,
      * the range of color values is from 0 to 1.
      */
-    void specular_color(const SceneR::Math::Vector3& specularColor);
+    void specular_color(const SceneR::Math::Vector3& specularColor) noexcept;
 
     /**
      * Gets specular power of this effect material.
      */
-    float specular_power() const;
+    float specular_power() const noexcept;
 
     /**
      * Sets specular power of this effect material.
      */
-    void specular_power(const float& specularPower);
+    void specular_power(float specularPower) noexcept;
 
     /**
      * Gets the textures to be applied by this effect.
      */
-    std::vector<std::shared_ptr<Texture2D>>& textures();
+    std::vector<std::shared_ptr<Texture2D>>& textures() noexcept;
 
     /**
      * Gets a value indicating wheter textures are enabled for this effect
      */
-    bool texture_enabled() const;
+    bool texture_enabled() const noexcept;
 
     /**
      * Sets a value indicating wheter textures are enabled for this effect
      */
-    void texture_enabled(const bool& textureEnabled);
+    void texture_enabled(bool textureEnabled) noexcept;
 
     /**
      * Gets the view matrix in the current effect.
      */
-    const SceneR::Math::Matrix& view() const override;
+    const SceneR::Math::Matrix& view() const noexcept override;
 
     /**
      * Sets the view matrix in the current effect.
      */
-    void view(const SceneR::Math::Matrix& view) override;
+    void view(const SceneR::Math::Matrix& view) noexcept override;
 
     /**
      * Gets the world matrix in the current effect.
      */
-    const SceneR::Math::Matrix& world() const override;
+    const SceneR::Math::Matrix& world() const noexcept override;
 
     /**
      * Sets the world matrix in the current effect.
      */
-    void world(const SceneR::Math::Matrix& world) override;
+    void world(const SceneR::Math::Matrix& world) noexcept override;
 
 public:
     /**
      * Gets the array of bone transform matrices of this SkinnedEffect.
      */
-    std::vector<SceneR::Math::Matrix> bone_transforms(const std::size_t& count) const;
+    std::vector<SceneR::Math::Matrix> bone_transforms(std::size_t count) const noexcept;
 
     /**
      * Sets an array of bone transform matrices for a SkinnedEffect.
      */
-    void bone_transforms(const std::vector<SceneR::Math::Matrix>& boneTransforms);
+    void bone_transforms(const std::vector<SceneR::Math::Matrix>& boneTransforms) noexcept;
 
 public:
     /**
      * Starts the application of the effect state just prior to rendering the effect.
      */
-    void begin();
+    void begin() noexcept;
 
     /**
      * Ends the application of the effect state just after rendering the effect.
      */
-    void end();
+    void end() noexcept;
 
 private:
-    void set_world_view_proj() const;
+    void set_world_view_proj() const noexcept;
 
 private:
     float                                   _alpha;

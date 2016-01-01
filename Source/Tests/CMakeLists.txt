@@ -28,11 +28,14 @@ find_package (Threads REQUIRED)
 # link directories
 link_directories (${CMAKE_BINARY_DIR}/googletest-build ${SCENER_LIB_DIRS})
 
+# header files
+file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
+
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # add execlutable
-add_executable (TestRunner ${SOURCE_FILES})
+add_executable (TestRunner ${HEADER_FILES} ${SOURCE_FILES})
 
 # target include directories
 target_include_directories(TestRunner PRIVATE ${GSL_INCLUDE_DIRS})

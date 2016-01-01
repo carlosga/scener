@@ -3,48 +3,43 @@
 
 #include "SceneR/Graphics/Viewport.hpp"
 
-#include <gsl.h>
+#include <gsl_assert.h>
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+Viewport::Viewport() noexcept
+    : Viewport { 0.0f, 0.0f, 0.0f, 0.0f }
 {
-    namespace Graphics
-    {
-        Viewport::Viewport() noexcept
-            : Viewport { 0.0f, 0.0f, 0.0f, 0.0f }
-        {
-        }
-
-        Viewport::Viewport(const float& x    , const float& y
-                         , const float& width, const float& height) noexcept
-            : Viewport { x, y, width, height, 0.0f, 1.0f }
-        {
-        }
-
-        Viewport::Viewport(const float& x       , const float& y
-                         , const float& width   , const float& height
-                         , const float& minDepth, const float& maxDepth) noexcept
-            : x         { x }
-            , y         { y }
-            , width     { width }
-            , height    { height }
-            , min_depth { minDepth }
-            , max_depth { maxDepth }
-        {
-        }
-
-        float Viewport::aspect_ratio() const noexcept
-        {
-            Expects(width > 0 && height > 0);
-
-            return (width / height);
-        }
-
-        void Viewport::update() const
-        {
-            glViewportIndexedf(0, x, y, width, height);
-            glDepthRangeIndexed(0, min_depth, max_depth);
-        }
-    }
 }
+
+Viewport::Viewport(float x, float y, float width, float height) noexcept
+    : Viewport { x, y, width, height, 0.0f, 1.0f }
+{
+}
+
+Viewport::Viewport(float x, float y, float width, float height, float minDepth, float maxDepth) noexcept
+    : x         { x }
+    , y         { y }
+    , width     { width }
+    , height    { height }
+    , min_depth { minDepth }
+    , max_depth { maxDepth }
+{
+}
+
+float Viewport::aspect_ratio() const noexcept
+{
+    Expects(width > 0 && height > 0);
+
+    return (width / height);
+}
+
+void Viewport::update() const
+{
+    glViewportIndexedf(0, x, y, width, height);
+    glDepthRangeIndexed(0, min_depth, max_depth);
+}
+
+}}

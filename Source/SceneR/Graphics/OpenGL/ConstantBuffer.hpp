@@ -29,7 +29,7 @@ public:
      * @param name the name of the constant buffer.
      * @param programId the handle of the shader program.
      */
-    ConstantBuffer(const std::string& name, const std::uint32_t& programId) noexcept;
+    ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept;
 
     /**
      * Releases all resources being used by this ConstantBuffer.
@@ -80,7 +80,7 @@ public:
     /**
      * Gets the constant buffer data.
      */
-    std::vector<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
+    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const;
 
     /**
      * Sets the constant buffer data.
@@ -90,7 +90,7 @@ public:
     /**
      * Sets the constant buffer data.
      */
-    void set_data(const std::size_t& offset, const std::size_t& count, const void *data) const;
+    void set_data(std::size_t offset, std::size_t count, const void *data) const;
 
 private:
     std::string             _name;

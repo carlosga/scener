@@ -60,12 +60,12 @@ public:
     /**
      * Reads a sequence of bytes from the current stream.
      */
-    virtual std::size_t read(char* buffer, const std::size_t& offset, const std::size_t& count) = 0;
+    virtual std::size_t read(char* buffer, std::size_t offset, std::size_t count) = 0;
 
     /**
      * Sets the position within the current stream.
      */
-    virtual std::size_t seek(const std::size_t& offset, const std::ios::seekdir& origin) = 0;
+    virtual std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) = 0;
 };
 
 }}

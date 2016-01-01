@@ -18,7 +18,7 @@ using SceneR::Graphics::OpenGL::BufferUsage;
 using SceneR::Graphics::OpenGL::VertexArrayObject;
 
 VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
-                         , const std::size_t&                 vertexCount
+                         , std::size_t                        vertexCount
                          , std::unique_ptr<VertexDeclaration> vertexDeclaration) noexcept
     : GraphicsResource    { graphicsDevice }
     , _binding_index      { 0 }
@@ -54,8 +54,7 @@ std::vector<std::uint8_t> VertexBuffer::get_data() const noexcept
     return get_data(0, _vertex_count);
 }
 
-std::vector<std::uint8_t> VertexBuffer::get_data(const std::size_t& startIndex
-                                               , const std::size_t& elementCount) const noexcept
+std::vector<std::uint8_t> VertexBuffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
 {
     Expects(_vbo != nullptr)
 

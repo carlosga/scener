@@ -9,12 +9,12 @@ namespace SceneR { namespace Content { namespace GLTF {
 
 using SceneR::Graphics::ComponentType;
 
-const AttributeType& Accessor::attribute_type() const noexcept
+AttributeType Accessor::attribute_type() const noexcept
 {
     return _attribute_type;
 }
 
-const ComponentType& Accessor::component_type() const noexcept
+ComponentType Accessor::component_type() const noexcept
 {
     return _component_type;
 }
@@ -54,13 +54,12 @@ const std::string& Accessor::name() const noexcept
     return _name;
 }
 
-const gsl::span<std::uint8_t> Accessor::get_data() const
+gsl::span<std::uint8_t> Accessor::get_data() const
 {
     return get_data(0, _attribute_count);
 }
 
-const gsl::span<std::uint8_t> Accessor::get_data(const std::size_t& elementOffset
-                                               , const std::size_t& elementCount) const
+gsl::span<std::uint8_t> Accessor::get_data(std::size_t elementOffset, std::size_t elementCount) const
 {
     return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
 }

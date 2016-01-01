@@ -85,7 +85,7 @@ public:
     float mip_map_level_of_detail_bias { 0 };
 
 private:
-    void apply(const std::uint32_t& textureId) const;
+    void apply(std::uint32_t textureId) const;
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

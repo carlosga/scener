@@ -58,7 +58,7 @@ public:
     /**
      * Specifies whether to allow the user to resize the renderer window.
      */
-    void allow_user_resizing(const bool& allowUserResizing) noexcept;
+    void allow_user_resizing(bool allowUserResizing) noexcept;
 
     OpenGL::DisplayDevice* display_device() const noexcept;
 

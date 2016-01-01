@@ -28,7 +28,7 @@ public:
      * @param type the type of the shader.
      * @param source the source code for the shader.
      */
-    Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source) noexcept;
+    Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept;
 
     /**
      * Initializes a new instance of the Shader class.
@@ -36,7 +36,7 @@ public:
      * @param type the type of the shader.
      * @param source the source code for the shader.
      */
-    Shader(const std::string& name, const ShaderType& type, const std::string& source) noexcept;
+    Shader(const std::string& name, ShaderType type, const std::string& source) noexcept;
 
     /**
      * Destructor
@@ -62,7 +62,7 @@ public:
      * @brief Gets the type of the shader.
      * @return the type of the shader.
      */
-    const ShaderType& type() const noexcept;
+    ShaderType type() const noexcept;
 
     /**
      * Adds a shader include reference.

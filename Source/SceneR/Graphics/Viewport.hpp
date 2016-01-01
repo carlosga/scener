@@ -20,15 +20,12 @@ public:
     /**
      * Initializes a new instance of the ViewPort class
      */
-    Viewport(const float& x    , const float& y
-           , const float& width, const float& height) noexcept;
+    Viewport(float x, float y, float width, float height) noexcept;
 
     /**
      * Initializes a new instance of the ViewPort class
      */
-    Viewport(const float& x       , const float& y,
-             const float& width   , const float& height,
-             const float& minDepth, const float& maxDepth) noexcept;
+    Viewport(float x, float y, float width, float height, float minDepth, float maxDepth) noexcept;
 
     /**
      * @brief Copy constructor

@@ -68,7 +68,7 @@ public:
     /**
      * Gets the type of primitives to render.
      */
-    const PrimitiveType& primitive_type() const noexcept;
+    PrimitiveType primitive_type() const noexcept;
 
 public:
     /**

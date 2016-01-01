@@ -23,7 +23,7 @@ public:
     static MouseState get_state() noexcept;
 
     // Sets the position of the mouse cursor relative to the upper-left corner of the window.
-    static void set_position(const std::uint32_t& x, const std::uint32_t& y) noexcept;
+    static void set_position(std::uint32_t x, std::uint32_t y) noexcept;
 
     // Gets or sets the window used for mouse processing.
     // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.

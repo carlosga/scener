@@ -59,7 +59,7 @@ public:
     /**
      * Reads the specified number of bytes from the underliying stream
      */
-    std::vector<std::uint8_t> read_bytes(const std::size_t& count);
+    std::vector<std::uint8_t> read_bytes(std::size_t count);
 
 public:
     BinaryReader() = delete;

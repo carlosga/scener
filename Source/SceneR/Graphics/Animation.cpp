@@ -42,7 +42,7 @@ const Keyframe& Animation::current_keyframe() const noexcept
     return _keyframes[_current_keyframe];
 }
 
-void Animation::update(const TimeSpan& time, const bool& relativeToCurrentTime) noexcept
+void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcept
 {
     auto currentTime = time;
 

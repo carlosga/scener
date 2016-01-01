@@ -11,12 +11,12 @@
 
 namespace SceneR { namespace Graphics {
 
-Shader::Shader(const std::string& name, const ShaderType& type, const std::vector<std::uint8_t>& source) noexcept
+Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept
     : Shader { name, type, std::string(source.begin(), source.end()) }
 {
 }
 
-Shader::Shader(const std::string& name, const ShaderType& type, const std::string& source) noexcept
+Shader::Shader(const std::string& name, ShaderType type, const std::string& source) noexcept
     : _name   { name }
     , _id     { 0 }
     , _type   { type }
@@ -49,7 +49,7 @@ const std::string& Shader::name() const noexcept
     return _name;
 }
 
-const ShaderType& Shader::type() const noexcept
+ShaderType Shader::type() const noexcept
 {
     return _type;
 }

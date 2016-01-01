@@ -7,8 +7,7 @@
 
 namespace SceneR { namespace Graphics {
 
-VertexDeclaration::VertexDeclaration(const std::size_t&                vertexStride
-                                   , const std::vector<VertexElement>& vertexElements) noexcept
+VertexDeclaration::VertexDeclaration(std::size_t vertexStride, const std::vector<VertexElement>& vertexElements) noexcept
     : _vertex_stride   { vertexStride }
     , _vertex_elements { vertexElements }
 {
@@ -24,7 +23,7 @@ const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const noe
     return _vertex_elements;
 }
 
-void VertexDeclaration::declare(const std::uint32_t& vaoId, const std::uint32_t& bindingIndex​) const
+void VertexDeclaration::declare(std::uint32_t vaoId, std::uint32_t bindingIndex​) const noexcept
 {
     // ... declare vertex elements
     for (const auto& ve : _vertex_elements)
@@ -47,7 +46,7 @@ void VertexDeclaration::declare(const std::uint32_t& vaoId, const std::uint32_t&
     }
 }
 
-std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vertexFormat) const noexcept
+std::size_t VertexDeclaration::get_element_count(VertexElementFormat vertexFormat) const noexcept
 {
     switch (vertexFormat)
     {
@@ -74,7 +73,7 @@ std::size_t VertexDeclaration::get_element_count(const VertexElementFormat& vert
     }
 }
 
-std::uint32_t VertexDeclaration::get_element_type(const VertexElementFormat& vertexFormat) const noexcept
+std::uint32_t VertexDeclaration::get_element_type(VertexElementFormat vertexFormat) const noexcept
 {
     switch (vertexFormat)
     {

@@ -58,12 +58,12 @@ public:
     /**
      * Gets buffer data from object's data store.
      */
-    const gsl::span<std::uint8_t> get_data() const;
+    gsl::span<std::uint8_t> get_data() const;
 
     /**
      * Gets buffer data from object's data store.
      */
-    const gsl::span<std::uint8_t> get_data(const std::size_t& offset, const std::size_t& count) const;
+    gsl::span<std::uint8_t> get_data(std::size_t offset, std::size_t count) const;
 
 private:
     std::shared_ptr<Buffer> _buffer      { nullptr };
