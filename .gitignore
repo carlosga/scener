@@ -28,7 +28,12 @@
 *.app
 
 # Build Directories
-build
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
 
 # Cmake
 CMakeCache.txt
