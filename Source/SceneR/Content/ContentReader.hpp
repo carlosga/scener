@@ -23,11 +23,7 @@
 #include "SceneR/Math/Vector3.hpp"
 #include "SceneR/Math/Vector4.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
-
-class Surface;
-
-}}}
+namespace SceneR { namespace Content { namespace DDS { class Surface; } } }
 
 namespace SceneR { namespace Content { namespace GLTF {
 

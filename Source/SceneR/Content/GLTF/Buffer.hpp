@@ -11,11 +11,7 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Content { namespace Readers {
-
-template <typename T> class ContentTypeReader;
-
-}}}
+namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
 namespace SceneR { namespace Content { namespace GLTF {
 

@@ -11,11 +11,7 @@
 #include "SceneR/Graphics/EffectParameterClass.hpp"
 #include "SceneR/Graphics/EffectParameterType.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
-
-    template <typename T> class ContentTypeReader;
-
-}}}
+namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
 namespace SceneR { namespace Graphics { namespace OpenGL { class ConstantBuffer; } } }
 

@@ -29,7 +29,7 @@ public:
      * @param name the name of the constant buffer.
      * @param programId the handle of the shader program.
      */
-    ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept;
+    ConstantBuffer(const std::string& name) noexcept;
 
     /**
      * Releases all resources being used by this ConstantBuffer.
@@ -64,7 +64,7 @@ public:
     /**
      * Creates the constant buffer.
      */
-    void create();
+    void create(std::uint32_t programId);
 
     /**
      * Deactivates the constant buffer.
@@ -94,7 +94,6 @@ public:
 
 private:
     std::string             _name;
-    std::uint32_t           _program_id;
     std::size_t             _index;
     std::int32_t            _binding_point;
     std::size_t             _size;

@@ -31,9 +31,9 @@ public:
 
 private:
     std::string           _name;
-    std::vector<Keyframe> _keyframes;
     SceneR::TimeSpan      _current_time;
     std::size_t           _current_keyframe;
+    std::vector<Keyframe> _keyframes;
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

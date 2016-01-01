@@ -42,13 +42,11 @@ public:
      * @param graphicsDevice the graphics device
      * @param width the texture width, in pixels
      * @param height the texture height, in pixels
-     * @param mipmap true to generate a full mipmap chain; false otherwise.
      * @param format texture data format
      */
     Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
             , std::size_t                    width
             , std::size_t                    height
-            , bool                           mipmap
             , SurfaceFormat                  format) noexcept;
 
     /**
@@ -110,12 +108,11 @@ private:
 
 private:
     SurfaceFormat                 _format;
-    bool                          _mipmap;
     std::size_t                   _mipmap_levels;
     std::size_t                   _height;
     std::size_t                   _width;
-    OpenGL::TextureStorage        _storage;
     std::shared_ptr<SamplerState> _sampler_state;
+    OpenGL::TextureStorage        _storage;
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

@@ -81,8 +81,8 @@ void Program::link()
     verify_linking_state();
 
     // ... fill uniform buffer info
-    _constant_buffer = std::make_unique<ConstantBuffer>("ConstantBuffer", _id);
-    _constant_buffer->create();
+    _constant_buffer = std::make_unique<ConstantBuffer>("ConstantBuffer");
+    _constant_buffer->create(_id);
 }
 
 std::map<std::string, std::size_t> Program::get_uniform_offsets() const

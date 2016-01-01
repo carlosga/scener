@@ -31,7 +31,6 @@ auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string&
     auto texture   = std::make_shared<Texture2D>(gdService->graphics_device()
                                                , surface->width()
                                                , surface->height()
-                                               , surface->mipmaps().size()
                                                , surface->format());
 
     texture->name = key;

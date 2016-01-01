@@ -9,26 +9,22 @@
 
 namespace SceneR { namespace Graphics {
 
-using SceneR::Graphics::OpenGL::TextureTarget;
-using SceneR::Graphics::OpenGL::TextureStorage;
-
 Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept
-    : Texture2D(graphicsDevice, width, height, false, SurfaceFormat::color)
+    : Texture2D(graphicsDevice, width, height, SurfaceFormat::color)
 {
 }
 
 Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
                    , std::size_t                    width
                    , std::size_t                    height
-                   , bool                           mipmap
                    , SurfaceFormat                  format) noexcept
     : Texture        { graphicsDevice }
     , _format        { format }
-    , _mipmap        { mipmap }
     , _mipmap_levels { 0 }
     , _height        { height }
     , _width         { width }
-    , _storage       { TextureTarget::texture_2d }
+    , _sampler_state { nullptr }
+    , _storage       { SceneR::Graphics::OpenGL::TextureTarget::texture_2d }
 {
 }
 

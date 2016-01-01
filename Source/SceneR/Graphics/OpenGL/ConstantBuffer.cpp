@@ -12,9 +12,8 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept
+ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
     : _name          { name }
-    , _program_id    { programId }
     , _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
@@ -51,19 +50,19 @@ void ConstantBuffer::bind() const
     glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
 }
 
-void ConstantBuffer::create()
+void ConstantBuffer::create(std::uint32_t programId)
 {
     std::int32_t binding   = 0;
     std::int32_t blockSize = 0;
 
     // Get the uniform block index
-    _index = glGetUniformBlockIndex(_program_id, _name.c_str());
+    _index = glGetUniformBlockIndex(programId, _name.c_str());
 
     // Get the binding point
-    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
+    glGetActiveUniformBlockiv(programId, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
 
     // Get uniform block data size
-    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+    glGetActiveUniformBlockiv(programId, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
 
     // update class members
     _binding_point = binding;
