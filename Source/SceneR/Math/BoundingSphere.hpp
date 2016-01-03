@@ -50,7 +50,7 @@ public:
      * Initializes a new instance of the BoundingSphere class with
      * the given center an radius.
      */
-    BoundingSphere(const Vector3& center, const float& radius);
+    BoundingSphere(const Vector3& center, float radius);
 
     /**
      * Initializes a new instance of the BoundingSphere class.

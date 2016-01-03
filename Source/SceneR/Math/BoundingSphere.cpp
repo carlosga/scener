@@ -34,7 +34,7 @@ BoundingSphere BoundingSphere::create_merged(const BoundingSphere& original, con
     throw std::runtime_error("Not implemented");
 }
 
-BoundingSphere::BoundingSphere(const Vector3& center, const float& radius)
+BoundingSphere::BoundingSphere(const Vector3& center, float radius)
     : _center { center }
     , _radius { radius }
 {
