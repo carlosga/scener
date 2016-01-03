@@ -257,7 +257,7 @@ void Renderer::fixed_time_step()
 
         auto interval = (target_elapsed_time - _timer.elapsed_time_step_time());
 
-        std::this_thread::sleep_for(interval.ToDuration<std::chrono::milliseconds>());
+        std::this_thread::sleep_for(interval.to_duration<std::chrono::milliseconds>());
     }
     else
     {

@@ -66,8 +66,7 @@ TimeSpan::TimeSpan(std::int32_t days, std::int32_t hours, std::int32_t minutes, 
 {
 }
 
-TimeSpan::TimeSpan(std::int32_t days
-                 , std::int32_t hours
+TimeSpan::TimeSpan(std::int32_t days, std::int32_t hours
                  , std::int32_t minutes
                  , std::int32_t seconds
                  , std::int32_t milliseconds) noexcept

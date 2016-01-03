@@ -207,7 +207,7 @@ public:
      * Returns a TimeSpan that represents a specified duration type.
      */
     template <class _Duration>
-    inline TimeSpan::clock::duration ToDuration() const noexcept
+    inline TimeSpan::clock::duration to_duration() const noexcept
     {
         return std::chrono::duration_cast<_Duration>(_ticks);
     }
