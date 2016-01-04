@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_MATH_HPP
-#define SCENER_MATH_HPP
+#ifndef SCENER_MATH_MATH_HPP
+#define SCENER_MATH_MATH_HPP
 
 #include <cmath>
 #include <limits>
@@ -453,4 +453,4 @@ inline float wrap_angle(float angle) noexcept
 
 }}
 
-#endif // SCENER_MATH_HPP
+#endif // SCENER_MATH_MATH_HPP
