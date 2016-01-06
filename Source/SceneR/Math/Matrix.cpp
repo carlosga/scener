@@ -20,12 +20,12 @@ const Matrix Matrix::identity { 1.0f, 0.0f, 0.0f, 0.0f
                               , 0.0f, 0.0f, 1.0f, 0.0f
                               , 0.0f, 0.0f, 0.0f, 1.0f };
 
-Matrix Matrix::create_from_axis_angle(const Vector3& axis, float angle) noexcept
+Matrix Matrix::create_from_axis_angle(const Vector3& axis, const Radians& angle) noexcept
 {
     // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto  naxis = Vector3::normalize(axis);
-    float cos   = Math::cos(angle);
-    float sin   = Math::sin(angle);
+    float cos   = Math::cos(angle.value());
+    float sin   = Math::sin(angle.value());
     float cos_1 = 1.0f - cos;
     float x     = naxis.x;
     float y     = naxis.y;
@@ -68,7 +68,7 @@ Matrix Matrix::create_from_quaternion(const Quaternion& quaternion) noexcept
            , 0.0f                   , 0.0f                   , 0.0f                   , 1.0f };
 }
 
-Matrix Matrix::create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept
+Matrix Matrix::create_from_yaw_pitch_roll(const Radians& yaw, const Radians& pitch, const Radians& roll) noexcept
 {
     return Matrix::create_from_axis_angle(Vector3::unit_z, roll)
          * Matrix::create_from_axis_angle(Vector3::unit_x, pitch)
@@ -175,10 +175,10 @@ Matrix Matrix::create_perspective(float width, float height, float zNear, float 
            , 0.0f             , 0.0f              , zNear * zFar / nearSubFar, 0.0f };
 }
 
-Matrix Matrix::create_perspective_field_of_view(float fieldOfView, float aspectRatio
-                                              , float zNear      , float zFar) noexcept
+Matrix Matrix::create_perspective_field_of_view(const Radians& fieldOfView, float aspectRatio
+                                              , float          zNear      , float zFar) noexcept
 {
-    Expects(fieldOfView >= 0.0f && fieldOfView <= Math::pi);
+    Expects(fieldOfView.value() >= 0.0f && fieldOfView.value() <= Math::pi);
     Expects(zNear >= 0.0f);
     Expects(zFar >= 0.0f);
     Expects(zNear < zFar);
@@ -193,7 +193,7 @@ Matrix Matrix::create_perspective_field_of_view(float fieldOfView, float aspectR
     // yScale = cot(fovY/2)
     // xScale = yScale / aspect ratio
 
-    float yScale     = 1.0f / Math::tan(fieldOfView / 2);
+    float yScale     = 1.0f / Math::tan(fieldOfView.value() / 2);
     float xScale     = yScale / aspectRatio;
     float nearSubFar = zNear - zFar;
 
@@ -230,11 +230,11 @@ Matrix Matrix::create_perspective_off_center(float left  , float right
            , 0.0f                        , 0.0f                        , zNear * zFar / nearSubFar, 0.0f};
 }
 
-Matrix Matrix::create_rotation_x(float angle) noexcept
+Matrix Matrix::create_rotation_x(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
 
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f,  cos,  sin, 0.0f
@@ -242,7 +242,7 @@ Matrix Matrix::create_rotation_x(float angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_x(float angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_x(const Radians& angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -251,8 +251,8 @@ Matrix Matrix::create_rotation_x(float angle, const Vector3& center) noexcept
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
     float y   = center.y;
     float z   = center.z;
 
@@ -262,11 +262,11 @@ Matrix Matrix::create_rotation_x(float angle, const Vector3& center) noexcept
            , 0.0f, y - cos * y + sin * z, z - sin * y - cos * z, 1.0f };
 }
 
-Matrix Matrix::create_rotation_y(float angle) noexcept
+Matrix Matrix::create_rotation_y(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
 
     return {  cos, 0.0f, -sin, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -274,7 +274,7 @@ Matrix Matrix::create_rotation_y(float angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_y(float angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_y(const Radians& angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -283,8 +283,8 @@ Matrix Matrix::create_rotation_y(float angle, const Vector3& center) noexcept
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
     float x   = center.x;
     float z   = center.z;
 
@@ -294,11 +294,11 @@ Matrix Matrix::create_rotation_y(float angle, const Vector3& center) noexcept
            , x - cos * x - sin * z, 0.0f, z + sin * x - cos * z, 1.0f };
 }
 
-Matrix Matrix::create_rotation_z(float angle) noexcept
+Matrix Matrix::create_rotation_z(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
 
     return {  cos,  sin, 0.0f, 0.0f
            , -sin,  cos, 0.0f, 0.0f
@@ -306,7 +306,7 @@ Matrix Matrix::create_rotation_z(float angle) noexcept
            , 0.0f, 0.0f, 0.0f, 1.0f };
 }
 
-Matrix Matrix::create_rotation_z(float angle, const Vector3& center) noexcept
+Matrix Matrix::create_rotation_z(const Radians& angle, const Vector3& center) noexcept
 {
     // Reference: http://www.euclideanspace.com/maths/geometry/affine/aroundPoint/matrix3d/index.htm
     //
@@ -315,8 +315,8 @@ Matrix Matrix::create_rotation_z(float angle, const Vector3& center) noexcept
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle);
-    float sin = Math::sin(angle);
+    float cos = Math::cos(angle.value());
+    float sin = Math::sin(angle.value());
     float x   = center.x;
     float y   = center.y;
 

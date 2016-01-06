@@ -5,6 +5,7 @@
 #define SKELETAL_ANIMATION_CAMERA_HPP
 
 #include <SceneR/Graphics/DrawableComponent.hpp>
+#include <SceneR/Math/Angle.hpp>
 #include <SceneR/Math/Matrix.hpp>
 #include <SceneR/Math/Vector3.hpp>
 

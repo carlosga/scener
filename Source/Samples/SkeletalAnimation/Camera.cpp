@@ -18,6 +18,7 @@ using SceneR::Graphics::StepTime;
 using SceneR::Input::Keys;
 using SceneR::Input::Keyboard;
 using SceneR::Input::KeyboardState;
+using SceneR::Math::Degrees;
 using SceneR::Math::Matrix;
 using SceneR::Math::Vector3;
 
@@ -30,13 +31,14 @@ Camera::Camera(SampleRenderer* renderer)
 
 void Camera::initialize()
 {
-    auto aspect = _renderer->graphics_device()->viewport().aspect_ratio();
+    auto    aspect = _renderer->graphics_device()->viewport().aspect_ratio();
+    Degrees fov    = 27.0f;
 
     _position          = { 0.0f, 0.0f, 500.0f };
     _rotation          = 0.0f;
     _rotationTransform = Matrix::identity;
 
-    projection = Matrix::create_perspective_field_of_view(SceneR::Math::to_radians(27), aspect, 0.1f, 1000.0f);
+    projection = Matrix::create_perspective_field_of_view(fov, aspect, 0.1f, 1000.0f);
     view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
 }
 

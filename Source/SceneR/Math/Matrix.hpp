@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <string>
 
+#include "SceneR/Math/Angle.hpp"
+
 namespace SceneR { namespace Math {
 
 struct Plane;
@@ -33,7 +35,7 @@ public:
      * @param axis Vector3 that specifies the axis around which to rotate.
      * @param angle Value that specifies the angle of rotation, in radians.
      */
-    static Matrix create_from_axis_angle(const Vector3& axis, float angle) noexcept;
+    static Matrix create_from_axis_angle(const Vector3& axis, const Radians& angle) noexcept;
 
     /**
      * Creates a rotation Matrix from a Quaternion.
@@ -46,11 +48,11 @@ public:
      * Creates a new matrix with a specified yaw, pitch, and roll.
      * The order of transformations is yaw first, then pitch, then roll
      *
-     * @param yaw Yaw around the y-axis, in radians.
-     * @param pitch Pitch around the z-axis, in radians.
-     * @param roll Roll around the x-axis, in radians.
+     * @param yaw Yaw around the y-axis.
+     * @param pitch Pitch around the z-axis.
+     * @param roll Roll around the x-axis.
      */
-    static Matrix create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept;
+    static Matrix create_from_yaw_pitch_roll(const Radians& yaw, const Radians& pitch, const Radians& roll) noexcept;
 
     /**
      * Creates a perspective projection matrix.
@@ -112,13 +114,13 @@ public:
     /**
      * Builds a perspective projection matrix based on a field of view and returns by value.
      *
-     * @param fieldOfView Field of view in the y direction, in radians.
+     * @param fieldOfView Field of view in the y direction.
      * @param aspectRatio Aspect ratio, defined as view space width divided by height.
      * @param zNear Distance to the near view plane.
      * @param zFar Distance to the far view plane.
      */
-    static Matrix create_perspective_field_of_view(float fieldOfView, float aspectRatio
-                                                 , float zNear      , float zFar) noexcept;
+    static Matrix create_perspective_field_of_view(const Radians& fieldOfView, float aspectRatio
+                                                 , float          zNear      , float zFar) noexcept;
 
     /**
      * Builds a customized, right-handed perspective projection matrix.
@@ -136,47 +138,47 @@ public:
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the x-axis.
      *
-     * @param angle Value that specifies the angle of rotation, in radians.
+     * @param angle Value that specifies the angle of rotation.
      */
-    static Matrix create_rotation_x(float angle) noexcept;
+    static Matrix create_rotation_x(const Radians& angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the X-axis, from a center point.
-     * @param angle The amount, in radians, by which to rotate around the X-axis.
+     * @param angle The amount by which to rotate around the X-axis.
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_x(float angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_x(const Radians& angle, const Vector3& center) noexcept;
 
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the y-axis.
      *
-     * @param angle Value that specifies the angle of rotation, in radians.
+     * @param angle Value that specifies the angle of rotation.
      */
-    static Matrix create_rotation_y(float angle) noexcept;
+    static Matrix create_rotation_y(const Radians& angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the Y-axis, from a center point.
-     * @param angle The amount, in radians, by which to rotate around the Y-axis.
+     * @param angle The amount, by which to rotate around the Y-axis.
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_y(float angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_y(const Radians& angle, const Vector3& center) noexcept;
 
     /**
      * Returns a matrix that can be used to rotate a set of vertices around the z-axis.
      *
-     * @param angle Value that specifies the angle of rotation, in radians.
+     * @param angle Value that specifies the angle of rotation.
      */
-    static Matrix create_rotation_z(float angle) noexcept;
+    static Matrix create_rotation_z(const Radians& angle) noexcept;
 
     /**
      * Creates a matrix for rotating points around the Z-axis, from a center point.
-     * @param angle The amount, in radians, by which to rotate around the Z-axis.
+     * @param angle The amount by which to rotate around the Z-axis.
      * @param center The center point.
      * @returns The rotation matrix.
      */
-    static Matrix create_rotation_z(float angle, const Vector3& center) noexcept;
+    static Matrix create_rotation_z(const Radians& angle, const Vector3& center) noexcept;
 
     /**
      * Creates a uniform scaling matrix that scales equally on each axis.
