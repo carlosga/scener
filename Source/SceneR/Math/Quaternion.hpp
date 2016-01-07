@@ -6,6 +6,8 @@
 
 #include <cstddef>
 
+#include "SceneR/Math/Angle.hpp"
+
 namespace SceneR { namespace Math {
 
 struct Vector3;
@@ -37,7 +39,7 @@ public:
      * @param axisOfRotation Vector3 that represents the axis of rotation.
      * @param angle Angle to rotate around the specified axis, in radians.
      */
-    static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, float angle) noexcept;
+    static Quaternion create_from_axis_angle(const Vector3& axisOfRotation, const Radians& angle) noexcept;
 
     /**
      * Creates a Quaternion from a rotation Matrix.
@@ -52,7 +54,7 @@ public:
      * @param pitch Pitch around the x-axis, in radians.
      * @param roll Roll around the z-axis, in radians.
      */
-    static Quaternion create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept;
+    static Quaternion create_from_yaw_pitch_roll(const Radians& yaw, const Radians& pitch, const Radians& roll) noexcept;
 
     /**
      * Calculates the dot product oof two quaternions
@@ -112,10 +114,10 @@ public:
 
     /**
      * Initializes a new instance of the Quaternion class.
-     * @param x    The X value of the new Quaternion structure.
-     * @param y    The Y value of the new Quaternion structure.
-     * @param z    The Z value of the new Quaternion structure.
-     * @param w    The W value of the new Quaternion structure.
+     * @param x The X value of the new Quaternion structure.
+     * @param y The Y value of the new Quaternion structure.
+     * @param z The Z value of the new Quaternion structure.
+     * @param w The W value of the new Quaternion structure.
      */
     Quaternion(float x, float y, float z, float w) noexcept;
 

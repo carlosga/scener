@@ -20,21 +20,22 @@ Quaternion Quaternion::conjugate(const Quaternion& quaternion) noexcept
     return { -quaternion.x, -quaternion.y, -quaternion.z, quaternion.w };
 }
 
-Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, float angle) noexcept
+Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, const Radians& angle) noexcept
 {
     // The quaternion in terms of axis-angle is:
     // q = cos(a/2) + i ( x * sin(a/2)) + j (y * sin(a/2)) + k ( z * sin(a/2))
 
-    float theta = angle / 2;
-    float rSin  = Math::sin(theta);
+    auto theta = angle / 2;
+    auto rads  = theta.value();
+    auto rSin  = Math::sin(rads);
 
     return { axisOfRotation.x * rSin
            , axisOfRotation.y * rSin
            , axisOfRotation.z * rSin
-           , Math::cos(theta) };
+           , Math::cos(rads) };
 }
 
-Quaternion Quaternion::create_from_yaw_pitch_roll(float yaw, float pitch, float roll) noexcept
+Quaternion Quaternion::create_from_yaw_pitch_roll(const Radians& yaw, const Radians& pitch, const Radians& roll) noexcept
 {
     // http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q60
     // VECTOR3 vx = { 1, 0, 0 }, vy = { 0, 1, 0 }, vz = { 0, 0, 1 };
