@@ -245,7 +245,6 @@ public:
      */
     static Matrix create_translation(float xPosition, float yPosition, float zPosition) noexcept;
 
-
     /**
      * @brief Creates a matrix that reflects the coordinate system about a specified plane.
      * @param plane The plane

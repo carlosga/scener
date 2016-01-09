@@ -30,7 +30,7 @@ EarthShaker::EarthShaker(SampleRenderer* renderer)
 
 void EarthShaker::initialize()
 {
-    _world = Matrix::create_rotation_x(-SceneR::Math::pi_over_2)
+    _world = Matrix::create_rotation_x({ -SceneR::Math::pi_over_2 })
            * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
 
     DrawableComponent::initialize();

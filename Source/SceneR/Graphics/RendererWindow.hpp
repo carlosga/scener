@@ -78,9 +78,8 @@ private:
     RendererWindow& operator=(const RendererWindow& window) = delete;
 
 private:
-    std::string _title    { };
-    Renderer*   _renderer { nullptr };
-
+    std::string                             _title          { };
+    Renderer*                               _renderer       { nullptr };
     std::unique_ptr<OpenGL::DisplayDevice>  _displayDevice  { nullptr };
     std::unique_ptr<OpenGL::DisplaySurface> _displaySurface { nullptr };
 

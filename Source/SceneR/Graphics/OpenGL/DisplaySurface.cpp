@@ -6,6 +6,8 @@
 
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
+#include <X11/Xatom.h>
+
 #include <gsl_assert.h>
 
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
@@ -25,6 +27,18 @@ DisplaySurface::~DisplaySurface()
 const Drawable& DisplaySurface::handle() const noexcept
 {
     return _drawable;
+}
+
+void DisplaySurface::title(const std::string& title) noexcept
+{
+    XChangeProperty(_display->handle()                                    /* connection to x server */
+                  , _drawable                                             /* window whose property we want to change */
+                  , _atomWmName                                           /* property name */
+                  , XA_STRING                                             /* type of property */
+                  , 8                                                     /* format of prop; can be 8, 16, 32 */
+                  , PropModeReplace
+                  , reinterpret_cast<const unsigned char*>(title.c_str()) /* actual data */
+                  , title.size());                                        /* number of elements */
 }
 
 bool DisplaySurface::create(std::uint32_t width, std::uint32_t height) noexcept
@@ -56,6 +70,9 @@ bool DisplaySurface::create(std::uint32_t width, std::uint32_t height) noexcept
         // Redirect Close
         _atomWmDeleteDrawable = XInternAtom(_display->handle(), "WM_DELETE_WINDOW", False);
         XSetWMProtocols(_display->handle(), _drawable, &_atomWmDeleteDrawable, 1);
+
+        // Window title
+        _atomWmName = XInternAtom(_display->handle(), "WM_NAME", False);
     }
 
     return (_drawable != 0);
@@ -106,6 +123,10 @@ void DisplaySurface::pool_events() noexcept
             XGetWindowAttributes(_display->handle(), _drawable, &attribs);
             //Resize(attribs.width, attribs.height);
         }
+        else if (ev.type == KeymapNotify)
+        {
+            XRefreshKeyboardMapping(&ev.xmapping);
+        }
         else if (ev.type == ClientMessage)
         {
             if (static_cast<Atom>(ev.xclient.data.l[0]) == _atomWmDeleteDrawable)
@@ -113,19 +134,11 @@ void DisplaySurface::pool_events() noexcept
                 _should_close = true;
                 break;
             }
-            else
-            {
-                _events.push(ev);
-            }
         }
         else if (ev.type == DestroyNotify)
         {
             _should_close = true;
             break;
-        }
-        else
-        {
-            _events.push(ev);
         }
     }
 }
@@ -133,15 +146,6 @@ void DisplaySurface::pool_events() noexcept
 bool DisplaySurface::should_close() const
 {
     return _should_close;
-}
-
-void DisplaySurface::swap_buffers() const
-{
-    Expects(_display  != nullptr);
-    Expects(_drawable != 0);
-
-    // Present frame
-    glXSwapBuffers(_display->handle(), _drawable);
 }
 
 }}}

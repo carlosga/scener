@@ -16,6 +16,9 @@ set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
 # Microsoft/GSL
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 
+# Microsoft/RxCPP
+set (RX_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/RxCpp/Rx/v2/src)
+
 # compiler and linker configurations
 set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -std=c++14 -stdlib=libc++ -m64")
 set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64")

@@ -44,8 +44,7 @@ const std::string& RendererWindow::title() const noexcept
 void RendererWindow::title(const std::string& title) noexcept
 {
     _title = title;
-    // TODO
-    // Set window title
+    _displaySurface->title(title);
 }
 
 bool RendererWindow::allow_user_resizing() const noexcept

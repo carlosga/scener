@@ -9,6 +9,7 @@
 
 #include <cstdint>
 #include <queue>
+#include <string>
 
 #include <X11/Xlib.h>
 
@@ -25,6 +26,9 @@ public:
 public:
     const Drawable& handle() const noexcept;
 
+    void title(const std::string& title) noexcept;
+
+public:
     bool create(std::uint32_t width, std::uint32_t height) noexcept;
 
     void destroy() noexcept;
@@ -37,19 +41,18 @@ public:
 
     bool should_close() const;
 
-    void swap_buffers() const;
-
 private:
-    DisplayDevice*       _display;
-    Drawable             _drawable;
-    XSetWindowAttributes _drawable_attribs;
-    Atom                 _atomWmDeleteDrawable;
+    DisplayDevice*       _display              { nullptr };
+    Drawable             _drawable             { 0 };
+    XSetWindowAttributes _drawable_attribs     { };
+    Atom                 _atomWmDeleteDrawable { };
+    Atom                 _atomWmName           { };
 
     // Misc
-    bool _should_close = false;
+    bool _should_close { false };
 
     // Events
-    std::queue<XEvent> _events;
+    std::queue<XEvent> _events { };
 };
 
 }}}
