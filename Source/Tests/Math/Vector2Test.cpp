@@ -52,7 +52,7 @@ TEST_F(Vector2Test, Distance)
     auto a = Vector2 { 1.0f, 2.0f };
     auto b = Vector2 { 3.0f, 4.0f };
 
-    auto expected = SceneR::Math::sqrt(8.0f);
+    auto expected = std::sqrt(8.0f);
     auto actual   = Vector2::distance(a, b);
 
     EXPECT_TRUE(expected == actual);
@@ -130,7 +130,7 @@ TEST_F(Vector2Test, Length2)
     auto a      = Vector2 { 2.0f, 4.0f };
     auto target = a;
 
-    auto expected = SceneR::Math::sqrt(20.0f);
+    auto expected = std::sqrt(20.0f);
     auto actual   = target.length();
 
     EXPECT_TRUE(expected == actual);

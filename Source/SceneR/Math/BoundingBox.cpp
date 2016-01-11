@@ -72,8 +72,8 @@ float BoundingBox::intersects(const Ray& ray) const
     auto tnear = Vector3::min(tmin, tmax);
     auto tfar  = Vector3::min(tmin, tmax);
 
-    auto enter = Math::max(Math::max(tnear.x, 0.0f), Math::max(tnear.y, tnear.z));
-    auto exit  = Math::min(tfar.x, Math::min(tfar.y, tfar.z));
+    auto enter = std::max(std::max(tnear.x, 0.0f), std::max(tnear.y, tnear.z));
+    auto exit  = std::min(tfar.x, std::min(tfar.y, tfar.z));
 
     return (enter - exit);
 }

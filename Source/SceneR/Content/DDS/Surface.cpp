@@ -85,7 +85,7 @@ void Surface::load(const std::string& filename)
     for (std::size_t level = 0; level < ddsheader.dwMipMapCount; level++)
     {
         SurfaceMipmap mipmap;
-        std::size_t   size = Math::max(4, mipmapWidth) / 4 * Math::max(4, mipmapHeight) / 4 * blockSize;
+        std::size_t   size = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
 
         mipmap._index  = level;
         mipmap._width  = mipmapWidth;
@@ -94,8 +94,8 @@ void Surface::load(const std::string& filename)
 
         _mipmaps.push_back(mipmap);
 
-        mipmapWidth  = Math::max(1, mipmapWidth  >>= 1);
-        mipmapHeight = Math::max(1, mipmapHeight >>= 1);
+        mipmapWidth  = std::max<std::size_t>(1, mipmapWidth  >>= 1);
+        mipmapHeight = std::max<std::size_t>(1, mipmapHeight >>= 1);
     }
 }
 

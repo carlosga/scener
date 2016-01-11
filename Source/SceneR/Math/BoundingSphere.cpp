@@ -109,7 +109,7 @@ bool BoundingSphere::intersects(const Ray& ray) const
         return false;
     }
 
-    auto thit = Math::sqrt(rad2 - dsq);
+    auto thit = std::sqrt(rad2 - dsq);
     auto t    = tPX - thit;
 
     if (t < 0.0f)

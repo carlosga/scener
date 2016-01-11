@@ -26,14 +26,14 @@ const Vector3 Vector3::zero     { 0.0f , 0.0f , 0.0f  };
 
 Vector3 Vector3::abs(const Vector3& value) noexcept
 {
-    return { Math::abs(value.x), Math::abs(value.y), Math::abs(value.z) };
+    return { std::abs(value.x), std::abs(value.y), std::abs(value.z) };
 }
 
 float Vector3::angle_between(const Vector3& left, const Vector3& right) noexcept
 {
     float lengthSquared = left.length_squared() * right.length_squared();
 
-    return Math::acos(Vector3::dot(left, right) / Math::sqrt(lengthSquared));
+    return std::acos(Vector3::dot(left, right) / std::sqrt(lengthSquared));
 }
 
 Vector3 Vector3::barycentric(const Vector3& value1
@@ -120,16 +120,16 @@ Vector3 Vector3::lerp(const Vector3& value1, const Vector3& value2, float amount
 
 Vector3 Vector3::min(const Vector3& value1, const Vector3& value2) noexcept
 {
-    return { Math::min(value1.x, value2.x)
-           , Math::min(value1.y, value2.y)
-           , Math::min(value1.z, value2.z) };
+    return { std::min(value1.x, value2.x)
+           , std::min(value1.y, value2.y)
+           , std::min(value1.z, value2.z) };
 }
 
 Vector3 Vector3::max(const Vector3& value1, const Vector3& value2) noexcept
 {
-    return { Math::max(value1.x, value2.x)
-           , Math::max(value1.y, value2.y)
-           , Math::max(value1.z, value2.z) };
+    return { std::max(value1.x, value2.x)
+           , std::max(value1.y, value2.y)
+           , std::max(value1.z, value2.z) };
 }
 
 Vector3 Vector3::negate(const Vector3& value) noexcept
@@ -165,7 +165,7 @@ Vector3 Vector3::smooth_step(const Vector3& value1, const Vector3& value2, float
 
 Vector3 Vector3::square_root(const Vector3& value) noexcept
 {
-    return {Math::sqrt(value.x), Math::sqrt(value.y), Math::sqrt(value.z) };
+    return { std::sqrt(value.x), std::sqrt(value.y), std::sqrt(value.z) };
 }
 
 Vector3 Vector3::transform(const Vector3& position, const Matrix& matrix) noexcept
@@ -237,7 +237,7 @@ float Vector3::length() const noexcept
     //
     // |a| = sqrt(x^2 + y^2 + z^2)
 
-    return Math::sqrt(length_squared());
+    return std::sqrt(length_squared());
 }
 
 float& Vector3::operator[](const std::size_t& index)

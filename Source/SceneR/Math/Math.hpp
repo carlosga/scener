@@ -127,136 +127,6 @@ inline bool is_nan(float f) noexcept
 }
 
 /**
- * Returns the absolute value of a single-precision floating-point number.
- */
-inline float abs(float value) noexcept
-{
-    return std::abs(value);
-}
-
-/**
- * Returns the angle whose cosine is the specified number
- */
-inline float acos(float value) noexcept
-{
-    return std::acos(value);
-}
-
-/**
- * Returns the angle whose sine is the specified number.
- */
-inline float asin(float value) noexcept
-{
-    return std::asin(value);
-}
-
-/**
- * Returns the angle whose tangent is the specified number.
- */
-inline float atan(float value) noexcept
-{
-    return std::atan(value);
-}
-
-/**
- * Returns the angle whose tangent is the quotient of two specified numbers.
- * @param x The x coordinate of a point.
- * @param y The y coordinate of a point.
- */
-inline float atan2(float x, float y) noexcept
-{
-    return std::atan2(x, y);
-}
-
-/**
- * Returns the smallest integral value that is greater than or equal to the specified double-precision floating-point number.
- */
-inline float ceiling(float value) noexcept
-{
-    return std::ceil(value);
-}
-
-/**
- * Returns the cosine of the specified angle.
- */
-inline float cos(float value) noexcept
-{
-    return std::cos(value);
-}
-
-/**
-* Returns the hyperbolic cosine of the specified angle.
-*/
-inline float cosh(float value) noexcept
-{
-    return std::cosh(value);
-}
-
-/**
- * Returns e raised to the specified power.
- */
-inline float exp(float d) noexcept
-{
-    return std::exp(d);
-}
-
-/**
-* Returns the largest integer less than or equal to the specified double-precision floating-point number.
-*/
-inline float floor(float value) noexcept
-{
-    return std::floor(value);
-}
-
-/**
- * Rounds a double-precision floating-point value to the nearest integral value.
- */
-inline float round(float a) noexcept
-{
-    return std::round(a);
-}
-
-/**
- * Returns the sine of the specified angle.
- */
-inline float sin(float value) noexcept
-{
-    return std::sin(value);
-}
-
-/**
- * Returns the hyperbolic sine of the specified angle.
- */
-inline float sinh(float value) noexcept
-{
-    return std::sinh(value);
-}
-
-/**
- * Returns the square root of a specified number.
- */
-inline float sqrt(float value) noexcept
-{
-    return std::sqrt(value);
-}
-
-/**
- * Returns the tangent of the specified angle.
- */
-inline float tan(float value) noexcept
-{
-    return std::tan(value);
-}
-
-/**
- * Returns the hyperbolic tangent of the specified angle.
- */
-inline float tanh(float value) noexcept
-{
-    return std::tanh(value);
-}
-
-/**
  * Returns the remainder resulting from the division of a specified number by another specified number.
  * @param x A dividend.
  * @param y A divisor.
@@ -265,7 +135,7 @@ inline float ieee_remainder(float x, float y) noexcept
 {
     // Reference: https://msdn.microsoft.com/es-es/library/system.math.ieeeremainder%28v=vs.110%29.aspx
     // ieee_remainder = dividend - (divisor * Math.round(dividend / divisor))
-    return x - (y * round(x / y));
+    return x - (y * std::round(x / y));
 }
 
 /**
@@ -321,7 +191,7 @@ constexpr float catmull_rom(float value1, float value2, float value3, float valu
  */
 constexpr float clamp(float value, float min, float max) noexcept
 {
-    float maxValue = ((max < min) ? min : max);
+    auto maxValue = ((max < min) ? min : max);
 
     if (value < min)
     {
@@ -374,26 +244,6 @@ constexpr float lerp(float value1, float value2, float amount) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/bb197812.aspx
     return (value1 + (value2 - value1) * amount);
-}
-
-/**
- * Returns the lesser of two values
- * @param value1 the first value
- * @param value2 the second value
- */
-constexpr float min(float value1, float value2) noexcept
-{
-    return ((value1 < value2) ? value1 : value2);
-}
-
-/**
- * Returns the greater of two values
- * @param value1 the first value
- * @param value2 the second value
- */
-constexpr float max(float value1, float value2) noexcept
-{
-    return ((value1 > value2) ? value1 : value2);
 }
 
 /**

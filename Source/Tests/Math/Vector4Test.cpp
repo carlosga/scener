@@ -112,7 +112,7 @@ TEST_F(Vector4Test, Length)
     auto w      = 4.0f;
     auto target = Vector4 { a, w };
 
-    auto expected = SceneR::Math::sqrt(30.0f);
+    auto expected = std::sqrt(30.0f);
     auto actual   = target.length();
 
     EXPECT_TRUE(EqualityHelper::Equal(expected, actual));

@@ -113,7 +113,7 @@ TEST_F(PlaneTest, CreateFromVertices2)
     Vector3 point3 { 1.0f, 1.0f, 0.0f };
 
     Plane target   = Plane::create_from_vertices(point1, point2, point3);
-    auto  invRoot2 = (1.0f / SceneR::Math::sqrt(2.0f));
+    auto  invRoot2 = (1.0f / std::sqrt(2.0f));
 
     Plane expected { { invRoot2, 0, invRoot2 }, -invRoot2 };
 
@@ -187,7 +187,7 @@ TEST_F(PlaneTest, Normalize)
     Plane target { 1, 2, 3, 4 };
 
     float f        = target.normal.length_squared();
-    float invF     = 1.0f / SceneR::Math::sqrt(f);
+    float invF     = 1.0f / std::sqrt(f);
     Plane expected { target.normal * invF, target.d * invF };
 
     auto actual = Plane::normalize(target);

@@ -320,7 +320,7 @@ TEST_F(QuaternionTest, CreateFromAxisAngleOfZeroVector)
 {
     auto axis   = Vector3 { };
     auto angle  = SceneR::Math::to_radians(-30.0f);
-    auto cos    = SceneR::Math::cos(angle / 2.0f);
+    auto cos    = std::cos(angle / 2.0f);
     auto actual = Quaternion::create_from_axis_angle(axis, angle);
 
     EXPECT_TRUE(0.0f == actual.x);

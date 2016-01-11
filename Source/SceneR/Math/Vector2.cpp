@@ -17,12 +17,12 @@ const Vector2 Vector2::zero   { 0.0f, 0.0f };
 
 Vector2 Vector2::abs(const Vector2& value) noexcept
 {
-    return { Math::abs(value.x), Math::abs(value.y) };
+    return { std::abs(value.x), std::abs(value.y) };
 }
 
 Vector2 Vector2::square_root(const Vector2& value) noexcept
 {
-    return { Math::sqrt(value.x), Math::sqrt(value.y) };
+    return { std::sqrt(value.x), std::sqrt(value.y) };
 }
 
 Vector2 Vector2::barycentric(const Vector2& value1
@@ -90,14 +90,14 @@ Vector2 Vector2::lerp(const Vector2& value1, const Vector2& value2, float amount
 
 Vector2 Vector2::min(const Vector2& value1, const Vector2& value2) noexcept
 {
-    return { Math::min(value1.x, value2.x)
-           , Math::min(value1.y, value2.y) };
+    return { std::min(value1.x, value2.x)
+           , std::min(value1.y, value2.y) };
 }
 
 Vector2 Vector2::max(const Vector2& value1, const Vector2& value2) noexcept
 {
-    return { Math::max(value1.x, value2.x)
-           , Math::max(value1.y, value2.y) };
+    return { std::max(value1.x, value2.x)
+           , std::max(value1.y, value2.y) };
 }
 
 Vector2 Vector2::negate(const Vector2& value) noexcept
@@ -168,7 +168,7 @@ float Vector2::length_squared() const noexcept
 
 float Vector2::length() const noexcept
 {
-    return Math::sqrt(length_squared());
+    return std::sqrt(length_squared());
 }
 
 float& Vector2::operator[](const std::size_t& index)

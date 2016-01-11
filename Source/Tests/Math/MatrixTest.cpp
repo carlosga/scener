@@ -78,9 +78,9 @@ void MatrixTest::Decompose(const float&   yaw
 
     if (scaleIsZeroOrNegative)
     {
-        EXPECT_TRUE(EqualityHelper::Equal(SceneR::Math::abs(expectedScales.x), SceneR::Math::abs(scales.x)));
-        EXPECT_TRUE(EqualityHelper::Equal(SceneR::Math::abs(expectedScales.y), SceneR::Math::abs(scales.y)));
-        EXPECT_TRUE(EqualityHelper::Equal(SceneR::Math::abs(expectedScales.z), SceneR::Math::abs(scales.z)));
+        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.x), std::abs(scales.x)));
+        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.y), std::abs(scales.y)));
+        EXPECT_TRUE(EqualityHelper::Equal(std::abs(expectedScales.z), std::abs(scales.z)));
     }
     else
     {
@@ -390,7 +390,7 @@ TEST_F(MatrixTest, Determinant2)
     float t    = 1.0f / detI;
 
     // only accurate to 3 precision
-    EXPECT_TRUE(SceneR::Math::abs(detA - t) < 1e-3);
+    EXPECT_TRUE(std::abs(detA - t) < 1e-3);
 }
 
 // A test for Invert (Matrix)

@@ -22,7 +22,7 @@ const Vector4 Vector4::zero   { 0.0f, 0.0f, 0.0f, 0.0f };
 
 Vector4 Vector4::abs(const Vector4 &value) noexcept
 {
-    return { Math::abs(value.x), Math::abs(value.y), Math::abs(value.z), Math::abs(value.w) };
+    return { std::abs(value.x), std::abs(value.y), std::abs(value.z), std::abs(value.w) };
 }
 
 Vector4 Vector4::barycentric(const Vector4& value1
@@ -100,18 +100,18 @@ Vector4 Vector4::lerp(const Vector4& value1, const Vector4& value2, float amount
 
 Vector4 Vector4::min(const Vector4& value1, const Vector4& value2) noexcept
 {
-    return { Math::min(value1.x, value2.x)
-           , Math::min(value1.y, value2.y)
-           , Math::min(value1.z, value2.z)
-           , Math::min(value1.w, value2.w)};
+    return { std::min(value1.x, value2.x)
+           , std::min(value1.y, value2.y)
+           , std::min(value1.z, value2.z)
+           , std::min(value1.w, value2.w)};
 }
 
 Vector4 Vector4::max(const Vector4& value1, const Vector4& value2) noexcept
 {
-    return { Math::max(value1.x, value2.x)
-           , Math::max(value1.y, value2.y)
-           , Math::max(value1.z, value2.z)
-           , Math::max(value1.w, value2.w) };
+    return { std::max(value1.x, value2.x)
+           , std::max(value1.y, value2.y)
+           , std::max(value1.z, value2.z)
+           , std::max(value1.w, value2.w) };
 }
 
 Vector4 Vector4::negate(const Vector4& value) noexcept
@@ -126,7 +126,7 @@ Vector4 Vector4::normalize(const Vector4& value) noexcept
 
 Vector4 Vector4::square_root(const Vector4 &value) noexcept
 {
-    return { Math::sqrt(value.x), Math::sqrt(value.y), Math::sqrt(value.z), Math::sqrt(value.w) };
+    return { std::sqrt(value.x), std::sqrt(value.y), std::sqrt(value.z), std::sqrt(value.w) };
 }
 
 Vector4 Vector4::transform(const Vector2& position, const Matrix& matrix) noexcept
@@ -210,7 +210,7 @@ float Vector4::length_squared() const noexcept
 
 float Vector4::length() const noexcept
 {
-    return Math::sqrt(length_squared());
+    return std::sqrt(length_squared());
 }
 
 float& Vector4::operator[](const std::size_t& index)

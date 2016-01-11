@@ -24,8 +24,8 @@ Matrix Matrix::create_from_axis_angle(const Vector3& axis, const Radians& angle)
 {
     // http://mathworld.wolfram.com/RodriguesRotationFormula.html
     auto  naxis = Vector3::normalize(axis);
-    float cos   = Math::cos(angle.value());
-    float sin   = Math::sin(angle.value());
+    float cos   = std::cos(angle.value());
+    float sin   = std::sin(angle.value());
     float cos_1 = 1.0f - cos;
     float x     = naxis.x;
     float y     = naxis.y;
@@ -193,7 +193,7 @@ Matrix Matrix::create_perspective_field_of_view(const Radians& fieldOfView, floa
     // yScale = cot(fovY/2)
     // xScale = yScale / aspect ratio
 
-    float yScale     = 1.0f / Math::tan(fieldOfView.value() / 2);
+    float yScale     = 1.0f / std::tan(fieldOfView.value() / 2);
     float xScale     = yScale / aspectRatio;
     float nearSubFar = zNear - zFar;
 
@@ -233,8 +233,8 @@ Matrix Matrix::create_perspective_off_center(float left  , float right
 Matrix Matrix::create_rotation_x(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
 
     return { 1.0f, 0.0f, 0.0f, 0.0f
            , 0.0f,  cos,  sin, 0.0f
@@ -251,8 +251,8 @@ Matrix Matrix::create_rotation_x(const Radians& angle, const Vector3& center) no
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
     float y   = center.y;
     float z   = center.z;
 
@@ -265,8 +265,8 @@ Matrix Matrix::create_rotation_x(const Radians& angle, const Vector3& center) no
 Matrix Matrix::create_rotation_y(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
 
     return {  cos, 0.0f, -sin, 0.0f
            , 0.0f, 1.0f, 0.0f, 0.0f
@@ -283,8 +283,8 @@ Matrix Matrix::create_rotation_y(const Radians& angle, const Vector3& center) no
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
     float x   = center.x;
     float z   = center.z;
 
@@ -297,8 +297,8 @@ Matrix Matrix::create_rotation_y(const Radians& angle, const Vector3& center) no
 Matrix Matrix::create_rotation_z(const Radians& angle) noexcept
 {
     // Reference: http://en.wikipedia.org/wiki/Rotation_matrix
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
 
     return {  cos,  sin, 0.0f, 0.0f
            , -sin,  cos, 0.0f, 0.0f
@@ -315,8 +315,8 @@ Matrix Matrix::create_rotation_z(const Radians& angle, const Vector3& center) no
     // r20	r21	r22	z - r20*x - r21*y - r22*z
     // 0	0	0	1
 
-    float cos = Math::cos(angle.value());
-    float sin = Math::sin(angle.value());
+    float cos = std::cos(angle.value());
+    float sin = std::sin(angle.value());
     float x   = center.x;
     float y   = center.y;
 
@@ -482,11 +482,11 @@ bool Matrix::decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotatio
 
         for (std::uint32_t i = 0; i < 3; i++)
         {
-            float n = Math::abs(mrotation[i * 4 + 0] - nextRotation[i * 4 + 0])
-                    + Math::abs(mrotation[i * 4 + 1] - nextRotation[i * 4 + 1])
-                    + Math::abs(mrotation[i * 4 + 2] - nextRotation[i * 4 + 2]);
+            float n = std::abs(mrotation[i * 4 + 0] - nextRotation[i * 4 + 0])
+                    + std::abs(mrotation[i * 4 + 1] - nextRotation[i * 4 + 1])
+                    + std::abs(mrotation[i * 4 + 2] - nextRotation[i * 4 + 2]);
 
-            norm = Math::max(norm, n);
+            norm = std::max(norm, n);
         }
 
         mrotation = nextRotation;
@@ -619,7 +619,7 @@ float Matrix::determinant() const noexcept
 
 bool Matrix::has_inverse() const noexcept
 {
-    return (Math::abs(determinant()) > 0.0005f);
+    return (std::abs(determinant()) > 0.0005f);
 }
 
 bool Matrix::is_identity() const noexcept

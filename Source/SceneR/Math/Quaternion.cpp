@@ -27,12 +27,12 @@ Quaternion Quaternion::create_from_axis_angle(const Vector3& axisOfRotation, con
 
     auto theta = angle / 2;
     auto rads  = theta.value();
-    auto rSin  = Math::sin(rads);
+    auto rSin  = std::sin(rads);
 
     return { axisOfRotation.x * rSin
            , axisOfRotation.y * rSin
            , axisOfRotation.z * rSin
-           , Math::cos(rads) };
+           , std::cos(rads) };
 }
 
 Quaternion Quaternion::create_from_yaw_pitch_roll(const Radians& yaw, const Radians& pitch, const Radians& roll) noexcept
@@ -70,7 +70,7 @@ Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix) noexcep
 
     if (tr > 0.0f)
     {
-        float s = Math::sqrt(tr + 1.0f);
+        float s = std::sqrt(tr + 1.0f);
         result.w = s * 0.5f;
         s = 0.5f / s;
         result.x = (matrix.m23 - matrix.m32) * s;
@@ -81,7 +81,7 @@ Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix) noexcep
     {
         if ((matrix.m11 >= matrix.m22) && (matrix.m11 >= matrix.m33))
         {
-            float s  = Math::sqrt(1.0f + matrix.m11 - matrix.m22 - matrix.m33);
+            float s  = std::sqrt(1.0f + matrix.m11 - matrix.m22 - matrix.m33);
             float s2 = 0.5f / s;
             result.w  = (matrix.m23 - matrix.m32) * s2;
             result.x  = 0.5f * s;
@@ -90,7 +90,7 @@ Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix) noexcep
         }
         else if (matrix.m22 > matrix.m33)
         {
-            float s  = Math::sqrt(1.0f + matrix.m22 - matrix.m11 - matrix.m33);
+            float s  = std::sqrt(1.0f + matrix.m22 - matrix.m11 - matrix.m33);
             float s2 = 0.5f / s;
             result.w  = (matrix.m31 - matrix.m13) * s2;
             result.x  = (matrix.m21 + matrix.m12) * s2;
@@ -99,7 +99,7 @@ Quaternion Quaternion::create_from_rotation_matrix(const Matrix& matrix) noexcep
         }
         else
         {
-            float s  = Math::sqrt(1.0f + matrix.m33 - matrix.m11 - matrix.m22);
+            float s  = std::sqrt(1.0f + matrix.m33 - matrix.m11 - matrix.m22);
             float s2 = 0.5f / s;
             result.w  = (matrix.m12 - matrix.m21) * s2;
             result.x  = (matrix.m31 + matrix.m13) * s2;
@@ -159,13 +159,13 @@ Quaternion Quaternion::slerp(const Quaternion& quaternion1, const Quaternion& qu
         flip     = true;
     }
 
-    float theta    = Math::acos(cosTheta);
-    float sinTheta = Math::sin(theta);
+    float theta    = std::acos(cosTheta);
+    float sinTheta = std::sin(theta);
 
     if (sinTheta > 0.005f)
     {
-        w1 = Math::sin((1.0f - amount) * theta) / sinTheta;
-        w2 = Math::sin(amount * theta) / sinTheta;
+        w1 = std::sin((1.0f - amount) * theta) / sinTheta;
+        w2 = std::sin(amount * theta) / sinTheta;
     }
     else
     {
@@ -215,7 +215,7 @@ float Quaternion::length_squared() const noexcept
 
 float Quaternion::length() const noexcept
 {
-    return Math::sqrt(this->length_squared());
+    return std::sqrt(this->length_squared());
 }
 
 float& Quaternion::operator[](const std::size_t& index)

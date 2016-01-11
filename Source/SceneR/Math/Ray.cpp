@@ -37,7 +37,7 @@ bool Ray::intersects(const Plane& plane)
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto denom = Vector3::dot(plane.normal, direction);
 
-    if (Math::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
+    if (std::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
     {
         return false;
     }
