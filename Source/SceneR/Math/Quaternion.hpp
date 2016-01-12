@@ -156,23 +156,23 @@ public:
 public:
     Quaternion& operator=(const Quaternion& value) = default;
 
-    float& operator[](const std::size_t& index);
-    const float& operator[](const std::size_t& index) const;
-    bool operator==(const Quaternion& value) const;
-    bool operator!=(const Quaternion& value) const;
-    Quaternion& operator*=(const Quaternion& value);
-    Quaternion& operator*=(const float& value);
-    Quaternion& operator/=(const Quaternion& value);
-    Quaternion& operator/=(const float& value);
-    Quaternion& operator-=(const Quaternion& value);
-    Quaternion& operator+=(const Quaternion& value);
-    const Quaternion operator*(const Quaternion& value) const;
-    const Quaternion operator*(const float& value) const;
-    const Quaternion operator/(const Quaternion& value) const;
-    const Quaternion operator/(const float& value) const;
-    const Quaternion operator-(const Quaternion& value) const;
-    const Quaternion operator-() const;
-    const Quaternion operator+(const Quaternion& value) const;
+    float& operator[](const std::size_t& index) noexcept;
+    const float& operator[](const std::size_t& index) const noexcept;
+    bool operator==(const Quaternion& value) const noexcept;
+    bool operator!=(const Quaternion& value) const noexcept;
+    Quaternion& operator*=(const Quaternion& q1) noexcept;
+    Quaternion& operator*=(const float& value) noexcept;
+    Quaternion& operator/=(const Quaternion& value) noexcept;
+    Quaternion& operator/=(const float& value) noexcept;
+    Quaternion& operator-=(const Quaternion& value) noexcept;
+    Quaternion& operator+=(const Quaternion& value) noexcept;
+    const Quaternion operator*(const Quaternion& value) const noexcept;
+    const Quaternion operator*(const float& value) const noexcept;
+    const Quaternion operator/(const Quaternion& r) const noexcept;
+    const Quaternion operator/(const float& value) const noexcept;
+    const Quaternion operator-(const Quaternion& value) const noexcept;
+    const Quaternion operator-() const noexcept;
+    const Quaternion operator+(const Quaternion& value) const noexcept;
 
 public:
     union

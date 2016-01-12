@@ -197,7 +197,7 @@ void DisplaySurface::pool_events() noexcept
     }
 }
 
-bool DisplaySurface::should_close() const
+bool DisplaySurface::should_close() const noexcept
 {
     return _should_close;
 }

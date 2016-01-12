@@ -20,7 +20,7 @@ namespace SceneR
         {
         }
 
-        void Model::dispose()
+        void Model::dispose() noexcept
         {
         }
 

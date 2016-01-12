@@ -40,7 +40,7 @@ public:
     ~TextureStorage() = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
@@ -51,17 +51,17 @@ public:
     /**
      * Binds the texture object.
      */
-    void bind() const;
+    void bind() const noexcept;
 
     /**
      * Creates the texture object.
      */
-    void create();
+    void create() noexcept;
 
     /**
      * Unbinds the texture object.
      */
-    void unbind() const;
+    void unbind() const noexcept;
 
     /**
      * Declares the texture storage parameters.
@@ -72,7 +72,7 @@ public:
     void declare_storage(SceneR::Graphics::SurfaceFormat format
                        , std::size_t                     levels
                        , std::size_t                     width
-                       , std::size_t                     height) const;
+                       , std::size_t                     height) const noexcept;
 
     /**
      * Adds texture data to the texture object
@@ -86,7 +86,7 @@ public:
                 , std::size_t                      level
                 , std::size_t                      width
                 , std::size_t                      height
-                , const std::vector<std::uint8_t>& data) const;
+                , const std::vector<std::uint8_t>& data) const noexcept;
 
 private:
     std::uint32_t _id;

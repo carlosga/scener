@@ -58,7 +58,7 @@ using SceneR::Graphics::VertexElementUsage;
 
 namespace SceneR { namespace Content { namespace Readers {
 
-auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto mesh = std::make_shared<ModelMesh>();
 
@@ -72,7 +72,7 @@ auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string&
     return mesh;
 }
 
-void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Json& source, ModelMesh* mesh) const
+void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Json& source, ModelMesh* mesh) const noexcept
 {
     auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto device        = gdService->graphics_device();
@@ -165,7 +165,7 @@ void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Js
 }
 
 std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
-                                                                           , const std::string& key) const
+                                                                           , const std::string& key) const noexcept
 {
     const auto& material  = input->_root["materials"][key];
     const auto& values    = material["values"].object_items();
@@ -245,7 +245,7 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
     return technique;
 }
 
-VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(AttributeType type) const
+VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(AttributeType type) const noexcept
 {
     switch (type)
     {
@@ -265,7 +265,7 @@ VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(Attr
     }
 }
 
-VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const
+VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const noexcept
 {
     VertexElementUsage usage = VertexElementUsage::color;
 

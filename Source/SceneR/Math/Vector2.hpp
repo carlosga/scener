@@ -233,23 +233,23 @@ public:
 public:
     Vector2& operator=(const Vector2& vector) = default;
 
-    float& operator[](const std::size_t& index);
-    const float& operator[](const std::size_t& index) const;
-    bool operator==(const Vector2& vector) const;
-    bool operator!=(const Vector2& vector) const;
-    Vector2& operator*=(const Vector2& vector);
-    Vector2& operator*=(const float& value);
-    Vector2& operator/=(const Vector2& vector);
-    Vector2& operator/=(const float& value);
-    Vector2& operator-=(const Vector2& vector);
-    Vector2& operator+=(const Vector2& vector);
-    const Vector2 operator*(const Vector2& vector) const;
-    const Vector2 operator*(const float& value) const;
-    const Vector2 operator/(const Vector2& vector) const;
-    const Vector2 operator/(const float& value) const;
-    const Vector2 operator-(const Vector2& vector) const;
-    const Vector2 operator-() const;
-    const Vector2 operator+(const Vector2& vector) const;
+    float& operator[](const std::size_t& index) noexcept;
+    const float& operator[](const std::size_t& index) const noexcept;
+    bool operator==(const Vector2& vector) const noexcept;
+    bool operator!=(const Vector2& vector) const noexcept;
+    Vector2& operator*=(const Vector2& vector) noexcept;
+    Vector2& operator*=(const float& value) noexcept;
+    Vector2& operator/=(const Vector2& vector) noexcept;
+    Vector2& operator/=(const float& value) noexcept;
+    Vector2& operator-=(const Vector2& vector) noexcept;
+    Vector2& operator+=(const Vector2& vector) noexcept;
+    const Vector2 operator*(const Vector2& vector) const noexcept;
+    const Vector2 operator*(const float& value) const noexcept;
+    const Vector2 operator/(const Vector2& vector) const noexcept;
+    const Vector2 operator/(const float& value) const noexcept;
+    const Vector2 operator-(const Vector2& vector) const noexcept;
+    const Vector2 operator-() const noexcept;
+    const Vector2 operator+(const Vector2& vector) const noexcept;
 
 public:
     union

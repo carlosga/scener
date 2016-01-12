@@ -24,7 +24,7 @@ TextureStorage::TextureStorage(TextureTarget target) noexcept
     create();
 }
 
-void TextureStorage::dispose()
+void TextureStorage::dispose() noexcept
 {
     if (_id != 0)
     {
@@ -38,24 +38,27 @@ std::uint32_t TextureStorage::id() const noexcept
     return _id;
 }
 
-void TextureStorage::bind() const
+void TextureStorage::bind() const noexcept
 {
     glBindTextureUnit(0, _id);
 }
 
-void TextureStorage::create()
+void TextureStorage::create() noexcept
 {
     glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
 
     Ensures(_id > 0);
 }
 
-void TextureStorage::unbind() const
+void TextureStorage::unbind() const noexcept
 {
     glBindTextureUnit(0, 0);
 }
 
-void TextureStorage::declare_storage(SurfaceFormat format, std::size_t levels, std::size_t width, std::size_t height) const
+void TextureStorage::declare_storage(SurfaceFormat format
+                                   , std::size_t   levels
+                                   , std::size_t   width
+                                   , std::size_t   height) const noexcept
 {
     glTextureStorage2D(_id
                      , static_cast<GLint>(levels)
@@ -68,7 +71,7 @@ void TextureStorage::set_data(SurfaceFormat                    format
                             , std::size_t                      level
                             , std::size_t                      width
                             , std::size_t                      height
-                            , const std::vector<std::uint8_t>& data) const
+                            , const std::vector<std::uint8_t>& data) const noexcept
 {
     auto si_level  = static_cast<GLint>(level);
     auto si_width  = static_cast<GLint>(width);

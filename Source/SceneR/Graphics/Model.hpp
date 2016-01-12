@@ -36,7 +36,7 @@ public:
     virtual ~Model() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**

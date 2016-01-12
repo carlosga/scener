@@ -34,7 +34,7 @@ public:
     /**
      * Reads a object from the current stream.
      */
-    std::shared_ptr<T> read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+    std::shared_ptr<T> read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 };
 
 }}}

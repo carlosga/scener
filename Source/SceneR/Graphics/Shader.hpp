@@ -44,7 +44,7 @@ public:
     virtual ~Shader() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
@@ -73,12 +73,12 @@ public:
     /**
      * Performs the compilation of the shader source code.
      */
-    void compile();
+    void compile() noexcept;
 
     /**
      * Indicates wheter the shader has been compiled
      */
-    bool is_compiled() const;
+    bool is_compiled() const noexcept;
 
 private:
     void verify_compilation_state();

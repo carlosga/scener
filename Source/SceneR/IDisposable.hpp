@@ -22,7 +22,7 @@ public:
      * @brief Performs application-defined tasks associated with freeing, releasing,
      *        or resetting resources.
      */
-    virtual void dispose() = 0;
+    virtual void dispose() noexcept = 0;
 };
 
 }

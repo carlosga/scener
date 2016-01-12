@@ -13,13 +13,13 @@ namespace SkeletalAnimation {
 class SampleRenderer : public SceneR::Graphics::Renderer
 {
 public:
-    SampleRenderer();
+    SampleRenderer() noexcept;
     virtual ~SampleRenderer() = default;
 
 protected:
-    virtual void begin_run() override;
-    virtual void load_content() override;
-    virtual void draw(const SceneR::Graphics::StepTime &renderTime) override;
+    virtual void begin_run() noexcept override;
+    virtual void load_content() noexcept override;
+    virtual void draw(const SceneR::Graphics::StepTime &renderTime) noexcept override;
 };
 
 }

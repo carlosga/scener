@@ -21,7 +21,7 @@ ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
 {
 }
 
-void ConstantBuffer::dispose()
+void ConstantBuffer::dispose() noexcept
 {
     if (_buffer_object.get() != nullptr)
     {
@@ -45,12 +45,12 @@ std::size_t ConstantBuffer::size() const noexcept
     return _size;
 }
 
-void ConstantBuffer::bind() const
+void ConstantBuffer::bind() const noexcept
 {
     glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
 }
 
-void ConstantBuffer::create(std::uint32_t programId)
+void ConstantBuffer::create(std::uint32_t programId) noexcept
 {
     std::int32_t binding   = 0;
     std::int32_t blockSize = 0;
@@ -77,27 +77,27 @@ void ConstantBuffer::create(std::uint32_t programId)
     _buffer_object->set_data(_size, data.data());
 }
 
-void ConstantBuffer::unbind() const
+void ConstantBuffer::unbind() const noexcept
 {
     glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
 }
 
-std::vector<std::uint8_t> ConstantBuffer::get_data() const
+std::vector<std::uint8_t> ConstantBuffer::get_data() const noexcept
 {
     return get_data(0, _size);
 }
 
-std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const
+std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
     return _buffer_object->get_data(offset, count);
 }
 
-void ConstantBuffer::set_data(const void* data) const
+void ConstantBuffer::set_data(const void* data) const noexcept
 {
     set_data(0, _size, data);
 }
 
-void ConstantBuffer::set_data(std::size_t offset, std::size_t count, const void* data) const
+void ConstantBuffer::set_data(std::size_t offset, std::size_t count, const void* data) const noexcept
 {
     _buffer_object->set_data(offset, count, data);
 }

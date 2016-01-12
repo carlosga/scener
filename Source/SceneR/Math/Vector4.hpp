@@ -303,24 +303,24 @@ public:
 public:
     Vector4& operator=(const Vector4& data) = default;
 
-    float& operator[](const std::size_t& index);
-    const float& operator[](const std::size_t& index) const;
-    bool operator==(const Vector4& data) const;
-    bool operator!=(const Vector4& data) const;
-    Vector4& operator*=(const Vector4& data);
-    Vector4& operator*=(const float& value);
-    Vector4& operator/=(const Vector4& data);
-    Vector4& operator/=(const float& value);
-    Vector4& operator-=(const Vector4& data);
-    Vector4& operator+=(const Vector4& data);
-    const Vector4 operator*(const Vector4& data) const;
-    const Vector4 operator*(const float& value) const;
-    const Vector4 operator*(const Matrix& matrix) const;
-    const Vector4 operator/(const Vector4& data) const;
-    const Vector4 operator/(const float& value) const;
-    const Vector4 operator-(const Vector4& data) const;
-    const Vector4 operator-() const;
-    const Vector4 operator+(const Vector4& data) const;
+    float& operator[](const std::size_t& index) noexcept;
+    const float& operator[](const std::size_t& index) const noexcept;
+    bool operator==(const Vector4& data) const noexcept;
+    bool operator!=(const Vector4& data) const noexcept;
+    Vector4& operator*=(const Vector4& data) noexcept;
+    Vector4& operator*=(const float& value) noexcept;
+    Vector4& operator/=(const Vector4& data) noexcept;
+    Vector4& operator/=(const float& value) noexcept;
+    Vector4& operator-=(const Vector4& data) noexcept;
+    Vector4& operator+=(const Vector4& data) noexcept;
+    const Vector4 operator*(const Vector4& data) const noexcept;
+    const Vector4 operator*(const float& value) const noexcept;
+    const Vector4 operator*(const Matrix& matrix) const noexcept;
+    const Vector4 operator/(const Vector4& data) const noexcept;
+    const Vector4 operator/(const float& value) const noexcept;
+    const Vector4 operator-(const Vector4& data) const noexcept;
+    const Vector4 operator-() const noexcept;
+    const Vector4 operator+(const Vector4& data) const noexcept;
 
 public:
     union

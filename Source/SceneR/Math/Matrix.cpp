@@ -645,21 +645,21 @@ std::string Matrix::to_string() const noexcept
     return stream.str();
 }
 
-float& Matrix::operator[](const std::size_t& index)
+float& Matrix::operator[](const std::size_t& index) noexcept
 {
     Expects(index < 16);
 
     return data[index];
 }
 
-const float& Matrix::operator[](const std::size_t& index) const
+const float& Matrix::operator[](const std::size_t& index) const noexcept
 {
     Expects(index < 16);
 
     return data[index];
 }
 
-bool Matrix::operator==(const Matrix& matrix) const
+bool Matrix::operator==(const Matrix& matrix) const noexcept
 {
     return (Math::equal(m11, matrix.m11)
          && Math::equal(m12, matrix.m12)
@@ -679,12 +679,12 @@ bool Matrix::operator==(const Matrix& matrix) const
          && Math::equal(m44, matrix.m44));
 }
 
-bool Matrix::operator!=(const Matrix& matrix) const
+bool Matrix::operator!=(const Matrix& matrix) const noexcept
 {
     return !(*this == matrix);
 }
 
-Matrix& Matrix::operator*=(const Matrix& right)
+Matrix& Matrix::operator*=(const Matrix& right) noexcept
 {
     auto left = *this;
 
@@ -711,7 +711,7 @@ Matrix& Matrix::operator*=(const Matrix& right)
     return *this;
 }
 
-Matrix& Matrix::operator*=(const float& value)
+Matrix& Matrix::operator*=(const float& value) noexcept
 {
     m11 *= value;
     m12 *= value;
@@ -736,7 +736,7 @@ Matrix& Matrix::operator*=(const float& value)
     return *this;
 }
 
-Matrix& Matrix::operator+=(const Matrix& matrix)
+Matrix& Matrix::operator+=(const Matrix& matrix) noexcept
 {
     m11 += matrix.m11;
     m12 += matrix.m12;
@@ -761,7 +761,7 @@ Matrix& Matrix::operator+=(const Matrix& matrix)
     return *this;
 }
 
-Matrix& Matrix::operator-=(const Matrix& matrix)
+Matrix& Matrix::operator-=(const Matrix& matrix) noexcept
 {
     m11 -= matrix.m11;
     m12 -= matrix.m12;
@@ -786,7 +786,7 @@ Matrix& Matrix::operator-=(const Matrix& matrix)
     return *this;
 }
 
-const Matrix Matrix::operator*(const Matrix& matrix) const
+const Matrix Matrix::operator*(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -795,7 +795,7 @@ const Matrix Matrix::operator*(const Matrix& matrix) const
     return result;
 }
 
-const Matrix Matrix::operator*(const float& value) const
+const Matrix Matrix::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -804,7 +804,7 @@ const Matrix Matrix::operator*(const float& value) const
     return result;
 }
 
-const Matrix Matrix::operator+(const Matrix& matrix) const
+const Matrix Matrix::operator+(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -813,7 +813,7 @@ const Matrix Matrix::operator+(const Matrix& matrix) const
     return result;
 }
 
-const Matrix Matrix::operator-(const Matrix& matrix) const
+const Matrix Matrix::operator-(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -822,7 +822,7 @@ const Matrix Matrix::operator-(const Matrix& matrix) const
     return result;
 }
 
-const Matrix Matrix::operator-() const
+const Matrix Matrix::operator-() const noexcept
 {
     auto result = *this;
 
@@ -831,7 +831,7 @@ const Matrix Matrix::operator-() const
     return result;
 }
 
-float Matrix::sub_matrix_determinant()
+float Matrix::sub_matrix_determinant() const noexcept
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q23
     return m11 * (m22 * m33 - m32 * m23)
@@ -839,7 +839,7 @@ float Matrix::sub_matrix_determinant()
          + m13 * (m21 * m32 - m31 * m22);
 }
 
-Matrix Matrix::sub_matrix(std::uint32_t row, std::uint32_t column) const
+Matrix Matrix::sub_matrix(std::uint32_t row, std::uint32_t column) const noexcept
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
     std::uint32_t si;

@@ -35,7 +35,7 @@ public:
     /**
      * Called when the component should be drawn.
      */
-    virtual void draw(const StepTime& renderTime) = 0;
+    virtual void draw(const StepTime& renderTime) noexcept = 0;
 };
 
 }}

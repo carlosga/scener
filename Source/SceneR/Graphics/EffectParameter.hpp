@@ -77,7 +77,7 @@ public:
      * Get the effect parameter value.
      */
     template <typename T>
-    T get_value() const;
+    T get_value() const noexcept;
 
     /**
      * Get the effect parameter value.
@@ -85,7 +85,7 @@ public:
     template <typename T
             , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
                                        || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
-    T get_value_transpose() const;
+    T get_value_transpose() const noexcept;
 
 public:
     /**
@@ -93,12 +93,12 @@ public:
      * @param value the value to assign to the EffectParameter.
      */
     template <typename T>
-    void set_value(const T& value) const;
+    void set_value(const T& value) const noexcept;
 
     template <typename T
             , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
                                        || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
-    void set_value_transpose(const T& value) const;
+    void set_value_transpose(const T& value) const noexcept;
 
 public:
     EffectParameter& operator=(const EffectParameter& parameter) = default;

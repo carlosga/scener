@@ -99,27 +99,27 @@ Plane::Plane(const Vector4& value) noexcept
 {
 }
 
-PlaneIntersectionType Plane::intersects(const BoundingBox& box) const
+PlaneIntersectionType Plane::intersects(const BoundingBox& box) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType Plane::intersects(const BoundingFrustrum& frustrum) const
+PlaneIntersectionType Plane::intersects(const BoundingFrustrum& frustrum) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType Plane::intersects(const BoundingSphere& sphere) const
+PlaneIntersectionType Plane::intersects(const BoundingSphere& sphere) const noexcept
 {
     return sphere.intersects(*this);
 }
 
-bool Plane::operator==(const Plane& plane) const
+bool Plane::operator==(const Plane& plane) const noexcept
 {
     return (normal == plane.normal && Math::equal(d, plane.d));
 }
 
-bool Plane::operator!=(const Plane& plane) const
+bool Plane::operator!=(const Plane& plane) const noexcept
 {
     return !(*this == plane);
 }

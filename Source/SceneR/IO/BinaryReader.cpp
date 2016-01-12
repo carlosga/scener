@@ -12,7 +12,7 @@ namespace SceneR { namespace IO {
 
 using SceneR::Text::Encoding;
 
-BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding)
+BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding) noexcept
     : _stream   { stream }
     , _encoding { encoding }
 {
@@ -23,18 +23,18 @@ BinaryReader::~BinaryReader()
     close();
 }
 
-Stream& BinaryReader::base_stream()
+Stream& BinaryReader::base_stream() noexcept
 {
     return _stream;
 }
 
-void BinaryReader::close()
+void BinaryReader::close() noexcept
 {
     _stream.close();
 }
 
 template<>
-char16_t BinaryReader::read()
+char16_t BinaryReader::read() noexcept
 {
     std::uint32_t buffer = _stream.read_byte();
 
@@ -62,7 +62,7 @@ char16_t BinaryReader::read()
 }
 
 template<>
-std::string BinaryReader::read()
+std::string BinaryReader::read() noexcept
 {
     auto buffer = read_bytes(read_7_bit_encoded_int());
 
@@ -70,13 +70,13 @@ std::string BinaryReader::read()
 }
 
 template<>
-bool BinaryReader::read()
+bool BinaryReader::read() noexcept
 {
     return static_cast<bool>(_stream.read_byte());
 }
 
 template <>
-std::int8_t BinaryReader::read()
+std::int8_t BinaryReader::read() noexcept
 {
     std::int8_t buffer;
 
@@ -86,7 +86,7 @@ std::int8_t BinaryReader::read()
 }
 
 template <>
-std::uint8_t BinaryReader::read()
+std::uint8_t BinaryReader::read() noexcept
 {
     std::uint8_t buffer;
 
@@ -96,7 +96,7 @@ std::uint8_t BinaryReader::read()
 }
 
 template <>
-std::int16_t BinaryReader::read()
+std::int16_t BinaryReader::read() noexcept
 {
     std::int16_t buffer;
 
@@ -106,7 +106,7 @@ std::int16_t BinaryReader::read()
 }
 
 template <>
-std::uint16_t BinaryReader::read()
+std::uint16_t BinaryReader::read() noexcept
 {
     std::uint16_t buffer;
 
@@ -116,7 +116,7 @@ std::uint16_t BinaryReader::read()
 }
 
 template <>
-std::int32_t BinaryReader::read()
+std::int32_t BinaryReader::read() noexcept
 {
     std::int32_t buffer;
 
@@ -126,7 +126,7 @@ std::int32_t BinaryReader::read()
 }
 
 template <>
-std::uint32_t BinaryReader::read()
+std::uint32_t BinaryReader::read() noexcept
 {
     std::uint32_t buffer;
 
@@ -136,7 +136,7 @@ std::uint32_t BinaryReader::read()
 }
 
 template <>
-std::int64_t BinaryReader::read()
+std::int64_t BinaryReader::read() noexcept
 {
     std::int64_t buffer;
 
@@ -146,7 +146,7 @@ std::int64_t BinaryReader::read()
 }
 
 template <>
-std::uint64_t BinaryReader::read()
+std::uint64_t BinaryReader::read() noexcept
 {
     std::uint64_t buffer;
 
@@ -156,7 +156,7 @@ std::uint64_t BinaryReader::read()
 }
 
 template <>
-float BinaryReader::read()
+float BinaryReader::read() noexcept
 {
     float buffer;
 
@@ -166,7 +166,7 @@ float BinaryReader::read()
 }
 
 template <>
-double BinaryReader::read()
+double BinaryReader::read() noexcept
 {
     double buffer;
 
@@ -175,7 +175,7 @@ double BinaryReader::read()
     return buffer;
 }
 
-std::int32_t BinaryReader::peek_char()
+std::int32_t BinaryReader::peek_char() noexcept
 {
     std::int32_t nextChar = -1;
 
@@ -194,7 +194,7 @@ std::int32_t BinaryReader::peek_char()
     return nextChar;
 }
 
-std::uint32_t BinaryReader::read_7_bit_encoded_int()
+std::uint32_t BinaryReader::read_7_bit_encoded_int() noexcept
 {
     std::uint32_t result   = 0;
     std::uint32_t bitsRead = 0;
@@ -210,7 +210,7 @@ std::uint32_t BinaryReader::read_7_bit_encoded_int()
     return result;
 }
 
-std::vector<std::uint8_t> BinaryReader::read_bytes(std::size_t count)
+std::vector<std::uint8_t> BinaryReader::read_bytes(std::size_t count) noexcept
 {
     auto buffer = std::vector<std::uint8_t>(count, 0);
     auto readed = _stream.read(reinterpret_cast<char*>(&buffer[0]), 0, count);

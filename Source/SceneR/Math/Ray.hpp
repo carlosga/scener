@@ -40,28 +40,28 @@ public:
     /**
      * Checks whether the Ray intersects a specified BoundingBox.
      */
-    bool intersects(const BoundingBox& boundingBox);
+    bool intersects(const BoundingBox& boundingBox) noexcept;
 
     /**
      * Checks whether the Ray intersects a specified BoundingFrustum.
      */
-    bool intersects(const BoundingFrustum& frustum);
+    bool intersects(const BoundingFrustum& frustum) noexcept;
 
     /**
      * Checks whether the Ray intersects a specified BoundingSphere.
      */
-    bool intersects(const BoundingSphere& sphere);
+    bool intersects(const BoundingSphere& sphere) noexcept;
 
     /**
      * Determines whether this Ray intersects a specified Plane.
      */
-    bool intersects(const Plane& plane);
+    bool intersects(const Plane& plane) noexcept;
 
 public:
     Ray& operator=(const Ray& ray) = default;
 
-    bool operator==(const Ray& ray) const;
-    bool operator!=(const Ray& ray) const;
+    bool operator==(const Ray& ray) const noexcept;
+    bool operator!=(const Ray& ray) const noexcept;
 
 public:
     /**

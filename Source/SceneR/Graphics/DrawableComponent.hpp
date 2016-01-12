@@ -24,7 +24,7 @@ public:
     /**
      * Initializes a new instance of the DrawableComponent class.
      */
-    DrawableComponent(gsl::not_null<Renderer*> renderer);
+    DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept;
 
     /**
      * Releases all resources being used by this DrawableComponent.
@@ -40,7 +40,7 @@ public:
     /**
      * Called when the component should be drawn.
      */
-    virtual void draw(const StepTime& renderTime) override;
+    virtual void draw(const StepTime& renderTime) noexcept override;
 
     /**
      * Gets a value indicating whether this object is enabled.
@@ -68,11 +68,11 @@ public:
      * This method can be used for tasks like querying for
      * services the component needs and setting up non-graphics resources.
      */
-    virtual void initialize() override;
+    virtual void initialize() noexcept override;
 
 protected:
-    virtual void load_content();
-    virtual void unload_content();
+    virtual void load_content() noexcept;
+    virtual void unload_content() noexcept;
 
 private:
     bool          _visible    { true };

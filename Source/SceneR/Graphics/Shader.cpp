@@ -24,7 +24,7 @@ Shader::Shader(const std::string& name, ShaderType type, const std::string& sour
 {
 }
 
-void Shader::dispose()
+void Shader::dispose() noexcept
 {
     if (_id != 0)
     {
@@ -62,7 +62,7 @@ void Shader::add_include(std::shared_ptr<ShaderInclude> include)
     _includes.push_back(include);
 }
 
-void Shader::compile()
+void Shader::compile() noexcept
 {
     if (is_compiled())
     {
@@ -102,7 +102,7 @@ void Shader::compile()
     verify_compilation_state();
 }
 
-bool Shader::is_compiled() const
+bool Shader::is_compiled() const noexcept
 {
     bool result = false;
 

@@ -24,20 +24,20 @@ public:
     ~ContentTypeReader() = default;
 
 public:
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    void read_parameters(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
+    void read_parameters(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const noexcept;
 
-    void set_parameter_values(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
+    void set_parameter_values(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const noexcept;
 
-    void add_default_pass(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const;
+    void add_default_pass(ContentReader* input, const json11::Json& source, Graphics::EffectTechnique* effect) const noexcept;
 
-    void read_pass_program(ContentReader* input, const std::string& name, Graphics::EffectPass* effectPass) const;
+    void read_pass_program(ContentReader* input, const std::string& name, Graphics::EffectPass* effectPass) const noexcept;
 
-    void cache_parameters(Graphics::EffectTechnique* effect) const;
+    void cache_parameters(Graphics::EffectTechnique* effect) const noexcept;
 
-    void describe_parameter(Graphics::EffectParameter* parameter, std::int32_t type) const;
+    void describe_parameter(Graphics::EffectParameter* parameter, std::int32_t type) const noexcept;
 };
 
 }}}

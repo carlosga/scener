@@ -25,47 +25,47 @@ public:
     /**
      * Gets a value indicating whether the current stream supports reading.
      */
-    virtual bool can_read() = 0;
+    virtual bool can_read() const noexcept = 0;
 
     /**
      * Gets a value indicating whether the current stream supports seeking.
      */
-    virtual bool can_seek() = 0;
+    virtual bool can_seek() const noexcept = 0;
 
     /**
      * Gets a value indicating whether the current stream supports writing.
      */
-    virtual bool can_write() = 0;
+    virtual bool can_write() const noexcept = 0;
 
     /**
      * Returns the current position of the reader.
      */
-    virtual std::size_t position() = 0;
+    virtual std::size_t position() noexcept = 0;
 
     /**
      * Returns the length in bytes of the stream.
      */
-    virtual std::size_t length() = 0;
+    virtual std::size_t length() noexcept = 0;
 
     /**
      * Closes the current stream
      */
-    virtual void close() = 0;
+    virtual void close() noexcept = 0;
 
     /**
      * Reads a byte from the stream.
      */
-    virtual std::uint32_t read_byte() = 0;
+    virtual std::uint32_t read_byte() noexcept = 0;
 
     /**
      * Reads a sequence of bytes from the current stream.
      */
-    virtual std::size_t read(char* buffer, std::size_t offset, std::size_t count) = 0;
+    virtual std::size_t read(char* buffer, std::size_t offset, std::size_t count) noexcept = 0;
 
     /**
      * Sets the position within the current stream.
      */
-    virtual std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) = 0;
+    virtual std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) noexcept = 0;
 };
 
 }}

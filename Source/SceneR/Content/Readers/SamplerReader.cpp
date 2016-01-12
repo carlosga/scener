@@ -21,7 +21,7 @@ using SceneR::Graphics::SamplerState;
 using SceneR::Graphics::TextureAddressMode;
 using SceneR::Graphics::TextureFilter;
 
-auto ContentTypeReader<SamplerState>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<SamplerState>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());

@@ -26,7 +26,7 @@ public:
      * Initializes a new instance of the Component class.
      * @param renderer the renderer that owns the component.
      */
-    Component(gsl::not_null<Renderer*> renderer);
+    Component(gsl::not_null<Renderer*> renderer) noexcept;
 
     /**
      * Releases all resources being used by this component instance.
@@ -42,7 +42,7 @@ public:
     /**
      * Called when the component should be updated.
      */
-    virtual void update(const StepTime& renderTime) override;
+    virtual void update(const StepTime& renderTime) noexcept override;
 
     /**
      * Gets a value indicating whether the component is enabled.

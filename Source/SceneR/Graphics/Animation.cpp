@@ -9,14 +9,6 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::TimeSpan;
 
-Animation::Animation()
-    : _name()
-    , _current_time(0)
-    , _current_keyframe(0)
-    , _keyframes(0)
-{
-}
-
 const TimeSpan& Animation::current_time() const noexcept
 {
     return _current_time;

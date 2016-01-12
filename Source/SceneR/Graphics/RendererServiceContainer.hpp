@@ -34,7 +34,7 @@ public:
      * Adds a service to the RendererServiceContainer.
      */
     template <class T>
-    void add_service(T& service)
+    void add_service(T& service) noexcept
     {
         if (!is_registered<T>())
         {
@@ -46,7 +46,7 @@ public:
      * Gets the service object of the specified identifier.
      */
     template <class T>
-    T* get_service() const
+    T* get_service() const noexcept
     {
         if (!is_registered<T>())
         {
@@ -60,7 +60,7 @@ public:
      * Removes the object providing a specified service.
      */
     template <class T>
-    void remove_service()
+    void remove_service() noexcept
     {
         if (is_registered<T>())
         {
@@ -68,20 +68,20 @@ public:
         }
     }
 
-    void clear()
+    void clear() noexcept
     {
         _instance_map.clear();
     }
 
 private:
     template <class T>
-    bool is_registered() const
+    bool is_registered() const noexcept
     {
         return (_instance_map.find(get_type_name<T>()) != _instance_map.end());
     }
 
     template <class T>
-    std::string get_type_name() const
+    std::string get_type_name() const noexcept
     {
         return typeid(T).name();
     }

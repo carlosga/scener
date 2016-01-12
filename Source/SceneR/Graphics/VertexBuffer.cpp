@@ -30,7 +30,7 @@ VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
     create();
 }
 
-void VertexBuffer::dispose()
+void VertexBuffer::dispose() noexcept
 {
     if (_vao != nullptr)
     {

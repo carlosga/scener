@@ -41,7 +41,7 @@ public:
 public:
     float aspect_ratio() const noexcept;
 
-    void update() const;
+    void update() const noexcept;
 
 public:
     Viewport& operator=(const Viewport& viewport) = default;

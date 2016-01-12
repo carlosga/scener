@@ -40,7 +40,7 @@ public:
      * @param min the minimum point the BoundingBox includes.
      * @param max the maximum point the BoundingBox includes.
      */
-    BoundingBox(const Vector3& _min, const Vector3& _max);
+    BoundingBox(const Vector3& _min, const Vector3& _max) noexcept;
 
     /**
      * Initializes a new instance of the BoundingBox class.
@@ -58,73 +58,73 @@ public:
      * @param box the BoundingBox to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingBox& box) const;
+    ContainmentType contains(const BoundingBox& box) const noexcept;
 
     /**
      * Checks whether the current BoundingBox contains a BoundingFrustrum.
      * @param frustrum the BoundingFrustrum to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingFrustrum& frustrum) const;
+    ContainmentType contains(const BoundingFrustrum& frustrum) const noexcept;
 
     /**
      * Checks whether the current BoundingBox contains a BoundingSphere.
      * @param sphere the BoundingSphere to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingSphere& sphere) const;
+    ContainmentType contains(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingBox contains a point.
      * @param point the point to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const Vector3& point) const;
+    ContainmentType contains(const Vector3& point) const noexcept;
 
     /**
      * Gets the list of points that make up the corners of the BoundingBox.
      */
-    std::vector<Vector3> get_corners() const;
+    std::vector<Vector3> get_corners() const noexcept;
 
     /**
      * Checks whether the current BoundingBox intersects with another BoundingBox.
      * @param box the BoundingBox to test for intersection with.
      * @returns true if both BoundingBoxes intersect; false otherwise.
      */
-    bool intersects(const BoundingBox& box) const;
+    bool intersects(const BoundingBox& box) const noexcept;
 
     /**
      * Checks whether the current BoundingBox intersects a specified BoundingFrustum.
      * @param frustrum the BoundingFrustum to test for intersection with.
      * @returns true if the BoundingBox and BoundingFrustrum intersect; false otherwise.
      */
-    bool intersects(const BoundingFrustrum& frustrum) const;
+    bool intersects(const BoundingFrustrum& frustrum) const noexcept;
 
     /**
      * Checks whether the current BoundingBox intersects a specified BoundingSphere.
      * @param sphere the BoundingSphere to test for intersection with.
      * @returns true if the BoundingBox and BoundingSphere intersect; false otherwise.
      */
-    bool intersects(const BoundingSphere& sphere) const;
+    bool intersects(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingBox intersects a specified Plane.
      * @param plane the Plane to test for intersection with.
      * @returns the relationship between the Plane and the BoundingBox.
      */
-    PlaneIntersectionType intersects(const Plane& plane) const;
+    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
 
     /**
      * Checks whether the current BoundingBox intersects a specified Ray.
      * @param ray the Ray to test for intersection with.
      * @returns distance at which the ray intersects the BoundingBox, or 0 if there is no intersection.
      */
-    float intersects(const Ray& ray) const;
+    float intersects(const Ray& ray) const noexcept;
 
 public:
-    BoundingBox& operator=(const BoundingBox& box);
-    bool operator==(const BoundingBox& box) const;
-    bool operator!=(const BoundingBox& box) const;
+    BoundingBox& operator=(const BoundingBox& box) noexcept;
+    bool operator==(const BoundingBox& box) const noexcept;
+    bool operator!=(const BoundingBox& box) const noexcept;
 
 public:
     Vector3 min;

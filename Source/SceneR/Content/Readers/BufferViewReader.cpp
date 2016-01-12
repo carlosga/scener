@@ -15,7 +15,7 @@ using json11::Json;
 using SceneR::Content::GLTF::Buffer;
 using SceneR::Content::GLTF::BufferView;
 
-auto ContentTypeReader<BufferView>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<BufferView>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto bufferView = std::make_shared<BufferView>();
 

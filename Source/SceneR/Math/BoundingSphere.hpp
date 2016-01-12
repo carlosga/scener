@@ -28,29 +28,29 @@ public:
     /**
      * Creates the smallest BoundingSphere that can contain a specified BoundingBox.
      */
-    static BoundingSphere create_from_bounding_box(const BoundingBox& box);
+    static BoundingSphere create_from_bounding_box(const BoundingBox& box) noexcept;
 
     /**
      * Creates the smallest BoundingSphere that can contain a specified BoundingFrustum.
      */
-    static BoundingSphere create_from_frustum(const BoundingFrustum& frustum);
+    static BoundingSphere create_from_frustum(const BoundingFrustum& frustum) noexcept;
 
     /**
      * Creates a BoundingSphere that can contain a specified list of points.
      */
-    static BoundingSphere create_from_points(const std::vector<Vector3>& points);
+    static BoundingSphere create_from_points(const std::vector<Vector3>& points) noexcept;
 
     /**
      * Creates a BoundingSphere that contains the two specified BoundingSphere instances.
      */
-    static BoundingSphere create_merged(const BoundingSphere& original, const BoundingSphere& additional);
+    static BoundingSphere create_merged(const BoundingSphere& original, const BoundingSphere& additional) noexcept;
 
 public:
     /**
      * Initializes a new instance of the BoundingSphere class with
      * the given center an radius.
      */
-    BoundingSphere(const Vector3& center, float radius);
+    BoundingSphere(const Vector3& center, float radius) noexcept;
 
     /**
      * Initializes a new instance of the BoundingSphere class.
@@ -77,47 +77,47 @@ public:
     /**
      * Checks whether the current BoundingSphere contains the specified BoundingBox.
      */
-    ContainmentType contains(const BoundingBox& boundingBox) const;
+    ContainmentType contains(const BoundingBox& boundingBox) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere contains the specified BoundingFrustum.
      */
-    ContainmentType contains(const BoundingFrustum& frustrum) const;
+    ContainmentType contains(const BoundingFrustum& frustrum) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere contains the specified BoundingSphere.
      */
-    ContainmentType contains(const BoundingSphere& sphere) const;
+    ContainmentType contains(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere contains the specified point.
      */
-    ContainmentType contains(const Vector3& point) const;
+    ContainmentType contains(const Vector3& point) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere intersects with a specified BoundingBox.
      */
-    bool intersects(const BoundingBox& boundingBox) const;
+    bool intersects(const BoundingBox& boundingBox) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere intersects with a specified BoundingFrustum.
      */
-    bool intersects(const BoundingFrustum& frustrum) const;
+    bool intersects(const BoundingFrustum& frustrum) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere intersects with a specified BoundingSphere.
      */
-    bool intersects(const BoundingSphere& sphere) const;
+    bool intersects(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere intersects with a specified Plane.
      */
-    PlaneIntersectionType intersects(const Plane& plane) const;
+    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
 
     /**
      * Checks whether the current BoundingSphere intersects with a specified Ray.
      */
-    bool intersects(const Ray& ray) const;
+    bool intersects(const Ray& ray) const noexcept;
 
     /**
      * 	 Checks whether the current BoundingSphere intersects a Ray.
@@ -133,13 +133,13 @@ public:
      * This is because there is no way to shear or non-uniformly scale a sphere.
      * Such an operation would cause the sphere to lose its shape as a sphere.
      */
-    BoundingSphere transform(const Matrix& matrix) const;
+    BoundingSphere transform(const Matrix& matrix) const noexcept;
 
 public:
     BoundingSphere& operator=(const BoundingSphere& sphere) = default;
 
-    bool operator==(const BoundingSphere& sphere) const;
-    bool operator!=(const BoundingSphere& sphere) const;
+    bool operator==(const BoundingSphere& sphere) const noexcept;
+    bool operator!=(const BoundingSphere& sphere) const noexcept;
 
 public:
     Vector3 _center;

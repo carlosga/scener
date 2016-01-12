@@ -9,7 +9,7 @@ namespace SceneR
 {
     namespace Graphics
     {
-        Component::Component(gsl::not_null<Renderer*> renderer)
+        Component::Component(gsl::not_null<Renderer*> renderer) noexcept
             : _renderer ( renderer )
         {
         }
@@ -19,7 +19,7 @@ namespace SceneR
             return _renderer;
         }
 
-        void Component::update(const StepTime& renderTime)
+        void Component::update(const StepTime& renderTime) noexcept
         {
         }
 

@@ -62,7 +62,7 @@ public:
      * @param contentManager the content_manager that owns this ContentReader.
      * @param stream the base stream.
      */
-    ContentReader(const std::string& assetName, ContentManager* contentManager, IO::Stream& stream);
+    ContentReader(const std::string& assetName, ContentManager* contentManager, IO::Stream& stream) noexcept;
 
     /**
      * Releases all resources used by the current instance of the ContentReader class.
@@ -85,29 +85,29 @@ public:
      * Reads the contexts of the current asset.
      * @return The contexts of the current asset.
      */
-    std::shared_ptr<Graphics::Model> read_asset();
+    std::shared_ptr<Graphics::Model> read_asset() noexcept;
 
 private:
-    bool read_header();
+    bool read_header() noexcept;
 
     std::string get_asset_path(const std::string& assetName) const noexcept;
 
-    std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const;
+    std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const noexcept;
 
-    std::shared_ptr<GLTF::Node> find_joint_node(const std::string& jointName) const;
+    std::shared_ptr<GLTF::Node> find_joint_node(const std::string& jointName) const noexcept;
 
 private:
     template<typename T>
-    inline std::shared_ptr<T> read_object(const std::string& key);
+    inline std::shared_ptr<T> read_object(const std::string& key) noexcept;
 
     template<typename T>
-    inline std::shared_ptr<T> read_object(const std::string& key, const json11::Json& source);
+    inline std::shared_ptr<T> read_object(const std::string& key, const json11::Json& source) noexcept;
 
     template<typename T>
-    inline std::shared_ptr<T> read_object_instance(const std::string& key);
+    inline std::shared_ptr<T> read_object_instance(const std::string& key) noexcept;
 
     template<typename T>
-    inline std::shared_ptr<T> read_object_instance(const std::string& key, const json11::Json& source);
+    inline std::shared_ptr<T> read_object_instance(const std::string& key, const json11::Json& source) noexcept;
 
     template <typename T>
     inline std::shared_ptr<T> get_object(const std::string& key) noexcept;
@@ -144,7 +144,7 @@ private:
 
 // Accessors
 template<>
-inline std::shared_ptr<GLTF::Accessor> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<GLTF::Accessor> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<GLTF::Accessor>(key, _root["accessors"][key]);
 }
@@ -164,7 +164,7 @@ inline void ContentReader::cache_object(const std::string&              key
 
 // Buffers
 template<>
-inline std::shared_ptr<GLTF::Buffer> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<GLTF::Buffer> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<GLTF::Buffer>(key, _root["buffers"][key]);
 }
@@ -184,7 +184,7 @@ inline void ContentReader::cache_object(const std::string&            key
 
 // Buffer Views
 template<>
-inline std::shared_ptr<GLTF::BufferView> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<GLTF::BufferView> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<GLTF::BufferView>(key, _root["bufferViews"][key]);
 }
@@ -204,14 +204,14 @@ inline void ContentReader::cache_object(const std::string&                key
 
 // Effect techniques
 template<>
-inline std::shared_ptr<Graphics::EffectTechnique> ContentReader::read_object_instance(const std::string& key)
+inline std::shared_ptr<Graphics::EffectTechnique> ContentReader::read_object_instance(const std::string& key) noexcept
 {
     return read_object_instance<Graphics::EffectTechnique>(key, _root["techniques"][key]);
 }
 
 // Images
 template<>
-inline std::shared_ptr<DDS::Surface> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<DDS::Surface> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<DDS::Surface>(key, _root["images"][key]);
 }
@@ -231,7 +231,7 @@ inline void ContentReader::cache_object(const std::string&            key
 
 // Meshes
 template<>
-inline std::shared_ptr<Graphics::ModelMesh> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<Graphics::ModelMesh> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<Graphics::ModelMesh>(key, _root["meshes"][key]);
 }
@@ -251,7 +251,7 @@ inline void ContentReader::cache_object(const std::string&                   key
 
 // Nodes
 template<>
-inline std::shared_ptr<GLTF::Node> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<GLTF::Node> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<GLTF::Node>(key, _root["nodes"][key]);
 }
@@ -271,14 +271,14 @@ inline void ContentReader::cache_object(const std::string&          key
 
 // Programs
 template<>
-inline std::shared_ptr<Graphics::Program> ContentReader::read_object_instance(const std::string& key)
+inline std::shared_ptr<Graphics::Program> ContentReader::read_object_instance(const std::string& key) noexcept
 {
     return read_object_instance<Graphics::Program>(key, _root["programs"][key]);
 }
 
 // Samplers
 template<>
-inline std::shared_ptr<Graphics::SamplerState> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<Graphics::SamplerState> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<Graphics::SamplerState>(key, _root["samplers"][key]);
 }
@@ -298,7 +298,7 @@ inline void ContentReader::cache_object(const std::string&                      
 
 // Shaders
 template<>
-inline std::shared_ptr<Graphics::Shader> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<Graphics::Shader> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<Graphics::Shader>(key, _root["shaders"][key]);
 }
@@ -332,7 +332,7 @@ inline void ContentReader::cache_object(const std::string&                      
 
 // Textures
 template<>
-inline std::shared_ptr<Graphics::Texture2D> ContentReader::read_object(const std::string& key)
+inline std::shared_ptr<Graphics::Texture2D> ContentReader::read_object(const std::string& key) noexcept
 {
     return read_object<Graphics::Texture2D>(key, _root["textures"][key]);
 }
@@ -352,7 +352,7 @@ inline void ContentReader::cache_object(const std::string&                   key
 
 // Common read object operations
 template<typename T>
-inline std::shared_ptr<T> ContentReader::read_object(const std::string& key, const json11::Json& source)
+inline std::shared_ptr<T> ContentReader::read_object(const std::string& key, const json11::Json& source) noexcept
 {
     auto instance = get_object<T>(key);
     if (instance != nullptr)
@@ -368,7 +368,7 @@ inline std::shared_ptr<T> ContentReader::read_object(const std::string& key, con
 }
 
 template<typename T>
-inline std::shared_ptr<T> ContentReader::read_object_instance(const std::string& key, const json11::Json& source)
+inline std::shared_ptr<T> ContentReader::read_object_instance(const std::string& key, const json11::Json& source) noexcept
 {
     Readers::ContentTypeReader<T> reader;
 

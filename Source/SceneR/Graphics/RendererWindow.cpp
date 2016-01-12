@@ -26,7 +26,7 @@ using SceneR::Input::KeyboardState;
 using SceneR::Input::Keys;
 using SceneR::Input::Mouse;
 
-RendererWindow::RendererWindow(gsl::not_null<Renderer*> renderer)
+RendererWindow::RendererWindow(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer { renderer }
 {
 }
@@ -67,7 +67,7 @@ DisplaySurface* RendererWindow::display_surface() const noexcept
     return _displaySurface.get();
 }
 
-void RendererWindow::open()
+void RendererWindow::open() noexcept
 {
     auto width  = _renderer->_graphics_device_manager->preferred_back_buffer_width;
     auto height = _renderer->_graphics_device_manager->preferred_back_buffer_height;

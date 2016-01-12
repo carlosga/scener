@@ -7,17 +7,17 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::TimeSpan;
 
-StepTime::StepTime()
+StepTime::StepTime() noexcept
     : StepTime { TimeSpan::zero, TimeSpan::zero, false }
 {
 }
 
-StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime)
+StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime) noexcept
     : StepTime { totalRenderTime, elapsedRenderTime, false }
 {
 }
 
-StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime, bool isRunningSlowly)
+StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime, bool isRunningSlowly) noexcept
     : total_render_time   { totalRenderTime }
     , elapsed_render_time { elapsedRenderTime }
     , is_running_slowly   { isRunningSlowly }

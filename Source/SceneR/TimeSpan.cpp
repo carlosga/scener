@@ -143,51 +143,51 @@ double TimeSpan::total_seconds() const noexcept
     return std::chrono::duration_cast<seconds_duration>(_ticks).count();
 }
 
-bool TimeSpan::operator==(const TimeSpan& t2) const
+bool TimeSpan::operator==(const TimeSpan& t2) const noexcept
 {
     return (_ticks == t2._ticks);
 }
 
-bool TimeSpan::operator!=(const TimeSpan& t2) const
+bool TimeSpan::operator!=(const TimeSpan& t2) const noexcept
 {
     return !(*this == t2);
 }
 
-bool TimeSpan::operator>(const TimeSpan& t2) const
+bool TimeSpan::operator>(const TimeSpan& t2) const noexcept
 {
     return (_ticks > t2._ticks);
 }
 
-bool TimeSpan::operator>=(const TimeSpan& t2) const
+bool TimeSpan::operator>=(const TimeSpan& t2) const noexcept
 {
     return (_ticks >= t2._ticks);
 }
 
-bool TimeSpan::operator<(const TimeSpan& t2) const
+bool TimeSpan::operator<(const TimeSpan& t2) const noexcept
 {
     return (_ticks < t2._ticks);
 }
 
-bool TimeSpan::operator<=(const TimeSpan& t2) const
+bool TimeSpan::operator<=(const TimeSpan& t2) const noexcept
 {
     return (_ticks <= t2._ticks);
 }
 
-TimeSpan& TimeSpan::operator-=(const TimeSpan& t2)
+TimeSpan& TimeSpan::operator-=(const TimeSpan& t2) noexcept
 {
     _ticks -= t2._ticks;
 
     return *this;
 }
 
-TimeSpan& TimeSpan::operator+=(const TimeSpan& t2)
+TimeSpan& TimeSpan::operator+=(const TimeSpan& t2) noexcept
 {
     _ticks += t2._ticks;
 
     return *this;
 }
 
-const TimeSpan TimeSpan::operator-(const TimeSpan& t2) const
+const TimeSpan TimeSpan::operator-(const TimeSpan& t2) const noexcept
 {
     auto result = *this;
 
@@ -196,7 +196,7 @@ const TimeSpan TimeSpan::operator-(const TimeSpan& t2) const
     return result;
 }
 
-const TimeSpan TimeSpan::operator+(const TimeSpan& t2) const
+const TimeSpan TimeSpan::operator+(const TimeSpan& t2) const noexcept
 {
     auto result = *this;
 

@@ -22,7 +22,7 @@ public:
     /**
      * Initializes a new instance of the BinaryReader class with the given stream.
      */
-    BinaryReader(Stream& stream, const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8);
+    BinaryReader(Stream& stream, const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8) noexcept;
 
     /**
      * Releases all resources being used by this BinaryReader.
@@ -33,33 +33,33 @@ public:
     /**
      * Gets the underliying Stream.
      */
-    Stream& base_stream();
+    Stream& base_stream() noexcept;
 
     /**
      * Closes the current reader and the underlying stream.
      */
-    void close();
+    void close() noexcept;
 
     /**
      * Reads data from the current stream.
      */
     template <typename T>
-    T read();
+    T read() noexcept;
 
     /**
      * Returns the next available character, or -1 if no more characters are available.
      */
-    std::int32_t peek_char();
+    std::int32_t peek_char() noexcept;
 
     /**
      * Reads a 7-bit encoded unsigned int
      */
-    std::uint32_t read_7_bit_encoded_int();
+    std::uint32_t read_7_bit_encoded_int() noexcept;
 
     /**
      * Reads the specified number of bytes from the underliying stream
      */
-    std::vector<std::uint8_t> read_bytes(std::size_t count);
+    std::vector<std::uint8_t> read_bytes(std::size_t count) noexcept;
 
 public:
     BinaryReader() = delete;

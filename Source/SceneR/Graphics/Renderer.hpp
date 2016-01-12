@@ -34,7 +34,7 @@ public:
     /**
      * Initializes a new instance of the Renderer class.
      */
-    Renderer(const std::string& rootDirectory);
+    Renderer(const std::string& rootDirectory) noexcept;
 
     /**
      * Releases all resources being used by the current renderer instance
@@ -74,70 +74,70 @@ public:
      * Call this method to initialize the renderer, begin running the rendering loop,
      * and start processing events.
      */
-    virtual void run();
+    virtual void run() noexcept;
 
     /**
      * Exits the renderer.
      */
-    virtual void exit();
+    virtual void exit() noexcept;
 
 protected:
     /**
      * Starts the drawing of a frame. This method is followed by calls to draw and end_draw.
      */
-    virtual bool begin_draw();
+    virtual bool begin_draw() noexcept;
 
     /**
      * Called after all components are initialized but before the first update in the render loop.
      */
-    virtual void begin_run();
+    virtual void begin_run() noexcept;
 
     /**
      * Called when the renderer determines it is time to draw a frame.
      */
-    virtual void draw(const StepTime& renderTime);
+    virtual void draw(const StepTime& renderTime) noexcept;
 
     /**
      * Ends the drawing of a frame. This method is preceeded by calls to draw and begin_draw.
      */
-    virtual void end_draw();
+    virtual void end_draw() noexcept;
 
     /**
      * Called after the renderer loop has stopped running before exiting.
      */
-    virtual void end_run();
+    virtual void end_run() noexcept;
 
     /**
      * Called after the Renderer and GraphicsDevice are created, but before load_content.
      */
-    virtual void initialize();
+    virtual void initialize() noexcept;
 
     /**
      * Called when graphics resources need to be loaded.
      */
-    virtual void load_content();
+    virtual void load_content() noexcept;
 
     /**
      * Called when graphics resources need to be unloaded.
      */
-    virtual void unload_content();
+    virtual void unload_content() noexcept;
 
     /**
      * Called when the renderer has determined that render logic needs to be processed.
      */
-    virtual void update(const StepTime& renderTime);
+    virtual void update(const StepTime& renderTime) noexcept;
 
     /**
      * Updates the renderer's clock and calls update and draw.
      */
-    void time_step();
+    void time_step() noexcept;
 
 private:
-    void post_process_components();
-    void create_device();
-    void fixed_time_step();
-    void variable_time_step();
-    void start_event_loop();
+    void post_process_components() noexcept;
+    void create_device() noexcept;
+    void fixed_time_step() noexcept;
+    void variable_time_step() noexcept;
+    void start_event_loop() noexcept;
 
 private:
     Renderer() = delete;

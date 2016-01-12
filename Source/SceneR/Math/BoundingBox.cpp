@@ -12,58 +12,58 @@
 
 namespace SceneR { namespace Math {
 
-BoundingBox::BoundingBox(const Vector3& min, const Vector3& max)
+BoundingBox::BoundingBox(const Vector3& min, const Vector3& max) noexcept
     : min { min }
     , max { max }
 {
 }
 
-ContainmentType BoundingBox::contains(const BoundingBox& box) const
+ContainmentType BoundingBox::contains(const BoundingBox& box) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingBox::contains(const BoundingFrustrum& frustrum) const
+ContainmentType BoundingBox::contains(const BoundingFrustrum& frustrum) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingBox::contains(const BoundingSphere& sphere) const
+ContainmentType BoundingBox::contains(const BoundingSphere& sphere) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingBox::contains(const Vector3& point) const
+ContainmentType BoundingBox::contains(const Vector3& point) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Vector3> BoundingBox::get_corners() const
+std::vector<Vector3> BoundingBox::get_corners() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingBox::intersects(const BoundingBox& box) const
+bool BoundingBox::intersects(const BoundingBox& box) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingBox::intersects(const BoundingFrustrum& frustrum) const
+bool BoundingBox::intersects(const BoundingFrustrum& frustrum) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingBox::intersects(const BoundingSphere& sphere) const
+bool BoundingBox::intersects(const BoundingSphere& sphere) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType BoundingBox::intersects(const Plane& plane) const
+PlaneIntersectionType BoundingBox::intersects(const Plane& plane) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-float BoundingBox::intersects(const Ray& ray) const
+float BoundingBox::intersects(const Ray& ray) const noexcept
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto tmin = (min - ray.position) / ray.direction;
@@ -78,12 +78,12 @@ float BoundingBox::intersects(const Ray& ray) const
     return (enter - exit);
 }
 
-bool BoundingBox::operator==(const BoundingBox& box) const
+bool BoundingBox::operator==(const BoundingBox& box) const noexcept
 {
     return (min == box.min && max == box.max);
 }
 
-bool BoundingBox::operator!=(const BoundingBox& box) const
+bool BoundingBox::operator!=(const BoundingBox& box) const noexcept
 {
     return !(*this == box);
 }

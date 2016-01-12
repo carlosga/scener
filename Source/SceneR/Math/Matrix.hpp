@@ -389,23 +389,23 @@ public:
 public:
     Matrix& operator=(const Matrix& data) = default;
 
-    float& operator[](const std::size_t& index);
-    const float& operator[](const std::size_t& index) const;
-    bool operator==(const Matrix& data) const;
-    bool operator!=(const Matrix& data) const;
-    Matrix& operator*=(const Matrix& data);
-    Matrix& operator*=(const float& value);
-    Matrix& operator+=(const Matrix& data);
-    Matrix& operator-=(const Matrix& data);
-    const Matrix operator*(const Matrix& data) const;
-    const Matrix operator*(const float& value) const;
-    const Matrix operator+(const Matrix& data) const;
-    const Matrix operator-(const Matrix& data) const;
-    const Matrix operator-() const;
+    float& operator[](const std::size_t& index) noexcept;
+    const float& operator[](const std::size_t& index) const noexcept;
+    bool operator==(const Matrix& data) const noexcept;
+    bool operator!=(const Matrix& data) const noexcept;
+    Matrix& operator*=(const Matrix& data) noexcept;
+    Matrix& operator*=(const float& value) noexcept;
+    Matrix& operator+=(const Matrix& data) noexcept;
+    Matrix& operator-=(const Matrix& data) noexcept;
+    const Matrix operator*(const Matrix& data) const noexcept;
+    const Matrix operator*(const float& value) const noexcept;
+    const Matrix operator+(const Matrix& data) const noexcept;
+    const Matrix operator-(const Matrix& data) const noexcept;
+    const Matrix operator-() const noexcept;
 
 private:
-    float sub_matrix_determinant();
-    Matrix sub_matrix(std::uint32_t row, std::uint32_t column) const;
+    float sub_matrix_determinant() const noexcept;
+    Matrix sub_matrix(std::uint32_t row, std::uint32_t column) const noexcept;
 
 public:
     union

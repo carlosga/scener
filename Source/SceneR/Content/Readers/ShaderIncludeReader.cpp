@@ -13,7 +13,7 @@ namespace SceneR { namespace Content { namespace Readers {
 using json11::Json;
 using SceneR::Graphics::ShaderInclude;
 
-auto ContentTypeReader<ShaderInclude>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<ShaderInclude>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto uri  = source["uri"].string_value();
     auto code = input->read_external_reference(uri);

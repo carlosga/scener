@@ -218,21 +218,21 @@ float Quaternion::length() const noexcept
     return std::sqrt(this->length_squared());
 }
 
-float& Quaternion::operator[](const std::size_t& index)
+float& Quaternion::operator[](const std::size_t& index) noexcept
 {
     Expects(index < 4);
 
     return (this->data[index]);
 }
 
-const float& Quaternion::operator[](const std::size_t& index) const
+const float& Quaternion::operator[](const std::size_t& index) const noexcept
 {
     Expects(index < 4);
 
     return (this->data[index]);
 }
 
-bool Quaternion::operator==(const Quaternion& value) const
+bool Quaternion::operator==(const Quaternion& value) const noexcept
 {
     return (Math::equal(this->x, value.x)
          && Math::equal(this->y, value.y)
@@ -240,12 +240,12 @@ bool Quaternion::operator==(const Quaternion& value) const
          && Math::equal(this->w, value.w));
 }
 
-bool Quaternion::operator!=(const Quaternion& value) const
+bool Quaternion::operator!=(const Quaternion& value) const noexcept
 {
     return !(*this == value);
 }
 
-Quaternion& Quaternion::operator*=(const Quaternion& q1)
+Quaternion& Quaternion::operator*=(const Quaternion& q1) noexcept
 {
     // Multiplication of quaternions is defined by
     // q0q1 = (w0 + x0i + y0j + z0k)(w1 + x1i + y1j + z1k) = (w0w1 - x0x1 - y0y1 - z0z1)
@@ -263,7 +263,7 @@ Quaternion& Quaternion::operator*=(const Quaternion& q1)
     return *this;
 }
 
-Quaternion& Quaternion::operator*=(const float& value)
+Quaternion& Quaternion::operator*=(const float& value) noexcept
 {
     x *= value;
     y *= value;
@@ -273,7 +273,7 @@ Quaternion& Quaternion::operator*=(const float& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Quaternion& value)
+Quaternion& Quaternion::operator/=(const Quaternion& value) noexcept
 {
     x /= value.x;
     y /= value.y;
@@ -283,7 +283,7 @@ Quaternion& Quaternion::operator/=(const Quaternion& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const float& value)
+Quaternion& Quaternion::operator/=(const float& value) noexcept
 {
     x /= value;
     y /= value;
@@ -293,7 +293,7 @@ Quaternion& Quaternion::operator/=(const float& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator-=(const Quaternion& value)
+Quaternion& Quaternion::operator-=(const Quaternion& value) noexcept
 {
     x -= value.x;
     y -= value.y;
@@ -303,7 +303,7 @@ Quaternion& Quaternion::operator-=(const Quaternion& value)
     return *this;
 }
 
-Quaternion& Quaternion::operator+=(const Quaternion& value)
+Quaternion& Quaternion::operator+=(const Quaternion& value) noexcept
 {
     x += value.x;
     y += value.y;
@@ -313,7 +313,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& value)
     return *this;
 }
 
-const Quaternion Quaternion::operator*(const Quaternion& value) const
+const Quaternion Quaternion::operator*(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
@@ -322,7 +322,7 @@ const Quaternion Quaternion::operator*(const Quaternion& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator*(const float& value) const
+const Quaternion Quaternion::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -331,7 +331,7 @@ const Quaternion Quaternion::operator*(const float& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Quaternion& r) const
+const Quaternion Quaternion::operator/(const Quaternion& r) const noexcept
 {
     // http://es.mathworks.com/help/aeroblks/quaterniondivision.html
     auto q             = *this;
@@ -345,7 +345,7 @@ const Quaternion Quaternion::operator/(const Quaternion& r) const
     return Quaternion::conjugate({ qw, qz, qy, qx });
 }
 
-const Quaternion Quaternion::operator/(const float& value) const
+const Quaternion Quaternion::operator/(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -354,7 +354,7 @@ const Quaternion Quaternion::operator/(const float& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator-(const Quaternion& value) const
+const Quaternion Quaternion::operator-(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
@@ -363,12 +363,12 @@ const Quaternion Quaternion::operator-(const Quaternion& value) const
     return result;
 }
 
-const Quaternion Quaternion::operator-() const
+const Quaternion Quaternion::operator-() const noexcept
 {
     return Quaternion { -x, -y, -z, -w };
 }
 
-const Quaternion Quaternion::operator+(const Quaternion& value) const
+const Quaternion Quaternion::operator+(const Quaternion& value) const noexcept
 {
     auto result = *this;
 

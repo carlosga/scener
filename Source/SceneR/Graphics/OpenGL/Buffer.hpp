@@ -34,7 +34,7 @@ public:
     virtual ~Buffer() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
@@ -55,17 +55,17 @@ public:
     /**
      * Activates the buffer object.
      */
-    void bind() const;
+    void bind() const noexcept;
 
     /**
      * Creates the buffer object.
      */
-    void create();
+    void create() noexcept;
 
     /**
      * Deactivates the buffer object.
      */
-    void unbind() const;
+    void unbind() const noexcept;
 
     /**
      * Gets a subset of data from a buffer object's data store.
@@ -73,7 +73,7 @@ public:
      * @param size specifies the size in bytes of the data store region being replaced.
      * @param data specifies a pointer to the new data that will be copied into the data store.
      */
-    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t size) const;
+    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t size) const noexcept;
 
     /**
      * Creates and initializes the buffer object data store.
@@ -81,7 +81,7 @@ public:
      * @param data specifies a pointer to data that will be copied into the data store for initialization,
      *             or NULL if no data is to be copied.
      */
-    void set_data(std::size_t size, const void* data) const;
+    void set_data(std::size_t size, const void* data) const noexcept;
 
     /**
      * Updates a subset of a buffer object's data store
@@ -89,19 +89,19 @@ public:
      * @param size specifies the size in bytes of the data store region being replaced.
      * @param data specifies a pointer to the new data that will be copied into the data store.
      */
-    void set_data(std::size_t offset, std::size_t size, const void* data) const;
+    void set_data(std::size_t offset, std::size_t size, const void* data) const noexcept;
 
     /**
      * Invalidate the content of a buffer object's data store
      */
-    void invalidate() const;
+    void invalidate() const noexcept;
 
     /**
      *  Invalidate a region of a buffer object's data store
      *  @param offset the offset within the buffer's data store of the start of the range to be invalidated.
      *  @param length the length of the range within the buffer's data store to be invalidated.
      */
-    void invalidate(std::size_t offset, std::size_t length) const;
+    void invalidate(std::size_t offset, std::size_t length) const noexcept;
 
 private:
     std::uint32_t _id;

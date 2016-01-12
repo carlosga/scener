@@ -21,7 +21,7 @@ using SceneR::Content::ContentManager;
 using SceneR::Graphics::GraphicsDevice;
 using SceneR::Graphics::OpenGL::RenderContext;
 
-Renderer::Renderer(const std::string& rootDirectory)
+Renderer::Renderer(const std::string& rootDirectory) noexcept
     : _root_directory { rootDirectory }
 {
 }
@@ -60,7 +60,7 @@ std::vector<std::shared_ptr<IComponent>>& Renderer::components() noexcept
     return _components;
 }
 
-void Renderer::run()
+void Renderer::run() noexcept
 {
     begin_run();
     create_device();
@@ -72,7 +72,7 @@ void Renderer::run()
     end_run();
 }
 
-void Renderer::exit()
+void Renderer::exit() noexcept
 {
     _content_manager->unload();
     _graphics_device_manager->dispose();
@@ -81,12 +81,12 @@ void Renderer::exit()
     _renderer_window->close();
 }
 
-bool Renderer::begin_draw()
+bool Renderer::begin_draw() noexcept
 {
     return true;
 }
 
-void Renderer::begin_run()
+void Renderer::begin_run() noexcept
 {
     _services                = std::make_unique<RendererServiceContainer>();
     _graphics_device_manager = std::make_unique<GraphicsDeviceManager>(this);
@@ -94,7 +94,7 @@ void Renderer::begin_run()
     _renderer_window         = std::make_unique<RendererWindow>(this);
 }
 
-void Renderer::draw(const StepTime &renderTime)
+void Renderer::draw(const StepTime &renderTime) noexcept
 {
     for (auto& component : _drawable_components)
     {
@@ -105,17 +105,17 @@ void Renderer::draw(const StepTime &renderTime)
     }
 }
 
-void Renderer::end_draw()
+void Renderer::end_draw() noexcept
 {
     _render_context->present();
     // _graphics_device_manager->graphics_device()->present();
 }
 
-void Renderer::end_run()
+void Renderer::end_run() noexcept
 {
 }
 
-void Renderer::initialize()
+void Renderer::initialize() noexcept
 {
     for (auto component : _components)
     {
@@ -123,18 +123,18 @@ void Renderer::initialize()
     }
 }
 
-void Renderer::load_content()
+void Renderer::load_content() noexcept
 {
 }
 
-void Renderer::unload_content()
+void Renderer::unload_content() noexcept
 {
     _drawable_components.clear();
     _updateable_components.clear();
     _components.clear();
 }
 
-void Renderer::update(const StepTime &renderTime)
+void Renderer::update(const StepTime &renderTime) noexcept
 {
     for (auto& component : _updateable_components)
     {
@@ -145,7 +145,7 @@ void Renderer::update(const StepTime &renderTime)
     }
 }
 
-void Renderer::start_event_loop()
+void Renderer::start_event_loop() noexcept
 {
     _timer.reset();
 
@@ -165,7 +165,7 @@ void Renderer::start_event_loop()
  *      http://gafferongames.com/game-physics/fix-your-timestep/
  *      http://msdn.microsoft.com/en-us/library/bb203873.aspx
  */
-void Renderer::time_step()
+void Renderer::time_step() noexcept
 {
     if (is_fixed_time_step)
     {
@@ -177,7 +177,7 @@ void Renderer::time_step()
     }
 }
 
-void Renderer::post_process_components()
+void Renderer::post_process_components() noexcept
 {
     for (auto& component : _components)
     {
@@ -209,7 +209,7 @@ void Renderer::post_process_components()
               });
 }
 
-void Renderer::create_device()
+void Renderer::create_device() noexcept
 {
     _graphics_device_manager->create_device();
     _renderer_window->allow_user_resizing(true);
@@ -235,7 +235,7 @@ void Renderer::create_device()
     }
 }
 
-void Renderer::fixed_time_step()
+void Renderer::fixed_time_step() noexcept
 {
     _render_time.elapsed_render_time = _timer.elapsed_time_step_time();
     _render_time.total_render_time   = _timer.elapsed_time();
@@ -265,7 +265,7 @@ void Renderer::fixed_time_step()
     }
 }
 
-void Renderer::variable_time_step()
+void Renderer::variable_time_step() noexcept
 {
 }
 

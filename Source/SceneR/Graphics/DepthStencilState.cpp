@@ -12,11 +12,11 @@ DepthStencilState::DepthStencilState(gsl::not_null<GraphicsDevice*> graphicsDevi
 {
 }
 
-void DepthStencilState::dispose()
+void DepthStencilState::dispose() noexcept
 {
 }
 
-void DepthStencilState::apply() const
+void DepthStencilState::apply() const noexcept
 {
     if (depth_buffer_enable)
     {

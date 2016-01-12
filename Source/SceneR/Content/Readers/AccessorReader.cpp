@@ -18,7 +18,7 @@ using SceneR::Content::GLTF::AttributeType;
 using SceneR::Content::GLTF::BufferView;
 using SceneR::Graphics::ComponentType;
 
-auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto accessor = std::make_shared<Accessor>();
     auto attType  = source["type"].string_value();

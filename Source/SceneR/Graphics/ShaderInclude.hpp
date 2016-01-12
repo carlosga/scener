@@ -24,14 +24,14 @@ public:
     virtual ~ShaderInclude() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
-    void declare() const;
+    void declare() const noexcept;
 
-    void remove() const;
+    void remove() const noexcept;
 
-    bool is_declared() const;
+    bool is_declared() const noexcept;
 
 public:
     const std::string name;

@@ -39,7 +39,7 @@ public:
 
     void pool_events() noexcept;
 
-    bool should_close() const;
+    bool should_close() const noexcept;
 
 private:
     DisplayDevice*       _display              { nullptr };

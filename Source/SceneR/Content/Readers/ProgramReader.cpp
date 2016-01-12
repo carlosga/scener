@@ -17,7 +17,7 @@ using json11::Json;
 using SceneR::Graphics::Program;
 using SceneR::Graphics::Shader;
 
-auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto program        = std::make_shared<Program>();
     auto vertexShader   = source["vertexShader"].string_value();

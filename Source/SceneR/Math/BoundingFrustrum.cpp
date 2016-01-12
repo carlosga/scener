@@ -8,7 +8,7 @@
 
 namespace SceneR { namespace Math {
 
-BoundingFrustrum::BoundingFrustrum(const Matrix& value)
+BoundingFrustrum::BoundingFrustrum(const Matrix& value) noexcept
     : _bottom { 0.0f, 0.0f, 0.0f, 0.0f }
     , _far    { 0.0f, 0.0f, 0.0f, 0.0f }
     , _left   { 0.0f, 0.0f, 0.0f, 0.0f }
@@ -20,7 +20,7 @@ BoundingFrustrum::BoundingFrustrum(const Matrix& value)
     update_planes();
 }
 
-BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum)
+BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum) noexcept
     : _bottom { frustrum._bottom }
     , _far    { frustrum._far }
     , _left   { frustrum._left }
@@ -72,57 +72,57 @@ const Plane& BoundingFrustrum::top() const noexcept
     return _top;
 }
 
-ContainmentType BoundingFrustrum::contains(const BoundingBox& box) const
+ContainmentType BoundingFrustrum::contains(const BoundingBox& box) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingFrustrum::contains(const BoundingFrustrum& frustrum) const
+ContainmentType BoundingFrustrum::contains(const BoundingFrustrum& frustrum) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingFrustrum::contains(const BoundingSphere& sphere) const
+ContainmentType BoundingFrustrum::contains(const BoundingSphere& sphere) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingFrustrum::contains(const Vector3& point) const
+ContainmentType BoundingFrustrum::contains(const Vector3& point) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Vector3> BoundingFrustrum::get_corners()
+std::vector<Vector3> BoundingFrustrum::get_corners() noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingFrustrum::intersects(const BoundingBox& box) const
+bool BoundingFrustrum::intersects(const BoundingBox& box) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingFrustrum::intersects(const BoundingFrustrum& frustrum) const
+bool BoundingFrustrum::intersects(const BoundingFrustrum& frustrum) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool BoundingFrustrum::intersects(const BoundingSphere& sphere) const
+bool BoundingFrustrum::intersects(const BoundingSphere& sphere) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType BoundingFrustrum::intersects(const Plane& plane) const
+PlaneIntersectionType BoundingFrustrum::intersects(const Plane& plane) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-float BoundingFrustrum::intersects(const Ray& ray) const
+float BoundingFrustrum::intersects(const Ray& ray) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-BoundingFrustrum& BoundingFrustrum::operator=(const BoundingFrustrum& frustrum)
+BoundingFrustrum& BoundingFrustrum::operator=(const BoundingFrustrum& frustrum) noexcept
 {
     if (this != &frustrum)
     {
@@ -134,17 +134,17 @@ BoundingFrustrum& BoundingFrustrum::operator=(const BoundingFrustrum& frustrum)
     return *this;
 }
 
-bool BoundingFrustrum::operator==(const BoundingFrustrum& frustrum) const
+bool BoundingFrustrum::operator==(const BoundingFrustrum& frustrum) const noexcept
 {
     return (_value == frustrum._value);
 }
 
-bool BoundingFrustrum::operator!=(const BoundingFrustrum& frustrum) const
+bool BoundingFrustrum::operator!=(const BoundingFrustrum& frustrum) const noexcept
 {
     return !(*this == frustrum);
 }
 
-void BoundingFrustrum::update_planes()
+void BoundingFrustrum::update_planes() noexcept
 {
     // http://www.chadvernon.com/blog/resources/directx9/frustum-culling/
 

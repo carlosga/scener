@@ -32,7 +32,7 @@ public:
     virtual ~GraphicsResource() override = default;
 
 public:
-    virtual void dispose() override = 0;
+    virtual void dispose() noexcept override = 0;
 
 public:
     /**

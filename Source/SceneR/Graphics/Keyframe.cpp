@@ -8,12 +8,12 @@ namespace SceneR { namespace Graphics {
 using SceneR::TimeSpan;
 using SceneR::Math::Matrix;
 
-Keyframe::Keyframe()
+Keyframe::Keyframe() noexcept
     : Keyframe { TimeSpan::zero, Matrix::identity }
 {
 }
 
-Keyframe::Keyframe(const TimeSpan& time, const Matrix& transform)
+Keyframe::Keyframe(const TimeSpan& time, const Matrix& transform) noexcept
     : _time      { time }
     , _transform { transform }
 {

@@ -21,14 +21,14 @@ using SceneR::Graphics::EffectTechnique;
 using SceneR::Graphics::StepTime;
 using SceneR::Math::Matrix;
 
-EarthShaker::EarthShaker(SampleRenderer* renderer)
+EarthShaker::EarthShaker(SampleRenderer* renderer) noexcept
     : DrawableComponent { renderer }
     , _model            { nullptr }
     , _world            { Matrix::identity }
 {
 }
 
-void EarthShaker::initialize()
+void EarthShaker::initialize() noexcept
 {
     _world = Matrix::create_rotation_x({ -SceneR::Math::pi_over_2 })
            * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
@@ -36,7 +36,7 @@ void EarthShaker::initialize()
     DrawableComponent::initialize();
 }
 
-void EarthShaker::load_content()
+void EarthShaker::load_content() noexcept
 {
     _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
@@ -49,18 +49,18 @@ void EarthShaker::load_content()
     }
 }
 
-void EarthShaker::unload_content()
+void EarthShaker::unload_content() noexcept
 {
     _world = Matrix::identity;
     _model = nullptr;
 }
 
-void EarthShaker::update(const StepTime& renderTime)
+void EarthShaker::update(const StepTime& renderTime) noexcept
 {
     _model->update(renderTime);
 }
 
-void EarthShaker::draw(const StepTime& renderTime)
+void EarthShaker::draw(const StepTime& renderTime) noexcept
 {
     const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
 

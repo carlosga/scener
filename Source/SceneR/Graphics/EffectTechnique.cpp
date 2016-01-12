@@ -15,7 +15,7 @@ namespace SceneR { namespace Graphics {
 using SceneR::Math::Matrix;
 using SceneR::Math::Vector3;
 
-EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice)
+EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource           { graphicsDevice }
     , _alpha                     { 1.0 }
     , _ambient_light_color       { Vector3::zero }
@@ -40,7 +40,7 @@ EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice)
 {
 }
 
-void EffectTechnique::dispose()
+void EffectTechnique::dispose() noexcept
 {
 }
 

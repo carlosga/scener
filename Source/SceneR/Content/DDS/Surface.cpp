@@ -19,7 +19,7 @@ using SceneR::IO::BinaryReader;
 using SceneR::IO::FileStream;
 using SceneR::IO::MemoryStream;
 
-void Surface::load(const std::string& filename)
+void Surface::load(const std::string& filename) noexcept
 {
     Expects(SceneR::IO::File::exists(filename));
 

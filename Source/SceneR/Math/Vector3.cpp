@@ -240,33 +240,33 @@ float Vector3::length() const noexcept
     return std::sqrt(length_squared());
 }
 
-float& Vector3::operator[](const std::size_t& index)
+float& Vector3::operator[](const std::size_t& index) noexcept
 {
     Expects(index < 3);
 
     return (data[index]);
 }
 
-const float& Vector3::operator[](const std::size_t& index) const
+const float& Vector3::operator[](const std::size_t& index) const noexcept
 {
     Expects(index < 3);
 
     return (data[index]);
 }
 
-bool Vector3::operator==(const Vector3& vector) const
+bool Vector3::operator==(const Vector3& vector) const noexcept
 {
     return (Math::equal(x, vector.x)
          && Math::equal(y, vector.y)
          && Math::equal(z, vector.z));
 }
 
-bool Vector3::operator!=(const Vector3& vector) const
+bool Vector3::operator!=(const Vector3& vector) const noexcept
 {
     return !(*this == vector);
 }
 
-Vector3& Vector3::operator*=(const Vector3& vector)
+Vector3& Vector3::operator*=(const Vector3& vector) noexcept
 {
     x *= vector.x;
     y *= vector.y;
@@ -275,7 +275,7 @@ Vector3& Vector3::operator*=(const Vector3& vector)
     return *this;
 }
 
-Vector3& Vector3::operator*=(const float& value)
+Vector3& Vector3::operator*=(const float& value) noexcept
 {
     x *= value;
     y *= value;
@@ -284,7 +284,7 @@ Vector3& Vector3::operator*=(const float& value)
     return *this;
 }
 
-Vector3& Vector3::operator/=(const Vector3& vector)
+Vector3& Vector3::operator/=(const Vector3& vector) noexcept
 {
     x /= vector.x;
     y /= vector.y;
@@ -293,7 +293,7 @@ Vector3& Vector3::operator/=(const Vector3& vector)
     return *this;
 }
 
-Vector3& Vector3::operator/=(const float& value)
+Vector3& Vector3::operator/=(const float& value) noexcept
 {
     x /= value;
     y /= value;
@@ -302,7 +302,7 @@ Vector3& Vector3::operator/=(const float& value)
     return *this;
 }
 
-Vector3& Vector3::operator-=(const Vector3& vector)
+Vector3& Vector3::operator-=(const Vector3& vector) noexcept
 {
     x -= vector.x;
     y -= vector.y;
@@ -311,7 +311,7 @@ Vector3& Vector3::operator-=(const Vector3& vector)
     return *this;
 }
 
-Vector3& Vector3::operator+=(const Vector3& vector)
+Vector3& Vector3::operator+=(const Vector3& vector) noexcept
 {
     x += vector.x;
     y += vector.y;
@@ -320,16 +320,16 @@ Vector3& Vector3::operator+=(const Vector3& vector)
     return *this;
 }
 
-const Vector3 Vector3::operator*(const Vector3& vector) const
+const Vector3 Vector3::operator*(const Vector3& vector) const noexcept
 {
-    auto result = *this;  // Make a copy of myself. Same as Vector3D result(*this)
+    auto result = *this;
 
     result *= vector;
 
     return result;
 }
 
-const Vector3 Vector3::operator*(const float& value) const
+const Vector3 Vector3::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -338,7 +338,7 @@ const Vector3 Vector3::operator*(const float& value) const
     return result;
 }
 
-const Vector3 Vector3::operator*(const Matrix& matrix) const
+const Vector3 Vector3::operator*(const Matrix& matrix) const noexcept
 {
     // http://softimage.wiki.softimage.com/xsidocs/iceref_Multiply_Vector_by_Matrix.htm
     float vx = (x * matrix.m11)
@@ -364,7 +364,7 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const
     return { vx / vw, vy / vw, vz / vw };
 }
 
-const Vector3 Vector3::operator/(const Vector3& vector) const
+const Vector3 Vector3::operator/(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
@@ -373,7 +373,7 @@ const Vector3 Vector3::operator/(const Vector3& vector) const
     return result;
 }
 
-const Vector3 Vector3::operator/(const float& value) const
+const Vector3 Vector3::operator/(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -382,7 +382,7 @@ const Vector3 Vector3::operator/(const float& value) const
     return result;
 }
 
-const Vector3 Vector3::operator-(const Vector3& vector) const
+const Vector3 Vector3::operator-(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
@@ -391,12 +391,12 @@ const Vector3 Vector3::operator-(const Vector3& vector) const
     return result;
 }
 
-const Vector3 Vector3::operator-() const
+const Vector3 Vector3::operator-() const noexcept
 {
     return *this * -1;
 }
 
-const Vector3 Vector3::operator+(const Vector3& vector) const
+const Vector3 Vector3::operator+(const Vector3& vector) const noexcept
 {
     auto result = *this;
 

@@ -16,12 +16,12 @@ class SampleRenderer;
 class Camera : public SceneR::Graphics::Component
 {
 public:
-    Camera(SampleRenderer* renderer);
+    Camera(SampleRenderer* renderer) noexcept;
     ~Camera() = default;
 
 public:
-    void initialize() override;
-    void update(const SceneR::Graphics::StepTime& renderTime) override;
+    void initialize() noexcept override;
+    void update(const SceneR::Graphics::StepTime& renderTime) noexcept override;
 
 public:
     SceneR::Math::Matrix view;

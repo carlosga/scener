@@ -23,17 +23,17 @@ class SampleRenderer;
 class EarthShaker : public SceneR::Graphics::DrawableComponent
 {
 public:
-    EarthShaker(SampleRenderer* renderer);
+    EarthShaker(SampleRenderer* renderer) noexcept;
     ~EarthShaker() = default;
 
 public:
-    void initialize() override;
-    void update(const SceneR::Graphics::StepTime& renderTime) override;
-    void draw(const SceneR::Graphics::StepTime& renderTime) override;
+    void initialize() noexcept override;
+    void update(const SceneR::Graphics::StepTime& renderTime) noexcept override;
+    void draw(const SceneR::Graphics::StepTime& renderTime) noexcept override;
 
 protected:
-    void load_content() override;
-    void unload_content() override;
+    void load_content() noexcept override;
+    void unload_content() noexcept override;
 
 private:
     std::shared_ptr<SceneR::Graphics::Model> _model;

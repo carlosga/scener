@@ -23,7 +23,7 @@ public:
      * This method can be used for tasks like querying for
      * services the component needs and setting up non-graphics resources.
      */
-    virtual void initialize() = 0;
+    virtual void initialize() noexcept = 0;
 };
 
 }}

@@ -8,7 +8,7 @@
 
 namespace SceneR { namespace Graphics {
 
-DrawableComponent::DrawableComponent(gsl::not_null<Renderer*> renderer)
+DrawableComponent::DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept
     : Component { renderer }
 {
 }
@@ -18,7 +18,7 @@ GraphicsDevice* DrawableComponent::graphics_device() noexcept
     return _renderer->graphics_device();
 }
 
-void DrawableComponent::draw(const StepTime& renderTime)
+void DrawableComponent::draw(const StepTime& renderTime) noexcept
 {
 }
 
@@ -42,16 +42,16 @@ void DrawableComponent::draw_order(std::uint32_t drawOrder) noexcept
     _draw_order = drawOrder;
 }
 
-void DrawableComponent::initialize()
+void DrawableComponent::initialize() noexcept
 {
     this->load_content();
 }
 
-void DrawableComponent::load_content()
+void DrawableComponent::load_content() noexcept
 {
 }
 
-void DrawableComponent::unload_content()
+void DrawableComponent::unload_content() noexcept
 {
 }
 

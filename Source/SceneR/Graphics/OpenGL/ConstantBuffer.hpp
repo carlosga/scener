@@ -37,7 +37,7 @@ public:
     virtual ~ConstantBuffer() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
@@ -59,38 +59,38 @@ public:
     /**
      * Activates the constant buffer.
      */
-    void bind() const;
+    void bind() const noexcept;
 
     /**
      * Creates the constant buffer.
      */
-    void create(std::uint32_t programId);
+    void create(std::uint32_t programId) noexcept;
 
     /**
      * Deactivates the constant buffer.
      */
-    void unbind() const;
+    void unbind() const noexcept;
 
 public:
     /**
      * Gets the constant buffer data.
      */
-    std::vector<std::uint8_t> get_data() const;
+    std::vector<std::uint8_t> get_data() const noexcept;
 
     /**
      * Gets the constant buffer data.
      */
-    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const;
+    std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
     /**
      * Sets the constant buffer data.
      */
-    void set_data(const void* data) const;
+    void set_data(const void* data) const noexcept;
 
     /**
      * Sets the constant buffer data.
      */
-    void set_data(std::size_t offset, std::size_t count, const void *data) const;
+    void set_data(std::size_t offset, std::size_t count, const void *data) const noexcept;
 
 private:
     std::string             _name;

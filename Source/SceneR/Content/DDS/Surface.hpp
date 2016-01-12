@@ -22,7 +22,7 @@ public:
     ~Surface() = default;
 
 public:
-    void load(const std::string& filename);
+    void load(const std::string& filename) noexcept;
 
 public:
     const SceneR::Graphics::SurfaceFormat& format() const noexcept;

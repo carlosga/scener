@@ -12,8 +12,8 @@ namespace SceneR { namespace Graphics {
 struct Keyframe
 {
 public:
-    Keyframe();
-    Keyframe(const SceneR::TimeSpan& time, const SceneR::Math::Matrix& transform);
+    Keyframe() noexcept;
+    Keyframe(const SceneR::TimeSpan& time, const SceneR::Math::Matrix& transform) noexcept;
     Keyframe(const Keyframe& keyframe) = default;
 
     ~Keyframe() = default;

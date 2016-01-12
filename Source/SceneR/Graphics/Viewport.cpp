@@ -36,7 +36,7 @@ float Viewport::aspect_ratio() const noexcept
     return (width / height);
 }
 
-void Viewport::update() const
+void Viewport::update() const noexcept
 {
     glViewportIndexedf(0, x, y, width, height);
     glDepthRangeIndexed(0, min_depth, max_depth);

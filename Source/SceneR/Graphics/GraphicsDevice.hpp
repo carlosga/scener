@@ -51,13 +51,13 @@ public:
     virtual ~GraphicsDevice() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
      * Clears the resouce buffer
      */
-    void clear(const SceneR::Math::Color& color) const;
+    void clear(const SceneR::Math::Color& color) const noexcept;
 
     /**
      * Renders the specified geometric primitive, based on indexing into an array of vertices.
@@ -77,7 +77,7 @@ public:
                                , std::size_t   minVertexIndex
                                , std::size_t   numVertices
                                , std::size_t   startIndex
-                               , std::size_t   primitiveCount) const;
+                               , std::size_t   primitiveCount) const noexcept;
 
     /**
      * Renders a sequence of non-indexed geometric primitives of the specified type from the current set of data
@@ -90,13 +90,13 @@ public:
      *                       determined by the primitive type. If it is a line list, each primitive has two
      *                       vertices. If it is a triangle list, each primitive has three vertices.
      */
-    void draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const;
+    void draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const noexcept;
 
     /**
      * Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
      * GraphicsDevice.
      */
-    void present();
+    void present() noexcept;
 
     /**
      * Gets or sets a system-defined instance of a blend state object initialized for alpha blending.

@@ -15,12 +15,12 @@ namespace SkeletalAnimation {
 using SceneR::Graphics::StepTime;
 using SceneR::Math::Color;
 
-SampleRenderer::SampleRenderer()
+SampleRenderer::SampleRenderer() noexcept
     : Renderer("./Content")
 {
 }
 
-void SampleRenderer::begin_run()
+void SampleRenderer::begin_run() noexcept
 {
     Renderer::begin_run();
 
@@ -29,7 +29,7 @@ void SampleRenderer::begin_run()
     _graphics_device_manager->window_title                 = "SceneR";
 }
 
-void SampleRenderer::load_content()
+void SampleRenderer::load_content() noexcept
 {
     Renderer::load_content();
 
@@ -37,7 +37,7 @@ void SampleRenderer::load_content()
     Renderer::_components.push_back(std::make_shared<EarthShaker>(this));
 }
 
-void SampleRenderer::draw(const StepTime &renderTime)
+void SampleRenderer::draw(const StepTime &renderTime) noexcept
 {
     graphics_device()->clear(Color::black);
 

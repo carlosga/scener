@@ -35,7 +35,7 @@ public:
     /**
      * Called when the component should be updated.
      */
-    virtual void update(const StepTime& renderTime) = 0;
+    virtual void update(const StepTime& renderTime) noexcept = 0;
 };
 
 }}

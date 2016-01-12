@@ -19,7 +19,7 @@ class DisplaySurface;
 class RenderContext final
 {
 public:
-    RenderContext(DisplayDevice* display, DisplaySurface* surface);
+    RenderContext(DisplayDevice* display, DisplaySurface* surface) noexcept;
     ~RenderContext();
 
 public:

@@ -35,16 +35,16 @@ public:
     /**
      * Reads the meshes contents.
      */
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    void read_mesh_part(ContentReader* input, const json11::Json& source, Graphics::ModelMesh* mesh) const;
+    void read_mesh_part(ContentReader* input, const json11::Json& source, Graphics::ModelMesh* mesh) const noexcept;
 
-    std::shared_ptr<Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const;
+    std::shared_ptr<Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const noexcept;
 
-    Graphics::VertexElementFormat get_vertex_element_format(GLTF::AttributeType type) const;
+    Graphics::VertexElementFormat get_vertex_element_format(GLTF::AttributeType type) const noexcept;
 
-    Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const;
+    Graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const noexcept;
 };
 
 }}}

@@ -22,7 +22,7 @@ public:
     /**
      * Initializes a new instance of the MemoryStream class.
      */
-    MemoryStream(const gsl::span<std::uint8_t>& buffer);
+    MemoryStream(const gsl::span<std::uint8_t>& buffer) noexcept;
 
     /**
      * Releases all resources being used by this MemoryStream.
@@ -33,47 +33,47 @@ public:
     /**
      * Gets a value indicating whether the current stream supports reading.
      */
-    bool can_read() override;
+    bool can_read() const noexcept override;
 
     /**
      * Gets a value indicating whether the current stream supports seeking.
      */
-    bool can_seek() override;
+    bool can_seek() const noexcept override;
 
     /**
      * Gets a value indicating whether the current stream supports writing.
      */
-    bool can_write() override;
+    bool can_write() const noexcept override;
 
     /**
      * Returns the current position of the reader.
      */
-    std::size_t position() override;
+    std::size_t position() noexcept override;
 
     /**
      * Returns the length in bytes of the stream.
      */
-    std::size_t length() override;
+    std::size_t length() noexcept override;
 
     /**
      * Closes the current stream
      */
-    void close() override;
+    void close() noexcept override;
 
     /**
      * Reads a byte from the stream or returns -1 if at the end of the stream.
      */
-    std::uint32_t read_byte() override;
+    std::uint32_t read_byte() noexcept override;
 
     /**
      * Reads a sequence of bytes from the current stream.
      */
-    std::size_t read(char* buffer, std::size_t offset, std::size_t count) override;
+    std::size_t read(char* buffer, std::size_t offset, std::size_t count) noexcept override;
 
     /**
      * Sets the position within the current stream.
      */
-    std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) override;
+    std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) noexcept override;
 
 private:
     MemoryStream() = delete;

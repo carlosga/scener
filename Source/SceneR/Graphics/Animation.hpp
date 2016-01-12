@@ -17,7 +17,7 @@ namespace SceneR { namespace Graphics {
 class Animation final
 {
 public:
-    Animation();
+    Animation() = default;
     ~Animation() = default;
 
 public:
@@ -30,10 +30,10 @@ public:
     void update(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
 private:
-    std::string           _name;
-    SceneR::TimeSpan      _current_time;
-    std::size_t           _current_keyframe;
-    std::vector<Keyframe> _keyframes;
+    std::string           _name             { };
+    SceneR::TimeSpan      _current_time     { 0 };
+    std::size_t           _current_keyframe { 0 };
+    std::vector<Keyframe> _keyframes        { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

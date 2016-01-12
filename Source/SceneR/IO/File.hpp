@@ -24,7 +24,7 @@ public:
     /**
      * Checks whether the given file exists.
      */
-    static bool exists(const std::string& path)
+    static bool exists(const std::string& path) noexcept
     {
         auto result = true;
         auto file   = std::fstream(path, std::ios::in);
@@ -41,7 +41,7 @@ public:
      * Opens a text file, reads all lines of the file, and then closes the file.
      */
     static std::string read_all_text(const std::string&            path
-                                   , const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8)
+                                   , const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8) noexcept
     {
         auto buffer = read_all_bytes(path);
 
@@ -51,7 +51,7 @@ public:
     /**
      * Opens a binary file, reads the contents of the file into a byte array, and then closes the file.
      */
-    static std::vector<std::uint8_t> read_all_bytes(const std::string& path)
+    static std::vector<std::uint8_t> read_all_bytes(const std::string& path) noexcept
     {
         assert(exists(path));
 

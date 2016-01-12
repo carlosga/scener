@@ -22,14 +22,14 @@ using SceneR::Math::Degrees;
 using SceneR::Math::Matrix;
 using SceneR::Math::Vector3;
 
-Camera::Camera(SampleRenderer* renderer)
+Camera::Camera(SampleRenderer* renderer) noexcept
     : Component  { renderer }
     , view       { Matrix::identity }
     , projection { Matrix::identity }
 {
 }
 
-void Camera::initialize()
+void Camera::initialize() noexcept
 {
     auto    aspect = _renderer->graphics_device()->viewport().aspect_ratio();
     Degrees fov    = 27.0f;
@@ -42,7 +42,7 @@ void Camera::initialize()
     view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
 }
 
-void Camera::update(const StepTime& renderTime)
+void Camera::update(const StepTime& renderTime) noexcept
 {
     auto currentKeyboardState = Keyboard::get_state();
     auto currentPosition      = _position;

@@ -118,27 +118,27 @@ public:
      * @param box the BoundingBox to test for intersection with.
      * @returns the relationship between the Plane and the BoundingBox.
      */
-    PlaneIntersectionType intersects(const BoundingBox& box) const;
+    PlaneIntersectionType intersects(const BoundingBox& box) const noexcept;
 
     /**
      * Checks whether the current Plane intersects a specified BoundingFrustum.
      * @param frustrum the BoundingFrustum to test for intersection with.
      * @returns the relationship between the Plane and the BoundingFrustum.
      */
-    PlaneIntersectionType intersects(const BoundingFrustrum& frustrum) const;
+    PlaneIntersectionType intersects(const BoundingFrustrum& frustrum) const noexcept;
 
     /**
      * Checks whether the current Plane intersects a specified BoundingSphere.
      * @param sphere the BoundingSphere to test for intersection with.
      * @returns the relationship between the Plane and the BoundingSphere.
      */
-    PlaneIntersectionType intersects(const BoundingSphere& sphere) const;
+    PlaneIntersectionType intersects(const BoundingSphere& sphere) const noexcept;
 
 public:
     Plane& operator=(const Plane& plane) = default;
 
-    bool operator==(const Plane& plane) const;
-    bool operator!=(const Plane& plane) const;
+    bool operator==(const Plane& plane) const noexcept;
+    bool operator!=(const Plane& plane) const noexcept;
 
 public:
     /**

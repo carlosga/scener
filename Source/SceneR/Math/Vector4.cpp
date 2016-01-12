@@ -213,21 +213,21 @@ float Vector4::length() const noexcept
     return std::sqrt(length_squared());
 }
 
-float& Vector4::operator[](const std::size_t& index)
+float& Vector4::operator[](const std::size_t& index) noexcept
 {
     Expects(index < 4);
 
     return data[index];
 }
 
-const float& Vector4::operator[](const std::size_t& index) const
+const float& Vector4::operator[](const std::size_t& index) const noexcept
 {
     Expects(index < 4);
 
     return data[index];
 }
 
-bool Vector4::operator==(const Vector4& vector) const
+bool Vector4::operator==(const Vector4& vector) const noexcept
 {
     return (Math::equal(x, vector.x)
          && Math::equal(y, vector.y)
@@ -235,12 +235,12 @@ bool Vector4::operator==(const Vector4& vector) const
          && Math::equal(w, vector.w));
 }
 
-bool Vector4::operator!=(const Vector4& vector) const
+bool Vector4::operator!=(const Vector4& vector) const noexcept
 {
     return !(*this == vector);
 }
 
-Vector4& Vector4::operator*=(const Vector4& vector)
+Vector4& Vector4::operator*=(const Vector4& vector) noexcept
 {
     x *= vector.x;
     y *= vector.y;
@@ -250,7 +250,7 @@ Vector4& Vector4::operator*=(const Vector4& vector)
     return *this;
 }
 
-Vector4& Vector4::operator*=(const float& value)
+Vector4& Vector4::operator*=(const float& value) noexcept
 {
     x *= value;
     y *= value;
@@ -260,7 +260,7 @@ Vector4& Vector4::operator*=(const float& value)
     return *this;
 }
 
-Vector4& Vector4::operator/=(const Vector4& vector)
+Vector4& Vector4::operator/=(const Vector4& vector) noexcept
 {
     x /= vector.x;
     y /= vector.y;
@@ -270,7 +270,7 @@ Vector4& Vector4::operator/=(const Vector4& vector)
     return *this;
 }
 
-Vector4& Vector4::operator/=(const float& value)
+Vector4& Vector4::operator/=(const float& value) noexcept
 {
     x /= value;
     y /= value;
@@ -280,7 +280,7 @@ Vector4& Vector4::operator/=(const float& value)
     return *this;
 }
 
-Vector4& Vector4::operator-=(const Vector4& vector)
+Vector4& Vector4::operator-=(const Vector4& vector) noexcept
 {
     x -= vector.x;
     y -= vector.y;
@@ -290,7 +290,7 @@ Vector4& Vector4::operator-=(const Vector4& vector)
     return *this;
 }
 
-Vector4& Vector4::operator+=(const Vector4& vector)
+Vector4& Vector4::operator+=(const Vector4& vector) noexcept
 {
     x += vector.x;
     y += vector.y;
@@ -300,7 +300,7 @@ Vector4& Vector4::operator+=(const Vector4& vector)
     return *this;
 }
 
-const Vector4 Vector4::operator*(const Vector4& vector) const
+const Vector4 Vector4::operator*(const Vector4& vector) const noexcept
 {
     auto result = *this;
 
@@ -309,7 +309,7 @@ const Vector4 Vector4::operator*(const Vector4& vector) const
     return result;
 }
 
-const Vector4 Vector4::operator*(const float& value) const
+const Vector4 Vector4::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -318,7 +318,7 @@ const Vector4 Vector4::operator*(const float& value) const
     return result;
 }
 
-const Vector4 Vector4::operator*(const Matrix& matrix) const
+const Vector4 Vector4::operator*(const Matrix& matrix) const noexcept
 {
     float vx = (x * matrix.m11)
              + (y * matrix.m21)
@@ -343,7 +343,7 @@ const Vector4 Vector4::operator*(const Matrix& matrix) const
     return { vx, vy, vz, vw };
 }
 
-const Vector4 Vector4::operator/(const Vector4& vector) const
+const Vector4 Vector4::operator/(const Vector4& vector) const noexcept
 {
     auto result = *this;
 
@@ -352,7 +352,7 @@ const Vector4 Vector4::operator/(const Vector4& vector) const
     return result;
 }
 
-const Vector4 Vector4::operator/(const float& value) const
+const Vector4 Vector4::operator/(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -361,7 +361,7 @@ const Vector4 Vector4::operator/(const float& value) const
     return result;
 }
 
-const Vector4 Vector4::operator-(const Vector4& vector) const
+const Vector4 Vector4::operator-(const Vector4& vector) const noexcept
 {
     auto result = *this;
 
@@ -370,7 +370,7 @@ const Vector4 Vector4::operator-(const Vector4& vector) const
     return result;
 }
 
-const Vector4 Vector4::operator-() const
+const Vector4 Vector4::operator-() const noexcept
 {
     auto result = *this;
 
@@ -379,7 +379,7 @@ const Vector4 Vector4::operator-() const
     return result;
 }
 
-const Vector4 Vector4::operator+(const Vector4& vector) const
+const Vector4 Vector4::operator+(const Vector4& vector) const noexcept
 {
     auto result = *this;
 

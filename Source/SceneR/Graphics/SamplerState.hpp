@@ -38,7 +38,7 @@ public:
     virtual ~SamplerState() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     SamplerState& operator=(const SamplerState& samplerState) = default;
@@ -85,7 +85,7 @@ public:
     float mip_map_level_of_detail_bias { 0 };
 
 private:
-    void apply(std::uint32_t textureId) const;
+    void apply(std::uint32_t textureId) const noexcept;
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

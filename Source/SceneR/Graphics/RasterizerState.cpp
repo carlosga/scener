@@ -12,11 +12,11 @@ RasterizerState::RasterizerState(gsl::not_null<GraphicsDevice*> graphicsDevice) 
 {
 }
 
-void RasterizerState::dispose()
+void RasterizerState::dispose() noexcept
 {
 }
 
-void RasterizerState::apply() const
+void RasterizerState::apply() const noexcept
 {
     // Specify whether front- or back-facing facets can be culled
     if (cull_mode == CullMode::none)

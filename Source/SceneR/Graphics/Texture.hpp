@@ -33,7 +33,7 @@ public:
     virtual ~Texture() override = default;
 
 public:
-    virtual void dispose() override = 0;
+    virtual void dispose() noexcept override = 0;
 
 public:
     /**
@@ -54,12 +54,12 @@ public:
     /**
      * Activates the texture object
      */
-    virtual void bind() const = 0;
+    virtual void bind() const noexcept = 0;
 
     /**
      * Deactivates the texture object
      */
-    virtual void unbind() const = 0;
+    virtual void unbind() const noexcept = 0;
 };
 
 }}

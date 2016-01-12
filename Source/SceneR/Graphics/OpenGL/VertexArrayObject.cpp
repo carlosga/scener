@@ -3,11 +3,13 @@
 
 #include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
 
+#include <gsl_assert.h>
+
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-void VertexArrayObject::dispose()
+void VertexArrayObject::dispose() noexcept
 {
     if (_id != 0)
     {
@@ -21,17 +23,19 @@ std::uint32_t VertexArrayObject::id() const noexcept
     return _id;
 }
 
-void VertexArrayObject::bind() const
+void VertexArrayObject::bind() const noexcept
 {
     glBindVertexArray(_id);
 }
 
-void VertexArrayObject::create()
+void VertexArrayObject::create() noexcept
 {
     glCreateVertexArrays(1, &_id);
+    
+    Ensures(_id > 0);
 }
 
-void VertexArrayObject::unbind() const
+void VertexArrayObject::unbind() const noexcept
 {
     if (_id != 0)
     {

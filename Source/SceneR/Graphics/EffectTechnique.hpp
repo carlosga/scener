@@ -40,7 +40,7 @@ public:
      * Initializes a new instance of the EffectTechnique class
      * @param graphicsDevice the graphics device
      */
-    EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice);
+    EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
     /**
      * Initializes a new instance of the EffectTechnique class.
@@ -54,7 +54,7 @@ public:
     virtual ~EffectTechnique() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**

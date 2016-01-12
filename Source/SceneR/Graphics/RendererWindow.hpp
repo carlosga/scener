@@ -30,7 +30,7 @@ public:
      * Initializes a new instance of the RendererWindow class.
      * @param renderer the renderer instance owning the renderer window.
      */
-    RendererWindow(gsl::not_null<Renderer*> renderer);
+    RendererWindow(gsl::not_null<Renderer*> renderer) noexcept;
 
     /**
      * Releases all resource being used by the current RendererWindow
@@ -65,7 +65,7 @@ public:
     OpenGL::DisplaySurface* display_surface() const noexcept;
 
 private:
-    void open();
+    void open() noexcept;
     void show() const noexcept;
     void close() noexcept;
     void initialize_input() const noexcept;

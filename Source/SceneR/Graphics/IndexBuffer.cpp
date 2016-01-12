@@ -24,7 +24,7 @@ IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
     create();
 }
 
-void IndexBuffer::dispose()
+void IndexBuffer::dispose() noexcept
 {
     if (_buffer != nullptr)
     {

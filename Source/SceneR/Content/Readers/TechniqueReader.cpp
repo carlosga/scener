@@ -39,7 +39,7 @@ using SceneR::Graphics::IGraphicsDeviceService;
 using SceneR::Graphics::Program;
 using SceneR::Graphics::RendererServiceContainer;
 
-auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());
@@ -56,7 +56,7 @@ auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::s
 
 void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
                                                        , const Json&      node
-                                                       , EffectTechnique* effect) const
+                                                       , EffectTechnique* effect) const noexcept
 {
     for (const auto& uniform : node["uniforms"].object_items())
     {
@@ -80,7 +80,7 @@ void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
 
 void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   input
                                                             , const Json&      node
-                                                            , EffectTechnique* effect) const
+                                                            , EffectTechnique* effect) const noexcept
 {
     for (const auto& source : node.object_items())
     {
@@ -159,7 +159,7 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
 
 void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
                                                         , const Json&      node
-                                                        , EffectTechnique* effect) const
+                                                        , EffectTechnique* effect) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto pass      = std::make_shared<EffectPass>(gdService->graphics_device());
@@ -179,7 +179,7 @@ void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
 
 void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     input
                                                          , const std::string& programName
-                                                         , EffectPass*        effectPass) const
+                                                         , EffectPass*        effectPass) const noexcept
 {
     // Pass program
     effectPass->_program = input->read_object_instance<Program>(programName);
@@ -200,7 +200,7 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     in
     }
 }
 
-void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* technique) const
+void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* technique) const noexcept
 {
     for (auto parameter : technique->_parameters)
     {
@@ -264,7 +264,7 @@ void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* techn
     }
 }
 
-void ContentTypeReader<EffectTechnique>::describe_parameter(EffectParameter* parameter, std::int32_t type) const
+void ContentTypeReader<EffectTechnique>::describe_parameter(EffectParameter* parameter, std::int32_t type) const noexcept
 {
     switch (type)
     {

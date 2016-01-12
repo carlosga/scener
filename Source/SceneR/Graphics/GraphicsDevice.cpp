@@ -54,7 +54,7 @@ GraphicsDevice::GraphicsDevice() noexcept
 {
 }
 
-void GraphicsDevice::dispose()
+void GraphicsDevice::dispose() noexcept
 {
     _blend_state.dispose();
     _depth_stencil_state.dispose();
@@ -74,7 +74,7 @@ void GraphicsDevice::dispose()
     }
 }
 
-void GraphicsDevice::clear(const Color& color) const
+void GraphicsDevice::clear(const Color& color) const noexcept
 {
     std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
@@ -99,7 +99,7 @@ void GraphicsDevice::draw_indexed_primitives(PrimitiveType primitiveType
                                            , std::size_t   minVertexIndex
                                            , std::size_t   numVertices
                                            , std::size_t   startIndex
-                                           , std::size_t   primitiveCount) const
+                                           , std::size_t   primitiveCount) const noexcept
 {
     if (index_buffer == nullptr)
     {
@@ -131,7 +131,9 @@ void GraphicsDevice::draw_indexed_primitives(PrimitiveType primitiveType
     effect->end();
 }
 
-void GraphicsDevice::draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const
+void GraphicsDevice::draw_primitives(PrimitiveType primitiveType
+                                   , std::size_t   startVertex
+                                   , std::size_t   primitiveCount) const noexcept
 {
     if (vertex_buffer == nullptr)
     {
@@ -153,7 +155,7 @@ void GraphicsDevice::draw_primitives(PrimitiveType primitiveType, std::size_t st
     effect->end();
 }
 
-void GraphicsDevice::present()
+void GraphicsDevice::present() noexcept
 {
     // TODO
     // glfwSwapBuffers(glfwGetCurrentContext());

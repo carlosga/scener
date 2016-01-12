@@ -17,7 +17,7 @@ using SceneR::Content::GLTF::Accessor;
 using SceneR::Graphics::Skeleton;
 using SceneR::Math::Matrix;
 
-auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto skeleton = std::make_shared<Skeleton>();
     auto accessor = input->read_object<Accessor>(source["inverseBindMatrices"].string_value());

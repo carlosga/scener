@@ -17,22 +17,22 @@ Ray::Ray(const Vector3& position, const Vector3& direction) noexcept
 {
 }
 
-bool Ray::intersects(const BoundingBox& boundingBox)
+bool Ray::intersects(const BoundingBox& boundingBox) noexcept
 {
     return (boundingBox.intersects(*this) == 0.0f);
 }
 
-bool Ray::intersects(const BoundingFrustum& frustum)
+bool Ray::intersects(const BoundingFrustum& frustum) noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-bool Ray::intersects(const BoundingSphere& sphere)
+bool Ray::intersects(const BoundingSphere& sphere) noexcept
 {
     return sphere.intersects(*this);
 }
 
-bool Ray::intersects(const Plane& plane)
+bool Ray::intersects(const Plane& plane) noexcept
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto denom = Vector3::dot(plane.normal, direction);
@@ -47,12 +47,12 @@ bool Ray::intersects(const Plane& plane)
     return (t > 0.0f);
 }
 
-bool Ray::operator ==(const Ray& ray) const
+bool Ray::operator ==(const Ray& ray) const noexcept
 {
     return (direction == ray.direction && position == ray.position);
 }
 
-bool Ray::operator !=(const Ray& ray) const
+bool Ray::operator !=(const Ray& ray) const noexcept
 {
     return (direction != ray.direction || position != ray.position);
 }

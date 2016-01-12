@@ -38,7 +38,7 @@ public:
     virtual ~DepthStencilState() override = default;
 
 public:
-    void dispose() override;
+    void dispose() noexcept override;
 
 public:
     DepthStencilState& operator=(const DepthStencilState& depthStencilState) = default;
@@ -129,7 +129,7 @@ public:
     bool two_sided_stencil_mode { false };
 
 private:
-    void apply() const;
+    void apply() const noexcept;
 
     friend class GraphicsDeviceManager;
 };

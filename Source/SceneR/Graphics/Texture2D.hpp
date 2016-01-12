@@ -55,7 +55,7 @@ public:
     virtual ~Texture2D() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     std::uint32_t id() const noexcept override;
@@ -91,20 +91,23 @@ public:
      * @param level the mipmap level.
      * @param data pointer with the mipmap data.
      */
-    void set_data(std::size_t level, std::size_t width, std::size_t height, const std::vector<std::uint8_t>& data) const;
+    void set_data(std::size_t                      level
+                , std::size_t                      width
+                , std::size_t                      height
+                , const std::vector<std::uint8_t>& data) const noexcept;
 
     /**
      * Activates the texture object
      */
-    void bind() const override;
+    void bind() const noexcept override;
 
     /**
      * Deactivates the texture object
      */
-    void unbind() const override;
+    void unbind() const noexcept override;
 
 private:
-    void declare_storage(std::size_t mipMapLevels);
+    void declare_storage(std::size_t mipMapLevels) noexcept;
 
 private:
     SurfaceFormat                 _format;

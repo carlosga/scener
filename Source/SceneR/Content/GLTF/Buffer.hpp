@@ -50,12 +50,12 @@ public:
     /**
      * Gets the buffer data.
      */
-    gsl::span<std::uint8_t> get_data(std::size_t offset, std::size_t count);
+    gsl::span<std::uint8_t> get_data(std::size_t offset, std::size_t count) noexcept;
 
     /**
      * Sets the buffer data.
      */
-    void set_data(const std::vector<std::uint8_t>& buffer);
+    void set_data(const std::vector<std::uint8_t>&& buffer) noexcept;
 
 private:
     std::size_t               _byte_length { 0 };

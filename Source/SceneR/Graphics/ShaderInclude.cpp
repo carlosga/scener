@@ -18,12 +18,12 @@ ShaderInclude::ShaderInclude(const std::string& name, const std::string& path, c
 {
 }
 
-void ShaderInclude::dispose()
+void ShaderInclude::dispose() noexcept
 {
     remove();
 }
 
-void ShaderInclude::declare() const
+void ShaderInclude::declare() const noexcept
 {
     if (!is_declared())
     {
@@ -31,7 +31,7 @@ void ShaderInclude::declare() const
     }
 }
 
-void ShaderInclude::remove() const
+void ShaderInclude::remove() const noexcept
 {
     if (!is_declared())
     {
@@ -39,7 +39,7 @@ void ShaderInclude::remove() const
     }
 }
 
-bool ShaderInclude::is_declared() const
+bool ShaderInclude::is_declared() const noexcept
 {
     return (glIsNamedStringARB(path.size(), path.c_str()));
 }

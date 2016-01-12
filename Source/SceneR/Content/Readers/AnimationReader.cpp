@@ -27,7 +27,7 @@ using SceneR::Math::Matrix;
 using SceneR::Math::Quaternion;
 using SceneR::Math::Vector3;
 
-auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto animation  = std::make_shared<Animation>();
     auto parameters = std::map<std::string, std::shared_ptr<Accessor>>();

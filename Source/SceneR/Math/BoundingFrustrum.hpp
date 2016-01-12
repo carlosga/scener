@@ -36,12 +36,12 @@ public:
      * Initializes a new instance of the BoundingFrustrum class.
      * @param value Combined matrix that usually takes view × projection matrix.
      */
-    BoundingFrustrum(const Matrix& value);
+    BoundingFrustrum(const Matrix& value) noexcept;
 
     /**
      * Initializes a new instance of the BoundingFrustrum class.
      */
-    BoundingFrustrum(const BoundingFrustrum& frustrum);
+    BoundingFrustrum(const BoundingFrustrum& frustrum) noexcept;
 
     /**
      * Releases all resources being used by this BoundingFrustrum
@@ -103,76 +103,76 @@ public:
      * @param box the BoundingBox to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingBox& box) const;
+    ContainmentType contains(const BoundingBox& box) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum contains another BoundingFrustrum.
      * @param box the BoundingFrustrum to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingFrustrum& box) const;
+    ContainmentType contains(const BoundingFrustrum& box) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum contains a BoundingSphere.
      * @param sphere the BoundingSphere to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const BoundingSphere& sphere) const;
+    ContainmentType contains(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum contains a point.
      * @param point the point to test for overlap.
      * @returns the extent of overlap
      */
-    ContainmentType contains(const Vector3& point) const;
+    ContainmentType contains(const Vector3& point) const noexcept;
 
     /**
      * Gets the list of points that make up the corners of the BoundingFrustrum.
      */
-    std::vector<Vector3> get_corners();
+    std::vector<Vector3> get_corners() noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum intersects a specified BoundingBox.
      * @param box the BoundingBox to test for intersection with.
      * @returns true if the BoundingFrustrum and BoundingBox intersect; false otherwise.
      */
-    bool intersects(const BoundingBox& box) const;
+    bool intersects(const BoundingBox& box) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum intersects with another BoundingFrustum.
      * @param frustrum the BoundingFrustum to test for intersection with.
      * @returns true if both BoundingFrustrum's intersect; false otherwise.
      */
-    bool intersects(const BoundingFrustrum& frustrum) const;
+    bool intersects(const BoundingFrustrum& frustrum) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum intersects a specified BoundingSphere.
      * @param sphere the BoundingSphere to test for intersection with.
      * @returns true if the BoundingFrustrum and BoundingSphere intersect; false otherwise.
      */
-    bool intersects(const BoundingSphere& sphere) const;
+    bool intersects(const BoundingSphere& sphere) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum intersects a specified Plane.
      * @param plane the Plane to test for intersection with.
      * @returns the relationship between the Plane and the BoundingFrustrum.
      */
-    PlaneIntersectionType intersects(const Plane& plane) const;
+    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
 
     /**
      * Checks whether the current BoundingFrustrum intersects a specified Ray.
      * @param ray the Ray to test for intersection with.
      * @returns distance at which the ray intersects the BoundingFrustrum, or 0 if there is no intersection.
      */
-    float intersects(const Ray& ray) const;
+    float intersects(const Ray& ray) const noexcept;
 
 public:
-    BoundingFrustrum& operator=(const BoundingFrustrum& frustrum);
-    bool operator==(const BoundingFrustrum& frustrum) const;
-    bool operator!=(const BoundingFrustrum& frustrum) const;
+    BoundingFrustrum& operator=(const BoundingFrustrum& frustrum) noexcept;
+    bool operator==(const BoundingFrustrum& frustrum) const noexcept;
+    bool operator!=(const BoundingFrustrum& frustrum) const noexcept;
 
 private:
-    void update_planes();
+    void update_planes() noexcept;
 
 private:
     Plane  _bottom;

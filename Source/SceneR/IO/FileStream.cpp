@@ -9,7 +9,7 @@ namespace SceneR { namespace IO {
 
 using SceneR::Text::Encoding;
 
-FileStream::FileStream(const std::string& path, const std::ios::openmode& mode)
+FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) noexcept
     : _stream { path, mode }
     , _mode   { mode }
 {
@@ -20,27 +20,27 @@ FileStream::~FileStream()
     close();
 }
 
-bool FileStream::can_read()
+bool FileStream::can_read() const noexcept
 {
     return ((_mode & std::ios::in) == std::ios::in);
 }
 
-bool FileStream::can_seek()
+bool FileStream::can_seek() const noexcept
 {
     return true;
 }
 
-bool FileStream::can_write()
+bool FileStream::can_write() const noexcept
 {
     return ((_mode & std::ios::out) == std::ios::out);
 }
 
-std::size_t FileStream::position()
+std::size_t FileStream::position() noexcept
 {
     return _stream.tellg();
 }
 
-std::size_t FileStream::length()
+std::size_t FileStream::length() noexcept
 {
     auto original = position();
     seek(0, std::ios::end);
@@ -50,7 +50,7 @@ std::size_t FileStream::length()
     return result;
 }
 
-void FileStream::close()
+void FileStream::close() noexcept
 {
     if (_stream.is_open())
     {
@@ -58,7 +58,7 @@ void FileStream::close()
     }
 }
 
-std::uint32_t FileStream::read_byte()
+std::uint32_t FileStream::read_byte() noexcept
 {
     std::uint8_t buffer;
 
@@ -67,14 +67,14 @@ std::uint32_t FileStream::read_byte()
     return buffer;
 }
 
-std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count)
+std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
 {
     _stream.read(buffer + offset, count);
 
     return _stream.gcount();
 }
 
-std::size_t FileStream::seek(std::size_t offset, const std::ios::seekdir& origin)
+std::size_t FileStream::seek(std::size_t offset, const std::ios::seekdir& origin) noexcept
 {
     _stream.seekg(offset, origin);
 

@@ -22,7 +22,7 @@ using SceneR::IO::File;
 using SceneR::IO::Path;
 using SceneR::IO::Stream;
 
-ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream)
+ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream) noexcept
     : _asset_name      { assetName }
     , _asset_reader    { stream }
     , _content_manager { contentManager }
@@ -40,7 +40,7 @@ ContentManager* ContentReader::content_manager() const noexcept
     return _content_manager;
 }
 
-std::shared_ptr<Model> ContentReader::read_asset()
+std::shared_ptr<Model> ContentReader::read_asset() noexcept
 {
     auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
     auto errors = std::string();
@@ -86,7 +86,7 @@ std::shared_ptr<Model> ContentReader::read_asset()
     return model;
 }
 
-bool ContentReader::read_header()
+bool ContentReader::read_header() noexcept
 {
     return true;
 }
@@ -98,7 +98,7 @@ std::string ContentReader::get_asset_path(const std::string& assetName) const no
     return Path::combine(_content_manager->root_directory(), assetRoot);
 }
 
-std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const
+std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const noexcept
 {
     auto assetPath = get_asset_path(assetName);
 
@@ -107,7 +107,7 @@ std::vector<std::uint8_t> ContentReader::read_external_reference(const std::stri
     return File::read_all_bytes(assetPath);
 }
 
-std::shared_ptr<GLTF::Node> ContentReader::find_joint_node(const std::string& jointName) const
+std::shared_ptr<GLTF::Node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
 {
     for (const auto node : _nodes)
     {

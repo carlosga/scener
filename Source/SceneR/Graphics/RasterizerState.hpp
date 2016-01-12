@@ -36,7 +36,7 @@ public:
     virtual ~RasterizerState() override = default;
 
 public:
-    void dispose() override;
+    void dispose() noexcept override;
 
 public:
     RasterizerState& operator=(const RasterizerState& rasterizerState) = default;
@@ -80,7 +80,7 @@ public:
     float slope_scale_depth_bias { 0.0f };
 
 private:
-    void apply() const;
+    void apply() const noexcept;
 
     friend class GraphicsDeviceManager;
 };

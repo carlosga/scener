@@ -19,7 +19,7 @@ using SceneR::Graphics::Shader;
 using SceneR::Graphics::ShaderInclude;
 using SceneR::Graphics::ShaderType;
 
-auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     const auto type = static_cast<ShaderType>(source["type"].int_value());
 
@@ -58,7 +58,7 @@ auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& ke
     return shader;
 }
 
-std::string ContentTypeReader<Shader>::load_shader_with_includes(ContentReader* input, const std::string& uri) const
+std::string ContentTypeReader<Shader>::load_shader_with_includes(ContentReader* input, const std::string& uri) const noexcept
 {
     const auto buffer      = input->read_external_reference(uri);
     const auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");

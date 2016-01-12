@@ -29,26 +29,26 @@ public:
     virtual ~Program() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     std::uint32_t id() const noexcept;
 
     SceneR::Graphics::OpenGL::ConstantBuffer* constant_buffer() const noexcept;
 
-    void create();
+    void create() noexcept;
 
-    void bind() const;
+    void bind() const noexcept;
 
-    void add_shader(std::shared_ptr<Shader> shader);
+    void add_shader(std::shared_ptr<Shader> shader) noexcept;
 
-    void unbind() const;
+    void unbind() const noexcept;
 
-    void link();
+    void link() noexcept;
 
-    std::map<std::string, std::size_t> get_uniform_offsets() const;
+    std::map<std::string, std::size_t> get_uniform_offsets() const noexcept;
 
-    void activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const;
+    void activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const noexcept;
 
 private:
     void verify_linking_state();

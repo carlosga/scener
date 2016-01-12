@@ -11,13 +11,13 @@
 
 namespace SceneR { namespace Graphics {
 
-GraphicsDeviceManager::GraphicsDeviceManager(gsl::not_null<Renderer*> renderer)
+GraphicsDeviceManager::GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer { renderer }
 {
     _renderer->services()->add_service<IGraphicsDeviceService>(*this);
 }
 
-void GraphicsDeviceManager::dispose()
+void GraphicsDeviceManager::dispose() noexcept
 {
     if (_graphics_device.get())
     {
@@ -26,7 +26,7 @@ void GraphicsDeviceManager::dispose()
     }
 }
 
-void GraphicsDeviceManager::apply_changes()
+void GraphicsDeviceManager::apply_changes() noexcept
 {
     _graphics_device->presentation_parameters().back_buffer_width  = preferred_back_buffer_width;
     _graphics_device->presentation_parameters().back_buffer_height = preferred_back_buffer_height;
@@ -44,17 +44,17 @@ void GraphicsDeviceManager::apply_changes()
     _graphics_device->depth_stencil_state().apply();
 }
 
-bool GraphicsDeviceManager::begin_draw()
+bool GraphicsDeviceManager::begin_draw() noexcept
 {
     return true;
 }
 
-void GraphicsDeviceManager::end_draw()
+void GraphicsDeviceManager::end_draw() noexcept
 {
     _graphics_device->present();
 }
 
-void GraphicsDeviceManager::create_device()
+void GraphicsDeviceManager::create_device() noexcept
 {
     _graphics_device = std::make_unique<GraphicsDevice>();
 }

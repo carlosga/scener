@@ -86,21 +86,23 @@ public:
     /**
      * Gets the accessor data.
      */
-    gsl::span<std::uint8_t> get_data() const;
+    gsl::span<std::uint8_t> get_data() const noexcept;
 
     /**
      * Gets the accessor data.
      */
-    gsl::span<std::uint8_t> get_data(std::size_t elementOffset, std::size_t elementCount) const;
+    gsl::span<std::uint8_t> get_data(std::size_t elementOffset, std::size_t elementCount) const noexcept;
 
     /**
      * Gets the element at the given offset from the accessor buffer.
      */
-    template <typename T>
-    T get_element(std::size_t elementOffset) const noexcept
+    template <typename T, typename = std::enable_if_t<std::is_constructible<T>::value>>
+    inline T get_element(std::size_t elementOffset) const noexcept
     {
         T    result;
         auto buffer = get_data(elementOffset, 1);
+        
+        Ensures(sizeof(T) == buffer.size());
 
         std::copy_n(buffer.begin(), sizeof(T), reinterpret_cast<char*>(&result));
 

@@ -33,7 +33,9 @@ public:
      * @param indexElementType the type of each index.
      * @param indexCount the number of indices.
      */
-    IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice, ComponentType indexElementType, std::size_t indexCount) noexcept;
+    IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
+              , ComponentType                  indexElementType
+              , std::size_t                    indexCount) noexcept;
 
     /**
      * Releases all resources being used by this indexbuffer instance
@@ -41,7 +43,7 @@ public:
     virtual ~IndexBuffer() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**

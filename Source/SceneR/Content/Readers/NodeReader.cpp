@@ -25,7 +25,7 @@ using SceneR::Math::Quaternion;
 using SceneR::Math::Vector3;
 using SceneR::Math::Vector4;
 
-auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto node = std::make_shared<Node>();
 

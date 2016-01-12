@@ -42,7 +42,7 @@ public:
     virtual ~BlendState() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     BlendState& operator=(const BlendState& blendState) = default;
@@ -110,7 +110,7 @@ public:
     std::uint32_t multi_sample_mask { 0 };
 
 private:
-    void apply() const;
+    void apply() const noexcept;
 
     friend class GraphicsDeviceManager;
 };

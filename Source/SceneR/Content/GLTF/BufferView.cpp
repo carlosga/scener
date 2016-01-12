@@ -22,12 +22,12 @@ const std::string& BufferView::name() const noexcept
     return _name;
 }
 
-gsl::span<std::uint8_t> BufferView::get_data() const
+gsl::span<std::uint8_t> BufferView::get_data() const noexcept
 {
     return get_data(0, _byte_length);
 }
 
-gsl::span<std::uint8_t> BufferView::get_data(std::size_t offset, std::size_t count) const
+gsl::span<std::uint8_t> BufferView::get_data(std::size_t offset, std::size_t count) const noexcept
 {
     return _buffer->get_data(_byte_offset + offset, count);
 }

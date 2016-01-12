@@ -18,10 +18,10 @@ public:
     ~ContentTypeReader() = default;
 
 public:
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const;
+    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    std::string load_shader_with_includes(ContentReader* input, const std::string& uri) const;
+    std::string load_shader_with_includes(ContentReader* input, const std::string& uri) const noexcept;
 };
 
 }}}

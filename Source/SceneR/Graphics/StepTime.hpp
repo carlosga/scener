@@ -17,14 +17,14 @@ public:
     /**
      * Initializes a new instance of the RenderTime class.
      */
-    StepTime();
+    StepTime() noexcept;
 
     /**
      * Initializes a new instance of the RenderTime class.
      * @param totalRenderTime the amount of render time since the start of the game.
      * @param elapsedRenderTime the amount of elapsed render time since the last update.
      */
-    StepTime(const SceneR::TimeSpan& totalRenderTime, const SceneR::TimeSpan& elapsedRenderTime);
+    StepTime(const SceneR::TimeSpan& totalRenderTime, const SceneR::TimeSpan& elapsedRenderTime) noexcept;
 
     /**
      * Initializes a new instance of the RenderTime class.
@@ -34,7 +34,7 @@ public:
      */
     StepTime(const SceneR::TimeSpan& totalRenderTime
            , const SceneR::TimeSpan& elapsedRenderTime
-           , bool                    isRunningSlowly);
+           , bool                    isRunningSlowly) noexcept;
 
     /**
      * Releases all resources being used by this RenderTime instance.

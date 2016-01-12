@@ -28,7 +28,7 @@ Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
 {
 }
 
-void Texture2D::dispose()
+void Texture2D::dispose() noexcept
 {
     _storage.dispose();
 }
@@ -63,23 +63,26 @@ SamplerState* Texture2D::sampler_state() const noexcept
     return _sampler_state.get();
 }
 
-void Texture2D::set_data(std::size_t level, std::size_t width, std::size_t height, const std::vector<std::uint8_t>& data) const
+void Texture2D::set_data(std::size_t                      level
+                       , std::size_t                      width
+                       , std::size_t                      height
+                       , const std::vector<std::uint8_t>& data) const noexcept
 {
     _storage.set_data(_format, level, width, height, data);
 }
 
-void Texture2D::declare_storage(std::size_t mipMapLevels)
+void Texture2D::declare_storage(std::size_t mipMapLevels) noexcept
 {
     _storage.declare_storage(_format, mipMapLevels, _width, _height);
     _mipmap_levels = mipMapLevels;
 }
 
-void Texture2D::bind() const
+void Texture2D::bind() const noexcept
 {
     _storage.bind();
 }
 
-void Texture2D::unbind() const
+void Texture2D::unbind() const noexcept
 {
     _storage.unbind();
 }

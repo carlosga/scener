@@ -27,7 +27,7 @@ public:
     /**
      * Initializes a new instance of the GraphicsDeviceManager class
      */
-    GraphicsDeviceManager(gsl::not_null<Renderer*> renderer);
+    GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) noexcept;
 
     /**
      * Destructor
@@ -35,28 +35,28 @@ public:
     ~GraphicsDeviceManager() = default;
 
 public:
-    void dispose() override;
+    void dispose() noexcept override;
 
 public:
     /**
      * Applies any changes to device-related propertie.
      */
-    void apply_changes();
+    void apply_changes() noexcept;
 
     /**
      * Starts the drawing of a frame.
      */
-    bool begin_draw() override;
+    bool begin_draw() noexcept override;
 
     /**
      * Called by the renderer at the end of drawing; presents the final rendering.
      */
-    void end_draw() override;
+    void end_draw() noexcept override;
 
     /**
      * Creates the graphics device.
      */
-    void create_device() override;
+    void create_device() noexcept override;
 
     /**
      * Gets the graphics device.

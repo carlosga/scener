@@ -7,42 +7,42 @@
 
 namespace SceneR { namespace IO {
 
-MemoryStream::MemoryStream(const gsl::span<std::uint8_t>& buffer)
+MemoryStream::MemoryStream(const gsl::span<std::uint8_t>& buffer) noexcept
     : _buffer   { buffer }
     , _position { _buffer.begin() }
 {
 }
 
-bool MemoryStream::can_read()
+bool MemoryStream::can_read() const noexcept
 {
     return true;
 }
 
-bool MemoryStream::can_seek()
+bool MemoryStream::can_seek() const noexcept
 {
     return true;
 }
 
-bool MemoryStream::can_write()
+bool MemoryStream::can_write() const noexcept
 {
     return false;
 }
 
-std::size_t MemoryStream::position()
+std::size_t MemoryStream::position() noexcept
 {
     return std::distance(_position, _buffer.begin());
 }
 
-std::size_t MemoryStream::length()
+std::size_t MemoryStream::length() noexcept
 {
     return _buffer.size();
 }
 
-void MemoryStream::close()
+void MemoryStream::close() noexcept
 {
 }
 
-std::uint32_t MemoryStream::read_byte()
+std::uint32_t MemoryStream::read_byte() noexcept
 {
     std::uint8_t buffer;
 
@@ -51,7 +51,7 @@ std::uint32_t MemoryStream::read_byte()
     return buffer;
 }
 
-std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t count)
+std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
 {
     Ensures(_position + count <= _buffer.end());
 
@@ -62,7 +62,7 @@ std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t cou
     return count;
 }
 
-std::size_t MemoryStream::seek(std::size_t offset, const std::ios::seekdir& origin)
+std::size_t MemoryStream::seek(std::size_t offset, const std::ios::seekdir& origin) noexcept
 {
     Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
 

@@ -12,7 +12,7 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-RenderContext::RenderContext(DisplayDevice* display, DisplaySurface* surface)
+RenderContext::RenderContext(DisplayDevice* display, DisplaySurface* surface) noexcept
     : _display(display)
     , _surface(surface)
 {

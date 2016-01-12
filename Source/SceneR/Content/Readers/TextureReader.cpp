@@ -24,7 +24,7 @@ using SceneR::Graphics::SamplerState;
 using SceneR::Graphics::SurfaceFormat;
 using SceneR::Graphics::Texture2D;
 
-auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string& key, const Json& source) const
+auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto surface   = input->read_object<Surface>(source["source"].string_value());

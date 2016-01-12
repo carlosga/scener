@@ -215,16 +215,16 @@ public:
 public:
     TimeSpan& operator=(const TimeSpan& t2) = default;
 
-    bool operator==(const TimeSpan& t2) const;
-    bool operator!=(const TimeSpan& t2) const;
-    bool operator>(const TimeSpan& t2) const;
-    bool operator>=(const TimeSpan& t2) const;
-    bool operator<(const TimeSpan& t2) const;
-    bool operator<=(const TimeSpan& t2) const;
-    TimeSpan& operator-=(const TimeSpan& t2);
-    TimeSpan& operator+=(const TimeSpan& t2);
-    const TimeSpan operator-(const TimeSpan& t2) const;
-    const TimeSpan operator+(const TimeSpan& t2) const;
+    bool operator==(const TimeSpan& t2) const noexcept;
+    bool operator!=(const TimeSpan& t2) const noexcept;
+    bool operator>(const TimeSpan& t2) const noexcept;
+    bool operator>=(const TimeSpan& t2) const noexcept;
+    bool operator<(const TimeSpan& t2) const noexcept;
+    bool operator<=(const TimeSpan& t2) const noexcept;
+    TimeSpan& operator-=(const TimeSpan& t2) noexcept;
+    TimeSpan& operator+=(const TimeSpan& t2) noexcept;
+    const TimeSpan operator-(const TimeSpan& t2) const noexcept;
+    const TimeSpan operator+(const TimeSpan& t2) const noexcept;
 
 private:
     TimeSpan::ticks_duration _ticks;

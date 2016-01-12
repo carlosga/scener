@@ -27,7 +27,7 @@ public:
     virtual ~VertexArrayObject() override = default;
 
 public:
-    virtual void dispose() override;
+    virtual void dispose() noexcept override;
 
 public:
     /**
@@ -38,17 +38,17 @@ public:
     /**
      * Activates this vertex array object.
      */
-    void bind() const;
+    void bind() const noexcept;
 
     /**
      * Creates the vertex array object.
      */
-    void create();
+    void create() noexcept;
 
     /**
      * Deactivates this vertex array object.
      */
-    void unbind() const;
+    void unbind() const noexcept;
 
 private:
     std::uint32_t _id = 0;
