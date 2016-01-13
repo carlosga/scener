@@ -29,11 +29,11 @@ Vector3 Vector3::abs(const Vector3& value) noexcept
     return { std::abs(value.x), std::abs(value.y), std::abs(value.z) };
 }
 
-float Vector3::angle_between(const Vector3& left, const Vector3& right) noexcept
+Radians Vector3::angle_between(const Vector3& left, const Vector3& right) noexcept
 {
     float lengthSquared = left.length_squared() * right.length_squared();
 
-    return std::acos(Vector3::dot(left, right) / std::sqrt(lengthSquared));
+    return { std::acos(Vector3::dot(left, right) / std::sqrt(lengthSquared)) };
 }
 
 Vector3 Vector3::barycentric(const Vector3& value1

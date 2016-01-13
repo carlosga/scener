@@ -6,6 +6,8 @@
 
 #include <cstddef>
 
+#include "SceneR/Math/Angle.hpp"
+
 namespace SceneR { namespace Math {
 
 struct Matrix;
@@ -88,7 +90,7 @@ public:
      * @param right The second Vector3 to evaluate.
      * @return The angle, in radians, needed to rotate the left vector into the right vector.
      */
-    static float angle_between(const Vector3& left, const Vector3& right) noexcept;
+    static Radians angle_between(const Vector3& left, const Vector3& right) noexcept;
 
     /**
      * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and

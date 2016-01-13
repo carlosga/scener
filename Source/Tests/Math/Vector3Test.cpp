@@ -159,7 +159,7 @@ TEST_F(Vector3Test, AngleBetween)
     auto angle = Vector3::angle_between({ 20.0f, 30.0f, 40.0f }, { 45.0f, 70.0f, 80.0f });
 
     // angleBetween is approximately equal to 4.15128803
-    EXPECT_TRUE(0.0724536479f == angle);
+    EXPECT_TRUE(0.0724536479f == angle.value());
 }
 
 TEST_F(Vector3Test, Addition)
