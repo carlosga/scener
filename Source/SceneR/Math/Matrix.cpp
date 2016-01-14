@@ -627,24 +627,6 @@ bool Matrix::is_identity() const noexcept
     return (*this == Matrix::identity);
 }
 
-std::string Matrix::to_string() const noexcept
-{
-    std::ostringstream stream;
-
-    // loop through 3x3 submatrix
-    for (std::uint32_t di = 0; di < 4; di++)
-    {
-        for (std::uint32_t dj = 0; dj < 4; dj++)
-        {
-            stream << data[di * 4 + dj] << '\t';
-        }
-
-        stream << '\n';
-    }
-
-    return stream.str();
-}
-
 float& Matrix::operator[](const std::size_t& index) noexcept
 {
     Expects(index < 16);

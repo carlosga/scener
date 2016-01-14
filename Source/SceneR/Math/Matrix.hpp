@@ -384,8 +384,6 @@ public:
      */
     bool is_identity() const noexcept;
 
-    std::string to_string() const noexcept;
-
 public:
     Matrix& operator=(const Matrix& data) = default;
 
