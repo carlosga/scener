@@ -389,16 +389,16 @@ public:
 
     float& operator[](const std::size_t& index) noexcept;
     const float& operator[](const std::size_t& index) const noexcept;
-    bool operator==(const Matrix& data) const noexcept;
-    bool operator!=(const Matrix& data) const noexcept;
-    Matrix& operator*=(const Matrix& data) noexcept;
+    bool operator==(const Matrix& matrix) const noexcept;
+    bool operator!=(const Matrix& matrix) const noexcept;
+    Matrix& operator*=(const Matrix& right) noexcept;
     Matrix& operator*=(const float& value) noexcept;
-    Matrix& operator+=(const Matrix& data) noexcept;
-    Matrix& operator-=(const Matrix& data) noexcept;
-    const Matrix operator*(const Matrix& data) const noexcept;
+    Matrix& operator+=(const Matrix& matrix) noexcept;
+    Matrix& operator-=(const Matrix& matrix) noexcept;
+    const Matrix operator*(const Matrix& matrix) const noexcept;
     const Matrix operator*(const float& value) const noexcept;
-    const Matrix operator+(const Matrix& data) const noexcept;
-    const Matrix operator-(const Matrix& data) const noexcept;
+    const Matrix operator+(const Matrix& matrix) const noexcept;
+    const Matrix operator-(const Matrix& matrix) const noexcept;
     const Matrix operator-() const noexcept;
 
 private:

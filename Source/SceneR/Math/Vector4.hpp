@@ -301,26 +301,26 @@ public:
     float length() const noexcept;
 
 public:
-    Vector4& operator=(const Vector4& data) = default;
+    Vector4& operator=(const Vector4& vector) = default;
 
     float& operator[](const std::size_t& index) noexcept;
     const float& operator[](const std::size_t& index) const noexcept;
-    bool operator==(const Vector4& data) const noexcept;
-    bool operator!=(const Vector4& data) const noexcept;
-    Vector4& operator*=(const Vector4& data) noexcept;
+    bool operator==(const Vector4& vector) const noexcept;
+    bool operator!=(const Vector4& vector) const noexcept;
+    Vector4& operator*=(const Vector4& vector) noexcept;
     Vector4& operator*=(const float& value) noexcept;
-    Vector4& operator/=(const Vector4& data) noexcept;
+    Vector4& operator/=(const Vector4& vector) noexcept;
     Vector4& operator/=(const float& value) noexcept;
-    Vector4& operator-=(const Vector4& data) noexcept;
-    Vector4& operator+=(const Vector4& data) noexcept;
-    const Vector4 operator*(const Vector4& data) const noexcept;
+    Vector4& operator-=(const Vector4& vector) noexcept;
+    Vector4& operator+=(const Vector4& vector) noexcept;
+    const Vector4 operator*(const Vector4& vector) const noexcept;
     const Vector4 operator*(const float& value) const noexcept;
     const Vector4 operator*(const Matrix& matrix) const noexcept;
-    const Vector4 operator/(const Vector4& data) const noexcept;
+    const Vector4 operator/(const Vector4& vector) const noexcept;
     const Vector4 operator/(const float& value) const noexcept;
-    const Vector4 operator-(const Vector4& data) const noexcept;
+    const Vector4 operator-(const Vector4& vector) const noexcept;
     const Vector4 operator-() const noexcept;
-    const Vector4 operator+(const Vector4& data) const noexcept;
+    const Vector4 operator+(const Vector4& vector) const noexcept;
 
 public:
     union
