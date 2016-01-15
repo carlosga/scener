@@ -13,12 +13,14 @@ namespace SceneR { namespace Content { namespace DDS {
 class SurfaceMipmap final
 {
 public:
-    typedef std::size_t   index_type;
-    typedef std::size_t   size_type;
+    typedef std::size_t index_type;
+    typedef std::size_t size_type;
 
 public:
     SurfaceMipmap(index_type index, size_type width, size_type height) noexcept;
     ~SurfaceMipmap() = default;
+    SurfaceMipmap(const SurfaceMipmap& mipmap) = default;
+    SurfaceMipmap(SurfaceMipmap&& mipmap) = default;
 
 public:
     index_type index() const noexcept;
@@ -26,6 +28,9 @@ public:
     size_type  height() const noexcept;
     const std::vector<std::uint8_t>& get_data() const noexcept;
     void set_data(std::vector<std::uint8_t>&& buffer) noexcept;
+
+public:
+    SurfaceMipmap& operator=(const SurfaceMipmap& mipmap) = default;
 
 private:
     index_type                _index;
