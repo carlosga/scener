@@ -6,7 +6,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <vector>
+
+#include <gsl.h>
 
 #include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/OpenGL/TextureTarget.hpp"
@@ -82,11 +83,11 @@ public:
      * @param height mipmap height
      * @param data mipmap data
      */
-    void set_data(SceneR::Graphics::SurfaceFormat  format
-                , std::size_t                      level
-                , std::size_t                      width
-                , std::size_t                      height
-                , const std::vector<std::uint8_t>& data) const noexcept;
+    void set_data(SceneR::Graphics::SurfaceFormat      format
+                , std::size_t                          level
+                , std::size_t                          width
+                , std::size_t                          height
+                , const gsl::span<const std::uint8_t>& data) const noexcept;
 
 private:
     std::uint32_t _id;

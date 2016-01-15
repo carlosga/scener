@@ -3,8 +3,6 @@
 
 #include "SceneR/Graphics/OpenGL/TextureStorage.hpp"
 
-#include <gsl_assert.h>
-
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
@@ -67,11 +65,11 @@ void TextureStorage::declare_storage(SurfaceFormat format
                      , static_cast<GLint>(height));
 }
 
-void TextureStorage::set_data(SurfaceFormat                    format
-                            , std::size_t                      level
-                            , std::size_t                      width
-                            , std::size_t                      height
-                            , const std::vector<std::uint8_t>& data) const noexcept
+void TextureStorage::set_data(SurfaceFormat                        format
+                            , std::size_t                          level
+                            , std::size_t                          width
+                            , std::size_t                          height
+                            , const gsl::span<const std::uint8_t>& data) const noexcept
 {
     auto si_level  = static_cast<GLint>(level);
     auto si_width  = static_cast<GLint>(width);
