@@ -3,13 +3,12 @@
 
 #include "SceneR/Content/DDS/Surface.hpp"
 
-#include <gsl.h>
+#include <gsl_assert.h>
 
 #include "SceneR/Content/DDS/Dds.hpp"
 #include "SceneR/IO/BinaryReader.hpp"
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/FileStream.hpp"
-#include "SceneR/IO/MemoryStream.hpp"
 #include "SceneR/Math/Math.hpp"
 
 namespace SceneR { namespace Content { namespace DDS {
@@ -17,14 +16,12 @@ namespace SceneR { namespace Content { namespace DDS {
 using SceneR::Graphics::SurfaceFormat;
 using SceneR::IO::BinaryReader;
 using SceneR::IO::FileStream;
-using SceneR::IO::MemoryStream;
 
 void Surface::load(const std::string& filename) noexcept
 {
     Expects(SceneR::IO::File::exists(filename));
 
-    auto         buffer = read_file(filename);
-    MemoryStream stream(gsl::as_span(buffer));
+    FileStream   stream(filename);
     BinaryReader reader(stream);
     DDS_HEADER   ddsheader;
     std::size_t  blockSize = 16;
@@ -84,13 +81,10 @@ void Surface::load(const std::string& filename) noexcept
 
     for (std::size_t level = 0; level < ddsheader.dwMipMapCount; level++)
     {
-        SurfaceMipmap mipmap;
         std::size_t   size = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
+        SurfaceMipmap mipmap { level, mipmapWidth, mipmapHeight };
 
-        mipmap._index  = level;
-        mipmap._width  = mipmapWidth;
-        mipmap._height = mipmapHeight;
-        mipmap._data   = reader.read_bytes(size);
+        mipmap.set_data(reader.read_bytes(size));
 
         _mipmaps.push_back(mipmap);
 
@@ -99,7 +93,7 @@ void Surface::load(const std::string& filename) noexcept
     }
 }
 
-const SceneR::Graphics::SurfaceFormat& Surface::format() const noexcept
+SurfaceFormat Surface::format() const noexcept
 {
     return _format;
 }
@@ -117,14 +111,6 @@ Surface::size_type Surface::height() const noexcept
 const std::vector<SurfaceMipmap>& Surface::mipmaps() const noexcept
 {
     return _mipmaps;
-}
-
-std::vector<uint8_t> Surface::read_file(const std::string& filename) const noexcept
-{
-    FileStream   stream(filename);
-    BinaryReader reader(stream);
-
-    return reader.read_bytes(stream.length());
 }
 
 }}}

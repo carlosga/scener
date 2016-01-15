@@ -25,13 +25,10 @@ public:
     void load(const std::string& filename) noexcept;
 
 public:
-    const SceneR::Graphics::SurfaceFormat& format() const noexcept;
+    SceneR::Graphics::SurfaceFormat format() const noexcept;
     size_type width() const noexcept;
     size_type height() const noexcept;
     const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
-
-private:
-    std::vector<std::uint8_t> read_file(const std::string& filename) const noexcept;
 
 private:
     SceneR::Graphics::SurfaceFormat _format;
