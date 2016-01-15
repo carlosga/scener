@@ -341,11 +341,11 @@ public:
          , float m41, float m42, float m43, float m44) noexcept;
 
     /**
-     * Initializes a new instance of the Vector3 class (Copy constructor)
+     * Initializes a new instance of the Matrix class (Copy constructor)
      *
      * @param matrix The Matrix to be copied.
      */
-    Matrix(const Matrix& data) = default;
+    Matrix(const Matrix& matrix) = default;
 
     /**
      * Destructor
