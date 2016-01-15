@@ -58,9 +58,7 @@ public:
         FileStream   stream(path);
         BinaryReader reader(stream);
 
-        auto buffer = reader.read_bytes(stream.length());
-
-        return buffer;
+        return reader.read_bytes(stream.length());
     }
 
 private:
