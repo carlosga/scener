@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 
-#include <cassert>
+#include <gsl_assert.h>
 
 #include "SceneR/IO/BinaryReader.hpp"
 #include "SceneR/IO/FileStream.hpp"
@@ -53,7 +53,7 @@ public:
      */
     static std::vector<std::uint8_t> read_all_bytes(const std::string& path) noexcept
     {
-        assert(exists(path));
+        Expects(exists(path));
 
         FileStream   stream(path);
         BinaryReader reader(stream);
