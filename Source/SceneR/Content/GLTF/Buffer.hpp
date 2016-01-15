@@ -50,7 +50,7 @@ public:
     /**
      * Gets the buffer data.
      */
-    gsl::span<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
+    gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
     /**
      * Sets the buffer data.
@@ -60,7 +60,6 @@ public:
 private:
     std::size_t               _byte_length { 0 };
     std::vector<std::uint8_t> _data        { 0 };
-    gsl::span<std::uint8_t>   _data_view   { };
     std::string               _name        { };
     std::string               _uri         { };
 

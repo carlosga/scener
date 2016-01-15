@@ -64,7 +64,7 @@ public:
     /**
      * Sets the vertex buffer data
      */
-    void set_data(const gsl::span<std::uint8_t>& data) const noexcept;
+    void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
 
     /**
      * Defines per-vertex data in a buffer.

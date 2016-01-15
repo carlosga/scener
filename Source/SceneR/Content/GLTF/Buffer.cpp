@@ -20,15 +20,16 @@ std::size_t Buffer::byte_length() const noexcept
     return _byte_length;
 }
 
-gsl::span<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+gsl::span<const std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
-    return _data_view.subspan(offset, count);
+    Expects(offset < _data.size() && (offset + count) <= _data.size());
+
+    return gsl::span<const std::uint8_t>(_data.data() + offset, count);
 }
 
 void Buffer::set_data(std::vector<std::uint8_t>&& buffer) noexcept
 {
-    _data      = std::move(buffer);
-    _data_view = gsl::as_span(_data.data(), _data.size());
+    _data = std::move(buffer);
 }
 
 }}}

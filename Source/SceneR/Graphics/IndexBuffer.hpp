@@ -75,7 +75,7 @@ public:
     /**
      * Sets the indices buffer data
      */
-    void set_data(const gsl::span<std::uint8_t>& data) const noexcept;
+    void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
 
 private:
     void bind() const noexcept;

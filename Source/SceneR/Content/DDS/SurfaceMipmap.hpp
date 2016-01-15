@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <vector>
 
+#include <gsl.h>
+
 namespace SceneR { namespace Content { namespace DDS {
 
 class SurfaceMipmap final
@@ -26,7 +28,7 @@ public:
     index_type index() const noexcept;
     size_type  width() const noexcept;
     size_type  height() const noexcept;
-    const std::vector<std::uint8_t>& get_data() const noexcept;
+    gsl::span<const std::uint8_t> get_data() const noexcept;
     void set_data(std::vector<std::uint8_t>&& buffer) noexcept;
 
 public:

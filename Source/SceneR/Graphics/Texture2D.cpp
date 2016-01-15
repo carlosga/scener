@@ -63,10 +63,10 @@ SamplerState* Texture2D::sampler_state() const noexcept
     return _sampler_state.get();
 }
 
-void Texture2D::set_data(std::size_t                      level
-                       , std::size_t                      width
-                       , std::size_t                      height
-                       , const std::vector<std::uint8_t>& data) const noexcept
+void Texture2D::set_data(std::size_t                   level
+                       , std::size_t                   width
+                       , std::size_t                   height
+                       , gsl::span<const std::uint8_t> data) const noexcept
 {
     _storage.set_data(_format, level, width, height, data);
 }

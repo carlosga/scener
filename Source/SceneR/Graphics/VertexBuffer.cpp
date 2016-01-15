@@ -64,7 +64,7 @@ std::vector<std::uint8_t> VertexBuffer::get_data(std::size_t startIndex, std::si
     return _vbo->get_data(offset, size);
 }
 
-void VertexBuffer::set_data(const gsl::span<std::uint8_t>& data) const noexcept
+void VertexBuffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
 {
     Expects(_vbo != nullptr)
 

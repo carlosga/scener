@@ -73,7 +73,7 @@ std::vector<std::uint8_t> IndexBuffer::get_data(std::size_t startIndex, std::siz
     return _buffer->get_data(offset, size);
 }
 
-void IndexBuffer::set_data(const gsl::span<std::uint8_t>& data) const noexcept
+void IndexBuffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
 {
     Expects(_buffer != nullptr);
 

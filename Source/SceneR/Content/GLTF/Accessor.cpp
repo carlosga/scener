@@ -54,12 +54,12 @@ const std::string& Accessor::name() const noexcept
     return _name;
 }
 
-gsl::span<std::uint8_t> Accessor::get_data() const noexcept
+gsl::span<const std::uint8_t> Accessor::get_data() const noexcept
 {
     return get_data(0, _attribute_count);
 }
 
-gsl::span<std::uint8_t> Accessor::get_data(std::size_t elementOffset, std::size_t elementCount) const noexcept
+gsl::span<const std::uint8_t> Accessor::get_data(std::size_t elementOffset, std::size_t elementCount) const noexcept
 {
     return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
 }

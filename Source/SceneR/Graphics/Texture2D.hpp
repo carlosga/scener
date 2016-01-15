@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <memory>
 
-#include <vector>
+#include <gsl.h>
 
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 #include "SceneR/Graphics/Texture.hpp"
@@ -91,10 +91,10 @@ public:
      * @param level the mipmap level.
      * @param data pointer with the mipmap data.
      */
-    void set_data(std::size_t                      level
-                , std::size_t                      width
-                , std::size_t                      height
-                , const std::vector<std::uint8_t>& data) const noexcept;
+    void set_data(std::size_t                   level
+                , std::size_t                   width
+                , std::size_t                   height
+                , gsl::span<const std::uint8_t> data) const noexcept;
 
     /**
      * Activates the texture object

@@ -27,9 +27,9 @@ SurfaceMipmap::size_type SurfaceMipmap::height() const noexcept
     return _height;
 }
 
-const std::vector<std::uint8_t>& SurfaceMipmap::get_data() const noexcept
+gsl::span<const std::uint8_t> SurfaceMipmap::get_data() const noexcept
 {
-    return _data;
+    return gsl::span<const std::uint8_t>(_data.data(), _data.size());
 }
 
 void SurfaceMipmap::set_data(std::vector<std::uint8_t>&& buffer) noexcept
