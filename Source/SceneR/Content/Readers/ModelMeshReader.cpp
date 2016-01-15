@@ -152,7 +152,7 @@ void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Js
     }
 
     // Initialize vertex buffer
-    meshPart->_vertex_buffer->set_data(vertexData);
+    meshPart->_vertex_buffer->set_data({ vertexData });
 
     // Effect Material
     auto materialRef = source["material"].string_value();
