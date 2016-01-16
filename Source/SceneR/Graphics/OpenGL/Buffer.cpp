@@ -70,12 +70,12 @@ std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t size)
     return data;
 }
 
-void Buffer::set_data(std::size_t size, const void* data) const noexcept
+void Buffer::set_data(std::size_t size, gsl::not_null<const void*> data) const noexcept
 {
     glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
 }
 
-void Buffer::set_data(std::size_t offset, std::size_t size, const void* data) const noexcept
+void Buffer::set_data(std::size_t offset, std::size_t size, gsl::not_null<const void*> data) const noexcept
 {
     glNamedBufferSubData(_id, offset, size, data);
 }

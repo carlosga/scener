@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include <gsl.h>
+
 #include "SceneR/IDisposable.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
@@ -85,12 +87,12 @@ public:
     /**
      * Sets the constant buffer data.
      */
-    void set_data(const void* data) const noexcept;
+    void set_data(gsl::not_null<const void*> data) const noexcept;
 
     /**
      * Sets the constant buffer data.
      */
-    void set_data(std::size_t offset, std::size_t count, const void *data) const noexcept;
+    void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
 
 private:
     std::string             _name;

@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <vector>
 
+#include <gsl.h>
+
 #include "SceneR/IDisposable.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
@@ -81,7 +83,7 @@ public:
      * @param data specifies a pointer to data that will be copied into the data store for initialization,
      *             or NULL if no data is to be copied.
      */
-    void set_data(std::size_t size, const void* data) const noexcept;
+    void set_data(std::size_t size, gsl::not_null<const void*> data) const noexcept;
 
     /**
      * Updates a subset of a buffer object's data store
@@ -89,7 +91,7 @@ public:
      * @param size specifies the size in bytes of the data store region being replaced.
      * @param data specifies a pointer to the new data that will be copied into the data store.
      */
-    void set_data(std::size_t offset, std::size_t size, const void* data) const noexcept;
+    void set_data(std::size_t offset, std::size_t size, gsl::not_null<const void*> data) const noexcept;
 
     /**
      * Invalidate the content of a buffer object's data store

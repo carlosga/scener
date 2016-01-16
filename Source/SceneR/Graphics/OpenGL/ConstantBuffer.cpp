@@ -92,12 +92,12 @@ std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size
     return _buffer_object->get_data(offset, count);
 }
 
-void ConstantBuffer::set_data(const void* data) const noexcept
+void ConstantBuffer::set_data(gsl::not_null<const void*> data) const noexcept
 {
     set_data(0, _size, data);
 }
 
-void ConstantBuffer::set_data(std::size_t offset, std::size_t count, const void* data) const noexcept
+void ConstantBuffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
     _buffer_object->set_data(offset, count, data);
 }
