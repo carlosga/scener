@@ -26,7 +26,7 @@ public:
     /**
      * Releases all resources being used by this UTF8Encoder.
      */
-    virtual ~UTF8Encoder() override = default;
+    ~UTF8Encoder() override = default;
 
 public:
     std::size_t get_byte_count(const std::vector<char16_t>& chars

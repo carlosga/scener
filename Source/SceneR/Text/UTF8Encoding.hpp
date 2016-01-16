@@ -28,7 +28,7 @@ public:
     /**
      * Releases all resources being used by this Encoding.
      */
-    virtual ~UTF8Encoding() override = default;
+    ~UTF8Encoding() override = default;
 
 public:
     std::u16string encoding_name() const override;

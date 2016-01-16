@@ -27,7 +27,7 @@ public:
     /**
      * Releases all resources being used by this UTF8Decoder.
      */
-    virtual ~UTF8Decoder() override = default;
+    ~UTF8Decoder() override = default;
 
 public:
     std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;
