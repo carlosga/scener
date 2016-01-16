@@ -12,7 +12,7 @@ protected:
     // virtual void SetUp() will be called before each test is run.  You
     // should define it if you need to initialize the varaibles.
     // Otherwise, this can be skipped.
-    virtual void SetUp()
+    void SetUp() override
     {
     }
 
