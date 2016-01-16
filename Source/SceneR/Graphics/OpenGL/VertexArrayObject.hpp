@@ -24,10 +24,10 @@ public:
     /**
      * Releases all resources being used by this VertexArrayObject.
      */
-    virtual ~VertexArrayObject() override = default;
+    ~VertexArrayObject() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

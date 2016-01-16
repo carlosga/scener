@@ -40,12 +40,12 @@ public:
     /**
      * Called when the component should be drawn.
      */
-    virtual void draw(const StepTime& renderTime) noexcept override;
+    void draw(const StepTime& renderTime) noexcept override;
 
     /**
      * Gets a value indicating whether this object is enabled.
      */
-    virtual bool visible() const noexcept override;
+    bool visible() const noexcept override;
 
     /**
      * Sets a value indicating whether this object is enabled.
@@ -56,7 +56,7 @@ public:
     /**
      * The order in which to draw this object relative to other objects.
      */
-    virtual std::uint32_t draw_order() const noexcept override;
+    std::uint32_t draw_order() const noexcept override;
 
     /**
      * The order in which to draw this object relative to other objects.
@@ -68,7 +68,7 @@ public:
      * This method can be used for tasks like querying for
      * services the component needs and setting up non-graphics resources.
      */
-    virtual void initialize() noexcept override;
+    void initialize() noexcept override;
 
 protected:
     virtual void load_content() noexcept;

@@ -33,10 +33,10 @@ public:
     /**
      * Releases all resources being used by this Model.
      */
-    virtual ~Model() override = default;
+    ~Model() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

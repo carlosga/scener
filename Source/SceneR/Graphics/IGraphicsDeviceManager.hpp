@@ -23,7 +23,7 @@ public:
     /**
      * Releases all resources being used by this IGraphicsDeviceManager instance
      */
-    virtual void dispose() noexcept override = 0;
+    void dispose() noexcept override = 0;
 
 public:
    /**

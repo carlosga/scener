@@ -42,7 +42,7 @@ public:
     /**
      * Called when the component should be updated.
      */
-    virtual void update(const StepTime& renderTime) noexcept override;
+    void update(const StepTime& renderTime) noexcept override;
 
     /**
      * Gets a value indicating whether the component is enabled.
@@ -58,7 +58,7 @@ public:
      * Gets the order in which to update this object relative to other objects.
      * @returns the order in which to update this object relative to other objects.
      */
-    virtual std::uint32_t update_order() const noexcept override;
+    std::uint32_t update_order() const noexcept override;
 
     /**
      * Sets the order in which to update this object relative to other objects.

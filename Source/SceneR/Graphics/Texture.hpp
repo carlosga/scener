@@ -30,10 +30,10 @@ public:
     /**
      * Releases all resources being used by this texture.
      */
-    virtual ~Texture() override = default;
+    ~Texture() override = default;
 
 public:
-    virtual void dispose() noexcept override = 0;
+    void dispose() noexcept override = 0;
 
 public:
     /**
