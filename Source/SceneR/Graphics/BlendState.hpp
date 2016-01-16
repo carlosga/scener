@@ -39,10 +39,10 @@ public:
     /**
      * Releases all resources being used by this BlendState.
      */
-    virtual ~BlendState() override = default;
+    ~BlendState() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     BlendState& operator=(const BlendState& blendState) = default;

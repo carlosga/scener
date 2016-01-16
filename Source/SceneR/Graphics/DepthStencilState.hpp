@@ -35,7 +35,7 @@ public:
     /**
      * Releases all resources being used by this DepthStencilState
      */
-    virtual ~DepthStencilState() override = default;
+    ~DepthStencilState() override = default;
 
 public:
     void dispose() noexcept override;

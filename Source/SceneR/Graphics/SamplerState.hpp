@@ -35,10 +35,10 @@ public:
     /**
      * Destructor
      */
-    virtual ~SamplerState() override = default;
+    ~SamplerState() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     SamplerState& operator=(const SamplerState& samplerState) = default;

@@ -48,10 +48,10 @@ public:
     /**
      * Release all resources being used by the GraphicsDevice instance.
      */
-    virtual ~GraphicsDevice() override = default;
+    ~GraphicsDevice() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

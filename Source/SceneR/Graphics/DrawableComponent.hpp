@@ -29,7 +29,7 @@ public:
     /**
      * Releases all resources being used by this DrawableComponent.
      */
-    virtual ~DrawableComponent() override = default;
+    ~DrawableComponent() override = default;
 
 public:
     /**

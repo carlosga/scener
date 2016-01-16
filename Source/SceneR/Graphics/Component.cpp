@@ -5,42 +5,40 @@
 
 #include "SceneR/Graphics/Renderer.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+Component::Component(gsl::not_null<Renderer*> renderer) noexcept
+    : _renderer ( renderer )
 {
-    namespace Graphics
-    {
-        Component::Component(gsl::not_null<Renderer*> renderer) noexcept
-            : _renderer ( renderer )
-        {
-        }
-
-        Renderer* Component::renderer() noexcept
-        {
-            return _renderer;
-        }
-
-        void Component::update(const StepTime& renderTime) noexcept
-        {
-        }
-
-        bool Component::enabled() const noexcept
-        {
-            return _enabled;
-        }
-
-        void Component::enabled(bool enabled) noexcept
-        {
-            _enabled = enabled;
-        }
-
-        std::uint32_t Component::update_order() const noexcept
-        {
-            return _update_order;
-        }
-
-        void Component::update_order(std::uint32_t updateOrder) noexcept
-        {
-            _update_order = updateOrder;
-        }
-    }
 }
+
+Renderer* Component::renderer() noexcept
+{
+    return _renderer;
+}
+
+void Component::update(const StepTime& renderTime) noexcept
+{
+}
+
+bool Component::enabled() const noexcept
+{
+    return _enabled;
+}
+
+void Component::enabled(bool enabled) noexcept
+{
+    _enabled = enabled;
+}
+
+std::uint32_t Component::update_order() const noexcept
+{
+    return _update_order;
+}
+
+void Component::update_order(std::uint32_t updateOrder) noexcept
+{
+    _update_order = updateOrder;
+}
+
+}}

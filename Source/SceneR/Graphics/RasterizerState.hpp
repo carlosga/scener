@@ -33,7 +33,7 @@ public:
     /**
      * Releases all resources being used by this RasterizerState
      */
-    virtual ~RasterizerState() override = default;
+    ~RasterizerState() override = default;
 
 public:
     void dispose() noexcept override;
