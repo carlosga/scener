@@ -33,7 +33,7 @@ class Texture2D;
 /**
  * Used to set and query effects, and to choose techniques.
  */
-class EffectTechnique : public GraphicsResource, public IEffectMatrices, public IEffectLights
+class EffectTechnique final : public GraphicsResource, public IEffectMatrices, public IEffectLights
 {
 public:
     /**
@@ -51,10 +51,10 @@ public:
     /**
      * Destructor
      */
-    virtual ~EffectTechnique() override = default;
+    ~EffectTechnique() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

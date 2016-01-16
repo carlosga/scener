@@ -29,10 +29,10 @@ public:
     /**
      * Destructor
      */
-    virtual ~GraphicsResource() override = default;
+    ~GraphicsResource() override = default;
 
 public:
-    virtual void dispose() noexcept override = 0;
+    void dispose() noexcept override = 0;
 
 public:
     /**

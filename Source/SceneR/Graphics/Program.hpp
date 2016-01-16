@@ -26,10 +26,10 @@ class Program final : public SceneR::IDisposable
 public:
     Program() = default;
 
-    virtual ~Program() override = default;
+    ~Program() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     std::uint32_t id() const noexcept;

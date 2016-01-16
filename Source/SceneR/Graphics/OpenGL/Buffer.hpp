@@ -20,7 +20,7 @@ enum class BufferUsage  : std::uint32_t;
 /**
  * Represents an OpenGL buffer object.
  */
-class Buffer : SceneR::IDisposable
+class Buffer final : SceneR::IDisposable
 {
 public:
     /**
@@ -33,10 +33,10 @@ public:
     /**
      * Releases all resources being used by this Buffer.
      */
-    virtual ~Buffer() override = default;
+    ~Buffer() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

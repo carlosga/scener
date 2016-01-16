@@ -36,10 +36,10 @@ public:
     /**
      * Releases all resources being used by this ConstantBuffer.
      */
-    virtual ~ConstantBuffer() override = default;
+    ~ConstantBuffer() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

@@ -23,7 +23,7 @@ namespace SceneR { namespace Graphics { namespace OpenGL {
 /**
  * Represents an opengl texture object.
  */
-class TextureStorage : SceneR::IDisposable
+class TextureStorage final : SceneR::IDisposable
 {
 private:
     static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept;
@@ -38,10 +38,10 @@ public:
     /**
      * Releases all resources being used by this TextureStorage.
      */
-    ~TextureStorage() = default;
+    ~TextureStorage() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**
