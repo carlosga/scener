@@ -41,10 +41,10 @@ public:
     /**
      * Destructor
      */
-    virtual ~Shader() override = default;
+    ~Shader() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

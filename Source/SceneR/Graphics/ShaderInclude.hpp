@@ -12,7 +12,7 @@
 
 namespace SceneR { namespace Graphics {
 
-struct ShaderInclude : public SceneR::IDisposable
+struct ShaderInclude final : public SceneR::IDisposable
 {
 public:
     ShaderInclude(const std::string&               name
@@ -21,10 +21,10 @@ public:
 
     ShaderInclude(const std::string& name, const std::string& path, const std::string& source) noexcept;
 
-    virtual ~ShaderInclude() override = default;
+    ~ShaderInclude() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     void declare() const noexcept;

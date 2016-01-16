@@ -40,10 +40,10 @@ public:
     /**
      * Releases all resources being used by this indexbuffer instance
      */
-    virtual ~IndexBuffer() override = default;
+    ~IndexBuffer() override = default;
 
 public:
-    virtual void dispose() noexcept override;
+    void dispose() noexcept override;
 
 public:
     /**

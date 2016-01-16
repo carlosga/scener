@@ -27,7 +27,7 @@ public:
     /**
      * Releases all resources being used by this MemoryStream.
      */
-    virtual ~MemoryStream() override = default;
+    ~MemoryStream() override = default;
 
 public:
     /**

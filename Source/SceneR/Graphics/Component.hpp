@@ -31,7 +31,7 @@ public:
     /**
      * Releases all resources being used by this component instance.
      */
-    virtual ~Component() = default;
+    virtual ~Component() override = default;
 
 public:
     /**
