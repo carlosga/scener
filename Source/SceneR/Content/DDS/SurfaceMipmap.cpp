@@ -33,9 +33,9 @@ gsl::span<const std::uint8_t> SurfaceMipmap::get_data() const noexcept
     return gsl::span<const std::uint8_t>(_data.data(), _data.size());
 }
 
-void SurfaceMipmap::set_data(std::vector<std::uint8_t>&& buffer) noexcept
+void SurfaceMipmap::set_data(const std::vector<std::uint8_t>& buffer) noexcept
 {
-    _data = std::move(buffer);
+    _data = buffer;
 }
 
 }}}

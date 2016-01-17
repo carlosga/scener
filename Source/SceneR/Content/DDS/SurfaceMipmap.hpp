@@ -29,7 +29,7 @@ public:
     size_type  width() const noexcept;
     size_type  height() const noexcept;
     gsl::span<const std::uint8_t> get_data() const noexcept;
-    void set_data(std::vector<std::uint8_t>&& buffer) noexcept;
+    void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
 
 public:
     SurfaceMipmap& operator=(const SurfaceMipmap& mipmap) = default;

@@ -15,13 +15,17 @@ using SceneR::Content::GLTF::Buffer;
 
 auto ContentTypeReader<Buffer>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto buffer = std::make_shared<Buffer>();
+    auto       buffer = std::make_shared<Buffer>();
+    const auto uri    = source["uri"].string_value();
+    const auto data   = input->read_external_reference(uri);
 
     buffer->_name        = key;
-    buffer->_uri         = source["uri"].string_value();
+    buffer->_uri         = uri;
     buffer->_byte_length = source["byteLength"].int_value();
 
-    buffer->set_data(input->read_external_reference(buffer->_uri));
+    Ensures(buffer->_byte_length == data.size());
+
+    buffer->set_data(data);
 
     return buffer;
 }

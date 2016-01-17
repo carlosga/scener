@@ -55,7 +55,7 @@ public:
     /**
      * Sets the buffer data.
      */
-    void set_data(std::vector<std::uint8_t>&& buffer) noexcept;
+    void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
 
 private:
     std::size_t               _byte_length { 0 };

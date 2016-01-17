@@ -83,10 +83,11 @@ void Surface::load(const std::string& filename) noexcept
 
     for (std::size_t level = 0; level < ddsheader.dwMipMapCount; ++level)
     {
-        std::size_t   size = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
-        SurfaceMipmap mipmap { level, mipmapWidth, mipmapHeight };
+        auto mipmap = SurfaceMipmap { level, mipmapWidth, mipmapHeight };
+        auto size   = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
+        auto buffer = reader.read_bytes(size);
 
-        mipmap.set_data(reader.read_bytes(size));
+        mipmap.set_data(buffer);
 
         _mipmaps.push_back(mipmap);
 
