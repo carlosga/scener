@@ -60,27 +60,29 @@ namespace SceneR { namespace Content { namespace Readers {
 
 auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto mesh = std::make_shared<ModelMesh>();
+    auto mesh       = std::make_shared<ModelMesh>();
+    auto primitives = source["primitives"].array_items();
 
     mesh->_name = key;
+    mesh->_mesh_parts.reserve(primitives.size());
 
-    for (const auto& primitive : source["primitives"].array_items())
+    for (const auto& primitive : primitives)
     {
-        read_mesh_part(input, primitive, mesh.get());
+        mesh->_mesh_parts.push_back(read_mesh_part(input, primitive));
     }
 
     return mesh;
 }
 
-void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Json& source, ModelMesh* mesh) const noexcept
+std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Json& source) const noexcept
 {
+    auto meshPart      = std::make_shared<ModelMeshPart>();
     auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto device        = gdService->graphics_device();
-    auto meshPart      = std::make_shared<ModelMeshPart>();
     auto accessors     = std::vector<std::shared_ptr<Accessor>>();
     auto elements      = std::vector<VertexElement>();
-    auto vertexStride  = std::size_t(0);
-    auto vertexCount   = std::size_t(0);
+    auto vertexStride  = std::size_t { 0 };
+    auto vertexCount   = std::size_t { 0 };
     auto indices       = input->read_object<Accessor>(source["indices"].string_value());
     auto componentType = indices->component_type();
     auto indexCount    = indices->attribute_count();
@@ -90,7 +92,12 @@ void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Js
     meshPart->_index_buffer->set_data(indices->get_data());
 
     // Vertex buffer
-    for (const auto& attribute : source["attributes"].object_items())
+    auto attributes = source["attributes"].object_items();
+
+    accessors.reserve(attributes.size());
+    elements.reserve(attributes.size());
+
+    for (const auto& attribute : attributes)
     {
         const auto accessor   = input->read_object<Accessor>(attribute.second.string_value());
         const auto format     = get_vertex_element_format(accessor->attribute_type());
@@ -139,7 +146,7 @@ void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Js
     auto vertexData = std::vector<std::uint8_t>(vertexStride * vertexCount, 0);
     auto position   = vertexData.begin();
 
-    for (std::size_t i = 0; i < vertexCount; i++)
+    for (std::size_t i = 0; i < vertexCount; ++i)
     {
         for (const auto accessor : accessors)
         {
@@ -161,7 +168,7 @@ void ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Js
         meshPart->effect = read_material(input, materialRef);
     }
 
-    mesh->_mesh_parts.push_back(meshPart);
+    return meshPart;
 }
 
 std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input

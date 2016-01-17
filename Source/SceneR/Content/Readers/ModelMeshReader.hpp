@@ -13,14 +13,11 @@ enum class VertexElementUsage  : std::uint32_t;
 
 class EffectTechnique;
 class ModelMesh;
+class ModelMeshPart;
 
 }}
 
-namespace SceneR { namespace Content { namespace GLTF {
-
-enum class AttributeType : std::uint32_t;
-
-}}}
+namespace SceneR { namespace Content { namespace GLTF { enum class AttributeType : std::uint32_t; } } }
 
 namespace SceneR { namespace Content { namespace Readers {
 
@@ -38,7 +35,7 @@ public:
     auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    void read_mesh_part(ContentReader* input, const json11::Json& source, Graphics::ModelMesh* mesh) const noexcept;
+    std::shared_ptr<Graphics::ModelMeshPart> read_mesh_part(ContentReader* input, const json11::Json& source) const noexcept;
 
     std::shared_ptr<Graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const noexcept;
 

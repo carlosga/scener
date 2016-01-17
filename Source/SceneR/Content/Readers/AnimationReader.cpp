@@ -52,7 +52,9 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
     // Process only bone animations
     Ensures(target && target->joint);
 
-    for (std::size_t i = 0; i < count; i++)
+    animation->_keyframes.reserve(count);
+
+    for (std::size_t i = 0; i < count; ++i)
     {
         Quaternion rotation    = Quaternion::identity;
         Vector3    scale       = Vector3::one;

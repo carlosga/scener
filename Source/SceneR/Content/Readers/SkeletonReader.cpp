@@ -29,15 +29,22 @@ auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& 
     skeleton->_bind_shape_matrix = input->convert<Matrix>(source["bindShapeMatrix"].array_items());
 
     // Inverse bind matrices
+    skeleton->_inverse_bind_matrices.reserve(accessor->attribute_count());
+
     for (std::size_t i = 0; i < accessor->attribute_count(); i++)
     {
         skeleton->_inverse_bind_matrices.push_back(accessor->get_element<Matrix>(i));
     }
 
     // Joints
-    std::size_t boneIndex = 0;
+    auto jointNames = source["jointNames"].array_items();
+    auto boneIndex  = std::size_t { 0 };
+    auto jointCount = jointNames.size();
 
-    for (const auto& jointName : source["jointNames"].array_items())
+    skeleton->_joints.reserve(jointCount);
+    skeleton->_bone_transforms.reserve(jointCount);
+
+    for (const auto& jointName : jointNames)
     {
         auto node = input->find_joint_node(jointName.string_value());
 

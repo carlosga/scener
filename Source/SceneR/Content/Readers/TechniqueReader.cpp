@@ -166,6 +166,8 @@ void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
 
     pass->_name = "default_pass";
 
+    pass->_parameters.reserve(effect->_parameters.size());
+
     for (const auto& param : effect->_parameters)
     {
         pass->_parameters.push_back(param.second);
@@ -183,9 +185,6 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     in
 {
     // Pass program
     effectPass->_program = input->read_object_instance<Program>(programName);
-
-    // Attributes
-    // ignored, they should be passed in the vertex buffer
 
     // Uniforms
     auto offsets = effectPass->_program->get_uniform_offsets();

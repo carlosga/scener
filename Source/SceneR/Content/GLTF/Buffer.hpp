@@ -59,7 +59,7 @@ public:
 
 private:
     std::size_t               _byte_length { 0 };
-    std::vector<std::uint8_t> _data        { 0 };
+    std::vector<std::uint8_t> _data        { };
     std::string               _name        { };
     std::string               _uri         { };
 

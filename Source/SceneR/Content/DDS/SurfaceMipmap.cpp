@@ -9,6 +9,7 @@ SurfaceMipmap::SurfaceMipmap(index_type index, size_type width, size_type height
     : _index  { index  }
     , _width  { width  }
     , _height { height }
+    , _data   { }
 {
 }
 

@@ -29,14 +29,14 @@ public:
     /**
      * Destructor
      */
-    ~ContentLoadException() noexcept;
+    ~ContentLoadException() noexcept override;
 
 public:
     /**
      * Gets the message that describes the error.
      * @return  the message describing the error.
      */
-    const char* what() const noexcept;
+    const char* what() const noexcept override;
 
 public:
     ContentLoadException& operator=(const ContentLoadException& exception);

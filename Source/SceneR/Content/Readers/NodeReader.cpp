@@ -37,6 +37,8 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
     node->scale       = Vector3::one;
     node->translation = Vector3::zero;
 
+    // transforms
+
     if (!source["matrix"].is_null())
     {
         node->matrix = input->convert<Matrix>(source["matrix"].array_items());
@@ -57,6 +59,8 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
         }
     }
 
+    // node children's
+
     if (!source["jointName"].is_null())
     {
         node->joint        = std::make_shared<ModelBone>();
@@ -73,7 +77,11 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
                                     * Matrix::create_translation(node->translation);
         }
 
-        for (const auto& child : source["children"].array_items())
+        auto children = source["children"].array_items();
+
+        node->joint->_children.reserve(children.size());
+
+        for (const auto& child : children)
         {
             auto childNode = input->read_object<Node>(child.string_value());
 
@@ -91,7 +99,13 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
         }
     }
 
-    for (const auto& meshRef : source["meshes"].array_items())
+    // meshes
+
+    auto meshes = source["meshes"].array_items();
+
+    node->meshes.reserve(meshes.size());
+
+    for (const auto& meshRef : meshes)
     {
         auto mesh = input->read_object<ModelMesh>(meshRef.string_value());
 
@@ -100,16 +114,16 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
         node->meshes.push_back(mesh);
     }
 
+    // skin
+
     if (!source["skin"].is_null())
     {
         auto skin = source["skin"].string_value();
         node->instance_skin = input->read_object_instance<Skeleton>(skin, input->_root["skins"][skin]);
 
         // The meshes for the skin instance
-        for (const auto mesh : node->meshes)
-        {
-            mesh->_skeleton = node->instance_skin;
-        }
+        std::for_each(node->meshes.begin(), node->meshes.end()
+                    , [&node](const auto& mesh) { mesh->_skeleton = node->instance_skin; });
     }
 
     return node;
