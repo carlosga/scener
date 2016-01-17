@@ -32,7 +32,7 @@ public:
     /**
      * Destructor
      */
-    ~GraphicsDeviceManager() = default;
+    ~GraphicsDeviceManager() override = default;
 
 public:
     void dispose() noexcept override;

@@ -17,7 +17,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~IGraphicsDeviceManager() = default;
+    ~IGraphicsDeviceManager() override = default;
 
 public:
     /**
