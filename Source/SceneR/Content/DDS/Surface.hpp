@@ -31,10 +31,10 @@ public:
     const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
 
 private:
-    SceneR::Graphics::SurfaceFormat _format;
-    size_type                       _width;
-    size_type                       _height;
-    std::vector<SurfaceMipmap>      _mipmaps;
+    SceneR::Graphics::SurfaceFormat _format  { SceneR::Graphics::SurfaceFormat::color };
+    size_type                       _width   { 0 };
+    size_type                       _height  { 0 };
+    std::vector<SurfaceMipmap>      _mipmaps { };
 };
 
 }}}

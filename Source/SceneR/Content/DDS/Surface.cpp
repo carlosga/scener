@@ -6,31 +6,25 @@
 #include <gsl_assert.h>
 
 #include "SceneR/Content/DDS/Dds.hpp"
-#include "SceneR/IO/BinaryReader.hpp"
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/FileStream.hpp"
-#include "SceneR/Math/Math.hpp"
 
 namespace SceneR { namespace Content { namespace DDS {
 
 using SceneR::Graphics::SurfaceFormat;
-using SceneR::IO::BinaryReader;
 using SceneR::IO::FileStream;
 
 void Surface::load(const std::string& filename) noexcept
 {
     Expects(SceneR::IO::File::exists(filename));
 
-    FileStream   stream(filename);
-    BinaryReader reader(stream);
-    DDS_HEADER   ddsheader;
-    std::size_t  blockSize = 16;
+    FileStream  stream(filename);
+    DDS_HEADER  ddsheader;
+    std::size_t blockSize = 16;
 
     Ensures(stream.length() >= 128);
 
-    auto rawHeader = reader.read_bytes(128);
-
-    std::copy_n(rawHeader.begin(), 128, ddsheader.data);
+    stream.read(reinterpret_cast<char*>(&ddsheader), 0, sizeof ddsheader);
 
     // ensure contents are in DDS format
     Ensures(ddsheader.dwMagic == 0x20534444);
@@ -79,13 +73,17 @@ void Surface::load(const std::string& filename) noexcept
     auto mipmapWidth  = _width;
     auto mipmapHeight = _height;
 
+    _mipmaps.clear();
     _mipmaps.reserve(ddsheader.dwMipMapCount);
 
     for (std::size_t level = 0; level < ddsheader.dwMipMapCount; ++level)
     {
         auto mipmap = SurfaceMipmap { level, mipmapWidth, mipmapHeight };
         auto size   = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
-        auto buffer = reader.read_bytes(size);
+        auto buffer = std::vector<std::uint8_t>(size, 0);
+        auto readed = stream.read(reinterpret_cast<char*>(buffer.data()), 0, size);
+
+        Ensures(readed == size);
 
         mipmap.set_data(buffer);
 
