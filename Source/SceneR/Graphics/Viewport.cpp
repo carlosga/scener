@@ -31,9 +31,7 @@ Viewport::Viewport(float x, float y, float width, float height, float minDepth, 
 
 float Viewport::aspect_ratio() const noexcept
 {
-    Expects(width > 0 && height > 0);
-
-    return (width / height);
+    return ((width > 0 && height > 0) ? (width / height) : 0.0f);
 }
 
 void Viewport::update() const noexcept
