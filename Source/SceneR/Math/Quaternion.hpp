@@ -171,8 +171,8 @@ public:
     Quaternion operator/(const Quaternion& value) const noexcept;
     Quaternion operator/(const float& value) const noexcept;
     Quaternion operator-(const Quaternion& value) const noexcept;
-    Quaternion operator-() const noexcept;
     Quaternion operator+(const Quaternion& value) const noexcept;
+    Quaternion operator-() const noexcept;
 
 public:
     union
