@@ -27,7 +27,7 @@ public:
     /**
      * Releases all resources being used by this FileStream.
      */
-    ~FileStream() override;
+    ~FileStream() override = default;
 
 public:
     /**

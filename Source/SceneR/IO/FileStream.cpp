@@ -3,21 +3,19 @@
 
 #include "SceneR/IO/FileStream.hpp"
 
-#include "SceneR/Text/Encoding.hpp"
+//#include <locale>
+//#include <codecvt>
 
 namespace SceneR { namespace IO {
-
-using SceneR::Text::Encoding;
 
 FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) noexcept
     : _stream { path, mode }
     , _mode   { mode }
 {
-}
-
-FileStream::~FileStream()
-{
-    close();
+//    if (_stream.is_open() && _stream.good())
+//    {
+//        _stream.imbue(std::locale(_stream.getloc(), new std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>));
+//    }
 }
 
 bool FileStream::can_read() const noexcept

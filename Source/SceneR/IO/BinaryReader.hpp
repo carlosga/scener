@@ -7,8 +7,6 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Text/Encoding.hpp"
-
 namespace SceneR { namespace IO {
 
 class Stream;
@@ -22,12 +20,12 @@ public:
     /**
      * Initializes a new instance of the BinaryReader class with the given stream.
      */
-    BinaryReader(Stream& stream, const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8) noexcept;
+    BinaryReader(Stream& stream) noexcept;
 
     /**
      * Releases all resources being used by this BinaryReader.
      */
-    ~BinaryReader();
+    ~BinaryReader() = default;
 
 public:
     /**
@@ -67,8 +65,7 @@ public:
     BinaryReader& operator=(const BinaryReader& reader) = delete;
 
 private:
-    Stream&                       _stream;
-    const SceneR::Text::Encoding& _encoding;
+    Stream& _stream;
 };
 
 }}

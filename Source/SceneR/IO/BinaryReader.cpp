@@ -6,21 +6,12 @@
 #include <string>
 
 #include "SceneR/IO/Stream.hpp"
-#include "SceneR/Text/Encoding.hpp"
 
 namespace SceneR { namespace IO {
 
-using SceneR::Text::Encoding;
-
-BinaryReader::BinaryReader(Stream& stream, const Encoding& encoding) noexcept
+BinaryReader::BinaryReader(Stream& stream) noexcept
     : _stream   { stream }
-    , _encoding { encoding }
 {
-}
-
-BinaryReader::~BinaryReader()
-{
-    close();
 }
 
 Stream& BinaryReader::base_stream() noexcept
@@ -68,6 +59,7 @@ std::string BinaryReader::read() noexcept
 
     return std::string(buffer.begin(), buffer.end());
 }
+
 
 template<>
 bool BinaryReader::read() noexcept
