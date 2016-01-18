@@ -395,11 +395,11 @@ public:
     Matrix& operator*=(const float& value) noexcept;
     Matrix& operator+=(const Matrix& matrix) noexcept;
     Matrix& operator-=(const Matrix& matrix) noexcept;
-    const Matrix operator*(const Matrix& matrix) const noexcept;
-    const Matrix operator*(const float& value) const noexcept;
-    const Matrix operator+(const Matrix& matrix) const noexcept;
-    const Matrix operator-(const Matrix& matrix) const noexcept;
-    const Matrix operator-() const noexcept;
+    Matrix operator*(const Matrix& matrix) const noexcept;
+    Matrix operator*(const float& value) const noexcept;
+    Matrix operator+(const Matrix& matrix) const noexcept;
+    Matrix operator-(const Matrix& matrix) const noexcept;
+    Matrix operator-() const noexcept;
 
 private:
     float sub_matrix_determinant() const noexcept;

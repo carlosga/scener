@@ -320,7 +320,7 @@ Vector3& Vector3::operator+=(const Vector3& vector) noexcept
     return *this;
 }
 
-const Vector3 Vector3::operator*(const Vector3& vector) const noexcept
+Vector3 Vector3::operator*(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
@@ -329,7 +329,7 @@ const Vector3 Vector3::operator*(const Vector3& vector) const noexcept
     return result;
 }
 
-const Vector3 Vector3::operator*(const float& value) const noexcept
+Vector3 Vector3::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -338,7 +338,7 @@ const Vector3 Vector3::operator*(const float& value) const noexcept
     return result;
 }
 
-const Vector3 Vector3::operator*(const Matrix& matrix) const noexcept
+Vector3 Vector3::operator*(const Matrix& matrix) const noexcept
 {
     // http://softimage.wiki.softimage.com/xsidocs/iceref_Multiply_Vector_by_Matrix.htm
     float vx = (x * matrix.m11)
@@ -364,7 +364,7 @@ const Vector3 Vector3::operator*(const Matrix& matrix) const noexcept
     return { vx / vw, vy / vw, vz / vw };
 }
 
-const Vector3 Vector3::operator/(const Vector3& vector) const noexcept
+Vector3 Vector3::operator/(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
@@ -373,7 +373,7 @@ const Vector3 Vector3::operator/(const Vector3& vector) const noexcept
     return result;
 }
 
-const Vector3 Vector3::operator/(const float& value) const noexcept
+Vector3 Vector3::operator/(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -382,7 +382,7 @@ const Vector3 Vector3::operator/(const float& value) const noexcept
     return result;
 }
 
-const Vector3 Vector3::operator-(const Vector3& vector) const noexcept
+Vector3 Vector3::operator-(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
@@ -391,18 +391,18 @@ const Vector3 Vector3::operator-(const Vector3& vector) const noexcept
     return result;
 }
 
-const Vector3 Vector3::operator-() const noexcept
-{
-    return *this * -1;
-}
-
-const Vector3 Vector3::operator+(const Vector3& vector) const noexcept
+Vector3 Vector3::operator+(const Vector3& vector) const noexcept
 {
     auto result = *this;
 
     result += vector;
 
     return result;
+}
+
+Vector3 Vector3::operator-() const noexcept
+{
+    return { -x , -y, -z };
 }
 
 }}

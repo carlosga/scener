@@ -768,7 +768,7 @@ Matrix& Matrix::operator-=(const Matrix& matrix) noexcept
     return *this;
 }
 
-const Matrix Matrix::operator*(const Matrix& matrix) const noexcept
+Matrix Matrix::operator*(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -777,7 +777,7 @@ const Matrix Matrix::operator*(const Matrix& matrix) const noexcept
     return result;
 }
 
-const Matrix Matrix::operator*(const float& value) const noexcept
+Matrix Matrix::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -786,7 +786,7 @@ const Matrix Matrix::operator*(const float& value) const noexcept
     return result;
 }
 
-const Matrix Matrix::operator+(const Matrix& matrix) const noexcept
+Matrix Matrix::operator+(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -795,7 +795,7 @@ const Matrix Matrix::operator+(const Matrix& matrix) const noexcept
     return result;
 }
 
-const Matrix Matrix::operator-(const Matrix& matrix) const noexcept
+Matrix Matrix::operator-(const Matrix& matrix) const noexcept
 {
     auto result = *this;
 
@@ -804,13 +804,12 @@ const Matrix Matrix::operator-(const Matrix& matrix) const noexcept
     return result;
 }
 
-const Matrix Matrix::operator-() const noexcept
+Matrix Matrix::operator-() const noexcept
 {
-    auto result = *this;
-
-    result *= -1;
-
-    return result;
+    return { -m11, -m12, -m13, -m14
+           , -m21, -m22, -m23, -m24
+           , -m31, -m32, -m33, -m34
+           , -m41, -m42, -m43, -m44 };
 }
 
 float Matrix::sub_matrix_determinant() const noexcept

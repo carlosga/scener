@@ -243,13 +243,13 @@ public:
     Vector2& operator/=(const float& value) noexcept;
     Vector2& operator-=(const Vector2& vector) noexcept;
     Vector2& operator+=(const Vector2& vector) noexcept;
-    const Vector2 operator*(const Vector2& vector) const noexcept;
-    const Vector2 operator*(const float& value) const noexcept;
-    const Vector2 operator/(const Vector2& vector) const noexcept;
-    const Vector2 operator/(const float& value) const noexcept;
-    const Vector2 operator-(const Vector2& vector) const noexcept;
-    const Vector2 operator-() const noexcept;
-    const Vector2 operator+(const Vector2& vector) const noexcept;
+    Vector2 operator*(const Vector2& vector) const noexcept;
+    Vector2 operator*(const float& value) const noexcept;
+    Vector2 operator/(const Vector2& vector) const noexcept;
+    Vector2 operator/(const float& value) const noexcept;
+    Vector2 operator-(const Vector2& vector) const noexcept;
+    Vector2 operator+(const Vector2& vector) const noexcept;
+    Vector2 operator-() const noexcept;
 
 public:
     union

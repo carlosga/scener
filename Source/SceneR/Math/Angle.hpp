@@ -11,7 +11,7 @@
 namespace SceneR { namespace Math {
 
 template <typename T>
-struct DegreesUnit
+struct degrees_unit
 {
     static constexpr T pi() noexcept
     {
@@ -20,7 +20,7 @@ struct DegreesUnit
 };
 
 template <typename T>
-struct RadiansUnit
+struct radians_unit
 {
     static constexpr T pi() noexcept
     {
@@ -28,7 +28,7 @@ struct RadiansUnit
     }
 };
 
-template <typename T, typename Unit = RadiansUnit<T>, typename = std::enable_if_t<std::is_floating_point<T>::value>>
+template <typename T, typename Unit = radians_unit<T>, typename = std::enable_if_t<std::is_floating_point<T>::value>>
 class Angle
 {
 public:
@@ -108,7 +108,7 @@ public:
         _value += angle.value;
     }
 
-    inline const Angle operator*(const Angle& angle) const noexcept
+    inline Angle operator*(const Angle& angle) const noexcept
     {
         auto result = *this;
 
@@ -117,7 +117,7 @@ public:
         return result;
     }
 
-    inline const Angle operator*(const T& value) const noexcept
+    inline Angle operator*(const T& value) const noexcept
     {
         auto result = *this;
 
@@ -126,7 +126,7 @@ public:
         return result;
     }
 
-    inline const Angle operator/(const Angle& angle) const noexcept
+    inline Angle operator/(const Angle& angle) const noexcept
     {
         auto result = *this;
 
@@ -135,7 +135,7 @@ public:
         return result;
     }
 
-    inline const Angle operator/(const T& value) const noexcept
+    inline Angle operator/(const T& value) const noexcept
     {
         auto result = *this;
 
@@ -144,7 +144,7 @@ public:
         return result;
     }
 
-    inline const Angle operator-(const Angle& angle) const noexcept
+    inline Angle operator-(const Angle& angle) const noexcept
     {
         auto result = *this;
 
@@ -153,22 +153,18 @@ public:
         return result;
     }
 
-    inline const Angle operator-() const noexcept
-    {
-        auto result = *this;
-
-        result *= -1;
-
-        return result;
-    }
-
-    inline const Angle operator+(const Angle& angle) const noexcept
+    inline Angle operator+(const Angle& angle) const noexcept
     {
         auto result = *this;
 
         result += angle;
 
         return result;
+    }
+
+    inline Angle operator-() const noexcept
+    {
+        return { -_value };
     }
 
     template <typename K, typename Unit2>
@@ -181,8 +177,8 @@ private:
     T _value;
 };
 
-using Radians = Angle<float, RadiansUnit<float>>;
-using Degrees = Angle<float, DegreesUnit<float>>;
+using Radians = Angle<float, radians_unit<float>>;
+using Degrees = Angle<float, degrees_unit<float>>;
 
 }}
 

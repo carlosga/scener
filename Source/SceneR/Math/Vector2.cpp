@@ -243,7 +243,7 @@ Vector2& Vector2::operator+=(const Vector2& vector) noexcept
     return *this;
 }
 
-const Vector2 Vector2::operator*(const Vector2& vector) const noexcept
+Vector2 Vector2::operator*(const Vector2& vector) const noexcept
 {
     auto result = *this;
 
@@ -252,7 +252,7 @@ const Vector2 Vector2::operator*(const Vector2& vector) const noexcept
     return result;
 }
 
-const Vector2 Vector2::operator*(const float& value) const noexcept
+Vector2 Vector2::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -261,7 +261,7 @@ const Vector2 Vector2::operator*(const float& value) const noexcept
     return result;
 }
 
-const Vector2 Vector2::operator/(const Vector2& vector) const noexcept
+Vector2 Vector2::operator/(const Vector2& vector) const noexcept
 {
     auto result = *this;
 
@@ -270,7 +270,7 @@ const Vector2 Vector2::operator/(const Vector2& vector) const noexcept
     return result;
 }
 
-const Vector2 Vector2::operator/(const float& value) const noexcept
+Vector2 Vector2::operator/(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -279,7 +279,7 @@ const Vector2 Vector2::operator/(const float& value) const noexcept
     return result;
 }
 
-const Vector2 Vector2::operator-(const Vector2& vector) const noexcept
+Vector2 Vector2::operator-(const Vector2& vector) const noexcept
 {
     auto result = *this;
 
@@ -288,18 +288,18 @@ const Vector2 Vector2::operator-(const Vector2& vector) const noexcept
     return result;
 }
 
-const Vector2 Vector2::operator-() const noexcept
-{
-    return Vector2 { -x, -y };
-}
-
-const Vector2 Vector2::operator+(const Vector2& vector) const noexcept
+Vector2 Vector2::operator+(const Vector2& vector) const noexcept
 {
     auto result = *this;
 
     result += vector;
 
     return result;
+}
+
+Vector2 Vector2::operator-() const noexcept
+{
+    return Vector2 { -x, -y };
 }
 
 }}

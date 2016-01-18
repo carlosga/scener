@@ -324,14 +324,14 @@ public:
     Vector3& operator/=(const float& value) noexcept;
     Vector3& operator-=(const Vector3& vector) noexcept;
     Vector3& operator+=(const Vector3& vector) noexcept;
-    const Vector3 operator*(const Vector3& vector) const noexcept;
-    const Vector3 operator*(const float& value) const noexcept;
-    const Vector3 operator*(const Matrix& matrix) const noexcept;
-    const Vector3 operator/(const Vector3& vector) const noexcept;
-    const Vector3 operator/(const float& value) const noexcept;
-    const Vector3 operator-(const Vector3& vector) const noexcept;
-    const Vector3 operator-() const noexcept;
-    const Vector3 operator+(const Vector3& vector) const noexcept;
+    Vector3 operator*(const Vector3& vector) const noexcept;
+    Vector3 operator*(const float& value) const noexcept;
+    Vector3 operator*(const Matrix& matrix) const noexcept;
+    Vector3 operator/(const Vector3& vector) const noexcept;
+    Vector3 operator/(const float& value) const noexcept;
+    Vector3 operator-(const Vector3& vector) const noexcept;
+    Vector3 operator+(const Vector3& vector) const noexcept;
+    Vector3 operator-() const noexcept;
 
 public:
     union
