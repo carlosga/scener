@@ -162,17 +162,17 @@ public:
     bool operator!=(const Quaternion& value) const noexcept;
     Quaternion& operator*=(const Quaternion& q1) noexcept;
     Quaternion& operator*=(const float& value) noexcept;
-    Quaternion& operator/=(const Quaternion& value) noexcept;
+    Quaternion& operator/=(const Quaternion& r) noexcept;
     Quaternion& operator/=(const float& value) noexcept;
     Quaternion& operator-=(const Quaternion& value) noexcept;
     Quaternion& operator+=(const Quaternion& value) noexcept;
-    const Quaternion operator*(const Quaternion& value) const noexcept;
-    const Quaternion operator*(const float& value) const noexcept;
-    const Quaternion operator/(const Quaternion& r) const noexcept;
-    const Quaternion operator/(const float& value) const noexcept;
-    const Quaternion operator-(const Quaternion& value) const noexcept;
-    const Quaternion operator-() const noexcept;
-    const Quaternion operator+(const Quaternion& value) const noexcept;
+    Quaternion operator*(const Quaternion& value) const noexcept;
+    Quaternion operator*(const float& value) const noexcept;
+    Quaternion operator/(const Quaternion& value) const noexcept;
+    Quaternion operator/(const float& value) const noexcept;
+    Quaternion operator-(const Quaternion& value) const noexcept;
+    Quaternion operator-() const noexcept;
+    Quaternion operator+(const Quaternion& value) const noexcept;
 
 public:
     union

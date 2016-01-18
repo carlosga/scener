@@ -273,12 +273,21 @@ Quaternion& Quaternion::operator*=(const float& value) noexcept
     return *this;
 }
 
-Quaternion& Quaternion::operator/=(const Quaternion& value) noexcept
+Quaternion& Quaternion::operator/=(const Quaternion& r) noexcept
 {
-    x /= value.x;
-    y /= value.y;
-    z /= value.z;
-    w /= value.w;
+    // http://es.mathworks.com/help/aeroblks/quaterniondivision.html
+    auto lengthSquared = r.length_squared();
+
+    auto qx = (r.x * x + r.y * y + r.z * z + r.w * w) / lengthSquared;
+    auto qy = (r.x * y - r.y * x - r.z * w + r.w * z) / lengthSquared;
+    auto qz = (r.x * z + r.y * w - r.z * x - r.w * y) / lengthSquared;
+    auto qw = (r.x * w - r.y * z + r.z * y - r.w * x) / lengthSquared;
+    auto q  = Quaternion::conjugate({ qw, qz, qy, qx });
+
+    x = q.x;
+    y = q.y;
+    z = q.z;
+    w = q.w;
 
     return *this;
 }
@@ -313,7 +322,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& value) noexcept
     return *this;
 }
 
-const Quaternion Quaternion::operator*(const Quaternion& value) const noexcept
+Quaternion Quaternion::operator*(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
@@ -322,7 +331,7 @@ const Quaternion Quaternion::operator*(const Quaternion& value) const noexcept
     return result;
 }
 
-const Quaternion Quaternion::operator*(const float& value) const noexcept
+Quaternion Quaternion::operator*(const float& value) const noexcept
 {
     auto result = *this;
 
@@ -331,21 +340,7 @@ const Quaternion Quaternion::operator*(const float& value) const noexcept
     return result;
 }
 
-const Quaternion Quaternion::operator/(const Quaternion& r) const noexcept
-{
-    // http://es.mathworks.com/help/aeroblks/quaterniondivision.html
-    auto q             = *this;
-    auto lengthSquared = r.length_squared();
-
-    auto qx = (r.x * q.x + r.y * q.y + r.z * q.z + r.w * q.w) / lengthSquared;
-    auto qy = (r.x * q.y - r.y * q.x - r.z * q.w + r.w * q.z) / lengthSquared;
-    auto qz = (r.x * q.z + r.y * q.w - r.z * q.x - r.w * q.y) / lengthSquared;
-    auto qw = (r.x * q.w - r.y * q.z + r.z * q.y - r.w * q.x) / lengthSquared;
-
-    return Quaternion::conjugate({ qw, qz, qy, qx });
-}
-
-const Quaternion Quaternion::operator/(const float& value) const noexcept
+Quaternion Quaternion::operator/(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
@@ -354,7 +349,16 @@ const Quaternion Quaternion::operator/(const float& value) const noexcept
     return result;
 }
 
-const Quaternion Quaternion::operator-(const Quaternion& value) const noexcept
+Quaternion Quaternion::operator/(const float& value) const noexcept
+{
+    auto result = *this;
+
+    result /= value;
+
+    return result;
+}
+
+Quaternion Quaternion::operator-(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
@@ -363,18 +367,18 @@ const Quaternion Quaternion::operator-(const Quaternion& value) const noexcept
     return result;
 }
 
-const Quaternion Quaternion::operator-() const noexcept
-{
-    return Quaternion { -x, -y, -z, -w };
-}
-
-const Quaternion Quaternion::operator+(const Quaternion& value) const noexcept
+Quaternion Quaternion::operator+(const Quaternion& value) const noexcept
 {
     auto result = *this;
 
     result += value;
 
     return result;
+}
+
+Quaternion Quaternion::operator-() const noexcept
+{
+    return Quaternion { -x, -y, -z, -w };
 }
 
 }}
