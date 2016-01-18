@@ -22,7 +22,7 @@ TextureStorage::TextureStorage(TextureTarget target) noexcept
     create();
 }
 
-void TextureStorage::dispose() noexcept
+TextureStorage::~TextureStorage() noexcept
 {
     if (_id != 0)
     {

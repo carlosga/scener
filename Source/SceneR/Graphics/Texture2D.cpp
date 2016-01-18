@@ -28,11 +28,6 @@ Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
 {
 }
 
-void Texture2D::dispose() noexcept
-{
-    _storage.dispose();
-}
-
 std::uint32_t Texture2D::id() const noexcept
 {
     return _storage.id();

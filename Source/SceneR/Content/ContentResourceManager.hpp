@@ -7,7 +7,6 @@
 #include <memory>
 #include <map>
 
-#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
 namespace SceneR { namespace Content {
@@ -55,19 +54,6 @@ public:
     {
         if (_resources.size() > 0)
         {
-            for (auto kvp : _resources)
-            {
-                if (kvp.second.get() != nullptr)
-                {
-                    auto disposable = std::static_pointer_cast<SceneR::IDisposable>(kvp.second);
-
-                    if (disposable.get() != nullptr)
-                    {
-                        disposable->dispose();
-                    }
-                }
-            }
-
             _resources.clear();
         }
     }

@@ -14,14 +14,10 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::Graphics::OpenGL::ConstantBuffer;
 
-void Program::dispose() noexcept
+Program::~Program() noexcept
 {
     if (_id != 0)
     {
-        // Delete the uniform buffer object
-        _constant_buffer->dispose();
-        _constant_buffer.reset();
-
         // Delete the shader program
         glDeleteProgram(_id);
 
@@ -156,8 +152,6 @@ void Program::verify_linking_state()
 
             msg += linkErrorMessage;
         }
-
-        dispose();
 
         throw std::runtime_error(msg);
     }

@@ -6,14 +6,12 @@
 
 #include <cstdint>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 /**
  * Represents an opengl vertex array object
  */
-class VertexArrayObject final : SceneR::IDisposable
+class VertexArrayObject final
 {
 public:
     /**
@@ -24,10 +22,7 @@ public:
     /**
      * Releases all resources being used by this VertexArrayObject.
      */
-    ~VertexArrayObject() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~VertexArrayObject() noexcept;
 
 public:
     /**

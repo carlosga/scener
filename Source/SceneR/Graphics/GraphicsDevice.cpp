@@ -54,26 +54,6 @@ GraphicsDevice::GraphicsDevice() noexcept
 {
 }
 
-void GraphicsDevice::dispose() noexcept
-{
-    _blend_state.dispose();
-    _depth_stencil_state.dispose();
-    _rasterizer_state.dispose();
-
-    if (effect)
-    {
-        effect = nullptr;
-    }
-    if (index_buffer)
-    {
-        index_buffer = nullptr;
-    }
-    if (vertex_buffer)
-    {
-        vertex_buffer = nullptr;
-    }
-}
-
 void GraphicsDevice::clear(const Color& color) const noexcept
 {
     std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;

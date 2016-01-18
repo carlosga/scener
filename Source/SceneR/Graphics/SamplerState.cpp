@@ -12,10 +12,6 @@ SamplerState::SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexce
 {
 }
 
-void SamplerState::dispose() noexcept
-{
-}
-
 void SamplerState::apply(std::uint32_t textureId) const noexcept
 {
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(address_u));

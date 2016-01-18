@@ -24,15 +24,6 @@ IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
     create();
 }
 
-void IndexBuffer::dispose() noexcept
-{
-    if (_buffer != nullptr)
-    {
-        _buffer->dispose();
-        _buffer = nullptr;
-    }
-}
-
 std::size_t IndexBuffer::index_count() const noexcept
 {
     return _indexCount;

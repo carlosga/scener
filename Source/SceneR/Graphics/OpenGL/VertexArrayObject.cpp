@@ -9,7 +9,7 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-void VertexArrayObject::dispose() noexcept
+VertexArrayObject::~VertexArrayObject() noexcept
 {
     if (_id != 0)
     {
@@ -31,7 +31,7 @@ void VertexArrayObject::bind() const noexcept
 void VertexArrayObject::create() noexcept
 {
     glCreateVertexArrays(1, &_id);
-    
+
     Ensures(_id > 0);
 }
 

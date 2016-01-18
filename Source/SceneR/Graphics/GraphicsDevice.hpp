@@ -7,7 +7,6 @@
 #include <cstddef>
 #include <memory>
 
-#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/BlendState.hpp"
 #include "SceneR/Graphics/DepthStencilState.hpp"
 #include "SceneR/Graphics/PresentationParameters.hpp"
@@ -26,7 +25,7 @@ class VertexBuffer;
  * Performs primitive-based rendering, creates resources, handles system-level variables,
  * adjusts gamma ramp levels, and creates shaders.
  */
-class GraphicsDevice final : SceneR::IDisposable
+class GraphicsDevice final
 {
 private:
     static std::size_t get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept;
@@ -48,10 +47,7 @@ public:
     /**
      * Release all resources being used by the GraphicsDevice instance.
      */
-    ~GraphicsDevice() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~GraphicsDevice() = default;
 
 public:
     /**

@@ -10,8 +10,6 @@
 
 #include <gsl.h>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 enum class BufferTarget : std::uint32_t;
@@ -20,7 +18,7 @@ enum class BufferUsage  : std::uint32_t;
 /**
  * Represents an OpenGL buffer object.
  */
-class Buffer final : SceneR::IDisposable
+class Buffer final
 {
 public:
     /**
@@ -33,10 +31,7 @@ public:
     /**
      * Releases all resources being used by this Buffer.
      */
-    ~Buffer() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~Buffer() noexcept;
 
 public:
     /**

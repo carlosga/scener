@@ -30,20 +30,6 @@ VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*>     graphicsDevice
     create();
 }
 
-void VertexBuffer::dispose() noexcept
-{
-    if (_vao != nullptr)
-    {
-        _vao->dispose();
-        _vao = nullptr;
-    }
-    if (_vbo != nullptr)
-    {
-        _vbo->dispose();
-        _vbo = nullptr;
-    }
-}
-
 std::size_t VertexBuffer::vertex_count() const noexcept
 {
     return _vertex_count;

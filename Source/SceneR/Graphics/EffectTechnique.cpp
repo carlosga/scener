@@ -40,10 +40,6 @@ EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) 
 {
 }
 
-void EffectTechnique::dispose() noexcept
-{
-}
-
 float EffectTechnique::alpha() const noexcept
 {
     return _alpha;

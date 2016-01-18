@@ -14,10 +14,6 @@ BlendState::BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
 {
 }
 
-void BlendState::dispose() noexcept
-{
-}
-
 void BlendState::apply() const noexcept
 {
     // http://www.opengl.org/wiki/Blending

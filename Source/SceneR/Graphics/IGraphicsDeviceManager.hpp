@@ -4,26 +4,18 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 #define SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics {
 
 /**
  * Defines the interface for an object that manages a GraphicsDevice.
  */
-class IGraphicsDeviceManager : SceneR::IDisposable
+class IGraphicsDeviceManager
 {
 public:
     /**
      * Destructor
      */
-    ~IGraphicsDeviceManager() override = default;
-
-public:
-    /**
-     * Releases all resources being used by this IGraphicsDeviceManager instance
-     */
-    void dispose() noexcept override = 0;
+    ~IGraphicsDeviceManager() = default;
 
 public:
    /**

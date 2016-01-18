@@ -75,10 +75,7 @@ void Renderer::run() noexcept
 void Renderer::exit() noexcept
 {
     _content_manager->unload();
-    _graphics_device_manager->dispose();
     _services->clear();
-    _render_context->destroy();
-    _renderer_window->close();
 }
 
 bool Renderer::begin_draw() noexcept

@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Content { class ContentReader; } }
 
 namespace SceneR { namespace Math { struct Matrix; } }
@@ -22,7 +20,7 @@ struct StepTime;
 /**
  * Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
  */
-class Model final : SceneR::IDisposable
+class Model final
 {
 public:
     /**
@@ -33,10 +31,7 @@ public:
     /**
      * Releases all resources being used by this Model.
      */
-    ~Model() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~Model() = default;
 
 public:
     /**

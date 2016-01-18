@@ -21,15 +21,6 @@ ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
 {
 }
 
-void ConstantBuffer::dispose() noexcept
-{
-    if (_buffer_object.get() != nullptr)
-    {
-        _buffer_object->dispose();
-        _buffer_object.release();
-    }
-}
-
 std::int32_t ConstantBuffer::binding_point() const noexcept
 {
     return _binding_point;

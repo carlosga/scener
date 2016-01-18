@@ -40,10 +40,7 @@ public:
     /**
      * Releases all resources being used by the current VertexBuffer
      */
-    ~VertexBuffer() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~VertexBuffer() = default;
 
 public:
     /**

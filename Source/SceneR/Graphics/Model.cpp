@@ -8,61 +8,55 @@
 #include "SceneR/Graphics/Skeleton.hpp"
 #include "SceneR/Graphics/StepTime.hpp"
 
-namespace SceneR
+namespace SceneR { namespace Graphics {
+
+using SceneR::Math::Matrix;
+
+Model::Model() noexcept
+    : _name   ()
+    , _meshes (0)
 {
-    namespace Graphics
+}
+
+const std::string& Model::name() const noexcept
+{
+    return _name;
+}
+
+const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
+{
+    return _meshes;
+}
+
+void Model::update(const StepTime& elapsedtime) noexcept
+{
+    for (const auto mesh : _meshes)
     {
-        using SceneR::Math::Matrix;
-
-        Model::Model() noexcept
-            : _name   ()
-            , _meshes (0)
+        if (mesh->skeleton())
         {
-        }
-
-        void Model::dispose() noexcept
-        {
-        }
-
-        const std::string& Model::name() const noexcept
-        {
-            return _name;
-        }
-
-        const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
-        {
-            return _meshes;
-        }
-
-        void Model::update(const StepTime& elapsedtime) noexcept
-        {
-            for (const auto mesh : _meshes)
-            {
-                if (mesh->skeleton())
-                {
-                    mesh->skeleton()->update(elapsedtime.elapsed_render_time, true, Matrix::identity);
-                }
-            }
-        }
-
-        void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection) noexcept
-        {
-            for (const auto mesh : _meshes)
-            {
-                for (const auto effect : mesh->effects())
-                {
-                    if (mesh->skeleton())
-                    {
-                        effect->bone_transforms(mesh->skeleton()->skin_transforms());
-                    }
-
-                    effect->world(world);
-                    effect->view(view);
-                    effect->projection(projection);
-                }
-
-                mesh->draw();
-            }
+            mesh->skeleton()->update(elapsedtime.elapsed_render_time, true, Matrix::identity);
         }
     }
 }
+
+void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection) noexcept
+{
+    for (const auto mesh : _meshes)
+    {
+        for (const auto effect : mesh->effects())
+        {
+            if (mesh->skeleton())
+            {
+                effect->bone_transforms(mesh->skeleton()->skin_transforms());
+            }
+
+            effect->world(world);
+            effect->view(view);
+            effect->projection(projection);
+        }
+
+        mesh->draw();
+    }
+}
+
+}}

@@ -8,8 +8,6 @@
 
 #include <gsl.h>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics {
 
 class GraphicsDevice;
@@ -17,7 +15,7 @@ class GraphicsDevice;
 /**
  * Queries and prepares resources.
  */
-class GraphicsResource : SceneR::IDisposable
+class GraphicsResource
 {
 public:
     /**
@@ -29,10 +27,7 @@ public:
     /**
      * Destructor
      */
-    ~GraphicsResource() override = default;
-
-public:
-    void dispose() noexcept override = 0;
+    ~GraphicsResource() = default;
 
 public:
     /**

@@ -35,9 +35,6 @@ public:
     ~GraphicsDeviceManager() override = default;
 
 public:
-    void dispose() noexcept override;
-
-public:
     /**
      * Applies any changes to device-related propertie.
      */

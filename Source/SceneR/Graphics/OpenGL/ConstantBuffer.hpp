@@ -12,8 +12,6 @@
 
 #include <gsl.h>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 class Buffer;
@@ -23,7 +21,7 @@ class Buffer;
  *
  * http://www.opengl.org/wiki/Uniform_Buffer_Object
  */
-class ConstantBuffer final : SceneR::IDisposable
+class ConstantBuffer final
 {
 public:
     /**
@@ -36,10 +34,7 @@ public:
     /**
      * Releases all resources being used by this ConstantBuffer.
      */
-    ~ConstantBuffer() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~ConstantBuffer() = default;
 
 public:
     /**

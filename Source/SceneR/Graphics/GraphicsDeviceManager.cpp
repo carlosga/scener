@@ -17,15 +17,6 @@ GraphicsDeviceManager::GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) 
     _renderer->services()->add_service<IGraphicsDeviceService>(*this);
 }
 
-void GraphicsDeviceManager::dispose() noexcept
-{
-    if (_graphics_device.get())
-    {
-        _graphics_device->dispose();
-        _graphics_device = nullptr;
-    }
-}
-
 void GraphicsDeviceManager::apply_changes() noexcept
 {
     _graphics_device->presentation_parameters().back_buffer_width  = preferred_back_buffer_width;

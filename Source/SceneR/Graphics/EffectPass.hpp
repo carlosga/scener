@@ -32,7 +32,7 @@ public:
     /**
      * Destructor.
      */
-    ~EffectPass() = default;
+    ~EffectPass() noexcept = default;
 
 public:
     /**

@@ -163,16 +163,16 @@ protected:
     std::unique_ptr<GraphicsDeviceManager>    _graphics_device_manager { nullptr };
 
 private:
-    bool                                                     _is_running_slowly     { false };
-    std::string                                              _root_directory        { };
+    std::unique_ptr<RendererWindow>                          _renderer_window       { nullptr };
+    std::unique_ptr<SceneR::Graphics::OpenGL::RenderContext> _render_context        { nullptr };
     std::unique_ptr<SceneR::Content::ContentManager>         _content_manager       { nullptr };
     std::vector<std::shared_ptr<IDrawable>>                  _drawable_components   { };
     std::vector<std::shared_ptr<IUpdateable>>                _updateable_components { };
     StepTimer                                                _timer                 { };
     StepTime                                                 _render_time           { };
     SceneR::TimeSpan                                         _total_tender_time     { SceneR::TimeSpan::zero };
-    std::unique_ptr<SceneR::Graphics::OpenGL::RenderContext> _render_context        { nullptr };
-    std::unique_ptr<RendererWindow>                          _renderer_window       { nullptr };
+    std::string                                              _root_directory        { };
+    bool                                                     _is_running_slowly     { false };
 
     friend class RendererWindow;
 };

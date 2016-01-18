@@ -77,12 +77,6 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
         read_object_instance<Animation>(node.first, node.second);
     }
 
-    // cleanup
-    for (auto shader : _shaders)
-    {
-        shader.second->dispose();
-    }
-
     return model;
 }
 

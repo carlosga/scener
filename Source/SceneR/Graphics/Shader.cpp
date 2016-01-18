@@ -24,7 +24,7 @@ Shader::Shader(const std::string& name, ShaderType type, const std::string& sour
 {
 }
 
-void Shader::dispose() noexcept
+Shader::~Shader() noexcept
 {
     if (_id != 0)
     {
@@ -137,8 +137,6 @@ void Shader::verify_compilation_state()
 
         msg += compileErrorMessage;
     }
-
-    dispose();
 
     throw std::runtime_error(msg);
 }

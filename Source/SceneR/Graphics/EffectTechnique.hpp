@@ -54,9 +54,6 @@ public:
     ~EffectTechnique() override = default;
 
 public:
-    void dispose() noexcept override;
-
-public:
     /**
      * Gets the material alpha which determines its transparency.
      * Range is between 1 (fully opaque) and 0 (fully transparent).

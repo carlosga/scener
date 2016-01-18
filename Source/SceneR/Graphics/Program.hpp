@@ -10,8 +10,6 @@
 #include <memory>
 #include <string>
 
-#include "SceneR/IDisposable.hpp"
-
 namespace SceneR { namespace Graphics { namespace OpenGL { class ConstantBuffer; } } }
 
 namespace SceneR { namespace Graphics {
@@ -21,15 +19,11 @@ enum class ShaderType : std::uint32_t;
 class EffectParameter;
 class Shader;
 
-class Program final : public SceneR::IDisposable
+class Program final
 {
 public:
     Program() = default;
-
-    ~Program() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~Program() noexcept;
 
 public:
     std::uint32_t id() const noexcept;

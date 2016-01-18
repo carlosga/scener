@@ -9,21 +9,16 @@
 
 #include <gsl.h>
 
-#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/OpenGL/TextureTarget.hpp"
 
-namespace SceneR { namespace Graphics {
-
-enum class SurfaceFormat : std::uint32_t;
-
-}}
+namespace SceneR { namespace Graphics { enum class SurfaceFormat : std::uint32_t; } }
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 /**
  * Represents an opengl texture object.
  */
-class TextureStorage final : SceneR::IDisposable
+class TextureStorage final
 {
 private:
     static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept;
@@ -38,10 +33,7 @@ public:
     /**
      * Releases all resources being used by this TextureStorage.
      */
-    ~TextureStorage() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~TextureStorage() noexcept;
 
 public:
     /**

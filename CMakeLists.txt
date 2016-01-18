@@ -3,6 +3,7 @@ project (SceneR::Root)
 enable_language(CXX)
 
 # set (CMAKE_VERBOSE_MAKEFILE on)
+set (CMAKE_EXPORT_COMPILE_COMMANDS on)
 
 # external dependencies
 #
@@ -16,8 +17,8 @@ set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
 # Microsoft/GSL
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 
-# Microsoft/RxCPP
-set (RX_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/RxCpp/Rx/v2/src)
+# Nod/Signals & Slots (https://github.com/fr00b0/nod)
+# set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 
 # compiler and linker configurations
 set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -std=c++14 -stdlib=libc++ -m64")

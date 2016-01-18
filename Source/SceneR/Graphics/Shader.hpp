@@ -9,7 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/IDisposable.hpp"
 #include "SceneR/Graphics/ShaderType.hpp"
 
 namespace SceneR { namespace Graphics {
@@ -19,7 +18,7 @@ struct ShaderInclude;
 /**
  * Represents a shader
  */
-class Shader final : SceneR::IDisposable
+class Shader final
 {
 public:
     /**
@@ -41,10 +40,7 @@ public:
     /**
      * Destructor
      */
-    ~Shader() override = default;
-
-public:
-    void dispose() noexcept override;
+    ~Shader() noexcept;
 
 public:
     /**

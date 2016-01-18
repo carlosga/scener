@@ -18,7 +18,7 @@ ShaderInclude::ShaderInclude(const std::string& name, const std::string& path, c
 {
 }
 
-void ShaderInclude::dispose() noexcept
+ShaderInclude::~ShaderInclude() noexcept
 {
     remove();
 }

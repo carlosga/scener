@@ -17,7 +17,7 @@ Buffer::Buffer(BufferTarget target, BufferUsage usage) noexcept
 {
 }
 
-void Buffer::dispose() noexcept
+Buffer::~Buffer() noexcept
 {
     if (_id != 0)
     {
