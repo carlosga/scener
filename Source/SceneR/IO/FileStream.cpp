@@ -20,7 +20,7 @@ FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) 
 
 bool FileStream::can_read() const noexcept
 {
-    return ((_mode & std::ios::in) == std::ios::in);
+    return ((_mode & std::ios::in) == std::ios::in && _stream.is_open() && _stream.good());
 }
 
 bool FileStream::can_seek() const noexcept
@@ -30,7 +30,7 @@ bool FileStream::can_seek() const noexcept
 
 bool FileStream::can_write() const noexcept
 {
-    return ((_mode & std::ios::out) == std::ios::out);
+    return ((_mode & std::ios::out) == std::ios::out && _stream.is_open() && _stream.good());
 }
 
 std::size_t FileStream::position() noexcept
@@ -72,7 +72,7 @@ std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count
     return _stream.gcount();
 }
 
-std::size_t FileStream::seek(std::size_t offset, const std::ios::seekdir& origin) noexcept
+std::size_t FileStream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
 {
     _stream.seekg(offset, origin);
 

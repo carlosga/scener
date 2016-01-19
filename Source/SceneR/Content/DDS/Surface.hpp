@@ -7,6 +7,8 @@
 #include <cstddef>
 #include <string>
 
+#include <gsl.h>
+
 #include "SceneR/Content/DDS/SurfaceMipmap.hpp"
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 
@@ -31,10 +33,12 @@ public:
     const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
 
 private:
+    std::vector<std::uint8_t>       _buffer  { };
+    std::vector<SurfaceMipmap>      _mipmaps { };
+    gsl::span<std::uint8_t>         _view    { };
     SceneR::Graphics::SurfaceFormat _format  { SceneR::Graphics::SurfaceFormat::color };
     size_type                       _width   { 0 };
     size_type                       _height  { 0 };
-    std::vector<SurfaceMipmap>      _mipmaps { };
 };
 
 }}}

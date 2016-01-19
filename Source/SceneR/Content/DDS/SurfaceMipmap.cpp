@@ -5,11 +5,11 @@
 
 namespace SceneR { namespace Content { namespace DDS {
 
-SurfaceMipmap::SurfaceMipmap(index_type index, size_type width, size_type height) noexcept
+SurfaceMipmap::SurfaceMipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept
     : _index  { index  }
     , _width  { width  }
     , _height { height }
-    , _data   { }
+    , _view   { view   }
 {
 }
 
@@ -28,14 +28,9 @@ SurfaceMipmap::size_type SurfaceMipmap::height() const noexcept
     return _height;
 }
 
-gsl::span<const std::uint8_t> SurfaceMipmap::get_data() const noexcept
+const gsl::span<std::uint8_t>& SurfaceMipmap::get_view() const noexcept
 {
-    return gsl::span<const std::uint8_t>(_data.data(), _data.size());
-}
-
-void SurfaceMipmap::set_data(const std::vector<std::uint8_t>& buffer) noexcept
-{
-    _data = buffer;
+    return _view;
 }
 
 }}}

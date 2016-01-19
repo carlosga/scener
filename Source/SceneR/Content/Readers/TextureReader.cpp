@@ -39,7 +39,7 @@ auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string&
 
     for (const auto& mipmap : surface->mipmaps())
     {
-        texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_data());
+        texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_view());
     }
 
     texture->_sampler_state = input->read_object<SamplerState>(source["sampler"].string_value());

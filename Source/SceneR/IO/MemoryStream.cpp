@@ -62,7 +62,7 @@ std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t cou
     return count;
 }
 
-std::size_t MemoryStream::seek(std::size_t offset, const std::ios::seekdir& origin) noexcept
+std::size_t MemoryStream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
 {
     Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
 

@@ -65,7 +65,7 @@ public:
     /**
      * Sets the position within the current stream.
      */
-    virtual std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) noexcept = 0;
+    virtual std::size_t seek(std::size_t offset, std::ios::seekdir origin) noexcept = 0;
 };
 
 }}

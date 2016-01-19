@@ -3,8 +3,6 @@
 
 #include "SceneR/Content/DDS/Surface.hpp"
 
-#include <gsl_assert.h>
-
 #include "SceneR/Content/DDS/Dds.hpp"
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/FileStream.hpp"
@@ -22,7 +20,7 @@ void Surface::load(const std::string& filename) noexcept
     DDS_HEADER  ddsheader;
     std::size_t blockSize = 16;
 
-    Ensures(stream.length() >= 128);
+    Ensures(stream.length() >= sizeof ddsheader);
 
     stream.read(reinterpret_cast<char*>(&ddsheader), 0, sizeof ddsheader);
 
@@ -72,25 +70,32 @@ void Surface::load(const std::string& filename) noexcept
 
     auto mipmapWidth  = _width;
     auto mipmapHeight = _height;
+    auto length       = stream.length() - sizeof ddsheader;
+    auto position     = size_type { 0 };
 
     _mipmaps.clear();
+    _buffer.clear();
+    _view = { };
+
     _mipmaps.reserve(ddsheader.dwMipMapCount);
+    _buffer.reserve(length);
 
-    for (std::size_t level = 0; level < ddsheader.dwMipMapCount; ++level)
+    auto readed = stream.read(reinterpret_cast<char*>(_buffer.data()), 0, length);
+
+    Ensures(readed == length);
+
+    _view = gsl::span<std::uint8_t>(_buffer.data(), length);
+
+    for (size_type level = 0; level < ddsheader.dwMipMapCount; ++level)
     {
-        auto mipmap = SurfaceMipmap { level, mipmapWidth, mipmapHeight };
-        auto size   = std::max<std::size_t>(4, mipmapWidth) / 4 * std::max<std::size_t>(4, mipmapHeight) / 4 * blockSize;
-        auto buffer = std::vector<std::uint8_t>(size, 0);
-        auto readed = stream.read(reinterpret_cast<char*>(buffer.data()), 0, size);
+        size_type size = std::max<size_type>(4, mipmapWidth) / 4 * std::max<size_type>(4, mipmapHeight) / 4 * blockSize;
 
-        Ensures(readed == size);
-
-        mipmap.set_data(buffer);
-
-        _mipmaps.push_back(mipmap);
+        _mipmaps.push_back({ level, mipmapWidth, mipmapHeight, _view.subspan(position, size) });
 
         mipmapWidth  = std::max<std::size_t>(1, mipmapWidth  >>= 1);
         mipmapHeight = std::max<std::size_t>(1, mipmapHeight >>= 1);
+
+        position += size;
     }
 }
 

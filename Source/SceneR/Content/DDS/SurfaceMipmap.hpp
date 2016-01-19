@@ -12,8 +12,6 @@
 
 namespace SceneR { namespace Content { namespace DDS {
 
-class Surface;
-
 class SurfaceMipmap final
 {
 public:
@@ -21,23 +19,20 @@ public:
     typedef std::size_t size_type;
 
 public:
-    SurfaceMipmap(index_type index, size_type width, size_type height) noexcept;
+    SurfaceMipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept;
     ~SurfaceMipmap() = default;
 
 public:
     index_type index() const noexcept;
     size_type  width() const noexcept;
     size_type  height() const noexcept;
-    gsl::span<const std::uint8_t> get_data() const noexcept;
-    void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
+    const gsl::span<std::uint8_t>& get_view() const noexcept;
 
 private:
-    index_type                _index;
-    size_type                 _width;
-    size_type                 _height;
-    std::vector<std::uint8_t> _data;
-
-    friend class Surface;
+    index_type              _index;
+    size_type               _width;
+    size_type               _height;
+    gsl::span<std::uint8_t> _view;
 };
 
 }}}

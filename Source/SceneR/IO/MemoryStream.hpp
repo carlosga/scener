@@ -73,7 +73,7 @@ public:
     /**
      * Sets the position within the current stream.
      */
-    std::size_t seek(std::size_t offset, const std::ios::seekdir& origin) noexcept override;
+    std::size_t seek(std::size_t offset, std::ios::seekdir origin) noexcept override;
 
 private:
     MemoryStream() = delete;
