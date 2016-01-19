@@ -24,17 +24,17 @@ void SampleRenderer::begin_run() noexcept
 {
     Renderer::begin_run();
 
-    _graphics_device_manager->preferred_back_buffer_width  = 1600;
-    _graphics_device_manager->preferred_back_buffer_height = 900;
-    _graphics_device_manager->window_title                 = "SceneR";
+    graphics_device_manager()->preferred_back_buffer_width  = 1600;
+    graphics_device_manager()->preferred_back_buffer_height = 900;
+    graphics_device_manager()->window_title                 = "SceneR";
 }
 
 void SampleRenderer::load_content() noexcept
 {
     Renderer::load_content();
 
-    Renderer::_components.push_back(std::make_shared<Camera>(this));
-    Renderer::_components.push_back(std::make_shared<EarthShaker>(this));
+    add_component(std::make_shared<Camera>(this));
+    add_component(std::make_shared<EarthShaker>(this));
 }
 
 void SampleRenderer::draw(const StepTime &renderTime) noexcept

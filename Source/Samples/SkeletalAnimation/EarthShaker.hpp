@@ -24,7 +24,7 @@ class EarthShaker : public SceneR::Graphics::DrawableComponent
 {
 public:
     EarthShaker(SampleRenderer* renderer) noexcept;
-    ~EarthShaker() = default;
+    ~EarthShaker() override = default;
 
 public:
     void initialize() noexcept override;

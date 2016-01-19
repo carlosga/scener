@@ -4,8 +4,7 @@
 #ifndef SKELETAL_ANIMATION_CAMERA_HPP
 #define SKELETAL_ANIMATION_CAMERA_HPP
 
-#include <SceneR/Graphics/DrawableComponent.hpp>
-#include <SceneR/Math/Angle.hpp>
+#include <SceneR/Graphics/Component.hpp>
 #include <SceneR/Math/Matrix.hpp>
 #include <SceneR/Math/Vector3.hpp>
 
@@ -17,7 +16,7 @@ class Camera : public SceneR::Graphics::Component
 {
 public:
     Camera(SampleRenderer* renderer) noexcept;
-    ~Camera() = default;
+    ~Camera() override = default;
 
 public:
     void initialize() noexcept override;

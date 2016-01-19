@@ -266,4 +266,14 @@ void Renderer::variable_time_step() noexcept
 {
 }
 
+GraphicsDeviceManager* Renderer::graphics_device_manager() const
+{
+    return _graphics_device_manager.get();
+}
+
+void Renderer::add_component(std::shared_ptr<IComponent> component)
+{
+    _components.push_back(component);
+}
+
 }}

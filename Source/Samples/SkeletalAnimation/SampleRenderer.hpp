@@ -14,12 +14,12 @@ class SampleRenderer : public SceneR::Graphics::Renderer
 {
 public:
     SampleRenderer() noexcept;
-    virtual ~SampleRenderer() = default;
+    ~SampleRenderer() override = default;
 
 protected:
-    virtual void begin_run() noexcept override;
-    virtual void load_content() noexcept override;
-    virtual void draw(const SceneR::Graphics::StepTime &renderTime) noexcept override;
+    void begin_run() noexcept override;
+    void load_content() noexcept override;
+    void draw(const SceneR::Graphics::StepTime &renderTime) noexcept override;
 };
 
 }
