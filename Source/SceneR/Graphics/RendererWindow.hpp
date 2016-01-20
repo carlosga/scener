@@ -23,7 +23,7 @@ class Renderer;
 /**
  * The window associated with a renderer.
  */
-class RendererWindow
+class RendererWindow final
 {
 public:
     /**

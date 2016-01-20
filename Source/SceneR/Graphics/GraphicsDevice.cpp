@@ -3,11 +3,8 @@
 
 #include "GraphicsDevice.hpp"
 
-#include <cstdint>
-
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
-#include "EffectTechnique.hpp"
 #include "EffectTechnique.hpp"
 #include "VertexDeclaration.hpp"
 

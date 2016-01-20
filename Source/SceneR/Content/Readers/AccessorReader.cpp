@@ -7,8 +7,6 @@
 
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Content/GLTF/AttributeType.hpp"
-#include "SceneR/Graphics/ComponentType.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

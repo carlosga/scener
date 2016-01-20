@@ -35,7 +35,7 @@ public:
     /**
      * Releases all resources being used by this DepthStencilState
      */
-    ~DepthStencilState() = default;
+    ~DepthStencilState() override = default;
 
 public:
     DepthStencilState& operator=(const DepthStencilState& depthStencilState) = default;

@@ -3,7 +3,7 @@
 
 #include "SceneR/Graphics/Animation.hpp"
 
-#include "SceneR/Math/Math.hpp"
+// #include "SceneR/Math/Math.hpp"
 
 namespace SceneR { namespace Graphics {
 

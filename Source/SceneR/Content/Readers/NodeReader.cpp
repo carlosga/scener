@@ -7,8 +7,6 @@
 
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Content/GLTF/Node.hpp"
-#include "SceneR/Graphics/ModelBone.hpp"
 #include "SceneR/Graphics/ModelMesh.hpp"
 #include "SceneR/Graphics/Skeleton.hpp"
 

@@ -215,7 +215,7 @@ public:
      * @param normal Normal of the surface.
      * @return The reflected vector.
      */
-    static Vector3 reflect(const Vector3& data, const Vector3& normal) noexcept;
+    static Vector3 reflect(const Vector3& vector, const Vector3& normal) noexcept;
 
     /**
      * Performs a cubic interpolation between two vectors.

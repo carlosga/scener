@@ -8,7 +8,6 @@
 #include "SceneR/Math/BoundingFrustrum.hpp"
 #include "SceneR/Math/BoundingBox.hpp"
 #include "SceneR/Math/ContainmentType.hpp"
-#include "SceneR/Math/Math.hpp"
 #include "SceneR/Math/PlaneIntersectionType.hpp"
 #include "SceneR/Math/Ray.hpp"
 

@@ -10,7 +10,6 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Graphics/Shader.hpp"
 #include "SceneR/Graphics/ShaderInclude.hpp"
-#include "SceneR/Graphics/ShaderType.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

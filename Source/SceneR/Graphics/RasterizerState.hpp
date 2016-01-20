@@ -33,7 +33,7 @@ public:
     /**
      * Releases all resources being used by this RasterizerState
      */
-    ~RasterizerState() = default;
+    ~RasterizerState() override = default;
 
 public:
     RasterizerState& operator=(const RasterizerState& rasterizerState) = default;

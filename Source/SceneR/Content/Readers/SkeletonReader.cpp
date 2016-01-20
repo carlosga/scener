@@ -8,7 +8,6 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/GLTF/Accessor.hpp"
 #include "SceneR/Graphics/Skeleton.hpp"
-#include "SceneR/Math/Matrix.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

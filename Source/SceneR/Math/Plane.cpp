@@ -5,7 +5,6 @@
 
 #include <stdexcept>
 
-#include "SceneR/Math/Math.hpp"
 #include "SceneR/Math/BoundingFrustrum.hpp"
 #include "SceneR/Math/BoundingSphere.hpp"
 #include "SceneR/Math/BoundingBox.hpp"

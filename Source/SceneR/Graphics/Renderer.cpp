@@ -3,7 +3,6 @@
 
 #include "SceneR/Graphics/Renderer.hpp"
 
-#include <algorithm>
 #include <iostream>
 #include <thread>
 

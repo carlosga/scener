@@ -3,8 +3,6 @@
 
 #include "SceneR/Graphics/Viewport.hpp"
 
-#include <gsl_assert.h>
-
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR { namespace Graphics {

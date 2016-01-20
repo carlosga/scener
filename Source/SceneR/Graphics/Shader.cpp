@@ -3,8 +3,6 @@
 
 #include "SceneR/Graphics/Shader.hpp"
 
-#include <cstddef>
-
 #include <gsl_assert.h>
 
 #include "SceneR/Graphics/ShaderInclude.hpp"

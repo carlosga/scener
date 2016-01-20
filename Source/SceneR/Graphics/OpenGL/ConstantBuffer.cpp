@@ -3,12 +3,9 @@
 
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
 
-#include <gsl.h>
-
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 

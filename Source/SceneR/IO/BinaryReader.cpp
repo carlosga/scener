@@ -10,7 +10,7 @@
 namespace SceneR { namespace IO {
 
 BinaryReader::BinaryReader(Stream& stream) noexcept
-    : _stream   { stream }
+    : _stream { stream }
 {
 }
 

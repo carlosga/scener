@@ -7,8 +7,8 @@
 #include <SceneR/Input/Keys.hpp>
 #include <SceneR/Input/Keyboard.hpp>
 #include <SceneR/Input/KeyboardState.hpp>
-#include <SceneR/Math/Math.hpp>
-#include <SceneR/Math/Vector3.hpp>
+//#include <SceneR/Math/Math.hpp>
+//#include <SceneR/Math/Vector3.hpp>
 
 #include "SkeletalAnimation/SampleRenderer.hpp"
 

@@ -5,7 +5,6 @@
 
 #include <gsl.h>
 
-#include "SceneR/Math/Math.hpp"
 #include "SceneR/Math/Vector3.hpp"
 #include "SceneR/Math/Matrix.hpp"
 

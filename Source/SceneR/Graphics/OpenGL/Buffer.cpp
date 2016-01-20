@@ -3,8 +3,6 @@
 
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
-#include <gsl.h>
-
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 

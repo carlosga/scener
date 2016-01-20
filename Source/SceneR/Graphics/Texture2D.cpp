@@ -5,7 +5,6 @@
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/SamplerState.hpp"
-#include "SceneR/Graphics/OpenGL/TextureTarget.hpp"
 
 namespace SceneR { namespace Graphics {
 

@@ -4,7 +4,6 @@
 #include "SceneR/Content/ContentManager.hpp"
 
 #include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/ContentLoadException.hpp"
 #include "SceneR/Graphics/Model.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/IO/FileStream.hpp"

@@ -3,13 +3,8 @@
 
 #include "SceneR/Graphics/RendererWindow.hpp"
 
-#include <cstddef>
-#include <iostream>
-
 #include "SceneR/Graphics/GraphicsDeviceManager.hpp"
 #include "SceneR/Graphics/Renderer.hpp"
-#include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 #include "SceneR/Input/Keyboard.hpp"

@@ -3,12 +3,10 @@
 
 #include "SceneR/Graphics/EffectTechnique.hpp"
 
-#include "SceneR/Graphics/EffectDirtyFlags.hpp"
 #include "SceneR/Graphics/EffectParameter.hpp"
 #include "SceneR/Graphics/EffectPass.hpp"
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/Texture2D.hpp"
-#include "SceneR/Math/Math.hpp"
 
 namespace SceneR { namespace Graphics {
 

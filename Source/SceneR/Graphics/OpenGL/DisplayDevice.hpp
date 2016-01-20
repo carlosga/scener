@@ -45,13 +45,13 @@ private:
 
 private:
     // X11
-    Display*     _display   = nullptr;
-    Screen*      _screen    = nullptr;
-    std::int32_t _screen_id = 0;
+    Display*     _display   { nullptr };
+    Screen*      _screen    { nullptr };
+    std::int32_t _screen_id { 0 };
 
     // GLX
-    XVisualInfo* _visual_info = nullptr;
-    GLXFBConfig  _fbc         = 0;
+    XVisualInfo* _visual_info { nullptr };
+    GLXFBConfig  _fbc         { 0 };
 };
 
 }}}

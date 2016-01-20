@@ -5,7 +5,6 @@
 
 #include "SceneR/Content/DDS/Dds.hpp"
 #include "SceneR/IO/File.hpp"
-#include "SceneR/IO/FileStream.hpp"
 
 namespace SceneR { namespace Content { namespace DDS {
 

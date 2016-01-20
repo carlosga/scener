@@ -4,7 +4,6 @@
 #include "SceneR/Graphics/OpenGL/TextureStorage.hpp"
 
 #include "SceneR/Graphics/SurfaceFormat.hpp"
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 

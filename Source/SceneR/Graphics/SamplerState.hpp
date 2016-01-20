@@ -35,7 +35,7 @@ public:
     /**
      * Destructor
      */
-    ~SamplerState() = default;
+    ~SamplerState() override = default;
 
 public:
     SamplerState& operator=(const SamplerState& samplerState) = default;

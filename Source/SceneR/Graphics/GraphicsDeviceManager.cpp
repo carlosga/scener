@@ -4,7 +4,6 @@
 #include "SceneR/Graphics/GraphicsDeviceManager.hpp"
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/PresentInterval.hpp"
 #include "SceneR/Graphics/Renderer.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/RendererWindow.hpp"

@@ -27,7 +27,7 @@ public:
     /**
      * Destructor
      */
-    ~GraphicsResource() = default;
+    virtual ~GraphicsResource() = default;
 
 public:
     /**

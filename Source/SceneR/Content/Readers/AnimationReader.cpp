@@ -8,12 +8,7 @@
 #include "SceneR/TimeSpan.hpp"
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Content/GLTF/Node.hpp"
 #include "SceneR/Graphics/Animation.hpp"
-#include "SceneR/Graphics/Keyframe.hpp"
-#include "SceneR/Math/Matrix.hpp"
-#include "SceneR/Math/Quaternion.hpp"
-#include "SceneR/Math/Vector3.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

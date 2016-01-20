@@ -10,8 +10,6 @@
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/SamplerState.hpp"
-#include "SceneR/Graphics/TextureAddressMode.hpp"
-#include "SceneR/Graphics/TextureFilter.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 

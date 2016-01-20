@@ -52,7 +52,7 @@ public:
     /**
      * Releases all resources being used by this texture.
      */
-    ~Texture2D() = default;
+    ~Texture2D() override = default;
 
 public:
     std::uint32_t id() const noexcept override;

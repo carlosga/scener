@@ -11,7 +11,6 @@
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/SamplerState.hpp"
-#include "SceneR/Graphics/SurfaceFormat.hpp"
 #include "SceneR/Graphics/Texture2D.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {

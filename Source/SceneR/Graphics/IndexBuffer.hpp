@@ -40,7 +40,7 @@ public:
     /**
      * Releases all resources being used by this indexbuffer instance
      */
-    ~IndexBuffer() = default;
+    ~IndexBuffer() override = default;
 
 public:
     /**

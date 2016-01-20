@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_RENDERTIME_HPP
-#define SCENER_GRAPHICS_RENDERTIME_HPP
+#ifndef SCENER_GRAPHICS_STEPTIME_HPP
+#define SCENER_GRAPHICS_STEPTIME_HPP
 
 #include "SceneR/TimeSpan.hpp"
 
@@ -60,4 +60,4 @@ public:
 
 }}
 
-#endif // SCENER_GRAPHICS_RENDERTIME_HPP
+#endif // SCENER_GRAPHICS_STEPTIME_HPP

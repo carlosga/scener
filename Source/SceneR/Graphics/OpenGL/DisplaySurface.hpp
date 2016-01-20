@@ -50,9 +50,6 @@ private:
 
     // Misc
     bool _should_close { false };
-
-    // Events
-    std::queue<XEvent> _events { };
 };
 
 }}}

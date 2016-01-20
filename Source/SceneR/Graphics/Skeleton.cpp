@@ -3,10 +3,7 @@
 
 #include "SceneR/Graphics/Skeleton.hpp"
 
-#include <algorithm>
-
 #include "SceneR/Graphics/Animation.hpp"
-#include "SceneR/Graphics/Keyframe.hpp"
 #include "SceneR/Graphics/ModelBone.hpp"
 
 namespace SceneR { namespace Graphics {

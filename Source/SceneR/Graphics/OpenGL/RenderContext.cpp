@@ -122,7 +122,10 @@ void RenderContext::present_interval(std::int32_t interval) const noexcept
 
 void RenderContext::present() const noexcept
 {
-    glXSwapBuffers(_display->handle(), _surface->handle());
+    if (_display && _surface)
+    {
+        glXSwapBuffers(_display->handle(), _surface->handle());
+    }
 }
 
 bool RenderContext::isExtensionSupported(const std::string& extList, const std::string& extension) noexcept

@@ -30,7 +30,7 @@ public:
     /**
      * Releases all resources being used by this texture.
      */
-    ~Texture() = default;
+    ~Texture() override = default;
 
 public:
     /**

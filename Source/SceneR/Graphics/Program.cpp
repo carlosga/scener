@@ -6,7 +6,6 @@
 #include <gsl_assert.h>
 
 #include "SceneR/Graphics/Shader.hpp"
-#include "SceneR/Graphics/ShaderType.hpp"
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
 

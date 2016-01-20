@@ -3,11 +3,8 @@
 
 #include "SceneR/Math/Matrix.hpp"
 
-#include <sstream>
-
 #include <gsl.h>
 
-#include "SceneR/Math/Math.hpp"
 #include "SceneR/Math/Quaternion.hpp"
 #include "SceneR/Math/Vector3.hpp"
 #include "SceneR/Math/Vector4.hpp"
