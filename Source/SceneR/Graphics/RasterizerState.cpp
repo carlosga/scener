@@ -26,15 +26,15 @@ void RasterizerState::apply() const noexcept
 
         switch (cull_mode)
         {
-            case SceneR::Graphics::CullMode::cull_clockwise_face:
+            case CullMode::cull_clockwise_face:
                 glCullFace(GL_FRONT);
-
                 break;
 
-            case SceneR::Graphics::CullMode::cull_counter_clockwise_face:
+            case CullMode::cull_counter_clockwise_face:
                 glCullFace(GL_BACK);
                 break;
 
+            case CullMode::none:
             default:
                 glCullFace(GL_FRONT_AND_BACK);
                 break;

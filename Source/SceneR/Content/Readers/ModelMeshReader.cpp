@@ -212,7 +212,6 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
                 break;
             default:
                 throw std::runtime_error("unknown parameter type");
-                break;
             }
         }
         else if (parameter->parameter_class() == EffectParameterClass::vector)

@@ -123,9 +123,13 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
             case EffectParameterType::string:
                 parameter->set_value<std::string>(paramValue.string_value());
                 break;
+            case EffectParameterType::texture:
+            case EffectParameterType::texture_1d:
+            case EffectParameterType::texture_2d:
+            case EffectParameterType::texture_3d:
+            case EffectParameterType::texture_cube:
             default:
                 throw std::runtime_error("unknown parameter type");
-                break;
             }
         }
         else if (parameter->parameter_class() == EffectParameterClass::vector)
