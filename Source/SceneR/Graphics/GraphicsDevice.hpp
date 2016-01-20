@@ -33,8 +33,6 @@ private:
 public:
     /**
      * Initializes a new instance of the GraphicsDevice class.
-     * @param adapter the display adapter.
-     * @param graphicsProfile the graphics profile.
      */
     GraphicsDevice() noexcept;
 

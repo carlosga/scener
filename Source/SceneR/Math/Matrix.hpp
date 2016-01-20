@@ -279,19 +279,19 @@ public:
     *
     * @returns true if the Matrix can be decomposed; false otherwise.
     */
-    static bool decompose(const Matrix& data, Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept;
+    static bool decompose(const Matrix& matrix, Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept;
 
     /**
      * Inverts the given Matrix structure.
      * @param matrix the matrix to invert.
      */
-    static Matrix invert(const Matrix& data) noexcept;
+    static Matrix invert(const Matrix& matrix) noexcept;
 
     /**
     * Negates the given Matrix structure.
     * @param matrix the matrix to negate.
     */
-    static Matrix negate(const Matrix& data) noexcept;
+    static Matrix negate(const Matrix& matrix) noexcept;
 
     /**
      * Transforms a Matrix by applying a Quaternion rotation.

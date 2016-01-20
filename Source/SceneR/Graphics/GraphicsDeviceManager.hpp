@@ -84,7 +84,6 @@ public:
 
     /**
      * Gets or sets the preferred back-buffer height.
-     * @return the the preferred back-buffer height.
      */
     std::uint32_t preferred_back_buffer_height { 0 };
 

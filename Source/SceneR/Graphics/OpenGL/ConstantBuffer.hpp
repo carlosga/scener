@@ -27,7 +27,6 @@ public:
     /**
      * Initializes a new instance of the ConstantBuffer class.
      * @param name the name of the constant buffer.
-     * @param programId the handle of the shader program.
      */
     ConstantBuffer(const std::string& name) noexcept;
 

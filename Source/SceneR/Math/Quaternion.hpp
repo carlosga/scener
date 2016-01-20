@@ -31,7 +31,7 @@ public:
      * @param quaternion the Quaternion of which to return the conjugate.
      * @returns the quaternion conjugate
      */
-    static Quaternion conjugate(const Quaternion& data) noexcept;
+    static Quaternion conjugate(const Quaternion& quaternion) noexcept;
 
     /**
      * Creates a Quaternion from a vector and an angle to rotate about the vector.

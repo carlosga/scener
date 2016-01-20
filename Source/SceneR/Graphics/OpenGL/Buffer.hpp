@@ -68,7 +68,6 @@ public:
      * Gets a subset of data from a buffer object's data store.
      * @param offset specifies the offset into the buffer object's data store where data replacement will begin, measured in bytes.
      * @param size specifies the size in bytes of the data store region being replaced.
-     * @param data specifies a pointer to the new data that will be copied into the data store.
      */
     std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t size) const noexcept;
 
