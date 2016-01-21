@@ -19,11 +19,6 @@ const TimeSpan& Animation::duration() const noexcept
     return _keyframes.crbegin()->time();
 }
 
-const std::string& Animation::name() const noexcept
-{
-    return _name;
-}
-
 const std::vector<Keyframe>& Animation::keyframes() const noexcept
 {
     return _keyframes;
@@ -32,6 +27,11 @@ const std::vector<Keyframe>& Animation::keyframes() const noexcept
 const Keyframe& Animation::current_keyframe() const noexcept
 {
     return _keyframes[_current_keyframe];
+}
+
+const std::string& Animation::name() const noexcept
+{
+    return _name;
 }
 
 void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcept

@@ -13,8 +13,8 @@ namespace SceneR { namespace Graphics {
 using SceneR::Math::Matrix;
 
 Model::Model() noexcept
-    : _name   ()
-    , _meshes (0)
+    : _meshes (0)
+    , _name   ()
 {
 }
 

@@ -89,11 +89,11 @@ public:
     void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
 
 private:
-    std::string             _name;
     std::size_t             _index;
     std::int32_t            _binding_point;
     std::size_t             _size;
     std::unique_ptr<Buffer> _buffer_object;
+    std::string             _name;
 };
 
 }}}

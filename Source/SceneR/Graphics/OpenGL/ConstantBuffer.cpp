@@ -10,11 +10,11 @@
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
-    : _name          { name }
-    , _index         { 0 }
+    : _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
     , _buffer_object { std::make_unique<Buffer>(BufferTarget::uniform_buffer, BufferUsage::dynamic_draw) }
+    , _name          { name }
 {
 }
 

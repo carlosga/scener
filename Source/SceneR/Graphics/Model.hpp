@@ -64,8 +64,8 @@ public:
             , const SceneR::Math::Matrix& projection) noexcept;
 
 private:
-    std::string                             _name;
     std::vector<std::shared_ptr<ModelMesh>> _meshes;
+    std::string                             _name;
 
     friend class SceneR::Content::ContentReader;
 };

@@ -23,17 +23,16 @@ public:
 public:
     const SceneR::TimeSpan& current_time() const noexcept;
     const SceneR::TimeSpan& duration() const noexcept;
-    const std::string& name() const noexcept;
     const std::vector<Keyframe>& keyframes() const noexcept;
     const Keyframe& current_keyframe() const noexcept;
-
+    const std::string& name() const noexcept;
     void update(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
 private:
-    std::string           _name             { };
     SceneR::TimeSpan      _current_time     { 0 };
     std::size_t           _current_keyframe { 0 };
     std::vector<Keyframe> _keyframes        { };
+    std::string           _name             { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

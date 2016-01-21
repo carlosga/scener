@@ -80,11 +80,11 @@ private:
     void verify_compilation_state();
 
 private:
-    std::string                                 _name;
     std::uint32_t                               _id;
     ShaderType                                  _type;
-    std::string                                 _source;
     std::vector<std::shared_ptr<ShaderInclude>> _includes;
+    std::string                                 _name;
+    std::string                                 _source;
 };
 
 }}

@@ -52,9 +52,9 @@ auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& 
 
     accessor->_name            = key;
     accessor->_component_type  = static_cast<ComponentType>(source["componentType"].int_value());
-    accessor->_byte_offset     = source["byteOffset"].int_value();
-    accessor->_byte_stride     = source["byteStride"].int_value();
-    accessor->_attribute_count = source["count"].int_value();
+    accessor->_byte_offset     = static_cast<std::size_t>(source["byteOffset"].int_value());
+    accessor->_byte_stride     = static_cast<std::size_t>(source["byteStride"].int_value());
+    accessor->_attribute_count = static_cast<std::size_t>(source["count"].int_value());
     accessor->_buffer_view     = input->read_object<BufferView>(source["bufferView"].string_value());
     accessor->_byte_length     = accessor->_attribute_count
                                * accessor->get_attribute_type_count()

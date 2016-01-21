@@ -21,7 +21,7 @@ auto ContentTypeReader<Buffer>::read(ContentReader* input, const std::string& ke
 
     buffer->_name        = key;
     buffer->_uri         = uri;
-    buffer->_byte_length = source["byteLength"].int_value();
+    buffer->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
 
     Ensures(buffer->_byte_length == data.size());
 

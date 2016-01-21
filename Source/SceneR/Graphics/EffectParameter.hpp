@@ -104,18 +104,17 @@ public:
     EffectParameter& operator=(const EffectParameter& parameter) = default;
 
 private:
-    std::string _name         { };
-    std::size_t _column_count { 0 };
-    std::size_t _row_count    { 0 };
-    std::size_t _count        { 0 };
-    std::size_t _offset       { 0 };
-    std::string _semantic     { };
-    std::string _value        { };
-    std::string _uniform_name { };
-
+    std::size_t             _column_count    { 0 };
+    std::size_t             _row_count       { 0 };
+    std::size_t             _count           { 0 };
+    std::size_t             _offset          { 0 };
     EffectParameterClass    _parameter_class { EffectParameterClass::scalar };
     EffectParameterType     _parameter_type  { EffectParameterType::single };
     OpenGL::ConstantBuffer* _constant_buffer { nullptr };
+    std::string             _name            { };
+    std::string             _semantic        { };
+    std::string             _value           { };
+    std::string             _uniform_name    { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

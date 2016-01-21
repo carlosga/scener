@@ -75,10 +75,10 @@ public:
 private:
     index_type                              _index     { 0 };
     std::vector<std::shared_ptr<ModelBone>> _children  { };
-    std::string                             _name      { };
     std::shared_ptr<ModelBone>              _parent    { nullptr };
     std::shared_ptr<Animation>              _animation { nullptr };
     SceneR::Math::Matrix                    _transform { SceneR::Math::Matrix::identity };
+    std::string                             _name      { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

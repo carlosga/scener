@@ -89,11 +89,10 @@ private:
     SceneR::Math::Matrix                    _bind_shape_matrix     { SceneR::Math::Matrix::identity };
     std::vector<SceneR::Math::Matrix>       _inverse_bind_matrices { };
     std::vector<std::shared_ptr<ModelBone>> _joints                { };
+    std::vector<SceneR::Math::Matrix>       _bone_transforms       { };
+    std::vector<SceneR::Math::Matrix>       _world_transforms      { };
+    std::vector<SceneR::Math::Matrix>       _skin_transforms       { };
     std::string                             _name                  { };
-
-    std::vector<SceneR::Math::Matrix> _bone_transforms;
-    std::vector<SceneR::Math::Matrix> _world_transforms;
-    std::vector<SceneR::Math::Matrix> _skin_transforms;
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

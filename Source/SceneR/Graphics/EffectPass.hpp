@@ -53,9 +53,9 @@ public:
 
 private:
     GraphicsDevice*                               _graphics_device  { nullptr };
-    std::string                                   _name             { };
     std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
     std::shared_ptr<Program>                      _program          { nullptr };
+    std::string                                   _name             { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

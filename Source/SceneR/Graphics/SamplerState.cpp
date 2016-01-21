@@ -18,8 +18,8 @@ void SamplerState::apply(std::uint32_t textureId) const noexcept
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(address_v));
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_R    , static_cast<GLint>(address_w));
     glTextureParameteri(textureId, GL_TEXTURE_MAX_LEVEL , static_cast<GLint>(max_mip_level));
-    glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(min_filter));
-    glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(mag_filter));
+    glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(min_filter));
+    glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(mag_filter));
     glTextureParameterf(textureId, GL_TEXTURE_LOD_BIAS  , mip_map_level_of_detail_bias);
 }
 

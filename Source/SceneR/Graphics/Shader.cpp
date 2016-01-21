@@ -15,10 +15,11 @@ Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::
 }
 
 Shader::Shader(const std::string& name, ShaderType type, const std::string& source) noexcept
-    : _name   { name }
-    , _id     { 0 }
-    , _type   { type }
-    , _source { source }
+    : _id       { 0 }
+    , _type     { type }
+    , _includes { }
+    , _name     { name }
+    , _source   { source }
 {
 }
 

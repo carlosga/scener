@@ -47,9 +47,7 @@ private:
     XSetWindowAttributes _drawable_attribs     { };
     Atom                 _atomWmDeleteDrawable { };
     Atom                 _atomWmName           { };
-
-    // Misc
-    bool _should_close { false };
+    bool                 _should_close         { false };
 };
 
 }}}
