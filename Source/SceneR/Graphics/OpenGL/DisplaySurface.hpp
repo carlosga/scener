@@ -12,6 +12,7 @@
 #include <string>
 
 #include <X11/Xlib.h>
+#include <nod/nod.hpp>
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
@@ -30,16 +31,14 @@ public:
 
 public:
     bool create(std::uint32_t width, std::uint32_t height) noexcept;
-
     void destroy() noexcept;
-
     void clear() noexcept;
-
     void show() noexcept;
-
     void pool_events() noexcept;
 
-    bool should_close() const noexcept;
+public:
+    nod::connection connect_closing(std::function<void()>&& slot) noexcept;
+    nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
     DisplayDevice*       _display              { nullptr };
@@ -47,7 +46,10 @@ private:
     XSetWindowAttributes _drawable_attribs     { };
     Atom                 _atomWmDeleteDrawable { };
     Atom                 _atomWmName           { };
-    bool                 _should_close         { false };
+
+    // signals
+    nod::signal<void()> _closing_signal;
+    nod::signal<void(std::uint32_t, std::uint32_t)> _resize_signal;
 };
 
 }}}

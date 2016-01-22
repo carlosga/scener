@@ -18,7 +18,7 @@ set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 
 # Nod/Signals & Slots (https://github.com/fr00b0/nod)
-# set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
+set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 
 # compiler and linker configurations
 set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -std=c++14 -stdlib=libc++ -m64")

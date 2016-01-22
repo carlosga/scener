@@ -3,23 +3,16 @@
 
 #include "SceneR/Graphics/RendererWindow.hpp"
 
+#include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/GraphicsDeviceManager.hpp"
 #include "SceneR/Graphics/Renderer.hpp"
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
-#include "SceneR/Input/Keyboard.hpp"
-#include "SceneR/Input/KeyboardState.hpp"
-#include "SceneR/Input/Keys.hpp"
-#include "SceneR/Input/Mouse.hpp"
 
 namespace SceneR { namespace Graphics {
 
 using SceneR::Graphics::OpenGL::DisplayDevice;
 using SceneR::Graphics::OpenGL::DisplaySurface;
-using SceneR::Input::Keyboard;
-using SceneR::Input::KeyboardState;
-using SceneR::Input::Keys;
-using SceneR::Input::Mouse;
 
 RendererWindow::RendererWindow(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer { renderer }
@@ -52,6 +45,16 @@ void RendererWindow::allow_user_resizing(bool allowUserResizing) noexcept
     _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
 }
 
+bool RendererWindow::closed() const
+{
+    return _closed;
+}
+
+nod::connection RendererWindow::connect_resize(std::function<void(uint32_t, uint32_t)>&& slot) noexcept
+{
+    return _displaySurface->connect_resize(std::move(slot));
+}
+
 DisplayDevice* RendererWindow::display_device() const noexcept
 {
     return _displayDevice.get();
@@ -80,8 +83,7 @@ void RendererWindow::open() noexcept
         throw std::runtime_error("An error has occurred while creatring the display surface.");
     }
 
-    // initialize input
-    initialize_input();
+    initialize_connections();
 }
 
 void RendererWindow::show() const noexcept
@@ -104,23 +106,18 @@ void RendererWindow::close() noexcept
     }
 }
 
-void RendererWindow::initialize_input() const noexcept
+void RendererWindow::initialize_connections() noexcept
 {
-    // initialize keyboard input
-    Keyboard::initialize(_displaySurface.get());
-
-    // initialize mouse input
-    Mouse::initialize(_displaySurface.get());
-}
-
-bool RendererWindow::should_close() const noexcept
-{
-    auto fullScreen    = _renderer->_graphics_device_manager->full_screen;
-    auto shouldClose   = _displaySurface->should_close();
-    auto keyboardState = Keyboard::get_state();
-    auto isEscPressed  = keyboardState.is_key_down(Keys::Escape);
-
-    return ((!fullScreen && isEscPressed) || shouldClose);
+    _close_connection = _displaySurface->connect_closing([&]() {
+        _closed = true;
+        _close_connection.disconnect();
+        _resize_connection.disconnect();
+    });
+    _resize_connection = _displaySurface->connect_resize([&](std::uint32_t width, std::uint32_t height) {
+        _renderer->graphics_device()->viewport().width  = width;
+        _renderer->graphics_device()->viewport().height = height;
+        _renderer->graphics_device()->viewport().update();
+    });
 }
 
 void RendererWindow::pool_events() const noexcept

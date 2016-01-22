@@ -121,7 +121,7 @@ void DisplaySurface::pool_events() noexcept
         {
             XWindowAttributes attribs;
             XGetWindowAttributes(_display->handle(), _drawable, &attribs);
-            //Resize(attribs.width, attribs.height);
+            _resize_signal(attribs.width, attribs.height);
         }
         else if (ev.type == KeymapNotify)
         {
@@ -185,21 +185,26 @@ void DisplaySurface::pool_events() noexcept
         {
             if (static_cast<Atom>(ev.xclient.data.l[0]) == _atomWmDeleteDrawable)
             {
-                _should_close = true;
+                _closing_signal();
                 break;
             }
         }
         else if (ev.type == DestroyNotify)
         {
-            _should_close = true;
+            _closing_signal();
             break;
         }
     }
 }
 
-bool DisplaySurface::should_close() const noexcept
+nod::connection DisplaySurface::connect_closing(std::function<void()>&& slot) noexcept
 {
-    return _should_close;
+    return _closing_signal.connect(slot);
+}
+
+nod::connection DisplaySurface::connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept
+{
+    return _resize_signal.connect(slot);
 }
 
 }}}

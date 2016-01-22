@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+#include <nod/nod.hpp>
+
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
 DisplayDevice::~DisplayDevice()
@@ -173,7 +175,7 @@ GLXFBConfig DisplayDevice::get_best_frame_buffer_configuration() const noexcept
     std::int32_t best_num_samp  = -1;
     std::int32_t worst_num_samp = 999;
 
-    for (int32_t i = 0; i < fbcount; ++i)
+    for (std::int32_t i = 0; i < fbcount; ++i)
     {
         XVisualInfo* vi = glXGetVisualFromFBConfig(_display, fbc[i]);
         if (vi != 0)

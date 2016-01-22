@@ -4,6 +4,8 @@
 #ifndef SKELETAL_ANIMATION_CAMERA_HPP
 #define SKELETAL_ANIMATION_CAMERA_HPP
 
+#include <nod/nod.hpp>
+
 #include <SceneR/Graphics/Component.hpp>
 #include <SceneR/Math/Matrix.hpp>
 #include <SceneR/Math/Vector3.hpp>
@@ -22,14 +24,18 @@ public:
     void initialize() noexcept override;
     void update(const SceneR::Graphics::StepTime& renderTime) noexcept override;
 
+private:
+    void update_projection() noexcept;
+
 public:
-    SceneR::Math::Matrix view;
-    SceneR::Math::Matrix projection;
+    SceneR::Math::Matrix   view;
+    SceneR::Math::Matrix   projection;
 
 private:
-    SceneR::Math::Vector3 _position;
-    SceneR::Math::Matrix  _rotationTransform;
-    float                 _rotation;
+    SceneR::Math::Vector3  _position;
+    SceneR::Math::Matrix   _rotationTransform;
+    float                  _rotation;
+    nod::scoped_connection _resize_connection;
 };
 
 }

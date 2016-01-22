@@ -4,11 +4,10 @@
 #include "SkeletalAnimation/Camera.hpp"
 
 #include <SceneR/Graphics/GraphicsDevice.hpp>
+#include <SceneR/Graphics/RendererWindow.hpp>
 #include <SceneR/Input/Keys.hpp>
 #include <SceneR/Input/Keyboard.hpp>
 #include <SceneR/Input/KeyboardState.hpp>
-//#include <SceneR/Math/Math.hpp>
-//#include <SceneR/Math/Vector3.hpp>
 
 #include "SkeletalAnimation/SampleRenderer.hpp"
 
@@ -23,23 +22,27 @@ using SceneR::Math::Matrix;
 using SceneR::Math::Vector3;
 
 Camera::Camera(SampleRenderer* renderer) noexcept
-    : Component  { renderer }
-    , view       { Matrix::identity }
-    , projection { Matrix::identity }
+    : Component          { renderer }
+    , view               { Matrix::identity }
+    , projection         { Matrix::identity }
+    , _position          { }
+    , _rotationTransform { }
+    , _rotation          { 0.0f }
+    , _resize_connection { }
 {
 }
 
 void Camera::initialize() noexcept
 {
-    auto    aspect = _renderer->graphics_device()->viewport().aspect_ratio();
-    Degrees fov    = 27.0f;
-
     _position          = { 0.0f, 0.0f, 500.0f };
     _rotation          = 0.0f;
     _rotationTransform = Matrix::identity;
 
-    projection = Matrix::create_perspective_field_of_view(fov, aspect, 0.1f, 1000.0f);
-    view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
+    update_projection();
+
+    _resize_connection = _renderer->window()->connect_resize([&](std::uint32_t, std::uint32_t) {
+        update_projection();
+    });
 }
 
 void Camera::update(const StepTime& renderTime) noexcept
@@ -52,27 +55,27 @@ void Camera::update(const StepTime& renderTime) noexcept
 
     if (currentKeyboardState.is_key_down(Keys::D))
     {
-        newPosition += Vector3 { 1.0f, 0.0f, 0.0f };
+        newPosition += { 1.0f, 0.0f, 0.0f };
     }
     if (currentKeyboardState.is_key_down(Keys::A))
     {
-        newPosition += Vector3 { -1.0f, 0.0f, 0.0f };
+        newPosition += { -1.0f, 0.0f, 0.0f };
     }
     if (currentKeyboardState.is_key_down(Keys::W))
     {
-        newPosition += Vector3 { 0.0f, 0.0f, 1.0f };
+        newPosition += { 0.0f, 0.0f, 1.0f };
     }
     if (currentKeyboardState.is_key_down(Keys::S))
     {
-        newPosition += Vector3 { 0.0f, 0.0f, -1.0f };
+        newPosition += { 0.0f, 0.0f, -1.0f };
     }
     if (currentKeyboardState.is_key_down(Keys::Z))
     {
-        newPosition += Vector3 { 0.0f, 1.0f, 0.0f };
+        newPosition += { 0.0f, 1.0f, 0.0f };
     }
     if (currentKeyboardState.is_key_down(Keys::C))
     {
-        newPosition += Vector3 { 0.0f, -1.0f, 0.0f };
+        newPosition += { 0.0f, -1.0f, 0.0f };
     }
 
     if (currentKeyboardState.is_key_down(Keys::Q))
@@ -97,6 +100,15 @@ void Camera::update(const StepTime& renderTime) noexcept
     _position = Vector3::lerp(currentPosition, newPosition, SceneR::Math::pi_over_2);
 
     view = _rotationTransform * Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
+}
+
+void Camera::update_projection() noexcept
+{
+    auto    aspect = _renderer->graphics_device()->viewport().aspect_ratio();
+    Degrees fov    = 45.0f;
+
+    projection = Matrix::create_perspective_field_of_view(fov, aspect, 0.1f, 1000.0f);
+    view       = Matrix::create_look_at(_position, Vector3::zero, Vector3::up);
 }
 
 }

@@ -12,6 +12,10 @@
 #include "SceneR/Graphics/OpenGL/RenderContext.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/RendererWindow.hpp"
+#include "SceneR/Input/Keyboard.hpp"
+#include "SceneR/Input/KeyboardState.hpp"
+#include "SceneR/Input/Keys.hpp"
+#include "SceneR/Input/Mouse.hpp"
 
 namespace SceneR { namespace Graphics {
 
@@ -19,6 +23,10 @@ using SceneR::TimeSpan;
 using SceneR::Content::ContentManager;
 using SceneR::Graphics::GraphicsDevice;
 using SceneR::Graphics::OpenGL::RenderContext;
+using SceneR::Input::Keyboard;
+using SceneR::Input::KeyboardState;
+using SceneR::Input::Keys;
+using SceneR::Input::Mouse;
 
 Renderer::Renderer(const std::string& rootDirectory) noexcept
     : _root_directory { rootDirectory }
@@ -117,6 +125,9 @@ void Renderer::initialize() noexcept
     {
         component->initialize();
     }
+
+    Keyboard::initialize(_renderer_window->display_surface());
+    Mouse::initialize(_renderer_window->display_surface());
 }
 
 void Renderer::load_content() noexcept
@@ -153,7 +164,7 @@ void Renderer::start_event_loop() noexcept
 
         time_step();
 
-    } while (!_renderer_window->should_close());
+    } while (!_renderer_window->closed());
 }
 
 /**

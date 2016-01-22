@@ -4,10 +4,12 @@
 #ifndef SCENER_GRAPHICS_RENDERERWINDOW_HPP
 #define SCENER_GRAPHICS_RENDERERWINDOW_HPP
 
+#include <functional>
 #include <memory>
 #include <string>
 
 #include <gsl.h>
+#include <nod/nod.hpp>
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
@@ -60,16 +62,22 @@ public:
      */
     void allow_user_resizing(bool allowUserResizing) noexcept;
 
-    OpenGL::DisplayDevice* display_device() const noexcept;
+    /**
+     * @brief closed Gets a value indicating whether the underliying display surface has been closed.
+     * @return a value indicating whether the underliying display surface has been closed.
+     */
+    bool closed() const;
 
-    OpenGL::DisplaySurface* display_surface() const noexcept;
+public:
+    nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
+    OpenGL::DisplayDevice* display_device() const noexcept;
+    OpenGL::DisplaySurface* display_surface() const noexcept;
     void open() noexcept;
     void show() const noexcept;
     void close() noexcept;
-    void initialize_input() const noexcept;
-    bool should_close() const noexcept;
+    void initialize_connections() noexcept;
     void pool_events() const noexcept;
 
 private:
@@ -78,10 +86,13 @@ private:
     RendererWindow& operator=(const RendererWindow& window) = delete;
 
 private:
-    std::string                             _title          { };
-    Renderer*                               _renderer       { nullptr };
-    std::unique_ptr<OpenGL::DisplayDevice>  _displayDevice  { nullptr };
-    std::unique_ptr<OpenGL::DisplaySurface> _displaySurface { nullptr };
+    Renderer*                               _renderer          { nullptr };
+    std::unique_ptr<OpenGL::DisplayDevice>  _displayDevice     { nullptr };
+    std::unique_ptr<OpenGL::DisplaySurface> _displaySurface    { nullptr };
+    std::string                             _title             { };
+    nod::scoped_connection                  _close_connection  { };
+    nod::scoped_connection                  _resize_connection { };
+    bool                                    _closed            { false };
 
     friend class Renderer;
 };

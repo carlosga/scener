@@ -3,9 +3,10 @@ project (SceneR::Samples::SkeletalAnimation)
 enable_language(CXX)
 
 # include directories
-include_directories (${JSON11_INCLUDE_DIRS}
-                     ${GSL_INCLUDE_DIRS}
-                     ${SCENER_FRAMEWORK_INCLUDE_DIRS})
+#include_directories (${JSON11_INCLUDE_DIRS}
+#                     ${GSL_INCLUDE_DIRS}
+#                     ${NOD_INCLUDE_DIRS}
+#                     ${SCENER_FRAMEWORK_INCLUDE_DIRS})
 
 # pthread
 find_package (Threads REQUIRED)
@@ -37,6 +38,13 @@ add_executable (SkeletalAnimation ${SOURCE_FILES})
 
 # enable 64 bit build
 set_target_properties (SkeletalAnimation PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
+
+# include directories
+target_include_directories (SkeletalAnimation
+                            PRIVATE ${JSON11_INCLUDE_DIRS}
+                            PRIVATE ${GSL_INCLUDE_DIRS}
+                            PRIVATE ${NOD_INCLUDE_DIRS}
+                            PRIVATE ${SCENER_FRAMEWORK_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (SkeletalAnimation
