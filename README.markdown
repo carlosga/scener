@@ -15,7 +15,8 @@ The API is inspired on a subset of the Microsoft XNA 4 API.
     * [**OpenGL**](https://www.khronos.org/opengl/)
     * [**json11**](https://github.com/dropbox/json11)
     * [**GSL**](https://github.com/Microsoft/GSL)
-    * [**Google Test**](https://code.google.com/p/googletest/)
+    * [**nod**](https://github.com/fr00b0/nod)
+    * [**Google Test**](https://code.google.com/p/googletest/)    
 * Asset format
     * [**glTF**](https://github.com/KhronosGroup/glTF)
 * OpenGL loader
