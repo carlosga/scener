@@ -4,3 +4,6 @@
 [submodule "externals/gsl"]
 	path = externals/gsl
 	url = git@github.com:Microsoft/GSL.git
+[submodule "externals/nod"]
+	path = externals/nod
+	url = git@github.com:fr00b0/nod.git
