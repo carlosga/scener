@@ -46,33 +46,35 @@ const std::vector<Matrix>& Skeleton::skin_transforms() const noexcept
     return _skin_transforms;
 }
 
-void Skeleton::update(const TimeSpan& time, bool relativeToCurrentTime, const Matrix& rootTransform) noexcept
+void Skeleton::update(const TimeSpan& time) noexcept
 {
-    this->update_bone_transforms(time, relativeToCurrentTime);
-    this->update_world_transforms(rootTransform);
+    this->update_bone_transforms(time);
+    this->update_world_transforms();
     this->update_skin_transforms();
 }
 
-void Skeleton::update_bone_transforms(const TimeSpan& time, bool relativeToCurrentTime) noexcept
+void Skeleton::update_bone_transforms(const TimeSpan& time) noexcept
 {
-    for (const auto joint : _joints)
+    for (const auto& joint : _joints)
     {
-        joint->animation()->update(time, relativeToCurrentTime);
+        joint->animation()->update(time, true);
 
         // Use this keyframe.
         _bone_transforms[joint->index()] = joint->animation()->current_keyframe().transform();
     }
 }
 
-void Skeleton::update_world_transforms(const Matrix& rootTransform) noexcept
+void Skeleton::update_world_transforms() noexcept
 {
+    const auto count = _joints.size();
+
     // Root bone.
-    _world_transforms[0] = _bone_transforms[0] * rootTransform;
+    _world_transforms[0] = _bone_transforms[0];
 
     // Child bones.
-    for (std::size_t bone = 1; bone < _world_transforms.size(); ++bone)
+    for (std::size_t bone = 1; bone < count; ++bone)
     {
-        auto parentBone = _joints[bone]->parent()->index();
+        const auto parentBone = _joints[bone]->parent()->index();
 
         _world_transforms[bone] = _bone_transforms[bone] * _world_transforms[parentBone];
     }
@@ -80,7 +82,9 @@ void Skeleton::update_world_transforms(const Matrix& rootTransform) noexcept
 
 void Skeleton::update_skin_transforms() noexcept
 {
-    for (std::size_t bone = 0; bone < _skin_transforms.size(); ++bone)
+    const auto count = _joints.size();
+
+    for (std::size_t bone = 0; bone < count; ++bone)
     {
         _skin_transforms[bone] = _bind_shape_matrix * _inverse_bind_matrices[bone] * _world_transforms[bone];
     }

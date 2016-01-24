@@ -8,7 +8,7 @@ namespace SceneR { namespace Graphics {
 using SceneR::TimeSpan;
 
 StepTime::StepTime() noexcept
-    : StepTime { TimeSpan::zero, TimeSpan::zero, false }
+    : StepTime { TimeSpan::zero(), TimeSpan::zero(), false }
 {
 }
 

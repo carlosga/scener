@@ -3,8 +3,6 @@
 
 #include "SceneR/Graphics/Animation.hpp"
 
-// #include "SceneR/Math/Math.hpp"
-
 namespace SceneR { namespace Graphics {
 
 using SceneR::TimeSpan;
@@ -16,7 +14,7 @@ const TimeSpan& Animation::current_time() const noexcept
 
 const TimeSpan& Animation::duration() const noexcept
 {
-    return _keyframes.crbegin()->time();
+    return _duration;
 }
 
 const std::vector<Keyframe>& Animation::keyframes() const noexcept
@@ -36,7 +34,8 @@ const std::string& Animation::name() const noexcept
 
 void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcept
 {
-    auto currentTime = time;
+    auto       currentTime = time;
+    const auto count       = _keyframes.size();
 
     // Update the animation position.
     if (relativeToCurrentTime)
@@ -44,7 +43,7 @@ void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcep
         currentTime += _current_time;
 
         // If we reached the end, loop back to the start.
-        if (currentTime >= duration())
+        if (currentTime >= _duration)
         {
             currentTime       = 0;
             _current_time     = 0;
@@ -52,12 +51,11 @@ void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcep
         }
     }
 
-    // _current_time = currentTime;
     _current_time = TimeSpan::from_seconds(Math::lerp(_current_time.total_seconds()
                                                     , currentTime.total_seconds()
                                                     , Math::pi / 16));
 
-    while (_current_keyframe < _keyframes.size())
+    while (_current_keyframe < count)
     {
         const auto& keyframe = _keyframes[_current_keyframe];
 

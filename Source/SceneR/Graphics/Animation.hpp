@@ -30,6 +30,7 @@ public:
 
 private:
     SceneR::TimeSpan      _current_time     { 0 };
+    SceneR::TimeSpan      _duration         { 0 };
     std::size_t           _current_keyframe { 0 };
     std::vector<Keyframe> _keyframes        { };
     std::string           _name             { };

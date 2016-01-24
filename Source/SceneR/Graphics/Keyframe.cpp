@@ -9,7 +9,7 @@ using SceneR::TimeSpan;
 using SceneR::Math::Matrix;
 
 Keyframe::Keyframe() noexcept
-    : Keyframe { TimeSpan::zero, Matrix::identity }
+    : Keyframe { TimeSpan::zero(), Matrix::identity }
 {
 }
 

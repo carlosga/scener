@@ -122,7 +122,7 @@ void RenderContext::present_interval(std::int32_t interval) const noexcept
 
 void RenderContext::present() const noexcept
 {
-    if (_display && _surface)
+    if (_display != nullptr && _surface != nullptr)
     {
         glXSwapBuffers(_display->handle(), _surface->handle());
     }

@@ -14,17 +14,11 @@ struct Keyframe
 public:
     Keyframe() noexcept;
     Keyframe(const SceneR::TimeSpan& time, const SceneR::Math::Matrix& transform) noexcept;
-    Keyframe(const Keyframe& keyframe) = default;
-
     ~Keyframe() = default;
 
 public:
     const SceneR::TimeSpan& time() const noexcept;
-
     const SceneR::Math::Matrix& transform() const noexcept;
-
-public:
-    Keyframe& operator=(const Keyframe& keyframe) = default;
 
 private:
     SceneR::TimeSpan     _time;

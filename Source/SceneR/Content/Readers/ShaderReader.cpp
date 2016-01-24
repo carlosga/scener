@@ -30,7 +30,7 @@ auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& ke
 
         if (!extras.is_null())
         {
-            const auto ssource   = input->read_external_reference(source["uri"].string_value());
+            const auto  ssource  = input->read_external_reference(source["uri"].string_value());
             const auto& includes = extras["includes"];
 
             shader = std::make_shared<Shader>(key, type, ssource);

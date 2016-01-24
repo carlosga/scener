@@ -53,8 +53,8 @@ void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
 {
     for (const auto& uniform : node["uniforms"].object_items())
     {
-        auto parameter = std::make_shared<EffectParameter>();
-        auto paramRef  = node["parameters"][uniform.second.string_value()];
+        const auto& paramRef  = node["parameters"][uniform.second.string_value()];
+        auto        parameter = std::make_shared<EffectParameter>();
 
         parameter->_name         = uniform.second.string_value();
         parameter->_uniform_name = uniform.first;
@@ -77,9 +77,9 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
 {
     for (const auto& source : node.object_items())
     {
-        auto        nodeId     = source.second["node"].string_value();
+        const auto  nodeId     = source.second["node"].string_value();
         const auto& paramValue = source.second["value"];
-        auto        parameter  = effect->_parameters[source.first];
+        auto&       parameter  = effect->_parameters[source.first];
 
         if (parameter == nullptr || paramValue.is_null())
         {
@@ -162,7 +162,6 @@ void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
     auto pass      = std::make_shared<EffectPass>(gdService->graphics_device());
 
     pass->_name = "default_pass";
-
     pass->_parameters.reserve(effect->_parameters.size());
 
     for (const auto& param : effect->_parameters)
@@ -186,7 +185,7 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     in
     // Uniforms
     auto offsets = effectPass->_program->get_uniform_offsets();
 
-    for (auto parameter : effectPass->_parameters)
+    for (const auto& parameter : effectPass->_parameters)
     {
         if (offsets.find(parameter->_uniform_name) != offsets.end())
         {
@@ -198,7 +197,7 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     in
 
 void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* technique) const noexcept
 {
-    for (auto parameter : technique->_parameters)
+    for (const auto& parameter : technique->_parameters)
     {
         if (parameter.second->_semantic.empty())
         {

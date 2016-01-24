@@ -380,8 +380,7 @@ inline Math::Matrix ContentReader::convert(const std::vector<json11::Json>& valu
 {
     Math::Matrix matrix;
 
-    #pragma unroll(16)
-    for (std::size_t i = 0; i < 16; i++)
+    for (std::size_t i = 0; i < 16; ++i)
     {
         matrix.data[i] = static_cast<float>(values[i].number_value());
     }

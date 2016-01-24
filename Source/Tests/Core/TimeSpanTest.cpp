@@ -9,25 +9,25 @@ using namespace SceneR;
 
 TEST_F(TimeSpanTest, Max)
 {
-    auto interval = TimeSpan::max_value;
+    auto interval = TimeSpan::max_value();
 
-    EXPECT_TRUE(interval.ticks()        == 9223372036854775807);
-    EXPECT_TRUE(interval.days()         == 10675199);
-    EXPECT_TRUE(interval.hours()        == 02);
-    EXPECT_TRUE(interval.minutes()      == 48);
-    EXPECT_TRUE(interval.seconds()      == 05);
+    EXPECT_TRUE(interval.ticks()         == 9223372036854775807);
+    EXPECT_TRUE(interval.days()          == 10675199);
+    EXPECT_TRUE(interval.hours()         == 02);
+    EXPECT_TRUE(interval.minutes()       == 48);
+    EXPECT_TRUE(interval.seconds()       == 05);
     EXPECT_TRUE(interval.milli_seconds() == 477);
 }
 
 TEST_F(TimeSpanTest, Min)
 {
-    auto interval = TimeSpan::min_value;
+    auto interval = TimeSpan::min_value();
 
-    EXPECT_TRUE(interval.ticks()        == INT64_MIN);
-    EXPECT_TRUE(interval.days()         == -10675199);
-    EXPECT_TRUE(interval.hours()        == -02);
-    EXPECT_TRUE(interval.minutes()      == -48);
-    EXPECT_TRUE(interval.seconds()      == -05);
+    EXPECT_TRUE(interval.ticks()         == INT64_MIN);
+    EXPECT_TRUE(interval.days()          == -10675199);
+    EXPECT_TRUE(interval.hours()         == -02);
+    EXPECT_TRUE(interval.minutes()       == -48);
+    EXPECT_TRUE(interval.seconds()       == -05);
     EXPECT_TRUE(interval.milli_seconds() == -477);
 }
 
@@ -35,10 +35,10 @@ TEST_F(TimeSpanTest, FromDays)
 {
     auto interval = TimeSpan::from_days(12345.678987654);
 
-    EXPECT_TRUE(interval.days()         == 12345);
-    EXPECT_TRUE(interval.hours()        == 16);
-    EXPECT_TRUE(interval.minutes()      == 17);
-    EXPECT_TRUE(interval.seconds()      == 44);
+    EXPECT_TRUE(interval.days()          == 12345);
+    EXPECT_TRUE(interval.hours()         == 16);
+    EXPECT_TRUE(interval.minutes()       == 17);
+    EXPECT_TRUE(interval.seconds()       == 44);
     EXPECT_TRUE(interval.milli_seconds() == 533);
 }
 
@@ -46,10 +46,10 @@ TEST_F(TimeSpanTest, FromHours)
 {
     auto interval = TimeSpan::from_hours(123456.7898765);
 
-    EXPECT_TRUE(interval.days()         == 5144);
-    EXPECT_TRUE(interval.hours()        == 0);
-    EXPECT_TRUE(interval.minutes()      == 47);
-    EXPECT_TRUE(interval.seconds()      == 23);
+    EXPECT_TRUE(interval.days()          == 5144);
+    EXPECT_TRUE(interval.hours()         == 0);
+    EXPECT_TRUE(interval.minutes()       == 47);
+    EXPECT_TRUE(interval.seconds()       == 23);
     EXPECT_TRUE(interval.milli_seconds() == 555);
 }
 
@@ -57,10 +57,10 @@ TEST_F(TimeSpanTest, FromMilliseconds)
 {
     auto interval = TimeSpan::from_milliseconds(1234567898765.4);
 
-    EXPECT_TRUE(interval.days()         == 14288);
-    EXPECT_TRUE(interval.hours()        == 23);
-    EXPECT_TRUE(interval.minutes()      == 31);
-    EXPECT_TRUE(interval.seconds()      == 38);
+    EXPECT_TRUE(interval.days()          == 14288);
+    EXPECT_TRUE(interval.hours()         == 23);
+    EXPECT_TRUE(interval.minutes()       == 31);
+    EXPECT_TRUE(interval.seconds()       == 38);
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
@@ -68,10 +68,10 @@ TEST_F(TimeSpanTest, FromMinutes)
 {
     auto interval = TimeSpan::from_minutes(12345678.98765);
 
-    EXPECT_TRUE(interval.days()         == 8573);
-    EXPECT_TRUE(interval.hours()        == 9);
-    EXPECT_TRUE(interval.minutes()      == 18);
-    EXPECT_TRUE(interval.seconds()      == 59);
+    EXPECT_TRUE(interval.days()          == 8573);
+    EXPECT_TRUE(interval.hours()         == 9);
+    EXPECT_TRUE(interval.minutes()       == 18);
+    EXPECT_TRUE(interval.seconds()       == 59);
     EXPECT_TRUE(interval.milli_seconds() == 259);
 }
 
@@ -79,10 +79,10 @@ TEST_F(TimeSpanTest, FromSeconds)
 {
     auto interval = TimeSpan::from_seconds(1234567898.7654);
 
-    EXPECT_TRUE(interval.days()         == 14288);
-    EXPECT_TRUE(interval.hours()        == 23);
-    EXPECT_TRUE(interval.minutes()      == 31);
-    EXPECT_TRUE(interval.seconds()      == 38);
+    EXPECT_TRUE(interval.days()          == 14288);
+    EXPECT_TRUE(interval.hours()         == 23);
+    EXPECT_TRUE(interval.minutes()       == 31);
+    EXPECT_TRUE(interval.seconds()       == 38);
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
@@ -90,22 +90,22 @@ TEST_F(TimeSpanTest, FromTicks)
 {
     auto interval = TimeSpan::from_ticks(12345678987654321);
 
-    EXPECT_TRUE(interval.days()         == 14288);
-    EXPECT_TRUE(interval.hours()        == 23);
-    EXPECT_TRUE(interval.minutes()      == 31);
-    EXPECT_TRUE(interval.seconds()      == 38);
+    EXPECT_TRUE(interval.days()          == 14288);
+    EXPECT_TRUE(interval.hours()         == 23);
+    EXPECT_TRUE(interval.minutes()       == 31);
+    EXPECT_TRUE(interval.seconds()       == 38);
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
 TEST_F(TimeSpanTest, Zero)
 {
-    auto interval = TimeSpan::zero;
+    auto interval = TimeSpan::zero();
 
-    EXPECT_TRUE(interval.ticks()        == 0);
-    EXPECT_TRUE(interval.days()         == 0);
-    EXPECT_TRUE(interval.hours()        == 0);
-    EXPECT_TRUE(interval.minutes()      == 0);
-    EXPECT_TRUE(interval.seconds()      == 0);
+    EXPECT_TRUE(interval.ticks()         == 0);
+    EXPECT_TRUE(interval.days()          == 0);
+    EXPECT_TRUE(interval.hours()         == 0);
+    EXPECT_TRUE(interval.minutes()       == 0);
+    EXPECT_TRUE(interval.seconds()       == 0);
     EXPECT_TRUE(interval.milli_seconds() == 0);
 }
 

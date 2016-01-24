@@ -21,8 +21,8 @@ auto ContentTypeReader<BufferView>::read(ContentReader* input, const std::string
 
     bufferView->_name        = key;
     bufferView->_buffer      = input->read_object<Buffer>(source["buffer"].string_value());
-    bufferView->_byte_offset = source["byteOffset"].int_value();
-    bufferView->_byte_length = source["byteLength"].int_value();
+    bufferView->_byte_offset = static_cast<std::size_t>(source["byteOffset"].int_value());
+    bufferView->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
 
     return bufferView;
 }

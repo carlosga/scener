@@ -40,9 +40,9 @@ void EarthShaker::load_content() noexcept
 {
     _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
-    for (auto mesh : _model->meshes())
+    for (const auto& mesh : _model->meshes())
     {
-        for (auto effect : mesh->effects())
+        for (const auto& effect : mesh->effects())
         {
             effect->texture_enabled(true);
         }

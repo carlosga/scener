@@ -51,8 +51,8 @@ namespace SceneR { namespace Content { namespace Readers {
 
 auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto mesh       = std::make_shared<ModelMesh>();
-    auto primitives = source["primitives"].array_items();
+    auto        mesh       = std::make_shared<ModelMesh>();
+    const auto& primitives = source["primitives"].array_items();
 
     mesh->_name = key;
     mesh->_mesh_parts.reserve(primitives.size());
@@ -83,7 +83,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
     meshPart->_index_buffer->set_data(indices->get_data());
 
     // Vertex buffer
-    auto attributes = source["attributes"].object_items();
+    const auto& attributes = source["attributes"].object_items();
 
     accessors.reserve(attributes.size());
     elements.reserve(attributes.size());
@@ -139,7 +139,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
 
     for (std::size_t i = 0; i < vertexCount; ++i)
     {
-        for (const auto accessor : accessors)
+        for (const auto& accessor : accessors)
         {
             const auto view = accessor->get_data(i, 1);
 
@@ -153,7 +153,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
     meshPart->_vertex_buffer->set_data({ vertexData });
 
     // Effect Material
-    auto materialRef = source["material"].string_value();
+    const auto& materialRef = source["material"].string_value();
     if (!materialRef.empty())
     {
         meshPart->effect = read_material(input, materialRef);
@@ -171,7 +171,7 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
 
     for (const auto& value : values)
     {
-        auto        parameter  = technique->_parameters[value.first];
+        const auto& parameter  = technique->_parameters[value.first];
         const auto& paramValue = value.second;
 
         if (paramValue.is_null())

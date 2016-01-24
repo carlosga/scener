@@ -102,7 +102,7 @@ std::map<std::string, std::size_t> Program::get_uniform_offsets() const noexcept
     glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_OFFSET     , offsets.data());
     glGetActiveUniformsiv(_id, activeUniforms, address, GL_UNIFORM_TYPE       , types.data());
 
-    for (std::int32_t i = 0; i < activeUniforms; i++)
+    for (std::int32_t i = 0; i < activeUniforms; ++i)
     {
         GLsizei length = 0;
         GLint   size   = 0;

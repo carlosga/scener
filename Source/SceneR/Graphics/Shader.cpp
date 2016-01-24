@@ -88,7 +88,7 @@ void Shader::compile() noexcept
         std::vector<const char*> cpaths(0);
 
         // process include paths
-        for (const auto& include : _includes)
+        for (auto include : _includes)
         {
             cpaths.push_back(include->path.c_str());
         }

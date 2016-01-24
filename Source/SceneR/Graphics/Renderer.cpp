@@ -100,7 +100,7 @@ void Renderer::begin_run() noexcept
 
 void Renderer::draw(const StepTime &renderTime) noexcept
 {
-    for (auto& component : _drawable_components)
+    for (const auto& component : _drawable_components)
     {
         if (component->visible())
         {
@@ -121,7 +121,7 @@ void Renderer::end_run() noexcept
 
 void Renderer::initialize() noexcept
 {
-    for (auto component : _components)
+    for (const auto& component : _components)
     {
         component->initialize();
     }
@@ -186,7 +186,7 @@ void Renderer::time_step() noexcept
 
 void Renderer::post_process_components() noexcept
 {
-    for (auto& component : _components)
+    for (const auto& component : _components)
     {
         auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
 

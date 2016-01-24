@@ -18,8 +18,8 @@ using SceneR::Graphics::ComponentType;
 
 auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto accessor = std::make_shared<Accessor>();
-    auto attType  = source["type"].string_value();
+    auto        accessor = std::make_shared<Accessor>();
+    const auto& attType  = source["type"].string_value();
 
     if (attType == "SCALAR")
     {

@@ -604,7 +604,7 @@ float Matrix::determinant() const noexcept
     float        det    = 0;
     Matrix       msub;
 
-    for (std::uint32_t n = 0; n < 4; n++, i *= -1)
+    for (std::uint32_t n = 0; n < 4; ++n, i *= -1)
     {
         msub    = sub_matrix(0, n);
         det     = msub.sub_matrix_determinant();
@@ -825,9 +825,9 @@ Matrix Matrix::sub_matrix(std::uint32_t row, std::uint32_t column) const noexcep
     Matrix        result;
 
     // loop through 3x3 submatrix
-    for (std::uint32_t di = 0; di < 3; di++)
+    for (std::uint32_t di = 0; di < 3; ++di)
     {
-        for (std::uint32_t dj = 0; dj < 3; dj++)
+        for (std::uint32_t dj = 0; dj < 3; ++dj)
         {
             // map 3x3 element (destination) to 4x4 element (source)
             si = di + ((di >= row) ? 1 : 0);

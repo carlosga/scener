@@ -65,20 +65,18 @@ public:
     /**
      * Advances the current animation position.
      */
-    void update(const SceneR::TimeSpan&     time
-              , bool                        relativeToCurrentTime
-              , const SceneR::Math::Matrix& rootTransform) noexcept;
+    void update(const SceneR::TimeSpan& time) noexcept;
 
 private:
     /**
      * Helper used by the Update method to refresh the BoneTransforms data.
      */
-    void update_bone_transforms(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
+    void update_bone_transforms(const SceneR::TimeSpan& time) noexcept;
 
     /**
      * Helper used by the Update method to refresh the WorldTransforms data.
      */
-    void update_world_transforms(const SceneR::Math::Matrix& rootTransform) noexcept;
+    void update_world_transforms() noexcept;
 
     /**
      * Helper used by the Update method to refresh the SkinTransforms data.

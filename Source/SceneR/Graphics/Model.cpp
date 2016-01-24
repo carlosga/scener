@@ -30,22 +30,22 @@ const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
 
 void Model::update(const StepTime& elapsedtime) noexcept
 {
-    for (const auto mesh : _meshes)
+    for (const auto& mesh : _meshes)
     {
-        if (mesh->skeleton())
+        if (mesh->skeleton() != nullptr)
         {
-            mesh->skeleton()->update(elapsedtime.elapsed_render_time, true, Matrix::identity);
+            mesh->skeleton()->update(elapsedtime.elapsed_render_time);
         }
     }
 }
 
 void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection) noexcept
 {
-    for (const auto mesh : _meshes)
+    for (const auto& mesh : _meshes)
     {
-        for (const auto effect : mesh->effects())
+        for (const auto& effect : mesh->effects())
         {
-            if (mesh->skeleton())
+            if (mesh->skeleton() != nullptr)
             {
                 effect->bone_transforms(mesh->skeleton()->skin_transforms());
             }

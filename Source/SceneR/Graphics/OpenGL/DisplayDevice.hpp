@@ -36,11 +36,8 @@ public:
 
 private:
     bool check_glx_version() noexcept;
-
     void open_display() noexcept;
-
     bool configure_frame_buffer() noexcept;
-
     GLXFBConfig get_best_frame_buffer_configuration() const noexcept;
 
 private:

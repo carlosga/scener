@@ -243,7 +243,10 @@ std::vector<Matrix> EffectTechnique::bone_transforms(std::size_t count) const no
 
 void EffectTechnique::bone_transforms(const std::vector<Matrix>& boneTransforms) noexcept
 {
-    _bone_transforms = boneTransforms;
+    _bone_transforms.clear();
+    _bone_transforms.reserve(boneTransforms.size());
+    _bone_transforms.assign(boneTransforms.begin(), boneTransforms.end());
+
     _bones_param->set_value(_bone_transforms);
 }
 
@@ -271,7 +274,7 @@ void EffectTechnique::begin() noexcept
 
     if (_texture_enabled)
     {
-        for (auto texture : _textures)
+        for (const auto& texture : _textures)
         {
             texture->bind();
         }
@@ -282,7 +285,7 @@ void EffectTechnique::end() noexcept
 {
     if (_texture_enabled)
     {
-        for (auto texture : _textures)
+        for (const auto& texture : _textures)
         {
             texture->unbind();
         }

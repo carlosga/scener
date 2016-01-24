@@ -172,7 +172,7 @@ private:
     std::unique_ptr<RendererServiceContainer>                _services                { nullptr };
     StepTimer                                                _timer                   { };
     StepTime                                                 _render_time             { };
-    SceneR::TimeSpan                                         _total_tender_time       { SceneR::TimeSpan::zero };
+    SceneR::TimeSpan                                         _total_tender_time       { TimeSpan::zero() };
     bool                                                     _is_running_slowly       { false };
     std::string                                              _root_directory          { };
 

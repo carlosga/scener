@@ -51,30 +51,38 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
     Expects(errors.empty());
 
     // Meshes
-    for (const auto& mesh : _root["meshes"].object_items())
+    const auto& meshes = _root["meshes"].object_items();
+    model->_meshes.reserve(meshes.size());
+
+    for (const auto& mesh : meshes)
     {
         model->_meshes.push_back(read_object<ModelMesh>(mesh.first, mesh.second));
     }
-    // Nodes ( joints )
-    for (const auto& node : _root["nodes"].object_items())
+
+    // Nodes
+    const auto& nodes = _root["nodes"].object_items();
+
+    // Joints
+    for (const auto& node : nodes)
     {
         if (!node.second["jointName"].is_null())
         {
             read_object<Node>(node.first, node.second);
         }
     }
-    // Nodes ( not joints )
-    for (const auto& node : _root["nodes"].object_items())
+    // Other nodes
+    for (const auto& node : nodes)
     {
         if (node.second["jointName"].is_null())
         {
             read_object<Node>(node.first, node.second);
         }
     }
+
     // Animations
-    for (const auto& node : _root["animations"].object_items())
+    for (const auto& animation : _root["animations"].object_items())
     {
-        read_object_instance<Animation>(node.first, node.second);
+        read_object_instance<Animation>(animation.first, animation.second);
     }
 
     return model;
@@ -103,11 +111,11 @@ std::vector<std::uint8_t> ContentReader::read_external_reference(const std::stri
 
 std::shared_ptr<GLTF::Node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
 {
-    for (const auto node : _nodes)
+    for (const auto& node : _nodes)
     {
         if (node.second.get())
         {
-            auto joint = node.second->joint;
+            auto& joint = node.second->joint;
 
             if (joint.get() && joint->name() == jointName)
             {

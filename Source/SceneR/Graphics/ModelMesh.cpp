@@ -27,9 +27,11 @@ const std::string& ModelMesh::name() const noexcept
 
 std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
 {
-    auto effects = std::vector<EffectTechnique*>(0);
+    std::vector<EffectTechnique*> effects;
 
-    for (const auto meshPart : _mesh_parts)
+    effects.reserve(_mesh_parts.size());
+
+    for (const auto& meshPart : _mesh_parts)
     {
         auto effect = meshPart->effect.get();
 

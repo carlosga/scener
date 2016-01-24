@@ -59,6 +59,10 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
 
     // node children's
 
+    const auto& children = source["children"].array_items();
+
+    node->children.reserve(children.size());
+
     if (!source["jointName"].is_null())
     {
         node->joint        = std::make_shared<ModelBone>();
@@ -75,8 +79,6 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
                                     * Matrix::create_translation(node->translation);
         }
 
-        auto children = source["children"].array_items();
-
         node->joint->_children.reserve(children.size());
 
         for (const auto& child : children)
@@ -91,7 +93,7 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
     }
     else
     {
-        for (const auto& child : source["children"].array_items())
+        for (const auto& child : children)
         {
             node->children.push_back(input->read_object<Node>(child.string_value()));
         }
@@ -99,7 +101,7 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
 
     // meshes
 
-    auto meshes = source["meshes"].array_items();
+    const auto& meshes = source["meshes"].array_items();
 
     node->meshes.reserve(meshes.size());
 
@@ -116,7 +118,8 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
 
     if (!source["skin"].is_null())
     {
-        auto skin = source["skin"].string_value();
+        const auto& skin = source["skin"].string_value();
+
         node->instance_skin = input->read_object_instance<Skeleton>(skin, input->_root["skins"][skin]);
 
         // The meshes for the skin instance

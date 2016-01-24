@@ -29,18 +29,16 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
     for (const auto& p : source["parameters"].object_items())
     {
-        auto ref      = p.second.string_value();
-        auto accessor = input->read_object<Accessor>(ref);
+        auto accessor = input->read_object<Accessor>(p.second.string_value());
 
         parameters[p.first] = accessor;
     }
 
     Ensures(parameters.count("TIME") == 1);
 
-    auto keyframes = parameters["TIME"];
-    auto targetRef = source["channels"][0]["target"]["id"].string_value();
-    auto target    = input->read_object<Node>(targetRef);
-    auto count     = keyframes->attribute_count();
+    const auto& keyframes = parameters["TIME"];
+    const auto  count     = keyframes->attribute_count();
+    auto        target    = input->read_object<Node>(source["channels"][0]["target"]["id"].string_value());
 
     animation->_name = key;
 
@@ -57,8 +55,8 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
         for (const auto& channel : source["channels"].array_items())
         {
-            auto path     = channel["target"]["path"].string_value();
-            auto accessor = parameters[path];
+            const auto& path     = channel["target"]["path"].string_value();
+            const auto& accessor = parameters[path];
 
             if (path == "scale")
             {
@@ -81,6 +79,8 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
         animation->_keyframes.push_back({ time, transform });
     }
+
+    animation->_duration = animation->_keyframes.crbegin()->time();
 
     target->joint->_animation = animation;
 
