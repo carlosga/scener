@@ -3,7 +3,6 @@
 
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
 
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 
@@ -13,7 +12,7 @@ ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
     : _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
-    , _buffer_object { std::make_unique<Buffer>(BufferTarget::uniform_buffer, BufferUsage::dynamic_draw) }
+    , _buffer_object { BufferTarget::uniform_buffer, BufferUsage::dynamic_draw }
     , _name          { name }
 {
 }
@@ -35,7 +34,7 @@ std::size_t ConstantBuffer::size() const noexcept
 
 void ConstantBuffer::bind() const noexcept
 {
-    glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), _binding_point, _buffer_object->id());
+    glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
 }
 
 void ConstantBuffer::create(std::uint32_t programId) noexcept
@@ -56,18 +55,15 @@ void ConstantBuffer::create(std::uint32_t programId) noexcept
     _binding_point = binding;
     _size          = blockSize;
 
-    // Create the buffer object
-    _buffer_object->create();
-
     // initialize the buffer object
     std::vector<std::uint8_t> data(_size, 0);
 
-    _buffer_object->set_data(_size, data.data());
+    _buffer_object.set_data(_size, data.data());
 }
 
 void ConstantBuffer::unbind() const noexcept
 {
-    glBindBufferBase(static_cast<GLenum>(_buffer_object->target()), 0, 0);
+    glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
 }
 
 std::vector<std::uint8_t> ConstantBuffer::get_data() const noexcept
@@ -77,7 +73,7 @@ std::vector<std::uint8_t> ConstantBuffer::get_data() const noexcept
 
 std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
-    return _buffer_object->get_data(offset, count);
+    return _buffer_object.get_data(offset, count);
 }
 
 void ConstantBuffer::set_data(gsl::not_null<const void*> data) const noexcept
@@ -87,7 +83,7 @@ void ConstantBuffer::set_data(gsl::not_null<const void*> data) const noexcept
 
 void ConstantBuffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
-    _buffer_object->set_data(offset, count, data);
+    _buffer_object.set_data(offset, count, data);
 }
 
 }}}

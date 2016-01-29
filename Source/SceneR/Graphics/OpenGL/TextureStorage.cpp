@@ -40,13 +40,6 @@ void TextureStorage::bind() const noexcept
     glBindTextureUnit(0, _id);
 }
 
-void TextureStorage::create() noexcept
-{
-    glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
-
-    Ensures(_id > 0);
-}
-
 void TextureStorage::unbind() const noexcept
 {
     glBindTextureUnit(0, 0);
@@ -83,6 +76,13 @@ void TextureStorage::set_data(SurfaceFormat                        format
     {
         glTextureSubImage2D(_id, si_level, 0, 0, si_width, si_height, si_format, GL_UNSIGNED_BYTE, data.data());
     }
+}
+
+void TextureStorage::create() noexcept
+{
+    glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
+
+    Ensures(_id > 0);
 }
 
 }}}

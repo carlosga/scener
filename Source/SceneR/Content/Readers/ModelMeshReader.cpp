@@ -106,14 +106,14 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
         vertexStride += accessor->byte_stride();
     }
 
-    auto declaration = std::make_unique<VertexDeclaration>(vertexStride, elements);
+    VertexDeclaration declaration(vertexStride, elements);
 
     meshPart->_primitive_type  = static_cast<PrimitiveType>(source["mode"].int_value());
     meshPart->_vertex_count    = vertexCount;
     meshPart->_start_index     = 0;
     meshPart->_vertex_offset   = 0;
     meshPart->_primitive_count = 0;
-    meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(device, vertexCount, std::move(declaration));
+    meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(device, vertexCount, declaration);
 
     switch (meshPart->_primitive_type)
     {

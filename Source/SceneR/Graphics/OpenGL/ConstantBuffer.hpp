@@ -6,15 +6,14 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <string>
 #include <vector>
 
 #include <gsl.h>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+#include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
-class Buffer;
+namespace SceneR { namespace Graphics { namespace OpenGL {
 
 /**
  * Represents an OpenGL Uniform Buffer Object.
@@ -89,11 +88,11 @@ public:
     void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
 
 private:
-    std::size_t             _index;
-    std::int32_t            _binding_point;
-    std::size_t             _size;
-    std::unique_ptr<Buffer> _buffer_object;
-    std::string             _name;
+    std::size_t  _index;
+    std::int32_t _binding_point;
+    std::size_t  _size;
+    Buffer       _buffer_object;
+    std::string  _name;
 };
 
 }}}

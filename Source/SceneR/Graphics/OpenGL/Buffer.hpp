@@ -55,11 +55,6 @@ public:
     void bind() const noexcept;
 
     /**
-     * Creates the buffer object.
-     */
-    void create() noexcept;
-
-    /**
      * Deactivates the buffer object.
      */
     void unbind() const noexcept;
@@ -98,6 +93,13 @@ public:
      *  @param length the length of the range within the buffer's data store to be invalidated.
      */
     void invalidate(std::size_t offset, std::size_t length) const noexcept;
+
+private:
+    void create() noexcept;
+
+private:
+    Buffer(const Buffer&) = delete;
+    Buffer& operator=(const Buffer&) = delete;
 
 private:
     std::uint32_t _id;

@@ -26,17 +26,6 @@ public:
                 , VertexElementUsage  vertexElementUsage
                 , std::uint32_t       usageIndex) noexcept;
 
-    /**
-     * @brief Copy constructor
-     * @param element the vertex element to copy from
-     */
-    VertexElement(const VertexElement& element) = default;
-
-    /**
-     * Releases all resources being used by this VertexElement.
-     */
-    ~VertexElement() = default;
-
 public:
     /**
      * Gets the offset (if any) from the beginning of the stream to the beginning of the vertex data.
@@ -57,9 +46,6 @@ public:
      * Gets a value describing how the vertex element is to be used.
      */
     VertexElementUsage vertex_element_usage() const noexcept;
-
-public:
-    VertexElement& operator=(const VertexElement& element) = default;
 
 private:
     std::size_t         _offset;

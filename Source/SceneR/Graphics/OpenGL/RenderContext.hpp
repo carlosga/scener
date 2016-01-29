@@ -41,6 +41,10 @@ private:
     static bool isExtensionSupported(const std::string& extList, const std::string& extension) noexcept;
 
 private:
+    RenderContext(const RenderContext&) = delete;
+    RenderContext& operator=(const RenderContext&) = delete;
+
+private:
     DisplayDevice*  _display { nullptr };
     DisplaySurface* _surface { nullptr };
     GLXContext      _context { 0 };

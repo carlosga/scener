@@ -4,7 +4,11 @@
 #ifndef SCENER_GRAPHICS_OPENGL_VERTEXARRAYOBJECT_HPP
 #define SCENER_GRAPHICS_OPENGL_VERTEXARRAYOBJECT_HPP
 
+#include <cstddef>
 #include <cstdint>
+
+#include "SceneR/Graphics/VertexDeclaration.hpp"
+#include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
@@ -17,7 +21,7 @@ public:
     /**
      * Initializes a new instance of the VertexArrayObject class.
      */
-    VertexArrayObject() = default;
+    VertexArrayObject() noexcept;
 
     /**
      * Releases all resources being used by this VertexArrayObject.
@@ -36,14 +40,30 @@ public:
     void bind() const noexcept;
 
     /**
-     * Creates the vertex array object.
-     */
-    void create() noexcept;
-
-    /**
      * Deactivates this vertex array object.
      */
     void unbind() const noexcept;
+
+    /**
+     * Declares the vertex format to be used on drawing operations.
+     */
+    void declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex​) const noexcept;
+
+    /// Binds the vertex array to the given buffer ( it should be a vertex buffer )
+    /// \param buffer The buffer to bind to the vertex buffer binding point.
+    /// \param bindingIndex The index of the vertex buffer binding point to which to bind the buffer.
+    /// \param offset The offset of the first element of the buffer.
+    /// \param stride The distance between elements within the buffer.
+    void bind_to_buffer(const Buffer& buffer, std::uint32_t bindingIndex, std::size_t offset, std::size_t stride) noexcept;
+
+private:
+    void create() noexcept;
+    std::size_t get_element_count(VertexElementFormat vertexFormat) const noexcept;
+    std::uint32_t get_element_type(VertexElementFormat vertexFormat) const noexcept;
+
+private:
+    VertexArrayObject(const VertexArrayObject&) = delete;
+    VertexArrayObject& operator=(const VertexArrayObject&) = delete;
 
 private:
     std::uint32_t _id = 0;

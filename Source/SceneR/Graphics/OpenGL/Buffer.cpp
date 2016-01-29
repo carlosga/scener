@@ -13,6 +13,7 @@ Buffer::Buffer(BufferTarget target, BufferUsage usage) noexcept
     , _target { target }
     , _usage  { usage }
 {
+    create();
 }
 
 Buffer::~Buffer() noexcept
@@ -44,19 +45,9 @@ void Buffer::bind() const noexcept
     glBindBuffer(static_cast<GLenum>(_target), _id);
 }
 
-void Buffer::create() noexcept
-{
-    glCreateBuffers(1, &_id);
-
-    Ensures(_id > 0);
-}
-
 void Buffer::unbind() const noexcept
 {
-    if (_id != 0)
-    {
-        glBindBuffer(static_cast<GLenum>(_target), 0);
-    }
+    glBindBuffer(static_cast<GLenum>(_target), 0);
 }
 
 std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t size) const noexcept
@@ -86,6 +77,13 @@ void Buffer::invalidate() const noexcept
 void Buffer::invalidate(std::size_t offset, const std::size_t length) const noexcept
 {
     glInvalidateBufferSubData(_id, offset, length);
+}
+
+void Buffer::create() noexcept
+{
+    glCreateBuffers(1, &_id);
+
+    Ensures(_id > 0);
 }
 
 }}}

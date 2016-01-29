@@ -47,11 +47,6 @@ public:
     void bind() const noexcept;
 
     /**
-     * Creates the texture object.
-     */
-    void create() noexcept;
-
-    /**
      * Unbinds the texture object.
      */
     void unbind() const noexcept;
@@ -80,6 +75,13 @@ public:
                 , std::size_t                          width
                 , std::size_t                          height
                 , const gsl::span<const std::uint8_t>& data) const noexcept;
+
+private:
+    void create() noexcept;
+
+private:
+    TextureStorage(const TextureStorage&) = delete;
+    TextureStorage& operator=(const TextureStorage&) = delete;
 
 private:
     std::uint32_t _id;

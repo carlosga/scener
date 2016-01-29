@@ -6,15 +6,13 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <memory>
 #include <vector>
 
 #include <gsl.h>
 
 #include "SceneR/Graphics/ComponentType.hpp"
 #include "SceneR/Graphics/GraphicsResource.hpp"
-
-namespace SceneR { namespace Graphics { namespace OpenGL { class Buffer; } } }
+#include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
 namespace SceneR { namespace Graphics {
 
@@ -77,12 +75,11 @@ public:
 private:
     void bind() const noexcept;
     void unbind() const noexcept;
-    void create() noexcept;
 
 private:
-    std::unique_ptr<SceneR::Graphics::OpenGL::Buffer> _buffer;
-    std::size_t                                       _indexCount;
-    ComponentType                                     _indexElementType;
+    SceneR::Graphics::OpenGL::Buffer _buffer;
+    std::size_t                      _indexCount;
+    ComponentType                    _indexElementType;
 
     friend class SceneR::Graphics::GraphicsDevice;
 };

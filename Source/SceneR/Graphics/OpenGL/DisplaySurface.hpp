@@ -41,6 +41,10 @@ public:
     nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
+    DisplaySurface(const DisplaySurface&) = delete;
+    DisplaySurface& operator=(const DisplaySurface&) = delete;
+
+private:
     DisplayDevice*       _display              { nullptr };
     Drawable             _drawable             { 0 };
     XSetWindowAttributes _drawable_attribs     { };

@@ -41,6 +41,10 @@ private:
     GLXFBConfig get_best_frame_buffer_configuration() const noexcept;
 
 private:
+    DisplayDevice(const DisplayDevice&) = delete;
+    DisplayDevice& operator=(const DisplayDevice&) = delete;
+
+private:
     // X11
     Display*     _display   { nullptr };
     Screen*      _screen    { nullptr };

@@ -3,7 +3,6 @@
 
 #include "SceneR/Graphics/IndexBuffer.hpp"
 
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 
@@ -17,11 +16,10 @@ IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
                        , ComponentType                  indexElementType
                        , std::size_t                    indexCount) noexcept
     : GraphicsResource  { graphicsDevice }
-    , _buffer           { nullptr }
+    , _buffer           { BufferTarget::element_array_buffer, BufferUsage::static_draw }
     , _indexCount       { indexCount }
     , _indexElementType { indexElementType }
 {
-    create();
 }
 
 std::size_t IndexBuffer::index_count() const noexcept
@@ -56,39 +54,25 @@ std::vector<std::uint8_t> IndexBuffer::get_data() const noexcept
 
 std::vector<std::uint8_t> IndexBuffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
 {
-    Expects(_buffer != nullptr);
-
     auto offset = (startIndex * element_size_in_bytes());
     auto size   = (elementCount * element_size_in_bytes());
 
-    return _buffer->get_data(offset, size);
+    return _buffer.get_data(offset, size);
 }
 
 void IndexBuffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
 {
-    Expects(_buffer != nullptr);
-
-    _buffer->set_data(_indexCount * element_size_in_bytes(), data.data());
+    _buffer.set_data(_indexCount * element_size_in_bytes(), data.data());
 }
 
 void IndexBuffer::bind() const noexcept
 {
-    Expects(_buffer != nullptr);
-
-    _buffer->bind();
+    _buffer.bind();
 }
 
 void IndexBuffer::unbind() const noexcept
 {
-    Expects(_buffer != nullptr);
-
-    _buffer->unbind();
-}
-
-void IndexBuffer::create() noexcept
-{
-    _buffer = std::make_unique<Buffer>(BufferTarget::element_array_buffer, BufferUsage::static_draw);
-    _buffer->create();
+    _buffer.unbind();
 }
 
 }}
