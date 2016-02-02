@@ -5,25 +5,18 @@
 #define SCENER_CONTENT_DDS_DDSCAPS2_HPP
 
 namespace SceneR { namespace Content {  namespace DDS {
-    
+
+/// The DDSCAPS2 structure defines the capabilities of a DirectDrawSurface object
 enum class DDS_CAPS2
 {
-    /// Required for a cube map.
-    DDSCAPS2_CUBEMAP = 0x200
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_POSITIVEX	= 0x400
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_NEGATIVEX	= 0x800
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_POSITIVEY	= 0x1000
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_NEGATIVEY	= 0x2000
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_POSITIVEZ	= 0x4000
-    /// Required when these surfaces are stored in a cube map.
-    , DDSCAPS2_CUBEMAP_NEGATIVEZ	= 0x8000
-    /// Required for a volume texture.
-    , DDSCAPS2_VOLUME	            = 0x200000
+    DDSCAPS2_CUBEMAP           = 0x200    ///< Required for a cube map.
+  , DDSCAPS2_CUBEMAP_POSITIVEX = 0x400    ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_CUBEMAP_NEGATIVEX = 0x800    ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_CUBEMAP_POSITIVEY = 0x1000   ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_CUBEMAP_NEGATIVEY = 0x2000   ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_CUBEMAP_POSITIVEZ = 0x4000   ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_CUBEMAP_NEGATIVEZ = 0x8000   ///< Required when these surfaces are stored in a cube map.
+  , DDSCAPS2_VOLUME	           = 0x200000 ///< Required for a volume texture.
 };
 
 inline constexpr DDS_CAPS2 operator&(const DDS_CAPS2& left, const DDS_CAPS2& right)

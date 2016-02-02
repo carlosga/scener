@@ -8,15 +8,14 @@
 
 namespace SceneR { namespace Content { namespace DDS {
 
+/// The DDSCAPS structure defines the capabilities of a DirectDrawSurface object.
+/// This structure is part of the DDCAPS and DDSURFACEDESC structures.
 enum class DDS_CAPS : std::uint32_t
 {
-    /// Optional; must be used on any file that contains more than one surface
-    /// (a mipmap, a cubic environment map, or mipmapped volume texture).
-    DDSCAPS_COMPLEX   = 0x8
-    /// Optional; should be used for a mipmap.
-    , DDSCAPS_MIPMAP  = 0x400000
-    /// Required
-    , DDSCAPS_TEXTURE = 0x1000
+    DDSCAPS_COMPLEX = 0x8       ///< Optional; must be used on any file that contains more than one surface
+                                ///< (a mipmap, a cubic environment map, or mipmapped volume texture)
+  , DDSCAPS_MIPMAP  = 0x400000  ///< Optional; should be used for a mipmap.
+  , DDSCAPS_TEXTURE = 0x1000    ///< Required
 };
 
 inline constexpr DDS_CAPS operator&(const DDS_CAPS& left, const DDS_CAPS& right)

@@ -11,6 +11,8 @@
 
 namespace SceneR { namespace Content { namespace DDS {
 
+/// Describes a DDS file header.
+///
 /// Programming Guide for DDS (DirectDraw Surface):
 ///     http://msdn.microsoft.com/en-us/library/bb943991.aspx
 /// Reference for DDS:
@@ -30,39 +32,22 @@ namespace SceneR { namespace Content { namespace DDS {
 ///     http://www.opengl.org/registry/specs/ARB/texture_compression_bptc.txt
 struct DDS_HEADER
 {
-    /// (magic number) containing the four character code value 'DDS ' (0x20534444).
-    std::uint32_t dwMagic;
-    /// Size of structure. This member must be set to 124.
-    std::uint32_t dwSize;
-    /// Flags to indicate which members contain valid data.
-    DDS_HEADER_FLAGS dwFlags;
-    /// Surface height (in pixels).
-    std::uint32_t dwHeight;
-    /// Surface width (in pixels).
-    std::uint32_t dwWidth;
-    /// The pitch or number of bytes per scan line in an uncompressed texture;
-    /// the total number of bytes in the top level texture for a compressed texture.
-    /// For information about how to compute the pitch,
-    /// see the DDS File Layout section of the Programming Guide for DDS.
-    std::uint32_t dwPitchOrLinearSize;
-    /// Depth of a volume texture (in pixels), otherwise unused.
-    std::uint32_t dwDepth;
-    /// Number of mipmap levels, otherwise unused.
-    std::uint32_t dwMipMapCount;
-    /// Unused.
-    std::uint32_t dwReserved1[11];
-    /// The pixel format (see DDS_PIXELFORMAT).
-    DDS_PIXELFORMAT ddspf;
-    /// Specifies the complexity of the surfaces stored.
-    DDS_CAPS dwCaps;
-    /// Additional detail about the surfaces stored.
-    std::uint32_t dwCaps2;
-    /// Unused.
-    std::uint32_t dwCaps3;
-    /// Unused.
-    std::uint32_t dwCaps4;
-    /// Unused.
-    std::uint32_t dwReserved2;
+    std::uint32_t    dwMagic;             ///< (magic number) containing the four character code value 'DDS ' (0x20534444).
+    std::uint32_t    dwSize;              ///< Size of structure. This member must be set to 124.
+    DDS_HEADER_FLAGS dwFlags;             ///< Flags to indicate which members contain valid data.
+    std::uint32_t    dwHeight;            ///< Surface height (in pixels).
+    std::uint32_t    dwWidth;             ///< Surface width (in pixels).
+    std::uint32_t    dwPitchOrLinearSize; ///< The pitch or number of bytes per scan line in an uncompressed texture;
+                                          ///< The total number of bytes in the top level texture for a compressed texture.
+    std::uint32_t    dwDepth;             ///< Depth of a volume texture (in pixels), otherwise unused.
+    std::uint32_t    dwMipMapCount;       ///< Number of mipmap levels, otherwise unused.
+    std::uint32_t    dwReserved1[11];     ///< Unused.
+    DDS_PIXELFORMAT  ddspf;               ///< The pixel format (see DDS_PIXELFORMAT).
+    DDS_CAPS         dwCaps;              ///< Specifies the complexity of the surfaces stored.
+    std::uint32_t    dwCaps2;             ///< Additional detail about the surfaces stored.
+    std::uint32_t    dwCaps3;             ///< Unused.
+    std::uint32_t    dwCaps4;             ///< Unused.
+    std::uint32_t    dwReserved2;         ///< Unused.
 };
 
 }}}

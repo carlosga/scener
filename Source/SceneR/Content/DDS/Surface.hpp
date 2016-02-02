@@ -14,22 +14,34 @@
 
 namespace SceneR { namespace Content { namespace DDS {
 
+/// Represents a DirectDraw surface.
 class Surface final
 {
 public:
     typedef std::size_t size_type;
 
 public:
+    /// Initializes a new instance of the Surface class.
     Surface() = default;
+
+    /// Destructor.
     ~Surface() = default;
 
 public:
+    /// Loads the given file.
     void load(const std::string& filename) noexcept;
 
 public:
+    /// Gets the surface format.
     SceneR::Graphics::SurfaceFormat format() const noexcept;
+
+    /// Gets the surface width (in pixels).
     size_type width() const noexcept;
+
+    /// Gets the surface height (in pixels).
     size_type height() const noexcept;
+
+    /// Gets the surface mipmaps (when available).
     const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
 
 private:
