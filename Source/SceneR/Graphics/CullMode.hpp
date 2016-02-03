@@ -10,23 +10,12 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines winding orders that may be used for face culling.
- */
+/// Defines winding orders that may be used for face culling.
 enum class CullMode : std::uint32_t
 {
-    /**
-     * Cull back faces with clockwise vertices.
-     */
-    cull_clockwise_face = GL_CW,
-    /**
-     * Cull front faces with counterclockwise vertices.
-     */
-    cull_counter_clockwise_face = GL_CCW,
-    /**
-     * Do not perform culling
-     */
-    none = 0
+    cull_clockwise_face         = GL_CW     ///< Cull back faces with clockwise vertices.
+  , cull_counter_clockwise_face = GL_CCW    ///< Cull front faces with counterclockwise vertices.
+  , none                        = 0         ///< Do not perform culling
 };
 
 }}

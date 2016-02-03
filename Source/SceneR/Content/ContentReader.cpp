@@ -52,6 +52,7 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
 
     // Meshes
     const auto& meshes = _root["meshes"].object_items();
+
     model->_meshes.reserve(meshes.size());
 
     for (const auto& mesh : meshes)

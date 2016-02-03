@@ -8,13 +8,14 @@
 
 namespace SceneR { namespace Graphics {
 
+/// Defines the type of an element of an index buffer or GLTF accessors elements.
 enum class ComponentType : std::uint32_t
 {
-    byte   = 5120
-  , ubyte  = 5121
-  , int16  = 5122
-  , uint16 = 5123
-  , single = 5126
+    byte   = 5120   ///< Eight bits (signed)
+  , ubyte  = 5121   ///< Eight bits (unsigned)
+  , int16  = 5122   ///< Sixteen bits (Signed).
+  , uint16 = 5123   ///< Sixteen bits (unsigned).
+  , single = 5126   ///< Thirty-two bits (floating point).
 };
 
 }}

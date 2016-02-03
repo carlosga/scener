@@ -50,41 +50,29 @@ namespace SceneR { namespace Content {
 
 class ContentManager;
 
-/**
- * Reads application content_manager from disk
- */
+/// Reads application content_manager from disk.
 class ContentReader final
 {
 public:
-    /**
-     * Initializes a new instance of the ContentReader.
-     * @param assetName the name of the asset to be readed.
-     * @param contentManager the content_manager that owns this ContentReader.
-     * @param stream the base stream.
-     */
+    /// Initializes a new instance of the ContentReader.
+    /// \param assetName the name of the asset to be readed.
+    /// \param contentManager the content_manager that owns this ContentReader.
+    /// \param stream the base stream.
     ContentReader(const std::string& assetName, ContentManager* contentManager, IO::Stream& stream) noexcept;
 
-    /**
-     * Releases all resources used by the current instance of the ContentReader class.
-     */
+    /// Releases all resources used by the current instance of the ContentReader class.
     ~ContentReader() = default;
 
 public:
-    /**
-     * Gets the name of the asset currently being read by this ContentReader.
-     */
+    /// Gets the name of the asset currently being read by this ContentReader.
     const std::string& asset_name() const noexcept;
 
-    /**
-     * Gets the content manager that owns this ContentReader.
-     */
+    /// Gets the content manager that owns this ContentReader.
     ContentManager* content_manager() const noexcept;
 
  public:
-    /**
-     * Reads the contexts of the current asset.
-     * @return The contexts of the current asset.
-     */
+    /// Reads the contexts of the current asset.
+    /// \returns The contexts of the current asset.
     std::shared_ptr<Graphics::Model> read_asset() noexcept;
 
 private:

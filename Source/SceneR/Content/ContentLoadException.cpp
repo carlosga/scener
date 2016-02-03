@@ -10,28 +10,9 @@ ContentLoadException::ContentLoadException(const std::string m)
 {
 }
 
-ContentLoadException::ContentLoadException(const ContentLoadException& exception)
-    : msg(exception.msg)
-{
-}
-
-ContentLoadException::~ContentLoadException() noexcept
-{
-}
-
 const char* ContentLoadException::what() const noexcept
 {
     return this->msg.c_str();
-}
-
-ContentLoadException& ContentLoadException::operator=(const ContentLoadException& exception)
-{
-    if (this != &exception)
-    {
-        this->msg = exception.msg;
-    }
-
-    return *this;
 }
 
 }}

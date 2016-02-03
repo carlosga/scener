@@ -21,58 +21,41 @@ namespace SceneR { namespace IO { class FileStream; } }
 
 namespace SceneR { namespace Content {
 
-/**
- * The ContentManager is used at runtime to load application content_manager from files.
- */
+/// The ContentManager is used at runtime to load application content_manager from files.
 class ContentManager final
 {
 public:
-    /**
-     * Initializes a new instance of the ContentManagerClass
-     */
+    /// Initializes a new instance of the ContentManagerClass
+    /// \param serviceProvider the service provider that the ContentManager should use to locate services.
+    /// \param rootDirectory the root directory to search for content.
     ContentManager(gsl::not_null<Graphics::RendererServiceContainer*> serviceProvider
                  , const std::string&                                 rootDirectory) noexcept;
 
-    /**
-     * Releases all resources being used by the ContentManager class.
-     */
+    /// Releases all resources being used by the ContentManager class.
     ~ContentManager();
 
 public:
-    /**
-     * Gets the graphics device
-     */
+    /// Gets the service provider that the ContentManager should use to locate services.
     Graphics::RendererServiceContainer* service_provider() const noexcept;
 
-    /**
-     * Gets the root directory associated with this ContentManager.
-     */
+    /// Gets the root directory associated with this ContentManager.
     const std::string& root_directory() const noexcept;
 
 public:
-    /**
-     * Loads a the given asset.
-     */
+    /// Loads the given asset.
     std::shared_ptr<Graphics::Model> load(const std::string& assetName) noexcept;
 
-    /**
-    * Disposes all data that was loaded by this ContentManager.
-    */
+    /// Disposes all data that was loaded by this ContentManager.
     void unload() noexcept;
 
 private:
-    /**
-     * Opens a stream for reading the specified asset.
-     * #param assetName the name of the asset being read.
-     */
     std::shared_ptr<IO::FileStream> open_stream(const std::string& assetName) noexcept;
-
-private:
-    static ContentResourceManager resource_manager;
 
 private:
     Graphics::RendererServiceContainer* _service_provider;
     std::string                         _root_directory;
+
+    static ContentResourceManager resource_manager;
 };
 
 }}

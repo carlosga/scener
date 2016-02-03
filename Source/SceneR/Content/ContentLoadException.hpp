@@ -8,38 +8,21 @@
 
 namespace SceneR { namespace Content {
 
-/**
- * Exception used to report errors from the ContentManager.Load method.
- */
+/// Exception used to report errors from the ContentManager.Load method.
 class ContentLoadException final : std::exception
 {
 public:
-    /**
-     * Initializes a new instance of the ContentLoadException class with the given message
-     * @param m the exception message
-     */
-    ContentLoadException(const std::string m = "content_manager Load Exception");
+    /// Initializes a new instance of the ContentLoadException class with the given message.
+    ///  \param message the exception message
+    ContentLoadException(const std::string message = "content_manager Load Exception");
 
-    /**
-     * @brief Copy constructor.
-     * @param exception the exception to copy from.
-     */
-    ContentLoadException(const ContentLoadException& exception);
-
-    /**
-     * Destructor
-     */
-    ~ContentLoadException() noexcept override;
+    /// Default destructor.
+    ~ContentLoadException() noexcept override = default;
 
 public:
-    /**
-     * Gets the message that describes the error.
-     * @return  the message describing the error.
-     */
+    /// Gets the message that describes the error.
+    /// \returns the message describing the error.
     const char* what() const noexcept override;
-
-public:
-    ContentLoadException& operator=(const ContentLoadException& exception);
 
 private:
     std::string msg;
