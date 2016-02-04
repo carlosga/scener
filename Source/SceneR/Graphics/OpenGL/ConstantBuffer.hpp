@@ -15,84 +15,63 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-/**
- * Represents an OpenGL Uniform Buffer Object.
- *
- * http://www.opengl.org/wiki/Uniform_Buffer_Object
- */
+/// Represents an OpenGL Uniform Buffer Object (http://www.opengl.org/wiki/Uniform_Buffer_Object).
 class ConstantBuffer final
 {
 public:
-    /**
-     * Initializes a new instance of the ConstantBuffer class.
-     * @param name the name of the constant buffer.
-     */
-    ConstantBuffer(const std::string& name) noexcept;
+    /// Initializes a new instance of the ConstantBuffer class.
+    /// \param name the name of the constant buffer.
+    /// \param programId the name of the opengl program used to initialize the constant buffer.
+    ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept;
 
-    /**
-     * Releases all resources being used by this ConstantBuffer.
-     */
+    /// Releases all resources being used by this ConstantBuffer.
     ~ConstantBuffer() = default;
 
 public:
-    /**
-     * Gets the constant buffer binding point.
-     */
+    /// Gets the constant buffer binding point.
     std::int32_t binding_point() const noexcept;
 
-    /**
-     * Gets the constant buffer block index.
-     */
+    /// Gets the constant buffer block index.
     std::size_t index() const noexcept;
 
-    /**
-     * Gets the constant buffer block data size.
-     */
+    /// Gets the constant buffer block data size.
     std::size_t size() const noexcept;
 
 public:
-    /**
-     * Activates the constant buffer.
-     */
+    /// Activates the constant buffer.
     void bind() const noexcept;
 
-    /**
-     * Creates the constant buffer.
-     */
-    void create(std::uint32_t programId) noexcept;
-
-    /**
-     * Deactivates the constant buffer.
-     */
+    /// Deactivates the constant buffer.
     void unbind() const noexcept;
 
 public:
-    /**
-     * Gets the constant buffer data.
-     */
+    /// Gets the constant buffer data.
     std::vector<std::uint8_t> get_data() const noexcept;
 
-    /**
-     * Gets the constant buffer data.
-     */
+    /// Gets a subset of the constant buffer data.
+    /// \param offset specifies the offset into the constant buffer object's data store.
+    /// \param count specifies the size in bytes of the data store to be obtained.
     std::vector<std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
-    /**
-     * Sets the constant buffer data.
-     */
+    /// Sets the constant buffer data.
     void set_data(gsl::not_null<const void*> data) const noexcept;
 
-    /**
-     * Sets the constant buffer data.
-     */
+    /// Updates a subset of the constant buffer object's data store.
+    /// \param offset specifies the offset into the constant buffer object's data store where data replacement will begin, measured in bytes.
+    /// \param count specifies the size in bytes of the data store region being replaced.
+    /// \param data specifies a pointer to the new data that will be copied into the data store.
     void set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept;
 
 private:
-    std::size_t  _index;
-    std::int32_t _binding_point;
-    std::size_t  _size;
-    Buffer       _buffer_object;
-    std::string  _name;
+    void create() noexcept;
+
+private:
+    Buffer        _buffer_object;
+    std::uint32_t _program_id;
+    std::size_t   _index;
+    std::int32_t  _binding_point;
+    std::size_t   _size;
+    std::string   _name;
 };
 
 }}}

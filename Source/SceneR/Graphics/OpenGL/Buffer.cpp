@@ -50,23 +50,23 @@ void Buffer::unbind() const noexcept
     glBindBuffer(static_cast<GLenum>(_target), 0);
 }
 
-std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t size) const noexcept
+std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
-    auto data = std::vector<std::uint8_t>(size, 0);
+    auto data = std::vector<std::uint8_t>(count, 0);
 
-    glGetNamedBufferSubData(_id, offset, size, data.data());
+    glGetNamedBufferSubData(_id, offset, count, data.data());
 
     return data;
 }
 
-void Buffer::set_data(std::size_t size, gsl::not_null<const void*> data) const noexcept
+void Buffer::set_data(std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
-    glNamedBufferData(_id, size, data, static_cast<GLenum>(_usage));
+    glNamedBufferData(_id, count, data, static_cast<GLenum>(_usage));
 }
 
-void Buffer::set_data(std::size_t offset, std::size_t size, gsl::not_null<const void*> data) const noexcept
+void Buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
-    glNamedBufferSubData(_id, offset, size, data);
+    glNamedBufferSubData(_id, offset, count, data);
 }
 
 void Buffer::invalidate() const noexcept
@@ -74,9 +74,9 @@ void Buffer::invalidate() const noexcept
     glInvalidateBufferData(_id);
 }
 
-void Buffer::invalidate(std::size_t offset, const std::size_t length) const noexcept
+void Buffer::invalidate(std::size_t offset, const std::size_t count) const noexcept
 {
-    glInvalidateBufferSubData(_id, offset, length);
+    glInvalidateBufferSubData(_id, offset, count);
 }
 
 void Buffer::create() noexcept

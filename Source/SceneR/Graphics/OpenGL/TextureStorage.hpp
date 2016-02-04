@@ -15,61 +15,46 @@ namespace SceneR { namespace Graphics { enum class SurfaceFormat : std::uint32_t
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-/**
- * Represents an opengl texture object.
- */
+/// Represents an opengl texture object.
 class TextureStorage final
 {
 private:
     static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept;
 
 public:
-    /**
-     * Initializes a new instance of the TextureStorage class.
-     * @param target the texturer target.
-     */
+    /// Initializes a new instance of the TextureStorage class.
+    /// \param target the texturer target.
     TextureStorage(TextureTarget target) noexcept;
 
-    /**
-     * Releases all resources being used by this TextureStorage.
-     */
+    /// Releases all resources being used by this TextureStorage.
     ~TextureStorage() noexcept;
 
 public:
-    /**
-     * Gets the texture object identifier
-     */
+    /// Gets the texture object identifier
     std::uint32_t id() const noexcept;
 
-    /**
-     * Binds the texture object.
-     */
+    /// Binds the texture object.
     void bind() const noexcept;
 
-    /**
-     * Unbinds the texture object.
-     */
+    /// Unbinds the texture object.
     void unbind() const noexcept;
 
-    /**
-     * Declares the texture storage parameters.
-     * @param levels texture mimap count
-     * @param width texture width
-     * @param height texture height
-     */
+    /// Declares the texture storage parameters.
+    /// \param format the format of the texture data.
+    /// \param levels the texture mimap count.
+    /// \param width the texture width.
+    /// \param height the texture height.
     void declare_storage(SceneR::Graphics::SurfaceFormat format
                        , std::size_t                     levels
                        , std::size_t                     width
                        , std::size_t                     height) const noexcept;
 
-    /**
-     * Adds texture data to the texture object
-     * @param format mipmap format
-     * @param level mipmap level index
-     * @param width mipmap width
-     * @param height mipmap height
-     * @param data mipmap data
-     */
+    /// Adds texture data to the texture object.
+    /// \param format the format of the mipmap data.
+    /// \param level the mipmap level index.
+    /// \param width the mipmap width.
+    /// \param height the mipmap height.
+    /// \param data the mipmap data.
     void set_data(SceneR::Graphics::SurfaceFormat      format
                 , std::size_t                          level
                 , std::size_t                          width

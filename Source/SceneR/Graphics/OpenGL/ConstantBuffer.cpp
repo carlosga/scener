@@ -8,13 +8,15 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-ConstantBuffer::ConstantBuffer(const std::string& name) noexcept
-    : _index         { 0 }
+ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept
+    : _buffer_object { BufferTarget::uniform_buffer, BufferUsage::dynamic_draw }
+    , _program_id    { programId }
+    , _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
-    , _buffer_object { BufferTarget::uniform_buffer, BufferUsage::dynamic_draw }
     , _name          { name }
 {
+    create();
 }
 
 std::int32_t ConstantBuffer::binding_point() const noexcept
@@ -37,30 +39,6 @@ void ConstantBuffer::bind() const noexcept
     glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
 }
 
-void ConstantBuffer::create(std::uint32_t programId) noexcept
-{
-    std::int32_t binding   = 0;
-    std::int32_t blockSize = 0;
-
-    // Get the uniform block index
-    _index = glGetUniformBlockIndex(programId, _name.c_str());
-
-    // Get the binding point
-    glGetActiveUniformBlockiv(programId, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
-
-    // Get uniform block data size
-    glGetActiveUniformBlockiv(programId, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
-
-    // update class members
-    _binding_point = binding;
-    _size          = blockSize;
-
-    // initialize the buffer object
-    std::vector<std::uint8_t> data(_size, 0);
-
-    _buffer_object.set_data(_size, data.data());
-}
-
 void ConstantBuffer::unbind() const noexcept
 {
     glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
@@ -73,6 +51,8 @@ std::vector<std::uint8_t> ConstantBuffer::get_data() const noexcept
 
 std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
+    Ensures(count <= _size);
+
     return _buffer_object.get_data(offset, count);
 }
 
@@ -83,7 +63,33 @@ void ConstantBuffer::set_data(gsl::not_null<const void*> data) const noexcept
 
 void ConstantBuffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
+    Ensures((offset + count) <= _size);
+
     _buffer_object.set_data(offset, count, data);
+}
+
+void ConstantBuffer::create() noexcept
+{
+    std::int32_t binding   = 0;
+    std::int32_t blockSize = 0;
+
+    // Get the uniform block index
+    _index = glGetUniformBlockIndex(_program_id, _name.c_str());
+
+    // Get the binding point
+    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
+
+    // Get uniform block data size
+    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+
+    // update class members
+    _binding_point = binding;
+    _size          = blockSize;
+
+    // initialize the buffer object
+    std::vector<std::uint8_t> data(_size, 0);
+
+    _buffer_object.set_data(_size, data.data());
 }
 
 }}}

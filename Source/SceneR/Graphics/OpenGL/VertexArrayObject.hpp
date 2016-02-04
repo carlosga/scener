@@ -12,41 +12,27 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
-/**
- * Represents an opengl vertex array object
- */
+/// Represents an opengl vertex array object.
 class VertexArrayObject final
 {
 public:
-    /**
-     * Initializes a new instance of the VertexArrayObject class.
-     */
+    /// Initializes a new instance of the VertexArrayObject class.
     VertexArrayObject() noexcept;
 
-    /**
-     * Releases all resources being used by this VertexArrayObject.
-     */
+    /// Releases all resources being used by this VertexArrayObject.
     ~VertexArrayObject() noexcept;
 
 public:
-    /**
-     * Gets the vertex array object identifier.
-     */
+    /// Gets the vertex array object identifier.
     std::uint32_t id() const noexcept;
 
-    /**
-     * Activates this vertex array object.
-     */
+    /// Activates this vertex array object.
     void bind() const noexcept;
 
-    /**
-     * Deactivates this vertex array object.
-     */
+    /// Deactivates this vertex array object.
     void unbind() const noexcept;
 
-    /**
-     * Declares the vertex format to be used on drawing operations.
-     */
+    /// Declares the vertex format to be used on drawing operations.
     void declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex​) const noexcept;
 
     /// Binds the vertex array to the given buffer ( it should be a vertex buffer )

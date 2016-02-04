@@ -18,22 +18,41 @@ namespace SceneR { namespace Graphics { namespace OpenGL {
 
 class DisplayDevice;
 
+/// Represents a X11 display surface (an X11 window).
 class DisplaySurface final
 {
 public:
+    /// Initializes a new instance of the DisplaySurface class with then given DisplayDevice.
+    /// \param display the DisplayDevice instance used to create the surface.
     DisplaySurface(DisplayDevice* display);
+
+    /// Releases all resources being used by this DisplaySurface instance.
     ~DisplaySurface();
 
 public:
+    /// Gets the X11 handle.
     const Drawable& handle() const noexcept;
 
+    /// Sets the display surface title ( for window surfaces ).
     void title(const std::string& title) noexcept;
 
 public:
+    /// Creates the display surface with the given width and height.
+    /// \param width the display surface width.
+    /// \param height the display surface width.
+    /// \returns true if the surface has been created; false otherwise.
     bool create(std::uint32_t width, std::uint32_t height) noexcept;
+
+    /// Destroys this DisplaySurface instance.
     void destroy() noexcept;
+
+    /// Clears the entire area of this display surface.
     void clear() noexcept;
+
+    /// Shows the display surface.
     void show() noexcept;
+
+    /// Process all the events that have been received from the X server.
     void pool_events() noexcept;
 
 public:

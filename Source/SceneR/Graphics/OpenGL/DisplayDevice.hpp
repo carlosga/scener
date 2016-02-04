@@ -13,25 +13,37 @@
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
+/// Represents a X11 Display.
 class DisplayDevice final
 {
 public:
+    /// Initializes a new instance of the DisplayDevice class.
     DisplayDevice() = default;
+
+    /// Releases all resources being used by this DisplayDevice instance.
     ~DisplayDevice();
 
 public:
+    /// Gets a pointer to the X11 display handle.
     Display* handle() const noexcept;
 
+    /// Gets the X11 screen id.
     uint32_t screen_id() const noexcept;
 
+    /// Gets the X11 display visual information.
     XVisualInfo* visual_info() const noexcept;
 
+    /// Gets the selected frame buffer configuration for this DisplayDevice instance.
     const GLXFBConfig& frame_buffer_config() const noexcept;
 
+    /// Opens a connection to the X server that controls a display.
+    /// \returns true if the display has been opened; false otherwise.
     bool open() noexcept;
 
+    /// Destroys the display.
     void destroy() noexcept;
 
+    /// Flushes the output buffer and then waits until all requests have been received and processed by the X server.
     void sync() const noexcept;
 
 private:
