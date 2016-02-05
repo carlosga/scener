@@ -45,7 +45,7 @@ std::size_t EffectParameter::row_count() const noexcept
     return _row_count;
 }
 
-std::string EffectParameter::semantic() const noexcept
+const std::string& EffectParameter::semantic() const noexcept
 {
     return _semantic;
 }

@@ -19,89 +19,55 @@ namespace SceneR { namespace Math { struct Matrix; } }
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Represents an EffectTechnique parameter.
- */
+/// Represents an EffectTechnique parameter.
 class EffectParameter final
 {
 public:
-    /**
-     * Initializes a new instance of the EffectParameter class.
-     */
+    /// Initializes a new instance of the EffectParameter class.
     EffectParameter() = default;
 
-    /**
-     * Copy constructor.
-     */
-    EffectParameter(const EffectParameter& parameter) = default;
-
-    /**
-     * Destructor
-     */
-    ~EffectParameter() = default;
-
 public:
-    /**
-     * Gets the number of columns in the parameter description.
-     */
+    /// Gets the number of columns in the parameter description.
     std::size_t column_count() const noexcept;
 
-    /**
-     * Gets the name of the parameter.
-     */
+    /// Gets the name of the parameter.
     const std::string& name() const noexcept;
 
-    /**
-     * Gets the class of the parameter.
-     */
+    /// Gets the class of the parameter.
     EffectParameterClass parameter_class() const noexcept;
 
-    /**
-     * Gets the type of the parameter.
-     */
+    /// Gets the type of the parameter.
     EffectParameterType parameter_type() const noexcept;
 
-    /**
-     * Gets the number of rows in the parameter description.
-     */
+    /// Gets the number of rows in the parameter description.
     std::size_t row_count() const noexcept;
 
-    /**
-     * Gets the semantic meaning, or usage, of the parameter.
-     * @return the semantic meaning, or usage, of the parameter.
-     */
-    std::string semantic() const noexcept;
+    /// Gets the semantic meaning, or usage, of the parameter.
+    /// \returns the semantic meaning, or usage, of the parameter.
+    const std::string& semantic() const noexcept;
 
 public:
-    /**
-     * Get the effect parameter value.
-     */
+    /// Get the effect parameter value.
     template <typename T>
     T get_value() const noexcept;
 
-    /**
-     * Get the effect parameter value.
-     */
+    /// Gets the value of the EffectParameter as a Matrix transpose.
     template <typename T
             , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
                                        || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
     T get_value_transpose() const noexcept;
 
 public:
-    /**
-     * Sets the value of the EffectParameter.
-     * @param value the value to assign to the EffectParameter.
-     */
+    /// Sets the value of the EffectParameter.
+    /// @param value the value to assign to the EffectParameter.
     template <typename T>
     void set_value(const T& value) const noexcept;
 
+    /// Sets the value of the EffectParameter to the transpose of a Matrix.
     template <typename T
             , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
                                        || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
     void set_value_transpose(const T& value) const noexcept;
-
-public:
-    EffectParameter& operator=(const EffectParameter& parameter) = default;
 
 private:
     std::size_t             _column_count    { 0 };

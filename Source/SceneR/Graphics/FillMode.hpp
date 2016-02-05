@@ -8,19 +8,11 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Describes options for filling the vertices and lines that define a primitive.
- */
+/// Describes options for filling the vertices and lines that define a primitive.
 enum class FillMode : std::uint32_t
 {
-    /**
-     * draw solid faces for each primitive.
-     */
-    solid = 1,
-    /**
-     * draw lines connecting the vertices that define a primitive face.
-     */
-    wire_frame = 2
+    solid      = 1  ///< draw solid faces for each primitive.
+  , wire_frame = 2  ///< draw lines connecting the vertices that define a primitive face.
 };
 
 }}

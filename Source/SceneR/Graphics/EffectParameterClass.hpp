@@ -8,31 +8,14 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines classes that can be used for effect parameters or shader constants.
- */
+/// Defines classes that can be used for effect parameters or shader constants.
 enum class EffectParameterClass : std::uint32_t
 {
-    /**
-     * Constant is a matrix.
-     */
-    matrix = 1,
-    /**
-     * Constant is either a texture, a shader, or a string.
-     */
-    object = 2,
-    /**
-     * Constant is a scalar.
-     */
-    scalar = 3,
-    /**
-     * Constant is a structure.
-     */
-    structure = 4,
-    /**
-     * Constant is a vector.
-     */
-    vector = 5
+    matrix    = 1   ///< Constant is a matrix.
+  , object    = 2   ///< Constant is either a texture, a shader, or a string.
+  , scalar    = 3   ///< Constant is a scalar.
+  , structure = 4   ///< Constant is a structure.
+  , vector    = 5   ///< Constant is a vector.
 };
 
 }}

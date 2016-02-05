@@ -18,37 +18,23 @@ class EffectParameter;
 class GraphicsDevice;
 class Program;
 
-/**
- * @brief Contains rendering state for drawing with an effect; an effect can contain one or more passes.
- */
-class EffectPass
+/// Contains rendering state for drawing with an effect; an effect can contain one or more passes.
+class EffectPass final
 {
 public:
-    /**
-     * Initializes a new instance of the EffectPass class.
-     */
+    /// Initializes a new instance of the EffectPass class.
+    /// \param graphicsDevice The GraphicsDevice associated with this EffectPass.
     EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
-    /**
-     * Destructor.
-     */
-    ~EffectPass() noexcept = default;
-
 public:
-    /**
-     * Gets the name of this pass.
-     * @return The name of this pass.
-     */
+    /// Gets the name of this pass.
+    /// \returns The name of this pass.
     const std::string& name() const noexcept;
 
-    /**
-     * Begins this pass.
-     */
+    /// Begins this pass.
     void begin() noexcept;
 
-    /**
-     * Ends this pass.
-     */
+    /// Ends this pass.
     void end() noexcept;
 
 private:

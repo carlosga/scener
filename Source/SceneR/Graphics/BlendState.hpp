@@ -24,7 +24,7 @@ class BlendState final : public GraphicsResource
 {
 public:
     /// Initializes a new instance of the BlendState class.
-    /// \param graphicsDevice The GraphicsDevice associated with this GraphicsResource.
+    /// \param graphicsDevice The GraphicsDevice associated with this BlendState.
     BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
 public:

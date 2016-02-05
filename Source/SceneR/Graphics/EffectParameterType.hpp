@@ -8,79 +8,24 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines types that can be used for effect parameters or shader constants.
- */
+/// Defines types that can be used for effect parameters or shader constants.
 enum class EffectParameterType : std::uint32_t
 {
-    /**
-     * Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE)
-     * before being written into the constant table; otherwise, the value will be set to 0 in the constant
-     * table.
-     */
-    boolean = 1,
-    /**
-     * Parameter is a signed byte. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    byte = 2,
-    /**
-     * Parameter is an unsigned byte. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    ubyte = 3,
-    /**
-     * Parameter is an signed 16-bit integer. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    int16 = 4,
-    /**
-     * Parameter is an unsigned 16-bit integer. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    uint16 = 5,
-    /**
-     * Parameter is an signed 32-bit integer. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    int32 = 6,
-    /**
-     * Parameter is an unsigned 32-bit integer. Any floating-point values passed in will be rounded off
-     * (to zero decimal places) before being written into the constant table.
-     */
-    uint32 = 7,
-    /**
-     * Parameter is a floating-point number.
-     */
-    single = 8,
-    /**
-     * Parameter is a string.
-     */
-    string = 9,
-    /**
-     * Parameter is a texture.
-     */
-    texture = 10,
-    /**
-     * Parameter is a 1D texture.
-     */
-    texture_1d = 11,
-    /**
-     * Parameter is a 2D texture.
-     */
-    texture_2d = 12,
-    /**
-     * Parameter is a 3D texture.
-     */
-    texture_3d = 13,
-    /**
-     * Parameter is a cube texture.
-     */
-    texture_cube = 14,
-    /**
-     * Parameter is a void pointer.
-     */
-    void_pointer = 15
+    boolean      = 1    ///< Parameter is a Boolean.
+  , byte         = 2    ///< Parameter is a signed byte.
+  , ubyte        = 3    ///< Parameter is an unsigned byte.
+  , int16        = 4    ///< Parameter is an signed 16-bit integer.
+  , uint16       = 5    ///< Parameter is an unsigned 16-bit integer.
+  , int32        = 6    ///< Parameter is an signed 32-bit integer.
+  , uint32       = 7    ///< Parameter is an unsigned 32-bit integer.
+  , single       = 8    ///< Parameter is a floating-point number.
+  , string       = 9    ///< Parameter is a string.
+  , texture      = 10   ///< Parameter is a texture.
+  , texture_1d   = 11   ///< Parameter is a 1D texture.
+  , texture_2d   = 12   ///< Parameter is a 2D texture.
+  , texture_3d   = 13   ///< Parameter is a 3D texture.
+  , texture_cube = 14   ///< Parameter is a cube texture.
+  , void_pointer = 15   ///< Parameter is a void pointer.
 };
 
 }}

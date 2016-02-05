@@ -14,9 +14,7 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * @brief Track which effect parameters need to be recomputed during the next OnApply.
- */
+///Tracks which effect parameters need to be recomputed during the next OnApply.
 enum class EffectDirtyFlags : std::uint32_t
 {
     world_view_proj = 1,
