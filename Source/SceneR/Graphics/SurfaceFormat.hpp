@@ -10,6 +10,7 @@
 
 namespace SceneR { namespace Graphics {
 
+/// Defines various types of surface formats.
 enum class SurfaceFormat : std::uint32_t
 {
     /**

@@ -5,40 +5,28 @@
 #define SCENER_GRAPHICS_VERTEXDECLARATION_HPP
 
 #include <cstddef>
-#include <cstdint>
 #include <vector>
 
 #include "SceneR/Graphics/VertexElement.hpp"
 
 namespace SceneR { namespace Graphics {
 
-class VertexBuffer;
-
-/**
- * A vertex declaration, which defines per-vertex data.
- */
+/// A vertex declaration, which defines per-vertex data.
 class VertexDeclaration final
 {
 public:
-    /**
-     * Initializes a new instance of the VertexDeclaration class.
-     *
-     * @param vertexStride The number of bytes per element.
-     * @param vertexElements vertex elements.
-     */
+    /// Initializes a new instance of the VertexDeclaration class.
+    /// \param vertexStride The number of bytes per element.
+    /// \param vertexElements vertex elements.
     VertexDeclaration(std::size_t vertexStride, const std::vector<VertexElement>& vertexElements) noexcept;
 
 public:
-    /**
-     * Gets the number of bytes per element.
-     * @return the number of bytes per element.
-     */
+    /// Gets the number of bytes from one vertex to the next.
+    /// \returns the stride (in bytes).
     std::size_t vertex_stride() const noexcept;
 
-    /**
-     * Gets the vertex elements.
-     * @return the vertex elements.
-     */
+    /// Gets the vertex shader declaration.
+    /// \returns the vertex elements that make up the vertex shader declaration.
     const std::vector<VertexElement>& vertex_elements() const noexcept;
 
 private:

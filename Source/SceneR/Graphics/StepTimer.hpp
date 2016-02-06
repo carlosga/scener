@@ -8,41 +8,24 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Step timer.
- */
-struct StepTimer
+/// Step timer.
+struct StepTimer final
 {
 public:
-    /**
-     * Initializes a new instance of the RendererTimer class.
-     */
+    /// Initializes a new instance of the RendererTimer class.
     StepTimer() = default;
 
-    /**
-     * Releases all resources being used by this RendererTimer.
-     */
-    ~StepTimer() = default;
-
 public:
-    /**
-     * Resets the renderer time points.
-     */
+    /// Resets the renderer time points.
     void reset() noexcept;
 
-    /*
-     * Updates the last time step time point.
-     */
+    /// Updates the last time step time point.
     void update_time_step() noexcept;
 
-    /*
-     * Gets the time elapsed since the last timer reset.
-     */
+    /// Gets the time elapsed since the last timer reset.
     SceneR::TimeSpan elapsed_time() const noexcept;
 
-    /*
-     * Gets the time elapsed since the last time step update.
-     */
+    /// Gets the time elapsed since the last time step update.
     SceneR::TimeSpan elapsed_time_step_time() const noexcept;
 
 private:

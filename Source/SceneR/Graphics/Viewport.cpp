@@ -8,28 +8,18 @@
 namespace SceneR { namespace Graphics {
 
 Viewport::Viewport() noexcept
-    : Viewport { 0.0f, 0.0f, 0.0f, 0.0f }
+    : Viewport { 0, 0, 0, 0 }
 {
 }
 
-Viewport::Viewport(float x, float y, float width, float height) noexcept
-    : Viewport { x, y, width, height, 0.0f, 1.0f }
-{
-}
-
-Viewport::Viewport(float x, float y, float width, float height, float minDepth, float maxDepth) noexcept
+Viewport::Viewport(std::uint32_t x, std::uint32_t y, std::uint32_t width, std::uint32_t height) noexcept
     : x         { x }
     , y         { y }
     , width     { width }
     , height    { height }
-    , min_depth { minDepth }
-    , max_depth { maxDepth }
+    , min_depth { 0.0f }
+    , max_depth { 1.0f }
 {
-}
-
-float Viewport::aspect_ratio() const noexcept
-{
-    return ((width > 0 && height > 0) ? (width / height) : 0.0f);
 }
 
 void Viewport::update() const noexcept

@@ -10,31 +10,14 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Declares the supported shader types
- */
+/// Declares the supported shader types.
 enum class ShaderType : std::uint32_t
 {
-    /**
-     * A shader that is intended to run on the programmable vertex processor.
-     */
-    vertex         = GL_VERTEX_SHADER,
-    /**
-     * A shader that is intended to run on the programmable tessellation processor in the control stage
-     */
-    tess_control    = GL_TESS_CONTROL_SHADER,
-    /**
-     * A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
-     */
-    tess_evaluation = GL_TESS_EVALUATION_SHADER,
-    /**
-     * A shader that is intended to run on the programmable geometry processor.
-     */
-    geometry       = GL_GEOMETRY_SHADER,
-    /**
-     * A shader that is intended to run on the programmable fragment processor.
-     */
-    fragment       = GL_FRAGMENT_SHADER
+    vertex          = GL_VERTEX_SHADER          ///< A shader that is intended to run on the programmable vertex processor.
+  , tess_control    = GL_TESS_CONTROL_SHADER    ///< A shader that is intended to run on the programmable tessellation processor in the control stage.
+  , tess_evaluation = GL_TESS_EVALUATION_SHADER ///< A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
+  , geometry        = GL_GEOMETRY_SHADER        ///< A shader that is intended to run on the programmable geometry processor.
+  , fragment        = GL_FRAGMENT_SHADER        ///< A shader that is intended to run on the programmable fragment processor.
 };
 
 }}
