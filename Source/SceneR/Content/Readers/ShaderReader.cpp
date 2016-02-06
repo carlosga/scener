@@ -9,7 +9,6 @@
 
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Graphics/Shader.hpp"
-#include "SceneR/Graphics/ShaderInclude.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 
@@ -20,37 +19,9 @@ using SceneR::Graphics::ShaderType;
 
 auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    const auto type = static_cast<ShaderType>(source["type"].int_value());
-
-    std::shared_ptr<Shader> shader = nullptr;
-
-    if (GLAD_GL_ARB_shading_language_include)
-    {
-        auto extras = source["extras"];
-
-        if (!extras.is_null())
-        {
-            const auto  ssource  = input->read_external_reference(source["uri"].string_value());
-            const auto& includes = extras["includes"];
-
-            shader = std::make_shared<Shader>(key, type, ssource);
-
-            if (!includes.is_null())
-            {
-                for (const auto& include : includes.object_items())
-                {
-                    shader->add_include(input->read_object<ShaderInclude>(include.first, include.second));
-                }
-            }
-        }
-    }
-
-    if (shader == nullptr)
-    {
-        const auto ssource = load_shader_with_includes(input, source["uri"].string_value());
-
-        shader = std::make_shared<Shader>(key, type, ssource);
-    }
+    auto type    = static_cast<ShaderType>(source["type"].int_value());
+    auto ssource = load_shader_with_includes(input, source["uri"].string_value());
+    auto shader  = std::make_shared<Shader>(key, type, ssource);
 
     shader->compile();
 
@@ -59,11 +30,11 @@ auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& ke
 
 std::string ContentTypeReader<Shader>::load_shader_with_includes(ContentReader* input, const std::string& uri) const noexcept
 {
-    const auto buffer      = input->read_external_reference(uri);
-    const auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");
-    const auto fonly       = std::regex_constants::format_first_only;
-    auto       source      = std::string(buffer.begin(), buffer.end());
-    auto       source_copy = source;
+    auto buffer      = input->read_external_reference(uri);
+    auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");
+    auto fonly       = std::regex_constants::format_first_only;
+    auto source      = std::string(buffer.begin(), buffer.end());
+    auto source_copy = source;
 
     std::smatch m;
 

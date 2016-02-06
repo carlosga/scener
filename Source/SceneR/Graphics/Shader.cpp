@@ -5,8 +5,6 @@
 
 #include <gsl_assert.h>
 
-#include "SceneR/Graphics/ShaderInclude.hpp"
-
 namespace SceneR { namespace Graphics {
 
 Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept
@@ -15,11 +13,10 @@ Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::
 }
 
 Shader::Shader(const std::string& name, ShaderType type, const std::string& source) noexcept
-    : _id       { 0 }
-    , _type     { type }
-    , _includes { }
-    , _name     { name }
-    , _source   { source }
+    : _id     { 0 }
+    , _type   { type }
+    , _name   { name }
+    , _source { source }
 {
 }
 
@@ -27,12 +24,6 @@ Shader::~Shader() noexcept
 {
     if (_id != 0)
     {
-        for (auto include : _includes)
-        {
-            include->remove();
-        }
-
-        _includes.clear();
         glDeleteShader(_id);
         _id = 0;
     }
@@ -53,14 +44,6 @@ ShaderType Shader::type() const noexcept
     return _type;
 }
 
-void Shader::add_include(std::shared_ptr<ShaderInclude> include)
-{
-    Expects(!is_compiled());
-    Expects(include->is_declared());
-
-    _includes.push_back(include);
-}
-
 void Shader::compile() noexcept
 {
     if (is_compiled())
@@ -73,29 +56,12 @@ void Shader::compile() noexcept
 
     Ensures(_id > 0);
 
-    // root shader
+    // Shader source
     const char* cstring = _source.c_str();
-
     glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
 
-    if (_includes.size() == 0)
-    {
-        // Compile the shader source
-        glCompileShader(_id);
-    }
-    else
-    {
-        std::vector<const char*> cpaths(0);
-
-        // process include paths
-        for (auto include : _includes)
-        {
-            cpaths.push_back(include->path.c_str());
-        }
-
-        // Compile the shader source
-        glCompileShaderIncludeARB(_id, cpaths.size(), (const GLchar**)&cpaths[0], NULL);
-    }
+    // Compile the shader source
+    glCompileShader(_id);
 
     // Verify compilation state
     verify_compilation_state();
