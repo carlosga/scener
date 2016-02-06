@@ -8,13 +8,11 @@
 
 namespace SceneR { namespace Input {
 
-// Identifies the state of a keyboard key.
+/// Identifies the state of a keyboard key.
 enum class KeyState : std::uint32_t
 {
-    // Key is pressed.
-    down
-    // Key is released.
-  , up
+    down    ///< Key is pressed.
+  , up      ///< Key is released.
 };
 
 }}

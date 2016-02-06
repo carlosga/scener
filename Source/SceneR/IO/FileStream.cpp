@@ -56,8 +56,13 @@ void FileStream::close() noexcept
     }
 }
 
-std::uint32_t FileStream::read_byte() noexcept
+std::int32_t FileStream::read_byte() noexcept
 {
+    if (!_stream.good())
+    {
+        return -1;
+    }
+
     std::uint8_t buffer;
 
     read(reinterpret_cast<char*>(&buffer), 0, sizeof buffer);
@@ -67,6 +72,11 @@ std::uint32_t FileStream::read_byte() noexcept
 
 std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
 {
+    if (!_stream.good())
+    {
+        return 0;
+    }
+
     _stream.read(buffer + offset, count);
 
     return _stream.gcount();

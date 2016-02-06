@@ -8,12 +8,11 @@
 
 namespace SceneR { namespace Input {
 
+/// Identifies the state of a controller button.
 enum class ButtonState : std::uint32_t
 {
-    // The button is pressed.
-    pressed
-    // The button is released.
-  , released
+    pressed     ///< The button is pressed.
+  , released    ///< The button is released.
 };
 
 }}

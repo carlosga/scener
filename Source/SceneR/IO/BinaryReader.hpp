@@ -11,55 +11,43 @@ namespace SceneR { namespace IO {
 
 class Stream;
 
-/**
- * Reads primitive data types as binary values in a specific encoding.
- */
+/// Reads primitive data types as binary values in a specific encoding.
 class BinaryReader final
 {
 public:
-    /**
-     * Initializes a new instance of the BinaryReader class with the given stream.
-     */
+    /// Initializes a new instance of the BinaryReader class with the given stream.
+    /// \param stream the input stream.
     BinaryReader(Stream& stream) noexcept;
 
-    /**
-     * Releases all resources being used by this BinaryReader.
-     */
+    /// Releases all resources being used by this BinaryReader.
     ~BinaryReader() = default;
 
 public:
-    /**
-     * Gets the underliying Stream.
-     */
+    /// Gets the underliying Stream.
+    /// \returns the underliying Stream.
     Stream& base_stream() noexcept;
 
-    /**
-     * Closes the current reader and the underlying stream.
-     */
+    /// Closes the current reader and the underlying stream.
     void close() noexcept;
 
-    /**
-     * Reads data from the current stream.
-     */
+    /// Reads data from the current stream.
     template <typename T>
     T read() noexcept;
 
-    /**
-     * Returns the next available character, or -1 if no more characters are available.
-     */
+    /// Returns the next available character, or -1 if no more characters are available.
+    /// \returns the next available character, or -1 if no more characters are available.
     std::int32_t peek_char() noexcept;
 
-    /**
-     * Reads a 7-bit encoded unsigned int
-     */
+    /// Reads a 7-bit encoded unsigned int.
+    /// \returns a 7-bit encoded unsigned int.
     std::uint32_t read_7_bit_encoded_int() noexcept;
 
-    /**
-     * Reads the specified number of bytes from the underliying stream
-     */
+    /// Reads the specified number of bytes from the underliying stream
+    /// \param count the number of bytes to read.
+    /// \returns the data read from the underlying stream.
     std::vector<std::uint8_t> read_bytes(std::size_t count) noexcept;
 
-public:
+private:
     BinaryReader() = delete;
     BinaryReader(const BinaryReader& reader) = delete;
     BinaryReader& operator=(const BinaryReader& reader) = delete;

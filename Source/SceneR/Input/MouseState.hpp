@@ -11,13 +11,22 @@ namespace SceneR { namespace Input {
 enum class Buttons     : std::uint32_t;
 enum class ButtonState : std::uint32_t;
 
-// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
+/// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
 struct MouseState
 {
 public:
+    ///Initializes a new instance of the MouseState class.
     MouseState() noexcept;
 
-    //Initializes a new instance of the MouseState class.
+    /// Initializes a new instance of the MouseState class.
+    /// \param x
+    /// \param y
+    /// \param scrollWheel
+    /// \param leftButton
+    /// \param middleButton
+    /// \param rightButton
+    /// \param xButton1
+    /// \param xButton2
     MouseState(std::uint32_t x
              , std::uint32_t y
              , std::uint32_t scrollWheel
@@ -27,37 +36,29 @@ public:
              , ButtonState   xButton1
              , ButtonState   xButton2) noexcept;
 
-    ~MouseState() = default;
-
-    // Returns the state of the left mouse button.
+    /// Returns the state of the left mouse button.
     ButtonState left_button() const noexcept;
 
-    // Returns the state of the middle mouse button.
+    /// Returns the state of the middle mouse button.
     ButtonState middle_button() const noexcept;
 
-    // Returns the state of the right mouse button.
+    /// Returns the state of the right mouse button.
     ButtonState right_button() const noexcept;
 
-    // Gets the cumulative mouse scroll wheel value since the game was started.
+    /// Gets the cumulative mouse scroll wheel value since the game was started.
     std::uint32_t scroll_wheel_value() const noexcept;
 
-    // Specifies the horizontal position of the mouse cursor.
+    /// Specifies the horizontal position of the mouse cursor.
     std::uint32_t x() const noexcept;
 
-    // Returns the state of XBUTTON1.
+    /// Returns the state of XBUTTON1.
     ButtonState xbutton_1() const noexcept;
 
-    // Returns the state of XBUTTON2.
+    /// Returns the state of XBUTTON2.
     ButtonState xbutton_2() const noexcept;
 
-    // Specifies the vertical position of the mouse cursor.
+    /// Specifies the vertical position of the mouse cursor.
     std::uint32_t y() const noexcept;
-
-    // Determines whether two MouseState instances are equal.
-    // public static bool op_Equality (MouseState left,MouseState right)
-
-    // Determines whether two MouseState instances are not equal.
-    // public static bool op_Inequality (MouseState left,MouseState right)
 
 private:
     std::uint32_t _x;

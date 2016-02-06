@@ -15,15 +15,13 @@
 
 namespace SceneR { namespace IO {
 
-/**
- * Provides static methods for file access handling.
- */
+/// Provides static methods for file access handling.
 class File final
 {
 public:
-    /**
-     * Checks whether the given file exists.
-     */
+    /// Checks whether the given file exists.
+    /// \param path the file to check.
+    /// \returns true of the given file exists; false otherwise.
     static bool exists(const std::string& path) noexcept
     {
         auto result = true;
@@ -37,9 +35,10 @@ public:
         return result;
     }
 
-    /**
-     * Opens a text file, reads all lines of the file, and then closes the file.
-     */
+    /// Opens a text file, reads all lines of the file, and then closes the file.
+    /// \param path the file to open for reading.
+    /// \param encoding the encoding applied to the contents of the file.
+    /// \returns a string containing all lines of the file.
     static std::string read_all_text(const std::string&            path
                                    , const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8) noexcept
     {
@@ -48,9 +47,9 @@ public:
         return std::string(buffer.begin(), buffer.end());
     }
 
-    /**
-     * Opens a binary file, reads the contents of the file into a byte array, and then closes the file.
-     */
+    /// Opens a binary file, reads the contents of the file into a byte array, and then closes the file.
+    /// \param path the file to open for reading.
+    /// \returns the contents of the file.
     static std::vector<std::uint8_t> read_all_bytes(const std::string& path) noexcept
     {
         Expects(exists(path));

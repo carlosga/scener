@@ -42,7 +42,7 @@ void MemoryStream::close() noexcept
 {
 }
 
-std::uint32_t MemoryStream::read_byte() noexcept
+std::int32_t MemoryStream::read_byte() noexcept
 {
     std::uint8_t buffer;
 

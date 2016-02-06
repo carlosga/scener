@@ -10,60 +10,22 @@
 
 namespace SceneR { namespace Input {
 
+/// Identifies a particular key on a keyboard.
 enum class Keys : std::uint32_t
 {
-    /**
-     * Reserved.
-     */
-    none = 0,
-    /**
-     * BACKSPACE key.
-     */
-    Back = 1,
-    /**
-     * TAB key.
-     */
-    Tab = 2,
-    /**
-     * ENTER key.
-     */
-    Enter = 3,
-    /**
-     * CAPS LOCK key.
-     */
-    CapsLock = 4,
-    /**
-     * ESC key.
-     */
-    Escape = 5,
-    /**
-     * SPACEBAR key.
-     */
-    Space = 6,
-    /**
-     * PAGE UP key.
-     */
-    PageUp = 7,
-    /**
-     * PAGE DOWN key.
-     */
-    PageDown = 8,
-    /**
-     * END key.
-     */
-    End = 9,
-    /**
-     * HOME key.
-     */
-    Home = 10,
-    /**
-     * LEFT ARROW key.
-     */
-    Left = 11,
-    /**
-     * UP ARROW key.
-     */
-    Up = 12,
+    none     = 0    ///< Reserved.
+  , Back     = 1    ///< BACKSPACE key.
+  , Tab      = 2    ///< TAB key.
+  , Enter    = 3    ///< ENTER key.
+  , CapsLock = 4    ///< CAPS LOCK key.
+  , Escape   = 5    ///< ESC key.
+  , Space    = 6    ///< SPACEBAR key.
+  , PageUp   = 7    ///< PAGE UP key.
+  , PageDown = 8    ///< PAGE DOWN key.
+  , End      = 9    ///< END key.
+  , Home     = 10   ///< HOME key.
+  , Left     = 11   ///< LEFT ARROW key.
+  , Up       = 12,  ///< UP ARROW key.
     /**
      * RIGHT ARROW key.
      */

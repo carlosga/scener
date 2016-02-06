@@ -18,14 +18,15 @@ enum class KeyState : std::uint32_t;
 
 struct KeyboardState;
 
-// Allows retrieval of keystrokes from a keyboard input device.
+/// Allows retrieval of keystrokes from a keyboard input device.
 class Keyboard
 {
 public:
-    // Returns the current keyboard state.
+    /// Returns the current keyboard state.
+    /// \returns current keyboard state.
     static KeyboardState get_state() noexcept;
 
-    // Gets or sets the window used for mouse processing.
+    /// Gets or sets the window used for mouse processing.
     static void initialize(Graphics::OpenGL::DisplaySurface* surface) noexcept;
 
 private:

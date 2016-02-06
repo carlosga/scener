@@ -9,27 +9,22 @@
 
 namespace SceneR { namespace IO {
 
-/**
- * Utility class for path operations.
- */
+/// Utility class for path operations.
 class Path
 {
 public:
-    /**
-     * Changes the extension of a path string.
-     * @param path The path of the file.
-     * @param extension The new file extension
-     * @return The file path with the new extension
-     */
+    /// Changes the extension of a path string.
+    /// \param path The path of the file.
+    /// \param extension The new file extension
+    /// \returns The file path with the new extension
     static std::string change_extension(const std::string& path, const std::string& extension) noexcept
     {
         return get_file_name_without_extension(path) + "." + extension;
     }
 
-    /**
-     * Returns the directory information for the specified path string.
-     * @param path the path of a file or directory.
-     */
+    /// Returns the directory information for the specified path string.
+    /// \param path the path of a file or directory.
+    /// \returns the directory information for the specified path string.
     static std::string get_directory_name(const std::string& path) noexcept
     {
         auto position      = path.find_last_of(Path::directory_separator());
@@ -43,11 +38,9 @@ public:
         return directoryName;
     }
 
-    /**
-     * Returns the file name of the specified path string without the extension.
-     * @param path The path of the file.
-     * @return the file name of the specified path string without the extension.
-     */
+    /// Returns the file name of the specified path string without the extension.
+    /// \param path The path of the file.
+    /// \returns the file name of the specified path string without the extension.
     static std::string get_file_name_without_extension(const std::string& path) noexcept
     {
         auto position             = path.find_last_of('.');
@@ -61,12 +54,10 @@ public:
         return pathWithoutExtension;
     }
 
-    /**
-     * Combines two strings into a path.
-     *
-     * @param path1 The first path to combine
-     * @param path2 The second path to combine
-     */
+    /// Combines two strings into a path.
+    /// \param path1 The first path to combine.
+    /// \param path2 The second path to combine.
+    /// \returns the combined paths.
     static std::string combine(const std::string& path1, const std::string& path2) noexcept
     {
         std::string separator { };
@@ -92,9 +83,8 @@ public:
         return std::string(cpath1 + separator + cpath2);
     }
 
-    /**
-     * Gets platform specific string with the directory separator.
-     */
+    /// Gets platform specific string with the directory separator.
+    /// \returns the platform specific string with the directory separator.
     static char directory_separator() noexcept
     {
 #if __unix__

@@ -13,38 +13,33 @@ namespace SceneR { namespace Input {
 enum class Keys     : std::uint32_t;
 enum class KeyState : std::uint32_t;
 
-// Represents a state of keystrokes recorded by a keyboard input device.
+/// Represents a state of keystrokes recorded by a keyboard input device.
 struct KeyboardState
 {
 public:
+    ///Initializes a new instance of the KeyboardState class.
     KeyboardState(SceneR::Graphics::OpenGL::DisplaySurface* surface) noexcept;
-    ~KeyboardState() = default;
 
-public:
-    // Initializes a new instance of the KeyboardState class.
-    // Array or parameter list of Keys to initialize as pressed.
     //KeyboardState(Keys[] keys);
 
-    // Returns the state of a particular key.
+public:
+    /// Returns the state of a particular key.
     KeyState get_key_state(Keys key) noexcept;
 
-    // Gets an array of values that correspond to the keyboard keys that are currently being pressed
+    /// Gets an array of values that correspond to the keyboard keys that are currently being pressed
+    /// \returns the keys that are currently pressed.
     std::vector<Keys> get_pressed_keys() noexcept;
 
-    // Returns whether a specified key is currently being pressed.
-    // Enumerated value that specifies the key to query.
+    /// Returns whether a specified key is currently being pressed.
+    /// \param key specifies the key to query.
+    /// \returns true if the key specified by key is being held down; false otherwise.
     bool is_key_down(Keys key) noexcept;
 
-    // Returns whether a specified key is currently not pressed.
-    // Enumerated value that specifies the key to query.
-    // true if the key specified by key is not pressed; false otherwise.
+    /// Returns whether a specified key is currently not pressed.
+    /// \param key specifies the key to query.
+    /// \returns true if the key specified by key is not pressed; false otherwise.
     bool is_key_up(Keys key) noexcept;
 
-    // Compares two objects to determine whether they are the same.
-    // static bool op_Equality (KeyboardState a,KeyboardState b)
-
-    // Compares two objects to determine whether they are different.
-    // static bool op_Inequality (KeyboardState a,KeyboardState b)
 private:
     SceneR::Graphics::OpenGL::DisplaySurface* _surface;
 };

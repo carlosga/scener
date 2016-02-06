@@ -15,18 +15,18 @@ enum class ButtonState : std::uint32_t;
 
 struct MouseState;
 
-// Allows retrieval of position and button clicks from a mouse input device.
+/// Allows retrieval of position and button clicks from a mouse input device.
 class Mouse
 {
 public:
-    // Gets the current state of the mouse, including mouse position and buttons pressed.
+    /// Gets the current state of the mouse, including mouse position and buttons pressed.
     static MouseState get_state() noexcept;
 
-    // Sets the position of the mouse cursor relative to the upper-left corner of the window.
+    /// Sets the position of the mouse cursor relative to the upper-left corner of the window.
     static void set_position(std::uint32_t x, std::uint32_t y) noexcept;
 
-    // Gets or sets the window used for mouse processing.
-    // Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
+    /// Gets or sets the window used for mouse processing.
+    /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
     static void initialize(SceneR::Graphics::OpenGL::DisplaySurface* surface) noexcept;
 
 private:
