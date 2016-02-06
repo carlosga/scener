@@ -24,8 +24,11 @@ class BlendState final : public GraphicsResource
 {
 public:
     /// Initializes a new instance of the BlendState class.
-    /// \param graphicsDevice The GraphicsDevice associated with this BlendState.
+    /// \param graphicsDevice the GraphicsDevice associated with this BlendState.
     BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+
+    /// Releases all resources being used by this BlendState.
+    ~BlendState() override = default;
 
 public:
     /// Gets or sets the arithmetic operation when blending alpha values.

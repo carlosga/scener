@@ -8,56 +8,44 @@ namespace SceneR { namespace Math { struct Vector3; } }
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines fog parameters for the current effect.
- */
+/// Defines fog parameters for the current effect.
 class IEffectFog
 {
 public:
-    /**
-     * Releases all resource sbeing used by this IEffectFog instance
-     */
+    /// Releases all resource sbeing used by this IEffectFog instance
     virtual ~IEffectFog() = default;
 
 public:
-    /**
-     *  Gets the fog color.
-     */
+    /// Gets the fog color as a three component color.
+    /// \returns the fog color as a three component color.
     virtual const SceneR::Math::Vector3& fog_color() const noexcept = 0;
 
-    /**
-     *  Set the fog color.
-     */
+    /// Set the fog color as a three component color.
+    /// \param color the fog color as a three component color.
     virtual void fog_color(const SceneR::Math::Vector3& color) noexcept = 0;
 
-    /**
-     * Gets a value indicating whether for is enabled for the current effect.
-     */
+    /// Gets a value indicating whether for is enabled for the current effect.
+    /// \returns true if the fog is enabled; false otherwise.
     virtual bool fog_enabled() const noexcept = 0;
 
-    /**
-     * Gets a value indicating whether for is enabled for the current effect.
-     */
+    /// Gets a value indicating whether for is enabled for the current effect.
+    /// \param fogEnabled true to enable fog, false otherwise.
     virtual void fog_enabled(bool fogEnabled) noexcept = 0;
 
-    /**
-     * Gets maximum z value for fog.
-     */
+    /// Gets maximum z value for fog.
+    /// \returns the distance from the camera to stop adding fog, in world space.
     virtual float fog_end() const noexcept = 0;
 
-    /**
-     * Sets maximum z value for fog.
-     */
+    /// Sets maximum z value for fog.
+    /// \param fogEnd the distance from the camera to stop adding fog, in world space.
     virtual void fog_end(float fogEnd) noexcept = 0;
 
-    /**
-     * Gets minimum z value for fog.
-     */
+    /// Gets minimum z value for fog.
+    /// \returns the distance from the camera to begin adding fog, in world space.
     virtual float fog_start() const noexcept = 0;
 
-    /**
-     * Sets minimum z value for fog.
-     */
+    /// Sets minimum z value for fog.
+    /// \param forStart the distance from the camera to begin adding fog, in world space.
     virtual void fog_start(float fogStart) noexcept = 0;
 };
 

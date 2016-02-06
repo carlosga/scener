@@ -15,47 +15,34 @@ enum class SurfaceFormat : std::uint32_t;
 
 class GraphicsDevice;
 
-/**
- * Represents a texture reference.
- */
+/// Represents a texture reference.
 class Texture : public GraphicsResource
 {
 public:
-    /**
-     * @brief Initializes a new instance of the Texture class.
-     * @param graphicsDevice the graphics device.
-     */
+    /// Initializes a new instance of the Texture class.
+    /// \param graphicsDevice the GraphicsDevice associated with this RasterizerState.
     Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
-    /**
-     * Releases all resources being used by this texture.
-     */
+    /// Releases all resources being used by this texture.
     ~Texture() override = default;
 
 public:
-    /**
-     * Gets the texture identifier
-     */
+    /// Gets the texture identifier.
+    /// \returns the texture identifier.
     virtual std::uint32_t id() const noexcept = 0;
 
-    /**
-     * Gets the format of the texture data.
-     */
+    /// Gets the format of the texture data.
+    /// \returns the format of the texture data.
     virtual SurfaceFormat format() const noexcept = 0;
 
-    /**
-     * Gets the number of texture levels in a multilevel texture.
-     */
+    /// Gets the number of texture levels in a multilevel texture.
+    /// \returns the number of texture levels in a multilevel texture.
     virtual std::size_t level_count() const noexcept = 0;
 
-    /**
-     * Activates the texture object
-     */
+    /// Activates the texture object.
     virtual void bind() const noexcept = 0;
 
-    /**
-     * Deactivates the texture object
-     */
+    /// Deactivates the texture object.
     virtual void unbind() const noexcept = 0;
 };
 

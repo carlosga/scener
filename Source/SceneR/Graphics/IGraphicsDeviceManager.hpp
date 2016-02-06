@@ -6,31 +6,21 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines the interface for an object that manages a GraphicsDevice.
- */
+/// Defines the interface for an object that manages a GraphicsDevice.
 class IGraphicsDeviceManager
 {
 public:
-    /**
-     * Destructor
-     */
+    /// Virtual destructor.
     ~IGraphicsDeviceManager() = default;
 
 public:
-   /**
-     * Starts the drawing of a frame
-     */
+    /// Starts the drawing of a frame
     virtual bool begin_draw() noexcept = 0;
 
-    /**
-     * Called to ensure that the device manager has created a valid device.
-     */
+    /// Called to ensure that the device manager has created a valid device.
     virtual void create_device() noexcept = 0;
 
-    /**
-     * Called by the game at the end of drawing; presents the final rendering.
-     */
+    /// Called by the game at the end of drawing; presents the final rendering.
     virtual void end_draw() noexcept = 0;
 };
 

@@ -9,7 +9,7 @@
 namespace SceneR { namespace Graphics {
 
 /// Light object that projects its effect along a direction specified by a Vector3.
-class DirectionalLight
+class DirectionalLight final
 {
 public:
     /// Creates an instance of a light that projects its effect in a specified direction.

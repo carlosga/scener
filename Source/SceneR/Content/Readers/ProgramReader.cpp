@@ -24,7 +24,6 @@ auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& k
     auto fragmentShader = source["fragmentShader"].string_value();
 
     program->name = key;
-    program->create();
     program->add_shader(input->read_object<Shader>(vertexShader));
     program->add_shader(input->read_object<Shader>(fragmentShader));
     program->link();

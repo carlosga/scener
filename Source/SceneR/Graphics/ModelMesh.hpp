@@ -19,55 +19,41 @@ class Skeleton;
 class ModelBone;
 class ModelMeshPart;
 
-/**
- * Represents a mesh that is part of a Model.
- */
+/// Represents a mesh that is part of a Model.
 class ModelMesh final
 {
 public:
-    /**
-     * Initializes a new instance of the ModelMesh class.
-     */
+    /// Initializes a new instance of the ModelMesh class.
     ModelMesh() = default;
 
-    /**
-     * Releases all resources being used by this ModelMesh.
-     */
-    ~ModelMesh() = default;
-
 public:
-    /**
-     * Gets the BoundingSphere that contains this mesh.
-     * @return The BoundingSphere that contains this mesh.
-     */
+    /// Gets the BoundingSphere that contains this mesh.
+    /// \returns The BoundingSphere that contains this mesh.
     const SceneR::Math::BoundingSphere& bounding_sphere() const noexcept;
 
-    /**
-     * Gets the name of this mesh.
-     * @return The name of this mesh.
-     */
+    /// Gets the name of this mesh.
+    /// \returns The name of this mesh.
     const std::string& name() const noexcept;
 
-    /**
-     * Gets the list of efects of each mesh part.
-     */
+    /// Gets a collection of effects associated with this mesh.
+    /// ModelMesh.Effects is a collection of all the Effect properties of the for the MeshParts of this ModelMesh.
+    /// Each ModelMeshPart has a single Effect which is a reference to one of the Effects of the parent ModelMesh
+    /// property. By updating all the effects of the ModelMesh all of the effects of each ModelMeshPart are updated
+    /// as well.
+    /// \returns a collection of effects associated with this mesh.
     std::vector<EffectTechnique*> effects() const noexcept;
 
-    /**
-     * Gets the ModelMeshPart objects that make up this mesh.
-     * Each part of a mesh is composed of a set of primitives that share the same material.
-     */
+    /// Gets the ModelMeshPart objects that make up this mesh. Each part of a mesh is composed of a set of primitives
+    /// that share the same material.
+    /// \returns the ModelMeshPart objects that make up this mesh.
     const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const noexcept;
 
-    /**
-     * Joints and matrices defining a skin.
-     */
+    /// Gets the skeleton associated to this mesh.
+    /// \returns the skeleton associated to this mesh.
     Skeleton* skeleton() const noexcept;
 
 public:
-    /**
-     * Draws all of the ModelMeshPart objects in this mesh.
-     */
+    /// Draws all of the ModelMeshPart objects in this mesh.
     void draw() noexcept;
 
 private:

@@ -21,86 +21,68 @@ namespace SceneR { namespace Graphics {
 class GraphicsDevice;
 class SamplerState;
 
-/**
- * Represents a 2D texture.
- */
+/// Represents a 2D texture.
 class Texture2D final : public Texture
 {
 public:
-    /**
-     * Creates a new instance of the Texture2D class.
-     *
-     * @param graphicsDevice the graphics device
-     * @param width the texture width, in pixels
-     * @param height the texture height, in pixels
-     */
+    /// Creates a new instance of the Texture2D class.
+    /// \param graphicsDevice the GraphicsDevice associated with this texture.
+    /// \param width the texture width, in pixels
+    /// \param height the texture height, in pixels
     Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept;
 
-    /**
-     * Creates a new instance of the Texture2D class.
-     *
-     * @param graphicsDevice the graphics device
-     * @param width the texture width, in pixels
-     * @param height the texture height, in pixels
-     * @param format texture data format
-     */
+    /// Creates a new instance of the Texture2D class.
+    /// \param graphicsDevice the GraphicsDevice associated with this texture.
+    /// \param width the texture width, in pixels
+    /// \param height the texture height, in pixels
+    /// \param format texture data format
     Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
             , std::size_t                    width
             , std::size_t                    height
             , SurfaceFormat                  format) noexcept;
 
-    /**
-     * Releases all resources being used by this texture.
-     */
+    /// Releases all resources being used by this texture.
     ~Texture2D() override = default;
 
 public:
+    /// Gets the texture identifier.
+    /// \returns the texture identifier.
     std::uint32_t id() const noexcept override;
 
-    /**
-     * Gets the format of the texture data.
-     */
+    /// Gets the format of the texture data.
+    /// \returns the format of the texture data.
     SurfaceFormat format() const noexcept override;
 
-    /**
-     * Gets the texture height, in pixels
-     */
+    /// Gets the texture height, in pixels.
+    /// \returns the texture height, in pixels.
     std::size_t height() const noexcept;
 
-    /**
-     * Gets the number of texture levels in a multilevel texture.
-     */
+    /// Gets the number of texture levels in a multilevel texture.
+    /// \returns the number of texture levels in a multilevel texture.
     std::size_t level_count() const noexcept override;
 
-    /**
-     * Gets the texture width, in pixels
-     */
+    /// Gets the texture width, in pixels.
+    /// \returns the texture width, in pixels.
     std::size_t width() const noexcept;
 
-    /**
-     * Gets the texure sampler state.
-     * @return the texure sampler state.
-     */
+    /// Gets the texure sampler state.
+    /// \returns the texure sampler state.
     SamplerState* sampler_state() const noexcept;
 
-    /**
-     * Sets mipmap data to the texture.
-     * @param level the mipmap level.
-     * @param data pointer with the mipmap data.
-     */
+    /// Sets mipmap data to the texture.
+    /// \param level the mipmap level.
+    /// \param width the mipmap width, in pixels.
+    /// \param height the mipmap height, in pixels.
+    /// \param data pointer with the mipmap data.
     void set_data(std::size_t                          level
                 , std::size_t                          width
                 , std::size_t                          height
                 , const gsl::span<const std::uint8_t>& data) const noexcept;
 
-    /**
-     * Activates the texture object
-     */
+    /// Activates the texture object.
     void bind() const noexcept override;
 
-    /**
-     * Deactivates the texture object
-     */
+    ///  Deactivates the texture object.
     void unbind() const noexcept override;
 
 private:

@@ -6,23 +6,17 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines an interface for components.
- */
+/// Defines an interface for components.
 class IComponent
 {
 public:
-    /**
-     * Releases all resources being used by this IComponent instance.
-     */
+    /// Virtual destructor.
     virtual ~IComponent() = default;
 
 public:
-    /**
-     * Called when the component should be initialized.
-     * This method can be used for tasks like querying for
-     * services the component needs and setting up non-graphics resources.
-     */
+    /// Called when the component should be initialized.
+    /// This method can be used for tasks like querying for services the component needs
+    /// and setting up non-graphics resources.
     virtual void initialize() noexcept = 0;
 };
 

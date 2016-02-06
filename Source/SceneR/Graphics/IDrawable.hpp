@@ -10,32 +10,24 @@ namespace SceneR { namespace Graphics {
 
 struct StepTime;
 
-/**
- * Defines the interface for a drawable game component.
- */
+/// Defines the interface for a drawable game component.
 class IDrawable
 {
 public:
-    /**
-     * Releases all the resources being used by this IDrawable instance.
-     */
+    /// Virtual destructor.
     virtual ~IDrawable() = default;
 
 public:
-    /**
-     * Gets a value indicating whether this object is visible.
-     */
+    /// Gets a value indicating whether this object is visible.
     virtual bool visible() const noexcept = 0;
 
-    /**
-     * The order in which to draw this object relative to other objects.
-     */
+    /// The order in which to draw this object relative to other objects.
+    /// \returns the order in which to draw this object relative to other objects.
     virtual std::uint32_t draw_order() const noexcept = 0;
 
-    /**
-     * Called when the component should be drawn.
-     */
-    virtual void draw(const StepTime& renderTime) noexcept = 0;
+    /// Called when the component should be drawn.
+    /// \param stepTime snapshot of the rendering timing state.
+    virtual void draw(const StepTime& stepTime) noexcept = 0;
 };
 
 }}

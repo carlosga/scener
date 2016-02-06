@@ -17,59 +17,43 @@ namespace SceneR { namespace Graphics {
 
 class Animation;
 
-/**
- * Represents bone data for a model.
- */
+/// Represents bone data for a skeleton.
 class ModelBone final
 {
 public:
     typedef std::size_t index_type;
 
 public:
-    /**
-     * Initializes a new instance of the ModelBone class.
-     */
+    /// Initializes a new instance of the ModelBone class.
     ModelBone() = default;
 
-    /**
-     * Releases all resources being used by this ModelBone.
-     */
-    ~ModelBone() = default;
-
 public:
-    /**
-     * Gets the index of this bone in the Bones collection.
-     */
+    /// Gets the index of this bone in the Bones collection.
+    /// \returns the index of this bone in the Bones collection.
     index_type index() const noexcept;
 
-    /**
-     * Gets the collection of children bones.
-     */
+    /// Gets the collection of children bones.
+    /// \returns the collection of children bones.
     const std::vector<std::shared_ptr<ModelBone>>& children() const noexcept;
 
-    /**
-     * Gets the name of this bone.
-     */
+    /// Gets the name of this bone.
+    /// \returns the name of this bone.
     const std::string& name() const noexcept;
 
-    /**
-     * Gets the parent of the current bone
-     */
+    /// Gets the parent of this bone.
+    /// \returns the parent of this bone.
     ModelBone* parent() const noexcept;
 
-    /**
-     * Gets the bone animation
-     */
+    /// Gets the bone animation.
+    /// \returns the bone animation.
     Animation* animation() const noexcept;
 
-    /**
-     * Gets the matrix used to transform this bone relative to its parent bone.
-     */
+    /// Gets the matrix used to transform this bone relative to its parent bone.
+    /// \returns the matrix used to transform this bone relative only to its parent bone.
     const SceneR::Math::Matrix& transform() const noexcept;
 
-    /**
-     * Sets the matrix used to transform this bone relative to its parent bone.
-     */
+    /// Sets the matrix used to transform this bone relative to its parent bone.
+    /// \param transform the matrix used to transform this bone relative only to its parent bone.
     void transform(const SceneR::Math::Matrix& transform) noexcept;
 
 private:

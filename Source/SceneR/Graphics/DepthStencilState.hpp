@@ -16,12 +16,15 @@ class GraphicsDevice;
 class GraphicsDeviceManager;
 
 /// Contains depth-stencil state for the graphics device
-class DepthStencilState : GraphicsResource
+class DepthStencilState final : GraphicsResource
 {
 public:
     /// Initializes a new instance of the DepthStencilState class with the given GraphcisDevice
-    /// \param graphicsDevice
+    /// \param graphicsDevice the GraphicsDevice associated with this DepthStencilState.
     DepthStencilState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+
+    /// Releases all resources being used by this DepthStencilState.
+    ~DepthStencilState() override = default;
 
 public:
     /// Gets or sets the stencil operation to perform if the stencil test passes and the depth-buffer

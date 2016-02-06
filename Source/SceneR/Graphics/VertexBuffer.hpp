@@ -17,49 +17,39 @@ namespace SceneR { namespace Graphics {
 
 class GraphicsDevice;
 
-/**
- * Represents a list of 3D vertices to be streamed to the graphics device.
- */
+/// Represents a list of 3D vertices to be streamed to the graphics device.
 class VertexBuffer final : public GraphicsResource
 {
 public:
-    /**
-     * Initializes a new instance of the VertexBuffer class.
-     * @param graphicsDevice the graphics device.
-     */
+    /// Initializes a new instance of the VertexBuffer class.
+    /// \param graphicsDevice the GraphicsDevice associated with this VertexBuffer.
+    /// \param vertexCount the number of vertices.
+    /// \param vertexDeclaration the vertex declaration, which describes per-vertex data.
     VertexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
                , std::size_t                    vertexCount
                , const VertexDeclaration&       vertexDeclaration) noexcept;
 
-    /**
-     * Releases all resources being used by the current VertexBuffer
-     */
+    /// Releases all resources being used by the current VertexBuffer
     ~VertexBuffer() override = default;
 
 public:
-    /**
-     * Gets the number of vertex for the current buffer
-     */
+    /// Gets the number of vertex for the current buffer.
     std::size_t vertex_count() const noexcept;
 
-    /**
-     * Gets the vertex buffer data
-     */
+    /// Returns a copy of the vertex buffer data.
     std::vector<std::uint8_t> get_data() const noexcept;
 
-    /**
-     * Gets the vertex buffer data
-     */
+    /// Gets a copy of the vertex buffer data, specifying the start index and number of elements.
+    /// \param startIndex index of the first element to get.
+    /// \param elementCount number of elements to get.
     std::vector<std::uint8_t> get_data(std::size_t startIndex, std::size_t elementCount) const noexcept;
 
-    /**
-     * Sets the vertex buffer data
-     */
+    /// Sets the vertex buffer data.
+    /// \param data the new vertex buffer data.
     void set_data(const gsl::span<const std::uint8_t>& data) const noexcept;
 
-    /**
-     * Defines per-vertex data in a buffer.
-     */
+    /// Defines per-vertex data in a buffer.
+    /// \returns the per vertex data definition of this VertexBuffer.
     const VertexDeclaration& vertex_declaration() const noexcept;
 
 private:

@@ -8,21 +8,15 @@ namespace SceneR { namespace Graphics {
 
 class GraphicsDevice;
 
-/**
- * Defines a mechanism for retrieving GraphicsDevice objects.
- */
+/// Defines a mechanism for retrieving GraphicsDevice objects.
 class IGraphicsDeviceService
 {
 public:
-    /**
-     * Destructor
-     */
+    /// Virtual destructor
     virtual ~IGraphicsDeviceService() = default;
 
 public:
-    /**
-     * Retrieves a graphics device.
-     */
+    /// Retrieves a graphics device.
     virtual GraphicsDevice* graphics_device() const noexcept = 0;
 };
 

@@ -9,30 +9,19 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Renderer services container.
- *
- * Implementation references:
- *  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
- *  http://blog.jsolutions.co.uk/?p=588
- */
+/// Renderer services container.
+///
+/// Implementation references:
+///  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
+///  http://blog.jsolutions.co.uk/?p=588
 class RendererServiceContainer final
 {
 public:
-    /**
-     * Initializes a new instance of the RendererServiceContainer class.
-     */
+    /// Initializes a new instance of the RendererServiceContainer class.
     RendererServiceContainer() = default;
 
-    /**
-     * Releases all the resources being used by this RendererServiceContainer.
-     */
-    ~RendererServiceContainer() = default;
-
 public:
-    /**
-     * Adds a service to the RendererServiceContainer.
-     */
+    /// Adds a service to the RendererServiceContainer.
     template <class T>
     void add_service(T& service) noexcept
     {
@@ -42,9 +31,7 @@ public:
         }
     }
 
-    /**
-     * Gets the service object of the specified identifier.
-     */
+    /// Gets the service object of the specified identifier.
     template <class T>
     T* get_service() const noexcept
     {
@@ -56,9 +43,7 @@ public:
         return (reinterpret_cast<T*>(_instance_map.find(get_type_name<T>())->second));
     }
 
-    /**
-     * Removes the object providing a specified service.
-     */
+    /// Removes the object providing a specified service.
     template <class T>
     void remove_service() noexcept
     {

@@ -13,6 +13,11 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::Graphics::OpenGL::ConstantBuffer;
 
+Program::Program()
+{
+    create();
+}
+
 Program::~Program() noexcept
 {
     if (_id != 0)
@@ -35,18 +40,14 @@ ConstantBuffer* Program::constant_buffer() const noexcept
     return _constant_buffer.get();
 }
 
-void Program::create() noexcept
-{
-    // ... Create the program object
-    _id = glCreateProgram();
-
-    Ensures(_id > 0);
-}
-
 void Program::bind() const noexcept
 {
     glUseProgram(_id);
-    _constant_buffer->bind();
+
+    if (_constant_buffer != nullptr)
+    {
+        _constant_buffer->bind();
+    }
 }
 
 void Program::add_shader(std::shared_ptr<Shader> shader) noexcept
@@ -63,7 +64,11 @@ void Program::add_shader(std::shared_ptr<Shader> shader) noexcept
 
 void Program::unbind() const noexcept
 {
-    _constant_buffer->unbind();
+    if (_constant_buffer != nullptr)
+    {
+        _constant_buffer->unbind();
+    }
+
     glUseProgram(0);
 }
 
@@ -127,6 +132,14 @@ std::map<std::string, std::size_t> Program::get_uniform_offsets() const noexcept
 void Program::activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const noexcept
 {
     glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
+}
+
+void Program::create() noexcept
+{
+    // ... Create the program object
+    _id = glCreateProgram();
+
+    Ensures(_id > 0);
 }
 
 void Program::verify_linking_state()

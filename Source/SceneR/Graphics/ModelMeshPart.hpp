@@ -18,62 +18,47 @@ class EffectTechnique;
 class IndexBuffer;
 class VertexBuffer;
 
-/**
- * Represents a a subdivision of a ModelMesh object.
- */
+/// Represents a batch of geometry information to submit to the graphics device during rendering.
+/// Each ModelMeshPart is a subdivision of a ModelMesh object. The ModelMesh class is split into
+/// multiple ModelMeshPart objects, typically based on material information.
 class ModelMeshPart final
 {
 public:
-    /**
-     * Initializes a new instance of the ModelMeshPart class.
-     */
+    /// Initializes a new instance of the ModelMeshPart class.
     ModelMeshPart() = default;
 
-    /**
-     * Releases all resources being used by this ModelMeshPart.
-     */
-    ~ModelMeshPart() = default;
-
 public:
-    /**
-     * Gets the index buffer for this mesh part.
-     */
+    /// Gets the index buffer for this mesh part.
+    /// \returns the index buffer.
     IndexBuffer* index_buffer() const noexcept;
 
-    /**
-     * Gets the vertex buffer for this mesh part.
-     */
+    /// Gets the vertex buffer for this mesh part.
+    /// \returns the vertex buffer
     VertexBuffer* vertex_buffer() const noexcept;
 
-    /**
-     * Gets the location in the index array at which to start reading vertices.
-     */
+    /// Gets the location in the index array at which to start reading vertices.
+    /// \returns location in the index array at which to start reading vertices.
     std::size_t start_index() const noexcept;
 
-    /**
-     * Gets the offset (in vertices) from the top of vertex buffer.
-     */
+    /// Gets the offset (in vertices) from the top of vertex buffer.
+    /// \returns the offset (in vertices) from the top of vertex buffer.
     std::size_t vertex_offset() const noexcept;
 
-    /**
-     * Gets the number of vertices used during a draw call.
-     */
+    /// Gets the number of vertices used during a draw call.
+    /// \returns the number of vertices used during a draw call.
     std::size_t vertex_count() const noexcept;
 
-    /**
-     * Gets the number of primitives to render.
-     */
+    /// Gets the number of primitives to render.
+    /// \returns the number of primitives to render. The number of vertices used is a function of primitiveCount and
+    ///          primitiveType.
     std::size_t primitive_count() const noexcept;
 
-    /**
-     * Gets the type of primitives to render.
-     */
+    /// Gets the type of primitives to render.
+    /// \returns the type of primitives to render.
     PrimitiveType primitive_type() const noexcept;
 
 public:
-    /**
-     * Gets or sets the effect for this mesh part.
-     */
+    /// Gets or sets the effect for this mesh part.
     std::shared_ptr<EffectTechnique> effect = { nullptr };
 
 private:

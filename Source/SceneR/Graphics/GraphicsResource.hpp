@@ -12,34 +12,24 @@ namespace SceneR { namespace Graphics {
 
 class GraphicsDevice;
 
-/**
- * Queries and prepares resources.
- */
+/// Queries and prepares resources.
 class GraphicsResource
 {
 public:
-    /**
-     * Initializes a new instance of the GraphicsResource class
-     * @param graphicsDevice the graphics associated to this resources
-     */
+    /// Initializes a new instance of the GraphicsResource class
+    /// \param graphicsDevice the graphics associated to this resources
     GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
 
-    /**
-     * Destructor
-     */
+    /// Destructor
     virtual ~GraphicsResource() = default;
 
 public:
-    /**
-     * Gets the GraphicsDevice associated with this GraphicsResource.
-     * @return The GraphicsDevice associated with this GraphicsResource.
-     */
+    /// Gets the GraphicsDevice associated with this GraphicsResource.
+    /// \returns The GraphicsDevice associated with this GraphicsResource.
     GraphicsDevice* graphics_device() const noexcept;
 
 public:
-    /**
-     * Gets or sets the name of the resource.
-     */
+    /// Gets or sets the name of the resource.
     std::string name;
 
 protected:

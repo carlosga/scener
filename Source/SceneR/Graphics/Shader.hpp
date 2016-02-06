@@ -15,65 +15,46 @@ namespace SceneR { namespace Graphics {
 
 struct ShaderInclude;
 
-/**
- * Represents a shader
- */
+/// Represents a shader.
 class Shader final
 {
 public:
-    /**
-     * Initializes a new instance of the Shader class.
-     * @param name the name of the shader.
-     * @param type the type of the shader.
-     * @param source the source code for the shader.
-     */
+    /// Initializes a new instance of the Shader class.
+    /// \param name the name of the shader.
+    /// \param type the type of the shader.
+    /// \param source the source code for the shader.
     Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept;
 
-    /**
-     * Initializes a new instance of the Shader class.
-     * @param name the name of the shader.
-     * @param type the type of the shader.
-     * @param source the source code for the shader.
-     */
+    /// Initializes a new instance of the Shader class.
+    /// \param name the name of the shader.
+    /// \param type the type of the shader.
+    /// \param source the source code for the shader.
     Shader(const std::string& name, ShaderType type, const std::string& source) noexcept;
 
-    /**
-     * Destructor
-     */
+    /// Releases all resources being used bu this Shader.
     ~Shader() noexcept;
 
 public:
-    /**
-     * Gets the shader identififer.
-     */
+    /// Gets the shader identififer.
+    /// \returns the shader identififer.
     std::uint32_t id() const noexcept;
 
-    /**
-     * @brief Gets the name of the shader.
-     * @return the name of the shader.
-     */
+    /// Gets the name of the shader.
+    /// \returns the name of the shader.
     const std::string& name() const noexcept;
 
-    /**
-     * @brief Gets the type of the shader.
-     * @return the type of the shader.
-     */
+    /// Gets the type of the shader.
+    /// \returns the type of the shader.
     ShaderType type() const noexcept;
 
-    /**
-     * Adds a shader include reference.
-     * @param include the shader include reference.
-     */
+    /// Adds a shader include reference.
+    /// \param include the shader include reference.
     void add_include(std::shared_ptr<ShaderInclude> include);
 
-    /**
-     * Performs the compilation of the shader source code.
-     */
+    /// Performs the compilation of the shader source code.
     void compile() noexcept;
 
-    /**
-     * Indicates wheter the shader has been compiled
-     */
+    /// Indicates wheter the shader has been compiled
     bool is_compiled() const noexcept;
 
 private:

@@ -35,8 +35,11 @@ class EffectTechnique final : public GraphicsResource, public IEffectMatrices, p
 {
 public:
     /// Initializes a new instance of the EffectTechnique class
-    /// @param graphicsDevice the graphics device
+    /// \param graphicsDevice the GraphicsDevice associated with this EffectTechnique.
     EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+
+    /// Releases all resources being used by this EffectTechnique.
+    ~EffectTechnique() override = default;
 
 public:
     /// Gets the material alpha which determines its transparency.

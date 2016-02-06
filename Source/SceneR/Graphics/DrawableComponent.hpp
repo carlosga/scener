@@ -20,6 +20,7 @@ class DrawableComponent : public Component, public IDrawable
 {
 public:
     /// Initializes a new instance of the DrawableComponent class.
+    /// \param renderer the renderer that owns the component.
     DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept;
 
     /// Releases all resources being used by this DrawableComponent.
