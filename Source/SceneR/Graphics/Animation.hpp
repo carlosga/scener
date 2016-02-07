@@ -14,18 +14,36 @@ namespace SceneR { namespace Content { namespace Readers { template <typename T>
 
 namespace SceneR { namespace Graphics {
 
+/// Stores keyframe based animations.
 class Animation final
 {
 public:
+    /// Initializes a new instance of the Animatin class.
     Animation() = default;
-    ~Animation() = default;
 
 public:
+    /// Gets the current time of the animation.
+    /// \returns the current time of the animation.
     const SceneR::TimeSpan& current_time() const noexcept;
+
+    /// Gets the animation duration.
+    /// \returns the animation duration.
     const SceneR::TimeSpan& duration() const noexcept;
+
+    /// Gets the list of animation keyframes.
+    /// \returns the list of animation keyframes.
     const std::vector<Keyframe>& keyframes() const noexcept;
+
+    /// Gets the current keyframe of the animation.
     const Keyframe& current_keyframe() const noexcept;
+
+    /// Gets the animation name.
+    /// \returns the animation name.
     const std::string& name() const noexcept;
+
+    /// Updates the animation state for the given time.
+    /// \param time snapshot of the rendering timing state.
+    /// \param relativeToCurrentTime indicates if the update should take place against the animation current time.
     void update(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
 private:

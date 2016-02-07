@@ -9,15 +9,25 @@
 
 namespace SceneR { namespace Graphics {
 
+/// Defines a position keyframe for an animation.
 struct Keyframe
 {
 public:
+    /// Initializes a new instance of the Keyframe class.
     Keyframe() noexcept;
+
+    /// Initializes a new instance of the Keyframe class.
+    /// \param time specifies the time, in seconds, at which this keyframe occurs.
+    /// \param transform the keyframe transformation.
     Keyframe(const SceneR::TimeSpan& time, const SceneR::Math::Matrix& transform) noexcept;
-    ~Keyframe() = default;
 
 public:
+    /// Gets the time, in seconds, at which this keyframe occurs.
+    /// \returns the time, in seconds, at which this keyframe occurs.
     const SceneR::TimeSpan& time() const noexcept;
+
+    /// Gets the keyframe transformation.
+    /// \returns the keyframe transformation.
     const SceneR::Math::Matrix& transform() const noexcept;
 
 private:
