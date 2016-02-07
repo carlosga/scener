@@ -64,19 +64,6 @@ const float& Color::operator[](const std::size_t& index) const
     return (data[index]);
 }
 
-Color& Color::operator=(const Color& color)
-{
-    if (this != &color)
-    {
-        r = color.r;
-        g = color.g;
-        b = color.b;
-        a = color.a;
-    }
-
-    return *this;
-}
-
 bool Color::operator==(const Color& color) const
 {
     return (Math::equal(r, color.r)

@@ -17,18 +17,6 @@ BoundingFrustrum::BoundingFrustrum(const Matrix& value) noexcept
     , _top    { 0.0f, 0.0f, 0.0f, 0.0f }
     , _value  { value }
 {
-    update_planes();
-}
-
-BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum& frustrum) noexcept
-    : _bottom { frustrum._bottom }
-    , _far    { frustrum._far }
-    , _left   { frustrum._left }
-    , _near   { frustrum._near }
-    , _right  { frustrum._right }
-    , _top    { frustrum._top }
-    , _value  { frustrum._value }
-{
 }
 
 const Plane& BoundingFrustrum::bottom() const noexcept
@@ -120,18 +108,6 @@ PlaneIntersectionType BoundingFrustrum::intersects(const Plane& plane) const noe
 float BoundingFrustrum::intersects(const Ray& ray) const noexcept
 {
     throw std::runtime_error("Not implemented");
-}
-
-BoundingFrustrum& BoundingFrustrum::operator=(const BoundingFrustrum& frustrum) noexcept
-{
-    if (this != &frustrum)
-    {
-        _value = frustrum._value;
-
-        update_planes();
-    }
-
-    return *this;
 }
 
 bool BoundingFrustrum::operator==(const BoundingFrustrum& frustrum) const noexcept

@@ -8,23 +8,12 @@
 
 namespace SceneR { namespace Math {
 
-/**
- * Describes the intersection between a plane and a bounding volume.
- */
+/// Describes the intersection between a plane and a bounding volume.
 enum class PlaneIntersectionType : std::uint32_t
 {
-    /**
-     * There is no intersection, and the bounding volume is in the negative half-space of the Plane.
-     */
-    back = 0,
-    /**
-     * There is no intersection, and the bounding volume is in the positive half-space of the Plane.
-     */
-    front = 1,
-    /**
-     * The Plane is intersected.
-     */
-    intersecting = 2
+    back         = 0  ///< There is no intersection, and the bounding volume is in the negative half-space of the Plane.
+  , front        = 1  ///< There is no intersection, and the bounding volume is in the positive half-space of the Plane.
+  , intersecting = 2  ///< The Plane is intersected.
 };
 
 }}

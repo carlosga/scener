@@ -8,23 +8,12 @@
 
 namespace SceneR { namespace Math {
 
-/**
- * Indicates the extent to which bounding volumes intersect or contain one another.
- */
+/// Indicates the extent to which bounding volumes intersect or contain one another.
 enum class ContainmentType : std::uint32_t
 {
-    /**
-     * Indicates that one bounding volume completely contains the other.
-     */
-    contains = 0,
-    /**
-     * Indicates there is no overlap between the bounding volumes.
-     */
-    disjoint = 1,
-    /**
-     * Indicates that the bounding volumes partially overlap.
-     */
-    intersects = 2
+    contains   = 0  ///< Indicates that one bounding volume completely contains the other.
+  , disjoint   = 1  ///< Indicates there is no overlap between the bounding volumes.
+  , intersects = 2  ///< Indicates that the bounding volumes partially overlap.
 };
 
 }}
