@@ -13,20 +13,14 @@
 
 namespace SceneR { namespace Text {
 
-/**
- * Converts a sequence of encoded bytes into a set of UTF-8 encoded characters.
- */
+/// Converts a sequence of encoded bytes into a set of UTF-8 encoded characters.
 class UTF8Decoder final : public Decoder
 {
 public:
-    /**
-     * Initializes a new instance of the UTF8Decoder class.
-     */
+    /// Initializes a new instance of the UTF8Decoder class.
     UTF8Decoder() = default;
 
-    /**
-     * Releases all resources being used by this UTF8Decoder.
-     */
+    /// Releases all resources being used by this UTF8Decoder.
     ~UTF8Decoder() override = default;
 
 public:

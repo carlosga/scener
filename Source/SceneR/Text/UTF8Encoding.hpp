@@ -14,20 +14,14 @@
 
 namespace SceneR { namespace Text {
 
-/**
- * Represents a UTF-8 encoding of Unicode characters.
- */
+/// Represents a UTF-8 encoding of Unicode characters.
 class UTF8Encoding final : public virtual Encoding
 {
 public:
-    /**
-     * Initializes a new instance of the UTF8Encoding class.
-     */
+    /// Initializes a new instance of the UTF8Encoding class.
     UTF8Encoding() = default;
 
-    /**
-     * Releases all resources being used by this Encoding.
-     */
+    /// Releases all resources being used by this Encoding.
     ~UTF8Encoding() override = default;
 
 public:

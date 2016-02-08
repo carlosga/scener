@@ -40,7 +40,7 @@ auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& 
     const auto  jointCount = jointNames.size();
     auto        boneIndex  = std::size_t { 0 };
 
-    skeleton->_joints.reserve(jointCount);
+    skeleton->_bones.reserve(jointCount);
     skeleton->_bone_transforms.reserve(jointCount);
 
     for (const auto& jointName : jointNames)
@@ -51,7 +51,7 @@ auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& 
 
         node->joint->_index = boneIndex++;
 
-        skeleton->_joints.push_back(node->joint);
+        skeleton->_bones.push_back(node->joint);
         skeleton->_bone_transforms.push_back(node->joint->transform());
     }
 

@@ -16,7 +16,7 @@ namespace SceneR { namespace Content { namespace Readers { template <typename T>
 
 namespace SceneR { namespace Graphics {
 
-class ModelBone;
+class Bone;
 
 /// Represents a hierarchical collection of bones.
 class Skeleton final
@@ -26,17 +26,17 @@ public:
     Skeleton() = default;
 
 public:
-    /// Describes how to pose the skin's geometry for use with the joints.
-    /// \returns a matrix describing how to pose the skin's geometry for use with the joints.
+    /// Describes how to pose the skin's geometry for use with the bones.
+    /// \returns a matrix describing how to pose the skin's geometry for use with the bones.
     const SceneR::Math::Matrix& bind_shape_matrix() const noexcept;
 
-    /// Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each joint.
-    /// \returns the list of matrices used to bring coordinates being skinned into the same space as each joint.
+    /// Inverse-bind matrices. Used to bring coordinates being skinned into the same space as each bone.
+    /// \returns the list of matrices used to bring coordinates being skinned into the same space as each bone.
     const std::vector<SceneR::Math::Matrix>& inverse_bind_matrices() const noexcept;
 
-    /// Returns the joints used to animate the skin.
-    /// \returns the joints used to animate the skin.
-    const std::vector<std::shared_ptr<ModelBone>>& joints() const noexcept;
+    /// Returns the bones used to animate the skin.
+    /// \returns the bones used to animate the skin.
+    const std::vector<std::shared_ptr<Bone>>& bones() const noexcept;
 
     /// The skeleton name.
     /// \returns the name of the skeleton.
@@ -69,13 +69,13 @@ private:
     void update_skin_transforms() noexcept;
 
 private:
-    SceneR::Math::Matrix                    _bind_shape_matrix     { SceneR::Math::Matrix::identity };
-    std::vector<SceneR::Math::Matrix>       _inverse_bind_matrices { };
-    std::vector<std::shared_ptr<ModelBone>> _joints                { };
-    std::vector<SceneR::Math::Matrix>       _bone_transforms       { };
-    std::vector<SceneR::Math::Matrix>       _world_transforms      { };
-    std::vector<SceneR::Math::Matrix>       _skin_transforms       { };
-    std::string                             _name                  { };
+    SceneR::Math::Matrix               _bind_shape_matrix     { SceneR::Math::Matrix::identity };
+    std::vector<SceneR::Math::Matrix>  _inverse_bind_matrices { };
+    std::vector<std::shared_ptr<Bone>> _bones                 { };
+    std::vector<SceneR::Math::Matrix>  _bone_transforms       { };
+    std::vector<SceneR::Math::Matrix>  _world_transforms      { };
+    std::vector<SceneR::Math::Matrix>  _skin_transforms       { };
+    std::string                        _name                  { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };

@@ -15,7 +15,7 @@
 namespace SceneR { namespace Graphics {
 
 class Skeleton;
-class ModelBone;
+class Bone;
 class ModelMesh;
 
 }}
@@ -58,7 +58,7 @@ public:
     /**
      * A joint in a skin.
      */
-    std::shared_ptr<SceneR::Graphics::ModelBone> joint;
+    std::shared_ptr<SceneR::Graphics::Bone> joint;
 
     /**
      * The id (JSON property name) of the light referenced by this node.

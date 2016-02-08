@@ -15,8 +15,8 @@ namespace SceneR { namespace Content { namespace Readers {
 using json11::Json;
 using SceneR::Content::GLTF::Accessor;
 using SceneR::Content::GLTF::Node;
+using SceneR::Graphics::Bone;
 using SceneR::Graphics::ModelMesh;
-using SceneR::Graphics::ModelBone;
 using SceneR::Graphics::Skeleton;
 using SceneR::Math::Matrix;
 using SceneR::Math::Quaternion;
@@ -65,7 +65,7 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
 
     if (!source["jointName"].is_null())
     {
-        node->joint        = std::make_shared<ModelBone>();
+        node->joint        = std::make_shared<Bone>();
         node->joint->_name = source["jointName"].string_value();
 
         if (!source["matrix"].is_null())

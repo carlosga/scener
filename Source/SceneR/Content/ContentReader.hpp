@@ -14,7 +14,7 @@
 
 #include "SceneR/Content/Readers/ContentTypeReader.hpp"
 #include "SceneR/Content/GLTF/Node.hpp"
-#include "SceneR/Graphics/ModelBone.hpp"
+#include "SceneR/Graphics/Bone.hpp"
 #include "SceneR/IO/BinaryReader.hpp"
 #include "SceneR/IO/Stream.hpp"
 #include "SceneR/Math/Matrix.hpp"

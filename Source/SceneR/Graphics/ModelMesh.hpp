@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 
+#include "SceneR/Graphics/Skeleton.hpp"
 #include "SceneR/Math/BoundingSphere.hpp"
 
 namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
@@ -15,8 +16,6 @@ namespace SceneR { namespace Content { namespace Readers { template <typename T>
 namespace SceneR { namespace Graphics {
 
 class EffectTechnique;
-class Skeleton;
-class ModelBone;
 class ModelMeshPart;
 
 /// Represents a mesh that is part of a Model.

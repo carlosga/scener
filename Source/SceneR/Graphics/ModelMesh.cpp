@@ -7,7 +7,6 @@
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/ModelMeshPart.hpp"
-#include "SceneR/Graphics/ModelBone.hpp"
 #include "SceneR/Graphics/VertexBuffer.hpp"
 
 namespace SceneR { namespace Graphics {

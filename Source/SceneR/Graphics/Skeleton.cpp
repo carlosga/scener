@@ -4,7 +4,7 @@
 #include "SceneR/Graphics/Skeleton.hpp"
 
 #include "SceneR/Graphics/Animation.hpp"
-#include "SceneR/Graphics/ModelBone.hpp"
+#include "SceneR/Graphics/Bone.hpp"
 
 namespace SceneR { namespace Graphics {
 
@@ -21,9 +21,9 @@ const std::vector<Matrix>& Skeleton::inverse_bind_matrices() const noexcept
     return _inverse_bind_matrices;
 }
 
-const std::vector<std::shared_ptr<ModelBone>>& Skeleton::joints() const noexcept
+const std::vector<std::shared_ptr<Bone>>& Skeleton::bones() const noexcept
 {
-    return _joints;
+    return _bones;
 }
 
 const std::string& Skeleton::name() const noexcept
@@ -55,7 +55,7 @@ void Skeleton::update(const TimeSpan& time) noexcept
 
 void Skeleton::update_bone_transforms(const TimeSpan& time) noexcept
 {
-    for (const auto& joint : _joints)
+    for (const auto& joint : _bones)
     {
         joint->animation()->update(time, true);
 
@@ -66,7 +66,7 @@ void Skeleton::update_bone_transforms(const TimeSpan& time) noexcept
 
 void Skeleton::update_world_transforms() noexcept
 {
-    const auto count = _joints.size();
+    const auto count = _bones.size();
 
     // Root bone.
     _world_transforms[0] = _bone_transforms[0];
@@ -74,7 +74,7 @@ void Skeleton::update_world_transforms() noexcept
     // Child bones.
     for (std::size_t bone = 1; bone < count; ++bone)
     {
-        const auto parentBone = _joints[bone]->parent()->index();
+        const auto parentBone = _bones[bone]->parent()->index();
 
         _world_transforms[bone] = _bone_transforms[bone] * _world_transforms[parentBone];
     }
@@ -82,7 +82,7 @@ void Skeleton::update_world_transforms() noexcept
 
 void Skeleton::update_skin_transforms() noexcept
 {
-    const auto count = _joints.size();
+    const auto count = _bones.size();
 
     for (std::size_t bone = 0; bone < count; ++bone)
     {

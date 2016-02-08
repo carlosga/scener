@@ -14,7 +14,7 @@ enum class Keys     : std::uint32_t;
 enum class KeyState : std::uint32_t;
 
 /// Represents a state of keystrokes recorded by a keyboard input device.
-struct KeyboardState
+class KeyboardState
 {
 public:
     ///Initializes a new instance of the KeyboardState class.

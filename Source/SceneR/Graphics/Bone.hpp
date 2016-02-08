@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_MODELBONE_HPP
-#define SCENER_GRAPHICS_MODELBONE_HPP
+#ifndef SCENER_GRAPHICS_BONE_HPP
+#define SCENER_GRAPHICS_BONE_HPP
 
 #include <cstdint>
 #include <memory>
@@ -18,14 +18,14 @@ namespace SceneR { namespace Graphics {
 class Animation;
 
 /// Represents bone data for a skeleton.
-class ModelBone final
+class Bone final
 {
 public:
     typedef std::size_t index_type;
 
 public:
     /// Initializes a new instance of the ModelBone class.
-    ModelBone() = default;
+    Bone() = default;
 
 public:
     /// Gets the index of this bone in the Bones collection.
@@ -34,7 +34,7 @@ public:
 
     /// Gets the collection of children bones.
     /// \returns the collection of children bones.
-    const std::vector<std::shared_ptr<ModelBone>>& children() const noexcept;
+    const std::vector<std::shared_ptr<Bone>>& children() const noexcept;
 
     /// Gets the name of this bone.
     /// \returns the name of this bone.
@@ -42,7 +42,7 @@ public:
 
     /// Gets the parent of this bone.
     /// \returns the parent of this bone.
-    ModelBone* parent() const noexcept;
+    Bone* parent() const noexcept;
 
     /// Gets the bone animation.
     /// \returns the bone animation.
@@ -57,16 +57,16 @@ public:
     void transform(const SceneR::Math::Matrix& transform) noexcept;
 
 private:
-    index_type                              _index     { 0 };
-    std::vector<std::shared_ptr<ModelBone>> _children  { };
-    std::shared_ptr<ModelBone>              _parent    { nullptr };
-    std::shared_ptr<Animation>              _animation { nullptr };
-    SceneR::Math::Matrix                    _transform { SceneR::Math::Matrix::identity };
-    std::string                             _name      { };
+    index_type                         _index     { 0 };
+    std::vector<std::shared_ptr<Bone>> _children  { };
+    std::shared_ptr<Bone>              _parent    { nullptr };
+    std::shared_ptr<Animation>         _animation { nullptr };
+    SceneR::Math::Matrix               _transform { SceneR::Math::Matrix::identity };
+    std::string                        _name      { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };
 
 }}
 
-#endif // SCENER_GRAPHICS_MODELBONE_HPP
+#endif // SCENER_GRAPHICS_BONE_HPP
