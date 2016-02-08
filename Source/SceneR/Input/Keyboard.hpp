@@ -16,7 +16,7 @@ namespace SceneR { namespace Input {
 enum class Keys     : std::uint32_t;
 enum class KeyState : std::uint32_t;
 
-struct KeyboardState;
+class KeyboardState;
 
 /// Allows retrieval of keystrokes from a keyboard input device.
 class Keyboard

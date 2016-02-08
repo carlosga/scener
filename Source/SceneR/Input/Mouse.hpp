@@ -13,7 +13,7 @@ namespace SceneR { namespace Input {
 enum class Buttons     : std::uint32_t;
 enum class ButtonState : std::uint32_t;
 
-struct MouseState;
+class MouseState;
 
 /// Allows retrieval of position and button clicks from a mouse input device.
 class Mouse
