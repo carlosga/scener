@@ -43,7 +43,7 @@ public:
     gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
     /// Sets the buffer data.
-    /// \returns the buffer data.
+    /// \param buffer the buffer data.
     void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
 
 private:
