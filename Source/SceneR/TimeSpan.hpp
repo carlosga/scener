@@ -13,7 +13,7 @@
 namespace SceneR {
 
 /// Represents a time interval.
-struct TimeSpan final
+class TimeSpan final
 {
 public:
     using clock                  = std::chrono::high_resolution_clock;

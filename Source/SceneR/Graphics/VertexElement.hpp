@@ -12,10 +12,8 @@
 
 namespace SceneR { namespace Graphics {
 
-/**
- * Defines input vertex data to the pipeline.
- */
-struct VertexElement final
+/// Defines input vertex data to the pipeline.
+class VertexElement final
 {
 public:
     /// Initializes a new instance of the vertex element class

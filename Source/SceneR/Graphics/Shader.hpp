@@ -13,8 +13,6 @@
 
 namespace SceneR { namespace Graphics {
 
-struct ShaderInclude;
-
 /// Represents a shader.
 class Shader final
 {

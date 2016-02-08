@@ -10,7 +10,7 @@
 namespace SceneR { namespace Graphics {
 
 /// Defines a position keyframe for an animation.
-struct Keyframe
+class Keyframe final
 {
 public:
     /// Initializes a new instance of the Keyframe class.

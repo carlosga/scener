@@ -10,7 +10,7 @@
 
 #include "SceneR/Math/Matrix.hpp"
 
-namespace SceneR { struct TimeSpan; }
+namespace SceneR { class TimeSpan; }
 
 namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 

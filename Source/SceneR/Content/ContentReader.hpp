@@ -41,7 +41,6 @@ class  ModelMesh;
 class  Program;
 class  SamplerState;
 class  Shader;
-struct ShaderInclude;
 class  Texture2D;
 
 }}
@@ -121,7 +120,6 @@ private:
     std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes          { };
     std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers        { };
     std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders         { };
-    std::map<std::string, std::shared_ptr<SceneR::Graphics::ShaderInclude>>   _shader_includes { };
     std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures        { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
@@ -302,20 +300,6 @@ inline void ContentReader::cache_object(const std::string&                key
                                       , std::shared_ptr<Graphics::Shader> object) noexcept
 {
     _shaders[key] = object;
-}
-
-// Shader Includes
-template <>
-inline std::shared_ptr<Graphics::ShaderInclude> ContentReader::get_object(const std::string& key) noexcept
-{
-    return _shader_includes[key];
-}
-
-template <>
-inline void ContentReader::cache_object(const std::string&                       key
-                                      , std::shared_ptr<Graphics::ShaderInclude> object) noexcept
-{
-    _shader_includes[key] = object;
 }
 
 // Textures

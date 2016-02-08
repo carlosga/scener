@@ -9,7 +9,7 @@
 namespace SceneR { namespace Graphics {
 
 /// Step timer.
-struct StepTimer final
+class StepTimer final
 {
 public:
     /// Initializes a new instance of the RendererTimer class.

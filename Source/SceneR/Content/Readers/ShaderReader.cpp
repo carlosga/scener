@@ -14,7 +14,6 @@ namespace SceneR { namespace Content { namespace Readers {
 
 using json11::Json;
 using SceneR::Graphics::Shader;
-using SceneR::Graphics::ShaderInclude;
 using SceneR::Graphics::ShaderType;
 
 auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
