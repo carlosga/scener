@@ -29,6 +29,8 @@ gsl::span<const std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t c
 
 void Buffer::set_data(const std::vector<std::uint8_t>& buffer) noexcept
 {
+    Expects(buffer.size() == _byte_length);
+
     _data = buffer;
 }
 

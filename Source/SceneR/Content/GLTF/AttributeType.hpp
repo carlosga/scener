@@ -8,15 +8,16 @@
 
 namespace SceneR { namespace Content { namespace GLTF {
 
+/// Declares the attribute types for GLTF accessors.
 enum class AttributeType : std::uint32_t
 {
-    scalar  = 0
-  , vector2 = 1
-  , vector3 = 2
-  , vector4 = 3
-  , matrix2 = 4
-  , matrix3 = 5
-  , matrix4 = 7
+    scalar  = 0 ///< Scalar values.
+  , vector2 = 1 ///< Two dimensional vector.
+  , vector3 = 2 ///< Three dimensional vector.
+  , vector4 = 3 ///< Four dimensional vector.
+  , matrix2 = 4 ///< Matrix 2x2
+  , matrix3 = 5 ///< Matrix 3x3
+  , matrix4 = 7 ///< Matrix 4x4
 };
 
 }}}

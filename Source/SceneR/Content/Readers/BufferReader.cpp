@@ -15,9 +15,9 @@ using SceneR::Content::GLTF::Buffer;
 
 auto ContentTypeReader<Buffer>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto       buffer = std::make_shared<Buffer>();
-    const auto uri    = source["uri"].string_value();
-    const auto data   = input->read_external_reference(uri);
+    auto buffer = std::make_shared<Buffer>();
+    auto uri    = source["uri"].string_value();
+    auto data   = input->read_external_reference(uri);
 
     buffer->_name        = key;
     buffer->_uri         = uri;

@@ -18,47 +18,33 @@ namespace SceneR { namespace Content { namespace GLTF {
 
 class Buffer;
 
-/**
- * GLTF. A view into a buffer.
- */
+/// GLTF. A view into a buffer.
 class BufferView final
 {
 public:
-    /**
-     * Initializes a new instance of the BufferView class.
-     */
+    /// Initializes a new instance of the BufferView class.
     BufferView() = default;
 
-    /**
-     * Releases all resources being used by this BufferView.
-     */
-    ~BufferView() = default;
-
 public:
-    /**
-     * Gets the offset into the buffer in bytes.
-     */
+    /// Gets the offset into the buffer in bytes.
     std::size_t byte_offset() const noexcept;
 
-    /**
-     * Gets the length of the buffer-view in bytes.
-     */
+    /// Gets the length of the buffer-view in bytes.
     std::size_t byte_length() const noexcept;
 
-    /**
-     * Gets the buffer name.
-     * @return the buffer name.
-     */
+    /// Gets the buffer name.
+    /// \returns the buffer name.
     const std::string& name() const noexcept;
 
-    /**
-     * Gets buffer data from object's data store.
-     */
+    /// Gets a view to the buffer data from object's data store.
+    /// \returns a view to the buffer data from object's data store.
     gsl::span<const std::uint8_t> get_data() const noexcept;
 
-    /**
-     * Gets buffer data from object's data store.
-     */
+    /// Gets a view to the buffer data from object's data store.
+    /// \param offset specifies the offset into the buffer object's data store where data replacement will begin,
+    ///               measured in bytes.
+    /// \param count specifies the size in bytes of the data store region being replaced.
+    /// \returns a view to the buffer data from object's data store.
     gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
 private:

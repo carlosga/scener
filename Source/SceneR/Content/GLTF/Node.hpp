@@ -22,88 +22,57 @@ class ModelMesh;
 
 namespace SceneR { namespace Content { namespace GLTF {
 
-/**
- * GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
- */
+/// GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
 class Node final
 {
 public:
-    /**
-     * Initializes a new instance of the Node class.
-     */
+    /// Initializes a new instance of the Node class.
     Node() noexcept;
 
-    /**
-     * Destructor.
-     */
-    ~Node() = default;
-
 public:
-    /**
-     * @brief Gets or sets the node name.
-     */
+    /// Gets or sets the node name.
     std::string name;
 
-    /**
-     * The id (JSON property name) of the camera referenced by this node.
-     * A node will have either the camera, light, meshes, or instanceSkin property defined.
-     */
+    /// The id (JSON property name) of the camera referenced by this node.
+    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
     std::string camera;
 
-    /**
-     * An instance of a skin.
-     */
+    /// An instance of a skin.
     std::shared_ptr<SceneR::Graphics::Skeleton> instance_skin;
 
-    /**
-     * A joint in a skin.
-     */
+    /// A joint in a skin.
     std::shared_ptr<SceneR::Graphics::Bone> joint;
 
-    /**
-     * The id (JSON property name) of the light referenced by this node.
-     * A node will have either the camera, light, meshes, or instanceSkin property defined.
-     */
+    /// The id (JSON property name) of the light referenced by this node.
+    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
     std::string light;
 
-    /**
-     * A floating-point 4x4 transformation matrix stored in column-major order.
-     * A node will have either a matrix property defined or any combination of rotation, scale,
-     * and translation properties defined. If none are provided, the transform is the identity.
-     */
+    /// A floating-point 4x4 transformation matrix stored in column-major order.
+    /// A node will have either a matrix property defined or any combination of rotation, scale,
+    /// and translation properties defined. If none are provided, the transform is the identity.
     SceneR::Math::Matrix matrix;
 
-    /**
-     * The ids (JSON property name) of the meshes in this node.
-     * Multiple meshes are allowed so each can share the same transform matrix.
-     * A node will have either the camera, light, meshes, or instanceSkin property defined.
-     */
+    /// The ids (JSON property name) of the meshes in this node.
+    /// Multiple meshes are allowed so each can share the same transform matrix.
+    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
     std::vector<std::shared_ptr<SceneR::Graphics::ModelMesh>> meshes;
 
-    /**
-     * The node's quaternion rotation.
-     * A node will have either a matrix property defined or any combination of rotation, scale,
-     * and translation properties defined. If none are provided, the transform is the identity.
-     */
+    /// The node's quaternion rotation.
+    /// A node will have either a matrix property defined or any combination of rotation, scale,
+    /// and translation properties defined. If none are provided, the transform is the identity.
     SceneR::Math::Quaternion rotation;
 
-    /**
-     * The node's non-uniform scale.
-     * A node will have either a matrix property defined or any combination of rotation, scale,
-     * and translation properties defined. If none are provided, the transform is the identity.
-     */
+    /// The node's non-uniform scale.
+    /// A node will have either a matrix property defined or any combination of rotation, scale,
+    /// and translation properties defined. If none are provided, the transform is the identity.
     SceneR::Math::Vector3 scale;
 
-    /**
-     * The node's translation.
-     * A node will have either a matrix property defined or any combination of rotation, scale,
-     * and translation properties defined.  If none are provided, the transform is the identity.
-     */
+    /// The node's translation.
+    /// A node will have either a matrix property defined or any combination of rotation, scale,
+    /// and translation properties defined.  If none are provided, the transform is the identity.
     SceneR::Math::Vector3 translation;
 
-    /**
-     * The ids (JSON property name) of this node's children.
-     */
+    /// The ids (JSON property name) of this node's children.
     std::vector<std::shared_ptr<Node>> children;
 };
 

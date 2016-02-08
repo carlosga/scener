@@ -20,82 +20,63 @@ namespace SceneR { namespace Content { namespace GLTF {
 
 class BufferView;
 
-/**
- * GLTF. A typed accessor into a buffer-view.
- */
+/// GLTF. A typed accessor into a buffer-view.
 class Accessor final
 {
 public:
-    /**
-     * Initializes a new instance of the Accessor class.
-     */
+    /// Initializes a new instance of the Accessor class.
     Accessor() noexcept = default;
 
-    /**
-     * Destructor.
-     */
-    ~Accessor() = default;
-
 public:
-    /**
-     * Specifies if the attribute is a scalar, vector, or matrix.
-     */
+    /// Specifies if the attribute is a scalar, vector, or matrix.
+    /// \returns the attribute type.
     AttributeType attribute_type() const noexcept;
 
-    /**
-     * Gets the data type of the components referenced by this accessor.
-     */
+    /// Gets the data type of the components referenced by this accessor.
+    /// \returns the data type of the components referenced by this accessor.
     SceneR::Graphics::ComponentType component_type() const noexcept;
 
-    /**
-     * Gets the offset relative to the buffer-view in bytes.
-     */
+    /// Gets the offset relative to the buffer-view in bytes.
+    /// \returns the offset relative to the buffer-view in bytes.
     std::size_t byte_offset() const noexcept;
 
-    /**
-     * Gets the size, in bytes, of the data referenced by this accessor.
-     */
+    /// Gets the size, in bytes, of the data referenced by this accessor.
+    /// \returns the size, in bytes, of the data referenced by this accessor.
     std::size_t byte_length() const noexcept;
 
-    /**
-     * Gets the stride, in bytes, between attributes referenced by this accessor.
-     */
+    /// Gets the stride, in bytes, between attributes referenced by this accessor.
+    /// \returns the stride, in bytes, between attributes referenced by this accessor.
     std::size_t byte_stride() const noexcept;
 
-    /**
-     * Gets the number of attributes referenced by this accessor,
-     * not to be confused with the number of bytes or number of components.
-     */
+    /// Gets the number of attributes referenced by this accessor, not to be confused with the number of bytes or
+    /// number of components.
+    /// \returns the number of attributes referenced by this accessor.
     std::size_t attribute_count() const noexcept;
 
-    /**
-     * Gets the maximum value of each component in this attribute.
-     */
+    /// Gets the maximum value of each component in this attribute.
+    /// \returns the maximum value of each component in this attribute.
     const std::vector<float>& max() const noexcept;
 
-    /**
-     * Gets the minimum value of each component in this attribute.
-     */
+    /// Gets the minimum value of each component in this attribute.
+    /// \returns the minimum value of each component in this attribute.
     const std::vector<float>& min() const noexcept;
 
-    /**
-     * Gets the accessor name.
-     */
+    /// Gets the accessor name.
+    /// \returns the name of the accessor
     const std::string& name() const noexcept;
 
-    /**
-     * Gets the accessor data.
-     */
+    /// Gets a view to the accessor data.
+    /// \returns a view to the accessor data.
     gsl::span<const std::uint8_t> get_data() const noexcept;
 
-    /**
-     * Gets the accessor data.
-     */
-    gsl::span<const std::uint8_t> get_data(std::size_t elementOffset, std::size_t elementCount) const noexcept;
+    /// Gets a view to the accessor data.
+    /// \param offset specifies the element offset.
+    /// \param count specifies the size in bytes of the data store region being replaced.
+    gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
-    /**
-     * Gets the element at the given offset from the accessor buffer.
-     */
+    /// Gets the element at the given offset from the accessor buffer.
+    /// \param elementOffset the offset of the element to return.
+    /// \returns the requested element.
     template <typename T, typename = std::enable_if_t<std::is_constructible<T>::value>>
     inline T get_element(std::size_t elementOffset) const noexcept
     {

@@ -59,9 +59,9 @@ gsl::span<const std::uint8_t> Accessor::get_data() const noexcept
     return get_data(0, _attribute_count);
 }
 
-gsl::span<const std::uint8_t> Accessor::get_data(std::size_t elementOffset, std::size_t elementCount) const noexcept
+gsl::span<const std::uint8_t> Accessor::get_data(std::size_t offset, std::size_t count) const noexcept
 {
-    return _buffer_view->get_data(_byte_offset + (elementOffset * byte_stride()), elementCount * byte_stride());
+    return _buffer_view->get_data(_byte_offset + (offset * byte_stride()), count * byte_stride());
 }
 
 std::size_t Accessor::get_attribute_type_count() const noexcept
