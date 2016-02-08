@@ -9,9 +9,8 @@
 
 #include <gsl.h>
 
+#include "SceneR/Graphics/SurfaceFormat.hpp"
 #include "SceneR/Graphics/OpenGL/TextureTarget.hpp"
-
-namespace SceneR { namespace Graphics { enum class SurfaceFormat : std::uint32_t; } }
 
 namespace SceneR { namespace Graphics { namespace OpenGL {
 
@@ -19,7 +18,10 @@ namespace SceneR { namespace Graphics { namespace OpenGL {
 class TextureStorage final
 {
 private:
-    static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept;
+    constexpr static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept
+    {
+        return (format == SurfaceFormat::dxt1 || format == SurfaceFormat::dxt3 || format == SurfaceFormat::dxt5);
+    }
 
 public:
     /// Initializes a new instance of the TextureStorage class.

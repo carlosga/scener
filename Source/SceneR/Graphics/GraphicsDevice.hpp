@@ -26,7 +26,32 @@ class VertexBuffer;
 class GraphicsDevice final
 {
 private:
-    static std::size_t get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept;
+    static constexpr std::size_t get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept
+    {
+        switch (primitiveType)
+        {
+        case PrimitiveType::line_list:
+            return primitiveCount * 2;
+
+        case PrimitiveType::line_loop:
+            return primitiveCount;
+
+        case PrimitiveType::line_strip:
+            return primitiveCount + 1;
+
+        case PrimitiveType::point_list:
+            return primitiveCount;
+
+        case PrimitiveType::triangle_fan:
+            return primitiveCount;
+
+        case PrimitiveType::triangle_list:
+            return primitiveCount * 3;
+
+        case PrimitiveType::triangle_strip:
+            return primitiveCount + 2;
+        }
+    }
 
 public:
     /// Initializes a new instance of the GraphicsDevice class.

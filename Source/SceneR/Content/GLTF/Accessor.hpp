@@ -91,8 +91,53 @@ public:
     }
 
 private:
-    std::size_t get_attribute_type_count() const noexcept;
-    std::size_t get_component_size_in_bytes() const noexcept;
+    constexpr std::size_t get_attribute_type_count() const noexcept
+    {
+        switch (_attribute_type)
+        {
+        case AttributeType::matrix2:
+            return 4;
+
+        case AttributeType::matrix3:
+            return 9;
+
+        case AttributeType::matrix4:
+            return 16;
+
+        case AttributeType::scalar:
+            return 1;
+
+        case AttributeType::vector2:
+            return 2;
+
+        case AttributeType::vector3:
+            return 3;
+
+        case AttributeType::vector4:
+            return 4;
+        }
+    }
+
+    constexpr std::size_t get_component_size_in_bytes() const noexcept
+    {
+        switch (_component_type)
+        {
+        case SceneR::Graphics::ComponentType::byte:
+            return sizeof(std::int8_t);
+
+        case SceneR::Graphics::ComponentType::int16:
+            return sizeof(std::int16_t);
+
+        case SceneR::Graphics::ComponentType::single:
+            return sizeof(float);
+
+        case SceneR::Graphics::ComponentType::ubyte:
+            return sizeof(std::uint8_t);
+
+        case SceneR::Graphics::ComponentType::uint16:
+            return sizeof(std::uint16_t);
+        }
+    }
 
 private:
     AttributeType               _attribute_type  { AttributeType::scalar };

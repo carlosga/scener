@@ -12,33 +12,6 @@ namespace SceneR { namespace Graphics {
 
 using SceneR::Math::Color;
 
-std::size_t GraphicsDevice::get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept
-{
-    switch (primitiveType)
-    {
-    case PrimitiveType::line_list:
-        return primitiveCount * 2;
-
-    case PrimitiveType::line_loop:
-        return primitiveCount;
-
-    case PrimitiveType::line_strip:
-        return primitiveCount + 1;
-
-    case PrimitiveType::point_list:
-        return primitiveCount;
-
-    case PrimitiveType::triangle_fan:
-        return primitiveCount;
-
-    case PrimitiveType::triangle_list:
-        return primitiveCount * 3;
-
-    case PrimitiveType::triangle_strip:
-        return primitiveCount + 2;
-    }
-}
-
 GraphicsDevice::GraphicsDevice() noexcept
     : effect                   { nullptr }
     , index_buffer             { nullptr }

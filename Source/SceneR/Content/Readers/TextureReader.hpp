@@ -15,7 +15,6 @@ class ContentTypeReader<Graphics::Texture2D>
 {
 public:
     ContentTypeReader() = default;
-    ~ContentTypeReader() = default;
 
 public:
     auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;

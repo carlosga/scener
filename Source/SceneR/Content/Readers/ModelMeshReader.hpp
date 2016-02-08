@@ -26,12 +26,8 @@ class ContentTypeReader<Graphics::ModelMesh>
 {
 public:
     ContentTypeReader() = default;
-    ~ContentTypeReader() = default;
 
 public:
-    /**
-     * Reads the meshes contents.
-     */
     auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:

@@ -15,7 +15,6 @@ class ContentTypeReader<GLTF::BufferView>
 {
 public:
     ContentTypeReader() = default;
-    ~ContentTypeReader() = default;
 
 public:
     auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
