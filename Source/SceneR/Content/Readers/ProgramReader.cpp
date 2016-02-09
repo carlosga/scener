@@ -6,16 +6,16 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/Program.hpp"
-#include "SceneR/Graphics/Shader.hpp"
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
+#include "SceneR/Graphics/OpenGL/Program.hpp"
+#include "SceneR/Graphics/OpenGL/Shader.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 
 using json11::Json;
-using SceneR::Graphics::Program;
-using SceneR::Graphics::Shader;
+using SceneR::Graphics::OpenGL::Program;
+using SceneR::Graphics::OpenGL::Shader;
 
 auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/Shader.hpp"
+#include "SceneR/Graphics/OpenGL/Shader.hpp"
 
 #include <gsl_assert.h>
 
-namespace SceneR { namespace Graphics {
+namespace SceneR { namespace Graphics { namespace OpenGL {
 
 Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept
     : Shader { name, type, std::string(source.begin(), source.end()) }
@@ -106,4 +106,4 @@ void Shader::verify_compilation_state()
     throw std::runtime_error(msg);
 }
 
-}}
+ }}}

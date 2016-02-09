@@ -11,9 +11,9 @@
 #include "SceneR/Graphics/EffectPass.hpp"
 #include "SceneR/Graphics/EffectTechnique.hpp"
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
-#include "SceneR/Graphics/Program.hpp"
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
+#include "SceneR/Graphics/OpenGL/Program.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 
@@ -29,8 +29,8 @@ using SceneR::Graphics::EffectParameterClass;
 using SceneR::Graphics::EffectParameterType;
 using SceneR::Graphics::EffectPass;
 using SceneR::Graphics::IGraphicsDeviceService;
-using SceneR::Graphics::Program;
 using SceneR::Graphics::RendererServiceContainer;
+using SceneR::Graphics::OpenGL::Program;
 
 auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

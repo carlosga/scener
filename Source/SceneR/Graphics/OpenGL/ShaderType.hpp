@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_SHADERTYPE_HPP
-#define SCENER_GRAPHICS_SHADERTYPE_HPP
+#ifndef SCENER_GRAPHICS_OPENGL_SHADERTYPE_HPP
+#define SCENER_GRAPHICS_OPENGL_SHADERTYPE_HPP
 
 #include <cstdint>
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace SceneR { namespace Graphics { namespace OpenGL {
 
 /// Declares the supported shader types.
 enum class ShaderType : std::uint32_t
@@ -20,6 +20,6 @@ enum class ShaderType : std::uint32_t
   , fragment        = GL_FRAGMENT_SHADER        ///< A shader that is intended to run on the programmable fragment processor.
 };
 
-}}
+}}}
 
-#endif // SCENER_GRAPHICS_SHADERTYPE_HPP
+#endif // SCENER_GRAPHICS_OPENGL_SHADERTYPE_HPP

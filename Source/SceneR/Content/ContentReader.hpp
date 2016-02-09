@@ -38,10 +38,15 @@ namespace SceneR { namespace Graphics {
 class  EffectTechnique;
 class  Model;
 class  ModelMesh;
-class  Program;
 class  SamplerState;
-class  Shader;
 class  Texture2D;
+
+namespace OpenGL {
+
+class Program;
+class Shader;
+
+}
 
 }}
 
@@ -112,15 +117,15 @@ private:
     json11::Json             _root;
 
 private:
-    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Accessor>>   _accessors       { };
-    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Buffer>>     _buffers         { };
-    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::BufferView>> _bufferViews     { };
-    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Node>>       _nodes           { };
-    std::map<std::string, std::shared_ptr<SceneR::Content::DDS::Surface>>     _images          { };
-    std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes          { };
-    std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers        { };
-    std::map<std::string, std::shared_ptr<SceneR::Graphics::Shader>>          _shaders         { };
-    std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures        { };
+    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Accessor>>   _accessors   { };
+    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Buffer>>     _buffers     { };
+    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::BufferView>> _bufferViews { };
+    std::map<std::string, std::shared_ptr<SceneR::Content::GLTF::Node>>       _nodes       { };
+    std::map<std::string, std::shared_ptr<SceneR::Content::DDS::Surface>>     _images      { };
+    std::map<std::string, std::shared_ptr<SceneR::Graphics::ModelMesh>>       _meshes      { };
+    std::map<std::string, std::shared_ptr<SceneR::Graphics::SamplerState>>    _samplers    { };
+    std::map<std::string, std::shared_ptr<SceneR::Graphics::OpenGL::Shader>>  _shaders     { };
+    std::map<std::string, std::shared_ptr<SceneR::Graphics::Texture2D>>       _textures    { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
 };
@@ -257,9 +262,9 @@ inline void ContentReader::cache_object(const std::string&          key
 
 // Programs
 template<>
-inline std::shared_ptr<Graphics::Program> ContentReader::read_object_instance(const std::string& key) noexcept
+inline std::shared_ptr<Graphics::OpenGL::Program> ContentReader::read_object_instance(const std::string& key) noexcept
 {
-    return read_object_instance<Graphics::Program>(key, _root["programs"][key]);
+    return read_object_instance<Graphics::OpenGL::Program>(key, _root["programs"][key]);
 }
 
 // Samplers
@@ -284,20 +289,20 @@ inline void ContentReader::cache_object(const std::string&                      
 
 // Shaders
 template<>
-inline std::shared_ptr<Graphics::Shader> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<Graphics::OpenGL::Shader> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<Graphics::Shader>(key, _root["shaders"][key]);
+    return read_object<Graphics::OpenGL::Shader>(key, _root["shaders"][key]);
 }
 
 template <>
-inline std::shared_ptr<Graphics::Shader> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<Graphics::OpenGL::Shader> ContentReader::get_object(const std::string& key) noexcept
 {
     return _shaders[key];
 }
 
 template <>
-inline void ContentReader::cache_object(const std::string&                key
-                                      , std::shared_ptr<Graphics::Shader> object) noexcept
+inline void ContentReader::cache_object(const std::string&                        key
+                                      , std::shared_ptr<Graphics::OpenGL::Shader> object) noexcept
 {
     _shaders[key] = object;
 }

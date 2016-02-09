@@ -7,7 +7,6 @@
 #include "SceneR/Graphics/Animation.hpp"
 #include "SceneR/Graphics/Model.hpp"
 #include "SceneR/Graphics/ModelMesh.hpp"
-#include "SceneR/Graphics/Shader.hpp"
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/Path.hpp"
 

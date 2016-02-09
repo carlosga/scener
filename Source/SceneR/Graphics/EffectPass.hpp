@@ -12,11 +12,12 @@
 
 namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
 
+namespace SceneR { namespace Graphics { namespace OpenGL { class Program; } } }
+
 namespace SceneR { namespace Graphics {
 
 class EffectParameter;
 class GraphicsDevice;
-class Program;
 
 /// Contains rendering state for drawing with an effect; an effect can contain one or more passes.
 class EffectPass final
@@ -40,7 +41,7 @@ public:
 private:
     GraphicsDevice*                               _graphics_device  { nullptr };
     std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
-    std::shared_ptr<Program>                      _program          { nullptr };
+    std::shared_ptr<OpenGL::Program>              _program          { nullptr };
     std::string                                   _name             { };
 
     template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;

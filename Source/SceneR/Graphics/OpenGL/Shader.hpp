@@ -1,17 +1,17 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_SHADER_HPP
-#define SCENER_GRAPHICS_SHADER_HPP
+#ifndef SCENER_GRAPHICS_OPENGL_SHADER_HPP
+#define SCENER_GRAPHICS_OPENGL_SHADER_HPP
 
 #include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "SceneR/Graphics/ShaderType.hpp"
+#include "SceneR/Graphics/OpenGL/ShaderType.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace SceneR { namespace Graphics { namespace OpenGL {
 
 /// Represents a shader.
 class Shader final
@@ -61,6 +61,6 @@ private:
     std::string   _source;
 };
 
-}}
+}}}
 
-#endif // SCENER_GRAPHICS_SHADER_HPP
+#endif // SCENER_GRAPHICS_OPENGL_SHADER_HPP

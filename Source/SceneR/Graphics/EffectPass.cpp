@@ -4,7 +4,7 @@
 #include "SceneR/Graphics/EffectPass.hpp"
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/Program.hpp"
+#include "SceneR/Graphics/OpenGL/Program.hpp"
 
 namespace SceneR { namespace Graphics {
 

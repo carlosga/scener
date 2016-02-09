@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/Program.hpp"
+#include "SceneR/Graphics/OpenGL/Program.hpp"
 
 #include <gsl_assert.h>
 
-#include "SceneR/Graphics/Shader.hpp"
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
+#include "SceneR/Graphics/OpenGL/Shader.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace SceneR { namespace Graphics { namespace OpenGL {
 
 using SceneR::Graphics::OpenGL::ConstantBuffer;
 
@@ -168,4 +168,4 @@ void Program::verify_linking_state()
     }
 }
 
-}}
+}}}

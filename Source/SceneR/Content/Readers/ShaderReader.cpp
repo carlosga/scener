@@ -8,13 +8,13 @@
 #include <json11.hpp>
 
 #include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/Shader.hpp"
+#include "SceneR/Graphics/OpenGL/Shader.hpp"
 
 namespace SceneR { namespace Content { namespace Readers {
 
 using json11::Json;
-using SceneR::Graphics::Shader;
-using SceneR::Graphics::ShaderType;
+using SceneR::Graphics::OpenGL::Shader;
+using SceneR::Graphics::OpenGL::ShaderType;
 
 auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
