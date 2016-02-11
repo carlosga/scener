@@ -98,14 +98,16 @@ public:
 
     inline Angle& operator-=(const Angle& angle) noexcept
     {
-        _value -= angle.value;
+        _value -= angle._value;
 
         return *this;
     }
 
     inline Angle& operator+=(const Angle& angle) noexcept
     {
-        _value += angle.value;
+        _value += angle._value;
+
+        return *this;
     }
 
     inline Angle operator*(const Angle& angle) const noexcept

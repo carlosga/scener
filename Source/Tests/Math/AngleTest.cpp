@@ -46,3 +46,37 @@ TEST_F(AngleTest, EqualityTest)
 
     EXPECT_TRUE(degrees == radians);
 }
+
+TEST_F(AngleTest, SumDegrees)
+{
+    Degrees deg1 = { 90.0f };
+    Degrees deg2 = { 90.0f };
+    Degrees sum  = deg1 + deg2;
+
+    EXPECT_EQ(180.0f, sum.value());
+}
+
+TEST_F(AngleTest, SubtractDegrees)
+{
+    Degrees deg1 = { 180.0f };
+    Degrees deg2 = { 90.0f };
+    Degrees sub  = deg1 - deg2;
+
+    EXPECT_EQ(90.0f, sub.value());
+}
+
+TEST_F(AngleTest, MultiplyDegreesByScalar)
+{
+    Degrees deg1 = { 90.0f };
+    Degrees deg  = deg1 * 2;
+
+    EXPECT_EQ(180.0f, deg.value());
+}
+
+TEST_F(AngleTest, DivideDegreesByScalar)
+{
+    Degrees deg1 = { 180.0f };
+    Degrees deg  = deg1 / 2;
+
+    EXPECT_EQ(90.0f, deg.value());
+}
