@@ -6,7 +6,6 @@
 
 #include <cstdlib>
 #include <chrono>
-#include <cmath>
 #include <cstdint>
 #include <ratio>
 
@@ -45,13 +44,13 @@ public:
     /// Represents the maximum TimeSpan value.
     constexpr static const TimeSpan max_value()
     {
-        return { INT64_MAX };
+        return { std::numeric_limits<std::int64_t>::max() };
     }
 
     /// Represents the minimum TimeSpan value.
     constexpr static const TimeSpan min_value()
     {
-        return { INT64_MIN };
+        return { std::numeric_limits<std::int64_t>::min() };
     }
 
     /// Represents the zero TimeSpan value. This field is read-only.
