@@ -599,19 +599,19 @@ void Matrix::translation(const Vector3& translation) noexcept
 float Matrix::determinant() const noexcept
 {
     // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
-    std::int32_t i      = 1;
-    float        result = 0;
-    float        det    = 0;
-    Matrix       msub;
 
-    for (std::uint32_t n = 0; n < 4; ++n, i *= -1)
-    {
-        msub    = sub_matrix(0, n);
-        det     = msub.sub_matrix_determinant();
-        result += data[n] * det * i;
-    }
-
-    return result;
+    return (m11 * (m22 * (m33 * m44 - m43 * m34)
+                 - m23 * (m32 * m44 - m42 * m34)
+                 + m24 * (m32 * m43 - m42 * m33)))
+         - (m12 * (m21 * (m33 * m44 - m43 * m34)
+                 - m23 * (m31 * m44 - m41 * m34)
+                 + m24 * (m31 * m43 - m41 * m33)))
+         + (m13 * (m21 * (m32 * m44 - m42 * m34)
+                 - m22 * (m31 * m44 - m41 * m34)
+                 + m24 * (m31 * m42 - m41 * m32)))
+         - (m14 * (m21 * (m32 * m43 - m42 * m33)
+                 - m22 * (m31 * m43 - m41 * m33)
+                 + m23 * (m31 * m42 - m41 * m32)));
 }
 
 bool Matrix::has_inverse() const noexcept
