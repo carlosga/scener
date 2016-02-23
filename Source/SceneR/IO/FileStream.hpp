@@ -19,7 +19,7 @@ class FileStream  final : public Stream
 public:
     /// Initializes a new instance of the FileStream class with the specified and opening mode.
     /// \param path a relative or absolute path for the file that the current FileStream object will encapsulate.
-    /// \param openmode a constant that determines how to open or create the file.
+    /// \param mode a constant that determines how to open or create the file.
     FileStream(const std::string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary) noexcept;
 
     /// Releases all resources being used by this FileStream.

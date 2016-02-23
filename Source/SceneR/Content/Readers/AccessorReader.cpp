@@ -62,11 +62,11 @@ auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& 
 
     for (const auto& item : source["max"].array_items())
     {
-        accessor->_max.push_back(item.number_value());
+        accessor->_max.push_back(static_cast<float>(item.number_value()));
     }
     for (const auto& item : source["min"].array_items())
     {
-        accessor->_min.push_back(item.number_value());
+        accessor->_min.push_back(static_cast<float>(item.number_value()));
     }
 
     return accessor;

@@ -38,7 +38,7 @@ void VertexArrayObject::unbind() const noexcept
     glBindVertexArray(0);
 }
 
-void VertexArrayObject::declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex​) const noexcept
+void VertexArrayObject::declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex) const noexcept
 {
     const auto& elements = declaration.vertex_elements();
 
@@ -51,15 +51,15 @@ void VertexArrayObject::declare(const VertexDeclaration& declaration, std::uint3
 
         if (elementType == GL_FLOAT)
         {
-            glVertexArrayAttribFormat(_id, usageIndex, elementCount, elementType, false, ve.offset());
+            glVertexArrayAttribFormat(_id, usageIndex, static_cast<GLint>(elementCount), elementType, false, ve.offset());
         }
         else
         {
-            glVertexArrayAttribIFormat(_id, usageIndex, elementCount, elementType, ve.offset());
+            glVertexArrayAttribIFormat(_id, usageIndex, static_cast<GLint>(elementCount), elementType, ve.offset());
         }
 
         glEnableVertexArrayAttrib(_id, usageIndex);
-        glVertexArrayAttribBinding(_id, usageIndex, bindingIndex​);
+        glVertexArrayAttribBinding(_id, usageIndex, bindingIndex);
     }
 }
 
@@ -100,7 +100,6 @@ std::size_t VertexArrayObject::get_element_count(VertexElementFormat vertexForma
         case VertexElementFormat::short4:
         case VertexElementFormat::normalized_short4:
         case VertexElementFormat::half_vector4:
-        default:
             return 4;
     }
 }
@@ -125,7 +124,6 @@ std::uint32_t VertexArrayObject::get_element_type(VertexElementFormat vertexForm
         case VertexElementFormat::vector3:
         case VertexElementFormat::vector4:
         case VertexElementFormat::color:
-        default:
             return GL_FLOAT;
     }
 }

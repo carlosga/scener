@@ -21,10 +21,10 @@ struct Ray
 public:
     /**
      * Initializes a new instance of the Ray structure with the given position an direction.
-     * @param position the ray starting.
-     * @param direction unit vector describing he ray direction.
+     * @param rposition the ray starting.
+     * @param rdirection unit vector describing he ray direction.
      */
-    Ray(const Vector3& position, const Vector3& direction) noexcept;
+    Ray(const Vector3& rposition, const Vector3& rdirection) noexcept;
 
     /**
      * Initializes a new instance of the Ray structure with the given position an direction.

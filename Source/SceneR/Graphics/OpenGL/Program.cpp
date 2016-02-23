@@ -111,11 +111,11 @@ std::map<std::string, std::size_t> Program::get_uniform_offsets() const noexcept
         GLsizei length = 0;
         GLint   size   = 0;
         GLenum  type   = GL_ZERO;
-        auto    name   = std::vector<char>(nameLengths[i], 0);
+        auto    uname   = std::vector<char>(nameLengths[i], 0);
 
-        glGetActiveUniform(_id, indices[i], nameLengths[i], &length, &size, &type, name.data());
+        glGetActiveUniform(_id, indices[i], nameLengths[i], &length, &size, &type, uname.data());
 
-        std::string uniformName = { name.begin(), name.begin() + length };
+        std::string uniformName = { uname.begin(), uname.begin() + length };
 
         auto pos = uniformName.find("[0]");
         if (pos != std::string::npos)

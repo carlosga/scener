@@ -12,10 +12,10 @@ DirectionalLight::DirectionalLight() noexcept
 {
 }
 
-DirectionalLight::DirectionalLight(const Vector3& direction
+DirectionalLight::DirectionalLight(const Vector3& lightDirection
                                  , const Vector3& diffuseColor
                                  , const Vector3& specularColor) noexcept
-    : direction      { direction }
+    : direction      { lightDirection }
     , diffuse_color  { diffuseColor }
     , specular_color { specularColor }
     , enabled        { false }

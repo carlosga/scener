@@ -35,7 +35,6 @@ void RasterizerState::apply() const noexcept
                 break;
 
             case CullMode::none:
-            default:
                 glCullFace(GL_FRONT_AND_BACK);
                 break;
         }

@@ -21,6 +21,9 @@
 #include <string.h>
 #include "SceneR/Graphics/OpenGL/glad_glx.hpp"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
+
 namespace glad { namespace glx {
 
 static void* get_proc(const char *namez);
@@ -762,3 +765,4 @@ int gladLoadGLXLoader(GLADloadproc load, Display *dpy, int screen) {
     return 1;
 }
 
+#pragma clang diagnostic pop

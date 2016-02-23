@@ -11,9 +11,9 @@
 
 namespace SceneR { namespace Math {
 
-BoundingBox::BoundingBox(const Vector3& min, const Vector3& max) noexcept
-    : min { min }
-    , max { max }
+BoundingBox::BoundingBox(const Vector3& minPoint, const Vector3& maxPoint) noexcept
+    : min { minPoint }
+    , max { maxPoint }
 {
 }
 

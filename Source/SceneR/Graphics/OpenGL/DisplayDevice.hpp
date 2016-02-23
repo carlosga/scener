@@ -28,7 +28,7 @@ public:
     Display* handle() const noexcept;
 
     /// Gets the X11 screen id.
-    uint32_t screen_id() const noexcept;
+    int32_t screen_id() const noexcept;
 
     /// Gets the X11 display visual information.
     XVisualInfo* visual_info() const noexcept;

@@ -58,7 +58,7 @@ void Shader::compile() noexcept
 
     // Shader source
     const char* cstring = _source.c_str();
-    glShaderSource(_id, 1, (const GLchar**)&cstring, NULL);
+    glShaderSource(_id, 1, reinterpret_cast<const GLchar**>(&cstring), NULL);
 
     // Compile the shader source
     glCompileShader(_id);

@@ -598,20 +598,18 @@ void Matrix::translation(const Vector3& translation) noexcept
 
 float Matrix::determinant() const noexcept
 {
-    // Algorithm: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    // Reference: http://www.j3d.org/matrix_faq/matrfaq_latest.html#Q24
+    float ca = m33 * m44 - m43 * m34;
+    float cb = m32 * m44 - m42 * m34;
+    float cc = m32 * m43 - m42 * m33;
+    float cd = m31 * m44 - m41 * m34;
+    float ce = m31 * m43 - m41 * m33;
+    float cf = m31 * m42 - m41 * m32;
 
-    return (m11 * (m22 * (m33 * m44 - m43 * m34)
-                 - m23 * (m32 * m44 - m42 * m34)
-                 + m24 * (m32 * m43 - m42 * m33)))
-         - (m12 * (m21 * (m33 * m44 - m43 * m34)
-                 - m23 * (m31 * m44 - m41 * m34)
-                 + m24 * (m31 * m43 - m41 * m33)))
-         + (m13 * (m21 * (m32 * m44 - m42 * m34)
-                 - m22 * (m31 * m44 - m41 * m34)
-                 + m24 * (m31 * m42 - m41 * m32)))
-         - (m14 * (m21 * (m32 * m43 - m42 * m33)
-                 - m22 * (m31 * m43 - m41 * m33)
-                 + m23 * (m31 * m42 - m41 * m32)));
+    return m11 * (m22 * ca - m23 * cb + m24 * cc)
+         - m12 * (m21 * ca - m23 * cd + m24 * ce)
+         + m13 * (m21 * cb - m22 * cd + m24 * cf)
+         - m14 * (m21 * cc - m22 * ce + m23 * cf);
 }
 
 bool Matrix::has_inverse() const noexcept

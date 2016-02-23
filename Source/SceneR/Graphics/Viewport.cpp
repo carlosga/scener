@@ -12,11 +12,11 @@ Viewport::Viewport() noexcept
 {
 }
 
-Viewport::Viewport(std::uint32_t x, std::uint32_t y, std::uint32_t width, std::uint32_t height) noexcept
-    : x         { x }
-    , y         { y }
-    , width     { width }
-    , height    { height }
+Viewport::Viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept
+    : x         { vx }
+    , y         { vy }
+    , width     { vwidth }
+    , height    { vheight }
     , min_depth { 0.0f }
     , max_depth { 1.0f }
 {

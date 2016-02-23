@@ -26,9 +26,9 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -stdlib=libc++ -m64")
 #set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m64")
 #set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m64")
 
-if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
-endif ()
+#if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+#    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -O0 -Wall -Wextra -Wno-unused-parameter")
+#endif ()
 
 # reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})

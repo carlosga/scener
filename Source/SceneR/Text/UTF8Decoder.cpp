@@ -55,7 +55,7 @@ std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
         throw std::invalid_argument("charIndex do not denote a valid offset in chars.");
     }
 
-    auto        from     = (char*)bytes.data() + byteIndex;
+    auto        from     = reinterpret_cast<const char*>(bytes.data()) + byteIndex;
     auto        fromEnd  = from + byteCount;
     const char* fromNext = nullptr;
     auto        to       = std::vector<char16_t>(byteCount);

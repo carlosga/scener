@@ -21,6 +21,9 @@
 #include <string.h>
 #include "SceneR/Graphics/OpenGL/glad.hpp"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wold-style-cast"
+
 namespace glad {
 
 static void* get_proc(const char *namez);
@@ -8171,3 +8174,4 @@ int gladLoadGLLoader(GLADloadproc load) {
     return GLVersion.major != 0 || GLVersion.minor != 0;
 }
 
+#pragma clang diagnostic pop

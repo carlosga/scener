@@ -16,11 +16,11 @@ public:
     Viewport() noexcept;
 
     /// Initializes a new instance of the ViewPort class
-    /// \param x the x coordinate of the upper-left corner of the viewport in pixels.
-    /// \param y the y coordinate of the upper-left corner of the viewport in pixels.
-    /// \param width  the width of the viewport in pixels.
-    /// \param height the height of the viewport in pixels.
-    Viewport(std::uint32_t x, std::uint32_t y, std::uint32_t width, std::uint32_t height) noexcept;
+    /// \param vx the x coordinate of the upper-left corner of the viewport in pixels.
+    /// \param vy the y coordinate of the upper-left corner of the viewport in pixels.
+    /// \param vwidth  the width of the viewport in pixels.
+    /// \param vheight the height of the viewport in pixels.
+    Viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept;
 
 public:
     ///Gets the aspect ratio used by the viewport

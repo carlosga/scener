@@ -40,7 +40,7 @@ public:
     void bind() const noexcept;
 
     /// Attachs the given shader to the program object.
-    /// \param the shader to be attached to the program object.
+    /// \param shader the shader to be attached to the program object.
     void add_shader(std::shared_ptr<Shader> shader) noexcept;
 
     /// Deactivates this program instance.

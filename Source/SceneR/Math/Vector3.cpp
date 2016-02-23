@@ -28,11 +28,11 @@ Vector3 Vector3::abs(const Vector3& value) noexcept
     return { std::abs(value.x), std::abs(value.y), std::abs(value.z) };
 }
 
-Radians Vector3::angle_between(const Vector3& left, const Vector3& right) noexcept
+Radians Vector3::angle_between(const Vector3& value1, const Vector3& value2) noexcept
 {
-    float lengthSquared = left.length_squared() * right.length_squared();
+    float lengthSquared = value1.length_squared() * value2.length_squared();
 
-    return { std::acos(Vector3::dot(left, right) / std::sqrt(lengthSquared)) };
+    return { std::acos(Vector3::dot(value1, value2) / std::sqrt(lengthSquared)) };
 }
 
 Vector3 Vector3::barycentric(const Vector3& value1
@@ -64,12 +64,12 @@ Vector3 Vector3::clamp(const Vector3& value1, const Vector3& min, const Vector3&
            , Math::clamp(value1.z, min.z, max.z) };
 }
 
-Vector3 Vector3::cross(const Vector3& left, const Vector3& right) noexcept
+Vector3 Vector3::cross(const Vector3& value1, const Vector3& value2) noexcept
 {
     // Reference: http://msdn.microsoft.com/en-us/library/windows/desktop/microsoft.directx_sdk.geometric.xmvector3cross(v=vs.85).aspx
-    return { (left.y * right.z) - (left.z * right.y)
-           , (left.z * right.x) - (left.x * right.z)
-           , (left.x * right.y) - (left.y * right.x) };
+    return { (value1.y * value2.z) - (value1.z * value2.y)
+           , (value1.z * value2.x) - (value1.x * value2.z)
+           , (value1.x * value2.y) - (value1.y * value2.x) };
 }
 
 float Vector3::distance(const Vector3& value1, const Vector3& value2) noexcept
@@ -86,7 +86,7 @@ float Vector3::distance_squared(const Vector3& value1, const Vector3& value2) no
     return d.length_squared();
 }
 
-float Vector3::dot(const Vector3& left, const Vector3& right) noexcept
+float Vector3::dot(const Vector3& value1, const Vector3& value2) noexcept
 {
     // The definition of the scalar (dot) product is:
     // a · b = |a||b|cosθ
@@ -94,7 +94,7 @@ float Vector3::dot(const Vector3& left, const Vector3& right) noexcept
     // The scalar product can also be written in terms of Cartesian components as:
     // a · b = x1x2 + y1y2 + z1z2
 
-    auto dotProduct = left * right;
+    auto dotProduct = value1 * value2;
 
     return (dotProduct.x + dotProduct.y + dotProduct.z);
 }

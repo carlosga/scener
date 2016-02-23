@@ -11,7 +11,7 @@ class IGraphicsDeviceManager
 {
 public:
     /// Virtual destructor.
-    ~IGraphicsDeviceManager() = default;
+    virtual ~IGraphicsDeviceManager() = default;
 
 public:
     /// Starts the drawing of a frame

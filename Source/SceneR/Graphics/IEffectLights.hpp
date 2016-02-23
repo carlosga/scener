@@ -24,7 +24,7 @@ public:
     virtual const SceneR::Math::Vector3& ambient_light_color() const noexcept = 0;
 
     /// Sets the ambient light for the current effect.
-    /// \param the ambient light for the current effect as a three component color.
+    /// \param ambientLightColor the ambient light for the current effect as a three component color.
     virtual void ambient_light_color(const SceneR::Math::Vector3& ambientLightColor) noexcept = 0;
 
     /// Gets the first directional light.
@@ -44,7 +44,7 @@ public:
     virtual bool lighting_enabled() const noexcept = 0;
 
     /// Gets a value indicating wheter lighting is enabled for the current effect.
-    /// \param lighting_enabled true to enable lighting; false otherwise.
+    /// \param lightingEnabled true to enable lighting; false otherwise.
     virtual void lighting_enabled(bool lightingEnabled) noexcept = 0;
 
     /// Enables default lighting for the current effect.

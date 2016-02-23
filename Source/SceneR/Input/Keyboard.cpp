@@ -17,9 +17,9 @@ KeyboardState Keyboard::get_state() noexcept
 }
 
 // Gets or sets the window used for mouse processing.
-void Keyboard::initialize(DisplaySurface* surface) noexcept
+void Keyboard::initialize(DisplaySurface* s) noexcept
 {
-    Keyboard::surface = surface;
+    Keyboard::surface = s;
 
     // Enable sticky keys
     // glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
@@ -28,7 +28,7 @@ void Keyboard::initialize(DisplaySurface* surface) noexcept
     // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
 }
 
-void Keyboard::key_callback(DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept
+void Keyboard::key_callback(DisplaySurface* s, int key, int scancode, int action, int mods) noexcept
 {
 }
 

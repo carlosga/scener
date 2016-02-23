@@ -27,19 +27,19 @@ public:
 
     /// Gets or sets the window used for mouse processing.
     /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-    static void initialize(SceneR::Graphics::OpenGL::DisplaySurface* surface) noexcept;
+    static void initialize(SceneR::Graphics::OpenGL::DisplaySurface* s) noexcept;
 
 private:
-    static void cursor_position_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+    static void cursor_position_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
                                        , double                                    xpos
                                        , double                                    ypos) noexcept;
 
-    static void mouse_button_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+    static void mouse_button_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
                                     , std::uint32_t                             button
                                     , std::uint32_t                             action
                                     , std::uint32_t                             mods) noexcept;
 
-    static void scroll_wheel_callback(SceneR::Graphics::OpenGL::DisplaySurface* surface
+    static void scroll_wheel_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
                                     , double                                    xoffset
                                     , double                                    yoffset) noexcept;
 

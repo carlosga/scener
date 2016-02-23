@@ -33,7 +33,7 @@ public:
     void unbind() const noexcept;
 
     /// Declares the vertex format to be used on drawing operations.
-    void declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex​) const noexcept;
+    void declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex) const noexcept;
 
     /// Binds the vertex array to the given buffer ( it should be a vertex buffer )
     /// \param buffer The buffer to bind to the vertex buffer binding point.

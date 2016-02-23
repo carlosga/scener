@@ -24,7 +24,7 @@ gsl::span<const std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t c
 {
     Expects(offset < _data.size() && (offset + count) <= _data.size());
 
-    return gsl::span<const std::uint8_t>(_data.data() + offset, count);
+    return gsl::span<const std::uint8_t>(_data.data() + offset, static_cast<std::ptrdiff_t>(count));
 }
 
 void Buffer::set_data(const std::vector<std::uint8_t>& buffer) noexcept

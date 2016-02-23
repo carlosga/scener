@@ -32,9 +32,9 @@ public:
 
 public:
     /// Initializes a new instance of the BoundingBox class.
-    /// \param min the minimum point the BoundingBox includes.
-    /// \param max the maximum point the BoundingBox includes.
-    BoundingBox(const Vector3& min, const Vector3& max) noexcept;
+    /// \param minPoint the minimum point the BoundingBox includes.
+    /// \param maxPoint the maximum point the BoundingBox includes.
+    BoundingBox(const Vector3& minPoint, const Vector3& maxPoint) noexcept;
 
 public:
     /// Checks whether the current BoundingBox contains another BoundingBox.

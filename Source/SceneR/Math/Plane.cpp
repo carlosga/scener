@@ -80,15 +80,15 @@ Plane::Plane() noexcept
 {
 }
 
-Plane::Plane(float a, float b, float c, float d) noexcept
+Plane::Plane(float a, float b, float c, float distance) noexcept
     : normal { a, b, c }
-    , d      { d }
+    , d      { distance }
 {
 }
 
-Plane::Plane(const Vector3& normal, float d) noexcept
-    : normal { normal }
-    , d      { d }
+Plane::Plane(const Vector3& pnormal, float distance) noexcept
+    : normal { pnormal }
+    , d      { distance }
 {
 }
 

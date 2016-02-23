@@ -9,9 +9,9 @@
 
 namespace SceneR { namespace Math {
 
-Ray::Ray(const Vector3& position, const Vector3& direction) noexcept
-    : direction { direction }
-    , position  { position }
+Ray::Ray(const Vector3& rposition, const Vector3& rdirection) noexcept
+    : direction { rdirection }
+    , position  { rposition }
 
 {
 }

@@ -17,10 +17,10 @@ public:
     DirectionalLight() noexcept;
 
     /// Creates an instance of a light that projects its effect along a specified Vector3 with a specified color.
-    /// \param direction the direction of the new light.
+    /// \param lightDirection the direction of the new light.
     /// \param diffuseColor diffuse color of the new light.
     /// \param specularColor specular color of the new light.
-    DirectionalLight(const SceneR::Math::Vector3& direction
+    DirectionalLight(const SceneR::Math::Vector3& lightDirection
                    , const SceneR::Math::Vector3& diffuseColor
                    , const SceneR::Math::Vector3& specularColor) noexcept;
 

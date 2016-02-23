@@ -69,8 +69,8 @@ void Surface::load(const std::string& filename) noexcept
 
     auto mipmapWidth  = _width;
     auto mipmapHeight = _height;
-    auto length       = stream.length() - sizeof ddsheader;
     auto position     = size_type { 0 };
+    auto length       = stream.length() - sizeof ddsheader;
 
     _mipmaps.clear();
     _buffer.clear();
@@ -83,13 +83,14 @@ void Surface::load(const std::string& filename) noexcept
 
     Ensures(readed == length);
 
-    _view = gsl::span<std::uint8_t>(_buffer.data(), length);
+    _view = gsl::span<std::uint8_t>(_buffer.data(), static_cast<std::ptrdiff_t>(length));
 
     for (size_type level = 0; level < ddsheader.dwMipMapCount; ++level)
     {
-        size_type size = std::max<size_type>(4, mipmapWidth) / 4 * std::max<size_type>(4, mipmapHeight) / 4 * blockSize;
+        auto size = std::max<size_type>(4, mipmapWidth) / 4 * std::max<size_type>(4, mipmapHeight) / 4 * blockSize;
+        auto view = _view.subspan(static_cast<std::ptrdiff_t>(position), static_cast<std::ptrdiff_t>(size));
 
-        _mipmaps.push_back({ level, mipmapWidth, mipmapHeight, _view.subspan(position, size) });
+        _mipmaps.push_back({ level, mipmapWidth, mipmapHeight, view });
 
         mipmapWidth  = std::max<std::size_t>(1, mipmapWidth  >>= 1);
         mipmapHeight = std::max<std::size_t>(1, mipmapHeight >>= 1);

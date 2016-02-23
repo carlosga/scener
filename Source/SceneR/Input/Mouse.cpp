@@ -21,9 +21,9 @@ void Mouse::set_position(std::uint32_t x, std::uint32_t y) noexcept
 {
 }
 
-void Mouse::initialize(DisplaySurface* surface) noexcept
+void Mouse::initialize(DisplaySurface* s) noexcept
 {
-    Mouse::surface = surface;
+    Mouse::surface = s;
 
     // Enable mouse cursor (only needed for fullscreen mode)
     // glfwSetInputMode(window_handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -41,11 +41,11 @@ void Mouse::initialize(DisplaySurface* surface) noexcept
     // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
 }
 
-void Mouse::cursor_position_callback(DisplaySurface* surface, double xpos, double ypos) noexcept
+void Mouse::cursor_position_callback(DisplaySurface* s, double xpos, double ypos) noexcept
 {
 }
 
-void Mouse::mouse_button_callback(DisplaySurface* surface
+void Mouse::mouse_button_callback(DisplaySurface* s
                                 , std::uint32_t   button
                                 , std::uint32_t   action
                                 , std::uint32_t   mods) noexcept
@@ -54,7 +54,7 @@ void Mouse::mouse_button_callback(DisplaySurface* surface
 //                popup_menu();
 }
 
-void Mouse::scroll_wheel_callback(DisplaySurface* surface, double xoffset, double yoffset) noexcept
+void Mouse::scroll_wheel_callback(DisplaySurface* s, double xoffset, double yoffset) noexcept
 {
 }
 

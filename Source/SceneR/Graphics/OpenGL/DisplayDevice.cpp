@@ -22,7 +22,7 @@ Display* DisplayDevice::handle() const noexcept
     return _display;
 }
 
-uint32_t DisplayDevice::screen_id() const noexcept
+int32_t DisplayDevice::screen_id() const noexcept
 {
     return _screen_id;
 }

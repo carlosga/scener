@@ -27,10 +27,10 @@ public:
     static KeyboardState get_state() noexcept;
 
     /// Gets or sets the window used for mouse processing.
-    static void initialize(Graphics::OpenGL::DisplaySurface* surface) noexcept;
+    static void initialize(Graphics::OpenGL::DisplaySurface* s) noexcept;
 
 private:
-    static void key_callback(Graphics::OpenGL::DisplaySurface* surface, int key, int scancode, int action, int mods) noexcept;
+    static void key_callback(Graphics::OpenGL::DisplaySurface* s, int key, int scancode, int action, int mods) noexcept;
 
 private:
     Keyboard() = delete;

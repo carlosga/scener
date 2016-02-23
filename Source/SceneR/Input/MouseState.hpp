@@ -19,14 +19,14 @@ public:
     MouseState() noexcept;
 
     /// Initializes a new instance of the MouseState class.
-    /// \param x
-    /// \param y
-    /// \param scrollWheel
-    /// \param leftButton
-    /// \param middleButton
-    /// \param rightButton
-    /// \param xButton1
-    /// \param xButton2
+    /// \param x Horizontal mouse position.
+    /// \param y Vertical mouse position.
+    /// \param scrollWheel Mouse scroll wheel value.
+    /// \param leftButton Left mouse button state.
+    /// \param middleButton Middle mouse button state.
+    /// \param rightButton Right mouse button state.
+    /// \param xButton1 XBUTTON1 state.
+    /// \param xButton2 XBUTTON2 state.
     MouseState(std::uint32_t x
              , std::uint32_t y
              , std::uint32_t scrollWheel

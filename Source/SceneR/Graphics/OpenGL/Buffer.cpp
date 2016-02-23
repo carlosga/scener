@@ -54,19 +54,19 @@ std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count
 {
     auto data = std::vector<std::uint8_t>(count, 0);
 
-    glGetNamedBufferSubData(_id, offset, count, data.data());
+    glGetNamedBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count), data.data());
 
     return data;
 }
 
 void Buffer::set_data(std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
-    glNamedBufferData(_id, count, data, static_cast<GLenum>(_usage));
+    glNamedBufferData(_id, static_cast<GLintptr>(count), data, static_cast<GLenum>(_usage));
 }
 
 void Buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
-    glNamedBufferSubData(_id, offset, count, data);
+    glNamedBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count), data);
 }
 
 void Buffer::invalidate() const noexcept
@@ -76,7 +76,7 @@ void Buffer::invalidate() const noexcept
 
 void Buffer::invalidate(std::size_t offset, const std::size_t count) const noexcept
 {
-    glInvalidateBufferSubData(_id, offset, count);
+    glInvalidateBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count));
 }
 
 void Buffer::create() noexcept

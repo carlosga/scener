@@ -86,11 +86,11 @@ public:
     /**
      * Retrieves the angle required to rotate the first specified Vector3 structure into the second specified
      * Vector3 structure.
-     * @param left The first Vector3 to evaluate.
-     * @param right The second Vector3 to evaluate.
+     * @param value1 The first Vector3 to evaluate.
+     * @param value2 The second Vector3 to evaluate.
      * @return The angle, in radians, needed to rotate the left vector into the right vector.
      */
-    static Radians angle_between(const Vector3& left, const Vector3& right) noexcept;
+    static Radians angle_between(const Vector3& value1, const Vector3& value2) noexcept;
 
     /**
      * Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and
@@ -130,11 +130,11 @@ public:
 
     /**
      * Calculates the cross product of two Vector3 structures.
-     * @param left The first Vector3 to evaluate.
-     * @param right The second Vector3 to evaluate.
+     * @param value1 The first Vector3 to evaluate.
+     * @param value2 The second Vector3 to evaluate.
      * @return The cross product of this Vector3 and vectorb.
      */
-    static Vector3 cross(const Vector3& left, const Vector3& right) noexcept;
+    static Vector3 cross(const Vector3& value1, const Vector3& value2) noexcept;
 
     /**
      * Calculates the distance between two vectors.
@@ -148,11 +148,11 @@ public:
 
     /**
      * Calculates the dot product of two Vector3 structures.
-     * @param left The first Vector3 to evaluate.
-     * @param right The second Vector3 to evaluate.
+     * @param value1 The first Vector3 to evaluate.
+     * @param value2 The second Vector3 to evaluate.
      * @return The dot product of the given vectors.
      */
-    static float dot(const Vector3& left, const Vector3& right) noexcept;
+    static float dot(const Vector3& value1, const Vector3& value2) noexcept;
 
     /**
      * Calculates a hermite spline interpolation.

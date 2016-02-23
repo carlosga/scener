@@ -145,7 +145,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
 
             std::copy_n(view.begin(), accessor->byte_stride(), position);
 
-            position += accessor->byte_stride();
+            position += static_cast<std::ptrdiff_t>(accessor->byte_stride());
         }
     }
 
@@ -210,7 +210,13 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
             case EffectParameterType::string:
                 parameter->set_value<std::string>(paramValue.string_value());
                 break;
-            default:
+
+            case EffectParameterType::texture:
+            case EffectParameterType::texture_1d:
+            case EffectParameterType::texture_2d:
+            case EffectParameterType::texture_3d:
+            case EffectParameterType::texture_cube:
+            case EffectParameterType::void_pointer:
                 throw std::runtime_error("unknown parameter type");
             }
         }
@@ -257,7 +263,6 @@ VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(Attr
     case AttributeType::matrix2:
     case AttributeType::matrix3:
     case AttributeType::matrix4:
-    default:
         throw std::runtime_error("unsupported attribute type");
     }
 }

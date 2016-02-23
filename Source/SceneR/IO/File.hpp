@@ -37,10 +37,8 @@ public:
 
     /// Opens a text file, reads all lines of the file, and then closes the file.
     /// \param path the file to open for reading.
-    /// \param encoding the encoding applied to the contents of the file.
     /// \returns a string containing all lines of the file.
-    static std::string read_all_text(const std::string&            path
-                                   , const SceneR::Text::Encoding& encoding = SceneR::Text::Encoding::utf8) noexcept
+    static std::string read_all_text(const std::string& path) noexcept
     {
         auto buffer = read_all_bytes(path);
 

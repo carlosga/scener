@@ -90,12 +90,12 @@ public:
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane(float a, float b, float c, float d) noexcept;
+    Plane(float a, float b, float c, float distance) noexcept;
 
     /**
      * Initializes a new instance of the Plane structure.
      */
-    Plane(const Vector3& normal, float d) noexcept;
+    Plane(const Vector3& pnormal, float distance) noexcept;
 
     /**
      * Initializes a new instance of the Plane structure.

@@ -58,7 +58,7 @@ void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
 
         parameter->_name         = uniform.second.string_value();
         parameter->_uniform_name = uniform.first;
-        parameter->_count        = paramRef["count"].int_value();
+        parameter->_count        = static_cast<std::size_t>(paramRef["count"].int_value());
 
         if (paramRef["node"].is_null() && !paramRef["semantic"].is_null())
         {
@@ -128,7 +128,7 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
             case EffectParameterType::texture_2d:
             case EffectParameterType::texture_3d:
             case EffectParameterType::texture_cube:
-            default:
+            case EffectParameterType::void_pointer:
                 throw std::runtime_error("unknown parameter type");
             }
         }
