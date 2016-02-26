@@ -42,4 +42,4 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 enable_testing()
 
 # project subdirectories
-add_subdirectory (Source)
+add_subdirectory (source)
