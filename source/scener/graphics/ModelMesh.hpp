@@ -11,7 +11,7 @@
 #include "scener/graphics/Skeleton.hpp"
 #include "scener/math/BoundingSphere.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace graphics {
 
@@ -61,7 +61,7 @@ private:
     std::shared_ptr<graphics::skeleton>           _skeleton        { nullptr };
     std::string                                   _name            { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}

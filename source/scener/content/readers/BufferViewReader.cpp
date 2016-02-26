@@ -13,7 +13,7 @@ namespace scener { namespace content { namespace readers {
 
 using json11::Json;
 
-auto ContentTypeReader<gltf::buffer_view>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<gltf::buffer_view>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto view = std::make_shared<gltf::buffer_view>();
 

@@ -10,7 +10,7 @@
 
 #include "scener/graphics/PrimitiveType.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace graphics {
 
@@ -70,7 +70,7 @@ private:
     std::size_t                              _primitive_count    = { 0 };
     graphics::primitive_type                 _primitive_type     = { primitive_type::triangle_list };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}

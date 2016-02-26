@@ -16,7 +16,7 @@ using json11::Json;
 using scener::graphics::opengl::Shader;
 using scener::graphics::opengl::ShaderType;
 
-auto ContentTypeReader<Shader>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<Shader>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto type    = static_cast<ShaderType>(source["type"].int_value());
     auto ssource = load_shader_with_includes(input, source["uri"].string_value());
@@ -27,7 +27,7 @@ auto ContentTypeReader<Shader>::read(content_reader* input, const std::string& k
     return shader;
 }
 
-std::string ContentTypeReader<Shader>::load_shader_with_includes(content_reader* input, const std::string& uri) const noexcept
+std::string content_type_reader<Shader>::load_shader_with_includes(content_reader* input, const std::string& uri) const noexcept
 {
     auto buffer      = input->read_external_reference(uri);
     auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");

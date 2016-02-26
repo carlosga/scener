@@ -11,7 +11,7 @@
 
 #include <gsl.h>
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace content { namespace gltf {
 
@@ -52,7 +52,7 @@ private:
     std::string               _name        { };
     std::string               _uri         { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}}

@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_CONTENT_DDS_DDS_HPP
-#define SCENER_CONTENT_DDS_DDS_HPP
+#ifndef SCENER_CONTENT_DDS_HEADER_HPP
+#define SCENER_CONTENT_DDS_HEADER_HPP
 
 #include "scener/content/dds/caps.hpp"
 #include "scener/content/dds/caps2.hpp"
@@ -52,4 +52,4 @@ struct header
 
 }}}
 
-#endif // SCENER_CONTENT_DDS_DDS_HPP
+#endif // SCENER_CONTENT_DDS_HEADER_HPP

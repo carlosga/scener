@@ -19,7 +19,7 @@ using scener::math::matrix4;
 using scener::math::quaternion;
 using scener::math::vector3;
 
-auto ContentTypeReader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto animation  = std::make_shared<graphics::animation>();
     auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();

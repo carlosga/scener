@@ -23,7 +23,7 @@ using scener::graphics::sampler_state;
 using scener::graphics::surface_format;
 using scener::graphics::texture2d;
 
-auto ContentTypeReader<texture2d>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
     auto dds       = input->read_object<surface>(source["source"].string_value());

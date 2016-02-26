@@ -13,7 +13,7 @@ namespace scener { namespace content { namespace readers {
 using json11::Json;
 using scener::content::dds::surface;
 
-auto ContentTypeReader<surface>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<surface>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto image = std::make_shared<surface>();
 

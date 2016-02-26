@@ -14,7 +14,7 @@ namespace scener { namespace content { namespace readers {
 using json11::Json;
 using scener::math::matrix4;
 
-auto ContentTypeReader<graphics::skeleton>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<graphics::skeleton>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto skeleton = std::make_shared<graphics::skeleton>();
     auto accessor = input->read_object<gltf::accessor>(source["inverseBindMatrices"].string_value());

@@ -10,7 +10,7 @@
 
 #include <gsl.h>
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace graphics { namespace opengl { class Program; } } }
 
@@ -44,7 +44,7 @@ private:
     std::shared_ptr<opengl::Program>              _program          { nullptr };
     std::string                                   _name             { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}

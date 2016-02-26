@@ -14,7 +14,7 @@
 #include "scener/content/gltf/attribute_type.hpp"
 #include "scener/graphics/ComponentType.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace content { namespace gltf {
 
@@ -151,7 +151,7 @@ private:
     std::vector<float>           _min             { 0 };
     std::string                  _name            { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}}

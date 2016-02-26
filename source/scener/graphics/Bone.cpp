@@ -27,7 +27,7 @@ bone* bone::parent() const noexcept
     return _parent.get();
 }
 
-animation* bone::animation() const noexcept
+graphics::animation* bone::animation() const noexcept
 {
     return _animation.get();
 }

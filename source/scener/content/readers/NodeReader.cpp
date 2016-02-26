@@ -23,7 +23,7 @@ using scener::math::quaternion;
 using scener::math::vector3;
 using scener::math::vector4;
 
-auto ContentTypeReader<gltf::node>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<gltf::node>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto node = std::make_shared<gltf::node>();
 

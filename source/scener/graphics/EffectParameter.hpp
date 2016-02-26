@@ -12,7 +12,7 @@
 #include "scener/graphics/EffectParameterType.hpp"
 #include "scener/math/matrix.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace graphics { namespace opengl { class ConstantBuffer; } } }
 
@@ -81,7 +81,7 @@ private:
     std::string             _value           { };
     std::string             _uniform_name    { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}

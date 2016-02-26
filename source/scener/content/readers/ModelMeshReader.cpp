@@ -48,7 +48,7 @@ using scener::graphics::vertex_element_usage;
 
 namespace scener { namespace content { namespace readers {
 
-auto ContentTypeReader<model_mesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto        mesh       = std::make_shared<model_mesh>();
     const auto& primitives = source["primitives"].array_items();
@@ -64,7 +64,7 @@ auto ContentTypeReader<model_mesh>::read(content_reader* input, const std::strin
     return mesh;
 }
 
-std::shared_ptr<model_mesh_part> ContentTypeReader<model_mesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
+std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
 {
     auto meshPart      = std::make_shared<model_mesh_part>();
     auto gdService     = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
@@ -161,7 +161,7 @@ std::shared_ptr<model_mesh_part> ContentTypeReader<model_mesh>::read_mesh_part(c
     return meshPart;
 }
 
-std::shared_ptr<effect_technique> ContentTypeReader<model_mesh>::read_material(content_reader*     input
+std::shared_ptr<effect_technique> content_type_reader<model_mesh>::read_material(content_reader*     input
                                                                            , const std::string& key) const noexcept
 {
     const auto& material  = input->_root["materials"][key];
@@ -247,7 +247,7 @@ std::shared_ptr<effect_technique> ContentTypeReader<model_mesh>::read_material(c
     return technique;
 }
 
-vertex_element_format ContentTypeReader<model_mesh>::get_vertex_element_format(attribute_type type) const noexcept
+vertex_element_format content_type_reader<model_mesh>::get_vertex_element_format(attribute_type type) const noexcept
 {
     switch (type)
     {
@@ -266,7 +266,7 @@ vertex_element_format ContentTypeReader<model_mesh>::get_vertex_element_format(a
     }
 }
 
-vertex_element_usage ContentTypeReader<model_mesh>::get_vertex_element_usage(const std::string& semantic) const noexcept
+vertex_element_usage content_type_reader<model_mesh>::get_vertex_element_usage(const std::string& semantic) const noexcept
 {
     vertex_element_usage usage = vertex_element_usage::color;
 

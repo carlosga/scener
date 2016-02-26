@@ -15,7 +15,7 @@ using scener::content::gltf::attribute_type;
 using scener::content::gltf::buffer_view;
 using scener::graphics::component_type;
 
-auto ContentTypeReader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto        accessor = std::make_shared<gltf::accessor>();
     const auto& attType  = source["type"].string_value();

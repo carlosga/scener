@@ -19,7 +19,7 @@ using scener::graphics::sampler_state;
 using scener::graphics::texture_address_mode;
 using scener::graphics::texture_filter;
 
-auto ContentTypeReader<sampler_state>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<sampler_state>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
     auto sampler   = std::make_shared<sampler_state>(gdService->device());

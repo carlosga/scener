@@ -15,11 +15,11 @@ namespace scener { namespace content { namespace readers {
 
 /// Interface for content type reader implementations.
 template <typename T>
-class ContentTypeReader
+class content_type_reader
 {
 public:
-    /// Initializes a new instance of the ContentTypeReader class.
-    ContentTypeReader() = default;
+    /// Initializes a new instance of the content_type_reader class.
+    content_type_reader() = default;
 
 public:
     /// Reads a object from the current stream.

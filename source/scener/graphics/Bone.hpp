@@ -11,7 +11,7 @@
 
 #include "scener/math/matrix.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
 namespace scener { namespace graphics {
 
@@ -46,7 +46,7 @@ public:
 
     /// Gets the bone animation.
     /// \returns the bone animation.
-    animation* animation() const noexcept;
+    graphics::animation* animation() const noexcept;
 
     /// Gets the matrix used to transform this bone relative to its parent bone.
     /// \returns the matrix used to transform this bone relative only to its parent bone.
@@ -64,7 +64,7 @@ private:
     scener::math::matrix4                _transform { scener::math::matrix4::identity() };
     std::string                          _name      { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 }}

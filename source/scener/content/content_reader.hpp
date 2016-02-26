@@ -12,7 +12,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/readers/ContentTypeReader.hpp"
+#include "scener/content/readers/content_type_reader.hpp"
 #include "scener/content/gltf/node.hpp"
 #include "scener/graphics/Bone.hpp"
 #include "scener/io/binary_reader.hpp"
@@ -125,7 +125,7 @@ private:
     std::map<std::string, std::shared_ptr<scener::graphics::opengl::Shader>>   _shaders     { };
     std::map<std::string, std::shared_ptr<scener::graphics::texture2d>>        _textures    { };
 
-    template <typename T> friend class scener::content::readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::content_type_reader;
 };
 
 //
@@ -345,7 +345,7 @@ inline std::shared_ptr<T> content_reader::read_object(const std::string& key, co
 template<typename T>
 inline std::shared_ptr<T> content_reader::read_object_instance(const std::string& key, const json11::Json& source) noexcept
 {
-    readers::ContentTypeReader<T> reader;
+    readers::content_type_reader<T> reader;
 
     return reader.read(this, key, source);
 }

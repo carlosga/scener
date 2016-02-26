@@ -4,17 +4,17 @@
 #ifndef SCENER_CONTENT_READERS_ACCESSORREADER_HPP
 #define SCENER_CONTENT_READERS_ACCESSORREADER_HPP
 
-#include "scener/content/readers/ContentTypeReader.hpp"
+#include "scener/content/readers/content_type_reader.hpp"
 
 namespace scener { namespace content { namespace gltf { class accessor; } } }
 
 namespace scener { namespace content { namespace readers {
 
 template <>
-class ContentTypeReader<gltf::accessor>
+class content_type_reader<gltf::accessor>
 {
 public:
-    ContentTypeReader() = default;
+    content_type_reader() = default;
 
 public:
     auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;

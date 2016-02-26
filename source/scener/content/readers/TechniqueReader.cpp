@@ -32,7 +32,7 @@ using scener::graphics::igraphics_device_service;
 using scener::graphics::service_container;
 using scener::graphics::opengl::Program;
 
-auto ContentTypeReader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
     auto effect    = std::make_shared<effect_technique>(gdService->device());
@@ -47,7 +47,7 @@ auto ContentTypeReader<effect_technique>::read(content_reader* input, const std:
     return effect;
 }
 
-void ContentTypeReader<effect_technique>::read_parameters(content_reader*   input
+void content_type_reader<effect_technique>::read_parameters(content_reader*   input
                                                         , const Json&       node
                                                         , effect_technique* effect) const noexcept
 {
@@ -71,7 +71,7 @@ void ContentTypeReader<effect_technique>::read_parameters(content_reader*   inpu
     }
 }
 
-void ContentTypeReader<effect_technique>::set_parameter_values(content_reader*   input
+void content_type_reader<effect_technique>::set_parameter_values(content_reader*   input
                                                             , const Json&      node
                                                             , effect_technique* effect) const noexcept
 {
@@ -152,7 +152,7 @@ void ContentTypeReader<effect_technique>::set_parameter_values(content_reader*  
     }
 }
 
-void ContentTypeReader<effect_technique>::add_default_pass(content_reader*   input
+void content_type_reader<effect_technique>::add_default_pass(content_reader*   input
                                                         , const Json&      node
                                                         , effect_technique* effect) const noexcept
 {
@@ -173,7 +173,7 @@ void ContentTypeReader<effect_technique>::add_default_pass(content_reader*   inp
     effect->_pass = pass;
 }
 
-void ContentTypeReader<effect_technique>::read_pass_program(content_reader*     input
+void content_type_reader<effect_technique>::read_pass_program(content_reader*     input
                                                          , const std::string& programName
                                                          , effect_pass*        effectPass) const noexcept
 {
@@ -193,7 +193,7 @@ void ContentTypeReader<effect_technique>::read_pass_program(content_reader*     
     }
 }
 
-void ContentTypeReader<effect_technique>::cache_parameters(effect_technique* technique) const noexcept
+void content_type_reader<effect_technique>::cache_parameters(effect_technique* technique) const noexcept
 {
     for (const auto& parameter : technique->_parameters)
     {
@@ -257,7 +257,7 @@ void ContentTypeReader<effect_technique>::cache_parameters(effect_technique* tec
     }
 }
 
-void ContentTypeReader<effect_technique>::describe_parameter(effect_parameter* parameter, std::int32_t type) const noexcept
+void content_type_reader<effect_technique>::describe_parameter(effect_parameter* parameter, std::int32_t type) const noexcept
 {
     switch (type)
     {
