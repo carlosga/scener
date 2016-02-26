@@ -6,17 +6,17 @@
 #include "SceneR/Graphics/Animation.hpp"
 #include "SceneR/Graphics/Bone.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::TimeSpan;
-using SceneR::Math::Matrix;
+using scener::TimeSpan;
+using scener::math::matrix4;
 
-const Matrix& Skeleton::bind_shape_matrix() const noexcept
+const matrix4& Skeleton::bind_shape_matrix() const noexcept
 {
     return _bind_shape_matrix;
 }
 
-const std::vector<Matrix>& Skeleton::inverse_bind_matrices() const noexcept
+const std::vector<matrix4>& Skeleton::inverse_bind_matrices() const noexcept
 {
     return _inverse_bind_matrices;
 }
@@ -31,17 +31,17 @@ const std::string& Skeleton::name() const noexcept
     return _name;
 }
 
-const std::vector<Matrix>& Skeleton::bone_transforms() const noexcept
+const std::vector<matrix4>& Skeleton::bone_transforms() const noexcept
 {
     return _bone_transforms;
 }
 
-const std::vector<Matrix>& Skeleton::world_transforms() const noexcept
+const std::vector<matrix4>& Skeleton::world_transforms() const noexcept
 {
     return _world_transforms;
 }
 
-const std::vector<Matrix>& Skeleton::skin_transforms() const noexcept
+const std::vector<matrix4>& Skeleton::skin_transforms() const noexcept
 {
     return _skin_transforms;
 }

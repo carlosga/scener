@@ -8,10 +8,10 @@
 #include "SceneR/Math/BoundingFrustrum.hpp"
 #include "SceneR/Math/BoundingBox.hpp"
 #include "SceneR/Math/ContainmentType.hpp"
-#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "scener/math/plane_intersection_type.hpp"
 #include "SceneR/Math/Ray.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 BoundingSphere BoundingSphere::create_from_bounding_box(const BoundingBox& box) noexcept
 {
@@ -23,7 +23,7 @@ BoundingSphere BoundingSphere::create_from_frustum(const BoundingFrustum& frustu
     throw std::runtime_error("Not implemented");
 }
 
-BoundingSphere BoundingSphere::create_from_points(const std::vector<Vector3>& points) noexcept
+BoundingSphere BoundingSphere::create_from_points(const std::vector<vector3>& points) noexcept
 {
     throw std::runtime_error("Not implemented");
 }
@@ -33,13 +33,13 @@ BoundingSphere BoundingSphere::create_merged(const BoundingSphere& original, con
     throw std::runtime_error("Not implemented");
 }
 
-BoundingSphere::BoundingSphere(const Vector3& center, float radius) noexcept
+BoundingSphere::BoundingSphere(const vector3& center, float radius) noexcept
     : _center { center }
     , _radius { radius }
 {
 }
 
-const Vector3& BoundingSphere::center() const noexcept
+const vector3& BoundingSphere::center() const noexcept
 {
     return _center;
 }
@@ -64,7 +64,7 @@ ContainmentType BoundingSphere::contains(const BoundingSphere& sphere) const noe
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingSphere::contains(const Vector3& point) const noexcept
+ContainmentType BoundingSphere::contains(const vector3& point) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
@@ -84,7 +84,7 @@ bool BoundingSphere::intersects(const BoundingSphere& sphere) const noexcept
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType BoundingSphere::intersects(const Plane& plane) const noexcept
+plane_intersection_type BoundingSphere::intersects(const plane_t& plane) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
@@ -94,14 +94,14 @@ bool BoundingSphere::intersects(const Ray& ray) const noexcept
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
     auto rad2 = _radius * _radius;
     auto l    = _center - ray.position;
-    auto tPX  = Vector3::dot(l, ray.direction);
+    auto tPX  = vector::dot(l, ray.direction);
 
     if (tPX < 0.0)
     {
         return false;
     }
 
-    auto dsq = Vector3::dot(l, l) - tPX * tPX;
+    auto dsq = vector::dot(l, l) - tPX * tPX;
 
     if (dsq > rad2)
     {
@@ -119,14 +119,14 @@ bool BoundingSphere::intersects(const Ray& ray) const noexcept
     return (t < 0.0f);
 }
 
-BoundingSphere BoundingSphere::transform(const Matrix& matrix) const noexcept
+BoundingSphere BoundingSphere::transform(const matrix4& matrix) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 bool BoundingSphere::operator==(const BoundingSphere& sphere) const noexcept
 {
-    return (_center == sphere._center && Math::equal(_radius, sphere._radius));
+    return (_center == sphere._center && math::equal(_radius, sphere._radius));
 }
 
 bool BoundingSphere::operator!=(const BoundingSphere& sphere) const noexcept

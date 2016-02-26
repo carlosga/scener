@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Renderer services container.
 ///

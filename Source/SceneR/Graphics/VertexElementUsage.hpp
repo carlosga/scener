@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines usage for vertex elements.
 enum class VertexElementUsage : std::uint32_t

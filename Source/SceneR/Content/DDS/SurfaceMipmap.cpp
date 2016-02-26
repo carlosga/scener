@@ -3,7 +3,7 @@
 
 #include "SceneR/Content/DDS/SurfaceMipmap.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 SurfaceMipmap::SurfaceMipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept
     : _index  { index  }

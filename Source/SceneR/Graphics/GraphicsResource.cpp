@@ -3,7 +3,7 @@
 
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 GraphicsResource::GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : name             { }

@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/glad.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 /// Defines opengl buffer object targets
 enum class BufferTarget : std::uint32_t

@@ -9,9 +9,9 @@
 #include "SceneR/Math/BoundingSphere.hpp"
 #include "SceneR/Math/Ray.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
-BoundingBox::BoundingBox(const Vector3& minPoint, const Vector3& maxPoint) noexcept
+BoundingBox::BoundingBox(const vector3& minPoint, const vector3& maxPoint) noexcept
     : min { minPoint }
     , max { maxPoint }
 {
@@ -32,12 +32,12 @@ ContainmentType BoundingBox::contains(const BoundingSphere& sphere) const noexce
     throw std::runtime_error("Not implemented");
 }
 
-ContainmentType BoundingBox::contains(const Vector3& point) const noexcept
+ContainmentType BoundingBox::contains(const vector3& point) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
-std::vector<Vector3> BoundingBox::get_corners() const noexcept
+std::vector<vector3> BoundingBox::get_corners() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
@@ -57,7 +57,7 @@ bool BoundingBox::intersects(const BoundingSphere& sphere) const noexcept
     throw std::runtime_error("Not implemented");
 }
 
-PlaneIntersectionType BoundingBox::intersects(const Plane& plane) const noexcept
+plane_intersection_type BoundingBox::intersects(const plane_t& plane) const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
@@ -68,8 +68,8 @@ float BoundingBox::intersects(const Ray& ray) const noexcept
     auto tmin = (min - ray.position) / ray.direction;
     auto tmax = (max - ray.position) / ray.direction;
 
-    auto tnear = Vector3::min(tmin, tmax);
-    auto tfar  = Vector3::min(tmin, tmax);
+    auto tnear = vector::min(tmin, tmax);
+    auto tfar  = vector::min(tmin, tmax);
 
     auto enter = std::max(std::max(tnear.x, 0.0f), std::max(tnear.y, tnear.z));
     auto exit  = std::min(tfar.x, std::min(tfar.y, tfar.z));

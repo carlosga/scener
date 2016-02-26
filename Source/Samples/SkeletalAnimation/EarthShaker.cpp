@@ -8,30 +8,30 @@
 #include <SceneR/Graphics/Model.hpp>
 #include <SceneR/Graphics/ModelMesh.hpp>
 #include <SceneR/Graphics/StepTime.hpp>
-#include <SceneR/Math/Math.hpp>
-#include <SceneR/Math/Vector3.hpp>
+#include <scener/math/basic_math.hpp>
+#include <scener/math/vector.hpp>
 
 #include "SkeletalAnimation/SampleRenderer.hpp"
 #include "SkeletalAnimation/Camera.hpp"
 
 namespace SkeletalAnimation {
 
-using SceneR::Graphics::Model;
-using SceneR::Graphics::EffectTechnique;
-using SceneR::Graphics::StepTime;
-using SceneR::Math::Matrix;
+using scener::graphics::Model;
+using scener::graphics::EffectTechnique;
+using scener::graphics::StepTime;
+using scener::math::matrix4;
 
 EarthShaker::EarthShaker(SampleRenderer* renderer) noexcept
     : DrawableComponent { renderer }
     , _model            { nullptr }
-    , _world            { Matrix::identity }
+    , _world            { matrix4::identity() }
 {
 }
 
 void EarthShaker::initialize() noexcept
 {
-    _world = Matrix::create_rotation_x({ -SceneR::Math::pi_over_2 })
-           * Matrix::create_translation({ 0.0f, -70.0f, 0.0f });
+    _world = scener::math::matrix::create_rotation_x({ -scener::math::pi_over_2<> })
+           * scener::math::matrix::create_translation({ 0.0f, -70.0f, 0.0f });
 
     DrawableComponent::initialize();
 }
@@ -51,7 +51,7 @@ void EarthShaker::load_content() noexcept
 
 void EarthShaker::unload_content() noexcept
 {
-    _world = Matrix::identity;
+    _world = matrix4::identity();
     _model = nullptr;
 }
 

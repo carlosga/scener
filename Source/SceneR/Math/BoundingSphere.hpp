@@ -6,17 +6,17 @@
 
 #include <vector>
 
-#include "SceneR/Math/Vector3.hpp"
+#include "scener/math/basic_matrix.hpp"
+#include "scener/math/basic_plane.hpp"
+#include "scener/math/basic_vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
-enum class PlaneIntersectionType : std::uint32_t;
+enum class plane_intersection_type : std::uint32_t;
 enum class ContainmentType       : std::uint32_t;
 
 struct BoundingBox;
 struct BoundingFrustum;
-struct Matrix;
-struct Plane;
 struct Ray;
 
 /// Defines a sphere.
@@ -30,7 +30,7 @@ public:
     static BoundingSphere create_from_frustum(const BoundingFrustum& frustum) noexcept;
 
     /// Creates a BoundingSphere that can contain a specified list of points.
-    static BoundingSphere create_from_points(const std::vector<Vector3>& points) noexcept;
+    static BoundingSphere create_from_points(const std::vector<vector3>& points) noexcept;
 
     /// Creates a BoundingSphere that contains the two specified BoundingSphere instances.
     static BoundingSphere create_merged(const BoundingSphere& original, const BoundingSphere& additional) noexcept;
@@ -39,12 +39,12 @@ public:
     /// Initializes a new instance of the BoundingSphere class with the given center an radius.
     /// \param center center point of the sphere.
     /// \param radius radius of the sphere.
-    BoundingSphere(const Vector3& center, float radius) noexcept;
+    BoundingSphere(const vector3& center, float radius) noexcept;
 
 public:
     /// Gets the center of the sphere.
     /// \returns the center of the sphere.
-    const Vector3& center() const noexcept;
+    const vector3& center() const noexcept;
 
     /// Gets the radius of the sphere.
     /// \returns the radius of the sphere.
@@ -61,7 +61,7 @@ public:
     ContainmentType contains(const BoundingSphere& sphere) const noexcept;
 
     /// Checks whether the current BoundingSphere contains the specified point.
-    ContainmentType contains(const Vector3& point) const noexcept;
+    ContainmentType contains(const vector3& point) const noexcept;
 
     /// Checks whether the current BoundingSphere intersects with a specified BoundingBox.
     bool intersects(const BoundingBox& boundingBox) const noexcept;
@@ -73,7 +73,7 @@ public:
     bool intersects(const BoundingSphere& sphere) const noexcept;
 
     /// Checks whether the current BoundingSphere intersects with a specified Plane.
-    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
+    plane_intersection_type intersects(const plane_t& plane) const noexcept;
 
     /// Checks whether the current BoundingSphere intersects with a specified Ray.
     bool intersects(const Ray& ray) const noexcept;
@@ -81,13 +81,13 @@ public:
     // Checks whether the current BoundingSphere intersects a Ray.
     // bool Intersects(const Ray& ray, Nullable<Single>);
 
-    /// Translates and scales the BoundingSphere using a given Matrix.
+    /// Translates and scales the BoundingSphere using a given matrix4.
     /// \param matrix transformation matrix that might include translation, rotation, or uniform scaling.
     ///               Note that BoundingSphere.Transform will not return correct results if there are non-uniform scaling,
     ///               shears, or other unusual transforms in this transformation matrix.
     ///               This is because there is no way to shear or non-uniformly scale a sphere.
     ///               Such an operation would cause the sphere to lose its shape as a sphere.
-    BoundingSphere transform(const Matrix& matrix) const noexcept;
+    BoundingSphere transform(const matrix4& matrix) const noexcept;
 
 public:
     /// Equality operator for comparing BoundingSphere instances.
@@ -97,7 +97,7 @@ public:
     bool operator!=(const BoundingSphere& sphere) const noexcept;
 
 public:
-    Vector3 _center;
+    vector3 _center;
     float   _radius;
 };
 

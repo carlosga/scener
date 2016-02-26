@@ -8,9 +8,9 @@
 #include "EffectTechnique.hpp"
 #include "VertexDeclaration.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Color;
+using scener::math::Color;
 
 GraphicsDevice::GraphicsDevice() noexcept
     : effect                   { nullptr }

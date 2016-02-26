@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 /// Declares the attribute types for GLTF accessors.
 enum class AttributeType : std::uint32_t
@@ -15,9 +15,9 @@ enum class AttributeType : std::uint32_t
   , vector2 = 1 ///< Two dimensional vector.
   , vector3 = 2 ///< Three dimensional vector.
   , vector4 = 3 ///< Four dimensional vector.
-  , matrix2 = 4 ///< Matrix 2x2
-  , matrix3 = 5 ///< Matrix 3x3
-  , matrix4 = 7 ///< Matrix 4x4
+  , matrix2 = 4 ///< matrix4 2x2
+  , matrix3 = 5 ///< matrix4 3x3
+  , matrix4 = 7 ///< matrix4 4x4
 };
 
 }}}

@@ -10,7 +10,7 @@
 #include "SceneR/Graphics/VertexDeclaration.hpp"
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 /// Represents an opengl vertex array object.
 class VertexArrayObject final

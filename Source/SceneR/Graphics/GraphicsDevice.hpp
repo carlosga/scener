@@ -15,7 +15,7 @@
 #include "SceneR/Graphics/Viewport.hpp"
 #include "SceneR/Math/Color.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class EffectTechnique;
 class IndexBuffer;
@@ -59,7 +59,7 @@ public:
 
 public:
     /// Clears the resouce buffer
-    void clear(const SceneR::Math::Color& color) const noexcept;
+    void clear(const scener::math::Color& color) const noexcept;
 
     /// Renders the specified geometric primitive, based on indexing into an array of vertices.
     /// \param primitiveType The primitive type.

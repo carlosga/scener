@@ -11,9 +11,9 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 /// GLTF. Buffers contain geometry, animation, or skins.
 class Buffer final
@@ -52,7 +52,7 @@ private:
     std::string               _name        { };
     std::string               _uri         { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}}

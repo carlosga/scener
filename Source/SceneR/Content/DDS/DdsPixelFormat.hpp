@@ -9,7 +9,7 @@
 #include "SceneR/Content/DDS/DdsPixelFormatFlags.hpp"
 #include "SceneR/Content/DDS/DdsFourCC.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// Surface pixel format.
 struct DDS_PIXELFORMAT

@@ -7,10 +7,9 @@
 #include <cstddef>
 #include <cstdint>
 
-namespace SceneR { namespace Math {
+#include "scener/math/vector.hpp"
 
-struct Vector3;
-struct Vector4;
+namespace scener { namespace math {
 
 /// Describes a color in terms of red, green, blue and alpha components.
 struct Color
@@ -25,11 +24,11 @@ public:
 
     /// Initializes a new instance of the Color class.
     /// \param vector A three-component color.
-    Color(const Vector3& vector) noexcept;
+    Color(const vector3& vector) noexcept;
 
     /// Initializes a new instance of the Color class.
     /// \param vector A four-component color.
-    Color(const Vector4& vector) noexcept;
+    Color(const vector4& vector) noexcept;
 
     /// Initializes a new instance of the Color class with the given red, green and blue components.
     /// \param r The red component value of the color.

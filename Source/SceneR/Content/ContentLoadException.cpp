@@ -3,7 +3,7 @@
 
 #include "SceneR/Content/ContentLoadException.hpp"
 
-namespace SceneR { namespace Content {
+namespace scener { namespace content {
 
 ContentLoadException::ContentLoadException(const std::string m)
     : msg(m)

@@ -6,7 +6,7 @@
 #include "SceneR/Input/Buttons.hpp"
 #include "SceneR/Input/ButtonState.hpp"
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
 MouseState::MouseState() noexcept
 {

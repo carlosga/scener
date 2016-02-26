@@ -12,7 +12,7 @@
 
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 DisplaySurface::DisplaySurface(DisplayDevice* display)
     : _display(display)

@@ -8,9 +8,9 @@
 #include "SceneR/Input/MouseState.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
-using SceneR::Graphics::OpenGL::DisplaySurface;
+using scener::graphics::opengl::DisplaySurface;
 
 MouseState Mouse::get_state() noexcept
 {

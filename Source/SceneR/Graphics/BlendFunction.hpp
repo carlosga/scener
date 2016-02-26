@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines how to combine a source color with the destination color already on the render target for color blending.
 enum class BlendFunction : std::uint32_t

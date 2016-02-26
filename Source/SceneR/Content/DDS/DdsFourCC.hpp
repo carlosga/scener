@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// DirectDrawSurface resource formats.
 /// A FourCC of DX10 indicates the prescense of the DDS_HEADER_DXT10 extended header,

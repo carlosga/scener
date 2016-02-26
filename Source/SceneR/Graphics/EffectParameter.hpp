@@ -10,14 +10,13 @@
 
 #include "SceneR/Graphics/EffectParameterClass.hpp"
 #include "SceneR/Graphics/EffectParameterType.hpp"
+#include "scener/math/matrix.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics { namespace OpenGL { class ConstantBuffer; } } }
+namespace scener { namespace graphics { namespace opengl { class ConstantBuffer; } } }
 
-namespace SceneR { namespace Math { struct Matrix; } }
-
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Represents an EffectTechnique parameter.
 class EffectParameter final
@@ -53,8 +52,8 @@ public:
 
     /// Gets the value of the EffectParameter as a Matrix transpose.
     template <typename T
-            , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
-                                       || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
+            , typename = std::enable_if_t<std::is_assignable<T, scener::math::matrix4>::value
+                                       || std::is_assignable<T, std::vector<scener::math::matrix4>>::value>>
     T get_value_transpose() const noexcept;
 
 public:
@@ -65,8 +64,8 @@ public:
 
     /// Sets the value of the EffectParameter to the transpose of a Matrix.
     template <typename T
-            , typename = std::enable_if_t<std::is_assignable<T, SceneR::Math::Matrix>::value
-                                       || std::is_assignable<T, std::vector<SceneR::Math::Matrix>>::value>>
+            , typename = std::enable_if_t<std::is_assignable<T, scener::math::matrix4>::value
+                                       || std::is_assignable<T, std::vector<scener::math::matrix4>>::value>>
     void set_value_transpose(const T& value) const noexcept;
 
 private:
@@ -76,13 +75,13 @@ private:
     std::size_t             _offset          { 0 };
     EffectParameterClass    _parameter_class { EffectParameterClass::scalar };
     EffectParameterType     _parameter_type  { EffectParameterType::single };
-    OpenGL::ConstantBuffer* _constant_buffer { nullptr };
+    opengl::ConstantBuffer* _constant_buffer { nullptr };
     std::string             _name            { };
     std::string             _semantic        { };
     std::string             _value           { };
     std::string             _uniform_name    { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

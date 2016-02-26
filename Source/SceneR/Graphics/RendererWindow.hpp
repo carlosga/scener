@@ -11,14 +11,14 @@
 #include <gsl.h>
 #include <nod/nod.hpp>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 class DisplayDevice;
 class DisplaySurface;
 
 }}}
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class Renderer;
 
@@ -57,8 +57,8 @@ public:
     nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
-    OpenGL::DisplayDevice* display_device() const noexcept;
-    OpenGL::DisplaySurface* display_surface() const noexcept;
+    opengl::DisplayDevice* display_device() const noexcept;
+    opengl::DisplaySurface* display_surface() const noexcept;
     void open() noexcept;
     void show() const noexcept;
     void close() noexcept;
@@ -72,8 +72,8 @@ private:
 
 private:
     Renderer*                               _renderer          { nullptr };
-    std::unique_ptr<OpenGL::DisplayDevice>  _displayDevice     { nullptr };
-    std::unique_ptr<OpenGL::DisplaySurface> _displaySurface    { nullptr };
+    std::unique_ptr<opengl::DisplayDevice>  _displayDevice     { nullptr };
+    std::unique_ptr<opengl::DisplaySurface> _displaySurface    { nullptr };
     std::string                             _title             { };
     nod::scoped_connection                  _close_connection  { };
     nod::scoped_connection                  _resize_connection { };

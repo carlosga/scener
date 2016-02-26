@@ -9,12 +9,12 @@
 #include "SceneR/Content/GLTF/Accessor.hpp"
 #include "SceneR/Graphics/Skeleton.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::GLTF::Accessor;
-using SceneR::Graphics::Skeleton;
-using SceneR::Math::Matrix;
+using scener::content::gltf::Accessor;
+using scener::graphics::Skeleton;
+using scener::math::matrix4;
 
 auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -25,14 +25,14 @@ auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& 
     skeleton->_name = key;
 
     // Bind shape matrix
-    skeleton->_bind_shape_matrix = input->convert<Matrix>(source["bindShapeMatrix"].array_items());
+    skeleton->_bind_shape_matrix = input->convert<matrix4>(source["bindShapeMatrix"].array_items());
 
     // Inverse bind matrices
     skeleton->_inverse_bind_matrices.reserve(accessor->attribute_count());
 
     for (std::size_t i = 0; i < accessor->attribute_count(); ++i)
     {
-        skeleton->_inverse_bind_matrices.push_back(accessor->get_element<Matrix>(i));
+        skeleton->_inverse_bind_matrices.push_back(accessor->get_element<matrix4>(i));
     }
 
     // Joints
@@ -55,8 +55,8 @@ auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& 
         skeleton->_bone_transforms.push_back(node->joint->transform());
     }
 
-    skeleton->_world_transforms = std::vector<Matrix>(skeleton->_bone_transforms.size());
-    skeleton->_skin_transforms  = std::vector<Matrix>(skeleton->_bone_transforms.size());
+    skeleton->_world_transforms = std::vector<matrix4>(skeleton->_bone_transforms.size());
+    skeleton->_skin_transforms  = std::vector<matrix4>(skeleton->_bone_transforms.size());
 
     return skeleton;
 }

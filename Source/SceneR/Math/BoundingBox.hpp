@@ -7,15 +7,14 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "scener/math/plane_intersection_type.hpp"
 #include "SceneR/Math/ContainmentType.hpp"
-#include "SceneR/Math/Vector3.hpp"
+#include "scener/math/vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 struct BoundingFrustrum;
 struct BoundingSphere;
-struct Plane;
 struct Ray;
 
 /// Defines an axis-aligned box-shaped 3D volume.
@@ -34,7 +33,7 @@ public:
     /// Initializes a new instance of the BoundingBox class.
     /// \param minPoint the minimum point the BoundingBox includes.
     /// \param maxPoint the maximum point the BoundingBox includes.
-    BoundingBox(const Vector3& minPoint, const Vector3& maxPoint) noexcept;
+    BoundingBox(const vector3& minPoint, const vector3& maxPoint) noexcept;
 
 public:
     /// Checks whether the current BoundingBox contains another BoundingBox.
@@ -55,11 +54,11 @@ public:
     /// Checks whether the current BoundingBox contains a point.
     /// \param point the point to test for overlap.
     /// \returns the extent of overlap
-    ContainmentType contains(const Vector3& point) const noexcept;
+    ContainmentType contains(const vector3& point) const noexcept;
 
     /// Gets the list of points that make up the corners of the BoundingBox.
     /// \returns the list of points that make up the corners of the BoundingBox.
-    std::vector<Vector3> get_corners() const noexcept;
+    std::vector<vector3> get_corners() const noexcept;
 
     /// Checks whether the current BoundingBox intersects with another BoundingBox.
     /// \param box the BoundingBox to test for intersection with.
@@ -79,7 +78,7 @@ public:
     /// Checks whether the current BoundingBox intersects a specified Plane.
     /// \param plane the Plane to test for intersection with.
     /// \returns the relationship between the Plane and the BoundingBox.
-    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
+    plane_intersection_type intersects(const plane_t& plane) const noexcept;
 
     /// Checks whether the current BoundingBox intersects a specified Ray.
     /// \param ray the Ray to test for intersection with.
@@ -94,8 +93,8 @@ public:
     bool operator!=(const BoundingBox& box) const noexcept;
 
 public:
-    Vector3 min;
-    Vector3 max;
+    vector3 min;
+    vector3 max;
 };
 
 }}

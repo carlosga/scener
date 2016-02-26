@@ -3,7 +3,7 @@
 
 #include "SceneR/Graphics/PresentationParameters.hpp"
 
-namespace SceneR {  namespace Graphics {
+namespace scener {  namespace graphics {
 
 PresentationParameters::PresentationParameters() noexcept
     : full_screen        { false }

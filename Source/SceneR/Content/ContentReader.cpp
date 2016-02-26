@@ -10,16 +10,16 @@
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/Path.hpp"
 
-namespace SceneR { namespace Content {
+namespace scener { namespace content {
 
 using json11::Json;
-using SceneR::Content::GLTF::Node;
-using SceneR::Graphics::Animation;
-using SceneR::Graphics::Model;
-using SceneR::Graphics::ModelMesh;
-using SceneR::IO::File;
-using SceneR::IO::Path;
-using SceneR::IO::Stream;
+using scener::content::gltf::Node;
+using scener::graphics::Animation;
+using scener::graphics::Model;
+using scener::graphics::ModelMesh;
+using scener::io::File;
+using scener::io::Path;
+using scener::io::Stream;
 
 ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream) noexcept
     : _asset_name      { assetName }
@@ -109,7 +109,7 @@ std::vector<std::uint8_t> ContentReader::read_external_reference(const std::stri
     return File::read_all_bytes(assetPath);
 }
 
-std::shared_ptr<GLTF::Node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
+std::shared_ptr<gltf::Node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
 {
     for (const auto& node : _nodes)
     {

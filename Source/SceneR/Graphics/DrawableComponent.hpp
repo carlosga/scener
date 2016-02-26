@@ -9,7 +9,7 @@
 #include "SceneR/Graphics/IDrawable.hpp"
 #include "SceneR/Graphics/Component.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class  GraphicsDevice;
 class  Renderer;
@@ -28,7 +28,7 @@ public:
 
 public:
     /// The GraphicsDevice the DrawableComponent is associated with.
-    SceneR::Graphics::GraphicsDevice* graphics_device() noexcept;
+    scener::graphics::GraphicsDevice* graphics_device() noexcept;
 
     /// Called when the component should be drawn.
     /// \param renderTime time passed since the last call to Draw.

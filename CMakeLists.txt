@@ -20,6 +20,9 @@ set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 # Nod/Signals & Slots (https://github.com/fr00b0/nod)
 set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 
+# scener math
+set (SCENER_MATH_INCLUDE_DIRS /home/carlos/development/projects/cpp/graphics/scener-math/source)
+
 # compiler and linker configurations
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -stdlib=libc++ -m64")
 #set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64")

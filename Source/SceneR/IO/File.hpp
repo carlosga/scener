@@ -13,7 +13,7 @@
 #include "SceneR/IO/FileStream.hpp"
 #include "SceneR/Text/Encoding.hpp"
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 /// Provides static methods for file access handling.
 class File final

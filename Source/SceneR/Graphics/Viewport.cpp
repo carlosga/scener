@@ -5,7 +5,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 Viewport::Viewport() noexcept
     : Viewport { 0, 0, 0, 0 }

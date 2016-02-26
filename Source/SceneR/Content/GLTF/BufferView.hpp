@@ -12,9 +12,9 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 class Buffer;
 
@@ -53,7 +53,7 @@ private:
     std::size_t             _byte_length { 0 };
     std::string             _name        { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}}

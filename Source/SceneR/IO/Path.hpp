@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <string>
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 /// Utility class for path operations.
 class Path

@@ -23,31 +23,31 @@
 #include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
 
 using json11::Json;
-using SceneR::Content::GLTF::Accessor;
-using SceneR::Content::GLTF::AttributeType;
-using SceneR::Math::Matrix;
-using SceneR::Math::Vector2;
-using SceneR::Math::Vector3;
-using SceneR::Math::Vector4;
-using SceneR::Graphics::ComponentType;
-using SceneR::Graphics::EffectParameter;
-using SceneR::Graphics::EffectParameterClass;
-using SceneR::Graphics::EffectParameterType;
-using SceneR::Graphics::EffectTechnique;
-using SceneR::Graphics::IGraphicsDeviceService;
-using SceneR::Graphics::IndexBuffer;
-using SceneR::Graphics::Model;
-using SceneR::Graphics::ModelMesh;
-using SceneR::Graphics::ModelMeshPart;
-using SceneR::Graphics::PrimitiveType;
-using SceneR::Graphics::Texture2D;
-using SceneR::Graphics::VertexBuffer;
-using SceneR::Graphics::VertexDeclaration;
-using SceneR::Graphics::VertexElement;
-using SceneR::Graphics::VertexElementFormat;
-using SceneR::Graphics::VertexElementUsage;
+using scener::content::gltf::Accessor;
+using scener::content::gltf::AttributeType;
+using scener::math::matrix4;
+using scener::math::vector2;
+using scener::math::vector3;
+using scener::math::vector4;
+using scener::graphics::ComponentType;
+using scener::graphics::EffectParameter;
+using scener::graphics::EffectParameterClass;
+using scener::graphics::EffectParameterType;
+using scener::graphics::EffectTechnique;
+using scener::graphics::IGraphicsDeviceService;
+using scener::graphics::IndexBuffer;
+using scener::graphics::Model;
+using scener::graphics::ModelMesh;
+using scener::graphics::ModelMeshPart;
+using scener::graphics::PrimitiveType;
+using scener::graphics::Texture2D;
+using scener::graphics::VertexBuffer;
+using scener::graphics::VertexDeclaration;
+using scener::graphics::VertexElement;
+using scener::graphics::VertexElementFormat;
+using scener::graphics::VertexElementUsage;
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -225,19 +225,19 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(Con
             switch (parameter->column_count())
             {
             case 2:
-                parameter->set_value<Vector2>(input->convert<Vector2>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector2>(paramValue.array_items()));
                 break;
             case 3:
-                parameter->set_value<Vector3>(input->convert<Vector3>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector3>(paramValue.array_items()));
                 break;
             case 4:
-                parameter->set_value<Vector4>(input->convert<Vector4>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector4>(paramValue.array_items()));
                 break;
             }
         }
         else if (parameter->parameter_class() == EffectParameterClass::matrix)
         {
-            parameter->set_value<Matrix>(input->convert<Matrix>(paramValue.array_items()));
+            parameter->set_value(input->convert<matrix4>(paramValue.array_items()));
         }
         else if (parameter->parameter_class() == EffectParameterClass::object)
         {

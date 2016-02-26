@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Represents the portion of the render target to receive draw calls.
 struct Viewport final

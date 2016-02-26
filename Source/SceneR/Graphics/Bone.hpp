@@ -9,11 +9,11 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Math/Matrix.hpp"
+#include "scener/math/matrix.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class Animation;
 
@@ -50,21 +50,21 @@ public:
 
     /// Gets the matrix used to transform this bone relative to its parent bone.
     /// \returns the matrix used to transform this bone relative only to its parent bone.
-    const SceneR::Math::Matrix& transform() const noexcept;
+    const scener::math::matrix4& transform() const noexcept;
 
     /// Sets the matrix used to transform this bone relative to its parent bone.
     /// \param transform the matrix used to transform this bone relative only to its parent bone.
-    void transform(const SceneR::Math::Matrix& transform) noexcept;
+    void transform(const scener::math::matrix4& transform) noexcept;
 
 private:
     index_type                         _index     { 0 };
     std::vector<std::shared_ptr<Bone>> _children  { };
     std::shared_ptr<Bone>              _parent    { nullptr };
     std::shared_ptr<Animation>         _animation { nullptr };
-    SceneR::Math::Matrix               _transform { SceneR::Math::Matrix::identity };
+    scener::math::matrix4              _transform { scener::math::matrix4::identity() };
     std::string                        _name      { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

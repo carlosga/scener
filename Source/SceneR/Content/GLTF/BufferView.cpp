@@ -5,7 +5,7 @@
 
 #include "SceneR/Content/GLTF/Buffer.hpp"
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 std::size_t BufferView::byte_offset() const noexcept
 {

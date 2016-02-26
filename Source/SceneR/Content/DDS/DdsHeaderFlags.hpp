@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// DDS file header flags, indicates which members contain valid data.
 enum class DDS_HEADER_FLAGS : std::uint32_t

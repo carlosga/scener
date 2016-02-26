@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines stencil buffer operations.
 enum class StencilOperation : std::uint32_t

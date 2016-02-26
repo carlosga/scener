@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 MemoryStream::MemoryStream(const gsl::span<std::uint8_t>& buffer) noexcept
     : _buffer   { buffer }

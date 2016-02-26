@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 struct StepTime;
 

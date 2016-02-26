@@ -3,12 +3,12 @@ project (SceneR)
 enable_language(CXX)
 
 # compile options
-add_compile_options(-Wall                       -Wextra
-                    -Weverything                -Wno-reserved-id-macro
-                    -Wno-c++98-compat           -Wno-c++98-compat-pedantic
-                    -Wno-gnu-anonymous-struct   -Wno-nested-anon-types
-                    -Wno-weak-vtables           -Wno-padded
-                    -Wno-float-equal            -Wno-unused-parameter)
+add_compile_options(-Wall                       -Wextra -Wno-unused-parameter -Wpadded)
+#                    -Weverything                -Wno-reserved-id-macro
+#                    -Wno-c++98-compat           -Wno-c++98-compat-pedantic
+#                    -Wno-gnu-anonymous-struct   -Wno-nested-anon-types
+#                    -Wno-weak-vtables           -Wno-padded
+#                    -Wno-float-equal            -Wno-unused-parameter)
 
 # pthread
 find_package (Threads REQUIRED)
@@ -33,7 +33,8 @@ target_include_directories (SceneR
                             PRIVATE ${X11_INCLUDE_DIR}
                             PRIVATE ${JSON11_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
-                            PRIVATE ${NOD_INCLUDE_DIRS})
+                            PRIVATE ${NOD_INCLUDE_DIRS}
+                            PRIVATE ${SCENER_MATH_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (SceneR c++abi pthread ${X11_LIBRARIES})

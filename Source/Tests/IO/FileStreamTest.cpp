@@ -8,8 +8,8 @@
 
 #include <SceneR/IO/FileStream.hpp>
 
-using namespace SceneR;
-using namespace SceneR::IO;
+using namespace scener;
+using namespace scener::io;
 
 TEST_F(FileStreamTest, DefaultConstructor)
 {

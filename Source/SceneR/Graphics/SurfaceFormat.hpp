@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines various types of surface formats.
 enum class SurfaceFormat : std::uint32_t

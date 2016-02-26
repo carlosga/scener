@@ -3,17 +3,17 @@
 
 #include "SceneR/Graphics/Keyframe.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::TimeSpan;
-using SceneR::Math::Matrix;
+using scener::TimeSpan;
+using scener::math::matrix4;
 
 Keyframe::Keyframe() noexcept
-    : Keyframe { TimeSpan::zero(), Matrix::identity }
+    : Keyframe { TimeSpan::zero(), matrix4::identity() }
 {
 }
 
-Keyframe::Keyframe(const TimeSpan& time, const Matrix& transform) noexcept
+Keyframe::Keyframe(const TimeSpan& time, const matrix4& transform) noexcept
     : _time      { time }
     , _transform { transform }
 {
@@ -24,7 +24,7 @@ const TimeSpan& Keyframe::time() const noexcept
     return _time;
 }
 
-const Matrix& Keyframe::transform() const noexcept
+const matrix4& Keyframe::transform() const noexcept
 {
     return _transform;
 }

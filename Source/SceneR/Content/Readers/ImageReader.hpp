@@ -6,12 +6,12 @@
 
 #include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR { namespace Content { namespace DDS { class Surface; } } }
+namespace scener { namespace content { namespace dds { class Surface; } } }
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 template<>
-class ContentTypeReader<DDS::Surface>
+class ContentTypeReader<dds::Surface>
 {
 public:
     ContentTypeReader() = default;

@@ -5,7 +5,7 @@
 
 #include <stdexcept>
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 Encoder::Encoder()
 {

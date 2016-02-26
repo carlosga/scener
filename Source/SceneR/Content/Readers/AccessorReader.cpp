@@ -8,13 +8,13 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/GLTF/Accessor.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::GLTF::Accessor;
-using SceneR::Content::GLTF::AttributeType;
-using SceneR::Content::GLTF::BufferView;
-using SceneR::Graphics::ComponentType;
+using scener::content::gltf::Accessor;
+using scener::content::gltf::AttributeType;
+using scener::content::gltf::BufferView;
+using scener::graphics::ComponentType;
 
 auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

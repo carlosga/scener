@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Describes options for filling the vertices and lines that define a primitive.
 enum class FillMode : std::uint32_t

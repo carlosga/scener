@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
 /// Identifies the state of a keyboard key.
 enum class KeyState : std::uint32_t

@@ -44,6 +44,7 @@ target_include_directories (SkeletalAnimation
                             PRIVATE ${JSON11_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
+                            PRIVATE ${SCENER_MATH_INCLUDE_DIRS}
                             PRIVATE ${SCENER_FRAMEWORK_INCLUDE_DIRS})
 
 # target links

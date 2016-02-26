@@ -3,7 +3,7 @@
 
 #include "SceneR/Content/GLTF/Buffer.hpp"
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 const std::string& Buffer::name() const noexcept
 {

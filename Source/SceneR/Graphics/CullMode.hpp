@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines winding orders that may be used for face culling.
 enum class CullMode : std::uint32_t

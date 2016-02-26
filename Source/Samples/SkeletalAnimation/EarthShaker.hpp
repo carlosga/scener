@@ -7,9 +7,9 @@
 #include <memory>
 
 #include <SceneR/Graphics/DrawableComponent.hpp>
-#include <SceneR/Math/Matrix.hpp>
+#include <scener/math/matrix.hpp>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class  Model;
 struct StepTime;
@@ -20,7 +20,7 @@ namespace SkeletalAnimation {
 
 class SampleRenderer;
 
-class EarthShaker : public SceneR::Graphics::DrawableComponent
+class EarthShaker : public scener::graphics::DrawableComponent
 {
 public:
     EarthShaker(SampleRenderer* renderer) noexcept;
@@ -28,16 +28,16 @@ public:
 
 public:
     void initialize() noexcept override;
-    void update(const SceneR::Graphics::StepTime& renderTime) noexcept override;
-    void draw(const SceneR::Graphics::StepTime& renderTime) noexcept override;
+    void update(const scener::graphics::StepTime& renderTime) noexcept override;
+    void draw(const scener::graphics::StepTime& renderTime) noexcept override;
 
 protected:
     void load_content() noexcept override;
     void unload_content() noexcept override;
 
 private:
-    std::shared_ptr<SceneR::Graphics::Model> _model;
-    SceneR::Math::Matrix                     _world;
+    std::shared_ptr<scener::graphics::Model> _model;
+    scener::math::matrix4                     _world;
 };
 
 }

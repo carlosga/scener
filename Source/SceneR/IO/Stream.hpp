@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <ios>
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 /// Contract for stream implementations.
 class Stream

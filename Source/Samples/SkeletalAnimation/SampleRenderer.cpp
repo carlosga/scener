@@ -12,8 +12,8 @@
 
 namespace SkeletalAnimation {
 
-using SceneR::Graphics::StepTime;
-using SceneR::Math::Color;
+using scener::graphics::StepTime;
+using scener::math::Color;
 
 SampleRenderer::SampleRenderer() noexcept
     : Renderer("./Content")

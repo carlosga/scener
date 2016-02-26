@@ -6,9 +6,9 @@
 #include "SceneR/Input/KeyboardState.hpp"
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
-using SceneR::Graphics::OpenGL::DisplaySurface;
+using scener::graphics::opengl::DisplaySurface;
 
 // Returns the current keyboard state.
 KeyboardState Keyboard::get_state() noexcept

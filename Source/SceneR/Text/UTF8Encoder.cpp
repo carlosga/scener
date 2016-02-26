@@ -8,7 +8,7 @@
 #include <stdexcept>
 // #include <iomanip>
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 std::size_t UTF8Encoder::get_byte_count(const std::vector<char16_t>& chars
                                       , std::size_t                  index

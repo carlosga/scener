@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace SceneR { namespace Content {
+namespace scener { namespace content {
 
 /// Exception used to report errors from the ContentManager.Load method.
 class ContentLoadException final : std::exception

@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 Buffer::Buffer(BufferTarget target, BufferUsage usage) noexcept
     : _id     { 0 }

@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines flags that describe the relationship between the adapter refresh rate and
 /// the rate at which Present operations are completed.

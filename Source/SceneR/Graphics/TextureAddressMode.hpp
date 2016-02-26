@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines modes for addressing texels using texture coordinates that are outside of the typical range of 0.0 to 1.0.
 enum class TextureAddressMode : std::uint32_t

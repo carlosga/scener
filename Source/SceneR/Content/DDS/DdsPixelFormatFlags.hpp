@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// Values which indicate what type of data is in the surface.
 enum class DDS_PIXELFORMAT_FLAGS : std::uint32_t

@@ -8,8 +8,8 @@
 #include <SceneR/IO/BinaryReader.hpp>
 #include <SceneR/IO/FileStream.hpp>
 
-using namespace SceneR;
-using namespace SceneR::IO;
+using namespace scener;
+using namespace scener::io;
 
 // Tests the default c'tor.
 TEST_F(BinaryReaderTest, DefaultConstructor)

@@ -8,9 +8,9 @@
 #include "SceneR/Graphics/Skeleton.hpp"
 #include "SceneR/Graphics/StepTime.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Matrix;
+using scener::math::matrix4;
 
 Model::Model() noexcept
     : _meshes (0)
@@ -39,7 +39,7 @@ void Model::update(const StepTime& elapsedtime) noexcept
     }
 }
 
-void Model::draw(const Matrix& world, const Matrix& view, const Matrix& projection) noexcept
+void Model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
 {
     for (const auto& mesh : _meshes)
     {

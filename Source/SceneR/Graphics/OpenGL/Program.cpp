@@ -9,9 +9,9 @@
 #include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
 #include "SceneR/Graphics/OpenGL/Shader.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
-using SceneR::Graphics::OpenGL::ConstantBuffer;
+using scener::graphics::opengl::ConstantBuffer;
 
 Program::Program()
 {

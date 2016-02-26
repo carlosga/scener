@@ -7,7 +7,7 @@
 
 #include "SceneR/IO/Stream.hpp"
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 BinaryReader::BinaryReader(Stream& stream) noexcept
     : _stream { stream }

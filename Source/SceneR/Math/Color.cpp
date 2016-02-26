@@ -5,11 +5,10 @@
 
 #include <gsl.h>
 
-#include "SceneR/Math/Math.hpp"
-#include "SceneR/Math/Vector3.hpp"
-#include "SceneR/Math/Vector4.hpp"
+#include "scener/math/basic_math.hpp"
+#include "scener/math/vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 const Color Color::black { 0x00, 0x00, 0x00, 0xFF };
 const Color Color::white { 0xFF, 0xFF, 0xFF, 0xFF };
@@ -19,12 +18,12 @@ Color::Color() noexcept
 {
 }
 
-Color::Color(const Vector3& vector) noexcept
+Color::Color(const vector3& vector) noexcept
     : Color ( vector.x, vector.y, vector.z, 1.0f )
 {
 }
 
-Color::Color(const Vector4& vector) noexcept
+Color::Color(const vector4& vector) noexcept
     : Color ( vector.x, vector.y, vector.z, vector.w )
 {
 }
@@ -66,10 +65,10 @@ const float& Color::operator[](const std::size_t& index) const
 
 bool Color::operator==(const Color& color) const
 {
-    return (Math::equal(r, color.r)
-         && Math::equal(g, color.g)
-         && Math::equal(b, color.b)
-         && Math::equal(a, color.a));
+    return (math::equal(r, color.r)
+         && math::equal(g, color.g)
+         && math::equal(b, color.b)
+         && math::equal(a, color.a));
 }
 
 bool Color::operator!=(const Color& color) const

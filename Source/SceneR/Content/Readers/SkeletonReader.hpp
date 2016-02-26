@@ -6,12 +6,12 @@
 
 #include "SceneR/Content/Readers/ContentTypeReader.hpp"
 
-namespace SceneR { namespace Graphics { class Skeleton; } }
+namespace scener { namespace graphics { class Skeleton; } }
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 template <>
-class ContentTypeReader<Graphics::Skeleton>
+class ContentTypeReader<graphics::Skeleton>
 {
 public:
     ContentTypeReader() = default;

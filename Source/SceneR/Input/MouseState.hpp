@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
 enum class Buttons     : std::uint32_t;
 enum class ButtonState : std::uint32_t;

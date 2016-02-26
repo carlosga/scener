@@ -12,8 +12,8 @@
 #include <SceneR/IO/MemoryStream.hpp>
 
 using namespace gsl;
-using namespace SceneR;
-using namespace SceneR::IO;
+using namespace scener;
+using namespace scener::io;
 
 TEST_F(MemoryStreamTest, DefaultConstructor)
 {

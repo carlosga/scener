@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/OpenGL/Program.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 EffectPass::EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : _graphics_device { graphicsDevice }

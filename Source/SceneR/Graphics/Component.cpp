@@ -5,7 +5,7 @@
 
 #include "SceneR/Graphics/Renderer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 Component::Component(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer ( renderer )

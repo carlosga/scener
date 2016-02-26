@@ -3,9 +3,9 @@
 
 #include "SceneR/Graphics/Bone.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Matrix;
+using scener::math::matrix4;
 
 Bone::index_type Bone::index() const noexcept
 {
@@ -32,12 +32,12 @@ Animation* Bone::animation() const noexcept
     return _animation.get();
 }
 
-const Matrix& Bone::transform() const noexcept
+const matrix4& Bone::transform() const noexcept
 {
     return _transform;
 }
 
-void Bone::transform(const Matrix& transform) noexcept
+void Bone::transform(const matrix4& transform) noexcept
 {
     _transform = transform;
 }

@@ -4,9 +4,9 @@
 #ifndef SCENER_GRAPHICS_IEFFECTMATRICES_HPP
 #define SCENER_GRAPHICS_IEFFECTMATRICES_HPP
 
-namespace SceneR { namespace Math { struct Matrix; } }
+#include "scener/math/basic_matrix.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Gets or sets transformation matrix parameters for the current effect.
 class IEffectMatrices
@@ -18,27 +18,27 @@ public:
 public:
     /// Gets the projection matrix in the current effect.
     /// \returns the projection transformation matrix.
-    virtual const SceneR::Math::Matrix& projection() const noexcept = 0;
+    virtual const scener::math::matrix4& projection() const noexcept = 0;
 
     /// Sets the projection matrix in the current effect.
     /// \param projection the projection transformation matrix.
-    virtual void projection(const SceneR::Math::Matrix& projection) noexcept = 0;
+    virtual void projection(const scener::math::matrix4& projection) noexcept = 0;
 
     /// Gets the view matrix in the current effect.
     /// \returns the view transformation matrix.
-    virtual const SceneR::Math::Matrix& view() const noexcept = 0;
+    virtual const scener::math::matrix4& view() const noexcept = 0;
 
     /// Sets the view matrix in the current effect.
     /// \param view the view transformation matrix.
-    virtual void view(const SceneR::Math::Matrix& view) noexcept = 0;
+    virtual void view(const scener::math::matrix4& view) noexcept = 0;
 
     /// Gets the world matrix in the current effect.
     /// \returns the world transformation matrix.
-    virtual const SceneR::Math::Matrix& world() const noexcept = 0;
+    virtual const scener::math::matrix4& world() const noexcept = 0;
 
     /// Sets the world matrix in the current effect.
     /// \param world the world transformation matrix.
-    virtual void world(const SceneR::Math::Matrix& world) noexcept = 0;
+    virtual void world(const scener::math::matrix4& world) noexcept = 0;
 };
 
 }}

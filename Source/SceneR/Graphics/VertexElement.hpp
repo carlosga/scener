@@ -10,7 +10,7 @@
 #include "SceneR/Graphics/VertexElementFormat.hpp"
 #include "SceneR/Graphics/VertexElementUsage.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines input vertex data to the pipeline.
 class VertexElement final

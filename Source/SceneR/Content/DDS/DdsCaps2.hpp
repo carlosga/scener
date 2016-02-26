@@ -4,7 +4,7 @@
 #ifndef SCENER_CONTENT_DDS_DDSCAPS2_HPP
 #define SCENER_CONTENT_DDS_DDSCAPS2_HPP
 
-namespace SceneR { namespace Content {  namespace DDS {
+namespace scener { namespace content {  namespace dds {
 
 /// The DDSCAPS2 structure defines the capabilities of a DirectDrawSurface object
 enum class DDS_CAPS2

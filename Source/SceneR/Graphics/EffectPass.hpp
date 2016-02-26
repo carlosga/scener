@@ -10,11 +10,11 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics { namespace OpenGL { class Program; } } }
+namespace scener { namespace graphics { namespace opengl { class Program; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class EffectParameter;
 class GraphicsDevice;
@@ -41,10 +41,10 @@ public:
 private:
     GraphicsDevice*                               _graphics_device  { nullptr };
     std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
-    std::shared_ptr<OpenGL::Program>              _program          { nullptr };
+    std::shared_ptr<opengl::Program>              _program          { nullptr };
     std::string                                   _name             { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

@@ -4,9 +4,9 @@
 #ifndef SCENER_GRAPHICS_IEFFECTFOG_HPP
 #define SCENER_GRAPHICS_IEFFECTFOG_HPP
 
-namespace SceneR { namespace Math { struct Vector3; } }
+namespace scener { namespace math { struct vector3; } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines fog parameters for the current effect.
 class IEffectFog
@@ -18,11 +18,11 @@ public:
 public:
     /// Gets the fog color as a three component color.
     /// \returns the fog color as a three component color.
-    virtual const SceneR::Math::Vector3& fog_color() const noexcept = 0;
+    virtual const scener::math::vector3& fog_color() const noexcept = 0;
 
     /// Set the fog color as a three component color.
     /// \param color the fog color as a three component color.
-    virtual void fog_color(const SceneR::Math::Vector3& color) noexcept = 0;
+    virtual void fog_color(const scener::math::vector3& color) noexcept = 0;
 
     /// Gets a value indicating whether for is enabled for the current effect.
     /// \returns true if the fog is enabled; false otherwise.

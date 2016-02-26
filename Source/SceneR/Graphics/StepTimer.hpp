@@ -6,7 +6,7 @@
 
 #include "SceneR/TimeSpan.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Step timer.
 class StepTimer final
@@ -23,21 +23,21 @@ public:
     void update_time_step() noexcept;
 
     /// Gets the time elapsed since the last timer reset.
-    SceneR::TimeSpan elapsed_time() const noexcept;
+    scener::TimeSpan elapsed_time() const noexcept;
 
     /// Gets the time elapsed since the last time step update.
-    SceneR::TimeSpan elapsed_time_step_time() const noexcept;
+    scener::TimeSpan elapsed_time_step_time() const noexcept;
 
 private:
-    SceneR::TimeSpan::clock::time_point current_time() const noexcept;
+    scener::TimeSpan::clock::time_point current_time() const noexcept;
 
 private:
     StepTimer(const StepTimer& timer) = delete;
     StepTimer& operator=(const StepTimer& timer) = delete;
 
 private:
-    SceneR::TimeSpan::clock::time_point _start          { SceneR::TimeSpan::clock::now() };
-    SceneR::TimeSpan::clock::time_point _last_time_step { SceneR::TimeSpan::clock::now() };
+    scener::TimeSpan::clock::time_point _start          { scener::TimeSpan::clock::now() };
+    scener::TimeSpan::clock::time_point _last_time_step { scener::TimeSpan::clock::now() };
 };
 
 }}

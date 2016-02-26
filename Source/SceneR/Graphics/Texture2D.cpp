@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/SamplerState.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept
     : Texture2D(graphicsDevice, width, height, SurfaceFormat::color)
@@ -23,7 +23,7 @@ Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
     , _height        { height }
     , _width         { width }
     , _sampler_state { nullptr }
-    , _storage       { SceneR::Graphics::OpenGL::TextureTarget::texture_2d }
+    , _storage       { scener::graphics::opengl::TextureTarget::texture_2d }
 {
 }
 

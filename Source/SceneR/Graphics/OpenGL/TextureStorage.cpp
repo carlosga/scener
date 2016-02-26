@@ -5,7 +5,7 @@
 
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 TextureStorage::TextureStorage(TextureTarget target) noexcept
     : _id     { 0 }

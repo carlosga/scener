@@ -9,9 +9,9 @@
 
 namespace json11 { class Json; }
 
-namespace SceneR { namespace Content { class ContentReader; }}
+namespace scener { namespace content { class ContentReader; }}
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 /// Interface for content type reader implementations.
 template <typename T>

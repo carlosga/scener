@@ -8,7 +8,7 @@
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/RendererWindow.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 GraphicsDeviceManager::GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer { renderer }

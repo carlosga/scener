@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 class Stream;
 

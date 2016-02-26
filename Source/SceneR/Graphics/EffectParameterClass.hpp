@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines classes that can be used for effect parameters or shader constants.
 enum class EffectParameterClass : std::uint32_t

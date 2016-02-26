@@ -11,7 +11,7 @@
 
 #include "SceneR/Graphics/OpenGL/ShaderType.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 /// Represents a shader.
 class Shader final

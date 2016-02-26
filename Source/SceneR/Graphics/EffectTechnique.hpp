@@ -15,15 +15,13 @@
 #include "SceneR/Graphics/GraphicsResource.hpp"
 #include "SceneR/Graphics/IEffectMatrices.hpp"
 #include "SceneR/Graphics/IEffectLights.hpp"
-#include "SceneR/Math/Matrix.hpp"
-#include "SceneR/Math/Quaternion.hpp"
-#include "SceneR/Math/Vector2.hpp"
-#include "SceneR/Math/Vector3.hpp"
-#include "SceneR/Math/Vector4.hpp"
+#include "scener/math/matrix.hpp"
+#include "scener/math/quaternion.hpp"
+#include "scener/math/vector.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GrapicsDevice;
 class EffectPass;
@@ -51,16 +49,16 @@ public:
     void alpha(float alpha) noexcept;
 
     /// Gets the ambient light for the current effect
-    const SceneR::Math::Vector3& ambient_light_color() const noexcept override;
+    const scener::math::vector3& ambient_light_color() const noexcept override;
 
     /// Gets the ambient light for the current effect
-    void ambient_light_color(const SceneR::Math::Vector3& ambientLightColor) noexcept override;
+    void ambient_light_color(const scener::math::vector3& ambientLightColor) noexcept override;
 
     /// Gets the ambient color for a light, the range of color values is from 0 to 1.
-    const SceneR::Math::Vector3& diffuse_color() const noexcept;
+    const scener::math::vector3& diffuse_color() const noexcept;
 
     /// Gets the ambient color for a light, the range of color values is from 0 to 1.
-    void diffuse_color(const SceneR::Math::Vector3& diffuseColor) noexcept;
+    void diffuse_color(const scener::math::vector3& diffuseColor) noexcept;
 
     /// Gets the first directional light
     const DirectionalLight& directional_light_0() const noexcept override;
@@ -75,10 +73,10 @@ public:
     void enable_default_lighting() noexcept override;
 
     /// Gets the emissive color for a material, the range of color values is from 0 to 1.
-    const SceneR::Math::Vector3& emissive_color() const noexcept;
+    const scener::math::vector3& emissive_color() const noexcept;
 
     /// Sets the emissive color for a material, the range of color values is from 0 to 1.
-    void emissive_color(const SceneR::Math::Vector3& emissiveColor) noexcept;
+    void emissive_color(const scener::math::vector3& emissiveColor) noexcept;
 
     /// Gets a value indicating wheter lighting is enabled for the current effect.
     bool lighting_enabled() const noexcept override;
@@ -93,16 +91,16 @@ public:
     void prefer_per_pixel_lighting(bool preferPerPixelLighting) noexcept;
 
     /// Gets the projection matrix in the current effect.
-    const SceneR::Math::Matrix& projection() const noexcept override;
+    const scener::math::matrix4& projection() const noexcept override;
 
     /// Sets the projection matrix in the current effect.
-    void projection(const SceneR::Math::Matrix& projection) noexcept override;
+    void projection(const scener::math::matrix4& projection) noexcept override;
 
     /// Gets the specular color for a material, the range of color values is from 0 to 1.
-    const SceneR::Math::Vector3& specular_color() const noexcept;
+    const scener::math::vector3& specular_color() const noexcept;
 
     /// Gets the specular color for a material, the range of color values is from 0 to 1.
-    void specular_color(const SceneR::Math::Vector3& specularColor) noexcept;
+    void specular_color(const scener::math::vector3& specularColor) noexcept;
 
     /// Gets specular power of this effect material.
     float specular_power() const noexcept;
@@ -120,23 +118,23 @@ public:
     void texture_enabled(bool textureEnabled) noexcept;
 
     /// Gets the view matrix in the current effect.
-    const SceneR::Math::Matrix& view() const noexcept override;
+    const scener::math::matrix4& view() const noexcept override;
 
     /// Sets the view matrix in the current effect.
-    void view(const SceneR::Math::Matrix& view) noexcept override;
+    void view(const scener::math::matrix4& view) noexcept override;
 
     /// Gets the world matrix in the current effect.
-    const SceneR::Math::Matrix& world() const noexcept override;
+    const scener::math::matrix4& world() const noexcept override;
 
     /// Sets the world matrix in the current effect.
-    void world(const SceneR::Math::Matrix& world) noexcept override;
+    void world(const scener::math::matrix4& world) noexcept override;
 
 public:
     /// Gets the array of bone transform matrices of this SkinnedEffect.
-    std::vector<SceneR::Math::Matrix> bone_transforms(std::size_t count) const noexcept;
+    std::vector<scener::math::matrix4> bone_transforms(std::size_t count) const noexcept;
 
     /// Sets an array of bone transform matrices for a SkinnedEffect.
-    void bone_transforms(const std::vector<SceneR::Math::Matrix>& boneTransforms) noexcept;
+    void bone_transforms(const std::vector<scener::math::matrix4>& boneTransforms) noexcept;
 
 public:
     /// Starts the application of the effect state just prior to rendering the effect.
@@ -150,22 +148,22 @@ private:
 
 private:
     float                                   _alpha;
-    SceneR::Math::Vector3                   _ambient_light_color;
-    std::vector<SceneR::Math::Matrix>       _bone_transforms;
-    SceneR::Math::Vector3                   _diffuse_color;
+    scener::math::vector3                   _ambient_light_color;
+    std::vector<scener::math::matrix4>       _bone_transforms;
+    scener::math::vector3                   _diffuse_color;
     DirectionalLight                        _light_0;
     DirectionalLight                        _light_1;
     DirectionalLight                        _light_2;
     bool                                    _lighting_enabled;
-    SceneR::Math::Vector3                   _emissive_color;
+    scener::math::vector3                   _emissive_color;
     bool                                    _prefer_per_pixel_lighting;
-    SceneR::Math::Matrix                    _projection;
-    SceneR::Math::Vector3                   _specular_color;
+    scener::math::matrix4                   _projection;
+    scener::math::vector3                   _specular_color;
     float                                   _specular_power;
     bool                                    _texture_enabled;
     std::vector<std::shared_ptr<Texture2D>> _textures;
-    SceneR::Math::Matrix                    _view;
-    SceneR::Math::Matrix                    _world;
+    scener::math::matrix4                   _view;
+    scener::math::matrix4                   _world;
 
     EffectDirtyFlags                        _dirty_flags;
 
@@ -201,7 +199,7 @@ private:
     /// The inverse-transpose of MODELVIEW without the translation. This translates normals in model coordinates to eye coordinates.
     std::shared_ptr<EffectParameter> _world_view_inverse_transpose_param = nullptr;
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

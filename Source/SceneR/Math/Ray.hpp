@@ -4,14 +4,14 @@
 #ifndef SCENER_MATH_RAY_HPP
 #define SCENER_MATH_RAY_HPP
 
-#include "SceneR/Math/Vector3.hpp"
+#include "scener/math/basic_plane.hpp"
+#include "scener/math/basic_vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 struct BoundingBox;
 struct BoundingFrustum;
 struct BoundingSphere;
-struct Plane;
 
 /**
  * Defines a ray.
@@ -24,7 +24,7 @@ public:
      * @param rposition the ray starting.
      * @param rdirection unit vector describing he ray direction.
      */
-    Ray(const Vector3& rposition, const Vector3& rdirection) noexcept;
+    Ray(const vector3& rposition, const vector3& rdirection) noexcept;
 
     /**
      * Initializes a new instance of the Ray structure with the given position an direction.
@@ -55,7 +55,7 @@ public:
     /**
      * Determines whether this Ray intersects a specified Plane.
      */
-    bool intersects(const Plane& plane) noexcept;
+    bool intersects(const plane_t& plane) noexcept;
 
 public:
     Ray& operator=(const Ray& ray) = default;
@@ -67,12 +67,12 @@ public:
     /**
      * Unit vector specifying the direction the Ray is pointing.
      */
-    Vector3 direction;
+    vector3 direction;
 
     /**
      * Specifies the starting point of the Ray.
      */
-    Vector3 position;
+    vector3 position;
 };
 
 }}

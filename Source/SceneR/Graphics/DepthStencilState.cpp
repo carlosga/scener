@@ -5,7 +5,7 @@
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 DepthStencilState::DepthStencilState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource { graphicsDevice }

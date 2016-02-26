@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
 #define SCENER_GRAPHICS_IGRAPHICSDEVICESERVICE_HPP
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 

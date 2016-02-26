@@ -7,17 +7,17 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Math/PlaneIntersectionType.hpp"
+#include "scener/math/plane_intersection_type.hpp"
 #include "SceneR/Math/ContainmentType.hpp"
-#include "SceneR/Math/Matrix.hpp"
-#include "SceneR/Math/Plane.hpp"
+#include "scener/math/basic_matrix.hpp"
+#include "scener/math/basic_plane.hpp"
+#include "scener/math/basic_vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 struct BoundingBox;
 struct BoundingSphere;
 struct Ray;
-struct Vector3;
 
 /// Defines a frustum and helps determine whether forms intersect with it.
 struct BoundingFrustrum
@@ -29,40 +29,40 @@ public:
 public:
     /// Initializes a new instance of the BoundingFrustrum class.
     /// \param value Combined matrix that usually takes view × projection matrix.
-    BoundingFrustrum(const Matrix& value) noexcept;
+    BoundingFrustrum(const matrix4& value) noexcept;
 
 public:
     /// Gets the bottom plane of the BoundingFrustum.
     /// \returns the bottom plane of the BoundingFrustum.
-    const Plane& bottom() const noexcept;
+    const plane_t& bottom() const noexcept;
 
     /// Gets the far plane of the BoundingFrustum.
     /// \returns the far plane of the BoundingFrustum.
-    const Plane& far() const noexcept;
+    const plane_t& far() const noexcept;
 
     /// Gets the left plane of the BoundingFrustum.
     /// \returns the left plane of the BoundingFrustum.
-    const Plane& left() const noexcept;
+    const plane_t& left() const noexcept;
 
-    /// Gets the Matrix that describes this bounding frustum.
-    /// \returns the Matrix that describes this bounding frustum.
-    const Matrix& matrix() const noexcept;
+    /// Gets the matrix4 that describes this bounding frustum.
+    /// \returns the matrix4 that describes this bounding frustum.
+    const matrix4& matrix() const noexcept;
 
-    /// Sets the Matrix that describes this bounding frustum.
-    /// \param matrix the Matrix that describes this bounding frustum.
-    void matrix(const Matrix& matrix) noexcept;
+    /// Sets the matrix4 that describes this bounding frustum.
+    /// \param matrix the matrix4 that describes this bounding frustum.
+    void matrix(const matrix4& matrix) noexcept;
 
     /// Gets the near plane of the BoundingFrustum.
     /// \returns the near plane of the BoundingFrustum.
-    const Plane& near() const noexcept;
+    const plane_t& near() const noexcept;
 
     /// Gets the right plane of the BoundingFrustum.
     /// \returns the right plane of the BoundingFrustum.
-    const Plane& right() const noexcept;
+    const plane_t& right() const noexcept;
 
     /// Gets the top plane of the BoundingFrustum.
     /// \returns the top plane of the BoundingFrustum.
-    const Plane& top() const noexcept;
+    const plane_t& top() const noexcept;
 
 public:
     /// Checks whether the current BoundingFrustrum contains a BoundingBox.
@@ -83,11 +83,11 @@ public:
     /// Checks whether the current BoundingFrustrum contains a point.
     /// \param point the point to test for overlap.
     /// \returns the extent of overlap
-    ContainmentType contains(const Vector3& point) const noexcept;
+    ContainmentType contains(const vector3& point) const noexcept;
 
     /// Gets the list of points that make up the corners of the BoundingFrustrum.
     /// \returns the list of points that make up the corners of the BoundingFrustrum.
-    std::vector<Vector3> get_corners() noexcept;
+    std::vector<vector3> get_corners() noexcept;
 
     /// Checks whether the current BoundingFrustrum intersects a specified BoundingBox.
     /// \param box the BoundingBox to test for intersection with.
@@ -107,7 +107,7 @@ public:
     /// Checks whether the current BoundingFrustrum intersects a specified Plane.
     /// \param plane the Plane to test for intersection with.
     /// \returns the relationship between the Plane and the BoundingFrustrum.
-    PlaneIntersectionType intersects(const Plane& plane) const noexcept;
+    plane_intersection_type intersects(const plane_t& plane) const noexcept;
 
     /// Checks whether the current BoundingFrustrum intersects a specified Ray.
     /// \param ray the Ray to test for intersection with.
@@ -125,13 +125,13 @@ private:
     void update_planes() noexcept;
 
 private:
-    Plane  _bottom;
-    Plane  _far;
-    Plane  _left;
-    Plane  _near;
-    Plane  _right;
-    Plane  _top;
-    Matrix _value;
+    plane_t _bottom;
+    plane_t _far;
+    plane_t _left;
+    plane_t _near;
+    plane_t _right;
+    plane_t _top;
+    matrix4 _value;
 };
 
 }}

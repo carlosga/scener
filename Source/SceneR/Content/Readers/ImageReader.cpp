@@ -8,10 +8,10 @@
 #include "SceneR/Content/ContentReader.hpp"
 #include "SceneR/Content/DDS/Surface.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::DDS::Surface;
+using scener::content::dds::Surface;
 
 auto ContentTypeReader<Surface>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

@@ -6,10 +6,12 @@
 #include "SceneR/Math/BoundingFrustrum.hpp"
 #include "SceneR/Math/BoundingSphere.hpp"
 #include "SceneR/Math/BoundingBox.hpp"
+#include "scener/math/plane.hpp"
+#include "scener/math/vector.hpp"
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
-Ray::Ray(const Vector3& rposition, const Vector3& rdirection) noexcept
+Ray::Ray(const vector3& rposition, const vector3& rdirection) noexcept
     : direction { rdirection }
     , position  { rposition }
 
@@ -31,17 +33,17 @@ bool Ray::intersects(const BoundingSphere& sphere) noexcept
     return sphere.intersects(*this);
 }
 
-bool Ray::intersects(const Plane& plane) noexcept
+bool Ray::intersects(const plane_t& plane) noexcept
 {
     // Reference: http://www.gamedev.net/page/resources/_/technical/math-and-physics/intersection-math-algorithms-learn-to-derive-r3033
-    auto denom = Vector3::dot(plane.normal, direction);
+    auto denom = vector::dot(plane.normal, direction);
 
     if (std::abs(denom) == 0.0f) // ray and plane are parallel so there is no intersection
     {
         return false;
     }
 
-    auto t = -(Vector3::dot(position, plane.normal) + plane.d) / denom;
+    auto t = -(vector::dot(position, plane.normal) + plane.d) / denom;
 
     return (t > 0.0f);
 }

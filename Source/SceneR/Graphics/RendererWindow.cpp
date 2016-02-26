@@ -9,10 +9,10 @@
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Graphics::OpenGL::DisplayDevice;
-using SceneR::Graphics::OpenGL::DisplaySurface;
+using scener::graphics::opengl::DisplayDevice;
+using scener::graphics::opengl::DisplaySurface;
 
 RendererWindow::RendererWindow(gsl::not_null<Renderer*> renderer) noexcept
     : _renderer { renderer }

@@ -14,9 +14,9 @@
 #include "SceneR/Content/GLTF/AttributeType.hpp"
 #include "SceneR/Graphics/ComponentType.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
 class BufferView;
 
@@ -34,7 +34,7 @@ public:
 
     /// Gets the data type of the components referenced by this accessor.
     /// \returns the data type of the components referenced by this accessor.
-    SceneR::Graphics::ComponentType component_type() const noexcept;
+    scener::graphics::ComponentType component_type() const noexcept;
 
     /// Gets the offset relative to the buffer-view in bytes.
     /// \returns the offset relative to the buffer-view in bytes.
@@ -122,19 +122,19 @@ private:
     {
         switch (_component_type)
         {
-        case SceneR::Graphics::ComponentType::byte:
+        case scener::graphics::ComponentType::byte:
             return sizeof(std::int8_t);
 
-        case SceneR::Graphics::ComponentType::int16:
+        case scener::graphics::ComponentType::int16:
             return sizeof(std::int16_t);
 
-        case SceneR::Graphics::ComponentType::single:
+        case scener::graphics::ComponentType::single:
             return sizeof(float);
 
-        case SceneR::Graphics::ComponentType::ubyte:
+        case scener::graphics::ComponentType::ubyte:
             return sizeof(std::uint8_t);
 
-        case SceneR::Graphics::ComponentType::uint16:
+        case scener::graphics::ComponentType::uint16:
             return sizeof(std::uint16_t);
         }
     }
@@ -146,12 +146,12 @@ private:
     std::size_t                 _byte_offset     { 0 };
     std::size_t                 _byte_length     { 0 };
     std::size_t                 _byte_stride     { 0 };
-    Graphics::ComponentType     _component_type  { Graphics::ComponentType::single };
+    graphics::ComponentType     _component_type  { graphics::ComponentType::single };
     std::vector<float>          _max             { 0 };
     std::vector<float>          _min             { 0 };
     std::string                 _name            { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}}

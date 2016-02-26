@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines the color channels that can be chosen for a per-channel write to a render target color buffer
 enum class ColorWriteChannels : std::uint32_t

@@ -9,7 +9,7 @@
 
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 enum class SurfaceFormat : std::uint32_t;
 

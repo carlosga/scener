@@ -5,7 +5,7 @@
 
 #include <gsl_assert.h>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept
     : Shader { name, type, std::string(source.begin(), source.end()) }

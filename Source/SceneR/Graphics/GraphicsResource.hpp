@@ -8,7 +8,7 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 

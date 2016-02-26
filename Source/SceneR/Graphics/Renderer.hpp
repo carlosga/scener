@@ -14,11 +14,11 @@
 #include "SceneR/Graphics/StepTime.hpp"
 #include "SceneR/Graphics/StepTimer.hpp"
 
-namespace SceneR { namespace Content { class ContentManager; } }
+namespace scener { namespace content { class ContentManager; } }
 
-namespace SceneR { namespace Graphics { namespace OpenGL { class RenderContext; } } }
+namespace scener { namespace graphics { namespace opengl { class RenderContext; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 class GraphicsDeviceManager;
@@ -47,7 +47,7 @@ public:
 
     /// Gets the current content manager
     /// \returns the current content_manager manager
-    SceneR::Content::ContentManager* content_manager() const noexcept;
+    scener::content::ContentManager* content_manager() const noexcept;
 
     /// Gets the collection of services owned by the renderer.
     /// \returns the collection of services owned by the renderer.
@@ -113,7 +113,7 @@ public:
     bool is_fixed_time_step { true };
 
     /// Gets or sets the target time between calls to update when is_fixed_time_step is true.
-    SceneR::TimeSpan target_elapsed_time { 10000000L / 60L };
+    scener::TimeSpan target_elapsed_time { 10000000L / 60L };
 
 protected:
     GraphicsDeviceManager* graphics_device_manager() const;
@@ -121,8 +121,8 @@ protected:
 
 private:
     std::unique_ptr<RendererWindow>                          _renderer_window         { nullptr };
-    std::unique_ptr<SceneR::Graphics::OpenGL::RenderContext> _render_context          { nullptr };
-    std::unique_ptr<SceneR::Content::ContentManager>         _content_manager         { nullptr };
+    std::unique_ptr<scener::graphics::opengl::RenderContext> _render_context          { nullptr };
+    std::unique_ptr<scener::content::ContentManager>         _content_manager         { nullptr };
     std::unique_ptr<GraphicsDeviceManager>                   _graphics_device_manager { nullptr };
     std::vector<std::shared_ptr<IDrawable>>                  _drawable_components     { };
     std::vector<std::shared_ptr<IUpdateable>>                _updateable_components   { };
@@ -130,7 +130,7 @@ private:
     std::unique_ptr<RendererServiceContainer>                _services                { nullptr };
     StepTimer                                                _timer                   { };
     StepTime                                                 _render_time             { };
-    SceneR::TimeSpan                                         _total_tender_time       { TimeSpan::zero() };
+    scener::TimeSpan                                         _total_tender_time       { TimeSpan::zero() };
     bool                                                     _is_running_slowly       { false };
     std::string                                              _root_directory          { };
 

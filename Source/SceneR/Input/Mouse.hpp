@@ -6,9 +6,9 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics { namespace OpenGL { class DisplaySurface; } } }
+namespace scener { namespace graphics { namespace opengl { class DisplaySurface; } } }
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
 enum class Buttons     : std::uint32_t;
 enum class ButtonState : std::uint32_t;
@@ -27,19 +27,19 @@ public:
 
     /// Gets or sets the window used for mouse processing.
     /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-    static void initialize(SceneR::Graphics::OpenGL::DisplaySurface* s) noexcept;
+    static void initialize(scener::graphics::opengl::DisplaySurface* s) noexcept;
 
 private:
-    static void cursor_position_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
+    static void cursor_position_callback(scener::graphics::opengl::DisplaySurface* s
                                        , double                                    xpos
                                        , double                                    ypos) noexcept;
 
-    static void mouse_button_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
+    static void mouse_button_callback(scener::graphics::opengl::DisplaySurface* s
                                     , std::uint32_t                             button
                                     , std::uint32_t                             action
                                     , std::uint32_t                             mods) noexcept;
 
-    static void scroll_wheel_callback(SceneR::Graphics::OpenGL::DisplaySurface* s
+    static void scroll_wheel_callback(scener::graphics::opengl::DisplaySurface* s
                                     , double                                    xoffset
                                     , double                                    yoffset) noexcept;
 
@@ -49,7 +49,7 @@ private:
     Mouse& operator=(const Mouse& mouse) = delete;
 
 private:
-    static SceneR::Graphics::OpenGL::DisplaySurface* surface;
+    static scener::graphics::opengl::DisplaySurface* surface;
 };
 
 }}

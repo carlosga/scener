@@ -11,13 +11,13 @@
 #include "SceneR/Graphics/RendererServiceContainer.hpp"
 #include "SceneR/Graphics/SamplerState.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Graphics::IGraphicsDeviceService;
-using SceneR::Graphics::SamplerState;
-using SceneR::Graphics::TextureAddressMode;
-using SceneR::Graphics::TextureFilter;
+using scener::graphics::IGraphicsDeviceService;
+using scener::graphics::SamplerState;
+using scener::graphics::TextureAddressMode;
+using scener::graphics::TextureFilter;
 
 auto ContentTypeReader<SamplerState>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

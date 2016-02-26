@@ -10,7 +10,7 @@
 
 #include "SceneR/Text/Encoder.hpp"
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 /// Converts a set of UTF-8 encoded characters into a sequence of bytes.
 class UTF8Encoder final : public Encoder

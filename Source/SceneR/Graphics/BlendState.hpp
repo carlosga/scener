@@ -14,7 +14,7 @@
 #include "SceneR/Graphics/ColorWriteChannels.hpp"
 #include "SceneR/Math/Color.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 class GraphicsDeviceManager;
@@ -42,7 +42,7 @@ public:
     Blend alpha_source_blend { Blend::one };
 
     /// Gets or sets the four-component (RGBA) blend factor for alpha blending.
-    SceneR::Math::Color blend_factor { SceneR::Math::Color::black };
+    scener::math::Color blend_factor { scener::math::Color::black };
 
     /// Gets or sets the arithmetic operation when blending color values.
     BlendFunction color_blend_function { BlendFunction::add };

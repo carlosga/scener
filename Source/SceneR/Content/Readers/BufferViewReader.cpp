@@ -9,11 +9,11 @@
 #include "SceneR/Content/GLTF/Buffer.hpp"
 #include "SceneR/Content/GLTF/BufferView.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::GLTF::Buffer;
-using SceneR::Content::GLTF::BufferView;
+using scener::content::gltf::Buffer;
+using scener::content::gltf::BufferView;
 
 auto ContentTypeReader<BufferView>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

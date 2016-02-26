@@ -9,7 +9,7 @@
 #include "SceneR/Content/DDS/DdsHeaderFlags.hpp"
 #include "SceneR/Content/DDS/DdsPixelFormat.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// Describes a DDS file header.
 ///

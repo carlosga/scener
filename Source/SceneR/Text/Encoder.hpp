@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 /// Converts a set of characters into a sequence of bytes.
 class Encoder

@@ -5,7 +5,7 @@
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 SamplerState::SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource { graphicsDevice }

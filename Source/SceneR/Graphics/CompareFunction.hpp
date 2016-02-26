@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Specifies the functions used to compare each incoming pixel depth value
 /// with the depth value present in the depth buffer.

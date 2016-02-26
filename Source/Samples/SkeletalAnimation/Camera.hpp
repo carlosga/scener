@@ -7,14 +7,15 @@
 #include <nod/nod.hpp>
 
 #include <SceneR/Graphics/Component.hpp>
-#include <SceneR/Math/Matrix.hpp>
-#include <SceneR/Math/Vector3.hpp>
+#include <scener/math/angle.hpp>
+#include <scener/math/matrix.hpp>
+#include <scener/math/vector.hpp>
 
 namespace SkeletalAnimation {
 
 class SampleRenderer;
 
-class Camera : public SceneR::Graphics::Component
+class Camera : public scener::graphics::Component
 {
 public:
     Camera(SampleRenderer* renderer) noexcept;
@@ -22,19 +23,19 @@ public:
 
 public:
     void initialize() noexcept override;
-    void update(const SceneR::Graphics::StepTime& renderTime) noexcept override;
+    void update(const scener::graphics::StepTime& renderTime) noexcept override;
 
 private:
     void update_projection() noexcept;
 
 public:
-    SceneR::Math::Matrix   view;
-    SceneR::Math::Matrix   projection;
+    scener::math::matrix4   view;
+    scener::math::matrix4   projection;
 
 private:
-    SceneR::Math::Vector3  _position;
-    SceneR::Math::Matrix   _rotationTransform;
-    float                  _rotation;
+    scener::math::vector3  _position;
+    scener::math::matrix4  _rotationTransform;
+    scener::math::degrees  _rotation;
     nod::scoped_connection _resize_connection;
 };
 

@@ -9,7 +9,7 @@
 
 #include "SceneR/Graphics/VertexElement.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// A vertex declaration, which defines per-vertex data.
 class VertexDeclaration final

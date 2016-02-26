@@ -11,9 +11,9 @@
 #include "SceneR/Graphics/TextureFilter.hpp"
 #include "SceneR/Graphics/TextureAddressMode.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Contains sampler state, which determines how to sample texture data.
 class SamplerState: public GraphicsResource
@@ -54,7 +54,7 @@ public:
 private:
     void apply(std::uint32_t textureId) const noexcept;
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

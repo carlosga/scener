@@ -3,9 +3,9 @@
 
 #include "SceneR/Graphics/StepTimer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::TimeSpan;
+using scener::TimeSpan;
 
 void StepTimer::reset() noexcept
 {

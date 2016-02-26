@@ -10,7 +10,7 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// Represents a DirectDraw surface mipmap.
 class SurfaceMipmap final

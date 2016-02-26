@@ -13,7 +13,7 @@
 
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 /// Represents an OpenGL Uniform Buffer Object (http://www.opengl.org/wiki/Uniform_Buffer_Object).
 class ConstantBuffer final

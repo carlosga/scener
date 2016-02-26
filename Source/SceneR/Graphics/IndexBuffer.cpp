@@ -6,11 +6,11 @@
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Graphics::OpenGL::Buffer;
-using SceneR::Graphics::OpenGL::BufferTarget;
-using SceneR::Graphics::OpenGL::BufferUsage;
+using scener::graphics::opengl::Buffer;
+using scener::graphics::opengl::BufferTarget;
+using scener::graphics::opengl::BufferUsage;
 
 IndexBuffer::IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
                        , ComponentType                  indexElementType

@@ -14,9 +14,9 @@
 #include "SceneR/Graphics/Texture.hpp"
 #include "SceneR/Graphics/OpenGL/TextureStorage.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 class SamplerState;
@@ -94,9 +94,9 @@ private:
     std::size_t                   _height;
     std::size_t                   _width;
     std::shared_ptr<SamplerState> _sampler_state;
-    OpenGL::TextureStorage        _storage;
+    opengl::TextureStorage        _storage;
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

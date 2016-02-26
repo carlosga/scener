@@ -12,13 +12,13 @@
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 #include "SceneR/Graphics/OpenGL/TextureTarget.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 /// Represents an opengl texture object.
 class TextureStorage final
 {
 private:
-    constexpr static bool is_compressed_surface_format(SceneR::Graphics::SurfaceFormat format) noexcept
+    constexpr static bool is_compressed_surface_format(scener::graphics::SurfaceFormat format) noexcept
     {
         return (format == SurfaceFormat::dxt1 || format == SurfaceFormat::dxt3 || format == SurfaceFormat::dxt5);
     }
@@ -46,7 +46,7 @@ public:
     /// \param levels the texture mimap count.
     /// \param width the texture width.
     /// \param height the texture height.
-    void declare_storage(SceneR::Graphics::SurfaceFormat format
+    void declare_storage(scener::graphics::SurfaceFormat format
                        , std::size_t                     levels
                        , std::size_t                     width
                        , std::size_t                     height) const noexcept;
@@ -57,7 +57,7 @@ public:
     /// \param width the mipmap width.
     /// \param height the mipmap height.
     /// \param data the mipmap data.
-    void set_data(SceneR::Graphics::SurfaceFormat      format
+    void set_data(scener::graphics::SurfaceFormat      format
                 , std::size_t                          level
                 , std::size_t                          width
                 , std::size_t                          height

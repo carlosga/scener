@@ -3,9 +3,9 @@
 
 #include "SceneR/Graphics/Animation.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::TimeSpan;
+using scener::TimeSpan;
 
 const TimeSpan& Animation::current_time() const noexcept
 {
@@ -51,9 +51,9 @@ void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcep
         }
     }
 
-    _current_time = TimeSpan::from_seconds(Math::lerp(_current_time.total_seconds()
-                                                    , currentTime.total_seconds()
-                                                    , Math::pi / 16));
+    _current_time = TimeSpan::from_seconds(scener::math::lerp(_current_time.total_seconds()
+                                                            , currentTime.total_seconds()
+                                                            , scener::math::pi<double> / 16));
 
     while (_current_keyframe < count)
     {

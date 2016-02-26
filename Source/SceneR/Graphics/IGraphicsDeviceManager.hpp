@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 #define SCENER_GRAPHICS_IGRAPHICSDEVICEMANAGER_HPP
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines the interface for an object that manages a GraphicsDevice.
 class IGraphicsDeviceManager

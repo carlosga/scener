@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 class ConstantBuffer;
 enum class ShaderType : std::uint32_t;
@@ -34,7 +34,7 @@ public:
 
     /// Gets the constant buffer assciated with this program.
     /// \returns the constant buffer assciated with this program.
-    SceneR::Graphics::OpenGL::ConstantBuffer* constant_buffer() const noexcept;
+    scener::graphics::opengl::ConstantBuffer* constant_buffer() const noexcept;
 
     /// Activates this program instance.
     void bind() const noexcept;
@@ -66,7 +66,7 @@ public:
 
 private:
     std::uint32_t                                             _id              { 0 };
-    std::unique_ptr<SceneR::Graphics::OpenGL::ConstantBuffer> _constant_buffer { nullptr };
+    std::unique_ptr<scener::graphics::opengl::ConstantBuffer> _constant_buffer { nullptr };
 };
 
 }}}

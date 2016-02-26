@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Math {
+namespace scener { namespace math {
 
 /// Indicates the extent to which bounding volumes intersect or contain one another.
 enum class ContainmentType : std::uint32_t

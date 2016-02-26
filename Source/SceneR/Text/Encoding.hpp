@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 class Decoder;
 class Encoder;

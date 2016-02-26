@@ -12,7 +12,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 ///Tracks which effect parameters need to be recomputed during the next OnApply.
 enum class EffectDirtyFlags : std::uint32_t

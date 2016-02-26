@@ -9,7 +9,7 @@
 
 #include "SceneR/Graphics/PresentInterval.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Contains presentation parameters.
 /// http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx

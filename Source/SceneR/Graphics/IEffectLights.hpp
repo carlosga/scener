@@ -4,9 +4,9 @@
 #ifndef SCENER_GRAPHICS_IEFFECTLIGHTS_HPP
 #define SCENER_GRAPHICS_IEFFECTLIGHTS_HPP
 
-namespace SceneR { namespace Math { struct Vector3; } }
+#include "scener/math/basic_vector.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class DirectionalLight;
 
@@ -21,11 +21,11 @@ public:
 public:
     /// Gets the ambient light for the current effect.
     /// \returns the ambient light for the current effect as a three component color.
-    virtual const SceneR::Math::Vector3& ambient_light_color() const noexcept = 0;
+    virtual const scener::math::vector3& ambient_light_color() const noexcept = 0;
 
     /// Sets the ambient light for the current effect.
     /// \param ambientLightColor the ambient light for the current effect as a three component color.
-    virtual void ambient_light_color(const SceneR::Math::Vector3& ambientLightColor) noexcept = 0;
+    virtual void ambient_light_color(const scener::math::vector3& ambientLightColor) noexcept = 0;
 
     /// Gets the first directional light.
     /// \returns the directional light.

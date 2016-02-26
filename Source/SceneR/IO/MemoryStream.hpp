@@ -11,7 +11,7 @@
 
 #include "SceneR/IO/Stream.hpp"
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 /// A Stream around a in memory buffer, supporting read operations.
 class MemoryStream final : public Stream

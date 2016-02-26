@@ -11,7 +11,7 @@
 #include "SceneR/Graphics/IComponent.hpp"
 #include "SceneR/Graphics/IUpdateable.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class  Renderer;
 struct StepTime;

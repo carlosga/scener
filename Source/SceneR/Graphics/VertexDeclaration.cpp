@@ -3,7 +3,7 @@
 
 #include "SceneR/Graphics/VertexDeclaration.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 VertexDeclaration::VertexDeclaration(std::size_t vertexStride, const std::vector<VertexElement>& vertexElements) noexcept
     : _vertex_stride   { vertexStride }

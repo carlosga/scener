@@ -11,9 +11,9 @@
 #include "SceneR/Graphics/Skeleton.hpp"
 #include "SceneR/Math/BoundingSphere.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class EffectTechnique;
 class ModelMeshPart;
@@ -28,7 +28,7 @@ public:
 public:
     /// Gets the BoundingSphere that contains this mesh.
     /// \returns The BoundingSphere that contains this mesh.
-    const SceneR::Math::BoundingSphere& bounding_sphere() const noexcept;
+    const scener::math::BoundingSphere& bounding_sphere() const noexcept;
 
     /// Gets the name of this mesh.
     /// \returns The name of this mesh.
@@ -57,11 +57,11 @@ public:
 
 private:
     std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      { };
-    SceneR::Math::BoundingSphere                _bounding_sphere { SceneR::Math::Vector3::zero, 0.0f };
+    scener::math::BoundingSphere                _bounding_sphere { scener::math::vector3::zero(), 0.0f };
     std::shared_ptr<Skeleton>                   _skeleton        { nullptr };
     std::string                                 _name            { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

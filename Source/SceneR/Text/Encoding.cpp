@@ -7,7 +7,7 @@
 
 #include "SceneR/Text/UTF8Encoding.hpp"
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 const Encoding& Encoding::utf8 = UTF8Encoding { };
 

@@ -8,11 +8,11 @@
 #include <string>
 #include <vector>
 
-namespace SceneR { namespace Content { class ContentReader; } }
+#include "scener/math/basic_matrix.hpp"
 
-namespace SceneR { namespace Math { struct Matrix; } }
+namespace scener { namespace content { class ContentReader; } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class  ModelMesh;
 struct StepTime;
@@ -43,15 +43,15 @@ public:
     /// \param world the world matrix
     /// \param view the view matrix
     /// \param projection the projection matrix
-    void draw(const SceneR::Math::Matrix& world
-            , const SceneR::Math::Matrix& view
-            , const SceneR::Math::Matrix& projection) noexcept;
+    void draw(const scener::math::matrix4& world
+            , const scener::math::matrix4& view
+            , const scener::math::matrix4& projection) noexcept;
 
 private:
     std::vector<std::shared_ptr<ModelMesh>> _meshes;
     std::string                             _name;
 
-    friend class SceneR::Content::ContentReader;
+    friend class scener::content::ContentReader;
 };
 
 }}

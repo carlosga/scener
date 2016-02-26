@@ -10,17 +10,17 @@
 #include "SceneR/Content/GLTF/Accessor.hpp"
 #include "SceneR/Graphics/Animation.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::TimeSpan;
-using SceneR::Content::GLTF::Accessor;
-using SceneR::Content::GLTF::Node;
-using SceneR::Graphics::Animation;
-using SceneR::Graphics::Keyframe;
-using SceneR::Math::Matrix;
-using SceneR::Math::Quaternion;
-using SceneR::Math::Vector3;
+using scener::TimeSpan;
+using scener::content::gltf::Accessor;
+using scener::content::gltf::Node;
+using scener::graphics::Animation;
+using scener::graphics::Keyframe;
+using scener::math::matrix4;
+using scener::math::quaternion;
+using scener::math::vector3;
 
 auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -49,9 +49,9 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
     for (std::size_t i = 0; i < count; ++i)
     {
-        Quaternion rotation    = Quaternion::identity;
-        Vector3    scale       = Vector3::one;
-        Vector3    translation = Vector3::zero;
+        quaternion rotation    = quaternion::identity();
+        vector3    scale       = vector3::one();
+        vector3    translation = vector3::zero();
 
         for (const auto& channel : source["channels"].array_items())
         {
@@ -60,22 +60,22 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
             if (path == "scale")
             {
-                scale = accessor->get_element<Vector3>(i);
+                scale = accessor->get_element<vector3>(i);
             }
             else if (path == "translation")
             {
-                translation = accessor->get_element<Vector3>(i);
+                translation = accessor->get_element<vector3>(i);
             }
             else if (path == "rotation")
             {
-                rotation = accessor->get_element<Quaternion>(i);
+                rotation = accessor->get_element<quaternion>(i);
             }
         }
 
         auto time      = TimeSpan::from_seconds(keyframes->get_element<float>(i));
-        auto transform = Matrix::create_scale(scale)
-                       * Matrix::create_from_quaternion(rotation)
-                       * Matrix::create_translation(translation);
+        auto transform = scener::math::matrix::create_scale(scale)
+                       * scener::math::matrix::create_from_quaternion(rotation)
+                       * scener::math::matrix::create_translation(translation);
 
         animation->_keyframes.push_back({ time, transform });
     }

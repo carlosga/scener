@@ -10,9 +10,9 @@
 
 #include "SceneR/Graphics/Keyframe.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Stores keyframe based animations.
 class Animation final
@@ -24,11 +24,11 @@ public:
 public:
     /// Gets the current time of the animation.
     /// \returns the current time of the animation.
-    const SceneR::TimeSpan& current_time() const noexcept;
+    const scener::TimeSpan& current_time() const noexcept;
 
     /// Gets the animation duration.
     /// \returns the animation duration.
-    const SceneR::TimeSpan& duration() const noexcept;
+    const scener::TimeSpan& duration() const noexcept;
 
     /// Gets the list of animation keyframes.
     /// \returns the list of animation keyframes.
@@ -44,16 +44,16 @@ public:
     /// Updates the animation state for the given time.
     /// \param time snapshot of the rendering timing state.
     /// \param relativeToCurrentTime indicates if the update should take place against the animation current time.
-    void update(const SceneR::TimeSpan& time, bool relativeToCurrentTime) noexcept;
+    void update(const scener::TimeSpan& time, bool relativeToCurrentTime) noexcept;
 
 private:
-    SceneR::TimeSpan      _current_time     { 0 };
-    SceneR::TimeSpan      _duration         { 0 };
+    scener::TimeSpan      _current_time     { 0 };
+    scener::TimeSpan      _duration         { 0 };
     std::size_t           _current_keyframe { 0 };
     std::vector<Keyframe> _keyframes        { };
     std::string           _name             { };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 Texture::Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource { graphicsDevice }

@@ -10,11 +10,11 @@
 #include "SceneR/IO/File.hpp"
 #include "SceneR/IO/Path.hpp"
 
-namespace SceneR { namespace Content {
+namespace scener { namespace content {
 
-using SceneR::Graphics::Model;
-using SceneR::Graphics::RendererServiceContainer;
-using SceneR::IO::FileStream;
+using scener::graphics::Model;
+using scener::graphics::RendererServiceContainer;
+using scener::io::FileStream;
 
 ContentManager::ContentManager(gsl::not_null<RendererServiceContainer*> serviceProvider
                              , const std::string&                       rootDirectory) noexcept
@@ -64,9 +64,9 @@ void ContentManager::unload() noexcept
 std::shared_ptr<FileStream> ContentManager::open_stream(const std::string& assetName) noexcept
 {
     const auto filename  = assetName + ".gltf";
-    const auto path      = SceneR::IO::Path::combine(_root_directory, filename);
+    const auto path      = scener::io::Path::combine(_root_directory, filename);
 
-    Ensures(SceneR::IO::File::exists(path));
+    Ensures(scener::io::File::exists(path));
 
     return std::make_shared<FileStream>(path);
 }

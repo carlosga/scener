@@ -13,7 +13,7 @@
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 #include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 
@@ -60,10 +60,10 @@ private:
     std::uint32_t                               _binding_index;
     std::size_t                                 _vertex_count;
     VertexDeclaration                           _vertex_declaration;
-    SceneR::Graphics::OpenGL::VertexArrayObject _vao;
-    SceneR::Graphics::OpenGL::Buffer            _vbo;
+    scener::graphics::opengl::VertexArrayObject _vao;
+    scener::graphics::opengl::Buffer            _vbo;
 
-    friend class SceneR::Graphics::GraphicsDevice;
+    friend class scener::graphics::GraphicsDevice;
 };
 
 }}

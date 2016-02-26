@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_ICOMPONENT_HPP
 #define SCENER_GRAPHICS_ICOMPONENT_HPP
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines an interface for components.
 class IComponent

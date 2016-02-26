@@ -8,7 +8,7 @@
 #include "SceneR/Graphics/FillMode.hpp"
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 class GraphicsDeviceManager;

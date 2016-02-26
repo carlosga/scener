@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 /// Defines filtering types during texture sampling.
 enum class TextureFilter : std::uint32_t

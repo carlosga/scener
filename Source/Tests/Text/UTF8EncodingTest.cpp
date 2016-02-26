@@ -8,7 +8,7 @@
 
 #include <SceneR/Text/UTF8Encoding.hpp>
 
-using namespace SceneR::Text;
+using namespace scener::text;
 
 TEST_F(UTF8EncodingTest, Constructor)
 {

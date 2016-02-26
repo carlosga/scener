@@ -3,7 +3,7 @@
 
 #include "SceneR/Text/Decoder.hpp"
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 Decoder::Decoder()
 {

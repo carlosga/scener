@@ -5,9 +5,9 @@
 
 #include "SceneR/Content/GLTF/BufferView.hpp"
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
-using SceneR::Graphics::ComponentType;
+using scener::graphics::ComponentType;
 
 AttributeType Accessor::attribute_type() const noexcept
 {

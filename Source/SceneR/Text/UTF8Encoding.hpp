@@ -12,7 +12,7 @@
 #include "SceneR/Text/UTF8Decoder.hpp"
 #include "SceneR/Text/UTF8Encoder.hpp"
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 /// Represents a UTF-8 encoding of Unicode characters.
 class UTF8Encoding final : public virtual Encoding

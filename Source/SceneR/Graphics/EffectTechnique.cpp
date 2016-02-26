@@ -8,30 +8,30 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/Texture2D.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Matrix;
-using SceneR::Math::Vector3;
+using scener::math::matrix4;
+using scener::math::vector3;
 
 EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource           { graphicsDevice }
     , _alpha                     { 1.0 }
-    , _ambient_light_color       { Vector3::zero }
+    , _ambient_light_color       { vector3::zero() }
     , _bone_transforms           ( 0 )
-    , _diffuse_color             { Vector3::one }
+    , _diffuse_color             { vector3::one() }
     , _light_0                   { }
     , _light_1                   { }
     , _light_2                   { }
     , _lighting_enabled          { true }
-    , _emissive_color            { Vector3::zero }
+    , _emissive_color            { vector3::zero() }
     , _prefer_per_pixel_lighting { false }
-    , _projection                { Matrix::identity }
-    , _specular_color            { Vector3::one }
+    , _projection                { matrix4::identity() }
+    , _specular_color            { vector3::one() }
     , _specular_power            { 16.0f }
     , _texture_enabled           { false }
     , _textures                  ( 0 )
-    , _view                      { Matrix::identity }
-    , _world                     { Matrix::identity }
+    , _view                      { matrix4::identity() }
+    , _world                     { matrix4::identity() }
     , _dirty_flags               { EffectDirtyFlags::all }
     , _passes                    ()
     , _parameters                ()
@@ -45,19 +45,19 @@ float EffectTechnique::alpha() const noexcept
 
 void EffectTechnique::alpha(float alpha) noexcept
 {
-    if (Math::equal(_alpha, alpha))
+    if (math::equal(_alpha, alpha))
     {
         _alpha        = alpha;
         _dirty_flags |= EffectDirtyFlags::material_color;
     }
 }
 
-const Vector3& EffectTechnique::ambient_light_color() const noexcept
+const vector3& EffectTechnique::ambient_light_color() const noexcept
 {
     return _ambient_light_color;
 }
 
-void EffectTechnique::ambient_light_color(const Vector3& ambientLightColor) noexcept
+void EffectTechnique::ambient_light_color(const vector3& ambientLightColor) noexcept
 {
     if (_ambient_light_color != ambientLightColor)
     {
@@ -66,12 +66,12 @@ void EffectTechnique::ambient_light_color(const Vector3& ambientLightColor) noex
     }
 }
 
-const Vector3& EffectTechnique::diffuse_color() const noexcept
+const vector3& EffectTechnique::diffuse_color() const noexcept
 {
     return _diffuse_color;
 }
 
-void EffectTechnique::diffuse_color(const Vector3& diffuseColor) noexcept
+void EffectTechnique::diffuse_color(const vector3& diffuseColor) noexcept
 {
     if (_diffuse_color != diffuseColor)
     {
@@ -100,12 +100,12 @@ void EffectTechnique::enable_default_lighting() noexcept
     //ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
 }
 
-const Vector3& EffectTechnique::emissive_color() const noexcept
+const vector3& EffectTechnique::emissive_color() const noexcept
 {
     return _emissive_color;
 }
 
-void EffectTechnique::emissive_color(const Vector3& emissiveColor) noexcept
+void EffectTechnique::emissive_color(const vector3& emissiveColor) noexcept
 {
     if (_emissive_color != emissiveColor)
     {
@@ -138,12 +138,12 @@ void EffectTechnique::prefer_per_pixel_lighting(bool preferPerPixelLighting) noe
     }
 }
 
-const Matrix& EffectTechnique::projection() const noexcept
+const matrix4& EffectTechnique::projection() const noexcept
 {
     return _projection;
 }
 
-void EffectTechnique::projection(const Matrix& projection) noexcept
+void EffectTechnique::projection(const matrix4& projection) noexcept
 {
     if (_projection != projection)
     {
@@ -152,12 +152,12 @@ void EffectTechnique::projection(const Matrix& projection) noexcept
     }
 }
 
-const Vector3& EffectTechnique::specular_color() const noexcept
+const vector3& EffectTechnique::specular_color() const noexcept
 {
     return _specular_color;
 }
 
-void EffectTechnique::specular_color(const Vector3& specularColor) noexcept
+void EffectTechnique::specular_color(const vector3& specularColor) noexcept
 {
 //            if (_specularColor != specularColor)
 //            {
@@ -201,12 +201,12 @@ void EffectTechnique::texture_enabled(bool textureEnabled) noexcept
     }
 }
 
-const Matrix& EffectTechnique::view() const noexcept
+const matrix4& EffectTechnique::view() const noexcept
 {
     return _view;
 }
 
-void EffectTechnique::view(const Matrix& view) noexcept
+void EffectTechnique::view(const matrix4& view) noexcept
 {
     if (view != _view)
     {
@@ -215,12 +215,12 @@ void EffectTechnique::view(const Matrix& view) noexcept
     }
 }
 
-const Matrix& EffectTechnique::world() const noexcept
+const matrix4& EffectTechnique::world() const noexcept
 {
     return _world;
 }
 
-void EffectTechnique::world(const Matrix& world) noexcept
+void EffectTechnique::world(const matrix4& world) noexcept
 {
     if (_world != world)
     {
@@ -229,11 +229,11 @@ void EffectTechnique::world(const Matrix& world) noexcept
     }
 }
 
-std::vector<Matrix> EffectTechnique::bone_transforms(std::size_t count) const noexcept
+std::vector<matrix4> EffectTechnique::bone_transforms(std::size_t count) const noexcept
 {
     Expects(count >= _bone_transforms.size());
 
-    std::vector<Matrix> transforms;
+    std::vector<matrix4> transforms;
 
     transforms.reserve(count);
     transforms.assign(_bone_transforms.begin(), _bone_transforms.begin() + count);
@@ -241,7 +241,7 @@ std::vector<Matrix> EffectTechnique::bone_transforms(std::size_t count) const no
     return transforms;
 }
 
-void EffectTechnique::bone_transforms(const std::vector<Matrix>& boneTransforms) noexcept
+void EffectTechnique::bone_transforms(const std::vector<matrix4>& boneTransforms) noexcept
 {
     _bone_transforms.clear();
     _bone_transforms.reserve(boneTransforms.size());
@@ -331,31 +331,31 @@ void EffectTechnique::set_world_view_proj() const noexcept
     }
     if (_world_inverse_param.get())
     {
-        _world_inverse_param->set_value(Matrix::invert(_world));
+        _world_inverse_param->set_value(scener::math::matrix::invert(_world));
     }
     if (_view_inverse_param.get())
     {
-        _view_inverse_param->set_value(Matrix::invert(_view));
+        _view_inverse_param->set_value(scener::math::matrix::invert(_view));
     }
     if (_projection_inverse_param.get())
     {
-        _projection_inverse_param->set_value(Matrix::invert(_projection));
+        _projection_inverse_param->set_value(scener::math::matrix::invert(_projection));
     }
     if (_world_view_inverse_param.get())
     {
-        _world_view_inverse_param->set_value(Matrix::invert(worldView));
+        _world_view_inverse_param->set_value(scener::math::matrix::invert(worldView));
     }
     if (_world_view_projection_inverse_param.get())
     {
-        _world_view_projection_inverse_param->set_value(Matrix::invert(worldViewProj));
+        _world_view_projection_inverse_param->set_value(scener::math::matrix::invert(worldViewProj));
     }
     if (_world_inverse_transpose_param.get())
     {
-        _world_inverse_transpose_param->set_value(Matrix::transpose(Matrix::invert(_world)));
+        _world_inverse_transpose_param->set_value(scener::math::matrix::transpose(scener::math::matrix::invert(_world)));
     }
     if (_world_view_inverse_transpose_param.get())
     {
-        _world_view_inverse_transpose_param->set_value(Matrix::transpose(Matrix::invert(worldView)));
+        _world_view_inverse_transpose_param->set_value(scener::math::matrix::transpose(scener::math::matrix::invert(worldView)));
     }
 }
 

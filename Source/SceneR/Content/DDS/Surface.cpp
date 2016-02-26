@@ -6,14 +6,14 @@
 #include "SceneR/Content/DDS/Dds.hpp"
 #include "SceneR/IO/File.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
-using SceneR::Graphics::SurfaceFormat;
-using SceneR::IO::FileStream;
+using scener::graphics::SurfaceFormat;
+using scener::io::FileStream;
 
 void Surface::load(const std::string& filename) noexcept
 {
-    Expects(SceneR::IO::File::exists(filename));
+    Expects(scener::io::File::exists(filename));
 
     FileStream  stream(filename);
     DDS_HEADER  ddsheader;

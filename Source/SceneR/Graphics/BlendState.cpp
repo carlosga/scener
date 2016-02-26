@@ -5,9 +5,9 @@
 
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Color;
+using scener::math::Color;
 
 BlendState::BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
     : GraphicsResource { graphicsDevice }
@@ -40,10 +40,10 @@ void BlendState::apply() const noexcept
                       , static_cast<GLenum>(alpha_source_blend)
                       , static_cast<GLenum>(alpha_destination_blend));
 
-    glColorMask((color_write_channels & ColorWriteChannels::red)   == Graphics::ColorWriteChannels::red
-              , (color_write_channels & ColorWriteChannels::green) == Graphics::ColorWriteChannels::green
-              , (color_write_channels & ColorWriteChannels::blue)  == Graphics::ColorWriteChannels::blue
-              , (color_write_channels & ColorWriteChannels::alpha) == Graphics::ColorWriteChannels::alpha);
+    glColorMask((color_write_channels & ColorWriteChannels::red)   == graphics::ColorWriteChannels::red
+              , (color_write_channels & ColorWriteChannels::green) == graphics::ColorWriteChannels::green
+              , (color_write_channels & ColorWriteChannels::blue)  == graphics::ColorWriteChannels::blue
+              , (color_write_channels & ColorWriteChannels::alpha) == graphics::ColorWriteChannels::alpha);
 
     glBlendColor(blend_factor.r / 255
                , blend_factor.g / 255

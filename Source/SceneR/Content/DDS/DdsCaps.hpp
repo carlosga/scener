@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// The DDSCAPS structure defines the capabilities of a DirectDrawSurface object.
 /// This structure is part of the DDCAPS and DDSURFACEDESC structures.

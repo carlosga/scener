@@ -14,7 +14,7 @@
 #include "SceneR/Graphics/GraphicsResource.hpp"
 #include "SceneR/Graphics/OpenGL/Buffer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 
@@ -65,11 +65,11 @@ private:
     void unbind() const noexcept;
 
 private:
-    SceneR::Graphics::OpenGL::Buffer _buffer;
+    scener::graphics::opengl::Buffer _buffer;
     std::size_t                      _indexCount;
     ComponentType                    _indexElementType;
 
-    friend class SceneR::Graphics::GraphicsDevice;
+    friend class scener::graphics::GraphicsDevice;
 };
 
 }}

@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <ratio>
 
-namespace SceneR {
+namespace scener {
 
 /// Represents a time interval.
 class TimeSpan final

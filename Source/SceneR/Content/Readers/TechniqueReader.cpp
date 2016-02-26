@@ -15,22 +15,22 @@
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 #include "SceneR/Graphics/OpenGL/Program.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Math::Matrix;
-using SceneR::Math::Vector2;
-using SceneR::Math::Vector3;
-using SceneR::Math::Vector4;
-using SceneR::Content::GLTF::Node;
-using SceneR::Graphics::EffectTechnique;
-using SceneR::Graphics::EffectParameter;
-using SceneR::Graphics::EffectParameterClass;
-using SceneR::Graphics::EffectParameterType;
-using SceneR::Graphics::EffectPass;
-using SceneR::Graphics::IGraphicsDeviceService;
-using SceneR::Graphics::RendererServiceContainer;
-using SceneR::Graphics::OpenGL::Program;
+using scener::math::matrix4;
+using scener::math::vector2;
+using scener::math::vector3;
+using scener::math::vector4;
+using scener::content::gltf::Node;
+using scener::graphics::EffectTechnique;
+using scener::graphics::EffectParameter;
+using scener::graphics::EffectParameterClass;
+using scener::graphics::EffectParameterType;
+using scener::graphics::EffectPass;
+using scener::graphics::IGraphicsDeviceService;
+using scener::graphics::RendererServiceContainer;
+using scener::graphics::opengl::Program;
 
 auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -90,7 +90,7 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
         {
             // TODO: Read node reference
             // auto node = context.find_object<Node>(nodeId);
-            // parameter->set_value<Matrix>(node->matrix);
+            // parameter->set_value<matrix4>(node->matrix);
         }
         else if (parameter->parameter_class() == EffectParameterClass::scalar)
         {
@@ -121,8 +121,6 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
                 parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                 break;
             case EffectParameterType::string:
-                parameter->set_value<std::string>(paramValue.string_value());
-                break;
             case EffectParameterType::texture:
             case EffectParameterType::texture_1d:
             case EffectParameterType::texture_2d:
@@ -137,19 +135,19 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
             switch (parameter->column_count())
             {
             case 2:
-                parameter->set_value<Vector2>(input->convert<Vector2>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector2>(paramValue.array_items()));
                 break;
             case 3:
-                parameter->set_value<Vector3>(input->convert<Vector3>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector3>(paramValue.array_items()));
                 break;
             case 4:
-                parameter->set_value<Vector4>(input->convert<Vector4>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector4>(paramValue.array_items()));
                 break;
             }
         }
         else if (parameter->parameter_class() == EffectParameterClass::matrix)
         {
-            parameter->set_value<Matrix>(input->convert<Matrix>(paramValue.array_items()));
+            parameter->set_value(input->convert<matrix4>(paramValue.array_items()));
         }
     }
 }

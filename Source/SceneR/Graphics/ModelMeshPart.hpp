@@ -10,9 +10,9 @@
 
 #include "SceneR/Graphics/PrimitiveType.hpp"
 
-namespace SceneR { namespace Content { namespace Readers { template <typename T> class ContentTypeReader; } } }
+namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class EffectTechnique;
 class IndexBuffer;
@@ -68,9 +68,9 @@ private:
     std::size_t                     _vertex_offset      = { 0 };
     std::size_t                     _vertex_count       = { 0 };
     std::size_t                     _primitive_count    = { 0 };
-    SceneR::Graphics::PrimitiveType _primitive_type     = { PrimitiveType::triangle_list };
+    scener::graphics::PrimitiveType _primitive_type     = { PrimitiveType::triangle_list };
 
-    template <typename T> friend class SceneR::Content::Readers::ContentTypeReader;
+    template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
 
 }}

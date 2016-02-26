@@ -9,19 +9,20 @@
 #include "SceneR/Content/GLTF/Accessor.hpp"
 #include "SceneR/Graphics/ModelMesh.hpp"
 #include "SceneR/Graphics/Skeleton.hpp"
+#include "scener/math/matrix.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::GLTF::Accessor;
-using SceneR::Content::GLTF::Node;
-using SceneR::Graphics::Bone;
-using SceneR::Graphics::ModelMesh;
-using SceneR::Graphics::Skeleton;
-using SceneR::Math::Matrix;
-using SceneR::Math::Quaternion;
-using SceneR::Math::Vector3;
-using SceneR::Math::Vector4;
+using scener::content::gltf::Accessor;
+using scener::content::gltf::Node;
+using scener::graphics::Bone;
+using scener::graphics::ModelMesh;
+using scener::graphics::Skeleton;
+using scener::math::matrix4;
+using scener::math::quaternion;
+using scener::math::vector3;
+using scener::math::vector4;
 
 auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -30,30 +31,30 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
     node->name        = key;
     node->camera      = source["camera"].string_value();
     node->light       = source["light"].string_value();
-    node->matrix      = Matrix::identity;
-    node->rotation    = Quaternion::identity;
-    node->scale       = Vector3::one;
-    node->translation = Vector3::zero;
+    node->matrix      = matrix4::identity();
+    node->rotation    = quaternion::identity();
+    node->scale       = vector3::one();
+    node->translation = vector3::zero();
 
     // transforms
 
     if (!source["matrix"].is_null())
     {
-        node->matrix = input->convert<Matrix>(source["matrix"].array_items());
+        node->matrix = input->convert<matrix4>(source["matrix"].array_items());
     }
     else
     {
         if (!source["rotation"].is_null())
         {
-            node->rotation = input->convert<Quaternion>(source["rotation"].array_items());
+            node->rotation = input->convert<quaternion>(source["rotation"].array_items());
         }
         if (!source["scale"].is_null())
         {
-            node->scale = input->convert<Vector3>(source["scale"].array_items());
+            node->scale = input->convert<vector3>(source["scale"].array_items());
         }
         if (!source["translation"].is_null())
         {
-            node->translation = input->convert<Vector3>(source["translation"].array_items());
+            node->translation = input->convert<vector3>(source["translation"].array_items());
         }
     }
 
@@ -74,9 +75,9 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
         }
         else
         {
-            node->joint->_transform = Matrix::create_scale(node->scale)
-                                    * Matrix::create_from_quaternion(node->rotation)
-                                    * Matrix::create_translation(node->translation);
+            node->joint->_transform = scener::math::matrix::create_scale(node->scale)
+                                    * scener::math::matrix::create_from_quaternion(node->rotation)
+                                    * scener::math::matrix::create_translation(node->translation);
         }
 
         node->joint->_children.reserve(children.size());

@@ -7,7 +7,7 @@
 #include "SceneR/Graphics/IndexBuffer.hpp"
 #include "SceneR/Graphics/VertexBuffer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 IndexBuffer* ModelMeshPart::index_buffer() const noexcept
 {

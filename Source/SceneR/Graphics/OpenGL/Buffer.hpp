@@ -10,7 +10,7 @@
 
 #include <gsl.h>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 enum class BufferTarget : std::uint32_t;
 enum class BufferUsage  : std::uint32_t;

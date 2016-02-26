@@ -13,15 +13,15 @@
 #include "SceneR/Graphics/SamplerState.hpp"
 #include "SceneR/Graphics/Texture2D.hpp"
 
-namespace SceneR { namespace Content { namespace Readers {
+namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using SceneR::Content::DDS::Surface;
-using SceneR::Content::DDS::SurfaceMipmap;
-using SceneR::Graphics::IGraphicsDeviceService;
-using SceneR::Graphics::SamplerState;
-using SceneR::Graphics::SurfaceFormat;
-using SceneR::Graphics::Texture2D;
+using scener::content::dds::Surface;
+using scener::content::dds::SurfaceMipmap;
+using scener::graphics::IGraphicsDeviceService;
+using scener::graphics::SamplerState;
+using scener::graphics::SurfaceFormat;
+using scener::graphics::Texture2D;
 
 auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {

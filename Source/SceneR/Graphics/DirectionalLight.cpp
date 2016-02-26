@@ -3,18 +3,18 @@
 
 #include "SceneR/Graphics/DirectionalLight.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::Vector3;
+using scener::math::vector3;
 
 DirectionalLight::DirectionalLight() noexcept
-    : DirectionalLight { { 0.0f, -1.0f, 0.0f }, Vector3::one, Vector3::zero }
+    : DirectionalLight { { 0.0f, -1.0f, 0.0f }, vector3::one(), vector3::zero() }
 {
 }
 
-DirectionalLight::DirectionalLight(const Vector3& lightDirection
-                                 , const Vector3& diffuseColor
-                                 , const Vector3& specularColor) noexcept
+DirectionalLight::DirectionalLight(const vector3& lightDirection
+                                 , const vector3& diffuseColor
+                                 , const vector3& specularColor) noexcept
     : direction      { lightDirection }
     , diffuse_color  { diffuseColor }
     , specular_color { specularColor }

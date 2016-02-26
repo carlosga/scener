@@ -14,7 +14,7 @@
 #include <X11/Xlib.h>
 #include <nod/nod.hpp>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 class DisplayDevice;
 

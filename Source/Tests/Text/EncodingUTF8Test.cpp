@@ -8,8 +8,8 @@
 
 #include <SceneR/Text/Encoding.hpp>
 
-using namespace SceneR;
-using namespace SceneR::Text;
+using namespace scener;
+using namespace scener::text;
 
 TEST_F(EncodingUTF8Test, GetByteCountFromCharArray)
 {

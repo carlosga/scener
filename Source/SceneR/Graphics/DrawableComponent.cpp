@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/GraphicsDevice.hpp"
 #include "SceneR/Graphics/Renderer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 DrawableComponent::DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept
     : Component { renderer }

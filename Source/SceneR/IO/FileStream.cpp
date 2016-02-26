@@ -6,7 +6,7 @@
 //#include <locale>
 //#include <codecvt>
 
-namespace SceneR { namespace IO {
+namespace scener { namespace io {
 
 FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) noexcept
     : _stream { path, mode }

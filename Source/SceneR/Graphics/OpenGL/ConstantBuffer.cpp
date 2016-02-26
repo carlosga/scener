@@ -6,7 +6,7 @@
 #include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
 #include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept
     : _buffer_object { BufferTarget::uniform_buffer, BufferUsage::dynamic_draw }

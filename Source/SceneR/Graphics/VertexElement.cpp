@@ -3,7 +3,7 @@
 
 #include "SceneR/Graphics/VertexElement.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 VertexElement::VertexElement(std::size_t         offset
                            , VertexElementFormat vertexElementFormat

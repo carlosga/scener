@@ -13,7 +13,7 @@
 #include "SceneR/Graphics/IGraphicsDeviceManager.hpp"
 #include "SceneR/Graphics/IGraphicsDeviceService.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
 class GraphicsDevice;
 class Renderer;

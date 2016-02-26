@@ -12,7 +12,7 @@
 #include "SceneR/Content/DDS/SurfaceMipmap.hpp"
 #include "SceneR/Graphics/SurfaceFormat.hpp"
 
-namespace SceneR { namespace Content { namespace DDS {
+namespace scener { namespace content { namespace dds {
 
 /// Represents a DirectDraw surface.
 class Surface final
@@ -33,7 +33,7 @@ public:
 
 public:
     /// Gets the surface format.
-    SceneR::Graphics::SurfaceFormat format() const noexcept;
+    scener::graphics::SurfaceFormat format() const noexcept;
 
     /// Gets the surface width (in pixels).
     size_type width() const noexcept;
@@ -48,7 +48,7 @@ private:
     std::vector<std::uint8_t>       _buffer  { };
     std::vector<SurfaceMipmap>      _mipmaps { };
     gsl::span<std::uint8_t>         _view    { };
-    SceneR::Graphics::SurfaceFormat _format  { SceneR::Graphics::SurfaceFormat::color };
+    scener::graphics::SurfaceFormat _format  { scener::graphics::SurfaceFormat::color };
     size_type                       _width   { 0 };
     size_type                       _height  { 0 };
 };

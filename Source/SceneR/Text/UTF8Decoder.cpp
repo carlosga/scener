@@ -5,7 +5,7 @@
 
 #include <stdexcept>
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
                                       , std::size_t                      index

@@ -3,7 +3,7 @@
 
 #include "SceneR/Text/UTF8Encoding.hpp"
 
-namespace SceneR { namespace Text {
+namespace scener { namespace text {
 
 std::u16string UTF8Encoding::encoding_name() const
 {

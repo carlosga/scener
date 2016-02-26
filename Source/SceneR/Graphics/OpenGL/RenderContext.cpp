@@ -10,7 +10,7 @@
 #include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
 #include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 RenderContext::RenderContext(DisplayDevice* display, DisplaySurface* surface) noexcept
     : _display(display)

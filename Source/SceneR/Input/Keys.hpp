@@ -8,7 +8,7 @@
 
 #include "SceneR/Graphics/OpenGL/Platform.hpp"
 
-namespace SceneR { namespace Input {
+namespace scener { namespace input {
 
 /// Identifies a particular key on a keyboard.
 enum class Keys : std::uint32_t

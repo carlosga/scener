@@ -5,7 +5,7 @@
 
 #include <SceneR/TimeSpan.hpp>
 
-using namespace SceneR;
+using namespace scener;
 
 TEST_F(TimeSpanTest, Max)
 {

@@ -9,7 +9,7 @@
 
 #include "SceneR/Graphics/GraphicsResource.hpp"
 
-namespace SceneR { namespace Content {
+namespace scener { namespace content {
 
 /// Content resource manager.
 class ContentResourceManager final

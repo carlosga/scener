@@ -9,10 +9,10 @@
 #include "SceneR/Graphics/ModelMeshPart.hpp"
 #include "SceneR/Graphics/VertexBuffer.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::Math::BoundingSphere;
-using SceneR::Math::Vector3;
+using scener::math::BoundingSphere;
+using scener::math::vector3;
 
 const BoundingSphere& ModelMesh::bounding_sphere() const noexcept
 {

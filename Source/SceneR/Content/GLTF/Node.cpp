@@ -3,11 +3,11 @@
 
 #include "SceneR/Content/GLTF/Node.hpp"
 
-namespace SceneR { namespace Content { namespace GLTF {
+namespace scener { namespace content { namespace gltf {
 
-using SceneR::Math::Matrix;
-using SceneR::Math::Quaternion;
-using SceneR::Math::Vector3;
+using scener::math::matrix4;
+using scener::math::quaternion;
+using scener::math::vector3;
 
 Node::Node() noexcept
     : name          ()
@@ -15,11 +15,11 @@ Node::Node() noexcept
     , instance_skin { nullptr }
     , joint         { nullptr }
     , light         ()
-    , matrix        { Matrix::identity }
+    , matrix        { matrix4::identity() }
     , meshes        ()
-    , rotation      { Quaternion::identity }
-    , scale         { Vector3::one }
-    , translation   { Vector3::zero }
+    , rotation      { quaternion::identity() }
+    , scale         { vector3::one() }
+    , translation   { vector3::zero() }
     , children      ()
 {
 }

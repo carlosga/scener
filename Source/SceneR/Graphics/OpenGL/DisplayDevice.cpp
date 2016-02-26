@@ -10,7 +10,7 @@
 
 #include <nod/nod.hpp>
 
-namespace SceneR { namespace Graphics { namespace OpenGL {
+namespace scener { namespace graphics { namespace opengl {
 
 DisplayDevice::~DisplayDevice()
 {

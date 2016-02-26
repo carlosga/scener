@@ -17,16 +17,16 @@
 #include "SceneR/Input/Keys.hpp"
 #include "SceneR/Input/Mouse.hpp"
 
-namespace SceneR { namespace Graphics {
+namespace scener { namespace graphics {
 
-using SceneR::TimeSpan;
-using SceneR::Content::ContentManager;
-using SceneR::Graphics::GraphicsDevice;
-using SceneR::Graphics::OpenGL::RenderContext;
-using SceneR::Input::Keyboard;
-using SceneR::Input::KeyboardState;
-using SceneR::Input::Keys;
-using SceneR::Input::Mouse;
+using scener::TimeSpan;
+using scener::content::ContentManager;
+using scener::graphics::GraphicsDevice;
+using scener::graphics::opengl::RenderContext;
+using scener::input::Keyboard;
+using scener::input::KeyboardState;
+using scener::input::Keys;
+using scener::input::Mouse;
 
 Renderer::Renderer(const std::string& rootDirectory) noexcept
     : _root_directory { rootDirectory }
