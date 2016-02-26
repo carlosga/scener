@@ -60,8 +60,8 @@ private:
     std::uint32_t                       _binding_index;
     std::size_t                         _vertex_count;
     graphics::vertex_declaration        _vertex_declaration;
-    graphics::opengl::VertexArrayObject _vao;
-    graphics::opengl::Buffer            _vbo;
+    graphics::opengl::vertex_array_object _vao;
+    graphics::opengl::buffer            _vbo;
 
     friend class scener::graphics::graphics_device;
 };

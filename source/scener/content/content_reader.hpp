@@ -41,8 +41,8 @@ class  texture2d;
 
 namespace opengl {
 
-class Program;
-class Shader;
+class program;
+class shader;
 
 }
 
@@ -122,7 +122,7 @@ private:
     std::map<std::string, std::shared_ptr<scener::content::dds::surface>>      _images      { };
     std::map<std::string, std::shared_ptr<scener::graphics::model_mesh>>        _meshes      { };
     std::map<std::string, std::shared_ptr<scener::graphics::sampler_state>>     _samplers    { };
-    std::map<std::string, std::shared_ptr<scener::graphics::opengl::Shader>>   _shaders     { };
+    std::map<std::string, std::shared_ptr<scener::graphics::opengl::shader>>   _shaders     { };
     std::map<std::string, std::shared_ptr<scener::graphics::texture2d>>        _textures    { };
 
     template <typename T> friend class scener::content::readers::content_type_reader;
@@ -260,9 +260,9 @@ inline void content_reader::cache_object(const std::string&          key
 
 // Programs
 template<>
-inline std::shared_ptr<graphics::opengl::Program> content_reader::read_object_instance(const std::string& key) noexcept
+inline std::shared_ptr<graphics::opengl::program> content_reader::read_object_instance(const std::string& key) noexcept
 {
-    return read_object_instance<graphics::opengl::Program>(key, _root["programs"][key]);
+    return read_object_instance<graphics::opengl::program>(key, _root["programs"][key]);
 }
 
 // Samplers
@@ -287,20 +287,20 @@ inline void content_reader::cache_object(const std::string&                     
 
 // Shaders
 template<>
-inline std::shared_ptr<graphics::opengl::Shader> content_reader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<graphics::opengl::shader> content_reader::read_object(const std::string& key) noexcept
 {
-    return read_object<graphics::opengl::Shader>(key, _root["shaders"][key]);
+    return read_object<graphics::opengl::shader>(key, _root["shaders"][key]);
 }
 
 template <>
-inline std::shared_ptr<graphics::opengl::Shader> content_reader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<graphics::opengl::shader> content_reader::get_object(const std::string& key) noexcept
 {
     return _shaders[key];
 }
 
 template <>
 inline void content_reader::cache_object(const std::string&                        key
-                                      , std::shared_ptr<graphics::opengl::Shader> object) noexcept
+                                      , std::shared_ptr<graphics::opengl::shader> object) noexcept
 {
     _shaders[key] = object;
 }

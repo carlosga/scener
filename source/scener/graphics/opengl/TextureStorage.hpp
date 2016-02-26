@@ -15,7 +15,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Represents an opengl texture object.
-class TextureStorage final
+class texture_storage final
 {
 private:
     constexpr static bool is_compressed_surface_format(scener::graphics::surface_format format) noexcept
@@ -26,10 +26,10 @@ private:
 public:
     /// Initializes a new instance of the TextureStorage class.
     /// \param target the texturer target.
-    TextureStorage(texture_target target) noexcept;
+    texture_storage(texture_target target) noexcept;
 
     /// Releases all resources being used by this TextureStorage.
-    ~TextureStorage() noexcept;
+    ~texture_storage() noexcept;
 
 public:
     /// Gets the texture object identifier
@@ -67,8 +67,8 @@ private:
     void create() noexcept;
 
 private:
-    TextureStorage(const TextureStorage&) = delete;
-    TextureStorage& operator=(const TextureStorage&) = delete;
+    texture_storage(const texture_storage&) = delete;
+    texture_storage& operator=(const texture_storage&) = delete;
 
 private:
     std::uint32_t _id;

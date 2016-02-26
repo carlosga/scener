@@ -14,22 +14,22 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-DisplaySurface::DisplaySurface(DisplayDevice* display)
+display_surface::display_surface(display_device* display)
     : _display(display)
 {
 }
 
-DisplaySurface::~DisplaySurface()
+display_surface::~display_surface()
 {
     destroy();
 }
 
-const Drawable& DisplaySurface::handle() const noexcept
+const Drawable& display_surface::handle() const noexcept
 {
     return _drawable;
 }
 
-void DisplaySurface::title(const std::string& title) noexcept
+void display_surface::title(const std::string& title) noexcept
 {
     XChangeProperty(_display->handle()                                    /* connection to x server */
                   , _drawable                                             /* window whose property we want to change */
@@ -41,7 +41,7 @@ void DisplaySurface::title(const std::string& title) noexcept
                   , title.size());                                        /* number of elements */
 }
 
-bool DisplaySurface::create(std::uint32_t width, std::uint32_t height) noexcept
+bool display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
 {
     auto visual = _display->visual_info();
     auto root   = RootWindow(_display->handle(), _display->screen_id());
@@ -78,7 +78,7 @@ bool DisplaySurface::create(std::uint32_t width, std::uint32_t height) noexcept
     return (_drawable != 0);
 }
 
-void DisplaySurface::destroy() noexcept
+void display_surface::destroy() noexcept
 {
     if (_display && _drawable)
     {
@@ -89,7 +89,7 @@ void DisplaySurface::destroy() noexcept
     }
 }
 
-void DisplaySurface::clear() noexcept
+void display_surface::clear() noexcept
 {
     Expects(_display  != nullptr);
     Expects(_drawable != 0);
@@ -97,7 +97,7 @@ void DisplaySurface::clear() noexcept
     XClearWindow(_display->handle(), _drawable);
 }
 
-void DisplaySurface::show() noexcept
+void display_surface::show() noexcept
 {
     Expects(_display  != nullptr);
     Expects(_drawable != 0);
@@ -106,7 +106,7 @@ void DisplaySurface::show() noexcept
     XRaiseWindow(_display->handle(), _drawable);
 }
 
-void DisplaySurface::pool_events() noexcept
+void display_surface::pool_events() noexcept
 {
     Expects(_display  != nullptr);
     Expects(_drawable != 0);
@@ -197,12 +197,12 @@ void DisplaySurface::pool_events() noexcept
     }
 }
 
-nod::connection DisplaySurface::connect_closing(std::function<void()>&& slot) noexcept
+nod::connection display_surface::connect_closing(std::function<void()>&& slot) noexcept
 {
     return _closing_signal.connect(slot);
 }
 
-nod::connection DisplaySurface::connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept
+nod::connection display_surface::connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept
 {
     return _resize_signal.connect(slot);
 }

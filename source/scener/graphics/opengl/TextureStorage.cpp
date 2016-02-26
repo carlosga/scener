@@ -7,14 +7,14 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-TextureStorage::TextureStorage(texture_target target) noexcept
+texture_storage::texture_storage(texture_target target) noexcept
     : _id     { 0 }
     , _target { target }
 {
     create();
 }
 
-TextureStorage::~TextureStorage() noexcept
+texture_storage::~texture_storage() noexcept
 {
     if (_id != 0)
     {
@@ -23,22 +23,22 @@ TextureStorage::~TextureStorage() noexcept
     }
 }
 
-std::uint32_t TextureStorage::id() const noexcept
+std::uint32_t texture_storage::id() const noexcept
 {
     return _id;
 }
 
-void TextureStorage::bind() const noexcept
+void texture_storage::bind() const noexcept
 {
     glBindTextureUnit(0, _id);
 }
 
-void TextureStorage::unbind() const noexcept
+void texture_storage::unbind() const noexcept
 {
     glBindTextureUnit(0, 0);
 }
 
-void TextureStorage::declare_storage(surface_format format
+void texture_storage::declare_storage(surface_format format
                                    , std::size_t   levels
                                    , std::size_t   width
                                    , std::size_t   height) const noexcept
@@ -50,7 +50,7 @@ void TextureStorage::declare_storage(surface_format format
                      , static_cast<GLint>(height));
 }
 
-void TextureStorage::set_data(surface_format                        format
+void texture_storage::set_data(surface_format                        format
                             , std::size_t                          level
                             , std::size_t                          width
                             , std::size_t                          height
@@ -71,7 +71,7 @@ void TextureStorage::set_data(surface_format                        format
     }
 }
 
-void TextureStorage::create() noexcept
+void texture_storage::create() noexcept
 {
     glCreateTextures(static_cast<GLenum>(_target), 1, &_id);
 

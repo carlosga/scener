@@ -12,20 +12,20 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-class DisplayDevice;
-class DisplaySurface;
+class display_device;
+class display_surface;
 
 /// Represents an OpenGL context.
-class RenderContext final
+class render_context final
 {
 public:
     /// Initializes a new instance of the RenderContext class using the given display device and surface.
     /// \param display the display device used to create the render context.
     /// \param surface the display surface used to create the render context.
-    RenderContext(DisplayDevice* display, DisplaySurface* surface) noexcept;
+    render_context(display_device* display, display_surface* surface) noexcept;
 
     /// Releases all resources being used by this RenderContext instance.
-    ~RenderContext();
+    ~render_context();
 
 public:
     /// Creates and initializes the OpenGL render context.
@@ -53,12 +53,12 @@ private:
     static bool isExtensionSupported(const std::string& extList, const std::string& extension) noexcept;
 
 private:
-    RenderContext(const RenderContext&) = delete;
-    RenderContext& operator=(const RenderContext&) = delete;
+    render_context(const render_context&) = delete;
+    render_context& operator=(const render_context&) = delete;
 
 private:
-    DisplayDevice*  _display { nullptr };
-    DisplaySurface* _surface { nullptr };
+    display_device*  _display { nullptr };
+    display_surface* _surface { nullptr };
     GLXContext      _context { 0 };
 };
 

@@ -9,13 +9,13 @@
 
 namespace scener { namespace input {
 
-using scener::graphics::opengl::DisplaySurface;
+using scener::graphics::opengl::display_surface;
 
 // Initializes a new instance of the KeyboardState class.
 // Array or parameter list of Keys to initialize as pressed.
 //KeyboardState(Keys[] keys);
 
-KeyboardState::KeyboardState(DisplaySurface* surface) noexcept
+KeyboardState::KeyboardState(display_surface* surface) noexcept
     : _surface(surface)
 {
 }

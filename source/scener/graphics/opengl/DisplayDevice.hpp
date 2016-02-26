@@ -14,14 +14,14 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Represents a X11 Display.
-class DisplayDevice final
+class display_device final
 {
 public:
     /// Initializes a new instance of the DisplayDevice class.
-    DisplayDevice() = default;
+    display_device() = default;
 
     /// Releases all resources being used by this DisplayDevice instance.
-    ~DisplayDevice();
+    ~display_device();
 
 public:
     /// Gets a pointer to the X11 display handle.
@@ -53,8 +53,8 @@ private:
     GLXFBConfig get_best_frame_buffer_configuration() const noexcept;
 
 private:
-    DisplayDevice(const DisplayDevice&) = delete;
-    DisplayDevice& operator=(const DisplayDevice&) = delete;
+    display_device(const display_device&) = delete;
+    display_device& operator=(const display_device&) = delete;
 
 private:
     // X11

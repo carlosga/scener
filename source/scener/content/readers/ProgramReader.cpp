@@ -13,17 +13,17 @@
 
 namespace scener { namespace content { namespace readers {
 
-using json11::Json;
+namespace opengl = scener::graphics::opengl;
 
-auto content_type_reader<graphics::opengl::Program>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<opengl::program>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
 {
-    auto program        = std::make_shared<graphics::opengl::Program>();
+    auto program        = std::make_shared<opengl::program>();
     auto vertexShader   = source["vertexShader"].string_value();
     auto fragmentShader = source["fragmentShader"].string_value();
 
     program->name = key;
-    program->add_shader(input->read_object<graphics::opengl::Shader>(vertexShader));
-    program->add_shader(input->read_object<graphics::opengl::Shader>(fragmentShader));
+    program->add_shader(input->read_object<graphics::opengl::shader>(vertexShader));
+    program->add_shader(input->read_object<graphics::opengl::shader>(fragmentShader));
     program->link();
 
     return program;

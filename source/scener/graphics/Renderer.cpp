@@ -22,7 +22,7 @@ namespace scener { namespace graphics {
 using scener::timespan;
 using scener::content::content_manager;
 using scener::graphics::graphics_device;
-using scener::graphics::opengl::RenderContext;
+using scener::graphics::opengl::render_context;
 using scener::input::Keyboard;
 using scener::input::KeyboardState;
 using scener::input::Keys;
@@ -221,7 +221,7 @@ void renderer::create_device() noexcept
     _device_manager->create_device();
     _window->allow_user_resizing(true);
     _window->open();
-    _render_context = std::make_unique<RenderContext>(_window->display_device(), _window->display_surface());
+    _render_context = std::make_unique<render_context>(_window->display_device(), _window->display_surface());
     _render_context->create();
     _device_manager->apply_changes();
 

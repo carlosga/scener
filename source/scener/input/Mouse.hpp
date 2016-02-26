@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace scener { namespace graphics { namespace opengl { class DisplaySurface; } } }
+namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
 
@@ -27,19 +27,19 @@ public:
 
     /// Gets or sets the window used for mouse processing.
     /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-    static void initialize(scener::graphics::opengl::DisplaySurface* s) noexcept;
+    static void initialize(scener::graphics::opengl::display_surface* s) noexcept;
 
 private:
-    static void cursor_position_callback(scener::graphics::opengl::DisplaySurface* s
+    static void cursor_position_callback(scener::graphics::opengl::display_surface* s
                                        , double                                    xpos
                                        , double                                    ypos) noexcept;
 
-    static void mouse_button_callback(scener::graphics::opengl::DisplaySurface* s
+    static void mouse_button_callback(scener::graphics::opengl::display_surface* s
                                     , std::uint32_t                             button
                                     , std::uint32_t                             action
                                     , std::uint32_t                             mods) noexcept;
 
-    static void scroll_wheel_callback(scener::graphics::opengl::DisplaySurface* s
+    static void scroll_wheel_callback(scener::graphics::opengl::display_surface* s
                                     , double                                    xoffset
                                     , double                                    yoffset) noexcept;
 
@@ -49,7 +49,7 @@ private:
     Mouse& operator=(const Mouse& mouse) = delete;
 
 private:
-    static scener::graphics::opengl::DisplaySurface* surface;
+    static scener::graphics::opengl::display_surface* surface;
 };
 
 }}

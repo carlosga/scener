@@ -11,10 +11,7 @@
 
 namespace scener { namespace graphics {
 
-using scener::graphics::opengl::DisplayDevice;
-using scener::graphics::opengl::DisplaySurface;
-
-window::window(gsl::not_null<renderer*> renderer) noexcept
+window::window(gsl::not_null<graphics::renderer*> renderer) noexcept
     : _renderer { renderer }
 {
 }
@@ -55,12 +52,12 @@ nod::connection window::connect_resize(std::function<void(uint32_t, uint32_t)>&&
     return _displaySurface->connect_resize(std::move(slot));
 }
 
-DisplayDevice* window::display_device() const noexcept
+opengl::display_device* window::display_device() const noexcept
 {
     return _displayDevice.get();
 }
 
-DisplaySurface* window::display_surface() const noexcept
+opengl::display_surface* window::display_surface() const noexcept
 {
     return _displaySurface.get();
 }
@@ -70,8 +67,8 @@ void window::open() noexcept
     auto width  = _renderer->_device_manager->preferred_back_buffer_width;
     auto height = _renderer->_device_manager->preferred_back_buffer_height;
 
-    _displayDevice  = std::make_unique<DisplayDevice>();
-    _displaySurface = std::make_unique<DisplaySurface>(_displayDevice.get());
+    _displayDevice  = std::make_unique<opengl::display_device>();
+    _displaySurface = std::make_unique<opengl::display_surface>(_displayDevice.get());
 
     if (!_displayDevice->open())
     {

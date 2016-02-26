@@ -12,18 +12,18 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-RenderContext::RenderContext(DisplayDevice* display, DisplaySurface* surface) noexcept
+render_context::render_context(display_device* display, display_surface* surface) noexcept
     : _display(display)
     , _surface(surface)
 {
 }
 
-RenderContext::~RenderContext()
+render_context::~render_context()
 {
     destroy();
 }
 
-bool RenderContext::create() noexcept
+bool render_context::create() noexcept
 {
     // Create GLX OpenGL context
     int context_attribs[] =
@@ -75,17 +75,17 @@ bool RenderContext::create() noexcept
     return true;
 }
 
-bool RenderContext::is_direct_context() noexcept
+bool render_context::is_direct_context() noexcept
 {
     return (glXIsDirect(_display->handle(), _context));
 }
 
-void RenderContext::make_current() const noexcept
+void render_context::make_current() const noexcept
 {
     glXMakeCurrent(_display->handle(), _surface->handle(), _context);
 }
 
-void RenderContext::destroy() noexcept
+void render_context::destroy() noexcept
 {
     if (_context && _display)
     {
@@ -94,7 +94,7 @@ void RenderContext::destroy() noexcept
     }
 }
 
-void RenderContext::enable_debug_output() const noexcept
+void render_context::enable_debug_output() const noexcept
 {
     GLuint unusedIds = 0;
 
@@ -115,12 +115,12 @@ void RenderContext::enable_debug_output() const noexcept
                            }, nullptr);
 }
 
-void RenderContext::present_interval(std::int32_t interval) const noexcept
+void render_context::present_interval(std::int32_t interval) const noexcept
 {
     glXSwapIntervalEXT(_display->handle(), _surface->handle(), interval);
 }
 
-void RenderContext::present() const noexcept
+void render_context::present() const noexcept
 {
     if (_display != nullptr && _surface != nullptr)
     {
@@ -128,7 +128,7 @@ void RenderContext::present() const noexcept
     }
 }
 
-bool RenderContext::isExtensionSupported(const std::string& extList, const std::string& extension) noexcept
+bool render_context::isExtensionSupported(const std::string& extList, const std::string& extension) noexcept
 {
     return (extList.find(extension) != std::string::npos);
 }

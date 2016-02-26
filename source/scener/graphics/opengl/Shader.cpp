@@ -7,12 +7,12 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-Shader::Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept
-    : Shader { name, type, std::string(source.begin(), source.end()) }
+shader::shader(const std::string& name, shader_type type, const std::vector<std::uint8_t>& source) noexcept
+    : shader { name, type, std::string(source.begin(), source.end()) }
 {
 }
 
-Shader::Shader(const std::string& name, ShaderType type, const std::string& source) noexcept
+shader::shader(const std::string& name, shader_type type, const std::string& source) noexcept
     : _id     { 0 }
     , _type   { type }
     , _name   { name }
@@ -20,7 +20,7 @@ Shader::Shader(const std::string& name, ShaderType type, const std::string& sour
 {
 }
 
-Shader::~Shader() noexcept
+shader::~shader() noexcept
 {
     if (_id != 0)
     {
@@ -29,22 +29,22 @@ Shader::~Shader() noexcept
     }
 }
 
-std::uint32_t Shader::id() const noexcept
+std::uint32_t shader::id() const noexcept
 {
     return _id;
 }
 
-const std::string& Shader::name() const noexcept
+const std::string& shader::name() const noexcept
 {
     return _name;
 }
 
-ShaderType Shader::type() const noexcept
+shader_type shader::type() const noexcept
 {
     return _type;
 }
 
-void Shader::compile() noexcept
+void shader::compile() noexcept
 {
     if (is_compiled())
     {
@@ -67,7 +67,7 @@ void Shader::compile() noexcept
     verify_compilation_state();
 }
 
-bool Shader::is_compiled() const noexcept
+bool shader::is_compiled() const noexcept
 {
     bool result = false;
 
@@ -82,7 +82,7 @@ bool Shader::is_compiled() const noexcept
     return result;
 }
 
-void Shader::verify_compilation_state()
+void shader::verify_compilation_state()
 {
     if (is_compiled())
     {

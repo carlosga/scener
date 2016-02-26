@@ -12,20 +12,20 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-class ConstantBuffer;
-enum class ShaderType : std::uint32_t;
+class constant_buffer;
+enum class shader_type : std::uint32_t;
 
-class Shader;
+class shader;
 
 /// Represents an OpenGL program.
-class Program final
+class program final
 {
 public:
     /// Initializes a new instance of the Program class.
-    Program();
+    program();
 
     /// Releases all resources being used by this Program instance.
-    ~Program() noexcept;
+    ~program() noexcept;
 
 public:
     /// Gets the OpenGL program identifier.
@@ -34,14 +34,14 @@ public:
 
     /// Gets the constant buffer assciated with this program.
     /// \returns the constant buffer assciated with this program.
-    scener::graphics::opengl::ConstantBuffer* constant_buffer() const noexcept;
+    opengl::constant_buffer* constant_buffer() const noexcept;
 
     /// Activates this program instance.
     void bind() const noexcept;
 
     /// Attachs the given shader to the program object.
     /// \param shader the shader to be attached to the program object.
-    void add_shader(std::shared_ptr<Shader> shader) noexcept;
+    void add_shader(std::shared_ptr<shader> shader) noexcept;
 
     /// Deactivates this program instance.
     void unbind() const noexcept;
@@ -54,7 +54,7 @@ public:
     std::map<std::string, std::size_t> get_uniform_offsets() const noexcept;
 
     /// Loads the subroutine at the given index on the given shader stage.
-    void activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const noexcept;
+    void activate_subroutine(shader_type type, std::uint32_t subroutineIndex) const noexcept;
 
 private:
     void create() noexcept;
@@ -65,8 +65,8 @@ public:
     std::string name { };
 
 private:
-    std::uint32_t                                             _id              { 0 };
-    std::unique_ptr<scener::graphics::opengl::ConstantBuffer> _constant_buffer { nullptr };
+    std::uint32_t                            _id              { 0 };
+    std::unique_ptr<opengl::constant_buffer> _constant_buffer { nullptr };
 };
 
 }}}

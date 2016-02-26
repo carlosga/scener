@@ -13,8 +13,8 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-class DisplayDevice;
-class DisplaySurface;
+class display_device;
+class display_surface;
 
 }}}
 
@@ -57,8 +57,8 @@ public:
     nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
-    opengl::DisplayDevice* display_device() const noexcept;
-    opengl::DisplaySurface* display_surface() const noexcept;
+    opengl::display_device* display_device() const noexcept;
+    opengl::display_surface* display_surface() const noexcept;
     void open() noexcept;
     void show() const noexcept;
     void close() noexcept;
@@ -72,8 +72,8 @@ private:
 
 private:
     renderer*                               _renderer          { nullptr };
-    std::unique_ptr<opengl::DisplayDevice>  _displayDevice     { nullptr };
-    std::unique_ptr<opengl::DisplaySurface> _displaySurface    { nullptr };
+    std::unique_ptr<opengl::display_device>  _displayDevice     { nullptr };
+    std::unique_ptr<opengl::display_surface> _displaySurface    { nullptr };
     std::string                             _title             { };
     nod::scoped_connection                  _close_connection  { };
     nod::scoped_connection                  _resize_connection { };

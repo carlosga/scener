@@ -11,14 +11,14 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-using scener::graphics::opengl::ConstantBuffer;
+using scener::graphics::opengl::constant_buffer;
 
-Program::Program()
+program::program()
 {
     create();
 }
 
-Program::~Program() noexcept
+program::~program() noexcept
 {
     if (_id != 0)
     {
@@ -30,17 +30,17 @@ Program::~Program() noexcept
     }
 }
 
-std::uint32_t Program::id() const noexcept
+std::uint32_t program::id() const noexcept
 {
     return _id;
 }
 
-ConstantBuffer* Program::constant_buffer() const noexcept
+opengl::constant_buffer* program::constant_buffer() const noexcept
 {
     return _constant_buffer.get();
 }
 
-void Program::bind() const noexcept
+void program::bind() const noexcept
 {
     glUseProgram(_id);
 
@@ -50,7 +50,7 @@ void Program::bind() const noexcept
     }
 }
 
-void Program::add_shader(std::shared_ptr<Shader> shader) noexcept
+void program::add_shader(std::shared_ptr<shader> shader) noexcept
 {
     // compile the shader if necessary
     if (!shader->is_compiled())
@@ -62,7 +62,7 @@ void Program::add_shader(std::shared_ptr<Shader> shader) noexcept
     glAttachShader(_id, shader->id());
 }
 
-void Program::unbind() const noexcept
+void program::unbind() const noexcept
 {
     if (_constant_buffer != nullptr)
     {
@@ -72,7 +72,7 @@ void Program::unbind() const noexcept
     glUseProgram(0);
 }
 
-void Program::link() noexcept
+void program::link() noexcept
 {
     // ... link the shader program
     glLinkProgram(_id);
@@ -81,10 +81,10 @@ void Program::link() noexcept
     verify_linking_state();
 
     // ... fill uniform buffer info
-    _constant_buffer = std::make_unique<ConstantBuffer>("ConstantBuffer", _id);
+    _constant_buffer = std::make_unique<opengl::constant_buffer>("ConstantBuffer", _id);
 }
 
-std::map<std::string, std::size_t> Program::get_uniform_offsets() const noexcept
+std::map<std::string, std::size_t> program::get_uniform_offsets() const noexcept
 {
     std::map<std::string, std::size_t> uniformOffsets;
 
@@ -129,12 +129,12 @@ std::map<std::string, std::size_t> Program::get_uniform_offsets() const noexcept
     return uniformOffsets;
 }
 
-void Program::activate_subroutine(ShaderType type, std::uint32_t subroutineIndex) const noexcept
+void program::activate_subroutine(shader_type type, std::uint32_t subroutineIndex) const noexcept
 {
     glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
 }
 
-void Program::create() noexcept
+void program::create() noexcept
 {
     // ... Create the program object
     _id = glCreateProgram();
@@ -142,7 +142,7 @@ void Program::create() noexcept
     Ensures(_id > 0);
 }
 
-void Program::verify_linking_state()
+void program::verify_linking_state()
 {
     // ... verify program linking
     GLint status;

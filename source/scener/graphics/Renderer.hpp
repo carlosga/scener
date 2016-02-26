@@ -16,7 +16,7 @@
 
 namespace scener { namespace content { class content_manager; } }
 
-namespace scener { namespace graphics { namespace opengl { class RenderContext; } } }
+namespace scener { namespace graphics { namespace opengl { class render_context; } } }
 
 namespace scener { namespace graphics {
 
@@ -121,7 +121,7 @@ protected:
 
 private:
     std::unique_ptr<graphics::window>         _window                { nullptr };
-    std::unique_ptr<opengl::RenderContext>    _render_context        { nullptr };
+    std::unique_ptr<opengl::render_context>    _render_context        { nullptr };
     std::unique_ptr<content::content_manager> _content_manager       { nullptr };
     std::unique_ptr<graphics_device_manager>  _device_manager        { nullptr };
     std::vector<std::shared_ptr<idrawable>>   _drawable_components   { };

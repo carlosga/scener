@@ -11,7 +11,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Defines opengl buffer object targets
-enum class BufferTarget : std::uint32_t
+enum class buffer_target : std::uint32_t
 {
     animation_or_skin        = 0                            ///< GLTF Buffer used for animation or skin data.
   , array_buffer             = GL_ARRAY_BUFFER              ///< A buffer used as a source for vertex data.

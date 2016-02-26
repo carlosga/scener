@@ -9,12 +9,12 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-VertexArrayObject::VertexArrayObject() noexcept
+vertex_array_object::vertex_array_object() noexcept
 {
     create();
 }
 
-VertexArrayObject::~VertexArrayObject() noexcept
+vertex_array_object::~vertex_array_object() noexcept
 {
     if (_id != 0)
     {
@@ -23,22 +23,22 @@ VertexArrayObject::~VertexArrayObject() noexcept
     }
 }
 
-std::uint32_t VertexArrayObject::id() const noexcept
+std::uint32_t vertex_array_object::id() const noexcept
 {
     return _id;
 }
 
-void VertexArrayObject::bind() const noexcept
+void vertex_array_object::bind() const noexcept
 {
     glBindVertexArray(_id);
 }
 
-void VertexArrayObject::unbind() const noexcept
+void vertex_array_object::unbind() const noexcept
 {
     glBindVertexArray(0);
 }
 
-void VertexArrayObject::declare(const vertex_declaration& declaration, std::uint32_t bindingIndex) const noexcept
+void vertex_array_object::declare(const vertex_declaration& declaration, std::uint32_t bindingIndex) const noexcept
 {
     const auto& elements = declaration.vertex_elements();
 
@@ -63,7 +63,7 @@ void VertexArrayObject::declare(const vertex_declaration& declaration, std::uint
     }
 }
 
-void VertexArrayObject::bind_to_buffer(const Buffer& buffer
+void vertex_array_object::bind_to_buffer(const buffer& buffer
                                      , uint32_t      bindingIndex
                                      , std::size_t   offset
                                      , std::size_t   stride) noexcept
@@ -71,14 +71,14 @@ void VertexArrayObject::bind_to_buffer(const Buffer& buffer
     glVertexArrayVertexBuffer(_id, bindingIndex, buffer.id(), offset, stride);
 }
 
-void VertexArrayObject::create() noexcept
+void vertex_array_object::create() noexcept
 {
     glCreateVertexArrays(1, &_id);
 
     Ensures(_id > 0);
 }
 
-std::size_t VertexArrayObject::get_element_count(vertex_element_format vertexFormat) const noexcept
+std::size_t vertex_array_object::get_element_count(vertex_element_format vertexFormat) const noexcept
 {
     switch (vertexFormat)
     {
@@ -104,7 +104,7 @@ std::size_t VertexArrayObject::get_element_count(vertex_element_format vertexFor
     }
 }
 
-std::uint32_t VertexArrayObject::get_element_type(vertex_element_format vertexFormat) const noexcept
+std::uint32_t vertex_array_object::get_element_type(vertex_element_format vertexFormat) const noexcept
 {
     switch (vertexFormat)
     {

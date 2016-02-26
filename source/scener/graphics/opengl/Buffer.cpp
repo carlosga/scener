@@ -8,7 +8,7 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-Buffer::Buffer(BufferTarget target, BufferUsage usage) noexcept
+buffer::buffer(buffer_target target, buffer_usage usage) noexcept
     : _id     { 0 }
     , _target { target }
     , _usage  { usage }
@@ -16,7 +16,7 @@ Buffer::Buffer(BufferTarget target, BufferUsage usage) noexcept
     create();
 }
 
-Buffer::~Buffer() noexcept
+buffer::~buffer() noexcept
 {
     if (_id != 0)
     {
@@ -25,32 +25,32 @@ Buffer::~Buffer() noexcept
     }
 }
 
-std::uint32_t Buffer::id() const noexcept
+std::uint32_t buffer::id() const noexcept
 {
     return _id;
 }
 
-BufferTarget Buffer::target() const noexcept
+buffer_target buffer::target() const noexcept
 {
     return _target;
 }
 
-BufferUsage Buffer::usage() const noexcept
+buffer_usage buffer::usage() const noexcept
 {
     return _usage;
 }
 
-void Buffer::bind() const noexcept
+void buffer::bind() const noexcept
 {
     glBindBuffer(static_cast<GLenum>(_target), _id);
 }
 
-void Buffer::unbind() const noexcept
+void buffer::unbind() const noexcept
 {
     glBindBuffer(static_cast<GLenum>(_target), 0);
 }
 
-std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+std::vector<std::uint8_t> buffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
     auto data = std::vector<std::uint8_t>(count, 0);
 
@@ -59,27 +59,27 @@ std::vector<std::uint8_t> Buffer::get_data(std::size_t offset, std::size_t count
     return data;
 }
 
-void Buffer::set_data(std::size_t count, gsl::not_null<const void*> data) const noexcept
+void buffer::set_data(std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
     glNamedBufferData(_id, static_cast<GLintptr>(count), data, static_cast<GLenum>(_usage));
 }
 
-void Buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
+void buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
     glNamedBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count), data);
 }
 
-void Buffer::invalidate() const noexcept
+void buffer::invalidate() const noexcept
 {
     glInvalidateBufferData(_id);
 }
 
-void Buffer::invalidate(std::size_t offset, const std::size_t count) const noexcept
+void buffer::invalidate(std::size_t offset, const std::size_t count) const noexcept
 {
     glInvalidateBufferSubData(_id, static_cast<GLintptr>(offset), static_cast<GLintptr>(count));
 }
 
-void Buffer::create() noexcept
+void buffer::create() noexcept
 {
     glCreateBuffers(1, &_id);
 

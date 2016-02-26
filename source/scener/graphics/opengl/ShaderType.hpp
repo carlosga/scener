@@ -11,7 +11,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Declares the supported shader types.
-enum class ShaderType : std::uint32_t
+enum class shader_type : std::uint32_t
 {
     vertex          = GL_VERTEX_SHADER          ///< A shader that is intended to run on the programmable vertex processor.
   , tess_control    = GL_TESS_CONTROL_SHADER    ///< A shader that is intended to run on the programmable tessellation processor in the control stage.

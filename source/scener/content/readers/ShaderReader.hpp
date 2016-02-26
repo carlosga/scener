@@ -6,12 +6,12 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 
-namespace scener { namespace graphics { namespace opengl { class Shader; } } }
+namespace scener { namespace graphics { namespace opengl { class shader; } } }
 
 namespace scener { namespace content { namespace readers {
 
 template <>
-class content_type_reader<graphics::opengl::Shader>
+class content_type_reader<graphics::opengl::shader>
 {
 public:
     content_type_reader() = default;
@@ -20,7 +20,7 @@ public:
     auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    std::string load_shader_with_includes(content_reader* input, const std::string& uri) const noexcept;
+    std::string load_shader(content_reader* input, const std::string& uri) const noexcept;
 };
 
 }}}

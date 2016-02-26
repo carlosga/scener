@@ -8,7 +8,7 @@
 
 namespace scener { namespace input {
 
-using scener::graphics::opengl::DisplaySurface;
+using scener::graphics::opengl::display_surface;
 
 // Returns the current keyboard state.
 KeyboardState Keyboard::get_state() noexcept
@@ -17,7 +17,7 @@ KeyboardState Keyboard::get_state() noexcept
 }
 
 // Gets or sets the window used for mouse processing.
-void Keyboard::initialize(DisplaySurface* s) noexcept
+void Keyboard::initialize(display_surface* s) noexcept
 {
     Keyboard::surface = s;
 
@@ -28,10 +28,10 @@ void Keyboard::initialize(DisplaySurface* s) noexcept
     // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
 }
 
-void Keyboard::key_callback(DisplaySurface* s, int key, int scancode, int action, int mods) noexcept
+void Keyboard::key_callback(display_surface* s, int key, int scancode, int action, int mods) noexcept
 {
 }
 
-DisplaySurface* Keyboard::surface;
+display_surface* Keyboard::surface;
 
 }}

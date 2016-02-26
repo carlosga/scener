@@ -12,7 +12,7 @@
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
-namespace scener { namespace graphics { namespace opengl { class Program; } } }
+namespace scener { namespace graphics { namespace opengl { class program; } } }
 
 namespace scener { namespace graphics {
 
@@ -41,7 +41,7 @@ public:
 private:
     graphics_device*                               _graphics_device  { nullptr };
     std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-    std::shared_ptr<opengl::Program>              _program          { nullptr };
+    std::shared_ptr<opengl::program>              _program          { nullptr };
     std::string                                   _name             { };
 
     template <typename T> friend class scener::content::readers::content_type_reader;

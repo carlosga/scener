@@ -12,22 +12,20 @@
 
 namespace scener { namespace content { namespace readers {
 
-using json11::Json;
-using scener::graphics::opengl::Shader;
-using scener::graphics::opengl::ShaderType;
+namespace opengl = scener::graphics::opengl;
 
-auto content_type_reader<Shader>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto content_type_reader<opengl::shader>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
 {
-    auto type    = static_cast<ShaderType>(source["type"].int_value());
-    auto ssource = load_shader_with_includes(input, source["uri"].string_value());
-    auto shader  = std::make_shared<Shader>(key, type, ssource);
+    auto type    = static_cast<opengl::shader_type>(source["type"].int_value());
+    auto ssource = load_shader(input, source["uri"].string_value());
+    auto shader  = std::make_shared<opengl::shader>(key, type, ssource);
 
     shader->compile();
 
     return shader;
 }
 
-std::string content_type_reader<Shader>::load_shader_with_includes(content_reader* input, const std::string& uri) const noexcept
+std::string content_type_reader<opengl::shader>::load_shader(content_reader* input, const std::string& uri) const noexcept
 {
     auto buffer      = input->read_external_reference(uri);
     auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");

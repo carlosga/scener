@@ -16,16 +16,16 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Represents an OpenGL Uniform Buffer Object (http://www.opengl.org/wiki/Uniform_Buffer_Object).
-class ConstantBuffer final
+class constant_buffer final
 {
 public:
     /// Initializes a new instance of the ConstantBuffer class.
     /// \param name the name of the constant buffer.
     /// \param programId the name of the opengl program used to initialize the constant buffer.
-    ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept;
+    constant_buffer(const std::string& name, std::uint32_t programId) noexcept;
 
     /// Releases all resources being used by this ConstantBuffer.
-    ~ConstantBuffer() = default;
+    ~constant_buffer() = default;
 
 public:
     /// Gets the constant buffer binding point.
@@ -66,7 +66,7 @@ private:
     void create() noexcept;
 
 private:
-    Buffer        _buffer_object;
+    buffer        _buffer_object;
     std::uint32_t _program_id;
     std::size_t   _index;
     std::int32_t  _binding_point;

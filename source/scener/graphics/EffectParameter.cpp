@@ -12,7 +12,7 @@ namespace scener { namespace graphics {
 
 namespace sml = scener::math;
 
-using scener::graphics::opengl::ConstantBuffer;
+using scener::graphics::opengl::constant_buffer;
 using sml::matrix4;
 using sml::quaternion;
 using sml::vector2;

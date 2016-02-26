@@ -14,23 +14,23 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Represents a shader.
-class Shader final
+class shader final
 {
 public:
     /// Initializes a new instance of the Shader class.
     /// \param name the name of the shader.
     /// \param type the type of the shader.
     /// \param source the source code for the shader.
-    Shader(const std::string& name, ShaderType type, const std::vector<std::uint8_t>& source) noexcept;
+    shader(const std::string& name, shader_type type, const std::vector<std::uint8_t>& source) noexcept;
 
     /// Initializes a new instance of the Shader class.
     /// \param name the name of the shader.
     /// \param type the type of the shader.
     /// \param source the source code for the shader.
-    Shader(const std::string& name, ShaderType type, const std::string& source) noexcept;
+    shader(const std::string& name, shader_type type, const std::string& source) noexcept;
 
     /// Releases all resources being used bu this Shader.
-    ~Shader() noexcept;
+    ~shader() noexcept;
 
 public:
     /// Gets the shader identififer.
@@ -43,7 +43,7 @@ public:
 
     /// Gets the type of the shader.
     /// \returns the type of the shader.
-    ShaderType type() const noexcept;
+    shader_type type() const noexcept;
 
     /// Performs the compilation of the shader source code.
     void compile() noexcept;
@@ -56,7 +56,7 @@ private:
 
 private:
     std::uint32_t _id;
-    ShaderType    _type;
+    shader_type    _type;
     std::string   _name;
     std::string   _source;
 };

@@ -8,8 +8,8 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId) noexcept
-    : _buffer_object { BufferTarget::uniform_buffer, BufferUsage::dynamic_draw }
+constant_buffer::constant_buffer(const std::string& name, std::uint32_t programId) noexcept
+    : _buffer_object { buffer_target::uniform_buffer, buffer_usage::dynamic_draw }
     , _program_id    { programId }
     , _index         { 0 }
     , _binding_point { 0 }
@@ -19,56 +19,56 @@ ConstantBuffer::ConstantBuffer(const std::string& name, std::uint32_t programId)
     create();
 }
 
-std::int32_t ConstantBuffer::binding_point() const noexcept
+std::int32_t constant_buffer::binding_point() const noexcept
 {
     return _binding_point;
 }
 
-std::size_t ConstantBuffer::index() const noexcept
+std::size_t constant_buffer::index() const noexcept
 {
     return _index;
 }
 
-std::size_t ConstantBuffer::size() const noexcept
+std::size_t constant_buffer::size() const noexcept
 {
     return _size;
 }
 
-void ConstantBuffer::bind() const noexcept
+void constant_buffer::bind() const noexcept
 {
     glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
 }
 
-void ConstantBuffer::unbind() const noexcept
+void constant_buffer::unbind() const noexcept
 {
     glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
 }
 
-std::vector<std::uint8_t> ConstantBuffer::get_data() const noexcept
+std::vector<std::uint8_t> constant_buffer::get_data() const noexcept
 {
     return get_data(0, _size);
 }
 
-std::vector<std::uint8_t> ConstantBuffer::get_data(std::size_t offset, std::size_t count) const noexcept
+std::vector<std::uint8_t> constant_buffer::get_data(std::size_t offset, std::size_t count) const noexcept
 {
     Ensures(count <= _size);
 
     return _buffer_object.get_data(offset, count);
 }
 
-void ConstantBuffer::set_data(gsl::not_null<const void*> data) const noexcept
+void constant_buffer::set_data(gsl::not_null<const void*> data) const noexcept
 {
     set_data(0, _size, data);
 }
 
-void ConstantBuffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
+void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
 {
     Ensures((offset + count) <= _size);
 
     _buffer_object.set_data(offset, count, data);
 }
 
-void ConstantBuffer::create() noexcept
+void constant_buffer::create() noexcept
 {
     std::int32_t binding   = 0;
     std::int32_t blockSize = 0;

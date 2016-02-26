@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace scener { namespace graphics { namespace opengl { class DisplaySurface; } } }
+namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
 
@@ -18,7 +18,7 @@ class KeyboardState
 {
 public:
     ///Initializes a new instance of the KeyboardState class.
-    KeyboardState(scener::graphics::opengl::DisplaySurface* surface) noexcept;
+    KeyboardState(scener::graphics::opengl::display_surface* surface) noexcept;
 
     //KeyboardState(Keys[] keys);
 
@@ -41,7 +41,7 @@ public:
     bool is_key_up(Keys key) noexcept;
 
 private:
-    scener::graphics::opengl::DisplaySurface* _surface;
+    scener::graphics::opengl::display_surface* _surface;
 };
 
 }}

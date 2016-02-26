@@ -12,32 +12,32 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-DisplayDevice::~DisplayDevice()
+display_device::~display_device()
 {
     destroy();
 }
 
-Display* DisplayDevice::handle() const noexcept
+Display* display_device::handle() const noexcept
 {
     return _display;
 }
 
-int32_t DisplayDevice::screen_id() const noexcept
+int32_t display_device::screen_id() const noexcept
 {
     return _screen_id;
 }
 
-XVisualInfo* DisplayDevice::visual_info() const noexcept
+XVisualInfo* display_device::visual_info() const noexcept
 {
     return _visual_info;
 }
 
-const GLXFBConfig& DisplayDevice::frame_buffer_config() const noexcept
+const GLXFBConfig& display_device::frame_buffer_config() const noexcept
 {
     return _fbc;
 }
 
-bool DisplayDevice::open() noexcept
+bool display_device::open() noexcept
 {
     XInitThreads();
 
@@ -71,7 +71,7 @@ bool DisplayDevice::open() noexcept
     return true;
 }
 
-void DisplayDevice::destroy() noexcept
+void display_device::destroy() noexcept
 {
     if (_visual_info != 0)
     {
@@ -87,12 +87,12 @@ void DisplayDevice::destroy() noexcept
     }
 }
 
-void DisplayDevice::sync() const noexcept
+void display_device::sync() const noexcept
 {
     XSync(_display, false);
 }
 
-bool DisplayDevice::check_glx_version() noexcept
+bool display_device::check_glx_version() noexcept
 {
     // Check GLX version
     GLint majorGLX = 0;
@@ -102,7 +102,7 @@ bool DisplayDevice::check_glx_version() noexcept
     return (majorGLX == 1 && minorGLX == 4);
 }
 
-void DisplayDevice::open_display() noexcept
+void display_device::open_display() noexcept
 {
     // Open the display
     _display = XOpenDisplay(NULL);
@@ -116,7 +116,7 @@ void DisplayDevice::open_display() noexcept
     _screen_id = DefaultScreen(_display);
 }
 
-bool DisplayDevice::configure_frame_buffer() noexcept
+bool display_device::configure_frame_buffer() noexcept
 {
     // Pick the FB config/visual with the most samples per pixel
     _fbc = get_best_frame_buffer_configuration();
@@ -145,7 +145,7 @@ bool DisplayDevice::configure_frame_buffer() noexcept
     return true;
 }
 
-GLXFBConfig DisplayDevice::get_best_frame_buffer_configuration() const noexcept
+GLXFBConfig display_device::get_best_frame_buffer_configuration() const noexcept
 {
     std::int32_t glxAttribs[] =
     {

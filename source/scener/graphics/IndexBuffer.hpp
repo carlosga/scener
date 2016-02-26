@@ -65,7 +65,7 @@ private:
     void unbind() const noexcept;
 
 private:
-    scener::graphics::opengl::Buffer _buffer;
+    scener::graphics::opengl::buffer _buffer;
     std::size_t                      _indexCount;
     component_type                    _indexElementType;
 

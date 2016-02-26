@@ -11,7 +11,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// OpenGL Buffer usages.
-enum class BufferUsage : std::uint32_t
+enum class buffer_usage : std::uint32_t
 {
     stream_draw  = GL_STREAM_DRAW
   , stream_read  = GL_STREAM_READ

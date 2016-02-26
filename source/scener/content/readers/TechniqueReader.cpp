@@ -30,7 +30,7 @@ using scener::graphics::effect_parameter_type;
 using scener::graphics::effect_pass;
 using scener::graphics::igraphics_device_service;
 using scener::graphics::service_container;
-using scener::graphics::opengl::Program;
+using scener::graphics::opengl::program;
 
 auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -178,7 +178,7 @@ void content_type_reader<effect_technique>::read_pass_program(content_reader*   
                                                          , effect_pass*        effectPass) const noexcept
 {
     // Pass program
-    effectPass->_program = input->read_object_instance<Program>(programName);
+    effectPass->_program = input->read_object_instance<program>(programName);
 
     // Uniforms
     auto offsets = effectPass->_program->get_uniform_offsets();

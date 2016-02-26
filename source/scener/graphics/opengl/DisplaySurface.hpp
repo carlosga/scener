@@ -16,18 +16,18 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-class DisplayDevice;
+class display_device;
 
 /// Represents a X11 display surface (an X11 window).
-class DisplaySurface final
+class display_surface final
 {
 public:
     /// Initializes a new instance of the DisplaySurface class with then given DisplayDevice.
     /// \param display the DisplayDevice instance used to create the surface.
-    DisplaySurface(DisplayDevice* display);
+    display_surface(display_device* display);
 
     /// Releases all resources being used by this DisplaySurface instance.
-    ~DisplaySurface();
+    ~display_surface();
 
 public:
     /// Gets the X11 handle.
@@ -60,11 +60,11 @@ public:
     nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
-    DisplaySurface(const DisplaySurface&) = delete;
-    DisplaySurface& operator=(const DisplaySurface&) = delete;
+    display_surface(const display_surface&) = delete;
+    display_surface& operator=(const display_surface&) = delete;
 
 private:
-    DisplayDevice*       _display              { nullptr };
+    display_device*       _display              { nullptr };
     Drawable             _drawable             { 0 };
     XSetWindowAttributes _drawable_attribs     { };
     Atom                 _atomWmDeleteDrawable { };

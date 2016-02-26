@@ -10,7 +10,7 @@
 
 namespace scener { namespace input {
 
-using scener::graphics::opengl::DisplaySurface;
+using scener::graphics::opengl::display_surface;
 
 MouseState Mouse::get_state() noexcept
 {
@@ -21,7 +21,7 @@ void Mouse::set_position(std::uint32_t x, std::uint32_t y) noexcept
 {
 }
 
-void Mouse::initialize(DisplaySurface* s) noexcept
+void Mouse::initialize(display_surface* s) noexcept
 {
     Mouse::surface = s;
 
@@ -41,11 +41,11 @@ void Mouse::initialize(DisplaySurface* s) noexcept
     // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
 }
 
-void Mouse::cursor_position_callback(DisplaySurface* s, double xpos, double ypos) noexcept
+void Mouse::cursor_position_callback(display_surface* s, double xpos, double ypos) noexcept
 {
 }
 
-void Mouse::mouse_button_callback(DisplaySurface* s
+void Mouse::mouse_button_callback(display_surface* s
                                 , std::uint32_t   button
                                 , std::uint32_t   action
                                 , std::uint32_t   mods) noexcept
@@ -54,10 +54,10 @@ void Mouse::mouse_button_callback(DisplaySurface* s
 //                popup_menu();
 }
 
-void Mouse::scroll_wheel_callback(DisplaySurface* s, double xoffset, double yoffset) noexcept
+void Mouse::scroll_wheel_callback(display_surface* s, double xoffset, double yoffset) noexcept
 {
 }
 
-DisplaySurface* Mouse::surface;
+display_surface* Mouse::surface;
 
 }}

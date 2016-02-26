@@ -12,30 +12,30 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-enum class BufferTarget : std::uint32_t;
-enum class BufferUsage  : std::uint32_t;
+enum class buffer_target : std::uint32_t;
+enum class buffer_usage  : std::uint32_t;
 
 /// Represents an OpenGL buffer object.
-class Buffer final
+class buffer final
 {
 public:
     /// Initializes a new instance of the Buffer class.
     /// \param target the buffer target.
     /// \param usage the buffer usage.
-    Buffer(BufferTarget target, BufferUsage usage) noexcept;
+    buffer(buffer_target target, buffer_usage usage) noexcept;
 
     /// Releases all resources being used by this Buffer.
-    ~Buffer() noexcept;
+    ~buffer() noexcept;
 
 public:
     /// Gets the buffer object identifier.
     std::uint32_t id() const noexcept;
 
     /// Gets the buffer object target.
-    BufferTarget target() const noexcept;
+    buffer_target target() const noexcept;
 
     /// Gets the buffer object usage.
-    BufferUsage usage() const noexcept;
+    buffer_usage usage() const noexcept;
 
     /// Activates the buffer object.
     void bind() const noexcept;
@@ -71,13 +71,13 @@ private:
     void create() noexcept;
 
 private:
-    Buffer(const Buffer&) = delete;
-    Buffer& operator=(const Buffer&) = delete;
+    buffer(const buffer&) = delete;
+    buffer& operator=(const buffer&) = delete;
 
 private:
     std::uint32_t _id;
-    BufferTarget  _target;
-    BufferUsage   _usage;
+    buffer_target  _target;
+    buffer_usage   _usage;
 };
 
 }}}

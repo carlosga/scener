@@ -8,15 +8,15 @@
 
 namespace scener { namespace graphics {
 
-using scener::graphics::opengl::Buffer;
-using scener::graphics::opengl::BufferTarget;
-using scener::graphics::opengl::BufferUsage;
+using scener::graphics::opengl::buffer;
+using scener::graphics::opengl::buffer_target;
+using scener::graphics::opengl::buffer_usage;
 
 index_buffer::index_buffer(gsl::not_null<graphics_device*> device
                          , component_type                  indexElementType
                          , std::size_t                     indexCount) noexcept
     : graphics_resource { device }
-    , _buffer           { BufferTarget::element_array_buffer, BufferUsage::static_draw }
+    , _buffer           { buffer_target::element_array_buffer, buffer_usage::static_draw }
     , _indexCount       { indexCount }
     , _indexElementType { indexElementType }
 {

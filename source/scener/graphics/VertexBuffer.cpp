@@ -9,10 +9,10 @@
 
 namespace scener { namespace graphics {
 
-using scener::graphics::opengl::Buffer;
-using scener::graphics::opengl::BufferTarget;
-using scener::graphics::opengl::BufferUsage;
-using scener::graphics::opengl::VertexArrayObject;
+using scener::graphics::opengl::buffer;
+using scener::graphics::opengl::buffer_target;
+using scener::graphics::opengl::buffer_usage;
+using scener::graphics::opengl::vertex_array_object;
 
 vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
                            , std::size_t                         vertex_count
@@ -22,7 +22,7 @@ vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
     , _vertex_count       { vertex_count }
     , _vertex_declaration { vertex_declaration }
     , _vao                { }
-    , _vbo                { BufferTarget::array_buffer, BufferUsage::static_draw }
+    , _vbo                { buffer_target::array_buffer, buffer_usage::static_draw }
 {
     _vao.bind_to_buffer(_vbo, _binding_index, 0, _vertex_declaration.vertex_stride());
     _vao.declare(_vertex_declaration, _binding_index);

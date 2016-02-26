@@ -9,7 +9,7 @@
 
 #include "scener/graphics/opengl/DisplaySurface.hpp"
 
-namespace scener { namespace graphics { namespace opengl { class DisplaySurface; } } }
+namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
 
@@ -27,10 +27,10 @@ public:
     static KeyboardState get_state() noexcept;
 
     /// Gets or sets the window used for mouse processing.
-    static void initialize(graphics::opengl::DisplaySurface* s) noexcept;
+    static void initialize(graphics::opengl::display_surface* s) noexcept;
 
 private:
-    static void key_callback(graphics::opengl::DisplaySurface* s, int key, int scancode, int action, int mods) noexcept;
+    static void key_callback(graphics::opengl::display_surface* s, int key, int scancode, int action, int mods) noexcept;
 
 private:
     Keyboard() = delete;
@@ -38,7 +38,7 @@ private:
     Keyboard& operator=(const Keyboard& keyboard) = delete;
 
 private:
-    static graphics::opengl::DisplaySurface* surface;
+    static graphics::opengl::display_surface* surface;
 };
 
 }}

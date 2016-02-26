@@ -94,7 +94,7 @@ private:
     std::size_t                              _height;
     std::size_t                              _width;
     std::shared_ptr<graphics::sampler_state> _sampler_state;
-    opengl::TextureStorage                   _storage;
+    opengl::texture_storage                   _storage;
 
     template <typename T> friend class scener::content::readers::content_type_reader;
 };
