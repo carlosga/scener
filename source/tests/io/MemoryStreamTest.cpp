@@ -8,8 +8,8 @@
 
 #include <gsl.h>
 
-#include <scener/io/BinaryReader.hpp>
-#include <scener/io/MemoryStream.hpp>
+#include <scener/io/binary_reader.hpp>
+#include <scener/io/memory_stream.hpp>
 
 using namespace gsl;
 using namespace scener;
@@ -19,14 +19,14 @@ TEST_F(MemoryStreamTest, DefaultConstructor)
 {
     std::vector<std::uint8_t> vec(3);
     auto dv = as_span(vec);
-    MemoryStream stream(dv);
+    memory_stream stream(dv);
 }
 
 TEST_F(MemoryStreamTest, Read)
 {
     std::vector<std::uint8_t> vec = { 1, 2, 3 };
     auto dv = as_span(vec);
-    MemoryStream stream(dv);
+    memory_stream stream(dv);
     std::vector<std::uint8_t> out(3, 0);
 
     stream.read(reinterpret_cast<char*>(out.data()), 0, 3);
@@ -44,8 +44,8 @@ TEST_F(MemoryStreamTest, ReadFloat)
                                     , 0x00, 0x00, 0x70, 0x41
                                     , 0x00, 0xFF, 0x7F, 0x47 };
 
-    MemoryStream stream(vec);
-    BinaryReader reader(stream);
+    memory_stream stream(vec);
+    binary_reader reader(stream);
 
     EXPECT_TRUE(0.0f           == reader.read<float>());
     EXPECT_TRUE(1.0f           == reader.read<float>());

@@ -6,15 +6,15 @@
 #include "scener/content/content_reader.hpp"
 #include "scener/graphics/Model.hpp"
 #include "scener/graphics/RendererServiceContainer.hpp"
-#include "scener/io/FileStream.hpp"
-#include "scener/io/File.hpp"
-#include "scener/io/Path.hpp"
+#include "scener/io/file_stream.hpp"
+#include "scener/io/file.hpp"
+#include "scener/io/path.hpp"
 
 namespace scener { namespace content {
 
 using scener::graphics::Model;
 using scener::graphics::RendererServiceContainer;
-using scener::io::FileStream;
+using scener::io::file_stream;
 
 content_manager::content_manager(gsl::not_null<RendererServiceContainer*> serviceProvider
                                , const std::string&                       rootDirectory) noexcept
@@ -61,14 +61,14 @@ void content_manager::unload() noexcept
     _resource_manager.clear();
 }
 
-std::shared_ptr<FileStream> content_manager::open_stream(const std::string& assetName) noexcept
+std::shared_ptr<file_stream> content_manager::open_stream(const std::string& assetName) noexcept
 {
     const auto filename  = assetName + ".gltf";
-    const auto path      = scener::io::Path::combine(_root_directory, filename);
+    const auto path      = scener::io::path::combine(_root_directory, filename);
 
-    Ensures(scener::io::File::exists(path));
+    Ensures(scener::io::file::exists(path));
 
-    return std::make_shared<FileStream>(path);
+    return std::make_shared<file_stream>(path);
 }
 
 }}

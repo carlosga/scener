@@ -1,31 +1,31 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/io/BinaryReader.hpp"
+#include "scener/io/binary_reader.hpp"
 
 #include <string>
 
-#include "scener/io/Stream.hpp"
+#include "scener/io/stream.hpp"
 
 namespace scener { namespace io {
 
-BinaryReader::BinaryReader(Stream& stream) noexcept
+binary_reader::binary_reader(io::stream& stream) noexcept
     : _stream { stream }
 {
 }
 
-Stream& BinaryReader::base_stream() noexcept
+stream& binary_reader::base_stream() noexcept
 {
     return _stream;
 }
 
-void BinaryReader::close() noexcept
+void binary_reader::close() noexcept
 {
     _stream.close();
 }
 
 template<>
-char16_t BinaryReader::read() noexcept
+char16_t binary_reader::read() noexcept
 {
     std::uint32_t buffer = _stream.read_byte();
 
@@ -53,7 +53,7 @@ char16_t BinaryReader::read() noexcept
 }
 
 template<>
-std::string BinaryReader::read() noexcept
+std::string binary_reader::read() noexcept
 {
     auto buffer = read_bytes(read_7_bit_encoded_int());
 
@@ -62,13 +62,13 @@ std::string BinaryReader::read() noexcept
 
 
 template<>
-bool BinaryReader::read() noexcept
+bool binary_reader::read() noexcept
 {
     return static_cast<bool>(_stream.read_byte());
 }
 
 template <>
-std::int8_t BinaryReader::read() noexcept
+std::int8_t binary_reader::read() noexcept
 {
     std::int8_t buffer;
 
@@ -78,7 +78,7 @@ std::int8_t BinaryReader::read() noexcept
 }
 
 template <>
-std::uint8_t BinaryReader::read() noexcept
+std::uint8_t binary_reader::read() noexcept
 {
     std::uint8_t buffer;
 
@@ -88,7 +88,7 @@ std::uint8_t BinaryReader::read() noexcept
 }
 
 template <>
-std::int16_t BinaryReader::read() noexcept
+std::int16_t binary_reader::read() noexcept
 {
     std::int16_t buffer;
 
@@ -98,7 +98,7 @@ std::int16_t BinaryReader::read() noexcept
 }
 
 template <>
-std::uint16_t BinaryReader::read() noexcept
+std::uint16_t binary_reader::read() noexcept
 {
     std::uint16_t buffer;
 
@@ -108,7 +108,7 @@ std::uint16_t BinaryReader::read() noexcept
 }
 
 template <>
-std::int32_t BinaryReader::read() noexcept
+std::int32_t binary_reader::read() noexcept
 {
     std::int32_t buffer;
 
@@ -118,7 +118,7 @@ std::int32_t BinaryReader::read() noexcept
 }
 
 template <>
-std::uint32_t BinaryReader::read() noexcept
+std::uint32_t binary_reader::read() noexcept
 {
     std::uint32_t buffer;
 
@@ -128,7 +128,7 @@ std::uint32_t BinaryReader::read() noexcept
 }
 
 template <>
-std::int64_t BinaryReader::read() noexcept
+std::int64_t binary_reader::read() noexcept
 {
     std::int64_t buffer;
 
@@ -138,7 +138,7 @@ std::int64_t BinaryReader::read() noexcept
 }
 
 template <>
-std::uint64_t BinaryReader::read() noexcept
+std::uint64_t binary_reader::read() noexcept
 {
     std::uint64_t buffer;
 
@@ -148,7 +148,7 @@ std::uint64_t BinaryReader::read() noexcept
 }
 
 template <>
-float BinaryReader::read() noexcept
+float binary_reader::read() noexcept
 {
     float buffer;
 
@@ -158,7 +158,7 @@ float BinaryReader::read() noexcept
 }
 
 template <>
-double BinaryReader::read() noexcept
+double binary_reader::read() noexcept
 {
     double buffer;
 
@@ -167,7 +167,7 @@ double BinaryReader::read() noexcept
     return buffer;
 }
 
-std::int32_t BinaryReader::peek_char() noexcept
+std::int32_t binary_reader::peek_char() noexcept
 {
     std::int32_t nextChar = -1;
 
@@ -186,7 +186,7 @@ std::int32_t BinaryReader::peek_char() noexcept
     return nextChar;
 }
 
-std::uint32_t BinaryReader::read_7_bit_encoded_int() noexcept
+std::uint32_t binary_reader::read_7_bit_encoded_int() noexcept
 {
     std::uint32_t result   = 0;
     std::uint32_t bitsRead = 0;
@@ -202,7 +202,7 @@ std::uint32_t BinaryReader::read_7_bit_encoded_int() noexcept
     return result;
 }
 
-std::vector<std::uint8_t> BinaryReader::read_bytes(std::size_t count) noexcept
+std::vector<std::uint8_t> binary_reader::read_bytes(std::size_t count) noexcept
 {
     auto buffer = std::vector<std::uint8_t>(count, 0);
     auto readed = _stream.read(reinterpret_cast<char*>(&buffer[0]), 0, count);

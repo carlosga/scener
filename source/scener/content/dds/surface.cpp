@@ -4,18 +4,18 @@
 #include "scener/content/dds/surface.hpp"
 
 #include "scener/content/dds/header.hpp"
-#include "scener/io/File.hpp"
+#include "scener/io/file.hpp"
 
 namespace scener { namespace content { namespace dds {
 
 using scener::graphics::SurfaceFormat;
-using scener::io::FileStream;
+using scener::io::file_stream;
 
 void surface::load(const std::string& filename) noexcept
 {
-    Expects(scener::io::File::exists(filename));
+    Expects(scener::io::file::exists(filename));
 
-    FileStream  stream(filename);
+    file_stream  stream(filename);
     header      ddsheader;
     std::size_t blockSize = 16;
 

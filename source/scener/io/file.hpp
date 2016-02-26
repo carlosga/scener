@@ -9,14 +9,14 @@
 
 #include <gsl_assert.h>
 
-#include "scener/io/BinaryReader.hpp"
-#include "scener/io/FileStream.hpp"
+#include "scener/io/binary_reader.hpp"
+#include "scener/io/file_stream.hpp"
 #include "scener/text/Encoding.hpp"
 
 namespace scener { namespace io {
 
 /// Provides static methods for file access handling.
-class File final
+class file final
 {
 public:
     /// Checks whether the given file exists.
@@ -52,16 +52,16 @@ public:
     {
         Expects(exists(path));
 
-        FileStream   stream(path);
-        BinaryReader reader(stream);
+        file_stream   stream(path);
+        binary_reader reader(stream);
 
         return reader.read_bytes(stream.length());
     }
 
 private:
-    File() = delete;
-    File(const File& file) = delete;
-    File& operator=(const File& file) = delete;
+    file() = delete;
+    file(const file& file) = delete;
+    file& operator=(const file& file) = delete;
 };
 
 }}

@@ -9,23 +9,23 @@
 
 namespace scener { namespace io {
 
-class Stream;
+class stream;
 
 /// Reads primitive data types as binary values in a specific encoding.
-class BinaryReader final
+class binary_reader final
 {
 public:
-    /// Initializes a new instance of the BinaryReader class with the given stream.
+    /// Initializes a new instance of the binary_reader class with the given stream.
     /// \param stream the input stream.
-    BinaryReader(Stream& stream) noexcept;
+    binary_reader(io::stream& stream) noexcept;
 
-    /// Releases all resources being used by this BinaryReader.
-    ~BinaryReader() = default;
+    /// Releases all resources being used by this binary_reader.
+    ~binary_reader() = default;
 
 public:
     /// Gets the underliying Stream.
     /// \returns the underliying Stream.
-    Stream& base_stream() noexcept;
+    stream& base_stream() noexcept;
 
     /// Closes the current reader and the underlying stream.
     void close() noexcept;
@@ -48,12 +48,12 @@ public:
     std::vector<std::uint8_t> read_bytes(std::size_t count) noexcept;
 
 private:
-    BinaryReader() = delete;
-    BinaryReader(const BinaryReader& reader) = delete;
-    BinaryReader& operator=(const BinaryReader& reader) = delete;
+    binary_reader() = delete;
+    binary_reader(const binary_reader& reader) = delete;
+    binary_reader& operator=(const binary_reader& reader) = delete;
 
 private:
-    Stream& _stream;
+    stream& _stream;
 };
 
 }}

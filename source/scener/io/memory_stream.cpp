@@ -1,48 +1,48 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/io/MemoryStream.hpp"
+#include "scener/io/memory_stream.hpp"
 
 #include <algorithm>
 
 namespace scener { namespace io {
 
-MemoryStream::MemoryStream(const gsl::span<std::uint8_t>& buffer) noexcept
+memory_stream::memory_stream(const gsl::span<std::uint8_t>& buffer) noexcept
     : _buffer   { buffer }
     , _position { _buffer.begin() }
 {
 }
 
-bool MemoryStream::can_read() const noexcept
+bool memory_stream::can_read() const noexcept
 {
     return true;
 }
 
-bool MemoryStream::can_seek() const noexcept
+bool memory_stream::can_seek() const noexcept
 {
     return true;
 }
 
-bool MemoryStream::can_write() const noexcept
+bool memory_stream::can_write() const noexcept
 {
     return false;
 }
 
-std::size_t MemoryStream::position() noexcept
+std::size_t memory_stream::position() noexcept
 {
     return std::distance(_position, _buffer.begin());
 }
 
-std::size_t MemoryStream::length() noexcept
+std::size_t memory_stream::length() noexcept
 {
     return _buffer.size();
 }
 
-void MemoryStream::close() noexcept
+void memory_stream::close() noexcept
 {
 }
 
-std::int32_t MemoryStream::read_byte() noexcept
+std::int32_t memory_stream::read_byte() noexcept
 {
     std::uint8_t buffer;
 
@@ -51,7 +51,7 @@ std::int32_t MemoryStream::read_byte() noexcept
     return buffer;
 }
 
-std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
+std::size_t memory_stream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
 {
     Ensures(_position + count <= _buffer.end());
 
@@ -62,7 +62,7 @@ std::size_t MemoryStream::read(char* buffer, std::size_t offset, std::size_t cou
     return count;
 }
 
-std::size_t MemoryStream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
+std::size_t memory_stream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
 {
     Expects(origin == std::ios_base::beg || origin == std::ios_base::cur);
 

@@ -10,7 +10,7 @@
 namespace scener { namespace io {
 
 /// Utility class for path operations.
-class Path
+class path
 {
 public:
     /// Changes the extension of a path string.
@@ -27,7 +27,7 @@ public:
     /// \returns the directory information for the specified path string.
     static std::string get_directory_name(const std::string& path) noexcept
     {
-        auto position      = path.find_last_of(Path::directory_separator());
+        auto position      = path.find_last_of(path::directory_separator());
         auto directoryName = path;
 
         if (position != std::string::npos)
@@ -67,17 +67,17 @@ public:
 #if __unix__
         if (!cpath1.empty())
         {
-            std::replace(cpath1.begin(), cpath1.end(), '\\', Path::directory_separator());
+            std::replace(cpath1.begin(), cpath1.end(), '\\', path::directory_separator());
         }
         if (!cpath2.empty())
         {
-            std::replace(cpath2.begin(), cpath2.end(), '\\', Path::directory_separator());
+            std::replace(cpath2.begin(), cpath2.end(), '\\', path::directory_separator());
         }
 #endif
 
-        if (!cpath1.empty() && cpath1.back() != Path::directory_separator())
+        if (!cpath1.empty() && cpath1.back() != path::directory_separator())
         {
-            separator = Path::directory_separator();
+            separator = path::directory_separator();
         }
 
         return std::string(cpath1 + separator + cpath2);
@@ -95,9 +95,9 @@ public:
     }
 
 private:
-    Path() = delete;
-    Path(const Path& path) = delete;
-    Path& operator=(const Path& path) = delete;
+    path() = delete;
+    path(const path& path) = delete;
+    path& operator=(const path& path) = delete;
 };
 
 }}

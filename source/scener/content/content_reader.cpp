@@ -7,8 +7,8 @@
 #include "scener/graphics/Animation.hpp"
 #include "scener/graphics/Model.hpp"
 #include "scener/graphics/ModelMesh.hpp"
-#include "scener/io/File.hpp"
-#include "scener/io/Path.hpp"
+#include "scener/io/file.hpp"
+#include "scener/io/path.hpp"
 
 namespace scener { namespace content {
 
@@ -17,11 +17,11 @@ using scener::content::gltf::node;
 using scener::graphics::Animation;
 using scener::graphics::Model;
 using scener::graphics::ModelMesh;
-using scener::io::File;
-using scener::io::Path;
-using scener::io::Stream;
+using scener::io::file;
+using scener::io::path;
+using scener::io::stream;
 
-content_reader::content_reader(const std::string& assetName, content::content_manager* manager, Stream& stream) noexcept
+content_reader::content_reader(const std::string& assetName, content::content_manager* manager, io::stream& stream) noexcept
     : _asset_name      { assetName }
     , _asset_reader    { stream }
     , _content_manager { manager }
@@ -95,18 +95,18 @@ bool content_reader::read_header() noexcept
 
 std::string content_reader::get_asset_path(const std::string& assetName) const noexcept
 {
-    auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
+    auto assetRoot = path::combine(path::get_directory_name(_asset_name), assetName);
 
-    return Path::combine(_content_manager->root_directory(), assetRoot);
+    return path::combine(_content_manager->root_directory(), assetRoot);
 }
 
 std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetName) const noexcept
 {
-    auto assetPath = get_asset_path(assetName);
+    auto asset_path = get_asset_path(assetName);
 
-    Ensures(File::exists(assetPath));
+    Ensures(file::exists(asset_path));
 
-    return File::read_all_bytes(assetPath);
+    return file::read_all_bytes(asset_path);
 }
 
 std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointName) const noexcept

@@ -15,8 +15,8 @@
 #include "scener/content/readers/ContentTypeReader.hpp"
 #include "scener/content/gltf/node.hpp"
 #include "scener/graphics/Bone.hpp"
-#include "scener/io/BinaryReader.hpp"
-#include "scener/io/Stream.hpp"
+#include "scener/io/binary_reader.hpp"
+#include "scener/io/stream.hpp"
 #include "scener/math/matrix.hpp"
 #include "scener/math/quaternion.hpp"
 #include "scener/math/vector.hpp"
@@ -60,7 +60,7 @@ public:
     /// \param assetName the name of the asset to be readed.
     /// \param manager the content_manager that owns this ContentReader.
     /// \param stream the base stream.
-    content_reader(const std::string& assetName, content::content_manager* manager, io::Stream& stream) noexcept;
+    content_reader(const std::string& assetName, content::content_manager* manager, io::stream& stream) noexcept;
 
     /// Releases all resources used by the current instance of the ContentReader class.
     ~content_reader() = default;
@@ -110,7 +110,7 @@ private:
 
 private:
     std::string               _asset_name;
-    scener::io::BinaryReader  _asset_reader;
+    scener::io::binary_reader _asset_reader;
     content::content_manager* _content_manager;
     json11::Json              _root;
 

@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/io/FileStream.hpp"
+#include "scener/io/file_stream.hpp"
 
 //#include <locale>
 //#include <codecvt>
 
 namespace scener { namespace io {
 
-FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) noexcept
+file_stream::file_stream(const std::string& path, const std::ios::openmode& mode) noexcept
     : _stream { path, mode }
     , _mode   { mode }
 {
@@ -18,27 +18,27 @@ FileStream::FileStream(const std::string& path, const std::ios::openmode& mode) 
 //    }
 }
 
-bool FileStream::can_read() const noexcept
+bool file_stream::can_read() const noexcept
 {
     return ((_mode & std::ios::in) == std::ios::in && _stream.is_open() && _stream.good());
 }
 
-bool FileStream::can_seek() const noexcept
+bool file_stream::can_seek() const noexcept
 {
     return true;
 }
 
-bool FileStream::can_write() const noexcept
+bool file_stream::can_write() const noexcept
 {
     return ((_mode & std::ios::out) == std::ios::out && _stream.is_open() && _stream.good());
 }
 
-std::size_t FileStream::position() noexcept
+std::size_t file_stream::position() noexcept
 {
     return _stream.tellg();
 }
 
-std::size_t FileStream::length() noexcept
+std::size_t file_stream::length() noexcept
 {
     auto original = position();
     seek(0, std::ios::end);
@@ -48,7 +48,7 @@ std::size_t FileStream::length() noexcept
     return result;
 }
 
-void FileStream::close() noexcept
+void file_stream::close() noexcept
 {
     if (_stream.is_open())
     {
@@ -56,7 +56,7 @@ void FileStream::close() noexcept
     }
 }
 
-std::int32_t FileStream::read_byte() noexcept
+std::int32_t file_stream::read_byte() noexcept
 {
     if (!_stream.good())
     {
@@ -70,7 +70,7 @@ std::int32_t FileStream::read_byte() noexcept
     return buffer;
 }
 
-std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
+std::size_t file_stream::read(char* buffer, std::size_t offset, std::size_t count) noexcept
 {
     if (!_stream.good())
     {
@@ -82,7 +82,7 @@ std::size_t FileStream::read(char* buffer, std::size_t offset, std::size_t count
     return _stream.gcount();
 }
 
-std::size_t FileStream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
+std::size_t file_stream::seek(std::size_t offset, std::ios::seekdir origin) noexcept
 {
     _stream.seekg(offset, origin);
 

@@ -1,29 +1,28 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_IO_FILESTREAM_HPP
-#define SCENER_IO_FILESTREAM_HPP
+#ifndef SCENER_IO_MEMORYSTREAM_HPP
+#define SCENER_IO_MEMORYSTREAM_HPP
 
 #include <cstddef>
 #include <cstdint>
-#include <fstream>
-#include <string>
 
-#include "scener/io/Stream.hpp"
+#include <gsl.h>
+
+#include "scener/io/stream.hpp"
 
 namespace scener { namespace io {
 
-/// A Stream around a file, supporting read operations.
-class FileStream  final : public Stream
+/// A Stream around a in memory buffer, supporting read operations.
+class memory_stream final : public stream
 {
 public:
-    /// Initializes a new instance of the FileStream class with the specified and opening mode.
-    /// \param path a relative or absolute path for the file that the current FileStream object will encapsulate.
-    /// \param mode a constant that determines how to open or create the file.
-    FileStream(const std::string& path, const std::ios::openmode& mode = std::ios::in | std::ios::binary) noexcept;
+    /// Initializes a new instance of the memory_stream class.
+    /// \param buffer a buffer view from which to create the current stream.
+    memory_stream(const gsl::span<std::uint8_t>& buffer) noexcept;
 
-    /// Releases all resources being used by this FileStream.
-    ~FileStream() override = default;
+    /// Releases all resources being used by this memory_stream.
+    ~memory_stream() override = default;
 
 public:
     /// Gets a value indicating whether the current stream supports reading.
@@ -46,7 +45,7 @@ public:
     /// \returns the length in bytes of the stream.
     std::size_t length() noexcept override;
 
-    /// Closes the current stream.
+    /// Closes the current stream
     void close() noexcept override;
 
     /// Reads a byte from the file and advances the read position one byte.
@@ -69,15 +68,15 @@ public:
     std::size_t seek(std::size_t offset, std::ios::seekdir origin) noexcept override;
 
 private:
-    FileStream() = delete;
-    FileStream(const FileStream& stream) = delete;
-    FileStream& operator=(const FileStream& stream) = delete;
+    memory_stream() = delete;
+    memory_stream(const memory_stream& stream) = delete;
+    memory_stream& operator=(const memory_stream& stream) = delete;
 
 private:
-    std::fstream       _stream;
-    std::ios::openmode _mode;
+    gsl::span<std::uint8_t>           _buffer;
+    gsl::span<std::uint8_t>::iterator _position;
 };
 
 }}
 
-#endif // SCENER_IO_FILESTREAM_HPP
+#endif // SCENER_IO_MEMORYSTREAM_HPP

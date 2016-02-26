@@ -6,28 +6,28 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <scener/io/FileStream.hpp>
+#include <scener/io/file_stream.hpp>
 
 using namespace scener;
 using namespace scener::io;
 
 TEST_F(FileStreamTest, DefaultConstructor)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     stream.close();
 }
 
 TEST_F(FileStreamTest, OpenFileStreamAsReadBinary)
 {
-    FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
+    file_stream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     stream.close();
 }
 
 TEST_F(FileStreamTest, BeginPosition)
 {
-    FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
+    file_stream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     EXPECT_TRUE(0 == stream.position());
 
@@ -36,7 +36,7 @@ TEST_F(FileStreamTest, BeginPosition)
 
 TEST_F(FileStreamTest, EndPosition)
 {
-    FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
+    file_stream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     stream.seek(0, std::ios::end);
 
@@ -47,7 +47,7 @@ TEST_F(FileStreamTest, EndPosition)
 
 TEST_F(FileStreamTest, ReadByte)
 {
-    FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
+    file_stream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     auto value = stream.read_byte();
 
@@ -59,7 +59,7 @@ TEST_F(FileStreamTest, ReadByte)
 
 TEST_F(FileStreamTest, ReadBytes)
 {
-    FileStream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
+    file_stream stream(FileStreamTest::TEST_FILE, std::ios::in | std::ios::binary);
 
     std::size_t               length = stream.length();
     std::vector<std::uint8_t> buffer(length);
@@ -74,7 +74,7 @@ TEST_F(FileStreamTest, ReadBytes)
 
 TEST_F(FileStreamTest, ReadInt16)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::int16_t value;
 
@@ -88,7 +88,7 @@ TEST_F(FileStreamTest, ReadInt16)
 
 TEST_F(FileStreamTest, ReadUInt16)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::uint16_t value;
 
@@ -102,7 +102,7 @@ TEST_F(FileStreamTest, ReadUInt16)
 
 TEST_F(FileStreamTest, ReadInt32)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::int32_t value;
 
@@ -116,7 +116,7 @@ TEST_F(FileStreamTest, ReadInt32)
 
 TEST_F(FileStreamTest, ReadUInt32)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::uint32_t value;
 
@@ -130,7 +130,7 @@ TEST_F(FileStreamTest, ReadUInt32)
 
 TEST_F(FileStreamTest, ReadInt64)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::int64_t value;
 
@@ -144,7 +144,7 @@ TEST_F(FileStreamTest, ReadInt64)
 
 TEST_F(FileStreamTest, ReadUInt64)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     std::uint64_t value;
 
@@ -158,7 +158,7 @@ TEST_F(FileStreamTest, ReadUInt64)
 
 TEST_F(FileStreamTest, ReadSingle)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     float value;
 
@@ -172,7 +172,7 @@ TEST_F(FileStreamTest, ReadSingle)
 
 TEST_F(FileStreamTest, ReadDouble)
 {
-    FileStream stream(FileStreamTest::TEST_FILE);
+    file_stream stream(FileStreamTest::TEST_FILE);
 
     double value;
 

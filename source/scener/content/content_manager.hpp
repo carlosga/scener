@@ -17,7 +17,7 @@ class RendererServiceContainer;
 
 }}
 
-namespace scener { namespace io { class FileStream; } }
+namespace scener { namespace io { class file_stream; } }
 
 namespace scener { namespace content {
 
@@ -49,7 +49,7 @@ public:
     void unload() noexcept;
 
 private:
-    std::shared_ptr<io::FileStream> open_stream(const std::string& assetName) noexcept;
+    std::shared_ptr<io::file_stream> open_stream(const std::string& assetName) noexcept;
 
 private:
     graphics::RendererServiceContainer* _service_provider;

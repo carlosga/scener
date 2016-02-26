@@ -1,56 +1,49 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_IO_MEMORYSTREAM_HPP
-#define SCENER_IO_MEMORYSTREAM_HPP
+#ifndef SCENER_IO_STREAM_HPP
+#define SCENER_IO_STREAM_HPP
 
 #include <cstddef>
 #include <cstdint>
-
-#include <gsl.h>
-
-#include "scener/io/Stream.hpp"
+#include <ios>
 
 namespace scener { namespace io {
 
-/// A Stream around a in memory buffer, supporting read operations.
-class MemoryStream final : public Stream
+/// Contract for stream implementations.
+class stream
 {
 public:
-    /// Initializes a new instance of the MemoryStream class.
-    /// \param buffer a buffer view from which to create the current stream.
-    MemoryStream(const gsl::span<std::uint8_t>& buffer) noexcept;
-
-    /// Releases all resources being used by this MemoryStream.
-    ~MemoryStream() override = default;
+    /// Virtual destructor.
+    virtual ~stream() = default;
 
 public:
     /// Gets a value indicating whether the current stream supports reading.
     /// \returns true if the stream supports reading; false otherwise.
-    bool can_read() const noexcept override;
+    virtual bool can_read() const noexcept = 0;
 
     /// Gets a value indicating whether the current stream supports seeking.
     /// \returns true if the stream supports seeking; false otherwise.
-    bool can_seek() const noexcept override;
+    virtual bool can_seek() const noexcept = 0;
 
     /// Gets a value indicating whether the current stream supports writing.
     /// \returns true if the stream supports writing; false otherwise.
-    bool can_write() const noexcept override;
+    virtual bool can_write() const noexcept = 0;
 
     /// Gets the current position of this stream.
     /// \returns the current position of this stream.
-    std::size_t position() noexcept override;
+    virtual std::size_t position() noexcept = 0;
 
     /// Returns the length in bytes of the stream.
     /// \returns the length in bytes of the stream.
-    std::size_t length() noexcept override;
+    virtual std::size_t length() noexcept = 0;
 
     /// Closes the current stream
-    void close() noexcept override;
+    virtual void close() noexcept = 0;
 
     /// Reads a byte from the file and advances the read position one byte.
     /// \returns the byte, cast to an std::uint32_t, or -1 if the end of the stream has been reached.
-    std::int32_t read_byte() noexcept override;
+    virtual std::int32_t read_byte() noexcept = 0;
 
     /// Reads a sequence of bytes from the current stream.
     /// \param buffer when this method returns, contains the specified byte array with the values
@@ -59,24 +52,15 @@ public:
     /// \param count the maximum number of bytes to read.
     /// \returns The total number of bytes read into the buffer. This might be less than the number of bytes requested
     ///          if that number of bytes are not currently available, or zero if the end of the stream is reached.
-    std::size_t read(char* buffer, std::size_t offset, std::size_t count) noexcept override;
+    virtual std::size_t read(char* buffer, std::size_t offset, std::size_t count) noexcept = 0;
 
     /// Sets the position within the current stream.
     /// \param offset the point relative to origin from which to begin seeking.
     /// \param origin specifies the beginning, the end, or the current position as a reference point for offset.
     /// \returns the new position in the stream.
-    std::size_t seek(std::size_t offset, std::ios::seekdir origin) noexcept override;
-
-private:
-    MemoryStream() = delete;
-    MemoryStream(const MemoryStream& stream) = delete;
-    MemoryStream& operator=(const MemoryStream& stream) = delete;
-
-private:
-    gsl::span<std::uint8_t>           _buffer;
-    gsl::span<std::uint8_t>::iterator _position;
+    virtual std::size_t seek(std::size_t offset, std::ios::seekdir origin) noexcept = 0;
 };
 
 }}
 
-#endif // SCENER_IO_MEMORYSTREAM_HPP
+#endif // SCENER_IO_STREAM_HPP

@@ -5,8 +5,8 @@
 
 #include <cstddef>
 
-#include <scener/io/BinaryReader.hpp>
-#include <scener/io/FileStream.hpp>
+#include <scener/io/binary_reader.hpp>
+#include <scener/io/file_stream.hpp>
 
 using namespace scener;
 using namespace scener::io;
@@ -14,8 +14,8 @@ using namespace scener::io;
 // Tests the default c'tor.
 TEST_F(BinaryReaderTest, DefaultConstructor)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     reader.close();
 }
@@ -23,8 +23,8 @@ TEST_F(BinaryReaderTest, DefaultConstructor)
 // Tests ReadByte().
 TEST_F(BinaryReaderTest, ReadByte)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::uint8_t>();
 
@@ -36,8 +36,8 @@ TEST_F(BinaryReaderTest, ReadByte)
 // Tests ReadBytes().
 TEST_F(BinaryReaderTest, ReadBytes)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
     std::size_t  length = reader.base_stream().length();
 
     auto buffer = reader.read_bytes(length);
@@ -50,8 +50,8 @@ TEST_F(BinaryReaderTest, ReadBytes)
 // Tests ReadInt16().
 TEST_F(BinaryReaderTest, ReadInt16)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::int16_t>();
 
@@ -63,8 +63,8 @@ TEST_F(BinaryReaderTest, ReadInt16)
 // Tests ReadUInt16().
 TEST_F(BinaryReaderTest, ReadUInt16)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::uint16_t>();
 
@@ -76,8 +76,8 @@ TEST_F(BinaryReaderTest, ReadUInt16)
 // Tests ReadInt32().
 TEST_F(BinaryReaderTest, ReadInt32)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::int32_t>();
 
@@ -89,8 +89,8 @@ TEST_F(BinaryReaderTest, ReadInt32)
 // Tests ReadInt32().
 TEST_F(BinaryReaderTest, ReadUInt32)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::uint32_t>();
 
@@ -102,8 +102,8 @@ TEST_F(BinaryReaderTest, ReadUInt32)
 // Tests ReadInt64().
 TEST_F(BinaryReaderTest, ReadInt64)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::int64_t>();
 
@@ -115,8 +115,8 @@ TEST_F(BinaryReaderTest, ReadInt64)
 // Tests ReadUInt64().
 TEST_F(BinaryReaderTest, ReadUInt64)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<std::uint64_t>();
 
@@ -128,8 +128,8 @@ TEST_F(BinaryReaderTest, ReadUInt64)
 // Tests ReadSingle().
 TEST_F(BinaryReaderTest, ReadSingle)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<float>();
 
@@ -141,8 +141,8 @@ TEST_F(BinaryReaderTest, ReadSingle)
 // Tests ReadDouble().
 TEST_F(BinaryReaderTest, ReadDouble)
 {
-    FileStream   stream(BinaryReaderTest::TEST_FILE);
-    BinaryReader reader(stream);
+    file_stream   stream(BinaryReaderTest::TEST_FILE);
+    binary_reader reader(stream);
 
     auto value = reader.read<double>();
 
