@@ -17,45 +17,45 @@
 
 namespace scener { namespace graphics {
 
-class EffectTechnique;
-class IndexBuffer;
-class VertexBuffer;
+class effect_technique;
+class index_buffer;
+class vertex_buffer;
 
 /// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels,
 /// and creates shaders.
-class GraphicsDevice final
+class graphics_device final
 {
 private:
-    static constexpr std::size_t get_element_count(PrimitiveType primitiveType, std::size_t primitiveCount) noexcept
+    static constexpr std::size_t get_element_count(primitive_type primitiveType, std::size_t primitiveCount) noexcept
     {
         switch (primitiveType)
         {
-        case PrimitiveType::line_list:
+        case primitive_type::line_list:
             return primitiveCount * 2;
 
-        case PrimitiveType::line_loop:
+        case primitive_type::line_loop:
             return primitiveCount;
 
-        case PrimitiveType::line_strip:
+        case primitive_type::line_strip:
             return primitiveCount + 1;
 
-        case PrimitiveType::point_list:
+        case primitive_type::point_list:
             return primitiveCount;
 
-        case PrimitiveType::triangle_fan:
+        case primitive_type::triangle_fan:
             return primitiveCount;
 
-        case PrimitiveType::triangle_list:
+        case primitive_type::triangle_list:
             return primitiveCount * 3;
 
-        case PrimitiveType::triangle_strip:
+        case primitive_type::triangle_strip:
             return primitiveCount + 2;
         }
     }
 
 public:
     /// Initializes a new instance of the GraphicsDevice class.
-    GraphicsDevice() noexcept;
+    graphics_device() noexcept;
 
 public:
     /// Clears the resouce buffer
@@ -72,7 +72,7 @@ public:
     /// \param startIndex     Location in the index array at which to start reading vertices.
     /// \param primitiveCount Number of primitives to render. The number of vertices used is a function of
     ///                       primitiveCount and primitiveType.
-    void draw_indexed_primitives(PrimitiveType primitiveType
+    void draw_indexed_primitives(primitive_type primitiveType
                                , std::size_t   baseVertex
                                , std::size_t   minVertexIndex
                                , std::size_t   numVertices
@@ -87,7 +87,7 @@ public:
     /// \param primitiveCount Number of primitives to render. The primitiveCount is the number of primitives as
     ///                       determined by the primitive type. If it is a line list, each primitive has two
     ///                       vertices. If it is a triangle list, each primitive has three vertices.
-    void draw_primitives(PrimitiveType primitiveType, std::size_t startVertex, std::size_t primitiveCount) const noexcept;
+    void draw_primitives(primitive_type primitiveType, std::size_t startVertex, std::size_t primitiveCount) const noexcept;
 
     /// Presents the display with the contents of the next buffer in the sequence of back buffers owned by the
     /// GraphicsDevice.
@@ -95,39 +95,39 @@ public:
 
     /// Gets or sets a system-defined instance of a blend state object initialized for alpha blending.
     /// The default value is BlendState.Opaque.
-    BlendState& blend_state() noexcept;
+    graphics::blend_state& blend_state() noexcept;
 
     /// Gets the depth-stencil state.
-    DepthStencilState& depth_stencil_state() noexcept;
+    graphics::depth_stencil_state& depth_stencil_state() noexcept;
 
     /// Gets the presentation parameters associated with this graphics device.
-    PresentationParameters& presentation_parameters() noexcept;
+    graphics::presentation_parameters& presentation_parameters() noexcept;
 
     /// Gets rasterizer state.
-    RasterizerState& rasterizer_state() noexcept;
+    graphics::rasterizer_state& rasterizer_state() noexcept;
 
     /// Gets the viewport identifying the portion of the render target to receive draw calls.
-    Viewport& viewport() noexcept;
+    graphics::viewport& viewport() noexcept;
 
     /// Sets the viewport identifying the portion of the render target to receive draw calls.
-    void viewport(const Viewport& viewport) noexcept;
+    void viewport(const graphics::viewport& viewport) noexcept;
 
 public:
     /// Gets or sets the effect used before drawing.
-    EffectTechnique* effect;
+    effect_technique* effect;
 
     /// Gets or sets the index buffer.
-    IndexBuffer* index_buffer;
+    index_buffer* index_buffer;
 
     /// Gets or sets the vertex buffer.
-    VertexBuffer* vertex_buffer;
+    vertex_buffer* vertex_buffer;
 
 private:
-    BlendState             _blend_state;
-    DepthStencilState      _depth_stencil_state;
-    PresentationParameters _presentation_parameters;
-    RasterizerState        _rasterizer_state;
-    Viewport               _viewport;
+    graphics::blend_state             _blend_state;
+    graphics::depth_stencil_state     _depth_stencil_state;
+    graphics::presentation_parameters _presentation_parameters;
+    graphics::rasterizer_state        _rasterizer_state;
+    graphics::viewport                _viewport;
 };
 
 }}

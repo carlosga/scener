@@ -7,11 +7,11 @@
 namespace scener { namespace graphics {
 
 /// Defines an interface for components.
-class IComponent
+class icomponent
 {
 public:
     /// Virtual destructor.
-    virtual ~IComponent() = default;
+    virtual ~icomponent() = default;
 
 public:
     /// Called when the component should be initialized.

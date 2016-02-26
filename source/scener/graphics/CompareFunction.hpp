@@ -12,7 +12,7 @@ namespace scener { namespace graphics {
 
 /// Specifies the functions used to compare each incoming pixel depth value
 /// with the depth value present in the depth buffer.
-enum class CompareFunction : std::uint32_t
+enum class compare_function : std::uint32_t
 {
     always        = GL_ALWAYS   ///< Always passes.
   , equal         = GL_EQUAL    ///< Passes if the incoming depth value is equal to the stored depth value.

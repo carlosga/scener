@@ -33,7 +33,7 @@ public:
     void unbind() const noexcept;
 
     /// Declares the vertex format to be used on drawing operations.
-    void declare(const VertexDeclaration& declaration, std::uint32_t bindingIndex) const noexcept;
+    void declare(const vertex_declaration& declaration, std::uint32_t bindingIndex) const noexcept;
 
     /// Binds the vertex array to the given buffer ( it should be a vertex buffer )
     /// \param buffer The buffer to bind to the vertex buffer binding point.
@@ -44,8 +44,8 @@ public:
 
 private:
     void create() noexcept;
-    std::size_t get_element_count(VertexElementFormat vertexFormat) const noexcept;
-    std::uint32_t get_element_type(VertexElementFormat vertexFormat) const noexcept;
+    std::size_t get_element_count(vertex_element_format vertexFormat) const noexcept;
+    std::uint32_t get_element_type(vertex_element_format vertexFormat) const noexcept;
 
 private:
     VertexArrayObject(const VertexArrayObject&) = delete;

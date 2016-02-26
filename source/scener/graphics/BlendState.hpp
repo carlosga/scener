@@ -16,54 +16,54 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
-class GraphicsDeviceManager;
+class graphics_device;
+class graphics_device_manager;
 
 /// Contains blend state for the device.
-class BlendState final : public GraphicsResource
+class blend_state final : public graphics_resource
 {
 public:
     /// Initializes a new instance of the BlendState class.
-    /// \param graphicsDevice the GraphicsDevice associated with this BlendState.
-    BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// \param device the graphics device associated with this blend state.
+    blend_state(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Releases all resources being used by this BlendState.
-    ~BlendState() override = default;
+    ~blend_state() override = default;
 
 public:
     /// Gets or sets the arithmetic operation when blending alpha values.
-    BlendFunction alpha_blend_function { BlendFunction::add };
+    blend_function alpha_blend_function { blend_function::add };
 
     /// Gets or sets the blend factor for the destination alpha,
     /// which is the percentage of the destination alpha included in the blended result.
-    Blend alpha_destination_blend { Blend::zero };
+    blend alpha_destination_blend { blend::zero };
 
     /// Gets or sets the alpha blend factor.
-    Blend alpha_source_blend { Blend::one };
+    blend alpha_source_blend { blend::one };
 
     /// Gets or sets the four-component (RGBA) blend factor for alpha blending.
     scener::math::Color blend_factor { scener::math::Color::black };
 
     /// Gets or sets the arithmetic operation when blending color values.
-    BlendFunction color_blend_function { BlendFunction::add };
+    blend_function color_blend_function { blend_function::add };
 
     /// Gets or sets the blend factor for the destination color.
-    Blend color_destination_blend { Blend::zero };
+    blend color_destination_blend { blend::zero };
 
     /// Gets Sets the blend factor for the source color.
-    Blend color_source_blend { Blend::one };
+    blend color_source_blend { blend::one };
 
     /// Gets or sets which color channels (RGBA) are enabled for writing during color blending.
-    ColorWriteChannels color_write_channels { ColorWriteChannels::all };
+    color_write_channels color_write_channels_1 { color_write_channels::all };
 
     /// Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
-    ColorWriteChannels color_write_channels_1 { ColorWriteChannels::all };
+    color_write_channels color_write_channels_2 { color_write_channels::all };
 
     /// Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
-    ColorWriteChannels color_write_channels_2 { ColorWriteChannels::all };
+    color_write_channels color_write_channels_3 { color_write_channels::all };
 
     /// Gets or setswhich color channels (RGBA) are enabled for writing during color blending.
-    ColorWriteChannels color_write_channels_3 { ColorWriteChannels::all };
+    color_write_channels color_write_channels_4 { color_write_channels::all };
 
     /// Gets or setsa bitmask which defines which samples can be written during multisampling.
     std::uint32_t multi_sample_mask { 0 };
@@ -71,7 +71,7 @@ public:
 private:
     void apply() const noexcept;
 
-    friend class GraphicsDeviceManager;
+    friend class graphics_device_manager;
 };
 
 }}

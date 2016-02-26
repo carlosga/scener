@@ -13,27 +13,27 @@
 
 namespace scener { namespace graphics {
 
-class  Renderer;
-struct StepTime;
+class  renderer;
+struct steptime;
 
 /// Base class for all components.
-class Component : public IComponent, public IUpdateable
+class component : public icomponent, public iupdateable
 {
 public:
     /// Initializes a new instance of the Component class.
     /// \param renderer the renderer that owns the component.
-    Component(gsl::not_null<Renderer*> renderer) noexcept;
+    component(gsl::not_null<renderer*> renderer) noexcept;
 
     /// Releases all resources being used by this component instance.
-    ~Component() override = default;
+    ~component() override = default;
 
 public:
     /// Gets the Renderer associated with this Component.
     /// \returns a pointer to the Renderer instance associated with this Component.
-    Renderer* renderer() noexcept;
+    graphics::renderer* renderer() noexcept;
 
     /// Called when the component should be updated.
-    void update(const StepTime& renderTime) noexcept override;
+    void update(const steptime& renderTime) noexcept override;
 
     /// Gets a value indicating whether the component is enabled.
     /// \returns true if the component is enabled; false otherwise.
@@ -52,7 +52,7 @@ public:
     void update_order(std::uint32_t updateOrder) noexcept;
 
 protected:
-    Renderer* _renderer = nullptr;
+    graphics::renderer* _renderer = nullptr;
 
 private:
     bool          _enabled      = true;

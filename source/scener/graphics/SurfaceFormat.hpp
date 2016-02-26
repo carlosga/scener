@@ -11,7 +11,7 @@
 namespace scener { namespace graphics {
 
 /// Defines various types of surface formats.
-enum class SurfaceFormat : std::uint32_t
+enum class surface_format : std::uint32_t
 {
     color    = GL_RGBA8                         ///< (Unsigned format) 32-bit ARGB pixel format with alpha,
                                                 ///< using 8 bits per channel.

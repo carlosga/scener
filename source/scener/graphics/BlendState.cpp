@@ -9,21 +9,21 @@ namespace scener { namespace graphics {
 
 using scener::math::Color;
 
-BlendState::BlendState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource { graphicsDevice }
+blend_state::blend_state(gsl::not_null<graphics_device*> device) noexcept
+    : graphics_resource { device }
 {
 }
 
-void BlendState::apply() const noexcept
+void blend_state::apply() const noexcept
 {
     // http://www.opengl.org/wiki/Blending
 
-    auto blendEnabled = !(color_source_blend      == Blend::one
-                       && color_destination_blend == Blend::zero
-                       && alpha_source_blend      == Blend::one
-                       && alpha_destination_blend == Blend::zero);
+    auto enabled = !(color_source_blend      == blend::one
+                  && color_destination_blend == blend::zero
+                  && alpha_source_blend      == blend::one
+                  && alpha_destination_blend == blend::zero);
 
-    if (!blendEnabled)
+    if (!enabled)
     {
         glDisable(GL_BLEND);
     }
@@ -40,10 +40,10 @@ void BlendState::apply() const noexcept
                       , static_cast<GLenum>(alpha_source_blend)
                       , static_cast<GLenum>(alpha_destination_blend));
 
-    glColorMask((color_write_channels & ColorWriteChannels::red)   == graphics::ColorWriteChannels::red
-              , (color_write_channels & ColorWriteChannels::green) == graphics::ColorWriteChannels::green
-              , (color_write_channels & ColorWriteChannels::blue)  == graphics::ColorWriteChannels::blue
-              , (color_write_channels & ColorWriteChannels::alpha) == graphics::ColorWriteChannels::alpha);
+    glColorMask((color_write_channels_1 & color_write_channels::red)   == graphics::color_write_channels::red
+              , (color_write_channels_1 & color_write_channels::green) == graphics::color_write_channels::green
+              , (color_write_channels_1 & color_write_channels::blue)  == graphics::color_write_channels::blue
+              , (color_write_channels_1 & color_write_channels::alpha) == graphics::color_write_channels::alpha);
 
     glBlendColor(blend_factor.r / 255
                , blend_factor.g / 255

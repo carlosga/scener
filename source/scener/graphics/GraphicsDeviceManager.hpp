@@ -15,19 +15,19 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
-class Renderer;
+class graphics_device;
+class renderer;
 
 /// Handles the configuration and management of the graphics device.
-class GraphicsDeviceManager final : public IGraphicsDeviceService, public IGraphicsDeviceManager
+class graphics_device_manager final : public igraphics_device_service, public igraphics_device_manager
 {
 public:
     /// Initializes a new instance of the GraphicsDeviceManager class
     /// \param renderer the Renderer associated with this GraphicsDeviceManager.
-    GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) noexcept;
+    graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept;
 
     /// Releases all resources being used by this GraphicsDeviceManager.
-    ~GraphicsDeviceManager() override = default;
+    ~graphics_device_manager() override = default;
 
 public:
     /// Applies any changes to device-related propertie.
@@ -44,7 +44,7 @@ public:
 
     /// Gets the graphics device.
     /// \returns the graphics device.
-    GraphicsDevice* graphics_device() const noexcept override;
+    graphics_device* device() const noexcept override;
 
 public:
     /// Gets or sets a value indicating whether to allow the user to resize the device window.
@@ -63,8 +63,8 @@ public:
     std::uint32_t preferred_back_buffer_height { 0 };
 
 private:
-    std::unique_ptr<GraphicsDevice> _graphics_device { nullptr };
-    Renderer*                       _renderer        { nullptr };
+    std::unique_ptr<graphics_device> _graphics_device { nullptr };
+    renderer*                        _renderer        { nullptr };
 };
 
 }}

@@ -16,31 +16,31 @@ namespace scener { namespace content { namespace readers { template <typename T>
 namespace scener { namespace graphics {
 
 /// Contains sampler state, which determines how to sample texture data.
-class SamplerState: public GraphicsResource
+class sampler_state: public graphics_resource
 {
 public:
     /// Initializes a new instance of the SamplerState class.
-    /// \param graphicsDevice the GraphicsDevice associated with this SamplerState.
-    SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// \param device the GraphicsDevice associated with this SamplerState.
+    sampler_state(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Releases all resources being used by this SamplerState.
-    ~SamplerState() override = default;
+    ~sampler_state() override = default;
 
 public:
     /// Gets or sets the texture-address mode for the u-coordinate.
-    TextureAddressMode address_u { TextureAddressMode::wrap };
+    texture_address_mode address_u { texture_address_mode::wrap };
 
     /// Gets or sets the texture-address mode for the v-coordinate.
-    TextureAddressMode address_v { TextureAddressMode::wrap };
+    texture_address_mode address_v { texture_address_mode::wrap };
 
     /// Gets or sets the texture-address mode for the w-coordinate.
-    TextureAddressMode address_w { TextureAddressMode::wrap };
+    texture_address_mode address_w { texture_address_mode::wrap };
 
     /// Gets or sets the type of filtering during sampling.
-    TextureFilter mag_filter { TextureFilter::linear };
+    texture_filter mag_filter { texture_filter::linear };
 
     /// Gets or sets the type of filtering during sampling.
-    TextureFilter min_filter { TextureFilter::linear };
+    texture_filter min_filter { texture_filter::linear };
 
     /// Gets or sets the maximum anisotropy. The default value is 0.
     std::int32_t max_anisotropy { 4 };

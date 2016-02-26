@@ -6,12 +6,12 @@
 
 #include "scener/content/readers/ContentTypeReader.hpp"
 
-namespace scener { namespace graphics { class SamplerState; } }
+namespace scener { namespace graphics { class sampler_state; } }
 
 namespace scener { namespace content { namespace readers {
 
 template <>
-class ContentTypeReader<graphics::SamplerState>
+class ContentTypeReader<graphics::sampler_state>
 {
 public:
     ContentTypeReader() = default;

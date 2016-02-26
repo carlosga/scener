@@ -5,35 +5,35 @@
 
 namespace scener { namespace graphics {
 
-VertexElement::VertexElement(std::size_t         offset
-                           , VertexElementFormat vertexElementFormat
-                           , VertexElementUsage  vertexElementUsage
-                           , std::uint32_t       usageIndex) noexcept
-    : _offset                { offset }
-    , _vertex_element_format { vertexElementFormat }
-    , _vertex_element_usage  { vertexElementUsage }
-    , _usage_index           { usageIndex }
+vertex_element::vertex_element(std::size_t           offset
+                             , vertex_element_format format
+                             , vertex_element_usage  usage
+                             , std::uint32_t         usageIndex) noexcept
+    : _offset      { offset }
+    , _format      { format }
+    , _usage       { usage }
+    , _usage_index { usageIndex }
 {
 }
 
-std::size_t VertexElement::offset() const noexcept
+std::size_t vertex_element::offset() const noexcept
 {
     return _offset;
 }
 
-std::uint32_t VertexElement::usage_index() const noexcept
+std::uint32_t vertex_element::usage_index() const noexcept
 {
     return _usage_index;
 }
 
-VertexElementFormat VertexElement::vertex_element_format() const noexcept
+vertex_element_format vertex_element::format() const noexcept
 {
-    return _vertex_element_format;
+    return _format;
 }
 
-VertexElementUsage VertexElement::vertex_element_usage() const noexcept
+vertex_element_usage vertex_element::usage() const noexcept
 {
-    return _vertex_element_usage;
+    return _usage;
 }
 
 }}

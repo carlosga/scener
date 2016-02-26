@@ -9,11 +9,11 @@
 namespace scener { namespace graphics {
 
 /// Gets or sets transformation matrix parameters for the current effect.
-class IEffectMatrices
+class ieffect_matrices
 {
 public:
     /// Release all resource being used by the current IIEffectMatrices instance
-    virtual ~IEffectMatrices() = default;
+    virtual ~ieffect_matrices() = default;
 
 public:
     /// Gets the projection matrix in the current effect.

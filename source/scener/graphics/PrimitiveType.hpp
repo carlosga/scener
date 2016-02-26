@@ -11,7 +11,7 @@
 namespace scener { namespace graphics {
 
 /// Defines the primitives types
-enum class PrimitiveType : std::uint32_t
+enum class primitive_type : std::uint32_t
 {
     point_list = GL_POINTS             ///< Renders the vertices as a collection of isolated points.
                                        ///< This value is unsupported for indexed primitives.

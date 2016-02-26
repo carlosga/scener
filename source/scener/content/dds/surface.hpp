@@ -33,7 +33,7 @@ public:
 
 public:
     /// Gets the surface format.
-    scener::graphics::SurfaceFormat format() const noexcept;
+    scener::graphics::surface_format format() const noexcept;
 
     /// Gets the surface width (in pixels).
     size_type width() const noexcept;
@@ -48,7 +48,7 @@ private:
     std::vector<std::uint8_t>       _buffer  { };
     std::vector<surface_mipmap>     _mipmaps { };
     gsl::span<std::uint8_t>         _view    { };
-    scener::graphics::SurfaceFormat _format  { scener::graphics::SurfaceFormat::color };
+    scener::graphics::surface_format _format  { scener::graphics::surface_format::color };
     size_type                       _width   { 0 };
     size_type                       _height  { 0 };
 };

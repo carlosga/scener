@@ -15,7 +15,7 @@ namespace skeletal_animation {
 
 class SampleRenderer;
 
-class Camera : public scener::graphics::Component
+class Camera : public scener::graphics::component
 {
 public:
     Camera(SampleRenderer* renderer) noexcept;
@@ -23,7 +23,7 @@ public:
 
 public:
     void initialize() noexcept override;
-    void update(const scener::graphics::StepTime& renderTime) noexcept override;
+    void update(const scener::graphics::steptime& renderTime) noexcept override;
 
 private:
     void update_projection() noexcept;

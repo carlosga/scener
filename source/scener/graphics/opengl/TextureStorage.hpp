@@ -18,15 +18,15 @@ namespace scener { namespace graphics { namespace opengl {
 class TextureStorage final
 {
 private:
-    constexpr static bool is_compressed_surface_format(scener::graphics::SurfaceFormat format) noexcept
+    constexpr static bool is_compressed_surface_format(scener::graphics::surface_format format) noexcept
     {
-        return (format == SurfaceFormat::dxt1 || format == SurfaceFormat::dxt3 || format == SurfaceFormat::dxt5);
+        return (format == surface_format::dxt1 || format == surface_format::dxt3 || format == surface_format::dxt5);
     }
 
 public:
     /// Initializes a new instance of the TextureStorage class.
     /// \param target the texturer target.
-    TextureStorage(TextureTarget target) noexcept;
+    TextureStorage(texture_target target) noexcept;
 
     /// Releases all resources being used by this TextureStorage.
     ~TextureStorage() noexcept;
@@ -46,7 +46,7 @@ public:
     /// \param levels the texture mimap count.
     /// \param width the texture width.
     /// \param height the texture height.
-    void declare_storage(scener::graphics::SurfaceFormat format
+    void declare_storage(scener::graphics::surface_format format
                        , std::size_t                     levels
                        , std::size_t                     width
                        , std::size_t                     height) const noexcept;
@@ -57,7 +57,7 @@ public:
     /// \param width the mipmap width.
     /// \param height the mipmap height.
     /// \param data the mipmap data.
-    void set_data(scener::graphics::SurfaceFormat      format
+    void set_data(scener::graphics::surface_format      format
                 , std::size_t                          level
                 , std::size_t                          width
                 , std::size_t                          height
@@ -72,7 +72,7 @@ private:
 
 private:
     std::uint32_t _id;
-    TextureTarget _target;
+    texture_target _target;
 };
 
 }}}

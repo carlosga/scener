@@ -16,13 +16,13 @@
 
 namespace skeletal_animation {
 
-using scener::graphics::Model;
-using scener::graphics::EffectTechnique;
-using scener::graphics::StepTime;
+using scener::graphics::model;
+using scener::graphics::effect_technique;
+using scener::graphics::steptime;
 using scener::math::matrix4;
 
 EarthShaker::EarthShaker(SampleRenderer* renderer) noexcept
-    : DrawableComponent { renderer }
+    : drawable_component { renderer }
     , _model            { nullptr }
     , _world            { matrix4::identity() }
 {
@@ -33,7 +33,7 @@ void EarthShaker::initialize() noexcept
     _world = scener::math::matrix::create_rotation_x({ -scener::math::pi_over_2<> })
            * scener::math::matrix::create_translation({ 0.0f, -70.0f, 0.0f });
 
-    DrawableComponent::initialize();
+    drawable_component::initialize();
 }
 
 void EarthShaker::load_content() noexcept
@@ -55,12 +55,12 @@ void EarthShaker::unload_content() noexcept
     _model = nullptr;
 }
 
-void EarthShaker::update(const StepTime& renderTime) noexcept
+void EarthShaker::update(const steptime& renderTime) noexcept
 {
     _model->update(renderTime);
 }
 
-void EarthShaker::draw(const StepTime& renderTime) noexcept
+void EarthShaker::draw(const steptime& renderTime) noexcept
 {
     const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
 

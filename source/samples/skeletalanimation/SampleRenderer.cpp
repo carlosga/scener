@@ -12,36 +12,36 @@
 
 namespace skeletal_animation {
 
-using scener::graphics::StepTime;
+using scener::graphics::steptime;
 using scener::math::Color;
 
 SampleRenderer::SampleRenderer() noexcept
-    : Renderer("./content")
+    : renderer("./content")
 {
 }
 
 void SampleRenderer::begin_run() noexcept
 {
-    Renderer::begin_run();
+    renderer::begin_run();
 
-    graphics_device_manager()->preferred_back_buffer_width  = 1600;
-    graphics_device_manager()->preferred_back_buffer_height = 900;
-    graphics_device_manager()->window_title                 = "SceneR";
+    device_manager()->preferred_back_buffer_width  = 1600;
+    device_manager()->preferred_back_buffer_height = 900;
+    device_manager()->window_title                 = "SceneR";
 }
 
 void SampleRenderer::load_content() noexcept
 {
-    Renderer::load_content();
+    renderer::load_content();
 
     add_component(std::make_shared<Camera>(this));
     add_component(std::make_shared<EarthShaker>(this));
 }
 
-void SampleRenderer::draw(const StepTime &renderTime) noexcept
+void SampleRenderer::draw(const steptime& time) noexcept
 {
-    graphics_device()->clear(Color::black);
+    device()->clear(Color::black);
 
-    Renderer::draw(renderTime);
+    renderer::draw(time);
 }
 
 }

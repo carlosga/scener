@@ -7,12 +7,12 @@
 
 namespace scener { namespace graphics {
 
-DepthStencilState::DepthStencilState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource { graphicsDevice }
+depth_stencil_state::depth_stencil_state(gsl::not_null<graphics_device*> device) noexcept
+    : graphics_resource { device }
 {
 }
 
-void DepthStencilState::apply() const noexcept
+void depth_stencil_state::apply() const noexcept
 {
     if (depth_buffer_enable)
     {

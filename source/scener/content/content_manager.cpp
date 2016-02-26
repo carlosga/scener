@@ -12,11 +12,11 @@
 
 namespace scener { namespace content {
 
-using scener::graphics::Model;
-using scener::graphics::RendererServiceContainer;
+using scener::graphics::model;
+using scener::graphics::service_container;
 using scener::io::file_stream;
 
-content_manager::content_manager(gsl::not_null<RendererServiceContainer*> serviceProvider
+content_manager::content_manager(gsl::not_null<service_container*> serviceProvider
                                , const std::string&                       rootDirectory) noexcept
     : _service_provider ( serviceProvider )
     , _root_directory   { rootDirectory }
@@ -28,7 +28,7 @@ content_manager::~content_manager()
     unload();
 }
 
-RendererServiceContainer* content_manager::service_provider() const noexcept
+service_container* content_manager::service_provider() const noexcept
 {
     return _service_provider;
 }
@@ -38,11 +38,11 @@ const std::string& content_manager::root_directory() const noexcept
     return _root_directory;
 }
 
-std::shared_ptr<Model> content_manager::load(const std::string& assetName) noexcept
+std::shared_ptr<model> content_manager::load(const std::string& assetName) noexcept
 {
     if (_resource_manager.has_resource(assetName))
     {
-        return _resource_manager.get_resource<Model>(assetName);
+        return _resource_manager.get_resource<model>(assetName);
     }
 
     auto stream = open_stream(assetName);
@@ -51,7 +51,7 @@ std::shared_ptr<Model> content_manager::load(const std::string& assetName) noexc
 
     auto asset = reader.read_asset();
 
-    _resource_manager.add_resource<Model>(assetName, asset);
+    _resource_manager.add_resource<model>(assetName, asset);
 
     return asset;
 }

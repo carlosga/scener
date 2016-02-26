@@ -13,11 +13,11 @@ namespace scener { namespace graphics {
 
 /// Contains presentation parameters.
 /// http://msdn.microsoft.com/en-us/library/windows/desktop/ms885051.aspx
-class PresentationParameters final
+class presentation_parameters final
 {
 public:
     /// Initializes a new instance of the PresentationParameters class.
-    PresentationParameters() noexcept;
+    presentation_parameters() noexcept;
 
 public:
     /// Gets or sets a value indicating whether an application is running in a full screen mode.
@@ -33,7 +33,7 @@ public:
     std::uint32_t multi_sample_count;
 
     /// Gets or sets the swap buffer interval.
-    PresentInterval present_interval;
+    present_interval present_interval;
 };
 
 }}

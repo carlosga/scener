@@ -13,7 +13,7 @@ namespace scener { namespace content { namespace readers {
 using json11::Json;
 using scener::content::gltf::attribute_type;
 using scener::content::gltf::buffer_view;
-using scener::graphics::ComponentType;
+using scener::graphics::component_type;
 
 auto ContentTypeReader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
@@ -50,7 +50,7 @@ auto ContentTypeReader<gltf::accessor>::read(content_reader* input, const std::s
     }
 
     accessor->_name            = key;
-    accessor->_component_type  = static_cast<ComponentType>(source["componentType"].int_value());
+    accessor->_component_type  = static_cast<component_type>(source["componentType"].int_value());
     accessor->_byte_offset     = static_cast<std::size_t>(source["byteOffset"].int_value());
     accessor->_byte_stride     = static_cast<std::size_t>(source["byteStride"].int_value());
     accessor->_attribute_count = static_cast<std::size_t>(source["count"].int_value());

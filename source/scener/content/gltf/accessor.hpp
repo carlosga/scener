@@ -34,7 +34,7 @@ public:
 
     /// Gets the data type of the components referenced by this accessor.
     /// \returns the data type of the components referenced by this accessor.
-    graphics::ComponentType component_type() const noexcept;
+    graphics::component_type component_type() const noexcept;
 
     /// Gets the offset relative to the buffer-view in bytes.
     /// \returns the offset relative to the buffer-view in bytes.
@@ -122,19 +122,19 @@ private:
     {
         switch (_component_type)
         {
-        case scener::graphics::ComponentType::byte:
+        case scener::graphics::component_type::byte:
             return sizeof(std::int8_t);
 
-        case scener::graphics::ComponentType::int16:
+        case scener::graphics::component_type::int16:
             return sizeof(std::int16_t);
 
-        case scener::graphics::ComponentType::single:
+        case scener::graphics::component_type::single:
             return sizeof(float);
 
-        case scener::graphics::ComponentType::ubyte:
+        case scener::graphics::component_type::ubyte:
             return sizeof(std::uint8_t);
 
-        case scener::graphics::ComponentType::uint16:
+        case scener::graphics::component_type::uint16:
             return sizeof(std::uint16_t);
         }
     }
@@ -146,7 +146,7 @@ private:
     std::size_t                  _byte_offset     { 0 };
     std::size_t                  _byte_length     { 0 };
     std::size_t                  _byte_stride     { 0 };
-    graphics::ComponentType      _component_type  { graphics::ComponentType::single };
+    graphics::component_type      _component_type  { graphics::component_type::single };
     std::vector<float>           _max             { 0 };
     std::vector<float>           _min             { 0 };
     std::string                  _name            { };

@@ -8,7 +8,7 @@
 
 namespace scener { namespace content { namespace dds {
 
-using scener::graphics::SurfaceFormat;
+using scener::graphics::surface_format;
 using scener::io::file_stream;
 
 void surface::load(const std::string& filename) noexcept
@@ -55,16 +55,16 @@ void surface::load(const std::string& filename) noexcept
 
     if (ddsheader.pixel_format.fourcc == fourcc::dxt1)
     {
-        _format   = SurfaceFormat::dxt1;
+        _format   = surface_format::dxt1;
         blockSize = 8;
     }
     else if (ddsheader.pixel_format.fourcc == fourcc::dxt3)
     {
-        _format = SurfaceFormat::dxt3;
+        _format = surface_format::dxt3;
     }
     else if (ddsheader.pixel_format.fourcc == fourcc::dxt5)
     {
-        _format = SurfaceFormat::dxt5;
+        _format = surface_format::dxt5;
     }
 
     auto mipmapWidth  = _width;
@@ -99,7 +99,7 @@ void surface::load(const std::string& filename) noexcept
     }
 }
 
-SurfaceFormat surface::format() const noexcept
+surface_format surface::format() const noexcept
 {
     return _format;
 }

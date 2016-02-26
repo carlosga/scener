@@ -7,32 +7,32 @@ namespace scener { namespace graphics {
 
 using scener::timespan;
 
-const timespan& Animation::current_time() const noexcept
+const timespan& animation::current_time() const noexcept
 {
     return _current_time;
 }
 
-const timespan& Animation::duration() const noexcept
+const timespan& animation::duration() const noexcept
 {
     return _duration;
 }
 
-const std::vector<Keyframe>& Animation::keyframes() const noexcept
+const std::vector<keyframe>& animation::keyframes() const noexcept
 {
     return _keyframes;
 }
 
-const Keyframe& Animation::current_keyframe() const noexcept
+const keyframe& animation::current_keyframe() const noexcept
 {
     return _keyframes[_current_keyframe];
 }
 
-const std::string& Animation::name() const noexcept
+const std::string& animation::name() const noexcept
 {
     return _name;
 }
 
-void Animation::update(const timespan& time, bool relativeToCurrentTime) noexcept
+void animation::update(const timespan& time, bool relativeToCurrentTime) noexcept
 {
     auto       currentTime = time;
     const auto count       = _keyframes.size();

@@ -10,23 +10,23 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
-class GraphicsDeviceManager;
+class graphics_device;
+class graphics_device_manager;
 
 /// Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
-class RasterizerState final : public GraphicsResource
+class rasterizer_state final : public graphics_resource
 {
 public:
     /// Initializes a new instance of the RasterizerState class.
-    /// \param graphicsDevice the GraphicsDevice associated with this RasterizerState.
-    RasterizerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// \param device the graphics device associated with this RasterizerState.
+    rasterizer_state(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Releases all resources being used by this RasterizerState.
-    ~RasterizerState() override = default;
+    ~rasterizer_state() override = default;
 
 public:
     /// Specifies the conditions for culling or removing triangles. The default value is CullMode.CullCounterClockwiseFace.
-    CullMode cull_mode { CullMode::cull_counter_clockwise_face };
+    cull_mode cull_mode { cull_mode::cull_counter_clockwise_face };
 
     /// Gets or sets the depth bias for polygons, which is the amount of bias to apply to the depth
     /// of a primitive to alleviate depth testing problems for primitives of similar depth. The default value is 0.
@@ -34,7 +34,7 @@ public:
 
     /// Gets or sets the fill mode, which defines how a triangle is filled during rendering.
     /// The default value is FillMode.Solid.
-    FillMode fill_mode { FillMode::solid };
+    fill_mode fill_mode { fill_mode::solid };
 
     /// Enables or disables multisample antialiasing. The default value is true.
     bool multi_sample_anti_alias { true };
@@ -51,7 +51,7 @@ public:
 private:
     void apply() const noexcept;
 
-    friend class GraphicsDeviceManager;
+    friend class graphics_device_manager;
 };
 
 }}

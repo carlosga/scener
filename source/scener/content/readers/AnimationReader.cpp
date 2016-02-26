@@ -14,15 +14,14 @@ namespace scener { namespace content { namespace readers {
 
 using json11::Json;
 using scener::timespan;
-using scener::graphics::Animation;
-using scener::graphics::Keyframe;
+using scener::graphics::keyframe;
 using scener::math::matrix4;
 using scener::math::quaternion;
 using scener::math::vector3;
 
-auto ContentTypeReader<Animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto animation  = std::make_shared<Animation>();
+    auto animation  = std::make_shared<graphics::animation>();
     auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
 
     for (const auto& p : source["parameters"].object_items())

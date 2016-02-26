@@ -9,37 +9,37 @@
 
 namespace scener { namespace graphics {
 
-IndexBuffer* ModelMeshPart::index_buffer() const noexcept
+index_buffer* model_mesh_part::index_buffer() const noexcept
 {
     return _index_buffer.get();
 }
 
-VertexBuffer* ModelMeshPart::vertex_buffer() const noexcept
+vertex_buffer* model_mesh_part::vertex_buffer() const noexcept
 {
     return _vertex_buffer.get();
 }
 
-std::size_t ModelMeshPart::start_index() const noexcept
+std::size_t model_mesh_part::start_index() const noexcept
 {
     return _start_index;
 }
 
-std::size_t ModelMeshPart::vertex_offset() const noexcept
+std::size_t model_mesh_part::vertex_offset() const noexcept
 {
     return _vertex_offset;
 }
 
-std::size_t ModelMeshPart::vertex_count() const noexcept
+std::size_t model_mesh_part::vertex_count() const noexcept
 {
     return _vertex_count;
 }
 
-std::size_t ModelMeshPart::primitive_count() const noexcept
+std::size_t model_mesh_part::primitive_count() const noexcept
 {
     return _primitive_count;
 }
 
-PrimitiveType ModelMeshPart::primitive_type() const noexcept
+primitive_type model_mesh_part::primitive_type() const noexcept
 {
     return _primitive_type;
 }

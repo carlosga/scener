@@ -13,8 +13,8 @@ namespace scener { namespace graphics {
 using scener::math::matrix4;
 using scener::math::vector3;
 
-EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource           { graphicsDevice }
+effect_technique::effect_technique(gsl::not_null<graphics_device*> device) noexcept
+    : graphics_resource          { device }
     , _alpha                     { 1.0 }
     , _ambient_light_color       { vector3::zero() }
     , _bone_transforms           ( 0 )
@@ -32,132 +32,132 @@ EffectTechnique::EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) 
     , _textures                  ( 0 )
     , _view                      { matrix4::identity() }
     , _world                     { matrix4::identity() }
-    , _dirty_flags               { EffectDirtyFlags::all }
+    , _dirty_flags               { effect_dirty_flags::all }
     , _passes                    ()
     , _parameters                ()
 {
 }
 
-float EffectTechnique::alpha() const noexcept
+float effect_technique::alpha() const noexcept
 {
     return _alpha;
 }
 
-void EffectTechnique::alpha(float alpha) noexcept
+void effect_technique::alpha(float alpha) noexcept
 {
     if (math::equal(_alpha, alpha))
     {
         _alpha        = alpha;
-        _dirty_flags |= EffectDirtyFlags::material_color;
+        _dirty_flags |= effect_dirty_flags::material_color;
     }
 }
 
-const vector3& EffectTechnique::ambient_light_color() const noexcept
+const vector3& effect_technique::ambient_light_color() const noexcept
 {
     return _ambient_light_color;
 }
 
-void EffectTechnique::ambient_light_color(const vector3& ambientLightColor) noexcept
+void effect_technique::ambient_light_color(const vector3& ambientLightColor) noexcept
 {
     if (_ambient_light_color != ambientLightColor)
     {
         _ambient_light_color = ambientLightColor;
-        _dirty_flags        |= EffectDirtyFlags::material_color;
+        _dirty_flags        |= effect_dirty_flags::material_color;
     }
 }
 
-const vector3& EffectTechnique::diffuse_color() const noexcept
+const vector3& effect_technique::diffuse_color() const noexcept
 {
     return _diffuse_color;
 }
 
-void EffectTechnique::diffuse_color(const vector3& diffuseColor) noexcept
+void effect_technique::diffuse_color(const vector3& diffuseColor) noexcept
 {
     if (_diffuse_color != diffuseColor)
     {
         _diffuse_color = diffuseColor;
-        _dirty_flags  |= EffectDirtyFlags::material_color;
+        _dirty_flags  |= effect_dirty_flags::material_color;
     }
 }
 
-const DirectionalLight& EffectTechnique::directional_light_0() const noexcept
+const directional_light& effect_technique::directional_light_0() const noexcept
 {
     return _light_0;
 }
 
-const DirectionalLight& EffectTechnique::directional_light_1() const noexcept
+const directional_light& effect_technique::directional_light_1() const noexcept
 {
     return _light_1;
 }
 
-const DirectionalLight& EffectTechnique::directional_light_2() const noexcept
+const directional_light& effect_technique::directional_light_2() const noexcept
 {
     return _light_2;
 }
 
-void EffectTechnique::enable_default_lighting() noexcept
+void effect_technique::enable_default_lighting() noexcept
 {
     //ambient_light_color(EffectHelpers::enable_default_lighting(_light_0, _light_1, _light_2));
 }
 
-const vector3& EffectTechnique::emissive_color() const noexcept
+const vector3& effect_technique::emissive_color() const noexcept
 {
     return _emissive_color;
 }
 
-void EffectTechnique::emissive_color(const vector3& emissiveColor) noexcept
+void effect_technique::emissive_color(const vector3& emissiveColor) noexcept
 {
     if (_emissive_color != emissiveColor)
     {
         _emissive_color = emissiveColor;
-        _dirty_flags   |= EffectDirtyFlags::material_color;
+        _dirty_flags   |= effect_dirty_flags::material_color;
     }
 }
 
-bool EffectTechnique::lighting_enabled() const noexcept
+bool effect_technique::lighting_enabled() const noexcept
 {
     return _lighting_enabled;
 }
 
-void EffectTechnique::lighting_enabled(bool lightingEnabled) noexcept
+void effect_technique::lighting_enabled(bool lightingEnabled) noexcept
 {
     _lighting_enabled = lightingEnabled;
 }
 
-bool EffectTechnique::prefer_per_pixel_lighting() const noexcept
+bool effect_technique::prefer_per_pixel_lighting() const noexcept
 {
     return _prefer_per_pixel_lighting;
 }
 
-void EffectTechnique::prefer_per_pixel_lighting(bool preferPerPixelLighting) noexcept
+void effect_technique::prefer_per_pixel_lighting(bool preferPerPixelLighting) noexcept
 {
     if (_prefer_per_pixel_lighting != preferPerPixelLighting)
     {
         _prefer_per_pixel_lighting = preferPerPixelLighting;
-        _dirty_flags              |= EffectDirtyFlags::shader_index;
+        _dirty_flags              |= effect_dirty_flags::shader_index;
     }
 }
 
-const matrix4& EffectTechnique::projection() const noexcept
+const matrix4& effect_technique::projection() const noexcept
 {
     return _projection;
 }
 
-void EffectTechnique::projection(const matrix4& projection) noexcept
+void effect_technique::projection(const matrix4& projection) noexcept
 {
     if (_projection != projection)
     {
         _projection   = projection;
-        _dirty_flags |= EffectDirtyFlags::world_view_proj;
+        _dirty_flags |= effect_dirty_flags::world_view_proj;
     }
 }
 
-const vector3& EffectTechnique::specular_color() const noexcept
+const vector3& effect_technique::specular_color() const noexcept
 {
     return _specular_color;
 }
 
-void EffectTechnique::specular_color(const vector3& specularColor) noexcept
+void effect_technique::specular_color(const vector3& specularColor) noexcept
 {
 //            if (_specularColor != specularColor)
 //            {
@@ -167,12 +167,12 @@ void EffectTechnique::specular_color(const vector3& specularColor) noexcept
 //            }
 }
 
-float EffectTechnique::specular_power() const noexcept
+float effect_technique::specular_power() const noexcept
 {
     return _specular_power;
 }
 
-void EffectTechnique::specular_power(float specularPower) noexcept
+void effect_technique::specular_power(float specularPower) noexcept
 {
 //            if (!Math::equal(_specularPower, specularPower))
 //            {
@@ -182,54 +182,54 @@ void EffectTechnique::specular_power(float specularPower) noexcept
 //            }
 }
 
-std::vector<std::shared_ptr<Texture2D>>& EffectTechnique::textures() noexcept
+std::vector<std::shared_ptr<texture2d>>& effect_technique::textures() noexcept
 {
     return _textures;
 }
 
-bool EffectTechnique::texture_enabled() const noexcept
+bool effect_technique::texture_enabled() const noexcept
 {
     return _texture_enabled;
 }
 
-void EffectTechnique::texture_enabled(bool textureEnabled) noexcept
+void effect_technique::texture_enabled(bool textureEnabled) noexcept
 {
     if (_texture_enabled != textureEnabled)
     {
         _texture_enabled = textureEnabled;
-        _dirty_flags    |= EffectDirtyFlags::shader_index;
+        _dirty_flags    |= effect_dirty_flags::shader_index;
     }
 }
 
-const matrix4& EffectTechnique::view() const noexcept
+const matrix4& effect_technique::view() const noexcept
 {
     return _view;
 }
 
-void EffectTechnique::view(const matrix4& view) noexcept
+void effect_technique::view(const matrix4& view) noexcept
 {
     if (view != _view)
     {
         _view         = view;
-        _dirty_flags |= EffectDirtyFlags::world_view_proj | EffectDirtyFlags::eye_position | EffectDirtyFlags::fog;
+        _dirty_flags |= effect_dirty_flags::world_view_proj | effect_dirty_flags::eye_position | effect_dirty_flags::fog;
     }
 }
 
-const matrix4& EffectTechnique::world() const noexcept
+const matrix4& effect_technique::world() const noexcept
 {
     return _world;
 }
 
-void EffectTechnique::world(const matrix4& world) noexcept
+void effect_technique::world(const matrix4& world) noexcept
 {
     if (_world != world)
     {
         _world        = world;
-        _dirty_flags |= EffectDirtyFlags::world | EffectDirtyFlags::world_view_proj | EffectDirtyFlags::fog;
+        _dirty_flags |= effect_dirty_flags::world | effect_dirty_flags::world_view_proj | effect_dirty_flags::fog;
     }
 }
 
-std::vector<matrix4> EffectTechnique::bone_transforms(std::size_t count) const noexcept
+std::vector<matrix4> effect_technique::bone_transforms(std::size_t count) const noexcept
 {
     Expects(count >= _bone_transforms.size());
 
@@ -241,7 +241,7 @@ std::vector<matrix4> EffectTechnique::bone_transforms(std::size_t count) const n
     return transforms;
 }
 
-void EffectTechnique::bone_transforms(const std::vector<matrix4>& boneTransforms) noexcept
+void effect_technique::bone_transforms(const std::vector<matrix4>& boneTransforms) noexcept
 {
     _bone_transforms.clear();
     _bone_transforms.reserve(boneTransforms.size());
@@ -250,7 +250,7 @@ void EffectTechnique::bone_transforms(const std::vector<matrix4>& boneTransforms
     _bones_param->set_value(_bone_transforms);
 }
 
-void EffectTechnique::begin() noexcept
+void effect_technique::begin() noexcept
 {
     if (_pass != nullptr)
     {
@@ -264,12 +264,12 @@ void EffectTechnique::begin() noexcept
         }
     }
 
-    if ((_dirty_flags & EffectDirtyFlags::world_view_proj) != 0 || (_dirty_flags & EffectDirtyFlags::world) != 0)
+    if ((_dirty_flags & effect_dirty_flags::world_view_proj) != 0 || (_dirty_flags & effect_dirty_flags::world) != 0)
     {
         set_world_view_proj();
 
-        _dirty_flags &= ~EffectDirtyFlags::world_view_proj;
-        _dirty_flags &= ~EffectDirtyFlags::world;
+        _dirty_flags &= ~effect_dirty_flags::world_view_proj;
+        _dirty_flags &= ~effect_dirty_flags::world;
     }
 
     if (_texture_enabled)
@@ -281,7 +281,7 @@ void EffectTechnique::begin() noexcept
     }
 }
 
-void EffectTechnique::end() noexcept
+void effect_technique::end() noexcept
 {
     if (_texture_enabled)
     {
@@ -304,7 +304,7 @@ void EffectTechnique::end() noexcept
     }
 }
 
-void EffectTechnique::set_world_view_proj() const noexcept
+void effect_technique::set_world_view_proj() const noexcept
 {
     auto worldView     = _world * _view;
     auto worldViewProj = worldView * _projection;

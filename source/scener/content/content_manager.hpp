@@ -12,8 +12,8 @@
 
 namespace scener { namespace graphics {
 
-class Model;
-class RendererServiceContainer;
+class model;
+class service_container;
 
 }}
 
@@ -28,7 +28,7 @@ public:
     /// Initializes a new instance of the content_manager class.
     /// \param serviceProvider the service provider that the content_manager should use to locate services.
     /// \param rootDirectory the root directory to search for content.
-    content_manager(gsl::not_null<graphics::RendererServiceContainer*> serviceProvider
+    content_manager(gsl::not_null<graphics::service_container*> serviceProvider
                  , const std::string&                                  rootDirectory) noexcept;
 
     /// Releases all resources being used by the content_manager class.
@@ -36,14 +36,14 @@ public:
 
 public:
     /// Gets the service provider that the content_manager should use to locate services.
-    graphics::RendererServiceContainer* service_provider() const noexcept;
+    graphics::service_container* service_provider() const noexcept;
 
     /// Gets the root directory associated with this content_manager.
     const std::string& root_directory() const noexcept;
 
 public:
     /// Loads the given asset.
-    std::shared_ptr<graphics::Model> load(const std::string& assetName) noexcept;
+    std::shared_ptr<graphics::model> load(const std::string& assetName) noexcept;
 
     /// Disposes all data that was loaded by this content_manager.
     void unload() noexcept;
@@ -52,7 +52,7 @@ private:
     std::shared_ptr<io::file_stream> open_stream(const std::string& assetName) noexcept;
 
 private:
-    graphics::RendererServiceContainer* _service_provider;
+    graphics::service_container* _service_provider;
     std::string                         _root_directory;
     content_resource_manager            _resource_manager;
 };

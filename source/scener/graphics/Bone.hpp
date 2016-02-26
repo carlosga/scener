@@ -15,17 +15,17 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class Animation;
+class animation;
 
 /// Represents bone data for a skeleton.
-class Bone final
+class bone final
 {
 public:
     typedef std::size_t index_type;
 
 public:
     /// Initializes a new instance of the ModelBone class.
-    Bone() = default;
+    bone() = default;
 
 public:
     /// Gets the index of this bone in the Bones collection.
@@ -34,7 +34,7 @@ public:
 
     /// Gets the collection of children bones.
     /// \returns the collection of children bones.
-    const std::vector<std::shared_ptr<Bone>>& children() const noexcept;
+    const std::vector<std::shared_ptr<bone>>& children() const noexcept;
 
     /// Gets the name of this bone.
     /// \returns the name of this bone.
@@ -42,11 +42,11 @@ public:
 
     /// Gets the parent of this bone.
     /// \returns the parent of this bone.
-    Bone* parent() const noexcept;
+    bone* parent() const noexcept;
 
     /// Gets the bone animation.
     /// \returns the bone animation.
-    Animation* animation() const noexcept;
+    animation* animation() const noexcept;
 
     /// Gets the matrix used to transform this bone relative to its parent bone.
     /// \returns the matrix used to transform this bone relative only to its parent bone.
@@ -57,12 +57,12 @@ public:
     void transform(const scener::math::matrix4& transform) noexcept;
 
 private:
-    index_type                         _index     { 0 };
-    std::vector<std::shared_ptr<Bone>> _children  { };
-    std::shared_ptr<Bone>              _parent    { nullptr };
-    std::shared_ptr<Animation>         _animation { nullptr };
-    scener::math::matrix4              _transform { scener::math::matrix4::identity() };
-    std::string                        _name      { };
+    index_type                           _index     { 0 };
+    std::vector<std::shared_ptr<bone>>   _children  { };
+    std::shared_ptr<bone>                _parent    { nullptr };
+    std::shared_ptr<graphics::animation> _animation { nullptr };
+    scener::math::matrix4                _transform { scener::math::matrix4::identity() };
+    std::string                          _name      { };
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };

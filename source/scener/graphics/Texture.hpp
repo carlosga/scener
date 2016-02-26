@@ -11,20 +11,20 @@
 
 namespace scener { namespace graphics {
 
-enum class SurfaceFormat : std::uint32_t;
+enum class surface_format : std::uint32_t;
 
-class GraphicsDevice;
+class graphics_device;
 
 /// Represents a texture reference.
-class Texture : public GraphicsResource
+class texture : public graphics_resource
 {
 public:
     /// Initializes a new instance of the Texture class.
-    /// \param graphicsDevice the GraphicsDevice associated with this RasterizerState.
-    Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// \param device the GraphicsDevice associated with this RasterizerState.
+    texture(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Releases all resources being used by this texture.
-    ~Texture() override = default;
+    ~texture() override = default;
 
 public:
     /// Gets the texture identifier.
@@ -33,7 +33,7 @@ public:
 
     /// Gets the format of the texture data.
     /// \returns the format of the texture data.
-    virtual SurfaceFormat format() const noexcept = 0;
+    virtual surface_format format() const noexcept = 0;
 
     /// Gets the number of texture levels in a multilevel texture.
     /// \returns the number of texture levels in a multilevel texture.

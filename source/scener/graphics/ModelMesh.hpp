@@ -15,15 +15,15 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class EffectTechnique;
-class ModelMeshPart;
+class effect_technique;
+class model_mesh_part;
 
 /// Represents a mesh that is part of a Model.
-class ModelMesh final
+class model_mesh final
 {
 public:
     /// Initializes a new instance of the ModelMesh class.
-    ModelMesh() = default;
+    model_mesh() = default;
 
 public:
     /// Gets the BoundingSphere that contains this mesh.
@@ -40,26 +40,26 @@ public:
     /// property. By updating all the effects of the ModelMesh all of the effects of each ModelMeshPart are updated
     /// as well.
     /// \returns a collection of effects associated with this mesh.
-    std::vector<EffectTechnique*> effects() const noexcept;
+    std::vector<effect_technique*> effects() const noexcept;
 
     /// Gets the ModelMeshPart objects that make up this mesh. Each part of a mesh is composed of a set of primitives
     /// that share the same material.
     /// \returns the ModelMeshPart objects that make up this mesh.
-    const std::vector<std::shared_ptr<ModelMeshPart>>& mesh_parts() const noexcept;
+    const std::vector<std::shared_ptr<model_mesh_part>>& mesh_parts() const noexcept;
 
     /// Gets the skeleton associated to this mesh.
     /// \returns the skeleton associated to this mesh.
-    Skeleton* skeleton() const noexcept;
+    skeleton* skeleton() const noexcept;
 
 public:
     /// Draws all of the ModelMeshPart objects in this mesh.
     void draw() noexcept;
 
 private:
-    std::vector<std::shared_ptr<ModelMeshPart>> _mesh_parts      { };
-    scener::math::BoundingSphere                _bounding_sphere { scener::math::vector3::zero(), 0.0f };
-    std::shared_ptr<Skeleton>                   _skeleton        { nullptr };
-    std::string                                 _name            { };
+    std::vector<std::shared_ptr<model_mesh_part>> _mesh_parts      { };
+    scener::math::BoundingSphere                  _bounding_sphere { scener::math::vector3::zero(), 0.0f };
+    std::shared_ptr<graphics::skeleton>           _skeleton        { nullptr };
+    std::string                                   _name            { };
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };

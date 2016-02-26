@@ -7,36 +7,36 @@
 
 namespace scener { namespace graphics {
 
-Component::Component(gsl::not_null<Renderer*> renderer) noexcept
+component::component(gsl::not_null<graphics::renderer*> renderer) noexcept
     : _renderer ( renderer )
 {
 }
 
-Renderer* Component::renderer() noexcept
+graphics::renderer* component::renderer() noexcept
 {
     return _renderer;
 }
 
-void Component::update(const StepTime& renderTime) noexcept
+void component::update(const steptime& renderTime) noexcept
 {
 }
 
-bool Component::enabled() const noexcept
+bool component::enabled() const noexcept
 {
     return _enabled;
 }
 
-void Component::enabled(bool enabled) noexcept
+void component::enabled(bool enabled) noexcept
 {
     _enabled = enabled;
 }
 
-std::uint32_t Component::update_order() const noexcept
+std::uint32_t component::update_order() const noexcept
 {
     return _update_order;
 }
 
-void Component::update_order(std::uint32_t updateOrder) noexcept
+void component::update_order(std::uint32_t updateOrder) noexcept
 {
     _update_order = updateOrder;
 }

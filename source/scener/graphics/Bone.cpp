@@ -7,37 +7,37 @@ namespace scener { namespace graphics {
 
 using scener::math::matrix4;
 
-Bone::index_type Bone::index() const noexcept
+bone::index_type bone::index() const noexcept
 {
     return _index;
 }
 
-const std::vector<std::shared_ptr<Bone>>& Bone::children() const noexcept
+const std::vector<std::shared_ptr<bone>>& bone::children() const noexcept
 {
     return _children;
 }
 
-const std::string& Bone::name() const noexcept
+const std::string& bone::name() const noexcept
 {
     return _name;
 }
 
-Bone* Bone::parent() const noexcept
+bone* bone::parent() const noexcept
 {
     return _parent.get();
 }
 
-Animation* Bone::animation() const noexcept
+animation* bone::animation() const noexcept
 {
     return _animation.get();
 }
 
-const matrix4& Bone::transform() const noexcept
+const matrix4& bone::transform() const noexcept
 {
     return _transform;
 }
 
-void Bone::transform(const matrix4& transform) noexcept
+void bone::transform(const matrix4& transform) noexcept
 {
     _transform = transform;
 }

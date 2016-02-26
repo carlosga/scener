@@ -6,12 +6,12 @@
 
 #include "scener/content/readers/ContentTypeReader.hpp"
 
-namespace scener { namespace graphics { class Texture2D; } }
+namespace scener { namespace graphics { class texture2d; } }
 
 namespace scener { namespace content { namespace readers {
 
 template <>
-class ContentTypeReader<graphics::Texture2D>
+class ContentTypeReader<graphics::texture2d>
 {
 public:
     ContentTypeReader() = default;

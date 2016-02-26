@@ -12,7 +12,7 @@ namespace scener { namespace graphics {
 
 using scener::math::Color;
 
-GraphicsDevice::GraphicsDevice() noexcept
+graphics_device::graphics_device() noexcept
     : effect                   { nullptr }
     , index_buffer             { nullptr }
     , vertex_buffer            { nullptr }
@@ -24,7 +24,7 @@ GraphicsDevice::GraphicsDevice() noexcept
 {
 }
 
-void GraphicsDevice::clear(const Color& color) const noexcept
+void graphics_device::clear(const Color& color) const noexcept
 {
     std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 
@@ -44,7 +44,7 @@ void GraphicsDevice::clear(const Color& color) const noexcept
     glClear(bufferBits);
 }
 
-void GraphicsDevice::draw_indexed_primitives(PrimitiveType primitiveType
+void graphics_device::draw_indexed_primitives(primitive_type primitiveType
                                            , std::size_t   baseVertex
                                            , std::size_t   minVertexIndex
                                            , std::size_t   numVertices
@@ -81,7 +81,7 @@ void GraphicsDevice::draw_indexed_primitives(PrimitiveType primitiveType
     effect->end();
 }
 
-void GraphicsDevice::draw_primitives(PrimitiveType primitiveType
+void graphics_device::draw_primitives(primitive_type primitiveType
                                    , std::size_t   startVertex
                                    , std::size_t   primitiveCount) const noexcept
 {
@@ -105,38 +105,38 @@ void GraphicsDevice::draw_primitives(PrimitiveType primitiveType
     effect->end();
 }
 
-void GraphicsDevice::present() noexcept
+void graphics_device::present() noexcept
 {
     // TODO
     // glfwSwapBuffers(glfwGetCurrentContext());
 }
 
-BlendState& GraphicsDevice::blend_state() noexcept
+blend_state& graphics_device::blend_state() noexcept
 {
     return _blend_state;
 }
 
-DepthStencilState& GraphicsDevice::depth_stencil_state() noexcept
+depth_stencil_state& graphics_device::depth_stencil_state() noexcept
 {
     return _depth_stencil_state;
 }
 
-PresentationParameters& GraphicsDevice::presentation_parameters() noexcept
+presentation_parameters& graphics_device::presentation_parameters() noexcept
 {
     return _presentation_parameters;
 }
 
-RasterizerState& GraphicsDevice::rasterizer_state() noexcept
+rasterizer_state& graphics_device::rasterizer_state() noexcept
 {
     return _rasterizer_state;
 }
 
-Viewport& GraphicsDevice::viewport() noexcept
+viewport& graphics_device::viewport() noexcept
 {
    return _viewport;
 }
 
-void GraphicsDevice::viewport(const Viewport& viewport) noexcept
+void graphics_device::viewport(const graphics::viewport& viewport) noexcept
 {
     _viewport = viewport;
     _viewport.update();

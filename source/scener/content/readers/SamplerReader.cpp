@@ -14,21 +14,21 @@
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::graphics::IGraphicsDeviceService;
-using scener::graphics::SamplerState;
-using scener::graphics::TextureAddressMode;
-using scener::graphics::TextureFilter;
+using scener::graphics::igraphics_device_service;
+using scener::graphics::sampler_state;
+using scener::graphics::texture_address_mode;
+using scener::graphics::texture_filter;
 
-auto ContentTypeReader<SamplerState>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<sampler_state>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-    auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());
+    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto sampler   = std::make_shared<sampler_state>(gdService->device());
 
     sampler->name       = key;
-    sampler->mag_filter = static_cast<TextureFilter>(source["magFilter"].int_value());
-    sampler->min_filter = static_cast<TextureFilter>(source["minFilter"].int_value());
-    sampler->address_u  = static_cast<TextureAddressMode>(source["wrapS"].int_value());
-    sampler->address_v  = static_cast<TextureAddressMode>(source["wrapT"].int_value());
+    sampler->mag_filter = static_cast<texture_filter>(source["magFilter"].int_value());
+    sampler->min_filter = static_cast<texture_filter>(source["minFilter"].int_value());
+    sampler->address_u  = static_cast<texture_address_mode>(source["wrapS"].int_value());
+    sampler->address_v  = static_cast<texture_address_mode>(source["wrapT"].int_value());
 
     return sampler;
 }

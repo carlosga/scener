@@ -23,19 +23,19 @@ using scener::math::vector2;
 using scener::math::vector3;
 using scener::math::vector4;
 using scener::content::gltf::node;
-using scener::graphics::EffectTechnique;
-using scener::graphics::EffectParameter;
-using scener::graphics::EffectParameterClass;
-using scener::graphics::EffectParameterType;
-using scener::graphics::EffectPass;
-using scener::graphics::IGraphicsDeviceService;
-using scener::graphics::RendererServiceContainer;
+using scener::graphics::effect_technique;
+using scener::graphics::effect_parameter;
+using scener::graphics::effect_parameter_class;
+using scener::graphics::effect_parameter_type;
+using scener::graphics::effect_pass;
+using scener::graphics::igraphics_device_service;
+using scener::graphics::service_container;
 using scener::graphics::opengl::Program;
 
-auto ContentTypeReader<EffectTechnique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-    auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());
+    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto effect    = std::make_shared<effect_technique>(gdService->device());
 
     read_parameters(input, source, effect.get());
     add_default_pass(input, source, effect.get());
@@ -47,14 +47,14 @@ auto ContentTypeReader<EffectTechnique>::read(content_reader* input, const std::
     return effect;
 }
 
-void ContentTypeReader<EffectTechnique>::read_parameters(content_reader*   input
-                                                       , const Json&      node
-                                                       , EffectTechnique* effect) const noexcept
+void ContentTypeReader<effect_technique>::read_parameters(content_reader*   input
+                                                        , const Json&       node
+                                                        , effect_technique* effect) const noexcept
 {
     for (const auto& uniform : node["uniforms"].object_items())
     {
         const auto& paramRef  = node["parameters"][uniform.second.string_value()];
-        auto        parameter = std::make_shared<EffectParameter>();
+        auto        parameter = std::make_shared<effect_parameter>();
 
         parameter->_name         = uniform.second.string_value();
         parameter->_uniform_name = uniform.first;
@@ -71,9 +71,9 @@ void ContentTypeReader<EffectTechnique>::read_parameters(content_reader*   input
     }
 }
 
-void ContentTypeReader<EffectTechnique>::set_parameter_values(content_reader*   input
+void ContentTypeReader<effect_technique>::set_parameter_values(content_reader*   input
                                                             , const Json&      node
-                                                            , EffectTechnique* effect) const noexcept
+                                                            , effect_technique* effect) const noexcept
 {
     for (const auto& source : node.object_items())
     {
@@ -92,45 +92,45 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(content_reader*   
             // auto node = context.find_object<Node>(nodeId);
             // parameter->set_value<matrix4>(node->matrix);
         }
-        else if (parameter->parameter_class() == EffectParameterClass::scalar)
+        else if (parameter->parameter_class() == effect_parameter_class::scalar)
         {
             switch (parameter->parameter_type())
             {
-            case EffectParameterType::boolean:
+            case effect_parameter_type::boolean:
                 parameter->set_value<bool>(paramValue.bool_value());
                 break;
-            case EffectParameterType::byte:
+            case effect_parameter_type::byte:
                 parameter->set_value<std::int8_t>(static_cast<std::int8_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::ubyte:
+            case effect_parameter_type::ubyte:
                 parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::int16:
+            case effect_parameter_type::int16:
                 parameter->set_value<std::int16_t>(static_cast<std::int16_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::uint16:
+            case effect_parameter_type::uint16:
                 parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::int32:
+            case effect_parameter_type::int32:
                 parameter->set_value<std::int32_t>(static_cast<std::int32_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::uint32:
+            case effect_parameter_type::uint32:
                 parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::single:
+            case effect_parameter_type::single:
                 parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                 break;
-            case EffectParameterType::string:
-            case EffectParameterType::texture:
-            case EffectParameterType::texture_1d:
-            case EffectParameterType::texture_2d:
-            case EffectParameterType::texture_3d:
-            case EffectParameterType::texture_cube:
-            case EffectParameterType::void_pointer:
+            case effect_parameter_type::string:
+            case effect_parameter_type::texture:
+            case effect_parameter_type::texture_1d:
+            case effect_parameter_type::texture_2d:
+            case effect_parameter_type::texture_3d:
+            case effect_parameter_type::texture_cube:
+            case effect_parameter_type::void_pointer:
                 throw std::runtime_error("unknown parameter type");
             }
         }
-        else if (parameter->parameter_class() == EffectParameterClass::vector)
+        else if (parameter->parameter_class() == effect_parameter_class::vector)
         {
             switch (parameter->column_count())
             {
@@ -145,19 +145,19 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(content_reader*   
                 break;
             }
         }
-        else if (parameter->parameter_class() == EffectParameterClass::matrix)
+        else if (parameter->parameter_class() == effect_parameter_class::matrix)
         {
             parameter->set_value(input->convert<matrix4>(paramValue.array_items()));
         }
     }
 }
 
-void ContentTypeReader<EffectTechnique>::add_default_pass(content_reader*   input
+void ContentTypeReader<effect_technique>::add_default_pass(content_reader*   input
                                                         , const Json&      node
-                                                        , EffectTechnique* effect) const noexcept
+                                                        , effect_technique* effect) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-    auto pass      = std::make_shared<EffectPass>(gdService->graphics_device());
+    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto pass      = std::make_shared<effect_pass>(gdService->device());
 
     pass->_name = "default_pass";
     pass->_parameters.reserve(effect->_parameters.size());
@@ -173,9 +173,9 @@ void ContentTypeReader<EffectTechnique>::add_default_pass(content_reader*   inpu
     effect->_pass = pass;
 }
 
-void ContentTypeReader<EffectTechnique>::read_pass_program(content_reader*     input
+void ContentTypeReader<effect_technique>::read_pass_program(content_reader*     input
                                                          , const std::string& programName
-                                                         , EffectPass*        effectPass) const noexcept
+                                                         , effect_pass*        effectPass) const noexcept
 {
     // Pass program
     effectPass->_program = input->read_object_instance<Program>(programName);
@@ -193,7 +193,7 @@ void ContentTypeReader<EffectTechnique>::read_pass_program(content_reader*     i
     }
 }
 
-void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* technique) const noexcept
+void ContentTypeReader<effect_technique>::cache_parameters(effect_technique* technique) const noexcept
 {
     for (const auto& parameter : technique->_parameters)
     {
@@ -257,137 +257,137 @@ void ContentTypeReader<EffectTechnique>::cache_parameters(EffectTechnique* techn
     }
 }
 
-void ContentTypeReader<EffectTechnique>::describe_parameter(EffectParameter* parameter, std::int32_t type) const noexcept
+void ContentTypeReader<effect_technique>::describe_parameter(effect_parameter* parameter, std::int32_t type) const noexcept
 {
     switch (type)
     {
     case GL_BYTE:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::byte;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::byte;
         break;
 
     case GL_UNSIGNED_BYTE:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::byte;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::byte;
         break;
 
     case GL_SHORT:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::int16;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::int16;
         break;
 
     case GL_UNSIGNED_SHORT:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::uint16;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::uint16;
         break;
 
     case GL_INT:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::int32;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::int32;
         break;
 
     case GL_UNSIGNED_INT:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::uint32;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::uint32;
         break;
 
     case GL_FLOAT:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::single;
         break;
 
     case GL_FLOAT_VEC2:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 1;
         parameter->_column_count    = 2;
         break;
 
     case GL_FLOAT_VEC3:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 1;
         parameter->_column_count    = 3;
         break;
 
     case GL_FLOAT_VEC4:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 1;
         parameter->_column_count    = 4;
         break;
 
     case GL_INT_VEC2:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::int32;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::int32;
         parameter->_row_count       = 1;
         parameter->_column_count    = 2;
         break;
 
     case GL_INT_VEC3:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::int32;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::int32;
         parameter->_row_count       = 1;
         parameter->_column_count    = 3;
         break;
 
     case GL_INT_VEC4:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::int32;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::int32;
         parameter->_row_count       = 1;
         parameter->_column_count    = 4;
         break;
 
     case GL_BOOL:
-        parameter->_parameter_class = EffectParameterClass::scalar;
-        parameter->_parameter_type  = EffectParameterType::boolean;
+        parameter->_parameter_class = effect_parameter_class::scalar;
+        parameter->_parameter_type  = effect_parameter_type::boolean;
         break;
 
     case GL_BOOL_VEC2:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::boolean;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::boolean;
         parameter->_row_count       = 1;
         parameter->_column_count    = 2;
         break;
 
     case GL_BOOL_VEC3:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::boolean;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::boolean;
         parameter->_row_count       = 1;
         parameter->_column_count    = 3;
         break;
 
     case GL_BOOL_VEC4:
-        parameter->_parameter_class = EffectParameterClass::vector;
-        parameter->_parameter_type  = EffectParameterType::boolean;
+        parameter->_parameter_class = effect_parameter_class::vector;
+        parameter->_parameter_type  = effect_parameter_type::boolean;
         parameter->_row_count       = 1;
         parameter->_column_count    = 4;
         break;
 
     case GL_FLOAT_MAT2	: // mat2
-        parameter->_parameter_class = EffectParameterClass::matrix;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::matrix;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 2;
         parameter->_column_count    = 2;
         break;
 
     case GL_FLOAT_MAT3	: // mat3
-        parameter->_parameter_class = EffectParameterClass::matrix;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::matrix;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 3;
         parameter->_column_count    = 3;
         break;
 
     case GL_FLOAT_MAT4	: // mat4
-        parameter->_parameter_class = EffectParameterClass::matrix;
-        parameter->_parameter_type  = EffectParameterType::single;
+        parameter->_parameter_class = effect_parameter_class::matrix;
+        parameter->_parameter_type  = effect_parameter_type::single;
         parameter->_row_count       = 4;
         parameter->_column_count    = 4;
         break;
 
     case GL_SAMPLER_2D:
-        parameter->_parameter_class = EffectParameterClass::object;
-        parameter->_parameter_type  = EffectParameterType::texture_2d;
+        parameter->_parameter_class = effect_parameter_class::object;
+        parameter->_parameter_type  = effect_parameter_type::texture_2d;
         break;
     }
 }

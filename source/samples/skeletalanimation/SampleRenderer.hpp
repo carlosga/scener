@@ -6,11 +6,11 @@
 
 #include <scener/graphics/Renderer.hpp>
 
-namespace scener { namespace graphics { struct StepTime; } }
+namespace scener { namespace graphics { struct steptime; } }
 
 namespace skeletal_animation {
 
-class SampleRenderer : public scener::graphics::Renderer
+class SampleRenderer : public scener::graphics::renderer
 {
 public:
     SampleRenderer() noexcept;
@@ -19,7 +19,7 @@ public:
 protected:
     void begin_run() noexcept override;
     void load_content() noexcept override;
-    void draw(const scener::graphics::StepTime &renderTime) noexcept override;
+    void draw(const scener::graphics::steptime& time) noexcept override;
 };
 
 }

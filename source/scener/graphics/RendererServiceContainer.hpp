@@ -14,11 +14,11 @@ namespace scener { namespace graphics {
 /// Implementation references:
 ///  http://www.codinginlondon.com/2009/05/cheap-ioc-in-native-c.html
 ///  http://blog.jsolutions.co.uk/?p=588
-class RendererServiceContainer final
+class service_container final
 {
 public:
     /// Initializes a new instance of the RendererServiceContainer class.
-    RendererServiceContainer() = default;
+    service_container() = default;
 
 public:
     /// Adds a service to the RendererServiceContainer.
@@ -72,8 +72,8 @@ private:
     }
 
 private:
-    RendererServiceContainer(const RendererServiceContainer& serviceContainer) = delete;
-    RendererServiceContainer& operator=(const RendererServiceContainer& serviceContainer) = delete;
+    service_container(const service_container& serviceContainer) = delete;
+    service_container& operator=(const service_container& serviceContainer) = delete;
 
 private:
     std::map<std::string, void*> _instance_map;

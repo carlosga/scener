@@ -7,15 +7,15 @@
 
 namespace scener { namespace graphics {
 
-RasterizerState::RasterizerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource { graphicsDevice }
+rasterizer_state::rasterizer_state(gsl::not_null<graphics_device*> device) noexcept
+    : graphics_resource { device }
 {
 }
 
-void RasterizerState::apply() const noexcept
+void rasterizer_state::apply() const noexcept
 {
     // Specify whether front- or back-facing facets can be culled
-    if (cull_mode == CullMode::none)
+    if (cull_mode == cull_mode::none)
     {
         glDisable(GL_CULL_FACE);
     }
@@ -26,22 +26,22 @@ void RasterizerState::apply() const noexcept
 
         switch (cull_mode)
         {
-            case CullMode::cull_clockwise_face:
+            case cull_mode::cull_clockwise_face:
                 glCullFace(GL_FRONT);
                 break;
 
-            case CullMode::cull_counter_clockwise_face:
+            case cull_mode::cull_counter_clockwise_face:
                 glCullFace(GL_BACK);
                 break;
 
-            case CullMode::none:
+            case cull_mode::none:
                 glCullFace(GL_FRONT_AND_BACK);
                 break;
         }
     }
 
     //  Select a polygon rasterization mode
-    if (fill_mode == FillMode::solid)
+    if (fill_mode == fill_mode::solid)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

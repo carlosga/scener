@@ -19,245 +19,245 @@ using sml::vector2;
 using sml::vector3;
 using sml::vector4;
 
-std::size_t EffectParameter::column_count() const noexcept
+std::size_t effect_parameter::column_count() const noexcept
 {
     return _column_count;
 }
 
-const std::string& EffectParameter::name() const noexcept
+const std::string& effect_parameter::name() const noexcept
 {
     return _name;
 }
 
-EffectParameterClass EffectParameter::parameter_class() const noexcept
+effect_parameter_class effect_parameter::parameter_class() const noexcept
 {
     return _parameter_class;
 }
 
-EffectParameterType EffectParameter::parameter_type() const noexcept
+effect_parameter_type effect_parameter::parameter_type() const noexcept
 {
     return _parameter_type;
 }
 
-std::size_t EffectParameter::row_count() const noexcept
+std::size_t effect_parameter::row_count() const noexcept
 {
     return _row_count;
 }
 
-const std::string& EffectParameter::semantic() const noexcept
+const std::string& effect_parameter::semantic() const noexcept
 {
     return _semantic;
 }
 
 template <>
-std::vector<bool> EffectParameter::get_value() const noexcept
+std::vector<bool> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::int32_t EffectParameter::get_value() const noexcept
+std::int32_t effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<std::int32_t> EffectParameter::get_value() const noexcept
+std::vector<std::int32_t> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-matrix4 EffectParameter::get_value() const noexcept
+matrix4 effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<matrix4> EffectParameter::get_value() const noexcept
+std::vector<matrix4> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-matrix4 EffectParameter::get_value_transpose() const noexcept
+matrix4 effect_parameter::get_value_transpose() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<matrix4> EffectParameter::get_value_transpose() const noexcept
+std::vector<matrix4> effect_parameter::get_value_transpose() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-quaternion EffectParameter::get_value() const noexcept
+quaternion effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<quaternion> EffectParameter::get_value() const noexcept
+std::vector<quaternion> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-float EffectParameter::get_value() const noexcept
+float effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<float> EffectParameter::get_value() const noexcept
+std::vector<float> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-vector3 EffectParameter::get_value() const noexcept
+vector3 effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-std::vector<vector3> EffectParameter::get_value() const noexcept
+std::vector<vector3> effect_parameter::get_value() const noexcept
 {
     throw std::runtime_error("Not implemented");
 }
 
 template<>
-void EffectParameter::set_value(const bool& value) const noexcept
+void effect_parameter::set_value(const bool& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::boolean);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::boolean);
 
     _constant_buffer->set_data(_offset, 1, &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::int8_t& value) const noexcept
+void effect_parameter::set_value(const std::int8_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::byte);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::byte);
 
     _constant_buffer->set_data(_offset, sizeof(std::int8_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::int8_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::int8_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::int8_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::uint8_t& value) const noexcept
+void effect_parameter::set_value(const std::uint8_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::byte);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::byte);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint8_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::uint8_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::uint8_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint8_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::int16_t& value) const noexcept
+void effect_parameter::set_value(const std::int16_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::int16);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::int16);
 
     _constant_buffer->set_data(_offset, sizeof(std::int16_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::int16_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::int16_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::int16);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::int16);
 
     _constant_buffer->set_data(_offset, sizeof(std::int16_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::uint16_t& value) const noexcept
+void effect_parameter::set_value(const std::uint16_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint16_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::uint16_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::uint16_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint16_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::int32_t& value) const noexcept
+void effect_parameter::set_value(const std::int32_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::int32);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::int32);
 
     _constant_buffer->set_data(_offset, sizeof(std::int32_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::int32_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::int32_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::int32);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::int32);
 
     _constant_buffer->set_data(_offset, sizeof(std::int32_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::uint32_t& value) const noexcept
+void effect_parameter::set_value(const std::uint32_t& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint32_t), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<std::uint32_t>& value) const noexcept
+void effect_parameter::set_value(const std::vector<std::uint32_t>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
+    Expects(_parameter_class == effect_parameter_class::scalar);
 
     _constant_buffer->set_data(_offset, sizeof(std::uint32_t) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const matrix4& value) const noexcept
+void effect_parameter::set_value(const matrix4& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::matrix);
+    Expects(_parameter_class == effect_parameter_class::matrix);
 
     _constant_buffer->set_data(_offset, sizeof(matrix4), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<matrix4>& value) const noexcept
+void effect_parameter::set_value(const std::vector<matrix4>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::matrix);
+    Expects(_parameter_class == effect_parameter_class::matrix);
 
     _constant_buffer->set_data(_offset, sizeof(matrix4) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value_transpose(const matrix4& value) const noexcept
+void effect_parameter::set_value_transpose(const matrix4& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::matrix);
+    Expects(_parameter_class == effect_parameter_class::matrix);
 
     const auto transpose = sml::matrix::transpose(value);
 
@@ -265,9 +265,9 @@ void EffectParameter::set_value_transpose(const matrix4& value) const noexcept
 }
 
 template<>
-void EffectParameter::set_value_transpose(const std::vector<matrix4>& value) const noexcept
+void effect_parameter::set_value_transpose(const std::vector<matrix4>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::matrix);
+    Expects(_parameter_class == effect_parameter_class::matrix);
 
     std::vector<matrix4> transposed;
 
@@ -282,87 +282,87 @@ void EffectParameter::set_value_transpose(const std::vector<matrix4>& value) con
 }
 
 template<>
-void EffectParameter::set_value(const quaternion& value) const noexcept
+void effect_parameter::set_value(const quaternion& value) const noexcept
 {
     _constant_buffer->set_data(_offset, sizeof(quaternion), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<quaternion>& value) const noexcept
+void effect_parameter::set_value(const std::vector<quaternion>& value) const noexcept
 {
     _constant_buffer->set_data(_offset, sizeof(quaternion) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const float& value) const noexcept
+void effect_parameter::set_value(const float& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::single);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::single);
 
     _constant_buffer->set_data(_offset, sizeof(float), &value);
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<float>& value) const noexcept
+void effect_parameter::set_value(const std::vector<float>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::scalar);
-    Expects(_parameter_type  == EffectParameterType::single);
+    Expects(_parameter_class == effect_parameter_class::scalar);
+    Expects(_parameter_type  == effect_parameter_type::single);
 
     _constant_buffer->set_data(_offset, sizeof(float) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::string& value) const noexcept
+void effect_parameter::set_value(const std::string& value) const noexcept
 {
-    Expects(_parameter_type  == EffectParameterType::string);
+    Expects(_parameter_type  == effect_parameter_type::string);
 
     throw std::runtime_error("not implemented");
 }
 
 template<>
-void EffectParameter::set_value(const vector2& value) const noexcept
+void effect_parameter::set_value(const vector2& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector2), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<vector2>& value) const noexcept
+void effect_parameter::set_value(const std::vector<vector2>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector2) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const vector3& value) const noexcept
+void effect_parameter::set_value(const vector3& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector3), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<vector3>& value) const noexcept
+void effect_parameter::set_value(const std::vector<vector3>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector3) * value.size(), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const vector4& value) const noexcept
+void effect_parameter::set_value(const vector4& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector4), value.data());
 }
 
 template<>
-void EffectParameter::set_value(const std::vector<vector4>& value) const noexcept
+void effect_parameter::set_value(const std::vector<vector4>& value) const noexcept
 {
-    Expects(_parameter_class == EffectParameterClass::vector);
+    Expects(_parameter_class == effect_parameter_class::vector);
 
     _constant_buffer->set_data(_offset, sizeof(vector4) * value.size(), value.data());
 }

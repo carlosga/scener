@@ -11,49 +11,49 @@ namespace scener { namespace graphics {
 using scener::timespan;
 using scener::math::matrix4;
 
-const matrix4& Skeleton::bind_shape_matrix() const noexcept
+const matrix4& skeleton::bind_shape_matrix() const noexcept
 {
     return _bind_shape_matrix;
 }
 
-const std::vector<matrix4>& Skeleton::inverse_bind_matrices() const noexcept
+const std::vector<matrix4>& skeleton::inverse_bind_matrices() const noexcept
 {
     return _inverse_bind_matrices;
 }
 
-const std::vector<std::shared_ptr<Bone>>& Skeleton::bones() const noexcept
+const std::vector<std::shared_ptr<bone>>& skeleton::bones() const noexcept
 {
     return _bones;
 }
 
-const std::string& Skeleton::name() const noexcept
+const std::string& skeleton::name() const noexcept
 {
     return _name;
 }
 
-const std::vector<matrix4>& Skeleton::bone_transforms() const noexcept
+const std::vector<matrix4>& skeleton::bone_transforms() const noexcept
 {
     return _bone_transforms;
 }
 
-const std::vector<matrix4>& Skeleton::world_transforms() const noexcept
+const std::vector<matrix4>& skeleton::world_transforms() const noexcept
 {
     return _world_transforms;
 }
 
-const std::vector<matrix4>& Skeleton::skin_transforms() const noexcept
+const std::vector<matrix4>& skeleton::skin_transforms() const noexcept
 {
     return _skin_transforms;
 }
 
-void Skeleton::update(const timespan& time) noexcept
+void skeleton::update(const timespan& time) noexcept
 {
     this->update_bone_transforms(time);
     this->update_world_transforms();
     this->update_skin_transforms();
 }
 
-void Skeleton::update_bone_transforms(const timespan& time) noexcept
+void skeleton::update_bone_transforms(const timespan& time) noexcept
 {
     for (const auto& joint : _bones)
     {
@@ -64,7 +64,7 @@ void Skeleton::update_bone_transforms(const timespan& time) noexcept
     }
 }
 
-void Skeleton::update_world_transforms() noexcept
+void skeleton::update_world_transforms() noexcept
 {
     const auto count = _bones.size();
 
@@ -80,7 +80,7 @@ void Skeleton::update_world_transforms() noexcept
     }
 }
 
-void Skeleton::update_skin_transforms() noexcept
+void skeleton::update_skin_transforms() noexcept
 {
     const auto count = _bones.size();
 

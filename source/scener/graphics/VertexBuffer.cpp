@@ -14,13 +14,13 @@ using scener::graphics::opengl::BufferTarget;
 using scener::graphics::opengl::BufferUsage;
 using scener::graphics::opengl::VertexArrayObject;
 
-VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
-                         , std::size_t                    vertexCount
-                         , const VertexDeclaration&       vertexDeclaration) noexcept
-    : GraphicsResource    { graphicsDevice }
+vertex_buffer::vertex_buffer(gsl::not_null<graphics_device*>     device
+                           , std::size_t                         vertex_count
+                           , const graphics::vertex_declaration& vertex_declaration) noexcept
+    : graphics_resource   { device }
     , _binding_index      { 0 }
-    , _vertex_count       { vertexCount }
-    , _vertex_declaration { vertexDeclaration }
+    , _vertex_count       { vertex_count }
+    , _vertex_declaration { vertex_declaration }
     , _vao                { }
     , _vbo                { BufferTarget::array_buffer, BufferUsage::static_draw }
 {
@@ -28,17 +28,17 @@ VertexBuffer::VertexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
     _vao.declare(_vertex_declaration, _binding_index);
 }
 
-std::size_t VertexBuffer::vertex_count() const noexcept
+std::size_t vertex_buffer::vertex_count() const noexcept
 {
     return _vertex_count;
 }
 
-std::vector<std::uint8_t> VertexBuffer::get_data() const noexcept
+std::vector<std::uint8_t> vertex_buffer::get_data() const noexcept
 {
     return get_data(0, _vertex_count);
 }
 
-std::vector<std::uint8_t> VertexBuffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
+std::vector<std::uint8_t> vertex_buffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
 {
     auto offset = (startIndex   * _vertex_declaration.vertex_stride());
     auto size   = (elementCount * _vertex_declaration.vertex_stride());
@@ -46,22 +46,22 @@ std::vector<std::uint8_t> VertexBuffer::get_data(std::size_t startIndex, std::si
     return _vbo.get_data(offset, size);
 }
 
-void VertexBuffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
+void vertex_buffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
 {
     _vbo.set_data(_vertex_count * _vertex_declaration.vertex_stride(), data.data());
 }
 
-const VertexDeclaration& VertexBuffer::vertex_declaration() const noexcept
+const vertex_declaration& vertex_buffer::vertex_declaration() const noexcept
 {
     return _vertex_declaration;
 }
 
-void VertexBuffer::bind() noexcept
+void vertex_buffer::bind() noexcept
 {
     _vao.bind();
 }
 
-void VertexBuffer::unbind() noexcept
+void vertex_buffer::unbind() noexcept
 {
     _vao.unbind();
 }

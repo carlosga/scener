@@ -8,12 +8,12 @@
 
 namespace scener { namespace graphics {
 
-enum class VertexElementFormat : std::uint32_t;
-enum class VertexElementUsage  : std::uint32_t;
+enum class vertex_element_format : std::uint32_t;
+enum class vertex_element_usage  : std::uint32_t;
 
-class EffectTechnique;
-class ModelMesh;
-class ModelMeshPart;
+class effect_technique;
+class model_mesh;
+class model_mesh_part;
 
 }}
 
@@ -22,7 +22,7 @@ namespace scener { namespace content { namespace gltf { enum class attribute_typ
 namespace scener { namespace content { namespace readers {
 
 template<>
-class ContentTypeReader<graphics::ModelMesh>
+class ContentTypeReader<graphics::model_mesh>
 {
 public:
     ContentTypeReader() = default;
@@ -31,13 +31,13 @@ public:
     auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    std::shared_ptr<graphics::ModelMeshPart> read_mesh_part(content_reader* input, const json11::Json& source) const noexcept;
+    std::shared_ptr<graphics::model_mesh_part> read_mesh_part(content_reader* input, const json11::Json& source) const noexcept;
 
-    std::shared_ptr<graphics::EffectTechnique> read_material(content_reader* input, const std::string& key) const noexcept;
+    std::shared_ptr<graphics::effect_technique> read_material(content_reader* input, const std::string& key) const noexcept;
 
-    graphics::VertexElementFormat get_vertex_element_format(gltf::attribute_type type) const noexcept;
+    graphics::vertex_element_format get_vertex_element_format(gltf::attribute_type type) const noexcept;
 
-    graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const noexcept;
+    graphics::vertex_element_usage get_vertex_element_usage(const std::string& semantic) const noexcept;
 };
 
 }}}

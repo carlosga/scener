@@ -8,23 +8,23 @@ namespace scener { namespace graphics {
 using scener::timespan;
 using scener::math::matrix4;
 
-Keyframe::Keyframe() noexcept
-    : Keyframe { timespan::zero(), matrix4::identity() }
+keyframe::keyframe() noexcept
+    : keyframe { timespan::zero(), matrix4::identity() }
 {
 }
 
-Keyframe::Keyframe(const timespan& time, const matrix4& transform) noexcept
+keyframe::keyframe(const timespan& time, const matrix4& transform) noexcept
     : _time      { time }
     , _transform { transform }
 {
 }
 
-const timespan& Keyframe::time() const noexcept
+const timespan& keyframe::time() const noexcept
 {
     return _time;
 }
 
-const matrix4& Keyframe::transform() const noexcept
+const matrix4& keyframe::transform() const noexcept
 {
     return _transform;
 }

@@ -7,11 +7,11 @@
 namespace scener { namespace graphics {
 
 /// Defines the interface for an object that manages a GraphicsDevice.
-class IGraphicsDeviceManager
+class igraphics_device_manager
 {
 public:
     /// Virtual destructor.
-    virtual ~IGraphicsDeviceManager() = default;
+    virtual ~igraphics_device_manager() = default;
 
 public:
     /// Starts the drawing of a frame

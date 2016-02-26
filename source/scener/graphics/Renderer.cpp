@@ -21,53 +21,53 @@ namespace scener { namespace graphics {
 
 using scener::timespan;
 using scener::content::content_manager;
-using scener::graphics::GraphicsDevice;
+using scener::graphics::graphics_device;
 using scener::graphics::opengl::RenderContext;
 using scener::input::Keyboard;
 using scener::input::KeyboardState;
 using scener::input::Keys;
 using scener::input::Mouse;
 
-Renderer::Renderer(const std::string& rootDirectory) noexcept
-    : _root_directory { rootDirectory }
+renderer::renderer(const std::string& root_directory) noexcept
+    : _root_directory { root_directory }
 {
 }
 
-Renderer::~Renderer()
+renderer::~renderer()
 {
 }
 
-GraphicsDevice* Renderer::graphics_device() const noexcept
+graphics_device* renderer::device() const noexcept
 {
-    if (!_graphics_device_manager.get())
+    if (!_device_manager.get())
     {
         return nullptr;
     }
 
-    return _graphics_device_manager->graphics_device();
+    return _device_manager->device();
 }
 
-RendererWindow* Renderer::window() const noexcept
+graphics::window* renderer::window() const noexcept
 {
-    return _renderer_window.get();
+    return _window.get();
 }
 
-content_manager* Renderer::content_manager() const noexcept
+content::content_manager* renderer::content_manager() const noexcept
 {
     return _content_manager.get();
 }
 
-RendererServiceContainer* Renderer::services() const noexcept
+service_container* renderer::services() const noexcept
 {
     return _services.get();
 }
 
-std::vector<std::shared_ptr<IComponent>>& Renderer::components() noexcept
+std::vector<std::shared_ptr<icomponent>>& renderer::components() noexcept
 {
     return _components;
 }
 
-void Renderer::run() noexcept
+void renderer::run() noexcept
 {
     begin_run();
     create_device();
@@ -79,26 +79,26 @@ void Renderer::run() noexcept
     end_run();
 }
 
-void Renderer::exit() noexcept
+void renderer::exit() noexcept
 {
     _content_manager->unload();
     _services->clear();
 }
 
-bool Renderer::begin_draw() noexcept
+bool renderer::begin_draw() noexcept
 {
     return true;
 }
 
-void Renderer::begin_run() noexcept
+void renderer::begin_run() noexcept
 {
-    _services                = std::make_unique<RendererServiceContainer>();
-    _graphics_device_manager = std::make_unique<GraphicsDeviceManager>(this);
-    _content_manager         = std::make_unique<content::content_manager>(_services.get(), _root_directory);
-    _renderer_window         = std::make_unique<RendererWindow>(this);
+    _services        = std::make_unique<service_container>();
+    _device_manager  = std::make_unique<graphics_device_manager>(this);
+    _content_manager = std::make_unique<content::content_manager>(_services.get(), _root_directory);
+    _window          = std::make_unique<graphics::window>(this);
 }
 
-void Renderer::draw(const StepTime &renderTime) noexcept
+void renderer::draw(const steptime &renderTime) noexcept
 {
     for (const auto& component : _drawable_components)
     {
@@ -109,62 +109,62 @@ void Renderer::draw(const StepTime &renderTime) noexcept
     }
 }
 
-void Renderer::end_draw() noexcept
+void renderer::end_draw() noexcept
 {
     _render_context->present();
     // _graphics_device_manager->graphics_device()->present();
 }
 
-void Renderer::end_run() noexcept
+void renderer::end_run() noexcept
 {
 }
 
-void Renderer::initialize() noexcept
+void renderer::initialize() noexcept
 {
     for (const auto& component : _components)
     {
         component->initialize();
     }
 
-    Keyboard::initialize(_renderer_window->display_surface());
-    Mouse::initialize(_renderer_window->display_surface());
+    Keyboard::initialize(_window->display_surface());
+    Mouse::initialize(_window->display_surface());
 }
 
-void Renderer::load_content() noexcept
+void renderer::load_content() noexcept
 {
 }
 
-void Renderer::unload_content() noexcept
+void renderer::unload_content() noexcept
 {
     _drawable_components.clear();
     _updateable_components.clear();
     _components.clear();
 }
 
-void Renderer::update(const StepTime &renderTime) noexcept
+void renderer::update(const steptime& time) noexcept
 {
     for (auto& component : _updateable_components)
     {
         if (component->enabled())
         {
-            component->update(renderTime);
+            component->update(time);
         }
     }
 }
 
-void Renderer::start_event_loop() noexcept
+void renderer::start_event_loop() noexcept
 {
     _timer.reset();
 
-    _renderer_window->show();
+    _window->show();
 
     do
     {
-        _renderer_window->pool_events();
+        _window->pool_events();
 
         time_step();
 
-    } while (!_renderer_window->closed());
+    } while (!_window->closed());
 }
 
 /**
@@ -172,7 +172,7 @@ void Renderer::start_event_loop() noexcept
  *      http://gafferongames.com/game-physics/fix-your-timestep/
  *      http://msdn.microsoft.com/en-us/library/bb203873.aspx
  */
-void Renderer::time_step() noexcept
+void renderer::time_step() noexcept
 {
     if (is_fixed_time_step)
     {
@@ -184,18 +184,18 @@ void Renderer::time_step() noexcept
     }
 }
 
-void Renderer::post_process_components() noexcept
+void renderer::post_process_components() noexcept
 {
     for (const auto& component : _components)
     {
-        auto drawable = std::dynamic_pointer_cast<IDrawable>(component);
+        auto drawable = std::dynamic_pointer_cast<idrawable>(component);
 
         if (drawable != nullptr)
         {
             _drawable_components.push_back(drawable);
         }
 
-        auto updateable = std::dynamic_pointer_cast<IUpdateable>(component);
+        auto updateable = std::dynamic_pointer_cast<iupdateable>(component);
 
         if (updateable != nullptr)
         {
@@ -204,45 +204,44 @@ void Renderer::post_process_components() noexcept
     }
 
     std::sort(_drawable_components.begin(), _drawable_components.end(),
-              [](const std::shared_ptr<IDrawable>& a, const std::shared_ptr<IDrawable>& b) -> bool
+              [](const std::shared_ptr<idrawable>& a, const std::shared_ptr<idrawable>& b) -> bool
               {
                   return (a->draw_order() < b->draw_order());
               });
 
     std::sort(_updateable_components.begin(), _updateable_components.end(),
-              [](const std::shared_ptr<IUpdateable>& a, const std::shared_ptr<IUpdateable>& b) -> bool
+              [](const std::shared_ptr<iupdateable>& a, const std::shared_ptr<iupdateable>& b) -> bool
               {
                   return (a->update_order() < b->update_order());
               });
 }
 
-void Renderer::create_device() noexcept
+void renderer::create_device() noexcept
 {
-    _graphics_device_manager->create_device();
-    _renderer_window->allow_user_resizing(true);
-    _renderer_window->open();
-    _render_context = std::make_unique<RenderContext>(_renderer_window->display_device()
-                                                    , _renderer_window->display_surface());
+    _device_manager->create_device();
+    _window->allow_user_resizing(true);
+    _window->open();
+    _render_context = std::make_unique<RenderContext>(_window->display_device(), _window->display_surface());
     _render_context->create();
-    _graphics_device_manager->apply_changes();
+    _device_manager->apply_changes();
 
-    switch (graphics_device()->presentation_parameters().present_interval)
+    switch (device()->presentation_parameters().present_interval)
     {
-        case PresentInterval::one:
+        case present_interval::one:
             _render_context->present_interval(1);
             break;
 
-        case PresentInterval::two:
+        case present_interval::two:
             _render_context->present_interval(2);
             break;
 
-        case PresentInterval::immediate:
+        case present_interval::immediate:
             _render_context->present_interval(0);
             break;
     }
 }
 
-void Renderer::fixed_time_step() noexcept
+void renderer::fixed_time_step() noexcept
 {
     _render_time.elapsed_render_time = _timer.elapsed_time_step_time();
     _render_time.total_render_time   = _timer.elapsed_time();
@@ -272,16 +271,16 @@ void Renderer::fixed_time_step() noexcept
     }
 }
 
-void Renderer::variable_time_step() noexcept
+void renderer::variable_time_step() noexcept
 {
 }
 
-GraphicsDeviceManager* Renderer::graphics_device_manager() const
+graphics_device_manager* renderer::device_manager() const
 {
-    return _graphics_device_manager.get();
+    return _device_manager.get();
 }
 
-void Renderer::add_component(std::shared_ptr<IComponent> component)
+void renderer::add_component(std::shared_ptr<icomponent> component)
 {
     _components.push_back(component);
 }

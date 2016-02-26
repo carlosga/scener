@@ -10,7 +10,7 @@ namespace scener { namespace graphics {
 
 /// Defines flags that describe the relationship between the adapter refresh rate and
 /// the rate at which Present operations are completed.
-enum class PresentInterval : std::uint32_t
+enum class present_interval : std::uint32_t
 {
     one       = 1 ///< The driver waits for the vertical retrace period (the runtime will beam trace to prevent tearing).
   , two       = 2 ///< The driver waits for the vertical retrace period.

@@ -11,7 +11,7 @@
 namespace scener { namespace graphics {
 
 /// Defines color blending factors.
-enum class Blend : std::uint32_t
+enum class blend : std::uint32_t
 {
     zero                      = GL_ZERO                 ///< Each component of the color is multiplied by (0, 0, 0, 0).
   , one                       = GL_ONE                  ///< Each component of the color is multiplied by (1, 1, 1, 1).

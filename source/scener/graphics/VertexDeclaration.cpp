@@ -5,18 +5,18 @@
 
 namespace scener { namespace graphics {
 
-VertexDeclaration::VertexDeclaration(std::size_t vertexStride, const std::vector<VertexElement>& vertexElements) noexcept
+vertex_declaration::vertex_declaration(std::size_t vertexStride, const std::vector<vertex_element>& vertexElements) noexcept
     : _vertex_stride   { vertexStride }
     , _vertex_elements { vertexElements }
 {
 }
 
-std::size_t VertexDeclaration::vertex_stride() const noexcept
+std::size_t vertex_declaration::vertex_stride() const noexcept
 {
     return _vertex_stride;
 }
 
-const std::vector<VertexElement>& VertexDeclaration::vertex_elements() const noexcept
+const std::vector<vertex_element>& vertex_declaration::vertex_elements() const noexcept
 {
     return _vertex_elements;
 }

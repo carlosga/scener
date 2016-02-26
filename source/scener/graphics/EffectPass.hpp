@@ -16,16 +16,16 @@ namespace scener { namespace graphics { namespace opengl { class Program; } } }
 
 namespace scener { namespace graphics {
 
-class EffectParameter;
-class GraphicsDevice;
+class effect_parameter;
+class graphics_device;
 
 /// Contains rendering state for drawing with an effect; an effect can contain one or more passes.
-class EffectPass final
+class effect_pass final
 {
 public:
     /// Initializes a new instance of the EffectPass class.
     /// \param graphicsDevice The GraphicsDevice associated with this EffectPass.
-    EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    effect_pass(gsl::not_null<graphics_device*> graphicsDevice) noexcept;
 
 public:
     /// Gets the name of this pass.
@@ -39,8 +39,8 @@ public:
     void end() noexcept;
 
 private:
-    GraphicsDevice*                               _graphics_device  { nullptr };
-    std::vector<std::shared_ptr<EffectParameter>> _parameters       { };
+    graphics_device*                               _graphics_device  { nullptr };
+    std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
     std::shared_ptr<opengl::Program>              _program          { nullptr };
     std::string                                   _name             { };
 

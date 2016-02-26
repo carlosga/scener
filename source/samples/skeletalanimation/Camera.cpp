@@ -13,7 +13,7 @@
 
 namespace skeletal_animation {
 
-using scener::graphics::StepTime;
+using scener::graphics::steptime;
 using scener::input::Keys;
 using scener::input::Keyboard;
 using scener::input::KeyboardState;
@@ -23,7 +23,7 @@ using scener::math::matrix4;
 using scener::math::vector3;
 
 Camera::Camera(SampleRenderer* renderer) noexcept
-    : Component          { renderer }
+    : component          { renderer }
     , view               { matrix4::identity() }
     , projection         { matrix4::identity() }
     , _position          { }
@@ -46,7 +46,7 @@ void Camera::initialize() noexcept
     });
 }
 
-void Camera::update(const StepTime& renderTime) noexcept
+void Camera::update(const steptime& renderTime) noexcept
 {
     auto currentKeyboardState = Keyboard::get_state();
     auto currentPosition      = _position;
@@ -107,7 +107,7 @@ void Camera::update_projection() noexcept
 {
     static const radians fov = degrees(45.0f);
 
-    auto aspect = _renderer->graphics_device()->viewport().aspect_ratio();
+    auto aspect = _renderer->device()->viewport().aspect_ratio();
 
     projection = scener::math::matrix::create_perspective_field_of_view(fov, aspect, 0.1f, 1000.0f);
     view       = scener::math::matrix::create_look_at(_position, vector3::zero(), vector3::up());

@@ -10,13 +10,13 @@
 
 namespace scener { namespace graphics {
 
-GraphicsDeviceManager::GraphicsDeviceManager(gsl::not_null<Renderer*> renderer) noexcept
+graphics_device_manager::graphics_device_manager(gsl::not_null<renderer*> renderer) noexcept
     : _renderer { renderer }
 {
-    _renderer->services()->add_service<IGraphicsDeviceService>(*this);
+    _renderer->services()->add_service<igraphics_device_service>(*this);
 }
 
-void GraphicsDeviceManager::apply_changes() noexcept
+void graphics_device_manager::apply_changes() noexcept
 {
     _graphics_device->presentation_parameters().back_buffer_width  = preferred_back_buffer_width;
     _graphics_device->presentation_parameters().back_buffer_height = preferred_back_buffer_height;
@@ -30,22 +30,22 @@ void GraphicsDeviceManager::apply_changes() noexcept
     _graphics_device->depth_stencil_state().apply();
 }
 
-bool GraphicsDeviceManager::begin_draw() noexcept
+bool graphics_device_manager::begin_draw() noexcept
 {
     return true;
 }
 
-void GraphicsDeviceManager::end_draw() noexcept
+void graphics_device_manager::end_draw() noexcept
 {
     _graphics_device->present();
 }
 
-void GraphicsDeviceManager::create_device() noexcept
+void graphics_device_manager::create_device() noexcept
 {
-    _graphics_device = std::make_unique<GraphicsDevice>();
+    _graphics_device = std::make_unique<graphics_device>();
 }
 
-GraphicsDevice* GraphicsDeviceManager::graphics_device() const noexcept
+graphics_device* graphics_device_manager::device() const noexcept
 {
     return _graphics_device.get();
 }

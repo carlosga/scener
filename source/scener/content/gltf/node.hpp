@@ -14,9 +14,9 @@
 
 namespace scener { namespace graphics {
 
-class Skeleton;
-class Bone;
-class ModelMesh;
+class skeleton;
+class bone;
+class model_mesh;
 
 }}
 
@@ -38,10 +38,10 @@ public:
     std::string camera;
 
     /// An instance of a skin.
-    std::shared_ptr<scener::graphics::Skeleton> instance_skin;
+    std::shared_ptr<scener::graphics::skeleton> instance_skin;
 
     /// A joint in a skin.
-    std::shared_ptr<scener::graphics::Bone> joint;
+    std::shared_ptr<scener::graphics::bone> joint;
 
     /// The id (JSON property name) of the light referenced by this node.
     /// A node will have either the camera, light, meshes, or instanceSkin property defined.
@@ -55,7 +55,7 @@ public:
     /// The ids (JSON property name) of the meshes in this node.
     /// Multiple meshes are allowed so each can share the same transform matrix.
     /// A node will have either the camera, light, meshes, or instanceSkin property defined.
-    std::vector<std::shared_ptr<scener::graphics::ModelMesh>> meshes;
+    std::vector<std::shared_ptr<scener::graphics::model_mesh>> meshes;
 
     /// The node's quaternion rotation.
     /// A node will have either a matrix property defined or any combination of rotation, scale,

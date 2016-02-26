@@ -10,16 +10,16 @@
 namespace scener { namespace graphics {
 
 /// Defines a position keyframe for an animation.
-class Keyframe final
+class keyframe final
 {
 public:
     /// Initializes a new instance of the Keyframe class.
-    Keyframe() noexcept;
+    keyframe() noexcept;
 
     /// Initializes a new instance of the Keyframe class.
     /// \param time specifies the time, in seconds, at which this keyframe occurs.
     /// \param transform the keyframe transformation.
-    Keyframe(const scener::timespan& time, const scener::math::matrix4& transform) noexcept;
+    keyframe(const scener::timespan& time, const scener::math::matrix4& transform) noexcept;
 
 public:
     /// Gets the time, in seconds, at which this keyframe occurs.

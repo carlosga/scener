@@ -8,22 +8,22 @@
 
 namespace scener { namespace graphics {
 
-EffectPass::EffectPass(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
+effect_pass::effect_pass(gsl::not_null<graphics_device*> graphicsDevice) noexcept
     : _graphics_device { graphicsDevice }
 {
 }
 
-const std::string& EffectPass::name() const noexcept
+const std::string& effect_pass::name() const noexcept
 {
     return _name;
 }
 
-void EffectPass::begin() noexcept
+void effect_pass::begin() noexcept
 {
     _program->bind();
 }
 
-void EffectPass::end() noexcept
+void effect_pass::end() noexcept
 {
     _program->unbind();
 }

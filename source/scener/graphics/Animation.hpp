@@ -15,11 +15,11 @@ namespace scener { namespace content { namespace readers { template <typename T>
 namespace scener { namespace graphics {
 
 /// Stores keyframe based animations.
-class Animation final
+class animation final
 {
 public:
     /// Initializes a new instance of the Animatin class.
-    Animation() = default;
+    animation() = default;
 
 public:
     /// Gets the current time of the animation.
@@ -32,10 +32,10 @@ public:
 
     /// Gets the list of animation keyframes.
     /// \returns the list of animation keyframes.
-    const std::vector<Keyframe>& keyframes() const noexcept;
+    const std::vector<keyframe>& keyframes() const noexcept;
 
     /// Gets the current keyframe of the animation.
-    const Keyframe& current_keyframe() const noexcept;
+    const keyframe& current_keyframe() const noexcept;
 
     /// Gets the animation name.
     /// \returns the animation name.
@@ -50,7 +50,7 @@ private:
     scener::timespan      _current_time     { 0 };
     scener::timespan      _duration         { 0 };
     std::size_t           _current_keyframe { 0 };
-    std::vector<Keyframe> _keyframes        { };
+    std::vector<keyframe> _keyframes        { };
     std::string           _name             { };
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;

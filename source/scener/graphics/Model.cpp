@@ -12,34 +12,34 @@ namespace scener { namespace graphics {
 
 using scener::math::matrix4;
 
-Model::Model() noexcept
+model::model() noexcept
     : _meshes (0)
     , _name   ()
 {
 }
 
-const std::string& Model::name() const noexcept
+const std::string& model::name() const noexcept
 {
     return _name;
 }
 
-const std::vector<std::shared_ptr<ModelMesh>>& Model::meshes() const noexcept
+const std::vector<std::shared_ptr<model_mesh>>& model::meshes() const noexcept
 {
     return _meshes;
 }
 
-void Model::update(const StepTime& elapsedtime) noexcept
+void model::update(const steptime& time) noexcept
 {
     for (const auto& mesh : _meshes)
     {
         if (mesh->skeleton() != nullptr)
         {
-            mesh->skeleton()->update(elapsedtime.elapsed_render_time);
+            mesh->skeleton()->update(time.elapsed_render_time);
         }
     }
 }
 
-void Model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
+void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
 {
     for (const auto& mesh : _meshes)
     {

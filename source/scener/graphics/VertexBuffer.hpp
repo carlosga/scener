@@ -15,22 +15,22 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
+class graphics_device;
 
 /// Represents a list of 3D vertices to be streamed to the graphics device.
-class VertexBuffer final : public GraphicsResource
+class vertex_buffer final : public graphics_resource
 {
 public:
     /// Initializes a new instance of the VertexBuffer class.
-    /// \param graphicsDevice the GraphicsDevice associated with this VertexBuffer.
-    /// \param vertexCount the number of vertices.
-    /// \param vertexDeclaration the vertex declaration, which describes per-vertex data.
-    VertexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
-               , std::size_t                    vertexCount
-               , const VertexDeclaration&       vertexDeclaration) noexcept;
+    /// \param device the graphics device associated with this vertex buffer.
+    /// \param vertex_count the number of vertices.
+    /// \param vertex_declaration the vertex declaration, which describes per-vertex data.
+    vertex_buffer(gsl::not_null<graphics_device*>     device
+                , std::size_t                         vertex_count
+                , const graphics::vertex_declaration& vertex_declaration) noexcept;
 
     /// Releases all resources being used by the current VertexBuffer
-    ~VertexBuffer() override = default;
+    ~vertex_buffer() override = default;
 
 public:
     /// Gets the number of vertex for the current buffer.
@@ -50,20 +50,20 @@ public:
 
     /// Defines per-vertex data in a buffer.
     /// \returns the per vertex data definition of this VertexBuffer.
-    const VertexDeclaration& vertex_declaration() const noexcept;
+    const graphics::vertex_declaration& vertex_declaration() const noexcept;
 
 private:
     void bind() noexcept;
     void unbind() noexcept;
 
 private:
-    std::uint32_t                               _binding_index;
-    std::size_t                                 _vertex_count;
-    VertexDeclaration                           _vertex_declaration;
-    scener::graphics::opengl::VertexArrayObject _vao;
-    scener::graphics::opengl::Buffer            _vbo;
+    std::uint32_t                       _binding_index;
+    std::size_t                         _vertex_count;
+    graphics::vertex_declaration        _vertex_declaration;
+    graphics::opengl::VertexArrayObject _vao;
+    graphics::opengl::Buffer            _vbo;
 
-    friend class scener::graphics::GraphicsDevice;
+    friend class scener::graphics::graphics_device;
 };
 
 }}

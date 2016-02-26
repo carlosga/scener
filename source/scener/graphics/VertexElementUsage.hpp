@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines usage for vertex elements.
-enum class VertexElementUsage : std::uint32_t
+enum class vertex_element_usage : std::uint32_t
 {
     position           =  0 ///< Position data.
   , color              =  1 ///< Vertex data contains diffuse or specular color.

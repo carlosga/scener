@@ -6,18 +6,18 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
+class graphics_device;
 
 /// Defines a mechanism for retrieving GraphicsDevice objects.
-class IGraphicsDeviceService
+class igraphics_device_service
 {
 public:
     /// Virtual destructor
-    virtual ~IGraphicsDeviceService() = default;
+    virtual ~igraphics_device_service() = default;
 
 public:
     /// Retrieves a graphics device.
-    virtual GraphicsDevice* graphics_device() const noexcept = 0;
+    virtual graphics_device* device() const noexcept = 0;
 };
 
 }}

@@ -14,27 +14,27 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class EffectTechnique;
-class IndexBuffer;
-class VertexBuffer;
+class effect_technique;
+class index_buffer;
+class vertex_buffer;
 
 /// Represents a batch of geometry information to submit to the graphics device during rendering.
 /// Each ModelMeshPart is a subdivision of a ModelMesh object. The ModelMesh class is split into
 /// multiple ModelMeshPart objects, typically based on material information.
-class ModelMeshPart final
+class model_mesh_part final
 {
 public:
     /// Initializes a new instance of the ModelMeshPart class.
-    ModelMeshPart() = default;
+    model_mesh_part() = default;
 
 public:
     /// Gets the index buffer for this mesh part.
     /// \returns the index buffer.
-    IndexBuffer* index_buffer() const noexcept;
+    graphics::index_buffer* index_buffer() const noexcept;
 
     /// Gets the vertex buffer for this mesh part.
     /// \returns the vertex buffer
-    VertexBuffer* vertex_buffer() const noexcept;
+    graphics::vertex_buffer* vertex_buffer() const noexcept;
 
     /// Gets the location in the index array at which to start reading vertices.
     /// \returns location in the index array at which to start reading vertices.
@@ -55,20 +55,20 @@ public:
 
     /// Gets the type of primitives to render.
     /// \returns the type of primitives to render.
-    PrimitiveType primitive_type() const noexcept;
+    graphics::primitive_type primitive_type() const noexcept;
 
 public:
     /// Gets or sets the effect for this mesh part.
-    std::shared_ptr<EffectTechnique> effect = { nullptr };
+    std::shared_ptr<effect_technique> effect = { nullptr };
 
 private:
-    std::unique_ptr<IndexBuffer>    _index_buffer       = { nullptr };
-    std::unique_ptr<VertexBuffer>   _vertex_buffer      = { nullptr };
-    std::size_t                     _start_index        = { 0 };
-    std::size_t                     _vertex_offset      = { 0 };
-    std::size_t                     _vertex_count       = { 0 };
-    std::size_t                     _primitive_count    = { 0 };
-    scener::graphics::PrimitiveType _primitive_type     = { PrimitiveType::triangle_list };
+    std::unique_ptr<graphics::index_buffer>  _index_buffer       = { nullptr };
+    std::unique_ptr<graphics::vertex_buffer> _vertex_buffer      = { nullptr };
+    std::size_t                              _start_index        = { 0 };
+    std::size_t                              _vertex_offset      = { 0 };
+    std::size_t                              _vertex_count       = { 0 };
+    std::size_t                              _primitive_count    = { 0 };
+    graphics::primitive_type                 _primitive_type     = { primitive_type::triangle_list };
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };

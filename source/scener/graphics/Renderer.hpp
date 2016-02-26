@@ -20,30 +20,30 @@ namespace scener { namespace graphics { namespace opengl { class RenderContext; 
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
-class GraphicsDeviceManager;
-class RendererServiceContainer;
-class RendererWindow;
+class graphics_device;
+class graphics_device_manager;
+class service_container;
+class window;
 
 /// Provides basic graphics device initialization, and rendering code.
-class Renderer
+class renderer
 {
 public:
-    /// Initializes a new instance of the Renderer class.
-    /// \param rootDirectory the root directory to search for content.
-    Renderer(const std::string& rootDirectory) noexcept;
+    /// Initializes a new instance of the renderer class.
+    /// \param root_directory the root directory to search for content.
+    renderer(const std::string& root_directory) noexcept;
 
     /// Releases all resources being used by the current renderer instance
-    virtual ~Renderer();
+    virtual ~renderer();
 
 public:
-    /// Gets the current graphics device
-    /// \returns the current graphics device
-    GraphicsDevice* graphics_device() const noexcept;
+    /// Gets the current graphics device.
+    /// \returns the current graphics device.
+    graphics_device* device() const noexcept;
 
     /// Gets the underlying operating system window.
     /// \returns the underlying operating system window.
-    RendererWindow* window() const noexcept;
+    graphics::window* window() const noexcept;
 
     /// Gets the current content manager
     /// \returns the current content_manager manager
@@ -51,11 +51,11 @@ public:
 
     /// Gets the collection of services owned by the renderer.
     /// \returns the collection of services owned by the renderer.
-    RendererServiceContainer* services() const noexcept;
+    service_container* services() const noexcept;
 
     /// Gets the collection of components owned by the renderer.
     /// \returns the collection of components owned by the renderer.
-    std::vector<std::shared_ptr<IComponent>>& components() noexcept;
+    std::vector<std::shared_ptr<icomponent>>& components() noexcept;
 
     /// Call this method to initialize the renderer, begin running the rendering loop, and start processing events.
     virtual void run() noexcept;
@@ -71,7 +71,7 @@ protected:
     virtual void begin_run() noexcept;
 
     /// Called when the renderer determines it is time to draw a frame.
-    virtual void draw(const StepTime& renderTime) noexcept;
+    virtual void draw(const steptime& time) noexcept;
 
     /// Ends the drawing of a frame. This method is preceeded by calls to draw and begin_draw.
     virtual void end_draw() noexcept;
@@ -89,7 +89,7 @@ protected:
     virtual void unload_content() noexcept;
 
     /// Called when the renderer has determined that render logic needs to be processed.
-    virtual void update(const StepTime& renderTime) noexcept;
+    virtual void update(const steptime& time) noexcept;
 
     /// Updates the renderer's clock and calls update and draw.
     void time_step() noexcept;
@@ -102,9 +102,9 @@ private:
     void start_event_loop() noexcept;
 
 private:
-    Renderer() = delete;
-    Renderer(const Renderer& renderer) = delete;
-    Renderer& operator=(const Renderer& renderer) = delete;
+    renderer() = delete;
+    renderer(const renderer& renderer) = delete;
+    renderer& operator=(const renderer& renderer) = delete;
 
 public:
     /// Gets or sets a value indicating whether to use fixed time steps.
@@ -116,25 +116,25 @@ public:
     scener::timespan target_elapsed_time { 10000000L / 60L };
 
 protected:
-    GraphicsDeviceManager* graphics_device_manager() const;
-    void add_component(std::shared_ptr<IComponent> component);
+    graphics_device_manager* device_manager() const;
+    void add_component(std::shared_ptr<icomponent> component);
 
 private:
-    std::unique_ptr<RendererWindow>                          _renderer_window         { nullptr };
-    std::unique_ptr<scener::graphics::opengl::RenderContext> _render_context          { nullptr };
-    std::unique_ptr<scener::content::content_manager>         _content_manager         { nullptr };
-    std::unique_ptr<GraphicsDeviceManager>                   _graphics_device_manager { nullptr };
-    std::vector<std::shared_ptr<IDrawable>>                  _drawable_components     { };
-    std::vector<std::shared_ptr<IUpdateable>>                _updateable_components   { };
-    std::vector<std::shared_ptr<IComponent>>                 _components              { };
-    std::unique_ptr<RendererServiceContainer>                _services                { nullptr };
-    StepTimer                                                _timer                   { };
-    StepTime                                                 _render_time             { };
-    scener::timespan                                         _total_tender_time       { timespan::zero() };
-    bool                                                     _is_running_slowly       { false };
-    std::string                                              _root_directory          { };
+    std::unique_ptr<graphics::window>         _window                { nullptr };
+    std::unique_ptr<opengl::RenderContext>    _render_context        { nullptr };
+    std::unique_ptr<content::content_manager> _content_manager       { nullptr };
+    std::unique_ptr<graphics_device_manager>  _device_manager        { nullptr };
+    std::vector<std::shared_ptr<idrawable>>   _drawable_components   { };
+    std::vector<std::shared_ptr<iupdateable>> _updateable_components { };
+    std::vector<std::shared_ptr<icomponent>>  _components            { };
+    std::unique_ptr<service_container>        _services              { nullptr };
+    steptimer                                 _timer                 { };
+    steptime                                  _render_time           { };
+    scener::timespan                          _total_tender_time     { timespan::zero() };
+    bool                                      _is_running_slowly     { false };
+    std::string                               _root_directory        { };
 
-    friend class RendererWindow;
+    friend class window;
 };
 
 }}

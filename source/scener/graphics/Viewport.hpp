@@ -9,18 +9,18 @@
 namespace scener { namespace graphics {
 
 /// Represents the portion of the render target to receive draw calls.
-struct Viewport final
+struct viewport final
 {
 public:
     /// Initializes a new instance of the ViewPort class
-    Viewport() noexcept;
+    viewport() noexcept;
 
     /// Initializes a new instance of the ViewPort class
     /// \param vx the x coordinate of the upper-left corner of the viewport in pixels.
     /// \param vy the y coordinate of the upper-left corner of the viewport in pixels.
     /// \param vwidth  the width of the viewport in pixels.
     /// \param vheight the height of the viewport in pixels.
-    Viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept;
+    viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept;
 
 public:
     ///Gets the aspect ratio used by the viewport

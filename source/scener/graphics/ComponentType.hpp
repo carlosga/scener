@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines the type of an element of an index buffer or GLTF accessors elements.
-enum class ComponentType : std::uint32_t
+enum class component_type : std::uint32_t
 {
     byte   = 5120   ///< Eight bits (signed)
   , ubyte  = 5121   ///< Eight bits (unsigned)

@@ -8,14 +8,14 @@
 
 namespace scener { namespace graphics {
 
-struct StepTime;
+struct steptime;
 
 /// Defines the interface for a drawable game component.
-class IDrawable
+class idrawable
 {
 public:
     /// Virtual destructor.
-    virtual ~IDrawable() = default;
+    virtual ~idrawable() = default;
 
 public:
     /// Gets a value indicating whether this object is visible.
@@ -27,7 +27,7 @@ public:
 
     /// Called when the component should be drawn.
     /// \param stepTime snapshot of the rendering timing state.
-    virtual void draw(const StepTime& stepTime) noexcept = 0;
+    virtual void draw(const steptime& stepTime) noexcept = 0;
 };
 
 }}

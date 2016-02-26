@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines filtering types during texture sampling.
-enum class TextureFilter : std::uint32_t
+enum class texture_filter : std::uint32_t
 {
     nearest                = 9728   ///< GL_NEAREST
   , linear                 = 9729   ///< GL_LINEAR

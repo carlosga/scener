@@ -7,12 +7,12 @@
 
 namespace scener { namespace graphics {
 
-Viewport::Viewport() noexcept
-    : Viewport { 0, 0, 0, 0 }
+viewport::viewport() noexcept
+    : viewport { 0, 0, 0, 0 }
 {
 }
 
-Viewport::Viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept
+viewport::viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std::uint32_t vheight) noexcept
     : x         { vx }
     , y         { vy }
     , width     { vwidth }
@@ -22,7 +22,7 @@ Viewport::Viewport(std::uint32_t vx, std::uint32_t vy, std::uint32_t vwidth, std
 {
 }
 
-void Viewport::update() const noexcept
+void viewport::update() const noexcept
 {
     glViewportIndexedf(0, x, y, width, height);
     glDepthRangeIndexed(0, min_depth, max_depth);

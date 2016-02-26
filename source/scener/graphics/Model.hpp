@@ -14,15 +14,15 @@ namespace scener { namespace content { class content_reader; } }
 
 namespace scener { namespace graphics {
 
-class  ModelMesh;
-struct StepTime;
+class  model_mesh;
+struct steptime;
 
 /// Represents a 3D model composed of multiple ModelMesh objects which may be moved independently.
-class Model final
+class model final
 {
 public:
     /// Initializes a new instance of the Model class.
-    Model() noexcept;
+    model() noexcept;
 
 public:
     /// Gets the model name.
@@ -33,11 +33,11 @@ public:
     /// Each ModelMesh in a model may be moved independently and may be
     /// composed of multiple materials identified as ModelMeshPart objects.
     /// \returns the ModelMesh objects used by this model.
-    const std::vector<std::shared_ptr<ModelMesh>>& meshes() const noexcept;
+    const std::vector<std::shared_ptr<model_mesh>>& meshes() const noexcept;
 
     /// Updates the model animation and skin state.
-    /// \param elapsedtime snapshot of the rendering timing state.
-    void update(const StepTime& elapsedtime) noexcept;
+    /// \param time snapshot of the rendering timing state.
+    void update(const steptime& time) noexcept;
 
     /// Render a model after applying the given matrix transformations.
     /// \param world the world matrix
@@ -48,7 +48,7 @@ public:
             , const scener::math::matrix4& projection) noexcept;
 
 private:
-    std::vector<std::shared_ptr<ModelMesh>> _meshes;
+    std::vector<std::shared_ptr<model_mesh>> _meshes;
     std::string                             _name;
 
     friend class scener::content::content_reader;

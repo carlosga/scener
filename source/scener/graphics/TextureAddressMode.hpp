@@ -11,7 +11,7 @@
 namespace scener { namespace graphics {
 
 /// Defines modes for addressing texels using texture coordinates that are outside of the typical range of 0.0 to 1.0.
-enum class TextureAddressMode : std::uint32_t
+enum class texture_address_mode : std::uint32_t
 {
     clamp  = GL_CLAMP_TO_EDGE   ///< Texture coordinates outside the range [0.0, 1.0] are set to the
                                 ///< texture color at 0.0 or 1.0, respectively.

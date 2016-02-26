@@ -19,11 +19,11 @@ namespace scener { namespace graphics { namespace opengl { class ConstantBuffer;
 namespace scener { namespace graphics {
 
 /// Represents an EffectTechnique parameter.
-class EffectParameter final
+class effect_parameter final
 {
 public:
     /// Initializes a new instance of the EffectParameter class.
-    EffectParameter() = default;
+    effect_parameter() = default;
 
 public:
     /// Gets the number of columns in the parameter description.
@@ -33,10 +33,10 @@ public:
     const std::string& name() const noexcept;
 
     /// Gets the class of the parameter.
-    EffectParameterClass parameter_class() const noexcept;
+    effect_parameter_class parameter_class() const noexcept;
 
     /// Gets the type of the parameter.
-    EffectParameterType parameter_type() const noexcept;
+    effect_parameter_type parameter_type() const noexcept;
 
     /// Gets the number of rows in the parameter description.
     std::size_t row_count() const noexcept;
@@ -73,8 +73,8 @@ private:
     std::size_t             _row_count       { 0 };
     std::size_t             _count           { 0 };
     std::size_t             _offset          { 0 };
-    EffectParameterClass    _parameter_class { EffectParameterClass::scalar };
-    EffectParameterType     _parameter_type  { EffectParameterType::single };
+    effect_parameter_class    _parameter_class { effect_parameter_class::scalar };
+    effect_parameter_type     _parameter_type  { effect_parameter_type::single };
     opengl::ConstantBuffer* _constant_buffer { nullptr };
     std::string             _name            { };
     std::string             _semantic        { };

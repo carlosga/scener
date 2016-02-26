@@ -8,14 +8,14 @@
 
 namespace scener { namespace graphics {
 
-struct StepTime;
+struct steptime;
 
 /// Defines an interface for a component that should be updated in Renderer.update.
-class IUpdateable
+class iupdateable
 {
 public:
     /// Virtual destructor.
-    virtual ~IUpdateable() = default;
+    virtual ~iupdateable() = default;
 
 public:
     /// Gets a value indicating whether the component's Update method should be called.
@@ -28,7 +28,7 @@ public:
 
     /// Called when the component should be updated.
     /// \param stepTime snapshot of the rendering timing state.
-    virtual void update(const StepTime& stepTime) noexcept = 0;
+    virtual void update(const steptime& stepTime) noexcept = 0;
 };
 
 }}

@@ -9,11 +9,11 @@ namespace scener { namespace math { struct vector3; } }
 namespace scener { namespace graphics {
 
 /// Defines fog parameters for the current effect.
-class IEffectFog
+class ieffect_fog
 {
 public:
     /// Releases all resource sbeing used by this IEffectFog instance
-    virtual ~IEffectFog() = default;
+    virtual ~ieffect_fog() = default;
 
 public:
     /// Gets the fog color as a three component color.

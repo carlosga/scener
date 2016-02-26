@@ -5,13 +5,13 @@
 
 namespace scener { namespace graphics {
 
-GraphicsResource::GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
+graphics_resource::graphics_resource(gsl::not_null<graphics_device*> device) noexcept
     : name             { }
-    , _graphics_device { graphicsDevice }
+    , _graphics_device { device }
 {
 }
 
-GraphicsDevice* GraphicsResource::graphics_device() const noexcept
+graphics::graphics_device* graphics_resource::device() const noexcept
 {
     return _graphics_device;
 }

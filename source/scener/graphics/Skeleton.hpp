@@ -16,14 +16,14 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class Bone;
+class bone;
 
 /// Represents a hierarchical collection of bones.
-class Skeleton final
+class skeleton final
 {
 public:
     /// Initializes a new instance of the Skeleton class.
-    Skeleton() = default;
+    skeleton() = default;
 
 public:
     /// Describes how to pose the skin's geometry for use with the bones.
@@ -36,7 +36,7 @@ public:
 
     /// Returns the bones used to animate the skin.
     /// \returns the bones used to animate the skin.
-    const std::vector<std::shared_ptr<Bone>>& bones() const noexcept;
+    const std::vector<std::shared_ptr<bone>>& bones() const noexcept;
 
     /// The skeleton name.
     /// \returns the name of the skeleton.
@@ -71,7 +71,7 @@ private:
 private:
     scener::math::matrix4              _bind_shape_matrix     { scener::math::matrix4::identity() };
     std::vector<scener::math::matrix4> _inverse_bind_matrices { };
-    std::vector<std::shared_ptr<Bone>> _bones                 { };
+    std::vector<std::shared_ptr<bone>> _bones                 { };
     std::vector<scener::math::matrix4> _bone_transforms       { };
     std::vector<scener::math::matrix4> _world_transforms      { };
     std::vector<scener::math::matrix4> _skin_transforms       { };

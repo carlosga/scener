@@ -8,8 +8,8 @@
 
 namespace scener { namespace graphics {
 
-Texture::Texture(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource { graphicsDevice }
+texture::texture(gsl::not_null<graphics_device*> device) noexcept
+    : graphics_resource { device }
 {
 }
 

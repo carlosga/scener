@@ -16,22 +16,22 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
+class graphics_device;
 
 /// Describes the rendering order of the vertices in a vertex buffer.
-class IndexBuffer final : public GraphicsResource
+class index_buffer final : public graphics_resource
 {
 public:
     /// Initializes a new instance of the IndexBuffer class.
-    /// \param graphicsDevice the GraphicsDevice object to associate with the index buffer.
+    /// \param device the graphics device object to associate with the index buffer.
     /// \param indexElementType the type of each index.
     /// \param indexCount the number of indices.
-    IndexBuffer(gsl::not_null<GraphicsDevice*> graphicsDevice
-              , ComponentType                  indexElementType
-              , std::size_t                    indexCount) noexcept;
+    index_buffer(gsl::not_null<graphics_device*> device
+               , component_type                  indexElementType
+               , std::size_t                     indexCount) noexcept;
 
     /// Releases all resources being used by this IndexBuffer.
-    ~IndexBuffer() override = default;
+    ~index_buffer() override = default;
 
 public:
     /// Gets the number of indices in the buffer.
@@ -40,7 +40,7 @@ public:
 
     /// Gets the type of each index.
     /// \returns the type of each index.
-    ComponentType index_element_type() const noexcept;
+    component_type index_element_type() const noexcept;
 
     /// Gets the size (in bytes) of each index.
     /// \returns the size (in bytes) of each index.
@@ -67,9 +67,9 @@ private:
 private:
     scener::graphics::opengl::Buffer _buffer;
     std::size_t                      _indexCount;
-    ComponentType                    _indexElementType;
+    component_type                    _indexElementType;
 
-    friend class scener::graphics::GraphicsDevice;
+    friend class scener::graphics::graphics_device;
 };
 
 }}

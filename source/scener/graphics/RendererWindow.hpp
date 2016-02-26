@@ -20,18 +20,18 @@ class DisplaySurface;
 
 namespace scener { namespace graphics {
 
-class Renderer;
+class renderer;
 
 /// The window associated with a renderer.
-class RendererWindow final
+class window final
 {
 public:
     /// Initializes a new instance of the RendererWindow class.
     /// \param renderer the renderer instance owning the renderer window.
-    RendererWindow(gsl::not_null<Renderer*> renderer) noexcept;
+    window(gsl::not_null<renderer*> renderer) noexcept;
 
     /// Releases all resource being used by the current RendererWindow
-    ~RendererWindow();
+    ~window();
 
 public:
     /// Gets the renderer window title.
@@ -66,12 +66,12 @@ private:
     void pool_events() const noexcept;
 
 private:
-    RendererWindow() = delete;
-    RendererWindow(const RendererWindow& window) = delete;
-    RendererWindow& operator=(const RendererWindow& window) = delete;
+    window() = delete;
+    window(const window& window) = delete;
+    window& operator=(const window& window) = delete;
 
 private:
-    Renderer*                               _renderer          { nullptr };
+    renderer*                               _renderer          { nullptr };
     std::unique_ptr<opengl::DisplayDevice>  _displayDevice     { nullptr };
     std::unique_ptr<opengl::DisplaySurface> _displaySurface    { nullptr };
     std::string                             _title             { };
@@ -79,7 +79,7 @@ private:
     nod::scoped_connection                  _resize_connection { };
     bool                                    _closed            { false };
 
-    friend class Renderer;
+    friend class renderer;
 };
 
 }}

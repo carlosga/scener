@@ -14,61 +14,61 @@ namespace scener { namespace graphics {
 using scener::graphics::opengl::DisplayDevice;
 using scener::graphics::opengl::DisplaySurface;
 
-RendererWindow::RendererWindow(gsl::not_null<Renderer*> renderer) noexcept
+window::window(gsl::not_null<renderer*> renderer) noexcept
     : _renderer { renderer }
 {
 }
 
-RendererWindow::~RendererWindow()
+window::~window()
 {
     close();
 }
 
-const std::string& RendererWindow::title() const noexcept
+const std::string& window::title() const noexcept
 {
     return _title;
 }
 
-void RendererWindow::title(const std::string& title) noexcept
+void window::title(const std::string& title) noexcept
 {
     _title = title;
     _displaySurface->title(title);
 }
 
-bool RendererWindow::allow_user_resizing() const noexcept
+bool window::allow_user_resizing() const noexcept
 {
-    return _renderer->_graphics_device_manager->allow_user_resizing;
+    return _renderer->_device_manager->allow_user_resizing;
 }
 
-void RendererWindow::allow_user_resizing(bool allowUserResizing) noexcept
+void window::allow_user_resizing(bool allowUserResizing) noexcept
 {
-    _renderer->_graphics_device_manager->allow_user_resizing = allowUserResizing;
+    _renderer->_device_manager->allow_user_resizing = allowUserResizing;
 }
 
-bool RendererWindow::closed() const
+bool window::closed() const
 {
     return _closed;
 }
 
-nod::connection RendererWindow::connect_resize(std::function<void(uint32_t, uint32_t)>&& slot) noexcept
+nod::connection window::connect_resize(std::function<void(uint32_t, uint32_t)>&& slot) noexcept
 {
     return _displaySurface->connect_resize(std::move(slot));
 }
 
-DisplayDevice* RendererWindow::display_device() const noexcept
+DisplayDevice* window::display_device() const noexcept
 {
     return _displayDevice.get();
 }
 
-DisplaySurface* RendererWindow::display_surface() const noexcept
+DisplaySurface* window::display_surface() const noexcept
 {
     return _displaySurface.get();
 }
 
-void RendererWindow::open() noexcept
+void window::open() noexcept
 {
-    auto width  = _renderer->_graphics_device_manager->preferred_back_buffer_width;
-    auto height = _renderer->_graphics_device_manager->preferred_back_buffer_height;
+    auto width  = _renderer->_device_manager->preferred_back_buffer_width;
+    auto height = _renderer->_device_manager->preferred_back_buffer_height;
 
     _displayDevice  = std::make_unique<DisplayDevice>();
     _displaySurface = std::make_unique<DisplaySurface>(_displayDevice.get());
@@ -86,13 +86,13 @@ void RendererWindow::open() noexcept
     initialize_connections();
 }
 
-void RendererWindow::show() const noexcept
+void window::show() const noexcept
 {
     _displaySurface->clear();
     _displaySurface->show();
 }
 
-void RendererWindow::close() noexcept
+void window::close() noexcept
 {
     if (_displaySurface.get())
     {
@@ -106,7 +106,7 @@ void RendererWindow::close() noexcept
     }
 }
 
-void RendererWindow::initialize_connections() noexcept
+void window::initialize_connections() noexcept
 {
     _close_connection = _displaySurface->connect_closing([&]() {
         _closed = true;
@@ -114,13 +114,13 @@ void RendererWindow::initialize_connections() noexcept
         _resize_connection.disconnect();
     });
     _resize_connection = _displaySurface->connect_resize([&](std::uint32_t width, std::uint32_t height) {
-        _renderer->graphics_device()->viewport().width  = width;
-        _renderer->graphics_device()->viewport().height = height;
-        _renderer->graphics_device()->viewport().update();
+        _renderer->device()->viewport().width  = width;
+        _renderer->device()->viewport().height = height;
+        _renderer->device()->viewport().update();
     });
 }
 
-void RendererWindow::pool_events() const noexcept
+void window::pool_events() const noexcept
 {
     _displaySurface->pool_events();
 }

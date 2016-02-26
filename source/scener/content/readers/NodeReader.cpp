@@ -15,9 +15,9 @@ namespace scener { namespace content { namespace readers {
 
 using json11::Json;
 using scener::content::gltf::accessor;
-using scener::graphics::Bone;
-using scener::graphics::ModelMesh;
-using scener::graphics::Skeleton;
+using scener::graphics::bone;
+using scener::graphics::model_mesh;
+using scener::graphics::skeleton;
 using scener::math::matrix4;
 using scener::math::quaternion;
 using scener::math::vector3;
@@ -65,7 +65,7 @@ auto ContentTypeReader<gltf::node>::read(content_reader* input, const std::strin
 
     if (!source["jointName"].is_null())
     {
-        node->joint        = std::make_shared<Bone>();
+        node->joint        = std::make_shared<bone>();
         node->joint->_name = source["jointName"].string_value();
 
         if (!source["matrix"].is_null())
@@ -107,7 +107,7 @@ auto ContentTypeReader<gltf::node>::read(content_reader* input, const std::strin
 
     for (const auto& meshRef : meshes)
     {
-        auto mesh = input->read_object<ModelMesh>(meshRef.string_value());
+        auto mesh = input->read_object<model_mesh>(meshRef.string_value());
 
         Ensures(mesh.get() != nullptr);
 
@@ -120,7 +120,7 @@ auto ContentTypeReader<gltf::node>::read(content_reader* input, const std::strin
     {
         const auto& skin = source["skin"].string_value();
 
-        node->instance_skin = input->read_object_instance<Skeleton>(skin, input->_root["skins"][skin]);
+        node->instance_skin = input->read_object_instance<skeleton>(skin, input->_root["skins"][skin]);
 
         // The meshes for the skin instance
         std::for_each(node->meshes.begin(), node->meshes.end()

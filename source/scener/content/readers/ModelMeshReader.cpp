@@ -28,29 +28,29 @@ using scener::math::matrix4;
 using scener::math::vector2;
 using scener::math::vector3;
 using scener::math::vector4;
-using scener::graphics::ComponentType;
-using scener::graphics::EffectParameter;
-using scener::graphics::EffectParameterClass;
-using scener::graphics::EffectParameterType;
-using scener::graphics::EffectTechnique;
-using scener::graphics::IGraphicsDeviceService;
-using scener::graphics::IndexBuffer;
-using scener::graphics::Model;
-using scener::graphics::ModelMesh;
-using scener::graphics::ModelMeshPart;
-using scener::graphics::PrimitiveType;
-using scener::graphics::Texture2D;
-using scener::graphics::VertexBuffer;
-using scener::graphics::VertexDeclaration;
-using scener::graphics::VertexElement;
-using scener::graphics::VertexElementFormat;
-using scener::graphics::VertexElementUsage;
+using scener::graphics::component_type;
+using scener::graphics::effect_parameter;
+using scener::graphics::effect_parameter_class;
+using scener::graphics::effect_parameter_type;
+using scener::graphics::effect_technique;
+using scener::graphics::igraphics_device_service;
+using scener::graphics::index_buffer;
+using scener::graphics::model;
+using scener::graphics::model_mesh;
+using scener::graphics::model_mesh_part;
+using scener::graphics::primitive_type;
+using scener::graphics::texture2d;
+using scener::graphics::vertex_buffer;
+using scener::graphics::vertex_declaration;
+using scener::graphics::vertex_element;
+using scener::graphics::vertex_element_format;
+using scener::graphics::vertex_element_usage;
 
 namespace scener { namespace content { namespace readers {
 
-auto ContentTypeReader<ModelMesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<model_mesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto        mesh       = std::make_shared<ModelMesh>();
+    auto        mesh       = std::make_shared<model_mesh>();
     const auto& primitives = source["primitives"].array_items();
 
     mesh->_name = key;
@@ -64,13 +64,13 @@ auto ContentTypeReader<ModelMesh>::read(content_reader* input, const std::string
     return mesh;
 }
 
-std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
+std::shared_ptr<model_mesh_part> ContentTypeReader<model_mesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
 {
-    auto meshPart      = std::make_shared<ModelMeshPart>();
-    auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
-    auto device        = gdService->graphics_device();
+    auto meshPart      = std::make_shared<model_mesh_part>();
+    auto gdService     = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto device        = gdService->device();
     auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
-    auto elements      = std::vector<VertexElement>();
+    auto elements      = std::vector<vertex_element>();
     auto vertexStride  = std::size_t { 0 };
     auto vertexCount   = std::size_t { 0 };
     auto indices       = input->read_object<gltf::accessor>(source["indices"].string_value());
@@ -78,7 +78,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(cont
     auto indexCount    = indices->attribute_count();
 
     // Index buffer
-    meshPart->_index_buffer = std::make_unique<IndexBuffer>(device, componentType, indexCount);
+    meshPart->_index_buffer = std::make_unique<index_buffer>(device, componentType, indexCount);
     meshPart->_index_buffer->set_data(indices->get_data());
 
     // Vertex buffer
@@ -94,7 +94,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(cont
         const auto usage      = get_vertex_element_usage(attribute.first);
         const auto usageIndex = static_cast<std::uint32_t>(usage);
 
-        if (usage == VertexElementUsage::position)
+        if (usage == vertex_element_usage::position)
         {
             vertexCount = accessor->attribute_count();
         }
@@ -105,28 +105,28 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(cont
         vertexStride += accessor->byte_stride();
     }
 
-    VertexDeclaration declaration(vertexStride, elements);
+    vertex_declaration declaration(vertexStride, elements);
 
-    meshPart->_primitive_type  = static_cast<PrimitiveType>(source["mode"].int_value());
+    meshPart->_primitive_type  = static_cast<primitive_type>(source["mode"].int_value());
     meshPart->_vertex_count    = vertexCount;
     meshPart->_start_index     = 0;
     meshPart->_vertex_offset   = 0;
     meshPart->_primitive_count = 0;
-    meshPart->_vertex_buffer   = std::make_unique<VertexBuffer>(device, vertexCount, declaration);
+    meshPart->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertexCount, declaration);
 
     switch (meshPart->_primitive_type)
     {
-    case PrimitiveType::line_list:
+    case primitive_type::line_list:
         meshPart->_primitive_count = (vertexCount / 2);
         break;
-    case PrimitiveType::triangle_list:
+    case primitive_type::triangle_list:
         meshPart->_primitive_count = (vertexCount  / 3);
         break;
-    case PrimitiveType::line_loop:
-    case PrimitiveType::line_strip:
-    case PrimitiveType::point_list:
-    case PrimitiveType::triangle_fan:
-    case PrimitiveType::triangle_strip:
+    case primitive_type::line_loop:
+    case primitive_type::line_strip:
+    case primitive_type::point_list:
+    case primitive_type::triangle_fan:
+    case primitive_type::triangle_strip:
         // TODO: Fix
         meshPart->_primitive_count = vertexCount;
         break;
@@ -161,12 +161,12 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(cont
     return meshPart;
 }
 
-std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(content_reader*     input
+std::shared_ptr<effect_technique> ContentTypeReader<model_mesh>::read_material(content_reader*     input
                                                                            , const std::string& key) const noexcept
 {
     const auto& material  = input->_root["materials"][key];
     const auto& values    = material["values"].object_items();
-    auto        technique = input->read_object_instance<EffectTechnique>(material["technique"].string_value());
+    auto        technique = input->read_object_instance<effect_technique>(material["technique"].string_value());
 
     for (const auto& value : values)
     {
@@ -178,48 +178,48 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(con
             continue;
         }
 
-        if (parameter->parameter_class() == EffectParameterClass::scalar)
+        if (parameter->parameter_class() == effect_parameter_class::scalar)
         {
             switch (parameter->parameter_type())
             {
-            case EffectParameterType::boolean:
+            case effect_parameter_type::boolean:
                 parameter->set_value<bool>(paramValue.bool_value());
                 break;
-            case EffectParameterType::byte:
+            case effect_parameter_type::byte:
                 parameter->set_value<std::int8_t>(static_cast<std::int8_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::ubyte:
+            case effect_parameter_type::ubyte:
                 parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::int16:
+            case effect_parameter_type::int16:
                 parameter->set_value<std::int16_t>(static_cast<std::int16_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::uint16:
+            case effect_parameter_type::uint16:
                 parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::int32:
+            case effect_parameter_type::int32:
                 parameter->set_value<std::int32_t>(static_cast<std::int32_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::uint32:
+            case effect_parameter_type::uint32:
                 parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(paramValue.int_value()));
                 break;
-            case EffectParameterType::single:
+            case effect_parameter_type::single:
                 parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
                 break;
-            case EffectParameterType::string:
+            case effect_parameter_type::string:
                 parameter->set_value<std::string>(paramValue.string_value());
                 break;
 
-            case EffectParameterType::texture:
-            case EffectParameterType::texture_1d:
-            case EffectParameterType::texture_2d:
-            case EffectParameterType::texture_3d:
-            case EffectParameterType::texture_cube:
-            case EffectParameterType::void_pointer:
+            case effect_parameter_type::texture:
+            case effect_parameter_type::texture_1d:
+            case effect_parameter_type::texture_2d:
+            case effect_parameter_type::texture_3d:
+            case effect_parameter_type::texture_cube:
+            case effect_parameter_type::void_pointer:
                 throw std::runtime_error("unknown parameter type");
             }
         }
-        else if (parameter->parameter_class() == EffectParameterClass::vector)
+        else if (parameter->parameter_class() == effect_parameter_class::vector)
         {
             switch (parameter->column_count())
             {
@@ -234,31 +234,31 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(con
                 break;
             }
         }
-        else if (parameter->parameter_class() == EffectParameterClass::matrix)
+        else if (parameter->parameter_class() == effect_parameter_class::matrix)
         {
             parameter->set_value(input->convert<matrix4>(paramValue.array_items()));
         }
-        else if (parameter->parameter_class() == EffectParameterClass::object)
+        else if (parameter->parameter_class() == effect_parameter_class::object)
         {
-            technique->textures().push_back(input->read_object<Texture2D>(paramValue.string_value()));
+            technique->textures().push_back(input->read_object<texture2d>(paramValue.string_value()));
         }
     }
 
     return technique;
 }
 
-VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(attribute_type type) const noexcept
+vertex_element_format ContentTypeReader<model_mesh>::get_vertex_element_format(attribute_type type) const noexcept
 {
     switch (type)
     {
     case attribute_type::vector2:
-        return VertexElementFormat::vector2;
+        return vertex_element_format::vector2;
     case attribute_type::vector3:
-        return VertexElementFormat::vector3;
+        return vertex_element_format::vector3;
     case attribute_type::vector4:
-        return VertexElementFormat::vector4;
+        return vertex_element_format::vector4;
     case attribute_type::scalar:
-        return VertexElementFormat::single;
+        return vertex_element_format::single;
     case attribute_type::matrix2:
     case attribute_type::matrix3:
     case attribute_type::matrix4:
@@ -266,37 +266,37 @@ VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(attr
     }
 }
 
-VertexElementUsage ContentTypeReader<ModelMesh>::get_vertex_element_usage(const std::string& semantic) const noexcept
+vertex_element_usage ContentTypeReader<model_mesh>::get_vertex_element_usage(const std::string& semantic) const noexcept
 {
-    VertexElementUsage usage = VertexElementUsage::color;
+    vertex_element_usage usage = vertex_element_usage::color;
 
     if (semantic == "JOINT")
     {
-        usage = VertexElementUsage::blend_indices;
+        usage = vertex_element_usage::blend_indices;
     }
     else if (semantic == "NORMAL")
     {
-        usage = VertexElementUsage::normal;
+        usage = vertex_element_usage::normal;
     }
     else if (semantic == "POSITION")
     {
-        usage = VertexElementUsage::position;
+        usage = vertex_element_usage::position;
     }
     else if (semantic == "TEXBINORMAL")
     {
-        usage = VertexElementUsage::binormal;
+        usage = vertex_element_usage::binormal;
     }
     else if (semantic == "TEXCOORD_0")
     {
-        usage = VertexElementUsage::texture_coordinate;
+        usage = vertex_element_usage::texture_coordinate;
     }
     else if (semantic == "TEXTANGENT")
     {
-        usage = VertexElementUsage::tangent;
+        usage = vertex_element_usage::tangent;
     }
     else if (semantic == "WEIGHT")
     {
-        usage = VertexElementUsage::blend_weight;
+        usage = vertex_element_usage::blend_weight;
     }
     else
     {

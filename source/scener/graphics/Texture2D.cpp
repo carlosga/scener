@@ -8,56 +8,56 @@
 
 namespace scener { namespace graphics {
 
-Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept
-    : Texture2D(graphicsDevice, width, height, SurfaceFormat::color)
+texture2d::texture2d(gsl::not_null<graphics_device*> device, std::size_t width, std::size_t height) noexcept
+    : texture2d(device, width, height, surface_format::color)
 {
 }
 
-Texture2D::Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-                   , std::size_t                    width
-                   , std::size_t                    height
-                   , SurfaceFormat                  format) noexcept
-    : Texture        { graphicsDevice }
+texture2d::texture2d(gsl::not_null<graphics_device*> device
+                   , std::size_t                     width
+                   , std::size_t                     height
+                   , surface_format                  format) noexcept
+    : texture        { device }
     , _format        { format }
     , _mipmap_levels { 0 }
     , _height        { height }
     , _width         { width }
     , _sampler_state { nullptr }
-    , _storage       { scener::graphics::opengl::TextureTarget::texture_2d }
+    , _storage       { opengl::texture_target::texture_2d }
 {
 }
 
-std::uint32_t Texture2D::id() const noexcept
+std::uint32_t texture2d::id() const noexcept
 {
     return _storage.id();
 }
 
-SurfaceFormat Texture2D::format() const noexcept
+surface_format texture2d::format() const noexcept
 {
     return _format;
 }
 
-std::size_t Texture2D::height() const noexcept
+std::size_t texture2d::height() const noexcept
 {
     return _height;
 }
 
-std::size_t Texture2D::level_count() const noexcept
+std::size_t texture2d::level_count() const noexcept
 {
     return _mipmap_levels;
 }
 
-std::size_t Texture2D::width() const noexcept
+std::size_t texture2d::width() const noexcept
 {
     return _width;
 }
 
-SamplerState* Texture2D::sampler_state() const noexcept
+sampler_state* texture2d::sampler_state() const noexcept
 {
     return _sampler_state.get();
 }
 
-void Texture2D::set_data(std::size_t                          level
+void texture2d::set_data(std::size_t                          level
                        , std::size_t                          width
                        , std::size_t                          height
                        , const gsl::span<const std::uint8_t>& data) const noexcept
@@ -65,18 +65,18 @@ void Texture2D::set_data(std::size_t                          level
     _storage.set_data(_format, level, width, height, data);
 }
 
-void Texture2D::declare_storage(std::size_t mipMapLevels) noexcept
+void texture2d::declare_storage(std::size_t mipMapLevels) noexcept
 {
     _storage.declare_storage(_format, mipMapLevels, _width, _height);
     _mipmap_levels = mipMapLevels;
 }
 
-void Texture2D::bind() const noexcept
+void texture2d::bind() const noexcept
 {
     _storage.bind();
 }
 
-void Texture2D::unbind() const noexcept
+void texture2d::unbind() const noexcept
 {
     _storage.unbind();
 }

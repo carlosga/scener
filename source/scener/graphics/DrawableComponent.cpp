@@ -8,50 +8,50 @@
 
 namespace scener { namespace graphics {
 
-DrawableComponent::DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept
-    : Component { renderer }
+drawable_component::drawable_component(gsl::not_null<graphics::renderer*> renderer) noexcept
+    : component { renderer }
 {
 }
 
-GraphicsDevice* DrawableComponent::graphics_device() noexcept
+graphics_device* drawable_component::device() noexcept
 {
-    return _renderer->graphics_device();
+    return _renderer->device();
 }
 
-void DrawableComponent::draw(const StepTime& renderTime) noexcept
+void drawable_component::draw(const steptime& time) noexcept
 {
 }
 
-bool DrawableComponent::visible() const noexcept
+bool drawable_component::visible() const noexcept
 {
     return _visible;
 }
 
-void DrawableComponent::visible(bool visible) noexcept
+void drawable_component::visible(bool visible) noexcept
 {
     _visible = visible;
 }
 
-std::uint32_t DrawableComponent::draw_order() const noexcept
+std::uint32_t drawable_component::draw_order() const noexcept
 {
     return _draw_order;
 }
 
-void DrawableComponent::draw_order(std::uint32_t drawOrder) noexcept
+void drawable_component::draw_order(std::uint32_t order) noexcept
 {
-    _draw_order = drawOrder;
+    _draw_order = order;
 }
 
-void DrawableComponent::initialize() noexcept
+void drawable_component::initialize() noexcept
 {
     this->load_content();
 }
 
-void DrawableComponent::load_content() noexcept
+void drawable_component::load_content() noexcept
 {
 }
 
-void DrawableComponent::unload_content() noexcept
+void drawable_component::unload_content() noexcept
 {
 }
 

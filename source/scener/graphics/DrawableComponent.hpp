@@ -11,28 +11,28 @@
 
 namespace scener { namespace graphics {
 
-class  GraphicsDevice;
-class  Renderer;
-struct StepTime;
+class  graphics_device;
+class  renderer;
+struct steptime;
 
 /// A component that is notified when it needs to draw itself.
-class DrawableComponent : public Component, public IDrawable
+class drawable_component : public component, public idrawable
 {
 public:
     /// Initializes a new instance of the DrawableComponent class.
     /// \param renderer the renderer that owns the component.
-    DrawableComponent(gsl::not_null<Renderer*> renderer) noexcept;
+    drawable_component(gsl::not_null<graphics::renderer*> renderer) noexcept;
 
     /// Releases all resources being used by this DrawableComponent.
-    ~DrawableComponent() override = default;
+    ~drawable_component() override = default;
 
 public:
-    /// The GraphicsDevice the DrawableComponent is associated with.
-    scener::graphics::GraphicsDevice* graphics_device() noexcept;
+    /// The graphics device the drawable component is associated with.
+    graphics_device* device() noexcept;
 
     /// Called when the component should be drawn.
-    /// \param renderTime time passed since the last call to Draw.
-    void draw(const StepTime& renderTime) noexcept override;
+    /// \param time time passed since the last call to Draw.
+    void draw(const steptime& time) noexcept override;
 
     /// Gets a value indicating whether Draw should be called.
     /// \returns true if Draw should be called; false otherwise.
@@ -46,8 +46,8 @@ public:
     std::uint32_t draw_order() const noexcept override;
 
     /// The order in which to draw this object relative to other objects.
-    /// \param drawOrder Order in which the component should be drawn.
-    void draw_order(std::uint32_t drawOrder) noexcept;
+    /// \param order Order in which the component should be drawn.
+    void draw_order(std::uint32_t order) noexcept;
 
     /// Called when the component should be initialized.
     /// This method can be used for tasks like querying for services

@@ -10,30 +10,30 @@
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
+class graphics_device;
 
 /// Queries and prepares resources.
-class GraphicsResource
+class graphics_resource
 {
 public:
-    /// Initializes a new instance of the GraphicsResource class
-    /// \param graphicsDevice the graphics associated to this resources
-    GraphicsResource(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// Initializes a new instance of the graphics_resource class.
+    /// \param device the graphics device associated to thi graphics resource.
+    graphics_resource(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Destructor
-    virtual ~GraphicsResource() = default;
+    virtual ~graphics_resource() = default;
 
 public:
-    /// Gets the GraphicsDevice associated with this GraphicsResource.
-    /// \returns The GraphicsDevice associated with this GraphicsResource.
-    GraphicsDevice* graphics_device() const noexcept;
+    /// Gets the fraphics device associated with this graphics_resource.
+    /// \returns The graphics device associated with this graphics_resource.
+    graphics_device* device() const noexcept;
 
 public:
     /// Gets or sets the name of the resource.
     std::string name;
 
 protected:
-    GraphicsDevice* _graphics_device;
+    graphics_device* _graphics_device;
 };
 
 }}

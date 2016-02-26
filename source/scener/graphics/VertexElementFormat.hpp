@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines vertex element formats.
-enum class VertexElementFormat : std::uint32_t
+enum class vertex_element_format : std::uint32_t
 {
     single            = 0   ///< Single-component, 32-bit floating-point, expanded to (float, 0, 0, 1).
   , vector2           = 1   ///< Two-component, 32-bit floating-point, expanded to (float, float, 0, 1).

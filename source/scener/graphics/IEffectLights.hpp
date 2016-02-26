@@ -8,15 +8,15 @@
 
 namespace scener { namespace graphics {
 
-class DirectionalLight;
+class directional_light;
 
 /// Defines the lighting parameters for the current effect.
 /// A basic effect implements per-vertex lighting using three directional lights.
-class IEffectLights
+class ieffect_lights
 {
 public:
     /// Releases all resource sbeing used by this IEffectsLights instance
-    virtual ~IEffectLights() = default;
+    virtual ~ieffect_lights() = default;
 
 public:
     /// Gets the ambient light for the current effect.
@@ -29,15 +29,15 @@ public:
 
     /// Gets the first directional light.
     /// \returns the directional light.
-    virtual const DirectionalLight& directional_light_0() const noexcept = 0;
+    virtual const directional_light& directional_light_0() const noexcept = 0;
 
     /// Gets the second directional light.
     /// \returns the directional light.
-    virtual const DirectionalLight& directional_light_1() const noexcept = 0;
+    virtual const directional_light& directional_light_1() const noexcept = 0;
 
     /// Gets the third directional light.
     /// \returns the directional light.
-    virtual const DirectionalLight& directional_light_2() const noexcept = 0;
+    virtual const directional_light& directional_light_2() const noexcept = 0;
 
     /// Gets a value indicating wheter lighting is enabled for the current effect.
     /// \returns true if lighting is enabled; false otherwise.

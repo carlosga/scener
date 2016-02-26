@@ -24,20 +24,20 @@ namespace scener { namespace content { namespace readers { template <typename T>
 namespace scener { namespace graphics {
 
 class GrapicsDevice;
-class EffectPass;
-class EffectParameter;
-class Texture2D;
+class effect_pass;
+class effect_parameter;
+class texture2d;
 
 /// Used to set and query effects, and to choose techniques.
-class EffectTechnique final : public GraphicsResource, public IEffectMatrices, public IEffectLights
+class effect_technique final : public graphics_resource, public ieffect_matrices, public ieffect_lights
 {
 public:
     /// Initializes a new instance of the EffectTechnique class
-    /// \param graphicsDevice the GraphicsDevice associated with this EffectTechnique.
-    EffectTechnique(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept;
+    /// \param device the graphics device associated with this EffectTechnique.
+    effect_technique(gsl::not_null<graphics_device*> device) noexcept;
 
     /// Releases all resources being used by this EffectTechnique.
-    ~EffectTechnique() override = default;
+    ~effect_technique() override = default;
 
 public:
     /// Gets the material alpha which determines its transparency.
@@ -61,13 +61,13 @@ public:
     void diffuse_color(const scener::math::vector3& diffuseColor) noexcept;
 
     /// Gets the first directional light
-    const DirectionalLight& directional_light_0() const noexcept override;
+    const directional_light& directional_light_0() const noexcept override;
 
     /// Gets the second directional light
-    const DirectionalLight& directional_light_1() const noexcept override;
+    const directional_light& directional_light_1() const noexcept override;
 
     /// Gets the third directional light
-    const DirectionalLight& directional_light_2() const noexcept override;
+    const directional_light& directional_light_2() const noexcept override;
 
     /// Enables default lighting for this effect.
     void enable_default_lighting() noexcept override;
@@ -109,7 +109,7 @@ public:
     void specular_power(float specularPower) noexcept;
 
     /// Gets the textures to be applied by this effect.
-    std::vector<std::shared_ptr<Texture2D>>& textures() noexcept;
+    std::vector<std::shared_ptr<texture2d>>& textures() noexcept;
 
     /// Gets a value indicating wheter textures are enabled for this effect.
     bool texture_enabled() const noexcept;
@@ -151,9 +151,9 @@ private:
     scener::math::vector3                   _ambient_light_color;
     std::vector<scener::math::matrix4>       _bone_transforms;
     scener::math::vector3                   _diffuse_color;
-    DirectionalLight                        _light_0;
-    DirectionalLight                        _light_1;
-    DirectionalLight                        _light_2;
+    directional_light                        _light_0;
+    directional_light                        _light_1;
+    directional_light                        _light_2;
     bool                                    _lighting_enabled;
     scener::math::vector3                   _emissive_color;
     bool                                    _prefer_per_pixel_lighting;
@@ -161,43 +161,43 @@ private:
     scener::math::vector3                   _specular_color;
     float                                   _specular_power;
     bool                                    _texture_enabled;
-    std::vector<std::shared_ptr<Texture2D>> _textures;
+    std::vector<std::shared_ptr<texture2d>> _textures;
     scener::math::matrix4                   _view;
     scener::math::matrix4                   _world;
 
-    EffectDirtyFlags                        _dirty_flags;
+    effect_dirty_flags                        _dirty_flags;
 
 private:
-    std::vector<std::shared_ptr<EffectPass>>                _passes;
-    std::map<std::string, std::shared_ptr<EffectParameter>> _parameters;
+    std::vector<std::shared_ptr<effect_pass>>                _passes;
+    std::map<std::string, std::shared_ptr<effect_parameter>> _parameters;
 
-    std::shared_ptr<EffectPass>      _pass                          = nullptr;
-    std::shared_ptr<EffectParameter> _bones_param                   = nullptr;
+    std::shared_ptr<effect_pass>      _pass                          = nullptr;
+    std::shared_ptr<effect_parameter> _bones_param                   = nullptr;
 
     /// Transforms from model to world coordinates using the transform's node and all of its parents.
-    std::shared_ptr<EffectParameter> _world_param                   = nullptr;
+    std::shared_ptr<effect_parameter> _world_param                   = nullptr;
     /// Transforms from world to view coordinates using the active camera node.
-    std::shared_ptr<EffectParameter> _view_param                    = nullptr;
+    std::shared_ptr<effect_parameter> _view_param                    = nullptr;
     /// Transforms from view to clip coordinates using the active camera node.
-    std::shared_ptr<EffectParameter> _projection_param              = nullptr;
+    std::shared_ptr<effect_parameter> _projection_param              = nullptr;
     /// Combined WORLD and VIEW.
-    std::shared_ptr<EffectParameter> _world_view_param              = nullptr;
+    std::shared_ptr<effect_parameter> _world_view_param              = nullptr;
     /// Combined WORLD, VIEW, and PROJECTION.
-    std::shared_ptr<EffectParameter> _world_view_projection_param   = nullptr;
+    std::shared_ptr<effect_parameter> _world_view_projection_param   = nullptr;
     /// Inverse of WORLD.
-    std::shared_ptr<EffectParameter> _world_inverse_param           = nullptr;
+    std::shared_ptr<effect_parameter> _world_inverse_param           = nullptr;
     /// Inverse of VIEW.
-    std::shared_ptr<EffectParameter> _view_inverse_param            = nullptr;
+    std::shared_ptr<effect_parameter> _view_inverse_param            = nullptr;
     /// Inverse of PROJECTION.
-    std::shared_ptr<EffectParameter> _projection_inverse_param      = nullptr;
+    std::shared_ptr<effect_parameter> _projection_inverse_param      = nullptr;
     /// Inverse of WORLDVIEW.
-    std::shared_ptr<EffectParameter> _world_view_inverse_param      = nullptr;
+    std::shared_ptr<effect_parameter> _world_view_inverse_param      = nullptr;
     /// Inverse of MODELVIEWPROJECTION
-    std::shared_ptr<EffectParameter> _world_view_projection_inverse_param = nullptr;
+    std::shared_ptr<effect_parameter> _world_view_projection_inverse_param = nullptr;
     /// The inverse-transpose of MODEL without the translation. This translates normals in model coordinates to world coordinates.
-    std::shared_ptr<EffectParameter> _world_inverse_transpose_param = nullptr;
+    std::shared_ptr<effect_parameter> _world_inverse_transpose_param = nullptr;
     /// The inverse-transpose of MODELVIEW without the translation. This translates normals in model coordinates to eye coordinates.
-    std::shared_ptr<EffectParameter> _world_view_inverse_transpose_param = nullptr;
+    std::shared_ptr<effect_parameter> _world_view_inverse_transpose_param = nullptr;
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };

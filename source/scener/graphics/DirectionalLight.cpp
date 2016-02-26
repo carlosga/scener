@@ -7,12 +7,12 @@ namespace scener { namespace graphics {
 
 using scener::math::vector3;
 
-DirectionalLight::DirectionalLight() noexcept
-    : DirectionalLight { { 0.0f, -1.0f, 0.0f }, vector3::one(), vector3::zero() }
+directional_light::directional_light() noexcept
+    : directional_light { { 0.0f, -1.0f, 0.0f }, vector3::one(), vector3::zero() }
 {
 }
 
-DirectionalLight::DirectionalLight(const vector3& lightDirection
+directional_light::directional_light(const vector3& lightDirection
                                  , const vector3& diffuseColor
                                  , const vector3& specularColor) noexcept
     : direction      { lightDirection }

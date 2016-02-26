@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines types that can be used for effect parameters or shader constants.
-enum class EffectParameterType : std::uint32_t
+enum class effect_parameter_type : std::uint32_t
 {
     boolean      = 1    ///< Parameter is a Boolean.
   , byte         = 2    ///< Parameter is a signed byte.

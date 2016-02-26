@@ -7,12 +7,12 @@
 
 namespace scener { namespace graphics {
 
-SamplerState::SamplerState(gsl::not_null<GraphicsDevice*> graphicsDevice) noexcept
-    : GraphicsResource { graphicsDevice }
+sampler_state::sampler_state(gsl::not_null<graphics::graphics_device*> device) noexcept
+    : graphics_resource { device }
 {
 }
 
-void SamplerState::apply(std::uint32_t textureId) const noexcept
+void sampler_state::apply(std::uint32_t textureId) const noexcept
 {
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_S    , static_cast<GLint>(address_u));
     glTextureParameteri(textureId, GL_TEXTURE_WRAP_T    , static_cast<GLint>(address_v));

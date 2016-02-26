@@ -13,13 +13,6 @@
 namespace scener { namespace content {
 
 using json11::Json;
-using scener::content::gltf::node;
-using scener::graphics::Animation;
-using scener::graphics::Model;
-using scener::graphics::ModelMesh;
-using scener::io::file;
-using scener::io::path;
-using scener::io::stream;
 
 content_reader::content_reader(const std::string& assetName, content::content_manager* manager, io::stream& stream) noexcept
     : _asset_name      { assetName }
@@ -39,11 +32,11 @@ content::content_manager* content_reader::content_manager() const noexcept
     return _content_manager;
 }
 
-std::shared_ptr<Model> content_reader::read_asset() noexcept
+std::shared_ptr<graphics::model> content_reader::read_asset() noexcept
 {
     auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
     auto errors = std::string();
-    auto model  = std::make_shared<Model>();
+    auto model  = std::make_shared<graphics::model>();
 
     _root = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
 
@@ -56,7 +49,7 @@ std::shared_ptr<Model> content_reader::read_asset() noexcept
 
     for (const auto& mesh : meshes)
     {
-        model->_meshes.push_back(read_object<ModelMesh>(mesh.first, mesh.second));
+        model->_meshes.push_back(read_object<graphics::model_mesh>(mesh.first, mesh.second));
     }
 
     // Nodes
@@ -82,7 +75,7 @@ std::shared_ptr<Model> content_reader::read_asset() noexcept
     // Animations
     for (const auto& animation : _root["animations"].object_items())
     {
-        read_object_instance<Animation>(animation.first, animation.second);
+        read_object_instance<graphics::animation>(animation.first, animation.second);
     }
 
     return model;
@@ -95,18 +88,18 @@ bool content_reader::read_header() noexcept
 
 std::string content_reader::get_asset_path(const std::string& assetName) const noexcept
 {
-    auto assetRoot = path::combine(path::get_directory_name(_asset_name), assetName);
+    auto assetRoot = io::path::combine(io::path::get_directory_name(_asset_name), assetName);
 
-    return path::combine(_content_manager->root_directory(), assetRoot);
+    return io::path::combine(_content_manager->root_directory(), assetRoot);
 }
 
 std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetName) const noexcept
 {
     auto asset_path = get_asset_path(assetName);
 
-    Ensures(file::exists(asset_path));
+    Ensures(io::file::exists(asset_path));
 
-    return file::read_all_bytes(asset_path);
+    return io::file::read_all_bytes(asset_path);
 }
 
 std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointName) const noexcept

@@ -11,8 +11,8 @@
 
 namespace scener { namespace graphics {
 
-class  Model;
-struct StepTime;
+class  model;
+struct steptime;
 
 }}
 
@@ -20,7 +20,7 @@ namespace skeletal_animation {
 
 class SampleRenderer;
 
-class EarthShaker : public scener::graphics::DrawableComponent
+class EarthShaker : public scener::graphics::drawable_component
 {
 public:
     EarthShaker(SampleRenderer* renderer) noexcept;
@@ -28,15 +28,15 @@ public:
 
 public:
     void initialize() noexcept override;
-    void update(const scener::graphics::StepTime& renderTime) noexcept override;
-    void draw(const scener::graphics::StepTime& renderTime) noexcept override;
+    void update(const scener::graphics::steptime& renderTime) noexcept override;
+    void draw(const scener::graphics::steptime& renderTime) noexcept override;
 
 protected:
     void load_content() noexcept override;
     void unload_content() noexcept override;
 
 private:
-    std::shared_ptr<scener::graphics::Model> _model;
+    std::shared_ptr<scener::graphics::model> _model;
     scener::math::matrix4                     _world;
 };
 

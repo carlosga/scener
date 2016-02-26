@@ -11,7 +11,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 /// Declares OpenGL texture targets.
-enum class TextureTarget : std::uint32_t
+enum class texture_target : std::uint32_t
 {
     texture_1d                    = GL_TEXTURE_1D                   ///< One-dimensional texture image.
   , texture_2d                    = GL_TEXTURE_2D                   ///< Two-dimensional texture image.

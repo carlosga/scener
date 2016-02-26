@@ -9,7 +9,7 @@
 namespace scener { namespace graphics {
 
 /// Defines classes that can be used for effect parameters or shader constants.
-enum class EffectParameterClass : std::uint32_t
+enum class effect_parameter_class : std::uint32_t
 {
     matrix    = 1   ///< Constant is a matrix.
   , object    = 2   ///< Constant is either a texture, a shader, or a string.

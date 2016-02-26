@@ -9,18 +9,18 @@
 namespace scener { namespace graphics {
 
 /// Light object that projects its effect along a direction specified by a vector3.
-class DirectionalLight final
+class directional_light final
 {
 public:
     /// Creates an instance of a light that projects its effect in a specified direction.
     /// This contructor creates an instance of a white light projected along a vector3 of value (0, 0, -1).
-    DirectionalLight() noexcept;
+    directional_light() noexcept;
 
     /// Creates an instance of a light that projects its effect along a specified vector3 with a specified color.
     /// \param lightDirection the direction of the new light.
     /// \param diffuseColor diffuse color of the new light.
     /// \param specularColor specular color of the new light.
-    DirectionalLight(const scener::math::vector3& lightDirection
+    directional_light(const scener::math::vector3& lightDirection
                    , const scener::math::vector3& diffuseColor
                    , const scener::math::vector3& specularColor) noexcept;
 

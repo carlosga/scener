@@ -14,19 +14,19 @@ namespace scener { namespace graphics {
 using scener::math::BoundingSphere;
 using scener::math::vector3;
 
-const BoundingSphere& ModelMesh::bounding_sphere() const noexcept
+const BoundingSphere& model_mesh::bounding_sphere() const noexcept
 {
     return _bounding_sphere;
 }
 
-const std::string& ModelMesh::name() const noexcept
+const std::string& model_mesh::name() const noexcept
 {
     return _name;
 }
 
-std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
+std::vector<effect_technique*> model_mesh::effects() const noexcept
 {
-    std::vector<EffectTechnique*> effects;
+    std::vector<effect_technique*> effects;
 
     effects.reserve(_mesh_parts.size());
 
@@ -42,36 +42,36 @@ std::vector<EffectTechnique*> ModelMesh::effects() const noexcept
     return effects;
 }
 
-const std::vector<std::shared_ptr<ModelMeshPart>>& ModelMesh::mesh_parts() const noexcept
+const std::vector<std::shared_ptr<model_mesh_part>>& model_mesh::mesh_parts() const noexcept
 {
     return _mesh_parts;
 }
 
-Skeleton* ModelMesh::skeleton() const noexcept
+skeleton* model_mesh::skeleton() const noexcept
 {
     return _skeleton.get();
 }
 
-void ModelMesh::draw() noexcept
+void model_mesh::draw() noexcept
 {
     for (const auto& meshPart : _mesh_parts)
     {
-        auto graphicsDevice = meshPart->vertex_buffer()->graphics_device();
+        auto device = meshPart->vertex_buffer()->device();
 
         if (meshPart->effect.get() != nullptr)
         {
-            graphicsDevice->effect = meshPart->effect.get();
+            device->effect = meshPart->effect.get();
         }
 
-        graphicsDevice->index_buffer  = meshPart->index_buffer();
-        graphicsDevice->vertex_buffer = meshPart->vertex_buffer();
+        device->index_buffer  = meshPart->index_buffer();
+        device->vertex_buffer = meshPart->vertex_buffer();
 
-        graphicsDevice->draw_indexed_primitives(meshPart->primitive_type()
-                                              , meshPart->vertex_offset()
-                                              , 0
-                                              , meshPart->vertex_count()
-                                              , meshPart->start_index()
-                                              , meshPart->primitive_count());
+        device->draw_indexed_primitives(meshPart->primitive_type()
+                                      , meshPart->vertex_offset()
+                                      , 0
+                                      , meshPart->vertex_count()
+                                      , meshPart->start_index()
+                                      , meshPart->primitive_count());
     }
 }
 

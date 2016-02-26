@@ -7,28 +7,28 @@ namespace scener { namespace graphics {
 
 using scener::timespan;
 
-void StepTimer::reset() noexcept
+void steptimer::reset() noexcept
 {
     _start          = current_time();
     _last_time_step = current_time();
 }
 
-void StepTimer::update_time_step() noexcept
+void steptimer::update_time_step() noexcept
 {
     _last_time_step = current_time();
 }
 
-timespan StepTimer::elapsed_time() const noexcept
+timespan steptimer::elapsed_time() const noexcept
 {
     return timespan::from_duration(current_time() - _start);
 }
 
-timespan StepTimer::elapsed_time_step_time() const noexcept
+timespan steptimer::elapsed_time_step_time() const noexcept
 {
     return timespan::from_duration(current_time() - _last_time_step);
 }
 
-timespan::clock::time_point StepTimer::current_time() const noexcept
+timespan::clock::time_point steptimer::current_time() const noexcept
 {
     return timespan::clock::now();
 }

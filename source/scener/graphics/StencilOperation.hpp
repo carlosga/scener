@@ -11,7 +11,7 @@
 namespace scener { namespace graphics {
 
 /// Defines stencil buffer operations.
-enum class StencilOperation : std::uint32_t
+enum class stencil_operation : std::uint32_t
 {
     decrement            = GL_DECR      ///< Decrements the stencil-buffer entry, wrapping to the maximum value
                                         ///< if the new value is less than 0.

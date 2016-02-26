@@ -18,31 +18,31 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class GraphicsDevice;
-class SamplerState;
+class graphics_device;
+class sampler_state;
 
 /// Represents a 2D texture.
-class Texture2D final : public Texture
+class texture2d final : public texture
 {
 public:
     /// Creates a new instance of the Texture2D class.
-    /// \param graphicsDevice the GraphicsDevice associated with this texture.
+    /// \param device the graphics device associated with this texture.
     /// \param width the texture width, in pixels
     /// \param height the texture height, in pixels
-    Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice, std::size_t width, std::size_t height) noexcept;
+    texture2d(gsl::not_null<graphics_device*> device, std::size_t width, std::size_t height) noexcept;
 
     /// Creates a new instance of the Texture2D class.
-    /// \param graphicsDevice the GraphicsDevice associated with this texture.
+    /// \param device the graphics device associated with this texture.
     /// \param width the texture width, in pixels
     /// \param height the texture height, in pixels
     /// \param format texture data format
-    Texture2D(gsl::not_null<GraphicsDevice*> graphicsDevice
-            , std::size_t                    width
-            , std::size_t                    height
-            , SurfaceFormat                  format) noexcept;
+    texture2d(gsl::not_null<graphics_device*> device
+            , std::size_t                     width
+            , std::size_t                     height
+            , surface_format                  format) noexcept;
 
     /// Releases all resources being used by this texture.
-    ~Texture2D() override = default;
+    ~texture2d() override = default;
 
 public:
     /// Gets the texture identifier.
@@ -51,7 +51,7 @@ public:
 
     /// Gets the format of the texture data.
     /// \returns the format of the texture data.
-    SurfaceFormat format() const noexcept override;
+    surface_format format() const noexcept override;
 
     /// Gets the texture height, in pixels.
     /// \returns the texture height, in pixels.
@@ -67,7 +67,7 @@ public:
 
     /// Gets the texure sampler state.
     /// \returns the texure sampler state.
-    SamplerState* sampler_state() const noexcept;
+    graphics::sampler_state* sampler_state() const noexcept;
 
     /// Sets mipmap data to the texture.
     /// \param level the mipmap level.
@@ -89,12 +89,12 @@ private:
     void declare_storage(std::size_t mipMapLevels) noexcept;
 
 private:
-    SurfaceFormat                 _format;
-    std::size_t                   _mipmap_levels;
-    std::size_t                   _height;
-    std::size_t                   _width;
-    std::shared_ptr<SamplerState> _sampler_state;
-    opengl::TextureStorage        _storage;
+    surface_format                           _format;
+    std::size_t                              _mipmap_levels;
+    std::size_t                              _height;
+    std::size_t                              _width;
+    std::shared_ptr<graphics::sampler_state> _sampler_state;
+    opengl::TextureStorage                   _storage;
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };
