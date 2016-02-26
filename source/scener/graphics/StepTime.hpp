@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_STEPTIME_HPP
 #define SCENER_GRAPHICS_STEPTIME_HPP
 
-#include "scener/TimeSpan.hpp"
+#include "scener/timespan.hpp"
 
 namespace scener { namespace graphics {
 
@@ -18,22 +18,22 @@ public:
     /// Initializes a new instance of the RenderTime class.
     /// \param totalRenderTime the amount of render time since the start of the game.
     /// \param elapsedRenderTime the amount of elapsed render time since the last update.
-    StepTime(const scener::time_span& totalRenderTime, const scener::time_span& elapsedRenderTime) noexcept;
+    StepTime(const scener::timespan& totalRenderTime, const scener::timespan& elapsedRenderTime) noexcept;
 
     /// Initializes a new instance of the RenderTime class.
     /// \param totalRenderTime the amount of render time since the start of the game.
     /// \param elapsedRenderTime the amount of elapsed render time since the last update.
     /// \param isRunningSlowly a value indicating that the render loop is taking longer than its target_elapsed_time.
-    StepTime(const scener::time_span& totalRenderTime
-           , const scener::time_span& elapsedRenderTime
+    StepTime(const scener::timespan& totalRenderTime
+           , const scener::timespan& elapsedRenderTime
            , bool                    isRunningSlowly) noexcept;
 
 public:
     /// Gets or sets the amount of elapsed render time since the last update.
-    scener::time_span total_render_time;
+    scener::timespan total_render_time;
 
     /// Gets or sets a value indicating that the render loop is taking longer than its target_elapsed_time.
-    scener::time_span elapsed_render_time;
+    scener::timespan elapsed_render_time;
 
     /// Gets or sets the amount of render time since the start of the renderer.
     bool is_running_slowly;

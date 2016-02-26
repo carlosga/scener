@@ -8,7 +8,7 @@
 
 namespace scener { namespace graphics {
 
-using scener::time_span;
+using scener::timespan;
 using scener::math::matrix4;
 
 const matrix4& Skeleton::bind_shape_matrix() const noexcept
@@ -46,14 +46,14 @@ const std::vector<matrix4>& Skeleton::skin_transforms() const noexcept
     return _skin_transforms;
 }
 
-void Skeleton::update(const time_span& time) noexcept
+void Skeleton::update(const timespan& time) noexcept
 {
     this->update_bone_transforms(time);
     this->update_world_transforms();
     this->update_skin_transforms();
 }
 
-void Skeleton::update_bone_transforms(const time_span& time) noexcept
+void Skeleton::update_bone_transforms(const timespan& time) noexcept
 {
     for (const auto& joint : _bones)
     {

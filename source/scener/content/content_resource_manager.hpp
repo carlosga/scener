@@ -12,14 +12,14 @@
 namespace scener { namespace content {
 
 /// Content resource manager.
-class ContentResourceManager final
+class content_resource_manager final
 {
 public:
     /// Initializes a new instance of the ContentResourceManager
-    ContentResourceManager() = default;
+    content_resource_manager() = default;
 
     /// Releases all resources being used by the ContentResourceManager class.
-    ~ContentResourceManager() = default;
+    ~content_resource_manager() = default;
 
 public:
     /// Add the given resource to the resource manager.
@@ -66,8 +66,8 @@ public:
     }
 
 private:
-    ContentResourceManager(const ContentResourceManager& manager) = delete;
-    ContentResourceManager& operator=(const ContentResourceManager& manager) = delete;
+    content_resource_manager(const content_resource_manager& manager) = delete;
+    content_resource_manager& operator=(const content_resource_manager& manager) = delete;
 
 private:
     std::map<std::string, std::shared_ptr<void>> _resources;

@@ -40,9 +40,9 @@ const std::string& content_manager::root_directory() const noexcept
 
 std::shared_ptr<Model> content_manager::load(const std::string& assetName) noexcept
 {
-    if (resource_manager.has_resource(assetName))
+    if (_resource_manager.has_resource(assetName))
     {
-        return resource_manager.get_resource<Model>(assetName);
+        return _resource_manager.get_resource<Model>(assetName);
     }
 
     auto stream = open_stream(assetName);
@@ -51,14 +51,14 @@ std::shared_ptr<Model> content_manager::load(const std::string& assetName) noexc
 
     auto asset = reader.read_asset();
 
-    resource_manager.add_resource<Model>(assetName, asset);
+    _resource_manager.add_resource<Model>(assetName, asset);
 
     return asset;
 }
 
 void content_manager::unload() noexcept
 {
-    resource_manager.clear();
+    _resource_manager.clear();
 }
 
 std::shared_ptr<FileStream> content_manager::open_stream(const std::string& assetName) noexcept
@@ -70,7 +70,5 @@ std::shared_ptr<FileStream> content_manager::open_stream(const std::string& asse
 
     return std::make_shared<FileStream>(path);
 }
-
-ContentResourceManager content_manager::resource_manager;
 
 }}

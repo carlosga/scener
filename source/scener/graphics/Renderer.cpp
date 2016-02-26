@@ -19,7 +19,7 @@
 
 namespace scener { namespace graphics {
 
-using scener::time_span;
+using scener::timespan;
 using scener::content::content_manager;
 using scener::graphics::GraphicsDevice;
 using scener::graphics::opengl::RenderContext;

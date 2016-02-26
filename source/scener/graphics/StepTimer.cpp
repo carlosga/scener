@@ -5,7 +5,7 @@
 
 namespace scener { namespace graphics {
 
-using scener::time_span;
+using scener::timespan;
 
 void StepTimer::reset() noexcept
 {
@@ -18,19 +18,19 @@ void StepTimer::update_time_step() noexcept
     _last_time_step = current_time();
 }
 
-time_span StepTimer::elapsed_time() const noexcept
+timespan StepTimer::elapsed_time() const noexcept
 {
-    return time_span::from_duration(current_time() - _start);
+    return timespan::from_duration(current_time() - _start);
 }
 
-time_span StepTimer::elapsed_time_step_time() const noexcept
+timespan StepTimer::elapsed_time_step_time() const noexcept
 {
-    return time_span::from_duration(current_time() - _last_time_step);
+    return timespan::from_duration(current_time() - _last_time_step);
 }
 
-time_span::clock::time_point StepTimer::current_time() const noexcept
+timespan::clock::time_point StepTimer::current_time() const noexcept
 {
-    return time_span::clock::now();
+    return timespan::clock::now();
 }
 
 }}

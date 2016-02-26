@@ -113,7 +113,7 @@ public:
     bool is_fixed_time_step { true };
 
     /// Gets or sets the target time between calls to update when is_fixed_time_step is true.
-    scener::time_span target_elapsed_time { 10000000L / 60L };
+    scener::timespan target_elapsed_time { 10000000L / 60L };
 
 protected:
     GraphicsDeviceManager* graphics_device_manager() const;
@@ -130,7 +130,7 @@ private:
     std::unique_ptr<RendererServiceContainer>                _services                { nullptr };
     StepTimer                                                _timer                   { };
     StepTime                                                 _render_time             { };
-    scener::time_span                                         _total_tender_time       { time_span::zero() };
+    scener::timespan                                         _total_tender_time       { timespan::zero() };
     bool                                                     _is_running_slowly       { false };
     std::string                                              _root_directory          { };
 

@@ -12,7 +12,7 @@
 namespace scener {
 
 /// Represents a time interval.
-class time_span final
+class timespan final
 {
 public:
     using clock                  = std::chrono::high_resolution_clock;
@@ -42,19 +42,19 @@ public:
 
 public:
     /// Represents the maximum TimeSpan value.
-    constexpr static const time_span max_value()
+    constexpr static const timespan max_value()
     {
         return { std::numeric_limits<std::int64_t>::max() };
     }
 
     /// Represents the minimum TimeSpan value.
-    constexpr static const time_span min_value()
+    constexpr static const timespan min_value()
     {
         return { std::numeric_limits<std::int64_t>::min() };
     }
 
     /// Represents the zero TimeSpan value. This field is read-only.
-    constexpr static const time_span zero()
+    constexpr static const timespan zero()
     {
         return { 0 };
     }
@@ -62,7 +62,7 @@ public:
     /// Returns a TimeSpan that represents a specified number of days.
     /// \param value a number of days, accurate to the nearest millisecond.
     /// \returns a TimeSpan that represents a specified number of days.
-    constexpr static time_span from_days(double value) noexcept
+    constexpr static timespan from_days(double value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(days_duration(value)).count() };
     }
@@ -70,7 +70,7 @@ public:
     /// Returns a TimeSpan that represents a specified duration.
     /// \param value a duration.
     /// \returns a TimeSpan that represents a specified duration.
-    constexpr static time_span from_duration(const time_span::clock::duration& value) noexcept
+    constexpr static timespan from_duration(const timespan::clock::duration& value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(value).count() };
     }
@@ -78,7 +78,7 @@ public:
     /// Returns a TimeSpan that represents a specified number of hours.
     /// \param value a number of hours, accurate to the nearest millisecond.
     /// \returns a TimeSpan that represents a specified number of days.
-    constexpr static time_span from_hours(double value) noexcept
+    constexpr static timespan from_hours(double value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(hours_duration(value)).count() };
     }
@@ -86,7 +86,7 @@ public:
     /// Returns a TimeSpan that represents a specified number of milliseconds.
     /// \param value a number of milliseconds.
     /// \returns a TimeSpan that represents a specified number of milliseconds.
-    constexpr static time_span from_milliseconds(double value) noexcept
+    constexpr static timespan from_milliseconds(double value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(value)).count() };
     }
@@ -94,7 +94,7 @@ public:
     /// Returns a TimeSpan that represents a specified number of minutes.
     /// \param value a number of minutes, accurate to the nearest millisecond.
     /// \returns a TimeSpan that represents a specified number of minutes.
-    constexpr static time_span from_minutes(double value) noexcept
+    constexpr static timespan from_minutes(double value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(minutes_duration(value)).count() };
     }
@@ -102,7 +102,7 @@ public:
     /// Returns a TimeSpan that represents a specified number of seconds.
     /// \param value a number of seconds, accurate to the nearest millisecond.
     /// \returns a TimeSpan that represents a specified number of seconds.
-    constexpr static time_span from_seconds(double value) noexcept
+    constexpr static timespan from_seconds(double value) noexcept
     {
         return { std::chrono::duration_cast<ticks_duration>(seconds_duration(value)).count() };
     }
@@ -110,7 +110,7 @@ public:
     /// Returns a TimeSpan that represents a specified time.
     /// \param value a number of ticks that represent a time.
     /// \returns a TimeSpan that represents a specified time.
-    constexpr static time_span from_ticks(std::int64_t value) noexcept
+    constexpr static timespan from_ticks(std::int64_t value) noexcept
     {
         return { value };
     }
@@ -118,7 +118,7 @@ public:
 public:
     /// Initializes a new instance of the TimeSpan class with the given ticks value.
     /// \param ticks a time period expressed in ticks.
-    constexpr time_span(std::int64_t ticks) noexcept
+    constexpr timespan(std::int64_t ticks) noexcept
         : _ticks { ticks }
     {
     }
@@ -127,8 +127,8 @@ public:
     /// \param hours number of hours.
     /// \param minutes number of minutes.
     /// \param seconds number of seconds.
-    constexpr time_span(std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
-        : time_span { 0, hours, minutes, seconds, 0 }
+    constexpr timespan(std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
+        : timespan { 0, hours, minutes, seconds, 0 }
     {
     }
 
@@ -137,8 +137,8 @@ public:
     /// \param hours number of hours.
     /// \param minutes number of minutes.
     /// \param seconds number of seconds.
-    constexpr time_span(std::int32_t days, std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
-        : time_span { days, hours, minutes, seconds, 0 }
+    constexpr timespan(std::int32_t days, std::int32_t hours, std::int32_t minutes, std::int32_t seconds) noexcept
+        : timespan { days, hours, minutes, seconds, 0 }
     {
     }
 
@@ -148,7 +148,7 @@ public:
     /// \param minutes number of minutes.
     /// \param seconds number of seconds.
     /// \param milliseconds number of milliseconds.
-    constexpr time_span(std::int32_t days
+    constexpr timespan(std::int32_t days
                       , std::int32_t hours
                       , std::int32_t minutes
                       , std::int32_t seconds
@@ -164,14 +164,14 @@ public:
 public:
     /// Returns a new TimeSpan object whose value is the absolute value of this instance.
     /// \returns a new TimeSpan object whose value is the absolute value of this instance.
-    inline time_span duration() const noexcept
+    inline timespan duration() const noexcept
     {
         return { std::abs(_ticks.count()) };
     }
 
     /// Returns a new TimeSpan object whose value is the negated value of this instance.
     /// \returns a new TimeSpan object whose value is the negated value of this instance.
-    constexpr time_span negate() const noexcept
+    constexpr timespan negate() const noexcept
     {
         return { -_ticks.count() };
     }
@@ -256,59 +256,59 @@ public:
     /// Returns a TimeSpan that represents a specified duration type.
     /// \returns a TimeSpan that represents a specified duration type.
     template <class _Duration>
-    constexpr time_span::clock::duration to_duration() const noexcept
+    constexpr timespan::clock::duration to_duration() const noexcept
     {
         return std::chrono::duration_cast<_Duration>(_ticks);
     }
 
 public:
     /// Equality operator for comparing TimeSpan instances.
-    constexpr bool operator==(const time_span& t2) const noexcept
+    constexpr bool operator==(const timespan& t2) const noexcept
     {
         return (_ticks == t2._ticks);
     }
 
     /// Inequality operator for comparing TimeSpan instances.
-    constexpr bool operator!=(const time_span& t2) const noexcept
+    constexpr bool operator!=(const timespan& t2) const noexcept
     {
         return !(*this == t2);
     }
 
-    constexpr bool operator>(const time_span& t2) const noexcept
+    constexpr bool operator>(const timespan& t2) const noexcept
     {
         return (_ticks > t2._ticks);
     }
 
-    constexpr bool operator>=(const time_span& t2) const noexcept
+    constexpr bool operator>=(const timespan& t2) const noexcept
     {
         return (_ticks >= t2._ticks);
     }
 
-    constexpr bool operator<(const time_span& t2) const noexcept
+    constexpr bool operator<(const timespan& t2) const noexcept
     {
         return (_ticks < t2._ticks);
     }
 
-    constexpr bool operator<=(const time_span& t2) const noexcept
+    constexpr bool operator<=(const timespan& t2) const noexcept
     {
         return (_ticks <= t2._ticks);
     }
 
-    constexpr time_span& operator-=(const time_span& t2) noexcept
+    constexpr timespan& operator-=(const timespan& t2) noexcept
     {
         _ticks -= t2._ticks;
 
         return *this;
     }
 
-    constexpr time_span& operator+=(const time_span& t2) noexcept
+    constexpr timespan& operator+=(const timespan& t2) noexcept
     {
         _ticks += t2._ticks;
 
         return *this;
     }
 
-    constexpr const time_span operator-(const time_span& t2) const noexcept
+    constexpr const timespan operator-(const timespan& t2) const noexcept
     {
         auto result = *this;
 
@@ -317,7 +317,7 @@ public:
         return result;
     }
 
-    constexpr const time_span operator+(const time_span& t2) const noexcept
+    constexpr const timespan operator+(const timespan& t2) const noexcept
     {
         auto result = *this;
 
@@ -327,7 +327,7 @@ public:
     }
 
 private:
-    time_span::ticks_duration _ticks;
+    timespan::ticks_duration _ticks;
 };
 
 }

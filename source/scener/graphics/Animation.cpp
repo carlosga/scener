@@ -5,14 +5,14 @@
 
 namespace scener { namespace graphics {
 
-using scener::time_span;
+using scener::timespan;
 
-const time_span& Animation::current_time() const noexcept
+const timespan& Animation::current_time() const noexcept
 {
     return _current_time;
 }
 
-const time_span& Animation::duration() const noexcept
+const timespan& Animation::duration() const noexcept
 {
     return _duration;
 }
@@ -32,7 +32,7 @@ const std::string& Animation::name() const noexcept
     return _name;
 }
 
-void Animation::update(const time_span& time, bool relativeToCurrentTime) noexcept
+void Animation::update(const timespan& time, bool relativeToCurrentTime) noexcept
 {
     auto       currentTime = time;
     const auto count       = _keyframes.size();
@@ -51,7 +51,7 @@ void Animation::update(const time_span& time, bool relativeToCurrentTime) noexce
         }
     }
 
-    _current_time = time_span::from_seconds(scener::math::lerp(_current_time.total_seconds()
+    _current_time = timespan::from_seconds(scener::math::lerp(_current_time.total_seconds()
                                                             , currentTime.total_seconds()
                                                             , scener::math::pi<double> / 16));
 

@@ -24,11 +24,11 @@ public:
 public:
     /// Gets the current time of the animation.
     /// \returns the current time of the animation.
-    const scener::time_span& current_time() const noexcept;
+    const scener::timespan& current_time() const noexcept;
 
     /// Gets the animation duration.
     /// \returns the animation duration.
-    const scener::time_span& duration() const noexcept;
+    const scener::timespan& duration() const noexcept;
 
     /// Gets the list of animation keyframes.
     /// \returns the list of animation keyframes.
@@ -44,11 +44,11 @@ public:
     /// Updates the animation state for the given time.
     /// \param time snapshot of the rendering timing state.
     /// \param relativeToCurrentTime indicates if the update should take place against the animation current time.
-    void update(const scener::time_span& time, bool relativeToCurrentTime) noexcept;
+    void update(const scener::timespan& time, bool relativeToCurrentTime) noexcept;
 
 private:
-    scener::time_span      _current_time     { 0 };
-    scener::time_span      _duration         { 0 };
+    scener::timespan      _current_time     { 0 };
+    scener::timespan      _duration         { 0 };
     std::size_t           _current_keyframe { 0 };
     std::vector<Keyframe> _keyframes        { };
     std::string           _name             { };

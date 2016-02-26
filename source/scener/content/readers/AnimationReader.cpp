@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 
-#include "scener/TimeSpan.hpp"
+#include "scener/timespan.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/Animation.hpp"
@@ -13,7 +13,7 @@
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::time_span;
+using scener::timespan;
 using scener::graphics::Animation;
 using scener::graphics::Keyframe;
 using scener::math::matrix4;
@@ -70,7 +70,7 @@ auto ContentTypeReader<Animation>::read(content_reader* input, const std::string
             }
         }
 
-        auto time      = time_span::from_seconds(keyframes->get_element<float>(i));
+        auto time      = timespan::from_seconds(keyframes->get_element<float>(i));
         auto transform = scener::math::matrix::create_scale(scale)
                        * scener::math::matrix::create_from_quaternion(rotation)
                        * scener::math::matrix::create_translation(translation);

@@ -8,7 +8,7 @@
 
 #include <gsl.h>
 
-#include "scener/content/ContentResourceManager.hpp"
+#include "scener/content/content_resource_manager.hpp"
 
 namespace scener { namespace graphics {
 
@@ -54,8 +54,7 @@ private:
 private:
     graphics::RendererServiceContainer* _service_provider;
     std::string                         _root_directory;
-
-    static ContentResourceManager resource_manager;
+    content_resource_manager            _resource_manager;
 };
 
 }}
