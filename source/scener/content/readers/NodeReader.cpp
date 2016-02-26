@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/ModelMesh.hpp"
 #include "scener/graphics/Skeleton.hpp"
@@ -23,7 +23,7 @@ using scener::math::quaternion;
 using scener::math::vector3;
 using scener::math::vector4;
 
-auto ContentTypeReader<gltf::node>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::node>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto node = std::make_shared<gltf::node>();
 

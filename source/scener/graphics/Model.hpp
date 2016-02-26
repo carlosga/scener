@@ -10,7 +10,7 @@
 
 #include "scener/math/basic_matrix.hpp"
 
-namespace scener { namespace content { class ContentReader; } }
+namespace scener { namespace content { class content_reader; } }
 
 namespace scener { namespace graphics {
 
@@ -51,7 +51,7 @@ private:
     std::vector<std::shared_ptr<ModelMesh>> _meshes;
     std::string                             _name;
 
-    friend class scener::content::ContentReader;
+    friend class scener::content::content_reader;
 };
 
 }}

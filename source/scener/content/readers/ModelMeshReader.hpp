@@ -28,12 +28,12 @@ public:
     ContentTypeReader() = default;
 
 public:
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
+    auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    std::shared_ptr<graphics::ModelMeshPart> read_mesh_part(ContentReader* input, const json11::Json& source) const noexcept;
+    std::shared_ptr<graphics::ModelMeshPart> read_mesh_part(content_reader* input, const json11::Json& source) const noexcept;
 
-    std::shared_ptr<graphics::EffectTechnique> read_material(ContentReader* input, const std::string& key) const noexcept;
+    std::shared_ptr<graphics::EffectTechnique> read_material(content_reader* input, const std::string& key) const noexcept;
 
     graphics::VertexElementFormat get_vertex_element_format(gltf::AttributeType type) const noexcept;
 

@@ -17,7 +17,7 @@ public:
     ContentTypeReader() = default;
 
 public:
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
+    auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 };
 
 }}}

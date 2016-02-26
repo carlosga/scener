@@ -23,16 +23,16 @@ public:
     ContentTypeReader() = default;
 
 public:
-    auto read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
+    auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 
 private:
-    void read_parameters(ContentReader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
+    void read_parameters(content_reader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
 
-    void set_parameter_values(ContentReader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
+    void set_parameter_values(content_reader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
 
-    void add_default_pass(ContentReader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
+    void add_default_pass(content_reader* input, const json11::Json& source, graphics::EffectTechnique* effect) const noexcept;
 
-    void read_pass_program(ContentReader* input, const std::string& name, graphics::EffectPass* effectPass) const noexcept;
+    void read_pass_program(content_reader* input, const std::string& name, graphics::EffectPass* effectPass) const noexcept;
 
     void cache_parameters(graphics::EffectTechnique* effect) const noexcept;
 

@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/graphics/opengl/Buffer.hpp"
 #include "scener/graphics/opengl/ConstantBuffer.hpp"
 #include "scener/graphics/opengl/Program.hpp"
@@ -17,7 +17,7 @@ using json11::Json;
 using scener::graphics::opengl::Program;
 using scener::graphics::opengl::Shader;
 
-auto ContentTypeReader<Program>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<Program>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto program        = std::make_shared<Program>();
     auto vertexShader   = source["vertexShader"].string_value();

@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 
-#include "scener/content/ContentManager.hpp"
+#include "scener/content/content_manager.hpp"
 #include "scener/graphics/Animation.hpp"
 #include "scener/graphics/Model.hpp"
 #include "scener/graphics/ModelMesh.hpp"
@@ -21,25 +21,25 @@ using scener::io::File;
 using scener::io::Path;
 using scener::io::Stream;
 
-ContentReader::ContentReader(const std::string& assetName, ContentManager* contentManager, Stream& stream) noexcept
+content_reader::content_reader(const std::string& assetName, content::content_manager* manager, Stream& stream) noexcept
     : _asset_name      { assetName }
     , _asset_reader    { stream }
-    , _content_manager { contentManager }
+    , _content_manager { manager }
     , _root            { }
 {
 }
 
-const std::string& ContentReader::asset_name() const noexcept
+const std::string& content_reader::asset_name() const noexcept
 {
     return _asset_name;
 }
 
-ContentManager* ContentReader::content_manager() const noexcept
+content::content_manager* content_reader::content_manager() const noexcept
 {
     return _content_manager;
 }
 
-std::shared_ptr<Model> ContentReader::read_asset() noexcept
+std::shared_ptr<Model> content_reader::read_asset() noexcept
 {
     auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
     auto errors = std::string();
@@ -88,19 +88,19 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
     return model;
 }
 
-bool ContentReader::read_header() noexcept
+bool content_reader::read_header() noexcept
 {
     return true;
 }
 
-std::string ContentReader::get_asset_path(const std::string& assetName) const noexcept
+std::string content_reader::get_asset_path(const std::string& assetName) const noexcept
 {
     auto assetRoot = Path::combine(Path::get_directory_name(_asset_name), assetName);
 
     return Path::combine(_content_manager->root_directory(), assetRoot);
 }
 
-std::vector<std::uint8_t> ContentReader::read_external_reference(const std::string& assetName) const noexcept
+std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetName) const noexcept
 {
     auto assetPath = get_asset_path(assetName);
 
@@ -109,7 +109,7 @@ std::vector<std::uint8_t> ContentReader::read_external_reference(const std::stri
     return File::read_all_bytes(assetPath);
 }
 
-std::shared_ptr<gltf::node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
+std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointName) const noexcept
 {
     for (const auto& node : _nodes)
     {

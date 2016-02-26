@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 
 namespace scener { namespace content { namespace readers {
@@ -15,7 +15,7 @@ using scener::content::gltf::AttributeType;
 using scener::content::gltf::buffer_view;
 using scener::graphics::ComponentType;
 
-auto ContentTypeReader<gltf::accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto        accessor = std::make_shared<gltf::accessor>();
     const auto& attType  = source["type"].string_value();

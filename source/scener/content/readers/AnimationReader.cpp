@@ -6,7 +6,7 @@
 #include <json11.hpp>
 
 #include "scener/TimeSpan.hpp"
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/Animation.hpp"
 
@@ -20,7 +20,7 @@ using scener::math::matrix4;
 using scener::math::quaternion;
 using scener::math::vector3;
 
-auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<Animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto animation  = std::make_shared<Animation>();
     auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();

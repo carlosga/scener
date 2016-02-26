@@ -5,8 +5,8 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentManager.hpp"
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_manager.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/dds/surface.hpp"
 #include "scener/graphics/IGraphicsDeviceService.hpp"
 #include "scener/graphics/RendererServiceContainer.hpp"
@@ -23,7 +23,7 @@ using scener::graphics::SamplerState;
 using scener::graphics::SurfaceFormat;
 using scener::graphics::Texture2D;
 
-auto ContentTypeReader<Texture2D>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<Texture2D>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto dds       = input->read_object<surface>(source["source"].string_value());

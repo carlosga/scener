@@ -1,8 +1,8 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_CONTENT_CONTENTMANAGER_HPP
-#define SCENER_CONTENT_CONTENTMANAGER_HPP
+#ifndef SCENER_CONTENT_CONTENT_MANAGER_HPP
+#define SCENER_CONTENT_CONTENT_MANAGER_HPP
 
 #include <memory>
 
@@ -21,31 +21,31 @@ namespace scener { namespace io { class FileStream; } }
 
 namespace scener { namespace content {
 
-/// The ContentManager is used at runtime to load application content_manager from files.
-class ContentManager final
+/// The content_manager is used at runtime to load application content_manager from files.
+class content_manager final
 {
 public:
-    /// Initializes a new instance of the ContentManagerClass
-    /// \param serviceProvider the service provider that the ContentManager should use to locate services.
+    /// Initializes a new instance of the content_manager class.
+    /// \param serviceProvider the service provider that the content_manager should use to locate services.
     /// \param rootDirectory the root directory to search for content.
-    ContentManager(gsl::not_null<graphics::RendererServiceContainer*> serviceProvider
-                 , const std::string&                                 rootDirectory) noexcept;
+    content_manager(gsl::not_null<graphics::RendererServiceContainer*> serviceProvider
+                 , const std::string&                                  rootDirectory) noexcept;
 
-    /// Releases all resources being used by the ContentManager class.
-    ~ContentManager();
+    /// Releases all resources being used by the content_manager class.
+    ~content_manager();
 
 public:
-    /// Gets the service provider that the ContentManager should use to locate services.
+    /// Gets the service provider that the content_manager should use to locate services.
     graphics::RendererServiceContainer* service_provider() const noexcept;
 
-    /// Gets the root directory associated with this ContentManager.
+    /// Gets the root directory associated with this content_manager.
     const std::string& root_directory() const noexcept;
 
 public:
     /// Loads the given asset.
     std::shared_ptr<graphics::Model> load(const std::string& assetName) noexcept;
 
-    /// Disposes all data that was loaded by this ContentManager.
+    /// Disposes all data that was loaded by this content_manager.
     void unload() noexcept;
 
 private:
@@ -60,4 +60,4 @@ private:
 
 }}
 
-#endif // SCENER_CONTENT_CONTENTMANAGER_HPP
+#endif // SCENER_CONTENT_CONTENT_MANAGER_HPP

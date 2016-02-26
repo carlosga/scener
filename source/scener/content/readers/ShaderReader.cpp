@@ -7,7 +7,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/graphics/opengl/Shader.hpp"
 
 namespace scener { namespace content { namespace readers {
@@ -16,7 +16,7 @@ using json11::Json;
 using scener::graphics::opengl::Shader;
 using scener::graphics::opengl::ShaderType;
 
-auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<Shader>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto type    = static_cast<ShaderType>(source["type"].int_value());
     auto ssource = load_shader_with_includes(input, source["uri"].string_value());
@@ -27,7 +27,7 @@ auto ContentTypeReader<Shader>::read(ContentReader* input, const std::string& ke
     return shader;
 }
 
-std::string ContentTypeReader<Shader>::load_shader_with_includes(ContentReader* input, const std::string& uri) const noexcept
+std::string ContentTypeReader<Shader>::load_shader_with_includes(content_reader* input, const std::string& uri) const noexcept
 {
     auto buffer      = input->read_external_reference(uri);
     auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");

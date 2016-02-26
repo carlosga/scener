@@ -9,7 +9,7 @@
 
 namespace json11 { class Json; }
 
-namespace scener { namespace content { class ContentReader; }}
+namespace scener { namespace content { class content_reader; }}
 
 namespace scener { namespace content { namespace readers {
 
@@ -23,7 +23,7 @@ public:
 
 public:
     /// Reads a object from the current stream.
-    std::shared_ptr<T> read(ContentReader* input, const std::string& key, const json11::Json& source) const noexcept;
+    std::shared_ptr<T> read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
 };
 
 }}}

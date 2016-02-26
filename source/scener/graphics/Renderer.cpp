@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-#include "scener/content/ContentManager.hpp"
+#include "scener/content/content_manager.hpp"
 #include "scener/graphics/GraphicsDevice.hpp"
 #include "scener/graphics/GraphicsDeviceManager.hpp"
 #include "scener/graphics/opengl/RenderContext.hpp"
@@ -20,7 +20,7 @@
 namespace scener { namespace graphics {
 
 using scener::time_span;
-using scener::content::ContentManager;
+using scener::content::content_manager;
 using scener::graphics::GraphicsDevice;
 using scener::graphics::opengl::RenderContext;
 using scener::input::Keyboard;
@@ -52,7 +52,7 @@ RendererWindow* Renderer::window() const noexcept
     return _renderer_window.get();
 }
 
-ContentManager* Renderer::content_manager() const noexcept
+content_manager* Renderer::content_manager() const noexcept
 {
     return _content_manager.get();
 }
@@ -94,7 +94,7 @@ void Renderer::begin_run() noexcept
 {
     _services                = std::make_unique<RendererServiceContainer>();
     _graphics_device_manager = std::make_unique<GraphicsDeviceManager>(this);
-    _content_manager         = std::make_unique<ContentManager>(_services.get(), _root_directory);
+    _content_manager         = std::make_unique<content::content_manager>(_services.get(), _root_directory);
     _renderer_window         = std::make_unique<RendererWindow>(this);
 }
 

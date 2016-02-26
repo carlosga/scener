@@ -5,7 +5,7 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/buffer.hpp"
 #include "scener/content/gltf/buffer_view.hpp"
 
@@ -13,7 +13,7 @@ namespace scener { namespace content { namespace readers {
 
 using json11::Json;
 
-auto ContentTypeReader<gltf::buffer_view>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::buffer_view>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto view = std::make_shared<gltf::buffer_view>();
 

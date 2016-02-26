@@ -5,8 +5,8 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentManager.hpp"
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_manager.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/graphics/IGraphicsDeviceService.hpp"
 #include "scener/graphics/RendererServiceContainer.hpp"
 #include "scener/graphics/SamplerState.hpp"
@@ -19,7 +19,7 @@ using scener::graphics::SamplerState;
 using scener::graphics::TextureAddressMode;
 using scener::graphics::TextureFilter;
 
-auto ContentTypeReader<SamplerState>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<SamplerState>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto sampler   = std::make_shared<SamplerState>(gdService->graphics_device());

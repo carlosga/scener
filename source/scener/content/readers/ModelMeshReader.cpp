@@ -5,8 +5,8 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentManager.hpp"
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_manager.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/EffectParameter.hpp"
 #include "scener/graphics/EffectTechnique.hpp"
@@ -48,7 +48,7 @@ using scener::graphics::VertexElementUsage;
 
 namespace scener { namespace content { namespace readers {
 
-auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<ModelMesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto        mesh       = std::make_shared<ModelMesh>();
     const auto& primitives = source["primitives"].array_items();
@@ -64,7 +64,7 @@ auto ContentTypeReader<ModelMesh>::read(ContentReader* input, const std::string&
     return mesh;
 }
 
-std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(ContentReader* input, const Json& source) const noexcept
+std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
 {
     auto meshPart      = std::make_shared<ModelMeshPart>();
     auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
@@ -161,7 +161,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
     return meshPart;
 }
 
-std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(ContentReader*     input
+std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(content_reader*     input
                                                                            , const std::string& key) const noexcept
 {
     const auto& material  = input->_root["materials"][key];

@@ -14,7 +14,7 @@
 #include "scener/graphics/StepTime.hpp"
 #include "scener/graphics/StepTimer.hpp"
 
-namespace scener { namespace content { class ContentManager; } }
+namespace scener { namespace content { class content_manager; } }
 
 namespace scener { namespace graphics { namespace opengl { class RenderContext; } } }
 
@@ -47,7 +47,7 @@ public:
 
     /// Gets the current content manager
     /// \returns the current content_manager manager
-    scener::content::ContentManager* content_manager() const noexcept;
+    content::content_manager* content_manager() const noexcept;
 
     /// Gets the collection of services owned by the renderer.
     /// \returns the collection of services owned by the renderer.
@@ -122,7 +122,7 @@ protected:
 private:
     std::unique_ptr<RendererWindow>                          _renderer_window         { nullptr };
     std::unique_ptr<scener::graphics::opengl::RenderContext> _render_context          { nullptr };
-    std::unique_ptr<scener::content::ContentManager>         _content_manager         { nullptr };
+    std::unique_ptr<scener::content::content_manager>         _content_manager         { nullptr };
     std::unique_ptr<GraphicsDeviceManager>                   _graphics_device_manager { nullptr };
     std::vector<std::shared_ptr<IDrawable>>                  _drawable_components     { };
     std::vector<std::shared_ptr<IUpdateable>>                _updateable_components   { };

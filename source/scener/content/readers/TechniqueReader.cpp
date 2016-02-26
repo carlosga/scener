@@ -5,8 +5,8 @@
 
 #include <json11.hpp>
 
-#include "scener/content/ContentManager.hpp"
-#include "scener/content/ContentReader.hpp"
+#include "scener/content/content_manager.hpp"
+#include "scener/content/content_reader.hpp"
 #include "scener/graphics/EffectParameter.hpp"
 #include "scener/graphics/EffectPass.hpp"
 #include "scener/graphics/EffectTechnique.hpp"
@@ -32,7 +32,7 @@ using scener::graphics::IGraphicsDeviceService;
 using scener::graphics::RendererServiceContainer;
 using scener::graphics::opengl::Program;
 
-auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<EffectTechnique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto gdService = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto effect    = std::make_shared<EffectTechnique>(gdService->graphics_device());
@@ -47,7 +47,7 @@ auto ContentTypeReader<EffectTechnique>::read(ContentReader* input, const std::s
     return effect;
 }
 
-void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
+void ContentTypeReader<EffectTechnique>::read_parameters(content_reader*   input
                                                        , const Json&      node
                                                        , EffectTechnique* effect) const noexcept
 {
@@ -71,7 +71,7 @@ void ContentTypeReader<EffectTechnique>::read_parameters(ContentReader*   input
     }
 }
 
-void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   input
+void ContentTypeReader<EffectTechnique>::set_parameter_values(content_reader*   input
                                                             , const Json&      node
                                                             , EffectTechnique* effect) const noexcept
 {
@@ -152,7 +152,7 @@ void ContentTypeReader<EffectTechnique>::set_parameter_values(ContentReader*   i
     }
 }
 
-void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
+void ContentTypeReader<EffectTechnique>::add_default_pass(content_reader*   input
                                                         , const Json&      node
                                                         , EffectTechnique* effect) const noexcept
 {
@@ -173,7 +173,7 @@ void ContentTypeReader<EffectTechnique>::add_default_pass(ContentReader*   input
     effect->_pass = pass;
 }
 
-void ContentTypeReader<EffectTechnique>::read_pass_program(ContentReader*     input
+void ContentTypeReader<EffectTechnique>::read_pass_program(content_reader*     input
                                                          , const std::string& programName
                                                          , EffectPass*        effectPass) const noexcept
 {

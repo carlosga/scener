@@ -3,7 +3,7 @@
 
 #include "skeletalanimation/EarthShaker.hpp"
 
-#include <scener/content/ContentManager.hpp>
+#include <scener/content/content_manager.hpp>
 #include <scener/graphics/EffectTechnique.hpp>
 #include <scener/graphics/Model.hpp>
 #include <scener/graphics/ModelMesh.hpp>
