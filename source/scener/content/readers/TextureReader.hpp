@@ -4,7 +4,7 @@
 #ifndef SCENER_CONTENT_READERS_TEXTUREREADER_HPP
 #define SCENER_CONTENT_READERS_TEXTUREREADER_HPP
 
-#include "SceneR/Content/Readers/ContentTypeReader.hpp"
+#include "scener/content/readers/ContentTypeReader.hpp"
 
 namespace scener { namespace graphics { class Texture2D; } }
 

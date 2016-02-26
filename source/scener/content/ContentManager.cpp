@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/ContentManager.hpp"
+#include "scener/content/ContentManager.hpp"
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/Model.hpp"
-#include "SceneR/Graphics/RendererServiceContainer.hpp"
-#include "SceneR/IO/FileStream.hpp"
-#include "SceneR/IO/File.hpp"
-#include "SceneR/IO/Path.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/graphics/Model.hpp"
+#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/io/FileStream.hpp"
+#include "scener/io/File.hpp"
+#include "scener/io/Path.hpp"
 
 namespace scener { namespace content {
 

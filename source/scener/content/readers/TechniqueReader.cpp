@@ -1,19 +1,19 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/TechniqueReader.hpp"
+#include "scener/content/readers/TechniqueReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentManager.hpp"
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/EffectParameter.hpp"
-#include "SceneR/Graphics/EffectPass.hpp"
-#include "SceneR/Graphics/EffectTechnique.hpp"
-#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
-#include "SceneR/Graphics/RendererServiceContainer.hpp"
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
-#include "SceneR/Graphics/OpenGL/Program.hpp"
+#include "scener/content/ContentManager.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/graphics/EffectParameter.hpp"
+#include "scener/graphics/EffectPass.hpp"
+#include "scener/graphics/EffectTechnique.hpp"
+#include "scener/graphics/IGraphicsDeviceService.hpp"
+#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/opengl/Platform.hpp"
+#include "scener/graphics/opengl/Program.hpp"
 
 namespace scener { namespace content { namespace readers {
 

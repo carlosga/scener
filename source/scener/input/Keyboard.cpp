@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Input/Keyboard.hpp"
+#include "scener/input/Keyboard.hpp"
 
-#include "SceneR/Input/KeyboardState.hpp"
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
+#include "scener/input/KeyboardState.hpp"
+#include "scener/graphics/opengl/Platform.hpp"
 
 namespace scener { namespace input {
 

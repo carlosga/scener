@@ -1,2 +1,2 @@
 # Samples subdirectories
-add_subdirectory(SkeletalAnimation)
+add_subdirectory(skeletalanimation)

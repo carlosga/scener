@@ -1,17 +1,17 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SkeletalAnimation/Camera.hpp"
+#include "skeletalanimation/Camera.hpp"
 
-#include <SceneR/Graphics/GraphicsDevice.hpp>
-#include <SceneR/Graphics/RendererWindow.hpp>
-#include <SceneR/Input/Keys.hpp>
-#include <SceneR/Input/Keyboard.hpp>
-#include <SceneR/Input/KeyboardState.hpp>
+#include <scener/graphics/GraphicsDevice.hpp>
+#include <scener/graphics/RendererWindow.hpp>
+#include <scener/input/Keys.hpp>
+#include <scener/input/Keyboard.hpp>
+#include <scener/input/KeyboardState.hpp>
 
-#include "SkeletalAnimation/SampleRenderer.hpp"
+#include "skeletalanimation/SampleRenderer.hpp"
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 using scener::graphics::StepTime;
 using scener::input::Keys;

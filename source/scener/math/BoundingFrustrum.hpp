@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "scener/math/plane_intersection_type.hpp"
-#include "SceneR/Math/ContainmentType.hpp"
+#include "scener/math/ContainmentType.hpp"
 #include "scener/math/basic_matrix.hpp"
 #include "scener/math/basic_plane.hpp"
 #include "scener/math/basic_vector.hpp"

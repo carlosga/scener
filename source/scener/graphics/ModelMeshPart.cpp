@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/ModelMeshPart.hpp"
+#include "scener/graphics/ModelMeshPart.hpp"
 
-#include "SceneR/Graphics/EffectTechnique.hpp"
-#include "SceneR/Graphics/IndexBuffer.hpp"
-#include "SceneR/Graphics/VertexBuffer.hpp"
+#include "scener/graphics/EffectTechnique.hpp"
+#include "scener/graphics/IndexBuffer.hpp"
+#include "scener/graphics/VertexBuffer.hpp"
 
 namespace scener { namespace graphics {
 

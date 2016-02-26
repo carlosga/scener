@@ -10,9 +10,9 @@
 
 #include <gsl.h>
 
-#include "SceneR/Graphics/ComponentType.hpp"
-#include "SceneR/Graphics/GraphicsResource.hpp"
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
+#include "scener/graphics/ComponentType.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
 
 namespace scener { namespace graphics {
 

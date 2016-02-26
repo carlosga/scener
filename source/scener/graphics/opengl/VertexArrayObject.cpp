@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
+#include "scener/graphics/opengl/VertexArrayObject.hpp"
 
 #include <gsl_assert.h>
 
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
+#include "scener/graphics/opengl/Platform.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

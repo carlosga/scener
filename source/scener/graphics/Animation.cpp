@@ -1,18 +1,18 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/Animation.hpp"
+#include "scener/graphics/Animation.hpp"
 
 namespace scener { namespace graphics {
 
-using scener::TimeSpan;
+using scener::time_span;
 
-const TimeSpan& Animation::current_time() const noexcept
+const time_span& Animation::current_time() const noexcept
 {
     return _current_time;
 }
 
-const TimeSpan& Animation::duration() const noexcept
+const time_span& Animation::duration() const noexcept
 {
     return _duration;
 }
@@ -32,7 +32,7 @@ const std::string& Animation::name() const noexcept
     return _name;
 }
 
-void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcept
+void Animation::update(const time_span& time, bool relativeToCurrentTime) noexcept
 {
     auto       currentTime = time;
     const auto count       = _keyframes.size();
@@ -51,7 +51,7 @@ void Animation::update(const TimeSpan& time, bool relativeToCurrentTime) noexcep
         }
     }
 
-    _current_time = TimeSpan::from_seconds(scener::math::lerp(_current_time.total_seconds()
+    _current_time = time_span::from_seconds(scener::math::lerp(_current_time.total_seconds()
                                                             , currentTime.total_seconds()
                                                             , scener::math::pi<double> / 16));
 

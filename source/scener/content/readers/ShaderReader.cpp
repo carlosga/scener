@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/ShaderReader.hpp"
+#include "scener/content/readers/ShaderReader.hpp"
 
 #include <regex>
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/OpenGL/Shader.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/graphics/opengl/Shader.hpp"
 
 namespace scener { namespace content { namespace readers {
 

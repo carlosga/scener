@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_KEYFRAME_HPP
 #define SCENER_GRAPHICS_KEYFRAME_HPP
 
-#include "SceneR/TimeSpan.hpp"
+#include "scener/TimeSpan.hpp"
 #include "scener/math/matrix.hpp"
 
 namespace scener { namespace graphics {
@@ -19,19 +19,19 @@ public:
     /// Initializes a new instance of the Keyframe class.
     /// \param time specifies the time, in seconds, at which this keyframe occurs.
     /// \param transform the keyframe transformation.
-    Keyframe(const scener::TimeSpan& time, const scener::math::matrix4& transform) noexcept;
+    Keyframe(const scener::time_span& time, const scener::math::matrix4& transform) noexcept;
 
 public:
     /// Gets the time, in seconds, at which this keyframe occurs.
     /// \returns the time, in seconds, at which this keyframe occurs.
-    const scener::TimeSpan& time() const noexcept;
+    const scener::time_span& time() const noexcept;
 
     /// Gets the keyframe transformation.
     /// \returns the keyframe transformation.
     const scener::math::matrix4& transform() const noexcept;
 
 private:
-    scener::TimeSpan     _time;
+    scener::time_span     _time;
     scener::math::matrix4 _transform;
 };
 

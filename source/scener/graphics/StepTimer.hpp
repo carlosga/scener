@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_STEPTIMER_HPP
 #define SCENER_GRAPHICS_STEPTIMER_HPP
 
-#include "SceneR/TimeSpan.hpp"
+#include "scener/TimeSpan.hpp"
 
 namespace scener { namespace graphics {
 
@@ -23,21 +23,21 @@ public:
     void update_time_step() noexcept;
 
     /// Gets the time elapsed since the last timer reset.
-    scener::TimeSpan elapsed_time() const noexcept;
+    scener::time_span elapsed_time() const noexcept;
 
     /// Gets the time elapsed since the last time step update.
-    scener::TimeSpan elapsed_time_step_time() const noexcept;
+    scener::time_span elapsed_time_step_time() const noexcept;
 
 private:
-    scener::TimeSpan::clock::time_point current_time() const noexcept;
+    scener::time_span::clock::time_point current_time() const noexcept;
 
 private:
     StepTimer(const StepTimer& timer) = delete;
     StepTimer& operator=(const StepTimer& timer) = delete;
 
 private:
-    scener::TimeSpan::clock::time_point _start          { scener::TimeSpan::clock::now() };
-    scener::TimeSpan::clock::time_point _last_time_step { scener::TimeSpan::clock::now() };
+    scener::time_span::clock::time_point _start          { scener::time_span::clock::now() };
+    scener::time_span::clock::time_point _last_time_step { scener::time_span::clock::now() };
 };
 
 }}

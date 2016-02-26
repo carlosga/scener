@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include <SceneR/Graphics/DrawableComponent.hpp>
+#include <scener/graphics/DrawableComponent.hpp>
 #include <scener/math/matrix.hpp>
 
 namespace scener { namespace graphics {
@@ -16,7 +16,7 @@ struct StepTime;
 
 }}
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 class SampleRenderer;
 

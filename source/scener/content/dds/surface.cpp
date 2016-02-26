@@ -1,22 +1,22 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/DDS/Surface.hpp"
+#include "scener/content/dds/surface.hpp"
 
-#include "SceneR/Content/DDS/Dds.hpp"
-#include "SceneR/IO/File.hpp"
+#include "scener/content/dds/header.hpp"
+#include "scener/io/File.hpp"
 
 namespace scener { namespace content { namespace dds {
 
 using scener::graphics::SurfaceFormat;
 using scener::io::FileStream;
 
-void Surface::load(const std::string& filename) noexcept
+void surface::load(const std::string& filename) noexcept
 {
     Expects(scener::io::File::exists(filename));
 
     FileStream  stream(filename);
-    DDS_HEADER  ddsheader;
+    header      ddsheader;
     std::size_t blockSize = 16;
 
     Ensures(stream.length() >= sizeof ddsheader);
@@ -24,45 +24,45 @@ void Surface::load(const std::string& filename) noexcept
     stream.read(reinterpret_cast<char*>(&ddsheader), 0, sizeof ddsheader);
 
     // ensure contents are in DDS format
-    Ensures(ddsheader.dwMagic == 0x20534444);
+    Ensures(ddsheader.magic == 0x20534444);
 
     // ensure required flags are meet
-    Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_PIXELFORMAT) == DDS_HEADER_FLAGS::DDSD_PIXELFORMAT);
-    Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_CAPS)        == DDS_HEADER_FLAGS::DDSD_CAPS);
-    Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_HEIGHT)      == DDS_HEADER_FLAGS::DDSD_HEIGHT);
-    Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_WIDTH)       == DDS_HEADER_FLAGS::DDSD_WIDTH);
+    Ensures((ddsheader.flags & header_flags::pixelformat) == header_flags::pixelformat);
+    Ensures((ddsheader.flags & header_flags::caps)        == header_flags::caps);
+    Ensures((ddsheader.flags & header_flags::height)      == header_flags::height);
+    Ensures((ddsheader.flags & header_flags::width)       == header_flags::width);
 
-    if (ddsheader.dwMipMapCount > 0)
+    if (ddsheader.mipmap_count > 0)
     {
-        Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT) == DDS_HEADER_FLAGS::DDSD_MIPMAPCOUNT);
-        Ensures((ddsheader.dwFlags & DDS_HEADER_FLAGS::DDSD_LINEARSIZE)  == DDS_HEADER_FLAGS::DDSD_LINEARSIZE);
+        Ensures((ddsheader.flags & header_flags::mipmapcount) == header_flags::mipmapcount);
+        Ensures((ddsheader.flags & header_flags::linearsize)  == header_flags::linearsize);
     }
 
     // ensure pixel format size is correct
-    Ensures(ddsheader.ddspf.dwSize == 32);
+    Ensures(ddsheader.pixel_format.size == 32);
 
     // ensure the texture is in compressed format
-    Ensures((ddsheader.ddspf.dwFlags & DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC) == DDS_PIXELFORMAT_FLAGS::DDPF_FOURCC);
+    Ensures((ddsheader.pixel_format.flags & pixel_format_flags::fourcc) == pixel_format_flags::fourcc);
 
     // check DXTn format
-    Ensures(ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1
-         || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3
-         || ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5);
+    Ensures(ddsheader.pixel_format.fourcc == fourcc::dxt1
+         || ddsheader.pixel_format.fourcc == fourcc::dxt3
+         || ddsheader.pixel_format.fourcc == fourcc::dxt5);
 
     // process dds contents
-    _height = ddsheader.dwHeight;
-    _width  = ddsheader.dwWidth;
+    _height = ddsheader.height;
+    _width  = ddsheader.width;
 
-    if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT1)
+    if (ddsheader.pixel_format.fourcc == fourcc::dxt1)
     {
         _format   = SurfaceFormat::dxt1;
         blockSize = 8;
     }
-    else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT3)
+    else if (ddsheader.pixel_format.fourcc == fourcc::dxt3)
     {
         _format = SurfaceFormat::dxt3;
     }
-    else if (ddsheader.ddspf.dwFourCC == DDS_FOURCC::DDSFOURCC_DXT5)
+    else if (ddsheader.pixel_format.fourcc == fourcc::dxt5)
     {
         _format = SurfaceFormat::dxt5;
     }
@@ -76,7 +76,7 @@ void Surface::load(const std::string& filename) noexcept
     _buffer.clear();
     _view = { };
 
-    _mipmaps.reserve(ddsheader.dwMipMapCount);
+    _mipmaps.reserve(ddsheader.mipmap_count);
     _buffer.reserve(length);
 
     auto readed = stream.read(reinterpret_cast<char*>(_buffer.data()), 0, length);
@@ -85,7 +85,7 @@ void Surface::load(const std::string& filename) noexcept
 
     _view = gsl::span<std::uint8_t>(_buffer.data(), static_cast<std::ptrdiff_t>(length));
 
-    for (size_type level = 0; level < ddsheader.dwMipMapCount; ++level)
+    for (size_type level = 0; level < ddsheader.mipmap_count; ++level)
     {
         auto size = std::max<size_type>(4, mipmapWidth) / 4 * std::max<size_type>(4, mipmapHeight) / 4 * blockSize;
         auto view = _view.subspan(static_cast<std::ptrdiff_t>(position), static_cast<std::ptrdiff_t>(size));
@@ -99,22 +99,22 @@ void Surface::load(const std::string& filename) noexcept
     }
 }
 
-SurfaceFormat Surface::format() const noexcept
+SurfaceFormat surface::format() const noexcept
 {
     return _format;
 }
 
-Surface::size_type Surface::width() const noexcept
+surface::size_type surface::width() const noexcept
 {
     return _width;
 }
 
-Surface::size_type Surface::height() const noexcept
+surface::size_type surface::height() const noexcept
 {
     return _height;
 }
 
-const std::vector<SurfaceMipmap>& Surface::mipmaps() const noexcept
+const std::vector<surface_mipmap>& surface::mipmaps() const noexcept
 {
     return _mipmaps;
 }

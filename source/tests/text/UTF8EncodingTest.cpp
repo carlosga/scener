@@ -6,7 +6,7 @@
 
 #include "UTF8EncodingTest.hpp"
 
-#include <SceneR/Text/UTF8Encoding.hpp>
+#include <scener/text/UTF8Encoding.hpp>
 
 using namespace scener::text;
 

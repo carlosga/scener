@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Graphics/EffectParameterClass.hpp"
-#include "SceneR/Graphics/EffectParameterType.hpp"
+#include "scener/graphics/EffectParameterClass.hpp"
+#include "scener/graphics/EffectParameterType.hpp"
 #include "scener/math/matrix.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }

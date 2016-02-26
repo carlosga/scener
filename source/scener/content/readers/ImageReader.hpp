@@ -4,14 +4,14 @@
 #ifndef SCENER_CONTENT_READERS_IMAGEREADER_HPP
 #define SCENER_CONTENT_READERS_IMAGEREADER_HPP
 
-#include "SceneR/Content/Readers/ContentTypeReader.hpp"
+#include "scener/content/readers/ContentTypeReader.hpp"
 
-namespace scener { namespace content { namespace dds { class Surface; } } }
+namespace scener { namespace content { namespace dds { class surface; } } }
 
 namespace scener { namespace content { namespace readers {
 
 template<>
-class ContentTypeReader<dds::Surface>
+class ContentTypeReader<dds::surface>
 {
 public:
     ContentTypeReader() = default;

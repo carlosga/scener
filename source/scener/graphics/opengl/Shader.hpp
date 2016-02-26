@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Graphics/OpenGL/ShaderType.hpp"
+#include "scener/graphics/opengl/ShaderType.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

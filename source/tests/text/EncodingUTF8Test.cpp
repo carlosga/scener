@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <SceneR/Text/Encoding.hpp>
+#include <scener/text/Encoding.hpp>
 
 using namespace scener;
 using namespace scener::text;

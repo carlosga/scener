@@ -8,11 +8,11 @@
 
 #include <gsl.h>
 
-#include "SceneR/Graphics/GraphicsResource.hpp"
-#include "SceneR/Graphics/BlendFunction.hpp"
-#include "SceneR/Graphics/Blend.hpp"
-#include "SceneR/Graphics/ColorWriteChannels.hpp"
-#include "SceneR/Math/Color.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/BlendFunction.hpp"
+#include "scener/graphics/Blend.hpp"
+#include "scener/graphics/ColorWriteChannels.hpp"
+#include "scener/math/Color.hpp"
 
 namespace scener { namespace graphics {
 

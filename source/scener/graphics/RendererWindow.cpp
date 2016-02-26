@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/RendererWindow.hpp"
+#include "scener/graphics/RendererWindow.hpp"
 
-#include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/GraphicsDeviceManager.hpp"
-#include "SceneR/Graphics/Renderer.hpp"
-#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
-#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
+#include "scener/graphics/GraphicsDevice.hpp"
+#include "scener/graphics/GraphicsDeviceManager.hpp"
+#include "scener/graphics/Renderer.hpp"
+#include "scener/graphics/opengl/DisplayDevice.hpp"
+#include "scener/graphics/opengl/DisplaySurface.hpp"
 
 namespace scener { namespace graphics {
 

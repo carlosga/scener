@@ -8,10 +8,10 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Graphics/GraphicsResource.hpp"
-#include "SceneR/Graphics/VertexDeclaration.hpp"
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
-#include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/VertexDeclaration.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
+#include "scener/graphics/opengl/VertexArrayObject.hpp"
 
 namespace scener { namespace graphics {
 

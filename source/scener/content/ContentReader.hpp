@@ -12,16 +12,16 @@
 
 #include <json11.hpp>
 
-#include "SceneR/Content/Readers/ContentTypeReader.hpp"
-#include "SceneR/Content/GLTF/Node.hpp"
-#include "SceneR/Graphics/Bone.hpp"
-#include "SceneR/IO/BinaryReader.hpp"
-#include "SceneR/IO/Stream.hpp"
+#include "scener/content/readers/ContentTypeReader.hpp"
+#include "scener/content/gltf/Node.hpp"
+#include "scener/graphics/Bone.hpp"
+#include "scener/io/BinaryReader.hpp"
+#include "scener/io/Stream.hpp"
 #include "scener/math/matrix.hpp"
 #include "scener/math/quaternion.hpp"
 #include "scener/math/vector.hpp"
 
-namespace scener { namespace content { namespace dds { class Surface; } } }
+namespace scener { namespace content { namespace dds { class surface; } } }
 
 namespace scener { namespace content { namespace gltf {
 
@@ -119,7 +119,7 @@ private:
     std::map<std::string, std::shared_ptr<scener::content::gltf::Buffer>>     _buffers     { };
     std::map<std::string, std::shared_ptr<scener::content::gltf::BufferView>> _bufferViews { };
     std::map<std::string, std::shared_ptr<scener::content::gltf::Node>>       _nodes       { };
-    std::map<std::string, std::shared_ptr<scener::content::dds::Surface>>     _images      { };
+    std::map<std::string, std::shared_ptr<scener::content::dds::surface>>     _images      { };
     std::map<std::string, std::shared_ptr<scener::graphics::ModelMesh>>       _meshes      { };
     std::map<std::string, std::shared_ptr<scener::graphics::SamplerState>>    _samplers    { };
     std::map<std::string, std::shared_ptr<scener::graphics::opengl::Shader>>  _shaders     { };
@@ -200,20 +200,20 @@ inline std::shared_ptr<graphics::EffectTechnique> ContentReader::read_object_ins
 
 // Images
 template<>
-inline std::shared_ptr<dds::Surface> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<dds::surface> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<dds::Surface>(key, _root["images"][key]);
+    return read_object<dds::surface>(key, _root["images"][key]);
 }
 
 template <>
-inline std::shared_ptr<dds::Surface> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<dds::surface> ContentReader::get_object(const std::string& key) noexcept
 {
     return _images[key];
 }
 
 template <>
 inline void ContentReader::cache_object(const std::string&            key
-                                      , std::shared_ptr<dds::Surface> object) noexcept
+                                      , std::shared_ptr<dds::surface> object) noexcept
 {
     _images[key] = object;
 }

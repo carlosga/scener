@@ -11,8 +11,8 @@
 
 #include <gsl.h>
 
-#include "SceneR/Content/GLTF/AttributeType.hpp"
-#include "SceneR/Graphics/ComponentType.hpp"
+#include "scener/content/gltf/AttributeType.hpp"
+#include "scener/graphics/ComponentType.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 

@@ -10,7 +10,7 @@
 
 #include "scener/math/matrix.hpp"
 
-namespace scener { class TimeSpan; }
+namespace scener { class time_span; }
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 
@@ -56,11 +56,11 @@ public:
 
     /// Advances the current animation position.
     /// \param time snapshot of the rendering timing state.
-    void update(const scener::TimeSpan& time) noexcept;
+    void update(const scener::time_span& time) noexcept;
 
 private:
     /// Helper used by the Update method to refresh the BoneTransforms data.
-    void update_bone_transforms(const scener::TimeSpan& time) noexcept;
+    void update_bone_transforms(const scener::time_span& time) noexcept;
 
     /// Helper used by the Update method to refresh the WorldTransforms data.
     void update_world_transforms() noexcept;

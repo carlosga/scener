@@ -9,9 +9,9 @@
 
 #include <gsl_assert.h>
 
-#include "SceneR/IO/BinaryReader.hpp"
-#include "SceneR/IO/FileStream.hpp"
-#include "SceneR/Text/Encoding.hpp"
+#include "scener/io/BinaryReader.hpp"
+#include "scener/io/FileStream.hpp"
+#include "scener/text/Encoding.hpp"
 
 namespace scener { namespace io {
 

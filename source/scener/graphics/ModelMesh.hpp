@@ -8,8 +8,8 @@
 #include <vector>
 #include <string>
 
-#include "SceneR/Graphics/Skeleton.hpp"
-#include "SceneR/Math/BoundingSphere.hpp"
+#include "scener/graphics/Skeleton.hpp"
+#include "scener/math/BoundingSphere.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 

@@ -11,7 +11,7 @@
 
 #include <gsl.h>
 
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

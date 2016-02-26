@@ -1,23 +1,23 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/StepTime.hpp"
+#include "scener/graphics/StepTime.hpp"
 
 namespace scener { namespace graphics {
 
-using scener::TimeSpan;
+using scener::time_span;
 
 StepTime::StepTime() noexcept
-    : StepTime { TimeSpan::zero(), TimeSpan::zero(), false }
+    : StepTime { time_span::zero(), time_span::zero(), false }
 {
 }
 
-StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime) noexcept
+StepTime::StepTime(const time_span& totalRenderTime, const time_span& elapsedRenderTime) noexcept
     : StepTime { totalRenderTime, elapsedRenderTime, false }
 {
 }
 
-StepTime::StepTime(const TimeSpan& totalRenderTime, const TimeSpan& elapsedRenderTime, bool isRunningSlowly) noexcept
+StepTime::StepTime(const time_span& totalRenderTime, const time_span& elapsedRenderTime, bool isRunningSlowly) noexcept
     : total_render_time   { totalRenderTime }
     , elapsed_render_time { elapsedRenderTime }
     , is_running_slowly   { isRunningSlowly }

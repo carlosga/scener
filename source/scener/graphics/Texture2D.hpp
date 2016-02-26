@@ -10,9 +10,9 @@
 
 #include <gsl.h>
 
-#include "SceneR/Graphics/SurfaceFormat.hpp"
-#include "SceneR/Graphics/Texture.hpp"
-#include "SceneR/Graphics/OpenGL/TextureStorage.hpp"
+#include "scener/graphics/SurfaceFormat.hpp"
+#include "scener/graphics/Texture.hpp"
+#include "scener/graphics/opengl/TextureStorage.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 

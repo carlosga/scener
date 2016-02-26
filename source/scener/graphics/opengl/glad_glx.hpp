@@ -20,7 +20,7 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-#include "SceneR/Graphics/OpenGL/glad.hpp"
+#include "scener/graphics/opengl/glad.hpp"
 
 #ifndef __glad_glxext_h_
 

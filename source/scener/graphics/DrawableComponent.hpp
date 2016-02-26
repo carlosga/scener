@@ -6,8 +6,8 @@
 
 #include <cstdint>
 
-#include "SceneR/Graphics/IDrawable.hpp"
-#include "SceneR/Graphics/Component.hpp"
+#include "scener/graphics/IDrawable.hpp"
+#include "scener/graphics/Component.hpp"
 
 namespace scener { namespace graphics {
 

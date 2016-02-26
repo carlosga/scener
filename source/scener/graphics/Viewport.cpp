@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/Viewport.hpp"
+#include "scener/graphics/Viewport.hpp"
 
-#include "SceneR/Graphics/OpenGL/Platform.hpp"
+#include "scener/graphics/opengl/Platform.hpp"
 
 namespace scener { namespace graphics {
 

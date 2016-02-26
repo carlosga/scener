@@ -4,7 +4,7 @@
 #ifndef SCENER_GRAPHICS_OPENGL_PLATFORM_HPP
 #define SCENER_GRAPHICS_OPENGL_PLATFORM_HPP
 
-#include "SceneR/Graphics/OpenGL/glad.hpp"
-#include "SceneR/Graphics/OpenGL/glad_glx.hpp"
+#include "scener/graphics/opengl/glad.hpp"
+#include "scener/graphics/opengl/glad_glx.hpp"
 
 #endif // SCENER_GRAPHICS_OPENGL_PLATFORM_HPP

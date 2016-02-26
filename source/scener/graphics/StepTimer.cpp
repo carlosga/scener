@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/StepTimer.hpp"
+#include "scener/graphics/StepTimer.hpp"
 
 namespace scener { namespace graphics {
 
-using scener::TimeSpan;
+using scener::time_span;
 
 void StepTimer::reset() noexcept
 {
@@ -18,19 +18,19 @@ void StepTimer::update_time_step() noexcept
     _last_time_step = current_time();
 }
 
-TimeSpan StepTimer::elapsed_time() const noexcept
+time_span StepTimer::elapsed_time() const noexcept
 {
-    return TimeSpan::from_duration(current_time() - _start);
+    return time_span::from_duration(current_time() - _start);
 }
 
-TimeSpan StepTimer::elapsed_time_step_time() const noexcept
+time_span StepTimer::elapsed_time_step_time() const noexcept
 {
-    return TimeSpan::from_duration(current_time() - _last_time_step);
+    return time_span::from_duration(current_time() - _last_time_step);
 }
 
-TimeSpan::clock::time_point StepTimer::current_time() const noexcept
+time_span::clock::time_point StepTimer::current_time() const noexcept
 {
-    return TimeSpan::clock::now();
+    return time_span::clock::now();
 }
 
 }}

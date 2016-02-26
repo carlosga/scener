@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
+#include "scener/graphics/opengl/ConstantBuffer.hpp"
 
-#include "SceneR/Graphics/OpenGL/BufferTarget.hpp"
-#include "SceneR/Graphics/OpenGL/BufferUsage.hpp"
+#include "scener/graphics/opengl/BufferTarget.hpp"
+#include "scener/graphics/opengl/BufferUsage.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

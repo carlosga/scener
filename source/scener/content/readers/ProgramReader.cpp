@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/ProgramReader.hpp"
+#include "scener/content/readers/ProgramReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
-#include "SceneR/Graphics/OpenGL/ConstantBuffer.hpp"
-#include "SceneR/Graphics/OpenGL/Program.hpp"
-#include "SceneR/Graphics/OpenGL/Shader.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
+#include "scener/graphics/opengl/ConstantBuffer.hpp"
+#include "scener/graphics/opengl/Program.hpp"
+#include "scener/graphics/opengl/Shader.hpp"
 
 namespace scener { namespace content { namespace readers {
 

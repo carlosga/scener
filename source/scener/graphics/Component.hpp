@@ -8,8 +8,8 @@
 
 #include <gsl.h>
 
-#include "SceneR/Graphics/IComponent.hpp"
-#include "SceneR/Graphics/IUpdateable.hpp"
+#include "scener/graphics/IComponent.hpp"
+#include "scener/graphics/IUpdateable.hpp"
 
 namespace scener { namespace graphics {
 

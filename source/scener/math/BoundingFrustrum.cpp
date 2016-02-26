@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Math/BoundingFrustrum.hpp"
+#include "scener/math/BoundingFrustrum.hpp"
 
-#include "SceneR/Math/BoundingBox.hpp"
+#include "scener/math/BoundingBox.hpp"
 #include "scener/math/matrix.hpp"
 #include "scener/math/plane.hpp"
-#include "SceneR/Math/Ray.hpp"
+#include "scener/math/Ray.hpp"
 #include "scener/math/plane_intersection_type.hpp"
 
 namespace scener { namespace math {

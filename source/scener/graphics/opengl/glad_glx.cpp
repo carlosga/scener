@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "SceneR/Graphics/OpenGL/glad_glx.hpp"
+#include "scener/graphics/opengl/glad_glx.hpp"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wold-style-cast"

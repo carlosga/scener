@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/EffectPass.hpp"
+#include "scener/graphics/EffectPass.hpp"
 
-#include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/OpenGL/Program.hpp"
+#include "scener/graphics/GraphicsDevice.hpp"
+#include "scener/graphics/opengl/Program.hpp"
 
 namespace scener { namespace graphics {
 

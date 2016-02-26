@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include "SceneR/Graphics/OpenGL/glad.hpp"
+#include "scener/graphics/opengl/glad.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

@@ -4,7 +4,7 @@
 #ifndef SCENER_CONTENT_READERS_BUFFERREADER_HPP
 #define SCENER_CONTENT_READERS_BUFFERREADER_HPP
 
-#include "SceneR/Content/Readers/ContentTypeReader.hpp"
+#include "scener/content/readers/ContentTypeReader.hpp"
 
 namespace scener { namespace content { namespace gltf { class Buffer; } } }
 

@@ -1,20 +1,20 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SkeletalAnimation/EarthShaker.hpp"
+#include "skeletalanimation/EarthShaker.hpp"
 
-#include <SceneR/Content/ContentManager.hpp>
-#include <SceneR/Graphics/EffectTechnique.hpp>
-#include <SceneR/Graphics/Model.hpp>
-#include <SceneR/Graphics/ModelMesh.hpp>
-#include <SceneR/Graphics/StepTime.hpp>
+#include <scener/content/ContentManager.hpp>
+#include <scener/graphics/EffectTechnique.hpp>
+#include <scener/graphics/Model.hpp>
+#include <scener/graphics/ModelMesh.hpp>
+#include <scener/graphics/StepTime.hpp>
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
 
-#include "SkeletalAnimation/SampleRenderer.hpp"
-#include "SkeletalAnimation/Camera.hpp"
+#include "skeletalanimation/SampleRenderer.hpp"
+#include "skeletalanimation/Camera.hpp"
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 using scener::graphics::Model;
 using scener::graphics::EffectTechnique;

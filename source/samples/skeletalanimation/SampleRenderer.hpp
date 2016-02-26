@@ -4,11 +4,11 @@
 #ifndef SKELETAL_ANIMATION_SAMPLERENDERER_HPP
 #define SKELETAL_ANIMATION_SAMPLERENDERER_HPP
 
-#include <SceneR/Graphics/Renderer.hpp>
+#include <scener/graphics/Renderer.hpp>
 
 namespace scener { namespace graphics { struct StepTime; } }
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 class SampleRenderer : public scener::graphics::Renderer
 {

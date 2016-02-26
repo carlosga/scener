@@ -9,23 +9,23 @@
 
 #include <gsl.h>
 
-#include "SceneR/Content/DDS/SurfaceMipmap.hpp"
-#include "SceneR/Graphics/SurfaceFormat.hpp"
+#include "scener/content/dds/surface_mipmap.hpp"
+#include "scener/graphics/SurfaceFormat.hpp"
 
 namespace scener { namespace content { namespace dds {
 
 /// Represents a DirectDraw surface.
-class Surface final
+class surface final
 {
 public:
     typedef std::size_t size_type;
 
 public:
     /// Initializes a new instance of the Surface class.
-    Surface() = default;
+    surface() = default;
 
     /// Destructor.
-    ~Surface() = default;
+    ~surface() = default;
 
 public:
     /// Loads the given file.
@@ -42,11 +42,11 @@ public:
     size_type height() const noexcept;
 
     /// Gets the surface mipmaps (when available).
-    const std::vector<SurfaceMipmap>& mipmaps() const noexcept;
+    const std::vector<surface_mipmap>& mipmaps() const noexcept;
 
 private:
     std::vector<std::uint8_t>       _buffer  { };
-    std::vector<SurfaceMipmap>      _mipmaps { };
+    std::vector<surface_mipmap>     _mipmaps { };
     gsl::span<std::uint8_t>         _view    { };
     scener::graphics::SurfaceFormat _format  { scener::graphics::SurfaceFormat::color };
     size_type                       _width   { 0 };

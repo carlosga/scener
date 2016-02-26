@@ -9,7 +9,7 @@
 
 #include <gsl.h>
 
-#include "SceneR/IO/Stream.hpp"
+#include "scener/io/Stream.hpp"
 
 namespace scener { namespace io {
 

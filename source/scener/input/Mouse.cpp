@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Input/Mouse.hpp"
+#include "scener/input/Mouse.hpp"
 
-#include "SceneR/Input/Buttons.hpp"
-#include "SceneR/Input/ButtonState.hpp"
-#include "SceneR/Input/MouseState.hpp"
-#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
+#include "scener/input/Buttons.hpp"
+#include "scener/input/ButtonState.hpp"
+#include "scener/input/MouseState.hpp"
+#include "scener/graphics/opengl/DisplaySurface.hpp"
 
 namespace scener { namespace input {
 

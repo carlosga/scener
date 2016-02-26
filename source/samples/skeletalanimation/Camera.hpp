@@ -6,12 +6,12 @@
 
 #include <nod/nod.hpp>
 
-#include <SceneR/Graphics/Component.hpp>
+#include <scener/graphics/Component.hpp>
 #include <scener/math/angle.hpp>
 #include <scener/math/matrix.hpp>
 #include <scener/math/vector.hpp>
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 class SampleRenderer;
 

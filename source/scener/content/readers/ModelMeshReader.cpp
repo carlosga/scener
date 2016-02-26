@@ -5,22 +5,22 @@
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentManager.hpp"
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Graphics/EffectParameter.hpp"
-#include "SceneR/Graphics/EffectTechnique.hpp"
-#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
-#include "SceneR/Graphics/IndexBuffer.hpp"
-#include "SceneR/Graphics/Model.hpp"
-#include "SceneR/Graphics/ModelMesh.hpp"
-#include "SceneR/Graphics/ModelMeshPart.hpp"
-#include "SceneR/Graphics/RendererServiceContainer.hpp"
-#include "SceneR/Graphics/Texture2D.hpp"
-#include "SceneR/Graphics/VertexBuffer.hpp"
-#include "SceneR/Graphics/VertexDeclaration.hpp"
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
-#include "SceneR/Graphics/OpenGL/VertexArrayObject.hpp"
+#include "scener/content/ContentManager.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/content/gltf/Accessor.hpp"
+#include "scener/graphics/EffectParameter.hpp"
+#include "scener/graphics/EffectTechnique.hpp"
+#include "scener/graphics/IGraphicsDeviceService.hpp"
+#include "scener/graphics/IndexBuffer.hpp"
+#include "scener/graphics/Model.hpp"
+#include "scener/graphics/ModelMesh.hpp"
+#include "scener/graphics/ModelMeshPart.hpp"
+#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/Texture2D.hpp"
+#include "scener/graphics/VertexBuffer.hpp"
+#include "scener/graphics/VertexDeclaration.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
+#include "scener/graphics/opengl/VertexArrayObject.hpp"
 
 using json11::Json;
 using scener::content::gltf::Accessor;

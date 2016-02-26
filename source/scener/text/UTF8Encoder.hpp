@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "SceneR/Text/Encoder.hpp"
+#include "scener/text/Encoder.hpp"
 
 namespace scener { namespace text {
 

@@ -1,25 +1,25 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/Renderer.hpp"
+#include "scener/graphics/Renderer.hpp"
 
 #include <iostream>
 #include <thread>
 
-#include "SceneR/Content/ContentManager.hpp"
-#include "SceneR/Graphics/GraphicsDevice.hpp"
-#include "SceneR/Graphics/GraphicsDeviceManager.hpp"
-#include "SceneR/Graphics/OpenGL/RenderContext.hpp"
-#include "SceneR/Graphics/RendererServiceContainer.hpp"
-#include "SceneR/Graphics/RendererWindow.hpp"
-#include "SceneR/Input/Keyboard.hpp"
-#include "SceneR/Input/KeyboardState.hpp"
-#include "SceneR/Input/Keys.hpp"
-#include "SceneR/Input/Mouse.hpp"
+#include "scener/content/ContentManager.hpp"
+#include "scener/graphics/GraphicsDevice.hpp"
+#include "scener/graphics/GraphicsDeviceManager.hpp"
+#include "scener/graphics/opengl/RenderContext.hpp"
+#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/RendererWindow.hpp"
+#include "scener/input/Keyboard.hpp"
+#include "scener/input/KeyboardState.hpp"
+#include "scener/input/Keys.hpp"
+#include "scener/input/Mouse.hpp"
 
 namespace scener { namespace graphics {
 
-using scener::TimeSpan;
+using scener::time_span;
 using scener::content::ContentManager;
 using scener::graphics::GraphicsDevice;
 using scener::graphics::opengl::RenderContext;

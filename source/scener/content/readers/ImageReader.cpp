@@ -1,25 +1,25 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/ImageReader.hpp"
+#include "scener/content/readers/ImageReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/DDS/Surface.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/content/dds/surface.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::dds::Surface;
+using scener::content::dds::surface;
 
-auto ContentTypeReader<Surface>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<surface>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto surface = std::make_shared<Surface>();
+    auto image = std::make_shared<surface>();
 
-    surface->load(input->get_asset_path(source["uri"].string_value()));
+    image->load(input->get_asset_path(source["uri"].string_value()));
 
-    return surface;
+    return image;
 }
 
 }}}

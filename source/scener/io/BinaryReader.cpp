@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/IO/BinaryReader.hpp"
+#include "scener/io/BinaryReader.hpp"
 
 #include <string>
 
-#include "SceneR/IO/Stream.hpp"
+#include "scener/io/Stream.hpp"
 
 namespace scener { namespace io {
 

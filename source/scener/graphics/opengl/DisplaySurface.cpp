@@ -4,13 +4,13 @@
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 // ==================================================================================================
 
-#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
+#include "scener/graphics/opengl/DisplaySurface.hpp"
 
 #include <X11/Xatom.h>
 
 #include <gsl_assert.h>
 
-#include "SceneR/Graphics/OpenGL/DisplayDevice.hpp"
+#include "scener/graphics/opengl/DisplayDevice.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

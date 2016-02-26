@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/GLTF/Node.hpp"
+#include "scener/content/gltf/Node.hpp"
 
 namespace scener { namespace content { namespace gltf {
 

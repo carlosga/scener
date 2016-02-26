@@ -7,9 +7,9 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "SceneR/Graphics/GraphicsResource.hpp"
-#include "SceneR/Graphics/TextureFilter.hpp"
-#include "SceneR/Graphics/TextureAddressMode.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/TextureFilter.hpp"
+#include "scener/graphics/TextureAddressMode.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 

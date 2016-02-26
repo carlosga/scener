@@ -6,9 +6,9 @@
 
 #include <cstdint>
 
-#include "SceneR/Graphics/CompareFunction.hpp"
-#include "SceneR/Graphics/StencilOperation.hpp"
-#include "SceneR/Graphics/GraphicsResource.hpp"
+#include "scener/graphics/CompareFunction.hpp"
+#include "scener/graphics/StencilOperation.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
 
 namespace scener { namespace graphics {
 

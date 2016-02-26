@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/SkeletonReader.hpp"
+#include "scener/content/readers/SkeletonReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Graphics/Skeleton.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/content/gltf/Accessor.hpp"
+#include "scener/graphics/Skeleton.hpp"
 
 namespace scener { namespace content { namespace readers {
 

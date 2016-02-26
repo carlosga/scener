@@ -9,7 +9,7 @@
 #include <fstream>
 #include <string>
 
-#include "SceneR/IO/Stream.hpp"
+#include "scener/io/Stream.hpp"
 
 namespace scener { namespace io {
 

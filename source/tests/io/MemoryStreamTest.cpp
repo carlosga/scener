@@ -8,8 +8,8 @@
 
 #include <gsl.h>
 
-#include <SceneR/IO/BinaryReader.hpp>
-#include <SceneR/IO/MemoryStream.hpp>
+#include <scener/io/BinaryReader.hpp>
+#include <scener/io/MemoryStream.hpp>
 
 using namespace gsl;
 using namespace scener;

@@ -8,7 +8,7 @@
 
 #include <gsl.h>
 
-#include "SceneR/Content/ContentResourceManager.hpp"
+#include "scener/content/ContentResourceManager.hpp"
 
 namespace scener { namespace graphics {
 

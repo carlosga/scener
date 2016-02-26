@@ -5,8 +5,8 @@
 
 #include <cstddef>
 
-#include <SceneR/IO/BinaryReader.hpp>
-#include <SceneR/IO/FileStream.hpp>
+#include <scener/io/BinaryReader.hpp>
+#include <scener/io/FileStream.hpp>
 
 using namespace scener;
 using namespace scener::io;

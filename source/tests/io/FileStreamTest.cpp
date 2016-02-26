@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <SceneR/IO/FileStream.hpp>
+#include <scener/io/FileStream.hpp>
 
 using namespace scener;
 using namespace scener::io;

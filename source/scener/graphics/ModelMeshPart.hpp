@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-#include "SceneR/Graphics/PrimitiveType.hpp"
+#include "scener/graphics/PrimitiveType.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
 

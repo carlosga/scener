@@ -7,7 +7,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "SceneR/Graphics/OpenGL/DisplaySurface.hpp"
+#include "scener/graphics/opengl/DisplaySurface.hpp"
 
 namespace scener { namespace graphics { namespace opengl { class DisplaySurface; } } }
 

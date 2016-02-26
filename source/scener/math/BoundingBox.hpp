@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "scener/math/plane_intersection_type.hpp"
-#include "SceneR/Math/ContainmentType.hpp"
+#include "scener/math/ContainmentType.hpp"
 #include "scener/math/vector.hpp"
 
 namespace scener { namespace math {

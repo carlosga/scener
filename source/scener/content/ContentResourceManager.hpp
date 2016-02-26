@@ -7,7 +7,7 @@
 #include <memory>
 #include <map>
 
-#include "SceneR/Graphics/GraphicsResource.hpp"
+#include "scener/graphics/GraphicsResource.hpp"
 
 namespace scener { namespace content {
 

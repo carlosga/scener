@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Graphics/OpenGL/Shader.hpp"
+#include "scener/graphics/opengl/Shader.hpp"
 
 #include <gsl_assert.h>
 

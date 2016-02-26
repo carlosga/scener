@@ -1,15 +1,15 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/SamplerReader.hpp"
+#include "scener/content/readers/SamplerReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentManager.hpp"
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Graphics/IGraphicsDeviceService.hpp"
-#include "SceneR/Graphics/RendererServiceContainer.hpp"
-#include "SceneR/Graphics/SamplerState.hpp"
+#include "scener/content/ContentManager.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/graphics/IGraphicsDeviceService.hpp"
+#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/SamplerState.hpp"
 
 namespace scener { namespace content { namespace readers {
 

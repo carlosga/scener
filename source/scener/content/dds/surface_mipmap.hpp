@@ -13,7 +13,7 @@
 namespace scener { namespace content { namespace dds {
 
 /// Represents a DirectDraw surface mipmap.
-class SurfaceMipmap final
+class surface_mipmap final
 {
     typedef std::size_t index_type;
     typedef std::size_t size_type;
@@ -24,10 +24,10 @@ public:
     /// \param width  The mipmap width (in pixels).
     /// \param height The mipmap height (in pixels).
     /// \param view   A view to the mipmap data.
-    SurfaceMipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept;
+    surface_mipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept;
 
     /// Destructor.
-    ~SurfaceMipmap() = default;
+    ~surface_mipmap() = default;
 
 public:
     /// Gets the mipmap index.

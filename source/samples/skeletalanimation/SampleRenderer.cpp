@@ -1,22 +1,22 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SkeletalAnimation/SampleRenderer.hpp"
+#include "skeletalanimation/SampleRenderer.hpp"
 
-#include <SceneR/Graphics/GraphicsDevice.hpp>
-#include <SceneR/Graphics/GraphicsDeviceManager.hpp>
-#include <SceneR/Math/Color.hpp>
+#include <scener/graphics/GraphicsDevice.hpp>
+#include <scener/graphics/GraphicsDeviceManager.hpp>
+#include <scener/math/Color.hpp>
 
-#include "SkeletalAnimation/Camera.hpp"
-#include "SkeletalAnimation/EarthShaker.hpp"
+#include "skeletalanimation/Camera.hpp"
+#include "skeletalanimation/EarthShaker.hpp"
 
-namespace SkeletalAnimation {
+namespace skeletal_animation {
 
 using scener::graphics::StepTime;
 using scener::math::Color;
 
 SampleRenderer::SampleRenderer() noexcept
-    : Renderer("./Content")
+    : Renderer("./content")
 {
 }
 

@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/BufferViewReader.hpp"
+#include "scener/content/readers/BufferViewReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/GLTF/Buffer.hpp"
-#include "SceneR/Content/GLTF/BufferView.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/content/gltf/Buffer.hpp"
+#include "scener/content/gltf/BufferView.hpp"
 
 namespace scener { namespace content { namespace readers {
 

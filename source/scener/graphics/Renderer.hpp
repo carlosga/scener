@@ -8,11 +8,11 @@
 #include <string>
 #include <vector>
 
-#include "SceneR/Graphics/IComponent.hpp"
-#include "SceneR/Graphics/IDrawable.hpp"
-#include "SceneR/Graphics/IUpdateable.hpp"
-#include "SceneR/Graphics/StepTime.hpp"
-#include "SceneR/Graphics/StepTimer.hpp"
+#include "scener/graphics/IComponent.hpp"
+#include "scener/graphics/IDrawable.hpp"
+#include "scener/graphics/IUpdateable.hpp"
+#include "scener/graphics/StepTime.hpp"
+#include "scener/graphics/StepTimer.hpp"
 
 namespace scener { namespace content { class ContentManager; } }
 
@@ -113,7 +113,7 @@ public:
     bool is_fixed_time_step { true };
 
     /// Gets or sets the target time between calls to update when is_fixed_time_step is true.
-    scener::TimeSpan target_elapsed_time { 10000000L / 60L };
+    scener::time_span target_elapsed_time { 10000000L / 60L };
 
 protected:
     GraphicsDeviceManager* graphics_device_manager() const;
@@ -130,7 +130,7 @@ private:
     std::unique_ptr<RendererServiceContainer>                _services                { nullptr };
     StepTimer                                                _timer                   { };
     StepTime                                                 _render_time             { };
-    scener::TimeSpan                                         _total_tender_time       { TimeSpan::zero() };
+    scener::time_span                                         _total_tender_time       { time_span::zero() };
     bool                                                     _is_running_slowly       { false };
     std::string                                              _root_directory          { };
 

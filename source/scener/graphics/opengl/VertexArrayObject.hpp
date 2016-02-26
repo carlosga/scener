@@ -7,8 +7,8 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "SceneR/Graphics/VertexDeclaration.hpp"
-#include "SceneR/Graphics/OpenGL/Buffer.hpp"
+#include "scener/graphics/VertexDeclaration.hpp"
+#include "scener/graphics/opengl/Buffer.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

@@ -1,19 +1,19 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "SceneR/Content/Readers/AnimationReader.hpp"
+#include "scener/content/readers/AnimationReader.hpp"
 
 #include <json11.hpp>
 
-#include "SceneR/TimeSpan.hpp"
-#include "SceneR/Content/ContentReader.hpp"
-#include "SceneR/Content/GLTF/Accessor.hpp"
-#include "SceneR/Graphics/Animation.hpp"
+#include "scener/TimeSpan.hpp"
+#include "scener/content/ContentReader.hpp"
+#include "scener/content/gltf/Accessor.hpp"
+#include "scener/graphics/Animation.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::TimeSpan;
+using scener::time_span;
 using scener::content::gltf::Accessor;
 using scener::content::gltf::Node;
 using scener::graphics::Animation;
@@ -72,7 +72,7 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
             }
         }
 
-        auto time      = TimeSpan::from_seconds(keyframes->get_element<float>(i));
+        auto time      = time_span::from_seconds(keyframes->get_element<float>(i));
         auto transform = scener::math::matrix::create_scale(scale)
                        * scener::math::matrix::create_from_quaternion(rotation)
                        * scener::math::matrix::create_translation(translation);
