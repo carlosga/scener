@@ -11,7 +11,7 @@
 
 #include <gsl.h>
 
-#include "scener/content/gltf/AttributeType.hpp"
+#include "scener/content/gltf/attribute_type.hpp"
 #include "scener/graphics/ComponentType.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class ContentTypeReader; } } }
@@ -30,11 +30,11 @@ public:
 public:
     /// Specifies if the attribute is a scalar, vector, or matrix.
     /// \returns the attribute type.
-    AttributeType attribute_type() const noexcept;
+    gltf::attribute_type attribute_type() const noexcept;
 
     /// Gets the data type of the components referenced by this accessor.
     /// \returns the data type of the components referenced by this accessor.
-    scener::graphics::ComponentType component_type() const noexcept;
+    graphics::ComponentType component_type() const noexcept;
 
     /// Gets the offset relative to the buffer-view in bytes.
     /// \returns the offset relative to the buffer-view in bytes.
@@ -95,25 +95,25 @@ private:
     {
         switch (_attribute_type)
         {
-        case AttributeType::matrix2:
+        case attribute_type::matrix2:
             return 4;
 
-        case AttributeType::matrix3:
+        case attribute_type::matrix3:
             return 9;
 
-        case AttributeType::matrix4:
+        case attribute_type::matrix4:
             return 16;
 
-        case AttributeType::scalar:
+        case attribute_type::scalar:
             return 1;
 
-        case AttributeType::vector2:
+        case attribute_type::vector2:
             return 2;
 
-        case AttributeType::vector3:
+        case attribute_type::vector3:
             return 3;
 
-        case AttributeType::vector4:
+        case attribute_type::vector4:
             return 4;
         }
     }
@@ -140,16 +140,16 @@ private:
     }
 
 private:
-    AttributeType               _attribute_type  { AttributeType::scalar };
-    std::size_t                 _attribute_count { 0 };
+    gltf::attribute_type         _attribute_type  { gltf::attribute_type::scalar };
+    std::size_t                  _attribute_count { 0 };
     std::shared_ptr<buffer_view> _buffer_view     { nullptr };
-    std::size_t                 _byte_offset     { 0 };
-    std::size_t                 _byte_length     { 0 };
-    std::size_t                 _byte_stride     { 0 };
-    graphics::ComponentType     _component_type  { graphics::ComponentType::single };
-    std::vector<float>          _max             { 0 };
-    std::vector<float>          _min             { 0 };
-    std::string                 _name            { };
+    std::size_t                  _byte_offset     { 0 };
+    std::size_t                  _byte_length     { 0 };
+    std::size_t                  _byte_stride     { 0 };
+    graphics::ComponentType      _component_type  { graphics::ComponentType::single };
+    std::vector<float>           _max             { 0 };
+    std::vector<float>           _min             { 0 };
+    std::string                  _name            { };
 
     template <typename T> friend class scener::content::readers::ContentTypeReader;
 };

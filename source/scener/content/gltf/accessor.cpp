@@ -9,7 +9,7 @@ namespace scener { namespace content { namespace gltf {
 
 using scener::graphics::ComponentType;
 
-AttributeType accessor::attribute_type() const noexcept
+attribute_type accessor::attribute_type() const noexcept
 {
     return _attribute_type;
 }

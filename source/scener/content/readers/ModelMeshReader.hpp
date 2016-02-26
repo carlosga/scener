@@ -17,7 +17,7 @@ class ModelMeshPart;
 
 }}
 
-namespace scener { namespace content { namespace gltf { enum class AttributeType : std::uint32_t; } } }
+namespace scener { namespace content { namespace gltf { enum class attribute_type : std::uint32_t; } } }
 
 namespace scener { namespace content { namespace readers {
 
@@ -35,7 +35,7 @@ private:
 
     std::shared_ptr<graphics::EffectTechnique> read_material(content_reader* input, const std::string& key) const noexcept;
 
-    graphics::VertexElementFormat get_vertex_element_format(gltf::AttributeType type) const noexcept;
+    graphics::VertexElementFormat get_vertex_element_format(gltf::attribute_type type) const noexcept;
 
     graphics::VertexElementUsage get_vertex_element_usage(const std::string& semantic) const noexcept;
 };

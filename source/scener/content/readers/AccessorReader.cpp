@@ -11,7 +11,7 @@
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::gltf::AttributeType;
+using scener::content::gltf::attribute_type;
 using scener::content::gltf::buffer_view;
 using scener::graphics::ComponentType;
 
@@ -22,31 +22,31 @@ auto ContentTypeReader<gltf::accessor>::read(content_reader* input, const std::s
 
     if (attType == "SCALAR")
     {
-        accessor->_attribute_type = AttributeType::scalar;
+        accessor->_attribute_type = attribute_type::scalar;
     }
     else if (attType == "VEC2")
     {
-        accessor->_attribute_type = AttributeType::vector2;
+        accessor->_attribute_type = attribute_type::vector2;
     }
     else if (attType == "VEC3")
     {
-        accessor->_attribute_type = AttributeType::vector3;
+        accessor->_attribute_type = attribute_type::vector3;
     }
     else if (attType == "VEC4")
     {
-        accessor->_attribute_type = AttributeType::vector4;
+        accessor->_attribute_type = attribute_type::vector4;
     }
     else if (attType == "MAT2")
     {
-        accessor->_attribute_type = AttributeType::matrix2;
+        accessor->_attribute_type = attribute_type::matrix2;
     }
     else if (attType == "MAT3")
     {
-        accessor->_attribute_type = AttributeType::matrix3;
+        accessor->_attribute_type = attribute_type::matrix3;
     }
     else if (attType == "MAT4")
     {
-        accessor->_attribute_type = AttributeType::matrix4;
+        accessor->_attribute_type = attribute_type::matrix4;
     }
 
     accessor->_name            = key;

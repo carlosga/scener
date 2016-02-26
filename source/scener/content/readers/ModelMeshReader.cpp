@@ -23,7 +23,7 @@
 #include "scener/graphics/opengl/VertexArrayObject.hpp"
 
 using json11::Json;
-using scener::content::gltf::AttributeType;
+using scener::content::gltf::attribute_type;
 using scener::math::matrix4;
 using scener::math::vector2;
 using scener::math::vector3;
@@ -247,21 +247,21 @@ std::shared_ptr<EffectTechnique> ContentTypeReader<ModelMesh>::read_material(con
     return technique;
 }
 
-VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(AttributeType type) const noexcept
+VertexElementFormat ContentTypeReader<ModelMesh>::get_vertex_element_format(attribute_type type) const noexcept
 {
     switch (type)
     {
-    case AttributeType::vector2:
+    case attribute_type::vector2:
         return VertexElementFormat::vector2;
-    case AttributeType::vector3:
+    case attribute_type::vector3:
         return VertexElementFormat::vector3;
-    case AttributeType::vector4:
+    case attribute_type::vector4:
         return VertexElementFormat::vector4;
-    case AttributeType::scalar:
+    case attribute_type::scalar:
         return VertexElementFormat::single;
-    case AttributeType::matrix2:
-    case AttributeType::matrix3:
-    case AttributeType::matrix4:
+    case attribute_type::matrix2:
+    case attribute_type::matrix3:
+    case attribute_type::matrix4:
         throw std::runtime_error("unsupported attribute type");
     }
 }

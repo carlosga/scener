@@ -9,7 +9,7 @@
 namespace scener { namespace content { namespace gltf {
 
 /// Declares the attribute types for GLTF accessors.
-enum class AttributeType : std::uint32_t
+enum class attribute_type : std::uint32_t
 {
     scalar  = 0 ///< Scalar values.
   , vector2 = 1 ///< Two dimensional vector.
