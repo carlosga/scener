@@ -6,7 +6,7 @@
 #include <json11.hpp>
 
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Accessor.hpp"
+#include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/ModelMesh.hpp"
 #include "scener/graphics/Skeleton.hpp"
 #include "scener/math/matrix.hpp"
@@ -14,8 +14,7 @@
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::gltf::Accessor;
-using scener::content::gltf::Node;
+using scener::content::gltf::accessor;
 using scener::graphics::Bone;
 using scener::graphics::ModelMesh;
 using scener::graphics::Skeleton;
@@ -24,9 +23,9 @@ using scener::math::quaternion;
 using scener::math::vector3;
 using scener::math::vector4;
 
-auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::node>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto node = std::make_shared<Node>();
+    auto node = std::make_shared<gltf::node>();
 
     node->name        = key;
     node->camera      = source["camera"].string_value();
@@ -84,7 +83,7 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
 
         for (const auto& child : children)
         {
-            auto childNode = input->read_object<Node>(child.string_value());
+            auto childNode = input->read_object<gltf::node>(child.string_value());
 
             childNode->joint->_parent = node->joint;
 
@@ -96,7 +95,7 @@ auto ContentTypeReader<Node>::read(ContentReader* input, const std::string& key,
     {
         for (const auto& child : children)
         {
-            node->children.push_back(input->read_object<Node>(child.string_value()));
+            node->children.push_back(input->read_object<gltf::node>(child.string_value()));
         }
     }
 

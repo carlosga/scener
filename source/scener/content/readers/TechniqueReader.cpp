@@ -22,7 +22,7 @@ using scener::math::matrix4;
 using scener::math::vector2;
 using scener::math::vector3;
 using scener::math::vector4;
-using scener::content::gltf::Node;
+using scener::content::gltf::node;
 using scener::graphics::EffectTechnique;
 using scener::graphics::EffectParameter;
 using scener::graphics::EffectParameterClass;

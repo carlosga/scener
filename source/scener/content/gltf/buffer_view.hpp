@@ -16,14 +16,14 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace content { namespace gltf {
 
-class Buffer;
+class buffer;
 
 /// GLTF. A view into a buffer.
-class BufferView final
+class buffer_view final
 {
 public:
     /// Initializes a new instance of the BufferView class.
-    BufferView() = default;
+    buffer_view() = default;
 
 public:
     /// Gets the offset into the buffer in bytes.
@@ -48,7 +48,7 @@ public:
     gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
 private:
-    std::shared_ptr<Buffer> _buffer      { nullptr };
+    std::shared_ptr<buffer> _buffer      { nullptr };
     std::size_t             _byte_offset { 0 };
     std::size_t             _byte_length { 0 };
     std::string             _name        { };

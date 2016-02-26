@@ -7,15 +7,13 @@
 
 #include "scener/TimeSpan.hpp"
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Accessor.hpp"
+#include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/Animation.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
 using scener::time_span;
-using scener::content::gltf::Accessor;
-using scener::content::gltf::Node;
 using scener::graphics::Animation;
 using scener::graphics::Keyframe;
 using scener::math::matrix4;
@@ -25,11 +23,11 @@ using scener::math::vector3;
 auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto animation  = std::make_shared<Animation>();
-    auto parameters = std::map<std::string, std::shared_ptr<Accessor>>();
+    auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
 
     for (const auto& p : source["parameters"].object_items())
     {
-        auto accessor = input->read_object<Accessor>(p.second.string_value());
+        auto accessor = input->read_object<gltf::accessor>(p.second.string_value());
 
         parameters[p.first] = accessor;
     }
@@ -38,7 +36,7 @@ auto ContentTypeReader<Animation>::read(ContentReader* input, const std::string&
 
     const auto& keyframes = parameters["TIME"];
     const auto  count     = keyframes->attribute_count();
-    auto        target    = input->read_object<Node>(source["channels"][0]["target"]["id"].string_value());
+    auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].string_value());
 
     animation->_name = key;
 

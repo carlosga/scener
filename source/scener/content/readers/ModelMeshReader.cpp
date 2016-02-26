@@ -7,7 +7,7 @@
 
 #include "scener/content/ContentManager.hpp"
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Accessor.hpp"
+#include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/EffectParameter.hpp"
 #include "scener/graphics/EffectTechnique.hpp"
 #include "scener/graphics/IGraphicsDeviceService.hpp"
@@ -23,7 +23,6 @@
 #include "scener/graphics/opengl/VertexArrayObject.hpp"
 
 using json11::Json;
-using scener::content::gltf::Accessor;
 using scener::content::gltf::AttributeType;
 using scener::math::matrix4;
 using scener::math::vector2;
@@ -70,11 +69,11 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
     auto meshPart      = std::make_shared<ModelMeshPart>();
     auto gdService     = input->content_manager()->service_provider()->get_service<IGraphicsDeviceService>();
     auto device        = gdService->graphics_device();
-    auto accessors     = std::vector<std::shared_ptr<Accessor>>();
+    auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
     auto elements      = std::vector<VertexElement>();
     auto vertexStride  = std::size_t { 0 };
     auto vertexCount   = std::size_t { 0 };
-    auto indices       = input->read_object<Accessor>(source["indices"].string_value());
+    auto indices       = input->read_object<gltf::accessor>(source["indices"].string_value());
     auto componentType = indices->component_type();
     auto indexCount    = indices->attribute_count();
 
@@ -90,7 +89,7 @@ std::shared_ptr<ModelMeshPart> ContentTypeReader<ModelMesh>::read_mesh_part(Cont
 
     for (const auto& attribute : attributes)
     {
-        const auto accessor   = input->read_object<Accessor>(attribute.second.string_value());
+        const auto accessor   = input->read_object<gltf::accessor>(attribute.second.string_value());
         const auto format     = get_vertex_element_format(accessor->attribute_type());
         const auto usage      = get_vertex_element_usage(attribute.first);
         const auto usageIndex = static_cast<std::uint32_t>(usage);

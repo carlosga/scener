@@ -16,11 +16,11 @@ namespace scener { namespace content { namespace readers { template <typename T>
 namespace scener { namespace content { namespace gltf {
 
 /// GLTF. Buffers contain geometry, animation, or skins.
-class Buffer final
+class buffer final
 {
 public:
     /// Initializes a new instance of the Buffer class.
-    Buffer() = default;
+    buffer() = default;
 
 public:
     /// Gets the buffer name.

@@ -23,11 +23,11 @@ class ModelMesh;
 namespace scener { namespace content { namespace gltf {
 
 /// GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
-class Node final
+class node final
 {
 public:
     /// Initializes a new instance of the Node class.
-    Node() noexcept;
+    node() noexcept;
 
 public:
     /// Gets or sets the node name.
@@ -73,7 +73,7 @@ public:
     scener::math::vector3 translation;
 
     /// The ids (JSON property name) of this node's children.
-    std::vector<std::shared_ptr<Node>> children;
+    std::vector<std::shared_ptr<node>> children;
 };
 
 }}}

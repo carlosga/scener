@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/content/gltf/Node.hpp"
+#include "scener/content/gltf/node.hpp"
 
 namespace scener { namespace content { namespace gltf {
 
@@ -9,7 +9,7 @@ using scener::math::matrix4;
 using scener::math::quaternion;
 using scener::math::vector3;
 
-Node::Node() noexcept
+node::node() noexcept
     : name          ()
     , camera        ()
     , instance_skin { nullptr }

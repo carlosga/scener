@@ -6,19 +6,18 @@
 #include <json11.hpp>
 
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Accessor.hpp"
+#include "scener/content/gltf/accessor.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::gltf::Accessor;
 using scener::content::gltf::AttributeType;
-using scener::content::gltf::BufferView;
+using scener::content::gltf::buffer_view;
 using scener::graphics::ComponentType;
 
-auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::accessor>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto        accessor = std::make_shared<Accessor>();
+    auto        accessor = std::make_shared<gltf::accessor>();
     const auto& attType  = source["type"].string_value();
 
     if (attType == "SCALAR")
@@ -55,7 +54,7 @@ auto ContentTypeReader<Accessor>::read(ContentReader* input, const std::string& 
     accessor->_byte_offset     = static_cast<std::size_t>(source["byteOffset"].int_value());
     accessor->_byte_stride     = static_cast<std::size_t>(source["byteStride"].int_value());
     accessor->_attribute_count = static_cast<std::size_t>(source["count"].int_value());
-    accessor->_buffer_view     = input->read_object<BufferView>(source["bufferView"].string_value());
+    accessor->_buffer_view     = input->read_object<buffer_view>(source["bufferView"].string_value());
     accessor->_byte_length     = accessor->_attribute_count
                                * accessor->get_attribute_type_count()
                                * accessor->get_component_size_in_bytes();

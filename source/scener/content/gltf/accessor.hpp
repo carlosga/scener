@@ -18,14 +18,14 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace content { namespace gltf {
 
-class BufferView;
+class buffer_view;
 
 /// GLTF. A typed accessor into a buffer-view.
-class Accessor final
+class accessor final
 {
 public:
     /// Initializes a new instance of the Accessor class.
-    Accessor() noexcept = default;
+    accessor() noexcept = default;
 
 public:
     /// Specifies if the attribute is a scalar, vector, or matrix.
@@ -142,7 +142,7 @@ private:
 private:
     AttributeType               _attribute_type  { AttributeType::scalar };
     std::size_t                 _attribute_count { 0 };
-    std::shared_ptr<BufferView> _buffer_view     { nullptr };
+    std::shared_ptr<buffer_view> _buffer_view     { nullptr };
     std::size_t                 _byte_offset     { 0 };
     std::size_t                 _byte_length     { 0 };
     std::size_t                 _byte_stride     { 0 };

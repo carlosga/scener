@@ -6,16 +6,15 @@
 #include <json11.hpp>
 
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Buffer.hpp"
+#include "scener/content/gltf/buffer.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::gltf::Buffer;
 
-auto ContentTypeReader<Buffer>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
+auto ContentTypeReader<gltf::buffer>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto buffer = std::make_shared<Buffer>();
+    auto buffer = std::make_shared<gltf::buffer>();
     auto uri    = source["uri"].string_value();
     auto data   = input->read_external_reference(uri);
 

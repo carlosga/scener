@@ -6,12 +6,12 @@
 
 #include "scener/content/readers/ContentTypeReader.hpp"
 
-namespace scener { namespace content { namespace gltf { class Accessor; } } }
+namespace scener { namespace content { namespace gltf { class accessor; } } }
 
 namespace scener { namespace content { namespace readers {
 
 template <>
-class ContentTypeReader<gltf::Accessor>
+class ContentTypeReader<gltf::accessor>
 {
 public:
     ContentTypeReader() = default;

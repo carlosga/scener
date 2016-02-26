@@ -13,7 +13,7 @@
 namespace scener { namespace content {
 
 using json11::Json;
-using scener::content::gltf::Node;
+using scener::content::gltf::node;
 using scener::graphics::Animation;
 using scener::graphics::Model;
 using scener::graphics::ModelMesh;
@@ -67,7 +67,7 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
     {
         if (!node.second["jointName"].is_null())
         {
-            read_object<Node>(node.first, node.second);
+            read_object<gltf::node>(node.first, node.second);
         }
     }
     // Other nodes
@@ -75,7 +75,7 @@ std::shared_ptr<Model> ContentReader::read_asset() noexcept
     {
         if (node.second["jointName"].is_null())
         {
-            read_object<Node>(node.first, node.second);
+            read_object<gltf::node>(node.first, node.second);
         }
     }
 
@@ -109,7 +109,7 @@ std::vector<std::uint8_t> ContentReader::read_external_reference(const std::stri
     return File::read_all_bytes(assetPath);
 }
 
-std::shared_ptr<gltf::Node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
+std::shared_ptr<gltf::node> ContentReader::find_joint_node(const std::string& jointName) const noexcept
 {
     for (const auto& node : _nodes)
     {

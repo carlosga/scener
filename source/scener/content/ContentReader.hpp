@@ -13,7 +13,7 @@
 #include <json11.hpp>
 
 #include "scener/content/readers/ContentTypeReader.hpp"
-#include "scener/content/gltf/Node.hpp"
+#include "scener/content/gltf/node.hpp"
 #include "scener/graphics/Bone.hpp"
 #include "scener/io/BinaryReader.hpp"
 #include "scener/io/Stream.hpp"
@@ -25,9 +25,9 @@ namespace scener { namespace content { namespace dds { class surface; } } }
 
 namespace scener { namespace content { namespace gltf {
 
-class Accessor;
-class Buffer;
-class BufferView;
+class accessor;
+class buffer;
+class buffer_view;
 
 }}}
 
@@ -84,7 +84,7 @@ private:
 
     std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const noexcept;
 
-    std::shared_ptr<gltf::Node> find_joint_node(const std::string& jointName) const noexcept;
+    std::shared_ptr<gltf::node> find_joint_node(const std::string& jointName) const noexcept;
 
 private:
     template<typename T>
@@ -115,10 +115,10 @@ private:
     json11::Json             _root;
 
 private:
-    std::map<std::string, std::shared_ptr<scener::content::gltf::Accessor>>   _accessors   { };
-    std::map<std::string, std::shared_ptr<scener::content::gltf::Buffer>>     _buffers     { };
-    std::map<std::string, std::shared_ptr<scener::content::gltf::BufferView>> _bufferViews { };
-    std::map<std::string, std::shared_ptr<scener::content::gltf::Node>>       _nodes       { };
+    std::map<std::string, std::shared_ptr<scener::content::gltf::accessor>>   _accessors   { };
+    std::map<std::string, std::shared_ptr<scener::content::gltf::buffer>>     _buffers     { };
+    std::map<std::string, std::shared_ptr<scener::content::gltf::buffer_view>> _bufferViews { };
+    std::map<std::string, std::shared_ptr<scener::content::gltf::node>>       _nodes       { };
     std::map<std::string, std::shared_ptr<scener::content::dds::surface>>     _images      { };
     std::map<std::string, std::shared_ptr<scener::graphics::ModelMesh>>       _meshes      { };
     std::map<std::string, std::shared_ptr<scener::graphics::SamplerState>>    _samplers    { };
@@ -133,60 +133,60 @@ private:
 
 // Accessors
 template<>
-inline std::shared_ptr<gltf::Accessor> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::accessor> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<gltf::Accessor>(key, _root["accessors"][key]);
+    return read_object<gltf::accessor>(key, _root["accessors"][key]);
 }
 
 template <>
-inline std::shared_ptr<gltf::Accessor> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::accessor> ContentReader::get_object(const std::string& key) noexcept
 {
     return _accessors[key];
 }
 
 template <>
 inline void ContentReader::cache_object(const std::string&              key
-                                      , std::shared_ptr<gltf::Accessor> object) noexcept
+                                      , std::shared_ptr<gltf::accessor> object) noexcept
 {
     _accessors[key] = object;
 }
 
 // Buffers
 template<>
-inline std::shared_ptr<gltf::Buffer> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::buffer> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<gltf::Buffer>(key, _root["buffers"][key]);
+    return read_object<gltf::buffer>(key, _root["buffers"][key]);
 }
 
 template <>
-inline std::shared_ptr<gltf::Buffer> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::buffer> ContentReader::get_object(const std::string& key) noexcept
 {
     return _buffers[key];
 }
 
 template <>
 inline void ContentReader::cache_object(const std::string&            key
-                                      , std::shared_ptr<gltf::Buffer> object) noexcept
+                                      , std::shared_ptr<gltf::buffer> object) noexcept
 {
     _buffers[key] = object;
 }
 
 // Buffer Views
 template<>
-inline std::shared_ptr<gltf::BufferView> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::buffer_view> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<gltf::BufferView>(key, _root["bufferViews"][key]);
+    return read_object<gltf::buffer_view>(key, _root["bufferViews"][key]);
 }
 
 template <>
-inline std::shared_ptr<gltf::BufferView> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::buffer_view> ContentReader::get_object(const std::string& key) noexcept
 {
     return _bufferViews[key];
 }
 
 template <>
 inline void ContentReader::cache_object(const std::string&                key
-                                      , std::shared_ptr<gltf::BufferView> object) noexcept
+                                      , std::shared_ptr<gltf::buffer_view> object) noexcept
 {
     _bufferViews[key] = object;
 }
@@ -240,20 +240,20 @@ inline void ContentReader::cache_object(const std::string&                   key
 
 // Nodes
 template<>
-inline std::shared_ptr<gltf::Node> ContentReader::read_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::node> ContentReader::read_object(const std::string& key) noexcept
 {
-    return read_object<gltf::Node>(key, _root["nodes"][key]);
+    return read_object<gltf::node>(key, _root["nodes"][key]);
 }
 
 template <>
-inline std::shared_ptr<gltf::Node> ContentReader::get_object(const std::string& key) noexcept
+inline std::shared_ptr<gltf::node> ContentReader::get_object(const std::string& key) noexcept
 {
     return _nodes[key];
 }
 
 template <>
 inline void ContentReader::cache_object(const std::string&          key
-                                      , std::shared_ptr<gltf::Node> object) noexcept
+                                      , std::shared_ptr<gltf::node> object) noexcept
 {
     _nodes[key] = object;
 }

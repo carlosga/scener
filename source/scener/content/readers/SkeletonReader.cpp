@@ -6,20 +6,19 @@
 #include <json11.hpp>
 
 #include "scener/content/ContentReader.hpp"
-#include "scener/content/gltf/Accessor.hpp"
+#include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/Skeleton.hpp"
 
 namespace scener { namespace content { namespace readers {
 
 using json11::Json;
-using scener::content::gltf::Accessor;
 using scener::graphics::Skeleton;
 using scener::math::matrix4;
 
 auto ContentTypeReader<Skeleton>::read(ContentReader* input, const std::string& key, const Json& source) const noexcept
 {
     auto skeleton = std::make_shared<Skeleton>();
-    auto accessor = input->read_object<Accessor>(source["inverseBindMatrices"].string_value());
+    auto accessor = input->read_object<gltf::accessor>(source["inverseBindMatrices"].string_value());
 
     // Name
     skeleton->_name = key;
