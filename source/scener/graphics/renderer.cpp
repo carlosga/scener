@@ -1,16 +1,16 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/Renderer.hpp"
+#include "scener/graphics/renderer.hpp"
 
 #include <iostream>
 #include <thread>
 
 #include "scener/content/content_manager.hpp"
-#include "scener/graphics/GraphicsDevice.hpp"
-#include "scener/graphics/GraphicsDeviceManager.hpp"
-#include "scener/graphics/RendererServiceContainer.hpp"
-#include "scener/graphics/RendererWindow.hpp"
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/graphics_device_manager.hpp"
+#include "scener/graphics/service_container.hpp"
+#include "scener/graphics/window.hpp"
 #include "scener/graphics/opengl/render_context.hpp"
 #include "scener/input/keyboard.hpp"
 #include "scener/input/keyboard_state.hpp"

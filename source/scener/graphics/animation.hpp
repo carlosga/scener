@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "scener/graphics/Keyframe.hpp"
+#include "scener/graphics/keyframe.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
@@ -43,8 +43,8 @@ public:
 
     /// Updates the animation state for the given time.
     /// \param time snapshot of the rendering timing state.
-    /// \param relativeToCurrentTime indicates if the update should take place against the animation current time.
-    void update(const scener::timespan& time, bool relativeToCurrentTime) noexcept;
+    /// \param relative indicates if the update should take place against the animation current time.
+    void update(const timespan& time, bool relative) noexcept;
 
 private:
     timespan              _current_time     { 0 };

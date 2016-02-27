@@ -4,8 +4,8 @@
 #include "scener/content/content_manager.hpp"
 
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/Model.hpp"
-#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/model.hpp"
+#include "scener/graphics/service_container.hpp"
 #include "scener/io/file_stream.hpp"
 #include "scener/io/file.hpp"
 #include "scener/io/path.hpp"

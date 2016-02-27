@@ -10,11 +10,11 @@
 #include <string>
 #include <vector>
 
-#include "scener/graphics/DirectionalLight.hpp"
-#include "scener/graphics/EffectDirtyFlags.hpp"
-#include "scener/graphics/GraphicsResource.hpp"
-#include "scener/graphics/IEffectMatrices.hpp"
-#include "scener/graphics/IEffectLights.hpp"
+#include "scener/graphics/directional_light.hpp"
+#include "scener/graphics/effect_dirty_flags.hpp"
+#include "scener/graphics/graphics_resource.hpp"
+#include "scener/graphics/ieffect_matrices.hpp"
+#include "scener/graphics/ieffect_lights.hpp"
 #include "scener/math/matrix.hpp"
 #include "scener/math/quaternion.hpp"
 #include "scener/math/vector.hpp"

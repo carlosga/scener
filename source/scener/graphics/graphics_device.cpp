@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "GraphicsDevice.hpp"
+#include "graphics_device.hpp"
 
 #include <gsl_assert.h>
 
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
-#include "EffectTechnique.hpp"
-#include "VertexDeclaration.hpp"
+#include "scener/graphics/vertex_buffer.hpp"
+#include "scener/graphics/index_buffer.hpp"
+#include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/vertex_declaration.hpp"
 
 namespace scener { namespace graphics {
 

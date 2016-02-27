@@ -3,7 +3,7 @@
 
 #include "scener/graphics/opengl/texture_storage.hpp"
 
-#include "scener/graphics/SurfaceFormat.hpp"
+#include "scener/graphics/surface_format.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

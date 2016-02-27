@@ -14,7 +14,7 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 #include "scener/content/gltf/node.hpp"
-#include "scener/graphics/Bone.hpp"
+#include "scener/graphics/bone.hpp"
 #include "scener/io/binary_reader.hpp"
 #include "scener/io/stream.hpp"
 #include "scener/math/matrix.hpp"

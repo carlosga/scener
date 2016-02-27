@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/Animation.hpp"
+#include "scener/graphics/animation.hpp"
 
 namespace scener { namespace graphics {
 
@@ -32,13 +32,13 @@ const std::string& animation::name() const noexcept
     return _name;
 }
 
-void animation::update(const timespan& time, bool relativeToCurrentTime) noexcept
+void animation::update(const timespan& time, bool relative) noexcept
 {
     auto       current_time = time;
     const auto count        = _keyframes.size();
 
     // Update the animation position.
-    if (relativeToCurrentTime)
+    if (relative)
     {
         current_time += _current_time;
 

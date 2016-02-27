@@ -3,8 +3,8 @@
 
 #include "skeletalanimation/SampleRenderer.hpp"
 
-#include <scener/graphics/GraphicsDevice.hpp>
-#include <scener/graphics/GraphicsDeviceManager.hpp>
+#include <scener/graphics/graphics_device.hpp>
+#include <scener/graphics/graphics_device_manager.hpp>
 #include <scener/math/Color.hpp>
 
 #include "skeletalanimation/Camera.hpp"

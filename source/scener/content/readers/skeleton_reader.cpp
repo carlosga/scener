@@ -7,7 +7,7 @@
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
-#include "scener/graphics/Skeleton.hpp"
+#include "scener/graphics/skeleton.hpp"
 
 namespace scener { namespace content { namespace readers {
 

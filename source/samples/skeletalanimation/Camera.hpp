@@ -6,7 +6,7 @@
 
 #include <nod/nod.hpp>
 
-#include <scener/graphics/Component.hpp>
+#include <scener/graphics/component.hpp>
 #include <scener/math/angle.hpp>
 #include <scener/math/matrix.hpp>
 #include <scener/math/vector.hpp>

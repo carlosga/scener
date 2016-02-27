@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/VertexElement.hpp"
+#include "scener/graphics/vertex_element.hpp"
 
 namespace scener { namespace graphics {
 

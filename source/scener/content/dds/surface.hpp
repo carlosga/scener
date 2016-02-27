@@ -10,7 +10,7 @@
 #include <gsl.h>
 
 #include "scener/content/dds/surface_mipmap.hpp"
-#include "scener/graphics/SurfaceFormat.hpp"
+#include "scener/graphics/surface_format.hpp"
 
 namespace scener { namespace content { namespace dds {
 

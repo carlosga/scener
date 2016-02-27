@@ -7,11 +7,11 @@
 
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/EffectParameter.hpp"
-#include "scener/graphics/EffectPass.hpp"
-#include "scener/graphics/EffectTechnique.hpp"
-#include "scener/graphics/IGraphicsDeviceService.hpp"
-#include "scener/graphics/RendererServiceContainer.hpp"
+#include "scener/graphics/effect_parameter.hpp"
+#include "scener/graphics/effect_pass.hpp"
+#include "scener/graphics/effect_technique.hpp"
+#include "scener/graphics/igraphics_device_service.hpp"
+#include "scener/graphics/service_container.hpp"
 #include "scener/graphics/opengl/platform.hpp"
 #include "scener/graphics/opengl/program.hpp"
 

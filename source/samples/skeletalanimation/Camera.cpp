@@ -3,8 +3,8 @@
 
 #include "skeletalanimation/Camera.hpp"
 
-#include <scener/graphics/GraphicsDevice.hpp>
-#include <scener/graphics/RendererWindow.hpp>
+#include <scener/graphics/graphics_device.hpp>
+#include <scener/graphics/window.hpp>
 #include <scener/input/keys.hpp>
 #include <scener/input/keyboard.hpp>
 #include <scener/input/keyboard_state.hpp>

@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "scener/graphics/PresentInterval.hpp"
+#include "scener/graphics/present_interval.hpp"
 
 namespace scener { namespace graphics {
 

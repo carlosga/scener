@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/Texture2D.hpp"
+#include "scener/graphics/texture2d.hpp"
 
-#include "scener/graphics/GraphicsDevice.hpp"
-#include "scener/graphics/SamplerState.hpp"
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/sampler_state.hpp"
 
 namespace scener { namespace graphics {
 

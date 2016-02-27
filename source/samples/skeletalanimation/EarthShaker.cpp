@@ -4,10 +4,10 @@
 #include "skeletalanimation/EarthShaker.hpp"
 
 #include <scener/content/content_manager.hpp>
-#include <scener/graphics/EffectTechnique.hpp>
-#include <scener/graphics/Model.hpp>
-#include <scener/graphics/ModelMesh.hpp>
-#include <scener/graphics/StepTime.hpp>
+#include <scener/graphics/effect_technique.hpp>
+#include <scener/graphics/model.hpp>
+#include <scener/graphics/model_mesh.hpp>
+#include <scener/graphics/steptime.hpp>
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
 

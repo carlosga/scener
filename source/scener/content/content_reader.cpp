@@ -4,9 +4,9 @@
 #include "scener/content/content_reader.hpp"
 
 #include "scener/content/content_manager.hpp"
-#include "scener/graphics/Animation.hpp"
-#include "scener/graphics/Model.hpp"
-#include "scener/graphics/ModelMesh.hpp"
+#include "scener/graphics/animation.hpp"
+#include "scener/graphics/model.hpp"
+#include "scener/graphics/model_mesh.hpp"
 #include "scener/io/file.hpp"
 #include "scener/io/path.hpp"
 

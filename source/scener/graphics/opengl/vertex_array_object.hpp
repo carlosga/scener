@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "scener/graphics/VertexDeclaration.hpp"
+#include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/opengl/buffer.hpp"
 
 namespace scener { namespace graphics { namespace opengl {

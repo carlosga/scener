@@ -12,7 +12,7 @@
 #include <gsl.h>
 
 #include "scener/content/gltf/attribute_type.hpp"
-#include "scener/graphics/ComponentType.hpp"
+#include "scener/graphics/component_type.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 

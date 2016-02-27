@@ -7,9 +7,9 @@
 
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/IGraphicsDeviceService.hpp"
-#include "scener/graphics/RendererServiceContainer.hpp"
-#include "scener/graphics/SamplerState.hpp"
+#include "scener/graphics/igraphics_device_service.hpp"
+#include "scener/graphics/service_container.hpp"
+#include "scener/graphics/sampler_state.hpp"
 
 namespace scener { namespace content { namespace readers {
 

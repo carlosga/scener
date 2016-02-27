@@ -8,8 +8,8 @@
 #include <cstdint>
 #include <vector>
 
-#include "scener/graphics/GraphicsResource.hpp"
-#include "scener/graphics/VertexDeclaration.hpp"
+#include "scener/graphics/graphics_resource.hpp"
+#include "scener/graphics/vertex_declaration.hpp"
 #include "scener/graphics/opengl/buffer.hpp"
 #include "scener/graphics/opengl/vertex_array_object.hpp"
 

@@ -1,12 +1,12 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/EffectTechnique.hpp"
+#include "scener/graphics/effect_technique.hpp"
 
-#include "scener/graphics/EffectParameter.hpp"
-#include "scener/graphics/EffectPass.hpp"
-#include "scener/graphics/GraphicsDevice.hpp"
-#include "scener/graphics/Texture2D.hpp"
+#include "scener/graphics/effect_parameter.hpp"
+#include "scener/graphics/effect_pass.hpp"
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/texture2d.hpp"
 
 namespace scener { namespace graphics {
 

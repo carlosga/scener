@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/graphics_resource.hpp"
 
 namespace scener { namespace graphics {
 

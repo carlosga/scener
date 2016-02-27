@@ -8,11 +8,11 @@
 #include <string>
 #include <vector>
 
-#include "scener/graphics/IComponent.hpp"
-#include "scener/graphics/IDrawable.hpp"
-#include "scener/graphics/IUpdateable.hpp"
-#include "scener/graphics/StepTime.hpp"
-#include "scener/graphics/StepTimer.hpp"
+#include "scener/graphics/icomponent.hpp"
+#include "scener/graphics/idrawable.hpp"
+#include "scener/graphics/iupdateable.hpp"
+#include "scener/graphics/steptime.hpp"
+#include "scener/graphics/steptimer.hpp"
 
 namespace scener { namespace content { class content_manager; } }
 

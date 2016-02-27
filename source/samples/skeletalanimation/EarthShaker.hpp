@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include <scener/graphics/DrawableComponent.hpp>
+#include <scener/graphics/drawable_component.hpp>
 #include <scener/math/matrix.hpp>
 
 namespace scener { namespace graphics {

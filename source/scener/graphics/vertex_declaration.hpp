@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <vector>
 
-#include "scener/graphics/VertexElement.hpp"
+#include "scener/graphics/vertex_element.hpp"
 
 namespace scener { namespace graphics {
 

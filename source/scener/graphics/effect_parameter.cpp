@@ -1,9 +1,9 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/EffectParameter.hpp"
+#include "scener/graphics/effect_parameter.hpp"
 
-#include "scener/graphics/Texture.hpp"
+#include "scener/graphics/texture.hpp"
 #include "scener/graphics/opengl/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"

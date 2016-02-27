@@ -7,12 +7,12 @@
 #include <cstddef>
 #include <memory>
 
-#include "scener/graphics/BlendState.hpp"
-#include "scener/graphics/DepthStencilState.hpp"
-#include "scener/graphics/PresentationParameters.hpp"
-#include "scener/graphics/PrimitiveType.hpp"
-#include "scener/graphics/RasterizerState.hpp"
-#include "scener/graphics/Viewport.hpp"
+#include "scener/graphics/blend_state.hpp"
+#include "scener/graphics/depth_stencil_state.hpp"
+#include "scener/graphics/presentation_parameters.hpp"
+#include "scener/graphics/primitive_type.hpp"
+#include "scener/graphics/rasterizer_state.hpp"
+#include "scener/graphics/viewport.hpp"
 #include "scener/math/Color.hpp"
 
 namespace scener { namespace graphics {

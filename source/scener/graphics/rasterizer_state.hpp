@@ -4,9 +4,9 @@
 #ifndef SCENER_GRAPHICS_RASTERIZERSTATE_HPP
 #define SCENER_GRAPHICS_RASTERIZERSTATE_HPP
 
-#include "scener/graphics/CullMode.hpp"
-#include "scener/graphics/FillMode.hpp"
-#include "scener/graphics/GraphicsResource.hpp"
+#include "scener/graphics/cull_mode.hpp"
+#include "scener/graphics/fill_mode.hpp"
+#include "scener/graphics/graphics_resource.hpp"
 
 namespace scener { namespace graphics {
 

@@ -8,7 +8,7 @@
 #include "scener/timespan.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
-#include "scener/graphics/Animation.hpp"
+#include "scener/graphics/animation.hpp"
 
 namespace scener { namespace content { namespace readers {
 
