@@ -26,9 +26,6 @@ public:
     /// \param view   A view to the mipmap data.
     surface_mipmap(index_type index, size_type width, size_type height, const gsl::span<std::uint8_t>& view) noexcept;
 
-    /// Destructor.
-    ~surface_mipmap() = default;
-
 public:
     /// Gets the mipmap index.
     index_type index() const noexcept;

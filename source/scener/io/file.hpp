@@ -11,7 +11,6 @@
 
 #include "scener/io/binary_reader.hpp"
 #include "scener/io/file_stream.hpp"
-#include "scener/text/Encoding.hpp"
 
 namespace scener { namespace io {
 

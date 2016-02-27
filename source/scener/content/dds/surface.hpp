@@ -24,9 +24,6 @@ public:
     /// Initializes a new instance of the Surface class.
     surface() = default;
 
-    /// Destructor.
-    ~surface() = default;
-
 public:
     /// Loads the given file.
     void load(const std::string& filename) noexcept;
@@ -45,12 +42,12 @@ public:
     const std::vector<surface_mipmap>& mipmaps() const noexcept;
 
 private:
-    std::vector<std::uint8_t>       _buffer  { };
-    std::vector<surface_mipmap>     _mipmaps { };
-    gsl::span<std::uint8_t>         _view    { };
+    std::vector<std::uint8_t>        _buffer  { };
+    std::vector<surface_mipmap>      _mipmaps { };
+    gsl::span<std::uint8_t>          _view    { };
     scener::graphics::surface_format _format  { scener::graphics::surface_format::color };
-    size_type                       _width   { 0 };
-    size_type                       _height  { 0 };
+    size_type                        _width   { 0 };
+    size_type                        _height  { 0 };
 };
 
 }}}
