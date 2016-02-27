@@ -86,7 +86,7 @@ public:
     void unbind() const noexcept override;
 
 private:
-    void declare_storage(std::size_t mipMapLevels) noexcept;
+    void declare_storage(std::size_t level_count) noexcept;
 
 private:
     surface_format                           _format;

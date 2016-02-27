@@ -47,10 +47,10 @@ std::shared_ptr<graphics::model> content_reader::read_asset() noexcept
 
     model->_meshes.reserve(meshes.size());
 
-    for (const auto& mesh : meshes)
+    std::for_each(meshes.begin(), meshes.end(), [&](const auto& mesh) -> void
     {
         model->_meshes.push_back(read_object<graphics::model_mesh>(mesh.first, mesh.second));
-    }
+    });
 
     // Nodes
     const auto& nodes = _root["nodes"].object_items();

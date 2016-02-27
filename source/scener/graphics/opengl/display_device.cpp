@@ -136,7 +136,11 @@ bool display_device::configure_frame_buffer() noexcept
 
     if (_screen_id != _visual_info->screen)
     {
-        std::cout << "screenId(" << std::to_string(_screen_id) << ") does not match visual->screen(" << _visual_info->screen << ")." << std::endl;
+        std::cout << "screenId(" << std::to_string(_screen_id)
+                  << ") does not match visual->screen("
+                  << _visual_info->screen << ")."
+                  << std::endl;
+
         return false;
     }
 

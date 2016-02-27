@@ -55,39 +55,47 @@ void skeleton::update(const timespan& time) noexcept
 
 void skeleton::update_bone_transforms(const timespan& time) noexcept
 {
-    for (const auto& joint : _bones)
+    std::for_each(_bones.begin(), _bones.end(), [&](const auto& bone) -> void
     {
-        joint->animation()->update(time, true);
+        bone->animation()->update(time, true);
 
         // Use this keyframe.
-        _bone_transforms[joint->index()] = joint->animation()->current_keyframe().transform();
-    }
+        _bone_transforms[bone->index()] = bone->animation()->current_keyframe().transform();
+    });
 }
 
 void skeleton::update_world_transforms() noexcept
 {
-    const auto count = _bones.size();
+//    const auto count = _bones.size();
 
     // Root bone.
     _world_transforms[0] = _bone_transforms[0];
 
     // Child bones.
-    for (std::size_t bone = 1; bone < count; ++bone)
-    {
-        const auto parentBone = _bones[bone]->parent()->index();
+//    for (std::size_t bone = 1; bone < count; ++bone)
+//    {
+//        const auto parentBone = _bones[bone]->parent()->index();
 
-        _world_transforms[bone] = _bone_transforms[bone] * _world_transforms[parentBone];
-    }
+//        _world_transforms[bone] = _bone_transforms[bone] * _world_transforms[parentBone];
+//    }
+
+    std::for_each(_bones.begin() + 1, _bones.end(), [&](const auto& bone) -> void
+    {
+        const auto parent_bone = bone->parent()->index();
+        const auto bone_index = bone->index();
+
+        _world_transforms[bone_index] = _bone_transforms[bone_index] * _world_transforms[parent_bone];
+    });
 }
 
 void skeleton::update_skin_transforms() noexcept
 {
-    const auto count = _bones.size();
-
-    for (std::size_t bone = 0; bone < count; ++bone)
+    std::for_each(_bones.begin(), _bones.end(), [&](const auto& bone) -> void
     {
-        _skin_transforms[bone] = _bind_shape_matrix * _inverse_bind_matrices[bone] * _world_transforms[bone];
-    }
+        const auto bone_index = bone->index();
+
+        _skin_transforms[bone_index] = _bind_shape_matrix * _inverse_bind_matrices[bone_index] * _world_transforms[bone_index];
+    });
 }
 
 }}

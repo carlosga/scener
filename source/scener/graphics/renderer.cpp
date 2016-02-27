@@ -98,15 +98,16 @@ void renderer::begin_run() noexcept
     _window          = std::make_unique<graphics::window>(this);
 }
 
-void renderer::draw(const steptime &renderTime) noexcept
+void renderer::draw(const steptime &time) noexcept
 {
-    for (const auto& component : _drawable_components)
-    {
-        if (component->visible())
-        {
-            component->draw(renderTime);
-        }
-    }
+    std::for_each(_drawable_components.begin(), _drawable_components.end()
+                , [&time](const auto& component) -> void
+                  {
+                      if (component->visible())
+                      {
+                          component->draw(time);
+                      }
+                  });
 }
 
 void renderer::end_draw() noexcept
@@ -121,11 +122,7 @@ void renderer::end_run() noexcept
 
 void renderer::initialize() noexcept
 {
-    for (const auto& component : _components)
-    {
-        component->initialize();
-    }
-
+    std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void { component->initialize(); });
     keyboard::initialize(_window->display_surface());
     mouse::initialize(_window->display_surface());
 }
@@ -143,13 +140,14 @@ void renderer::unload_content() noexcept
 
 void renderer::update(const steptime& time) noexcept
 {
-    for (auto& component : _updateable_components)
-    {
-        if (component->enabled())
-        {
-            component->update(time);
-        }
-    }
+    std::for_each(_updateable_components.begin(), _updateable_components.end()
+                , [&time](const auto& component) -> void
+                  {
+                      if (component->enabled())
+                      {
+                          component->update(time);
+                      }
+                  });
 }
 
 void renderer::start_event_loop() noexcept

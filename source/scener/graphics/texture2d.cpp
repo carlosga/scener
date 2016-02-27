@@ -65,10 +65,10 @@ void texture2d::set_data(std::size_t                          level
     _storage.set_data(_format, level, width, height, data);
 }
 
-void texture2d::declare_storage(std::size_t mipMapLevels) noexcept
+void texture2d::declare_storage(std::size_t level_count) noexcept
 {
-    _storage.declare_storage(_format, mipMapLevels, _width, _height);
-    _mipmap_levels = mipMapLevels;
+    _storage.declare_storage(_format, level_count, _width, _height);
+    _mipmap_levels = level_count;
 }
 
 void texture2d::bind() const noexcept

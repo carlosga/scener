@@ -9,7 +9,7 @@
 class FileStreamTest : public testing::Test
 {
 protected:
-    const std::string TEST_FILE = "./Content/earthshaker/earthshaker0VS.glsl";
+    const std::string TEST_FILE = "./content/earthshaker/earthshaker0VS.glsl";
 
     // virtual void SetUp() will be called before each test is run.  You
     // should define it if you need to initialize the varaibles.
