@@ -1,10 +1,10 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Copyrhs (c) Carlos Guzmán Álvarez. All rhss reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifndef SCENER_CONTENT_DDS_CAPS_HPP
 #define SCENER_CONTENT_DDS_CAPS_HPP
 
-#include <cstdint>
+//#include <cstdint>
 
 namespace scener { namespace content { namespace dds {
 
@@ -18,14 +18,14 @@ enum class caps : std::uint32_t
   , texture = 0x1000    ///< Required
 };
 
-inline constexpr caps operator&(const caps& left, const caps& right)
+inline constexpr caps operator&(const caps& lhs, const caps& rhs)
 {
-    return static_cast<caps>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
+    return static_cast<caps>(static_cast<std::uint32_t>(lhs) & static_cast<std::uint32_t>(rhs));
 }
 
-inline constexpr caps operator|(const caps& left, const caps& right)
+inline constexpr caps operator|(const caps& lhs, const caps& rhs)
 {
-    return static_cast<caps>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+    return static_cast<caps>(static_cast<std::uint32_t>(lhs) | static_cast<std::uint32_t>(rhs));
 }
 
 inline constexpr caps operator~(const caps& value)
@@ -33,28 +33,28 @@ inline constexpr caps operator~(const caps& value)
     return static_cast<caps>(~static_cast<std::uint32_t>(value));
 }
 
-inline constexpr bool operator==(const caps& left, const std::uint32_t& right)
+inline constexpr bool operator==(const caps& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) == right);
+    return (static_cast<std::uint32_t>(lhs) == rhs);
 }
 
-inline constexpr bool operator!=(const caps& left, const std::uint32_t& right)
+inline constexpr bool operator!=(const caps& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) != right);
+    return (static_cast<std::uint32_t>(lhs) != rhs);
 }
 
-inline caps& operator&=(caps& left, const caps& right)
+inline caps& operator&=(caps& lhs, const caps& rhs)
 {
-    left = left & right;
+    lhs = lhs & rhs;
 
-    return left;
+    return lhs;
 }
 
-inline caps& operator|=(caps& left, const caps& right)
+inline caps& operator|=(caps& lhs, const caps& rhs)
 {
-    left = left | right;
+    lhs = lhs | rhs;
 
-    return left;
+    return lhs;
 }
 
 }}}

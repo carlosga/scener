@@ -10,8 +10,8 @@
 
 namespace scener { namespace graphics {
 
-using scener::math::matrix4;
-using scener::math::vector3;
+using math::matrix4;
+using math::vector3;
 
 effect_technique::effect_technique(gsl::not_null<graphics_device*> device) noexcept
     : graphics_resource          { device }
@@ -57,11 +57,11 @@ const vector3& effect_technique::ambient_light_color() const noexcept
     return _ambient_light_color;
 }
 
-void effect_technique::ambient_light_color(const vector3& ambientLightColor) noexcept
+void effect_technique::ambient_light_color(const vector3& ambient_light_color) noexcept
 {
-    if (_ambient_light_color != ambientLightColor)
+    if (_ambient_light_color != ambient_light_color)
     {
-        _ambient_light_color = ambientLightColor;
+        _ambient_light_color = ambient_light_color;
         _dirty_flags        |= effect_dirty_flags::material_color;
     }
 }
@@ -71,11 +71,11 @@ const vector3& effect_technique::diffuse_color() const noexcept
     return _diffuse_color;
 }
 
-void effect_technique::diffuse_color(const vector3& diffuseColor) noexcept
+void effect_technique::diffuse_color(const vector3& diffuse_color) noexcept
 {
-    if (_diffuse_color != diffuseColor)
+    if (_diffuse_color != diffuse_color)
     {
-        _diffuse_color = diffuseColor;
+        _diffuse_color = diffuse_color;
         _dirty_flags  |= effect_dirty_flags::material_color;
     }
 }
@@ -105,11 +105,11 @@ const vector3& effect_technique::emissive_color() const noexcept
     return _emissive_color;
 }
 
-void effect_technique::emissive_color(const vector3& emissiveColor) noexcept
+void effect_technique::emissive_color(const vector3& emissive_color) noexcept
 {
-    if (_emissive_color != emissiveColor)
+    if (_emissive_color != emissive_color)
     {
-        _emissive_color = emissiveColor;
+        _emissive_color = emissive_color;
         _dirty_flags   |= effect_dirty_flags::material_color;
     }
 }
@@ -119,9 +119,9 @@ bool effect_technique::lighting_enabled() const noexcept
     return _lighting_enabled;
 }
 
-void effect_technique::lighting_enabled(bool lightingEnabled) noexcept
+void effect_technique::lighting_enabled(bool lighting_enabled) noexcept
 {
-    _lighting_enabled = lightingEnabled;
+    _lighting_enabled = lighting_enabled;
 }
 
 bool effect_technique::prefer_per_pixel_lighting() const noexcept
@@ -129,11 +129,11 @@ bool effect_technique::prefer_per_pixel_lighting() const noexcept
     return _prefer_per_pixel_lighting;
 }
 
-void effect_technique::prefer_per_pixel_lighting(bool preferPerPixelLighting) noexcept
+void effect_technique::prefer_per_pixel_lighting(bool prefer_per_pixel_lighting) noexcept
 {
-    if (_prefer_per_pixel_lighting != preferPerPixelLighting)
+    if (_prefer_per_pixel_lighting != prefer_per_pixel_lighting)
     {
-        _prefer_per_pixel_lighting = preferPerPixelLighting;
+        _prefer_per_pixel_lighting = prefer_per_pixel_lighting;
         _dirty_flags              |= effect_dirty_flags::shader_index;
     }
 }
@@ -157,7 +157,7 @@ const vector3& effect_technique::specular_color() const noexcept
     return _specular_color;
 }
 
-void effect_technique::specular_color(const vector3& specularColor) noexcept
+void effect_technique::specular_color(const vector3& specular_color) noexcept
 {
 //            if (_specularColor != specularColor)
 //            {
@@ -172,7 +172,7 @@ float effect_technique::specular_power() const noexcept
     return _specular_power;
 }
 
-void effect_technique::specular_power(float specularPower) noexcept
+void effect_technique::specular_power(float specular_power) noexcept
 {
 //            if (!Math::equal(_specularPower, specularPower))
 //            {
@@ -331,31 +331,31 @@ void effect_technique::set_world_view_proj() const noexcept
     }
     if (_world_inverse_param.get())
     {
-        _world_inverse_param->set_value(scener::math::matrix::invert(_world));
+        _world_inverse_param->set_value(math::matrix::invert(_world));
     }
     if (_view_inverse_param.get())
     {
-        _view_inverse_param->set_value(scener::math::matrix::invert(_view));
+        _view_inverse_param->set_value(math::matrix::invert(_view));
     }
     if (_projection_inverse_param.get())
     {
-        _projection_inverse_param->set_value(scener::math::matrix::invert(_projection));
+        _projection_inverse_param->set_value(math::matrix::invert(_projection));
     }
     if (_world_view_inverse_param.get())
     {
-        _world_view_inverse_param->set_value(scener::math::matrix::invert(worldView));
+        _world_view_inverse_param->set_value(math::matrix::invert(worldView));
     }
     if (_world_view_projection_inverse_param.get())
     {
-        _world_view_projection_inverse_param->set_value(scener::math::matrix::invert(worldViewProj));
+        _world_view_projection_inverse_param->set_value(math::matrix::invert(worldViewProj));
     }
     if (_world_inverse_transpose_param.get())
     {
-        _world_inverse_transpose_param->set_value(scener::math::matrix::transpose(scener::math::matrix::invert(_world)));
+        _world_inverse_transpose_param->set_value(math::matrix::transpose(math::matrix::invert(_world)));
     }
     if (_world_view_inverse_transpose_param.get())
     {
-        _world_view_inverse_transpose_param->set_value(scener::math::matrix::transpose(scener::math::matrix::invert(worldView)));
+        _world_view_inverse_transpose_param->set_value(math::matrix::transpose(math::matrix::invert(worldView)));
     }
 }
 

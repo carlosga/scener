@@ -117,10 +117,10 @@ public:
     effect_technique* effect;
 
     /// Gets or sets the index buffer.
-    index_buffer* index_buffer;
+    graphics::index_buffer* index_buffer;
 
     /// Gets or sets the vertex buffer.
-    vertex_buffer* vertex_buffer;
+    graphics::vertex_buffer* vertex_buffer;
 
 private:
     graphics::blend_state             _blend_state;

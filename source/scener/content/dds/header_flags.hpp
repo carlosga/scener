@@ -1,4 +1,4 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Copyrhs (c) Carlos Guzmán Álvarez. All rhss reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifndef SCENER_CONTENT_DDS_HEADER_FLAGS_HPP
@@ -22,15 +22,15 @@ enum class header_flags : std::uint32_t
 };
 
 /// Bitwise AND operator for header_flags.
-inline constexpr header_flags operator&(const header_flags& left, const header_flags& right)
+inline constexpr header_flags operator&(const header_flags& lhs, const header_flags& rhs)
 {
-    return static_cast<header_flags>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
+    return static_cast<header_flags>(static_cast<std::uint32_t>(lhs) & static_cast<std::uint32_t>(rhs));
 }
 
 /// Bitwise OR operator for header_flags.
-inline constexpr header_flags operator|(const header_flags& left, const header_flags& right)
+inline constexpr header_flags operator|(const header_flags& lhs, const header_flags& rhs)
 {
-    return static_cast<header_flags>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+    return static_cast<header_flags>(static_cast<std::uint32_t>(lhs) | static_cast<std::uint32_t>(rhs));
 }
 
 /// Unary complement operator for header_flags.
@@ -40,31 +40,31 @@ inline constexpr header_flags operator~(const header_flags& value)
 }
 
 /// Equality operator for comparing a header_flags value against an unsigned int32.
-inline constexpr bool operator==(const header_flags& left, const std::uint32_t& right)
+inline constexpr bool operator==(const header_flags& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) == right);
+    return (static_cast<std::uint32_t>(lhs) == rhs);
 }
 
 /// Inequality operator for comparing a header_flags value against an unsigned int32.
-inline constexpr bool operator!=(const header_flags& left, const std::uint32_t& right)
+inline constexpr bool operator!=(const header_flags& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) != right);
+    return (static_cast<std::uint32_t>(lhs) != rhs);
 }
 
 /// Equality operator for comparing header_flags values.
-inline header_flags& operator&=(header_flags& left, const header_flags& right)
+inline header_flags& operator&=(header_flags& lhs, const header_flags& rhs)
 {
-    left = left & right;
+    lhs = lhs & rhs;
 
-    return left;
+    return lhs;
 }
 
 /// Equality operator for comparing header_flags values.
-inline header_flags& operator|=(header_flags& left, const header_flags& right)
+inline header_flags& operator|=(header_flags& lhs, const header_flags& rhs)
 {
-    left = left | right;
+    lhs = lhs | rhs;
 
-    return left;
+    return lhs;
 }
 
 }}}

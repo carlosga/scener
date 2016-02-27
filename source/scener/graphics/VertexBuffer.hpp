@@ -40,9 +40,9 @@ public:
     std::vector<std::uint8_t> get_data() const noexcept;
 
     /// Gets a copy of the vertex buffer data, specifying the start index and number of elements.
-    /// \param startIndex index of the first element to get.
-    /// \param elementCount number of elements to get.
-    std::vector<std::uint8_t> get_data(std::size_t startIndex, std::size_t elementCount) const noexcept;
+    /// \param start_index index of the first element to get.
+    /// \param element_count number of elements to get.
+    std::vector<std::uint8_t> get_data(std::size_t start_index, std::size_t element_count) const noexcept;
 
     /// Sets the vertex buffer data.
     /// \param data the new vertex buffer data.
@@ -57,11 +57,11 @@ private:
     void unbind() noexcept;
 
 private:
-    std::uint32_t                       _binding_index;
-    std::size_t                         _vertex_count;
-    graphics::vertex_declaration        _vertex_declaration;
-    graphics::opengl::vertex_array_object _vao;
-    graphics::opengl::buffer            _vbo;
+    std::uint32_t                _binding_index;
+    std::size_t                  _vertex_count;
+    graphics::vertex_declaration _vertex_declaration;
+    opengl::vertex_array_object  _vao;
+    opengl::buffer               _vbo;
 
     friend class scener::graphics::graphics_device;
 };

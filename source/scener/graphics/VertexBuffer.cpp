@@ -38,10 +38,10 @@ std::vector<std::uint8_t> vertex_buffer::get_data() const noexcept
     return get_data(0, _vertex_count);
 }
 
-std::vector<std::uint8_t> vertex_buffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
+std::vector<std::uint8_t> vertex_buffer::get_data(std::size_t start_index, std::size_t element_count) const noexcept
 {
-    auto offset = (startIndex   * _vertex_declaration.vertex_stride());
-    auto size   = (elementCount * _vertex_declaration.vertex_stride());
+    auto offset = (start_index   * _vertex_declaration.vertex_stride());
+    auto size   = (element_count * _vertex_declaration.vertex_stride());
 
     return _vbo.get_data(offset, size);
 }

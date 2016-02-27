@@ -5,9 +5,9 @@
 
 namespace scener { namespace graphics {
 
-vertex_declaration::vertex_declaration(std::size_t vertexStride, const std::vector<vertex_element>& vertexElements) noexcept
-    : _vertex_stride   { vertexStride }
-    , _vertex_elements { vertexElements }
+vertex_declaration::vertex_declaration(std::size_t stride, const std::vector<vertex_element>& elements) noexcept
+    : _vertex_stride   { stride }
+    , _vertex_elements { elements }
 {
 }
 

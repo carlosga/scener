@@ -16,9 +16,9 @@ class vertex_declaration final
 {
 public:
     /// Initializes a new instance of the VertexDeclaration class.
-    /// \param vertexStride The number of bytes per element.
-    /// \param vertexElements vertex elements.
-    vertex_declaration(std::size_t vertexStride, const std::vector<vertex_element>& vertexElements) noexcept;
+    /// \param stride The number of bytes per element.
+    /// \param elements vertex elements.
+    vertex_declaration(std::size_t stride, const std::vector<vertex_element>& elements) noexcept;
 
 public:
     /// Gets the number of bytes from one vertex to the next.
@@ -30,7 +30,7 @@ public:
     const std::vector<vertex_element>& vertex_elements() const noexcept;
 
 private:
-    std::size_t                _vertex_stride;
+    std::size_t                 _vertex_stride;
     std::vector<vertex_element> _vertex_elements;
 };
 
