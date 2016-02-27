@@ -1,10 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/input/MouseState.hpp"
+#include "scener/input/mouse_state.hpp"
 
-#include "scener/input/Buttons.hpp"
-#include "scener/input/ButtonState.hpp"
+#include "scener/input/buttons.hpp"
+#include "scener/input/button_state.hpp"
 
 namespace scener { namespace input {
 
@@ -13,13 +13,13 @@ mouse_state::mouse_state() noexcept
 }
 
 mouse_state::mouse_state(std::uint32_t x
-                     , std::uint32_t y
-                     , std::uint32_t scrollWheel
-                     , button_state   leftButton
-                     , button_state   middleButton
-                     , button_state   rightButton
-                     , button_state   xButton1
-                     , button_state   xButton2) noexcept
+                       , std::uint32_t y
+                       , std::uint32_t scrollWheel
+                       , button_state  leftButton
+                       , button_state  middleButton
+                       , button_state  rightButton
+                       , button_state  xButton1
+                       , button_state  xButton2) noexcept
     : _x             { x            }
     , _y             { y            }
     , _scroll_wheel  { scrollWheel  }

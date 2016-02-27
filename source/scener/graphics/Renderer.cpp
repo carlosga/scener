@@ -12,10 +12,10 @@
 #include "scener/graphics/opengl/RenderContext.hpp"
 #include "scener/graphics/RendererServiceContainer.hpp"
 #include "scener/graphics/RendererWindow.hpp"
-#include "scener/input/Keyboard.hpp"
-#include "scener/input/KeyboardState.hpp"
-#include "scener/input/Keys.hpp"
-#include "scener/input/Mouse.hpp"
+#include "scener/input/keyboard.hpp"
+#include "scener/input/keyboard_state.hpp"
+#include "scener/input/keys.hpp"
+#include "scener/input/mouse.hpp"
 
 namespace scener { namespace graphics {
 

@@ -5,9 +5,9 @@
 
 #include <scener/graphics/GraphicsDevice.hpp>
 #include <scener/graphics/RendererWindow.hpp>
-#include <scener/input/Keys.hpp>
-#include <scener/input/Keyboard.hpp>
-#include <scener/input/KeyboardState.hpp>
+#include <scener/input/keys.hpp>
+#include <scener/input/keyboard.hpp>
+#include <scener/input/keyboard_state.hpp>
 
 #include "skeletalanimation/SampleRenderer.hpp"
 
