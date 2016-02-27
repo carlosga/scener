@@ -17,18 +17,18 @@ public:
     directional_light() noexcept;
 
     /// Creates an instance of a light that projects its effect along a specified vector3 with a specified color.
-    /// \param lightDirection the direction of the new light.
-    /// \param diffuseColor diffuse color of the new light.
-    /// \param specularColor specular color of the new light.
-    directional_light(const scener::math::vector3& lightDirection
-                   , const scener::math::vector3& diffuseColor
-                   , const scener::math::vector3& specularColor) noexcept;
+    /// \param light_direction the direction of the new light.
+    /// \param diffuse diffuse color of the new light.
+    /// \param specular specular color of the new light.
+    directional_light(const math::vector3& light_direction
+                    , const math::vector3& diffuse
+                    , const math::vector3& specular) noexcept;
 
 public:
-    scener::math::vector3 direction;        ///< Gets or sets the light direction. This value must be a unit vector.
-    scener::math::vector3 diffuse_color;    ///< Gets or sets the diffuse color of the light.
-    scener::math::vector3 specular_color;   ///< Gets or sets the specular color of the light.
-    bool                  enabled;          ///< Gets or sets light enable flag.
+    math::vector3 direction;        ///< Gets or sets the light direction. This value must be a unit vector.
+    math::vector3 diffuse_color;    ///< Gets or sets the diffuse color of the light.
+    math::vector3 specular_color;   ///< Gets or sets the specular color of the light.
+    bool          enabled;          ///< Gets or sets light enable flag.
 };
 
 }}

@@ -28,7 +28,7 @@ public:
 public:
     /// Gets the BoundingSphere that contains this mesh.
     /// \returns The BoundingSphere that contains this mesh.
-    const scener::math::BoundingSphere& bounding_sphere() const noexcept;
+    const math::BoundingSphere& bounding_sphere() const noexcept;
 
     /// Gets the name of this mesh.
     /// \returns The name of this mesh.
@@ -57,7 +57,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<model_mesh_part>> _mesh_parts      { };
-    scener::math::BoundingSphere                  _bounding_sphere { scener::math::vector3::zero(), 0.0f };
+    math::BoundingSphere                          _bounding_sphere { math::vector3::zero(), 0.0f };
     std::shared_ptr<graphics::skeleton>           _skeleton        { nullptr };
     std::string                                   _name            { };
 

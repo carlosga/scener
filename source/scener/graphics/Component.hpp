@@ -33,7 +33,7 @@ public:
     graphics::renderer* renderer() noexcept;
 
     /// Called when the component should be updated.
-    void update(const steptime& renderTime) noexcept override;
+    void update(const steptime& time) noexcept override;
 
     /// Gets a value indicating whether the component is enabled.
     /// \returns true if the component is enabled; false otherwise.
@@ -48,8 +48,8 @@ public:
     std::uint32_t update_order() const noexcept override;
 
     /// Sets the order in which to update this object relative to other objects.
-    /// \param updateOrder the order in which to update this object relative to other objects.
-    void update_order(std::uint32_t updateOrder) noexcept;
+    /// \param order the order in which to update this object relative to other objects.
+    void update_order(std::uint32_t order) noexcept;
 
 protected:
     graphics::renderer* _renderer = nullptr;

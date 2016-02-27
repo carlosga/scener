@@ -19,14 +19,14 @@ enum class color_write_channels : std::uint32_t
   , all   = red | green | blue | alpha ///< All buffer channels.
 };
 
-inline constexpr color_write_channels operator&(const color_write_channels& left, const color_write_channels& right)
+inline constexpr color_write_channels operator&(const color_write_channels& lhs, const color_write_channels& rhs)
 {
-    return static_cast<color_write_channels>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
+    return static_cast<color_write_channels>(static_cast<std::uint32_t>(lhs) & static_cast<std::uint32_t>(rhs));
 }
 
-inline constexpr color_write_channels operator|(const color_write_channels& left, const color_write_channels& right)
+inline constexpr color_write_channels operator|(const color_write_channels& lhs, const color_write_channels& rhs)
 {
-    return static_cast<color_write_channels>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+    return static_cast<color_write_channels>(static_cast<std::uint32_t>(lhs) | static_cast<std::uint32_t>(rhs));
 }
 
 inline constexpr color_write_channels operator~(const color_write_channels& value)
@@ -34,28 +34,28 @@ inline constexpr color_write_channels operator~(const color_write_channels& valu
     return static_cast<color_write_channels>(~static_cast<std::uint32_t>(value));
 }
 
-inline constexpr bool operator==(const color_write_channels& left, const std::uint32_t& right)
+inline constexpr bool operator==(const color_write_channels& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) == right);
+    return (static_cast<std::uint32_t>(lhs) == rhs);
 }
 
-inline constexpr bool operator!=(const color_write_channels& left, const std::uint32_t& right)
+inline constexpr bool operator!=(const color_write_channels& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) != right);
+    return (static_cast<std::uint32_t>(lhs) != rhs);
 }
 
-inline color_write_channels& operator&=(color_write_channels& left, const color_write_channels& right)
+inline color_write_channels& operator&=(color_write_channels& lhs, const color_write_channels& rhs)
 {
-    left = left & right;
+    lhs = lhs & rhs;
 
-    return left;
+    return lhs;
 }
 
-inline color_write_channels& operator|=(color_write_channels& left, const color_write_channels& right)
+inline color_write_channels& operator|=(color_write_channels& lhss, const color_write_channels& rhs)
 {
-    left = left | right;
+    lhss = lhss | rhs;
 
-    return left;
+    return lhss;
 }
 
 }}

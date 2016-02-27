@@ -1,10 +1,10 @@
-// Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
+// Copyrhs (c) Carlos Guzmán Álvarez. All rhss reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 //---------------------------------------------------------------------------------------------------
 // Ported from Microsoft XNA Community Game Platform Stock Effects
 //---------------------------------------------------------------------------------------------------
 // Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
+// Copyrhs (C) Microsoft Corporation. All rhss reserved.
 //---------------------------------------------------------------------------------------------------
 
 #ifndef SCENER_GRAPHICS_EFFECTDIRTYFLAGS_HPP
@@ -28,14 +28,14 @@ enum class effect_dirty_flags : std::uint32_t
     all             = world_view_proj | world | eye_position | material_color | fog | fog_enable | alpha_test | shader_index
 };
 
-inline constexpr effect_dirty_flags operator&(const effect_dirty_flags& left, const effect_dirty_flags& right)
+inline constexpr effect_dirty_flags operator&(const effect_dirty_flags& lhs, const effect_dirty_flags& rhs)
 {
-    return static_cast<effect_dirty_flags>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
+    return static_cast<effect_dirty_flags>(static_cast<std::uint32_t>(lhs) & static_cast<std::uint32_t>(rhs));
 }
 
-inline constexpr effect_dirty_flags operator|(const effect_dirty_flags& left, const effect_dirty_flags& right)
+inline constexpr effect_dirty_flags operator|(const effect_dirty_flags& lhs, const effect_dirty_flags& rhs)
 {
-    return static_cast<effect_dirty_flags>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+    return static_cast<effect_dirty_flags>(static_cast<std::uint32_t>(lhs) | static_cast<std::uint32_t>(rhs));
 }
 
 inline constexpr effect_dirty_flags operator~(const effect_dirty_flags& value)
@@ -43,28 +43,28 @@ inline constexpr effect_dirty_flags operator~(const effect_dirty_flags& value)
     return static_cast<effect_dirty_flags>(~static_cast<std::uint32_t>(value));
 }
 
-inline constexpr bool operator==(const effect_dirty_flags& left, const std::uint32_t& right)
+inline constexpr bool operator==(const effect_dirty_flags& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) == right);
+    return (static_cast<std::uint32_t>(lhs) == rhs);
 }
 
-inline constexpr bool operator!=(const effect_dirty_flags& left, const std::uint32_t& right)
+inline constexpr bool operator!=(const effect_dirty_flags& lhs, const std::uint32_t& rhs)
 {
-    return (static_cast<std::uint32_t>(left) != right);
+    return (static_cast<std::uint32_t>(lhs) != rhs);
 }
 
-inline effect_dirty_flags& operator&=(effect_dirty_flags& left, const effect_dirty_flags& right)
+inline effect_dirty_flags& operator&=(effect_dirty_flags& lhs, const effect_dirty_flags& rhs)
 {
-    left = left & right;
+    lhs = lhs & rhs;
 
-    return left;
+    return lhs;
 }
 
-inline effect_dirty_flags& operator|=(effect_dirty_flags& left, const effect_dirty_flags& right)
+inline effect_dirty_flags& operator|=(effect_dirty_flags& lhs, const effect_dirty_flags& rhs)
 {
-    left = left | right;
+    lhs = lhs | rhs;
 
-    return left;
+    return lhs;
 }
 
 }}

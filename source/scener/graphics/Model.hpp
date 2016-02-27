@@ -49,7 +49,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<model_mesh>> _meshes;
-    std::string                             _name;
+    std::string                              _name;
 
     friend class scener::content::content_reader;
 };

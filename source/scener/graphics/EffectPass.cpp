@@ -8,8 +8,8 @@
 
 namespace scener { namespace graphics {
 
-effect_pass::effect_pass(gsl::not_null<graphics_device*> graphicsDevice) noexcept
-    : _graphics_device { graphicsDevice }
+effect_pass::effect_pass(gsl::not_null<graphics_device*> device) noexcept
+    : _graphics_device { device }
 {
 }
 

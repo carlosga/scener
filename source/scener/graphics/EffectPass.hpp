@@ -24,8 +24,8 @@ class effect_pass final
 {
 public:
     /// Initializes a new instance of the EffectPass class.
-    /// \param graphicsDevice The GraphicsDevice associated with this EffectPass.
-    effect_pass(gsl::not_null<graphics_device*> graphicsDevice) noexcept;
+    /// \param device The GraphicsDevice associated with this EffectPass.
+    effect_pass(gsl::not_null<graphics_device*> device) noexcept;
 
 public:
     /// Gets the name of this pass.
@@ -41,8 +41,8 @@ public:
 private:
     graphics_device*                               _graphics_device  { nullptr };
     std::vector<std::shared_ptr<effect_parameter>> _parameters       { };
-    std::shared_ptr<opengl::program>              _program          { nullptr };
-    std::string                                   _name             { };
+    std::shared_ptr<opengl::program>               _program          { nullptr };
+    std::string                                    _name             { };
 
     template <typename T> friend class scener::content::readers::content_type_reader;
 };

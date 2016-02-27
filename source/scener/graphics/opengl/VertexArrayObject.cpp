@@ -38,7 +38,7 @@ void vertex_array_object::unbind() const noexcept
     glBindVertexArray(0);
 }
 
-void vertex_array_object::declare(const vertex_declaration& declaration, std::uint32_t bindingIndex) const noexcept
+void vertex_array_object::declare(const vertex_declaration& declaration, std::uint32_t binding_index) const noexcept
 {
     const auto& elements = declaration.vertex_elements();
 
@@ -59,14 +59,14 @@ void vertex_array_object::declare(const vertex_declaration& declaration, std::ui
         }
 
         glEnableVertexArrayAttrib(_id, index);
-        glVertexArrayAttribBinding(_id, index, bindingIndex);
+        glVertexArrayAttribBinding(_id, index, binding_index);
     }
 }
 
 void vertex_array_object::bind_to_buffer(const buffer& buffer
-                                     , uint32_t      bindingIndex
-                                     , std::size_t   offset
-                                     , std::size_t   stride) noexcept
+                                       , uint32_t      bindingIndex
+                                       , std::size_t   offset
+                                       , std::size_t   stride) noexcept
 {
     glVertexArrayVertexBuffer(_id, bindingIndex, buffer.id(), offset, stride);
 }
@@ -78,9 +78,9 @@ void vertex_array_object::create() noexcept
     Ensures(_id > 0);
 }
 
-std::size_t vertex_array_object::get_element_count(vertex_element_format vertexFormat) const noexcept
+std::size_t vertex_array_object::get_element_count(vertex_element_format format) const noexcept
 {
-    switch (vertexFormat)
+    switch (format)
     {
         case vertex_element_format::single:
             return 1;
@@ -104,9 +104,9 @@ std::size_t vertex_array_object::get_element_count(vertex_element_format vertexF
     }
 }
 
-std::uint32_t vertex_array_object::get_element_type(vertex_element_format vertexFormat) const noexcept
+std::uint32_t vertex_array_object::get_element_type(vertex_element_format format) const noexcept
 {
-    switch (vertexFormat)
+    switch (format)
     {
         case vertex_element_format::byte4:
             return GL_UNSIGNED_BYTE;

@@ -21,11 +21,11 @@ public:
 public:
     /// Gets the ambient light for the current effect.
     /// \returns the ambient light for the current effect as a three component color.
-    virtual const scener::math::vector3& ambient_light_color() const noexcept = 0;
+    virtual const math::vector3& ambient_light_color() const noexcept = 0;
 
     /// Sets the ambient light for the current effect.
     /// \param ambientLightColor the ambient light for the current effect as a three component color.
-    virtual void ambient_light_color(const scener::math::vector3& ambientLightColor) noexcept = 0;
+    virtual void ambient_light_color(const math::vector3& ambientLightColor) noexcept = 0;
 
     /// Gets the first directional light.
     /// \returns the directional light.

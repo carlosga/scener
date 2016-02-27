@@ -13,28 +13,28 @@ using scener::graphics::opengl::buffer_target;
 using scener::graphics::opengl::buffer_usage;
 
 index_buffer::index_buffer(gsl::not_null<graphics_device*> device
-                         , component_type                  indexElementType
-                         , std::size_t                     indexCount) noexcept
-    : graphics_resource { device }
-    , _buffer           { buffer_target::element_array_buffer, buffer_usage::static_draw }
-    , _indexCount       { indexCount }
-    , _indexElementType { indexElementType }
+                         , component_type                  index_element_type
+                         , std::size_t                     index_count) noexcept
+    : graphics_resource   { device }
+    , _buffer             { buffer_target::element_array_buffer, buffer_usage::static_draw }
+    , _index_count        { index_count }
+    , _index_element_type { index_element_type }
 {
 }
 
 std::size_t index_buffer::index_count() const noexcept
 {
-    return _indexCount;
+    return _index_count;
 }
 
 component_type index_buffer::index_element_type() const noexcept
 {
-    return _indexElementType;
+    return _index_element_type;
 }
 
 std::size_t index_buffer::element_size_in_bytes() const noexcept
 {
-    switch (_indexElementType)
+    switch (_index_element_type)
     {
     case component_type::byte:
     case component_type::ubyte:
@@ -49,20 +49,20 @@ std::size_t index_buffer::element_size_in_bytes() const noexcept
 
 std::vector<std::uint8_t> index_buffer::get_data() const noexcept
 {
-    return get_data(0, _indexCount);
+    return get_data(0, _index_count);
 }
 
-std::vector<std::uint8_t> index_buffer::get_data(std::size_t startIndex, std::size_t elementCount) const noexcept
+std::vector<std::uint8_t> index_buffer::get_data(std::size_t start_index, std::size_t element_count) const noexcept
 {
-    auto offset = (startIndex * element_size_in_bytes());
-    auto size   = (elementCount * element_size_in_bytes());
+    auto offset = (start_index * element_size_in_bytes());
+    auto size   = (element_count * element_size_in_bytes());
 
     return _buffer.get_data(offset, size);
 }
 
 void index_buffer::set_data(const gsl::span<const std::uint8_t>& data) const noexcept
 {
-    _buffer.set_data(_indexCount * element_size_in_bytes(), data.data());
+    _buffer.set_data(_index_count * element_size_in_bytes(), data.data());
 }
 
 void index_buffer::bind() const noexcept

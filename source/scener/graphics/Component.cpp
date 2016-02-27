@@ -17,7 +17,7 @@ graphics::renderer* component::renderer() noexcept
     return _renderer;
 }
 
-void component::update(const steptime& renderTime) noexcept
+void component::update(const steptime& time) noexcept
 {
 }
 
@@ -36,9 +36,9 @@ std::uint32_t component::update_order() const noexcept
     return _update_order;
 }
 
-void component::update_order(std::uint32_t updateOrder) noexcept
+void component::update_order(std::uint32_t order) noexcept
 {
-    _update_order = updateOrder;
+    _update_order = order;
 }
 
 }}

@@ -16,17 +16,15 @@ public:
     steptime() noexcept;
 
     /// Initializes a new instance of the RenderTime class.
-    /// \param totalRenderTime the amount of render time since the start of the game.
-    /// \param elapsedRenderTime the amount of elapsed render time since the last update.
-    steptime(const scener::timespan& totalRenderTime, const scener::timespan& elapsedRenderTime) noexcept;
+    /// \param total_time the amount of render time since the start of the game.
+    /// \param elapsed_time the amount of elapsed render time since the last update.
+    steptime(const timespan& total_time, const timespan& elapsed_time) noexcept;
 
     /// Initializes a new instance of the RenderTime class.
     /// \param totalRenderTime the amount of render time since the start of the game.
-    /// \param elapsedRenderTime the amount of elapsed render time since the last update.
-    /// \param isRunningSlowly a value indicating that the render loop is taking longer than its target_elapsed_time.
-    steptime(const scener::timespan& totalRenderTime
-           , const scener::timespan& elapsedRenderTime
-           , bool                    isRunningSlowly) noexcept;
+    /// \param total_time the amount of elapsed render time since the last update.
+    /// \param running_slowly a value indicating that the render loop is taking longer than its target_elapsed_time.
+    steptime(const timespan& total_time, const timespan& elapsed_time, bool running_slowly) noexcept;
 
 public:
     /// Gets or sets the amount of elapsed render time since the last update.

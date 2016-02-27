@@ -12,12 +12,12 @@ directional_light::directional_light() noexcept
 {
 }
 
-directional_light::directional_light(const vector3& lightDirection
-                                 , const vector3& diffuseColor
-                                 , const vector3& specularColor) noexcept
-    : direction      { lightDirection }
-    , diffuse_color  { diffuseColor }
-    , specular_color { specularColor }
+directional_light::directional_light(const vector3& light_direction
+                                   , const vector3& diffuse
+                                   , const vector3& specular) noexcept
+    : direction      { light_direction }
+    , diffuse_color  { diffuse }
+    , specular_color { specular }
     , enabled        { false }
 {
 }

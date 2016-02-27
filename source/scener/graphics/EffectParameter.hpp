@@ -69,17 +69,17 @@ public:
     void set_value_transpose(const T& value) const noexcept;
 
 private:
-    std::size_t             _column_count    { 0 };
-    std::size_t             _row_count       { 0 };
-    std::size_t             _count           { 0 };
-    std::size_t             _offset          { 0 };
-    effect_parameter_class    _parameter_class { effect_parameter_class::scalar };
-    effect_parameter_type     _parameter_type  { effect_parameter_type::single };
+    std::size_t              _column_count    { 0 };
+    std::size_t              _row_count       { 0 };
+    std::size_t              _count           { 0 };
+    std::size_t              _offset          { 0 };
+    effect_parameter_class   _parameter_class { effect_parameter_class::scalar };
+    effect_parameter_type    _parameter_type  { effect_parameter_type::single };
     opengl::constant_buffer* _constant_buffer { nullptr };
-    std::string             _name            { };
-    std::string             _semantic        { };
-    std::string             _value           { };
-    std::string             _uniform_name    { };
+    std::string              _name            { };
+    std::string              _semantic        { };
+    std::string              _value           { };
+    std::string              _uniform_name    { };
 
     template <typename T> friend class scener::content::readers::content_type_reader;
 };

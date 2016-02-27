@@ -34,26 +34,26 @@ const std::string& animation::name() const noexcept
 
 void animation::update(const timespan& time, bool relativeToCurrentTime) noexcept
 {
-    auto       currentTime = time;
-    const auto count       = _keyframes.size();
+    auto       current_time = time;
+    const auto count        = _keyframes.size();
 
     // Update the animation position.
     if (relativeToCurrentTime)
     {
-        currentTime += _current_time;
+        current_time += _current_time;
 
         // If we reached the end, loop back to the start.
-        if (currentTime >= _duration)
+        if (current_time >= _duration)
         {
-            currentTime       = 0;
+            current_time       = 0;
             _current_time     = 0;
             _current_keyframe = 0;
         }
     }
 
     _current_time = timespan::from_seconds(scener::math::lerp(_current_time.total_seconds()
-                                                            , currentTime.total_seconds()
-                                                            , scener::math::pi<double> / 16));
+                                                             , current_time.total_seconds()
+                                                             , scener::math::pi<double> / 16));
 
     while (_current_keyframe < count)
     {

@@ -52,7 +52,7 @@ public:
     float mip_map_level_of_detail_bias { 0 };
 
 private:
-    void apply(std::uint32_t textureId) const noexcept;
+    void apply(std::uint32_t texture_id) const noexcept;
 
     template <typename T> friend class scener::content::readers::content_type_reader;
 };

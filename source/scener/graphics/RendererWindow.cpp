@@ -37,9 +37,9 @@ bool window::allow_user_resizing() const noexcept
     return _renderer->_device_manager->allow_user_resizing;
 }
 
-void window::allow_user_resizing(bool allowUserResizing) noexcept
+void window::allow_user_resizing(bool allow_user_resizing) noexcept
 {
-    _renderer->_device_manager->allow_user_resizing = allowUserResizing;
+    _renderer->_device_manager->allow_user_resizing = allow_user_resizing;
 }
 
 bool window::closed() const

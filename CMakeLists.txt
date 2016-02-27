@@ -21,7 +21,7 @@ set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
-set (SCENER_MATH_INCLUDE_DIRS /home/carlos/development/projects/cpp/graphics/scener-math/include)
+set (SCENER_MATH_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../scener-math/include)
 
 # compiler and linker configurations
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -stdlib=libc++ -m64")

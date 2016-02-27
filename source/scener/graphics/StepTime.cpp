@@ -12,15 +12,15 @@ steptime::steptime() noexcept
 {
 }
 
-steptime::steptime(const timespan& totalRenderTime, const timespan& elapsedRenderTime) noexcept
-    : steptime { totalRenderTime, elapsedRenderTime, false }
+steptime::steptime(const timespan& total_time, const timespan& elapsed_time) noexcept
+    : steptime { total_time, elapsed_time, false }
 {
 }
 
-steptime::steptime(const timespan& totalRenderTime, const timespan& elapsedRenderTime, bool isRunningSlowly) noexcept
-    : total_render_time   { totalRenderTime }
-    , elapsed_render_time { elapsedRenderTime }
-    , is_running_slowly   { isRunningSlowly }
+steptime::steptime(const timespan& total_time, const timespan& elapsed_time, bool running_slowly) noexcept
+    : total_render_time   { total_time }
+    , elapsed_render_time { elapsed_time }
+    , is_running_slowly   { running_slowly }
 {
 }
 

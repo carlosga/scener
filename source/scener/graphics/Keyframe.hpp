@@ -19,20 +19,20 @@ public:
     /// Initializes a new instance of the Keyframe class.
     /// \param time specifies the time, in seconds, at which this keyframe occurs.
     /// \param transform the keyframe transformation.
-    keyframe(const scener::timespan& time, const scener::math::matrix4& transform) noexcept;
+    keyframe(const timespan& time, const math::matrix4& transform) noexcept;
 
 public:
     /// Gets the time, in seconds, at which this keyframe occurs.
     /// \returns the time, in seconds, at which this keyframe occurs.
-    const scener::timespan& time() const noexcept;
+    const timespan& time() const noexcept;
 
     /// Gets the keyframe transformation.
     /// \returns the keyframe transformation.
-    const scener::math::matrix4& transform() const noexcept;
+    const math::matrix4& transform() const noexcept;
 
 private:
-    scener::timespan      _time;
-    scener::math::matrix4 _transform;
+    timespan      _time;
+    math::matrix4 _transform;
 };
 
 }}

@@ -26,8 +26,8 @@ public:
     virtual std::uint32_t draw_order() const noexcept = 0;
 
     /// Called when the component should be drawn.
-    /// \param stepTime snapshot of the rendering timing state.
-    virtual void draw(const steptime& stepTime) noexcept = 0;
+    /// \param time snapshot of the rendering timing state.
+    virtual void draw(const steptime& time) noexcept = 0;
 };
 
 }}

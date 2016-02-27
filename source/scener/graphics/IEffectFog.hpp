@@ -38,7 +38,7 @@ public:
 
     /// Sets maximum z value for fog.
     /// \param fogEnd the distance from the camera to stop adding fog, in world space.
-    virtual void fog_end(float fogEnd) noexcept = 0;
+    virtual void fog_end(float fog_end) noexcept = 0;
 
     /// Gets minimum z value for fog.
     /// \returns the distance from the camera to begin adding fog, in world space.
@@ -46,7 +46,7 @@ public:
 
     /// Sets minimum z value for fog.
     /// \param forStart the distance from the camera to begin adding fog, in world space.
-    virtual void fog_start(float fogStart) noexcept = 0;
+    virtual void fog_start(float fog_start) noexcept = 0;
 };
 
 }}

@@ -148,24 +148,23 @@ private:
 
 private:
     float                                   _alpha;
-    scener::math::vector3                   _ambient_light_color;
-    std::vector<scener::math::matrix4>       _bone_transforms;
-    scener::math::vector3                   _diffuse_color;
-    directional_light                        _light_0;
-    directional_light                        _light_1;
-    directional_light                        _light_2;
+    math::vector3                           _ambient_light_color;
+    std::vector<math::matrix4>              _bone_transforms;
+    math::vector3                           _diffuse_color;
+    directional_light                       _light_0;
+    directional_light                       _light_1;
+    directional_light                       _light_2;
     bool                                    _lighting_enabled;
-    scener::math::vector3                   _emissive_color;
+    math::vector3                           _emissive_color;
     bool                                    _prefer_per_pixel_lighting;
-    scener::math::matrix4                   _projection;
-    scener::math::vector3                   _specular_color;
+    math::matrix4                           _projection;
+    math::vector3                           _specular_color;
     float                                   _specular_power;
     bool                                    _texture_enabled;
     std::vector<std::shared_ptr<texture2d>> _textures;
-    scener::math::matrix4                   _view;
-    scener::math::matrix4                   _world;
-
-    effect_dirty_flags                        _dirty_flags;
+    math::matrix4                           _view;
+    math::matrix4                           _world;
+    effect_dirty_flags                      _dirty_flags;
 
 private:
     std::vector<std::shared_ptr<effect_pass>>                _passes;

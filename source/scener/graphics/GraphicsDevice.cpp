@@ -3,6 +3,8 @@
 
 #include "GraphicsDevice.hpp"
 
+#include <gsl_assert.h>
+
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
 #include "EffectTechnique.hpp"
@@ -44,62 +46,47 @@ void graphics_device::clear(const Color& color) const noexcept
     glClear(bufferBits);
 }
 
-void graphics_device::draw_indexed_primitives(primitive_type primitiveType
-                                           , std::size_t   baseVertex
-                                           , std::size_t   minVertexIndex
-                                           , std::size_t   numVertices
-                                           , std::size_t   startIndex
-                                           , std::size_t   primitiveCount) const noexcept
+void graphics_device::draw_indexed_primitives(primitive_type primitive_type
+                                            , std::size_t    base_vertex
+                                            , std::size_t    min_vertex_index
+                                            , std::size_t    num_vertices
+                                            , std::size_t    start_index
+                                            , std::size_t    primitive_count) const noexcept
 {
-    if (index_buffer == nullptr)
-    {
-        throw std::runtime_error("Set the IndexBuffer before calling DrawIndexedPrimitives");
-    }
-    if (vertex_buffer == nullptr)
-    {
-        throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
-    }
-    if (effect == nullptr)
-    {
-        throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
-    }
+    Expects(index_buffer  != nullptr);
+    Expects(vertex_buffer != nullptr)
+    Expects(effect        != nullptr)
 
-    auto offset = startIndex * index_buffer->element_size_in_bytes();
+    auto offset = start_index * index_buffer->element_size_in_bytes();
 
     effect->begin();
     vertex_buffer->bind();
     index_buffer->bind();
 
-    glDrawElementsBaseVertex(static_cast<GLenum>(primitiveType)
-                           , static_cast<GLsizei>(get_element_count(primitiveType, primitiveCount))
+    glDrawElementsBaseVertex(static_cast<GLenum>(primitive_type)
+                           , static_cast<GLsizei>(get_element_count(primitive_type, primitive_count))
                            , static_cast<GLenum>(index_buffer->index_element_type())
                            , reinterpret_cast<void*>(offset)
-                           , static_cast<GLint>(baseVertex));
+                           , static_cast<GLint>(base_vertex));
 
     index_buffer->unbind();
     vertex_buffer->unbind();
     effect->end();
 }
 
-void graphics_device::draw_primitives(primitive_type primitiveType
-                                   , std::size_t   startVertex
-                                   , std::size_t   primitiveCount) const noexcept
+void graphics_device::draw_primitives(primitive_type primitive_type
+                                    , std::size_t    start_vertex
+                                    , std::size_t    primitive_count) const noexcept
 {
-    if (vertex_buffer == nullptr)
-    {
-        throw std::runtime_error("Set the VertexBuffer before calling DrawIndexedPrimitives");
-    }
-    if (effect == nullptr)
-    {
-        throw std::runtime_error("Set the effect before calling DrawIndexedPrimitives");
-    }
+    Expects(vertex_buffer != nullptr);
+    Expects(effect        != nullptr);
 
     effect->begin();
     vertex_buffer->bind();
 
-    glDrawArrays(static_cast<GLenum>(primitiveType)
-               , static_cast<GLint>(startVertex)
-               , static_cast<GLsizei>(primitiveCount));
+    glDrawArrays(static_cast<GLenum>(primitive_type)
+               , static_cast<GLint>(start_vertex)
+               , static_cast<GLsizei>(primitive_count));
 
     vertex_buffer->unbind();
     effect->end();

@@ -3,6 +3,7 @@ project (SceneR)
 enable_language(CXX)
 
 # compile options
+add_compile_options(-Wshadow)
 #add_compile_options(-Wall                       -Wextra
 #                    -Weverything                -Wno-reserved-id-macro
 #                    -Wno-c++98-compat           -Wno-c++98-compat-pedantic

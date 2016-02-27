@@ -24,11 +24,11 @@ class index_buffer final : public graphics_resource
 public:
     /// Initializes a new instance of the IndexBuffer class.
     /// \param device the graphics device object to associate with the index buffer.
-    /// \param indexElementType the type of each index.
-    /// \param indexCount the number of indices.
+    /// \param index_element_type the type of each index.
+    /// \param index_count the number of indices.
     index_buffer(gsl::not_null<graphics_device*> device
-               , component_type                  indexElementType
-               , std::size_t                     indexCount) noexcept;
+               , component_type                  index_element_type
+               , std::size_t                     index_count) noexcept;
 
     /// Releases all resources being used by this IndexBuffer.
     ~index_buffer() override = default;
@@ -51,10 +51,10 @@ public:
     std::vector<std::uint8_t> get_data() const noexcept;
 
     /// Gets a copy of the index buffer data, specifying the start index and number of elements.
-    /// \param startIndex index of the first element to get.
-    /// \param elementCount number of elements to get.
+    /// \param start_index index of the first element to get.
+    /// \param element_count number of elements to get.
     /// \returns a copy of the index buffer data.
-    std::vector<std::uint8_t> get_data(std::size_t startIndex, std::size_t elementCount) const noexcept;
+    std::vector<std::uint8_t> get_data(std::size_t start_index, std::size_t element_count) const noexcept;
 
     /// Sets the indices buffer data.
     /// \param data the new indices buffer data.
@@ -66,8 +66,8 @@ private:
 
 private:
     scener::graphics::opengl::buffer _buffer;
-    std::size_t                      _indexCount;
-    component_type                    _indexElementType;
+    std::size_t                      _index_count;
+    component_type                   _index_element_type;
 
     friend class scener::graphics::graphics_device;
 };

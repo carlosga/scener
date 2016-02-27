@@ -46,8 +46,8 @@ public:
     bool allow_user_resizing() const noexcept;
 
     /// Specifies whether to allow the user to resize the renderer window.
-    /// \param allowUserResizing true to allow window resizing; false otherwise.
-    void allow_user_resizing(bool allowUserResizing) noexcept;
+    /// \param allow_user_resizing true to allow window resizing; false otherwise.
+    void allow_user_resizing(bool allow_user_resizing) noexcept;
 
     /// Gets a value indicating whether the underliying display surface has been closed.
     /// \return true if the underliying display surface has been closed; false otherwise.
@@ -71,13 +71,13 @@ private:
     window& operator=(const window& window) = delete;
 
 private:
-    renderer*                               _renderer          { nullptr };
+    renderer*                                _renderer          { nullptr };
     std::unique_ptr<opengl::display_device>  _displayDevice     { nullptr };
     std::unique_ptr<opengl::display_surface> _displaySurface    { nullptr };
-    std::string                             _title             { };
-    nod::scoped_connection                  _close_connection  { };
-    nod::scoped_connection                  _resize_connection { };
-    bool                                    _closed            { false };
+    std::string                              _title             { };
+    nod::scoped_connection                   _close_connection  { };
+    nod::scoped_connection                   _resize_connection { };
+    bool                                     _closed            { false };
 
     friend class renderer;
 };

@@ -18,27 +18,27 @@ public:
 public:
     /// Gets the projection matrix in the current effect.
     /// \returns the projection transformation matrix.
-    virtual const scener::math::matrix4& projection() const noexcept = 0;
+    virtual const math::matrix4& projection() const noexcept = 0;
 
     /// Sets the projection matrix in the current effect.
     /// \param projection the projection transformation matrix.
-    virtual void projection(const scener::math::matrix4& projection) noexcept = 0;
+    virtual void projection(const math::matrix4& projection) noexcept = 0;
 
     /// Gets the view matrix in the current effect.
     /// \returns the view transformation matrix.
-    virtual const scener::math::matrix4& view() const noexcept = 0;
+    virtual const math::matrix4& view() const noexcept = 0;
 
     /// Sets the view matrix in the current effect.
     /// \param view the view transformation matrix.
-    virtual void view(const scener::math::matrix4& view) noexcept = 0;
+    virtual void view(const math::matrix4& view) noexcept = 0;
 
     /// Gets the world matrix in the current effect.
     /// \returns the world transformation matrix.
-    virtual const scener::math::matrix4& world() const noexcept = 0;
+    virtual const math::matrix4& world() const noexcept = 0;
 
     /// Sets the world matrix in the current effect.
     /// \param world the world transformation matrix.
-    virtual void world(const scener::math::matrix4& world) noexcept = 0;
+    virtual void world(const math::matrix4& world) noexcept = 0;
 };
 
 }}

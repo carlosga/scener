@@ -24,11 +24,11 @@ public:
 public:
     /// Gets the current time of the animation.
     /// \returns the current time of the animation.
-    const scener::timespan& current_time() const noexcept;
+    const timespan& current_time() const noexcept;
 
     /// Gets the animation duration.
     /// \returns the animation duration.
-    const scener::timespan& duration() const noexcept;
+    const timespan& duration() const noexcept;
 
     /// Gets the list of animation keyframes.
     /// \returns the list of animation keyframes.
@@ -47,8 +47,8 @@ public:
     void update(const scener::timespan& time, bool relativeToCurrentTime) noexcept;
 
 private:
-    scener::timespan      _current_time     { 0 };
-    scener::timespan      _duration         { 0 };
+    timespan              _current_time     { 0 };
+    timespan              _duration         { 0 };
     std::size_t           _current_keyframe { 0 };
     std::vector<keyframe> _keyframes        { };
     std::string           _name             { };

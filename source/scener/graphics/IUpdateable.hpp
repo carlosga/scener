@@ -27,8 +27,8 @@ public:
     virtual std::uint32_t update_order() const noexcept = 0;
 
     /// Called when the component should be updated.
-    /// \param stepTime snapshot of the rendering timing state.
-    virtual void update(const steptime& stepTime) noexcept = 0;
+    /// \param time snapshot of the rendering timing state.
+    virtual void update(const steptime& time) noexcept = 0;
 };
 
 }}
