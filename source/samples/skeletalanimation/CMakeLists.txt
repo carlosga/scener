@@ -1,12 +1,6 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (SceneR::Samples::skeletal-animation)
-enable_language(CXX)
-
-# include directories
-#include_directories (${JSON11_INCLUDE_DIRS}
-#                     ${GSL_INCLUDE_DIRS}
-#                     ${NOD_INCLUDE_DIRS}
-#                     ${SCENER_FRAMEWORK_INCLUDE_DIRS})
+project (scener::samples::skeletal-animation)
+enable_language (CXX)
 
 # pthread
 find_package (Threads REQUIRED)
@@ -31,7 +25,7 @@ add_custom_target (CONTENT_FILES SOURCES
                    content/earthshaker/skinning.glsl)
 
 # source files
-file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # add execlutable
 add_executable (skeletal-animation ${SOURCE_FILES})

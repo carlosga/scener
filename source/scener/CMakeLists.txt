@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (SceneR)
-enable_language(CXX)
+project (scener)
+enable_language (CXX)
 
 # compile options
 add_compile_options(-Wall                       -Wextra

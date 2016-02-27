@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (SceneR::Tests)
-enable_language(CXX)
+project (scener::tests)
+enable_language (CXX)
 
 # google test
 # http://crascit.com/2015/07/25/cmake-gtest/
