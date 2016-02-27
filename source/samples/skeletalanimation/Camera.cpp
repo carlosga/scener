@@ -14,9 +14,9 @@
 namespace skeletal_animation {
 
 using scener::graphics::steptime;
-using scener::input::Keys;
-using scener::input::Keyboard;
-using scener::input::KeyboardState;
+using scener::input::keys;
+using scener::input::keyboard;
+using scener::input::keyboard_state;
 using scener::math::degrees;
 using scener::math::radians;
 using scener::math::matrix4;
@@ -48,42 +48,42 @@ void Camera::initialize() noexcept
 
 void Camera::update(const steptime& renderTime) noexcept
 {
-    auto currentKeyboardState = Keyboard::get_state();
+    auto currentKeyboardState = keyboard::get_state();
     auto currentPosition      = _position;
     auto newPosition          = _position;
     auto currentRotation      = _rotation;
     auto newRotation          = _rotation;
 
-    if (currentKeyboardState.is_key_down(Keys::D))
+    if (currentKeyboardState.is_key_down(keys::D))
     {
         newPosition += { 1.0f, 0.0f, 0.0f };
     }
-    if (currentKeyboardState.is_key_down(Keys::A))
+    if (currentKeyboardState.is_key_down(keys::A))
     {
         newPosition += { -1.0f, 0.0f, 0.0f };
     }
-    if (currentKeyboardState.is_key_down(Keys::W))
+    if (currentKeyboardState.is_key_down(keys::W))
     {
         newPosition += { 0.0f, 0.0f, 1.0f };
     }
-    if (currentKeyboardState.is_key_down(Keys::S))
+    if (currentKeyboardState.is_key_down(keys::S))
     {
         newPosition += { 0.0f, 0.0f, -1.0f };
     }
-    if (currentKeyboardState.is_key_down(Keys::Z))
+    if (currentKeyboardState.is_key_down(keys::Z))
     {
         newPosition += { 0.0f, 1.0f, 0.0f };
     }
-    if (currentKeyboardState.is_key_down(Keys::C))
+    if (currentKeyboardState.is_key_down(keys::C))
     {
         newPosition += { 0.0f, -1.0f, 0.0f };
     }
 
-    if (currentKeyboardState.is_key_down(Keys::Q))
+    if (currentKeyboardState.is_key_down(keys::Q))
     {
         newRotation = currentRotation + renderTime.elapsed_render_time.total_seconds();
     }
-    if (currentKeyboardState.is_key_down(Keys::E))
+    if (currentKeyboardState.is_key_down(keys::E))
     {
         newRotation = currentRotation - renderTime.elapsed_render_time.total_seconds();
     }

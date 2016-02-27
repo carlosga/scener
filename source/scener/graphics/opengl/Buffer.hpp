@@ -76,8 +76,8 @@ private:
 
 private:
     std::uint32_t _id;
-    buffer_target  _target;
-    buffer_usage   _usage;
+    buffer_target _target;
+    buffer_usage  _usage;
 };
 
 }}}

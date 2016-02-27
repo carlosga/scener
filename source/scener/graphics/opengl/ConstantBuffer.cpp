@@ -8,9 +8,9 @@
 
 namespace scener { namespace graphics { namespace opengl {
 
-constant_buffer::constant_buffer(const std::string& name, std::uint32_t programId) noexcept
+constant_buffer::constant_buffer(const std::string& name, std::uint32_t program_id) noexcept
     : _buffer_object { buffer_target::uniform_buffer, buffer_usage::dynamic_draw }
-    , _program_id    { programId }
+    , _program_id    { program_id }
     , _index         { 0 }
     , _binding_point { 0 }
     , _size          { 0 }
@@ -71,7 +71,7 @@ void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_n
 void constant_buffer::create() noexcept
 {
     std::int32_t binding   = 0;
-    std::int32_t blockSize = 0;
+    std::int32_t blocksize = 0;
 
     // Get the uniform block index
     _index = glGetUniformBlockIndex(_program_id, _name.c_str());
@@ -80,11 +80,11 @@ void constant_buffer::create() noexcept
     glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
 
     // Get uniform block data size
-    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blockSize);
+    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blocksize);
 
     // update class members
     _binding_point = binding;
-    _size          = blockSize;
+    _size          = blocksize;
 
     // initialize the buffer object
     std::vector<std::uint8_t> data(_size, 0);

@@ -56,7 +56,7 @@ private:
 
 private:
     std::uint32_t _id;
-    shader_type    _type;
+    shader_type   _type;
     std::string   _name;
     std::string   _source;
 };

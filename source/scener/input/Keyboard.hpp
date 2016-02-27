@@ -13,18 +13,18 @@ namespace scener { namespace graphics { namespace opengl { class display_surface
 
 namespace scener { namespace input {
 
-enum class Keys     : std::uint32_t;
-enum class KeyState : std::uint32_t;
+enum class keys     : std::uint32_t;
+enum class key_state : std::uint32_t;
 
-class KeyboardState;
+class keyboard_state;
 
 /// Allows retrieval of keystrokes from a keyboard input device.
-class Keyboard
+class keyboard
 {
 public:
     /// Returns the current keyboard state.
     /// \returns current keyboard state.
-    static KeyboardState get_state() noexcept;
+    static keyboard_state get_state() noexcept;
 
     /// Gets or sets the window used for mouse processing.
     static void initialize(graphics::opengl::display_surface* s) noexcept;
@@ -33,9 +33,9 @@ private:
     static void key_callback(graphics::opengl::display_surface* s, int key, int scancode, int action, int mods) noexcept;
 
 private:
-    Keyboard() = delete;
-    Keyboard(const Keyboard& keyboard) = delete;
-    Keyboard& operator=(const Keyboard& keyboard) = delete;
+    keyboard() = delete;
+    keyboard(const keyboard& keyboard) = delete;
+    keyboard& operator=(const keyboard& keyboard) = delete;
 
 private:
     static graphics::opengl::display_surface* surface;

@@ -17,13 +17,13 @@ namespace opengl = scener::graphics::opengl;
 
 auto content_type_reader<opengl::program>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
 {
-    auto program        = std::make_shared<opengl::program>();
-    auto vertexShader   = source["vertexShader"].string_value();
-    auto fragmentShader = source["fragmentShader"].string_value();
+    auto program = std::make_shared<opengl::program>();
+    auto vshader = source["vertexShader"].string_value();
+    auto fshader = source["fragmentShader"].string_value();
 
     program->name = key;
-    program->add_shader(input->read_object<graphics::opengl::shader>(vertexShader));
-    program->add_shader(input->read_object<graphics::opengl::shader>(fragmentShader));
+    program->add_shader(input->read_object<opengl::shader>(vshader));
+    program->add_shader(input->read_object<opengl::shader>(fshader));
     program->link();
 
     return program;

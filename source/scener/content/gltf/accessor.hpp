@@ -75,13 +75,13 @@ public:
     gsl::span<const std::uint8_t> get_data(std::size_t offset, std::size_t count) const noexcept;
 
     /// Gets the element at the given offset from the accessor buffer.
-    /// \param elementOffset the offset of the element to return.
+    /// \param offset the offset of the element to return.
     /// \returns the requested element.
     template <typename T, typename = std::enable_if_t<std::is_constructible<T>::value>>
-    inline T get_element(std::size_t elementOffset) const noexcept
+    inline T get_element(std::size_t offset) const noexcept
     {
         T    result;
-        auto buffer = get_data(elementOffset, 1);
+        auto buffer = get_data(offset, 1);
 
         Ensures(sizeof(T) == buffer.size());
 
@@ -146,7 +146,7 @@ private:
     std::size_t                  _byte_offset     { 0 };
     std::size_t                  _byte_length     { 0 };
     std::size_t                  _byte_stride     { 0 };
-    graphics::component_type      _component_type  { graphics::component_type::single };
+    graphics::component_type     _component_type  { graphics::component_type::single };
     std::vector<float>           _max             { 0 };
     std::vector<float>           _min             { 0 };
     std::string                  _name            { };

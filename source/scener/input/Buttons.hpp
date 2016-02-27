@@ -9,7 +9,7 @@
 namespace scener { namespace input {
 
 /// Input device buttons.
-enum class Buttons : std::uint32_t
+enum class buttons : std::uint32_t
 {
     DPadUp               = 1            ///< Directional pad up.
   , DPadDown             = 2            ///< Directional pad down.
@@ -38,39 +38,39 @@ enum class Buttons : std::uint32_t
   , LeftThumbstickRight  = 1073741824   ///< Left stick is towards the right.
 };
 
-inline constexpr Buttons operator&(const Buttons& left, const Buttons& right)
+inline constexpr buttons operator&(const buttons& left, const buttons& right)
 {
-    return static_cast<Buttons>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
+    return static_cast<buttons>(static_cast<std::uint32_t>(left) & static_cast<std::uint32_t>(right));
 }
 
-inline constexpr Buttons operator|(const Buttons& left, const Buttons& right)
+inline constexpr buttons operator|(const buttons& left, const buttons& right)
 {
-    return static_cast<Buttons>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
+    return static_cast<buttons>(static_cast<std::uint32_t>(left) | static_cast<std::uint32_t>(right));
 }
 
-inline constexpr Buttons operator~(const Buttons& value)
+inline constexpr buttons operator~(const buttons& value)
 {
-    return static_cast<Buttons>(~static_cast<std::uint32_t>(value));
+    return static_cast<buttons>(~static_cast<std::uint32_t>(value));
 }
 
-inline constexpr bool operator==(const Buttons& left, const std::uint32_t& right)
+inline constexpr bool operator==(const buttons& left, const std::uint32_t& right)
 {
     return (static_cast<std::uint32_t>(left) == right);
 }
 
-inline constexpr bool operator!=(const Buttons& left, const std::uint32_t& right)
+inline constexpr bool operator!=(const buttons& left, const std::uint32_t& right)
 {
     return (static_cast<std::uint32_t>(left) != right);
 }
 
-inline Buttons& operator&=(Buttons& left, const Buttons& right)
+inline buttons& operator&=(buttons& left, const buttons& right)
 {
     left = left & right;
 
     return left;
 }
 
-inline Buttons& operator|=(Buttons& left, const Buttons& right)
+inline buttons& operator|=(buttons& left, const buttons& right)
 {
     left = left | right;
 

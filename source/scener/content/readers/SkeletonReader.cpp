@@ -34,20 +34,20 @@ auto content_type_reader<graphics::skeleton>::read(content_reader* input, const 
     }
 
     // Joints
-    const auto& jointNames = source["jointNames"].array_items();
-    const auto  jointCount = jointNames.size();
-    auto        boneIndex  = std::size_t { 0 };
+    const auto& joint_names = source["jointNames"].array_items();
+    const auto  joint_count = joint_names.size();
+    auto        bone_index  = std::size_t { 0 };
 
-    skeleton->_bones.reserve(jointCount);
-    skeleton->_bone_transforms.reserve(jointCount);
+    skeleton->_bones.reserve(joint_count);
+    skeleton->_bone_transforms.reserve(joint_count);
 
-    for (const auto& jointName : jointNames)
+    for (const auto& name : joint_names)
     {
-        auto node = input->find_joint_node(jointName.string_value());
+        auto node = input->find_joint_node(name.string_value());
 
         Ensures(node.get() != nullptr && node->joint.get() != nullptr);
 
-        node->joint->_index = boneIndex++;
+        node->joint->_index = bone_index++;
 
         skeleton->_bones.push_back(node->joint);
         skeleton->_bone_transforms.push_back(node->joint->transform());

@@ -33,11 +33,11 @@ class buffer_view;
 
 namespace scener { namespace graphics {
 
-class  effect_technique;
-class  model;
-class  model_mesh;
-class  sampler_state;
-class  texture2d;
+class effect_technique;
+class model;
+class model_mesh;
+class sampler_state;
+class texture2d;
 
 namespace opengl {
 
@@ -57,10 +57,10 @@ class content_reader final
 {
 public:
     /// Initializes a new instance of the ContentReader.
-    /// \param assetName the name of the asset to be readed.
+    /// \param assetname the name of the asset to be readed.
     /// \param manager the content_manager that owns this ContentReader.
     /// \param stream the base stream.
-    content_reader(const std::string& assetName, content::content_manager* manager, io::stream& stream) noexcept;
+    content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept;
 
     /// Releases all resources used by the current instance of the ContentReader class.
     ~content_reader() = default;
@@ -80,11 +80,11 @@ public:
 private:
     bool read_header() noexcept;
 
-    std::string get_asset_path(const std::string& assetName) const noexcept;
+    std::string get_asset_path(const std::string& assetname) const noexcept;
 
-    std::vector<std::uint8_t> read_external_reference(const std::string& assetName) const noexcept;
+    std::vector<std::uint8_t> read_external_reference(const std::string& assetname) const noexcept;
 
-    std::shared_ptr<gltf::node> find_joint_node(const std::string& jointName) const noexcept;
+    std::shared_ptr<gltf::node> find_joint_node(const std::string& jointname) const noexcept;
 
 private:
     template<typename T>
@@ -120,8 +120,8 @@ private:
     std::map<std::string, std::shared_ptr<scener::content::gltf::buffer_view>> _bufferViews { };
     std::map<std::string, std::shared_ptr<scener::content::gltf::node>>        _nodes       { };
     std::map<std::string, std::shared_ptr<scener::content::dds::surface>>      _images      { };
-    std::map<std::string, std::shared_ptr<scener::graphics::model_mesh>>        _meshes      { };
-    std::map<std::string, std::shared_ptr<scener::graphics::sampler_state>>     _samplers    { };
+    std::map<std::string, std::shared_ptr<scener::graphics::model_mesh>>       _meshes      { };
+    std::map<std::string, std::shared_ptr<scener::graphics::sampler_state>>    _samplers    { };
     std::map<std::string, std::shared_ptr<scener::graphics::opengl::shader>>   _shaders     { };
     std::map<std::string, std::shared_ptr<scener::graphics::texture2d>>        _textures    { };
 
@@ -146,7 +146,7 @@ inline std::shared_ptr<gltf::accessor> content_reader::get_object(const std::str
 
 template <>
 inline void content_reader::cache_object(const std::string&              key
-                                      , std::shared_ptr<gltf::accessor> object) noexcept
+                                       , std::shared_ptr<gltf::accessor> object) noexcept
 {
     _accessors[key] = object;
 }
@@ -166,7 +166,7 @@ inline std::shared_ptr<gltf::buffer> content_reader::get_object(const std::strin
 
 template <>
 inline void content_reader::cache_object(const std::string&            key
-                                      , std::shared_ptr<gltf::buffer> object) noexcept
+                                       , std::shared_ptr<gltf::buffer> object) noexcept
 {
     _buffers[key] = object;
 }
@@ -213,7 +213,7 @@ inline std::shared_ptr<dds::surface> content_reader::get_object(const std::strin
 
 template <>
 inline void content_reader::cache_object(const std::string&            key
-                                      , std::shared_ptr<dds::surface> object) noexcept
+                                       , std::shared_ptr<dds::surface> object) noexcept
 {
     _images[key] = object;
 }
@@ -233,7 +233,7 @@ inline std::shared_ptr<graphics::model_mesh> content_reader::get_object(const st
 
 template <>
 inline void content_reader::cache_object(const std::string&                   key
-                                      , std::shared_ptr<graphics::model_mesh> object) noexcept
+                                       , std::shared_ptr<graphics::model_mesh> object) noexcept
 {
     _meshes[key] = object;
 }
@@ -253,7 +253,7 @@ inline std::shared_ptr<gltf::node> content_reader::get_object(const std::string&
 
 template <>
 inline void content_reader::cache_object(const std::string&          key
-                                      , std::shared_ptr<gltf::node> object) noexcept
+                                       , std::shared_ptr<gltf::node> object) noexcept
 {
     _nodes[key] = object;
 }
@@ -280,7 +280,7 @@ inline std::shared_ptr<scener::graphics::sampler_state> content_reader::get_obje
 
 template <>
 inline void content_reader::cache_object(const std::string&                      key
-                                      , std::shared_ptr<graphics::sampler_state> object) noexcept
+                                       , std::shared_ptr<graphics::sampler_state> object) noexcept
 {
     _samplers[key] = object;
 }
@@ -300,7 +300,7 @@ inline std::shared_ptr<graphics::opengl::shader> content_reader::get_object(cons
 
 template <>
 inline void content_reader::cache_object(const std::string&                        key
-                                      , std::shared_ptr<graphics::opengl::shader> object) noexcept
+                                       , std::shared_ptr<graphics::opengl::shader> object) noexcept
 {
     _shaders[key] = object;
 }
@@ -320,7 +320,7 @@ inline std::shared_ptr<graphics::texture2d> content_reader::get_object(const std
 
 template <>
 inline void content_reader::cache_object(const std::string&                   key
-                                      , std::shared_ptr<graphics::texture2d> object) noexcept
+                                       , std::shared_ptr<graphics::texture2d> object) noexcept
 {
     _textures[key] = object;
 }

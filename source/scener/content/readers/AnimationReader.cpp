@@ -77,8 +77,7 @@ auto content_type_reader<graphics::animation>::read(content_reader* input, const
         animation->_keyframes.push_back({ time, transform });
     }
 
-    animation->_duration = animation->_keyframes.crbegin()->time();
-
+    animation->_duration      = animation->_keyframes.crbegin()->time();
     target->joint->_animation = animation;
 
     return animation;

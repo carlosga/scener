@@ -21,8 +21,8 @@ class constant_buffer final
 public:
     /// Initializes a new instance of the ConstantBuffer class.
     /// \param name the name of the constant buffer.
-    /// \param programId the name of the opengl program used to initialize the constant buffer.
-    constant_buffer(const std::string& name, std::uint32_t programId) noexcept;
+    /// \param program_id the name of the opengl program used to initialize the constant buffer.
+    constant_buffer(const std::string& name, std::uint32_t program_id) noexcept;
 
     /// Releases all resources being used by this ConstantBuffer.
     ~constant_buffer() = default;

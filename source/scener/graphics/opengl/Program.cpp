@@ -50,7 +50,7 @@ void program::bind() const noexcept
     }
 }
 
-void program::add_shader(std::shared_ptr<shader> shader) noexcept
+void program::add_shader(const std::shared_ptr<shader>& shader) noexcept
 {
     // compile the shader if necessary
     if (!shader->is_compiled())
@@ -129,9 +129,9 @@ std::map<std::string, std::size_t> program::get_uniform_offsets() const noexcept
     return uniformOffsets;
 }
 
-void program::activate_subroutine(shader_type type, std::uint32_t subroutineIndex) const noexcept
+void program::activate_subroutine(shader_type stage, std::uint32_t index) const noexcept
 {
-    glUniformSubroutinesuiv(static_cast<GLenum>(type), 1, &subroutineIndex);
+    glUniformSubroutinesuiv(static_cast<GLenum>(stage), 1, &index);
 }
 
 void program::create() noexcept
@@ -152,14 +152,14 @@ void program::verify_linking_state()
     {
         auto msg = std::string("Program linking failure: ");
 
-        GLint infoLogLength;
-        glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
+        GLint length;
+        glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &length);
 
-        if (infoLogLength)
+        if (length)
         {
-            std::string linkErrorMessage("", static_cast<std::size_t>(infoLogLength));
+            std::string linkErrorMessage("", static_cast<std::size_t>(length));
 
-            glGetProgramInfoLog(_id, infoLogLength, NULL, &linkErrorMessage[0]);
+            glGetProgramInfoLog(_id, length, NULL, &linkErrorMessage[0]);
 
             msg += linkErrorMessage;
         }

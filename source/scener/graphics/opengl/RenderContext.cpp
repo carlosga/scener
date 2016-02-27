@@ -13,8 +13,8 @@
 namespace scener { namespace graphics { namespace opengl {
 
 render_context::render_context(display_device* display, display_surface* surface) noexcept
-    : _display(display)
-    , _surface(surface)
+    : _display { display }
+    , _surface { surface }
 {
 }
 
@@ -96,13 +96,13 @@ void render_context::destroy() noexcept
 
 void render_context::enable_debug_output() const noexcept
 {
-    GLuint unusedIds = 0;
+    GLuint unused_ids = 0;
 
     // Enable debugging output
     // Other OpenGL 4.x debugging functions:
     //     glDebugMessageControl, glDebugMessageInsert, glGetDebugMessageLog.
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, true);
+    glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unused_ids, true);
     glDebugMessageCallback([] (GLenum        source
                              , GLenum        type
                              , GLuint        id
@@ -128,9 +128,9 @@ void render_context::present() const noexcept
     }
 }
 
-bool render_context::isExtensionSupported(const std::string& extList, const std::string& extension) noexcept
+bool render_context::isExtensionSupported(const std::string& extensions, const std::string& extension) noexcept
 {
-    return (extList.find(extension) != std::string::npos);
+    return (extensions.find(extension) != std::string::npos);
 }
 
 }}}

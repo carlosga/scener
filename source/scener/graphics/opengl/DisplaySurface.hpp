@@ -64,7 +64,7 @@ private:
     display_surface& operator=(const display_surface&) = delete;
 
 private:
-    display_device*       _display              { nullptr };
+    display_device*      _display              { nullptr };
     Drawable             _drawable             { 0 };
     XSetWindowAttributes _drawable_attribs     { };
     Atom                 _atomWmDeleteDrawable { };

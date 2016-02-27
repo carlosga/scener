@@ -27,11 +27,11 @@ auto content_type_reader<opengl::shader>::read(content_reader* input, const std:
 
 std::string content_type_reader<opengl::shader>::load_shader(content_reader* input, const std::string& uri) const noexcept
 {
-    auto buffer      = input->read_external_reference(uri);
-    auto rx          = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");
-    auto fonly       = std::regex_constants::format_first_only;
-    auto source      = std::string(buffer.begin(), buffer.end());
-    auto source_copy = source;
+    auto buffer = input->read_external_reference(uri);
+    auto rx     = std::regex("[ ]*#[ ]*include[ ]+[\"](.*)[\"].*");
+    auto fonly  = std::regex_constants::format_first_only;
+    auto source = std::string(buffer.begin(), buffer.end());
+    auto copy   = source;
 
     std::smatch m;
 
@@ -40,11 +40,11 @@ std::string content_type_reader<opengl::shader>::load_shader(content_reader* inp
         const auto include_buffer = input->read_external_reference(m[1].str());
         const auto include_source = std::string(include_buffer.begin(), include_buffer.end());
 
-        source_copy = std::regex_replace(source_copy, rx, include_source, fonly);
-        source      = m.suffix().str();
+        copy   = std::regex_replace(copy, rx, include_source, fonly);
+        source = m.suffix().str();
     }
 
-    return source_copy;
+    return copy;
 }
 
 }}}

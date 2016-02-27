@@ -9,7 +9,7 @@
 namespace scener { namespace input {
 
 /// Identifies the state of a keyboard key.
-enum class KeyState : std::uint32_t
+enum class key_state : std::uint32_t
 {
     down    ///< Key is pressed.
   , up      ///< Key is released.

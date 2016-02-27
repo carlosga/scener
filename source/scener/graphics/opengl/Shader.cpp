@@ -91,14 +91,14 @@ void shader::verify_compilation_state()
 
     std::string msg("Compile failure in shader:\n");
 
-    GLint infoLogLength;
-    glGetShaderiv(_id, GL_INFO_LOG_LENGTH, &infoLogLength);
+    GLint length;
+    glGetShaderiv(_id, GL_INFO_LOG_LENGTH, &length);
 
-    if (infoLogLength)
+    if (length)
     {
-        auto compileErrorMessage = std::string("", static_cast<std::size_t>(infoLogLength));
+        auto compileErrorMessage = std::string("", static_cast<std::size_t>(length));
 
-        glGetShaderInfoLog(_id, infoLogLength, NULL, &compileErrorMessage[0]);
+        glGetShaderInfoLog(_id, length, NULL, &compileErrorMessage[0]);
 
         msg += compileErrorMessage;
     }

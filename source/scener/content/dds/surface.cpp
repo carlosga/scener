@@ -15,9 +15,9 @@ void surface::load(const std::string& filename) noexcept
 {
     Expects(scener::io::file::exists(filename));
 
-    file_stream  stream(filename);
+    file_stream stream(filename);
     header      ddsheader;
-    std::size_t blockSize = 16;
+    std::size_t blocksize = 16;
 
     Ensures(stream.length() >= sizeof ddsheader);
 
@@ -56,7 +56,7 @@ void surface::load(const std::string& filename) noexcept
     if (ddsheader.pixel_format.fourcc == fourcc::dxt1)
     {
         _format   = surface_format::dxt1;
-        blockSize = 8;
+        blocksize = 8;
     }
     else if (ddsheader.pixel_format.fourcc == fourcc::dxt3)
     {
@@ -67,8 +67,8 @@ void surface::load(const std::string& filename) noexcept
         _format = surface_format::dxt5;
     }
 
-    auto mipmapWidth  = _width;
-    auto mipmapHeight = _height;
+    auto mipmapwidth  = _width;
+    auto mipmapheight = _height;
     auto position     = size_type { 0 };
     auto length       = stream.length() - sizeof ddsheader;
 
@@ -87,13 +87,13 @@ void surface::load(const std::string& filename) noexcept
 
     for (size_type level = 0; level < ddsheader.mipmap_count; ++level)
     {
-        auto size = std::max<size_type>(4, mipmapWidth) / 4 * std::max<size_type>(4, mipmapHeight) / 4 * blockSize;
+        auto size = std::max<size_type>(4, mipmapwidth) / 4 * std::max<size_type>(4, mipmapheight) / 4 * blocksize;
         auto view = _view.subspan(static_cast<std::ptrdiff_t>(position), static_cast<std::ptrdiff_t>(size));
 
-        _mipmaps.push_back({ level, mipmapWidth, mipmapHeight, view });
+        _mipmaps.push_back({ level, mipmapwidth, mipmapheight, view });
 
-        mipmapWidth  = std::max<std::size_t>(1, mipmapWidth  >>= 1);
-        mipmapHeight = std::max<std::size_t>(1, mipmapHeight >>= 1);
+        mipmapwidth  = std::max<std::size_t>(1, mipmapwidth  >>= 1);
+        mipmapheight = std::max<std::size_t>(1, mipmapheight >>= 1);
 
         position += size;
     }

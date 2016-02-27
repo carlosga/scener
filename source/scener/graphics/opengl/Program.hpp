@@ -41,7 +41,7 @@ public:
 
     /// Attachs the given shader to the program object.
     /// \param shader the shader to be attached to the program object.
-    void add_shader(std::shared_ptr<shader> shader) noexcept;
+    void add_shader(const std::shared_ptr<shader>& shader) noexcept;
 
     /// Deactivates this program instance.
     void unbind() const noexcept;
@@ -54,7 +54,9 @@ public:
     std::map<std::string, std::size_t> get_uniform_offsets() const noexcept;
 
     /// Loads the subroutine at the given index on the given shader stage.
-    void activate_subroutine(shader_type type, std::uint32_t subroutineIndex) const noexcept;
+    /// \param stage the shader stage.
+    /// \param index the subroutine index.
+    void activate_subroutine(shader_type stage, std::uint32_t index) const noexcept;
 
 private:
     void create() noexcept;

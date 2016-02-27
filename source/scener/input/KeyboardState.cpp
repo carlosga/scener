@@ -15,28 +15,28 @@ using scener::graphics::opengl::display_surface;
 // Array or parameter list of Keys to initialize as pressed.
 //KeyboardState(Keys[] keys);
 
-KeyboardState::KeyboardState(display_surface* surface) noexcept
+keyboard_state::keyboard_state(display_surface* surface) noexcept
     : _surface(surface)
 {
 }
 
-KeyState KeyboardState::get_key_state(Keys key) noexcept
+key_state keyboard_state::get_key_state(keys key) noexcept
 {
-    return (is_key_down(key) ? KeyState::down : KeyState::up);
+    return (is_key_down(key) ? key_state::down : key_state::up);
 }
 
-std::vector<Keys> KeyboardState::get_pressed_keys() noexcept
+std::vector<keys> keyboard_state::get_pressed_keys() noexcept
 {
     return { };
 }
 
-bool KeyboardState::is_key_down(Keys key) noexcept
+bool keyboard_state::is_key_down(keys key) noexcept
 {
     return false;
     // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_PRESS);
 }
 
-bool KeyboardState::is_key_up(Keys key) noexcept
+bool keyboard_state::is_key_up(keys key) noexcept
 {
     return false;
     // return (glfwGetKey(_window_handle, static_cast<int>(key)) == GLFW_RELEASE);

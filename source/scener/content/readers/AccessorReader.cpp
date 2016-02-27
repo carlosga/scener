@@ -18,33 +18,33 @@ using scener::graphics::component_type;
 auto content_type_reader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
     auto        accessor = std::make_shared<gltf::accessor>();
-    const auto& attType  = source["type"].string_value();
+    const auto& type     = source["type"].string_value();
 
-    if (attType == "SCALAR")
+    if (type == "SCALAR")
     {
         accessor->_attribute_type = attribute_type::scalar;
     }
-    else if (attType == "VEC2")
+    else if (type == "VEC2")
     {
         accessor->_attribute_type = attribute_type::vector2;
     }
-    else if (attType == "VEC3")
+    else if (type == "VEC3")
     {
         accessor->_attribute_type = attribute_type::vector3;
     }
-    else if (attType == "VEC4")
+    else if (type == "VEC4")
     {
         accessor->_attribute_type = attribute_type::vector4;
     }
-    else if (attType == "MAT2")
+    else if (type == "MAT2")
     {
         accessor->_attribute_type = attribute_type::matrix2;
     }
-    else if (attType == "MAT3")
+    else if (type == "MAT3")
     {
         accessor->_attribute_type = attribute_type::matrix3;
     }
-    else if (attType == "MAT4")
+    else if (type == "MAT4")
     {
         accessor->_attribute_type = attribute_type::matrix4;
     }

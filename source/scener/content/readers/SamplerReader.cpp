@@ -21,8 +21,8 @@ using scener::graphics::texture_filter;
 
 auto content_type_reader<sampler_state>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-    auto sampler   = std::make_shared<sampler_state>(gdService->device());
+    auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto sampler   = std::make_shared<sampler_state>(gdservice->device());
 
     sampler->name       = key;
     sampler->mag_filter = static_cast<texture_filter>(source["magFilter"].int_value());

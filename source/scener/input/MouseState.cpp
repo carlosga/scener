@@ -8,18 +8,18 @@
 
 namespace scener { namespace input {
 
-MouseState::MouseState() noexcept
+mouse_state::mouse_state() noexcept
 {
 }
 
-MouseState::MouseState(std::uint32_t x
+mouse_state::mouse_state(std::uint32_t x
                      , std::uint32_t y
                      , std::uint32_t scrollWheel
-                     , ButtonState   leftButton
-                     , ButtonState   middleButton
-                     , ButtonState   rightButton
-                     , ButtonState   xButton1
-                     , ButtonState   xButton2) noexcept
+                     , button_state   leftButton
+                     , button_state   middleButton
+                     , button_state   rightButton
+                     , button_state   xButton1
+                     , button_state   xButton2) noexcept
     : _x             { x            }
     , _y             { y            }
     , _scroll_wheel  { scrollWheel  }
@@ -32,49 +32,49 @@ MouseState::MouseState(std::uint32_t x
 }
 
 // Returns the state of the left mouse button.
-ButtonState MouseState::left_button() const noexcept
+button_state mouse_state::left_button() const noexcept
 {
     return _left_button;
 }
 
 // Returns the state of the middle mouse button.
-ButtonState MouseState::middle_button() const noexcept
+button_state mouse_state::middle_button() const noexcept
 {
     return _middle_button;
 }
 
 // Returns the state of the right mouse button.
-ButtonState MouseState::right_button() const noexcept
+button_state mouse_state::right_button() const noexcept
 {
     return _right_button;
 }
 
 // Gets the cumulative mouse scroll wheel value since the game was started.
-std::uint32_t MouseState::scroll_wheel_value() const noexcept
+std::uint32_t mouse_state::scroll_wheel_value() const noexcept
 {
     return _scroll_wheel;
 }
 
 // Specifies the horizontal position of the mouse cursor.
-std::uint32_t MouseState::x() const noexcept
+std::uint32_t mouse_state::x() const noexcept
 {
     return _x;
 }
 
 // Returns the state of XBUTTON1.
-ButtonState MouseState::xbutton_1() const noexcept
+button_state mouse_state::xbutton_1() const noexcept
 {
     return _xbutton_1;
 }
 
 // Returns the state of XBUTTON2.
-ButtonState MouseState::xbutton_2() const noexcept
+button_state mouse_state::xbutton_2() const noexcept
 {
     return _xbutton_2;
 }
 
 // Specifies the vertical position of the mouse cursor.
-std::uint32_t MouseState::y() const noexcept
+std::uint32_t mouse_state::y() const noexcept
 {
     return _y;
 }

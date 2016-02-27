@@ -50,7 +50,7 @@ public:
     void present() const noexcept;
 
 private:
-    static bool isExtensionSupported(const std::string& extList, const std::string& extension) noexcept;
+    static bool isExtensionSupported(const std::string& extensions, const std::string& extension) noexcept;
 
 private:
     render_context(const render_context&) = delete;
@@ -59,7 +59,7 @@ private:
 private:
     display_device*  _display { nullptr };
     display_surface* _surface { nullptr };
-    GLXContext      _context { 0 };
+    GLXContext       _context { 0 };
 };
 
 }}}

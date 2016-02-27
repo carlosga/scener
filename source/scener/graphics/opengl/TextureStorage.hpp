@@ -47,9 +47,9 @@ public:
     /// \param width the texture width.
     /// \param height the texture height.
     void declare_storage(scener::graphics::surface_format format
-                       , std::size_t                     levels
-                       , std::size_t                     width
-                       , std::size_t                     height) const noexcept;
+                       , std::size_t                      levels
+                       , std::size_t                      width
+                       , std::size_t                      height) const noexcept;
 
     /// Adds texture data to the texture object.
     /// \param format the format of the mipmap data.
@@ -57,7 +57,7 @@ public:
     /// \param width the mipmap width.
     /// \param height the mipmap height.
     /// \param data the mipmap data.
-    void set_data(scener::graphics::surface_format      format
+    void set_data(scener::graphics::surface_format     format
                 , std::size_t                          level
                 , std::size_t                          width
                 , std::size_t                          height
@@ -71,7 +71,7 @@ private:
     texture_storage& operator=(const texture_storage&) = delete;
 
 private:
-    std::uint32_t _id;
+    std::uint32_t  _id;
     texture_target _target;
 };
 

@@ -26,10 +26,10 @@ class content_manager final
 {
 public:
     /// Initializes a new instance of the content_manager class.
-    /// \param serviceProvider the service provider that the content_manager should use to locate services.
-    /// \param rootDirectory the root directory to search for content.
-    content_manager(gsl::not_null<graphics::service_container*> serviceProvider
-                 , const std::string&                                  rootDirectory) noexcept;
+    /// \param serviceprovider the service provider that the content_manager should use to locate services.
+    /// \param rootdirectory the root directory to search for content.
+    content_manager(gsl::not_null<graphics::service_container*> serviceprovider
+                 , const std::string&                           rootdirectory) noexcept;
 
     /// Releases all resources being used by the content_manager class.
     ~content_manager();
@@ -43,18 +43,18 @@ public:
 
 public:
     /// Loads the given asset.
-    std::shared_ptr<graphics::model> load(const std::string& assetName) noexcept;
+    std::shared_ptr<graphics::model> load(const std::string& assetname) noexcept;
 
     /// Disposes all data that was loaded by this content_manager.
     void unload() noexcept;
 
 private:
-    std::shared_ptr<io::file_stream> open_stream(const std::string& assetName) noexcept;
+    std::shared_ptr<io::file_stream> open_stream(const std::string& assetname) noexcept;
 
 private:
     graphics::service_container* _service_provider;
-    std::string                         _root_directory;
-    content_resource_manager            _resource_manager;
+    std::string                  _root_directory;
+    content_resource_manager     _resource_manager;
 };
 
 }}

@@ -25,9 +25,9 @@ using scener::graphics::texture2d;
 
 auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
     auto dds       = input->read_object<surface>(source["source"].string_value());
-    auto texture   = std::make_shared<texture2d>(gdService->device()
+    auto texture   = std::make_shared<texture2d>(gdservice->device()
                                                , dds->width()
                                                , dds->height()
                                                , dds->format());

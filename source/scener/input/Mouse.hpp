@@ -10,17 +10,17 @@ namespace scener { namespace graphics { namespace opengl { class display_surface
 
 namespace scener { namespace input {
 
-enum class Buttons     : std::uint32_t;
-enum class ButtonState : std::uint32_t;
+enum class buttons     : std::uint32_t;
+enum class button_state : std::uint32_t;
 
-class MouseState;
+class mouse_state;
 
 /// Allows retrieval of position and button clicks from a mouse input device.
-class Mouse
+class mouse
 {
 public:
     /// Gets the current state of the mouse, including mouse position and buttons pressed.
-    static MouseState get_state() noexcept;
+    static mouse_state get_state() noexcept;
 
     /// Sets the position of the mouse cursor relative to the upper-left corner of the window.
     static void set_position(std::uint32_t x, std::uint32_t y) noexcept;
@@ -44,9 +44,9 @@ private:
                                     , double                                    yoffset) noexcept;
 
 private:
-    Mouse() = delete;
-    Mouse(const Mouse& mouse) = delete;
-    Mouse& operator=(const Mouse& mouse) = delete;
+    mouse() = delete;
+    mouse(const mouse& mouse) = delete;
+    mouse& operator=(const mouse& mouse) = delete;
 
 private:
     static scener::graphics::opengl::display_surface* surface;

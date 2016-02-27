@@ -12,18 +12,18 @@ namespace scener { namespace input {
 
 using scener::graphics::opengl::display_surface;
 
-MouseState Mouse::get_state() noexcept
+mouse_state mouse::get_state() noexcept
 {
-    return MouseState();
+    return mouse_state();
 }
 
-void Mouse::set_position(std::uint32_t x, std::uint32_t y) noexcept
+void mouse::set_position(std::uint32_t x, std::uint32_t y) noexcept
 {
 }
 
-void Mouse::initialize(display_surface* s) noexcept
+void mouse::initialize(display_surface* s) noexcept
 {
-    Mouse::surface = s;
+    mouse::surface = s;
 
     // Enable mouse cursor (only needed for fullscreen mode)
     // glfwSetInputMode(window_handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -41,11 +41,11 @@ void Mouse::initialize(display_surface* s) noexcept
     // glfwSetScrollCallback(window_handle, Mouse::scroll_wheel_callback);
 }
 
-void Mouse::cursor_position_callback(display_surface* s, double xpos, double ypos) noexcept
+void mouse::cursor_position_callback(display_surface* s, double xpos, double ypos) noexcept
 {
 }
 
-void Mouse::mouse_button_callback(display_surface* s
+void mouse::mouse_button_callback(display_surface* s
                                 , std::uint32_t   button
                                 , std::uint32_t   action
                                 , std::uint32_t   mods) noexcept
@@ -54,10 +54,10 @@ void Mouse::mouse_button_callback(display_surface* s
 //                popup_menu();
 }
 
-void Mouse::scroll_wheel_callback(display_surface* s, double xoffset, double yoffset) noexcept
+void mouse::scroll_wheel_callback(display_surface* s, double xoffset, double yoffset) noexcept
 {
 }
 
-display_surface* Mouse::surface;
+display_surface* mouse::surface;
 
 }}

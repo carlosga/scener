@@ -34,8 +34,8 @@ using scener::graphics::opengl::program;
 
 auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-    auto effect    = std::make_shared<effect_technique>(gdService->device());
+    auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto effect    = std::make_shared<effect_technique>(gdservice->device());
 
     read_parameters(input, source, effect.get());
     add_default_pass(input, source, effect.get());
@@ -53,19 +53,19 @@ void content_type_reader<effect_technique>::read_parameters(content_reader*   in
 {
     for (const auto& uniform : node["uniforms"].object_items())
     {
-        const auto& paramRef  = node["parameters"][uniform.second.string_value()];
+        const auto& paramref  = node["parameters"][uniform.second.string_value()];
         auto        parameter = std::make_shared<effect_parameter>();
 
         parameter->_name         = uniform.second.string_value();
         parameter->_uniform_name = uniform.first;
-        parameter->_count        = static_cast<std::size_t>(paramRef["count"].int_value());
+        parameter->_count        = static_cast<std::size_t>(paramref["count"].int_value());
 
-        if (paramRef["node"].is_null() && !paramRef["semantic"].is_null())
+        if (paramref["node"].is_null() && !paramref["semantic"].is_null())
         {
-            parameter->_semantic = paramRef["semantic"].string_value();
+            parameter->_semantic = paramref["semantic"].string_value();
         }
 
-        describe_parameter(parameter.get(), paramRef["type"].int_value());
+        describe_parameter(parameter.get(), paramref["type"].int_value());
 
         effect->_parameters[parameter->_name] = parameter;
     }
@@ -77,11 +77,11 @@ void content_type_reader<effect_technique>::set_parameter_values(content_reader*
 {
     for (const auto& source : node.object_items())
     {
-        const auto  nodeId     = source.second["node"].string_value();
-        const auto& paramValue = source.second["value"];
-        auto&       parameter  = effect->_parameters[source.first];
+        const auto  nodeId    = source.second["node"].string_value();
+        const auto& pvalue    = source.second["value"];
+        auto&       parameter = effect->_parameters[source.first];
 
-        if (parameter == nullptr || paramValue.is_null())
+        if (parameter == nullptr || pvalue.is_null())
         {
             continue;
         }
@@ -97,28 +97,28 @@ void content_type_reader<effect_technique>::set_parameter_values(content_reader*
             switch (parameter->parameter_type())
             {
             case effect_parameter_type::boolean:
-                parameter->set_value<bool>(paramValue.bool_value());
+                parameter->set_value<bool>(pvalue.bool_value());
                 break;
             case effect_parameter_type::byte:
-                parameter->set_value<std::int8_t>(static_cast<std::int8_t>(paramValue.int_value()));
+                parameter->set_value<std::int8_t>(static_cast<std::int8_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::ubyte:
-                parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(paramValue.int_value()));
+                parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::int16:
-                parameter->set_value<std::int16_t>(static_cast<std::int16_t>(paramValue.int_value()));
+                parameter->set_value<std::int16_t>(static_cast<std::int16_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::uint16:
-                parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(paramValue.int_value()));
+                parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::int32:
-                parameter->set_value<std::int32_t>(static_cast<std::int32_t>(paramValue.int_value()));
+                parameter->set_value<std::int32_t>(static_cast<std::int32_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::uint32:
-                parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(paramValue.int_value()));
+                parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(pvalue.int_value()));
                 break;
             case effect_parameter_type::single:
-                parameter->set_value<float>(static_cast<float>(paramValue.number_value()));
+                parameter->set_value<float>(static_cast<float>(pvalue.number_value()));
                 break;
             case effect_parameter_type::string:
             case effect_parameter_type::texture:
@@ -135,19 +135,19 @@ void content_type_reader<effect_technique>::set_parameter_values(content_reader*
             switch (parameter->column_count())
             {
             case 2:
-                parameter->set_value(input->convert<vector2>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector2>(pvalue.array_items()));
                 break;
             case 3:
-                parameter->set_value(input->convert<vector3>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector3>(pvalue.array_items()));
                 break;
             case 4:
-                parameter->set_value(input->convert<vector4>(paramValue.array_items()));
+                parameter->set_value(input->convert<vector4>(pvalue.array_items()));
                 break;
             }
         }
         else if (parameter->parameter_class() == effect_parameter_class::matrix)
         {
-            parameter->set_value(input->convert<matrix4>(paramValue.array_items()));
+            parameter->set_value(input->convert<matrix4>(pvalue.array_items()));
         }
     }
 }
@@ -156,8 +156,8 @@ void content_type_reader<effect_technique>::add_default_pass(content_reader*   i
                                                         , const Json&      node
                                                         , effect_technique* effect) const noexcept
 {
-    auto gdService = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-    auto pass      = std::make_shared<effect_pass>(gdService->device());
+    auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto pass      = std::make_shared<effect_pass>(gdservice->device());
 
     pass->_name = "default_pass";
     pass->_parameters.reserve(effect->_parameters.size());

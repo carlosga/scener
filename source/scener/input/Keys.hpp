@@ -11,7 +11,7 @@
 namespace scener { namespace input {
 
 /// Identifies a particular key on a keyboard.
-enum class Keys : std::uint32_t
+enum class keys : std::uint32_t
 {
     none            = 0     ///< Reserved.
   , Back            = 1     ///< BACKSPACE key.

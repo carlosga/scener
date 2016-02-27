@@ -23,10 +23,10 @@ using scener::timespan;
 using scener::content::content_manager;
 using scener::graphics::graphics_device;
 using scener::graphics::opengl::render_context;
-using scener::input::Keyboard;
-using scener::input::KeyboardState;
-using scener::input::Keys;
-using scener::input::Mouse;
+using scener::input::keyboard;
+using scener::input::keyboard_state;
+using scener::input::keys;
+using scener::input::mouse;
 
 renderer::renderer(const std::string& root_directory) noexcept
     : _root_directory { root_directory }
@@ -126,8 +126,8 @@ void renderer::initialize() noexcept
         component->initialize();
     }
 
-    Keyboard::initialize(_window->display_surface());
-    Mouse::initialize(_window->display_surface());
+    keyboard::initialize(_window->display_surface());
+    mouse::initialize(_window->display_surface());
 }
 
 void renderer::load_content() noexcept

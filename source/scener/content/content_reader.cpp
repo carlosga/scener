@@ -14,8 +14,8 @@ namespace scener { namespace content {
 
 using json11::Json;
 
-content_reader::content_reader(const std::string& assetName, content::content_manager* manager, io::stream& stream) noexcept
-    : _asset_name      { assetName }
+content_reader::content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept
+    : _asset_name      { assetname }
     , _asset_reader    { stream }
     , _content_manager { manager }
     , _root            { }
@@ -86,23 +86,23 @@ bool content_reader::read_header() noexcept
     return true;
 }
 
-std::string content_reader::get_asset_path(const std::string& assetName) const noexcept
+std::string content_reader::get_asset_path(const std::string& assetname) const noexcept
 {
-    auto assetRoot = io::path::combine(io::path::get_directory_name(_asset_name), assetName);
+    auto assetRoot = io::path::combine(io::path::get_directory_name(_asset_name), assetname);
 
     return io::path::combine(_content_manager->root_directory(), assetRoot);
 }
 
-std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetName) const noexcept
+std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetname) const noexcept
 {
-    auto asset_path = get_asset_path(assetName);
+    auto path = get_asset_path(assetname);
 
-    Ensures(io::file::exists(asset_path));
+    Ensures(io::file::exists(path));
 
-    return io::file::read_all_bytes(asset_path);
+    return io::file::read_all_bytes(path);
 }
 
-std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointName) const noexcept
+std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointname) const noexcept
 {
     for (const auto& node : _nodes)
     {
@@ -110,7 +110,7 @@ std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& j
         {
             auto& joint = node.second->joint;
 
-            if (joint.get() && joint->name() == jointName)
+            if (joint.get() && joint->name() == jointname)
             {
                 return node.second;
             }

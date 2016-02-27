@@ -95,11 +95,11 @@ void display_device::sync() const noexcept
 bool display_device::check_glx_version() noexcept
 {
     // Check GLX version
-    GLint majorGLX = 0;
-    GLint minorGLX = 0;
-    glXQueryVersion(_display, &majorGLX, &minorGLX);
+    GLint major_version = 0;
+    GLint minor_version = 0;
+    glXQueryVersion(_display, &major_version, &minor_version);
 
-    return (majorGLX == 1 && minorGLX == 4);
+    return (major_version == 1 && minor_version == 4);
 }
 
 void display_device::open_display() noexcept
@@ -147,7 +147,7 @@ bool display_device::configure_frame_buffer() noexcept
 
 GLXFBConfig display_device::get_best_frame_buffer_configuration() const noexcept
 {
-    std::int32_t glxAttribs[] =
+    std::int32_t glx_attribs[] =
     {
         GLX_X_RENDERABLE  , true,
         GLX_DRAWABLE_TYPE , GLX_WINDOW_BIT,
@@ -164,7 +164,7 @@ GLXFBConfig display_device::get_best_frame_buffer_configuration() const noexcept
     };
 
     std::int32_t fbcount;
-    GLXFBConfig* fbc = glXChooseFBConfig(_display, _screen_id, glxAttribs, &fbcount);
+    GLXFBConfig* fbc = glXChooseFBConfig(_display, _screen_id, glx_attribs, &fbcount);
     if (!fbc)
     {
         return 0;
