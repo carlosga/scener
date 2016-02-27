@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/EarthShaker.hpp"
+#include "skeletalanimation/earthshaker.hpp"
 
 #include <scener/content/content_manager.hpp>
 #include <scener/graphics/effect_technique.hpp>
@@ -11,10 +11,10 @@
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
 
-#include "skeletalanimation/SampleRenderer.hpp"
-#include "skeletalanimation/Camera.hpp"
+#include "skeletalanimation/sample_renderer.hpp"
+#include "skeletalanimation/camera.hpp"
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 using scener::graphics::model;
 using scener::graphics::effect_technique;
@@ -67,4 +67,4 @@ void earthshaker::draw(const steptime& time) noexcept
     _model->draw(_world, camera_component->view, camera_component->projection);
 }
 
-}
+}}

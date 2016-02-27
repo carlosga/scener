@@ -1,16 +1,16 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/SampleRenderer.hpp"
+#include "skeletalanimation/sample_renderer.hpp"
 
 #include <scener/graphics/graphics_device.hpp>
 #include <scener/graphics/graphics_device_manager.hpp>
 #include <scener/math/color.hpp>
 
-#include "skeletalanimation/Camera.hpp"
-#include "skeletalanimation/EarthShaker.hpp"
+#include "skeletalanimation/camera.hpp"
+#include "skeletalanimation/earthshaker.hpp"
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 using scener::graphics::steptime;
 using scener::math::color;
@@ -44,4 +44,4 @@ void sample_renderer::draw(const steptime& time) noexcept
     renderer::draw(time);
 }
 
-}
+}}

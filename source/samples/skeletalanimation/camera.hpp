@@ -11,7 +11,7 @@
 #include <scener/math/matrix.hpp>
 #include <scener/math/vector.hpp>
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 class sample_renderer;
 
@@ -39,6 +39,6 @@ private:
     nod::scoped_connection _resize_connection;
 };
 
-}
+}}
 
 #endif // SKELETAL_ANIMATION_CAMERA_HPP

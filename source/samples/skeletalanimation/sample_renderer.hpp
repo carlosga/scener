@@ -8,13 +8,12 @@
 
 namespace scener { namespace graphics { struct steptime; } }
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 class sample_renderer : public scener::graphics::renderer
 {
 public:
     sample_renderer() noexcept;
-    ~sample_renderer() override = default;
 
 protected:
     void begin_run() noexcept override;
@@ -22,6 +21,6 @@ protected:
     void draw(const scener::graphics::steptime& time) noexcept override;
 };
 
-}
+}}
 
 #endif // SKELETAL_ANIMATION_SAMPLERENDERER_HPP

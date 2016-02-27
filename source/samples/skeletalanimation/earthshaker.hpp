@@ -16,7 +16,7 @@ struct steptime;
 
 }}
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 class sample_renderer;
 
@@ -40,6 +40,6 @@ private:
     scener::math::matrix4                    _world;
 };
 
-}
+}}
 
 #endif // SKELETAL_ANIMATION_EARTHSHAKER_HPP

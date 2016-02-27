@@ -1,11 +1,11 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/SampleRenderer.hpp"
+#include "skeletalanimation/sample_renderer.hpp"
 
 int main()
 {
-    skeletal_animation::sample_renderer renderer;
+    skeletal::animation::sample_renderer renderer;
 
     renderer.run();
 

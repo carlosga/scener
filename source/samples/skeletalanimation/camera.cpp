@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/Camera.hpp"
+#include "skeletalanimation/camera.hpp"
 
 #include <scener/graphics/graphics_device.hpp>
 #include <scener/graphics/window.hpp>
@@ -9,9 +9,9 @@
 #include <scener/input/keyboard.hpp>
 #include <scener/input/keyboard_state.hpp>
 
-#include "skeletalanimation/SampleRenderer.hpp"
+#include "skeletalanimation/sample_renderer.hpp"
 
-namespace skeletal_animation {
+namespace skeletal { namespace animation {
 
 using scener::graphics::steptime;
 using scener::input::keys;
@@ -113,4 +113,4 @@ void camera::update_projection() noexcept
     view       = scener::math::matrix::create_look_at(_position, vector3::zero(), vector3::up());
 }
 
-}
+}}
