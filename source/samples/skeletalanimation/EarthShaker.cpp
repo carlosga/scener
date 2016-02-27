@@ -21,14 +21,14 @@ using scener::graphics::effect_technique;
 using scener::graphics::steptime;
 using scener::math::matrix4;
 
-EarthShaker::EarthShaker(SampleRenderer* renderer) noexcept
+earthshaker::earthshaker(sample_renderer* renderer) noexcept
     : drawable_component { renderer }
-    , _model            { nullptr }
-    , _world            { matrix4::identity() }
+    , _model             { nullptr }
+    , _world             { matrix4::identity() }
 {
 }
 
-void EarthShaker::initialize() noexcept
+void earthshaker::initialize() noexcept
 {
     _world = scener::math::matrix::create_rotation_x({ -scener::math::pi_over_2<> })
            * scener::math::matrix::create_translation({ 0.0f, -70.0f, 0.0f });
@@ -36,7 +36,7 @@ void EarthShaker::initialize() noexcept
     drawable_component::initialize();
 }
 
-void EarthShaker::load_content() noexcept
+void earthshaker::load_content() noexcept
 {
     _model = _renderer->content_manager()->load("earthshaker/earthshaker");
 
@@ -49,22 +49,22 @@ void EarthShaker::load_content() noexcept
     }
 }
 
-void EarthShaker::unload_content() noexcept
+void earthshaker::unload_content() noexcept
 {
     _world = matrix4::identity();
     _model = nullptr;
 }
 
-void EarthShaker::update(const steptime& renderTime) noexcept
+void earthshaker::update(const steptime& time) noexcept
 {
-    _model->update(renderTime);
+    _model->update(time);
 }
 
-void EarthShaker::draw(const steptime& renderTime) noexcept
+void earthshaker::draw(const steptime& time) noexcept
 {
-    const auto camera = std::dynamic_pointer_cast<Camera>(_renderer->components()[0]);
+    const auto camera_component = std::dynamic_pointer_cast<camera>(_renderer->components()[0]);
 
-    _model->draw(_world, camera->view, camera->projection);
+    _model->draw(_world, camera_component->view, camera_component->projection);
 }
 
 }

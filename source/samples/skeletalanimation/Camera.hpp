@@ -13,17 +13,17 @@
 
 namespace skeletal_animation {
 
-class SampleRenderer;
+class sample_renderer;
 
-class Camera : public scener::graphics::component
+class camera : public scener::graphics::component
 {
 public:
-    Camera(SampleRenderer* renderer) noexcept;
-    ~Camera() override = default;
+    camera(sample_renderer* renderer) noexcept;
+    ~camera() override = default;
 
 public:
     void initialize() noexcept override;
-    void update(const scener::graphics::steptime& renderTime) noexcept override;
+    void update(const scener::graphics::steptime& time) noexcept override;
 
 private:
     void update_projection() noexcept;
@@ -34,7 +34,7 @@ public:
 
 private:
     scener::math::vector3  _position;
-    scener::math::matrix4  _rotationTransform;
+    scener::math::matrix4  _rotation_transform;
     scener::math::degrees  _rotation;
     nod::scoped_connection _resize_connection;
 };

@@ -5,7 +5,7 @@
 
 int main()
 {
-    skeletal_animation::SampleRenderer renderer;
+    skeletal_animation::sample_renderer renderer;
 
     renderer.run();
 

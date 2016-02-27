@@ -10,11 +10,11 @@ namespace scener { namespace graphics { struct steptime; } }
 
 namespace skeletal_animation {
 
-class SampleRenderer : public scener::graphics::renderer
+class sample_renderer : public scener::graphics::renderer
 {
 public:
-    SampleRenderer() noexcept;
-    ~SampleRenderer() override = default;
+    sample_renderer() noexcept;
+    ~sample_renderer() override = default;
 
 protected:
     void begin_run() noexcept override;

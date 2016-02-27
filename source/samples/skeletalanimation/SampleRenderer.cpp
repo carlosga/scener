@@ -15,12 +15,12 @@ namespace skeletal_animation {
 using scener::graphics::steptime;
 using scener::math::color;
 
-SampleRenderer::SampleRenderer() noexcept
+sample_renderer::sample_renderer() noexcept
     : renderer("./content")
 {
 }
 
-void SampleRenderer::begin_run() noexcept
+void sample_renderer::begin_run() noexcept
 {
     renderer::begin_run();
 
@@ -29,15 +29,15 @@ void SampleRenderer::begin_run() noexcept
     device_manager()->window_title                 = "SceneR";
 }
 
-void SampleRenderer::load_content() noexcept
+void sample_renderer::load_content() noexcept
 {
     renderer::load_content();
 
-    add_component(std::make_shared<Camera>(this));
-    add_component(std::make_shared<EarthShaker>(this));
+    add_component(std::make_shared<camera>(this));
+    add_component(std::make_shared<earthshaker>(this));
 }
 
-void SampleRenderer::draw(const steptime& time) noexcept
+void sample_renderer::draw(const steptime& time) noexcept
 {
     device()->clear(color::black());
 

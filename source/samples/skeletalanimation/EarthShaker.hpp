@@ -18,18 +18,18 @@ struct steptime;
 
 namespace skeletal_animation {
 
-class SampleRenderer;
+class sample_renderer;
 
-class EarthShaker : public scener::graphics::drawable_component
+class earthshaker : public scener::graphics::drawable_component
 {
 public:
-    EarthShaker(SampleRenderer* renderer) noexcept;
-    ~EarthShaker() override = default;
+    earthshaker(sample_renderer* renderer) noexcept;
+    ~earthshaker() override = default;
 
 public:
     void initialize() noexcept override;
-    void update(const scener::graphics::steptime& renderTime) noexcept override;
-    void draw(const scener::graphics::steptime& renderTime) noexcept override;
+    void update(const scener::graphics::steptime& time) noexcept override;
+    void draw(const scener::graphics::steptime& time) noexcept override;
 
 protected:
     void load_content() noexcept override;
@@ -37,7 +37,7 @@ protected:
 
 private:
     std::shared_ptr<scener::graphics::model> _model;
-    scener::math::matrix4                     _world;
+    scener::math::matrix4                    _world;
 };
 
 }
