@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "ModelMeshReader.hpp"
+#include "scener/content/readers/model_mesh_reader.hpp"
 
 #include <json11.hpp>
 
