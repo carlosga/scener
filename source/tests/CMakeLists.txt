@@ -41,11 +41,7 @@ add_executable (TestRunner ${HEADER_FILES} ${SOURCE_FILES})
 target_include_directories(TestRunner PRIVATE ${GSL_INCLUDE_DIRS})
 
 # target links
-target_link_libraries (TestRunner
-                       c++abi
-                       pthread
-                       gtest
-                       ${SCENER_LIBRARIES})
+target_link_libraries (TestRunner pthread gtest ${SCENER_LIBRARIES})
 
 # unit tests
 add_test(NAME scener_test_runner COMMAND TestRunner)

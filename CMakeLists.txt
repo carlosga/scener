@@ -24,10 +24,12 @@ set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 set (SCENER_MATH_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../scener-math/include)
 
 # compiler and linker configurations
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -stdlib=libc++ -m64")
-#set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64")
-#set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m64")
-#set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m64")
+set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -m64 -stdlib=libc++ -std=c++14")
+set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64 -stdlib=libc++ -lc++abi")
+set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m64 -stdlib=libc++ -lc++abi")
+set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m64 -stdlib=libc++ -lc++abi")
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
 
 #if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
 #    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -O0 -Wall -Wextra -Wno-unused-parameter")

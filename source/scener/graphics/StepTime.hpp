@@ -28,10 +28,10 @@ public:
 
 public:
     /// Gets or sets the amount of elapsed render time since the last update.
-    scener::timespan total_render_time;
+    timespan total_render_time;
 
     /// Gets or sets a value indicating that the render loop is taking longer than its target_elapsed_time.
-    scener::timespan elapsed_render_time;
+    timespan elapsed_render_time;
 
     /// Gets or sets the amount of render time since the start of the renderer.
     bool is_running_slowly;

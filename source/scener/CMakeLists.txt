@@ -38,4 +38,4 @@ target_include_directories (SceneR
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS})
 
 # target links
-target_link_libraries (SceneR c++abi pthread ${X11_LIBRARIES})
+target_link_libraries (SceneR pthread ${X11_LIBRARIES})

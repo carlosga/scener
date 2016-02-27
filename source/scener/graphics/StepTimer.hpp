@@ -23,21 +23,27 @@ public:
     void update_time_step() noexcept;
 
     /// Gets the time elapsed since the last timer reset.
-    scener::timespan elapsed_time() const noexcept;
+    constexpr timespan elapsed_time() const noexcept
+    {
+        return timespan::from_duration(current_time() - _start);
+    }
 
     /// Gets the time elapsed since the last time step update.
-    scener::timespan elapsed_time_step_time() const noexcept;
+    constexpr timespan elapsed_time_step_time() const noexcept
+    {
+        return timespan::from_duration(current_time() - _last_time_step);
+    }
 
 private:
-    scener::timespan::clock::time_point current_time() const noexcept;
+    timespan::clock::time_point current_time() const noexcept;
 
 private:
     steptimer(const steptimer& timer) = delete;
     steptimer& operator=(const steptimer& timer) = delete;
 
 private:
-    scener::timespan::clock::time_point _start          { scener::timespan::clock::now() };
-    scener::timespan::clock::time_point _last_time_step { scener::timespan::clock::now() };
+    timespan::clock::time_point _start          { timespan::clock::now() };
+    timespan::clock::time_point _last_time_step { timespan::clock::now() };
 };
 
 }}

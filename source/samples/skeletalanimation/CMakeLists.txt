@@ -48,10 +48,7 @@ target_include_directories (skeletal-animation
                             PRIVATE ${SCENER_FRAMEWORK_INCLUDE_DIRS})
 
 # target links
-target_link_libraries (skeletal-animation
-                       c++abi
-                       pthread
-                       ${SCENER_LIBRARIES})
+target_link_libraries (skeletal-animation pthread ${SCENER_LIBRARIES})
 
 # copy content files
 add_custom_command (TARGET skeletal-animation PRE_BUILD
