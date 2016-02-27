@@ -5,7 +5,7 @@
 
 #include <scener/graphics/graphics_device.hpp>
 #include <scener/graphics/graphics_device_manager.hpp>
-#include <scener/math/Color.hpp>
+#include <scener/math/color.hpp>
 
 #include "skeletalanimation/Camera.hpp"
 #include "skeletalanimation/EarthShaker.hpp"
@@ -13,7 +13,7 @@
 namespace skeletal_animation {
 
 using scener::graphics::steptime;
-using scener::math::Color;
+using scener::math::color;
 
 SampleRenderer::SampleRenderer() noexcept
     : renderer("./content")
@@ -39,7 +39,7 @@ void SampleRenderer::load_content() noexcept
 
 void SampleRenderer::draw(const steptime& time) noexcept
 {
-    device()->clear(Color::black);
+    device()->clear(color::black());
 
     renderer::draw(time);
 }

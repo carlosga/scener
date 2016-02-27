@@ -13,7 +13,7 @@
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
-#include "scener/math/Color.hpp"
+#include "scener/math/color.hpp"
 
 namespace scener { namespace graphics {
 
@@ -59,7 +59,7 @@ public:
 
 public:
     /// Clears the resouce buffer
-    void clear(const scener::math::Color& color) const noexcept;
+    void clear(const math::color& color) const noexcept;
 
     /// Renders the specified geometric primitive, based on indexing into an array of vertices.
     /// \param primitive_type   the primitive type.

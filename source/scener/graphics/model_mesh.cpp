@@ -3,18 +3,13 @@
 
 #include "scener/graphics/model_mesh.hpp"
 
-#include <gsl.h>
-
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 
 namespace scener { namespace graphics {
 
-using scener::math::BoundingSphere;
-using scener::math::vector3;
-
-const BoundingSphere& model_mesh::bounding_sphere() const noexcept
+const math::bounding_sphere& model_mesh::bounding_sphere() const noexcept
 {
     return _bounding_sphere;
 }

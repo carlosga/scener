@@ -12,7 +12,7 @@
 #include "scener/graphics/blend_function.hpp"
 #include "scener/graphics/blend.hpp"
 #include "scener/graphics/color_write_channels.hpp"
-#include "scener/math/Color.hpp"
+#include "scener/math/color.hpp"
 
 namespace scener { namespace graphics {
 
@@ -42,7 +42,7 @@ public:
     blend alpha_source_blend { blend::one };
 
     /// Gets or sets the four-component (RGBA) blend factor for alpha blending.
-    scener::math::Color blend_factor { scener::math::Color::black };
+    math::color blend_factor { math::color::black() };
 
     /// Gets or sets the arithmetic operation when blending color values.
     blend_function color_blend_function { blend_function::add };

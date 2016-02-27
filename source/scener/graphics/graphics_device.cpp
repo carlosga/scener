@@ -12,8 +12,6 @@
 
 namespace scener { namespace graphics {
 
-using scener::math::Color;
-
 graphics_device::graphics_device() noexcept
     : effect                   { nullptr }
     , index_buffer             { nullptr }
@@ -26,7 +24,7 @@ graphics_device::graphics_device() noexcept
 {
 }
 
-void graphics_device::clear(const Color& color) const noexcept
+void graphics_device::clear(const math::color& color) const noexcept
 {
     std::uint32_t bufferBits = GL_COLOR_BUFFER_BIT;
 

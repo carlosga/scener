@@ -9,7 +9,7 @@
 #include <string>
 
 #include "scener/graphics/skeleton.hpp"
-#include "scener/math/BoundingSphere.hpp"
+#include "scener/math/bounding_sphere.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 
@@ -28,7 +28,7 @@ public:
 public:
     /// Gets the BoundingSphere that contains this mesh.
     /// \returns The BoundingSphere that contains this mesh.
-    const math::BoundingSphere& bounding_sphere() const noexcept;
+    const math::bounding_sphere& bounding_sphere() const noexcept;
 
     /// Gets the name of this mesh.
     /// \returns The name of this mesh.
@@ -49,7 +49,7 @@ public:
 
     /// Gets the skeleton associated to this mesh.
     /// \returns the skeleton associated to this mesh.
-    skeleton* skeleton() const noexcept;
+    graphics::skeleton* skeleton() const noexcept;
 
 public:
     /// Draws all of the ModelMeshPart objects in this mesh.
@@ -57,7 +57,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<model_mesh_part>> _mesh_parts      { };
-    math::BoundingSphere                          _bounding_sphere { math::vector3::zero(), 0.0f };
+    math::bounding_sphere                         _bounding_sphere { math::vector3::zero(), 0.0f };
     std::shared_ptr<graphics::skeleton>           _skeleton        { nullptr };
     std::string                                   _name            { };
 

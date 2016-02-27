@@ -7,8 +7,6 @@
 
 namespace scener { namespace graphics {
 
-using scener::math::Color;
-
 blend_state::blend_state(gsl::not_null<graphics_device*> device) noexcept
     : graphics_resource { device }
 {
