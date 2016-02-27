@@ -6,10 +6,10 @@
 #include <json11.hpp>
 
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/opengl/Buffer.hpp"
-#include "scener/graphics/opengl/ConstantBuffer.hpp"
-#include "scener/graphics/opengl/Program.hpp"
-#include "scener/graphics/opengl/Shader.hpp"
+#include "scener/graphics/opengl/buffer.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
+#include "scener/graphics/opengl/program.hpp"
+#include "scener/graphics/opengl/shader.hpp"
 
 namespace scener { namespace content { namespace readers {
 

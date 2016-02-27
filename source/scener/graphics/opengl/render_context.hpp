@@ -8,7 +8,7 @@
 
 #include <string>
 
-#include "scener/graphics/opengl/Platform.hpp"
+#include "scener/graphics/opengl/platform.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

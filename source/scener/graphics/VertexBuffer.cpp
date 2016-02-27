@@ -4,8 +4,8 @@
 #include "scener/graphics/VertexBuffer.hpp"
 
 #include "scener/graphics/GraphicsDevice.hpp"
-#include "scener/graphics/opengl/BufferTarget.hpp"
-#include "scener/graphics/opengl/BufferUsage.hpp"
+#include "scener/graphics/opengl/buffer_target.hpp"
+#include "scener/graphics/opengl/buffer_usage.hpp"
 
 namespace scener { namespace graphics {
 

@@ -12,8 +12,8 @@
 #include "scener/graphics/EffectTechnique.hpp"
 #include "scener/graphics/IGraphicsDeviceService.hpp"
 #include "scener/graphics/RendererServiceContainer.hpp"
-#include "scener/graphics/opengl/Platform.hpp"
-#include "scener/graphics/opengl/Program.hpp"
+#include "scener/graphics/opengl/platform.hpp"
+#include "scener/graphics/opengl/program.hpp"
 
 namespace scener { namespace content { namespace readers {
 

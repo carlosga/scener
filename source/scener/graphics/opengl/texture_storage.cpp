@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/opengl/TextureStorage.hpp"
+#include "scener/graphics/opengl/texture_storage.hpp"
 
 #include "scener/graphics/SurfaceFormat.hpp"
 

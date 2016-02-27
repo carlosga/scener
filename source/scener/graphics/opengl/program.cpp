@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/graphics/opengl/Program.hpp"
+#include "scener/graphics/opengl/program.hpp"
 
 #include <gsl_assert.h>
 
-#include "scener/graphics/opengl/Buffer.hpp"
-#include "scener/graphics/opengl/ConstantBuffer.hpp"
-#include "scener/graphics/opengl/Shader.hpp"
+#include "scener/graphics/opengl/buffer.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
+#include "scener/graphics/opengl/shader.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

@@ -12,7 +12,7 @@
 
 #include "scener/graphics/ComponentType.hpp"
 #include "scener/graphics/GraphicsResource.hpp"
-#include "scener/graphics/opengl/Buffer.hpp"
+#include "scener/graphics/opengl/buffer.hpp"
 
 namespace scener { namespace graphics {
 

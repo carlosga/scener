@@ -8,7 +8,7 @@
 #include <json11.hpp>
 
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/opengl/Shader.hpp"
+#include "scener/graphics/opengl/shader.hpp"
 
 namespace scener { namespace content { namespace readers {
 

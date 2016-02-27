@@ -19,8 +19,8 @@
 #include "scener/graphics/Texture2D.hpp"
 #include "scener/graphics/VertexBuffer.hpp"
 #include "scener/graphics/VertexDeclaration.hpp"
-#include "scener/graphics/opengl/Buffer.hpp"
-#include "scener/graphics/opengl/VertexArrayObject.hpp"
+#include "scener/graphics/opengl/buffer.hpp"
+#include "scener/graphics/opengl/vertex_array_object.hpp"
 
 using json11::Json;
 using scener::content::gltf::attribute_type;

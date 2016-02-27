@@ -5,7 +5,7 @@
 
 #include "scener/input/keys.hpp"
 #include "scener/input/key_state.hpp"
-#include "scener/graphics/opengl/DisplaySurface.hpp"
+#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace input {
 

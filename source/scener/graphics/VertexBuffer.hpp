@@ -10,8 +10,8 @@
 
 #include "scener/graphics/GraphicsResource.hpp"
 #include "scener/graphics/VertexDeclaration.hpp"
-#include "scener/graphics/opengl/Buffer.hpp"
-#include "scener/graphics/opengl/VertexArrayObject.hpp"
+#include "scener/graphics/opengl/buffer.hpp"
+#include "scener/graphics/opengl/vertex_array_object.hpp"
 
 namespace scener { namespace graphics {
 

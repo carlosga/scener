@@ -6,7 +6,7 @@
 #include "scener/input/buttons.hpp"
 #include "scener/input/button_state.hpp"
 #include "scener/input/mouse_state.hpp"
-#include "scener/graphics/opengl/DisplaySurface.hpp"
+#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace input {
 

@@ -6,8 +6,8 @@
 #include "scener/graphics/GraphicsDevice.hpp"
 #include "scener/graphics/GraphicsDeviceManager.hpp"
 #include "scener/graphics/Renderer.hpp"
-#include "scener/graphics/opengl/DisplayDevice.hpp"
-#include "scener/graphics/opengl/DisplaySurface.hpp"
+#include "scener/graphics/opengl/display_device.hpp"
+#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace graphics {
 

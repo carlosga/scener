@@ -3,12 +3,12 @@
 //
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 
-#include "scener/graphics/opengl/RenderContext.hpp"
+#include "scener/graphics/opengl/render_context.hpp"
 
 #include <iostream>
 
-#include "scener/graphics/opengl/DisplayDevice.hpp"
-#include "scener/graphics/opengl/DisplaySurface.hpp"
+#include "scener/graphics/opengl/display_device.hpp"
+#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 

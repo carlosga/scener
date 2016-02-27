@@ -4,7 +4,7 @@
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 // ==================================================================================================
 
-#include "scener/graphics/opengl/DisplayDevice.hpp"
+#include "scener/graphics/opengl/display_device.hpp"
 
 #include <iostream>
 

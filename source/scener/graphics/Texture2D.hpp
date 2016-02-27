@@ -12,7 +12,7 @@
 
 #include "scener/graphics/SurfaceFormat.hpp"
 #include "scener/graphics/Texture.hpp"
-#include "scener/graphics/opengl/TextureStorage.hpp"
+#include "scener/graphics/opengl/texture_storage.hpp"
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 

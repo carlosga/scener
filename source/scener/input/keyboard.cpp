@@ -4,7 +4,7 @@
 #include "scener/input/keyboard.hpp"
 
 #include "scener/input/keyboard_state.hpp"
-#include "scener/graphics/opengl/Platform.hpp"
+#include "scener/graphics/opengl/platform.hpp"
 
 namespace scener { namespace input {
 

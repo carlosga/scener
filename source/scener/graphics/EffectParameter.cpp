@@ -4,7 +4,7 @@
 #include "scener/graphics/EffectParameter.hpp"
 
 #include "scener/graphics/Texture.hpp"
-#include "scener/graphics/opengl/ConstantBuffer.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"
 

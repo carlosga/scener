@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include "scener/graphics/opengl/Platform.hpp"
+#include "scener/graphics/opengl/platform.hpp"
 
 namespace scener { namespace input {
 

@@ -10,7 +10,7 @@
 #include <gsl.h>
 
 #include "scener/graphics/SurfaceFormat.hpp"
-#include "scener/graphics/opengl/TextureTarget.hpp"
+#include "scener/graphics/opengl/texture_target.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
 
