@@ -258,10 +258,7 @@ void effect_technique::begin() noexcept
     }
     else
     {
-        for (const auto& pass : _passes)
-        {
-            pass->begin();
-        }
+        std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->begin(); });
     }
 
     if ((_dirty_flags & effect_dirty_flags::world_view_proj) != 0 || (_dirty_flags & effect_dirty_flags::world) != 0)
@@ -274,10 +271,7 @@ void effect_technique::begin() noexcept
 
     if (_texture_enabled)
     {
-        for (const auto& texture : _textures)
-        {
-            texture->bind();
-        }
+        std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->bind(); });
     }
 }
 
@@ -285,10 +279,7 @@ void effect_technique::end() noexcept
 {
     if (_texture_enabled)
     {
-        for (const auto& texture : _textures)
-        {
-            texture->unbind();
-        }
+        std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->unbind(); });
     }
 
     if (_pass != nullptr)
@@ -297,17 +288,14 @@ void effect_technique::end() noexcept
     }
     else
     {
-        for (const auto& pass : _passes)
-        {
-            pass->end();
-        }
+        std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
     }
 }
 
 void effect_technique::set_world_view_proj() const noexcept
 {
-    auto worldView     = _world * _view;
-    auto worldViewProj = worldView * _projection;
+    auto world_view      = _world * _view;
+    auto world_view_proj = world_view * _projection;
 
     if (_world_param.get())
     {
@@ -323,11 +311,11 @@ void effect_technique::set_world_view_proj() const noexcept
     }
     if (_world_view_param.get())
     {
-        _world_view_param->set_value(worldView);
+        _world_view_param->set_value(world_view);
     }
     if (_world_view_projection_param.get())
     {
-        _world_view_projection_param->set_value(worldViewProj);
+        _world_view_projection_param->set_value(world_view_proj);
     }
     if (_world_inverse_param.get())
     {
@@ -343,11 +331,11 @@ void effect_technique::set_world_view_proj() const noexcept
     }
     if (_world_view_inverse_param.get())
     {
-        _world_view_inverse_param->set_value(math::matrix::invert(worldView));
+        _world_view_inverse_param->set_value(math::matrix::invert(world_view));
     }
     if (_world_view_projection_inverse_param.get())
     {
-        _world_view_projection_inverse_param->set_value(math::matrix::invert(worldViewProj));
+        _world_view_projection_inverse_param->set_value(math::matrix::invert(world_view_proj));
     }
     if (_world_inverse_transpose_param.get())
     {
@@ -355,7 +343,7 @@ void effect_technique::set_world_view_proj() const noexcept
     }
     if (_world_view_inverse_transpose_param.get())
     {
-        _world_view_inverse_transpose_param->set_value(math::matrix::transpose(math::matrix::invert(worldView)));
+        _world_view_inverse_transpose_param->set_value(math::matrix::transpose(math::matrix::invert(world_view)));
     }
 }
 
