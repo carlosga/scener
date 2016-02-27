@@ -10,14 +10,12 @@
 
 namespace scener { namespace graphics {
 
-namespace sml = scener::math;
-
 using scener::graphics::opengl::constant_buffer;
-using sml::matrix4;
-using sml::quaternion;
-using sml::vector2;
-using sml::vector3;
-using sml::vector4;
+using scener::math::matrix4;
+using scener::math::quaternion;
+using scener::math::vector2;
+using scener::math::vector3;
+using scener::math::vector4;
 
 std::size_t effect_parameter::column_count() const noexcept
 {
@@ -259,7 +257,7 @@ void effect_parameter::set_value_transpose(const matrix4& value) const noexcept
 {
     Expects(_parameter_class == effect_parameter_class::matrix);
 
-    const auto transpose = sml::matrix::transpose(value);
+    const auto transpose = scener::math::matrix::transpose(value);
 
     _constant_buffer->set_data(_offset, sizeof(matrix4), transpose.data());
 }
@@ -275,7 +273,7 @@ void effect_parameter::set_value_transpose(const std::vector<matrix4>& value) co
 
     for (const auto& matrix4 : value)
     {
-        transposed.push_back(sml::matrix::transpose(matrix4));
+        transposed.push_back(scener::math::matrix::transpose(matrix4));
     }
 
     _constant_buffer->set_data(_offset, sizeof(matrix4) * transposed.size(), transposed.data());

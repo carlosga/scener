@@ -7,9 +7,10 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <string>
 #include <vector>
 
-#include <gsl.h>
+#include <span.h>
 
 #include "scener/content/gltf/attribute_type.hpp"
 #include "scener/graphics/component_type.hpp"

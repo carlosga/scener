@@ -153,8 +153,8 @@ void content_type_reader<effect_technique>::set_parameter_values(content_reader*
 }
 
 void content_type_reader<effect_technique>::add_default_pass(content_reader*   input
-                                                        , const Json&      node
-                                                        , effect_technique* effect) const noexcept
+                                                           , const Json&       node
+                                                           , effect_technique* effect) const noexcept
 {
     auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
     auto pass      = std::make_shared<effect_pass>(gdservice->device());
@@ -173,9 +173,9 @@ void content_type_reader<effect_technique>::add_default_pass(content_reader*   i
     effect->_pass = pass;
 }
 
-void content_type_reader<effect_technique>::read_pass_program(content_reader*     input
-                                                         , const std::string& programName
-                                                         , effect_pass*        effectPass) const noexcept
+void content_type_reader<effect_technique>::read_pass_program(content_reader*    input
+                                                            , const std::string& programName
+                                                            , effect_pass*       effectPass) const noexcept
 {
     // Pass program
     effectPass->_program = input->read_object_instance<program>(programName);

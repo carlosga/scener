@@ -39,9 +39,9 @@ void texture_storage::unbind() const noexcept
 }
 
 void texture_storage::declare_storage(surface_format format
-                                   , std::size_t   levels
-                                   , std::size_t   width
-                                   , std::size_t   height) const noexcept
+                                    , std::size_t    levels
+                                    , std::size_t    width
+                                    , std::size_t    height) const noexcept
 {
     glTextureStorage2D(_id
                      , static_cast<GLint>(levels)
@@ -50,11 +50,11 @@ void texture_storage::declare_storage(surface_format format
                      , static_cast<GLint>(height));
 }
 
-void texture_storage::set_data(surface_format                        format
-                            , std::size_t                          level
-                            , std::size_t                          width
-                            , std::size_t                          height
-                            , const gsl::span<const std::uint8_t>& data) const noexcept
+void texture_storage::set_data(surface_format                       format
+                             , std::size_t                          level
+                             , std::size_t                          width
+                             , std::size_t                          height
+                             , const gsl::span<const std::uint8_t>& data) const noexcept
 {
     auto si_level  = static_cast<GLint>(level);
     auto si_width  = static_cast<GLint>(width);

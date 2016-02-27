@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <gsl.h>
+#include <span.h>
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 

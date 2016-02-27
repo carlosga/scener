@@ -16,8 +16,8 @@ using json11::Json;
 
 content_reader::content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept
     : _asset_name      { assetname }
-    , _asset_reader    { stream }
-    , _content_manager { manager }
+    , _asset_reader    { stream    }
+    , _content_manager { manager   }
     , _root            { }
 {
 }
@@ -35,7 +35,7 @@ content::content_manager* content_reader::content_manager() const noexcept
 std::shared_ptr<graphics::model> content_reader::read_asset() noexcept
 {
     auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
-    auto errors = std::string();
+    auto errors = std::string { };
     auto model  = std::make_shared<graphics::model>();
 
     _root = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
@@ -88,9 +88,9 @@ bool content_reader::read_header() noexcept
 
 std::string content_reader::get_asset_path(const std::string& assetname) const noexcept
 {
-    auto assetRoot = io::path::combine(io::path::get_directory_name(_asset_name), assetname);
+    auto root = io::path::combine(io::path::get_directory_name(_asset_name), assetname);
 
-    return io::path::combine(_content_manager->root_directory(), assetRoot);
+    return io::path::combine(_content_manager->root_directory(), root);
 }
 
 std::vector<std::uint8_t> content_reader::read_external_reference(const std::string& assetname) const noexcept

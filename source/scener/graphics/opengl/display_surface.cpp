@@ -202,7 +202,7 @@ nod::connection display_surface::connect_closing(std::function<void()>&& slot) n
     return _closing_signal.connect(slot);
 }
 
-nod::connection display_surface::connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept
+nod::connection display_surface::connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept
 {
     return _resize_signal.connect(slot);
 }

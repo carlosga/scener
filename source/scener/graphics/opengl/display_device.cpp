@@ -95,8 +95,8 @@ void display_device::sync() const noexcept
 bool display_device::check_glx_version() noexcept
 {
     // Check GLX version
-    GLint major_version = 0;
-    GLint minor_version = 0;
+    std::int32_t major_version = 0;
+    std::int32_t minor_version = 0;
     glXQueryVersion(_display, &major_version, &minor_version);
 
     return (major_version == 1 && minor_version == 4);

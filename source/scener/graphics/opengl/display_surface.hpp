@@ -57,7 +57,7 @@ public:
 
 public:
     nod::connection connect_closing(std::function<void()>&& slot) noexcept;
-    nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
+    nod::connection connect_resize(std::function<void(std::int32_t, std::int32_t)>&& slot) noexcept;
 
 private:
     display_surface(const display_surface&) = delete;
@@ -72,7 +72,7 @@ private:
 
     // signals
     nod::signal<void()> _closing_signal;
-    nod::signal<void(std::uint32_t, std::uint32_t)> _resize_signal;
+    nod::signal<void(std::int32_t, std::int32_t)> _resize_signal;
 };
 
 }}}
