@@ -3,13 +3,12 @@ project (SceneR)
 enable_language(CXX)
 
 # compile options
-add_compile_options(-Wshadow)
-#add_compile_options(-Wall                       -Wextra
-#                    -Weverything                -Wno-reserved-id-macro
-#                    -Wno-c++98-compat           -Wno-c++98-compat-pedantic
-#                    -Wno-gnu-anonymous-struct   -Wno-nested-anon-types
-#                    -Wno-weak-vtables           -Wno-padded
-#                    -Wno-float-equal            -Wno-unused-parameter)
+add_compile_options(-Wall                       -Wextra
+                    -Weverything                -Wno-reserved-id-macro
+                    -Wno-c++98-compat           -Wno-c++98-compat-pedantic
+                    -Wno-gnu-anonymous-struct   -Wno-nested-anon-types
+                    -Wno-weak-vtables           -Wno-padded
+                    -Wno-float-equal            -Wno-unused-parameter)
 
 # pthread
 find_package (Threads REQUIRED)
