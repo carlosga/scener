@@ -31,7 +31,7 @@ file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 add_executable (skeletal-animation ${SOURCE_FILES})
 
 # enable 64 bit build
-set_target_properties (skeletal-animation PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
+#set_target_properties (skeletal-animation PROPERTIES COMPILE_FLAGS -m64 LINK_FLAGS -m64 -nostdlib -nodefaultlibs)
 
 # include directories
 target_include_directories (skeletal-animation
