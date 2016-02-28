@@ -8,9 +8,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "scener/text/Encoding.hpp"
-#include "scener/text/UTF8Decoder.hpp"
-#include "scener/text/UTF8Encoder.hpp"
+#include "scener/text/encoding.hpp"
+#include "scener/text/utf8_decoder.hpp"
+#include "scener/text/utf8_encoder.hpp"
 
 namespace scener { namespace text {
 
@@ -38,22 +38,22 @@ public:
     std::size_t get_byte_count(const std::vector<char16_t>& chars, std::size_t index, std::size_t count) const override;
 
     std::size_t get_bytes(const std::vector<char16_t>& chars
-                        , std::size_t                  charIndex
-                        , std::size_t                  charCount
+                        , std::size_t                  char_index
+                        , std::size_t                  char_count
                         , std::vector<std::uint8_t>&   bytes
-                        , std::size_t                  byteIndex) const override;
+                        , std::size_t                  byte_index) const override;
 
     std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;
 
     std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                        , std::size_t                      byteIndex
-                        , std::size_t                      byteCount
+                        , std::size_t                      byte_index
+                        , std::size_t                      byte_count
                         , std::vector<char16_t>&           chars
-                        , std::size_t                      charIndex) const override;
+                        , std::size_t                      char_index) const override;
 
-    std::size_t get_max_byte_count(std::size_t charCount) override;
+    std::size_t get_max_byte_count(std::size_t char_count) override;
 
-    std::size_t get_max_char_count(std::size_t byteCount) override;
+    std::size_t get_max_char_count(std::size_t byte_count) override;
 
     std::vector<std::uint8_t> get_preamble() const override;
 

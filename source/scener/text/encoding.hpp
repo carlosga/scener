@@ -19,13 +19,13 @@ class encoding
 {
 public:
     /// Converts an entire byte array from one encoding to another.
-    static std::vector<std::uint8_t> convert(const encoding&                  srcEncoding
-                                           , const encoding&                  dstEncoding
+    static std::vector<std::uint8_t> convert(const encoding&                  source_encoding
+                                           , const encoding&                  target_encoding
                                            , const std::vector<std::uint8_t>& bytes);
 
     /// Converts a range of bytes in a byte array from one encoding to another.
-    static std::vector<std::uint8_t> convert(const encoding&                  srcEncoding
-                                           , const encoding&                  dstEncoding
+    static std::vector<std::uint8_t> convert(const encoding&                  source_encoding
+                                           , const encoding&                  target_encoding
                                            , const std::vector<std::uint8_t>& bytes
                                            , std::size_t                      index
                                            , std::size_t                      count);
@@ -88,24 +88,24 @@ public:
     /// character pointer into a sequence of bytes that are stored
     /// starting at the specified byte pointer.
     std::size_t get_bytes(const char16_t* chars
-                        , std::size_t     charCount
+                        , std::size_t     char_count
                         , std::uint8_t*   bytes
-                        , std::size_t     byteCount) const;
+                        , std::size_t     byte_count) const;
 
     /// When overridden in a derived class, encodes a set of characters from the
     /// specified character array into the specified byte array.
     virtual std::size_t get_bytes(const std::vector<char16_t>& chars
-                                , std::size_t                  charIndex
-                                , std::size_t                  charCount
+                                , std::size_t                  char_index
+                                , std::size_t                  char_count
                                 , std::vector<std::uint8_t>&   bytes
-                                , std::size_t                  byteIndex) const = 0;
+                                , std::size_t                  byte_index) const = 0;
 
     /// Encodes a set of characters from the specified string into the specified byte array.
     std::size_t get_bytes(const std::u16string&      s
-                        , std::size_t                charIndex
-                        , std::size_t                charCount
+                        , std::size_t                char_index
+                        , std::size_t                char_count
                         , std::vector<std::uint8_t>& bytes
-                        , std::size_t                byteIndex) const;
+                        , std::size_t                byte_index) const;
 
     /// Calculates the number of characters produced by decoding
     /// all the bytesin the specified byte array.
@@ -133,17 +133,17 @@ public:
     /// into a set of characters that are stored starting at the specified
     /// character pointer.
     std::size_t get_chars(const std::uint8_t* bytes
-                        , std::size_t         byteCount
+                        , std::size_t         byte_count
                         , char16_t*           chars
-                        , std::size_t         charCount) const;
+                        , std::size_t         char_count) const;
 
     /// When overridden in a derived class, decodes a sequence of bytes from the
     /// specified std::uint8_t array into the specified character array.
     virtual std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                                , std::size_t                      byteIndex
-                                , std::size_t                      byteCount
+                                , std::size_t                      byte_index
+                                , std::size_t                      byte_count
                                 , std::vector<char16_t>&           chars
-                                , std::size_t                      charIndex) const = 0;
+                                , std::size_t                      char_index) const = 0;
 
     /// When overridden in a derived class, obtains a decoder that converts an encoded
     /// sequence of bytes into a sequence of characters.
@@ -155,11 +155,11 @@ public:
 
     /// When overridden in a derived class, calculates the maximum number of bytes
     /// produced by encoding the specified number of characters.
-    virtual std::size_t get_max_byte_count(std::size_t charCount) = 0;
+    virtual std::size_t get_max_byte_count(std::size_t char_count) = 0;
 
     /// When overridden in a derived class, calculates theB maximum number of characters
     /// produced by decoding the specified number of bytes.
-    virtual std::size_t get_max_char_count(std::size_t byteCount) = 0;
+    virtual std::size_t get_max_char_count(std::size_t byte_count) = 0;
 
     /// When overridden in a derived class, returns a sequence of bytes that specifies
     /// the encoding used.

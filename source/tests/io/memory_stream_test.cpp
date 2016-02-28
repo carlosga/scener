@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "MemoryStreamTest.hpp"
+#include "memory_stream_test.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -15,14 +15,14 @@ using namespace gsl;
 using namespace scener;
 using namespace scener::io;
 
-TEST_F(MemoryStreamTest, DefaultConstructor)
+TEST_F(memory_stream_test, constructor)
 {
     std::vector<std::uint8_t> vec(3);
     auto dv = as_span(vec);
     memory_stream stream(dv);
 }
 
-TEST_F(MemoryStreamTest, Read)
+TEST_F(memory_stream_test, read)
 {
     std::vector<std::uint8_t> vec = { 1, 2, 3 };
     auto dv = as_span(vec);
@@ -31,13 +31,13 @@ TEST_F(MemoryStreamTest, Read)
 
     stream.read(reinterpret_cast<char*>(out.data()), 0, 3);
 
-    EXPECT_TRUE(3 == out.size());
-    EXPECT_TRUE(1 == out[0]);
-    EXPECT_TRUE(2 == out[1]);
-    EXPECT_TRUE(3 == out[2]);
+    EXPECT_EQ(3, out.size());
+    EXPECT_EQ(1, out[0]);
+    EXPECT_EQ(2, out[1]);
+    EXPECT_EQ(3, out[2]);
 }
 
-TEST_F(MemoryStreamTest, ReadFloat)
+TEST_F(memory_stream_test, read_float)
 {
     std::vector<std::uint8_t> vec = { 0x00, 0x00, 0x00, 0x00
                                     , 0x00, 0x00, 0x80, 0x3F
@@ -47,8 +47,8 @@ TEST_F(MemoryStreamTest, ReadFloat)
     memory_stream stream(vec);
     binary_reader reader(stream);
 
-    EXPECT_TRUE(0.0f           == reader.read<float>());
-    EXPECT_TRUE(1.0f           == reader.read<float>());
-    EXPECT_TRUE(1.5000000E+001 == reader.read<float>());
-    EXPECT_TRUE(6.5535000E+004 == reader.read<float>());
+    EXPECT_EQ(0.0f          , reader.read<float>());
+    EXPECT_EQ(1.0f          , reader.read<float>());
+    EXPECT_EQ(1.5000000E+001, reader.read<float>());
+    EXPECT_EQ(6.5535000E+004, reader.read<float>());
 }

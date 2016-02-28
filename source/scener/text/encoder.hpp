@@ -41,9 +41,9 @@ public:
     /// A parameter indicates whether to clear the internal state of the encoder
     /// after the conversion.
     virtual std::size_t get_bytes(const char16_t* chars
-                                , std::size_t     charCount
+                                , std::size_t     char_count
                                 , std::uint8_t*   bytes
-                                , std::size_t     byteCount
+                                , std::size_t     byte_count
                                 , bool            flush) const;
 
     /// When overridden in a derived class, encodes a set of characters from the
@@ -51,10 +51,10 @@ public:
     /// the specified byte array. A parameter indicates whether to clear the internal
     /// state of the encoder after the conversion.
     virtual std::size_t get_bytes(const std::vector<char16_t>& chars
-                                , std::size_t                  charIndex
-                                , std::size_t                  charCount
+                                , std::size_t                  char_index
+                                , std::size_t                  char_count
                                 , std::vector<std::uint8_t>&   bytes
-                                , std::size_t                  byteIndex
+                                , std::size_t                  byte_index
                                 , bool                         flush) const = 0;
 
     /// When overridden in a derived class, sets the encoder back to its initial

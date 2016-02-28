@@ -241,13 +241,13 @@ void renderer::create_device() noexcept
 
 void renderer::fixed_time_step() noexcept
 {
-    _render_time.elapsed_render_time = _timer.elapsed_time_step_time();
-    _render_time.total_render_time   = _timer.elapsed_time();
-    _render_time.is_running_slowly   = _is_running_slowly;
+    _time.elapsed_render_time = _timer.elapsed_time_step_time();
+    _time.total_render_time   = _timer.elapsed_time();
+    _time.is_running_slowly   = _is_running_slowly;
 
     _timer.update_time_step();
 
-    update(_render_time);
+    update(_time);
 
     _is_running_slowly = (_timer.elapsed_time_step_time() > target_elapsed_time);
 
@@ -255,7 +255,7 @@ void renderer::fixed_time_step() noexcept
     {
         if (begin_draw())
         {
-            draw(_render_time);
+            draw(_time);
             end_draw();
         }
 

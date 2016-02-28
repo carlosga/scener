@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-class MemoryStreamTest : public testing::Test
+class memory_stream_test : public testing::Test
 {
 protected:
     // virtual void SetUp() will be called before each test is run.  You

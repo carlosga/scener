@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/text/UTF8Encoder.hpp"
+#include "scener/text/utf8_encoder.hpp"
 
 #include <algorithm>
 #include <locale>
@@ -11,9 +11,9 @@
 namespace scener { namespace text {
 
 std::size_t utf8_encoder::get_byte_count(const std::vector<char16_t>& chars
-                                      , std::size_t                  index
-                                      , std::size_t                  count
-                                      , bool                         flush) const
+                                       , std::size_t                  index
+                                       , std::size_t                  count
+                                       , bool                         flush) const
 {
     if (index > chars.size() || count > chars.size() || (index + count) > chars.size())
     {
@@ -60,31 +60,31 @@ std::size_t utf8_encoder::get_byte_count(const std::vector<char16_t>& chars
 }
 
 std::size_t utf8_encoder::get_bytes(const std::vector<char16_t>& chars
-                                 , std::size_t                  charIndex
-                                 , std::size_t                  charCount
-                                 , std::vector<std::uint8_t>&   bytes
-                                 , std::size_t                  byteIndex
-                                 , bool                         flush) const
+                                  , std::size_t                  char_index
+                                  , std::size_t                  char_count
+                                  , std::vector<std::uint8_t>&   bytes
+                                  , std::size_t                  byte_index
+                                  , bool                         flush) const
 {
-    if (charIndex > chars.size() || charCount > chars.size() || (charIndex + charCount) > chars.size())
+    if (char_index > chars.size() || char_count > chars.size() || (char_index + char_count) > chars.size())
     {
         throw std::invalid_argument("charIndex and charCount do not denote a valid range in chars.");
     }
-    if (byteIndex > bytes.size())
+    if (byte_index > bytes.size())
     {
         throw std::invalid_argument("byteIndex do not denote a valid offset in bytes.");
     }
 
-    const char16_t* from     = chars.data() + charIndex;
-    const char16_t* fromEnd  = from + charCount;
-    const char16_t* fromNext = nullptr;
-    auto            size     = charCount * _facet->max_length();
-    auto            to       = std::vector<char>(size, 0);
-    char*           toStart  = to.data();
-    char*           toEnd    = toStart + size;
-    char*           toNext   = nullptr;
-    auto            state    = std::mbstate_t();
-    auto            r        = _facet->out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    const char16_t* from      = chars.data() + char_index;
+    const char16_t* from_end  = from + char_count;
+    const char16_t* from_next = nullptr;
+    auto            size      = char_count * _facet->max_length();
+    auto            to        = std::vector<char>(size, 0);
+    char*           to_start  = to.data();
+    char*           to_end    = to_start + size;
+    char*           to_next   = nullptr;
+    auto            state     = std::mbstate_t();
+    auto            r         = _facet->out(state, from, from_end, from_next, to_start, to_end, to_next);
 
     if (r == std::codecvt_base::error)
     {
@@ -95,17 +95,17 @@ std::size_t utf8_encoder::get_bytes(const std::vector<char16_t>& chars
     }
     else if (r == std::codecvt_base::ok)
     {
-        auto count = static_cast<std::size_t>(toNext - toStart);
+        auto count = static_cast<std::size_t>(to_next - to_start);
 
-        if ((byteIndex + count) > bytes.size())
+        if ((byte_index + count) > bytes.size())
         {
             throw std::invalid_argument("bytes does not have enough capacity from byteIndex to the end of the array to accommodate the resulting bytes.");
         }
 
-        std::copy_n(to.begin(), count, bytes.begin() + byteIndex);
+        std::copy_n(to.begin(), count, bytes.begin() + byte_index);
     }
 
-    return static_cast<std::size_t>(toNext - toStart);
+    return static_cast<std::size_t>(to_next - to_start);
 }
 
 }}

@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-class UTF8EncodingTest : public testing::Test
+class utf8_encoding_test : public testing::Test
 {
 protected:
     // virtual void SetUp() will be called before each test is run.  You

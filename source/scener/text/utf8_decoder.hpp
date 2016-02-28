@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-#include "scener/text/Decoder.hpp"
+#include "scener/text/decoder.hpp"
 
 namespace scener { namespace text {
 
@@ -31,10 +31,10 @@ public:
     std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;
 
     std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                        , std::size_t                      byteIndex
-                        , std::size_t                      byteCount
+                        , std::size_t                      byte_index
+                        , std::size_t                      byte_count
                         , std::vector<char16_t>&           chars
-                        , std::size_t                      charIndex) const override;
+                        , std::size_t                      char_index) const override;
 
     void reset() override;
 

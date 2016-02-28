@@ -10,7 +10,7 @@
 #include <locale>
 #include <memory>
 
-#include "scener/text/Encoder.hpp"
+#include "scener/text/encoder.hpp"
 
 namespace scener { namespace text {
 
@@ -35,10 +35,10 @@ public:
                              , bool                         flush) const override;
 
     std::size_t get_bytes(const std::vector<char16_t>& chars
-                        , std::size_t                  charIndex
-                        , std::size_t                  charCount
+                        , std::size_t                  char_index
+                        , std::size_t                  char_count
                         , std::vector<std::uint8_t>&   bytes
-                        , std::size_t                  byteIndex
+                        , std::size_t                  byte_index
                         , bool                         flush) const override;
 
 private:

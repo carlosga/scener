@@ -1,13 +1,13 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "TimeSpanTest.hpp"
+#include "timespan_test.hpp"
 
 #include <scener/timespan.hpp>
 
 using namespace scener;
 
-TEST_F(TimeSpanTest, Max)
+TEST_F(timespan_test, max)
 {
     auto interval = timespan::max_value();
 
@@ -19,7 +19,7 @@ TEST_F(TimeSpanTest, Max)
     EXPECT_TRUE(interval.milli_seconds() == 477);
 }
 
-TEST_F(TimeSpanTest, Min)
+TEST_F(timespan_test, min)
 {
     auto interval = timespan::min_value();
 
@@ -31,7 +31,7 @@ TEST_F(TimeSpanTest, Min)
     EXPECT_TRUE(interval.milli_seconds() == -477);
 }
 
-TEST_F(TimeSpanTest, FromDays)
+TEST_F(timespan_test, from_days)
 {
     auto interval = timespan::from_days(12345.678987654);
 
@@ -42,7 +42,7 @@ TEST_F(TimeSpanTest, FromDays)
     EXPECT_TRUE(interval.milli_seconds() == 533);
 }
 
-TEST_F(TimeSpanTest, FromHours)
+TEST_F(timespan_test, from_hours)
 {
     auto interval = timespan::from_hours(123456.7898765);
 
@@ -53,7 +53,7 @@ TEST_F(TimeSpanTest, FromHours)
     EXPECT_TRUE(interval.milli_seconds() == 555);
 }
 
-TEST_F(TimeSpanTest, FromMilliseconds)
+TEST_F(timespan_test, from_milliseconds)
 {
     auto interval = timespan::from_milliseconds(1234567898765.4);
 
@@ -64,7 +64,7 @@ TEST_F(TimeSpanTest, FromMilliseconds)
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
-TEST_F(TimeSpanTest, FromMinutes)
+TEST_F(timespan_test, from_minutes)
 {
     auto interval = timespan::from_minutes(12345678.98765);
 
@@ -75,7 +75,7 @@ TEST_F(TimeSpanTest, FromMinutes)
     EXPECT_TRUE(interval.milli_seconds() == 259);
 }
 
-TEST_F(TimeSpanTest, FromSeconds)
+TEST_F(timespan_test, from_seconds)
 {
     auto interval = timespan::from_seconds(1234567898.7654);
 
@@ -86,7 +86,7 @@ TEST_F(TimeSpanTest, FromSeconds)
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
-TEST_F(TimeSpanTest, FromTicks)
+TEST_F(timespan_test, from_ticks)
 {
     auto interval = timespan::from_ticks(12345678987654321);
 
@@ -97,7 +97,7 @@ TEST_F(TimeSpanTest, FromTicks)
     EXPECT_TRUE(interval.milli_seconds() == 765);
 }
 
-TEST_F(TimeSpanTest, Zero)
+TEST_F(timespan_test, zero)
 {
     auto interval = timespan::zero();
 
@@ -109,77 +109,77 @@ TEST_F(TimeSpanTest, Zero)
     EXPECT_TRUE(interval.milli_seconds() == 0);
 }
 
-TEST_F(TimeSpanTest, Days)
+TEST_F(timespan_test, days)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.days() == 10);
 }
 
-TEST_F(TimeSpanTest, Hours)
+TEST_F(timespan_test, hours)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.hours() == 20);
 }
 
-TEST_F(TimeSpanTest, Minutes)
+TEST_F(timespan_test, minutes)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.minutes() == 30);
 }
 
-TEST_F(TimeSpanTest, Seconds)
+TEST_F(timespan_test, seconds)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.seconds() == 40);
 }
 
-TEST_F(TimeSpanTest, Milliseconds)
+TEST_F(timespan_test, milliseconds)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.milli_seconds() == 50);
 }
 
-TEST_F(TimeSpanTest, Ticks)
+TEST_F(timespan_test, ticks)
 {
     auto interval = timespan { 10, 20, 30, 40, 50 };
 
     EXPECT_TRUE(interval.ticks() == 9378400500000);
 }
 
-TEST_F(TimeSpanTest, TotalDays)
+TEST_F(timespan_test, total_days)
 {
     auto interval = timespan { 3, 16, 42, 45, 750 };
 
     EXPECT_TRUE(interval.total_days() == 3.6963628472222223);
 }
 
-TEST_F(TimeSpanTest, TotalHours)
+TEST_F(timespan_test, total_hours)
 {
     auto interval = timespan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.total_hours() == 39.712708333333332);
 }
 
-TEST_F(TimeSpanTest, TotalMilliseconds)
+TEST_F(timespan_test, total_milliseconds)
 {
     auto interval = timespan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.total_milli_seconds() == 142965750);
 }
 
-TEST_F(TimeSpanTest, TotalMinutes)
+TEST_F(timespan_test, total_minutes)
 {
     auto interval = timespan { 1, 15, 42, 45, 750 };
 
     EXPECT_TRUE(interval.total_minutes() == 2382.7624999999998);
 }
 
-TEST_F(TimeSpanTest, TotalSeconds)
+TEST_F(timespan_test, total_seconds)
 {
     auto interval = timespan { 1, 15, 42, 45, 750 };
 

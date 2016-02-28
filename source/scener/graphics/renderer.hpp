@@ -129,7 +129,7 @@ private:
     std::vector<std::shared_ptr<icomponent>>  _components            { };
     std::unique_ptr<service_container>        _services              { nullptr };
     steptimer                                 _timer                 { };
-    steptime                                  _render_time           { };
+    steptime                                  _time                  { };
     scener::timespan                          _total_tender_time     { timespan::zero() };
     bool                                      _is_running_slowly     { false };
     std::string                               _root_directory        { };

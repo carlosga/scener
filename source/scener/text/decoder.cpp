@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/text/Decoder.hpp"
+#include "scener/text/decoder.hpp"
 
 #include <algorithm>
 
@@ -19,7 +19,7 @@ std::size_t decoder::get_char_count(const std::uint8_t* bytes, std::size_t count
 {
     auto vbytes = std::vector<std::uint8_t>(bytes, bytes + count);
 
-    return this->get_char_count(vbytes, 0, count, flush);
+    return get_char_count(vbytes, 0, count, flush);
 }
 
 std::size_t decoder::get_char_count(const std::vector<std::uint8_t>& bytes
@@ -31,18 +31,18 @@ std::size_t decoder::get_char_count(const std::vector<std::uint8_t>& bytes
 }
 
 std::size_t decoder::get_chars(const std::uint8_t* bytes
-                             , std::size_t         byteCount
+                             , std::size_t         byte_count
                              , char16_t*           chars
-                             , std::size_t         charCount
+                             , std::size_t         char_count
                              , bool                flush) const
 {
-    auto vbytes = std::vector<std::uint8_t>(bytes, bytes + byteCount);
+    auto vbytes = std::vector<std::uint8_t>(bytes, bytes + byte_count);
     auto vchars = std::vector<char16_t>();
 
-    vchars.reserve(this->get_char_count(vbytes, 0, byteCount, flush));
+    vchars.reserve(get_char_count(vbytes, 0, byte_count, flush));
 
-    auto totalChars = this->get_chars(vbytes, 0, byteCount, vchars, 0, flush);
-    auto result     = ((totalChars > charCount) ? charCount : totalChars);
+    auto count  = get_chars(vbytes, 0, byte_count, vchars, 0, flush);
+    auto result = ((count > char_count) ? char_count : count);
 
     std::copy_n(vchars.begin(), result, chars);
 
@@ -50,13 +50,13 @@ std::size_t decoder::get_chars(const std::uint8_t* bytes
 }
 
 std::size_t decoder::get_chars(const std::vector<std::uint8_t>& bytes
-                             , std::size_t                      byteIndex
-                             , std::size_t                      byteCount
+                             , std::size_t                      byte_index
+                             , std::size_t                      byte_count
                              , std::vector<char16_t>&           chars
-                             , std::size_t                      charIndex
+                             , std::size_t                      char_index
                              , bool                             flush) const
 {
-    return this->get_chars(bytes, byteIndex, byteCount, chars, charIndex);
+    return get_chars(bytes, byte_index, byte_count, chars, char_index);
 }
 
 }}

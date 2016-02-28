@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "scener/text/UTF8Encoding.hpp"
+#include "scener/text/utf8_encoding.hpp"
 
 namespace scener { namespace text {
 
@@ -21,12 +21,12 @@ std::size_t utf8_encoding::get_byte_count(const std::vector<char16_t>& chars, st
 }
 
 std::size_t utf8_encoding::get_bytes(const std::vector<char16_t>& chars
-                                  , std::size_t                  charIndex
-                                  , std::size_t                  charCount
-                                  , std::vector<std::uint8_t>&   bytes
-                                  , std::size_t                  byteIndex) const
+                                   , std::size_t                  char_index
+                                   , std::size_t                  char_count
+                                   , std::vector<std::uint8_t>&   bytes
+                                   , std::size_t                  byte_index) const
 {
-    return _encoder.get_bytes(chars, charIndex, charCount, bytes, byteIndex, false);
+    return _encoder.get_bytes(chars, char_index, char_count, bytes, byte_index, false);
 }
 
 std::size_t utf8_encoding::get_char_count(const std::vector<std::uint8_t>& bytes
@@ -37,12 +37,12 @@ std::size_t utf8_encoding::get_char_count(const std::vector<std::uint8_t>& bytes
 }
 
 std::size_t utf8_encoding::get_chars(const std::vector<std::uint8_t>& bytes
-                                  , std::size_t                      byteIndex
-                                  , std::size_t                      byteCount
-                                  , std::vector<char16_t>&           chars
-                                  , std::size_t                      charIndex) const
+                                   , std::size_t                      byte_index
+                                   , std::size_t                      byte_count
+                                   , std::vector<char16_t>&           chars
+                                   , std::size_t                      char_index) const
 {
-    return _decoder.get_chars(bytes, byteIndex, byteCount, chars, charIndex);
+    return _decoder.get_chars(bytes, byte_index, byte_count, chars, char_index);
 }
 
 std::size_t utf8_encoding::get_max_byte_count(std::size_t charCount)

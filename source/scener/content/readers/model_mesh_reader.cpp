@@ -66,20 +66,20 @@ auto content_type_reader<model_mesh>::read(content_reader* input, const std::str
 
 std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
 {
-    auto meshPart      = std::make_shared<model_mesh_part>();
-    auto gdservice     = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-    auto device        = gdservice->device();
-    auto accessors     = std::vector<std::shared_ptr<gltf::accessor>>();
-    auto elements      = std::vector<vertex_element>();
-    auto vertexstride  = std::size_t { 0 };
-    auto vertexcount   = std::size_t { 0 };
-    auto indices       = input->read_object<gltf::accessor>(source["indices"].string_value());
-    auto componenttype = indices->component_type();
-    auto indexCount    = indices->attribute_count();
+    auto mesh_part      = std::make_shared<model_mesh_part>();
+    auto gdservice      = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
+    auto device         = gdservice->device();
+    auto accessors      = std::vector<std::shared_ptr<gltf::accessor>>();
+    auto elements       = std::vector<vertex_element>();
+    auto vertex_stride  = std::size_t { 0 };
+    auto vertex_count   = std::size_t { 0 };
+    auto indices        = input->read_object<gltf::accessor>(source["indices"].string_value());
+    auto component_type = indices->component_type();
+    auto index_count    = indices->attribute_count();
 
     // Index buffer
-    meshPart->_index_buffer = std::make_unique<index_buffer>(device, componenttype, indexCount);
-    meshPart->_index_buffer->set_data(indices->get_data());
+    mesh_part->_index_buffer = std::make_unique<index_buffer>(device, component_type, index_count);
+    mesh_part->_index_buffer->set_data(indices->get_data());
 
     // Vertex buffer
     const auto& attributes = source["attributes"].object_items();
@@ -96,31 +96,31 @@ std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part
 
         if (usage == vertex_element_usage::position)
         {
-            vertexcount = accessor->attribute_count();
+            vertex_count = accessor->attribute_count();
         }
 
         accessors.push_back(accessor);
-        elements.push_back({ vertexstride, format, usage, index });
+        elements.push_back({ vertex_stride, format, usage, index });
 
-        vertexstride += accessor->byte_stride();
+        vertex_stride += accessor->byte_stride();
     }
 
-    vertex_declaration declaration(vertexstride, elements);
+    vertex_declaration declaration(vertex_stride, elements);
 
-    meshPart->_primitive_type  = static_cast<primitive_type>(source["mode"].int_value());
-    meshPart->_vertex_count    = vertexcount;
-    meshPart->_start_index     = 0;
-    meshPart->_vertex_offset   = 0;
-    meshPart->_primitive_count = 0;
-    meshPart->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertexcount, declaration);
+    mesh_part->_primitive_type  = static_cast<primitive_type>(source["mode"].int_value());
+    mesh_part->_vertex_count    = vertex_count;
+    mesh_part->_start_index     = 0;
+    mesh_part->_vertex_offset   = 0;
+    mesh_part->_primitive_count = 0;
+    mesh_part->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertex_count, declaration);
 
-    switch (meshPart->_primitive_type)
+    switch (mesh_part->_primitive_type)
     {
     case primitive_type::line_list:
-        meshPart->_primitive_count = (vertexcount / 2);
+        mesh_part->_primitive_count = (vertex_count / 2);
         break;
     case primitive_type::triangle_list:
-        meshPart->_primitive_count = (vertexcount  / 3);
+        mesh_part->_primitive_count = (vertex_count  / 3);
         break;
     case primitive_type::line_loop:
     case primitive_type::line_strip:
@@ -128,15 +128,15 @@ std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part
     case primitive_type::triangle_fan:
     case primitive_type::triangle_strip:
         // TODO: Fix
-        meshPart->_primitive_count = vertexcount;
+        mesh_part->_primitive_count = vertex_count;
         break;
     }
 
     // Build interleaved data array
-    auto data     = std::vector<std::uint8_t>(vertexstride * vertexcount, 0);
+    auto data     = std::vector<std::uint8_t>(vertex_stride * vertex_count, 0);
     auto position = data.begin();
 
-    for (std::size_t i = 0; i < vertexcount; ++i)
+    for (std::size_t i = 0; i < vertex_count; ++i)
     {
         for (const auto& accessor : accessors)
         {
@@ -149,16 +149,16 @@ std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part
     }
 
     // Initialize vertex buffer
-    meshPart->_vertex_buffer->set_data({ data });
+    mesh_part->_vertex_buffer->set_data({ data });
 
     // Effect Material
     const auto& materialref = source["material"].string_value();
     if (!materialref.empty())
     {
-        meshPart->effect = read_material(input, materialref);
+        mesh_part->effect = read_material(input, materialref);
     }
 
-    return meshPart;
+    return mesh_part;
 }
 
 std::shared_ptr<effect_technique> content_type_reader<model_mesh>::read_material(content_reader*   input

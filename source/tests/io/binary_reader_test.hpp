@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-class BinaryReaderTest : public ::testing::Test
+class binary_reader_test : public ::testing::Test
 {
 protected:
     const std::string TEST_FILE = "./content/earthshaker/earthshaker0VS.glsl";

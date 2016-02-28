@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-class FileStreamTest : public testing::Test
+class file_stream_test : public testing::Test
 {
 protected:
     const std::string TEST_FILE = "./content/earthshaker/earthshaker0VS.glsl";

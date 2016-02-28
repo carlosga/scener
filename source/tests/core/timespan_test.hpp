@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-class TimeSpanTest : public testing::Test
+class timespan_test : public testing::Test
 {
 protected:
     // virtual void SetUp() will be called before each test is run.  You

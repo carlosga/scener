@@ -46,28 +46,28 @@ public:
     /// A parameter indicates whether to clear the internal state of the decoder
     /// after the conversion.
     virtual std::size_t get_chars(const std::uint8_t* bytes
-                                , std::size_t         byteCount
+                                , std::size_t         byte_count
                                 , char16_t*           chars
-                                , std::size_t         charCount
+                                , std::size_t         char_count
                                 , bool                flush) const;
 
     /// When overridden in a derived class, decodes a sequence of bytes from the
     /// specified byte array and any bytes in the internal buffer into the specified
     /// character array.
     virtual std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                                , std::size_t                      byteIndex
-                                , std::size_t                      byteCount
+                                , std::size_t                      byte_index
+                                , std::size_t                      byte_count
                                 , std::vector<char16_t>&           chars
-                                , std::size_t                      charIndex) const = 0;
+                                , std::size_t                      char_index) const = 0;
 
     /// Decodes a sequence of bytes from the specified byte array and any bytes
     /// in the internal buffer into the specified character array.
     /// A parameter indicates whether to clear the internal state of the decoder after the conversion.
     virtual std::size_t get_chars(const std::vector<std::uint8_t>& bytes
-                                , std::size_t                      byteIndex
-                                , std::size_t                      byteCount
+                                , std::size_t                      byte_index
+                                , std::size_t                      byte_count
                                 , std::vector<char16_t>&           chars
-                                , std::size_t                      charIndex
+                                , std::size_t                      char_index
                                 , bool                             flush) const;
 
     /// Sets the encoder back to its initial state.
