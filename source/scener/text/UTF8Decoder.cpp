@@ -3,6 +3,7 @@
 
 #include "scener/text/UTF8Decoder.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace scener { namespace text {

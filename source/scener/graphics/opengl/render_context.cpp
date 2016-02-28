@@ -7,9 +7,6 @@
 
 #include <iostream>
 
-#include "scener/graphics/opengl/display_device.hpp"
-#include "scener/graphics/opengl/display_surface.hpp"
-
 namespace scener { namespace graphics { namespace opengl {
 
 render_context::render_context(display_device* display, display_surface* surface) noexcept

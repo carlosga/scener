@@ -29,10 +29,10 @@ public:
 
 public:
     /// Gets the constant buffer binding point.
-    std::int32_t binding_point() const noexcept;
+    std::uint32_t binding_point() const noexcept;
 
     /// Gets the constant buffer block index.
-    std::size_t index() const noexcept;
+    std::uint32_t index() const noexcept;
 
     /// Gets the constant buffer block data size.
     std::size_t size() const noexcept;
@@ -68,8 +68,8 @@ private:
 private:
     buffer        _buffer_object;
     std::uint32_t _program_id;
-    std::size_t   _index;
-    std::int32_t  _binding_point;
+    std::uint32_t _index;
+    std::uint32_t _binding_point;
     std::size_t   _size;
     std::string   _name;
 };

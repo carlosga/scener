@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <gsl.h>
+#include <span.h>
 
 #include "scener/io/stream.hpp"
 

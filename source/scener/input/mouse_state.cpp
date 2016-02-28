@@ -3,9 +3,6 @@
 
 #include "scener/input/mouse_state.hpp"
 
-#include "scener/input/buttons.hpp"
-#include "scener/input/button_state.hpp"
-
 namespace scener { namespace input {
 
 mouse_state::mouse_state() noexcept

@@ -3,6 +3,7 @@
 
 #include "scener/text/Encoder.hpp"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace scener { namespace text {

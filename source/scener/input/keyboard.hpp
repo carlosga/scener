@@ -7,14 +7,13 @@
 #include <cstdint>
 #include <vector>
 
+#include "scener/input/keyboard_state.hpp"
+#include "scener/graphics/opengl/platform.hpp"
 #include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
-
-enum class keys     : std::uint32_t;
-enum class key_state : std::uint32_t;
 
 class keyboard_state;
 

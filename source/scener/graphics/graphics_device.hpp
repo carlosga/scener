@@ -26,9 +26,9 @@ class vertex_buffer;
 class graphics_device final
 {
 private:
-    static constexpr std::size_t get_element_count(primitive_type primitive_type, std::size_t primitive_count) noexcept
+    static constexpr std::size_t get_element_count(graphics::primitive_type type, std::size_t primitive_count) noexcept
     {
-        switch (primitive_type)
+        switch (type)
         {
         case primitive_type::line_list:
             return primitive_count * 2;

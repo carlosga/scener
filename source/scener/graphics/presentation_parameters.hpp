@@ -33,7 +33,7 @@ public:
     std::uint32_t multi_sample_count;
 
     /// Gets or sets the swap buffer interval.
-    present_interval present_interval;
+    graphics::present_interval present_interval;
 };
 
 }}

@@ -6,12 +6,12 @@
 
 #include <cstdint>
 
+#include "scener/input/buttons.hpp"
+#include "scener/input/button_state.hpp"
+
 namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
-
-enum class buttons     : std::uint32_t;
-enum class button_state : std::uint32_t;
 
 class mouse_state;
 

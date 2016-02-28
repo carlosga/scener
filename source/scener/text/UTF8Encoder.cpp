@@ -3,10 +3,10 @@
 
 #include "scener/text/UTF8Encoder.hpp"
 
-#include <string>
+#include <algorithm>
 #include <locale>
+#include <string>
 #include <stdexcept>
-// #include <iomanip>
 
 namespace scener { namespace text {
 

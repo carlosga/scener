@@ -6,10 +6,10 @@
 
 #include <cstdint>
 
-namespace scener { namespace input {
+#include "scener/input/buttons.hpp"
+#include "scener/input/button_state.hpp"
 
-enum class buttons     : std::uint32_t;
-enum class button_state : std::uint32_t;
+namespace scener { namespace input {
 
 /// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
 class mouse_state

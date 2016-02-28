@@ -19,12 +19,12 @@ constant_buffer::constant_buffer(const std::string& name, std::uint32_t program_
     create();
 }
 
-std::int32_t constant_buffer::binding_point() const noexcept
+std::uint32_t constant_buffer::binding_point() const noexcept
 {
     return _binding_point;
 }
 
-std::size_t constant_buffer::index() const noexcept
+std::uint32_t constant_buffer::index() const noexcept
 {
     return _index;
 }
@@ -83,8 +83,8 @@ void constant_buffer::create() noexcept
     glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blocksize);
 
     // update class members
-    _binding_point = binding;
-    _size          = blocksize;
+    _binding_point = static_cast<std::uint32_t>(binding);
+    _size          = static_cast<std::size_t>(blocksize);
 
     // initialize the buffer object
     std::vector<std::uint8_t> data(_size, 0);

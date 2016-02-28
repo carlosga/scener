@@ -3,9 +3,6 @@
 
 #include "scener/input/keyboard.hpp"
 
-#include "scener/input/keyboard_state.hpp"
-#include "scener/graphics/opengl/platform.hpp"
-
 namespace scener { namespace input {
 
 using scener::graphics::opengl::display_surface;

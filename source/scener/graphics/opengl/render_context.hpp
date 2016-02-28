@@ -8,12 +8,11 @@
 
 #include <string>
 
+#include "scener/graphics/opengl/display_device.hpp"
+#include "scener/graphics/opengl/display_surface.hpp"
 #include "scener/graphics/opengl/platform.hpp"
 
 namespace scener { namespace graphics { namespace opengl {
-
-class display_device;
-class display_surface;
 
 /// Represents an OpenGL context.
 class render_context final

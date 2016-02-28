@@ -15,7 +15,7 @@ rasterizer_state::rasterizer_state(gsl::not_null<graphics_device*> device) noexc
 void rasterizer_state::apply() const noexcept
 {
     // Specify whether front- or back-facing facets can be culled
-    if (cull_mode == cull_mode::none)
+    if (cull_mode == graphics::cull_mode::none)
     {
         glDisable(GL_CULL_FACE);
     }
@@ -26,22 +26,22 @@ void rasterizer_state::apply() const noexcept
 
         switch (cull_mode)
         {
-            case cull_mode::cull_clockwise_face:
+            case graphics::cull_mode::cull_clockwise_face:
                 glCullFace(GL_FRONT);
                 break;
 
-            case cull_mode::cull_counter_clockwise_face:
+            case graphics::cull_mode::cull_counter_clockwise_face:
                 glCullFace(GL_BACK);
                 break;
 
-            case cull_mode::none:
+            case graphics::cull_mode::none:
                 glCullFace(GL_FRONT_AND_BACK);
                 break;
         }
     }
 
     //  Select a polygon rasterization mode
-    if (fill_mode == fill_mode::solid)
+    if (fill_mode == graphics::fill_mode::solid)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

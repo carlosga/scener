@@ -3,8 +3,6 @@
 
 #include "scener/input/mouse.hpp"
 
-#include "scener/input/buttons.hpp"
-#include "scener/input/button_state.hpp"
 #include "scener/input/mouse_state.hpp"
 #include "scener/graphics/opengl/display_surface.hpp"
 

@@ -12,6 +12,7 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/service_container.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
 #include "scener/graphics/opengl/platform.hpp"
 #include "scener/graphics/opengl/program.hpp"
 

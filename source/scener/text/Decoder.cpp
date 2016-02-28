@@ -3,6 +3,8 @@
 
 #include "scener/text/Decoder.hpp"
 
+#include <algorithm>
+
 namespace scener { namespace text {
 
 Decoder::Decoder()

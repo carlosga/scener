@@ -6,12 +6,12 @@
 
 #include <vector>
 
+#include "scener/input/keys.hpp"
+#include "scener/input/key_state.hpp"
+
 namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
 
 namespace scener { namespace input {
-
-enum class keys     : std::uint32_t;
-enum class key_state : std::uint32_t;
 
 /// Represents a state of keystrokes recorded by a keyboard input device.
 class keyboard_state
