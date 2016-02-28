@@ -7,6 +7,8 @@
 #include <codecvt>
 #include <cstddef>
 #include <cstdint>
+#include <locale>
+#include <memory>
 
 #include "scener/text/Encoder.hpp"
 
@@ -17,7 +19,11 @@ class UTF8Encoder final : public Encoder
 {
 public:
     /// Initializes a new instance of the UTF8Encoder class.
-    UTF8Encoder() = default;
+    UTF8Encoder()
+        : _facet { std::make_shared<std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>>() }
+    {
+
+    }
 
     /// Releases all resources being used by this UTF8Encoder.
     ~UTF8Encoder() override = default;
@@ -36,7 +42,7 @@ public:
                         , bool                         flush) const override;
 
 private:
-    std::codecvt_utf8_utf16<char16_t> _converter;
+    std::shared_ptr<std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>> _facet;
 };
 
 }}

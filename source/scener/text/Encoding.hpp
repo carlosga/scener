@@ -18,10 +18,6 @@ class Encoder;
 class Encoding
 {
 public:
-    /// Gets an encoding for the UTF-8 format.
-    static const Encoding& utf8;
-
-public:
     /// Converts an entire byte array from one encoding to another.
     static std::vector<std::uint8_t> convert(const Encoding&                  srcEncoding
                                            , const Encoding&                  dstEncoding

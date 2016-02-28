@@ -78,13 +78,13 @@ std::size_t UTF8Encoder::get_bytes(const std::vector<char16_t>& chars
     const char16_t* from     = chars.data() + charIndex;
     const char16_t* fromEnd  = from + charCount;
     const char16_t* fromNext = nullptr;
-    auto            size     = charCount * _converter.max_length();
+    auto            size     = charCount * _facet->max_length();
     auto            to       = std::vector<char>(size, 0);
     char*           toStart  = to.data();
     char*           toEnd    = toStart + size;
     char*           toNext   = nullptr;
     auto            state    = std::mbstate_t();
-    auto            r        = _converter.out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    auto            r        = _facet->out(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
     if (r == std::codecvt_base::error)
     {

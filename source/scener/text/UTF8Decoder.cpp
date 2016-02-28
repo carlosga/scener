@@ -64,7 +64,7 @@ std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
     char16_t*   toEnd    = toStart + byteCount;
     char16_t*   toNext   = nullptr;
     auto        state    = std::mbstate_t();
-    auto        status   = _converter.in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
+    auto        status   = _facet->in(state, from, fromEnd, fromNext, toStart, toEnd, toNext);
 
     if (status == std::codecvt_base::error)
     {

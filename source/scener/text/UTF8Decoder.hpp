@@ -7,6 +7,7 @@
 #include <codecvt>
 #include <cstddef>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 #include "scener/text/Decoder.hpp"
@@ -18,7 +19,10 @@ class UTF8Decoder final : public Decoder
 {
 public:
     /// Initializes a new instance of the UTF8Decoder class.
-    UTF8Decoder() = default;
+    UTF8Decoder()
+        : _facet { std::make_shared<std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>>() }
+    {
+    }
 
     /// Releases all resources being used by this UTF8Decoder.
     ~UTF8Decoder() override = default;
@@ -35,7 +39,7 @@ public:
     void reset() override;
 
 private:
-    std::codecvt_utf8_utf16<char16_t> _converter;
+    std::shared_ptr<std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>> _facet;
 };
 
 }}

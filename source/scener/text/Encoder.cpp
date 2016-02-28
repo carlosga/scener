@@ -39,7 +39,7 @@ std::size_t Encoder::get_bytes(const char16_t* chars
     }
 
     auto vchars = std::vector<char16_t>(chars, chars + charCount);
-    auto bcount = this->get_byte_count(vchars, 0, charCount, flush);
+    auto bcount = get_byte_count(vchars, 0, charCount, flush);
 
     if (bcount > byteCount)
     {
@@ -47,7 +47,7 @@ std::size_t Encoder::get_bytes(const char16_t* chars
     }
 
     auto vbytes     = std::vector<std::uint8_t>(bcount, 0);
-    auto totalBytes = this->get_bytes(vchars, 0, charCount, vbytes, 0, flush);
+    auto totalBytes = get_bytes(vchars, 0, charCount, vbytes, 0, flush);
     auto result     = ((totalBytes > byteCount) ? byteCount : totalBytes);
 
     std::copy_n(vbytes.begin(), result, bytes);

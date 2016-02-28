@@ -9,8 +9,6 @@
 
 namespace scener { namespace text {
 
-const Encoding& Encoding::utf8 = UTF8Encoding { };
-
 Encoding::Encoding()
 {
 }
