@@ -8,22 +8,22 @@
 
 namespace scener { namespace text {
 
-Encoder::Encoder()
+encoder::encoder()
 {
 }
 
-Encoder::~Encoder()
+encoder::~encoder()
 {
 }
 
-std::size_t Encoder::get_byte_count(const char16_t* chars, std::size_t count, bool flush) const
+std::size_t encoder::get_byte_count(const char16_t* chars, std::size_t count, bool flush) const
 {
     auto vchars = std::vector<char16_t>(chars, chars + count);
 
     return this->get_byte_count(vchars, 0, count, flush);
 }
 
-std::size_t Encoder::get_bytes(const char16_t* chars
+std::size_t encoder::get_bytes(const char16_t* chars
                              , std::size_t     charCount
                              , std::uint8_t*   bytes
                              , std::size_t     byteCount
@@ -55,7 +55,7 @@ std::size_t Encoder::get_bytes(const char16_t* chars
     return result;
 }
 
-void Encoder::reset()
+void encoder::reset()
 {
 }
 

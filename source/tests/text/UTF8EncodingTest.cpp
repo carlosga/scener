@@ -12,7 +12,7 @@ using namespace scener::text;
 
 TEST_F(UTF8EncodingTest, Constructor)
 {
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNonNullChar)
 {
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03A0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -38,7 +38,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNullChar)
 {
     std::vector<char16_t> chars = { };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 0, 0);
 
@@ -50,7 +50,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNullReferenceChar)
 {
     const char16_t* chars = nullptr;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 0); });
 }
@@ -60,7 +60,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenIndexLessThanZero)
 {
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03A0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_byte_count(chars, -1, 2); });
 }
@@ -70,7 +70,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenCountLessThanZero)
 {
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03A0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 1, -2); });
 }
@@ -80,7 +80,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenIndexWithInvalidRangeOfChars)
 {
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03A0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_byte_count(chars, 1, chars.size()); });
 }
@@ -90,7 +90,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWithNonNullString)
 {
     std::u16string chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars);
 
@@ -102,8 +102,8 @@ TEST_F(UTF8EncodingTest, GetByteCountWithEmptyString)
 {
     std::u16string chars = u"";
 
-    UTF8Encoding utf8;
-    Encoding* encoding = &utf8;
+    utf8_encoding utf8;
+    encoding* encoding = &utf8;
 
     auto byteCount = encoding->get_byte_count(chars);
 
@@ -122,7 +122,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithNonNullChars)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t>     chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -144,7 +144,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithNullChars)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t>    chars = { };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 0, 0);
 
@@ -161,7 +161,7 @@ TEST_F(UTF8EncodingTest, GetBytesWhenCharsIsNull)
     std::vector<std::uint8_t> bytes;
     char16_t* chars = nullptr;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = 10;
 
@@ -176,7 +176,7 @@ TEST_F(UTF8EncodingTest, GetBytesWhenBytesIsNull)
     std::uint8_t*         bytes = nullptr;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_bytes(chars.data(), 2, bytes, 0); });
 }
@@ -187,7 +187,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithCharIndexLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -202,7 +202,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithCharCountLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -217,7 +217,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithNonNullString)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -234,7 +234,7 @@ TEST_F(UTF8EncodingTest, GetBytesWithEmptyString)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -251,7 +251,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithCharIndexLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -266,7 +266,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithCharCountLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -281,7 +281,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWhenByteIndexIsLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -296,7 +296,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithInvalidCharRange)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -312,7 +312,7 @@ TEST_F(UTF8EncodingTest, GetBytesFromStringWithInvalidBufferSize)
     std::vector<std::uint8_t> bytes;
     std::u16string            chars = u"UTF8 Encoding Example";
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = chars.size();
 
@@ -327,7 +327,7 @@ TEST_F(UTF8EncodingTest, GetByteCountWhenByteIndexIsLessThanZero)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -342,7 +342,7 @@ TEST_F(UTF8EncodingTest, GetByteCountInvalidRange)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -358,7 +358,7 @@ TEST_F(UTF8EncodingTest, GetByteCountInvalidBufferSize)
     std::vector<std::uint8_t> bytes;
     std::vector<char16_t> chars = { u'\u0023', u'\u0025', u'\u03a0', u'\u03a3' };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto byteCount = utf8.get_byte_count(chars, 1, 2);
 
@@ -380,7 +380,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithNonNullBuffer)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto charCount = utf8.get_char_count(bytes, 2, 8);
 
@@ -392,7 +392,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithEmptyBuffer)
 {
     std::vector<std::uint8_t> bytes = { };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 0, 0);
 
@@ -406,7 +406,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWhenIndexLessThanZero)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_char_count(bytes, -1, 8); });
 }
@@ -418,7 +418,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWhenCountLessThanZero)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_char_count(bytes, 2, -1); });
 }
@@ -430,7 +430,7 @@ TEST_F(UTF8EncodingTest, GetCharCountWithInvalidRange)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_char_count(bytes, 2, bytes.size()); });
 }
@@ -448,7 +448,7 @@ TEST_F(UTF8EncodingTest, GetCharsWithNonNullChars)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -469,7 +469,7 @@ TEST_F(UTF8EncodingTest, GetCharsWithEmptyChars)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -487,7 +487,7 @@ TEST_F(UTF8EncodingTest, GetCharsWhenByteIndexIsLessThanZero)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -503,7 +503,7 @@ TEST_F(UTF8EncodingTest, GetCharsWhenByteCountIsLessThanZero)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -519,7 +519,7 @@ TEST_F(UTF8EncodingTest, GetCharsWhenCharIndexIsLessThanZero)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -535,7 +535,7 @@ TEST_F(UTF8EncodingTest, GetCharsWithInvalidRangeInChars)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -552,7 +552,7 @@ TEST_F(UTF8EncodingTest, GetCharsWithNotEnoughSpaceInChars)
 
     std::vector<char16_t> chars;
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     int charCount = utf8.get_char_count(bytes, 2, 2);
 
@@ -573,7 +573,7 @@ TEST_F(UTF8EncodingTest, GetString)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     auto str = utf8.get_string(bytes, 0, bytes.size());
 
@@ -587,7 +587,7 @@ TEST_F(UTF8EncodingTest, GetStringWhenIndexIsLessThanZero)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_string(bytes, -1, bytes.size()); });
 }
@@ -599,7 +599,7 @@ TEST_F(UTF8EncodingTest, GetStringWhenCountIsLessThanZero)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({ utf8.get_string(bytes, 0, -1); });
 }
@@ -611,7 +611,7 @@ TEST_F(UTF8EncodingTest, GetStringWhenByteRangeIsInvalid)
                                         99, 111, 100, 105, 110, 103,  32,
                                         69, 120,  97, 109, 112, 108, 101 };
 
-    UTF8Encoding utf8;
+    utf8_encoding utf8;
 
     EXPECT_ANY_THROW({  utf8.get_string(bytes, 1, bytes.size()); });
 }

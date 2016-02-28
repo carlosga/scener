@@ -11,14 +11,14 @@
 namespace scener { namespace text {
 
 /// Converts a set of characters into a sequence of bytes.
-class Encoder
+class encoder
 {
 protected:
     /// Initializes a new instance of the Encoder class.
-    Encoder();
+    encoder();
 
     /// Virtual destructor.
-    virtual ~Encoder();
+    virtual ~encoder();
 
 public:
     /// Calculates the number of bytes produced by encoding a set of characters

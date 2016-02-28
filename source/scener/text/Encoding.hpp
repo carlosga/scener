@@ -11,21 +11,21 @@
 
 namespace scener { namespace text {
 
-class Decoder;
-class Encoder;
+class decoder;
+class encoder;
 
 /// Represents a character encoding.
-class Encoding
+class encoding
 {
 public:
     /// Converts an entire byte array from one encoding to another.
-    static std::vector<std::uint8_t> convert(const Encoding&                  srcEncoding
-                                           , const Encoding&                  dstEncoding
+    static std::vector<std::uint8_t> convert(const encoding&                  srcEncoding
+                                           , const encoding&                  dstEncoding
                                            , const std::vector<std::uint8_t>& bytes);
 
     /// Converts a range of bytes in a byte array from one encoding to another.
-    static std::vector<std::uint8_t> convert(const Encoding&                  srcEncoding
-                                           , const Encoding&                  dstEncoding
+    static std::vector<std::uint8_t> convert(const encoding&                  srcEncoding
+                                           , const encoding&                  dstEncoding
                                            , const std::vector<std::uint8_t>& bytes
                                            , std::size_t                      index
                                            , std::size_t                      count);
@@ -38,10 +38,10 @@ public:
 
 protected:
     /// Initializes a new instance of the System.Text.Encoding class.
-    Encoding();
+    encoding();
 
     /// Releases all resources being used by this Encoding.
-    virtual ~Encoding();
+    virtual ~encoding();
 
 public:
     /// When overridden in a derived class, gets the human-readable description of
@@ -147,11 +147,11 @@ public:
 
     /// When overridden in a derived class, obtains a decoder that converts an encoded
     /// sequence of bytes into a sequence of characters.
-    virtual const Decoder& get_decoder() const = 0;
+    virtual const decoder& get_decoder() const = 0;
 
     /// When overridden in a derived class, obtains an encoder that converts a sequence
     /// of Unicode characters into an encoded sequence of bytes.
-    virtual const Encoder& get_encoder() const = 0;
+    virtual const encoder& get_encoder() const = 0;
 
     /// When overridden in a derived class, calculates the maximum number of bytes
     /// produced by encoding the specified number of characters.

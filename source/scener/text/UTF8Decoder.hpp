@@ -15,17 +15,17 @@
 namespace scener { namespace text {
 
 /// Converts a sequence of encoded bytes into a set of UTF-8 encoded characters.
-class UTF8Decoder final : public Decoder
+class urf8_decoder final : public decoder
 {
 public:
     /// Initializes a new instance of the UTF8Decoder class.
-    UTF8Decoder()
+    urf8_decoder()
         : _facet { std::make_shared<std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>>() }
     {
     }
 
     /// Releases all resources being used by this UTF8Decoder.
-    ~UTF8Decoder() override = default;
+    ~urf8_decoder() override = default;
 
 public:
     std::size_t get_char_count(const std::vector<std::uint8_t>& bytes, std::size_t index, std::size_t count) const override;

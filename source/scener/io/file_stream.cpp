@@ -3,8 +3,8 @@
 
 #include "scener/io/file_stream.hpp"
 
-//#include <locale>
-//#include <codecvt>
+#include <locale>
+#include <codecvt>
 
 namespace scener { namespace io {
 
@@ -12,10 +12,10 @@ file_stream::file_stream(const std::string& path, const std::ios::openmode& mode
     : _stream { path, mode }
     , _mode   { mode }
 {
-//    if (_stream.is_open() && _stream.good())
-//    {
-//        _stream.imbue(std::locale(_stream.getloc(), new std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>));
-//    }
+    if (_stream.is_open() && _stream.good())
+    {
+        _stream.imbue(std::locale(_stream.getloc(), new std::codecvt_utf8<char16_t, 0x10ffff, std::consume_header>));
+    }
 }
 
 bool file_stream::can_read() const noexcept

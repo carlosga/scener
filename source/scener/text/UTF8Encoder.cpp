@@ -10,7 +10,7 @@
 
 namespace scener { namespace text {
 
-std::size_t UTF8Encoder::get_byte_count(const std::vector<char16_t>& chars
+std::size_t utf8_encoder::get_byte_count(const std::vector<char16_t>& chars
                                       , std::size_t                  index
                                       , std::size_t                  count
                                       , bool                         flush) const
@@ -59,7 +59,7 @@ std::size_t UTF8Encoder::get_byte_count(const std::vector<char16_t>& chars
     return byteCount;
 }
 
-std::size_t UTF8Encoder::get_bytes(const std::vector<char16_t>& chars
+std::size_t utf8_encoder::get_bytes(const std::vector<char16_t>& chars
                                  , std::size_t                  charIndex
                                  , std::size_t                  charCount
                                  , std::vector<std::uint8_t>&   bytes

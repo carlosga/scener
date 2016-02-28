@@ -8,7 +8,7 @@
 
 namespace scener { namespace text {
 
-std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
+std::size_t urf8_decoder::get_char_count(const std::vector<std::uint8_t>& bytes
                                       , std::size_t                      index
                                       , std::size_t                      count) const
 {
@@ -41,7 +41,7 @@ std::size_t UTF8Decoder::get_char_count(const std::vector<std::uint8_t>& bytes
     return result;
 }
 
-std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
+std::size_t urf8_decoder::get_chars(const std::vector<std::uint8_t>& bytes
                                  , std::size_t                      byteIndex
                                  , std::size_t                      byteCount
                                  , std::vector<char16_t>&           chars
@@ -88,7 +88,7 @@ std::size_t UTF8Decoder::get_chars(const std::vector<std::uint8_t>& bytes
     return static_cast<std::size_t>(toNext - toStart);
 }
 
-void UTF8Decoder::reset()
+void urf8_decoder::reset()
 {
 }
 

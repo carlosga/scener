@@ -15,25 +15,25 @@
 namespace scener { namespace text {
 
 /// Represents a UTF-8 encoding of Unicode characters.
-class UTF8Encoding final : public virtual Encoding
+class utf8_encoding final : public virtual encoding
 {
 public:
     /// Initializes a new instance of the UTF8Encoding class.
-    UTF8Encoding() = default;
+    utf8_encoding() = default;
 
     /// Releases all resources being used by this Encoding.
-    ~UTF8Encoding() override = default;
+    ~utf8_encoding() override = default;
 
 public:
     std::u16string encoding_name() const override;
 
     bool is_single_byte() const override;
 
-    using Encoding::get_byte_count;
-    using Encoding::get_bytes;
-    using Encoding::get_char_count;
-    using Encoding::get_chars;
-    using Encoding::get_string;
+    using encoding::get_byte_count;
+    using encoding::get_bytes;
+    using encoding::get_char_count;
+    using encoding::get_chars;
+    using encoding::get_string;
 
     std::size_t get_byte_count(const std::vector<char16_t>& chars, std::size_t index, std::size_t count) const override;
 
@@ -57,13 +57,13 @@ public:
 
     std::vector<std::uint8_t> get_preamble() const override;
 
-    const Decoder& get_decoder() const override;
+    const decoder& get_decoder() const override;
 
-    const Encoder& get_encoder() const override;
+    const encoder& get_encoder() const override;
 
 private:
-    UTF8Encoder _encoder;
-    UTF8Decoder _decoder;
+    utf8_encoder _encoder;
+    urf8_decoder _decoder;
 };
 
 }}
