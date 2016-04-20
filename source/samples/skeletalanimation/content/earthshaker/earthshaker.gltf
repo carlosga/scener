@@ -4358,13 +4358,13 @@
         }
     },
     "asset": {
-        "generator": "collada2gltf@f84fec6f4e36c2979b28fdc5b51b42d8555328fd",
+        "generator": "collada2gltf@a69bb014ded22c4761ba453f4054340cc35443b0",
         "premultipliedAlpha": true,
         "profile": {
             "api": "WebGL",
             "version": "1.0.2"
         },
-        "version": 1
+        "version": "1.0"
     },
     "bufferViews": {
         "bufferView_393": {
@@ -4423,9 +4423,9 @@
                 ],
                 "diffuse": "texture_belt_color_dds",
                 "emission": [
-                    1,
-                    1,
-                    1,
+                    0,
+                    0,
+                    0,
                     1
                 ],
                 "shininess": 50,
@@ -4449,9 +4449,9 @@
                 ],
                 "diffuse": "texture_bracers_color_dds",
                 "emission": [
-                    1,
-                    1,
-                    1,
+                    0,
+                    0,
+                    0,
                     1
                 ],
                 "shininess": 50,
@@ -4475,9 +4475,9 @@
                 ],
                 "diffuse": "texture_earthshaker_color_dds",
                 "emission": [
-                    1,
-                    1,
-                    1,
+                    0,
+                    0,
+                    0,
                     1
                 ],
                 "shininess": 50,
@@ -4501,9 +4501,9 @@
                 ],
                 "diffuse": "texture_totem_color_dds",
                 "emission": [
-                    1,
-                    1,
-                    1,
+                    0,
+                    0,
+                    0,
                     1
                 ],
                 "shininess": 50,
@@ -4721,27 +4721,27 @@
                 -4.95911e-05
             ]
         },
-        "Point": {
+        "Lamp": {
             "children": [],
             "matrix": [
-                1,
+                -0.290864,
+                0.955171,
+                -0.0551891,
                 0,
+                -0.771101,
+                -0.199883,
+                0.604525,
                 0,
+                0.566393,
+                0.218391,
+                0.794672,
                 0,
-                0,
-                1,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                -2.06933,
-                -1.26353,
-                3.79998,
+                4.07624,
+                1.00545,
+                5.90386,
                 1
             ],
-            "name": "Point"
+            "name": "Lamp"
         },
         "ankle_L": {
             "children": [
@@ -5582,12 +5582,12 @@
         },
         "node_62": {
             "children": [
+                "Lamp",
                 "earthshaker_skeleton",
                 "earthshaker_body",
                 "earthshaker_arms",
                 "earthshaker_belt",
-                "earthshaker_weapon",
-                "Point"
+                "earthshaker_weapon"
             ],
             "matrix": [
                 1,
@@ -6103,7 +6103,7 @@
         "earthshaker0FS": {
             "type": 35632,
             "uri": "earthshaker0FS.glsl"
-        },            
+        },
         "earthshaker0VS": {
             "type": 35633,
             "uri": "earthshaker0VS.glsl"
@@ -6481,10 +6481,10 @@
                 },
                 "light0QuadraticAttenuation": {
                     "type": 5126,
-                    "value": 0.00159997
+                    "value": 0.00111109
                 },
                 "light0Transform": {
-                    "node": "Point",
+                    "node": "Lamp",
                     "semantic": "MODELVIEW",
                     "type": 35676
                 },
