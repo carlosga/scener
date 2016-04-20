@@ -17,7 +17,7 @@ effect_technique::effect_technique(gsl::not_null<graphics_device*> device) noexc
     : graphics_resource          { device }
     , _alpha                     { 1.0 }
     , _ambient_light_color       { vector3::zero() }
-    , _bone_transforms           ( 0 )
+    , _bone_transforms           { }
     , _diffuse_color             { vector3::one() }
     , _light_0                   { }
     , _light_1                   { }
@@ -29,12 +29,12 @@ effect_technique::effect_technique(gsl::not_null<graphics_device*> device) noexc
     , _specular_color            { vector3::one() }
     , _specular_power            { 16.0f }
     , _texture_enabled           { false }
-    , _textures                  ( 0 )
+    , _textures                  { }
     , _view                      { matrix4::identity() }
     , _world                     { matrix4::identity() }
     , _dirty_flags               { effect_dirty_flags::all }
-    , _passes                    ()
-    , _parameters                ()
+    , _passes                    { }
+    , _parameters                { }
 {
 }
 

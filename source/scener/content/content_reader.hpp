@@ -110,7 +110,7 @@ private:
 
 private:
     std::string               _asset_name;
-    scener::io::binary_reader _asset_reader;
+    io::binary_reader         _asset_reader;
     content::content_manager* _content_manager;
     json11::Json              _root;
 

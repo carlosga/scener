@@ -15,7 +15,7 @@
 namespace scener { namespace graphics { namespace opengl {
 
 display_surface::display_surface(display_device* display)
-    : _display(display)
+    : _display { display }
 {
 }
 

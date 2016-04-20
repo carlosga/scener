@@ -33,16 +33,16 @@ char16_t binary_reader::read() noexcept
     // Decode UTF-8.
     if (buffer & 0x80)
     {
-        std::uint32_t bytecount = 1;
+        std::uint32_t byte_count = 1;
 
-        while (buffer & (0x80 >> bytecount))
+        while (buffer & (0x80 >> byte_count))
         {
-            bytecount++;
+            byte_count++;
         }
 
-        buffer &= (1 << (8 - bytecount)) - 1;
+        buffer &= (1 << (8 - byte_count)) - 1;
 
-        while (--bytecount)
+        while (--byte_count)
         {
             buffer <<= 6;
             buffer  |= _stream.read_byte() & 0x3F;
@@ -169,7 +169,7 @@ double binary_reader::read() noexcept
 
 std::int32_t binary_reader::peek_char() noexcept
 {
-    std::int32_t nextchar = -1;
+    std::int32_t next_char = -1;
 
     if (_stream.can_seek())
     {
@@ -177,26 +177,26 @@ std::int32_t binary_reader::peek_char() noexcept
 
         if (position != _stream.length())
         {
-            nextchar = _stream.read_byte();
+            next_char = _stream.read_byte();
 
             _stream.seek(position, std::ios::beg);
         }
     }
 
-    return nextchar;
+    return next_char;
 }
 
 std::uint32_t binary_reader::read_7_bit_encoded_int() noexcept
 {
-    std::uint32_t result   = 0;
-    std::uint32_t bitsread = 0;
-    std::uint32_t value    = 0;
+    std::uint32_t result    = 0;
+    std::uint32_t bits_read = 0;
+    std::uint32_t value     = 0;
 
     do
     {
         value     = read<std::uint8_t>();
-        result   |= (value & 0x7f) << bitsread;
-        bitsread += 7;
+        result   |= (value & 0x7f) << bits_read;
+        bits_read += 7;
     } while (value & 0x80);
 
     return result;

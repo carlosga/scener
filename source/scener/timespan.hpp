@@ -15,14 +15,14 @@ namespace scener {
 class timespan final
 {
 public:
-    using clock                  = std::chrono::high_resolution_clock;
-    using days_duration          = std::chrono::duration<double      , std::ratio<86400>>;
-    using hours_duration         = std::chrono::duration<double      , std::ratio<3600>>;
-    using minutes_duration       = std::chrono::duration<double      , std::ratio<60>>;
-    using seconds_duration       = std::chrono::duration<double>;
-    using milli_seconds_duration = std::chrono::duration<double      , std::ratio<1, 1000>>;
-    using micro_seconds_duration = std::chrono::duration<double      , std::ratio<1, 1000000>>;
-    using ticks_duration         = std::chrono::duration<std::int64_t, std::ratio<1, 10000000>>;
+    using clock                 = std::chrono::high_resolution_clock;
+    using days_duration         = std::chrono::duration<double      , std::ratio<86400>>;
+    using hours_duration        = std::chrono::duration<double      , std::ratio<3600>>;
+    using minutes_duration      = std::chrono::duration<double      , std::ratio<60>>;
+    using seconds_duration      = std::chrono::duration<double>;
+    using milliseconds_duration = std::chrono::duration<double      , std::ratio<1, 1000>>;
+    using microseconds_duration = std::chrono::duration<double      , std::ratio<1, 1000000>>;
+    using ticks_duration        = std::chrono::duration<std::int64_t, std::ratio<1, 10000000>>;
 
 public:
     /// Represents the number of ticks in 1 day.
@@ -88,7 +88,7 @@ public:
     /// \returns a TimeSpan that represents a specified number of milliseconds.
     constexpr static timespan from_milliseconds(double value) noexcept
     {
-        return { std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(value)).count() };
+        return { std::chrono::duration_cast<ticks_duration>(milliseconds_duration(value)).count() };
     }
 
     /// Returns a TimeSpan that represents a specified number of minutes.
@@ -149,15 +149,15 @@ public:
     /// \param seconds number of seconds.
     /// \param milliseconds number of milliseconds.
     constexpr timespan(std::int32_t days
-                      , std::int32_t hours
-                      , std::int32_t minutes
-                      , std::int32_t seconds
-                      , std::int32_t milliseconds) noexcept
+                     , std::int32_t hours
+                     , std::int32_t minutes
+                     , std::int32_t seconds
+                     , std::int32_t milliseconds) noexcept
         : _ticks { std::chrono::duration_cast<ticks_duration>(days_duration(days))
                  + std::chrono::duration_cast<ticks_duration>(hours_duration(hours))
                  + std::chrono::duration_cast<ticks_duration>(minutes_duration(minutes))
                  + std::chrono::duration_cast<ticks_duration>(seconds_duration(seconds))
-                 + std::chrono::duration_cast<ticks_duration>(milli_seconds_duration(milliseconds)) }
+                 + std::chrono::duration_cast<ticks_duration>(milliseconds_duration(milliseconds)) }
     {
     }
 
@@ -236,7 +236,7 @@ public:
     /// \returns the value of the current TimeSpan structure expressed in whole and fractional milliseconds.
     constexpr double total_milli_seconds() const noexcept
     {
-        return std::chrono::duration_cast<milli_seconds_duration>(_ticks).count();
+        return std::chrono::duration_cast<milliseconds_duration>(_ticks).count();
     }
 
     /// Gets the value of the current TimeSpan structure expressed in whole and fractional minutes.

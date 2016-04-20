@@ -16,67 +16,67 @@ void surface::load(const std::string& filename) noexcept
     Expects(scener::io::file::exists(filename));
 
     file_stream stream(filename);
-    header      ddsheader;
-    std::size_t blocksize = 16;
+    header      dds_header;
+    std::size_t block_size = 16;
 
-    Ensures(stream.length() >= sizeof ddsheader);
+    Ensures(stream.length() >= sizeof dds_header);
 
-    stream.read(reinterpret_cast<char*>(&ddsheader), 0, sizeof ddsheader);
+    stream.read(reinterpret_cast<char*>(&dds_header), 0, sizeof dds_header);
 
     // ensure contents are in DDS format
-    Ensures(ddsheader.magic == 0x20534444);
+    Ensures(dds_header.magic == 0x20534444);
 
     // ensure required flags are meet
-    Ensures((ddsheader.flags & header_flags::pixelformat) == header_flags::pixelformat);
-    Ensures((ddsheader.flags & header_flags::caps)        == header_flags::caps);
-    Ensures((ddsheader.flags & header_flags::height)      == header_flags::height);
-    Ensures((ddsheader.flags & header_flags::width)       == header_flags::width);
+    Ensures((dds_header.flags & header_flags::pixelformat) == header_flags::pixelformat);
+    Ensures((dds_header.flags & header_flags::caps)        == header_flags::caps);
+    Ensures((dds_header.flags & header_flags::height)      == header_flags::height);
+    Ensures((dds_header.flags & header_flags::width)       == header_flags::width);
 
-    if (ddsheader.mipmap_count > 0)
+    if (dds_header.mipmap_count > 0)
     {
-        Ensures((ddsheader.flags & header_flags::mipmapcount) == header_flags::mipmapcount);
-        Ensures((ddsheader.flags & header_flags::linearsize)  == header_flags::linearsize);
+        Ensures((dds_header.flags & header_flags::mipmapcount) == header_flags::mipmapcount);
+        Ensures((dds_header.flags & header_flags::linearsize)  == header_flags::linearsize);
     }
 
     // ensure pixel format size is correct
-    Ensures(ddsheader.pixel_format.size == 32);
+    Ensures(dds_header.pixel_format.size == 32);
 
     // ensure the texture is in compressed format
-    Ensures((ddsheader.pixel_format.flags & pixel_format_flags::fourcc) == pixel_format_flags::fourcc);
+    Ensures((dds_header.pixel_format.flags & pixel_format_flags::fourcc) == pixel_format_flags::fourcc);
 
     // check DXTn format
-    Ensures(ddsheader.pixel_format.fourcc == fourcc::dxt1
-         || ddsheader.pixel_format.fourcc == fourcc::dxt3
-         || ddsheader.pixel_format.fourcc == fourcc::dxt5);
+    Ensures(dds_header.pixel_format.fourcc == fourcc::dxt1
+         || dds_header.pixel_format.fourcc == fourcc::dxt3
+         || dds_header.pixel_format.fourcc == fourcc::dxt5);
 
     // process dds contents
-    _height = ddsheader.height;
-    _width  = ddsheader.width;
+    _height = dds_header.height;
+    _width  = dds_header.width;
 
-    if (ddsheader.pixel_format.fourcc == fourcc::dxt1)
+    if (dds_header.pixel_format.fourcc == fourcc::dxt1)
     {
         _format   = surface_format::dxt1;
-        blocksize = 8;
+        block_size = 8;
     }
-    else if (ddsheader.pixel_format.fourcc == fourcc::dxt3)
+    else if (dds_header.pixel_format.fourcc == fourcc::dxt3)
     {
         _format = surface_format::dxt3;
     }
-    else if (ddsheader.pixel_format.fourcc == fourcc::dxt5)
+    else if (dds_header.pixel_format.fourcc == fourcc::dxt5)
     {
         _format = surface_format::dxt5;
     }
 
-    auto mipmapwidth  = _width;
-    auto mipmapheight = _height;
-    auto position     = size_type { 0 };
-    auto length       = stream.length() - sizeof ddsheader;
+    auto mipmap_width  = _width;
+    auto mipmap_height = _height;
+    auto position      = size_type { 0 };
+    auto length        = stream.length() - sizeof dds_header;
 
     _mipmaps.clear();
     _buffer.clear();
     _view = { };
 
-    _mipmaps.reserve(ddsheader.mipmap_count);
+    _mipmaps.reserve(dds_header.mipmap_count);
     _buffer.reserve(length);
 
     auto readed = stream.read(reinterpret_cast<char*>(_buffer.data()), 0, length);
@@ -85,15 +85,15 @@ void surface::load(const std::string& filename) noexcept
 
     _view = gsl::span<std::uint8_t>(_buffer.data(), static_cast<std::ptrdiff_t>(length));
 
-    for (size_type level = 0; level < ddsheader.mipmap_count; ++level)
+    for (size_type level = 0; level < dds_header.mipmap_count; ++level)
     {
-        auto size = std::max<size_type>(4, mipmapwidth) / 4 * std::max<size_type>(4, mipmapheight) / 4 * blocksize;
+        auto size = std::max<size_type>(4, mipmap_width) / 4 * std::max<size_type>(4, mipmap_height) / 4 * block_size;
         auto view = _view.subspan(static_cast<std::ptrdiff_t>(position), static_cast<std::ptrdiff_t>(size));
 
-        _mipmaps.push_back({ level, mipmapwidth, mipmapheight, view });
+        _mipmaps.push_back({ level, mipmap_width, mipmap_height, view });
 
-        mipmapwidth  = std::max<std::size_t>(1, mipmapwidth  >>= 1);
-        mipmapheight = std::max<std::size_t>(1, mipmapheight >>= 1);
+        mipmap_width  = std::max<std::size_t>(1, mipmap_width  >>= 1);
+        mipmap_height = std::max<std::size_t>(1, mipmap_height >>= 1);
 
         position += size;
     }

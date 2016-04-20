@@ -8,7 +8,7 @@
 namespace scener { namespace graphics {
 
 component::component(gsl::not_null<graphics::renderer*> renderer) noexcept
-    : _renderer ( renderer )
+    : _renderer { renderer }
 {
 }
 

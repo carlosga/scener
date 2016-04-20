@@ -27,15 +27,15 @@ public:
     /// \returns the directory information for the specified path string.
     static std::string get_directory_name(const std::string& path) noexcept
     {
-        auto position      = path.find_last_of(path::directory_separator());
-        auto directoryName = path;
+        auto position       = path.find_last_of(path::directory_separator());
+        auto directory_name = path;
 
         if (position != std::string::npos)
         {
-            directoryName.erase(position);
+            directory_name.erase(position);
         }
 
-        return directoryName;
+        return directory_name;
     }
 
     /// Returns the file name of the specified path string without the extension.
@@ -43,15 +43,15 @@ public:
     /// \returns the file name of the specified path string without the extension.
     static std::string get_file_name_without_extension(const std::string& path) noexcept
     {
-        auto position             = path.find_last_of('.');
-        auto pathWithoutExtension = path;
+        auto position               = path.find_last_of('.');
+        auto path_without_extension = path;
 
         if (position != std::string::npos)
         {
-            pathWithoutExtension.erase(position);
+            path_without_extension.erase(position);
         }
 
-        return pathWithoutExtension;
+        return path_without_extension;
     }
 
     /// Combines two strings into a path.
