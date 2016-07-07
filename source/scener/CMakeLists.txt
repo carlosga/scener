@@ -39,4 +39,4 @@ target_include_directories (scener
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS})
 
 # target links
-target_link_libraries (scener pthread ${X11_LIBRARIES})
+target_link_libraries (scener pthread ${X11_LIBRARIES} ${OPENGL_LIBRARIES})

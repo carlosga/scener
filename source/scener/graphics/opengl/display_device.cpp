@@ -111,7 +111,6 @@ void display_device::open_display() noexcept
         std::cout << "Could not open display\n";
         return;
     }
-
     _screen    = DefaultScreenOfDisplay(_display);
     _screen_id = DefaultScreen(_display);
 }
@@ -143,8 +142,6 @@ bool display_device::configure_frame_buffer() noexcept
 
         return false;
     }
-
-    _fbc = get_best_frame_buffer_configuration();
 
     return true;
 }
