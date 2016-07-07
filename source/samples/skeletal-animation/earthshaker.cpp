@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/earthshaker.hpp"
+#include "skeletal-animation/earthshaker.hpp"
 
 #include <scener/content/content_manager.hpp>
 #include <scener/graphics/effect_technique.hpp>
@@ -11,8 +11,8 @@
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
 
-#include "skeletalanimation/sample_renderer.hpp"
-#include "skeletalanimation/camera.hpp"
+#include "skeletal-animation/sample_renderer.hpp"
+#include "skeletal-animation/camera.hpp"
 
 namespace skeletal { namespace animation {
 

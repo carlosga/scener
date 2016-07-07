@@ -1,14 +1,14 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/sample_renderer.hpp"
+#include "skeletal-animation/sample_renderer.hpp"
 
 #include <scener/graphics/graphics_device.hpp>
 #include <scener/graphics/graphics_device_manager.hpp>
 #include <scener/math/color.hpp>
 
-#include "skeletalanimation/camera.hpp"
-#include "skeletalanimation/earthshaker.hpp"
+#include "skeletal-animation/camera.hpp"
+#include "skeletal-animation/earthshaker.hpp"
 
 namespace skeletal { namespace animation {
 

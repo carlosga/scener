@@ -37,11 +37,19 @@ build/
 
 # Cmake
 CMakeCache.txt
+CMakeLists.txt.user
 CMakeFiles
 Makefile
 cmake_install.cmake
 install_manifest.txt
 CMakeLists.txt.user
+compile_commands.json
 
 # Clion / IntelliJ IDEA
 .idea
+
+# Visual Studio Code
+.vscode
+
+# Misc
+TODO

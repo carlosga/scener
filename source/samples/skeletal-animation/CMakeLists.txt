@@ -3,7 +3,7 @@ project (scener::samples::skeletal-animation)
 enable_language (CXX)
 
 # pthread
-find_package (Threads REQUIRED)
+# find_package (Threads REQUIRED)
 
 # OpenGL
 find_package (OpenGL REQUIRED)

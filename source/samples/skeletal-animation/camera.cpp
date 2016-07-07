@@ -1,7 +1,7 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "skeletalanimation/camera.hpp"
+#include "skeletal-animation/camera.hpp"
 
 #include <scener/graphics/graphics_device.hpp>
 #include <scener/graphics/window.hpp>
@@ -9,7 +9,7 @@
 #include <scener/input/keyboard.hpp>
 #include <scener/input/keyboard_state.hpp>
 
-#include "skeletalanimation/sample_renderer.hpp"
+#include "skeletal-animation/sample_renderer.hpp"
 
 namespace skeletal { namespace animation {
 
