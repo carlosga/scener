@@ -23,7 +23,6 @@ namespace scener { namespace content { namespace readers { template <typename T>
 
 namespace scener { namespace graphics {
 
-class GrapicsDevice;
 class effect_pass;
 class effect_parameter;
 class texture2d;
