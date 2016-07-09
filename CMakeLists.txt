@@ -21,7 +21,7 @@ set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
 set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
-set (SCENER_MATH_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../scener-math/include)
+set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/include)
 
 # Workaround using a local build of libc++ & libc++abi 3.8 under ubuntu 16.04
 include_directories (/usr/local/include/c++/v1 /home/carlos/development/projects/cpp/libcxx/libcxxabi/include)
