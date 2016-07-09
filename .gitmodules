@@ -7,3 +7,6 @@
 [submodule "externals/nod"]
 	path = externals/nod
 	url = git@github.com:fr00b0/nod.git
+[submodule "externals/scener-math"]
+	path = externals/scener-math
+	url = git@github.com:carlosga/scener-math.git
