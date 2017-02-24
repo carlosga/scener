@@ -8,7 +8,7 @@
 
 #include <X11/Xatom.h>
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 #include "scener/graphics/opengl/display_device.hpp"
 

@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/igraphics_device_manager.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"

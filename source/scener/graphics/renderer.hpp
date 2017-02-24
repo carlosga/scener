@@ -95,8 +95,8 @@ protected:
     void time_step() noexcept;
 
 private:
-    void post_process_components() noexcept;
     void create_device() noexcept;
+    void post_process_components() noexcept;
     void fixed_time_step() noexcept;
     void variable_time_step() noexcept;
     void start_event_loop() noexcept;

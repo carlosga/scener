@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/icomponent.hpp"
 #include "scener/graphics/iupdateable.hpp"

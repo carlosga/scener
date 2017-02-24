@@ -3,7 +3,7 @@
 
 #include "scener/graphics/opengl/vertex_array_object.hpp"
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 #include "scener/graphics/opengl/platform.hpp"
 

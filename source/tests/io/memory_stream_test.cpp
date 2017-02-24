@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include <scener/io/binary_reader.hpp>
 #include <scener/io/memory_stream.hpp>
@@ -18,14 +18,14 @@ using namespace scener::io;
 TEST_F(memory_stream_test, constructor)
 {
     std::vector<std::uint8_t> vec(3);
-    auto dv = as_span(vec);
+    span<std::uint8_t> dv { vec };
     memory_stream stream(dv);
 }
 
 TEST_F(memory_stream_test, read)
 {
     std::vector<std::uint8_t> vec = { 1, 2, 3 };
-    auto dv = as_span(vec);
+    span<std::uint8_t> dv { vec };
     memory_stream stream(dv);
     std::vector<std::uint8_t> out(3, 0);
 

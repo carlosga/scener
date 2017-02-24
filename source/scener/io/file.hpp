@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 #include "scener/io/binary_reader.hpp"
 #include "scener/io/file_stream.hpp"

@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <string>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/content/dds/surface_mipmap.hpp"
 #include "scener/graphics/surface_format.hpp"

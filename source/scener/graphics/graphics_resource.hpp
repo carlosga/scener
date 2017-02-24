@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 namespace scener { namespace graphics {
 

@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include <span.h>
+#include <gsl/span>
 
 namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
 

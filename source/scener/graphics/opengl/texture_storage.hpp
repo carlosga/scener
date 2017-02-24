@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/opengl/texture_target.hpp"

@@ -219,11 +219,11 @@ void renderer::create_device() noexcept
     _device_manager->create_device();
     _window->allow_user_resizing(true);
     _window->open();
-    _render_context = std::make_unique<render_context>(_window->display_device(), _window->display_surface());
+    _render_context = std::make_unique<render_context>(_device_manager->device()->display_device(), _window->display_surface());
     _render_context->create();
     _device_manager->apply_changes();
 
-    switch (device()->presentation_parameters().present_interval)
+    switch (_device_manager->device()->presentation_parameters().present_interval)
     {
         case present_interval::one:
             _render_context->present_interval(1);

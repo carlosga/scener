@@ -6,7 +6,7 @@
 
 #include <memory>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/content/content_resource_manager.hpp"
 

@@ -8,15 +8,10 @@
 #include <memory>
 #include <string>
 
-#include <gsl.h>
+#include <gsl/gsl>
 #include <nod/nod.hpp>
 
-namespace scener { namespace graphics { namespace opengl {
-
-class display_device;
-class display_surface;
-
-}}}
+#include "scener/graphics/opengl/display_surface.hpp"
 
 namespace scener { namespace graphics {
 
@@ -32,6 +27,9 @@ public:
 
     /// Releases all resource being used by the current RendererWindow
     ~window();
+
+public:
+    opengl::display_surface* display_surface() const noexcept;
 
 public:
     /// Gets the renderer window title.
@@ -57,8 +55,6 @@ public:
     nod::connection connect_resize(std::function<void(std::uint32_t, std::uint32_t)>&& slot) noexcept;
 
 private:
-    opengl::display_device* display_device() const noexcept;
-    opengl::display_surface* display_surface() const noexcept;
     void open() noexcept;
     void show() const noexcept;
     void close() noexcept;
@@ -72,8 +68,7 @@ private:
 
 private:
     renderer*                                _renderer          { nullptr };
-    std::unique_ptr<opengl::display_device>  _displayDevice     { nullptr };
-    std::unique_ptr<opengl::display_surface> _displaySurface    { nullptr };
+    std::unique_ptr<opengl::display_surface> _display_surface   { nullptr };
     std::string                              _title             { };
     nod::scoped_connection                   _close_connection  { };
     nod::scoped_connection                   _resize_connection { };

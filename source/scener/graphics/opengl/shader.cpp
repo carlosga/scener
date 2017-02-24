@@ -3,7 +3,7 @@
 
 #include "scener/graphics/opengl/shader.hpp"
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 namespace scener { namespace graphics { namespace opengl {
 

@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 namespace scener { namespace content { namespace dds {
 

@@ -13,6 +13,7 @@
 #include "scener/graphics/primitive_type.hpp"
 #include "scener/graphics/rasterizer_state.hpp"
 #include "scener/graphics/viewport.hpp"
+#include "scener/graphics/opengl/display_device.hpp"
 #include "scener/math/color.hpp"
 
 namespace scener { namespace graphics {
@@ -56,6 +57,9 @@ private:
 public:
     /// Initializes a new instance of the GraphicsDevice class.
     graphics_device() noexcept;
+
+public:
+    opengl::display_device* display_device() const noexcept;
 
 public:
     /// Clears the resouce buffer
@@ -123,11 +127,12 @@ public:
     graphics::vertex_buffer* vertex_buffer;
 
 private:
-    graphics::blend_state             _blend_state;
-    graphics::depth_stencil_state     _depth_stencil_state;
-    graphics::presentation_parameters _presentation_parameters;
-    graphics::rasterizer_state        _rasterizer_state;
-    graphics::viewport                _viewport;
+    graphics::blend_state                    _blend_state;
+    graphics::depth_stencil_state            _depth_stencil_state;
+    graphics::presentation_parameters        _presentation_parameters;
+    graphics::rasterizer_state               _rasterizer_state;
+    graphics::viewport                       _viewport;
+    std::unique_ptr<opengl::display_device>  _display_device { nullptr };
 };
 
 }}

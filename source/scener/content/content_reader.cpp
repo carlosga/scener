@@ -3,6 +3,8 @@
 
 #include "scener/content/content_reader.hpp"
 
+#include <experimental/algorithm>
+
 #include "scener/content/content_manager.hpp"
 #include "scener/graphics/animation.hpp"
 #include "scener/graphics/model.hpp"

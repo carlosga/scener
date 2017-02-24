@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include <span.h>
+#include <gsl/span>
 
 #include "scener/content/gltf/attribute_type.hpp"
 #include "scener/graphics/component_type.hpp"

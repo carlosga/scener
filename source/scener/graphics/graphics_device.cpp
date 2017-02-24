@@ -3,7 +3,7 @@
 
 #include "graphics_device.hpp"
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 #include "scener/graphics/vertex_buffer.hpp"
 #include "scener/graphics/index_buffer.hpp"
@@ -21,7 +21,17 @@ graphics_device::graphics_device() noexcept
     , _presentation_parameters { }
     , _rasterizer_state        { this }
     , _viewport                { }
+    , _display_device          { std::make_unique<opengl::display_device>() }
 {
+    if (!_display_device->open())
+    {
+        throw std::runtime_error("An error has occurred while opening the display device.");
+    }    
+}
+
+opengl::display_device* graphics_device::display_device() const noexcept
+{
+    return _display_device.get();
 }
 
 void graphics_device::clear(const math::color& color) const noexcept

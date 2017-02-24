@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/graphics_resource.hpp"
 #include "scener/graphics/blend_function.hpp"

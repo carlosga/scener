@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <vector>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/component_type.hpp"
 #include "scener/graphics/graphics_resource.hpp"

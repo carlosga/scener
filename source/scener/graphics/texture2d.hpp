@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <memory>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/surface_format.hpp"
 #include "scener/graphics/texture.hpp"

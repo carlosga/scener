@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <gsl.h>
+#include <gsl/gsl>
 
 #include "scener/graphics/opengl/buffer.hpp"
 

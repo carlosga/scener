@@ -1,37 +1,99 @@
-### SceneR - OpenGL 3D model renderer
+# scener
 
-#### C++ learning project.
-The API is inspired on a subset of the Microsoft XNA 4 API.
+OpenGL 3D model renderer (**C++ learning project**)
 
-* License.
-    * [**MIT LICENSE**](http://opensource.org/licenses/MIT)
-* Development platform.
-    * **Linux**.
-* C++ Compiler.
-    * [**Clang**](http://clang.llvm.org/)
-* C++ Standard Library.
-    * [**libC++**](http://libcxx.llvm.org/)
-* Third party dependencies.
-    * [**OpenGL**](https://www.khronos.org/opengl/)
-    * [**json11**](https://github.com/dropbox/json11)
-    * [**GSL**](https://github.com/Microsoft/GSL)
-    * [**nod**](https://github.com/fr00b0/nod)
-    * [**Google Test**](https://code.google.com/p/googletest/)
-* Asset format
-    * [**glTF**](https://github.com/KhronosGroup/glTF)
-* OpenGL loader
-    * [**glad**](https://github.com/Dav1dde/glad)
+## Getting Started
 
-## Build
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Linux (with clang)
+### Prerequisites
 
-#### Debug build:
+| Name                                       | Version       |
+|--------------------------------------------|---------------|
+| C++ compiler                               | Clang 3.8     |
+| C compiler                                 | Clang 3.8     |
+| [**libC++**](http://libcxx.llvm.org/)      | 3.8 (Linux)   |
 
-  * cmake .. -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
-  * make or make -jn
+```
+sudo apt-get install clang libc++ lldb git
+```
 
-#### Release build:
+### Compile from Source
 
-  * cmake .. -DCMAKE_BUILD_TYPE=release -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
-  * make or make -jn
+A step by step series of examples that tell you have to get a development env running
+
+1. Clone repository
+
+```
+git clone --recursive https://github.com/carlosga/scener.git
+```
+
+2. Install dependencies (packages names for Debian)
+
+```
+sudo apt-get install cmake xorg-dev libgl1-mesa-dev
+```
+
+3. Configure the build (DEBUG)
+
+```
+cd scener
+mkdir build\debug
+cd build\debug
+cmake ..\.. -DCMAKE_BUILD_TYPE=debug -DCMAKE_CXX_COMPILER=clang++-libc++ -DCMAKE_C_COMPILER=clang
+```
+
+4. Build 
+
+```
+make -j <NUM_CORES>
+```
+
+## Running the tests
+
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Built With
+
+| Name                                                      | Description          |
+|-----------------------------------------------------------|----------------------|
+| [**GSL**](https://github.com/Microsoft/GSL)               |                      |
+| [**json11**](https://github.com/dropbox/json11)           | JSON parser          |
+| [**nod**](https://github.com/fr00b0/nod)                  | C++ signals library  |
+| [**glad**](https://github.com/Dav1dde/glad)               | OpenGL loader        |
+| [**Google Test**](https://code.google.com/p/googletest/)  | Test framework       |
+| [**glTF**](https://github.com/KhronosGroup/glTF)          | Asset format         |
+
+## Authors
+
+* **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://github.com/carlosga)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* The API is inspired on a subset of the Microsoft XNA 4 API
+* Earthshaker model is a DOTA 2 model downloaded from [**DOTA 2 Workshop**](http://www.dota2.com/workshop/requirements),
+  converted to COLLADA using [**Blender**](https://www.blender.org/) and finally to [**glTF**](https://github.com/KhronosGroup/glTF) 
+  using the official COLLADA to glTF converter.
+* The [template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) this README is based on

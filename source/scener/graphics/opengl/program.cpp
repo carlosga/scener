@@ -3,7 +3,7 @@
 
 #include "scener/graphics/opengl/program.hpp"
 
-#include <gsl_assert.h>
+#include <gsl/gsl_assert>
 
 #include "scener/graphics/opengl/buffer.hpp"
 #include "scener/graphics/opengl/constant_buffer.hpp"
