@@ -9,20 +9,19 @@
 #include "scener/content/gltf/buffer.hpp"
 #include "scener/content/gltf/buffer_view.hpp"
 
-namespace scener { namespace content { namespace readers {
-
-using json11::Json;
-
-auto content_type_reader<gltf::buffer_view>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+namespace scener::content::readers
 {
-    auto view = std::make_shared<gltf::buffer_view>();
+    using json11::Json;
 
-    view->_name        = key;
-    view->_buffer      = input->read_object<gltf::buffer>(source["buffer"].string_value());
-    view->_byte_offset = static_cast<std::size_t>(source["byteOffset"].int_value());
-    view->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
+    auto content_type_reader<gltf::buffer_view>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    {
+        auto view = std::make_shared<gltf::buffer_view>();
 
-    return view;
+        view->_name        = key;
+        view->_buffer      = input->read_object<gltf::buffer>(source["buffer"].string_value());
+        view->_byte_offset = static_cast<std::size_t>(source["byteOffset"].int_value());
+        view->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
+
+        return view;
+    }
 }
-
-}}}

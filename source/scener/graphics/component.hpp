@@ -11,54 +11,53 @@
 #include "scener/graphics/icomponent.hpp"
 #include "scener/graphics/iupdateable.hpp"
 
-namespace scener { namespace graphics {
-
-class  renderer;
-struct steptime;
-
-/// Base class for all components.
-class component : public icomponent, public iupdateable
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the Component class.
-    /// \param renderer the renderer that owns the component.
-    component(gsl::not_null<renderer*> renderer) noexcept;
+    class  renderer;
+    struct steptime;
 
-    /// Releases all resources being used by this component instance.
-    ~component() override = default;
+    /// Base class for all components.
+    class component : public icomponent, public iupdateable
+    {
+    public:
+        /// Initializes a new instance of the Component class.
+        /// \param renderer the renderer that owns the component.
+        component(gsl::not_null<renderer*> renderer) noexcept;
 
-public:
-    /// Gets the Renderer associated with this Component.
-    /// \returns a pointer to the Renderer instance associated with this Component.
-    graphics::renderer* renderer() noexcept;
+        /// Releases all resources being used by this component instance.
+        ~component() override = default;
 
-    /// Called when the component should be updated.
-    void update(const steptime& time) noexcept override;
+    public:
+        /// Gets the Renderer associated with this Component.
+        /// \returns a pointer to the Renderer instance associated with this Component.
+        graphics::renderer* renderer() noexcept;
 
-    /// Gets a value indicating whether the component is enabled.
-    /// \returns true if the component is enabled; false otherwise.
-    bool enabled() const noexcept override;
+        /// Called when the component should be updated.
+        void update(const steptime& time) noexcept override;
 
-    /// Sets a value indicating whether the component is enabled.
-    /// \param enabled true if Component.Update should be called; false otherwise.
-    void enabled(bool enabled) noexcept;
+        /// Gets a value indicating whether the component is enabled.
+        /// \returns true if the component is enabled; false otherwise.
+        bool enabled() const noexcept override;
 
-    /// Gets the order in which to update this object relative to other objects.
-    /// \returns the order in which to update this object relative to other objects.
-    std::uint32_t update_order() const noexcept override;
+        /// Sets a value indicating whether the component is enabled.
+        /// \param enabled true if Component.Update should be called; false otherwise.
+        void enabled(bool enabled) noexcept;
 
-    /// Sets the order in which to update this object relative to other objects.
-    /// \param order the order in which to update this object relative to other objects.
-    void update_order(std::uint32_t order) noexcept;
+        /// Gets the order in which to update this object relative to other objects.
+        /// \returns the order in which to update this object relative to other objects.
+        std::uint32_t update_order() const noexcept override;
 
-protected:
-    graphics::renderer* _renderer = nullptr;
+        /// Sets the order in which to update this object relative to other objects.
+        /// \param order the order in which to update this object relative to other objects.
+        void update_order(std::uint32_t order) noexcept;
 
-private:
-    bool          _enabled      = true;
-    std::uint32_t _update_order = 0;
-};
+    protected:
+        graphics::renderer* _renderer = nullptr;
 
-}}
+    private:
+        bool          _enabled      = true;
+        std::uint32_t _update_order = 0;
+    };
+}
 
 #endif // SCENER_GRAPHICS_COMPONENT_HPP

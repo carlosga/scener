@@ -10,53 +10,51 @@
 
 #include "scener/content/content_resource_manager.hpp"
 
-namespace scener { namespace graphics {
+namespace scener::io { class file_stream; }
 
-class model;
-class service_container;
-
-}}
-
-namespace scener { namespace io { class file_stream; } }
-
-namespace scener { namespace content {
-
-/// The content_manager is used at runtime to load application content_manager from files.
-class content_manager final
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the content_manager class.
-    /// \param serviceprovider the service provider that the content_manager should use to locate services.
-    /// \param rootdirectory the root directory to search for content.
-    content_manager(gsl::not_null<graphics::service_container*> serviceprovider
-                 , const std::string&                           rootdirectory) noexcept;
+    class model;
+    class service_container;
+}
 
-    /// Releases all resources being used by the content_manager class.
-    ~content_manager();
+namespace scener::content
+{
+    /// The content_manager is used at runtime to load application content_manager from files.
+    class content_manager final
+    {
+    public:
+        /// Initializes a new instance of the content_manager class.
+        /// \param serviceprovider the service provider that the content_manager should use to locate services.
+        /// \param rootdirectory the root directory to search for content.
+        content_manager(gsl::not_null<graphics::service_container*> serviceprovider
+                      , const std::string&                          rootdirectory) noexcept;
 
-public:
-    /// Gets the service provider that the content_manager should use to locate services.
-    graphics::service_container* service_provider() const noexcept;
+        /// Releases all resources being used by the content_manager class.
+        ~content_manager();
 
-    /// Gets the root directory associated with this content_manager.
-    const std::string& root_directory() const noexcept;
+    public:
+        /// Gets the service provider that the content_manager should use to locate services.
+        graphics::service_container* service_provider() const noexcept;
 
-public:
-    /// Loads the given asset.
-    std::shared_ptr<graphics::model> load(const std::string& assetname) noexcept;
+        /// Gets the root directory associated with this content_manager.
+        const std::string& root_directory() const noexcept;
 
-    /// Disposes all data that was loaded by this content_manager.
-    void unload() noexcept;
+    public:
+        /// Loads the given asset.
+        std::shared_ptr<graphics::model> load(const std::string& assetname) noexcept;
 
-private:
-    std::shared_ptr<io::file_stream> open_stream(const std::string& assetname) noexcept;
+        /// Disposes all data that was loaded by this content_manager.
+        void unload() noexcept;
 
-private:
-    graphics::service_container* _service_provider;
-    std::string                  _root_directory;
-    content_resource_manager     _resource_manager;
-};
+    private:
+        std::shared_ptr<io::file_stream> open_stream(const std::string& assetname) noexcept;
 
-}}
+    private:
+        graphics::service_container* _service_provider;
+        std::string                  _root_directory;
+        content_resource_manager     _resource_manager;
+    };
+}
 
 #endif // SCENER_CONTENT_CONTENT_MANAGER_HPP

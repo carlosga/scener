@@ -6,90 +6,89 @@
 #include "scener/graphics/opengl/buffer_target.hpp"
 #include "scener/graphics/opengl/buffer_usage.hpp"
 
-namespace scener { namespace graphics { namespace opengl {
-
-constant_buffer::constant_buffer(const std::string& name, std::uint32_t program_id) noexcept
-    : _buffer_object { buffer_target::uniform_buffer, buffer_usage::dynamic_draw }
-    , _program_id    { program_id }
-    , _index         { 0 }
-    , _binding_point { 0 }
-    , _size          { 0 }
-    , _name          { name }
+namespace scener::graphics::opengl
 {
-    create();
+    constant_buffer::constant_buffer(const std::string& name, std::uint32_t program_id) noexcept
+        : _buffer_object { buffer_target::uniform_buffer, buffer_usage::dynamic_draw }
+        , _program_id    { program_id }
+        , _index         { 0 }
+        , _binding_point { 0 }
+        , _size          { 0 }
+        , _name          { name }
+    {
+        create();
+    }
+
+    std::uint32_t constant_buffer::binding_point() const noexcept
+    {
+        return _binding_point;
+    }
+
+    std::uint32_t constant_buffer::index() const noexcept
+    {
+        return _index;
+    }
+
+    std::size_t constant_buffer::size() const noexcept
+    {
+        return _size;
+    }
+
+    void constant_buffer::bind() const noexcept
+    {
+        glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
+    }
+
+    void constant_buffer::unbind() const noexcept
+    {
+        glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
+    }
+
+    std::vector<std::uint8_t> constant_buffer::get_data() const noexcept
+    {
+        return get_data(0, _size);
+    }
+
+    std::vector<std::uint8_t> constant_buffer::get_data(std::size_t offset, std::size_t count) const noexcept
+    {
+        Ensures(count <= _size);
+
+        return _buffer_object.get_data(offset, count);
+    }
+
+    void constant_buffer::set_data(gsl::not_null<const void*> data) const noexcept
+    {
+        set_data(0, _size, data);
+    }
+
+    void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
+    {
+        Ensures((offset + count) <= _size);
+
+        _buffer_object.set_data(offset, count, data);
+    }
+
+    void constant_buffer::create() noexcept
+    {
+        std::int32_t binding   = 0;
+        std::int32_t blocksize = 0;
+
+        // Get the uniform block index
+        _index = glGetUniformBlockIndex(_program_id, _name.c_str());
+
+        // Get the binding point
+        glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
+
+        // Get uniform block data size
+        glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blocksize);
+
+        // update class members
+        _binding_point = static_cast<std::uint32_t>(binding);
+        _size          = static_cast<std::size_t>(blocksize);
+
+        // initialize the buffer object
+        std::vector<std::uint8_t> data(_size, 0);
+
+        _buffer_object.set_data(_size, data.data());
+    }
 }
-
-std::uint32_t constant_buffer::binding_point() const noexcept
-{
-    return _binding_point;
-}
-
-std::uint32_t constant_buffer::index() const noexcept
-{
-    return _index;
-}
-
-std::size_t constant_buffer::size() const noexcept
-{
-    return _size;
-}
-
-void constant_buffer::bind() const noexcept
-{
-    glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), _binding_point, _buffer_object.id());
-}
-
-void constant_buffer::unbind() const noexcept
-{
-    glBindBufferBase(static_cast<GLenum>(_buffer_object.target()), 0, 0);
-}
-
-std::vector<std::uint8_t> constant_buffer::get_data() const noexcept
-{
-    return get_data(0, _size);
-}
-
-std::vector<std::uint8_t> constant_buffer::get_data(std::size_t offset, std::size_t count) const noexcept
-{
-    Ensures(count <= _size);
-
-    return _buffer_object.get_data(offset, count);
-}
-
-void constant_buffer::set_data(gsl::not_null<const void*> data) const noexcept
-{
-    set_data(0, _size, data);
-}
-
-void constant_buffer::set_data(std::size_t offset, std::size_t count, gsl::not_null<const void*> data) const noexcept
-{
-    Ensures((offset + count) <= _size);
-
-    _buffer_object.set_data(offset, count, data);
-}
-
-void constant_buffer::create() noexcept
-{
-    std::int32_t binding   = 0;
-    std::int32_t blocksize = 0;
-
-    // Get the uniform block index
-    _index = glGetUniformBlockIndex(_program_id, _name.c_str());
-
-    // Get the binding point
-    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_BINDING, &binding);
-
-    // Get uniform block data size
-    glGetActiveUniformBlockiv(_program_id, _index, GL_UNIFORM_BLOCK_DATA_SIZE, &blocksize);
-
-    // update class members
-    _binding_point = static_cast<std::uint32_t>(binding);
-    _size          = static_cast<std::size_t>(blocksize);
-
-    // initialize the buffer object
-    std::vector<std::uint8_t> data(_size, 0);
-
-    _buffer_object.set_data(_size, data.data());
-}
-
-}}}

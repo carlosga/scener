@@ -8,15 +8,14 @@
 #include "scener/content/content_reader.hpp"
 #include "scener/content/dds/surface.hpp"
 
-namespace scener { namespace content { namespace readers {
-
-auto content_type_reader<dds::surface>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
+namespace scener::content::readers
 {
-    auto image = std::make_shared<dds::surface>();
+    auto content_type_reader<dds::surface>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
+    {
+        auto image = std::make_shared<dds::surface>();
 
-    image->load(input->get_asset_path(source["uri"].string_value()));
+        image->load(input->get_asset_path(source["uri"].string_value()));
 
-    return image;
+        return image;
+    }
 }
-
-}}}

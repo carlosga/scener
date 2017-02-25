@@ -10,67 +10,65 @@
 #include <memory>
 #include <string>
 
-namespace scener { namespace graphics { namespace opengl {
-
-class constant_buffer;
-enum class shader_type : std::uint32_t;
-
-class shader;
-
-/// Represents an OpenGL program.
-class program final
+namespace scener::graphics::opengl
 {
-public:
-    /// Initializes a new instance of the Program class.
-    program();
+    class constant_buffer;
+    class shader;
+    enum class shader_type : std::uint32_t;
 
-    /// Releases all resources being used by this Program instance.
-    ~program() noexcept;
+    /// Represents an OpenGL program.
+    class program final
+    {
+    public:
+        /// Initializes a new instance of the Program class.
+        program();
 
-public:
-    /// Gets the OpenGL program identifier.
-    /// \returns the OpenGL program identifier.
-    std::uint32_t id() const noexcept;
+        /// Releases all resources being used by this Program instance.
+        ~program() noexcept;
 
-    /// Gets the constant buffer assciated with this program.
-    /// \returns the constant buffer assciated with this program.
-    opengl::constant_buffer* constant_buffer() const noexcept;
+    public:
+        /// Gets the OpenGL program identifier.
+        /// \returns the OpenGL program identifier.
+        std::uint32_t id() const noexcept;
 
-    /// Activates this program instance.
-    void bind() const noexcept;
+        /// Gets the constant buffer assciated with this program.
+        /// \returns the constant buffer assciated with this program.
+        opengl::constant_buffer* constant_buffer() const noexcept;
 
-    /// Attachs the given shader to the program object.
-    /// \param shader the shader to be attached to the program object.
-    void add_shader(const std::shared_ptr<shader>& shader) noexcept;
+        /// Activates this program instance.
+        void bind() const noexcept;
 
-    /// Deactivates this program instance.
-    void unbind() const noexcept;
+        /// Attachs the given shader to the program object.
+        /// \param shader the shader to be attached to the program object.
+        void add_shader(const std::shared_ptr<shader>& shader) noexcept;
 
-    /// Links the program object and initializes the constant buffer.
-    void link() noexcept;
+        /// Deactivates this program instance.
+        void unbind() const noexcept;
 
-    /// Gets the uniform offsets.
-    /// \returns the uniform offsets.
-    std::map<std::string, std::size_t> get_uniform_offsets() const noexcept;
+        /// Links the program object and initializes the constant buffer.
+        void link() noexcept;
 
-    /// Loads the subroutine at the given index on the given shader stage.
-    /// \param stage the shader stage.
-    /// \param index the subroutine index.
-    void activate_subroutine(shader_type stage, std::uint32_t index) const noexcept;
+        /// Gets the uniform offsets.
+        /// \returns the uniform offsets.
+        std::map<std::string, std::size_t> get_uniform_offsets() const noexcept;
 
-private:
-    void create() noexcept;
-    void verify_linking_state();
+        /// Loads the subroutine at the given index on the given shader stage.
+        /// \param stage the shader stage.
+        /// \param index the subroutine index.
+        void activate_subroutine(shader_type stage, std::uint32_t index) const noexcept;
 
-public:
-    /// Gets or sets the program name.
-    std::string name { };
+    private:
+        void create() noexcept;
+        void verify_linking_state();
 
-private:
-    std::uint32_t                            _id              { 0 };
-    std::unique_ptr<opengl::constant_buffer> _constant_buffer { nullptr };
-};
+    public:
+        /// Gets or sets the program name.
+        std::string name { };
 
-}}}
+    private:
+        std::uint32_t                            _id              { 0 };
+        std::unique_ptr<opengl::constant_buffer> _constant_buffer { nullptr };
+    };
+}
 
 #endif // SCENER_GRAPHICS_OPENGL_PROGRAM_HPP

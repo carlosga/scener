@@ -7,81 +7,81 @@
 
 #include "scener/graphics/opengl/platform.hpp"
 
-namespace scener { namespace graphics { namespace opengl {
-
-vertex_array_object::vertex_array_object() noexcept
+namespace scener::graphics::opengl
 {
-    create();
-}
-
-vertex_array_object::~vertex_array_object() noexcept
-{
-    if (_id != 0)
+    vertex_array_object::vertex_array_object() noexcept
     {
-        glDeleteVertexArrays(1, &_id);
-        _id = 0;
+        create();
     }
-}
 
-std::uint32_t vertex_array_object::id() const noexcept
-{
-    return _id;
-}
-
-void vertex_array_object::bind() const noexcept
-{
-    glBindVertexArray(_id);
-}
-
-void vertex_array_object::unbind() const noexcept
-{
-    glBindVertexArray(0);
-}
-
-void vertex_array_object::declare(const vertex_declaration& declaration, std::uint32_t binding_index) const noexcept
-{
-    const auto& elements = declaration.vertex_elements();
-
-    // ... declare vertex elements
-    for (const auto& ve : elements)
+    vertex_array_object::~vertex_array_object() noexcept
     {
-        auto type  = get_element_type(ve.format());
-        auto count = static_cast<GLint>(get_element_count(ve.format()));
-        auto index = static_cast<std::uint32_t>(ve.usage());
-
-        if (type == GL_FLOAT)
+        if (_id != 0)
         {
-            glVertexArrayAttribFormat(_id, index, count, type, false, ve.offset());
+            glDeleteVertexArrays(1, &_id);
+            _id = 0;
         }
-        else
-        {
-            glVertexArrayAttribIFormat(_id, index, count, type, ve.offset());
-        }
-
-        glEnableVertexArrayAttrib(_id, index);
-        glVertexArrayAttribBinding(_id, index, binding_index);
     }
-}
 
-void vertex_array_object::bind_to_buffer(const buffer& buffer
-                                       , uint32_t      bindingIndex
-                                       , std::size_t   offset
-                                       , std::size_t   stride) noexcept
-{
-    glVertexArrayVertexBuffer(_id, bindingIndex, buffer.id(), offset, stride);
-}
-
-void vertex_array_object::create() noexcept
-{
-    glCreateVertexArrays(1, &_id);
-
-    Ensures(_id > 0);
-}
-
-std::size_t vertex_array_object::get_element_count(vertex_element_format format) const noexcept
-{
-    switch (format)
+    std::uint32_t vertex_array_object::id() const noexcept
     {
+        return _id;
+    }
+
+    void vertex_array_object::bind() const noexcept
+    {
+        glBindVertexArray(_id);
+    }
+
+    void vertex_array_object::unbind() const noexcept
+    {
+        glBindVertexArray(0);
+    }
+
+    void vertex_array_object::declare(const vertex_declaration& declaration, std::uint32_t binding_index) const noexcept
+    {
+        const auto& elements = declaration.vertex_elements();
+
+        // ... declare vertex elements
+        for (const auto& ve : elements)
+        {
+            auto type  = get_element_type(ve.format());
+            auto count = static_cast<GLint>(get_element_count(ve.format()));
+            auto index = static_cast<std::uint32_t>(ve.usage());
+
+            if (type == GL_FLOAT)
+            {
+                glVertexArrayAttribFormat(_id, index, count, type, false, ve.offset());
+            }
+            else
+            {
+                glVertexArrayAttribIFormat(_id, index, count, type, ve.offset());
+            }
+
+            glEnableVertexArrayAttrib(_id, index);
+            glVertexArrayAttribBinding(_id, index, binding_index);
+        }
+    }
+
+    void vertex_array_object::bind_to_buffer(const buffer& buffer
+                                           , uint32_t      bindingIndex
+                                           , std::size_t   offset
+                                           , std::size_t   stride) noexcept
+    {
+        glVertexArrayVertexBuffer(_id, bindingIndex, buffer.id(), offset, stride);
+    }
+
+    void vertex_array_object::create() noexcept
+    {
+        glCreateVertexArrays(1, &_id);
+
+        Ensures(_id > 0);
+    }
+
+    std::size_t vertex_array_object::get_element_count(vertex_element_format format) const noexcept
+    {
+        switch (format)
+        {
         case vertex_element_format::single:
             return 1;
 
@@ -101,13 +101,13 @@ std::size_t vertex_array_object::get_element_count(vertex_element_format format)
         case vertex_element_format::normalized_short4:
         case vertex_element_format::half_vector4:
             return 4;
+        }
     }
-}
 
-std::uint32_t vertex_array_object::get_element_type(vertex_element_format format) const noexcept
-{
-    switch (format)
+    std::uint32_t vertex_array_object::get_element_type(vertex_element_format format) const noexcept
     {
+        switch (format)
+        {
         case vertex_element_format::byte4:
             return GL_UNSIGNED_BYTE;
 
@@ -125,7 +125,6 @@ std::uint32_t vertex_array_object::get_element_type(vertex_element_format format
         case vertex_element_format::vector4:
         case vertex_element_format::color:
             return GL_FLOAT;
+        }
     }
 }
-
-}}}

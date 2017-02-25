@@ -8,16 +8,15 @@
 
 #include "scener/graphics/opengl/platform.hpp"
 
-namespace scener { namespace graphics {
-
-/// Defines winding orders that may be used for face culling.
-enum class cull_mode : std::uint32_t
+namespace scener::graphics
 {
-    cull_clockwise_face         = GL_CW     ///< Cull back faces with clockwise vertices.
-  , cull_counter_clockwise_face = GL_CCW    ///< Cull front faces with counterclockwise vertices.
-  , none                        = 0         ///< Do not perform culling
-};
-
-}}
+    /// Defines winding orders that may be used for face culling.
+    enum class cull_mode : std::uint32_t
+    {
+        cull_clockwise_face         = GL_CW     ///< Cull back faces with clockwise vertices.
+      , cull_counter_clockwise_face = GL_CCW    ///< Cull front faces with counterclockwise vertices.
+      , none                        = 0         ///< Do not perform culling
+    };
+}
 
 #endif // SCENER_GRAPHICS_CULLMODE_HPP

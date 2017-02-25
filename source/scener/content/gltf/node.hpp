@@ -12,70 +12,68 @@
 #include "scener/math/basic_quaternion.hpp"
 #include "scener/math/basic_vector.hpp"
 
-namespace scener { namespace graphics {
-
-class skeleton;
-class bone;
-class model_mesh;
-
-}}
-
-namespace scener { namespace content { namespace gltf {
-
-/// GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
-class node final
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the Node class.
-    node() noexcept;
+    class skeleton;
+    class bone;
+    class model_mesh;
+}
 
-public:
-    /// Gets or sets the node name.
-    std::string name;
+namespace scener::content::gltf
+{
+    /// GLTF. A node in the node hierarchy.  Nodes can reference meshes, cameras, lights, or skins.
+    class node final
+    {
+    public:
+        /// Initializes a new instance of the Node class.
+        node() noexcept;
 
-    /// The id (JSON property name) of the camera referenced by this node.
-    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
-    std::string camera;
+    public:
+        /// Gets or sets the node name.
+        std::string name;
 
-    /// An instance of a skin.
-    std::shared_ptr<scener::graphics::skeleton> instance_skin;
+        /// The id (JSON property name) of the camera referenced by this node.
+        /// A node will have either the camera, light, meshes, or instanceSkin property defined.
+        std::string camera;
 
-    /// A joint in a skin.
-    std::shared_ptr<scener::graphics::bone> joint;
+        /// An instance of a skin.
+        std::shared_ptr<scener::graphics::skeleton> instance_skin;
 
-    /// The id (JSON property name) of the light referenced by this node.
-    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
-    std::string light;
+        /// A joint in a skin.
+        std::shared_ptr<scener::graphics::bone> joint;
 
-    /// A floating-point 4x4 transformation matrix stored in column-major order.
-    /// A node will have either a matrix property defined or any combination of rotation, scale,
-    /// and translation properties defined. If none are provided, the transform is the identity.
-    scener::math::matrix4 matrix;
+        /// The id (JSON property name) of the light referenced by this node.
+        /// A node will have either the camera, light, meshes, or instanceSkin property defined.
+        std::string light;
 
-    /// The ids (JSON property name) of the meshes in this node.
-    /// Multiple meshes are allowed so each can share the same transform matrix.
-    /// A node will have either the camera, light, meshes, or instanceSkin property defined.
-    std::vector<std::shared_ptr<scener::graphics::model_mesh>> meshes;
+        /// A floating-point 4x4 transformation matrix stored in column-major order.
+        /// A node will have either a matrix property defined or any combination of rotation, scale,
+        /// and translation properties defined. If none are provided, the transform is the identity.
+        scener::math::matrix4 matrix;
 
-    /// The node's quaternion rotation.
-    /// A node will have either a matrix property defined or any combination of rotation, scale,
-    /// and translation properties defined. If none are provided, the transform is the identity.
-    scener::math::quaternion rotation;
+        /// The ids (JSON property name) of the meshes in this node.
+        /// Multiple meshes are allowed so each can share the same transform matrix.
+        /// A node will have either the camera, light, meshes, or instanceSkin property defined.
+        std::vector<std::shared_ptr<scener::graphics::model_mesh>> meshes;
 
-    /// The node's non-uniform scale.
-    /// A node will have either a matrix property defined or any combination of rotation, scale,
-    /// and translation properties defined. If none are provided, the transform is the identity.
-    scener::math::vector3 scale;
+        /// The node's quaternion rotation.
+        /// A node will have either a matrix property defined or any combination of rotation, scale,
+        /// and translation properties defined. If none are provided, the transform is the identity.
+        scener::math::quaternion rotation;
 
-    /// The node's translation.
-    /// A node will have either a matrix property defined or any combination of rotation, scale,
-    /// and translation properties defined.  If none are provided, the transform is the identity.
-    scener::math::vector3 translation;
+        /// The node's non-uniform scale.
+        /// A node will have either a matrix property defined or any combination of rotation, scale,
+        /// and translation properties defined. If none are provided, the transform is the identity.
+        scener::math::vector3 scale;
 
-    /// The ids (JSON property name) of this node's children.
-    std::vector<std::shared_ptr<node>> children;
-};
+        /// The node's translation.
+        /// A node will have either a matrix property defined or any combination of rotation, scale,
+        /// and translation properties defined.  If none are provided, the transform is the identity.
+        scener::math::vector3 translation;
 
-}}}
+        /// The ids (JSON property name) of this node's children.
+        std::vector<std::shared_ptr<node>> children;
+    };
+}
 
 #endif // SCENER_CONTENT_GLTF_NODE_HPP

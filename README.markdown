@@ -10,9 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 | Name                                       | Version       |
 |--------------------------------------------|---------------|
-| C++ compiler                               | Clang 3.8     |
-| C compiler                                 | Clang 3.8     |
-| [**libC++**](http://libcxx.llvm.org/)      | 3.8 (Linux)   |
+| C++ compiler                               | Clang 3.9     |
+| C compiler                                 | Clang 3.9     |
+| [**libC++**](http://libcxx.llvm.org/)      | 3.9 (Linux)   |
 
 ```
 sudo apt-get install clang libc++ lldb git
@@ -51,22 +51,8 @@ make -j <NUM_CORES>
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+make test
 ```
 
 ## Built With

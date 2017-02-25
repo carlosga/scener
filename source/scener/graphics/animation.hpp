@@ -10,52 +10,51 @@
 
 #include "scener/graphics/keyframe.hpp"
 
-namespace scener { namespace content { namespace readers { template <typename T> class content_type_reader; } } }
+namespace scener::content::readers { template <typename T> class content_type_reader; }
 
-namespace scener { namespace graphics {
-
-/// Stores keyframe based animations.
-class animation final
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the Animatin class.
-    animation() = default;
+    /// Stores keyframe based animations.
+    class animation final
+    {
+    public:
+        /// Initializes a new instance of the Animatin class.
+        animation() = default;
 
-public:
-    /// Gets the current time of the animation.
-    /// \returns the current time of the animation.
-    const timespan& current_time() const noexcept;
+    public:
+        /// Gets the current time of the animation.
+        /// \returns the current time of the animation.
+        const timespan& current_time() const noexcept;
 
-    /// Gets the animation duration.
-    /// \returns the animation duration.
-    const timespan& duration() const noexcept;
+        /// Gets the animation duration.
+        /// \returns the animation duration.
+        const timespan& duration() const noexcept;
 
-    /// Gets the list of animation keyframes.
-    /// \returns the list of animation keyframes.
-    const std::vector<keyframe>& keyframes() const noexcept;
+        /// Gets the list of animation keyframes.
+        /// \returns the list of animation keyframes.
+        const std::vector<keyframe>& keyframes() const noexcept;
 
-    /// Gets the current keyframe of the animation.
-    const keyframe& current_keyframe() const noexcept;
+        /// Gets the current keyframe of the animation.
+        const keyframe& current_keyframe() const noexcept;
 
-    /// Gets the animation name.
-    /// \returns the animation name.
-    const std::string& name() const noexcept;
+        /// Gets the animation name.
+        /// \returns the animation name.
+        const std::string& name() const noexcept;
 
-    /// Updates the animation state for the given time.
-    /// \param time snapshot of the rendering timing state.
-    /// \param relative indicates if the update should take place against the animation current time.
-    void update(const timespan& time, bool relative) noexcept;
+        /// Updates the animation state for the given time.
+        /// \param time snapshot of the rendering timing state.
+        /// \param relative indicates if the update should take place against the animation current time.
+        void update(const timespan& time, bool relative) noexcept;
 
-private:
-    timespan              _current_time     { 0 };
-    timespan              _duration         { 0 };
-    std::size_t           _current_keyframe { 0 };
-    std::vector<keyframe> _keyframes        { };
-    std::string           _name             { };
+    private:
+        timespan              _current_time     { 0 };
+        timespan              _duration         { 0 };
+        std::size_t           _current_keyframe { 0 };
+        std::vector<keyframe> _keyframes        { };
+        std::string           _name             { };
 
-    template <typename T> friend class scener::content::readers::content_type_reader;
-};
-
-}}
+        template <typename T> friend class scener::content::readers::content_type_reader;
+    };
+}
 
 #endif // SCENER_GRAPHICS_ANIMATION_HPP

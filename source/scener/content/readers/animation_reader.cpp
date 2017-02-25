@@ -10,78 +10,77 @@
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/graphics/animation.hpp"
 
-namespace scener { namespace content { namespace readers {
-
-using json11::Json;
-using scener::timespan;
-using scener::graphics::keyframe;
-using scener::math::matrix4;
-using scener::math::quaternion;
-using scener::math::vector3;
-
-auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+namespace scener::content::readers
 {
-    auto animation  = std::make_shared<graphics::animation>();
-    auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
+    using json11::Json;
+    using scener::timespan;
+    using scener::graphics::keyframe;
+    using scener::math::matrix4;
+    using scener::math::quaternion;
+    using scener::math::vector3;
 
-    for (const auto& p : source["parameters"].object_items())
+    auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
     {
-        auto accessor = input->read_object<gltf::accessor>(p.second.string_value());
+        auto animation  = std::make_shared<graphics::animation>();
+        auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
 
-        parameters[p.first] = accessor;
-    }
-
-    Ensures(parameters.count("TIME") == 1);
-
-    const auto& keyframes = parameters["TIME"];
-    const auto  count     = keyframes->attribute_count();
-    auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].string_value());
-
-    animation->_name = key;
-
-    // Process only bone animations
-    Ensures(target && target->joint);
-
-    animation->_keyframes.reserve(count);
-
-    for (std::size_t i = 0; i < count; ++i)
-    {
-        quaternion rotation    = quaternion::identity();
-        vector3    scale       = vector3::one();
-        vector3    translation = vector3::zero();
-
-        for (const auto& channel : source["channels"].array_items())
+        for (const auto& p : source["parameters"].object_items())
         {
-            const auto& path     = channel["target"]["path"].string_value();
-            const auto& accessor = parameters[path];
+            auto accessor = input->read_object<gltf::accessor>(p.second.string_value());
 
-            if (path == "scale")
-            {
-                scale = accessor->get_element<vector3>(i);
-            }
-            else if (path == "translation")
-            {
-                translation = accessor->get_element<vector3>(i);
-            }
-            else if (path == "rotation")
-            {
-                rotation = accessor->get_element<quaternion>(i);
-            }
+            parameters[p.first] = accessor;
         }
 
-        auto time      = timespan::from_seconds(keyframes->get_element<float>(i));
-        auto transform = scener::math::matrix::create_scale(scale)
-                       * scener::math::matrix::create_from_quaternion(rotation)
-                       * scener::math::matrix::create_translation(translation);
+        Ensures(parameters.count("TIME") == 1);
 
-        animation->_keyframes.push_back({ time, transform });
+        const auto& keyframes = parameters["TIME"];
+        const auto  count     = keyframes->attribute_count();
+        auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].string_value());
+
+        animation->_name = key;
+
+        // Process only bone animations
+        Ensures(target && target->joint);
+
+        animation->_keyframes.reserve(count);
+
+        for (std::size_t i = 0; i < count; ++i)
+        {
+            quaternion rotation    = quaternion::identity();
+            vector3    scale       = vector3::one();
+            vector3    translation = vector3::zero();
+
+            for (const auto& channel : source["channels"].array_items())
+            {
+                const auto& path     = channel["target"]["path"].string_value();
+                const auto& accessor = parameters[path];
+
+                if (path == "scale")
+                {
+                    scale = accessor->get_element<vector3>(i);
+                }
+                else if (path == "translation")
+                {
+                    translation = accessor->get_element<vector3>(i);
+                }
+                else if (path == "rotation")
+                {
+                    rotation = accessor->get_element<quaternion>(i);
+                }
+            }
+
+            auto time      = timespan::from_seconds(keyframes->get_element<float>(i));
+            auto transform = scener::math::matrix::create_scale(scale)
+                           * scener::math::matrix::create_from_quaternion(rotation)
+                           * scener::math::matrix::create_translation(translation);
+
+            animation->_keyframes.push_back({ time, transform });
+        }
+
+        animation->_duration      = animation->_keyframes.crbegin()->time();
+        target->joint->_animation = animation;
+
+        return animation;
     }
-
-    animation->_duration      = animation->_keyframes.crbegin()->time();
-    target->joint->_animation = animation;
-
-    return animation;
 }
-
-}}}
 

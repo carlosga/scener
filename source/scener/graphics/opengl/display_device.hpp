@@ -4,69 +4,68 @@
 // Based on https://github.com/gamedevtech/X11OpenGLWindow
 // ==================================================================================================
 
-#ifndef SCENER_GRAPHICS_OPENGL_DISPLAYDEVICE_HPP
-#define SCENER_GRAPHICS_OPENGL_DISPLAYDEVICE_HPP
+#ifndef SCENER_GRAPHICS_OPENGL_DISPLAY_DEVICE_HPP
+#define SCENER_GRAPHICS_OPENGL_DISPLAY_DEVICE_HPP
 
 #include <cstdint>
 
 #include "scener/graphics/opengl/platform.hpp"
 
-namespace scener { namespace graphics { namespace opengl {
-
-/// Represents a X11 Display.
-class display_device final
+namespace scener::graphics::opengl
 {
-public:
-    /// Initializes a new instance of the DisplayDevice class.
-    display_device() = default;
+    /// Represents a X11 Display.
+    class display_device final
+    {
+    public:
+        /// Initializes a new instance of the DisplayDevice class.
+        display_device() = default;
 
-    /// Releases all resources being used by this DisplayDevice instance.
-    ~display_device();
+        /// Releases all resources being used by this DisplayDevice instance.
+        ~display_device();
 
-public:
-    /// Gets a pointer to the X11 display handle.
-    Display* handle() const noexcept;
+    public:
+        /// Gets a pointer to the X11 display handle.
+        Display* handle() const noexcept;
 
-    /// Gets the X11 screen id.
-    int32_t screen_id() const noexcept;
+        /// Gets the X11 screen id.
+        int32_t screen_id() const noexcept;
 
-    /// Gets the X11 display visual information.
-    XVisualInfo* visual_info() const noexcept;
+        /// Gets the X11 display visual information.
+        XVisualInfo* visual_info() const noexcept;
 
-    /// Gets the selected frame buffer configuration for this DisplayDevice instance.
-    const GLXFBConfig& frame_buffer_config() const noexcept;
+        /// Gets the selected frame buffer configuration for this DisplayDevice instance.
+        const GLXFBConfig& frame_buffer_config() const noexcept;
 
-    /// Opens a connection to the X server that controls a display.
-    /// \returns true if the display has been opened; false otherwise.
-    bool open() noexcept;
+        /// Opens a connection to the X server that controls a display.
+        /// \returns true if the display has been opened; false otherwise.
+        bool open() noexcept;
 
-    /// Destroys the display.
-    void destroy() noexcept;
+        /// Destroys the display.
+        void destroy() noexcept;
 
-    /// Flushes the output buffer and then waits until all requests have been received and processed by the X server.
-    void sync() const noexcept;
+        /// Flushes the output buffer and then waits until all requests have been received and processed by the X server.
+        void sync() const noexcept;
 
-private:
-    bool check_glx_version() noexcept;
-    void open_display() noexcept;
-    bool configure_frame_buffer() noexcept;
-    GLXFBConfig get_best_frame_buffer_configuration() const noexcept;
+    private:
+        bool check_glx_version() noexcept;
+        void open_display() noexcept;
+        bool configure_frame_buffer() noexcept;
+        GLXFBConfig get_best_frame_buffer_configuration() const noexcept;
 
-private:
-    display_device(const display_device&) = delete;
-    display_device& operator=(const display_device&) = delete;
+    private:
+        display_device(const display_device&) = delete;
+        display_device& operator=(const display_device&) = delete;
 
-private:
-    // X11
-    Display*     _display   { nullptr };
-    Screen*      _screen    { nullptr };
-    std::int32_t _screen_id { 0 };
+    private:
+        // X11
+        Display*     _display   { nullptr };
+        Screen*      _screen    { nullptr };
+        std::int32_t _screen_id { 0 };
 
-    // GLX
-    XVisualInfo* _visual_info { nullptr };
-    GLXFBConfig  _fbc         { 0 };
-};
+        // GLX
+        XVisualInfo* _visual_info { nullptr };
+        GLXFBConfig  _fbc         { 0 };
+    };
+}
 
-}}}
-
-#endif // SCENER_GRAPHICS_OPENGL_DISPLAYDEVICE_HPP
+#endif // SCENER_GRAPHICS_OPENGL_DISPLAY_DEVICE_HPP

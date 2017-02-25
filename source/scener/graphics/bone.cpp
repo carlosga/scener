@@ -3,43 +3,42 @@
 
 #include "scener/graphics/bone.hpp"
 
-namespace scener { namespace graphics {
-
-using scener::math::matrix4;
-
-bone::index_type bone::index() const noexcept
+namespace scener::graphics
 {
-    return _index;
-}
+    using scener::math::matrix4;
 
-const std::vector<std::shared_ptr<bone>>& bone::children() const noexcept
-{
-    return _children;
-}
+    bone::index_type bone::index() const noexcept
+    {
+        return _index;
+    }
 
-const std::string& bone::name() const noexcept
-{
-    return _name;
-}
+    const std::vector<std::shared_ptr<bone>>& bone::children() const noexcept
+    {
+        return _children;
+    }
 
-bone* bone::parent() const noexcept
-{
-    return _parent.get();
-}
+    const std::string& bone::name() const noexcept
+    {
+        return _name;
+    }
 
-graphics::animation* bone::animation() const noexcept
-{
-    return _animation.get();
-}
+    bone* bone::parent() const noexcept
+    {
+        return _parent.get();
+    }
 
-const matrix4& bone::transform() const noexcept
-{
-    return _transform;
-}
+    graphics::animation* bone::animation() const noexcept
+    {
+        return _animation.get();
+    }
 
-void bone::transform(const matrix4& transform) noexcept
-{
-    _transform = transform;
-}
+    const matrix4& bone::transform() const noexcept
+    {
+        return _transform;
+    }
 
-}}
+    void bone::transform(const matrix4& transform) noexcept
+    {
+        _transform = transform;
+    }
+}

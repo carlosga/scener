@@ -11,56 +11,55 @@
 
 #include "scener/graphics/opengl/shader_type.hpp"
 
-namespace scener { namespace graphics { namespace opengl {
-
-/// Represents a shader.
-class shader final
+namespace scener::graphics::opengl
 {
-public:
-    /// Initializes a new instance of the Shader class.
-    /// \param name the name of the shader.
-    /// \param type the type of the shader.
-    /// \param source the source code for the shader.
-    shader(const std::string& name, shader_type type, const std::vector<std::uint8_t>& source) noexcept;
+    /// Represents a shader.
+    class shader final
+    {
+    public:
+        /// Initializes a new instance of the Shader class.
+        /// \param name the name of the shader.
+        /// \param type the type of the shader.
+        /// \param source the source code for the shader.
+        shader(const std::string& name, shader_type type, const std::vector<std::uint8_t>& source) noexcept;
 
-    /// Initializes a new instance of the Shader class.
-    /// \param name the name of the shader.
-    /// \param type the type of the shader.
-    /// \param source the source code for the shader.
-    shader(const std::string& name, shader_type type, const std::string& source) noexcept;
+        /// Initializes a new instance of the Shader class.
+        /// \param name the name of the shader.
+        /// \param type the type of the shader.
+        /// \param source the source code for the shader.
+        shader(const std::string& name, shader_type type, const std::string& source) noexcept;
 
-    /// Releases all resources being used bu this Shader.
-    ~shader() noexcept;
+        /// Releases all resources being used bu this Shader.
+        ~shader() noexcept;
 
-public:
-    /// Gets the shader identififer.
-    /// \returns the shader identififer.
-    std::uint32_t id() const noexcept;
+    public:
+        /// Gets the shader identififer.
+        /// \returns the shader identififer.
+        std::uint32_t id() const noexcept;
 
-    /// Gets the name of the shader.
-    /// \returns the name of the shader.
-    const std::string& name() const noexcept;
+        /// Gets the name of the shader.
+        /// \returns the name of the shader.
+        const std::string& name() const noexcept;
 
-    /// Gets the type of the shader.
-    /// \returns the type of the shader.
-    shader_type type() const noexcept;
+        /// Gets the type of the shader.
+        /// \returns the type of the shader.
+        shader_type type() const noexcept;
 
-    /// Performs the compilation of the shader source code.
-    void compile() noexcept;
+        /// Performs the compilation of the shader source code.
+        void compile() noexcept;
 
-    /// Indicates wheter the shader has been compiled
-    bool is_compiled() const noexcept;
+        /// Indicates wheter the shader has been compiled
+        bool is_compiled() const noexcept;
 
-private:
-    void verify_compilation_state();
+    private:
+        void verify_compilation_state();
 
-private:
-    std::uint32_t _id;
-    shader_type   _type;
-    std::string   _name;
-    std::string   _source;
-};
-
-}}}
+    private:
+        std::uint32_t _id;
+        shader_type   _type;
+        std::string   _name;
+        std::string   _source;
+    };
+}
 
 #endif // SCENER_GRAPHICS_OPENGL_SHADER_HPP

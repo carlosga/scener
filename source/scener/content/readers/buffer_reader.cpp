@@ -8,25 +8,24 @@
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/buffer.hpp"
 
-namespace scener { namespace content { namespace readers {
-
-using json11::Json;
-
-auto content_type_reader<gltf::buffer>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+namespace scener::content::readers
 {
-    auto buffer = std::make_shared<gltf::buffer>();
-    auto uri    = source["uri"].string_value();
-    auto data   = input->read_external_reference(uri);
+    using json11::Json;
 
-    buffer->_name        = key;
-    buffer->_uri         = uri;
-    buffer->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
+    auto content_type_reader<gltf::buffer>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    {
+        auto buffer = std::make_shared<gltf::buffer>();
+        auto uri    = source["uri"].string_value();
+        auto data   = input->read_external_reference(uri);
 
-    Ensures(buffer->_byte_length == data.size());
+        buffer->_name        = key;
+        buffer->_uri         = uri;
+        buffer->_byte_length = static_cast<std::size_t>(source["byteLength"].int_value());
 
-    buffer->set_data(data);
+        Ensures(buffer->_byte_length == data.size());
 
-    return buffer;
+        buffer->set_data(data);
+
+        return buffer;
+    }
 }
-
-}}}

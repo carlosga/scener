@@ -11,23 +11,22 @@
 #include "scener/graphics/opengl/program.hpp"
 #include "scener/graphics/opengl/shader.hpp"
 
-namespace scener { namespace content { namespace readers {
-
-namespace opengl = scener::graphics::opengl;
-
-auto content_type_reader<opengl::program>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
+namespace scener::content::readers
 {
-    auto program = std::make_shared<opengl::program>();
-    auto vshader = source["vertexShader"].string_value();
-    auto fshader = source["fragmentShader"].string_value();
+    namespace opengl = scener::graphics::opengl;
 
-    program->name = key;
-    program->add_shader(input->read_object<opengl::shader>(vshader));
-    program->add_shader(input->read_object<opengl::shader>(fshader));
-    program->link();
+    auto content_type_reader<opengl::program>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
+    {
+        auto program = std::make_shared<opengl::program>();
+        auto vshader = source["vertexShader"].string_value();
+        auto fshader = source["fragmentShader"].string_value();
 
-    return program;
+        program->name = key;
+        program->add_shader(input->read_object<opengl::shader>(vshader));
+        program->add_shader(input->read_object<opengl::shader>(fshader));
+        program->link();
+
+        return program;
+    }
 }
-
-}}}
 

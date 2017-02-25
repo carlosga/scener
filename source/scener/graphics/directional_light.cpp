@@ -3,23 +3,22 @@
 
 #include "scener/graphics/directional_light.hpp"
 
-namespace scener { namespace graphics {
-
-using scener::math::vector3;
-
-directional_light::directional_light() noexcept
-    : directional_light { { 0.0f, -1.0f, 0.0f }, vector3::one(), vector3::zero() }
+namespace scener::graphics
 {
-}
+    using scener::math::vector3;
 
-directional_light::directional_light(const vector3& light_direction
-                                   , const vector3& diffuse
-                                   , const vector3& specular) noexcept
-    : direction      { light_direction }
-    , diffuse_color  { diffuse }
-    , specular_color { specular }
-    , enabled        { false }
-{
-}
+    directional_light::directional_light() noexcept
+        : directional_light { { 0.0f, -1.0f, 0.0f }, vector3::one(), vector3::zero() }
+    {
+    }
 
-}}
+    directional_light::directional_light(const vector3& light_direction
+                                       , const vector3& diffuse
+                                       , const vector3& specular) noexcept
+        : direction      { light_direction }
+        , diffuse_color  { diffuse }
+        , specular_color { specular }
+        , enabled        { false }
+    {
+    }
+}

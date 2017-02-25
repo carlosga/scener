@@ -5,63 +5,62 @@
 
 #include "scener/content/gltf/buffer_view.hpp"
 
-namespace scener { namespace content { namespace gltf {
-
-using scener::graphics::component_type;
-
-attribute_type accessor::attribute_type() const noexcept
+namespace scener::content::gltf
 {
-    return _attribute_type;
-}
+    using scener::graphics::component_type;
 
-component_type accessor::component_type() const noexcept
-{
-    return _component_type;
-}
+    attribute_type accessor::attribute_type() const noexcept
+    {
+        return _attribute_type;
+    }
 
-std::size_t accessor::byte_offset() const noexcept
-{
-    return _byte_offset;
-}
+    component_type accessor::component_type() const noexcept
+    {
+        return _component_type;
+    }
 
-std::size_t accessor::byte_length() const noexcept
-{
-    return _byte_length;
-}
+    std::size_t accessor::byte_offset() const noexcept
+    {
+        return _byte_offset;
+    }
 
-std::size_t accessor::byte_stride() const noexcept
-{
-    return ((_byte_stride > 0) ? _byte_stride : get_attribute_type_count() * get_component_size_in_bytes());
-}
+    std::size_t accessor::byte_length() const noexcept
+    {
+        return _byte_length;
+    }
 
-std::size_t accessor::attribute_count() const noexcept
-{
-    return _attribute_count;
-}
+    std::size_t accessor::byte_stride() const noexcept
+    {
+        return ((_byte_stride > 0) ? _byte_stride : get_attribute_type_count() * get_component_size_in_bytes());
+    }
 
-const std::vector<float>& accessor::max() const noexcept
-{
-    return _max;
-}
+    std::size_t accessor::attribute_count() const noexcept
+    {
+        return _attribute_count;
+    }
 
-const std::vector<float>& accessor::min() const noexcept
-{
-    return _min;
-}
+    const std::vector<float>& accessor::max() const noexcept
+    {
+        return _max;
+    }
 
-const std::string& accessor::name() const noexcept
-{
-    return _name;
-}
+    const std::vector<float>& accessor::min() const noexcept
+    {
+        return _min;
+    }
 
-gsl::span<const std::uint8_t> accessor::get_data() const noexcept
-{
-    return get_data(0, _attribute_count);
-}
+    const std::string& accessor::name() const noexcept
+    {
+        return _name;
+    }
 
-gsl::span<const std::uint8_t> accessor::get_data(std::size_t offset, std::size_t count) const noexcept
-{
-    return _buffer_view->get_data(_byte_offset + (offset * byte_stride()), count * byte_stride());
-}
+    gsl::span<const std::uint8_t> accessor::get_data() const noexcept
+    {
+        return get_data(0, _attribute_count);
+    }
 
-}}}
+    gsl::span<const std::uint8_t> accessor::get_data(std::size_t offset, std::size_t count) const noexcept
+    {
+        return _buffer_view->get_data(_byte_offset + (offset * byte_stride()), count * byte_stride());
+    }
+}
