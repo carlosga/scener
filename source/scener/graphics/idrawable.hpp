@@ -6,30 +6,29 @@
 
 #include <cstdint>
 
-namespace scener { namespace graphics {
-
-struct steptime;
-
-/// Defines the interface for a drawable game component.
-class idrawable
+namespace scener::graphics
 {
-public:
-    /// Virtual destructor.
-    virtual ~idrawable() = default;
+    struct steptime;
 
-public:
-    /// Gets a value indicating whether this object is visible.
-    virtual bool visible() const noexcept = 0;
+    /// Defines the interface for a drawable game component.
+    class idrawable
+    {
+    public:
+        /// Virtual destructor.
+        virtual ~idrawable() = default;
 
-    /// The order in which to draw this object relative to other objects.
-    /// \returns the order in which to draw this object relative to other objects.
-    virtual std::uint32_t draw_order() const noexcept = 0;
+    public:
+        /// Gets a value indicating whether this object is visible.
+        virtual bool visible() const noexcept = 0;
 
-    /// Called when the component should be drawn.
-    /// \param time snapshot of the rendering timing state.
-    virtual void draw(const steptime& time) noexcept = 0;
-};
+        /// The order in which to draw this object relative to other objects.
+        /// \returns the order in which to draw this object relative to other objects.
+        virtual std::uint32_t draw_order() const noexcept = 0;
 
-}}
+        /// Called when the component should be drawn.
+        /// \param time snapshot of the rendering timing state.
+        virtual void draw(const steptime& time) noexcept = 0;
+    };
+}
 
 #endif // SCENER_GRAPHICS_IDRAWABLE_HPP

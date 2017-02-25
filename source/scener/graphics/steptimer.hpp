@@ -6,46 +6,45 @@
 
 #include "scener/timespan.hpp"
 
-namespace scener { namespace graphics {
-
-/// Step timer.
-class steptimer final
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the RendererTimer class.
-    steptimer() = default;
-
-public:
-    /// Resets the renderer time points.
-    void reset() noexcept;
-
-    /// Updates the last time step time point.
-    void update_time_step() noexcept;
-
-    /// Gets the time elapsed since the last timer reset.
-    constexpr timespan elapsed_time() const noexcept
+    /// Step timer.
+    class steptimer final
     {
-        return timespan::from_duration(current_time() - _start);
-    }
+    public:
+        /// Initializes a new instance of the RendererTimer class.
+        steptimer() = default;
 
-    /// Gets the time elapsed since the last time step update.
-    constexpr timespan elapsed_time_step_time() const noexcept
-    {
-        return timespan::from_duration(current_time() - _last_time_step);
-    }
+    public:
+        /// Resets the renderer time points.
+        void reset() noexcept;
 
-private:
-    timespan::clock::time_point current_time() const noexcept;
+        /// Updates the last time step time point.
+        void update_time_step() noexcept;
 
-private:
-    steptimer(const steptimer& timer) = delete;
-    steptimer& operator=(const steptimer& timer) = delete;
+        /// Gets the time elapsed since the last timer reset.
+        constexpr timespan elapsed_time() const noexcept
+        {
+            return timespan::from_duration(current_time() - _start);
+        }
 
-private:
-    timespan::clock::time_point _start          { timespan::clock::now() };
-    timespan::clock::time_point _last_time_step { timespan::clock::now() };
-};
+        /// Gets the time elapsed since the last time step update.
+        constexpr timespan elapsed_time_step_time() const noexcept
+        {
+            return timespan::from_duration(current_time() - _last_time_step);
+        }
 
-}}
+    private:
+        timespan::clock::time_point current_time() const noexcept;
+
+    private:
+        steptimer(const steptimer& timer) = delete;
+        steptimer& operator=(const steptimer& timer) = delete;
+
+    private:
+        timespan::clock::time_point _start          { timespan::clock::now() };
+        timespan::clock::time_point _last_time_step { timespan::clock::now() };
+    };
+}
 
 #endif // SCENER_GRAPHICS_STEPTIMER_HPP

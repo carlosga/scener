@@ -6,11 +6,10 @@
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/surface_format.hpp"
 
-namespace scener { namespace graphics {
-
-texture::texture(gsl::not_null<graphics_device*> device) noexcept
-    : graphics_resource { device }
+namespace scener::graphics
 {
+    texture::texture(gsl::not_null<graphics_device*> device) noexcept
+        : graphics_resource { device }
+    {
+    }
 }
-
-}}

@@ -7,34 +7,33 @@
 #include "scener/timespan.hpp"
 #include "scener/math/matrix.hpp"
 
-namespace scener { namespace graphics {
-
-/// Defines a position keyframe for an animation.
-class keyframe final
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the Keyframe class.
-    keyframe() noexcept;
+    /// Defines a position keyframe for an animation.
+    class keyframe final
+    {
+    public:
+        /// Initializes a new instance of the Keyframe class.
+        keyframe() noexcept;
 
-    /// Initializes a new instance of the Keyframe class.
-    /// \param time specifies the time, in seconds, at which this keyframe occurs.
-    /// \param transform the keyframe transformation.
-    keyframe(const timespan& time, const math::matrix4& transform) noexcept;
+        /// Initializes a new instance of the Keyframe class.
+        /// \param time specifies the time, in seconds, at which this keyframe occurs.
+        /// \param transform the keyframe transformation.
+        keyframe(const timespan& time, const math::matrix4& transform) noexcept;
 
-public:
-    /// Gets the time, in seconds, at which this keyframe occurs.
-    /// \returns the time, in seconds, at which this keyframe occurs.
-    const timespan& time() const noexcept;
+    public:
+        /// Gets the time, in seconds, at which this keyframe occurs.
+        /// \returns the time, in seconds, at which this keyframe occurs.
+        const timespan& time() const noexcept;
 
-    /// Gets the keyframe transformation.
-    /// \returns the keyframe transformation.
-    const math::matrix4& transform() const noexcept;
+        /// Gets the keyframe transformation.
+        /// \returns the keyframe transformation.
+        const math::matrix4& transform() const noexcept;
 
-private:
-    timespan      _time;
-    math::matrix4 _transform;
-};
-
-}}
+    private:
+        timespan      _time;
+        math::matrix4 _transform;
+    };
+}
 
 #endif // SCENER_GRAPHICS_KEYFRAME_HPP

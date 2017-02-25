@@ -8,55 +8,54 @@
 #include "scener/graphics/skeleton.hpp"
 #include "scener/graphics/steptime.hpp"
 
-namespace scener { namespace graphics {
-
-using scener::math::matrix4;
-
-model::model() noexcept
-    : _meshes { }
-    , _name   { }
+namespace scener::graphics
 {
-}
+    using scener::math::matrix4;
 
-const std::string& model::name() const noexcept
-{
-    return _name;
-}
-
-const std::vector<std::shared_ptr<model_mesh>>& model::meshes() const noexcept
-{
-    return _meshes;
-}
-
-void model::update(const steptime& time) noexcept
-{
-    for (const auto& mesh : _meshes)
+    model::model() noexcept
+        : _meshes { }
+        , _name   { }
     {
-        if (mesh->skeleton() != nullptr)
-        {
-            mesh->skeleton()->update(time.elapsed_render_time);
-        }
     }
-}
 
-void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
-{
-    for (const auto& mesh : _meshes)
+    const std::string& model::name() const noexcept
     {
-        for (const auto& effect : mesh->effects())
+        return _name;
+    }
+
+    const std::vector<std::shared_ptr<model_mesh>>& model::meshes() const noexcept
+    {
+        return _meshes;
+    }
+
+    void model::update(const steptime& time) noexcept
+    {
+        for (const auto& mesh : _meshes)
         {
             if (mesh->skeleton() != nullptr)
             {
-                effect->bone_transforms(mesh->skeleton()->skin_transforms());
+                mesh->skeleton()->update(time.elapsed_render_time);
+            }
+        }
+    }
+
+    void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept
+    {
+        for (const auto& mesh : _meshes)
+        {
+            for (const auto& effect : mesh->effects())
+            {
+                if (mesh->skeleton() != nullptr)
+                {
+                    effect->bone_transforms(mesh->skeleton()->skin_transforms());
+                }
+
+                effect->world(world);
+                effect->view(view);
+                effect->projection(projection);
             }
 
-            effect->world(world);
-            effect->view(view);
-            effect->projection(projection);
+            mesh->draw();
         }
-
-        mesh->draw();
     }
 }
-
-}}

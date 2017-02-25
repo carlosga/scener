@@ -4,22 +4,21 @@
 #ifndef SCENER_GRAPHICS_ICOMPONENT_HPP
 #define SCENER_GRAPHICS_ICOMPONENT_HPP
 
-namespace scener { namespace graphics {
-
-/// Defines an interface for components.
-class icomponent
+namespace scener::graphics
 {
-public:
-    /// Virtual destructor.
-    virtual ~icomponent() = default;
+    /// Defines an interface for components.
+    class icomponent
+    {
+    public:
+        /// Virtual destructor.
+        virtual ~icomponent() = default;
 
-public:
-    /// Called when the component should be initialized.
-    /// This method can be used for tasks like querying for services the component needs
-    /// and setting up non-graphics resources.
-    virtual void initialize() noexcept = 0;
-};
-
-}}
+    public:
+        /// Called when the component should be initialized.
+        /// This method can be used for tasks like querying for services the component needs
+        /// and setting up non-graphics resources.
+        virtual void initialize() noexcept = 0;
+    };
+}
 
 #endif // SCENER_GRAPHICS_ICOMPONENT_HPP

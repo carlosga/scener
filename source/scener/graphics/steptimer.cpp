@@ -3,24 +3,23 @@
 
 #include "scener/graphics/steptimer.hpp"
 
-namespace scener { namespace graphics {
-
-using scener::timespan;
-
-void steptimer::reset() noexcept
+namespace scener::graphics
 {
-    _start          = current_time();
-    _last_time_step = current_time();
-}
+    using scener::timespan;
 
-void steptimer::update_time_step() noexcept
-{
-    _last_time_step = current_time();
-}
+    void steptimer::reset() noexcept
+    {
+        _start          = current_time();
+        _last_time_step = current_time();
+    }
 
-timespan::clock::time_point steptimer::current_time() const noexcept
-{
-    return timespan::clock::now();
-}
+    void steptimer::update_time_step() noexcept
+    {
+        _last_time_step = current_time();
+    }
 
-}}
+    timespan::clock::time_point steptimer::current_time() const noexcept
+    {
+        return timespan::clock::now();
+    }
+}

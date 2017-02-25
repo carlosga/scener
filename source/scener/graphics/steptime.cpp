@@ -3,25 +3,24 @@
 
 #include "scener/graphics/steptime.hpp"
 
-namespace scener { namespace graphics {
-
-using scener::timespan;
-
-steptime::steptime() noexcept
-    : steptime { timespan::zero(), timespan::zero(), false }
+namespace scener::graphics
 {
-}
+    using scener::timespan;
 
-steptime::steptime(const timespan& total_time, const timespan& elapsed_time) noexcept
-    : steptime { total_time, elapsed_time, false }
-{
-}
+    steptime::steptime() noexcept
+        : steptime { timespan::zero(), timespan::zero(), false }
+    {
+    }
 
-steptime::steptime(const timespan& total_time, const timespan& elapsed_time, bool running_slowly) noexcept
-    : total_render_time   { total_time }
-    , elapsed_render_time { elapsed_time }
-    , is_running_slowly   { running_slowly }
-{
-}
+    steptime::steptime(const timespan& total_time, const timespan& elapsed_time) noexcept
+        : steptime { total_time, elapsed_time, false }
+    {
+    }
 
-}}
+    steptime::steptime(const timespan& total_time, const timespan& elapsed_time, bool running_slowly) noexcept
+        : total_render_time   { total_time }
+        , elapsed_render_time { elapsed_time }
+        , is_running_slowly   { running_slowly }
+    {
+    }
+}

@@ -5,27 +5,27 @@
 
 #include "scener/graphics/graphics_device.hpp"
 
-namespace scener { namespace graphics {
-
-rasterizer_state::rasterizer_state(gsl::not_null<graphics_device*> device) noexcept
-    : graphics_resource { device }
+namespace scener::graphics
 {
-}
-
-void rasterizer_state::apply() const noexcept
-{
-    // Specify whether front- or back-facing facets can be culled
-    if (cull_mode == graphics::cull_mode::none)
+    rasterizer_state::rasterizer_state(gsl::not_null<graphics_device*> device) noexcept
+        : graphics_resource { device }
     {
-        glDisable(GL_CULL_FACE);
     }
-    else
-    {
-        glEnable(GL_CULL_FACE);
-        glFrontFace(static_cast<GLenum>(cull_mode));
 
-        switch (cull_mode)
+    void rasterizer_state::apply() const noexcept
+    {
+        // Specify whether front- or back-facing facets can be culled
+        if (cull_mode == graphics::cull_mode::none)
         {
+            glDisable(GL_CULL_FACE);
+        }
+        else
+        {
+            glEnable(GL_CULL_FACE);
+            glFrontFace(static_cast<GLenum>(cull_mode));
+
+            switch (cull_mode)
+            {
             case graphics::cull_mode::cull_clockwise_face:
                 glCullFace(GL_FRONT);
                 break;
@@ -37,49 +37,48 @@ void rasterizer_state::apply() const noexcept
             case graphics::cull_mode::none:
                 glCullFace(GL_FRONT_AND_BACK);
                 break;
+            }
+        }
+
+        //  Select a polygon rasterization mode
+        if (fill_mode == graphics::fill_mode::solid)
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        }
+        else
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+
+        // Enable or disable the scissor test
+        if (scissor_test_enable)
+        {
+            glEnable(GL_SCISSOR_TEST);
+        }
+        else
+        {
+            glDisable(GL_SCISSOR_TEST);
+        }
+
+        // set the scale and units used to calculate depth values if needed
+        if (depth_bias != 0.0f || slope_scale_depth_bias != 0.0f)
+        {
+            glEnable(GL_POLYGON_OFFSET_FILL);
+            glPolygonOffset(slope_scale_depth_bias, depth_bias);
+        }
+        else
+        {
+            glDisable(GL_POLYGON_OFFSET_FILL);
+        }
+
+        // Enable multisample
+        if (multi_sample_anti_alias)
+        {
+            glEnable(GL_MULTISAMPLE);
+        }
+        else
+        {
+            glDisable(GL_MULTISAMPLE);
         }
     }
-
-    //  Select a polygon rasterization mode
-    if (fill_mode == graphics::fill_mode::solid)
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }
-    else
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
-
-    // Enable or disable the scissor test
-    if (scissor_test_enable)
-    {
-        glEnable(GL_SCISSOR_TEST);
-    }
-    else
-    {
-        glDisable(GL_SCISSOR_TEST);
-    }
-
-    // set the scale and units used to calculate depth values if needed
-    if (depth_bias != 0.0f || slope_scale_depth_bias != 0.0f)
-    {
-        glEnable(GL_POLYGON_OFFSET_FILL);
-        glPolygonOffset(slope_scale_depth_bias, depth_bias);
-    }
-    else
-    {
-        glDisable(GL_POLYGON_OFFSET_FILL);
-    }
-
-    // Enable multisample
-    if (multi_sample_anti_alias)
-    {
-        glEnable(GL_MULTISAMPLE);
-    }
-    else
-    {
-        glDisable(GL_MULTISAMPLE);
-    }
 }
-
-}}

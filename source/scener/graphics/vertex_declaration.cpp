@@ -3,22 +3,21 @@
 
 #include "scener/graphics/vertex_declaration.hpp"
 
-namespace scener { namespace graphics {
-
-vertex_declaration::vertex_declaration(std::size_t stride, const std::vector<vertex_element>& elements) noexcept
-    : _vertex_stride   { stride }
-    , _vertex_elements { elements }
+namespace scener::graphics
 {
-}
+    vertex_declaration::vertex_declaration(std::size_t stride, const std::vector<vertex_element>& elements) noexcept
+        : _vertex_stride   { stride }
+        , _vertex_elements { elements }
+    {
+    }
 
-std::size_t vertex_declaration::vertex_stride() const noexcept
-{
-    return _vertex_stride;
-}
+    std::size_t vertex_declaration::vertex_stride() const noexcept
+    {
+        return _vertex_stride;
+    }
 
-const std::vector<vertex_element>& vertex_declaration::vertex_elements() const noexcept
-{
-    return _vertex_elements;
+    const std::vector<vertex_element>& vertex_declaration::vertex_elements() const noexcept
+    {
+        return _vertex_elements;
+    }
 }
-
-}}

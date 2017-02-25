@@ -1,41 +1,40 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifndef SCENER_GRAPHICS_GRAPHICSRESOURCE_HPP
-#define SCENER_GRAPHICS_GRAPHICSRESOURCE_HPP
+#ifndef SCENER_GRAPHICS_GRAPHICS_RESOURCE_HPP
+#define SCENER_GRAPHICS_GRAPHICS_RESOURCE_HPP
 
 #include <string>
 
 #include <gsl/gsl>
 
-namespace scener { namespace graphics {
-
-class graphics_device;
-
-/// Queries and prepares resources.
-class graphics_resource
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the graphics_resource class.
-    /// \param device the graphics device associated to thi graphics resource.
-    graphics_resource(gsl::not_null<graphics_device*> device) noexcept;
+    class graphics_device;
 
-    /// Destructor
-    virtual ~graphics_resource() = default;
+    /// Queries and prepares resources.
+    class graphics_resource
+    {
+    public:
+        /// Initializes a new instance of the graphics_resource class.
+        /// \param device the graphics device associated to thi graphics resource.
+        graphics_resource(gsl::not_null<graphics_device*> device) noexcept;
 
-public:
-    /// Gets the fraphics device associated with this graphics_resource.
-    /// \returns The graphics device associated with this graphics_resource.
-    graphics_device* device() const noexcept;
+        /// Destructor
+        virtual ~graphics_resource() = default;
 
-public:
-    /// Gets or sets the name of the resource.
-    std::string name;
+    public:
+        /// Gets the fraphics device associated with this graphics_resource.
+        /// \returns The graphics device associated with this graphics_resource.
+        graphics_device* device() const noexcept;
 
-protected:
-    graphics_device* _graphics_device;
-};
+    public:
+        /// Gets or sets the name of the resource.
+        std::string name;
 
-}}
+    protected:
+        graphics_device* _graphics_device;
+    };
+}
 
-#endif // SCENER_GRAPHICS_GRAPHICSRESOURCE_HPP
+#endif // SCENER_GRAPHICS_GRAPHICS_RESOURCE_HPP

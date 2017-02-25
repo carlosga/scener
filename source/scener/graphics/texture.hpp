@@ -9,43 +9,42 @@
 
 #include "scener/graphics/graphics_resource.hpp"
 
-namespace scener { namespace graphics {
-
-enum class surface_format : std::uint32_t;
-
-class graphics_device;
-
-/// Represents a texture reference.
-class texture : public graphics_resource
+namespace scener::graphics
 {
-public:
-    /// Initializes a new instance of the Texture class.
-    /// \param device the GraphicsDevice associated with this RasterizerState.
-    texture(gsl::not_null<graphics_device*> device) noexcept;
+    enum class surface_format : std::uint32_t;
 
-    /// Releases all resources being used by this texture.
-    ~texture() override = default;
+    class graphics_device;
 
-public:
-    /// Gets the texture identifier.
-    /// \returns the texture identifier.
-    virtual std::uint32_t id() const noexcept = 0;
+    /// Represents a texture reference.
+    class texture : public graphics_resource
+    {
+    public:
+        /// Initializes a new instance of the Texture class.
+        /// \param device the GraphicsDevice associated with this RasterizerState.
+        texture(gsl::not_null<graphics_device*> device) noexcept;
 
-    /// Gets the format of the texture data.
-    /// \returns the format of the texture data.
-    virtual surface_format format() const noexcept = 0;
+        /// Releases all resources being used by this texture.
+        ~texture() override = default;
 
-    /// Gets the number of texture levels in a multilevel texture.
-    /// \returns the number of texture levels in a multilevel texture.
-    virtual std::size_t level_count() const noexcept = 0;
+    public:
+        /// Gets the texture identifier.
+        /// \returns the texture identifier.
+        virtual std::uint32_t id() const noexcept = 0;
 
-    /// Activates the texture object.
-    virtual void bind() const noexcept = 0;
+        /// Gets the format of the texture data.
+        /// \returns the format of the texture data.
+        virtual surface_format format() const noexcept = 0;
 
-    /// Deactivates the texture object.
-    virtual void unbind() const noexcept = 0;
-};
+        /// Gets the number of texture levels in a multilevel texture.
+        /// \returns the number of texture levels in a multilevel texture.
+        virtual std::size_t level_count() const noexcept = 0;
 
-}}
+        /// Activates the texture object.
+        virtual void bind() const noexcept = 0;
+
+        /// Deactivates the texture object.
+        virtual void unbind() const noexcept = 0;
+    };
+}
 
 #endif // SCENER_GRAPHICS_TEXTURE_HPP
