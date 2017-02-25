@@ -11,34 +11,33 @@
 #include <scener/math/matrix.hpp>
 #include <scener/math/vector.hpp>
 
-namespace skeletal { namespace animation {
-
-class sample_renderer;
-
-class camera : public scener::graphics::component
+namespace skeletal::animation
 {
-public:
-    camera(sample_renderer* renderer) noexcept;
-    ~camera() override = default;
+    class sample_renderer;
 
-public:
-    void initialize() noexcept override;
-    void update(const scener::graphics::steptime& time) noexcept override;
+    class camera : public scener::graphics::component
+    {
+    public:
+        camera(sample_renderer* renderer) noexcept;
+        ~camera() override = default;
 
-private:
-    void update_projection() noexcept;
+    public:
+        void initialize() noexcept override;
+        void update(const scener::graphics::steptime& time) noexcept override;
 
-public:
-    scener::math::matrix4   view;
-    scener::math::matrix4   projection;
+    private:
+        void update_projection() noexcept;
 
-private:
-    scener::math::vector3  _position;
-    scener::math::matrix4  _rotation_transform;
-    scener::math::degrees  _rotation;
-    nod::scoped_connection _resize_connection;
-};
+    public:
+        scener::math::matrix4   view;
+        scener::math::matrix4   projection;
 
-}}
+    private:
+        scener::math::vector3  _position;
+        scener::math::matrix4  _rotation_transform;
+        scener::math::degrees  _rotation;
+        nod::scoped_connection _resize_connection;
+    };
+}
 
 #endif // SKELETAL_ANIMATION_CAMERA_HPP

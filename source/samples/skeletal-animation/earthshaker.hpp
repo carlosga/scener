@@ -9,37 +9,35 @@
 #include <scener/graphics/drawable_component.hpp>
 #include <scener/math/matrix.hpp>
 
-namespace scener { namespace graphics {
-
-class  model;
-struct steptime;
-
-}}
-
-namespace skeletal { namespace animation {
-
-class sample_renderer;
-
-class earthshaker : public scener::graphics::drawable_component
+namespace scener::graphics
 {
-public:
-    earthshaker(sample_renderer* renderer) noexcept;
-    ~earthshaker() override = default;
+    class  model;
+    struct steptime;
+}
 
-public:
-    void initialize() noexcept override;
-    void update(const scener::graphics::steptime& time) noexcept override;
-    void draw(const scener::graphics::steptime& time) noexcept override;
+namespace skeletal::animation
+{
+    class sample_renderer;
 
-protected:
-    void load_content() noexcept override;
-    void unload_content() noexcept override;
+    class earthshaker : public scener::graphics::drawable_component
+    {
+    public:
+        earthshaker(sample_renderer* renderer) noexcept;
+        ~earthshaker() override = default;
 
-private:
-    std::shared_ptr<scener::graphics::model> _model;
-    scener::math::matrix4                    _world;
-};
+    public:
+        void initialize() noexcept override;
+        void update(const scener::graphics::steptime& time) noexcept override;
+        void draw(const scener::graphics::steptime& time) noexcept override;
 
-}}
+    protected:
+        void load_content() noexcept override;
+        void unload_content() noexcept override;
+
+    private:
+        std::shared_ptr<scener::graphics::model> _model;
+        scener::math::matrix4                    _world;
+    };
+}
 
 #endif // SKELETAL_ANIMATION_EARTHSHAKER_HPP
