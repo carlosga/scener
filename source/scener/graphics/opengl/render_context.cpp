@@ -69,6 +69,10 @@ namespace scener::graphics::opengl
 
         enable_debug_output();
 
+        _surface->connect_closing([&]() {
+            destroy();
+        });
+
         return true;
     }
 
@@ -89,6 +93,16 @@ namespace scener::graphics::opengl
             glXDestroyContext(_display->handle(), _context);
             _context = nullptr;
         }
+        if (_surface)
+        {
+            _surface->destroy();
+            _surface = nullptr;
+        }
+        if (_display)
+        {
+            _display->destroy();
+            _display = nullptr;
+        }        
     }
 
     void render_context::enable_debug_output() const noexcept
@@ -114,7 +128,10 @@ namespace scener::graphics::opengl
 
     void render_context::present_interval(std::int32_t interval) const noexcept
     {
-        glXSwapIntervalEXT(_display->handle(), _surface->handle(), interval);
+        if (GLAD_GLX_EXT_swap_control)
+        {
+            glXSwapIntervalEXT(_display->handle(), _surface->handle(), interval);
+        }
     }
 
     void render_context::present() const noexcept
