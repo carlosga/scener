@@ -1,12 +1,12 @@
 [submodule "externals/json11"]
 	path = externals/json11
-	url = git@github.com:dropbox/json11
+	url = https://github.com/dropbox/json11.git
 [submodule "externals/gsl"]
 	path = externals/gsl
-	url = git@github.com:Microsoft/GSL.git
+	url = https://github.com/Microsoft/GSL.git
 [submodule "externals/nod"]
 	path = externals/nod
-	url = git@github.com:fr00b0/nod.git
+	url = https://github.com/fr00b0/nod.git
 [submodule "externals/scener-math"]
 	path = externals/scener-math
-	url = git@github.com:carlosga/scener-math.git
+	url = https://github.com/carlosga/scener-math.git
