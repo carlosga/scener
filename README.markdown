@@ -70,7 +70,7 @@ make test
 
 * **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://github.com/carlosga)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/carlosga/scener/contributors) who participated in this project.
 
 ## License
 
