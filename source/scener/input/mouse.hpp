@@ -9,49 +9,48 @@
 #include "scener/input/buttons.hpp"
 #include "scener/input/button_state.hpp"
 
-namespace scener { namespace graphics { namespace opengl { class display_surface; } } }
+namespace scener::graphics::opengl { class display_surface; }
 
-namespace scener { namespace input {
-
-class mouse_state;
-
-/// Allows retrieval of position and button clicks from a mouse input device.
-class mouse
+namespace scener::input
 {
-public:
-    /// Gets the current state of the mouse, including mouse position and buttons pressed.
-    static mouse_state get_state() noexcept;
+    class mouse_state;
 
-    /// Sets the position of the mouse cursor relative to the upper-left corner of the window.
-    static void set_position(std::uint32_t x, std::uint32_t y) noexcept;
+    /// Allows retrieval of position and button clicks from a mouse input device.
+    class mouse
+    {
+    public:
+        /// Gets the current state of the mouse, including mouse position and buttons pressed.
+        static mouse_state get_state() noexcept;
 
-    /// Gets or sets the window used for mouse processing.
-    /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
-    static void initialize(scener::graphics::opengl::display_surface* s) noexcept;
+        /// Sets the position of the mouse cursor relative to the upper-left corner of the window.
+        static void set_position(std::uint32_t x, std::uint32_t y) noexcept;
 
-private:
-    static void cursor_position_callback(scener::graphics::opengl::display_surface* s
-                                       , double                                    xpos
-                                       , double                                    ypos) noexcept;
+        /// Gets or sets the window used for mouse processing.
+        /// Mouse coordinates returned by get_state are relative to the upper-left corner of this window.
+        static void initialize(scener::graphics::opengl::display_surface* s) noexcept;
 
-    static void mouse_button_callback(scener::graphics::opengl::display_surface* s
-                                    , std::uint32_t                             button
-                                    , std::uint32_t                             action
-                                    , std::uint32_t                             mods) noexcept;
+    private:
+        static void cursor_position_callback(scener::graphics::opengl::display_surface* s
+                                           , double                                     xpos
+                                           , double                                     ypos) noexcept;
 
-    static void scroll_wheel_callback(scener::graphics::opengl::display_surface* s
-                                    , double                                    xoffset
-                                    , double                                    yoffset) noexcept;
+        static void mouse_button_callback(scener::graphics::opengl::display_surface* s
+                                        , std::uint32_t                              button
+                                        , std::uint32_t                              action
+                                        , std::uint32_t                              mods) noexcept;
 
-private:
-    mouse() = delete;
-    mouse(const mouse& mouse) = delete;
-    mouse& operator=(const mouse& mouse) = delete;
+        static void scroll_wheel_callback(scener::graphics::opengl::display_surface* s
+                                        , double                                     xoffset
+                                        , double                                     yoffset) noexcept;
 
-private:
-    static scener::graphics::opengl::display_surface* surface;
-};
+    private:
+        mouse() = delete;
+        mouse(const mouse& mouse) = delete;
+        mouse& operator=(const mouse& mouse) = delete;
 
-}}
+    private:
+        static scener::graphics::opengl::display_surface* surface;
+    };
+}
 
 #endif // SCENER_INPUT_MOUSE_HPP

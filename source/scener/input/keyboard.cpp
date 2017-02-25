@@ -3,32 +3,31 @@
 
 #include "scener/input/keyboard.hpp"
 
-namespace scener { namespace input {
-
-using scener::graphics::opengl::display_surface;
-
-// Returns the current keyboard state.
-keyboard_state keyboard::get_state() noexcept
+namespace scener::input
 {
-    return keyboard_state(keyboard::surface);
+    using scener::graphics::opengl::display_surface;
+
+    // Returns the current keyboard state.
+    keyboard_state keyboard::get_state() noexcept
+    {
+        return keyboard_state(keyboard::surface);
+    }
+
+    // Gets or sets the window used for mouse processing.
+    void keyboard::initialize(display_surface* s) noexcept
+    {
+        keyboard::surface = s;
+
+        // Enable sticky keys
+        // glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
+
+        // initialize key callback
+        // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
+    }
+
+    void keyboard::key_callback(display_surface* s, int key, int scancode, int action, int mods) noexcept
+    {
+    }
+
+    display_surface* keyboard::surface;
 }
-
-// Gets or sets the window used for mouse processing.
-void keyboard::initialize(display_surface* s) noexcept
-{
-    keyboard::surface = s;
-
-    // Enable sticky keys
-    // glfwSetInputMode(window_handle, GLFW_STICKY_KEYS, 1);
-
-    // initialize key callback
-    // glfwSetKeyCallback(window_handle, Keyboard::key_callback);
-}
-
-void keyboard::key_callback(display_surface* s, int key, int scancode, int action, int mods) noexcept
-{
-}
-
-display_surface* keyboard::surface;
-
-}}
