@@ -57,14 +57,14 @@ make test
 
 ## Built With
 
-| Name                                                      | Description          |
-|-----------------------------------------------------------|----------------------|
-| [**GSL**](https://github.com/Microsoft/GSL)               |                      |
-| [**json11**](https://github.com/dropbox/json11)           | JSON parser          |
-| [**nod**](https://github.com/fr00b0/nod)                  | C++ signals library  |
-| [**glad**](https://github.com/Dav1dde/glad)               | OpenGL loader        |
-| [**Google Test**](https://code.google.com/p/googletest/)  | Test framework       |
-| [**glTF**](https://github.com/KhronosGroup/glTF)          | Asset format         |
+| Name                                                        | Description          |
+|-------------------------------------------------------------|----------------------|
+| [**GSL**](https://github.com/Microsoft/GSL)                 |                      |
+| [**JSON for Modern C++**](https://github.com/nlohmann/json) | JSON parser          |
+| [**nod**](https://github.com/fr00b0/nod)                    | C++ signals library  |
+| [**glad**](https://github.com/Dav1dde/glad)                 | OpenGL loader        |
+| [**Google Test**](https://code.google.com/p/googletest/)    | Test framework       |
+| [**glTF**](https://github.com/KhronosGroup/glTF)            | Asset format         |
 
 ## Authors
 
