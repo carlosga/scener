@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 
-#include <json11.hpp>
+#include "json.hpp"
 
 #include "scener/content/readers/content_type_reader.hpp"
 #include "scener/content/gltf/node.hpp"
@@ -88,13 +88,13 @@ namespace scener::content
         inline std::shared_ptr<T> read_object(const std::string& key) noexcept;
 
         template<typename T>
-        inline std::shared_ptr<T> read_object(const std::string& key, const json11::Json& source) noexcept;
+        inline std::shared_ptr<T> read_object(const std::string& key, const nlohmann::json& source) noexcept;
 
         template<typename T>
         inline std::shared_ptr<T> read_object_instance(const std::string& key) noexcept;
 
         template<typename T>
-        inline std::shared_ptr<T> read_object_instance(const std::string& key, const json11::Json& source) noexcept;
+        inline std::shared_ptr<T> read_object_instance(const std::string& key, const nlohmann::json& source) noexcept;
 
         template <typename T>
         inline std::shared_ptr<T> get_object(const std::string& key) noexcept;
@@ -103,13 +103,13 @@ namespace scener::content
         inline void cache_object(const std::string& key, std::shared_ptr<T> object) noexcept;
 
         template <typename T>
-        inline T convert(const std::vector<json11::Json>& values) const noexcept;
+        inline T convert(const std::vector<nlohmann::json>& values) const noexcept;
 
     private:
         std::string               _asset_name;
         io::binary_reader         _asset_reader;
         content::content_manager* _content_manager;
-        json11::Json              _root;
+        nlohmann::json            _root;
 
     private:
         std::map<std::string, std::shared_ptr<scener::content::gltf::accessor>>    _accessors   { };
@@ -324,7 +324,7 @@ namespace scener::content
 
     // Common read object operations
     template<typename T>
-    inline std::shared_ptr<T> content_reader::read_object(const std::string& key, const json11::Json& source) noexcept
+    inline std::shared_ptr<T> content_reader::read_object(const std::string& key, const nlohmann::json& source) noexcept
     {
         auto instance = get_object<T>(key);
         if (instance != nullptr)
@@ -340,7 +340,7 @@ namespace scener::content
     }
 
     template<typename T>
-    inline std::shared_ptr<T> content_reader::read_object_instance(const std::string& key, const json11::Json& source) noexcept
+    inline std::shared_ptr<T> content_reader::read_object_instance(const std::string& key, const nlohmann::json& source) noexcept
     {
         readers::content_type_reader<T> reader;
 
@@ -348,7 +348,7 @@ namespace scener::content
     }
 
     template<>
-    inline math::matrix4 content_reader::convert(const std::vector<json11::Json>& values) const noexcept
+    inline math::matrix4 content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
         math::matrix4 matrix;
 
@@ -356,7 +356,7 @@ namespace scener::content
         {
             for (std::size_t j = 0; j < 4; ++j)
             {
-                matrix[i][j] = static_cast<float>(values[i * 4 + j].number_value());
+                matrix[i][j] = values[i * 4 + j].get<float>();
             }
         }
 
@@ -365,36 +365,36 @@ namespace scener::content
 
     // Type conversion operations
     template<>
-    inline math::quaternion content_reader::convert(const std::vector<json11::Json>& values) const noexcept
+    inline math::quaternion content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
-        return { static_cast<float>(values[0].number_value())
-               , static_cast<float>(values[1].number_value())
-               , static_cast<float>(values[2].number_value())
-               , static_cast<float>(values[3].number_value()) };
+        return { values[0].get<float>()
+               , values[1].get<float>()
+               , values[2].get<float>()
+               , values[3].get<float>() };
     }
 
     template<>
-    inline math::vector2 content_reader::convert(const std::vector<json11::Json>& values) const noexcept
+    inline math::vector2 content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
-        return { static_cast<float>(values[0].number_value())
-               , static_cast<float>(values[1].number_value()) };
+        return { values[0].get<float>()
+               , values[1].get<float>() };
     }
 
     template<>
-    inline math::vector3 content_reader::convert(const std::vector<json11::Json>& values) const noexcept
+    inline math::vector3 content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
-        return { static_cast<float>(values[0].number_value())
-               , static_cast<float>(values[1].number_value())
-               , static_cast<float>(values[2].number_value()) };
+        return { values[0].get<float>()
+               , values[1].get<float>()
+               , values[2].get<float>() };
     }
 
     template<>
-    inline math::vector4 content_reader::convert(const std::vector<json11::Json>& values) const noexcept
+    inline math::vector4 content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
-        return { static_cast<float>(values[0].number_value())
-             , static_cast<float>(values[1].number_value())
-             , static_cast<float>(values[2].number_value())
-             , static_cast<float>(values[3].number_value()) };
+        return { values[0].get<float>()
+               , values[1].get<float>()
+               , values[2].get<float>()
+               , values[3].get<float>() };
     }
 }
 

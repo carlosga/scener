@@ -10,9 +10,8 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS on)
 # base directory
 set (EXTERNALS_BASE_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 
-# json11
-set (JSON11_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json11)
-set (JSON11_SOURCE_DIRS  ${EXTERNALS_BASE_DIR}/json11)
+# json for modern C++
+set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
 
 # microsoft/gsl
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
@@ -58,8 +57,8 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
-# unit tests
-enable_testing()
-
 # project subdirectories
 add_subdirectory (source)
+
+# unit tests
+enable_testing()

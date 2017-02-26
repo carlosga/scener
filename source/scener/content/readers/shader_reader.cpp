@@ -5,19 +5,18 @@
 
 #include <regex>
 
-#include <json11.hpp>
-
 #include "scener/content/content_reader.hpp"
 #include "scener/graphics/opengl/shader.hpp"
 
 namespace scener::content::readers
 {
+    using nlohmann::json;
     namespace opengl = scener::graphics::opengl;
 
-    auto content_type_reader<opengl::shader>::read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept
+    auto content_type_reader<opengl::shader>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto type    = static_cast<opengl::shader_type>(source["type"].int_value());
-        auto ssource = load_shader(input, source["uri"].string_value());
+        auto type    = static_cast<opengl::shader_type>(source["type"].get<std::int32_t>());
+        auto ssource = load_shader(input, source["uri"].get<std::string>());
         auto shader  = std::make_shared<opengl::shader>(key, type, ssource);
 
         shader->compile();

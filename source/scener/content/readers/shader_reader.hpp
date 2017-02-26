@@ -17,7 +17,7 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
+        auto read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
 
     private:
         std::string load_shader(content_reader* input, const std::string& uri) const noexcept;

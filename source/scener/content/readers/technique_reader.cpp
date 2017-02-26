@@ -3,8 +3,6 @@
 
 #include "scener/content/readers/technique_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/graphics/effect_parameter.hpp"
@@ -18,7 +16,7 @@
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::math::matrix4;
     using scener::math::vector2;
     using scener::math::vector3;
@@ -33,7 +31,7 @@ namespace scener::content::readers
     using scener::graphics::service_container;
     using scener::graphics::opengl::program;
 
-    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto effect    = std::make_shared<effect_technique>(gdservice->device());
@@ -49,46 +47,59 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::read_parameters(content_reader*   input
-                                                              , const Json&       node
+                                                              , const json&       node
                                                               , effect_technique* effect) const noexcept
     {
-        for (const auto& uniform : node["uniforms"].object_items())
+        for (auto it = node["uniforms"].begin(); it != node["uniforms"].end(); ++it)
         {
-            const auto& paramref  = node["parameters"][uniform.second.string_value()];
-            auto        parameter = std::make_shared<effect_parameter>();
+            const auto  uniform_name = it.value().get<std::string>();
+            const auto& paramref     = node["parameters"][uniform_name];
+            auto        parameter    = std::make_shared<effect_parameter>();
 
-            parameter->_name         = uniform.second.string_value();
-            parameter->_uniform_name = uniform.first;
-            parameter->_count        = static_cast<std::size_t>(paramref["count"].int_value());
+            parameter->_name         = uniform_name;
+            parameter->_uniform_name = it.key();
 
-            if (paramref["node"].is_null() && !paramref["semantic"].is_null())
+            if (paramref.count("count") != 0)
             {
-                parameter->_semantic = paramref["semantic"].string_value();
+                parameter->_count = paramref["count"].get<std::size_t>();
+            }
+            if (paramref.count("semantic") != 0)
+            {
+                parameter->_semantic = paramref["semantic"].get<std::string>();
             }
 
-            describe_parameter(parameter.get(), paramref["type"].int_value());
+            describe_parameter(parameter.get(), paramref["type"].get<std::int32_t>());
 
             effect->_parameters[parameter->_name] = parameter;
         }
     }
 
-    void content_type_reader<effect_technique>::set_parameter_values(content_reader*   input
-                                                                   , const Json&      node
-                                                                   , effect_technique* effect) const noexcept
+    void content_type_reader<effect_technique>::set_parameter_values(content_reader*       input
+                                                                   , const nlohmann::json& node
+                                                                   , effect_technique*     effect) const noexcept
     {
-        for (const auto& source : node.object_items())
+        for (auto it = node.begin(); it != node.end(); ++it)
         {
-            const auto  nodeId    = source.second["node"].string_value();
-            const auto& pvalue    = source.second["value"];
-            auto&       parameter = effect->_parameters[source.first];
+            const auto& current = it.value();
 
-            if (parameter == nullptr || pvalue.is_null())
+            if (current.count("value") == 0)
             {
                 continue;
             }
 
-            if (!nodeId.empty())
+            const auto& parameter = effect->_parameters[it.key()];
+            
+            if (parameter == nullptr)
             {
+                continue;
+            }
+
+            const auto& pvalue = current["value"];
+
+            if (current.count("node") != 0)
+            {
+                // const auto nodeId = it.value()["node"].get<std::string>();
+                
                 // TODO: Read node reference
                 // auto node = context.find_object<Node>(nodeId);
                 // parameter->set_value<matrix4>(node->matrix);
@@ -98,28 +109,28 @@ namespace scener::content::readers
                 switch (parameter->parameter_type())
                 {
                 case effect_parameter_type::boolean:
-                    parameter->set_value<bool>(pvalue.bool_value());
+                    parameter->set_value<bool>(pvalue.get<bool>());
                     break;
                 case effect_parameter_type::byte:
-                    parameter->set_value<std::int8_t>(static_cast<std::int8_t>(pvalue.int_value()));
+                    parameter->set_value<std::int8_t>(pvalue.get<std::int8_t>());
                     break;
                 case effect_parameter_type::ubyte:
-                    parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint8_t>(pvalue.get<std::uint8_t>());
                     break;
                 case effect_parameter_type::int16:
-                    parameter->set_value<std::int16_t>(static_cast<std::int16_t>(pvalue.int_value()));
+                    parameter->set_value<std::int16_t>(pvalue.get<std::int16_t>());
                     break;
                 case effect_parameter_type::uint16:
-                    parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint16_t>(pvalue.get<std::uint16_t>());
                     break;
                 case effect_parameter_type::int32:
-                    parameter->set_value<std::int32_t>(static_cast<std::int32_t>(pvalue.int_value()));
+                    parameter->set_value<std::int32_t>(pvalue.get<std::int32_t>());
                     break;
                 case effect_parameter_type::uint32:
-                    parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint32_t>(pvalue.get<std::uint32_t>());
                     break;
                 case effect_parameter_type::single:
-                    parameter->set_value<float>(static_cast<float>(pvalue.number_value()));
+                    parameter->set_value<float>(pvalue.get<float>());
                     break;
                 case effect_parameter_type::string:
                 case effect_parameter_type::texture:
@@ -136,26 +147,26 @@ namespace scener::content::readers
                 switch (parameter->column_count())
                 {
                 case 2:
-                    parameter->set_value(input->convert<vector2>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector2>(pvalue.get<json::array_t>()));
                     break;
                 case 3:
-                    parameter->set_value(input->convert<vector3>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector3>(pvalue.get<json::array_t>()));
                     break;
                 case 4:
-                    parameter->set_value(input->convert<vector4>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector4>(pvalue.get<json::array_t>()));
                     break;
                 }
             }
             else if (parameter->parameter_class() == effect_parameter_class::matrix)
             {
-                parameter->set_value(input->convert<matrix4>(pvalue.array_items()));
+                parameter->set_value(input->convert<matrix4>(pvalue.get<json::array_t>()));
             }
         }
     }
 
-    void content_type_reader<effect_technique>::add_default_pass(content_reader*   input
-                                                               , const Json&       node
-                                                               , effect_technique* effect) const noexcept
+    void content_type_reader<effect_technique>::add_default_pass(content_reader*       input
+                                                               , const nlohmann::json& node
+                                                               , effect_technique*     effect) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto pass      = std::make_shared<effect_pass>(gdservice->device());
@@ -168,7 +179,7 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        read_pass_program(input, node["program"].string_value(), pass.get());
+        read_pass_program(input, node["program"].get<std::string>(), pass.get());
 
         effect->_passes.push_back(pass);
         effect->_pass = pass;
@@ -254,6 +265,10 @@ namespace scener::content::readers
             else if (parameter.second->_semantic == "JOINTMATRIX")
             {
                 technique->_bones_param = parameter.second;
+            }
+            else
+            {
+                std::cout << "unknown semantic " << parameter.second->_semantic << std::endl;
             }
         }
     }

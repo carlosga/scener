@@ -28,12 +28,12 @@ file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 # library output
-add_library (scener SHARED ${HEADER_FILES} ${SOURCE_FILES} ${JSON11_SOURCE_DIRS}/json11.cpp)
+add_library (scener SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # include directories
 target_include_directories (scener
                             PRIVATE ${X11_INCLUDE_DIR}
-                            PRIVATE ${JSON11_INCLUDE_DIRS}
+                            PRIVATE ${JSON_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS})

@@ -14,7 +14,7 @@
 
 namespace scener::content
 {
-    using json11::Json;
+    using nlohmann::json;
 
     content_reader::content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept
         : _asset_name      { assetname }
@@ -37,47 +37,52 @@ namespace scener::content
     std::shared_ptr<graphics::model> content_reader::read_asset() noexcept
     {
         auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
-        auto errors = std::string { };
         auto model  = std::make_shared<graphics::model>();
 
-        _root = json11::Json::parse(reinterpret_cast<char*>(buffer.data()), errors);
-
-        Expects(errors.empty());
+        _root = json::parse(buffer.data());
 
         // Meshes
-        const auto& meshes = _root["meshes"].object_items();
+        const auto& meshes = _root["meshes"];
 
         model->_meshes.reserve(meshes.size());
 
-        std::for_each(meshes.begin(), meshes.end(), [&](const auto& mesh) -> void
+        for (auto it = meshes.begin(); it != meshes.end(); ++it)
         {
-            model->_meshes.push_back(read_object<graphics::model_mesh>(mesh.first, mesh.second));
-        });
+            model->_meshes.push_back(read_object<graphics::model_mesh>(it.key(), it.value()));
+        }
 
         // Nodes
-        const auto& nodes = _root["nodes"].object_items();
+        const auto& nodes = _root["nodes"];
 
         // Joints
-        for (const auto& node : nodes)
+        for (auto it = nodes.begin(); it != nodes.end(); ++it)
         {
-            if (!node.second["jointName"].is_null())
+            const auto& key = it.key();
+            const auto& val = it.value();
+
+            if (val.count("jointName") != 0)
             {
-                read_object<gltf::node>(node.first, node.second);
+                read_object<gltf::node>(key, val);
             }
         }
         // Other nodes
-        for (const auto& node : nodes)
+        for (auto it = nodes.begin(); it != nodes.end(); ++it)
         {
-            if (node.second["jointName"].is_null())
+            const auto& key = it.key();
+            const auto& val = it.value();
+
+            if (val.count("jointName") == 0)
             {
-                read_object<gltf::node>(node.first, node.second);
+                read_object<gltf::node>(key, val);
             }
         }
 
         // Animations
-        for (const auto& animation : _root["animations"].object_items())
+        const auto& animations = _root["animations"];
+
+        for (auto it = animations.begin(); it != animations.end(); ++it)
         {
-            read_object_instance<graphics::animation>(animation.first, animation.second);
+            read_object_instance<graphics::animation>(it.key(), it.value());
         }
 
         return model;

@@ -3,8 +3,6 @@
 
 #include "scener/content/readers/animation_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/timespan.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
@@ -12,30 +10,30 @@
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::timespan;
     using scener::graphics::keyframe;
     using scener::math::matrix4;
     using scener::math::quaternion;
     using scener::math::vector3;
 
-    auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto animation  = std::make_shared<graphics::animation>();
         auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
 
-        for (const auto& p : source["parameters"].object_items())
+        for (auto it = source["parameters"].begin(); it != source["parameters"].end(); ++it)
         {
-            auto accessor = input->read_object<gltf::accessor>(p.second.string_value());
+            auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
 
-            parameters[p.first] = accessor;
+            parameters[it.key()] = accessor;
         }
 
         Ensures(parameters.count("TIME") == 1);
 
         const auto& keyframes = parameters["TIME"];
         const auto  count     = keyframes->attribute_count();
-        auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].string_value());
+        auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].get<std::string>());
 
         animation->_name = key;
 
@@ -50,9 +48,9 @@ namespace scener::content::readers
             vector3    scale       = vector3::one();
             vector3    translation = vector3::zero();
 
-            for (const auto& channel : source["channels"].array_items())
+            for (const auto& channel : source["channels"].get<json::array_t>())
             {
-                const auto& path     = channel["target"]["path"].string_value();
+                const auto& path     = channel["target"]["path"].get<std::string>();
                 const auto& accessor = parameters[path];
 
                 if (path == "scale")

@@ -3,8 +3,6 @@
 
 #include "scener/content/readers/node_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 #include "scener/content/gltf/node.hpp"
@@ -14,7 +12,7 @@
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::content::gltf::accessor;
     using scener::graphics::bone;
     using scener::graphics::model_mesh;
@@ -24,52 +22,59 @@ namespace scener::content::readers
     using scener::math::vector3;
     using scener::math::vector4;
 
-    auto content_type_reader<gltf::node>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<gltf::node>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto node = std::make_shared<gltf::node>();
 
         node->name        = key;
-        node->camera      = source["camera"].string_value();
-        node->light       = source["light"].string_value();
         node->matrix      = matrix4::identity();
         node->rotation    = quaternion::identity();
         node->scale       = vector3::one();
         node->translation = vector3::zero();
 
+        if (source.count("camera") != 0)
+        {
+            node->camera = source["camera"].get<std::string>();
+        }
+        if (source.count("light") != 0)
+        {
+            node->light = source["light"].get<std::string>();
+        }
+
         // transforms
 
-        if (!source["matrix"].is_null())
+        if (source.count("matrix") != 0)
         {
-            node->matrix = input->convert<matrix4>(source["matrix"].array_items());
+            node->matrix = input->convert<matrix4>(source["matrix"].get<json::array_t>());
         }
         else
         {
-            if (!source["rotation"].is_null())
+            if (source.count("rotation") != 0)
             {
-                node->rotation = input->convert<quaternion>(source["rotation"].array_items());
+                node->rotation = input->convert<quaternion>(source["rotation"].get<json::array_t>());
             }
-            if (!source["scale"].is_null())
+            if (source.count("scale") != 0)
             {
-                node->scale = input->convert<vector3>(source["scale"].array_items());
+                node->scale = input->convert<vector3>(source["scale"].get<json::array_t>());
             }
-            if (!source["translation"].is_null())
+            if (source.count("translation") != 0)
             {
-                node->translation = input->convert<vector3>(source["translation"].array_items());
+                node->translation = input->convert<vector3>(source["translation"].get<json::array_t>());
             }
         }
 
         // node children's
 
-        const auto& children = source["children"].array_items();
+        const auto& children = source["children"].get<json::array_t>();
 
         node->children.reserve(children.size());
 
-        if (!source["jointName"].is_null())
+        if (source.count("jointName") != 0)
         {
             node->joint        = std::make_shared<bone>();
-            node->joint->_name = source["jointName"].string_value();
+            node->joint->_name = source["jointName"].get<std::string>();
 
-            if (!source["matrix"].is_null())
+            if (source.count("matrix") != 0)
             {
                 node->joint->_transform = node->matrix;
             }
@@ -84,7 +89,7 @@ namespace scener::content::readers
 
             for (const auto& child : children)
             {
-                auto childNode = input->read_object<gltf::node>(child.string_value());
+                auto childNode = input->read_object<gltf::node>(child.get<std::string>());
 
                 childNode->joint->_parent = node->joint;
 
@@ -96,30 +101,33 @@ namespace scener::content::readers
         {
             for (const auto& child : children)
             {
-                node->children.push_back(input->read_object<gltf::node>(child.string_value()));
+                node->children.push_back(input->read_object<gltf::node>(child.get<std::string>()));
             }
         }
 
         // meshes
 
-        const auto& meshes = source["meshes"].array_items();
-
-        node->meshes.reserve(meshes.size());
-
-        for (const auto& meshRef : meshes)
+        if (source.count("meshes") != 0)
         {
-            auto mesh = input->read_object<model_mesh>(meshRef.string_value());
+            const auto& meshes = source["meshes"].get<json::array_t>();
 
-            Ensures(mesh.get() != nullptr);
+            node->meshes.reserve(meshes.size());
 
-            node->meshes.push_back(mesh);
+            for (const auto& meshRef : meshes)
+            {
+                auto mesh = input->read_object<model_mesh>(meshRef.get<std::string>());
+
+                Ensures(mesh.get() != nullptr);
+
+                node->meshes.push_back(mesh);
+            }
         }
 
         // skin
 
-        if (!source["skin"].is_null())
+        if (source.count("skin") != 0)
         {
-            const auto& skin = source["skin"].string_value();
+            const auto& skin = source["skin"].get<std::string>();
 
             node->instance_skin = input->read_object_instance<skeleton>(skin, input->_root["skins"][skin]);
 

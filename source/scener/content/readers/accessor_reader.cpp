@@ -3,22 +3,20 @@
 
 #include "scener/content/readers/accessor_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::content::gltf::attribute_type;
     using scener::content::gltf::buffer_view;
     using scener::graphics::component_type;
 
-    auto content_type_reader<gltf::accessor>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<gltf::accessor>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto        accessor = std::make_shared<gltf::accessor>();
-        const auto& type     = source["type"].string_value();
+        const auto& type     = source["type"].get<std::string>();
 
         if (type == "SCALAR")
         {
@@ -49,23 +47,35 @@ namespace scener::content::readers
             accessor->_attribute_type = attribute_type::matrix4;
         }
 
+        std::cout << source.dump(4) << std::endl;
+
         accessor->_name            = key;
-        accessor->_component_type  = static_cast<component_type>(source["componentType"].int_value());
-        accessor->_byte_offset     = static_cast<std::size_t>(source["byteOffset"].int_value());
-        accessor->_byte_stride     = static_cast<std::size_t>(source["byteStride"].int_value());
-        accessor->_attribute_count = static_cast<std::size_t>(source["count"].int_value());
-        accessor->_buffer_view     = input->read_object<buffer_view>(source["bufferView"].string_value());
+        accessor->_component_type  = static_cast<component_type>(source["componentType"].get<std::int32_t>());
+        accessor->_byte_offset     = source["byteOffset"].get<std::size_t>();
+        accessor->_attribute_count = source["count"].get<std::size_t>();
+        accessor->_buffer_view     = input->read_object<buffer_view>(source["bufferView"].get<std::string>());
         accessor->_byte_length     = accessor->_attribute_count
                                    * accessor->get_attribute_type_count()
                                    * accessor->get_component_size_in_bytes();
 
-        for (const auto& item : source["max"].array_items())
+        if (source.count("byteStride") != 0)
         {
-            accessor->_max.push_back(static_cast<float>(item.number_value()));
+            accessor->_byte_stride = source["byteStride"].get<std::size_t>();
         }
-        for (const auto& item : source["min"].array_items())
+
+        if (source.count("max") != 0)
         {
-            accessor->_min.push_back(static_cast<float>(item.number_value()));
+            for (const auto& item : source["max"].get<std::vector<float>>())
+            {
+                accessor->_max.push_back(item);
+            }
+        }
+        if (source.count("min") != 0)
+        {
+            for (const auto& item : source["min"].get<std::vector<float>>())
+            {
+                accessor->_min.push_back(item);
+            }
         }
 
         return accessor;

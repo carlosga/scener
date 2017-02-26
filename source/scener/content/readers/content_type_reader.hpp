@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-namespace json11 { class Json; }
+#include "json.hpp"
 
 namespace scener::content { class content_reader; }
 
@@ -23,7 +23,7 @@ namespace scener::content::readers
 
     public:
         /// Reads a object from the current stream.
-        std::shared_ptr<T> read(content_reader* input, const std::string& key, const json11::Json& source) const noexcept;
+        std::shared_ptr<T> read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
     };
 }
 

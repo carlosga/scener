@@ -3,8 +3,6 @@
 
 #include "scener/content/readers/model_mesh_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
@@ -22,7 +20,7 @@
 #include "scener/graphics/opengl/buffer.hpp"
 #include "scener/graphics/opengl/vertex_array_object.hpp"
 
-using json11::Json;
+using nlohmann::json;
 using scener::content::gltf::attribute_type;
 using scener::math::matrix4;
 using scener::math::vector2;
@@ -48,15 +46,14 @@ using scener::graphics::vertex_element_usage;
 
 namespace scener::content::readers
 {
-    auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto        mesh       = std::make_shared<model_mesh>();
-        const auto& primitives = source["primitives"].array_items();
+        auto mesh = std::make_shared<model_mesh>();
 
         mesh->_name = key;
-        mesh->_mesh_parts.reserve(primitives.size());
+        mesh->_mesh_parts.reserve(source["primitives"].size());
 
-        for (const auto& primitive : primitives)
+        for (const auto& primitive : source["primitives"])
         {
             mesh->_mesh_parts.push_back(read_mesh_part(input, primitive));
         }
@@ -64,7 +61,7 @@ namespace scener::content::readers
         return mesh;
     }
 
-    std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const Json& source) const noexcept
+    std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& source) const noexcept
     {
         auto mesh_part      = std::make_shared<model_mesh_part>();
         auto gdservice      = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
@@ -73,7 +70,7 @@ namespace scener::content::readers
         auto elements       = std::vector<vertex_element>();
         auto vertex_stride  = std::size_t { 0 };
         auto vertex_count   = std::size_t { 0 };
-        auto indices        = input->read_object<gltf::accessor>(source["indices"].string_value());
+        auto indices        = input->read_object<gltf::accessor>(source["indices"].get<std::string>());
         auto component_type = indices->component_type();
         auto index_count    = indices->attribute_count();
 
@@ -82,16 +79,14 @@ namespace scener::content::readers
         mesh_part->_index_buffer->set_data(indices->get_data());
 
         // Vertex buffer
-        const auto& attributes = source["attributes"].object_items();
+       accessors.reserve(source["attributes"].size());
+        elements.reserve(source["attributes"].size());
 
-        accessors.reserve(attributes.size());
-        elements.reserve(attributes.size());
-
-        for (const auto& attribute : attributes)
+        for (auto it = source["attributes"].begin(); it != source["attributes"].end(); ++it)
         {
-            const auto accessor = input->read_object<gltf::accessor>(attribute.second.string_value());
+            const auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
             const auto format   = get_vertex_element_format(accessor->attribute_type());
-            const auto usage    = get_vertex_element_usage(attribute.first);
+            const auto usage    = get_vertex_element_usage(it.key());
             const auto index    = static_cast<std::uint32_t>(usage);
 
             if (usage == vertex_element_usage::position)
@@ -107,7 +102,7 @@ namespace scener::content::readers
 
         vertex_declaration declaration(vertex_stride, elements);
 
-        mesh_part->_primitive_type  = static_cast<primitive_type>(source["mode"].int_value());
+        mesh_part->_primitive_type  = static_cast<primitive_type>(source["mode"].get<std::int32_t>());
         mesh_part->_vertex_count    = vertex_count;
         mesh_part->_start_index     = 0;
         mesh_part->_vertex_offset   = 0;
@@ -152,7 +147,7 @@ namespace scener::content::readers
         mesh_part->_vertex_buffer->set_data({ data });
 
         // Effect Material
-        const auto& materialref = source["material"].string_value();
+        const auto& materialref = source["material"].get<std::string>();
         if (!materialref.empty())
         {
             mesh_part->effect = read_material(input, materialref);
@@ -165,13 +160,12 @@ namespace scener::content::readers
                                                                                    , const std::string& key) const noexcept
     {
         const auto& material  = input->_root["materials"][key];
-        const auto& values    = material["values"].object_items();
-        auto        technique = input->read_object_instance<effect_technique>(material["technique"].string_value());
+        auto        technique = input->read_object_instance<effect_technique>(material["technique"].get<std::string>());
 
-        for (const auto& value : values)
+        for (auto it = material["values"].begin(); it != material["values"].end(); ++it)
         {
-            const auto& parameter = technique->_parameters[value.first];
-            const auto& pvalue    = value.second;
+            const auto& parameter = technique->_parameters[it.key()];
+            const auto& pvalue    = it.value();
 
             if (pvalue.is_null())
             {
@@ -183,31 +177,31 @@ namespace scener::content::readers
                 switch (parameter->parameter_type())
                 {
                 case effect_parameter_type::boolean:
-                    parameter->set_value<bool>(pvalue.bool_value());
+                    parameter->set_value<bool>(pvalue.get<bool>());
                     break;
                 case effect_parameter_type::byte:
-                    parameter->set_value<std::int8_t>(static_cast<std::int8_t>(pvalue.int_value()));
+                    parameter->set_value<std::int8_t>(pvalue.get<std::int8_t>());
                     break;
                 case effect_parameter_type::ubyte:
-                    parameter->set_value<std::uint8_t>(static_cast<std::uint8_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint8_t>(pvalue.get<std::uint8_t>());
                     break;
                 case effect_parameter_type::int16:
-                    parameter->set_value<std::int16_t>(static_cast<std::int16_t>(pvalue.int_value()));
+                    parameter->set_value<std::int16_t>(pvalue.get<std::int16_t>());
                     break;
                 case effect_parameter_type::uint16:
-                    parameter->set_value<std::uint16_t>(static_cast<std::uint16_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint16_t>(pvalue.get<std::uint16_t>());
                     break;
                 case effect_parameter_type::int32:
-                    parameter->set_value<std::int32_t>(static_cast<std::int32_t>(pvalue.int_value()));
+                    parameter->set_value<std::int32_t>(pvalue.get<std::int32_t>());
                     break;
                 case effect_parameter_type::uint32:
-                    parameter->set_value<std::uint32_t>(static_cast<std::uint32_t>(pvalue.int_value()));
+                    parameter->set_value<std::uint32_t>(pvalue.get<std::uint32_t>());
                     break;
                 case effect_parameter_type::single:
-                    parameter->set_value<float>(static_cast<float>(pvalue.number_value()));
+                    parameter->set_value<float>(pvalue.get<float>());
                     break;
                 case effect_parameter_type::string:
-                    parameter->set_value<std::string>(pvalue.string_value());
+                    parameter->set_value<std::string>(pvalue.get<std::string>());
                     break;
 
                 case effect_parameter_type::texture:
@@ -224,23 +218,23 @@ namespace scener::content::readers
                 switch (parameter->column_count())
                 {
                 case 2:
-                    parameter->set_value(input->convert<vector2>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector2>(pvalue.get<json::array_t>()));
                     break;
                 case 3:
-                    parameter->set_value(input->convert<vector3>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector3>(pvalue.get<json::array_t>()));
                     break;
                 case 4:
-                    parameter->set_value(input->convert<vector4>(pvalue.array_items()));
+                    parameter->set_value(input->convert<vector4>(pvalue.get<json::array_t>()));
                     break;
                 }
             }
             else if (parameter->parameter_class() == effect_parameter_class::matrix)
             {
-                parameter->set_value(input->convert<matrix4>(pvalue.array_items()));
+                parameter->set_value(input->convert<matrix4>(pvalue.get<json::array_t>()));
             }
             else if (parameter->parameter_class() == effect_parameter_class::object)
             {
-                technique->textures().push_back(input->read_object<texture2d>(pvalue.string_value()));
+                technique->textures().push_back(input->read_object<texture2d>(pvalue.get<std::string>()));
             }
         }
 

@@ -35,7 +35,6 @@ add_executable (skeletal-animation ${SOURCE_FILES})
 
 # include directories
 target_include_directories (skeletal-animation
-                            PRIVATE ${JSON11_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS}

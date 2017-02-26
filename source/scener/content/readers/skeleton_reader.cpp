@@ -3,7 +3,7 @@
 
 #include "scener/content/readers/skeleton_reader.hpp"
 
-#include <json11.hpp>
+#include <vector>
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
@@ -11,19 +11,19 @@
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::math::matrix4;
 
-    auto content_type_reader<graphics::skeleton>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<graphics::skeleton>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto skeleton = std::make_shared<graphics::skeleton>();
-        auto accessor = input->read_object<gltf::accessor>(source["inverseBindMatrices"].string_value());
+        auto accessor = input->read_object<gltf::accessor>(source["inverseBindMatrices"].get<std::string>());
 
         // Name
         skeleton->_name = key;
 
         // Bind shape matrix
-        skeleton->_bind_shape_matrix = input->convert<matrix4>(source["bindShapeMatrix"].array_items());
+        skeleton->_bind_shape_matrix = input->convert<matrix4>(source["bindShapeMatrix"].get<json::array_t>());
 
         // Inverse bind matrices
         skeleton->_inverse_bind_matrices.reserve(accessor->attribute_count());
@@ -34,7 +34,7 @@ namespace scener::content::readers
         }
 
         // Joints
-        const auto& joint_names = source["jointNames"].array_items();
+        const auto& joint_names = source["jointNames"].get<std::vector<std::string>>();
         const auto  joint_count = joint_names.size();
         auto        bone_index  = std::size_t { 0 };
 
@@ -43,7 +43,7 @@ namespace scener::content::readers
 
         for (const auto& name : joint_names)
         {
-            auto node = input->find_joint_node(name.string_value());
+            auto node = input->find_joint_node(name);
 
             Ensures(node.get() != nullptr && node->joint.get() != nullptr);
 

@@ -3,8 +3,6 @@
 
 #include "scener/content/readers/texture_reader.hpp"
 
-#include <json11.hpp>
-
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/dds/surface.hpp"
@@ -15,7 +13,7 @@
 
 namespace scener::content::readers
 {
-    using json11::Json;
+    using nlohmann::json;
     using scener::content::dds::surface;
     using scener::content::dds::surface_mipmap;
     using scener::graphics::igraphics_device_service;
@@ -23,10 +21,10 @@ namespace scener::content::readers
     using scener::graphics::surface_format;
     using scener::graphics::texture2d;
 
-    auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const Json& source) const noexcept
+    auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto dds       = input->read_object<surface>(source["source"].string_value());
+        auto dds       = input->read_object<surface>(source["source"].get<std::string>());
         auto texture   = std::make_shared<texture2d>(gdservice->device(), dds->width(), dds->height(), dds->format());
 
         texture->name = key;
@@ -38,7 +36,7 @@ namespace scener::content::readers
             texture->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_view());
         }
 
-        texture->_sampler_state = input->read_object<sampler_state>(source["sampler"].string_value());
+        texture->_sampler_state = input->read_object<sampler_state>(source["sampler"].get<std::string>());
 
         texture->_sampler_state->max_mip_level = texture->level_count();
         texture->_sampler_state->apply(texture->id());
