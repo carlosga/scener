@@ -7,3 +7,6 @@
 [submodule "externals/scener-math"]
 	path = externals/scener-math
 	url = https://github.com/carlosga/scener-math.git
+[submodule "externals/json"]
+	path = externals/json
+	url = https://github.com/nlohmann/json.git
