@@ -3,8 +3,8 @@ project (scener)
 enable_language (CXX)
 
 # compile options
-# if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-#   add_compile_options(-Wall -Wextra -Wno-unused-parameter)
+if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+   add_compile_options(-Wall -Wextra -Wno-unused-parameter)
 
 #   add_compile_options(-Weverything                -Wno-reserved-id-macro
 #                       -Wno-c++98-compat           -Wno-c++98-compat-pedantic
@@ -12,7 +12,7 @@ enable_language (CXX)
 #                       -Wno-weak-vtables           -Wno-padded
 #                       -Wno-float-equal            
 #                       -Wno-global-constructors    -Wno-exit-time-destructors)
-# endif ()
+endif ()
 
 # pthread
 find_package (Threads REQUIRED)
