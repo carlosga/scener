@@ -5,79 +5,79 @@
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
+#include "scener/content/gltf/constants.hpp"
 
 namespace scener::content::readers
 {
     using nlohmann::json;
-    using scener::content::gltf::attribute_type;
-    using scener::content::gltf::buffer_view;
-    using scener::graphics::component_type;
+    using scener::content::gltf::accessor;
+    using scener::graphics::component_type;   
 
-    auto content_type_reader<gltf::accessor>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    using namespace scener::content::gltf;
+
+    auto content_type_reader<accessor>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto        accessor = std::make_shared<gltf::accessor>();
-        const auto& type     = source["type"].get<std::string>();
+        auto        instance = std::make_shared<accessor>();
+        const auto& type     = source[k_type].get<std::string>();
 
-        if (type == "SCALAR")
+        if (type == k_scalar)
         {
-            accessor->_attribute_type = attribute_type::scalar;
+            instance->_attribute_type = attribute_type::scalar;
         }
-        else if (type == "VEC2")
+        else if (type == k_vec2)
         {
-            accessor->_attribute_type = attribute_type::vector2;
+            instance->_attribute_type = attribute_type::vector2;
         }
-        else if (type == "VEC3")
+        else if (type == k_vec3)
         {
-            accessor->_attribute_type = attribute_type::vector3;
+            instance->_attribute_type = attribute_type::vector3;
         }
-        else if (type == "VEC4")
+        else if (type == k_vec4)
         {
-            accessor->_attribute_type = attribute_type::vector4;
+            instance->_attribute_type = attribute_type::vector4;
         }
-        else if (type == "MAT2")
+        else if (type == k_mat2)
         {
-            accessor->_attribute_type = attribute_type::matrix2;
+            instance->_attribute_type = attribute_type::matrix2;
         }
-        else if (type == "MAT3")
+        else if (type == k_mat3)
         {
-            accessor->_attribute_type = attribute_type::matrix3;
+            instance->_attribute_type = attribute_type::matrix3;
         }
-        else if (type == "MAT4")
+        else if (type == k_mat4)
         {
-            accessor->_attribute_type = attribute_type::matrix4;
-        }
-
-        std::cout << source.dump(4) << std::endl;
-
-        accessor->_name            = key;
-        accessor->_component_type  = static_cast<component_type>(source["componentType"].get<std::int32_t>());
-        accessor->_byte_offset     = source["byteOffset"].get<std::size_t>();
-        accessor->_attribute_count = source["count"].get<std::size_t>();
-        accessor->_buffer_view     = input->read_object<buffer_view>(source["bufferView"].get<std::string>());
-        accessor->_byte_length     = accessor->_attribute_count
-                                   * accessor->get_attribute_type_count()
-                                   * accessor->get_component_size_in_bytes();
-
-        if (source.count("byteStride") != 0)
-        {
-            accessor->_byte_stride = source["byteStride"].get<std::size_t>();
+            instance->_attribute_type = attribute_type::matrix4;
         }
 
-        if (source.count("max") != 0)
+        instance->_name            = key;
+        instance->_component_type  = static_cast<component_type>(source[k_component_type].get<std::int32_t>());
+        instance->_byte_offset     = source[k_byte_offset].get<std::size_t>();
+        instance->_attribute_count = source[k_count].get<std::size_t>();
+        instance->_buffer_view     = input->read_object<buffer_view>(source[k_buffer_view].get<std::string>());
+        instance->_byte_length     = instance->_attribute_count
+                                   * instance->get_attribute_type_count()
+                                   * instance->get_component_size_in_bytes();
+
+        if (source.count(k_byte_stride) != 0)
         {
-            for (const auto& item : source["max"].get<std::vector<float>>())
+            instance->_byte_stride = source[k_byte_stride].get<std::size_t>();
+        }
+
+        if (source.count(k_max) != 0)
+        {
+            for (const auto& item : source[k_max].get<std::vector<float>>())
             {
-                accessor->_max.push_back(item);
+                instance->_max.push_back(item);
             }
         }
-        if (source.count("min") != 0)
+        if (source.count(k_min) != 0)
         {
-            for (const auto& item : source["min"].get<std::vector<float>>())
+            for (const auto& item : source[k_min].get<std::vector<float>>())
             {
-                accessor->_min.push_back(item);
+                instance->_min.push_back(item);
             }
         }
 
-        return accessor;
+        return instance;
     }
 }

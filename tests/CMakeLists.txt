@@ -38,7 +38,7 @@ file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 add_executable (test_runner ${HEADER_FILES} ${SOURCE_FILES})
 
 # target include directories
-target_include_directories(test_runner PRIVATE ${GSL_INCLUDE_DIRS})
+target_include_directories(test_runner PRIVATE ${GSL_INCLUDE_DIRS} PRIVATE ${SCENER_INCLUDE_DIRS})
 
 # target links
 target_link_libraries (test_runner pthread gtest ${SCENER_LIBRARIES})

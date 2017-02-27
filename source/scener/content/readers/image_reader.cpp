@@ -5,16 +5,18 @@
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/dds/surface.hpp"
+#include "scener/content/gltf/constants.hpp"
 
 namespace scener::content::readers
 {
     using nlohmann::json;
+    using namespace scener::content::gltf;
 
     auto content_type_reader<dds::surface>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto image = std::make_shared<dds::surface>();
 
-        image->load(input->get_asset_path(source["uri"].get<std::string>()));
+        image->load(input->get_asset_path(source[k_uri].get<std::string>()));
 
         return image;
     }

@@ -7,39 +7,42 @@
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
+#include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/skeleton.hpp"
 
 namespace scener::content::readers
 {
     using nlohmann::json;
     using scener::math::matrix4;
+    using scener::graphics::skeleton;
+    using namespace scener::content::gltf;
 
-    auto content_type_reader<graphics::skeleton>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<skeleton>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto skeleton = std::make_shared<graphics::skeleton>();
-        auto accessor = input->read_object<gltf::accessor>(source["inverseBindMatrices"].get<std::string>());
+        auto instance = std::make_shared<skeleton>();
+        auto accessor = input->read_object<gltf::accessor>(source[k_inverse_bind_matrices].get<std::string>());
 
         // Name
-        skeleton->_name = key;
+        instance->_name = key;
 
         // Bind shape matrix
-        skeleton->_bind_shape_matrix = input->convert<matrix4>(source["bindShapeMatrix"].get<json::array_t>());
+        instance->_bind_shape_matrix = input->convert<matrix4>(source[k_bind_shape_matrix].get<json::array_t>());
 
         // Inverse bind matrices
-        skeleton->_inverse_bind_matrices.reserve(accessor->attribute_count());
+        instance->_inverse_bind_matrices.reserve(accessor->attribute_count());
 
         for (std::size_t i = 0; i < accessor->attribute_count(); ++i)
         {
-            skeleton->_inverse_bind_matrices.push_back(accessor->get_element<matrix4>(i));
+            instance->_inverse_bind_matrices.push_back(accessor->get_element<matrix4>(i));
         }
 
         // Joints
-        const auto& joint_names = source["jointNames"].get<std::vector<std::string>>();
+        const auto& joint_names = source[k_joint_names].get<std::vector<std::string>>();
         const auto  joint_count = joint_names.size();
         auto        bone_index  = std::size_t { 0 };
 
-        skeleton->_bones.reserve(joint_count);
-        skeleton->_bone_transforms.reserve(joint_count);
+        instance->_bones.reserve(joint_count);
+        instance->_bone_transforms.reserve(joint_count);
 
         for (const auto& name : joint_names)
         {
@@ -49,13 +52,13 @@ namespace scener::content::readers
 
             node->joint->_index = bone_index++;
 
-            skeleton->_bones.push_back(node->joint);
-            skeleton->_bone_transforms.push_back(node->joint->transform());
+            instance->_bones.push_back(node->joint);
+            instance->_bone_transforms.push_back(node->joint->transform());
         }
 
-        skeleton->_world_transforms = std::vector<matrix4>(skeleton->_bone_transforms.size());
-        skeleton->_skin_transforms  = std::vector<matrix4>(skeleton->_bone_transforms.size());
+        instance->_world_transforms = std::vector<matrix4>(instance->_bone_transforms.size());
+        instance->_skin_transforms  = std::vector<matrix4>(instance->_bone_transforms.size());
 
-        return skeleton;
+        return instance;
     }
 }

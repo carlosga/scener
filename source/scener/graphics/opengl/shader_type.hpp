@@ -14,10 +14,10 @@ namespace scener::graphics::opengl
     enum class shader_type : std::uint32_t
     {
         vertex          = GL_VERTEX_SHADER          ///< A shader that is intended to run on the programmable vertex processor.
-    , tess_control    = GL_TESS_CONTROL_SHADER    ///< A shader that is intended to run on the programmable tessellation processor in the control stage.
-    , tess_evaluation = GL_TESS_EVALUATION_SHADER ///< A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
-    , geometry        = GL_GEOMETRY_SHADER        ///< A shader that is intended to run on the programmable geometry processor.
-    , fragment        = GL_FRAGMENT_SHADER        ///< A shader that is intended to run on the programmable fragment processor.
+      , tess_control    = GL_TESS_CONTROL_SHADER    ///< A shader that is intended to run on the programmable tessellation processor in the control stage.
+      , tess_evaluation = GL_TESS_EVALUATION_SHADER ///< A shader that is intended to run on the programmable tessellation processor in the evaluation stage.
+      , geometry        = GL_GEOMETRY_SHADER        ///< A shader that is intended to run on the programmable geometry processor.
+      , fragment        = GL_FRAGMENT_SHADER        ///< A shader that is intended to run on the programmable fragment processor.
     };
 }
 

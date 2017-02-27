@@ -6,6 +6,7 @@
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
+#include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
@@ -21,28 +22,12 @@
 #include "scener/graphics/opengl/vertex_array_object.hpp"
 
 using nlohmann::json;
-using scener::content::gltf::attribute_type;
 using scener::math::matrix4;
 using scener::math::vector2;
 using scener::math::vector3;
 using scener::math::vector4;
-using scener::graphics::component_type;
-using scener::graphics::effect_parameter;
-using scener::graphics::effect_parameter_class;
-using scener::graphics::effect_parameter_type;
-using scener::graphics::effect_technique;
-using scener::graphics::igraphics_device_service;
-using scener::graphics::index_buffer;
-using scener::graphics::model;
-using scener::graphics::model_mesh;
-using scener::graphics::model_mesh_part;
-using scener::graphics::primitive_type;
-using scener::graphics::texture2d;
-using scener::graphics::vertex_buffer;
-using scener::graphics::vertex_declaration;
-using scener::graphics::vertex_element;
-using scener::graphics::vertex_element_format;
-using scener::graphics::vertex_element_usage;
+using namespace scener::content::gltf;
+using namespace scener::graphics;
 
 namespace scener::content::readers
 {
@@ -51,9 +36,9 @@ namespace scener::content::readers
         auto mesh = std::make_shared<model_mesh>();
 
         mesh->_name = key;
-        mesh->_mesh_parts.reserve(source["primitives"].size());
+        mesh->_mesh_parts.reserve(source[k_primitives].size());
 
-        for (const auto& primitive : source["primitives"])
+        for (const auto& primitive : source[k_primitives])
         {
             mesh->_mesh_parts.push_back(read_mesh_part(input, primitive));
         }
@@ -70,7 +55,7 @@ namespace scener::content::readers
         auto elements       = std::vector<vertex_element>();
         auto vertex_stride  = std::size_t { 0 };
         auto vertex_count   = std::size_t { 0 };
-        auto indices        = input->read_object<gltf::accessor>(source["indices"].get<std::string>());
+        auto indices        = input->read_object<gltf::accessor>(source[k_indices].get<std::string>());
         auto component_type = indices->component_type();
         auto index_count    = indices->attribute_count();
 
@@ -79,10 +64,10 @@ namespace scener::content::readers
         mesh_part->_index_buffer->set_data(indices->get_data());
 
         // Vertex buffer
-       accessors.reserve(source["attributes"].size());
-        elements.reserve(source["attributes"].size());
+        accessors.reserve(source[k_attributes].size());
+        elements.reserve(source[k_attributes].size());
 
-        for (auto it = source["attributes"].begin(); it != source["attributes"].end(); ++it)
+        for (auto it = source[k_attributes].begin(); it != source[k_attributes].end(); ++it)
         {
             const auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
             const auto format   = get_vertex_element_format(accessor->attribute_type());
@@ -102,7 +87,7 @@ namespace scener::content::readers
 
         vertex_declaration declaration(vertex_stride, elements);
 
-        mesh_part->_primitive_type  = static_cast<primitive_type>(source["mode"].get<std::int32_t>());
+        mesh_part->_primitive_type  = static_cast<primitive_type>(source[k_mode].get<std::int32_t>());
         mesh_part->_vertex_count    = vertex_count;
         mesh_part->_start_index     = 0;
         mesh_part->_vertex_offset   = 0;
@@ -147,7 +132,7 @@ namespace scener::content::readers
         mesh_part->_vertex_buffer->set_data({ data });
 
         // Effect Material
-        const auto& materialref = source["material"].get<std::string>();
+        const auto& materialref = source[k_material].get<std::string>();
         if (!materialref.empty())
         {
             mesh_part->effect = read_material(input, materialref);
@@ -159,10 +144,10 @@ namespace scener::content::readers
     std::shared_ptr<effect_technique> content_type_reader<model_mesh>::read_material(content_reader*   input
                                                                                    , const std::string& key) const noexcept
     {
-        const auto& material  = input->_root["materials"][key];
-        auto        technique = input->read_object_instance<effect_technique>(material["technique"].get<std::string>());
+        const auto& material  = input->_root[k_materials][key];
+        auto        technique = input->read_object_instance<effect_technique>(material[k_technique].get<std::string>());
 
-        for (auto it = material["values"].begin(); it != material["values"].end(); ++it)
+        for (auto it = material[k_values].begin(); it != material[k_values].end(); ++it)
         {
             const auto& parameter = technique->_parameters[it.key()];
             const auto& pvalue    = it.value();
@@ -264,31 +249,31 @@ namespace scener::content::readers
     {
         auto usage = vertex_element_usage::color;
 
-        if (semantic == "JOINT")
+        if (semantic == k_joint)
         {
             usage = vertex_element_usage::blend_indices;
         }
-        else if (semantic == "NORMAL")
+        else if (semantic == k_normal)
         {
             usage = vertex_element_usage::normal;
         }
-        else if (semantic == "POSITION")
+        else if (semantic == k_position)
         {
             usage = vertex_element_usage::position;
         }
-        else if (semantic == "TEXBINORMAL")
+        else if (semantic == k_textbinormal)
         {
             usage = vertex_element_usage::binormal;
         }
-        else if (semantic == "TEXCOORD_0")
+        else if (semantic == k_textcoord_0)
         {
             usage = vertex_element_usage::texture_coordinate;
         }
-        else if (semantic == "TEXTANGENT")
+        else if (semantic == k_texttangent)
         {
             usage = vertex_element_usage::tangent;
         }
-        else if (semantic == "WEIGHT")
+        else if (semantic == k_weight)
         {
             usage = vertex_element_usage::blend_weight;
         }

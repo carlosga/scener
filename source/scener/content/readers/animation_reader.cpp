@@ -6,41 +6,44 @@
 #include "scener/timespan.hpp"
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/accessor.hpp"
+#include "scener/content/gltf/constants.hpp"
+
 #include "scener/graphics/animation.hpp"
 
 namespace scener::content::readers
 {
-    using nlohmann::json;
+    using nlohmann::json;    
     using scener::timespan;
+    using scener::graphics::animation;
     using scener::graphics::keyframe;
     using scener::math::matrix4;
     using scener::math::quaternion;
     using scener::math::vector3;
 
-    auto content_type_reader<graphics::animation>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    using namespace scener::content::gltf;
+
+    auto content_type_reader<animation>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto animation  = std::make_shared<graphics::animation>();
-        auto parameters = std::map<std::string, std::shared_ptr<gltf::accessor>>();
+        auto instance   = std::make_shared<animation>();
+        auto parameters = std::map<std::string, std::shared_ptr<accessor>>();
 
-        for (auto it = source["parameters"].begin(); it != source["parameters"].end(); ++it)
+        for (auto it = source[k_parameters].begin(); it != source[k_parameters].end(); ++it)
         {
-            auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
-
-            parameters[it.key()] = accessor;
+            parameters[it.key()] = input->read_object<accessor>(it.value().get<std::string>());;
         }
 
-        Ensures(parameters.count("TIME") == 1);
+        Ensures(parameters.count(k_time) == 1);
 
-        const auto& keyframes = parameters["TIME"];
+        const auto& keyframes = parameters[k_time];
         const auto  count     = keyframes->attribute_count();
-        auto        target    = input->read_object<gltf::node>(source["channels"][0]["target"]["id"].get<std::string>());
+        auto        target    = input->read_object<gltf::node>(source[k_channels][0][k_target][k_id].get<std::string>());
 
-        animation->_name = key;
+        instance->_name = key;
 
         // Process only bone animations
         Ensures(target && target->joint);
 
-        animation->_keyframes.reserve(count);
+        instance->_keyframes.reserve(count);
 
         for (std::size_t i = 0; i < count; ++i)
         {
@@ -48,9 +51,9 @@ namespace scener::content::readers
             vector3    scale       = vector3::one();
             vector3    translation = vector3::zero();
 
-            for (const auto& channel : source["channels"].get<json::array_t>())
+            for (const auto& channel : source[k_channels].get<json::array_t>())
             {
-                const auto& path     = channel["target"]["path"].get<std::string>();
+                const auto& path     = channel[k_target][k_path].get<std::string>();
                 const auto& accessor = parameters[path];
 
                 if (path == "scale")
@@ -72,13 +75,13 @@ namespace scener::content::readers
                            * scener::math::matrix::create_from_quaternion(rotation)
                            * scener::math::matrix::create_translation(translation);
 
-            animation->_keyframes.push_back({ time, transform });
+            instance->_keyframes.push_back({ time, transform });
         }
 
-        animation->_duration      = animation->_keyframes.crbegin()->time();
-        target->joint->_animation = animation;
+        instance->_duration       = instance->_keyframes.crbegin()->time();
+        target->joint->_animation = instance;
 
-        return animation;
+        return instance;
     }
 }
 

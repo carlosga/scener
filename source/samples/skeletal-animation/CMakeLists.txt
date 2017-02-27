@@ -38,7 +38,8 @@ target_include_directories (skeletal-animation
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS}
-                            PRIVATE ${SCENER_FRAMEWORK_INCLUDE_DIRS})
+                            PRIVATE ${SCENER_INCLUDE_DIRS}
+                            PRIVATE ${SCENER_SAMPLES_INCLUDE_DIR})
 
 # target links
 target_link_libraries (skeletal-animation pthread ${SCENER_LIBRARIES})

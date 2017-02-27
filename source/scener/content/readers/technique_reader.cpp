@@ -5,6 +5,7 @@
 
 #include "scener/content/content_manager.hpp"
 #include "scener/content/content_reader.hpp"
+#include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/effect_parameter.hpp"
 #include "scener/graphics/effect_pass.hpp"
 #include "scener/graphics/effect_technique.hpp"
@@ -30,45 +31,46 @@ namespace scener::content::readers
     using scener::graphics::igraphics_device_service;
     using scener::graphics::service_container;
     using scener::graphics::opengl::program;
+    using namespace scener::content::gltf;
 
     auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto effect    = std::make_shared<effect_technique>(gdservice->device());
+        auto instance  = std::make_shared<effect_technique>(gdservice->device());
 
-        read_parameters(input, source, effect.get());
-        add_default_pass(input, source, effect.get());
-        cache_parameters(effect.get());
-        set_parameter_values(input, source["parameters"], effect.get());
+        read_parameters(input, source, instance.get());
+        add_default_pass(input, source, instance.get());
+        cache_parameters(instance.get());
+        set_parameter_values(input, source[k_parameters], instance.get());
 
-        effect->name = key;
+        instance->name = key;
 
-        return effect;
+        return instance;
     }
 
     void content_type_reader<effect_technique>::read_parameters(content_reader*   input
                                                               , const json&       node
                                                               , effect_technique* effect) const noexcept
     {
-        for (auto it = node["uniforms"].begin(); it != node["uniforms"].end(); ++it)
+        for (auto it = node[k_uniforms].begin(); it != node[k_uniforms].end(); ++it)
         {
             const auto  uniform_name = it.value().get<std::string>();
-            const auto& paramref     = node["parameters"][uniform_name];
+            const auto& paramref     = node[k_parameters][uniform_name];
             auto        parameter    = std::make_shared<effect_parameter>();
 
             parameter->_name         = uniform_name;
             parameter->_uniform_name = it.key();
 
-            if (paramref.count("count") != 0)
+            if (paramref.count(k_count) != 0)
             {
-                parameter->_count = paramref["count"].get<std::size_t>();
+                parameter->_count = paramref[k_count].get<std::size_t>();
             }
-            if (paramref.count("semantic") != 0)
+            if (paramref.count(k_semantic) != 0)
             {
-                parameter->_semantic = paramref["semantic"].get<std::string>();
+                parameter->_semantic = paramref[k_semantic].get<std::string>();
             }
 
-            describe_parameter(parameter.get(), paramref["type"].get<std::int32_t>());
+            describe_parameter(parameter.get(), paramref[k_type].get<std::int32_t>());
 
             effect->_parameters[parameter->_name] = parameter;
         }
@@ -82,7 +84,7 @@ namespace scener::content::readers
         {
             const auto& current = it.value();
 
-            if (current.count("value") == 0)
+            if (current.count(k_value) == 0)
             {
                 continue;
             }
@@ -94,9 +96,9 @@ namespace scener::content::readers
                 continue;
             }
 
-            const auto& pvalue = current["value"];
+            const auto& pvalue = current[k_value];
 
-            if (current.count("node") != 0)
+            if (current.count(k_node) != 0)
             {
                 // const auto nodeId = it.value()["node"].get<std::string>();
                 
@@ -147,13 +149,13 @@ namespace scener::content::readers
                 switch (parameter->column_count())
                 {
                 case 2:
-                    parameter->set_value(input->convert<vector2>(pvalue.get<json::array_t>()));
+                    parameter->set_value<vector2>(input->convert<vector2>(pvalue.get<json::array_t>()));
                     break;
                 case 3:
-                    parameter->set_value(input->convert<vector3>(pvalue.get<json::array_t>()));
+                    parameter->set_value<vector3>(input->convert<vector3>(pvalue.get<json::array_t>()));
                     break;
                 case 4:
-                    parameter->set_value(input->convert<vector4>(pvalue.get<json::array_t>()));
+                    parameter->set_value<vector4>(input->convert<vector4>(pvalue.get<json::array_t>()));
                     break;
                 }
             }
@@ -179,7 +181,7 @@ namespace scener::content::readers
             pass->_parameters.push_back(param.second);
         }
 
-        read_pass_program(input, node["program"].get<std::string>(), pass.get());
+        read_pass_program(input, node[k_program].get<std::string>(), pass.get());
 
         effect->_passes.push_back(pass);
         effect->_pass = pass;
@@ -214,55 +216,55 @@ namespace scener::content::readers
                 continue;
             }
 
-            if (parameter.second->_semantic == "MODEL")
+            if (parameter.second->_semantic == k_model)
             {
                 technique->_world_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "VIEW")
+            else if (parameter.second->_semantic == k_view)
             {
                 technique->_view_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "PROJECTION")
+            else if (parameter.second->_semantic == k_projection)
             {
                 technique->_projection_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELVIEW")
+            else if (parameter.second->_semantic == k_model_view)
             {
                 technique->_world_view_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELVIEWPROJECTION")
+            else if (parameter.second->_semantic == k_model_view_projection)
             {
                 technique->_world_view_projection_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELINVERSE")
+            else if (parameter.second->_semantic == k_model_inverse)
             {
                 technique->_world_inverse_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "VIEWINVERSE")
+            else if (parameter.second->_semantic == k_view_inverse)
             {
                 technique->_view_inverse_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "PROJECTIONINVERSE")
+            else if (parameter.second->_semantic == k_projection_inverse)
             {
                 technique->_projection_inverse_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELVIEWINVERSE")
+            else if (parameter.second->_semantic == k_model_view_inverse)
             {
                 technique->_world_view_inverse_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELVIEWPROJECTIONINVERSE")
+            else if (parameter.second->_semantic == k_model_view_projection_inverse)
             {
                 technique->_world_view_projection_inverse_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELINVERSETRANSPOSE")
+            else if (parameter.second->_semantic == k_model_inverse_transpose)
             {
                 technique->_world_inverse_transpose_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "MODELVIEWINVERSETRANSPOSE")
+            else if (parameter.second->_semantic == k_model_view_inverse_transpose)
             {
                 technique->_world_view_inverse_transpose_param = parameter.second;
             }
-            else if (parameter.second->_semantic == "JOINTMATRIX")
+            else if (parameter.second->_semantic == k_joint_matrix)
             {
                 technique->_bones_param = parameter.second;
             }

@@ -57,8 +57,16 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
+# SceneR
+set (SCENER_INCLUDE_DIRS  ${CMAKE_SOURCE_DIR}/source)
+set (SCENER_LIB_DIRS      ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (SCENER_LIBRARIES     scener)
+
+set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
+
 # project subdirectories
 add_subdirectory (source)
 
 # unit tests
 enable_testing()
+add_subdirectory(tests)

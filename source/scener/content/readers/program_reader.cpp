@@ -4,28 +4,29 @@
 #include "scener/content/readers/program_reader.hpp"
 
 #include "scener/content/content_reader.hpp"
-#include "scener/graphics/opengl/buffer.hpp"
-#include "scener/graphics/opengl/constant_buffer.hpp"
+#include "scener/content/gltf/constants.hpp"
 #include "scener/graphics/opengl/program.hpp"
 #include "scener/graphics/opengl/shader.hpp"
 
 namespace scener::content::readers
 {
     using nlohmann::json;
-    namespace opengl = scener::graphics::opengl;
+    using scener::graphics::opengl::program;    
+    using scener::graphics::opengl::shader;
+    using namespace scener::content::gltf;
 
-    auto content_type_reader<opengl::program>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<program>::read(content_reader* input, const std::string& key, const json& source) const noexcept
     {
-        auto program = std::make_shared<opengl::program>();
-        auto vshader = source["vertexShader"].get<std::string>();
-        auto fshader = source["fragmentShader"].get<std::string>();
+        auto instance = std::make_shared<program>();
+        auto vshader  = source[k_vertex_shader].get<std::string>();
+        auto fshader  = source[k_fragment_shader].get<std::string>();
 
-        program->name = key;
-        program->add_shader(input->read_object<opengl::shader>(vshader));
-        program->add_shader(input->read_object<opengl::shader>(fshader));
-        program->link();
+        instance->name = key;
+        instance->add_shader(input->read_object<shader>(vshader));
+        instance->add_shader(input->read_object<shader>(fshader));
+        instance->link();
 
-        return program;
+        return instance;
     }
 }
 
