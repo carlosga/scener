@@ -12,20 +12,17 @@ namespace scener::content::readers
     using nlohmann::json;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<gltf::buffer>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<buffer>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
-        auto buffer = std::make_shared<gltf::buffer>();
-        auto uri    = source[k_uri].get<std::string>();
-        auto data   = input->read_external_reference(uri);
+        auto instance = std::make_shared<buffer>();
+        auto uri      = value[k_uri].get<std::string>();
 
-        buffer->_name        = key;
-        buffer->_uri         = uri;
-        buffer->_byte_length = source[k_byte_length].get<std::size_t>();
+        instance->_name        = key;
+        instance->_uri         = uri;
+        instance->_byte_length = value[k_byte_length].get<std::size_t>();
 
-        Ensures(buffer->_byte_length == data.size());
+        instance->set_data(input->read_external_reference(uri));
 
-        buffer->set_data(data);
-
-        return buffer;
+        return instance;
     }
 }

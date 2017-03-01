@@ -10,15 +10,14 @@
 namespace scener::content::readers
 {
     using nlohmann::json;
-    using scener::content::gltf::accessor;
     using scener::graphics::component_type;   
 
     using namespace scener::content::gltf;
 
-    auto content_type_reader<accessor>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<accessor>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto        instance = std::make_shared<accessor>();
-        const auto& type     = source[k_type].get<std::string>();
+        const auto& type     = value[k_type].get<std::string>();
 
         if (type == k_scalar)
         {
@@ -50,29 +49,29 @@ namespace scener::content::readers
         }
 
         instance->_name            = key;
-        instance->_component_type  = static_cast<component_type>(source[k_component_type].get<std::int32_t>());
-        instance->_byte_offset     = source[k_byte_offset].get<std::size_t>();
-        instance->_attribute_count = source[k_count].get<std::size_t>();
-        instance->_buffer_view     = input->read_object<buffer_view>(source[k_buffer_view].get<std::string>());
+        instance->_component_type  = static_cast<component_type>(value[k_component_type].get<std::int32_t>());
+        instance->_byte_offset     = value[k_byte_offset].get<std::size_t>();
+        instance->_attribute_count = value[k_count].get<std::size_t>();
+        instance->_buffer_view     = input->read_object<buffer_view>(value[k_buffer_view].get<std::string>());
         instance->_byte_length     = instance->_attribute_count
                                    * instance->get_attribute_type_count()
                                    * instance->get_component_size_in_bytes();
 
-        if (source.count(k_byte_stride) != 0)
+        if (value.count(k_byte_stride) != 0)
         {
-            instance->_byte_stride = source[k_byte_stride].get<std::size_t>();
+            instance->_byte_stride = value[k_byte_stride].get<std::size_t>();
         }
 
-        if (source.count(k_max) != 0)
+        if (value.count(k_max) != 0)
         {
-            for (const auto& item : source[k_max].get<std::vector<float>>())
+            for (const auto& item : value[k_max].get<std::vector<float>>())
             {
                 instance->_max.push_back(item);
             }
         }
-        if (source.count(k_min) != 0)
+        if (value.count(k_min) != 0)
         {
-            for (const auto& item : source[k_min].get<std::vector<float>>())
+            for (const auto& item : value[k_min].get<std::vector<float>>())
             {
                 instance->_min.push_back(item);
             }

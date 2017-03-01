@@ -23,10 +23,10 @@ namespace scener::content::readers
     using scener::graphics::texture2d;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<texture2d>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
-        auto dds       = input->read_object<surface>(source[k_source].get<std::string>());
+        auto dds       = input->read_object<surface>(value[k_source].get<std::string>());
         auto instance  = std::make_shared<texture2d>(gdservice->device(), dds->width(), dds->height(), dds->format());
 
         instance->name = key;
@@ -37,7 +37,7 @@ namespace scener::content::readers
             instance->set_data(mipmap.index(), mipmap.width(), mipmap.height(), mipmap.get_view());
         }
 
-        instance->_sampler_state = input->read_object<sampler_state>(source[k_sampler].get<std::string>());
+        instance->_sampler_state = input->read_object<sampler_state>(value[k_sampler].get<std::string>());
         instance->_sampler_state->max_mip_level = instance->level_count();
         instance->_sampler_state->apply(instance->id());
 

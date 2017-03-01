@@ -169,7 +169,6 @@ namespace scener::graphics
         std::vector<std::shared_ptr<effect_pass>>                _passes;
         std::map<std::string, std::shared_ptr<effect_parameter>> _parameters;
 
-        std::shared_ptr<effect_pass>      _pass                          = nullptr;
         std::shared_ptr<effect_parameter> _bones_param                   = nullptr;
 
         /// Transforms from model to world coordinates using the transform's node and all of its parents.

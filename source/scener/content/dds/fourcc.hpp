@@ -15,10 +15,10 @@ namespace scener::content::dds
     enum class fourcc : std::uint32_t
     {
         dxt1 = 0x31545844 ///< DXT1 (also known as Block Compression 1 or BC1).
-    , dxt2 = 0x32545844 ///< DXT2 and DXT3 (collectively also known as Block Compression 2 or BC2).
-    , dxt3 = 0x33545844 ///< DXT2 and DXT3 (collectively also known as Block Compression 2 or BC2).
-    , dxt4 = 0x34545844 ///< DXT4 and DXT5 (collectively also known as Block Compression 3 or BC3).
-    , dxt5 = 0x35545844 ///< DXT4 and DXT5 (collectively also known as Block Compression 3 or BC3).
+      , dxt2 = 0x32545844 ///< DXT2 and DXT3 (collectively also known as Block Compression 2 or BC2).
+      , dxt3 = 0x33545844 ///< DXT2 and DXT3 (collectively also known as Block Compression 2 or BC2).
+      , dxt4 = 0x34545844 ///< DXT4 and DXT5 (collectively also known as Block Compression 3 or BC3).
+      , dxt5 = 0x35545844 ///< DXT4 and DXT5 (collectively also known as Block Compression 3 or BC3).
     };
 }
 

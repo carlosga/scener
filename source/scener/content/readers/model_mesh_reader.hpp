@@ -27,10 +27,10 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
+        auto read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
 
     private:
-        std::shared_ptr<graphics::model_mesh_part> read_mesh_part(content_reader* input, const nlohmann::json& source) const noexcept;
+        std::shared_ptr<graphics::model_mesh_part> read_mesh_part(content_reader* input, const nlohmann::json& value) const noexcept;
 
         std::shared_ptr<graphics::effect_technique> read_material(content_reader* input, const std::string& key) const noexcept;
 

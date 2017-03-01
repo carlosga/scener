@@ -47,10 +47,11 @@ namespace scener::content::gltf
         void set_data(const std::vector<std::uint8_t>& buffer) noexcept;
 
     private:
-        std::size_t               _byte_length { 0 };
-        std::vector<std::uint8_t> _data        { };
-        std::string               _name        { };
-        std::string               _uri         { };
+        std::size_t                   _byte_length { 0 };
+        std::vector<std::uint8_t>     _data        { };
+        gsl::span<const std::uint8_t> _span        { };
+        std::string                   _name        { };
+        std::string                   _uri         { };
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

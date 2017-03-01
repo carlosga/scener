@@ -23,7 +23,7 @@ namespace scener::content::readers
 
     public:
         /// Reads a object from the current stream.
-        std::shared_ptr<T> read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
+        std::shared_ptr<T> read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
     };
 }
 

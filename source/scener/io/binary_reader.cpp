@@ -31,18 +31,18 @@ namespace scener::io
 
         // http://xbox.create.msdn.com/en-US/sample/xnb_format
         // Decode UTF-8.
-        if (buffer & 0x80)
+        if ((buffer & 0x80) != 0)
         {
             std::uint32_t byte_count = 1;
 
-            while (buffer & (0x80 >> byte_count))
+            while ((buffer & (0x80 >> byte_count)) != 0)
             {
                 byte_count++;
             }
 
             buffer &= (1 << (8 - byte_count)) - 1;
 
-            while (--byte_count)
+            while (--byte_count != 0)
             {
                 buffer <<= 6;
                 buffer  |= _stream.read_byte() & 0x3F;

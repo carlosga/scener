@@ -33,15 +33,15 @@ namespace scener::content::readers
     using scener::graphics::opengl::program;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<effect_technique>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto gdservice = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto instance  = std::make_shared<effect_technique>(gdservice->device());
 
-        read_parameters(input, source, instance.get());
-        add_default_pass(input, source, instance.get());
+        read_parameters(input, value, instance.get());
+        add_default_pass(input, value, instance.get());
         cache_parameters(instance.get());
-        set_parameter_values(input, source[k_parameters], instance.get());
+        set_parameter_values(input, value[k_parameters], instance.get());
 
         instance->name = key;
 
@@ -49,13 +49,13 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::read_parameters(content_reader*   input
-                                                              , const json&       node
+                                                              , const json&       value
                                                               , effect_technique* effect) const noexcept
     {
-        for (auto it = node[k_uniforms].begin(); it != node[k_uniforms].end(); ++it)
+        for (auto it = value[k_uniforms].begin(); it != value[k_uniforms].end(); ++it)
         {
             const auto  uniform_name = it.value().get<std::string>();
-            const auto& paramref     = node[k_parameters][uniform_name];
+            const auto& paramref     = value[k_parameters][uniform_name];
             auto        parameter    = std::make_shared<effect_parameter>();
 
             parameter->_name         = uniform_name;
@@ -77,10 +77,10 @@ namespace scener::content::readers
     }
 
     void content_type_reader<effect_technique>::set_parameter_values(content_reader*       input
-                                                                   , const nlohmann::json& node
+                                                                   , const nlohmann::json& value
                                                                    , effect_technique*     effect) const noexcept
     {
-        for (auto it = node.begin(); it != node.end(); ++it)
+        for (auto it = value.begin(); it != value.end(); ++it)
         {
             const auto& current = it.value();
 
@@ -184,7 +184,6 @@ namespace scener::content::readers
         read_pass_program(input, node[k_program].get<std::string>(), pass.get());
 
         effect->_passes.push_back(pass);
-        effect->_pass = pass;
     }
 
     void content_type_reader<effect_technique>::read_pass_program(content_reader*    input

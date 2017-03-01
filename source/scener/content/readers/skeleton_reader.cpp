@@ -17,16 +17,16 @@ namespace scener::content::readers
     using scener::graphics::skeleton;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<skeleton>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<skeleton>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<skeleton>();
-        auto accessor = input->read_object<gltf::accessor>(source[k_inverse_bind_matrices].get<std::string>());
+        auto accessor = input->read_object<gltf::accessor>(value[k_inverse_bind_matrices].get<std::string>());
 
         // Name
         instance->_name = key;
 
         // Bind shape matrix
-        instance->_bind_shape_matrix = input->convert<matrix4>(source[k_bind_shape_matrix].get<json::array_t>());
+        instance->_bind_shape_matrix = input->convert<matrix4>(value[k_bind_shape_matrix].get<json::array_t>());
 
         // Inverse bind matrices
         instance->_inverse_bind_matrices.reserve(accessor->attribute_count());
@@ -37,7 +37,7 @@ namespace scener::content::readers
         }
 
         // Joints
-        const auto& joint_names = source[k_joint_names].get<std::vector<std::string>>();
+        const auto& joint_names = value[k_joint_names].get<std::vector<std::string>>();
         const auto  joint_count = joint_names.size();
         auto        bone_index  = std::size_t { 0 };
 

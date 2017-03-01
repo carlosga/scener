@@ -15,11 +15,11 @@ namespace scener::content::readers
     using scener::graphics::opengl::shader;
     using namespace scener::content::gltf;
 
-    auto content_type_reader<program>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<program>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto instance = std::make_shared<program>();
-        auto vshader  = source[k_vertex_shader].get<std::string>();
-        auto fshader  = source[k_fragment_shader].get<std::string>();
+        auto vshader  = value[k_vertex_shader].get<std::string>();
+        auto fshader  = value[k_fragment_shader].get<std::string>();
 
         instance->name = key;
         instance->add_shader(input->read_object<shader>(vshader));

@@ -45,14 +45,14 @@ namespace scener::text
         return _decoder.get_chars(bytes, byte_index, byte_count, chars, char_index);
     }
 
-    std::size_t utf8_encoding::get_max_byte_count(std::size_t charCount)
+    std::size_t utf8_encoding::get_max_byte_count(std::size_t char_count)
     {
-        return (charCount * 4);
+        return (char_count * 4);
     }
 
-    std::size_t utf8_encoding::get_max_char_count(std::size_t byteCount)
+    std::size_t utf8_encoding::get_max_char_count(std::size_t byte_count)
     {
-        return byteCount; // Every character could be 1 byte lenght
+        return byte_count; // Every character could be 1 byte lenght
     }
 
     std::vector<std::uint8_t> utf8_encoding::get_preamble() const

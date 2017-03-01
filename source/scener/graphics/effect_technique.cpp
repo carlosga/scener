@@ -252,14 +252,7 @@ namespace scener::graphics
 
     void effect_technique::begin() noexcept
     {
-        if (_pass != nullptr)
-        {
-            _pass->begin();
-        }
-        else
-        {
-            std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->begin(); });
-        }
+        std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->begin(); });
 
         if ((_dirty_flags & effect_dirty_flags::world_view_proj) != 0 || (_dirty_flags & effect_dirty_flags::world) != 0)
         {
@@ -282,14 +275,7 @@ namespace scener::graphics
             std::for_each(_textures.begin(), _textures.end(), [](const auto& texture) -> void { texture->unbind(); });
         }
 
-        if (_pass != nullptr)
-        {
-            _pass->end();
-        }
-        else
-        {
-            std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
-        }
+        std::for_each(_passes.begin(), _passes.end(), [](const auto& pass) -> void { pass->end(); });
     }
 
     void effect_technique::set_world_view_proj() const noexcept

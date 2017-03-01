@@ -22,12 +22,12 @@ namespace scener::content::readers
 
     using namespace scener::content::gltf;
 
-    auto content_type_reader<animation>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<animation>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
         auto instance   = std::make_shared<animation>();
         auto parameters = std::map<std::string, std::shared_ptr<accessor>>();
 
-        for (auto it = source[k_parameters].begin(); it != source[k_parameters].end(); ++it)
+        for (auto it = value[k_parameters].begin(); it != value[k_parameters].end(); ++it)
         {
             parameters[it.key()] = input->read_object<accessor>(it.value().get<std::string>());;
         }
@@ -36,7 +36,7 @@ namespace scener::content::readers
 
         const auto& keyframes = parameters[k_time];
         const auto  count     = keyframes->attribute_count();
-        auto        target    = input->read_object<gltf::node>(source[k_channels][0][k_target][k_id].get<std::string>());
+        auto        target    = input->read_object<gltf::node>(value[k_channels][0][k_target][k_id].get<std::string>());
 
         instance->_name = key;
 
@@ -51,7 +51,7 @@ namespace scener::content::readers
             vector3    scale       = vector3::one();
             vector3    translation = vector3::zero();
 
-            for (const auto& channel : source[k_channels].get<json::array_t>())
+            for (const auto& channel : value[k_channels].get<json::array_t>())
             {
                 const auto& path     = channel[k_target][k_path].get<std::string>();
                 const auto& accessor = parameters[path];

@@ -22,16 +22,16 @@ namespace scener::content::readers
         content_type_reader() = default;
 
     public:
-        auto read(content_reader* input, const std::string& key, const nlohmann::json& source) const noexcept;
+        auto read(content_reader* input, const std::string& key, const nlohmann::json& value) const noexcept;
 
     private:
-        void read_parameters(content_reader* input, const nlohmann::json& source, graphics::effect_technique* effect) const noexcept;
+        void read_parameters(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 
-        void set_parameter_values(content_reader* input, const nlohmann::json& source, graphics::effect_technique* effect) const noexcept;
+        void set_parameter_values(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 
-        void add_default_pass(content_reader* input, const nlohmann::json& source, graphics::effect_technique* effect) const noexcept;
+        void add_default_pass(content_reader* input, const nlohmann::json& value, graphics::effect_technique* effect) const noexcept;
 
-        void read_pass_program(content_reader* input, const std::string& name, graphics::effect_pass* effectPass) const noexcept;
+        void read_pass_program(content_reader* input, const std::string& name, graphics::effect_pass* pass) const noexcept;
 
         void cache_parameters(graphics::effect_technique* effect) const noexcept;
 

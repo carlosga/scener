@@ -16,8 +16,7 @@ namespace scener::content
     using scener::graphics::service_container;
     using scener::io::file_stream;
 
-    content_manager::content_manager(gsl::not_null<service_container*> serviceprovider
-                                   , const std::string&                rootdirectory) noexcept
+    content_manager::content_manager(gsl::not_null<service_container*> serviceprovider, const std::string& rootdirectory) noexcept
         : _service_provider { serviceprovider }
         , _root_directory   { rootdirectory }
     {

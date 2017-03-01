@@ -11,7 +11,6 @@
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/igraphics_device_service.hpp"
 #include "scener/graphics/index_buffer.hpp"
-#include "scener/graphics/model.hpp"
 #include "scener/graphics/model_mesh.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/service_container.hpp"
@@ -31,43 +30,43 @@ using namespace scener::graphics;
 
 namespace scener::content::readers
 {
-    auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const json& source) const noexcept
+    auto content_type_reader<model_mesh>::read(content_reader* input, const std::string& key, const json& value) const noexcept
     {
-        auto mesh = std::make_shared<model_mesh>();
+        auto instance = std::make_shared<model_mesh>();
 
-        mesh->_name = key;
-        mesh->_mesh_parts.reserve(source[k_primitives].size());
+        instance->_name = key;
+        instance->_mesh_parts.reserve(value[k_primitives].size());
 
-        for (const auto& primitive : source[k_primitives])
+        for (const auto& primitive : value[k_primitives])
         {
-            mesh->_mesh_parts.push_back(read_mesh_part(input, primitive));
+            instance->_mesh_parts.push_back(read_mesh_part(input, primitive));
         }
 
-        return mesh;
+        return instance;
     }
 
-    std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& source) const noexcept
+    std::shared_ptr<model_mesh_part> content_type_reader<model_mesh>::read_mesh_part(content_reader* input, const json& value) const noexcept
     {
-        auto mesh_part      = std::make_shared<model_mesh_part>();
+        auto instance       = std::make_shared<model_mesh_part>();
         auto gdservice      = input->content_manager()->service_provider()->get_service<igraphics_device_service>();
         auto device         = gdservice->device();
         auto accessors      = std::vector<std::shared_ptr<gltf::accessor>>();
         auto elements       = std::vector<vertex_element>();
         auto vertex_stride  = std::size_t { 0 };
         auto vertex_count   = std::size_t { 0 };
-        auto indices        = input->read_object<gltf::accessor>(source[k_indices].get<std::string>());
+        auto indices        = input->read_object<gltf::accessor>(value[k_indices].get<std::string>());
         auto component_type = indices->component_type();
         auto index_count    = indices->attribute_count();
 
         // Index buffer
-        mesh_part->_index_buffer = std::make_unique<index_buffer>(device, component_type, index_count);
-        mesh_part->_index_buffer->set_data(indices->get_data());
+        instance->_index_buffer = std::make_unique<index_buffer>(device, component_type, index_count);
+        instance->_index_buffer->set_data(indices->get_data());
 
         // Vertex buffer
-        accessors.reserve(source[k_attributes].size());
-        elements.reserve(source[k_attributes].size());
+        accessors.reserve(value[k_attributes].size());
+        elements.reserve(value[k_attributes].size());
 
-        for (auto it = source[k_attributes].begin(); it != source[k_attributes].end(); ++it)
+        for (auto it = value[k_attributes].begin(); it != value[k_attributes].end(); ++it)
         {
             const auto accessor = input->read_object<gltf::accessor>(it.value().get<std::string>());
             const auto format   = get_vertex_element_format(accessor->attribute_type());
@@ -87,20 +86,20 @@ namespace scener::content::readers
 
         vertex_declaration declaration(vertex_stride, elements);
 
-        mesh_part->_primitive_type  = static_cast<primitive_type>(source[k_mode].get<std::int32_t>());
-        mesh_part->_vertex_count    = vertex_count;
-        mesh_part->_start_index     = 0;
-        mesh_part->_vertex_offset   = 0;
-        mesh_part->_primitive_count = 0;
-        mesh_part->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertex_count, declaration);
+        instance->_primitive_type  = static_cast<primitive_type>(value[k_mode].get<std::int32_t>());
+        instance->_vertex_count    = vertex_count;
+        instance->_start_index     = 0;
+        instance->_vertex_offset   = 0;
+        instance->_primitive_count = 0;
+        instance->_vertex_buffer   = std::make_unique<vertex_buffer>(device, vertex_count, declaration);
 
-        switch (mesh_part->_primitive_type)
+        switch (instance->_primitive_type)
         {
         case primitive_type::line_list:
-            mesh_part->_primitive_count = (vertex_count / 2);
+            instance->_primitive_count = (vertex_count / 2);
             break;
         case primitive_type::triangle_list:
-            mesh_part->_primitive_count = (vertex_count  / 3);
+            instance->_primitive_count = (vertex_count  / 3);
             break;
         case primitive_type::line_loop:
         case primitive_type::line_strip:
@@ -108,7 +107,7 @@ namespace scener::content::readers
         case primitive_type::triangle_fan:
         case primitive_type::triangle_strip:
             // TODO: Fix
-            mesh_part->_primitive_count = vertex_count;
+            instance->_primitive_count = vertex_count;
             break;
         }
 
@@ -129,19 +128,19 @@ namespace scener::content::readers
         }
 
         // Initialize vertex buffer
-        mesh_part->_vertex_buffer->set_data({ data });
+        instance->_vertex_buffer->set_data({ data });
 
         // Effect Material
-        const auto& materialref = source[k_material].get<std::string>();
+        const auto& materialref = value[k_material].get<std::string>();
         if (!materialref.empty())
         {
-            mesh_part->effect = read_material(input, materialref);
+            instance->effect = read_material(input, materialref);
         }
 
-        return mesh_part;
+        return instance;
     }
 
-    std::shared_ptr<effect_technique> content_type_reader<model_mesh>::read_material(content_reader*   input
+    std::shared_ptr<effect_technique> content_type_reader<model_mesh>::read_material(content_reader*    input
                                                                                    , const std::string& key) const noexcept
     {
         const auto& material  = input->_root[k_materials][key];
