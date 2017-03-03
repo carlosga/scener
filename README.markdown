@@ -25,7 +25,7 @@ A step by step series of examples that tell you have to get a development env ru
 1. Clone repository
 
 ```
-git clone --recursive https://github.com/carlosga/scener.git
+git clone --recursive https://gitlab.com/carlosga/scener.git
 ```
 
 2. Install dependencies (packages names for Debian)
@@ -68,9 +68,7 @@ make test
 
 ## Authors
 
-* **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://github.com/carlosga)
-
-See also the list of [contributors](https://github.com/carlosga/scener/contributors) who participated in this project.
+* **Carlos Guzmán Álvarez** - *Initial work* - [carlosga](https://gitlab.com/carlosga)
 
 ## License
 
