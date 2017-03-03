@@ -6,7 +6,7 @@
 	url = https://github.com/fr00b0/nod.git
 [submodule "externals/scener-math"]
 	path = externals/scener-math
-	url = https://github.com/carlosga/scener-math.git
+	url = https://gitlab.com/carlosga/tvml.git
 [submodule "externals/json"]
 	path = externals/json
 	url = https://github.com/nlohmann/json.git
