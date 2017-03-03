@@ -7,3 +7,6 @@
 [submodule "externals/json"]
 	path = externals/json
 	url = https://github.com/nlohmann/json.git
+[submodule "externals/scener-math"]
+	path = externals/scener-math
+	url = https://gitlab.com/carlosga/tvml.git
