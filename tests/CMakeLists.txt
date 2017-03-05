@@ -45,3 +45,6 @@ target_link_libraries (test_runner pthread gtest ${SCENER_LIBRARIES})
 
 # unit tests
 add_test(NAME scener_test_runner COMMAND test_runner)
+
+# enable testing
+enable_testing()

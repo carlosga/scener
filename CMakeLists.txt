@@ -22,39 +22,52 @@ set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
 
-# Workaround using a local build of libc++ & libc++abi under ubuntu 16.04
-if (CMAKE_LIBCXX_INCLUDE_PATH)
-    include_directories (${CMAKE_LIBCXX_INCLUDE_PATH} ${CMAKE_LIBCXXABI_INCLUDE_PATH})
+# reconfigure final output directory
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+
+# compiler flags
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
+
+if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"    
 endif ()
-if (CMAKE_LIBCXXABI_LIB_PATH)
-    link_directories(${CMAKE_LIBCXXABI_LIB_PATH})
-endif ()
 
-# compiler and linker configurations
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 
-    set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -m64 -stdlib=libc++ -std=c++1z")
-    set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64 -stdlib=libc++ -lc++abi")
-    set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m64 -stdlib=libc++ -lc++abi")
-    set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m64 -stdlib=libc++ -lc++abi")
+  # Workaround using a local build of libc++ & libc++abi under ubuntu 16.04
+  ## c++abi
+  if (CMAKE_LIBCXXABI_INCLUDE_PATH)
+    include_directories (${CMAKE_LIBCXXABI_INCLUDE_PATH})
+  endif ()
+  if (CMAKE_LIBCXXABI_LIB_PATH)
+    link_directories (${CMAKE_LIBCXXABI_LIB_PATH})
+  endif ()
+  ## c++
+  if (CMAKE_LIBCXX_INCLUDE_PATH)
+    include_directories (${CMAKE_LIBCXX_INCLUDE_PATH})
+  endif ()
+  if (CMAKE_LIBCXX_LIB_PATH)
+    link_directories (${CMAKE_LIBCXX_LIB_PATH})
+  endif ()
 
-elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
+  # compiler flags
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
-    set (CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS}           -m64 -std=c++14")
-    set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -m64")
-    set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m64")
-    set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m64")
+  # linker flags
+  set (CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -lc++ -lc++abi")
+  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++ -lc++abi")
+  set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
+
+# elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
 
 else ()
 
     message ("-> unknown compiler ...")
 
 endif ()
-
-# reconfigure final output directory
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
 # SceneR
 set (SCENER_INCLUDE_DIRS  ${CMAKE_SOURCE_DIR}/source)
@@ -67,5 +80,4 @@ set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
 add_subdirectory (source)
 
 # unit tests
-enable_testing()
 add_subdirectory(tests)
