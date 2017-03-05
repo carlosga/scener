@@ -46,9 +46,7 @@ namespace scener::content::readers
 
         for (const auto& name : joint_names)
         {
-            auto node = input->find_joint_node(name);
-
-            Ensures(node.get() != nullptr && node->joint.get() != nullptr);
+            auto node = input->read_object<gltf::node>(name); 
 
             node->joint->_index = bone_index++;
 

@@ -4,11 +4,12 @@
 #ifndef SCENER_CONTENT_CONTENT_READER_HPP
 #define SCENER_CONTENT_CONTENT_READER_HPP
 
+#include <any>
 #include <cstdint>
-#include <map>
 #include <memory>
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "json.hpp"
 
@@ -81,46 +82,63 @@ namespace scener::content
 
         std::vector<std::uint8_t> read_external_reference(const std::string& assetname) const noexcept;
 
-        std::shared_ptr<gltf::node> find_joint_node(const std::string& jointname) const noexcept;
-
     private:
         template<typename T>
         inline std::shared_ptr<T> read_object(const std::string& key) noexcept;
 
         template<typename T>
-        inline std::shared_ptr<T> read_object(const std::string& key, const nlohmann::json& source) noexcept;
+        inline std::shared_ptr<T> read_object(const std::string& key, const nlohmann::json& value) noexcept
+        {
+            auto instance = get_object<T>(key);
+            if (instance != nullptr)
+            {
+                return instance;
+            }
+
+            auto object = read_object_instance<T>(key, value);
+
+            cache_object<T>(key, object);
+
+            return object;
+        }
 
         template<typename T>
         inline std::shared_ptr<T> read_object_instance(const std::string& key) noexcept;
 
         template<typename T>
-        inline std::shared_ptr<T> read_object_instance(const std::string& key, const nlohmann::json& source) noexcept;
+        inline std::shared_ptr<T> read_object_instance(const std::string& key, const nlohmann::json& value) noexcept
+        {
+            readers::content_type_reader<T> reader;
+
+            return reader.read(this, key, value);
+        }
 
         template <typename T>
-        inline std::shared_ptr<T> get_object(const std::string& key) noexcept;
+        inline std::shared_ptr<T> get_object(const std::string& key) noexcept
+        {
+            if (_cache.find(key) != _cache.end())
+            {
+                return std::any_cast<std::shared_ptr<T>>(_cache[key]);
+            }
+
+            return nullptr;
+        }
 
         template <typename T>
-        inline void cache_object(const std::string& key, std::shared_ptr<T> object) noexcept;
+        inline void cache_object(const std::string& key, std::shared_ptr<T> object) noexcept
+        {
+            _cache[key] = object;
+        }
 
         template <typename T>
         inline T convert(const std::vector<nlohmann::json>& values) const noexcept;
 
     private:
-        std::string               _asset_name;
-        io::binary_reader         _asset_reader;
-        content::content_manager* _content_manager;
-        nlohmann::json            _root;
-
-    private:
-        std::map<std::string, std::shared_ptr<scener::content::gltf::accessor>>    _accessors   { };
-        std::map<std::string, std::shared_ptr<scener::content::gltf::buffer>>      _buffers     { };
-        std::map<std::string, std::shared_ptr<scener::content::gltf::buffer_view>> _bufferViews { };
-        std::map<std::string, std::shared_ptr<scener::content::gltf::node>>        _nodes       { };
-        std::map<std::string, std::shared_ptr<scener::content::dds::surface>>      _images      { };
-        std::map<std::string, std::shared_ptr<scener::graphics::model_mesh>>       _meshes      { };
-        std::map<std::string, std::shared_ptr<scener::graphics::sampler_state>>    _samplers    { };
-        std::map<std::string, std::shared_ptr<scener::graphics::opengl::shader>>   _shaders     { };
-        std::map<std::string, std::shared_ptr<scener::graphics::texture2d>>        _textures    { };
+        std::string                               _asset_name;
+        io::binary_reader                         _asset_reader;
+        content::content_manager*                 _content_manager;
+        nlohmann::json                            _root;
+        std::unordered_map<std::string, std::any> _cache;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };
@@ -135,19 +153,6 @@ namespace scener::content
         return read_object<gltf::accessor>(key, _root["accessors"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<gltf::accessor> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _accessors[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&              key
-                                           , std::shared_ptr<gltf::accessor> object) noexcept
-    {
-        _accessors[key] = object;
-    }
-
     // Buffers
     template<>
     inline std::shared_ptr<gltf::buffer> content_reader::read_object(const std::string& key) noexcept
@@ -155,37 +160,11 @@ namespace scener::content
         return read_object<gltf::buffer>(key, _root["buffers"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<gltf::buffer> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _buffers[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&            key
-                                           , std::shared_ptr<gltf::buffer> object) noexcept
-    {
-        _buffers[key] = object;
-    }
-
     // Buffer Views
     template<>
     inline std::shared_ptr<gltf::buffer_view> content_reader::read_object(const std::string& key) noexcept
     {
         return read_object<gltf::buffer_view>(key, _root["bufferViews"][key]);
-    }
-
-    template <>
-    inline std::shared_ptr<gltf::buffer_view> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _bufferViews[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&                key
-                                           , std::shared_ptr<gltf::buffer_view> object) noexcept
-    {
-        _bufferViews[key] = object;
     }
 
     // Effect techniques
@@ -202,19 +181,6 @@ namespace scener::content
         return read_object<dds::surface>(key, _root["images"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<dds::surface> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _images[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&            key
-                                           , std::shared_ptr<dds::surface> object) noexcept
-    {
-        _images[key] = object;
-    }
-
     // Meshes
     template<>
     inline std::shared_ptr<graphics::model_mesh> content_reader::read_object(const std::string& key) noexcept
@@ -222,37 +188,11 @@ namespace scener::content
         return read_object<graphics::model_mesh>(key, _root["meshes"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<graphics::model_mesh> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _meshes[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&                   key
-                                           , std::shared_ptr<graphics::model_mesh> object) noexcept
-    {
-        _meshes[key] = object;
-    }
-
     // Nodes
     template<>
     inline std::shared_ptr<gltf::node> content_reader::read_object(const std::string& key) noexcept
     {
         return read_object<gltf::node>(key, _root["nodes"][key]);
-    }
-
-    template <>
-    inline std::shared_ptr<gltf::node> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _nodes[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&          key
-                                           , std::shared_ptr<gltf::node> object) noexcept
-    {
-        _nodes[key] = object;
     }
 
     // Programs
@@ -269,37 +209,11 @@ namespace scener::content
         return read_object<graphics::sampler_state>(key, _root["samplers"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<scener::graphics::sampler_state> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _samplers[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&                      key
-                                           , std::shared_ptr<graphics::sampler_state> object) noexcept
-    {
-        _samplers[key] = object;
-    }
-
     // Shaders
     template<>
     inline std::shared_ptr<graphics::opengl::shader> content_reader::read_object(const std::string& key) noexcept
     {
         return read_object<graphics::opengl::shader>(key, _root["shaders"][key]);
-    }
-
-    template <>
-    inline std::shared_ptr<graphics::opengl::shader> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _shaders[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&                        key
-                                           , std::shared_ptr<graphics::opengl::shader> object) noexcept
-    {
-        _shaders[key] = object;
     }
 
     // Textures
@@ -309,44 +223,7 @@ namespace scener::content
         return read_object<graphics::texture2d>(key, _root["textures"][key]);
     }
 
-    template <>
-    inline std::shared_ptr<graphics::texture2d> content_reader::get_object(const std::string& key) noexcept
-    {
-        return _textures[key];
-    }
-
-    template <>
-    inline void content_reader::cache_object(const std::string&                   key
-                                           , std::shared_ptr<graphics::texture2d> object) noexcept
-    {
-        _textures[key] = object;
-    }
-
-    // Common read object operations
-    template<typename T>
-    inline std::shared_ptr<T> content_reader::read_object(const std::string& key, const nlohmann::json& source) noexcept
-    {
-        auto instance = get_object<T>(key);
-        if (instance != nullptr)
-        {
-            return instance;
-        }
-
-        auto object = read_object_instance<T>(key, source);
-
-        cache_object<T>(key, object);
-
-        return object;
-    }
-
-    template<typename T>
-    inline std::shared_ptr<T> content_reader::read_object_instance(const std::string& key, const nlohmann::json& source) noexcept
-    {
-        readers::content_type_reader<T> reader;
-
-        return reader.read(this, key, source);
-    }
-
+    // Type conversion operations
     template<>
     inline math::matrix4 content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {
@@ -363,7 +240,6 @@ namespace scener::content
         return matrix;
     }
 
-    // Type conversion operations
     template<>
     inline math::quaternion content_reader::convert(const std::vector<nlohmann::json>& values) const noexcept
     {

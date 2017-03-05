@@ -14,6 +14,9 @@
 
 namespace scener::content
 {
+    using scener::graphics::animation;
+    using scener::graphics::model;
+    using scener::graphics::model_mesh;
     using nlohmann::json;
 
     content_reader::content_reader(const std::string& assetname, content::content_manager* manager, io::stream& stream) noexcept
@@ -21,6 +24,7 @@ namespace scener::content
         , _asset_reader    { stream    }
         , _content_manager { manager   }
         , _root            { }
+        , _cache           { }
     {
     }
 
@@ -34,47 +38,34 @@ namespace scener::content
         return _content_manager;
     }
 
-    std::shared_ptr<graphics::model> content_reader::read_asset() noexcept
+    std::shared_ptr<model> content_reader::read_asset() noexcept
     {
-        auto buffer = _asset_reader.read_bytes(_asset_reader.base_stream().length());
-        auto model  = std::make_shared<graphics::model>();
+        auto buffer   = _asset_reader.read_bytes(_asset_reader.base_stream().length());
+        auto instance = std::make_shared<model>();
 
         _root = json::parse(buffer.data());
+
+        _cache.reserve(_root.size());
 
         // Meshes
         const auto& meshes = _root["meshes"];
 
-        model->_meshes.reserve(meshes.size());
+        instance->_meshes.reserve(meshes.size());
 
         for (auto it = meshes.begin(); it != meshes.end(); ++it)
         {
-            model->_meshes.push_back(read_object<graphics::model_mesh>(it.key(), it.value()));
+            instance->_meshes.push_back(read_object<model_mesh>(it.key(), it.value()));
         }
 
         // Nodes
         const auto& nodes = _root["nodes"];
 
-        // Joints
         for (auto it = nodes.begin(); it != nodes.end(); ++it)
         {
             const auto& key = it.key();
             const auto& val = it.value();
 
-            if (val.count("jointName") != 0)
-            {
-                read_object<gltf::node>(key, val);
-            }
-        }
-        // Other nodes
-        for (auto it = nodes.begin(); it != nodes.end(); ++it)
-        {
-            const auto& key = it.key();
-            const auto& val = it.value();
-
-            if (val.count("jointName") == 0)
-            {
-                read_object<gltf::node>(key, val);
-            }
+            read_object<gltf::node>(key, val);
         }
 
         // Animations
@@ -82,10 +73,10 @@ namespace scener::content
 
         for (auto it = animations.begin(); it != animations.end(); ++it)
         {
-            read_object_instance<graphics::animation>(it.key(), it.value());
+            read_object_instance<animation>(it.key(), it.value());
         }
 
-        return model;
+        return instance;
     }
 
     bool content_reader::read_header() noexcept
@@ -107,23 +98,5 @@ namespace scener::content
         Ensures(io::file::exists(path));
 
         return io::file::read_all_bytes(path);
-    }
-
-    std::shared_ptr<gltf::node> content_reader::find_joint_node(const std::string& jointname) const noexcept
-    {
-        for (const auto& node : _nodes)
-        {
-            if (node.second.get())
-            {
-                auto& joint = node.second->joint;
-
-                if (joint.get() && joint->name() == jointname)
-                {
-                    return node.second;
-                }
-            }
-        }
-
-        return nullptr;
     }
 }
