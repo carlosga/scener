@@ -10,9 +10,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 | Name                                       | Version       |
 |--------------------------------------------|---------------|
-| C++ compiler                               | Clang 3.9     |
-| C compiler                                 | Clang 3.9     |
-| [**libC++**](http://libcxx.llvm.org/)      | 3.9 (Linux)   |
+| C++ compiler                               | Clang 4.0     |
+| C compiler                                 | Clang 4.0     |
+| [**libC++**](http://libcxx.llvm.org/)      | 4.0 (Linux)   |
 
 ```
 sudo apt-get install clang libc++ lldb git

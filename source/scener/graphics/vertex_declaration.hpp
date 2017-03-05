@@ -12,7 +12,7 @@
 namespace scener::graphics
 {
     /// A vertex declaration, which defines per-vertex data.
-    class vertex_declaration final
+    struct vertex_declaration final
     {
     public:
         /// Initializes a new instance of the VertexDeclaration class.
@@ -35,4 +35,4 @@ namespace scener::graphics
     };
 }
 
-#endif // SCENER_GRAPHICS_VERTEX_DECLARATION_HPP */
+#endif // SCENER_GRAPHICS_VERTEX_DECLARATION_HPP

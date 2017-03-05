@@ -26,7 +26,7 @@ namespace scener::content::gltf
     {
     public:
         /// Initializes a new instance of the Accessor class.
-        accessor() noexcept = default;
+        accessor() noexcept;
 
     public:
         /// Specifies if the attribute is a scalar, vector, or matrix.
@@ -141,16 +141,16 @@ namespace scener::content::gltf
         }
 
     private:
-        gltf::attribute_type         _attribute_type  { gltf::attribute_type::scalar };
-        std::size_t                  _attribute_count { 0 };
-        std::shared_ptr<buffer_view> _buffer_view     { nullptr };
-        std::size_t                  _byte_offset     { 0 };
-        std::size_t                  _byte_length     { 0 };
-        std::size_t                  _byte_stride     { 0 };
-        graphics::component_type     _component_type  { graphics::component_type::single };
-        std::vector<float>           _max             { 0 };
-        std::vector<float>           _min             { 0 };
-        std::string                  _name            { };
+        gltf::attribute_type         _attribute_type;
+        std::size_t                  _attribute_count;
+        std::shared_ptr<buffer_view> _buffer_view;
+        std::size_t                  _byte_offset;
+        std::size_t                  _byte_length;
+        std::size_t                  _byte_stride;
+        graphics::component_type     _component_type;
+        std::vector<float>           _max;
+        std::vector<float>           _min;
+        std::string                  _name;
 
         template <typename T> friend class scener::content::readers::content_type_reader;
     };

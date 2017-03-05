@@ -7,7 +7,22 @@
 
 namespace scener::content::gltf
 {
+    using scener::content::gltf::attribute_type;
     using scener::graphics::component_type;
+
+    accessor::accessor() noexcept
+        : _attribute_type  { attribute_type::scalar }
+        , _attribute_count { 0 }
+        , _buffer_view     { nullptr }
+        , _byte_offset     { 0 }
+        , _byte_length     { 0 }
+        , _byte_stride     { 0 }
+        , _component_type  { component_type::single }
+        , _max             { 0 }
+        , _min             { 0 }
+        , _name            { }
+    {
+    }
 
     attribute_type accessor::attribute_type() const noexcept
     {

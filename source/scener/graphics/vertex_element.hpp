@@ -13,7 +13,7 @@
 namespace scener::graphics
 {
     /// Defines input vertex data to the pipeline.
-    class vertex_element final
+    struct vertex_element final
     {
     public:
         /// Initializes a new instance of the vertex element class

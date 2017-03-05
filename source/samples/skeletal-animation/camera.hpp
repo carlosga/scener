@@ -25,12 +25,9 @@ namespace skeletal::animation
         void initialize() noexcept override;
         void update(const scener::graphics::steptime& time) noexcept override;
 
-    private:
-        void update_projection() noexcept;
-
     public:
-        scener::math::matrix4   view;
-        scener::math::matrix4   projection;
+        scener::math::matrix4 view;
+        scener::math::matrix4 projection;
 
     private:
         scener::math::vector3  _position;

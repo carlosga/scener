@@ -4,6 +4,7 @@
 #ifndef SCENER_GRAPHICS_RENDERER_SERVICE_CONTAINER_HPP
 #define SCENER_GRAPHICS_RENDERER_SERVICE_CONTAINER_HPP
 
+#include <any>
 #include <map>
 #include <string>
 
@@ -27,7 +28,7 @@ namespace scener::graphics
         {
             if (!is_registered<T>())
             {
-                _instance_map[get_type_name<T>()] = reinterpret_cast<void*>(&service);
+                _instance_map[get_type_name<T>()] = &service;
             }
         }
 
@@ -40,7 +41,7 @@ namespace scener::graphics
                 throw std::runtime_error("Service not registered");
             }
 
-            return (reinterpret_cast<T*>(_instance_map.find(get_type_name<T>())->second));
+            return (std::any_cast<T*>(_instance_map.find(get_type_name<T>())->second));
         }
 
         /// Removes the object providing a specified service.
@@ -76,7 +77,7 @@ namespace scener::graphics
         service_container& operator=(const service_container& serviceContainer) = delete;
 
     private:
-        std::map<std::string, void*> _instance_map;
+        std::map<std::string, std::any> _instance_map;
     };
 }
 

@@ -17,16 +17,10 @@ namespace skeletal::animation
     using scener::input::keys;
     using scener::input::keyboard;
     using scener::input::keyboard_state;
-    using scener::math::degrees;
-    using scener::math::radians;
-    using scener::math::matrix4;
-    using scener::math::vector3;
-    using scener::math::smooth_step;
-    using scener::math::matrix::create_rotation_y;
-    using scener::math::matrix::create_look_at;
-    using scener::math::matrix::create_perspective_field_of_view;
-    using scener::math::matrix::create_look_at;
-    using scener::math::vector::lerp;
+    
+    using namespace scener::math;
+    using namespace scener::math::matrix;
+    using namespace scener::math::vector;
 
     camera::camera(sample_renderer* renderer) noexcept
         : component           { renderer }
@@ -41,14 +35,17 @@ namespace skeletal::animation
 
     void camera::initialize() noexcept
     {
-        _position           = { 0.0f, 0.0f, 500.0f };
-        _rotation           = 0.0f;
+        _position           = { 0.0f, 0.0f, 300.0f };
+        _rotation           = 0_deg;
         _rotation_transform = matrix4::identity();
-
-        update_projection();
+        
+        view = create_look_at(_position, vector3::zero(), vector3::up());
 
         _resize_connection = _renderer->window()->connect_resize([&](std::uint32_t, std::uint32_t) {
-            update_projection();
+            static const radians fov = 45_deg;
+            const auto aspect = _renderer->device()->viewport().aspect_ratio();
+
+            projection = create_perspective_field_of_view(fov, aspect, 1.0f, 1000.0f);
         });
     }
 
@@ -59,6 +56,7 @@ namespace skeletal::animation
         auto new_position     = _position;
         auto current_rotation = _rotation;
         auto new_rotation     = _rotation;
+        auto dirty            = false;
 
         if (keyboard_state.is_key_down(keys::D))
         {
@@ -97,25 +95,24 @@ namespace skeletal::animation
         if (current_rotation != new_rotation)
         {
             _rotation = smooth_step(current_rotation.value, new_rotation.value, scener::math::pi_over_2<>);
+            dirty     = true;
         }
 
         if (current_rotation != _rotation)
         {
             _rotation_transform = create_rotation_y(radians(_rotation), vector3::zero());
+            dirty     = true;
         }
 
-        _position = lerp(current_position, new_position, scener::math::pi_over_2<>);
+        if (new_position != current_position)
+        {
+            _position = lerp(current_position, new_position, scener::math::pi_over_2<>);
+            dirty     = true;
+        }
 
-        view = _rotation_transform * create_look_at(_position, vector3::zero(), vector3::up());
-    }
-
-    void camera::update_projection() noexcept
-    {
-        static const radians fov = degrees(45.0f);
-
-        auto aspect = _renderer->device()->viewport().aspect_ratio();
-
-        projection = create_perspective_field_of_view(fov, aspect, 0.1f, 1000.0f);
-        view       = create_look_at(_position, vector3::zero(), vector3::up());
+        if (dirty)
+        {
+            view = _rotation_transform * create_look_at(_position, vector3::zero(), vector3::up());
+        }
     }
 }

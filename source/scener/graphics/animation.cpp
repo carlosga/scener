@@ -45,7 +45,7 @@ namespace scener::graphics
             // If we reached the end, loop back to the start.
             if (current_time >= _duration)
             {
-                current_time       = 0;
+                current_time      = 0;
                 _current_time     = 0;
                 _current_keyframe = 0;
             }

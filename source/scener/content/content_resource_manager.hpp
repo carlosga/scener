@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <map>
+#include <any>
 
 #include "scener/graphics/graphics_resource.hpp"
 
@@ -30,7 +31,7 @@ namespace scener::content
         {
             if (!has_resource(name))
             {
-                _resources[name] = std::static_pointer_cast<void>(resource);
+                _resources[name] = resource;
             }
         }
 
@@ -42,7 +43,11 @@ namespace scener::content
         {
             if (has_resource(name))
             {
-                return std::static_pointer_cast<T>(_resources.find(name)->second);
+                auto item = _resources.find(name)->second;
+                if (item.has_value()) 
+                {
+                    return std::any_cast<std::shared_ptr<T>>(item);
+                }                
             }
 
             return nullptr;
@@ -70,7 +75,7 @@ namespace scener::content
         content_resource_manager& operator=(const content_resource_manager& manager) = delete;
 
     private:
-        std::map<std::string, std::shared_ptr<void>> _resources;
+        std::map<std::string, std::any> _resources;
     };
 }
 

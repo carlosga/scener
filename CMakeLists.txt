@@ -22,8 +22,7 @@ set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
 
-# Workaround using a local build of libc++ & libc++abi 3.8 under ubuntu 16.04
-# Workaround using a local build of libc++ & libc++abi 3.9 under ubuntu 16.04
+# Workaround using a local build of libc++ & libc++abi under ubuntu 16.04
 if (CMAKE_LIBCXX_INCLUDE_PATH)
     include_directories (${CMAKE_LIBCXX_INCLUDE_PATH} ${CMAKE_LIBCXXABI_INCLUDE_PATH})
 endif ()
