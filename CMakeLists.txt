@@ -80,4 +80,5 @@ set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
 add_subdirectory (source)
 
 # unit tests
+enable_testing()
 add_subdirectory(tests)
