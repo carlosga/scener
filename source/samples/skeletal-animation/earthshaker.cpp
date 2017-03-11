@@ -62,7 +62,7 @@ namespace skeletal::animation
         _model->update(time);
     }
 
-    void earthshaker::draw(const steptime& time) noexcept
+    void earthshaker::draw([[maybe_unused]] const steptime& time) noexcept
     {
         const auto camera_component = std::dynamic_pointer_cast<camera>(_renderer->components()[0]);
 

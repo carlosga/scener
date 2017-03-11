@@ -31,7 +31,7 @@ TEST_F(memory_stream_test, read)
 
     stream.read(reinterpret_cast<char*>(out.data()), 0, 3);
 
-    EXPECT_EQ(3, out.size());
+    EXPECT_EQ(3, static_cast<std::int32_t>(out.size()));
     EXPECT_EQ(1, out[0]);
     EXPECT_EQ(2, out[1]);
     EXPECT_EQ(3, out[2]);

@@ -22,7 +22,7 @@ TEST_F(utf8_encoding_test, get_byte_count_from_char_array)
     auto     chars    = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
     auto     count    = encoding.get_byte_count(chars);
 
-    EXPECT_EQ(8, count);
+    EXPECT_EQ(static_cast<std::size_t>(8), count);
 }
 
 TEST_F(utf8_encoding_test, get_byte_count_from_char_array_range)
@@ -32,7 +32,7 @@ TEST_F(utf8_encoding_test, get_byte_count_from_char_array_range)
     auto     chars    = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
     auto     count    = encoding.get_byte_count(chars, 2, 3);
 
-    EXPECT_EQ(6, count);
+    EXPECT_EQ(static_cast<std::size_t>(6), count);
 }
 
 TEST_F(utf8_encoding_test, get_bytes_from_char_array)
@@ -42,7 +42,8 @@ TEST_F(utf8_encoding_test, get_bytes_from_char_array)
     auto     chars    = std::vector<char16_t>(std::begin(tmp), std::end(tmp));
     auto     bytes    = encoding.get_bytes(chars);
 
-    EXPECT_EQ(   8, bytes.size());
+    EXPECT_EQ(static_cast<std::size_t>(8), bytes.size());
+
     EXPECT_EQ(0x7A, bytes[0]);
     EXPECT_EQ(0x61, bytes[1]);
     EXPECT_EQ(0xCC, bytes[2]);
@@ -63,8 +64,9 @@ TEST_F(utf8_encoding_test, get_bytes_from_char_array_range)
 
     auto byte_count = encoding.get_bytes(chars, 2, 3, bytes, 0);
 
-    EXPECT_EQ(   6, byte_count);
-    EXPECT_EQ(   6, bytes.size());
+    EXPECT_EQ(static_cast<std::size_t>(6), byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(6), bytes.size());
+
     EXPECT_EQ(0xCC, bytes[0]);
     EXPECT_EQ(0x86, bytes[1]);
     EXPECT_EQ(0xC7, bytes[2]);
@@ -79,7 +81,7 @@ TEST_F(utf8_encoding_test, get_byte_count_from_string)
     auto s        = u"za\u0306\u01FD\u03B2";
     auto count    = encoding.get_byte_count(s);
 
-    EXPECT_EQ(8, count);
+    EXPECT_EQ(static_cast<std::size_t>(8), count);
 }
 
 TEST_F(utf8_encoding_test, get_bytes_from_string)
@@ -88,7 +90,8 @@ TEST_F(utf8_encoding_test, get_bytes_from_string)
     auto s        = u"za\u0306\u01FD\u03B2";
     auto bytes    = encoding.get_bytes(s);
 
-    EXPECT_EQ(   8, bytes.size());
+    EXPECT_EQ(static_cast<std::size_t>(8), bytes.size());
+
     EXPECT_EQ(0x7A, bytes[0]);
     EXPECT_EQ(0x61, bytes[1]);
     EXPECT_EQ(0xCC, bytes[2]);
@@ -108,8 +111,9 @@ TEST_F(utf8_encoding_test, get_bytes_from_string_range)
     auto bytes       = std::vector<std::uint8_t>(bcount, 0);
     auto byte_count  = encoding.get_bytes(s, 2, 3, bytes, 0);
 
-    EXPECT_EQ(   6, bytes.size());
-    EXPECT_EQ(   6, byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(6), bytes.size());
+    EXPECT_EQ(static_cast<std::size_t>(6), byte_count);
+
     EXPECT_EQ(0xCC, bytes[0]);
     EXPECT_EQ(0x86, bytes[1]);
     EXPECT_EQ(0xC7, bytes[2]);
@@ -124,7 +128,7 @@ TEST_F(utf8_encoding_test, get_byte_count_from_char_array_pointer)
     char16_t chars[]  = { u'z', u'a', u'\u0306', u'\u01FD', u'\u03B2'};
     auto     count    = encoding.get_byte_count(&chars[0], 5);
 
-    EXPECT_EQ(8, count);
+    EXPECT_EQ(static_cast<std::size_t>(8), count);
 }
 
 TEST_F(utf8_encoding_test, get_bytes_from_char_array_pointer)
@@ -135,9 +139,10 @@ TEST_F(utf8_encoding_test, get_bytes_from_char_array_pointer)
     auto     bytes      = std::vector<std::uint8_t>(bcount, 0);
     auto     byte_count = encoding.get_bytes(&chars[0], 5, bytes.data(), bcount);
 
-    EXPECT_EQ(   8, bcount);
-    EXPECT_EQ(   8, byte_count);
-    EXPECT_EQ(   8, bytes.size());
+    EXPECT_EQ(static_cast<std::size_t>(8), bcount);
+    EXPECT_EQ(static_cast<std::size_t>(8), byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(8), bytes.size());
+
     EXPECT_EQ(0x7A, bytes[0]);
     EXPECT_EQ(0x61, bytes[1]);
     EXPECT_EQ(0xCC, bytes[2]);
@@ -155,8 +160,8 @@ TEST_F(utf8_encoding_test, get_char_count_from_byte_array)
     auto           bytes    = encoding.get_bytes(s);
     auto           count    = encoding.get_char_count(bytes);
 
-    EXPECT_EQ(5       , count);
-    EXPECT_EQ(s.size(), count);
+    EXPECT_EQ(static_cast<std::size_t>(5), count);
+    EXPECT_EQ(s.size()                   , count);
 }
 
 TEST_F(utf8_encoding_test, get_char_count_from_byte_array_pointer)
@@ -166,8 +171,8 @@ TEST_F(utf8_encoding_test, get_char_count_from_byte_array_pointer)
     auto           bytes    = encoding.get_bytes(s);
     auto           count    = encoding.get_char_count(&bytes[0], bytes.size());
 
-    EXPECT_EQ(5       , count);
-    EXPECT_EQ(s.size(), count);
+    EXPECT_EQ(static_cast<std::size_t>(5), count);
+    EXPECT_EQ(s.size()                   , count);
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -184,7 +189,7 @@ TEST_F(utf8_encoding_test, get_byte_count_with_non_null_char)
 
     auto byte_count = utf8.get_byte_count(chars, 1, 2);
 
-    EXPECT_EQ(3, byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(3), byte_count);
 }
 
 // PosTest2: Verify method get_byte_count(std::vector<char16_t>,Int32,Int32) with null std::vector<char16_t>
@@ -195,7 +200,7 @@ TEST_F(utf8_encoding_test, get_byte_count_with_null_char)
 
     auto byte_count = utf8.get_byte_count(chars, 0, 0);
 
-    EXPECT_EQ(0, byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(0), byte_count);
 }
 
 // NegTest1: ArgumentNullException is not thrown when chars is a null reference
@@ -253,7 +258,7 @@ TEST_F(utf8_encoding_test, get_byte_count_with_empty_string)
 
     auto byte_count = utf8.get_byte_count(chars);
 
-    EXPECT_EQ(0, byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(0), byte_count);
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -273,11 +278,12 @@ TEST_F(utf8_encoding_test, get_bytes_withnon_null_chars)
 
     bytes.resize(byte_count, 0);
 
-    EXPECT_EQ(3, byte_count);
+    EXPECT_EQ(static_cast<std::size_t>(3), byte_count);
 
     auto bytes_encoded_count = utf8.get_bytes(chars, 1, 2, bytes, 0);
 
-    EXPECT_EQ(  3, bytes_encoded_count);
+    EXPECT_EQ(static_cast<std::size_t>(3), bytes_encoded_count);
+
     EXPECT_EQ( 37, bytes[0]);
     EXPECT_EQ(206, bytes[1]);
     EXPECT_EQ(160, bytes[2]);
@@ -296,7 +302,7 @@ TEST_F(utf8_encoding_test, get_bytes_with_null_chars)
 
     auto bytes_encoded_count = utf8.get_bytes(chars, 0, 0, bytes, 0);
 
-    EXPECT_EQ(0, bytes_encoded_count);
+    EXPECT_EQ(static_cast<std::size_t>(0), bytes_encoded_count);
 }
 
 // NegTest1: ArgumentNullException is not thrown when chars is a null reference
@@ -364,7 +370,7 @@ TEST_F(utf8_encoding_test, get_bytes_with_non_null_string)
 
     auto bytes_encoded_count = utf8.get_bytes(chars, 1, 2, bytes, 0);
 
-    EXPECT_EQ(2, bytes_encoded_count);
+    EXPECT_EQ(static_cast<std::size_t>(2), bytes_encoded_count);
 }
 
 // PosTest2: Verify method GetBytes(String,Int32,Int32,Byte[],Int32) with null chars
@@ -380,7 +386,7 @@ TEST_F(utf8_encoding_test, get_bytes_with_empty_string)
 
     auto bytes_encoded_count = utf8.get_bytes(chars, 0, byte_count, bytes, 0);
 
-    EXPECT_EQ(0, bytes_encoded_count);
+    EXPECT_EQ(static_cast<std::size_t>(0), bytes_encoded_count);
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when charIndex is less than zero
@@ -513,7 +519,7 @@ TEST_F(utf8_encoding_test, get_char_count_with_non_null_buffer)
 
     auto char_count = utf8.get_char_count(bytes, 2, 8);
 
-    ASSERT_TRUE(8 == char_count);
+    EXPECT_EQ(static_cast<std::size_t>(8), char_count);
 }
 
 // PosTest2: Verify method get_char_count with a empty buffer
@@ -522,9 +528,9 @@ TEST_F(utf8_encoding_test, get_char_count_with_empty_buffer)
     utf8_encoding             utf8;
     std::vector<std::uint8_t> bytes = { };
 
-    int char_count = utf8.get_char_count(bytes, 0, 0);
+    auto char_count = utf8.get_char_count(bytes, 0, 0);
 
-    EXPECT_EQ(0, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(0), char_count);
 }
 
 // NegTest2: ArgumentOutOfRangeException is not thrown when index is less than zero
@@ -573,15 +579,16 @@ TEST_F(utf8_encoding_test, get_chars_with_non_null_chars)
     std::vector<std::uint8_t> bytes = { 35, 37, 206, 160, 206, 163 };
     std::vector<char16_t>     chars;
 
-    int char_count = utf8.get_char_count(bytes, 2, 2);
+    auto char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_TRUE(1 == char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
 
     chars.resize(char_count);
 
-    int charsEncodedCount = utf8.get_chars(bytes, 2, 2, chars, 0);
+    auto chars_encoded_count = utf8.get_chars(bytes, 2, 2, chars, 0);
 
-    EXPECT_EQ(1        , charsEncodedCount);
+    EXPECT_EQ(static_cast<std::size_t>(1), chars_encoded_count);
+
     EXPECT_EQ(u'\u03a0', chars[0]);
 }
 
@@ -592,13 +599,13 @@ TEST_F(utf8_encoding_test, get_chars_with_empty_chars)
     std::vector<std::uint8_t> bytes = { 35, 37, 206, 160, 206, 163 };
     std::vector<char16_t>     chars;
 
-    int char_count = utf8.get_char_count(bytes, 2, 2);
+    auto char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
 
-    int charsEncodedCount = utf8.get_chars(bytes, 0, 0, chars, 0);
+    auto chars_encoded_count = utf8.get_chars(bytes, 0, 0, chars, 0);
 
-    EXPECT_EQ(0, charsEncodedCount);
+    EXPECT_EQ(static_cast<std::size_t>(0), chars_encoded_count);
 }
 
 // NegTest3: ArgumentOutOfRangeException is not thrown when byteIndex is less than zero
@@ -609,7 +616,7 @@ TEST_F(utf8_encoding_test, get_chars_when_byte_index_is_less_than_zero)
     std::vector<char16_t>     chars;
     auto                      char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
     EXPECT_ANY_THROW({ utf8.get_chars(bytes, -1, 2, chars, 0); });
 }
 
@@ -621,7 +628,8 @@ TEST_F(utf8_encoding_test, get_chars_when_byte_count_is_less_than_zero)
     std::vector<char16_t>     chars;
     auto                      char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
+
     EXPECT_ANY_THROW({ utf8.get_chars(bytes, 1, -2, chars, 0); });
 }
 
@@ -633,7 +641,7 @@ TEST_F(utf8_encoding_test, get_chars_when_char_index_is_less_than_zero)
     std::vector<char16_t>     chars;
     auto                      char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
     EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, -1); });
 }
 
@@ -645,7 +653,7 @@ TEST_F(utf8_encoding_test, get_chars_with_invalid_range_in_chars)
     std::vector<char16_t>     chars;
     auto                      char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
     EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, 1); });
 }
 
@@ -658,7 +666,7 @@ TEST_F(utf8_encoding_test, get_chars_with_not_enough_space_in_chars)
     std::vector<char16_t>     chars;
     auto                      char_count = utf8.get_char_count(bytes, 2, 2);
 
-    EXPECT_EQ(1, char_count);
+    EXPECT_EQ(static_cast<std::size_t>(1), char_count);
     EXPECT_ANY_THROW({ utf8.get_chars(bytes, 2, 2, chars, chars.size()); });
 }
 

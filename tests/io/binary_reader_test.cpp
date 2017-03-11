@@ -96,7 +96,7 @@ TEST_F(binary_reader_test, read_uint32)
 
     reader.close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_NE(value, static_cast<std::uint32_t>(0));
 }
 
 // Tests ReadInt64().
@@ -122,7 +122,7 @@ TEST_F(binary_reader_test, read_uint64)
 
     reader.close();
 
-    EXPECT_NE(value, 0);
+    EXPECT_NE(value, static_cast<std::uint64_t>(0));
 }
 
 // Tests ReadSingle().

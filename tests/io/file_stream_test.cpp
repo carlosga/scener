@@ -29,7 +29,7 @@ TEST_F(file_stream_test, begin_position)
 {
     file_stream stream(file_stream_test::TEST_FILE, std::ios::in | std::ios::binary);
 
-    EXPECT_EQ(0, stream.position());
+    EXPECT_EQ(static_cast<std::size_t>(0), stream.position());
 
     stream.close();
 }
@@ -123,7 +123,7 @@ TEST_F(file_stream_test, read_uint32)
     stream.read(reinterpret_cast<char*>(&value), 0, sizeof(std::uint32_t));
 
     EXPECT_EQ(sizeof(std::uint32_t), stream.position());
-    EXPECT_NE(value, 0);
+    EXPECT_NE(value, static_cast<std::uint32_t>(0));
 
     stream.close();
 }
@@ -137,7 +137,7 @@ TEST_F(file_stream_test, read_int64)
     stream.read(reinterpret_cast<char*>(&value), 0, sizeof(std::int64_t));
 
     EXPECT_EQ(sizeof(std::int64_t), stream.position());
-    EXPECT_NE(value, 0);
+    EXPECT_NE(value, static_cast<std::int64_t>(0));
 
     stream.close();
 }
@@ -151,7 +151,7 @@ TEST_F(file_stream_test, read_uint64)
     stream.read(reinterpret_cast<char*>(&value), 0, sizeof(std::uint64_t));
 
     EXPECT_EQ(sizeof(std::uint64_t), stream.position());
-    EXPECT_NE(value, 0);
+    EXPECT_NE(value, static_cast<std::uint64_t>(0));
 
     stream.close();
 }
