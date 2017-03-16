@@ -15,13 +15,20 @@ if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
 endif ()
 
 # pthread
+
 find_package (Threads REQUIRED)
 
 # X11
 find_package (X11 REQUIRED)
 
+# XCB
+find_package (XCB REQUIRED)
+
 # OpenGL
 find_package (OpenGL REQUIRED)
+
+# Vulkan
+find_package (Vulkan REQUIRED)
 
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
@@ -32,6 +39,9 @@ add_library (scener SHARED ${HEADER_FILES} ${SOURCE_FILES})
 # include directories
 target_include_directories (scener
                             PRIVATE ${X11_INCLUDE_DIR}
+                            PRIVATE ${XCB_INCLUDE_DIRS}
+                            PRIVATE ${VULKAN_INCLUDE_DIR}
+                            PRIVATE ${VULKAN_HPP_INCLUDE_DIR}
                             PRIVATE ${JSON_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
@@ -39,4 +49,7 @@ target_include_directories (scener
                             PRIVATE ${SCENER_INCLUDE_DIRS})
 
 # target links
-target_link_libraries (scener pthread ${X11_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries (scener pthread ${X11_LIBRARIES} ${XCB_LIBRARIES} ${OPENGL_LIBRARIES} ${VULKAN_LIBRARIES})
+
+# target definitions
+target_compile_definitions(scener PRIVATE -DVK_USE_PLATFORM_XCB_KHR)

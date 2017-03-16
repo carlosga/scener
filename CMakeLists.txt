@@ -5,16 +5,22 @@ enable_language (CXX)
 # set (CMAKE_VERBOSE_MAKEFILE on)
 set (CMAKE_EXPORT_COMPILE_COMMANDS on)
 
+# cmake modules
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 # external dependencies
 #
 # base directory
 set (EXTERNALS_BASE_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 
-# json for modern C++
-set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
-
 # microsoft/gsl
 set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
+
+# vulkan-hpp
+set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/Vulkan-Hpp)
+
+# json for modern C++
+set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
 
 # nod/signals & slots (https://github.com/fr00b0/nod)
 set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
