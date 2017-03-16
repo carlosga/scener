@@ -10,3 +10,6 @@
 [submodule "externals/scener-math"]
 	path = externals/scener-math
 	url = https://gitlab.com/carlosga/tvml.git
+[submodule "externals/vulkan-hpp"]
+	path = externals/vulkan-hpp
+	url = https://github.com/KhronosGroup/Vulkan-Hpp.git
