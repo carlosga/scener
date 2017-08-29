@@ -53,7 +53,7 @@ namespace scener::graphics
                 return primitive_count + 2;
             
             default:
-                throw new std::runtime_error("Unknown primitive type");
+                throw std::runtime_error("Unknown primitive type");
             }
         }
 

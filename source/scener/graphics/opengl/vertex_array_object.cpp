@@ -101,6 +101,9 @@ namespace scener::graphics::opengl
         case vertex_element_format::normalized_short4:
         case vertex_element_format::half_vector4:
             return 4;
+
+        default:
+            throw std::runtime_error("Unknown vertex element format.");
         }
     }
 
@@ -125,6 +128,9 @@ namespace scener::graphics::opengl
         case vertex_element_format::vector4:
         case vertex_element_format::color:
             return GL_FLOAT;
+
+        default:
+            throw std::runtime_error("Unknown vertex element format.");
         }
     }
 }

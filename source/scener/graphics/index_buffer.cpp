@@ -45,7 +45,7 @@ namespace scener::graphics
         case component_type::single:
             return sizeof(float);
         default:
-            throw new std::runtime_error("Unknown component type.");
+            throw std::runtime_error("Unknown component type.");
         }
     }
 

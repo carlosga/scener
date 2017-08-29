@@ -113,7 +113,7 @@ namespace scener::graphics::vulkan
 
         if (!supports_swap_chains)
         {
-            throw new std::runtime_error("Swap chain not supported");
+            throw std::runtime_error("Swap chain not supported");
         }
     }
 
