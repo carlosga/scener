@@ -51,6 +51,9 @@ namespace scener::graphics
 
             case primitive_type::triangle_strip:
                 return primitive_count + 2;
+            
+            default:
+                throw new std::runtime_error("Unknown primitive type");
             }
         }
 

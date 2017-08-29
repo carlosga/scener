@@ -4,7 +4,10 @@
 #ifndef SKELETAL_ANIMATION_SAMPLE_RENDERER_HPP
 #define SKELETAL_ANIMATION_SAMPLE_RENDERER_HPP
 
+#include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/graphics_device_manager.hpp"
 #include "scener/graphics/renderer.hpp"
+#include "scener/graphics/window.hpp"
 
 namespace scener::graphics { struct steptime; }
 

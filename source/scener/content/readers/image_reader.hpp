@@ -6,7 +6,7 @@
 
 #include "scener/content/readers/content_type_reader.hpp"
 
-namespace scener::content:: dds { class surface; }
+namespace scener::content::dds { class surface; }
 
 namespace scener::content::readers
 {

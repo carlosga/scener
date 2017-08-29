@@ -3,6 +3,7 @@
 #include <cassert>
 
 #include "scener/graphics/vulkan/display_surface.hpp"
+#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -20,6 +21,21 @@ namespace scener::graphics::vulkan
 
     physical_device::~physical_device() noexcept
     {
+    }
+
+    const vk::PhysicalDeviceProperties& physical_device::properties() const noexcept
+    {
+        return _properties;
+    }
+
+    const vk::PhysicalDeviceMemoryProperties& physical_device::memory_properties() const noexcept
+    {
+        return _memory_properties;
+    }
+
+    const vk::PhysicalDeviceFeatures& physical_device::features() const noexcept
+    {
+        return _features;
     }
 
     device physical_device::create_device(const display_surface* surface) const noexcept
@@ -55,16 +71,13 @@ namespace scener::graphics::vulkan
             .setPEnabledFeatures(nullptr);
 
         auto result = _physical_device.createDevice(&deviceInfo, nullptr, &device);
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
 
         vk::Queue graphics_queue;
         vk::Queue present_queue;
 
         device.getQueue(graphics_queue_family_index, 0, &graphics_queue);
         device.getQueue(present_queue_family_index, 0, &present_queue);
-
-         // Get Memory information and properties
-        //_physical_device.getMemoryProperties(&memory_properties);
 
         return { device, graphics_queue, present_queue };
     }
@@ -107,6 +120,7 @@ namespace scener::graphics::vulkan
     void physical_device::identify_properties() noexcept
     {
         _physical_device.getProperties(&_properties);
+        _physical_device.getMemoryProperties(&_memory_properties);
     }
 
     void physical_device::identify_queue_families() noexcept

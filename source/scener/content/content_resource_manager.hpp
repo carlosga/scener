@@ -44,10 +44,10 @@ namespace scener::content
             if (has_resource(name))
             {
                 auto item = _resources.find(name)->second;
-                if (item.has_value()) 
+                if (item.has_value())
                 {
                     return std::any_cast<std::shared_ptr<T>>(item);
-                }                
+                }
             }
 
             return nullptr;

@@ -1,8 +1,11 @@
 #include "scener/graphics/vulkan/connection.hpp"
 
 #include <algorithm>
-#include <cassert>
 #include <cstdint>
+
+#include <gsl/gsl>
+
+#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
@@ -16,7 +19,7 @@ namespace scener::graphics::vulkan
         , _extension_names          { nullptr }
         , _enabled_layer_count      { 0 }
         , _enabled_layers           { nullptr }
-    {        
+    {
     }
 
     connection::~connection() noexcept
@@ -70,7 +73,7 @@ namespace scener::graphics::vulkan
             .setPpEnabledExtensionNames(_extension_names);
 
         auto result = vk::createInstance(&inst_info, nullptr, &_instance);
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
     }
 
     void connection::identify_validation_layers() noexcept
@@ -91,14 +94,14 @@ namespace scener::graphics::vulkan
         };
 
         auto result = vk::enumerateInstanceLayerProperties(&instance_layer_count, nullptr);
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
 
         instance_validation_layers = instance_validation_layers_alt1;
         if (instance_layer_count > 0) 
         {
             std::vector<vk::LayerProperties> instance_layers(instance_layer_count);
             result = vk::enumerateInstanceLayerProperties(&instance_layer_count, instance_layers.data());
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
 
             validation_found = check_layers(ARRAY_SIZE(instance_validation_layers_alt1), instance_validation_layers,
                                             instance_layer_count, instance_layers.data());
@@ -140,14 +143,13 @@ namespace scener::graphics::vulkan
         memset(_extension_names, 0, sizeof(_extension_names));
 
         auto result = vk::enumerateInstanceExtensionProperties(nullptr, &instance_extension_count, nullptr);
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
 
         if (instance_extension_count > 0) 
         {
             std::vector<vk::ExtensionProperties> instance_extensions(instance_extension_count);
-            // instance_extensions.reserve(instance_extension_count);
             result = vk::enumerateInstanceExtensionProperties(nullptr, &instance_extension_count, instance_extensions.data());
-            ensures(result);
+            check_result(result);
 
             for (const auto& instance_extension : instance_extensions)
             {
@@ -206,12 +208,12 @@ namespace scener::graphics::vulkan
     {
         std::uint32_t gpu_count;
         auto result = _instance.enumeratePhysicalDevices(&gpu_count, nullptr);
-        assert(result == vk::Result::eSuccess);
-        assert(gpu_count > 0);
+        check_result(result);
+        Ensures(gpu_count > 0);
 
         std::vector<vk::PhysicalDevice> physical_devices(gpu_count);
         result = _instance.enumeratePhysicalDevices(&gpu_count, physical_devices.data());
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
 
         _physical_devices.reserve(gpu_count);
 
@@ -239,7 +241,6 @@ namespace scener::graphics::vulkan
             }
             if (!found) 
             {
-                fprintf(stderr, "Cannot find layer: %s\n", check_names[i]);
                 return 0;
             }
         }

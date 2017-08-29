@@ -61,9 +61,9 @@ namespace scener::graphics
                                                 , std::size_t    start_index
                                                 , std::size_t    primitive_count) const noexcept
     {
-        Expects(index_buffer  != nullptr);
-        Expects(vertex_buffer != nullptr)
-        Expects(effect        != nullptr)
+        // Expects(index_buffer  != nullptr);
+        // Expects(vertex_buffer != nullptr)
+        // Expects(effect        != nullptr)
 
         auto offset = start_index * index_buffer->element_size_in_bytes();
 

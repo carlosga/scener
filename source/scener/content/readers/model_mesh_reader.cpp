@@ -240,6 +240,7 @@ namespace scener::content::readers
         case attribute_type::matrix2:
         case attribute_type::matrix3:
         case attribute_type::matrix4:
+        default:
             throw std::runtime_error("unsupported attribute type");
         }
     }

@@ -30,7 +30,7 @@ namespace scener::graphics
     public:
         /// Gets the Renderer associated with this Component.
         /// \returns a pointer to the Renderer instance associated with this Component.
-        graphics::renderer* renderer() noexcept;
+        graphics::renderer* current_renderer() noexcept;
 
         /// Called when the component should be updated.
         void update(const steptime& time) noexcept override;

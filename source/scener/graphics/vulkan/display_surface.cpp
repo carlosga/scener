@@ -7,12 +7,11 @@
 #ifdef VK_USE_PLATFORM_XCB_KHR
 
 #include "scener/graphics/vulkan/display_surface.hpp"
-
-#include <cassert>
+#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
-    display_surface::display_surface(vk::Instance* vk_instance) noexcept
+    display_surface::display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept
         : _xcb_window            { 0 }
         , _screen                { nullptr }
         , _connection            { nullptr }
@@ -88,7 +87,7 @@ namespace scener::graphics::vulkan
         auto create_info = vk::XcbSurfaceCreateInfoKHR().setConnection(_connection).setWindow(_xcb_window);
         auto result      = _vk_instance->createXcbSurfaceKHR(&create_info, nullptr, &_vk_surface);
 
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
 
         return true;
     }

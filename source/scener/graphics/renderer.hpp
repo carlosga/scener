@@ -8,21 +8,19 @@
 #include <string>
 #include <vector>
 
+#include "scener/content/content_manager.hpp"
 #include "scener/graphics/icomponent.hpp"
 #include "scener/graphics/idrawable.hpp"
 #include "scener/graphics/iupdateable.hpp"
+#include "scener/graphics/service_container.hpp"
 #include "scener/graphics/steptime.hpp"
 #include "scener/graphics/steptimer.hpp"
-
-namespace scener::graphics::opengl { class render_context; }
-
-namespace scener::content { class content_manager; }
+#include "scener/graphics/opengl/render_context.hpp"
 
 namespace scener::graphics
 {
     class graphics_device;
     class graphics_device_manager;
-    class service_container;
     class window;
 
     /// Provides basic graphics device initialization, and rendering code.

@@ -11,6 +11,7 @@
 #include <queue>
 #include <string>
 
+#include <gsl/gsl>
 #include <xcb/xcb.h>
 #include <vulkan/vulkan.hpp>
 
@@ -25,7 +26,7 @@ namespace scener::graphics::vulkan
     {
     public:
         /// Initializes a new instance of the display_surface class.
-        display_surface(vk::Instance* vk_instance) noexcept;
+        display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept;
 
         /// Releases all resources being used by this DisplaySurface instance.
         ~display_surface() noexcept;

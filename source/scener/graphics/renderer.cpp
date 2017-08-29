@@ -6,12 +6,9 @@
 #include <iostream>
 #include <thread>
 
-#include "scener/content/content_manager.hpp"
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/graphics_device_manager.hpp"
-#include "scener/graphics/service_container.hpp"
 #include "scener/graphics/window.hpp"
-#include "scener/graphics/opengl/render_context.hpp"
 #include "scener/input/keyboard.hpp"
 #include "scener/input/keyboard_state.hpp"
 #include "scener/input/keys.hpp"

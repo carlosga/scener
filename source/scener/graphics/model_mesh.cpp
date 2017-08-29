@@ -5,6 +5,7 @@
 
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
+#include "scener/graphics/index_buffer.hpp"
 #include "scener/graphics/vertex_buffer.hpp"
 
 namespace scener::graphics

@@ -11,10 +11,10 @@ set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 # external dependencies
 #
 # base directory
-set (EXTERNALS_BASE_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/externals)
+set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 
 # microsoft/gsl
-set (GSL_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/gsl/include)
+set (GSL_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/gsl/include)
 
 # vulkan-hpp
 set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/Vulkan-Hpp)
@@ -23,7 +23,7 @@ set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/Vulkan-Hpp)
 set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
 
 # nod/signals & slots (https://github.com/fr00b0/nod)
-set (NOD_INCLUDE_DIRS    ${EXTERNALS_BASE_DIR}/nod/include)
+set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
@@ -37,27 +37,11 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64 -std=c++1z")
 
 if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-terminate")
     # "-Weverything -Wno-undef -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-nested-anon-types -Wno-gnu-anonymous-struct"    
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-
-  # Workaround using a local build of libc++ & libc++abi under ubuntu 16.04
-  ## c++abi
-  if (CMAKE_LIBCXXABI_INCLUDE_PATH)
-    include_directories (${CMAKE_LIBCXXABI_INCLUDE_PATH})
-  endif ()
-  if (CMAKE_LIBCXXABI_LIB_PATH)
-    link_directories (${CMAKE_LIBCXXABI_LIB_PATH})
-  endif ()
-  ## c++
-  if (CMAKE_LIBCXX_INCLUDE_PATH)
-    include_directories (${CMAKE_LIBCXX_INCLUDE_PATH})
-  endif ()
-  if (CMAKE_LIBCXX_LIB_PATH)
-    link_directories (${CMAKE_LIBCXX_LIB_PATH})
-  endif ()
 
   # compiler flags
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")

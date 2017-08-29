@@ -4,6 +4,7 @@
 #include "scener/graphics/effect_pass.hpp"
 
 #include "scener/graphics/graphics_device.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
 #include "scener/graphics/opengl/program.hpp"
 
 namespace scener::graphics

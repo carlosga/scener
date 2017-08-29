@@ -116,6 +116,9 @@ namespace scener::content::gltf
 
             case attribute_type::vector4:
                 return 4;
+
+            default:
+                throw std::runtime_error("Unknown glTF attribute type.");
             }
         }
 
@@ -137,6 +140,9 @@ namespace scener::content::gltf
 
             case scener::graphics::component_type::uint16:
                 return sizeof(std::uint16_t);
+
+            default:
+                throw std::runtime_error("Unknown glTF component type.");
             }
         }
 

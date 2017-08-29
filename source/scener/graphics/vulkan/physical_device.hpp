@@ -18,6 +18,9 @@ namespace scener::graphics::vulkan
         ~physical_device() noexcept;
 
     public:
+        const vk::PhysicalDeviceProperties& properties() const noexcept;
+        const vk::PhysicalDeviceMemoryProperties& memory_properties() const noexcept;
+        const vk::PhysicalDeviceFeatures& features() const noexcept; 
         std::vector<vk::Bool32> get_surface_support(const display_surface* surface) const noexcept;
 
     public:
@@ -41,6 +44,7 @@ namespace scener::graphics::vulkan
         std::uint32_t                          _extension_count;
         const char*                            _extension_names[64];
         vk::PhysicalDeviceProperties           _properties;
+        vk::PhysicalDeviceMemoryProperties     _memory_properties;
         vk::PhysicalDeviceFeatures             _features; 
         std::vector<vk::QueueFamilyProperties> _queue_families;
         vk::PhysicalDevice                     _physical_device;

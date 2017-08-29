@@ -5,6 +5,7 @@
 
 #include "scener/content/content_reader.hpp"
 #include "scener/content/gltf/constants.hpp"
+#include "scener/graphics/opengl/constant_buffer.hpp"
 #include "scener/graphics/opengl/program.hpp"
 #include "scener/graphics/opengl/shader.hpp"
 

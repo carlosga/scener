@@ -8,6 +8,7 @@
 #include <scener/graphics/model.hpp>
 #include <scener/graphics/model_mesh.hpp>
 #include <scener/graphics/steptime.hpp>
+#include <scener/graphics/window.hpp>
 #include <scener/math/basic_math.hpp>
 #include <scener/math/vector.hpp>
 
