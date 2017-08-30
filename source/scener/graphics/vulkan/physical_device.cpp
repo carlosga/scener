@@ -1,6 +1,8 @@
 #include "scener/graphics/vulkan/physical_device.hpp"
 
 #include <cassert>
+#include <string>
+#include <vector>
 
 #include "scener/graphics/vulkan/display_surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
@@ -8,11 +10,17 @@
 namespace scener::graphics::vulkan
 {
     physical_device::physical_device(const vk::PhysicalDevice& physical_device) noexcept
-        : _extension_names  { nullptr }
-        , _properties       { }
-        , _queue_families   { }
-        , _physical_device  { physical_device }
+        : _extension_count   { 0 }
+        , _extension_names   { nullptr }
+        , _layer_count       { 0 }
+        , _layer_names       { nullptr }
+        , _properties        { }
+        , _memory_properties { }
+        , _features          { }
+        , _queue_families    { }
+        , _physical_device   { physical_device }
     {
+        identify_layers();
         identify_extensions();
         identify_properties();
         identify_queue_families();
@@ -38,7 +46,7 @@ namespace scener::graphics::vulkan
         return _features;
     }
 
-    device physical_device::create_device(const display_surface* surface) const noexcept
+    logical_device physical_device::create_logical_device(gsl::not_null<const display_surface*> surface) const noexcept
     {
         auto graphics_queue_family_index = get_graphics_queue_family_index();
         auto present_queue_family_index  = get_present_queue_family_index(surface);
@@ -50,6 +58,13 @@ namespace scener::graphics::vulkan
 
         vk::Device device;
         vk::DeviceQueueCreateInfo queues[2];
+
+        // Features
+        auto features = vk::PhysicalDeviceFeatures()
+            .setTextureCompressionBC(VK_TRUE)
+            .setDepthClamp(VK_TRUE)
+            .setDepthBiasClamp(VK_TRUE)
+            .setFillModeNonSolid(VK_TRUE);
 
         // graphics queue
         queues[0].setQueueFamilyIndex(graphics_queue_family_index);
@@ -64,11 +79,11 @@ namespace scener::graphics::vulkan
         auto deviceInfo = vk::DeviceCreateInfo()
             .setQueueCreateInfoCount(2)
             .setPQueueCreateInfos(queues)
-            .setEnabledLayerCount(0)
-            .setPpEnabledLayerNames(nullptr)
+            .setEnabledLayerCount(_layer_count)
+            .setPpEnabledLayerNames(_layer_names)
             .setEnabledExtensionCount(_extension_count)
             .setPpEnabledExtensionNames(_extension_names)
-            .setPEnabledFeatures(nullptr);
+            .setPEnabledFeatures(&features);
 
         auto result = _physical_device.createDevice(&deviceInfo, nullptr, &device);
         check_result(result);
@@ -79,39 +94,72 @@ namespace scener::graphics::vulkan
         device.getQueue(graphics_queue_family_index, 0, &graphics_queue);
         device.getQueue(present_queue_family_index, 0, &present_queue);
 
-        return { device, graphics_queue, present_queue };
+        auto surface_format = get_preferred_surface_format(surface);
+        auto present_mode   = get_present_mode(surface);
+
+        return { device, graphics_queue_family_index, graphics_queue, present_queue_family_index, present_queue, surface_format, present_mode };
+    }
+
+    void physical_device::identify_layers() noexcept
+    {
+        /* Look for device layers */
+        std::uint32_t layer_count = 0;
+
+        _layer_count = 0;
+        memset(_layer_names, 0, sizeof(_layer_names));
+
+        auto result = _physical_device.enumerateDeviceLayerProperties(&layer_count, nullptr);
+        assert(result == vk::Result::eSuccess);
+        assert(layer_count < 64);
+        
+        if (layer_count > 0)
+        {
+            std::vector<vk::LayerProperties> layers(layer_count);
+
+            result = _physical_device.enumerateDeviceLayerProperties(&layer_count, layers.data());
+            assert(result == vk::Result::eSuccess);
+
+            for (std::uint32_t i = 0; i < layer_count; i++)
+            {
+                if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
+                {
+                    _layer_names[_layer_count++] = "VK_LAYER_LUNARG_standard_validation";
+                }
+            }
+        }
     }
 
     void physical_device::identify_extensions() noexcept
     {
         /* Look for device extensions */
-        std::uint32_t device_extension_count = 0;
+        std::uint32_t extension_count = 0;
         vk::Bool32    supports_swap_chains   = VK_FALSE;
 
         _extension_count = 0;
         memset(_extension_names, 0, sizeof(_extension_names));
 
-        auto result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &device_extension_count, nullptr);
+        auto result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, nullptr);
         assert(result == vk::Result::eSuccess);
-
-        if (device_extension_count > 0) 
+        assert(extension_count < 64);
+        
+        if (extension_count > 0)
         {
-            std::vector<vk::ExtensionProperties> device_extensions(device_extension_count);
-            result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &device_extension_count, device_extensions.data());
+            std::vector<vk::ExtensionProperties> extensions(extension_count);
+
+            result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, extensions.data());
             assert(result == vk::Result::eSuccess);
 
-            for (std::uint32_t i = 0; i < device_extension_count; i++) 
+            for (std::uint32_t i = 0; i < extension_count; i++)
             {
-                if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, device_extensions[i].extensionName)) 
+                if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
                 {
                     supports_swap_chains = VK_TRUE;
                     _extension_names[_extension_count++] = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
                 }
-                assert(_extension_count < 64);
             }
         }
 
-        if (!supports_swap_chains)
+        if (supports_swap_chains == VK_FALSE)
         {
             throw std::runtime_error("Swap chain not supported");
         }
@@ -148,7 +196,7 @@ namespace scener::graphics::vulkan
     {
         // Iterate over each queue to learn whether it supports presenting:
         std::vector<vk::Bool32> supports_present(_queue_families.size());
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++) 
+        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
         {
             _physical_device.getSurfaceSupportKHR(i, surface->_vk_surface, &supports_present[i]);
         }
@@ -159,9 +207,9 @@ namespace scener::graphics::vulkan
     {
         std::uint32_t graphics_queue_index = UINT32_MAX;
 
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++) 
+        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
         {
-            if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics) 
+            if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {
                 graphics_queue_index = i;
                 break;
@@ -176,11 +224,11 @@ namespace scener::graphics::vulkan
         std::vector<vk::Bool32> supports_present    = get_surface_present_support(surface);
         std::uint32_t           present_queue_index = UINT32_MAX;
 
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++) 
+        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
         {
-            if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics) 
+            if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {
-                if (supports_present[i] == VK_TRUE) 
+                if (supports_present[i] == VK_TRUE)
                 {
                     present_queue_index = i;
                     break;
@@ -190,9 +238,9 @@ namespace scener::graphics::vulkan
 
         // If didn't find a queue that supports both graphics and present,
         // then find a separate present queue.
-        for (uint32_t i = 0; i < _queue_families.size(); ++i) 
+        for (uint32_t i = 0; i < _queue_families.size(); ++i)
         {
-            if (supports_present[i] == VK_TRUE) 
+            if (supports_present[i] == VK_TRUE)
             {
                 present_queue_index = i;
                 break;
@@ -205,12 +253,12 @@ namespace scener::graphics::vulkan
     std::vector<vk::SurfaceFormatKHR> physical_device::get_surface_formats(const display_surface* surface) const noexcept
     {
         // Get the list of VkFormat's that are supported:
-        uint32_t formatCount;
-        auto result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &formatCount, nullptr);
+        uint32_t format_count;
+        auto result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &format_count, nullptr);
         assert(result == vk::Result::eSuccess);
 
-        std::vector<vk::SurfaceFormatKHR> formats(formatCount);
-        result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &formatCount, formats.data());
+        std::vector<vk::SurfaceFormatKHR> formats(format_count);
+        result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &format_count, formats.data());
         assert(result == vk::Result::eSuccess);
 
         return formats;
@@ -220,45 +268,55 @@ namespace scener::graphics::vulkan
     {
         auto formats = get_surface_formats(surface);
 
+        assert(formats.size() >= 1);
+        
         // If the format list includes just one entry of VK_FORMAT_UNDEFINED,
         // the surface has no preferred format. Otherwise, at least one
         // supported format will be returned.
-        if (formats.size() == 1 && formats[0].format == vk::Format::eUndefined) 
+        if (formats.size() == 1 && formats[0].format == vk::Format::eUndefined)
         {
-            //return vk::Format::eB8G8R8A8Unorm;
+            vk::SurfaceFormatKHR format;
+                   
+            format.format     = vk::Format::eB8G8R8A8Unorm;
+            format.colorSpace = vk::ColorSpaceKHR::eSrgbNonlinear;
+
+            return format;
         }
 
-        assert(formats.size() >= 1);
+        // Favor 32 bit rgba and srgb nonlinear colorspace
+        for (const auto& format : formats)
+        {
+            if (format.format     == vk::Format::eB8G8R8A8Unorm
+             && format.colorSpace == vk::ColorSpaceKHR::eSrgbNonlinear) 
+            {
+                return format;
+            }
+        }
+
         return formats[0];
     }
 
-        // color_space = surfFormats[0].colorSpace;
+    vk::PresentModeKHR physical_device::get_present_mode(const display_surface* surface) const noexcept
+    {
+        std::uint32_t present_mode_count = 0;
 
-        // quit = false;
-        // curFrame = 0;
+        _physical_device.getSurfacePresentModesKHR(surface->_vk_surface, &present_mode_count, nullptr);
 
-        // // Create semaphores to synchronize acquiring presentable buffers before
-        // // rendering and waiting for drawing to be complete before presenting
-        // auto const semaphoreCreateInfo = vk::SemaphoreCreateInfo();
+        if (present_mode_count > 0)
+        {
+            std::vector<vk::PresentModeKHR> present_modes(present_mode_count);
 
-        // // Create fences that we can use to throttle if we get too far
-        // // ahead of the image presents
-        // auto const fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
-        // for (uint32_t i = 0; i < FRAME_LAG; i++) {
-        //     device.createFence(&fence_ci, nullptr, &fences[i]);
-        //     result = device.createSemaphore(&semaphoreCreateInfo, nullptr, &image_acquired_semaphores[i]);
-        //     VERIFY(result == vk::Result::eSuccess);
+            _physical_device.getSurfacePresentModesKHR(surface->_vk_surface, &present_mode_count, present_modes.data());
 
-        //     result = device.createSemaphore(&semaphoreCreateInfo, nullptr, &draw_complete_semaphores[i]);
-        //     VERIFY(result == vk::Result::eSuccess);
+            for (const auto& present_mode : present_modes)
+            {
+                if (present_mode == vk::PresentModeKHR::eMailbox)
+                {
+                    return present_mode;
+                }
+            }
+        }
 
-        //     if (separate_present_queue) {
-        //         result = device.createSemaphore(&semaphoreCreateInfo, nullptr, &image_ownership_semaphores[i]);
-        //         VERIFY(result == vk::Result::eSuccess);
-        //     }
-        // }
-        // frame_index = 0;
-
-        // // Get Memory information and properties
-        // gpu.getMemoryProperties(&memory_properties);        
+        return vk::PresentModeKHR::eFifo;
+    }
 }

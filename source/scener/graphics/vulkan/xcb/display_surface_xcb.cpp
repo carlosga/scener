@@ -120,6 +120,22 @@ namespace scener::graphics::vulkan
         xcb_flush(_connection);
     }
 
+    vk::Extent2D display_surface::get_extent() const noexcept
+    {
+        xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _xcb_window);  // window is a xcb_drawable_t
+        xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
+    
+        VkExtent2D extent;
+
+        extent.width  = geom->width;
+        extent.height = geom->height;
+        
+        /* ...do stuff with geom... */
+        free (geom);
+
+        return extent;
+    }
+
     void display_surface::pool_events() noexcept
     {
     //     Expects(_display  != nullptr);

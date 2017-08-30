@@ -9,17 +9,17 @@ using scener::graphics::vulkan::display_surface;
 
 int main()
 {    
-    {
-        connection connection(VK_MAKE_VERSION(1, 0, 0));
+    connection connection(VK_MAKE_VERSION(1, 0, VK_HEADER_VERSION));
 
-        connection.connect();
-        
-        auto surface = connection.create_surface(1600, 1900);
-        auto pdevice = connection.physical_devices()[0];
-        auto device  = pdevice.create_device(&surface);
+    connection.connect();
+    
+    auto surface = connection.create_surface(1600, 1900);
+    auto pdevice = connection.physical_devices()[0];
+    auto ldevice = pdevice.create_logical_device(&surface);
 
-        surface.show();
-    }
+    ldevice.create_swap_chain(&surface);
+
+    surface.show();
 
     return 0;
 }

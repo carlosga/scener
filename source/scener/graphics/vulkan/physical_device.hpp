@@ -5,7 +5,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "scener/graphics/vulkan/device.hpp"
+#include <gsl/gsl>
+
+#include "scener/graphics/vulkan/logical_device.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -24,10 +26,11 @@ namespace scener::graphics::vulkan
         std::vector<vk::Bool32> get_surface_support(const display_surface* surface) const noexcept;
 
     public:
-        device create_device(const display_surface* surface) const noexcept;
+        logical_device create_logical_device(gsl::not_null<const display_surface*> surface) const noexcept;
 
     private:
         void setup() noexcept;
+        void identify_layers() noexcept;
         void identify_extensions() noexcept;
         void identify_properties() noexcept;
         void identify_queue_families() noexcept;
@@ -39,10 +42,13 @@ namespace scener::graphics::vulkan
         std::uint32_t get_present_queue_family_index(const display_surface* surface) const noexcept;
         std::vector<vk::SurfaceFormatKHR> get_surface_formats(const display_surface* surface) const noexcept;
         vk::SurfaceFormatKHR get_preferred_surface_format(const display_surface* surface) const noexcept;
+        vk::PresentModeKHR get_present_mode(const display_surface* surface) const noexcept;
 
     private:
         std::uint32_t                          _extension_count;
         const char*                            _extension_names[64];
+        std::uint32_t                          _layer_count;
+        const char*                            _layer_names[64];
         vk::PhysicalDeviceProperties           _properties;
         vk::PhysicalDeviceMemoryProperties     _memory_properties;
         vk::PhysicalDeviceFeatures             _features; 

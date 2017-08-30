@@ -59,9 +59,9 @@ namespace scener::graphics::vulkan
     void connection::initialize_vulkan() noexcept
     {
         auto const app = vk::ApplicationInfo()
-            .setPApplicationName("")
+            .setPApplicationName("SCENER")
             .setApplicationVersion(1)
-            .setPEngineName("")
+            .setPEngineName("SCENER 0.1.0")
             .setEngineVersion(1)
             .setApiVersion(_api_version);
 
@@ -148,7 +148,9 @@ namespace scener::graphics::vulkan
         if (instance_extension_count > 0) 
         {
             std::vector<vk::ExtensionProperties> instance_extensions(instance_extension_count);
+
             result = vk::enumerateInstanceExtensionProperties(nullptr, &instance_extension_count, instance_extensions.data());
+            
             check_result(result);
 
             for (const auto& instance_extension : instance_extensions)
