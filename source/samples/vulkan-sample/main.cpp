@@ -13,7 +13,7 @@ int main()
 
     connection.connect();
     
-    auto surface = connection.create_surface(1600, 1900);
+    auto surface = connection.create_surface(1600, 900);
     auto pdevice = connection.physical_devices()[0];
     auto ldevice = pdevice.create_logical_device(&surface);
 

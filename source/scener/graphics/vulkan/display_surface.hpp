@@ -10,6 +10,7 @@
 #elif defined(VK_USE_PLATFORM_XCB_KHR)
     #include "scener/graphics/vulkan/xcb/display_surface_xcb.hpp"
 #elif defined(VK_USE_PLATFORM_WAYLAND_KHR)
+    #include "scener/graphics/vulkan/wayland/display_surface_wayland.hpp"
 #elif defined(VK_USE_PLATFORM_MIR_KHR)
 #elif defined(VK_USE_PLATFORM_DISPLAY_KHR)
 #endif

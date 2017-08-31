@@ -30,30 +30,30 @@ namespace scener::graphics::vulkan
     {
     }
 
-    bool display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
+    void display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
     {
-        xcb_connection_t* c; 
-        xcb_screen_t*     s; 
-        xcb_window_t      w; 
+        xcb_connection_t* c;
+        xcb_screen_t*     s;
+        xcb_window_t      w;
 
         std::uint32_t value_mask;
         std::uint32_t value_list[32];
 
-        /* Open the connection to the X server. */ 
-        c = xcb_connect(NULL, NULL); 
+        /* Open the connection to the X server. */
+        c = xcb_connect(NULL, NULL);
 
-        /* Get the first screen */ 
-        s = xcb_setup_roots_iterator(xcb_get_setup(c)).data; 
+        /* Get the first screen */
+        s = xcb_setup_roots_iterator(xcb_get_setup(c)).data;
 
-        /* Ask for our window's Id */ 
-        w = xcb_generate_id(c); 
+        /* Ask for our window's Id */
+        w = xcb_generate_id(c);
 
         /* setup surface masks */
         value_mask    = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
         value_list[0] = s->black_pixel;
-        value_list[1] = XCB_EVENT_MASK_KEY_RELEASE | XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_STRUCTURE_NOTIFY;       
+        value_list[1] = XCB_EVENT_MASK_KEY_RELEASE | XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_STRUCTURE_NOTIFY;
 
-        /* Create the window */ 
+        /* Create the window */
         xcb_create_window(c,                               // Connection
                           XCB_COPY_FROM_PARENT,            // depth (same as root)
                           w,                               // window Id
@@ -76,8 +76,8 @@ namespace scener::graphics::vulkan
 
         free(reply);
 
-        /* Map the window on the screen */ 
-        xcb_map_window(c, w); 
+        /* Map the window on the screen */
+        xcb_map_window(c, w);
 
         /* update instance members */
         _xcb_window = w;
@@ -88,8 +88,6 @@ namespace scener::graphics::vulkan
         auto result      = _vk_instance->createXcbSurfaceKHR(&create_info, nullptr, &_vk_surface);
 
         check_result(result);
-
-        return true;
     }
 
     void display_surface::destroy() noexcept
@@ -101,10 +99,10 @@ namespace scener::graphics::vulkan
                 xcb_destroy_window(_connection, _xcb_window);
                 _xcb_window = 0;
             }
-            xcb_disconnect(_connection); 
+            xcb_disconnect(_connection);
             _connection = nullptr;
         }
-        if (_atom_wm_delete_window) 
+        if (_atom_wm_delete_window)
         {
             free(_atom_wm_delete_window);
             _atom_wm_delete_window = nullptr;
@@ -120,19 +118,27 @@ namespace scener::graphics::vulkan
         xcb_flush(_connection);
     }
 
-    vk::Extent2D display_surface::get_extent() const noexcept
+    vk::Extent2D display_surface::get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept
     {
-        xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _xcb_window);  // window is a xcb_drawable_t
-        xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
-    
         VkExtent2D extent;
-
-        extent.width  = geom->width;
-        extent.height = geom->height;
         
-        /* ...do stuff with geom... */
-        free (geom);
-
+        // The extent is typically the size of the window we created the surface from.
+        // However if Vulkan returns -1 then simply substitute the window size.
+        if (capabilities.currentExtent.width == UINT32_MAX)
+        {
+            xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _xcb_window);  // window is a xcb_drawable_t
+            xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
+    
+            extent.width  = geom->width;
+            extent.height = geom->height;
+    
+            free (geom);
+        }
+        else
+        {
+            extent = capabilities.currentExtent;
+        }
+    
         return extent;
     }
 

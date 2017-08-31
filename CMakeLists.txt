@@ -66,6 +66,10 @@ set (SCENER_LIBRARIES     scener)
 
 set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
 
+# global definitions
+# add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
+add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
+
 # project subdirectories
 add_subdirectory (source)
 

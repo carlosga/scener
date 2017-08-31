@@ -1,23 +1,33 @@
 #include "scener/graphics/vulkan/logical_device.hpp"
 
 #include "scener/graphics/vulkan/display_surface.hpp"
+#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
-    logical_device::logical_device(const vk::Device&           device
-                                 , std::uint32_t               graphics_queue_family_index
-                                 , const vk::Queue&            graphics_queue
-                                 , std::uint32_t               present_queue_family_index
-                                 , const vk::Queue&            present_queue
-                                 , const vk::SurfaceFormatKHR& surface_format
-                                 , const vk::PresentModeKHR&   present_mode) noexcept
+    logical_device::logical_device(const vk::Device&                 device
+                                 , std::uint32_t                     graphics_queue_family_index
+                                 , const vk::Queue&                  graphics_queue
+                                 , std::uint32_t                     present_queue_family_index
+                                 , const vk::Queue&                  present_queue
+                                 , const vk::SurfaceCapabilitiesKHR& surface_capabilities
+                                 , const vk::SurfaceFormatKHR&       surface_format
+                                 , const vk::PresentModeKHR&         present_mode) noexcept
         : _logical_device              { std::make_unique<vk::Device>(device) }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { graphics_queue }
         , _present_queue_family_index  { present_queue_family_index }
         , _present_queue               { present_queue }
+        , _surface_capabilities        { surface_capabilities }
         , _surface_format              { surface_format }
         , _present_mode                { present_mode }
+        , _fences                      { }
+        , _command_pool                { }
+        , _command_buffer              { }
+        , _image_acquired_semaphores   { }
+        , _draw_complete_semaphores    { }
+        , _image_ownership_semaphores  { }
+        , _image_views                 { }
     {
         create_sync_primitives();
         create_command_pool();
@@ -50,45 +60,48 @@ namespace scener::graphics::vulkan
     {
         // https://www.fasterthan.life/blog/2017/7/12/i-am-graphics-and-so-can-you-part-3-breaking-ground
 
-        auto extent     = surface->get_extent();
+        auto extent     = surface->get_extent(_surface_capabilities);
         auto chain_info = vk::SwapchainCreateInfoKHR()
             .setSurface(surface->_vk_surface)
-            .setMinImageCount(s_buffer_count)
+            .setMinImageCount(_surface_capabilities.minImageCount)
             .setImageFormat(_surface_format.format)
             .setImageExtent(extent)
-            .setImageArrayLayers(1)
-            .setImageUsage(vk::ImageUsageFlagBits::eColorAttachment | vk::ImageUsageFlagBits::eTransferSrc)
+            .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
+            .setImageUsage(_surface_capabilities.supportedUsageFlags)
             // We just want to leave the image as is.
-            .setPreTransform(vk::SurfaceTransformFlagBitsKHR::eIdentity)
+            .setPreTransform(_surface_capabilities.currentTransform)
             .setCompositeAlpha(vk::CompositeAlphaFlagBitsKHR::eOpaque)
             .setPresentMode(_present_mode)
             // Is Vulkan allowed to discard operations outside of the renderable space?
-            .setClipped(VK_TRUE);
+            .setClipped(VK_TRUE)
+            .setFlags(vk::SwapchainCreateFlagBitsKHR::eBindSfrKHX);
+
+        std::vector<uint32_t> queue_indices = { _graphics_queue_family_index, _present_queue_family_index };
 
         // If the graphics queue family and present family don't match then we need to create the swapchain with different information.
         if (_graphics_queue_family_index != _present_queue_family_index)
         {
-            std::vector<uint32_t> indices = { _graphics_queue_family_index, _present_queue_family_index };
-            
             // There are only two sharing modes.  This is the one to use
             // if images are not exclusive to one queue.
             chain_info
                 .setImageSharingMode(vk::SharingMode::eConcurrent)
                 .setQueueFamilyIndexCount(2)
-                .setPQueueFamilyIndices(indices.data());
+                .setPQueueFamilyIndices(queue_indices.data());
         }
         else 
         {
             // If the indices are the same, then the queue can have exclusive access to the images.
             chain_info
-                .setImageSharingMode(vk::SharingMode::eExclusive);
+                .setImageSharingMode(vk::SharingMode::eExclusive)
+                .setQueueFamilyIndexCount(1)
+                .setPQueueFamilyIndices(queue_indices.data());
         }
 
         vk::SwapchainKHR swap_chain;
 
         auto result = _logical_device->createSwapchainKHR(&chain_info, nullptr, &swap_chain);
 
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
     
         // Retrieve the swapchain images from the device.
         // Note that VkImage is simply a handle like everything else.
@@ -98,13 +111,13 @@ namespace scener::graphics::vulkan
         
         result = _logical_device->getSwapchainImagesKHR(swap_chain, &num_images, nullptr);
 
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
         assert(num_images > 0);
 
         std::vector<vk::Image> swap_chain_images(num_images);
         result = _logical_device->getSwapchainImagesKHR(swap_chain, &num_images, swap_chain_images.data());
         
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
         assert(num_images > 0);
         
         // Image Views
@@ -153,7 +166,7 @@ namespace scener::graphics::vulkan
 
             result = _logical_device->createImageView(&image_view_create_info, nullptr, &image_view);
 
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
 
             _image_views[i] = std::move(image_view);
         }
@@ -166,7 +179,7 @@ namespace scener::graphics::vulkan
        
         auto result = _logical_device->createCommandPool(&create_info, nullptr, &_command_pool);
        
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
     }
 
     void logical_device::create_command_buffer() noexcept
@@ -178,7 +191,7 @@ namespace scener::graphics::vulkan
         
         auto result = _logical_device->allocateCommandBuffers(&allocate_info, &_command_buffer);
     
-        assert(result == vk::Result::eSuccess);
+        check_result(result);
     }
 
     void logical_device::create_sync_primitives() noexcept
@@ -193,16 +206,16 @@ namespace scener::graphics::vulkan
         for (std::uint32_t i = 0; i < s_buffer_count; i++)
         {
             auto result = _logical_device->createFence(&fence_ci, nullptr, &_fences[i]);
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
 
             result = _logical_device->createSemaphore(&semaphoreCreateInfo, nullptr, &_image_acquired_semaphores[i]);
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
 
             result = _logical_device->createSemaphore(&semaphoreCreateInfo, nullptr, &_draw_complete_semaphores[i]);
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
 
             result = _logical_device->createSemaphore(&semaphoreCreateInfo, nullptr, &_image_ownership_semaphores[i]);
-            assert(result == vk::Result::eSuccess);
+            check_result(result);
         }
     }
 

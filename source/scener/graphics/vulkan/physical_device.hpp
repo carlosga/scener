@@ -22,8 +22,7 @@ namespace scener::graphics::vulkan
     public:
         const vk::PhysicalDeviceProperties& properties() const noexcept;
         const vk::PhysicalDeviceMemoryProperties& memory_properties() const noexcept;
-        const vk::PhysicalDeviceFeatures& features() const noexcept; 
-        std::vector<vk::Bool32> get_surface_support(const display_surface* surface) const noexcept;
+        const vk::PhysicalDeviceFeatures& features() const noexcept;
 
     public:
         logical_device create_logical_device(gsl::not_null<const display_surface*> surface) const noexcept;
@@ -37,12 +36,13 @@ namespace scener::graphics::vulkan
         void identify_features() noexcept;
 
     private:
-        std::vector<vk::Bool32> get_surface_present_support(const display_surface* surface) const noexcept;
+        vk::SurfaceCapabilitiesKHR identify_surface_capabilities(gsl::not_null<const display_surface*> surface) const noexcept;
+        std::vector<vk::Bool32> get_surface_present_support(gsl::not_null<const display_surface*> surface) const noexcept;
         std::uint32_t get_graphics_queue_family_index() const noexcept;
-        std::uint32_t get_present_queue_family_index(const display_surface* surface) const noexcept;
-        std::vector<vk::SurfaceFormatKHR> get_surface_formats(const display_surface* surface) const noexcept;
-        vk::SurfaceFormatKHR get_preferred_surface_format(const display_surface* surface) const noexcept;
-        vk::PresentModeKHR get_present_mode(const display_surface* surface) const noexcept;
+        std::uint32_t get_present_queue_family_index(gsl::not_null<const display_surface*> surface) const noexcept;
+        std::vector<vk::SurfaceFormatKHR> get_surface_formats(gsl::not_null<const display_surface*> surface) const noexcept;
+        vk::SurfaceFormatKHR get_preferred_surface_format(gsl::not_null<const display_surface*> surface) const noexcept;
+        vk::PresentModeKHR get_present_mode(gsl::not_null<const display_surface*> surface) const noexcept;
 
     private:
         std::uint32_t                          _extension_count;
@@ -51,7 +51,7 @@ namespace scener::graphics::vulkan
         const char*                            _layer_names[64];
         vk::PhysicalDeviceProperties           _properties;
         vk::PhysicalDeviceMemoryProperties     _memory_properties;
-        vk::PhysicalDeviceFeatures             _features; 
+        vk::PhysicalDeviceFeatures             _features;
         std::vector<vk::QueueFamilyProperties> _queue_families;
         vk::PhysicalDevice                     _physical_device;
     };
