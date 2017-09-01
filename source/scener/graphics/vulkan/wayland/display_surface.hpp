@@ -6,21 +6,20 @@
 #define SCENER_GRAPHICS_VULKAN_DISPLAY_SURFACE_WAYLAND_HPP
 
 #include <cstdint>
-#include <queue>
 #include <string>
 
 #include <gsl/gsl>
 #include <wayland-client.h>
 #include <vulkan/vulkan.hpp>
 
-namespace vk { class Instance; }
+#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {
     class physical_device;
     class logical_device;
 
-    /// Represents a XCB display surface.
+    /// Represents a Wayland display surface.
     class display_surface final
     {
         static void global_registry_handler_callback(void *data, struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version);
@@ -34,22 +33,23 @@ namespace scener::graphics::vulkan
 
     public:
         /// Initializes a new instance of the display_surface class.
-        display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept;
+        display_surface() noexcept;
 
-        /// Releases all resources being used by this DisplaySurface instance.
+        /// Releases all resources being used by this display_surface instance.
         ~display_surface() noexcept;
 
     public:
-        /// Sets the display surface title ( for window surfaces ).
-        void title(const std::string& title) noexcept;
+        struct wl_display* display() const noexcept;
+        struct wl_surface* surface() const noexcept;
+        const scener::math::basic_rect<std::uint32_t>& rect() const noexcept;
 
     public:
         /// Creates the display surface with the given width and height.
-        /// \param width the display surface width.
-        /// \param height the display surface width.
-        void create(std::uint32_t width, std::uint32_t height) noexcept;
+        /// \param title the initial window title
+        /// \param rect the initial window location & size
+        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
 
-        /// Destroys this DisplaySurface instance.
+        /// Destroys this display_surface instance.
         void destroy() noexcept;
 
         /// Clears the entire area of this display surface.
@@ -60,26 +60,21 @@ namespace scener::graphics::vulkan
 
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
-        
+
     private:
         void registry_handler(struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version);
         void registry_remover(struct wl_registry *registry, std::uint32_t id);
         void seat_capabilities(wl_seat *seat, std::uint32_t caps);
 
     private:
-        /// Get the vulkan surface extent
-        vk::Extent2D get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept;
-        
-    private:
-        struct wl_registry*      _wl_registry;
-        struct wl_display*       _wl_display;
-        struct wl_compositor*    _wl_compositor;
-        struct wl_surface*       _wl_surface;
-        struct wl_shell*         _wl_shell;
-        struct wl_shell_surface* _wl_shell_surface;
-        struct wl_seat*          _wl_seat;
-        vk::Instance*            _vk_instance;
-        vk::SurfaceKHR           _vk_surface;
+        struct wl_display*                      _wl_display;
+        struct wl_compositor*                   _wl_compositor;
+        struct wl_surface*                      _wl_surface;
+        struct wl_shell*                        _wl_shell;
+        struct wl_shell_surface*                _wl_shell_surface;
+        struct wl_seat*                         _wl_seat;
+        std::int32_t                            _wl_display_fd;
+        scener::math::basic_rect<std::uint32_t> _rect;
 
         friend class vulkan::physical_device;
         friend class vulkan::logical_device;

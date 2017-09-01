@@ -1,12 +1,9 @@
 #include "scener/graphics/vulkan/connection.hpp"
 
-#include <algorithm>
-#include <cstdint>
 #include <iomanip>
 #include <ctime>
 
-#include <gsl/gsl>
-
+#include "scener/graphics/vulkan/extensions.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -73,6 +70,11 @@ namespace scener::graphics::vulkan
         }
     }
 
+    const vk::Instance& connection::vulkan() const noexcept
+    {
+        return _instance;
+    }
+
     std::uint32_t connection::api_version() const noexcept
     {
         return _api_version;
@@ -89,14 +91,6 @@ namespace scener::graphics::vulkan
         identify_supported_extensions();
         initialize_vulkan();
         identify_physical_devices();
-    }
-
-    display_surface connection::create_surface(std::uint32_t width, std::uint32_t height) noexcept
-    {
-        display_surface surface { &_instance };
-        surface.create(width, height);
-
-        return surface;
     }
 
     void connection::initialize_vulkan() noexcept
@@ -197,7 +191,7 @@ namespace scener::graphics::vulkan
 
     void connection::identify_supported_extensions() noexcept
     {
-        uint32_t instance_extension_count = 0;
+        std::uint32_t instance_extension_count = 0;
 
         /* Look for instance extensions */
         vk::Bool32 surfaceExtFound         = VK_FALSE;
@@ -282,7 +276,7 @@ namespace scener::graphics::vulkan
 
     void connection::identify_physical_devices() noexcept
     {
-        std::uint32_t gpu_count;
+        std::uint32_t gpu_count = 0;
         auto result = _instance.enumeratePhysicalDevices(&gpu_count, nullptr);
         check_result(result);
         Ensures(gpu_count > 0);
@@ -312,7 +306,7 @@ namespace scener::graphics::vulkan
                 if (!strcmp(check_names[i], layers[j].layerName))
                 {
                     found = VK_TRUE;
-                    break;
+                    // break;
                 }
             }
             if (!found)

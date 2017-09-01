@@ -1,12 +1,10 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
-// Based on https://github.com/gamedevtech/X11OpenGLWindow
-// ==================================================================================================
 
 #ifdef VK_USE_PLATFORM_XCB_KHR
 
-#include "scener/graphics/vulkan/display_surface.hpp"
+#include "scener/graphics/vulkan/xcb/display_surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan

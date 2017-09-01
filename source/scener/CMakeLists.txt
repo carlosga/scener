@@ -20,7 +20,7 @@ find_package (X11 REQUIRED)
 find_package (Wayland REQUIRED)
 
 # OpenGL
-find_package (OpenGL REQUIRED)
+# find_package (OpenGL REQUIRED)
 
 # Vulkan
 find_package (Vulkan REQUIRED)
@@ -33,7 +33,7 @@ add_library (scener SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # include directories
 target_include_directories (scener
-                            PRIVATE ${X11_INCLUDE_DIR}
+                            # PRIVATE ${X11_INCLUDE_DIR}
                             # PRIVATE ${XCB_INCLUDE_DIRS}
                             PRIVATE ${WAYLAND_CLIENT_INCLUDE_DIR}
                             PRIVATE ${VULKAN_INCLUDE_DIR}
@@ -50,6 +50,6 @@ target_link_libraries (scener
                        ${X11_LIBRARIES} 
                        # ${XCB_LIBRARIES} 
                        ${WAYLAND_CLIENT_LIBRARY} 
-                       ${OPENGL_LIBRARIES} 
+                       #${OPENGL_LIBRARIES} 
                        ${VULKAN_LIBRARIES})
 

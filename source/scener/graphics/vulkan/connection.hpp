@@ -2,47 +2,11 @@
 #define SCENER_GRAPHICS_VULKAN_CONNECTION_HPP
 
 #include <cstdint>
-#include <memory>
-#include <string>
 #include <vector>
 
 #include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/vulkan/display_surface.hpp"
 #include "scener/graphics/vulkan/physical_device.hpp"
-
-PFN_vkCreateDebugReportCallbackEXT fpCreateDebugReportCallbackEXT = nullptr;
-VKAPI_ATTR VkResult VKAPI_CALL vkCreateDebugReportCallbackEXT(
-    VkInstance                                instance
-  , const VkDebugReportCallbackCreateInfoEXT* pCreateInfo
-  , const VkAllocationCallbacks*              pAllocator
-  , VkDebugReportCallbackEXT*                 pCallback)
-{
-    return fpCreateDebugReportCallbackEXT(instance, pCreateInfo, pAllocator, pCallback);
-}
-
-PFN_vkDestroyDebugReportCallbackEXT fpDestroyDebugReportCallbackEXT = nullptr;
-VKAPI_ATTR void VKAPI_CALL vkDestroyDebugReportCallbackEXT(
-    VkInstance                   instance
-  , VkDebugReportCallbackEXT     callback
-  , const VkAllocationCallbacks* pAllocator)
-{
-    fpDestroyDebugReportCallbackEXT(instance, callback, pAllocator);
-}
-
-PFN_vkDebugReportCallbackEXT fpDebugReportCallbackEXT = nullptr;
-VKAPI_ATTR std::uint32_t VKAPI_CALL vkDebugReportCallbackEXT(
-    VkDebugReportFlagsEXT       flags
-  , VkDebugReportObjectTypeEXT  objectType
-  , std::uint64_t               object
-  , std::size_t                 location
-  , std::int32_t                messageCode
-  , const char*                 pLayerPrefix
-  , const char*                 pMessage
-  , void*                       userData)
-{
-    return fpDebugReportCallbackEXT(flags, objectType, object, location, messageCode, pLayerPrefix, pMessage, userData);
-}
 
 namespace scener::graphics::vulkan
 {
@@ -63,13 +27,13 @@ namespace scener::graphics::vulkan
         ~connection() noexcept;
 
     public:
+        const vk::Instance& vulkan() const noexcept;
         std::uint32_t api_version() const noexcept;
         const std::vector<physical_device>& physical_devices() const noexcept;
 
     public:
         void connect() noexcept;
-        display_surface create_surface(std::uint32_t width, std::uint32_t height) noexcept;
-
+        
     private:
         void identify_validation_layers() noexcept;
         void identify_supported_extensions() noexcept;

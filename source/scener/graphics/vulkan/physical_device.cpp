@@ -1,10 +1,6 @@
 #include "scener/graphics/vulkan/physical_device.hpp"
 
-#include <cassert>
-#include <string>
-#include <vector>
-
-#include "scener/graphics/vulkan/display_surface.hpp"
+#include "scener/graphics/vulkan/platform.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
@@ -46,7 +42,7 @@ namespace scener::graphics::vulkan
         return _features;
     }
 
-    logical_device physical_device::create_logical_device(gsl::not_null<const display_surface*> surface) const noexcept
+    logical_device physical_device::create_logical_device(const render_surface& surface) const noexcept
     {
         auto graphics_queue_family_index = get_graphics_queue_family_index();
         auto present_queue_family_index  = get_present_queue_family_index(surface);
@@ -57,7 +53,7 @@ namespace scener::graphics::vulkan
         const float priorities[1] = { 0.0 };
 
         // Features
-        auto features = vk::PhysicalDeviceFeatures()
+        auto device_features = vk::PhysicalDeviceFeatures()
             .setTextureCompressionBC(VK_TRUE)
             .setDepthClamp(VK_TRUE)
             .setDepthBiasClamp(VK_TRUE)
@@ -90,32 +86,28 @@ namespace scener::graphics::vulkan
             .setPpEnabledLayerNames(_layer_names)
             .setEnabledExtensionCount(_extension_count)
             .setPpEnabledExtensionNames(_extension_names)
-            .setPEnabledFeatures(&features);
+            .setPEnabledFeatures(&device_features);
 
-        vk::Device device;
+        vk::Device vk_device;
 
-        auto result = _physical_device.createDevice(&deviceInfo, nullptr, &device);
+        auto result = _physical_device.createDevice(&deviceInfo, nullptr, &vk_device);
 
         check_result(result);
 
-        vk::Queue graphics_queue;
-        vk::Queue present_queue;
-
-        device.getQueue(graphics_queue_family_index, 0, &graphics_queue);
-        device.getQueue(present_queue_family_index, 0, &present_queue);
-
-        auto surface_caps      = identify_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
-        auto present_mode      = get_present_mode(surface);
+        auto surface_caps      = get_surface_capabilities(surface);
+        auto present_mode      = get_present_mode(surface);        
         auto format_properties = get_format_properties(surface_format.format);
-                
-        return { device
-               , graphics_queue_family_index, graphics_queue
-               , present_queue_family_index , present_queue
-               , surface_caps
-               , surface_format
-               , present_mode
-               , format_properties };
+        
+        return {
+            vk_device
+          , graphics_queue_family_index
+          , present_queue_family_index
+          , surface_caps
+          , surface_format
+          , present_mode
+          , format_properties
+        };
     }
 
     void physical_device::identify_layers() noexcept
@@ -211,25 +203,25 @@ namespace scener::graphics::vulkan
         _physical_device.getFeatures(&_features);
     }
 
-    vk::SurfaceCapabilitiesKHR physical_device::identify_surface_capabilities(gsl::not_null<const display_surface*> surface) const noexcept
+    vk::SurfaceCapabilitiesKHR physical_device::get_surface_capabilities(const render_surface& surface) const noexcept
     {
         vk::SurfaceCapabilitiesKHR capabilities;
 
         // Surface capabilities basically describes what kind of image you can render to the user.
-        auto result = _physical_device.getSurfaceCapabilitiesKHR(surface->_vk_surface, &capabilities);
+        auto result = _physical_device.getSurfaceCapabilitiesKHR(surface.surface(), &capabilities);
 
         check_result(result);
 
         return capabilities;
     }
 
-    std::vector<vk::Bool32> physical_device::get_surface_present_support(gsl::not_null<const display_surface*> surface) const noexcept
+    std::vector<vk::Bool32> physical_device::get_surface_present_support(const render_surface& surface) const noexcept
     {
         // Iterate over each queue to learn whether it supports presenting:
         std::vector<vk::Bool32> supports_present(_queue_families.size());
         for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
-            auto result = _physical_device.getSurfaceSupportKHR(i, surface->_vk_surface, &supports_present[i]);
+            auto result = _physical_device.getSurfaceSupportKHR(i, surface.surface(), &supports_present[i]);
             check_result(result);
         }
         return supports_present;
@@ -248,11 +240,11 @@ namespace scener::graphics::vulkan
         return UINT32_MAX;
     }
 
-    std::uint32_t physical_device::get_present_queue_family_index(gsl::not_null<const display_surface*> surface) const noexcept
+    std::uint32_t physical_device::get_present_queue_family_index(const render_surface& surface) const noexcept
     {
         std::vector<vk::Bool32> supports_present = get_surface_present_support(surface);
 
-        for (std::uint32_t i = 1; i < _queue_families.size(); i++)
+        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
         {
             if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {
@@ -265,7 +257,7 @@ namespace scener::graphics::vulkan
 
         // If didn't find a queue that supports both graphics and present,
         // then find a separate present queue.
-        for (uint32_t i = 0; i < _queue_families.size(); ++i)
+        for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             if (supports_present[i] == VK_TRUE)
             {
@@ -276,21 +268,21 @@ namespace scener::graphics::vulkan
         return UINT32_MAX;
     }
 
-    std::vector<vk::SurfaceFormatKHR> physical_device::get_surface_formats(gsl::not_null<const display_surface*> surface) const noexcept
+    std::vector<vk::SurfaceFormatKHR> physical_device::get_surface_formats(const render_surface& surface) const noexcept
     {
         // Get the list of VkFormat's that are supported:
-        uint32_t format_count;
-        auto result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &format_count, nullptr);
+        std::uint32_t format_count = 0;
+        auto result = _physical_device.getSurfaceFormatsKHR(surface.surface(), &format_count, nullptr);
         check_result(result);
 
         std::vector<vk::SurfaceFormatKHR> formats(format_count);
-        result = _physical_device.getSurfaceFormatsKHR(surface->_vk_surface, &format_count, formats.data());
+        result = _physical_device.getSurfaceFormatsKHR(surface.surface(), &format_count, formats.data());
         check_result(result);
 
         return formats;
     }
 
-    vk::SurfaceFormatKHR physical_device::get_preferred_surface_format(gsl::not_null<const display_surface*> surface) const noexcept
+    vk::SurfaceFormatKHR physical_device::get_preferred_surface_format(const render_surface& surface) const noexcept
     {
         auto formats = get_surface_formats(surface);
 
@@ -322,26 +314,27 @@ namespace scener::graphics::vulkan
         return formats[0];
     }
 
-    vk::PresentModeKHR physical_device::get_present_mode(gsl::not_null<const display_surface*> surface) const noexcept
+    vk::PresentModeKHR physical_device::get_present_mode(const render_surface& surface) const noexcept
     {
         std::uint32_t present_mode_count = 0;
 
-        _physical_device.getSurfacePresentModesKHR(surface->_vk_surface, &present_mode_count, nullptr);
+        auto result = _physical_device.getSurfacePresentModesKHR(surface.surface(), &present_mode_count, nullptr);
 
-        if (present_mode_count > 0)
+        check_result(result);
+
+        assert(present_mode_count > 0);
+
+        std::vector<vk::PresentModeKHR> present_modes(present_mode_count);
+
+        result = _physical_device.getSurfacePresentModesKHR(surface.surface(), &present_mode_count, present_modes.data());
+
+        check_result(result);
+
+        for (const auto& present_mode : present_modes)
         {
-            std::vector<vk::PresentModeKHR> present_modes(present_mode_count);
-
-            auto result = _physical_device.getSurfacePresentModesKHR(surface->_vk_surface, &present_mode_count, present_modes.data());
-
-            check_result(result);
-
-            for (const auto& present_mode : present_modes)
+            if (present_mode == vk::PresentModeKHR::eMailbox)
             {
-                if (present_mode == vk::PresentModeKHR::eMailbox)
-                {
-                    return present_mode;
-                }
+                return present_mode;
             }
         }
 
@@ -351,7 +344,7 @@ namespace scener::graphics::vulkan
     vk::FormatProperties physical_device::get_format_properties(const vk::Format& format) const noexcept
     {
         vk::FormatProperties format_properties;
-        
+
         _physical_device.getFormatProperties(format, &format_properties);
 
         return format_properties;

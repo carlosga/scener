@@ -1,16 +1,16 @@
 // Copyright (c) Carlos Guzmán Álvarez. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
-// Based on https://github.com/gamedevtech/X11OpenGLWindow
-// ==================================================================================================
 
 #ifdef VK_USE_PLATFORM_WAYLAND_KHR
 
-#include "scener/graphics/vulkan/display_surface.hpp"
+#include "scener/graphics/vulkan/wayland/display_surface.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
+    using scener::math::basic_rect;
+
     void display_surface::global_registry_handler_callback(void *data, struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version)
     {
         display_surface* self = reinterpret_cast<display_surface*>(data);
@@ -30,6 +30,7 @@ namespace scener::graphics::vulkan
 
     void display_surface::global_shell_surface_configure_callback(void *data, struct wl_shell_surface *shell_surface, std::uint32_t edges, std::int32_t width, std::int32_t height)
     {
+        std::string x = "";
     }
 
     void display_surface::global_shell_surface_popup_done_PopupDoneCb(void *data, struct wl_shell_surface *shell_surface)
@@ -41,12 +42,16 @@ namespace scener::graphics::vulkan
         display_surface* self = reinterpret_cast<display_surface *>(data);
         self->seat_capabilities(seat, caps);
     }
-    
-    display_surface::display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept
-        : _wl_display   { nullptr }
-        , _wl_surface   { nullptr }
-        , _vk_instance  { vk_instance }
-        , _vk_surface   { }
+
+    display_surface::display_surface() noexcept
+        : _wl_display       { nullptr }
+        , _wl_compositor    { nullptr }
+        , _wl_surface       { nullptr }
+        , _wl_shell         { nullptr }
+        , _wl_shell_surface { nullptr }
+        , _wl_seat          { nullptr }
+        , _wl_display_fd    { 0 }
+        , _rect             { }
     {
     }
 
@@ -55,12 +60,22 @@ namespace scener::graphics::vulkan
         destroy();
     }
 
-    void display_surface::title(const std::string& title) noexcept
+    struct wl_display* display_surface::display() const noexcept
     {
-        wl_shell_surface_set_title(_wl_shell_surface, title.c_str());
+        return _wl_display;
     }
 
-    void display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
+    struct wl_surface* display_surface::surface() const noexcept
+    {
+        return _wl_surface;
+    }
+
+    const basic_rect<std::uint32_t>& display_surface::rect() const noexcept
+    {
+        return _rect;
+    }
+
+    void display_surface::create(const std::string& title, const basic_rect<std::uint32_t>& rect) noexcept
     {
         static const struct wl_registry_listener registry_listener =
         {
@@ -78,38 +93,35 @@ namespace scener::graphics::vulkan
 
         Ensures(_wl_display != nullptr);
 
-        _wl_registry = wl_display_get_registry(_wl_display);
+        _wl_display_fd = wl_display_get_fd(_wl_display);
 
-        Ensures(_wl_registry != nullptr);
+        struct wl_registry* registry = wl_display_get_registry(_wl_display);
 
-        wl_registry_add_listener(_wl_registry, &registry_listener, this);
+        Ensures(registry != nullptr);
+
+        wl_registry_add_listener(registry, &registry_listener, this);
 
         wl_display_dispatch(_wl_display);
         wl_display_roundtrip(_wl_display);
+
+        wl_registry_destroy(registry);
 
         Ensures(_wl_compositor != nullptr);
 
         _wl_surface = wl_compositor_create_surface(_wl_compositor);
 
         Ensures(_wl_surface != nullptr);
-
+        Ensures(_wl_shell   != nullptr);
+       
         _wl_shell_surface = wl_shell_get_shell_surface(_wl_shell, _wl_surface);
 
         Ensures(_wl_shell_surface != nullptr);
-
+        
         wl_shell_surface_add_listener(_wl_shell_surface, &shell_surface_listener, this);
         wl_shell_surface_set_toplevel(_wl_shell_surface);
+        wl_shell_surface_set_title(_wl_shell_surface, title.c_str());
 
-        wl_shell_surface_set_title(_wl_shell_surface, "scener");
-
-        // Create vulkan surface
-        auto create_info = vk::WaylandSurfaceCreateInfoKHR()
-            .setDisplay(_wl_display)
-            .setSurface(_wl_surface);
-
-        auto result = _vk_instance->createWaylandSurfaceKHR(&create_info, nullptr, &_vk_surface);
-        
-        check_result(result);
+        _rect = rect;
     }
 
     void display_surface::destroy() noexcept
@@ -144,12 +156,6 @@ namespace scener::graphics::vulkan
             _wl_compositor = nullptr;
         }
 
-        if (_wl_registry != nullptr)
-        {
-            wl_registry_destroy(_wl_registry);
-            _wl_registry = nullptr;
-        }
-
         if (_wl_display != nullptr)
         {
             wl_display_disconnect(_wl_display);
@@ -163,25 +169,6 @@ namespace scener::graphics::vulkan
 
     void display_surface::show() noexcept
     {
-    }
-
-    vk::Extent2D display_surface::get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept
-    {
-        VkExtent2D extent;
-        
-        // The extent is typically the size of the window we created the surface from.
-        // However if Vulkan returns -1 then simply substitute the window size.
-        if (capabilities.currentExtent.width == UINT32_MAX) 
-        {
-            extent.width  = 1600;
-            extent.height = 900;
-        }
-        else
-        {
-            extent = capabilities.currentExtent;
-        }
-    
-        return extent;
     }
 
     void display_surface::pool_events() noexcept
@@ -205,8 +192,11 @@ namespace scener::graphics::vulkan
             static const struct wl_seat_listener seat_listener = { global_seat_capabilities_callback, nullptr };
             wl_seat_add_listener(_wl_seat, &seat_listener, this);
         }
+        else if (strcmp(interface, "wl_output") == 0)
+        {
+        }
     }
-   
+
     void display_surface::registry_remover(struct wl_registry *registry, std::uint32_t id)
     {
     }

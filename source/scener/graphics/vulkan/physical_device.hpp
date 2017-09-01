@@ -11,12 +11,12 @@
 
 namespace scener::graphics::vulkan
 {
-    class display_surface;
+    class render_surface;
 
     class physical_device final
     {
     public:
-        physical_device(const vk::PhysicalDevice& _physical_device) noexcept;
+        physical_device(const vk::PhysicalDevice& physical_device) noexcept;
         ~physical_device() noexcept;
 
     public:
@@ -25,10 +25,9 @@ namespace scener::graphics::vulkan
         const vk::PhysicalDeviceFeatures& features() const noexcept;
 
     public:
-        logical_device create_logical_device(gsl::not_null<const display_surface*> surface) const noexcept;
+        logical_device create_logical_device(const render_surface& surface) const noexcept;
 
     private:
-        void setup() noexcept;
         void identify_layers() noexcept;
         void identify_extensions() noexcept;
         void identify_properties() noexcept;
@@ -36,13 +35,13 @@ namespace scener::graphics::vulkan
         void identify_features() noexcept;
 
     private:
-        vk::SurfaceCapabilitiesKHR identify_surface_capabilities(gsl::not_null<const display_surface*> surface) const noexcept;
-        std::vector<vk::Bool32> get_surface_present_support(gsl::not_null<const display_surface*> surface) const noexcept;
+        vk::SurfaceCapabilitiesKHR get_surface_capabilities(const render_surface& surface) const noexcept;
+        std::vector<vk::Bool32> get_surface_present_support(const render_surface& surface) const noexcept;
         std::uint32_t get_graphics_queue_family_index() const noexcept;
-        std::uint32_t get_present_queue_family_index(gsl::not_null<const display_surface*> surface) const noexcept;
-        std::vector<vk::SurfaceFormatKHR> get_surface_formats(gsl::not_null<const display_surface*> surface) const noexcept;
-        vk::SurfaceFormatKHR get_preferred_surface_format(gsl::not_null<const display_surface*> surface) const noexcept;
-        vk::PresentModeKHR get_present_mode(gsl::not_null<const display_surface*> surface) const noexcept;
+        std::uint32_t get_present_queue_family_index(const render_surface& surface) const noexcept;
+        std::vector<vk::SurfaceFormatKHR> get_surface_formats(const render_surface& surface) const noexcept;
+        vk::SurfaceFormatKHR get_preferred_surface_format(const render_surface& surface) const noexcept;
+        vk::PresentModeKHR get_present_mode(const render_surface& surface) const noexcept;
         vk::FormatProperties get_format_properties(const vk::Format& format) const noexcept;
 
     private:
