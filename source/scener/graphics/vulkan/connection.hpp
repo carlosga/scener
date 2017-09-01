@@ -1,12 +1,12 @@
 #ifndef SCENER_GRAPHICS_VULKAN_CONNECTION_HPP
 #define SCENER_GRAPHICS_VULKAN_CONNECTION_HPP
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include <vulkan/vulkan.hpp>
-#include <cstdint>
 
 #include "scener/graphics/vulkan/display_surface.hpp"
 #include "scener/graphics/vulkan/physical_device.hpp"

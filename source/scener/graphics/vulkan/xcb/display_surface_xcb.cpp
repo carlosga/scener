@@ -32,18 +32,30 @@ namespace scener::graphics::vulkan
 
     void display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
     {
-        xcb_connection_t* c;
-        xcb_screen_t*     s;
-        xcb_window_t      w;
+        xcb_connection_t*     c;
+        const xcb_setup_t*    setup;
+        xcb_screen_iterator_t iterator;
+        xcb_screen_t*         s;
+        xcb_window_t          w;
+        std::int32_t          count;
 
         std::uint32_t value_mask;
         std::uint32_t value_list[32];
 
         /* Open the connection to the X server. */
-        c = xcb_connect(NULL, NULL);
+        c = xcb_connect(NULL, &count);
+
+        setup = xcb_get_setup(c);
 
         /* Get the first screen */
-        s = xcb_setup_roots_iterator(xcb_get_setup(c)).data;
+        iterator = xcb_setup_roots_iterator(setup);
+
+        while (count-- > 0)
+        {
+            xcb_screen_next(&iterator);
+        }
+
+        s = iterator.data;
 
         /* Ask for our window's Id */
         w = xcb_generate_id(c);
@@ -51,7 +63,14 @@ namespace scener::graphics::vulkan
         /* setup surface masks */
         value_mask    = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
         value_list[0] = s->black_pixel;
-        value_list[1] = XCB_EVENT_MASK_KEY_RELEASE | XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_STRUCTURE_NOTIFY;
+        value_list[1] =
+            XCB_EVENT_MASK_KEY_RELEASE 
+          | XCB_EVENT_MASK_KEY_PRESS 
+          | XCB_EVENT_MASK_EXPOSURE 
+          | XCB_EVENT_MASK_STRUCTURE_NOTIFY 
+          | XCB_EVENT_MASK_POINTER_MOTION 
+          | XCB_EVENT_MASK_BUTTON_PRESS 
+          | XCB_EVENT_MASK_BUTTON_RELEASE;
 
         /* Create the window */
         xcb_create_window(c,                               // Connection
@@ -67,10 +86,10 @@ namespace scener::graphics::vulkan
 
         /* Redirect Close */
         xcb_intern_atom_cookie_t cookie  = xcb_intern_atom(c, 1, 12, "WM_PROTOCOLS");
-        xcb_intern_atom_reply_t* reply   = xcb_intern_atom_reply(c, cookie, 0);
+        xcb_intern_atom_reply_t* reply   = xcb_intern_atom_reply(c, cookie, NULL);
         xcb_intern_atom_cookie_t cookie2 = xcb_intern_atom(c, 0, 16, "WM_DELETE_WINDOW");
 
-        _atom_wm_delete_window = xcb_intern_atom_reply(c, cookie2, 0);
+        _atom_wm_delete_window = xcb_intern_atom_reply(c, cookie2, NULL);
 
         xcb_change_property(c, XCB_PROP_MODE_REPLACE, w, (*reply).atom, 4, 32, 1, &(*_atom_wm_delete_window).atom);
 
@@ -121,24 +140,24 @@ namespace scener::graphics::vulkan
     vk::Extent2D display_surface::get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept
     {
         VkExtent2D extent;
-        
+
         // The extent is typically the size of the window we created the surface from.
         // However if Vulkan returns -1 then simply substitute the window size.
         if (capabilities.currentExtent.width == UINT32_MAX)
         {
             xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _xcb_window);  // window is a xcb_drawable_t
             xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
-    
+
             extent.width  = geom->width;
             extent.height = geom->height;
-    
+
             free (geom);
         }
         else
         {
             extent = capabilities.currentExtent;
         }
-    
+
         return extent;
     }
 

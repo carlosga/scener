@@ -1,10 +1,11 @@
 #ifndef SCENER_GRAPHICS_VULKAN_DEVICE_HPP
 #define SCENER_GRAPHICS_VULKAN_DEVICE_HPP
 
-#include <vulkan/vulkan.hpp>
 #include <cstdint>
 #include <memory>
 #include <vector>
+
+#include <vulkan/vulkan.hpp>
 
 #include <gsl/gsl>
 
@@ -24,7 +25,8 @@ namespace scener::graphics::vulkan
                      , const vk::Queue&                  present_queue
                      , const vk::SurfaceCapabilitiesKHR& surface_capabilities
                      , const vk::SurfaceFormatKHR&       surface_format
-                     , const vk::PresentModeKHR&         present_mode) noexcept;
+                     , const vk::PresentModeKHR&         present_mode
+                     , const vk::FormatProperties&       format_properties) noexcept;
 
         ~logical_device() noexcept;
 
@@ -51,6 +53,7 @@ namespace scener::graphics::vulkan
         vk::SurfaceCapabilitiesKHR  _surface_capabilities;
         vk::SurfaceFormatKHR        _surface_format;
         vk::PresentModeKHR          _present_mode;
+        vk::FormatProperties        _format_properties;
         vk::Fence                   _fences[s_buffer_count];
         vk::CommandPool             _command_pool;
         vk::CommandBuffer           _command_buffer;

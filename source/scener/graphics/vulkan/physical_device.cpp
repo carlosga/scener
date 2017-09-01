@@ -104,16 +104,18 @@ namespace scener::graphics::vulkan
         device.getQueue(graphics_queue_family_index, 0, &graphics_queue);
         device.getQueue(present_queue_family_index, 0, &present_queue);
 
-        auto surface_caps   = identify_surface_capabilities(surface);
-        auto surface_format = get_preferred_surface_format(surface);
-        auto present_mode   = get_present_mode(surface);
-
+        auto surface_caps      = identify_surface_capabilities(surface);
+        auto surface_format    = get_preferred_surface_format(surface);
+        auto present_mode      = get_present_mode(surface);
+        auto format_properties = get_format_properties(surface_format.format);
+                
         return { device
                , graphics_queue_family_index, graphics_queue
                , present_queue_family_index , present_queue
                , surface_caps
                , surface_format
-               , present_mode };
+               , present_mode
+               , format_properties };
     }
 
     void physical_device::identify_layers() noexcept
@@ -135,7 +137,7 @@ namespace scener::graphics::vulkan
             result = _physical_device.enumerateDeviceLayerProperties(&layer_count, layers.data());
             check_result(result);
 
-            for (std::uint32_t i = 0; i < layer_count; i++)
+            for (std::uint32_t i = 0; i < layer_count; ++i)
             {
                 if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
                 {
@@ -148,8 +150,8 @@ namespace scener::graphics::vulkan
     void physical_device::identify_extensions() noexcept
     {
         /* Look for device extensions */
-        std::uint32_t extension_count = 0;
-        vk::Bool32    supports_swap_chains   = VK_FALSE;
+        std::uint32_t extension_count      = 0;
+        vk::Bool32    supports_swap_chains = VK_FALSE;
 
         _extension_count = 0;
         memset(_extension_names, 0, sizeof(_extension_names));
@@ -165,7 +167,7 @@ namespace scener::graphics::vulkan
             result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, extensions.data());
             check_result(result);
 
-            for (std::uint32_t i = 0; i < extension_count; i++)
+            for (std::uint32_t i = 0; i < extension_count; ++i)
             {
                 if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
                 {
@@ -225,7 +227,7 @@ namespace scener::graphics::vulkan
     {
         // Iterate over each queue to learn whether it supports presenting:
         std::vector<vk::Bool32> supports_present(_queue_families.size());
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
+        for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             auto result = _physical_device.getSurfaceSupportKHR(i, surface->_vk_surface, &supports_present[i]);
             check_result(result);
@@ -235,7 +237,7 @@ namespace scener::graphics::vulkan
 
     std::uint32_t physical_device::get_graphics_queue_family_index() const noexcept
     {
-        for (std::uint32_t i = 0; i < _queue_families.size(); i++)
+        for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             if (_queue_families[i].queueFlags & vk::QueueFlagBits::eGraphics)
             {
@@ -340,13 +342,18 @@ namespace scener::graphics::vulkan
                 {
                     return present_mode;
                 }
-                else if (present_mode == vk::PresentModeKHR::eImmediate)
-                {
-                    return present_mode;
-                }
             }
         }
 
         return vk::PresentModeKHR::eFifo;
+    }
+
+    vk::FormatProperties physical_device::get_format_properties(const vk::Format& format) const noexcept
+    {
+        vk::FormatProperties format_properties;
+        
+        _physical_device.getFormatProperties(format, &format_properties);
+
+        return format_properties;
     }
 }

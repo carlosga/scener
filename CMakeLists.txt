@@ -17,7 +17,7 @@ set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 set (GSL_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/gsl/include)
 
 # vulkan-hpp
-set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/Vulkan-Hpp)
+set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/vulkan-hpp)
 
 # json for modern C++
 set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
@@ -51,11 +51,13 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++ -lc++abi")
   set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
 
-# elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
+elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
+
+  message ("-> GCC")
 
 else ()
 
-    message ("-> unknown compiler ...")
+  message ("-> unknown compiler ...")
 
 endif ()
 
@@ -67,8 +69,8 @@ set (SCENER_LIBRARIES     scener)
 set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
 
 # global definitions
-# add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
-add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
+add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
+# add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
 
 # project subdirectories
 add_subdirectory (source)

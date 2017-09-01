@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <iomanip>
+#include <ctime>
 
 #include <gsl/gsl>
 
@@ -22,7 +24,30 @@ namespace scener::graphics::vulkan
       , const char*                pMessage
       , void*                      userData)
     {
-        std::cerr << "validation layer: " << pMessage << std::endl;
+        std::string sflags;
+        
+        switch (flags)
+        {
+        case VK_DEBUG_REPORT_INFORMATION_BIT_EXT:
+            sflags = "INFORMATION";
+            break;
+        case VK_DEBUG_REPORT_WARNING_BIT_EXT:
+            sflags = "WARNING";
+            break;
+        case VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT:
+            sflags = "PERFORMANCE_WARNING";
+            break;
+        case VK_DEBUG_REPORT_ERROR_BIT_EXT:
+            sflags = "ERROR";
+            break;
+        case VK_DEBUG_REPORT_DEBUG_BIT_EXT:
+            sflags = "DEBUG";
+            break;
+        }
+
+        std::time_t t = std::time(nullptr);
+
+        std::cout << "(" << sflags << ") " << std::put_time(std::gmtime(&t), "%c %Z  ") << pMessage << std::endl;
 
         return 0;
     }
@@ -43,7 +68,7 @@ namespace scener::graphics::vulkan
     {
         if (_instance)
         {
-            // _instance.destroyDebugReportCallbackEXT(_debug_callback, nullptr);
+            _instance.destroyDebugReportCallbackEXT(_debug_callback, nullptr);
             _instance.destroy(nullptr);
         }
     }

@@ -18,6 +18,8 @@ add_executable (vulkan-sample ${SOURCE_FILES})
 target_include_directories (vulkan-sample
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
+                            PRIVATE ${VULKAN_INCLUDE_DIR}
+                            PRIVATE ${VULKAN_HPP_INCLUDE_DIR}
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS}
                             PRIVATE ${SCENER_INCLUDE_DIRS}
                             PRIVATE ${SCENER_SAMPLES_INCLUDE_DIR})

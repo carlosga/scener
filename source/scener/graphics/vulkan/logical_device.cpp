@@ -12,7 +12,8 @@ namespace scener::graphics::vulkan
                                  , const vk::Queue&                  present_queue
                                  , const vk::SurfaceCapabilitiesKHR& surface_capabilities
                                  , const vk::SurfaceFormatKHR&       surface_format
-                                 , const vk::PresentModeKHR&         present_mode) noexcept
+                                 , const vk::PresentModeKHR&         present_mode
+                                 , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { std::make_unique<vk::Device>(device) }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { graphics_queue }
@@ -21,6 +22,7 @@ namespace scener::graphics::vulkan
         , _surface_capabilities        { surface_capabilities }
         , _surface_format              { surface_format }
         , _present_mode                { present_mode }
+        , _format_properties           { format_properties }
         , _fences                      { }
         , _command_pool                { }
         , _command_buffer              { }
@@ -64,17 +66,16 @@ namespace scener::graphics::vulkan
         auto chain_info = vk::SwapchainCreateInfoKHR()
             .setSurface(surface->_vk_surface)
             .setMinImageCount(_surface_capabilities.minImageCount)
+            .setImageUsage(_surface_capabilities.supportedUsageFlags)
             .setImageFormat(_surface_format.format)
             .setImageExtent(extent)
             .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
-            .setImageUsage(_surface_capabilities.supportedUsageFlags)
             // We just want to leave the image as is.
             .setPreTransform(_surface_capabilities.currentTransform)
             .setCompositeAlpha(vk::CompositeAlphaFlagBitsKHR::eOpaque)
             .setPresentMode(_present_mode)
             // Is Vulkan allowed to discard operations outside of the renderable space?
-            .setClipped(VK_TRUE)
-            .setFlags(vk::SwapchainCreateFlagBitsKHR::eBindSfrKHX);
+            .setClipped(VK_TRUE);
 
         std::vector<uint32_t> queue_indices = { _graphics_queue_family_index, _present_queue_family_index };
 

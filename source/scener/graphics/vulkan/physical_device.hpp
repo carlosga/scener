@@ -1,11 +1,11 @@
 #ifndef SCENER_GRAPHIcS_VULKAN_PHYSICAL_DEVICE_HPP
 #define SCENER_GRAPHIcS_VULKAN_PHYSICAL_DEVICE_HPP
 
-#include <vulkan/vulkan.hpp>
 #include <cstdint>
 #include <vector>
 
 #include <gsl/gsl>
+#include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/vulkan/logical_device.hpp"
 
@@ -43,6 +43,7 @@ namespace scener::graphics::vulkan
         std::vector<vk::SurfaceFormatKHR> get_surface_formats(gsl::not_null<const display_surface*> surface) const noexcept;
         vk::SurfaceFormatKHR get_preferred_surface_format(gsl::not_null<const display_surface*> surface) const noexcept;
         vk::PresentModeKHR get_present_mode(gsl::not_null<const display_surface*> surface) const noexcept;
+        vk::FormatProperties get_format_properties(const vk::Format& format) const noexcept;
 
     private:
         std::uint32_t                          _extension_count;
