@@ -13,33 +13,33 @@
 #include <xcb/xcb.h>
 #include <vulkan/vulkan.hpp>
 
+#include "scener/math/basic_rect.hpp"
+
 namespace vk { class Instance; }
 
 namespace scener::graphics::vulkan
 {
-    class physical_device;
-    class logical_device;
-
     /// Represents a XCB display surface.
     class display_surface final
     {
     public:
         /// Initializes a new instance of the display_surface class.
-        display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept;
+        display_surface() noexcept;
 
         /// Releases all resources being used by this DisplaySurface instance.
         ~display_surface() noexcept;
 
     public:
-        /// Sets the display surface title ( for window surfaces ).
-        void title(const std::string& title) noexcept;
-
+        xcb_connection_t*   connection() const noexcept;
+        const xcb_window_t& window() const noexcept;
+        scener::math::basic_rect<std::uint32_t> rect() const noexcept;
+    
     public:
         /// Creates the display surface with the given width and height.
-        /// \param width the display surface width.
-        /// \param height the display surface width.
-        void create(std::uint32_t width, std::uint32_t height) noexcept;
-
+        /// \param title the initial window title
+        /// \param rect the initial window location & size
+        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
+        
         /// Destroys this DisplaySurface instance.
         void destroy() noexcept;
 
@@ -51,21 +51,12 @@ namespace scener::graphics::vulkan
         
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
-
+       
     private:
-        /// Get the vulkan surface extent
-        vk::Extent2D get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept;
-        
-    private:
-        xcb_window_t             _xcb_window;
+        xcb_window_t             _window;
         xcb_screen_t*            _screen;
         xcb_connection_t*        _connection;
         xcb_intern_atom_reply_t* _atom_wm_delete_window;
-        vk::Instance*            _vk_instance;
-        vk::SurfaceKHR           _vk_surface;
-
-        friend class vulkan::physical_device;
-        friend class vulkan::logical_device;
     };
 }
 

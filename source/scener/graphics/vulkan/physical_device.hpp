@@ -4,14 +4,12 @@
 #include <cstdint>
 #include <vector>
 
-#include <gsl/gsl>
 #include <vulkan/vulkan.hpp>
-
-#include "scener/graphics/vulkan/logical_device.hpp"
 
 namespace scener::graphics::vulkan
 {
     class render_surface;
+    class logical_device;
 
     class physical_device final
     {
@@ -45,10 +43,8 @@ namespace scener::graphics::vulkan
         vk::FormatProperties get_format_properties(const vk::Format& format) const noexcept;
 
     private:
-        std::uint32_t                          _extension_count;
-        const char*                            _extension_names[64];
-        std::uint32_t                          _layer_count;
-        const char*                            _layer_names[64];
+        std::vector<const char*>               _layer_names;
+        std::vector<const char*>               _extension_names;
         vk::PhysicalDeviceProperties           _properties;
         vk::PhysicalDeviceMemoryProperties     _memory_properties;
         vk::PhysicalDeviceFeatures             _features;

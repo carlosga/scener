@@ -5,10 +5,13 @@
 #ifndef SCENER_GRAPHICS_VULKAN_PLATFORM_HPP
 #define SCENER_GRAPHICS_VULKAN_PLATFORM_HPP
 
+#include "scener/graphics/vulkan/vulkan_result.hpp"
+
 #if defined(VK_USE_PLATFORM_WIN32_KHR)
 #elif defined(VK_USE_PLATFORM_XLIB_KHR)
 #elif defined(VK_USE_PLATFORM_XCB_KHR)
     #include "scener/graphics/vulkan/xcb/display_surface.hpp"
+    #include "scener/graphics/vulkan/xcb/render_surface.hpp"
 #elif defined(VK_USE_PLATFORM_WAYLAND_KHR)
     #include "scener/graphics/vulkan/wayland/display_surface.hpp"
     #include "scener/graphics/vulkan/wayland/render_surface.hpp"

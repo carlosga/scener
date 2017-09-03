@@ -41,7 +41,7 @@ namespace scener::graphics::vulkan
     public:
         struct wl_display* display() const noexcept;
         struct wl_surface* surface() const noexcept;
-        const scener::math::basic_rect<std::uint32_t>& rect() const noexcept;
+        scener::math::basic_rect<std::uint32_t> rect() const noexcept;
 
     public:
         /// Creates the display surface with the given width and height.
@@ -67,13 +67,13 @@ namespace scener::graphics::vulkan
         void seat_capabilities(wl_seat *seat, std::uint32_t caps);
 
     private:
-        struct wl_display*                      _wl_display;
-        struct wl_compositor*                   _wl_compositor;
-        struct wl_surface*                      _wl_surface;
-        struct wl_shell*                        _wl_shell;
-        struct wl_shell_surface*                _wl_shell_surface;
-        struct wl_seat*                         _wl_seat;
-        std::int32_t                            _wl_display_fd;
+        struct wl_display*       _wl_display;
+        struct wl_compositor*    _wl_compositor;
+        struct wl_surface*       _wl_surface;
+        struct wl_shell*         _wl_shell;
+        struct wl_shell_surface* _wl_shell_surface;
+        struct wl_seat*          _wl_seat;
+
         scener::math::basic_rect<std::uint32_t> _rect;
 
         friend class vulkan::physical_device;

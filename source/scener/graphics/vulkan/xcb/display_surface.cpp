@@ -9,13 +9,13 @@
 
 namespace scener::graphics::vulkan
 {
-    display_surface::display_surface(gsl::not_null<vk::Instance*> vk_instance) noexcept
-        : _xcb_window            { 0 }
+    using scener::math::basic_rect;
+
+    display_surface::display_surface() noexcept
+        : _window            { 0 }
         , _screen                { nullptr }
         , _connection            { nullptr }
         , _atom_wm_delete_window { nullptr }
-        , _vk_instance           { vk_instance }
-        , _vk_surface            { }
     {
     }
 
@@ -24,11 +24,35 @@ namespace scener::graphics::vulkan
         destroy();
     }
 
-    void display_surface::title(const std::string& title) noexcept
+    xcb_connection_t* display_surface::connection() const noexcept
     {
+        return _connection;
     }
 
-    void display_surface::create(std::uint32_t width, std::uint32_t height) noexcept
+    const xcb_window_t& display_surface::window() const noexcept
+    {
+        return _window;
+    }
+
+    basic_rect<std::uint32_t> display_surface::rect() const noexcept
+    {
+        xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _window);  // window is a xcb_drawable_t
+        xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
+
+        basic_rect<std::uint32_t> rect = 
+        { 
+            static_cast<std::uint32_t>(geom->x)
+          , static_cast<std::uint32_t>(geom->y)
+          , geom->width
+          , geom->height
+        };
+
+        free (geom);
+
+        return rect;
+    }
+
+    void display_surface::create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept
     {
         xcb_connection_t*     c;
         const xcb_setup_t*    setup;
@@ -71,16 +95,16 @@ namespace scener::graphics::vulkan
           | XCB_EVENT_MASK_BUTTON_RELEASE;
 
         /* Create the window */
-        xcb_create_window(c,                               // Connection
-                          XCB_COPY_FROM_PARENT,            // depth (same as root)
-                          w,                               // window Id
-                          s->root,                         // parent window
-                          0, 0,                            // x, y
-                          width, height,                   // width, height
-                          0,                               // border_width
-                          XCB_WINDOW_CLASS_INPUT_OUTPUT,   // class
-                          s->root_visual,                  // visual
-                          value_mask, value_list);         // masks, not used yet */
+        xcb_create_window(c,                                        // Connection
+                          XCB_COPY_FROM_PARENT,                     // depth (same as root)
+                          w,                                        // window Id
+                          s->root,                                  // parent window
+                          0, 0,                                     // x, y
+                          rect.size().width, rect.size().height,    // width, height
+                          0,                                        // border_width
+                          XCB_WINDOW_CLASS_INPUT_OUTPUT,            // class
+                          s->root_visual,                           // visual
+                          value_mask, value_list);                  // masks, not used yet */
 
         /* Redirect Close */
         xcb_intern_atom_cookie_t cookie  = xcb_intern_atom(c, 1, 12, "WM_PROTOCOLS");
@@ -97,24 +121,30 @@ namespace scener::graphics::vulkan
         xcb_map_window(c, w);
 
         /* update instance members */
-        _xcb_window = w;
+        _window     = w;
         _screen     = s;
         _connection = c;
 
-        auto create_info = vk::XcbSurfaceCreateInfoKHR().setConnection(_connection).setWindow(_xcb_window);
-        auto result      = _vk_instance->createXcbSurfaceKHR(&create_info, nullptr, &_vk_surface);
-
-        check_result(result);
+        /* Set window title */
+        xcb_change_property(
+            _connection
+          , XCB_PROP_MODE_REPLACE
+          , _window
+          , XCB_ATOM_WM_NAME
+          , XCB_ATOM_STRING
+          , 8
+          , title.size()
+          , title.c_str());
     }
 
     void display_surface::destroy() noexcept
     {
         if (_connection != nullptr)
         {
-            if (_xcb_window != 0)
+            if (_window != 0)
             {
-                xcb_destroy_window(_connection, _xcb_window);
-                _xcb_window = 0;
+                xcb_destroy_window(_connection, _window);
+                _window = 0;
             }
             xcb_disconnect(_connection);
             _connection = nullptr;
@@ -133,30 +163,6 @@ namespace scener::graphics::vulkan
     void display_surface::show() noexcept
     {
         xcb_flush(_connection);
-    }
-
-    vk::Extent2D display_surface::get_extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept
-    {
-        VkExtent2D extent;
-
-        // The extent is typically the size of the window we created the surface from.
-        // However if Vulkan returns -1 then simply substitute the window size.
-        if (capabilities.currentExtent.width == UINT32_MAX)
-        {
-            xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _xcb_window);  // window is a xcb_drawable_t
-            xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
-
-            extent.width  = geom->width;
-            extent.height = geom->height;
-
-            free (geom);
-        }
-        else
-        {
-            extent = capabilities.currentExtent;
-        }
-
-        return extent;
     }
 
     void display_surface::pool_events() noexcept

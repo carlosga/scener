@@ -30,7 +30,6 @@ namespace scener::graphics::vulkan
 
     void display_surface::global_shell_surface_configure_callback(void *data, struct wl_shell_surface *shell_surface, std::uint32_t edges, std::int32_t width, std::int32_t height)
     {
-        std::string x = "";
     }
 
     void display_surface::global_shell_surface_popup_done_PopupDoneCb(void *data, struct wl_shell_surface *shell_surface)
@@ -50,7 +49,6 @@ namespace scener::graphics::vulkan
         , _wl_shell         { nullptr }
         , _wl_shell_surface { nullptr }
         , _wl_seat          { nullptr }
-        , _wl_display_fd    { 0 }
         , _rect             { }
     {
     }
@@ -70,9 +68,9 @@ namespace scener::graphics::vulkan
         return _wl_surface;
     }
 
-    const basic_rect<std::uint32_t>& display_surface::rect() const noexcept
+    basic_rect<std::uint32_t> display_surface::rect() const noexcept
     {
-        return _rect;
+        return { _rect };
     }
 
     void display_surface::create(const std::string& title, const basic_rect<std::uint32_t>& rect) noexcept
@@ -93,34 +91,35 @@ namespace scener::graphics::vulkan
 
         Ensures(_wl_display != nullptr);
 
-        _wl_display_fd = wl_display_get_fd(_wl_display);
-
         struct wl_registry* registry = wl_display_get_registry(_wl_display);
 
         Ensures(registry != nullptr);
 
         wl_registry_add_listener(registry, &registry_listener, this);
 
-        wl_display_dispatch(_wl_display);
         wl_display_roundtrip(_wl_display);
 
         wl_registry_destroy(registry);
-
+       
         Ensures(_wl_compositor != nullptr);
 
         _wl_surface = wl_compositor_create_surface(_wl_compositor);
-
+        
         Ensures(_wl_surface != nullptr);
         Ensures(_wl_shell   != nullptr);
-       
+
         _wl_shell_surface = wl_shell_get_shell_surface(_wl_shell, _wl_surface);
 
         Ensures(_wl_shell_surface != nullptr);
-        
+
         wl_shell_surface_add_listener(_wl_shell_surface, &shell_surface_listener, this);
+
         wl_shell_surface_set_toplevel(_wl_shell_surface);
         wl_shell_surface_set_title(_wl_shell_surface, title.c_str());
 
+        wl_surface_commit(_wl_surface);
+        wl_display_flush(_wl_display);
+        
         _rect = rect;
     }
 

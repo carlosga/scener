@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include "scener/graphics/vulkan/connection.hpp"
+#include "scener/graphics/vulkan/logical_device.hpp"
 #include "scener/graphics/vulkan/platform.hpp"
 
 using scener::graphics::vulkan::connection;
@@ -17,7 +18,7 @@ int main()
     // display surface (Wayland based)
     auto dsurface = display_surface();
 
-    dsurface.create("SceneR", { 0, 0, 1900, 600 });
+    dsurface.create("SceneR", { 0, 0, 1600, 900 });
 
     // Physical device (GPU)
     auto pdevice  = connection.physical_devices()[0];

@@ -67,10 +67,10 @@ namespace scener::content::dds
             _format = surface_format::dxt5;
         }
 
-        auto mipmap_width  = _width;
-        auto mipmap_height = _height;
-        auto position      = size_type { 0 };
-        auto length        = stream.length() - sizeof dds_header;
+        size_type mipmap_width  = _width;
+        size_type mipmap_height = _height;
+        auto      position      = size_type { 0 };
+        auto      length        = stream.length() - sizeof dds_header;
 
         _mipmaps.clear();
         _buffer.clear();
@@ -92,8 +92,8 @@ namespace scener::content::dds
 
             _mipmaps.push_back({ level, mipmap_width, mipmap_height, view });
 
-            mipmap_width  = std::max<std::size_t>(1, mipmap_width  >>= 1);
-            mipmap_height = std::max<std::size_t>(1, mipmap_height >>= 1);
+            mipmap_width  = std::max<std::size_t>(1, mipmap_width  >> 1);
+            mipmap_height = std::max<std::size_t>(1, mipmap_height >> 1);
 
             position += size;
         }

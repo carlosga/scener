@@ -2,13 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
-#ifndef SCENER_GRAPHICS_VULKAN_RENDER_SURFACE_WAYLAND_HPP
-#define SCENER_GRAPHICS_VULKAN_RENDER_SURFACE_WAYLAND_HPP
+#ifndef SCENER_GRAPHICS_VULKAN_RENDER_SURFACE_XCB_HPP
+#define SCENER_GRAPHICS_VULKAN_RENDER_SURFACE_XCB_HPP
 
 #include <vulkan/vulkan.hpp>
 
 #include "scener/graphics/vulkan/connection.hpp"
-#include "scener/graphics/vulkan/wayland/display_surface.hpp"
+#include "scener/graphics/vulkan/xcb/display_surface.hpp"
 
 namespace scener::graphics::vulkan
 {

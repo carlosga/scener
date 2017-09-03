@@ -1,15 +1,15 @@
 #include "scener/graphics/vulkan/physical_device.hpp"
 
+#include <gsl/gsl>
+
 #include "scener/graphics/vulkan/platform.hpp"
-#include "scener/graphics/vulkan/vulkan_result.hpp"
+#include "scener/graphics/vulkan/logical_device.hpp"
 
 namespace scener::graphics::vulkan
 {
     physical_device::physical_device(const vk::PhysicalDevice& physical_device) noexcept
-        : _extension_count   { 0 }
-        , _extension_names   { nullptr }
-        , _layer_count       { 0 }
-        , _layer_names       { nullptr }
+        : _layer_names       { }
+        , _extension_names   { }
         , _properties        { }
         , _memory_properties { }
         , _features          { }
@@ -47,18 +47,10 @@ namespace scener::graphics::vulkan
         auto graphics_queue_family_index = get_graphics_queue_family_index();
         auto present_queue_family_index  = get_present_queue_family_index(surface);
 
-        assert(graphics_queue_family_index != UINT32_MAX);
-        assert(present_queue_family_index != UINT32_MAX);
+        Ensures(graphics_queue_family_index != UINT32_MAX);
+        Ensures(present_queue_family_index != UINT32_MAX);
 
         const float priorities[1] = { 0.0 };
-
-        // Features
-        auto device_features = vk::PhysicalDeviceFeatures()
-            .setTextureCompressionBC(VK_TRUE)
-            .setDepthClamp(VK_TRUE)
-            .setDepthBiasClamp(VK_TRUE)
-            .setDepthBounds(VK_TRUE)
-            .setFillModeNonSolid(VK_TRUE);
 
         std::uint32_t queue_count = 1;
 
@@ -82,25 +74,27 @@ namespace scener::graphics::vulkan
         auto deviceInfo = vk::DeviceCreateInfo()
             .setQueueCreateInfoCount(queue_count)
             .setPQueueCreateInfos(queues)
-            .setEnabledLayerCount(_layer_count)
-            .setPpEnabledLayerNames(_layer_names)
-            .setEnabledExtensionCount(_extension_count)
-            .setPpEnabledExtensionNames(_extension_names)
-            .setPEnabledFeatures(&device_features);
+            // .setEnabledLayerCount(static_cast<std::uint32_t>(_layer_names.size()))
+            // .setPpEnabledLayerNames(_layer_names.data())
+            .setEnabledExtensionCount(static_cast<std::uint32_t>(_extension_names.size()))
+            .setPpEnabledExtensionNames(_extension_names.data())
+            .setPEnabledFeatures(&_features);
 
-        vk::Device vk_device;
+        vk::Device logical_device;
 
-        auto result = _physical_device.createDevice(&deviceInfo, nullptr, &vk_device);
+        auto result = _physical_device.createDevice(&deviceInfo, nullptr, &logical_device);
 
         check_result(result);
 
-        auto surface_format    = get_preferred_surface_format(surface);
+        auto present_mode      = get_present_mode(surface);
         auto surface_caps      = get_surface_capabilities(surface);
-        auto present_mode      = get_present_mode(surface);        
+        auto surface_format    = get_preferred_surface_format(surface);
         auto format_properties = get_format_properties(surface_format.format);
-        
+        auto allocator         = memory_allocator(_physical_device, logical_device);
+
         return {
-            vk_device
+            logical_device
+          , allocator
           , graphics_queue_family_index
           , present_queue_family_index
           , surface_caps
@@ -115,12 +109,11 @@ namespace scener::graphics::vulkan
         /* Look for device layers */
         std::uint32_t layer_count = 0;
 
-        _layer_count = 0;
-        memset(_layer_names, 0, sizeof(_layer_names));
+        _layer_names.resize(0);
 
         auto result = _physical_device.enumerateDeviceLayerProperties(&layer_count, nullptr);
         check_result(result);
-        assert(layer_count < 64);
+        Ensures(layer_count < 64);
 
         if (layer_count > 0)
         {
@@ -133,7 +126,7 @@ namespace scener::graphics::vulkan
             {
                 if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
                 {
-                    _layer_names[_layer_count++] = "VK_LAYER_LUNARG_standard_validation";
+                    _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
                 }
             }
         }
@@ -145,12 +138,11 @@ namespace scener::graphics::vulkan
         std::uint32_t extension_count      = 0;
         vk::Bool32    supports_swap_chains = VK_FALSE;
 
-        _extension_count = 0;
-        memset(_extension_names, 0, sizeof(_extension_names));
+        _extension_names.resize(0);
 
         auto result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, nullptr);
         check_result(result);
-        assert(extension_count < 64);
+        Ensures(extension_count < 64);
 
         if (extension_count > 0)
         {
@@ -164,7 +156,7 @@ namespace scener::graphics::vulkan
                 if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
                 {
                     supports_swap_chains = VK_TRUE;
-                    _extension_names[_extension_count++] = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
+                    _extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
                 }
             }
         }
@@ -187,7 +179,7 @@ namespace scener::graphics::vulkan
 
         _physical_device.getQueueFamilyProperties(&queue_family_count, nullptr);
 
-        assert(queue_family_count >= 1);
+        Ensures(queue_family_count >= 1);
 
         _queue_families.clear();
         _queue_families.resize(queue_family_count);
@@ -286,7 +278,7 @@ namespace scener::graphics::vulkan
     {
         auto formats = get_surface_formats(surface);
 
-        assert(formats.size() >= 1);
+        Ensures(formats.size() >= 1);
 
         // If the format list includes just one entry of VK_FORMAT_UNDEFINED,
         // the surface has no preferred format. Otherwise, at least one
@@ -322,7 +314,7 @@ namespace scener::graphics::vulkan
 
         check_result(result);
 
-        assert(present_mode_count > 0);
+        Ensures(present_mode_count > 0);
 
         std::vector<vk::PresentModeKHR> present_modes(present_mode_count);
 

@@ -14,7 +14,7 @@ find_package (Threads REQUIRED)
 find_package (X11 REQUIRED)
 
 # XCB
-# find_package (XCB REQUIRED)
+find_package (XCB REQUIRED)
 
 # Wayland
 find_package (Wayland REQUIRED)
@@ -33,11 +33,11 @@ add_library (scener SHARED ${HEADER_FILES} ${SOURCE_FILES})
 
 # include directories
 target_include_directories (scener
-                            # PRIVATE ${X11_INCLUDE_DIR}
-                            # PRIVATE ${XCB_INCLUDE_DIRS}
+                            PRIVATE ${X11_INCLUDE_DIR}
+                            PRIVATE ${XCB_INCLUDE_DIRS}
                             PRIVATE ${WAYLAND_CLIENT_INCLUDE_DIR}
                             PRIVATE ${VULKAN_INCLUDE_DIR}
-                            PRIVATE ${VULKAN_HPP_INCLUDE_DIR}
+                            PRIVATE ${AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS}
                             PRIVATE ${JSON_INCLUDE_DIRS}
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
@@ -48,7 +48,7 @@ target_include_directories (scener
 target_link_libraries (scener 
                        pthread 
                        ${X11_LIBRARIES} 
-                       # ${XCB_LIBRARIES} 
+                       ${XCB_LIBRARIES} 
                        ${WAYLAND_CLIENT_LIBRARY} 
                        #${OPENGL_LIBRARIES} 
                        ${VULKAN_LIBRARIES})

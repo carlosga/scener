@@ -1,11 +1,13 @@
 #include "scener/graphics/vulkan/logical_device.hpp"
 
+#include <gsl/gsl>
+
 #include "scener/graphics/vulkan/platform.hpp"
-#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
     logical_device::logical_device(const vk::Device&                 device
+                                 , const memory_allocator&           allocator
                                  , std::uint32_t                     graphics_queue_family_index
                                  , std::uint32_t                     present_queue_family_index
                                  , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -13,6 +15,7 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { device }
+        , _allocator                   { allocator }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -21,25 +24,25 @@ namespace scener::graphics::vulkan
         , _surface_format              { surface_format }
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
-        , _fences                      { }
         , _command_pool                { }
         , _command_buffer              { }
-        , _image_acquired_semaphores   { }
-        , _draw_complete_semaphores    { }
-        , _image_ownership_semaphores  { }
-        , _image_views                 { }
+        , _fences                      { surface_capabilities.minImageCount }
+        , _image_acquired_semaphores   { surface_capabilities.minImageCount }
+        , _draw_complete_semaphores    { surface_capabilities.minImageCount }
+        , _image_ownership_semaphores  { surface_capabilities.minImageCount }
+        , _image_views                 { surface_capabilities.minImageCount }
     {
+        get_device_queues();
         create_command_pool();
         create_command_buffer();
         create_sync_primitives();
-        get_device_queues();
     }
 
     logical_device::~logical_device() noexcept
     {
         destroy_sync_primitives();
 
-        _logical_device.freeCommandBuffers(_command_pool, s_buffer_count, &_command_buffer);
+        _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, &_command_buffer);
         _logical_device.destroyCommandPool(_command_pool, nullptr);
         _logical_device.destroy(nullptr);
     }
@@ -60,17 +63,16 @@ namespace scener::graphics::vulkan
 
         auto extent     = surface.extent(_surface_capabilities);
         auto chain_info = vk::SwapchainCreateInfoKHR()
-            .setSurface(surface.surface())
-            .setMinImageCount(_surface_capabilities.minImageCount)
-            .setImageUsage(vk::ImageUsageFlagBits::eColorAttachment | vk::ImageUsageFlagBits::eTransferSrc)
-            .setImageFormat(_surface_format.format)
-            .setImageExtent(extent)
-            .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
-            .setPreTransform(vk::SurfaceTransformFlagBitsKHR::eIdentity)
+            .setClipped(VK_TRUE)
             .setCompositeAlpha(vk::CompositeAlphaFlagBitsKHR::eOpaque)
+            .setImageUsage(vk::ImageUsageFlagBits::eColorAttachment | vk::ImageUsageFlagBits::eTransferSrc)
+            .setImageArrayLayers(_surface_capabilities.maxImageArrayLayers)
+            .setImageExtent(extent)
+            .setImageFormat(_surface_format.format)
+            .setMinImageCount(_surface_capabilities.minImageCount)
             .setPresentMode(_present_mode)
-            // Is Vulkan allowed to discard operations outside of the renderable space?
-            .setClipped(VK_TRUE);
+            .setPreTransform(_surface_capabilities.currentTransform)
+            .setSurface(surface.surface());
 
         std::vector<uint32_t> queue_indices = { _graphics_queue_family_index, _present_queue_family_index };
 
@@ -88,9 +90,7 @@ namespace scener::graphics::vulkan
         {
             // If the indices are the same, then the queue can have exclusive access to the images.
             chain_info
-                .setImageSharingMode(vk::SharingMode::eExclusive)
-                .setQueueFamilyIndexCount(1)
-                .setPQueueFamilyIndices(queue_indices.data());
+                .setImageSharingMode(vk::SharingMode::eExclusive);
         }
 
         vk::SwapchainKHR swap_chain;
@@ -108,13 +108,13 @@ namespace scener::graphics::vulkan
         result = _logical_device.getSwapchainImagesKHR(swap_chain, &num_images, nullptr);
 
         check_result(result);
-        assert(num_images > 0);
+        Ensures(num_images > 0);
 
         std::vector<vk::Image> swap_chain_images(num_images);
         result = _logical_device.getSwapchainImagesKHR(swap_chain, &num_images, swap_chain_images.data());
 
         check_result(result);
-        assert(num_images > 0);
+        Ensures(num_images > 0);
 
         // Image Views
         //
@@ -122,7 +122,7 @@ namespace scener::graphics::vulkan
         // image views are interfaces to actual images.  Think of it as this.
         // The image exists outside of you.  But the view is your personal view
         // ( how you perceive ) the image.
-        for (std::uint32_t i = 0; i < s_buffer_count; ++i)
+        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
             auto subResourceRange = vk::ImageSubresourceRange()
                 // There are only 4x aspect bits.  And most people will only use 3x.
@@ -196,9 +196,9 @@ namespace scener::graphics::vulkan
     void logical_device::create_command_buffer() noexcept
     {
         auto allocate_info = vk::CommandBufferAllocateInfo()
-            .setLevel(vk::CommandBufferLevel::ePrimary)
             .setCommandPool(_command_pool)
-            .setCommandBufferCount(s_buffer_count);
+            .setCommandBufferCount(_surface_capabilities.minImageCount)
+            .setLevel(vk::CommandBufferLevel::ePrimary);
 
         auto result = _logical_device.allocateCommandBuffers(&allocate_info, &_command_buffer);
 
@@ -214,7 +214,7 @@ namespace scener::graphics::vulkan
         // Create fences that we can use to throttle if we get too far
         // ahead of the image presents
         const auto fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
-        for (std::uint32_t i = 0; i < s_buffer_count; ++i)
+        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
             auto result = _logical_device.createFence(&fence_ci, nullptr, &_fences[i]);
             check_result(result);
@@ -235,7 +235,7 @@ namespace scener::graphics::vulkan
         _logical_device.waitIdle();
 
         // Wait for fences from present operations
-        for (std::uint32_t i = 0; i < s_buffer_count; i++)
+        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; i++)
         {
             _logical_device.waitForFences(1, &_fences[i], VK_TRUE, UINT64_MAX);
             _logical_device.destroyFence(_fences[i], nullptr);

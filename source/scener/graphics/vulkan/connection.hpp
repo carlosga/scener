@@ -38,23 +38,16 @@ namespace scener::graphics::vulkan
         void identify_validation_layers() noexcept;
         void identify_supported_extensions() noexcept;
         void initialize_vulkan() noexcept;
+        void enable_debug_support() noexcept;
         void identify_physical_devices() noexcept;
-
-    private:
-        vk::Bool32 check_layers(uint32_t                 check_count
-                              , char const *const *const check_names
-                              , uint32_t                 layer_count
-                              , vk::LayerProperties*     layers);
 
     private:
         std::uint32_t                _api_version;
         vk::Instance                 _instance;
         vk::DebugReportCallbackEXT   _debug_callback;
+        std::vector<const char*>     _layer_names;
+        std::vector<const char*>     _extension_names;
         std::vector<physical_device> _physical_devices;
-        std::uint32_t                _enabled_extension_count;
-        const char*                  _extension_names[64];
-        std::uint32_t                _enabled_layer_count;
-        const char*                  _enabled_layers[64];
     };
 }
 

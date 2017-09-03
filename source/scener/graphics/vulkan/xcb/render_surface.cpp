@@ -2,9 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // ==================================================================================================
 
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+#ifdef VK_USE_PLATFORM_XCB_KHR
 
-#include "scener/graphics/vulkan/wayland/render_surface.hpp"
+#include "scener/graphics/vulkan/xcb/render_surface.hpp"
 
 #include "scener/graphics/vulkan/connection.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
@@ -16,14 +16,14 @@ namespace scener::graphics::vulkan
                                  , const display_surface& display_surface) noexcept
         : _connection      { connection }
         , _display_surface { display_surface }
-        , _render_surface  { }
+        , _render_surface      { }
     {
         // Create vulkan surface
-        auto create_info = vk::WaylandSurfaceCreateInfoKHR()
-            .setDisplay(display_surface.display())
-            .setSurface(display_surface.surface());
+        auto create_info = vk::XcbSurfaceCreateInfoKHR()
+            .setConnection(display_surface.connection())
+            .setWindow(display_surface.window());
 
-        auto result = _connection.vulkan().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
+        auto result = connection.vulkan().createXcbSurfaceKHR(&create_info, nullptr, &_render_surface);
 
         check_result(result);
     }

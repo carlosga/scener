@@ -16,9 +16,6 @@ set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 # microsoft/gsl
 set (GSL_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/gsl/include)
 
-# vulkan-hpp
-set (VULKAN_HPP_INCLUDE_DIR ${EXTERNALS_BASE_DIR}/vulkan-hpp)
-
 # json for modern C++
 set (JSON_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/json/src)
 
@@ -27,6 +24,9 @@ set (NOD_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/nod/include)
 
 # scener math
 set (SCENER_MATH_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/scener-math/source)
+
+# nod/signals & slots (https://github.com/fr00b0/nod)
+set (AMD_VULKAN_MEMORY_ALLOCATOR_INCLUDE_DIRS ${EXTERNALS_BASE_DIR}/vulkan-memory-allocator/src)
 
 # reconfigure final output directory
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
@@ -69,8 +69,8 @@ set (SCENER_LIBRARIES     scener)
 set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
 
 # global definitions
-add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
-# add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
+# add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
+add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
 
 # project subdirectories
 add_subdirectory (source)

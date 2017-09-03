@@ -5,7 +5,7 @@
 
 #include <vulkan/vulkan.hpp>
 
-#include <gsl/gsl>
+#include "scener/graphics/vulkan/memory_allocator.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -13,10 +13,9 @@ namespace scener::graphics::vulkan
 
     class logical_device final
     {
-        inline const static std::uint32_t s_buffer_count = 2;
-
     public:
         logical_device(const vk::Device&                 device
+                     , const memory_allocator&           allocator
                      , std::uint32_t                     graphics_queue_family_index
                      , std::uint32_t                     present_queue_family_index
                      , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -43,6 +42,7 @@ namespace scener::graphics::vulkan
         
     private:
         vk::Device                  _logical_device;
+        memory_allocator            _allocator;
         std::uint32_t               _graphics_queue_family_index;
         vk::Queue                   _graphics_queue;
         std::uint32_t               _present_queue_family_index;
@@ -51,13 +51,13 @@ namespace scener::graphics::vulkan
         vk::SurfaceFormatKHR        _surface_format;
         vk::PresentModeKHR          _present_mode;
         vk::FormatProperties        _format_properties;
-        vk::Fence                   _fences[s_buffer_count];
         vk::CommandPool             _command_pool;
         vk::CommandBuffer           _command_buffer;
-        vk::Semaphore               _image_acquired_semaphores[s_buffer_count];
-        vk::Semaphore               _draw_complete_semaphores[s_buffer_count];
-        vk::Semaphore               _image_ownership_semaphores[s_buffer_count];
-        vk::ImageView               _image_views[s_buffer_count];
+        std::vector<vk::Fence>      _fences;
+        std::vector<vk::Semaphore>  _image_acquired_semaphores;
+        std::vector<vk::Semaphore>  _draw_complete_semaphores;
+        std::vector<vk::Semaphore>  _image_ownership_semaphores;
+        std::vector<vk::ImageView>  _image_views;
     };
 }
 
