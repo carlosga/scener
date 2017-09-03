@@ -116,10 +116,7 @@ namespace scener::graphics::vulkan
 
         wl_shell_surface_set_toplevel(_wl_shell_surface);
         wl_shell_surface_set_title(_wl_shell_surface, title.c_str());
-
-        wl_surface_commit(_wl_surface);
-        wl_display_flush(_wl_display);
-        
+       
         _rect = rect;
     }
 

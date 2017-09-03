@@ -41,23 +41,23 @@ namespace scener::graphics::vulkan
         void destroy_sync_primitives() noexcept;
         
     private:
-        vk::Device                  _logical_device;
-        memory_allocator            _allocator;
-        std::uint32_t               _graphics_queue_family_index;
-        vk::Queue                   _graphics_queue;
-        std::uint32_t               _present_queue_family_index;
-        vk::Queue                   _present_queue;
-        vk::SurfaceCapabilitiesKHR  _surface_capabilities;
-        vk::SurfaceFormatKHR        _surface_format;
-        vk::PresentModeKHR          _present_mode;
-        vk::FormatProperties        _format_properties;
-        vk::CommandPool             _command_pool;
-        vk::CommandBuffer           _command_buffer;
-        std::vector<vk::Fence>      _fences;
-        std::vector<vk::Semaphore>  _image_acquired_semaphores;
-        std::vector<vk::Semaphore>  _draw_complete_semaphores;
-        std::vector<vk::Semaphore>  _image_ownership_semaphores;
-        std::vector<vk::ImageView>  _image_views;
+        vk::Device                     _logical_device;
+        memory_allocator               _allocator;
+        std::uint32_t                  _graphics_queue_family_index;
+        vk::Queue                      _graphics_queue;
+        std::uint32_t                  _present_queue_family_index;
+        vk::Queue                      _present_queue;
+        vk::SurfaceCapabilitiesKHR     _surface_capabilities;
+        vk::SurfaceFormatKHR           _surface_format;
+        vk::PresentModeKHR             _present_mode;
+        vk::FormatProperties           _format_properties;
+        vk::CommandPool                _command_pool;
+        std::vector<vk::CommandBuffer> _command_buffers;
+        std::vector<vk::Fence>         _fences;
+        std::vector<vk::Semaphore>     _image_acquired_semaphores;
+        std::vector<vk::Semaphore>     _draw_complete_semaphores;
+        std::vector<vk::Semaphore>     _image_ownership_semaphores;
+        std::vector<vk::ImageView>     _image_views;
     };
 }
 

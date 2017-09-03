@@ -25,7 +25,7 @@ namespace scener::graphics::vulkan
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
         , _command_pool                { }
-        , _command_buffer              { }
+        , _command_buffers             { surface_capabilities.minImageCount }
         , _fences                      { surface_capabilities.minImageCount }
         , _image_acquired_semaphores   { surface_capabilities.minImageCount }
         , _draw_complete_semaphores    { surface_capabilities.minImageCount }
@@ -42,7 +42,7 @@ namespace scener::graphics::vulkan
     {
         destroy_sync_primitives();
 
-        _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, &_command_buffer);
+        _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
         _logical_device.destroyCommandPool(_command_pool, nullptr);
         _logical_device.destroy(nullptr);
     }
@@ -171,15 +171,7 @@ namespace scener::graphics::vulkan
     void logical_device::get_device_queues() noexcept
     {
         _graphics_queue = _logical_device.getQueue(_graphics_queue_family_index, 0);
-
-        if (_graphics_queue_family_index != _present_queue_family_index)
-        {
-            _present_queue = _logical_device.getQueue(_present_queue_family_index, 1);
-        }
-        else
-        {
-            _present_queue = vk::Queue(_graphics_queue);
-        }
+        _present_queue = _logical_device.getQueue(_present_queue_family_index, 0);
     }
 
     void logical_device::create_command_pool() noexcept
@@ -200,7 +192,9 @@ namespace scener::graphics::vulkan
             .setCommandBufferCount(_surface_capabilities.minImageCount)
             .setLevel(vk::CommandBufferLevel::ePrimary);
 
-        auto result = _logical_device.allocateCommandBuffers(&allocate_info, &_command_buffer);
+        _command_buffers.resize(_surface_capabilities.minImageCount);
+
+        auto result = _logical_device.allocateCommandBuffers(&allocate_info, _command_buffers.data());
 
         check_result(result);
     }
@@ -211,22 +205,20 @@ namespace scener::graphics::vulkan
         // rendering and waiting for drawing to be complete before presenting
         const auto semaphoreCreateInfo = vk::SemaphoreCreateInfo();
 
+        _fences.resize(_surface_capabilities.minImageCount);
+        _image_acquired_semaphores.resize(_surface_capabilities.minImageCount);
+        _draw_complete_semaphores.resize(_surface_capabilities.minImageCount);
+        _image_ownership_semaphores.resize(_surface_capabilities.minImageCount);
+    
         // Create fences that we can use to throttle if we get too far
         // ahead of the image presents
         const auto fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
         for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
-            auto result = _logical_device.createFence(&fence_ci, nullptr, &_fences[i]);
-            check_result(result);
-
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_acquired_semaphores[i]);
-            check_result(result);
-
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_draw_complete_semaphores[i]);
-            check_result(result);
-
-            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_ownership_semaphores[i]);
-            check_result(result);
+            _fences.push_back(_logical_device.createFence(fence_ci, nullptr));
+            _image_acquired_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
+            _draw_complete_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
+            _image_ownership_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
         }
     }
 

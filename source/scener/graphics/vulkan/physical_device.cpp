@@ -80,12 +80,7 @@ namespace scener::graphics::vulkan
             .setPpEnabledExtensionNames(_extension_names.data())
             .setPEnabledFeatures(&_features);
 
-        vk::Device logical_device;
-
-        auto result = _physical_device.createDevice(&deviceInfo, nullptr, &logical_device);
-
-        check_result(result);
-
+        auto logical_device    = _physical_device.createDevice(deviceInfo, nullptr);
         auto present_mode      = get_present_mode(surface);
         auto surface_caps      = get_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
@@ -181,7 +176,6 @@ namespace scener::graphics::vulkan
 
         Ensures(queue_family_count >= 1);
 
-        _queue_families.clear();
         _queue_families.resize(queue_family_count);
 
         _physical_device.getQueueFamilyProperties(&queue_family_count, _queue_families.data());
@@ -197,14 +191,8 @@ namespace scener::graphics::vulkan
 
     vk::SurfaceCapabilitiesKHR physical_device::get_surface_capabilities(const render_surface& surface) const noexcept
     {
-        vk::SurfaceCapabilitiesKHR capabilities;
-
         // Surface capabilities basically describes what kind of image you can render to the user.
-        auto result = _physical_device.getSurfaceCapabilitiesKHR(surface.surface(), &capabilities);
-
-        check_result(result);
-
-        return capabilities;
+        return _physical_device.getSurfaceCapabilitiesKHR(surface.surface());
     }
 
     std::vector<vk::Bool32> physical_device::get_surface_present_support(const render_surface& surface) const noexcept

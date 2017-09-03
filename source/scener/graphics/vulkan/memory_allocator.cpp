@@ -12,8 +12,8 @@ namespace scener::graphics::vulkan
     memory_allocator::memory_allocator(const vk::PhysicalDevice& physical_device, const vk::Device& logical_device) noexcept
     {
         VmaAllocatorCreateInfo allocatorInfo = { };
-        allocatorInfo.physicalDevice = (VkPhysicalDevice)physical_device;
-        allocatorInfo.device         = (VkDevice)logical_device;
+        allocatorInfo.physicalDevice = physical_device;
+        allocatorInfo.device         = logical_device;
 
         vmaCreateAllocator(&allocatorInfo, &_allocator);
     }

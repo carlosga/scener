@@ -1,12 +1,6 @@
 cmake_minimum_required (VERSION 3.2.2)
-project (scener::samples::vulkan::sample)
+project (scener::samples::vulkan)
 enable_language (CXX)
-
-# pthread
-find_package (Threads REQUIRED)
-
-# link directories
-link_directories (${SCENER_FRAMEWORK_LIB_DIRS})
 
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
@@ -18,10 +12,9 @@ add_executable (vulkan-sample ${SOURCE_FILES})
 target_include_directories (vulkan-sample
                             PRIVATE ${GSL_INCLUDE_DIRS}
                             PRIVATE ${NOD_INCLUDE_DIRS}
-                            PRIVATE ${VULKAN_INCLUDE_DIR}
                             PRIVATE ${SCENER_MATH_INCLUDE_DIRS}
                             PRIVATE ${SCENER_INCLUDE_DIRS}
                             PRIVATE ${SCENER_SAMPLES_INCLUDE_DIR})
 
 # target links
-target_link_libraries (vulkan-sample pthread ${SCENER_LIBRARIES})
+target_link_libraries (vulkan-sample ${SCENER_LIBRARIES})

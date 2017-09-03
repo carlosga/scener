@@ -9,7 +9,6 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS on)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # external dependencies
-#
 # base directory
 set (EXTERNALS_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/externals)
 
@@ -51,13 +50,10 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lc++ -lc++abi")
   set (CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -lc++ -lc++abi")
 
-elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
-
-  message ("-> GCC")
-
-else ()
-
-  message ("-> unknown compiler ...")
+# elseif ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )  
+#   message ("-> GCC")
+# else ()
+#   message ("-> unknown compiler ...")
 
 endif ()
 
@@ -66,15 +62,13 @@ set (SCENER_INCLUDE_DIRS  ${CMAKE_SOURCE_DIR}/source)
 set (SCENER_LIB_DIRS      ${PROJECT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 set (SCENER_LIBRARIES     scener)
 
-set (SCENER_SAMPLES_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/source/samples)
-
 # global definitions
-# add_definitions(-DVK_USE_PLATFORM_WAYLAND_KHR)
-add_definitions(-DVK_USE_PLATFORM_XCB_KHR)
+# set (VK_USE_PLATFORM_WAYLAND_KHR "1")
+set (VK_USE_PLATFORM_XCB_KHR "1")
 
 # project subdirectories
 add_subdirectory (source)
 
 # unit tests
-enable_testing()
-add_subdirectory(tests)
+# enable_testing()
+# add_subdirectory(tests)
