@@ -74,8 +74,6 @@ namespace scener::graphics::vulkan
         auto deviceInfo = vk::DeviceCreateInfo()
             .setQueueCreateInfoCount(queue_count)
             .setPQueueCreateInfos(queues)
-            // .setEnabledLayerCount(static_cast<std::uint32_t>(_layer_names.size()))
-            // .setPpEnabledLayerNames(_layer_names.data())
             .setEnabledExtensionCount(static_cast<std::uint32_t>(_extension_names.size()))
             .setPpEnabledExtensionNames(_extension_names.data())
             .setPEnabledFeatures(&_features);
@@ -85,11 +83,9 @@ namespace scener::graphics::vulkan
         auto surface_caps      = get_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
         auto format_properties = get_format_properties(surface_format.format);
-        auto allocator         = memory_allocator(_physical_device, logical_device);
-
+        
         return {
             logical_device
-          , allocator
           , graphics_queue_family_index
           , present_queue_family_index
           , surface_caps
@@ -102,27 +98,15 @@ namespace scener::graphics::vulkan
     void physical_device::identify_layers() noexcept
     {
         /* Look for device layers */
-        std::uint32_t layer_count = 0;
+        _layer_names.clear();
 
-        _layer_names.resize(0);
+        auto layers = _physical_device.enumerateDeviceLayerProperties();
 
-        auto result = _physical_device.enumerateDeviceLayerProperties(&layer_count, nullptr);
-        check_result(result);
-        Ensures(layer_count < 64);
-
-        if (layer_count > 0)
+        for (std::uint32_t i = 0; i < layers.size(); ++i)
         {
-            std::vector<vk::LayerProperties> layers(layer_count);
-
-            result = _physical_device.enumerateDeviceLayerProperties(&layer_count, layers.data());
-            check_result(result);
-
-            for (std::uint32_t i = 0; i < layer_count; ++i)
+            if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
             {
-                if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
-                {
-                    _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
-                }
+                _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
             }
         }
     }
@@ -130,29 +114,18 @@ namespace scener::graphics::vulkan
     void physical_device::identify_extensions() noexcept
     {
         /* Look for device extensions */
-        std::uint32_t extension_count      = 0;
-        vk::Bool32    supports_swap_chains = VK_FALSE;
+        vk::Bool32 supports_swap_chains = VK_FALSE;
 
-        _extension_names.resize(0);
+        _extension_names.clear();
 
-        auto result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, nullptr);
-        check_result(result);
-        Ensures(extension_count < 64);
+        auto extensions = _physical_device.enumerateDeviceExtensionProperties(nullptr);
 
-        if (extension_count > 0)
+        for (std::uint32_t i = 0; i < extensions.size(); ++i)
         {
-            std::vector<vk::ExtensionProperties> extensions(extension_count);
-
-            result = _physical_device.enumerateDeviceExtensionProperties(nullptr, &extension_count, extensions.data());
-            check_result(result);
-
-            for (std::uint32_t i = 0; i < extension_count; ++i)
+            if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
             {
-                if (!strcmp(VK_KHR_SWAPCHAIN_EXTENSION_NAME, extensions[i].extensionName))
-                {
-                    supports_swap_chains = VK_TRUE;
-                    _extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
-                }
+                supports_swap_chains = VK_TRUE;
+                _extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
             }
         }
 
@@ -164,8 +137,8 @@ namespace scener::graphics::vulkan
 
     void physical_device::identify_properties() noexcept
     {
-        _physical_device.getProperties(&_properties);
-        _physical_device.getMemoryProperties(&_memory_properties);
+        _properties        = _physical_device.getProperties();
+        _memory_properties = _physical_device.getMemoryProperties();
     }
 
     void physical_device::identify_queue_families() noexcept
@@ -186,7 +159,7 @@ namespace scener::graphics::vulkan
         // Query fine-grained feature support for this device.
         //  If app has specific feature requirements it should check supported
         //  features based on this query
-        _physical_device.getFeatures(&_features);
+        _features = _physical_device.getFeatures();
     }
 
     vk::SurfaceCapabilitiesKHR physical_device::get_surface_capabilities(const render_surface& surface) const noexcept
@@ -201,8 +174,7 @@ namespace scener::graphics::vulkan
         std::vector<vk::Bool32> supports_present(_queue_families.size());
         for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
-            auto result = _physical_device.getSurfaceSupportKHR(i, surface.surface(), &supports_present[i]);
-            check_result(result);
+            supports_present[i] = _physical_device.getSurfaceSupportKHR(i, surface.surface());
         }
         return supports_present;
     }

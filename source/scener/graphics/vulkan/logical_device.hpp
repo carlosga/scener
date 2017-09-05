@@ -15,7 +15,6 @@ namespace scener::graphics::vulkan
     {
     public:
         logical_device(const vk::Device&                 device
-                     , const memory_allocator&           allocator
                      , std::uint32_t                     graphics_queue_family_index
                      , std::uint32_t                     present_queue_family_index
                      , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -42,7 +41,6 @@ namespace scener::graphics::vulkan
         
     private:
         vk::Device                     _logical_device;
-        memory_allocator               _allocator;
         std::uint32_t                  _graphics_queue_family_index;
         vk::Queue                      _graphics_queue;
         std::uint32_t                  _present_queue_family_index;
@@ -52,6 +50,8 @@ namespace scener::graphics::vulkan
         vk::PresentModeKHR             _present_mode;
         vk::FormatProperties           _format_properties;
         vk::CommandPool                _command_pool;
+        vk::SwapchainKHR               _swap_chain;
+        std::vector<vk::Image>         _swap_chain_images;
         std::vector<vk::CommandBuffer> _command_buffers;
         std::vector<vk::Fence>         _fences;
         std::vector<vk::Semaphore>     _image_acquired_semaphores;

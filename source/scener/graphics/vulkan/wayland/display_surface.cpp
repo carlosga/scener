@@ -121,7 +121,7 @@ namespace scener::graphics::vulkan
     }
 
     void display_surface::destroy() noexcept
-    {
+    {       
         if (_wl_shell_surface != nullptr)
         {
             wl_shell_surface_destroy(_wl_shell_surface);

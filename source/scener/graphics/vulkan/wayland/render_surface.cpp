@@ -23,7 +23,9 @@ namespace scener::graphics::vulkan
             .setDisplay(display_surface.display())
             .setSurface(display_surface.surface());
 
-        _render_surface = _connection.vulkan().createWaylandSurfaceKHR(create_info, nullptr);
+        auto result = _connection.vulkan().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
+
+        check_result(result);
     }
 
     render_surface::~render_surface()

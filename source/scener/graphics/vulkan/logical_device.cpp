@@ -7,7 +7,6 @@
 namespace scener::graphics::vulkan
 {
     logical_device::logical_device(const vk::Device&                 device
-                                 , const memory_allocator&           allocator
                                  , std::uint32_t                     graphics_queue_family_index
                                  , std::uint32_t                     present_queue_family_index
                                  , const vk::SurfaceCapabilitiesKHR& surface_capabilities
@@ -15,7 +14,6 @@ namespace scener::graphics::vulkan
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { device }
-        , _allocator                   { allocator }
         , _graphics_queue_family_index { graphics_queue_family_index }
         , _graphics_queue              { }
         , _present_queue_family_index  { present_queue_family_index }
@@ -25,6 +23,8 @@ namespace scener::graphics::vulkan
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
         , _command_pool                { }
+        , _swap_chain                  { }
+        , _swap_chain_images           { }
         , _command_buffers             { surface_capabilities.minImageCount }
         , _fences                      { surface_capabilities.minImageCount }
         , _image_acquired_semaphores   { surface_capabilities.minImageCount }
@@ -42,8 +42,26 @@ namespace scener::graphics::vulkan
     {
         destroy_sync_primitives();
 
-        _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
+        if (_command_buffers.size() > 0)
+        {
+            _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());            
+            _command_buffers.clear();
+        }
+
         _logical_device.destroyCommandPool(_command_pool, nullptr);
+
+        for (std::uint32_t i = 0; i < _image_views.size(); ++i)
+        {
+            _logical_device.destroyImageView(_image_views[i], nullptr);
+        }
+
+        _image_views.clear();
+
+        _logical_device.destroySwapchainKHR(_swap_chain, nullptr);
+
+        // swap chain images are destroyed by the vulkan driver
+        _swap_chain_images.clear();
+
         _logical_device.destroy(nullptr);
     }
 
@@ -93,11 +111,7 @@ namespace scener::graphics::vulkan
                 .setImageSharingMode(vk::SharingMode::eExclusive);
         }
 
-        vk::SwapchainKHR swap_chain;
-
-        auto result = _logical_device.createSwapchainKHR(&chain_info, nullptr, &swap_chain);
-
-        check_result(result);
+        _swap_chain = _logical_device.createSwapchainKHR(chain_info, nullptr);
 
         // Retrieve the swapchain images from the device.
         // Note that VkImage is simply a handle like everything else.
@@ -105,13 +119,13 @@ namespace scener::graphics::vulkan
         // First call gets numImages.
         std::uint32_t num_images = 0;
 
-        result = _logical_device.getSwapchainImagesKHR(swap_chain, &num_images, nullptr);
+        auto result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, nullptr);
 
         check_result(result);
         Ensures(num_images > 0);
 
-        std::vector<vk::Image> swap_chain_images(num_images);
-        result = _logical_device.getSwapchainImagesKHR(swap_chain, &num_images, swap_chain_images.data());
+        _swap_chain_images.resize(num_images);
+        result = _logical_device.getSwapchainImagesKHR(_swap_chain, &num_images, _swap_chain_images.data());
 
         check_result(result);
         Ensures(num_images > 0);
@@ -122,7 +136,7 @@ namespace scener::graphics::vulkan
         // image views are interfaces to actual images.  Think of it as this.
         // The image exists outside of you.  But the view is your personal view
         // ( how you perceive ) the image.
-        for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
+        for (std::uint32_t i = 0; i < num_images; ++i)
         {
             auto subResourceRange = vk::ImageSubresourceRange()
                 // There are only 4x aspect bits.  And most people will only use 3x.
@@ -148,7 +162,7 @@ namespace scener::graphics::vulkan
 
             auto image_view_create_info = vk::ImageViewCreateInfo()
                 // Just plug it in
-                .setImage(swap_chain_images[i])
+                .setImage(_swap_chain_images[i])
                 // These are 2D images
                 .setViewType(vk::ImageViewType::e2D)
                 // The selected format
@@ -158,20 +172,16 @@ namespace scener::graphics::vulkan
                 .setSubresourceRange(subResourceRange);
 
             // Create the view
-            vk::ImageView image_view;
-
-            result = _logical_device.createImageView(&image_view_create_info, nullptr, &image_view);
+            result = _logical_device.createImageView(&image_view_create_info, nullptr, &_image_views[i]);
 
             check_result(result);
-
-            _image_views[i] = std::move(image_view);
         }
     }
 
     void logical_device::get_device_queues() noexcept
     {
-        _graphics_queue = _logical_device.getQueue(_graphics_queue_family_index, 0);
-        _present_queue = _logical_device.getQueue(_present_queue_family_index, 0);
+        _logical_device.getQueue(_graphics_queue_family_index, 0, &_graphics_queue);
+        _logical_device.getQueue(_present_queue_family_index, 0, &_present_queue);
     }
 
     void logical_device::create_command_pool() noexcept
@@ -215,10 +225,17 @@ namespace scener::graphics::vulkan
         const auto fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);
         for (std::uint32_t i = 0; i < _surface_capabilities.minImageCount; ++i)
         {
-            _fences.push_back(_logical_device.createFence(fence_ci, nullptr));
-            _image_acquired_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
-            _draw_complete_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
-            _image_ownership_semaphores.push_back(_logical_device.createSemaphore(semaphoreCreateInfo, nullptr));
+            auto result = _logical_device.createFence(&fence_ci, nullptr, &_fences[i]);
+            check_result(result);
+
+            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_acquired_semaphores[i]);
+            check_result(result);
+
+            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_draw_complete_semaphores[i]);
+            check_result(result);
+
+            result = _logical_device.createSemaphore(&semaphoreCreateInfo, nullptr, &_image_ownership_semaphores[i]);
+            check_result(result);
         }
     }
 
@@ -235,5 +252,11 @@ namespace scener::graphics::vulkan
             _logical_device.destroySemaphore(_draw_complete_semaphores[i], nullptr);
             _logical_device.destroySemaphore(_image_ownership_semaphores[i], nullptr);
         }
+
+        _fences.clear();
+        _image_acquired_semaphores.clear();
+        _draw_complete_semaphores.clear();
+        _draw_complete_semaphores.clear();
+        _image_ownership_semaphores.clear();
     }
 }
