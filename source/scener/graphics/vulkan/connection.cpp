@@ -3,9 +3,6 @@
 #include <ctime>
 #include <iostream>
 #include <iomanip>
-#include <memory>
-
-#include <gsl/gsl>
 
 #include "scener/graphics/vulkan/extensions.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
@@ -62,18 +59,12 @@ namespace scener::graphics::vulkan
         , _extension_names  { }
         , _physical_devices { }
     {
+        create();
     }
 
     connection::~connection() noexcept
     {
-        if (_instance)
-        {
-            if (_debug_callback)
-            {
-                _instance.destroyDebugReportCallbackEXT(_debug_callback, nullptr);                
-            }
-            _instance.destroy(nullptr);
-        }
+        _instance.destroy(nullptr);
     }
 
     const vk::Instance& connection::vulkan() const noexcept
@@ -91,7 +82,7 @@ namespace scener::graphics::vulkan
         return _physical_devices;
     }
 
-    void connection::connect() noexcept
+    void connection::create() noexcept
     {
         identify_validation_layers();
         identify_supported_extensions();

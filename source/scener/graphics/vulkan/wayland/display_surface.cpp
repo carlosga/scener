@@ -42,7 +42,7 @@ namespace scener::graphics::vulkan
         self->seat_capabilities(seat, caps);
     }
 
-    display_surface::display_surface() noexcept
+    display_surface::display_surface(const std::string& title, const basic_rect<std::uint32_t>& rect) noexcept
         : _wl_display       { nullptr }
         , _wl_compositor    { nullptr }
         , _wl_surface       { nullptr }
@@ -51,6 +51,7 @@ namespace scener::graphics::vulkan
         , _wl_seat          { nullptr }
         , _rect             { }
     {
+        create(title, rect);
     }
 
     display_surface::~display_surface() noexcept

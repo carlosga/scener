@@ -12,25 +12,30 @@
 
 namespace scener::graphics::vulkan
 {
-    render_surface::render_surface(const connection&      connection
-                                 , const display_surface& display_surface) noexcept
+    render_surface::render_surface(gsl::not_null<connection*>      connection
+                                 , gsl::not_null<display_surface*> display_surface) noexcept
         : _connection      { connection }
         , _display_surface { display_surface }
         , _render_surface  { }
     {
         // Create vulkan surface
         auto create_info = vk::WaylandSurfaceCreateInfoKHR()
-            .setDisplay(display_surface.display())
-            .setSurface(display_surface.surface());
+            .setDisplay(display_surface->display())
+            .setSurface(display_surface->surface());
 
-        auto result = _connection.vulkan().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
+        auto result = _connection->vulkan().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
 
         check_result(result);
     }
 
     render_surface::~render_surface()
     {
-        _connection.vulkan().destroySurfaceKHR(_render_surface, nullptr);
+        if (_connection != nullptr)
+        {
+            _connection->vulkan().destroySurfaceKHR(_render_surface, nullptr);
+            _connection = nullptr;
+        }
+        _display_surface = nullptr;
     }
 
     const vk::SurfaceKHR& render_surface::surface() const noexcept
@@ -46,7 +51,7 @@ namespace scener::graphics::vulkan
         // However if Vulkan returns -1 then simply substitute the window size.
         if (capabilities.currentExtent.width == UINT32_MAX)
         {
-            const auto& rect = _display_surface.rect();
+            const auto& rect = _display_surface->rect();
 
             extent.width  = rect.width();
             extent.height = rect.height();

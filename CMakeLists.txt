@@ -64,7 +64,7 @@ set (SCENER_LIBRARIES     scener)
 
 # global definitions
 set (VK_USE_PLATFORM_WAYLAND_KHR "1")
-#set (VK_USE_PLATFORM_XCB_KHR "1")
+# set (VK_USE_PLATFORM_XCB_KHR "1")
 
 # project subdirectories
 add_subdirectory (source)

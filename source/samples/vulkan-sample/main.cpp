@@ -11,20 +11,17 @@ using scener::graphics::vulkan::render_surface;
 
 int main()
 {
-    connection connection(VK_MAKE_VERSION(1, 0, VK_HEADER_VERSION));
+    // display surface (Wayland/XCB/...)
+    auto dsurface = display_surface("SceneR", { 0, 0, 1600, 900 });
 
-    connection.connect();
-
-    // display surface (Wayland based)
-    auto dsurface = display_surface();
-
-    dsurface.create("SceneR", { 0, 0, 1600, 900 });
-
-    // Physical device (GPU)
-    auto pdevice  = connection.physical_devices()[0];
+    // Vulkan instance
+    auto instance = connection(VK_MAKE_VERSION(1, 0, VK_HEADER_VERSION));
 
     // Render surface (Vulkan - Wayland based)
-    auto rsurface = render_surface(connection, dsurface);
+    auto rsurface = render_surface(&instance, &dsurface);
+    
+    // Physical device (GPU)
+    auto pdevice = instance.physical_devices()[0];
 
     // Logical device (Vulkan)
     auto ldevice = pdevice.create_logical_device(rsurface);

@@ -24,7 +24,9 @@ namespace scener::graphics::vulkan
     {
     public:
         /// Initializes a new instance of the display_surface class.
-        display_surface() noexcept;
+        /// \param title the initial window title
+        /// \param rect the initial window location & size
+        display_surface(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
 
         /// Releases all resources being used by this DisplaySurface instance.
         ~display_surface() noexcept;
@@ -34,15 +36,7 @@ namespace scener::graphics::vulkan
         const xcb_window_t& window() const noexcept;
         scener::math::basic_rect<std::uint32_t> rect() const noexcept;
     
-    public:
-        /// Creates the display surface with the given width and height.
-        /// \param title the initial window title
-        /// \param rect the initial window location & size
-        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
-        
-        /// Destroys this DisplaySurface instance.
-        void destroy() noexcept;
-
+    public:       
         /// Clears the entire area of this display surface.
         void clear() noexcept;
 
@@ -52,6 +46,10 @@ namespace scener::graphics::vulkan
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
        
+    private:        
+        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
+        void destroy() noexcept;
+        
     private:
         xcb_window_t             _window;
         xcb_screen_t*            _screen;

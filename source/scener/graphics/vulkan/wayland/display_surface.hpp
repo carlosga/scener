@@ -33,7 +33,9 @@ namespace scener::graphics::vulkan
 
     public:
         /// Initializes a new instance of the display_surface class.
-        display_surface() noexcept;
+        /// \param title the initial window title
+        /// \param rect the initial window location & size
+        display_surface(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
 
         /// Releases all resources being used by this display_surface instance.
         ~display_surface() noexcept;
@@ -44,14 +46,6 @@ namespace scener::graphics::vulkan
         scener::math::basic_rect<std::uint32_t> rect() const noexcept;
 
     public:
-        /// Creates the display surface with the given width and height.
-        /// \param title the initial window title
-        /// \param rect the initial window location & size
-        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
-
-        /// Destroys this display_surface instance.
-        void destroy() noexcept;
-
         /// Clears the entire area of this display surface.
         void clear() noexcept;
 
@@ -62,6 +56,8 @@ namespace scener::graphics::vulkan
         void pool_events() noexcept;
 
     private:
+        void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
+        void destroy() noexcept;
         void registry_handler(struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version);
         void registry_remover(struct wl_registry *registry, std::uint32_t id);
         void seat_capabilities(wl_seat *seat, std::uint32_t caps);

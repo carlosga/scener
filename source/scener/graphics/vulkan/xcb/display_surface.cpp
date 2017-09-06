@@ -11,12 +11,13 @@ namespace scener::graphics::vulkan
 {
     using scener::math::basic_rect;
 
-    display_surface::display_surface() noexcept
-        : _window            { 0 }
+    display_surface::display_surface(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept
+        : _window                { 0 }
         , _screen                { nullptr }
         , _connection            { nullptr }
         , _atom_wm_delete_window { nullptr }
     {
+        create(title, rect);
     }
 
     display_surface::~display_surface() noexcept

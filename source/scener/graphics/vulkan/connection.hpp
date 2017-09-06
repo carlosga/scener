@@ -30,11 +30,9 @@ namespace scener::graphics::vulkan
         const vk::Instance& vulkan() const noexcept;
         std::uint32_t api_version() const noexcept;
         const std::vector<physical_device>& physical_devices() const noexcept;
-
-    public:
-        void connect() noexcept;
         
     private:
+        void create() noexcept;
         void identify_validation_layers() noexcept;
         void identify_supported_extensions() noexcept;
         void initialize_vulkan() noexcept;
