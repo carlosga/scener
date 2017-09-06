@@ -44,7 +44,7 @@ namespace scener::graphics::vulkan
 
         if (_command_buffers.size() > 0)
         {
-            _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());            
+            _logical_device.freeCommandBuffers(_command_pool, _surface_capabilities.minImageCount, _command_buffers.data());
             _command_buffers.clear();
         }
 
@@ -94,7 +94,8 @@ namespace scener::graphics::vulkan
 
         std::vector<uint32_t> queue_indices = { _graphics_queue_family_index, _present_queue_family_index };
 
-        // If the graphics queue family and present family don't match then we need to create the swapchain with different information.
+        // If the graphics queue family and present family don't match then we need to create the
+        // swapchain with different information.
         if (_graphics_queue_family_index != _present_queue_family_index)
         {
             // There are only two sharing modes.  This is the one to use
@@ -219,7 +220,7 @@ namespace scener::graphics::vulkan
         _image_acquired_semaphores.resize(_surface_capabilities.minImageCount);
         _draw_complete_semaphores.resize(_surface_capabilities.minImageCount);
         _image_ownership_semaphores.resize(_surface_capabilities.minImageCount);
-    
+
         // Create fences that we can use to throttle if we get too far
         // ahead of the image presents
         const auto fence_ci = vk::FenceCreateInfo().setFlags(vk::FenceCreateFlagBits::eSignaled);

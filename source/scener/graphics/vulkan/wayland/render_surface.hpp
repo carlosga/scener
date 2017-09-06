@@ -8,17 +8,17 @@
 #include <gsl/gsl>
 #include <vulkan/vulkan.hpp>
 
-#include "scener/graphics/vulkan/connection.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/wayland/display_surface.hpp"
 
 namespace scener::graphics::vulkan
 {
-    class connection;    
+    class adapter;    
 
     class render_surface final
     {
     public:
-        render_surface(gsl::not_null<connection*>      connection
+        render_surface(gsl::not_null<adapter*>         adapter
                      , gsl::not_null<display_surface*> display_surface) noexcept;
 
         ~render_surface() noexcept;
@@ -30,7 +30,7 @@ namespace scener::graphics::vulkan
         vk::Extent2D extent(const vk::SurfaceCapabilitiesKHR& capabilities) const noexcept;
 
     private:
-        connection*      _connection;
+        adapter*         _adapter;
         display_surface* _display_surface;
         vk::SurfaceKHR   _render_surface;
     };

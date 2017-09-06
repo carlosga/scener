@@ -1,4 +1,4 @@
-#include "scener/graphics/vulkan/connection.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
 
 #include <ctime>
 #include <iostream>
@@ -13,7 +13,7 @@
 
 namespace scener::graphics::vulkan
 {
-    std::uint32_t connection::debug_report_callback(
+    std::uint32_t adapter::debug_report_callback(
         VkDebugReportFlagsEXT      flags
       , VkDebugReportObjectTypeEXT objType
       , std::uint64_t              object
@@ -51,9 +51,8 @@ namespace scener::graphics::vulkan
         return 0;
     }
 
-    connection::connection(std::uint32_t api_version) noexcept
-        : _api_version      { api_version }
-        , _instance         { }
+    adapter::adapter() noexcept
+        : _instance         { }
         , _debug_callback   { }
         , _layer_names      { }
         , _extension_names  { }
@@ -62,27 +61,22 @@ namespace scener::graphics::vulkan
         create();
     }
 
-    connection::~connection() noexcept
+    adapter::~adapter() noexcept
     {
         _instance.destroy(nullptr);
     }
 
-    const vk::Instance& connection::vulkan() const noexcept
+    const vk::Instance& adapter::instance() const noexcept
     {
         return _instance;
     }
 
-    std::uint32_t connection::api_version() const noexcept
-    {
-        return _api_version;
-    }
-
-    const std::vector<physical_device>& connection::physical_devices() const noexcept
+    const std::vector<physical_device>& adapter::physical_devices() const noexcept
     {
         return _physical_devices;
     }
 
-    void connection::create() noexcept
+    void adapter::create() noexcept
     {
         identify_validation_layers();
         identify_supported_extensions();
@@ -91,14 +85,14 @@ namespace scener::graphics::vulkan
         identify_physical_devices();
     }
 
-    void connection::initialize_vulkan() noexcept
+    void adapter::initialize_vulkan() noexcept
     {
         auto const app = vk::ApplicationInfo()
             .setPApplicationName("SCENER")
             .setApplicationVersion(1)
             .setPEngineName("SCENER 0.1.0")
             .setEngineVersion(1)
-            .setApiVersion(_api_version);
+            .setApiVersion(VK_MAKE_VERSION(1, 0, VK_HEADER_VERSION));
 
         auto const inst_info = vk::InstanceCreateInfo()
             .setPApplicationInfo(&app)
@@ -112,11 +106,16 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    void connection::enable_debug_support() noexcept
+    void adapter::enable_debug_support() noexcept
     {
-        fpCreateDebugReportCallbackEXT  = (PFN_vkCreateDebugReportCallbackEXT)_instance.getProcAddr("vkCreateDebugReportCallbackEXT");
-        fpDebugReportCallbackEXT        = (PFN_vkDebugReportCallbackEXT)_instance.getProcAddr("vkDebugReportCallbackEXT");
-        fpDestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)_instance.getProcAddr("vkDestroyDebugReportCallbackEXT");
+        fpCreateDebugReportCallbackEXT  = (PFN_vkCreateDebugReportCallbackEXT)_instance
+            .getProcAddr("vkCreateDebugReportCallbackEXT");
+
+        fpDebugReportCallbackEXT        = (PFN_vkDebugReportCallbackEXT)_instance
+            .getProcAddr("vkDebugReportCallbackEXT");
+
+        fpDestroyDebugReportCallbackEXT = (PFN_vkDestroyDebugReportCallbackEXT)_instance
+            .getProcAddr("vkDestroyDebugReportCallbackEXT");
 
         auto debug_callback_create_info = vk::DebugReportCallbackCreateInfoEXT()
             .setFlags(vk::DebugReportFlagBitsEXT::eDebug
@@ -131,7 +130,7 @@ namespace scener::graphics::vulkan
         check_result(result);
     }
 
-    void connection::identify_validation_layers() noexcept
+    void adapter::identify_validation_layers() noexcept
     {
         auto instance_layers = vk::enumerateInstanceLayerProperties();
 
@@ -149,7 +148,7 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void connection::identify_supported_extensions() noexcept
+    void adapter::identify_supported_extensions() noexcept
     {
         /* Look for instance extensions */
         vk::Bool32 surfaceExtFound         = VK_FALSE;
@@ -220,7 +219,7 @@ namespace scener::graphics::vulkan
         }
     }
 
-    void connection::identify_physical_devices() noexcept
+    void adapter::identify_physical_devices() noexcept
     {
         auto physical_devices = _instance.enumeratePhysicalDevices();
 

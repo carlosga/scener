@@ -6,15 +6,15 @@
 
 #include "scener/graphics/vulkan/wayland/render_surface.hpp"
 
-#include "scener/graphics/vulkan/connection.hpp"
+#include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
 #include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {
-    render_surface::render_surface(gsl::not_null<connection*>      connection
+    render_surface::render_surface(gsl::not_null<adapter*>         adapter
                                  , gsl::not_null<display_surface*> display_surface) noexcept
-        : _connection      { connection }
+        : _adapter         { adapter }
         , _display_surface { display_surface }
         , _render_surface  { }
     {
@@ -23,17 +23,17 @@ namespace scener::graphics::vulkan
             .setDisplay(display_surface->display())
             .setSurface(display_surface->surface());
 
-        auto result = _connection->vulkan().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
+        auto result = _adapter->instance().createWaylandSurfaceKHR(&create_info, nullptr, &_render_surface);
 
         check_result(result);
     }
 
     render_surface::~render_surface()
     {
-        if (_connection != nullptr)
+        if (_adapter != nullptr)
         {
-            _connection->vulkan().destroySurfaceKHR(_render_surface, nullptr);
-            _connection = nullptr;
+            _adapter->instance().destroySurfaceKHR(_render_surface, nullptr);
+            _adapter = nullptr;
         }
         _display_surface = nullptr;
     }

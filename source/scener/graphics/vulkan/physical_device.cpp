@@ -83,7 +83,7 @@ namespace scener::graphics::vulkan
         auto surface_caps      = get_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
         auto format_properties = get_format_properties(surface_format.format);
-        
+
         return {
             logical_device
           , graphics_queue_family_index
@@ -172,10 +172,12 @@ namespace scener::graphics::vulkan
     {
         // Iterate over each queue to learn whether it supports presenting:
         std::vector<vk::Bool32> supports_present(_queue_families.size());
+
         for (std::uint32_t i = 0; i < _queue_families.size(); ++i)
         {
             supports_present[i] = _physical_device.getSurfaceSupportKHR(i, surface.surface());
         }
+
         return supports_present;
     }
 

@@ -128,7 +128,7 @@ namespace scener::graphics
 
     viewport& graphics_device::viewport() noexcept
     {
-    return _viewport;
+        return _viewport;
     }
 
     void graphics_device::viewport(const graphics::viewport& viewport) noexcept

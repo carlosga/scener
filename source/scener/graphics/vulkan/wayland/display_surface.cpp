@@ -11,7 +11,12 @@ namespace scener::graphics::vulkan
 {
     using scener::math::basic_rect;
 
-    void display_surface::global_registry_handler_callback(void *data, struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version)
+    void display_surface::global_registry_handler_callback(
+        void*               data
+      , struct wl_registry* registry
+      , std::uint32_t       id
+      , const char*         interface
+      , std::uint32_t       version)
     {
         display_surface* self = reinterpret_cast<display_surface*>(data);
         self->registry_handler(registry, id, interface, version);
@@ -23,12 +28,20 @@ namespace scener::graphics::vulkan
         self->registry_remover(registry, id);
     }
 
-    void display_surface::global_shell_surface_ping_callback(void *data, struct wl_shell_surface *shell_surface, std::uint32_t serial)
+    void display_surface::global_shell_surface_ping_callback(
+        void*                    data
+      , struct wl_shell_surface* shell_surface
+      , std::uint32_t            serial)
     {
         wl_shell_surface_pong(shell_surface, serial);
     }
 
-    void display_surface::global_shell_surface_configure_callback(void *data, struct wl_shell_surface *shell_surface, std::uint32_t edges, std::int32_t width, std::int32_t height)
+    void display_surface::global_shell_surface_configure_callback(
+        void*                    data
+      , struct wl_shell_surface* shell_surface
+      , std::uint32_t            edges
+      , std::int32_t             width
+      , std::int32_t             height)
     {
     }
 
@@ -101,11 +114,11 @@ namespace scener::graphics::vulkan
         wl_display_roundtrip(_wl_display);
 
         wl_registry_destroy(registry);
-       
+
         Ensures(_wl_compositor != nullptr);
 
         _wl_surface = wl_compositor_create_surface(_wl_compositor);
-        
+
         Ensures(_wl_surface != nullptr);
         Ensures(_wl_shell   != nullptr);
 
@@ -117,12 +130,12 @@ namespace scener::graphics::vulkan
 
         wl_shell_surface_set_toplevel(_wl_shell_surface);
         wl_shell_surface_set_title(_wl_shell_surface, title.c_str());
-       
+
         _rect = rect;
     }
 
     void display_surface::destroy() noexcept
-    {       
+    {
         if (_wl_shell_surface != nullptr)
         {
             wl_shell_surface_destroy(_wl_shell_surface);
@@ -172,7 +185,11 @@ namespace scener::graphics::vulkan
     {
     }
 
-    void display_surface::registry_handler(struct wl_registry *registry, std::uint32_t id, const char *interface, std::uint32_t version)
+    void display_surface::registry_handler(
+        struct wl_registry* registry
+      , std::uint32_t       id
+      , const char*         interface
+      , std::uint32_t       version)
     {
         if (strcmp(interface, "wl_compositor") == 0)
         {

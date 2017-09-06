@@ -10,7 +10,7 @@
 
 namespace scener::graphics::vulkan
 {
-    class connection final
+    class adapter final
     {
         static std::uint32_t debug_report_callback(
             VkDebugReportFlagsEXT      flags
@@ -23,14 +23,13 @@ namespace scener::graphics::vulkan
           , void*                      userData);
 
     public:
-        connection(std::uint32_t api_version) noexcept;
-        ~connection() noexcept;
+        adapter() noexcept;
+        ~adapter() noexcept;
 
     public:
-        const vk::Instance& vulkan() const noexcept;
-        std::uint32_t api_version() const noexcept;
+        const vk::Instance& instance() const noexcept;
         const std::vector<physical_device>& physical_devices() const noexcept;
-        
+
     private:
         void create() noexcept;
         void identify_validation_layers() noexcept;
@@ -40,7 +39,6 @@ namespace scener::graphics::vulkan
         void identify_physical_devices() noexcept;
 
     private:
-        std::uint32_t                _api_version;
         vk::Instance                 _instance;
         vk::DebugReportCallbackEXT   _debug_callback;
         std::vector<const char*>     _layer_names;
