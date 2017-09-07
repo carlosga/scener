@@ -3,6 +3,8 @@
 
 #include "scener/graphics/model_mesh.hpp"
 
+#include <algorithm>
+
 #include "scener/graphics/graphics_device.hpp"
 #include "scener/graphics/model_mesh_part.hpp"
 #include "scener/graphics/index_buffer.hpp"
@@ -26,14 +28,14 @@ namespace scener::graphics
 
         effects.reserve(_mesh_parts.size());
 
-        for (const auto& meshPart : _mesh_parts)
+        std::for_each(_mesh_parts.begin(), mesh_parts().end(), [&effects] (const auto& meshPart) -> void
         {
             auto effect = meshPart->effect.get();
 
             Ensures(effect != nullptr);
 
             effects.push_back(effect);
-        }
+        });
 
         return effects;
     }
@@ -50,7 +52,7 @@ namespace scener::graphics
 
     void model_mesh::draw() noexcept
     {
-        for (const auto& meshPart : _mesh_parts)
+        std::for_each(_mesh_parts.begin(), _mesh_parts.end(), [] (const auto& meshPart) -> void
         {
             auto device = meshPart->vertex_buffer()->device();
 
@@ -68,6 +70,6 @@ namespace scener::graphics
                                           , meshPart->vertex_count()
                                           , meshPart->start_index()
                                           , meshPart->primitive_count());
-        }
+        });
     }
 }

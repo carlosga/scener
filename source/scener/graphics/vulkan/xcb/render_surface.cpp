@@ -6,9 +6,10 @@
 
 #include "scener/graphics/vulkan/xcb/render_surface.hpp"
 
+#include <scener/math/basic_rect.hpp>
+
 #include "scener/graphics/vulkan/connection.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
-#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -32,7 +33,7 @@ namespace scener::graphics::vulkan
     {
         if (_adapter)
         {
-            _adapter->vulkan().destroySurfaceKHR(_render_surface, nullptr);            
+            _adapter->vulkan().destroySurfaceKHR(_render_surface, nullptr);
             _adapter = nullptr;
         }
         _display_surface = nullptr;

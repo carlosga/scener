@@ -97,14 +97,13 @@ namespace scener::graphics
 
     void renderer::draw(const steptime &time) noexcept
     {
-        std::for_each(_drawable_components.begin(), _drawable_components.end()
-                    , [&time](const auto& component) -> void
-                    {
-                        if (component->visible())
-                        {
-                            component->draw(time);
-                        }
-                    });
+        std::for_each(_drawable_components.begin(), _drawable_components.end(), [&time](const auto& component) -> void
+        {
+            if (component->visible())
+            {
+                component->draw(time);
+            }
+        });
     }
 
     void renderer::end_draw() noexcept
@@ -119,7 +118,11 @@ namespace scener::graphics
 
     void renderer::initialize() noexcept
     {
-        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void { component->initialize(); });
+        std::for_each(_components.begin(), _components.end(), [](const auto& component) -> void
+        {
+            component->initialize();
+        });
+
         keyboard::initialize(_window->display_surface());
         mouse::initialize(_window->display_surface());
     }
@@ -137,14 +140,13 @@ namespace scener::graphics
 
     void renderer::update(const steptime& time) noexcept
     {
-        std::for_each(_updateable_components.begin(), _updateable_components.end()
-                    , [&time](const auto& component) -> void
-                    {
-                        if (component->enabled())
-                        {
-                            component->update(time);
-                        }
-                    });
+        std::for_each(_updateable_components.begin(), _updateable_components.end(), [&time](const auto& component) -> void
+        {
+            if (component->enabled())
+            {
+                component->update(time);
+            }
+        });
     }
 
     void renderer::start_event_loop() noexcept
@@ -181,7 +183,7 @@ namespace scener::graphics
 
     void renderer::post_process_components() noexcept
     {
-        for (const auto& component : _components)
+        std::for_each(_components.begin(), _components.end(), [&] (const auto& component) -> void
         {
             auto drawable = std::dynamic_pointer_cast<idrawable>(component);
 
@@ -196,19 +198,21 @@ namespace scener::graphics
             {
                 _updateable_components.push_back(updateable);
             }
-        }
+        });
 
         std::sort(_drawable_components.begin(), _drawable_components.end(),
-                [](const std::shared_ptr<idrawable>& a, const std::shared_ptr<idrawable>& b) -> bool
-                {
-                    return (a->draw_order() < b->draw_order());
-                });
+            [](const std::shared_ptr<idrawable>& a, const std::shared_ptr<idrawable>& b) -> bool
+            {
+                return (a->draw_order() < b->draw_order());
+            }
+        );
 
         std::sort(_updateable_components.begin(), _updateable_components.end(),
-                [](const std::shared_ptr<iupdateable>& a, const std::shared_ptr<iupdateable>& b) -> bool
-                {
-                    return (a->update_order() < b->update_order());
-                });
+            [](const std::shared_ptr<iupdateable>& a, const std::shared_ptr<iupdateable>& b) -> bool
+            {
+                return (a->update_order() < b->update_order());
+            }
+        );
     }
 
     void renderer::create_device() noexcept

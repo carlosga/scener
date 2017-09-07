@@ -9,10 +9,9 @@
 #include <string>
 
 #include <gsl/gsl>
-#include <wayland-client.h>
+#include <scener/math/basic_rect.hpp>
 #include <vulkan/vulkan.hpp>
-
-#include "scener/math/basic_rect.hpp"
+#include <wayland-client.h>
 
 namespace scener::graphics::vulkan
 {

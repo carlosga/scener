@@ -10,10 +10,9 @@
 #include <string>
 
 #include <gsl/gsl>
-#include <xcb/xcb.h>
+#include <scener/math/basic_rect.hpp>
 #include <vulkan/vulkan.hpp>
-
-#include "scener/math/basic_rect.hpp"
+#include <xcb/xcb.h>
 
 namespace vk { class Instance; }
 
@@ -35,21 +34,21 @@ namespace scener::graphics::vulkan
         xcb_connection_t*   connection() const noexcept;
         const xcb_window_t& window() const noexcept;
         scener::math::basic_rect<std::uint32_t> rect() const noexcept;
-    
-    public:       
+
+    public:
         /// Clears the entire area of this display surface.
         void clear() noexcept;
 
         /// Shows the display surface.
         void show() noexcept;
-        
+
         /// Process all the events that have been received from the X server.
         void pool_events() noexcept;
-       
-    private:        
+
+    private:
         void create(const std::string& title, const scener::math::basic_rect<std::uint32_t>& rect) noexcept;
         void destroy() noexcept;
-        
+
     private:
         xcb_window_t             _window;
         xcb_screen_t*            _screen;

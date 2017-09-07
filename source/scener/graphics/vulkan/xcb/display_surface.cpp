@@ -5,7 +5,6 @@
 #ifdef VK_USE_PLATFORM_XCB_KHR
 
 #include "scener/graphics/vulkan/xcb/display_surface.hpp"
-#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {
@@ -40,8 +39,8 @@ namespace scener::graphics::vulkan
         xcb_get_geometry_cookie_t geomCookie = xcb_get_geometry(_connection, _window);  // window is a xcb_drawable_t
         xcb_get_geometry_reply_t* geom       = xcb_get_geometry_reply(_connection, geomCookie, nullptr);
 
-        basic_rect<std::uint32_t> rect = 
-        { 
+        basic_rect<std::uint32_t> rect =
+        {
             static_cast<std::uint32_t>(geom->x)
           , static_cast<std::uint32_t>(geom->y)
           , geom->width
@@ -87,12 +86,12 @@ namespace scener::graphics::vulkan
         value_mask    = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
         value_list[0] = s->black_pixel;
         value_list[1] =
-            XCB_EVENT_MASK_KEY_RELEASE 
-          | XCB_EVENT_MASK_KEY_PRESS 
-          | XCB_EVENT_MASK_EXPOSURE 
-          | XCB_EVENT_MASK_STRUCTURE_NOTIFY 
-          | XCB_EVENT_MASK_POINTER_MOTION 
-          | XCB_EVENT_MASK_BUTTON_PRESS 
+            XCB_EVENT_MASK_KEY_RELEASE
+          | XCB_EVENT_MASK_KEY_PRESS
+          | XCB_EVENT_MASK_EXPOSURE
+          | XCB_EVENT_MASK_STRUCTURE_NOTIFY
+          | XCB_EVENT_MASK_POINTER_MOTION
+          | XCB_EVENT_MASK_BUTTON_PRESS
           | XCB_EVENT_MASK_BUTTON_RELEASE;
 
         /* Create the window */

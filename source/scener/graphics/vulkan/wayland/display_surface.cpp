@@ -5,7 +5,6 @@
 #ifdef VK_USE_PLATFORM_WAYLAND_KHR
 
 #include "scener/graphics/vulkan/wayland/display_surface.hpp"
-#include "scener/graphics/vulkan/vulkan_result.hpp"
 
 namespace scener::graphics::vulkan
 {

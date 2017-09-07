@@ -3,6 +3,8 @@
 
 #include "scener/graphics/model.hpp"
 
+#include <algorithm>
+
 #include "scener/graphics/effect_technique.hpp"
 #include "scener/graphics/model_mesh.hpp"
 #include "scener/graphics/skeleton.hpp"
@@ -30,13 +32,13 @@ namespace scener::graphics
 
     void model::update(const steptime& time) noexcept
     {
-        for (const auto& mesh : _meshes)
+        std::for_each(_meshes.begin(), _meshes.end(), [&time] (const auto& mesh) -> void
         {
             if (mesh->skeleton() != nullptr)
             {
                 mesh->skeleton()->update(time.elapsed_render_time);
             }
-        }
+        });
     }
 
     void model::draw(const matrix4& world, const matrix4& view, const matrix4& projection) noexcept

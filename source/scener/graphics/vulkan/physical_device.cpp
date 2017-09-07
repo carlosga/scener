@@ -71,6 +71,11 @@ namespace scener::graphics::vulkan
             queue_count++;
         }
 
+        std::vector<vk::Format> formats = {
+            vk::Format::eD32SfloatS8Uint
+          , vk::Format::eD24UnormS8Uint
+        };
+
         auto deviceInfo = vk::DeviceCreateInfo()
             .setQueueCreateInfoCount(queue_count)
             .setPQueueCreateInfos(queues)
@@ -83,6 +88,11 @@ namespace scener::graphics::vulkan
         auto surface_caps      = get_surface_capabilities(surface);
         auto surface_format    = get_preferred_surface_format(surface);
         auto format_properties = get_format_properties(surface_format.format);
+        auto depth_format      = get_preferred_depth_format(
+            formats
+          , vk::ImageTiling::eOptimal
+          , vk::FormatFeatureFlagBits::eDepthStencilAttachment
+        );
 
         return {
             logical_device
@@ -90,6 +100,7 @@ namespace scener::graphics::vulkan
           , present_queue_family_index
           , surface_caps
           , surface_format
+          , depth_format
           , present_mode
           , format_properties
         };
@@ -102,12 +113,14 @@ namespace scener::graphics::vulkan
 
         auto layers = _physical_device.enumerateDeviceLayerProperties();
 
-        for (std::uint32_t i = 0; i < layers.size(); ++i)
+        const auto it = std::find_if(layers.begin(), layers.end(), [] (const vk::LayerProperties& layer) -> bool
         {
-            if (strcmp(layers[i].layerName, "VK_LAYER_LUNARG_standard_validation"))
-            {
-                _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
-            }
+            return !strcmp("VK_LAYER_LUNARG_standard_validation", layer.layerName);
+        });
+
+        if (it != layers.end())
+        {
+            _layer_names.push_back("VK_LAYER_LUNARG_standard_validation");
         }
     }
 
@@ -238,14 +251,14 @@ namespace scener::graphics::vulkan
 
     vk::SurfaceFormatKHR physical_device::get_preferred_surface_format(const render_surface& surface) const noexcept
     {
-        auto formats = get_surface_formats(surface);
+        auto surface_formats = get_surface_formats(surface);
 
-        Ensures(formats.size() >= 1);
+        Ensures(surface_formats.size() >= 1);
 
         // If the format list includes just one entry of VK_FORMAT_UNDEFINED,
         // the surface has no preferred format. Otherwise, at least one
         // supported format will be returned.
-        if (formats.size() == 1 && formats[0].format == vk::Format::eUndefined)
+        if (surface_formats.size() == 1 && surface_formats[0].format == vk::Format::eUndefined)
         {
             vk::SurfaceFormatKHR format;
 
@@ -256,7 +269,7 @@ namespace scener::graphics::vulkan
         }
 
         // Favor 32 bit rgba and srgb nonlinear colorspace
-        for (const auto& format : formats)
+        for (const auto& format : surface_formats)
         {
             if (format.format     == vk::Format::eB8G8R8A8Unorm
              && format.colorSpace == vk::ColorSpaceKHR::eSrgbNonlinear)
@@ -265,7 +278,7 @@ namespace scener::graphics::vulkan
             }
         }
 
-        return formats[0];
+        return surface_formats[0];
     }
 
     vk::PresentModeKHR physical_device::get_present_mode(const render_surface& surface) const noexcept
@@ -302,5 +315,27 @@ namespace scener::graphics::vulkan
         _physical_device.getFormatProperties(format, &format_properties);
 
         return format_properties;
+    }
+
+    vk::Format physical_device::get_preferred_depth_format(
+        const std::vector<vk::Format>& formats
+      , const vk::ImageTiling&         tiling
+      , const vk::FormatFeatureFlags&  features) const noexcept
+    {
+        for (const auto& format : formats)
+        {
+            auto properties = get_format_properties(format);
+
+            if (tiling == vk::ImageTiling::eLinear && (properties.linearTilingFeatures & features) == features)
+            {
+                return format;
+            }
+            else if (tiling == vk::ImageTiling::eOptimal && ( properties.optimalTilingFeatures & features) == features)
+            {
+                return format;
+            }
+        }
+
+        throw std::runtime_error("Failed to find a supported depth format.");
     }
 }

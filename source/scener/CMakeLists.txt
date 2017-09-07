@@ -7,9 +7,10 @@ find_package (Vulkan REQUIRED)
 
 # source files
 file (GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file (GLOB_RECURSE HEADER_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 
 # library output
-add_library (scener SHARED ${SOURCE_FILES})
+add_library (scener SHARED ${SOURCE_FILES} ${HEADER_FILES})
 
 # include directories
 target_include_directories (scener

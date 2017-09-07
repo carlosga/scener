@@ -41,6 +41,10 @@ namespace scener::graphics::vulkan
         vk::SurfaceFormatKHR get_preferred_surface_format(const render_surface& surface) const noexcept;
         vk::PresentModeKHR get_present_mode(const render_surface& surface) const noexcept;
         vk::FormatProperties get_format_properties(const vk::Format& format) const noexcept;
+        vk::Format get_preferred_depth_format(
+            const std::vector<vk::Format>& formats
+          , const vk::ImageTiling&         tiling
+          , const vk::FormatFeatureFlags&  features) const noexcept;
 
     private:
         std::vector<const char*>               _layer_names;

@@ -4,8 +4,7 @@
 #include <cstdint>
 
 #include <vulkan/vulkan.hpp>
-
-#include "scener/graphics/vulkan/memory_allocator.hpp"
+#include <scener/math/basic_size.hpp>
 
 namespace scener::graphics::vulkan
 {
@@ -19,6 +18,7 @@ namespace scener::graphics::vulkan
                      , std::uint32_t                     present_queue_family_index
                      , const vk::SurfaceCapabilitiesKHR& surface_capabilities
                      , const vk::SurfaceFormatKHR&       surface_format
+                     , const vk::Format&                 depth_format
                      , const vk::PresentModeKHR&         present_mode
                      , const vk::FormatProperties&       format_properties) noexcept;
 
@@ -29,6 +29,7 @@ namespace scener::graphics::vulkan
         const vk::Queue& present_queue() const noexcept;
 
         void create_swap_chain(const render_surface& surface) noexcept;
+        void create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept;
 
     private:
         void get_device_queues() noexcept;
@@ -38,7 +39,7 @@ namespace scener::graphics::vulkan
 
     private:
         void destroy_sync_primitives() noexcept;
-        
+
     private:
         vk::Device                     _logical_device;
         std::uint32_t                  _graphics_queue_family_index;
@@ -47,6 +48,7 @@ namespace scener::graphics::vulkan
         vk::Queue                      _present_queue;
         vk::SurfaceCapabilitiesKHR     _surface_capabilities;
         vk::SurfaceFormatKHR           _surface_format;
+        vk::Format                     _depth_format;
         vk::PresentModeKHR             _present_mode;
         vk::FormatProperties           _format_properties;
         vk::CommandPool                _command_pool;

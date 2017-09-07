@@ -6,9 +6,10 @@
 
 #include "scener/graphics/vulkan/wayland/render_surface.hpp"
 
+#include <scener/math/basic_rect.hpp>
+
 #include "scener/graphics/vulkan/adapter.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
-#include "scener/math/basic_rect.hpp"
 
 namespace scener::graphics::vulkan
 {

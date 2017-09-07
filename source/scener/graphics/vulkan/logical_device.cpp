@@ -11,6 +11,7 @@ namespace scener::graphics::vulkan
                                  , std::uint32_t                     present_queue_family_index
                                  , const vk::SurfaceCapabilitiesKHR& surface_capabilities
                                  , const vk::SurfaceFormatKHR&       surface_format
+                                 , const vk::Format&                 depth_format
                                  , const vk::PresentModeKHR&         present_mode
                                  , const vk::FormatProperties&       format_properties) noexcept
         : _logical_device              { device }
@@ -20,6 +21,7 @@ namespace scener::graphics::vulkan
         , _present_queue               { }
         , _surface_capabilities        { surface_capabilities }
         , _surface_format              { surface_format }
+        , _depth_format                { depth_format }
         , _present_mode                { present_mode }
         , _format_properties           { format_properties }
         , _command_pool                { }
@@ -259,5 +261,9 @@ namespace scener::graphics::vulkan
         _draw_complete_semaphores.clear();
         _draw_complete_semaphores.clear();
         _image_ownership_semaphores.clear();
+    }
+
+    void logical_device::create_render_targets(const scener::math::basic_size<std::uint32_t>& size) noexcept
+    {
     }
 }

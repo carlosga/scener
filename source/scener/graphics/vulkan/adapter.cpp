@@ -1,15 +1,12 @@
 #include "scener/graphics/vulkan/adapter.hpp"
 
+#include <algorithm>
 #include <ctime>
 #include <iostream>
 #include <iomanip>
 
 #include "scener/graphics/vulkan/extensions.hpp"
 #include "scener/graphics/vulkan/vulkan_result.hpp"
-
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define VK_EXT_DEBUG_REPORT_NAME "VK_EXT_debug_report"
-#define VK_LAYER_LUNARG_standard_validation "VK_LAYER_LUNARG_standard_validation"
 
 namespace scener::graphics::vulkan
 {
@@ -132,14 +129,16 @@ namespace scener::graphics::vulkan
 
     void adapter::identify_validation_layers() noexcept
     {
-        auto instance_layers = vk::enumerateInstanceLayerProperties();
+        auto layers = vk::enumerateInstanceLayerProperties();
 
-        for (const auto& instance_layer : instance_layers)
+        const auto it = std::find_if(layers.begin(), layers.end(), [] (const vk::LayerProperties& layer) -> bool
         {
-            if (!strcmp(VK_LAYER_LUNARG_standard_validation, instance_layer.layerName))
-            {
-                _layer_names.push_back(VK_LAYER_LUNARG_standard_validation);
-            }
+            return !strcmp(VK_LAYER_LUNARG_standard_validation, layer.layerName);
+        });
+
+        if (it != layers.end())
+        {
+            _layer_names.push_back(VK_LAYER_LUNARG_standard_validation);
         }
 
         if (_layer_names.size() == 0)

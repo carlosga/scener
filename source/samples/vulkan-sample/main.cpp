@@ -29,6 +29,9 @@ int main()
     // Create the Swap Chain
     ldevice.create_swap_chain(rsurface);
 
+    // Create the render targets
+    ldevice.create_render_targets(dsurface.rect().size());
+
     dsurface.show();
 
     return 0;
