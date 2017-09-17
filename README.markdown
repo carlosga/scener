@@ -1,6 +1,6 @@
 # scener
 
-OpenGL 3D model renderer (**C++ learning project**)
+Vulkan 3D model renderer (**C++ learning project**)
 
 ## Getting Started
 
@@ -53,17 +53,16 @@ make -j <NUM_CORES>
 ```
 make test
 ```
-
 ## Built With
 
-| Name                                                        | Description          |
-|-------------------------------------------------------------|----------------------|
-| [**GSL**](https://github.com/Microsoft/GSL)                 |                      |
-| [**JSON for Modern C++**](https://github.com/nlohmann/json) | JSON parser          |
-| [**nod**](https://github.com/fr00b0/nod)                    | C++ signals library  |
-| [**glad**](https://github.com/Dav1dde/glad)                 | OpenGL loader        |
-| [**Google Test**](https://code.google.com/p/googletest/)    | Test framework       |
-| [**glTF**](https://github.com/KhronosGroup/glTF)            | Asset format         |
+| Name                                                                                              | Description                          |
+|---------------------------------------------------------------------------------------------------|--------------------------------------|
+| [**Google Test**](https://code.google.com/p/googletest/)                                          | Test framework                       |
+| [**GSL**](https://github.com/Microsoft/GSL)                                                       | Microsoft C++ GSL                    |
+| [**JSON for Modern C++**](https://github.com/nlohmann/json)                                       | JSON parser                          |
+| [**nod**](https://github.com/fr00b0/nod)                                                          | C++ signals library                  |
+| [**Vulkan Memory Allocator**](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)  | AMD Vulkan Memory Allocation library |
+| [**glTF**](https://github.com/KhronosGroup/glTF)                                                  | Asset format                         |
 
 ## Authors
 
